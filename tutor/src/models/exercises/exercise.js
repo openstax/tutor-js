@@ -4,6 +4,8 @@ import {
   BaseModel, identifiedBy, belongsTo, identifier, field, hasMany,
 } from 'shared/model';
 import Tag from './tag';
+import lazyGetter from 'shared/helpers/lazy-getter';
+import ExerciseContent from 'shared/model/exercise';
 
 @identifiedBy('exercises/exercise')
 export default class Exercise extends BaseModel {
@@ -13,6 +15,7 @@ export default class Exercise extends BaseModel {
   @field page_id;
 
   @field({ type: 'object' }) content;
+  @belongsTo({ model: ExerciseContent }) content;
 
   @field has_interactive;
   @field has_video;
@@ -20,6 +23,9 @@ export default class Exercise extends BaseModel {
   @field({ type: 'array' }) pool_types;
   @field url = '';
   @hasMany({ model: Tag }) tags;
+
+  @computed get isReading() { return this.pool_types.includes('reading_dynamic'); }
+  @computed get isHomework() { return this.pool_types.includes('homework_core'); }
 
   @computed get types() {
     return map(

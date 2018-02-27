@@ -1,0 +1,184 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Exercise Preview Wrapper Component renders 1`] = `
+"<_class exercise={{...}} onShowDetailsViewClick={[Function]} onExerciseToggle={[Function]} getExerciseIsSelected={[Function]} getExerciseActions={[Function]}>
+  <inject-TourAnchor id=\\"exercise-preview\\">
+    <TourAnchor id=\\"exercise-preview\\" tourContext={{...}} tag=\\"div\\" className=\\"\\">
+      <div className=\\"tour-anchor\\" data-tour-anchor-id=\\"exercise-preview\\" id=\\"exercise-preview\\">
+        <ExercisePreview className=\\"exercise-card\\" isInteractive={false} isVerticallyTruncated={true} isSelected={[undefined]} exercise={{...}} onOverlayClick={[Function]} overlayActions={{...}} panelStyle=\\"default\\" extractTag={[Function]} sortTags={[Function]}>
+          <Panel className=\\"openstax-exercise-preview exercise-card non-interactive is-vertically-truncated\\" bsStyle=\\"default\\" header={[undefined]} data-exercise-id=\\"1@1\\" tabIndex={-1} footer={[undefined]} defaultExpanded={false} bsClass=\\"panel\\">
+            <div data-exercise-id=\\"1@1\\" tabIndex={-1} className=\\"openstax-exercise-preview exercise-card non-interactive is-vertically-truncated panel panel-default\\" id={[undefined]}>
+              <div className=\\"panel-body\\">
+                <Component exercise={{...}} actions={{...}} onClick={[Function]} />
+                <div className=\\"exercise-body\\">
+                  <ExerciseBadges exercise={{...}} isMultipart={false} hasInteractive={false} hasVideo={false} />
+                  <ArbitraryHtmlAndMath className=\\"stimulus\\" block={true} html={[undefined]} shouldExcludeFrame={[Function]}>
+                    <div className=\\"openstax-has-html stimulus\\" dangerouslySetInnerHTML={[undefined]} />
+                  </ArbitraryHtmlAndMath>
+                  <Question className=\\"openstax-question-preview\\" model={{...}} choicesEnabled={false} displayFormats={[undefined]} show_all_feedback={[undefined]} type=\\"teacher-preview\\">
+                    <div className=\\"openstax-question openstax-question-preview\\" data-question-number={[undefined]}>
+                      <QuestionHtml type=\\"context\\" html=\\"\\" />
+                      <QuestionHtml type=\\"stimulus\\" html=\\"\\" />
+                      <QuestionHtml type=\\"stem\\" html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\" questionNumber={[undefined]}>
+                        <ArbitraryHtmlAndMath processHtmlAndMath={[undefined]} className=\\"question-stem\\" block={true} html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\" data-question-number={[undefined]} shouldExcludeFrame={[Function]}>
+                          <div data-question-number={[undefined]} className=\\"openstax-has-html question-stem\\" dangerouslySetInnerHTML={{...}} />
+                        </ArbitraryHtmlAndMath>
+                      </QuestionHtml>
+                      <AnswersTable className=\\"openstax-question-preview\\" model={{...}} choicesEnabled={false} displayFormats={[undefined]} show_all_feedback={false} type=\\"teacher-preview\\" hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
+                        <div className=\\"answers-table\\">
+                          <Answer answer={{...}} iter={0} qid={1} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
+                            <div className=\\"openstax-answer\\">
+                              <div className=\\"answers-answer disabled\\">
+                                <label onKeyPress={[Function]} htmlFor=\\"1-option-0\\" className=\\"answer-label\\">
+                                  <button onClick={[undefined]} className=\\"answer-letter\\" aria-label=\\"Choice a:\\" disabled={true}>
+                                    a
+                                  </button>
+                                  <div className=\\"answer-answer\\">
+                                    <ArbitraryHtmlAndMath processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>
+                                      <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+                                      <li>objects are too small to be seen with the naked eye, and</li>
+                                      <li>there is the involvement of only a weak gravitational field</li>
+                                    </ol>
+                                    \\" block={false} shouldExcludeFrame={[Function]}>
+                                      <span className=\\"openstax-has-html answer-content\\" dangerouslySetInnerHTML={{...}} />
+                                    </ArbitraryHtmlAndMath>
+                                  </div>
+                                </label>
+                              </div>
+                            </div>
+                          </Answer>
+                          <Answer answer={{...}} iter={1} qid={1} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
+                            <div className=\\"openstax-answer\\">
+                              <div className=\\"answers-answer disabled\\">
+                                <label onKeyPress={[Function]} htmlFor=\\"1-option-1\\" className=\\"answer-label\\">
+                                  <button onClick={[undefined]} className=\\"answer-letter\\" aria-label=\\"Choice b:\\" disabled={true}>
+                                    b
+                                  </button>
+                                  <div className=\\"answer-answer\\">
+                                    <ArbitraryHtmlAndMath processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>
+                                      <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>
+                                      <li>objects are large enough to be seen with the naked eye, and</li>
+                                      <li>there is the involvement of a strong gravitational field</li>
+                                    </ol>
+                                    \\" block={false} shouldExcludeFrame={[Function]}>
+                                      <span className=\\"openstax-has-html answer-content\\" dangerouslySetInnerHTML={{...}} />
+                                    </ArbitraryHtmlAndMath>
+                                  </div>
+                                </label>
+                              </div>
+                            </div>
+                          </Answer>
+                          <Answer answer={{...}} iter={2} qid={1} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
+                            <div className=\\"openstax-answer\\">
+                              <div className=\\"answers-answer disabled\\">
+                                <label onKeyPress={[Function]} htmlFor=\\"1-option-2\\" className=\\"answer-label\\">
+                                  <button onClick={[undefined]} className=\\"answer-letter\\" aria-label=\\"Choice c:\\" disabled={true}>
+                                    c
+                                  </button>
+                                  <div className=\\"answer-answer\\">
+                                    <ArbitraryHtmlAndMath processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>
+                                      <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+                                      <li>objects are large enough to be seen with the naked eye, and</li>
+                                      <li>there is the involvement of a strong gravitational field</li>
+                                    </ol>
+                                    \\" block={false} shouldExcludeFrame={[Function]}>
+                                      <span className=\\"openstax-has-html answer-content\\" dangerouslySetInnerHTML={{...}} />
+                                    </ArbitraryHtmlAndMath>
+                                  </div>
+                                </label>
+                              </div>
+                            </div>
+                          </Answer>
+                          <Answer answer={{...}} iter={3} qid={1} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
+                            <div className=\\"openstax-answer\\">
+                              <div className=\\"answers-answer disabled\\">
+                                <label onKeyPress={[Function]} htmlFor=\\"1-option-3\\" className=\\"answer-label\\">
+                                  <button onClick={[undefined]} className=\\"answer-letter\\" aria-label=\\"Choice d:\\" disabled={true}>
+                                    d
+                                  </button>
+                                  <div className=\\"answer-answer\\">
+                                    <ArbitraryHtmlAndMath processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>
+                                      <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+                                      <li>objects are large enough to be seen with the naked eye, and</li>
+                                      <li>there is the involvement of a weak gravitational field</li>
+                                    </ol>
+                                    \\" block={false} shouldExcludeFrame={[Function]}>
+                                      <span className=\\"openstax-has-html answer-content\\" dangerouslySetInnerHTML={{...}} />
+                                    </ArbitraryHtmlAndMath>
+                                  </div>
+                                </label>
+                              </div>
+                            </div>
+                          </Answer>
+                          <Answer answer={{...}} iter={4} qid={1} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
+                            <div className=\\"openstax-answer\\">
+                              <div className=\\"answers-answer disabled\\">
+                                <label onKeyPress={[Function]} htmlFor=\\"1-option-4\\" className=\\"answer-label\\">
+                                  <button onClick={[undefined]} className=\\"answer-letter\\" aria-label=\\"Choice e:\\" disabled={true}>
+                                    e
+                                  </button>
+                                  <div className=\\"answer-answer\\">
+                                    <ArbitraryHtmlAndMath processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>
+                                      <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+                                      <li>objects are too small to be seen with the naked eye, and</li>
+                                      <li>there is the involvement of only a weak gravitational field</li>
+                                    </ol>
+                                    \\" block={false} shouldExcludeFrame={[Function]}>
+                                      <span className=\\"openstax-has-html answer-content\\" dangerouslySetInnerHTML={{...}} />
+                                    </ArbitraryHtmlAndMath>
+                                  </div>
+                                </label>
+                              </div>
+                            </div>
+                          </Answer>
+                        </div>
+                      </AnswersTable>
+                      <div className=\\"detailed-solution\\">
+                        <div className=\\"header\\">
+                          Detailed solution
+                        </div>
+                        <ArbitraryHtmlAndMath className=\\"solution\\" block={true} html=\\"truetruetruetruetruetruetruetruetruetruetruetrue\\" shouldExcludeFrame={[Function]}>
+                          <div className=\\"openstax-has-html solution\\" dangerouslySetInnerHTML={{...}} />
+                        </ArbitraryHtmlAndMath>
+                      </div>
+                    </div>
+                  </Question>
+                </div>
+                <div className=\\"exercise-tags\\">
+                  <span className=\\"exercise-tag\\">
+                    blooms:3
+                  </span>
+                  <span className=\\"exercise-tag\\">
+                    context-cnxfeature:one-1
+                  </span>
+                  <span className=\\"exercise-tag\\">
+                    context-cnxmod:
+                  </span>
+                  <span className=\\"exercise-tag\\">
+                    dok:3
+                  </span>
+                  <span className=\\"exercise-tag\\">
+                    filter-type:test-prep
+                  </span>
+                  <span className=\\"exercise-tag\\">
+                    requires-context:true
+                  </span>
+                  <span className=\\"exercise-tag\\">
+                    time:long
+                  </span>
+                  <span className=\\"exercise-tag\\">
+                    type:conceptual
+                  </span>
+                  <span className=\\"exercise-tag\\">
+                    ID: 1@1
+                  </span>
+                </div>
+              </div>
+            </div>
+          </Panel>
+        </ExercisePreview>
+      </div>
+    </TourAnchor>
+  </inject-TourAnchor>
+</_class>"
+`;

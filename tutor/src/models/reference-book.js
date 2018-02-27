@@ -5,29 +5,18 @@ import {
   BaseModel, identifiedBy, belongsTo, identifier, field, session, hasMany,
 } from 'shared/model';
 import ChapterSection from './chapter-section';
-import ReferenceBookPage from './reference-book/page';
+import Chapter from './reference-book/chapter';
 
-@identifiedBy('reference-book/part')
-class ReferenceBookPart extends BaseModel {
-  @identifier id;
-  @field title;
-  @field type;
-  @field({ model: ChapterSection }) chapter_section;
-  @session book;
-  @hasMany({ model: ReferenceBookPage, inverseOf: 'part' }) children;
-  @readonly depth = 1;
-}
-
-function mapPages(section, map) {
+function mapPages(section, pages) {
   if (section.isPage) {
-    const lastPage = last(map.values());
+    const lastPage = last(pages.byId.values());
     if (lastPage) { lastPage.linkNextPage(section); }
-    map.set(section.chapter_section.asString, section);
+    pages.byId.set(section.id, section);
+    pages.bySection.set(section.chapter_section.asString, section);
   }
   (section.children || []).forEach(child => {
-    mapPages(child, map);
+    mapPages(child, pages);
   });
-  return map;
 }
 
 @identifiedBy('reference-book')
@@ -37,13 +26,19 @@ export default class ReferenceBook extends BaseModel {
   @field archive_url;
   @field webview_url;
   @field({ model: ChapterSection }) chapter_section
-  @readonly pages = observable.map();
-  @hasMany({ model: ReferenceBookPart, inverseOf: 'book' }) children;
+
+  @readonly pages = { bySection: observable.map(), byId: observable.map() };
+  @hasMany({ model: Chapter, inverseOf: 'book' }) children;
   @field cnx_id;
   @field short_id;
   @field title;
   @field type;
   @field uuid;
+
+  constructor(attrs) {
+    super(attrs);
+    mapPages(this, this.pages);
+  }
 
   fetch() {
     return { id: this.id };

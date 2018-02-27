@@ -4,7 +4,7 @@ _ = require 'underscore'
 
 Icon = require '../../icon'
 LoadingExercises = require './loading-exercises-mixin'
-
+Exercise = require 'shared/model/exercise'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 {ExerciseStore} = require '../../../flux/exercise'
 {ExercisePreview, SuretyGuard, PinnedHeaderFooterCard} = require 'shared'
@@ -62,9 +62,11 @@ ReviewExerciseCard = React.createClass
     </span>
 
   render: ->
+    exercise = new Exercise(@props.exercise.content)
+    debugger
     <div className="openstax exercise-wrapper">
       <ExercisePreview
-        exercise={@props.exercise}
+        exercise={exercise}
         className='exercise-card'
         isInteractive={false}
         isVerticallyTruncated={true}
