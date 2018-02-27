@@ -26,7 +26,7 @@ describe('Scores Report summary columns', function() {
     const table = mount(<Scores {...props} />, EnzymeContext.build());
     expect(table.render().find('.overall-average').parent().css('width')).toEqual('450px');
     table.find('.averages-toggle').simulate('click');
-    expect(table.render().find('.overall-average').parent().css('width')).toEqual('90px');
+    expect(table.render().find('.overall-average').parent().css('width')).toEqual('120px');
     table.unmount();
   });
 
