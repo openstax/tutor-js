@@ -31,6 +31,7 @@ renderRoot = (getComponent, rootEl) ->
   rootEl.id = 'ox-react-root-container'
   rootEl.setAttribute('data-browser', browser.name)
   rootEl.setAttribute('data-browser-version', browser.version)
+  rootEl.setAttribute('role', 'main')
 
   render = ->
     Root = getComponent()
