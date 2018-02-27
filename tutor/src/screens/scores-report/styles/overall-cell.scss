@@ -100,13 +100,13 @@
       display: flex;
       justify-content: space-around;
       border-right: $scores-thin-grey-border;
+      transition: min-width 100ms linear;
     }
     .homework,
     .reading {
       min-width: $scores-overall-values-width * 2;
       flex-basis: $scores-overall-values-width * 2;
     }
-
   }
   .labels {
     font-size: 1.4rem;
@@ -124,6 +124,11 @@
       > * {
         min-width: $scores-overall-values-closed-width;
         flex-basis: $scores-overall-values-closed-width;
+      }
+      .homework,
+      .reading {
+        min-width: $scores-overall-values-closed-width * 2;
+        flex-basis: $scores-overall-values-closed-width * 2;
       }
     }
   }
@@ -152,6 +157,7 @@
       text-align: center;
       align-items: center;
       justify-content: center;
+      transition: min-width 100ms linear;
     }
 
     .course {
@@ -163,6 +169,20 @@
     .reading {
       min-width: $scores-overall-values-width * 2;
       flex-basis: $scores-overall-values-width * 2;
+    }
+  }
+
+  &:not(.is-expanded) {
+    .public_fixedDataTableCell_cellContent {
+      .course {
+        min-width: $scores-overall-values-closed-width;
+        flex-basis: $scores-overall-values-closed-width;
+      }
+      .homework,
+      .reading {
+        min-width: $scores-overall-values-closed-width * 2;
+        flex-basis: $scores-overall-values-closed-width * 2;
+      }
     }
   }
 }

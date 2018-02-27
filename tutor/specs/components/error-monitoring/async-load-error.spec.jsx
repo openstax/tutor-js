@@ -12,7 +12,8 @@ describe('AsyncLoadErrors Component', function() {
   it('does not render if page isnt reloaded', () => {
     const err = mount(<AsyncLoadErrors {...props} />);
     expect(reloadOnce).not.toHaveBeenCalled();
-    expect(err.html()).toBeNull();
+    expect(err.html()).not.toBeNull();
+    expect(SnapShot.create(<AsyncLoadErrors {...props} />)).toMatchSnapshot();
   });
 
   it('renders and matches snapshot if page is reloaded', () => {

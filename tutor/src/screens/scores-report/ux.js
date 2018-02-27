@@ -6,7 +6,7 @@ import UiSettings from 'shared/model/ui-settings';
 import { first, isUndefined, clone, reverse } from 'lodash';
 
 const CELL_AVERAGES_CLOSED_SINGLE_WIDTH = 120;
-const CELL_AVERAGES_SINGLE_WIDTH = 100;
+const CELL_AVERAGES_SINGLE_WIDTH = 90;
 const IS_AVERAGES_EXPANDED_KEY = 'is_scores_averages_expanded';
 const CLOSED_TO_OPENED = [CELL_AVERAGES_CLOSED_SINGLE_WIDTH, CELL_AVERAGES_SINGLE_WIDTH * 5];
 const OPENED_TO_CLOSED = reverse(clone(CLOSED_TO_OPENED));
