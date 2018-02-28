@@ -9,6 +9,7 @@ concat         = require 'lodash/concat'
 some           = require 'lodash/some'
 kebabCase      = require 'lodash/kebabCase'
 browser        = require 'detect-browser'
+{PropTypes: MobxPropTypes} = require 'mobx-react'
 
 getBaseName = (context) -> kebabCase(context.constructor.displayName || context.constructor.name)
 
@@ -42,4 +43,10 @@ renderRoot = (getComponent, rootEl) ->
   render()
   return render
 
-module.exports = {getBaseName, filterProps, renderRoot}
+
+ArrayOrMobxType = React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      MobxPropTypes.observableArray,
+    ])
+
+module.exports = {getBaseName, filterProps, renderRoot, ArrayOrMobxType}

@@ -1,175 +1,219 @@
-React = require 'react'
-partial = require 'lodash/partial'
-pick = require 'lodash/pick'
-debounce = require 'lodash/debounce'
-classnames = require 'classnames'
-keymaster = require 'keymaster'
+import React from 'react';
+import { partial, pick, debounce } from 'lodash';
+import { observer } from 'mobx-react';
+import classnames from 'classnames';
+import keymaster from 'keymaster';
 
-keysHelper = require '../../helpers/keys'
-ArbitraryHtmlAndMath = require '../html'
-{SimpleFeedback} = require './feedback'
+import keysHelper from '../../helpers/keys';
+import ArbitraryHtmlAndMath from '../html';
+import { SimpleFeedback } from './feedback';
 
-ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
 
-idCounter = 0
+let idCounter = 0;
 
-isAnswerCorrect = (answer, correctAnswerId) ->
-  isCorrect = answer.id is correctAnswerId
-  isCorrect = (answer.correctness is '1.0') if answer.correctness?
+const isAnswerCorrect = function(answer, correctAnswerId) {
+  let isCorrect = answer.id === correctAnswerId;
+  if (answer.correctness != null) { isCorrect = (answer.correctness === '1.0'); }
 
-  isCorrect
+  return (
 
-isAnswerChecked = (answer, chosenAnswer) ->
-  isChecked = answer.id in (chosenAnswer || [])
+    isCorrect
 
-Answer = React.createClass
-  displayName: 'Answer'
-  propTypes:
-    answer: React.PropTypes.shape(
+  );
+};
+
+const isAnswerChecked = function(answer, chosenAnswer) {
+  let isChecked;
+  return (
+    isChecked = Array.from(chosenAnswer || []).includes(answer.id)
+  );
+};
+
+
+@observer
+export default class Answer extends React.Component {
+
+  static propTypes = {
+    answer: React.PropTypes.shape({
       id: React.PropTypes.oneOfType([
-        React.PropTypes.string
-        React.PropTypes.number
-      ]).isRequired
-      content_html: React.PropTypes.string.isRequired
-      correctness: React.PropTypes.string
-      selected_count: React.PropTypes.number
-    ).isRequired
+        React.PropTypes.string,
+        React.PropTypes.number,
+      ]).isRequired,
+      content_html: React.PropTypes.string.isRequired,
+      correctness: React.PropTypes.string,
+      selected_count: React.PropTypes.number,
+    }).isRequired,
 
-    iter: React.PropTypes.number.isRequired
+    iter: React.PropTypes.number.isRequired,
     qid: React.PropTypes.oneOfType([
-      React.PropTypes.string
-      React.PropTypes.number
-    ]).isRequired
-    type: React.PropTypes.string.isRequired
-    hasCorrectAnswer: React.PropTypes.bool.isRequired
-    onChangeAnswer: React.PropTypes.func.isRequired
-    disabled: React.PropTypes.bool
-    chosenAnswer: React.PropTypes.array
-    correctAnswerId: React.PropTypes.string
-    answered_count: React.PropTypes.number
-    show_all_feedback: React.PropTypes.bool
+      React.PropTypes.string,
+      React.PropTypes.number,
+    ]).isRequired,
+    type: React.PropTypes.string.isRequired,
+    hasCorrectAnswer: React.PropTypes.bool.isRequired,
+    onChangeAnswer: React.PropTypes.func.isRequired,
+    disabled: React.PropTypes.bool,
+    chosenAnswer: React.PropTypes.array,
+    correctAnswerId: React.PropTypes.string,
+    answered_count: React.PropTypes.number,
+    show_all_feedback: React.PropTypes.bool,
     keyControl: React.PropTypes.oneOfType([
-      React.PropTypes.string
-      React.PropTypes.number
-      React.PropTypes.array
-    ])
+      React.PropTypes.string,
+      React.PropTypes.number,
+      React.PropTypes.array,
+    ]),
+  };
 
-  getDefaultProps: ->
-    disabled: false
-    show_all_feedback: false
+  static defaultProps = {
+    disabled: false,
+    show_all_feedback: false,
+  };
 
-  componentWillMount: ->
-    @setUpKeys() if @shouldKey()
+  static contextTypes = {
+    processHtmlAndMath: React.PropTypes.func,
+  };
 
-  componentWillUnmount: ->
-    {keyControl} = @props
-    keysHelper.off(keyControl, 'multiple-choice') if keyControl?
+  componentWillMount() {
+    if (this.shouldKey()) { return this.setUpKeys(); }
+  }
 
-  componentDidUpdate: (prevProps) ->
-    {keyControl} = @props
+  componentWillUnmount() {
+    const { keyControl } = this.props;
+    if (keyControl != null) { return keysHelper.off(keyControl, 'multiple-choice'); }
+  }
 
-    if @shouldKey(prevProps) and not @shouldKey()
-      keysHelper.off(prevProps.keyControl, 'multiple-choice')
+  componentDidUpdate(prevProps) {
+    const { keyControl } = this.props;
 
-    if @shouldKey() and prevProps.keyControl isnt keyControl
-      @setUpKeys()
+    if (this.shouldKey(prevProps) && !this.shouldKey()) {
+      keysHelper.off(prevProps.keyControl, 'multiple-choice');
+    }
 
-  shouldKey: (props) ->
-    props ?= @props
-    {keyControl, disabled} = props
+    if (this.shouldKey() && (prevProps.keyControl !== keyControl)) {
+      return (
+        this.setUpKeys()
+      );
+    }
+  }
 
-    keyControl? and not disabled
+  shouldKey = (props) => {
+    if (props == null) { ({ props } = this); }
+    const { keyControl, disabled } = props;
 
-  setUpKeys: ->
-    {answer, onChangeAnswer, keyControl} = @props
+    return (
 
-    keyInAnswer = debounce(partial(onChangeAnswer, answer), 200, {
+      (keyControl != null) && !disabled
+
+    );
+  };
+
+  setUpKeys = () => {
+    const { answer, onChangeAnswer, keyControl } = this.props;
+
+    const keyInAnswer = debounce(partial(onChangeAnswer, answer), 200, {
       leading: true,
       trailing: false,
-    })
-    keysHelper.on keyControl, 'multiple-choice', keyInAnswer
-    keymaster.setScope('multiple-choice')
+    });
+    keysHelper.on(keyControl, 'multiple-choice', keyInAnswer);
+    return (
+      keymaster.setScope('multiple-choice')
+    );
+  };
 
-  contextTypes:
-    processHtmlAndMath: React.PropTypes.func
+  onKeyPress = (ev) => {
+    if ((ev.key === 'Enter') && (this.props.disabled !== true)) { this.onChange(); }
+    return (
+      null
+    );
+  }; // silence react event return value warning
 
-  onKeyPress: (ev) ->
-    @onChange() if ev.key is 'Enter' and @props.disabled isnt true
-    null # silence react event return value warning
+  onChange = () => {
+    return (
+      this.props.onChangeAnswer(this.props.answer)
+    );
+  };
 
-  onChange: ->
-    @props.onChangeAnswer(@props.answer)
+  render() {
+    let feedback, onChange, radioBox, selectedCount;
+    let { answer, iter, qid, type, correctAnswerId, answered_count, hasCorrectAnswer, chosenAnswer, onChangeAnswer, disabled } = this.props;
+    if (qid == null) { qid = `auto-${idCounter++}`; }
 
-  render: ->
-    {answer, iter, qid, type, correctAnswerId, answered_count, hasCorrectAnswer, chosenAnswer, onChangeAnswer, disabled} = @props
-    qid ?= "auto-#{idCounter++}"
+    const isChecked = isAnswerChecked(answer, chosenAnswer);
+    const isCorrect = isAnswerCorrect(answer, correctAnswerId);
 
-    isChecked = isAnswerChecked(answer, chosenAnswer)
-    isCorrect = isAnswerCorrect(answer, correctAnswerId)
+    const classes = classnames('answers-answer', {
+      'disabled': disabled,
+      'answer-checked': isChecked,
+      'answer-correct': isCorrect,
+    }
+    );
 
-    classes = classnames 'answers-answer',
-      'disabled': disabled
-      'answer-checked': isChecked
-      'answer-correct': isCorrect
+    if (!hasCorrectAnswer && (type !== 'teacher-review') && (type !== 'teacher-preview')) {
+      ({ onChange } = this);
+    }
 
-    unless (hasCorrectAnswer or type is 'teacher-review' or type is 'teacher-preview')
-      onChange = this.onChange
-
-    if onChange
+    if (onChange) {
       radioBox = <input
-        type='radio'
-        className='answer-input-box'
+        type="radio"
+        className="answer-input-box"
         checked={isChecked}
-        id="#{qid}-option-#{iter}"
-        name="#{qid}-options"
+        id={`${qid}-option-${iter}`}
+        name={`${qid}-options`}
         onChange={onChange}
-        disabled={disabled}
-      />
+        disabled={disabled} />;
+    }
 
-    if type is 'teacher-review'
-      percent = Math.round(answer.selected_count / answered_count * 100) or 0
+    if (type === 'teacher-review') {
+      const percent = Math.round((answer.selected_count / answered_count) * 100) || 0;
       selectedCount = <div
-        className='selected-count'
-        data-count="#{answer.selected_count}"
-        data-percent="#{percent}">
+        className="selected-count"
+        data-count={`${answer.selected_count}`}
+        data-percent={`${percent}`} />;
+    }
+
+    if (this.props.show_all_feedback && answer.feedback_html) {
+      feedback = <SimpleFeedback key="question-mc-feedback">
+        {answer.feedback_html}
+      </SimpleFeedback>;
+    }
+
+    let ariaLabel = `${isChecked ? 'Selected ' : ''}Choice ${ALPHABET[iter]}`;
+    // somewhat misleading - this means that there is a correct answer,
+    // not necessarily that this answer is correct
+    if (this.props.hasCorrectAnswer) {
+      ariaLabel += `(${isCorrect ? 'Correct' : 'Incorrect'} Answer)`;
+    }
+    ariaLabel += ':';
+    const htmlAndMathProps = pick(this.context, ['processHtmlAndMath']);
+
+    return (
+
+      <div className="openstax-answer">
+        <div className={classes}>
+          {selectedCount}
+          {radioBox}
+          <label
+            onKeyPress={this.onKeyPress}
+            htmlFor={`${qid}-option-${iter}`}
+            className="answer-label">
+            <button
+              onClick={onChange}
+              className="answer-letter"
+              aria-label={ariaLabel}
+              disabled={disabled}>
+              {ALPHABET[iter]}
+            </button>
+            <div className="answer-answer">
+              <ArbitraryHtmlAndMath
+                {...htmlAndMathProps}
+                className="answer-content"
+                html={answer.content_html} />
+              {feedback}
+            </div>
+          </label>
+        </div>
       </div>
-
-    if @props.show_all_feedback and answer.feedback_html
-      feedback = <SimpleFeedback key='question-mc-feedback'>{answer.feedback_html}</SimpleFeedback>
-
-    ariaLabel = "#{if isChecked then 'Selected ' else ''}Choice #{ALPHABET[iter]}"
-    # somewhat misleading - this means that there is a correct answer,
-    # not necessarily that this answer is correct
-    if @props.hasCorrectAnswer
-      ariaLabel += "(#{if isCorrect then 'Correct' else 'Incorrect'} Answer)"
-    ariaLabel += ":"
-    htmlAndMathProps = pick(@context, ['processHtmlAndMath'])
-
-    <div className='openstax-answer'>
-      <div className={classes}>
-        {selectedCount}
-        {radioBox}
-        <label
-          onKeyPress={@onKeyPress}
-          htmlFor="#{qid}-option-#{iter}"
-          className='answer-label'
-        >
-          <button
-            onClick={onChange}
-            className='answer-letter' aria-label={ariaLabel}
-            disabled={disabled}
-          >
-            {ALPHABET[iter]}
-          </button>
-          <div className='answer-answer'>
-            <ArbitraryHtmlAndMath
-              {...htmlAndMathProps}
-              className='answer-content'
-              html={answer.content_html} />
-            {feedback}
-          </div>
-        </label>
-      </div>
-    </div>
-
-module.exports = {Answer}
+    );
+  }
+}

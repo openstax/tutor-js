@@ -1,96 +1,142 @@
-React = require 'react'
-_ = require 'underscore'
-classnames = require 'classnames'
+import React from 'react';
+import { isEmpty, compact, map, pick } from 'lodash';
+import classnames from 'classnames';
+import { observer } from 'mobx-react';
 
-{AnswersTable} = require './answers-table'
-ArbitraryHtmlAndMath = require '../html'
-FormatsListing = require './formats-listing'
+import AnswersTable from './answers-table';
+import ArbitraryHtmlAndMath from '../html';
+import FormatsListing from './formats-listing';
 
-QuestionHtml = React.createClass
-  displayName: 'QuestionHtml'
-  propTypes:
-    html: React.PropTypes.string
-    type: React.PropTypes.string
-    questionNumber: React.PropTypes.number
-  getDefaultProps: ->
-    html: ''
-    type: ''
-  contextTypes:
-    processHtmlAndMath: React.PropTypes.func
+@observer
+class QuestionHtml extends React.Component {
 
-  render: ->
-    {html, type} = @props
-    return null unless html.length > 0
+  static propTypes = {
+    html: React.PropTypes.string,
+    type: React.PropTypes.string,
+    questionNumber: React.PropTypes.number,
+  };
 
-    htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
+  static defaultProps = {
+    html: '',
+    type: '',
+  };
 
-    <ArbitraryHtmlAndMath
-      {...htmlAndMathProps}
-      className="question-#{type}"
-      block={true}
-      html={html}
-      data-question-number={@props.questionNumber}
-    />
+  static contextTypes = {
+    processHtmlAndMath: React.PropTypes.func,
+  };
 
-Question = React.createClass
-  displayName: 'Question'
-  propTypes:
-    model: React.PropTypes.object.isRequired
-    task: React.PropTypes.object
-    correct_answer_id: React.PropTypes.string
-    exercise_uid: React.PropTypes.string
-    displayFormats:  React.PropTypes.bool
+  render() {
+    const { questionNumber, html, type } = this.props;
+    if (!(html.length > 0)) { return null; }
 
-  childContextTypes:
-    processHtmlAndMath: React.PropTypes.func
-  getChildContext: ->
-    processHtmlAndMath: @props.processHtmlAndMath
+    const htmlAndMathProps = pick(this.context, 'processHtmlAndMath');
 
-  doesArrayHaveProperty: (arrayToCheck, property) ->
-    not _.isEmpty(_.compact(_.pluck(arrayToCheck, property)))
+    return (
+      <ArbitraryHtmlAndMath
+        {...htmlAndMathProps}
+        className={`question-${type}`}
+        block={true}
+        html={html}
+        data-question-number={questionNumber} />
+    );
+  }
 
-  hasAnswerCorrectness: ->
-    {correct_answer_id, model} = @props
-    {answers} = model
+}
 
-    correct_answer_id or @doesArrayHaveProperty(answers, 'correctness')
 
-  hasSolution: ->
-    {model, correct_answer_id} = @props
-    {collaborator_solutions} = model
+@observer
+export default class Question extends React.Component {
 
-    @hasAnswerCorrectness() and @doesArrayHaveProperty(collaborator_solutions, 'content_html')
+  static propTypes = {
+    model: React.PropTypes.object.isRequired,
+    task: React.PropTypes.object,
+    correct_answer_id: React.PropTypes.string,
+    exercise_uid: React.PropTypes.string,
+    displayFormats:  React.PropTypes.bool,
+  };
 
-  render: ->
-    {model, correct_answer_id, exercise_uid, className, questionNumber, context, task} = @props
-    {stem_html, collaborator_solutions, formats, stimulus_html} = model
+  static childContextTypes = {
+    processHtmlAndMath: React.PropTypes.func,
+  };
 
-    hasCorrectAnswer = !! correct_answer_id
-    classes = classnames 'openstax-question', className,
-      'has-correct-answer': hasCorrectAnswer and not (task?.is_deleted and task?.type is 'homework')
+  getChildContext() {
+    return (
+      { processHtmlAndMath: this.props.processHtmlAndMath }
+    );
+  }
 
-    htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
+  doesArrayHaveProperty = (arrayToCheck, property) => {
+    return (
+      !isEmpty(compact(map(arrayToCheck, property)))
+    );
+  };
 
-    exerciseUid = <div className="exercise-uid">{exercise_uid}</div> if exercise_uid?
+  hasAnswerCorrectness = () => {
+    const { correct_answer_id, model } = this.props;
+    const { answers } = model;
 
-    if @hasSolution()
+    return (
+
+      correct_answer_id || this.doesArrayHaveProperty(answers, 'correctness')
+
+    );
+  };
+
+  hasSolution = () => {
+    const { model, correct_answer_id } = this.props;
+    const { collaborator_solutions } = model;
+
+    return (
+
+      this.hasAnswerCorrectness() && this.doesArrayHaveProperty(collaborator_solutions, 'content_html')
+
+    );
+  };
+
+  render() {
+    let exerciseUid, solution;
+    const { model, correct_answer_id, exercise_uid, className, questionNumber, context, task } = this.props;
+    const { stem_html, collaborator_solutions, formats, stimulus_html } = model;
+
+    const hasCorrectAnswer = !!correct_answer_id;
+    const classes = classnames('openstax-question', className,
+      { 'has-correct-answer': hasCorrectAnswer && !((task != null ? task.is_deleted : undefined) && ((task != null ? task.type : undefined) === 'homework')) });
+
+    const htmlAndMathProps = pick(this.context, 'processHtmlAndMath');
+
+    if (exercise_uid != null) { exerciseUid = <div className="exercise-uid">
+      {exercise_uid}
+    </div>; }
+
+    if (this.hasSolution()) {
       solution =
-        <div className='detailed-solution'>
-          <div className='header'>Detailed solution</div>
-          <ArbitraryHtmlAndMath {...htmlAndMathProps} className="solution" block
-            html={_.pluck(collaborator_solutions, 'content_html').join('')}
-          />
+        <div className="detailed-solution">
+          <div className="header">
+            Detailed solution
+          </div>
+          <ArbitraryHtmlAndMath
+            {...htmlAndMathProps}
+            className="solution"
+            block={true}
+            html={map(collaborator_solutions, 'content_html').join('')} />
+        </div>;
+    }
+
+    return (
+
+      (
+        <div className={classes} data-question-number={questionNumber}>
+          <QuestionHtml type="context" html={context} />
+          <QuestionHtml type="stimulus" html={stimulus_html} />
+          <QuestionHtml type="stem" html={stem_html} questionNumber={questionNumber} />
+          {this.props.children}
+          <AnswersTable {...this.props} hasCorrectAnswer={hasCorrectAnswer} />
+          {this.props.displayFormats ? <FormatsListing formats={formats} /> : undefined}
+          {solution}
+          {exerciseUid}
         </div>
+      )
 
-    <div className={classes} data-question-number={questionNumber}>
-      <QuestionHtml type='context' html={context} />
-      <QuestionHtml type='stimulus' html={stimulus_html} />
-      <QuestionHtml type='stem' html={stem_html} questionNumber={questionNumber} />
-      {@props.children}
-      <AnswersTable {...@props} hasCorrectAnswer={hasCorrectAnswer}/>
-      {<FormatsListing formats={formats} /> if @props.displayFormats}
-      {solution}
-      {exerciseUid}
-    </div>
-
-module.exports = Question
+    );
+  }
+}

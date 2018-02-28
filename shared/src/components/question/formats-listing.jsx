@@ -1,24 +1,25 @@
-React = require 'react'
-_ = require 'underscore'
-classnames = require 'classnames'
+import React from 'react';
+import { observer } from 'mobx-react';
 
-{AnswersTable} = require './answers-table'
-ArbitraryHtmlAndMath = require '../html'
-FormatsListing = require './formats-listing'
+@observer
+export default class FormatsListing extends React.Component {
+  static propTypes = {
+    formats: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  };
 
-FormatsListing = React.createClass
-  propTypes:
-    formats: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
+  static defaultProps = { formats: [] };
 
-  getDefaultProps: ->
-    formats: []
-
-  render: ->
-    <div className="formats-listing">
-      <div className='header'>Formats:</div>
-      {for format, i in @props.formats
-        <span key={i}>{format}</span>}
-    </div>
-
-
-module.exports = FormatsListing
+  render() {
+    return (
+      <div className="formats-listing">
+        <div className="header">
+          Formats:
+        </div>
+        {Array.from(this.props.formats).map((format, i) =>
+          <span key={i}>
+            {format}
+          </span>)}
+      </div>
+    );
+  }
+}

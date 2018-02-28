@@ -18,7 +18,7 @@ defaults =
     @pageXOffset = x
     @pageYOffset = y
   requestAnimationFrame: (cb) -> defer(cb)
-  querySelector: (sb) -> null
+  querySelector: jest.fn((qs) -> global.document.querySelector(qs))
   location:
     pathname: '/'
     search: ''
@@ -35,6 +35,7 @@ class FakeWindow
     @localStorage =
       getItem: sinon.stub().returns('[]')
       setItem: sinon.stub()
+    @document.body = global.document.body
     @history =
       pushState: jest.fn()
     @open = jest.fn( =>

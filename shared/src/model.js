@@ -54,4 +54,5 @@ export {
 export {
   computed,
   observable,
+  action,
 } from 'mobx';

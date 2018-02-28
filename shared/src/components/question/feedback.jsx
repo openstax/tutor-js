@@ -1,41 +1,48 @@
-React = require 'react'
-classnames = require 'classnames'
-_ = require 'underscore'
+import React from 'react';
+import classnames from 'classnames';
+import { pick } from 'lodash';
+import { observer } from 'mobx-react';
 
-ArbitraryHtmlAndMath = require '../html'
+import ArbitraryHtmlAndMath from '../html';
 
-SimpleFeedback = React.createClass
-  displayName: 'SimpleFeedback'
-  propTypes:
-    children: React.PropTypes.string.isRequired
-  contextTypes:
-    processHtmlAndMath: React.PropTypes.func
-  render: ->
-    htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
+const SimpleFeedback = observer((props, context) => {
+  const htmlAndMathProps = pick(context, 'processHtmlAndMath');
+  return (
     <ArbitraryHtmlAndMath
       {...htmlAndMathProps}
-      className={classnames 'question-feedback-content', 'has-html', @props.className}
-      html={@props.children}
-      block={true}/>
+      className={classnames('question-feedback-content', 'has-html', props.className)}
+      html={props.children}
+      block={true} />
+  );
+});
+SimpleFeedback.propTypes = {
+  children: React.PropTypes.string.isRequired,
+};
+SimpleFeedback.contextTypes = {
+  processHtmlAndMath: React.PropTypes.func,
+};
 
-Feedback = React.createClass
-  displayName: 'Feedback'
-  propTypes:
-    children: React.PropTypes.string.isRequired
-    position: React.PropTypes.oneOf(['top', 'bottom', 'left', 'right'])
-  getDefaultProps: ->
-    position: 'bottom'
-  contextTypes:
-    processHtmlAndMath: React.PropTypes.func
-  render: ->
-    wrapperClasses = classnames 'question-feedback', @props.position
-    htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
 
-    <div
-      className={wrapperClasses}
-    >
-      <div className='arrow' aria-label="Answer Feedback"/>
-      <SimpleFeedback {...htmlAndMathProps}>{@props.children}</SimpleFeedback>
+const Feedback = observer((props, context) => {
+  const wrapperClasses = classnames('question-feedback', props.position);
+  const htmlAndMathProps = pick(context, 'processHtmlAndMath');
+
+  return (
+    <div className={wrapperClasses}>
+      <div className="arrow" aria-label="Answer Feedback" />
+      <SimpleFeedback {...htmlAndMathProps}>
+        {props.children}
+      </SimpleFeedback>
     </div>
+  );
+});
+Feedback.propTypes = {
+  children: React.PropTypes.string.isRequired,
+  position: React.PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
+};
+Feedback.defaultProps = { position: 'bottom' };
+Feedback.contextTypes = {
+  processHtmlAndMath: React.PropTypes.func,
+};
 
-module.exports = {Feedback, SimpleFeedback}
+export { Feedback, SimpleFeedback };

@@ -4,7 +4,7 @@ first = require 'lodash/first'
 pick = require 'lodash/pick'
 extend = require 'lodash/extend'
 
-Exercise = require '../model/exercise'
+Exercise = require '../helpers/exercise'
 ChapterSectionMixin = require './chapter-section-mixin'
 
 ExerciseIdentifierLink = React.createClass

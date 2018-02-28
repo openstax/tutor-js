@@ -99,7 +99,7 @@ module.exports = React.createClass
     @setState(pinned: false)
 
   updatePinState: (prevScrollTop) ->
-    nextState = 
+    nextState =
       # allow shouldBeShy override if needed
       shy: @state.shouldBeShy or @shouldBeShy(prevScrollTop, @state.scrollTop)
       pinned: @shouldPinHeader(prevScrollTop, @state.scrollTop)

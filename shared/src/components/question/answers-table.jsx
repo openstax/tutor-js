@@ -1,146 +1,184 @@
-React = require 'react'
-_ = require 'underscore'
+import React from 'react';
+import { range, map, zip, partial, keys, isNil, extend, placeholder } from 'lodash';
+import { observer } from 'mobx-react';
+import keymaster from 'keymaster';
+import keysHelper from '../../helpers/keys';
 
-keymaster = require 'keymaster'
-keysHelper = require '../../helpers/keys'
+import ArbitraryHtmlAndMath from '../html';
+import Answer from './answer';
+import { Feedback } from './feedback';
+import Instructions  from './instructions';
 
-KEYS =
-  'multiple-choice-numbers': _.range(1, 10) # 1 - 9
+//console.log( "---\n", ArbitraryHtmlAndMath, "---\n", Answer, "---\n", Feedback, "---\n", Instructions)
 
-# a - i
-KEYS['multiple-choice-alpha'] = _.map(KEYS['multiple-choice-numbers'], _.partial(keysHelper.getCharFromNumKey, _, null))
+const KEYS =
+  { 'multiple-choice-numbers': range(1, 10) }; // 1 - 9
 
-KEYS['multiple-choice'] = _.zip(KEYS['multiple-choice-numbers'], KEYS['multiple-choice-alpha'])
+// a - i
+KEYS['multiple-choice-alpha'] = map(KEYS['multiple-choice-numbers'], partial(keysHelper.getCharFromNumKey, placeholder, null));
 
-KEYSETS_PROPS = _.keys(KEYS)
-KEYSETS_PROPS.push(null) # keySet could be null for disabling keyControling
+KEYS['multiple-choice'] = zip(KEYS['multiple-choice-numbers'], KEYS['multiple-choice-alpha']);
 
-ArbitraryHtmlAndMath = require '../html'
-{Answer} = require './answer'
-{Feedback} = require './feedback'
-Instructions = require './instructions'
+const KEYSETS_PROPS = keys(KEYS);
+KEYSETS_PROPS.push(null); // keySet could be null for disabling keyControling
 
-idCounter = 0
+let idCounter = 0;
 
+const isAnswerChecked = function(answer, chosenAnswer) {
+  return chosenAnswer.includes(answer.id);
+};
 
-isAnswerChecked = (answer, chosenAnswer) ->
-  isChecked = answer.id in chosenAnswer
+@observer
+export default class AnswersTable extends React.Component {
 
-AnswersTable = React.createClass
-  displayName: 'AnswersTable'
-  propTypes:
-    model: React.PropTypes.object.isRequired
-    type: React.PropTypes.string.isRequired
-    answer_id: React.PropTypes.string
-    correct_answer_id: React.PropTypes.string
-    feedback_html: React.PropTypes.string
-    answered_count: React.PropTypes.number
-    show_all_feedback: React.PropTypes.bool
-    onChange: React.PropTypes.func
-    onChangeAttempt: React.PropTypes.func
-    keySet: React.PropTypes.oneOf(KEYSETS_PROPS)
+  static propTypes = {
+    model: React.PropTypes.object.isRequired,
+    type: React.PropTypes.string.isRequired,
+    answer_id: React.PropTypes.string,
+    correct_answer_id: React.PropTypes.string,
+    feedback_html: React.PropTypes.string,
+    answered_count: React.PropTypes.number,
+    show_all_feedback: React.PropTypes.bool,
+    onChange: React.PropTypes.func,
+    onChangeAttempt: React.PropTypes.func,
+    keySet: React.PropTypes.oneOf(KEYSETS_PROPS),
+  };
 
-  getDefaultProps: ->
-    type: 'student'
-    show_all_feedback: false
-    keySet: 'multiple-choice'
+  static defaultProps = {
+    type: 'student',
+    show_all_feedback: false,
+    keySet: 'multiple-choice',
+  };
 
-  getInitialState: ->
-    originalKeyScope = @getOriginalKeyScope()
+  constructor(props, context) {
+    super(props, context);
+    const originalKeyScope = this.getOriginalKeyScope();
 
-    answer_id: null
-    originalKeyScope: originalKeyScope
+    this.state = {
+      answer_id: null,
+      originalKeyScope,
+    };
+  }
 
-  componentWillReceiveProps: (nextProps) ->
-    originalKeyScope = @getOriginalKeyScope(nextProps)
-    @setState({originalKeyScope}) if originalKeyScope?
-    @setState({answer_id: null}) if nextProps.answer_id isnt @state.answer_id
+  componentWillReceiveProps(nextProps) {
+    const originalKeyScope = this.getOriginalKeyScope(nextProps);
+    if (originalKeyScope != null) { this.setState({ originalKeyScope }); }
+    if (nextProps.answer_id !== this.state.answer_id) { this.setState({ answer_id: null }); }
 
-    @resetToOriginalKeyScope() if not _.isNull(@props.keySet) and _.isNull(nextProps.keySet)
+    if (!isNil(this.props.keySet) && isNil(nextProps.keySet)) { return this.resetToOriginalKeyScope(); }
+  }
 
-  componentWillUnmount: ->
-    @resetToOriginalKeyScope()
+  componentWillUnmount() {
+    this.resetToOriginalKeyScope()
+  }
 
-  getOriginalKeyScope: (props) ->
-    props ?= @props
+  getOriginalKeyScope = (props) => {
+    if (props == null) { ({ props } = this); }
 
-    originalKeyScope = keymaster.getScope()
-    originalKeyScope if props.keySet isnt originalKeyScope and originalKeyScope isnt @state?.originalKeyScope
+    const originalKeyScope = keymaster.getScope();
+    if ((props.keySet !== originalKeyScope) && (originalKeyScope !== (this.state != null ? this.state.originalKeyScope : undefined))) { return originalKeyScope; }
+  };
 
-  resetToOriginalKeyScope: ->
-    {originalKeyScope} = @state
-    keymaster.setScope(originalKeyScope) if originalKeyScope?
+  resetToOriginalKeyScope = () => {
+    const { originalKeyScope } = this.state;
+    if (originalKeyScope != null) { keymaster.setScope(originalKeyScope); }
+    this.setState({ originalKeyScope: undefined })
+  };
 
-    @setState(originalKeyScope: undefined)
+  onChangeAnswer = (answer, changeEvent) => {
+    if (this.props.onChange != null) {
+      this.setState({ answer_id: answer.id });
+      return (
+        this.props.onChange(answer)
+      );
+    } else {
+      if (changeEvent != null) {
+        changeEvent.preventDefault();
+      }
+      return (
+        (typeof this.props.onChangeAttempt === 'function' ? this.props.onChangeAttempt(answer) : undefined)
+      );
+    }
+  };
 
-  onChangeAnswer: (answer, changeEvent) ->
-    if @props.onChange?
-      @setState(answer_id: answer.id)
-      @props.onChange(answer)
-    else
-      changeEvent?.preventDefault()
-      @props.onChangeAttempt?(answer)
-
-  shouldInstructionsShow: ->
-    {type, model, answer_id, correct_answer_id} = @props
-    (
-      model.formats.length > 1 and
-      not (
-        answer_id is correct_answer_id or
-        type in ['teacher-preview', 'teacher-review']
+  shouldInstructionsShow = () => {
+    const { type, model, answer_id, correct_answer_id } = this.props;
+    return (
+      (
+        (model.formats.length > 1) &&
+          !(
+            (answer_id === correct_answer_id) ||
+              ['teacher-preview', 'teacher-review'].includes(type)
+          )
       )
-    )
+    );
+  };
 
-  hasIncorrectAnswer: ->
-    {answer_id, correct_answer_id, choicesEnabled} = @props
-    !!(answer_id and not choicesEnabled and answer_id isnt correct_answer_id)
+  hasIncorrectAnswer = () => {
+    const { answer_id, correct_answer_id, choicesEnabled } = this.props;
+    return (
+      !!(answer_id && !choicesEnabled && (answer_id !== correct_answer_id))
+    );
+  };
 
-  render: ->
-    {
+  render() {
+    let feedback, instructions;
+    const {
       model, type, answered_count, choicesEnabled, correct_answer_id,
       answer_id, feedback_html, show_all_feedback, keySet, project, hasCorrectAnswer,
-      focus
-    } = @props
+      focus,
+    } = this.props;
 
-    {answers, id} = model
-    return null unless answers?.length > 0
+    const { answers, id } = model;
+    if (!((answers != null ? answers.length : undefined) > 0)) { return null; }
 
-    chosenAnswer = [answer_id, @state.answer_id]
-    checkedAnswerIndex = null
+    const chosenAnswer = [answer_id, this.state.answer_id];
+    let checkedAnswerIndex = null;
 
-    questionAnswerProps =
-      qid: id or "auto-#{idCounter++}"
-      correctAnswerId: correct_answer_id
-      hasCorrectAnswer: hasCorrectAnswer
-      chosenAnswer: chosenAnswer
-      onChangeAnswer: @onChangeAnswer
-      type: type
-      answered_count: answered_count
-      disabled: not choicesEnabled
-      show_all_feedback: show_all_feedback
+    const questionAnswerProps = {
+      qid: id || `auto-${idCounter++}`,
+      correctAnswerId: correct_answer_id,
+      hasCorrectAnswer,
+      chosenAnswer,
+      onChangeAnswer: this.onChangeAnswer,
+      type,
+      answered_count,
+      disabled: !choicesEnabled,
+      show_all_feedback,
+    };
 
-    answersHtml = _.chain(answers)
-      .map (answer, i) ->
-        additionalProps = {answer, iter: i, key: "#{questionAnswerProps.qid}-option-#{i}"}
-        additionalProps.keyControl = KEYS[keySet]?[i] if focus
-        answerProps = _.extend({}, additionalProps, questionAnswerProps)
-        checkedAnswerIndex = i if isAnswerChecked(answer, chosenAnswer)
+    const answersHtml = map(answers, function(answer, i) {
+        const additionalProps = { answer, iter: i, key: `${questionAnswerProps.qid}-option-${i}` };
+        if (focus) { additionalProps.keyControl = KEYS[keySet] != null ? KEYS[keySet][i] : undefined; }
+        const answerProps = extend({}, additionalProps, questionAnswerProps);
+        if (isAnswerChecked(answer, chosenAnswer)) { checkedAnswerIndex = i; }
 
-        <Answer {...answerProps}/>
-      .value()
+        return (
+          <Answer {...answerProps} />
+        );
+      })
 
-    feedback = <Feedback key='question-mc-feedback'>{feedback_html}</Feedback> if feedback_html
-    answersHtml.splice(checkedAnswerIndex + 1, 0, feedback) if feedback? and checkedAnswerIndex?
+    if (feedback_html) {
+      feedback = (
+        <Feedback key="question-mc-feedback">
+          {feedback_html}
+        </Feedback>
+      );
+    }
+    if ((feedback != null) && (checkedAnswerIndex != null)) { answersHtml.splice(checkedAnswerIndex + 1, 0, feedback); }
 
-    instructions = <Instructions
-      project={project}
-      hasFeedback={feedback_html?}
-      hasIncorrectAnswer={@hasIncorrectAnswer()}
-    /> if @shouldInstructionsShow()
+    if (this.shouldInstructionsShow()) {
+      instructions = <Instructions
+                       project={project}
+                       hasFeedback={feedback_html != null}
+                       hasIncorrectAnswer={this.hasIncorrectAnswer()} />;
+    }
 
-    <div className='answers-table'>
-      {instructions}
-      {answersHtml}
-    </div>
-
-module.exports = {AnswersTable}
+    return (
+      <div className="answers-table">
+        {instructions}
+        {answersHtml}
+      </div>
+    );
+  }
+}

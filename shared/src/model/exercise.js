@@ -1,6 +1,8 @@
 import {
-  BaseModel, identifiedBy, identifier, field, identifier, hasMany,
+  BaseModel, identifiedBy, identifier, session, field, hasMany, computed,
 } from '../model';
+import { map, filter } from 'lodash';
+
 import Attachment from './exercise/attachment';
 import Author from './exercise/author';
 import Question from './exercise/question';
@@ -16,6 +18,9 @@ export default class Exercise extends BaseModel {
   @field({ type: 'array' }) formats;
   @field is_vocab;
   @field number;
+  @field id;
+
+  @session wrapper;
 
   @hasMany({ model: Attachment }) attachments;
   @hasMany({ model: Author }) authors;
@@ -23,26 +28,12 @@ export default class Exercise extends BaseModel {
   @hasMany({ model: Question }) questions;
   @hasMany({ model: Tag }) tags;
 
+  @computed get pool_types() {
+    return [];
+  }
 
-  //   [{id: 3, is_answer_order_important: false, stimulus_html: "", stem_html: "one",…}]
-  // stimulus_html
-  //   :
-  //   ""
-  //   tags
-  //   :
-  //   ["type:conceptual", "requires-context:true", "filter-type:test-prep", "blooms:3", "time:long", "dok:3",…]
-  // uid
-  //   :
-  //   "1@1"
-  //   uuid
-  //   :
-  //   "e74fc0af-5a18-4f3d-9cc6-2a3dbfc41cf9"
-  //   version
-  //   :
-  //   1
-  // versions
-  //   :
-  //   [1]
-
+  @computed get cnxModuleUUIDs() {
+    return map(filter(this.tags, { type: 'context-cnxmod' }), 'value');
+  }
 
 }

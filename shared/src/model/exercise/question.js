@@ -1,49 +1,20 @@
 import {
-  BaseModel, identifiedBy, identifier, field, identifier, hasMany,
+  BaseModel, identifiedBy, identifier, field, hasMany,
 } from '../../model';
-
 import Answer from './answer';
+import Solution from './solution';
+import Format from './format';
 
 @identifiedBy('exercise/question')
 export default class ExerciseQuestion extends BaseModel {
 
   @identifier id;
-  @hasMany({ model: Answer, inverseOf: 'question'  });
-  @hasMany({ model: Solution, inverseOf: 'question' });
   @field is_answer_order_important;
   @field stem_html;
   @field stimulus_html;
-
-  //
-  //   answers
-  //     :
-  //     [{id: 3, content_html: "two", correctness: "1.0", feedback_html: "three"}]
-  //   collaborator_solutions
-  //     :
-  //     [{attachments: [], solution_type: "detailed", content_html: "four"}]
-  //   combo_choices
-  //     :
-  //     []
-  //   community_solutions
-  //     :
-  //     []
-  //   formats
-  //     :
-  //     ["free-response", "multiple-choice"]
-  //   hints
-  //     :
-  //     []
-  //   id
-  //     :
-  //     3
-  //   is_answer_order_important
-  //     :
-  //     false
-  //   stem_html
-  //     :
-  //     "one"
-  //     stimulus_html
-  //     :
-  //     ""
+  @field({ type: 'array' }) hints;
+  @hasMany({ model: Format }) formats;
+  @hasMany({ model: Answer, inverseOf: 'question' }) answers;
+  @hasMany({ model: Solution, inverseOf: 'question' }) collaborator_solutions;
 
 }

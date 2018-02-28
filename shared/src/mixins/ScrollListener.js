@@ -48,7 +48,7 @@ var ScrollListenerMixin = {
   },
 
   _onPageScroll: function () {
-    var scrollTop = win.document.body.scrollTop;
+    const { scrollTop } =(document.documentElement || document.body.parentNode || document.body);
 
     this.setState({
       scrollTop: scrollTop,
