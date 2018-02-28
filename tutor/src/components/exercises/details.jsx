@@ -7,20 +7,28 @@
  */
 import _ from 'underscore';
 import React from 'react';
+import { observer } from 'mobx-react';
+import { observable, computed, action } from 'mobx';
 import BS from 'react-bootstrap';
-
+import ScrollTo from '../../helpers/scroll-to';
 import { ExerciseStore } from '../../flux/exercise';
 import { ExercisePreview } from 'shared';
 import PagingNavigation from '../paging-navigation';
 import NoExercisesFound from './no-exercises-found';
 import Icon from '../icon';
+import { ExercisesMap } from '../../models/exercises';
+import Book from '../../models/reference-book';
+import { ArrayOrMobxType } from 'shared/helpers/react';
 
+@observer
 class ExerciseDetails extends React.Component {
   static displayName = 'ExerciseDetails';
 
   static propTypes = {
-    courseId:              React.PropTypes.string.isRequired,
-    ecosystemId:           React.PropTypes.string.isRequired,
+    book:                   React.PropTypes.instanceOf(Book).isRequired,
+    exercises:              React.PropTypes.instanceOf(ExercisesMap).isRequired,
+    // courseId:              React.PropTypes.string.isRequired,
+    // ecosystemId:           React.PropTypes.string.isRequired,
     selectedExercise:      React.PropTypes.object.isRequired,
     selectedSection:       React.PropTypes.string,
     exercises:             React.PropTypes.object.isRequired,
@@ -33,100 +41,93 @@ class ExerciseDetails extends React.Component {
   };
 
   static defaultProps = { topScrollOffset: 40 };
-  state = {};
-  scrollingTargetDOM = () => { return document; };
 
-  getScrollTopOffset = () => {
-    return (
-      this.props.topScrollOffset
-    );
-  };
+  scroller = new ScrollTo({
+    windowImpl: this.props.windowImpl,
+    onAfterScroll: this.onAfterScroll,
+  });
+
+
+  @observable currentIndex;
+  @observable currentSection;
+
+  @computed get exercises() {
+    return this.props.exercises.array; //this.flattenExercises(this.props);
+  }
 
   componentDidMount() {
-    return (
-      this.scrollToSelector('.exercise-controls-bar')
-    );
+    this.scroller.scrollToSelector('.exercise-controls-bar')
   }
 
   componentWillMount() {
     let currentSection;
     const { selectedExercise } = this.props;
-    const exercises = this.flattenExercises(this.props);
     let currentIndex = (currentSection = 0);
-    for (let index = 0; index < exercises.length; index++) {
-      const exercise = exercises[index];
+    for (let index = 0; index < this.exercises.length; index++) {
+      const exercise = this.exercises[index];
       if ((selectedExercise != null ? selectedExercise.id : undefined) === exercise.id) {
-        currentIndex = index;
-        currentSection = ExerciseStore.getChapterSectionOfExercise(this.props.ecosystemId, exercise);
+        this.currentIndex = index;
+        this.currentSection = exercise.page.chapter_section.asString;
         break;
       }
     }
-    return (
-      this.setState({ exercises, currentIndex, currentSection })
-    );
   }
 
-  componentWillReceiveProps(nextProps) {
-    const exercises = this.flattenExercises(nextProps);
-    const { selectedSection } = nextProps;
-    const nextState = { exercises };
-    if (selectedSection && (selectedSection !== this.state.currentSection)) {
-      for (let index = 0; index < exercises.length; index++) {
-        const exercise = exercises[index];
-        const section = ExerciseStore.getChapterSectionOfExercise(this.props.ecosystemId, exercise);
-        if (selectedSection === section) {
-          nextState.currentSection = selectedSection;
-          nextState.currentIndex = index;
-          break;
-        }
-      }
+  // componentWillReceiveProps(nextProps) {
+  //
+  //   const { selectedSection } = nextProps;
+  //   const nextState = { exercises };
+  //   if (selectedSection && (selectedSection !== this.state.currentSection)) {
+  //     for (let index = 0; index < exercises.length; index++) {
+  //       const exercise = exercises[index];
+  //       const section = ExerciseStore.getChapterSectionOfExercise(this.props.ecosystemId, exercise);
+  //       if (selectedSection === section) {
+  //         nextState.currentSection = selectedSection;
+  //         nextState.currentIndex = index;
+  //         break;
+  //       }
+  //     }
+  //   }
+  //   return (
+  //     this.setState(nextState)
+  //   );
+  // }
+
+  // flattenExercises = () => {
+  //   const groups = this.props.exercises.grouped;
+  //   const exercises = [];
+  //   for (let section of Array.from(_.keys(groups).sort())) {
+  //     for (let exercise of Array.from(groups[section])) {
+  //       exercises.push(exercise);
+  //     }
+  //   }
+  //   return (
+  //     exercises
+  //   );
+  // };
+
+  onPrev = () => { return this.moveTo(this.currentIndex - 1); };
+  onNext = () => { return this.moveTo(this.currentIndex + 1); };
+
+  @action.bound moveTo(index) {
+    this.currentIndex = index;
+    this.exercise = this.exercises[index];
+    const section = this.exercise.page.chapter_section.asString;
+    if (this.currentSection !== section) {
+      this.currentSection = section;
+      if (this.props.onSectionChange) { this.props.onSectionChange(this.currentSection) };
     }
-    return (
-      this.setState(nextState)
-    );
   }
-
-  flattenExercises = (props) => {
-    const groups = props.exercises.grouped;
-    const exercises = [];
-    for (let section of Array.from(_.keys(groups).sort())) {
-      for (let exercise of Array.from(groups[section])) {
-        exercises.push(exercise);
-      }
-    }
-    return (
-      exercises
-    );
-  };
-
-  onPrev = () => { return this.moveTo(this.state.currentIndex - 1); };
-  onNext = () => { return this.moveTo(this.state.currentIndex + 1); };
-
-  moveTo = (index) => {
-    const exercise = this.state.exercises[index];
-    const section = ExerciseStore.getChapterSectionOfExercise(this.props.exerciseId, exercise);
-    if (this.props.onSectionChange && (this.state.currentSection !== section)) {
-      // defer is needed to allow setState to complete before callback is fired
-      // otherwise component recieves props with the new section and doesn't know it's already on it
-      // causing it to jump to the first exercise in section
-      _.defer(() => this.props.onSectionChange(section));
-    }
-    return (
-      this.setState({ currentIndex: index, currentSection: section })
-    );
-  };
 
   getValidMovements = () => {
-    return (
-      {
-        prev: this.state.currentIndex !== 0,
-        next: this.state.currentIndex !== (this.state.exercises.length - 1),
-      }
-    );
+    return {
+      prev: this.currentIndex !== 0,
+      next: this.currentIndex !== (this.exercises.length - 1),
+    };
   };
 
   render() {
-    const exercise = this.state.exercises[this.state.currentIndex] || _.first(this.state.exercises);
+    const exercise = this.exercises[this.currentIndex] || _.first(this.exercises);
     if (!exercise) {
       return (
         <NoExercisesFound />
@@ -139,37 +140,34 @@ class ExerciseDetails extends React.Component {
 
     return (
 
-      (
-        <div className="exercise-details">
-          <div className="controls">
-            <a
-              className="show-cards"
-              onClick={_.partial(this.props.onShowCardViewClick, _, exercise)}>
-              <Icon type="th-large" />
-              {' Back to Card View\
+      <div className="exercise-details">
+        <div className="controls">
+          <a
+            className="show-cards"
+            onClick={_.partial(this.props.onShowCardViewClick, _, exercise)}>
+            <Icon type="th-large" />
+            {' Back to Card View\
         '}
-            </a>
-          </div>
-          <div className="content">
-            <PagingNavigation
-              isForwardEnabled={moves.next}
-              isBackwardEnabled={moves.prev}
-              onForwardNavigation={this.onNext}
-              onBackwardNavigation={this.onPrev}
-              scrollOnNavigation={false}>
-              <ExercisePreview
-                className="exercise-card"
-                isVerticallyTruncated={false}
-                isSelected={this.props.getExerciseIsSelected(exercise)}
-                overlayActions={this.props.getExerciseActions(exercise)}
-                displayFeedback={this.props.displayFeedback}
-                exercise={exercise}
-                actionsOnSide={true} />
-            </PagingNavigation>
-          </div>
+          </a>
         </div>
-      )
-
+        <div className="content">
+          <PagingNavigation
+            isForwardEnabled={moves.next}
+            isBackwardEnabled={moves.prev}
+            onForwardNavigation={this.onNext}
+            onBackwardNavigation={this.onPrev}
+            scrollOnNavigation={false}>
+            <ExercisePreview
+              className="exercise-card"
+              isVerticallyTruncated={false}
+              isSelected={this.props.getExerciseIsSelected(exercise)}
+              overlayActions={this.props.getExerciseActions(exercise)}
+              displayFeedback={this.props.displayFeedback}
+              exercise={exercise.content}
+              actionsOnSide={true} />
+          </PagingNavigation>
+        </div>
+      </div>
     );
   }
 }

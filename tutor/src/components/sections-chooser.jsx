@@ -21,20 +21,25 @@ class Page extends React.Component {
   };
 
   isSelected = () => { return !!this.props.selections[this.props.page.id]; };
-  toggleSection = () => { return this.props.onChange({[this.props.page.id]: !this.isSelected()}); };
+
+  @action.bound toggleSection() {
+    this.props.onChange({ [this.props.page.id]: !this.isSelected() });
+  }
 
   render() {
+    const { page } = this.props;
     const classNames = classnames('section', { selected: this.isSelected() });
     return (
       <div
-        key={this.props.page.id}
         className={classNames}
-        onClick={this.toggleSection}>
+        data-page-id={page.id}
+        onClick={this.toggleSection}
+      >
         <span className="section-checkbox">
           <input type="checkbox" readOnly={true} checked={this.isSelected()} />
         </span>
-        <ChapterSection section={this.props.page.chapter_section.asString} />
-        <span className="-section-title"> {this.props.page.title}</span>
+        <ChapterSection section={page.chapter_section.asString} />
+        <span className="section-title"> {page.title}</span>
       </div>
     );
   }
@@ -49,22 +54,22 @@ class ChapterAccordion extends React.Component {
     selections: React.PropTypes.object.isRequired,
   };
 
-  @observable expanded; //= this.isAnySelected;
+  @computed get isAnySelected() {
+    return !!find(this.props.chapter.children, this.isSectionSelected);
+  }
+
+  @observable expanded = this.isAnySelected || '1' === this.props.chapter.chapter_section.asString;
 
   browseBook = (ev) => { return ev.stopPropagation(); }; // stop click from toggling the accordian
 
   isSectionSelected = (section) => { return this.props.selections[section.id]; };
 
-  @computed get isAnySelected() {
-    return !!find(this.props.chapter.children, this.isSectionSelected);
-  }
-
   toggleSectionSelections = (ev) => {
     ev.stopPropagation();
     ev.preventDefault();
-    const selected = !this.isAnySelected();
+    const selected = !this.isAnySelected;
     const newSelections = {};
-    this.props.chapter.children.forEach(pgId => newSelections[section.id] = selected);
+    this.props.chapter.children.forEach(pg => newSelections[pg.id] = selected);
     this.expanded = true;
     this.props.onChange(newSelections);
   };
@@ -79,7 +84,7 @@ class ChapterAccordion extends React.Component {
     const classNames = classnames('chapter-heading', {'empty-chapter': isEmpty(chapter.children)});
 
     return (
-      <div className={classNames} data-chapter-section={chapter.chapter_section[0]}>
+      <div className={classNames} data-chapter-section={chapter.chapter_section.chapter}>
         <span className="chapter-checkbox">
           <TriStateCheckbox type={checkBoxType} onClick={this.toggleSectionSelections} />
         </span>
@@ -108,7 +113,8 @@ class ChapterAccordion extends React.Component {
     return (
       <Accordion
         onSelect={this.onAccordianToggle}
-        activeKey={this.expanded ? chapter.id : ''}>
+        activeKey={this.expanded ? chapter.id : ''}
+      >
         <Panel key={chapter.id} header={this.renderHeader()} eventKey={chapter.id}>
           {chapter.children.map((page) =>
             <Page key={page.cnx_id} {...this.props} page={page} />)}
@@ -159,7 +165,7 @@ export default class SectionsChooser extends React.Component {
   @action.bound onSectionSelectionChange(update) {
     this.selections = extend({}, this.selections, update);
     if (this.props.onSelectionChange) {
-      this.props.onSelectionChange(this.selections);
+      this.props.onSelectionChange(this.getSelectedSectionIds(this.selections));
     }
   }
 

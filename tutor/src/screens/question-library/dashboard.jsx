@@ -22,7 +22,7 @@ class QuestionsDashboard extends React.Component {
   @observable showingDetails = false;
   @observable focusedExercise = false;
   @observable chapterIds;
-  @observable pageIds;
+  @observable pageIds = [];
 
   @action.bound onShowDetailsViewClick() {
     this.showingDetails = true;
@@ -39,7 +39,6 @@ class QuestionsDashboard extends React.Component {
   render() {
     const { exercises } = this.props;
     const classes = classnames( 'questions-dashboard', { 'is-showing-details': this.focusedExercise } );
-
     return (
       <div className={classes}>
         <LoadingDisplay exercises={exercises} />

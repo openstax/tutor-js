@@ -11,6 +11,7 @@ import ExercisePreview from './preview';
 import ScrollTo from '../../helpers/scroll-to';
 import { ExercisesMap } from '../../models/exercises';
 import Book from '../../models/reference-book';
+import { ArrayOrMobxType } from 'shared/helpers/react';
 
 @observer
 class SectionsExercises extends React.Component {
@@ -38,7 +39,7 @@ class SectionsExercises extends React.Component {
           {title}
         </label>
         <div className="exercises">
-          {map(exercises.byPage[pageId], (exercise) =>
+          {map(exercises.byPageId[pageId], (exercise) =>
             <ExercisePreview key={exercise.id} {...previewProps} exercise={exercise} />)}
         </div>
       </div>
@@ -52,7 +53,7 @@ class SectionsExercises extends React.Component {
 export default class ExerciseCards extends React.Component {
 
   static propTypes = {
-    pageIds:                React.PropTypes.array.isRequired,
+    pageIds:                ArrayOrMobxType.isRequired,
     book:                   React.PropTypes.instanceOf(Book).isRequired,
     exercises:              React.PropTypes.instanceOf(ExercisesMap).isRequired,
     onExerciseToggle:       React.PropTypes.func.isRequired,

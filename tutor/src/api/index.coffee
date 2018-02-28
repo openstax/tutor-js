@@ -26,6 +26,7 @@ PerformanceForecast = require '../flux/performance-forecast'
 {TocActions} = require '../flux/toc'
 {ExerciseActions, ExerciseStore} = require '../flux/exercise'
 {CCDashboardActions} = require '../flux/cc-dashboard'
+{default: Exercise} = require '../models/exercises/exercise'
 {default: Exercises} = require '../models/exercises'
 {default: ReferenceBook} = require '../models/reference-book'
 {default: ReferenceBookPage} = require '../models/reference-book/page';
@@ -101,11 +102,11 @@ startAPI = ->
       {url, params}
   )
 
-  connectModify(ExerciseActions,
-    pattern: 'courses/{id}/exercises', trigger: 'saveExerciseExclusion', onSuccess: 'exclusionsSaved'
-    data: ->
-      _.map ExerciseStore.getUnsavedExclusions(), (is_excluded, id) -> {id, is_excluded}
-  )
+  # connectModify(ExerciseActions,
+  #   pattern: 'courses/{id}/exercises', trigger: 'saveExerciseExclusion', onSuccess: 'exclusionsSaved'
+  #   data: ->
+  #     _.map ExerciseStore.getUnsavedExclusions(), (is_excluded, id) -> {id, is_excluded}
+  # )
 
   connectRead(TocActions, pattern: 'ecosystems/{id}/readings')
   connectRead(CourseGuideActions, pattern: 'courses/{id}/guide')
@@ -161,8 +162,6 @@ startAPI = ->
   )
 
 
-#
-  # connectRead(ReferenceBookPageActions, pattern: 'pages/{id}', trigger: 'loadSilent', handledErrors: ['*'])
   connectRead(ReferenceBookExerciseActions, url: (url) -> url)
 
   connectRead(NotificationActions,
@@ -225,6 +224,9 @@ startAPI = ->
   connectModelDelete(StudentTask, 'hide', onSuccess: 'onHidden', pattern: 'tasks/{id}')
 
   connectModelUpdate(Course, 'save', pattern: 'courses/{id}', onSuccess: 'onApiRequestComplete')
+  connectModelUpdate(Course,
+    'saveExerciseExclusion', pattern: 'courses/{id}/exercises', onSuccess: 'onExerciseExcluded'
+  )
 
   connectModelRead(CourseLMS, 'fetch', pattern: 'lms/courses/{course.id}', onSuccess: 'onApiRequestComplete')
 

@@ -7,16 +7,18 @@ import {
 import ChapterSection from './chapter-section';
 import Chapter from './reference-book/chapter';
 
-function mapPages(section, pages) {
-  if (section.isPage) {
+function mapPages(page, pages) {
+  if (page.isPage) {
     const lastPage = last(pages.byId.values());
-    if (lastPage) { lastPage.linkNextPage(section); }
-    pages.byId.set(section.id, section);
-    pages.bySection.set(section.chapter_section.asString, section);
+    if (lastPage) { lastPage.linkNextPage(page); }
+    pages.byId.set(page.id, page);
+    pages.byUUID.set(page.uuid, page);
+    pages.byChapterSection.set(page.chapter_section.asString, page);
   }
-  (section.children || []).forEach(child => {
+  (page.children || []).forEach(child => {
     mapPages(child, pages);
   });
+  return pages;
 }
 
 @identifiedBy('reference-book')
@@ -27,7 +29,14 @@ export default class ReferenceBook extends BaseModel {
   @field webview_url;
   @field({ model: ChapterSection }) chapter_section
 
-  @readonly pages = { bySection: observable.map(), byId: observable.map() };
+  @computed get pages() {
+    return mapPages(this, {
+      byId: observable.map(),
+      byUUID: observable.map(),
+      byChapterSection: observable.map(),
+    });
+  }
+
   @hasMany({ model: Chapter, inverseOf: 'book' }) children;
   @field cnx_id;
   @field short_id;
@@ -35,18 +44,12 @@ export default class ReferenceBook extends BaseModel {
   @field type;
   @field uuid;
 
-  constructor(attrs) {
-    super(attrs);
-    mapPages(this, this.pages);
-  }
-
   fetch() {
     return { id: this.id };
   }
 
   @action onApiRequestComplete({ data }) {
     this.update(data[0]);
-    mapPages(this, this.pages);
   }
 
 }

@@ -1,11 +1,11 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import { keys, first, pluck, map, isEmpty } from 'lodash';
-import { observable, action } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import { observer } from 'mobx-react';
 import { PinnedHeaderFooterCard } from 'shared';
-import { ExerciseStore, ExerciseActions } from '../../flux/exercise';
-import { TocStore } from '../../flux/toc';
 
+import { ArrayOrMobxType } from 'shared/helpers/react';
 import Icon from '../../components/icon';
 import ExerciseControls from './exercise-controls';
 import ExerciseDetails from '../../components/exercises/details';
@@ -41,7 +41,10 @@ class ExercisesDisplay extends React.Component {
   static propTypes = {
     course:      React.PropTypes.instanceOf(Course).isRequired,
     exercises:   React.PropTypes.instanceOf(ExercisesMap),
-    pageIds:     React.PropTypes.array,
+    pageIds:     ArrayOrMobxType.isRequired,
+    onShowDetailsViewClick: React.PropTypes.func.isRequired,
+    onShowCardViewClick: React.PropTypes.func.isRequired,
+    showingDetails: React.PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -51,24 +54,24 @@ class ExercisesDisplay extends React.Component {
   @observable filter = 'reading';
   @observable currentSection;
   @observable showingDetails = false;
-
-  // state = {
-  //   filter: 'reading',
-  //   showingCardsFromDetailsView: false,
-  // };
-
-  componentWillMount() { return ExerciseStore.on('change', this.update); }
-  componentWillUnmount() { return ExerciseStore.off('change', this.update); }
-  update = () => { return this.forceUpdate(); };
+  @observable displayFeedback = false;
 
   onFilterChange = (filter) => {
     this.filter = filter;
   };
 
+  @computed get chapterSections() {
+    return this.props.pageIds.map((pageId) => {
+      const pg = this.props.course.referenceBook.pages.byId.get(pageId);
+      return pg ? pg.chapter_section.asString : null;
+    });
+  }
+
   renderControls = (exercises) => {
 
     let sectionizerProps;
-    const sections = keys(exercises.all.grouped);
+
+    const sections = this.chapterSections; //keys(exercises.all.grouped);
 
     if (this.props.showingDetails) {
       sectionizerProps = {
@@ -106,18 +109,17 @@ class ExercisesDisplay extends React.Component {
   };
 
   @action.bound onShowDetailsViewClick(ev, exercise) {
-    if (!exercise) { exercise = first(ExerciseStore.get(this.props.sectionIds)); }
-    this.selectedExercise = exercise;
-    this.currentSection = exercise.chapter_section.asString;
-    this.props.onShowDetailsViewClick(ev, exercise);
+    this.selectedExercise = exercise.wrapper;
+    this.currentSection = this.selectedExercise.page.chapter_section.asString;
+    this.props.onShowDetailsViewClick(ev, this.selectedExercise);
   }
 
   @action.bound onShowCardViewClick(ev, exercise) {
     // The pinned header doesn't notice when the elements above it are unhidden
     // and will never unstick by itself.
     this.refs.controls.unPin();
-    this.fromDetailsExercise = exercise;
-    this.props.onShowCardViewClick(ev, exercise);
+    this.fromDetailsExercise = exercise.wrapper;
+    this.props.onShowCardViewClick(ev, this.fromDetailsExercise);
   }
 
   renderMinimumExclusionWarning = (minExerciseCount) => {
@@ -138,44 +140,43 @@ class ExercisesDisplay extends React.Component {
     );
   };
 
-  onExerciseToggle = (ev, exercise) => {
+  onExerciseToggle = (ev, exerciseContent) => {
+    const { exercises } = this.props;
     let minExerciseCount;
-    const isSelected = !ExerciseStore.isExerciseExcluded(exercise.id);
-    if (isSelected) {
-      const validUids = pluck(map(this.props.sectionIds, TocStore.getSectionInfo), 'uuid');
-      minExerciseCount = ExerciseStore.excludedAtMinimum(exercise, validUids);
+    const exercise = exerciseContent.wrapper;
+    // const isSelected = !ExerciseStore.isExerciseExcluded(exercise.id);
+    const is_excluded = !exercise.is_excluded;
+    if (is_excluded) {
+      minExerciseCount = exercises.isMinimumExcludedForPage(exercise.page);
     }
-    if (isSelected && (minExerciseCount !== false)) {
+
+    if (is_excluded && false !== minExerciseCount) {
       Dialog.show({
         className: 'question-library-min-exercise-exclusions',
         title: '', body: this.renderMinimumExclusionWarning(minExerciseCount),
         buttons: [
-          <BS.Button
+          <Button
             key="exclude"
             onClick={() => {
-                ExerciseActions.saveExerciseExclusion(this.props.courseId, exercise.id, isSelected);
-                return (
-                  Dialog.hide()
-                );
+              this.props.course.saveExerciseExclusion({ exercise, is_excluded });
+              Dialog.hide();
             }}
           >
             Exclude
-          </BS.Button>,
-          <BS.Button
+          </Button>,
+          <Button
             key="cancel"
             bsStyle="primary"
             onClick={function() { return Dialog.hide(); }}
             bsStyle="primary">
             Cancel
-          </BS.Button>,
+          </Button>,
         ],
       });
     } else {
-      ExerciseActions.saveExerciseExclusion(this.props.courseId, exercise.id, isSelected);
+      this.props.course.saveExerciseExclusion({ exercise, is_excluded });
     }
-    return (
-      this.forceUpdate()
-    );
+
   };
 
   getExerciseActions = (exercise) => {
@@ -204,7 +205,7 @@ class ExercisesDisplay extends React.Component {
     );
   };
 
-  addDetailsActions = (actions, exercise) => {
+  addDetailsActions = (actions) => {
     if (this.displayFeedback) {
       actions['feedback-off'] = {
         message: 'Hide Feedback',
@@ -224,7 +225,7 @@ class ExercisesDisplay extends React.Component {
     );
   };
 
-  addCardActions = (actions, exercise) => {
+  addCardActions = (actions) => {
     return (
       actions.details = {
         message: 'Question details',
@@ -233,20 +234,16 @@ class ExercisesDisplay extends React.Component {
     );
   };
 
-  reportError = (ev, exercise) => {
-    return (
-      ExerciseHelpers.openReportErrorPage(exercise, this.props.courseId, this.props.ecosystemId)
-    );
-  };
+  @action.bound reportError(ev, exercise) {
+    ExerciseHelpers.openReportErrorPage(exercise.wrapper, this.props.course);
+  }
 
   @action.bound toggleFeedback() {
-    this.displayFeedback = !this.state.displayFeedback;
-  };
+    this.displayFeedback = !this.displayFeedback;
+  }
 
   getExerciseIsSelected = (exercise) => {
-    return (
-      ExerciseStore.isExerciseExcluded(exercise.id)
-    );
+    return exercise.is_excluded;
   };
 
   renderExercises = (exercises) => {
@@ -260,7 +257,6 @@ class ExercisesDisplay extends React.Component {
       onExerciseToggle: this.onExerciseToggle,
       getExerciseActions: this.getExerciseActions,
       getExerciseIsSelected: this.getExerciseIsSelected,
-      ecosystemId: this.props.ecosystemId,
       topScrollOffset: 100,
     };
 
@@ -279,7 +275,6 @@ class ExercisesDisplay extends React.Component {
       return (
         <ExerciseCardsWrapper
           {...sharedProps}
-          watchStore={ExerciseStore}
           watchEvent="change-exercise-"
           onExerciseToggle={this.onExerciseToggle}
           focusedExerciseId={this.fromDetailsExercise ? this.fromDetailsExercise.id : undefined}
@@ -289,10 +284,9 @@ class ExercisesDisplay extends React.Component {
   };
 
   render() {
-    const { course, exercises } = this.props;
+    const { pageIds, exercises } = this.props;
+    if (exercises.api.isPending || isEmpty(pageIds)){ return null; }
 
-    // if (ExerciseStore.isLoading() || isEmpty(this.props.sectionIds)) { return null; }
-    // const exercises = ExerciseStore.groupBySectionsAndTypes(this.props.ecosystemId, this.props.sectionIds, { withExcluded: true });
     return (
       <div className="exercises-display">
         <PinnedHeaderFooterCard
@@ -301,9 +295,7 @@ class ExercisesDisplay extends React.Component {
           header={this.renderControls(exercises)}
           cardType="sections-questions"
         >
-          {this.renderExercises(
-             this.filter ? exercises[this.filter] : exercises.all
-          )}
+          {this.renderExercises(this.filter ? exercises[this.filter] : exercises.all)}
         </PinnedHeaderFooterCard>
       </div>
     );

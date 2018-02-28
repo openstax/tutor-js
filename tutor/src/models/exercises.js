@@ -4,6 +4,7 @@ import Exercise from './exercises/exercise';
 import { extend, groupBy, filter } from 'lodash';
 import { readonly } from 'core-decorators';
 
+const MIN_EXCLUDED_COUNT = 5;
 const COMPLETE = Symbol('COMPLETE');
 const PENDING = Symbol('PENDING');
 
@@ -13,8 +14,8 @@ export class ExercisesMap extends Map {
 
   @readonly fetched = observable.map();
 
-  @computed get byPage() {
-    return groupBy(this.array, 'page_id');
+  @computed get byPageId() {
+    return groupBy(this.array, 'page.id');
   }
 
   @computed get all() {
@@ -29,34 +30,48 @@ export class ExercisesMap extends Map {
     return this.where(e => e.isReading);
   }
 
+  isMinimumExcludedForPage(page) {
+    const exercises = this.byPageId[ page.id ];
+    const nonExcluded = filter(exercises, { is_excluded: false }).length;
+    if ((MIN_EXCLUDED_COUNT == nonExcluded) ||
+      (nonExcluded == 0 && exercises.length <= MIN_EXCLUDED_COUNT)
+    ) {
+      return nonExcluded;
+    } else {
+      return false;
+    }
+  }
+
   // called by API
-  fetch({ ecosystem_id, page_ids }) {
-    this.fetched.set(fetchKey(ecosystem_id, page_id), PENDING);
+  fetch({ book, page_ids }) {
+
+    page_ids.forEach(pgId => this.fetched.set(fetchKey(book.id, pgId), PENDING));
+
     return {
-      url: `ecosystems/${ecosystem_id}/exercises`,
+      url: `ecosystems/${book.id}/exercises`,
       params: { page_ids },
     };
   }
 
-  hasFetched({ ecosystem_id, page_id }) {
-    return this.fetched.has(fetchKey(ecosystem_id, page_id));
+  hasFetched({ book, page_id }) {
+    return this.fetched.has(fetchKey(book.id, page_id));
   }
 
-  isFetching({ ecosystem_id, page_id }) {
-    return this.fetched.get(fetchKey(ecosystem_id, page_id)) === PENDING;
+  isFetching({ book, page_id }) {
+    return this.fetched.get(fetchKey(book.id, page_id)) === PENDING;
   }
 
-  ensureLoaded({ ecosystem_id, page_id }) {
-    if (!this.hasFetched({ ecosystem_id, page_id })) {
-      this.fetch({ ecosystem_id, page_ids: [ page_id ] });
+  ensureLoaded({ book, page_id }) {
+    if (!this.hasFetched({ book, page_id })) {
+      this.fetch({ book, page_ids: [ page_id ] });
     }
   }
 
-  @action onLoaded(reply, [{ ecosystem_id, page_ids }]) {
-    page_ids.forEach(pgId => this.fetched.set(fetchKey(ecosystem_id, pgId), COMPLETE));
+  @action onLoaded(reply, [{ book, page_ids }]) {
+    page_ids.forEach(pgId => this.fetched.set(fetchKey(book.id, pgId), COMPLETE));
     reply.data.items.forEach((ex) => {
       const exercise = this.get(ex.id);
-      exercise ? exercise.update(ex) : this.set(ex.id, new Exercise(extend(ex, { ecosystem_id, page_ids })));
+      exercise ? exercise.update(ex) : this.set(ex.id, new Exercise(extend(ex, { book, page_ids })));
     });
   }
 

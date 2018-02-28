@@ -21,13 +21,14 @@ export default class QLSectionsChooser extends React.Component {
     onSelectionsChange: React.PropTypes.func.isRequired,
   };
 
-  @observable pageIds;
+  @observable pageIds = [];
 
-  showQuestions() {
-    this.props.exercises.fetchPages(
-      this.props.course.ecosystem_id,
-      this.pageIds,
-    );
+  @action.bound showQuestions() {
+
+    this.props.exercises.fetch({
+      book: this.props.course.referenceBook,
+      page_ids: this.pageIds.peek(),
+    });
     this.props.onSelectionsChange(this.pageIds);
   }
 
@@ -36,7 +37,7 @@ export default class QLSectionsChooser extends React.Component {
     this.props.onSelectionsChange(this.pageIds);
   }
 
-  onSectionChange(pageIds) {
+  @action.bound onSectionChange(pageIds) {
     this.pageIds = pageIds;
   }
 
@@ -50,7 +51,7 @@ export default class QLSectionsChooser extends React.Component {
             </h2>
             <BackButton
               fallbackLink={{
-                text: 'Back to Dashboard', to: 'dashboard', params: { courseId: this.props.courseId },
+                text: 'Back to Dashboard', to: 'dashboard', params: { courseId: this.props.course.id },
               }} />
           </div>
         </div>
@@ -58,12 +59,11 @@ export default class QLSectionsChooser extends React.Component {
           className="sections-list"
           id="question-library-sections-chooser"
           otherTours={['preview-question-library-sections-chooser', 'question-library-super']}
-          courseId={this.props.courseId}>
+          courseId={this.props.course.id}>
           <Chooser
             onSelectionChange={this.onSectionChange}
-            selectedSectionIds={this.pageIds}
-            ecosystemId={this.props.course.ecosystem_id}
-            chapters={TocStore.get(this.props.ecosystemId)}
+            selectedSectionIds={this.pageIds.peek()}
+            book={this.props.course.referenceBook}
           />
         </TourRegion>
         <div className="section-controls panel-footer">
