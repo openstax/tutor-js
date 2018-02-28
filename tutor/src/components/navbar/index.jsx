@@ -21,7 +21,7 @@ function DefaultNavBar({ params }) {
     <nav className="tutor-top-navbar">
       <div className="tutor-nav-controls">
         <div className="left-side-controls">
-          <TutorLink to="myCourses" className="brand">
+          <TutorLink to="myCourses" className="brand" aria-label="dashboard">
             <i className="ui-brand-logo" />
           </TutorLink>
           <BookLinks courseId={courseId} />
