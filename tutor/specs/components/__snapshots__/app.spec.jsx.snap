@@ -20,6 +20,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
             className="left-side-controls"
           >
             <a
+              aria-label="dashboard"
               className="brand"
               href="/dashboard"
               onClick={[Function]}
