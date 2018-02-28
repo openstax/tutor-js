@@ -63,7 +63,7 @@ exports[`Main navbar renders and matches snapshot 1`] = `
         </a>
         <ul
           aria-labelledby="support-menu"
-          className="dropdown-menu dropdown-menu-right dropdown-menu"
+          className="dropdown-menu"
           role="menu"
         >
           <li

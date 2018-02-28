@@ -13,11 +13,19 @@ export default class ExternalCell extends React.PureComponent {
   static propTypes = {
     className: React.PropTypes.string,
     courseId: React.PropTypes.string.isRequired,
+    period: React.PropTypes.object.isRequired,
     task: React.PropTypes.shape({
       id: React.PropTypes.number,
       type: React.PropTypes.string,
       status: React.PropTypes.string,
     }).isRequired,
+  }
+
+  renderLateIcon() {
+    if (this.props.period.course.isTeacher) {
+      return <LateIcon {...this.props} />;
+    }
+    return null;
   }
 
   renderLink({ message }) {
@@ -30,7 +38,7 @@ export default class ExternalCell extends React.PureComponent {
         <span>
           {message}
         </span>
-        <LateIcon {...this.props} />
+        {this.renderLateIcon()}
       </TutorLink>
     );
   }

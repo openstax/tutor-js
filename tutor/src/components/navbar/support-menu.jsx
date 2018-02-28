@@ -21,7 +21,7 @@ const StudentPreview = observer(({ courseId, tourContext, ...props }, { router }
     <MenuItem
       {...props}
       onClick={() => {
-        router.history.push(Router.makePathname('studentPreview'));
+          router.history.push(Router.makePathname('studentPreview'));
       }}
     >
       <TourAnchor id="student-preview-link">
@@ -163,9 +163,7 @@ export default class SupportMenu extends React.PureComponent {
             <Icon type="angle-down" className="toggle" />
           </TourAnchor>
         </Dropdown.Toggle>
-        <Dropdown.Menu
-          className="dropdown-menu dropdown-menu-right"
-        >
+        <Dropdown.Menu>
           <PageTips onPlayClick={this.onPlayTourClick} {...this.props} />
           <MenuItem
             key="nav-help-link"
