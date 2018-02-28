@@ -10,6 +10,7 @@ import User from '../../user';
 
 const PAY_LATER_CHOICE  = 'PL';
 const TRIAL_ACKNOWLEDGED = 'FTA';
+const FETCH_INITIAL_TASKS_INTERVAL = 1000 * 60; // every minute;
 const REFRESH_TASKS_INTERVAL = 1000 * 60 * 60 * 4; // every 4 hours
 
 export default class StudentCourseOnboarding extends BaseOnboarding {
@@ -76,24 +77,32 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
   @action.bound
   onPaymentComplete() {
     this.displayPayment = false;
-    // fetch tasks since they could not be fetched while student was in unpaid status
-    this.startTaskFetching();
     this.course.userStudentRecord.markPaid();
+    // fetch tasks since they could not be fetched while student was in unpaid status
+    if (!this.refreshTasksTimer) {
+      return this.fetchTaskPeriodically();
+    }
+    return Promise.resolve();
   }
 
-  @action startTaskFetching() {
-    this.fetchTasks();
-    this.refreshTasksTimer = setInterval(this.fetchTasks, REFRESH_TASKS_INTERVAL);
+  @computed get isEmptyNewStudent() {
+    return Boolean(
+      this.course.studentTasks.isEmpty && this.course.primaryRole.joinedAgo('minutes') < 30
+    );
   }
 
-  @action.bound fetchTasks() {
-    this.course.studentTasks.fetch();
+  @action.bound fetchTaskPeriodically() {
+    return this.course.studentTasks.fetch().then(() => {
+      const interval =  this.isEmptyNewStudent ?
+        FETCH_INITIAL_TASKS_INTERVAL : REFRESH_TASKS_INTERVAL;
+      this.refreshTasksTimer = setTimeout(this.fetchTaskPeriodically, interval);
+    });
   }
 
   mount() {
     super.mount();
-    if (!this.paymentIsPastDue) {
-      this.startTaskFetching();
+    if (!this.refreshTasksTimer && !this.paymentIsPastDue) {
+      this.fetchTaskPeriodically();
     }
     this.tourContext.otherModal = this;
   }
