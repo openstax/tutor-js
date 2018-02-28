@@ -1,5 +1,5 @@
 import TourConductor from '../../../src/components/tours/conductor';
-import { SpyModeContext } from 'shared/src/components/spy-mode';
+import { SpyModeContext } from 'shared/components/spy-mode';
 import User from '../../../src/models/user';
 
 jest.mock('../../../src/models/user', () => ({

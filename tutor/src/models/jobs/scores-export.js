@@ -1,11 +1,11 @@
 import {
   identifiedBy, session,
-} from '../base';
+} from 'shared/model';
 
 import moment from 'moment';
 import { observable, computed } from 'mobx';
 import Job from '../job';
-import { UiSettings } from 'shared';
+import UiSettings from 'shared/model/ui-settings';
 import { TimeStore } from '../../flux/time';
 import { Completed } from './queue';
 

@@ -1,8 +1,8 @@
 export {
   identifiedBy, identifier, belongsTo, field, computed,
-} from '../../base';
+} from 'shared/model';
 import { delay, extend, pick } from 'lodash';
-import { BaseModel, computed } from '../../base';
+import { BaseModel, computed } from 'shared/model';
 
 export class BaseAction extends BaseModel {
 

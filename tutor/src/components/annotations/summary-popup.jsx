@@ -5,7 +5,7 @@ import {action, observable, computed} from 'mobx';
 import {Button} from 'react-bootstrap';
 import Icon from '../icon';
 import Courses from '../../models/courses-map';
-import PopoutWindow from 'shared/src/components/popout-window';
+import PopoutWindow from 'shared/components/popout-window';
 
 @observer
 export default class SummaryPopup extends React.Component {

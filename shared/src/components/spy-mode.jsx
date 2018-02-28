@@ -63,4 +63,9 @@ export class SpyModeContent extends React.PureComponent {
   }
 }
 
-export { SpyModeContent as Content, SpyModeWrapper as Wrapper };
+const SpyMode = {
+  Content: SpyModeContent,
+  Wrapper: SpyModeWrapper,
+};
+
+export default SpyMode;

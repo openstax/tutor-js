@@ -2,11 +2,11 @@ import { find } from 'lodash';
 import { computed } from 'mobx';
 import {
   BaseModel, identifiedBy, field, identifier, hasMany,
-} from '../base';
+} from 'shared/model';
 
 import ReferenceBook from '../reference-book';
 import Book from './book';
-import lazyGetter from '../../helpers/lazy-getter';
+import lazyGetter from 'shared/helpers/lazy-getter';
 
 @identifiedBy('ecosystems/ecosystem')
 export default class Ecosystem extends BaseModel {

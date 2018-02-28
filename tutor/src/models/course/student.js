@@ -1,7 +1,7 @@
 import { computed, action } from 'mobx';
 import {
   BaseModel, identifiedBy, field, identifier, belongsTo,
-} from '../base';
+} from 'shared/model';
 import { TimeStore } from '../../flux/time';
 import moment from 'moment';
 import { pick } from 'lodash';

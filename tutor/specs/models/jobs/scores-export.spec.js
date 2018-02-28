@@ -1,4 +1,4 @@
-import UiSettings from 'shared/src/model/ui-settings';
+import UiSettings from 'shared/model/ui-settings';
 import Export from '../../../src/models/jobs/scores-export';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import { Completed } from '../../../src/models/jobs/queue';
@@ -9,7 +9,10 @@ jest.mock('../../../src/flux/time', () => ({
   TimeStore: { getNow: jest.fn(() => mockNowDate) },
 }));
 
-jest.mock('shared/src/model/ui-settings');
+jest.mock('shared/model/ui-settings', () => ({
+  set: jest.fn(),
+  get: jest.fn(),
+}));
 
 describe('Scores export job', () => {
 

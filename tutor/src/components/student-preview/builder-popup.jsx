@@ -6,7 +6,7 @@ import YouTube from 'react-youtube';
 import { Button } from 'react-bootstrap';
 import Icon from '../icon';
 import Courses from '../../models/courses-map';
-import PopoutWindow from 'shared/src/components/popout-window';
+import PopoutWindow from 'shared/components/popout-window';
 import StudentPreviewUX from '../../models/course/student-preview-ux';
 
 @observer

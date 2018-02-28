@@ -1,6 +1,6 @@
 import {
   BaseModel, identifiedBy, field, identifier, belongsTo, computed,
-} from '../base';
+} from 'shared/model';
 
 import User from '../user';
 

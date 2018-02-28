@@ -10,17 +10,19 @@ WrappedComponent = React.createClass
     )
 
 describe 'SuretyGuard', ->
+  props = null
+
   beforeEach ->
-    @props =
+    props =
       onConfirm: sinon.spy()
       message: 'Yo!, you sure?'
 
   it 'renders children', ->
-    Testing.renderComponent( WrappedComponent, props: @props ).then ({dom}) ->
+    Testing.renderComponent( WrappedComponent, props: props ).then ({dom}) ->
       expect(dom.textContent).to.include('i am a test link')
 
   it 'displays when clicked', (done) ->
-    Testing.renderComponent( WrappedComponent, props: @props ).then ({dom, element}) ->
+    Testing.renderComponent( WrappedComponent, props: props ).then ({dom, element}) ->
       expect(window.document.querySelector('.openstax-surety-guard')).not.to.exist
       Testing.actions.click(dom)
       _.defer ->

@@ -3,8 +3,8 @@ import { observer, propTypes as MobxPropTypes } from 'mobx-react';
 import { partial, map } from 'lodash';
 import { action } from 'mobx';
 
-import CCLogo from 'shared/src/components/logos/concept-coach-horizontal';
-import TutorLogo from 'shared/src/components/logos/tutor-horizontal';
+import CCLogo from 'shared/components/logos/concept-coach-horizontal';
+import TutorLogo from 'shared/components/logos/tutor-horizontal';
 
 import BuilderUX from '../../models/course/builder-ux';
 import { Listing, Choice } from '../choices-listing';

@@ -1,12 +1,12 @@
 import {
   BaseModel, identifiedBy, field, identifier, hasMany,
-} from './base';
+} from 'shared/model';
 import {
   sumBy, first, sortBy, find, get, endsWith, capitalize, filter, pick,
 } from 'lodash';
 import { computed, action, observable } from 'mobx';
-import lazyGetter from '../helpers/lazy-getter';
-import { UiSettings } from 'shared';
+import lazyGetter from 'shared/helpers/lazy-getter';
+import UiSettings from 'shared/model/ui-settings';
 import Offering from './course/offerings/offering';
 import Period  from './course/period';
 import Role    from './course/role';

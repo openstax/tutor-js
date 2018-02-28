@@ -1,7 +1,7 @@
 jest.mock '../../../src/helpers/exercise'
 ExerciseHelpers = require '../../../src/helpers/exercise'
 
-{React, Testing, sinon, _, ReactTestUtils} = require '../helpers/component-testing'
+{React, Testing, _, ReactTestUtils} = require '../helpers/component-testing'
 
 ExerciseDetails = require '../../../src/components/exercises/details'
 
@@ -9,32 +9,33 @@ EXERCISES = require '../../../api/exercises'
 ECOSYSTEM_ID = '1'
 
 describe 'Exercise Details Component', ->
-
+  props = {}
+  errorLinkSpy = null
 
   beforeEach ->
-    @errorLinkSpy = sinon.spy()
-    @props =
+    errorLinkSpy = jest.fn()
+    props =
       courseId: '1'
       ecosystemId: ECOSYSTEM_ID
       selectedExercise: EXERCISES.items[0]
       exercises: {grouped: { '1.1': EXERCISES.items} }
-      onExerciseToggle:      sinon.spy()
-      onShowCardViewClick:   sinon.spy()
-      getExerciseActions:    sinon.stub().returns({
+      onExerciseToggle:      jest.fn()
+      onShowCardViewClick:   jest.fn()
+      getExerciseActions:    jest.fn(() => ({
         'report-error':
           message: 'Report an error'
-          handler: @errorLinkSpy
-        })
-      getExerciseIsSelected: sinon.stub().returns(false)
+          handler: errorLinkSpy
+        }))
+      getExerciseIsSelected: jest.fn().mockReturnValue(false)
 
   it 'sends current exercise along when showing card view', ->
-    Testing.renderComponent( ExerciseDetails, props: @props ).then ({dom}) =>
+    Testing.renderComponent( ExerciseDetails, props: props ).then ({dom}) =>
       Testing.actions.click(dom.querySelector('.show-cards'))
-      expect(@props.onShowCardViewClick).to.have.been.calledWith(sinon.match.any, @props.selectedExercise)
+      expect(props.onShowCardViewClick).toHaveBeenCalledWith(expect.anything(), props.selectedExercise)
 
   it 'links to error url form', ->
-    details = mount(<ExerciseDetails {...@props} />)
+    details = mount(<ExerciseDetails {...props} />)
     expect(details).toHaveRendered('.action.report-error')
     details.find('.action.report-error').simulate('click') #prop('onClick')()
-    expect(@errorLinkSpy).to.have.been.calledWith(sinon.match.any, @props.selectedExercise)
+    expect(errorLinkSpy).toHaveBeenCalledWith(expect.anything(), props.selectedExercise)
     undefined

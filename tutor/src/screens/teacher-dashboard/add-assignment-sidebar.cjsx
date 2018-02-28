@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 isEmpty = require 'lodash/isEmpty'
 
 classnames = require 'classnames'
-{UiSettings} = require 'shared'
+UiSettings = require 'shared/model/ui-settings'
 
 {AddAssignmentLink} = require './task-dnd'
 

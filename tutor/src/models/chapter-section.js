@@ -1,6 +1,6 @@
 import {
   BaseModel, identifiedBy, session,
-} from './base';
+} from 'shared/model';
 
 import { computed } from 'mobx';
 

@@ -6,24 +6,22 @@ env:
   - OX_PROJECT=exercises
   - OX_PROJECT=shared
 
-addons:
-  apt:
-    packages:
-      - shellcheck
-      # For building kcov
-      - libcurl4-openssl-dev
-      - libelf-dev
-      - libdw-dev
-      - cmake
+# addons:
+#   apt:
+#     packages:
+#       - shellcheck
+#       # For building kcov
+#       - libcurl4-openssl-dev
+#       - libelf-dev
+#       - libdw-dev
+#       - cmake
 
 # Cache the 3rd-party packages. From https://blog.travis-ci.com/2016-11-21-travis-ci-now-supports-yarn
 cache:
   yarn: true
   directories:
     - node_modules
-
 script: ./script/ci
-
 after_failure:
   - npm list
 after_success:

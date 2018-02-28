@@ -1,4 +1,4 @@
-import UiSettings from 'shared/src/model/ui-settings';
+import UiSettings from 'shared/model/ui-settings';
 import Push from '../../../src/models/jobs/lms-score-push';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import { Completed } from '../../../src/models/jobs/queue';
@@ -9,7 +9,10 @@ jest.mock('../../../src/flux/time', () => ({
   TimeStore: { getNow: jest.fn(() => mockNowDate) },
 }));
 
-jest.mock('shared/src/model/ui-settings');
+jest.mock('shared/model/ui-settings', () => ({
+  set: jest.fn(),
+  get: jest.fn(),
+}));
 
 describe('LMS Score push job', () => {
 

@@ -27,14 +27,15 @@ COURSE_ENROLLMENT_STORE_WITHOUT_CONFLICT = {
 }
 
 describe 'ConfirmJoinCourse Component', ->
+  courseEnrollmentActions = null;
 
-  beforeEach -> @courseEnrollmentActions = { confirm: sinon.spy() }
+  beforeEach -> courseEnrollmentActions = { confirm: sinon.spy() }
 
   describe 'with conflict', ->
 
     it 'displays info about the conflicting CC course', ->
       wrapper = mount(<ConfirmJoinCourse
-        courseEnrollmentActions={@courseEnrollmentActions}
+        courseEnrollmentActions={courseEnrollmentActions}
         courseEnrollmentStore={COURSE_ENROLLMENT_STORE_WITH_CONFLICT}
         />)
       expect(wrapper.find('.conflicts li').text()).to.eq(
@@ -45,7 +46,7 @@ describe 'ConfirmJoinCourse Component', ->
 
     it 'displays info about the CC course being joined', ->
       wrapper = shallow(<ConfirmJoinCourse
-        courseEnrollmentActions={@courseEnrollmentActions}
+        courseEnrollmentActions={courseEnrollmentActions}
         courseEnrollmentStore={COURSE_ENROLLMENT_STORE_WITH_CONFLICT}
         />)
       expect(wrapper.find('.title .join').text()).to.eq('You are joining')
@@ -55,16 +56,16 @@ describe 'ConfirmJoinCourse Component', ->
 
     it 'calls confirm() on the courseEnrollmentActions object when the button is clicked', ->
       wrapper = mount(<ConfirmJoinCourse
-        courseEnrollmentActions={@courseEnrollmentActions}
+        courseEnrollmentActions={courseEnrollmentActions}
         courseEnrollmentStore={COURSE_ENROLLMENT_STORE_WITH_CONFLICT}
         />)
       wrapper.find('.btn.continue').simulate('click')
-      expect(@courseEnrollmentActions.confirm.calledOnce).to.be.true
+      expect(courseEnrollmentActions.confirm.calledOnce).to.be.true
       undefined
 
     xit 'calls confirm() on the courseEnrollmentActions object when enter is pressed', ->
       wrapper = mount(<ConfirmJoinCourse
-        courseEnrollmentActions={@courseEnrollmentActions}
+        courseEnrollmentActions={courseEnrollmentActions}
         courseEnrollmentStore={COURSE_ENROLLMENT_STORE_WITH_CONFLICT}
         />)
 
@@ -72,14 +73,14 @@ describe 'ConfirmJoinCourse Component', ->
       # http://airbnb.io/enzyme/docs/api/ShallowWrapper/simulate.html
       wrapper.simulate('keyPress', key: 'Enter')
       wrapper.find('.btn.continue').simulate('keyPress', key: 'Enter')
-      expect(@courseEnrollmentActions.confirm.called).to.be.true
+      expect(courseEnrollmentActions.confirm.called).to.be.true
       undefined
 
   describe 'without conflict', ->
 
     it 'does not display conflicting CC course info', ->
       wrapper = mount(<ConfirmJoinCourse
-        courseEnrollmentActions={@courseEnrollmentActions}
+        courseEnrollmentActions={courseEnrollmentActions}
         courseEnrollmentStore={COURSE_ENROLLMENT_STORE_WITHOUT_CONFLICT}
         />)
         expect(wrapper.find('.conflicts li').length).toEqual(0)
@@ -87,7 +88,7 @@ describe 'ConfirmJoinCourse Component', ->
 
     it 'displays info about the course being joined', ->
       wrapper = shallow(<ConfirmJoinCourse
-        courseEnrollmentActions={@courseEnrollmentActions}
+        courseEnrollmentActions={courseEnrollmentActions}
         courseEnrollmentStore={COURSE_ENROLLMENT_STORE_WITHOUT_CONFLICT}
         />)
       expect(wrapper.find('.title .join').text()).to.eq('You are joining')
@@ -97,16 +98,16 @@ describe 'ConfirmJoinCourse Component', ->
 
     it 'calls confirm() on the courseEnrollmentActions object when the button is clicked', ->
       wrapper = mount(<ConfirmJoinCourse
-        courseEnrollmentActions={@courseEnrollmentActions}
+        courseEnrollmentActions={courseEnrollmentActions}
         courseEnrollmentStore={COURSE_ENROLLMENT_STORE_WITHOUT_CONFLICT}
         />)
       wrapper.find('.btn.continue').simulate('click')
-      expect(@courseEnrollmentActions.confirm.calledOnce).to.be.true
+      expect(courseEnrollmentActions.confirm.calledOnce).to.be.true
       undefined
 
     xit 'calls confirm() on the courseEnrollmentActions object when enter is pressed', ->
       wrapper = mount(<ConfirmJoinCourse
-        courseEnrollmentActions={@courseEnrollmentActions}
+        courseEnrollmentActions={courseEnrollmentActions}
         courseEnrollmentStore={COURSE_ENROLLMENT_STORE_WITHOUT_CONFLICT}
         />)
 
@@ -114,5 +115,5 @@ describe 'ConfirmJoinCourse Component', ->
       # http://airbnb.io/enzyme/docs/api/ShallowWrapper/simulate.html
       wrapper.simulate('keyPress', key: 'Enter')
       wrapper.find('.btn.continue').simulate('keyPress', key: 'Enter')
-      expect(@courseEnrollmentActions.confirm.called).to.be.true
+      expect(courseEnrollmentActions.confirm.called).to.be.true
       undefined

@@ -1,6 +1,6 @@
 import {
   BaseModel, identifiedBy, identifier, session,
-} from './base';
+} from 'shared/model';
 import { merge, extend, defer, last } from 'lodash';
 import { action, observable, when,computed } from 'mobx';
 

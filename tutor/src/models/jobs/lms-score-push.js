@@ -1,9 +1,9 @@
 import {
   identifiedBy, session,
-} from '../base';
+} from 'shared/model';
 import { isEmpty } from 'lodash';
 import moment from 'moment';
-import { UiSettings } from 'shared';
+import UiSettings from 'shared/model/ui-settings';
 import { observable, computed, action } from 'mobx';
 import { TimeStore } from '../../flux/time';
 import { Completed } from './queue';
@@ -42,8 +42,8 @@ export default class LmsScorePush extends Job {
     UiSettings.set(LAST_PUSH, this.course.id, TimeStore.getNow().toISOString());
     const succeeded = Boolean(
       !this.hasFailed &&
-      info.data.num_callbacks &&
-      isEmpty(info.errors)
+        info.data.num_callbacks &&
+        isEmpty(info.errors)
     );
     Completed.push({ type: 'lms', succeeded, info, errors: info.errors });
   }

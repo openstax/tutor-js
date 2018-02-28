@@ -1,8 +1,9 @@
 path = require 'path'
-
 _ = require 'lodash'
 webpack = require 'webpack'
 UglifyJsPlugin = require 'uglifyjs-webpack-plugin'
+ProgressBarPlugin = require 'progress-bar-webpack-plugin'
+HardSourceWebpackPlugin = require 'hard-source-webpack-plugin'
 
 LOADERS =
   babel:  'babel-loader'
@@ -102,7 +103,7 @@ makePathsBase = (projectConfig) ->
         path.resolve(basePath, 'api')
       ]
       alias:
-        'shared': path.resolve('shared')
+        'shared': path.resolve('shared', 'src')
 
   pathConfigs
 
@@ -157,9 +158,17 @@ makeProductionWithCoverageBase = (projectConfig) ->
 
 makeDevelopmentBase = (projectConfig) ->
   host = process.env.OX_PROJECT_HOST or projectConfig.host or 'localhost'
-  servePath = "http://#{host}:#{projectConfig.devPort}"
+  port = process.env.DEV_PORT or projectConfig.devPort
+  servePath = "http://#{host}:#{port}"
   publicPath = "#{servePath}/dist/"
   outputPath = "#{projectConfig.basePath}/"
+
+  plugins = [
+    new webpack.HotModuleReplacementPlugin(),
+    new ProgressBarPlugin(),
+  ]
+
+  plugins.push(new HardSourceWebpackPlugin()) unless process.env.SOFT
 
   developmentBase =
     context: path.resolve(__dirname, '../../', projectConfig.basePath)
@@ -168,9 +177,7 @@ makeDevelopmentBase = (projectConfig) ->
       publicPath: publicPath
     module:
       rules: BASE_DEV_LOADER_RULES
-    plugins: [
-      new webpack.HotModuleReplacementPlugin()
-    ]
+    plugins: plugins
     devServer:
       contentBase: "#{projectConfig.basePath}/"
       headers:

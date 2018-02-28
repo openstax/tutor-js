@@ -2,8 +2,7 @@ import { observable, computed, action } from 'mobx';
 import bezierAnimation from '../../helpers/bezier';
 import WindowSize from '../../models/window-size';
 import WeightsUX from './weights-ux';
-
-import { UiSettings } from 'shared';
+import UiSettings from 'shared/model/ui-settings';
 import { first, isUndefined, clone, reverse } from 'lodash';
 
 const CELL_AVERAGES_SINGLE_WIDTH = 90;
@@ -82,6 +81,7 @@ export default class ScoresReportUX {
     const extraCol = this.course.isTeacher ? 1 : 0;
     const desiredWidth = this.averagesWidth +
       (this.COLUMN_WIDTH * (this.period.numAssignments + extraCol));
+
     return Math.min(
       desiredWidth, (this.windowSize.width - PADDING)
     );

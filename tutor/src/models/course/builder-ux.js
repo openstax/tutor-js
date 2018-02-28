@@ -1,6 +1,6 @@
 import {
   BaseModel, identifiedBy,
-} from '../base';
+} from 'shared/model';
 import {
   filter, result, isEmpty, pick, values, every,
 } from 'lodash';

@@ -1,6 +1,6 @@
 import {
   BaseModel, identifiedBy, belongsTo, identifier, field, session, hasMany,
-} from '../base';
+} from 'shared/model';
 
 @identifiedBy('exercises/tag')
 export default class ExerciseTag extends BaseModel {

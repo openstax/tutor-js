@@ -2,7 +2,7 @@ import { find, pick } from 'lodash';
 import { computed } from 'mobx';
 import {
   BaseModel, identifiedBy, field, identifier, belongsTo,
-} from '../base';
+} from 'shared/model';
 
 @identifiedBy('course/period')
 export default class CoursePeriod extends BaseModel {

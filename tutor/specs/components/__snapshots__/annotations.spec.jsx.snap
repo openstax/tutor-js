@@ -204,9 +204,9 @@ exports[`Annotations renders and matches snapshot 1`] = `
                   className="selected-text"
                 >
                   Hydrogen (H)
-                                  10%
-                                  trace
-                                  0.1%
+                10%
+                trace
+                0.1%
                 </blockquote>
                 <div
                   className="plain-text"

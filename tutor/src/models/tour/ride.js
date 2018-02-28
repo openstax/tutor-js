@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   BaseModel, identifiedBy, belongsTo, computed,
-} from '../base';
+} from 'shared/model';
 import { defaults } from 'lodash';
 import { action, observable } from 'mobx';
 import { filter, extend, isEmpty } from 'lodash';

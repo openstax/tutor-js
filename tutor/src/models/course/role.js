@@ -1,6 +1,6 @@
 import {
   BaseModel, identifiedBy, field, identifier,
-} from '../base';
+} from 'shared/model';
 import { computed } from 'mobx';
 import moment from 'moment';
 import { TimeStore } from '../../flux/time';

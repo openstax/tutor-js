@@ -20,35 +20,35 @@ const COURSE_ID = '0';
 const BLANK_PERIOD = 0;
 const ACTIVE_PERIOD = 1;
 
+let props = {};
+
 describe('Concept Coach Dashboard', function() {
 
   beforeEach(function() {
-
     const CourseObj = extend({}, pick(BaseModel.course, 'name', 'teachers'), {id: COURSE_ID, is_concept_coach: true});
     BaseModel.course.periods = PeriodHelper.sort(get(BaseModel.course, 'periods'));
 
     BaseModel.course.periods[BLANK_PERIOD].chapters = [];
     CCDashboardActions.loaded(BaseModel, COURSE_ID);
     Courses.bootstrap([CourseObj]);
-    return (
-        this.props = {
-          courseId: COURSE_ID,
-          initialActivePeriod: BLANK_PERIOD,
-          chapters: [],
-        }
-    );});
+    props = {
+      courseId: COURSE_ID,
+      initialActivePeriod: BLANK_PERIOD,
+      chapters: [],
+    };
+  });
 
   describe('Dashboard', function() {
     it('shows the help page for blank periods', function() {
-      const wrapper = shallow(<Dashboard {...this.props} />, Context.build());
-      expect(wrapper).toHaveRendered(`CCDashboardEmptyPeriod[courseId=\"${this.props.courseId}\"]`);
+      const wrapper = shallow(<Dashboard {...props} />, Context.build());
+      expect(wrapper).toHaveRendered(`CCDashboardEmptyPeriod[courseId=\"${props.courseId}\"]`);
     });
 
     it('show the right amount of chapters for non-empty periods', function() {
-      this.props.initialActivePeriod = ACTIVE_PERIOD;
-      const periodId = BaseModel.course.periods[this.props.initialActivePeriod].id;
+      props.initialActivePeriod = ACTIVE_PERIOD;
+      const periodId = BaseModel.course.periods[props.initialActivePeriod].id;
       const chapters = CCDashboardStore.chaptersForDisplay(COURSE_ID, periodId);
-      const wrapper = shallow(<Dashboard {...this.props} />, Context.build());
+      const wrapper = shallow(<Dashboard {...props} />, Context.build());
       expect(wrapper.find('DashboardChapter').length).to.equal(chapters.length);
       for (let chapter of Array.from(chapters)) {
         expect(wrapper).toHaveRendered(`DashboardChapter[id=\"${chapter.id}\"]`);
@@ -62,7 +62,7 @@ describe('Concept Coach Dashboard', function() {
         BaseModel.course.periods[ACTIVE_PERIOD].id
       );
       each(chapters, (chapter) => {
-        const wrapper = shallow(<Chapter {...this.props} chapter={chapter} />);
+        const wrapper = shallow(<Chapter {...props} chapter={chapter} />);
         Array.from(chapter.valid_sections).map((section) =>
           expect(wrapper).toHaveRendered(`Section[id=\"${section.id}\"]`));
       });
@@ -71,7 +71,7 @@ describe('Concept Coach Dashboard', function() {
 
   describe('Section', function() {
     beforeEach(function() {
-      this.props = {
+      props = {
         section: {
           chapter_section: [1, 2],
           completed_percentage: 1.0,
@@ -81,13 +81,13 @@ describe('Concept Coach Dashboard', function() {
     });
 
     it('shows a section without spaced practice', function() {
-      const wrapper = shallow(<Section {...this.props} />);
+      const wrapper = shallow(<Section {...props} />);
       expect(wrapper).toHaveRendered('.empty-spaced-practice');
     });
 
     it('shows a section with spaced practice', function() {
-      this.props.section.spaced_practice_performance = 0.5;
-      const wrapper = shallow(<Section {...this.props} />);
+      props.section.spaced_practice_performance = 0.5;
+      const wrapper = shallow(<Section {...props} />);
       expect(wrapper).not.toHaveRendered('.empty-spaced-practice');
     });
   });
@@ -95,7 +95,7 @@ describe('Concept Coach Dashboard', function() {
 
   describe('Section Progress Bars', function() {
     beforeEach(function() {
-      this.props = {
+      props = {
         section: {
           completed_percentage: 1.10,
         },
@@ -103,13 +103,13 @@ describe('Concept Coach Dashboard', function() {
     });
 
     it('displays as 100%', function() {
-      const wrapper = shallow(<SectionProgress {...this.props} />);
+      const wrapper = shallow(<SectionProgress {...props} />);
       expect(wrapper).toHaveRendered('ProgressBar[now=100][label="100% completed"]');
     });
 
     it('hides complete progress bar when 0% complete', function() {
-      this.props.section.completed_percentage = 0.0;
-      const wrapper = shallow(<SectionProgress {...this.props} />);
+      props.section.completed_percentage = 0.0;
+      const wrapper = shallow(<SectionProgress {...props} />);
       expect(wrapper).toHaveRendered('ProgressBar.none-completed');
     });
   });

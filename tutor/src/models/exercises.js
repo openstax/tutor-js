@@ -1,4 +1,4 @@
-import Map from './map';
+import Map from 'shared/model/map';
 import { computed, action, observable } from 'mobx';
 import Exercise from './exercises/exercise';
 import { extend, groupBy } from 'lodash';

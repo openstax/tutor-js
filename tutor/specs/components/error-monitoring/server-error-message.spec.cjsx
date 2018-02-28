@@ -4,9 +4,9 @@ ErrorMessage = require '../../../src/components/error-monitoring/server-error-me
 
 
 describe 'Error monitoring: server-error message', ->
-
+  props = {}
   beforeEach ->
-    @props =
+    props =
       status: 404
       statusMessage: "Not Found"
       config:
@@ -15,7 +15,7 @@ describe 'Error monitoring: server-error message', ->
         data: 'code: Red'
 
   it 'renders for errors with status 500', ->
-    @props.status = 500
-    wrapper = shallow(<ErrorMessage {...@props} />)
+    props.status = 500
+    wrapper = shallow(<ErrorMessage {...props} />)
     expect(wrapper.text()).to.include('500')
     undefined

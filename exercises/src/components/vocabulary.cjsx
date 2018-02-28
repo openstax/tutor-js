@@ -10,7 +10,7 @@ Tags = require 'components/vocabulary/tags'
 ExercisePreview = require 'components/exercise/preview'
 NetworkActivity = require 'components/network-activity-spinner'
 RecordNotFound  = require 'components/record-not-found'
-BSFieldGroup = require 'shared/src/components/bs-field-group'
+BSFieldGroup = require 'shared/components/bs-field-group'
 
 Vocabulary = React.createClass
   propTypes:

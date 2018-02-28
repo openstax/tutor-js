@@ -7,7 +7,7 @@ cloneDeep = require 'lodash/cloneDeep'
 EmptyFn = ->
   return undefined
 
-class FakeWindow
+defaults =
   clearInterval: EmptyFn
   setInterval: -> jest.fn( -> Math.random() )
   document:
@@ -25,8 +25,10 @@ class FakeWindow
   innerHeight: 1024
   innerWidth:  768
 
+class FakeWindow
+
   constructor: (attrs = {}) ->
-    merge(@, attrs)
+    merge(@, attrs, defaults)
     for name, method of @ when isFunction(method)
       # jest.fn(@, name) was causing some weird stack trace on the above methods...
       @[name] = jest.fn(method)
@@ -44,5 +46,9 @@ class FakeWindow
       width:  768
     @addEventListener = jest.fn()
     @removeEventListener = jest.fn()
+    @location.href = 'http://localhost:3001/dashboard'
+    @location.reload = jest.fn()
+
+
 
 module.exports = FakeWindow
