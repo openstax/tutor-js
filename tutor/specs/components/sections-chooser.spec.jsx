@@ -16,11 +16,17 @@ describe('Sections Chooser', () => {
 
   it('renders and matches snapshot', () => {
     expect(SnapShot.create(<Chooser {...props} />).toJSON()).toMatchSnapshot();
+  });
 
-    // const chooser = mount(<Chooser {...props} />);
-    // console.log(chooser.debug())
+  it('can select', () => {
+    const chooser = mount(<Chooser {...props} />);
+    chooser.find('.chapter-heading .tutor-icon').at(1).simulate('click');
+    const sectionPageIds = book.children[1].children.map(pg => pg.id);
+    expect(props.onSelectionChange).toHaveBeenCalledWith(sectionPageIds);
+    props.onSelectionChange.mockReset();
+    const pageId = book.pages.byId.keys()[8];
+    chooser.find(`[data-page-id="${pageId}"]`).simulate('click');
+    expect(props.onSelectionChange).toHaveBeenCalledWith(sectionPageIds.concat(pageId));
+  });
 
-  })
-
-
-})
+});

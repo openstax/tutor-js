@@ -1,4 +1,4 @@
-import Factory from 'object-factory-bot';
+import FactoryBot from 'object-factory-bot';
 import { each, camelCase, range } from 'lodash';
 import '../../../shared/specs/factories';
 import Course from '../../src/models/course';
@@ -17,16 +17,16 @@ each({
   Book,
 }, (Model, name) => {
   Factories[camelCase(name)] = (attrs = {}) => {
-    const o = Factory.create(name, attrs);
+    const o = FactoryBot.create(name, attrs);
     return new Model(o);
   };
 });
 
-Factories.exercisesMap = ({ ecosystem_id, pageIds, count }) => {
+Factories.exercisesMap = ({ book, pageIds, count }) => {
   const map = new ExercisesMap();
-  pageIds.forEach(pg => {
+  pageIds.forEach(pgId => {
     map.onLoaded(
-      { data: { items: range(count).map(() => Factory.create('TutorExercise')) } },
+      { data: { items: range(count).map(() => FactoryBot.create('TutorExercise')) } },
       [{ ecosystem_id, page_id: pg }]
     );
   });
@@ -34,5 +34,5 @@ Factories.exercisesMap = ({ ecosystem_id, pageIds, count }) => {
 };
 
 
-export { Factory as FactoryBot };
+export { FactoryBot };
 export default Factories;
