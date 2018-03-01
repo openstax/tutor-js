@@ -1,7 +1,7 @@
 import { observable, computed, action } from 'mobx';
 import Router from '../../helpers/router';
 import { extend } from 'lodash';
-
+import User from '../../models/user';
 import MenuToggle from '../../components/book-menu/toggle';
 import SectionTitle from './section-title';
 import AnnotationsSummaryToggle from './annotation-summary-toggle';
@@ -11,7 +11,7 @@ import WindowSize from '../../models/window-size';
 const TEACHER_CONTENT_SELECTOR = '.os-teacher';
 
 // menu width (300) + page width (1000) + 50 px padding
-// corresponds to @reference-book-page-width and @reference-book-menu-width in variables.scss
+// corresponds to @book-page-width and @book-menu-width in variables.scss
 const MENU_VISIBLE_BREAKPOINT = 1350;
 
 export default class ReferenceBookUX {
@@ -32,6 +32,10 @@ export default class ReferenceBookUX {
         if (this.activePage) { this.activePage.ensureLoaded(); }
       });
     }
+  }
+
+  @computed get allowsAnnotating() {
+    return User.canAnnotate;
   }
 
   @computed get isMenuOnTop() {

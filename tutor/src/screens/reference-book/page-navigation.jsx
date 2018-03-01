@@ -14,7 +14,7 @@ export default class ReferenceViewPageNavigation extends React.Component {
     const { ux } = this.props;
     return (
       <PagingNavigation
-        className="reference-book-page"
+        className="book-page-wrapper"
         {...ux.pagingProps}
       >
         {this.props.children}

@@ -1,5 +1,4 @@
 import React from 'react';
-import './styles.scss';
 import { inject, observer, propTypes as mobxPropTypes } from 'mobx-react';
 import { Dropdown, MenuItem } from 'react-bootstrap';
 import Ecosystems from '../../models/ecosystems';

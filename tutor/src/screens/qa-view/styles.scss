@@ -1,18 +1,13 @@
 @import '../screen-styles.scss';
+@import '../../../resources/styles/book-content/index';
+@import '../../../resources/styles/book-content/page';
 
-.screen.qa {
+.qa-view {
 
-
-
-
-  &.menu-open {
-    @media screen and (min-width: ($reference-book-page-width + $book-menu-width + 50px) ) {
-      .book-page{ margin-left: $book-menu-width; }
-    }
-  }
+  @include book-page();
 
   .exercises {
-    width: $reference-book-page-width;
+    width: $book-page-width;
     > .heading {
       display: flex;
       align-items: center;
@@ -31,7 +26,6 @@
 
         &::after{
           content: "Enter your response";
-     //     @include tutor-sans-font(1.8rem, 3rem);
           margin-left: 1rem;
           font-style: italic;
           color: lightgrey;
@@ -101,7 +95,7 @@
     }
     // hide logos when screen is narrow.
     // QA has more navbar controls so needs to be more agressive than reference book media query
-    @media screen and ( max-width: ($reference-book-page-width+300px) ){
+    @media screen and ( max-width: ($book-page-width+300px) ){
       .ui-rice-logo,
       .ui-brand-logo {
         display: none;
