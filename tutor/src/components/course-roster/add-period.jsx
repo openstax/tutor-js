@@ -17,7 +17,6 @@ class AddPeriodField extends React.PureComponent {
   static propTypes = {
     label: React.PropTypes.object.isRequired,
     name:  React.PropTypes.string.isRequired,
-    default: React.PropTypes.string,
     onChange:  React.PropTypes.func.isRequired,
     validate: React.PropTypes.func.isRequired,
     autofocus: React.PropTypes.bool,
@@ -32,7 +31,7 @@ class AddPeriodField extends React.PureComponent {
       <TutorInput
         ref="input"
         label={this.props.label}
-        default={this.props.default}
+        default={''}
         required={true}
         onChange={this.props.onChange}
         validate={this.props.validate} />
@@ -94,7 +93,6 @@ export default class AddPeriodLink extends React.PureComponent {
           <AddPeriodField
             label={<span><CourseGroupingLabel courseId={course.id} /> Name</span>}
             name="period-name"
-            default={this.period_name}
             onChange={this.onPeriodChange}
             validate={this.validate}
             autofocus={true} />
