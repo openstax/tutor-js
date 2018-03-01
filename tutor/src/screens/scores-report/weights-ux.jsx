@@ -80,7 +80,7 @@ export default class ScoresReportWeightsUX {
           .fetch();
       })
       .catch(() => {
-        // reset course weights to previous values
+        // reset course weights to previous weight values
         Object.assign(course, percentsToWeights(currentPercents));
       })
       .then(() => {
@@ -113,7 +113,7 @@ export default class ScoresReportWeightsUX {
     return this.uxPercentsAsCourseWeights;
   }
 
-  @computed get values() {
+  @computed get weightValues() {
     return pick(this, SETTINGS);
   }
 
@@ -122,7 +122,7 @@ export default class ScoresReportWeightsUX {
       toArray,
       sum,
       Math.round,
-    )(this.values);
+    )(this.weightValues);
   }
 
   @computed get isValid() {
@@ -130,7 +130,7 @@ export default class ScoresReportWeightsUX {
   }
 
   matches(comparisonSettings) {
-    return isEqual(this.values, comparisonSettings);
+    return isEqual(this.weightValues, comparisonSettings);
   }
 
   @computed get isRecommended() {

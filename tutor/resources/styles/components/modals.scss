@@ -1,9 +1,8 @@
-$modal-header-height: 75px;
 $modal-header-font-size: 16px;
 
 .modal {
-  $header-padding: ($modal-header-height - $modal-header-font-size) / 2;
-  $modal-padding: 30px;
+  $header-padding: 35px;
+  $modal-padding: 50px;
 
   .modal-content {
     border-radius: 0;
@@ -26,6 +25,9 @@ $modal-header-font-size: 16px;
     padding: 0 $modal-padding $modal-padding $modal-padding;
     border-top: 0;
     display: flex;
+    button {
+      @include button(); // openstax pattern-library
+    }
   }
 
 }
