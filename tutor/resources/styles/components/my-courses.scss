@@ -305,7 +305,7 @@ $my-courses-card-padding: 20px;
 
       .overlay {
         align-items: center;
-        background-color: fadeout($tutor-neutral-dark, 40%);
+        background-color: fade-out($tutor-neutral-dark, 0.4);
         color: $tutor-neutral-lightest;
         display: flex;
         flex-direction: column;
