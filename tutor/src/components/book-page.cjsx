@@ -4,21 +4,21 @@ ReactDOM  = require 'react-dom'
 {observer} = require 'mobx-react'
 classnames = require 'classnames'
 
-{BookContentMixin} = require '../../components/book-content-mixin'
+{BookContentMixin} = require './book-content-mixin'
 
-{default: {ReferenceBookExerciseShell}} = require './exercise'
-RelatedContent = require '../../components/related-content'
-{default: Loading} = require '../../components/loading-screen'
+{default: {BookPageExerciseShell}} = require './book-page/exercise'
+RelatedContent = require './related-content'
+{default: Loading} = require './loading-screen'
 
-Router = require '../../helpers/router'
-Dialog = require '../../components/dialog'
-{default: AnnotationWidget} = require '../../components/annotations/annotation'
-{ ReferenceBookExerciseActions, ReferenceBookExerciseStore } = require '../../flux/reference-book-exercise'
+Router = require '../helpers/router'
+Dialog = require './dialog'
+{default: AnnotationWidget} = require './annotations/annotation'
+{ ReferenceBookExerciseActions, ReferenceBookExerciseStore } = require '../flux/reference-book-exercise'
 map = require 'lodash/map'
 forEach = require 'lodash/forEach'
 
-ReferenceBookPage = React.createClass
-  displayName: 'ReferenceBookPage'
+BookPage = React.createClass
+  displayName: 'BookPage'
 
   propTypes:
     ux: React.PropTypes.object.isRequired
@@ -67,7 +67,7 @@ ReferenceBookPage = React.createClass
   renderExercise: (link) ->
     exerciseAPIUrl = link.href
     exerciseNode = link.parentNode.parentNode
-    ReactDOM.render(<ReferenceBookExerciseShell exerciseAPIUrl={exerciseAPIUrl}/>, exerciseNode) if exerciseNode?
+    ReactDOM.render(<BookPageExerciseShell exerciseAPIUrl={exerciseAPIUrl}/>, exerciseNode) if exerciseNode?
 
   render: ->
     { ux, ux: { activePage: page } } = @props
@@ -86,7 +86,7 @@ ReferenceBookPage = React.createClass
 
     <div
       className={
-        classnames('page-wrapper', @props.className,
+        classnames('book-page', @props.className,
           {'page-loading loadable is-loading': isLoading})
       }
       {...ux.courseDataProps}
@@ -103,13 +103,15 @@ ReferenceBookPage = React.createClass
         PageId: {page.cnx_id}, Ecosystem: {JSON.stringify(page?.spy)}
       </SpyMode.Content>
 
-      <AnnotationWidget
-        courseId={ux.course.id}
-        chapter={page.chapter_section.chapter}
-        section={page.chapter_section.section}
-        title={related.title}
-        documentId={page.cnx_id}
-      />
+      {ux.allowsAnnotating and (
+        <AnnotationWidget
+          courseId={ux.course.id}
+          chapter={page.chapter_section.chapter}
+          section={page.chapter_section.section}
+          title={related.title}
+          documentId={page.cnx_id}
+        />
+      )}
     </div>
 
-module.exports = observer(ReferenceBookPage)
+module.exports = observer(BookPage)

@@ -1,20 +1,24 @@
 import { observable, computed, action, autorun } from 'mobx';
-import { pick, assign, extend, uniq, flatMap } from 'lodash';
+import { readonly } from 'core-decorators';
+import { pick, assign, extend, uniq, flatMap, first } from 'lodash';
 import MenuToggle from '../../components/book-menu/toggle';
 import EcosystemSelector from './ecosystem-selector';
 import Router from '../../helpers/router';
 import Ecosystems from '../../models/ecosystems';
+import ViewToggle from './view-toggle';
 import UserMenu from '../../components/navbar/user-menu';
 import Exercises from '../../models/exercises';
 
 // menu width (300) + page width (1000) + 50 px padding
-// corresponds to @reference-book-page-width and @reference-book-menu-width in variables.scss
+// corresponds to @book-page-width and @book-menu-width in variables.scss
 const MENU_VISIBLE_BREAKPOINT = 1350;
 
 export default class QaScreenUX {
 
+  @readonly allowsAnnotating = false;
   @observable ecosystemId;
   @observable section;
+  @observable isDisplayingExercises = true;
   @observable isMenuVisible = window.innerWidth > MENU_VISIBLE_BREAKPOINT;
   @observable isShowing2StepPreview = false;
   @observable ignoredExerciseTypes = [];
@@ -23,8 +27,8 @@ export default class QaScreenUX {
     this.router = router;
     this.diposeExerciseFetcher = autorun(() => {
       if (this.ecosystem && !this.ecosystem.referenceBook.api.isFetchedOrFetching) {
-        this.ecosystem.referenceBook.fetch()
-          .then(() => { this.update({ section: '1' }); });
+        const book = this.ecosystem.referenceBook;
+        book.fetch().then(() => this.update({ section: first(book.pages.keys()) }));
       }
       if (this.ecosystem && this.activePage) {
         Exercises.ensureLoaded({ ecosystem_id: this.ecosystem.id, page_id: this.activePage.id });
@@ -87,6 +91,12 @@ export default class QaScreenUX {
     if (this.isMenuOnTop) { this.isMenuVisible = false; }
   }
 
+  checkForTeacherContent() { }
+
+  @action.bound setDisplayingPanel(el, checked) {
+    this.isDisplayingExercises = checked;
+  }
+
   sectionHref(section) {
     if (!section) { return null; }
     return Router.makePathname('QADashboard', {
@@ -124,6 +134,7 @@ export default class QaScreenUX {
       'slide-out-menu-toggle': MenuToggle,
     });
     nav.right.merge({
+      view: ViewToggle,
       ecosystems: EcosystemSelector,
       menu: UserMenu,
     });

@@ -3,7 +3,7 @@ import ReactDOMServer from 'react-dom/server';
 
 import { ReferenceBookExerciseActions, ReferenceBookExerciseStore } from '../../flux/reference-book-exercise';
 import { get } from 'lodash';
-import LoadableItem from '../../components/loadable-item';
+import LoadableItem from '../loadable-item';
 import { ArbitraryHtmlAndMath, Question } from 'shared';
 
 function ReferenceBookMissingExercise(props) {

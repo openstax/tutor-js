@@ -110,7 +110,7 @@
 
 
   &.menu-open {
-    @media screen and (min-width: ($reference-book-page-width + $book-menu-width + 50px) ) {
+    @media screen and (min-width: ($book-page-width + $book-menu-width + 50px) ) {
       .book-menu-content{ margin-left: $book-menu-width; }
     }
     .book-menu-content .ecosystem-info{

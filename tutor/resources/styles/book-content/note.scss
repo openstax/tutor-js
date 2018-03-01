@@ -112,7 +112,7 @@ $tutor-note-margin-vertical: 48px;
 }
 
 %tutor-note-plain-style {
-  $desired-iframe-inset: ($reference-book-page-width - $tutor-interactive-iframe-width) / 2;
+  $desired-iframe-inset: ($book-page-width - $tutor-interactive-iframe-width) / 2;
 
   background: none;
   padding: 20px 0;

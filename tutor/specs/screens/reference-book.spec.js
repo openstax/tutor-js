@@ -39,7 +39,7 @@ describe('Reference Book Component', function() {
 
   it('renders the section title on the navbar', () => {
     const book = mount(<ReferenceBook {...props} />, EnzymeContext.build());
-    expect(book).toHaveRendered('ReferenceBookPage');
+    expect(book).toHaveRendered('BookPage');
   });
 
   it('renders page html that matches snapshot', function() {
