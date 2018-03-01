@@ -14,7 +14,19 @@ describe('My Courses', () => {
         const snapshot = await snapshotPage(page, 'my-courses');
         expect(snapshot).toMatchPreviousPage();
       });
+
     });
+  });
+
+  it('displays pending for non-verified instructor', async () => {
+    const page = await openPage('/dashboard', { role: 'teacher' });
+    await page.evaluate(() => {
+      _MODELS.COURSES.clear();
+      _MODELS.USER.faculty_status = 'pending';
+      _MODELS.USER.self_reported_role = 'instructor';
+    });
+    const snapshot = await snapshotPage(page, 'my-courses-pending-verification');
+    expect(snapshot).toMatchPreviousPage();
   });
 
 });
