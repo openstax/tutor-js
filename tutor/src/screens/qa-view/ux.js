@@ -2,6 +2,7 @@ import { observable, computed, action, autorun } from 'mobx';
 import { pick, assign, extend, uniq, flatMap } from 'lodash';
 import MenuToggle from '../../components/book-menu/toggle';
 import EcosystemSelector from './ecosystem-selector';
+import
 import Router from '../../helpers/router';
 import Ecosystems from '../../models/ecosystems';
 import UserMenu from '../../components/navbar/user-menu';

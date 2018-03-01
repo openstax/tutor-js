@@ -108,7 +108,7 @@ const getRoutes = (router) => {
       name: 'QADashboard',
       path: '/qa/:ecosystemId?/:section?',
       settings: { navBar: 'Plugable' },
-      renderer: loadAsync(() => System.import('./screens/qa/index.jsx')),
+      renderer: loadAsync(() => System.import('./screens/qa-view/index.jsx')),
     },
     {
       path: '/course/:courseId', name: 'dashboard', renderer:  ConditionalHandlers.dashboard,
