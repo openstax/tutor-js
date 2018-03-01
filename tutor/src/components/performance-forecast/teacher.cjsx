@@ -1,8 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-
-TutorLink = require '../link'
-
+BackButton = require('../buttons/back-button')
+Router = require('../../helpers/router')
 _ = require 'underscore'
 
 {default: CoursePeriodsNavShell} = require '../course-periods-nav'
@@ -37,11 +36,9 @@ module.exports = React.createClass
           <div className='guide-group-key teacher'>
             <ColorKey />
           </div>
-          <TutorLink activeClassName='' to='dashboard'
-            className='btn btn-default back'
-            params={courseId: @props.courseId}>
-            Return to Dashboard
-          </TutorLink>
+          <BackButton
+            fallbackLink={{ to: 'dashboard', text: 'Back to Dashboard', params: Router.currentParams() }}
+          />
         </div>
       </div>
       <CoursePeriodsNavShell

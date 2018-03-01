@@ -1,7 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-
-TutorLink = require '../link'
+BackButton = require('../buttons/back-button')
+Router = require('../../helpers/router')
 _ = require 'underscore'
 
 PerformanceForecast = require '../../flux/performance-forecast'
@@ -28,13 +28,9 @@ module.exports = React.createClass
           </div>
           <ColorKey />
         </div>
-
-        <TutorLink to='dashboard' className='btn btn-default back'
-          params={courseId: @props.courseId}
-        >
-          Return to Dashboard
-        </TutorLink>
-
+        <BackButton
+          fallbackLink={{ to: 'dashboard', text: 'Back to Dashboard', params: Router.currentParams() }}
+        />
       </div>
     </div>
 

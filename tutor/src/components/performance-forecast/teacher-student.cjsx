@@ -1,10 +1,9 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-
+BackButton = require('../buttons/back-button')
+Router = require('../../helpers/router')
 _ = require 'underscore'
 
-Router = require '../../helpers/router'
-TutorLink = require '../link'
 Name = require '../name'
 BindStoreMixin = require '../bind-store-mixin'
 PerformanceForecast = require '../../flux/performance-forecast'
@@ -61,11 +60,9 @@ module.exports = React.createClass
         </BS.DropdownButton>
         <InfoLink type='teacher_student'/>
       </div>
-      <TutorLink activeClassName='' to='viewScores'
-        className='btn btn-default back'
-        params={courseId: @props.courseId}>
-        Return to Scores
-      </TutorLink>
+      <BackButton
+        fallbackLink={{ to: 'dashboard', text: 'Back to Dashboard', params: Router.currentParams() }}
+      />
     </div>
 
   renderWeakerExplanation: ->
