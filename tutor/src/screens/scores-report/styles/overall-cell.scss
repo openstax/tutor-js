@@ -26,7 +26,7 @@
       &.averages-toggle {
         position: absolute;
         top: 6px;
-        right: -22px;
+        right: 0;
         background-color: white;
         height: 42px;
         width: 20px;
@@ -35,10 +35,10 @@
         align-items: center;
         z-index: 2;
 
-        border-bottom-right-radius: 2px;
-        border-top-right-radius: 2px;
+        border-bottom-left-radius: 2px;
+        border-top-left-radius: 2px;
 
-        border-right: 1px solid $tutor-neutral-light;
+        border-left: 1px solid $tutor-neutral-light;
         border-top: 1px solid $tutor-neutral-light;
         border-bottom: 1px solid $tutor-neutral-light;
 
@@ -100,13 +100,13 @@
       display: flex;
       justify-content: space-around;
       border-right: $scores-thin-grey-border;
+      transition: min-width 100ms linear;
     }
     .homework,
     .reading {
       min-width: $scores-overall-values-width * 2;
       flex-basis: $scores-overall-values-width * 2;
     }
-
   }
   .labels {
     font-size: 1.4rem;
@@ -115,6 +115,22 @@
       line-height: $scores-row-height / 2;
     }
     border-top: 0;
+  }
+
+  &:not(.is-expanded) {
+    .labels,
+    .values
+    {
+      > * {
+        min-width: $scores-overall-values-closed-width;
+        flex-basis: $scores-overall-values-closed-width;
+      }
+      .homework,
+      .reading {
+        min-width: $scores-overall-values-closed-width * 2;
+        flex-basis: $scores-overall-values-closed-width * 2;
+      }
+    }
   }
 }
 
@@ -141,6 +157,7 @@
       text-align: center;
       align-items: center;
       justify-content: center;
+      transition: min-width 100ms linear;
     }
 
     .course {
@@ -152,6 +169,20 @@
     .reading {
       min-width: $scores-overall-values-width * 2;
       flex-basis: $scores-overall-values-width * 2;
+    }
+  }
+
+  &:not(.is-expanded) {
+    .public_fixedDataTableCell_cellContent {
+      .course {
+        min-width: $scores-overall-values-closed-width;
+        flex-basis: $scores-overall-values-closed-width;
+      }
+      .homework,
+      .reading {
+        min-width: $scores-overall-values-closed-width * 2;
+        flex-basis: $scores-overall-values-closed-width * 2;
+      }
     }
   }
 }

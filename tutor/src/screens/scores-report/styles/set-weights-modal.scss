@@ -1,8 +1,28 @@
+$modal-header-font-size: 16px;
+
+$set-weights-modal-header-height: 75px;
+$set-weights-modal-header-padding: ($set-weights-modal-header-height - $modal-header-font-size) / 2;
+$set-weights-modal-padding: 30px;
+$set-weights-modal-button-height: 40px;
+
 .set-weights.modal {
   font-size: 1.6rem;
 
   .modal-header {
     font-weight: bolder;
+    padding: $set-weights-modal-header-padding $set-weights-modal-padding;
+  }
+
+  .modal-body {
+    padding: $set-weights-modal-padding;
+  }
+
+  .modal-footer {
+    padding: 0 $set-weights-modal-padding $set-weights-modal-padding $set-weights-modal-padding;
+
+    button {
+      height: $set-weights-modal-button-height;
+    }
   }
 
   @media (min-width: $screen-sm-min) {
@@ -20,6 +40,10 @@
   .header {
     text-align: right;
     @include tutor-sans-light-font(14px);
+  }
+
+  .weights-controls--wrapper {
+    margin: 30px 70px 20px 70px;
   }
 
   .weight {
@@ -45,9 +69,20 @@
     }
   }
 
+  .weights-set {
+    display: flex;
+    justify-content: flex-end;
+    min-height: 21px;
+
+    .btn-link {
+      padding: 0;
+    }
+  }
+
   .weights-msg {
     color: $dull-blue;
     line-height: 2rem;
+    margin: 20px 0 0 0;
 
     &.invalid {
       color: $form-error-color;

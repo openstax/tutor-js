@@ -1,4 +1,5 @@
 import React from 'react';
+import cn from 'classnames';
 import { Cell } from 'fixed-data-table-2';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { asPercent } from '../../helpers/string';
@@ -6,7 +7,7 @@ import { asPercent } from '../../helpers/string';
 const OverallCell = observer(({ ux, students, rowIndex }) => {
   const s = students[rowIndex];
   return (
-    <Cell className="overall-cell">
+    <Cell className={cn('overall-cell', { 'is-expanded': ux.isAveragesExpanded })}>
       <div className="course">
         {asPercent(s.course_average)}%
       </div>
