@@ -5,13 +5,14 @@ import CourseUX from '../../../../src/models/course/onboarding/student-course';
 import UiSettings from 'shared/model/ui-settings';
 import User from '../../../../src/models/user';
 import Payments from '../../../../src/models/payments';
-
+import StudentTasks from '../../../../src/models/student-tasks';
 jest.mock('shared/model/ui-settings', () => ({
   set: jest.fn(),
   get: jest.fn(),
 }));
 jest.mock('../../../../src/models/course');
-jest.mock('../../../../src/models/payments' );
+jest.mock('../../../../src/models/payments');
+
 jest.useFakeTimers();
 
 describe('Full Course Onboarding', () => {
@@ -21,10 +22,10 @@ describe('Full Course Onboarding', () => {
     UiSettings.get.mockImplementation(() => undefined);
     User.terms_signatures_needed = false;
     ux = new CourseUX(
-      new Course,
+      new Course({ id: 1 }),
       { tour: null },
     );
-    ux.course.studentTasks = { fetch: jest.fn(), };
+    ux.course.studentTasks = { fetch: jest.fn(() => Promise.resolve()) };
   });
 
   afterEach(() => {
@@ -55,7 +56,6 @@ describe('Full Course Onboarding', () => {
 
   it('#onPaymentComplete', () => {
     ux.course.needsPayment = true;
-    ux.course.studentTasks = { fetch: jest.fn() };
     ux.payNow();
     ux.course.userStudentRecord = {
       markPaid: jest.fn(),
@@ -85,16 +85,15 @@ describe('Full Course Onboarding', () => {
     expect(ux.paymentIsPastDue).toBe(true);
     ux.mount();
     expect(ux.course.studentTasks.fetch).not.toHaveBeenCalled();
-    ux.onPaymentComplete();
-    expect(setInterval).toHaveBeenCalled();
-    expect(ux.course.studentTasks.fetch).toHaveBeenCalledTimes(1);
-    expect(ux.refreshTasksTimer).not.toBeNull();
-    jest.runOnlyPendingTimers();
-    expect(ux.course.studentTasks.fetch).toHaveBeenCalledTimes(2);
-    ux.close();
-    expect(ux.refreshTasksTimer).toBeNull();
-    jest.runAllTimers();
-    expect(ux.course.studentTasks.fetch).toHaveBeenCalledTimes(2);
+    return ux.onPaymentComplete().then(() => {
+      expect(ux.course.studentTasks.fetch).toHaveBeenCalledTimes(1);
+      expect(setTimeout).toHaveBeenCalledWith(ux.fetchTaskPeriodically, expect.any(Number));
+      jest.runOnlyPendingTimers();
+      expect(ux.course.studentTasks.fetch).toHaveBeenCalledTimes(2);
+      ux.close();
+      expect(ux.refreshTasksTimer).toBeNull();
+    });
+
   });
 
 });

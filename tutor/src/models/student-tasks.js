@@ -13,7 +13,6 @@ const POLL_SECONDS = 30;
 export class CourseStudentTasks extends Map {
   @readonly static Model = Task;
 
-  @observable _updatesPoller;
   @observable researchSurveys;
 
   constructor(courseId) {
@@ -43,10 +42,6 @@ export class CourseStudentTasks extends Map {
   // Returns events who's due date has not passed
   upcomingEvents(now = TimeStore.getNow()) {
     return sortBy(filter(this.array, event => event.due_at > now), 'due_at');
-  }
-
-  @computed get isFetchingInitialUpdates() {
-    return Boolean(this.array.length == 0 && this._updatesPoller);
   }
 
   // note: the response also contains limited course and role information but they're currently unused

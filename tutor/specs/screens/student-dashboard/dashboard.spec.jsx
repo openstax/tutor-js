@@ -1,6 +1,7 @@
 import {React, SnapShot, Wrapper} from '../../components/helpers/component-testing';
 import Dashboard from '../../../src/screens/student-dashboard/dashboard';
 import StudentTasks from '../../../src/models/student-tasks';
+import ux from '../../../src/models/course/onboarding/student-course.js';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import chronokinesis from 'chronokinesis';
 import moment from 'moment-timezone';
@@ -36,7 +37,11 @@ describe('Student Dashboard', () => {
   });
 
   it('matches snapshot', function() {
-    const component = SnapShot.create(<Wrapper _wrapped_component={Dashboard} {...props} />);
+    const ux = { isEmptyNewStudent: false };
+    const component = SnapShot.create(
+      <Wrapper injected={{ studentDashboardUX: ux }}
+        _wrapped_component={Dashboard} {...props} />
+    );
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });

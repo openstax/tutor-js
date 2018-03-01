@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { observable, computed, action, observe } from 'mobx';
-import { observer, inject } from 'mobx-react';
+import { observer, inject, Provider } from 'mobx-react';
 import StudentDashboard from './dashboard';
 import CourseNagModal from '../../components/onboarding/course-nag';
 import TermsModal from '../../components/terms-modal';
@@ -59,11 +59,13 @@ export default class StudentDashboardShell extends React.PureComponent {
     if (this.ux.paymentIsPastDue) { return <CourseNagModal ux={this.ux} />; }
 
     return (
-      <div className="student-dashboard ">
-        <TermsModal />
-        <CourseNagModal ux={this.ux} />
-        <StudentDashboard params={params} courseId={courseId} />
-      </div>
+      <Provider studentDashboardUX={this.ux}>
+        <div className="student-dashboard ">
+          <TermsModal />
+          <CourseNagModal ux={this.ux} />
+          <StudentDashboard params={params} courseId={courseId} />
+        </div>
+      </Provider>
     );
   }
 }
