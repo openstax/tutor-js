@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { SpyMode } from 'shared';
 
 import Menu from '../../components/book-menu/menu';
-import Page from './page';
+import Page from '../../components/book-page';
 import ReferenceViewPageNavigation from './page-navigation';
 import UX from './ux';
 
