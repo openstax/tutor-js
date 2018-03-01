@@ -1,5 +1,6 @@
 import { React, SnapShot, Wrapper } from '../../components/helpers/component-testing';
 import { map, sortBy } from 'lodash';
+import Courses from '../../../src/models/courses-map';
 import bootstrapScores from '../../helpers/scores-data';
 import EnzymeContext from '../../components/helpers/enzyme-context';
 import Scores from '../../../src/screens/scores-report/index';
@@ -36,9 +37,14 @@ describe('Scores Report', function() {
     course.scores.periods.clear();
   });
 
-  it('renders', function() {
+  it('sorts', function() {
     const wrapper = mount(<Scores {...props} />, EnzymeContext.build());
-    expect(getStudentNames(wrapper)).to.deep.equal(map(period.students, 'name'));
+    wrapper.find('.header-cell.sortable').at(1).simulate('click');
+    const sorter = Sorter({ sort: { key: 0, dataType: 'score' }, displayAs: 'percentage' });
+    const sorted = map(sortBy(period.students, sorter).reverse(), 'name');
+    expect(getStudentNames(wrapper)).to.deep.equal(sorted);
+    wrapper.find('.header-cell.sortable').at(1).simulate('click');
+    expect(getStudentNames(wrapper)).to.deep.equal(sorted.reverse());
     wrapper.unmount();
   });
 
@@ -51,14 +57,20 @@ describe('Scores Report', function() {
     scores.unmount();
   });
 
-  it('sorts', function() {
+  it('renders', function() {
     const wrapper = mount(<Scores {...props} />, EnzymeContext.build());
-    wrapper.find('.header-cell.sortable').at(1).simulate('click');
-    const sorter = Sorter({ sort: { key: 0, dataType: 'score' }, displayAs: 'percentage' });
-    const sorted = sortBy(period.students, sorter).reverse();
-    expect(getStudentNames(wrapper)).to.deep.equal(map(sorted, 'name'));
-    wrapper.find('.header-cell.sortable').at(1).simulate('click');
-    expect(getStudentNames(wrapper)).to.deep.equal(map(sorted.reverse(), 'name'));
+    expect(getStudentNames(wrapper)).to.deep.equal(map(period.students, 'name'));
+    wrapper.unmount();
+  });
+
+  it('displays empty', () => {
+    course.scores.periods.get(course.scores.periods.keys()[0]).students.clear();
+    const wrapper = mount(<Scores {...props} />, EnzymeContext.build());
+    expect(wrapper.text())
+      .toContain('there are no assignments to score');
+    course.roles[0].type = 'student';
+    expect(wrapper.text())
+      .toContain('You don’t have any assignments yet. Once your instructor posts an assignment');
     wrapper.unmount();
   });
 
