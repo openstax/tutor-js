@@ -56,6 +56,8 @@ export default class ScoresTable extends React.PureComponent {
       sort: this.props.sort,
       displayAs: this.props.displayAs,
     }));
+    window.students = students;
+    window.course = this.props.ux.course;
     return this.props.sort.asc ? students : students.reverse();
   }
 

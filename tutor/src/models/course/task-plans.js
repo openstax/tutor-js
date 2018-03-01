@@ -68,6 +68,18 @@ export default class CourseTaskPlans extends Map {
     return this.where(plan => plan.type === 'homework');
   }
 
+  @computed get pastDue() {
+    return this.where(plan => plan.isPastDue);
+  }
+
+  withPeriodId(periodId) {
+    return this.where(plan => find(plan.tasking_plans.peek(), { target_id: periodId }));
+  }
+
+  pastDueWithPeriodId(periodId) {
+    return this.where(plan => plan.isPastDueWithPeriodId(periodId));
+  }
+
   // called from api
   fetch() { }
   onLoaded({ data: { plans } }) {

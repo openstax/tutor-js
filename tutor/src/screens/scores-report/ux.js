@@ -15,6 +15,9 @@ const ROW_HEIGHT = 50;
 const TABLE_PADDING = 18;
 const WINDOW_HEIGHT_PADDING = 260;
 
+const NOT_AVAILABLE_AVERAGE = 'n/a';
+const PENDING_AVERAGE = '---';
+
 export default class ScoresReportUX {
 
   COLUMN_WIDTH = 170;
@@ -45,12 +48,47 @@ export default class ScoresReportUX {
 
   constructor(course) {
     this.course = course;
+    course.taskPlans.fetch({});
   }
 
   @computed get period() {
     return this.course.scores.periods.get(
       this.course.periods.active[this.periodIndex].id
     );
+  }
+
+  isAverageUnavailableByType(type) {
+    return !this.course.taskPlans[type].any;
+  }
+
+  isAverageUnavailableByTypeForPeriod(type) {
+    return !this.course.taskPlans[type].withPeriodId(this.period.id).any;
+  }
+
+  isAveragePendingByType(type) {
+    return !this.course.taskPlans[type].pastDue.any;
+  }
+
+  isAveragePendingByTypeForPeriod(type) {
+    return !this.course.taskPlans[type].pastDueWithPeriodId(this.period.id).any;
+  }
+
+  @computed get readingNullAverage() {
+    const type = 'reading';
+    if (this.isAverageUnavailableByTypeForPeriod(type)) {
+      return NOT_AVAILABLE_AVERAGE;
+    } else if (isAveragePendingByTypeForPeriod(type)) {
+      return PENDING_AVERAGE;
+    }
+  }
+
+  @computed get homeworkNullAverage() {
+    const type = 'homework';
+    if (this.isAverageUnavailableByTypeForPeriod(type)) {
+      return NOT_AVAILABLE_AVERAGE;
+    } else if (isAveragePendingByTypeForPeriod(type)) {
+      return PENDING_AVERAGE;
+    }
   }
 
   @computed get data() {
