@@ -36,7 +36,7 @@ export ExerciseIdentifierLink from './components/exercise-identifier-link';
 export ExerciseHelpers from './model/exercise';
 export ExercisePreview from './components/exercise-preview';
 
-export TaskHelper from './helpers/task';
+export { TaskHelper } from './helpers/task';
 export StepHelpsHelper from './helpers/step-helps';
 export propHelpers from './helpers/props';
 export Logging from './helpers/logging';
@@ -54,5 +54,5 @@ export Question from './components/question';
 export RefreshButton from './components/buttons/refresh-button';
 export ResizeListenerMixin from './components/resize-listener-mixin';
 export SmartOverflow from './components/smart-overflow';
-export SpyMode from './components/spy-mode';
+export { default as SpyMode } from './components/spy-mode';
 export HandleBodyClassesMixin from './components/handle-body-classes-mixin';

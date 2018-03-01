@@ -254,4 +254,6 @@ const mapSteps = task =>
   )
 ;
 
-export { mapSteps };
+const TaskHelper = { mapSteps };
+
+export { mapSteps, TaskHelper };
