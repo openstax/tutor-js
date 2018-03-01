@@ -78,12 +78,21 @@ export default class ScoresTable extends React.PureComponent {
   }
 
   renderNoAssignments() {
+    const message = this.props.ux.course.isTeacher ? (
+      <p>
+        Students have enrolled in this <CGL lowercase courseId={this.courseId} />, but there are no assignments to score.  Add an assignment from your <TutorLink to="dashboard" params={{ courseId: this.courseId }}>dashboard</TutorLink>.
+      </p>
+    ) : (
+      <p>
+        You don’t have any assignments yet. Once your instructor posts an assignment,
+        you’ll see your progress and scores here.
+      </p>
+    );
+
     return (
       <div className="course-scores-container" ref="tableContainer">
         <div className="no-assignments">
-          <p>
-            Students have enrolled in this <CGL lowercase courseId={this.courseId} />, but there are no assignments to score.  Add an assignment from your <TutorLink to="dashboard" params={{ courseId: this.courseId }}>dashboard</TutorLink>.
-          </p>
+          {message}
           <TutorLink primaryBtn to="dashboard" params={{ courseId: this.courseId }}>Back to dashboard</TutorLink>
         </div>
       </div>
