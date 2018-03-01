@@ -87,7 +87,7 @@ describe('Full Course Onboarding', () => {
     expect(ux.course.studentTasks.fetch).not.toHaveBeenCalled();
     return ux.onPaymentComplete().then(() => {
       expect(ux.course.studentTasks.fetch).toHaveBeenCalledTimes(1);
-      expect(setTimeout).toHaveBeenCalledWith(ux.fetchTaskPeriodically, 60000);
+      expect(setTimeout).toHaveBeenCalledWith(ux.fetchTaskPeriodically, expect.any(Number));
       jest.runOnlyPendingTimers();
       expect(ux.course.studentTasks.fetch).toHaveBeenCalledTimes(2);
       ux.close();
