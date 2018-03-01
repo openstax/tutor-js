@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import OXColoredStripe from 'shared/components/ox-colored-stripe';
-import { forceReload } from '../../helpers/reload';
+import { isReloaded, reloadOnce, forceReload } from '../../helpers/reload';
 
 export default class AsyncLoadError extends React.PureComponent {
 
@@ -9,7 +9,13 @@ export default class AsyncLoadError extends React.PureComponent {
     error: React.PropTypes.object.isRequired,
   }
 
+  componentWillMount() { 
+    reloadOnce();  
+  }
+
   render() {
+    if (!isReloaded()) { return null; }
+
     return (
       <div className="invalid-page">
         <OXColoredStripe />
