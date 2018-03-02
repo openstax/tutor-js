@@ -61,19 +61,19 @@ export default class ScoresReportUX {
   }
 
   isAverageUnavailableByType(type) {
-    return !this.course.taskPlans[type].open.any;
+    return !this.course.taskPlans[type].any;
   }
 
   isAverageUnavailableByTypeForPeriod(type) {
-    return !this.course.taskPlans[type].open.withPeriodId(this.period.period_id).any;
+    return !this.course.taskPlans[type].withPeriodId(this.period.period_id).any;
   }
 
   isAveragePendingByType(type) {
-    return !this.course.taskPlans[type].open.pastDue.any;
+    return !this.course.taskPlans[type].pastDue.any;
   }
 
   isAveragePendingByTypeForPeriod(type) {
-    return !this.course.taskPlans[type].open.pastDueWithPeriodId(this.period.period_id).any;
+    return !this.course.taskPlans[type].pastDueWithPeriodId(this.period.period_id).any;
   }
 
   nullAverageByType(type) {
