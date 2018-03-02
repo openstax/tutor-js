@@ -45,6 +45,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -68,7 +75,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are too small to be seen with the naked eye, and</li>
+  <li>there is the involvement of only a weak gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -93,7 +113,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -118,7 +151,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -143,7 +189,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a weak gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -168,7 +227,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are too small to be seen with the naked eye, and</li>
+  <li>there is the involvement of only a weak gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -181,6 +253,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -258,6 +337,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "How could physics be useful in weather prediction?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -281,7 +367,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting dynamics and movement of weather phenomena.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -306,7 +400,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting how burning fossil fuel releases pollutants.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -331,7 +433,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting how the flowing water affects Earth’s surface.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -356,7 +466,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting the motion of tectonic plates.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -381,7 +499,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting dynamics and movement of weather phenomena.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -394,6 +520,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -471,6 +604,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "<b>Meter-area reduction in copper</b> - does it affect the speed of light, etc?",
+                    }
+                  }
+                />
+                <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "In what sense does Einstein’s theory of relativity illustrate that physics describes fundamental aspects of our universe?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -494,7 +641,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how speed affects different observers’ measurements of time and space.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -519,7 +674,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how a frame of reference is necessary to describe position or motion.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -544,7 +707,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how people think of other people’s views from their own frame of reference.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -569,7 +740,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how different parts of the universe are far apart and do not affect each other",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -594,7 +773,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how speed affects different observers’ measurements of time and space.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -607,6 +794,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -684,6 +878,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Can classical physics be used to accurately describe a satellite moving at a speed of? Explain why or why not.",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -707,7 +908,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -732,7 +941,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and it is not in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -757,7 +974,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -782,7 +1007,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is not in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -807,7 +1040,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -820,6 +1061,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -918,6 +1166,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Which statement best compares and contrasts the aims and topics of natural philosophy had versus physics?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -941,7 +1196,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy and physics are different.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -966,7 +1229,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy included all aspects of nature excluding physics.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -991,7 +1262,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy included all aspects of nature including physics.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -1016,7 +1295,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy and physics are essentially the same thing.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -1041,7 +1328,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy and physics are different.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -1054,6 +1349,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -1131,6 +1433,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -1154,7 +1463,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -1179,7 +1501,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -1204,7 +1539,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a weak gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -1229,7 +1577,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are too small to be seen with the naked eye, and</li>
+  <li>there is the involvement of only a weak gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -1254,7 +1615,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -1267,6 +1641,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -1344,6 +1725,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "How could physics be useful in weather prediction?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -1367,7 +1755,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting how burning fossil fuel releases pollutants.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -1392,7 +1788,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting how the flowing water affects Earth’s surface.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -1417,7 +1821,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting the motion of tectonic plates.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -1442,7 +1854,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting dynamics and movement of weather phenomena.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -1467,7 +1887,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting how burning fossil fuel releases pollutants.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -1480,6 +1908,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -1557,6 +1992,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "<b>Meter-area reduction in copper</b> - does it affect the speed of light, etc?",
+                    }
+                  }
+                />
+                <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "In what sense does Einstein’s theory of relativity illustrate that physics describes fundamental aspects of our universe?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -1580,7 +2029,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how a frame of reference is necessary to describe position or motion.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -1605,7 +2062,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how people think of other people’s views from their own frame of reference.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -1630,7 +2095,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how different parts of the universe are far apart and do not affect each other",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -1655,7 +2128,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how speed affects different observers’ measurements of time and space.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -1680,7 +2161,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how a frame of reference is necessary to describe position or motion.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -1693,6 +2182,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -1791,6 +2287,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Can classical physics be used to accurately describe a satellite moving at a speed of? Explain why or why not.",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -1814,7 +2317,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and it is not in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -1839,7 +2350,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -1864,7 +2383,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is not in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -1889,7 +2416,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -1914,7 +2449,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and it is not in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -1927,6 +2470,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -2004,6 +2554,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Which statement best compares and contrasts the aims and topics of natural philosophy had versus physics?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -2027,7 +2584,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy included all aspects of nature excluding physics.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -2052,7 +2617,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy included all aspects of nature including physics.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -2077,7 +2650,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy and physics are essentially the same thing.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -2102,7 +2683,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy and physics are different.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -2127,7 +2716,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy included all aspects of nature excluding physics.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -2140,6 +2737,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -2217,6 +2821,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -2240,7 +2851,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -2265,7 +2889,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a weak gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -2290,7 +2927,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are too small to be seen with the naked eye, and</li>
+  <li>there is the involvement of only a weak gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -2315,7 +2965,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -2340,7 +3003,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -2353,6 +3029,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -2430,6 +3113,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "How could physics be useful in weather prediction?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -2453,7 +3143,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting how the flowing water affects Earth’s surface.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -2478,7 +3176,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting the motion of tectonic plates.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -2503,7 +3209,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting dynamics and movement of weather phenomena.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -2528,7 +3242,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting how burning fossil fuel releases pollutants.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -2553,7 +3275,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting how the flowing water affects Earth’s surface.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -2566,6 +3296,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -2664,6 +3401,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "<b>Meter-area reduction in copper</b> - does it affect the speed of light, etc?",
+                    }
+                  }
+                />
+                <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "In what sense does Einstein’s theory of relativity illustrate that physics describes fundamental aspects of our universe?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -2687,7 +3438,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how people think of other people’s views from their own frame of reference.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -2712,7 +3471,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how different parts of the universe are far apart and do not affect each other",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -2737,7 +3504,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how speed affects different observers’ measurements of time and space.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -2762,7 +3537,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how a frame of reference is necessary to describe position or motion.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -2787,7 +3570,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how people think of other people’s views from their own frame of reference.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -2800,6 +3591,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -2877,6 +3675,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Can classical physics be used to accurately describe a satellite moving at a speed of? Explain why or why not.",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -2900,7 +3705,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -2925,7 +3738,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is not in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -2950,7 +3771,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -2975,7 +3804,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and it is not in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -3000,7 +3837,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -3013,6 +3858,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -3090,6 +3942,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Which statement best compares and contrasts the aims and topics of natural philosophy had versus physics?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -3113,7 +3972,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy included all aspects of nature including physics.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -3138,7 +4005,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy and physics are essentially the same thing.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -3163,7 +4038,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy and physics are different.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -3188,7 +4071,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy included all aspects of nature excluding physics.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -3213,7 +4104,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy included all aspects of nature including physics.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -3226,6 +4125,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -3303,6 +4209,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -3326,7 +4239,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a weak gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -3351,7 +4277,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are too small to be seen with the naked eye, and</li>
+  <li>there is the involvement of only a weak gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -3376,7 +4315,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -3401,7 +4353,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -3426,7 +4391,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a weak gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -3439,6 +4417,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -3537,6 +4522,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "How could physics be useful in weather prediction?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -3560,7 +4552,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting the motion of tectonic plates.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -3585,7 +4585,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting dynamics and movement of weather phenomena.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -3610,7 +4618,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting how burning fossil fuel releases pollutants.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -3635,7 +4651,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting how the flowing water affects Earth’s surface.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -3660,7 +4684,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting the motion of tectonic plates.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -3673,6 +4705,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -3750,6 +4789,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "<b>Meter-area reduction in copper</b> - does it affect the speed of light, etc?",
+                    }
+                  }
+                />
+                <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "In what sense does Einstein’s theory of relativity illustrate that physics describes fundamental aspects of our universe?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -3773,7 +4826,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how different parts of the universe are far apart and do not affect each other",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -3798,7 +4859,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how speed affects different observers’ measurements of time and space.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -3823,7 +4892,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how a frame of reference is necessary to describe position or motion.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -3848,7 +4925,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how people think of other people’s views from their own frame of reference.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -3873,7 +4958,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how different parts of the universe are far apart and do not affect each other",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -3886,6 +4979,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -3963,6 +5063,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Can classical physics be used to accurately describe a satellite moving at a speed of? Explain why or why not.",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -3986,7 +5093,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is not in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4011,7 +5126,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4036,7 +5159,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and it is not in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4061,7 +5192,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4086,7 +5225,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is not in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4099,6 +5246,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -4176,6 +5330,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Which statement best compares and contrasts the aims and topics of natural philosophy had versus physics?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -4199,7 +5360,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy and physics are essentially the same thing.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4224,7 +5393,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy and physics are different.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4249,7 +5426,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy included all aspects of nature excluding physics.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4274,7 +5459,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy included all aspects of nature including physics.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4299,7 +5492,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy and physics are essentially the same thing.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4312,6 +5513,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -4410,6 +5618,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -4433,7 +5648,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are too small to be seen with the naked eye, and</li>
+  <li>there is the involvement of only a weak gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4458,7 +5686,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4483,7 +5724,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4508,7 +5762,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a weak gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4533,7 +5800,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are too small to be seen with the naked eye, and</li>
+  <li>there is the involvement of only a weak gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4546,6 +5826,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -4623,6 +5910,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "How could physics be useful in weather prediction?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -4646,7 +5940,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting dynamics and movement of weather phenomena.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4671,7 +5973,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting how burning fossil fuel releases pollutants.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4696,7 +6006,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting how the flowing water affects Earth’s surface.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4721,7 +6039,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting the motion of tectonic plates.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4746,7 +6072,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting dynamics and movement of weather phenomena.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4759,6 +6093,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -4836,6 +6177,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "<b>Meter-area reduction in copper</b> - does it affect the speed of light, etc?",
+                    }
+                  }
+                />
+                <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "In what sense does Einstein’s theory of relativity illustrate that physics describes fundamental aspects of our universe?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -4859,7 +6214,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how speed affects different observers’ measurements of time and space.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4884,7 +6247,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how a frame of reference is necessary to describe position or motion.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4909,7 +6280,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how people think of other people’s views from their own frame of reference.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4934,7 +6313,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how different parts of the universe are far apart and do not affect each other",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4959,7 +6346,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how speed affects different observers’ measurements of time and space.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -4972,6 +6367,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -5049,6 +6451,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Can classical physics be used to accurately describe a satellite moving at a speed of? Explain why or why not.",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -5072,7 +6481,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -5097,7 +6514,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and it is not in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -5122,7 +6547,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -5147,7 +6580,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is not in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -5172,7 +6613,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -5185,6 +6634,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -5283,6 +6739,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Which statement best compares and contrasts the aims and topics of natural philosophy had versus physics?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -5306,7 +6769,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy and physics are different.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -5331,7 +6802,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy included all aspects of nature excluding physics.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -5356,7 +6835,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy included all aspects of nature including physics.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -5381,7 +6868,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy and physics are essentially the same thing.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -5406,7 +6901,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy and physics are different.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -5419,6 +6922,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -5496,6 +7006,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -5519,7 +7036,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -5544,7 +7074,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -5569,7 +7112,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a weak gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -5594,7 +7150,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are too small to be seen with the naked eye, and</li>
+  <li>there is the involvement of only a weak gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -5619,7 +7188,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -5632,6 +7214,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -5709,6 +7298,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "How could physics be useful in weather prediction?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -5732,7 +7328,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting how burning fossil fuel releases pollutants.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -5757,7 +7361,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting how the flowing water affects Earth’s surface.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -5782,7 +7394,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting the motion of tectonic plates.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -5807,7 +7427,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting dynamics and movement of weather phenomena.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -5832,7 +7460,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting how burning fossil fuel releases pollutants.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -5845,6 +7481,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -5922,6 +7565,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "<b>Meter-area reduction in copper</b> - does it affect the speed of light, etc?",
+                    }
+                  }
+                />
+                <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "In what sense does Einstein’s theory of relativity illustrate that physics describes fundamental aspects of our universe?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -5945,7 +7602,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how a frame of reference is necessary to describe position or motion.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -5970,7 +7635,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how people think of other people’s views from their own frame of reference.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -5995,7 +7668,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how different parts of the universe are far apart and do not affect each other",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -6020,7 +7701,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how speed affects different observers’ measurements of time and space.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -6045,7 +7734,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how a frame of reference is necessary to describe position or motion.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -6058,6 +7755,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -6156,6 +7860,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Can classical physics be used to accurately describe a satellite moving at a speed of? Explain why or why not.",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -6179,7 +7890,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and it is not in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -6204,7 +7923,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -6229,7 +7956,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is not in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -6254,7 +7989,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -6279,7 +8022,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and it is not in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -6292,6 +8043,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -6369,6 +8127,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Which statement best compares and contrasts the aims and topics of natural philosophy had versus physics?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -6392,7 +8157,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy included all aspects of nature excluding physics.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -6417,7 +8190,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy included all aspects of nature including physics.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -6442,7 +8223,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy and physics are essentially the same thing.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -6467,7 +8256,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy and physics are different.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -6492,7 +8289,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy included all aspects of nature excluding physics.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -6505,6 +8310,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -6582,6 +8394,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -6605,7 +8424,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -6630,7 +8462,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a weak gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -6655,7 +8500,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are too small to be seen with the naked eye, and</li>
+  <li>there is the involvement of only a weak gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -6680,7 +8538,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -6705,7 +8576,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -6718,6 +8602,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -6795,6 +8686,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "How could physics be useful in weather prediction?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -6818,7 +8716,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting how the flowing water affects Earth’s surface.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -6843,7 +8749,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting the motion of tectonic plates.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -6868,7 +8782,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting dynamics and movement of weather phenomena.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -6893,7 +8815,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting how burning fossil fuel releases pollutants.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -6918,7 +8848,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting how the flowing water affects Earth’s surface.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -6931,6 +8869,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -7029,6 +8974,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "<b>Meter-area reduction in copper</b> - does it affect the speed of light, etc?",
+                    }
+                  }
+                />
+                <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "In what sense does Einstein’s theory of relativity illustrate that physics describes fundamental aspects of our universe?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -7052,7 +9011,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how people think of other people’s views from their own frame of reference.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -7077,7 +9044,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how different parts of the universe are far apart and do not affect each other",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -7102,7 +9077,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how speed affects different observers’ measurements of time and space.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -7127,7 +9110,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how a frame of reference is necessary to describe position or motion.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -7152,7 +9143,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "It describes how people think of other people’s views from their own frame of reference.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -7165,6 +9164,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -7242,6 +9248,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Can classical physics be used to accurately describe a satellite moving at a speed of? Explain why or why not.",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -7265,7 +9278,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -7290,7 +9311,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is not in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -7315,7 +9344,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -7340,7 +9377,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and it is not in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -7365,7 +9410,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -7378,6 +9431,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -7455,6 +9515,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Which statement best compares and contrasts the aims and topics of natural philosophy had versus physics?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -7478,7 +9545,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy included all aspects of nature including physics.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -7503,7 +9578,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy and physics are essentially the same thing.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -7528,7 +9611,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy and physics are different.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -7553,7 +9644,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy included all aspects of nature excluding physics.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -7578,7 +9677,15 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Natural philosophy included all aspects of nature including physics.",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -7591,6 +9698,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>
@@ -7668,6 +9782,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 data-question-number={undefined}
               >
                 <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?",
+                    }
+                  }
+                />
+                <div
                   className="answers-table"
                 >
                   <div
@@ -7691,7 +9812,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a weak gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -7716,7 +9850,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are too small to be seen with the naked eye, and</li>
+  <li>there is the involvement of only a weak gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -7741,7 +9888,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -7766,7 +9926,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -7791,7 +9964,20 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                         </button>
                         <div
                           className="answer-answer"
-                        />
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a weak gravitational field</li>
+</ol>
+",
+                              }
+                            }
+                          />
+                        </div>
                       </label>
                     </div>
                   </div>
@@ -7804,6 +9990,13 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                   >
                     Detailed solution
                   </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
                 </div>
               </div>
             </div>

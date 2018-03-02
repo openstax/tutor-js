@@ -6,14 +6,14 @@ _     = require 'underscore'
 
 {ArbitraryHtmlAndMath} = require 'shared'
 
-LoadingExercises       = require './loading-exercises-mixin'
+#LoadingExercises       = require './loading-exercises-mixin'
 ChapterSection         = require '../chapter-section'
 
 { default: TourRegion } = require '../../tours/region'
 
 ExerciseTable = React.createClass
 
-  mixins: [LoadingExercises]
+#  mixins: [LoadingExercises]
 
   propTypes:
     planId: React.PropTypes.string.isRequired

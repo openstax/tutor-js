@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 
 Icon = require '../../icon'
-LoadingExercises = require './loading-exercises-mixin'
+# LoadingExercises = require './loading-exercises-mixin'
 Exercise = require 'shared/model/exercise'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 {ExerciseStore} = require '../../../flux/exercise'
@@ -63,7 +63,7 @@ ReviewExerciseCard = React.createClass
 
   render: ->
     exercise = new Exercise(@props.exercise.content)
-    debugger
+
     <div className="openstax exercise-wrapper">
       <ExercisePreview
         exercise={exercise}
@@ -79,7 +79,7 @@ ReviewExerciseCard = React.createClass
 
 ReviewExercises = React.createClass
 
-  mixins: [LoadingExercises]
+#  mixins: [LoadingExercises]
 
 
   propTypes:

@@ -1,63 +1,48 @@
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
-jest.mock('../../../src/helpers/exercise');
-const ExerciseHelpers = require('../../../src/helpers/exercise');
+import { React, SnapShot } from '../helpers/component-testing';
+import Details from '../../../src/components/exercises/details';
+import FakeWindow from 'shared/specs/helpers/fake-window';
+import Factory from '../../factories';
 
-const {React, Testing, _, ReactTestUtils} = require('../helpers/component-testing');
-
-const ExerciseDetails = require('../../../src/components/exercises/details');
-
-const EXERCISES = require('../../../api/exercises');
-const ECOSYSTEM_ID = '1';
+jest.mock('../../../../shared/src/components/html', () => ({ html }) =>
+  html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
+);
 
 describe('Exercise Details Component', function() {
-  let props = {};
-  let errorLinkSpy = null;
 
-  beforeEach(function() {
-    errorLinkSpy = jest.fn();
-    return (
-        props = {
-          courseId: '1',
-          ecosystemId: ECOSYSTEM_ID,
-          selectedExercise: EXERCISES.items[0],
-          exercises: {grouped: { '1.1': EXERCISES.items} },
-          onExerciseToggle:      jest.fn(),
-          onShowCardViewClick:   jest.fn(),
-          getExerciseActions:    jest.fn(() => (({
-            'report-error': {
-              message: 'Report an error',
-              handler: errorLinkSpy
-            }
-            }))),
-          getExerciseIsSelected: jest.fn().mockReturnValue(false)
-        }
-    );
+  let exercises, props, book;
+
+  beforeEach(() => {
+    book = Factory.book();
+    const pageIds = book.pages.byId.keys();
+    exercises = Factory.exercisesMap({ book, pageIds, count: 4 });
+    props = {
+      book,
+      exercises,
+      pageIds,
+      windowImpl:             new FakeWindow,
+      selectedExercise:       exercises.array[1],
+      onExerciseToggle:       jest.fn(),
+      getExerciseIsSelected:  jest.fn().mockReturnValue(false),
+      getExerciseActions:     jest.fn().mockReturnValue({}),
+      onShowCardViewClick:    jest.fn(),
+    };
   });
 
-  it('sends current exercise along when showing card view', () =>
-    Testing.renderComponent( ExerciseDetails, {props} ).then(({dom}) => {
-      Testing.actions.click(dom.querySelector('.show-cards'));
-      return (
-          expect(props.onShowCardViewClick).toHaveBeenCalledWith(expect.anything(), props.selectedExercise)
-      );
-    })
-  );
 
-  return (
-
-      it('links to error url form', function() {
-        const details = mount(<ExerciseDetails {...props} />)
-
-  );
-    expect(details).toHaveRendered('.action.report-error');
-    details.find('.action.report-error').simulate('click'); //prop('onClick')()
-    expect(errorLinkSpy).toHaveBeenCalledWith(expect.anything(), props.selectedExercise);
-    return (
-        undefined
-    );
+  it('renders and matches snapshot', () => {
+    const component = SnapShot.create(<Details {...props} />);
+    expect(component.toJSON()).toMatchSnapshot();
   });
+
+  it('can navigate back/forward', () => {
+    const deets = mount(<Details {...props} />);
+    expect(deets).toHaveRendered(`[data-exercise-id="${exercises.array[1].content.uid}"]`);
+    deets.find('.paging-control.next').simulate('click');
+    expect(deets).toHaveRendered(`[data-exercise-id="${exercises.array[2].content.uid}"]`);
+    deets.find('.paging-control.prev').simulate('click');
+    deets.find('.paging-control.prev').simulate('click');
+    expect(deets).toHaveRendered(`[data-exercise-id="${exercises.array[0].content.uid}"]`);
+    expect(deets).toHaveRendered('.paging-control.prev[disabled]');
+  });
+
 });

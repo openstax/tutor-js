@@ -2865,6 +2865,10 @@ extsprintf@^1.2.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
 
+faker@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/faker/-/faker-4.1.0.tgz#1e45bbbecc6774b3c195fad2835109c6d748cc3f"
+
 falafel@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/falafel/-/falafel-1.2.0.tgz#c18d24ef5091174a497f318cd24b026a25cddab4"
@@ -5534,9 +5538,9 @@ object-assign@^4, object-assign@^4.0.1, object-assign@^4.1.0, object-assign@^4.1
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
 
-object-factory-bot@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/object-factory-bot/-/object-factory-bot-0.3.0.tgz#0717cdd8ce18ec3a1107c5a897c178aa13482bc0"
+object-factory-bot@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/object-factory-bot/-/object-factory-bot-0.4.0.tgz#70c9959571e052f6edb2d06054f99f7fa9d5c34b"
 
 object-hash@1.1.7:
   version "1.1.7"

@@ -9,7 +9,7 @@ import ChapterSection from '../task-plan/chapter-section';
 import Icon from '../icon';
 import ExercisePreview from './preview';
 import ScrollTo from '../../helpers/scroll-to';
-import { ExercisesMap } from '../../models/exercises';
+import { ExercisesMap, Exercise } from '../../models/exercises';
 import Book from '../../models/reference-book';
 import { ArrayOrMobxType } from 'shared/helpers/react';
 
@@ -60,8 +60,9 @@ export default class ExerciseCards extends React.Component {
     getExerciseIsSelected:  React.PropTypes.func.isRequired,
     getExerciseActions:     React.PropTypes.func.isRequired,
     onShowDetailsViewClick: React.PropTypes.func.isRequired,
-    focusedExerciseId:      React.PropTypes.string,
+    focusedExercise:        React.PropTypes.instanceOf(Exercise),
     topScrollOffset:        React.PropTypes.number,
+    windowImpl:             React.PropTypes.object,
   };
 
   static defaultProps = {
@@ -82,20 +83,16 @@ export default class ExerciseCards extends React.Component {
   });
 
   componentDidMount() {
-    if (this.props.focusedExerciseId) {
-      return (
-        this.scroller.scrollToSelector(`[data-exercise-id='${this.props.focusedExerciseId}']`, { immediate: true })
-      );
+    if (this.props.focusedExercise) {
+      this.scroller.scrollToSelector(`[data-exercise-id='${this.props.focusedExercise.id}']`, { immediate: true });
     } else {
-      return (
-        this.scroller.scrollToSelector('.exercise-sections')
-      );
+      this.scroller.scrollToSelector('.exercise-sections');
     }
   }
 
   onAfterScroll = (el) => {
-    if (this.props.focusedExerciseId) { return el.focus(); }
-  };
+    if (this.props.focusedExercise) { el.focus(); }
+  }
 
   getScrollTopOffset = () => {
     // no idea why scrollspeed makes the difference, sorry :(

@@ -7,7 +7,7 @@ classnames = require 'classnames'
 Icon            = require '../icon'
 PlanMixin       = require './plan-mixin'
 TaskPlanBuilder = require './builder'
-ChooseExercises = require './homework/choose-exercises'
+{default:ChooseExercises} = require './homework/choose-exercises'
 ReviewExercises = require './homework/review-exercises'
 FeedbackSetting = require './feedback'
 {default: PlanFooter} = require './footer'
@@ -75,13 +75,11 @@ HomeworkPlan = React.createClass
       </BS.Panel>
 
       {<ChooseExercises
-        courseId={courseId}
+        course={@getCourse()}
         planId={id}
-        ecosystemId={ecosystemId}
         cancel={@cancelSelection}
         hide={@hideSectionTopics}
         canEdit={not @state.isVisibleToStudents}
-        selected={topics}
       /> if @state.showSectionTopics}
 
       {<ReviewExercises

@@ -83,14 +83,14 @@ startAPI = ->
     data: TaskPlanStore.getChanged
   }, TaskPlanHelpers.apiEndpointOptions)
 
-  connectRead(ExerciseActions, {trigger: 'loadForEcosystem', onSuccess: 'loadedForEcosystem'},
-    (id, pageIds, requestType = 'homework_core') ->
-      url = "ecosystems/#{id}/exercises/#{requestType}"
-      params =
-        page_ids: pageIds
+  # connectRead(ExerciseActions, {trigger: 'loadForEcosystem', onSuccess: 'loadedForEcosystem'},
+  #   (id, pageIds, requestType = 'homework_core') ->
+  #     url = "ecosystems/#{id}/exercises/#{requestType}"
+  #     params =
+  #       page_ids: pageIds
 
-      {url, params}
-  )
+  #     {url, params}
+  # )
 
   connectRead(ExerciseActions, {trigger: 'loadForCourse', onSuccess: 'loadedForCourse'},
     (id, pageIds, ecosystemId = null, requestType = 'homework_core') ->

@@ -62,7 +62,7 @@ export default class QLSectionsChooser extends React.Component {
           courseId={this.props.course.id}>
           <Chooser
             onSelectionChange={this.onSectionChange}
-            selectedSectionIds={this.pageIds.peek()}
+            selectedPageIds={this.pageIds.peek()}
             book={this.props.course.referenceBook}
           />
         </TourRegion>

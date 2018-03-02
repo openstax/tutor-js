@@ -8,9 +8,6 @@ import Pagination from 'ultimate-pagination';
 import WindowSize from '../../models/window-size';
 import ScrollTo from '../../helpers/scroll-to';
 
-// {ResizeListenerMixin, ScrollToMixin} = require 'shared'
-//   mixins: [ScrollToMixin, ResizeListenerMixin]
-
 @observer
 class Sectionizer extends React.Component {
 
@@ -20,23 +17,18 @@ class Sectionizer extends React.Component {
     nonAvailableWidth: React.PropTypes.number.isRequired,
     getCurrentSection: React.PropTypes.func,
     onSectionClick:    React.PropTypes.func,
+    currentSection:    React.PropTypes.string,
+    windowImpl:        React.PropTypes.object,
   };
 
-  windowSize = new WindowSize();
-  scroller = new ScrollTo({
-    windowImpl: this.props.windowImpl
-  });
+  scroller = new ScrollTo({ windowImpl: this.props.windowImpl });
+  windowSize = new WindowSize(this.props.windowImpl);
+
+  @action.bound renderCount() {
+    ((Math.floor( this.windwSize.width - this.props.nonAvailableWidth) / 42) - 2);
+  }
 
   @observable scrollingTo = first(this.props.chapter_sections);
-  @observable renderCount = 5;
-
-  // _resizeListener = (sizes) => {
-  //   this.calculateAvailableSpace(sizes.windowEl)
-  // };
-
-  @action.bound calculateAvailableSpace(size) {
-    this.renderCount = ((Math.floor( size.width - this.props.nonAvailableWidth) / 42) - 2);
-  }
 
   // the below properties are read by the ScrollTo mixin
   scrollingTargetDOM = () => { return window.document; };
@@ -44,15 +36,14 @@ class Sectionizer extends React.Component {
   getScrollTopOffset = () => { return 160; }; // 70px high control bar and a bit of padding
 
   componentDidMount() {
-    this.calculateAvailableSpace(this.windowSize.current);
     this.scroller.scrollToSelector('.questions-list');
   }
 
   selectSection = (section) => {
     if (this.props.onSectionClick) {
-        this.props.onSectionClick(section);
+      this.props.onSectionClick(section);
     } else {
-      this.scrollToSelector(`[data-section='${section}']`);
+      this.scroller.scrollToSelector(`[data-section='${section}']`);
     }
   };
 
@@ -68,7 +59,7 @@ class Sectionizer extends React.Component {
     );
   };
 
-  goBack = () => {
+  @action.bound goBack() {
     const index = this.scrollIndex();
     const sections = this.props.chapter_sections;
     return (
@@ -76,14 +67,13 @@ class Sectionizer extends React.Component {
     );
   };
 
-  goNext = () => {
+  @action.bound goNext() {
     const index = this.scrollIndex();
     const sections = this.props.chapter_sections;
     this.selectSection(
       sections[ index < sections.length ? index + 1 : sections.length - 1]
-    )
-
-  };
+    );
+  }
 
   renderLink = (cs, active) => {
     return (

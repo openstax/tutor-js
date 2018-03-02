@@ -22,12 +22,14 @@ each({
   };
 });
 
-Factories.exercisesMap = ({ book, pageIds, count }) => {
+Factories.exercisesMap = ({ book, pageIds = [], count = 4 }) => {
   const map = new ExercisesMap();
   pageIds.forEach(pgId => {
     map.onLoaded(
-      { data: { items: range(count).map(() => FactoryBot.create('TutorExercise')) } },
-      [{ ecosystem_id, page_id: pg }]
+      { data: { items: range(count).map(() => FactoryBot.create('TutorExercise', {
+        page_uuid: book.pages.byId.get(pgId).uuid,
+      })) } },
+      [{ book, page_ids: [ pgId ] }]
     );
   });
   return map;

@@ -1,5 +1,5 @@
 import Map from 'shared/model/map';
-import { computed, action, observable } from 'mobx';
+import { computed, action, observable, toJS } from 'mobx';
 import Exercise from './exercises/exercise';
 import { extend, groupBy, filter } from 'lodash';
 import { readonly } from 'core-decorators';
@@ -7,8 +7,6 @@ import { readonly } from 'core-decorators';
 const MIN_EXCLUDED_COUNT = 5;
 const COMPLETE = Symbol('COMPLETE');
 const PENDING = Symbol('PENDING');
-
-const fetchKey = (ecosystem_id, page_id) => `${ecosystem_id}.${page_id}`
 
 export class ExercisesMap extends Map {
 
@@ -43,22 +41,27 @@ export class ExercisesMap extends Map {
   }
 
   // called by API
-  fetch({ book, page_ids }) {
-
-    page_ids.forEach(pgId => this.fetched.set(fetchKey(book.id, pgId), PENDING));
-
+  fetch({ book, course, page_ids }) {
+    let id, url;
+    if (course) {
+      id = course.id;
+      url = `courses/${id}/exercises/homework_core`;
+    } else {
+      id = book.id;
+      url = `ecosystems/${id}/exercises`;
+    }
+    page_ids.forEach(pgId => this.fetched.set(pgId, PENDING));
     return {
-      url: `ecosystems/${book.id}/exercises`,
-      params: { page_ids },
+      url, query: { page_ids: toJS(page_ids) },
     };
   }
 
-  hasFetched({ book, page_id }) {
-    return this.fetched.has(fetchKey(book.id, page_id));
+  hasFetched({ page_id }) {
+    return this.fetched.has(page_id);
   }
 
-  isFetching({ book, page_id }) {
-    return this.fetched.get(fetchKey(book.id, page_id)) === PENDING;
+  isFetching({ page_id }) {
+    return this.fetched.get(page_id) === PENDING;
   }
 
   ensureLoaded({ book, page_id }) {
@@ -67,11 +70,11 @@ export class ExercisesMap extends Map {
     }
   }
 
-  @action onLoaded(reply, [{ book, page_ids }]) {
-    page_ids.forEach(pgId => this.fetched.set(fetchKey(book.id, pgId), COMPLETE));
+  @action onLoaded(reply, [{ book, course, page_ids }]) {
+    page_ids.forEach(pgId => this.fetched.set(pgId, COMPLETE));
     reply.data.items.forEach((ex) => {
       const exercise = this.get(ex.id);
-      exercise ? exercise.update(ex) : this.set(ex.id, new Exercise(extend(ex, { book, page_ids })));
+      exercise ? exercise.update(ex) : this.set(ex.id, new Exercise(extend(ex, { book, course })));
     });
   }
 
@@ -80,4 +83,5 @@ export class ExercisesMap extends Map {
 
 const exercisesMap = new ExercisesMap();
 
+export { Exercise };
 export default exercisesMap;

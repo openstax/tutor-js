@@ -21,9 +21,9 @@ exports[`Sections Chooser renders and matches snapshot 1`] = `
         >
           <a
             aria-controls={undefined}
-            aria-expanded={false}
-            aria-selected={false}
-            className="collapsed"
+            aria-expanded={true}
+            aria-selected={true}
+            className={null}
             href={undefined}
             onClick={[Function]}
             role="tab"
@@ -73,8 +73,8 @@ exports[`Sections Chooser renders and matches snapshot 1`] = `
       </div>
       <div
         aria-expanded={null}
-        aria-hidden={true}
-        className="panel-collapse collapse"
+        aria-hidden={false}
+        className="panel-collapse collapse in"
         id={undefined}
         role="tabpanel"
       >

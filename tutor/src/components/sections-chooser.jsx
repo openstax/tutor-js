@@ -8,11 +8,12 @@ import ChapterSection from './task-plan/chapter-section';
 import BrowseTheBook from './buttons/browse-the-book';
 import TriStateCheckbox from './tri-state-checkbox';
 import classnames from 'classnames';
-
+import Loading from './loading-screen';
 import BookModel from '../models/reference-book';
 import ChapterModel from '../models/reference-book/chapter';
 import PageModel from '../models/reference-book/page';
 
+@observer
 class Page extends React.Component {
   static propTypes = {
     page: React.PropTypes.instanceOf(PageModel).isRequired,
@@ -124,12 +125,13 @@ class ChapterAccordion extends React.Component {
   }
 }
 
+@observer
 export default class SectionsChooser extends React.Component {
 
   static propTypes = {
     book: React.PropTypes.instanceOf(BookModel).isRequired,
     onSelectionChange: React.PropTypes.func,
-    selectedSectionIds: React.PropTypes.arrayOf(
+    selectedPageIds: React.PropTypes.arrayOf(
       React.PropTypes.string
     ),
   };
@@ -137,14 +139,17 @@ export default class SectionsChooser extends React.Component {
   @observable selections = {};
 
   componentWillMount() {
+    if (!this.props.book.api.isFetchedOrFetching) {
+      this.props.book.fetch();
+    }
     this.copySelectionStateFrom(
-      this.props.selectedSectionIds ? this.props.selectedSectionIds : []
+      this.props.selectedPageIds ? this.props.selectedPageIds : []
     );
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.selectedSectionIds) {
-      this.copySelectionStateFrom(nextProps.selectedSectionIds);
+    if (nextProps.selectedPageIds) {
+      this.copySelectionStateFrom(nextProps.selectedPageIds);
     }
   }
 
@@ -170,9 +175,15 @@ export default class SectionsChooser extends React.Component {
   }
 
   render() {
+    const { book } = this.props;
+
+    if (book.api.isPending) {
+      return <Loading />;
+    }
+
     return (
       <div className="sections-chooser">
-        {this.props.book.children.map((chapter) =>
+        {book.children.map((chapter) =>
           <ChapterAccordion
             key={chapter.id}
             {...this.props}

@@ -251,7 +251,6 @@ class ExercisesDisplay extends React.Component {
 
     const sharedProps = {
       exercises,
-      course: this.props.course,
       book: this.props.course.referenceBook,
       pageIds: this.props.pageIds,
       onExerciseToggle: this.onExerciseToggle,

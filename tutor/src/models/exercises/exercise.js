@@ -15,7 +15,10 @@ export default class Exercise extends BaseModel {
   @field ecosystem_id;
   @field({ type: 'object' }) content;
   @belongsTo({ model: ExerciseContent, inverseOf: 'wrapper' }) content;
+
   @belongsTo({ model: Book }) book;
+  @belongsTo({ model: Book }) course;
+
   @field is_excluded = false;
   @field has_interactive = false;
   @field has_video = false;
@@ -25,8 +28,9 @@ export default class Exercise extends BaseModel {
   @hasMany({ model: Tag }) tags;
 
   @computed get page() {
-    if (!this.book) { return null; }
-    return this.book.pages.byUUID.get(this.page_uuid);
+    if (!this.book && !this.course) { return null; }
+    const book = this.book || this.course.referenceBook;
+    return book.pages.byUUID.get(this.page_uuid);
   }
 
   @computed get isReading() { return this.pool_types.includes('reading_dynamic'); }

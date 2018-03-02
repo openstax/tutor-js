@@ -10,7 +10,7 @@ describe('Sections Chooser', () => {
     props = {
       book,
       onSelectionChange: jest.fn(),
-      selectedSectionIds: [],
+      selectedPageIds: [],
     };
   });
 
@@ -21,12 +21,12 @@ describe('Sections Chooser', () => {
   it('can select', () => {
     const chooser = mount(<Chooser {...props} />);
     chooser.find('.chapter-heading .tutor-icon').at(1).simulate('click');
-    const sectionPageIds = book.children[1].children.map(pg => pg.id);
-    expect(props.onSelectionChange).toHaveBeenCalledWith(sectionPageIds);
+    const pageIds = book.children[1].children.map(pg => pg.id);
+    expect(props.onSelectionChange).toHaveBeenCalledWith(pageIds);
     props.onSelectionChange.mockReset();
     const pageId = book.pages.byId.keys()[8];
     chooser.find(`[data-page-id="${pageId}"]`).simulate('click');
-    expect(props.onSelectionChange).toHaveBeenCalledWith(sectionPageIds.concat(pageId));
+    expect(props.onSelectionChange).toHaveBeenCalledWith(pageIds.concat(pageId));
   });
 
 });

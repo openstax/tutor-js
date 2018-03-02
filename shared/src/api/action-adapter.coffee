@@ -131,8 +131,11 @@ connectModelAction = (action, apiHandler, klass, method, options) ->
     merge(requestConfig, updatedConfig)
     if options.pattern
       requestConfig.url ?= interpolate(options.pattern, defaults({}, firstArg, requestConfig, this))
-    if requestConfig.query
-      requestConfig.url += "?" + if isObjectLike(requestConfig.query) then qs.stringify(requestConfig.query) else requestConfig.query
+    { query } = requestConfig
+    if query
+      query = qs.stringify(query, { arrayFormat: 'brackets', encode: false }) if isObjectLike(requestConfig.query)
+      requestConfig.url += "?#{query}"
+
     perRequestOptions = clone(options)
     if options.onSuccess
       perRequestOptions.onSuccess = bind(
