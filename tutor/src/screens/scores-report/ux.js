@@ -1,9 +1,14 @@
-import { observable, computed, action } from 'mobx';
-import bezierAnimation from '../../helpers/bezier';
-import WindowSize from '../../models/window-size';
-import WeightsUX from './weights-ux';
-import UiSettings from 'shared/model/ui-settings';
-import { first, isUndefined, clone, reverse } from 'lodash';
+import { observable, computed, action } from "mobx";
+
+import bezierAnimation from "../../helpers/bezier";
+
+import WindowSize from "../../models/window-size";
+
+import WeightsUX from "./weights-ux";
+
+import UiSettings from "shared/model/ui-settings";
+
+import { first, isUndefined, clone, reverse } from "lodash";
 
 const CELL_AVERAGES_CLOSED_SINGLE_WIDTH = 120;
 const CELL_AVERAGES_SINGLE_WIDTH = 90;

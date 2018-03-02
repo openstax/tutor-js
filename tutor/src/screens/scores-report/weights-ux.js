@@ -1,12 +1,8 @@
-import { observable, computed, action } from 'mobx';
+import { observable, computed, action } from "mobx";
 import {
-  sum, toArray, flow, each, inRange,
-  keys, isEqual, pick,
-} from 'lodash';
-
-import {
-  some, invert, mapValues, isNaN, partial,
-} from 'lodash';
+  sum, toArray, flow, each, inRange, keys, isEqual,
+  pick, some, invert, mapValues, isNaN, partial,
+} from "lodash";
 
 const { placeholder } = partial;
 
