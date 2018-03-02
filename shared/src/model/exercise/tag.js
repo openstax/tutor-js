@@ -15,19 +15,19 @@ export default class ExerciseTag extends BaseModel {
   }
 
   serialize() {
-    return this._tag;
+    return this.asString;
   }
 
   @computed get name() {
-    return this._tag;
+    return this.asString;
   }
 
   @computed get asString() {
-    return this._tag;
+    return this._tag || '';
   }
 
   @computed get parts() {
-    return this._tag.split(':');
+    return this.asString.split(':');
   }
 
   @computed get type() {
