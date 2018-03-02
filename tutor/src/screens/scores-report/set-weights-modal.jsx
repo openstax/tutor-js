@@ -14,23 +14,6 @@ const WEIGHTS = [
   'Reading progress',
 ];
 
-const WeightControl = ( { weightLabel, weightName, weights } ) => (
-  <label className="weight">
-    <div>{weightLabel}</div>
-    <div>
-      <input
-        type="number"
-        name={weightName}
-        min={0}
-        max={100}
-        value={weights[weightName]}
-        onChange={weights.setWeight}
-      />%
-    </div>
-  </label>
-);
-
-
 @observer
 export default class SetWeightsModal extends React.Component {
 
@@ -69,12 +52,21 @@ export default class SetWeightsModal extends React.Component {
             {
               map(WEIGHTS, (weightLabel) => {
                 const weightName = snakeCase(weightLabel);
-                return (<WeightControl
-                  weightLabel={weightLabel}
-                  weightName={weightName}
-                  weights={weights}
-                  key={`weight-control-${weightName}`}
-                />);
+                return (
+                  <label className="weight" key={`weight-control-${weightName}`}>
+                    <div>{weightLabel}</div>
+                    <div>
+                      <input
+                        type="number"
+                        name={weightName}
+                        min={0}
+                        max={100}
+                        value={weights[weightName]}
+                        onChange={weights.setWeight}
+                      />%
+                    </div>
+                  </label>
+                );
               })
             }
             <div className='weights-set'>
