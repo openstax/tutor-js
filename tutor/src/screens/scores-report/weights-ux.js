@@ -1,10 +1,5 @@
-import { observable, computed, action } from "mobx";
-import {
-  sum, toArray, flow, each, inRange, keys, isEqual,
-  pick, some, invert, mapValues, isNaN, partial,
-} from "lodash";
-
-const { placeholder } = partial;
+import { observable, computed, action } from 'mobx';
+import {sum, toArray, flow, each, inRange, keys, isEqual, pick, some, invert, mapValues, isNaN, partial} from 'lodash';
 
 const CELL_AVERAGES_SINGLE_WIDTH = 80;
 
@@ -130,8 +125,8 @@ export default class ScoresReportWeightsUX {
 
   @computed get weightValues() {
     return flow(
-      partial(pick, placeholder, SETTINGS),
-      partial(mapValues, placeholder, stringToInt),
+      partial(pick, partial.placeholder, SETTINGS),
+      partial(mapValues, partial.placeholder, stringToInt),
     )(this);
   }
 
