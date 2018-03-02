@@ -3,7 +3,7 @@ import bezierAnimation from '../../helpers/bezier';
 import WindowSize from '../../models/window-size';
 import WeightsUX from './weights-ux';
 import UiSettings from 'shared/model/ui-settings';
-import { first, isUndefined, clone, reverse, pick, pickBy, mapValues, concat, flow, map, partial, uniq, some } from 'lodash';
+import { first, isUndefined, clone, reverse, pick, pickBy, mapValues, concat, flow, map, partial, uniq, some, keys } from 'lodash';
 import { asPercent } from '../../helpers/string';
 
 const CELL_AVERAGES_CLOSED_SINGLE_WIDTH = 120;
@@ -61,19 +61,19 @@ export default class ScoresReportUX {
   }
 
   isAverageUnavailableByType(type) {
-    return !this.course.taskPlans[type].any;
+    return !this.course.taskPlans[type].open.any;
   }
 
   isAverageUnavailableByTypeForPeriod(type) {
-    return !this.course.taskPlans[type].withPeriodId(this.period.period_id).any;
+    return !this.course.taskPlans[type].open.withPeriodId(this.period.period_id).any;
   }
 
   isAveragePendingByType(type) {
-    return !this.course.taskPlans[type].pastDue.any;
+    return !this.course.taskPlans[type].open.pastDue.any;
   }
 
   isAveragePendingByTypeForPeriod(type) {
-    return !this.course.taskPlans[type].pastDueWithPeriodId(this.period.period_id).any;
+    return !this.course.taskPlans[type].open.pastDueWithPeriodId(this.period.period_id).any;
   }
 
   nullAverageByType(type) {
@@ -110,7 +110,7 @@ export default class ScoresReportUX {
     return mapValues(averages, (average, key) => {
       const type = scoreKeyToType(key);
 
-      if (average === null) {
+      if (average === 0) {
         if (type === 'course_average') {
           return this.nullAverageForCourse;
         } else {
@@ -123,7 +123,7 @@ export default class ScoresReportUX {
   }
 
   @computed get periodStudentsAverages() {
-    const keys = [
+    const scoreKeys = [
       'course_average',
       'homework_score',
       'homework_progress',
@@ -132,7 +132,7 @@ export default class ScoresReportUX {
     ];
 
     return this.period.students.map((student) => {
-      let averages = pick(student, keys);
+      let averages = pick(student, scoreKeys);
       averages = this.maskAverages(averages);
       averages.student_identifier = student.student_identifier;
 
@@ -141,7 +141,7 @@ export default class ScoresReportUX {
   }
 
   @computed get periodAverages() {
-    const keys = [
+    const scoreKeys = [
       'overall_course_average',
       'overall_homework_score',
       'overall_homework_progress',
@@ -149,7 +149,7 @@ export default class ScoresReportUX {
       'overall_reading_progress',
     ];
 
-    const averages = pick(this.period, keys);
+    const averages = pick(this.period, scoreKeys);
     return this.maskAverages(averages);
   }
 
