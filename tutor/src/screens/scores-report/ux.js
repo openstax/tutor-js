@@ -87,13 +87,11 @@ export default class ScoresReportUX {
   // what task types is course score being weighed on?
   // e.g. ['homework'] or ['homework', 'reading']
   @computed get weightTypes() {
-    const { placeholder } = partial;
-
     return flow(
-      partial(pick, placeholder, this.weights.WEIGHT_KEYS),
-      partial(pickBy, placeholder, (weight) => weight > 0),
+      partial(pick, partial.placeholder, this.weights.WEIGHT_KEYS),
+      partial(pickBy, partial.placeholder, (weight) => weight > 0),
       keys,
-      partial(map, placeholder, scoreKeyToType),
+      partial(map, partial.placeholder, scoreKeyToType),
       uniq,
     )(this.course);
   }
