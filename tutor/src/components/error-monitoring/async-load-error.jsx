@@ -9,8 +9,8 @@ export default class AsyncLoadError extends React.PureComponent {
     error: React.PropTypes.object.isRequired,
   }
 
-  componentWillMount() { 
-    reloadOnce();  
+  componentWillMount() {
+    reloadOnce();
   }
 
   render() {
