@@ -1,23 +1,24 @@
 import React from 'react';
 import cn from 'classnames';
+import { find } from 'lodash';
 import { Cell } from 'fixed-data-table-2';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
-import { asPercent } from '../../helpers/string';
 
 const OverallCell = observer(({ ux, students, rowIndex }) => {
-  const s = students[rowIndex];
+  const { student_identifier } = students[rowIndex];
+  const studentAverages = find(ux.periodStudentsAverages, { student_identifier });
   return (
     <Cell className={cn('overall-cell', { 'is-expanded': ux.isAveragesExpanded })}>
       <div className="course">
-        {asPercent(s.course_average)}%
+        {studentAverages.course_average}
       </div>
       <div className="homework">
-        <div className="score">{asPercent(s.homework_score)}%</div>
-        <div className="completed">{asPercent(s.homework_progress)}%</div>
+        <div className="score">{studentAverages.homework_score}</div>
+        <div className="completed">{studentAverages.homework_progress}</div>
       </div>
       <div className="reading">
-        <div className="score">{asPercent(s.reading_score)}%</div>
-        <div className="completed">{asPercent(s.reading_progress)}%</div>
+        <div className="score">{studentAverages.reading_score}</div>
+        <div className="completed">{studentAverages.reading_progress}</div>
       </div>
     </Cell>
   );

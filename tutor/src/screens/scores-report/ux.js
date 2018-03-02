@@ -3,7 +3,8 @@ import bezierAnimation from '../../helpers/bezier';
 import WindowSize from '../../models/window-size';
 import WeightsUX from './weights-ux';
 import UiSettings from 'shared/model/ui-settings';
-import { first, isUndefined, clone, reverse } from 'lodash';
+import { first, isUndefined, clone, reverse, pick, pickBy, mapValues, concat, flow, map, partial, uniq, some } from 'lodash';
+import { asPercent } from '../../helpers/string';
 
 const CELL_AVERAGES_CLOSED_SINGLE_WIDTH = 120;
 const CELL_AVERAGES_SINGLE_WIDTH = 90;
@@ -17,6 +18,8 @@ const WINDOW_HEIGHT_PADDING = 260;
 
 const NOT_AVAILABLE_AVERAGE = 'n/a';
 const PENDING_AVERAGE = '---';
+
+const scoreKeyToType = (key) => (key.match(/(course_average|homework|reading)/)[0])
 
 export default class ScoresReportUX {
 
@@ -62,7 +65,7 @@ export default class ScoresReportUX {
   }
 
   isAverageUnavailableByTypeForPeriod(type) {
-    return !this.course.taskPlans[type].withPeriodId(this.period.id).any;
+    return !this.course.taskPlans[type].withPeriodId(this.period.period_id).any;
   }
 
   isAveragePendingByType(type) {
@@ -70,29 +73,88 @@ export default class ScoresReportUX {
   }
 
   isAveragePendingByTypeForPeriod(type) {
-    return !this.course.taskPlans[type].pastDueWithPeriodId(this.period.id).any;
+    return !this.course.taskPlans[type].pastDueWithPeriodId(this.period.period_id).any;
   }
 
-  @computed get readingNullAverage() {
-    const type = 'reading';
+  nullAverageByType(type) {
     if (this.isAverageUnavailableByTypeForPeriod(type)) {
       return NOT_AVAILABLE_AVERAGE;
-    } else if (isAveragePendingByTypeForPeriod(type)) {
+    } else if (this.isAveragePendingByTypeForPeriod(type)) {
       return PENDING_AVERAGE;
     }
   }
 
-  @computed get homeworkNullAverage() {
-    const type = 'homework';
-    if (this.isAverageUnavailableByTypeForPeriod(type)) {
+  // what task types is course score being weighed on?
+  // e.g. ['homework'] or ['homework', 'reading']
+  @computed get weightTypes() {
+    const { placeholder } = partial;
+
+    return flow(
+      partial(pick, placeholder, this.weights.WEIGHT_KEYS),
+      partial(pickBy, placeholder, (weight) => weight > 0),
+      keys,
+      partial(map, placeholder, scoreKeyToType),
+      uniq,
+    )(this.course);
+  }
+
+  @computed get nullAverageForCourse() {
+    if (some(this.weightTypes, this.isAverageUnavailableByTypeForPeriod.bind(this))) {
       return NOT_AVAILABLE_AVERAGE;
-    } else if (isAveragePendingByTypeForPeriod(type)) {
+    } else if (some(this.weightTypes, this.isAveragePendingByTypeForPeriod.bind(this))) {
       return PENDING_AVERAGE;
     }
+  }
+
+  maskAverages(averages) {
+    return mapValues(averages, (average, key) => {
+      const type = scoreKeyToType(key);
+
+      if (average === null) {
+        if (type === 'course_average') {
+          return this.nullAverageForCourse;
+        } else {
+          return this.nullAverageByType(type);
+        }
+      }
+
+      return `${asPercent(average)}%`;
+    });
+  }
+
+  @computed get periodStudentsAverages() {
+    const keys = [
+      'course_average',
+      'homework_score',
+      'homework_progress',
+      'reading_score',
+      'reading_progress',
+    ];
+
+    return this.period.students.map((student) => {
+      let averages = pick(student, keys);
+      averages = this.maskAverages(averages);
+      averages.student_identifier = student.student_identifier;
+
+      return averages;
+    });
+  }
+
+  @computed get periodAverages() {
+    const keys = [
+      'overall_course_average',
+      'overall_homework_score',
+      'overall_homework_progress',
+      'overall_reading_score',
+      'overall_reading_progress',
+    ];
+
+    const averages = pick(this.period, keys);
+    return this.maskAverages(averages);
   }
 
   @computed get data() {
-    return this.course.scores.periods.get(this.period.id);
+    return this.course.scores.periods.get(this.period.period_id);
   }
 
   @action.bound toggleAverageExpansion() {

@@ -26,7 +26,8 @@ const CW = {
 
 const WC = invert(CW);
 
-const SETTINGS = keys(DEFAULTS);
+const PERCENT_KEYS = keys(DEFAULTS);
+const WEIGHT_KEYS = keys(CW);
 
 const MIN = 0;
 const MAX = 100;
@@ -49,6 +50,9 @@ const stringToInt = (string) => {
 }
 
 export default class ScoresReportWeightsUX {
+
+  PERCENT_KEYS = PERCENT_KEYS;
+  WEIGHT_KEYS = WEIGHT_KEYS;
 
   @observable homework_scores;
   @observable homework_progress;
@@ -130,7 +134,7 @@ export default class ScoresReportWeightsUX {
 
   @computed get weightValues() {
     return flow(
-      partial(pick, partial.placeholder, SETTINGS),
+      partial(pick, partial.placeholder, this.PERCENT_KEYS),
       partial(mapValues, partial.placeholder, stringToInt),
     )(this);
   }
