@@ -1,5 +1,7 @@
 import { observable, computed, action } from 'mobx';
-import { sum, toArray, flow, each, inRange, keys, isEqual, pick, some, invert, mapValues } from 'lodash';
+import { sum, toArray, flow, each, inRange, keys, isEqual, pick, some, invert, mapValues, isNaN, partial } from 'lodash';
+
+const { placeholder } = partial;
 
 const CELL_AVERAGES_SINGLE_WIDTH = 80;
 
@@ -37,6 +39,16 @@ const percentToWeight = (percent) => ((percent || MIN) / RANGE );
 
 const weightsToPercents = (weights) => mapValues(WC, (c) => weightToPercent(weights[c]));
 const percentsToWeights = (percents) => mapValues(CW, (w) => percentToWeight(percents[w]));
+
+const stringToInt = (string) => {
+  const int = parseInt(string);
+
+  if (isNaN(int)) {
+    return 0;
+  }
+
+  return int;
+}
 
 export default class ScoresReportWeightsUX {
 
@@ -76,7 +88,7 @@ export default class ScoresReportWeightsUX {
     course
       .save()
       .then(() => {
-        return course.scores
+        course.scores
           .fetch();
       })
       .catch(() => {
@@ -90,8 +102,8 @@ export default class ScoresReportWeightsUX {
 
   @action.bound setWeight(ev) {
     this.hasTouched = true;
-    const weight = parseInt(ev.target.value);
-    if (inRange(weight, MIN, MAX + 1)) { // inRange is up to but not including end
+    const weight = (ev.target.value !=='' && parseInt(ev.target.value)) || ev.target.value;
+    if (inRange(weight, MIN, MAX + 1) || weight === '') { // inRange is up to but not including end
       this[ev.target.name] = weight;
     }
   }
@@ -114,7 +126,10 @@ export default class ScoresReportWeightsUX {
   }
 
   @computed get weightValues() {
-    return pick(this, SETTINGS);
+    return flow(
+      partial(pick, placeholder, SETTINGS),
+      partial(mapValues, placeholder, stringToInt),
+    )(this);
   }
 
   @computed get total() {
