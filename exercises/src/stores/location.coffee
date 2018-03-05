@@ -11,9 +11,9 @@ VIEWS =
     store:    ExerciseStore
     actions:  ExerciseActions
 
-  search:
-    Body:     require 'components/search'
-    Controls: require 'components/search/controls'
+  # search:
+  #   Body:     require 'components/search'
+  #   Controls: require 'components/search/controls'
 
   vocabulary:
     Body:     require 'components/vocabulary'

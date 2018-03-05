@@ -6,7 +6,7 @@ Exercise = require 'components/exercise'
 EXERCISE = require '../../api/exercises/1.json'
 Location = require '../../src/stores/location'
 
-describe 'Exercises component', ->
+xdescribe 'Exercises component', ->
   props = history = null
   beforeEach ->
     sinon.stub( Location.prototype, '_createHistory', ->
