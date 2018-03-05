@@ -67,7 +67,15 @@ export default class ScoresReportWeightsUX {
   }
 
   @computed get isBusy() {
-    return this.course.api.isPending;
+    return Boolean(this.course.api.isPending || this.course.scores.api.isPending);
+  }
+
+  @computed get savingButtonText() {
+    if (this.course.scores.api.isPending) {
+      return 'Refreshing scores…';
+    } else {
+      return 'Saving…';
+    }
   }
 
   @action.bound onSetClick() {
@@ -85,10 +93,7 @@ export default class ScoresReportWeightsUX {
     Object.assign(course, this.nextWeights);
     course
       .save()
-      .then(() => {
-        course.scores
-          .fetch();
-      })
+      .then(() => course.scores.fetch())
       .catch(() => {
         // reset course weights to previous weight values
         Object.assign(course, percentsToWeights(currentPercents));
