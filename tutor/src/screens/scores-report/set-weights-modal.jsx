@@ -89,12 +89,13 @@ export default class SetWeightsModal extends React.Component {
         <Modal.Footer>
           <AsyncButton
             isWaiting={weights.isBusy}
-            waitingText='Saving…'
+            waitingText={weights.savingButtonText}
             onClick={weights.onSaveWeights}
             disabled={!weights.isSaveable}
             bsStyle={(weights.isSaveable && 'primary') || 'default'}
           >Save</AsyncButton>
           <Button
+            disabled={weights.isBusy}
             onClick={weights.onCancelClick}
             className={'btn-outline-secondary'}
           >Cancel</Button>
