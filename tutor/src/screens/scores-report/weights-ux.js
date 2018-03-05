@@ -72,7 +72,7 @@ export default class ScoresReportWeightsUX {
 
   @computed get savingButtonText() {
     if (this.course.scores.api.isPending) {
-      return 'Refreshing scores…';
+      return 'Recalculating scores…';
     } else {
       return 'Saving…';
     }
