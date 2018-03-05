@@ -120,9 +120,10 @@ ExMode = React.createClass
         {...questionProps}
         {...changeProps}
         key="step-question-#{question.id}"
-        model={question}
+        question={question}
         answer_id={answerId}
-        keySet={answerKeySet}>
+        keySet={answerKeySet}
+      >
         {@getFreeResponse()}
       </Question>
 

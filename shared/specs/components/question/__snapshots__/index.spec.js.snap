@@ -1,0 +1,271 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Question Component renders and matches snapshot 1`] = `
+<div
+  className="openstax-question"
+  data-question-number={undefined}
+>
+  <div
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?",
+      }
+    }
+  />
+  <div
+    className="answers-table"
+  >
+    <div
+      className="openstax-answer"
+    >
+      <div
+        className="answers-answer disabled"
+      >
+        <input
+          checked={false}
+          className="answer-input-box"
+          disabled={true}
+          id="1-option-0"
+          name="1-options"
+          onChange={[Function]}
+          type="radio"
+        />
+        <label
+          className="answer-label"
+          htmlFor="1-option-0"
+          onKeyPress={[Function]}
+        >
+          <button
+            aria-label="Choice a:"
+            className="answer-letter"
+            disabled={true}
+            onClick={[Function]}
+          >
+            a
+          </button>
+          <div
+            className="answer-answer"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are too small to be seen with the naked eye, and</li>
+  <li>there is the involvement of only a weak gravitational field</li>
+</ol>
+",
+                }
+              }
+            />
+          </div>
+        </label>
+      </div>
+    </div>
+    <div
+      className="openstax-answer"
+    >
+      <div
+        className="answers-answer disabled"
+      >
+        <input
+          checked={false}
+          className="answer-input-box"
+          disabled={true}
+          id="1-option-1"
+          name="1-options"
+          onChange={[Function]}
+          type="radio"
+        />
+        <label
+          className="answer-label"
+          htmlFor="1-option-1"
+          onKeyPress={[Function]}
+        >
+          <button
+            aria-label="Choice b:"
+            className="answer-letter"
+            disabled={true}
+            onClick={[Function]}
+          >
+            b
+          </button>
+          <div
+            className="answer-answer"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<ol>
+  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                }
+              }
+            />
+          </div>
+        </label>
+      </div>
+    </div>
+    <div
+      className="openstax-answer"
+    >
+      <div
+        className="answers-answer disabled"
+      >
+        <input
+          checked={false}
+          className="answer-input-box"
+          disabled={true}
+          id="1-option-2"
+          name="1-options"
+          onChange={[Function]}
+          type="radio"
+        />
+        <label
+          className="answer-label"
+          htmlFor="1-option-2"
+          onKeyPress={[Function]}
+        >
+          <button
+            aria-label="Choice c:"
+            className="answer-letter"
+            disabled={true}
+            onClick={[Function]}
+          >
+            c
+          </button>
+          <div
+            className="answer-answer"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                }
+              }
+            />
+          </div>
+        </label>
+      </div>
+    </div>
+    <div
+      className="openstax-answer"
+    >
+      <div
+        className="answers-answer disabled"
+      >
+        <input
+          checked={false}
+          className="answer-input-box"
+          disabled={true}
+          id="1-option-3"
+          name="1-options"
+          onChange={[Function]}
+          type="radio"
+        />
+        <label
+          className="answer-label"
+          htmlFor="1-option-3"
+          onKeyPress={[Function]}
+        >
+          <button
+            aria-label="Choice d:"
+            className="answer-letter"
+            disabled={true}
+            onClick={[Function]}
+          >
+            d
+          </button>
+          <div
+            className="answer-answer"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a weak gravitational field</li>
+</ol>
+",
+                }
+              }
+            />
+          </div>
+        </label>
+      </div>
+    </div>
+    <div
+      className="openstax-answer"
+    >
+      <div
+        className="answers-answer disabled"
+      >
+        <input
+          checked={false}
+          className="answer-input-box"
+          disabled={true}
+          id="1-option-4"
+          name="1-options"
+          onChange={[Function]}
+          type="radio"
+        />
+        <label
+          className="answer-label"
+          htmlFor="1-option-4"
+          onKeyPress={[Function]}
+        >
+          <button
+            aria-label="Choice e:"
+            className="answer-letter"
+            disabled={true}
+            onClick={[Function]}
+          >
+            e
+          </button>
+          <div
+            className="answer-answer"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are too small to be seen with the naked eye, and</li>
+  <li>there is the involvement of only a weak gravitational field</li>
+</ol>
+",
+                }
+              }
+            />
+          </div>
+        </label>
+      </div>
+    </div>
+  </div>
+  <div
+    className="detailed-solution"
+  >
+    <div
+      className="header"
+    >
+      Detailed solution
+    </div>
+    <div
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "four",
+        }
+      }
+    />
+  </div>
+</div>
+`;

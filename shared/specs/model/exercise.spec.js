@@ -1,5 +1,4 @@
 import Factories from '../factories';
-import Factory from 'object-factory-bot';
 
 describe('Exercise Helper', () => {
   let exercise;

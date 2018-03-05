@@ -138,7 +138,7 @@ class ExercisePreview extends React.Component {
         <Question
           key={question.id}
           className="openstax-question-preview"
-          model={question}
+          question={question}
           choicesEnabled={false}
           displayFormats={this.props.displayFormats}
           show_all_feedback={this.props.displayFeedback}

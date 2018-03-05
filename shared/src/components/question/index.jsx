@@ -48,7 +48,7 @@ class QuestionHtml extends React.Component {
 export default class Question extends React.Component {
 
   static propTypes = {
-    model: React.PropTypes.object.isRequired,
+    question: React.PropTypes.object.isRequired,
     task: React.PropTypes.object,
     correct_answer_id: React.PropTypes.string,
     exercise_uid: React.PropTypes.string,
@@ -72,8 +72,8 @@ export default class Question extends React.Component {
   };
 
   hasAnswerCorrectness = () => {
-    const { correct_answer_id, model } = this.props;
-    const { answers } = model;
+    const { correct_answer_id, question } = this.props;
+    const { answers } = question;
 
     return (
 
@@ -83,8 +83,8 @@ export default class Question extends React.Component {
   };
 
   hasSolution = () => {
-    const { model, correct_answer_id } = this.props;
-    const { collaborator_solutions } = model;
+    const { question, correct_answer_id } = this.props;
+    const { collaborator_solutions } = question;
 
     return (
 
@@ -95,8 +95,8 @@ export default class Question extends React.Component {
 
   render() {
     let exerciseUid, solution;
-    const { model, correct_answer_id, exercise_uid, className, questionNumber, context, task } = this.props;
-    const { stem_html, collaborator_solutions, formats, stimulus_html } = model;
+    const { question, correct_answer_id, exercise_uid, className, questionNumber, context, task } = this.props;
+    const { stem_html, collaborator_solutions, formats, stimulus_html } = question;
 
     const hasCorrectAnswer = !!correct_answer_id;
     const classes = classnames('openstax-question', className,
@@ -124,19 +124,16 @@ export default class Question extends React.Component {
 
     return (
 
-      (
-        <div className={classes} data-question-number={questionNumber}>
-          <QuestionHtml type="context" html={context} />
-          <QuestionHtml type="stimulus" html={stimulus_html} />
-          <QuestionHtml type="stem" html={stem_html} questionNumber={questionNumber} />
-          {this.props.children}
-          <AnswersTable {...this.props} hasCorrectAnswer={hasCorrectAnswer} />
-          {this.props.displayFormats ? <FormatsListing formats={formats} /> : undefined}
-          {solution}
-          {exerciseUid}
-        </div>
-      )
-
+      <div className={classes} data-question-number={questionNumber}>
+        <QuestionHtml type="context" html={context} />
+        <QuestionHtml type="stimulus" html={stimulus_html} />
+        <QuestionHtml type="stem" html={stem_html} questionNumber={questionNumber} />
+        {this.props.children}
+        <AnswersTable {...this.props} hasCorrectAnswer={hasCorrectAnswer} />
+        {this.props.displayFormats ? <FormatsListing formats={formats} /> : undefined}
+        {solution}
+        {exerciseUid}
+      </div>
     );
   }
 }

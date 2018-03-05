@@ -1,6 +1,7 @@
 import React from 'react';
 import { range, map, zip, partial, keys, isNil, extend, placeholder } from 'lodash';
 import { observer } from 'mobx-react';
+import { action } from 'mobx';
 import keymaster from 'keymaster';
 import keysHelper from '../../helpers/keys';
 
@@ -32,7 +33,7 @@ const isAnswerChecked = function(answer, chosenAnswer) {
 export default class AnswersTable extends React.Component {
 
   static propTypes = {
-    model: React.PropTypes.object.isRequired,
+    question: React.PropTypes.object.isRequired,
     type: React.PropTypes.string.isRequired,
     answer_id: React.PropTypes.string,
     correct_answer_id: React.PropTypes.string,
@@ -85,8 +86,8 @@ export default class AnswersTable extends React.Component {
     this.setState({ originalKeyScope: undefined })
   };
 
-  onChangeAnswer = (answer, changeEvent) => {
-    if (this.props.onChange != null) {
+  @action.bound onChangeAnswer(answer, changeEvent) {
+    if (this.props.onChange) {
       this.setState({ answer_id: answer.id });
       return (
         this.props.onChange(answer)
@@ -102,15 +103,13 @@ export default class AnswersTable extends React.Component {
   };
 
   shouldInstructionsShow = () => {
-    const { type, model, answer_id, correct_answer_id } = this.props;
+    const { type, question, answer_id, correct_answer_id } = this.props;
     return (
-      (
-        (model.formats.length > 1) &&
-          !(
-            (answer_id === correct_answer_id) ||
-              ['teacher-preview', 'teacher-review'].includes(type)
-          )
-      )
+      (question.formats.length > 1) &&
+        !(
+          (answer_id === correct_answer_id) ||
+            ['teacher-preview', 'teacher-review'].includes(type)
+        )
     );
   };
 
@@ -124,12 +123,12 @@ export default class AnswersTable extends React.Component {
   render() {
     let feedback, instructions;
     const {
-      model, type, answered_count, choicesEnabled, correct_answer_id,
+      question, type, answered_count, choicesEnabled, correct_answer_id,
       answer_id, feedback_html, show_all_feedback, keySet, project, hasCorrectAnswer,
       focus,
     } = this.props;
 
-    const { answers, id } = model;
+    const { answers, id } = question;
     if (!((answers != null ? answers.length : undefined) > 0)) { return null; }
 
     const chosenAnswer = [answer_id, this.state.answer_id];

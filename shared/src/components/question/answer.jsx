@@ -1,6 +1,7 @@
 import React from 'react';
 import { partial, pick, debounce } from 'lodash';
 import { observer } from 'mobx-react';
+import { action } from 'mobx';
 import classnames from 'classnames';
 import keymaster from 'keymaster';
 
@@ -24,9 +25,8 @@ const isAnswerCorrect = function(answer, correctAnswerId) {
 };
 
 const isAnswerChecked = function(answer, chosenAnswer) {
-  let isChecked;
   return (
-    isChecked = Array.from(chosenAnswer || []).includes(answer.id)
+    (chosenAnswer || []).includes(answer.id)
   );
 };
 
@@ -128,15 +128,13 @@ export default class Answer extends React.Component {
     );
   }; // silence react event return value warning
 
-  onChange = () => {
-    return (
-      this.props.onChangeAnswer(this.props.answer)
-    );
+  @action.bound onChange() {
+    this.props.onChangeAnswer(this.props.answer)
   };
 
   render() {
     let feedback, onChange, radioBox, selectedCount;
-    let { answer, iter, qid, type, correctAnswerId, answered_count, hasCorrectAnswer, chosenAnswer, onChangeAnswer, disabled } = this.props;
+    let { answer, iter, qid, type, correctAnswerId, answered_count, hasCorrectAnswer, chosenAnswer, disabled } = this.props;
     if (qid == null) { qid = `auto-${idCounter++}`; }
 
     const isChecked = isAnswerChecked(answer, chosenAnswer);
@@ -188,7 +186,6 @@ export default class Answer extends React.Component {
     const htmlAndMathProps = pick(this.context, ['processHtmlAndMath']);
 
     return (
-
       <div className="openstax-answer">
         <div className={classes}>
           {selectedCount}
