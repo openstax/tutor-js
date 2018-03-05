@@ -1,12 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { map, isEqual, isEmpty } from 'lodash';
-
-import { TocStore } from '../../flux/toc';
-import Dialog from '../tutor-dialog';
-import ExerciseHelpers from '../../helpers/exercise';
 import ChapterSection from '../task-plan/chapter-section';
-import Icon from '../icon';
 import ExercisePreview from './preview';
 import ScrollTo from '../../helpers/scroll-to';
 import { ExercisesMap, Exercise } from '../../models/exercises';
@@ -33,14 +28,14 @@ class SectionsExercises extends React.Component {
     // IMPORTANT: the 'data-section' attribute is used as a scroll-to target and must be present
     return (
       <div className="exercise-sections" data-section={page.chapter_section.asString}>
-        <label className="exercises-section-label">
-          <ChapterSection section={page.chapter_section.asString} />
-          {' '}
-          {title}
-        </label>
-        <div className="exercises">
-          {map(exercises.byPageId[pageId], (exercise) =>
-            <ExercisePreview key={exercise.id} {...previewProps} exercise={exercise} />)}
+      <label className="exercises-section-label">
+      <ChapterSection section={page.chapter_section.asString} />
+      {' '}
+      {title}
+      </label>
+      <div className="exercises">
+      {map(exercises.byPageId[pageId], (exercise) =>
+        <ExercisePreview key={exercise.id} {...previewProps} exercise={exercise} />)}
         </div>
       </div>
     );

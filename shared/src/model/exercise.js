@@ -8,6 +8,8 @@ import Author from './exercise/author';
 import Question from './exercise/question';
 import Tag from './exercise/tag';
 
+export { Attachment, Author, Question, Tag };
+
 @identifiedBy('exercise')
 export default class Exercise extends BaseModel {
 
@@ -27,6 +29,10 @@ export default class Exercise extends BaseModel {
   @hasMany({ model: Author })  copyright_holders;
   @hasMany({ model: Question }) questions;
   @hasMany({ model: Tag }) tags;
+
+  @computed get hasFreeResponse() {
+    return this.formats.includes('free-response');
+  }
 
   @computed get pool_types() {
     return [];

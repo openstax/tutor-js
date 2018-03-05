@@ -4,9 +4,13 @@ import '../../../shared/specs/factories';
 import Course from '../../src/models/course';
 import TutorExercise from '../../src/models/exercises/exercise';
 import Book from '../../src/models/reference-book';
+import TaskPlanStat from '../../src/models/task-plan/stats';
+import { EcosystemsMap, Ecosystem } from '../../src/models/ecosystems';
 import { ExercisesMap } from '../../src/models/exercises';
 import './course';
 import './book';
+import './task-plan-stats'
+import './ecosystem';
 import './exercise';
 
 const Factories = {};
@@ -15,6 +19,8 @@ each({
   Course,
   TutorExercise,
   Book,
+  Ecosystem,
+  TaskPlanStat,
 }, (Model, name) => {
   Factories[camelCase(name)] = (attrs = {}) => {
     const o = FactoryBot.create(name, attrs);
@@ -22,8 +28,17 @@ each({
   };
 });
 
-Factories.exercisesMap = ({ book, pageIds = [], count = 4 }) => {
+Factories.data = (...args) => FactoryBot.create(...args)
+
+Factories.ecosystemsMap = ({ count = 4 } = {}) => {
+  const map = new EcosystemsMap();
+  map.onLoaded({ data: range(count).map(() => FactoryBot.create('Ecosystem')) });
+  return map;
+};
+
+Factories.exercisesMap = ({ book, pageIds = [], count = 4 } = {}) => {
   const map = new ExercisesMap();
+  if (!book) { return map; }
   pageIds.forEach(pgId => {
     map.onLoaded(
       { data: { items: range(count).map(() => FactoryBot.create('TutorExercise', {

@@ -1,7 +1,7 @@
 import Map from 'shared/model/map';
 import { computed, action, observable, toJS } from 'mobx';
 import Exercise from './exercises/exercise';
-import { extend, groupBy, filter } from 'lodash';
+import { extend, groupBy, filter, isEmpty } from 'lodash';
 import { readonly } from 'core-decorators';
 
 const MIN_EXCLUDED_COUNT = 5;
@@ -14,6 +14,10 @@ export class ExercisesMap extends Map {
 
   @computed get byPageId() {
     return groupBy(this.array, 'page.id');
+  }
+
+  forPageId(pageId) {
+    return this.byPageId[pageId] || [];
   }
 
   @computed get all() {
@@ -29,7 +33,7 @@ export class ExercisesMap extends Map {
   }
 
   isMinimumExcludedForPage(page) {
-    const exercises = this.byPageId[ page.id ];
+    const exercises = this.forPageId(page.id);
     const nonExcluded = filter(exercises, { is_excluded: false }).length;
     if ((MIN_EXCLUDED_COUNT == nonExcluded) ||
       (nonExcluded == 0 && exercises.length <= MIN_EXCLUDED_COUNT)
@@ -64,9 +68,12 @@ export class ExercisesMap extends Map {
     return this.fetched.get(page_id) === PENDING;
   }
 
-  ensureLoaded({ book, page_id }) {
-    if (!this.hasFetched({ book, page_id })) {
-      this.fetch({ book, page_ids: [ page_id ] });
+  ensureLoaded({ book, course, page_ids }) {
+    const unFetchedPageIds = filter(page_ids, page_id =>
+      !this.isFetching({ page_id }) && !this.hasFetched({ page_id })
+    );
+    if (!isEmpty(unFetchedPageIds)) {
+      this.fetch({ book, course, page_ids: unFetchedPageIds });
     }
   }
 

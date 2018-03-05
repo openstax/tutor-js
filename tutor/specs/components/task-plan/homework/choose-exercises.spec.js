@@ -8,8 +8,12 @@ import { TaskPlanActions, TaskPlanStore } from '../../../../src/flux/task-plan';
 jest.mock('../../../../src/flux/task-plan', () => ({
   TaskPlanActions: {
     updateTopics: jest.fn(),
+    addExercise: jest.fn(),
   },
   TaskPlanStore: {
+    on: jest.fn(),
+    off: jest.fn(),
+    hasExercise: jest.fn(() => false),
     exerciseCount: jest.fn(() => 5),
     getTutorSelections: jest.fn(() => 3),
     canDecreaseTutorExercises: jest.fn(() => true),
@@ -18,22 +22,8 @@ jest.mock('../../../../src/flux/task-plan', () => ({
   },
 }));
 
-// import { Testing, sinon, _, React } from '../../helpers/component-testing';
-// _ = require('underscore');
-// import moment from 'moment-timezone';
-//
-// import { TocActions, TocStore } from '../../../../src/flux/toc';
-// import Courses from '../../../../src/models/courses-map';
-//
-// const ECOSYSTEM_ID = '1';
-// const COURSE_ID    = '1';
-//
-// import COURSE from '../../../../api/user/courses/1.json';
-// import READINGS from '../../../../api/ecosystems/1/readings.json';
-const PLAN_ID      = '1';
+const PLAN_ID  = '1';
 const NEW_PLAN = ExtendBasePlan({ id: PLAN_ID });
-//
-// const ChooseExercises = require('../../../../src/components/task-plan/homework/choose-exercises');
 
 describe('choose exercises component', function() {
   let exercises, props, course;
@@ -45,6 +35,7 @@ describe('choose exercises component', function() {
 
     return props = {
       course,
+      exercises,
       windowImpl: new FakeWindow,
       canEdit: false,
       planId: PLAN_ID,
@@ -57,40 +48,38 @@ describe('choose exercises component', function() {
     expect(SnapShot.create(<ChooseExercises {...props} />).toJSON()).toMatchSnapshot();
   });
 
-  fit('updates when page clicked', () => {
+  it('can select exercises', () => {
     const ce = mount(<ChooseExercises {...props} />);
-    const pageIds = course.referenceBook.children[1].children.map(pg => pg.id);
-    TaskPlanStore.getTopics.mockImplementation(() => pageIds);
+    const page_ids = course.referenceBook.children[1].children.map(pg => pg.id);
+    TaskPlanStore.getTopics.mockImplementation(() => page_ids);
+    exercises.foo = 1;
 
     expect(ce).toHaveRendered('.show-problems[disabled=true]');
     ce.find('.chapter-heading .tutor-icon').at(1).simulate('click');
     expect(ce).toHaveRendered('.show-problems[disabled=false]');
-    //exercises.fetch = jest.fn();
+    exercises.fetch = jest.fn();
 
     ce.find('.show-problems').simulate('click');
 
-    //expect(exercises.fetch).toHaveBeenCalledWith();
+    expect(exercises.fetch).toHaveBeenCalled();
 
+    const items = page_ids.map(page_id =>
+      FactoryBot.create('TutorExercise', { page_uuid: course.referenceBook.pages.byId.get(page_id).uuid }),
+    );
 
-    //    ce.update();
+    exercises.onLoaded({ data: { items } }, [{ course, page_ids }]);
+    const uid = ce.find('[data-exercise-id]').last().prop('data-exercise-id');
+    const exercise = exercises.array.find(e => uid == e.content.uid);
 
+    ce.find(`[data-exercise-id="${uid}"] .action.include`).simulate('click');
+    expect(exercise.isSelected).toEqual(true);
+    expect(TaskPlanActions.addExercise).toHaveBeenCalledWith(PLAN_ID, exercise.id);
 
-    // expect(TaskPlanActions.updateTopics).toHaveBeenCalledWith(String(course.id), pageIds);
-    // exercises.fetch = jest.fn();
-    // console.log("CLIC")
+    expect(ce).toHaveRendered('.exercise-controls-bar .review-exercises');
 
+    expect(SnapShot.create(<ChooseExercises {...props} />).toJSON()).toMatchSnapshot();
 
-
-    //    expect(props.onSelectionChange).toHaveBeenCalledWith(pageIds);
-
-    console.log(ce.debug());
-    //Testing.renderComponent( ChooseExercises, { props } ).then(({ dom }) => expect(dom.querySelector('[data-chapter-section="1.1"]')).to.exist)
+    ce.unmount();
   });
 
-  // return it('hides exercises onSectionChange', () =>
-  //   Testing.renderComponent( ChooseExercises, { props, unmountAfter: 10 } ).then(function({ dom, element }) {
-  //     Testing.actions.click( dom.querySelector('.section') );
-  //     return expect(element.state.showProblems).to.be.false;
-  //   })
-  // );
 });

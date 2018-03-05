@@ -137,7 +137,7 @@ exports[`Exercise Preview Wrapper Component renders 1`] = `
                         <div className=\\"header\\">
                           Detailed solution
                         </div>
-                        <ArbitraryHtmlAndMath className=\\"solution\\" block={true} html=\\"truetruetruetruetruetruetruetruetruetruetruetrue\\" shouldExcludeFrame={[Function]}>
+                        <ArbitraryHtmlAndMath className=\\"solution\\" block={true} html=\\"four\\" shouldExcludeFrame={[Function]}>
                           <div className=\\"openstax-has-html solution\\" dangerouslySetInnerHTML={{...}} />
                         </ArbitraryHtmlAndMath>
                       </div>
@@ -147,6 +147,9 @@ exports[`Exercise Preview Wrapper Component renders 1`] = `
                 <div className=\\"exercise-tags\\">
                   <span className=\\"exercise-tag\\">
                     blooms:3
+                  </span>
+                  <span className=\\"exercise-tag\\">
+                    book:stax-phys
                   </span>
                   <span className=\\"exercise-tag\\">
                     context-cnxfeature:one-1
@@ -161,6 +164,13 @@ exports[`Exercise Preview Wrapper Component renders 1`] = `
                     filter-type:test-prep
                   </span>
                   <span className=\\"exercise-tag\\">
+                    ID: 1@1
+                  </span>
+                  <div className=\\"lo-tag\\">
+                    LO: 
+                    lo:stax-phys:1-2-1
+                  </div>
+                  <span className=\\"exercise-tag\\">
                     requires-context:true
                   </span>
                   <span className=\\"exercise-tag\\">
@@ -168,9 +178,6 @@ exports[`Exercise Preview Wrapper Component renders 1`] = `
                   </span>
                   <span className=\\"exercise-tag\\">
                     type:conceptual
-                  </span>
-                  <span className=\\"exercise-tag\\">
-                    ID: 1@1
                   </span>
                 </div>
               </div>

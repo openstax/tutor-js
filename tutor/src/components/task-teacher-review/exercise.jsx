@@ -4,7 +4,9 @@ import { computed, observable, action } from 'mobx';
 import { isEmpty, map, pick, find } from 'lodash';
 import { Panel } from 'react-bootstrap';
 import classnames from 'classnames';
-import { Exercise, Question as QuestionModel } from '../../models/task-plan/stats';
+import Exercise from '../../models/exercises/exercise';
+import { QuestionStats } from '../../models/task-plan/stats';
+
 import Icon from '../icon';
 import {
   ArbitraryHtmlAndMath, Question, CardBody, FreeResponse,
@@ -18,7 +20,7 @@ const TOGGLE_FREE_RESPONSE_LIMIT = 3;
 class TaskTeacherReviewQuestion extends React.PureComponent {
 
   static propTypes = {
-    question: React.PropTypes.instanceOf(QuestionModel).isRequired,
+    question: React.PropTypes.instanceOf(QuestionStats).isRequired,
   };
 
   @observable showNamesAndFreeResponse = false;
@@ -150,12 +152,12 @@ export default class TaskTeacherReviewExercise extends React.Component {
       <TaskTeacherReviewQuestionTracker
         key={`task-review-question-${question.question_id}`}
         question={question}
-        sectionKey={`${question.exercise.uid}-${index}`} />
+        sectionKey={`${this.props.exercise.content.uid}-${index}`} />
     );
   };
 
   @computed get stimulusHTML() {
-    const { stimulus_html } = this.props.exercise.contentData;
+    const { stimulus_html } = this.props.exercise.content;
     if (isEmpty(stimulus_html)) { return null; }
     return (
       <ArbitraryHtmlAndMath
@@ -168,6 +170,7 @@ export default class TaskTeacherReviewExercise extends React.Component {
 
   render() {
     const { exercise } = this.props;
+
     return (
       <div
         className="task-step openstax-exercise openstax-exercise-card">
@@ -179,7 +182,7 @@ export default class TaskTeacherReviewExercise extends React.Component {
             exercise_uid={exercise.uid}
           />
           <TourAnchor id="errata-link">
-            <ExerciseIdentifierLink exerciseId={exercise.uid} project="tutor" />
+            <ExerciseIdentifierLink exerciseId={exercise.content.uid} project="tutor" />
           </TourAnchor>
         </CardBody>
       </div>

@@ -1,42 +1,36 @@
-import { React, SnapShot } from '../components/helpers/component-testing';
-import Router from '../../src/helpers/router';
-import Ecosystems from '../../src/models/ecosystems';
-import { action } from 'mobx';
-import { bootstrapCoursesList } from '../courses-test-data';
+import { React, SnapShot, Wrapper } from '../components/helpers/component-testing';
+import { times } from 'lodash';
+import Factory, { FactoryBot } from '../factories';
 import QA from '../../src/screens/qa-view/view';
 import QaUX from '../../src/screens/qa-view/ux';
 import EnzymeContext from '../components/helpers/enzyme-context';
-import Exercises from '../../src/models/exercises';
-import ECOSYSTEMS from '../../api/ecosystems.json';
-import REFERENCE_BOOK from '../../api/ecosystems/1/readings.json';
-import EXERCISES from '../../api/ecosystems/1/exercises.json';
-import REFERENCE_BOOK_PAGE_DATA from '../../api/pages/17f6ff53-2d92-4669-acdd-9a958ea7fd0a@12.json';
-const ECOSYSTEM_ID = '1';
-const SECTION = '2.1';
-const ECO_SECTION = { ecosystemId: ECOSYSTEM_ID, section: SECTION };
-jest.mock('../../src/helpers/router');
+
+jest.mock('../../../shared/src/components/html', () => ({ html }) =>
+  html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
+);
 
 describe('QA Screen', function() {
-  let props, ux, course, router;
+  let props, ux, currentSection, book;
 
   beforeEach(function() {
-    Ecosystems.onLoaded({ data: ECOSYSTEMS });
+    const exercises = Factory.exercisesMap();
+    const ecosystems = Factory.ecosystemsMap();
+    ux = new QaUX({ router, exercises, ecosystems });
+    const ecosystem = ux.ecosystemsMap.array[0];
+    book = ecosystem.referenceBook;
+    book.onApiRequestComplete({ data: [FactoryBot.create('Book')] });
+    book.fetch = jest.fn(() => Promise.resolve());
+    currentSection = book.pages.byChapterSection.keys()[2];
+    ux.update({
+      ecosystemId: ecosystem.id,
+      section: currentSection,
+    });
 
-    Ecosystems.get(ECOSYSTEM_ID).referenceBook.fetch=jest.fn(action(function() {
-      this.onApiRequestComplete({ data: REFERENCE_BOOK });
-      //this.pages.values().forEach((pg) => pg.fetch = jest.fn());
-      this.pages.get(SECTION)
-        .onContentFetchComplete({ data: REFERENCE_BOOK_PAGE_DATA });
-      return Promise.resolve(this);
-    }));
-
-    router = {
+    const router = {
       history: {
         push: jest.fn(),
       },
     };
-    router = {};
-    ux = new QaUX(router);
     props = {
       ux,
     };
@@ -44,16 +38,16 @@ describe('QA Screen', function() {
 
   it('renders as loading then matches snapshot', () => {
     const qa = mount(<QA {...props} />, EnzymeContext.build());
-    expect(qa.html()).toMatchSnapshot();
-
-    ux.update(ECO_SECTION);
-    expect(ux.ecosystem).not.toBeNull();
+    const page = book.pages.byChapterSection.get(currentSection);
+    ux.exercisesMap.onLoaded({ data: { items: times(8, () => FactoryBot.create('TutorExercise', {
+      page_uuid: page.uuid,
+    })) } }, [{ book, page_ids: [ page.id ]  }]);
+    expect(ux.isFetchingExercises).toBe(false);
+    expect(qa.debug()).toMatchSnapshot();
+    ux.setDisplayingPanel({}, false);
+    expect(qa.debug()).toMatchSnapshot();
     expect(ux.activePage).not.toBeNull();
-    expect(qa.html()).toMatchSnapshot();
-
-    Exercises.onLoaded({ data: EXERCISES }, [{ ecosystem_id: ECOSYSTEM_ID, page_id: ux.activePage.id }]);
-    expect(ux.isFetchingExercises).toEqual(false);
-    expect(qa.html()).toMatchSnapshot();
+    qa.unmount();
   });
 
 });

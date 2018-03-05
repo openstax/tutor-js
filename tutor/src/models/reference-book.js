@@ -1,5 +1,5 @@
 import { readonly } from 'core-decorators';
-import { last } from 'lodash';
+import { first, last, mapValues } from 'lodash';
 import { action, observable, computed } from 'mobx';
 import {
   BaseModel, identifiedBy, belongsTo, identifier, field, session, hasMany,
@@ -27,7 +27,7 @@ export default class ReferenceBook extends BaseModel {
   @identifier id;
   @field archive_url;
   @field webview_url;
-  @field({ model: ChapterSection }) chapter_section
+  @field({ model: ChapterSection }) chapter_section;
 
   @computed get pages() {
     return mapPages(this, {
@@ -49,7 +49,12 @@ export default class ReferenceBook extends BaseModel {
   }
 
   @action onApiRequestComplete({ data }) {
-    this.update(data[0]);
+    this.update(first(data)); // data is an array
+  }
+
+  // a simplified data structure suitable for passing into flux
+  @computed get topicInfo() {
+    return mapValues(this.pages.byId.toJS(), pg => pg.asTopic);
   }
 
 }

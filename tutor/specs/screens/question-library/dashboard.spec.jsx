@@ -4,7 +4,9 @@ import EnzymeContext from '../../components/helpers/enzyme-context';
 import Dashboard from '../../../src/screens/question-library/dashboard';
 import ExerciseHelpers from '../../../src/helpers/exercise';
 
-jest.mock('../../../../shared/src/components/html');
+jest.mock('../../../../shared/src/components/html', () => ({ html }) =>
+  html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
+);
 jest.mock('../../../src/helpers/exercise');
 
 describe('Questions Dashboard Component', function() {
@@ -21,6 +23,7 @@ describe('Questions Dashboard Component', function() {
       exercises,
     };
   });
+
 
   const displayExercises = () => {
     const page_ids = course.referenceBook.children[1].children.map(pg => pg.id);

@@ -10,7 +10,7 @@ import Stats from '../plan-stats';
 import Review from './review';
 import { PinnedHeaderFooterCard } from 'shared';
 import ScrollTo from '../../helpers/scroll-to';
-
+import { idType } from 'shared/helpers/react';
 import NoStats from './no-stats';
 
 @observer
@@ -19,7 +19,7 @@ export default class TaskTeacherReview extends React.Component {
     id: React.PropTypes.string,
     params: React.PropTypes.shape({
       id: React.PropTypes.string,
-      courseId: React.PropTypes.string,
+      courseId: idType,
     }).isRequired,
     windowImpl: React.PropTypes.object,
   };

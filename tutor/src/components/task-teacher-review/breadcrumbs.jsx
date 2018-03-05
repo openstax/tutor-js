@@ -2,7 +2,7 @@ import React from 'react';
 import { map } from 'lodash';
 import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
-
+import { idType } from 'shared/helpers/react';
 import { BreadcrumbStatic } from '../breadcrumb';
 
 import BackButton from '../buttons/back-button';

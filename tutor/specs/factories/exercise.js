@@ -18,4 +18,5 @@ Factory.define('TutorExercise')
   )
   .url(({ object }) =>
     `https://exercises.openstax.org/exercises/${object.content.uid}`
-  );
+  )
+  .question_stats(() => []);

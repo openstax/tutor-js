@@ -109,6 +109,8 @@ Factory.define('Exercise')
     'blooms:3',
     'time:long',
     'dok:3',
+    'lo:stax-phys:1-2-1',
+    'book:stax-phys',
     'context-cnxmod:',
     'context-cnxfeature:one-1',
   ])

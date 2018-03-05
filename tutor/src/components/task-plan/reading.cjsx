@@ -6,20 +6,22 @@ classnames = require 'classnames'
 
 {TutorInput, TutorDateInput, TutorTextArea} = require '../tutor-input'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
-{TocStore, TocActions} = require '../../flux/toc'
 {default: SelectTopics} = require './select-topics'
 {default: PlanFooter} = require './footer'
+{default: Page} = require '../../models/reference-book/page'
 ChapterSection = require './chapter-section'
 PlanMixin = require './plan-mixin'
 LoadableItem = require '../loadable-item'
 TaskPlanBuilder = require './builder'
 { default: NoQuestionsTooltip } = require './reading/no-questions-tooltip'
 Fn = require '../../helpers/function'
+{ default: Courses } = require '../../models/courses-map'
 { default: TourRegion } = require '../tours/region'
 
 ReviewReadingLi = React.createClass
   displayName: 'ReviewReadingLi'
   propTypes:
+    page: React.PropTypes.instanceOf(Page).isRequired
     planId: React.PropTypes.string.isRequired
     topicId: React.PropTypes.string.isRequired
     canEdit: React.PropTypes.bool
@@ -51,31 +53,39 @@ ReviewReadingLi = React.createClass
       </span>
 
   render: ->
-    topic = TocStore.getSectionInfo(@props.topicId)
+    { page } = @props
     actionButtons = @getActionButtons()
 
     <li className='selected-section'>
-      <ChapterSection section={topic.chapter_section}/>
-      <span className='section-title'>{topic?.title}</span>
+      <ChapterSection section={page.chapter_section.asString}/>
+      <span className='section-title'>{page.title}</span>
       {actionButtons}
     </li>
 
 ReviewReadings = React.createClass
   displayName: 'ReviewReadings'
   propTypes:
+    courseId: React.PropTypes.string.isRequired
     planId: React.PropTypes.string.isRequired
     selected: React.PropTypes.array
     canEdit: React.PropTypes.bool
 
+  componentWillMount: ->
+    @book = Courses.get(@props.courseId).referenceBook
+    @book.ensureLoaded()
+
   renderSection: (topicId, index) ->
     <ReviewReadingLi
       topicId={topicId}
+      page={@book.pages.byId.get(topicId)}
       planId={@props.planId}
       canEdit={@props.canEdit}
       index={index}
       key="review-reading-#{index}"/>
 
-  renderSelected: ->
+  render: ->
+    return null if @book.api.isPending # no loading indicator
+
     if @props.selected.length
       <TourRegion
         tag="ul"
@@ -90,22 +100,14 @@ ReviewReadings = React.createClass
     else
       <div className='-selected-reading-list-none'></div>
 
-  render: ->
-    <LoadableItem
-      id={@props.ecosystemId}
-      store={TocStore}
-      actions={TocActions}
-      renderItem={@renderSelected}
-    />
-
 ChooseReadings = React.createClass
   hide: ->
-    TaskPlanActions.sortTopics(@props.planId)
+    book = Courses.get(@props.courseId).referenceBook
+    TaskPlanActions.sortTopics(@props.planId, book.topicInfo)
     @props.hide()
 
   render: ->
     buttonStyle = 'primary'
-    header = <span>Select Readings</span>
 
     primary =
       <BS.Button
@@ -118,9 +120,9 @@ ChooseReadings = React.createClass
     <SelectTopics
       primary={primary}
       onSectionChange={Fn.empty}
-      header={header}
+      header="Select Readings"
       type="reading"
-      courseId={@props.courseId}
+      course={Courses.get(@props.courseId)}
       ecosystemId={@props.ecosystemId}
       planId={@props.planId}
       selected={@props.selected}

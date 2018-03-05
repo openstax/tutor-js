@@ -1,14 +1,10 @@
 import React from 'react';
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
-import { keys, first, isEmpty } from 'lodash';
+import { keys, first } from 'lodash';
 import { Button, ButtonGroup } from 'react-bootstrap';
 import classNames from 'classnames';
 import Course from '../../models/course';
-
-// import { ExerciseStore, ExerciseActions } from '../../flux/exercise';
-// import Courses from '../../models/courses-map';
-
 import TourAnchor from '../../components/tours/anchor';
 
 

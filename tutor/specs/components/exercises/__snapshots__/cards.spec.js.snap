@@ -274,6 +274,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -294,6 +299,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 1@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -305,11 +321,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 1@1
               </span>
             </div>
           </div>
@@ -541,6 +552,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -561,6 +577,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 2@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -572,11 +599,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 2@1
               </span>
             </div>
           </div>
@@ -815,6 +837,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -835,6 +862,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 3@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -846,11 +884,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 3@1
               </span>
             </div>
           </div>
@@ -1082,6 +1115,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -1102,6 +1140,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 4@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -1113,11 +1162,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 4@1
               </span>
             </div>
           </div>
@@ -1370,6 +1414,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -1390,6 +1439,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 5@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -1401,11 +1461,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 5@1
               </span>
             </div>
           </div>
@@ -1662,6 +1717,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -1682,6 +1742,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 6@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -1693,11 +1764,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 6@1
               </span>
             </div>
           </div>
@@ -1929,6 +1995,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -1949,6 +2020,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 7@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -1960,11 +2042,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 7@1
               </span>
             </div>
           </div>
@@ -2203,6 +2280,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -2223,6 +2305,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 8@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -2234,11 +2327,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 8@1
               </span>
             </div>
           </div>
@@ -2491,6 +2579,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -2511,6 +2604,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 9@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -2522,11 +2626,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 9@1
               </span>
             </div>
           </div>
@@ -2758,6 +2857,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -2778,6 +2882,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 10@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -2789,11 +2904,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 10@1
               </span>
             </div>
           </div>
@@ -3050,6 +3160,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -3070,6 +3185,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 11@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -3081,11 +3207,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 11@1
               </span>
             </div>
           </div>
@@ -3317,6 +3438,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -3337,6 +3463,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 12@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -3348,11 +3485,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 12@1
               </span>
             </div>
           </div>
@@ -3612,6 +3744,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -3632,6 +3769,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 13@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -3643,11 +3791,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 13@1
               </span>
             </div>
           </div>
@@ -3879,6 +4022,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -3899,6 +4047,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 14@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -3910,11 +4069,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 14@1
               </span>
             </div>
           </div>
@@ -4146,6 +4300,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -4166,6 +4325,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 15@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -4177,11 +4347,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 15@1
               </span>
             </div>
           </div>
@@ -4438,6 +4603,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -4458,6 +4628,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 16@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -4469,11 +4650,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 16@1
               </span>
             </div>
           </div>
@@ -4726,6 +4902,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -4746,6 +4927,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 17@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -4757,11 +4949,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 17@1
               </span>
             </div>
           </div>
@@ -5000,6 +5187,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -5020,6 +5212,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 18@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -5031,11 +5234,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 18@1
               </span>
             </div>
           </div>
@@ -5267,6 +5465,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -5287,6 +5490,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 19@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -5298,11 +5512,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 19@1
               </span>
             </div>
           </div>
@@ -5534,6 +5743,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -5554,6 +5768,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 20@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -5565,11 +5790,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 20@1
               </span>
             </div>
           </div>
@@ -5847,6 +6067,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -5867,6 +6092,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 21@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -5878,11 +6114,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 21@1
               </span>
             </div>
           </div>
@@ -6114,6 +6345,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -6134,6 +6370,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 22@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -6145,11 +6392,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 22@1
               </span>
             </div>
           </div>
@@ -6388,6 +6630,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -6408,6 +6655,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 23@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -6419,11 +6677,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 23@1
               </span>
             </div>
           </div>
@@ -6655,6 +6908,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -6675,6 +6933,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 24@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -6686,11 +6955,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 24@1
               </span>
             </div>
           </div>
@@ -6943,6 +7207,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -6963,6 +7232,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 25@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -6974,11 +7254,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 25@1
               </span>
             </div>
           </div>
@@ -7235,6 +7510,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -7255,6 +7535,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 26@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -7266,11 +7557,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 26@1
               </span>
             </div>
           </div>
@@ -7502,6 +7788,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -7522,6 +7813,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 27@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -7533,11 +7835,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 27@1
               </span>
             </div>
           </div>
@@ -7776,6 +8073,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -7796,6 +8098,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 28@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -7807,11 +8120,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 28@1
               </span>
             </div>
           </div>
@@ -8064,6 +8372,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -8084,6 +8397,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 29@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -8095,11 +8419,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 29@1
               </span>
             </div>
           </div>
@@ -8331,6 +8650,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -8351,6 +8675,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 30@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -8362,11 +8697,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 30@1
               </span>
             </div>
           </div>
@@ -8623,6 +8953,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -8643,6 +8978,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 31@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -8654,11 +9000,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 31@1
               </span>
             </div>
           </div>
@@ -8890,6 +9231,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -8910,6 +9256,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 32@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -8921,11 +9278,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 32@1
               </span>
             </div>
           </div>
@@ -9185,6 +9537,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -9205,6 +9562,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 33@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -9216,11 +9584,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 33@1
               </span>
             </div>
           </div>
@@ -9452,6 +9815,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -9472,6 +9840,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 34@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -9483,11 +9862,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 34@1
               </span>
             </div>
           </div>
@@ -9719,6 +10093,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -9739,6 +10118,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 35@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -9750,11 +10140,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 35@1
               </span>
             </div>
           </div>
@@ -10011,6 +10396,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
                 context-cnxfeature:one-1
               </span>
               <span
@@ -10031,6 +10421,17 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
+                ID: 36@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
                 requires-context:true
               </span>
               <span
@@ -10042,11 +10443,6 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 className="exercise-tag"
               >
                 type:conceptual
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                ID: 36@1
               </span>
             </div>
           </div>

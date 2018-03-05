@@ -94,7 +94,7 @@ describe 'Media flux', ->
   it 'should be able to parse HTML from reference book pages', ->
     course = bootstrapCoursesList().get(1)
     course.referenceBook.onApiRequestComplete({ data: REFERENCE_BOOK })
-    course.referenceBook.pages.get('1.2').onContentFetchComplete({ data: REFERENCE_BOOK_PAGE_DATA })
+    course.referenceBook.pages.byChapterSection.get('1.2').onContentFetchComplete({ data: REFERENCE_BOOK_PAGE_DATA })
     mediaIds = MediaStore.getMediaIds()
 
     expect(mediaIds)

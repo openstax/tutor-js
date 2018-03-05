@@ -50,7 +50,7 @@ class ChooseExercises extends React.Component {
   }
 
   render() {
-    const { course, planId, hide, cancel } = this.props;
+    const { course, exercises, planId, hide, cancel } = this.props;
 
     const primaryBtn =
       <Button
@@ -78,6 +78,7 @@ class ChooseExercises extends React.Component {
         {this.selectedPageIds.length && this.showProblems &&
           <AddExercises
             course={course}
+            exercises={exercises}
             hide={hide}
             cancel={cancel}
             canEdit={true}

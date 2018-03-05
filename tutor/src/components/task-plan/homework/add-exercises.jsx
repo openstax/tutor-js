@@ -5,7 +5,6 @@ import { observable, action, computed } from 'mobx';
 import { ArrayOrMobxType } from 'shared/helpers/react';
 import Loading from '../../loading-screen';
 import { PinnedHeaderFooterCard, ScrollToMixin } from 'shared';
-import { ExerciseStore, ExerciseActions } from '../../../flux/exercise';
 import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
 import ExerciseHelpers from '../../../helpers/exercise';
 import ExerciseControls from './exercise-controls';
@@ -29,6 +28,14 @@ class AddExercises extends React.Component {
     exercises: sharedExercises,
   };
 
+  componentWillMount() {
+    this.props.pageIds.forEach(pg => {
+      this.props.exercises.forPageId(pg).forEach(
+        e => e.isSelected = TaskPlanStore.hasExercise(this.props.planId, e.id),
+      );
+    });
+  }
+
 
   @observable currentView = 'cards';
   @observable currentSection;
@@ -45,16 +52,19 @@ class AddExercises extends React.Component {
   }
 
   @action.bound onExerciseToggle(ev, exercise) {
-    if (this.getExerciseIsSelected(exercise)) {
-      TaskPlanActions.removeExercise(this.props.planId, exercise);
+    const ex = exercise.wrapper;
+    ex.isSelected = !ex.isSelected;
+    if (ex.isSelected) {
+      TaskPlanActions.addExercise(this.props.planId, ex.id);
     } else {
-      TaskPlanActions.addExercise(this.props.planId, exercise);
+      TaskPlanActions.removeExercise(this.props.planId, ex.id);
     }
+
   }
 
   getExerciseActions = (exercise) => {
     const actions = {};
-    if (this.getExerciseIsSelected(exercise)) {
+    if (exercise.isSelected) {
       actions.exclude = {
         message: 'Remove question',
         handler: this.onExerciseToggle,
@@ -116,7 +126,7 @@ class AddExercises extends React.Component {
   }
 
   getExerciseIsSelected = (exercise) => {
-    return TaskPlanStore.hasExercise(this.props.planId, exercise.id);
+    return exercise.isSelected;
   };
 
   setCurrentSection = (currentSection) => {
@@ -153,8 +163,6 @@ class AddExercises extends React.Component {
       body = (
         <ExerciseCards
           {...sharedProps}
-          watchStore={TaskPlanStore}
-          watchEvent="change-exercise-"
           topScrollOffset={110}
           focusedExercise={this.focusedExercise}
           onShowDetailsViewClick={this.onShowDetailsViewClick} />

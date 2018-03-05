@@ -139,9 +139,8 @@ export default class SectionsChooser extends React.Component {
   @observable selections = {};
 
   componentWillMount() {
-    if (!this.props.book.api.isFetchedOrFetching) {
-      this.props.book.fetch();
-    }
+    this.props.book.ensureLoaded();
+
     this.copySelectionStateFrom(
       this.props.selectedPageIds ? this.props.selectedPageIds : []
     );

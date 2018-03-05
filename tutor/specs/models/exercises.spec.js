@@ -11,12 +11,20 @@ describe('Exercises Map', () => {
     page_ids = sampleSize(book.pages.byId.keys(), 3);
   });
 
+  it('collects important tag info', () => {
+    const exercise = Factory.tutorExercise();
+    expect(exercise.tags.importantInfo).toEqual({
+      section: '', lo: 'lo:stax-phys:1-2-1', tagString: [ 'blooms:3', 'dok:3' ],
+    });
+  });
+
+
   it('can be loaded and group by page', () => {
     page_ids.forEach(page_id => { expect(exercises.isFetching({ book, page_id })).toBe(false); });
 
     expect(
       exercises.fetch({ book, page_ids })
-    ).toEqual({ url: `ecosystems/${book.id}/exercises`, params: { page_ids } });
+    ).toEqual({ url: `ecosystems/${book.id}/exercises`, query: { page_ids } });
 
     page_ids.forEach(page_id => { expect(exercises.isFetching({ book, page_id })).toBe(true); });
 

@@ -3,6 +3,7 @@ const {
   uuid,
   sequence,
   reference,
+  fake,
 } = require('shared/specs/factories/helpers');
 
 const TITLES = {
@@ -23,5 +24,5 @@ const APPEARANCE_CODES = {
 
 module.exports = {
   Factory, uuid, sequence, reference,
-  TITLES, APPEARANCE_CODES,
+  TITLES, APPEARANCE_CODES, fake,
 };

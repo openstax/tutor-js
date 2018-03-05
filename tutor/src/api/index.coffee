@@ -23,8 +23,6 @@ PerformanceForecast = require '../flux/performance-forecast'
 
 {PastTaskPlansActions} = require '../flux/past-task-plans'
 
-{TocActions} = require '../flux/toc'
-{ExerciseActions, ExerciseStore} = require '../flux/exercise'
 {CCDashboardActions} = require '../flux/cc-dashboard'
 {default: Exercise} = require '../models/exercises/exercise'
 {default: Exercises} = require '../models/exercises'
@@ -83,32 +81,7 @@ startAPI = ->
     data: TaskPlanStore.getChanged
   }, TaskPlanHelpers.apiEndpointOptions)
 
-  # connectRead(ExerciseActions, {trigger: 'loadForEcosystem', onSuccess: 'loadedForEcosystem'},
-  #   (id, pageIds, requestType = 'homework_core') ->
-  #     url = "ecosystems/#{id}/exercises/#{requestType}"
-  #     params =
-  #       page_ids: pageIds
 
-  #     {url, params}
-  # )
-
-  connectRead(ExerciseActions, {trigger: 'loadForCourse', onSuccess: 'loadedForCourse'},
-    (id, pageIds, ecosystemId = null, requestType = 'homework_core') ->
-      url = "courses/#{id}/exercises/#{requestType}"
-      params =
-        page_ids: pageIds
-      params.ecosystem_id = ecosystemId if ecosystemId?
-
-      {url, params}
-  )
-
-  # connectModify(ExerciseActions,
-  #   pattern: 'courses/{id}/exercises', trigger: 'saveExerciseExclusion', onSuccess: 'exclusionsSaved'
-  #   data: ->
-  #     _.map ExerciseStore.getUnsavedExclusions(), (is_excluded, id) -> {id, is_excluded}
-  # )
-
-  connectRead(TocActions, pattern: 'ecosystems/{id}/readings')
   connectRead(CourseGuideActions, pattern: 'courses/{id}/guide')
 
   connectRead(CCDashboardActions, pattern: 'courses/{id}/cc/dashboard')

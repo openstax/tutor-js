@@ -49,4 +49,11 @@ ArrayOrMobxType = React.PropTypes.oneOfType([
       MobxPropTypes.observableArray,
     ])
 
-module.exports = {getBaseName, filterProps, renderRoot, ArrayOrMobxType}
+idType = React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number,
+    ])
+
+module.exports = {
+  getBaseName, filterProps, renderRoot, ArrayOrMobxType, idType,
+}

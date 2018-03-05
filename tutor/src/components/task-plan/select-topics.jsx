@@ -2,8 +2,7 @@ import React from 'react';
 import { constant, isEqual } from 'underscore';
 import { observer } from 'mobx-react';
 import Dialog from '../dialog';
-import { TocStore, TocActions } from '../../flux/toc';
-import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
+import { TaskPlanActions } from '../../flux/task-plan';
 import SectionsChooser from '../sections-chooser';
 
 import CourseModel from '../../models/course';
@@ -39,7 +38,7 @@ class SelectTopics extends React.Component {
   };
 
   render() {
-    const { course, planId, selected, hide, header, primary, cancel, ecosystemId, type } = this.props;
+    const { course, selected, header, primary, cancel, type } = this.props;
 
     return (
       <TourRegion
@@ -56,7 +55,7 @@ class SelectTopics extends React.Component {
           isChanged={constant(this.hasChanged())}
           onCancel={cancel}
         >
-          <div className="select-chapters" data-ecosystem-id={ecosystemId}>
+          <div className="select-chapters">
             <SectionsChooser
               book={course.referenceBook}
               selectedPageIds={selected}

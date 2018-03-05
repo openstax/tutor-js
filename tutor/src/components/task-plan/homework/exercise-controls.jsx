@@ -5,6 +5,8 @@ import { observable, action, computed } from 'mobx';
 import ScrollSpy from '../../scroll-spy';
 import Sectionizer from '../../exercises/sectionizer';
 import Icon from '../../icon';
+import fluxToMobx from '../../../helpers/flux-to-mobx';
+import { fromResource } from 'mobx-utils';
 
 import TourAnchor from '../../tours/anchor';
 import SelectionsTooltip from './selections-tooltip';
@@ -15,7 +17,7 @@ import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
 export default class ExerciseControls extends React.Component {
   static propTypes = {
     planId:              React.PropTypes.string.isRequired,
-    onCancel:            React.PropTypes.func.isRequired,
+    onCancel:            React.PropTypes.func,
     canAdd:              React.PropTypes.bool,
     canEdit:             React.PropTypes.bool,
     canReview:           React.PropTypes.bool,
@@ -24,6 +26,11 @@ export default class ExerciseControls extends React.Component {
     sectionizerProps:    React.PropTypes.object,
     hideDisplayControls: React.PropTypes.bool,
   };
+
+
+  selectedCount = fluxToMobx(
+    TaskPlanStore, () => TaskPlanStore.exerciseCount(this.props.planId) || 0,
+  )
 
   addTutorSelection = () => {
     TaskPlanActions.updateTutorSelection(this.props.planId, 1);
@@ -63,13 +70,13 @@ export default class ExerciseControls extends React.Component {
   }
 
   renderActionButtons() {
-    if (this.props.canReview && TaskPlanStore.exerciseCount(this.props.planId)) {
+    if (this.props.canReview && this.selectedCount.current()) {
       return (
         [
           <Button
             key="next"
             bsStyle="primary"
-            className="-review-exercises"
+            className="review-exercises"
             onClick={this.props.reviewClicked}
           >
             Next
@@ -88,7 +95,7 @@ export default class ExerciseControls extends React.Component {
       return (
         <Button
           bsStyle="default"
-          className="-add-exercises"
+          className="add-sections"
           onClick={this.props.addClicked}
         >
           + Add More Sections
@@ -128,7 +135,8 @@ export default class ExerciseControls extends React.Component {
   }
 
   render() {
-    const numSelected = TaskPlanStore.exerciseCount(this.props.planId);
+
+    const numSelected = this.selectedCount.current();
     const numTutor = TaskPlanStore.getTutorSelections(this.props.planId);
 
     return (

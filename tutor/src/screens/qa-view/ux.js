@@ -4,10 +4,11 @@ import { pick, assign, extend, uniq, flatMap, first } from 'lodash';
 import MenuToggle from '../../components/book-menu/toggle';
 import EcosystemSelector from './ecosystem-selector';
 import Router from '../../helpers/router';
-import Ecosystems from '../../models/ecosystems';
 import ViewToggle from './view-toggle';
 import UserMenu from '../../components/navbar/user-menu';
-import Exercises from '../../models/exercises';
+import DefaultExercises from '../../models/exercises';
+import DefaultEcosystems from '../../models/ecosystems';
+
 
 // menu width (300) + page width (1000) + 50 px padding
 // corresponds to @book-page-width and @book-menu-width in variables.scss
@@ -23,15 +24,26 @@ export default class QaScreenUX {
   @observable isShowing2StepPreview = false;
   @observable ignoredExerciseTypes = [];
 
-  constructor(router) {
+  constructor({
+    router,
+    exercises = DefaultExercises,
+    ecosystems = DefaultEcosystems,
+  }) {
     this.router = router;
+    this.exercisesMap = exercises;
+    this.ecosystemsMap = ecosystems;
+
     this.diposeExerciseFetcher = autorun(() => {
       if (this.ecosystem && !this.ecosystem.referenceBook.api.isFetchedOrFetching) {
         const book = this.ecosystem.referenceBook;
-        book.fetch().then(() => this.update({ section: first(book.pages.keys()) }));
+        book.fetch().then(() => {
+          if (!this.section) {
+            this.update({ section: first(book.pages.byChapterSection.keys()) });
+          }
+        });
       }
       if (this.ecosystem && this.activePage) {
-        Exercises.ensureLoaded({ ecosystem_id: this.ecosystem.id, page_id: this.activePage.id });
+        this.exercisesMap.ensureLoaded({ book: this.ecosystem.referenceBook, page_ids: [this.activePage.id] });
       }
     });
   }
@@ -40,7 +52,7 @@ export default class QaScreenUX {
     return Boolean(
       this.ecosystem &&
         this.activePage &&
-        Exercises.isFetching({ ecosystem_id: this.ecosystem.id, page_id: this.activePage.id })
+        this.exercisesMap.isFetching({ page_id: this.activePage.id })
     );
   }
 
@@ -54,7 +66,7 @@ export default class QaScreenUX {
 
   @computed get exercises() {
     if (!this.activePage) { return []; }
-    return Exercises.byPage[this.activePage.id] || [];
+    return this.exercisesMap.forPageId(this.activePage.id);
   }
 
   @computed get exerciseTypes() {
@@ -66,7 +78,7 @@ export default class QaScreenUX {
 
   @computed get activePage() {
     if (!this.section || !this.ecosystem) { return null; }
-    return this.ecosystem.referenceBook.pages.get(this.section);
+    return this.ecosystem.referenceBook.pages.byChapterSection.get(this.section);
   }
 
   @action.bound toggleTocMenu() {
@@ -80,7 +92,7 @@ export default class QaScreenUX {
   }
 
   @computed get ecosystem() {
-    return Ecosystems.get(this.ecosystemId);
+    return this.ecosystemsMap.get(this.ecosystemId);
   }
 
   @computed get toc() {
