@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, field, session, identifier, hasMany,
 } from 'shared/model';
 import { action, computed, observable, Atom } from 'mobx';
-import { sortBy, first, map, union } from 'lodash';
+import { sortBy, first, map, union, find } from 'lodash';
 import { lazyInitialize } from 'core-decorators';
 import TaskingPlan from '../tasking-plan';
 import TaskPlanPublish from '../jobs/task-plan-publish';
@@ -96,6 +96,11 @@ export default class TeacherTaskPlan extends BaseModel {
   @computed get isOpen() { return this.durationRange.start().isBefore(TimeStore.getNow()); }
   @computed get isEditable() { return this.durationRange.start().isAfter(TimeStore.getNow()); }
   @computed get isFailed() { return this.publishingUpdates && this.publishingUpdates.hasFailed(); }
+  @computed get isPastDue() { return this.durationRange.end().isBefore(TimeStore.getNow()) }
+
+  isPastDueWithPeriodId(periodId) {
+    return find(this.tasking_plans, 'isPastDue');
+  }
 
   @computed get publishedStatus() {
     if (this.isPublished) return 'published';
