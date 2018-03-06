@@ -109,7 +109,7 @@ export default class ScoresReportUX {
       const type = scoreKeyToType(key);
       let nullValue;
 
-      if (average === 0 || average === null) {
+      if (average === null) {
         if (type === 'course_average') {
           nullValue = this.nullAverageForCourse;
         } else {
