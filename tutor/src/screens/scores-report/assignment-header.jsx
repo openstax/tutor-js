@@ -28,7 +28,7 @@ const ReviewLink = (props) => {
 
 
 const AverageLabel = ({ heading }) => {
-  if (heading.isDue && !isNil(heading.average_score)) {
+  if (!isNil(heading.average_score)) {
     return (
       <span className="average">
         {(heading.average_score * 100).toFixed(0)}%

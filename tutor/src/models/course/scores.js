@@ -34,8 +34,8 @@ class Student extends BaseModel {
 
 @identifiedBy('course/scores/heading')
 class Heading extends BaseModel {
-  @field average_score = 0;
-  @field average_progress = 0;
+  @field average_score;
+  @field average_progress;
   @field({ type: 'date' }) due_at;
   @field plan_id;
   @field title;
