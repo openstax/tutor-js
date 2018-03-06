@@ -107,16 +107,17 @@ export default class ScoresReportUX {
   maskAverages(averages) {
     return mapValues(averages, (average, key) => {
       const type = scoreKeyToType(key);
+      let nullValue;
 
-      if (average === 0) {
+      if (average === 0 || average === null) {
         if (type === 'course_average') {
-          return this.nullAverageForCourse;
+          nullValue = this.nullAverageForCourse;
         } else {
-          return this.nullAverageByType(type);
+          nullValue = this.nullAverageByType(type);
         }
       }
 
-      return `${asPercent(average)}%`;
+      return nullValue || `${asPercent(average)}%`;
     });
   }
 
