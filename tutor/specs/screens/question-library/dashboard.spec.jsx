@@ -38,7 +38,9 @@ describe('Questions Dashboard Component', function() {
   };
 
   it('matches snapshot', () => {
-    expect(SnapShot.create(<Wrapper _wrapped_component={Dashboard} {...props} />).toJSON()).toMatchSnapshot();
+    const dash = SnapShot.create(<Wrapper _wrapped_component={Dashboard} {...props} />);
+    expect(dash.toJSON()).toMatchSnapshot();
+    dash.unmount();
   });
 
   it('fetches and displays', () => {
@@ -83,6 +85,7 @@ describe('Questions Dashboard Component', function() {
     const uid = dash.find('[data-exercise-id]').last().prop('data-exercise-id');
     const exercise = exercises.array.find(e => uid == e.content.uid);
     expect(ExerciseHelpers.openReportErrorPage).toHaveBeenCalledWith(exercise, course);
+    dash.unmount();
   });
 
 });
