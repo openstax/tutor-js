@@ -5538,9 +5538,9 @@ object-assign@^4, object-assign@^4.0.1, object-assign@^4.1.0, object-assign@^4.1
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
 
-object-factory-bot@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/object-factory-bot/-/object-factory-bot-0.4.0.tgz#70c9959571e052f6edb2d06054f99f7fa9d5c34b"
+object-factory-bot@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/object-factory-bot/-/object-factory-bot-0.4.1.tgz#a8fe5ae51d528391e9660c98d9d53fd7fda31e22"
 
 object-hash@1.1.7:
   version "1.1.7"
