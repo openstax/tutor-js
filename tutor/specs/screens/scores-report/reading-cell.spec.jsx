@@ -26,12 +26,6 @@ describe('Student Scores Report Reading Cell', function() {
     };
   });
 
-  it('renders progress cell', () => {
-    props.size = 24;
-    props.value = 33;
-    const wrapper = shallow(<PieProgress {...props} />);
-    expect(wrapper).toHaveRendered('svg[width="24"][height="24"]');
-  });
 
   it('renders as not started', function() {
     props.task.completed_step_count = 0;
