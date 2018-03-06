@@ -4,7 +4,7 @@ import {
   BaseModel, identifiedBy, field, hasMany, belongsTo,
 } from 'shared/model';
 import { TimeStore } from '../../flux/time';
-
+import moment from 'moment';
 import TaskResult from './scores/task-result';
 
 @identifiedBy('course/scores/student')
@@ -46,8 +46,12 @@ class Heading extends BaseModel {
     return findIndex(this.period.data_headings, this);
   }
 
+  @computed get isDue() {
+    return moment(this.due_at).isBefore(TimeStore.getNow());
+  }
+
   @computed get tasks() {
-    return map(this.period.students, (s) => s.data[this.columnIndex])
+    return map(this.period.students, (s) => s.data[this.columnIndex]);
   }
 
   @computed get scoredStepCount() {
