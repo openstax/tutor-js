@@ -16,10 +16,10 @@ function loadApp() {
   );
   // Both require and module.hot.accept must be passed a bare string, not variable
   const Renderer = ReactHelpers.renderRoot( function() {
-    const Component = require('./components/app');
+    const Component = require('./app').default;
     return () => React.createElement(Component, { data });
   });
-  if (module.hot) { return module.hot.accept('./components/app', Renderer); }
+  if (module.hot) { return module.hot.accept('./app', Renderer); }
 };
 
 document.addEventListener('DOMContentLoaded', loadApp);
