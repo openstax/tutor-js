@@ -33,7 +33,7 @@ export default class PercentCorrect extends React.Component {
     const isDue = TH.isDue(task);
     if (task.isStarted || isDue) {
       const value = <Percent className="correct" value={task.score} />;
-      return (isDue && task.isStarted) ?
+      return task.isStarted ?
         <ReviewLink task={task}>{value}</ReviewLink> : value;
     } else {
       return <div className="correct unstarted">---</div>;

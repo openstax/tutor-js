@@ -59,7 +59,13 @@ export default class ReadingCell extends React.PureComponent {
                 Completed {TH.getHumanCompletedPercent(task)}
               </div>
             </div>
+            <div className="row">
+              <div>
+                {TH.getHumanProgress(task)}
+              </div>
+            </div>
           </div>
+
         </Popover>
       </Overlay>
     );
