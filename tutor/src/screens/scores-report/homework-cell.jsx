@@ -7,7 +7,7 @@ import TH from '../../helpers/task';
 import TutorLink from '../../components/link';
 import { LateWork } from './late-work';
 import PieProgress from './pie-progress';
-
+import PercentCorrect from './percent-correct';
 import TaskResult from '../../models/course/scores/task-result';
 
 const HomeworkScore = ({ task, displayAs, courseId }) => {
@@ -66,11 +66,12 @@ export default class HomeworkCell extends React.PureComponent {
     );
   }
 
-
   renderPopover() {
-    const { task, isConceptCoach } = this.props;
-    if (!task.isStarted) { return null; }
-
+    const { task } = this.props;
+    const progress = <PieProgress ref="pieChart" task={task} />;
+    if (!task.isStarted) {
+      return <div>{progress}</div>;
+    }
     return (
       <div className="worked" onMouseOver={this.show} onMouseLeave={this.hide}>
 
@@ -99,12 +100,7 @@ export default class HomeworkCell extends React.PureComponent {
             </div>
           </Popover>
         </Overlay>
-        <PieProgress
-          ref="pieChart"
-          isConceptCoach={isConceptCoach}
-          size={20}
-          value={TH.getCompletedPercent(task)}
-          isLate={TH.isDue(task)} />
+        {progress}
       </div>
     );
   }
@@ -112,12 +108,8 @@ export default class HomeworkCell extends React.PureComponent {
   renderLateWork() {
     const { task, columnIndex } = this.props;
 
-
-    if (!this.props.period.course.isTeacher) {
-      return null;
-    }
-
-    return (<LateWork
+    return (
+      <LateWork
         task={task}
         onMouseOver={this.show}
         onMouseLeave={this.hide}
@@ -127,10 +119,9 @@ export default class HomeworkCell extends React.PureComponent {
   }
 
   render() {
-
     return (
       <div className="scores-cell">
-        <HomeworkScore {...this.props} />
+        <PercentCorrect task={this.props.task} />
         {this.renderPopover()}
         {this.renderLateWork()}
       </div>

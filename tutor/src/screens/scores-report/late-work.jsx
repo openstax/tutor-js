@@ -168,13 +168,9 @@ export class LateWorkPopover extends React.PureComponent {
   @action.bound onButtonClick() {
     if (this.content.isAccepted && !TH.hasAdditionalLateWork(this.props.task)) {
       this.props.task.rejectLate().then(this.props.hide);
-      //      ScoresActions.rejectLate(this.content.task.id, this.props.columnIndex);
     } else {
       this.props.task.acceptLate().then(this.props.hide);
-
-      //      ScoresActions.acceptLate(this.content.task.id, this.props.columnIndex);
     }
-    // this.props.hide();
   }
 
   render() {

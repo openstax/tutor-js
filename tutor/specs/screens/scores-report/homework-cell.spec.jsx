@@ -28,11 +28,13 @@ describe('Student Scores Homework Cell', function() {
   });
 
   it('renders as completed', function() {
-    task.completed_on_time_step_count = task.completed_step_count;
+    props.task.completed_on_time_step_count = 4;
+    props.task.completed_step_count = 4;
+    task.score = 0.8112;
     expect(task.isLate).toBe(false);
     const cell = mount(<Cell {...props} />, EnzymeContext.build());
     const score = ((task.correct_on_time_exercise_count / task.exercise_count) * 100).toFixed(0) + '%';
-    expect(cell.find('.score a').text()).to.equal(score);
+    expect(cell.text()).toEqual('81%');
     expect(cell).not.toHaveRendered('.late-caret');
   });
 
@@ -46,10 +48,13 @@ describe('Student Scores Homework Cell', function() {
   it('renders as not started', function() {
     props.task.completed_exercise_count = 0;
     props.task.completed_on_time_exercise_count = 0;
+    props.task.completed_step_count = 0;
     props.task.correct_on_time_exercise_count = 0;
+    expect(props.task.isStarted).toBe(false);
     const cell = mount(<Cell {...props} />, EnzymeContext.build());
-    expect(TH.getCompletedPercent(props.task)).to.equal(0);
-    expect(cell).toHaveRendered('.worked .not-started');
+    expect(cell).toHaveRendered('.pie-progress.due');
+    expect(cell.text()).toEqual(`50%`);
+    expect(cell).not.toHaveRendered('.late-caret-trigger');
   });
 
   it('displays late caret when worked late', function() {
