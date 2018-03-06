@@ -1,7 +1,8 @@
-# Store for getting the current server time.
+ # Store for getting the current server time.
 # Defaults to browser time if a server request has not been made yet.
 
 flux = require 'flux-react'
+{ now } = require 'mobx-utils'
 
 {makeSimpleStore} = require './helpers'
 
@@ -24,7 +25,7 @@ TimeConfig =
       @setNow(date, localNow)
 
   exports:
-    getNow: (localNow = new Date()) ->
+    getNow: (localNow = new Date(now(60000))) ->
       shift = @_shiftMs or 0
       new Date(localNow.getTime() + shift)
 

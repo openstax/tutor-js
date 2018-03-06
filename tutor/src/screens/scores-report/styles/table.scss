@@ -158,6 +158,9 @@ $pie-color-due: #268FBE;
           path {
             fill: $pie-color-due;
           }
+          #q4 circle {
+            fill: $pie-color-due;
+          }
         }
         &:hover path {
           fill: $pie-color-hover;

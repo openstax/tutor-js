@@ -66,7 +66,6 @@ export default class HomeworkCell extends React.PureComponent {
     );
   }
 
-
   renderPopover() {
     const { task } = this.props;
     const progress = <PieProgress ref="pieChart" task={task} />;
