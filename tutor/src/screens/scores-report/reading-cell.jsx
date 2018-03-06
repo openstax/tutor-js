@@ -115,12 +115,8 @@ export default class ReadingCell extends React.PureComponent {
         {task.isStarted && <div className="score">{TH.getScorePercent(task)}%</div>}
         <div className="worked" onMouseOver={this.show} onMouseLeave={this.hide}>
           {this.renderPopover()}
-          <PieProgress
-            ref="pieChart"
-            isConceptCoach={isConceptCoach}
-            size={20}
-            value={TH.getCompletedPercent(task)}
-            isLate={TH.isDue(task)} />
+          {this.renderPopover(task)}
+          <PieProgress task={task} ref="pieChart" />
         </div>
         {this.renderLateWork()}
       </div>

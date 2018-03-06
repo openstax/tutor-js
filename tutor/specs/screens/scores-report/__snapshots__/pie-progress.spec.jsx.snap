@@ -2,10 +2,10 @@
 
 exports[`Scores Report: pie progress SVG icon renders < 50% quarters 1`] = `
 <svg
-  className="pie-progress"
-  height="28"
+  className="pie-progress started"
+  height="20"
   viewBox="0 0 24 24"
-  width="28"
+  width="20"
 >
   <g
     id="q1"
@@ -18,7 +18,6 @@ exports[`Scores Report: pie progress SVG icon renders < 50% quarters 1`] = `
         r="12"
       />
       <path
-        className="slice "
         d="M12.334,11.582h12l0,0c0-6.628-5.371-12-12-12V11.582z"
       />
     </g>
@@ -46,10 +45,10 @@ exports[`Scores Report: pie progress SVG icon renders < 50% quarters 1`] = `
 
 exports[`Scores Report: pie progress SVG icon renders 50% > 75% quarters 1`] = `
 <svg
-  className="pie-progress"
-  height="28"
+  className="pie-progress started"
+  height="20"
   viewBox="0 0 24 24"
-  width="28"
+  width="20"
 >
   <g
     id="q2"
@@ -62,7 +61,6 @@ exports[`Scores Report: pie progress SVG icon renders 50% > 75% quarters 1`] = `
         r="12"
       />
       <path
-        className="slice "
         d="M11.566-0.417v24c6.629,0,12-5.371,12-12C23.566,4.955,18.195-0.417,11.566-0.417z"
       />
     </g>
@@ -90,10 +88,10 @@ exports[`Scores Report: pie progress SVG icon renders 50% > 75% quarters 1`] = `
 
 exports[`Scores Report: pie progress SVG icon renders 75% > 100% quarters 1`] = `
 <svg
-  className="pie-progress"
-  height="28"
+  className="pie-progress started"
+  height="20"
   viewBox="0 0 24 24"
-  width="28"
+  width="20"
 >
   <g
     id="q3"
@@ -107,7 +105,6 @@ exports[`Scores Report: pie progress SVG icon renders 75% > 100% quarters 1`] = 
       />
       <g>
         <path
-          className="slice "
           d="M11.799-0.418v12h-12c0,6.627,5.373,12,12,12s12-5.373, 12-12C23.799,4.955,18.426-0.418,11.799-0.418z"
         />
       </g>
@@ -138,16 +135,15 @@ exports[`Scores Report: pie progress SVG icon renders 75% > 100% quarters 1`] = 
 
 exports[`Scores Report: pie progress SVG icon renders 100% quarters 1`] = `
 <svg
-  className="pie-progress"
-  height="28"
+  className="pie-progress started"
+  height="20"
   viewBox="0 0 24 24"
-  width="28"
+  width="20"
 >
   <g
     id="q4"
   >
     <circle
-      className="slice "
       cx="12.03"
       cy="11.583"
       r="12"

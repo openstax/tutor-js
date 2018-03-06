@@ -71,6 +71,9 @@ export default class HomeworkCell extends React.PureComponent {
     const { task, isConceptCoach } = this.props;
     if (!task.isStarted) { return null; }
 
+    const { task } = this.props;
+    const progress = <PieProgress ref="pieChart" task={task} />;
+    if (!task.isStarted) {
     return (
       <div className="worked" onMouseOver={this.show} onMouseLeave={this.hide}>
 
@@ -99,12 +102,7 @@ export default class HomeworkCell extends React.PureComponent {
             </div>
           </Popover>
         </Overlay>
-        <PieProgress
-          ref="pieChart"
-          isConceptCoach={isConceptCoach}
-          size={20}
-          value={TH.getCompletedPercent(task)}
-          isLate={TH.isDue(task)} />
+        {progress}
       </div>
     );
   }
