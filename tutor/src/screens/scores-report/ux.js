@@ -3,7 +3,7 @@ import bezierAnimation from '../../helpers/bezier';
 import WindowSize from '../../models/window-size';
 import WeightsUX from './weights-ux';
 import UiSettings from 'shared/model/ui-settings';
-import { first, isUndefined, clone, reverse, pick, pickBy, mapValues, concat, flow, map, partial, uniq, some, keys } from 'lodash';
+import { isNil, first, isUndefined, clone, reverse, pick, pickBy, mapValues, concat, flow, map, partial, uniq, some, keys } from 'lodash';
 import { asPercent } from '../../helpers/string';
 
 const CELL_AVERAGES_CLOSED_SINGLE_WIDTH = 120;
@@ -108,8 +108,7 @@ export default class ScoresReportUX {
     return mapValues(averages, (average, key) => {
       const type = scoreKeyToType(key);
       let nullValue;
-
-      if (average === null) {
+      if (isNil(average)) {
         if (type === 'course_average') {
           nullValue = this.nullAverageForCourse;
         } else {
