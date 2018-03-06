@@ -251,7 +251,7 @@ exports[`QA Screen renders as loading then matches snapshot 1`] = `
                           <div className=\\"exercise-body\\">
                             <ExerciseBadges exercise={{...}} isMultipart={false} hasInteractive={false} hasVideo={false} />
                             <Component className=\\"stimulus\\" block={true} html={[undefined]} />
-                            <Question className=\\"openstax-question-preview\\" model={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\">
+                            <Question className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\">
                               <div className=\\"openstax-question openstax-question-preview\\" data-question-number={[undefined]}>
                                 <QuestionHtml type=\\"context\\" html=\\"\\" />
                                 <QuestionHtml type=\\"stimulus\\" html=\\"\\" />
@@ -260,7 +260,7 @@ exports[`QA Screen renders as loading then matches snapshot 1`] = `
                                     <div dangerouslySetInnerHTML={{...}} />
                                   </Component>
                                 </QuestionHtml>
-                                <AnswersTable className=\\"openstax-question-preview\\" model={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
+                                <AnswersTable className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
                                   <div className=\\"answers-table\\">
                                     <Answer answer={{...}} iter={0} qid={1} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
                                       <div className=\\"openstax-answer\\">
@@ -485,7 +485,7 @@ exports[`QA Screen renders as loading then matches snapshot 1`] = `
                           <div className=\\"exercise-body\\">
                             <ExerciseBadges exercise={{...}} isMultipart={false} hasInteractive={false} hasVideo={false} />
                             <Component className=\\"stimulus\\" block={true} html={[undefined]} />
-                            <Question className=\\"openstax-question-preview\\" model={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\">
+                            <Question className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\">
                               <div className=\\"openstax-question openstax-question-preview\\" data-question-number={[undefined]}>
                                 <QuestionHtml type=\\"context\\" html=\\"\\" />
                                 <QuestionHtml type=\\"stimulus\\" html=\\"\\" />
@@ -494,7 +494,7 @@ exports[`QA Screen renders as loading then matches snapshot 1`] = `
                                     <div dangerouslySetInnerHTML={{...}} />
                                   </Component>
                                 </QuestionHtml>
-                                <AnswersTable className=\\"openstax-question-preview\\" model={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
+                                <AnswersTable className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
                                   <div className=\\"answers-table\\">
                                     <Answer answer={{...}} iter={0} qid={2} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
                                       <div className=\\"openstax-answer\\">
@@ -694,7 +694,7 @@ exports[`QA Screen renders as loading then matches snapshot 1`] = `
                           <div className=\\"exercise-body\\">
                             <ExerciseBadges exercise={{...}} isMultipart={false} hasInteractive={false} hasVideo={false} />
                             <Component className=\\"stimulus\\" block={true} html={[undefined]} />
-                            <Question className=\\"openstax-question-preview\\" model={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\">
+                            <Question className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\">
                               <div className=\\"openstax-question openstax-question-preview\\" data-question-number={[undefined]}>
                                 <QuestionHtml type=\\"context\\" html=\\"\\" />
                                 <QuestionHtml type=\\"stimulus\\" html=\\"<b>Meter-area reduction in copper</b> - does it affect the speed of light, etc?\\">
@@ -707,7 +707,7 @@ exports[`QA Screen renders as loading then matches snapshot 1`] = `
                                     <div dangerouslySetInnerHTML={{...}} />
                                   </Component>
                                 </QuestionHtml>
-                                <AnswersTable className=\\"openstax-question-preview\\" model={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
+                                <AnswersTable className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
                                   <div className=\\"answers-table\\">
                                     <Answer answer={{...}} iter={0} qid={3} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
                                       <div className=\\"openstax-answer\\">
@@ -907,7 +907,7 @@ exports[`QA Screen renders as loading then matches snapshot 1`] = `
                           <div className=\\"exercise-body\\">
                             <ExerciseBadges exercise={{...}} isMultipart={false} hasInteractive={false} hasVideo={false} />
                             <Component className=\\"stimulus\\" block={true} html={[undefined]} />
-                            <Question className=\\"openstax-question-preview\\" model={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\">
+                            <Question className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\">
                               <div className=\\"openstax-question openstax-question-preview\\" data-question-number={[undefined]}>
                                 <QuestionHtml type=\\"context\\" html=\\"\\" />
                                 <QuestionHtml type=\\"stimulus\\" html=\\"\\" />
@@ -916,7 +916,7 @@ exports[`QA Screen renders as loading then matches snapshot 1`] = `
                                     <div dangerouslySetInnerHTML={{...}} />
                                   </Component>
                                 </QuestionHtml>
-                                <AnswersTable className=\\"openstax-question-preview\\" model={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
+                                <AnswersTable className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
                                   <div className=\\"answers-table\\">
                                     <Answer answer={{...}} iter={0} qid={4} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
                                       <div className=\\"openstax-answer\\">
@@ -1116,7 +1116,7 @@ exports[`QA Screen renders as loading then matches snapshot 1`] = `
                           <div className=\\"exercise-body\\">
                             <ExerciseBadges exercise={{...}} isMultipart={false} hasInteractive={false} hasVideo={false} />
                             <Component className=\\"stimulus\\" block={true} html={[undefined]} />
-                            <Question className=\\"openstax-question-preview\\" model={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\">
+                            <Question className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\">
                               <div className=\\"openstax-question openstax-question-preview\\" data-question-number={[undefined]}>
                                 <QuestionHtml type=\\"context\\" html=\\"\\" />
                                 <QuestionHtml type=\\"stimulus\\" html=\\"\\" />
@@ -1125,7 +1125,7 @@ exports[`QA Screen renders as loading then matches snapshot 1`] = `
                                     <div dangerouslySetInnerHTML={{...}} />
                                   </Component>
                                 </QuestionHtml>
-                                <AnswersTable className=\\"openstax-question-preview\\" model={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
+                                <AnswersTable className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
                                   <div className=\\"answers-table\\">
                                     <Answer answer={{...}} iter={0} qid={5} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
                                       <div className=\\"openstax-answer\\">
@@ -1325,7 +1325,7 @@ exports[`QA Screen renders as loading then matches snapshot 1`] = `
                           <div className=\\"exercise-body\\">
                             <ExerciseBadges exercise={{...}} isMultipart={false} hasInteractive={false} hasVideo={false} />
                             <Component className=\\"stimulus\\" block={true} html={[undefined]} />
-                            <Question className=\\"openstax-question-preview\\" model={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\">
+                            <Question className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\">
                               <div className=\\"openstax-question openstax-question-preview\\" data-question-number={[undefined]}>
                                 <QuestionHtml type=\\"context\\" html=\\"\\" />
                                 <QuestionHtml type=\\"stimulus\\" html=\\"\\" />
@@ -1334,7 +1334,7 @@ exports[`QA Screen renders as loading then matches snapshot 1`] = `
                                     <div dangerouslySetInnerHTML={{...}} />
                                   </Component>
                                 </QuestionHtml>
-                                <AnswersTable className=\\"openstax-question-preview\\" model={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
+                                <AnswersTable className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
                                   <div className=\\"answers-table\\">
                                     <Answer answer={{...}} iter={0} qid={6} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
                                       <div className=\\"openstax-answer\\">
@@ -1559,7 +1559,7 @@ exports[`QA Screen renders as loading then matches snapshot 1`] = `
                           <div className=\\"exercise-body\\">
                             <ExerciseBadges exercise={{...}} isMultipart={false} hasInteractive={false} hasVideo={false} />
                             <Component className=\\"stimulus\\" block={true} html={[undefined]} />
-                            <Question className=\\"openstax-question-preview\\" model={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\">
+                            <Question className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\">
                               <div className=\\"openstax-question openstax-question-preview\\" data-question-number={[undefined]}>
                                 <QuestionHtml type=\\"context\\" html=\\"\\" />
                                 <QuestionHtml type=\\"stimulus\\" html=\\"\\" />
@@ -1568,7 +1568,7 @@ exports[`QA Screen renders as loading then matches snapshot 1`] = `
                                     <div dangerouslySetInnerHTML={{...}} />
                                   </Component>
                                 </QuestionHtml>
-                                <AnswersTable className=\\"openstax-question-preview\\" model={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
+                                <AnswersTable className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
                                   <div className=\\"answers-table\\">
                                     <Answer answer={{...}} iter={0} qid={7} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
                                       <div className=\\"openstax-answer\\">
@@ -1768,7 +1768,7 @@ exports[`QA Screen renders as loading then matches snapshot 1`] = `
                           <div className=\\"exercise-body\\">
                             <ExerciseBadges exercise={{...}} isMultipart={false} hasInteractive={false} hasVideo={false} />
                             <Component className=\\"stimulus\\" block={true} html={[undefined]} />
-                            <Question className=\\"openstax-question-preview\\" model={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\">
+                            <Question className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\">
                               <div className=\\"openstax-question openstax-question-preview\\" data-question-number={[undefined]}>
                                 <QuestionHtml type=\\"context\\" html=\\"\\" />
                                 <QuestionHtml type=\\"stimulus\\" html=\\"<b>Meter-area reduction in copper</b> - does it affect the speed of light, etc?\\">
@@ -1781,7 +1781,7 @@ exports[`QA Screen renders as loading then matches snapshot 1`] = `
                                     <div dangerouslySetInnerHTML={{...}} />
                                   </Component>
                                 </QuestionHtml>
-                                <AnswersTable className=\\"openstax-question-preview\\" model={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
+                                <AnswersTable className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
                                   <div className=\\"answers-table\\">
                                     <Answer answer={{...}} iter={0} qid={8} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
                                       <div className=\\"openstax-answer\\">

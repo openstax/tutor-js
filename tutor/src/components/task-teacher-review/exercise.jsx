@@ -108,7 +108,7 @@ class TaskTeacherReviewQuestion extends React.PureComponent {
 
     return (
       <Question
-        model={question.forReview}
+        question={question.forReview}
         answered_count={question.answered_count}
         type="teacher-review"
         onChangeAttempt={this.onChangeAnswerAttempt}>
