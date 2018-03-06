@@ -17,11 +17,11 @@ class Student extends BaseModel {
   @field role;
   @field student_identifier;
 
-  @field course_average = 0;
-  @field homework_score = 0;
-  @field homework_progress = 0;
-  @field reading_score = 0;
-  @field reading_progress = 0;
+  @field course_average;
+  @field homework_score;
+  @field homework_progress;
+  @field reading_score;
+  @field reading_progress;
 
   @computed get scoredStepCount() {
     return mapValues(
