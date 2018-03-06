@@ -3,7 +3,7 @@ ReactDOM = require 'react-dom'
 _ = require 'underscore'
 
 ArbitraryHtmlAndMath = require '../html'
-Question = require '../question'
+{default: Question} = require '../question'
 FreeResponse = require './free-response'
 
 RESPONSE_CHAR_LIMIT = 10000

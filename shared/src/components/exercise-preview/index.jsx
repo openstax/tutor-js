@@ -149,32 +149,28 @@ class ExercisePreview extends React.Component {
     });
 
     return (
-
-      (
-        <Panel
-          className={classes}
-          bsStyle={this.props.panelStyle}
-          header={this.props.header}
-          data-exercise-id={this.props.exercise.uid}
-          tabIndex={-1}
-          footer={this.props.children ? this.renderFooter() : undefined}>
-          {this.props.isSelected ? <div className="selected-mask" /> : undefined}
-          <ControlsOverlay
-            exercise={this.props.exercise}
-            actions={this.props.overlayActions}
-            onClick={this.props.onOverlayClick} />
-          <div className="exercise-body">
-            <ExerciseBadges exercise={this.props.exercise} />
-            {!isEmpty(this.props.exercise.context) && !!this.props.isInteractive ? <ArbitraryHtmlAndMath className="context" block={true} html={this.props.exercise.context} /> : undefined}
-            {this.renderStimulus()}
-            {questions}
-          </div>
-          <div className="exercise-tags">
-            {renderedTags}
-          </div>
-        </Panel>
-      )
-
+      <Panel
+        className={classes}
+        bsStyle={this.props.panelStyle}
+        header={this.props.header}
+        data-exercise-id={this.props.exercise.uid}
+        tabIndex={-1}
+        footer={this.props.children ? this.renderFooter() : undefined}>
+        {this.props.isSelected ? <div className="selected-mask" /> : undefined}
+        <ControlsOverlay
+          exercise={this.props.exercise}
+          actions={this.props.overlayActions}
+          onClick={this.props.onOverlayClick} />
+        <div className="exercise-body">
+          <ExerciseBadges exercise={this.props.exercise} />
+          {!isEmpty(this.props.exercise.context) && !!this.props.isInteractive ? <ArbitraryHtmlAndMath className="context" block={true} html={this.props.exercise.context} /> : undefined}
+          {this.renderStimulus()}
+          {questions}
+        </div>
+        <div className="exercise-tags">
+          {renderedTags}
+        </div>
+      </Panel>
     );
   }
 }

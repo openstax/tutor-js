@@ -1,8 +1,7 @@
 {React } = require 'shared/specs/helpers'
 
-ExerciseIdentifierLink = require 'components/exercise-identifier-link'
-
-Exercise = require 'model/exercise'
+ExerciseIdentifierLink = require '../../src/components/exercise-identifier-link'
+{default: Exercise} = require '../../src/helpers/exercise'
 
 describe 'Exercise Identifier Link', ->
   props = null
