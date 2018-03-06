@@ -158,6 +158,11 @@ export default class PieProgress extends React.Component {
 
   render() {
     const { size, task } = this.props;
+    const isDue = TH.isDue(task);
+
+    if (!isDue && !task.isStarted) {
+      return <div className="unstarted">---</div>;
+    }
 
     const progress = this.roundToQuarters(task);
 
@@ -165,7 +170,7 @@ export default class PieProgress extends React.Component {
       <svg
         width={`${size}`}
         height={`${size}`}
-        className={cn('pie-progress', { due: TH.isDue(task), started: task.isStarted })}
+        className={cn('pie-progress', { due: isDue, started: task.isStarted })}
         viewBox="0 0 24 24"
       >
         {progress === 0   && Q0}
