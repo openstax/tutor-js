@@ -1,48 +1,39 @@
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
-import { Testing, expect, sinon, _, ReactTestUtils } from 'shared/specs/helpers';
+import Factories from '../../factories';
+import Snapshot from 'react-test-renderer';
+import Answer from '../../../src/components/question/answer';
 
-import { Answer } from 'components/question/answer';
-import STEP from '../exercise/step-data';
-
-const ANSWER = {
-  'id': '40641',
-  'content_html': 'solid',
-  'feedback_html': 'feedback yo',
-};
+jest.mock('../../../src/components/html', () => ({ className, html }) =>
+  html ? <div className={className} dangerouslySetInnerHTML={{ __html: html }} /> : null
+);
 
 describe('Answer Component', function() {
   let props;
-  let propsWithFeedback = (props = null);
+  let answer;
 
-  beforeEach(function() {
+  beforeEach(() => {
+    const exercise = Factories.exercise();
+    answer = exercise.questions[0].answers[0];
     props = {
-      answer: ANSWER,
+      answer,
       type: 'student',
-    };
-
-    return propsWithFeedback = {
-      answer: ANSWER,
-      type: 'student',
-      show_all_feedback: true,
+      iter: 1,
+      qid: answer.id,
+      hasCorrectAnswer: false,
+      onChangeAnswer: jest.fn(),
     };
   });
 
-  it('renders answer', () =>
-    Testing.renderComponent( Answer, { props } ).then(function({ dom }) {
-      const answers = _.pluck(dom.querySelectorAll('.answer-content'), 'textContent');
-      return expect(answers).to.deep.equal(['solid']);
-    })
-  );
+  it('renders answer', () => {
+    const a = mount(<Answer {...props} />);
+    expect(a).toHaveRendered('.openstax-answer');
+    expect(Snapshot.create(<Answer {...props} />).toJSON()).toMatchSnapshot();
+  });
 
-  return it('renders answer feedback based on props', () =>
+  it('renders answer feedback based on props', () => {
+    props.show_all_feedback = true;
+    const a = mount(<Answer {...props} />);
+    expect(a).toHaveRendered('.question-feedback-content');
+    expect(Snapshot.create(<Answer {...props} />).toJSON()).toMatchSnapshot();
+  });
 
-    Testing.renderComponent( Answer, { props: propsWithFeedback } ).then(function({ dom }) {
-      const answers = _.pluck(dom.querySelectorAll('.question-feedback-content'), 'textContent');
-      return expect(answers).to.deep.equal(['feedback yo']);
-    })
-  );
 });

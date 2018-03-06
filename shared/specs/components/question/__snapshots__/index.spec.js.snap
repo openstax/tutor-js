@@ -6,6 +6,7 @@ exports[`Question Component renders and matches snapshot 1`] = `
   data-question-number={undefined}
 >
   <div
+    className="question-stem"
     dangerouslySetInnerHTML={
       Object {
         "__html": "What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?",
@@ -47,6 +48,7 @@ exports[`Question Component renders and matches snapshot 1`] = `
             className="answer-answer"
           >
             <div
+              className="answer-content"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<ol>
@@ -94,6 +96,7 @@ exports[`Question Component renders and matches snapshot 1`] = `
             className="answer-answer"
           >
             <div
+              className="answer-content"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<ol>
@@ -141,6 +144,7 @@ exports[`Question Component renders and matches snapshot 1`] = `
             className="answer-answer"
           >
             <div
+              className="answer-content"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<ol>
@@ -188,6 +192,7 @@ exports[`Question Component renders and matches snapshot 1`] = `
             className="answer-answer"
           >
             <div
+              className="answer-content"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<ol>
@@ -235,6 +240,7 @@ exports[`Question Component renders and matches snapshot 1`] = `
             className="answer-answer"
           >
             <div
+              className="answer-content"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<ol>
@@ -260,6 +266,7 @@ exports[`Question Component renders and matches snapshot 1`] = `
       Detailed solution
     </div>
     <div
+      className="solution"
       dangerouslySetInnerHTML={
         Object {
           "__html": "four",

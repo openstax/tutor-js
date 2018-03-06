@@ -2,8 +2,8 @@ import Factories from '../../factories';
 import Snapshot from 'react-test-renderer';
 import Question from '../../../src/components/question';
 
-jest.mock('../../../src/components/html', () => ({ html }) =>
-  html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
+jest.mock('../../../src/components/html', () => ({ className, html }) =>
+  html ? <div className={className} dangerouslySetInnerHTML={{ __html: html }} /> : null
 );
 
 describe('Question Component', function() {
