@@ -16,6 +16,7 @@ import SectionProgress from '../../../src/components/cc-dashboard/section-progre
 import SectionPerformance from '../../../src/components/cc-dashboard/section-performance';
 import PeriodHelper from '../../../src/helpers/period';
 
+expect.extend(toHaveNoViolations)
 
 const COURSE_ID = '0';
 const BLANK_PERIOD = 0;
@@ -60,15 +61,16 @@ describe('Concept Coach Dashboard', function() {
   });
 
   describe('Chapter', () =>
-    it('shows the right amount of sections for chapters', function() {
+    it('shows the right amount of sections for chapters', async function() {
       const chapters = CCDashboardStore.chaptersForDisplay(COURSE_ID,
         BaseModel.course.periods[ACTIVE_PERIOD].id
       );
-      each(chapters, (chapter) => {
+      for(const chapter of chapters) {
         const wrapper = shallow(<Chapter {...props} chapter={chapter} />);
+        expect(await axe(wrapper.html())).toHaveNoViolations()
         Array.from(chapter.valid_sections).map((section) =>
           expect(wrapper).toHaveRendered(`Section[id=\"${section.id}\"]`));
-      });
+      }
     })
   );
 
@@ -83,14 +85,16 @@ describe('Concept Coach Dashboard', function() {
       };
     });
 
-    it('shows a section without spaced practice', function() {
+    it('shows a section without spaced practice', async function() {
       const wrapper = shallow(<Section {...props} />);
+      expect(await axe(wrapper.html())).toHaveNoViolations()
       expect(wrapper).toHaveRendered('.empty-spaced-practice');
     });
 
-    it('shows a section with spaced practice', function() {
+    it('shows a section with spaced practice', async function() {
       props.section.spaced_practice_performance = 0.5;
       const wrapper = shallow(<Section {...props} />);
+      expect(await axe(wrapper.html())).toHaveNoViolations()
       expect(wrapper).not.toHaveRendered('.empty-spaced-practice');
     });
   });
@@ -105,33 +109,38 @@ describe('Concept Coach Dashboard', function() {
       };
     });
 
-    it('displays as 100%', function() {
+    it('displays as 100%', async function() {
       const wrapper = shallow(<SectionProgress {...props} />);
+      expect(await axe(wrapper.html())).toHaveNoViolations()
       expect(wrapper).toHaveRendered('ProgressBar[now=100][label="100% completed"]');
     });
 
-    it('hides complete progress bar when 0% complete', function() {
+    it('hides complete progress bar when 0% complete', async function() {
       props.section.completed_percentage = 0.0;
       const wrapper = shallow(<SectionProgress {...props} />);
+      expect(await axe(wrapper.html())).toHaveNoViolations()
       expect(wrapper).toHaveRendered('ProgressBar.none-completed');
     });
   });
 
   describe('Section Performance Bars', function() {
-    it('hides incorrect progress bar when all correct', function() {
+    it('hides incorrect progress bar when all correct', async function() {
       const wrapper = shallow(<SectionPerformance performance={1.0} />);
+      expect(await axe(wrapper.html())).toHaveNoViolations()
       expect(wrapper).toHaveRendered('ProgressBar[now=100][label="100% correct"]');
       expect(wrapper).not.toHaveRendered('ProgressBar.progress-bar-incorrect');
     });
 
-    it('hides correct progress bar when all incorrect', function() {
+    it('hides correct progress bar when all incorrect', async function() {
       const wrapper = shallow(<SectionPerformance performance={0} />);
+      expect(await axe(wrapper.html())).toHaveNoViolations()
       expect(wrapper).not.toHaveRendered('ProgressBar.progress-bar-correct');
       expect(wrapper).toHaveRendered('ProgressBar[now=100][label="100% incorrect"]');
     });
 
-    it('renders both when a mix of of correct/incorrect', function() {
+    it('renders both when a mix of of correct/incorrect', async function() {
       const wrapper = shallow(<SectionPerformance performance={0.3} />);
+      expect(await axe(wrapper.html())).toHaveNoViolations()
       expect(wrapper).toHaveRendered('ProgressBar.progress-bar-correct[now=30][label="30%"]');
       expect(wrapper).toHaveRendered('ProgressBar.progress-bar-incorrect[now=70][label=""]');
     });
