@@ -22,7 +22,7 @@ const WINDOW_HEIGHT_PADDING = 260;
 const NOT_AVAILABLE_AVERAGE = 'n/a';
 const PENDING_AVERAGE = '---';
 
-const scoreKeyToType = (key) => (key.match(/(course_average|homework|reading)/)[0])
+const scoreKeyToType = (key) => (key.match(/(course_average|homework|reading)/)[0]);
 
 export default class ScoresReportUX {
 
@@ -96,6 +96,11 @@ export default class ScoresReportUX {
       return PENDING_AVERAGE;
     }
     return null;
+  }
+
+  // are the weight types that are set affecting assignments of those types
+  @computed get areWeightsInUse() {
+    return !find(this.weightTypes, type => this.isAverageUnavailableByType(type));
   }
 
   // what task types is course score being weighed on?

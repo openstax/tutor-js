@@ -43,4 +43,17 @@ describe('Scores Report UX', function() {
     });
   });
 
+  it('detects when weighted ineffectually', () => {
+    expect(ux.weightTypes).toEqual(['homework', 'reading']);
+    expect(ux.areWeightsInUse).toBe(true);
+    ux.allTasksByType['reading'].forEach(t => t.type = 'unknown');
+
+    expect(ux.areWeightsInUse).toBe(false);
+
+    ux.course.reading_score_weight = 0;
+    ux.course.reading_progress_weight = 0;
+    expect(ux.weightTypes).toEqual(['homework']);
+    expect(ux.areWeightsInUse).toBe(true);
+  });
+
 });
