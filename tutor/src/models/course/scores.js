@@ -65,11 +65,11 @@ class Heading extends BaseModel {
 @identifiedBy('course/scores/period')
 export class CourseScoresPeriod extends BaseModel {
 
-  @field overall_course_average = 0;
-  @field overall_reading_score = 0;
-  @field overall_reading_progress = 0;
-  @field overall_homework_score = 0;
-  @field overall_homework_progress = 0;
+  @field overall_course_average;
+  @field overall_reading_score;
+  @field overall_reading_progress;
+  @field overall_homework_score;
+  @field overall_homework_progress;
   @field period_id;
   @hasMany({ model: Heading, inverseOf: 'period' }) data_headings;
   @hasMany({ model: Student, inverseOf: 'period' }) students;
