@@ -15,9 +15,30 @@ const AveragesToggle = observer(({ ux }) => (
   />
 ));
 
+
+const WeightsLink = observer(({ ux }) => {
+  if (ux.period.course.isTeacher) {
+    return (
+      <a className="set-weights" onClick={ux.weights.onSetClick}>
+        Set weights
+        {!ux.areWeightsInUse &&
+          <Icon
+            type="warning"
+            tooltipProps={{ placement: 'top' }}
+            tooltip="Change weights to generate course averages" />}
+      </a>
+    );
+  } else {
+    return (
+      <a className="set-weights" onClick={ux.weights.onSetClick}>
+        View weights
+      </a>
+    );
+  }
+});
+
 const OverallHeader = observer(({ ux }) => {
   const { period, periodAverages } = ux;
-  const viewWeightsLabel = (period.course.isTeacher && 'Set weights') || 'View weights';
   let overviewHeaderRow = null;
   let weightsModal = <ViewWeights ux={ux} />
 
@@ -40,33 +61,33 @@ const OverallHeader = observer(({ ux }) => {
   }
 
   return (
-  <div className={cn('header-cell-wrapper', 'overall-average', { 'is-expanded': ux.isAveragesExpanded })}>
-    {weightsModal}
-    <div className="overall-header-cell">
-      <AveragesToggle ux={ux} />
-      <div className="avg">
-        <b>Averages</b>
-        <a className="set-weights" onClick={ux.weights.onSetClick}>{viewWeightsLabel}</a>
+    <div className={cn('header-cell-wrapper', 'overall-average', { 'is-expanded': ux.isAveragesExpanded })}>
+      {weightsModal}
+      <div className="overall-header-cell">
+        <AveragesToggle ux={ux} />
+        <div className="avg">
+          <b>Averages</b>
+          <WeightsLink ux={ux} />
+        </div>
       </div>
-    </div>
-    <div className="header-row labels">
-      <div>Course</div>
-      <div className="homework">Homework</div>
-      <div className="reading">Reading</div>
-    </div>
-    <div className="header-row labels types">
-      <div></div>
-      <div className="homework">
-        <div>Score</div>
-        <div>Progress</div>
+      <div className="header-row labels">
+        <div>Course</div>
+        <div className="homework">Homework</div>
+        <div className="reading">Reading</div>
       </div>
-      <div className="reading">
-        <div>Score</div>
-        <div>Progress</div>
+      <div className="header-row labels types">
+        <div></div>
+        <div className="homework">
+          <div>Score</div>
+          <div>Progress</div>
+        </div>
+        <div className="reading">
+          <div>Score</div>
+          <div>Progress</div>
+        </div>
       </div>
+      {overviewHeaderRow}
     </div>
-    {overviewHeaderRow}
-  </div>
   );
 });
 

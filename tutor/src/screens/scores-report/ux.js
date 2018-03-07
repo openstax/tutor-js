@@ -3,7 +3,10 @@ import bezierAnimation from '../../helpers/bezier';
 import WindowSize from '../../models/window-size';
 import WeightsUX from './weights-ux';
 import UiSettings from 'shared/model/ui-settings';
-import { isNil, first, isUndefined, clone, reverse, pick, pickBy, mapValues, concat, flow, map, partial, uniq, some, keys } from 'lodash';
+import {
+  find, first, isUndefined, clone, reverse, pick, pickBy, mapValues,
+  groupBy, flatMap, flow, map, partial, uniq, some, keys, isEmpty, isNil,
+} from 'lodash';
 import { asPercent } from '../../helpers/string';
 
 const CELL_AVERAGES_CLOSED_SINGLE_WIDTH = 120;
@@ -19,7 +22,7 @@ const WINDOW_HEIGHT_PADDING = 260;
 const NOT_AVAILABLE_AVERAGE = 'n/a';
 const PENDING_AVERAGE = '---';
 
-const scoreKeyToType = (key) => (key.match(/(course_average|homework|reading)/)[0])
+const scoreKeyToType = (key) => (key.match(/(course_average|homework|reading)/)[0]);
 
 export default class ScoresReportUX {
 
@@ -51,7 +54,6 @@ export default class ScoresReportUX {
 
   constructor(course) {
     this.course = course;
-    course.taskPlans.fetch({});
   }
 
   @computed get period() {
@@ -60,20 +62,31 @@ export default class ScoresReportUX {
     );
   }
 
+  @computed get periodTasksByType() {
+    return groupBy(this.period.data_headings, 'type');
+  }
+
+  @computed get allTasksByType() {
+    return groupBy(
+      flatMap(this.course.scores.periods.values(), p => p.data_headings.peek()),
+      'type'
+    );
+  }
+
   isAverageUnavailableByType(type) {
-    return !this.course.taskPlans[type].any;
+    return isEmpty(this.allTasksByType[type]);
   }
 
   isAverageUnavailableByTypeForPeriod(type) {
-    return !this.course.taskPlans[type].withPeriodId(this.period.period_id).any;
+    return isEmpty(this.periodTasksByType[type]);
   }
 
   isAveragePendingByType(type) {
-    return !this.course.taskPlans[type].pastDue.any;
+    return !find(this.allTasksByType[type], 'isDue');
   }
 
   isAveragePendingByTypeForPeriod(type) {
-    return !this.course.taskPlans[type].pastDueWithPeriodId(this.period.period_id).any;
+    return !find(this.periodTasksByType[type], 'isDue');
   }
 
   nullAverageByType(type) {
@@ -82,6 +95,12 @@ export default class ScoresReportUX {
     } else if (this.isAveragePendingByTypeForPeriod(type)) {
       return PENDING_AVERAGE;
     }
+    return null;
+  }
+
+  // are the weight types that are set affecting assignments of those types
+  @computed get areWeightsInUse() {
+    return !find(this.weightTypes, type => this.isAverageUnavailableByType(type));
   }
 
   // what task types is course score being weighed on?
@@ -102,13 +121,15 @@ export default class ScoresReportUX {
     } else if (some(this.weightTypes, this.isAveragePendingByTypeForPeriod.bind(this))) {
       return PENDING_AVERAGE;
     }
+    return null;
   }
 
   maskAverages(averages) {
     return mapValues(averages, (average, key) => {
       const type = scoreKeyToType(key);
       let nullValue;
-      if (isNil(average)) {
+
+      if (isNil(average)){
         if (type === 'course_average') {
           nullValue = this.nullAverageForCourse;
         } else {

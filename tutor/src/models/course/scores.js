@@ -96,7 +96,7 @@ export class CourseScoresPeriod extends BaseModel {
     each(this.students, (student) => {
       each(student.scoredStepCount, (count, key) => {
         counts[key] = ((counts[key] || 0) + count);
-      })
+      });
     });
     return counts;
   }

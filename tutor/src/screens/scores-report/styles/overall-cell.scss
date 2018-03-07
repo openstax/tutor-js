@@ -17,8 +17,10 @@
     border-top-color: $tutor-neutral;
     border-top-width: 5px;
     border-top-style: solid;
-
-    .tutor-icon {
+    .set-weights .fa-warning {
+      color: $form-error-color;
+    }
+    .averages-toggle {
       position: absolute;
       top: 5px;
       right: 5px;
