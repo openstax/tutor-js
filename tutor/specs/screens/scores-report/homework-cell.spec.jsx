@@ -72,4 +72,11 @@ describe('Student Scores Homework Cell', function() {
     expect(cell).toHaveRendered('.late-caret.accepted');
   });
 
+  it('hides late work from students', () => {
+    const cell = mount(<Cell {...props} />, EnzymeContext.build());
+    expect(cell).toHaveRendered('.late-caret');
+    props.task.student.period.course.roles[0].type = 'student';
+    expect(cell).not.toHaveRendered('.late-caret');
+  });
+
 });

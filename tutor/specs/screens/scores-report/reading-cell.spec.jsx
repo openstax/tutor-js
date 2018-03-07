@@ -52,4 +52,14 @@ describe('Student Scores Report Reading Cell', function() {
     expect(wrapper).toHaveRendered('.late-caret.accepted');
   });
 
+  it('hides late work from students', () => {
+    props.task.completed_on_time_step_count = 1;
+    props.task.completed_step_count = 2;
+    props.task.is_late_work_accepted = true;
+    const cell = mount(<Cell {...props} />, EnzymeContext.build());
+    expect(cell).toHaveRendered('.late-caret');
+    props.task.student.period.course.roles[0].type = 'student';
+    expect(cell).not.toHaveRendered('.late-caret');
+  });
+
 });
