@@ -56,4 +56,35 @@ describe('Scores Report UX', function() {
     expect(ux.areWeightsInUse).toBe(true);
   });
 
+  it('calculates period averages', () => {
+    expect(ux.periodAverages).toEqual({
+      overall_course_average: '17%',
+      overall_homework_progress: '22%',
+      overall_homework_score: '11%',
+      overall_reading_progress: '16%',
+      overall_reading_score: '15%',
+    });
+
+    ux.period.overall_reading_score = undefined;
+    ux.allTasksByType['reading'].forEach(t => t.due_at = moment().add(1, 'day'));
+
+    expect(ux.periodAverages).toEqual({
+      overall_course_average: '17%',
+      overall_homework_progress: '22%',
+      overall_homework_score: '11%',
+      overall_reading_progress: '16%',
+      overall_reading_score: '---',
+    });
+
+    ux.allTasksByType['reading'].forEach(t => t.type = 'unknown');
+    expect(ux.periodAverages).toEqual({
+      overall_course_average: '17%',
+      overall_homework_progress: '22%',
+      overall_homework_score: '11%',
+      overall_reading_progress: '16%',
+      overall_reading_score: 'n/a',
+    });
+
+  });
+
 });
