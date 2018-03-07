@@ -108,6 +108,10 @@ export default class HomeworkCell extends React.PureComponent {
   renderLateWork() {
     const { task, columnIndex } = this.props;
 
+    if (!this.props.period.course.isTeacher) {
+      return null;
+    }
+
     return (
       <LateWork
         task={task}
