@@ -41,11 +41,9 @@ describe('Concept Coach Dashboard', function() {
   });
 
   describe('Dashboard', function() {
-    it.only('shows the help page for blank periods', async function() {
+    it('shows the help page for blank periods', async function() {
       const wrapper = shallow(<Dashboard {...props} />, Context.build());
       expect(wrapper).toHaveRendered(`CCDashboardEmptyPeriod[courseId=\"${props.courseId}\"]`);
-      const html = wrapper.html()
-      expect(await axe(html)).toHaveNoViolations()
     });
 
     it('show the right amount of chapters for non-empty periods', function() {
