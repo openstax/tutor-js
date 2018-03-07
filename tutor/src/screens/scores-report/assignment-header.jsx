@@ -35,7 +35,7 @@ const AverageLabel = ({ heading }) => {
       </span>
     );
   } if (heading.type === 'external') {
-    const p = heading.average_progress;
+    const p = heading.average_progress || 0;
     let percent;
     if (p < 1 && p > 0.99) {
       percent = 99; // Don't round to 100% when it's not 100%!
