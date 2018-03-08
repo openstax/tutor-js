@@ -36,8 +36,9 @@ describe('My Courses Component', function() {
     component.unmount();
   });
 
-  it('renders the listing sorted', function() {
+  it('renders the listing sorted', async function() {
     const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
+    expect(await axe(wrapper.html())).toHaveNoViolations();
     for (let i = 0; i < MASTER_COURSES_LIST.length; i++) {
       const course = MASTER_COURSES_LIST[i];
       expect(wrapper).toHaveRendered(`.my-courses [data-course-id='${course.id}']`);

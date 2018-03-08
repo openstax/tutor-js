@@ -27,13 +27,14 @@ describe('MultiSelect component', () => {
     expect(form.toJSON()).toMatchSnapshot();
   });
 
-  it('fires callback when selected', function() {
-    const menu = mount(<MultiSelect {...props} />);
-    menu.find('.dropdown button').simulate('click');
-    expect(menu).toHaveRendered('.dropdown.open');
-    menu.find('[role="menuitem"]').at(2).simulate('click');
+  it('fires callback when selected', async function() {
+    const wrapper = mount(<MultiSelect {...props} />);
+    expect(await axe(wrapper.html())).toHaveNoViolations();
+    wrapper.find('.dropdown button').simulate('click');
+    expect(wrapper).toHaveRendered('.dropdown.open');
+    wrapper.find('[role="menuitem"]').at(2).simulate('click');
     expect(props.onSelect).toHaveBeenCalledWith(SELECTIONS[2]);
-    expect(menu).not.toHaveRendered('.dropdown.open');
+    expect(wrapper).not.toHaveRendered('.dropdown.open');
   });
 
   it('remains open after selection if closeAfterSelect=false', function() {

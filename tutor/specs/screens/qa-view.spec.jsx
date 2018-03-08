@@ -36,7 +36,7 @@ describe('QA Screen', function() {
     };
   });
 
-  it('renders as loading then matches snapshot', () => {
+  it('renders as loading then matches snapshot', async () => {
     const qa = mount(<QA {...props} />, EnzymeContext.build());
     const page = book.pages.byChapterSection.get(currentSection);
     ux.exercisesMap.onLoaded({ data: { items: times(8, () => FactoryBot.create('TutorExercise', {
@@ -46,6 +46,10 @@ describe('QA Screen', function() {
     expect(qa.debug()).toMatchSnapshot();
     ux.setDisplayingPanel({}, false);
     expect(qa.debug()).toMatchSnapshot();
+
+    expect(await axe(qa.html())).toHaveNoViolations();
+    expect(qa.html()).toMatchSnapshot();
+
     expect(ux.activePage).not.toBeNull();
     qa.unmount();
   });

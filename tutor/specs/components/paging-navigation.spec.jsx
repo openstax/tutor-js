@@ -51,11 +51,12 @@ describe('Paging Navigation', () => {
     expect(SnapShot.create(<Nav {...props}><TestComponent /></Nav>).toJSON()).toMatchSnapshot();
   });
 
-  it('sets titles', () => {
-    const nav = shallow(<Nav {...props}><TestComponent /></Nav>);
+  it('sets titles', async () => {
+    const wrapper = shallow(<Nav {...props}><TestComponent /></Nav>);
+    expect(await axe(wrapper.html())).toHaveNoViolations();
     expect(props.documentImpl.title).toEqual('Set From Nav');
-    expect(nav).toHaveRendered(`a.next[title="${props.titles.next}"]`);
-    expect(nav).toHaveRendered(`a.prev[title="${props.titles.previous}"]`);
+    expect(wrapper).toHaveRendered(`a.next[title="${props.titles.next}"]`);
+    expect(wrapper).toHaveRendered(`a.prev[title="${props.titles.previous}"]`);
   });
 
   it('calls prop fns', () => {
