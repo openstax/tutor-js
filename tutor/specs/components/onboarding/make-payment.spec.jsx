@@ -17,9 +17,10 @@ describe('make payment modal', () => {
     ).toMatchSnapshot();
   });
 
-  it('calls onCancel', () => {
-    const modal = shallow(<MakePayment ux={ux} />);
-    const payments = modal.find('PaymentsPanel');
+  it('calls onCancel', async () => {
+    const wrapper = shallow(<MakePayment ux={ux} />);
+    expect(await axe(wrapper.html())).toHaveNoViolations();
+    const payments = wrapper.find('PaymentsPanel');
     const onCancel = payments.props().onCancel;
     expect(onCancel).toBe(ux.onPayLater);
     expect(isFunction(onCancel)).toBe(true);

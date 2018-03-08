@@ -13,8 +13,9 @@ describe('CreateCourse: Selecting course subject', function() {
     Offerings.onLoaded({ data: OFFERINGS });
   });
 
-  it('it sets offering_id when clicked', function() {
+  it('it sets offering_id when clicked', async function() {
     const wrapper = mount(<SelectCourse ux={ux} />);
+    expect(await axe(wrapper.html())).toHaveNoViolations();
     expect(ux.newCourse.offering_id).toEqual('');
     wrapper.find('.list-group-item').at(2).simulate('click');
     expect(ux.newCourse.offering_id).toEqual(OFFERINGS.items[2].id);

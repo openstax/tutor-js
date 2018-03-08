@@ -20,15 +20,17 @@ describe('Learning Guide Chapter Panel', function() {
     const total = props.chapter.questions_answered_count;
 
     return Testing.renderComponent( Chapter, { props: props } ).then(({ dom }) =>
-      _.delay(() =>
+      _.delay(async () => {
+        expect(await axe(dom.outerHTML)).toHaveNoViolations();
         expect(dom.querySelector('.amount-worked').textContent).to
           .equal(`${pluralize(' problems', total, true)} worked in this chapter`)
-      )
+      })
     );
   });
 
   return it('displays the title', function() {
-    return Testing.renderComponent( Chapter, { props: props } ).then(({ dom }) => {
+    return Testing.renderComponent( Chapter, { props: props } ).then(async ({ dom }) => {
+      expect(await axe(dom.outerHTML)).toHaveNoViolations();
       return expect(dom.querySelector('.title').textContent).to.equal(props.chapter.title);
     });
   });

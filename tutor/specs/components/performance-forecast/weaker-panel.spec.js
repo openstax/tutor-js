@@ -20,7 +20,8 @@ describe('Weaker Section Panel', function() {
     };});
 
   it('displays the title', function() {
-    return Testing.renderComponent( Weaker, { props: props } ).then(({ dom }) => {
+    return Testing.renderComponent( Weaker, { props: props } ).then(async ({ dom }) => {
+      expect(await axe(dom.outerHTML)).toHaveNoViolations();
       return expect(dom.querySelector('.title').textContent).to.equal(props.weakerTitle);
     });
   });

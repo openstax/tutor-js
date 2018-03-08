@@ -16,8 +16,9 @@ describe('CreateCourse: Selecting course dates', function() {
     ux.newCourse.offering = Offerings.get(OFFERING_ID);
   });
 
-  it('it sets state when date row is clicked', function() {
+  it('it sets state when date row is clicked', async function() {
     const wrapper = mount(<SelectDates ux={ux} />);
+    expect(await axe(wrapper.html())).toHaveNoViolations();
     wrapper.find('.list-group-item').at(0).simulate('click');
     expect(ux.newCourse.term).toEqual(
       Offerings.get(OFFERING_ID).active_term_years[0]

@@ -29,13 +29,15 @@ describe('Creating a course', function() {
     props = { isLoading: false };
   });
 
-  it('displays as loading and then sets stage when done', function() {
+  it('displays as loading and then sets stage when done', async function() {
     const wrapper = shallow(<Wizard isLoading={true} />);
+    expect(await axe(wrapper.html())).toHaveNoViolations();
     expect(wrapper).toHaveRendered('OXFancyLoader[isLoading=true]');
   });
 
-  it('advances and can go back', function() {
+  it('advances and can go back', async function() {
     const wrapper = mount(<Wizard {...props} />);
+    expect(await axe(wrapper.html())).toHaveNoViolations();
 
     expect(wrapper.instance().ux.currentStageIndex).toEqual(0);
     expect(wrapper).toHaveRendered('SelectCourse');

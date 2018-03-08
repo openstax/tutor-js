@@ -13,10 +13,11 @@ describe('CreateCourse: choosing offering', function() {
 
   afterEach(() => Offerings.clear());
 
-  it('doesn’t blow up when appearance code from offering is invalid', function() {
+  it('doesn’t blow up when appearance code from offering is invalid', async function() {
     const offering = Offerings.get(1);
     offering.appearance_code = 'firefirefire';
     const wrapper = shallow(<OfferingTitle offering={offering} />);
+    expect(await axe(wrapper.html())).toHaveNoViolations();
     expect(wrapper).toHaveRendered('[data-appearance="firefirefire"]');
   });
 

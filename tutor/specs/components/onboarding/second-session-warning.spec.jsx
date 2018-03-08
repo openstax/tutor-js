@@ -23,19 +23,21 @@ describe('Second Session Warning', () => {
     ).toMatchSnapshot();
   });
 
-  it('dislays got it and dismisses on continue', () => {
-    const warning = shallow(<SecondSessionWarning ux={ux} />);
-    warning.find('Button[bsStyle="default"]').simulate('click');
+  it('dislays got it and dismisses on continue', async () => {
+    const wrapper = shallow(<SecondSessionWarning ux={ux} />);
+    expect(await axe(wrapper.html())).toHaveNoViolations();
+    wrapper.find('Button[bsStyle="default"]').simulate('click');
     expect(User.logEvent).toHaveBeenCalledWith({ category: 'onboarding', code: 'like_preview_ask_later' });
-    expect(warning.find('Body').render().text()).toContain('ready to create a real course');
-    warning.find('Button[bsStyle="primary"]').simulate('click');
+    expect(wrapper.find('Body').render().text()).toContain('ready to create a real course');
+    wrapper.find('Button[bsStyle="primary"]').simulate('click');
     expect(ux.dismissNag).toHaveBeenCalled();
   });
 
-  fit('navigates and logs on add', () => {
+  fit('navigates and logs on add', async () => {
     const context =  EnzymeContext.build();
-    const warning = shallow(<SecondSessionWarning ux={ux} />, context);
-    warning.find('Button[bsStyle="primary"]').simulate('click');
+    const wrapper = shallow(<SecondSessionWarning ux={ux} />, context);
+    expect(await axe(wrapper.html())).toHaveNoViolations();
+    wrapper.find('Button[bsStyle="primary"]').simulate('click');
     expect(User.logEvent).toHaveBeenCalledWith({ category: 'onboarding', code: 'like_preview_yes' });
     expect(context.context.router.history.push).toHaveBeenCalledWith('/dashboard');
   });
