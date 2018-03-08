@@ -3,6 +3,7 @@ sinon = require('sinon')
 sinonChai = require('sinon-chai')
 chai.use(sinonChai)
 isFunction = require('lodash/isFunction')
+{ axe, toHaveNoViolations } = require('jest-axe')
 
 global.enzyme = require 'enzyme'
 
@@ -43,5 +44,9 @@ global.expect = (actual) ->
 
 for prop in ['extend', 'anything', 'any', 'arrayContaining', 'objectContaining', 'stringContaining', 'stringMatching']
   global.expect[prop] = originalExpect[prop]
+
+# Include the jest-axe .toHaveNoViolations()
+global.expect.extend(toHaveNoViolations)
+global.axe = axe
 
 require './matchers'

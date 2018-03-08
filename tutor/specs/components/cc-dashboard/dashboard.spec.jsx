@@ -1,6 +1,5 @@
 import React from 'react';
 import { pick, extend, each, get } from 'lodash';
-import { axe, toHaveNoViolations }  from 'jest-axe'
 
 import { CCDashboardStore, CCDashboardActions } from '../../../src/flux/cc-dashboard';
 import Courses from '../../../src/models/courses-map';
@@ -15,8 +14,6 @@ import Section from '../../../src/components/cc-dashboard/section';
 import SectionProgress from '../../../src/components/cc-dashboard/section-progress';
 import SectionPerformance from '../../../src/components/cc-dashboard/section-performance';
 import PeriodHelper from '../../../src/helpers/period';
-
-expect.extend(toHaveNoViolations)
 
 const COURSE_ID = '0';
 const BLANK_PERIOD = 0;
