@@ -30,7 +30,6 @@ PerformanceForecast = require '../flux/performance-forecast'
 {default: ReferenceBookPage} = require '../models/reference-book/page';
 {default: Ecosystems} = require '../models/ecosystems';
 {ReferenceBookExerciseActions} = require '../flux/reference-book-exercise'
-{NotificationActions} = require '../flux/notifications'
 
 { default: TaskPlanHelpers} = require '../helpers/task-plan'
 { FeatureFlagsApi: FeatureFlags } = require '../models/feature_flags'
@@ -137,9 +136,6 @@ startAPI = ->
 
   connectRead(ReferenceBookExerciseActions, url: (url) -> url)
 
-  connectRead(NotificationActions,
-    trigger: 'loadUpdates', onSuccess: 'loadedUpdates', url: 'notifications', handledErrors: ['*']
-  )
 
   connectModelRead(Exercises.constructor, 'fetch', onSuccess: 'onLoaded')
 

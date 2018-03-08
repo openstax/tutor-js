@@ -4,6 +4,7 @@ import { BootstrapURLs, ExerciseHelpers } from 'shared';
 import UiSettings from 'shared/model/ui-settings';
 import ErrorMonitoring from 'shared/helpers/error-monitoring';
 import { startMathJax } from 'shared/helpers/mathjax';
+import Notifications from 'shared/model/notifications';
 import { connectModelRead } from '../api/adapter';
 import { TransitionAssistant } from '../components/unsaved-state';
 import { readBootstrapData } from '../helpers/dom';
@@ -26,14 +27,17 @@ const BOOTSTRAPED_MODELS = {
 
 export default class TutorApp {
 
+  @observable tutor_js_url;
+
   boot() {
     startAPI();
     this.data = readBootstrapData();
-    if (!isEmpty(this.data)) {
+    Notifications.on('tutor-update', this.onNotice);
+    if (isEmpty(this.data)) {
+      return this.fetch().then(this.initializeApp);
+    } else {
       return this.initializeApp();
     }
-
-    return this.fetch().then(this.initializeApp);
   }
 
   @action.bound initializeApp() {
@@ -52,6 +56,14 @@ export default class TutorApp {
     startMathJax();
     TransitionAssistant.startMonitoring();
     return Promise.resolve(this);
+  }
+
+  @action.bound onNotice({ tutor_js_url }) {
+    //if (!this.tutor_js_url) this.tutor_js_url = tutor_js_url;
+    if (this.tutor_js_url !== tutor_js_url) {
+//      Notifications.display({message:'UPDATE!', type: 'reload'})
+      //Notifications.on('tutor-update', this.onNotice);
+    }
   }
 
   fetch() {

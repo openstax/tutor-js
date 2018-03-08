@@ -6,7 +6,7 @@ import moment from 'moment';
 import UiSettings from 'shared/model/ui-settings';
 import { observable, computed, action } from 'mobx';
 import { TimeStore } from '../../flux/time';
-import { Completed } from './queue';
+import Toasts from '../toasts';
 
 import Job from '../job';
 
@@ -45,7 +45,13 @@ export default class LmsScorePush extends Job {
         info.data.num_callbacks &&
         isEmpty(info.errors)
     );
-    Completed.push({ type: 'lms', succeeded, info, errors: info.errors });
+    Toasts.push({
+      info,
+      type: 'lms',
+      handler: 'job',
+      status: succeeded ? 'ok' : 'failed',
+      errors: info.errors,
+    });
   }
 
   @action start() {

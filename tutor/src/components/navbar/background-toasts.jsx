@@ -1,34 +1,27 @@
 import React from 'react';
-import { observer } from "mobx-react";
+import { observer } from 'mobx-react';
 import { observable, autorun, action } from 'mobx';
-import  { Completed as JobCompletion } from '../../models/jobs/queue';
-import * as lms from './toasts/lms';
-import * as scores from './toasts/scores';
+import Toasts from '../../models/toasts';
 
 const REMOVE_AFTER = 1000 * 7;
-
-const Toasts = {
-  lms,
-  scores,
-};
 
 @observer
 export default class BackgroundToasts extends React.Component {
 
   queuePopperStop = autorun(() => {
-    if (!this.currentJob && JobCompletion.length) {
-      this.currentJob = JobCompletion.shift();
-      if (this.currentJob.succeeded) {
+    if (!this.currentJob && Toasts.length) {
+      this.currentToast = Toasts.shift();
+      if (this.currentToast.isOk) {
         this.pendingRemoval = setTimeout(this.removeJob, REMOVE_AFTER);
       }
     }
   })
 
-  @observable currentJob;
+  @observable currentToast;
   @observable pendingRemoval;
 
   @action.bound removeJob() {
-    this.currentJob = null;
+    this.currentToast = null;
   }
 
   componentWillUnmount() {
@@ -39,12 +32,13 @@ export default class BackgroundToasts extends React.Component {
   }
 
   render() {
-    if (!this.currentJob) { return null; }
-    const ToastType = Toasts[this.currentJob.type];
-    const Toast = ToastType[this.currentJob.succeeded ? 'Success' : 'Failure'];
+    if (!this.currentToast) { return null; }
+
+    const Toast = this.currentToast.component;
+
     return (
       <div className="background-job-toast">
-        <Toast job={this.currentJob} dismiss={this.removeJob} />
+        <Toast job={this.currentToast} dismiss={this.removeJob} />
       </div>
     );
   }

@@ -2,10 +2,10 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
 import { Button } from 'react-bootstrap';
-import Icon from '../../icon';
-import WarningModal from '../../warning-modal';
-import SupportEmailLink from '../../support-email-link';
-import { JobCompletion } from '../../../models/jobs/queue';
+import Icon from '../icon';
+import WarningModal from '../warning-modal';
+import SupportEmailLink from '../support-email-link';
+
 
 export function Success({ job: { info: { url } } }) {
   return (
@@ -24,7 +24,7 @@ export class Failure extends React.Component {
 
   static propTypes = {
     dismiss: React.PropTypes.func.isRequired,
-    job: React.PropTypes.instanceOf(JobCompletion).isRequired,
+    job: React.PropTypes.object.isRequired,
   }
 
   @observable showDetails = false;

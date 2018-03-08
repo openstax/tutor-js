@@ -4,12 +4,11 @@ import pluralize from 'pluralize';
 import { observable, action, computed } from 'mobx';
 import { Button, Panel, Table } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
-import Icon from '../../icon';
-import WarningModal from '../../warning-modal';
-import NewTabLink from '../../new-tab-link';
-import { JobCompletion } from '../../../models/jobs/queue';
-import S from '../../../helpers/string';
-import { downloadData, arrayToCSV } from '../../../helpers/download-data';
+import Icon from '../icon';
+import WarningModal from '../warning-modal';
+import NewTabLink from '../new-tab-link';
+import S from '../../helpers/string';
+import { downloadData, arrayToCSV } from '../../helpers/download-data';
 
 const Troubleshoot = () => (
   <NewTabLink
@@ -23,7 +22,7 @@ const Troubleshoot = () => (
 export class LMSErrors extends React.Component {
 
   static propTypes = {
-    job: React.PropTypes.instanceOf(JobCompletion).isRequired,
+    job: React.PropTypes.object.isRequired,
     footer: React.PropTypes.node.isRequired,
   }
 
@@ -170,7 +169,7 @@ export class Failure extends React.Component {
 
   static propTypes = {
     dismiss: React.PropTypes.func.isRequired,
-    job: React.PropTypes.instanceOf(JobCompletion).isRequired,
+    job: React.PropTypes.object.isRequired,
   }
 
   @observable showDetails = false;
