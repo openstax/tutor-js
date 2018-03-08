@@ -33,12 +33,13 @@ describe('Task Teacher Review', () => {
     };
   });
 
-  it('renders and matches snapshot', () => {
-    const review = mount(<TaskTeacherReview {...props} />, EnzymeContext.build());
-    expect(review).toHaveRendered('Stats');
-    expect(review).toHaveRendered('Review');
-    expect(review).toHaveRendered('Breadcrumbs');
-    review.unmount();
+  it('renders and matches snapshot', async () => {
+    const wrapper = mount(<TaskTeacherReview {...props} />, EnzymeContext.build());
+    expect(await axe(wrapper.html())).toHaveNoViolations();
+    expect(wrapper).toHaveRendered('Stats');
+    expect(wrapper).toHaveRendered('Review');
+    expect(wrapper).toHaveRendered('Breadcrumbs');
+    wrapper.unmount();
   });
 
 });

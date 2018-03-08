@@ -14,9 +14,10 @@ describe('Student Preview Builder', () => {
     };
   });
 
-  it('opens a preview window when clicked', () => {
-    const builder = mount(<BuilderPopup {...props} />);
-    builder.simulate('click');
+  it('opens a preview window when clicked', async () => {
+    const wrapper = mount(<BuilderPopup {...props} />);
+    expect(await axe(wrapper.html())).toHaveNoViolations();
+    wrapper.simulate('click');
     expect(props.windowImpl.open).toHaveBeenCalled();
     expect(props.windowImpl.openedDOM.window.document.body.textContent).toContain(
       'coming soon'
