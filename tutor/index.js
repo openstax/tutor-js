@@ -24,7 +24,6 @@ window._STORES = {
   TASK_STEP:            require('./src/flux/task-step'),
   TASK:                 require('./src/flux/task'),
   TIME:                 require('./src/flux/time'),
-  TOC:                  require('./src/flux/toc'),
 };
 
 window._MODELS = {
