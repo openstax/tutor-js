@@ -21,15 +21,16 @@ describe('Change Student ID', () => {
     expect(SnapShot.create(<ChangeStudentId />).toJSON()).toMatchSnapshot();
   });
 
-  it('updates student id when edited', () => {
+  it('updates student id when edited', async () => {
     const course = courses.get(params.courseId);
     course.userStudentRecord.saveOwnStudentId = jest.fn(() => Promise.resolve({}));
-    const form = mount(<ChangeStudentId />, context);
-    form.find('input').get(0).value = '4252';
-    form.find('.btn-primary').simulate('click');
+    const wrapper = mount(<ChangeStudentId />, context);
+    expect(await axe(wrapper.html())).toHaveNoViolations();
+    wrapper.find('input').get(0).value = '4252';
+    wrapper.find('.btn-primary').simulate('click');
     expect(course.userStudentRecord.student_identifier).toEqual('4252');
     expect(course.userStudentRecord.saveOwnStudentId).toHaveBeenCalled();
-    form.unmount();
+    wrapper.unmount();
   });
 
   it('navigates to dashboard when clicked', () => {
