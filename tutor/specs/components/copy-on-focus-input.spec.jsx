@@ -14,10 +14,11 @@ describe('CopyOnFocusInput', () => {
     };
   });
 
-  it('renders and copys when focused', () => {
-    const input = mount(<CopyOnFocusInput {...props} />);
+  it('renders and copys when focused', async () => {
+    const wrapper = mount(<CopyOnFocusInput {...props} />);
+    expect(await axe(wrapper.html())).toHaveNoViolations();
     expect(Clipboard.copy).not.toHaveBeenCalled();
-    input.simulate('focus');
+    wrapper.simulate('focus');
     expect(Clipboard.copy).toHaveBeenCalled();
   });
 
