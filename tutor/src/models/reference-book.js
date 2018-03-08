@@ -1,33 +1,24 @@
 import { readonly } from 'core-decorators';
-import { last } from 'lodash';
+import { first, last, mapValues } from 'lodash';
 import { action, observable, computed } from 'mobx';
 import {
   BaseModel, identifiedBy, belongsTo, identifier, field, session, hasMany,
 } from 'shared/model';
 import ChapterSection from './chapter-section';
-import ReferenceBookPage from './reference-book/page';
+import Chapter from './reference-book/chapter';
 
-@identifiedBy('reference-book/part')
-class ReferenceBookPart extends BaseModel {
-  @identifier id;
-  @field title;
-  @field type;
-  @field({ model: ChapterSection }) chapter_section;
-  @session book;
-  @hasMany({ model: ReferenceBookPage, inverseOf: 'part' }) children;
-  @readonly depth = 1;
-}
-
-function mapPages(section, map) {
-  if (section.isPage) {
-    const lastPage = last(map.values());
-    if (lastPage) { lastPage.linkNextPage(section); }
-    map.set(section.chapter_section.asString, section);
+function mapPages(page, pages) {
+  if (page.isPage) {
+    const lastPage = last(pages.byId.values());
+    if (lastPage) { lastPage.linkNextPage(page); }
+    pages.byId.set(page.id, page);
+    pages.byUUID.set(page.uuid, page);
+    pages.byChapterSection.set(page.chapter_section.asString, page);
   }
-  (section.children || []).forEach(child => {
-    mapPages(child, map);
+  (page.children || []).forEach(child => {
+    mapPages(child, pages);
   });
-  return map;
+  return pages;
 }
 
 @identifiedBy('reference-book')
@@ -36,9 +27,17 @@ export default class ReferenceBook extends BaseModel {
   @identifier id;
   @field archive_url;
   @field webview_url;
-  @field({ model: ChapterSection }) chapter_section
-  @readonly pages = observable.map();
-  @hasMany({ model: ReferenceBookPart, inverseOf: 'book' }) children;
+  @field({ model: ChapterSection }) chapter_section;
+
+  @computed get pages() {
+    return mapPages(this, {
+      byId: observable.map(),
+      byUUID: observable.map(),
+      byChapterSection: observable.map(),
+    });
+  }
+
+  @hasMany({ model: Chapter, inverseOf: 'book' }) children;
   @field cnx_id;
   @field short_id;
   @field title;
@@ -50,8 +49,12 @@ export default class ReferenceBook extends BaseModel {
   }
 
   @action onApiRequestComplete({ data }) {
-    this.update(data[0]);
-    mapPages(this, this.pages);
+    this.update(first(data)); // data is an array
+  }
+
+  // a simplified data structure suitable for passing into flux
+  @computed get topicInfo() {
+    return mapValues(this.pages.byId.toJS(), pg => pg.asTopic);
   }
 
 }

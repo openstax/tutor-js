@@ -101,7 +101,7 @@ export default class ReferenceBookUX {
   }
 
   @computed get activePage() {
-    return this.pages.get(this.activeSection);
+    return this.pages.byChapterSection.get(this.activeSection);
   }
 
   @computed get toc() {

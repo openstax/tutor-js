@@ -3,7 +3,7 @@ ReactDOM = require 'react-dom'
 _ = require 'underscore'
 
 ArbitraryHtmlAndMath = require '../html'
-Question = require '../question'
+{default: Question} = require '../question'
 FreeResponse = require './free-response'
 
 RESPONSE_CHAR_LIMIT = 10000
@@ -120,9 +120,10 @@ ExMode = React.createClass
         {...questionProps}
         {...changeProps}
         key="step-question-#{question.id}"
-        model={question}
+        question={question}
         answer_id={answerId}
-        keySet={answerKeySet}>
+        keySet={answerKeySet}
+      >
         {@getFreeResponse()}
       </Question>
 

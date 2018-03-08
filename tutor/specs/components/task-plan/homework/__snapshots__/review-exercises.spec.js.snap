@@ -1,0 +1,1114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`choose exercises component matches snapshot 1`] = `
+<div
+  className="pinned-container"
+  style={
+    Object {
+      "marginTop": "50px",
+    }
+  }
+>
+  <div
+    className="pinned-header"
+  >
+    <div
+      className="exercise-controls-bar"
+    >
+      <div
+        className="controls"
+      />
+      <div
+        className="indicators"
+      >
+        <div
+          className="num total"
+        >
+          <h2>
+            NaN
+          </h2>
+          <span>
+            Total Problems
+          </span>
+        </div>
+        <div
+          className="num mine"
+        >
+          <h2>
+            0
+          </h2>
+          <span>
+            My Selections
+          </span>
+        </div>
+        <div
+          className="tour-anchor num tutor"
+          data-tour-anchor-id="tutor-selections"
+          id="tutor-selections"
+        >
+          <div
+            className="tutor-selections"
+          >
+            <span
+              className="circle-btn-placeholder"
+            />
+            <h2 />
+            <span
+              className="circle-btn-placeholder"
+            />
+          </div>
+          <span>
+            OpenStax Tutor Selections
+          </span>
+          <button
+            className="btn btn-link"
+            disabled={false}
+            id="homework-selections-trigger"
+            onClick={[Function]}
+            type="button"
+          >
+            What are these?
+          </button>
+        </div>
+        <div
+          className="tutor-added-later"
+        >
+          <span>
+            Tutor selections are added later to support spaced practice and personalized learning.
+          </span>
+        </div>
+      </div>
+      <div
+        className="actions"
+      />
+    </div>
+  </div>
+  <table
+    className="exercise-table"
+    data-tour-region-id="add-homework-review-sections"
+  >
+    <thead>
+      <tr>
+        <td />
+        <td />
+        <td>
+          Problem Question
+        </td>
+        <td>
+          Learning Objective
+        </td>
+        <td>
+          Details
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td
+          className="exercise-number"
+        >
+          1
+        </td>
+        <td>
+          <span
+            className="chapter-section"
+            data-chapter-section=""
+          >
+            
+          </span>
+        </td>
+        <td>
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?",
+              }
+            }
+          />
+        </td>
+        <td
+          className="ellipses"
+        >
+          lo:stax-phys:1-2-1
+        </td>
+        <td
+          className="ellipses"
+        >
+          blooms:3 / dok:3
+        </td>
+      </tr>
+      <tr>
+        <td
+          className="exercise-number"
+        >
+          2
+        </td>
+        <td>
+          <span
+            className="chapter-section"
+            data-chapter-section=""
+          >
+            
+          </span>
+        </td>
+        <td>
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "How could physics be useful in weather prediction?",
+              }
+            }
+          />
+        </td>
+        <td
+          className="ellipses"
+        >
+          lo:stax-phys:1-2-1
+        </td>
+        <td
+          className="ellipses"
+        >
+          blooms:3 / dok:3
+        </td>
+      </tr>
+      <tr>
+        <td
+          className="exercise-number"
+        >
+          3
+        </td>
+        <td>
+          <span
+            className="chapter-section"
+            data-chapter-section=""
+          >
+            
+          </span>
+        </td>
+        <td>
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "In what sense does Einstein’s theory of relativity illustrate that physics describes fundamental aspects of our universe?",
+              }
+            }
+          />
+        </td>
+        <td
+          className="ellipses"
+        >
+          lo:stax-phys:1-2-1
+        </td>
+        <td
+          className="ellipses"
+        >
+          blooms:3 / dok:3
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div
+    className="card-list exercises"
+  >
+    <div
+      className="openstax exercise-wrapper"
+    >
+      <div
+        className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated panel panel-default"
+        data-exercise-id="1@1"
+        id={undefined}
+        tabIndex={-1}
+      >
+        <div
+          className="panel-heading"
+        >
+          <span
+            className="-exercise-header panel-title"
+          >
+            <span
+              className="exercise-number"
+            >
+              1
+            </span>
+          </span>
+        </div>
+        <div
+          className="panel-body"
+        >
+          <div
+            className="exercise-body"
+          >
+            <div
+              className="openstax-question openstax-question-preview"
+              data-question-number={undefined}
+            >
+              <div
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?",
+                  }
+                }
+              />
+              <div
+                className="answers-table"
+              >
+                <div
+                  className="openstax-answer"
+                >
+                  <div
+                    className="answers-answer disabled"
+                  >
+                    <label
+                      className="answer-label"
+                      htmlFor="1-option-0"
+                      onKeyPress={[Function]}
+                    >
+                      <button
+                        aria-label="Choice a:"
+                        className="answer-letter"
+                        disabled={true}
+                        onClick={undefined}
+                      >
+                        a
+                      </button>
+                      <div
+                        className="answer-answer"
+                      >
+                        <div
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are too small to be seen with the naked eye, and</li>
+  <li>there is the involvement of only a weak gravitational field</li>
+</ol>
+",
+                            }
+                          }
+                        />
+                      </div>
+                    </label>
+                  </div>
+                </div>
+                <div
+                  className="openstax-answer"
+                >
+                  <div
+                    className="answers-answer disabled"
+                  >
+                    <label
+                      className="answer-label"
+                      htmlFor="1-option-1"
+                      onKeyPress={[Function]}
+                    >
+                      <button
+                        aria-label="Choice b:"
+                        className="answer-letter"
+                        disabled={true}
+                        onClick={undefined}
+                      >
+                        b
+                      </button>
+                      <div
+                        className="answer-answer"
+                      >
+                        <div
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<ol>
+  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                            }
+                          }
+                        />
+                      </div>
+                    </label>
+                  </div>
+                </div>
+                <div
+                  className="openstax-answer"
+                >
+                  <div
+                    className="answers-answer disabled"
+                  >
+                    <label
+                      className="answer-label"
+                      htmlFor="1-option-2"
+                      onKeyPress={[Function]}
+                    >
+                      <button
+                        aria-label="Choice c:"
+                        className="answer-letter"
+                        disabled={true}
+                        onClick={undefined}
+                      >
+                        c
+                      </button>
+                      <div
+                        className="answer-answer"
+                      >
+                        <div
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                            }
+                          }
+                        />
+                      </div>
+                    </label>
+                  </div>
+                </div>
+                <div
+                  className="openstax-answer"
+                >
+                  <div
+                    className="answers-answer disabled"
+                  >
+                    <label
+                      className="answer-label"
+                      htmlFor="1-option-3"
+                      onKeyPress={[Function]}
+                    >
+                      <button
+                        aria-label="Choice d:"
+                        className="answer-letter"
+                        disabled={true}
+                        onClick={undefined}
+                      >
+                        d
+                      </button>
+                      <div
+                        className="answer-answer"
+                      >
+                        <div
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a weak gravitational field</li>
+</ol>
+",
+                            }
+                          }
+                        />
+                      </div>
+                    </label>
+                  </div>
+                </div>
+                <div
+                  className="openstax-answer"
+                >
+                  <div
+                    className="answers-answer disabled"
+                  >
+                    <label
+                      className="answer-label"
+                      htmlFor="1-option-4"
+                      onKeyPress={[Function]}
+                    >
+                      <button
+                        aria-label="Choice e:"
+                        className="answer-letter"
+                        disabled={true}
+                        onClick={undefined}
+                      >
+                        e
+                      </button>
+                      <div
+                        className="answer-answer"
+                      >
+                        <div
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are too small to be seen with the naked eye, and</li>
+  <li>there is the involvement of only a weak gravitational field</li>
+</ol>
+",
+                            }
+                          }
+                        />
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="detailed-solution"
+              >
+                <div
+                  className="header"
+                >
+                  Detailed solution
+                </div>
+                <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "four",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            className="exercise-tags"
+          >
+            <span
+              className="exercise-tag"
+            >
+              blooms:3
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              book:stax-phys
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              context-cnxfeature:one-1
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              context-cnxmod:
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              dok:3
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              filter-type:test-prep
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              ID: 1@1
+            </span>
+            <div
+              className="lo-tag"
+            >
+              LO: 
+              lo:stax-phys:1-2-1
+            </div>
+            <span
+              className="exercise-tag"
+            >
+              requires-context:true
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              time:long
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              type:conceptual
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="openstax exercise-wrapper"
+    >
+      <div
+        className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated panel panel-default"
+        data-exercise-id="2@1"
+        id={undefined}
+        tabIndex={-1}
+      >
+        <div
+          className="panel-heading"
+        >
+          <span
+            className="-exercise-header panel-title"
+          >
+            <span
+              className="exercise-number"
+            >
+              2
+            </span>
+          </span>
+        </div>
+        <div
+          className="panel-body"
+        >
+          <div
+            className="exercise-body"
+          >
+            <div
+              className="openstax-question openstax-question-preview"
+              data-question-number={undefined}
+            >
+              <div
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "How could physics be useful in weather prediction?",
+                  }
+                }
+              />
+              <div
+                className="answers-table"
+              >
+                <div
+                  className="openstax-answer"
+                >
+                  <div
+                    className="answers-answer disabled"
+                  >
+                    <label
+                      className="answer-label"
+                      htmlFor="2-option-0"
+                      onKeyPress={[Function]}
+                    >
+                      <button
+                        aria-label="Choice a:"
+                        className="answer-letter"
+                        disabled={true}
+                        onClick={undefined}
+                      >
+                        a
+                      </button>
+                      <div
+                        className="answer-answer"
+                      >
+                        <div
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "Physics helps in predicting dynamics and movement of weather phenomena.",
+                            }
+                          }
+                        />
+                      </div>
+                    </label>
+                  </div>
+                </div>
+                <div
+                  className="openstax-answer"
+                >
+                  <div
+                    className="answers-answer disabled"
+                  >
+                    <label
+                      className="answer-label"
+                      htmlFor="2-option-1"
+                      onKeyPress={[Function]}
+                    >
+                      <button
+                        aria-label="Choice b:"
+                        className="answer-letter"
+                        disabled={true}
+                        onClick={undefined}
+                      >
+                        b
+                      </button>
+                      <div
+                        className="answer-answer"
+                      >
+                        <div
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "Physics helps in predicting how burning fossil fuel releases pollutants.",
+                            }
+                          }
+                        />
+                      </div>
+                    </label>
+                  </div>
+                </div>
+                <div
+                  className="openstax-answer"
+                >
+                  <div
+                    className="answers-answer disabled"
+                  >
+                    <label
+                      className="answer-label"
+                      htmlFor="2-option-2"
+                      onKeyPress={[Function]}
+                    >
+                      <button
+                        aria-label="Choice c:"
+                        className="answer-letter"
+                        disabled={true}
+                        onClick={undefined}
+                      >
+                        c
+                      </button>
+                      <div
+                        className="answer-answer"
+                      >
+                        <div
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "Physics helps in predicting how the flowing water affects Earth’s surface.",
+                            }
+                          }
+                        />
+                      </div>
+                    </label>
+                  </div>
+                </div>
+                <div
+                  className="openstax-answer"
+                >
+                  <div
+                    className="answers-answer disabled"
+                  >
+                    <label
+                      className="answer-label"
+                      htmlFor="2-option-3"
+                      onKeyPress={[Function]}
+                    >
+                      <button
+                        aria-label="Choice d:"
+                        className="answer-letter"
+                        disabled={true}
+                        onClick={undefined}
+                      >
+                        d
+                      </button>
+                      <div
+                        className="answer-answer"
+                      >
+                        <div
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "Physics helps in predicting the motion of tectonic plates.",
+                            }
+                          }
+                        />
+                      </div>
+                    </label>
+                  </div>
+                </div>
+                <div
+                  className="openstax-answer"
+                >
+                  <div
+                    className="answers-answer disabled"
+                  >
+                    <label
+                      className="answer-label"
+                      htmlFor="2-option-4"
+                      onKeyPress={[Function]}
+                    >
+                      <button
+                        aria-label="Choice e:"
+                        className="answer-letter"
+                        disabled={true}
+                        onClick={undefined}
+                      >
+                        e
+                      </button>
+                      <div
+                        className="answer-answer"
+                      >
+                        <div
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "Physics helps in predicting dynamics and movement of weather phenomena.",
+                            }
+                          }
+                        />
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="detailed-solution"
+              >
+                <div
+                  className="header"
+                >
+                  Detailed solution
+                </div>
+                <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "four",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            className="exercise-tags"
+          >
+            <span
+              className="exercise-tag"
+            >
+              blooms:3
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              book:stax-phys
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              context-cnxfeature:one-1
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              context-cnxmod:
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              dok:3
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              filter-type:test-prep
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              ID: 2@1
+            </span>
+            <div
+              className="lo-tag"
+            >
+              LO: 
+              lo:stax-phys:1-2-1
+            </div>
+            <span
+              className="exercise-tag"
+            >
+              requires-context:true
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              time:long
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              type:conceptual
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="openstax exercise-wrapper"
+    >
+      <div
+        className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated panel panel-default"
+        data-exercise-id="3@1"
+        id={undefined}
+        tabIndex={-1}
+      >
+        <div
+          className="panel-heading"
+        >
+          <span
+            className="-exercise-header panel-title"
+          >
+            <span
+              className="exercise-number"
+            >
+              3
+            </span>
+          </span>
+        </div>
+        <div
+          className="panel-body"
+        >
+          <div
+            className="exercise-body"
+          >
+            <div
+              className="openstax-question openstax-question-preview"
+              data-question-number={undefined}
+            >
+              <div
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "<b>Meter-area reduction in copper</b> - does it affect the speed of light, etc?",
+                  }
+                }
+              />
+              <div
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "In what sense does Einstein’s theory of relativity illustrate that physics describes fundamental aspects of our universe?",
+                  }
+                }
+              />
+              <div
+                className="answers-table"
+              >
+                <div
+                  className="openstax-answer"
+                >
+                  <div
+                    className="answers-answer disabled"
+                  >
+                    <label
+                      className="answer-label"
+                      htmlFor="3-option-0"
+                      onKeyPress={[Function]}
+                    >
+                      <button
+                        aria-label="Choice a:"
+                        className="answer-letter"
+                        disabled={true}
+                        onClick={undefined}
+                      >
+                        a
+                      </button>
+                      <div
+                        className="answer-answer"
+                      >
+                        <div
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "It describes how speed affects different observers’ measurements of time and space.",
+                            }
+                          }
+                        />
+                      </div>
+                    </label>
+                  </div>
+                </div>
+                <div
+                  className="openstax-answer"
+                >
+                  <div
+                    className="answers-answer disabled"
+                  >
+                    <label
+                      className="answer-label"
+                      htmlFor="3-option-1"
+                      onKeyPress={[Function]}
+                    >
+                      <button
+                        aria-label="Choice b:"
+                        className="answer-letter"
+                        disabled={true}
+                        onClick={undefined}
+                      >
+                        b
+                      </button>
+                      <div
+                        className="answer-answer"
+                      >
+                        <div
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "It describes how a frame of reference is necessary to describe position or motion.",
+                            }
+                          }
+                        />
+                      </div>
+                    </label>
+                  </div>
+                </div>
+                <div
+                  className="openstax-answer"
+                >
+                  <div
+                    className="answers-answer disabled"
+                  >
+                    <label
+                      className="answer-label"
+                      htmlFor="3-option-2"
+                      onKeyPress={[Function]}
+                    >
+                      <button
+                        aria-label="Choice c:"
+                        className="answer-letter"
+                        disabled={true}
+                        onClick={undefined}
+                      >
+                        c
+                      </button>
+                      <div
+                        className="answer-answer"
+                      >
+                        <div
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "It describes how people think of other people’s views from their own frame of reference.",
+                            }
+                          }
+                        />
+                      </div>
+                    </label>
+                  </div>
+                </div>
+                <div
+                  className="openstax-answer"
+                >
+                  <div
+                    className="answers-answer disabled"
+                  >
+                    <label
+                      className="answer-label"
+                      htmlFor="3-option-3"
+                      onKeyPress={[Function]}
+                    >
+                      <button
+                        aria-label="Choice d:"
+                        className="answer-letter"
+                        disabled={true}
+                        onClick={undefined}
+                      >
+                        d
+                      </button>
+                      <div
+                        className="answer-answer"
+                      >
+                        <div
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "It describes how different parts of the universe are far apart and do not affect each other",
+                            }
+                          }
+                        />
+                      </div>
+                    </label>
+                  </div>
+                </div>
+                <div
+                  className="openstax-answer"
+                >
+                  <div
+                    className="answers-answer disabled"
+                  >
+                    <label
+                      className="answer-label"
+                      htmlFor="3-option-4"
+                      onKeyPress={[Function]}
+                    >
+                      <button
+                        aria-label="Choice e:"
+                        className="answer-letter"
+                        disabled={true}
+                        onClick={undefined}
+                      >
+                        e
+                      </button>
+                      <div
+                        className="answer-answer"
+                      >
+                        <div
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "It describes how speed affects different observers’ measurements of time and space.",
+                            }
+                          }
+                        />
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="detailed-solution"
+              >
+                <div
+                  className="header"
+                >
+                  Detailed solution
+                </div>
+                <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "four",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            className="exercise-tags"
+          >
+            <span
+              className="exercise-tag"
+            >
+              blooms:3
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              book:stax-phys
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              context-cnxfeature:one-1
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              context-cnxmod:
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              dok:3
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              filter-type:test-prep
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              ID: 3@1
+            </span>
+            <div
+              className="lo-tag"
+            >
+              LO: 
+              lo:stax-phys:1-2-1
+            </div>
+            <span
+              className="exercise-tag"
+            >
+              requires-context:true
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              time:long
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              type:conceptual
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

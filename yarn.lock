@@ -2865,6 +2865,10 @@ extsprintf@^1.2.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
 
+faker@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/faker/-/faker-4.1.0.tgz#1e45bbbecc6774b3c195fad2835109c6d748cc3f"
+
 falafel@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/falafel/-/falafel-1.2.0.tgz#c18d24ef5091174a497f318cd24b026a25cddab4"
@@ -3601,7 +3605,7 @@ hoist-non-react-statics@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
 
-hoist-non-react-statics@^2.3.0:
+hoist-non-react-statics@^2.3.0, hoist-non-react-statics@^2.3.1:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.0.tgz#d2ca2dfc19c5a91c5a6615ce8e564ef0347e2a40"
 
@@ -5237,23 +5241,23 @@ mkdirp@0.5.1, mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdi
   dependencies:
     minimist "0.0.8"
 
-mobx-decorated-models@0.7.3:
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/mobx-decorated-models/-/mobx-decorated-models-0.7.3.tgz#513e5d8151d37c76272268f9b762eaf1b8aab248"
+mobx-decorated-models@^0.8.3:
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/mobx-decorated-models/-/mobx-decorated-models-0.8.3.tgz#e0058985ef43dbc38b4556124dc73b6fada782f4"
 
-mobx-react@4.2.2:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-4.2.2.tgz#db9cc3cafefbd830d0584c1149af5aae67829201"
+mobx-react@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-4.4.2.tgz#22d710974883de1763cdafce3025570a79c64336"
   dependencies:
-    hoist-non-react-statics "^1.2.0"
+    hoist-non-react-statics "^2.3.1"
 
 mobx-utils@3.2.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/mobx-utils/-/mobx-utils-3.2.2.tgz#1979fe85a27df496d4f17af288813ac4fd356fd5"
 
-mobx@3.2.2:
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/mobx/-/mobx-3.2.2.tgz#aa671459bededfd9880c948889a3f62bce09279c"
+mobx@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/mobx/-/mobx-3.5.1.tgz#8e682ec535cf44e04005b9e37e2df66acc975a42"
 
 mocha@3.2.0:
   version "3.2.0"
@@ -5534,9 +5538,9 @@ object-assign@^4, object-assign@^4.0.1, object-assign@^4.1.0, object-assign@^4.1
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
 
-object-factory-bot@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/object-factory-bot/-/object-factory-bot-0.3.0.tgz#0717cdd8ce18ec3a1107c5a897c178aa13482bc0"
+object-factory-bot@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/object-factory-bot/-/object-factory-bot-0.4.1.tgz#a8fe5ae51d528391e9660c98d9d53fd7fda31e22"
 
 object-hash@1.1.7:
   version "1.1.7"
@@ -7134,9 +7138,9 @@ serialize-selection@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/serialize-selection/-/serialize-selection-1.1.1.tgz#d77d17ca999220d40019e23f4383dca4ff6ace35"
 
-serializr@1.1.12:
-  version "1.1.12"
-  resolved "https://registry.yarnpkg.com/serializr/-/serializr-1.1.12.tgz#b3642bc3c44386f16d03cc4ea2d5356f1965b66e"
+serializr@^1.1.14:
+  version "1.1.14"
+  resolved "https://registry.yarnpkg.com/serializr/-/serializr-1.1.14.tgz#abd4341592b8f7b38cca9329d7d659d35418f559"
 
 serve-index@^1.7.2:
   version "1.9.1"

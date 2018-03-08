@@ -1,8 +1,6 @@
 import React from 'react';
 import { inject, observer, propTypes as mobxPropTypes } from 'mobx-react';
 import { Dropdown, MenuItem } from 'react-bootstrap';
-import Ecosystems from '../../models/ecosystems';
-
 
 @observer
 export default class EcosystemSelector extends React.Component {
@@ -12,16 +10,19 @@ export default class EcosystemSelector extends React.Component {
   }
 
   componentDidMount() {
-    Ecosystems.fetch();
+    console.log("MOUNT ECOS")
+    this.props.ux.ecosystemsMap.fetch();
   }
 
   render() {
+
+    const { ux } = this.props;
     return (
       <Dropdown
         id="support-menu"
         className="support-menu"
         pullRight
-        onSelect={this.props.ux.onEcosystemSelect}
+        onSelect={ux.onEcosystemSelect}
       >
         <Dropdown.Toggle
           useAnchor={true}
@@ -29,7 +30,7 @@ export default class EcosystemSelector extends React.Component {
           Select Ecosystem
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          {Ecosystems.array.map(ec => (
+          {ux.ecosystemsMap.array.map(ec => (
             <MenuItem key={ec.id} eventKey={ec.id}>
               {ec.book.titleWithVersion}
             </MenuItem>

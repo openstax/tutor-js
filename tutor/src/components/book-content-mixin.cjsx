@@ -175,6 +175,7 @@ ReadingContentMixin =
     cnxId = @props.cnxId or @getCnxId?() or ''
     # leave versioning out of canonical link
     canonicalCNXId = _.first(cnxId.split('@'))
+
     {courseId} = Router.currentParams()
     return unless courseId
     {webview_url} = Courses.get(courseId)

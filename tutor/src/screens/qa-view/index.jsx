@@ -22,7 +22,7 @@ export default class QAViewWrapper extends React.Component {
     router: React.PropTypes.object,
   }
 
-  ux = new UX(this.context.router);
+  ux = new UX({ router: this.context.router });
 
   componentWillMount() {
     this.ux.update(this.props.params);

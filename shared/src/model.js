@@ -22,13 +22,11 @@ export class BaseModel {
     return isNil(id) || FLUX_NEW.test(id);
   }
 
-  @action
-  loaded(req) {
-    this.update(req.data);
+  @action ensureLoaded() {
+    if (!this.api.isPending && !this.api.hasBeenFetched) { this.fetch(); }
   }
 
-  @action
-  onApiRequestComplete({ data }) {
+  @action onApiRequestComplete({ data }) {
     this.update(data);
   }
 
@@ -54,4 +52,5 @@ export {
 export {
   computed,
   observable,
+  action,
 } from 'mobx';

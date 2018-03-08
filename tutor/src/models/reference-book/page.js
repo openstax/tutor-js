@@ -1,5 +1,5 @@
 import { readonly } from 'core-decorators';
-import { merge, extend, defer, last, get } from 'lodash';
+import { merge, extend, defer, last, get, pick } from 'lodash';
 import htmlparser from 'htmlparser2';
 import { action, observable, when,computed } from 'mobx';
 import {
@@ -24,10 +24,11 @@ export default class ReferenceBookPage extends BaseModel {
   @field content_html = '';
   @readonly isPage = true;
 
-  @observable nextPage;
-  @observable prevPage;
+  // nb these are not observable, othewise they can't be set from within mapPages computed
+  nextPage = null;
+  prevPage = null;
 
-  linkNextPage(pg) {
+  @action linkNextPage(pg) {
     this.nextPage = pg;
     pg.prevPage = this;
     return pg;
@@ -55,6 +56,10 @@ export default class ReferenceBookPage extends BaseModel {
     this.update(data);
     MediaActions.parse(this.content_html);
     StepTitleActions.parseMetaOnly(this.cnx_id, this.content_html);
+  }
+
+  @computed get asTopic() {
+    return merge({ chapter_section: this.chapter_section.asString }, pick(this, 'id', 'title'));
   }
 
 }

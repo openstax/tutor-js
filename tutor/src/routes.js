@@ -63,8 +63,6 @@ const getCourseRoster = function() {
 
 const getPractice = () => require('./components/task/practice');
 
-const getQuestionsLibrary = () => require('./components/questions');
-
 const getChangeStudentId = function() {
   const { default: StudentId } = require('./components/change-student-id');
   return StudentId;
@@ -152,11 +150,12 @@ const getRoutes = (router) => {
         { path: 'event/:id', name: 'editEvent', renderer: getEventShell },
         { path: 'settings', name: 'courseSettings', renderer: getCourseSettings },
         { path: 'roster', name: 'courseRoster', renderer: getCourseRoster },
-        { path: 'questions', name: 'viewQuestionsLibrary', renderer: getQuestionsLibrary },
+        { path: 'questions', name: 'viewQuestionsLibrary',
+          renderer: loadAsync(() => System.import('./screens/question-library/index.jsx')) },
         { path: 'change-student-id', name: 'changeStudentId', renderer: getChangeStudentId },
       ],
 
-    }, {
+}, {
       path: '/accessibility-statement/:courseId?', name: 'accessibilityStatement', renderer: getAccessibilityStatement,
     }, {
       path: '/student-preview/:courseId?', name: 'studentPreview', renderer: getStudentPreview,

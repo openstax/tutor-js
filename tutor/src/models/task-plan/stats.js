@@ -7,6 +7,8 @@ import {
 import { computed } from 'mobx';
 import { lazyInitialize } from 'core-decorators';
 import ChapterSection from '../chapter-section';
+import Exercise from '../exercises/exercise';
+import Question from 'shared/model/exercise/question';
 
 @identifiedBy('task-plan/stats/answer-stat')
 class AnswerStat extends BaseModel {
@@ -61,18 +63,20 @@ class ReviewQuestion {
 const AnswersAssociation = {
   withFreeResponse() {
     return this.filter(ans => !isEmpty(ans.free_response));
-  }
+  },
 };
 
 @identifiedBy('task-plan/stats/question')
-export class Question extends BaseModel {
+export class QuestionStats extends BaseModel {
 
   @session question_id;
   @session answered_count;
 
-  @belongsTo({ model: 'task-plan/stats/exercise' }) exercise;
+  @session exercise;
+
   @hasMany({ model: Answer, inverseOf: 'question', extend: AnswersAssociation }) answers;
   @hasMany({ model: AnswerStat, inverseOf: 'question' }) answer_stats;
+
   @lazyInitialize forReview = new ReviewQuestion(this);
 
   @computed get hasFreeResponse() {
@@ -80,31 +84,31 @@ export class Question extends BaseModel {
   }
 
   @computed get content() {
-    return find(this.exercise.contentData.questions, q =>
+    return find(this.exercise.content.questions, q =>
       q.id == this.question_id
     ) || {};
   }
 }
 
-
-@identifiedBy('task-plan/stats/exercise')
-export class Exercise extends BaseModel {
-
-  @session content;
-
-  @session average_step_number;
-  @belongsTo({ model: 'task-plan/stats/page' }) page;
-  @hasMany({ model: Question, inverseOf: 'exercise' }) question_stats;
-
-  @computed get contentData() {
-    return (isNil(this.content) || isObject(this.content)) ? this.content : JSON.parse(this.content) || {};
-  }
-
-  @computed get uid() {
-    return this.contentData ? this.contentData.uid : '';
-  }
-}
-
+//
+// @identifiedBy('task-plan/stats/exercise')
+// export class Exercise extends BaseModel {
+//
+//   @session content;
+//
+//   @session average_step_number;
+//   @belongsTo({ model: 'task-plan/stats/page' }) page;
+//   @hasMany({ model: Question, inverseOf: 'exercise' }) question_stats;
+//
+//   @computed get contentData() {
+//     return (isNil(this.content) || isObject(this.content)) ? this.content : JSON.parse(this.content) || {};
+//   }
+//
+//   @computed get uid() {
+//     return this.contentData ? this.contentData.uid : '';
+//   }
+// }
+//
 
 @identifiedBy('task-plan/stats/page')
 export class Page extends BaseModel {

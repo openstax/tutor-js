@@ -1,56 +1,94 @@
 import Map from 'shared/model/map';
-import { computed, action, observable } from 'mobx';
+import { computed, action, observable, toJS } from 'mobx';
 import Exercise from './exercises/exercise';
-import { extend, groupBy } from 'lodash';
+import { extend, groupBy, filter, isEmpty } from 'lodash';
 import { readonly } from 'core-decorators';
 
+const MIN_EXCLUDED_COUNT = 5;
 const COMPLETE = Symbol('COMPLETE');
 const PENDING = Symbol('PENDING');
 
-const fetchKey = (ecosystem_id, page_id) => `${ecosystem_id}.${page_id}`
-
-class ExercisesMap extends Map {
+export class ExercisesMap extends Map {
 
   @readonly fetched = observable.map();
 
-  @computed get byPage() {
-    return groupBy(this.array, 'page_id');
+  @computed get byPageId() {
+    return groupBy(this.array, 'page.id');
   }
 
-  // called by API
-  fetch({ ecosystem_id, page_id }) {
-    this.fetched.set(fetchKey(ecosystem_id, page_id), PENDING);
-    return {
-      url: `ecosystems/${ecosystem_id}/exercises`,
-      params: { page_ids: [ page_id ] },
-    };
+  forPageId(pageId) {
+    return this.byPageId[pageId] || [];
   }
 
-  hasFetched({ ecosystem_id, page_id }) {
-    return this.fetched.has(fetchKey(ecosystem_id, page_id));
+  @computed get all() {
+    return this;
   }
 
-  isFetching({ ecosystem_id, page_id }) {
-    return this.fetched.get(fetchKey(ecosystem_id, page_id)) === PENDING;
+  @computed get homework() {
+    return this.where(e => e.isHomework);
   }
 
-  ensureLoaded({ ecosystem_id, page_id }) {
-    if (!this.hasFetched({ ecosystem_id, page_id })) {
-      this.fetch({ ecosystem_id, page_id });
+  @computed get reading() {
+    return this.where(e => e.isReading);
+  }
+
+  isMinimumExcludedForPage(page) {
+    const exercises = this.forPageId(page.id);
+    const nonExcluded = filter(exercises, { is_excluded: false }).length;
+    if ((MIN_EXCLUDED_COUNT == nonExcluded) ||
+      (nonExcluded == 0 && exercises.length <= MIN_EXCLUDED_COUNT)
+    ) {
+      return nonExcluded;
+    } else {
+      return false;
     }
   }
 
-  @action onLoaded(reply, [{ ecosystem_id, page_id }]) {
-    this.fetched.set(fetchKey(ecosystem_id, page_id), COMPLETE);
+  // called by API
+  fetch({ book, course, page_ids }) {
+    let id, url;
+    if (course) {
+      id = course.id;
+      url = `courses/${id}/exercises/homework_core`;
+    } else {
+      id = book.id;
+      url = `ecosystems/${id}/exercises`;
+    }
+    page_ids.forEach(pgId => this.fetched.set(pgId, PENDING));
+    return {
+      url, query: { page_ids: toJS(page_ids) },
+    };
+  }
+
+  hasFetched({ page_id }) {
+    return this.fetched.has(page_id);
+  }
+
+  isFetching({ page_id }) {
+    return this.fetched.get(page_id) === PENDING;
+  }
+
+  ensureLoaded({ book, course, page_ids }) {
+    const unFetchedPageIds = filter(page_ids, page_id =>
+      !this.isFetching({ page_id }) && !this.hasFetched({ page_id })
+    );
+    if (!isEmpty(unFetchedPageIds)) {
+      this.fetch({ book, course, page_ids: unFetchedPageIds });
+    }
+  }
+
+  @action onLoaded(reply, [{ book, course, page_ids }]) {
+    page_ids.forEach(pgId => this.fetched.set(pgId, COMPLETE));
     reply.data.items.forEach((ex) => {
       const exercise = this.get(ex.id);
-      exercise ? exercise.update(ex) : this.set(ex.id, new Exercise(extend(ex, { ecosystem_id, page_id })));
+      exercise ? exercise.update(ex) : this.set(ex.id, new Exercise(extend(ex, { book, course })));
     });
   }
 
 }
 
 
-const exercisesMap = new ExercisesMap;
+const exercisesMap = new ExercisesMap();
 
+export { Exercise };
 export default exercisesMap;
