@@ -14,9 +14,10 @@ describe('CreateCourse: entering details', function() {
     ux = new BuilderUX();
   });
 
-  it('sets field values', function() {
+  it('sets field values', async function() {
     ux.newCourse.cloned_from = courses.get(COURSE_ID);
     const wrapper = shallow(<CourseNumbers ux={ux} />);
+    expect(await axe(wrapper.html())).toHaveNoViolations();
     expect(wrapper).toHaveRendered('.course-details-sections FormControl[type="number"][defaultValue=0]');
   });
 
