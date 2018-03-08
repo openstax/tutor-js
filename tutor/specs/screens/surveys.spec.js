@@ -33,11 +33,13 @@ describe('Surveys Screen', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('submits survey when answered', () => {
+  it('submits survey when answered', async () => {
     const survey = mount(<Survey {...props} />, EnzymeContext.build());
+
     survey.find('input[placeholder="Jon Snow"]').first().simulate('blur',
       { target: { value: 'Bob' } }
     );
+
     survey.find('input[type="radio"]').first().simulate('change',
       { target: { value: 'yes' } }
     );
