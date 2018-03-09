@@ -28,13 +28,7 @@ const ReviewLink = (props) => {
 
 
 const AverageLabel = ({ heading }) => {
-  if (!isNil(heading.average_score)) {
-    return (
-      <span className="average">
-        {(heading.average_score * 100).toFixed(0)}%
-      </span>
-    );
-  } if (heading.type === 'external') {
+  if (heading.type === 'external') {
     const p = heading.average_progress || 0;
     let percent;
     if (p < 1 && p > 0.99) {
@@ -52,13 +46,21 @@ const AverageLabel = ({ heading }) => {
         {percent}% have clicked link
       </span>
     );
-  } else {
+  }
+
+  if (!isNil(heading.average_score)) {
     return (
       <span className="average">
-        ---
+        {(heading.average_score * 100).toFixed(0)}%
       </span>
     );
   }
+
+  return (
+    <span className="average">
+      ---
+    </span>
+  );
 };
 
 const AssignmentSortingHeader = (props) => {
