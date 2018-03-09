@@ -5275,17 +5275,17 @@ mocha@3.2.0:
     mkdirp "0.5.1"
     supports-color "3.1.2"
 
-moment-timezone@0.5.11:
-  version "0.5.11"
-  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.11.tgz#9b76c03d8ef514c7e4249a7bbce649eed39ef29f"
+moment-timezone@0.5.14:
+  version "0.5.14"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.14.tgz#4eb38ff9538b80108ba467a458f3ed4268ccfcb1"
   dependencies:
-    moment ">= 2.6.0"
+    moment ">= 2.9.0"
 
-moment@2.17.1:
-  version "2.17.1"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.17.1.tgz#fed9506063f36b10f066c8b59a144d7faebe1d82"
+moment@2.21.0, "moment@>= 2.9.0":
+  version "2.21.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.21.0.tgz#2a114b51d2a6ec9e6d83cf803f838a878d8a023a"
 
-"moment@>= 2.6.0", moment@^2.17.1:
+moment@^2.17.1:
   version "2.20.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.20.1.tgz#d6eb1a46cbcc14a2b2f9434112c1ff8907f313fd"
 
@@ -5538,9 +5538,9 @@ object-assign@^4, object-assign@^4.0.1, object-assign@^4.1.0, object-assign@^4.1
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
 
-object-factory-bot@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/object-factory-bot/-/object-factory-bot-0.4.1.tgz#a8fe5ae51d528391e9660c98d9d53fd7fda31e22"
+object-factory-bot@^0.4.3:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/object-factory-bot/-/object-factory-bot-0.4.3.tgz#1f7ef7f13176815143ba7a8e85fc53704dfb7949"
 
 object-hash@1.1.7:
   version "1.1.7"
