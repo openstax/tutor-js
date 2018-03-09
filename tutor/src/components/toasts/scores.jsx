@@ -7,7 +7,7 @@ import WarningModal from '../warning-modal';
 import SupportEmailLink from '../support-email-link';
 
 
-export function Success({ job: { info: { url } } }) {
+export function Success({ toast: { info: { url } } }) {
   return (
     <div className="toast scores success">
       <div className="title">Scores successfully exported</div>
@@ -24,7 +24,7 @@ export class Failure extends React.Component {
 
   static propTypes = {
     dismiss: React.PropTypes.func.isRequired,
-    job: React.PropTypes.object.isRequired,
+    toast: React.PropTypes.object.isRequired,
   }
 
   @observable showDetails = false;

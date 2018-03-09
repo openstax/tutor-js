@@ -22,7 +22,7 @@ const Troubleshoot = () => (
 export class LMSErrors extends React.Component {
 
   static propTypes = {
-    job: React.PropTypes.object.isRequired,
+    toast: React.PropTypes.object.isRequired,
     footer: React.PropTypes.node.isRequired,
   }
 
@@ -33,7 +33,7 @@ export class LMSErrors extends React.Component {
   }
 
   @computed get errorData() {
-    return this.props.job.info.errors.map((e) =>
+    return this.props.toast.info.errors.map((e) =>
       [
         e.student_identifier,
         e.student_name,
@@ -61,13 +61,13 @@ export class LMSErrors extends React.Component {
   }
 
   renderMessage() {
-    const { props: { job } } = this;
+    const { props: { toast } } = this;
 
     return (
       <div>
         <p>
           Course averages
-          for {pluralize('student', job.info.errors.length, true)} could not be
+          for {pluralize('student', toast.info.errors.length, true)} could not be
           sent successfully to your LMS.  There may be an issue with
           your LMS, or something may have happened when students enrolled.
         </p>
@@ -169,23 +169,23 @@ export class Failure extends React.Component {
 
   static propTypes = {
     dismiss: React.PropTypes.func.isRequired,
-    job: React.PropTypes.object.isRequired,
+    toast: React.PropTypes.object.isRequired,
   }
 
   @observable showDetails = false;
   @action.bound onShowDetails() { this.showDetails = true; }
 
   render() {
-    const { job, dismiss } = this.props;
+    const { toast, dismiss } = this.props;
 
     const { info: { errors, data: {
       num_callbacks,
-    } } } = job;
+    } } } = toast;
 
     if (this.showDetails) {
       const footer = <Button onClick={dismiss}>Close</Button>;
       if (!isEmpty(errors)) {
-        return <LMSErrors {...{ job, footer, dismiss }} />;
+        return <LMSErrors {...{ toast, footer, dismiss }} />;
       } else if (num_callbacks) {
         return renderFailedToSend(footer);
       } else {

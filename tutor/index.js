@@ -15,6 +15,7 @@ import EXERCISES from './src/models/exercises';
 import { Logging, ReactHelpers } from 'shared';
 import PAYMENTS from './src/models/payments';
 import STUDENT_TASKS from './src/models/student-tasks';
+import TOASTS from './src/models/toasts';
 
 window._STORES = {
   SETTINGS: UiSettings,
@@ -32,6 +33,7 @@ window._MODELS = {
   EXERCISES,
   OFFERINGS,
   PAYMENTS,
+  TOASTS,
   STUDENT_TASKS,
 };
 

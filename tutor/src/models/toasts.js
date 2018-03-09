@@ -6,19 +6,20 @@ import {  computed } from 'mobx';
 import {
   BaseModel, identifiedBy, session,
 } from 'shared/model';
-//
-// import * as lms from '../components/toasts/lms';
-// import * as scores from '../components/toasts/scores';
-//
-// const JobToasts = { lms, scores };
-//
+
+import * as lms from '../components/toasts/lms';
+import * as scores from '../components/toasts/scores';
+import Reload from '../components/toasts/reload';
+
+const JobToasts = { lms, scores };
+
 const Handlers  = {
   job(toast) {
-    invariant(['ok', 'failed'].includes(toast.state), 'job state must be ok or failed');
-    return JobToasts[toast.state == 'ok' ? 'Success' : 'Failure'];
+    invariant(['ok', 'failed'].includes(toast.status), 'job status must be ok or failed');
+    return JobToasts[toast.type][toast.status == 'ok' ? 'Success' : 'Failure'];
   },
-  generic() {
-    //return Toast;
+  reload() {
+    return Reload;
   },
 };
 
@@ -29,14 +30,16 @@ export class ToastModel extends BaseModel {
   @session handler;
   @session status;
   @session type;
-  @session info; //({ type: 'object' }) info;
+  @session({ type: 'object' }) info;
 
   @computed get isOk() {
     return 'ok' === this.status;
   }
 
   @computed get component() {
-    return (Handlers[this.type] || Handlers.generic)(this);
+    const handler = Handlers[this.handler];
+    invariant(handler, `Handler type for '${this.handler}' was not found`);
+    return handler(this);
   }
 }
 

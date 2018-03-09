@@ -1,4 +1,4 @@
-.background-job-toast {
+.toast-notification {
   position: fixed;
   min-height: 50px;
   right: 20px;
@@ -15,6 +15,7 @@
     background-color: #e0edd3;
     display: flex;
     align-content: center;
+    justify-content: space-between;
     &::before {
       @include fa-icon();
       font-size: 26px;
@@ -65,6 +66,11 @@
     }
   }
 
+  .reload {
+    button {
+      margin-top: 1rem;
+    }
+  }
 }
 
 .lms-push-partial-failure {
