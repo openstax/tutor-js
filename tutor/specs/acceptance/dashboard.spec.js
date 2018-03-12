@@ -20,10 +20,12 @@ describe('Course Dashboard', () => {
       await page.click('.joyride-tooltip__button--primary');
       tip = await page.$('.joyride-tooltip__button--primary');
     }
-    const snapshot = await snapshotPage(page, 'dashboard');
+    let snapshot = await snapshotPage(page, 'dashboard');
     expect(snapshot).toMatchPreviousPage();
 
-    await page.click('.my-courses-item-wrapper a');
+    await page.click('.nav-tabs li:last-child a');
+    snapshot = await snapshotPage(page, 'dashboard-past-work');
+    expect(snapshot).toMatchPreviousPage();
   });
 
 });

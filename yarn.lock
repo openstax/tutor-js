@@ -5817,9 +5817,9 @@ path-type@^1.0.0:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
 
-"pattern-library@github:openstax/pattern-library#v0.6.0":
-  version "0.6.0"
-  resolved "https://codeload.github.com/openstax/pattern-library/tar.gz/2c81a8816e649b8ab34dfd77aa3263ec9dfc8f58"
+"pattern-library@github:openstax/pattern-library#v1.1.0":
+  version "1.1.0"
+  resolved "https://codeload.github.com/openstax/pattern-library/tar.gz/d78ce3e21d92c9abaccb9d507e0d2babfef9a8ef"
   dependencies:
     node-sass "^4.7.2"
 

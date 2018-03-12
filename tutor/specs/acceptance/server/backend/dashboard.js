@@ -5,7 +5,7 @@ const { times, pick, clone, find } = require('lodash');
 const { data: bootstrapData } = require('./bootstrap');
 const { now } = require('../time-now');
 
-let survey = Factory.create('StudentResearchSurvey');
+let survey = Factory.create('ResearchSurvey');
 
 const tasks = {
   teacher: times(25, (i) => Factory.create('TeacherDashboardTask',
