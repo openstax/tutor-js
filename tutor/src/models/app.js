@@ -29,6 +29,7 @@ const BOOTSTRAPED_MODELS = {
 export default class TutorApp {
 
   @observable tutor_js_url;
+  @observable osweb_base_url;
 
   boot() {
     startAPI();
@@ -51,7 +52,8 @@ export default class TutorApp {
     UiSettings.initialize(this.data.ui_settings || {});
 
     Notices.start(this.data);
-    ExerciseHelpers.setErrataFormURL(this.data.errata_form_url);
+    this.osweb_base_url = this.data.osweb_base_url;
+    ExerciseHelpers.setOSWebURL(this.osweb_base_url);
     ErrorMonitoring.start();
     Chat.initialize();
     startMathJax();
