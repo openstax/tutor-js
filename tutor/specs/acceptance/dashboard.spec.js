@@ -10,7 +10,7 @@ describe('Course Dashboard', () => {
   afterEach(() => page.close());
 
   it(`matches welcome snapshot for ${role}`, async () => {
-    page.click('.my-courses-item-wrapper a');
+    await page.click('.my-courses-item-wrapper a');
     await page.waitForSelector('.progress-guide');
     let tip = await page.$('.joyride-tooltip__button--primary');
     let i = 1;
@@ -22,6 +22,8 @@ describe('Course Dashboard', () => {
     }
     const snapshot = await snapshotPage(page, 'dashboard');
     expect(snapshot).toMatchPreviousPage();
+
+    await page.click('.my-courses-item-wrapper a');
   });
 
 });

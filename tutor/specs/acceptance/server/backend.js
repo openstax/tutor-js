@@ -19,7 +19,7 @@ server.all('/*', function(req, res, next) {
 
 const DB = path.join(DIR, 'backend/db.json');
 fs.copySync(path.join(__dirname, './backend/db.json'), DB);
-// console.log(chalk.green(`Starting api server on port ${be_port}; DB: ${DB}`));
+
 
 const router = jsonServer.router(DB);
 const middlewares = jsonServer.defaults();
@@ -30,6 +30,7 @@ const HANDLERS = {
   bootstrap: require('./backend/bootstrap'),
   offerings: require('./backend/offerings'),
   'courses/:courseId/dashboard': require('./backend/dashboard'),
+  'courses/:courseId/plans*': require('./backend/previous-plans'),
   'courses/:courseId/guide': require('./backend/performance-forecast'),
 };
 

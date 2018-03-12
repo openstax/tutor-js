@@ -29,9 +29,15 @@ module.exports = {
     if (!course) {
       return res.status(404).send('Not found');
     }
-    const data = {
-      tasks: tasks[ROLE],
-    };
+    const data = { };
+
+    if (ROLE === 'student') {
+      data.tasks = tasks.student;
+    } else {
+      data.plans = tasks.teacher;
+      data.tasks = [];
+    }
+
     data.role = clone(course.roles[0]);
     data.course = {
       name: course.name,
