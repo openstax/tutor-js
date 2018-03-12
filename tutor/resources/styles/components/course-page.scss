@@ -1,4 +1,7 @@
 .course-page {
+  min-height: calc(100vh - #{$tutor-navbar-height});
+  display: flex;
+  flex-direction: column;
 
   header {
     .title-wrapper {
@@ -45,6 +48,7 @@
   }
 
   > .body-wrapper {
+    flex: 1;
     padding: 30px 40px;
     > .body {
       @include course-page-wrapper-child();
