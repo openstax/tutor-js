@@ -5,6 +5,8 @@ import { Panel } from 'react-bootstrap';
 import Router from '../../helpers/router';
 import { observer, inject } from 'mobx-react';
 import Courses from '../../models/courses-map';
+import Course from '../../models/course';
+import { idType } from 'shared';
 import StudentTasks from '../../models/student-tasks';
 import LoadingScreen from '../../components/loading-screen';
 import NotFound from '../../components/invalid-page';
@@ -32,9 +34,10 @@ const ThankYou = ({ survey }) => {
 export default class Surveys extends React.PureComponent {
 
   static propTypes = {
+    course: React.PropTypes.instanceOf(Course),
     params: React.PropTypes.shape({
-      courseId: React.PropTypes.string,
-      surveyId: React.PropTypes.string,
+      courseId: idType,
+      surveyId: idType,
     }).isRequired,
   }
 
@@ -45,7 +48,7 @@ export default class Surveys extends React.PureComponent {
   }
 
   @computed get course() {
-    return Courses.get(this.props.params.courseId);
+    return this.props.course || Courses.get(this.props.params.courseId);
   }
 
   @computed get studentTasks() {

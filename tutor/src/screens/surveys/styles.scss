@@ -1,5 +1,7 @@
 @import '../screen-styles';
+
 @import '~pattern-library/core/pattern-library/molecules';
+@import '~pattern-library/core/pattern-library/elements';
 
 .research-surveys {
 
@@ -50,19 +52,13 @@
     input { margin-right: 0.5rem; }
   }
 
-  textarea {
-    border: 1px solid $tutor-neutral-light;
-    padding: 1rem;
-  }
-
-  input[type="text"],
-  input[type="email"],
-  input[type="date"] {
-    padding: 0.5rem;
+  input[type="radio"],
+  input[type="checkbox"] {
+    height: inherit; // override pattern library default of 5rem
   }
 
   .sv_complete_btn {
-    @include button(primary);
+    @include button-type-specific(primary);
     cursor: pointer;
   }
 

@@ -1,6 +1,6 @@
 .student-dashboard {
   // The first panel inside a tab should be positioned at the top with no margin
-  .tab-pane {
+  .tab-pane, .sidebar {
     .panel:first-child { margin-top: 0px; }
   }
 
@@ -34,6 +34,10 @@
 
   .panel > .panel-body {
     padding: 0;
+  }
+
+  .sidebar {
+    padding-top: $tutor-tab-height;
   }
 
 }
