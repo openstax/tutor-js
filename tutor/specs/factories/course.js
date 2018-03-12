@@ -22,7 +22,7 @@ Factory.define('Period')
 
 Factory.define('Role')
   .id(sequence)
-  .type(({ is_teacher }) => is_teacher ? 'teacher' : 'student')
+  .type('student')
   .joined_at(({ parent }) => moment(parent.starts_at).add(1, 'week').toISOString());
 
 Factory.define('Course')
@@ -31,9 +31,9 @@ Factory.define('Course')
   .name(({ type = 'physics' }) => TITLES[type])
   .term('spring')
   .year(2017)
-  .starts_at(({ months_ago = 0 }) => moment().add(months_ago - 1, 'months').toISOString())
-  .ends_at(({ months_ago = 0 }) => moment().add(months_ago + 1, 'months').toISOString())
-  .is_active(({ object }) => !moment().isAfter(object.ends_at))
+  .starts_at(({ now, months_ago = 0 }) => moment(now).add(months_ago - 1, 'months').toISOString())
+  .ends_at(({ now, months_ago = 0 }) => moment(now).add(months_ago + 1, 'months').toISOString())
+  .is_active(({ now, object }) => !moment(now).isAfter(object.ends_at))
   .time_zone('Central Time (US & Canada)')
   .default_open_time('00:32')
   .default_due_time('07:00')
@@ -57,4 +57,6 @@ Factory.define('Course')
   .num_sections(3)
   .periods(reference('Period', { count: 3 }))
   .students([])
-  .roles(reference('Role', { count: 1 }));
+  .roles(({ object, is_teacher }) =>
+    [ Factory.create('Role', { parent: object, type: is_teacher ? 'teacher' : 'student' }) ]
+  );

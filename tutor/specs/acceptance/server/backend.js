@@ -2,10 +2,21 @@ const path = require('path');
 const jsonServer = require('json-server');
 const fs = require('fs-extra');
 const chalk = require('chalk');
+const faker = require('faker');
+const { now } = require('./time-now');
 const { fe_port, be_port } = require('./ports');
 const server = jsonServer.create();
-
 const DIR = require('../helpers/working-directory');
+
+faker.seed(12345);
+
+server.all('/*', function(req, res, next) {
+  res.setHeader('X-App-Date', now);
+  res.setHeader('Access-Control-Expose-Headers', 'X-App-Date');
+  next();  // call next() here to move on to next middleware/router
+});
+
+
 const DB = path.join(DIR, 'backend/db.json');
 fs.copySync(path.join(__dirname, './backend/db.json'), DB);
 // console.log(chalk.green(`Starting api server on port ${be_port}; DB: ${DB}`));
@@ -14,24 +25,26 @@ const router = jsonServer.router(DB);
 const middlewares = jsonServer.defaults();
 const log = require('./log');
 
-let role = 'teacher';
-
 server.use(middlewares);
 const HANDLERS = {
-  '/api/bootstrap': require('./backend/bootstrap'),
-  '/api/offerings': require('./backend/offerings'),
+  bootstrap: require('./backend/bootstrap'),
+  offerings: require('./backend/offerings'),
+  'courses/:courseId/dashboard': require('./backend/dashboard'),
+  'courses/:courseId/guide': require('./backend/performance-forecast'),
 };
 
 // routes that have custom logic
 for (let route in HANDLERS) {
-  server.get(route, HANDLERS[route].handler);
+  server.get(`/api/${route}`, HANDLERS[route].handler);
 }
 
 server.use(jsonServer.rewriter({
   '/api/user/ui_settings': '/ui-settings',
   '/api/log/entry': '/log',
   '/api/log/event/onboarding/:id': '/onboarding',
+  '/api/user/tours/:id': '/tours',
   '/api/:key': '/:key',
+  '/api/courses/:courseId/plans*': '/previousTaskPlans',
 }));
 server.use(router);
 

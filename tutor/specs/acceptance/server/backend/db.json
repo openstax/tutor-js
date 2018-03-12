@@ -5,7 +5,20 @@
   },
   "updates": {},
   "onboarding": {},
+  "tours": {},
   "log": {
     "entries": []
+  },
+  "previousTaskPlans": {
+    "total_count": 2,
+    "items": [
+      {
+        "title": "Read Section 1.3",
+        "type": "reading"
+      }, {
+        "title": "Pop Quiz on section 2",
+        "type": "homework"
+      }
+    ]
   }
 }

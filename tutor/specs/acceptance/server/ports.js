@@ -1,4 +1,6 @@
-const fe_port = process.argv[2] || '8000';
-const be_port = process.argv[3] || '8001';
+const argv = require('yargs').argv;
+
+const fe_port = parseInt(argv.fe || 8110);
+const be_port = parseInt(argv.be || fe_port + 1);
 
 module.exports = { fe_port, be_port };

@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash';
+const { cloneDeep } = require('lodash');
 const {
   Factory, sequence, uuid, reference,
   TITLES,
