@@ -19,7 +19,7 @@ describe('Questions Dashboard Component', function() {
     course.referenceBook.onApiRequestComplete({ data: [FactoryBot.create('Book')] });
     exercises = Factory.exercisesMap({ ecosystem_id: course.ecosystem_id, pageIds: [], count: 0 });
 
-    exercises.fetch = jest.fn();
+    exercises.fetch = jest.fn(() => Promise.resolve());
     page_ids = slice(course.referenceBook.pages.byId.keys(), 2, 5);
     const items = page_ids.map(page_id =>
       FactoryBot.create('TutorExercise', { page_uuid: book.pages.byId.get(page_id).uuid }),
@@ -36,10 +36,6 @@ describe('Questions Dashboard Component', function() {
     const dash = mount(<Dashboard {...props} />, EnzymeContext.build());
     dash.find('.chapter-heading .tutor-icon').at(1).simulate('click');
     dash.find('.section-controls .btn-primary').simulate('click');
-    const items = page_ids.map(page_id =>
-      FactoryBot.create('TutorExercise', { page_uuid: book.pages.byId.get(page_id).uuid }),
-    );
-    exercises.onLoaded({ data: { items } }, [{ book, page_ids }]);
     return dash;
   };
 
