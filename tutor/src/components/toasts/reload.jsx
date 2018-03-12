@@ -1,7 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { action, observable } from 'mobx';
-import TutorBranding from '../branding/course';
 import { forceReload } from '../../helpers/reload';
 import Icon from '../icon';
 import { AsyncButton } from 'shared';
@@ -26,13 +25,12 @@ class ReloadToast extends React.Component {
     return (
       <div className="toast reload">
         <div className="title">
-          <span>Updates are available</span>
+          <span>Updates available</span>
           <Icon type="close" onClick={dismiss} />
         </div>
         <div className="body">
           <p>
-            Your copy of <TutorBranding /> is out of date.
-            Please reload to update it.
+            This page needs to be reloaded.
           </p>
           <AsyncButton
             isWaiting={this.isReloading}
@@ -40,7 +38,7 @@ class ReloadToast extends React.Component {
             waitingText="Reloading…"
             onClick={this.onReload}
           >
-            Reload now
+            Reload
           </AsyncButton>
         </div>
 
