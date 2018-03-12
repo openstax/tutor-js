@@ -42,7 +42,6 @@ export default class Surveys extends React.PureComponent {
     if (!this.studentTasks.api.isFetchedOrFetching) {
       this.studentTasks.fetch();
     }
-    StylesManager.applyTheme('orange');
   }
 
   @computed get course() {
@@ -82,7 +81,7 @@ export default class Surveys extends React.PureComponent {
         subtitle={course.termFull}
         course={course}
       >
-        <h1>Survey “{survey.title}”</h1>
+        <h3>Survey “{survey.title}”</h3>
         <Survey model={model} onComplete={this.onComplete} />
       </CoursePage>
     );

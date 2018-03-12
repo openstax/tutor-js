@@ -1,10 +1,69 @@
+@import '../screen-styles';
+@import '~pattern-library/core/pattern-library/molecules';
+
 .research-surveys {
+
+  .body-wrapper {
+    background-color:  $tutor-neutral-bright;
+  }
+
+  h3 {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .sv_main {
+
+    display: flex;
+    justify-content: center;
+
+  }
 
   .sv_nav {
     margin-top: 40px;
     input[type=button] {
       padding: 10px 20px;
     }
+  }
+
+  .sv_row {
+    margin-bottom: 40px;
+  }
+
+
+  .sv_q_title {
+    font-size: 1.6rem;
+    font-weight: normal;
+    margin-bottom: 20px;
+    color: $tutor-neutral-darker;
+  }
+
+  // answer choices wrapper
+  label {
+    font-weight: normal;
+    color: $tutor-neutral-thin-dark;
+    display: flex;
+    align-items: center;
+    input { margin: 0; }
+  }
+  .sv_q_radiogroup_label {
+    input { margin-right: 0.5rem; }
+  }
+
+  textarea {
+    border: 1px solid $tutor-neutral-light;
+    padding: 1rem;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="date"] {
+    padding: 0.5rem;
+  }
+
+  .sv_complete_btn {
+    @include button(primary);
+    cursor: pointer;
   }
 
 }
