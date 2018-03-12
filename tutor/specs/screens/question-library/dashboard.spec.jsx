@@ -22,7 +22,9 @@ describe('Questions Dashboard Component', function() {
     exercises.fetch = jest.fn(() => Promise.resolve());
     page_ids = slice(course.referenceBook.pages.byId.keys(), 2, 5);
     const items = page_ids.map(page_id =>
-      FactoryBot.create('TutorExercise', { page_uuid: book.pages.byId.get(page_id).uuid }),
+      FactoryBot.create('TutorExercise', {
+        pool_types: ['reading_dynamic'],
+        page_uuid: book.pages.byId.get(page_id).uuid }),
     );
     exercises.onLoaded({ data: { items } }, [{ book, page_ids }]);
     props = {
@@ -30,7 +32,6 @@ describe('Questions Dashboard Component', function() {
       exercises,
     };
   });
-
 
   const displayExercises = () => {
     const dash = mount(<Dashboard {...props} />, EnzymeContext.build());
@@ -48,21 +49,23 @@ describe('Questions Dashboard Component', function() {
   it('fetches and displays', () => {
     const dash = mount(<Dashboard {...props} />, EnzymeContext.build());
     expect(dash).not.toHaveRendered('.no-exercises');
-    dash.find('.chapter-heading .tutor-icon').at(1).simulate('click');
+    dash.find(`[data-page-id="${page_ids[0]}"]`).simulate('click');
     dash.find('.section-controls .btn-primary').simulate('click');
     expect(dash).not.toHaveRendered('.no-exercises');
     dash.unmount();
   });
 
-  it('renders exercise details', async () => {
+  it('renders exercise details', () => {
     const dash = displayExercises();
+    expect(dash).not.toHaveRendered('.no-exercises');
     dash.find('.action.details').at(0).simulate('click');
     expect(dash).toHaveRendered('.exercise-details');
     dash.unmount();
   });
 
-  it('can exclude exercises', async () => {
+  it('can exclude exercises', () => {
     const dash = displayExercises();
+    expect(dash).not.toHaveRendered('.no-exercises');
     dash.find('.action.details').at(0).simulate('click');
     expect(dash).toHaveRendered('.exercise-details');
     course.saveExerciseExclusion = jest.fn();
@@ -73,8 +76,9 @@ describe('Questions Dashboard Component', function() {
     dash.unmount();
   });
 
-  it('can report errors', async () => {
+  it('can report errors', () => {
     const dash = displayExercises();
+    expect(dash).not.toHaveRendered('.no-exercises');
     dash.find('.action.details').at(0).simulate('click');
     dash.find('.action.report-error').simulate('click');
     const uid = dash.find('[data-exercise-id]').last().prop('data-exercise-id');
