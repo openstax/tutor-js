@@ -12,15 +12,15 @@ exports[`Annotations renders and matches snapshot 1`] = `
   >
     <i
       alt="View annotation"
-      className="tutor-icon fa fa-comment sidebar-button clickable"
+      className="tutor-icon fa fa-comment-o sidebar-button clickable"
       onClick={[Function]}
       role="button"
       style={
         Object {
-          "top": NaN,
+          "top": 100,
         }
       }
-      type="comment"
+      type="comment-o"
     />
   </div>
   <div
@@ -136,117 +136,123 @@ exports[`Annotations renders and matches snapshot 1`] = `
         <div
           className="annotations"
         >
-          <div>
+          <div
+            className="section"
+          >
             <h2>
               2.1
                
               Atoms, Isotopes, Ions, and Molecules: The Building Blocks
             </h2>
             <div
-              className="annotation-card"
+              className="section-annotations-list"
             >
               <div
-                className="annotation-content"
+                className="annotation-card"
               >
-                <blockquote
-                  className="selected-text"
-                >
-                  ng world, elements are found in different proportions, and some elements common to living organisms are relatively rare on the earth as a whole, as shown in See Table. For examp
-                </blockquote>
                 <div
-                  className="plain-text"
+                  className="annotation-content"
                 >
-                  ee
+                  <blockquote
+                    className="selected-text"
+                  >
+                    ng world, elements are found in different proportions, and some elements common to living organisms are relatively rare on the earth as a whole, as shown in See Table. For examp
+                  </blockquote>
+                  <div
+                    className="plain-text"
+                  >
+                    ee
+                  </div>
+                </div>
+                <div
+                  className="controls"
+                >
+                  <button
+                    onClick={[Function]}
+                    title="Edit"
+                  >
+                    <i
+                      className="tutor-icon fa fa-edit"
+                      role="presentation"
+                      type="edit"
+                    />
+                  </button>
+                  <button
+                    onClick={[Function]}
+                    title="View in book"
+                  >
+                    <i
+                      className="tutor-icon fa fa-external-link"
+                      role="presentation"
+                      type="external-link"
+                    />
+                  </button>
+                  <button
+                    onClick={[Function]}
+                    title="Delete"
+                  >
+                    <i
+                      className="tutor-icon fa fa-trash"
+                      role="presentation"
+                      type="trash"
+                    />
+                  </button>
                 </div>
               </div>
               <div
-                className="controls"
+                className="annotation-card"
               >
-                <button
-                  onClick={[Function]}
-                  title="Edit"
+                <div
+                  className="annotation-content"
                 >
-                  <i
-                    className="tutor-icon fa fa-edit"
-                    role="presentation"
-                    type="edit"
-                  />
-                </button>
-                <button
-                  onClick={[Function]}
-                  title="View in book"
-                >
-                  <i
-                    className="tutor-icon fa fa-external-link"
-                    role="presentation"
-                    type="external-link"
-                  />
-                </button>
-                <button
-                  onClick={[Function]}
-                  title="Delete"
-                >
-                  <i
-                    className="tutor-icon fa fa-trash"
-                    role="presentation"
-                    type="trash"
-                  />
-                </button>
-              </div>
-            </div>
-            <div
-              className="annotation-card"
-            >
-              <div
-                className="annotation-content"
-              >
-                <blockquote
-                  className="selected-text"
-                >
-                  Hydrogen (H)
+                  <blockquote
+                    className="selected-text"
+                  >
+                    Hydrogen (H)
                 10%
                 trace
                 0.1%
-                </blockquote>
-                <div
-                  className="plain-text"
-                >
-                  
+                  </blockquote>
+                  <div
+                    className="plain-text"
+                  >
+                    
+                  </div>
                 </div>
-              </div>
-              <div
-                className="controls"
-              >
-                <button
-                  onClick={[Function]}
-                  title="Edit"
+                <div
+                  className="controls"
                 >
-                  <i
-                    className="tutor-icon fa fa-edit"
-                    role="presentation"
-                    type="edit"
-                  />
-                </button>
-                <button
-                  onClick={[Function]}
-                  title="View in book"
-                >
-                  <i
-                    className="tutor-icon fa fa-external-link"
-                    role="presentation"
-                    type="external-link"
-                  />
-                </button>
-                <button
-                  onClick={[Function]}
-                  title="Delete"
-                >
-                  <i
-                    className="tutor-icon fa fa-trash"
-                    role="presentation"
-                    type="trash"
-                  />
-                </button>
+                  <button
+                    onClick={[Function]}
+                    title="Edit"
+                  >
+                    <i
+                      className="tutor-icon fa fa-edit"
+                      role="presentation"
+                      type="edit"
+                    />
+                  </button>
+                  <button
+                    onClick={[Function]}
+                    title="View in book"
+                  >
+                    <i
+                      className="tutor-icon fa fa-external-link"
+                      role="presentation"
+                      type="external-link"
+                    />
+                  </button>
+                  <button
+                    onClick={[Function]}
+                    title="Delete"
+                  >
+                    <i
+                      className="tutor-icon fa fa-trash"
+                      role="presentation"
+                      type="trash"
+                    />
+                  </button>
+                </div>
               </div>
             </div>
           </div>

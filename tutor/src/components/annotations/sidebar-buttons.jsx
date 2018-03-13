@@ -1,7 +1,8 @@
 import React from 'react';
+import { autobind } from 'core-decorators';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
-import { get } from 'lodash';
+import { get, map, filter } from 'lodash';
 import './highlighter';
 import Icon from '../icon';
 import Annotation from '../../models/annotations/annotation';
@@ -9,6 +10,7 @@ import Annotation from '../../models/annotations/annotation';
 @observer
 export default class SidebarButtons extends React.Component {
   static propTypes = {
+    editing: React.PropTypes.instanceOf(Annotation),
     annotations: React.PropTypes.arrayOf(
       React.PropTypes.instanceOf(Annotation)
     ).isRequired,
@@ -19,29 +21,36 @@ export default class SidebarButtons extends React.Component {
     activeAnnotation: React.PropTypes.instanceOf(Annotation),
   }
 
-  render() {
+  @autobind renderAnnotation(note) {
     const {
-      annotations, parentRect, onClick, activeAnnotation,
+      parentRect, onClick, activeAnnotation,
     } = this.props;
+    const isActive = note === activeAnnotation;
+
+    return (
+      <Icon
+        type={isActive ? 'comment' : 'comment-o'}
+        key={note.id}
+        className={
+          cn('sidebar-button', { active: isActive })
+        }
+        style={{
+          top: get(note.selection, 'bounds.top', 0) - parentRect.top,
+        }}
+        alt="View annotation"
+        onClick={() => onClick(note)}
+      />
+    );
+  }
+
+  render() {
 
     return (
       <div className="annotation-edit-buttons">
-        {annotations.map(note => (
-          note.text.length ?
-            <Icon type="comment"
-              key={note.id}
-              className={
-                cn('sidebar-button', { active: note === activeAnnotation })
-              }
-              style={{
-                top: get(note.selection, 'bounds.top', 0) - parentRect.top,
-              }}
-              alt="View annotation"
-              onClick={() => onClick(note)}
-            /> : null
-        ))}
+        {map(filter(this.props.annotations, 'text'), this.renderAnnotation)}
       </div>
     );
+
   }
 
 }

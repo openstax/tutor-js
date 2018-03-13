@@ -115,7 +115,8 @@ export default class AnnotationCard extends React.Component {
           )}
         </div>
         <div className="controls">
-          <button title="Edit" onClick={this.startEditing}><Icon type="edit" /></button>
+          {!this.editing && <button title="Edit" onClick={this.startEditing}><Icon type="edit" /></button>}
+
           <button title="View in book" onClick={this.openPage}><Icon type="external-link" /></button>
           <SuretyGuard
             title="Are you sure you want to delete this note?"
