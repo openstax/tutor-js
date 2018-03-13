@@ -3,7 +3,7 @@ moment = require 'moment-timezone'
 
 {TaskPlanActions, TaskPlanStore} = require '../../../src/flux/task-plan'
 {default: Courses} = require '../../../src/models/courses-map'
-{TocActions, TocStore} = require '../../../src/flux/toc'
+
 {TimeStore} = require '../../../src/flux/time'
 TimeHelper = require '../../../src/helpers/time'
 
@@ -29,7 +29,7 @@ ECO_HOMEWORK_ECOSYSTEM_ID = ECO_HOMEWORK.ecosystem_id
 
 helper = (model) -> PlanRenderHelper(model, HomeworkPlan)
 
-describe 'Homework Plan', ->
+xdescribe 'Homework Plan', ->
   beforeEach ->
     Courses.bootstrap([COURSE], { clear: true })
     TaskPlanActions.reset()
@@ -61,21 +61,8 @@ describe 'Homework Plan', ->
       expect(dom.querySelector('.edit-homework.hide')).to.not.be.null
       expect(dom.querySelector('.homework-plan-exercise-select-topics')).to.not.be.null
 
-  it 'should load the course\'s ecosystem_id when new or not specified on the plan', ->
-    TocActions.load = sinon.spy()
-
-    helper(NEW_HW).then ({element}) ->
-      element.showSectionTopics()
-      expect(TocActions.load).to.have.been.calledWith(COURSE_ECOSYSTEM_ID)
-
   it 'toggles immediate feedback when options are changed', ->
     sinon.spy(TaskPlanActions, 'setImmediateFeedback')
     helper(NEW_HW).then ({dom}) ->
       ReactTestUtils.Simulate.change(dom.querySelector('#feedback-select'), target: {value: 'immediate'})
       expect(TaskPlanActions.setImmediateFeedback).to.have.been.calledWith(NEW_HW.id, true)
-
-  xit 'should load the plan\'s specified ecosystem_id', ->
-    TocActions.load = sinon.spy()
-    helper(ECO_HOMEWORK).then ({element}) ->
-      element.showSectionTopics()
-      expect(TocActions.load).to.have.been.calledWith(ECO_HOMEWORK_ECOSYSTEM_ID)

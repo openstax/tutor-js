@@ -9,9 +9,9 @@ negate = require 'lodash/negate'
 validator = require 'validator'
 moment = require 'moment'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
-{TocStore} = require './toc'
+
 TimeHelper  = require '../helpers/time'
-{ExerciseStore} = require './exercise'
+
 { default: Publishing } = require '../models/jobs/task-plan-publish'
 
 {default: Courses} = require '../models/courses-map'
@@ -35,9 +35,9 @@ PLAN_TYPES =
 
 DEFAULT_TYPE = PLAN_TYPES.READING
 
-sortTopics = (topics) ->
+sortTopics = (topics, pages) ->
   _.sortBy(topics, (topicId) ->
-    topic = TocStore.getSectionInfo(topicId)
+    topic = pages[topicId]
     ContentHelpers.chapterSectionToNumber(topic.chapter_section)
   )
 
@@ -152,9 +152,9 @@ TaskPlanConfig =
   setEvent: (id) ->
     @_change(id, {settings: {}})
 
-  sortTopics: (id) ->
+  sortTopics: (id, pages) ->
     {page_ids} = @_getClonedSettings(id, 'page_ids')
-    @_changeSettings(id, page_ids: sortTopics(page_ids))
+    @_changeSettings(id, page_ids: sortTopics(page_ids, pages))
 
   addTopic: (id, topicId) ->
     {page_ids} = @_getClonedSettings(id, 'page_ids')
@@ -168,26 +168,23 @@ TaskPlanConfig =
     {page_ids, type, exercise_ids} = @_getClonedSettings(id, 'page_ids', 'exercise_ids')
     index = page_ids?.indexOf(topicId)
     page_ids?.splice(index, 1)
-    if (type is PLAN_TYPES.HOMEWORK)
-      exercise_ids = ExerciseStore.removeTopicExercises(exercise_ids, topicId)
     @_changeSettings(id, {page_ids, exercise_ids })
 
   updateTopics: (id, page_ids) ->
     @_changeSettings(id, {page_ids})
 
-  addExercise: (id, exercise) ->
+  addExercise: (id, exerciseId) ->
     {exercise_ids} = @_getClonedSettings(id, 'exercise_ids')
-    unless exercise_ids.indexOf(exercise.id) >= 0
-      exercise_ids.push(exercise.id)
+    unless exercise_ids.indexOf(exerciseId) >= 0
+      exercise_ids.push(exerciseId)
     @_changeSettings(id, {exercise_ids})
-    @emit("change-exercise-#{exercise?.id}")
 
-  removeExercise: (id, exercise) ->
+  removeExercise: (id, exerciseId) ->
     {exercise_ids} = @_getClonedSettings(id, 'exercise_ids')
-    index = exercise_ids?.indexOf(exercise.id)
+    index = exercise_ids?.indexOf(exerciseId)
     exercise_ids?.splice(index, 1)
     @_changeSettings(id, {exercise_ids})
-    @emit("change-exercise-#{exercise?.id}")
+
 
   updateExercises: (id, exercise_ids) ->
     @_changeSettings(id, {exercise_ids})
@@ -207,9 +204,9 @@ TaskPlanConfig =
 
     @_changeSettings(id, {page_ids})
 
-  moveExercise: (id, exercise, step) ->
+  moveExercise: (id, exerciseId, step) ->
     {exercise_ids} = @_getClonedSettings(id, 'exercise_ids')
-    curIndex = exercise_ids?.indexOf(exercise.id)
+    curIndex = exercise_ids?.indexOf(exerciseId)
     newIndex = curIndex + step
 
     if (newIndex < 0)
@@ -218,7 +215,7 @@ TaskPlanConfig =
       newIndex = exercise_ids.length - 1
 
     exercise_ids[curIndex] = exercise_ids[newIndex]
-    exercise_ids[newIndex] = exercise.id
+    exercise_ids[newIndex] = exerciseId
 
     @_changeSettings(id, {exercise_ids})
 

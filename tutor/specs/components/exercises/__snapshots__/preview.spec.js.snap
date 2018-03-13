@@ -1,0 +1,314 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
+<div
+  className="tour-anchor"
+  data-tour-anchor-id="exercise-preview"
+  id="exercise-preview"
+>
+  <div
+    className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated panel panel-default"
+    data-exercise-id="1@1"
+    id={undefined}
+    tabIndex={-1}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="exercise-body"
+      >
+        <div
+          className="openstax-question openstax-question-preview"
+          data-question-number={undefined}
+        >
+          <div
+            className="question-stem"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?",
+              }
+            }
+          />
+          <div
+            className="answers-table"
+          >
+            <div
+              className="openstax-answer"
+            >
+              <div
+                className="answers-answer disabled"
+              >
+                <label
+                  className="answer-label"
+                  htmlFor="1-option-0"
+                  onKeyPress={[Function]}
+                >
+                  <button
+                    aria-label="Choice a:"
+                    className="answer-letter"
+                    disabled={true}
+                    onClick={undefined}
+                  >
+                    a
+                  </button>
+                  <div
+                    className="answer-answer"
+                  >
+                    <div
+                      className="answer-content"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are too small to be seen with the naked eye, and</li>
+  <li>there is the involvement of only a weak gravitational field</li>
+</ol>
+",
+                        }
+                      }
+                    />
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div
+              className="openstax-answer"
+            >
+              <div
+                className="answers-answer disabled"
+              >
+                <label
+                  className="answer-label"
+                  htmlFor="1-option-1"
+                  onKeyPress={[Function]}
+                >
+                  <button
+                    aria-label="Choice b:"
+                    className="answer-letter"
+                    disabled={true}
+                    onClick={undefined}
+                  >
+                    b
+                  </button>
+                  <div
+                    className="answer-answer"
+                  >
+                    <div
+                      className="answer-content"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<ol>
+  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                        }
+                      }
+                    />
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div
+              className="openstax-answer"
+            >
+              <div
+                className="answers-answer disabled"
+              >
+                <label
+                  className="answer-label"
+                  htmlFor="1-option-2"
+                  onKeyPress={[Function]}
+                >
+                  <button
+                    aria-label="Choice c:"
+                    className="answer-letter"
+                    disabled={true}
+                    onClick={undefined}
+                  >
+                    c
+                  </button>
+                  <div
+                    className="answer-answer"
+                  >
+                    <div
+                      className="answer-content"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                        }
+                      }
+                    />
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div
+              className="openstax-answer"
+            >
+              <div
+                className="answers-answer disabled"
+              >
+                <label
+                  className="answer-label"
+                  htmlFor="1-option-3"
+                  onKeyPress={[Function]}
+                >
+                  <button
+                    aria-label="Choice d:"
+                    className="answer-letter"
+                    disabled={true}
+                    onClick={undefined}
+                  >
+                    d
+                  </button>
+                  <div
+                    className="answer-answer"
+                  >
+                    <div
+                      className="answer-content"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a weak gravitational field</li>
+</ol>
+",
+                        }
+                      }
+                    />
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div
+              className="openstax-answer"
+            >
+              <div
+                className="answers-answer disabled"
+              >
+                <label
+                  className="answer-label"
+                  htmlFor="1-option-4"
+                  onKeyPress={[Function]}
+                >
+                  <button
+                    aria-label="Choice e:"
+                    className="answer-letter"
+                    disabled={true}
+                    onClick={undefined}
+                  >
+                    e
+                  </button>
+                  <div
+                    className="answer-answer"
+                  >
+                    <div
+                      className="answer-content"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are too small to be seen with the naked eye, and</li>
+  <li>there is the involvement of only a weak gravitational field</li>
+</ol>
+",
+                        }
+                      }
+                    />
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div
+            className="detailed-solution"
+          >
+            <div
+              className="header"
+            >
+              Detailed solution
+            </div>
+            <div
+              className="solution"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "four",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="exercise-tags"
+      >
+        <span
+          className="exercise-tag"
+        >
+          blooms:3
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          book:stax-phys
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          context-cnxfeature:one-1
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          context-cnxmod:
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          dok:3
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          filter-type:test-prep
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          ID: 1@1
+        </span>
+        <div
+          className="lo-tag"
+        >
+          LO: 
+          lo:stax-phys:1-2-1
+        </div>
+        <span
+          className="exercise-tag"
+        >
+          requires-context:true
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          time:long
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          type:conceptual
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -24,8 +24,8 @@ describe('Reference Book Component', function() {
     };
     course.referenceBook.fetch=jest.fn(function() {
       this.onApiRequestComplete({ data: REFERENCE_BOOK });
-      this.pages.values().forEach((pg) => pg.fetch = jest.fn());
-      this.pages.get('2.1')
+      this.pages.byChapterSection.values().forEach((pg) => pg.fetch = jest.fn());
+      this.pages.byChapterSection.get('2.1')
         .onContentFetchComplete({ data: REFERENCE_BOOK_PAGE_DATA });
       return Promise.resolve(this);
     });

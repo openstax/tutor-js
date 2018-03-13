@@ -40,8 +40,7 @@ export default class ScrollTo {
     }, options);
 
     const el = this.getElement(selector);
-
-    if (el && !options.unlessInView || !this.isElementInView(el)) {
+    if (el && (!options.unlessInView || !this.isElementInView(el))) {
       return this.scrollToElement(el, options);
     }
     return false;

@@ -16,18 +16,16 @@ import { Logging, ReactHelpers } from 'shared';
 import PAYMENTS from './src/models/payments';
 import STUDENT_TASKS from './src/models/student-tasks';
 import TEACHER_PLANS from './src/models/course/task-plans';
+import TOASTS from './src/models/toasts';
 
 window._STORES = {
   SETTINGS: UiSettings,
   APP:                  require('./src/flux/app'),
-  EXERCISE:             require('./src/flux/exercise'),
   PERFORMANCE_FORECAST: require('./src/flux/performance-forecast'),
   TASK_PLAN:            require('./src/flux/task-plan'),
   TASK_STEP:            require('./src/flux/task-step'),
   TASK:                 require('./src/flux/task'),
   TIME:                 require('./src/flux/time'),
-  NOTIFICATIONS:        require('./src/flux/notifications'),
-  TOC:                  require('./src/flux/toc'),
 };
 
 window._MODELS = {
@@ -36,6 +34,7 @@ window._MODELS = {
   EXERCISES,
   OFFERINGS,
   PAYMENTS,
+  TOASTS,
   STUDENT_TASKS,
   TEACHER_PLANS,
 };

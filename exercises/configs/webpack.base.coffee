@@ -2,6 +2,6 @@ module.exports =
   entry:
     exercises: [
       "babel-polyfill",
-      'src/index.coffee',
+      'src/index.js',
       'resources/styles/app.scss'
     ]

@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Answer Component renders answer 1`] = `
+<div
+  className="openstax-answer"
+>
+  <div
+    className="answers-answer"
+  >
+    <input
+      checked={false}
+      className="answer-input-box"
+      disabled={false}
+      id="1-option-1"
+      name="1-options"
+      onChange={[Function]}
+      type="radio"
+    />
+    <label
+      className="answer-label"
+      htmlFor="1-option-1"
+      onKeyPress={[Function]}
+    >
+      <button
+        aria-label="Choice b:"
+        className="answer-letter"
+        disabled={false}
+        onClick={[Function]}
+      >
+        b
+      </button>
+      <div
+        className="answer-answer"
+      >
+        <div
+          className="answer-content"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are too small to be seen with the naked eye, and</li>
+  <li>there is the involvement of only a weak gravitational field</li>
+</ol>
+",
+            }
+          }
+        />
+      </div>
+    </label>
+  </div>
+</div>
+`;
+
+exports[`Answer Component renders answer feedback based on props 1`] = `
+<div
+  className="openstax-answer"
+>
+  <div
+    className="answers-answer"
+  >
+    <input
+      checked={false}
+      className="answer-input-box"
+      disabled={false}
+      id="6-option-1"
+      name="6-options"
+      onChange={[Function]}
+      type="radio"
+    />
+    <label
+      className="answer-label"
+      htmlFor="6-option-1"
+      onKeyPress={[Function]}
+    >
+      <button
+        aria-label="Choice b:"
+        className="answer-letter"
+        disabled={false}
+        onClick={[Function]}
+      >
+        b
+      </button>
+      <div
+        className="answer-answer"
+      >
+        <div
+          className="answer-content"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Physics helps in predicting dynamics and movement of weather phenomena.",
+            }
+          }
+        />
+        <div
+          className="question-feedback-content has-html"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Physics helps in predicting dynamics and movement of weather phenomenon such as a tornado or rain.",
+            }
+          }
+        />
+      </div>
+    </label>
+  </div>
+</div>
+`;

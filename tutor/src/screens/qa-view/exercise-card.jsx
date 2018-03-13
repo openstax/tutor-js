@@ -1,19 +1,19 @@
 import React from 'react';
 import classnames from 'classnames';
-import { ExerciseStore } from '../../flux/exercise';
 import String from '../../helpers/string';
 import { ExercisePreview } from 'shared';
 import { toJS } from 'mobx';
 import UX from './ux';
+import Exercise from '../../models/exercises/exercise';
 
 export default class ExerciseCard extends React.Component {
 
   static propTypes = {
     ux: React.PropTypes.instanceOf(UX).isRequired,
-    exercise: React.PropTypes.object.isRequired,
+    exercise: React.PropTypes.instanceOf(Exercise).isRequired,
   };
 
-  renderHeader = () => {
+  renderHeader() {
     return (
       <div className="types">
         {this.props.ux.exerciseTypes.map(type => (
@@ -21,32 +21,26 @@ export default class ExerciseCard extends React.Component {
             key={type}
             className={classnames(type, { 'is-ignored': this.props.ux.isTypeIgnored(type) })}
           >
-             {String.titleize(type)}
+            {String.titleize(type)}
           </span>
         ))}
       </div>
     );
-  };
+  }
 
   render() {
+    const { exercise, ux } = this.props;
+
     let freeResponse;
-    const {exercise, ux} = this.props;
-//    const ignoredTypes = ExerciseStore.getExerciseTypes(exercise);
+    if (ux.show2StepPreview && exercise.content.hasFreeResponse) {
+      freeResponse = (
+        <div className="exercise-free-response-preview" />
+      );
+    }
 
-    //if (_.any(types) && _.every( types, pt => ignoredTypes[pt])) { return null; }
-    const editUrl = exercise.url.replace(/@\d+/, '@draft');
-
-    //const doQuestionsHaveFormat = exercise.hasFreeResponse; // ExerciseStore.doQuestionsHaveFormat('free-response', {exercise});
-
-//    if (show2StepPreview) {
-      // freeResponse = _.map(doQuestionsHaveFormat, function(hasFreeResponse) {
-      //   if (hasFreeResponse) { return <div className="exercise-free-response-preview" />; }
-      // });
-//    }
-    //exerciseDataFilter(exercise, this.props)}
     return (
       <ExercisePreview
-        exercise={toJS(exercise)}
+        exercise={exercise.content}
         className="exercise"
         header={this.renderHeader()}
         displayFormats={true}
@@ -54,10 +48,14 @@ export default class ExerciseCard extends React.Component {
         displayAllTags={true}
         displayFeedback={true}
       >
-        <a target="_blank" className="edit-link" href={editUrl}>
+        <a
+          target="_blank"
+          className="edit-link"
+          href={exercise.url.replace(/@\d+/, '@draft')}
+        >
           edit
         </a>
       </ExercisePreview>
-  );
+    );
   }
 }

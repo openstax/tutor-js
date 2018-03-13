@@ -1,7 +1,7 @@
 {Promise} = require 'es6-promise'
 interpolate = require 'interpolate'
 {METHODS_TO_ACTIONS} = require './collections'
-
+qs = require 'qs'
 partial   = require 'lodash/partial'
 map       = require 'lodash/map'
 mapValues = require 'lodash/mapValues'
@@ -123,7 +123,7 @@ connectModelAction = (action, apiHandler, klass, method, options) ->
   handler = (originalMethod, reqArgs...) ->
     firstArg = first(reqArgs)
     requestConfig = mapValues(
-      pick(options, 'url', 'method', 'data', 'params', 'handledErrors'), (val) =>
+      pick(options, 'url', 'query', 'method', 'data', 'params', 'handledErrors'), (val) =>
         if isFunction(val) then val.call(this, reqArgs...) else val
     )
     updatedConfig = originalMethod.call(this, reqArgs..., requestConfig)
@@ -131,8 +131,11 @@ connectModelAction = (action, apiHandler, klass, method, options) ->
     merge(requestConfig, updatedConfig)
     if options.pattern
       requestConfig.url ?= interpolate(options.pattern, defaults({}, firstArg, requestConfig, this))
-    if options.query
-      requestConfig.url += "?#{qs(options.query)}"
+    { query } = requestConfig
+    if query
+      query = qs.stringify(query, { arrayFormat: 'brackets', encode: false }) if isObjectLike(requestConfig.query)
+      requestConfig.url += "?#{query}"
+
     perRequestOptions = clone(options)
     if options.onSuccess
       perRequestOptions.onSuccess = bind(

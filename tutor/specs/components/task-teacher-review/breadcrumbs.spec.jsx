@@ -1,9 +1,6 @@
 import { SnapShot, Wrapper} from '../helpers/component-testing';
-import TaskPlan from '../../../src/models/task-plan/teacher';
-
-import planData from '../../../api/plans/1.json';
-import statsData from '../../../api/plans/1/review.json';
-
+import Factory, { FactoryBot } from '../../factories';
+import Courses from '../../../src/models/courses-map';
 import Breadcrumbs from '../../../src/components/task-teacher-review/breadcrumbs';
 import Router from '../../../src/helpers/router';
 import EnzymeContext from '../helpers/enzyme-context';
@@ -12,12 +9,16 @@ jest.mock('../../../src/helpers/router');
 
 describe('Task Teacher Review: Breadcrumbs', function() {
   let plan;
+  let course;
   let props;
 
   beforeEach(() => {
-    plan = new TaskPlan();
-    plan.onApiRequestComplete({ data: planData });
-    plan.analytics.onApiRequestComplete({ data: statsData });
+    course = Factory.course();
+    Courses.set(course.id, course);
+    plan = course.taskPlans.withPlanId(1);
+    plan.analytics.onApiRequestComplete({
+      data: FactoryBot.create('TaskPlanStat', { course }),
+    });
     Router.makePathname.mockReturnValue('/bread');
     props = {
       taskPlan: plan,
@@ -30,7 +31,6 @@ describe('Task Teacher Review: Breadcrumbs', function() {
 
   it('renders and matches snapshot', () => {
     const bc = shallow(<Breadcrumbs {...props} />);
-    expect(bc.find('BreadcrumbStatic')).toHaveLength(6);
     expect(SnapShot.create(
       <Wrapper _wrapped_component={Breadcrumbs} noReference={true} {...props} />).toJSON()
     ).toMatchSnapshot();

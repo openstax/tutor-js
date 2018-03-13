@@ -1,4 +1,4 @@
-{Testing, expect, sinon, _, ReactTestUtils} = require 'shared/specs/helpers'
+{Testing, expect, sinon, _, ReactTestUtils} = require '../../helpers'
 {Exercise} = require 'components/exercise'
 STEP = require './step-data'
 CHOICES = STEP.content.questions[0].answers

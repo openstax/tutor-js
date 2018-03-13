@@ -1,34 +1,36 @@
 import React from 'react';
-import { observer } from "mobx-react";
+import { observer, PropTypes as mobxPropTypes } from 'mobx-react';
 import { observable, autorun, action } from 'mobx';
-import  { Completed as JobCompletion } from '../../models/jobs/queue';
-import * as lms from './toasts/lms';
-import * as scores from './toasts/scores';
+import { isEmpty } from 'lodash';
+import Toasts from '../../models/toasts';
 
 const REMOVE_AFTER = 1000 * 7;
-
-const Toasts = {
-  lms,
-  scores,
-};
 
 @observer
 export default class BackgroundToasts extends React.Component {
 
+  static propTypes = {
+    toasts: mobxPropTypes.observableArray,
+  }
+
+  static defaultProps = {
+    toasts: Toasts,
+  }
+
   queuePopperStop = autorun(() => {
-    if (!this.currentJob && JobCompletion.length) {
-      this.currentJob = JobCompletion.shift();
-      if (this.currentJob.succeeded) {
-        this.pendingRemoval = setTimeout(this.removeJob, REMOVE_AFTER);
+    if (!this.currentToast && !isEmpty(this.props.toasts)) {
+      this.currentToast = this.props.toasts.shift();
+      if (this.currentToast.isOk) {
+        this.pendingRemoval = setTimeout(this.removeToast, REMOVE_AFTER);
       }
     }
   })
 
-  @observable currentJob;
+  @observable currentToast;
   @observable pendingRemoval;
 
-  @action.bound removeJob() {
-    this.currentJob = null;
+  @action.bound removeToast() {
+    this.currentToast = null;
   }
 
   componentWillUnmount() {
@@ -39,12 +41,13 @@ export default class BackgroundToasts extends React.Component {
   }
 
   render() {
-    if (!this.currentJob) { return null; }
-    const ToastType = Toasts[this.currentJob.type];
-    const Toast = ToastType[this.currentJob.succeeded ? 'Success' : 'Failure'];
+    if (!this.currentToast) { return null; }
+
+    const Toast = this.currentToast.component;
+
     return (
-      <div className="background-job-toast">
-        <Toast job={this.currentJob} dismiss={this.removeJob} />
+      <div className="toast-notification">
+        <Toast toast={this.currentToast} dismiss={this.removeToast} />
       </div>
     );
   }

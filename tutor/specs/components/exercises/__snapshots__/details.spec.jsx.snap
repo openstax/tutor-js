@@ -1,0 +1,364 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Exercise Details Component renders and matches snapshot 1`] = `
+<div
+  className="exercise-details"
+>
+  <div
+    className="controls"
+  >
+    <a
+      className="show-cards"
+      onClick={[Function]}
+    >
+      <i
+        className="tutor-icon fa fa-th-large"
+        role="presentation"
+        type="th-large"
+      />
+       Back to Card View
+    </a>
+  </div>
+  <div
+    className="content"
+  >
+    <div
+      className="tutor-paging-navigation"
+    >
+      <a
+        aria-controls="paged-content"
+        className="paging-control prev"
+        disabled={false}
+        href="#"
+        onClick={[Function]}
+        tabIndex={0}
+        target="_blank"
+        title="Go Back"
+      >
+        <div
+          className="arrow-wrapper"
+        >
+          <svg
+            className="icon arrow left"
+            version="1.1"
+            viewBox="0 0 370 735"
+            x="0px"
+            xmlns="http://www.w3.org/2000/svg"
+            y="0px"
+          >
+            <path
+              d="M369.225,658.604l0,76.396l-369.225,-369.225l0.3,-0.3l368.925,-365.475l0,77.168l-291.449,290.332l291.449,291.104Z"
+            />
+          </svg>
+        </div>
+      </a>
+      <div
+        aria-live="polite"
+        className="paged-content"
+        id="paged-content"
+        role="region"
+        tabIndex="0"
+      >
+        <div
+          className="openstax-exercise-preview exercise-card actions-on-side panel panel-default"
+          data-exercise-id="2@1"
+          id={undefined}
+          tabIndex={-1}
+        >
+          <div
+            className="panel-body"
+          >
+            <div
+              className="exercise-body"
+            >
+              <div
+                className="openstax-question openstax-question-preview"
+                data-question-number={undefined}
+              >
+                <div
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "How could physics be useful in weather prediction?",
+                    }
+                  }
+                />
+                <div
+                  className="answers-table"
+                >
+                  <div
+                    className="openstax-answer"
+                  >
+                    <div
+                      className="answers-answer disabled"
+                    >
+                      <label
+                        className="answer-label"
+                        htmlFor="2-option-0"
+                        onKeyPress={[Function]}
+                      >
+                        <button
+                          aria-label="Choice a:"
+                          className="answer-letter"
+                          disabled={true}
+                          onClick={undefined}
+                        >
+                          a
+                        </button>
+                        <div
+                          className="answer-answer"
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting dynamics and movement of weather phenomena.",
+                              }
+                            }
+                          />
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                  <div
+                    className="openstax-answer"
+                  >
+                    <div
+                      className="answers-answer disabled"
+                    >
+                      <label
+                        className="answer-label"
+                        htmlFor="2-option-1"
+                        onKeyPress={[Function]}
+                      >
+                        <button
+                          aria-label="Choice b:"
+                          className="answer-letter"
+                          disabled={true}
+                          onClick={undefined}
+                        >
+                          b
+                        </button>
+                        <div
+                          className="answer-answer"
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting how burning fossil fuel releases pollutants.",
+                              }
+                            }
+                          />
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                  <div
+                    className="openstax-answer"
+                  >
+                    <div
+                      className="answers-answer disabled"
+                    >
+                      <label
+                        className="answer-label"
+                        htmlFor="2-option-2"
+                        onKeyPress={[Function]}
+                      >
+                        <button
+                          aria-label="Choice c:"
+                          className="answer-letter"
+                          disabled={true}
+                          onClick={undefined}
+                        >
+                          c
+                        </button>
+                        <div
+                          className="answer-answer"
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting how the flowing water affects Earth’s surface.",
+                              }
+                            }
+                          />
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                  <div
+                    className="openstax-answer"
+                  >
+                    <div
+                      className="answers-answer disabled"
+                    >
+                      <label
+                        className="answer-label"
+                        htmlFor="2-option-3"
+                        onKeyPress={[Function]}
+                      >
+                        <button
+                          aria-label="Choice d:"
+                          className="answer-letter"
+                          disabled={true}
+                          onClick={undefined}
+                        >
+                          d
+                        </button>
+                        <div
+                          className="answer-answer"
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting the motion of tectonic plates.",
+                              }
+                            }
+                          />
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                  <div
+                    className="openstax-answer"
+                  >
+                    <div
+                      className="answers-answer disabled"
+                    >
+                      <label
+                        className="answer-label"
+                        htmlFor="2-option-4"
+                        onKeyPress={[Function]}
+                      >
+                        <button
+                          aria-label="Choice e:"
+                          className="answer-letter"
+                          disabled={true}
+                          onClick={undefined}
+                        >
+                          e
+                        </button>
+                        <div
+                          className="answer-answer"
+                        >
+                          <div
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "Physics helps in predicting dynamics and movement of weather phenomena.",
+                              }
+                            }
+                          />
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="detailed-solution"
+                >
+                  <div
+                    className="header"
+                  >
+                    Detailed solution
+                  </div>
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "four",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className="exercise-tags"
+            >
+              <span
+                className="exercise-tag"
+              >
+                blooms:3
+              </span>
+              <span
+                className="exercise-tag"
+              >
+                book:stax-phys
+              </span>
+              <span
+                className="exercise-tag"
+              >
+                context-cnxfeature:one-1
+              </span>
+              <span
+                className="exercise-tag"
+              >
+                context-cnxmod:
+              </span>
+              <span
+                className="exercise-tag"
+              >
+                dok:3
+              </span>
+              <span
+                className="exercise-tag"
+              >
+                filter-type:test-prep
+              </span>
+              <span
+                className="exercise-tag"
+              >
+                ID: 2@1
+              </span>
+              <div
+                className="lo-tag"
+              >
+                LO: 
+                lo:stax-phys:1-2-1
+              </div>
+              <span
+                className="exercise-tag"
+              >
+                requires-context:true
+              </span>
+              <span
+                className="exercise-tag"
+              >
+                time:long
+              </span>
+              <span
+                className="exercise-tag"
+              >
+                type:conceptual
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a
+        aria-controls="paged-content"
+        className="paging-control next"
+        disabled={false}
+        href="#"
+        onClick={[Function]}
+        tabIndex={0}
+        title="Go Forward"
+      >
+        <div
+          className="arrow-wrapper"
+        >
+          <svg
+            className="icon arrow right"
+            version="1.1"
+            viewBox="0 0 370 735"
+            x="0px"
+            xmlns="http://www.w3.org/2000/svg"
+            y="0px"
+          >
+            <path
+              d="M0,658.604l0,76.396l369.225,-369.225l-0.3,-0.3l-368.925,-365.475l0,77.168l291.449,290.332l-291.449,291.104Z"
+            />
+          </svg>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+`;

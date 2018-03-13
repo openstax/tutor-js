@@ -23,15 +23,13 @@ PerformanceForecast = require '../flux/performance-forecast'
 
 {PastTaskPlansActions} = require '../flux/past-task-plans'
 
-{TocActions} = require '../flux/toc'
-{ExerciseActions, ExerciseStore} = require '../flux/exercise'
 {CCDashboardActions} = require '../flux/cc-dashboard'
+{default: Exercise} = require '../models/exercises/exercise'
 {default: Exercises} = require '../models/exercises'
 {default: ReferenceBook} = require '../models/reference-book'
 {default: ReferenceBookPage} = require '../models/reference-book/page';
 {default: Ecosystems} = require '../models/ecosystems';
 {ReferenceBookExerciseActions} = require '../flux/reference-book-exercise'
-{NotificationActions} = require '../flux/notifications'
 
 { default: TaskPlanHelpers} = require '../helpers/task-plan'
 { FeatureFlagsApi: FeatureFlags } = require '../models/feature_flags'
@@ -82,32 +80,7 @@ startAPI = ->
     data: TaskPlanStore.getChanged
   }, TaskPlanHelpers.apiEndpointOptions)
 
-  connectRead(ExerciseActions, {trigger: 'loadForEcosystem', onSuccess: 'loadedForEcosystem'},
-    (id, pageIds, requestType = 'homework_core') ->
-      url = "ecosystems/#{id}/exercises/#{requestType}"
-      params =
-        page_ids: pageIds
 
-      {url, params}
-  )
-
-  connectRead(ExerciseActions, {trigger: 'loadForCourse', onSuccess: 'loadedForCourse'},
-    (id, pageIds, ecosystemId = null, requestType = 'homework_core') ->
-      url = "courses/#{id}/exercises/#{requestType}"
-      params =
-        page_ids: pageIds
-      params.ecosystem_id = ecosystemId if ecosystemId?
-
-      {url, params}
-  )
-
-  connectModify(ExerciseActions,
-    pattern: 'courses/{id}/exercises', trigger: 'saveExerciseExclusion', onSuccess: 'exclusionsSaved'
-    data: ->
-      _.map ExerciseStore.getUnsavedExclusions(), (is_excluded, id) -> {id, is_excluded}
-  )
-
-  connectRead(TocActions, pattern: 'ecosystems/{id}/readings')
   connectRead(CourseGuideActions, pattern: 'courses/{id}/guide')
 
   connectRead(CCDashboardActions, pattern: 'courses/{id}/cc/dashboard')
@@ -161,13 +134,8 @@ startAPI = ->
   )
 
 
-#
-  # connectRead(ReferenceBookPageActions, pattern: 'pages/{id}', trigger: 'loadSilent', handledErrors: ['*'])
   connectRead(ReferenceBookExerciseActions, url: (url) -> url)
 
-  connectRead(NotificationActions,
-    trigger: 'loadUpdates', onSuccess: 'loadedUpdates', url: 'notifications', handledErrors: ['*']
-  )
 
   connectModelRead(Exercises.constructor, 'fetch', onSuccess: 'onLoaded')
 
@@ -225,6 +193,9 @@ startAPI = ->
   connectModelDelete(StudentTask, 'hide', onSuccess: 'onHidden', pattern: 'tasks/{id}')
 
   connectModelUpdate(Course, 'save', pattern: 'courses/{id}', onSuccess: 'onApiRequestComplete')
+  connectModelUpdate(Course,
+    'saveExerciseExclusion', pattern: 'courses/{id}/exercises', onSuccess: 'onExerciseExcluded'
+  )
 
   connectModelRead(CourseLMS, 'fetch', pattern: 'lms/courses/{course.id}', onSuccess: 'onApiRequestComplete')
 

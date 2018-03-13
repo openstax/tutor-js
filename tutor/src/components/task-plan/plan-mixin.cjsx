@@ -1,6 +1,6 @@
 React = require 'react'
-extend   = require 'lodash/extend'
-
+extend  = require 'lodash/extend'
+{default: Courses} = require '../../models/courses-map'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TaskingStore, TaskingActions} = require '../../flux/tasking'
 {PastTaskPlansActions} = require '../../flux/past-task-plans'
@@ -21,6 +21,9 @@ PlanMixin =
 
   getInitialState: ->
     extend(@getStates(), displayValidity: false)
+
+  getCourse: ->
+    Courses.get(@props.courseId)
 
   getStates: ->
     id = @props.id or @props.planId

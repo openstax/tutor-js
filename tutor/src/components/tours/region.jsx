@@ -24,7 +24,9 @@ export default class TourRegion extends React.PureComponent {
     id: React.PropTypes.string.isRequired,
     // will default to id if tours is not given
     otherTours: React.PropTypes.arrayOf(React.PropTypes.string),
-    courseId: React.PropTypes.string,
+    courseId: React.PropTypes.oneOfType([
+      React.PropTypes.string, React.PropTypes.number,
+    ]),
     children: React.PropTypes.node.isRequired,
     tourContext: React.PropTypes.instanceOf(TourContext),
     tag: React.PropTypes.string,

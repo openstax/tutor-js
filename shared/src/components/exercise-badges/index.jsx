@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
-import Exercise from '../../model/exercise';
+import Exercise from '../../helpers/exercise';
 import Interactive from './interactive-icon';
 import MultiPart from './multipart-icon';
 import classnames from 'classnames';

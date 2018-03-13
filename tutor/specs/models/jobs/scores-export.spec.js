@@ -1,7 +1,7 @@
 import UiSettings from 'shared/model/ui-settings';
 import Export from '../../../src/models/jobs/scores-export';
 import { bootstrapCoursesList } from '../../courses-test-data';
-import { Completed } from '../../../src/models/jobs/queue';
+import Toasts from '../../../src/models/toasts';
 
 const mockNowDate = new Date();
 jest.useFakeTimers();
@@ -24,7 +24,7 @@ describe('Scores export job', () => {
     job = new Export(course);
   });
 
-  afterEach(() => Completed.clear());
+  afterEach(() => Toasts.clear());
 
   it('reports last sync time', () => {
     UiSettings.get = jest.fn(() => undefined);
@@ -42,9 +42,10 @@ describe('Scores export job', () => {
     expect(UiSettings.set).toHaveBeenCalledWith(
       'sce', '2', mockNowDate.toISOString()
     );
-    expect(Completed.length).toBe(1);
-    const q = Completed[0];
-    expect(q.succeeded).toBe(true);
+    expect(Toasts.length).toBe(1);
+    const q = Toasts[0];
+    expect(q.status).toEqual('ok');
+    expect(q.handler).toEqual('job');
     expect(q.type).toBe('scores');
     expect(q.id).not.toBeUndefined();
   });

@@ -1,0 +1,111 @@
+.toast-notification {
+  position: fixed;
+  min-height: 50px;
+  right: 20px;
+  top: 20px;
+  background-color: white;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  max-width: 280px;
+
+  .title {
+    padding: 10px;
+    font-weight: bold;
+    background-color: #e0edd3;
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    &::before {
+      @include fa-icon();
+      font-size: 26px;
+      font-weight: normal;
+      margin-right: 0.5rem;
+    }
+  }
+
+  .body {
+    padding: 10px;
+  }
+
+  .success {
+    .title{
+      color: #629030;
+      &::before {
+        content: $fa-var-check-circle;
+      }
+    }
+  }
+
+  .failure {
+    .title {
+      color: #C22032;
+      background-color: #f5e9ea;
+      &::before {
+        content: $fa-var-exclamation-triangle;
+      }
+      .tutor-icon[type="close"] {
+        color: $tutor-neutral-dark;
+        margin-left: 2rem;
+        align-self: flex-start;
+      }
+    }
+    .body {
+      button {
+        padding-left: 0;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .scores {
+    iframe {
+      border: 0;
+      height: 0;
+      width: 0;
+    }
+  }
+
+  .reload {
+    button {
+      margin-top: 1rem;
+    }
+  }
+}
+
+.lms-push-partial-failure {
+  .modal-body {
+    .controls {
+      margin-top: 40px;
+    }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      .btn {
+        color: $tutor-neutral-dark;
+        font-size: 16px;
+        padding: 20px 0;
+      }
+    }
+    table th {
+      vertical-align: bottom;
+      &.average {
+        display: flex;
+        justify-content: space-between;
+        .tutor-icon {
+          border: 1px solid $tutor-neutral;
+          padding: 4px;
+        }
+      }
+    }
+    .panel {
+      border: 0;
+      box-shadow: none;
+      margin: 0;
+      .panel-body {
+        max-height: 320px;
+        overflow: auto;
+      }
+    }
+  }
+}

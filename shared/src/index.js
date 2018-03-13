@@ -33,7 +33,7 @@ export MessageList from './components/enroll/message-list';
 
 export ExerciseGroup from './components/exercise/group';
 export ExerciseIdentifierLink from './components/exercise-identifier-link';
-export ExerciseHelpers from './model/exercise';
+export ExerciseHelpers from './helpers/exercise';
 export ExercisePreview from './components/exercise-preview';
 
 export { TaskHelper } from './helpers/task';

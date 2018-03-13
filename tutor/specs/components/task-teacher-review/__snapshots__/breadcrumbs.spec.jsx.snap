@@ -5,63 +5,103 @@ exports[`Task Teacher Review: Breadcrumbs renders and matches snapshot 1`] = `
   className="task-breadcrumbs"
 >
   <span
-    className="openstax-breadcrumbs-step icon-stack icon-lg breadcrumb-reading"
-    data-chapter="2.2"
+    className="openstax-breadcrumbs-step icon-stack icon-lg breadcrumb-undefined"
+    data-chapter="1.1"
     onClick={[Function]}
     title={undefined}
   >
     <i
-      className="icon-lg icon-reading"
+      className="icon-lg icon-undefined"
     />
   </span>
   <span
-    className="openstax-breadcrumbs-step icon-stack icon-lg breadcrumb-reading"
-    data-chapter="3.3"
+    className="openstax-breadcrumbs-step icon-stack icon-lg breadcrumb-undefined"
+    data-chapter="1.2"
     onClick={[Function]}
     title={undefined}
   >
     <i
-      className="icon-lg icon-reading"
+      className="icon-lg icon-undefined"
     />
   </span>
   <span
-    className="openstax-breadcrumbs-step icon-stack icon-lg breadcrumb-reading"
-    data-chapter="5.4"
+    className="openstax-breadcrumbs-step icon-stack icon-lg breadcrumb-undefined"
+    data-chapter="1.3"
     onClick={[Function]}
     title={undefined}
   >
     <i
-      className="icon-lg icon-reading"
+      className="icon-lg icon-undefined"
     />
   </span>
   <span
-    className="openstax-breadcrumbs-step icon-stack icon-lg breadcrumb-reading"
-    data-chapter="8.3"
+    className="openstax-breadcrumbs-step icon-stack icon-lg breadcrumb-undefined"
+    data-chapter="1.4"
     onClick={[Function]}
     title={undefined}
   >
     <i
-      className="icon-lg icon-reading"
+      className="icon-lg icon-undefined"
     />
   </span>
   <span
-    className="openstax-breadcrumbs-step icon-stack icon-lg breadcrumb-reading"
-    data-chapter="13.2"
+    className="openstax-breadcrumbs-step icon-stack icon-lg breadcrumb-undefined"
+    data-chapter="1.5"
     onClick={[Function]}
     title={undefined}
   >
     <i
-      className="icon-lg icon-reading"
+      className="icon-lg icon-undefined"
     />
   </span>
   <span
-    className="openstax-breadcrumbs-step icon-stack icon-lg breadcrumb-reading"
-    data-chapter="21.3"
+    className="openstax-breadcrumbs-step icon-stack icon-lg breadcrumb-undefined"
+    data-chapter="1.6"
     onClick={[Function]}
     title={undefined}
   >
     <i
-      className="icon-lg icon-reading"
+      className="icon-lg icon-undefined"
+    />
+  </span>
+  <span
+    className="openstax-breadcrumbs-step icon-stack icon-lg breadcrumb-undefined"
+    data-chapter="1.7"
+    onClick={[Function]}
+    title={undefined}
+  >
+    <i
+      className="icon-lg icon-undefined"
+    />
+  </span>
+  <span
+    className="openstax-breadcrumbs-step icon-stack icon-lg breadcrumb-undefined"
+    data-chapter="1.8"
+    onClick={[Function]}
+    title={undefined}
+  >
+    <i
+      className="icon-lg icon-undefined"
+    />
+  </span>
+  <span
+    className="openstax-breadcrumbs-step icon-stack icon-lg breadcrumb-undefined"
+    data-chapter="1.9"
+    onClick={[Function]}
+    title={undefined}
+  >
+    <i
+      className="icon-lg icon-undefined"
+    />
+  </span>
+  <span
+    className="openstax-breadcrumbs-step icon-stack icon-lg breadcrumb-undefined"
+    data-chapter="1.10"
+    onClick={[Function]}
+    title={undefined}
+  >
+    <i
+      className="icon-lg icon-undefined"
     />
   </span>
   <a
@@ -73,8 +113,6 @@ exports[`Task Teacher Review: Breadcrumbs renders and matches snapshot 1`] = `
   </a>
   <div
     className="task-title"
-  >
-    Read Pages 9-11
-  </div>
+  />
 </div>
 `;

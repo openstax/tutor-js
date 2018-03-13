@@ -24,6 +24,7 @@ export default class Exercises extends React.Component {
     if (ux.isFetchingExercises) {
       return <Loading message="Fetching Exercises…" />;
     }
+
     if (isEmpty(ux.exercises)) { return <h1>No exercises found</h1>; }
 
     return (

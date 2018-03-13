@@ -75,7 +75,7 @@ BookPage = React.createClass
     if not page or page.api.isPending
       if ux.lastSection
         isLoading = true
-        page = ux.pages.get(ux.lastSection)
+        page = ux.pages.byChapterSection.get(ux.lastSection)
       else
         return <Loading />
 

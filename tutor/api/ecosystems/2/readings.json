@@ -1,84 +1,3521 @@
-{
-  "0":  {
-    "id":"1",
-    "title":"AP Bio Content - legacy",
-    "type":"part",
-    "children": [{
-      "title": "Bio",
-      "chapter_section":[1],
-      "id": "123",
-      "children": [
-        {
-          "type": "page",
-          "title": "bio title",
-          "chapter_section": [1, 1],
-          "id": "234",
-          "cnx_id": "c20c3501-a63c-4b40-aa6c-0bdafa8a2d33"
-        },
-        {
-          "type": "page",
-          "title": "Kinematics in 2 dim",
-          "chapter_section": [1, 2],
-          "id": "235",
-          "cnx_id": "newpagebio"
-        },
-        {
-          "type": "page",
-          "title": "Kinematics in 3 dim",
-          "chapter_section": [1, 3],
-          "id": "236"
-        }
-      ]
-    },
+[
     {
-      "title": "Mechanics",
-      "chapter_section":[2],
-      "id": "124",
-      "children": [
-        {
-          "type": "page",
-          "title": "Mechanics in 1 dim",
-          "chapter_section": [2, 1],
-          "id": "237"
-        },
-        {
-          "type": "page",
-          "title": "Mechanics in 2 dim",
-          "chapter_section": [2, 2],
-          "id": "238"
-        },
-        {
-          "type": "page",
-          "title": "Mechanics in 3 dim",
-          "chapter_section": [2, 3],
-          "id": "239"
-        }
-      ]
-    },
-    {
-      "title": "Thermodynamics",
-      "chapter_section":[3],
-      "id": "125",
-      "children": [
-        {
-          "type": "page",
-          "title": "Thermodynamics in 1 dim",
-          "chapter_section": [3, 1],
-          "id": "240"
-        },
-        {
-          "type": "page",
-          "title": "Thermodynamics in 2 dim",
-          "chapter_section": [3, 2],
-          "id": "241"
-        },
-        {
-          "type": "page",
-          "title": "Thermodynamics in 3 dim",
-          "chapter_section": [3, 2],
-          "id": "242"
-        }
-      ]
-    }]
-  }
-}
+        "id": "3",
+        "uuid": "185cbf87-c72e-48f5-b51e-f14f21b5eabd",
+        "short_id": "GFy_h8cu",
+        "cnx_id": "185cbf87-c72e-48f5-b51e-f14f21b5eabd@10.118",
+        "archive_url": "https://archive.cnx.org",
+        "webview_url": "https://cnx.org",
+        "title": "Biology",
+        "type": "part",
+        "chapter_section": [],
+        "children": [
+            {
+                "id": "69",
+                "title": "The Study of Life",
+                "type": "part",
+                "chapter_section": [
+                    1
+                ],
+                "children": [
+                    {
+                        "id": "557",
+                        "uuid": "ad9b9d37-a5cf-4a0d-b8c1-083fcc4d3b0c",
+                        "short_id": "rZudN6XP",
+                        "cnx_id": "ad9b9d37-a5cf-4a0d-b8c1-083fcc4d3b0c@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            1,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "558",
+                        "uuid": "6a0568d8-23d7-439b-9a01-16e4e73886b3",
+                        "short_id": "agVo2CPX",
+                        "cnx_id": "6a0568d8-23d7-439b-9a01-16e4e73886b3@12",
+                        "title": "The Science of Biology",
+                        "type": "page",
+                        "chapter_section": [
+                            1,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "559",
+                        "uuid": "80d2e9ef-abee-40c2-8586-5459a67c81f3",
+                        "short_id": "gNLp76vu",
+                        "cnx_id": "80d2e9ef-abee-40c2-8586-5459a67c81f3@13",
+                        "title": "Themes and Concepts of Biology",
+                        "type": "page",
+                        "chapter_section": [
+                            1,
+                            2
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "70",
+                "title": "The Chemical Foundation of Life",
+                "type": "part",
+                "chapter_section": [
+                    2
+                ],
+                "children": [
+                    {
+                        "id": "560",
+                        "uuid": "7636a3bf-eb80-4898-8b2c-e81c1711b99f",
+                        "short_id": "djajv-uA",
+                        "cnx_id": "7636a3bf-eb80-4898-8b2c-e81c1711b99f@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            2,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "561",
+                        "uuid": "be8818d0-2dba-4bf3-859a-737c25fb2c99",
+                        "short_id": "vogY0C26",
+                        "cnx_id": "be8818d0-2dba-4bf3-859a-737c25fb2c99@20",
+                        "title": "Atoms, Isotopes, Ions, and Molecules: The Building Blocks",
+                        "type": "page",
+                        "chapter_section": [
+                            2,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "562",
+                        "uuid": "a4f8df82-c778-4971-8dcc-7c5c72578e94",
+                        "short_id": "pPjfgsd4",
+                        "cnx_id": "a4f8df82-c778-4971-8dcc-7c5c72578e94@10",
+                        "title": "Water",
+                        "type": "page",
+                        "chapter_section": [
+                            2,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "563",
+                        "uuid": "52bfe5d1-7f8a-49b1-9c47-973d3f518958",
+                        "short_id": "Ur_l0X-K",
+                        "cnx_id": "52bfe5d1-7f8a-49b1-9c47-973d3f518958@6",
+                        "title": "Carbon",
+                        "type": "page",
+                        "chapter_section": [
+                            2,
+                            3
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "71",
+                "title": "Biological Macromolecules",
+                "type": "part",
+                "chapter_section": [
+                    3
+                ],
+                "children": [
+                    {
+                        "id": "564",
+                        "uuid": "ee61d395-bee6-4692-8f3d-42159c445365",
+                        "short_id": "7mHTlb7m",
+                        "cnx_id": "ee61d395-bee6-4692-8f3d-42159c445365@4",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            3,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "565",
+                        "uuid": "ea44b8fa-e7a2-4360-ad34-ac081bcf104f",
+                        "short_id": "6kS4-uei",
+                        "cnx_id": "ea44b8fa-e7a2-4360-ad34-ac081bcf104f@12",
+                        "title": "Synthesis of Biological Macromolecules",
+                        "type": "page",
+                        "chapter_section": [
+                            3,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "566",
+                        "uuid": "73b3ac54-811c-4bce-a9dd-e83f8c0dda77",
+                        "short_id": "c7OsVIEc",
+                        "cnx_id": "73b3ac54-811c-4bce-a9dd-e83f8c0dda77@7",
+                        "title": "Carbohydrates",
+                        "type": "page",
+                        "chapter_section": [
+                            3,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "567",
+                        "uuid": "23ff3343-6924-4c37-8a08-876db2e9e242",
+                        "short_id": "I_8zQ2kk",
+                        "cnx_id": "23ff3343-6924-4c37-8a08-876db2e9e242@9",
+                        "title": "Lipids",
+                        "type": "page",
+                        "chapter_section": [
+                            3,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "568",
+                        "uuid": "db3ce6d5-01bd-4ac5-a641-de285fdac0f1",
+                        "short_id": "2zzm1QG9",
+                        "cnx_id": "db3ce6d5-01bd-4ac5-a641-de285fdac0f1@7",
+                        "title": "Proteins",
+                        "type": "page",
+                        "chapter_section": [
+                            3,
+                            4
+                        ]
+                    },
+                    {
+                        "id": "569",
+                        "uuid": "cb178029-ce17-4c82-aa11-94a2acf4accf",
+                        "short_id": "yxeAKc4X",
+                        "cnx_id": "cb178029-ce17-4c82-aa11-94a2acf4accf@9",
+                        "title": "Nucleic Acids",
+                        "type": "page",
+                        "chapter_section": [
+                            3,
+                            5
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "72",
+                "title": "Cell Structure",
+                "type": "part",
+                "chapter_section": [
+                    4
+                ],
+                "children": [
+                    {
+                        "id": "570",
+                        "uuid": "e98bdaec-4060-4b43-ac70-681555a30e22",
+                        "short_id": "6Yva7EBg",
+                        "cnx_id": "e98bdaec-4060-4b43-ac70-681555a30e22@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            4,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "571",
+                        "uuid": "003aedba-f354-4e57-ba45-f8b4eda66e12",
+                        "short_id": "ADrtuvNU",
+                        "cnx_id": "003aedba-f354-4e57-ba45-f8b4eda66e12@8",
+                        "title": "Studying Cells",
+                        "type": "page",
+                        "chapter_section": [
+                            4,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "572",
+                        "uuid": "a4ea5574-8c29-4a6d-a9af-3301ed2fdaa0",
+                        "short_id": "pOpVdIwp",
+                        "cnx_id": "a4ea5574-8c29-4a6d-a9af-3301ed2fdaa0@11",
+                        "title": "Prokaryotic Cells",
+                        "type": "page",
+                        "chapter_section": [
+                            4,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "573",
+                        "uuid": "14f17ea6-1853-4b32-a834-576eb6dfeb67",
+                        "short_id": "FPF-phhT",
+                        "cnx_id": "14f17ea6-1853-4b32-a834-576eb6dfeb67@14",
+                        "title": "Eukaryotic Cells",
+                        "type": "page",
+                        "chapter_section": [
+                            4,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "574",
+                        "uuid": "10b53780-2949-45e7-961b-aafefeec467a",
+                        "short_id": "ELU3gClJ",
+                        "cnx_id": "10b53780-2949-45e7-961b-aafefeec467a@12",
+                        "title": "The Endomembrane System and Proteins",
+                        "type": "page",
+                        "chapter_section": [
+                            4,
+                            4
+                        ]
+                    },
+                    {
+                        "id": "575",
+                        "uuid": "736d0748-2d71-4db3-90bd-16ef0a9ad64d",
+                        "short_id": "c20HSC1x",
+                        "cnx_id": "736d0748-2d71-4db3-90bd-16ef0a9ad64d@9",
+                        "title": "The Cytoskeleton",
+                        "type": "page",
+                        "chapter_section": [
+                            4,
+                            5
+                        ]
+                    },
+                    {
+                        "id": "576",
+                        "uuid": "f14ca9c7-bbee-4ea2-ac54-b0a3c6d4bda7",
+                        "short_id": "8Uypx7vu",
+                        "cnx_id": "f14ca9c7-bbee-4ea2-ac54-b0a3c6d4bda7@7",
+                        "title": "Connections between Cells and Cellular Activities",
+                        "type": "page",
+                        "chapter_section": [
+                            4,
+                            6
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "73",
+                "title": "Structure and Function of Plasma Membranes",
+                "type": "part",
+                "chapter_section": [
+                    5
+                ],
+                "children": [
+                    {
+                        "id": "577",
+                        "uuid": "a1a2f03a-701f-4e7a-ae0e-d8087880c6fd",
+                        "short_id": "oaLwOnAf",
+                        "cnx_id": "a1a2f03a-701f-4e7a-ae0e-d8087880c6fd@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            5,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "578",
+                        "uuid": "40e1947a-5a8b-4314-a9e7-bae3cedb885d",
+                        "short_id": "QOGUelqL",
+                        "cnx_id": "40e1947a-5a8b-4314-a9e7-bae3cedb885d@9",
+                        "title": "Components and Structure",
+                        "type": "page",
+                        "chapter_section": [
+                            5,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "579",
+                        "uuid": "e97f68fb-49fa-47ba-875b-6b1d59d8f11b",
+                        "short_id": "6X9o-0n6",
+                        "cnx_id": "e97f68fb-49fa-47ba-875b-6b1d59d8f11b@12",
+                        "title": "Passive Transport",
+                        "type": "page",
+                        "chapter_section": [
+                            5,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "580",
+                        "uuid": "0a64c993-2b3c-4cd6-94f8-1d864df896ce",
+                        "short_id": "CmTJkys8",
+                        "cnx_id": "0a64c993-2b3c-4cd6-94f8-1d864df896ce@7",
+                        "title": "Active Transport",
+                        "type": "page",
+                        "chapter_section": [
+                            5,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "581",
+                        "uuid": "1f0bcd44-86e1-4c34-af1e-3de348baa8d4",
+                        "short_id": "HwvNRIbh",
+                        "cnx_id": "1f0bcd44-86e1-4c34-af1e-3de348baa8d4@7",
+                        "title": "Bulk Transport",
+                        "type": "page",
+                        "chapter_section": [
+                            5,
+                            4
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "74",
+                "title": "Metabolism",
+                "type": "part",
+                "chapter_section": [
+                    6
+                ],
+                "children": [
+                    {
+                        "id": "582",
+                        "uuid": "77d140f0-5582-48ad-9119-79bdb81fbc70",
+                        "short_id": "d9FA8FWC",
+                        "cnx_id": "77d140f0-5582-48ad-9119-79bdb81fbc70@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            6,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "583",
+                        "uuid": "ed5df737-77ff-452c-b91e-a2c2dad59606",
+                        "short_id": "7V33N3f_",
+                        "cnx_id": "ed5df737-77ff-452c-b91e-a2c2dad59606@8",
+                        "title": "Energy and Metabolism",
+                        "type": "page",
+                        "chapter_section": [
+                            6,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "584",
+                        "uuid": "16b284a1-de63-4e08-910a-8baf1b94fc1e",
+                        "short_id": "FrKEod5j",
+                        "cnx_id": "16b284a1-de63-4e08-910a-8baf1b94fc1e@7",
+                        "title": "Potential, Kinetic, Free, and Activation Energy",
+                        "type": "page",
+                        "chapter_section": [
+                            6,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "585",
+                        "uuid": "1d93a84f-d3e4-498b-99fb-36f389084856",
+                        "short_id": "HZOoT9Pk",
+                        "cnx_id": "1d93a84f-d3e4-498b-99fb-36f389084856@7",
+                        "title": "The Laws of Thermodynamics",
+                        "type": "page",
+                        "chapter_section": [
+                            6,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "586",
+                        "uuid": "99c09a74-d755-47ec-a38d-f6cc1aa5a6a7",
+                        "short_id": "mcCadNdV",
+                        "cnx_id": "99c09a74-d755-47ec-a38d-f6cc1aa5a6a7@8",
+                        "title": "ATP: Adenosine Triphosphate",
+                        "type": "page",
+                        "chapter_section": [
+                            6,
+                            4
+                        ]
+                    },
+                    {
+                        "id": "587",
+                        "uuid": "3270ba1a-e262-481e-9902-61ef811251d5",
+                        "short_id": "MnC6GuJi",
+                        "cnx_id": "3270ba1a-e262-481e-9902-61ef811251d5@7",
+                        "title": "Enzymes",
+                        "type": "page",
+                        "chapter_section": [
+                            6,
+                            5
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "75",
+                "title": "Cellular Respiration",
+                "type": "part",
+                "chapter_section": [
+                    7
+                ],
+                "children": [
+                    {
+                        "id": "588",
+                        "uuid": "e5cf99b1-c357-48c0-bd05-e15557c89951",
+                        "short_id": "5c-ZscNX",
+                        "cnx_id": "e5cf99b1-c357-48c0-bd05-e15557c89951@4",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            7,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "589",
+                        "uuid": "75fabe48-5fbc-458b-9062-010dd3886ae5",
+                        "short_id": "dfq-SF-8",
+                        "cnx_id": "75fabe48-5fbc-458b-9062-010dd3886ae5@8",
+                        "title": "Energy in Living Systems",
+                        "type": "page",
+                        "chapter_section": [
+                            7,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "590",
+                        "uuid": "b58b6923-aad7-4c62-907e-fb0c0ba08f44",
+                        "short_id": "tYtpI6rX",
+                        "cnx_id": "b58b6923-aad7-4c62-907e-fb0c0ba08f44@6",
+                        "title": "Glycolysis",
+                        "type": "page",
+                        "chapter_section": [
+                            7,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "591",
+                        "uuid": "c1e00705-ab75-4c24-8c6c-5d983c3cca49",
+                        "short_id": "weAHBat1",
+                        "cnx_id": "c1e00705-ab75-4c24-8c6c-5d983c3cca49@7",
+                        "title": "Oxidation of Pyruvate and the Citric Acid Cycle",
+                        "type": "page",
+                        "chapter_section": [
+                            7,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "592",
+                        "uuid": "ee84d502-0ad9-4abb-a530-94252d9f08d9",
+                        "short_id": "7oTVAgrZ",
+                        "cnx_id": "ee84d502-0ad9-4abb-a530-94252d9f08d9@7",
+                        "title": "Oxidative Phosphorylation",
+                        "type": "page",
+                        "chapter_section": [
+                            7,
+                            4
+                        ]
+                    },
+                    {
+                        "id": "593",
+                        "uuid": "8e609899-8a25-47cd-a019-11ed0e065755",
+                        "short_id": "jmCYmYol",
+                        "cnx_id": "8e609899-8a25-47cd-a019-11ed0e065755@7",
+                        "title": "Metabolism without Oxygen",
+                        "type": "page",
+                        "chapter_section": [
+                            7,
+                            5
+                        ]
+                    },
+                    {
+                        "id": "594",
+                        "uuid": "64fe39ec-5eb8-491e-93ba-a92598aaaa80",
+                        "short_id": "ZP457F64",
+                        "cnx_id": "64fe39ec-5eb8-491e-93ba-a92598aaaa80@8",
+                        "title": "Connections of Carbohydrate, Protein, and Lipid Metabolic Pathways",
+                        "type": "page",
+                        "chapter_section": [
+                            7,
+                            6
+                        ]
+                    },
+                    {
+                        "id": "595",
+                        "uuid": "cd121ae8-7896-4d46-a606-17f78c37b826",
+                        "short_id": "zRIa6HiW",
+                        "cnx_id": "cd121ae8-7896-4d46-a606-17f78c37b826@10",
+                        "title": "Regulation of Cellular Respiration",
+                        "type": "page",
+                        "chapter_section": [
+                            7,
+                            7
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "76",
+                "title": "Photosynthesis",
+                "type": "part",
+                "chapter_section": [
+                    8
+                ],
+                "children": [
+                    {
+                        "id": "596",
+                        "uuid": "48242857-59d1-4b46-a7e2-f27c33299f56",
+                        "short_id": "SCQoV1nR",
+                        "cnx_id": "48242857-59d1-4b46-a7e2-f27c33299f56@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            8,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "597",
+                        "uuid": "5bb72d25-e488-4760-8da8-51bc5b86c29d",
+                        "short_id": "W7ctJeSI",
+                        "cnx_id": "5bb72d25-e488-4760-8da8-51bc5b86c29d@8",
+                        "title": "Overview of Photosynthesis",
+                        "type": "page",
+                        "chapter_section": [
+                            8,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "598",
+                        "uuid": "f829b3bd-472d-4885-a0a4-6fea3252e2b2",
+                        "short_id": "-CmzvUct",
+                        "cnx_id": "f829b3bd-472d-4885-a0a4-6fea3252e2b2@12",
+                        "title": "The Light-Dependent Reactions of Photosynthesis",
+                        "type": "page",
+                        "chapter_section": [
+                            8,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "599",
+                        "uuid": "36b3469d-e561-44ff-ac32-99f4d18830e2",
+                        "short_id": "NrNGneVh",
+                        "cnx_id": "36b3469d-e561-44ff-ac32-99f4d18830e2@8",
+                        "title": "Using Light Energy to Make Organic Molecules",
+                        "type": "page",
+                        "chapter_section": [
+                            8,
+                            3
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "77",
+                "title": "Cell Communication",
+                "type": "part",
+                "chapter_section": [
+                    9
+                ],
+                "children": [
+                    {
+                        "id": "600",
+                        "uuid": "d5ef65df-70bb-4cd6-8377-4c0f315c9e97",
+                        "short_id": "1e9l33C7",
+                        "cnx_id": "d5ef65df-70bb-4cd6-8377-4c0f315c9e97@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            9,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "601",
+                        "uuid": "1f8a0ca4-24a2-44fd-9706-f43ac0a5904e",
+                        "short_id": "H4oMpCSi",
+                        "cnx_id": "1f8a0ca4-24a2-44fd-9706-f43ac0a5904e@8",
+                        "title": "Signaling Molecules and Cellular Receptors",
+                        "type": "page",
+                        "chapter_section": [
+                            9,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "602",
+                        "uuid": "b13912c1-d7fb-4f5f-9b8a-04a0ee9ed00f",
+                        "short_id": "sTkSwdf7",
+                        "cnx_id": "b13912c1-d7fb-4f5f-9b8a-04a0ee9ed00f@5",
+                        "title": "Propagation of the Signal",
+                        "type": "page",
+                        "chapter_section": [
+                            9,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "603",
+                        "uuid": "c90e0c3f-d259-40ae-845f-6cb0a364e388",
+                        "short_id": "yQ4MP9JZ",
+                        "cnx_id": "c90e0c3f-d259-40ae-845f-6cb0a364e388@7",
+                        "title": "Response to the Signal",
+                        "type": "page",
+                        "chapter_section": [
+                            9,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "604",
+                        "uuid": "1a3eb179-6a06-4a14-81bb-90fce075c39d",
+                        "short_id": "Gj6xeWoG",
+                        "cnx_id": "1a3eb179-6a06-4a14-81bb-90fce075c39d@10",
+                        "title": "Signaling in Single-Celled Organisms",
+                        "type": "page",
+                        "chapter_section": [
+                            9,
+                            4
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "78",
+                "title": "Cell Reproduction",
+                "type": "part",
+                "chapter_section": [
+                    10
+                ],
+                "children": [
+                    {
+                        "id": "605",
+                        "uuid": "87a4423a-158e-40b8-86c5-a1bd14cf6584",
+                        "short_id": "h6RCOhWO",
+                        "cnx_id": "87a4423a-158e-40b8-86c5-a1bd14cf6584@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            10,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "606",
+                        "uuid": "4caf480f-6848-4231-9fe3-345bd87cae80",
+                        "short_id": "TK9ID2hI",
+                        "cnx_id": "4caf480f-6848-4231-9fe3-345bd87cae80@9",
+                        "title": "Cell Division",
+                        "type": "page",
+                        "chapter_section": [
+                            10,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "607",
+                        "uuid": "d6d279e4-eb7a-4e64-8d53-8710b4c50e81",
+                        "short_id": "1tJ55Ot6",
+                        "cnx_id": "d6d279e4-eb7a-4e64-8d53-8710b4c50e81@7",
+                        "title": "The Cell Cycle",
+                        "type": "page",
+                        "chapter_section": [
+                            10,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "608",
+                        "uuid": "69b8e2ee-f350-4202-8085-878c433e1cd5",
+                        "short_id": "abji7vNQ",
+                        "cnx_id": "69b8e2ee-f350-4202-8085-878c433e1cd5@6",
+                        "title": "Control of the Cell Cycle",
+                        "type": "page",
+                        "chapter_section": [
+                            10,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "609",
+                        "uuid": "09866999-e751-4c08-b013-e46b93c08188",
+                        "short_id": "CYZpmedR",
+                        "cnx_id": "09866999-e751-4c08-b013-e46b93c08188@7",
+                        "title": "Cancer and the Cell Cycle",
+                        "type": "page",
+                        "chapter_section": [
+                            10,
+                            4
+                        ]
+                    },
+                    {
+                        "id": "610",
+                        "uuid": "91c43929-51af-4cda-b1ba-ac8521bef464",
+                        "short_id": "kcQ5KVGv",
+                        "cnx_id": "91c43929-51af-4cda-b1ba-ac8521bef464@6",
+                        "title": "Prokaryotic Cell Division",
+                        "type": "page",
+                        "chapter_section": [
+                            10,
+                            5
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "79",
+                "title": "Meiosis and Sexual Reproduction",
+                "type": "part",
+                "chapter_section": [
+                    11
+                ],
+                "children": [
+                    {
+                        "id": "611",
+                        "uuid": "a29864f3-11df-4ded-a481-b9ddeba0d407",
+                        "short_id": "ophk8xHf",
+                        "cnx_id": "a29864f3-11df-4ded-a481-b9ddeba0d407@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            11,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "612",
+                        "uuid": "198652dc-30cf-4065-9bbf-80fe4e1f123b",
+                        "short_id": "GYZS3DDP",
+                        "cnx_id": "198652dc-30cf-4065-9bbf-80fe4e1f123b@9",
+                        "title": "The Process of Meiosis",
+                        "type": "page",
+                        "chapter_section": [
+                            11,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "613",
+                        "uuid": "8fd39113-d8a6-4987-a41b-d0f4cea6062e",
+                        "short_id": "j9ORE9im",
+                        "cnx_id": "8fd39113-d8a6-4987-a41b-d0f4cea6062e@6",
+                        "title": "Sexual Reproduction",
+                        "type": "page",
+                        "chapter_section": [
+                            11,
+                            2
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "80",
+                "title": "Mendel's Experiments and Heredity",
+                "type": "part",
+                "chapter_section": [
+                    12
+                ],
+                "children": [
+                    {
+                        "id": "614",
+                        "uuid": "3b695749-395f-41f8-9cb3-13ea11c30a34",
+                        "short_id": "O2lXSTlf",
+                        "cnx_id": "3b695749-395f-41f8-9cb3-13ea11c30a34@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            12,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "615",
+                        "uuid": "c785a8d1-04ca-47ff-af0b-8de66795436a",
+                        "short_id": "x4Wo0QTK",
+                        "cnx_id": "c785a8d1-04ca-47ff-af0b-8de66795436a@9",
+                        "title": "Mendel’s Experiments and the Laws of Probability",
+                        "type": "page",
+                        "chapter_section": [
+                            12,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "616",
+                        "uuid": "e2a834f2-7b7e-4ae4-bed8-f4d3c9fff598",
+                        "short_id": "4qg08nt-",
+                        "cnx_id": "e2a834f2-7b7e-4ae4-bed8-f4d3c9fff598@10",
+                        "title": "Characteristics and Traits",
+                        "type": "page",
+                        "chapter_section": [
+                            12,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "617",
+                        "uuid": "71479ebe-e682-4230-beab-d458bc170fe1",
+                        "short_id": "cUeevuaC",
+                        "cnx_id": "71479ebe-e682-4230-beab-d458bc170fe1@3",
+                        "title": "Laws of Inheritance",
+                        "type": "page",
+                        "chapter_section": [
+                            12,
+                            3
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "81",
+                "title": "Modern Understandings of Inheritance",
+                "type": "part",
+                "chapter_section": [
+                    13
+                ],
+                "children": [
+                    {
+                        "id": "618",
+                        "uuid": "86f39385-c19c-4006-8c52-138cc6145958",
+                        "short_id": "hvOThcGc",
+                        "cnx_id": "86f39385-c19c-4006-8c52-138cc6145958@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            13,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "619",
+                        "uuid": "a9d1d357-da72-47ee-8d93-4699f1da6244",
+                        "short_id": "qdHTV9py",
+                        "cnx_id": "a9d1d357-da72-47ee-8d93-4699f1da6244@8",
+                        "title": "Chromosomal Theory and Genetic Linkage",
+                        "type": "page",
+                        "chapter_section": [
+                            13,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "620",
+                        "uuid": "91f58935-5bef-40f2-88fd-8ef637648b9c",
+                        "short_id": "kfWJNVvv",
+                        "cnx_id": "91f58935-5bef-40f2-88fd-8ef637648b9c@8",
+                        "title": "Chromosomal Basis of Inherited Disorders",
+                        "type": "page",
+                        "chapter_section": [
+                            13,
+                            2
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "82",
+                "title": "DNA Structure and Function",
+                "type": "part",
+                "chapter_section": [
+                    14
+                ],
+                "children": [
+                    {
+                        "id": "621",
+                        "uuid": "434d46d6-6ce1-4709-96a7-e78e5477d4ee",
+                        "short_id": "Q01G1mzh",
+                        "cnx_id": "434d46d6-6ce1-4709-96a7-e78e5477d4ee@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            14,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "622",
+                        "uuid": "edcd817b-eeae-4d6f-8cbb-5cc0430a8564",
+                        "short_id": "7c2Be-6u",
+                        "cnx_id": "edcd817b-eeae-4d6f-8cbb-5cc0430a8564@7",
+                        "title": "Historical Basis of Modern Understanding",
+                        "type": "page",
+                        "chapter_section": [
+                            14,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "623",
+                        "uuid": "53bb4f0d-1c4a-4451-a97a-e24e2b9e7776",
+                        "short_id": "U7tPDRxK",
+                        "cnx_id": "53bb4f0d-1c4a-4451-a97a-e24e2b9e7776@9",
+                        "title": "DNA Structure and Sequencing",
+                        "type": "page",
+                        "chapter_section": [
+                            14,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "624",
+                        "uuid": "1723d815-cea1-4f32-891f-0373d7ef1137",
+                        "short_id": "FyPYFc6h",
+                        "cnx_id": "1723d815-cea1-4f32-891f-0373d7ef1137@5",
+                        "title": "Basics of DNA Replication",
+                        "type": "page",
+                        "chapter_section": [
+                            14,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "625",
+                        "uuid": "34493d96-5fb7-4dd4-9ed4-6f476d2afa8f",
+                        "short_id": "NEk9ll-3",
+                        "cnx_id": "34493d96-5fb7-4dd4-9ed4-6f476d2afa8f@8",
+                        "title": "DNA Replication in Prokaryotes",
+                        "type": "page",
+                        "chapter_section": [
+                            14,
+                            4
+                        ]
+                    },
+                    {
+                        "id": "626",
+                        "uuid": "da5de7b1-f24a-4241-94ea-9740907f6bf9",
+                        "short_id": "2l3nsfJK",
+                        "cnx_id": "da5de7b1-f24a-4241-94ea-9740907f6bf9@5",
+                        "title": "DNA Replication in Eukaryotes",
+                        "type": "page",
+                        "chapter_section": [
+                            14,
+                            5
+                        ]
+                    },
+                    {
+                        "id": "627",
+                        "uuid": "30fcb950-c2a6-4dab-b62f-549c8ce3d7d1",
+                        "short_id": "MPy5UMKm",
+                        "cnx_id": "30fcb950-c2a6-4dab-b62f-549c8ce3d7d1@7",
+                        "title": "DNA Repair",
+                        "type": "page",
+                        "chapter_section": [
+                            14,
+                            6
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "83",
+                "title": "Genes and Proteins",
+                "type": "part",
+                "chapter_section": [
+                    15
+                ],
+                "children": [
+                    {
+                        "id": "628",
+                        "uuid": "ecc98c47-ea58-4a61-ba67-76ffa037a28c",
+                        "short_id": "7MmMR-pY",
+                        "cnx_id": "ecc98c47-ea58-4a61-ba67-76ffa037a28c@3",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            15,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "629",
+                        "uuid": "40489b84-9322-47be-96dc-4f80079cb868",
+                        "short_id": "QEibhJMi",
+                        "cnx_id": "40489b84-9322-47be-96dc-4f80079cb868@9",
+                        "title": "The Genetic Code",
+                        "type": "page",
+                        "chapter_section": [
+                            15,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "630",
+                        "uuid": "48fcec00-b861-4d5f-b1d3-1df6bbb80eb4",
+                        "short_id": "SPzsALhh",
+                        "cnx_id": "48fcec00-b861-4d5f-b1d3-1df6bbb80eb4@7",
+                        "title": "Prokaryotic Transcription",
+                        "type": "page",
+                        "chapter_section": [
+                            15,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "631",
+                        "uuid": "ea5ef43f-dbba-447e-b163-d9dc09b49990",
+                        "short_id": "6l70P9u6",
+                        "cnx_id": "ea5ef43f-dbba-447e-b163-d9dc09b49990@5",
+                        "title": "Eukaryotic Transcription",
+                        "type": "page",
+                        "chapter_section": [
+                            15,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "632",
+                        "uuid": "8c2adf0b-96af-411c-9151-e53d9ce362b4",
+                        "short_id": "jCrfC5av",
+                        "cnx_id": "8c2adf0b-96af-411c-9151-e53d9ce362b4@5",
+                        "title": "RNA Processing in Eukaryotes",
+                        "type": "page",
+                        "chapter_section": [
+                            15,
+                            4
+                        ]
+                    },
+                    {
+                        "id": "633",
+                        "uuid": "d6603498-9a4c-4056-ac84-061ad4f8cdf9",
+                        "short_id": "1mA0mJpM",
+                        "cnx_id": "d6603498-9a4c-4056-ac84-061ad4f8cdf9@7",
+                        "title": "Ribosomes and Protein Synthesis",
+                        "type": "page",
+                        "chapter_section": [
+                            15,
+                            5
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "84",
+                "title": "Gene Expression",
+                "type": "part",
+                "chapter_section": [
+                    16
+                ],
+                "children": [
+                    {
+                        "id": "634",
+                        "uuid": "9a0de34f-fc57-4734-841e-78b9b4c3b7c8",
+                        "short_id": "mg3jT_xX",
+                        "cnx_id": "9a0de34f-fc57-4734-841e-78b9b4c3b7c8@3",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            16,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "635",
+                        "uuid": "750579d3-02ef-4a96-8dee-bd9b11f7be6c",
+                        "short_id": "dQV50wLv",
+                        "cnx_id": "750579d3-02ef-4a96-8dee-bd9b11f7be6c@7",
+                        "title": "Regulation of Gene Expression",
+                        "type": "page",
+                        "chapter_section": [
+                            16,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "636",
+                        "uuid": "76b4a074-d223-4ad9-8d9e-4114c74f492c",
+                        "short_id": "drSgdNIj",
+                        "cnx_id": "76b4a074-d223-4ad9-8d9e-4114c74f492c@6",
+                        "title": "Prokaryotic Gene Regulation",
+                        "type": "page",
+                        "chapter_section": [
+                            16,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "637",
+                        "uuid": "112da94a-d347-4695-af35-9c97314f3e84",
+                        "short_id": "ES2pStNH",
+                        "cnx_id": "112da94a-d347-4695-af35-9c97314f3e84@6",
+                        "title": "Eukaryotic Epigenetic Gene Regulation",
+                        "type": "page",
+                        "chapter_section": [
+                            16,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "638",
+                        "uuid": "ed1cb7a1-1b1e-4426-9e90-4c7ee7cd1841",
+                        "short_id": "7Ry3oRse",
+                        "cnx_id": "ed1cb7a1-1b1e-4426-9e90-4c7ee7cd1841@6",
+                        "title": "Eukaryotic Transcription Gene Regulation",
+                        "type": "page",
+                        "chapter_section": [
+                            16,
+                            4
+                        ]
+                    },
+                    {
+                        "id": "639",
+                        "uuid": "c1fdc133-0975-40e0-8e97-d091e2960734",
+                        "short_id": "wf3BMwl1",
+                        "cnx_id": "c1fdc133-0975-40e0-8e97-d091e2960734@9",
+                        "title": "Eukaryotic Post-transcriptional Gene Regulation",
+                        "type": "page",
+                        "chapter_section": [
+                            16,
+                            5
+                        ]
+                    },
+                    {
+                        "id": "640",
+                        "uuid": "f193c8c5-f472-43df-82b9-225103e22fd6",
+                        "short_id": "8ZPIxfRy",
+                        "cnx_id": "f193c8c5-f472-43df-82b9-225103e22fd6@5",
+                        "title": "Eukaryotic Translational and Post-translational Gene Regulation",
+                        "type": "page",
+                        "chapter_section": [
+                            16,
+                            6
+                        ]
+                    },
+                    {
+                        "id": "641",
+                        "uuid": "21b659c0-10cc-43be-a34e-e41db8d149f3",
+                        "short_id": "IbZZwBDM",
+                        "cnx_id": "21b659c0-10cc-43be-a34e-e41db8d149f3@6",
+                        "title": "Cancer and Gene Regulation",
+                        "type": "page",
+                        "chapter_section": [
+                            16,
+                            7
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "85",
+                "title": "Biotechnology and Genomics",
+                "type": "part",
+                "chapter_section": [
+                    17
+                ],
+                "children": [
+                    {
+                        "id": "642",
+                        "uuid": "644feff4-c255-4063-811a-5104a2b430de",
+                        "short_id": "ZE_v9MJV",
+                        "cnx_id": "644feff4-c255-4063-811a-5104a2b430de@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            17,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "643",
+                        "uuid": "7b18387b-8014-4514-b0fe-2dbef5e9d532",
+                        "short_id": "exg4e4AU",
+                        "cnx_id": "7b18387b-8014-4514-b0fe-2dbef5e9d532@8",
+                        "title": "Biotechnology",
+                        "type": "page",
+                        "chapter_section": [
+                            17,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "644",
+                        "uuid": "42ae98d4-0d7a-4b6b-ba20-881b5e3be123",
+                        "short_id": "Qq6Y1A16",
+                        "cnx_id": "42ae98d4-0d7a-4b6b-ba20-881b5e3be123@5",
+                        "title": "Mapping Genomes",
+                        "type": "page",
+                        "chapter_section": [
+                            17,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "645",
+                        "uuid": "e65f38e1-9dfc-4da9-995c-f51db70d5abc",
+                        "short_id": "5l844Z38",
+                        "cnx_id": "e65f38e1-9dfc-4da9-995c-f51db70d5abc@7",
+                        "title": "Whole-Genome Sequencing",
+                        "type": "page",
+                        "chapter_section": [
+                            17,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "646",
+                        "uuid": "29cd41e7-21fb-499e-9929-353ee596dbbe",
+                        "short_id": "Kc1B5yH7",
+                        "cnx_id": "29cd41e7-21fb-499e-9929-353ee596dbbe@5",
+                        "title": "Applying Genomics",
+                        "type": "page",
+                        "chapter_section": [
+                            17,
+                            4
+                        ]
+                    },
+                    {
+                        "id": "647",
+                        "uuid": "74a63fe7-167c-4666-a28e-1f634d43c6c0",
+                        "short_id": "dKY_5xZ8",
+                        "cnx_id": "74a63fe7-167c-4666-a28e-1f634d43c6c0@5",
+                        "title": "Genomics and Proteomics",
+                        "type": "page",
+                        "chapter_section": [
+                            17,
+                            5
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "86",
+                "title": "Evolution and the Origin of Species",
+                "type": "part",
+                "chapter_section": [
+                    18
+                ],
+                "children": [
+                    {
+                        "id": "648",
+                        "uuid": "b2589c4b-ef62-48a1-982a-724236ff26b5",
+                        "short_id": "slicS-9i",
+                        "cnx_id": "b2589c4b-ef62-48a1-982a-724236ff26b5@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            18,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "649",
+                        "uuid": "9e805c7d-3865-4666-85ba-34c01660bf84",
+                        "short_id": "noBcfThl",
+                        "cnx_id": "9e805c7d-3865-4666-85ba-34c01660bf84@7",
+                        "title": "Understanding Evolution",
+                        "type": "page",
+                        "chapter_section": [
+                            18,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "650",
+                        "uuid": "977917b4-2c6e-4646-a100-636fa26717d4",
+                        "short_id": "l3kXtCxu",
+                        "cnx_id": "977917b4-2c6e-4646-a100-636fa26717d4@5",
+                        "title": "Formation of New Species",
+                        "type": "page",
+                        "chapter_section": [
+                            18,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "651",
+                        "uuid": "9d38a9c1-e81a-4cb7-8aa0-dae690bc4371",
+                        "short_id": "nTipwega",
+                        "cnx_id": "9d38a9c1-e81a-4cb7-8aa0-dae690bc4371@4",
+                        "title": "Reconnection and Rates of Speciation",
+                        "type": "page",
+                        "chapter_section": [
+                            18,
+                            3
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "87",
+                "title": "The Evolution of Populations",
+                "type": "part",
+                "chapter_section": [
+                    19
+                ],
+                "children": [
+                    {
+                        "id": "652",
+                        "uuid": "38ad6783-a1f0-472e-8d3c-28cf336f1d3c",
+                        "short_id": "OK1ng6Hw",
+                        "cnx_id": "38ad6783-a1f0-472e-8d3c-28cf336f1d3c@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            19,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "653",
+                        "uuid": "22277798-cbf5-46d5-8abd-9a50a79b2b54",
+                        "short_id": "Iid3mMv1",
+                        "cnx_id": "22277798-cbf5-46d5-8abd-9a50a79b2b54@5",
+                        "title": "Population Evolution",
+                        "type": "page",
+                        "chapter_section": [
+                            19,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "654",
+                        "uuid": "c8d952c6-3d04-4c9f-b5dd-3c5350180468",
+                        "short_id": "yNlSxj0E",
+                        "cnx_id": "c8d952c6-3d04-4c9f-b5dd-3c5350180468@7",
+                        "title": "Population Genetics",
+                        "type": "page",
+                        "chapter_section": [
+                            19,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "655",
+                        "uuid": "fa528285-084b-478c-adc2-da78c46915ca",
+                        "short_id": "-lKChQhL",
+                        "cnx_id": "fa528285-084b-478c-adc2-da78c46915ca@5",
+                        "title": "Adaptive Evolution",
+                        "type": "page",
+                        "chapter_section": [
+                            19,
+                            3
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "88",
+                "title": "Phylogenies and the History of Life",
+                "type": "part",
+                "chapter_section": [
+                    20
+                ],
+                "children": [
+                    {
+                        "id": "656",
+                        "uuid": "5e2228c5-a640-42d4-8fec-2e8b668708d7",
+                        "short_id": "XiIoxaZA",
+                        "cnx_id": "5e2228c5-a640-42d4-8fec-2e8b668708d7@3",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            20,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "657",
+                        "uuid": "67322fde-a447-4caa-94f6-2c072d3bda66",
+                        "short_id": "ZzIv3qRH",
+                        "cnx_id": "67322fde-a447-4caa-94f6-2c072d3bda66@7",
+                        "title": "Organizing Life on Earth",
+                        "type": "page",
+                        "chapter_section": [
+                            20,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "658",
+                        "uuid": "b4e739c3-be08-4216-9e15-288ac678bb30",
+                        "short_id": "tOc5w74I",
+                        "cnx_id": "b4e739c3-be08-4216-9e15-288ac678bb30@5",
+                        "title": "Determining Evolutionary Relationships",
+                        "type": "page",
+                        "chapter_section": [
+                            20,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "659",
+                        "uuid": "275b6240-caa4-4937-94bb-eaeb86b2f34b",
+                        "short_id": "J1tiQMqk",
+                        "cnx_id": "275b6240-caa4-4937-94bb-eaeb86b2f34b@5",
+                        "title": "Perspectives on the Phylogenetic Tree",
+                        "type": "page",
+                        "chapter_section": [
+                            20,
+                            3
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "89",
+                "title": "Viruses",
+                "type": "part",
+                "chapter_section": [
+                    21
+                ],
+                "children": [
+                    {
+                        "id": "660",
+                        "uuid": "ed0fb5c2-ce30-4a76-8d58-77fb7cf9c7ec",
+                        "short_id": "7Q-1ws4w",
+                        "cnx_id": "ed0fb5c2-ce30-4a76-8d58-77fb7cf9c7ec@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            21,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "661",
+                        "uuid": "78aa7335-3dd1-4dc4-bd12-f3dee2587553",
+                        "short_id": "eKpzNT3R",
+                        "cnx_id": "78aa7335-3dd1-4dc4-bd12-f3dee2587553@4",
+                        "title": "Viral Evolution, Morphology, and Classification",
+                        "type": "page",
+                        "chapter_section": [
+                            21,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "662",
+                        "uuid": "7cbd15ad-5bff-4678-a99f-85fd579e070c",
+                        "short_id": "fL0VrVv_",
+                        "cnx_id": "7cbd15ad-5bff-4678-a99f-85fd579e070c@7",
+                        "title": "Virus Infections and Hosts",
+                        "type": "page",
+                        "chapter_section": [
+                            21,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "663",
+                        "uuid": "e0a7df01-1e56-47b2-81a1-95701e64b277",
+                        "short_id": "4KffAR5W",
+                        "cnx_id": "e0a7df01-1e56-47b2-81a1-95701e64b277@3",
+                        "title": "Prevention and Treatment of Viral Infections",
+                        "type": "page",
+                        "chapter_section": [
+                            21,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "664",
+                        "uuid": "c7560d4a-bcd5-4739-83f4-3e44f44dc130",
+                        "short_id": "x1YNSrzV",
+                        "cnx_id": "c7560d4a-bcd5-4739-83f4-3e44f44dc130@3",
+                        "title": "Other Acellular Entities: Prions and Viroids",
+                        "type": "page",
+                        "chapter_section": [
+                            21,
+                            4
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "90",
+                "title": "Prokaryotes: Bacteria and Archaea",
+                "type": "part",
+                "chapter_section": [
+                    22
+                ],
+                "children": [
+                    {
+                        "id": "665",
+                        "uuid": "2f332c42-3765-45dd-92a3-d1dfbe7678c1",
+                        "short_id": "LzMsQjdl",
+                        "cnx_id": "2f332c42-3765-45dd-92a3-d1dfbe7678c1@4",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            22,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "666",
+                        "uuid": "b94b96b8-c5fa-4bed-a047-97c324ffdc9d",
+                        "short_id": "uUuWuMX6",
+                        "cnx_id": "b94b96b8-c5fa-4bed-a047-97c324ffdc9d@5",
+                        "title": "Prokaryotic Diversity",
+                        "type": "page",
+                        "chapter_section": [
+                            22,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "667",
+                        "uuid": "9e7c7540-5794-4c31-917d-fce7e50ea6dd",
+                        "short_id": "nnx1QFeU",
+                        "cnx_id": "9e7c7540-5794-4c31-917d-fce7e50ea6dd@12",
+                        "title": "Structure of Prokaryotes",
+                        "type": "page",
+                        "chapter_section": [
+                            22,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "668",
+                        "uuid": "47cb544e-2d71-4962-8d42-87f00bad4045",
+                        "short_id": "R8tUTi1x",
+                        "cnx_id": "47cb544e-2d71-4962-8d42-87f00bad4045@10",
+                        "title": "Prokaryotic Metabolism",
+                        "type": "page",
+                        "chapter_section": [
+                            22,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "669",
+                        "uuid": "0a866b1c-8f44-489a-ae8c-6e100ca0ee55",
+                        "short_id": "CoZrHI9E",
+                        "cnx_id": "0a866b1c-8f44-489a-ae8c-6e100ca0ee55@11",
+                        "title": "Bacterial Diseases in Humans",
+                        "type": "page",
+                        "chapter_section": [
+                            22,
+                            4
+                        ]
+                    },
+                    {
+                        "id": "670",
+                        "uuid": "c839b5e3-3aa6-4855-a254-0a493ff1ad17",
+                        "short_id": "yDm14zqm",
+                        "cnx_id": "c839b5e3-3aa6-4855-a254-0a493ff1ad17@8",
+                        "title": "Beneficial Prokaryotes",
+                        "type": "page",
+                        "chapter_section": [
+                            22,
+                            5
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "91",
+                "title": "Protists",
+                "type": "part",
+                "chapter_section": [
+                    23
+                ],
+                "children": [
+                    {
+                        "id": "671",
+                        "uuid": "2d9e50a6-fddc-4a36-8b85-609879ff3c32",
+                        "short_id": "LZ5Qpv3c",
+                        "cnx_id": "2d9e50a6-fddc-4a36-8b85-609879ff3c32@3",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            23,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "672",
+                        "uuid": "a0746ee5-d512-4fe7-91ba-91649630ca0c",
+                        "short_id": "oHRu5dUS",
+                        "cnx_id": "a0746ee5-d512-4fe7-91ba-91649630ca0c@5",
+                        "title": "Eukaryotic Origins",
+                        "type": "page",
+                        "chapter_section": [
+                            23,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "673",
+                        "uuid": "1e2d9bb8-0150-48c6-909e-1501c626c11b",
+                        "short_id": "Hi2buAFQ",
+                        "cnx_id": "1e2d9bb8-0150-48c6-909e-1501c626c11b@5",
+                        "title": "Characteristics of Protists",
+                        "type": "page",
+                        "chapter_section": [
+                            23,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "674",
+                        "uuid": "1e968d8c-f2be-41e8-9610-3bff97d4d373",
+                        "short_id": "HpaNjPK-",
+                        "cnx_id": "1e968d8c-f2be-41e8-9610-3bff97d4d373@13",
+                        "title": "Groups of Protists",
+                        "type": "page",
+                        "chapter_section": [
+                            23,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "675",
+                        "uuid": "d668ad34-2c26-45db-9fc7-95e3cbfc0149",
+                        "short_id": "1mitNCwm",
+                        "cnx_id": "d668ad34-2c26-45db-9fc7-95e3cbfc0149@5",
+                        "title": "Ecology of Protists",
+                        "type": "page",
+                        "chapter_section": [
+                            23,
+                            4
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "92",
+                "title": "Fungi",
+                "type": "part",
+                "chapter_section": [
+                    24
+                ],
+                "children": [
+                    {
+                        "id": "676",
+                        "uuid": "ed9fa295-e334-4650-b81d-0ede564fb71f",
+                        "short_id": "7Z-ileM0",
+                        "cnx_id": "ed9fa295-e334-4650-b81d-0ede564fb71f@7",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            24,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "677",
+                        "uuid": "fa5f3021-e491-4c4d-bd3b-9b99bc75b3c9",
+                        "short_id": "-l8wIeSR",
+                        "cnx_id": "fa5f3021-e491-4c4d-bd3b-9b99bc75b3c9@9",
+                        "title": "Characteristics of Fungi",
+                        "type": "page",
+                        "chapter_section": [
+                            24,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "678",
+                        "uuid": "0137fd51-7ed5-44de-b9a8-41c9311dcd3f",
+                        "short_id": "ATf9UX7V",
+                        "cnx_id": "0137fd51-7ed5-44de-b9a8-41c9311dcd3f@10",
+                        "title": "Classifications of Fungi",
+                        "type": "page",
+                        "chapter_section": [
+                            24,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "679",
+                        "uuid": "54faf509-a2ed-414d-8885-02445499420e",
+                        "short_id": "VPr1CaLt",
+                        "cnx_id": "54faf509-a2ed-414d-8885-02445499420e@5",
+                        "title": "Ecology of Fungi",
+                        "type": "page",
+                        "chapter_section": [
+                            24,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "680",
+                        "uuid": "b81e6e0d-428f-4e3e-933f-c5e85ff4cad0",
+                        "short_id": "uB5uDUKP",
+                        "cnx_id": "b81e6e0d-428f-4e3e-933f-c5e85ff4cad0@7",
+                        "title": "Fungal Parasites and Pathogens",
+                        "type": "page",
+                        "chapter_section": [
+                            24,
+                            4
+                        ]
+                    },
+                    {
+                        "id": "681",
+                        "uuid": "3f0c5f6b-e799-46d8-85c2-b416e19bc880",
+                        "short_id": "Pwxfa-eZ",
+                        "cnx_id": "3f0c5f6b-e799-46d8-85c2-b416e19bc880@5",
+                        "title": "Importance of Fungi in Human Life",
+                        "type": "page",
+                        "chapter_section": [
+                            24,
+                            5
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "93",
+                "title": "Seedless Plants",
+                "type": "part",
+                "chapter_section": [
+                    25
+                ],
+                "children": [
+                    {
+                        "id": "682",
+                        "uuid": "204fed82-9cb3-41b3-b278-b117d2a7c1aa",
+                        "short_id": "IE_tgpyz",
+                        "cnx_id": "204fed82-9cb3-41b3-b278-b117d2a7c1aa@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            25,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "683",
+                        "uuid": "b12983b8-a6da-46f6-9873-7f9d5776b9ec",
+                        "short_id": "sSmDuKba",
+                        "cnx_id": "b12983b8-a6da-46f6-9873-7f9d5776b9ec@8",
+                        "title": "Early Plant Life",
+                        "type": "page",
+                        "chapter_section": [
+                            25,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "684",
+                        "uuid": "5ff37d64-d2f7-44e3-8444-f0e63d5979cf",
+                        "short_id": "X_N9ZNL3",
+                        "cnx_id": "5ff37d64-d2f7-44e3-8444-f0e63d5979cf@4",
+                        "title": "Green Algae: Precursors of Land Plants",
+                        "type": "page",
+                        "chapter_section": [
+                            25,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "685",
+                        "uuid": "1c7d3088-26b5-430a-a41d-1232a353e595",
+                        "short_id": "HH0wiCa1",
+                        "cnx_id": "1c7d3088-26b5-430a-a41d-1232a353e595@7",
+                        "title": "Bryophytes",
+                        "type": "page",
+                        "chapter_section": [
+                            25,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "686",
+                        "uuid": "e06bde91-e72c-46d4-85e4-08096675957e",
+                        "short_id": "4Gvekecs",
+                        "cnx_id": "e06bde91-e72c-46d4-85e4-08096675957e@5",
+                        "title": "Seedless Vascular Plants",
+                        "type": "page",
+                        "chapter_section": [
+                            25,
+                            4
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "94",
+                "title": "Seed Plants",
+                "type": "part",
+                "chapter_section": [
+                    26
+                ],
+                "children": [
+                    {
+                        "id": "687",
+                        "uuid": "07323435-7692-4d81-a44d-4c4250c37c8e",
+                        "short_id": "BzI0NXaS",
+                        "cnx_id": "07323435-7692-4d81-a44d-4c4250c37c8e@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            26,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "688",
+                        "uuid": "1c45a66a-7a23-48ef-9948-8ae39ee01eb4",
+                        "short_id": "HEWmanoj",
+                        "cnx_id": "1c45a66a-7a23-48ef-9948-8ae39ee01eb4@6",
+                        "title": "Evolution of Seed Plants",
+                        "type": "page",
+                        "chapter_section": [
+                            26,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "689",
+                        "uuid": "b4bc502e-4b01-4832-be25-90b16239f1dd",
+                        "short_id": "tLxQLksB",
+                        "cnx_id": "b4bc502e-4b01-4832-be25-90b16239f1dd@5",
+                        "title": "Gymnosperms",
+                        "type": "page",
+                        "chapter_section": [
+                            26,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "690",
+                        "uuid": "b3298ec7-b55c-4ce7-89fd-1d4fad39630f",
+                        "short_id": "symOx7Vc",
+                        "cnx_id": "b3298ec7-b55c-4ce7-89fd-1d4fad39630f@4",
+                        "title": "Angiosperms",
+                        "type": "page",
+                        "chapter_section": [
+                            26,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "691",
+                        "uuid": "b3e7f392-d140-4ab4-b49b-d12c0e89c1a1",
+                        "short_id": "s-fzktFA",
+                        "cnx_id": "b3e7f392-d140-4ab4-b49b-d12c0e89c1a1@4",
+                        "title": "The Role of Seed Plants",
+                        "type": "page",
+                        "chapter_section": [
+                            26,
+                            4
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "95",
+                "title": "Introduction to Animal Diversity",
+                "type": "part",
+                "chapter_section": [
+                    27
+                ],
+                "children": [
+                    {
+                        "id": "692",
+                        "uuid": "582b3b99-c003-4538-8965-2375382204ee",
+                        "short_id": "WCs7mcAD",
+                        "cnx_id": "582b3b99-c003-4538-8965-2375382204ee@3",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            27,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "693",
+                        "uuid": "d09cbd3e-a293-4aab-9ae6-e1a46e9e1da9",
+                        "short_id": "0Jy9PqKT",
+                        "cnx_id": "d09cbd3e-a293-4aab-9ae6-e1a46e9e1da9@8",
+                        "title": "Features of the Animal Kingdom",
+                        "type": "page",
+                        "chapter_section": [
+                            27,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "694",
+                        "uuid": "7289a2d7-803c-49ef-905a-01324d155936",
+                        "short_id": "comi14A8",
+                        "cnx_id": "7289a2d7-803c-49ef-905a-01324d155936@7",
+                        "title": "Features Used to Classify Animals",
+                        "type": "page",
+                        "chapter_section": [
+                            27,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "695",
+                        "uuid": "0b4f514a-f4d4-455a-8814-97fa5df05345",
+                        "short_id": "C09RSvTU",
+                        "cnx_id": "0b4f514a-f4d4-455a-8814-97fa5df05345@5",
+                        "title": "Animal Phylogeny",
+                        "type": "page",
+                        "chapter_section": [
+                            27,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "696",
+                        "uuid": "0a0b301a-b084-4d30-82d5-430c4d266f35",
+                        "short_id": "CgswGrCE",
+                        "cnx_id": "0a0b301a-b084-4d30-82d5-430c4d266f35@7",
+                        "title": "The Evolutionary History of the Animal Kingdom",
+                        "type": "page",
+                        "chapter_section": [
+                            27,
+                            4
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "96",
+                "title": "Invertebrates",
+                "type": "part",
+                "chapter_section": [
+                    28
+                ],
+                "children": [
+                    {
+                        "id": "697",
+                        "uuid": "11247285-083e-4281-ba13-20a70d0377d8",
+                        "short_id": "ESRyhQg-",
+                        "cnx_id": "11247285-083e-4281-ba13-20a70d0377d8@3",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            28,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "698",
+                        "uuid": "bb72c222-96b6-4e61-828b-0a667ec1ef22",
+                        "short_id": "u3LCIpa2",
+                        "cnx_id": "bb72c222-96b6-4e61-828b-0a667ec1ef22@8",
+                        "title": "Phylum Porifera",
+                        "type": "page",
+                        "chapter_section": [
+                            28,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "699",
+                        "uuid": "a7777b21-e8d8-4e7f-a40f-5d3fdf86b904",
+                        "short_id": "p3d7IejY",
+                        "cnx_id": "a7777b21-e8d8-4e7f-a40f-5d3fdf86b904@6",
+                        "title": "Phylum Cnidaria",
+                        "type": "page",
+                        "chapter_section": [
+                            28,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "700",
+                        "uuid": "d1219426-4d63-40e3-83b4-dc367df7b1fa",
+                        "short_id": "0SGUJk1j",
+                        "cnx_id": "d1219426-4d63-40e3-83b4-dc367df7b1fa@9",
+                        "title": "Superphylum Lophotrochozoa",
+                        "type": "page",
+                        "chapter_section": [
+                            28,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "701",
+                        "uuid": "39403bd7-2528-49f8-b59d-c9ac37663e15",
+                        "short_id": "OUA71yUo",
+                        "cnx_id": "39403bd7-2528-49f8-b59d-c9ac37663e15@7",
+                        "title": "Superphylum Ecdysozoa",
+                        "type": "page",
+                        "chapter_section": [
+                            28,
+                            4
+                        ]
+                    },
+                    {
+                        "id": "702",
+                        "uuid": "88c2f090-b457-4f4e-9b9a-bce5949481e2",
+                        "short_id": "iMLwkLRX",
+                        "cnx_id": "88c2f090-b457-4f4e-9b9a-bce5949481e2@5",
+                        "title": "Superphylum Deuterostomia",
+                        "type": "page",
+                        "chapter_section": [
+                            28,
+                            5
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "97",
+                "title": "Vertebrates",
+                "type": "part",
+                "chapter_section": [
+                    29
+                ],
+                "children": [
+                    {
+                        "id": "703",
+                        "uuid": "ce4b10f1-479c-47df-8da1-874637759176",
+                        "short_id": "zksQ8Uec",
+                        "cnx_id": "ce4b10f1-479c-47df-8da1-874637759176@3",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            29,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "704",
+                        "uuid": "541db286-b021-462f-84f6-0d8540de9314",
+                        "short_id": "VB2yhrAh",
+                        "cnx_id": "541db286-b021-462f-84f6-0d8540de9314@8",
+                        "title": "Chordates",
+                        "type": "page",
+                        "chapter_section": [
+                            29,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "705",
+                        "uuid": "856f19b8-cb2d-40b4-b9f7-b466c13045cd",
+                        "short_id": "hW8ZuMst",
+                        "cnx_id": "856f19b8-cb2d-40b4-b9f7-b466c13045cd@3",
+                        "title": "Fishes",
+                        "type": "page",
+                        "chapter_section": [
+                            29,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "706",
+                        "uuid": "4c8391c9-f95a-4309-857a-840275fe776b",
+                        "short_id": "TIORyfla",
+                        "cnx_id": "4c8391c9-f95a-4309-857a-840275fe776b@5",
+                        "title": "Amphibians",
+                        "type": "page",
+                        "chapter_section": [
+                            29,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "707",
+                        "uuid": "7c002ad9-7046-4631-ae85-192159967cab",
+                        "short_id": "fAAq2XBG",
+                        "cnx_id": "7c002ad9-7046-4631-ae85-192159967cab@4",
+                        "title": "Reptiles",
+                        "type": "page",
+                        "chapter_section": [
+                            29,
+                            4
+                        ]
+                    },
+                    {
+                        "id": "708",
+                        "uuid": "16822841-8449-434a-a45f-9e1633044c32",
+                        "short_id": "FoIoQYRJ",
+                        "cnx_id": "16822841-8449-434a-a45f-9e1633044c32@4",
+                        "title": "Birds",
+                        "type": "page",
+                        "chapter_section": [
+                            29,
+                            5
+                        ]
+                    },
+                    {
+                        "id": "709",
+                        "uuid": "a7a48cd6-4931-4e0c-8499-9bb42411f0c5",
+                        "short_id": "p6SM1kkx",
+                        "cnx_id": "a7a48cd6-4931-4e0c-8499-9bb42411f0c5@5",
+                        "title": "Mammals",
+                        "type": "page",
+                        "chapter_section": [
+                            29,
+                            6
+                        ]
+                    },
+                    {
+                        "id": "710",
+                        "uuid": "27ad04dc-d4c0-4fe1-af9c-cb65128de719",
+                        "short_id": "J60E3NTA",
+                        "cnx_id": "27ad04dc-d4c0-4fe1-af9c-cb65128de719@8",
+                        "title": "The Evolution of Primates",
+                        "type": "page",
+                        "chapter_section": [
+                            29,
+                            7
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "98",
+                "title": "Plant Form and Physiology",
+                "type": "part",
+                "chapter_section": [
+                    30
+                ],
+                "children": [
+                    {
+                        "id": "711",
+                        "uuid": "8cfff5fa-6a5f-491c-a768-44929964104d",
+                        "short_id": "jP_1-mpf",
+                        "cnx_id": "8cfff5fa-6a5f-491c-a768-44929964104d@3",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            30,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "712",
+                        "uuid": "cd0fea74-368e-4015-ae27-e41b3d893b36",
+                        "short_id": "zQ_qdDaO",
+                        "cnx_id": "cd0fea74-368e-4015-ae27-e41b3d893b36@7",
+                        "title": "The Plant Body",
+                        "type": "page",
+                        "chapter_section": [
+                            30,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "713",
+                        "uuid": "135eeaa9-79a4-4d8d-af7d-a0b6cf9e22d6",
+                        "short_id": "E17qqXmk",
+                        "cnx_id": "135eeaa9-79a4-4d8d-af7d-a0b6cf9e22d6@5",
+                        "title": "Stems",
+                        "type": "page",
+                        "chapter_section": [
+                            30,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "714",
+                        "uuid": "addad899-ddc7-489f-918a-30ff0b88911b",
+                        "short_id": "rdrYmd3H",
+                        "cnx_id": "addad899-ddc7-489f-918a-30ff0b88911b@4",
+                        "title": "Roots",
+                        "type": "page",
+                        "chapter_section": [
+                            30,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "715",
+                        "uuid": "b9423ada-def0-4c06-98b2-5b59c5d07596",
+                        "short_id": "uUI62t7w",
+                        "cnx_id": "b9423ada-def0-4c06-98b2-5b59c5d07596@9",
+                        "title": "Leaves",
+                        "type": "page",
+                        "chapter_section": [
+                            30,
+                            4
+                        ]
+                    },
+                    {
+                        "id": "716",
+                        "uuid": "e5aabc6f-71d9-40d5-99f0-0fb2d8d47317",
+                        "short_id": "5aq8b3HZ",
+                        "cnx_id": "e5aabc6f-71d9-40d5-99f0-0fb2d8d47317@5",
+                        "title": "Transport of Water and Solutes in Plants",
+                        "type": "page",
+                        "chapter_section": [
+                            30,
+                            5
+                        ]
+                    },
+                    {
+                        "id": "717",
+                        "uuid": "c63b7f28-16a2-4602-b996-cdc7eb78219b",
+                        "short_id": "xjt_KBai",
+                        "cnx_id": "c63b7f28-16a2-4602-b996-cdc7eb78219b@6",
+                        "title": "Plant Sensory Systems and Responses",
+                        "type": "page",
+                        "chapter_section": [
+                            30,
+                            6
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "99",
+                "title": "Soil and Plant Nutrition",
+                "type": "part",
+                "chapter_section": [
+                    31
+                ],
+                "children": [
+                    {
+                        "id": "718",
+                        "uuid": "349efd3e-f7ce-43cd-8b7b-98424310a985",
+                        "short_id": "NJ79PvfO",
+                        "cnx_id": "349efd3e-f7ce-43cd-8b7b-98424310a985@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            31,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "719",
+                        "uuid": "57874cae-4b45-4edf-af71-f5df36ec4eb9",
+                        "short_id": "V4dMrktF",
+                        "cnx_id": "57874cae-4b45-4edf-af71-f5df36ec4eb9@8",
+                        "title": "Nutritional Requirements of Plants",
+                        "type": "page",
+                        "chapter_section": [
+                            31,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "720",
+                        "uuid": "3ceada67-61b1-478f-9aaf-604f5f34d116",
+                        "short_id": "POraZ2Gx",
+                        "cnx_id": "3ceada67-61b1-478f-9aaf-604f5f34d116@5",
+                        "title": "The Soil",
+                        "type": "page",
+                        "chapter_section": [
+                            31,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "721",
+                        "uuid": "bb913977-c624-45ce-99f2-425cb520b807",
+                        "short_id": "u5E5d8Yk",
+                        "cnx_id": "bb913977-c624-45ce-99f2-425cb520b807@6",
+                        "title": "Nutritional Adaptations of Plants",
+                        "type": "page",
+                        "chapter_section": [
+                            31,
+                            3
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "100",
+                "title": "Plant Reproduction",
+                "type": "part",
+                "chapter_section": [
+                    32
+                ],
+                "children": [
+                    {
+                        "id": "722",
+                        "uuid": "baffdcc7-0c68-416f-996e-0aa99cf96a5d",
+                        "short_id": "uv_cxwxo",
+                        "cnx_id": "baffdcc7-0c68-416f-996e-0aa99cf96a5d@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            32,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "723",
+                        "uuid": "f4f12383-bcdd-4ea4-a192-96a8f307e07f",
+                        "short_id": "9PEjg7zd",
+                        "cnx_id": "f4f12383-bcdd-4ea4-a192-96a8f307e07f@10",
+                        "title": "Reproductive Development and Structure",
+                        "type": "page",
+                        "chapter_section": [
+                            32,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "724",
+                        "uuid": "4cb8905e-544e-4dc7-98ed-0889d3a4981a",
+                        "short_id": "TLiQXlRO",
+                        "cnx_id": "4cb8905e-544e-4dc7-98ed-0889d3a4981a@5",
+                        "title": "Pollination and Fertilization",
+                        "type": "page",
+                        "chapter_section": [
+                            32,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "725",
+                        "uuid": "32be2767-4952-4dba-a93f-5fb6593e3fd6",
+                        "short_id": "Mr4nZ0lS",
+                        "cnx_id": "32be2767-4952-4dba-a93f-5fb6593e3fd6@5",
+                        "title": "Asexual Reproduction",
+                        "type": "page",
+                        "chapter_section": [
+                            32,
+                            3
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "101",
+                "title": "The Animal Body: Basic Form and Function",
+                "type": "part",
+                "chapter_section": [
+                    33
+                ],
+                "children": [
+                    {
+                        "id": "726",
+                        "uuid": "60a1d14d-c74f-473c-a94b-029b4a704a35",
+                        "short_id": "YKHRTcdP",
+                        "cnx_id": "60a1d14d-c74f-473c-a94b-029b4a704a35@3",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            33,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "727",
+                        "uuid": "44503b54-9a4c-40c4-ae59-369526d2f9ef",
+                        "short_id": "RFA7VJpM",
+                        "cnx_id": "44503b54-9a4c-40c4-ae59-369526d2f9ef@8",
+                        "title": "Animal Form and Function",
+                        "type": "page",
+                        "chapter_section": [
+                            33,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "728",
+                        "uuid": "f8b7e159-1112-46ea-be19-5f492747a7b5",
+                        "short_id": "-LfhWRES",
+                        "cnx_id": "f8b7e159-1112-46ea-be19-5f492747a7b5@5",
+                        "title": "Animal Primary Tissues",
+                        "type": "page",
+                        "chapter_section": [
+                            33,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "729",
+                        "uuid": "04fdb865-17a1-43d8-bb33-36f821ddd119",
+                        "short_id": "BP24ZReh",
+                        "cnx_id": "04fdb865-17a1-43d8-bb33-36f821ddd119@9",
+                        "title": "Homeostasis",
+                        "type": "page",
+                        "chapter_section": [
+                            33,
+                            3
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "102",
+                "title": "Animal Nutrition and the Digestive System",
+                "type": "part",
+                "chapter_section": [
+                    34
+                ],
+                "children": [
+                    {
+                        "id": "730",
+                        "uuid": "41fb680f-b781-4e9a-a393-76ca49c55ff9",
+                        "short_id": "QftoD7eB",
+                        "cnx_id": "41fb680f-b781-4e9a-a393-76ca49c55ff9@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            34,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "731",
+                        "uuid": "39eb2d7f-4604-401d-a5ed-ca159c04cc80",
+                        "short_id": "Oestf0YE",
+                        "cnx_id": "39eb2d7f-4604-401d-a5ed-ca159c04cc80@6",
+                        "title": "Digestive Systems",
+                        "type": "page",
+                        "chapter_section": [
+                            34,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "732",
+                        "uuid": "717906af-34be-4e1d-917d-e0e24bfc0901",
+                        "short_id": "cXkGrzS-",
+                        "cnx_id": "717906af-34be-4e1d-917d-e0e24bfc0901@5",
+                        "title": "Nutrition and Energy Production",
+                        "type": "page",
+                        "chapter_section": [
+                            34,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "733",
+                        "uuid": "f4dc9545-9398-417d-bb23-249fc9892cac",
+                        "short_id": "9NyVRZOY",
+                        "cnx_id": "f4dc9545-9398-417d-bb23-249fc9892cac@4",
+                        "title": "Digestive System Processes",
+                        "type": "page",
+                        "chapter_section": [
+                            34,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "734",
+                        "uuid": "d8bc0f62-79c7-4777-bf95-3d94eeca7a1a",
+                        "short_id": "2LwPYnnH",
+                        "cnx_id": "d8bc0f62-79c7-4777-bf95-3d94eeca7a1a@5",
+                        "title": "Digestive System Regulation",
+                        "type": "page",
+                        "chapter_section": [
+                            34,
+                            4
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "103",
+                "title": "The Nervous System",
+                "type": "part",
+                "chapter_section": [
+                    35
+                ],
+                "children": [
+                    {
+                        "id": "735",
+                        "uuid": "6dfe867e-6b08-47f3-a5f1-6bce3259ecb4",
+                        "short_id": "bf6GfmsI",
+                        "cnx_id": "6dfe867e-6b08-47f3-a5f1-6bce3259ecb4@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            35,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "736",
+                        "uuid": "73d8f8a7-46a3-4a3a-9afa-970f2f03deb3",
+                        "short_id": "c9j4p0aj",
+                        "cnx_id": "73d8f8a7-46a3-4a3a-9afa-970f2f03deb3@4",
+                        "title": "Neurons and Glial Cells",
+                        "type": "page",
+                        "chapter_section": [
+                            35,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "737",
+                        "uuid": "72cfcf6f-e196-4e0b-9bcf-45f4853993e4",
+                        "short_id": "cs_Pb-GW",
+                        "cnx_id": "72cfcf6f-e196-4e0b-9bcf-45f4853993e4@8",
+                        "title": "How Neurons Communicate",
+                        "type": "page",
+                        "chapter_section": [
+                            35,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "738",
+                        "uuid": "24e8609c-16a7-4dd5-b3da-e38aaeef7ed5",
+                        "short_id": "JOhgnBan",
+                        "cnx_id": "24e8609c-16a7-4dd5-b3da-e38aaeef7ed5@4",
+                        "title": "The Central Nervous System",
+                        "type": "page",
+                        "chapter_section": [
+                            35,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "739",
+                        "uuid": "56a8c532-664f-4ad7-8edf-2305d723be10",
+                        "short_id": "VqjFMmZP",
+                        "cnx_id": "56a8c532-664f-4ad7-8edf-2305d723be10@3",
+                        "title": "The Peripheral Nervous System",
+                        "type": "page",
+                        "chapter_section": [
+                            35,
+                            4
+                        ]
+                    },
+                    {
+                        "id": "740",
+                        "uuid": "c1f66449-457f-401a-bac3-12c65da2779a",
+                        "short_id": "wfZkSUV_",
+                        "cnx_id": "c1f66449-457f-401a-bac3-12c65da2779a@5",
+                        "title": "Nervous System Disorders",
+                        "type": "page",
+                        "chapter_section": [
+                            35,
+                            5
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "104",
+                "title": "Sensory Systems",
+                "type": "part",
+                "chapter_section": [
+                    36
+                ],
+                "children": [
+                    {
+                        "id": "741",
+                        "uuid": "bab1b85e-198a-4bb6-b801-c8d543f17f6e",
+                        "short_id": "urG4XhmK",
+                        "cnx_id": "bab1b85e-198a-4bb6-b801-c8d543f17f6e@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            36,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "742",
+                        "uuid": "e9f97e0d-10ae-43ec-9062-5f0079dfd57f",
+                        "short_id": "6fl-DRCu",
+                        "cnx_id": "e9f97e0d-10ae-43ec-9062-5f0079dfd57f@6",
+                        "title": "Sensory Processes",
+                        "type": "page",
+                        "chapter_section": [
+                            36,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "743",
+                        "uuid": "b32f61fc-5fab-4b07-bcc8-e455aa4a903d",
+                        "short_id": "sy9h_F-r",
+                        "cnx_id": "b32f61fc-5fab-4b07-bcc8-e455aa4a903d@7",
+                        "title": "Somatosensation",
+                        "type": "page",
+                        "chapter_section": [
+                            36,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "744",
+                        "uuid": "e6739dc0-2ea2-41ef-af28-61c53e04dbb0",
+                        "short_id": "5nOdwC6i",
+                        "cnx_id": "e6739dc0-2ea2-41ef-af28-61c53e04dbb0@5",
+                        "title": "Taste and Smell",
+                        "type": "page",
+                        "chapter_section": [
+                            36,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "745",
+                        "uuid": "45f94050-f136-4699-9779-b2953173b7bf",
+                        "short_id": "RflAUPE2",
+                        "cnx_id": "45f94050-f136-4699-9779-b2953173b7bf@6",
+                        "title": "Hearing and Vestibular Sensation",
+                        "type": "page",
+                        "chapter_section": [
+                            36,
+                            4
+                        ]
+                    },
+                    {
+                        "id": "746",
+                        "uuid": "7efc0079-6e04-4ea9-a39c-6551121b9dd1",
+                        "short_id": "fvwAeW4E",
+                        "cnx_id": "7efc0079-6e04-4ea9-a39c-6551121b9dd1@6",
+                        "title": "Vision",
+                        "type": "page",
+                        "chapter_section": [
+                            36,
+                            5
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "105",
+                "title": "The Endocrine System",
+                "type": "part",
+                "chapter_section": [
+                    37
+                ],
+                "children": [
+                    {
+                        "id": "747",
+                        "uuid": "44398b9a-c25b-4e06-9352-feeac13dfad4",
+                        "short_id": "RDmLmsJb",
+                        "cnx_id": "44398b9a-c25b-4e06-9352-feeac13dfad4@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            37,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "748",
+                        "uuid": "9970356c-0383-482a-a13e-9e4fdbfc8917",
+                        "short_id": "mXA1bAOD",
+                        "cnx_id": "9970356c-0383-482a-a13e-9e4fdbfc8917@6",
+                        "title": "Types of Hormones",
+                        "type": "page",
+                        "chapter_section": [
+                            37,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "749",
+                        "uuid": "cbe4c6ff-348e-4383-ae66-f6fa19823b6c",
+                        "short_id": "y-TG_zSO",
+                        "cnx_id": "cbe4c6ff-348e-4383-ae66-f6fa19823b6c@8",
+                        "title": "How Hormones Work",
+                        "type": "page",
+                        "chapter_section": [
+                            37,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "750",
+                        "uuid": "a0d22048-c0b6-4b2b-abf1-1a3e61ada97d",
+                        "short_id": "oNIgSMC2",
+                        "cnx_id": "a0d22048-c0b6-4b2b-abf1-1a3e61ada97d@11",
+                        "title": "Regulation of Body Processes",
+                        "type": "page",
+                        "chapter_section": [
+                            37,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "751",
+                        "uuid": "0e09d3f8-790c-42fe-acb3-a7020c1eebe4",
+                        "short_id": "DgnT-HkM",
+                        "cnx_id": "0e09d3f8-790c-42fe-acb3-a7020c1eebe4@4",
+                        "title": "Regulation of Hormone Production",
+                        "type": "page",
+                        "chapter_section": [
+                            37,
+                            4
+                        ]
+                    },
+                    {
+                        "id": "752",
+                        "uuid": "a708d3cb-ec37-4cbb-a945-e0b5fb0be2fa",
+                        "short_id": "pwjTy-w3",
+                        "cnx_id": "a708d3cb-ec37-4cbb-a945-e0b5fb0be2fa@6",
+                        "title": "Endocrine Glands",
+                        "type": "page",
+                        "chapter_section": [
+                            37,
+                            5
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "106",
+                "title": "The Musculoskeletal System",
+                "type": "part",
+                "chapter_section": [
+                    38
+                ],
+                "children": [
+                    {
+                        "id": "753",
+                        "uuid": "58ed7aec-ef1b-4c9c-bb2c-8ef972188acb",
+                        "short_id": "WO167O8b",
+                        "cnx_id": "58ed7aec-ef1b-4c9c-bb2c-8ef972188acb@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            38,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "754",
+                        "uuid": "b30d4eb7-6be4-4db2-b8c9-20256add53f5",
+                        "short_id": "sw1Ot2vk",
+                        "cnx_id": "b30d4eb7-6be4-4db2-b8c9-20256add53f5@4",
+                        "title": "Types of Skeletal Systems",
+                        "type": "page",
+                        "chapter_section": [
+                            38,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "755",
+                        "uuid": "aa6ac9bb-ae22-47f2-8dbf-608fc90dd3b4",
+                        "short_id": "qmrJu64i",
+                        "cnx_id": "aa6ac9bb-ae22-47f2-8dbf-608fc90dd3b4@4",
+                        "title": "Bone",
+                        "type": "page",
+                        "chapter_section": [
+                            38,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "756",
+                        "uuid": "f3a5c924-6b1b-4d1b-b506-906b00da0be5",
+                        "short_id": "86XJJGsb",
+                        "cnx_id": "f3a5c924-6b1b-4d1b-b506-906b00da0be5@5",
+                        "title": "Joints and Skeletal Movement",
+                        "type": "page",
+                        "chapter_section": [
+                            38,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "757",
+                        "uuid": "b7c9b702-b46c-435e-bea3-eee85ed940b4",
+                        "short_id": "t8m3ArRs",
+                        "cnx_id": "b7c9b702-b46c-435e-bea3-eee85ed940b4@6",
+                        "title": "Muscle Contraction and Locomotion",
+                        "type": "page",
+                        "chapter_section": [
+                            38,
+                            4
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "107",
+                "title": "The Respiratory System",
+                "type": "part",
+                "chapter_section": [
+                    39
+                ],
+                "children": [
+                    {
+                        "id": "758",
+                        "uuid": "11c269b9-1f41-4e45-b6c6-b8dc7275b5f7",
+                        "short_id": "EcJpuR9B",
+                        "cnx_id": "11c269b9-1f41-4e45-b6c6-b8dc7275b5f7@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            39,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "759",
+                        "uuid": "df9f91d1-b8aa-45f9-9d13-50913bf95614",
+                        "short_id": "35-R0biq",
+                        "cnx_id": "df9f91d1-b8aa-45f9-9d13-50913bf95614@11",
+                        "title": "Systems of Gas Exchange",
+                        "type": "page",
+                        "chapter_section": [
+                            39,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "760",
+                        "uuid": "079215a1-b957-465f-bb1e-2393dcfe8915",
+                        "short_id": "B5IVoblX",
+                        "cnx_id": "079215a1-b957-465f-bb1e-2393dcfe8915@6",
+                        "title": "Gas Exchange across Respiratory Surfaces",
+                        "type": "page",
+                        "chapter_section": [
+                            39,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "761",
+                        "uuid": "1388be61-0219-4b08-b6d6-b3c7396b5fa3",
+                        "short_id": "E4i-YQIZ",
+                        "cnx_id": "1388be61-0219-4b08-b6d6-b3c7396b5fa3@7",
+                        "title": "Breathing",
+                        "type": "page",
+                        "chapter_section": [
+                            39,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "762",
+                        "uuid": "b241186c-4978-4904-ad7b-43e06974d549",
+                        "short_id": "skEYbEl4",
+                        "cnx_id": "b241186c-4978-4904-ad7b-43e06974d549@4",
+                        "title": "Transport of Gases in Human Bodily Fluids",
+                        "type": "page",
+                        "chapter_section": [
+                            39,
+                            4
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "108",
+                "title": "The Circulatory System",
+                "type": "part",
+                "chapter_section": [
+                    40
+                ],
+                "children": [
+                    {
+                        "id": "763",
+                        "uuid": "69577d07-ed4b-46ca-8f63-f99d08d0f8da",
+                        "short_id": "aVd9B-1L",
+                        "cnx_id": "69577d07-ed4b-46ca-8f63-f99d08d0f8da@3",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            40,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "764",
+                        "uuid": "599f6b13-33a3-4c76-908d-03c0f998d143",
+                        "short_id": "WZ9rEzOj",
+                        "cnx_id": "599f6b13-33a3-4c76-908d-03c0f998d143@4",
+                        "title": "Overview of the Circulatory System",
+                        "type": "page",
+                        "chapter_section": [
+                            40,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "765",
+                        "uuid": "fd78a9c0-a232-4b11-b3a3-ab6955731177",
+                        "short_id": "_XipwKIy",
+                        "cnx_id": "fd78a9c0-a232-4b11-b3a3-ab6955731177@4",
+                        "title": "Components of the Blood",
+                        "type": "page",
+                        "chapter_section": [
+                            40,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "766",
+                        "uuid": "65d0b611-6bb3-47ae-84c2-471fb52ba148",
+                        "short_id": "ZdC2EWuz",
+                        "cnx_id": "65d0b611-6bb3-47ae-84c2-471fb52ba148@5",
+                        "title": "Mammalian Heart and Blood Vessels",
+                        "type": "page",
+                        "chapter_section": [
+                            40,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "767",
+                        "uuid": "607aff2b-b38c-47f2-8baa-b046cc7c6d85",
+                        "short_id": "YHr_K7OM",
+                        "cnx_id": "607aff2b-b38c-47f2-8baa-b046cc7c6d85@6",
+                        "title": "Blood Flow and Blood Pressure Regulation",
+                        "type": "page",
+                        "chapter_section": [
+                            40,
+                            4
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "109",
+                "title": "Osmotic Regulation and Excretion",
+                "type": "part",
+                "chapter_section": [
+                    41
+                ],
+                "children": [
+                    {
+                        "id": "768",
+                        "uuid": "80b07b39-b117-406c-aa18-d5f82ce7ed86",
+                        "short_id": "gLB7ObEX",
+                        "cnx_id": "80b07b39-b117-406c-aa18-d5f82ce7ed86@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            41,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "769",
+                        "uuid": "d9b33f1c-23c0-46d3-8606-be1df10ccb63",
+                        "short_id": "2bM_HCPA",
+                        "cnx_id": "d9b33f1c-23c0-46d3-8606-be1df10ccb63@7",
+                        "title": "Osmoregulation and Osmotic Balance",
+                        "type": "page",
+                        "chapter_section": [
+                            41,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "770",
+                        "uuid": "3e2c416b-efb4-4386-a1ca-f18fb7b83ec5",
+                        "short_id": "PixBa--0",
+                        "cnx_id": "3e2c416b-efb4-4386-a1ca-f18fb7b83ec5@8",
+                        "title": "The Kidneys and Osmoregulatory Organs",
+                        "type": "page",
+                        "chapter_section": [
+                            41,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "771",
+                        "uuid": "a91a79a8-fad7-4fd5-a500-8db68ae7ad8c",
+                        "short_id": "qRp5qPrX",
+                        "cnx_id": "a91a79a8-fad7-4fd5-a500-8db68ae7ad8c@7",
+                        "title": "Excretion Systems",
+                        "type": "page",
+                        "chapter_section": [
+                            41,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "772",
+                        "uuid": "74427621-5991-4457-a80a-bc6b2edd4896",
+                        "short_id": "dEJ2IVmR",
+                        "cnx_id": "74427621-5991-4457-a80a-bc6b2edd4896@4",
+                        "title": "Nitrogenous Wastes",
+                        "type": "page",
+                        "chapter_section": [
+                            41,
+                            4
+                        ]
+                    },
+                    {
+                        "id": "773",
+                        "uuid": "9e7345a6-ff4a-4839-b05c-8c3f580aa32c",
+                        "short_id": "nnNFpv9K",
+                        "cnx_id": "9e7345a6-ff4a-4839-b05c-8c3f580aa32c@5",
+                        "title": "Hormonal Control of Osmoregulatory Functions",
+                        "type": "page",
+                        "chapter_section": [
+                            41,
+                            5
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "110",
+                "title": "The Immune System",
+                "type": "part",
+                "chapter_section": [
+                    42
+                ],
+                "children": [
+                    {
+                        "id": "774",
+                        "uuid": "cefec3f8-777e-4951-9b70-abf9d346b923",
+                        "short_id": "zv7D-Hd-",
+                        "cnx_id": "cefec3f8-777e-4951-9b70-abf9d346b923@3",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            42,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "775",
+                        "uuid": "5da10a86-3129-460c-b5b6-0a40c00b9969",
+                        "short_id": "XaEKhjEp",
+                        "cnx_id": "5da10a86-3129-460c-b5b6-0a40c00b9969@6",
+                        "title": "Innate Immune Response",
+                        "type": "page",
+                        "chapter_section": [
+                            42,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "776",
+                        "uuid": "7ad6686e-c53e-45bb-aaa2-15327dff8d3e",
+                        "short_id": "etZobsU-",
+                        "cnx_id": "7ad6686e-c53e-45bb-aaa2-15327dff8d3e@6",
+                        "title": "Adaptive Immune Response",
+                        "type": "page",
+                        "chapter_section": [
+                            42,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "777",
+                        "uuid": "01be6158-869f-44d1-83ea-a2ce64d85ef1",
+                        "short_id": "Ab5hWIaf",
+                        "cnx_id": "01be6158-869f-44d1-83ea-a2ce64d85ef1@6",
+                        "title": "Antibodies",
+                        "type": "page",
+                        "chapter_section": [
+                            42,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "778",
+                        "uuid": "da9ed27d-8460-4964-9344-40a7c3901d29",
+                        "short_id": "2p7SfYRg",
+                        "cnx_id": "da9ed27d-8460-4964-9344-40a7c3901d29@4",
+                        "title": "Disruptions in the Immune System",
+                        "type": "page",
+                        "chapter_section": [
+                            42,
+                            4
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "111",
+                "title": "Animal Reproduction and Development",
+                "type": "part",
+                "chapter_section": [
+                    43
+                ],
+                "children": [
+                    {
+                        "id": "779",
+                        "uuid": "1fc80d68-43c6-4a05-91a5-b839efdf2fa1",
+                        "short_id": "H8gNaEPG",
+                        "cnx_id": "1fc80d68-43c6-4a05-91a5-b839efdf2fa1@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            43,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "780",
+                        "uuid": "3127134b-36a5-4489-adea-3cc50af1305a",
+                        "short_id": "MScTSzal",
+                        "cnx_id": "3127134b-36a5-4489-adea-3cc50af1305a@5",
+                        "title": "Reproduction Methods",
+                        "type": "page",
+                        "chapter_section": [
+                            43,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "781",
+                        "uuid": "9b69aa5d-16fa-4604-a26b-e92f9ecd9bc0",
+                        "short_id": "m2mqXRb6",
+                        "cnx_id": "9b69aa5d-16fa-4604-a26b-e92f9ecd9bc0@4",
+                        "title": "Fertilization",
+                        "type": "page",
+                        "chapter_section": [
+                            43,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "782",
+                        "uuid": "07f97982-30d2-425e-8a82-542e6fdd666e",
+                        "short_id": "B_l5gjDS",
+                        "cnx_id": "07f97982-30d2-425e-8a82-542e6fdd666e@3",
+                        "title": "Human Reproductive Anatomy and Gametogenesis",
+                        "type": "page",
+                        "chapter_section": [
+                            43,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "783",
+                        "uuid": "1daddd9c-5131-4979-a7d5-a8183fca0ad8",
+                        "short_id": "Ha3dnFEx",
+                        "cnx_id": "1daddd9c-5131-4979-a7d5-a8183fca0ad8@7",
+                        "title": "Hormonal Control of Human Reproduction",
+                        "type": "page",
+                        "chapter_section": [
+                            43,
+                            4
+                        ]
+                    },
+                    {
+                        "id": "784",
+                        "uuid": "3422a2b7-9dee-4e6b-93b5-3f1fc92e88b9",
+                        "short_id": "NCKit53u",
+                        "cnx_id": "3422a2b7-9dee-4e6b-93b5-3f1fc92e88b9@3",
+                        "title": "Human Pregnancy and Birth",
+                        "type": "page",
+                        "chapter_section": [
+                            43,
+                            5
+                        ]
+                    },
+                    {
+                        "id": "785",
+                        "uuid": "c8105eac-93c4-43e8-83f1-54995429e8ca",
+                        "short_id": "yBBerJPE",
+                        "cnx_id": "c8105eac-93c4-43e8-83f1-54995429e8ca@3",
+                        "title": "Fertilization and Early Embryonic Development",
+                        "type": "page",
+                        "chapter_section": [
+                            43,
+                            6
+                        ]
+                    },
+                    {
+                        "id": "786",
+                        "uuid": "68ae7446-32b4-4cc7-89a7-4615dd20f3bd",
+                        "short_id": "aK50RjK0",
+                        "cnx_id": "68ae7446-32b4-4cc7-89a7-4615dd20f3bd@3",
+                        "title": "Organogenesis and Vertebrate Formation",
+                        "type": "page",
+                        "chapter_section": [
+                            43,
+                            7
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "112",
+                "title": "Ecology and the Biosphere",
+                "type": "part",
+                "chapter_section": [
+                    44
+                ],
+                "children": [
+                    {
+                        "id": "787",
+                        "uuid": "c49b257a-c9b1-4e3f-bc9b-a1b080801af3",
+                        "short_id": "xJslesmx",
+                        "cnx_id": "c49b257a-c9b1-4e3f-bc9b-a1b080801af3@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            44,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "788",
+                        "uuid": "10d9c46e-990f-4404-b7af-802b5b4e0fa6",
+                        "short_id": "ENnEbpkP",
+                        "cnx_id": "10d9c46e-990f-4404-b7af-802b5b4e0fa6@3",
+                        "title": "The Scope of Ecology",
+                        "type": "page",
+                        "chapter_section": [
+                            44,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "789",
+                        "uuid": "405e3804-5c8c-4f00-9dce-06b279ac4f53",
+                        "short_id": "QF44BFyM",
+                        "cnx_id": "405e3804-5c8c-4f00-9dce-06b279ac4f53@4",
+                        "title": "Biogeography",
+                        "type": "page",
+                        "chapter_section": [
+                            44,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "790",
+                        "uuid": "cf87c2b7-d8ec-4cba-adba-6c30f5736f63",
+                        "short_id": "z4fCt9js",
+                        "cnx_id": "cf87c2b7-d8ec-4cba-adba-6c30f5736f63@4",
+                        "title": "Terrestrial Biomes",
+                        "type": "page",
+                        "chapter_section": [
+                            44,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "791",
+                        "uuid": "4552b33e-01c6-487b-81da-7f630a9a4298",
+                        "short_id": "RVKzPgHG",
+                        "cnx_id": "4552b33e-01c6-487b-81da-7f630a9a4298@4",
+                        "title": "Aquatic Biomes",
+                        "type": "page",
+                        "chapter_section": [
+                            44,
+                            4
+                        ]
+                    },
+                    {
+                        "id": "792",
+                        "uuid": "a1fb54b1-a560-4093-b4fc-277409b3b43b",
+                        "short_id": "oftUsaVg",
+                        "cnx_id": "a1fb54b1-a560-4093-b4fc-277409b3b43b@3",
+                        "title": "Climate and the Effects of Global Climate Change",
+                        "type": "page",
+                        "chapter_section": [
+                            44,
+                            5
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "113",
+                "title": "Population and Community Ecology",
+                "type": "part",
+                "chapter_section": [
+                    45
+                ],
+                "children": [
+                    {
+                        "id": "793",
+                        "uuid": "d193fe8a-8026-4c62-bee4-e977c6de7989",
+                        "short_id": "0ZP-ioAm",
+                        "cnx_id": "d193fe8a-8026-4c62-bee4-e977c6de7989@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            45,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "794",
+                        "uuid": "36b59ccb-df39-4ba6-85cc-52f3042c36ab",
+                        "short_id": "NrWcy985",
+                        "cnx_id": "36b59ccb-df39-4ba6-85cc-52f3042c36ab@5",
+                        "title": "Population Demography",
+                        "type": "page",
+                        "chapter_section": [
+                            45,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "795",
+                        "uuid": "04046ffb-73f6-4ccf-815d-e94697bab6fd",
+                        "short_id": "BARv-3P2",
+                        "cnx_id": "04046ffb-73f6-4ccf-815d-e94697bab6fd@3",
+                        "title": "Life Histories and Natural Selection",
+                        "type": "page",
+                        "chapter_section": [
+                            45,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "796",
+                        "uuid": "79ebaf1a-0e1a-4efb-9712-9bb41919a17d",
+                        "short_id": "eeuvGg4a",
+                        "cnx_id": "79ebaf1a-0e1a-4efb-9712-9bb41919a17d@4",
+                        "title": "Environmental Limits to Population Growth",
+                        "type": "page",
+                        "chapter_section": [
+                            45,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "797",
+                        "uuid": "bd8d993b-f105-4122-80ef-83d1dcfacde2",
+                        "short_id": "vY2ZO_EF",
+                        "cnx_id": "bd8d993b-f105-4122-80ef-83d1dcfacde2@3",
+                        "title": "Population Dynamics and Regulation",
+                        "type": "page",
+                        "chapter_section": [
+                            45,
+                            4
+                        ]
+                    },
+                    {
+                        "id": "798",
+                        "uuid": "9bf55f5c-6f4b-40d8-bc99-873d021291c3",
+                        "short_id": "m_VfXG9L",
+                        "cnx_id": "9bf55f5c-6f4b-40d8-bc99-873d021291c3@4",
+                        "title": "Human Population Growth",
+                        "type": "page",
+                        "chapter_section": [
+                            45,
+                            5
+                        ]
+                    },
+                    {
+                        "id": "799",
+                        "uuid": "774c6097-22c3-4621-a29f-62bb9d77d47e",
+                        "short_id": "d0xglyLD",
+                        "cnx_id": "774c6097-22c3-4621-a29f-62bb9d77d47e@4",
+                        "title": "Community Ecology",
+                        "type": "page",
+                        "chapter_section": [
+                            45,
+                            6
+                        ]
+                    },
+                    {
+                        "id": "800",
+                        "uuid": "98dc9ab6-4f77-4f2e-85fb-c69c97c68649",
+                        "short_id": "mNyatk93",
+                        "cnx_id": "98dc9ab6-4f77-4f2e-85fb-c69c97c68649@4",
+                        "title": "Behavioral Biology: Proximate and Ultimate Causes of Behavior",
+                        "type": "page",
+                        "chapter_section": [
+                            45,
+                            7
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "114",
+                "title": "Ecosystems",
+                "type": "part",
+                "chapter_section": [
+                    46
+                ],
+                "children": [
+                    {
+                        "id": "801",
+                        "uuid": "76221989-258f-44ce-a9cd-77a3f8494bbc",
+                        "short_id": "diIZiSWP",
+                        "cnx_id": "76221989-258f-44ce-a9cd-77a3f8494bbc@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            46,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "802",
+                        "uuid": "5f31b7ed-13e0-4a64-93b2-d1bb73a3e022",
+                        "short_id": "XzG37RPg",
+                        "cnx_id": "5f31b7ed-13e0-4a64-93b2-d1bb73a3e022@5",
+                        "title": "Ecology of Ecosystems",
+                        "type": "page",
+                        "chapter_section": [
+                            46,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "803",
+                        "uuid": "c96960a6-68ef-4834-b36d-2abc00a61619",
+                        "short_id": "yWlgpmjv",
+                        "cnx_id": "c96960a6-68ef-4834-b36d-2abc00a61619@8",
+                        "title": "Energy Flow through Ecosystems",
+                        "type": "page",
+                        "chapter_section": [
+                            46,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "804",
+                        "uuid": "65d16444-425c-4f43-bc48-a3d0de0c2fbd",
+                        "short_id": "ZdFkREJc",
+                        "cnx_id": "65d16444-425c-4f43-bc48-a3d0de0c2fbd@6",
+                        "title": "Biogeochemical Cycles",
+                        "type": "page",
+                        "chapter_section": [
+                            46,
+                            3
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "115",
+                "title": "Conservation Biology and Biodiversity",
+                "type": "part",
+                "chapter_section": [
+                    47
+                ],
+                "children": [
+                    {
+                        "id": "805",
+                        "uuid": "c0d58dad-90b4-4861-a66e-c4d495949899",
+                        "short_id": "wNWNrZC0",
+                        "cnx_id": "c0d58dad-90b4-4861-a66e-c4d495949899@2",
+                        "title": "Introduction",
+                        "type": "page",
+                        "chapter_section": [
+                            47,
+                            0
+                        ]
+                    },
+                    {
+                        "id": "806",
+                        "uuid": "96f938e3-f5b1-46bc-9665-79d3a607d9e7",
+                        "short_id": "lvk44_Wx",
+                        "cnx_id": "96f938e3-f5b1-46bc-9665-79d3a607d9e7@5",
+                        "title": "The Biodiversity Crisis",
+                        "type": "page",
+                        "chapter_section": [
+                            47,
+                            1
+                        ]
+                    },
+                    {
+                        "id": "807",
+                        "uuid": "773fc1ea-e2b8-4f5e-ade9-9b17d5b1d2b6",
+                        "short_id": "dz_B6uK4",
+                        "cnx_id": "773fc1ea-e2b8-4f5e-ade9-9b17d5b1d2b6@6",
+                        "title": "The Importance of Biodiversity to Human Life",
+                        "type": "page",
+                        "chapter_section": [
+                            47,
+                            2
+                        ]
+                    },
+                    {
+                        "id": "808",
+                        "uuid": "ef12a7d2-c569-4f8b-833c-595454102c1a",
+                        "short_id": "7xKn0sVp",
+                        "cnx_id": "ef12a7d2-c569-4f8b-833c-595454102c1a@5",
+                        "title": "Threats to Biodiversity",
+                        "type": "page",
+                        "chapter_section": [
+                            47,
+                            3
+                        ]
+                    },
+                    {
+                        "id": "809",
+                        "uuid": "aaf2ab73-1c53-4518-9a03-63e238421f59",
+                        "short_id": "qvKrcxxT",
+                        "cnx_id": "aaf2ab73-1c53-4518-9a03-63e238421f59@4",
+                        "title": "Preserving Biodiversity",
+                        "type": "page",
+                        "chapter_section": [
+                            47,
+                            4
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
