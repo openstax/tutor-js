@@ -15,6 +15,7 @@ import EXERCISES from './src/models/exercises';
 import { Logging, ReactHelpers } from 'shared';
 import PAYMENTS from './src/models/payments';
 import STUDENT_TASKS from './src/models/student-tasks';
+import TEACHER_PLANS from './src/models/course/task-plans';
 import TOASTS from './src/models/toasts';
 
 window._STORES = {
@@ -35,6 +36,7 @@ window._MODELS = {
   PAYMENTS,
   TOASTS,
   STUDENT_TASKS,
+  TEACHER_PLANS,
 };
 
 window._LOGGING = Logging;

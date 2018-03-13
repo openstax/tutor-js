@@ -4,6 +4,7 @@ import {
 import { computed } from 'mobx';
 import moment from 'moment';
 import twix from 'twix';
+import { TimeStore } from '../flux/time';
 
 @identifiedBy('tasking-plan')
 export default class TaskingPlan extends BaseModel {
@@ -23,6 +24,10 @@ export default class TaskingPlan extends BaseModel {
     return moment(this.opens_at)
       .startOf('day')
       .twix(moment(this.opens_at).endOf('day'), { allDay: true });
+  }
+
+  @computed get isPastDue() {
+    return moment(this.due_at).isBefore(TimeStore.getNow());
   }
 
 }

@@ -16,7 +16,7 @@ describe('Tour Region', () => {
         <span>Hello</span>
       </TourRegion>
     );
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     expect(context.eligibleTours).toHaveLength(1);
     wrapper.unmount();
     expect(context.eligibleTours).toHaveLength(0);

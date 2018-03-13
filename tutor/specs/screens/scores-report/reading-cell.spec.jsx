@@ -3,6 +3,7 @@ import bootstrapScores from '../../helpers/scores-data.js';
 import Cell from '../../../src/screens/scores-report/reading-cell';
 import PieProgress from '../../../src/screens/scores-report/pie-progress';
 import TH from '../../../src/helpers/task';
+import EnzymeContext from '../../components/helpers/enzyme-context';
 
 describe('Student Scores Report Reading Cell', function() {
   let task;
@@ -26,12 +27,6 @@ describe('Student Scores Report Reading Cell', function() {
     };
   });
 
-  it('renders progress cell', () => {
-    props.size = 24;
-    props.value = 33;
-    const wrapper = shallow(<PieProgress {...props} />);
-    expect(wrapper).toHaveRendered('svg[width="24"][height="24"]');
-  });
 
   it('renders as not started', function() {
     props.task.completed_step_count = 0;
@@ -52,9 +47,19 @@ describe('Student Scores Report Reading Cell', function() {
     props.task.completed_step_count = 2;
     props.task.is_late_work_accepted = true;
     expect(props.task.isLate).toBe(true);
-    const wrapper = mount(<Cell {...props} />);
+    const wrapper = mount(<Cell {...props} />, EnzymeContext.build());
     expect(wrapper).toHaveRendered('LateWork');
     expect(wrapper).toHaveRendered('.late-caret.accepted');
+  });
+
+  it('hides late work from students', () => {
+    props.task.completed_on_time_step_count = 1;
+    props.task.completed_step_count = 2;
+    props.task.is_late_work_accepted = true;
+    const cell = mount(<Cell {...props} />, EnzymeContext.build());
+    expect(cell).toHaveRendered('.late-caret');
+    props.task.student.period.course.roles[0].type = 'student';
+    expect(cell).not.toHaveRendered('.late-caret');
   });
 
 });

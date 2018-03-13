@@ -1,5 +1,5 @@
 import { observable, computed, action } from 'mobx';
-import { sum, toArray, flow, each, inRange, keys, isEqual, pick, some, invert, mapValues } from 'lodash';
+import {sum, toArray, flow, each, inRange, keys, isEqual, pick, some, invert, mapValues, isNaN, partial} from 'lodash';
 
 const CELL_AVERAGES_SINGLE_WIDTH = 80;
 
@@ -26,7 +26,8 @@ const CW = {
 
 const WC = invert(CW);
 
-const SETTINGS = keys(DEFAULTS);
+const PERCENT_KEYS = keys(DEFAULTS);
+const WEIGHT_KEYS = keys(CW);
 
 const MIN = 0;
 const MAX = 100;
@@ -38,7 +39,20 @@ const percentToWeight = (percent) => ((percent || MIN) / RANGE );
 const weightsToPercents = (weights) => mapValues(WC, (c) => weightToPercent(weights[c]));
 const percentsToWeights = (percents) => mapValues(CW, (w) => percentToWeight(percents[w]));
 
+const stringToInt = (string) => {
+  const int = parseInt(string);
+
+  if (isNaN(int)) {
+    return 0;
+  }
+
+  return int;
+}
+
 export default class ScoresReportWeightsUX {
+
+  PERCENT_KEYS = PERCENT_KEYS;
+  WEIGHT_KEYS = WEIGHT_KEYS;
 
   @observable homework_scores;
   @observable homework_progress;
@@ -57,7 +71,15 @@ export default class ScoresReportWeightsUX {
   }
 
   @computed get isBusy() {
-    return this.course.api.isPending;
+    return Boolean(this.course.api.isPending || this.course.scores.api.isPending);
+  }
+
+  @computed get savingButtonText() {
+    if (this.course.scores.api.isPending) {
+      return 'Recalculating scores…';
+    } else {
+      return 'Saving…';
+    }
   }
 
   @action.bound onSetClick() {
@@ -75,10 +97,7 @@ export default class ScoresReportWeightsUX {
     Object.assign(course, this.nextWeights);
     course
       .save()
-      .then(() => {
-        return course.scores
-          .fetch();
-      })
+      .then(() => course.scores.fetch())
       .catch(() => {
         // reset course weights to previous weight values
         Object.assign(course, percentsToWeights(currentPercents));
@@ -90,8 +109,8 @@ export default class ScoresReportWeightsUX {
 
   @action.bound setWeight(ev) {
     this.hasTouched = true;
-    const weight = parseInt(ev.target.value);
-    if (inRange(weight, MIN, MAX + 1)) { // inRange is up to but not including end
+    const weight = (ev.target.value !=='' && parseInt(ev.target.value)) || ev.target.value;
+    if (inRange(weight, MIN, MAX + 1) || weight === '') { // inRange is up to but not including end
       this[ev.target.name] = weight;
     }
   }
@@ -114,7 +133,10 @@ export default class ScoresReportWeightsUX {
   }
 
   @computed get weightValues() {
-    return pick(this, SETTINGS);
+    return flow(
+      partial(pick, partial.placeholder, this.PERCENT_KEYS),
+      partial(mapValues, partial.placeholder, stringToInt),
+    )(this);
   }
 
   @computed get total() {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { isNil } from 'lodash';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
@@ -26,15 +27,15 @@ const ReviewLink = (props) => {
 }
 
 
-const AverageLabel = (props) => {
-  if (props.average_score) {
+const AverageLabel = ({ heading }) => {
+  if (!isNil(heading.average_score)) {
     return (
       <span className="average">
-        {(props.average_score * 100).toFixed(0)} %
+        {(heading.average_score * 100).toFixed(0)}%
       </span>
     );
-  } if (props.heading.type === 'external') {
-    const p = props.heading.average_progress;
+  } if (heading.type === 'external') {
+    const p = heading.average_progress || 0;
     let percent;
     if (p < 1 && p > 0.99) {
       percent = 99; // Don't round to 100% when it's not 100%!

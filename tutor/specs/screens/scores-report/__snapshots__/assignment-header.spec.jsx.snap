@@ -53,7 +53,8 @@ exports[`Scores Report: assignment column header for a CC course matches snapsho
     <span
       className="average"
     >
-      ---
+      17
+      %
     </span>
   </div>
 </div>
@@ -120,7 +121,8 @@ exports[`Scores Report: assignment column header renders and matches snapshot 1`
     <span
       className="average"
     >
-      ---
+      17
+      %
     </span>
     <span
       className="review-link"

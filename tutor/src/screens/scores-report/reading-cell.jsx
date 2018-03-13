@@ -4,10 +4,9 @@ import TutorLink from '../../components/link';
 import { Overlay, Popover } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
-
+import PercentCorrect from './percent-correct';
 import PieProgress from './pie-progress';
 import { LateWork } from './late-work';
-
 import TH from '../../helpers/task';
 
 @observer
@@ -17,7 +16,6 @@ export default class ReadingCell extends React.PureComponent {
     className: React.PropTypes.string,
     period_id: React.PropTypes.string,
     courseId: React.PropTypes.string.isRequired,
-    isConceptCoach: React.PropTypes.bool,
     columnIndex: React.PropTypes.number.isRequired,
     task: React.PropTypes.shape({
       id: React.PropTypes.number,
@@ -38,28 +36,6 @@ export default class ReadingCell extends React.PureComponent {
 
   @action.bound getPieChartTarget() {
     return ReactDOM.findDOMNode(this.refs.pieChart);
-  }
-
-  renderReviewLink() {
-    const { task, courseId, period } = this.props;
-
-    if (!period.course.isTeacher) {
-      return null;
-    }
-
-    return (
-      <div className="row">
-        <div>
-          <TutorLink
-            to="viewTaskStep"
-            data-assignment-type={`${task.type}`}
-            params={{ courseId, id: task.id, stepIndex: 1 }}
-          >
-            Review
-          </TutorLink>
-        </div>
-      </div>
-    );
   }
 
   renderPopover() {
@@ -83,8 +59,13 @@ export default class ReadingCell extends React.PureComponent {
                 Completed {TH.getHumanCompletedPercent(task)}
               </div>
             </div>
-            {this.renderReviewLink()}
+            <div className="row">
+              <div>
+                {TH.getHumanProgress(task)}
+              </div>
+            </div>
           </div>
+
         </Popover>
       </Overlay>
     );
@@ -92,7 +73,6 @@ export default class ReadingCell extends React.PureComponent {
 
   renderLateWork() {
     const { task, columnIndex } = this.props;
-
 
     if (!this.props.period.course.isTeacher) {
       return null;
@@ -108,19 +88,14 @@ export default class ReadingCell extends React.PureComponent {
   }
 
   render() {
-    const { task, isConceptCoach, period_id } = this.props;
+    const { task, period_id } = this.props;
 
     return (
       <div className="scores-cell">
-        {task.isStarted && <div className="score">{TH.getScorePercent(task)}%</div>}
+        <PercentCorrect task={task} />
         <div className="worked" onMouseOver={this.show} onMouseLeave={this.hide}>
-          {this.renderPopover()}
-          <PieProgress
-            ref="pieChart"
-            isConceptCoach={isConceptCoach}
-            size={20}
-            value={TH.getCompletedPercent(task)}
-            isLate={TH.isDue(task)} />
+          {this.renderPopover(task)}
+          <PieProgress task={task} ref="pieChart" />
         </div>
         {this.renderLateWork()}
       </div>

@@ -4,7 +4,7 @@ import {
   BaseModel, identifiedBy, field, hasMany, belongsTo,
 } from 'shared/model';
 import { TimeStore } from '../../flux/time';
-
+import moment from 'moment';
 import TaskResult from './scores/task-result';
 
 @identifiedBy('course/scores/student')
@@ -17,11 +17,11 @@ class Student extends BaseModel {
   @field role;
   @field student_identifier;
 
-  @field course_average = 0;
-  @field homework_score = 0;
-  @field homework_progress = 0;
-  @field reading_score = 0;
-  @field reading_progress = 0;
+  @field course_average;
+  @field homework_score;
+  @field homework_progress;
+  @field reading_score;
+  @field reading_progress;
 
   @computed get scoredStepCount() {
     return mapValues(
@@ -34,8 +34,8 @@ class Student extends BaseModel {
 
 @identifiedBy('course/scores/heading')
 class Heading extends BaseModel {
-  @field average_score = 0;
-  @field average_progress = 0;
+  @field average_score;
+  @field average_progress;
   @field({ type: 'date' }) due_at;
   @field plan_id;
   @field title;
@@ -46,8 +46,12 @@ class Heading extends BaseModel {
     return findIndex(this.period.data_headings, this);
   }
 
+  @computed get isDue() {
+    return moment(this.due_at).isBefore(TimeStore.getNow());
+  }
+
   @computed get tasks() {
-    return map(this.period.students, (s) => s.data[this.columnIndex])
+    return map(this.period.students, (s) => s.data[this.columnIndex]);
   }
 
   @computed get scoredStepCount() {
@@ -61,11 +65,11 @@ class Heading extends BaseModel {
 @identifiedBy('course/scores/period')
 export class CourseScoresPeriod extends BaseModel {
 
-  @field overall_course_average = 0;
-  @field overall_reading_score = 0;
-  @field overall_reading_progress = 0;
-  @field overall_homework_score = 0;
-  @field overall_homework_progress = 0;
+  @field overall_course_average;
+  @field overall_reading_score;
+  @field overall_reading_progress;
+  @field overall_homework_score;
+  @field overall_homework_progress;
   @field period_id;
   @hasMany({ model: Heading, inverseOf: 'period' }) data_headings;
   @hasMany({ model: Student, inverseOf: 'period' }) students;
@@ -92,7 +96,7 @@ export class CourseScoresPeriod extends BaseModel {
     each(this.students, (student) => {
       each(student.scoredStepCount, (count, key) => {
         counts[key] = ((counts[key] || 0) + count);
-      })
+      });
     });
     return counts;
   }

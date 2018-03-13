@@ -1,4 +1,5 @@
 $pie-color-late: #268FBE;
+$pie-color-due: #268FBE;
 
 .course-average-help {
   h3 {
@@ -122,6 +123,7 @@ $pie-color-late: #268FBE;
     }
 
     // includes split cells
+
     & > *:not(.late-caret-trigger) {
       flex: 1;
       display: flex;
@@ -149,14 +151,18 @@ $pie-color-late: #268FBE;
         fill: $pie-color-hover;
       }
       .pie-progress {
-        .slice {
-          fill: $pie-color;
-          mask: url(#dividers);
-          &.late {
-            fill: $pie-color-late;
+        path {
+          fill: $tutor-neutral;
+        }
+        &.due {
+          path {
+            fill: $pie-color-due;
+          }
+          #q4 circle {
+            fill: $pie-color-due;
           }
         }
-        &:hover .slice {
+        &:hover path {
           fill: $pie-color-hover;
         }
         .dividers rect {
