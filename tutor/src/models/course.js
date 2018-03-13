@@ -183,11 +183,11 @@ export default class Course extends BaseModel {
 
   @computed get shouldRemindNewEnrollmentLink() {
     return Boolean(
-            !this.is_preview &&
-            !this.is_lms_enabled &&
-            (this.just_created || this.dashboardViewCount <= 1) &&
-            this.map.nonPreview.previouslyCreated.any &&
-            (this.isActive || this.isFuture)
+      !this.is_preview &&
+        !this.is_lms_enabled &&
+        (this.just_created || this.dashboardViewCount <= 1) &&
+        this.map.nonPreview.previouslyCreated.any &&
+        (this.isActive || this.isFuture)
     );
   }
 
@@ -195,8 +195,7 @@ export default class Course extends BaseModel {
     return Boolean(
       FeatureFlags.is_highlighting_allowed &&
         this.isStudent &&
-        this.isActive &&
-        'college_biology' == this.appearance_code
+        this.isActive
     );
   }
 
