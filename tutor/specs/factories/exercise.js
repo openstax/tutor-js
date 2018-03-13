@@ -1,6 +1,6 @@
 import { random, first } from 'lodash';
 const {
-  Factory, sequence, uuid, reference,
+  Factory, sequence, uuid, reference, fake,
 } = require('./helpers');
 
 Factory.define('TutorExercise')
@@ -11,7 +11,7 @@ Factory.define('TutorExercise')
   .is_excluded(false)
   .page_uuid(uuid)
   .pool_types(() => [
-    random(0,1) == 1 ? 'homework_core' : 'reading_dynamic',
+    fake.random.arrayElement(['homework_core', 'reading_dynamic' ]),
   ])
   .tags(({ object }) =>
     object.content.tags.map(t => ({ id: t, type: first(t.split(':')), is_visible: true })),

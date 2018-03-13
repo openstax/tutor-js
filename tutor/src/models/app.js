@@ -1,9 +1,10 @@
-import { isEmpty, forIn } from 'lodash';
+import { isEmpty, forIn, isNil } from 'lodash';
 import { observable, action } from 'mobx';
 import { BootstrapURLs, ExerciseHelpers } from 'shared';
 import UiSettings from 'shared/model/ui-settings';
 import ErrorMonitoring from 'shared/helpers/error-monitoring';
 import { startMathJax } from 'shared/helpers/mathjax';
+import Notifications from 'shared/model/notifications';
 import { connectModelRead } from '../api/adapter';
 import { TransitionAssistant } from '../components/unsaved-state';
 import { readBootstrapData } from '../helpers/dom';
@@ -15,6 +16,7 @@ import Hypothesis from './annotations/hypothesis';
 import { FeatureFlagsApi } from './feature_flags';
 import Notices from '../helpers/notifications';
 import Chat from './chat';
+import Toasts from './toasts';
 
 const BOOTSTRAPED_MODELS = {
   user:     User,
@@ -26,14 +28,17 @@ const BOOTSTRAPED_MODELS = {
 
 export default class TutorApp {
 
+  @observable tutor_js_url;
+
   boot() {
     startAPI();
     this.data = readBootstrapData();
-    if (!isEmpty(this.data)) {
+    Notifications.on('tutor-update', this.onNotice);
+    if (isEmpty(this.data)) {
+      return this.fetch().then(this.initializeApp);
+    } else {
       return this.initializeApp();
     }
-
-    return this.fetch().then(this.initializeApp);
   }
 
   @action.bound initializeApp() {
@@ -52,6 +57,15 @@ export default class TutorApp {
     startMathJax();
     TransitionAssistant.startMonitoring();
     return Promise.resolve(this);
+  }
+
+  @action.bound onNotice({ tutor_js_url }) {
+    // when it's null, the url should default to the first update
+    if (isNil(this.tutor_js_url)) {
+      this.tutor_js_url = tutor_js_url;
+    } else if (this.tutor_js_url !== tutor_js_url) {
+      Toasts.push({ handler: 'reload' });
+    }
   }
 
   fetch() {

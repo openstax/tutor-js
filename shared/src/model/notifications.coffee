@@ -12,14 +12,15 @@ extend    = require 'lodash/extend'
 find      = require 'lodash/find'
 isEmpty   = require 'lodash/isEmpty'
 isMatch   = require 'lodash/isMatch'
+{observable} = require 'mobx'
 
 URLs = require './urls'
 EVENT_BUS = new EventEmitter2
 POLLERS = {}
 
-NOTICES = []
+NOTICES = observable.array([])
 
-HIDDEN = []
+HIDDEN = observable.array([])
 
 CLIENT_ID = 'client-specified'
 Poller = require './notifications/pollers'

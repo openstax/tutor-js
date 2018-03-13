@@ -1,20 +1,20 @@
-import { Success, LMSErrors, Failure } from '../../../../src/components/navbar/toasts/lms';
-import EnzyeContext from '../../helpers/enzyme-context';
-import { SnapShot, Wrapper } from '../../helpers/component-testing';
-import { portalContents as PC } from '../../../helpers/portals';
+import { Success, LMSErrors, Failure } from '../../../src/components/toasts/lms';
+import EnzyeContext from '../helpers/enzyme-context';
+import { SnapShot, Wrapper } from '../helpers/component-testing';
+import { portalContents as PC } from '../../helpers/portals';
 
-import  { JobCompletion, Completed } from '../../../../src/models/jobs/queue';
+import { ToastModel } from '../../../src/models/toasts';
 jest.useFakeTimers();
 
-describe('Background job toasts', () => {
+describe('LMS Background job toasts', () => {
+
   let toast;
-  let job;
   let props;
 
   beforeEach(() => {
-
-    job = new JobCompletion({
+    const toast = new ToastModel({
       succeeded: true,
+      handler: 'job',
       type: 'lms',
       info: {
         errors: [
@@ -25,18 +25,16 @@ describe('Background job toasts', () => {
         },
       },
     });
-    props = { job, dismiss: jest.fn, footer: <span /> };
-    Completed.push(job);
+
+    props = { toast, dismiss: jest.fn, footer: <span /> };
   });
 
-  afterEach(() => Completed.clear());
-
   it('pluralizes error count', () => {
-    toast = mount(<LMSErrors {...props} />, EnzyeContext.build());
+    let toast = mount(<LMSErrors {...props} />, EnzyeContext.build());
     expect(PC(toast).textContent).toContain(
       'Course averages for 1 student could not be sent'
     );
-    job.info.errors.push({
+    toast.props().toast.info.errors.push({
       student_identifier: '4321', student_name: 'Jane', score: 0.923,
     });
     toast = mount(<LMSErrors {...props} />, EnzyeContext.build());

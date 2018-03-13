@@ -1,18 +1,22 @@
 import Toasts from '../../../src/components/navbar/background-toasts';
 import EnzyeContext from '../helpers/enzyme-context';
+import { last } from 'lodash';
 import { SnapShot, Wrapper } from '../helpers/component-testing';
-import  { JobCompletion, Completed } from '../../../src/models/jobs/queue';
+import { ToastModel } from '../../../src/models/toasts';
+import { createCollection } from 'mobx-decorated-models';
+
 jest.useFakeTimers();
 
 describe('Background job toasts', () => {
   let toast;
-  let job;
+  let toastsStore;
 
   beforeEach(() => {
-    toast = mount(<Toasts />, EnzyeContext.build());
+    toastsStore = createCollection({ model: ToastModel });
+    toast = mount(<Toasts toasts={toastsStore} />, EnzyeContext.build());
   });
 
-  afterEach(() => Completed.clear());
+  //afterEach(() => ToastsStore.clear());
 
   it('renders empty and matches snapshot', () => {
     expect(SnapShot.create(<Toasts />).toJSON()).toMatchSnapshot();
@@ -21,11 +25,12 @@ describe('Background job toasts', () => {
   describe('scores', () => {
 
     beforeEach(() => {
-      job = new JobCompletion({
-        succeeded: true,
+      toastsStore.push({
+        handler: 'job',
         type: 'scores',
+        status: 'ok',
+        info: { url: 'test.test.com' },
       });
-      Completed.push(job);
     });
 
     it('renders success', () => {
@@ -36,7 +41,7 @@ describe('Background job toasts', () => {
     });
 
     it('renders failure', () => {
-      job.succeeded = false;
+      toast.instance().currentToast.status = 'failed';
       expect(toast).toHaveRendered('Failure');
       expect(SnapShot.create(<Toasts />).toJSON()).toMatchSnapshot();
       toast.find('[type="close"]').simulate('click');
@@ -44,7 +49,7 @@ describe('Background job toasts', () => {
     });
 
     it('renders failure modal', () => {
-      job.succeeded = false;
+      toast.instance().currentToast.status = 'failed';
       toast.find('button').simulate('click');
       expect(toast).toHaveRendered('WarningModal');
       expect(SnapShot.create(<Toasts />).toJSON()).toMatchSnapshot();
@@ -55,8 +60,9 @@ describe('Background job toasts', () => {
   describe('lms', () => {
 
     beforeEach(() => {
-      job = new JobCompletion({
-        succeeded: true,
+      toastsStore.push({
+        status: 'ok',
+        handler: 'job',
         type: 'lms',
         info: {
           data: {
@@ -64,7 +70,6 @@ describe('Background job toasts', () => {
           },
         },
       });
-      Completed.push(job);
     });
 
     it('renders success', () => {
@@ -75,7 +80,7 @@ describe('Background job toasts', () => {
     });
 
     it('renders failure', () => {
-      job.succeeded = false;
+      toast.instance().currentToast.status = 'failed';
       expect(toast).toHaveRendered('Failure');
       expect(SnapShot.create(<Toasts />).toJSON()).toMatchSnapshot();
       toast.find('[type="close"]').simulate('click');
@@ -83,15 +88,16 @@ describe('Background job toasts', () => {
     });
 
     it('renders failure modal', () => {
-      job.succeeded = false;
+      toast.instance().currentToast.status = 'failed';
       toast.find('button').simulate('click');
       expect(toast).toHaveRendered('WarningModal');
       expect(SnapShot.create(<Toasts />).toJSON()).toMatchSnapshot();
     });
 
     it('renders no scores failure modal', () => {
-      job.info.data.num_callbacks = 0;
-      job.succeeded = false;
+      const t = toast.instance().currentToast;
+      t.info.data.num_callbacks = 0;
+      t.status = 'failed';
       toast.find('button').simulate('click');
       expect(toast).toHaveRendered('WarningModal');
       expect(SnapShot.create(<Toasts />).toJSON()).toMatchSnapshot();
