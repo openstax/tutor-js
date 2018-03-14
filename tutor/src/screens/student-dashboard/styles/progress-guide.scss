@@ -3,9 +3,6 @@
 
 .student-dashboard {
   .progress-guide {
-    &.panel {
-      margin-top: $tutor-tab-height - 1px; // shift up to meet bottom-border of tabs
-    }
 
     .section {
       @include performance-forecast-section();

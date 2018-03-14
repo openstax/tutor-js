@@ -77,7 +77,7 @@
     "moment-timezone": "0.5.14",
     "object-hash": "1.1.7",
     "path-to-regexp": "1.7.0",
-    "pattern-library": "github:openstax/pattern-library#v0.6.0",
+    "pattern-library": "github:openstax/pattern-library#v1.1.0",
     "phantomjs-prebuilt": "^2.1.16",
     "pluralize": "3.1.0",
     "progress-bar-webpack-plugin": "^1.10.0",
@@ -181,7 +181,8 @@
     "webpack-dev-server": "2.4.1",
     "webpack-module-hot-accept": "1.0.4",
     "webpack-umd-external": "1.0.2",
-    "when": "3.7.7"
+    "when": "3.7.7",
+    "yargs": "^11.0.0"
   },
   "config": {
     "blanket": {

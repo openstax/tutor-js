@@ -1,9 +1,6 @@
 import { SnapShot, Wrapper } from '../components/helpers/component-testing';
-import { bootstrapCoursesList } from '../courses-test-data';
-import { StylesManager } from 'survey-react';
-
+import Factory, { faker } from '../../specs/factories';
 import Survey from '../../src/screens/surveys';
-import SURVEY from '../../api/research_survey.json';
 import EnzymeContext from '../components/helpers/enzyme-context';
 
 
@@ -12,24 +9,23 @@ describe('Surveys Screen', () => {
   let props, course, surveyRecord;
 
   beforeEach(() => {
-    StylesManager.findSheet = jest.fn();
-    props = {
-      params: {
-        courseId: '1',
-        surveyId: '1',
-      },
-    };
-    course = bootstrapCoursesList().get(1);
+    faker.seed(12345);
+    course = Factory.course();
     course.studentTasks.fetch = jest.fn();
-
     course.studentTasks.onLoaded({
       data: { tasks: [],
-        research_surveys: [SURVEY],
+        research_surveys: [Factory.data('ResearchSurvey')],
       },
     });
-    surveyRecord = course.studentTasks.researchSurveys.get('1');
+    surveyRecord = course.studentTasks.researchSurveys.values()[0];
+    props = {
+      course,
+      params: {
+        courseId: course.id,
+        surveyId: surveyRecord.id,
+      },
+    };
   });
-
 
   it('renders and matches snapshot', () => {
     const component = SnapShot.create(<Wrapper _wrapped_component={Survey} {...props} />);
@@ -39,13 +35,16 @@ describe('Surveys Screen', () => {
 
   it('submits survey when answered', () => {
     const survey = mount(<Survey {...props} />, EnzymeContext.build());
+    survey.find('input[placeholder="Jon Snow"]').first().simulate('blur',
+      { target: { value: 'Bob' } }
+    );
     survey.find('input[type="radio"]').first().simulate('change',
-      { target: { value: 'bananas' } }
+      { target: { value: 'yes' } }
     );
     surveyRecord.save = jest.fn();
     survey.find('.sv_complete_btn').simulate('click', {});
     expect(surveyRecord.save).toHaveBeenCalled();
-    expect(surveyRecord.response).toEqual({ favs: 'bananas' });
+    expect(surveyRecord.response).toEqual({ name: 'Bob', bananas: 'yes' });
     survey.unmount();
   });
 

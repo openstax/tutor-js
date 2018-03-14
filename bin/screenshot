@@ -1,0 +1,5 @@
+#!/bin/bash
+
+export OX_PROJECT=tutor-acceptance
+
+$(npm bin)/jest --all --updateSnapshot --config ./configs/test/jest.$OX_PROJECT.js "${@:2}"

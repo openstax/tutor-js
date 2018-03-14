@@ -1,12 +1,15 @@
 import FactoryBot from 'object-factory-bot';
 import { each, camelCase, range } from 'lodash';
 import '../../../shared/specs/factories';
+import faker from 'faker';
 import Course from '../../src/models/course';
 import TutorExercise from '../../src/models/exercises/exercise';
 import Book from '../../src/models/reference-book';
 import TaskPlanStat from '../../src/models/task-plan/stats';
 import { EcosystemsMap, Ecosystem } from '../../src/models/ecosystems';
 import { ExercisesMap } from '../../src/models/exercises';
+import { ResearchSurvey } from '../../src/models/research-surveys/survey';
+import './research_survey';
 import './course';
 import './book';
 import './task-plan-stats'
@@ -21,6 +24,7 @@ each({
   Book,
   Ecosystem,
   TaskPlanStat,
+  ResearchSurvey,
 }, (Model, name) => {
   Factories[camelCase(name)] = (attrs = {}) => {
     const o = FactoryBot.create(name, attrs);
@@ -51,5 +55,5 @@ Factories.exercisesMap = ({ book, pageIds = [], count = 4 } = {}) => {
 };
 
 
-export { FactoryBot };
+export { FactoryBot, faker };
 export default Factories;

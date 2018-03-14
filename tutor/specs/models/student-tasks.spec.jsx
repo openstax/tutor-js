@@ -32,7 +32,7 @@ describe('Student Tasks Model', () => {
 
   it('splits into weeks', () => {
     expect(keys(StudentTasks.forCourseId(1).byWeek)).toEqual([
-      '201515', '201516', '201517', '201519', '201521', '201617',
+      '201515', '201516', '201517', '201519', '201521', '201616',
     ]);
     expect(keys(StudentTasks.forCourseId(2).byWeek)).toEqual([
       '201515', '201516', '201517', '201519', '201521',

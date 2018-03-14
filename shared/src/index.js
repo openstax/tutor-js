@@ -2,10 +2,10 @@ import { PinnedHeader, CardBody, PinnableFooter } from './components/pinned-head
 import { Exercise, ExerciseWithScroll } from './components/exercise';
 import { ExControlButtons } from './components/exercise/controls';
 import { APIHandler, APIHandlerBase } from './api';
-
+import { idType } from './helpers/react';
 export {
   APIHandler, APIHandlerBase, CardBody, Exercise, ExControlButtons,
-  ExerciseWithScroll, PinnableFooter, PinnedHeader,
+  ExerciseWithScroll, PinnableFooter, PinnedHeader, idType,
 };
 
 export SuretyGuard from './components/surety-guard';

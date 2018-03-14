@@ -83,7 +83,7 @@ export default class StudentDashboard extends React.PureComponent {
                 tabs={['This Week', 'All Past Work']} />
               {tabIndex === 0 ? this.renderThisWeek(course) : this.renderPastWork(course)}
             </Col>
-            <Col xs={12} md={4} lg={3}>
+            <Col xs={12} md={4} lg={3} className="sidebar">
               <Surveys course={course} />
               <ProgressGuideShell courseId={courseId} />
               <div className="actions-box">

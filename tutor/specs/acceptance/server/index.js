@@ -1,14 +1,15 @@
 const { bind } = require('lodash');
 const path = require('path');
 var fork = require('child_process').fork;
-
+const chalk = require('chalk');
+const { fe_port, be_port } = require('./ports');
 const SERVERS = ['backend', 'frontend'];
 
 class Server {
 
   constructor({
     role = 'teacher',
-    ports = { frontend: 8111, backend: 8122 }
+    ports = { frontend: fe_port, backend: be_port },
   } = {}) {
     this.role = role;
     this.ports = ports;
@@ -16,12 +17,17 @@ class Server {
   }
 
   boot() {
+    console.log(chalk.green(
+      `\nStarting servers on port FE: ${this.ports.frontend}; BE: ${this.ports.backend}`
+    ));
+    console.log(chalk.green(`Role: ${this.role}`));
+
     return this._booting = Promise.all(SERVERS.map((server) =>
       new Promise((resolve, reject) => {
         this.pending[server] = { resolve, reject };
         this[server] = fork(
           path.join(__dirname, `./${server}.js`),
-          [this.ports.frontend, this.ports.backend], {},
+          ['--fe', this.ports.frontend, '--be', this.ports.backend], {},
         );
         this[server].on('message', bind(this._onMessage, this, server));
         this[server].on('close', bind(this._onServerExit, this, server));
@@ -74,7 +80,8 @@ class Server {
 
 
 if (require.main === module) {
-  const server = new Server();
+  const argv = require('yargs').argv;
+  const server = new Server({ role: argv.role || 'teacher' });
   server.boot();
 } else {
   module.exports = Server;
