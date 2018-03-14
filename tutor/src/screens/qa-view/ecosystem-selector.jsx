@@ -10,7 +10,6 @@ export default class EcosystemSelector extends React.Component {
   }
 
   componentDidMount() {
-    console.log("MOUNT ECOS")
     this.props.ux.ecosystemsMap.fetch();
   }
 

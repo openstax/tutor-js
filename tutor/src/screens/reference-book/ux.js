@@ -1,6 +1,6 @@
 import { observable, computed, action } from 'mobx';
 import Router from '../../helpers/router';
-import { extend } from 'lodash';
+import { extend, first } from 'lodash';
 import User from '../../models/user';
 import MenuToggle from '../../components/book-menu/toggle';
 import SectionTitle from './section-title';
@@ -29,7 +29,11 @@ export default class ReferenceBookUX {
 
     if (!this.course.referenceBook.api.hasBeenFetched) {
       this.course.referenceBook.fetch().then(() => {
-        if (this.activePage) { this.activePage.ensureLoaded(); }
+        if (this.activePage) {
+          this.activePage.ensureLoaded();
+        } else {
+          this.setSection(); // will default to first section
+        }
       });
     }
   }
@@ -72,7 +76,8 @@ export default class ReferenceBookUX {
     if (this.isMenuOnTop) { this.isMenuVisible = false; }
   }
 
-  @action.bound setSection(section = '1') {
+  @action.bound setSection(section) {
+    if (!section) { section = first(this.pages.byChapterSection.keys()); }
     this.activeSection = section;
     if (this.activePage) { this.activePage.ensureLoaded(); }
   }
