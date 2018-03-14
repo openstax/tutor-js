@@ -74,7 +74,6 @@ export default class StudentScores extends React.PureComponent {
     return (
       <div className="controls">
         <TableFilters ux={this.ux} />
-        <div className="spacer" />
         <ScoresReportExportControls course={this.course}/>
       </div>
     );

@@ -15,7 +15,7 @@ export default class ScoresReportExportControls extends React.PureComponent {
     }
 
     return (
-      <div>
+      <div className="export-controls">
         <LmsPush course={this.props.course} />
         <Export course={this.props.course} />
       </div>
