@@ -42,15 +42,15 @@ export default class ReferenceBookShell extends React.Component {
   }
 
   render() {
-    const { referenceBook } = this.course;
+    const { ux } = this;
 
-    if (!referenceBook.api.hasBeenFetched) {
+    if (!ux.activePage) {
       return <LoadingScreen />;
     }
 
     return (
       <ReferenceBook
-        ux={this.ux}
+        ux={ux}
         section={this.section}
         className={classnames({ 'is-teacher': this.ux.isShowingTeacherContent })}
       />
