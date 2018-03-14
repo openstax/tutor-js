@@ -46,7 +46,7 @@ Statistics = React.createClass
         <ul>
           { for key, value of @props.section.clue
             value = value.join(' ') if _.isArray(value)
-            <li key={key}><strong>{key}</strong>: {value.toString()}</li>}
+            <li key={key}><strong>{key}</strong>: {String(value)}</li>}
         </ul>
       </SpyMode.Content>
       <div className='amount-worked'>
