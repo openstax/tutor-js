@@ -10,13 +10,14 @@ describe('Scores Report: assignment column header', function() {
   beforeEach(function() {
     const { course, period } = bootstrapScores();
     heading = period.data_headings[0];
+    const ux = new UX(course);
     props = {
       courseId: course.id,
-      ux: new UX(course),
+      ux,
       columnIndex: 0,
       onSort: jest.fn(),
       sort: {},
-      period,
+      period: ux.period,
     };
   });
 
@@ -27,6 +28,14 @@ describe('Scores Report: assignment column header', function() {
     expect(SnapShot.create(
       <Wrapper _wrapped_component={Header} noReference={true} {...props} />).toJSON()
     ).toMatchSnapshot();
+  });
+
+  it('renders properly when average is undefined for an external assignment', () => {
+    props.columnIndex = 2;
+    props.ux.periodTasksByType.external.average_progress = undefined
+
+    const wrapper = shallow(<Header {...props} />);
+    expect(wrapper.render().find('.click-rate').text()).toEqual('0% have clicked link');
   });
 
   describe('for a CC course', function() {
