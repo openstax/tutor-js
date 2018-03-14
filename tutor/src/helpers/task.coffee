@@ -20,18 +20,21 @@ module.exports = {
     moment(due_at).isBefore(TimeStore.getNow())
 
   getHumanUnacceptedScore: (task) ->
+    return '0%' unless task.correct_on_time_exercise_count and task.exercise_count
     score = Math.round((
       task.correct_on_time_exercise_count / task.exercise_count
       ) * 100 )
     "#{score}%"
 
   getHumanScoreWithLateWork: (task) ->
+    return '0%' unless task.correct_exercise_count and task.exercise_count
     score = Math.round((
       task.correct_exercise_count / task.exercise_count
       ) * 100 )
     "#{score}%"
 
   getHumanUnacceptedProgress: (task) ->
+    return '0%' unless task.completed_on_time_exercise_count and task.exercise_count
     progress = Math.round((
       task.completed_on_time_exercise_count / task.exercise_count
       ) * 100 )
@@ -43,6 +46,7 @@ module.exports = {
         task.completed_exercise_count / task.exercise_count
       else
         task.completed_step_count / task.step_count
+    return '0%' if isNaN(percent )
     progress = Math.round(percent * 100)
     "#{progress}%"
 
