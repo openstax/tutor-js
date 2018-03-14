@@ -89,7 +89,7 @@ export default class AnnotationCard extends React.Component {
     if (section) {
       url += `.${section}`;
     }
-    url += `#highlight-${id}`;
+    url += `?highlight=${id}`;
     window.open(url, '_blank');
   }
 

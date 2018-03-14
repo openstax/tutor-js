@@ -5,8 +5,10 @@ import AnnotationsMap from '../../src/models/annotations';
 import User from '../../src/models/user';
 import Page from '../../api/pages/be8818d0-2dba-4bf3-859a-737c25fb2c99@20.json';
 import ANNOTATIONS from '../../api/annotations.json';
+import Router from '../../src/helpers/router';
 
 jest.mock('../../src/models/feature_flags', () => ({ is_highlighting_allowed: true }));
+jest.mock('../../src/helpers/router');
 jest.mock('../../src/models/user');
 
 describe('Annotations', () => {
@@ -15,6 +17,7 @@ describe('Annotations', () => {
 
   beforeEach(function() {
     Courses = bootstrapCoursesList();
+    Router.currentQuery.mockReturnValue({});
     Courses.get(1).appearance_code = 'college_biology';
     body = window.document.body;
     annotations = new AnnotationsMap();
@@ -68,4 +71,15 @@ describe('Annotations', () => {
     expect(comp.toJSON()).toMatchSnapshot();
     comp.unmount();
   });
+
+  it('scrolls to linked annotation', () => {
+    const highlight = annotations.keys()[0];
+    Router.currentQuery.mockReturnValue({ highlight });
+    const widget = mount(<AnnotationWidget {...props} />);
+    expect(widget.instance().scrollToPendingAnnotation).not.toBeUndefined();
+    widget.instance().scrollToAnnotation = jest.fn();
+    widget.instance().scrollToPendingAnnotation();
+    expect(widget.instance().scrollToAnnotation).toHaveBeenCalled();
+  });
+
 });
