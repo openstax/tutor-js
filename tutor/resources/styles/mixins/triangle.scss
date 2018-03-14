@@ -1,0 +1,40 @@
+// CSS Triangles Mixin from https://codepen.io/Somnius/pen/BodyVm
+@mixin triangle($direction, $color, $height: 1rem, $width: 1rem) {
+    border-style: solid;
+    height: 0;
+    width: 0;
+    // Cardinal Directions - can't be scalene this way
+    @if($direction == 'top') {
+        border-color: transparent transparent $color transparent;
+        border-width: 0 ($width/2) $height ($width/2);
+    }
+    @if ($direction == 'bottom') {
+        border-color: $color transparent transparent transparent;
+        border-width: $height ($width/2) 0 ($width/2);
+    }
+    @if ($direction == 'right') {
+        border-color: transparent transparent transparent $color;
+        border-width: ($height/2) 0 ($height/2) $width;
+    }
+    @if ($direction == 'left') {
+        border-color: transparent $color transparent transparent;
+        border-width: ($height/2) $width ($height/2) 0;
+    }
+    // Ordinal Directions - can be scalene this way!
+    @if ($direction == 'top-left') {
+        border-color: $color transparent transparent transparent;
+        border-width: $height $width 0 0;
+    }
+    @if ($direction == 'top-right') {
+        border-color: transparent $color transparent transparent;
+        border-width: 0 $width $height 0;
+    }
+    @if ($direction == 'bottom-left') {
+        border-color: transparent transparent transparent $color;
+        border-width: $height 0 0 $width;
+    }
+    @if ($direction == 'bottom-right') {
+        border-color: transparent transparent $color transparent;
+        border-width: 0 0 $height $width;
+    }
+}

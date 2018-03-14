@@ -54,14 +54,14 @@ export default class AnnotationWidget extends React.Component {
   };
 
   scrollTo = new ScrollTo({ windowImpl: this.props.windowImpl, scrollingTargetClass: false });
-  @observable widgetStyle = null;
   @observable scrollToPendingAnnotation;
   @computed get showWindowShade() {
     return this.ux.isSummaryVisible;
   }
-  @observable parentRect = {};
+
   @observable referenceElements = [];
   @observable _activeAnnotation;
+  @observable savedSelection;
 
   componentDidMount() {
     if (!this.course.canAnnotate) { return; }
@@ -219,7 +219,6 @@ export default class AnnotationWidget extends React.Component {
     // If it's a cursor placement with no highlighted text, check
     // for whether it's in an existing highlight
     if (selection.isCollapsed) {
-      this.widgetStyle = null;
       this.savedSelection = null;
       const referenceEl = document.getElementById(selection.referenceElementId);
       this.activeAnnotation = this.annotationsForThisPage.find((note) => {
@@ -233,19 +232,9 @@ export default class AnnotationWidget extends React.Component {
       if (errorMessage) {
         this.savedSelection = null;
         this.ux.statusMessage.show({ message: errorMessage, autoHide: true });
-        this.widgetStyle = null;
       } else {
-        const { rect } = selection;
-        const pwRect = this.parentRect;
         this.activeAnnotation = null;
         this.ux.statusMessage.hide();
-        const middle = (rect.bottom - rect.top) / 2;
-        const center = (rect.right - rect.left) / 2;
-        this.widgetStyle = {
-          top: `${rect.bottom - middle - pwRect.top}px`,
-          left: `${(rect.left + center) - pwRect.left}px`,
-        };
-
         this.savedSelection = selection;
       }
     }
@@ -262,7 +251,7 @@ export default class AnnotationWidget extends React.Component {
   highlightAndClose() {
     return this.saveNewHighlight().then(
       action((annotation) => {
-        this.widgetStyle = null;
+        this.savedSelection = null;
         annotation.selection.restore(highlighter);
         return annotation;
       }));
@@ -314,21 +303,23 @@ export default class AnnotationWidget extends React.Component {
     );
   }
 
-  @action.bound
-  getParentRect(el) {
+  @action.bound setElement(el) {
+    this.element = el;
+  }
 
-    if (el) {
-      const wLeft = this.props.windowImpl.pageXOffset;
-      const wTop = this.props.windowImpl.pageYOffset;
-      const parentRect = el.parentNode.getBoundingClientRect();
-      this.parentRect = {
-        bottom: wTop + parentRect.bottom,
-        left: wLeft + parentRect.left,
-        right: wLeft + parentRect.right,
-        top: wTop + parentRect.top,
-      };
-      this.articleElement = el.parentNode;
+  get parentRect() {
+    if (!this.element) {
+      return { top: 0, bottom: 0, left: 0, right: 0 };
     }
+    const wLeft = this.props.windowImpl.pageXOffset;
+    const wTop = this.props.windowImpl.pageYOffset;
+    const parentRect =  this.element.parentElement.getBoundingClientRect();
+    return {
+      bottom: wTop + parentRect.bottom,
+      left: wLeft + parentRect.left,
+      right: wLeft + parentRect.right,
+      top: wTop + parentRect.top,
+    };
   }
 
   @computed get ux() { return User.annotations.ux; }
@@ -385,9 +376,10 @@ export default class AnnotationWidget extends React.Component {
     if (!this.course.canAnnotate) { return null; }
 
     return (
-      <div className="annotater" ref={this.getParentRect}>
+      <div className="annotater" ref={this.setElement}>
         <InlineControls
-          style={this.widgetStyle}
+          parentRect={this.parentRect}
+          selection={this.savedSelection}
           annotate={this.openAnnotator}
           highlight={this.highlightAndClose}
         />

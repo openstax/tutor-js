@@ -1,0 +1,110 @@
+.annotater {
+  .highlights-windowshade {
+    background-color: $tutor-neutral-light;
+    bottom: 100%;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    top: 0;
+    transition: 0.3s;
+    z-index: 20;
+    @include no-select();
+
+    &.down {
+      bottom: 0;
+      overflow: auto;
+      padding-top: 5rem;
+
+      @media print {
+        padding: 0;
+        position: static;
+      }
+    }
+
+    h1 {
+      @include tutor-main-title-font();
+      border-top-width: 0;
+    }
+    h2 {
+      @include tutor-main-subtitle-font();
+    }
+  }
+
+
+  .summary-page {
+    padding: 50px;
+
+    .section-annotations-list {
+      column-count: 2;
+      @media screen and (max-width: $tutor-card-padding-collapse-breakpoint) {
+        column-count: 1;
+      }
+    }
+
+    .annotation-card {
+      background-color: $tutor-white;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 3rem;
+      padding: 3rem;
+      width: 100%;
+      break-inside: avoid;
+      @media print {
+        padding: 0;
+      }
+
+      button {
+        background-color: $tutor-white;
+        border: thin solid $tutor-neutral-light;
+        border-radius: 2px;
+        height: 3rem;
+        margin-right: 0.5rem;
+        width: 4.6rem;
+
+        &:last-child {
+          margin: 0;
+        }
+
+        .tutor-icon {
+          color: $tutor-neutral-dark;
+          margin: 0;
+        }
+      }
+
+      .controls {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .annotation-content {
+        flex: 1;
+
+        .selected-text {
+          border-left: 3px solid $tutor-neutral-light;
+          font-family: Georgia, serif;
+          background: $tutor-white;
+          font-size: 1.5rem;
+          line-height: 1.8rem;
+          font-style: italic;
+          padding: 1rem;
+        }
+        .plain-text {
+          white-space: pre-line;
+        }
+        .edit-box,
+        .plain-text:not(:empty) {
+          margin-top: 2rem;
+
+          textarea {
+            border: thin solid $tutor-neutral-light;
+            padding: 1rem;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

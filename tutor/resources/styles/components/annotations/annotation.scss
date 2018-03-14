@@ -1,20 +1,21 @@
 .tutor-highlight {
   background-color: $tutor-highlight;
   cursor: pointer;
-  transition: 0.3s box-shadow;
+  transition: 0.3s background-color;
   &.focus {
-    box-shadow: 0 0 4px $tutor-neutral-dark;
+    background-color: $tutor-neutral-light;
   }
 }
 
+
 .annotater {
-  .widget {
+
+  .inline-controls {
     background: $tutor-white;
     border: thin solid $tutor-neutral-light;
     font-size: 2rem;
     padding: 0;
     position: absolute;
-    transform: translate(calc(10px - 50%), 10px);
     z-index: 2;
     @include no-select();
     @include tutor-shadow(subtle);
@@ -47,7 +48,33 @@
       &:hover {
         color: $tutor-black;
       }
+    }
 
+    &::before {
+      @include triangle(
+        bottom,
+        $color: $tutor-neutral-light,
+        $height: 16px,
+        $width: 22px
+      );
+      content: " ";
+      left: calc(50% - 11px);
+      bottom: -16px;
+      position: absolute;
+    }
+
+
+    &::after {
+      @include triangle(
+        bottom,
+        $color: white,
+        $height: 14px,
+        $width: 18px
+      );
+      content: " ";
+      left: calc(50% - 9px);
+      bottom: -14px;
+      position: absolute;
     }
   }
 
@@ -65,35 +92,6 @@
       background-color: $tutor-warning;
     }
 
-  }
-
-  .arrow-box {
-
-    &:after,
-    &:before {
-      bottom: 100%;
-      left: 50%;
-      border: solid transparent;
-      content: " ";
-      height: 0;
-      width: 0;
-      position: absolute;
-      pointer-events: none;
-    }
-
-    &:after {
-      border-color: rgba(255, 255, 255, 0);
-      border-bottom-color: $tutor-white;
-      border-width: 12px;
-      margin-left: -12px;
-    }
-
-    &:before {
-      border-color: rgba(211, 211, 211, 0);
-      border-bottom-color: $tutor-neutral-light;
-      border-width: 13px;
-      margin-left: -13px;
-    }
   }
 
   .slide-out-edit-box {
@@ -160,11 +158,12 @@
     transform: translateY(-25%);
     color: $tutor-neutral;
     transition: 0.3s color;
-    &:hover { color: $tutor-neutral-dark; }
+    &:hover { color: $tutor-neutral-darker; }
+    transition: 0.3s color;
     &.active {
-      color: $tutor-blue-icon;
+      color: $tutor-neutral-dark;
       &:hover {
-        color: $tutor-blue-icon;
+        color: $tutor-neutral-dark;
         cursor: default;
       }
     }
@@ -173,43 +172,9 @@
     }
   }
 
-  .highlights-windowshade {
-    background-color: $tutor-neutral-light;
-    bottom: 100%;
-    display: flex;
-    justify-content: center;
-    left: 0;
-    overflow: hidden;
-    position: fixed;
-    right: 0;
-    top: 0;
-    transition: 0.3s;
-    z-index: 20;
-    @include no-select();
-
-    &.down {
-      bottom: 0;
-      overflow: auto;
-      padding-top: 5rem;
-
-      @media print {
-        padding: 0;
-        position: static;
-      }
-    }
-
-    h1 {
-      @include tutor-main-title-font();
-      border-top-width: 0;
-    }
-    h2 {
-      @include tutor-main-subtitle-font();
-    }
-  }
-
   .centered-content {
     flex-basis: 100%;
-    max-width: 100rem;
+    max-width: $tutor-max-panel-width;
 
     @media print {
       flex-basis: calc(100% - 8rem);
@@ -247,70 +212,6 @@
     }
   }
 
-  .annotation-card {
-    background-color: $tutor-white;
-    display: flex;
-    margin-bottom: 3rem;
-    padding: 3rem;
-    width: 100%;
-
-    @media print {
-      padding: 0;
-    }
-
-    button {
-      background-color: $tutor-white;
-      border: thin solid $tutor-neutral-light;
-      border-radius: 2px;
-      height: 3rem;
-      margin-right: 0.5rem;
-      width: 4.6rem;
-
-      &:last-child {
-        margin: 0;
-      }
-
-      .tutor-icon {
-        color: $tutor-neutral-dark;
-        margin: 0;
-      }
-    }
-
-    .controls {
-      display: flex;
-      @media screen and (max-width: 758px) {
-        flex-direction: column;
-        button + button { margin-top: 0.5rem; }
-      }
-    }
-
-    .annotation-content {
-      flex: 1;
-
-      .selected-text {
-        border-left: 3px solid $tutor-neutral-light;
-        font-family: Georgia, serif;
-        background: $tutor-white;
-        font-size: 1.5rem;
-        line-height: 1.8rem;
-        font-style: italic;
-        padding: 1rem;
-      }
-      .plain-text {
-        white-space: pre-line;
-      }
-      .edit-box,
-      .plain-text:not(:empty) {
-        margin-top: 2rem;
-
-        textarea {
-          border: thin solid $tutor-neutral-light;
-          padding: 1rem;
-          width: 100%;
-        }
-      }
-    }
-  }
 
 }
 
@@ -319,3 +220,5 @@
   border-top-width: 0;
   padding-top: 0;
 }
+
+@import "./summary-page";
