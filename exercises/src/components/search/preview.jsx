@@ -22,7 +22,9 @@ export default class Preview extends React.Component {
         isInteractive={false}
         isVerticallyTruncated={true}
         exercise={exercise}
-      />
+      >
+        <a href="/foo">EDIT {exercise.uid}</a>
+      </ExercisePreview>
     );
   }
 

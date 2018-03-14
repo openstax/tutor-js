@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, identifier, session, field, hasMany, computed,
 } from '../model';
-import { map, filter } from 'lodash';
+import { reduce, map, filter, merge } from 'lodash';
 
 import Attachment from './exercise/attachment';
 import Author from './exercise/author';
@@ -13,14 +13,18 @@ export { Attachment, Author, Question, Tag };
 @identifiedBy('exercise')
 export default class Exercise extends BaseModel {
 
+  static build(attrs) {
+    return new this(merge(attrs, { questions: [{ }] }));
+  }
+
   @identifier uuid;
+  @field id;
   @field uid;
   @field version;
   @field({ type: 'array' }) versions;
   @field({ type: 'array' }) formats;
   @field is_vocab;
   @field number;
-  @field id;
 
   @session wrapper;
 
@@ -40,6 +44,21 @@ export default class Exercise extends BaseModel {
 
   @computed get cnxModuleUUIDs() {
     return map(filter(this.tags, { type: 'context-cnxmod' }), 'value');
+  }
+
+  @computed get validity() {
+    return reduce(this.questios, (memo, question) => ({
+      valid: memo.valid && question.validity.valid,
+      part: memo.part || question.validity.part,
+    }) , { valid: true });
+  }
+
+  tagsWithPrefix(prefix) {
+    return filter(this.tags, t => t.type === prefix)
+  }
+
+  @computed get isMultiPart() {
+    return this.questions.length > 1;
   }
 
 }

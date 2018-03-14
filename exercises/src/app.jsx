@@ -1,23 +1,14 @@
 import React from 'react';
 import { Grid, Navbar, Nav, NavItem, } from 'react-bootstrap';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { Provider, observer } from 'mobx-react';
 
 import UX from './ux';
 import Search from './components/search';
-
+import Exercise from './components/exercise';
 import { startAPI } from './routes';
 
-// import _ from 'underscore';
-// import BS from 'react-bootstrap';
-// import classnames from 'classnames';
-// import Location from 'stores/location';
-//
-// import ErrorModal from './error-modal';
-// import UserActionsMenu from 'components/user-actions-menu';
-// import { SuretyGuard } from 'shared';
-// import NetworkActivity from './network-activity-spinner';
-// import { VocabularyStore, VocabularyActions } from 'stores/vocabulary';
-// import RecordNotFoundWarning from './record-not-found';
+
 
 export default class App extends React.Component {
 
@@ -31,34 +22,36 @@ export default class App extends React.Component {
     const { ux } = this;
 
     return (
-      <BrowserRouter>
-        <Grid fluid className="exercises">
-          <Navbar fixedTop>
-            <Navbar.Header>
-              <Navbar.Brand>
-                <a href="#home">OX Exercises</a>
-              </Navbar.Brand>
-            </Navbar.Header>
-            <Nav>
-              <NavItem href="/exercise/new">
-                New exercise
-              </NavItem>
-              <NavItem>
-                <Route path="/search" component={Search.Controls} ux={ux} />
-              </NavItem>
-            </Nav>
-          </Navbar>
-          <div className="exercises-body">
-            <Route path="/search" render={() => <Search ux={ux} />} />
-          </div>
-        </Grid>
-      </BrowserRouter>
-
+      <Provider ux={ux}>
+        <BrowserRouter>
+          <Grid fluid className="exercises">
+            <Navbar fixedTop>
+              <Navbar.Header>
+                <Navbar.Brand>
+                  <a href="#home">OX Exercises</a>
+                </Navbar.Brand>
+              </Navbar.Header>
+              <Nav>
+                <NavItem href="/exercise/new">
+                  New exercise
+                </NavItem>
+                <NavItem>
+                  <Route path="/search" component={Search.Controls} />
+                  <Route path="/exercise/:id" component={Exercise.Controls} />
+                </NavItem>
+              </Nav>
+            </Navbar>
+            <div className="exercises-body">
+              <Route path="/search" component={Search} />
+              <Route path="/exercise/:id" component={Exercise} />
+            </div>
+          </Grid>
+        </BrowserRouter>
+      </Provider>
     );
   }
+
 }
-
-
 
 
 // let { view, id, args } = this.props.location.getCurrentUrlParts();

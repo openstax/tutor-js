@@ -86,6 +86,7 @@ class ExercisePreview extends React.Component {
   };
 
   renderFooter = () => {
+    console.log("RENDER CHILD")
     return (
       <div className="controls">
         {this.props.children}

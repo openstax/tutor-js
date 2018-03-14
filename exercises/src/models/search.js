@@ -44,6 +44,11 @@ export default class Search extends BaseModel {
   @hasMany({ model: Exercise }) exercises;
   @observable total_count;
 
+  constructor() {
+    super();
+    if (!this.clauses.length) { this.clauses.push({}); }
+  }
+
   @action.bound execute() {
     this.perform();
   }
@@ -55,12 +60,7 @@ export default class Search extends BaseModel {
 
   //called by api
   perform() {
-
     return { query: { q: map(this.clauses, 'asQuery').join(' ') } };
   }
 
-  constructor() {
-    super();
-    if (!this.clauses.length) { this.clauses.push({}); }
-  }
 }
