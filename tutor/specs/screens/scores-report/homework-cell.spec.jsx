@@ -2,28 +2,28 @@ import { React } from '../../components/helpers/component-testing';
 import bootstrapScores from '../../helpers/scores-data.js';
 import Cell from '../../../src/screens/scores-report/homework-cell';
 import EnzymeContext from '../../components/helpers/enzyme-context';
-
-import TH from '../../../src/helpers/task';
+import ScoresUX from '../../../src/screens/scores-report/ux';
 
 describe('Student Scores Homework Cell', function() {
   let props;
   let scores;
+  let course;
   let task;
-  let period;
+  let ux;
 
   beforeEach(() => {
-    ({ scores, period } = bootstrapScores());
+    ({ course, scores } = bootstrapScores());
+    ux = new ScoresUX(course);
     task = scores.getTask(18);
     props = {
-      courseId: '1',
+      ux,
+      task,
       columnIndex: 1,
       isConceptCoach: false,
       student: {
         name: 'Molly Bloom',
         role: 1,
       },
-      task,
-      period,
     };
   });
 
@@ -36,6 +36,8 @@ describe('Student Scores Homework Cell', function() {
     const score = ((task.correct_on_time_exercise_count / task.exercise_count) * 100).toFixed(0) + '%';
     expect(cell.text()).toEqual('81%');
     expect(cell).not.toHaveRendered('.late-caret');
+    ux.displayValuesAs = 'number';
+    expect(cell.text()).toEqual('2 of 4');
   });
 
   it('renders progress cell', function() {

@@ -7,24 +7,25 @@ import HomeworkCell from './homework-cell';
 import AbsentCell from './absent-cell';
 import ExternalCell from './external-cell';
 import ConceptCoachCell from './concept-coach-cell';
+import UX from './ux';
 
 @observer
 export default class AssignmentCell extends React.PureComponent {
   static propTypes = {
-    courseId: React.PropTypes.string.isRequired,
+    ux: React.PropTypes.instanceOf(UX).isRequired,
     students: React.PropTypes.array.isRequired,
-    period: React.PropTypes.object.isRequired,
     rowIndex: React.PropTypes.number,
     columnIndex: React.PropTypes.number.isRequired,
   }
 
   render() {
-    const student = this.props.students[this.props.rowIndex || 0];
+    const { ux, students, rowIndex } = this.props;
+    const student = students[rowIndex || 0];
 
     const props = extend({}, this.props, {
       student,
       task: student.data[this.props.columnIndex],
-      headings: this.props.period.data_headings,
+      headings: ux.period.data_headings,
     });
 
     switch (props.task ? props.task.type : 'null') {

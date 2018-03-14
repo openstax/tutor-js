@@ -1,23 +1,21 @@
 import React from 'react';
 import { map } from 'lodash';
 import { action } from 'mobx';
+import { observer } from 'mobx-react';
 import { ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { autobind } from 'core-decorators';
+import UX from './ux';
 
 const FILTERS = {
   '%': 'percentage',
   '#': 'number',
 };
 
+@observer
 export default class TableFilters extends React.PureComponent {
 
   static propTypes = {
-    displayAs: React.PropTypes.string.isRequired,
-    changeDisplayAs: React.PropTypes.func.isRequired,
-  }
-
-  @action.bound onFilterChange(mode) {
-    this.props.changeDisplayAs(mode);
+    ux: React.PropTypes.instanceOf(UX).isRequired,
   }
 
   @autobind renderButton(filter, label) {
@@ -32,13 +30,13 @@ export default class TableFilters extends React.PureComponent {
   }
 
   render() {
-    const { displayAs } = this.props;
+    const { ux } = this.props;
     return (
       <div className="filter-row">
         Display as
         <ToggleButtonGroup
-          value={displayAs}
-          onChange={this.onFilterChange}
+          value={ux.displayValuesAs}
+          onChange={ux.onChangeDisplayValuesAs}
           bsSize="small"
           name="filter-by"
           className="filter-group"

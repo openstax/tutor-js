@@ -4,18 +4,18 @@ import TutorLink from '../../components/link';
 import { Overlay, Popover } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
-import PercentCorrect from './percent-correct';
+import Correctness from './correctness-value';
 import PieProgress from './pie-progress';
 import { LateWork } from './late-work';
 import TH from '../../helpers/task';
+import UX from './ux';
 
 @observer
 export default class ReadingCell extends React.PureComponent {
 
   static propTypes = {
+    ux: React.PropTypes.instanceOf(UX).isRequired,
     className: React.PropTypes.string,
-    period_id: React.PropTypes.string,
-    courseId: React.PropTypes.string.isRequired,
     columnIndex: React.PropTypes.number.isRequired,
     task: React.PropTypes.shape({
       id: React.PropTypes.number,
@@ -39,7 +39,7 @@ export default class ReadingCell extends React.PureComponent {
   }
 
   renderPopover() {
-    const { task, courseId, period_id } = this.props;
+    const { task, ux } = this.props;
     if (!task.isStarted) { return null; }
 
     return (
@@ -72,9 +72,9 @@ export default class ReadingCell extends React.PureComponent {
   }
 
   renderLateWork() {
-    const { task, columnIndex } = this.props;
+    const { ux, task, columnIndex } = this.props;
 
-    if (!this.props.period.course.isTeacher) {
+    if (!ux.course.isTeacher) {
       return null;
     }
 
@@ -88,11 +88,11 @@ export default class ReadingCell extends React.PureComponent {
   }
 
   render() {
-    const { task, period_id } = this.props;
+    const { ux, task } = this.props;
 
     return (
       <div className="scores-cell">
-        <PercentCorrect task={task} />
+        <Correctness ux={ux} task={task} />
         <div className="worked" onMouseOver={this.show} onMouseLeave={this.hide}>
           {this.renderPopover(task)}
           <PieProgress task={task} ref="pieChart" />

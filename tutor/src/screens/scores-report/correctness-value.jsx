@@ -1,9 +1,11 @@
 import React from 'react';
+import { isNil } from 'lodash';
 import { observer } from 'mobx-react';
+import { asPercent } from '../../helpers/string';
 import TaskResult from '../../models/course/scores/task-result';
 import TH from '../../helpers/task';
-import Percent from './percent';
 import TutorLink from '../../components/link';
+import UX from './ux';
 
 const ReviewLink = ({ task, children }) => {
   const { course } = task.student.period;
@@ -21,20 +23,35 @@ const ReviewLink = ({ task, children }) => {
   );
 };
 
+const Progress = observer(({ task }) => {
+  const progress = TH.getHumanScoreNumber(task);
+  return <div className="correct">{progress}</div>;
+});
+
+const Percent = observer(({ task: { score } }) => {
+  const display = isNil(score) ? '---' : `${asPercent(score)}%`;
+  return <div className="correct">{display}</div>;
+});
+
+
 @observer
-export default class PercentCorrect extends React.Component {
+export default class CorrectnessValue extends React.Component {
 
   static propTypes = {
+    ux: React.PropTypes.instanceOf(UX).isRequired,
     task: React.PropTypes.instanceOf(TaskResult).isRequired,
   }
 
   render() {
-    const { task } = this.props;
+    const { ux, task } = this.props;
     const isDue = TH.isDue(task);
+
     if (task.isStarted || isDue) {
-      const value = <Percent className="correct" value={task.score} />;
+      const Display = (ux.displayValuesAs === 'percentage') ? Percent : Progress;
+      const value = <Display task={task} />;
+
       return task.isStarted ?
-        <ReviewLink task={task}>{value}</ReviewLink> : value;
+          <ReviewLink task={task}>{value}</ReviewLink> : value;
     } else {
       return <div className="correct unstarted">---</div>;
     }

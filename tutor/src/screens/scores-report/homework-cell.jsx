@@ -7,10 +7,11 @@ import TH from '../../helpers/task';
 import TutorLink from '../../components/link';
 import { LateWork } from './late-work';
 import PieProgress from './pie-progress';
-import PercentCorrect from './percent-correct';
+import Correctness from './correctness-value';
 import TaskResult from '../../models/course/scores/task-result';
+import UX from './ux';
 
-const HomeworkScore = ({ task, displayAs, courseId }) => {
+const HomeworkScore = ({ task, displayAs, ux }) => {
 
   const scorePercent = TH.getHumanScorePercent(task);
   const scoreNumber = TH.getHumanScoreNumber(task);
@@ -23,7 +24,7 @@ const HomeworkScore = ({ task, displayAs, courseId }) => {
         <TutorLink
           to="viewTaskStep"
           data-assignment-type={`${task.type}`}
-          params={{ courseId, id: task.id, stepIndex: 1 }}>
+          params={{ courseId: ux.course.id, id: task.id, stepIndex: 1 }}>
           {scoreText}
         </TutorLink>
       </div>
@@ -43,8 +44,8 @@ const HomeworkScore = ({ task, displayAs, courseId }) => {
 export default class HomeworkCell extends React.PureComponent {
 
   static propTypes = {
+    ux: React.PropTypes.instanceOf(UX).isRequired,
     className: React.PropTypes.string,
-    courseId: React.PropTypes.string.isRequired,
     isConceptCoach: React.PropTypes.bool,
     columnIndex: React.PropTypes.number.isRequired,
     task: React.PropTypes.instanceOf(TaskResult).isRequired,
@@ -106,9 +107,9 @@ export default class HomeworkCell extends React.PureComponent {
   }
 
   renderLateWork() {
-    const { task, columnIndex } = this.props;
+    const { ux, task, columnIndex } = this.props;
 
-    if (!this.props.period.course.isTeacher) {
+    if (!ux.course.isTeacher) {
       return null;
     }
 
@@ -123,9 +124,11 @@ export default class HomeworkCell extends React.PureComponent {
   }
 
   render() {
+    const { ux, task } = this.props;
+
     return (
       <div className="scores-cell">
-        <PercentCorrect task={this.props.task} />
+        <Correctness ux={ux} task={task} />
         {this.renderPopover()}
         {this.renderLateWork()}
       </div>

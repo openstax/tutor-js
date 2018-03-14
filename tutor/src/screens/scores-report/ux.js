@@ -50,6 +50,7 @@ export default class ScoresReportUX {
     }
   }
 
+  @observable displayValuesAs = 'percentage';
   @observable averagesWidth = first(this.fromTo);
   @observable periodIndex = 0;
   @observable weights = new WeightsUX(this);
@@ -73,6 +74,10 @@ export default class ScoresReportUX {
       flatMap(this.course.scores.periods.values(), p => p.data_headings.peek()),
       'type'
     );
+  }
+
+  @action.bound onChangeDisplayValuesAs(mode) {
+    this.displayValuesAs = mode;
   }
 
   isAverageUnavailableByType(type) {

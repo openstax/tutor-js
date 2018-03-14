@@ -36,7 +36,6 @@ export default class StudentScores extends React.PureComponent {
 
   @observable sortIndex;
   @observable sort = { key: 'name', asc: true, dataType: 'score' };
-  @observable displayAs = 'percentage';
 
   componentWillMount() {
     this.course.scores.fetch();
@@ -50,10 +49,6 @@ export default class StudentScores extends React.PureComponent {
 
   @action.bound selectPeriod(period, key) {
     this.ux.periodIndex = key;
-  }
-
-  @action.bound changeDisplayAs(mode) {
-    this.displayAs = mode;
   }
 
   renderAfterTabsItem() {
@@ -78,7 +73,7 @@ export default class StudentScores extends React.PureComponent {
   renderControls() {
     return (
       <div className="controls">
-        <TableFilters displayAs={this.displayAs} changeDisplayAs={this.changeDisplayAs} />
+        <TableFilters ux={this.ux} />
         <div className="spacer" />
         <ScoresReportExportControls course={this.course}/>
       </div>
@@ -114,7 +109,6 @@ export default class StudentScores extends React.PureComponent {
                 ux={this.ux}
                 sort={this.sort}
                 onSort={this.changeSortingOrder}
-                displayAs={this.displayAs}
                 dataType={this.sort.dataType}
                 isConceptCoach={this.course.is_concept_coach}
               />

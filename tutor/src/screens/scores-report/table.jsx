@@ -43,9 +43,6 @@ export default class ScoresTable extends React.PureComponent {
     ux: React.PropTypes.instanceOf(UX).isRequired,
     sort: React.PropTypes.object.isRequired,
     onSort: React.PropTypes.func.isRequired,
-    width: React.PropTypes.number,
-    height: React.PropTypes.number,
-    displayAs: React.PropTypes.string.isRequired,
     dataType: React.PropTypes.string,
     isConceptCoach: React.PropTypes.bool.isRequired,
   }
@@ -142,7 +139,7 @@ export default class ScoresTable extends React.PureComponent {
   }
 
   render() {
-    const { courseId, students, props: { ux, ux: { course, COLUMN_WIDTH, ROW_HEIGHT, period } } } = this;
+    const { courseId, students, props: { displayAs, ux, ux: { course, COLUMN_WIDTH, ROW_HEIGHT, period } } } = this;
 
     if (!period.coursePeriod.num_enrolled_students) { return this.renderNoStudents(); }
     if (isEmpty(students)) { return this.renderNoAssignments(); }
@@ -165,10 +162,8 @@ export default class ScoresTable extends React.PureComponent {
               width={COLUMN_WIDTH}
               flexGrow={0}
               allowCellsRecycling={true}
-              cell={<AssignmentCell {...this.props}
-                      {...{ period, students, courseId, width: COLUMN_WIDTH, columnIndex }} />}
-              header={<AssignmentHeader {...this.props}
-                        {...{ period, ux, students, courseId, width: COLUMN_WIDTH, columnIndex }} />}
+              cell={<AssignmentCell {...this.props} {...{ students, columnIndex }} />}
+              header={<AssignmentHeader {...this.props} {...{ students, columnIndex }} />}
             />)}
         </ColumnGroup>
       </Table>
