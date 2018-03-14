@@ -69,10 +69,7 @@ module.exports = {
       Math.round( task.score * 100 )
 
   getScoreNumber: (task) ->
-    if task.type is 'homework'
-      score = task.correct_on_time_exercise_count + task.correct_accepted_late_exercise_count
-    else
-      score = task.correct_on_time_step_count + task.correct_accepted_late_step_count
+    task.correct_on_time_exercise_count + task.correct_accepted_late_exercise_count
 
   hasAdditionalLateWork: (task) ->
     task.completed_accepted_late_step_count and (
