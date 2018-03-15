@@ -1,15 +1,16 @@
 import AnnotationWidget from '../../src/components/annotations/annotation';
 import Renderer from 'react-test-renderer';
+import keymaster from 'keymaster';
 import { bootstrapCoursesList } from '../courses-test-data';
 import AnnotationsMap from '../../src/models/annotations';
-import User from '../../src/models/user';
+
 import Page from '../../api/pages/be8818d0-2dba-4bf3-859a-737c25fb2c99@20.json';
 import ANNOTATIONS from '../../api/annotations.json';
 import Router from '../../src/helpers/router';
 
+jest.mock('keymaster');
 jest.mock('../../src/models/feature_flags', () => ({ is_highlighting_allowed: true }));
 jest.mock('../../src/helpers/router');
-jest.mock('../../src/models/user');
 
 describe('Annotations', () => {
 
@@ -20,12 +21,12 @@ describe('Annotations', () => {
     Router.currentQuery.mockReturnValue({});
     Courses.get(1).appearance_code = 'college_biology';
     body = window.document.body;
+
     annotations = new AnnotationsMap();
-    User.annotations = annotations;
+
     annotations.updateAnnotations(
       ANNOTATIONS.rows
     );
-    //mockAnnotationsMap.updateAnnotations(
     // from reference_book/page component
     body.innerHTML = '<div id="mount"><div class="book-content">' +
       Page.content_html
@@ -51,6 +52,7 @@ describe('Annotations', () => {
       collapse: jest.fn(),
     }));
     props = {
+      annotations,
       courseId: '1',
       documentId: 'be8818d0-2dba-4bf3-859a-737c25fb2c99',
       title: Page.title,
@@ -60,16 +62,24 @@ describe('Annotations', () => {
     };
   });
 
+  it('hides window shade on esc key', () => {
+    const widget = mount(<AnnotationWidget {...props} />);
+    expect(widget).toHaveRendered('.highlights-windowshade.up');
+    annotations.ux.isSummaryVisible = true;
+    expect(widget).toHaveRendered('.highlights-windowshade.down');
+    expect(keymaster.setScope).toHaveBeenCalled();
+    expect(keymaster).toHaveBeenCalledWith('esc', expect.any(String), expect.any(Function));
+    expect(annotations.ux.isSummaryVisible).toBe(true);
+    keymaster.mock.calls[0][2]();
+    expect(widget).toHaveRendered('.highlights-windowshade.up');
+    expect(annotations.ux.isSummaryVisible).toBe(false);
+    widget.unmount();
+  });
+
   it('sorts in model', () => {
     expect(Object.keys(annotations.byCourseAndPage)).toEqual(['1']);
     expect(Object.keys(annotations.byCourseAndPage[1])).toEqual(['2.1']);
     expect(Object.keys(annotations.byCourseAndPage[1]['2.1'])).toHaveLength(2);
-  });
-
-  it('renders and matches snapshot', () => {
-    const comp = Renderer.create(<AnnotationWidget {...props} />);
-    expect(comp.toJSON()).toMatchSnapshot();
-    comp.unmount();
   });
 
   it('scrolls to linked annotation', () => {
@@ -80,6 +90,13 @@ describe('Annotations', () => {
     widget.instance().scrollToAnnotation = jest.fn();
     widget.instance().scrollToPendingAnnotation();
     expect(widget.instance().scrollToAnnotation).toHaveBeenCalled();
+    widget.unmount();
+  });
+
+  it('renders and matches snapshot', () => {
+    const comp = Renderer.create(<AnnotationWidget {...props} />);
+    expect(comp.toJSON()).toMatchSnapshot();
+    comp.unmount();
   });
 
 });
