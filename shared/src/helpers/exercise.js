@@ -62,8 +62,8 @@ var Exercises = {
 
 
 Exercises.ERRATA_FORM_URL = 'https://oscms.openstax.org/errata/form';
-Exercises.setErrataFormURL = (url) => {
-  if (url) { Exercises.ERRATA_FORM_URL = url; }
+Exercises.setOSWebURL = (url) => {
+  if (url) { Exercises.ERRATA_FORM_URL = `${url}/errata/form`; }
 };
 
 export default Exercises;
