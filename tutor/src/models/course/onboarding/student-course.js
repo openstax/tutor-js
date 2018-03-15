@@ -87,7 +87,9 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
 
   @computed get isEmptyNewStudent() {
     return Boolean(
-      this.course.studentTasks.isEmpty && this.course.primaryRole.joinedAgo('minutes') < 30
+      this.course.studentTasks.expecting_assignments_count &&
+        this.course.studentTasks.isEmpty &&
+        this.course.primaryRole.joinedAgo('minutes') < 30
     );
   }
 

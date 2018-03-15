@@ -1,15 +1,16 @@
 import CourseEnroll from '../../../src/models/course/enroll';
-import Courses from '../../../src/models/courses-map';
-jest.mock('../../../src/models/courses-map', () => ({
-  fetch: jest.fn(() => ({
-    then: jest.fn((cb) => cb()),
-  })),
-}));
+import Factory from '../../factories';
 
 describe('Course Enrollment', function() {
   let enroll;
+  let coursesMap;
+  let fetchMock;
+
   beforeEach(() => {
-    enroll = new CourseEnroll();
+    coursesMap = Factory.coursesMap();
+    fetchMock = Promise.resolve();
+    coursesMap.fetch = jest.fn(() => fetchMock);
+    enroll = new CourseEnroll({ courses: coursesMap });
   });
 
   it('#isPending', () => {
@@ -53,10 +54,17 @@ describe('Course Enrollment', function() {
   });
 
   it('fetches on complete', () => {
+    const course = Factory.course();
+    enroll.enrollment_code = course.periods[0].enrollment_code = '1234';
+    enroll.to = { period: { assignments_count: 42 } };
+    coursesMap.set(course.id, course);
     enroll.status = 'processed';
     expect(enroll.isRegistered).toBe(true);
-    expect(Courses.fetch).toHaveBeenCalled();
-    expect(enroll.isComplete).toBe(true);
+    expect(coursesMap.fetch).toHaveBeenCalled();
+    return fetchMock.then(() => {
+      expect(enroll.isComplete).toBe(true);
+      expect(enroll.course.studentTasks.expecting_assignments_count).toEqual(42);
+    });
   });
 
   test('#confirm', () => {

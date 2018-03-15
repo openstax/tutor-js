@@ -1,6 +1,5 @@
 import Course from '../../../../src/models/course';
 import Nags from '../../../../src/components/onboarding/nags';
-
 import CourseUX from '../../../../src/models/course/onboarding/student-course';
 import UiSettings from 'shared/model/ui-settings';
 import User from '../../../../src/models/user';
@@ -87,13 +86,41 @@ describe('Full Course Onboarding', () => {
     expect(ux.course.studentTasks.fetch).not.toHaveBeenCalled();
     return ux.onPaymentComplete().then(() => {
       expect(ux.course.studentTasks.fetch).toHaveBeenCalledTimes(1);
-      expect(setTimeout).toHaveBeenCalledWith(ux.fetchTaskPeriodically, expect.any(Number));
+      expect(setTimeout).toHaveBeenCalledWith(ux.fetchTaskPeriodically, 1000 * 60 * 60 * 4);
       jest.runOnlyPendingTimers();
       expect(ux.course.studentTasks.fetch).toHaveBeenCalledTimes(2);
       ux.close();
       expect(ux.refreshTasksTimer).toBeNull();
     });
 
+  });
+
+  it('fast fetches when expected task count is set', () => {
+    const fetchMock = Promise.resolve();
+    ux.course.studentTasks = {
+      expecting_assignments_count: 12,
+      isEmpty: true,
+      fetch: jest.fn(() => fetchMock),
+    };
+    ux.course.primaryRole = { joinedAgo: jest.fn(() => 1) };
+    expect(ux.isEmptyNewStudent).toBe(true);
+    ux.mount();
+    expect(ux.course.studentTasks.fetch).toHaveBeenCalledWith();
+    return fetchMock.then(() => {
+      // fetches every minute
+      expect(setTimeout).toHaveBeenCalledWith(ux.fetchTaskPeriodically, 1000 * 60);
+
+      ux.course.studentTasks.expecting_assignments_count = 0;
+      expect(ux.isEmptyNewStudent).toBe(false);
+      jest.runOnlyPendingTimers();
+      expect(ux.course.studentTasks.fetch).toHaveBeenCalledTimes(2);
+      return fetchMock.then(() => {
+        // and now back to every 4 hours
+        expect(setTimeout).toHaveBeenCalledWith(ux.fetchTaskPeriodically, 1000 * 60 * 60 * 4);
+        ux.close();
+        expect(ux.refreshTasksTimer).toBeNull();
+      });
+    });
   });
 
 });

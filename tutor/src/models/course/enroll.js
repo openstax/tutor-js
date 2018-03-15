@@ -30,11 +30,11 @@ export default class CourseEnrollment extends BaseModel {
   @observable isComplete = false;
   @observable courseToJoin;
   @observable isLoadingCourses;
-  @session({ type: 'object' }) courses;
+  @observable courses = Courses;
 
-  constructor(...args) {
-    super(...args);
-    if (!this.courses) { this.courses = Courses; }
+  constructor(attrs = {}) {
+    super(attrs);
+    if (attrs.courses) { this.courses = attrs.courses; }
     this.originalEnrollmentCode = this.enrollment_code;
     when(
       () => this.isRegistered,
@@ -167,7 +167,10 @@ export default class CourseEnrollment extends BaseModel {
 
   fetchCourses() {
     this.isLoadingCourses = true;
-    User.refreshCourses().then(() => {
+    this.courses.fetch().then(() => {
+      if (this.course) { // should always be set but maybe the BE messes up and doesn't return the new course yet?
+        this.course.studentTasks.expecting_assignments_count = get(this, 'to.period.assignments_count', 0);
+      }
       this.isLoadingCourses = false;
       this.isComplete = true;
     });

@@ -1,22 +1,27 @@
 import { SnapShot } from './helpers/component-testing';
-
+import Factory from '../factories';
 import Enroll from '../../src/components/enroll';
-
 import EnzymeContext from './helpers/enzyme-context';
 import Router from '../../src/helpers/router';
 import EnrollModel from '../../src/models/course/enroll';
-jest.mock('../../src/models/user', () => ({
-  refreshCourses: jest.fn(() => Promise.resolve()),
-}));
+
 jest.mock('../../src/helpers/router');
 
 describe('Student Enrollment', () => {
   let params, context, enrollment;
+  let coursesMap;
+  let fetchMock;
 
   beforeEach(() => {
-    params = { courseId: '1' };
+    coursesMap = Factory.coursesMap();
+    fetchMock = Promise.resolve();
+    coursesMap.fetch = jest.fn(() => fetchMock);
+    const course = coursesMap.array[0];
+    coursesMap.set(course.id, course);
+    params = { courseId: course.id };
+
     context = EnzymeContext.build();
-    enrollment = new EnrollModel({ enrollment_code: '1234', router: context.context.router });
+    enrollment = new EnrollModel({ courses: coursesMap, llment_code: '1234', router: context.context.router });
     enrollment.create = jest.fn();
     Router.currentParams.mockReturnValue(params);
     Router.makePathname = jest.fn((name) => name);
@@ -49,7 +54,6 @@ describe('Student Enrollment', () => {
     enrollment.isComplete = true;
     enroll.update();
     setTimeout(() => {
-      //console.log(enroll.debug());
       expect(enroll).toHaveRendered('Redirect');
       enroll.unmount();
       done();
