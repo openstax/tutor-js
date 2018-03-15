@@ -44,7 +44,7 @@ module.exports = React.createClass
 
   renderHeading: ->
     students = Courses.get(@props.courseId).roster.students
-    selected = students.find(_.matches({role_id: @state.roleId }))
+    selected = students.find(matches({ role_id: @state.roleId }))
     return null unless selected
     name = <Name {...selected} />
     <div className='guide-heading'>
