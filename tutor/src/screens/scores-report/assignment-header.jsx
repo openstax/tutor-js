@@ -8,8 +8,10 @@ import TutorLink from '../../components/link';
 import SortingHeader from './sorting-header';
 import Time from '../../components/time';
 import TourAnchor from '../../components/tours/anchor';
+import UX from './ux';
 
 const ReviewLink = (props) => {
+  const { ux } = props;
   if (props.isConceptCoach || (props.heading.type === 'external') || (props.heading.plan_id == null)) {
     return null;
   }
@@ -18,7 +20,7 @@ const ReviewLink = (props) => {
       <TutorLink
         to="reviewTask"
         query={{ tab: props.periodIndex }}
-        params={{ id: props.heading.plan_id, courseId: props.courseId }}
+        params={{ id: props.heading.plan_id, courseId: ux.course.id }}
       >
         Review
       </TutorLink>
@@ -109,9 +111,9 @@ const AssignmentSortingHeader = (props) => {
 };
 
 const TeacherAssignmentHeaderRow = function(props) {
-  const { heading } = props;
+  const { ux, heading } = props;
 
-  if (!props.period.course.isTeacher) {
+  if (!ux.course.isTeacher) {
     return null;
   }
 
@@ -124,8 +126,8 @@ const TeacherAssignmentHeaderRow = function(props) {
 }
 
 const AssignmentHeader = function(props) {
-  const { period: { data_headings }, isConceptCoach, periodIndex, courseId, sort, onSort, columnIndex, width, ux } = props;
-  const heading = data_headings[columnIndex];
+  const { ux, columnIndex, isConceptCoach } = props;
+  const heading = ux.period.data_headings[columnIndex];
 
   return (
     <div className={`header-cell-wrapper col-${columnIndex} assignment`}>
@@ -152,4 +154,8 @@ const AssignmentHeader = function(props) {
   );
 };
 
+AssignmentHeader.propTypes = {
+  ux: React.PropTypes.instanceOf(UX).isRequired,
+
+}
 export default AssignmentHeader;

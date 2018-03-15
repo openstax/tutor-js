@@ -323,6 +323,7 @@ $pie-color-due: #268FBE;
     }
     .popover-content {
       .status {
+        padding-left: 0.5rem;
         color: $pie-color-late !important;
       }
     }

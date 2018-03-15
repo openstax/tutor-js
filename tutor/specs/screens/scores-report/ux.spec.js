@@ -26,16 +26,10 @@ describe('Scores Report UX', function() {
       expect(ux.allTasksByType[type]).toHaveLength(1);
       expect(ux.periodTasksByType[type]).toHaveLength(1);
 
-      expect(ux.isAveragePendingByType(type)).toBe(false);
-      expect(ux.isAveragePendingByTypeForPeriod(type)).toBe(false);
-
       expect(ux.isAverageUnavailableByType(type)).toBe(false);
       expect(ux.isAverageUnavailableByTypeForPeriod(type)).toBe(false);
 
       ux.allTasksByType[type].forEach(t => t.due_at = moment().add(1, 'day'));
-
-      expect(ux.isAveragePendingByType(type)).toBe(true);
-      expect(ux.isAveragePendingByTypeForPeriod(type)).toBe(true);
 
       ux.allTasksByType[type].forEach(t => t.type = 'unknown');
       expect(ux.isAverageUnavailableByType(type)).toBe(true);
@@ -87,4 +81,31 @@ describe('Scores Report UX', function() {
 
   });
 
+  it('returns --- if overall values are missing from data', () => {
+    Object.assign(ux.period, {
+      overall_course_average: null,
+      overall_homework_score: null,
+      overall_homework_progress: null,
+      overall_reading_score: null,
+      overall_reading_progress: null,
+    });
+    expect(ux.periodAverages).toEqual({
+      overall_course_average: '---',
+      overall_homework_progress: '---',
+      overall_homework_score: '---',
+      overall_reading_progress: '---',
+      overall_reading_score: '---',
+    });
+
+    // now make it so we have no readings
+    ux.allTasksByType['reading'].forEach(t => t.type = 'unknown');
+
+    expect(ux.periodAverages).toEqual({
+      overall_course_average: 'n/a',
+      overall_homework_progress: '---',
+      overall_homework_score: '---',
+      overall_reading_progress: 'n/a',
+      overall_reading_score: 'n/a',
+    });
+  });
 });

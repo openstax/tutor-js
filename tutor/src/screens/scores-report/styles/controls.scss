@@ -6,10 +6,13 @@
     align-items: center;
     @include tutor-sans-light-font(14px);
 
-    .spacer {
-      flex: 1;
-    }
+    justify-content: space-between;
 
+    .export-controls {
+      display: flex;
+      flex-wrap: wrap;
+      > * { margin-left: 1rem; }
+    }
     .btn {
       width: 50px;
       height: 30px;

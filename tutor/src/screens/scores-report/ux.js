@@ -50,6 +50,7 @@ export default class ScoresReportUX {
     }
   }
 
+  @observable displayValuesAs = 'percentage';
   @observable averagesWidth = first(this.fromTo);
   @observable periodIndex = 0;
   @observable weights = new WeightsUX(this);
@@ -75,6 +76,10 @@ export default class ScoresReportUX {
     );
   }
 
+  @action.bound onChangeDisplayValuesAs(mode) {
+    this.displayValuesAs = mode;
+  }
+
   isAverageUnavailableByType(type) {
     return isEmpty(this.allTasksByType[type]);
   }
@@ -83,21 +88,11 @@ export default class ScoresReportUX {
     return isEmpty(this.periodTasksByType[type]);
   }
 
-  isAveragePendingByType(type) {
-    return !find(this.allTasksByType[type], 'isDue');
-  }
-
-  isAveragePendingByTypeForPeriod(type) {
-    return !find(this.periodTasksByType[type], 'isDue');
-  }
-
   nullAverageByType(type) {
     if (this.isAverageUnavailableByTypeForPeriod(type)) {
       return NOT_AVAILABLE_AVERAGE;
-    } else if (this.isAveragePendingByTypeForPeriod(type)) {
-      return PENDING_AVERAGE;
     }
-    return null;
+    return PENDING_AVERAGE;
   }
 
   // are the weight types that are set affecting assignments of those types
@@ -120,10 +115,8 @@ export default class ScoresReportUX {
   @computed get nullAverageForCourse() {
     if (some(this.weightTypes, this.isAverageUnavailableByTypeForPeriod.bind(this))) {
       return NOT_AVAILABLE_AVERAGE;
-    } else if (some(this.weightTypes, this.isAveragePendingByTypeForPeriod.bind(this))) {
-      return PENDING_AVERAGE;
     }
-    return null;
+    return PENDING_AVERAGE;
   }
 
   maskAverages(averages) {
