@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  BaseModel, identifiedBy, field, identifier, computed, session,
+  BaseModel, identifiedBy, field, identifier, computed, session, belongsTo,
 } from 'shared/model';
 import { action, when, observable } from 'mobx';
 import { get, pick, isEmpty } from 'lodash';
@@ -9,7 +9,7 @@ import S from '../../helpers/string';
 import Router from '../../../src/helpers/router';
 import User from '../user';
 import StudentTasks from '../student-tasks';
-import Courses from '../courses-map';
+import Courses, { CoursesMap } from '../courses-map';
 import Activity from '../../../src/components/ox-fancy-loader';
 
 import Enroll from '../../../src/components/enroll';
@@ -30,9 +30,11 @@ export default class CourseEnrollment extends BaseModel {
   @observable isComplete = false;
   @observable courseToJoin;
   @observable isLoadingCourses;
+  @session({ type: 'object' }) courses;
 
   constructor(...args) {
     super(...args);
+    if (!this.courses) { this.courses = Courses; }
     this.originalEnrollmentCode = this.enrollment_code;
     when(
       () => this.isRegistered,
@@ -124,7 +126,7 @@ export default class CourseEnrollment extends BaseModel {
   }
 
   @computed get course() {
-    return Courses.array.find(c =>
+    return this.courses.array.find(c =>
       c.periods.find(p =>
         p.enrollment_code == this.enrollment_code
       )
