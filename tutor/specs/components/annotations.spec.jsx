@@ -74,6 +74,7 @@ describe('Annotations', () => {
     expect(widget).toHaveRendered('.highlights-windowshade.up');
     expect(annotations.ux.isSummaryVisible).toBe(false);
     widget.unmount();
+    expect(keymaster.deleteScope).toHaveBeenCalled();
   });
 
   it('sorts in model', () => {
