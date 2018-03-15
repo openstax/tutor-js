@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  BaseModel, identifiedBy, field, identifier, computed, session,
+  BaseModel, identifiedBy, field, identifier, computed, session, belongsTo,
 } from 'shared/model';
 import { action, when, observable } from 'mobx';
 import { get, pick, isEmpty } from 'lodash';
@@ -9,7 +9,7 @@ import S from '../../helpers/string';
 import Router from '../../../src/helpers/router';
 import User from '../user';
 import StudentTasks from '../student-tasks';
-import Courses from '../courses-map';
+import Courses, { CoursesMap } from '../courses-map';
 import Activity from '../../../src/components/ox-fancy-loader';
 
 import Enroll from '../../../src/components/enroll';
@@ -30,9 +30,11 @@ export default class CourseEnrollment extends BaseModel {
   @observable isComplete = false;
   @observable courseToJoin;
   @observable isLoadingCourses;
+  @observable courses = Courses;
 
-  constructor(...args) {
-    super(...args);
+  constructor(attrs = {}) {
+    super(attrs);
+    if (attrs.courses) { this.courses = attrs.courses; }
     this.originalEnrollmentCode = this.enrollment_code;
     when(
       () => this.isRegistered,
@@ -124,7 +126,7 @@ export default class CourseEnrollment extends BaseModel {
   }
 
   @computed get course() {
-    return Courses.array.find(c =>
+    return this.courses.array.find(c =>
       c.periods.find(p =>
         p.enrollment_code == this.enrollment_code
       )
@@ -165,7 +167,10 @@ export default class CourseEnrollment extends BaseModel {
 
   fetchCourses() {
     this.isLoadingCourses = true;
-    User.refreshCourses().then(() => {
+    this.courses.fetch().then(() => {
+      if (this.course) { // should always be set but maybe the BE messes up and doesn't return the new course yet?
+        this.course.studentTasks.expecting_assignments_count = get(this, 'to.period.assignments_count', 0);
+      }
       this.isLoadingCourses = false;
       this.isComplete = true;
     });

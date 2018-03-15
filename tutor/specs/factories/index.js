@@ -6,6 +6,7 @@ import Course from '../../src/models/course';
 import TutorExercise from '../../src/models/exercises/exercise';
 import Book from '../../src/models/reference-book';
 import TaskPlanStat from '../../src/models/task-plan/stats';
+import { CoursesMap } from '../../src/models/courses-map';
 import { EcosystemsMap, Ecosystem } from '../../src/models/ecosystems';
 import { ExercisesMap } from '../../src/models/exercises';
 import { ResearchSurvey } from '../../src/models/research-surveys/survey';
@@ -32,7 +33,14 @@ each({
   };
 });
 
-Factories.data = (...args) => FactoryBot.create(...args)
+Factories.data = (...args) => FactoryBot.create(...args);
+
+Factories.coursesMap = ({ count = 2, ...attrs } = {}) => {
+  const map = new CoursesMap();
+  map.onLoaded({ data: range(count).map(() => FactoryBot.create('Course', attrs)) });
+  return map;
+};
+
 
 Factories.ecosystemsMap = ({ count = 4 } = {}) => {
   const map = new EcosystemsMap();

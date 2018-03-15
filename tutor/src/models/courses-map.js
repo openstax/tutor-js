@@ -3,7 +3,7 @@ import { computed, action } from 'mobx';
 import Course from './course';
 import { isEmpty } from 'lodash';
 
-class CoursesMap extends Map {
+export class CoursesMap extends Map {
 
   // override array in Map to return a sorted list with latest join date first
   @computed get array() {
