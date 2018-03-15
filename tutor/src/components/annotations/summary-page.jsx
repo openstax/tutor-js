@@ -5,13 +5,14 @@ import { observer } from 'mobx-react';
 import { observable, computed } from 'mobx';
 import SectionsFilter from './sections-filter';
 import AnnotationCard from './annotation-card';
-import User from '../../models/user';
 import SummaryPopup from "./summary-popup";
+import AnnotationsMap from '../../models/annotations';
 
 @observer
 export default class AnnotationSummaryPage extends React.Component {
 
   static propTypes = {
+    annotations: React.PropTypes.instanceOf(AnnotationsMap).isRequired,
     onDelete: React.PropTypes.func.isRequired,
     currentChapter: React.PropTypes.number.isRequired,
     currentSection: React.PropTypes.number.isRequired,
@@ -39,7 +40,7 @@ export default class AnnotationSummaryPage extends React.Component {
   }
 
   @computed get annotationsBySection() {
-    return User.annotations.byCourseAndPage[this.props.courseId];
+    return this.props.annotations.byCourseAndPage[this.props.courseId];
   }
 
   @computed get selectedAnnotations() {

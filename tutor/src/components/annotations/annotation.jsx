@@ -20,6 +20,7 @@ import WindowShade from './window-shade';
 import ScrollTo from '../../helpers/scroll-to';
 import TextHighlighter from './highlighter';
 import Router from '../../helpers/router';
+import AnnotationsMap from '../../models/annotations';
 
 const highlighter = new TextHighlighter(document.body);
 
@@ -48,7 +49,7 @@ export default class AnnotationWidget extends React.Component {
     title: React.PropTypes.string,
     chapter: React.PropTypes.number.isRequired,
     section: React.PropTypes.number.isRequired,
-    annotations: React.PropTypes.object,
+    annotations: React.PropTypes.instanceOf(AnnotationsMap),
   };
 
   static defaultProps = {
@@ -399,6 +400,7 @@ export default class AnnotationWidget extends React.Component {
         <WindowShade ux={this.ux}>
           <SummaryPage
             courseId={this.props.courseId}
+            annotations={this.props.annotations}
             onDelete={this.onAnnotationDelete}
             currentChapter={this.props.chapter}
             currentSection={this.props.section}
