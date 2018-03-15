@@ -56,9 +56,7 @@ export default class AnnotationWidget extends React.Component {
 
   scrollTo = new ScrollTo({ windowImpl: this.props.windowImpl, scrollingTargetClass: false });
   @observable scrollToPendingAnnotation;
-  @computed get showWindowShade() {
-    return this.ux.isSummaryVisible;
-  }
+
 
   @observable referenceElements = [];
   @observable _activeAnnotation;
@@ -396,7 +394,7 @@ export default class AnnotationWidget extends React.Component {
           activeAnnotation={this.activeAnnotation}
         />
         {this.renderStatusMessage()}
-        <WindowShade show={this.showWindowShade}>
+        <WindowShade ux={this.ux} show={this.showWindowShade}>
           <SummaryPage
             courseId={this.props.courseId}
             onDelete={this.onAnnotationDelete}
