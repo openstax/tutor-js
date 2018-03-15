@@ -1,7 +1,9 @@
 _ = require 'underscore'
 Router = require '../helpers/router'
+isNil = require 'lodash/isNil'
 
 COURSE_SETTINGS = 'Course Settings'
+COURSE_ROSTER = 'Course Roster'
 COURSES = 'Courses'
 DASHBOARD = 'Dashboard'
 QUESTION_LIBRARY = 'Question Library'
@@ -17,31 +19,47 @@ STEP = 'Step'
 TASK = 'Task'
 
 REMEMBERED_ROUTES =
-  dashboard: DASHBOARD
-  viewStudentDashboard: DASHBOARD
-  viewPerformanceForecast: PERFORMANCE_FORECAST
-  viewTeacherDashboard: DASHBOARD
-  viewScores: SCORES
-  viewQuestionsLibrary: QUESTION_LIBRARY
-  viewTeacherPerformanceForecast: PERFORMANCE_FORECAST
-  viewStudentTeacherPerformanceForecast: PERFORMANCE_FORECAST
-  taskplans: DASHBOARD
-  calendarByDate: DASHBOARD
-  calendarViewPlanStats: DASHBOARD
-  courseSettings: COURSE_SETTINGS
-  viewStats: PLAN_STATS
-  reviewTask: PLAN_REVIEW
-  reviewTaskPeriod: PLAN_REVIEW
-  reviewTaskStep: PLAN_REVIEW
+  dashboard:
+    label: DASHBOARD
+  viewStudentDashboard:
+    label: DASHBOARD
+  viewPerformanceGuide:
+    label: PERFORMANCE_FORECAST
+    condition: (match) ->
+      isNil(match.params.roleId)
+  viewTeacherDashboard:
+    label: DASHBOARD
+  viewScores:
+    label: SCORES
+  viewQuestionsLibrary:
+    label: QUESTION_LIBRARY
+  taskplans:
+    label: DASHBOARD
+  calendarByDate:
+    label: DASHBOARD
+  calendarViewPlanStats:
+    label: DASHBOARD
+  courseRoster:
+    label: COURSE_ROSTER
+  courseSettings:
+    label: COURSE_SETTINGS
+  viewStats:
+    label: PLAN_STATS
+  reviewTask:
+    label: PLAN_REVIEW
+  reviewTaskPeriod:
+    label: PLAN_REVIEW
+  reviewTaskStep:
+    label: PLAN_REVIEW
 
 destinationHelpers =
   getDestinationName: (routeName) ->
-    REMEMBERED_ROUTES[routeName]
+    REMEMBERED_ROUTES[routeName].label
 
   routeFromPath: (path) ->
     match = Router.currentMatch(path)
     _.find(match?.entry.paths, (pathName) ->
-      REMEMBERED_ROUTES[pathName]
+      REMEMBERED_ROUTES[pathName].label
     )
 
   destinationFromPath: (path) ->
@@ -50,7 +68,16 @@ destinationHelpers =
 
   shouldRememberRoute: (path) ->
     match = Router.currentMatch(path)
-    !! REMEMBERED_ROUTES[match?.entry.name]
+
+    (
+      !! REMEMBERED_ROUTES[match?.entry.name]
+    ) && (
+      (
+        REMEMBERED_ROUTES[match?.entry.name].condition? &&
+        REMEMBERED_ROUTES[match?.entry.name].condition(match)
+      ) ||
+        ! REMEMBERED_ROUTES[match?.entry.name].condition?
+    )
 
 
 module.exports = destinationHelpers

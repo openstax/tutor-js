@@ -21,7 +21,7 @@ const STUDENT_MENU = [
     label: 'Dashboard',
   },
   {
-    name: 'viewPerformanceForecast',
+    name: 'viewPerformanceGuide',
     params: { courseId: '1' },
     label: 'Performance Forecast',
   },

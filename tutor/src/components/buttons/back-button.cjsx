@@ -1,6 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
+classnames = require 'classnames'
 
 Router = require '../../helpers/router'
 TutorLink = require '../link'
@@ -23,6 +24,7 @@ BackButton = React.createClass
     historyInfo = TransitionStore.getPrevious()
     {fallbackLink, className} = @props
     {text} = fallbackLink
+    className = classnames('btn', 'btn-default', className)
 
     backText = if historyInfo?.name then "Back to #{historyInfo.name}" else fallbackLink.text
 
@@ -30,7 +32,7 @@ BackButton = React.createClass
       @props.fallbackLink.to, @props.fallbackLink.params
     )
 
-    <TutorLink primaryBtn to={to}>
+    <TutorLink className={className} to={to}>
       {backText}
     </TutorLink>
 
