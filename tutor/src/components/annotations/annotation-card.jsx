@@ -89,7 +89,7 @@ export default class AnnotationCard extends React.Component {
     if (section) {
       url += `.${section}`;
     }
-    url += `#highlight-${id}`;
+    url += `?highlight=${id}`;
     window.open(url, '_blank');
   }
 
@@ -98,34 +98,36 @@ export default class AnnotationCard extends React.Component {
 
     return (
       <div className="annotation-card">
-        <div className="annotation-content">
-          <blockquote className="selected-text">
-            {annotation.selection.content}
-          </blockquote>
-          {this.editing ? (
-            <EditBox
-              text={annotation.text}
-              dismiss={this.stopEditing}
-              save={this.saveAnnotation}
-            />
-          ) : (
-            <div className="plain-text">
-              {annotation.text}
-            </div>
-          )}
-        </div>
-        <div className="controls">
-          {!this.editing && <button title="Edit" onClick={this.startEditing}><Icon type="edit" /></button>}
+        <div className="annotation-body">
+          <div className="annotation-content">
+            <blockquote className="selected-text">
+              {annotation.selection.content}
+            </blockquote>
+            {this.editing ? (
+               <EditBox
+                 text={annotation.text}
+                 dismiss={this.stopEditing}
+                 save={this.saveAnnotation}
+               />
+            ) : (
+               <div className="plain-text">
+                 {annotation.text}
+               </div>
+            )}
+          </div>
+          <div className="controls">
+            {!this.editing && <button title="Edit" onClick={this.startEditing}><Icon type="edit" /></button>}
 
-          <button title="View in book" onClick={this.openPage}><Icon type="external-link" /></button>
-          <SuretyGuard
-            title="Are you sure you want to delete this note?"
-            message="If you delete this note, your work cannot be recovered."
-            okButtonLabel="Delete"
-            onConfirm={this.doDelete}
-          >
-            <button title="Delete"><Icon type="trash" /></button>
-          </SuretyGuard>
+            <button title="View in book" onClick={this.openPage}><Icon type="external-link" /></button>
+            <SuretyGuard
+              title="Are you sure you want to delete this note?"
+              message="If you delete this note, your work cannot be recovered."
+              okButtonLabel="Delete"
+              onConfirm={this.doDelete}
+            >
+              <button title="Delete"><Icon type="trash" /></button>
+            </SuretyGuard>
+          </div>
         </div>
       </div>
     );

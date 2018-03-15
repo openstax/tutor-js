@@ -45,10 +45,14 @@
     }
 
     .annotation-card {
+      padding-bottom: 3rem;
+    }
+
+    .annotation-body {
       background-color: $tutor-white;
       display: flex;
       flex-direction: column;
-      margin-bottom: 3rem;
+
       padding: 3rem;
       width: 100%;
       break-inside: avoid;

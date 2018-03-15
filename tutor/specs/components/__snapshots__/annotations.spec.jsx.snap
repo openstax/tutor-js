@@ -151,107 +151,115 @@ exports[`Annotations renders and matches snapshot 1`] = `
                 className="annotation-card"
               >
                 <div
-                  className="annotation-content"
+                  className="annotation-body"
                 >
-                  <blockquote
-                    className="selected-text"
-                  >
-                    ng world, elements are found in different proportions, and some elements common to living organisms are relatively rare on the earth as a whole, as shown in See Table. For examp
-                  </blockquote>
                   <div
-                    className="plain-text"
+                    className="annotation-content"
                   >
-                    ee
+                    <blockquote
+                      className="selected-text"
+                    >
+                      ng world, elements are found in different proportions, and some elements common to living organisms are relatively rare on the earth as a whole, as shown in See Table. For examp
+                    </blockquote>
+                    <div
+                      className="plain-text"
+                    >
+                      ee
+                    </div>
                   </div>
-                </div>
-                <div
-                  className="controls"
-                >
-                  <button
-                    onClick={[Function]}
-                    title="Edit"
+                  <div
+                    className="controls"
                   >
-                    <i
-                      className="tutor-icon fa fa-edit"
-                      role="presentation"
-                      type="edit"
-                    />
-                  </button>
-                  <button
-                    onClick={[Function]}
-                    title="View in book"
-                  >
-                    <i
-                      className="tutor-icon fa fa-external-link"
-                      role="presentation"
-                      type="external-link"
-                    />
-                  </button>
-                  <button
-                    onClick={[Function]}
-                    title="Delete"
-                  >
-                    <i
-                      className="tutor-icon fa fa-trash"
-                      role="presentation"
-                      type="trash"
-                    />
-                  </button>
+                    <button
+                      onClick={[Function]}
+                      title="Edit"
+                    >
+                      <i
+                        className="tutor-icon fa fa-edit"
+                        role="presentation"
+                        type="edit"
+                      />
+                    </button>
+                    <button
+                      onClick={[Function]}
+                      title="View in book"
+                    >
+                      <i
+                        className="tutor-icon fa fa-external-link"
+                        role="presentation"
+                        type="external-link"
+                      />
+                    </button>
+                    <button
+                      onClick={[Function]}
+                      title="Delete"
+                    >
+                      <i
+                        className="tutor-icon fa fa-trash"
+                        role="presentation"
+                        type="trash"
+                      />
+                    </button>
+                  </div>
                 </div>
               </div>
               <div
                 className="annotation-card"
               >
                 <div
-                  className="annotation-content"
+                  className="annotation-body"
                 >
-                  <blockquote
-                    className="selected-text"
+                  <div
+                    className="annotation-content"
                   >
-                    Hydrogen (H)
+                    <blockquote
+                      className="selected-text"
+                    >
+                      Hydrogen (H)
                 10%
                 trace
                 0.1%
-                  </blockquote>
-                  <div
-                    className="plain-text"
-                  >
-                    
+                    </blockquote>
+                    <div
+                      className="plain-text"
+                    >
+                      
+                    </div>
                   </div>
-                </div>
-                <div
-                  className="controls"
-                >
-                  <button
-                    onClick={[Function]}
-                    title="Edit"
+                  <div
+                    className="controls"
                   >
-                    <i
-                      className="tutor-icon fa fa-edit"
-                      role="presentation"
-                      type="edit"
-                    />
-                  </button>
-                  <button
-                    onClick={[Function]}
-                    title="View in book"
-                  >
-                    <i
-                      className="tutor-icon fa fa-external-link"
-                      role="presentation"
-                      type="external-link"
-                    />
-                  </button>
-                  <button
-                    onClick={[Function]}
-                    title="Delete"
-                  >
-                    <i
-                      className="tutor-icon fa fa-trash"
-                      role="presentation"
-                      type="trash"
-                    />
-                  </button>
+                    <button
+                      onClick={[Function]}
+                      title="Edit"
+                    >
+                      <i
+                        className="tutor-icon fa fa-edit"
+                        role="presentation"
+                        type="edit"
+                      />
+                    </button>
+                    <button
+                      onClick={[Function]}
+                      title="View in book"
+                    >
+                      <i
+                        className="tutor-icon fa fa-external-link"
+                        role="presentation"
+                        type="external-link"
+                      />
+                    </button>
+                    <button
+                      onClick={[Function]}
+                      title="Delete"
+                    >
+                      <i
+                        className="tutor-icon fa fa-trash"
+                        role="presentation"
+                        type="trash"
+                      />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

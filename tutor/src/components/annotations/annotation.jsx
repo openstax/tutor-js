@@ -19,6 +19,7 @@ import InlineControls from './inline-controls';
 import WindowShade from './window-shade';
 import ScrollTo from '../../helpers/scroll-to';
 import TextHighlighter from './highlighter';
+import Router from '../../helpers/router';
 
 const highlighter = new TextHighlighter(document.body);
 
@@ -67,9 +68,10 @@ export default class AnnotationWidget extends React.Component {
     if (!this.course.canAnnotate) { return; }
 
     this.props.windowImpl.document.addEventListener('mouseup', this.onSelection);
+    const { highlight } = Router.currentQuery();
 
-    if (this.props.windowImpl.location.hash) {
-      this.setupPendingHighlightScroll(this.props.windowImpl.location.hash);
+    if (highlight) {
+      this.setupPendingHighlightScroll(highlight);
     }
 
     when(
@@ -119,18 +121,14 @@ export default class AnnotationWidget extends React.Component {
     return filter(User.annotations.array, { courseId: this.props.courseId });
   }
 
-  setupPendingHighlightScroll(windowHash) {
-    if (!windowHash) { return; }
-    const highlightMatch = windowHash.match(/highlight-(.*)/);
-    if (!highlightMatch) { return; }
+  setupPendingHighlightScroll(highlightId) {
     this.scrollToPendingAnnotation = () => {
-      const id = highlightMatch[1];
-      const annotation = User.annotations.get(id);
+      const annotation = User.annotations.get(highlightId);
       if (annotation) {
         highlighter.focus(annotation.elements);
         this.scrollToAnnotation(annotation);
       } else {
-        Logging.error(`Page attempted to scroll to annotation id '${id}' but it was not found`);
+        Logging.error(`Page attempted to scroll to annotation id '${highlightId}' but it was not found`);
       }
       this.scrollToPendingAnnotation = null;
     };
