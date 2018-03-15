@@ -20,6 +20,7 @@ import WindowShade from './window-shade';
 import ScrollTo from '../../helpers/scroll-to';
 import TextHighlighter from './highlighter';
 import Router from '../../helpers/router';
+import AnnotationsMap from '../../models/annotations';
 
 const highlighter = new TextHighlighter(document.body);
 
@@ -48,17 +49,17 @@ export default class AnnotationWidget extends React.Component {
     title: React.PropTypes.string,
     chapter: React.PropTypes.number.isRequired,
     section: React.PropTypes.number.isRequired,
+    annotations: React.PropTypes.instanceOf(AnnotationsMap),
   };
 
   static defaultProps = {
+    annotations: User.annotations,
     windowImpl: window,
   };
 
   scrollTo = new ScrollTo({ windowImpl: this.props.windowImpl, scrollingTargetClass: false });
   @observable scrollToPendingAnnotation;
-  @computed get showWindowShade() {
-    return this.ux.isSummaryVisible;
-  }
+
 
   @observable referenceElements = [];
   @observable _activeAnnotation;
@@ -75,7 +76,7 @@ export default class AnnotationWidget extends React.Component {
     }
 
     when(
-      () => !User.annotations.api.isPending,
+      () => !this.props.annotations.api.isPending,
       () => this.initializePage(),
     );
   }
@@ -118,12 +119,12 @@ export default class AnnotationWidget extends React.Component {
   }
 
   @computed get allAnnotationsForThisBook() {
-    return filter(User.annotations.array, { courseId: this.props.courseId });
+    return filter(this.props.annotations.array, { courseId: this.props.courseId });
   }
 
   setupPendingHighlightScroll(highlightId) {
     this.scrollToPendingAnnotation = () => {
-      const annotation = User.annotations.get(highlightId);
+      const annotation = this.props.annotations.get(highlightId);
       if (annotation) {
         highlighter.focus(annotation.elements);
         this.scrollToAnnotation(annotation);
@@ -262,7 +263,7 @@ export default class AnnotationWidget extends React.Component {
 
   @autobind
   saveNewHighlight() {
-    return User.annotations.create({
+    return this.props.annotations.create({
       research_identifier: this.course.userStudentRecord.research_identifier,
       documentId: this.props.documentId,
       selection: this.savedSelection,
@@ -320,7 +321,7 @@ export default class AnnotationWidget extends React.Component {
     };
   }
 
-  @computed get ux() { return User.annotations.ux; }
+  @computed get ux() { return this.props.annotations.ux; }
 
   @action.bound seeAll() {
     this.ux.isSummaryVisible = true;
@@ -396,9 +397,10 @@ export default class AnnotationWidget extends React.Component {
           activeAnnotation={this.activeAnnotation}
         />
         {this.renderStatusMessage()}
-        <WindowShade show={this.showWindowShade}>
+        <WindowShade ux={this.ux}>
           <SummaryPage
             courseId={this.props.courseId}
+            annotations={this.props.annotations}
             onDelete={this.onAnnotationDelete}
             currentChapter={this.props.chapter}
             currentSection={this.props.section}
