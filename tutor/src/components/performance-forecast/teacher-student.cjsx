@@ -3,14 +3,16 @@ BS = require 'react-bootstrap'
 BackButton = require('../buttons/back-button')
 Router = require('../../helpers/router')
 _ = require 'underscore'
+matches = require 'lodash/matches'
 
 Name = require '../name'
 BindStoreMixin = require '../bind-store-mixin'
 PerformanceForecast = require '../../flux/performance-forecast'
-# {ScoresStore} = require '../../flux/scores'
+
 {default: Courses} = require '../../models/courses-map'
 Guide = require './guide'
 InfoLink = require './info-link'
+ColorKey    = require './color-key'
 
 module.exports = React.createClass
   displayName: 'PerformanceForecastTeacherStudentDisplay'
@@ -27,6 +29,7 @@ module.exports = React.createClass
     roleId: @props.roleId
 
   componentWillMount: ->
+    Courses.get(@props.courseId).roster.ensureLoaded()
     PerformanceForecast.TeacherStudent.actions.load(@props.courseId, {roleId: @props.roleId})
 
   bindStore: PerformanceForecast.TeacherStudent.store
@@ -40,8 +43,8 @@ module.exports = React.createClass
     )
 
   renderHeading: ->
-    students = Courses.get(@props.courseId).students
-    selected = find(students, { role_id: @state.roleId })
+    students = Courses.get(@props.courseId).roster.students
+    selected = students.find(_.matches({role_id: @state.roleId }))
     return null unless selected
     name = <Name {...selected} />
     <div className='guide-heading'>
@@ -53,16 +56,21 @@ module.exports = React.createClass
           title={name}
           bsStyle='link'
           onSelect={@onSelectStudent}>
-            { for student in _.sortBy(students, 'name') when student.role isnt selected.role
-              <BS.MenuItem key={student.role} eventKey={student.role}>
+            { for student in _.sortBy(students, 'name') when student.role_id isnt selected.role_id
+              <BS.MenuItem key={student.role_id} eventKey={student.role_id}>
                 <Name {...student} />
               </BS.MenuItem> }
         </BS.DropdownButton>
         <InfoLink type='teacher_student'/>
       </div>
-      <BackButton
-        fallbackLink={{ to: 'dashboard', text: 'Back to Dashboard', params: Router.currentParams() }}
-      />
+      <div className='info'>
+        <div className='guide-group-key'>
+          <ColorKey />
+        </div>
+        <BackButton
+          fallbackLink={{ to: 'dashboard', text: 'Back to Dashboard', params: Router.currentParams() }}
+        />
+      </div>
     </div>
 
   renderWeakerExplanation: ->
