@@ -48,9 +48,11 @@ export default class AnnotationWidget extends React.Component {
     title: React.PropTypes.string,
     chapter: React.PropTypes.number.isRequired,
     section: React.PropTypes.number.isRequired,
+    annotations: React.PropTypes.object,
   };
 
   static defaultProps = {
+    annotations: User.annotations,
     windowImpl: window,
   };
 
@@ -73,7 +75,7 @@ export default class AnnotationWidget extends React.Component {
     }
 
     when(
-      () => !User.annotations.api.isPending,
+      () => !this.props.annotations.api.isPending,
       () => this.initializePage(),
     );
   }
@@ -116,12 +118,12 @@ export default class AnnotationWidget extends React.Component {
   }
 
   @computed get allAnnotationsForThisBook() {
-    return filter(User.annotations.array, { courseId: this.props.courseId });
+    return filter(this.props.annotations.array, { courseId: this.props.courseId });
   }
 
   setupPendingHighlightScroll(highlightId) {
     this.scrollToPendingAnnotation = () => {
-      const annotation = User.annotations.get(highlightId);
+      const annotation = this.props.annotations.get(highlightId);
       if (annotation) {
         highlighter.focus(annotation.elements);
         this.scrollToAnnotation(annotation);
@@ -260,7 +262,7 @@ export default class AnnotationWidget extends React.Component {
 
   @autobind
   saveNewHighlight() {
-    return User.annotations.create({
+    return this.props.annotations.create({
       research_identifier: this.course.userStudentRecord.research_identifier,
       documentId: this.props.documentId,
       selection: this.savedSelection,
@@ -318,7 +320,7 @@ export default class AnnotationWidget extends React.Component {
     };
   }
 
-  @computed get ux() { return User.annotations.ux; }
+  @computed get ux() { return this.props.annotations.ux; }
 
   @action.bound seeAll() {
     this.ux.isSummaryVisible = true;
@@ -394,7 +396,7 @@ export default class AnnotationWidget extends React.Component {
           activeAnnotation={this.activeAnnotation}
         />
         {this.renderStatusMessage()}
-        <WindowShade ux={this.ux} show={this.showWindowShade}>
+        <WindowShade ux={this.ux}>
           <SummaryPage
             courseId={this.props.courseId}
             onDelete={this.onAnnotationDelete}
