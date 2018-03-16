@@ -5,13 +5,16 @@ import lazyGetter from 'shared/helpers/lazy-getter';
 import { chapterSectionToNumber } from '../helpers/content';
 import Hypothesis from './annotations/hypothesis';
 import Annotation from './annotations/annotation';
+import FeatureFlags from './feature_flags';
 import AnnotationsUX from './annotations/ux';
 export default class Annotations extends Map {
 
   constructor() {
     super();
-    this.api.requestsInProgress.set('fetch', true);
-    Hypothesis.fetchUserInfo().then(this.updateAnnotations);
+    if (FeatureFlags.is_highlighting_allowed) {
+      this.api.requestsInProgress.set('fetch', true);
+      Hypothesis.fetchUserInfo().then(this.updateAnnotations);
+    }
   }
 
   @lazyGetter ux = new AnnotationsUX();
