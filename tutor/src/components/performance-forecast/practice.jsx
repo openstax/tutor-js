@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'underscore';
+import { isEmpty } from 'lodash';
 import classnames from 'classnames';
 import Router from '../../helpers/router';
 import { CoursePracticeStore } from '../../flux/practice';
@@ -29,7 +29,7 @@ export default class Practice extends React.Component {
     //
     // CoursePracticeStore.isDisabled(courseId, {page_ids}) is true when practice
     // endpoint fails to return a practice.
-    return _.isEmpty(page_ids);
+    return isEmpty(page_ids);
   };
 
   isErrored = () => {

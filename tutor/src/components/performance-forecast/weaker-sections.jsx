@@ -1,6 +1,5 @@
 import React from 'react';
 import Router from 'react-router-dom';
-import _ from 'underscore';
 
 import PerformanceForecast from '../../flux/performance-forecast';
 import Section from './section';

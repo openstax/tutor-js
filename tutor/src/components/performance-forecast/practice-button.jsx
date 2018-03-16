@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'underscore';
+import { uniqueId } from 'lodash';
 import classnames from 'classnames';
 
 import PerformanceForecast from '../../flux/performance-forecast';
@@ -16,7 +16,7 @@ export default class PracticeButton extends React.Component {
     sections: React.PropTypes.arrayOf(ChapterSectionType)
   };
 
-  static defaultProps = { id: _.uniqueId('practice-button-tooltip-') };
+  static defaultProps = { id: uniqueId('practice-button-tooltip-') };
 
   getTip = (props) => {
     if (props.isDisabled) {

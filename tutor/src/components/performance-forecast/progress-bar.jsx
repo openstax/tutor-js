@@ -1,6 +1,6 @@
 import React from 'react';
 import { ProgressBar, Button } from 'react-bootstrap';
-import _ from 'underscore';
+import { uniqueId } from 'lodash';
 
 import PerformanceForecast from '../../flux/performance-forecast';
 
@@ -17,7 +17,7 @@ export default class PerformanceForecastProgressBar extends React.Component {
   };
 
   static defaultProps = {
-    id: _.uniqueId('progress-bar-tooltip-'),
+    id: uniqueId('progress-bar-tooltip-'),
     canPractice: false,
     ariaLabel: ''
   };

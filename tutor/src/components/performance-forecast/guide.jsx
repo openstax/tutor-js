@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row } from 'react-bootstrap';
 
-import _ from 'underscore';
+import { isEmpty } from 'lodash';
 import classnames from 'classnames';
 
 import Chapter from './chapter';
@@ -32,12 +32,12 @@ export default class PerformanceForecast extends React.Component {
     let body;
     const className = classnames('guide-container', {
       'is-loading': typeof this.props.isLoading === 'function' ? this.props.isLoading() : undefined,
-      'is-empty': _.isEmpty(this.props.allSections)
+      'is-empty': isEmpty(this.props.allSections)
     });
 
     if (typeof this.props.isLoading === 'function' ? this.props.isLoading() : undefined) {
       body = this.props.loadingMessage;
-    } else if (_.isEmpty(this.props.allSections)) {
+    } else if (isEmpty(this.props.allSections)) {
       body = this.props.emptyMessage;
     } else {
       body = this.renderBody();

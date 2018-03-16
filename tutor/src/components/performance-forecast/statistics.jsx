@@ -1,6 +1,6 @@
 import React from 'react';
 import Router from 'react-router-dom';
-import _ from 'underscore';
+import { isArray } from 'lodash';
 import { SpyMode } from 'shared';
 
 import Courses from '../../models/courses-map';
@@ -47,7 +47,7 @@ ${pluralize(' has', count)} worked ${pluralize(' problems', total, true)}`;
             const result = [];
             for (let key in this.props.section.clue) {
               let value = this.props.section.clue[key];
-              if (_.isArray(value)) {
+              if (isArray(value)) {
                 value = value.join(' ');
               }
               result.push(<li key={key}><strong>{key}</strong>: {String(value)}</li>);

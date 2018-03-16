@@ -2,7 +2,7 @@ import React from 'react';
 import { Panel } from 'react-bootstrap';
 import BackButton from '../buttons/back-button';
 import Router from '../../helpers/router';
-import _ from 'underscore';
+import { first } from 'lodash';
 
 import CoursePeriodsNav from '../course-periods-nav';
 import CourseGroupingLabel from '../course-grouping-label';
@@ -22,7 +22,7 @@ export default class PerformanceForecastTeacherDisplay extends React.Component {
   constructor(props) {
     super(props);
     const periods = PerformanceForecast.Teacher.store.get(props.courseId);
-    this.state = { periodId: __guard__(_.first(periods), x => x.period_id) };
+    this.state = { periodId: __guard__(first(periods), x => x.period_id) };
   }
 
   selectPeriod = (period) => {

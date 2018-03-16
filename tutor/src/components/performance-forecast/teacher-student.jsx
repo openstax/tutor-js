@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class';
 import { DropdownButton, MenuItem, Panel } from 'react-bootstrap';
 import BackButton from '../buttons/back-button';
 import Router from '../../helpers/router';
-import _ from 'underscore';
+import { sortBy } from 'lodash';
 import matches from 'lodash/matches';
 
 import Name from '../name';
@@ -53,7 +53,7 @@ export default createReactClass({
       return null;
     }
     const name = <Name {...Object.assign({}, selected)} />;
-    return <div className='guide-heading'><div className='guide-group-title'><span className='preamble'>Performance Forecast for:</span><DropdownButton id='student-selection' className='student-selection' title={name} bsStyle='link' onSelect={this.onSelectStudent}>{Array.from(_.sortBy(students, 'name')).filter(student => student.role_id !== selected.role_id).map(student => <MenuItem key={student.role_id} eventKey={student.role_id}><Name {...Object.assign({}, student)} /></MenuItem>)}</DropdownButton><InfoLink type='teacher_student' /></div><div className='info'><div className='guide-group-key'><ColorKey /></div><BackButton fallbackLink={{ to: 'dashboard', text: 'Back to Dashboard', params: Router.currentParams() }} /></div></div>;
+    return <div className='guide-heading'><div className='guide-group-title'><span className='preamble'>Performance Forecast for:</span><DropdownButton id='student-selection' className='student-selection' title={name} bsStyle='link' onSelect={this.onSelectStudent}>{Array.from(sortBy(students, 'name')).filter(student => student.role_id !== selected.role_id).map(student => <MenuItem key={student.role_id} eventKey={student.role_id}><Name {...Object.assign({}, student)} /></MenuItem>)}</DropdownButton><InfoLink type='teacher_student' /></div><div className='info'><div className='guide-group-key'><ColorKey /></div><BackButton fallbackLink={{ to: 'dashboard', text: 'Back to Dashboard', params: Router.currentParams() }} /></div></div>;
   },
 
   renderWeakerExplanation() {

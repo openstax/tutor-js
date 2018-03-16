@@ -13,7 +13,7 @@ export default class PerformanceForecastChapter extends React.Component {
   static propTypes = {
     courseId: React.PropTypes.string.isRequired,
     roleId: React.PropTypes.string,
-    // chapter: ChapterSectionType.isRequired,
+    chapter: ChapterSectionType.isRequired,
     canPractice: React.PropTypes.bool
   };
 

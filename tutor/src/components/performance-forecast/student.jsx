@@ -2,7 +2,6 @@ import React from 'react';
 import { Panel } from 'react-bootstrap';
 import BackButton from '../buttons/back-button';
 import Router from '../../helpers/router';
-import _ from 'underscore';
 
 import PerformanceForecast from '../../flux/performance-forecast';
 
