@@ -20,6 +20,41 @@ export default class PerformanceForecastChapter extends React.Component {
   render() {
     const { chapter, courseId } = this.props;
 
-    return <div className='chapter-panel'><div className='chapter'><div className='heading'><span className='number'>{chapter.chapter_section[0]}</span><div className='title' title={chapter.title}>{chapter.title}</div></div><ProgressBar {...Object.assign({}, this.props, { "section": chapter })} /><Statistics courseId={this.props.courseId} roleId={this.props.roleId} section={chapter} displaying="chapter" /></div><div ref='sections' className='sections'>{Array.from(chapter.children).map((section, i) => <Section {...Object.assign({ "key": i, "section": section }, this.props)} />)}</div></div>;
+    return (
+      <div className='chapter-panel'>
+        <div className='chapter'>
+          <div className='heading'>
+            <span className='number'>
+              {chapter.chapter_section[0]}
+            </span>
+            <div className='title' title={chapter.title}>
+              {chapter.title}
+            </div>
+          </div>
+          <ProgressBar
+            {...Object.assign({}, this.props, { "section": chapter })}
+          />
+          <Statistics
+            courseId={this.props.courseId}
+            roleId={this.props.roleId}
+            section={chapter}
+            displaying="chapter"
+          />
+        </div>
+        <div
+          ref='sections'
+          className='sections'
+        >
+          {
+            Array
+              .from(chapter.children)
+              .map((section, i) => (
+                <Section {...Object.assign({ "key": i, "section": section }, this.props)} />
+              )
+            )
+          }
+        </div>
+      </div>
+    );
   }
 };

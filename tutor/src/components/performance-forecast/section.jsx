@@ -22,8 +22,27 @@ export default createReactClass({
   render() {
     const { courseId, section } = this.props;
 
-    return <div className='section'><h4 className='heading'><span className='number'>{this.sectionFormat(section.chapter_section)}</span><span className='title' title={section.title}>{section.title}</span></h4><ProgressBar {...Object.assign({}, this.props, {
-        "ariaLabel": `${this.sectionFormat(section.chapter_section)} ${section.title}`
-      })} /><Statistics courseId={this.props.courseId} roleId={this.props.roleId} section={section} displaying="section" /></div>;
+    return (
+      <div className='section'>
+        <h4 className='heading'>
+          <span className='number'>
+            {this.sectionFormat(section.chapter_section)}
+          </span>
+          <span className='title' title={section.title}>
+            {section.title}
+          </span>
+        </h4>
+        <ProgressBar
+          {...Object.assign({}, this.props, {
+            "ariaLabel": `${this.sectionFormat(section.chapter_section)} ${section.title}`
+          })} />
+        <Statistics
+          courseId={this.props.courseId}
+          roleId={this.props.roleId}
+          section={section}
+          displaying="section"
+        />
+      </div>
+    );
   }
 });

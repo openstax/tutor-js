@@ -29,6 +29,20 @@ export default class PracticeButton extends React.Component {
     const page_ids = PerformanceForecast.Helpers.pagesForSections(sections);
     const classes = classnames('practice', this.props.practiceType);
 
-    return <Practice courseId={courseId} page_ids={page_ids}><ButtonWithTip id={id} className={classes} getTip={this.getTip} placement='top'>{this.props.title}<i /></ButtonWithTip></Practice>;
+    return (
+      <Practice
+        courseId={courseId}
+        page_ids={page_ids}
+      >
+        <ButtonWithTip
+          id={id}
+          className={classes}
+          getTip={this.getTip}
+          placement='top'
+        >
+            {this.props.title}<i />
+        </ButtonWithTip>
+      </Practice>
+    );
   }
 };

@@ -31,15 +31,32 @@ export default class PerformanceForecastProgressBar extends React.Component {
         const percent = Math.round(Number(section.clue.most_likely) * 100);
         const value_interpretation = percent >= 80 ? 'high' : percent >= 30 ? 'medium' : 'low';
         // always show at least 5% of bar, otherwise it just looks empty
-        return <ProgressBar aria-label={`Practice - ${ariaLabel}`} className={value_interpretation} now={Math.max(percent, 5)} />;
+        return (
+          <ProgressBar
+            aria-label={`Practice - ${ariaLabel}`}
+            className={value_interpretation}
+            now={Math.max(percent, 5)}
+          />
+        );
       } else {
         const msg = canPractice ? 'Practice more to get forecast' : 'Not enough exercises completed';
-        return <div className="no-data" aria-label={`${msg} - ${ariaLabel}`}>{msg}</div>;
+        return (
+          <div
+            className="no-data"
+            aria-label={`${msg} - ${ariaLabel}`}
+          >
+            {msg}
+          </div>
+        );
       }
     })();
 
     if (canPractice) {
-      return <Practice courseId={courseId} page_ids={page_ids}><Button id={id} block={true} role='link'>{bar}</Button></Practice>;
+      return (
+        <Practice courseId={courseId} page_ids={page_ids}>
+          <Button id={id} block={true} role='link'>{bar}</Button>
+        </Practice>
+      );
     } else {
       return bar;
     }

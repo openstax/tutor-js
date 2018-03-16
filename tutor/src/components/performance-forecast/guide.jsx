@@ -25,7 +25,24 @@ export default class PerformanceForecast extends React.Component {
   };
 
   renderBody = () => {
-    return <div className='guide-group'><WeakerPanel {...Object.assign({ "sections": this.props.allSections }, this.props)} /><Row><h3>Individual Chapters</h3></Row>{Array.from(this.props.chapters || []).map((chapter, i) => <Chapter {...Object.assign({ "key": i, "chapter": chapter }, this.props)} />)}</div>;
+    return (
+      <div className='guide-group'>
+        <WeakerPanel
+          {...Object.assign({ "sections": this.props.allSections }, this.props)}
+        />
+        <Row>
+          <h3>Individual Chapters</h3>
+        </Row>
+        {
+          Array
+            .from(this.props.chapters || [])
+            .map((chapter, i) => (
+                <Chapter {...Object.assign({ "key": i, "chapter": chapter }, this.props)} />
+              )
+            )
+        }
+      </div>
+    );
   };
 
   render() {
@@ -43,6 +60,11 @@ export default class PerformanceForecast extends React.Component {
       body = this.renderBody();
     }
 
-    return <div className={className}>{this.props.heading}{body}</div>;
+    return (
+      <div className={className}>
+        {this.props.heading}
+        {body}
+      </div>
+    );
   }
 };

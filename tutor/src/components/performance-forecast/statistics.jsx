@@ -43,17 +43,30 @@ ${pluralize(' has', count)} worked ${pluralize(' problems', total, true)}`;
       role = Courses.get(this.props.courseId).primaryRole.type;
     }
 
-    return <div className='statistics'><SpyMode.Content className="clue"><ul>{(() => {
-            const result = [];
-            for (let key in this.props.section.clue) {
-              let value = this.props.section.clue[key];
-              if (isArray(value)) {
-                value = value.join(' ');
+    return (
+      <div className='statistics'>
+        <SpyMode.Content className="clue">
+          <ul>
+            {(() => {
+              const result = [];
+              for (let key in this.props.section.clue) {
+                let value = this.props.section.clue[key];
+                if (isArray(value)) {
+                  value = value.join(' ');
+                }
+                result.push(<li key={key}><strong>{key}</strong>: {String(value)}</li>);
               }
-              result.push(<li key={key}><strong>{key}</strong>: {String(value)}</li>);
-            }
-            return result;
-          })()}</ul></SpyMode.Content><div className='amount-worked'><span className='count'>{this.getWorkedText(role)}</span></div></div>;
+              return result;
+            })()}
+          </ul>
+        </SpyMode.Content>
+        <div className='amount-worked'>
+          <span className='count'>
+            {this.getWorkedText(role)}
+          </span>
+        </div>
+      </div>
+    );
   }
 }
 
