@@ -37,6 +37,12 @@ describe('Student Tasks Model', () => {
     expect(keys(StudentTasks.forCourseId(2).byWeek)).toEqual([
       '201515', '201516', '201517', '201519', '201521',
     ]);
+    const task = StudentTasks.forCourseId(1).array[0];
+    task.due_at = new Date('2014-12-30');
+    expect(keys(StudentTasks.forCourseId(1).byWeek)).toEqual([
+      '201501', '201515', '201516', '201517', '201519', '201521', '201616',
+    ]);
+
   });
 
   it('#upcomingEvents', () => {

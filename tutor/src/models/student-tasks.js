@@ -9,6 +9,7 @@ import ResearchSurveys from './research-surveys';
 
 const MAX_POLLING_ATTEMPTS = 10;
 const POLL_SECONDS = 30;
+const ISOWEEK_FORMAT = 'GGGGWW';
 
 export class CourseStudentTasks extends Map {
   @readonly static Model = Task;
@@ -22,7 +23,7 @@ export class CourseStudentTasks extends Map {
   }
 
   @computed get byWeek() {
-    const weeks = groupBy(this.array, event => moment(event.due_at).startOf('isoweek').format('YYYYW'));
+    const weeks = groupBy(this.array, event => moment(event.due_at).startOf('isoweek').format(ISOWEEK_FORMAT));
     const sorted = {};
     for (let weekId in weeks) {
       const events = weeks[weekId];
@@ -32,12 +33,12 @@ export class CourseStudentTasks extends Map {
   }
 
   @computed get pastEventsByWeek() {
-    const thisWeek = moment(TimeStore.getNow()).startOf('isoweek').format('YYYYW');
+    const thisWeek = moment(TimeStore.getNow()).startOf('isoweek').format(ISOWEEK_FORMAT);
     return pickBy(this.byWeek, (events, week) => week < thisWeek);
   }
 
   weeklyEventsForDay(day) {
-    return this.byWeek[moment(day).startOf('isoweek').format('YYYYW')] || [];
+    return this.byWeek[moment(day).startOf('isoweek').format(ISOWEEK_FORMAT)] || [];
   }
 
   // Returns events who's due date has not passed
