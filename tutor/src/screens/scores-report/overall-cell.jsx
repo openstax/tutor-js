@@ -1,12 +1,10 @@
 import React from 'react';
 import cn from 'classnames';
-import { find } from 'lodash';
 import { Cell } from 'fixed-data-table-2';
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { observer } from 'mobx-react';
 
-const OverallCell = observer(({ ux, students, rowIndex }) => {
-  const { student_identifier } = students[rowIndex];
-  const studentAverages = find(ux.periodStudentsAverages, { student_identifier });
+const OverallCell = observer(({ ux, rowIndex }) => {
+  const studentAverages = ux.periodStudentsAverages[rowIndex];
   return (
     <Cell className={cn('overall-cell', { 'is-expanded': ux.isAveragesExpanded })}>
       <div className="course">
@@ -22,7 +20,6 @@ const OverallCell = observer(({ ux, students, rowIndex }) => {
       </div>
     </Cell>
   );
-
 });
 
 export default OverallCell;
