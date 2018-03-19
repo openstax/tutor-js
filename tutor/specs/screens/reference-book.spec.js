@@ -23,6 +23,7 @@ describe('Reference Book Component', function() {
       },
     };
     course.referenceBook.fetch=jest.fn(function() {
+      this.id = '1';
       this.onApiRequestComplete({ data: REFERENCE_BOOK });
       this.pages.byChapterSection.values().forEach((pg) => pg.fetch = jest.fn());
       this.pages.byChapterSection.get('2.1')
@@ -35,6 +36,10 @@ describe('Reference Book Component', function() {
     props = {
       ux,
     };
+  });
+
+  it('does not overwrite its id with the id from the /readings API', () => {
+    expect(course.referenceBook.id).toEqual('1');
   });
 
   it('renders the section title on the navbar', () => {
