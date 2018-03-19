@@ -22,7 +22,7 @@ export class CourseStudentTasks extends Map {
   }
 
   @computed get byWeek() {
-    const weeks = groupBy(this.array, event => moment(event.due_at).startOf('isoweek').format('YYYYW'));
+    const weeks = groupBy(this.array, event => moment(event.due_at).startOf('isoweek').format('YYYYWW'));
     const sorted = {};
     for (let weekId in weeks) {
       const events = weeks[weekId];
@@ -32,12 +32,12 @@ export class CourseStudentTasks extends Map {
   }
 
   @computed get pastEventsByWeek() {
-    const thisWeek = moment(TimeStore.getNow()).startOf('isoweek').format('YYYYW');
+    const thisWeek = moment(TimeStore.getNow()).startOf('isoweek').format('YYYYWW');
     return pickBy(this.byWeek, (events, week) => week < thisWeek);
   }
 
   weeklyEventsForDay(day) {
-    return this.byWeek[moment(day).startOf('isoweek').format('YYYYW')] || [];
+    return this.byWeek[moment(day).startOf('isoweek').format('YYYYWW')] || [];
   }
 
   // Returns events who's due date has not passed
