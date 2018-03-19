@@ -23,15 +23,6 @@
     height: 8rem;
   }
 
-  li.correct-answer {
-    label {
-      color: $green;
-    }
-    textarea {
-      border-color: $green;
-    }
-  }
-
   .answer-actions {
     > a {
       margin-left: 10px;
@@ -41,15 +32,29 @@
       &.is-correct {
         color: $openstax-neutral;
       }
-      &.is-correct.correct-answer {
-        color: $green;
-      }
 
       i.fa {
         font-size: 2rem;
       }
     }
   }
+
+  li.correct-answer {
+    label {
+      color: $green;
+    }
+
+    .answer-actions > a.is-correct {
+      color: $green;
+    }
+
+    textarea {
+      border-color: $green;
+    }
+//    .fa fa-check-circle-o
+  }
+
+
 
   .tags select {
     width: 100%;

@@ -2,7 +2,9 @@ import React from 'react';
 import { defaults } from 'lodash';
 import classnames from 'classnames';
 import Exercise from '../../models/exercises/exercise';
-import { action } from 'mobx';
+import { observer } from 'mobx-react';
+import { computed, action, observable } from 'mobx';
+import TagModel from 'shared/model/exercise/tag';
 
 import Error from './error';
 import Wrapper from './wrapper';
@@ -10,19 +12,30 @@ import Wrapper from './wrapper';
 const PREFIX = 'lo';
 import BookSelection from './book-selection';
 
+@observer
 class Input extends React.Component {
   static propTypes = {
     exercise: React.PropTypes.instanceOf(Exercise).isRequired,
-    tag: React.PropTypes.string.isRequired,
+    tag: React.PropTypes.instanceOf(TagModel).isRequired,
   };
 
   static defaultProps = { inputType: 'text' };
 
-  constructor(props) {
-    super(props);
-    const [book, lo] = Array.from(props.tag.split(':'));
-    this.state = { book, lo };
+  @computed get book() {
+    return this.props.tag.type;
   }
+
+  @computed get lo() {
+    return this.props.tag.value;
+  }
+
+  state = {};
+  // constructor(props) {
+  //   super(props);
+
+  //   const [book, lo] = Array.from(props.tag.split(':'));
+  //   this.state = { book, lo };
+  // }
 
   validateInput = (value) => {
     if (!value.match(
@@ -30,12 +43,13 @@ class Input extends React.Component {
     )) { return 'Must match LO pattern of dd-dd-dd'; }
   };
 
-  componentWillReceiveProps(nextProps) {
-    const [book, lo] = Array.from(this.props.tag.split(':'));
-    return (
-      this.setState({ book, lo })
-    );
-  }
+
+  // componentWillReceiveProps(nextProps) {
+  //   const [book, lo] = Array.from(this.props.tag.split(':'));
+  //   return (
+  //     this.setState({ book, lo })
+  //   );
+  // }
 
   onTextChange = (ev) => {
     const lo = ev.target.value.replace(/[^0-9\-]/g, '');
@@ -46,17 +60,13 @@ class Input extends React.Component {
 
   validateAndSave = (attrs) => {
     if (attrs == null) { attrs = {}; }
-    const { lo, book } = defaults(attrs, this.state);
+    const { tag } = this.props;
+    const { lo, book } = defaults(attrs, { book: this.book, lo: this.lo })
     if (book && (lo != null ? lo.match( /^\d{1,2}-\d{1,2}-\d{1,2}$/ ) : undefined)) {
-      return (
-        this.props.actions.setPrefixedTag(this.props.id,
-          { prefix: PREFIX, tag: `${book}:${lo}`, previous: this.props.tag }
-        )
-      );
+      tag.specifier = book;
+      tag.value = lo;
     } else {
-      return (
-        this.setState({ lo, book, errorMsg: 'Must match LO pattern of book:dd-dd-dd' })
-      );
+      this.setState({ errorMsg: 'Must match LO pattern of book:dd-dd-dd' });
     }
   };
 
@@ -64,27 +74,25 @@ class Input extends React.Component {
 
   updateBook = (ev) => {
     const book = ev.target.value;
-    return (
-      this.validateAndSave({ book })
-    );
+    this.validateAndSave({ book })
   };
 
   onDelete = () => {
-    return (
-      this.props.actions.setPrefixedTag(this.props.id,
-        { prefix: PREFIX, tag: false, previous: this.props.tag }
-      )
+    this.props.actions.setPrefixedTag(this.props.id,
+      { prefix: PREFIX, tag: false, previous: this.props.tag }
     );
   };
 
   render() {
+
+    const { exercise } = this.props;
 
     return (
       <div className={classnames('tag', { 'has-error': this.state.errorMsg })}>
         <BookSelection
           onChange={this.updateBook}
           selected={this.state.book}
-          limit={this.props.store.getTagsWithPrefix(this.props.id, 'book')} />
+          limit={exercise.tagsWithPrefix('book')} />
         <input
           className="form-control"
           type={this.props.inputType}

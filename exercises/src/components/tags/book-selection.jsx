@@ -1,5 +1,6 @@
 import React from 'react';
-import { map, isEmpty, pick } from 'lodash';
+import { get, map, isEmpty, pick } from 'lodash';
+import TagModel from 'shared/model/exercise/tag';
 
 const BOOKS = {
   'stax-soc'     : 'Sociology',
@@ -18,12 +19,16 @@ function BookSelection(props) {
   const books = props.limit ? pick(BOOKS, props.limit) : BOOKS;
 
   return (
-    <select className="form-control" onChange={props.onChange} value={props.selected}>
+    <select
+      className="form-control"
+      onChange={props.onChange}
+      value={get(props, 'selected.asString', '')}
+    >
       {isEmpty(props.selected) && <option key="blank" value="" />}
       {map(books, (name, tag) => (
-        <option key={tag} value={tag}>
-          {name}
-        </option>)
+      <option key={tag} value={tag}>
+        {name}
+      </option>)
       )}
     </select>
   );
@@ -31,7 +36,7 @@ function BookSelection(props) {
 
 BookSelection.propTypes = {
   onChange: React.PropTypes.func,
-  selected: React.PropTypes.string,
+  selected: React.PropTypes.instanceOf(TagModel),
   limit: React.PropTypes.array
 };
 

@@ -1,6 +1,6 @@
 import Factories from '../factories';
 
-describe('Exercise Helper', () => {
+describe('Exercise Model', () => {
   let exercise;
   beforeEach(() => exercise = Factories.exercise({}));
 

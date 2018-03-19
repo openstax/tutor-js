@@ -1,0 +1,1328 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Exercises component renders and matches snapshot 1`] = `
+<div
+  className="exercise-editor"
+>
+  <div
+    className="editing-controls"
+  >
+    <div
+      className={undefined}
+      id="exercise-parts"
+      style={undefined}
+    >
+      <ul
+        className="nav nav-tabs"
+        role="tablist"
+      >
+        <li
+          className="active"
+          role="presentation"
+          style={undefined}
+        >
+          <a
+            aria-controls="exercise-parts-pane-question-0"
+            aria-selected={true}
+            href="#"
+            id="exercise-parts-tab-question-0"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="tab"
+            tabIndex={undefined}
+          >
+            Question
+          </a>
+        </li>
+        <li
+          className=""
+          role="presentation"
+          style={undefined}
+        >
+          <a
+            aria-controls="exercise-parts-pane-tags"
+            aria-selected={false}
+            href="#"
+            id="exercise-parts-tab-tags"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="tab"
+            tabIndex={-1}
+          >
+            Tags
+          </a>
+        </li>
+      </ul>
+      <div
+        className="tab-content"
+      >
+        <div
+          aria-hidden={false}
+          aria-labelledby="exercise-parts-tab-question-0"
+          className="tab-pane active"
+          id="exercise-parts-pane-question-0"
+          role="tabpanel"
+        >
+          <div
+            className="question"
+          >
+            <div
+              className="format-type"
+            >
+              <div>
+                <input
+                  checked={true}
+                  id="input-multiple-choice"
+                  name="undefined-formats"
+                  onChange={[Function]}
+                  type="radio"
+                  value="multiple-choice"
+                />
+                <label
+                  htmlFor="input-multiple-choice"
+                >
+                  Multiple Choice
+                </label>
+              </div>
+              <div>
+                <input
+                  checked={false}
+                  id="input-true-false"
+                  name="undefined-formats"
+                  onChange={[Function]}
+                  type="radio"
+                  value="true-false"
+                />
+                <label
+                  htmlFor="input-true-false"
+                >
+                  True/False
+                </label>
+              </div>
+              <div
+                className="requires-choices"
+              >
+                <input
+                  checked={false}
+                  id="input-rq"
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <label
+                  htmlFor="input-rq"
+                >
+                  Requires Choices
+                </label>
+              </div>
+              <div
+                className="order-matters"
+              >
+                <input
+                  checked={false}
+                  id="input-om"
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <label
+                  htmlFor="input-om"
+                >
+                  Order Matters
+                </label>
+              </div>
+            </div>
+            <div>
+              <label>
+                Question Stem
+              </label>
+              <textarea
+                onChange={[Function]}
+                value="What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?"
+              />
+            </div>
+            <div>
+              <label>
+                Answers:
+              </label>
+              <a
+                className="pull-right"
+                onClick={[Function]}
+              >
+                Add New
+              </a>
+              <ol>
+                <li
+                  className="answer"
+                >
+                  <p>
+                    <span
+                      className="answer-actions"
+                    >
+                      <a
+                        className="pull-right"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="fa fa-ban"
+                        />
+                      </a>
+                      <a
+                        className="pull-right"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="fa fa-arrow-circle-down"
+                        />
+                      </a>
+                      <a
+                        className="pull-right is-correct undefined"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="fa fa-check-circle-o"
+                        />
+                      </a>
+                    </span>
+                  </p>
+                  <label>
+                    Distractor
+                  </label>
+                  <textarea
+                    onChange={[Function]}
+                    value="<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are too small to be seen with the naked eye, and</li>
+  <li>there is the involvement of only a weak gravitational field</li>
+</ol>
+"
+                  />
+                  <label>
+                    Choice-Level Feedback
+                  </label>
+                  <textarea
+                    onChange={[Function]}
+                    value="Objects far smaller than what is visible may require quantum mechanics."
+                  />
+                </li>
+                <li
+                  className="answer"
+                >
+                  <p>
+                    <span
+                      className="answer-actions"
+                    >
+                      <a
+                        className="pull-right"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="fa fa-ban"
+                        />
+                      </a>
+                      <a
+                        className="pull-right"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="fa fa-arrow-circle-down"
+                        />
+                      </a>
+                      <a
+                        className="pull-right"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="fa fa-arrow-circle-up"
+                        />
+                      </a>
+                      <a
+                        className="pull-right is-correct undefined"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="fa fa-check-circle-o"
+                        />
+                      </a>
+                    </span>
+                  </p>
+                  <label>
+                    Distractor
+                  </label>
+                  <textarea
+                    onChange={[Function]}
+                    value="<ol>
+  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+"
+                  />
+                  <label>
+                    Choice-Level Feedback
+                  </label>
+                  <textarea
+                    onChange={[Function]}
+                    value="Speeds greater than roughly 1% pf the speed of light start to involve significant effects from relativity."
+                  />
+                </li>
+                <li
+                  className="answer"
+                >
+                  <p>
+                    <span
+                      className="answer-actions"
+                    >
+                      <a
+                        className="pull-right"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="fa fa-ban"
+                        />
+                      </a>
+                      <a
+                        className="pull-right"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="fa fa-arrow-circle-down"
+                        />
+                      </a>
+                      <a
+                        className="pull-right"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="fa fa-arrow-circle-up"
+                        />
+                      </a>
+                      <a
+                        className="pull-right is-correct undefined"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="fa fa-check-circle-o"
+                        />
+                      </a>
+                    </span>
+                  </p>
+                  <label>
+                    Distractor
+                  </label>
+                  <textarea
+                    onChange={[Function]}
+                    value="<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+"
+                  />
+                  <label>
+                    Choice-Level Feedback
+                  </label>
+                  <textarea
+                    onChange={[Function]}
+                    value="A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain."
+                  />
+                </li>
+                <li
+                  className="answer"
+                >
+                  <p>
+                    <span
+                      className="answer-actions"
+                    >
+                      <a
+                        className="pull-right"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="fa fa-ban"
+                        />
+                      </a>
+                      <a
+                        className="pull-right"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="fa fa-arrow-circle-down"
+                        />
+                      </a>
+                      <a
+                        className="pull-right"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="fa fa-arrow-circle-up"
+                        />
+                      </a>
+                      <a
+                        className="pull-right is-correct undefined"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="fa fa-check-circle-o"
+                        />
+                      </a>
+                    </span>
+                  </p>
+                  <label>
+                    Distractor
+                  </label>
+                  <textarea
+                    onChange={[Function]}
+                    value="<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a weak gravitational field</li>
+</ol>
+"
+                  />
+                  <label>
+                    Choice-Level Feedback
+                  </label>
+                  <textarea
+                    onChange={[Function]}
+                    value="Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied."
+                  />
+                </li>
+                <li
+                  className="answer"
+                >
+                  <p>
+                    <span
+                      className="answer-actions"
+                    >
+                      <a
+                        className="pull-right"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="fa fa-ban"
+                        />
+                      </a>
+                      <a
+                        className="pull-right"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="fa fa-arrow-circle-up"
+                        />
+                      </a>
+                      <a
+                        className="pull-right is-correct undefined"
+                        onClick={[Function]}
+                      >
+                        <i
+                          className="fa fa-check-circle-o"
+                        />
+                      </a>
+                    </span>
+                  </p>
+                  <label>
+                    Distractor
+                  </label>
+                  <textarea
+                    onChange={[Function]}
+                    value="<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are too small to be seen with the naked eye, and</li>
+  <li>there is the involvement of only a weak gravitational field</li>
+</ol>
+"
+                  />
+                  <label>
+                    Choice-Level Feedback
+                  </label>
+                  <textarea
+                    onChange={[Function]}
+                    value="Objects far smaller than what is visible may require quantum mechanics."
+                  />
+                </li>
+              </ol>
+            </div>
+            <div>
+              <label>
+                Detailed Solution
+              </label>
+              <textarea
+                onChange={[Function]}
+                value={undefined}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          aria-hidden={true}
+          aria-labelledby="exercise-parts-tab-tags"
+          className="tab-pane"
+          id="exercise-parts-pane-tags"
+          role="tabpanel"
+        >
+          <div
+            className="tags"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="tag-type has-single-tag col-lg-6 col-sm-12"
+              >
+                <div
+                  className="heading"
+                >
+                  <span
+                    className="label"
+                  >
+                    Book
+                  </span>
+                  <div
+                    className="controls"
+                  >
+                    <i
+                      className="fa fa-plus-circle"
+                      onClick={[Function]}
+                    />
+                  </div>
+                </div>
+                <div
+                  className="tag"
+                >
+                  <select
+                    className="form-control"
+                    onChange={[Function]}
+                    value="book:stax-phys"
+                  >
+                    <option
+                      value="stax-soc"
+                    >
+                      Sociology
+                    </option>
+                    <option
+                      value="stax-phys"
+                    >
+                      College Physics
+                    </option>
+                    <option
+                      value="stax-k12phys"
+                    >
+                      Physics
+                    </option>
+                    <option
+                      value="stax-bio"
+                    >
+                      Biology
+                    </option>
+                    <option
+                      value="stax-apbio"
+                    >
+                      Biology for AP® Courses
+                    </option>
+                    <option
+                      value="stax-cbio"
+                    >
+                      Concepts of Biology
+                    </option>
+                    <option
+                      value="stax-econ"
+                    >
+                      Economics
+                    </option>
+                    <option
+                      value="stax-anp"
+                    >
+                      Anatomy and Physiology
+                    </option>
+                    <option
+                      value="stax-macro"
+                    >
+                      Macro Economics
+                    </option>
+                    <option
+                      value="stax-micro"
+                    >
+                      Micro Economics
+                    </option>
+                  </select>
+                  <span
+                    className="controls"
+                  >
+                    <i
+                      className="fa fa-trash"
+                      onClick={[Function]}
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                className="tag-type col-lg-6 col-sm-12"
+              >
+                <div
+                  className="heading"
+                >
+                  <span
+                    className="label"
+                  >
+                    LO
+                  </span>
+                  <div
+                    className="controls"
+                  >
+                    <i
+                      className="fa fa-plus-circle"
+                      onClick={[Function]}
+                    />
+                  </div>
+                </div>
+                <div
+                  className="tag"
+                >
+                  <select
+                    className="form-control"
+                    onChange={[Function]}
+                    value=""
+                  >
+                    <option
+                      value=""
+                    />
+                  </select>
+                  <input
+                    className="form-control"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    placeholder={undefined}
+                    type="text"
+                    value={undefined}
+                  />
+                  <span
+                    className="controls"
+                  >
+                    <i
+                      className="fa fa-trash"
+                      onClick={[Function]}
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                className="tag-type has-single-tag col-lg-6 col-sm-12"
+              >
+                <div
+                  className="heading"
+                >
+                  <span
+                    className="label"
+                  >
+                    Question Type
+                  </span>
+                  <div
+                    className="controls"
+                  />
+                </div>
+                <div
+                  className="tag"
+                >
+                  <select
+                    className="form-control"
+                    onChange={[Function]}
+                    value={
+                      ExerciseTag {
+                        "_tag": "type:conceptual",
+                        "is_visible": true,
+                      }
+                    }
+                  >
+                    <option
+                      value="conceptual-or-recall"
+                    >
+                      Conceptual or Recall
+                    </option>
+                    <option
+                      value="conceptual"
+                    >
+                      Conceptual
+                    </option>
+                    <option
+                      value="recall"
+                    >
+                      Recall
+                    </option>
+                    <option
+                      value="practice"
+                    >
+                      Practice
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div
+                className="tag-type col-lg-6 col-sm-12"
+              >
+                <div
+                  className="heading"
+                >
+                  <span
+                    className="label"
+                  >
+                    Filter Type
+                  </span>
+                  <div
+                    className="controls"
+                  />
+                </div>
+                <div
+                  className="tag"
+                >
+                  <div
+                    className="rw-multiselect rw-widget"
+                    id="rw_1"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onTouchEnd={[Function]}
+                    tabIndex="-1"
+                  >
+                    <span
+                      aria-atomic="true"
+                      aria-live="assertive"
+                      aria-relevant="additions removals text"
+                      className="rw-sr"
+                      id="rw_1__notify"
+                      role="status"
+                    />
+                    <div
+                      className="rw-multiselect-wrapper"
+                    >
+                      <ul
+                        aria-label="selected items"
+                        className="rw-multiselect-taglist"
+                        id="rw_1_taglist"
+                        role="listbox"
+                        tabIndex="-1"
+                      >
+                        <li
+                          className=""
+                          id="rw_1_taglist__option__0"
+                          role="option"
+                          tabIndex="-1"
+                        >
+                          [object Object]
+                          <span
+                            aria-disabled={false}
+                            aria-label="Unselect"
+                            disabled={false}
+                            onClick={[Function]}
+                            tabIndex="-1"
+                          >
+                            <span
+                              aria-hidden="true"
+                              className="rw-tag-btn"
+                            >
+                              ×
+                            </span>
+                          </span>
+                        </li>
+                      </ul>
+                      <input
+                        aria-busy={false}
+                        aria-disabled={false}
+                        aria-expanded={false}
+                        aria-haspopup={true}
+                        aria-owns="rw_1__listbox rw_1__notify rw_1_taglist"
+                        aria-readonly={false}
+                        autoComplete="off"
+                        autoFocus={undefined}
+                        className="rw-input"
+                        disabled={false}
+                        onChange={[Function]}
+                        onClick={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onTouchEnd={[Function]}
+                        placeholder=""
+                        readOnly={false}
+                        role="listbox"
+                        size={2}
+                        tabIndex={0}
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="tag-type col-lg-6 col-sm-12"
+              >
+                <div
+                  className="heading"
+                >
+                  <span
+                    className="label"
+                  >
+                    Requires Context
+                  </span>
+                  <div
+                    className="controls"
+                  />
+                </div>
+                <div
+                  className="tag"
+                >
+                  <input
+                    checked={false}
+                    label=""
+                    onChange={[Function]}
+                    type="checkbox"
+                  />
+                </div>
+              </div>
+              <div
+                className="tag-type has-single-tag col-lg-6 col-sm-12"
+              >
+                <div
+                  className="heading"
+                >
+                  <span
+                    className="label"
+                  >
+                    CNX Module
+                  </span>
+                  <div
+                    className="controls"
+                  >
+                    <i
+                      className="fa fa-plus-circle"
+                      onClick={[Function]}
+                    />
+                  </div>
+                </div>
+                <div
+                  className="tag"
+                >
+                  <input
+                    className="form-control"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    placeholder="########-####-####-####-############"
+                    type="text"
+                    value=""
+                  />
+                  <span
+                    className="controls"
+                  >
+                    <i
+                      className="fa fa-trash"
+                      onClick={[Function]}
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                className="tag-type has-single-tag col-lg-6 col-sm-12"
+              >
+                <div
+                  className="heading"
+                >
+                  <span
+                    className="label"
+                  >
+                    CNX Feature
+                  </span>
+                  <div
+                    className="controls"
+                  >
+                    <i
+                      className="fa fa-plus-circle"
+                      onClick={[Function]}
+                    />
+                  </div>
+                </div>
+                <div
+                  className="tag"
+                >
+                  <input
+                    className="form-control"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    placeholder="feature-id"
+                    type="text"
+                    value=""
+                  />
+                  <span
+                    className="controls"
+                  >
+                    <i
+                      className="fa fa-trash"
+                      onClick={[Function]}
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                className="tag-type has-single-tag col-lg-6 col-sm-12"
+              >
+                <div
+                  className="heading"
+                >
+                  <span
+                    className="label"
+                  >
+                    DOK
+                  </span>
+                  <div
+                    className="controls"
+                  />
+                </div>
+                <div
+                  className="tag"
+                >
+                  <select
+                    className="form-control"
+                    onChange={[Function]}
+                    value={
+                      ExerciseTag {
+                        "_tag": "dok:3",
+                        "is_visible": true,
+                      }
+                    }
+                  >
+                    <option
+                      value="1"
+                    >
+                      1
+                    </option>
+                    <option
+                      value="2"
+                    >
+                      2
+                    </option>
+                    <option
+                      value="3"
+                    >
+                      3
+                    </option>
+                    <option
+                      value="4"
+                    >
+                      4
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div
+                className="tag-type has-single-tag col-lg-6 col-sm-12"
+              >
+                <div
+                  className="heading"
+                >
+                  <span
+                    className="label"
+                  >
+                    Blooms
+                  </span>
+                  <div
+                    className="controls"
+                  />
+                </div>
+                <div
+                  className="tag"
+                >
+                  <select
+                    className="form-control"
+                    onChange={[Function]}
+                    value={
+                      ExerciseTag {
+                        "_tag": "blooms:3",
+                        "is_visible": true,
+                      }
+                    }
+                  >
+                    <option
+                      value="1"
+                    >
+                      1
+                    </option>
+                    <option
+                      value="2"
+                    >
+                      2
+                    </option>
+                    <option
+                      value="3"
+                    >
+                      3
+                    </option>
+                    <option
+                      value="4"
+                    >
+                      4
+                    </option>
+                    <option
+                      value="5"
+                    >
+                      5
+                    </option>
+                    <option
+                      value="6"
+                    >
+                      6
+                    </option>
+                    <option
+                      value="7"
+                    >
+                      7
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div
+                className="tag-type has-single-tag col-lg-6 col-sm-12"
+              >
+                <div
+                  className="heading"
+                >
+                  <span
+                    className="label"
+                  >
+                    Time
+                  </span>
+                  <div
+                    className="controls"
+                  />
+                </div>
+                <div
+                  className="tag"
+                >
+                  <select
+                    className="form-control"
+                    onChange={[Function]}
+                    value={
+                      ExerciseTag {
+                        "_tag": "time:long",
+                        "is_visible": true,
+                      }
+                    }
+                  >
+                    <option
+                      value="short"
+                    >
+                      Short
+                    </option>
+                    <option
+                      value="medium"
+                    >
+                      Medium
+                    </option>
+                    <option
+                      value="long"
+                    >
+                      Long
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="openstax-exercise-preview panel panel-default"
+    data-exercise-id="1@1"
+    id={undefined}
+    tabIndex={-1}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="exercise-body"
+      >
+        <div
+          className="openstax-question openstax-question-preview"
+          data-question-number={undefined}
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?",
+              }
+            }
+          />
+          <div
+            className="answers-table"
+          >
+            <div
+              className="openstax-answer"
+            >
+              <div
+                className="answers-answer disabled"
+              >
+                <label
+                  className="answer-label"
+                  htmlFor="1-option-0"
+                  onKeyPress={[Function]}
+                >
+                  <button
+                    aria-label="Choice a:"
+                    className="answer-letter"
+                    disabled={true}
+                    onClick={undefined}
+                  >
+                    a
+                  </button>
+                  <div
+                    className="answer-answer"
+                  >
+                    <div
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are too small to be seen with the naked eye, and</li>
+  <li>there is the involvement of only a weak gravitational field</li>
+</ol>
+",
+                        }
+                      }
+                    />
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div
+              className="openstax-answer"
+            >
+              <div
+                className="answers-answer disabled"
+              >
+                <label
+                  className="answer-label"
+                  htmlFor="1-option-1"
+                  onKeyPress={[Function]}
+                >
+                  <button
+                    aria-label="Choice b:"
+                    className="answer-letter"
+                    disabled={true}
+                    onClick={undefined}
+                  >
+                    b
+                  </button>
+                  <div
+                    className="answer-answer"
+                  >
+                    <div
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<ol>
+  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                        }
+                      }
+                    />
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div
+              className="openstax-answer"
+            >
+              <div
+                className="answers-answer disabled"
+              >
+                <label
+                  className="answer-label"
+                  htmlFor="1-option-2"
+                  onKeyPress={[Function]}
+                >
+                  <button
+                    aria-label="Choice c:"
+                    className="answer-letter"
+                    disabled={true}
+                    onClick={undefined}
+                  >
+                    c
+                  </button>
+                  <div
+                    className="answer-answer"
+                  >
+                    <div
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a strong gravitational field</li>
+</ol>
+",
+                        }
+                      }
+                    />
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div
+              className="openstax-answer"
+            >
+              <div
+                className="answers-answer disabled"
+              >
+                <label
+                  className="answer-label"
+                  htmlFor="1-option-3"
+                  onKeyPress={[Function]}
+                >
+                  <button
+                    aria-label="Choice d:"
+                    className="answer-letter"
+                    disabled={true}
+                    onClick={undefined}
+                  >
+                    d
+                  </button>
+                  <div
+                    className="answer-answer"
+                  >
+                    <div
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are large enough to be seen with the naked eye, and</li>
+  <li>there is the involvement of a weak gravitational field</li>
+</ol>
+",
+                        }
+                      }
+                    />
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div
+              className="openstax-answer"
+            >
+              <div
+                className="answers-answer disabled"
+              >
+                <label
+                  className="answer-label"
+                  htmlFor="1-option-4"
+                  onKeyPress={[Function]}
+                >
+                  <button
+                    aria-label="Choice e:"
+                    className="answer-letter"
+                    disabled={true}
+                    onClick={undefined}
+                  >
+                    e
+                  </button>
+                  <div
+                    className="answer-answer"
+                  >
+                    <div
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<ol>
+  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
+  <li>objects are too small to be seen with the naked eye, and</li>
+  <li>there is the involvement of only a weak gravitational field</li>
+</ol>
+",
+                        }
+                      }
+                    />
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div
+            className="detailed-solution"
+          >
+            <div
+              className="header"
+            >
+              Detailed solution
+            </div>
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "four",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="exercise-tags"
+      >
+        <span
+          className="exercise-tag"
+        >
+          blooms:3
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          book:stax-phys
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          context-cnxfeature:one-1
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          context-cnxmod:
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          dok:3
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          filter-type:test-prep
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          ID: 1@1
+        </span>
+        <div
+          className="lo-tag"
+        >
+          LO: 
+          lo:stax-phys:1-2-1
+        </div>
+        <span
+          className="exercise-tag"
+        >
+          requires-context:true
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          time:long
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          type:conceptual
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;

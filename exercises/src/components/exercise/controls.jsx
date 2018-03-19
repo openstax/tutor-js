@@ -33,11 +33,11 @@ class ExerciseControls extends React.Component {
     this.exercise.saveDraft();
   }
 
-  // publishExercise = () => {
-  //   return (
-  //       ExerciseActions.publish(this.props.id)
-  //   );
-  // };
+  publishExercise = () => {
+    return (
+      ExerciseActions.publish(this.props.id)
+    );
+  };
 
   // onPreview = () => {
   //   return (
@@ -57,7 +57,8 @@ class ExerciseControls extends React.Component {
     };
 
     return (
-      <div className="exercise-navbar-controls">
+      <li className="exercise-navbar-controls">
+
         <ButtonToolbar className="navbar-btn">
           <AsyncButton
             bsStyle="info"
@@ -92,7 +93,7 @@ class ExerciseControls extends React.Component {
         <div className="right-side">
           <MPQToggle exercise={exercise} />
         </div>
-      </div>
+      </li>
     );
   }
 }

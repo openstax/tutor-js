@@ -17,4 +17,12 @@ export default class ExerciseFormat extends BaseModel {
     return this._format;
   }
 
+  @computed get value() {
+    return this.asString;
+  }
+
+  set value(v) {
+    this._format = v;
+  }
+
 }

@@ -1,10 +1,10 @@
 import { get } from 'lodash';
-import Exercise from '../models/exercises/exercise';
+import Exercises, { Exercise } from '../models/exercises';
+
 import Adapter from './adapter';
 
 const {
-  connectModelUpdate, connectModify, connectCreate,
-  connectRead, connectUpdate, connectDelete
+  connectModelUpdate, connectModelRead,
 } = Adapter;
 
 //
@@ -36,6 +36,11 @@ const start = function() {
   //     data: obj,
   //   };
   // });
+
+  connectModelRead(Exercises.constructor, 'fetch', {
+    pattern: 'exercises/{id}',
+    onSuccess: 'onLoaded',
+  });
 
   connectModelUpdate(Exercise, 'publish', {
     pattern: 'exercises/{id}/publish',

@@ -32,18 +32,20 @@ export default class App extends React.Component {
                 </Navbar.Brand>
               </Navbar.Header>
               <Nav>
+                <NavItem href="/search">
+                  Search
+                </NavItem>
                 <NavItem href="/exercise/new">
-                  New exercise
+                  New
                 </NavItem>
-                <NavItem>
-                  <Route path="/search" component={Search.Controls} />
-                  <Route path="/exercise/:id" component={Exercise.Controls} />
-                </NavItem>
+                <Route path="/search" component={Search.Controls} />
+                <Route path="/exercise/:id" component={Exercise.Controls} />
+
               </Nav>
             </Navbar>
             <div className="exercises-body">
               <Route path="/search" component={Search} />
-              <Route path="/exercise/:id" component={Exercise} />
+              <Route path="/exercise/:numberWithVersion" component={Exercise} />
             </div>
           </Grid>
         </BrowserRouter>

@@ -21,4 +21,7 @@ export default class ExerciseAnswer extends BaseModel {
     }
   }
 
+  @computed get isCorrect() {
+    return this.correctness === '1.0';
+  }
 }

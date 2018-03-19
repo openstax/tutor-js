@@ -2,12 +2,13 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { computed, observable } from 'mobx';
 import { ExercisePreview } from 'shared';
-import Exercises from '../models/exercises';
+import Exercises, { ExercisesMap } from '../models/exercises';
 import { Button, Tabs, Tab } from 'react-bootstrap';
 import Question from './exercise/question';
 import ExerciseTags from './exercise/tags';
 import Attachments from './exercise/attachments';
 import Controls from './exercise/controls';
+import { idType } from 'shared';
 
 const Loading = () => (
   <h1>Loading…</h1>
@@ -32,21 +33,31 @@ const NotFound = () => (
 export default class Exercise extends React.Component {
 
   static propTypes = {
-    id: React.PropTypes.string.isRequired,
-    location: React.PropTypes.object,
+    match: React.PropTypes.shape({
+      params: React.PropTypes.shape({
+        numberWithVersion: idType,
+      }),
+    }),
+    exercises: React.PropTypes.instanceOf(ExercisesMap),
   };
 
+  static defaultProps = {
+    exercises: Exercises,
+  }
+
   static Controls = Controls;
+
+  @observable tab = 'question-0';
 
   state = {};
 
   @computed get exercise() {
-    return Exercises.get(this.props.id);
+    return this.props.exercises.get(this.props.match.params.numberWithVersion);
   }
 
   componentWillMount() {
-    const { id } = this.props;
-    if (id === Exercises.NEW) { Exercises.findOrCreateNewRecord(); }
+    const { numberWithVersion } = this.props.match.params;
+    this.props.exercises.ensureLoaded(numberWithVersion);
   }
 
   moveQuestion = (questionId, direction) => {
@@ -101,7 +112,6 @@ export default class Exercise extends React.Component {
 
   renderSingleQuestionTab() {
     const { exercise } = this;
-    console.log(exercise.questions.length)
     return (
       <Tab key={0} eventKey="question-0" title="Question">
         <Question question={exercise.questions[0]} />
@@ -117,12 +127,6 @@ export default class Exercise extends React.Component {
 
   selectTab = (tab) => { return this.setState({ tab }); };
 
-  visitVocab = () => {
-    const vocabId = ExerciseStore.getVocabId(this.props.id);
-    return (
-      this.props.location.visitVocab(vocabId)
-    );
-  };
 
   getActiveTab = (showMPQ) => {
     if (!this.state.tab || ((this.state.tab != null ? this.state.tab.indexOf('question-') : undefined) === -1)) {
@@ -158,13 +162,12 @@ export default class Exercise extends React.Component {
   @observable activeTabKey = 'question-0';
 
   render() {
-    if (Exercises.api.isPending) { return <Loading />; }
-    const exercise = Exercises.get(this.props.id);
+    if (this.props.exercises.api.isPending) { return <Loading />; }
+
+    const { exercise } = this;
     if (!exercise) { return <NotFound />; }
+
     const { isMultiPart } = exercise;
-    console.log(exercise)
-      // const showMPQ = ExerciseStore.isMultiPart(this.props.id);
-    // const tab = this.getActiveTab(showMPQ);
 
     return (
       <div className="exercise-editor">

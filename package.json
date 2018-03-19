@@ -160,7 +160,7 @@
     "less-loader": "2.2.3",
     "mocha": "3.2.0",
     "node-sass": "4.7.2",
-    "object-factory-bot": "^0.4.3",
+    "object-factory-bot": "^0.5.0",
     "parallelshell": "2.0.0",
     "pixelmatch": "^4.0.2",
     "pngjs": "^3.3.2",

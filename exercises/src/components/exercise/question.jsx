@@ -3,60 +3,34 @@ import { Alert } from'react-bootstrap';
 import { partial, isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
 import { computed, action, observable } from 'mobx';
-import Question  from 'shared/model/exercise/question';
+import QuestionModel  from 'shared/model/exercise/question';
+import QuestionFormatType from './question-format-type';
+import Answer from './answer';
 
 // import BS from 'react-bootstrap';
 //
 // import _ from 'underscore';
 //
 // import { SuretyGuard } from 'shared';
-import QuestionFormatType from './question-format-type';
 // import Answer from './answer';
 // import { QuestionActions, QuestionStore } from 'stores/question';
 // import { AnswerActions, AnswerStore } from 'stores/answer';
 
 @observer
-export default class extends React.Component {
-  static displayName = 'Question';
+export default class Question extends React.Component {
 
   static propTypes = {
-    question: React.PropTypes.instanceOf(Question).isRequired,
+    question: React.PropTypes.instanceOf(QuestionModel).isRequired,
   };
 
-  // state = {};
-  // update = () => { return this.forceUpdate(); };
-
-  // componentWillMount() {
-  //   return (
-  //       QuestionStore.addChangeListener(this.update)
-  //   );
-  // }
-
-  // componentWillUnmount() {
-  //   return (
-  //       QuestionStore.removeChangeListener(this.update)
-  //   );
-  // }
-
-  // sync = () => {
-  //   this.props.sync();
-  //   return (
-  //       this.forceUpdate()
-  //   );
-  // };
-
-  changeAnswer = (answerId) => {
-    const curAnswer = QuestionStore.getCorrectAnswer(this.props.id);
-    QuestionActions.setCorrectAnswer(this.props.id, answerId, curAnswer != null ? curAnswer.id : undefined);
-    return (
-        this.sync()
-    );
-  };
+  @action.bound setCorrectAnswer(answer) {
+    this.props.question.setCorrectAnswer(answer);
+  }
 
   updateStimulus = (event) => {
     QuestionActions.updateStimulus(this.props.id, event.target != null ? event.target.value : undefined);
     return (
-        this.sync()
+      this.sync()
     );
   };
 
@@ -74,22 +48,24 @@ export default class extends React.Component {
   addAnswer = () => {
     QuestionActions.addNewAnswer(this.props.id);
     return (
-        this.sync()
+      this.sync()
     );
   };
 
   removeAnswer = (answerId) => {
     QuestionActions.removeAnswer(this.props.id, answerId);
     return (
-        this.sync()
+      this.sync()
     );
   };
 
-  moveAnswer = (answerId, direction) => {
-    QuestionActions.moveAnswer(this.props.id, answerId, direction);
-    return (
-        this.sync()
-    );
+  @action.bound moveAnswer(answer, direction) {
+    this.props.question.moveAnswer(answer, direction);
+    //
+    //     QuestionActions.moveAnswer(this.props.id, answerId, direction);
+    //     return (
+    //       this.sync()
+    //     );
   };
 
   multipleChoiceClicked = (event) => { return QuestionActions.toggleMultipleChoiceFormat(this.props.id); };
@@ -165,11 +141,11 @@ export default class extends React.Component {
             {question.answers.map((answer, index) => (
               <Answer
                 key={answer.id}
-                sync={this.props.sync}
-                id={answer.id}
+                answer={answer}
                 canMoveUp={index !== (question.answers.length - 1)}
                 canMoveDown={index !== 0}
                 moveAnswer={this.moveAnswer}
+                changeCorrect={this.setCorrectAnswer}
                 removeAnswer={this.removeAnswer}
                 changeAnswer={this.changeAnswer}
               />))}

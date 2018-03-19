@@ -3,10 +3,11 @@ import { action } from 'mobx';
 import Wrapper from './wrapper';
 import BookSelection from './book-selection';
 import Exercise from '../../models/exercises/exercise';
+import TagModel from 'shared/model/exercise/tag';
 
 class BookTagSelect extends React.Component {
   static propTypes = {
-    book: React.PropTypes.string.isRequired,
+    book: React.PropTypes.instanceOf(TagModel).isRequired,
     exercise: React.PropTypes.instanceOf(Exercise).isRequired,
   };
 
@@ -31,14 +32,12 @@ class BookTagSelect extends React.Component {
 
   render() {
     return (
-      (
-        <div className="tag">
-          <BookSelection onChange={this.updateTag} selected={this.props.book} />
-          <span className="controls">
-            <i onClick={this.onDelete} className="fa fa-trash" />
-          </span>
-        </div>
-      )
+      <div className="tag">
+        <BookSelection onChange={this.updateTag} selected={this.props.book} />
+        <span className="controls">
+          <i onClick={this.onDelete} className="fa fa-trash" />
+        </span>
+      </div>
     );
   }
 }

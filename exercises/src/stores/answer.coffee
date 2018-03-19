@@ -10,7 +10,6 @@ AnswerConfig = {
 
   setIncorrect: (id) ->
     @_change(id, {correctness: "0.0"})
-
   updateFeedback: (id, feedback) ->
     @_change(id, {feedback_html: feedback})
 

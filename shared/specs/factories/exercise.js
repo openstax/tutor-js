@@ -41,7 +41,7 @@ Factory.define('ExerciseAnswer')
       "No, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
       "No, because the satellite is moving at a speed much smaller than the speed of the light and is not in a strong gravitational field.",
     ],
-  ][ parent.id % 5 ][ object.id % 4 ])
+  ][ parent.object.id % 5 ][ object.id % 4 ])
   .feedback_html(({ parent, object }) => [
     [
       'Biology and chemistry are also part of natural philosophy, but not part of physics.',
@@ -69,7 +69,7 @@ Factory.define('ExerciseAnswer')
       'Objects in a strong gravitational field cannot be described by classical physics.',
       'The speed of the satellite is far less than the speed of light so it can be described by classical physics.',
     ]
-  ][ parent.id % 5 ][ object.id % 4 ]);
+  ][ parent.object.id % 5 ][ object.id % 4 ]);
 
 
 Factory.define('ExerciseQuestion')
@@ -123,6 +123,6 @@ Factory.define('Exercise')
   .copyright_holders(reference('ExerciseUser', { count: 1 }))
   .derived_from(() => [])
   .is_vocab(false)
-  .questions(reference('ExerciseQuestion', { count: 1 }))
+  .questions(reference('ExerciseQuestion', { count: ({ multipart }) => multipart ? 3: 1 }) )
   .versions(({ object }) => [object.version])
   .attachments(() => []);
