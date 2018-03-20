@@ -6,8 +6,8 @@ import { Provider, observer } from 'mobx-react';
 import UX from './ux';
 import Search from './components/search';
 import Exercise from './components/exercise';
+import Preview from './components/preview';
 import { startAPI } from './routes';
-
 
 
 export default class App extends React.Component {
@@ -31,21 +31,22 @@ export default class App extends React.Component {
                   <a href="#home">OX Exercises</a>
                 </Navbar.Brand>
               </Navbar.Header>
-              <Nav>
+              <Nav className="exercise-navbar-controls" >
                 <NavItem href="/search">
-                  Search
+                Search
                 </NavItem>
                 <NavItem href="/exercise/new">
                   New
                 </NavItem>
                 <Route path="/search" component={Search.Controls} />
-                <Route path="/exercise/:id" component={Exercise.Controls} />
-
-              </Nav>
+                <Route path="/exercise/:uid" component={Exercise.Controls} />
+                <Route path="/preview/:uid" component={Preview.Controls} />
+            </Nav>
             </Navbar>
             <div className="exercises-body">
               <Route path="/search" component={Search} />
-              <Route path="/exercise/:numberWithVersion" component={Exercise} />
+              <Route path="/exercise/:uid" component={Exercise} />
+              <Route path="/preview/:uid" component={Preview} />
             </div>
           </Grid>
         </BrowserRouter>

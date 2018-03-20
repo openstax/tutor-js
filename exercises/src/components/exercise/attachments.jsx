@@ -7,11 +7,13 @@ function Attachments({ exercise }) {
 
   return (
     <div className="attachments">
-      {Array.from(exercise.attachments || []).map((attachment) =>
+      {exercise.attachments.map((attachment) =>
         <Attachment
           key={attachment.asset.url}
           exercise={exercise}
-          attachment={attachment} />)}
+          attachment={attachment}
+        />
+      )}
       <AttachmentChooser exercise={exercise} />
     </div>
   );
@@ -20,6 +22,5 @@ function Attachments({ exercise }) {
 Attachments.propTypes = {
   exercise: React.PropTypes.instanceOf(Exercise).isRequired,
 };
-
 
 export default Attachments;

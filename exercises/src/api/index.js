@@ -1,5 +1,5 @@
-import { get } from 'lodash';
-import Exercises, { Exercise } from '../models/exercises';
+import { get, last } from 'lodash';
+import { ExercisesMap, Exercise } from '../models/exercises';
 
 import Adapter from './adapter';
 
@@ -37,19 +37,23 @@ const start = function() {
   //   };
   // });
 
-  connectModelRead(Exercises.constructor, 'fetch', {
+  connectModelRead(ExercisesMap, 'fetch', {
     pattern: 'exercises/{id}',
     onSuccess: 'onLoaded',
   });
 
-  connectModelUpdate(Exercise, 'publish', {
-    pattern: 'exercises/{id}/publish',
+  connectModelUpdate(ExercisesMap, 'publish', {
+    method: 'PUT',
+    pattern: 'exercises/{uid}/publish',
     onSuccess: 'onSaved',
+    onFail: 'onError',
   });
 
-  connectModelUpdate(Exercise, 'saveDraft', {
-    pattern: 'exercises/{id}@draft',
+  connectModelUpdate(ExercisesMap, 'saveDraft', {
+    method: 'PUT',
+    pattern: 'exercises/{number}@draft',
     onSuccess: 'onSaved',
+    onFail: 'onError',
   });
 
   // connectCreate(ExerciseActions, { url: 'exercises', data: ExerciseStore.get });
@@ -90,22 +94,19 @@ const start = function() {
   // );
 };
 
-const CSRF_Token = get(document.head.querySelector('meta[name=csrf-token]'), 'content');
+const CSRF_TOKEN = get(document.head.querySelector('meta[name=csrf-token]'), 'content');
 
-const uploadExerciseImage = function(exerciseId, image, cb) {
-  const url = `/api/exercises/${getIdOnly(exerciseId)}@draft/attachments`;
+Exercise.prototype.uploadImage = function(image, cb) {
+  const url = `/api/exercises/${this.number}@draft/attachments`;
   const xhr = new XMLHttpRequest();
-  xhr.addEventListener('load', req =>
-    cb((() => {
-      if (req.currentTarget.status === 201) {
-        const attachment = JSON.parse(req.target.response);
-        ExerciseActions.attachmentUploaded(exerciseId, attachment);
-        return { response: attachment, progress: 100 };
-      } else {
-        return { error: req.currentTarget.statusText };
-      }
-    })())
-  );
+  xhr.addEventListener('load', req => {
+    if (req.currentTarget.status === 201) {
+      this.attachments.push(JSON.parse(req.target.response));
+      cb({ response: last(this.attachments), progress: 100 });
+    } else {
+      cb({ error: req.currentTarget.statusText });
+    }
+  });
   xhr.addEventListener('progress', ev => cb({ progress: ((ev.total / (ev.total || image.size)) * 100) }));
   xhr.open('POST', url, true);
   xhr.setRequestHeader('X-CSRF-Token', CSRF_TOKEN);
@@ -114,4 +115,4 @@ const uploadExerciseImage = function(exerciseId, image, cb) {
   return xhr.send(form);
 };
 
-export default { start, uploadExerciseImage };
+export default { start };

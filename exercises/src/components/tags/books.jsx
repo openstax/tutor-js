@@ -13,19 +13,19 @@ class BookTagSelect extends React.Component {
 
   updateTag = (ev) => {
     return (
-      this.props.actions.setPrefixedTag(this.props.id,
-        { prefix: 'book', tag: ev.target.value, previous: this.props.book }
+      this.props.actions.setTypeedTag(this.props.id,
+        { type: 'book', tag: ev.target.value, previous: this.props.book }
       )
     );
   };
 
   onDelete = () => {
-    this.props.actions.setPrefixedTag(this.props.id,
-      { prefix: 'book', tag: false, previous: this.props.book }
+    this.props.actions.setTypeedTag(this.props.id,
+      { type: 'book', tag: false, previous: this.props.book }
     );
     return (
-      this.props.actions.setPrefixedTag(this.props.id,
-        { prefix: `exid:${this.props.book}`, tag: false, replaceOthers: true }
+      this.props.actions.setTypeedTag(this.props.id,
+        { type: `exid:${this.props.book}`, tag: false, replaceOthers: true }
       )
     );
   };
@@ -48,11 +48,11 @@ class BookTags extends React.Component {
   };
 
   @action.bound add() {
-    this.props.exercise.addBlankPrefixedTag({ prefix: 'book' });
+    this.props.exercise.addBlankTypeedTag({ type: 'book' });
   }
 
   render() {
-    const tags = this.props.exercise.tagsWithPrefix('book');
+    const tags = this.props.exercise.tags.withType('book', { multiple: true });
     return (
       <Wrapper label="Book" onAdd={this.add} singleTag={tags.length === 1}>
         {tags.map((tag) =>

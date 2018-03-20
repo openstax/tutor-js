@@ -1,19 +1,22 @@
 import React from 'react';
 import classnames from 'classnames';
+import { observer } from 'mobx-react';
+import { computed, action, observable } from 'mobx';
 import Exercise from '../../models/exercises/exercise';
 import TagModel from 'shared/model/exercise/tag';
 import Wrapper from './wrapper';
 import Error from './error';
-import { observer } from 'mobx-react';
-import { computed, action, observable } from 'mobx';
+
 
 @observer
 class Input extends React.Component {
   static defaultProps = { inputType: 'text' };
 
   static propTypes = {
-    tag: React.PropTypes.instanceOf(TagModel).isRequired,
-    prefix: React.PropTypes.string.isRequired,
+    tag:           React.PropTypes.instanceOf(TagModel).isRequired,
+    type:          React.PropTypes.string.isRequired,
+    exercise:      React.PropTypes.instanceOf(Exercise).isRequired,
+    cleanInput:    React.PropTypes.func.isRequired,
     validateInput: React.PropTypes.func.isRequired,
   };
 
@@ -25,23 +28,17 @@ class Input extends React.Component {
     this.value = this.props.cleanInput(ev.target.value);
   }
 
-  validateAndSave = (ev) => {
-    const { value } = this.state;
-    const error = this.props.validateInput(value);
-    if (error) {
-      this.setState({ errorMsg: error })
-    } else {
-      this.tag.value = value;
+  @action.bound validateAndSave() {
+    const { value } = this;
+    this.errorMsg = this.props.validateInput(value);
+    if (!this.errorMsg) {
+      this.props.tag.value = value;
     }
-  };
+  }
 
-  onDelete = () => {
-    return (
-      this.props.actions.setPrefixedTag(this.props.id,
-        { prefix: this.props.prefix, tag: false, previous: this.props.tag }
-      )
-    );
-  };
+  @action.bound onDelete() {
+    this.props.exercise.tags.remove(this.props.tag);
+  }
 
   render() {
     return (
@@ -62,28 +59,27 @@ class Input extends React.Component {
   }
 }
 
+@observer
 class MultiInput extends React.Component {
   static propTypes = {
-    exercise: React.PropTypes.instanceOf(Exercise).isRequired,
+    exercise:      React.PropTypes.instanceOf(Exercise).isRequired,
     label:         React.PropTypes.string.isRequired,
-    prefix:        React.PropTypes.string.isRequired,
+    type:          React.PropTypes.string.isRequired,
     cleanInput:    React.PropTypes.func.isRequired,
     validateInput: React.PropTypes.func.isRequired,
   };
 
-  add = () => {
-    return (
-      this.props.actions.addBlankPrefixedTag(this.props.id, { prefix: this.props.prefix })
-    );
-  };
+  @action.bound add() {
+    this.props.exercise.tags.push({ type: this.props.type });
+  }
 
   render() {
-    const tags = this.props.exercise.tagsWithPrefix(this.props.prefix);
+    const tags = this.props.exercise.tags.withType(this.props.type, { multiple: true });
 
     return (
       <Wrapper label={this.props.label} onAdd={this.add} singleTag={tags.length === 1}>
-        {Array.from(tags).map((tag) =>
-          <Input key={tag} {...this.props} tag={tag} />)}
+        {tags.map((tag, index) =>
+          <Input {...this.props} key={index} tag={tag} />)}
       </Wrapper>
     );
   }

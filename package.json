@@ -70,7 +70,7 @@
     "mime-types": "2.1.14",
     "minimatch": "3.0.3",
     "mobx": "^3.5.1",
-    "mobx-decorated-models": "^0.8.3",
+    "mobx-decorated-models": "^0.9.2",
     "mobx-react": "^4.4.2",
     "mobx-utils": "3.2.2",
     "moment": "2.21.0",

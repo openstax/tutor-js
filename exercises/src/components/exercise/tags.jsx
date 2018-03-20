@@ -18,18 +18,16 @@ function ExerciseTags({ exercise }) {
 
   return (
     <div className="tags">
-      <Row>
-        <Books {...tagProps} />
-        <Lo {...tagProps} />
-        <QuestionType {...tagProps} />
-        <FilterType {...tagProps} />
-        <RequiresContext {...tagProps} />
-        <CnxMod {...tagProps} />
-        <CnxFeature {...tagProps} />
-        <Dok {...tagProps} />
-        <Blooms {...tagProps} />
-        <Time {...tagProps} />
-      </Row>
+      <Books {...tagProps} />
+      <Lo {...tagProps} />
+      <QuestionType {...tagProps} />
+      <FilterType {...tagProps} />
+      <RequiresContext {...tagProps} />
+      <CnxMod {...tagProps} />
+      <CnxFeature {...tagProps} />
+      <Dok {...tagProps} />
+      <Blooms {...tagProps} />
+      <Time {...tagProps} />
     </div>
   );
 

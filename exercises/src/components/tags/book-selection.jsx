@@ -16,19 +16,19 @@ const BOOKS = {
 };
 
 function BookSelection(props) {
-  const books = props.limit ? pick(BOOKS, props.limit) : BOOKS;
+  const books = props.limit.length ? pick(BOOKS, props.limit) : BOOKS;
 
   return (
     <select
       className="form-control"
       onChange={props.onChange}
-      value={get(props, 'selected.asString', '')}
+      value={props.selected || ''}
     >
       {isEmpty(props.selected) && <option key="blank" value="" />}
       {map(books, (name, tag) => (
-      <option key={tag} value={tag}>
-        {name}
-      </option>)
+        <option key={tag} value={tag}>
+          {name}
+        </option>)
       )}
     </select>
   );
@@ -36,8 +36,8 @@ function BookSelection(props) {
 
 BookSelection.propTypes = {
   onChange: React.PropTypes.func,
-  selected: React.PropTypes.instanceOf(TagModel),
-  limit: React.PropTypes.array
+  selected: React.PropTypes.string,
+  limit: React.PropTypes.array.isRequired,
 };
 
 

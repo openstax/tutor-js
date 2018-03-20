@@ -10,7 +10,7 @@ const CHOICES = {
 
 function TimeTag(props) {
   return (
-    <SingleDropdown {...props} label="Time" prefix="time" choices={CHOICES} />
+    <SingleDropdown {...props} label="Time" type="time" choices={CHOICES} />
   );
 }
 

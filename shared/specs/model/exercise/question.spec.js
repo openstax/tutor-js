@@ -24,4 +24,26 @@ describe('Exercise Question', () => {
     expect(map(question.formats, 'value')).toEqual(['multiple-choice', 'free-response']);
   });
 
+  it('can move answers up/down', () => {
+    const second = question.answers[1];
+    question.moveAnswer(second, -1);
+    expect(question.answers[0]).toBe(second);
+    expect(() =>
+      question.moveAnswer(second, -1)
+    ).toThrow();
+
+    const nextToLast = question.answers[question.answers.length - 2];
+    question.moveAnswer(nextToLast, 1);
+    expect(question.answers[question.answers.length - 1]).toBe(nextToLast);
+    expect(() =>
+      question.moveAnswer(nextToLast, 1)
+    ).toThrow();
+  });
+
+  it('can serialize formats', () => {
+    expect(question.serialize()).toMatchObject({
+      formats: [ 'free-response', 'multiple-choice' ],
+    });
+  });
+
 });

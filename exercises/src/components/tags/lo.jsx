@@ -9,7 +9,7 @@ import TagModel from 'shared/model/exercise/tag';
 import Error from './error';
 import Wrapper from './wrapper';
 
-const PREFIX = 'lo';
+const TYPE = 'lo';
 import BookSelection from './book-selection';
 
 @observer
@@ -19,88 +19,65 @@ class Input extends React.Component {
     tag: React.PropTypes.instanceOf(TagModel).isRequired,
   };
 
-  static defaultProps = { inputType: 'text' };
-
+  @observable errorMsg;
+  @observable value = this.props.tag.value;
   @computed get book() {
-    return this.props.tag.type;
+    return this.props.tag.specifier;
   }
 
   @computed get lo() {
     return this.props.tag.value;
   }
 
-  state = {};
-  // constructor(props) {
-  //   super(props);
+  @action.bound onTextChange(ev) {
+    this.value = ev.target.value.replace(/[^0-9\-]/g, '');
+    this.errorMsg = null;
+  }
 
-  //   const [book, lo] = Array.from(props.tag.split(':'));
-  //   this.state = { book, lo };
-  // }
-
-  validateInput = (value) => {
-    if (!value.match(
-      /^\d{1,2}-\d{1,2}-\d{1,2}$/
-    )) { return 'Must match LO pattern of dd-dd-dd'; }
-  };
-
-
-  // componentWillReceiveProps(nextProps) {
-  //   const [book, lo] = Array.from(this.props.tag.split(':'));
-  //   return (
-  //     this.setState({ book, lo })
-  //   );
-  // }
-
-  onTextChange = (ev) => {
-    const lo = ev.target.value.replace(/[^0-9\-]/g, '');
-    return (
-      this.setState({ errorMsg: null, lo })
-    );
-  };
-
-  validateAndSave = (attrs) => {
+  @action.bound validateAndSave(attrs) {
     if (attrs == null) { attrs = {}; }
     const { tag } = this.props;
-    const { lo, book } = defaults(attrs, { book: this.book, lo: this.lo })
-    if (book && (lo != null ? lo.match( /^\d{1,2}-\d{1,2}-\d{1,2}$/ ) : undefined)) {
-      tag.specifier = book;
-      tag.value = lo;
+    const { lo, book } = defaults(attrs, { book: this.book, lo: this.lo });
+
+    if (!book || (lo != null && !lo.match( /^\d{1,2}-\d{1,2}-\d{1,2}$/ ))) {
+      this.errorMsg = 'Must have book and match LO pattern of dd-dd-dd';
     } else {
-      this.setState({ errorMsg: 'Must match LO pattern of book:dd-dd-dd' });
+      tag.value = lo;
     }
-  };
+    tag.specifier = book;
 
-  onTextBlur = () => { return this.validateAndSave(); };
+  }
 
-  updateBook = (ev) => {
-    const book = ev.target.value;
-    this.validateAndSave({ book })
-  };
+  @action.bound onTextBlur() {
+    return this.validateAndSave({ lo: this.value });
+  }
 
-  onDelete = () => {
-    this.props.actions.setPrefixedTag(this.props.id,
-      { prefix: PREFIX, tag: false, previous: this.props.tag }
-    );
-  };
+  @action.bound updateBook(ev) {
+    this.validateAndSave({ book: ev.target.value });
+  }
+
+  @action.bound onDelete() {
+    this.props.exercise.tags.remove(this.props.tag);
+  }
 
   render() {
-
     const { exercise } = this.props;
 
     return (
-      <div className={classnames('tag', { 'has-error': this.state.errorMsg })}>
+      <div className={classnames('tag', { 'has-error': this.errorMsg })}>
         <BookSelection
           onChange={this.updateBook}
-          selected={this.state.book}
-          limit={exercise.tagsWithPrefix('book')} />
+          selected={this.book}
+          limit={exercise.tags.withType('book', { multiple: true })} />
         <input
           className="form-control"
-          type={this.props.inputType}
+          type="text"
           onChange={this.onTextChange}
           onBlur={this.onTextBlur}
-          value={this.state.lo}
-          placeholder={this.props.placeholder} />
-        <Error error={this.state.errorMsg} />
+          value={this.value}
+          placeholder="##-##-##"
+        />
+        <Error error={this.errorMsg} />
         <span className="controls">
           <i onClick={this.onDelete} className="fa fa-trash" />
         </span>
@@ -109,17 +86,18 @@ class Input extends React.Component {
   }
 }
 
+@observer
 class LoTags extends React.Component {
   static propTypes = {
     exercise: React.PropTypes.instanceOf(Exercise).isRequired,
   };
 
   @action.bound onAdd() {
-    this.props.exercise.addBlankPrefixedTag({ prefix: PREFIX });
+    this.props.exercise.tags.push({ type: TYPE, value: '' });
   }
 
   render() {
-    const tags = this.props.exercise.tagsWithPrefix(PREFIX);
+    const tags = this.props.exercise.tags.withType(TYPE, { multiple: true });
 
     return (
       <Wrapper label="LO" onAdd={this.onAdd}>

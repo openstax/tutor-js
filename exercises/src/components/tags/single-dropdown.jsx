@@ -1,37 +1,31 @@
 import React from 'react';
-import { first, map }  from 'lodash';
+import { get, map }  from 'lodash';
 import Exercise from '../../models/exercises/exercise';
-
+import { observer } from 'mobx-react';
+import { action } from 'mobx';
 import Wrapper from './wrapper';
 
+@observer
 class SingleDropdown extends React.Component {
   static propTypes = {
     exercise: React.PropTypes.instanceOf(Exercise).isRequired,
     label:   React.PropTypes.string.isRequired,
-    prefix:  React.PropTypes.string.isRequired,
+    type:  React.PropTypes.string.isRequired,
   };
 
-  updateTag = (ev) => {
-    return (
-      this.props.actions.setPrefixedTag(this.props.id,
-        {tag: ev.target.value, prefix: this.props.prefix, replaceOthers: true}
-      )
-    );
-  };
+  @action.bound updateTag(ev) {
+    const tag = this.props.exercise.tags.findOrAddWithType(this.props.type);
+    tag.value = ev.target.value;
+  }
 
   render() {
-    let tag, name;
-    tag = first(this.props.exercise.tagsWithPrefix(this.props.prefix));
+    const tag = this.props.exercise.tags.withType(this.props.type);
 
     return (
       <Wrapper label={this.props.label} singleTag={true}>
         <div className="tag">
-          <select className="form-control" onChange={this.updateTag} value={tag}>
-            {!tag && ( // a tag cannot be blank once it's set
-               <option key="blank" value="">
-                 {name}
-               </option>
-            )}
+          <select className="form-control" onChange={this.updateTag} value={get(tag, 'value', '')}>
+            {!tag && <option key="blank" value="" />}
             {map(this.props.choices, (name, tag) => (
               <option key={tag} value={tag}>
                 {name}

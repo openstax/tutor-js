@@ -8,7 +8,7 @@ for (let i of Array.from(range(1, 5))) { CHOICES[i] = i; }
 
 function DokTag(props) {
   return (
-    <SingleDropdown {...props} label="DOK" prefix="dok" choices={CHOICES} />
+    <SingleDropdown {...props} label="DOK" type="dok" choices={CHOICES} />
   );
 }
 

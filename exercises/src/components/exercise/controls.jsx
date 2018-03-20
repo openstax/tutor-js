@@ -1,53 +1,53 @@
 import React from 'react';
+import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
-import Exercises from '../../models/exercises';
+import Exercises, { ExercisesMap } from '../../models/exercises';
 import { Button, ButtonToolbar } from 'react-bootstrap';
 import AsyncButton from 'shared/components/buttons/async-button.cjsx';
 import MPQToggle from 'components/exercise/mpq-toggle';
-import { SuretyGuard } from 'shared';
+import { SuretyGuard, idType } from 'shared';
 
-import Location from 'stores/location';
-
+@withRouter
 @observer
 class ExerciseControls extends React.Component {
   static propTypes = {
-    // params: {
-    //   id:   React.PropTypes.string,
-    // },
+    match: React.PropTypes.shape({
+      params: React.PropTypes.shape({
+        uid: idType,
+      }),
+    }),
+    history: React.PropTypes.shape({
+      push: React.PropTypes.func,
+    }).isRequired,
+    exercises: React.PropTypes.instanceOf(ExercisesMap),
   };
+
+  static defaultProps = {
+    exercises: Exercises,
+  }
 
   @computed get exercise() {
-    return Exercises.get(this.props.match.params.id);
+    return this.props.exercises.get(this.props.match.params.uid);
   }
-
-  update = () => { return this.forceUpdate(); };
-
-  // isExerciseDirty = () => {
-  //   return (
-  //       this.props.id && ExerciseStore.isChanged(this.props.id)
-  //   );
-  // };
 
   @action.bound saveExerciseDraft() {
-    this.exercise.saveDraft();
+    const { exercise } = this;
+    this.props.exercises.saveDraft(exercise).then(() => {
+      this.props.history.push(`/exercise/${exercise.uid}`);
+    });
   }
 
-  publishExercise = () => {
-    return (
-      ExerciseActions.publish(this.props.id)
-    );
-  };
-
-  // onPreview = () => {
-  //   return (
-  //       this.props.location.visitPreview(this.props.id)
-  //   );
-  // };
+  @action.bound publishExercise() {
+    const { exercise } = this;
+    this.props.exercises.publish(exercise).then(() => {
+      this.props.history.push(`/exercise/${exercise.uid}`);
+    });
+  }
 
   render() {
     const { exercise } = this;
-
     if (!exercise) { return null; }
 
     const guardProps = {
@@ -86,14 +86,14 @@ class ExerciseControls extends React.Component {
                 Publish
               </AsyncButton>
             </SuretyGuard>}
-          <Button bsStyle="info" onClick={this.onPreview}>
+          <Link to={`/preview/${exercise.uid}`} className="btn btn-info">
             Preview Only
-          </Button>
+          </Link>
         </ButtonToolbar>
         <div className="right-side">
           <MPQToggle exercise={exercise} />
         </div>
-      </li>
+          </li>
     );
   }
 }

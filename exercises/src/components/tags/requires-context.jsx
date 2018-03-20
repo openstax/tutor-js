@@ -1,24 +1,30 @@
 import React from 'react';
 import { first }  from 'lodash';
+import { observer } from 'mobx-react';
+import { action } from 'mobx';
 import Exercise from '../../models/exercises/exercise';
 
-const PREFIX = 'requires-context';
+const TYPE = 'requires-context';
 import Wrapper from './wrapper';
 
+@observer
 class RequiresContextTag extends React.Component {
   static propTypes = {
     exercise: React.PropTypes.instanceOf(Exercise).isRequired,
   };
 
-  updateTag = (ev) => {
-    const tag = ev.target.checked ? 'true' : false; // false will remove tag
-    return (
-      this.props.actions.setPrefixedTag(this.props.id, { prefix: PREFIX, tag, replaceOthers: true })
-    );
-  };
+  @action.bound updateTag(ev) {
+    if (ev.target.checked) {
+      const tag = this.props.exercise.tags.findOrAddWithType(TYPE);
+      tag.value = 'true';
+    } else {
+      const tag = this.props.exercise.tags.withType(TYPE);
+      if (tag) { this.props.exercise.tags.remove(tag); }
+    }
+  }
 
   render() {
-    const tag = first(this.props.exercise.tagsWithPrefix(PREFIX)) || 'false';
+    const tag = this.props.exercise.tags.withType(TYPE) || { value: 'false' };
 
     return (
       <Wrapper label="Requires Context">
@@ -27,7 +33,7 @@ class RequiresContextTag extends React.Component {
             type="checkbox"
             label=""
             onChange={this.updateTag}
-            checked={tag === 'true'} />
+            checked={tag.value === 'true'} />
         </div>
       </Wrapper>
     );

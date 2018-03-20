@@ -5,7 +5,7 @@ function TagError(props) {
   if (!props.error) { return null; }
 
   const tooltip = (
-    <Tooltip>
+    <Tooltip id="input-error">
       <strong>
         {props.error}
       </strong>

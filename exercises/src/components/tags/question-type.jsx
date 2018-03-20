@@ -2,7 +2,7 @@ import React from 'react';
 import Exercise from '../../models/exercises/exercise';
 import SingleDropdown from './single-dropdown';
 
-const PREFIX = 'type';
+const TYPE = 'type';
 const TYPES = {
   'conceptual-or-recall': 'Conceptual or Recall',
   'conceptual': 'Conceptual',
@@ -12,7 +12,9 @@ const TYPES = {
 
 function QuestionTypeTag(props) {
   return (
-    <SingleDropdown {...props} label="Question Type" prefix={PREFIX} choices={TYPES} />
+    <SingleDropdown
+      {...props} label="Question Type" type={TYPE} choices={TYPES}
+    />
   );
 }
 

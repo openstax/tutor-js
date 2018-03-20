@@ -1,13 +1,15 @@
 import React from 'react';
-import Exercise from '../../../models/exercises/exercise';
+import { withRouter } from 'react-router';
+import Exercises, { Exercise, ExercisesMap } from '../../../models/exercises';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
 import createReactClass from 'create-react-class';
 import { Button, ProgressBar } from 'react-bootstrap';
-import { first } from 'lodash';
+import { first, partial } from 'lodash';
 import classnames from 'classnames';
 import api from 'api';
 
+@withRouter
 @observer
 class AttachmentChooser extends React.Component {
 
@@ -15,6 +17,14 @@ class AttachmentChooser extends React.Component {
 
   static propTypes = {
     exercise: React.PropTypes.instanceOf(Exercise).isRequired,
+    exercises: React.PropTypes.instanceOf(ExercisesMap),
+    history: React.PropTypes.shape({
+      push: React.PropTypes.func,
+    }).isRequired,
+  }
+
+  static defaultProps = {
+    exercises: Exercises,
   }
 
   @observable imageData;
@@ -22,7 +32,7 @@ class AttachmentChooser extends React.Component {
   @observable file;
   @observable error;
 
-  @action.bound updateUploadStatus(status) {
+  @action.bound updateUploadStatus(status, redirect) {
     if (status.error) {
       this.error = status.error;
     }
@@ -33,24 +43,33 @@ class AttachmentChooser extends React.Component {
     if (status.response) { // 100%, we're done
       this.progress = null;
       this.error = false;
+      this.imageData = null;
+      if (redirect) {
+        this.props.history.push(`/exercise/${this.props.exercise.uid}`);
+      }
     }
   }
-  //
-  //   uploadImage() {
-  //     if (ExerciseStore.isNew(this.props.exerciseId)) {
-  //       ExerciseActions.create(this.props.exerciseId, ExerciseStore.get(this.props.exerciseId));
-  //     } else {
-  //       ExerciseActions.save(this.props.exerciseId);
-  //     }
-  //     return (
-  //       ExerciseStore.once('updated', id => {
-  //         api.uploadExerciseImage(this.props.exerciseId, this.state.file, this.updateUploadStatus)
-  //       );
-  //         return (
-  //           this.setState({progress: 0})
-  //         );
-  //       });
-  //   }
+
+  @action.bound uploadImage() {
+    const { exercise } = this.props;
+
+    if (exercise.isNew) {
+      this.props.exercises.saveDraft(exercise)
+        .then(() => {
+          exercise.uploadImage(this.file, partial(this.updateUploadStatus, partial.placeholder, true));
+        });
+      return;
+    }
+    exercise.uploadImage(this.file, this.updateUploadStatus);
+
+
+    //
+    //   );
+    //     return (
+    //       this.setState({progress: 0})
+    //     );
+    //   });
+  }
 
   renderUploadStatus() {
     if (!this.progress) { return; }
@@ -59,7 +78,7 @@ class AttachmentChooser extends React.Component {
     );
   }
 
-  onImageChange(ev) {
+  @action.bound onImageChange(ev) {
     ev.preventDefault();
     const file = first(ev.target.files);
     if (!file) { return; }
@@ -68,17 +87,17 @@ class AttachmentChooser extends React.Component {
       this.file = file;
       this.imageData = reader.result;
     };
-    return (
-      reader.readAsDataURL(file)
-    );
+    reader.readAsDataURL(file);
   }
 
   renderUploadBtn() {
-    if (!this.imageData || !!this.progress) { return; }
+    const { exercise } = this.props;
+    if (!this.imageData || !!this.progress) { return null; }
     return (
       <Button
         onClick={this.uploadImage}
-        disabled={!ExerciseStore.isSavedOrSavable(this.props.exerciseId) || !this.file}>
+        disabled={exercise.api.isPending || !this.file}
+      >
         Upload
       </Button>
     );
@@ -99,7 +118,7 @@ class AttachmentChooser extends React.Component {
       image = <img className="preview" src={this.imageData} />;
     }
     const classNames = classnames('attachment', {
-      'with-image': image
+      'with-image': image,
     });
     return (
       <div className={classNames}>

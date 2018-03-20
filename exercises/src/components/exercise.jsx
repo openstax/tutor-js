@@ -1,43 +1,30 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 import { observer } from 'mobx-react';
-import { computed, observable } from 'mobx';
+import { computed, observable, action } from 'mobx';
 import { ExercisePreview } from 'shared';
 import Exercises, { ExercisesMap } from '../models/exercises';
-import { Button, Tabs, Tab } from 'react-bootstrap';
+import { Button, Tabs, Tab, Alert } from 'react-bootstrap';
 import Question from './exercise/question';
 import ExerciseTags from './exercise/tags';
 import Attachments from './exercise/attachments';
 import Controls from './exercise/controls';
 import { idType } from 'shared';
+import { Loading, NotFound } from './exercise-state';
 
-const Loading = () => (
-  <h1>Loading…</h1>
-);
-
-const NotFound = () => (
-  <h1>Exercise was not found</h1>
-);
-
-
-// import _ from 'underscore';
-
-// import classnames from 'classnames';
-//
-// import { ExerciseActions, ExerciseStore } from 'stores/exercise';
-// import ExercisePreview from 'components/exercise/preview';
-// import PublishedModal from './published-modal';
-
-
-
+@withRouter
 @observer
 export default class Exercise extends React.Component {
 
   static propTypes = {
     match: React.PropTypes.shape({
       params: React.PropTypes.shape({
-        numberWithVersion: idType,
+        uid: idType,
       }),
     }),
+    history: React.PropTypes.shape({
+      push: React.PropTypes.func,
+    }).isRequired,
     exercises: React.PropTypes.instanceOf(ExercisesMap),
   };
 
@@ -47,39 +34,22 @@ export default class Exercise extends React.Component {
 
   static Controls = Controls;
 
-  @observable tab = 'question-0';
-
-  state = {};
+  @observable activeTabKey = 'question-0';
 
   @computed get exercise() {
-    return this.props.exercises.get(this.props.match.params.numberWithVersion);
+    return this.props.exercises.get(this.props.match.params.uid);
   }
 
   componentWillMount() {
-    const { numberWithVersion } = this.props.match.params;
-    this.props.exercises.ensureLoaded(numberWithVersion);
+    const { uid } = this.props.match.params;
+    this.props.exercises.ensureLoaded(uid);
   }
 
-  moveQuestion = (questionId, direction) => {
-    // return (
-    //   ExerciseActions.moveQuestion(this.props.id, questionId, direction)
-    // );
-  };
-
-  removeQuestion = (questionId) => {
-    // return (
-    //   ExerciseActions.removeQuestion(this.props.id, questionId)
-    // );
-  };
-
-  updateStimulus = (event) => {
-    // return (
-    //   ExerciseActions.updateStimulus(this.props.id, event.target != null ? event.target.value : undefined)
-    // );
-  };
+  @action.bound updateStimulus(ev) {
+    this.exercise.stimulus_html = ev.target.value;
+  }
 
   renderIntroTab = () => {
-    const { id } = this.props;
     return (
       <Tab eventKey="intro" title="Intro">
         <div className="exercise-stimulus">
@@ -88,25 +58,17 @@ export default class Exercise extends React.Component {
           </label>
           <textarea
             onChange={this.updateStimulus}
-            defaultValue={ExerciseStore.getStimulus(id)} />
+            defaultValue={this.exercise.stimulus_html} />
         </div>
       </Tab>
     );
   };
 
   renderMpqTabs = () => {
-    const { questions } = ExerciseStore.get(this.props.id);
-    return (
-      Array.from(questions).map((question, i) =>
-        <Tab key={question.id} eventKey={`question-${i}`} title={`Question ${i+1}`}>
-          <Question
-            id={question.id}
-            sync={this.sync}
-            canMoveLeft={i !== 0}
-            canMoveRight={i !== (questions.length - 1)}
-            moveQuestion={this.moveQuestion}
-            removeQuestion={_.partial(this.removeQuestion, question.id)} />
-        </Tab>)
+    return this.exercise.questions.map((question, index) =>
+      <Tab key={index} eventKey={`question-${index}`} title={`Question ${index+1}`}>
+        <Question {...this.questionProps} question={question} />
+      </Tab>
     );
   };
 
@@ -114,42 +76,33 @@ export default class Exercise extends React.Component {
     const { exercise } = this;
     return (
       <Tab key={0} eventKey="question-0" title="Question">
-        <Question question={exercise.questions[0]} />
+        <Question {...this.questionProps} question={exercise.questions[0]} />
       </Tab>
     );
   }
 
   addQuestion = () => {
-    return (
-      ExerciseActions.addQuestionPart(this.props.id)
-    );
-  };
+    this.exercise.questions.push({ });
+  }
 
-  selectTab = (tab) => { return this.setState({ tab }); };
+  @action.bound selectTab(tab) {
+    this.activeTabKey = tab;
+  }
 
 
-  getActiveTab = (showMPQ) => {
-    if (!this.state.tab || ((this.state.tab != null ? this.state.tab.indexOf('question-') : undefined) === -1)) {
-      return (
-        this.state.tab
-      );
-    }
-
-    const question = this.state.tab.split('-')[1];
-    const numQuestions = ExerciseStore.getQuestions(this.props.id).length;
-    if (!showMPQ || (question >= numQuestions)) {
-      return (
-        'question-0'
-      );
-    }
-
-    return (
-
-      this.state.tab
-
-    );
-  };
-
+  @computed get questionProps() {
+    const { exercise } = this;
+    return {
+      onRemove: (question) => {
+        exercise.questions.remove(question);
+        this.activeTabKey = 'question-0';
+      },
+      onMove: (question, offset) => {
+        exercise.moveQuestion(question, offset);
+        this.activeTabKey = `question-${question.index}`;
+      },
+    };
+  }
 
   renderMPQ() {
     return (
@@ -159,19 +112,16 @@ export default class Exercise extends React.Component {
     );
   }
 
-  @observable activeTabKey = 'question-0';
-
   render() {
     if (this.props.exercises.api.isPending) { return <Loading />; }
-
     const { exercise } = this;
     if (!exercise) { return <NotFound />; }
-
     const { isMultiPart } = exercise;
 
     return (
       <div className="exercise-editor">
         <div className="editing-controls">
+          {exercise.error && <Alert bsStyle="danger">{String(exercise.error)}</Alert>}
           {isMultiPart && this.renderMPQ()}
           <Tabs
             id="exercise-parts"
@@ -185,11 +135,9 @@ export default class Exercise extends React.Component {
             <Tab eventKey="tags" title="Tags">
               <ExerciseTags exercise={exercise} />
             </Tab>
-            {exercise.isNew && (
-              <Tab eventKey="assets" title="Assets">
-                <Attachments exercise={exercise} />
-              </Tab>
-            )}
+            <Tab eventKey="assets" title="Assets">
+              <Attachments exercises={this.props.exercises} exercise={exercise} />
+            </Tab>
           </Tabs>
         </div>
         <ExercisePreview exercise={exercise} />

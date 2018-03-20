@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, observable, computed, action,
 } from '../../model';
-import { first, last, extend, values, pick } from 'lodash';
+import { isObject, first, last, filter, extend, values, pick, isNil } from 'lodash';
 
 @identifiedBy('exercise/tag')
 export default class ExerciseTag extends BaseModel {
@@ -11,7 +11,11 @@ export default class ExerciseTag extends BaseModel {
 
   constructor(tag) {
     super();
-    this._tag = tag;
+    if (isObject(tag)) {
+      this.setParts(tag);
+    } else {
+      this._tag = tag;
+    }
   }
 
   serialize() {
@@ -61,7 +65,11 @@ export default class ExerciseTag extends BaseModel {
 
 
   @action setParts(parts) {
-    this._tag = values(extend(this.asObject, parts)).join(':');
+    this._tag = filter(
+      values(extend(this.asObject,
+        pick(parts, 'type', 'specifier', 'value')
+      )), v => !isNil(v)
+    ).join(':');
   }
 
 }

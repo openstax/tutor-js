@@ -1,8 +1,8 @@
 import {
-  BaseModel, identifiedBy, identifier, session, field, hasMany, computed,
+  BaseModel, identifiedBy, identifier, session, field, hasMany, computed, action,
 } from '../model';
-import { reduce, map, filter, merge } from 'lodash';
-
+import { reduce, map, filter, find, inRange, merge } from 'lodash';
+import invariant from 'invariant';
 import Attachment from './exercise/attachment';
 import Author from './exercise/author';
 import Question from './exercise/question';
@@ -25,14 +25,24 @@ export default class Exercise extends BaseModel {
   @field({ type: 'array' }) formats;
   @field is_vocab;
   @field number;
-
+  @field stimulus_html;
   @session wrapper;
 
   @hasMany({ model: Attachment }) attachments;
   @hasMany({ model: Author }) authors;
   @hasMany({ model: Author })  copyright_holders;
-  @hasMany({ model: Question }) questions;
-  @hasMany({ model: Tag }) tags;
+  @hasMany({ model: Question, inverseOf: 'exercise' }) questions;
+  @hasMany({
+    model: Tag,
+    extend: {
+      withType(type, { multiple = false } = {}) {
+        return multiple ? filter(this, { type }) : find(this, { type });
+      },
+      findOrAddWithType(type) {
+        return this.withType(type) || this.get(this.push(`${type}:`) - 1);
+      },
+    },
+  }) tags;
 
   @computed get hasFreeResponse() {
     return this.formats.includes('free-response');
@@ -53,12 +63,26 @@ export default class Exercise extends BaseModel {
     }) , { valid: true });
   }
 
-  tagsWithPrefix(prefix) {
-    return filter(this.tags, t => t.type === prefix)
+  @action toggleMultiPart() {
+    if (this.isMultiPart) {
+      this.questions.slice(1);
+    } else {
+      this.questions.push({});
+    }
+  }
+
+  @action moveQuestion(question, offset) {
+    const index = this.questions.indexOf(question);
+    invariant((index !== -1) && inRange(index+offset, 0, this.questions.length),
+      'question not found or cannot move past bounds');
+    this.questions.splice(index+offset, 0, this.questions.splice(index, 1)[0]);
   }
 
   @computed get isMultiPart() {
     return this.questions.length > 1;
   }
 
+  @computed get isPublishable() {
+    return Boolean(!this.isNew && this.validity.valid);
+  }
 }

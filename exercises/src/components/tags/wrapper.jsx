@@ -10,7 +10,7 @@ function TagWrapper(props) {
   });
 
   return (
-    <Col sm={12} lg={6} className={classes}>
+    <div className={classes}>
       <div className="heading">
         <span className="label">
           {props.label}
@@ -21,7 +21,7 @@ function TagWrapper(props) {
         </div>
       </div>
       {props.children}
-    </Col>
+    </div>
   );
 
 }

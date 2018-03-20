@@ -15,6 +15,7 @@
     }
   }
   .format-type {
+    min-height: 120px; // stops items from jumping around when formats are added/removed
     input { margin-right: 0.5rem; }
   }
   textarea {
@@ -51,10 +52,7 @@
     textarea {
       border-color: $green;
     }
-//    .fa fa-check-circle-o
   }
-
-
 
   .tags select {
     width: 100%;

@@ -6,6 +6,10 @@ import {
 @identifiedBy('exercise/format')
 export default class ExerciseFormat extends BaseModel {
 
+  static serialize(format) {
+    return format ? format.value : '';
+  }
+
   @observable _format;
 
   constructor(format) {

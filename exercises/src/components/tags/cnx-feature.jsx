@@ -24,7 +24,7 @@ class CnxFeature extends React.Component {
       <MultiInput
         {...this.props}
         label="CNX Feature"
-        prefix="context-cnxfeature"
+        type="context-cnxfeature"
         cleanInput={this.cleanInput}
         placeholder="feature-id"
         validateInput={this.validateInput} />

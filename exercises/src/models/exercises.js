@@ -30,6 +30,7 @@ export class ExercisesMap extends Map {
 
   get(idWithVersion) {
     const [id, version = 'latest'] = String(idWithVersion).split('@');
+    if (id === NEW) { return super.get(id); }
     const versions = super.get(id);
     return versions ? versions.get(version) : null;
   }
@@ -39,14 +40,18 @@ export class ExercisesMap extends Map {
     return { id };
   }
 
-  @action onLoaded({ data }) {
+  @action onLoaded({ data, exercise }) {
     let versions = super.get(data.number);
     if (!versions) {
       versions = new ExerciseVersions();
       this.set(data.number, versions);
     }
-    const ex = versions.get(data.version);
-    ex ? ex.update(data) : versions.set(data.version, new Exercise(data));
+    let existing = versions.get(data.version);
+    if (exercise) {
+      versions.set(data.version, exercise);
+      existing = exercise;
+    }
+    existing ? existing.update(data) : versions.set(data.version, exercise || new Exercise(data));
   }
 
   @action ensureLoaded(numberWithVersion) {
@@ -55,6 +60,32 @@ export class ExercisesMap extends Map {
     } else if (!this.get(numberWithVersion)) {
       this.fetch(numberWithVersion);
     }
+  }
+
+  publish(exercise) {
+    return { uid: exercise.uid, data: exercise.serialize() };
+  }
+
+  saveDraft(exercise) {
+    const req = { data: exercise.serialize() };
+    if (exercise.isNew) {
+      Object.assign(req, { url: 'exercises', method: 'POST' });
+    }
+    return req;
+  }
+
+  onSaved({ data }, [exercise]) {
+    // if (exercise.isNew) {
+    //   this.delete(NEW);
+    // } else {
+    //   this.delete(exercise.number);
+    // }
+    exercise.error = null;
+    this.onLoaded({ data, exercise });
+  }
+
+  onError(error, [exercise]) {
+    exercise.error = error;
   }
 
 }

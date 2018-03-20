@@ -14,17 +14,15 @@ class CnxModTag extends React.Component {
   };
 
   cleanInput = (val) => {
-    return (
-      val.replace(/[^0-9a-f-]/g, '')
-    );
-  };
+    return val.replace(/[^0-9a-f-]/g, '');
+  }
 
   render() {
     return (
       <MultiInput
         {...this.props}
         label="CNX Module"
-        prefix="context-cnxmod"
+        type="context-cnxmod"
         cleanInput={this.cleanInput}
         validateInput={this.validateInput}
         placeholder="########-####-####-####-############" />

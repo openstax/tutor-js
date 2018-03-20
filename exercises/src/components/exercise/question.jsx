@@ -1,6 +1,7 @@
 import React from 'react';
 import { Alert } from'react-bootstrap';
-import { partial, isEmpty } from 'lodash';
+import { SuretyGuard } from 'shared';
+import { bind, partial, isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
 import { computed, action, observable } from 'mobx';
 import QuestionModel  from 'shared/model/exercise/question';
@@ -11,7 +12,6 @@ import Answer from './answer';
 //
 // import _ from 'underscore';
 //
-// import { SuretyGuard } from 'shared';
 // import Answer from './answer';
 // import { QuestionActions, QuestionStore } from 'stores/question';
 // import { AnswerActions, AnswerStore } from 'stores/answer';
@@ -21,18 +21,17 @@ export default class Question extends React.Component {
 
   static propTypes = {
     question: React.PropTypes.instanceOf(QuestionModel).isRequired,
+    onMove: React.PropTypes.func.isRequired,
+    onRemove: React.PropTypes.func.isRequired,
   };
 
   @action.bound setCorrectAnswer(answer) {
     this.props.question.setCorrectAnswer(answer);
   }
 
-  updateStimulus = (event) => {
-    QuestionActions.updateStimulus(this.props.id, event.target != null ? event.target.value : undefined);
-    return (
-      this.sync()
-    );
-  };
+  @action.bound updateStimulus(ev) {
+    this.props.question.stimulus_html = ev.target.value;
+  }
 
   @action.bound updateStem(event) {
     this.props.question.stem_html = event.target.value;
@@ -45,57 +44,44 @@ export default class Question extends React.Component {
     this.props.question.collaborator_solutions[0].content_html = event.target.value;
   }
 
-  addAnswer = () => {
-    QuestionActions.addNewAnswer(this.props.id);
-    return (
-      this.sync()
-    );
-  };
+  @action.bound addAnswer() {
+    this.props.question.answers.push({});
+  }
 
-  removeAnswer = (answerId) => {
-    QuestionActions.removeAnswer(this.props.id, answerId);
-    return (
-      this.sync()
-    );
-  };
+  @action.bound removeAnswer(answer) {
+    this.props.question.answers.remove(answer);
+  }
 
   @action.bound moveAnswer(answer, direction) {
     this.props.question.moveAnswer(answer, direction);
-    //
-    //     QuestionActions.moveAnswer(this.props.id, answerId, direction);
-    //     return (
-    //       this.sync()
-    //     );
-  };
-
-  multipleChoiceClicked = (event) => { return QuestionActions.toggleMultipleChoiceFormat(this.props.id); };
-  freeResponseClicked = (event) => { return QuestionActions.toggleFreeResponseFormat(this.props.id); };
-
-
-  renderControls() {
-    const { question } = this.props;
-
-    <div className="controls">
-      {canMoveLeft &&
-        <a className="move-question" onClick={partial(moveQuestion, question, -1)}>
-          <i className="fa fa-arrow-circle-left" />
-        </a>}
-      <SuretyGuard
-        onConfirm={removeQuestion}
-        onlyPromptIf={function() { return QuestionStore.isChanged(id) }}
-        message="Removing a question will permanently remove the question and it's answers">
-        <a className="remove-question">
-          <i className="fa fa-trash" />
-          Remove Question
-        </a>
-      </SuretyGuard>
-      {canMoveRight &&
-        <a className="move-question" onClick={partial(moveQuestion, question, 1)}>
-          <i className="fa fa-arrow-circle-right" />
-        </a>}
-    </div>
   }
 
+  renderControls() {
+    const { onMove, onRemove, question, question: { exercise } } = this.props;
+    const canMoveLeft = question.index > 0;
+    const canMoveRight = question.index < exercise.questions.length - 1;
+    return (
+      <div className="controls">
+        {canMoveLeft &&
+          <a className="move-question" onClick={partial(onMove, question, -1)}>
+            <i className="fa fa-arrow-circle-left" />
+          </a>}
+        <SuretyGuard
+          onConfirm={partial(onRemove, question)}
+          onlyPromptIf={function() { return question.isChanged; }}
+          message="Removing a question will permanently remove the question and it's answers">
+          <a className="remove-question">
+            <i className="fa fa-trash" />
+            Remove Question
+          </a>
+        </SuretyGuard>
+        {canMoveRight &&
+          <a className="move-question" onClick={partial(onMove, question, 1)}>
+            <i className="fa fa-arrow-circle-right" />
+          </a>}
+      </div>
+    );
+  }
 
   render() {
     const {
@@ -116,7 +102,7 @@ export default class Question extends React.Component {
     return (
       <div className="question">
 
-        {removeQuestion && this.renderControls()}
+        {question.exercise.isMultiPart && this.renderControls()}
 
         {!validity.valid && (
            <Alert bsStyle="warning">
@@ -140,7 +126,7 @@ export default class Question extends React.Component {
           <ol>
             {question.answers.map((answer, index) => (
               <Answer
-                key={answer.id}
+                key={answer.id || `index-${index}`}
                 answer={answer}
                 canMoveUp={index !== (question.answers.length - 1)}
                 canMoveDown={index !== 0}

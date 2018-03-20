@@ -65,20 +65,20 @@ class ExercisePreview extends React.Component {
     return this.props.exercise;
   }
 
-  renderTag = (tag) => {
+  renderTag = (tag, index) => {
     const { content, isLO } = this.props.extractTag(tag);
-    const key = tag.id || tag.name;
+
 
     if (isLO) {
       return (
-        <div key={key} className="lo-tag">
+        <div key={index} className="lo-tag">
           {'LO: '}
           {content}
         </div>
       );
     } else {
       return (
-        <span key={key} className="exercise-tag">
+        <span key={index} className="exercise-tag">
           {content}
         </span>
       );
@@ -86,7 +86,6 @@ class ExercisePreview extends React.Component {
   };
 
   renderFooter = () => {
-    console.log("RENDER CHILD")
     return (
       <div className="controls">
         {this.props.children}
@@ -132,12 +131,12 @@ class ExercisePreview extends React.Component {
       'has-interactive':  this.props.exercise.has_interactive,
     });
 
-    const questions = map(this.exercise.questions, (question) => {
+    const questions = map(this.exercise.questions, (question, index) => {
       if (this.props.hideAnswers) { question = omit(question, 'answers'); }
 
       return (
         <Question
-          key={question.id}
+          key={index}
           className="openstax-question-preview"
           question={question}
           choicesEnabled={false}
