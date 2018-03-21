@@ -81,6 +81,12 @@
     figcaption {
       border-bottom: 1px solid;
       border-color: $border-color;
+      &::before {
+        counter-increment: figure;
+        content: "Figure " counter(figure);
+        font-weight: 800;
+        display: block;
+      }
     }
   }
 
