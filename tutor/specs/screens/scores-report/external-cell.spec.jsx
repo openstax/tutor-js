@@ -1,7 +1,7 @@
 import { React } from '../../components/helpers/component-testing';
 import moment from 'moment';
 import bootstrapScores from '../../helpers/scores-data.js';
-import Cell from '../../../src/screens/scores-report/External-cell';
+import Cell from '../../../src/screens/scores-report/external-cell';
 import EnzymeContext from '../../components/helpers/enzyme-context';
 import ScoresUX from '../../../src/screens/scores-report/ux';
 
