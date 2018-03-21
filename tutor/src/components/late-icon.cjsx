@@ -10,7 +10,7 @@ module.exports = React.createClass
       due_at:          React.PropTypes.oneOfType([
         React.PropTypes.string, React.PropTypes.instanceOf(Date)
       ])
-      last_worked_at:  React.PropTypes.string
+      last_worked_at:  React.PropTypes.date
       type:            React.PropTypes.string
       status:          React.PropTypes.string
     ).isRequired
