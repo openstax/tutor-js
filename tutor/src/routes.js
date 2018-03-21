@@ -47,7 +47,7 @@ const getEventShell = function() {
 };
 
 const getPerformanceForecastGuide = function() {
-  const PerformanceForecast = require('./components/performance-forecast');
+  const { default: PerformanceForecast } = require('./components/performance-forecast');
   return PerformanceForecast.Guide;
 };
 

@@ -68,4 +68,4 @@ class Guide extends React.Component {
   }
 }
 
-export { Teacher, TeacherStudent, Student, Guide };
+export default { Teacher, TeacherStudent, Student, Guide };
