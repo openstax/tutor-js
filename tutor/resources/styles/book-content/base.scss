@@ -59,7 +59,8 @@
   img { max-width: 100%, }
 
   @include tutor-figure();
-  figure {
+  figure,
+  [data-type=media] {
     margin-right: 30px;
     margin-bottom: 20px;
 

@@ -228,16 +228,17 @@ ReadingContentMixin =
     root = ReactDOM.findDOMNode(@)
     for img in root.querySelectorAll('img')
       if img.complete
-        sizeImage.call(img)
+        processImage.call(img)
       else
-        img.onload = sizeImage
+        img.onload = processImage
 
 
 # called with the context set to the image
-sizeImage = ->
-  figure = dom(@).closest('figure')
+processImage = ->
+  figure = dom(@).closest('figure, [data-type=media]')
   return unless figure
 
+  @title = @alt
   aspectRatio = @naturalWidth / @naturalHeight
 
   # let wide, square, and almost square figures be natural.
