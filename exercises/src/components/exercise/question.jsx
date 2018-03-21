@@ -1,20 +1,12 @@
 import React from 'react';
 import { Alert } from'react-bootstrap';
 import { SuretyGuard } from 'shared';
-import { bind, partial, isEmpty } from 'lodash';
+import { partial, isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
-import { computed, action, observable } from 'mobx';
+import { action } from 'mobx';
 import QuestionModel  from 'shared/model/exercise/question';
 import QuestionFormatType from './question-format-type';
 import Answer from './answer';
-
-// import BS from 'react-bootstrap';
-//
-// import _ from 'underscore';
-//
-// import Answer from './answer';
-// import { QuestionActions, QuestionStore } from 'stores/question';
-// import { AnswerActions, AnswerStore } from 'stores/answer';
 
 @observer
 export default class Question extends React.Component {
@@ -38,10 +30,11 @@ export default class Question extends React.Component {
   }
 
   @action.bound updateSolution(event) {
-    if (isEmpty(this.props.question.collaborator_solutions)) {
-      this.props.question.collaborator_solutions = [{}];
+    const { question } = this.props;
+    if (isEmpty(question.collaborator_solutions)) {
+      question.collaborator_solutions.push({});
     }
-    this.props.question.collaborator_solutions[0].content_html = event.target.value;
+    question.collaborator_solutions[0].content_html = event.target.value;
   }
 
   @action.bound addAnswer() {
@@ -92,13 +85,6 @@ export default class Question extends React.Component {
     const { validity } = question;
     const answers = [];
 
-
-    // const iterable = QuestionStore.getAnswers(id);
-    // for (let index = 0; index < iterable.length; index++) {
-    //   const answer = iterable[index];
-    //   answers.push();
-    // }
-
     return (
       <div className="question">
 
@@ -141,7 +127,7 @@ export default class Question extends React.Component {
           <label>
             Detailed Solution
           </label>
-          <textarea onChange={this.updateSolution} value={question.solution_html} />
+          <textarea onChange={this.updateSolution} value={question.collaborator_solution_html} />
         </div>
       </div>
     );

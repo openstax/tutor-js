@@ -46,8 +46,8 @@ export default class ExerciseQuestion extends BaseModel {
     }
   }
 
-  @computed get solution_html() {
-    get(first(this.collaborator_solutions, 'content_html'), '');
+  @computed get collaborator_solution_html() {
+    return get(this.collaborator_solutions, '[0].content_html', '');
   }
 
   @computed get requiresChoicesFormat() {

@@ -2,7 +2,7 @@ import { get, merge } from 'lodash';
 import { APIHandler } from 'shared';
 import { APIActionAdapter } from 'shared';
 
-import { ErrorsActions } from '../stores/errors';
+import Errors from '../models/errors';
 const CSRF_Token = get(document.head.querySelector('meta[name=csrf-token]'), 'content');
 
 const IS_LOCAL = (window.location.port === '8001') || window.__karma__;
@@ -20,7 +20,7 @@ const OPTIONS = {
       const { status, data, config } = response;
       const opts = config;
 
-      return ErrorsActions.setServerError(status, data, { url: (config != null ? config.url : undefined), opts });
+      return Errors.setServerError(status, data, { url: (config != null ? config.url : undefined), opts });
     },
   },
   isLocal: IS_LOCAL,

@@ -1,8 +1,11 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import { observer } from 'mobx-react';
+import { observable, action } from 'mobx';
 import classnames from 'classnames';
 import Exercise from '../../../models/exercises/exercise';
 
+@observer
 class Attachment extends React.Component {
   static propTypes = {
     exercise: React.PropTypes.instanceOf(Exercise).isRequired,
@@ -17,18 +20,11 @@ class Attachment extends React.Component {
     }).isRequired
   };
 
-  // deleteImage = () => {
-  //   if (ExerciseStore.isNew(this.props.exerciseId)) {
-  //     ExerciseActions.create(this.props.exerciseId, ExerciseStore.get(this.props.exerciseId));
-  //   } else {
-  //     ExerciseActions.save(this.props.exerciseId);
-  //   }
-  //   return (
-  //       ExerciseStore.once('updated', id => {
-  //         return ExerciseActions.deleteAttachment(this.props.exerciseId, this.props.attachment.asset.filename)
-  //   );
-  //   });
-  // };
+  @action.bound deleteImage() {
+    this.props.exercise.attachments.remove(
+      this.props.attachment
+    );
+  }
 
   render() {
     // large.url will be null on non-image assets (like PDF)

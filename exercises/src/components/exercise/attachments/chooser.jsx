@@ -61,21 +61,11 @@ class AttachmentChooser extends React.Component {
       return;
     }
     exercise.uploadImage(this.file, this.updateUploadStatus);
-
-
-    //
-    //   );
-    //     return (
-    //       this.setState({progress: 0})
-    //     );
-    //   });
   }
 
   renderUploadStatus() {
-    if (!this.progress) { return; }
-    return (
-      <ProgressBar now={this.progress} />
-    );
+    if (!this.progress) { return null; }
+    return <ProgressBar now={this.progress} />;
   }
 
   @action.bound onImageChange(ev) {

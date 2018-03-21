@@ -29,18 +29,6 @@ export default class Answer extends React.Component {
     this.props.answer.content_html = ev.target.value;
   }
 
-
-
-  //   AnswerActions.updateContent(this.props.id, event.target != null ? event.target.value : undefined);
-  //   return (
-  //     this.sync()
-  //   );
-  // };
-
-  // changeCorrect = (event) => {
-  //   this.props.changeAnswer(this.props.id);
-  // };
-  //
   render() {
     const { answer, canMoveUp, canMoveDown } = this.props;
 
