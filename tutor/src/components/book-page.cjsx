@@ -6,7 +6,7 @@ classnames = require 'classnames'
 
 {BookContentMixin} = require './book-content-mixin'
 
-{default: {BookPageExerciseShell}} = require './book-page/exercise'
+{default: {ReferenceBookExerciseShell}} = require './book-page/exercise'
 RelatedContent = require './related-content'
 {default: Loading} = require './loading-screen'
 
@@ -67,7 +67,7 @@ BookPage = React.createClass
   renderExercise: (link) ->
     exerciseAPIUrl = link.href
     exerciseNode = link.parentNode.parentNode
-    ReactDOM.render(<BookPageExerciseShell exerciseAPIUrl={exerciseAPIUrl}/>, exerciseNode) if exerciseNode?
+    ReactDOM.render(<ReferenceBookExerciseShell exerciseAPIUrl={exerciseAPIUrl}/>, exerciseNode) if exerciseNode?
 
   render: ->
     { ux, ux: { activePage: page } } = @props
