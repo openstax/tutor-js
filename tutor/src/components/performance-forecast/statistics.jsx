@@ -1,6 +1,6 @@
 import React from 'react';
 import Router from 'react-router-dom';
-import { isArray } from 'lodash';
+import { isArray, map } from 'lodash';
 import { SpyMode } from 'shared';
 
 import Courses from '../../models/courses-map';
@@ -16,7 +16,7 @@ class Statistics extends React.Component {
     courseId: React.PropTypes.string.isRequired,
     roleId: React.PropTypes.string,
     section: ChapterSectionType.isRequired,
-    displaying: React.PropTypes.string.isRequired
+    displaying: React.PropTypes.string.isRequired,
   };
 
   getWorkedText = (role) => {
@@ -47,17 +47,18 @@ ${pluralize(' has', count)} worked ${pluralize(' problems', total, true)}`;
       <div className='statistics'>
         <SpyMode.Content className="clue">
           <ul>
-            {(() => {
-              const result = [];
-              for (let key in this.props.section.clue) {
-                let value = this.props.section.clue[key];
+            {
+              map(this.props.section.clue, (value, key) => {
                 if (isArray(value)) {
                   value = value.join(' ');
                 }
-                result.push(<li key={key}><strong>{key}</strong>: {String(value)}</li>);
-              }
-              return result;
-            })()}
+                return (
+                  <li key={key}>
+                    <strong>{key}</strong>: {String(value)}
+                  </li>
+                );
+              })
+            }
           </ul>
         </SpyMode.Content>
         <div className='amount-worked'>

@@ -1,5 +1,6 @@
 import React from 'react';
 import Router from 'react-router-dom';
+import { map } from 'lodash';
 
 import { ChapterSectionMixin } from 'shared';
 
@@ -14,7 +15,7 @@ export default class PerformanceForecastChapter extends React.Component {
     courseId: React.PropTypes.string.isRequired,
     roleId: React.PropTypes.string,
     chapter: ChapterSectionType.isRequired,
-    canPractice: React.PropTypes.bool
+    canPractice: React.PropTypes.bool,
   };
 
   render() {
@@ -31,14 +32,12 @@ export default class PerformanceForecastChapter extends React.Component {
               {chapter.title}
             </div>
           </div>
-          <ProgressBar
-            {...Object.assign({}, this.props, { "section": chapter })}
-          />
+          <ProgressBar {...this.props} section={chapter} />
           <Statistics
             courseId={this.props.courseId}
             roleId={this.props.roleId}
             section={chapter}
-            displaying="chapter"
+            displaying='chapter'
           />
         </div>
         <div
@@ -46,10 +45,12 @@ export default class PerformanceForecastChapter extends React.Component {
           className='sections'
         >
           {
-            Array
-              .from(chapter.children)
-              .map((section, i) => (
-                <Section {...Object.assign({ "key": i, "section": section }, this.props)} />
+            map(chapter.children, (section, i) => (
+                <Section
+                  {...this.props}
+                  section={section}
+                  key={i}
+                />
               )
             )
           }

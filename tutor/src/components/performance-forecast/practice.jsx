@@ -9,11 +9,11 @@ export default class Practice extends React.Component {
   static propTypes = {
     courseId: React.PropTypes.string.isRequired,
     page_ids: React.PropTypes.array.isRequired,
-    children: React.PropTypes.element.isRequired
+    children: React.PropTypes.element.isRequired,
   };
 
   static contextTypes = {
-    router: React.PropTypes.object
+    router: React.PropTypes.object,
   };
 
   onClick = () => {
@@ -41,9 +41,13 @@ export default class Practice extends React.Component {
   render() {
     const isDisabled = this.isDisabled();
     const className = classnames({
-      'is-errored': this.isErrored()
+      'is-errored': this.isErrored(),
     });
-    const props = { disabled: isDisabled, onClick: this.onClick, className };
+    const props = {
+      disabled: isDisabled,
+      onClick: this.onClick,
+      className,
+    };
 
     return React.cloneElement(this.props.children, props);
   }

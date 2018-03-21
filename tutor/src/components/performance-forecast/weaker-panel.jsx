@@ -14,7 +14,7 @@ class WeakerPanel extends React.Component {
     weakerExplanation: React.PropTypes.element.isRequired,
     weakerEmptyMessage: React.PropTypes.string.isRequired,
     canPractice: React.PropTypes.bool,
-    sectionCount: React.PropTypes.number
+    sectionCount: React.PropTypes.number,
   };
 
   render() {
@@ -28,7 +28,15 @@ class WeakerPanel extends React.Component {
       practiceBtn = <PracticeWeakestButton title='Practice All' courseId={this.props.courseId} />;
     }
 
-    return <div className="chapter-panel weaker"><div className='chapter metric'><span className='title'>{this.props.weakerTitle}</span>{this.props.weakerExplanation}{practiceBtn}</div><WeakerSections {...Object.assign({}, this.props)} /></div>;
+    return (
+      <div className='chapter-panel weaker'>
+        <div className='chapter metric'>
+          <span className='title'>{this.props.weakerTitle}</span>
+          {this.props.weakerExplanation}{practiceBtn}
+        </div>
+        <WeakerSections {...this.props} />
+      </div>
+    );
   }
 }
 

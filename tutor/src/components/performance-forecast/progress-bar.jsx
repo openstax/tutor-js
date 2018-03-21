@@ -13,13 +13,13 @@ export default class PerformanceForecastProgressBar extends React.Component {
     section: React.PropTypes.object.isRequired,
     canPractice: React.PropTypes.bool,
     courseId: React.PropTypes.string.isRequired,
-    ariaLabel: React.PropTypes.string
+    ariaLabel: React.PropTypes.string,
   };
 
   static defaultProps = {
     id: uniqueId('progress-bar-tooltip-'),
     canPractice: false,
-    ariaLabel: ''
+    ariaLabel: '',
   };
 
   render() {

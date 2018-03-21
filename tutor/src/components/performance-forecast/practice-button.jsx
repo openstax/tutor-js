@@ -40,7 +40,7 @@ export default class PracticeButton extends React.Component {
           getTip={this.getTip}
           placement='top'
         >
-            {this.props.title}<i />
+          {this.props.title}<i />
         </ButtonWithTip>
       </Practice>
     );

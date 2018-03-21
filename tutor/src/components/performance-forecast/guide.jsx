@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row } from 'react-bootstrap';
 
-import { isEmpty } from 'lodash';
+import { isEmpty, map } from 'lodash';
 import classnames from 'classnames';
 
 import Chapter from './chapter';
@@ -21,25 +21,28 @@ export default class PerformanceForecast extends React.Component {
     heading: React.PropTypes.element,
     canPractice: React.PropTypes.bool,
     weakerTitle: React.PropTypes.string.isRequired,
-    weakerExplanation: React.PropTypes.element
+    weakerExplanation: React.PropTypes.element,
   };
 
   renderBody = () => {
     return (
       <div className='guide-group'>
         <WeakerPanel
-          {...Object.assign({ "sections": this.props.allSections }, this.props)}
+          {...this.props}
+          sections={this.props.allSections}
         />
         <Row>
           <h3>Individual Chapters</h3>
         </Row>
         {
-          Array
-            .from(this.props.chapters || [])
-            .map((chapter, i) => (
-                <Chapter {...Object.assign({ "key": i, "chapter": chapter }, this.props)} />
-              )
+          map((this.props.chapters || []), (chapter, i) => (
+              <Chapter
+                {...this.props}
+                chapter={chapter}
+                key={i}
+              />
             )
+          )
         }
       </div>
     );
@@ -49,7 +52,7 @@ export default class PerformanceForecast extends React.Component {
     let body;
     const className = classnames('guide-container', {
       'is-loading': typeof this.props.isLoading === 'function' ? this.props.isLoading() : undefined,
-      'is-empty': isEmpty(this.props.allSections)
+      'is-empty': isEmpty(this.props.allSections),
     });
 
     if (typeof this.props.isLoading === 'function' ? this.props.isLoading() : undefined) {

@@ -3,8 +3,7 @@ import createReactClass from 'create-react-class';
 import { DropdownButton, MenuItem, Panel } from 'react-bootstrap';
 import BackButton from '../buttons/back-button';
 import Router from '../../helpers/router';
-import { sortBy } from 'lodash';
-import matches from 'lodash/matches';
+import { sortBy, matches, filter, flow, map, partial } from 'lodash';
 
 import Name from '../name';
 import BindStoreMixin from '../bind-store-mixin';
@@ -18,18 +17,20 @@ import ColorKey from './color-key';
 export default createReactClass({
   displayName: 'PerformanceForecastTeacherStudentDisplay',
   contextTypes: {
-    router: React.PropTypes.object
+    router: React.PropTypes.object,
   },
 
   mixins: [BindStoreMixin],
 
   propTypes: {
     courseId: React.PropTypes.string.isRequired,
-    roleId: React.PropTypes.string.isRequired
+    roleId: React.PropTypes.string.isRequired,
   },
 
   getInitialState() {
-    return { roleId: this.props.roleId };
+    return {
+      roleId: this.props.roleId,
+    };
   },
 
   componentWillMount() {
@@ -52,7 +53,7 @@ export default createReactClass({
     if (!selected) {
       return null;
     }
-    const name = <Name {...Object.assign({}, selected)} />;
+    const name = <Name {...selected} />;
     return (
       <div className='guide-heading'>
         <div className='guide-group-title'>
@@ -63,8 +64,19 @@ export default createReactClass({
             title={name}
             bsStyle='link'
             onSelect={this.onSelectStudent}>
-              {Array.from(sortBy(students, 'name')).filter(student => student.role_id !== selected.role_id).map(student => <MenuItem key={student.role_id} eventKey={student.role_id}><Name {...Object.assign({}, student)} /></MenuItem>)
-            }
+              {
+                flow(
+                  partial(sortBy, partial.placeholder, 'name'),
+                  partial(filter, partial.placeholder, student => student.role_id !== selected.role_id),
+                  partial(map, partial.placeholder, student => (
+                    <MenuItem
+                      key={student.role_id}
+                      eventKey={student.role_id}>
+                      <Name {...student} />
+                    </MenuItem>
+                  )),
+                )(students)
+              }
           </DropdownButton>
           <InfoLink type='teacher_student' />
         </div>

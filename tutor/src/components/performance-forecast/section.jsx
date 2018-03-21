@@ -14,7 +14,7 @@ export default createReactClass({
     courseId: React.PropTypes.string.isRequired,
     roleId: React.PropTypes.string,
     section: ChapterSectionType.isRequired,
-    canPractice: React.PropTypes.bool
+    canPractice: React.PropTypes.bool,
   },
 
   mixins: [ChapterSectionMixin],
@@ -33,14 +33,14 @@ export default createReactClass({
           </span>
         </h4>
         <ProgressBar
-          {...Object.assign({}, this.props, {
-            "ariaLabel": `${this.sectionFormat(section.chapter_section)} ${section.title}`
-          })} />
+          {...this.props}
+          ariaLabel={`${this.sectionFormat(section.chapter_section)} ${section.title}`}
+        />
         <Statistics
           courseId={this.props.courseId}
           roleId={this.props.roleId}
           section={section}
-          displaying="section"
+          displaying='section'
         />
       </div>
     );

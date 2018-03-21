@@ -15,12 +15,12 @@ class Student extends React.Component {
   render() {
     const { courseId } = Router.currentParams();
     return React.createElement(LoadableItem, {
-      "id": courseId,
-      "store": PerformanceForecast.Student.store,
-      "actions": PerformanceForecast.Student.actions,
-      "renderItem"() {
-        return <StudentComponent courseId={courseId} />;
-      }
+      id: courseId,
+      store: PerformanceForecast.Student.store,
+      actions: PerformanceForecast.Student.actions,
+      renderItem: () => (
+        <StudentComponent courseId={courseId} />
+      ),
     });
   }
 }
@@ -31,8 +31,9 @@ class TeacherStudent extends React.Component {
   static displayName = 'PerformanceForecastTeacherStudentShell';
 
   render() {
-    const { courseId, roleId } = Router.currentParams();
-    return <TeacherStudentComponent courseId={courseId} roleId={roleId} />;
+    return (
+      <TeacherStudentComponent {...Router.currentParams()} />
+    );
   }
 }
 
@@ -42,12 +43,12 @@ class Teacher extends React.Component {
   render() {
     const { courseId } = Router.currentParams();
     return React.createElement(LoadableItem, {
-      "id": courseId,
-      "store": PerformanceForecast.Teacher.store,
-      "actions": PerformanceForecast.Teacher.actions,
-      "renderItem"() {
-        return <TeacherComponent courseId={courseId} />;
-      }
+      id: courseId,
+      store: PerformanceForecast.Teacher.store,
+      actions: PerformanceForecast.Teacher.actions,
+      renderItem: () => (
+        <TeacherComponent courseId={courseId} />
+      ),
     });
   }
 }
