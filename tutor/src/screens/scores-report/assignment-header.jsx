@@ -42,10 +42,9 @@ const AverageLabel = ({ heading }) => {
     } else {
       percent = Math.round(p * 100);
     }
-
     return (
       <span className="click-rate">
-        {percent}% have clicked link
+        {heading.isDue ? `${percent}% clicked on time` : '---'}
       </span>
     );
   }

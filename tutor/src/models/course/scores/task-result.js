@@ -25,6 +25,7 @@ export default class TaskResult extends BaseModel {
   @field correct_on_time_step_count;
   @field correct_accepted_late_step_count;
   @field({ type: 'date' }) due_at;
+  @field({ type: 'date' }) last_worked_at;
   @field exercise_count;
   @field is_included_in_averages;
   @field is_late_work_accepted;

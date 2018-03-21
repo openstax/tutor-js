@@ -50,10 +50,24 @@
           {
             "type": "external",
             "id": 702,
-            "status": "not_started",
+            "status": "completed",
+            "step_count": 1,
+            "completed_step_count": 1,
+            "completed_on_time_step_count": 1,
+            "completed_accepted_late_step_count": 0,
+            "exercise_count": 0,
+            "completed_exercise_count": 0,
+            "completed_on_time_exercise_count": 0,
+            "completed_accepted_late_exercise_count": 0,
+            "correct_exercise_count": 0,
+            "correct_on_time_exercise_count": 0,
+            "correct_accepted_late_exercise_count": 0,
+            "recovered_exercise_count": 0,
             "due_at": "2017-02-04T13:00:00.000Z",
+            "last_worked_at": "2017-03-04T13:00:00.000Z",
             "is_late_work_accepted": false,
-            "is_included_in_averages": false
+            "progress": 1.0,
+            "is_included_in_averages": true
           }
         ],
         "course_average": 0.5,
@@ -580,6 +594,7 @@
         "completion_rate": 0,
         "average_score": 0,
         "average_progress": 0
+
       }
     ],
     "overall_course_average": "0.16857142857142855",
