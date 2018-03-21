@@ -9,32 +9,17 @@
     }
   }
 
-  // nav.navbar {
-  //   .controls-container {
-  //     display: flex;
-
-  //   }
-  //   .view-controls {
-  //     margin-left: 5px;
-  //     display: flex;
-  //     flex: 1;
-
-  //     > * { display: flex; flex: 1; };
-  //   }
-
-  // }
-
-  // .dropdown-menu .logout {
-  //   input[type=submit] {
-  //     border: 0;
-  //     background-color: transparent;
-  //     width: 100%;
-  //     text-align: left;
-  //     padding-left: 0;
-  //     text-transform: none;
-  //     text-align: left;
-  //     &:hover { text-decoration: initial; }
-  //   }
-  // }
+  .dropdown-menu .logout {
+    input[type=submit] {
+      border: 0;
+      background-color: transparent;
+      width: 100%;
+      text-align: left;
+      padding-left: 0;
+      text-transform: none;
+      text-align: left;
+      &:hover { text-decoration: initial; }
+    }
+  }
 
 }

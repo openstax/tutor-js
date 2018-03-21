@@ -1,41 +1,18 @@
 import { get, last } from 'lodash';
 import { ExercisesMap, Exercise } from '../models/exercises';
-
+import Search from '../models/search';
 import Adapter from './adapter';
 
 const {
   connectModelUpdate, connectModelRead,
 } = Adapter;
 
-//
-// import { ExerciseActions, ExerciseStore } from '../stores/exercise';
-// import { VocabularyActions, VocabularyStore } from '../stores/vocabulary';
-//
-// const getIdOnly = function(id) {
-//   if (id.indexOf('@') === -1) { return id; } else { return id.split('@')[0]; }
-// };
-//
-// const getIdWithVersion = function(id, version) {
-//   if (version == null) { version = 'latest'; }
-//   if (id.indexOf('@') === -1) { return `${id}@${version}`; } else { return id; }
-// };
-
 const start = function() {
-  // connectRead(ExerciseActions, { handleError: ExerciseStore.isMissingExercise, url(id) { return `exercises/${getIdWithVersion(id)}`; } } );
 
-  // connectUpdate(ExerciseActions, function(id) {
-  //   // backend expects the changed props and the entire exercise for some reason
-  //   const obj = ExerciseStore.getChanged(id);
-  //   obj.exercise = ExerciseStore.get(id);
-
-  //   const exerciseId = getIdOnly(id);
-
-  //   return {
-  //     url: `exercises/${exerciseId}@draft`,
-  //     method: 'PUT',
-  //     data: obj,
-  //   };
-  // });
+  connectModelRead(Search, 'perform', {
+    pattern: 'exercises',
+    onSuccess: 'onComplete',
+  });
 
   connectModelRead(ExercisesMap, 'fetch', {
     pattern: 'exercises/{id}',
@@ -56,42 +33,6 @@ const start = function() {
     onFail: 'onError',
   });
 
-  // connectCreate(ExerciseActions, { url: 'exercises', data: ExerciseStore.get });
-
-  // connectModify(ExerciseActions, { trigger: 'publish', onSuccess: 'published' },
-  //   id =>
-  //     ({
-  //       url: `exercises/${ExerciseStore.getId(id)}/publish`,
-  //       data: ExerciseStore.get(id),
-  //     })
-  // );
-
-  // connectDelete(ExerciseActions, { trigger: 'deleteAttachment', onSuccess: 'attachmentDeleted' },
-  //   (exerciseId, attachmentFilename) =>
-  //     ({
-  //       url: `exercises/${getIdOnly(exerciseId)}@draft/attachments`,
-  //       params: { filename: attachmentFilename },
-  //     })
-  // );
-
-  // connectRead(VocabularyActions, id => ({ url: `vocab_terms/${getIdWithVersion(id, 'draft')}` }));
-
-  // connectCreate(VocabularyActions, { url: 'vocab_terms', data: VocabularyStore.get });
-
-  // connectUpdate(VocabularyActions, id =>
-  //   ({
-  //     url: `vocab_terms/${getIdOnly(id)}@draft`,
-  //     data: VocabularyStore.get(id),
-  //   })
-  // );
-
-  // return connectModify(VocabularyActions, { trigger: 'publish', onSuccess: 'published' },
-  //   id =>
-  //     ({
-  //       url: `vocab_terms/${id}/publish`,
-  //       data: VocabularyStore.get(id),
-  //     })
-  // );
 };
 
 const CSRF_TOKEN = get(document.head.querySelector('meta[name=csrf-token]'), 'content');

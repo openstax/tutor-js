@@ -3,10 +3,6 @@ import { get } from 'lodash';
 import MathJaxHelper from 'shared/helpers/mathjax';
 import api from './api';
 import { ReactHelpers } from 'shared';
-// import { AnswerActions, AnswerStore } from './stores/answer';
-// import { QuestionActions, QuestionStore } from './stores/answer';
-// import { ExerciseActions, ExerciseStore } from './stores/exercise';
-// import Exercise from './components/exercise';
 
 function loadApp() {
   api.start();

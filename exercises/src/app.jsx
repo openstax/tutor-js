@@ -7,19 +7,14 @@ import UX from './ux';
 import Search from './components/search';
 import Exercise from './components/exercise';
 import Preview from './components/preview';
-import { startAPI } from './routes';
-
+import UserActionsMenu from './components/user-actions-menu';
 
 export default class App extends React.Component {
 
   ux = new UX();
 
-  componentWillMount() {
-    startAPI();
-  }
-
   render() {
-    const { ux } = this;
+    const { ux, props: { data: { user } } } = this;
 
     return (
       <Provider ux={ux}>
@@ -33,7 +28,7 @@ export default class App extends React.Component {
               </Navbar.Header>
               <Nav className="exercise-navbar-controls" >
                 <NavItem href="/search">
-                Search
+                  Search
                 </NavItem>
                 <NavItem href="/exercise/new">
                   New
@@ -41,7 +36,8 @@ export default class App extends React.Component {
                 <Route path="/search" component={Search.Controls} />
                 <Route path="/exercise/:uid" component={Exercise.Controls} />
                 <Route path="/preview/:uid" component={Preview.Controls} />
-            </Nav>
+              </Nav>
+              <UserActionsMenu user={user} />
             </Navbar>
             <div className="exercises-body">
               <Route path="/search" component={Search} />
