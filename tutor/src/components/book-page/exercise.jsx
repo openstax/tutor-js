@@ -37,7 +37,7 @@ function ReferenceBookExercise(props) {
   }
 
   return (
-    <Question model={question} />
+    <Question question={question} />
   );
 }
 
