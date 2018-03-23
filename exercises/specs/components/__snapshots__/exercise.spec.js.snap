@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Exercises component renders and matches snapshot 1`] = `
+<div
+  className="alert alert-danger"
+  role="alert"
+>
+  Exercise was not found
+</div>
+`;
+
+exports[`Exercises component renders with intro and a multiple questions when exercise is MC 1`] = `
+<div
+  className="alert alert-danger"
+  role="alert"
+>
+  Exercise was not found
+</div>
+`;

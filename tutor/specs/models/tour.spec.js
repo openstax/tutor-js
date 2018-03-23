@@ -24,7 +24,6 @@ describe('Tour Model', () => {
   it('initializes from JSON', () => {
     const tour = Tour.forIdentifier('teacher-calendar');
     expect(tour).toBeInstanceOf(Tour);
-    expect(tour.serialize()).toMatchObject(TourData['teacher-calendar']);
   });
 
   it('can find by audience_tags', () => {

@@ -1,18 +1,12 @@
-.editor-app {
+.navbar {
 
-  nav.navbar {
-    .controls-container {
-      display: flex;
+  .exercise-navbar-controls {
+    display: flex;
+    align-items: center;
 
+    > * {
+      margin-left: 1rem;
     }
-    .view-controls {
-      margin-left: 5px;
-      display: flex;
-      flex: 1;
-
-      > * { display: flex; flex: 1; };
-    }
-
   }
 
   .dropdown-menu .logout {

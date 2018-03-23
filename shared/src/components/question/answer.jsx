@@ -5,6 +5,7 @@ import { action } from 'mobx';
 import classnames from 'classnames';
 import keymaster from 'keymaster';
 
+import AnswerModel from '../../model/exercise/answer';
 import keysHelper from '../../helpers/keys';
 import ArbitraryHtmlAndMath from '../html';
 import { SimpleFeedback } from './feedback';
@@ -35,16 +36,7 @@ const isAnswerChecked = function(answer, chosenAnswer) {
 export default class Answer extends React.Component {
 
   static propTypes = {
-    answer: React.PropTypes.shape({
-      id: React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.number,
-      ]).isRequired,
-      content_html: React.PropTypes.string.isRequired,
-      correctness: React.PropTypes.string,
-      selected_count: React.PropTypes.number,
-    }).isRequired,
-
+    answer: React.PropTypes.instanceOf(AnswerModel).isRequired,
     iter: React.PropTypes.number.isRequired,
     qid: React.PropTypes.oneOfType([
       React.PropTypes.string,

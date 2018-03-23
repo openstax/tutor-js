@@ -6,6 +6,10 @@ import {
 @identifiedBy('exercise/format')
 export default class ExerciseFormat extends BaseModel {
 
+  static serialize(format) {
+    return format ? format.value : '';
+  }
+
   @observable _format;
 
   constructor(format) {
@@ -15,6 +19,14 @@ export default class ExerciseFormat extends BaseModel {
 
   @computed get asString() {
     return this._format;
+  }
+
+  @computed get value() {
+    return this.asString;
+  }
+
+  set value(v) {
+    this._format = v;
   }
 
 }

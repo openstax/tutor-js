@@ -6,7 +6,7 @@ import {
 export default class ExerciseSolution extends BaseModel {
 
   @field content_html;
-  @field solution_type;
+  @field solution_type = 'detailed';
   @hasMany({ model: 'exercise/attachment' }) attachments;
 
   // set via inverseOf

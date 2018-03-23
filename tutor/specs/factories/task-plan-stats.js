@@ -23,7 +23,7 @@ Factory.define('TaskPlanStatPage')
   .incorrect_count(({ object }) => object.student_count - object.correct_count)
   .chapter_section(({ index }) => [ 1, index + 1 ])
   .exercises(({ parent }) =>
-    times(parent.total_count, (i) =>
+    times(parent.object.total_count, (i) =>
       Factory.create('TutorExercise', {
         question_stats: [ Factory.create('TaskPlanExerciseStat', {
           period: parent,

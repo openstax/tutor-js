@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Exercise controls component renders and matches snapshot 1`] = `
+<li
+  className="preview-navbar-controls"
+>
+  <div
+    className="paging-controls btn-group"
+  >
+    <a
+      className="btn btn-default disabled"
+      href="#"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="button"
+      style={
+        Object {
+          "pointerEvents": "none",
+        }
+      }
+      tabIndex={-1}
+      title="Go to previous exercise"
+    >
+      ◅
+    </a>
+    <a
+      className="btn btn-default disabled"
+      href="#"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="button"
+      style={
+        Object {
+          "pointerEvents": "none",
+        }
+      }
+      tabIndex={-1}
+      title="Go down a version"
+    >
+      ▽
+    </a>
+    <span
+      className="ex-info"
+    >
+      Viewing exercise 
+      1@1
+    </span>
+    <a
+      className="btn btn-default disabled"
+      href="#"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="button"
+      style={
+        Object {
+          "pointerEvents": "none",
+        }
+      }
+      tabIndex={-1}
+      title="Go up a version"
+    >
+      △
+    </a>
+    <a
+      className="btn btn-default"
+      href="#"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="button"
+      title="Go to next exercise"
+    >
+      ►
+    </a>
+  </div>
+</li>
+`;

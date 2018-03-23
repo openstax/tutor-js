@@ -15,21 +15,13 @@
     }
   }
   .format-type {
+    min-height: 120px; // stops items from jumping around when formats are added/removed
     input { margin-right: 0.5rem; }
   }
   textarea {
     margin-bottom: 2rem;
     width: 100%;
     height: 8rem;
-  }
-
-  li.correct-answer {
-    label {
-      color: $green;
-    }
-    textarea {
-      border-color: $green;
-    }
   }
 
   .answer-actions {
@@ -41,13 +33,24 @@
       &.is-correct {
         color: $openstax-neutral;
       }
-      &.is-correct.correct-answer {
-        color: $green;
-      }
 
       i.fa {
         font-size: 2rem;
       }
+    }
+  }
+
+  li.correct-answer {
+    label {
+      color: $green;
+    }
+
+    .answer-actions > a.is-correct {
+      color: $green;
+    }
+
+    textarea {
+      border-color: $green;
     }
   }
 

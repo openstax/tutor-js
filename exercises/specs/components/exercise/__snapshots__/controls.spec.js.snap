@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Exercise controls component does not enable the save draft on blank exercises 1`] = `null`;

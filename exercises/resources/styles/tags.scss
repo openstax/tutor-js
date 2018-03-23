@@ -1,19 +1,24 @@
-
 .tags {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr) ) ;
 
   .controls i {
     cursor: pointer;
     font-size: 120%;
   }
-  .row + .row {
-    margin-top: 2rem;
-  }
+
   .tag-type {
     margin-top: 2rem;
+
     .heading {
       display: flex;
       justify-content: space-between;
-      .label { font-weight: bolder; font-size: 110%; }
+      .label {
+        padding: 0;
+        color: black;
+        font-weight: bolder; font-size: 110%;
+      }
     }
     &.has-single-tag {
       .tag .controls{ visibility: hidden; }
