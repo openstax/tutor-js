@@ -32,7 +32,10 @@ export default class PerformanceForecastChapter extends React.Component {
               {chapter.title}
             </div>
           </div>
-          <ProgressBar {...this.props} section={chapter} />
+          <ProgressBar
+            {...this.props}
+            section={chapter}
+          />
           <Statistics
             courseId={this.props.courseId}
             roleId={this.props.roleId}
