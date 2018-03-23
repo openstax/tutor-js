@@ -32,7 +32,7 @@ export class ExercisesMap extends Map {
     return this.where(e => e.isReading);
   }
 
-  @computed get assignables() {
+  @computed get assignable() {
     return this.where(e => e.isAssignable);
   }
 
@@ -49,7 +49,7 @@ export class ExercisesMap extends Map {
   }
 
   // called by API
-  fetch({ book, course, page_ids }) {
+  fetch({ book, course, page_ids, type }) {
     let id, url;
     if (course) {
       id = course.id;
@@ -58,6 +58,15 @@ export class ExercisesMap extends Map {
       id = book.id;
       url = `ecosystems/${id}/exercises`;
     }
+
+    if (type === 'reading') {
+      url = `${url}/reading_dynamic`;
+    }
+
+    if (type === 'homework') {
+      url = `${url}/homework_core`;
+    }
+
     page_ids.forEach(pgId => this.fetched.set(pgId, PENDING));
     return {
       url, query: { page_ids: toJS(page_ids) },
