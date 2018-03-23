@@ -32,6 +32,10 @@ export class ExercisesMap extends Map {
     return this.where(e => e.isReading);
   }
 
+  @computed get assignables() {
+    return this.where(e => e.isAssignable);
+  }
+
   isMinimumExcludedForPage(page) {
     const exercises = this.forPageId(page.id);
     const nonExcluded = filter(exercises, { is_excluded: false }).length;
@@ -49,7 +53,7 @@ export class ExercisesMap extends Map {
     let id, url;
     if (course) {
       id = course.id;
-      url = `courses/${id}/exercises/homework_core`;
+      url = `courses/${id}/exercises`;
     } else {
       id = book.id;
       url = `ecosystems/${id}/exercises`;

@@ -55,6 +55,7 @@ export default class TutorExercise extends BaseModel {
 
   @computed get isReading() { return this.pool_types.includes('reading_dynamic'); }
   @computed get isHomework() { return this.pool_types.includes('homework_core'); }
+  @computed get isAssignable() { return !this.is_excluded; }
 
   @computed get types() {
     return map(

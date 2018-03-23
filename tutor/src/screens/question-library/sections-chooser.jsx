@@ -28,6 +28,7 @@ export default class QLSectionsChooser extends React.Component {
     this.props.exercises.fetch({
       book: this.props.course.referenceBook,
       page_ids: this.pageIds.peek(),
+      course: this.props.course,
     });
     this.props.onSelectionsChange(this.pageIds);
   }
