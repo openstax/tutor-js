@@ -59,7 +59,8 @@
   img { max-width: 100%, }
 
   @include tutor-figure();
-  figure {
+  figure,
+  [data-type=media] {
     margin-right: 30px;
     margin-bottom: 20px;
 
@@ -81,6 +82,12 @@
     figcaption {
       border-bottom: 1px solid;
       border-color: $border-color;
+      &::before {
+        counter-increment: figure;
+        content: "Figure " counter(figure);
+        font-weight: 800;
+        display: block;
+      }
     }
   }
 
