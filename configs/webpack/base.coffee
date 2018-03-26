@@ -168,7 +168,7 @@ makeDevelopmentBase = (projectConfig) ->
     new ProgressBarPlugin(),
   ]
 
-  plugins.push(new HardSourceWebpackPlugin()) unless process.env.SOFT
+  plugins.push(new HardSourceWebpackPlugin()) if process.env.CACHE
 
   developmentBase =
     context: path.resolve(__dirname, '../../', projectConfig.basePath)
