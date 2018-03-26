@@ -34,7 +34,11 @@ class ChooseExercises extends React.Component {
   scroller = new ScrollTo({ windowImpl: this.props.windowImpl });
 
   @action.bound selectProblems() {
-    this.props.exercises.fetch({ course: this.props.course, page_ids: this.selectedPageIds });
+    this.props.exercises.fetch({
+      course: this.props.course,
+      page_ids: this.selectedPageIds,
+      type: 'homework',
+    });
     this.scroller.scrollToSelector('.select-topics .panel-footer'); // move down so loader shows
     this.showProblems = true;
   }
@@ -78,7 +82,7 @@ class ChooseExercises extends React.Component {
         {this.selectedPageIds.length && this.showProblems &&
           <AddExercises
             course={course}
-            exercises={exercises}
+            exercises={exercises.assignable}
             hide={hide}
             cancel={cancel}
             canEdit={true}
