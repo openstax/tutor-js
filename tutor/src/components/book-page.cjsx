@@ -6,7 +6,7 @@ classnames = require 'classnames'
 
 {BookContentMixin} = require './book-content-mixin'
 
-{default: {ReferenceBookExerciseShell}} = require './book-page/exercise'
+{ReferenceBookExerciseShell} = require './book-page/exercise'
 RelatedContent = require './related-content'
 {default: Loading} = require './loading-screen'
 

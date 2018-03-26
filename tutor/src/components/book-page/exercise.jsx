@@ -22,7 +22,7 @@ function ReferenceBookMissingExercise(props) {
 
 ReferenceBookMissingExercise.displayName = 'ReferenceBookMissingExercise';
 
-function ReferenceBookExercise(props) {
+export function ReferenceBookExercise(props) {
   const {exerciseAPIUrl} = props;
   const ex = ReferenceBookExerciseStore.get(exerciseAPIUrl);
 
@@ -43,7 +43,7 @@ function ReferenceBookExercise(props) {
 
 ReferenceBookExercise.displayName = 'ReferenceBookExercise';
 
-class ReferenceBookExerciseShell extends React.Component {
+export class ReferenceBookExerciseShell extends React.Component {
   static displayName = 'ReferenceBookExerciseShell';
 
   isLoading = () => {
@@ -87,5 +87,3 @@ class ReferenceBookExerciseShell extends React.Component {
     );
   }
 }
-
-export default {ReferenceBookExercise, ReferenceBookExerciseShell};
