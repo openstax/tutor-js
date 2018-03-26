@@ -35,7 +35,7 @@ describe('Scores Report: assignment column header', function() {
     props.ux.periodTasksByType.external.average_progress = undefined
 
     const wrapper = shallow(<Header {...props} />);
-    expect(wrapper.render().find('.click-rate').text()).toEqual('0% have clicked link');
+    expect(wrapper.render().find('.click-rate').text()).toEqual('0% clicked on time');
   });
 
   describe('for a CC course', function() {

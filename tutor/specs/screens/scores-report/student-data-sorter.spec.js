@@ -50,7 +50,7 @@ describe('Student Scores Data Sorter', function() {
     expect(first(steps)).to.equal('completed');
     expect(last(steps)).to.equal('not_started');
     expect(steps).to.deep.equal([
-      'completed', 'completed', 'not_started', 'not_started',
+      'completed', 'completed', 'completed', 'not_started',
       'not_started', 'not_started', 'not_started', 'not_started', 'not_started']);
   });
 });

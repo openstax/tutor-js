@@ -45,4 +45,19 @@ describe('Exercises Map', () => {
 
   });
 
+  it('loads for course with optional limit', () => {
+    page_ids.forEach(page_id => { expect(exercises.isFetching({ book, page_id })).toBe(false); });
+    const course = Factory.course();
+    expect(
+      exercises.fetch({ course, page_ids })
+    ).toEqual({ url: `courses/${course.id}/exercises/homework_core`, query: { page_ids } });
+    expect(
+      exercises.fetch({ course, page_ids, limit: 'reading-things' })
+    ).toEqual({ url: `courses/${course.id}/exercises/reading-things`, query: { page_ids } });
+    expect(
+      exercises.fetch({ course, page_ids, limit: false })
+    ).toEqual({ url: `courses/${course.id}/exercises`, query: { page_ids } });
+
+  });
+
 });

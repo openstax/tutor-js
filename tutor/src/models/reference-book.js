@@ -1,5 +1,5 @@
 import { readonly } from 'core-decorators';
-import { first, last, mapValues } from 'lodash';
+import { first, last, mapValues, omit } from 'lodash';
 import { action, observable, computed } from 'mobx';
 import {
   BaseModel, identifiedBy, belongsTo, identifier, field, session, hasMany,
@@ -49,7 +49,7 @@ export default class ReferenceBook extends BaseModel {
   }
 
   @action onApiRequestComplete({ data }) {
-    this.update(first(data)); // data is an array
+    this.update(omit(first(data), 'id')); // data is an array
   }
 
   // a simplified data structure suitable for passing into flux
