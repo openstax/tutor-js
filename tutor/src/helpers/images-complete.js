@@ -2,15 +2,17 @@ export default function imagesComplete({
   body = document.body,
   timeoutAfter = 10000, // in ms, 10 seconds
 } = {}) {
-  return new Promise((resolve) => {
-    const images = body.querySelectorAll('img');
+  return new Promise((resolve, reject) => {
+    const images = Array.from(body.querySelectorAll('img'));
+
+    if (0 === images.length) {
+      resolve(images);
+      return;
+    }
     let complete = 0;
     let pendingTimeout = setTimeout(() => {
-      if (complete < images.length) {
-        complete = images.length;
-        pendingTimeout = null;
-        resolve(images);
-      }
+      pendingTimeout = null;
+      reject(images);
     }, timeoutAfter);
     const markComplete = () => {
       complete += 1;
@@ -22,7 +24,7 @@ export default function imagesComplete({
         resolve(images);
       }
     };
-    Array.from(images).forEach((img) => {
+    images.forEach((img) => {
       if (img.naturalWidth) {
         markComplete();
       } else {

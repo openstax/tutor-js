@@ -144,15 +144,17 @@ export default class AnnotationWidget extends React.Component {
 
     this.getReferenceElements();
     invokeMap(this.annotationsForThisPage, 'selection.restore', highlighter);
-    return imagesComplete({
-      body: this.props.windowImpl.document.querySelector('.book-content'),
-    }).then(() => {
+    const initialize = () => {
       invokeMap(this.annotationsForThisPage, 'selection.restore', highlighter);
       if (this.scrollToPendingAnnotation) {
         this.scrollToPendingAnnotation();
       }
       this.ux.statusMessage.hide();
-    });
+    };
+    return imagesComplete({
+      body: this.props.windowImpl.document.querySelector('.book-content'),
+    }).then(initialize).catch(initialize);
+
   }
 
   getCurrentSelectionInfo() {
