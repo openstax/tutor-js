@@ -32,6 +32,10 @@ export class ExercisesMap extends Map {
     return this.where(e => e.isReading);
   }
 
+  @computed get assignable() {
+    return this.where(e => e.isAssignable);
+  }
+
   isMinimumExcludedForPage(page) {
     const exercises = this.forPageId(page.id);
     const nonExcluded = filter(exercises, { is_excluded: false }).length;
