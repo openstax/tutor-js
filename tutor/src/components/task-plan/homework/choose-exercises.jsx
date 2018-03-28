@@ -78,7 +78,7 @@ class ChooseExercises extends React.Component {
         {this.selectedPageIds.length && this.showProblems &&
           <AddExercises
             course={course}
-            exercises={exercises}
+            exercises={exercises.assignable}
             hide={hide}
             cancel={cancel}
             canEdit={true}
