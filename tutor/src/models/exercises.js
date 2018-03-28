@@ -49,11 +49,12 @@ export class ExercisesMap extends Map {
   }
 
   // called by API
-  fetch({ book, course, page_ids }) {
+  fetch({ book, course, page_ids, limit = 'homework_core' }) {
     let id, url;
     if (course) {
       id = course.id;
-      url = `courses/${id}/exercises/homework_core`;
+      url = `courses/${id}/exercises`;
+      if (limit) { url += `/${limit}`; }
     } else {
       id = book.id;
       url = `ecosystems/${id}/exercises`;
