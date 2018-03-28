@@ -18,6 +18,20 @@ describe('Exercises Map', () => {
     });
   });
 
+  it('filters', () => {
+    exercises = Factory.exercisesMap({ book, pageIds: page_ids });
+    const ex = exercises.array[0];
+    expect(ex.isAssignable).toBe(true);
+    expect(exercises.assignable.array).toContain(ex);
+    ex.is_excluded = true;
+    expect(exercises.assignable.array).not.toContain(ex);
+    ex.pool_types = ['homework_core'];
+    expect(exercises.homework.array).toContain(ex);
+    expect(exercises.reading.array).not.toContain(ex);
+    ex.pool_types = ['reading_dynamic'];
+    expect(exercises.reading.array).toContain(ex);
+    expect(exercises.homework.array).not.toContain(ex);
+  });
 
   it('can be loaded and group by page', () => {
     page_ids.forEach(page_id => { expect(exercises.isFetching({ book, page_id })).toBe(false); });
