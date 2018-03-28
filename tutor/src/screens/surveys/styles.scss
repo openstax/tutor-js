@@ -3,6 +3,9 @@
 @import '~pattern-library/core/pattern-library/molecules';
 @import '~pattern-library/core/pattern-library/elements';
 
+// These styles should be kept in sync with the BE research console preview styles located in
+// tutor-server's app/assets/stylesheets/research/survey-preview.scss
+
 .research-surveys {
 
   .body-wrapper {
@@ -57,6 +60,7 @@
     height: inherit; // override pattern library default of 5rem
   }
 
+  .sv_next_btn,
   .sv_complete_btn {
     @include button-type-specific(primary);
     cursor: pointer;
