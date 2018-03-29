@@ -13,7 +13,7 @@
     "tdd": "./bin/tdd",
     "precoverage": "npm run validate",
     "serve": "./bin/serve",
-    "soft-serve": "SOFT=true npm run serve",
+    "cached-serve": "CACHE=true npm run serve",
     "debug": "./bin/debug",
     "build": "./bin/build",
     "release": "./bin/release",
@@ -26,7 +26,7 @@
     "validate": "./bin/validate-console-messages.sh",
     "prestart": "npm run validate",
     "start": "./bin/tdd",
-    "soft-start": "SOFT=true ./bin/tdd"
+    "cached-start": "CACHE=true ./bin/tdd"
   },
   "repository": {
     "type": "git",
