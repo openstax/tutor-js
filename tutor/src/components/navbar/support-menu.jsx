@@ -20,8 +20,9 @@ const StudentPreview = observer(({ courseId, tourContext, ...props }, { router }
   return (
     <MenuItem
       {...props}
+      id="student-preview-videos"
       onClick={() => {
-          router.history.push(Router.makePathname('studentPreview'));
+          router.history.push(Router.makePathname('studentPreview', { courseId }));
       }}
     >
       <TourAnchor id="student-preview-link">

@@ -1,11 +1,13 @@
 import { Wrapper, SnapShot } from '../helpers/component-testing';
-
 import SupportMenu from '../../../src/components/navbar/support-menu';
 import { bootstrapCoursesList } from '../../courses-test-data';
+
 import TourRegion from '../../../src/models/tour/region';
 import TourContext from '../../../src/models/tour/context';
 import Chat from '../../../src/models/chat';
+import User from '../../../src/models/user';
 jest.mock('../../../src/models/chat');
+jest.mock('../../../src/models/user');
 
 describe('Support Menu', () => {
   let context;
@@ -54,6 +56,16 @@ describe('Support Menu', () => {
     expect(SnapShot.create(
       <Wrapper _wrapped_component={SupportMenu} courseId="2" tourContext={context} />).toJSON()
     ).toMatchSnapshot();
+  });
+
+  it('links to student preview with course', () => {
+    courses.get('2').appearance_code = 'college_biology';
+    User.isConfirmedFaculty = true;
+    const menu = mount(<Wrapper _wrapped_component={SupportMenu} courseId="2" tourContext={context} />);
+    expect(menu).toHaveRendered('#student-preview-link');
+    menu.find('#student-preview-videos').simulate('click');
+    expect(menu.find('Router').props().history.location.pathname).toEqual('/student-preview/2');
+    menu.unmount();
   });
 
 });
