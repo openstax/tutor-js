@@ -4,7 +4,8 @@ import { map, isEqual, isEmpty } from 'lodash';
 import ChapterSection from '../task-plan/chapter-section';
 import ExercisePreview from './preview';
 import ScrollTo from '../../helpers/scroll-to';
-import { ExercisesMap, Exercise } from '../../models/exercises';
+import { ExercisesMap } from '../../models/exercises';
+import Exercise from '../../models/exercises/exercise';
 import Book from '../../models/reference-book';
 import { ArrayOrMobxType } from 'shared/helpers/react';
 
@@ -24,18 +25,20 @@ class SectionsExercises extends React.Component {
     const { pageId, book, exercises, ...previewProps } = this.props;
     const page = book.pages.byId.get(pageId);
     const title = page.title;
+    const sectionExercises = exercises.byPageId[pageId];
+    if (isEmpty(sectionExercises)) { return null; }
 
     // IMPORTANT: the 'data-section' attribute is used as a scroll-to target and must be present
     return (
       <div className="exercise-sections" data-section={page.chapter_section.asString}>
-      <label className="exercises-section-label">
-      <ChapterSection section={page.chapter_section.asString} />
-      {' '}
-      {title}
-      </label>
-      <div className="exercises">
-      {map(exercises.byPageId[pageId], (exercise) =>
-        <ExercisePreview key={exercise.id} {...previewProps} exercise={exercise} />)}
+        <label className="exercises-section-label">
+          <ChapterSection section={page.chapter_section.asString} />
+          {' '}
+          {title}
+        </label>
+        <div className="exercises">
+          {map(sectionExercises, (exercise) =>
+            <ExercisePreview key={exercise.id} {...previewProps} exercise={exercise} />)}
         </div>
       </div>
     );
@@ -79,7 +82,7 @@ export default class ExerciseCards extends React.Component {
 
   componentDidMount() {
     if (this.props.focusedExercise) {
-      this.scroller.scrollToSelector(`[data-exercise-id='${this.props.focusedExercise.id}']`, { immediate: true });
+      this.scroller.scrollToSelector(`[data-exercise-id='${this.props.focusedExercise.content.uid}']`, { immediate: true });
     } else {
       this.scroller.scrollToSelector('.exercise-sections');
     }
