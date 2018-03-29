@@ -12,6 +12,10 @@ export class ExercisesMap extends Map {
 
   @readonly fetched = observable.map();
 
+  @computed get byChapterSection() {
+    return groupBy(this.array, 'page.chapter_section.asString');
+  }
+
   @computed get byPageId() {
     return groupBy(this.array, 'page.id');
   }
@@ -69,8 +73,13 @@ export class ExercisesMap extends Map {
     return this.fetched.has(page_id);
   }
 
-  isFetching({ page_id }) {
-    return this.fetched.get(page_id) === PENDING;
+  isFetching({ page_id, pageIds }) {
+    if (page_id) {
+      return this.fetched.get(page_id) === PENDING;
+    } else if (pageIds) {
+      return Boolean(pageIds.find(pgId => this.fetched.get(pgId) === PENDING));
+    }
+    return false;
   }
 
   ensureLoaded({ book, course, page_ids }) {
