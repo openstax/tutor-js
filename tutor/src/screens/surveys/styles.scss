@@ -1,12 +1,12 @@
 @import '../screen-styles';
 
-@import '~pattern-library/core/pattern-library/molecules';
-@import '~pattern-library/core/pattern-library/elements';
 
 // These styles should be kept in sync with the BE research console preview styles located in
 // tutor-server's app/assets/stylesheets/research/survey-preview.scss
 
 .research-surveys {
+  // This can be removed once we're able to import the entire pattern library into Tutor
+  @import '~pattern-library/core/pattern-library/elements';
 
   .body-wrapper {
     background-color:  $tutor-neutral-bright;
