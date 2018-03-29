@@ -118,7 +118,7 @@ class ExercisesDisplay extends React.Component {
     // The pinned header doesn't notice when the elements above it are unhidden
     // and will never unstick by itself.
     this.refs.controls.unPin();
-    this.fromDetailsExercise = exercise.wrapper;
+    this.fromDetailsExercise = exercise;
     this.props.onShowCardViewClick(ev, this.fromDetailsExercise);
   }
 
@@ -277,7 +277,7 @@ class ExercisesDisplay extends React.Component {
           {...sharedProps}
           watchEvent="change-exercise-"
           onExerciseToggle={this.onExerciseToggle}
-          focusedExerciseId={this.fromDetailsExercise ? this.fromDetailsExercise.id : undefined}
+          focusedExercise={this.fromDetailsExercise}
           onShowDetailsViewClick={this.onShowDetailsViewClick} />
       );
     }

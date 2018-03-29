@@ -1,10 +1,13 @@
 import { React, SnapShot } from '../../helpers/component-testing';
+import { last } from 'lodash';
 import ChooseExercises from '../../../../src/components/task-plan/homework/choose-exercises';
 import Factory, { FactoryBot } from '../../../factories';
 import FakeWindow from 'shared/specs/helpers/fake-window';
 import { ExtendBasePlan } from '../../helpers/task-plan';
 import { TaskPlanActions, TaskPlanStore } from '../../../../src/flux/task-plan';
+import ScrollTo from '../../../../src/helpers/scroll-to';
 
+jest.mock('../../../../src/helpers/scroll-to');
 jest.mock('../../../../src/flux/task-plan', () => ({
   TaskPlanActions: {
     updateTopics: jest.fn(),
@@ -96,6 +99,10 @@ describe('choose exercises component', function() {
     expect(ce).toHaveRendered('a[disabled=false][title="Go Forward"]');
     ce.find('a.show-cards').simulate('click');
     expect(ce).toHaveRendered('.exercise-cards');
+    expect(last(ScrollTo.mock.instances).scrollToSelector).toHaveBeenCalledWith(
+      `[data-exercise-id="${uid}"]`, { immediate: true }
+    );
+
     ce.unmount();
   });
 

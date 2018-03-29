@@ -82,7 +82,7 @@ export default class ExerciseCards extends React.Component {
 
   componentDidMount() {
     if (this.props.focusedExercise) {
-      this.scroller.scrollToSelector(`[data-exercise-id='${this.props.focusedExercise.content.uid}']`, { immediate: true });
+      this.scroller.scrollToSelector(`[data-exercise-id="${this.props.focusedExercise.content.uid}"]`, { immediate: true });
     } else {
       this.scroller.scrollToSelector('.exercise-sections');
     }
