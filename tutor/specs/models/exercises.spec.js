@@ -74,4 +74,11 @@ describe('Exercises Map', () => {
 
   });
 
+  it('can check if any page is loading', () => {
+    exercises.fetch({ book, page_ids });
+    expect(exercises.isFetching({ page_id: page_ids[0] })).toBe(true);
+    expect(exercises.isFetching({ pageIds: [ 1011, 1023, 1034 ] })).toBe(false);
+    expect(exercises.isFetching({ pageIds: [ 1011, 1023, 1034, page_ids[0] ] })).toBe(true);
+  });
+
 });

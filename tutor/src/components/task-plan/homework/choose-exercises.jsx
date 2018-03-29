@@ -6,7 +6,7 @@ import { observable, action } from 'mobx';
 import { TaskPlanStore } from '../../../flux/task-plan';
 import AddExercises from './add-exercises';
 import ScrollTo from '../../../helpers/scroll-to';
-
+import Loading from '../../loading-screen';
 import SelectTopics from '../select-topics';
 import Exercises, { ExercisesMap } from '../../../models/exercises';
 import CourseModel from '../../../models/course';
@@ -49,8 +49,28 @@ class ChooseExercises extends React.Component {
     this.showProblems = false;
   }
 
-  render() {
+  renderExercises() {
     const { course, exercises, planId, hide, cancel } = this.props;
+    if (!this.selectedPageIds.length || !this.showProblems) { return null; }
+    if (exercises.isFetching({ pageIds: this.selectedPageIds })) { return <Loading />; }
+
+    return (
+      <AddExercises
+        course={course}
+        exercises={exercises.assignable}
+        hide={hide}
+        cancel={cancel}
+        canEdit={true}
+        canAdd={true}
+        onAddClick={this.onAddClick}
+        courseId={course.id}
+        planId={planId}
+        pageIds={this.selectedPageIds} />
+    );
+  }
+
+  render() {
+    const { course, planId, hide, cancel } = this.props;
 
     const primaryBtn =
       <Button
@@ -75,18 +95,7 @@ class ChooseExercises extends React.Component {
           cancel={cancel}
           hide={hide}
         />
-        {this.selectedPageIds.length && this.showProblems &&
-          <AddExercises
-            course={course}
-            exercises={exercises.assignable}
-            hide={hide}
-            cancel={cancel}
-            canEdit={true}
-            canAdd={true}
-            onAddClick={this.onAddClick}
-            courseId={course.id}
-            planId={planId}
-            pageIds={this.selectedPageIds} />}
+        {this.renderExercises()}
       </div>
     );
   }

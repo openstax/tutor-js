@@ -1,10 +1,13 @@
 import { React, SnapShot } from '../../helpers/component-testing';
+import { last } from 'lodash';
 import ChooseExercises from '../../../../src/components/task-plan/homework/choose-exercises';
 import Factory, { FactoryBot } from '../../../factories';
 import FakeWindow from 'shared/specs/helpers/fake-window';
 import { ExtendBasePlan } from '../../helpers/task-plan';
 import { TaskPlanActions, TaskPlanStore } from '../../../../src/flux/task-plan';
+import ScrollTo from '../../../../src/helpers/scroll-to';
 
+jest.mock('../../../../src/helpers/scroll-to');
 jest.mock('../../../../src/flux/task-plan', () => ({
   TaskPlanActions: {
     updateTopics: jest.fn(),
@@ -29,21 +32,15 @@ function renderExerciseCards(props) {
   const ce = mount(<ChooseExercises {...props} />);
   const page_ids = props.course.referenceBook.children[1].children.map(pg => pg.id);
   TaskPlanStore.getTopics.mockImplementation(() => page_ids);
-
   ce.find('.chapter-heading .tutor-icon').at(1).simulate('click');
   expect(ce).toHaveRendered('.show-problems[disabled=false]');
   props.exercises.fetch = jest.fn();
-
   ce.find('.show-problems').simulate('click');
-
   expect(props.exercises.fetch).toHaveBeenCalled();
-
   const items = page_ids.map(page_id =>
     FactoryBot.create('TutorExercise', { page_uuid: props.course.referenceBook.pages.byId.get(page_id).uuid }),
   );
-
   props.exercises.onLoaded({ data: { items } }, [{ course: props.course, page_ids }]);
-
   return ce;
 }
 
@@ -90,6 +87,21 @@ describe('choose exercises component', function() {
     exercise.is_excluded = true;
     expect(exercise.isAssignable).toBe(false);
     expect(ce).not.toHaveRendered(`[data-exercise-id="${exercise.content.uid}"]`);
+    ce.unmount();
+  });
+
+  it('shows exercise details', () => {
+    const ce = renderExerciseCards(props);
+    const uid = ce.find('[data-exercise-id]').first().prop('data-exercise-id');
+    ce.find(`[data-exercise-id="${uid}"] .action.details`).simulate('click');
+    expect(ce).toHaveRendered('.exercise-details');
+    expect(ce).toHaveRendered('a[disabled=true][title="Go Back"]');
+    expect(ce).toHaveRendered('a[disabled=false][title="Go Forward"]');
+    ce.find('a.show-cards').simulate('click');
+    expect(ce).toHaveRendered('.exercise-cards');
+    expect(last(ScrollTo.mock.instances).scrollToSelector).toHaveBeenCalledWith(
+      `[data-exercise-id="${uid}"]`, { immediate: true }
+    );
     ce.unmount();
   });
 
