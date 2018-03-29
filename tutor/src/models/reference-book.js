@@ -1,5 +1,5 @@
 import { readonly } from 'core-decorators';
-import { first, last, mapValues, omit } from 'lodash';
+import { uniq, compact, map, first, last, mapValues, omit } from 'lodash';
 import { action, observable, computed } from 'mobx';
 import {
   BaseModel, identifiedBy, belongsTo, identifier, field, session, hasMany,
@@ -55,6 +55,13 @@ export default class ReferenceBook extends BaseModel {
   // a simplified data structure suitable for passing into flux
   @computed get topicInfo() {
     return mapValues(this.pages.byId.toJS(), pg => pg.asTopic);
+  }
+
+  sectionsForPageIds(pageIds) {
+    return uniq(compact(map(pageIds, (pageId) => {
+      const pg = this.pages.byId.get(pageId);
+      return pg ? pg.chapter_section.asString : null;
+    })));
   }
 
 }

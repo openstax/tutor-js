@@ -60,18 +60,9 @@ class ExercisesDisplay extends React.Component {
     this.filter = filter;
   };
 
-  @computed get chapterSections() {
-    return this.props.pageIds.map((pageId) => {
-      const pg = this.props.course.referenceBook.pages.byId.get(pageId);
-      return pg ? pg.chapter_section.asString : null;
-    });
-  }
-
   renderControls = (exercises) => {
 
     let sectionizerProps;
-
-    const sections = this.chapterSections; //keys(exercises.all.grouped);
 
     if (this.props.showingDetails) {
       sectionizerProps = {
@@ -97,7 +88,8 @@ class ExercisesDisplay extends React.Component {
             {...sectionizerProps}
             nonAvailableWidth={600}
             onScreenElements={[]}
-            chapter_sections={sections} />
+            chapter_sections={this.props.course.referenceBook.sectionsForPageIds(this.props.pageIds)}
+          />
         </ScrollSpy>
       </ExerciseControls>
     );

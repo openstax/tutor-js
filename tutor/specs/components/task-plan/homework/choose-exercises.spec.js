@@ -102,7 +102,6 @@ describe('choose exercises component', function() {
     expect(last(ScrollTo.mock.instances).scrollToSelector).toHaveBeenCalledWith(
       `[data-exercise-id="${uid}"]`, { immediate: true }
     );
-
     ce.unmount();
   });
 

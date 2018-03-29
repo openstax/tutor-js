@@ -136,7 +136,7 @@ class AddExercises extends React.Component {
   }
 
   render() {
-    const { exercises, course } = this.props;
+    const { pageIds, exercises, course } = this.props;
     if (exercises.api.isPending) { return <Loading />; }
 
     const sharedProps = {
@@ -145,7 +145,7 @@ class AddExercises extends React.Component {
       onExerciseToggle: this.onExerciseToggle,
       getExerciseActions: this.getExerciseActions,
       getExerciseIsSelected: this.getExerciseIsSelected,
-      pageIds: this.props.pageIds,
+      pageIds,
     };
 
     let body;
@@ -185,7 +185,7 @@ class AddExercises extends React.Component {
           currentSection: this.currentSection,
           onSectionClick: this.setCurrentSection,
           nonAvailableWidth: 600,
-          chapter_sections: keys(exercises.byChapterSection),
+          chapter_sections: course.referenceBook.sectionsForPageIds(pageIds),
         }} />;
 
 

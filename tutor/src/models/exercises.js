@@ -12,10 +12,6 @@ export class ExercisesMap extends Map {
 
   @readonly fetched = observable.map();
 
-  @computed get byChapterSection() {
-    return groupBy(this.array, 'page.chapter_section.asString');
-  }
-
   @computed get byPageId() {
     return groupBy(this.array, 'page.id');
   }
