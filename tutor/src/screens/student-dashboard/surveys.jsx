@@ -37,7 +37,7 @@ export default class Surveys extends React.PureComponent {
         <div className='actions-box'>
           <h1 className='panel-title'>Research Survey Available</h1>
           <p>
-            You‘ve been selected to participate in an optional
+            You’ve been selected to participate in an optional
             research survey named “{survey.title}”.
           </p>
           <p>
