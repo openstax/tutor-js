@@ -1,15 +1,20 @@
 @import '../screen-styles';
 
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/buttons";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/button-groups";
 
 // These styles should be kept in sync with the BE research console preview styles located in
 // tutor-server's app/assets/stylesheets/research/survey-preview.scss
 
-.research-surveys {
+.course-page.research-surveys {
   // This can be removed once we're able to import the entire pattern library into Tutor
   @import '~pattern-library/core/pattern-library/elements';
 
   .body-wrapper {
     background-color:  $tutor-neutral-bright;
+    .body {
+      max-width: 570px;
+    }
   }
 
   h3 {
@@ -17,11 +22,18 @@
     margin-bottom: 40px;
   }
 
-  .sv_main {
+  .sv_q_erbox {
+    @include alert-variant($alert-danger-bg, $alert-danger-border, $alert-danger-text);
+    padding: 0.8rem;
+    margin-left: -0.8rem;
+    margin-top: 1rem;
+    border-radius: 2px;
+    order: 1;
+  }
 
+  .sv_main {
     display: flex;
     justify-content: center;
-
   }
 
   .sv_nav {
@@ -35,6 +47,21 @@
     margin-bottom: 40px;
   }
 
+  .sv_q_rating {
+    @extend .btn-group;
+    > label {
+      @extend .btn;
+      @extend .btn-default;
+      height: inherit; // override pattern library default of 5rem
+    }
+  }
+
+  .sv_qstn { // has two children, first is the label, last is the question
+    > div:last-child { // set it to flex so that warnings can be ordered to the bottom
+      display: flex;
+      flex-direction: column;
+    }
+  }
 
   .sv_q_title {
     font-size: 1.6rem;
