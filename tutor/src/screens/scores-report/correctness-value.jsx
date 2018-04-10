@@ -24,13 +24,13 @@ const ReviewLink = ({ task, children }) => {
 };
 
 const Progress = observer(({ task }) => {
-  const progress = TH.getHumanScoreNumber(task);
-  return <div className="correct">{progress}</div>;
+  const progress = isNil(task.correct_exercise_count) ? '---' : TH.getHumanScoreNumber(task);
+  return <div className="correct progress">{progress}</div>;
 });
 
 const Percent = observer(({ task: { score } }) => {
   const display = isNil(score) ? '---' : `${asPercent(score)}%`;
-  return <div className="correct">{display}</div>;
+  return <div className="correct score">{display}</div>;
 });
 
 
@@ -51,7 +51,7 @@ export default class CorrectnessValue extends React.Component {
       const value = <Display task={task} />;
 
       return task.isStarted ?
-          <ReviewLink task={task}>{value}</ReviewLink> : value;
+        <ReviewLink task={task}>{value}</ReviewLink> : value;
     } else {
       return <div className="correct unstarted">---</div>;
     }
