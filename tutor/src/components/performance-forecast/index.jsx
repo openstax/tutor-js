@@ -9,7 +9,7 @@ import TeacherStudentComponent from './teacher-student';
 
 import Courses from '../../models/courses-map';
 
-class Student extends React.Component {
+export class Student extends React.Component {
   static displayName = 'PerformanceForecastStudentShell';
 
   render() {
@@ -27,7 +27,7 @@ class Student extends React.Component {
 
 // The teacher student store depends on both the
 // scores report store as well as the teacher student learning guide
-class TeacherStudent extends React.Component {
+export class TeacherStudent extends React.Component {
   static displayName = 'PerformanceForecastTeacherStudentShell';
 
   render() {
@@ -37,7 +37,7 @@ class TeacherStudent extends React.Component {
   }
 }
 
-class Teacher extends React.Component {
+export class Teacher extends React.Component {
   static displayName = 'PerformanceForecastTeacherShell';
 
   render() {
@@ -53,7 +53,7 @@ class Teacher extends React.Component {
   }
 }
 
-class Guide extends React.Component {
+export class Guide extends React.Component {
   static displayName = 'PerformanceForecastGuide';
 
   render() {
@@ -68,5 +68,3 @@ class Guide extends React.Component {
     }
   }
 }
-
-export default { Teacher, TeacherStudent, Student, Guide };
