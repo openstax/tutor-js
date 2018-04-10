@@ -11,35 +11,6 @@ import Correctness from './correctness-value';
 import TaskResult from '../../models/course/scores/task-result';
 import UX from './ux';
 
-const HomeworkScore = ({ task, displayAs, ux }) => {
-
-  const scorePercent = TH.getHumanScorePercent(task);
-  const scoreNumber = TH.getHumanScoreNumber(task);
-  const completed = task.completed_exercise_count === task.exercise_count;
-  const scoreText = completed || TH.isDue(task) ? displayAs === 'number' ? scoreNumber : scorePercent : '---';
-
-  if (TH.isHomeworkTaskStarted(task)) {
-    return (
-      <div className="score">
-        <TutorLink
-          to="viewTaskStep"
-          data-assignment-type={`${task.type}`}
-          params={{ courseId: ux.course.id, id: task.id, stepIndex: 1 }}>
-          {scoreText}
-        </TutorLink>
-      </div>
-    );
-  }
-
-  return (
-    <div className="score not-started">
-      ---
-    </div>
-  );
-
-};
-
-
 @observer
 export default class HomeworkCell extends React.PureComponent {
 
