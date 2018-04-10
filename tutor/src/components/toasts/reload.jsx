@@ -28,6 +28,7 @@ class ReloadToast extends React.Component {
           <AsyncButton
             isWaiting={this.isReloading}
             bsStyle="primary"
+            bsSize="small"
             waitingText="Reloading…"
             onClick={this.onReload}
           >
