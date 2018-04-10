@@ -163,7 +163,7 @@ $free-response-background:  $tutor-neutral-lighter;
     .panel-title {
       display: block;
       > a {
-        @extend .btn;
+        @include button-variant($btn-default-color, $btn-default-bg, $btn-default-border);
         @include btn-round();
         @include btn-tutor-default();
         float: none;

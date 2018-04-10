@@ -53,8 +53,7 @@
   }
   .continue {
     margin-top: 40px;
-    @extend .btn;
-    @extend .btn-primary;
+    @include button-variant($openstax-white, $openstax-primary, darken($openstax-primary, 5%));
   }
 }
 
