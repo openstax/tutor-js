@@ -37,7 +37,11 @@ function BookSelection(props) {
 BookSelection.propTypes = {
   onChange: React.PropTypes.func,
   selected: React.PropTypes.string,
-  limit: React.PropTypes.array.isRequired,
+  limit: React.PropTypes.array,
+};
+
+BookSelection.defaultProps = {
+  limit: [],
 };
 
 
