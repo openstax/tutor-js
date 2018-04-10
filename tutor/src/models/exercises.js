@@ -32,6 +32,10 @@ export class ExercisesMap extends Map {
     return this.where(e => e.isReading);
   }
 
+  @computed get assignable() {
+    return this.where(e => e.isAssignable);
+  }
+
   isMinimumExcludedForPage(page) {
     const exercises = this.forPageId(page.id);
     const nonExcluded = filter(exercises, { is_excluded: false }).length;
@@ -65,8 +69,13 @@ export class ExercisesMap extends Map {
     return this.fetched.has(page_id);
   }
 
-  isFetching({ page_id }) {
-    return this.fetched.get(page_id) === PENDING;
+  isFetching({ page_id, pageIds }) {
+    if (page_id) {
+      return this.fetched.get(page_id) === PENDING;
+    } else if (pageIds) {
+      return Boolean(pageIds.find(pgId => this.fetched.get(pgId) === PENDING));
+    }
+    return false;
   }
 
   ensureLoaded({ book, course, page_ids }) {

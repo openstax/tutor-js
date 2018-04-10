@@ -520,7 +520,6 @@ exports[`Select Topics matches snapshot 1`] = `
       className="panel-footer"
     >
       <button
-        aria-role="close"
         className="btn btn-default"
         disabled={false}
         onClick={[Function]}

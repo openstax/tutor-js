@@ -60,18 +60,9 @@ class ExercisesDisplay extends React.Component {
     this.filter = filter;
   };
 
-  @computed get chapterSections() {
-    return this.props.pageIds.map((pageId) => {
-      const pg = this.props.course.referenceBook.pages.byId.get(pageId);
-      return pg ? pg.chapter_section.asString : null;
-    });
-  }
-
   renderControls = (exercises) => {
 
     let sectionizerProps;
-
-    const sections = this.chapterSections; //keys(exercises.all.grouped);
 
     if (this.props.showingDetails) {
       sectionizerProps = {
@@ -97,7 +88,8 @@ class ExercisesDisplay extends React.Component {
             {...sectionizerProps}
             nonAvailableWidth={600}
             onScreenElements={[]}
-            chapter_sections={sections} />
+            chapter_sections={this.props.course.referenceBook.sectionsForPageIds(this.props.pageIds)}
+          />
         </ScrollSpy>
       </ExerciseControls>
     );
@@ -118,7 +110,7 @@ class ExercisesDisplay extends React.Component {
     // The pinned header doesn't notice when the elements above it are unhidden
     // and will never unstick by itself.
     this.refs.controls.unPin();
-    this.fromDetailsExercise = exercise.wrapper;
+    this.fromDetailsExercise = exercise;
     this.props.onShowCardViewClick(ev, this.fromDetailsExercise);
   }
 
@@ -277,7 +269,7 @@ class ExercisesDisplay extends React.Component {
           {...sharedProps}
           watchEvent="change-exercise-"
           onExerciseToggle={this.onExerciseToggle}
-          focusedExerciseId={this.fromDetailsExercise ? this.fromDetailsExercise.id : undefined}
+          focusedExercise={this.fromDetailsExercise}
           onShowDetailsViewClick={this.onShowDetailsViewClick} />
       );
     }

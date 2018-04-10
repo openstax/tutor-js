@@ -531,7 +531,6 @@ exports[`choose exercises component can select exercises 1`] = `
           Show Problems
         </button>
         <button
-          aria-role="close"
           className="btn btn-default"
           disabled={false}
           onClick={[Function]}
@@ -1076,7 +1075,6 @@ exports[`choose exercises component renders selections 1`] = `
           Show Problems
         </button>
         <button
-          aria-role="close"
           className="btn btn-default"
           disabled={false}
           onClick={[Function]}
@@ -1087,6 +1085,5 @@ exports[`choose exercises component renders selections 1`] = `
       </div>
     </div>
   </div>
-  0
 </div>
 `;

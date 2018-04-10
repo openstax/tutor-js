@@ -1,14 +1,15 @@
 import Factory, { FactoryBot } from '../../factories';
-import { slice } from 'lodash';
+import { slice, last } from 'lodash';
 import { SnapShot, Wrapper } from '../../components/helpers/component-testing';
 import EnzymeContext from '../../components/helpers/enzyme-context';
 import Dashboard from '../../../src/screens/question-library/dashboard';
 import ExerciseHelpers from '../../../src/helpers/exercise';
-
+import ScrollTo from '../../../src/helpers/scroll-to';
 jest.mock('../../../../shared/src/components/html', () => ({ html }) =>
-  html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
-);
+    html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
+  );
 jest.mock('../../../src/helpers/exercise');
+jest.mock('../../../src/helpers/scroll-to');
 
 describe('Questions Dashboard Component', function() {
   let props, course, exercises, book, page_ids;
@@ -61,8 +62,14 @@ describe('Questions Dashboard Component', function() {
   it('renders exercise details', () => {
     const dash = displayExercises();
     expect(dash).not.toHaveRendered('.no-exercises');
-    dash.find('.action.details').at(0).simulate('click');
+    const uid = dash.find('[data-exercise-id]').last().prop('data-exercise-id');
+    dash.find(`[data-exercise-id="${uid}"] .action.details`).simulate('click');
     expect(dash).toHaveRendered('.exercise-details');
+    dash.find('a.show-cards').simulate('click');
+    expect(dash).toHaveRendered('.exercise-cards');
+    expect(last(ScrollTo.mock.instances).scrollToSelector).toHaveBeenCalledWith(
+      `[data-exercise-id="${uid}"]`, { immediate: true }
+    );
     dash.unmount();
   });
 

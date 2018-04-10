@@ -45,6 +45,7 @@ export default class TutorExercise extends BaseModel {
     return book.pages.byUUID.get(this.page_uuid);
   }
 
+
   // below fields are set if read from stats
   set page(pg) {
     this._page = pg;
@@ -52,7 +53,7 @@ export default class TutorExercise extends BaseModel {
   @hasMany({ model: 'task-plan/stats/question', inverseOf: 'exercise' }) question_stats;
   @session average_step_number;
 
-
+  @computed get isAssignable() { return !this.is_excluded; }
   @computed get isReading() { return this.pool_types.includes('reading_dynamic'); }
   @computed get isHomework() { return this.pool_types.includes('homework_core'); }
 

@@ -72,7 +72,6 @@ export default class Surveys extends React.PureComponent {
   render() {
     if (this.studentTasks.api.isPending) { return <LoadingScreen />; }
     const { course, model, survey } = this;
-
     if (!survey) { return <NotFound />; }
     if (survey.api.isPending) { return <LoadingScreen message="Saving response…" />; }
     if (survey.isComplete) { return <ThankYou survey={survey} /> };
@@ -84,7 +83,7 @@ export default class Surveys extends React.PureComponent {
         subtitle={course.termFull}
         course={course}
       >
-        <h3>Survey “{survey.title}”</h3>
+        <h3>{survey.title}</h3>
         <Survey model={model} onComplete={this.onComplete} />
       </CoursePage>
     );

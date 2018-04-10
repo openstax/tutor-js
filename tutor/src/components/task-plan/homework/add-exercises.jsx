@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { observable, action, computed } from 'mobx';
 import { ArrayOrMobxType } from 'shared/helpers/react';
 import Loading from '../../loading-screen';
-import { PinnedHeaderFooterCard, ScrollToMixin } from 'shared';
+import { PinnedHeaderFooterCard } from 'shared';
 import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
 import ExerciseHelpers from '../../../helpers/exercise';
 import ExerciseControls from './exercise-controls';
@@ -12,6 +12,7 @@ import ExerciseDetails from '../../exercises/details';
 import ExerciseCards from '../../exercises/cards';
 import TourRegion from '../../tours/region';
 import Course from '../../../models/course';
+import ScrollTo from '../../../helpers/scroll-to';
 import sharedExercises, { ExercisesMap } from '../../../models/exercises';
 
 @observer
@@ -36,7 +37,7 @@ class AddExercises extends React.Component {
     });
   }
 
-
+  scroller = new ScrollTo();
   @observable currentView = 'cards';
   @observable currentSection;
   @observable displayFeedback;
@@ -122,20 +123,20 @@ class AddExercises extends React.Component {
 
   @action.bound showDetails(ev, selectedExercise) {
     this.currentView = 'details';
-    this.selectedExercise = selectedExercise;
+    this.selectedExercise = selectedExercise.wrapper;
   }
 
   getExerciseIsSelected = (exercise) => {
     return exercise.isSelected;
   };
 
-  setCurrentSection = (currentSection) => {
-    this.scrollToSelector(`[data-section='${currentSection}']`);
+  @action.bound setCurrentSection(currentSection) {
+    this.scroller.scrollToSelector(`[data-section='${currentSection}']`);
     this.currentSection = currentSection;
-  };
+  }
 
   render() {
-    const { exercises, course } = this.props;
+    const { pageIds, exercises, course } = this.props;
     if (exercises.api.isPending) { return <Loading />; }
 
     const sharedProps = {
@@ -144,7 +145,7 @@ class AddExercises extends React.Component {
       onExerciseToggle: this.onExerciseToggle,
       getExerciseActions: this.getExerciseActions,
       getExerciseIsSelected: this.getExerciseIsSelected,
-      pageIds: this.props.pageIds,
+      pageIds,
     };
 
     let body;
@@ -184,7 +185,7 @@ class AddExercises extends React.Component {
           currentSection: this.currentSection,
           onSectionClick: this.setCurrentSection,
           nonAvailableWidth: 600,
-          chapter_sections: keys(exercises.all.grouped),
+          chapter_sections: course.referenceBook.sectionsForPageIds(pageIds),
         }} />;
 
 
