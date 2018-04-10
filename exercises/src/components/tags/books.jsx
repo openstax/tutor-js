@@ -33,7 +33,10 @@ class BookTagSelect extends React.Component {
   render() {
     return (
       <div className="tag">
-        <BookSelection onChange={this.updateTag} selected={this.props.book} />
+        <BookSelection
+          onChange={this.updateTag}
+          selected={this.props.book.value}
+        />
         <span className="controls">
           <i onClick={this.onDelete} className="fa fa-trash" />
         </span>
