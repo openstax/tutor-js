@@ -1,5 +1,6 @@
 .toast-notification {
   position: fixed;
+  z-index: $zindex-modal;
   min-height: 50px;
   right: 20px;
   top: 20px;
