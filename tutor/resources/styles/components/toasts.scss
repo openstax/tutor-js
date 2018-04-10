@@ -38,6 +38,13 @@
     }
   }
 
+  .neutral {
+    .title {
+      color: $tutor-neutral-darker;
+      background-color: $tutor-neutral-lighter;
+    }
+  }
+
   .failure {
     .title {
       color: #C22032;

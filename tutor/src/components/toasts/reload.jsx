@@ -17,7 +17,7 @@ class ReloadToast extends React.Component {
 
   render() {
     return (
-      <div className="toast reload">
+      <div className="toast neutral reload">
         <div className="title">
           <span>Updates available</span>
         </div>
