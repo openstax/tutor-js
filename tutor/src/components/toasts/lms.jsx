@@ -12,10 +12,10 @@ import { downloadData, arrayToCSV } from '../../helpers/download-data';
 
 const Troubleshoot = () => (
   <NewTabLink
-    to="https://openstax.secure.force.com/help/articles/FAQ/How-do-I-send-student-scores-from-OpenStax-Tutor-to-my-learning-management-system"
-    >
+    to="https://openstax.secure.force.com/help/articles/FAQ/How-do-I-send-student-scores-from-OpenStax-Tutor-to-my-learning-management-system?search=troubleshoot%20sending%20scores"
+  >
     Troubleshoot sending scores to your LMS
-    </NewTabLink>
+  </NewTabLink>
 );
 
 @observer
@@ -69,7 +69,7 @@ export class LMSErrors extends React.Component {
           Course averages
           for {pluralize('student', toast.info.errors.length, true)} could not be
           sent successfully to your LMS.  There may be an issue with
-          your LMS, or something may have happened when students enrolled.
+          your LMS, or you may need to update your weights calculation in Student Scores.
         </p>
         <Troubleshoot />
         <div className="controls">
@@ -157,7 +157,7 @@ const renderFailedToSend = (footer) => (
         <NewTabLink
           to="https://openstax.secure.force.com/help/articles/FAQ/How-do-I-send-student-scores-from-OpenStax-Tutor-to-my-learning-management-system"
         >
-          send course averages to your LMS
+          Send course averages to your LMS
         </NewTabLink>
       </p>
     </div>
