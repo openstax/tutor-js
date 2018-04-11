@@ -90,8 +90,11 @@ $primary-background-hover: #fa804d;
   }
 
   &.btn-sm {
-    font-size: 1.2rem;
-    padding: 6px 12px;
+    height: 30px;
+    padding: 0 20px;
+    border-radius: 2px;
+    font-size: 1.4rem;
+    font-weight: bold;
   }
 
   &.btn-default {

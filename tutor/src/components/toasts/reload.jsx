@@ -8,10 +8,6 @@ import { AsyncButton } from 'shared';
 @observer
 class ReloadToast extends React.Component {
 
-  static propTypes = {
-    dismiss: React.PropTypes.func.isRequired,
-  }
-
   @observable isReloading = false;
 
   @action.bound onReload() {
@@ -20,13 +16,10 @@ class ReloadToast extends React.Component {
   }
 
   render() {
-    const { dismiss } = this.props;
-
     return (
-      <div className="toast reload">
+      <div className="toast neutral reload">
         <div className="title">
           <span>Updates available</span>
-          <Icon type="close" onClick={dismiss} />
         </div>
         <div className="body">
           <p>
@@ -35,6 +28,7 @@ class ReloadToast extends React.Component {
           <AsyncButton
             isWaiting={this.isReloading}
             bsStyle="primary"
+            bsSize="small"
             waitingText="Reloading…"
             onClick={this.onReload}
           >

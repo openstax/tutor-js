@@ -1,5 +1,6 @@
 .toast-notification {
   position: fixed;
+  z-index: $zindex-modal;
   min-height: 50px;
   right: 20px;
   top: 20px;
@@ -34,6 +35,13 @@
       &::before {
         content: $fa-var-check-circle;
       }
+    }
+  }
+
+  .neutral {
+    .title {
+      color: $tutor-neutral-darker;
+      background-color: $tutor-neutral-lighter;
     }
   }
 
