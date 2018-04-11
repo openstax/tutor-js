@@ -3,8 +3,6 @@ import { observer } from 'mobx-react';
 import { action } from 'mobx';
 import keymaster from 'keymaster';
 
-const KEYBINDING_SCOPE  = 'annotation-window-shade';
-
 @observer
 export default class WindowShade extends React.Component {
 
@@ -14,12 +12,11 @@ export default class WindowShade extends React.Component {
   };
 
   componentDidMount() {
-    keymaster('esc' , KEYBINDING_SCOPE, this.onEscKey);
-    keymaster.setScope(KEYBINDING_SCOPE);
+    keymaster('esc', this.onEscKey);
   }
 
   componentWillUnmount() {
-    keymaster.deleteScope(KEYBINDING_SCOPE);
+    keymaster.unbind('esc', this.onEscKey);
   }
 
   @action.bound onEscKey() {

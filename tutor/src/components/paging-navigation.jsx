@@ -1,13 +1,11 @@
 import React from 'react';
-import { isFunction, partial } from 'lodash'
+import { isFunction, partial, defer } from 'lodash';
 import classnames from 'classnames';
 import keymaster from 'keymaster';
-import Icon from './icon';
 import Arrow from './icons/arrow';
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import ScrollTo from '../helpers/scroll-to';
-const KEYBINDING_SCOPE  = 'page-navigation';
 
 @observer
 export default class PagingNavigation extends React.PureComponent {
@@ -55,11 +53,11 @@ export default class PagingNavigation extends React.PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.enableKeys && !this.props.enableKeys) {
-      this.enableKeys();
-    } else if (!nextProps.enableKeys && this.props.enableKeys) {
-      this.disableKeys();
-    }
+    // if (nextProps.enableKeys && !this.props.enableKeys) {
+    //   this.enableKeys();
+    // } else if (!nextProps.enableKeys && this.props.enableKeys) {
+    //   this.disableKeys();
+    // }
     if (nextProps.titles.current) {
       this.props.documentImpl.title = nextProps.titles.current;
     } else {
@@ -80,13 +78,18 @@ export default class PagingNavigation extends React.PureComponent {
   }
 
   enableKeys() {
-    keymaster('left' , KEYBINDING_SCOPE, this.keyOnPrev);
-    keymaster('right', KEYBINDING_SCOPE, this.keyOnNext);
-    keymaster.setScope(KEYBINDING_SCOPE);
+    // wait until next tick to enable keys
+    // otherwise it's possible we'll enable them while a keypress event is being processed.
+    // When that occurs, the new handlers which will be called for that event, leading to a loop
+    defer(() => {
+      keymaster('left' , this.keyOnPrev);
+      keymaster('right', this.keyOnNext);
+    });
   }
 
   disableKeys() {
-    keymaster.deleteScope(KEYBINDING_SCOPE);
+    keymaster.unbind('left');
+    keymaster.unbind('right');
   }
 
   toggleNavHighlight(type) {
