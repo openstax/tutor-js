@@ -11,9 +11,10 @@ import { EcosystemsMap, Ecosystem } from '../../src/models/ecosystems';
 import { ExercisesMap } from '../../src/models/exercises';
 import { ResearchSurvey } from '../../src/models/research-surveys/survey';
 import './research_survey';
+import './dashboard';
 import './course';
 import './book';
-import './task-plan-stats'
+import './task-plan-stats';
 import './ecosystem';
 import './exercise';
 
@@ -46,6 +47,14 @@ Factories.ecosystemsMap = ({ count = 4 } = {}) => {
   const map = new EcosystemsMap();
   map.onLoaded({ data: range(count).map(() => FactoryBot.create('Ecosystem')) });
   return map;
+};
+
+Factories.taskPlans = ({ course, count = 4, type = 'taskPlans' }) => {
+  course[type].onLoaded({
+    data: {
+      plans: range(count).map(() => FactoryBot.create('TeacherDashboardTask', { course })),
+    },
+  });
 };
 
 Factories.exercisesMap = ({ book, pageIds = [], count = 4 } = {}) => {

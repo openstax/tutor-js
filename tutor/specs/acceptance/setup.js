@@ -2,7 +2,7 @@ import {EXPECTED_COLOR, matcherHint, RECEIVED_COLOR} from 'jest-matcher-utils';
 const path = require('path');
 const fs = require('fs');
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000 * 60 * 5; // 5 minutes<your_timeout>
+jest.setTimeout(1000 * 60 * 15); // 15 minutes
 
 expect.extend({
 

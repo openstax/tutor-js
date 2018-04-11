@@ -21,8 +21,6 @@ PerformanceForecast = require '../flux/performance-forecast'
 {TaskStepActions, TaskStepStore} = require '../flux/task-step'
 {TaskPlanActions, TaskPlanStore} = require '../flux/task-plan'
 
-{PastTaskPlansActions} = require '../flux/past-task-plans'
-
 {CCDashboardActions} = require '../flux/cc-dashboard'
 {default: Exercise} = require '../models/exercises/exercise'
 {default: Exercises} = require '../models/exercises'
@@ -43,6 +41,7 @@ PerformanceForecast = require '../flux/performance-forecast'
 { default: Offerings } = require '../models/course/offerings'
 { default: CourseCreate } = require '../models/course/create'
 { default: TeacherTaskPlans } = require '../models/course/task-plans'
+{ default: PastTaskPlans } = require '../models/course/past-task-plans'
 { default: Student } = require '../models/course/student'
 { default: CourseEnroll } = require '../models/course/enroll'
 { default: Payments } = require '../models/payments'
@@ -127,13 +126,6 @@ startAPI = ->
       {answer_id: answerId}
   )
 
-  connectRead(PastTaskPlansActions, (courseId) ->
-    url: "courses/#{courseId}/plans"
-    params:
-      clone_status: 'unused_source'
-  )
-
-
   connectRead(ReferenceBookExerciseActions, url: (url) -> url)
 
 
@@ -176,6 +168,20 @@ startAPI = ->
       start_at: startAt
       end_at: endAt
   )
+
+  connectModelRead(PastTaskPlans, 'fetch',
+    pattern: 'courses/{course.id}/plans',
+    onSuccess: 'onLoaded'
+    params:
+      clone_status: 'unused_source'
+  )
+
+  # connectRead(PastTaskPlansActions, (courseId) ->
+  #   url: "courses/#{courseId}/plans"
+  #   params:
+  #     clone_status: 'unused_source'
+  # )
+
 
   connectModelUpdate(Student, 'saveOwnStudentId', pattern: 'user/courses/{course.id}/student', onSuccess: 'onApiRequestComplete')
   connectModelUpdate(Student, 'saveStudentId', pattern: 'students/{id}', onSuccess: 'onApiRequestComplete')

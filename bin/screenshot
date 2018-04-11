@@ -1,5 +1,6 @@
 #!/bin/bash
 
 export OX_PROJECT=tutor-acceptance
+export CACHE=true
 
-$(npm bin)/jest --all --updateSnapshot --config ./configs/test/jest.$OX_PROJECT.js "${@:2}"
+$(npm bin)/jest --runInBand --all --updateSnapshot --config ./configs/test/jest.$OX_PROJECT.js "${@:2}"

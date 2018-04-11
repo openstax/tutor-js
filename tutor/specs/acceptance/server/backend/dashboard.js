@@ -34,7 +34,13 @@ module.exports = {
     if (ROLE === 'student') {
       data.tasks = tasks.student;
     } else {
+      let days = -20;
       data.plans = tasks.teacher;
+      data.plans.forEach(plan => {
+        plan.tasking_plans = course.periods.map(period =>
+          Factory.create('TeacherDashboardTaskPlan', { now, period, days_ago: (days+=1) }),
+        );
+      });
       data.tasks = [];
     }
 

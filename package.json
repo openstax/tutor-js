@@ -59,7 +59,11 @@
     "htmlparser2": "3.9.2",
     "interpolate": "0.1.0",
     "invariant": "2.2.2",
+<<<<<<< HEAD
     "jest-changed-files": "^22.4.3",
+=======
+    "jest-changed-files": "^22.2.0",
+>>>>>>> snapshot teacher dashbaord, update others
     "jest-cli": "22.4.3",
     "keymaster": "1.6.2",
     "loadjs": "3.5.0",

@@ -16,7 +16,7 @@
     "product_uuid": "c0926501-f36f-49a1-9277-6fbf60e04249"
   },
   "feature_flags": {
-    "is_highlighting_allowed": true,
+    "is_highlighting_allowed": false,
     "is_payments_enabled": true
   },
   "flash": {},
