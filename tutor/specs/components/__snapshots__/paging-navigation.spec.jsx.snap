@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Student Enrollment renders and matches snapshot 1`] = `
+exports[`Paging Navigation renders and matches snapshot 1`] = `
 <div
   className="tutor-paging-navigation my-nav-test"
 >

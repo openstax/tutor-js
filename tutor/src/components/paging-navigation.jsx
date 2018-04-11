@@ -53,11 +53,11 @@ export default class PagingNavigation extends React.PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    // if (nextProps.enableKeys && !this.props.enableKeys) {
-    //   this.enableKeys();
-    // } else if (!nextProps.enableKeys && this.props.enableKeys) {
-    //   this.disableKeys();
-    // }
+    if (nextProps.enableKeys && !this.props.enableKeys) {
+      this.enableKeys();
+    } else if (!nextProps.enableKeys && this.props.enableKeys) {
+      this.disableKeys();
+    }
     if (nextProps.titles.current) {
       this.props.documentImpl.title = nextProps.titles.current;
     } else {
