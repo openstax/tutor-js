@@ -1,11 +1,11 @@
-import React from 'react';
+import { React, observer, cn, action, mobxPropTypes } from '../../helpers/react';
+
 import classnames from 'classnames';
 import _ from 'underscore';
 import twix from 'twix';
-
+import Course from '../../models/course';
 import CoursePlanDetails from './plan-details';
 import CoursePlanLabel from './plan-label';
-import { observer } from 'mobx-react';
 import { CoursePlanDisplayEdit, CoursePlanDisplayQuickLook } from './plan-display';
 import invariant from 'invariant';
 import TaskPlanPublish from '../../models/jobs/task-plan-publish';
@@ -18,14 +18,13 @@ import TeacherTaskPlan from '../../models/task-plan/teacher';
 // TODO drag and drop, and resize behavior
 
 @observer
-class CoursePlan extends React.Component {
-  static displayName = 'CoursePlan';
+export default class CoursePlan extends React.Component {
 
   static propTypes = {
-    courseId: React.PropTypes.string.isRequired,
+    course: React.PropTypes.instanceOf(Course).isRequired,
     item: React.PropTypes.shape({
       plan: React.PropTypes.instanceOf(TeacherTaskPlan).isRequired,
-      displays: React.PropTypes.arrayOf(
+      displays: mobxPropTypes.arrayOrObservableArrayOf(
         React.PropTypes.shape({
           rangeDuration: React.PropTypes.instanceOf(twix).isRequired,
           offset: React.PropTypes.number.isRequired,
@@ -192,7 +191,7 @@ class CoursePlan extends React.Component {
 
   renderDisplay = (hasQuickLook, hasReview, planClasses, display) => {
     const { rangeDuration, offset, offsetFromPlanStart, index } = display;
-    const { item, courseId } = this.props;
+    const { item, course } = this.props;
     const { plan, displays } = item;
 
     const labelProps = { rangeDuration, plan, index, offset, offsetFromPlanStart };
@@ -207,7 +206,7 @@ class CoursePlan extends React.Component {
       plan,
       display,
       label,
-      courseId,
+      course,
       planClasses,
       hasReview,
       isFirst: (index === 0),
@@ -228,7 +227,7 @@ class CoursePlan extends React.Component {
 
   render() {
     let planModal;
-    const { item, courseId } = this.props;
+    const { item, course } = this.props;
     const { isPublishing, isPublished, isHovered, isViewingStats } = this.state;
     const { plan, displays } = item;
     plan.publishing.reportObserved(); // let plan know that it's observed
@@ -241,7 +240,7 @@ class CoursePlan extends React.Component {
     if (isViewingStats) {
       let modalProps = {
         plan,
-        courseId,
+        course,
         className: planClasses,
         onHide: _.partial(this.syncIsViewingStats, false),
         ref: 'details',
@@ -266,6 +265,3 @@ class CoursePlan extends React.Component {
     );
   }
 }
-
-
-export default CoursePlan;

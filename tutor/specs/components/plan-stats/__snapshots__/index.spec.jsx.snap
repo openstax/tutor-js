@@ -60,6 +60,58 @@ exports[`TaskPlan stats progress bar deals with missing stats for a period 1`] =
                   onMouseOut={[Function]}
                   onMouseOver={[Function]}
                 >
+                  1st
+                </span>
+              </div>
+            </h2>
+          </a>
+        </li>
+        <li
+          className=""
+        >
+          <a
+            aria-selected={false}
+            href="#"
+            onClick={[Function]}
+          >
+            <h2>
+              <div
+                className=""
+              >
+                <span
+                  className="tab-item-period-name"
+                  onBlur={[Function]}
+                  onClick={null}
+                  onFocus={[Function]}
+                  onMouseOut={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  1st
+                </span>
+              </div>
+            </h2>
+          </a>
+        </li>
+        <li
+          className=""
+        >
+          <a
+            aria-selected={false}
+            href="#"
+            onClick={[Function]}
+          >
+            <h2>
+              <div
+                className=""
+              >
+                <span
+                  className="tab-item-period-name"
+                  onBlur={[Function]}
+                  onClick={null}
+                  onFocus={[Function]}
+                  onMouseOut={[Function]}
+                  onMouseOver={[Function]}
+                >
                   testing
                 </span>
               </div>
@@ -141,6 +193,58 @@ exports[`TaskPlan stats progress bar matches snapshot 1`] = `
         >
           <a
             aria-selected={true}
+            href="#"
+            onClick={[Function]}
+          >
+            <h2>
+              <div
+                className=""
+              >
+                <span
+                  className="tab-item-period-name"
+                  onBlur={[Function]}
+                  onClick={null}
+                  onFocus={[Function]}
+                  onMouseOut={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  1st
+                </span>
+              </div>
+            </h2>
+          </a>
+        </li>
+        <li
+          className=""
+        >
+          <a
+            aria-selected={false}
+            href="#"
+            onClick={[Function]}
+          >
+            <h2>
+              <div
+                className=""
+              >
+                <span
+                  className="tab-item-period-name"
+                  onBlur={[Function]}
+                  onClick={null}
+                  onFocus={[Function]}
+                  onMouseOut={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  1st
+                </span>
+              </div>
+            </h2>
+          </a>
+        </li>
+        <li
+          className=""
+        >
+          <a
+            aria-selected={false}
             href="#"
             onClick={[Function]}
           >

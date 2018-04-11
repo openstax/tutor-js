@@ -11,57 +11,56 @@ const StudentDashboard = asyncComponent(
 );
 
 const getConditionalHandlers = (Router) => {
-
   const MatchForTutor = OXMatchByRouter(Router, null, 'TutorRouterMatch');
 
-  return {
-    dashboard() {
-      return (props) => {
-        const {courseId} = props.params;
+  const renderDashboard = (props) => {
+    const {courseId} = props.params;
 
-        extend(props, {courseId});
-        const course = Courses.get(courseId);
+    extend(props, {courseId});
+    const course = Courses.get(courseId);
 
-        if (!course) {
-          return (
-            <WarningModal title="Sorry, you can’t access this course">
-              You are no longer a student in this course. Please contact your instructor if you are still enrolled in this course and need to be re-added.
-            </WarningModal>
-          );
-        }
+    if (!course) {
+      return (
+        <WarningModal title="Sorry, you can’t access this course">
+          You are no longer a student in this course. Please contact your instructor if you are still enrolled in this course and need to be re-added.
+        </WarningModal>
+      );
+    }
 
-        if (!props.match.isExact) {
-          return (
-            <MatchForTutor {...props} />
-          );
-        }
+    if (!props.match.isExact) {
+      return (
+        <MatchForTutor {...props} />
+      );
+    }
 
-        if (course.isTeacher) {
-          if (course.is_concept_coach) {
-            return (
-              <CCDashboard courseId={courseId} {...props} />
-            );
-          } else {
-            return (
-              <Redirect
-                to={{
-                  pathname: Router.makePathname('viewTeacherDashboard', props.params),
-                  query: Router.currentQuery()
-                }} />
-            );
-          }
-        } else {
-          if (course.is_concept_coach) {
-            return (
-              <CCStudentRedirect courseId={courseId} />
-            );
-          } else {
-            return <StudentDashboard {...props} />;
-          }
-        }
+    if (course.isTeacher) {
+      if (course.is_concept_coach) {
+        return (
+          <CCDashboard courseId={courseId} {...props} />
+        );
+      } else {
+        return (
+          <Redirect
+            to={{
+              pathname: Router.makePathname('viewTeacherDashboard', props.params),
+              query: Router.currentQuery()
+            }} />
+        );
+      }
+    } else {
+      if (course.is_concept_coach) {
+        return (
+          <CCStudentRedirect courseId={courseId} />
+        );
+      } else {
+        return <StudentDashboard {...props} />;
       }
     }
   };
-}
+
+  return {
+    dashboard() { return renderDashboard; },
+  };
+};
 
 export { getConditionalHandlers };

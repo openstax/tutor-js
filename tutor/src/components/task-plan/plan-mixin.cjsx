@@ -3,7 +3,6 @@ extend  = require 'lodash/extend'
 {default: Courses} = require '../../models/courses-map'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TaskingStore, TaskingActions} = require '../../flux/tasking'
-{PastTaskPlansActions} = require '../../flux/past-task-plans'
 
 {TimeStore} = require '../../flux/time'
 {CloseButton} = require 'shared'
@@ -119,7 +118,7 @@ PlanMixin =
       TaskPlanActions.loaded(savedPlan, savedPlan.id)
       TaskingActions.loadTaskToCourse(savedPlan.id, courseId)
       TaskingActions.loadTaskings(savedPlan.id, savedPlan.tasking_plans)
-      PastTaskPlansActions.unload(courseId, savedPlan.cloned_from_id) if savedPlan.cloned_from_id
+      @getCourse().pastTaskPlans.delete(savedPlan.cloned_from_id) if savedPlan.cloned_from_id
 
     if @afterSave? then @afterSave(savedPlan) else @goBackToCalendar()
 

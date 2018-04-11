@@ -1,16 +1,10 @@
 import { React, ReactTestUtils } from '../../components/helpers/component-testing';
 import { last } from 'lodash';
-import { ReactWrapper } from 'enzyme';
+import Factory from '../../factories';
 import { Provider } from 'mobx-react';
 import PlanDetails from '../../../src/screens/teacher-dashboard/plan-details';
-import COURSE from '../../../api/courses/1.json';
-import PLANS from '../../../api/courses/1/dashboard.json';
-import TaskPlan from '../../../src/models/task-plan/teacher';
-import Courses from '../../../src/models/courses-map';
 import EnzymeContext from '../../components/helpers/enzyme-context';
 import TourContext from '../../../src/models/tour/context';
-
-const COURSE_ID = '1';
 
 const renderModal = props =>
   new Promise( function(resolve) {
@@ -27,19 +21,23 @@ describe('Plan Details Component', function() {
 
   let props;
   let plan;
+  let course;
 
   beforeEach(() => {
-    plan = new TaskPlan(PLANS.plans[0]);
-    Courses.bootstrap([COURSE], { clear: true });
+    course = Factory.course({ is_teacher: true });
+    Factory.taskPlans({ course });
+    plan = course.taskPlans.array[0];
+
     props = {
       plan,
-      courseId: COURSE_ID,
+      course,
       onHide: jest.fn(),
     };
   });
 
   it('renders no students enrolled', () => {
     plan.is_published = true;
+    course.periods[0].num_enrolled_students = 0;
     return renderModal(props).then((m) => {
       expect(m.textContent).toContain('No students enrolled');
     });

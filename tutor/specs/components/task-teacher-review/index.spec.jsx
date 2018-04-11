@@ -13,8 +13,9 @@ describe('Task Teacher Review', () => {
 
   beforeEach(() => {
     course = Factory.course();
+    Factory.taskPlans({ course });
     Courses.set(course.id, course);
-    plan = course.taskPlans.withPlanId(1);
+    plan = course.taskPlans.array[0];
     plan.fetch = jest.fn(() => Promise.resolve());
     plan.onApiRequestComplete({ data: planData });
     plan.analytics.fetch = jest.fn();

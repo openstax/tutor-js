@@ -146,12 +146,12 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
     this.showingSideBar = isOpen;
   }
 
-  renderCourseCalendarHeader(courseId, hasPeriods) {
+  renderCourseCalendarHeader(course, hasPeriods) {
     return (
       <CourseCalendarHeader
         defaultOpen={this.showingSideBar}
         onSidebarToggle={this.onSidebarToggle}
-        courseId={courseId}
+        course={course}
         hasPeriods={hasPeriods}
       />
     );
@@ -160,14 +160,14 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
   render() {
     const {
       course, showingSideBar, displayAs,
-      props: { params, params: { courseId } },
+      props: { dateFormat, params, params: { courseId } },
       calendarParams: { date, termStart, termEnd },
     } = this;
 
     const hasPeriods = !isEmpty(course.periods.active);
     const calendarProps = {
-      courseId, date, displayAs, hasPeriods, params,
-      termStart, termEnd, showingSideBar,
+      course, date, displayAs, hasPeriods, params,
+      termStart, termEnd, showingSideBar, dateFormat,
     };
 
     if (this.loader.isBusy) {
@@ -182,7 +182,7 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
         title={course.name}
         subtitle={course.termFull}
         course={course}
-        controls={this.renderCourseCalendarHeader(courseId, hasPeriods)}
+        controls={this.renderCourseCalendarHeader(course, hasPeriods)}
         notices={
           <NotificationsBar
             course={course}

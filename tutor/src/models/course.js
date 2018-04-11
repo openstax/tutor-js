@@ -23,6 +23,8 @@ import { extendHasMany } from '../helpers/computed-property';
 import moment from 'moment-timezone';
 import StudentTasks from './student-tasks';
 import TeacherTaskPlans from './course/task-plans';
+import PastTaskPlans from './course/past-task-plans';
+
 import ReferenceBook from './reference-book';
 
 const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
@@ -124,6 +126,7 @@ export default class Course extends BaseModel {
   @lazyGetter scores = new Scores({ course: this });
   @lazyGetter referenceBook = new ReferenceBook({ id: this.ecosystem_id });
   @lazyGetter taskPlans = new TeacherTaskPlans({ course: this });
+  @lazyGetter pastTaskPlans = new PastTaskPlans({ course: this });
 
   @computed get nameCleaned() {
     const previewSuffix = ' Preview';
@@ -132,6 +135,10 @@ export default class Course extends BaseModel {
     } else {
       return this.name;
     }
+  }
+
+  @computed get isCloned() {
+    return Boolean(this.cloned_from_id);
   }
 
   @computed get termFull() {

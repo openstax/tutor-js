@@ -1,8 +1,8 @@
 import React from 'react';
 import { map } from 'lodash';
+import { idType } from 'shared';
 import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
-import { idType } from 'shared/helpers/react';
 import { BreadcrumbStatic } from '../breadcrumb';
 
 import BackButton from '../buttons/back-button';
@@ -15,7 +15,7 @@ export default class Breadcrumbs extends React.PureComponent {
   static propTypes = {
     taskPlan: React.PropTypes.instanceOf(TeacherTaskPlan).isRequired,
     stats: React.PropTypes.instanceOf(Stats),
-    courseId: React.PropTypes.string.isRequired,
+    courseId: idType.isRequired,
     currentStep: React.PropTypes.number,
     scrollToStep: React.PropTypes.func.isRequired,
   };

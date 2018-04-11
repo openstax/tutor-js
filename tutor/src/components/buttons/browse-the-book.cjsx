@@ -1,6 +1,7 @@
 React = require 'react'
 _ = require 'underscore'
 NewTabLink = require '../new-tab-link'
+{idType} = require 'shared'
 {default: Courses} = require '../../models/courses-map'
 
 module.exports = React.createClass
@@ -15,7 +16,7 @@ module.exports = React.createClass
     tabIndex: 0
 
   propTypes:
-    courseId:  React.PropTypes.string
+    courseId:  idType
     ecosystemId:  React.PropTypes.string
     chapterId: React.PropTypes.number
     sectionId: React.PropTypes.number

@@ -42,7 +42,7 @@ export default class PlanFooter extends React.PureComponent {
   @action.bound
   onDelete() {
     const { courseId, id } = this.props;
-    Courses.get(courseId).taskPlans.delete(id);
+    Courses.get(courseId).taskPlans.get(id).is_deleting = true;
     TaskPlanActions.delete(id);
     this.props.goBackToCalendar();
   }

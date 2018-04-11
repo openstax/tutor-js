@@ -1,10 +1,11 @@
 import React from 'react';
+import { idType} from 'shared';
 import { observer } from 'mobx-react';
 import { observable, computed, action } from 'mobx';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { isNil, map } from 'lodash';
 import classnames from 'classnames';
-
+import Course from '../models/course';
 import Courses from '../models/courses-map';
 import PeriodHelper from '../helpers/period';
 import Tabs from './tabs';
@@ -13,7 +14,8 @@ import Tabs from './tabs';
 export default class CoursePeriodsNav extends React.PureComponent {
 
   static propTypes = {
-    courseId: React.PropTypes.string.isRequired,
+    courseId: idType,
+    course: React.PropTypes.instanceOf(Course),
     handleSelect: React.PropTypes.func,
     initialActive: React.PropTypes.number.isRequired,
     afterTabsItem: React.PropTypes.element,
@@ -26,8 +28,12 @@ export default class CoursePeriodsNav extends React.PureComponent {
 
   @observable tabIndex = this.props.initialActive;
 
+  @computed get course() {
+    return this.props.course || Courses.get(this.props.courseId);
+  }
+
   @computed get sortedPeriods() {
-    return Courses.get(this.props.courseId).periods.sorted;
+    return this.course.periods.sorted;
   }
 
   @action.bound onTabSelection(tabIndex, ev) {

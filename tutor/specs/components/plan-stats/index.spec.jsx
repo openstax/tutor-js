@@ -2,6 +2,8 @@ import { React, SnapShot } from '../helpers/component-testing';
 import Stats from '../../../src/components/plan-stats';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import EnzymeContext from '../helpers/enzyme-context';
+import Factory from '../../factories';
+
 import TaskPlan from '../../../src/models/task-plan/teacher';
 import DATA from '../../../api/courses/1/dashboard.json';
 
@@ -9,13 +11,13 @@ describe('TaskPlan stats progress bar', function() {
   let props;
   let course;
   beforeEach(() => {
-    course = bootstrapCoursesList().get('2');
+    course = Factory.course({ is_teacher: true });
+    Factory.taskPlans({ course });
     props = {
-      plan: new TaskPlan(DATA.tasks[0]),
-      courseId: '2',
+      course: course,
+      plan: course.taskPlans.array[0],
       handlePeriodSelect: jest.fn(),
     };
-
     // simulate has been loaded
     props.plan.analytics.api.requestCounts.read = 1;
   });

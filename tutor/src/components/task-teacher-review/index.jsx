@@ -3,7 +3,6 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
 import { first, find } from 'lodash';
-import TeacherTaskPlans from '../../models/course/task-plans';
 import Courses from '../../models/courses-map';
 import Breadcrumbs from './breadcrumbs';
 import Stats from '../plan-stats';
@@ -90,7 +89,7 @@ export default class TaskTeacherReview extends React.Component {
   }
 
   render() {
-    const { period, props: { params: { courseId } } } = this;
+    const { course, period, props: { params: { courseId } } } = this;
 
     return (
       <PinnedHeaderFooterCard
@@ -107,7 +106,7 @@ export default class TaskTeacherReview extends React.Component {
             <Col sm={4}>
               <Stats
                 plan={this.taskPlan}
-                courseId={courseId}
+                course={course}
                 initialActivePeriodInfo={period}
                 shouldOverflowData={true}
                 handlePeriodSelect={this.setPeriod}

@@ -6,6 +6,7 @@ const path = require('path');
 
 const DIR = require('./working-directory');
 
+
 async function boot () {
   const browser = await puppeteer.launch({
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
