@@ -47,6 +47,16 @@ describe('Student Scores Homework Cell', function() {
     expect(cell).toHaveRendered('PieProgress');
   });
 
+  it('renders dashes when no data', () => {
+    props.task.correct_exercise_count = props.task.score = undefined;
+    const cell = mount(<Cell {...props} />, EnzymeContext.build());
+    expect(cell).toHaveRendered('.correct.score');
+    expect(cell.text()).toContain('---');
+    ux.displayValuesAs = 'number';
+    expect(cell).toHaveRendered('.correct.progress');
+    expect(cell.text()).toContain('---');
+  });
+
   it('renders as not started', function() {
     props.task.completed_exercise_count = 0;
     props.task.completed_on_time_exercise_count = 0;
