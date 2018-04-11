@@ -1,14 +1,14 @@
 import React from 'react';
+
 import { observer } from 'mobx-react';
 import { observable, computed, action } from 'mobx';
 import { isEmpty, find } from 'lodash';
 import { Panel } from 'react-bootstrap';
-
+import Course from '../../models/course';
 import { SmartOverflow } from 'shared';
 import CoursePeriodsNav from '../course-periods-nav';
 import CourseBar from './course-bar';
 import { ChaptersPerformance, PracticesPerformance } from './performances';
-import Courses from '../../models/courses-map';
 import TeacherTaskPlan from '../../models/task-plan/teacher';
 import LoadingScreen from '../loading-screen';
 import NoStudents from './no-students';
@@ -18,7 +18,7 @@ export default class Stats extends React.PureComponent {
 
   static propTypes = {
     plan: React.PropTypes.instanceOf(TeacherTaskPlan).isRequired,
-    courseId: React.PropTypes.string.isRequired,
+    course: React.PropTypes.instanceOf(Course).isRequired,
     activeSection: React.PropTypes.string,
     initialActivePeriodIndex: React.PropTypes.number,
     handlePeriodSelect: React.PropTypes.func,
@@ -33,7 +33,7 @@ export default class Stats extends React.PureComponent {
   @observable currentPeriodIndex = 0;
 
   @computed get course() {
-    return Courses.get(this.props.courseId);
+    return this.props.course;
   }
 
   @computed get analytics() {
@@ -64,7 +64,8 @@ export default class Stats extends React.PureComponent {
         <CoursePeriodsNav
           handleSelect={this.handlePeriodSelect}
           periods={this.course.periods}
-          courseId={this.props.courseId} />
+          course={this.course}
+        />
         {body}
       </Panel>
     );
@@ -89,23 +90,23 @@ export default class Stats extends React.PureComponent {
   }
 
   render() {
-    let course, dataComponent;
-    const { stats, props: { courseId, shouldOverflowData } } = this;
+    let courseBar, dataComponent;
+    const { course, stats, props: { shouldOverflowData } } = this;
 
     if (!this.period.hasEnrollments) {
-      return this.renderWrapped(<NoStudents courseId={courseId} />);
+      return this.renderWrapped(<NoStudents courseId={course.id} />);
     }
 
     if (!this.analytics.api.hasBeenFetched) {
       return this.renderWrapped(<LoadingScreen />);
     }
 
-    course = <CourseBar data={stats} type={this.props.plan.type} />;
+    courseBar = <CourseBar data={stats} type={this.props.plan.type} />;
 
     if (shouldOverflowData) {
       dataComponent = <SmartOverflow className="task-stats-data" heightBuffer={24}>
         <section>
-          {course}
+          {courseBar}
         </section>
         {this.renderCurrentPages()}
         {this.renderSpacedPages()}
@@ -113,7 +114,7 @@ export default class Stats extends React.PureComponent {
     } else {
       dataComponent = <div className="task-stats-data">
         <section>
-          {course}
+          {courseBar}
         </section>
         {this.renderCurrentPages()}
         {this.renderSpacedPages()}
@@ -125,7 +126,8 @@ export default class Stats extends React.PureComponent {
         <CoursePeriodsNav
           handleSelect={this.handlePeriodSelect}
           periods={this.course.periods}
-          courseId={courseId} />
+          course={this.course}
+        />
         {dataComponent}
       </Panel>
     );

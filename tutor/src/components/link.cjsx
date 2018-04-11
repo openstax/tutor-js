@@ -1,4 +1,5 @@
 {OXLink} = require 'shared'
 TutorRouter = require '../helpers/router'
-
-module.exports = OXLink.make(TutorRouter, 'Tutor')
+TutorLink = OXLink.make(TutorRouter, 'Tutor')
+TutorLink.displayName = 'TutorLink'
+module.exports = TutorLink

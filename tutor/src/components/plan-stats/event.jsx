@@ -1,13 +1,13 @@
 import React from 'react';
 import { map } from 'lodash';
 import { Panel } from 'react-bootstrap';
+import Course from '../../models/course';
 import TeacherTaskPlan from '../../models/task-plan/teacher';
-import Courses from '../../models/courses-map';
 import { Markdown } from 'shared';
 
-export default function Event({ plan, courseId }) {
+export default function Event({ plan, course }) {
   let description;
-  const periodNames = map(Courses.get(courseId).periods.active, 'name').join(', ');
+  const periodNames = map(course.periods.active, 'name').join(', ');
   if (plan.description) {
     description = <Markdown text={plan.description} block={true} />;
   }
@@ -23,5 +23,5 @@ export default function Event({ plan, courseId }) {
 
 Event.propTypes = {
   plan: React.PropTypes.instanceOf(TeacherTaskPlan).isRequired,
-  courseId: React.PropTypes.string.isRequired,
+  course: React.PropTypes.instanceOf(Course).isRequired,
 };
