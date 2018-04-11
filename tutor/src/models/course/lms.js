@@ -28,7 +28,6 @@ export default class CourseLMS extends BaseModel {
   }
 
   @action.bound setVendor(vendor) {
-    console.log(vendor)
     return UiSettings.set(LMS_VENDOR, this.course.id, vendor);
   }
 
