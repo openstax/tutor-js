@@ -34,7 +34,7 @@ module.exports = {
     if (ROLE === 'student') {
       data.tasks = tasks.student;
     } else {
-      let days = -20;
+      let days = -50;
       data.plans = tasks.teacher;
       data.plans.forEach(plan => {
         plan.tasking_plans = course.periods.map(period =>
