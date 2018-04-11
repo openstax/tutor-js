@@ -9,7 +9,7 @@ import TimeHelper from '../../helpers/time';
 import AddMenu from './add-menu';
 
 @observer
-export default class CourseAdd extends React.Component {
+export default class AddAssignment extends React.Component {
 
   static propTypes = {
     course: React.PropTypes.instanceOf(Course).isRequired,
@@ -83,23 +83,20 @@ export default class CourseAdd extends React.Component {
     const className = cn('course-add-dropdown', { 'no-add': addDateType });
 
     // only allow add if addDate is on or after reference date
-    if (addDateType) {
-      dropdownContent = <li>
-        <span className="no-add-text">
-          {'Cannot assign to '}
-          {addDateType}
-        </span>
-      </li>;
-    } else {
-      dropdownContent = this.addMenu.render(this.props, this.state);
-    }
+    dropdownContent = addDateType ? (
+      <li>
+        <span className="no-add-text">Cannot assign to {addDateType}</span>
+      </li>
+    ) : this.addMenu.render(this.props, this.state);
+
 
     return (
       <Dropdown.Menu
         id="course-add-dropdown"
         ref="addOnDayMenu"
         style={style}
-        className={className}>
+        className={className}
+      >
         {dropdownContent}
       </Dropdown.Menu>
     );

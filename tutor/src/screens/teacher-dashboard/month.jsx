@@ -18,7 +18,7 @@ import PlanClonePlaceholder from './plan-clone-placeholder';
 import AddAssignmentSidebar from './add-assignment-sidebar';
 import CourseDuration from './duration';
 import MonthTitleNav from './month-title-nav';
-import CourseAdd from './add';
+import AddAssignment from './add';
 import CoursePlan from './plan';
 
 @observer
@@ -171,9 +171,8 @@ class CourseMonth extends React.Component {
     if (isEmpty(this.activeAddDate)) { return; }
 
     if (!clickEvent.target.classList.contains('rc-Day') &&
-      ((clickEvent.target.tagName !== 'A') || (
-        get(clickEvent.target,'parentNode.dataset.assignmentType'))
-      )) {
+      !get(clickEvent.target, 'parentNode.dataset.assignmentType')) {
+
       this.hideAddOnDay();
       clickEvent.preventDefault();
       clickEvent.stopImmediatePropagation();
@@ -306,7 +305,7 @@ class CourseMonth extends React.Component {
           'teacher-settings-roster-split', 'new-enrollment-link',
         ]}
         courseId={course.id}>
-        <CourseAdd
+        <AddAssignment
           ref="addOnDay"
           hasPeriods={hasPeriods}
           course={course}

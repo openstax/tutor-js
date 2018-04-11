@@ -1,4 +1,5 @@
 import { React, observable, observer, action, cn } from '../../helpers/react';
+import { partial } from 'lodash';
 import { Overlay, Popover, Button } from 'react-bootstrap';
 import UiSettings from 'shared/model/ui-settings';
 import { AddAssignmentLink } from './task-dnd';
@@ -84,7 +85,7 @@ export default class AddAssignmentSidebar extends React.Component {
   @action.bound renderMenuLink(link, goToBuilder) {
     return (
       <TourAnchor tag="li" key={link.type} id={`sidebar-add-${link.type}-assignment`}>
-        <AddAssignmentLink link={link} goToBuilder={goToBuilder} onDrag={this.onPopoverClose} />
+        <AddAssignmentLink link={link} goToBuilder={partial(goToBuilder, link)} onDrag={this.onPopoverClose} />
       </TourAnchor>
     );
   }

@@ -1,5 +1,5 @@
 import { React, observer, cn, action } from '../../helpers/react';
-import { map } from 'lodash';
+import { map, partial } from 'lodash';
 import { autobind } from 'core-decorators';
 import Router from '../../helpers/router';
 import CourseGroupingLabel from '../../components/course-grouping-label';
@@ -10,11 +10,9 @@ export default class CourseAddMenu {
     this.options = options;
   }
 
-  @autobind goToBuilder(link) {
-    return (clickEvent) => {
-      clickEvent.preventDefault();
-      this.options.router.history.push(link.pathname);
-    };
+  @autobind goToBuilder(link, ev) {
+    ev.preventDefault();
+    this.options.router.history.push(link.pathname);
   }
 
   render(props, { addDate } = {}) {
@@ -73,10 +71,11 @@ export default class CourseAddMenu {
     }
 
     const renderLink = this.options.renderMenuLink || this.renderMenuLink;
+
     return map(links, (link) => {
       var linkQuery;
       const { query } = link;
-      if (query.due_at != null) { linkQuery = {query}; }
+      if (query.due_at != null) { linkQuery = { query }; }
 
       link.pathname = Router.makePathname(link.to, link.params, linkQuery);
       return renderLink(link, this.goToBuilder);
@@ -86,8 +85,8 @@ export default class CourseAddMenu {
 
   @autobind renderMenuLink(link, goToBuilder) {
     return (
-      <li key={link.type} data-assignment-type={link.type} ref={`${link.type}Link`}>
-        <a href={link.pathname} onClick={goToBuilder(link)}>
+      <li key={link.type} data-assignment-type={link.type}>
+        <a href={link.pathname} onClick={partial(goToBuilder, link)}>
           {link.text}
         </a>
       </li>
