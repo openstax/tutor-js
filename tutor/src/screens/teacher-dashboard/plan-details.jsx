@@ -3,6 +3,7 @@ import { observer, inject } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
 import camelCase from 'lodash/camelCase';
 import classnames from 'classnames';
+import Course from '../../models/course';
 import { Modal, Button } from 'react-bootstrap';
 import TourContext from '../../models/tour/context';
 import TourRegion from '../../components/tours/region';
@@ -25,7 +26,7 @@ export default class CoursePlanDetails extends React.PureComponent {
 
   static propTypes = {
     plan: React.PropTypes.instanceOf(TeacherTaskPlan).isRequired,
-    courseId: React.PropTypes.string.isRequired,
+    course: React.PropTypes.instanceOf(Course).isRequired,
     onHide: React.PropTypes.func.isRequired,
     hasReview: React.PropTypes.bool,
     className: React.PropTypes.string,
@@ -47,16 +48,16 @@ export default class CoursePlanDetails extends React.PureComponent {
   @observable showAssignmentLinks = false;
 
   @computed get linkParams() {
-    return { courseId: this.props.courseId, id: this.props.plan.id };
+    return { courseId: this.props.course.id, id: this.props.plan.id };
   }
 
   @action.bound onShowAssignmentLinks() {
     this.showAssignmentLinks = true;
   }
+
   @action.bound onDisplayStats() {
     this.showAssignmentLinks = false;
   }
-
 
   @computed get assignmentLinksButton() {
     if (this.props.plan.type === 'event'){ return null; }
@@ -100,23 +101,23 @@ export default class CoursePlanDetails extends React.PureComponent {
   }
 
   @computed get body() {
-    const { courseId, plan } = this.props;
+    const { course, plan } = this.props;
     if (this.showAssignmentLinks) {
       return (
         <LmsInfo
           onBack={this.onDisplayStats}
-          plan={plan} courseId={this.props.courseId} />
+          plan={plan} courseId={course.id} />
       );
     }
 
     if (plan.isPublished) {
       if (plan.isEvent) {
         return (
-          <Event plan={plan} courseId={courseId} />
+          <Event plan={plan} course={course} />
         );
       } else {
         return (
-          <Stats plan={plan} courseId={courseId} />
+          <Stats plan={plan} course={course} />
         );
       }
     } else if (plan.isPublishing) {
@@ -130,7 +131,7 @@ export default class CoursePlanDetails extends React.PureComponent {
   }
 
   render() {
-    const { plan: { title, type }, className, onHide } = this.props;
+    const { course, plan: { title, type }, className, onHide } = this.props;
 
     return (
       <Modal
@@ -142,7 +143,7 @@ export default class CoursePlanDetails extends React.PureComponent {
       >
         <TourRegion
           id="analytics-modal"
-          courseId={this.props.courseId}
+          courseId={course.id}
         >
           <Modal.Header closeButton={true}>
             <Modal.Title>

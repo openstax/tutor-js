@@ -1,42 +1,55 @@
-React = require 'react'
-twix = require 'twix'
-{ default: TourAnchor } = require '../../components/tours/anchor'
+import { React, observable, observer, action } from '../../helpers/react';
+import twix from 'twix';
+import TourAnchor from '../../components/tours/anchor';
 
-CoursePlanLabel = React.createClass
-  displayName: 'CoursePlanLabel'
-  propTypes:
-    rangeDuration: React.PropTypes.instanceOf(twix).isRequired
-    plan: React.PropTypes.shape(
-      title: React.PropTypes.string.isRequired
-      durationLength: React.PropTypes.number.isRequired
-      opensAt: React.PropTypes.string
-    ).isRequired
-    offsetFromPlanStart: React.PropTypes.number.isRequired
-    index: React.PropTypes.number.isRequired
-    offset: React.PropTypes.number.isRequired
+@observer
+class CoursePlanLabel extends React.Component {
 
-  calcPercentOfPlanLength: (partLength) ->
-    partLength / @props.plan.durationLength * 100 + '%'
+  static propTypes = {
+    rangeDuration: React.PropTypes.instanceOf(twix).isRequired,
+    plan: React.PropTypes.shape({
+      title: React.PropTypes.string.isRequired,
+      durationLength: React.PropTypes.number.isRequired,
+      opensAt: React.PropTypes.string,
+    }).isRequired,
+    offsetFromPlanStart: React.PropTypes.number.isRequired,
+    index: React.PropTypes.number.isRequired,
+    offset: React.PropTypes.number.isRequired,
+  };
 
-  render: ->
-    {rangeDuration, plan, index, offset, offsetFromPlanStart} = @props
-    {opensAt, title} = plan
+  calcPercentOfPlanLength = (partLength) => {
+    return (
+      ((partLength / this.props.plan.durationLength) * 100) + '%'
+    );
+  };
 
-    # Adjust width based on plan duration, helps with label centering on view...for the most part.
-    # CALENDAR_EVENT_LABEL_DYNAMIC_WIDTH
-    planRangeLength = rangeDuration.length('days')
-    planLabelStyle =
-      width: @calcPercentOfPlanLength(planRangeLength)
-      marginLeft: @calcPercentOfPlanLength(offsetFromPlanStart)
+  render() {
+    let label, labelClass;
+    const { rangeDuration, plan, index, offset, offsetFromPlanStart } = this.props;
+    const { opensAt, title } = plan;
 
-    labelClass = 'continued' unless index is 0
+    // Adjust width based on plan duration, helps with label centering on view...for the most part.
+    // CALENDAR_EVENT_LABEL_DYNAMIC_WIDTH
+    const planRangeLength = rangeDuration.length('days');
+    const planLabelStyle = {
+      width: this.calcPercentOfPlanLength(planRangeLength),
+      marginLeft: this.calcPercentOfPlanLength(offsetFromPlanStart),
+    };
 
-    label = <TourAnchor id='calendar-task-plan'>
-      <label
-        data-opens-at={opensAt}
-        data-title={title}
-        style={planLabelStyle}
-        className={labelClass}>{title}</label>
-    </TourAnchor>
+    if (index !== 0) { labelClass = 'continued'; }
 
-module.exports = CoursePlanLabel
+    return (
+      label = <TourAnchor id="calendar-task-plan">
+        <label
+          data-opens-at={opensAt}
+          data-title={title}
+          style={planLabelStyle}
+          className={labelClass}>
+          {title}
+        </label>
+      </TourAnchor>
+    );
+  }
+}
+
+export default CoursePlanLabel;

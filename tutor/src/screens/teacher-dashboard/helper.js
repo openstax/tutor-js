@@ -1,26 +1,30 @@
-TutorRouter = require '../../helpers/router'
-UiSettings = require 'shared/model/ui-settings'
+import TutorRouter from '../../helpers/router';
+import UiSettings from 'shared/model/ui-settings';
+import { delay, partial } from 'lodash';
 
-_ = require 'lodash'
+const SIDEBAR_KEY_PREFIX = 'CSB';
 
-SIDEBAR_KEY_PREFIX = "CSB"
+export default {
 
-module.exports =
+  shouldIntro() {
+    return TutorRouter.currentQuery().showIntro === 'true';
+  },
 
-  shouldIntro: ->
-    TutorRouter.currentQuery().showIntro is 'true'
+  scheduleIntroEvent(cbFn, ...args) {
+    if (this.shouldIntro()) {
+      delay(partial(cbFn, ...Array.from(args)), 1000);
+    }
+  },
 
-  scheduleIntroEvent: (cbFn, args...) ->
-    if @shouldIntro()
-      _.delay(_.partial(cbFn, args...), 1000)
-    else
-      undefined
+  clearScheduledEvent(event) {
+    if (event) { clearTimeout(event); }
+  },
 
-  clearScheduledEvent: (event) ->
-    clearTimeout(event) if (event)
+  isSidebarOpen(course) {
+    return !!UiSettings.get(SIDEBAR_KEY_PREFIX, course.id);
+  },
 
-  isSidebarOpen: (courseId) ->
-    !!UiSettings.get(SIDEBAR_KEY_PREFIX, courseId)
-
-  setSidebarOpen: (courseId, isOpen) ->
-    UiSettings.set(SIDEBAR_KEY_PREFIX, courseId, isOpen)
+  setSidebarOpen(course, isOpen) {
+    return UiSettings.set(SIDEBAR_KEY_PREFIX, course.id, isOpen);
+  },
+};

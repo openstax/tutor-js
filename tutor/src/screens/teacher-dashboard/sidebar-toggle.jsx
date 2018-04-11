@@ -1,57 +1,63 @@
-React = require 'react'
+import { React, observable, observer, action, cn } from '../../helpers/react';
+import { Button } from 'react-bootstrap';
+import Course from '../../models/course';
+import Icon from '../../components/icon';
+import CalendarHelper from './helper';
 
-classnames = require 'classnames'
-{Button} = require 'react-bootstrap'
-Icon = require '../../components/icon'
-CalendarHelper = require './helper'
+const OPEN_ICON = 'times';
+const CLOSED_ICON = 'bars';
 
-OPEN_ICON = 'times'
-CLOSED_ICON = 'bars'
+@observer
+export default class CalendarSidebarToggle extends React.Component {
 
-CalendarSidebarToggle = React.createClass
+  static propTypes = {
+    course: React.PropTypes.instanceOf(Course).isRequired,
+    onToggle: React.PropTypes.func.isRequired,
+    defaultOpen: React.PropTypes.bool,
+  };
 
-  displayName: 'CalendarSidebarToggle'
+  static defaultProps = { defaultOpen: false };
 
-  propTypes:
-    onToggle: React.PropTypes.func.isRequired
-    defaultOpen: React.PropTypes.bool
+  @observable isOpen = CalendarHelper.isSidebarOpen(this.props.course);
+  @observable iconType = this.isOpen ? OPEN_ICON : CLOSED_ICON;
+  @observable pendingIntroTimeout;
 
-  getDefaultProps: ->
-    defaultOpen: false
+  componentWillMount() {
+    if (this.isOpen) {
+      this.props.onToggle(this.isOpen);
+    } else {
+      this.pendingIntroTimeout = CalendarHelper.scheduleIntroEvent(this.onToggle);
+    }
+  }
 
-  getInitialState: ->
-    isOpen = CalendarHelper.isSidebarOpen(@props.courseId)
-    iconType = if isOpen then OPEN_ICON else CLOSED_ICON
-    {isOpen, iconType}
+  componentWillUnmount() {
+    CalendarHelper.clearScheduledEvent(this.pendingIntroTimeout);
+  }
 
-  componentWillMount: ->
-    if @state.isOpen
-      @props.onToggle(@state.isOpen)
-    else
-      @setState(pendingIntroTimeout: CalendarHelper.scheduleIntroEvent(@onToggle))
+  @action.bound setIconType() {
+    this.iconType = this.isOpen ? OPEN_ICON : CLOSED_ICON;
+  }
 
-  componentWillUnmount: ->
-    CalendarHelper.clearScheduledEvent(@state.pendingIntroTimeout)
+  @action.bound onToggle() {
+    const isOpen = !this.isOpen;
+    CalendarHelper.setSidebarOpen(this.props.course, isOpen);
+    CalendarHelper.clearScheduledEvent(this.pendingIntroTimeout);
+    this.isOpen = isOpen;
+    this.pendingIntroTimeout = false;
+    this.props.onToggle(isOpen);
+  }
 
-  setIconType: ->
-    @setState(iconType: if @state.isOpen then OPEN_ICON else CLOSED_ICON)
-
-  onToggle: ->
-    isOpen = not @state.isOpen
-    CalendarHelper.setSidebarOpen(@props.courseId, isOpen)
-    CalendarHelper.clearScheduledEvent(@state.pendingIntroTimeout)
-    @setState({isOpen, pendingIntroTimeout: false})
-    @props.onToggle(isOpen)
-
-  render: ->
-    <Button
-      onTransitionEnd={@setIconType}
-      onClick={@onToggle}
-      className={classnames("sidebar-toggle", open: @state.isOpen)}
-    >
-      <Icon type={@state.iconType} />
-      <span className="text">Add Assignment</span>
-    </Button>
-
-
-module.exports = CalendarSidebarToggle
+  render() {
+    return (
+      <Button
+        onTransitionEnd={this.setIconType}
+        onClick={this.onToggle}
+        className={cn('sidebar-toggle', { open: this.isOpen })}>
+        <Icon type={this.iconType} />
+        <span className="text">
+          Add Assignment
+        </span>
+      </Button>
+    );
+  }
+}

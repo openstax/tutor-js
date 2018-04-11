@@ -1,78 +1,89 @@
-React = require 'react'
-BS    = require 'react-bootstrap'
-classnames = require 'classnames'
+import { React, observer, action, observable, cn  } from '../../helpers/react';
+import { partial } from 'lodash';
+import { Overlay, Popover } from 'react-bootstrap';
+import Course from '../../models/course';
+import { CloneAssignmentLink } from './task-dnd';
+import TaskPlanHelper from '../../helpers/task-plan';
+import TimeHelper from '../../helpers/time';
 
-{CloneAssignmentLink} = require './task-dnd'
-
-{default: TaskPlanHelper} = require '../../helpers/task-plan'
-TimeHelper = require '../../helpers/time'
-isEmpty = require 'lodash/isEmpty'
-partial = require 'lodash/partial'
-
-{PastTaskPlansActions, PastTaskPlansStore} = require '../../flux/past-task-plans'
-LoadableItem = require '../../components/loadable-item'
-
-
-PastAssignmentsLoading = ({className}) ->
-  <div className={classnames('past-assignments', className)}>
+const PastAssignmentsLoading = ({className}) => (
+  <div className={cn('past-assignments', className)}>
     <div className="no-plans is-loading">
-      Loading copied assignments...
+      Loading copied assignments…
     </div>
   </div>
+);
 
-PastAssignments = React.createClass
+@observer
+export default class PastAssignments extends React.Component {
 
-  propTypes:
-    courseId: React.PropTypes.string.isRequired
-    cloningPlanId: React.PropTypes.string
+  static propTypes = {
+    course: React.PropTypes.instanceOf(Course).isRequired,
+    cloningPlanId: React.PropTypes.string,
+  }
 
-  getInitialState: ->
-    tooltipTarget: null
+  @observable tooltipTarget;
+  @observable hoveredPlan;
 
-  offTaskHover: ->
-    @setState(tooltipTarget: null, hoveredPlan: null)
+  @action.bound offTaskHover() {
+    this.hoveredPlan = this.tooltipTarget = null;
+  }
 
-  onTaskHover: (plan, ev) ->
-    @setState(tooltipTarget: ev.currentTarget, hoveredPlan: plan)
+  @action.bound onTaskHover(plan, ev) {
+    this.tooltipTarget = ev.currentTarget;
+    this.hoveredPlan = null;
+  }
 
-  render: ->
-    plans = PastTaskPlansStore.byDueDate(@props.courseId)
-    return null if isEmpty(plans)
+  componentDidMount() {
+    const { course } = this.props;
+    if (course.isCloned) { course.pastTaskPlans.fetch(); }
+  }
 
-    <div className={classnames('past-assignments', @props.className)}>
-      <div className="section-label">Copied</div>
+  render() {
+    const { course } = this.props;
+    if (!course.isCloned) { return null; }
 
-      <div className="plans">
-        {for plan in plans
-          <CloneAssignmentLink
-            onHover={partial(@onTaskHover, plan)}
-            offHover={@offTaskHover}
-            key={plan.id}
-            plan={plan}
-            isEditing={plan.id is @props.cloningPlanId}
-          />}
+    const plans = course.pastTaskPlans;
+    if (plans.api.isPending){ return <PastAssignmentsLoading />; }
+    if (plans.isEmpty) { return null; }
+
+    return (
+      <div className={cn('past-assignments', this.props.className)}>
+        <div className="section-label">
+          Copied
+        </div>
+        <div className="plans">
+          {plans.array.map((plan) =>
+            <CloneAssignmentLink
+              onHover={partial(this.onTaskHover, plan)}
+              offHover={this.offTaskHover}
+              key={plan.id}
+              plan={plan}
+              isEditing={plan.id === this.props.cloningPlanId} />)}
+        </div>
+        <Overlay
+          show={!!this.tooltipTarget}
+          target={this.tooltipTarget}
+          placement="right">
+          <Popover id="task-original-due-date">
+            Orig. due date
+            {TimeHelper.toHumanDate(TaskPlanHelper.earliestDueDate(this.hoveredPlan))}
+          </Popover>
+        </Overlay>
       </div>
-      <BS.Overlay
-        show={!!@state.tooltipTarget}
-        target={@state.tooltipTarget}
-        placement="right"
-      >
-        <BS.Popover id="task-original-due-date">
-          Orig. due date {TimeHelper.toHumanDate(TaskPlanHelper.earliestDueDate(@state.hoveredPlan))}
-        </BS.Popover>
-      </BS.Overlay>
+    );
+  }
+}
 
-    </div>
-
-PastAssignmentsShell = React.createClass
-  render: ->
-    {courseId, className} = @props
-    <LoadableItem
-      id={courseId}
-      store={PastTaskPlansStore}
-      actions={PastTaskPlansActions}
-      renderItem={ => <PastAssignments {...@props}/> }
-      renderLoading={ -> <PastAssignmentsLoading className={className}/> }
-    />
-
-module.exports = {PastAssignmentsShell, PastAssignments}
+// export function PastAssignmentsShell(props) {
+//   const {courseId, className} = props;
+//   return (
+//     <LoadableItem
+//       id={courseId}
+//       store={PastTaskPlansStore}
+//       actions={PastTaskPlansActions}
+//       renderItem={() => <PastAssignments {...props} />}
+//       renderLoading={() => <PastAssignmentsLoading className={className} /> }
+//     />
+//   );
+// }

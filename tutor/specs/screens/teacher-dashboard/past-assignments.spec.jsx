@@ -1,30 +1,26 @@
-{React, SnapShot} = require '../../components/helpers/component-testing'
+import { React, Wrapper, SnapShot } from '../../components/helpers/component-testing';
+import { map } from 'lodash';
+import Factory from '../../factories';
+import PastAssignments from '../../../src/screens/teacher-dashboard/past-assignments';
 
-PLANS  = require '../../../api/courses/1/plans.json'
-{PastTaskPlansActions, PastTaskPlansStore} = require '../../../src/flux/past-task-plans'
 
-{PastAssignments} = require '../../../src/screens/teacher-dashboard/past-assignments'
-COURSE_ID = '1'
+describe('CourseCalendar Past Assignments listing', function() {
+  let course;
+  let props = {};
 
-describe 'CourseCalendar Past Assignments listing', ->
-  props = {}
+  beforeEach(function() {
+    course = Factory.course({ is_teacher: true, cloned_from_id: 1 });
+    Factory.taskPlans({ course, type: 'pastTaskPlans' });
+    props = {
+      course,
+      cloningPlanId: '',
+    };
+  });
 
-  beforeEach ->
-    PastTaskPlansActions.loaded(PLANS, COURSE_ID)
-    props =
-      courseId: COURSE_ID
-      cloningPlanId: ''
-
-  it 'lists plans in due date order', ->
-    wrapper = shallow(<PastAssignments {...props} />)
-    expect(PastTaskPlansStore.hasPlans(COURSE_ID)).to.be.true
-    dueTimes = wrapper.find('DragSource(CloneAssignmentLink)').map (ds) -> ds.prop('plan').due_at
-    expect(dueTimes).to.deep.equal([
-      '2015-03-10T04:00:00.000Z',
-      '2015-03-01T04:00:00.000Z',
-      '2015-03-18T04:00:00.000Z',
-      '2015-04-01T04:00:00.000Z',
-      '2015-04-05T04:00:00.000Z',
-      '2015-10-14T12:00:00.000Z'
-    ])
-    undefined
+  it('lists plans in due date order', function() {
+    expect(course.isCloned).toBe(true);
+    const wrapper = mount(<Wrapper _wrapped_component={PastAssignments} {...props} />);
+    const ids = wrapper.find('[data-assignment-id]').map(d => Number(d.props()['data-assignment-id']));
+    expect(ids).toEqual(map(course.pastTaskPlans.array, 'id'));
+  });
+});

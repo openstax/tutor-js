@@ -1,21 +1,27 @@
-Header = require '../../../src/screens/teacher-dashboard/header'
-moment = require 'moment'
+import Header from '../../../src/screens/teacher-dashboard/header';
+import Factory from '../../factories';
+import moment from 'moment';
 
-describe 'CourseCalendar Header', ->
-  props = {}
+describe('CourseCalendar Header', function() {
+  let course;
+  let props = {};
 
-  beforeEach ->
-    props =
-      courseId: '1'
-      duration: 'month'
-      setDate: sinon.spy()
-      date: moment()
-      format: 'MMMM YYYY'
-      hasPeriods: true
-      onSidebarToggle: sinon.spy()
+  beforeEach(() => {
+    course = Factory.course();
+    props = {
+      course,
+      duration: 'month',
+      setDate: jest.fn(),
+      date: moment(),
+      format: 'MMMM YYYY',
+      hasPeriods: true,
+      onSidebarToggle: jest.fn(),
+    };
+  });
 
-  it 'renders with links', ->
-    wrapper = shallow(<Header {...props} />)
-    expect(wrapper.find('TutorLink[to="viewPerformanceGuide"]')).to.not.be.empty
-    expect(wrapper.find('TutorLink[to="viewScores"]')).to.not.be.empty
-    undefined
+  it('renders with links', function() {
+    const wrapper = shallow(<Header {...props} />);
+    expect(wrapper).toHaveRendered('TutorLink[to="viewPerformanceGuide"]');
+    expect(wrapper).toHaveRendered('TutorLink[to="viewScores"]');
+  });
+});

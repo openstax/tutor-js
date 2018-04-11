@@ -1,110 +1,119 @@
-React = require 'react'
-BS = require 'react-bootstrap'
-isEmpty = require 'lodash/isEmpty'
+import { React, observable, observer, action, cn } from '../../helpers/react';
+import { Overlay, Popover, Button } from 'react-bootstrap';
+import UiSettings from 'shared/model/ui-settings';
+import { AddAssignmentLink } from './task-dnd';
+import PastAssignments from './past-assignments';
+import TourAnchor from '../../components/tours/anchor';
+import Course from '../../models/course';
+import AddMenu from './add-menu';
+import CalendarHelper from './helper';
 
-classnames = require 'classnames'
-UiSettings = require 'shared/model/ui-settings'
+const IS_INTRO_VIEWED = 'viewed-plan-dnd-intro';
+const USE_SETTINGS = false;
 
-{AddAssignmentLink} = require './task-dnd'
-
-{PastAssignmentsShell} = require './past-assignments'
-{ default: TourAnchor } = require '../../components/tours/anchor'
-
-CourseAddMenuMixin = require './add-menu-mixin'
-BindStoreMixin = require '../../components/bind-store-mixin'
-CalendarHelper = require './helper'
-{PastTaskPlansStore} = require '../../flux/past-task-plans'
-
-IS_INTRO_VIEWED = 'viewed-plan-dnd-intro'
-USE_SETTINGS = false
-
-IntroPopover = (props) ->
-  <BS.Overlay
+const IntroPopover = props => (
+  <Overlay
     show={props.show}
-    placement='right'
-    container={document.querySelector('.new-assignments')}
-  >
-    <BS.Popover id='drag-intro'>
-      <p>Click to add, or just drag to calendar.</p>
-      <BS.Button bsSize='small' onClick={props.onClose}>
+    placement="right"
+    container={document.querySelector('.new-assignments')}>
+    <Popover id="drag-intro">
+      <p>
+        Click to add, or just drag to calendar.
+      </p>
+      <Button bsSize="small" onClick={props.onClose}>
         Got it
-      </BS.Button>
-    </BS.Popover>
-  </BS.Overlay>
+      </Button>
+    </Popover>
+  </Overlay>
+);
 
-AddAssignmentSidebar = React.createClass
+@observer
+export default class AddAssignmentSidebar extends React.Component {
 
-  mixins: [ CourseAddMenuMixin, BindStoreMixin ]
-  bindStore: PastTaskPlansStore
+  static propTypes = {
+    course: React.PropTypes.instanceOf(Course).isRequired,
+    isOpen: React.PropTypes.bool.isRequired,
+    cloningPlanId: React.PropTypes.string,
+  }
 
-  propTypes:
-    courseId: React.PropTypes.string.isRequired
-    hasPeriods: React.PropTypes.bool.isRequired
-    isOpen: React.PropTypes.bool.isRequired
-    cloningPlanId: React.PropTypes.string
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired,
+  }
 
-  getInitialState: ->
-    introViewed = if USE_SETTINGS then UiSettings.get(IS_INTRO_VIEWED) else false
-    willShowIntro: CalendarHelper.shouldIntro() and not introViewed
+  @observable shouldshowIntro = false;
+  @observable shouldShowPopover = false;
+  @observable pendingIntroTimeout;
+  @observable willShowIntro = Boolean(
+    CalendarHelper.shouldIntro() && !(USE_SETTINGS ? UiSettings.get(IS_INTRO_VIEWED) : false)
+  )
 
-  componentWillReceiveProps: (nextProps) ->
-    # kickoff intro if we're opening after being closed
-    if @state.willShowIntro and nextProps.isOpen and not @props.isOpen
-      @setState(
-        pendingIntroTimeout: CalendarHelper.scheduleIntroEvent(@showIntro)
-      )
+  addMenu = new AddMenu({ router: this.context.router, renderMenuLink: this.renderMenuLink });
 
-  componentWillUnmount: ->
-    CalendarHelper.clearScheduledEvent(@state.pendingIntroTimeout)
+  // componentWillMount() {
+  //   console.log("MOUNT", CalendarHelper.shouldIntro(), this.willShowIntro, this.showIntro)
+  // }
 
-  showIntro: ->
-    @setState(
-      showIntro: true, willShowIntro: false,
-      pendingIntroTimeout: CalendarHelper.scheduleIntroEvent(@showPopover)
-    )
+  componentWillReceiveProps(nextProps) {
+    // kickoff intro if we're opening after being closed
+    if (this.willShowIntro && nextProps.isOpen && !this.props.isOpen) {
+      this.pendingIntroTimeout = CalendarHelper.scheduleIntroEvent(this.showIntro);
+    }
+  }
 
+  componentWillUnmount() {
+    CalendarHelper.clearScheduledEvent(this.pendingIntroTimeout);
+  }
 
-  showPopover: ->
-    @setState(showPopover: true, pendingIntroTimeout: false)
+  @action.bound showIntro() {
+    this.shouldShowIntro = true;
+    this.willShowIntro = false;
+    this.pendingIntroTimeout = CalendarHelper.scheduleIntroEvent(this.showPopover);
+  }
 
-  onPopoverClose: ->
-    UiSettings.set(IS_INTRO_VIEWED, true) if USE_SETTINGS
-    @setState(showPopover: false, showIntro: false)
+  @action.bound showPopover() {
+    this.shouldShowPopover = true;
+    this.pendingIntroTimeout = false;
+  }
 
-  renderMenuLink: (link) ->
-    <TourAnchor
-      tag="li"
-      key={link.type}
-      id={"sidebar-add-#{link.type}-assignment"}
-    >
-      <AddAssignmentLink
-        link={link}
-        goToBuilder={@goToBuilder}
-        onDrag={@onPopoverClose}
-      />
-    </TourAnchor>
+  @action.bound onPopoverClose() {
+    if (USE_SETTINGS) { UiSettings.set(IS_INTRO_VIEWED, true); }
+    this.shouldShowPopover = false;
+    this.shouldShowIntro = false;
+  }
 
-  render: ->
-    <div className={classnames('add-assignment-sidebar', {
-      'is-open': @props.isOpen
-    })}>
-      <TourAnchor id="sidebar-add-tasks" className='sidebar-section'>
-        <div className="section-label">New</div>
-
-        <ul
-          className={classnames('new-assignments',
-            'is-intro': @state.showIntro
-          )}
-          ref='newAssignments'
-        >
-          {@renderAddActions()}
-        </ul>
-        <IntroPopover onClose={@onPopoverClose} show={@state.showPopover and @props.isOpen} />
+  @action.bound renderMenuLink(link, goToBuilder) {
+    return (
+      <TourAnchor tag="li" key={link.type} id={`sidebar-add-${link.type}-assignment`}>
+        <AddAssignmentLink link={link} goToBuilder={goToBuilder} onDrag={this.onPopoverClose} />
       </TourAnchor>
-      <PastAssignmentsShell
-        className='sidebar-section'
-        courseId={@props.courseId}
-        cloningPlanId={@props.cloningPlanId}
-      />
-    </div>
-module.exports = AddAssignmentSidebar
+    );
+  }
+
+  render() {
+    return (
+      <div
+        className={cn('add-assignment-sidebar', { 'is-open': this.props.isOpen })}
+      >
+        <TourAnchor id="sidebar-add-tasks" className="sidebar-section">
+          <div className="section-label">
+            New
+          </div>
+          <ul
+            className={cn('new-assignments', { 'is-intro': this.shouldShowIntro })}
+            ref="newAssignments"
+          >
+            {this.addMenu.render(this.props)}
+          </ul>
+          <IntroPopover
+            onClose={this.onPopoverClose}
+            show={this.shouldShowPopover && this.props.isOpen}
+          />
+        </TourAnchor>
+        <PastAssignments
+          className="sidebar-section"
+          course={this.props.course}
+          cloningPlanId={this.props.cloningPlanId} />
+      </div>
+    );
+  }
+}

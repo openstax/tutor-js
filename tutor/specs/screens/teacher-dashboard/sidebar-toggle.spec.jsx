@@ -1,61 +1,64 @@
-{React, SnapShot} = require '../../components/helpers/component-testing'
-UiSettings = require 'shared/model/ui-settings'
+import { React, SnapShot } from '../../components/helpers/component-testing';
+import Factory from '../../factories';
+import UiSettings from 'shared/model/ui-settings';
+import Helper from '../../../src/screens/teacher-dashboard/helper';
+import Toggle from '../../../src/screens/teacher-dashboard/sidebar-toggle';
 
-jest.mock('../../../src/screens/teacher-dashboard/helper')
-Helper = require '../../../src/screens/teacher-dashboard/helper'
+jest.mock('../../../src/screens/teacher-dashboard/helper');
 
-Toggle = require '../../../src/screens/teacher-dashboard/sidebar-toggle'
+describe('CourseCalendar Sidebar Toggle', function() {
+  let course;
+  let props = {};
 
-describe 'CourseCalendar Sidebar Toggle', ->
-  props = {}
+  beforeEach(() => {
+    course = Factory.course();
+    props = {
+      course,
+      onToggle: jest.fn(),
+    };
+  });
 
-  beforeEach ->
-    props =
-      courseId: '42'
-      onToggle: sinon.spy()
+  it('renders and toggles', function() {
+    const wrapper = shallow(<Toggle {...props} />);
+    expect(wrapper.hasClass('open')).toEqual(false);
+    wrapper.simulate('click');
+    expect(wrapper.hasClass('open')).toEqual(true);
+    expect(props.onToggle).toHaveBeenCalledWith(true);
+  });
 
-  it 'renders and toggles', ->
-    wrapper = shallow(<Toggle {...props} />)
-    expect(wrapper.hasClass('open')).to.equal false
-    wrapper.simulate('click')
-    expect(wrapper.hasClass('open')).to.equal true
-    expect(props.onToggle).to.have.been.calledWith(true)
-    undefined
+  it('schedules and then clears timeout on unmount', function() {
+    Helper.scheduleIntroEvent.mockReturnValueOnce(42);
+    const wrapper = shallow(<Toggle {...props} />);
+    expect(Helper.scheduleIntroEvent).toHaveBeenCalled();
+    wrapper.unmount();
+    expect(Helper.clearScheduledEvent).toHaveBeenCalledWith(42);
+  });
 
-  it 'schedules and then clears timeout on unmount', ->
-    Helper.scheduleIntroEvent.mockReturnValueOnce(42)
-    wrapper = shallow(<Toggle {...props} />)
-    expect(Helper.scheduleIntroEvent).toHaveBeenCalled()
-    wrapper.unmount()
-    expect(Helper.clearScheduledEvent).toHaveBeenCalledWith(42)
-    undefined
+  it('stores per-course state using helper', function() {
+    const wrapper = shallow(<Toggle {...props} />);
+    wrapper.simulate('click');
+    expect(Helper.setSidebarOpen).toHaveBeenCalledWith(course, true);
+  });
 
-  it 'stores per-course state using helper', ->
-    wrapper = shallow(<Toggle {...props} />)
-    wrapper.simulate('click')
-    expect(Helper.setSidebarOpen).toHaveBeenCalledWith(props.courseId, true)
-    undefined
+  it('displays the correct icon after animation finishes', function() {
+    const wrapper = shallow(<Toggle {...props} />);
+    expect(wrapper.hasClass('open')).toEqual(false);
+    wrapper.simulate('click');
+    expect(wrapper.find('Icon[type="bars"]').length).toEqual(1);
+    wrapper.simulate('transitionEnd');
+    expect(wrapper.find('Icon[type="times"]').length).toEqual(1);
+  });
 
+  it('defaults to last opened value', function() {
+    Helper.isSidebarOpen.mockReturnValueOnce(true);
+    const wrapper = shallow(<Toggle {...props} />);
+    expect(wrapper.hasClass('open')).toEqual(true);
+    expect(wrapper.find('Icon[type="times"]').length).toEqual(1);
+  });
 
-  it 'displays the correct icon after animation finishes', ->
-    wrapper = shallow(<Toggle {...props} />)
-    expect(wrapper.hasClass('open')).to.equal false
-    wrapper.simulate('click')
-    expect(wrapper.find('Icon[type="bars"]').length).to.equal(1)
-    wrapper.simulate('transitionEnd')
-    expect(wrapper.find('Icon[type="times"]').length).to.equal(1)
-    undefined
-
-  it 'defaults to last opened value', ->
-    Helper.isSidebarOpen.mockReturnValueOnce(true)
-    wrapper = shallow(<Toggle {...props} />)
-    expect(wrapper.hasClass('open')).to.equal true
-    expect(wrapper.find('Icon[type="times"]').length).to.equal(1)
-    undefined
-
-  it 'matches snapshot', ->
-    component = SnapShot.create(
-      <Toggle {...props} />
-    )
-    tree = component.toJSON()
-    expect(tree).toMatchSnapshot()
+  it('matches snapshot', function() {
+    const component = SnapShot.create(<Toggle {...props} />);
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+});

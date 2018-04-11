@@ -1,100 +1,123 @@
-React = require 'react'
+import { React, cn, observable, observer, action } from '../../helpers/react';
+import { partial } from 'lodash';
+import { DragSource } from 'react-dnd';
+import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
 
-classnames = require 'classnames'
-partial = require 'lodash/partial'
-{DragSource} = require 'react-dnd'
-{TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
+import GrabbyDots from '../../components/grabby-dots';
 
-GrabbyDots = require '../../components/grabby-dots'
+const NewTaskDrag = {
+  beginDrag(props) {
+    const { link, onDrag } = props;
+    if (typeof onDrag === 'function') {
+      onDrag();
+    }
 
-NewTaskDrag =
-  beginDrag: (props) ->
-    {link, onDrag} = props
-    onDrag?()
+    return (
 
-    link
+      link
 
-  endDrag: (props, monitor) ->
-    {onDrop, offset} = monitor.getDropResult() or {}
-    onDrop?(
-      monitor.getItem(), offset
-    )
+    );
+  },
 
-CloneTaskDrag =
-  beginDrag: ({plan, offHover}) ->
-    # start loading task plan details as soon as it starts to drag
-    # hopefully the load will have completed by the time it's dropped
-    offHover()
-    unless TaskPlanStore.isLoaded(plan.id) or TaskPlanStore.isLoading(plan.id)
-      TaskPlanActions.loaded(plan, plan.id)
-    plan
+  endDrag(props, monitor) {
+    const { onDrop, offset } = monitor.getDropResult() || {};
+    return (
+      (typeof onDrop === 'function' ? onDrop(
+        monitor.getItem(), offset
+      ) : undefined)
+    );
+  },
+};
 
-  endDrag: (props, monitor) ->
-    {onDrop, offset} = monitor.getDropResult() or {}
-    onDrop?(
-      monitor.getItem(), offset
-    )
+const CloneTaskDrag = {
+  beginDrag({ plan, offHover }) {
+    // start loading task plan details as soon as it starts to drag
+    // hopefully the load will have completed by the time it's dropped
+    offHover();
+    if (!TaskPlanStore.isLoaded(plan.id) && !TaskPlanStore.isLoading(plan.id)) {
+      TaskPlanActions.loaded(plan, plan.id);
+    }
+    return (
+      plan
+    );
+  },
 
-ItemTypes =
-  NewTask: 'NEW_TASK'
-  CloneTask: 'CLONE_TASK'
+  endDrag(props, monitor) {
+    const { onDrop, offset } = monitor.getDropResult() || {};
+    return (
+      (typeof onDrop === 'function' ? onDrop(
+        monitor.getItem(), offset
+      ) : undefined)
+    );
+  },
+};
 
-TaskDrop =
-  drop: (props, monitor, comp) ->
-    {onDrop: comp.onDrop, offset: monitor.getClientOffset()}
+const ItemTypes = {
+  NewTask: 'NEW_TASK',
+  CloneTask: 'CLONE_TASK',
+};
 
-DragInjector = (connect, monitor) ->
-  { connectDragSource: connect.dragSource(), isDragging: monitor.isDragging() }
+const TaskDrop = {
+  drop(props, monitor, comp) {
+    return (
+      { onDrop: comp.onDrop, offset: monitor.getClientOffset() }
+    );
+  },
+};
 
-DropInjector = (connect, monitor) ->
-  { connectDropTarget: connect.dropTarget(), isDragging: monitor.isOver() }
+const DragInjector = (connect, monitor) => ({ connectDragSource: connect.dragSource(), isDragging: monitor.isDragging() });
+
+const DropInjector = (connect, monitor) => ({ connectDropTarget: connect.dropTarget(), isDragging: monitor.isOver() });
 
 
-AddAssignmentLink = (props) ->
-  props.connectDragSource(
+const AddAssignmentLink = DragSource(ItemTypes.NewTask, NewTaskDrag, DragInjector)(
+  props => props.connectDragSource(
     <div
       data-assignment-type={props.link.type}
-      className={classnames('new-task', 'is-dragging': props.isDragging)}
-    >
-      <GrabbyDots/>
+      className={cn('new-task', { 'is-dragging': props.isDragging })}>
+      <GrabbyDots />
       <a
         href={props.link.pathname}
         onClick={props.goToBuilder(props.link)}
-        draggable="false"
-      >
+        draggable="false">
         {props.link.text}
       </a>
     </div>
   )
-AddAssignmentLink.displayName = 'AddAssignmentLink'
+);
 
-CloneAssignmentLink = (props) ->
-  props.connectDragSource(
+AddAssignmentLink.displayName = 'AddAssignmentLink';
+
+
+const CloneAssignmentLink = DragSource(ItemTypes.CloneTask, CloneTaskDrag, DragInjector)(
+  props => props.connectDragSource(
     <div
       onMouseEnter={props.onHover}
       onMouseLeave={props.offHover}
+      data-assignment-id={`${props.plan.id}`}
       data-assignment-type={props.plan.type}
-      className={classnames('task-plan',
-        'is-dragging': props.isDragging
-        'is-editing': props.isEditing
-      )}
-    >
-      <GrabbyDots/><div>{props.plan.title}</div>
+      className={cn('task-plan', {
+          'is-dragging': props.isDragging,
+          'is-editing': props.isEditing,
+      }
+      )}>
+      <GrabbyDots />
+      <div>
+        {props.plan.title}
+      </div>
     </div>
   )
-CloneAssignmentLink.displayName = 'CloneAssignmentLink'
+);
 
-module.exports = {
+CloneAssignmentLink.displayName = 'CloneAssignmentLink';
+
+export {
   NewTaskDrag,
   CloneTaskDrag,
   TaskDrop,
   DragInjector,
   DropInjector,
   ItemTypes,
-  AddAssignmentLink: DragSource(ItemTypes.NewTask, NewTaskDrag, DragInjector)(
-    AddAssignmentLink
-  ),
-  CloneAssignmentLink: DragSource(ItemTypes.CloneTask, CloneTaskDrag, DragInjector)(
-    CloneAssignmentLink
-  )
-}
+  CloneAssignmentLink,
+  AddAssignmentLink,
+};

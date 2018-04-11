@@ -1,87 +1,107 @@
-moment = require 'moment'
-twix = require 'twix'
-_ = require 'underscore'
+import { React, observer, cn, action } from '../../helpers/react';
+import { Dropdown } from 'react-bootstrap';
+import moment from 'moment';
+import _ from 'underscore';
+import Course from '../../models/course';
+import { TimeStore } from '../../flux/time';
+import TimeHelper from '../../helpers/time';
 
-React = require 'react'
-BS = require 'react-bootstrap'
-classnames = require 'classnames'
+import AddMenu from './add-menu';
 
-{TimeStore} = require '../../flux/time'
-TimeHelper = require '../../helpers/time'
+@observer
+export default class CourseAdd extends React.Component {
 
-CourseAddMenuMixin = require './add-menu-mixin'
+  static propTypes = {
+    course: React.PropTypes.instanceOf(Course).isRequired,
+    termStart:  TimeHelper.PropTypes.moment,
+    termEnd:    TimeHelper.PropTypes.moment,
+  }
 
-CourseAdd = React.createClass
-  displayName: 'CourseAdd'
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired,
+  }
 
-  propTypes:
-    courseId:   React.PropTypes.string.isRequired
-    termStart:  TimeHelper.PropTypes.moment
-    termEnd:    TimeHelper.PropTypes.moment
+  addMenu = new AddMenu({ router: this.context.router });
 
-  mixins: [CourseAddMenuMixin]
+  state = {
+    positionLeft: 0,
+    positionTop: 0,
+    open: false,
+    referenceDate: moment(TimeStore.getNow()),
+  }
 
-  getInitialState: ->
-    positionLeft: 0
-    positionTop: 0
-    open: false
-    referenceDate: moment(TimeStore.getNow())
+  @action.bound updateState(date, x, y) {
+    this.setState({
+      addDate: date,
+      positionLeft: x,
+      positionTop: y,
+      open: true,
+    });
+  }
 
-  updateState: (date, x, y) ->
-    @setState({
-      addDate: date
-      positionLeft: x
-      positionTop: y
-      open: true
+  @action.bound close() {
+    this.setState({
+      addDate: null,
+      open: false,
     })
+  }
 
-  close: ->
-    @setState({
-      addDate: null
-      open: false
-    })
+  getDateType() {
+    const { referenceDate, addDate } = this.state;
+    const { termStart, termEnd } = this.props;
+    if (addDate == null) { return null; }
 
-  getDateType: ->
-    {referenceDate, addDate} = @state
-    {termStart, termEnd} = @props
-    return null unless addDate?
+    if (addDate.isBefore(termStart, 'day')) {
+      return (
+        'day before term starts'
+      );
+    } else if (addDate.isAfter(termEnd, 'day')) {
+      return (
+        'day after term ends'
+      );
+    } else if (addDate.isBefore(referenceDate, 'day')) {
+      return (
+        'past day'
+      );
+    }
+  }
 
-    if addDate.isBefore(termStart, 'day')
-      'day before term starts'
-    else if addDate.isAfter(termEnd, 'day')
-      'day after term ends'
-    else if addDate.isBefore(referenceDate, 'day')
-      'past day'
+  render() {
+    let dropdownContent;
+    const { referenceDate, addDate, open } = this.state;
 
-  render: ->
-    {referenceDate, addDate, open} = @state
+    // DYNAMIC_ADD_ON_CALENDAR_POSITIONING
+    // Positions Add menu on date
+    const style = {
+      left: this.state.positionLeft,
+      top: this.state.positionTop,
+    };
 
-    # DYNAMIC_ADD_ON_CALENDAR_POSITIONING
-    # Positions Add menu on date
-    style =
-      left: @state.positionLeft
-      top: @state.positionTop
+    style['display'] = open ? 'block' : 'none';
 
-    style['display'] = if open then 'block' else 'none'
+    const addDateType = this.getDateType();
+    const className = cn('course-add-dropdown', { 'no-add': addDateType });
 
-    addDateType = @getDateType()
-    className = classnames 'course-add-dropdown',
-      'no-add': addDateType
-
-    # only allow add if addDate is on or after reference date
-    if addDateType
+    // only allow add if addDate is on or after reference date
+    if (addDateType) {
       dropdownContent = <li>
-        <span className='no-add-text'>Cannot assign to {addDateType}</span>
-      </li>
-    else
-      dropdownContent = @renderAddActions()
+        <span className="no-add-text">
+          {'Cannot assign to '}
+          {addDateType}
+        </span>
+      </li>;
+    } else {
+      dropdownContent = this.addMenu.render(this.props, this.state);
+    }
 
-    <BS.Dropdown.Menu
-    id='course-add-dropdown'
-    ref='addOnDayMenu'
-    style={style}
-    className={className}>
-      {dropdownContent}
-    </BS.Dropdown.Menu>
-
-module.exports = CourseAdd
+    return (
+      <Dropdown.Menu
+        id="course-add-dropdown"
+        ref="addOnDayMenu"
+        style={style}
+        className={className}>
+        {dropdownContent}
+      </Dropdown.Menu>
+    );
+  }
+}

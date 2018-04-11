@@ -1,50 +1,56 @@
-React = require 'react'
+import { React, observable, observer, action } from '../../helpers/react';
+import TimeHelper from '../../helpers/time';
+import Icon from '../../components/icon';
+import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
 
-TimeHelper = require '../../helpers/time'
-Icon = require '../../components/icon'
-{TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
-{TaskingActions} = require '../../flux/tasking'
-{ default: Courses } = require '../../models/courses-map'
+import Courses from '../../models/courses-map';
 
-PlanClonePlaceholder = React.createClass
+@observer
+export default class PlanClonePlaceholder extends React.Component {
+  static propTypes = {
+    planType: React.PropTypes.string.isRequired,
+    planId:   React.PropTypes.string.isRequired,
+    courseId: React.PropTypes.string.isRequired,
+    due_at:   TimeHelper.PropTypes.moment,
+    onLoad:   React.PropTypes.func.isRequired,
+    position: React.PropTypes.shape({
+      x: React.PropTypes.number,
+      y: React.PropTypes.number,
+    }).isRequired,
+  };
 
-  propTypes:
-    planType: React.PropTypes.string.isRequired
-    planId:   React.PropTypes.string.isRequired
-    courseId: React.PropTypes.string.isRequired
-    due_at:   TimeHelper.PropTypes.moment
-    onLoad:   React.PropTypes.func.isRequired
-    position: React.PropTypes.shape(
-      x: React.PropTypes.number
-      y: React.PropTypes.number
-    ).isRequired
+  componentWillMount() {
+    if (TaskPlanStore.isLoaded(this.props.planId)) {
+      this.onLoad();
+    } else {
+      TaskPlanStore.on(`loaded.${this.props.planId}`, this.onLoad);
+    }
+  }
 
-  componentWillMount: ->
-    if TaskPlanStore.isLoaded(@props.planId)
-      @onLoad()
-    else
-      TaskPlanStore.on("loaded.#{@props.planId}", @onLoad)
-
-  onLoad: ->
-    taskPlanId = TaskPlanStore.freshLocalId()
-    { planId, courseId } = @props
+  @action.bound onLoad() {
+    const taskPlanId = TaskPlanStore.freshLocalId();
+    const { planId, courseId } = this.props;
     TaskPlanActions.createClonedPlan(taskPlanId, {
-      planId, courseId
-      due_at: TimeHelper.toISO(@props.due_at)
-    })
-    Courses.get(courseId).taskPlans.addClone(TaskPlanStore.get(taskPlanId))
-    @props.onLoad(taskPlanId)
+      planId, courseId,
+      due_at: TimeHelper.toISO(this.props.due_at),
+    });
+    Courses.get(courseId).taskPlans.addClone(TaskPlanStore.get(taskPlanId));
+    return (
+      this.props.onLoad(taskPlanId)
+    );
+  }
 
-  render: ->
-    <div className="plan-clone-placeholder"
-      data-assignment-type={@props.planType}
-      style={left: @props.position.x, top: @props.position.y}
-    >
-      <label>
-        <Icon type='spinner' spin /> Adding…
-      </label>
-    </div>
-
-
-
-module.exports = PlanClonePlaceholder
+  render() {
+    return (
+      <div
+        className="plan-clone-placeholder"
+        data-assignment-type={this.props.planType}
+        style={{ left: this.props.position.x, top: this.props.position.y }}>
+        <label>
+          <Icon type="spinner" spin={true} />
+          Adding…
+        </label>
+      </div>
+    );
+  }
+}

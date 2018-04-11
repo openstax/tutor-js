@@ -1,59 +1,76 @@
-React = require 'react'
-BS = require 'react-bootstrap'
-moment = require 'moment'
+import { React, observer, action  } from '../../helpers/react';
+import moment from 'moment';
 
-{TimeStore} = require '../../flux/time'
-TimeHelper = require '../../helpers/time'
+import { TimeStore } from '../../flux/time';
+import TimeHelper from '../../helpers/time';
 
-CourseCalendarTitleNav = React.createClass
+@observer
+class CourseCalendarTitleNav extends React.Component {
+  static displayName = 'CourseCalendarTitleNav';
 
-  displayName: 'CourseCalendarTitleNav'
+  static propTypes = {
+    setDate: React.PropTypes.func,
+    date: TimeHelper.PropTypes.moment,
+    format: React.PropTypes.string.isRequired,
+    duration: React.PropTypes.string.isRequired,
+  };
 
-  propTypes:
-    setDate: React.PropTypes.func
-    date: TimeHelper.PropTypes.moment
-    format: React.PropTypes.string.isRequired
+  static defaultProps = {
+    duration: 'month',
+    format: 'MMMM YYYY',
+  };
 
-  getInitialState: ->
-    date: @props.date or moment(TimeStore.getNow())
+  state = { date: this.props.date || moment(TimeStore.getNow()) };
 
-  getDefaultProps: ->
-    duration: 'month'
-    format: 'MMMM YYYY'
+  componentWillReceiveProps(nextProps) {
+    if (!moment(nextProps.date).isSame(this.state.date, 'month')) {
+      this.setState({ date: nextProps.date });
+    }
+  }
 
-  componentWillReceiveProps: (nextProps) ->
-    unless moment(nextProps.date).isSame(@state.date, 'month')
-      @setState(date: nextProps.date)
+  componentDidUpdate() {
+    const { setDate } = this.props;
+    return (
+      (typeof setDate === 'function' ? setDate(this.state.date) : undefined)
+    );
+  }
 
-  componentDidUpdate: ->
-    {setDate} = @props
-    setDate?(@state.date)
+  handleNavigate = (subtractOrAdd, clickEvent) => {
+    const { duration } = this.props;
+    const date = this.state.date.clone()[subtractOrAdd](1, duration);
+    clickEvent.preventDefault();
+    this.setState({ date });
+  };
 
-  handleNavigate: (subtractOrAdd, clickEvent) ->
-    {duration, setDate} = @props
-    date = @state.date.clone()[subtractOrAdd](1, duration)
-    clickEvent.preventDefault()
-    @setState({date})
+  @action.bound handleNext(clickEvent) {
+    this.handleNavigate('add', clickEvent);
+  }
 
-  handleNext: (clickEvent) ->
-    @handleNavigate('add', clickEvent)
+  @action.bound handlePrevious(clickEvent) {
+    this.handleNavigate('subtract', clickEvent);
+  }
 
-  handlePrevious: (clickEvent) ->
-    @handleNavigate('subtract', clickEvent)
-
-  render: ->
-    <div className='calendar-header-navigation'>
-
-      <div className='calendar-header-label'>
-        <a href='#' className='calendar-header-control previous' onClick={@handlePrevious}>
-          <i className='fa fa-caret-left'></i>
-        </a>
-        {@state.date.format(@props.format)}
-        <a href='#' className='calendar-header-control next' onClick={@handleNext}>
-          <i className='fa fa-caret-right'></i>
-        </a>
+  render() {
+    return (
+      <div className="calendar-header-navigation">
+        <div className="calendar-header-label">
+          <a
+            href="#"
+            className="calendar-header-control previous"
+            onClick={this.handlePrevious}>
+            <i className="fa fa-caret-left" />
+          </a>
+          {this.state.date.format(this.props.format)}
+          <a
+            href="#"
+            className="calendar-header-control next"
+            onClick={this.handleNext}>
+            <i className="fa fa-caret-right" />
+          </a>
+        </div>
       </div>
+    );
+  }
+}
 
-    </div>
-
-module.exports = CourseCalendarTitleNav
+export default CourseCalendarTitleNav;

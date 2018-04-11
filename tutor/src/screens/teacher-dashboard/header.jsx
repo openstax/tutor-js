@@ -1,74 +1,50 @@
-React = require 'react'
-BS = require 'react-bootstrap'
-moment = require 'moment'
-_ = require 'underscore'
+import { React, observer } from '../../helpers/react';
+import Course from '../../models/course';
+import TourAnchor from '../../components/tours/anchor';
+import TutorLink from '../../components/link';
+import BrowseTheBook from '../../components/buttons/browse-the-book';
+import NoPeriods from '../../components/no-periods';
+import SidebarToggle from './sidebar-toggle';
 
-{ default: TourAnchor } = require '../../components/tours/anchor'
-TutorLink     = require '../../components/link'
-BrowseTheBook = require '../../components/buttons/browse-the-book'
-NoPeriods     = require '../../components/no-periods'
-SidebarToggle = require './sidebar-toggle'
-
-CourseCalendarHeader = React.createClass
-  displayName: 'CourseCalendarHeader'
-
-  propTypes:
-    hasPeriods: React.PropTypes.bool.isRequired
-    courseId: React.PropTypes.string.isRequired
-    onSidebarToggle: React.PropTypes.func.isRequired
-    defaultOpen: React.PropTypes.bool
-
-  render: ->
-    {courseId, hasPeriods, defaultOpen} = @props
-
-    <div className='calendar-header'>
-
-      {<NoPeriods
-        courseId={courseId}
-        noPanel={true}
-      /> unless hasPeriods}
-
+const CourseCalendarHeader = observer((props) => {
+  const { course, hasPeriods, defaultOpen } = props;
+  return (
+    <div className="calendar-header">
+      {!hasPeriods ? <NoPeriods courseId={course.id} noPanel={true} /> : undefined}
       <SidebarToggle
-        courseId={@props.courseId}
+        course={props.course}
         defaultOpen={defaultOpen}
-        onToggle={@props.onSidebarToggle}
-      />
-
-      <div className='calendar-header-actions-buttons'>
-
-        <BrowseTheBook bsStyle='default' courseId={courseId} />
-
+        onToggle={props.onSidebarToggle} />
+      <div className="calendar-header-actions-buttons">
+        <BrowseTheBook bsStyle="default" courseId={course.id} />
         <TourAnchor id="question-library-button">
-          <TutorLink
-            className='btn btn-default'
-            to='viewQuestionsLibrary'
-            params={{courseId}}
-          >
+          <TutorLink className="btn btn-default" to="viewQuestionsLibrary" params={{ courseId: course.id }}>
             Question Library
           </TutorLink>
         </TourAnchor>
-
         <TourAnchor id="performance-forecast-button">
-          <TutorLink
-            className='btn btn-default'
-            to='viewPerformanceGuide'
-            params={{courseId}}
-          >
+          <TutorLink className="btn btn-default" to="viewPerformanceGuide" params={{ courseId: course.id }}>
             Performance Forecast
           </TutorLink>
         </TourAnchor>
-
         <TourAnchor id="student-scores-button">
-          <TutorLink className='btn btn-default'
-            to='viewScores'
-            params={{courseId}}
-          >
+          <TutorLink className="btn btn-default" to="viewScores" params={{ courseId: course.id }}>
             Student Scores
           </TutorLink>
         </TourAnchor>
       </div>
-
     </div>
+  );
+});
+
+CourseCalendarHeader.displayName = 'CourseCalendarHeader';
+
+CourseCalendarHeader.propTypes = {
+  hasPeriods: React.PropTypes.bool.isRequired,
+  course: React.PropTypes.instanceOf(Course).isRequired,
+  onSidebarToggle: React.PropTypes.func.isRequired,
+  defaultOpen: React.PropTypes.bool,
+};
 
 
-module.exports = CourseCalendarHeader
+export default CourseCalendarHeader;
