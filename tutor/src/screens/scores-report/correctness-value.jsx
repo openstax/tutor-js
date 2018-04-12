@@ -25,12 +25,12 @@ const ReviewLink = ({ task, children }) => {
 
 const Progress = observer(({ task }) => {
   const progress = isNil(task.correct_exercise_count) ? '---' : TH.getHumanScoreNumber(task);
-  return <div className="correct progress">{progress}</div>;
+  return <div className="correct-progress">{progress}</div>;
 });
 
 const Percent = observer(({ task: { score } }) => {
   const display = isNil(score) ? '---' : `${asPercent(score)}%`;
-  return <div className="correct score">{display}</div>;
+  return <div className="correct-score">{display}</div>;
 });
 
 

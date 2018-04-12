@@ -50,10 +50,10 @@ describe('Student Scores Homework Cell', function() {
   it('renders dashes when no data', () => {
     props.task.correct_exercise_count = props.task.score = undefined;
     const cell = mount(<Cell {...props} />, EnzymeContext.build());
-    expect(cell).toHaveRendered('.correct.score');
+    expect(cell).toHaveRendered('.correct-score');
     expect(cell.text()).toContain('---');
     ux.displayValuesAs = 'number';
-    expect(cell).toHaveRendered('.correct.progress');
+    expect(cell).toHaveRendered('.correct-progress');
     expect(cell.text()).toContain('---');
   });
 
