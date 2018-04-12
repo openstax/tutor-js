@@ -10,6 +10,7 @@ import { TransitionAssistant } from '../components/unsaved-state';
 import { readBootstrapData } from '../helpers/dom';
 import { startAPI } from '../api';
 import User from './user';
+import Raven from './app/raven';
 import Courses from './courses-map';
 import Payments from './payments';
 import Hypothesis from './annotations/hypothesis';
@@ -32,6 +33,7 @@ export default class TutorApp {
   @observable osweb_base_url;
 
   boot() {
+    Raven.boot();
     startAPI();
     this.data = readBootstrapData();
     Notifications.on('tutor-update', this.onNotice);
@@ -58,6 +60,7 @@ export default class TutorApp {
     Chat.initialize();
     startMathJax();
     TransitionAssistant.startMonitoring();
+    Raven.setUser(User);
     return Promise.resolve(this);
   }
 
