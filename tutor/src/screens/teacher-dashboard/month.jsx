@@ -372,7 +372,7 @@ class CourseMonth extends React.Component {
            <TaskPlanMiniEditor
              planId={this.editingPlanId}
              position={this.editingPosition}
-             course={course}
+             courseId={course.id}
              termStart={termStart}
              termEnd={termEnd}
              onHide={this.onEditorHide}
