@@ -67,14 +67,13 @@ describe('Annotations', () => {
     expect(widget).toHaveRendered('.highlights-windowshade.up');
     annotations.ux.isSummaryVisible = true;
     expect(widget).toHaveRendered('.highlights-windowshade.down');
-    expect(keymaster.setScope).toHaveBeenCalled();
-    expect(keymaster).toHaveBeenCalledWith('esc', expect.any(String), expect.any(Function));
+    expect(keymaster).toHaveBeenCalledWith('esc', expect.any(Function));
     expect(annotations.ux.isSummaryVisible).toBe(true);
-    keymaster.mock.calls[0][2]();
+    keymaster.mock.calls[0][1]();
     expect(widget).toHaveRendered('.highlights-windowshade.up');
     expect(annotations.ux.isSummaryVisible).toBe(false);
     widget.unmount();
-    expect(keymaster.deleteScope).toHaveBeenCalled();
+    expect(keymaster.unbind).toHaveBeenCalledWith('esc', expect.any(Function));
   });
 
   it('sorts in model', () => {
