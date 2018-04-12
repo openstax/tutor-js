@@ -49,12 +49,16 @@ Factories.ecosystemsMap = ({ count = 4 } = {}) => {
   return map;
 };
 
-Factories.taskPlans = ({ course, count = 4, type = 'taskPlans' }) => {
-  course[type].onLoaded({
-    data: {
-      plans: range(count).map(() => FactoryBot.create('TeacherDashboardTask', { course })),
-    },
-  });
+Factories.pastTaskPlans = ({ course, count = 4 }) => {
+  course.pastTaskPlans.onLoaded({ data: {
+    items: range(count).map(() => FactoryBot.create('TeacherDashboardTask', { course })),
+  } });
+};
+
+Factories.taskPlans = ({ course, count = 4 }) => {
+  course.taskPlans.onLoaded({ data: {
+    plans: range(count).map(() => FactoryBot.create('TeacherDashboardTask', { course })),
+  } });
 };
 
 Factories.exercisesMap = ({ book, pageIds = [], count = 4 } = {}) => {

@@ -31,7 +31,7 @@ export default class PastAssignments extends React.Component {
 
   @action.bound onTaskHover(plan, ev) {
     this.tooltipTarget = ev.currentTarget;
-    this.hoveredPlan = null;
+    this.hoveredPlan = plan;
   }
 
   componentDidMount() {
@@ -66,24 +66,10 @@ export default class PastAssignments extends React.Component {
           target={this.tooltipTarget}
           placement="right">
           <Popover id="task-original-due-date">
-            Orig. due date
-            {TimeHelper.toHumanDate(TaskPlanHelper.earliestDueDate(this.hoveredPlan))}
+            Orig. due date {TimeHelper.toHumanDate(TaskPlanHelper.earliestDueDate(this.hoveredPlan))}
           </Popover>
         </Overlay>
       </div>
     );
   }
 }
-
-// export function PastAssignmentsShell(props) {
-//   const {courseId, className} = props;
-//   return (
-//     <LoadableItem
-//       id={courseId}
-//       store={PastTaskPlansStore}
-//       actions={PastTaskPlansActions}
-//       renderItem={() => <PastAssignments {...props} />}
-//       renderLoading={() => <PastAssignmentsLoading className={className} /> }
-//     />
-//   );
-// }

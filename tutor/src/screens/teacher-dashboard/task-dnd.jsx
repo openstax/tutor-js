@@ -1,4 +1,5 @@
 import { React, cn, observable, observer, action } from '../../helpers/react';
+import { toJS } from 'mobx';
 import { partial } from 'lodash';
 import { DragSource } from 'react-dnd';
 import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
@@ -37,9 +38,7 @@ const CloneTaskDrag = {
     if (!TaskPlanStore.isLoaded(plan.id) && !TaskPlanStore.isLoading(plan.id)) {
       TaskPlanActions.loaded(plan, plan.id);
     }
-    return (
-      plan
-    );
+    return { id: plan.id, type: plan.type };
   },
 
   endDrag(props, monitor) {

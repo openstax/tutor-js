@@ -10,7 +10,7 @@ describe('CourseCalendar Past Assignments listing', function() {
 
   beforeEach(function() {
     course = Factory.course({ is_teacher: true, cloned_from_id: 1 });
-    Factory.taskPlans({ course, type: 'pastTaskPlans' });
+    Factory.pastTaskPlans({ course });
     props = {
       course,
       cloningPlanId: '',
