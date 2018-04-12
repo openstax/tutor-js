@@ -147,7 +147,8 @@ class CourseMonth extends React.Component {
     const daysOfDuration = calendarDuration.iterate('days');
 
     while (daysOfDuration.hasNext()) {
-      mods.push(makeModForDate(daysOfDuration.next(), this.props.date, this.state));
+      // mods.push(makeModForDate(daysOfDuration.next(), this.props.date, this.state));
+      mods.push(makeModForDate(daysOfDuration.next(), this.props.date));
     }
 
     return mods;
@@ -231,7 +232,7 @@ class CourseMonth extends React.Component {
     return invoke(this.props.date, 'format', 'MMMM');
   };
 
-  onDrop = (item, offset) => {
+  @action.bound onDrop(item, offset) {
     const {termStart, termEnd} = this.props;
     if (!this.hoveredDay ||
       !this.hoveredDay.isBetween(termStart, termEnd, 'day', '[]') ||
@@ -243,18 +244,18 @@ class CourseMonth extends React.Component {
       this.context.router.history.push(url)
     } else { // is a task plan to clone
       this.cloningPlan = extend({}, item, {
-        due_at: this.state.hoveredDay,
+        due_at: this.hoveredDay,
         position: offset
       });
     }
-  };
+  }
 
   onCloneLoaded = (newPlanId) => {
     defer(() => { // give flux store time to update
       return extend(this, {
         editingPlanId: newPlanId,
-        cloningPlanId: this.state.cloningPlan.id,
-        editingPosition: this.state.cloningPlan.position,
+        cloningPlanId: this.cloningPlan.id,
+        editingPosition: this.cloningPlan.position,
         cloningPlan: undefined
       })
     });
@@ -262,7 +263,7 @@ class CourseMonth extends React.Component {
 
   getEditingPlanEl = () => {
     if (!this.editingPlanId) { return null; }
-    return ReactDOM.findDOMNode(this).querySelector(`.course-plan-${this.state.editingPlanId}`)
+    return ReactDOM.findDOMNode(this).querySelector(`.course-plan-${this.editingPlanId}`)
   };
 
   onDragHover = (day) => {
