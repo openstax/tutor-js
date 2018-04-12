@@ -38,9 +38,7 @@ const CloneTaskDrag = {
     if (!TaskPlanStore.isLoaded(plan.id) && !TaskPlanStore.isLoading(plan.id)) {
       TaskPlanActions.loaded(plan, plan.id);
     }
-    return (
-      toJS(plan)
-    );
+    return { id: plan.id, type: plan.type };
   },
 
   endDrag(props, monitor) {
