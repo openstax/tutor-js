@@ -151,8 +151,10 @@ $pie-color-due: #268FBE;
         fill: $pie-color-hover;
       }
       .pie-progress {
-        path,
-        circle {
+        path {
+          fill: $tutor-neutral;
+        }
+        #q4 circle {
           fill: $tutor-neutral;
         }
         &.due {

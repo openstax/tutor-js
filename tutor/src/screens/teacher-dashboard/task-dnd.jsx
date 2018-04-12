@@ -78,7 +78,7 @@ const AddAssignmentLink = DragSource(ItemTypes.NewTask, NewTaskDrag, DragInjecto
       <GrabbyDots />
       <a
         href={props.link.pathname}
-        onClick={props.goToBuilder(props.link)}
+        onClick={props.goToBuilder}
         draggable="false">
         {props.link.text}
       </a>
