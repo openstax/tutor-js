@@ -17,8 +17,8 @@ export default class CoursePastTaskPlans extends Map {
     if (!this.course.isCloned) { return 'ABORT'; }
     return { id: this.course.cloned_from_id };
   }
-  onLoaded({ data: { plans } }) {
-    plans.forEach(plan => {
+  onLoaded({ data: { items } }) {
+    items.forEach(plan => {
       const tp = this.get(plan.id);
       tp ? tp.update(plan) : this.set(plan.id, new TaskPlan(plan));
     });

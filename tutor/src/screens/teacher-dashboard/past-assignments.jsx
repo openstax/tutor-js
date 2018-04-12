@@ -74,16 +74,3 @@ export default class PastAssignments extends React.Component {
     );
   }
 }
-
-// export function PastAssignmentsShell(props) {
-//   const {courseId, className} = props;
-//   return (
-//     <LoadableItem
-//       id={courseId}
-//       store={PastTaskPlansStore}
-//       actions={PastTaskPlansActions}
-//       renderItem={() => <PastAssignments {...props} />}
-//       renderLoading={() => <PastAssignmentsLoading className={className} /> }
-//     />
-//   );
-// }
