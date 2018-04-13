@@ -28,12 +28,11 @@ export default class AssignmentCell extends React.PureComponent {
       headings: ux.period.data_headings,
     });
 
-    switch (props.task ? props.task.type : 'null') {
-    case 'null': return <AbsentCell key="absent" {...props} />;
+    switch (props.task.type) {
     case 'external': return <ExternalCell key="extern" {...props} />;
     case 'reading': return <ReadingCell key="reading" {...props} />;
     case 'homework': return <HomeworkCell key="homework" {...props} />;
-    default: return <ConceptCoachCell key="concept_coach" {...props} />;
+    default: return <AbsentCell key="absent" {...props} />;
     }
   }
 }

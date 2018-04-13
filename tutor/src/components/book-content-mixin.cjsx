@@ -179,6 +179,7 @@ ReadingContentMixin =
     {courseId} = Router.currentParams()
     return unless courseId
     {webview_url} = Courses.get(courseId)
+    return unless webview_url
     baseWebviewUrl = _.first(webview_url.split('/contents/'))
 
     # webview actually links to webview_url as it's canonical url.

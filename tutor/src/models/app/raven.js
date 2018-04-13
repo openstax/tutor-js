@@ -23,7 +23,7 @@ const RavenErrorLogging = {
 
   setUser(user) {
     Raven.setUserContext({
-      id: user.accounts_uuid,
+      id: user.account_uuid,
     });
   },
 
