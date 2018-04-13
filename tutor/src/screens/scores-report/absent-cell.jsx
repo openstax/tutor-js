@@ -16,7 +16,7 @@ export default class AbsentCell extends React.PureComponent {
   render() {
     const columnType = this.findTypeFromColumn();
 
-    if ((columnType === 'reading') || (columnType === 'external')) {
+    if (columnType === 'external') {
       return (
         <div className="scores-cell">
           <div className="worked not-started wide">
