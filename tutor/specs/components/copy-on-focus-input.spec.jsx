@@ -14,9 +14,8 @@ describe('CopyOnFocusInput', () => {
     };
   });
 
-  it('renders and copys when focused', async () => {
+  it('renders and copys when focused', () => {
     const wrapper = mount(<CopyOnFocusInput {...props} />);
-    expect(await axe(wrapper.html())).toHaveNoViolations();
     expect(Clipboard.copy).not.toHaveBeenCalled();
     wrapper.simulate('focus');
     expect(Clipboard.copy).toHaveBeenCalled();

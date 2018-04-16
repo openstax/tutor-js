@@ -13,200 +13,64 @@ exports[`CreateCourse: entering details matches snapshot 1`] = `
   <div
     className="course-details-sections form-group"
   >
-    <span
-      className="input-group"
+    <label
+      className="control-label"
+      htmlFor={undefined}
     >
       <span
-        className="input-group-addon"
+        className="input-group"
       >
-        Number of sections
-        <p
-          className="course-details-explain"
+        <span
+          className="input-group-addon"
         >
-          in this course
-        </p>
+          Number of sections
+          <p
+            className="course-details-explain"
+          >
+            in this course
+          </p>
+        </span>
+        <input
+          className="form-control"
+          defaultValue={1}
+          id={undefined}
+          min="1"
+          onChange={[Function]}
+          type="number"
+        />
       </span>
-      <input
-        className="form-control"
-        defaultValue={1}
-        id={undefined}
-        min="1"
-        onChange={[Function]}
-        type="number"
-      />
-    </span>
+    </label>
   </div>
   <div
     className="course-details-numbers form-group"
   >
-    <span
-      className="input-group"
+    <label
+      className="control-label"
+      htmlFor={undefined}
     >
       <span
-        className="input-group-addon"
+        className="input-group"
       >
-        Estimated number of students
-        <p
-          className="course-details-explain"
+        <span
+          className="input-group-addon"
         >
-          in this course
-        </p>
+          Estimated number of students
+          <p
+            className="course-details-explain"
+          >
+            in this course
+          </p>
+        </span>
+        <input
+          className="form-control"
+          id={undefined}
+          min="1"
+          onChange={[Function]}
+          type="number"
+          value=""
+        />
       </span>
-      <input
-        className="form-control"
-        id={undefined}
-        min="1"
-        onChange={[Function]}
-        type="number"
-        value=""
-      />
-    </span>
-  </div>
-</form>
-`;
-
-exports[`CreateCourse: entering details updates values when edited 1`] = `
-<form
-  className=""
->
-  <i
-    className="tutor-icon best-practices"
-  />
-  <p>
-    If you teach multiple sections of the same course, include all sections below. You can add or remove sections later.
-  </p>
-  <div
-    className="course-details-sections form-group"
-  >
-    <span
-      className="input-group"
-    >
-      <span
-        className="input-group-addon"
-      >
-        Number of sections
-        <p
-          className="course-details-explain"
-        >
-          in this course
-        </p>
-      </span>
-      <input
-        className="form-control"
-        defaultValue={1}
-        id={undefined}
-        min="1"
-        onChange={[Function]}
-        type="number"
-      />
-    </span>
-  </div>
-  <div
-    className="course-details-numbers form-group"
-  >
-    <span
-      className="input-group"
-    >
-      <span
-        className="input-group-addon"
-      >
-        Estimated number of students
-        <p
-          className="course-details-explain"
-        >
-          in this course
-        </p>
-      </span>
-      <input
-        className="form-control"
-        id={undefined}
-        min="1"
-        onChange={[Function]}
-        type="number"
-        value={3}
-      />
-    </span>
-  </div>
-  <div
-    className="alert alert-danger"
-    role="alert"
-  >
-    More than 
-    10
-     
-    sections
-     is not supported. Need more? 
-    <a
-      href="mailto:support@openstax.org"
-    >
-      Contact Support
-    </a>
-     for help.
-  </div>
-</form>
-`;
-
-exports[`CreateCourse: entering details updates values when edited 2`] = `
-<form
-  className=""
->
-  <i
-    className="tutor-icon best-practices"
-  />
-  <p>
-    If you teach multiple sections of the same course, include all sections below. You can add or remove sections later.
-  </p>
-  <div
-    className="course-details-sections form-group"
-  >
-    <span
-      className="input-group"
-    >
-      <span
-        className="input-group-addon"
-      >
-        Number of sections
-        <p
-          className="course-details-explain"
-        >
-          in this course
-        </p>
-      </span>
-      <input
-        className="form-control"
-        defaultValue={3}
-        id={undefined}
-        min="1"
-        onChange={[Function]}
-        type="number"
-      />
-    </span>
-  </div>
-  <div
-    className="course-details-numbers form-group"
-  >
-    <span
-      className="input-group"
-    >
-      <span
-        className="input-group-addon"
-      >
-        Estimated number of students
-        <p
-          className="course-details-explain"
-        >
-          in this course
-        </p>
-      </span>
-      <input
-        className="form-control"
-        id={undefined}
-        min="1"
-        onChange={[Function]}
-        type="number"
-        value={3}
-      />
-    </span>
+    </label>
   </div>
 </form>
 `;

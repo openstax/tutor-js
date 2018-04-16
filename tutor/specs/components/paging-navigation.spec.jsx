@@ -3,7 +3,6 @@ import keymaster from 'keymaster';
 import Nav from '../../src/components/paging-navigation';
 
 jest.mock('keymaster');
-jest.useFakeTimers();
 
 function TestComponent() {
   return <h1>Imma child</h1>;
@@ -31,6 +30,7 @@ describe('Paging Navigation', () => {
   });
 
   it('binds / unbinds on mount/unmount', () => {
+    jest.useFakeTimers();
     const nav = shallow(<Nav {...props}><TestComponent /></Nav>);
     jest.runAllTimers();
     expect(keymaster).toHaveBeenCalledTimes(2);
@@ -51,9 +51,14 @@ describe('Paging Navigation', () => {
     expect(SnapShot.create(<Nav {...props}><TestComponent /></Nav>).toJSON()).toMatchSnapshot();
   });
 
-  it('sets titles', async () => {
-    const wrapper = shallow(<Nav {...props}><TestComponent /></Nav>);
+  it('is accessibile', async () => {
+    jest.useRealTimers();
+    const wrapper = mount(<Nav {...props}><TestComponent /></Nav>);
     expect(await axe(wrapper.html())).toHaveNoViolations();
+  });
+
+  it('sets titles', () => {
+    const wrapper = shallow(<Nav {...props}><TestComponent /></Nav>);
     expect(props.documentImpl.title).toEqual('Set From Nav');
     expect(wrapper).toHaveRendered(`a.next[title="${props.titles.next}"]`);
     expect(wrapper).toHaveRendered(`a.prev[title="${props.titles.previous}"]`);

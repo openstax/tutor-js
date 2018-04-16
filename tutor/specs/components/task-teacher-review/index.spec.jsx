@@ -33,9 +33,8 @@ describe('Task Teacher Review', () => {
     };
   });
 
-  it('renders and matches snapshot', async () => {
+  it('renders and matches snapshot', () => {
     const wrapper = mount(<TaskTeacherReview {...props} />, EnzymeContext.build());
-    expect(await axe(wrapper.html())).toHaveNoViolations();
     expect(wrapper).toHaveRendered('Stats');
     expect(wrapper).toHaveRendered('Review');
     expect(wrapper).toHaveRendered('Breadcrumbs');

@@ -32,17 +32,15 @@ describe('Concept Coach Dashboard Shell', function() {
     defer(done);
   });
 
-  it('displays the help page when there are no periods', async function() {
+  it('displays the help page when there are no periods', function() {
     Router.currentParams.mockReturnValue({ courseId: IDS.BLANK });
     const wrapper = mount(<DashboardShell />, Context.build());
-    expect(await axe(wrapper.html())).toHaveNoViolations();
     expect(wrapper).toHaveRendered('.cc-dashboard-help');
   });
 
-  it('renders dashboard when there are periods', async function() {
+  it('renders dashboard when there are periods', function() {
     Router.currentParams.mockReturnValue({ courseId: IDS.BASE });
     const wrapper = mount(<DashboardShell />, Context.build());
-    expect(await axe(wrapper.html())).toHaveNoViolations();
     expect(wrapper).toHaveRendered('.cc-dashboard');
     expect(wrapper).not.toHaveRendered('.cc-dashboard-help');
   });
