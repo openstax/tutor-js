@@ -26,7 +26,7 @@ import TeacherTaskPlans from './course/task-plans';
 import PastTaskPlans from './course/past-task-plans';
 
 import ReferenceBook from './reference-book';
-import PerformanceForecast from './course/performance';
+import { CoursePerformanceTeacher, CoursePerformanceStudent } from './course/performance';
 
 const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
 const DASHBOARD_VIEW_COUNT_KEY = 'DBVC';
@@ -125,7 +125,8 @@ export default class Course extends BaseModel {
   @lazyGetter lms = new LMS({ course: this });
   @lazyGetter roster = new Roster({ course: this });
   @lazyGetter scores = new Scores({ course: this });
-  @lazyGetter performance = new PerformanceForecast({ course: this });
+  @lazyGetter performance = new CoursePerformanceTeacher({ course: this });
+  @lazyGetter studentPerformance = new CoursePerformanceStudent({ course: this });
   @lazyGetter referenceBook = new ReferenceBook({ id: this.ecosystem_id });
   @lazyGetter taskPlans = new TeacherTaskPlans({ course: this });
   @lazyGetter pastTaskPlans = new PastTaskPlans({ course: this });

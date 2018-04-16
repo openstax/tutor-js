@@ -53,7 +53,7 @@ PerformanceForecast = require '../flux/performance-forecast'
 { default: CourseRoster } = require '../models/course/roster'
 { default: CourseLMS } = require '../models/course/lms'
 { default: CourseScores } = require '../models/course/scores'
-{ default: CoursePerformance } = require '../models/course/performance'
+{ CoursePerformanceTeacher, CoursePerformanceStudent } = require '../models/course/performance'
 { default: ScoresExport } = require '../models/jobs/scores-export'
 { default: TaskPlanPublish } = require '../models/jobs/task-plan-publish'
 { default: LmsPushScores } = require '../models/jobs/lms-score-push'
@@ -131,7 +131,8 @@ startAPI = ->
 
 
   connectModelRead(Exercises.constructor, 'fetch', onSuccess: 'onLoaded')
-  connectModelRead(CoursePerformance, 'fetch', onSuccess: 'onFetchComplete')
+  connectModelRead(CoursePerformanceTeacher, 'fetch', onSuccess: 'onLoaded')
+  connectModelRead(CoursePerformanceStudent, 'fetch', onSuccess: 'onLoaded')
 
   connectModelRead(Ecosystems.constructor, 'fetch', onSuccess: 'onLoaded', url: 'ecosystems')
 
