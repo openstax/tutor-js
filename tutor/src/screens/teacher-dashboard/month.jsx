@@ -156,7 +156,7 @@ class CourseMonth extends React.Component {
 
   componentDidUpdate() {
     if (this.refs.courseDurations != null) {
-      this.setDayHeight(this.refs.courseDurations.state.ranges);
+      this.setDayHeight(this.refs.courseDurations.ranges);
     }
   }
 
