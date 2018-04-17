@@ -61,6 +61,7 @@
     "invariant": "2.2.2",
     "jest-changed-files": "^22.4.3",
     "jest-cli": "22.4.3",
+    "jest-axe": "^2.1.4",
     "keymaster": "1.6.2",
     "loadjs": "3.5.0",
     "lodash": "4.17.4",

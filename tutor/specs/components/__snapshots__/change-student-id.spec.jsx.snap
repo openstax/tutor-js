@@ -29,24 +29,29 @@ exports[`Change Student ID renders and matches snapshot for various states 1`] =
             Update your student ID
           </h3>
         </div>
-        <div
-          className="sub-title"
+        <label
+          className="id-number-body control-label"
+          htmlFor={undefined}
         >
-          Enter your school-issued student ID number *
-        </div>
-        <div
-          className="inputs"
-        >
-          <span
-            className="student-id-icon"
-          />
-          <input
-            autoFocus={true}
-            defaultValue="1234"
-            onKeyUp={[Function]}
-            placeholder="School issued ID"
-          />
-        </div>
+          <div
+            className="sub-title"
+          >
+            Enter your school-issued student ID number *
+          </div>
+          <div
+            className="inputs"
+          >
+            <span
+              className="student-id-icon"
+            />
+            <input
+              autoFocus={true}
+              defaultValue="1234"
+              onKeyUp={[Function]}
+              placeholder="School issued ID"
+            />
+          </div>
+        </label>
         <div
           className="required"
         >

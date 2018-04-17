@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
 import { isEmpty } from 'lodash';
-import { Alert, Form, FormControl, FormGroup, InputGroup } from 'react-bootstrap';
+import { Alert, Form, FormControl, FormGroup, InputGroup, ControlLabel } from 'react-bootstrap';
 import UserMenu from '../../models/user/menu';
 import BuilderUX from '../../models/course/builder-ux';
 import BestPracticesIcon from '../icons/best-practices';
@@ -49,31 +49,36 @@ export default class CourseNumbers extends React.PureComponent {
         </p>
 
         <FormGroup className="course-details-sections">
-          <InputGroup>
-            <InputGroup.Addon>
-              Number of sections
-              <p className="course-details-explain">in this course</p>
-            </InputGroup.Addon>
-            <FormControl
-              type="number"
-              min="1"
-              defaultValue={newCourse.num_sections}
-              onChange={this.updateSectionCount} />
-          </InputGroup>
+          <ControlLabel>
+            <InputGroup>
+              <InputGroup.Addon>
+                Number of sections
+                <p className="course-details-explain">in this course</p>
+
+              </InputGroup.Addon>
+              <FormControl
+                type="number"
+                min="1"
+                defaultValue={newCourse.num_sections}
+                onChange={this.updateSectionCount} />
+            </InputGroup>
+          </ControlLabel>
         </FormGroup>
 
         <FormGroup className="course-details-numbers">
-          <InputGroup>
-            <InputGroup.Addon>
-              Estimated number of students
-              <p className="course-details-explain">in this course</p>
-            </InputGroup.Addon>
-            <FormControl
-              type="number"
-              min="1"
-              value={newCourse.estimated_student_count || ''}
-              onChange={this.updateStudentCount} />
-          </InputGroup>
+          <ControlLabel>
+            <InputGroup>
+              <InputGroup.Addon>
+                Estimated number of students
+                <p className="course-details-explain">in this course</p>
+              </InputGroup.Addon>
+              <FormControl
+                type="number"
+                min="1"
+                value={newCourse.estimated_student_count || ''}
+                onChange={this.updateStudentCount} />
+            </InputGroup>
+          </ControlLabel>
         </FormGroup>
 
         {this.renderErrors()}

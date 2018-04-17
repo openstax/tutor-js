@@ -20,16 +20,18 @@ describe('Preview Only Warning', () => {
     ).toMatchSnapshot();
   });
 
-  it('dismisses on continue', () => {
-    const warning = shallow(<PreviewOnlyWarning ux={ux} />);
-    warning.find('Button[bsStyle="default"]').simulate('click');
+  it('dismisses on continue', async () => {
+    const wrapper = shallow(<PreviewOnlyWarning ux={ux} />);
+    expect(await axe(wrapper.html())).toHaveNoViolations();
+    wrapper.find('Button[bsStyle="default"]').simulate('click');
     expect(ux.hasViewedPublishWarning).toHaveBeenCalled();
   });
 
-  it('navigates on add', () => {
+  it('navigates on add', async () => {
     const context =  EnzymeContext.build();
-    const warning = shallow(<PreviewOnlyWarning ux={ux} />, context);
-    warning.find('Button[bsStyle="primary"]').simulate('click');
+    const wrapper = shallow(<PreviewOnlyWarning ux={ux} />, context);
+    expect(await axe(wrapper.html())).toHaveNoViolations();
+    wrapper.find('Button[bsStyle="primary"]').simulate('click');
     expect(context.context.router.history.push).toHaveBeenCalledWith('/dashboard');
   });
 

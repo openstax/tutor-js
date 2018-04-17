@@ -107,10 +107,12 @@ export default class CourseSettings extends React.PureComponent {
     const isSelected = index === this.activeIndex;
 
     return (
-      <li key={index} className={classnames({ active: isSelected })}>
+      <li key={index} className={classnames({ active: isSelected })}
+        aria-selected={isSelected != null ? isSelected : { 'true': 'false' }}
+        role="tab"
+      >
         <a
           href="#"
-          aria-selected={isSelected != null ? isSelected : { 'true': 'false' }}
           onClick={partial(this.onTabClick, index)}>
           <h2>
             {tab}
@@ -123,7 +125,7 @@ export default class CourseSettings extends React.PureComponent {
   render() {
     return (
       <nav className={classnames('tutor-tabs', this.props.className)}>
-        <ul className="nav nav-tabs">
+        <ul className="nav nav-tabs" role="tablist">
           {map(this.props.tabs, this.renderTab)}
         </ul>
         {this.props.children}

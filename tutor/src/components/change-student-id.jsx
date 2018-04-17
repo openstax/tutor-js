@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { action, observable } from 'mobx';
 import { isEmpty } from 'lodash';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, ControlLabel } from 'react-bootstrap';
 import Courses from '../models/courses-map';
 import { AsyncButton } from 'shared';
 import Router from '../helpers/router';
@@ -85,17 +85,20 @@ export default class ChangeStudentId extends React.PureComponent {
           <div className="title">
             <h3>Update your student ID</h3>
           </div>
-          <div className="sub-title">Enter your school-issued student ID number *</div>
-          <div className="inputs">
-            <span className="student-id-icon"></span>
-            <input
-              autoFocus
-              onKeyUp={this.checkValidity}
-              ref={i => (this.input = i)}
-              placeholder='School issued ID'
-              defaultValue={this.student.student_identifier}
-            />
-          </div>
+          <ControlLabel className="id-number-body">
+            <div className="sub-title">Enter your school-issued student ID number *</div>
+            <div className="inputs">
+
+              <span className="student-id-icon"></span>
+              <input
+                autoFocus
+                onKeyUp={this.checkValidity}
+                ref={i => (this.input = i)}
+                placeholder='School issued ID'
+                defaultValue={this.student.student_identifier}
+              />
+            </div>
+          </ControlLabel>
           {this.isValid ? null : this.renderWarning()}
           <div className="required">* required for course credit</div>
         </Modal.Body>

@@ -9,8 +9,9 @@ import NewCourse from '../../../src/components/new-course';
 
 describe('NewCourse wrapper', function() {
 
-  it('loads offerings when created', function() {
+  it('loads offerings when created', async function() {
     const wrapper = shallow(<NewCourse />);
+    expect(await axe(wrapper.html())).toHaveNoViolations();
     expect(wrapper.instance().loader.constructor)
       .toHaveBeenCalledWith(expect.objectContaining({ fetch: true }));
   });

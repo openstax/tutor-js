@@ -15,7 +15,6 @@ import SectionProgress from '../../../src/components/cc-dashboard/section-progre
 import SectionPerformance from '../../../src/components/cc-dashboard/section-performance';
 import PeriodHelper from '../../../src/helpers/period';
 
-
 const COURSE_ID = '0';
 const BLANK_PERIOD = 0;
 const ACTIVE_PERIOD = 1;
@@ -61,11 +60,11 @@ describe('Concept Coach Dashboard', function() {
       const chapters = CCDashboardStore.chaptersForDisplay(COURSE_ID,
         BaseModel.course.periods[ACTIVE_PERIOD].id
       );
-      each(chapters, (chapter) => {
+      for(const chapter of chapters) {
         const wrapper = shallow(<Chapter {...props} chapter={chapter} />);
         Array.from(chapter.valid_sections).map((section) =>
           expect(wrapper).toHaveRendered(`Section[id=\"${section.id}\"]`));
-      });
+      }
     })
   );
 

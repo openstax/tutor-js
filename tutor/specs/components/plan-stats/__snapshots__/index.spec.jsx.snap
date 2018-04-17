@@ -13,12 +13,14 @@ exports[`TaskPlan stats progress bar deals with missing stats for a period 1`] =
     >
       <ul
         className="nav nav-tabs"
+        role="tablist"
       >
         <li
+          aria-selected={true}
           className="active"
+          role="tab"
         >
           <a
-            aria-selected={true}
             href="#"
             onClick={[Function]}
           >
@@ -41,10 +43,11 @@ exports[`TaskPlan stats progress bar deals with missing stats for a period 1`] =
           </a>
         </li>
         <li
+          aria-selected={false}
           className=""
+          role="tab"
         >
           <a
-            aria-selected={false}
             href="#"
             onClick={[Function]}
           >
@@ -67,10 +70,11 @@ exports[`TaskPlan stats progress bar deals with missing stats for a period 1`] =
           </a>
         </li>
         <li
+          aria-selected={false}
           className=""
+          role="tab"
         >
           <a
-            aria-selected={false}
             href="#"
             onClick={[Function]}
           >
@@ -93,10 +97,11 @@ exports[`TaskPlan stats progress bar deals with missing stats for a period 1`] =
           </a>
         </li>
         <li
+          aria-selected={false}
           className=""
+          role="tab"
         >
           <a
-            aria-selected={false}
             href="#"
             onClick={[Function]}
           >
@@ -187,12 +192,14 @@ exports[`TaskPlan stats progress bar matches snapshot 1`] = `
     >
       <ul
         className="nav nav-tabs"
+        role="tablist"
       >
         <li
+          aria-selected={true}
           className="active"
+          role="tab"
         >
           <a
-            aria-selected={true}
             href="#"
             onClick={[Function]}
           >
@@ -215,10 +222,11 @@ exports[`TaskPlan stats progress bar matches snapshot 1`] = `
           </a>
         </li>
         <li
+          aria-selected={false}
           className=""
+          role="tab"
         >
           <a
-            aria-selected={false}
             href="#"
             onClick={[Function]}
           >
@@ -241,10 +249,11 @@ exports[`TaskPlan stats progress bar matches snapshot 1`] = `
           </a>
         </li>
         <li
+          aria-selected={false}
           className=""
+          role="tab"
         >
           <a
-            aria-selected={false}
             href="#"
             onClick={[Function]}
           >

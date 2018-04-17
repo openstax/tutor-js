@@ -14,6 +14,7 @@ module.exports = {
     "shallow":    false,
     "mount":      false,
     "console":    false,
-    "jest":       false
+    "jest":       false,
+    "axe":        false,
   },
 };

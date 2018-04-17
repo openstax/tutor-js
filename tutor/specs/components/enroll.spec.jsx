@@ -27,11 +27,12 @@ describe('Student Enrollment', () => {
     Router.makePathname = jest.fn((name) => name);
   });
 
-  it('loads when mounted', () => {
+  it('loads when mounted', async () => {
     enrollment.isLoadingCourses = true;
-    const enroll = mount(<Enroll enrollment={enrollment} />);
+    const wrapper = mount(<Enroll enrollment={enrollment} />);
+    expect(await axe(wrapper.html())).toHaveNoViolations();
     expect(enrollment.create).toHaveBeenCalled();
-    expect(enroll).toHaveRendered('OXFancyLoader');
+    expect(wrapper).toHaveRendered('OXFancyLoader');
     expect(SnapShot.create(<Enroll enrollment={enrollment} />).toJSON()).toMatchSnapshot();
   });
 

@@ -25,11 +25,11 @@ describe('Course Use Tips', () => {
     ).toMatchSnapshot();
   });
 
-  it('has link to help', () => {
-    const tips = shallow(<CourseUseTips {...props} />, EnzymeContext.build());
-    expect(tips).toHaveRendered('a.best-practices');
+  it('has link to help', async () => {
+    const wrapper = shallow(<CourseUseTips {...props} />, EnzymeContext.build());
+    expect(wrapper).toHaveRendered('a.best-practices');
     course.appearance_code = 'gibberish';
-    expect(tips).not.toHaveRendered('a.best-practices');
+    expect(wrapper).not.toHaveRendered('a.best-practices');
   });
 
   it('dismisses on btn click', () => {

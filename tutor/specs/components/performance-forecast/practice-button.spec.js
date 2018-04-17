@@ -27,7 +27,10 @@ describe('Learning Guide Practice Button', function() {
   it('can be rendered and sets the name', () =>
     Testing.renderComponent( Button,
       { props: { courseId: COURSE_ID, title: 'Practice moar' } }
-    ).then(({ dom }) => expect(dom.textContent).to.equal('Practice moar'))
+    ).then(async ({ dom }) => {
+      expect(await axe(dom.outerHTML)).toHaveNoViolations();
+      expect(dom.textContent).to.equal('Practice moar')
+    })
   );
 
 });

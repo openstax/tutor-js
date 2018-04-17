@@ -17,9 +17,10 @@ describe('Task Teacher Review', () => {
     props = { exercise };
   });
 
-  it('renders exercise', () => {
-    const ex = mount(<Exercise {...props} />);
-    expect(ex).toHaveRendered('Question');
+  it('renders exercise', async () => {
+    const wrapper = mount(<Exercise {...props} />);
+    expect(await axe(wrapper.html())).toHaveNoViolations();
+    expect(wrapper).toHaveRendered('Question');
   });
 
 });

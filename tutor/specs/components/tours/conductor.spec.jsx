@@ -16,8 +16,9 @@ describe('Tour Conductor', () => {
     };
   });
 
-  it('replays tours when spy mode is triggered', () => {
-    mount(<TourConductor {...props}><span>Hi</span></TourConductor>);
+  it('replays tours when spy mode is triggered', async () => {
+    const wrapper = mount(<TourConductor {...props}><span>Hi</span></TourConductor>);
+    expect(await axe(wrapper.html())).toHaveNoViolations();
     spyMode.isEnabled = true;
     expect(User.resetTours).toHaveBeenCalled();
   });

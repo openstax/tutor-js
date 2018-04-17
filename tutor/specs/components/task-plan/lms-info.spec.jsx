@@ -28,16 +28,18 @@ describe('LmsInfo Component', function() {
     };
   });
 
-  it('renders NO LINK when preview course', () => {
+  it('renders NO LINK when preview course', async () => {
     courses.get(props.courseId).is_preview = true;
-    const info = mount(<LmsInfo {...props} />);
-    expect(info).toHaveRendered('.lms-info.preview');
+    const wrapper = mount(<LmsInfo {...props} />);
+    expect(await axe(wrapper.html())).toHaveNoViolations();
+    expect(wrapper).toHaveRendered('.lms-info.preview');
   });
 
-  it('renders with message even when there is no url', function() {
+  it('renders with message even when there is no url', async function() {
     props.plan.analytics.shareable_url = '';
-    const info = mount(<LmsInfo {...props} />);
-    expect(info.html()).not.toBeNull();
+    const wrapper = mount(<LmsInfo {...props} />);
+    expect(await axe(wrapper.html())).toHaveNoViolations();
+    expect(wrapper.html()).not.toBeNull();
   });
 
   it('matches snapshot', () => {

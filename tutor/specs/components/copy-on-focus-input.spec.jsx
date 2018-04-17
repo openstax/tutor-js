@@ -15,9 +15,9 @@ describe('CopyOnFocusInput', () => {
   });
 
   it('renders and copys when focused', () => {
-    const input = mount(<CopyOnFocusInput {...props} />);
+    const wrapper = mount(<CopyOnFocusInput {...props} />);
     expect(Clipboard.copy).not.toHaveBeenCalled();
-    input.simulate('focus');
+    wrapper.simulate('focus');
     expect(Clipboard.copy).toHaveBeenCalled();
   });
 
