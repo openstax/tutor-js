@@ -4,5 +4,7 @@ a,
   &:hover {
     color: text-color(link-hover);
   }
-  &[target=_blank] { @include tutor-external-link-indicator(); }
+  &.external-icon {
+    &[target=_blank] { @include tutor-external-link-indicator(); }
+  }
 }

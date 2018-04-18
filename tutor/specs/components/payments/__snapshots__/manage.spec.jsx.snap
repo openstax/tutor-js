@@ -368,7 +368,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
     >
       Need help?
       <a
-        className={undefined}
+        className=""
         href="/foo"
         onClick={[Function]}
         tabIndex={0}
@@ -421,7 +421,7 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
     >
       Need help?
       <a
-        className={undefined}
+        className=""
         href="/foo"
         onClick={[Function]}
         tabIndex={0}
