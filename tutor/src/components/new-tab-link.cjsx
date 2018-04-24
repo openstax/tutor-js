@@ -1,6 +1,7 @@
 React = require 'react'
 _ = require 'underscore'
 TutorLink = require './link'
+cn = require 'classnames'
 
 NewTabLink = React.createClass
   displayName: 'NewTabLink'
@@ -19,12 +20,18 @@ NewTabLink = React.createClass
     query:    React.PropTypes.object
     target:   React.PropTypes.string
     tabIndex: React.PropTypes.number
+    externalStyle: React.PropTypes.bool
 
   render: ->
-    {children} = @props
+    {children, className } = @props
 
     linkProps = _.omit(@props, 'children')
 
-    <TutorLink {...linkProps}>{children}</TutorLink>
+    <TutorLink
+      {...linkProps}
+      className={cn(className, 'external-icon': @props.externalStyle)}
+    >
+      {children}
+    </TutorLink>
 
 module.exports = NewTabLink
