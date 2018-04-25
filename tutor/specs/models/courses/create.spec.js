@@ -48,4 +48,14 @@ describe('Course Builder UX Model', () => {
     expect(creator.error).toEqual({ attribute: 'sections', value: 10 });
   });
 
+  it('identifies future bio2e', () => {
+    expect(creator.isFutureBio2e).toBe(false);
+    Offerings.get.mockImplementation(() => ({
+      appearance_code: 'biology',
+    }));
+    expect(creator.isFutureBio2e).toBe(false);
+    Object.assign(creator.term, { term: 'winter', year: 2018 });
+    expect(creator.isFutureBio2e).toBe(true);
+  });
+
 });

@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy,
 } from 'shared/model';
 import {
-  filter, result, isEmpty, pick, values, every,
+  filter, result, isEmpty, pick, values, every, get,
 } from 'lodash';
 import { readonly } from 'core-decorators';
 import { when, observable, computed, action, observe } from 'mobx';
@@ -75,6 +75,10 @@ export default class CourseBuilderUX extends BaseModel {
 
   @action.bound goBackward() {
     this.currentStageIndex -= 1;
+    // reset new course state to initial
+    if(this.currentStageIndex == 0) {
+      this.newCourse = new CreateCourse();
+    }
     while (this.shouldSkip) {
       this.currentStageIndex -= 1;
     }
@@ -85,11 +89,18 @@ export default class CourseBuilderUX extends BaseModel {
   }
 
   @computed get stage() {
+    if (this.currentStageIndex > 1 && this.newCourse.isFutureBio2e) {
+      return 'bio2e_unavail';
+    }
     return this.stages[this.currentStageIndex];
   }
 
   @computed get firstStageIndex() {
     return this.canSkipOffering ? 1 : 0;
+  }
+
+  @computed get isBuilding() {
+    return this.stage === 'build';
   }
 
   @computed get offering() {

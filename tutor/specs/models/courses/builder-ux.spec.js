@@ -119,6 +119,19 @@ describe('Course Builder UX Model', () => {
     expect(ux.router.history.push).toHaveBeenCalledWith('/dashboard');
   });
 
+  it('shows unavailable message for future bio', () => {
+    ux = new CourseBuilderUX();
+    Offerings.get.mockImplementation(() => ({ appearance_code: 'college_biology' }));
+    ux.goForward();
+    ux.newCourse.term = { term: 'winter', year: 2018 };
+    ux.goForward();
+    expect(ux.stage).toEqual('bio2e_unavail');
+    ux.goBackward();
+    ux.newCourse.term.term = 'spring';
+    ux.goForward();
+    expect(ux.stage).toEqual('new_or_copy');
+  });
+
   describe('after course is created', function() {
     beforeEach(() => {
       ux.router = { history: { push: jest.fn() } };
@@ -140,6 +153,7 @@ describe('Course Builder UX Model', () => {
       ux.currentStageIndex = ux.stages.length - 1;
       expect(ux.router.history.push).toHaveBeenCalledWith('/course/42/cc/help?showIntro=true');
     });
+
   });
 
 });

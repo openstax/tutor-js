@@ -7,7 +7,9 @@ exports[`CreateCourse: entering details matches snapshot 1`] = `
   <i
     className="tutor-icon best-practices"
   />
-  <p>
+  <p
+    className="explain"
+  >
     If you teach multiple sections of the same course, include all sections below. You can add or remove sections later.
   </p>
   <div
@@ -63,11 +65,11 @@ exports[`CreateCourse: entering details matches snapshot 1`] = `
         </span>
         <input
           className="form-control"
+          defaultValue=""
           id={undefined}
           min="1"
           onChange={[Function]}
           type="number"
-          value=""
         />
       </span>
     </label>

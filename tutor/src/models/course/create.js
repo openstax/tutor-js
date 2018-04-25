@@ -90,4 +90,12 @@ export default class CourseCreate extends BaseModel {
     this.createdCourse = Courses.addNew(courseData);
   }
 
+  // used for the bio2e switchover
+  @computed get isFutureBio2e() {
+    return Boolean(
+      this.offering && /biology/.test(this.offering.appearance_code) &&
+        this.term && this.term.year == 2018 && !['spring', 'summer'].includes(this.term.term)
+    );
+  }
+
 }
