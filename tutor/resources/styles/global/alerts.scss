@@ -1,0 +1,18 @@
+.alert {
+  display: flex;
+  align-items: center;
+  border-radius: 2px;
+  border-width: 2px;
+  > * {
+    margin: 0;
+  }
+  &.alert-warning {
+    border-color: os-color(gold);
+    color: text-color(normal);
+    .tutor-icon {
+      color: os-color(gold);
+      font-size: 3rem;
+      margin-right: 1rem;
+    }
+  }
+}
