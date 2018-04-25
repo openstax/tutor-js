@@ -18,6 +18,9 @@
 }
 
 .ox-loader {
+  .message {
+    text-align: center;
+  }
   .ox-loader--inner {
     margin: auto;
     width: 25%;
@@ -27,7 +30,7 @@
       height: 100%;
       margin: 0 auto;
       position: relative;
-
+      padding-top: 5px;
       .ox-green,
       .ox-orange,
       .ox-gray,
