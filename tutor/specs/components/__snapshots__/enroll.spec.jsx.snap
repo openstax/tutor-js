@@ -168,6 +168,9 @@ exports[`Student Enrollment loads when mounted 1`] = `
         <div
           className="ox-loader--inner"
         >
+          <div
+            className="message"
+          />
           <svg
             enableBackground="new 0 -25 57.6 66"
             id="Layer_1"
@@ -265,6 +268,7 @@ exports[`Student Enrollment select periods matches snapshot 1`] = `
             className="choices-listing list-group"
           >
             <div
+              aria-pressed={false}
               className="list-group-item choice"
               onClick={[Function]}
               role="button"
@@ -272,6 +276,7 @@ exports[`Student Enrollment select periods matches snapshot 1`] = `
               Period #1
             </div>
             <div
+              aria-pressed={false}
               className="list-group-item choice"
               onClick={[Function]}
               role="button"

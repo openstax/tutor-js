@@ -27,6 +27,7 @@ export class Choice extends React.PureComponent {
     return (
       <div
         role="button"
+        aria-pressed={this.props.active}
         {...ReactHelpers.filterProps(this.props)}
         className={classnames('list-group-item', 'choice', this.props.className, {
             active: this.props.active, disabled: this.props.disabled,

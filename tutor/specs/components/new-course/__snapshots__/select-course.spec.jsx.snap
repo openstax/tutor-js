@@ -5,6 +5,7 @@ exports[`CreateCourse: Selecting course subject matches snapshot 1`] = `
   className="choices-listing list-group"
 >
   <div
+    aria-pressed={false}
     className="list-group-item choice"
     data-appearance="college_biology"
     onClick={[Function]}
@@ -13,6 +14,7 @@ exports[`CreateCourse: Selecting course subject matches snapshot 1`] = `
     Biology
   </div>
   <div
+    aria-pressed={false}
     className="list-group-item choice"
     data-appearance="college_physics"
     onClick={[Function]}
@@ -21,6 +23,7 @@ exports[`CreateCourse: Selecting course subject matches snapshot 1`] = `
     College Physics
   </div>
   <div
+    aria-pressed={false}
     className="list-group-item choice"
     data-appearance="intro_sociology"
     onClick={[Function]}
@@ -29,6 +32,7 @@ exports[`CreateCourse: Selecting course subject matches snapshot 1`] = `
     Introduction to Sociology 2e
   </div>
   <div
+    aria-pressed={false}
     className="list-group-item choice"
     data-appearance="ap_biology"
     onClick={[Function]}
