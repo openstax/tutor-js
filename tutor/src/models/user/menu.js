@@ -93,7 +93,7 @@ const ROUTES = {
       key: 'clone-course', separator: 'after',
     },
     isAllowed(course) {
-      return !!(course && !course.is_concept_coach && User.isConfirmedFaculty); },
+      return !!(course && !course.is_preview && !course.is_concept_coach && User.isConfirmedFaculty); },
   },
   customer_service: {
     label: 'Customer Service',
