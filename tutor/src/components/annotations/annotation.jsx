@@ -284,7 +284,7 @@ export default class AnnotationWidget extends React.Component {
   }
 
   @computed get nextAnnotation() {
-    if (!this.activeAnnotation) { return null; }
+    if (!get(this, 'activeAnnotation.selection.bounds')) { return null; }
 
     const { start, bounds: { top } } = this.activeAnnotation.selection;
     return find(this.sortedAnnotationsForPage, (hl) =>
@@ -331,6 +331,7 @@ export default class AnnotationWidget extends React.Component {
   }
 
   @action.bound hideActiveHighlight() {
+    if (!this.activeAnnotation) { return; }
     if (this.activeAnnotation.isDeleted) {
       this.onAnnotationDelete(this.activeAnnotation);
     } else {
