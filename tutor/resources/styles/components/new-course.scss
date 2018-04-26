@@ -27,13 +27,16 @@
     padding: 3rem 4rem;
     position: relative;
     @include tutor-shadow('pop');
-
     .panel-heading,
     .panel-footer {
       color: inherit;
       background-color: white;
       border: 0;
       padding: 1rem 0;
+    }
+    .panel-body {
+      min-height: $panel-body-height;
+      padding: 0;
     }
     .panel-footer {
       .controls { text-align: right; }
