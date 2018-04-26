@@ -1,12 +1,11 @@
 import Snapshot from 'react-test-renderer';
+import { filter, map } from 'lodash';
 import ExercisePreview from '../../../src/components/exercise-preview';
 import Factories from '../../factories';
 
 jest.mock('../../../src/components/html', () => ({ html }) =>
   html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
 );
-// import EXERCISE from '../../../api/exercise-preview/data.json';
-// const ANSWERS  = EXERCISE.content.questions[0].answers;
 
 describe('Exercise Preview Component', function() {
   let props;
@@ -16,7 +15,7 @@ describe('Exercise Preview Component', function() {
     exercise = Factories.exercise({});
     props = {
       exercise,
-    }
+    };
   });
 
   it('renders and matches snapshot', () => {
@@ -74,6 +73,16 @@ describe('Exercise Preview Component', function() {
     props.exercise.context = '';
     const preview = mount(<ExercisePreview {...props} />);
     expect(preview).not.toHaveRendered('.context');
+    expect(Snapshot.create(<ExercisePreview {...props} />).toJSON()).toMatchSnapshot();
+  });
+
+  it('limits tags', () => {
+    const preview = mount(<ExercisePreview {...props} />);
+    const importantTags = filter(exercise.tags, 'isImportant');
+    expect(preview.find('.exercise-tag')).toHaveLength(importantTags.length + 1);
+    props.displayAllTags = true;
+    preview.setProps(props);
+    expect(preview.find('.exercise-tag').map(t => t.text())).toHaveLength(exercise.tags.length);
     expect(Snapshot.create(<ExercisePreview {...props} />).toJSON()).toMatchSnapshot();
   });
 

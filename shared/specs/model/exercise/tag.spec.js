@@ -1,4 +1,4 @@
-import Tag from '../../src/model/exercise/tag';
+import Tag from '../../../src/model/exercise/tag';
 
 describe('Exercise Tags', () => {
 
@@ -17,6 +17,13 @@ describe('Exercise Tags', () => {
     expect(lo.asObject).toEqual({ type: 'TY', specifier: 'S', value: 'V' });
 
     expect(lo.asString).toEqual('TY:S:V');
+  });
+
+  it('lists important tags', () => {
+    const lo = new Tag('lo:stax-phys:1-2-1');
+    expect(lo.isImportant).toBe(true);
+    const book = new Tag('book:foo:bar');
+    expect(book.isImportant).toBe(false);
   });
 
 });
