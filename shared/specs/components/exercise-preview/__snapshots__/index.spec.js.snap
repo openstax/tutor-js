@@ -277,6 +277,11 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
         LO: 
         lo:stax-phys:1-2-1
       </div>
+      <span
+        className="exercise-tag"
+      >
+        time:long
+      </span>
     </div>
   </div>
 </div>
@@ -339,6 +344,11 @@ exports[`Exercise Preview Component can hide the answers 1`] = `
         LO: 
         lo:stax-phys:1-2-1
       </div>
+      <span
+        className="exercise-tag"
+      >
+        time:long
+      </span>
     </div>
   </div>
 </div>
@@ -594,6 +604,11 @@ exports[`Exercise Preview Component can render question formats 1`] = `
         LO: 
         lo:stax-phys:1-2-1
       </div>
+      <span
+        className="exercise-tag"
+      >
+        time:long
+      </span>
     </div>
   </div>
 </div>
@@ -834,6 +849,11 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
         LO: 
         lo:stax-phys:1-2-1
       </div>
+      <span
+        className="exercise-tag"
+      >
+        time:long
+      </span>
     </div>
   </div>
 </div>
@@ -1386,6 +1406,11 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
         LO: 
         lo:stax-phys:1-2-1
       </div>
+      <span
+        className="exercise-tag"
+      >
+        time:long
+      </span>
     </div>
   </div>
 </div>
@@ -1661,6 +1686,11 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
         LO: 
         lo:stax-phys:1-2-1
       </div>
+      <span
+        className="exercise-tag"
+      >
+        time:long
+      </span>
     </div>
   </div>
 </div>

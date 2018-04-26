@@ -4,7 +4,7 @@ import {
 import { isObject, first, last, filter, extend, values, pick, isNil } from 'lodash';
 
 const TYPES = {
-  IMPORTANT: ['lo', 'aplo', 'blooms', 'dok', 'length'],
+  IMPORTANT: ['lo', 'aplo', 'blooms', 'dok', 'length', 'time'],
 };
 
 @identifiedBy('exercise/tag')
