@@ -3,14 +3,13 @@ import { isNil } from 'lodash';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
-import Icon from '../../components/icon';
 import TutorLink from '../../components/link';
 import SortingHeader from './sorting-header';
 import Time from '../../components/time';
 import TourAnchor from '../../components/tours/anchor';
 import UX from './ux';
 
-const ReviewLink = (props) => {
+const ReviewLink = observer((props) => {
   const { ux } = props;
   if (props.isConceptCoach || (props.heading.type === 'external') || (props.heading.plan_id == null)) {
     return null;
@@ -26,10 +25,10 @@ const ReviewLink = (props) => {
       </TutorLink>
     </span>
   );
-}
+});
 
 
-const AverageLabel = ({ heading }) => {
+const AverageLabel = observer(({ heading }) => {
   if (heading.type === 'external') {
     const p = heading.average_progress || 0;
     let percent;
@@ -62,9 +61,9 @@ const AverageLabel = ({ heading }) => {
       ---
     </span>
   );
-};
+});
 
-const AssignmentSortingHeader = (props) => {
+const AssignmentSortingHeader = observer((props) => {
   const { heading, dataType, columnIndex, sort, onSort } = props;
   if (heading.type === 'external') {
     return (
@@ -107,9 +106,9 @@ const AssignmentSortingHeader = (props) => {
       </SortingHeader>
     </div>
   );
-};
+});
 
-const TeacherAssignmentHeaderRow = function(props) {
+const TeacherAssignmentHeaderRow = observer((props) => {
   const { ux, heading } = props;
 
   if (!ux.course.isTeacher) {
@@ -121,10 +120,9 @@ const TeacherAssignmentHeaderRow = function(props) {
     <ReviewLink {...props} heading={heading} />
   </div>
   );
+});
 
-}
-
-const AssignmentHeader = function(props) {
+const AssignmentHeader = observer((props) => {
   const { ux, columnIndex, isConceptCoach } = props;
   const heading = ux.period.data_headings[columnIndex];
 
@@ -151,10 +149,10 @@ const AssignmentHeader = function(props) {
       <TeacherAssignmentHeaderRow {...props} heading={heading} />
     </div>
   );
-};
+});
 
 AssignmentHeader.propTypes = {
   ux: React.PropTypes.instanceOf(UX).isRequired,
+};
 
-}
 export default AssignmentHeader;
