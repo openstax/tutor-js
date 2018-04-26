@@ -3,6 +3,7 @@
   $panel-body-height: $panel-choice-height * 3.5;
 
   @include ost-hero-backdrop();
+  font-size: 16px;
 
   @mixin book-icon-style() {
     &::before{
@@ -75,18 +76,6 @@
       z-index: 1;
       .ox-loader--inner {
         padding: 1.6rem 0;
-        @include tutor-subtle-load('will-load', $loading-text: 'Loading...', $bg-fade: 0.0);
-        &::after {
-          display: block;
-          position: absolute;
-          left: 0;
-          right: 0;
-          text-align: center;
-          left: 0;
-          z-index: -1;
-          opacity: inherit;
-          font-size: 1.5rem;
-        }
       }
     }
     // set footer to a fixed height so the panel stays the same height
@@ -99,19 +88,12 @@
       .panel-body {
         @include tutor-subtle-load('loading');
       }
-
-
-      &.is-building .ox-loader .ox-loader--inner::after {
-        content: "Building your course...";
-      }
-    }
-    .panel-content {
-      height: $panel-body-height;
     }
 
     .choices-listing {
-      max-height: $panel-body-height;
+      max-height: inherit;
     }
+
   }
 
   .new-course-wizard {
@@ -202,6 +184,48 @@
       }
     }
 
+    &.bio2e_unavail {
+      .panel-heading {
+        text-align: center;
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+      p {
+        margin-bottom: 15px;
+      }
+      .title,
+      .btn.next,
+      .course-offering-title::before {
+        display: none;
+      }
+      .alert {
+        p { margin-bottom: 0; }
+      }
+      .book-covers {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        margin-bottom: 40px;
+        .tutor-icon {
+          font-size: 30px;
+          color: $tutor-neutral-lite;
+          margin: 2rem;
+        }
+        .book {
+          height: 70px;
+          width: 70px;
+          background-size: 70px 70px;
+          &.bio {
+            @include book-content-thumbnail(college_biology);
+          }
+          &.bio2e {
+            @include book-content-thumbnail(biology_2e);
+          }
+        }
+      }
+    }
+
     &.numbers {
 
       .input-group {
@@ -212,12 +236,15 @@
         text-align: center;
       }
 
+      .explain {
+        margin-bottom: 15px;
+      }
+      label {
+        margin-bottom: 0;
+      }
       .input-group-addon {
         width: 80%;
-
-        p {
-          margin-bottom: 0;
-        }
+        p { margin: 0; }
       }
 
       input[type=number] {

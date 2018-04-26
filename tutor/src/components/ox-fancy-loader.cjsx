@@ -5,12 +5,15 @@ OXFancyLoader = React.createClass
   displayName: 'OXFancyLoader'
   propTypes:
     isLoading: React.PropTypes.bool
+    message: React.PropTypes.string
+
   render: ->
-    {isLoading} = @props
+    {isLoading, message} = @props
     return null unless isLoading
     <div className='ox-loader'>
       <div className="ox-overlay"/>
       <div className="ox-loader--inner">
+        <div className="message">{message}</div>
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 -25 57.6 66" enableBackground="new 0 -25 57.6 66">
           <path id="ox-blue" className="ox-blue" fill="#00246A" d="M38.4,22c0,0.4-0.3,0.7-0.7,0.7H13.5c-0.4,0-0.7-0.3-0.7-0.7v-1.4c0-0.4,0.3-0.7,0.7-0.7h24.2
             c0.4,0,0.7,0.3,0.7,0.7V22z"/>

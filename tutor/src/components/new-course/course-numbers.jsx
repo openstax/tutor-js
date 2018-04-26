@@ -30,9 +30,11 @@ export default class CourseNumbers extends React.PureComponent {
     if (!error) { return null; }
     return (
       <Alert bsStyle="danger">
-        More than {error.value} {error.attribute} is not supported. Need
-        more? <a href={`mailto:${UserMenu.supportEmail}`}>Contact
-        Support</a> for help.
+        <p>
+          More than {error.value} {error.attribute} is not supported. Need
+          more? <a href={`mailto:${UserMenu.supportEmail}`}>Contact
+          Support</a> for help.
+        </p>
       </Alert>
     );
   }
@@ -43,7 +45,7 @@ export default class CourseNumbers extends React.PureComponent {
     return (
       <Form>
         <BestPracticesIcon />
-        <p>
+        <p className="explain">
           If you teach multiple sections of the same course, include all sections below.
           You can add or remove sections later.
         </p>
@@ -75,7 +77,7 @@ export default class CourseNumbers extends React.PureComponent {
               <FormControl
                 type="number"
                 min="1"
-                value={newCourse.estimated_student_count || ''}
+                defaultValue={newCourse.estimated_student_count || ''}
                 onChange={this.updateStudentCount} />
             </InputGroup>
           </ControlLabel>

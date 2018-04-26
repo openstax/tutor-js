@@ -2,7 +2,7 @@
 
 exports[`Creating a course matches snapshot 1`] = `
 <div
-  className="new-course-wizard offering is-building panel panel-default"
+  className="new-course-wizard offering panel panel-default"
   id={undefined}
 >
   <div
@@ -22,6 +22,7 @@ exports[`Creating a course matches snapshot 1`] = `
         className="choices-listing list-group"
       >
         <div
+          aria-pressed={false}
           className="list-group-item choice"
           data-appearance={undefined}
           onClick={[Function]}

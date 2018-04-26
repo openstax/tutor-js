@@ -5,6 +5,7 @@ exports[`CreateCourse: Selecting course dates matches snapshot 1`] = `
   className="choices-listing list-group"
 >
   <div
+    aria-pressed={false}
     className="list-group-item choice"
     onClick={[Function]}
     role="button"
@@ -21,6 +22,7 @@ exports[`CreateCourse: Selecting course dates matches snapshot 1`] = `
     </span>
   </div>
   <div
+    aria-pressed={false}
     className="list-group-item choice"
     onClick={[Function]}
     role="button"
@@ -37,6 +39,7 @@ exports[`CreateCourse: Selecting course dates matches snapshot 1`] = `
     </span>
   </div>
   <div
+    aria-pressed={false}
     className="list-group-item choice"
     onClick={[Function]}
     role="button"
@@ -53,6 +56,7 @@ exports[`CreateCourse: Selecting course dates matches snapshot 1`] = `
     </span>
   </div>
   <div
+    aria-pressed={false}
     className="list-group-item choice"
     onClick={[Function]}
     role="button"

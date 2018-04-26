@@ -32,4 +32,6 @@ export default class Offering extends BaseModel {
   @computed get currentTerm() {
     return first(this.validTerms);
   }
+
+
 }

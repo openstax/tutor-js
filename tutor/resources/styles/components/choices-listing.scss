@@ -46,11 +46,17 @@
       margin-top: 0;
     }
     &::after {
-      content: '';
       position: absolute;
       background-repeat: no-repeat;
       background-position: center center;
       display: block;
+
+      right: 16px;
+      top: calc(50% - 4px);
+      @include fa-icon();
+      content: $fa-var-square-o;
+      color: $tutor-neutral-light;
+      font-size: 20px;
     }
 
     &.active {
@@ -60,17 +66,11 @@
         @include make-wizard-choice-active();
       }
       &::after {
-        right: 16px;
-        top: calc(50% - 4px);
-        @include fa-icon();
         content: $fa-var-check;
         color: $tutor-secondary;
-        margin-bottom: 0;
-        font-size: 20px;
-        margin-top: -11px;
         background-color: $tutor-white;
         border-radius: 50%;
-        padding: 4px;
+        right: 14px;
       }
     }
   }

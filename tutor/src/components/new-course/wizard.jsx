@@ -81,7 +81,7 @@ export default class NewCourseWizard extends React.PureComponent {
   render() {
     const wizardClasses = classnames('new-course-wizard', this.ux.stage, {
       'is-loading': this.isBusy,
-      'is-building': this.ux.newCourse.api.requestsInProgress,
+      'is-building': this.ux.newCourse.api.isPending,
     });
     const Component = componentFor(this.ux.stage);
 
@@ -91,7 +91,10 @@ export default class NewCourseWizard extends React.PureComponent {
         className={wizardClasses}
         footer={<Footer ux={this.ux} />}>
         <div className="panel-content">
-          <OXFancyLoader isLoading={this.isBusy} />
+          <OXFancyLoader
+            isLoading={this.isBusy}
+            message={this.ux.isBuilding ? 'Building your course' : 'Loading…'}
+          />
           {this.isBusy ? undefined : <Component ux={this.ux} />}
         </div>
       </Panel>

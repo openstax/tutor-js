@@ -170,14 +170,15 @@ $openstax-books: (
 
 // books that we have thumbnails for.  Some appearance codes share thumbnails
 $openstax-book-thumbnails: (
-  intro_sociology : 'sociology-book-thumbnail.png',
-  physics         : 'hs_physics-book-thumbnail.png',
+  intro_sociology : 'sociology-book-thumbnail.svg',
   hs_physics      : 'hs_physics-book-thumbnail.png',
-  college_physics : 'college_physics-book-thumbnail.png',
-  biology         : 'biology-book-thumbnail.png',
-  ap_biology      : 'biology-book-thumbnail.png',
-  college_biology : 'biology-book-thumbnail.png',
-  ap_us_history   : 'ap_us_history-book-thumbnail.png',
+  physics         : 'college_physics-book-thumbnail.svg',
+  college_physics : 'college_physics-book-thumbnail.svg',
+  biology         : 'biology-book-thumbnail.svg',
+  ap_biology      : 'biology-book-thumbnail.svg',
+  college_biology : 'biology-book-thumbnail.svg',
+  ap_us_history   : 'ap_us_history-book-thumbnail.svg',
+  biology_2e      : 'biology_2e-book-thumbnail.svg',
 );
 
 @mixin book-content-thumbnail($book) {
