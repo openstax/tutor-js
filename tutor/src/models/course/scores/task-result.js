@@ -3,6 +3,7 @@ import { computed, observable, action } from 'mobx';
 import {
   BaseModel, identifiedBy, belongsTo, hasMany, session, identifier, field,
 } from 'shared/model';
+import Big from 'big.js';
 import { TimeStore } from '../../../flux/time';
 
 @identifiedBy('course/scores/task-result')
@@ -10,7 +11,7 @@ export default class TaskResult extends BaseModel {
   @identifier id;
   @field type;
   @field status;
-  @field score;
+  @field({ type: 'bignum' }) score;
   @field step_count;
   @field completed_step_count;
   @field completed_accepted_late_exercise_count;
@@ -130,27 +131,29 @@ export default class TaskResult extends BaseModel {
     const { type } = this;
     let student = this.student;
 
-    // Update score for the task without rounding so the calculations below will use it's full precision
-    this.score = (
+    this.score = new Big(
       this.correct_on_time_exercise_count + this.correct_accepted_late_exercise_count
-    ) / this.exercise_count;
+    ).div(this.exercise_count);
 
     //----------------------------------------------------------------+
     // scores                                                         |
     //----------------------------------------------------------------+
 
     // student
-    student[`${type}_score`] += (
-      this.scoredCorrectCount / student.scoredStepCount[type]
-    ) - ( prevCorrect / student.scoredStepCount[type] );
+    student[`${type}_score`] = student[`${type}_score`].plus(
+      (this.scoredCorrectCount / student.scoredExerciseCount[type]) -
+        ( prevCorrect / student.scoredExerciseCount[type] )
+    );
     // assignment
-    this.reportHeading.average_score += (
-      this.scoredCorrectCount / this.reportHeading.scoredStepCount
-    ) - ( prevCorrect / this.reportHeading.scoredStepCount );
+    this.reportHeading.average_score = this.reportHeading.average_score.plus(
+      (this.scoredCorrectCount / this.reportHeading.scoredExerciseCount) -
+        (prevCorrect / this.reportHeading.scoredExerciseCount)
+    );
+
     // period
-    period[`overall_${type}_score`] += course[`${type}_score_weight`] * (
-      ( this.scoredCorrectCount / period.scoredStepCount[type] ) -
-        ( prevCorrect / period.scoredStepCount[type] )
+    period[`overall_${type}_score`] = period[`overall_${type}_score`].plus(
+      (this.scoredCorrectCount / period.scoredExerciseCount[type]) -
+        (prevCorrect / period.scoredExerciseCount[type])
     );
 
     //----------------------------------------------------------------+
@@ -158,21 +161,21 @@ export default class TaskResult extends BaseModel {
     //----------------------------------------------------------------+
 
     // student
-    student[`${type}_progress`] += (
-      this.completedStepCount / student.scoredStepCount[type]
-    ) - ( prevCompletedStepCount / student.scoredStepCount[type] );
+    student[`${type}_progress`] = student[`${type}_progress`].plus(
+      (this.completedStepCount / student.scoredStepCount[type]) -
+        ( prevCompletedStepCount / student.scoredStepCount[type] )
+    );
     // assignment
-    this.reportHeading.average_progress += (
-      this.completedStepCount / this.reportHeading.scoredStepCount
-    ) - ( prevCompletedStepCount / this.reportHeading.scoredStepCount );
+    this.reportHeading.average_progress = this.reportHeading.average_progress.plus(
+      (this.completedStepCount / this.reportHeading.scoredStepCount) -
+        ( prevCompletedStepCount / this.reportHeading.scoredStepCount)
+    );
     // period
-    period[`overall_${type}_progress`] += course[`${type}_progress_weight`] * (
+    period[`overall_${type}_progress`] = period[`overall_${type}_progress`].plus(
       ( this.completedStepCount / period.scoredStepCount[type] ) -
         ( prevCompletedStepCount / period.scoredStepCount[type] )
     );
 
-    // Now round the score
-    return this.score = Math.round(this.score * 100 ) / 100;
   }
 
 }

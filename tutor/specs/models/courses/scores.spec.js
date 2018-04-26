@@ -22,13 +22,13 @@ const testChangedScoreBy = (taskId, scoreDiff) => {
   const task = gT(taskId);
   const updated = acceptTask(taskId);
   if (isObject(scoreDiff)) {
-    expect(task.score).toBeCloseTo(scoreDiff.from, 0.01,
-                                   `original score should have been ${scoreDiff.from} but was ${task.score}`);
-    expect(updated.score).toBeCloseTo(scoreDiff.to, 0.01,
-                                      `updated score should have been set to ${scoreDiff.to} but was ${updated.score}`);
+    expect(parseFloat(task.score)).toBeCloseTo(parseFloat(scoreDiff.from), 0.01,
+      `original score should have been ${scoreDiff.from} but was ${task.score}`);
+    expect(parseFloat(updated.score)).toBeCloseTo(parseFloat(scoreDiff.to), 0.01,
+      `updated score should have been set to ${scoreDiff.to} but was ${updated.score}`);
   } else {
-    expect(updated.score - task.score).toBeCloseTo(scoreDiff, 0.01,
-                                                   `expected updated score to change by ${scoreDiff}`
+    expect(parseFloat(updated.score) - parseFloat(task.score)).toBeCloseTo(parseFloat(scoreDiff), 0.01,
+      `expected updated score to change by ${scoreDiff}`
     );
   }
 };
