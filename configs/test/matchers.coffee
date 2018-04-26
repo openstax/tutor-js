@@ -18,6 +18,7 @@ expect.extend({
     failures = []
     utils = @utils
     testValue = (i, type, expected, actual) ->
+      actual = parseFloat(actual) unless typeof actual is 'number'
       if test.precision
         utils.ensureNumbers(actual, expected, "test index #{i}")
         pass = Math.abs(expected - actual) < Math.pow(10, -test.precision) / 2

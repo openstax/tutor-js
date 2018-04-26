@@ -5,6 +5,7 @@ import {
 } from 'shared/model';
 import { TimeStore } from '../../flux/time';
 import moment from 'moment';
+
 import TaskResult from './scores/task-result';
 
 @identifiedBy('course/scores/student')
@@ -17,16 +18,25 @@ class Student extends BaseModel {
   @field role;
   @field student_identifier;
 
-  @field course_average;
-  @field homework_score;
-  @field homework_progress;
-  @field reading_score;
-  @field reading_progress;
+  @field({ type: 'bignum' }) course_average;
+  @field({ type: 'bignum' }) homework_score;
+  @field({ type: 'bignum' }) homework_progress;
+  @field({ type: 'bignum' }) reading_score;
+  @field({ type: 'bignum' }) reading_progress;
+
 
   @computed get scoredStepCount() {
+    return this._countsFor('step_count');
+  }
+
+  @computed get scoredExerciseCount() {
+    return this._countsFor('exercise_count');
+  }
+
+  _countsFor(attr) {
     return mapValues(
       groupBy(this.data, 'type'),
-      tasks => sumBy(tasks, 'step_count') || 0
+      tasks => sumBy(tasks, t => t.is_included_in_averages ? t[attr] : 0),
     );
   }
 
@@ -34,8 +44,8 @@ class Student extends BaseModel {
 
 @identifiedBy('course/scores/heading')
 class Heading extends BaseModel {
-  @field average_score;
-  @field average_progress;
+  @field({ type: 'bignum' }) average_score;
+  @field({ type: 'bignum' }) average_progress;
   @field({ type: 'date' }) due_at;
   @field plan_id;
   @field title;
@@ -55,8 +65,16 @@ class Heading extends BaseModel {
   }
 
   @computed get scoredStepCount() {
+    return this._countsFor('step_count');
+  }
+
+  @computed get scoredExerciseCount() {
+    return this._countsFor('exercise_count');
+  }
+
+  _countsFor(attr) {
     return reduce(this.tasks,
-      (count, task) => task.is_included_in_averages ? count + task.step_count : count,
+      (count, task) => task.is_included_in_averages ? count + task[attr] : count,
       0);
   }
 
@@ -65,11 +83,11 @@ class Heading extends BaseModel {
 @identifiedBy('course/scores/period')
 export class CourseScoresPeriod extends BaseModel {
 
-  @field overall_course_average;
-  @field overall_reading_score;
-  @field overall_reading_progress;
-  @field overall_homework_score;
-  @field overall_homework_progress;
+  @field({ type: 'bignum' }) overall_course_average;
+  @field({ type: 'bignum' }) overall_reading_score;
+  @field({ type: 'bignum' }) overall_reading_progress;
+  @field({ type: 'bignum' }) overall_homework_score;
+  @field({ type: 'bignum' }) overall_homework_progress;
   @field period_id;
   @hasMany({ model: Heading, inverseOf: 'period' }) data_headings;
   @hasMany({ model: Student, inverseOf: 'period' }) students;
@@ -92,14 +110,23 @@ export class CourseScoresPeriod extends BaseModel {
   }
 
   @computed get scoredStepCount() {
+    return this._countsFor('scoredStepCount');
+  }
+
+  @computed get scoredExerciseCount() {
+    return this._countsFor('scoredExerciseCount');
+  }
+
+  _countsFor(attr) {
     const counts = {};
     each(this.students, (student) => {
-      each(student.scoredStepCount, (count, key) => {
+      each(student[attr], (count, key) => {
         counts[key] = ((counts[key] || 0) + count);
       });
     });
     return counts;
   }
+
 }
 
 @identifiedBy('course/scores')
