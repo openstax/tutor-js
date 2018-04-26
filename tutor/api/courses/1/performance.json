@@ -262,6 +262,10 @@
         "course_average": 0.0,
         "student_identifier": "3UPNAI8JD2",
         "role": 4,
+        "reading_score": 0.0,
+        "homework_score": 0.0,
+        "homework_progress": 0.0,
+        "reading_progress": 0.0,
         "last_name": "Hackett",
         "first_name": "Bettie",
         "name": "Bettie Hackett"
