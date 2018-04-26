@@ -22,7 +22,7 @@
 
   .choice {
 
-    padding: 8px;
+    padding: 0px 35px 0px 0px;
     display: flex;
     align-content: center;
     height: $choice-height;
@@ -50,9 +50,7 @@
       background-repeat: no-repeat;
       background-position: center center;
       display: block;
-
       right: 16px;
-      top: calc(50% - 4px);
       @include fa-icon();
       content: $fa-var-square-o;
       color: $tutor-neutral-light;
