@@ -74,9 +74,11 @@ describe('User Model', () => {
     expect(User.isProbablyTeacher).toBe(false);
     bootstrapCoursesList();
     expect(User.isProbablyTeacher).toBe(true);
+    expect(User.canViewPreviewCourses).toBe(false);
     Courses.clear();
     User.faculty_status = 'confirmed_faculty';
     expect(User.isProbablyTeacher).toBe(true);
+    expect(User.canViewPreviewCourses).toBe(true);
   });
 
   it('#logEvent', () => {
@@ -96,6 +98,14 @@ describe('User Model', () => {
     User.last_name = 'Smith';
     expect(User.lastName).toEqual('Smith');
     expect(User.initials).toEqual('B S');
+  });
+
+  it('detects college teachers', () => {
+    User.school_type = 'unknown_school_type';
+    expect(User.isCollegeTeacher).toBe(false);
+    User.faculty_status = 'confirmed_faculty';
+    User.school_type = 'college';
+    expect(User.isCollegeTeacher).toBe(true);
   });
 
 });
