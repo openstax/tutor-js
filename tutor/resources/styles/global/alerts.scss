@@ -3,12 +3,13 @@
   align-items: center;
   border-radius: 2px;
   border-width: 2px;
+  font-size: 14px;
   > * {
     margin: 0;
   }
   &.alert-warning {
     border-color: os-color(gold);
-    color: text-color(normal);
+    color: text-color(button-bar);
     .tutor-icon {
       color: os-color(gold);
       font-size: 3rem;

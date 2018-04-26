@@ -3,6 +3,7 @@
   $panel-body-height: $panel-choice-height * 3.5;
 
   @include ost-hero-backdrop();
+  font-size: 16px;
 
   @mixin book-icon-style() {
     &::before{
