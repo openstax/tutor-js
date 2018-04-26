@@ -24,6 +24,7 @@ describe('My Courses Component', function() {
   afterEach(() => {
     Courses.clear();
     User.faculty_status = '';
+    User.school_type = 'college';
     User.self_reported_role = '';
   });
 
@@ -134,6 +135,15 @@ describe('My Courses Component', function() {
     const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
     expect(wrapper).toHaveRendered('[data-tour-anchor-id="explore-a-preview-zone"]');
     expect(wrapper).toHaveRendered('[data-tour-anchor-id="create-course-zone"]');
+    wrapper.unmount();
+  });
+
+  it('displays message for non college instructors', () => {
+    loadTeacherUser();
+    Courses.clear();
+    User.school_type = 'unknown_school_type';
+    const wrapper = shallow(<CourseListing />, EnzymeContext.withDnD());
+    expect(wrapper).toHaveRendered('NoHSTeachers');
     wrapper.unmount();
   });
 });

@@ -8,7 +8,7 @@ import Courses from '../../models/courses-map';
 import EmptyCourses from './empty';
 import TourRegion from '../tours/region';
 import PendingVerification from './pending-verification';
-
+import NoHSTeachers from './no-hs-teachers';
 import { MyCoursesPast, MyCoursesCurrent, MyCoursesPreview } from './listings';
 
 @observer
@@ -32,9 +32,14 @@ export default class MyCourses extends React.PureComponent {
   }
 
   render() {
-    if (!Courses.size && !User.isConfirmedFaculty) {
-      if (User.isUnverifiedInstructor) { return <PendingVerification />; }
-      return <EmptyCourses />;
+    if (!Courses.size) {
+      if (User.isConfirmedFaculty) {
+        if (!User.isCollegeTeacher) {
+          return <NoHSTeachers />;
+        }
+      } else {
+        return User.isUnverifiedInstructor? <PendingVerification /> : <EmptyCourses />;
+      }
     }
 
     if (this.shouldRedirect) {

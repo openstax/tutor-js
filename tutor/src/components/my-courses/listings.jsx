@@ -62,7 +62,7 @@ class MyCoursesBase extends React.Component {
 
   renderCourse(course) {
     const Item = course.is_preview ? CoursePreview :
-                 this.items[User.verifiedRoleForCourse(course)];
+      this.items[User.verifiedRoleForCourse(course)];
     return Item ? wrapCourseItem(Item, course) : null;
   }
 
@@ -201,7 +201,7 @@ export class MyCoursesPreview extends React.PureComponent {
   @observable previews;
 
   componentWillMount() {
-    if (User.isConfirmedFaculty) {
+    if (User.canViewPreviewCourses) {
       PreviewCourseOffering.fetch();
     }
   }

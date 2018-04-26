@@ -33,7 +33,7 @@ export class User extends BaseModel {
 
   @field faculty_status;
   @field profile_url;
-
+  @field school_type = 'college';
   @field is_admin;
   @field is_content_analyst;
   @field is_customer_service;
@@ -80,6 +80,14 @@ export class User extends BaseModel {
 
   @computed get isConfirmedFaculty() {
     return this.faculty_status === 'confirmed_faculty';
+  }
+
+  @computed get isCollegeTeacher() {
+    return this.isConfirmedFaculty && this.school_type === 'college';
+  }
+
+  @computed get canViewPreviewCourses() {
+    return this.isConfirmedFaculty && this.isCollegeTeacher;
   }
 
   @computed get isProbablyTeacher() {
