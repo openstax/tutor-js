@@ -45,7 +45,7 @@ export default class TeacherTaskPlan extends BaseModel {
     this.publishing = new Atom(
       'TaskPlanUpdates',
       () => { TaskPlanPublish.forPlan(this).startListening(); },
-      () => { TaskPlanPublish.forPlan(this).stopListening(); },
+      () => { TaskPlanPublish.stopPollingForPlan(this); },
     );
 
   }
