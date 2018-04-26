@@ -36,7 +36,7 @@ class Student extends BaseModel {
   _countsFor(attr) {
     return mapValues(
       groupBy(this.data, 'type'),
-      tasks => sumBy(tasks, attr) || 0
+      tasks => sumBy(tasks, t => t.is_included_in_averages ? t[attr] : 0),
     );
   }
 
