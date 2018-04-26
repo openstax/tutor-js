@@ -1,7 +1,7 @@
 import { assign } from 'lodash';
-import Student from '../../../src/models/course/student';
-import { bootstrapCoursesList } from '../../courses-test-data';
-import Payments from '../../../src/models/payments';
+import Student from '../../src/models/course/student';
+import { bootstrapCoursesList } from '../courses-test-data';
+import Payments from '../../src/models/payments';
 
 describe('Course Student', () => {
   let course;
@@ -13,7 +13,8 @@ describe('Course Student', () => {
     course = bootstrapCoursesList().get('1');
     createIframeImpl = () => Promise.resolve();
     class OSPaymentStub {
-      constructor() {
+      constructor(options) {
+        this.options = options;
         this.createIframe = jest.fn(createIframeImpl);
       }
     }
@@ -24,6 +25,16 @@ describe('Course Student', () => {
     const pay = new Payments({ course, windowImpl });
     pay.element = document.createElement('div');
     expect(pay.remote.createIframe).toHaveBeenCalled();
+  });
+
+  it('sets options on remote', () => {
+    const pay = new Payments({ course, windowImpl });
+    pay.element = document.createElement('div');
+    expect(pay.remote.options).toMatchObject({
+      course_uuid: course.uuid,
+      product_instance_uuid: course.userStudentRecord.uuid,
+      registration_date: course.primaryRole.joined_at,
+    });
   });
 
   it('calls timeout when something breaks', () => {
@@ -47,4 +58,5 @@ describe('Course Student', () => {
       expect(pay.logFailure).toHaveBeenCalledWith('Payments load timed out');
     });
   });
+
 });

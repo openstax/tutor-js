@@ -124,7 +124,7 @@ export default class Payments extends BaseModel {
     return extend({}, this.options, {
       product_uuid: Payments.config.product_uuid,
       purchaser_account_uuid: User.account_uuid,
-      registration_date: new Date(course.userStudentRecord.registered_at),
+      registration_date: course.primaryRole.joined_at,
       product_instance_uuid: course.userStudentRecord.uuid,
       course_uuid: course.uuid,
     });
