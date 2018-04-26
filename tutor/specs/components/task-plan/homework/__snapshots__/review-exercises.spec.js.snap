@@ -485,6 +485,11 @@ exports[`choose exercises component matches snapshot 1`] = `
               LO: 
               lo:stax-phys:1-2-1
             </div>
+            <span
+              className="exercise-tag"
+            >
+              time:long
+            </span>
           </div>
         </div>
       </div>
@@ -739,6 +744,11 @@ exports[`choose exercises component matches snapshot 1`] = `
               LO: 
               lo:stax-phys:1-2-1
             </div>
+            <span
+              className="exercise-tag"
+            >
+              time:long
+            </span>
           </div>
         </div>
       </div>
@@ -1000,6 +1010,11 @@ exports[`choose exercises component matches snapshot 1`] = `
               LO: 
               lo:stax-phys:1-2-1
             </div>
+            <span
+              className="exercise-tag"
+            >
+              time:long
+            </span>
           </div>
         </div>
       </div>

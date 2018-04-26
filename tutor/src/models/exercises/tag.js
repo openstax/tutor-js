@@ -7,7 +7,7 @@ import { compact, includes } from 'lodash';
 const TAGS = {
   LO: ['lo', 'aplo'],
   GENERIC: ['blooms', 'dok', 'length'],
-  IMPORTANT: ['lo', 'aplo', 'blooms', 'dok', 'length'],
+  IMPORTANT: ['lo', 'aplo', 'blooms', 'dok', 'length', 'time'],
 };
 
 @identifiedBy('exercises/tag')

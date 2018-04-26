@@ -1,4 +1,5 @@
 import React from 'react';
+import SupportLink from '../support-email-link';
 import { Panel } from 'react-bootstrap';
 
 export default function NoHSTeachers() {
@@ -9,6 +10,9 @@ export default function NoHSTeachers() {
       </p>
       <p>
         In the meantime, we have over 50 online homework and ancillary partners that have created low-cost tools that integrate with our books. You can find those resources at <a href="https://openstax.org/partners">openstax.org/partners</a>.
+      </p>
+      <p>
+        If you believe you’re seeing this message in error, please <SupportLink label="contact Support" />.
       </p>
     </Panel>
   );

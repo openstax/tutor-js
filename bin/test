@@ -6,5 +6,9 @@ bin/checkinputs "$@"
 
 export OX_PROJECT=$1
 echo Test: $OX_PROJECT
+args=${@:2}
+if [[ ! $args ]]; then
+   args='--watch'
+fi
 
-$(npm bin)/jest --watch --config ./configs/test/jest.$OX_PROJECT.js "${@:2}"
+$(npm bin)/jest --config ./configs/test/jest.$OX_PROJECT.js $args
