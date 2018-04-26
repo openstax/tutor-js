@@ -187,8 +187,7 @@ ReadingContentMixin =
     @linkNode.href = "#{baseWebviewUrl}/contents/#{canonicalCNXId}"
 
   removeCanonicalLink: ->
-    # document.head.
-    @linkNode.remove()
+    @linkNode?.remove?()
 
   insertOverlays: ->
     title = @getSplashTitle()

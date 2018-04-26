@@ -80,24 +80,31 @@ class Hypothesis extends BaseModel {
   }
 
   create(documentId, selection, annotation, additionalData) {
-    return this.request(() => ({
-      method: 'POST',
-      service: 'annotations',
-      data: {
-        uri: documentId,
-        text: annotation,
-        target: [{
-          selector: [
-            Object.assign(
-              { type: 'TextPositionSelector' },
-              additionalData,
-              selection,
-            ),
-          ],
-        }],
-        group: this.userInfo.id,
-      },
-    }));
+    return this
+      .request(() => ({
+        method: 'POST',
+        service: 'annotations',
+        data: {
+          uri: documentId,
+          text: annotation,
+          target: [{
+            selector: [
+              Object.assign(
+                { type: 'TextPositionSelector' },
+                additionalData,
+                selection,
+              ),
+            ],
+          }],
+          group: this.userInfo.id,
+        },
+      }))
+      .then((data) => {
+        if (!data) {
+          throw new Error("server returned malformed response");
+        }
+        return data;
+      });
   }
 
   fetchAllAnnotations() {
@@ -131,12 +138,11 @@ class Hypothesis extends BaseModel {
       url: options.service,
       responseType: 'json',
       headers,
-    })).then((axiosResponse) => {
-      return axiosResponse.data;
-    }).catch((err) => {
-
-      AppActions.setServerError(err)
-    });
+    }))
+      .then((axiosResponse) => axiosResponse.data)
+      .catch((err) => {
+        AppActions.setServerError(err);
+      });
   }
 
 

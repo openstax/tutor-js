@@ -20,6 +20,14 @@ export default class TaskPlanPublish extends Job {
     return pub;
   }
 
+  static stopPollingForPlan(plan) {
+    const pub = CURRENT.get(plan.id);
+    if (pub) {
+      pub.stopListening();
+      CURRENT.delete(plan.id);
+    }
+  }
+
   static hasPlanId(id) {
     return CURRENT.has(id);
   }

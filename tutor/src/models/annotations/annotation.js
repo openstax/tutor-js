@@ -143,7 +143,7 @@ export default class Annotation extends BaseModel {
   @action updateAfterSave(data) {
     // update target so it doesn't overwrite and lose the serialized bounds
     this.update(omit(data, 'target'));
-    this.selection.update(get(data, 'target[0].selector[0]'));
+    this.selection.update(get(data, 'target[0].selector[0]', {}));
   }
 
   @computed get asPage() {
