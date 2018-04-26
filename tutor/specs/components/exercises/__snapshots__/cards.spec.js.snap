@@ -274,27 +274,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -302,26 +282,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 1@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -552,27 +517,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -580,26 +525,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 2@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -837,27 +767,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -865,26 +775,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 3@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -1115,27 +1010,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -1143,26 +1018,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 4@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -1414,27 +1274,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -1442,26 +1282,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 5@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -1717,27 +1542,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -1745,26 +1550,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 6@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -1995,27 +1785,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -2023,26 +1793,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 7@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -2280,27 +2035,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -2308,26 +2043,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 8@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -2579,27 +2299,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -2607,26 +2307,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 9@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -2857,27 +2542,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -2885,26 +2550,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 10@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -3160,27 +2810,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -3188,26 +2818,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 11@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -3438,27 +3053,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -3466,26 +3061,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 12@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -3744,27 +3324,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -3772,26 +3332,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 13@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -4022,27 +3567,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -4050,26 +3575,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 14@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -4300,27 +3810,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -4328,26 +3818,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 15@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -4603,27 +4078,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -4631,26 +4086,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 16@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -4902,27 +4342,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -4930,26 +4350,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 17@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -5187,27 +4592,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -5215,26 +4600,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 18@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -5465,27 +4835,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -5493,26 +4843,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 19@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -5743,27 +5078,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -5771,26 +5086,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 20@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -6067,27 +5367,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -6095,26 +5375,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 21@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -6345,27 +5610,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -6373,26 +5618,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 22@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -6630,27 +5860,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -6658,26 +5868,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 23@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -6908,27 +6103,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -6936,26 +6111,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 24@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -7207,27 +6367,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -7235,26 +6375,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 25@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -7510,27 +6635,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -7538,26 +6643,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 26@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -7788,27 +6878,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -7816,26 +6886,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 27@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -8073,27 +7128,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -8101,26 +7136,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 28@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -8372,27 +7392,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -8400,26 +7400,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 29@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -8650,27 +7635,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -8678,26 +7643,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 30@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -8953,27 +7903,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -8981,26 +7911,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 31@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -9231,27 +8146,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -9259,26 +8154,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 32@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -9537,27 +8417,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -9565,26 +8425,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 33@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -9815,27 +8660,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -9843,26 +8668,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 34@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -10093,27 +8903,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -10121,26 +8911,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 35@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>
@@ -10396,27 +9171,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
               <span
                 className="exercise-tag"
               >
-                book:stax-phys
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxfeature:one-1
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                context-cnxmod:
-              </span>
-              <span
-                className="exercise-tag"
-              >
                 dok:3
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                filter-type:test-prep
               </span>
               <span
                 className="exercise-tag"
@@ -10424,26 +9179,11 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                 ID: 36@1
               </span>
               <div
-                className="lo-tag"
+                className="exercise-tag lo-tag"
               >
                 LO: 
                 lo:stax-phys:1-2-1
               </div>
-              <span
-                className="exercise-tag"
-              >
-                requires-context:true
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                time:long
-              </span>
-              <span
-                className="exercise-tag"
-              >
-                type:conceptual
-              </span>
             </div>
           </div>
         </div>

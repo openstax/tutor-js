@@ -440,7 +440,7 @@ exports[`QA Screen renders as loading then matches snapshot 1`] = `
                             <span className=\\"exercise-tag\\">
                               ID: 1@1
                             </span>
-                            <div className=\\"lo-tag\\">
+                            <div className=\\"exercise-tag lo-tag\\">
                               LO: 
                               lo:stax-phys:1-2-1
                             </div>
@@ -649,7 +649,7 @@ exports[`QA Screen renders as loading then matches snapshot 1`] = `
                             <span className=\\"exercise-tag\\">
                               ID: 2@1
                             </span>
-                            <div className=\\"lo-tag\\">
+                            <div className=\\"exercise-tag lo-tag\\">
                               LO: 
                               lo:stax-phys:1-2-1
                             </div>
@@ -862,7 +862,7 @@ exports[`QA Screen renders as loading then matches snapshot 1`] = `
                             <span className=\\"exercise-tag\\">
                               ID: 3@1
                             </span>
-                            <div className=\\"lo-tag\\">
+                            <div className=\\"exercise-tag lo-tag\\">
                               LO: 
                               lo:stax-phys:1-2-1
                             </div>
@@ -1071,7 +1071,7 @@ exports[`QA Screen renders as loading then matches snapshot 1`] = `
                             <span className=\\"exercise-tag\\">
                               ID: 4@1
                             </span>
-                            <div className=\\"lo-tag\\">
+                            <div className=\\"exercise-tag lo-tag\\">
                               LO: 
                               lo:stax-phys:1-2-1
                             </div>
@@ -1280,7 +1280,7 @@ exports[`QA Screen renders as loading then matches snapshot 1`] = `
                             <span className=\\"exercise-tag\\">
                               ID: 5@1
                             </span>
-                            <div className=\\"lo-tag\\">
+                            <div className=\\"exercise-tag lo-tag\\">
                               LO: 
                               lo:stax-phys:1-2-1
                             </div>
@@ -1514,7 +1514,7 @@ exports[`QA Screen renders as loading then matches snapshot 1`] = `
                             <span className=\\"exercise-tag\\">
                               ID: 6@1
                             </span>
-                            <div className=\\"lo-tag\\">
+                            <div className=\\"exercise-tag lo-tag\\">
                               LO: 
                               lo:stax-phys:1-2-1
                             </div>
@@ -1723,7 +1723,7 @@ exports[`QA Screen renders as loading then matches snapshot 1`] = `
                             <span className=\\"exercise-tag\\">
                               ID: 7@1
                             </span>
-                            <div className=\\"lo-tag\\">
+                            <div className=\\"exercise-tag lo-tag\\">
                               LO: 
                               lo:stax-phys:1-2-1
                             </div>
@@ -1936,7 +1936,7 @@ exports[`QA Screen renders as loading then matches snapshot 1`] = `
                             <span className=\\"exercise-tag\\">
                               ID: 8@1
                             </span>
-                            <div className=\\"lo-tag\\">
+                            <div className=\\"exercise-tag lo-tag\\">
                               LO: 
                               lo:stax-phys:1-2-1
                             </div>

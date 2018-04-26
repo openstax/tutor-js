@@ -3,11 +3,14 @@ import {
 } from '../../model';
 import { isObject, first, last, filter, extend, values, pick, isNil } from 'lodash';
 
+const TYPES = {
+  IMPORTANT: ['lo', 'aplo', 'blooms', 'dok', 'length'],
+};
+
 @identifiedBy('exercise/tag')
 export default class ExerciseTag extends BaseModel {
 
   @observable _tag;
-  @observable is_visible = true;
 
   constructor(tag) {
     super();
@@ -22,6 +25,9 @@ export default class ExerciseTag extends BaseModel {
     return this.asString;
   }
 
+  @computed get isImportant() {
+    return TYPES.IMPORTANT.includes(this.type);
+  }
 
   @computed get name() {
     return this.asString;

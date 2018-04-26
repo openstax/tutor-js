@@ -264,27 +264,7 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
       <span
         className="exercise-tag"
       >
-        book:stax-phys
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        context-cnxfeature:one-1
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        context-cnxmod:
-      </span>
-      <span
-        className="exercise-tag"
-      >
         dok:3
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        filter-type:test-prep
       </span>
       <span
         className="exercise-tag"
@@ -292,26 +272,11 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
         ID: 6@1
       </span>
       <div
-        className="lo-tag"
+        className="exercise-tag lo-tag"
       >
         LO: 
         lo:stax-phys:1-2-1
       </div>
-      <span
-        className="exercise-tag"
-      >
-        requires-context:true
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        time:long
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        type:conceptual
-      </span>
     </div>
   </div>
 </div>
@@ -361,27 +326,7 @@ exports[`Exercise Preview Component can hide the answers 1`] = `
       <span
         className="exercise-tag"
       >
-        book:stax-phys
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        context-cnxfeature:one-1
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        context-cnxmod:
-      </span>
-      <span
-        className="exercise-tag"
-      >
         dok:3
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        filter-type:test-prep
       </span>
       <span
         className="exercise-tag"
@@ -389,26 +334,11 @@ exports[`Exercise Preview Component can hide the answers 1`] = `
         ID: 3@1
       </span>
       <div
-        className="lo-tag"
+        className="exercise-tag lo-tag"
       >
         LO: 
         lo:stax-phys:1-2-1
       </div>
-      <span
-        className="exercise-tag"
-      >
-        requires-context:true
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        time:long
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        type:conceptual
-      </span>
     </div>
   </div>
 </div>
@@ -651,27 +581,7 @@ exports[`Exercise Preview Component can render question formats 1`] = `
       <span
         className="exercise-tag"
       >
-        book:stax-phys
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        context-cnxfeature:one-1
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        context-cnxmod:
-      </span>
-      <span
-        className="exercise-tag"
-      >
         dok:3
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        filter-type:test-prep
       </span>
       <span
         className="exercise-tag"
@@ -679,26 +589,11 @@ exports[`Exercise Preview Component can render question formats 1`] = `
         ID: 4@1
       </span>
       <div
-        className="lo-tag"
+        className="exercise-tag lo-tag"
       >
         LO: 
         lo:stax-phys:1-2-1
       </div>
-      <span
-        className="exercise-tag"
-      >
-        requires-context:true
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        time:long
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        type:conceptual
-      </span>
     </div>
   </div>
 </div>
@@ -926,6 +821,258 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
       <span
         className="exercise-tag"
       >
+        dok:3
+      </span>
+      <span
+        className="exercise-tag"
+      >
+        ID: 7@1
+      </span>
+      <div
+        className="exercise-tag lo-tag"
+      >
+        LO: 
+        lo:stax-phys:1-2-1
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Exercise Preview Component limits tags 1`] = `
+<div
+  className="openstax-exercise-preview panel panel-default"
+  data-exercise-id="8@1"
+  id={undefined}
+  tabIndex={-1}
+>
+  <div
+    className="panel-body"
+  >
+    <div
+      className="exercise-body"
+    >
+      <div
+        className="openstax-question openstax-question-preview"
+        data-question-number={undefined}
+      >
+        <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<b>Meter-area reduction in copper</b> - does it affect the speed of light, etc?",
+            }
+          }
+        />
+        <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "In what sense does Einstein’s theory of relativity illustrate that physics describes fundamental aspects of our universe?",
+            }
+          }
+        />
+        <div
+          className="answers-table"
+        >
+          <div
+            className="openstax-answer"
+          >
+            <div
+              className="answers-answer disabled"
+            >
+              <label
+                className="answer-label"
+                htmlFor="8-option-0"
+                onKeyPress={[Function]}
+              >
+                <button
+                  aria-label="Choice a:"
+                  className="answer-letter"
+                  disabled={true}
+                  onClick={undefined}
+                >
+                  a
+                </button>
+                <div
+                  className="answer-answer"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "It describes how a frame of reference is necessary to describe position or motion.",
+                      }
+                    }
+                  />
+                </div>
+              </label>
+            </div>
+          </div>
+          <div
+            className="openstax-answer"
+          >
+            <div
+              className="answers-answer disabled"
+            >
+              <label
+                className="answer-label"
+                htmlFor="8-option-1"
+                onKeyPress={[Function]}
+              >
+                <button
+                  aria-label="Choice b:"
+                  className="answer-letter"
+                  disabled={true}
+                  onClick={undefined}
+                >
+                  b
+                </button>
+                <div
+                  className="answer-answer"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "It describes how people think of other people’s views from their own frame of reference.",
+                      }
+                    }
+                  />
+                </div>
+              </label>
+            </div>
+          </div>
+          <div
+            className="openstax-answer"
+          >
+            <div
+              className="answers-answer disabled"
+            >
+              <label
+                className="answer-label"
+                htmlFor="8-option-2"
+                onKeyPress={[Function]}
+              >
+                <button
+                  aria-label="Choice c:"
+                  className="answer-letter"
+                  disabled={true}
+                  onClick={undefined}
+                >
+                  c
+                </button>
+                <div
+                  className="answer-answer"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "It describes how different parts of the universe are far apart and do not affect each other",
+                      }
+                    }
+                  />
+                </div>
+              </label>
+            </div>
+          </div>
+          <div
+            className="openstax-answer"
+          >
+            <div
+              className="answers-answer disabled"
+            >
+              <label
+                className="answer-label"
+                htmlFor="8-option-3"
+                onKeyPress={[Function]}
+              >
+                <button
+                  aria-label="Choice d:"
+                  className="answer-letter"
+                  disabled={true}
+                  onClick={undefined}
+                >
+                  d
+                </button>
+                <div
+                  className="answer-answer"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "It describes how speed affects different observers’ measurements of time and space.",
+                      }
+                    }
+                  />
+                </div>
+              </label>
+            </div>
+          </div>
+          <div
+            className="openstax-answer"
+          >
+            <div
+              className="answers-answer disabled"
+            >
+              <label
+                className="answer-label"
+                htmlFor="8-option-4"
+                onKeyPress={[Function]}
+              >
+                <button
+                  aria-label="Choice e:"
+                  className="answer-letter"
+                  disabled={true}
+                  onClick={undefined}
+                >
+                  e
+                </button>
+                <div
+                  className="answer-answer"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "It describes how a frame of reference is necessary to describe position or motion.",
+                      }
+                    }
+                  />
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div
+          className="detailed-solution"
+        >
+          <div
+            className="header"
+          >
+            Detailed solution
+          </div>
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "four",
+              }
+            }
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="exercise-tags"
+    >
+      <span
+        className="exercise-tag"
+      >
+        ID: 8@1
+      </span>
+      <span
+        className="exercise-tag"
+      >
+        blooms:3
+      </span>
+      <span
+        className="exercise-tag"
+      >
         book:stax-phys
       </span>
       <span
@@ -951,10 +1098,10 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
       <span
         className="exercise-tag"
       >
-        ID: 7@1
+        ID: 8@1
       </span>
       <div
-        className="lo-tag"
+        className="exercise-tag lo-tag"
       >
         LO: 
         lo:stax-phys:1-2-1
@@ -1226,27 +1373,7 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
       <span
         className="exercise-tag"
       >
-        book:stax-phys
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        context-cnxfeature:one-1
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        context-cnxmod:
-      </span>
-      <span
-        className="exercise-tag"
-      >
         dok:3
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        filter-type:test-prep
       </span>
       <span
         className="exercise-tag"
@@ -1254,26 +1381,11 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
         ID: 1@1
       </span>
       <div
-        className="lo-tag"
+        className="exercise-tag lo-tag"
       >
         LO: 
         lo:stax-phys:1-2-1
       </div>
-      <span
-        className="exercise-tag"
-      >
-        requires-context:true
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        time:long
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        type:conceptual
-      </span>
     </div>
   </div>
 </div>
@@ -1536,27 +1648,7 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
       <span
         className="exercise-tag"
       >
-        book:stax-phys
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        context-cnxfeature:one-1
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        context-cnxmod:
-      </span>
-      <span
-        className="exercise-tag"
-      >
         dok:3
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        filter-type:test-prep
       </span>
       <span
         className="exercise-tag"
@@ -1564,26 +1656,11 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
         ID: 2@1
       </span>
       <div
-        className="lo-tag"
+        className="exercise-tag lo-tag"
       >
         LO: 
         lo:stax-phys:1-2-1
       </div>
-      <span
-        className="exercise-tag"
-      >
-        requires-context:true
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        time:long
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        type:conceptual
-      </span>
     </div>
   </div>
 </div>

@@ -251,7 +251,7 @@
 
       .lo-tag {
         margin-right: 1rem;
-        content: '';
+        &::before { content: ''; }
       }
     }
   }

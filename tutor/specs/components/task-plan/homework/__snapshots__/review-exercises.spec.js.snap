@@ -472,27 +472,7 @@ exports[`choose exercises component matches snapshot 1`] = `
             <span
               className="exercise-tag"
             >
-              book:stax-phys
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              context-cnxfeature:one-1
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              context-cnxmod:
-            </span>
-            <span
-              className="exercise-tag"
-            >
               dok:3
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              filter-type:test-prep
             </span>
             <span
               className="exercise-tag"
@@ -500,26 +480,11 @@ exports[`choose exercises component matches snapshot 1`] = `
               ID: 1@1
             </span>
             <div
-              className="lo-tag"
+              className="exercise-tag lo-tag"
             >
               LO: 
               lo:stax-phys:1-2-1
             </div>
-            <span
-              className="exercise-tag"
-            >
-              requires-context:true
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              time:long
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              type:conceptual
-            </span>
           </div>
         </div>
       </div>
@@ -761,27 +726,7 @@ exports[`choose exercises component matches snapshot 1`] = `
             <span
               className="exercise-tag"
             >
-              book:stax-phys
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              context-cnxfeature:one-1
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              context-cnxmod:
-            </span>
-            <span
-              className="exercise-tag"
-            >
               dok:3
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              filter-type:test-prep
             </span>
             <span
               className="exercise-tag"
@@ -789,26 +734,11 @@ exports[`choose exercises component matches snapshot 1`] = `
               ID: 2@1
             </span>
             <div
-              className="lo-tag"
+              className="exercise-tag lo-tag"
             >
               LO: 
               lo:stax-phys:1-2-1
             </div>
-            <span
-              className="exercise-tag"
-            >
-              requires-context:true
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              time:long
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              type:conceptual
-            </span>
           </div>
         </div>
       </div>
@@ -1057,27 +987,7 @@ exports[`choose exercises component matches snapshot 1`] = `
             <span
               className="exercise-tag"
             >
-              book:stax-phys
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              context-cnxfeature:one-1
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              context-cnxmod:
-            </span>
-            <span
-              className="exercise-tag"
-            >
               dok:3
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              filter-type:test-prep
             </span>
             <span
               className="exercise-tag"
@@ -1085,26 +995,11 @@ exports[`choose exercises component matches snapshot 1`] = `
               ID: 3@1
             </span>
             <div
-              className="lo-tag"
+              className="exercise-tag lo-tag"
             >
               LO: 
               lo:stax-phys:1-2-1
             </div>
-            <span
-              className="exercise-tag"
-            >
-              requires-context:true
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              time:long
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              type:conceptual
-            </span>
           </div>
         </div>
       </div>

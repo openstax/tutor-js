@@ -259,27 +259,7 @@ exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
         <span
           className="exercise-tag"
         >
-          book:stax-phys
-        </span>
-        <span
-          className="exercise-tag"
-        >
-          context-cnxfeature:one-1
-        </span>
-        <span
-          className="exercise-tag"
-        >
-          context-cnxmod:
-        </span>
-        <span
-          className="exercise-tag"
-        >
           dok:3
-        </span>
-        <span
-          className="exercise-tag"
-        >
-          filter-type:test-prep
         </span>
         <span
           className="exercise-tag"
@@ -287,26 +267,11 @@ exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
           ID: 1@1
         </span>
         <div
-          className="lo-tag"
+          className="exercise-tag lo-tag"
         >
           LO: 
           lo:stax-phys:1-2-1
         </div>
-        <span
-          className="exercise-tag"
-        >
-          requires-context:true
-        </span>
-        <span
-          className="exercise-tag"
-        >
-          time:long
-        </span>
-        <span
-          className="exercise-tag"
-        >
-          type:conceptual
-        </span>
       </div>
     </div>
   </div>

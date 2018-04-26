@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  compact, trimEnd, includes, sortBy, find, filter, indexOf, clone, map, isEmpty, omit, last,
+  compact, trimEnd, includes, sortBy, find, filter, indexOf, map, isEmpty, omit, last,
 } from 'lodash';
 import classnames from 'classnames';
 import { Panel } from 'react-bootstrap';
@@ -28,6 +28,8 @@ class ExercisePreview extends React.Component {
     onOverlayClick:  React.PropTypes.func,
     isSelected:      React.PropTypes.bool,
     isInteractive:   React.PropTypes.bool,
+    actionsOnSide:   React.PropTypes.bool,
+    sortTags:        React.PropTypes.func,
     overlayActions:  React.PropTypes.object,
     isVerticallyTruncated: React.PropTypes.bool,
   };
@@ -71,7 +73,7 @@ class ExercisePreview extends React.Component {
 
     if (isLO) {
       return (
-        <div key={index} className="lo-tag">
+        <div key={index} className="exercise-tag lo-tag">
           {'LO: '}
           {content}
         </div>
@@ -115,10 +117,11 @@ class ExercisePreview extends React.Component {
   render() {
     let tags = this.props.exercise.tags.peek();
     if (!this.props.displayAllTags) {
-      tags = filter(tags, { is_visible: true });
+      tags = filter(tags, 'isImportant');
     }
     tags.push({ name: `ID: ${this.exercise.uid}`, type: 'id' });
     const renderedTags = map(this.props.sortTags(tags, this.props.extractTag), this.renderTag);
+
     const classes = classnames( 'openstax-exercise-preview', this.props.className, {
       'answers-hidden':   this.props.hideAnswers,
       'has-actions':      !isEmpty(this.props.overlayActions),

@@ -48,15 +48,4 @@ export default class ExerciseTag extends BaseModel {
     return tag;
   }
 
-  // @computed get n
-  // _.reduce(_.sortBy(tags, 'name'), (memo, tag) ->
-  //   if (_.include(EXERCISE_TAGS.GENERIC, tag.type))
-  //     memo.tagString.push(tag.name)
-  //   else if (_.include(EXERCISE_TAGS.LO, tag.type))
-  //     memo.lo = getTagName(tag)
-  //   memo.section = tag.chapter_section
-  //   memo
-  //   , obj)
-
-
 }
