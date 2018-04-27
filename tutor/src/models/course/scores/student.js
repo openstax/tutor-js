@@ -35,20 +35,34 @@ export default class Student extends BaseModel {
 
     const { course } = this.period;
 
-    this.course_average = this.homework_score
-      .times(course.homework_score_weight / 100)
-      .plus(this.homework_progress.times(course.homework_progress_weight / 100))
-      .plus(this.reading_score.times(course.reading_score_weight / 100))
-      .plus(this.reading_progress.times(course.reading_progress_weight / 100));
+    if (
+      !((course.homework_score_weight && !this.homework_score) ||
+        (course.homework_progress_weight && !this.homework_progress) ||
+        (course.reading_score_weight && !this.reading_score) ||
+        (course.reading_progress_weight && !this.reading_progress)
+      )
+    ) {
+      this.course_average =
+        Big(course.homework_score_weight / 100).times(this.homework_score || 0)
+          .plus(
+            Big(course.homework_progress_weight / 100).times(this.homework_progress || 0)
+          )
+          .plus(
+            Big(course.reading_score_weight / 100).times(this.reading_score || 0)
+          )
+          .plus(
+            Big(course.reading_progress_weight / 100).times(this.reading_progress || 0)
+          );
+    }
   }
 
   averageTasksOfType(type, attr) {
     const tasks = this.data.filter(t => t.is_included_in_averages && t.type === type);
-    if (isEmpty(tasks)) { return Big(0); }
+    if (isEmpty(tasks)) { return null; }
 
     return reduce(tasks,
-        (acc, t) => acc.plus(t[attr] || 0),
-        new Big(0)
+      (acc, t) => acc.plus(t[attr] || 0),
+      new Big(0)
     ).div(tasks.length);
   }
 

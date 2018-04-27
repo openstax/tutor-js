@@ -46,16 +46,29 @@ export default class CourseScoresPeriod extends BaseModel {
 
     const { course } = this;
 
-    this.overall_course_average = this.overall_homework_score
-      .times(course.homework_score_weight / 100)
-      .plus(this.overall_homework_progress.times(course.homework_progress_weight / 100))
-      .plus(this.overall_reading_score.times(course.reading_score_weight / 100))
-      .plus(this.overall_reading_progress.times(course.reading_progress_weight / 100));
-
+    if (
+      !((course.homework_score_weight && !this.overall_homework_score) ||
+        (course.homework_progress_weight && !this.overall_homework_progress) ||
+        (course.reading_score_weight && !this.overall_reading_score) ||
+        (course.reading_progress_weight && !this.overall_reading_progress)
+      )
+    ) {
+      this.overall_course_average =
+        Big(course.homework_score_weight / 100).times(this.overall_homework_score || 0)
+          .plus(
+            Big(course.homework_progress_weight / 100).times(this.overall_homework_progress || 0)
+          )
+          .plus(
+            Big(course.reading_score_weight / 100).times(this.overall_reading_score || 0)
+          )
+          .plus(
+            Big(course.reading_progress_weight / 100).times(this.overall_reading_progress || 0)
+          );
+    }
   }
 
   averageForType(attr) {
-    if (isEmpty(this.students)) { return Big(0); }
+    if (isEmpty(this.students)) { return null; }
 
     return reduce(this.students,
       (acc, s) => acc.plus(s[attr] || 0),
