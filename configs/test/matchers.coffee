@@ -1,3 +1,5 @@
+get = require 'lodash/get'
+
 jasmine.addMatchers
 
   toHaveRendered: ->
@@ -17,8 +19,11 @@ expect.extend({
   toHaveChanged: (fn, tests) ->
     failures = []
     utils = @utils
-    testValue = (i, type, expected, actual) ->
+
+    testValue = (i, test, type, expected) ->
+      actual = get(test.object, test.property, test.value?())
       actual = parseFloat(actual) unless typeof actual is 'number'
+
       if test.precision
         utils.ensureNumbers(actual, expected, "test index #{i}")
         pass = Math.abs(expected - actual) < Math.pow(10, -test.precision) / 2
@@ -26,17 +31,21 @@ expect.extend({
       else
         pass = expected is actual
         hint = utils.matcherHint('.toEqual')
+
+      name = test.property or i
+
       failures.push(
-        "test #{i} #{type} #{hint}: #{utils.printExpected(expected)}, received #{utils.printReceived(actual)}"
+        "#{name}: #{type} #{hint}: #{utils.printExpected(expected)}, received #{utils.printReceived(actual)}"
       ) unless pass
 
-    testValue(i, 'from value', test.from, test.value()) for test, i in tests
+    for test, i in tests
+      testValue(i, test, 'from value', test.from)
 
     fn()
 
     for test, i in tests
       expected = if test.by? then (test.from + test.by) else test.to
-      testValue(i, 'changed value', expected, test.value())
+      testValue(i, test, 'changed value', expected)
 
     if failures.length
       { pass: false, message: -> failures.join("\n") }

@@ -56,7 +56,7 @@ Factory.define('Course')
   .reading_score_weight(0.2)
   .reading_progress_weight(0.2)
   .num_sections(3)
-  .periods(reference('Period', { count: 3 }))
+  .periods(reference('Period', { count: ({ num_periods = 3 }) => num_periods }))
   .students([])
   .roles(({ object, is_teacher }) =>
     [ Factory.create('Role', { parent: object, type: is_teacher ? 'teacher' : 'student' }) ]

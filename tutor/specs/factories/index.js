@@ -17,6 +17,7 @@ import './book';
 import './task-plan-stats';
 import './ecosystem';
 import './exercise';
+import './scores';
 
 const Factories = {};
 
@@ -59,6 +60,12 @@ Factories.taskPlans = ({ course, count = 4 }) => {
   course.taskPlans.onLoaded({ data: {
     plans: range(count).map(() => FactoryBot.create('TeacherDashboardTask', { course })),
   } });
+};
+
+Factories.scores = ({ course }) => {
+  course.scores.onFetchComplete({
+    data: course.periods.map(period => FactoryBot.create('ScoresForPeriod', { period })),
+  });
 };
 
 Factories.exercisesMap = ({ book, pageIds = [], count = 4 } = {}) => {

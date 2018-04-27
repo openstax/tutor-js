@@ -1,24 +1,98 @@
-import { bootstrapCoursesList } from '../../../courses-test-data';
-import DATA from '../../../../api/courses/2/performance.json';
-
-const COURSE_ID = 2;
+import { filter } from 'lodash';
+import Factory from '../../../factories';
 
 describe('scores store task results', () => {
   let scores;
   let course;
-  let period;
 
   beforeEach(() => {
-    course = bootstrapCoursesList().get(COURSE_ID);
-    course.update({
-      reading_progress_weight: 0.25,
-      homework_score_weight: 0.25,
-      homework_progress_weight: 0.25,
-      reading_score_weight: 0.25,
-    });
+    course = Factory.course({ num_periods: 1 });
+    Factory.scores({ course });
     scores = course.scores;
-    scores.onFetchComplete({ data: DATA });
-    period = course.scores.periods.get('1');
+
+    course.update({
+      homework_score_weight: 50.0,
+      homework_progress_weight: 10.0,
+      reading_score_weight: 20.0,
+      reading_progress_weight: 20.0,
+    });
+  });
+
+
+  describe('with n/a values', () => {
+    let task;
+    let tests;
+    let period;
+
+    beforeEach(() => {
+      period = scores.periods.values()[0];
+      filter(period.data_headings, { type: 'reading' }).forEach(reading =>
+        period.data_headings.remove(reading),
+      );
+      period.overall_course_average = undefined;
+      period.overall_reading_score = undefined;
+      period.overall_reading_progress = undefined;
+
+      period.students.forEach((s) => {
+        filter(s.data, { type: 'reading' }).forEach(reading =>
+          s.data.remove(reading),
+        );
+      });
+      task = scores.getTask(1882); // a homework
+      tests = [
+        {
+          object: task, property: 'completed_accepted_late_exercise_count',
+          from: 0, to: 3,
+        }, {
+          object: task, property: 'student.homework_progress',
+          precision: 5, from: 0.142857, to: 0.25,
+        }, {
+          object: task, property: 'student.homework_score',
+          precision: 5, from: 0.107142, to: 0.142857,
+        }, {
+          object: task, property: 'student.course_average',
+          precision: 5, from: 0.067857142, to: 0.0964285,
+        }, {
+          object: task, property: 'period.overall_homework_progress',
+          precision: 5, from: 0.0714285714285714, to: 0.125,
+        }, {
+          object: task, property: 'period.overall_homework_score',
+          precision: 5, from: 0.0535714, to: 0.07142857142,
+        }, {
+          object: task, property: 'reportHeading.average_score',
+          precision: 5, from: 0.107142857, to: 0.142857142,
+        }, {
+          object: task, property: 'reportHeading.average_progress',
+          precision: 5, from: 0.142857142, to: 0.25,
+        },
+      ];
+    });
+
+    it ('has no readings', () => {
+      expect(scores.getTask(1883)).toBeNull();
+    });
+
+    it('matches expected values', () => {
+      expect(
+        () => task.onLateWorkAccepted()
+      ).toHaveChanged(tests);
+      // it shouldn't update reading or course avg
+      expect(period.overall_course_average).toBeUndefined();
+      expect(period.overall_reading_score).toBeUndefined();
+      expect(period.overall_reading_progress).toBeUndefined();
+    });
+
+    it('onLateWorkRejected matches expected values', () => {
+      task.onLateWorkAccepted();
+      tests.forEach((t) => {
+        const { from, to } = t;
+        t.from = to;
+        t.to = from;
+      });
+      expect(
+        () => task.onLateWorkRejected()
+      ).toHaveChanged(tests);
+    });
   });
 
   describe('homework', () => {
@@ -26,41 +100,35 @@ describe('scores store task results', () => {
     let tests;
 
     beforeEach(() => {
-      task = scores.getTask(313); // a homework
+      task = scores.getTask(1882); // a homework
       tests = [
         {
-          value: () => task.correct_accepted_late_exercise_count,
-          from: 0, to: 1,
+          object: task, property: 'completed_accepted_late_exercise_count',
+          from: 0, to: 3,
         }, {
-          value: () => task.completed_accepted_late_exercise_count,
-          from: 0, to: 2,
+          object: task, property: 'student.homework_progress',
+          precision: 5, from: 0.142857, to: 0.25,
         }, {
-          value: () => task.score,
-          from: 0.25, to: 0.5, // 1/4 correct on time, 1/4 correct but late
+          object: task, property: 'student.homework_score',
+          precision: 5, from: 0.107142, to: 0.142857,
         }, {
-          value: () => task.student.homework_progress,
-          precision: 5, from: 0.125, to: 0.375, // 1/8 -> 3/8
+          object: task, property: 'student.course_average',
+          precision: 5, from: 0.067857142, to: 0.0964285,
         }, {
-          value: () => task.student.homework_score,
-          precision: 5, from: 0.375, to: 0.5, // 3/8 correct -> 4/8
+          object: task, property: 'period.overall_homework_progress',
+          precision: 5, from: 0.0714285714285714, to: 0.125,
         }, {
-          value: () => task.student.reading_progress,
-          precision: 5, from: 0.169491, to: 0.169491, // no change
+          object: task, property: 'period.overall_homework_score',
+          precision: 5, from: 0.0535714, to: 0.07142857142,
         }, {
-          value: () => task.student.reading_score,
-          precision: 5, from: 0.0, to: 0.0, // no change
+          object: task, property: 'period.overall_course_average',
+          precision: 5, from: 0.033928571, to: 0.04821428571,
         }, {
-          value: () => task.reportHeading.average_score,
-          precision: 5, from: 0.375, to: 0.5, // 3/8 -> 4/8
+          object: task, property: 'reportHeading.average_score',
+          precision: 5, from: 0.10714285714, to: 0.1428571428,
         }, {
-          value: () => task.reportHeading.average_progress,
-          precision: 5, from: 0.375, to: 0.625, // 3/8 -> 5/8
-        }, {
-          value: () => period.overall_homework_progress,
-          precision: 5, from: 0.4375, to: 0.5625, // 7/16 -> 9/16 * 0.25
-        }, {
-          value: () => period.overall_homework_score,
-          precision: 5, from: 0.022556, to: 0.0850563, // 3/16 -> 4/16 * 0.25
+          object: task, property: 'reportHeading.average_progress',
+          precision: 5, from: 0.142857142, to: 0.25,
         },
       ];
     });
@@ -89,41 +157,39 @@ describe('scores store task results', () => {
     let tests;
 
     beforeEach(() => {
-      task = scores.getTask(257); // a reading
+      task = scores.getTask(1883); // a reading
+
       tests = [
         {
-          value: () => task.completed_accepted_late_step_count,
-          from: 0, to: 5,
+          object: task, property: 'correct_accepted_late_exercise_count',
+          from: 0, to: 1,
         }, {
-          value: () => task.completed_accepted_late_exercise_count,
-          from: 0, to: 0,
+          object: task, property: 'student.reading_progress',
+          precision: 5, from: 0.0, to: 0.3846153,
         }, {
-          value: () => task.correct_accepted_late_exercise_count,
-          from: 0, to: 4,
+          object: task, property: 'student.reading_score',
+          precision: 5, from: 0, to: 0.071428571,
         }, {
-          value: () => task.score,
-          precision: 2,
-          from: 0.0, to: 0.36, // 0/11 -> 4/11
+          object: task, property: 'student.course_average',
+          precision: 5, from: 0.067857142, to: 0.1590659,
         }, {
-          value: () => task.student.homework_progress,
-          precision: 5, from: 0.125, to: 0.125, //  no change
+          object: task, property: 'period.overall_reading_progress',
+          precision: 5, from: 0.0, to: 0.192307692,
         }, {
-          value: () => task.student.homework_score,
-          precision: 5, from: 0.375, to: 0.375, //  no change
+          object: task, property: 'period.overall_reading_score',
+          precision: 5, from: 0.0, to: 0.035714285,
         }, {
-          value: () => task.student.reading_progress,
-          precision: 5, from: 0.169491, to: 0.254237, // 10/59 -> 15/59
+          object: task, property: 'period.overall_course_average',
+          precision: 5, from: 0.033928, to: 0.07953296,
         }, {
-          value: () => task.student.reading_score,
-          precision: 2, from: 0.0, to: 0.18, // 0/59 -> 4/59
+          object: task, property: 'reportHeading.average_score',
+          precision: 5, from: 0.0, to: 0.07142857,
         }, {
-          value: () => period.overall_reading_progress,
-          precision: 5, from: 0.094017, to: 0.13675, // 11/117 -> 14/117 * 0.25
-        }, {
-          value: () => period.overall_reading_score,
-          precision: 5, from: 0.0427350, to: 0.13364, // 5/117 -> 8/117 * 0.25
+          object: task, property: 'reportHeading.average_progress',
+          precision: 5, from: 0.0, to: 0.384615384,
         },
       ];
+
     });
 
     it('matches expected values', () => {
