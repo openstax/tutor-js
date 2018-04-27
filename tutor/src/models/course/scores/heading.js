@@ -1,4 +1,4 @@
-import { reduce, map, findIndex } from 'lodash';
+import { reduce, map, isEmpty, findIndex } from 'lodash';
 import { computed, action } from 'mobx';
 import Big from 'big.js';
 import moment from 'moment';
@@ -35,6 +35,7 @@ export default class Heading extends BaseModel {
   }
 
   averageForType(attr) {
+    if (isEmpty(this.tasks)) { return Big(0); }
     return reduce(this.tasks,
       (acc, s) => acc.plus(s[attr] || 0),
       new Big(0)

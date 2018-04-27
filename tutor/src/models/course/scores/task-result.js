@@ -120,12 +120,13 @@ export default class TaskResult extends BaseModel {
   }
 
   @action adjustScore() {
-    this.is_included_in_averages = true;
-
-    this.score = new Big(
-      this.correct_on_time_exercise_count + this.correct_accepted_late_exercise_count
-    ).div(this.exercise_count);
-
+    if (this.exercise_count) {
+      this.score = new Big(
+        this.correct_on_time_exercise_count + this.correct_accepted_late_exercise_count
+      ).div(this.exercise_count);
+    } else {
+      this.score = new Big(0);
+    }
     this.student.adjustScores(this);
     this.period.adjustScores(this);
     this.reportHeading.adjustScores();

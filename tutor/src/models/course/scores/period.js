@@ -1,4 +1,4 @@
-import { find, reduce } from 'lodash';
+import { find, reduce, isEmpty } from 'lodash';
 import { computed, action } from 'mobx';
 import Big from 'big.js';
 import {
@@ -55,6 +55,8 @@ export default class CourseScoresPeriod extends BaseModel {
   }
 
   averageForType(attr) {
+    if (isEmpty(this.students)) { return Big(0); }
+
     return reduce(this.students,
       (acc, s) => acc.plus(s[attr] || 0),
       new Big(0)

@@ -1,4 +1,4 @@
-import { reduce } from 'lodash';
+import { reduce, isEmpty } from 'lodash';
 import { action } from 'mobx';
 import Big from 'big.js';
 import {
@@ -44,9 +44,11 @@ export default class Student extends BaseModel {
 
   averageTasksOfType(type, attr) {
     const tasks = this.data.filter(t => t.is_included_in_averages && t.type === type);
+    if (isEmpty(tasks)) { return Big(0); }
+
     return reduce(tasks,
-      (acc, t) => acc.plus(t[attr] || 0),
-      new Big(0)
+        (acc, t) => acc.plus(t[attr] || 0),
+        new Big(0)
     ).div(tasks.length);
   }
 
