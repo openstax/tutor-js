@@ -1,7 +1,7 @@
-import { filter, find, includes, findIndex, reduce, isNil } from 'lodash';
-import { computed, observable, action } from 'mobx';
+import { findIndex } from 'lodash';
+import { computed, action } from 'mobx';
 import {
-  BaseModel, identifiedBy, belongsTo, hasMany, session, identifier, field,
+  BaseModel, identifiedBy, belongsTo, identifier, field,
 } from 'shared/model';
 import Big from 'big.js';
 import { TimeStore } from '../../../flux/time';
@@ -33,9 +33,21 @@ export default class TaskResult extends BaseModel {
   @field recovered_exercise_count;
 
   @belongsTo({ model: 'course/scores/student' }) student;
+  @computed get period() { return this.student.period; }
 
   @computed get columnIndex() {
     return findIndex(this.student.data, s => s === this);
+  }
+
+  @computed get progress() {
+    let count;
+    if ('homework' === this.type) {
+      count = this.completed_on_time_exercise_count + this.completed_accepted_late_exercise_count;
+      return count / this.exercise_count;
+    } else {
+      count = this.completed_on_time_step_count + this.completed_accepted_late_step_count;
+      return count / this.step_count;
+    }
   }
 
   @computed get lateStepCount() {
@@ -69,31 +81,19 @@ export default class TaskResult extends BaseModel {
   acceptLate() {}
   rejectLate() {}
 
-
-  onLateWorkRejected() {
-    const prevLateSteps = this.completed_accepted_late_step_count;
-    const prevCorrect = this.correct_accepted_late_exercise_count;
-
+  @action onLateWorkRejected() {
     this.is_late_work_accepted = false;
     this.completed_accepted_late_exercise_count = 0;
     this.correct_accepted_late_exercise_count = 0;
     this.completed_accepted_late_step_count = 0;
     this.accepted_late_at = null;
 
-    if (this.is_included_in_averages) {
-      this.adjustAverages(
-        prevLateSteps + this.completed_on_time_step_count,
-        prevCorrect + this.correct_on_time_exercise_count,
-      );
-    }
+    this.adjustScore();
   }
 
-  onLateWorkAccepted() {
+  @action onLateWorkAccepted() {
     // nothing to do if it's not actually late
     if (!this.hasLateWork) { return; }
-
-    const prevLateSteps = this.completed_accepted_late_step_count;
-    const prevCorrect = this.correct_accepted_late_exercise_count;
 
     this.is_late_work_accepted = true;
     this.completed_accepted_late_exercise_count =
@@ -104,12 +104,7 @@ export default class TaskResult extends BaseModel {
       this.completed_step_count - this.completed_on_time_step_count;
     this.accepted_late_at = TimeStore.getNow().toISOString();
 
-    if (this.is_included_in_averages) {
-      this.adjustAverages(
-        prevLateSteps + this.completed_on_time_step_count,
-        prevCorrect + this.correct_on_time_exercise_count,
-      );
-    }
+    this.adjustScore();
   }
 
   @computed get completedStepCount() {
@@ -124,58 +119,16 @@ export default class TaskResult extends BaseModel {
     return this.correct_on_time_exercise_count + this.correct_accepted_late_exercise_count;
   }
 
-  adjustAverages(prevCompletedStepCount, prevCorrect) {
-    const oldScore = this.score;
-    const period = this.student.period;
-    const { course } = period.coursePeriod;
-    const { type } = this;
-    let student = this.student;
+  @action adjustScore() {
+    this.is_included_in_averages = true;
 
     this.score = new Big(
       this.correct_on_time_exercise_count + this.correct_accepted_late_exercise_count
     ).div(this.exercise_count);
 
-    //----------------------------------------------------------------+
-    // scores                                                         |
-    //----------------------------------------------------------------+
-
-    // student
-    student[`${type}_score`] = student[`${type}_score`].plus(
-      (this.scoredCorrectCount / student.scoredExerciseCount[type]) -
-        ( prevCorrect / student.scoredExerciseCount[type] )
-    );
-    // assignment
-    this.reportHeading.average_score = this.reportHeading.average_score.plus(
-      (this.scoredCorrectCount / this.reportHeading.scoredExerciseCount) -
-        (prevCorrect / this.reportHeading.scoredExerciseCount)
-    );
-
-    // period
-    period[`overall_${type}_score`] = period[`overall_${type}_score`].plus(
-      (this.scoredCorrectCount / period.scoredExerciseCount[type]) -
-        (prevCorrect / period.scoredExerciseCount[type])
-    );
-
-    //----------------------------------------------------------------+
-    // progress                                                       |
-    //----------------------------------------------------------------+
-
-    // student
-    student[`${type}_progress`] = student[`${type}_progress`].plus(
-      (this.completedStepCount / student.scoredStepCount[type]) -
-        ( prevCompletedStepCount / student.scoredStepCount[type] )
-    );
-    // assignment
-    this.reportHeading.average_progress = this.reportHeading.average_progress.plus(
-      (this.completedStepCount / this.reportHeading.scoredStepCount) -
-        ( prevCompletedStepCount / this.reportHeading.scoredStepCount)
-    );
-    // period
-    period[`overall_${type}_progress`] = period[`overall_${type}_progress`].plus(
-      ( this.completedStepCount / period.scoredStepCount[type] ) -
-        ( prevCompletedStepCount / period.scoredStepCount[type] )
-    );
-
+    this.student.adjustScores(this);
+    this.period.adjustScores(this);
+    this.reportHeading.adjustScores();
   }
 
 }

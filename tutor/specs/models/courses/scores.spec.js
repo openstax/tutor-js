@@ -95,17 +95,4 @@ describe('scores store', function() {
     expect(task.id).toEqual(COMPLETED_TASK_ID);
   });
 
-  it('calculates scored counts', function() {
-    expect(period.students[0].scoredStepCount).toMatchObject({
-      external: 1, homework: 4, reading: 0,
-    });
-    expect(period.scoredStepCount).toMatchObject({
-      external: 1, homework: 36, reading: 0,
-    });
-    expect(map(period.data_headings, 'scoredStepCount')).toEqual([
-      36, 0, 1,
-    ]);
-  });
-
-
 });
