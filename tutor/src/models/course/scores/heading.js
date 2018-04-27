@@ -35,7 +35,7 @@ export default class Heading extends BaseModel {
   }
 
   averageForType(attr) {
-    if (isEmpty(this.tasks)) { return Big(0); }
+    if (isEmpty(this.tasks)) { return null; }
     return reduce(this.tasks,
       (acc, s) => acc.plus(s[attr] || 0),
       new Big(0)
