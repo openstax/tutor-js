@@ -40,14 +40,9 @@ export default class TaskResult extends BaseModel {
   }
 
   @computed get progress() {
-    let count;
-    if ('homework' === this.type) {
-      count = this.completed_on_time_exercise_count + this.completed_accepted_late_exercise_count;
-      return count / this.exercise_count;
-    } else {
-      count = this.completed_on_time_step_count + this.completed_accepted_late_step_count;
-      return count / this.step_count;
-    }
+    if (!this.step_count){ return null; }
+    const count = this.completed_on_time_step_count + this.completed_accepted_late_step_count;
+    return count / this.step_count;
   }
 
   @computed get lateStepCount() {
