@@ -5,6 +5,7 @@ import User from '../../../src/models/user';
 import { bootstrapCoursesList } from '../../courses-test-data';
 
 jest.mock('../../../src/models/user', () => ({
+  isCollegeTeacher: true,
   isConfirmedFaculty: true,
 }));
 
@@ -28,5 +29,11 @@ describe('Current User Store', function() {
     expect(UserMenu.getRoutes('2')).toMatchSnapshot();
     Courses.clear();
     expect(UserMenu.getRoutes()).toMatchSnapshot();
+  });
+
+  it('hides course creation from non-college faculty', () => {
+    Courses.clear();
+    User.isCollegeTeacher = false;
+    expect(UserMenu.getRoutes()).toHaveLength(0);
   });
 });
