@@ -54,15 +54,15 @@ export default class CourseScoresPeriod extends BaseModel {
       )
     ) {
       this.overall_course_average =
-        Big(course.homework_score_weight / 100).times(this.overall_homework_score || 0)
+        Big(course.homework_score_weight).times(this.overall_homework_score || 0)
           .plus(
-            Big(course.homework_progress_weight / 100).times(this.overall_homework_progress || 0)
+            Big(course.homework_progress_weight).times(this.overall_homework_progress || 0)
           )
           .plus(
-            Big(course.reading_score_weight / 100).times(this.overall_reading_score || 0)
+            Big(course.reading_score_weight).times(this.overall_reading_score || 0)
           )
           .plus(
-            Big(course.reading_progress_weight / 100).times(this.overall_reading_progress || 0)
+            Big(course.reading_progress_weight).times(this.overall_reading_progress || 0)
           );
     }
   }
