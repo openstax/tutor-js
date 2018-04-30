@@ -16,7 +16,6 @@ class Sectionizer extends React.Component {
     chapter_sections:  React.PropTypes.array.isRequired,
     onScreenElements:  React.PropTypes.array.isRequired,
     nonAvailableWidth: React.PropTypes.number.isRequired,
-    getCurrentSection: React.PropTypes.func,
     onSectionClick:    React.PropTypes.func,
     currentSection:    React.PropTypes.string,
     windowImpl:        React.PropTypes.object,
@@ -27,7 +26,7 @@ class Sectionizer extends React.Component {
   windowSize = new WindowSize(this.props.windowImpl);
 
   @action.bound renderCount() {
-    ((Math.floor( this.windwSize.width - this.props.nonAvailableWidth) / 42) - 2);
+    return (Math.floor( this.windowSize.width - this.props.nonAvailableWidth) / 42) - 2;
   }
 
   @observable scrollingTo = first(this.props.chapter_sections);
@@ -100,7 +99,7 @@ class Sectionizer extends React.Component {
     const active = this.currentSection;
     const currentPage = findIndex(sections, section => section === active);
     const links = [];
-    if (sections.length > this.renderCount) {
+    if (sections.length > this.renderCount()) {
       const pages = Pagination.getPaginationModel({ currentPage: currentPage + 1, totalPages: sections.length });
       for (i = 0; i < pages.length; i++) {
         const page = pages[i];
