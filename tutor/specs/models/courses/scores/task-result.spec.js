@@ -11,10 +11,10 @@ describe('scores store task results', () => {
     scores = course.scores;
 
     course.update({
-      homework_score_weight: 50.0,
-      homework_progress_weight: 10.0,
-      reading_score_weight: 20.0,
-      reading_progress_weight: 20.0,
+      homework_score_weight: 0.50,
+      homework_progress_weight: 0.10,
+      reading_score_weight: 0.20,
+      reading_progress_weight: 0.20,
     });
   });
 
