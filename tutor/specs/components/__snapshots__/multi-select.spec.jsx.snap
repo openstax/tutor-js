@@ -16,6 +16,7 @@ exports[`MultiSelect component renders selections 1`] = `
       onClick={[Function]}
       onKeyDown={[Function]}
       role="button"
+      tabIndex={0}
       type="button"
     >
       Food Selections

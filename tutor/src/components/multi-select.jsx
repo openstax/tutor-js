@@ -24,10 +24,12 @@ class MultiSelect extends React.Component {
     ).isRequired,
     onOnlySelection: React.PropTypes.func,
     onSelect: React.PropTypes.func,
+    tabIndex: React.PropTypes.number
   };
 
   static defaultProps = {
     closeAfterSelect: true,
+    tabIndex: 0
   }
 
   @observable isOpen = false;
@@ -82,6 +84,7 @@ class MultiSelect extends React.Component {
           title={this.props.title}
           onToggle={this.onToggle}
           open={this.isOpen}
+          tabIndex={this.props.tabIndex}
         >
           {Array.from(this.props.selections).map((selection) => this.renderMenuSelection(selection))}
         </DropdownButton>

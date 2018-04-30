@@ -67,6 +67,7 @@ exports[`Annotations renders and matches snapshot 1`] = `
                   onClick={[Function]}
                   onKeyDown={[Function]}
                   role="button"
+                  tabIndex={-1}
                   type="button"
                 >
                   Display sections
@@ -122,6 +123,7 @@ exports[`Annotations renders and matches snapshot 1`] = `
               className="print-btn btn btn-default"
               disabled={false}
               onClick={[Function]}
+              tabIndex={-1}
               type="button"
             >
               <i
@@ -172,6 +174,7 @@ exports[`Annotations renders and matches snapshot 1`] = `
                   >
                     <button
                       onClick={[Function]}
+                      tabIndex={-1}
                       title="Edit"
                     >
                       <i
@@ -182,6 +185,7 @@ exports[`Annotations renders and matches snapshot 1`] = `
                     </button>
                     <button
                       onClick={[Function]}
+                      tabIndex={-1}
                       title="View in book"
                     >
                       <i
@@ -192,6 +196,7 @@ exports[`Annotations renders and matches snapshot 1`] = `
                     </button>
                     <button
                       onClick={[Function]}
+                      tabIndex={-1}
                       title="Delete"
                     >
                       <i
@@ -231,6 +236,7 @@ exports[`Annotations renders and matches snapshot 1`] = `
                   >
                     <button
                       onClick={[Function]}
+                      tabIndex={-1}
                       title="Edit"
                     >
                       <i
@@ -241,6 +247,7 @@ exports[`Annotations renders and matches snapshot 1`] = `
                     </button>
                     <button
                       onClick={[Function]}
+                      tabIndex={-1}
                       title="View in book"
                     >
                       <i
@@ -251,6 +258,7 @@ exports[`Annotations renders and matches snapshot 1`] = `
                     </button>
                     <button
                       onClick={[Function]}
+                      tabIndex={-1}
                       title="Delete"
                     >
                       <i
