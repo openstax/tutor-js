@@ -39,6 +39,7 @@ export default class SectionsFilter extends React.Component {
           title="Display sections"
           onSelect={this.onSelect}
           selections={this.choices}
+          tabIndex={-1}
         />
       </div>
     );

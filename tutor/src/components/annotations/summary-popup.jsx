@@ -48,6 +48,7 @@ export default class SummaryPopup extends React.Component {
         <Button
           className="print-btn"
           onClick={this.openSummaryWindow}
+          tabIndex={-1}
         >
           <Icon type="print"/> Print this page
         </Button>
