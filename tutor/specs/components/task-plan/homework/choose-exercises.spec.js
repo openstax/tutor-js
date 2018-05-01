@@ -6,7 +6,9 @@ import FakeWindow from 'shared/specs/helpers/fake-window';
 import { ExtendBasePlan } from '../../helpers/task-plan';
 import { TaskPlanActions, TaskPlanStore } from '../../../../src/flux/task-plan';
 import ScrollTo from '../../../../src/helpers/scroll-to';
-
+jest.mock('../../../../../shared/src/components/html', () => ({ html }) =>
+  html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
+);
 jest.mock('../../../../src/helpers/scroll-to');
 jest.mock('../../../../src/flux/task-plan', () => ({
   TaskPlanActions: {
@@ -48,6 +50,7 @@ describe('choose exercises component', function() {
   let exercises, props, course;
 
   beforeEach(function() {
+    Factory.setSeed(1); // make factory deterministic so it has both reading/hw
     course = Factory.course();
     course.referenceBook.onApiRequestComplete({ data: [FactoryBot.create('Book')] });
     exercises = Factory.exercisesMap({ book: course.referenceBook });

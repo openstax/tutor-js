@@ -18,10 +18,6 @@ class ExerciseTable extends React.Component {
     planId:     React.PropTypes.string.isRequired,
   };
 
-  numSelected = fluxToMobx(
-    TaskPlanStore, () => TaskPlanStore.getExercises(this.props.planId).length + 1,
-  )
-
   renderExerciseRow = (exercise, index) => {
     const { section, lo, tagString } = exercise.tags.importantInfo;
 
@@ -58,11 +54,11 @@ class ExerciseTable extends React.Component {
     );
   };
 
-  renderTutorRow = (index) => {
+  renderTutorRow(exercises, index) {
     return (
       <tr key={`exercise-row-tutor-${index}`}>
         <td className="exercise-number">
-          {this.numSelected.current()}
+          {exercises.length + index + 1}
         </td>
         <td>
           -
@@ -78,7 +74,7 @@ class ExerciseTable extends React.Component {
         </td>
       </tr>
     );
-  };
+  }
 
   render() {
 
@@ -110,7 +106,7 @@ class ExerciseTable extends React.Component {
         </thead>
         <tbody>
           {map(exercises, (exercise, index) => this.renderExerciseRow(exercise, index))}
-          {times(tutorSelection, index => this.renderTutorRow(index))}
+          {times(tutorSelection, index => this.renderTutorRow(exercises, index))}
         </tbody>
       </TourRegion>
     );

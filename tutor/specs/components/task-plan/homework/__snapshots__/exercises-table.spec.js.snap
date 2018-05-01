@@ -1,0 +1,219 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`review exercises table renders selections 1`] = `
+<table
+  className="exercise-table"
+  data-tour-region-id="add-homework-review-sections"
+>
+  <thead>
+    <tr>
+      <td />
+      <td />
+      <td>
+        Problem Question
+      </td>
+      <td>
+        Learning Objective
+      </td>
+      <td>
+        Details
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td
+        className="exercise-number"
+      >
+        1
+      </td>
+      <td>
+        <span
+          className="chapter-section"
+          data-chapter-section=""
+        >
+          
+        </span>
+      </td>
+      <td>
+        <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?",
+            }
+          }
+        />
+      </td>
+      <td
+        className="ellipses"
+      >
+        lo:stax-phys:1-2-1
+      </td>
+      <td
+        className="ellipses"
+      >
+        blooms:3 / dok:3
+      </td>
+    </tr>
+    <tr>
+      <td
+        className="exercise-number"
+      >
+        2
+      </td>
+      <td>
+        <span
+          className="chapter-section"
+          data-chapter-section=""
+        >
+          
+        </span>
+      </td>
+      <td>
+        <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "How could physics be useful in weather prediction?",
+            }
+          }
+        />
+      </td>
+      <td
+        className="ellipses"
+      >
+        lo:stax-phys:1-2-1
+      </td>
+      <td
+        className="ellipses"
+      >
+        blooms:3 / dok:3
+      </td>
+    </tr>
+    <tr>
+      <td
+        className="exercise-number"
+      >
+        3
+      </td>
+      <td>
+        <span
+          className="chapter-section"
+          data-chapter-section=""
+        >
+          
+        </span>
+      </td>
+      <td>
+        <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "In what sense does Einstein’s theory of relativity illustrate that physics describes fundamental aspects of our universe?",
+            }
+          }
+        />
+      </td>
+      <td
+        className="ellipses"
+      >
+        lo:stax-phys:1-2-1
+      </td>
+      <td
+        className="ellipses"
+      >
+        blooms:3 / dok:3
+      </td>
+    </tr>
+    <tr>
+      <td
+        className="exercise-number"
+      >
+        4
+      </td>
+      <td>
+        <span
+          className="chapter-section"
+          data-chapter-section=""
+        >
+          
+        </span>
+      </td>
+      <td>
+        <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Can classical physics be used to accurately describe a satellite moving at a speed of? Explain why or why not.",
+            }
+          }
+        />
+      </td>
+      <td
+        className="ellipses"
+      >
+        lo:stax-phys:1-2-1
+      </td>
+      <td
+        className="ellipses"
+      >
+        blooms:3 / dok:3
+      </td>
+    </tr>
+    <tr>
+      <td
+        className="exercise-number"
+      >
+        5
+      </td>
+      <td>
+        -
+      </td>
+      <td>
+        Tutor Selection
+      </td>
+      <td>
+        -
+      </td>
+      <td>
+        -
+      </td>
+    </tr>
+    <tr>
+      <td
+        className="exercise-number"
+      >
+        6
+      </td>
+      <td>
+        -
+      </td>
+      <td>
+        Tutor Selection
+      </td>
+      <td>
+        -
+      </td>
+      <td>
+        -
+      </td>
+    </tr>
+    <tr>
+      <td
+        className="exercise-number"
+      >
+        7
+      </td>
+      <td>
+        -
+      </td>
+      <td>
+        Tutor Selection
+      </td>
+      <td>
+        -
+      </td>
+      <td>
+        -
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
