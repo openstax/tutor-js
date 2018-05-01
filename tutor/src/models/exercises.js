@@ -32,8 +32,8 @@ export class ExercisesMap extends Map {
     return this.where(e => e.isReading);
   }
 
-  @computed get assignable() {
-    return this.where(e => e.isAssignable);
+  @computed get assignableHomework() {
+    return this.where(e => e.isAssignable && e.isHomework);
   }
 
   isMinimumExcludedForPage(page) {
