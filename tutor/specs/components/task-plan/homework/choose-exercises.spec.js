@@ -79,13 +79,20 @@ describe('choose exercises component', function() {
     ce.unmount();
   });
 
-  it('hides excluded exercises', () => {
+  it('hides excluded and reading exercises', () => {
     const ce = renderExerciseCards(props);
     const exercise = exercises.array[0];
+    exercise.pool_types = ['homework_core'];
+    expect(exercise.isHomework).toBe(true);
     expect(exercise.isAssignable).toBe(true);
     expect(ce).toHaveRendered(`[data-exercise-id="${exercise.content.uid}"]`);
     exercise.is_excluded = true;
     expect(exercise.isAssignable).toBe(false);
+    expect(ce).not.toHaveRendered(`[data-exercise-id="${exercise.content.uid}"]`);
+    exercise.is_excluded = false;
+    expect(ce).toHaveRendered(`[data-exercise-id="${exercise.content.uid}"]`);
+    exercise.pool_types = ['reading_dynamic'];
+    expect(exercise.isReading).toBe(true);
     expect(ce).not.toHaveRendered(`[data-exercise-id="${exercise.content.uid}"]`);
     ce.unmount();
   });
