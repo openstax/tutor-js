@@ -88,12 +88,11 @@ export default class StudentDashboard extends React.PureComponent {
               <ProgressGuideShell courseId={courseId} />
               <div className="actions-box">
                 <BrowseTheBook
-                  unstyled={true}
-                  courseId={courseId}
-                  data-appearance={Courses.get(courseId).appearance_code}>
-                  <div>
-                    Browse the Book
-                  </div>
+                  unstyled
+                  course={course}
+                  data-appearance={course.appearance_code}
+                >
+                  <div>Browse the Book</div>
                 </BrowseTheBook>
               </div>
             </Col>

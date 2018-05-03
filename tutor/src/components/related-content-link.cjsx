@@ -1,6 +1,6 @@
 React    = require 'react'
 _ = require 'underscore'
-
+{default: Courses} = require '../models/courses-map'
 {ChapterSectionMixin} = require 'shared'
 Icon = require './icon'
 BrowseTheBook = require './buttons/browse-the-book'
@@ -26,8 +26,11 @@ RelatedContentLink = React.createClass
       <span className="preamble">Comes from </span>
       {for content, i in @props.content
         section = @sectionFormat(content.chapter_section)
-        <BrowseTheBook key={i} unstyled section={section}
-          courseId={@props.courseId} onlyShowBrowsable={false} tabIndex={-1}
+        <BrowseTheBook
+          key={i} unstyled
+          page={section}
+          course={Courses.get(@props.courseId)}
+          tabIndex={-1}
         >
           <span className="part">
             <span className="section">{section} </span>

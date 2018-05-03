@@ -71,6 +71,10 @@ export class CoursesMap extends Map {
     return course;
   }
 
+  forEcosystemId(ecosystem_id) {
+    find(this.array, {ecosystem_id})
+  }
+
   isNameValid(name) {
     return Boolean(!isEmpty(name) && !find(this.array, { name }));
   }

@@ -93,11 +93,11 @@ class ChapterAccordion extends React.Component {
           Chapter <ChapterSection section={chapter.chapter_section.asString} /> - </span>
         <span className="chapter-title"> {chapter.title} </span>
         <BrowseTheBook
-          ecosystemId={String(this.props.book.id)}
-          unstyled={true}
+          unstyled
+          tag="div"
           onClick={this.browseBook}
-          className="browse-book"
-          section={chapter.chapter_section.asString}
+          page={chapter.chapter_section.asString}
+          book={this.props.book}
         >
           Browse this Chapter
         </BrowseTheBook>

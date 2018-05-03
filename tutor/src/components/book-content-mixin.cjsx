@@ -43,22 +43,20 @@ LinkContentMixin =
     {courseId, ecosystemId} = Router.currentParams()
     {query, id} = @props
 
-    if ecosystemId and not courseId
-      courseId = _.findWhere(Courses.array, {ecosystem_id: ecosystemId})?.id
+    if courseId and not ecosystemId
+      ecosystemId = Courses.get(courseId).ecosystem_id
 
-    # suboptimal but is the best we can as long as the reference book depends on having a courseId in url
-    return null unless courseId
+    # suboptimal but is the best we can as long as the reference book depends on having an ecosystemId in url
+    return null unless ecosystemId
 
     if id?
       related_content = TaskStepStore.get(id)?.related_content
 
       if related_content?
-        section = @sectionFormat?(related_content[0]?.chapter_section or related_content[0]?.book_location)
-        referenceBookLink = Router.makePathname('viewReferenceBookSection', {courseId, section}, query) if section?
-    else if cnxId?
-      referenceBookLink = Router.makePathname( 'viewReferenceBookPage', { courseId, cnxId })
+        page = @sectionFormat?(related_content[0]?.chapter_section or related_content[0]?.book_location)
 
-    referenceBookLink
+    return Router.makePathname('viewReferenceBook', {ecosystemId, page}, query)
+
 
   isMediaLink: (link) ->
     # TODO it's likely that this is no longer needed since the links being

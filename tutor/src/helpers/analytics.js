@@ -49,9 +49,10 @@ const Translators = {
   createEvent:    partial(assignmentTypeTranslator, 'event'),
   calendarViewPlanStats({ courseId }) { return `/teacher/metrics/quick/${courseId}`; },
   reviewTask({ courseId }) { return `/teacher/metrics/review/${courseId}`; },
-  viewReferenceBook({ courseId }) { return `/reference-view/${courseId}`; },
-  viewReferenceBookSection({ courseId, section }) { return `/reference-view/${courseId}/section/${section}`; },
-  viewReferenceBookPage({ courseId, cnxId }) { return `/reference-view/${courseId}/page/${cnxId}`; },
+  viewReferenceBook({ ecosystemId, page }) {
+    const url = `/reference-view/${Courses.forEcosystemId(ecosystemId)}`;
+    return page ? `${url}/section/${page}` : url;
+  },
 
   // Task steps are viewed by both teacher and student with no difference in params
   viewTaskStep({ courseId }) {
