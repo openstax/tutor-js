@@ -117,6 +117,7 @@ $tutor-book-note-selector: '
   .note:not(.learning-objectives),
   .example,
   .grasp-check,
+  [data-type="note"],
   [data-element-type="check-understanding"],
 ';
 
