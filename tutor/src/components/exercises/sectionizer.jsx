@@ -16,7 +16,6 @@ class Sectionizer extends React.Component {
     chapter_sections:  React.PropTypes.array.isRequired,
     onScreenElements:  React.PropTypes.array.isRequired,
     nonAvailableWidth: React.PropTypes.number.isRequired,
-    getCurrentSection: React.PropTypes.func,
     onSectionClick:    React.PropTypes.func,
     currentSection:    React.PropTypes.string,
     windowImpl:        React.PropTypes.object,
@@ -26,8 +25,8 @@ class Sectionizer extends React.Component {
   scroller = new ScrollTo({ windowImpl: this.props.windowImpl });
   windowSize = new WindowSize(this.props.windowImpl);
 
-  @action.bound renderCount() {
-    ((Math.floor( this.windwSize.width - this.props.nonAvailableWidth) / 42) - 2);
+  @computed get renderCount() {
+    return (Math.floor( this.windowSize.width - this.props.nonAvailableWidth) / 42) - 2;
   }
 
   @observable scrollingTo = first(this.props.chapter_sections);
