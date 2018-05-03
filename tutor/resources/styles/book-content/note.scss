@@ -76,36 +76,6 @@ $tutor-note-margin-vertical: 48px;
   }
 }
 
-@mixin tutor-style-note-variants(
-  $all-note-rules: %tutor-empty-rules,
-  $title-rules: %tutor-empty-rules,
-  $except-teacher-rules: %tutor-empty-rules,
-  $except-teacher-title-rules: %tutor-empty-rules
-) {
-  .book-content > .note,
-  section > section > .note,
-  .book-content > section > .note:not(.learning-objectives),
-  .grasp-check,
-  .book-content > [data-element-type="check-understanding"],
-  section > [data-element-type="check-understanding"],
-  .book-content > .example,
-  section > .example {
-    @include tutor-style-note($all-note-rules, $title-rules);
-
-    &:not(.os-teacher) {
-      @extend tutor-style-note($except-teacher-rules, $except-teacher-title-rules);
-    }
-  }
-}
-
-// @mixin tutor-style-note(
-//   $note-rules: %tutor-empty-rules,
-//   $title-rules: %tutor-empty-rules
-// ) {
-//   @extend $note-rules;
-//   @include tutor-style-note-title-variants($title-rules);
-// }
-
 
 %tutor-except-teacher-rules {
   display: inline-block;
@@ -125,12 +95,12 @@ $tutor-note-margin-vertical: 48px;
 };
 
 @mixin tutor-book-step-note() {
-//  @include tutor-style-note(%tutor-note-plain-style, %tutor-note-plain-title-style);
+
 }
 
 @mixin tutor-book-step-notes() {
   // tutor-book-step specific modifications
-//  @include tutor-style-note-variants(%tutor-note-plain-style, %tutor-note-plain-title-style);
+
 }
 
 @mixin tutor-book-reading-titles() {
@@ -139,53 +109,19 @@ $tutor-note-margin-vertical: 48px;
   }
 }
 
-// @mixin tutor-book-theme-note($label-background: $tutor-book-primary, $label-text: $tutor-book-text-on-dark-labels) {
-//   // @include tutor-style-note-variants($except-teacher-title-rules: {
-//   //   color: $label-text,
-//   //   background: $label-background,
-//   // }),
-// }
-
-
-
 
 %tutor-all-note-rules {
-  background: $tutor-neutral-lightest;
-  margin: 0 0 71px 0;
-  clear: both;
-  border-top: solid 8px $tutor-neutral-lighter;
-  border-bottom: solid 8px $tutor-neutral-lighter;
-  padding: $tutor-note-padding;
-  width: 100%;
-  position: relative;
-  top: $tutor-note-margin-vertical;
-
-  .exercise[data-type=exercise] .solution {
-    // undo general hiding of solutions
-    display: block;
-  }
-
-  @include tutor-book-note-style();
 }
 
-// .reference-book .content .page section>[data-element-type=check-understanding][data-element-type=check-understanding]>[data-type=title]:first-child
-// .reference-book .content .page section>[data-element-type=check-understanding][data-element-type=check-understanding]>[data-type=title]:first-child,
-
-
 $tutor-book-note-selector: '
-  .book-content > .note,
-  section > section > .note,
-  .book-content > section > .note:not(.learning-objectives),
+  .note:not(.learning-objectives),
+  .example,
   .grasp-check,
-  .book-content > [data-element-type="check-understanding"],
-  section > [data-element-type="check-understanding"],
-  .book-content > .example,
-  section > .example
+  [data-element-type="check-understanding"],
 ';
 
 @mixin tutor-book-label-style() {
-  &#{$has-data-label-selector},
-  &.example {
+  &#{$has-data-label-selector} {
     &::before {
       @content;
     }
@@ -202,7 +138,23 @@ $tutor-book-note-selector: '
 @mixin tutor-book-notes() {
   #{$tutor-book-note-selector} {
 
-    @extend %tutor-all-note-rules;
+    background: $tutor-neutral-lightest;
+    margin: 0 0 71px 0;
+    clear: both;
+    border-top: solid 8px $tutor-neutral-lighter;
+    border-bottom: solid 8px $tutor-neutral-lighter;
+    padding: $tutor-note-padding;
+    width: 100%;
+    position: relative;
+    top: $tutor-note-margin-vertical;
+
+    .exercise[data-type=exercise] .solution {
+      // undo general hiding of solutions
+      display: block;
+    }
+
+    @include tutor-book-note-style();
+
 
     .grasp-check {
       margin: 0 0 71px 0;
@@ -217,11 +169,8 @@ $tutor-book-note-selector: '
 
     .book-content > .example,
     section > .example {
-
-      //@mixin tutor-book-before-manual-label($content: attr(data-label)) {
       &::before {
         content: "Worked Example";
-       // @extend %tutor-book-label-style;
       }
 
       &#{$feature-title-is-element} {
@@ -230,9 +179,6 @@ $tutor-book-note-selector: '
           display: none;
         }
       }
-      //}
-
-//      @include tutor-book-before-manual-label();
     }
 
     @include tutor-book-label-style() {
@@ -266,36 +212,4 @@ $tutor-book-note-selector: '
       background-color: $background;
     }
   }
-
-
-
-//     //@include tutor-style-note($all-note-rules, $title-rules);
-
-
-//     &:not(.os-teacher) {
-// //      @extend tutor-style-note($except-teacher-rules, $except-teacher-title-rules);
-//     }
-
-
-
-  // @include tutor-style-note-variants(
-  //   $all-note-rules: %tutor-all-note-rules,
-  //   $title-rules: %tutor-book-label-style,
-  //   $except-teacher-rules: %tutor-except-teacher-rules
-  // );
-
-  // .grasp-check specific styles
-
-  // .example, check-understanding content currently lacks a data-label attribute
-
-  // Any other notes missing
-  //  * `data-label` value and
-  //  * `.title[data-type=title]:first-child`
-  // should have their content defined manually here
-  // or in subject specific themes.
-  //
-  // Also, their selectors should be appended to the selectors in
-  // `.tutor-style-note-variants` and `.tutor-style-note-title-variants`
-  // so that all places where notes are being styled,
-  // the non-`[data-label]`led notes will also be affected like a fully featured note.
 }
