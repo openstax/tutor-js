@@ -174,11 +174,10 @@ exports[`Student Dashboard matches snapshot 1`] = `
           className="actions-box"
         >
           <a
-            className="view-reference-guide"
+            className="browse-the-book"
             data-appearance="testing"
-            href="/books/1"
+            href="/book/11"
             onClick={[Function]}
-            tabIndex={0}
             target="_blank"
           >
             <div>

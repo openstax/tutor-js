@@ -2,6 +2,7 @@ import { React, SnapShot, Wrapper } from '../components/helpers/component-testin
 import { times } from 'lodash';
 import Factory, { FactoryBot } from '../factories';
 import QA from '../../src/screens/qa-view/view';
+import Book from '../../src/models/reference-book';
 import QaUX from '../../src/screens/qa-view/ux';
 import EnzymeContext from '../components/helpers/enzyme-context';
 
@@ -15,17 +16,19 @@ describe('QA Screen', function() {
   beforeEach(function() {
     const exercises = Factory.exercisesMap();
     const ecosystems = Factory.ecosystemsMap();
+
+    jest.spyOn(Book.prototype, 'fetch').mockImplementation(function() {
+      this.onApiRequestComplete({
+        data: [FactoryBot.create('Book', { id: this.id, type: 'biology' })],
+      });
+      return Promise.resolve();
+    });
     ux = new QaUX({ router, exercises, ecosystems });
     const ecosystem = ux.ecosystemsMap.array[0];
-    book = ecosystem.referenceBook;
-    book.onApiRequestComplete({ data: [FactoryBot.create('Book')] });
-    book.fetch = jest.fn(() => Promise.resolve());
-    currentSection = book.pages.byChapterSection.keys()[2];
     ux.update({
       ecosystemId: ecosystem.id,
-      section: currentSection,
+      chapterSection: '1.1',
     });
-
     const router = {
       history: {
         push: jest.fn(),
@@ -38,7 +41,7 @@ describe('QA Screen', function() {
 
   it('renders as loading then matches snapshot', async () => {
     const qa = mount(<QA {...props} />, EnzymeContext.build());
-    const page = book.pages.byChapterSection.get(currentSection);
+    const page = ux.page;
     ux.exercisesMap.onLoaded({ data: { items: times(8, () => FactoryBot.create('TutorExercise', {
       page_uuid: page.uuid,
     })) } }, [{ book, page_ids: [ page.id ]  }]);

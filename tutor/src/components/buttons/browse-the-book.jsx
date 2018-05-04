@@ -13,17 +13,17 @@ export default class extends React.Component {
   };
 
   static propTypes = {
-    book:        React.PropTypes.instanceOf(Book),
-    course:      React.PropTypes.instanceOf(Course),
-    page:        React.PropTypes.string,
-    unstyled:    React.PropTypes.bool,
-    tag:         React.PropTypes.string,
-    tabIndex:    React.PropTypes.number,
-    bsStyle:     React.PropTypes.string,
-    onClick:     React.PropTypes.func,
-    children:    React.PropTypes.node,
-    className:   React.PropTypes.string,
-    windowImpl:  React.PropTypes.shape({ open: React.PropTypes.func }),
+    book:           React.PropTypes.instanceOf(Book),
+    course:         React.PropTypes.instanceOf(Course),
+    unstyled:       React.PropTypes.bool,
+    tag:            React.PropTypes.string,
+    tabIndex:       React.PropTypes.number,
+    bsStyle:        React.PropTypes.string,
+    onClick:        React.PropTypes.func,
+    children:       React.PropTypes.node,
+    className:      React.PropTypes.string,
+    windowImpl:     React.PropTypes.shape({ open: React.PropTypes.func }),
+    chapterSection: React.PropTypes.string,
   };
 
   static defaultProps = {
@@ -33,9 +33,11 @@ export default class extends React.Component {
   }
 
   @computed get href() {
-    const { course, book, page } = this.props;
+    const { course, book, chapterSection } = this.props;
+    const id = book ? book.id : course.ecosystem_id;
+    console.log("HREF", course.ecosystem_id)
     return Router.makePathname('viewReferenceBook', {
-      page,
+      chapterSection,
       ecosystemId: book ? book.id : course.ecosystem_id,
     });
   }

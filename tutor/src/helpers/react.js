@@ -5,4 +5,4 @@ import { propTypes as mobxPropTypes } from 'mobx-react';
 
 export { React, cn, ReactDOM, mobxPropTypes };
 export { observable, action, computed } from 'mobx';
-export { observer } from 'mobx-react';
+export { observer, inject } from 'mobx-react';

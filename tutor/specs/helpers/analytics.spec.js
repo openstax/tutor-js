@@ -24,6 +24,7 @@ describe('Analytics', function() {
     ga = mockGa();
     Analytics.setGa(ga);
     Courses.bootstrap([ COURSE ]);
+    Courses.get(COURSE.id).ecosystem_id = 991;
     ga.mockReset();
   });
 
@@ -84,9 +85,8 @@ describe('Analytics', function() {
       [`${c}/homework/new`]:                '/teacher/assignment/create/homework/1',
       [`${c}/external/new`]:                '/teacher/assignment/create/external/1',
       [`${c}/t/month/2011-11-11/plan/66`]:  '/teacher/metrics/quick/1',
-      '/books/12':                          '/reference-view/12',
-      '/books/12/section/2':                '/reference-view/12/section/2',
-      '/books/12/page/22222-333':           '/reference-view/12/page/22222-333',
+      '/book/991':                           '/reference-view/1',
+      '/book/991/2.2':                       '/reference-view/1/section/2.2',
     };
     for (let route in tests) {
       const translated = tests[route];

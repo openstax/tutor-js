@@ -17,8 +17,8 @@ export default class QAView extends React.Component {
 
   render() {
     const { ux } = this.props;
-    if (!ux.activePage) {
-      return <Loading message="Fetching Book…" />;
+    if (!ux.page) {
+      return <Loading message="Fetching Page…" />;
     }
     const className = cn('qa-view', {
       'menu-open': ux.isMenuVisible,

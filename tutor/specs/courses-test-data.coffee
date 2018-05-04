@@ -13,6 +13,8 @@ STUDENT_COURSE_ONE_MODEL = {
   does_cost: true,
   year: 2017
   term: 'spring'
+  ecosystem_book_uuid: "3402dc53-113d-45f3-954e-8d2ad1e73659",
+  ecosystem_id: "11",
   starts_at: moment().subtract(1, 'month').format(),
   ends_at: moment().add(1, 'month').format(),
   webview_url: 'http://cnx.org/',
@@ -45,6 +47,8 @@ TEACHER_COURSE_TWO_MODEL = {
   is_concept_coach: false
   year: 2017
   term: 'spring'
+  ecosystem_book_uuid: "3402dc53-113d-45f3-954e-8d2ad1e73659",
+  ecosystem_id: "12",
   starts_at: moment().subtract(1, 'month').format(),
   ends_at: moment().add(1, 'month').format(),
   webview_url: 'http://cnx.org/',
@@ -70,6 +74,8 @@ TEACHER_AND_STUDENT_COURSE_THREE_MODEL = {
   is_concept_coach: false
   year: 2017
   term: 'spring'
+  ecosystem_book_uuid: "3402dc53-113d-45f3-954e-8d2ad1e73659",
+  ecosystem_id: "13",
   starts_at: moment().subtract(1, 'month').format(),
   ends_at: moment().add(1, 'month').format(),
   roles: [{

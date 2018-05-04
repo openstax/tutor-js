@@ -61,7 +61,6 @@ export default class StudentDashboard extends React.PureComponent {
   render() {
     const { tabIndex, props: { courseId } } = this;
     const course = Courses.get(courseId);
-
     return (
       <div className="dashboard">
         <NotificationsBar

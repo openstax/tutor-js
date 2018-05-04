@@ -1,6 +1,4 @@
-import React from 'react';
-import { observer } from 'mobx-react';
-import classnames from 'classnames';
+import { React, observer, cn } from '../../helpers/react';
 import { SpyMode } from 'shared';
 
 import Menu from '../../components/book-menu/menu';
@@ -13,12 +11,13 @@ export default class ReferenceBook extends React.Component {
 
   static propTypes = {
     ux: React.PropTypes.instanceOf(UX).isRequired,
+    className: React.PropTypes.string,
   };
 
   render() {
     const { ux } = this.props;
 
-    const className = classnames('reference-book', this.props.className, {
+    const className = cn('reference-book', this.props.className, {
       'menu-open': ux.isMenuVisible,
       'menu-on-top': ux.isMenuOnTop,
     });

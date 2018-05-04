@@ -42,8 +42,8 @@ module.exports =
       <BrowseTheBook
         unstyled
         key={combined}
-        page={combined}
         course={course}
+        chapterSection={combined}
       >
         {combined}
       </BrowseTheBook>

@@ -174,9 +174,10 @@ ReadingContentMixin =
     # leave versioning out of canonical link
     canonicalCNXId = _.first(cnxId.split('@'))
 
-    {courseId} = Router.currentParams()
-    return unless courseId
-    {webview_url} = Courses.get(courseId)
+    {courseId, ecosystemId} = Router.currentParams()
+    course = if courseId then Courses.get(courseId) else Courses.forEcosystemId(ecosystemId)
+    return unless course
+    {webview_url} = course
     return unless webview_url
     baseWebviewUrl = _.first(webview_url.split('/contents/'))
 

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`_class2 renders and matches snapshot 1`] = `
+<a
+  chapterSection="1.2"
+  className="browse-the-book btn btn-default"
+  href="/book/1/1.2"
+  onClick={[Function]}
+  target="_blank"
+>
+  Browse the Book
+</a>
+`;

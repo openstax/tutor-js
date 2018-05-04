@@ -49,9 +49,11 @@ const Translators = {
   createEvent:    partial(assignmentTypeTranslator, 'event'),
   calendarViewPlanStats({ courseId }) { return `/teacher/metrics/quick/${courseId}`; },
   reviewTask({ courseId }) { return `/teacher/metrics/review/${courseId}`; },
-  viewReferenceBook({ ecosystemId, page }) {
-    const url = `/reference-view/${Courses.forEcosystemId(ecosystemId)}`;
-    return page ? `${url}/section/${page}` : url;
+  viewReferenceBook({ ecosystemId, chapterSection }) {
+    const course = Courses.forEcosystemId(ecosystemId);
+    if (!course) { return `/reference-view/ecosystem/${ecosystemId}`; }
+    const url = `/reference-view/${course.id}`;
+    return chapterSection ? `${url}/section/${chapterSection}` : url;
   },
 
   // Task steps are viewed by both teacher and student with no difference in params
@@ -114,10 +116,8 @@ var Analytics = {
     }
     const { courseId } = route.params;
     if (courseId) { this.recordCourseDimension(courseId); }
-
     const translatedPath = Translators[route.entry.name] ?
       Translators[route.entry.name]( route.params ) : route.pathname;
-
     this.ga('set', 'page', translatedPath);
     // if we're also going to send custom events then we set the page
     if (Events[route.entry.name]) {

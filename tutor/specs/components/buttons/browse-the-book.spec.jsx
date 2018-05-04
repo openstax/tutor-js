@@ -12,7 +12,7 @@ describe(BTB, () => {
     book = Factory.book({ id: course.ecosystem_id });
     props = {
       windowImpl: new FakeWindow(),
-      page: '1.2',
+      chapterSection: '1.2',
       course,
     };
   });
@@ -22,14 +22,13 @@ describe(BTB, () => {
     expect(component.toJSON()).toMatchSnapshot();
   });
 
-  fit('can use custom tag', () => {
+  it('can use custom tag', () => {
     const context = EnzymeContext.build();
     props.tag = 'div';
     const btb = mount(<BTB {...props} />, context);
     btb.find('div.browse-the-book').simulate('click');
     expect(props.windowImpl.open).toHaveBeenCalledWith(
-      `/book/${course.ecosystem_id}/${props.page}`
+      `/book/${course.ecosystem_id}/${props.chapterSection}`
     );
-    console.log(btb.debug());
   });
 });

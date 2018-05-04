@@ -1,8 +1,4 @@
-import React from 'react';
-import { computed } from 'mobx';
-import { inject, observer } from 'mobx-react';
-import classnames from 'classnames';
-import Courses from '../../models/courses-map';
+import { React, inject, observer, cn } from '../../helpers/react';
 import ReferenceBook from './reference-book';
 import LoadingScreen from '../../components/loading-screen';
 import UX from './ux';
@@ -15,8 +11,8 @@ export default class ReferenceBookShell extends React.Component {
 
   static propTypes = {
     params: React.PropTypes.shape({
-      courseId: React.PropTypes.string.isRequired,
-      section: React.PropTypes.string,
+      ecosystemId: React.PropTypes.string.isRequired,
+      chapterSection: React.PropTypes.string,
     }).isRequired,
     navBar: React.PropTypes.instanceOf(NavbarContext).isRequired,
   }
@@ -25,34 +21,32 @@ export default class ReferenceBookShell extends React.Component {
     router: React.PropTypes.object,
   }
 
-  @computed get course() {
-    const { courseId } = this.props.params;
-    return Courses.get(courseId);
-  }
-
-  ux = new UX(this.course, this.context.router);
+  ux = new UX(this.context.router);
 
   componentWillMount() {
-    this.ux.setSection(this.props.params.section);
+    this.ux.update(this.props.params);
     this.ux.setNavBar(this.props.navBar);
   }
 
+  componentWillUnmount() {
+    this.ux.unmount();
+  }
+
   componentWillReceiveProps(nextProps) {
-    this.ux.setSection(nextProps.params.section);
+    this.ux.update(nextProps.params);
   }
 
   render() {
     const { ux } = this;
 
-    if (!ux.activePage) {
+    if (!ux.page) {
       return <LoadingScreen />;
     }
 
     return (
       <ReferenceBook
         ux={ux}
-        section={this.section}
-        className={classnames({ 'is-teacher': this.ux.isShowingTeacherContent })}
+        className={cn({ 'is-teacher': this.ux.isShowingTeacherContent })}
       />
     );
   }

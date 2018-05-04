@@ -26,16 +26,16 @@ BookPage = React.createClass
   mixins: [BookContentMixin, GetPositionMixin]
 
   getCnxId: ->
-    this.props.ux.activePage.cnx_id
+    this.props.ux.page.cnx_id
 
   componentWillMount: ->
-    this.props.ux.activePage.ensureLoaded()
+    this.props.ux.page.ensureLoaded()
 
   componentWillReceiveProps: (nextProps) ->
-    @props.ux.activePage.ensureLoaded()
+    @props.ux.page.ensureLoaded()
 
   getSplashTitle: ->
-    this.props.ux.activePage.title
+    this.props.ux.page.title
 
   componentDidUpdate: ->
     this.props.ux.checkForTeacherContent()
@@ -70,7 +70,7 @@ BookPage = React.createClass
     ReactDOM.render(<ReferenceBookExerciseShell exerciseAPIUrl={exerciseAPIUrl}/>, exerciseNode) if exerciseNode?
 
   render: ->
-    { ux, ux: { activePage: page } } = @props
+    { ux, ux: { page } } = @props
 
     if not page or page.api.isPending
       if ux.lastSection

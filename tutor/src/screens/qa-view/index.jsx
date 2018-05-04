@@ -13,7 +13,7 @@ export default class QAViewWrapper extends React.Component {
   static propTypes = {
     params: React.PropTypes.shape({
       ecosystemId: React.PropTypes.string,
-      section: React.PropTypes.string,
+      chapterSection: React.PropTypes.string,
     }).isRequired,
     navBar: React.PropTypes.instanceOf(NavbarContext).isRequired,
   }
@@ -34,7 +34,7 @@ export default class QAViewWrapper extends React.Component {
   }
 
   componentWillUnmount() {
-    this.ux.dispose();
+    this.ux.unmount();
   }
 
   render() {
