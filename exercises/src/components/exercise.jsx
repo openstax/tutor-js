@@ -12,7 +12,6 @@ import Controls from './exercise/controls';
 import { idType } from 'shared';
 import { Loading, NotFound } from './exercise-state';
 
-@withRouter
 @observer
 export default class Exercise extends React.Component {
 
@@ -22,9 +21,6 @@ export default class Exercise extends React.Component {
         uid: idType,
       }),
     }),
-    history: React.PropTypes.shape({
-      push: React.PropTypes.func,
-    }).isRequired,
     exercises: React.PropTypes.instanceOf(ExercisesMap),
   };
 
