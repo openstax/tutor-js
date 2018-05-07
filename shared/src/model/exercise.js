@@ -21,6 +21,7 @@ export default class Exercise extends BaseModel {
   @field id;
   @field uid;
   @field version;
+  @field nickname;
   @field({ type: 'array' }) versions;
   @field({ type: 'array' }) formats;
   @field is_vocab;
