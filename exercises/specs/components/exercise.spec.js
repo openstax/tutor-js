@@ -1,9 +1,9 @@
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, StaticRouter } from 'react-router-dom';
 import Renderer from 'react-test-renderer';
 import Exercise from '../../src/components/exercise';
 import ExerciseModel from '../../src/models/exercises/exercise';
 import Factory from '../factories';
-
+import EnzymeContext from '../../../tutor/specs/components/helpers/enzyme-context';
 jest.mock('../../../shared/src/components/html', () => ({ html }) =>
   html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
 );
@@ -19,7 +19,7 @@ describe('Exercises component', () => {
       exercises,
       match: {
         params: {
-          numberWithVersion: exercise.number,
+          uid: exercise.uid,
         },
       },
     };
@@ -36,6 +36,15 @@ describe('Exercises component', () => {
     const ex = Renderer.create(<MemoryRouter><Exercise {...props} /></MemoryRouter>);
     expect(ex.toJSON()).toMatchSnapshot();
     ex.unmount();
+  });
+
+  it('can save edits', () => {
+    expect(props.exercises.get(exercise.uid)).not.toBeUndefined();
+    const ex = mount(<Exercise {...props} />, EnzymeContext.build());
+    ex.find('.nickname input').simulate('change', {
+      target: { value: 'MY-NICK-NAME' },
+    });
+    expect(exercise.nickname).toEqual('MY-NICK-NAME');
   });
 
 });

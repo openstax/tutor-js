@@ -12,7 +12,6 @@ import Controls from './exercise/controls';
 import { idType } from 'shared';
 import { Loading, NotFound } from './exercise-state';
 
-@withRouter
 @observer
 export default class Exercise extends React.Component {
 
@@ -22,9 +21,6 @@ export default class Exercise extends React.Component {
         uid: idType,
       }),
     }),
-    history: React.PropTypes.shape({
-      push: React.PropTypes.func,
-    }).isRequired,
     exercises: React.PropTypes.instanceOf(ExercisesMap),
   };
 
@@ -52,6 +48,7 @@ export default class Exercise extends React.Component {
   renderIntroTab = () => {
     return (
       <Tab eventKey="intro" title="Intro">
+        {this.renderNickname()}
         <div className="exercise-stimulus">
           <label>
             Exercise Stimulus
@@ -76,6 +73,7 @@ export default class Exercise extends React.Component {
     const { exercise } = this;
     return (
       <Tab key={0} eventKey="question-0" title="Question">
+        {this.renderNickname()}
         <Question {...this.questionProps} question={exercise.questions[0]} />
       </Tab>
     );
@@ -104,6 +102,21 @@ export default class Exercise extends React.Component {
     };
   }
 
+  @action.bound updateNickname(ev) {
+    this.exercise.nickname = ev.target.value;
+  }
+
+  renderNickname() {
+    return (
+      <div className="nickname">
+        <label>
+          Exercise Nickname:
+          <input onChange={this.updateNickname} value={this.exercise.nickname || ''} />
+        </label>
+      </div>
+    );
+  }
+
   renderMPQ() {
     return (
       <Button onClick={this.addQuestion} className="add-mpq" bsStyle="primary">
@@ -123,6 +136,7 @@ export default class Exercise extends React.Component {
         <div className="editing-controls">
           {exercise.error && <Alert bsStyle="danger">{String(exercise.error)}</Alert>}
           {isMultiPart && this.renderMPQ()}
+
           <Tabs
             id="exercise-parts"
             activeKey={this.activeTabKey}
