@@ -6,7 +6,9 @@ import FakeWindow from 'shared/specs/helpers/fake-window';
 import { ExtendBasePlan } from '../../helpers/task-plan';
 import { TaskPlanActions, TaskPlanStore } from '../../../../src/flux/task-plan';
 import ScrollTo from '../../../../src/helpers/scroll-to';
-
+jest.mock('../../../../../shared/src/components/html', () => ({ html }) =>
+  html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
+);
 jest.mock('../../../../src/helpers/scroll-to');
 jest.mock('../../../../src/flux/task-plan', () => ({
   TaskPlanActions: {
@@ -48,6 +50,7 @@ describe('choose exercises component', function() {
   let exercises, props, course;
 
   beforeEach(function() {
+    Factory.setSeed(1); // make factory deterministic so it has both reading/hw
     course = Factory.course();
     course.referenceBook.onApiRequestComplete({ data: [FactoryBot.create('Book')] });
     exercises = Factory.exercisesMap({ book: course.referenceBook });
@@ -79,13 +82,20 @@ describe('choose exercises component', function() {
     ce.unmount();
   });
 
-  it('hides excluded exercises', () => {
+  it('hides excluded and reading exercises', () => {
     const ce = renderExerciseCards(props);
     const exercise = exercises.array[0];
+    exercise.pool_types = ['homework_core'];
+    expect(exercise.isHomework).toBe(true);
     expect(exercise.isAssignable).toBe(true);
     expect(ce).toHaveRendered(`[data-exercise-id="${exercise.content.uid}"]`);
     exercise.is_excluded = true;
     expect(exercise.isAssignable).toBe(false);
+    expect(ce).not.toHaveRendered(`[data-exercise-id="${exercise.content.uid}"]`);
+    exercise.is_excluded = false;
+    expect(ce).toHaveRendered(`[data-exercise-id="${exercise.content.uid}"]`);
+    exercise.pool_types = ['reading_dynamic'];
+    expect(exercise.isReading).toBe(true);
     expect(ce).not.toHaveRendered(`[data-exercise-id="${exercise.content.uid}"]`);
     ce.unmount();
   });

@@ -35,6 +35,8 @@ each({
   };
 });
 
+Factories.setSeed = (seed) => faker.seed(seed);
+
 Factories.data = (...args) => FactoryBot.create(...args);
 
 Factories.coursesMap = ({ count = 2, ...attrs } = {}) => {

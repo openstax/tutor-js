@@ -57,7 +57,7 @@ class ChooseExercises extends React.Component {
     return (
       <AddExercises
         course={course}
-        exercises={exercises.assignable}
+        exercises={exercises.assignableHomework}
         hide={hide}
         cancel={cancel}
         canEdit={true}
