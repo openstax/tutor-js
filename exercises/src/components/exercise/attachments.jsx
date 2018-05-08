@@ -1,10 +1,10 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 import Exercise from '../../models/exercises/exercise';
 import Attachment from './attachments/attachment';
 import AttachmentChooser from './attachments/chooser';
 
 function Attachments({ exercise }) {
-
   return (
     <div className="attachments">
       {exercise.attachments.map((attachment) =>
@@ -23,4 +23,4 @@ Attachments.propTypes = {
   exercise: React.PropTypes.instanceOf(Exercise).isRequired,
 };
 
-export default Attachments;
+export default observer(Attachments);
