@@ -13,8 +13,14 @@ const getTeacherDashboard = () => TeacherDashboard;
 
 const ReferenceBook = asyncComponent(
   () => System.import('./screens/reference-book/index.jsx')
-)
+);
 const getReferenceBook = () => ReferenceBook;
+const legacyReferenceBookRedirect = () => LegacyReferenceBookRedirect
+
+const QAView = asyncComponent(
+  () => System.import('./screens/qa-view/index.jsx')
+);
+const getQAView = () => QAView;
 
 const getTaskShell = function() {
   const { TaskShell } = require('./components/task');
@@ -104,9 +110,9 @@ const getRoutes = (router) => {
     { path: '/new-course/:sourceId?', name: 'createNewCourse', renderer: getCreateCourse },
     {
       name: 'QADashboard',
-      path: '/qa/:ecosystemId?/:section?',
+      path: '/qa/:ecosystemId?/:chapterSection?',
       settings: { navBar: 'Plugable' },
-      renderer: loadAsync(() => System.import('./screens/qa-view/index.jsx')),
+      renderer: getQAView,
     },
     {
       path: '/course/:courseId', name: 'dashboard', renderer:  ConditionalHandlers.dashboard,
@@ -162,16 +168,15 @@ const getRoutes = (router) => {
     },
     { path: '/payments', name: 'managePayments', renderer: getPaymentsShell },
     {
-      path: '/books/:courseId',
+      path: '/book/:ecosystemId/:chapterSection?',
       name: 'viewReferenceBook',
       renderer: getReferenceBook,
       settings: { navBar: 'Plugable' },
-      routes: [
-        { path: 'section/:section', name: 'viewReferenceBookSection',
-          renderer: getReferenceBook, settings: { navBar: 'Plugable' } },
-        { path: 'page/:cnxId', name: 'viewReferenceBookPage',
-          renderer: getReferenceBook, settings: { navBar: 'Plugable' } },
-      ],
+    },
+    {
+      path: '/books/:parts*',
+      name: 'legacyReferenceBookRedirect',
+      renderer: ConditionalHandlers.legacyReferenceBookRedirect,
     },
     {
       path: '/surveys/:courseId/:surveyId', name: 'researchSurvey',

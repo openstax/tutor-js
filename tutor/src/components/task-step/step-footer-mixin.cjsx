@@ -5,9 +5,9 @@ camelCase = require 'lodash/camelCase'
 classnames = require 'classnames'
 TutorLink = require '../link'
 {Details} = require '../task/details'
-BrowseTheBook = require '../buttons/browse-the-book'
+{default: BrowseTheBook} = require '../buttons/browse-the-book'
 LateIcon = require '../late-icon'
-
+{default: Courses} = require '../../models/courses-map';
 {ChapterSectionMixin} = require 'shared'
 
 {TaskStore} = require '../../flux/task'
@@ -36,9 +36,15 @@ module.exports =
     taskDetails
 
   renderCoversSections: (sections) ->
+    course = Courses.get(@props.courseId)
     sections = _.map sections, (section) =>
       combined = @sectionFormat(section)
-      <BrowseTheBook unstyled key={combined} section={combined} onlyShowBrowsable={false}>
+      <BrowseTheBook
+        unstyled
+        key={combined}
+        course={course}
+        chapterSection={combined}
+      >
         {combined}
       </BrowseTheBook>
 

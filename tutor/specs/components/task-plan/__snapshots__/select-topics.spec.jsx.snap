@@ -91,6 +91,14 @@ exports[`Select Topics matches snapshot 1`] = `
                       Kinematics
                        
                     </span>
+                    <div
+                      aria-role="link"
+                      chapterSection="1"
+                      className="browse-the-book"
+                      onClick={[Function]}
+                    >
+                      Browse this Chapter
+                    </div>
                   </a>
                 </div>
               </div>
@@ -253,6 +261,14 @@ exports[`Select Topics matches snapshot 1`] = `
                       Mechanics
                        
                     </span>
+                    <div
+                      aria-role="link"
+                      chapterSection="2"
+                      className="browse-the-book"
+                      onClick={[Function]}
+                    >
+                      Browse this Chapter
+                    </div>
                   </a>
                 </div>
               </div>
@@ -415,6 +431,14 @@ exports[`Select Topics matches snapshot 1`] = `
                       Thermodynamics
                        
                     </span>
+                    <div
+                      aria-role="link"
+                      chapterSection="3"
+                      className="browse-the-book"
+                      onClick={[Function]}
+                    >
+                      Browse this Chapter
+                    </div>
                   </a>
                 </div>
               </div>

@@ -1,7 +1,7 @@
 import Map from 'shared/model/map';
 import { computed, action } from 'mobx';
 import Course from './course';
-import { isEmpty } from 'lodash';
+import { isEmpty, find } from 'lodash';
 
 export class CoursesMap extends Map {
 
@@ -69,6 +69,10 @@ export class CoursesMap extends Map {
     course.just_created = true;
     this.set(course.id, course);
     return course;
+  }
+
+  forEcosystemId(ecosystem_id) {
+    return find(this.array, c => c.ecosystem_id == ecosystem_id);
   }
 
   isNameValid(name) {

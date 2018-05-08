@@ -23,7 +23,7 @@ class BookMenuTocSection extends React.Component {
           <TutorLink
             {...ux.sectionLinkProps(section)}
             tabIndex={ux.isMenuVisible ? 0 : -1}
-            className={section === ux.activePage ? 'active' : ''}
+            className={section === ux.page ? 'active' : ''}
             onClick={partial(ux.onMenuSelection, section.chapter_section.asString)}
           >
             <span className="section-number">

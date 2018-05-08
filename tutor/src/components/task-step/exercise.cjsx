@@ -7,7 +7,6 @@ _ = require 'underscore'
 {TaskPanelStore} = require '../../flux/task-panel'
 {StepPanel} = require '../../helpers/policies'
 
-BrowseTheBook = require '../buttons/browse-the-book'
 RelatedContentLink = require '../related-content-link'
 {ChapterSectionMixin, CardBody, ExerciseWithScroll, ExControlButtons} = require 'shared'
 
