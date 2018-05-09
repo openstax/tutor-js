@@ -138,12 +138,23 @@ describe('My Courses Component', function() {
     wrapper.unmount();
   });
 
-  it('displays message for non college instructors', () => {
-    loadTeacherUser();
-    Courses.clear();
-    User.school_type = 'unknown_school_type';
-    const wrapper = shallow(<CourseListing />, EnzymeContext.withDnD());
-    expect(wrapper).toHaveRendered('NoHSTeachers');
-    wrapper.unmount();
+  describe('non college instructors', () => {
+    it('locks them out and displays message when they hve no courses', () => {
+      loadTeacherUser();
+      Courses.clear();
+      User.school_type = 'unknown_school_type';
+      const wrapper = shallow(<CourseListing />, EnzymeContext.withDnD());
+      expect(wrapper).toHaveRendered('NoHSTeachers');
+      wrapper.unmount();
+    });
+
+    it('hides previews if they have courses', () => {
+      loadTeacherUser();
+      const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
+      expect(wrapper).toHaveRendered('MyCoursesPreview MyCoursesBasic');
+      User.school_type = 'unknown_school_type';
+      expect(wrapper).not.toHaveRendered('MyCoursesPreview MyCoursesBasic');
+      wrapper.unmount();
+    });
   });
 });
