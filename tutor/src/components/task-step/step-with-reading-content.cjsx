@@ -1,5 +1,5 @@
 React = require 'react'
-
+{Button} = require 'react-bootstrap'
 {TaskStepStore} = require '../../flux/task-step'
 {TaskPanelStore} = require '../../flux/task-panel'
 {ArbitraryHtmlAndMath, ChapterSectionMixin} = require 'shared'
@@ -30,14 +30,10 @@ ReadingStepContent = React.createClass
     @props.stepType is 'interactive'
 
   renderNextStepLink: ->
-    return null unless @props.nextStepTitle
-    <div className="continue-to-next-task-step">
-      <a onClick={@props.onContinue}>
-        Continue to “<span className="next-step-title">
-          {@props.nextStepTitle}
-        </span>” <Icon type="chevron-right" />
-      </a>
-    </div>
+    return null unless @props.onContinue
+    <Button bsStyle="primary" onClick={@props.onContinue}>
+      Continue
+    </Button>
 
   shouldOpenNewTab: -> true
 
