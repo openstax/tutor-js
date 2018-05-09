@@ -10,6 +10,7 @@ import Icon from '../icon';
 import TourAnchor from '../tours/anchor';
 import Router from '../../helpers/router';
 import UserMenu from '../../models/user/menu';
+import Courses from '../../models/courses-map';
 
 const RoutedMenuItem = (props) => {
   const { label, name, tourId, className, route } = props;
@@ -31,10 +32,11 @@ const RoutedMenuItem = (props) => {
 };
 
 function BrowseBookMenuItem({ params: { courseId }, className, active, label, ...props }) {
+  const course = Courses.get(courseId)
   return (
     <MenuItem
       {...props}
-      href={`/books/${courseId}`}
+      href={`/book/${course.ecosystem_id}`}
       target="_blank"
     >
       <TourAnchor id="menu-option-browse-book">
