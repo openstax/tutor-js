@@ -145,21 +145,21 @@ export default class Answer extends React.Component {
 
     if (onChange) {
       radioBox = <input
-        type="radio"
-        className="answer-input-box"
-        checked={isChecked}
-        id={`${qid}-option-${iter}`}
-        name={`${qid}-options`}
-        onChange={onChange}
-        disabled={disabled} />;
+                   type="radio"
+                   className="answer-input-box"
+                   checked={isChecked}
+                   id={`${qid}-option-${iter}`}
+                   name={`${qid}-options`}
+                   onChange={onChange}
+                   disabled={disabled} />;
     }
 
     if (type === 'teacher-review') {
       const percent = Math.round((answer.selected_count / answered_count) * 100) || 0;
       selectedCount = <div
-        className="selected-count"
-        data-count={`${answer.selected_count}`}
-        data-percent={`${percent}`} />;
+                        className="selected-count"
+                        data-count={`${answer.selected_count}`}
+                        data-percent={`${percent}`} />;
     }
 
     if (this.props.show_all_feedback && answer.feedback_html) {

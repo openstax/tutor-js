@@ -3,7 +3,7 @@ _ = require 'underscore'
 {default: Courses} = require '../models/courses-map'
 {ChapterSectionMixin} = require 'shared'
 Icon = require './icon'
-BrowseTheBook = require './buttons/browse-the-book'
+{default: BrowseTheBook} = require './buttons/browse-the-book'
 
 
 RelatedContentLink = React.createClass

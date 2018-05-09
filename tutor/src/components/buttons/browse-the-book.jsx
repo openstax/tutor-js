@@ -34,8 +34,6 @@ export default class extends React.Component {
 
   @computed get href() {
     const { course, book, chapterSection } = this.props;
-    const id = book ? book.id : course.ecosystem_id;
-    console.log("HREF", course.ecosystem_id)
     return Router.makePathname('viewReferenceBook', {
       chapterSection,
       ecosystemId: book ? book.id : course.ecosystem_id,
