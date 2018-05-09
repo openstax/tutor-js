@@ -105,7 +105,7 @@ class MyCoursesTitle extends React.Component {
 }
 
 @observer
-export class MyCoursesCurrent extends React.PureComponent {
+export class MyCoursesCurrent extends React.Component {
 
   render () {
     const baseName = ReactHelpers.getBaseName(this);
@@ -127,7 +127,7 @@ export class MyCoursesCurrent extends React.PureComponent {
 }
 
 @observer
-class MyCoursesBasic extends React.PureComponent {
+class MyCoursesBasic extends React.Component {
   static propTypes = {
     title:    React.PropTypes.string.isRequired,
     baseName: React.PropTypes.string.isRequired,
@@ -157,7 +157,7 @@ class MyCoursesBasic extends React.PureComponent {
 }
 
 @observer
-export class MyCoursesPast extends React.PureComponent {
+export class MyCoursesPast extends React.Component {
   render() {
     return (
       <MyCoursesBasic
@@ -171,7 +171,7 @@ export class MyCoursesPast extends React.PureComponent {
 
 
 @observer
-export class MyCoursesFuture extends React.PureComponent {
+export class MyCoursesFuture extends React.Component {
   render() {
     return (
       <MyCoursesBasic
@@ -196,7 +196,7 @@ function ExploreAPreview({ course }) {
 }
 
 @observer
-export class MyCoursesPreview extends React.PureComponent {
+export class MyCoursesPreview extends React.Component {
 
   @observable previews;
 
@@ -207,7 +207,7 @@ export class MyCoursesPreview extends React.PureComponent {
   }
 
   render() {
-    if (!User.isConfirmedFaculty) { return null; }
+    if (!User.canViewPreviewCourses) { return null; }
 
     const courses = PreviewCourseOffering.all;
 
