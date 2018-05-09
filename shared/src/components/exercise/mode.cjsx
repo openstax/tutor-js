@@ -5,6 +5,7 @@ _ = require 'underscore'
 ArbitraryHtmlAndMath = require '../html'
 {default: Question} = require '../question'
 FreeResponse = require './free-response'
+{default: QuestionModel} = require '../../model/exercise/question'
 
 RESPONSE_CHAR_LIMIT = 10000
 
@@ -116,6 +117,7 @@ ExMode = React.createClass
 
     questions = _.map content.questions, (question) =>
       question = _.omit(question, 'answers') if mode is 'free-response'
+      question = new QuestionModel(question)
       <Question
         {...questionProps}
         {...changeProps}

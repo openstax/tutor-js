@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { action } from 'mobx';
 import keymaster from 'keymaster';
 import keysHelper from '../../helpers/keys';
-
+import QuestionModel from '../../model/exercise/question'
 import ArbitraryHtmlAndMath from '../html';
 import Answer from './answer';
 import { Feedback } from './feedback';
@@ -33,7 +33,7 @@ const isAnswerChecked = function(answer, chosenAnswer) {
 export default class AnswersTable extends React.Component {
 
   static propTypes = {
-    question: React.PropTypes.object.isRequired,
+    question: React.PropTypes.instanceOf(QuestionModel).isRequired,
     type: React.PropTypes.string.isRequired,
     answer_id: React.PropTypes.string,
     correct_answer_id: React.PropTypes.string,
@@ -147,15 +147,15 @@ export default class AnswersTable extends React.Component {
     };
 
     const answersHtml = map(answers, function(answer, i) {
-        const additionalProps = { answer, iter: i, key: `${questionAnswerProps.qid}-option-${i}` };
-        if (focus) { additionalProps.keyControl = KEYS[keySet] != null ? KEYS[keySet][i] : undefined; }
-        const answerProps = extend({}, additionalProps, questionAnswerProps);
-        if (isAnswerChecked(answer, chosenAnswer)) { checkedAnswerIndex = i; }
+      const additionalProps = { answer, iter: i, key: `${questionAnswerProps.qid}-option-${i}` };
+      if (focus) { additionalProps.keyControl = KEYS[keySet] != null ? KEYS[keySet][i] : undefined; }
+      const answerProps = extend({}, additionalProps, questionAnswerProps);
+      if (isAnswerChecked(answer, chosenAnswer)) { checkedAnswerIndex = i; }
 
-        return (
-          <Answer {...answerProps} />
-        );
-      })
+      return (
+        <Answer {...answerProps} />
+      );
+    })
 
     if (feedback_html) {
       feedback = (
