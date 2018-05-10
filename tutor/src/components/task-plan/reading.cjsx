@@ -54,8 +54,9 @@ ReviewReadingLi = React.createClass
 
   render: ->
     { page } = @props
-    actionButtons = @getActionButtons()
+    return null unless page
 
+    actionButtons = @getActionButtons()
     <li className='selected-section'>
       <ChapterSection section={page.chapter_section.asString}/>
       <span className='section-title'>{page.title}</span>
