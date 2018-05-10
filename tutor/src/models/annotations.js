@@ -65,6 +65,9 @@ export default class Annotations extends Map {
       options.documentId,
       options.selection, '', options
     ).then((annotationData) => {
+      if (!annotationData) {
+        throw new Error("server returned malformed response from create");
+      }
       this.api.requestsInProgress.delete('create');
       this.api.requestCounts.create += 1;
       annotationData.listing = this;

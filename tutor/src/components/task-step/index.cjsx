@@ -45,7 +45,9 @@ TaskStep = React.createClass
 
   render: ->
     {id, taskId} = @props
-    {type, spy: taskStepSpy} = TaskStepStore.get(id)
+    step = TaskStepStore.get(id)
+    return null unless step
+    {type, spy: taskStepSpy} = step
     {spy: taskSpy} = TaskStore.get(taskId)
     Type = getStepType(type)
     <div>
