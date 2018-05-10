@@ -1,6 +1,7 @@
 import React from 'react';
 import { map, matches, find, pick } from 'lodash';
-import browser from 'detect-browser';
+import { detect } from 'detect-browser';
+const browser = detect() || { name: 'unknown' };
 
 import CourseBranding from '../branding/course';
 import WarningModal from '../warning-modal';
