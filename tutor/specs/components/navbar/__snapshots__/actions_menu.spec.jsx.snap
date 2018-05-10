@@ -92,7 +92,7 @@ exports[`Student Navbar Component has actions menu that matches snapshot 1`] = `
       style={undefined}
     >
       <a
-        href="/books/1"
+        href="/book/1"
         name="browseBook"
         onClick={[Function]}
         onKeyDown={[Function]}
@@ -271,7 +271,7 @@ exports[`Teacher Navbar Component has actions menu that matches snapshot 1`] = `
       style={undefined}
     >
       <a
-        href="/books/1"
+        href="/book/1"
         name="browseBook"
         onClick={[Function]}
         onKeyDown={[Function]}
