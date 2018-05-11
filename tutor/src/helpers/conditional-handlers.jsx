@@ -63,13 +63,16 @@ const getConditionalHandlers = (Router) => {
     const parts = params.parts.split('/');
     const course = Courses.get(first(parts));
     invariant(course, `Did not find course for params '${params}'`);
+    const chapterSection = parts.length > 1 ? last(parts) : 0;
     return (
       <Redirect
         to={{
-          pathname: Router.makePathname('viewReferenceBook', {
-            ecosystemId: course.ecosystem_id,
-            page: last(parts),
-          }),
+          pathname: Router.makePathname(
+            chapterSection ? 'viewReferenceBookSection' : 'viewReferenceBook',
+            {
+              ecosystemId: course.ecosystem_id,
+              chapterSection,
+            }),
           query: Router.currentQuery(),
         }}
       />

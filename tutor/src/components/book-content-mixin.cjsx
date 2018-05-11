@@ -53,9 +53,12 @@ LinkContentMixin =
       related_content = TaskStepStore.get(id)?.related_content
 
       if related_content?
-        page = @sectionFormat?(related_content[0]?.chapter_section or related_content[0]?.book_location)
+        chapterSection = @sectionFormat?(related_content[0]?.chapter_section or related_content[0]?.book_location)
 
-    return Router.makePathname('viewReferenceBook', {ecosystemId, page}, query)
+    Router.makePathname(
+      if chapterSection then 'viewReferenceBookSection' else 'viewReferenceBook',
+      {ecosystemId, chapterSection}, query
+    )
 
 
   isMediaLink: (link) ->
