@@ -34,10 +34,13 @@ export default class extends React.Component {
 
   @computed get href() {
     const { course, book, chapterSection } = this.props;
-    return Router.makePathname('viewReferenceBook', {
-      chapterSection,
-      ecosystemId: book ? book.id : course.ecosystem_id,
-    });
+    return Router.makePathname(
+      chapterSection ? 'viewReferenceBookSection' : 'viewReferenceBook',
+      {
+        chapterSection,
+        ecosystemId: book ? book.id : course.ecosystem_id,
+      }
+    );
   }
 
   @action.bound onClick(ev) {
@@ -49,7 +52,7 @@ export default class extends React.Component {
 
   render() {
     const { tag: Tag, children, className, unstyled,
-      windowImpl, course, book, page, onClick, // eslint-disable-line no-unused-vars
+      windowImpl, course, book, chapterSection, onClick, // eslint-disable-line no-unused-vars
       ...tagProps
     } = this.props;
     invariant(book || course, 'browse the book requires either a course or book');

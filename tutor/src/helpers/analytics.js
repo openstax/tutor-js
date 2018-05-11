@@ -27,6 +27,13 @@ const assignmentTypeTranslator = function(assignmentType, { courseId, id }) {
   return `/teacher/assignment/${type}/${assignmentType}/${courseId}`;
 };
 
+function viewReferenceBook({ ecosystemId, chapterSection }) {
+  const course = Courses.forEcosystemId(ecosystemId);
+  if (!course) { return `/reference-view/ecosystem/${ecosystemId}`; }
+  const url = `/reference-view/${course.id}`;
+  return chapterSection ? `${url}/section/${chapterSection}` : url;
+}
+
 // Translators convert a url like '/foo/bar/123/baz/1' into a simplified one like just '/foo/bar'
 const Translators = {
   dashboard({ courseId }) {
@@ -49,12 +56,8 @@ const Translators = {
   createEvent:    partial(assignmentTypeTranslator, 'event'),
   calendarViewPlanStats({ courseId }) { return `/teacher/metrics/quick/${courseId}`; },
   reviewTask({ courseId }) { return `/teacher/metrics/review/${courseId}`; },
-  viewReferenceBook({ ecosystemId, chapterSection }) {
-    const course = Courses.forEcosystemId(ecosystemId);
-    if (!course) { return `/reference-view/ecosystem/${ecosystemId}`; }
-    const url = `/reference-view/${course.id}`;
-    return chapterSection ? `${url}/section/${chapterSection}` : url;
-  },
+  viewReferenceBookSection: viewReferenceBook,
+  viewReferenceBook,
 
   // Task steps are viewed by both teacher and student with no difference in params
   viewTaskStep({ courseId }) {

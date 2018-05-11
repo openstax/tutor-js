@@ -31,7 +31,6 @@ export default class BookUX {
   }
 
   @action.bound onEcosystemChange({ newValue: ecosystemId }) {
-
     if (this.book && this.book.id == ecosystemId){ return; }
     this.book = new Book({ id: ecosystemId });
     this.book.fetch().then(() => {
@@ -39,6 +38,12 @@ export default class BookUX {
         this.setChapterSection();  // will default to first section
       }
     });
+  }
+
+  @computed get isFetching() {
+    return Boolean(
+      (this.book && this.book.api.isPending) || (this.page && this.page.api.isPending)
+    );
   }
 
   @action.bound onMenuSelection(section) {

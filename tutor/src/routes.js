@@ -168,8 +168,14 @@ const getRoutes = (router) => {
     },
     { path: '/payments', name: 'managePayments', renderer: getPaymentsShell },
     {
-      path: '/book/:ecosystemId/:chapterSection?',
+      path: '/book/:ecosystemId',
       name: 'viewReferenceBook',
+      renderer: getReferenceBook,
+      settings: { navBar: 'Plugable' },
+    },
+    {
+      path: '/book/:ecosystemId/section/:chapterSection',
+      name: 'viewReferenceBookSection',
       renderer: getReferenceBook,
       settings: { navBar: 'Plugable' },
     },

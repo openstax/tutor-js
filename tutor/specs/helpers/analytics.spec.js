@@ -86,7 +86,7 @@ describe('Analytics', function() {
       [`${c}/external/new`]:                '/teacher/assignment/create/external/1',
       [`${c}/t/month/2011-11-11/plan/66`]:  '/teacher/metrics/quick/1',
       '/book/991':                           '/reference-view/1',
-      '/book/991/2.2':                       '/reference-view/1/section/2.2',
+      '/book/991/section/2.2':               '/reference-view/1/section/2.2',
     };
     for (let route in tests) {
       const translated = tests[route];

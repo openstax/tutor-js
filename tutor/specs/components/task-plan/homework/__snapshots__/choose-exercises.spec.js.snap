@@ -96,7 +96,6 @@ exports[`choose exercises component can select exercises 1`] = `
                       </span>
                       <div
                         aria-role="link"
-                        chapterSection="1"
                         className="browse-the-book"
                         onClick={[Function]}
                       >
@@ -266,7 +265,6 @@ exports[`choose exercises component can select exercises 1`] = `
                       </span>
                       <div
                         aria-role="link"
-                        chapterSection="2"
                         className="browse-the-book"
                         onClick={[Function]}
                       >
@@ -436,7 +434,6 @@ exports[`choose exercises component can select exercises 1`] = `
                       </span>
                       <div
                         aria-role="link"
-                        chapterSection="3"
                         className="browse-the-book"
                         onClick={[Function]}
                       >
@@ -664,7 +661,6 @@ exports[`choose exercises component renders selections 1`] = `
                       </span>
                       <div
                         aria-role="link"
-                        chapterSection="1"
                         className="browse-the-book"
                         onClick={[Function]}
                       >
@@ -834,7 +830,6 @@ exports[`choose exercises component renders selections 1`] = `
                       </span>
                       <div
                         aria-role="link"
-                        chapterSection="2"
                         className="browse-the-book"
                         onClick={[Function]}
                       >
@@ -1004,7 +999,6 @@ exports[`choose exercises component renders selections 1`] = `
                       </span>
                       <div
                         aria-role="link"
-                        chapterSection="3"
                         className="browse-the-book"
                         onClick={[Function]}
                       >

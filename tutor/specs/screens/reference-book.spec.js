@@ -57,4 +57,12 @@ describe('Reference Book Component', function() {
     expect(book).toHaveRendered(`.book-menu [data-section='${ux.page.chapter_section.asString}'] .active`);
   });
 
+  it('displays a not found message when needed', () => {
+    ux.chapterSection = '99.99';
+    expect(ux.isFetching).toBe(false);
+    const book = mount(<ReferenceBook {...props} />, EnzymeContext.build());
+    expect(book).toHaveRendered('.not-found');
+    expect(book.text()).toContain('Section 99.99 was not found');
+  });
+
 });

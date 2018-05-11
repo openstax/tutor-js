@@ -39,7 +39,7 @@ export default class ReferenceBookShell extends React.Component {
   render() {
     const { ux } = this;
 
-    if (!ux.page) {
+    if (ux.isFetching) {
       return <LoadingScreen />;
     }
 
