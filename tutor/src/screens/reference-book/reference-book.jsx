@@ -3,8 +3,25 @@ import { SpyMode } from 'shared';
 
 import Menu from '../../components/book-menu/menu';
 import Page from '../../components/book-page';
+
 import ReferenceViewPageNavigation from './page-navigation';
 import UX from './ux';
+
+const WrappedPage = observer(({ ux }) => {
+  if (ux.page) {
+    return (
+      <ReferenceViewPageNavigation ux={ux}>
+        <Page {...ux.pageProps} />
+      </ReferenceViewPageNavigation>
+    );
+  } else {
+    return (
+      <div className="book-page-wrapper not-found">
+        <h1>Section {ux.chapterSection} was not found</h1>
+      </div>
+    );
+  }
+});
 
 @observer
 export default class ReferenceBook extends React.Component {
@@ -27,9 +44,7 @@ export default class ReferenceBook extends React.Component {
         <SpyMode.Wrapper>
           <div className="content">
             <Menu ux={ux} />
-            <ReferenceViewPageNavigation ux={ux}>
-              <Page {...ux.pageProps} />
-            </ReferenceViewPageNavigation>
+            <WrappedPage ux={ux} />
           </div>
         </SpyMode.Wrapper>
       </div>
