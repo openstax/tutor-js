@@ -75,11 +75,6 @@ export class ExercisesMap extends Map {
   }
 
   onSaved({ data }, [exercise]) {
-    // if (exercise.isNew) {
-    //   this.delete(NEW);
-    // } else {
-    //   this.delete(exercise.number);
-    // }
     exercise.error = null;
     this.onLoaded({ data, exercise });
   }
