@@ -1,5 +1,5 @@
 import Map from 'shared/model/map';
-import { sortBy, last } from 'lodash';
+import { sortBy, last, get } from 'lodash';
 import { computed, action, observable, toJS } from 'mobx';
 import Exercise from './exercises/exercise';
 
@@ -85,7 +85,7 @@ export class ExercisesMap extends Map {
   }
 
   onError(error, [exercise]) {
-    exercise.error = error;
+    exercise.error = get(error, 'response.data.errors[0].message', error);
   }
 
 }
