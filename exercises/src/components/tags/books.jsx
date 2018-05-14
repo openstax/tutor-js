@@ -10,17 +10,17 @@ import TagModel from 'shared/model/exercise/tag';
 @observer
 class BookTagSelect extends React.Component {
   static propTypes = {
-    book: React.PropTypes.instanceOf(TagModel).isRequired,
+    tag: React.PropTypes.instanceOf(TagModel).isRequired,
     exercise: React.PropTypes.instanceOf(Exercise).isRequired,
 
   };
 
   @action.bound updateTag(ev) {
-    this.props.book.value = ev.target.value;
+    this.props.tag.value = ev.target.value;
   }
 
   @action.bound onDelete() {
-    this.props.exercise.tags.remove(this.props.book);
+    this.props.exercise.tags.remove(this.props.tag);
   }
 
   render() {
@@ -28,7 +28,7 @@ class BookTagSelect extends React.Component {
       <div className="tag">
         <BookSelection
           onChange={this.updateTag}
-          selected={this.props.book.value}
+          selected={this.props.tag.value}
         />
         <span className="controls">
           <i onClick={this.onDelete} className="fa fa-trash" />
@@ -53,7 +53,7 @@ export default class BookTags extends React.Component {
     return (
       <Wrapper label="Book" onAdd={this.add} singleTag={tags.length === 1}>
         {tags.map((tag) =>
-          <BookTagSelect key={tag.asString} {...this.props} book={tag} />)}
+          <BookTagSelect key={tag.asString} {...this.props} tag={tag} />)}
       </Wrapper>
     );
   }
