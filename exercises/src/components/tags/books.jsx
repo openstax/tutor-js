@@ -1,34 +1,27 @@
 import React from 'react';
 import { action } from 'mobx';
+import { observer } from 'mobx-react';
 import Wrapper from './wrapper';
 import BookSelection from './book-selection';
 import Exercise from '../../models/exercises/exercise';
 import TagModel from 'shared/model/exercise/tag';
 
+
+@observer
 class BookTagSelect extends React.Component {
   static propTypes = {
     book: React.PropTypes.instanceOf(TagModel).isRequired,
     exercise: React.PropTypes.instanceOf(Exercise).isRequired,
+
   };
 
-  updateTag = (ev) => {
-    return (
-      this.props.actions.setTypeedTag(this.props.id,
-        { type: 'book', tag: ev.target.value, previous: this.props.book }
-      )
-    );
-  };
+  @action.bound updateTag(ev) {
+    this.props.book.value = ev.target.value;
+  }
 
-  onDelete = () => {
-    this.props.actions.setTypeedTag(this.props.id,
-      { type: 'book', tag: false, previous: this.props.book }
-    );
-    return (
-      this.props.actions.setTypeedTag(this.props.id,
-        { type: `exid:${this.props.book}`, tag: false, replaceOthers: true }
-      )
-    );
-  };
+  @action.bound onDelete() {
+    this.props.exercise.tags.remove(this.props.book);
+  }
 
   render() {
     return (
@@ -45,13 +38,14 @@ class BookTagSelect extends React.Component {
   }
 }
 
-class BookTags extends React.Component {
+@observer
+export default class BookTags extends React.Component {
   static propTypes = {
     exercise: React.PropTypes.instanceOf(Exercise).isRequired,
   };
 
   @action.bound add() {
-    this.props.exercise.addBlankTypeedTag({ type: 'book' });
+    this.props.exercise.tags.push({ type: 'book' });
   }
 
   render() {
@@ -64,6 +58,3 @@ class BookTags extends React.Component {
     );
   }
 }
-
-
-export default BookTags;
