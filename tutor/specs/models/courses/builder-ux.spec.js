@@ -2,16 +2,23 @@ import CourseBuilderUX from '../../../src/models/course/builder-ux';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import Offerings from '../../../src/models/course/offerings';
 import Router from '../../../src/helpers/router';
-import { extend, defer } from 'lodash';
+import User from '../../../src/models/user';
+
+jest.useFakeTimers();
 jest.mock('../../../src/helpers/router');
 jest.mock('../../../src/models/course/offerings', () => ({
   get: jest.fn(() => undefined),
+  fetch: jest.fn(() => Promise.resolve()),
+}));
+jest.mock('../../../src/models/user', () => ({
+  isCollegeTeacher: true,
 }));
 
 describe('Course Builder UX Model', () => {
   let ux, courses, mockOffering;
   beforeEach(() => {
     Router.currentParams.mockReturnValue({});
+    User.isCollegeTeacher = true;
     courses = bootstrapCoursesList();
     mockOffering = { id: 1, title: 'A Test Course' };
     ux = new CourseBuilderUX();
@@ -132,6 +139,15 @@ describe('Course Builder UX Model', () => {
     expect(ux.stage).toEqual('new_or_copy');
   });
 
+  it('redirects to onlly college page if teacher isnt college', () => {
+    const router = { history: { replace: jest.fn() } };
+    User.isCollegeTeacher = false;
+    ux = new CourseBuilderUX(router);
+    Router.makePathname.mockReturnValue('/only-teacher');
+    jest.runOnlyPendingTimers();
+    expect(ux.router.history.replace).toHaveBeenCalledWith('/only-teacher');
+  });
+
   describe('after course is created', function() {
     beforeEach(() => {
       ux.router = { history: { push: jest.fn() } };
@@ -143,15 +159,9 @@ describe('Course Builder UX Model', () => {
       } }));
     });
 
-    it('redirects to Tutor for Tutor', function() {
+    it('redirects after building', function() {
       ux.currentStageIndex = ux.stages.length - 1;
       expect(ux.router.history.push).toHaveBeenCalledWith('/course/42?showIntro=true');
-    });
-
-    it('redirects to CC', function() {
-      ux.newCourseMock.is_concept_coach = true;
-      ux.currentStageIndex = ux.stages.length - 1;
-      expect(ux.router.history.push).toHaveBeenCalledWith('/course/42/cc/help?showIntro=true');
     });
 
   });

@@ -173,8 +173,8 @@ const UserMenu = observable({
     const validRoutes = pickBy(
       ROUTES, (route, routeName) =>
         (invoke(route, 'isAllowed', course) !== false) &&
-                                  (!route.isTeacher || isTeacher) &&
-                                  getRouteByRole(routeName, menuRole)
+        (!route.isTeacher || isTeacher) &&
+        getRouteByRole(routeName, menuRole)
     );
     const routes = [];
 

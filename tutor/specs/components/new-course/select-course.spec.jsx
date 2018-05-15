@@ -4,6 +4,9 @@ import BuilderUX from '../../../src/models/course/builder-ux';
 import Offerings from '../../../src/models/course/offerings';
 
 import OFFERINGS from '../../../api/offerings';
+jest.mock('../../../src/models/user', () => ({
+  isCollegeTeacher: true,
+}));
 
 describe('CreateCourse: Selecting course subject', function() {
 

@@ -5,6 +5,10 @@ import BuilderUX from '../../../src/models/course/builder-ux';
 const COURSE_ID = '1';
 import { bootstrapCoursesList } from '../../courses-test-data';
 
+jest.mock('../../../src/models/user', () => ({
+  isCollegeTeacher: true,
+}));
+
 describe('CreateCourse: entering details', function() {
 
   let ux;

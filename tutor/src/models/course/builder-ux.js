@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy,
 } from 'shared/model';
 import {
-  filter, result, isEmpty, pick, values, every, get,
+  filter, result, isEmpty, pick, values, every, get, delay,
 } from 'lodash';
 import { readonly } from 'core-decorators';
 import { when, observable, computed, action, observe } from 'mobx';
@@ -11,6 +11,8 @@ import Courses from '../courses-map';
 import TutorRouter from '../../helpers/router';
 import Offerings from './offerings';
 import CreateCourse from './create';
+import Router from '../../helpers/router';
+import User from '../user';
 
 @identifiedBy('course/builder-ux')
 export default class CourseBuilderUX extends BaseModel {
@@ -34,7 +36,17 @@ export default class CourseBuilderUX extends BaseModel {
   constructor(router) {
     super();
     this.router = router;
+    if (!User.isCollegeTeacher) {
+      delay(() => // use delay in case we're called from a React constructor
+        router.history.replace(
+          Router.makePathname('onlyCollegeInstructors')
+        )
+      );
+      this.currentStageIndex = 0;
+      return;
+    }
 
+    Offerings.fetch();
     observe(this, 'source', ({ newValue: newSource }) => {
       if (newSource) {
         this.newCourse.cloned_from = newSource;
@@ -99,6 +111,10 @@ export default class CourseBuilderUX extends BaseModel {
     return this.canSkipOffering ? 1 : 0;
   }
 
+  @computed get isBusy() {
+    return Boolean(this.newCourse.api.isPending || Offerings.api.isPending);
+  }
+
   @computed get isBuilding() {
     return this.stage === 'build';
   }
@@ -136,7 +152,7 @@ export default class CourseBuilderUX extends BaseModel {
     const c = this.newCourse.createdCourse;
     if (!c) { return; }
     const url = c.is_concept_coach ?
-          `/course/${c.id}/cc/help?showIntro=true` : `/course/${c.id}?showIntro=true`;
+      `/course/${c.id}/cc/help?showIntro=true` : `/course/${c.id}?showIntro=true`;
     this.router.history.push(url);
   }
 
