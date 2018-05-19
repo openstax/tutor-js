@@ -69,22 +69,11 @@ class ExercisePreview extends React.Component {
 
   renderTag = (tag, index) => {
     const { content, isLO } = this.props.extractTag(tag);
-
-
-    if (isLO) {
-      return (
-        <div key={index} className="exercise-tag lo-tag">
-          {'LO: '}
-          {content}
-        </div>
-      );
-    } else {
-      return (
-        <span key={index} className="exercise-tag">
-          {content}
-        </span>
-      );
-    }
+    return (
+      <span key={index} className="exercise-tag">
+        {content}
+      </span>
+    );
   };
 
   renderFooter = () => {

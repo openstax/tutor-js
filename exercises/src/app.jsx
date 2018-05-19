@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Navbar, Nav, NavItem, } from 'react-bootstrap';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Provider, observer } from 'mobx-react';
-
+import { action } from 'mobx';
 import UX from './ux';
 import Search from './components/search';
 import Exercise from './components/exercise';
@@ -13,12 +13,17 @@ export default class App extends React.Component {
 
   ux = new UX();
 
+  @action.bound onNav(ev) {
+    ev.preventDefault();
+    this.router.history.push(ev.currentTarget.pathname);
+  }
+
   render() {
     const { ux, props: { data: { user } } } = this;
 
     return (
       <Provider ux={ux}>
-        <BrowserRouter>
+        <BrowserRouter ref={br => this.router = br}>
           <Grid fluid className="exercises">
             <Navbar fixedTop>
               <Navbar.Header>
@@ -27,10 +32,10 @@ export default class App extends React.Component {
                 </Navbar.Brand>
               </Navbar.Header>
               <Nav className="exercise-navbar-controls" >
-                <NavItem href="/search">
+                <NavItem onClick={this.onNav} href="/search">
                   Search
                 </NavItem>
-                <NavItem href="/exercise/new">
+                <NavItem onClick={this.onNav} href="/exercise/new">
                   New
                 </NavItem>
                 <Route path="/search" component={Search.Controls} />
