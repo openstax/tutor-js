@@ -611,7 +611,13 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   className="form-control"
                   onChange={[Function]}
                   value="stax-phys"
-                />
+                >
+                  <option
+                    value="stax-phys"
+                  >
+                    College Physics
+                  </option>
+                </select>
                 <input
                   className="form-control"
                   onBlur={[Function]}
@@ -1354,42 +1360,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
         <span
           className="exercise-tag"
         >
-          blooms:3
-        </span>
-        <span
-          className="exercise-tag"
-        >
-          book:stax-phys
-        </span>
-        <span
-          className="exercise-tag"
-        >
-          context-cnxfeature:one-1
-        </span>
-        <span
-          className="exercise-tag"
-        >
-          context-cnxmod:
-        </span>
-        <span
-          className="exercise-tag"
-        >
-          dok:3
-        </span>
-        <span
-          className="exercise-tag"
-        >
-          filter-type:test-prep
-        </span>
-        <span
-          className="exercise-tag"
-        >
-          ID: 1@1
-        </span>
-        <span
-          className="exercise-tag"
-        >
-          lo:stax-phys:1-2-1
+          type:conceptual
         </span>
         <span
           className="exercise-tag"
@@ -1399,12 +1370,47 @@ exports[`Exercises component renders and matches snapshot 1`] = `
         <span
           className="exercise-tag"
         >
+          filter-type:test-prep
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          blooms:3
+        </span>
+        <span
+          className="exercise-tag"
+        >
           time:long
         </span>
         <span
           className="exercise-tag"
         >
-          type:conceptual
+          dok:3
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          book:stax-phys
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          context-cnxmod:
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          context-cnxfeature:one-1
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          lo:stax-phys:1-2-1
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          ID:1@1
         </span>
       </div>
     </div>
@@ -1998,7 +2004,13 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                   className="form-control"
                   onChange={[Function]}
                   value="stax-phys"
-                />
+                >
+                  <option
+                    value="stax-phys"
+                  >
+                    College Physics
+                  </option>
+                </select>
                 <input
                   className="form-control"
                   onBlur={[Function]}
@@ -2716,42 +2728,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
         <span
           className="exercise-tag"
         >
-          blooms:3
-        </span>
-        <span
-          className="exercise-tag"
-        >
-          book:stax-phys
-        </span>
-        <span
-          className="exercise-tag"
-        >
-          context-cnxfeature:one-1
-        </span>
-        <span
-          className="exercise-tag"
-        >
-          context-cnxmod:
-        </span>
-        <span
-          className="exercise-tag"
-        >
-          dok:3
-        </span>
-        <span
-          className="exercise-tag"
-        >
-          filter-type:test-prep
-        </span>
-        <span
-          className="exercise-tag"
-        >
-          ID: 5@1
-        </span>
-        <span
-          className="exercise-tag"
-        >
-          lo:stax-phys:1-2-1
+          type:conceptual
         </span>
         <span
           className="exercise-tag"
@@ -2761,12 +2738,47 @@ exports[`Exercises component renders with intro and a multiple questions when ex
         <span
           className="exercise-tag"
         >
+          filter-type:test-prep
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          blooms:3
+        </span>
+        <span
+          className="exercise-tag"
+        >
           time:long
         </span>
         <span
           className="exercise-tag"
         >
-          type:conceptual
+          dok:3
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          book:stax-phys
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          context-cnxmod:
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          context-cnxfeature:one-1
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          lo:stax-phys:1-2-1
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          ID:5@1
         </span>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { defaults } from 'lodash';
+import { defaults, map } from 'lodash';
 import classnames from 'classnames';
 import Exercise from '../../models/exercises/exercise';
 import { observer } from 'mobx-react';
@@ -68,7 +68,7 @@ class Input extends React.Component {
         <BookSelection
           onChange={this.updateBook}
           selected={this.book}
-          limit={exercise.tags.withType('book', { multiple: true })} />
+          limit={map(exercise.tags.withType('book', { multiple: true }), 'value')} />
         <input
           className="form-control"
           type="text"

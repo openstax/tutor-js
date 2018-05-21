@@ -82,7 +82,7 @@ describe('Exercise Preview Component', function() {
     expect(preview.find('.exercise-tag')).toHaveLength(importantTags.length + 1);
     props.displayAllTags = true;
     preview.setProps(props);
-    expect(preview.find('.exercise-tag').map(t => t.text())).toHaveLength(exercise.tags.length);
+    expect(preview.find('.exercise-tag').map(t => t.text())).toHaveLength(exercise.tags.length + 1);
     expect(Snapshot.create(<ExercisePreview {...props} />).toJSON()).toMatchSnapshot();
   });
 

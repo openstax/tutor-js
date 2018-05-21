@@ -1,12 +1,13 @@
 import React from 'react';
 import {
-  compact, trimEnd, includes, sortBy, find, filter, indexOf, map, isEmpty, omit, last,
+  compact, trimEnd, includes, sortBy, find, filter, indexOf, map, isEmpty, omit, last, 
 } from 'lodash';
 import classnames from 'classnames';
 import { Panel } from 'react-bootstrap';
+import { computed } from 'mobx';
 import { observer } from 'mobx-react';
 import ArbitraryHtmlAndMath from '../html';
-
+import Tag from '../../model/exercise/tag';
 import Question from '../question';
 import ExerciseBadges from '../exercise-badges';
 import ControlsOverlay from './controls-overlay';
@@ -17,7 +18,6 @@ class ExercisePreview extends React.Component {
 
   static propTypes = {
     exercise:        React.PropTypes.instanceOf(Exercise).isRequired,
-    extractTag:      React.PropTypes.func,
     displayFeedback: React.PropTypes.bool,
     displayAllTags:  React.PropTypes.bool,
     displayFormats:  React.PropTypes.bool,
@@ -38,43 +38,12 @@ class ExercisePreview extends React.Component {
     panelStyle: 'default',
     isInteractive:   true,
     overlayActions:  {},
-    extractTag(tag) {
-      const content = compact([tag.name, tag.description]).join(' ') || tag.id;
-      const isLO = includes(['lo', 'aplo'], tag.type);
-      return (
-        { content, isLO }
-      );
-    },
-    sortTags(tags, extractTag) {
-      tags = sortBy(tags, 'name');
-      const idTag = find(tags, { type: 'id' });
-      const loTag = find(tags, function(tag) {
-        const { isLO } = extractTag(tag);
-        return (
-          isLO
-        );
-      });
-      if (idTag) { tags.splice(indexOf(tags, idTag), 1); }
-      if (loTag) { tags.splice(indexOf(tags, loTag), 0, idTag);
-      } else { tags.push(idTag); }
-      return (
-        tags
-      );
-    },
+
   };
 
   get exercise() {
     return this.props.exercise;
   }
-
-  renderTag = (tag, index) => {
-    const { content, isLO } = this.props.extractTag(tag);
-    return (
-      <span key={index} className="exercise-tag">
-        {content}
-      </span>
-    );
-  };
 
   renderFooter = () => {
     return (
@@ -103,14 +72,17 @@ class ExercisePreview extends React.Component {
     }
   };
 
-  render() {
-    let tags = this.props.exercise.tags.peek();
+  @computed get tags() {
+    let tags = this.props.exercise.tags.slice();
     if (!this.props.displayAllTags) {
       tags = filter(tags, 'isImportant');
     }
-    tags.push({ name: `ID: ${this.exercise.uid}`, type: 'id' });
-    const renderedTags = map(this.props.sortTags(tags, this.props.extractTag), this.renderTag);
+    tags = sortBy(tags, tag => tag.isLO);
+    tags.push(new Tag(`ID:${this.exercise.uid}`));
+    return tags;
+  }
 
+  render() {
     const classes = classnames( 'openstax-exercise-preview', this.props.className, {
       'answers-hidden':   this.props.hideAnswers,
       'has-actions':      !isEmpty(this.props.overlayActions),
@@ -160,7 +132,11 @@ class ExercisePreview extends React.Component {
           {questions}
         </div>
         <div className="exercise-tags">
-          {renderedTags}
+          {map(this.tags, (tag, index) => (
+            <span key={index} className="exercise-tag">
+              {tag.asString}
+            </span>
+          ))}
         </div>
       </Panel>
     );

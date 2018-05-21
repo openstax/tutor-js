@@ -21,8 +21,8 @@ export default class ExerciseTag extends BaseModel {
     }
   }
 
-  serialize() {
-    return this.asString;
+  static serialize(t) {
+    return t.asString;
   }
 
   @computed get isImportant() {
@@ -47,6 +47,10 @@ export default class ExerciseTag extends BaseModel {
 
   @computed get type() {
     return first(this.parts);
+  }
+
+  @computed get isLO() {
+    return Boolean(this.type === 'lo' || this.type === 'aplo');
   }
 
   set type(type) {
