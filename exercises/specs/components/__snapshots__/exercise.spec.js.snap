@@ -611,7 +611,13 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   className="form-control"
                   onChange={[Function]}
                   value="stax-phys"
-                />
+                >
+                  <option
+                    value="stax-phys"
+                  >
+                    College Physics
+                  </option>
+                </select>
                 <input
                   className="form-control"
                   onBlur={[Function]}
@@ -1064,7 +1070,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
     </div>
   </div>
   <div
-    className="openstax-exercise-preview panel panel-default"
+    className="openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback panel panel-default"
     data-exercise-id="1@1"
     id={undefined}
     tabIndex={-1}
@@ -1123,6 +1129,13 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                         }
                       }
                     />
+                    <div
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Objects far smaller than what is visible may require quantum mechanics.",
+                        }
+                      }
+                    />
                   </div>
                 </label>
               </div>
@@ -1158,6 +1171,13 @@ exports[`Exercises component renders and matches snapshot 1`] = `
   <li>there is the involvement of a strong gravitational field</li>
 </ol>
 ",
+                        }
+                      }
+                    />
+                    <div
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Speeds greater than roughly 1% pf the speed of light start to involve significant effects from relativity.",
                         }
                       }
                     />
@@ -1199,6 +1219,13 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                         }
                       }
                     />
+                    <div
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain.",
+                        }
+                      }
+                    />
                   </div>
                 </label>
               </div>
@@ -1234,6 +1261,13 @@ exports[`Exercises component renders and matches snapshot 1`] = `
   <li>there is the involvement of a weak gravitational field</li>
 </ol>
 ",
+                        }
+                      }
+                    />
+                    <div
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied.",
                         }
                       }
                     />
@@ -1275,10 +1309,32 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                         }
                       }
                     />
+                    <div
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Objects far smaller than what is visible may require quantum mechanics.",
+                        }
+                      }
+                    />
                   </div>
                 </label>
               </div>
             </div>
+          </div>
+          <div
+            className="formats-listing"
+          >
+            <div
+              className="header"
+            >
+              Formats:
+            </div>
+            <span>
+              free-response
+            </span>
+            <span>
+              multiple-choice
+            </span>
           </div>
           <div
             className="detailed-solution"
@@ -1304,7 +1360,27 @@ exports[`Exercises component renders and matches snapshot 1`] = `
         <span
           className="exercise-tag"
         >
+          type:conceptual
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          requires-context:true
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          filter-type:test-prep
+        </span>
+        <span
+          className="exercise-tag"
+        >
           blooms:3
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          time:long
         </span>
         <span
           className="exercise-tag"
@@ -1314,18 +1390,27 @@ exports[`Exercises component renders and matches snapshot 1`] = `
         <span
           className="exercise-tag"
         >
-          ID: 1@1
+          book:stax-phys
         </span>
-        <div
-          className="exercise-tag lo-tag"
-        >
-          LO: 
-          lo:stax-phys:1-2-1
-        </div>
         <span
           className="exercise-tag"
         >
-          time:long
+          context-cnxmod:
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          context-cnxfeature:one-1
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          lo:stax-phys:1-2-1
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          ID:1@1
         </span>
       </div>
     </div>
@@ -1919,7 +2004,13 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                   className="form-control"
                   onChange={[Function]}
                   value="stax-phys"
-                />
+                >
+                  <option
+                    value="stax-phys"
+                  >
+                    College Physics
+                  </option>
+                </select>
                 <input
                   className="form-control"
                   onBlur={[Function]}
@@ -2372,7 +2463,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
     </div>
   </div>
   <div
-    className="openstax-exercise-preview panel panel-default"
+    className="openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback panel panel-default"
     data-exercise-id="5@1"
     id={undefined}
     tabIndex={-1}
@@ -2426,6 +2517,13 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                         }
                       }
                     />
+                    <div
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Physics is part of natural philosophy.",
+                        }
+                      }
+                    />
                   </div>
                 </label>
               </div>
@@ -2456,6 +2554,13 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "Natural philosophy included all aspects of nature excluding physics.",
+                        }
+                      }
+                    />
+                    <div
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Natural philosophy included all aspects of nature, including physics.",
                         }
                       }
                     />
@@ -2492,6 +2597,13 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                         }
                       }
                     />
+                    <div
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Natural philosophy dealt with all aspects of nature by lumping physics with other fields of sciences, such as chemistry and biology. Physics mainly describes the most fundamental aspect of our universe.",
+                        }
+                      }
+                    />
                   </div>
                 </label>
               </div>
@@ -2522,6 +2634,13 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "Natural philosophy and physics are essentially the same thing.",
+                        }
+                      }
+                    />
+                    <div
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Biology and chemistry are also part of natural philosophy, but not part of physics.",
                         }
                       }
                     />
@@ -2558,10 +2677,32 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                         }
                       }
                     />
+                    <div
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Physics is part of natural philosophy.",
+                        }
+                      }
+                    />
                   </div>
                 </label>
               </div>
             </div>
+          </div>
+          <div
+            className="formats-listing"
+          >
+            <div
+              className="header"
+            >
+              Formats:
+            </div>
+            <span>
+              free-response
+            </span>
+            <span>
+              multiple-choice
+            </span>
           </div>
           <div
             className="detailed-solution"
@@ -2587,7 +2728,27 @@ exports[`Exercises component renders with intro and a multiple questions when ex
         <span
           className="exercise-tag"
         >
+          type:conceptual
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          requires-context:true
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          filter-type:test-prep
+        </span>
+        <span
+          className="exercise-tag"
+        >
           blooms:3
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          time:long
         </span>
         <span
           className="exercise-tag"
@@ -2597,18 +2758,27 @@ exports[`Exercises component renders with intro and a multiple questions when ex
         <span
           className="exercise-tag"
         >
-          ID: 5@1
+          book:stax-phys
         </span>
-        <div
-          className="exercise-tag lo-tag"
-        >
-          LO: 
-          lo:stax-phys:1-2-1
-        </div>
         <span
           className="exercise-tag"
         >
-          time:long
+          context-cnxmod:
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          context-cnxfeature:one-1
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          lo:stax-phys:1-2-1
+        </span>
+        <span
+          className="exercise-tag"
+        >
+          ID:5@1
         </span>
       </div>
     </div>

@@ -264,23 +264,22 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
       <span
         className="exercise-tag"
       >
+        time:long
+      </span>
+      <span
+        className="exercise-tag"
+      >
         dok:3
       </span>
       <span
         className="exercise-tag"
       >
-        ID: 6@1
-      </span>
-      <div
-        className="exercise-tag lo-tag"
-      >
-        LO: 
         lo:stax-phys:1-2-1
-      </div>
+      </span>
       <span
         className="exercise-tag"
       >
-        time:long
+        ID:6@1
       </span>
     </div>
   </div>
@@ -331,23 +330,22 @@ exports[`Exercise Preview Component can hide the answers 1`] = `
       <span
         className="exercise-tag"
       >
+        time:long
+      </span>
+      <span
+        className="exercise-tag"
+      >
         dok:3
       </span>
       <span
         className="exercise-tag"
       >
-        ID: 3@1
-      </span>
-      <div
-        className="exercise-tag lo-tag"
-      >
-        LO: 
         lo:stax-phys:1-2-1
-      </div>
+      </span>
       <span
         className="exercise-tag"
       >
-        time:long
+        ID:3@1
       </span>
     </div>
   </div>
@@ -591,23 +589,22 @@ exports[`Exercise Preview Component can render question formats 1`] = `
       <span
         className="exercise-tag"
       >
+        time:long
+      </span>
+      <span
+        className="exercise-tag"
+      >
         dok:3
       </span>
       <span
         className="exercise-tag"
       >
-        ID: 4@1
-      </span>
-      <div
-        className="exercise-tag lo-tag"
-      >
-        LO: 
         lo:stax-phys:1-2-1
-      </div>
+      </span>
       <span
         className="exercise-tag"
       >
-        time:long
+        ID:4@1
       </span>
     </div>
   </div>
@@ -836,23 +833,22 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
       <span
         className="exercise-tag"
       >
+        time:long
+      </span>
+      <span
+        className="exercise-tag"
+      >
         dok:3
       </span>
       <span
         className="exercise-tag"
       >
-        ID: 7@1
-      </span>
-      <div
-        className="exercise-tag lo-tag"
-      >
-        LO: 
         lo:stax-phys:1-2-1
-      </div>
+      </span>
       <span
         className="exercise-tag"
       >
-        time:long
+        ID:7@1
       </span>
     </div>
   </div>
@@ -1083,32 +1079,12 @@ exports[`Exercise Preview Component limits tags 1`] = `
       <span
         className="exercise-tag"
       >
-        ID: 8@1
+        type:conceptual
       </span>
       <span
         className="exercise-tag"
       >
-        blooms:3
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        book:stax-phys
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        context-cnxfeature:one-1
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        context-cnxmod:
-      </span>
-      <span
-        className="exercise-tag"
-      >
-        dok:3
+        requires-context:true
       </span>
       <span
         className="exercise-tag"
@@ -1118,18 +1094,7 @@ exports[`Exercise Preview Component limits tags 1`] = `
       <span
         className="exercise-tag"
       >
-        ID: 8@1
-      </span>
-      <div
-        className="exercise-tag lo-tag"
-      >
-        LO: 
-        lo:stax-phys:1-2-1
-      </div>
-      <span
-        className="exercise-tag"
-      >
-        requires-context:true
+        blooms:3
       </span>
       <span
         className="exercise-tag"
@@ -1139,7 +1104,32 @@ exports[`Exercise Preview Component limits tags 1`] = `
       <span
         className="exercise-tag"
       >
-        type:conceptual
+        dok:3
+      </span>
+      <span
+        className="exercise-tag"
+      >
+        book:stax-phys
+      </span>
+      <span
+        className="exercise-tag"
+      >
+        context-cnxmod:
+      </span>
+      <span
+        className="exercise-tag"
+      >
+        context-cnxfeature:one-1
+      </span>
+      <span
+        className="exercise-tag"
+      >
+        lo:stax-phys:1-2-1
+      </span>
+      <span
+        className="exercise-tag"
+      >
+        ID:8@1
       </span>
     </div>
   </div>
@@ -1393,23 +1383,22 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
       <span
         className="exercise-tag"
       >
+        time:long
+      </span>
+      <span
+        className="exercise-tag"
+      >
         dok:3
       </span>
       <span
         className="exercise-tag"
       >
-        ID: 1@1
-      </span>
-      <div
-        className="exercise-tag lo-tag"
-      >
-        LO: 
         lo:stax-phys:1-2-1
-      </div>
+      </span>
       <span
         className="exercise-tag"
       >
-        time:long
+        ID:1@1
       </span>
     </div>
   </div>
@@ -1673,23 +1662,22 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
       <span
         className="exercise-tag"
       >
+        time:long
+      </span>
+      <span
+        className="exercise-tag"
+      >
         dok:3
       </span>
       <span
         className="exercise-tag"
       >
-        ID: 2@1
-      </span>
-      <div
-        className="exercise-tag lo-tag"
-      >
-        LO: 
         lo:stax-phys:1-2-1
-      </div>
+      </span>
       <span
         className="exercise-tag"
       >
-        time:long
+        ID:2@1
       </span>
     </div>
   </div>

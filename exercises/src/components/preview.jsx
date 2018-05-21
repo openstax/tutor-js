@@ -45,7 +45,11 @@ export default class Preview extends React.Component {
 
     return (
       <div className="preview-screen">
-        <ExercisePreview exercise={exercise}>
+        <ExercisePreview
+          displayAllTags
+          displayFeedback
+          exercise={exercise}
+        >
           <Link className="btn" to={`/exercise/${exercise.uid}`}>EDIT</Link>
         </ExercisePreview>
       </div>

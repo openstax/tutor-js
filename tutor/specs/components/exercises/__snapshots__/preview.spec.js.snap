@@ -259,23 +259,22 @@ exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
         <span
           className="exercise-tag"
         >
+          time:long
+        </span>
+        <span
+          className="exercise-tag"
+        >
           dok:3
         </span>
         <span
           className="exercise-tag"
         >
-          ID: 1@1
-        </span>
-        <div
-          className="exercise-tag lo-tag"
-        >
-          LO: 
           lo:stax-phys:1-2-1
-        </div>
+        </span>
         <span
           className="exercise-tag"
         >
-          time:long
+          ID:1@1
         </span>
       </div>
     </div>

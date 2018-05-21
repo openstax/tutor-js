@@ -472,23 +472,22 @@ exports[`choose exercises component matches snapshot 1`] = `
             <span
               className="exercise-tag"
             >
+              time:long
+            </span>
+            <span
+              className="exercise-tag"
+            >
               dok:3
             </span>
             <span
               className="exercise-tag"
             >
-              ID: 1@1
-            </span>
-            <div
-              className="exercise-tag lo-tag"
-            >
-              LO: 
               lo:stax-phys:1-2-1
-            </div>
+            </span>
             <span
               className="exercise-tag"
             >
-              time:long
+              ID:1@1
             </span>
           </div>
         </div>
@@ -731,23 +730,22 @@ exports[`choose exercises component matches snapshot 1`] = `
             <span
               className="exercise-tag"
             >
+              time:long
+            </span>
+            <span
+              className="exercise-tag"
+            >
               dok:3
             </span>
             <span
               className="exercise-tag"
             >
-              ID: 2@1
-            </span>
-            <div
-              className="exercise-tag lo-tag"
-            >
-              LO: 
               lo:stax-phys:1-2-1
-            </div>
+            </span>
             <span
               className="exercise-tag"
             >
-              time:long
+              ID:2@1
             </span>
           </div>
         </div>
@@ -997,23 +995,22 @@ exports[`choose exercises component matches snapshot 1`] = `
             <span
               className="exercise-tag"
             >
+              time:long
+            </span>
+            <span
+              className="exercise-tag"
+            >
               dok:3
             </span>
             <span
               className="exercise-tag"
             >
-              ID: 3@1
-            </span>
-            <div
-              className="exercise-tag lo-tag"
-            >
-              LO: 
               lo:stax-phys:1-2-1
-            </div>
+            </span>
             <span
               className="exercise-tag"
             >
-              time:long
+              ID:3@1
             </span>
           </div>
         </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
-import { ExercisePreview } from 'shared';
+import ExercisePreview from './exercise/preview';
 import Exercises, { ExercisesMap } from '../models/exercises';
 import { Button, Tabs, Tab, Alert } from 'react-bootstrap';
 import Question from './exercise/question';
