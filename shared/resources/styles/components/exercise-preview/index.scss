@@ -246,12 +246,7 @@
       @include metadata-styles();
       .exercise-tag + .exercise-tag:before {
         content: ',';
-        margin-right: 1rem;
-      }
-
-      .lo-tag {
-        margin-right: 1rem;
-        &::before { content: ''; }
+        margin-right: 0.5rem;
       }
     }
   }
