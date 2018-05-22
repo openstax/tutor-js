@@ -17,15 +17,18 @@
 @import './note';
 
 @mixin tutor-book-content-body() {
-  @media screen and ( min-width: $book-content-collapse-breakpoint ){
-    padding: 0 $tutor-book-padding-horizontal $tutor-book-padding-vertical $tutor-book-padding-horizontal;
+  padding: 0 $tutor-book-padding-horizontal $tutor-book-padding-vertical $tutor-book-padding-horizontal;
+  @media screen and ( max-width: $book-content-collapse-breakpoint ){
+    padding: 0 $book-content-narrow-horizontal-padding;
   }
 }
 
 @mixin tutor-book-content() {
   display: block;
-  padding-left:  $book-content-narrow-horizontal-padding;
-  padding-right: $book-content-narrow-horizontal-padding;
+  padding:  0 $book-content-narrow-horizontal-padding;
+  @media screen and ( max-width: $book-content-collapse-breakpoint ){
+    padding: 0;
+  }
   width: 100%;
 
   @extend %tutor-book-content-base-styles;
@@ -39,7 +42,6 @@
 
   @include book-content-interactives();
   @include tutor-book-notes();
-
 
   @each $book in map-keys($openstax-books) {
     &[data-appearance=#{$book}] {

@@ -237,8 +237,11 @@ ReadingContentMixin =
 
 # called with the context set to the image
 processImage = ->
-  figure = dom(@).closest('figure, [data-type=media]')
+  figure = dom(@).closest('figure') or dom(@).closest('[data-type=media]')
+  # console.log("process", @, figure)
   return unless figure
+  if figure.parentNode.nodeName is 'FIGURE'
+    figure.parentNode.classList.add('with-child-figures')
 
   @title = @alt
   aspectRatio = @naturalWidth / @naturalHeight

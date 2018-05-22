@@ -61,12 +61,16 @@
   @include tutor-figure();
   figure,
   [data-type=media] {
-    margin-right: 30px;
     margin-bottom: 20px;
 
     &.full-width:not(.splash) {
       width: 100%;
     }
+
+    &:not(.full-width) {
+      margin-right: 30px;
+    }
+
     &.tutor-ui-vertical-img {
       @media (min-width: $screen-sm-min) {
         width: 50%;
