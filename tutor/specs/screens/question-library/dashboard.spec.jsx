@@ -53,7 +53,7 @@ describe('Questions Dashboard Component', function() {
     dash.find(`[data-page-id="${page_ids[0]}"]`).simulate('click');
     dash.find('.section-controls .btn-primary').simulate('click');
     expect(exercises.fetch).toHaveBeenCalledWith({
-      course, limit: false, page_ids: [page_ids[0]],
+      book, limit: false, page_ids: [page_ids[0]],
     });
     expect(dash).not.toHaveRendered('.no-exercises');
     dash.unmount();

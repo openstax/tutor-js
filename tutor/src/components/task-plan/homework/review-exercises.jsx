@@ -8,7 +8,7 @@ import { ExercisePreview, SuretyGuard, PinnedHeaderFooterCard } from 'shared';
 import { observer } from 'mobx-react';
 import { observable, action, computed } from 'mobx';
 import Course from '../../../models/course';
-
+import Book from '../../../models/reference-book';
 import sharedExercises, { ExercisesMap, Exercise } from '../../../models/exercises';
 import { ArrayOrMobxType } from 'shared/helpers/react';
 
@@ -112,8 +112,12 @@ export default class ReviewExercises extends React.Component {
   };
 
   componentWillMount() {
-    const page_ids = TaskPlanStore.getTopics(this.props.planId);
-    this.props.exercises.ensureLoaded({ course: this.props.course, page_ids });
+    const ecosystem_id = TaskPlanStore.getEcosystemId(this.props.planId);
+    const exercise_ids = TaskPlanStore.getExercises(this.props.planId);
+    const { course } = this.props;
+    const book = course.ecosystem_id == ecosystem_id ?
+      course.referenceBook : new Book({ id: ecosystem_id });
+    this.props.exercises.ensureExercisesLoaded({ book, exercise_ids });
   }
 
   render() {
@@ -127,7 +131,7 @@ export default class ReviewExercises extends React.Component {
     ));
 
     if (isEmpty(exercises)) {
-      return <div className="-bug">Failed loading exercises</div>;
+      return <div className="panel">Unable to display exercises for this assignment. Students can still view the assignmen</div>;
     }
 
     const controls = (

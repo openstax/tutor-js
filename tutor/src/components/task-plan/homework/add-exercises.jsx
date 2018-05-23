@@ -1,5 +1,5 @@
 import React from 'react';
-import { keys } from 'lodash';
+import { keys, includes } from 'lodash';
 import { observer } from 'mobx-react';
 import { observable, action, computed } from 'mobx';
 import { ArrayOrMobxType } from 'shared/helpers/react';
@@ -30,6 +30,7 @@ class AddExercises extends React.Component {
   };
 
   componentWillMount() {
+
     this.props.pageIds.forEach(pg => {
       this.props.exercises.forPageId(pg).forEach(
         e => e.isSelected = TaskPlanStore.hasExercise(this.props.planId, e.id),
@@ -135,12 +136,22 @@ class AddExercises extends React.Component {
     this.currentSection = currentSection;
   }
 
+  @computed get displayedExercises() {
+    const selected = TaskPlanStore.getExercises(this.props.planId);
+    // we display all the exercises that were previously selected
+    // or that are assignable homeworks for the given pages
+    return this.props.exercises.where( e =>
+      (e.isHomework && e.isAssignable && this.props.pageIds.includes(e.page.id)) ||
+        selected.includes(e.id)
+    );
+  }
+
   render() {
     const { pageIds, exercises, course } = this.props;
     if (exercises.api.isPending) { return <Loading />; }
 
     const sharedProps = {
-      exercises,
+      exercises: this.displayedExercises,
       book: course.referenceBook,
       onExerciseToggle: this.onExerciseToggle,
       getExerciseActions: this.getExerciseActions,
