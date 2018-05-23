@@ -1110,7 +1110,7 @@ exports[`choose exercises component renders selections 1`] = `
       >
         <button
           className="show-problems btn btn-primary"
-          disabled={false}
+          disabled={true}
           onClick={[Function]}
           type="button"
         >
