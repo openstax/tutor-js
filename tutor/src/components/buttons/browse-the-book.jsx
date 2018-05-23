@@ -18,7 +18,6 @@ export default class extends React.Component {
     unstyled:       React.PropTypes.bool,
     tag:            React.PropTypes.string,
     tabIndex:       React.PropTypes.number,
-    bsStyle:        React.PropTypes.string,
     onClick:        React.PropTypes.func,
     children:       React.PropTypes.node,
     className:      React.PropTypes.string,
@@ -60,7 +59,7 @@ export default class extends React.Component {
     Object.assign(tagProps, ('a' === Tag) ? {
         href: this.href, target: '_blank',
     } : {
-      'aria-role': 'link',
+      'role': 'link',
     });
     tagProps.className = cn('browse-the-book', className, {
       'btn btn-default': !unstyled,

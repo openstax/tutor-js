@@ -95,9 +95,9 @@ exports[`choose exercises component can select exercises 1`] = `
                          
                       </span>
                       <div
-                        aria-role="link"
                         className="browse-the-book"
                         onClick={[Function]}
+                        role="link"
                       >
                         Browse this Chapter
                       </div>
@@ -264,9 +264,9 @@ exports[`choose exercises component can select exercises 1`] = `
                          
                       </span>
                       <div
-                        aria-role="link"
                         className="browse-the-book"
                         onClick={[Function]}
+                        role="link"
                       >
                         Browse this Chapter
                       </div>
@@ -433,9 +433,9 @@ exports[`choose exercises component can select exercises 1`] = `
                          
                       </span>
                       <div
-                        aria-role="link"
                         className="browse-the-book"
                         onClick={[Function]}
+                        role="link"
                       >
                         Browse this Chapter
                       </div>
@@ -660,9 +660,9 @@ exports[`choose exercises component renders selections 1`] = `
                          
                       </span>
                       <div
-                        aria-role="link"
                         className="browse-the-book"
                         onClick={[Function]}
+                        role="link"
                       >
                         Browse this Chapter
                       </div>
@@ -829,9 +829,9 @@ exports[`choose exercises component renders selections 1`] = `
                          
                       </span>
                       <div
-                        aria-role="link"
                         className="browse-the-book"
                         onClick={[Function]}
+                        role="link"
                       >
                         Browse this Chapter
                       </div>
@@ -998,9 +998,9 @@ exports[`choose exercises component renders selections 1`] = `
                          
                       </span>
                       <div
-                        aria-role="link"
                         className="browse-the-book"
                         onClick={[Function]}
+                        role="link"
                       >
                         Browse this Chapter
                       </div>
@@ -1110,7 +1110,7 @@ exports[`choose exercises component renders selections 1`] = `
       >
         <button
           className="show-problems btn btn-primary"
-          disabled={true}
+          disabled={false}
           onClick={[Function]}
           type="button"
         >
