@@ -186,7 +186,7 @@ Task = React.createClass
   areKeysSame: (key, keyToCompare) ->
     key is keyToCompare or parseInt(key) is parseInt(keyToCompare)
 
-  goToStep: (stepKey, silent = false) ->
+  goToStep: _.debounce((stepKey, silent = false) ->
     {id} = @props
     stepKey = parseInt(stepKey)
     params = _.clone(Router.currentParams())
@@ -201,6 +201,7 @@ Task = React.createClass
     @context.router.history[action](Router.makePathname('viewTaskStep', params))
 
     true
+  )
 
   toggleMilestonesEntered: ->
     @setState(milestonesEntered: not @state.milestonesEntered)
