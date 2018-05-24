@@ -86,6 +86,28 @@ exports[`Main navbar renders and matches snapshot 1`] = `
             </a>
           </li>
           <li
+            className="support-document-link"
+            role="presentation"
+            style={undefined}
+          >
+            <a
+              href="https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_student_getting_started_guide.pdf"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              role="menuitem"
+              tabIndex="-1"
+              target="_blank"
+            >
+              <div
+                className="tour-anchor"
+                data-tour-anchor-id="menu-support-document"
+                id="menu-support-document"
+              >
+                Getting Started Guide
+              </div>
+            </a>
+          </li>
+          <li
             className="-help-link"
             role="presentation"
             style={undefined}
