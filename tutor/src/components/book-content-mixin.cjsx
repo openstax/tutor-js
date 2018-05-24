@@ -233,7 +233,7 @@ ReadingContentMixin =
     abstract.dataset.isIntro = root.querySelector(IS_INTRO_SELECTORS)?
 
   detectImgAspectRatio: (root) ->
-    for img in root.querySelectorAll('img')
+    for img in root.querySelectorAll('figure:not(.splash) img')
       if img.complete
         processImage.call(img)
       else
