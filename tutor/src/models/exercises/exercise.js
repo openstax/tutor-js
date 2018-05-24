@@ -6,7 +6,7 @@ import {
 import Tag from './tag';
 import lazyGetter from 'shared/helpers/lazy-getter';
 import ExerciseContent from 'shared/model/exercise';
-
+import Page from '../reference-book/page';
 import Book from '../reference-book';
 import { extendHasMany } from '../../helpers/computed-property';
 
@@ -40,7 +40,7 @@ export default class TutorExercise extends BaseModel {
   @observable _page;
   @computed get page() {
     if (this._page) { return this._page; }
-    if (!this.book && !this.course) { return null; }
+    if (!this.book && !this.course) { return Page.UNKNOWN; }
     const book = this.book || this.course.referenceBook;
     return book.pages.byUUID.get(this.page_uuid);
   }

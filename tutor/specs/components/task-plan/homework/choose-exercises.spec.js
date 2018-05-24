@@ -18,6 +18,7 @@ jest.mock('../../../../src/flux/task-plan', () => ({
   TaskPlanStore: {
     on: jest.fn(),
     off: jest.fn(),
+    getExercises: jest.fn(() => []),
     hasExercise: jest.fn(() => false),
     exerciseCount: jest.fn(() => 5),
     getTutorSelections: jest.fn(() => 3),
@@ -30,24 +31,20 @@ jest.mock('../../../../src/flux/task-plan', () => ({
 const PLAN_ID  = '1';
 const NEW_PLAN = ExtendBasePlan({ id: PLAN_ID });
 
-function renderExerciseCards(props) {
-  const ce = mount(<ChooseExercises {...props} />);
-  const page_ids = props.course.referenceBook.children[1].children.map(pg => pg.id);
-  TaskPlanStore.getTopics.mockImplementation(() => page_ids);
-  ce.find('.chapter-heading .tutor-icon').at(1).simulate('click');
-  expect(ce).toHaveRendered('.show-problems[disabled=false]');
-  props.exercises.fetch = jest.fn();
-  ce.find('.show-problems').simulate('click');
-  expect(props.exercises.fetch).toHaveBeenCalled();
-  const items = page_ids.map(page_id =>
-    FactoryBot.create('TutorExercise', { page_uuid: props.course.referenceBook.pages.byId.get(page_id).uuid }),
-  );
-  props.exercises.onLoaded({ data: { items } }, [{ course: props.course, page_ids }]);
-  return ce;
-}
-
 describe('choose exercises component', function() {
-  let exercises, props, course;
+  let exercises, props, course, page_ids, availableExercises;
+
+  function renderExerciseCards(props) {
+    const ce = mount(<ChooseExercises {...props} />);
+    ce.find('.chapter-heading .tutor-icon').at(1).simulate('click');
+    expect(ce).toHaveRendered('.show-problems[disabled=false]');
+    props.exercises.fetch = jest.fn();
+    ce.find('.show-problems').simulate('click');
+    expect(props.exercises.fetch).toHaveBeenCalled();
+
+    props.exercises.onLoaded({ data: { items: availableExercises } }, [{ book: props.course.referenceBook, page_ids }]);
+    return ce;
+  }
 
   beforeEach(function() {
     Factory.setSeed(1); // make factory deterministic so it has both reading/hw
@@ -55,7 +52,7 @@ describe('choose exercises component', function() {
     course.referenceBook.onApiRequestComplete({ data: [FactoryBot.create('Book')] });
     exercises = Factory.exercisesMap({ book: course.referenceBook });
 
-    return props = {
+    props = {
       course,
       exercises,
       windowImpl: new FakeWindow,
@@ -64,6 +61,13 @@ describe('choose exercises component', function() {
       cancel: jest.fn(),
       hide: jest.fn(),
     };
+
+    page_ids = props.course.referenceBook.children[1].children.map(pg => pg.id);
+    TaskPlanStore.getTopics.mockImplementation(() => page_ids);
+    availableExercises = page_ids.map(page_id =>
+      FactoryBot.create('TutorExercise', { page_uuid: props.course.referenceBook.pages.byId.get(page_id).uuid }),
+    );
+
   });
 
   it('renders selections', () => {
@@ -98,6 +102,20 @@ describe('choose exercises component', function() {
     expect(exercise.isReading).toBe(true);
     expect(ce).not.toHaveRendered(`[data-exercise-id="${exercise.content.uid}"]`);
     ce.unmount();
+  });
+
+  it ('always displays previous selections', () => {
+    const exerciseId = availableExercises[0].id;
+    TaskPlanStore.getExercises.mockImplementation(() => [exerciseId]);
+
+    const ce = renderExerciseCards(props);
+    const exercise = exercises.get(exerciseId);
+    expect(ce).toHaveRendered(`[data-exercise-id="${exercise.content.uid}"]`);
+
+    exercise.is_excluded = true;
+    expect(exercise.isAssignable).toBe(false);
+    // it still renders because it's part of the task plan
+    expect(ce).toHaveRendered(`[data-exercise-id="${exercise.content.uid}"]`);
   });
 
   it('shows exercise details', () => {

@@ -24,7 +24,6 @@ export default class QLSectionsChooser extends React.Component {
   @observable pageIds = [];
 
   @action.bound showQuestions() {
-
     this.props.exercises.fetch({
       limit: false,
       course: this.props.course,
