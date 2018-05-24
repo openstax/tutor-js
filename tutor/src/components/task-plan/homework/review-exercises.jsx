@@ -117,7 +117,7 @@ export default class ReviewExercises extends React.Component {
     const { course } = this.props;
     const book = course.ecosystem_id == ecosystem_id ?
       course.referenceBook : new Book({ id: ecosystem_id });
-    this.props.exercises.ensureExercisesLoaded({ book, exercise_ids });
+    this.props.exercises.ensureExercisesLoaded({ course, book, exercise_ids });
   }
 
   render() {

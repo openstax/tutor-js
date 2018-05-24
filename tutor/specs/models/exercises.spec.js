@@ -3,10 +3,11 @@ import Factory, { FactoryBot } from '../factories';
 import { sampleSize, keys, forEach } from 'lodash';
 
 describe('Exercises Map', () => {
-  let book, exercises, page_ids;
+  let book, course, exercises, page_ids;
 
   beforeEach(() => {
     book = Factory.book();
+    course = Factory.course();
     exercises = new Exercises();
     page_ids = sampleSize(book.pages.byId.keys(), 3);
   });
@@ -29,6 +30,14 @@ describe('Exercises Map', () => {
     ex.pool_types = ['homework_core'];
     expect(exercises.homework.array).toContain(ex);
     expect(exercises.reading.array).not.toContain(ex);
+  });
+
+  it('includes course id when course is provided to load', () => {
+    expect(
+      exercises.fetch({ course, book, page_ids, limit: false })
+    ).toEqual({ url: `ecosystems/${book.id}/exercises`,
+      query: { course_id: course.id, page_ids },
+    });
   });
 
   it('can be loaded and group by page', () => {

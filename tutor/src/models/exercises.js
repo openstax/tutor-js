@@ -45,13 +45,19 @@ export class ExercisesMap extends Map {
   }
 
   // called by API
-  fetch({ book, page_ids, exercise_ids, limit = 'homework_core' }) {
+  fetch({ book, course, page_ids, exercise_ids, limit = 'homework_core' }) {
+    if (course && !book) {
+      book = course.referenceBook;
+    }
     let url = `ecosystems/${book.id}/exercises`;
     if (limit) { url += `/${limit}`; }
     const query = {};
     if (page_ids) {
       page_ids.forEach(pgId => this.fetched.set(pgId, PENDING));
       query.page_ids = toJS(page_ids);
+    }
+    if(course) {
+      query.course_id = course.id;
     }
     if (exercise_ids) {
       query.exercise_ids = toJS(exercise_ids);
