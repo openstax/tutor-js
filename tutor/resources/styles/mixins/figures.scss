@@ -1,0 +1,65 @@
+@mixin tutor-figure() {
+  figure {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+
+    &.tutor-ui-horizontal-img {
+      width: 100%;
+    }
+
+    &.tutor-ui-vertical-img {
+      margin-right: 30px;
+      width: calc(50% - 30px);
+      float: left;
+      & + .tutor-ui-vertical-img {
+        margin-right: 0;
+      }
+
+    }
+
+    > [data-type="media"] { width: 100%; }
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    figcaption {
+      width: 100%;
+      min-width: 100;
+      order: 99; // high enought to always be last
+
+      caption-side: bottom;
+      color: $caption-font-color;
+      padding: 10px 0;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 150%;
+
+      border-bottom: 1px solid;
+      border-color: $border-color;
+      &::before {
+        counter-increment: figure;
+        content: "Figure " counter(figure);
+        font-weight: 800;
+        display: block;
+      }
+    }
+
+    figure {
+      flex: 1;
+    }
+
+    &.with-child-figures {
+      width: 100%;
+    }
+
+    img {
+      max-width: 100%;
+      border: 1px solid $border-color;
+      margin: 10px 0 0 0;
+      padding: 0;
+    }
+
+  }
+}

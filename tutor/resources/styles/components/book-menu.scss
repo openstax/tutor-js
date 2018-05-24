@@ -65,6 +65,7 @@
   overflow-y: scroll;
   .section-number {
     color: $tutor-chapter-sections-color;
+    font-weight: bold;
     margin-right: 0.4rem;
   }
   &.open {

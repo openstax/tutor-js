@@ -1,7 +1,8 @@
 %tutor-book-content-splash-image {
 
   // splash images are always full width without margin or surrounding padding
-  .splash {
+  .splash,
+  .splash-video {
     @include book-content-full-width();
 
     img {
@@ -27,7 +28,8 @@
   }
 
   .splash-video {
-    width: 100%;
+    .frame-wrapper {
+      margin-top: 0;
+    }
   }
-
 }

@@ -66,4 +66,4 @@ export default class ReferenceBookPage extends BaseModel {
 
 // a mock page for use by entities such as exercises that need to indicate
 // they are not linked to a "real" page
-ReferenceBookPage.UNKNOWN = new ReferenceBookPage({ id: 'UNKNOWN' });
+ReferenceBookPage.UNKNOWN = new ReferenceBookPage({ id: 'UNKNOWN', chapter_section: ['99','99'] });

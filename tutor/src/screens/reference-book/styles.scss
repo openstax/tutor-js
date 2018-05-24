@@ -6,10 +6,6 @@
 
 .reference-book {
   @include book-page();
-  .section-number {
-    color: $tutor-secondary;
-    margin-right: 0.4rem;
-  }
   .book-page-wrapper.not-found {
     text-align: center;
     height: 100vh;

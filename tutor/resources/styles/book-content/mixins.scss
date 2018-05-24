@@ -26,7 +26,6 @@
     float: left;
     @include tutor-sans-font(10.8rem, .7em); //setting line-height in em to scale on browser zoom
     font-weight: 600;
-    color: $letter-color;
     margin: .1em .08em 0 -.06em; //best combination on line-height and margin to look good in chrome and ff
   }
 

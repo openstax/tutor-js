@@ -3,11 +3,6 @@
   [data-type=abstract] {
     background: $background;
     color: $text-color;
-
-    &::before {
-      color: fade_out($text-color, 0.25);
-    }
-
     ul {
       border-left-color: fade_out($text-color, 0.6);
     }
@@ -17,6 +12,7 @@
     .learning-objectives,
     [data-type=abstract] {
       background: $theme-accent;
+      color: $text-color;
     }
   }
 }
@@ -44,16 +40,6 @@
 @mixin tutor-book-theme-typography($heading-border) {
   h1 {
     border-top-color: $heading-border;
-  }
-}
-
-@mixin tutor-book-theme-first-letter($letter-color: $openstax-book-default-fg) {
-  // References should not get drop-cap styling or color
-  section:not(.references) h1 + p:first-of-type,
-  div[data-type="document-title"] ~ p:first-of-type {
-    &::first-letter {
-      color: $letter-color;
-    }
   }
 }
 
@@ -144,7 +130,6 @@
   $text: openstax-book-color($book-code, text);
   $accent: openstax-book-color($book-code, accent);
 
-  @include tutor-book-theme-first-letter($primary);
   @include tutor-book-theme-typography($secondary);
   @include tutor-book-theme-bullet-lists($bullet-color: $secondary);
   @include tutor-book-theme-note-borders($border-color: $secondary);

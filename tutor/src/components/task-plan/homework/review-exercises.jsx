@@ -131,7 +131,11 @@ export default class ReviewExercises extends React.Component {
     ));
 
     if (isEmpty(exercises)) {
-      return <div className="panel">Unable to display exercises for this assignment. Students can still view the assignmen</div>;
+      return (
+        <div className="panel alert alert-danger">
+            Unable to display exercises for this assignment. Students can still view the assignment.
+        </div>
+      );
     }
 
     const controls = (

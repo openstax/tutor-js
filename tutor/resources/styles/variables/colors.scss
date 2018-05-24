@@ -1,5 +1,5 @@
 $tutor-primary: rgb(244, 118, 65); // orange
-$tutor-secondary: rgb(119, 175, 65); // green
+$tutor-secondary: rgb(99, 165, 36); // green
 $tutor-tertiary: rgb(35, 48, 102); // dark blue
 $tutor-quaternary: rgb(244, 208, 25); // yellow
 $tutor-highlight: rgb(255, 255, 187); // pale yellow
@@ -42,6 +42,6 @@ $exercise-question-uid-color: lighten($tutor-neutral,20%);
 
 $currency-green: rgb(72, 146, 0); // #489200;
 
-$tutor-chapter-sections-color: $tutor-neutral-dark;
+$tutor-chapter-sections-color: $tutor-neutral-darker;
 // NOTE: Make borders and input background colors one of the above grays with a high opacity so it works on
 //       multiple backgrounds.
