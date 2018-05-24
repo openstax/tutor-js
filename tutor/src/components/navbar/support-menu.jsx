@@ -11,9 +11,10 @@ import Chat from '../../models/chat';
 import UserMenu from '../../models/user/menu';
 import Icon from '../icon';
 import SupportDocument from './support-document-link';
+import BestPracticesGuide from './best-practices-guide';
 import TourContext from '../../models/tour/context';
 import Router from '../../helpers/router';
-
+import Courses from '../../models/courses-map';
 
 const StudentPreview = observer(({ courseId, tourContext, ...props }, { router }) => {
   if( !courseId || !( User.isConfirmedFaculty || User.isUnverifiedInstructor ) ) { return null; }
@@ -128,22 +129,12 @@ export default class SupportMenu extends React.PureComponent {
     return `/accessibility-statement/${this.props.courseId || ''}`;
   }
 
-  renderF() {
-    const { open, onClose, rootCloseEvent, courseId } = this.props;
-
-    return (
-      <RootCloseWrapper noWrap
-        onRootClose={onClose}
-        disabled={!open}
-        event={rootCloseEvent}
-      >
-      </RootCloseWrapper>
-    );
-  }
-
   render() {
     const { open, onClose, rootCloseEvent, courseId } = this.props;
-
+    let course;
+    if (courseId) {
+      course = Courses.get(courseId);
+    }
     return (
       <Dropdown
         id="support-menu"
@@ -176,7 +167,8 @@ export default class SupportMenu extends React.PureComponent {
             <span>Help Articles</span>
           </MenuItem>
           <StudentPreview courseId={courseId} {...this.props} />
-          <SupportDocument courseId={courseId} />
+          <SupportDocument course={course} />
+          <BestPracticesGuide course={course} />
           <MenuItem
             key="nav-keyboard-shortcuts"
             className="-help-link"

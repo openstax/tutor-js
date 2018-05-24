@@ -84,6 +84,28 @@ exports[`Support Menu renders and matches snapshot 1`] = `
       </a>
     </li>
     <li
+      className="support-document-link"
+      role="presentation"
+      style={undefined}
+    >
+      <a
+        href="https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_student_getting_started_guide.pdf"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="menuitem"
+        tabIndex="-1"
+        target="_blank"
+      >
+        <div
+          className="tour-anchor"
+          data-tour-anchor-id="menu-support-document"
+          id="menu-support-document"
+        >
+          Getting Started Guide
+        </div>
+      </a>
+    </li>
+    <li
       className="-help-link"
       role="presentation"
       style={undefined}
@@ -277,7 +299,7 @@ exports[`Support Menu renders support links when in a course for teacher 1`] = `
       style={undefined}
     >
       <a
-        href="https://s3-us-west-2.amazonaws.com/openstax-assets/oscms-prodcms/media/documents/oxt-biology-best-practices.pdf"
+        href="https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_student_getting_started_guide.pdf"
         onClick={[Function]}
         onKeyDown={[Function]}
         role="menuitem"
@@ -289,8 +311,24 @@ exports[`Support Menu renders support links when in a course for teacher 1`] = `
           data-tour-anchor-id="menu-support-document"
           id="menu-support-document"
         >
-          Best Practices Guide
+          Getting Started Guide
         </div>
+      </a>
+    </li>
+    <li
+      className="best-practices-guide"
+      role="presentation"
+      style={undefined}
+    >
+      <a
+        href="https://s3-us-west-2.amazonaws.com/openstax-assets/oscms-prodcms/media/documents/oxt-biology-best-practices.pdf"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="menuitem"
+        tabIndex="-1"
+        target="_blank"
+      >
+        Best Practices Guide
       </a>
     </li>
     <li

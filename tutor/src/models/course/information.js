@@ -69,14 +69,18 @@ export default {
     subject:    SUBJECTS.ANATOMY_PHYSIOLOGY,
   },
 
+  bestPracticesDocumentURLFor(code) {
+    return this[code] && this[code].bp_doc ?
+      `https://s3-us-west-2.amazonaws.com/openstax-assets/oscms-prodcms/media/documents/oxt-${this[code].bp_doc}-best-practices.pdf` : '';
+  },
+
   forAppearanceCode(code) {
     return this[code] || { title: String.titleize(code), subject: '' };
   },
 
-  studentGettingStartedURL: 'https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_student_getting_started_guide.pdf',
-
-  bestPracticesDocumentURLFor(code) {
-    return this[code] && this[code].bp_doc ?
-           `https://s3-us-west-2.amazonaws.com/openstax-assets/oscms-prodcms/media/documents/oxt-${this[code].bp_doc}-best-practices.pdf` : '';
+  gettingStartedGuide: {
+    teacher: 'https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_instructor_getting_started_guide_2018.pdf',
+    student: 'https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_student_getting_started_guide.pdf',
   },
+
 };
