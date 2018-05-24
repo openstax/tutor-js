@@ -28,7 +28,7 @@ RelatedContentLink = React.createClass
         section = @sectionFormat(content.chapter_section)
         <BrowseTheBook
           key={i} unstyled
-          page={section}
+          chapterSection={section}
           course={Courses.get(@props.courseId)}
           tabIndex={-1}
         >

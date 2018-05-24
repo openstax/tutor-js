@@ -16,7 +16,7 @@ const CourseCalendarHeader = observer((props) => {
         defaultOpen={defaultOpen}
         onToggle={props.onSidebarToggle} />
       <div className="calendar-header-actions-buttons">
-        <BrowseTheBook bsStyle="default" course={course} />
+        <BrowseTheBook course={course} />
         <TourAnchor id="question-library-button">
           <TutorLink className="btn btn-default" to="viewQuestionsLibrary" params={{ courseId: course.id }}>
             Question Library
