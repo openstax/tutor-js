@@ -4,17 +4,18 @@
     flex-wrap: wrap;
     margin-bottom: 20px;
 
-    &.full-width {
+    &.tutor-ui-horizontal-img {
       width: 100%;
     }
 
-    &.tutor-ui-horizontal-img {
+    &.tutor-ui-vertical-img {
       margin-right: 30px;
-      max-width: calc(50% - 30px);
+      width: calc(50% - 30px);
       float: left;
-      & + .tutor-ui-horizontal-img {
+      & + .tutor-ui-vertical-img {
         margin-right: 0;
       }
+
     }
 
     > [data-type="media"] { width: 100%; }
