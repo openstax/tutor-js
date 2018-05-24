@@ -3,11 +3,6 @@
   [data-type=abstract] {
     background: $background;
     color: $text-color;
-
-    &::before {
-      color: fade_out($text-color, 0.25);
-    }
-
     ul {
       border-left-color: fade_out($text-color, 0.6);
     }
@@ -17,6 +12,7 @@
     .learning-objectives,
     [data-type=abstract] {
       background: $theme-accent;
+      color: $text-color;
     }
   }
 }
