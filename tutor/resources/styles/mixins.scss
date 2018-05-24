@@ -258,12 +258,19 @@ $tutor-shadow-types: (
     padding: 0;
     float: left;
 
-    + figure {
-      float: none;
-    }
+    &.with-child-figures {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
 
-    > figure + figure {
-      float: left;
+      figure {
+        flex: 1;
+      }
+      figcaption {
+        width: 100%;
+        min-width: 100;
+        order: 99; // high enought to always be last
+      }
     }
 
     img {
