@@ -21,11 +21,11 @@ export default class ModelLoader {
   fetch(props, options = { reload: false }) {
     const key = hash(props);
     const isInProgress = this.inProgress.has(key);
+    console.log('fetc')
 
     return new Promise((resolve) => {
       if (!isInProgress && (options.reload || !this.completed.has(key))) {
         this.inProgress.set(key, true);
-
         this._model[this._method](props).then((args) => {
           this.completed.set(key, true);
           this.inProgress.delete(key);

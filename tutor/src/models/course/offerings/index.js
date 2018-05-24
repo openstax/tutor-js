@@ -20,6 +20,9 @@ class OfferingsMap extends Map {
     return this.where(c => !c.is_concept_coach);
   }
 
+  // will be overwritten by API
+  fetch() {}
+
 }
 
 const offeringsMap = new OfferingsMap();

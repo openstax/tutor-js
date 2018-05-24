@@ -1,5 +1,6 @@
 import { loadAsync, asyncComponent } from './helpers/async-component';
 import { getConditionalHandlers } from './helpers/conditional-handlers';
+import OnlyCollege from './components/my-courses/no-hs-teachers';
 
 const getMyCourses = function() {
   const { default: MyCourses } = require('./components/my-courses');
@@ -106,9 +107,10 @@ const getRoutes = (router) => {
 
   return [
     { path: '/dashboard', name: 'myCourses', renderer: getMyCourses },
+    { path: '/only-college-instructors', name: 'onlyCollegeInstructors', renderer: () => OnlyCollege },
     { path: '/enroll/start/:enrollmentCode', name: 'createEnrollmentChange', renderer: getCreateEnrollmentChange },
-    { path: '/new-course/:sourceId?', name: 'createNewCourse', renderer: getCreateCourse },
-    {
+      { path: '/new-course/:sourceId?', name: 'createNewCourse', renderer: getCreateCourse },
+      {
       name: 'QADashboard',
       path: '/qa/:ecosystemId?/:chapterSection?',
       settings: { navBar: 'Plugable' },

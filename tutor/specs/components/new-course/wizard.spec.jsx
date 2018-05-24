@@ -4,7 +4,9 @@ import BuilderUX from '../../../src/models/course/builder-ux';
 import Wizard from '../../../src/components/new-course/wizard';
 
 jest.mock('../../../src/helpers/router');
-
+jest.mock('../../../src/models/user', () => ({
+  isCollegeTeacher: true,
+}));
 jest.mock('../../../src/models/course/offerings', () => {
   const mockOffering = {
     id: 1, title: 'Test Offering',
@@ -13,8 +15,14 @@ jest.mock('../../../src/models/course/offerings', () => {
       year: 2018,
     } ],
   };
+
   return {
     get: jest.fn(() => mockOffering),
+    fetch: jest.fn(function(){
+      this.api.isPending = true;
+      return Promise.resolve()
+    }),
+    api: { isPending: false },
     tutor: {
       array: [ mockOffering ],
     },
@@ -26,12 +34,12 @@ describe('Creating a course', function() {
   let props;
   beforeEach(() => {
     Router.currentParams.mockReturnValue({});
-    props = { isLoading: false };
   });
 
   it('displays as loading and then sets stage when done', async function() {
-    const wrapper = shallow(<Wizard isLoading={true} />);
+    const wrapper = shallow(<Wizard />);
     expect(await axe(wrapper.html())).toHaveNoViolations();
+    expect(wrapper.instance().ux.isBusy).toBe(true);
     expect(wrapper).toHaveRendered('OXFancyLoader[isLoading=true]');
   });
 

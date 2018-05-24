@@ -64,24 +64,20 @@ const Title = observer(({ ux }) => {
 @observer
 export default class NewCourseWizard extends React.PureComponent {
 
-  static propTypes = {
-    isLoading: React.PropTypes.bool.isRequired,
-  }
-
   @observable ux = new CourseBuilderUX(this.context.router);
 
   static contextTypes = {
     router: React.PropTypes.object,
   }
 
-  @computed get isBusy() {
-    return Boolean(this.props.isLoading || this.ux.newCourse.api.isPending);
-  }
+  // @computed get isBusy() {
+  //   return Boolean(this.ux.isBusy || this.ux.newCourse.api.isPending);
+  // }
 
   render() {
     const wizardClasses = classnames('new-course-wizard', this.ux.stage, {
-      'is-loading': this.isBusy,
-      'is-building': this.ux.newCourse.api.isPending,
+      'is-loading': this.ux.isBusy,
+      'is-building': this.ux.isBuilding,
     });
     const Component = componentFor(this.ux.stage);
 
@@ -92,7 +88,7 @@ export default class NewCourseWizard extends React.PureComponent {
         footer={<Footer ux={this.ux} />}>
         <div className="panel-content">
           <OXFancyLoader
-            isLoading={this.isBusy}
+            isLoading={this.ux.isBusy}
             message={this.ux.isBuilding ? 'Building your course' : 'Loading…'}
           />
           {this.isBusy ? undefined : <Component ux={this.ux} />}
