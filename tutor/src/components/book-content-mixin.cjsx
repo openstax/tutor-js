@@ -146,24 +146,32 @@ ReadingContentMixin =
   mixins: [ ScrollToLinkMixin ]
 
   componentDidMount:  ->
+    root = ReactDOM.findDOMNode(@)
     @_linkContentIsMounted = true
-    @insertCanonicalLink()
-    @insertOverlays()
-    @detectImgAspectRatio()
-    @cleanUpAbstracts()
-    @processLinks()
+    @insertSplash(root)
+    @insertCanonicalLink(root)
+    @insertOverlays(root)
+    @detectImgAspectRatio(root)
+    @cleanUpAbstracts(root)
+    @processLinks(root)
 
   componentDidUpdate: ->
-    @updateCanonicalLink()
-    @insertOverlays()
-    @detectImgAspectRatio()
-    @cleanUpAbstracts()
-    @processLinks()
+    root = ReactDOM.findDOMNode(@)
+    @insertSplash(root)
+    @updateCanonicalLink(root)
+    @insertOverlays(root)
+    @detectImgAspectRatio(root)
+    @cleanUpAbstracts(root)
+    @processLinks(root)
 
   componentWillUnmount: ->
     @_linkContentIsMounted = false
     @cleanUpLinks()
     @removeCanonicalLink()
+
+  insertSplash: (root) ->
+    splashFigure = root.querySelector("#{LEARNING_OBJECTIVE_SELECTORS} + figure")
+    splashFigure.classList.add('splash') if splashFigure
 
   insertCanonicalLink: ->
     @linkNode = document.createElement('link')
@@ -191,10 +199,9 @@ ReadingContentMixin =
   removeCanonicalLink: ->
     @linkNode?.remove?()
 
-  insertOverlays: ->
+  insertOverlays: (root) ->
     title = @getSplashTitle()
     return unless title
-    root = ReactDOM.findDOMNode(@)
     for img in root.querySelectorAll('.splash img')
       continue if img.parentElement.querySelector('.ui-overlay')
       overlay = document.createElement('div')
@@ -205,8 +212,7 @@ ReadingContentMixin =
       overlay.innerHTML = title
       img.parentElement.appendChild(overlay)
 
-  cleanUpAbstracts: ->
-    root = ReactDOM.findDOMNode(@)
+  cleanUpAbstracts: (root) ->
     abstract = root.querySelector(LEARNING_OBJECTIVE_SELECTORS)
     # dont clean up if abstract does not exist or if it has already been cleaned up
     return if not abstract? or not abstract.dataset or abstract.dataset.isIntro?
@@ -226,8 +232,7 @@ ReadingContentMixin =
 
     abstract.dataset.isIntro = root.querySelector(IS_INTRO_SELECTORS)?
 
-  detectImgAspectRatio: ->
-    root = ReactDOM.findDOMNode(@)
+  detectImgAspectRatio: (root) ->
     for img in root.querySelectorAll('img')
       if img.complete
         processImage.call(img)

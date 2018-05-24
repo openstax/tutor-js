@@ -251,46 +251,6 @@ $tutor-shadow-types: (
   }
 }
 
-@mixin tutor-figure() {
-  figure {
-    display: table;
-    text-align: left;
-    padding: 0;
-    float: left;
-
-    &.with-child-figures {
-      display: flex;
-      flex-wrap: wrap;
-      width: 100%;
-
-      figure {
-        flex: 1;
-      }
-      figcaption {
-        width: 100%;
-        min-width: 100;
-        order: 99; // high enought to always be last
-      }
-    }
-
-    img {
-      max-width: 100%;
-      border: 1px solid $border-color;
-      margin: 10px 0 0 0;
-      padding: 0;
-    }
-
-    figcaption {
-      display: table-caption;
-      caption-side: bottom;
-      color: $caption-font-color;
-      padding: 10px 0;
-      font-weight: 300;
-      font-style: italic;
-      line-height: 150%;
-    }
-  }
-}
 
 @mixin tutor-tables($table-header, $table-bottom-color) {
   table {
@@ -378,3 +338,4 @@ $tutor-shadow-types: (
 @import './mixins/left-stripe';
 @import './mixins/performance-forecast';
 @import './mixins/triangle';
+@import './mixins/figures';

@@ -8,6 +8,8 @@ $tutor-note-margin-vertical: 48px;
 
 
 @mixin tutor-book-note-style() {
+  @include clearfix();
+
   .openstax-question {
     &::before {
       display: none;
@@ -46,10 +48,6 @@ $tutor-note-margin-vertical: 48px;
       font-weight: bold;
     }
   }
-
-  // figure {
-  //   float: none;
-  // }
 }
 
 
