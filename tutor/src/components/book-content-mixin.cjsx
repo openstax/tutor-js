@@ -171,7 +171,7 @@ ReadingContentMixin =
 
   insertSplash: (root) ->
     splashFigure = root.querySelector("#{LEARNING_OBJECTIVE_SELECTORS} + figure")
-    splashFigure.classList.add('splash') if splashFigure
+    splashFigure.classList.add('splash') if splashFigure and not splashFigure.querySelector('figure')
 
   insertCanonicalLink: ->
     @linkNode = document.createElement('link')
