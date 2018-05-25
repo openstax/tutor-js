@@ -96,7 +96,10 @@ export class ExercisesMap extends Map {
     }
   }
 
-  @action onLoaded(reply, [{ book, page_ids }]) {
+  @action onLoaded(reply, [{ course, book, page_ids }]) {
+    if (course && !book) {
+      book = course.referenceBook;
+    }
     if (page_ids) {
       page_ids.forEach(pgId => this.fetched.set(pgId, COMPLETE));
     }

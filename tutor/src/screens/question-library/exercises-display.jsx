@@ -4,7 +4,7 @@ import { keys, first, pluck, map, isEmpty } from 'lodash';
 import { observable, action, computed } from 'mobx';
 import { observer } from 'mobx-react';
 import { PinnedHeaderFooterCard } from 'shared';
-
+import Loading from '../../components/loading-screen';
 import { ArrayOrMobxType } from 'shared/helpers/react';
 import Icon from '../../components/icon';
 import ExerciseControls from './exercise-controls';
@@ -277,7 +277,9 @@ class ExercisesDisplay extends React.Component {
 
   render() {
     const { pageIds, exercises } = this.props;
-    if (exercises.api.isPending || isEmpty(pageIds)){ return null; }
+    if (exercises.isFetching({ pageIds }) || isEmpty(pageIds)){
+      return <Loading />;
+    }
 
     return (
       <div className="exercises-display">
