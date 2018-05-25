@@ -20,7 +20,7 @@ $openstax-book-default-fg: $openstax-book-darker-green;
 $openstax-book-default-bg: $openstax-book-gray;
 $openstax-book-default-accent: $openstax-book-gray-accent;
 $openstax-book-default-fg-inverse: $openstax-gold;
-
+$openstax-book-drop-cap-color: $tutor-gray;
 $openstax-book-text-on-dark-labels: #fff;
 // NOTE:
 //  * The 'biology' and 'physics' codes are deprecated, but are retained for older courses that may have them
@@ -63,8 +63,8 @@ $openstax-books: (
     accent     : $openstax-book-blue-accent,
   ),
   biology: (
-    primary    : $openstax-book-gray,
-    secondary  : $openstax-book-darker-green,
+    primary    : $openstax-book-white,
+    secondary  : $openstax-book-green,
     text       : $openstax-book-text-on-dark-labels,
     tertiary   : rgb(35, 48, 102), // dark blue
     quaternary : rgb(244, 208, 25), // yellow
@@ -81,8 +81,8 @@ $openstax-books: (
     highlight  : rgb(255, 255, 187), // pale yellow
   ),
   ap_biology: (
-    primary    : $openstax-book-gray,
-    secondary  : $openstax-book-darker-green,
+    primary    : $openstax-book-white,
+    secondary  : $openstax-book-green,
     text       : $openstax-book-text-on-dark-labels,
     tertiary   : rgb(35, 48, 102), // dark blue
     quaternary : rgb(244, 208, 25), // yellow
@@ -90,8 +90,8 @@ $openstax-books: (
     highlight  : rgb(255, 255, 187), // pale yellow
   ),
   concepts_biology: (
-    primary    : $openstax-book-gray,
-    secondary  : $openstax-book-darker-green,
+    primary    : $openstax-book-white,
+    secondary  : $openstax-book-green,
     text       : $openstax-book-text-on-dark-labels,
     tertiary   : rgb(35, 48, 102), // dark blue
     quaternary : rgb(244, 208, 25), // yellow
@@ -99,8 +99,8 @@ $openstax-books: (
     highlight  : rgb(255, 255, 187), // pale yellow
   ),
   college_biology: (
-    primary    : $openstax-book-gray,
-    secondary  : $openstax-book-darker-green,
+    primary    : $openstax-book-white,
+    secondary  : $openstax-book-green,
     text       : $openstax-book-text-on-dark-labels,
     tertiary   : rgb(35, 48, 102), // dark blue
     quaternary : rgb(244, 208, 25), // yellow
