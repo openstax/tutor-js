@@ -1,5 +1,5 @@
 import React from 'react';
-import { keys, includes } from 'lodash';
+import { keys, isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
 import { observable, action, computed } from 'mobx';
 import { ArrayOrMobxType } from 'shared/helpers/react';
@@ -148,7 +148,9 @@ class AddExercises extends React.Component {
 
   render() {
     const { pageIds, exercises, course } = this.props;
-    if (exercises.api.isPending) { return <Loading />; }
+    if (exercises.isFetching({ pageIds }) || isEmpty(pageIds)){
+      return <Loading />;
+    }
 
     const sharedProps = {
       exercises: this.displayedExercises,
