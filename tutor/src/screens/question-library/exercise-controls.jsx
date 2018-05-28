@@ -11,8 +11,8 @@ import TourAnchor from '../../components/tours/anchor';
 @observer
 export default class ExerciseControls extends React.Component {
   static propTypes = {
-    course:      React.PropTypes.instanceOf(Course).isRequired,
-
+    course: React.PropTypes.instanceOf(Course).isRequired,
+    onSectionsDisplay: React.PropTypes.func.isRequired,
     exercises: React.PropTypes.shape({
       all: React.PropTypes.object,
       homework: React.PropTypes.object,
@@ -50,7 +50,7 @@ export default class ExerciseControls extends React.Component {
   };
 
   render() {
-    const { course } = this.props;
+    const { course, onSectionsDisplay } = this.props;
     const sections = this.getSections();
 
     const selected = this.props.selectedSection || first(sections);
@@ -81,7 +81,7 @@ export default class ExerciseControls extends React.Component {
         <div className="filters-wrapper">
           {!course.is_concept_coach ? filters : undefined}
         </div>
-        <Button onClick={this.scrollToTop}>
+        <Button onClick={onSectionsDisplay}>
           + Select more sections
         </Button>
       </div>

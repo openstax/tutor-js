@@ -69,32 +69,40 @@ class ChooseExercises extends React.Component {
     );
   }
 
-  render() {
+  renderSectionsChooser() {
     const { course, planId, hide, cancel } = this.props;
+    if (this.showProblems) {
+      return null;
+    }
+    return (
+      <SelectTopics
+        primary={
+          <Button
+            className="show-problems"
+                       bsStyle="primary"
+                       disabled={isEmpty(this.selectedPageIds)}
+            onClick={this.selectProblems}
+                       key="show-problems" // need key because button is passed in and rendered in array
+            >
+            Show Problems
+          </Button>
+        }
+        onSectionChange={this.onSectionChange}
+        header="Add Questions"
+        type="homework"
+        course={course}
+        planId={planId}
+        cancel={cancel}
+        hide={hide}
+      />
+    );
+  }
 
-    const primaryBtn =
-      <Button
-        className="show-problems"
-        bsStyle="primary"
-        disabled={isEmpty(this.selectedPageIds)}
-        onClick={this.selectProblems}
-        key="show-problems" // need key because button is passed in and rendered in array
-      >
-        Show Problems
-      </Button>;
+  render() {
 
     return (
       <div className="homework-plan-exercise-select-topics">
-        <SelectTopics
-          primary={primaryBtn}
-          onSectionChange={this.onSectionChange}
-          header="Add Questions"
-          type="homework"
-          course={course}
-          planId={planId}
-          cancel={cancel}
-          hide={hide}
-        />
+        {this.renderSectionsChooser()}
         {this.renderExercises()}
       </div>
     );

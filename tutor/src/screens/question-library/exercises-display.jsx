@@ -42,9 +42,11 @@ class ExercisesDisplay extends React.Component {
     course:      React.PropTypes.instanceOf(Course).isRequired,
     exercises:   React.PropTypes.instanceOf(ExercisesMap),
     pageIds:     ArrayOrMobxType.isRequired,
+    isHidden:    React.PropTypes.bool.isRequired,
     onShowDetailsViewClick: React.PropTypes.func.isRequired,
     onShowCardViewClick: React.PropTypes.func.isRequired,
     showingDetails: React.PropTypes.bool.isRequired,
+    onSectionsDisplay: React.PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -77,7 +79,7 @@ class ExercisesDisplay extends React.Component {
         course={this.props.course}
         showingDetails={this.props.showingDetails}
         onFilterChange={this.onFilterChange}
-        onSectionSelect={this.scrollToSection}
+        onSectionsDisplay={this.props.onSectionsDisplay}
         onShowCardViewClick={this.onShowCardViewClick}
         onShowDetailsViewClick={this.onShowDetailsViewClick}
         exercises={exercises}
@@ -109,7 +111,7 @@ class ExercisesDisplay extends React.Component {
   @action.bound onShowCardViewClick(ev, exercise) {
     // The pinned header doesn't notice when the elements above it are unhidden
     // and will never unstick by itself.
-    this.refs.controls.unPin();
+
     this.fromDetailsExercise = exercise;
     this.props.onShowCardViewClick(ev, this.fromDetailsExercise);
   }
@@ -150,8 +152,8 @@ class ExercisesDisplay extends React.Component {
           <Button
             key="exclude"
             onClick={() => {
-              this.props.course.saveExerciseExclusion({ exercise, is_excluded });
-              Dialog.hide();
+                this.props.course.saveExerciseExclusion({ exercise, is_excluded });
+                Dialog.hide();
             }}
           >
             Exclude
@@ -276,7 +278,11 @@ class ExercisesDisplay extends React.Component {
   };
 
   render() {
-    const { pageIds, exercises } = this.props;
+    const { pageIds, exercises, isHidden } = this.props;
+    if (isHidden) {
+      return null;
+    }
+
     if (exercises.isFetching({ pageIds }) || isEmpty(pageIds)){
       return <Loading />;
     }
@@ -284,8 +290,9 @@ class ExercisesDisplay extends React.Component {
     return (
       <div className="exercises-display">
         <PinnedHeaderFooterCard
-          ref="controls"
-          containerBuffer={50}
+          containerBuffer={140}
+          forceShy
+          pinnedUntilScroll
           header={this.renderControls(exercises)}
           cardType="sections-questions"
         >

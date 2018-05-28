@@ -1,42 +1,43 @@
+import { bind } from 'lodash';
 // imported from the inactive react-scroll-components project
 // https://github.com/jeroencoumans/react-scroll-components
 // Updated to work with React versions > 15.3
 // which lack the ViewportMetrics that the original relied on
 //
 
-'use strict';
 
 var win = typeof window !== 'undefined' ? window : false;
+const ScrollElement = document.documentElement || document.body.parentNode || document.body;
 
 var ScrollListenerMixin = {
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
-      endScrollTimeout: 300
+      endScrollTimeout: 300,
     };
   },
 
-  getInitialState: function () {
+  getInitialState() {
     return {
       scrollTop: 0,
-      isScrolling: false
+      isScrolling: false,
     };
   },
 
-  componentDidMount: function () {
+  componentDidMount() {
     if (win) {
       win.addEventListener('scroll', this._onPageScroll);
     }
   },
 
-  componentWillUnmount: function () {
+  componentWillUnmount() {
     if (win) {
       win.removeEventListener('scroll', this._onPageScroll);
     }
   },
 
-  _onPageScrollEnd: function () {
-    var scrollTop = win.document.body.scrollTop;
+  _onPageScrollEnd() {
+    const { scrollTop } = ScrollElement;
     if (scrollTop === this.state.scrollTop) {
       win.clearTimeout(this._pageScrollTimeout);
       this.setState({ isScrolling: false });
@@ -47,21 +48,18 @@ var ScrollListenerMixin = {
     }
   },
 
-  _onPageScroll: function () {
-    const { scrollTop } =(document.documentElement || document.body.parentNode || document.body);
-
+  _onPageScroll() {
+    const { scrollTop } = ScrollElement;
     this.setState({
       scrollTop: scrollTop,
-      isScrolling: true
+      isScrolling: true,
     });
-
     win.clearTimeout(this._pageScrollTimeout);
     this._pageScrollTimeout = win.setTimeout(this._onPageScrollEnd, this.props.endScrollTimeout);
-
     if (typeof this.onPageScroll === 'function') {
       this.onPageScroll(scrollTop);
     }
-  }
+  },
 };
 
-module.exports = ScrollListenerMixin;
+export default ScrollListenerMixin;

@@ -2,7 +2,6 @@ import React from 'react';
 import { first, partial, findIndex } from 'lodash';
 import { observer } from 'mobx-react';
 import { observable, computed, action } from 'mobx';
-import ScrollTo from '../../helpers/scroll-to';
 
 import { ExercisePreview } from 'shared';
 import PagingNavigation from '../paging-navigation';
@@ -26,28 +25,14 @@ class ExerciseDetails extends React.Component {
     selectedSection:       React.PropTypes.string,
     displayFeedback:       React.PropTypes.bool,
     onSectionChange:       React.PropTypes.func,
-    topScrollOffset:       React.PropTypes.number,
     windowImpl:            React.PropTypes.object,
   };
-
-  static defaultProps = {
-    topScrollOffset: 40,
-  };
-
-  scroller = new ScrollTo({
-    windowImpl: this.props.windowImpl,
-    onAfterScroll: this.onAfterScroll,
-  });
 
   @observable currentIndex;
   @observable currentSection;
 
   @computed get exercises() {
     return this.props.exercises.array; //this.flattenExercises(this.props);
-  }
-
-  componentDidMount() {
-    this.scroller.scrollToSelector('.exercise-controls-bar');
   }
 
   componentWillMount() {
@@ -105,7 +90,8 @@ class ExerciseDetails extends React.Component {
             isBackwardEnabled={moves.prev}
             onForwardNavigation={this.onNext}
             onBackwardNavigation={this.onPrev}
-            scrollOnNavigation={false}>
+            scrollOnNavigation={false}
+          >
             <ExercisePreview
               className="exercise-card"
               isVerticallyTruncated={false}
