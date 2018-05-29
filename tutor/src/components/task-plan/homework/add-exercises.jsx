@@ -143,7 +143,7 @@ class AddExercises extends React.Component {
     // or that are assignable homeworks for the given pages
     return this.props.exercises.where( e =>
       (e.isHomework && e.isAssignable && this.props.pageIds.includes(e.page.id)) ||
-        selected.includes(e.id)
+      selected.includes(e.id)
     );
   }
 
@@ -204,7 +204,8 @@ class AddExercises extends React.Component {
 
     return (
       <PinnedHeaderFooterCard
-        containerBuffer={140}
+        buffer={0}
+        containerBuffer={0}
         forceShy
         pinnedUntilScroll
         header={controls}

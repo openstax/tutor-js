@@ -290,7 +290,8 @@ class ExercisesDisplay extends React.Component {
     return (
       <div className="exercises-display">
         <PinnedHeaderFooterCard
-          containerBuffer={140}
+          buffer={0}
+          containerBuffer={0}
           forceShy
           pinnedUntilScroll
           header={this.renderControls(exercises)}
