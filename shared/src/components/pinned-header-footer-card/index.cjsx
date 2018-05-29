@@ -4,7 +4,7 @@ classnames = require 'classnames'
 
 omit  = require 'lodash/omit'
 
-ScrollListenerMixin = require '../../mixins/ScrollListener'
+{default: ScrollListenerMixin} = require '../../mixins/ScrollListener'
 
 ResizeListenerMixin = require '../resize-listener-mixin'
 GetPositionMixin = require '../get-position-mixin'
@@ -19,6 +19,7 @@ module.exports = React.createClass
     buffer: React.PropTypes.number
     scrollSpeedBuffer: React.PropTypes.number
     forceShy: React.PropTypes.bool
+    pinnedUntilScroll: React.PropTypes.bool
     containerBuffer: React.PropTypes.number
 
   getDefaultProps: ->
@@ -30,8 +31,8 @@ module.exports = React.createClass
   getInitialState: ->
     offset: 0
     shy: false
-    pinned: false
-    shouldBeShy: false
+    pinned: true
+    shouldBeShy: true
     headerHeight: 0
     containerMarginTop: '0px'
 
@@ -63,7 +64,11 @@ module.exports = React.createClass
     @setState(offset: @getOffset())
 
   shouldPinHeader: (prevScrollTop, currentScrollTop) ->
-    currentScrollTop >= @state.offset - @props.buffer
+    (@props.pinnedUntilScroll and not @state.hasScrolled) or
+      (currentScrollTop >= @state.offset - @props.buffer)
+
+  onPageScroll: ->
+    @setState(hasScrolled: true)
 
   isScrollingSlowed: (prevScrollTop, currentScrollTop) ->
     Math.abs(prevScrollTop - currentScrollTop) <= @props.scrollSpeedBuffer
@@ -78,7 +83,6 @@ module.exports = React.createClass
     # should not pin regardless of scroll direction if the scroll top is above buffer
     unless @isScrollPassBuffer(prevScrollTop, currentScrollTop)
       false
-
     # otherwise, when scroll top is below buffer
     # and on down scroll
     else if @isScrollingDown(prevScrollTop, currentScrollTop)
@@ -111,7 +115,7 @@ module.exports = React.createClass
     @setBodyClasses(@props, nextState)
 
   forceShy: ->
-    window.scroll(0, @props.buffer + @state.offset)
+    window.scroll?(0, @props.buffer + @state.offset)
     @setState(shouldBeShy: true)
 
   getHeaderHeight: ->
@@ -151,7 +155,7 @@ module.exports = React.createClass
     @setContainerMargin() if didHeaderHeightChange or didShouldPinChange
 
   componentWillReceiveProps: (nextProps) ->
-    @forceShy() if @props.forceShy
+    @forceShy() if nextProps.forceShy and not @props.forceShy
     @setBodyClasses()
 
   render: ->

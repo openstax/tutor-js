@@ -6,7 +6,6 @@ import Course from '../../models/course';
 import Exercises, { ExercisesMap } from '../../models/exercises';
 import SectionsChooser from './sections-chooser';
 import ExercisesDisplay from './exercises-display';
-import LoadingDisplay from './loading-display';
 
 @observer
 class QuestionsDashboard extends React.Component {
@@ -19,6 +18,7 @@ class QuestionsDashboard extends React.Component {
     exercises: Exercises,
   }
 
+  @observable showingSections = true;
   @observable showingDetails = false;
   @observable focusedExercise = false;
   @observable chapterIds;
@@ -34,6 +34,12 @@ class QuestionsDashboard extends React.Component {
 
   @action.bound onSelectionsChange(pageIds) {
     this.pageIds = pageIds;
+    this.showingSections = false;
+  }
+
+  @action.bound onShowSections() {
+    this.showingSections = true;
+
   }
 
   render() {
@@ -41,10 +47,15 @@ class QuestionsDashboard extends React.Component {
     const classes = classnames( 'questions-dashboard', { 'is-showing-details': this.focusedExercise } );
     return (
       <div className={classes}>
-        <LoadingDisplay exercises={exercises} />
-        <SectionsChooser {...this.props} onSelectionsChange={this.onSelectionsChange} />
+        <SectionsChooser
+          {...this.props}
+          isHidden={!this.showingSections}
+          onSelectionsChange={this.onSelectionsChange}
+        />
         <ExercisesDisplay
           {...this.props}
+          onSectionsDisplay={this.onShowSections}
+          isHidden={this.showingSections}
           showingDetails={this.showingDetails}
           onShowCardViewClick={this.onShowCardViewClick}
           onShowDetailsViewClick={this.onShowDetailsViewClick}

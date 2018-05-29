@@ -23,6 +23,7 @@ class AddExercises extends React.Component {
     planId:     React.PropTypes.string.isRequired,
     onAddClick: React.PropTypes.func.isRequired,
     pageIds:    ArrayOrMobxType.isRequired,
+
   };
 
   static defaultProps = {
@@ -132,7 +133,7 @@ class AddExercises extends React.Component {
   };
 
   @action.bound setCurrentSection(currentSection) {
-    this.scroller.scrollToSelector(`[data-section='${currentSection}']`);
+
     this.currentSection = currentSection;
   }
 
@@ -142,7 +143,7 @@ class AddExercises extends React.Component {
     // or that are assignable homeworks for the given pages
     return this.props.exercises.where( e =>
       (e.isHomework && e.isAssignable && this.props.pageIds.includes(e.page.id)) ||
-        selected.includes(e.id)
+      selected.includes(e.id)
     );
   }
 
@@ -166,7 +167,7 @@ class AddExercises extends React.Component {
       body = (
         <ExerciseDetails
           {...sharedProps}
-          topScrollOffset={60}
+          topScrollOffset={0}
           selectedExercise={this.selectedExercise}
           onSectionChange={this.setCurrentSection}
           selectedSection={this.currentSection}
@@ -177,7 +178,6 @@ class AddExercises extends React.Component {
       body = (
         <ExerciseCards
           {...sharedProps}
-          topScrollOffset={110}
           focusedExercise={this.focusedExercise}
           onShowDetailsViewClick={this.onShowDetailsViewClick} />
       );
@@ -203,7 +203,14 @@ class AddExercises extends React.Component {
 
 
     return (
-      <PinnedHeaderFooterCard containerBuffer={50} header={controls} cardType="homework-builder">
+      <PinnedHeaderFooterCard
+        buffer={0}
+        containerBuffer={0}
+        forceShy
+        pinnedUntilScroll
+        header={controls}
+        cardType="homework-builder"
+      >
         <TourRegion id="add-homework-select-exercises" courseId={course.id}>
           {body}
         </TourRegion>

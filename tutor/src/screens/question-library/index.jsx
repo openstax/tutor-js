@@ -7,6 +7,7 @@ import Router from '../../helpers/router';
 import Dashboard from './dashboard';
 import Loading from '../../components/loading-screen';
 
+import './styles.scss';
 
 @observer
 export default class QuestionsDashboardShell extends React.Component {

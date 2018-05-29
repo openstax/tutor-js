@@ -19,6 +19,7 @@ export default class QLSectionsChooser extends React.Component {
     course: React.PropTypes.instanceOf(Course).isRequired,
     exercises: React.PropTypes.instanceOf(ExercisesMap).isRequired,
     onSelectionsChange: React.PropTypes.func.isRequired,
+    isHidden: React.PropTypes.bool.isRequired,
   };
 
   @observable pageIds = [];
@@ -42,6 +43,10 @@ export default class QLSectionsChooser extends React.Component {
   }
 
   render() {
+    if (this.props.isHidden) {
+      return null;
+    }
+
     return (
       <div className="sections-chooser panel">
         <div className="header">

@@ -1,3 +1,5 @@
+@import '../screen-styles';
+
 .questions-dashboard {
   $padding: 20px;
   .wrapper {
@@ -78,19 +80,6 @@
   .sectionizer {
     flex: 0;
     justify-content: center;
-  }
-
-  .loading {
-    position: fixed;
-    width: 400px;
-    left: calc(50% - 150px);
-    top: 40%;
-    z-index: 1;
-    background-color: $tutor-neutral-bright;
-    border: 1px solid $tutor-neutral-light;
-    height: 200px;
-    text-align: center;
-    @include tutor-sans-font(3rem, 200px);
   }
 
   .exercise-card {
