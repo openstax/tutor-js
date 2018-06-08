@@ -57,7 +57,7 @@ export default {
   },
 
   @computed get all() {
-    const tutor = sortBy(filter(Offerings.fetched.array, 'is_tutor'), 'title');
+    const tutor = sortBy(Offerings.fetched.available.array, 'title');
     return tutor.map(o => new PreviewCourseOffering(o));
   },
 
