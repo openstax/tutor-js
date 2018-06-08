@@ -1,4 +1,6 @@
-.new-course {
+@import '../screen-styles';
+
+.new-course-wizard {
   $panel-choice-height: 70px;
   $panel-body-height: $panel-choice-height * 3.5;
 
@@ -24,19 +26,20 @@
   margin: 134px auto 0 auto;
 
   .panel {
-    padding: 3rem 4rem;
     position: relative;
     @include tutor-shadow('pop');
+
     .panel-heading,
     .panel-footer {
+      padding: 40px;
       color: inherit;
       background-color: white;
       border: 0;
-      padding: 1rem 0;
     }
+
     .panel-body {
       min-height: $panel-body-height;
-      padding: 0;
+      padding: 20px 40px;
     }
     .panel-footer {
       .controls { text-align: right; }
@@ -53,8 +56,8 @@
     }
 
     .panel-heading {
-      margin-left: auto;
-      margin-right: auto;
+      padding-top: 40px;
+      padding-bottom: 20px;
       font-size: 1.6rem;
       line-height: 2rem;
       .course-offering-title {
@@ -81,9 +84,6 @@
         padding: 1.6rem 0;
       }
     }
-    // set footer to a fixed height so the panel stays the same height
-    // even if some do not have any controls
-    .panel-footer { height: 65px; }
     .tutor-icon.best-practices {
       height: 2rem;
     }
@@ -104,11 +104,11 @@
     .choice {
 
       &[data-new-or-copy=new]::before {
-        background-image: url('../../images/icons/icon-new-course.svg');
+        background-image: url('../../../resources/images/icons/icon-new-course.svg');
       }
 
       &[data-new-or-copy=copy]::before {
-        background-image: url('../../images/icons/icon-copy-course.svg');
+        background-image: url('../../../resources/images/icons/icon-copy-course.svg');
       }
     }
 
@@ -186,7 +186,17 @@
         line-height: 1.25em;
       }
     }
+    &.bio1e_unavail {
+      .panel-heading {
+        background-color: #d7f1f6;
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+      .choices-listing {
+        margin-top: 20px;
+      }
 
+    }
     &.bio2e_unavail {
       .panel-heading {
         text-align: center;

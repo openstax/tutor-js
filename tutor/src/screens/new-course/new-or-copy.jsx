@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { action } from 'mobx';
 import { partial } from 'lodash';
 
-import { Listing, Choice } from '../choices-listing';
+import { Listing, Choice } from '../../components/choices-listing';
 import BuilderUX from '../../models/course/builder-ux';
 
 @observer

@@ -6,13 +6,13 @@ import {
 } from 'lodash';
 import { readonly } from 'core-decorators';
 import { when, observable, computed, action, observe } from 'mobx';
-import Course from '../course';
-import Courses from '../courses-map';
+import Course from '../../models/course';
+import Courses from '../../models/courses-map';
 import TutorRouter from '../../helpers/router';
-import Offerings from './offerings';
-import CreateCourse from './create';
+import Offerings from '../../models/course/offerings';
+import CreateCourse from '../../models/course/create';
 import Router from '../../helpers/router';
-import User from '../user';
+import User from '../../models/user';
 
 @identifiedBy('course/builder-ux')
 export default class CourseBuilderUX extends BaseModel {
@@ -47,6 +47,7 @@ export default class CourseBuilderUX extends BaseModel {
     }
 
     Offerings.fetch();
+
     observe(this, 'source', ({ newValue: newSource }) => {
       if (newSource) {
         this.newCourse.cloned_from = newSource;
@@ -101,6 +102,15 @@ export default class CourseBuilderUX extends BaseModel {
   }
 
   @computed get stage() {
+    if (!this.isBusy && this.offering && this.offering.is_available === false) {
+      console.log(this.offering.appearance_code)
+      if (this.offering.appearance_code.includes('biology')) {
+        return 'bio1e_unavail';
+      } else {
+        return 'offering_unavailable';
+      }
+    }
+
     if (this.currentStageIndex > 1 && this.newCourse.isFutureBio2e) {
       return 'bio2e_unavail';
     }
@@ -124,7 +134,7 @@ export default class CourseBuilderUX extends BaseModel {
   }
 
   @computed get validOfferings() {
-    return Offerings.tutor.array;
+    return filter(Offerings.tutor.array, { is_available: true });
   }
 
   @computed get canSkipOffering() {

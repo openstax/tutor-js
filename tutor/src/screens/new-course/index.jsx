@@ -1,8 +1,8 @@
-import React from 'react';
-import { observer } from 'mobx-react';
+import { React, observer } from '../../helpers/react';
 import User from '../../models/user';
-import TermsModal from '../terms-modal';
+import TermsModal from '../../components/terms-modal';
 import Wizard from './wizard';
+import './styles.scss';
 
 @observer
 export default class NewCourse extends React.PureComponent {
@@ -11,7 +11,7 @@ export default class NewCourse extends React.PureComponent {
     if (User.terms_signatures_needed) return <TermsModal />;
 
     return (
-      <div className="new-course">
+      <div className="new-course-wizard">
         <Wizard />
       </div>
     );

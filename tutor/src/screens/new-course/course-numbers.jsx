@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash';
 import { Alert, Form, FormControl, FormGroup, InputGroup, ControlLabel } from 'react-bootstrap';
 import UserMenu from '../../models/user/menu';
 import BuilderUX from '../../models/course/builder-ux';
-import BestPracticesIcon from '../icons/best-practices';
+import BestPracticesIcon from '../../components/icons/best-practices';
 
 @observer
 export default class CourseNumbers extends React.PureComponent {

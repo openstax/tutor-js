@@ -1,12 +1,8 @@
-import React from 'react';
-import { observer } from 'mobx-react';
+import { React, observer, cn, observable } from '../../helpers/react';
 import { Button, Panel } from 'react-bootstrap';
-import classnames from 'classnames';
 import { isFunction } from 'lodash';
-import { observable, computed } from 'mobx';
-
 import CourseOfferingTitle from './offering-title';
-import OXFancyLoader from '../ox-fancy-loader';
+import OXFancyLoader from '../../components/ox-fancy-loader';
 
 import * as Steps from './steps';
 const componentFor = key => Steps[ key ];
@@ -70,12 +66,8 @@ export default class NewCourseWizard extends React.PureComponent {
     router: React.PropTypes.object,
   }
 
-  // @computed get isBusy() {
-  //   return Boolean(this.ux.isBusy || this.ux.newCourse.api.isPending);
-  // }
-
   render() {
-    const wizardClasses = classnames('new-course-wizard', this.ux.stage, {
+    const wizardClasses = cn('new-course-wizard', this.ux.stage, {
       'is-loading': this.ux.isBusy,
       'is-building': this.ux.isBuilding,
     });
@@ -91,7 +83,7 @@ export default class NewCourseWizard extends React.PureComponent {
             isLoading={this.ux.isBusy}
             message={this.ux.isBuilding ? 'Building your course' : 'Loading…'}
           />
-          {this.isBusy ? undefined : <Component ux={this.ux} />}
+          {this.ux.isBusy ? undefined : <Component ux={this.ux} />}
         </div>
       </Panel>
     );
