@@ -31,4 +31,6 @@ class OfferingsMap extends Map {
 
 const offeringsMap = new OfferingsMap();
 
+export { Offering, OfferingsMap };
+
 export default offeringsMap;
