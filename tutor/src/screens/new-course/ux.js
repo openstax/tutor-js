@@ -32,6 +32,7 @@ export default class CourseBuilderUX extends BaseModel {
 
   @readonly maximumSectionCount = 99;
   @observable course_type = 'tutor';
+  @observable alternateOffering;
 
   constructor(router) {
     super();

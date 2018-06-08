@@ -1,8 +1,11 @@
 import { React, mobxPropTypes, observer, action, computed } from '../../helpers/react';
+
+import { Button } from 'react-bootstrap';
 import { Listing, Choice } from '../../components/choices-listing';
 import { find } from 'lodash';
 import NewTabLink from '../../components/new-tab-link';
 import BuilderUX from './ux';
+
 
 @observer
 export default class Biology1eUnavailable extends React.Component {
@@ -14,6 +17,22 @@ export default class Biology1eUnavailable extends React.Component {
       edition Biology courses
     </div>
   );
+
+  static Footer = observer(({ ux }) => (
+    <div className="controls">
+      <Button onClick={ux.onCancel} className="cancel">
+        Cancel
+      </Button>
+      <Button
+        onClick={() => ux.newCourse.offering = ux.alternateOffering}
+        bsStyle="primary"
+        className="next"
+        disabled={!ux.alternateOffering}
+      >
+        Continue
+      </Button>
+    </div>
+  ));
 
   static contextTypes = {
     router: React.PropTypes.object,
@@ -30,7 +49,9 @@ export default class Biology1eUnavailable extends React.Component {
   }
 
   @action.bound onSelect() {
-    this.props.ux.newCourse.offering = this.bio2eOffering;
+    this.props.ux.alternateOffering = (
+      this.props.ux.alternateOffering ? null : this.bio2eOffering
+    );
   }
 
   render() {
@@ -49,7 +70,7 @@ export default class Biology1eUnavailable extends React.Component {
            <Listing>
              <Choice
                data-appearance={bio2eOffering.appearance_code}
-               active={bio2eOffering === ux.offering}
+               active={bio2eOffering === ux.alternateOffering}
                onClick={this.onSelect}
              >
                {bio2eOffering.title}

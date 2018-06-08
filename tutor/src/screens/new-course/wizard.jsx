@@ -1,6 +1,7 @@
 import { React, observer, cn, observable } from '../../helpers/react';
 import { Button, Panel } from 'react-bootstrap';
 import { isFunction } from 'lodash';
+import BackButton from './back-button';
 import CourseOfferingTitle from './offering-title';
 import OXFancyLoader from '../../components/ox-fancy-loader';
 
@@ -8,15 +9,6 @@ import * as Steps from './steps';
 const componentFor = key => Steps[ key ];
 
 import BuilderUX from './ux';
-
-const BackButton = observer(({ ux }) => {
-  if (!ux.canGoBackward) { return null; }
-  return (
-    <Button onClick={ux.goBackward} className="back">
-      Back
-    </Button>
-  );
-});
 
 const Footer = observer(({ ux }) => {
   const Component = componentFor(ux.stage);
