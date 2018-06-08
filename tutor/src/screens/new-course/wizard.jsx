@@ -7,7 +7,7 @@ import OXFancyLoader from '../../components/ox-fancy-loader';
 import * as Steps from './steps';
 const componentFor = key => Steps[ key ];
 
-import CourseBuilderUX from '../../models/course/builder-ux';
+import BuilderUX from './ux';
 
 const BackButton = observer(({ ux }) => {
   if (!ux.canGoBackward) { return null; }
@@ -60,7 +60,7 @@ const Title = observer(({ ux }) => {
 @observer
 export default class NewCourseWizard extends React.PureComponent {
 
-  @observable ux = new CourseBuilderUX(this.context.router);
+  @observable ux = new BuilderUX(this.context.router);
 
   static contextTypes = {
     router: React.PropTypes.object,
@@ -77,7 +77,8 @@ export default class NewCourseWizard extends React.PureComponent {
       <Panel
         header={<Title ux={this.ux} />}
         className={wizardClasses}
-        footer={<Footer ux={this.ux} />}>
+        footer={<Footer ux={this.ux} />}
+      >
         <div className="panel-content">
           <OXFancyLoader
             isLoading={this.ux.isBusy}

@@ -1,7 +1,10 @@
-import { React, SnapShot } from '../helpers/component-testing';
+import { React, SnapShot } from '../../components/helpers/component-testing';
+import { observable as mockObservable } from 'mobx';
+import Factory from '../../factories';
 import Router from '../../../src/helpers/router';
-import BuilderUX from '../../../src/models/course/builder-ux';
-import Wizard from '../../../src/components/new-course/wizard';
+import BuilderUX from '../../../src/screens/new-course/ux';
+import Wizard from '../../../src/screens/new-course/wizard';
+import Offerings from '../../../src/models/course/offerings';
 
 jest.mock('../../../src/helpers/router');
 jest.mock('../../../src/models/user', () => ({
@@ -16,17 +19,16 @@ jest.mock('../../../src/models/course/offerings', () => {
     } ],
   };
 
-  return {
+  return mockObservable({
     get: jest.fn(() => mockOffering),
     fetch: jest.fn(function(){
-      this.api.isPending = true;
-      return Promise.resolve()
+      return Promise.resolve();
     }),
-    api: { isPending: false },
-    tutor: {
+    api: { isPending: true },
+    available: {
       array: [ mockOffering ],
     },
-  };
+  });
 });
 
 describe('Creating a course', function() {
@@ -41,19 +43,21 @@ describe('Creating a course', function() {
     expect(await axe(wrapper.html())).toHaveNoViolations();
     expect(wrapper.instance().ux.isBusy).toBe(true);
     expect(wrapper).toHaveRendered('OXFancyLoader[isLoading=true]');
+    Offerings.api.isPending = false;
+    expect(wrapper).toHaveRendered('OXFancyLoader[isLoading=false]');
   });
 
   it('advances and can go back', async function() {
     const wrapper = mount(<Wizard {...props} />);
-    expect(await axe(wrapper.html())).toHaveNoViolations();
 
+    expect(await axe(wrapper.html())).toHaveNoViolations();
     expect(wrapper.instance().ux.currentStageIndex).toEqual(0);
+    Offerings.api.isPending = false;
+
     expect(wrapper).toHaveRendered('SelectCourse');
     expect(wrapper).toHaveRendered('.btn.next[disabled=true]');
     wrapper.find('.choice').simulate('click');
-
     wrapper.find('.btn.next[disabled=false]').simulate('click');
-
     expect(wrapper.instance().ux.currentStageIndex).toEqual(1);
     expect(wrapper).toHaveRendered('SelectDates');
     wrapper.find('.btn.back').simulate('click');

@@ -37,8 +37,8 @@ exports[`Bio2e unavailable matches snapshot 1`] = `
     You can create a new Biology 2e course in OpenStax Tutor Beta starting July 20. Until then, view the 
     <a
       className="external-icon"
+      externalStyle={true}
       href="https://openstax.org/details/books/biology-2e"
-      onClick={[Function]}
       tabIndex={0}
       target="_blank"
     >

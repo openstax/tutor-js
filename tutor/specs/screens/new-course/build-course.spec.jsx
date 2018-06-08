@@ -1,7 +1,6 @@
-import { React, SnapShot } from '../helpers/component-testing';
-
-import BuilderUX from '../../../src/models/course/builder-ux';
-import BuildCourse from '../../../src/components/new-course/build-course';
+import { React, SnapShot } from '../../components/helpers/component-testing';
+import BuildCourse from '../../../src/screens/new-course/build-course';
+import BuilderUX from '../../../src/screens/new-course/ux';
 
 describe('CreateCourse: saving new course', function() {
 

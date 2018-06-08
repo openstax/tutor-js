@@ -6,7 +6,7 @@ jest.mock('../../../src/models/user', () => ({
   isCollegeTeacher: true,
 }));
 
-import NewCourse from '../../../src/components/new-course';
+import NewCourse from '../../../src/screens/new-course';
 
 describe('NewCourse wrapper', function() {
 

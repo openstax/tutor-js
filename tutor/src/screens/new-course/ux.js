@@ -103,7 +103,6 @@ export default class CourseBuilderUX extends BaseModel {
 
   @computed get stage() {
     if (!this.isBusy && this.offering && this.offering.is_available === false) {
-      console.log(this.offering.appearance_code)
       if (this.offering.appearance_code.includes('biology')) {
         return 'bio1e_unavail';
       } else {
@@ -134,7 +133,7 @@ export default class CourseBuilderUX extends BaseModel {
   }
 
   @computed get validOfferings() {
-    return filter(Offerings.tutor.array, { is_available: true });
+    return Offerings.available.array;
   }
 
   @computed get canSkipOffering() {

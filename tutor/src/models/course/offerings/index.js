@@ -20,6 +20,10 @@ class OfferingsMap extends Map {
     return this.where(c => !c.is_concept_coach);
   }
 
+  @computed get available() {
+    return this.where(c => c.is_available && !c.is_concept_coach);
+  }
+
   // will be overwritten by API
   fetch() {}
 

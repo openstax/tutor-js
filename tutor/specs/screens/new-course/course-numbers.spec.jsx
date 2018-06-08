@@ -1,9 +1,9 @@
-import { React, SnapShot } from '../helpers/component-testing';
-
-import CourseNumbers from '../../../src/components/new-course/course-numbers';
-import BuilderUX from '../../../src/models/course/builder-ux';
-const COURSE_ID = '1';
+import { React, SnapShot } from '../../components/helpers/component-testing';
+import CourseNumbers from '../../../src/screens/new-course/course-numbers';
+import BuilderUX from '../../../src/screens/new-course/ux';
 import { bootstrapCoursesList } from '../../courses-test-data';
+
+const COURSE_ID = '1';
 
 jest.mock('../../../src/models/user', () => ({
   isCollegeTeacher: true,

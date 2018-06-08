@@ -1,11 +1,8 @@
 import { React, mobxPropTypes, observer, action, computed } from '../../helpers/react';
 import { Listing, Choice } from '../../components/choices-listing';
 import { find } from 'lodash';
-import { Alert } from 'react-bootstrap';
-import Icon from '../../components/icon';
-import SupportEmailLink from '../../components/support-email-link';
-import CourseBuilderUX from '../../models/course/builder-ux';
 import NewTabLink from '../../components/new-tab-link';
+import BuilderUX from './ux';
 
 @observer
 export default class Biology1eUnavailable extends React.Component {
@@ -23,7 +20,7 @@ export default class Biology1eUnavailable extends React.Component {
   }
 
   static propTypes = {
-    ux: React.PropTypes.instanceOf(CourseBuilderUX).isRequired,
+    ux: React.PropTypes.instanceOf(BuilderUX).isRequired,
   }
 
   @computed get bio2eOffering() {

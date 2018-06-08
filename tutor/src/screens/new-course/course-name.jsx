@@ -1,12 +1,9 @@
-import React from 'react';
-import { observer } from 'mobx-react';
-import { action } from 'mobx';
-
+import { React, action, observer } from '../../helpers/react';
 import { Form, FormControl, FormGroup, InputGroup } from 'react-bootstrap';
 import { map } from 'lodash';
 
-import BuilderUX from '../../models/course/builder-ux';
 import TimeHelper from '../../helpers/time';
+import BuilderUX from './ux';
 
 @observer
 export default class CourseName extends React.PureComponent {
