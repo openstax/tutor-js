@@ -5,7 +5,7 @@ import cn from 'classnames';
 function NewTabLink(props) {
   const { children, className } = props;
 
-  const linkProps = omit(props, 'children', 'className');
+  const linkProps = omit(props, 'children', 'className', 'hideIcon');
 
   return (
     <a
@@ -24,19 +24,17 @@ NewTabLink.contextTypes = {
 };
 
 NewTabLink.defaultProps = {
-  externalStyle: true,
   target: '_blank',
+  hideIcon: false,
   tabIndex: 0,
 };
 
 NewTabLink.propTypes = {
-  children:  React.PropTypes.node.isRequired,
-  className: React.PropTypes.string,
-  params:    React.PropTypes.object,
-  query:     React.PropTypes.object,
-  target:    React.PropTypes.string,
+  href:      React.PropTypes.string,
   tabIndex:  React.PropTypes.number,
   hideIcon:  React.PropTypes.bool,
+  children:  React.PropTypes.node.isRequired,
+  className: React.PropTypes.string,
 };
 
 export default NewTabLink;
