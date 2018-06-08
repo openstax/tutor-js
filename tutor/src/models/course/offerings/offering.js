@@ -18,6 +18,7 @@ export default class Offering extends BaseModel {
   @field description;
   @field is_concept_coach;
   @field is_tutor;
+  @field is_available = true;
   @field appearance_code;
 
   @hasMany({ model: Term }) active_term_years;

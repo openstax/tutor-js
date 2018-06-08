@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateCourse: choosing offering matches snapshot 1`] = `
+<div
+  className="course-offering-title"
+  data-appearance="college_physics"
+>
+  <div
+    className="contents"
+  >
+    <div
+      className="title"
+    >
+      College Physics
+    </div>
+    <div
+      className="sub-title"
+    />
+  </div>
+</div>
+`;
