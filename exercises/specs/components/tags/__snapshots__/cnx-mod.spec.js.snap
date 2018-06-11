@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CNX mod tags component renders mod tags 1`] = `
+<div
+  className="tag-type"
+>
+  <div
+    className="heading"
+  >
+    <span
+      className="label"
+    >
+      CNX Module
+    </span>
+    <div
+      className="controls"
+    >
+      <i
+        className="fa fa-plus-circle"
+        onClick={[Function]}
+      />
+    </div>
+  </div>
+  <div
+    className="tag"
+  >
+    <input
+      className="form-control"
+      onBlur={[Function]}
+      onChange={[Function]}
+      placeholder="########-####-####-####-############"
+      type="text"
+      value="80d2e9ef-abee-40c2-8586-5459a67c81f3"
+    />
+    <span
+      className="controls"
+    >
+      <i
+        className="fa fa-trash"
+        onClick={[Function]}
+      />
+    </span>
+  </div>
+  <div
+    className="tag"
+  >
+    <input
+      className="form-control"
+      onBlur={[Function]}
+      onChange={[Function]}
+      placeholder="########-####-####-####-############"
+      type="text"
+      value="cb7cf05b-7e16-4a53-a498-003b01ec3d7f"
+    />
+    <span
+      className="controls"
+    >
+      <i
+        className="fa fa-trash"
+        onClick={[Function]}
+      />
+    </span>
+  </div>
+</div>
+`;
