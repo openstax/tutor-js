@@ -23,6 +23,10 @@ class Input extends React.Component {
   @observable errorMsg = '';
   @observable value = '';
 
+  componentDidMount() {
+    this.value = this.props.tag.value;
+  }
+
   @action.bound onChange(ev) {
     this.errorMsg = '';
     this.value = this.props.cleanInput(ev.target.value);
@@ -74,12 +78,16 @@ class MultiInput extends React.Component {
   }
 
   render() {
-    const tags = this.props.exercise.tags.withType(this.props.type, { multiple: true });
+    const { exercise } = this.props;
+    const tags = exercise.tags.withType(this.props.type, { multiple: true });
 
     return (
       <Wrapper label={this.props.label} onAdd={this.add} singleTag={tags.length === 1}>
-        {tags.map((tag, index) =>
-          <Input {...this.props} key={index} tag={tag} />)}
+        {tags.map((tag) =>
+          <Input key={`${exercise.id}-${tag.asString}`}
+            {...this.props}
+            tag={tag}
+          />)}
       </Wrapper>
     );
   }

@@ -873,7 +873,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   onChange={[Function]}
                   placeholder="feature-id"
                   type="text"
-                  value=""
+                  value="one-1"
                 />
                 <span
                   className="controls"
@@ -2266,7 +2266,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                   onChange={[Function]}
                   placeholder="feature-id"
                   type="text"
-                  value=""
+                  value="one-1"
                 />
                 <span
                   className="controls"
