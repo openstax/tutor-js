@@ -104,10 +104,10 @@ export default class CourseBuilderUX extends BaseModel {
 
   @computed get stage() {
     if (!this.isBusy && this.offering && this.offering.is_available === false) {
-      if (this.offering.appearance_code.includes('biology')) {
+      if (this.offering.isLegacyBiology) {
         return 'bio1e_unavail';
       } else {
-        return 'offering_unavailable';
+        return 'offering_unavail';
       }
     }
 

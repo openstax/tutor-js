@@ -238,6 +238,7 @@ export default class Course extends BaseModel {
         }
       }
     }
+
     if (this.isStudent) { tags.push('student'); }
     return tags;
   }

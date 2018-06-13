@@ -14,9 +14,9 @@ import User from './user';
 
 const TourInstances = new Map();
 
-function getTour(id, options) {
+function getTour(id, options = {}) {
   const tourSettings = TourData[id];
-  const courseId = (options && options.courseId);
+  const { courseId } = options;
   let tourData = tourSettings;
   let tourId = id;
 
@@ -24,7 +24,7 @@ function getTour(id, options) {
     if (tourSettings.perCourse) {
       tourId = `${id}-${courseId}`;
     }
-    tourData = defaults({courseId}, tourSettings);
+    tourData = defaults({ courseId }, tourSettings);
   }
 
   let tour = TourInstances.get(tourId);

@@ -7,7 +7,7 @@ import {
 import CourseBranding from '../../branding/course';
 import SuperTrainingWheel from './super-training-wheel';
 
-import TutorLink from '../../link'
+import TutorLink from '../../link';
 
 export default class HowToBuildYourReading extends React.PureComponent {
 

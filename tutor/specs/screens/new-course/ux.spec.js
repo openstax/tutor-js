@@ -131,13 +131,13 @@ describe('Course Builder UX Model', () => {
     ux = new BuilderUX();
     Offerings.get.mockImplementation((id) => (
       id == 1 ?
-        { appearance_code: 'biology', is_available: false } :
-        { appearance_code: 'phys_unknown', is_available: false }
+        { is_available: false, isLegacyBiology: true } :
+        { is_available: false, isLegacyBiology: false }
     ));
     ux.newCourse.offering_id = 1;
     expect(ux.stage).toEqual('bio1e_unavail');
     ux.newCourse.offering_id = 2;
-    expect(ux.stage).toEqual('offering_unavailable');
+    expect(ux.stage).toEqual('offering_unavail');
   });
 
   it('shows unavailable message for future bio', () => {

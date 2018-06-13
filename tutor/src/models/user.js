@@ -10,6 +10,7 @@ import Annotations from './annotations';
 import lazyGetter from 'shared/helpers/lazy-getter';
 import ViewedTourStat from './user/viewed-tour-stat';
 import { read_csrf } from '../helpers/dom';
+import Offerings from './course/offerings';
 
 @identifiedBy('user')
 export class User extends BaseModel {
@@ -106,7 +107,7 @@ export class User extends BaseModel {
     let tags = [];
     if (
       (Courses.active.isEmpty && this.isConfirmedFaculty) ||
-      Courses.active.teaching.nonPreview.any
+        Courses.active.teaching.nonPreview.any
     ) {
       tags.push('teacher');
     } else if (Courses.active.teaching.any) {
@@ -115,8 +116,8 @@ export class User extends BaseModel {
 
     if (
       Courses.teaching.any &&
-      this.hasPreviewed &&
-      Courses.teaching.nonPreview.isEmpty
+        this.hasPreviewed &&
+        Courses.teaching.nonPreview.isEmpty
     ) {
       // Teacher has previewed a course but has no active real course.
       // This means the teacher needs a reminder about how to create a course.
@@ -127,7 +128,9 @@ export class User extends BaseModel {
         tags.push('teacher-not-previewed');
       }
     }
-
+    if (Courses.teaching.legacyBiology.any && Offerings.biology2e.available.any) {
+      tags.push('biology2e-available');
+    }
     return tags;
   }
 

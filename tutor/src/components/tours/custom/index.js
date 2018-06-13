@@ -10,7 +10,7 @@ import HowToBuildYourReading    from './how-to-build-your-reading';
 import ForceScrollOnMount       from './force-scroll-on-mount';
 import TipsNowOrLater           from './tips-now-or-later';
 import NewEnrollmentLink        from './new-enrollment-link';
-
+import Biology2eAvailable       from './biology2e_available';
 import InstructorWelcomeToTutor     from './instructor-welcome-to-tutor';
 import StudentWelcomeToTutor        from './student-welcome-to-tutor';
 
@@ -27,7 +27,7 @@ export default {
   ForceScrollOnMount,
   TipsNowOrLater,
   NewEnrollmentLink,
-
+  Biology2eAvailable,
   InstructorWelcomeToTutor,
   StudentWelcomeToTutor,
 };
