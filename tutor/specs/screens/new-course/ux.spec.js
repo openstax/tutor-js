@@ -150,7 +150,7 @@ describe('Course Builder UX Model', () => {
     ux.goBackward();
     ux.newCourse.term.term = 'spring';
     ux.goForward();
-    expect(ux.stage).toEqual('new_or_copy');
+    expect(ux.stage).toEqual('name');
   });
 
   it('redirects to onlly college page if teacher isnt college', () => {

@@ -18,7 +18,9 @@ export default class Biology2eAvailable extends React.Component {
 
   @action.bound onCreate() {
     this.onClose();
-    this.context.router.history.push(Router.makePathname('createNewCourse'));
+    this.context.router.history.push(
+      Router.makePathname('createNewCourseFromOffering', { appearanceCode: 'biology_2e' })
+    );
   }
 
   render () {

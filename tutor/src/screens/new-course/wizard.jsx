@@ -76,7 +76,7 @@ export default class NewCourseWizard extends React.PureComponent {
             isLoading={this.ux.isBusy}
             message={this.ux.isBuilding ? 'Building your course' : 'Loading…'}
           />
-          {this.ux.isBusy ? undefined : <Component ux={this.ux} />}
+          {!this.ux.isBusy && <Component ux={this.ux} />}
         </div>
       </Panel>
     );

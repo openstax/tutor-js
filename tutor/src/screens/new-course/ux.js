@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy,
 } from 'shared/model';
 import {
-  filter, result, isEmpty, pick, values, every, get, delay,
+  invoke, filter, result, isEmpty, pick, values, every, get, delay, find,
 } from 'lodash';
 import { readonly } from 'core-decorators';
 import { when, observable, computed, action, observe } from 'mobx';
@@ -34,9 +34,10 @@ export default class CourseBuilderUX extends BaseModel {
   @observable course_type = 'tutor';
   @observable alternateOffering;
 
-  constructor(router) {
+  constructor(router = { route: { match: { params: {} } } }) {
     super();
     this.router = router;
+
     if (!User.isCollegeTeacher) {
       delay(() => // use delay in case we're called from a React constructor
         router.history.replace(
@@ -47,7 +48,7 @@ export default class CourseBuilderUX extends BaseModel {
       return;
     }
 
-    Offerings.fetch();
+    invoke(Offerings.fetch(), 'then', this.onOfferingsAvailable);
 
     observe(this, 'source', ({ newValue: newSource }) => {
       if (newSource) {
@@ -66,6 +67,14 @@ export default class CourseBuilderUX extends BaseModel {
     });
 
     this.currentStageIndex = this.firstStageIndex;
+  }
+
+  @action.bound onOfferingsAvailable() {
+    if (this.preselectedAppearanceCode) {
+      this.newCourse.offering = find(Offerings.available.array,
+        { appearance_code: this.preselectedAppearanceCode }
+      );
+    }
   }
 
   @computed get canNavigate() {
@@ -130,6 +139,11 @@ export default class CourseBuilderUX extends BaseModel {
   }
 
   @computed get offering() {
+    if (this.preselectedAppearanceCode) {
+      return find(Offerings.available.array,
+        { appearance_code: this.preselectedAppearanceCode }
+      );
+    }
     return this.newCourse.offering_id ? Offerings.get(this.newCourse.offering_id) : null;
   }
 
@@ -137,11 +151,16 @@ export default class CourseBuilderUX extends BaseModel {
     return Offerings.available.array;
   }
 
+  @computed get preselectedAppearanceCode() {
+    return this.router.route.match.params.appearanceCode;
+  }
+
   @computed get canSkipOffering() {
-    return Boolean(this.source);
+    return Boolean(this.source || this.preselectedAppearanceCode);
   }
 
   @computed get cloneSources() {
+    if (!this.offering) return [];
     return filter(Courses.tutor.nonPreview.teaching.array, c => c.offering_id == this.offering.id);
   }
 

@@ -13,9 +13,12 @@ describe('CreateCourse: entering details', function() {
 
   let ux;
   let courses;
+
   beforeEach(() => {
+    const route = { match: { params: { } } };
+
     courses = bootstrapCoursesList();
-    ux = new BuilderUX();
+    ux = new BuilderUX({ route });
   });
 
   it('is accessible', async () => {

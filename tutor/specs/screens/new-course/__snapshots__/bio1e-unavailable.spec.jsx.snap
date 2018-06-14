@@ -6,7 +6,7 @@ exports[`Bio2e unavailable matches snapshot 1`] = `
     Select Biology 2e to create a new course.  Use our 
     <a
       className="external-icon"
-      href="https://openstax.secure.force.com/help/articles/How_To/Where-can-I-find-book-information-and-the-additional-resources?search=biology%202e"
+      href="https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/biology_2e_conversion_guide_-_digital.pdf"
       tabIndex={0}
       target="_blank"
     >

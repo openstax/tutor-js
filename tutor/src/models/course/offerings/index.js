@@ -25,7 +25,7 @@ class OfferingsMap extends Map {
   }
 
   @computed get biology2e() {
-    return this.where(c => c.appearance_code == 'biology_2e');
+    return this.available.where(c => c.appearance_code == 'biology_2e');
   }
 
   // will be overwritten by API

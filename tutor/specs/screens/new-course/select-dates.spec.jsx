@@ -1,7 +1,9 @@
 import { React, SnapShot } from '../../components/helpers/component-testing';
+import Offerings from '../../../src/models/course/offerings';
 import SelectDates from '../../../src/screens/new-course/select-dates';
 import BuilderUX from '../../../src/screens/new-course/ux';
-import Offerings from '../../../src/models/course/offerings';
+
+Offerings.fetch = () => Promise.resolve();
 
 import OFFERINGS from '../../../api/offerings';
 jest.mock('../../../src/models/user', () => ({
@@ -12,9 +14,10 @@ const OFFERING_ID = '1';
 
 describe('CreateCourse: Selecting course dates', function() {
 
-  let ux;
+  let ux, route;
   beforeEach(() => {
-    ux = new BuilderUX();
+    route = { match: { params: { } } };
+    ux = new BuilderUX({ route });
     Offerings.onLoaded({ data: OFFERINGS });
     ux.newCourse.offering = Offerings.get(OFFERING_ID);
   });
