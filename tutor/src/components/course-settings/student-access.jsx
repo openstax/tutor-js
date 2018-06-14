@@ -88,7 +88,13 @@ export default class StudentAccess extends React.PureComponent {
     return (
       <div className="student-access direct-links-only">
         <p>
-          Send your students their section's direct links to enroll.
+          Interested in learning management system (LMS)
+          integration? <a target="_blank" className="external-icon" href="https://openstax.secure.force.com/help/articles/How_To/Instructors-integrating-OpenStax-Tutor-with-LMS?search=LMS">
+          Find out more.
+          </a>
+        </p>
+        <p>
+          If not, send your students their section’s direct links (below) to enroll.
         </p>
         {course.periods.active.map(p => <CopyOnFocusInput key={p.id} label={p.name} value={p.enrollment_url_with_details} />)}
       </div>

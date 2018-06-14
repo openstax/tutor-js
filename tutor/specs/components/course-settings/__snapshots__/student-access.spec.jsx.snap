@@ -576,7 +576,17 @@ exports[`Course Settings, student access renders with only link for non-lms enab
     className="student-access direct-links-only"
   >
     <p>
-      Send your students their section's direct links to enroll.
+      Interested in learning management system (LMS) integration? 
+      <a
+        className="external-icon"
+        href="https://openstax.secure.force.com/help/articles/How_To/Instructors-integrating-OpenStax-Tutor-with-LMS?search=LMS"
+        target="_blank"
+      >
+        Find out more.
+      </a>
+    </p>
+    <p>
+      If not, send your students their section’s direct links (below) to enroll.
     </p>
     <label
       className="copy-on-focus"
