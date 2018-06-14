@@ -58,7 +58,9 @@ export class CoursesMap extends Map {
 
   @computed get legacyBiology() {
     return this.where(c =>
-      c.appearance_code.includes('biology') && c.appearance_code !== 'biology_2e'
+      c.appearance_code &&
+      c.appearance_code.includes('biology') &&
+      c.appearance_code !== 'biology_2e'
     );
   }
 
