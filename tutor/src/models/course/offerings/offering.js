@@ -38,6 +38,7 @@ export default class Offering extends BaseModel {
     return Boolean(
       this.appearance_code.includes('biology') && this.appearance_code !== 'biology_2e'
     );
+
   }
 
 }

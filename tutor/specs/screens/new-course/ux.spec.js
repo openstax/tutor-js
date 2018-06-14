@@ -121,7 +121,10 @@ describe('Course Builder UX Model', () => {
   });
 
   it('goes to dashboard after canceling', () => {
-    ux.router = { history: { push: jest.fn() } };
+    ux.router = {
+      route: { match: { params: {} } },
+      history: { push: jest.fn() },
+    };
     const { onCancel } = ux;
     onCancel();
     expect(ux.router.history.push).toHaveBeenCalledWith('/dashboard');
@@ -142,7 +145,7 @@ describe('Course Builder UX Model', () => {
 
   it('shows unavailable message for future bio', () => {
     ux = new BuilderUX();
-    Offerings.get.mockImplementation(() => ({ appearance_code: 'college_biology' }));
+    Offerings.get.mockImplementation(() => ({ isLegacyBiology: true }));
     ux.goForward();
     ux.newCourse.term = { term: 'winter', year: 2018 };
     ux.goForward();
@@ -154,7 +157,10 @@ describe('Course Builder UX Model', () => {
   });
 
   it('redirects to onlly college page if teacher isnt college', () => {
-    const router = { history: { replace: jest.fn() } };
+    const router = {
+      route: { match: { params: {} } },
+      history: { replace: jest.fn() },
+    };
     User.isCollegeTeacher = false;
     ux = new BuilderUX(router);
     Router.makePathname.mockReturnValue('/only-teacher');
@@ -164,7 +170,10 @@ describe('Course Builder UX Model', () => {
 
   describe('after course is created', function() {
     beforeEach(() => {
-      ux.router = { history: { push: jest.fn() } };
+      ux.router = {
+        route: { match: { params: {} } },
+        history: { push: jest.fn() },
+      };
       ux.newCourseMock = { id: 42 };
       ux.newCourse.term = { year: 2018, term: 'spring' };
       ux.newCourse.save = jest.fn(() => ({ then: (c) => {

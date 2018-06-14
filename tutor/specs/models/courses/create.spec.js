@@ -51,7 +51,7 @@ describe('Course Builder UX Model', () => {
   it('identifies future bio2e', () => {
     expect(creator.isFutureBio2e).toBe(false);
     Offerings.get.mockImplementation(() => ({
-      appearance_code: 'biology',
+      isLegacyBiology: true,
     }));
     expect(creator.isFutureBio2e).toBe(false);
     Object.assign(creator.term, { term: 'winter', year: 2018 });
