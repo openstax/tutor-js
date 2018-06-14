@@ -58,6 +58,7 @@
     .panel-heading {
       font-size: 1.6rem;
       line-height: 2rem;
+      padding-bottom: 0;
       .course-offering-title {
         display: flex;
         .contents {
@@ -189,6 +190,17 @@
         background-color: #d7f1f6;
         font-size: 1.8rem;
         font-weight: 700;
+        padding-bottom: 40px;
+
+        .course-offering-title {
+          &::before {
+            display: none;
+          }
+
+          .title {
+            display: none;
+          }
+        }
       }
       .choices-listing {
         margin-top: 20px;

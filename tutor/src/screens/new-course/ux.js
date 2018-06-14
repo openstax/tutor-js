@@ -169,7 +169,7 @@ export default class CourseBuilderUX extends BaseModel {
   }
 
   @computed get hasOfferingTitle() {
-    return Boolean(this.currentStageIndex > 1 && this.offering);
+    return Boolean(this.currentStageIndex >= 1 && this.offering);
   }
 
   @computed get shouldSkip() {
