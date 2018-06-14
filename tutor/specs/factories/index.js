@@ -6,6 +6,7 @@ import Course from '../../src/models/course';
 import TutorExercise from '../../src/models/exercises/exercise';
 import Book from '../../src/models/reference-book';
 import TaskPlanStat from '../../src/models/task-plan/stats';
+import { Offering } from '../../src/models/course/offerings';
 import { CoursesMap } from '../../src/models/courses-map';
 import { EcosystemsMap, Ecosystem } from '../../src/models/ecosystems';
 import { ExercisesMap } from '../../src/models/exercises';
@@ -18,6 +19,7 @@ import './task-plan-stats';
 import './ecosystem';
 import './exercise';
 import './scores';
+import './offering';
 
 const Factories = {};
 
@@ -28,6 +30,7 @@ each({
   Ecosystem,
   TaskPlanStat,
   ResearchSurvey,
+  Offering,
 }, (Model, name) => {
   Factories[camelCase(name)] = (attrs = {}) => {
     const o = FactoryBot.create(name, attrs);

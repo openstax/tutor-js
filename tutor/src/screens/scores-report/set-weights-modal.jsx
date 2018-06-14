@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { snakeCase, map } from 'lodash';
 import { Modal, Button } from 'react-bootstrap';
 import { AsyncButton } from 'shared';
-import ExternalLink from '../../components/new-tab-link';
+import NewTabLink from '../../components/new-tab-link';
 import Icon from '../../components/icon';
 
 const WEIGHTS = [
@@ -42,12 +42,12 @@ export default class SetWeightsModal extends React.Component {
           <div>
             We recommend using homework scores and reading progress.
           </div>
-          <ExternalLink
-            to="https://openstax.org/blog/new-openstax-tutor-scoring-feature"
+          <NewTabLink
+            href="https://openstax.org/blog/new-openstax-tutor-scoring-feature"
             className="set-weights--external-link"
           >
-            See why <Icon type="external-link"/>
-          </ExternalLink>
+            See why
+          </NewTabLink>
           <div className='weights-controls--wrapper'>
             {
               map(WEIGHTS, (weightLabel) => {
@@ -70,13 +70,13 @@ export default class SetWeightsModal extends React.Component {
               })
             }
             <div className='weights-set'>
-            { !weights.isDefault?
-              <Button
-                onClick={weights.setDefaults}
-                bsStyle='link'
-              >Restore default</Button>
-              : null
-            }
+              { !weights.isDefault?
+                <Button
+                  onClick={weights.setDefaults}
+                  bsStyle='link'
+                  >Restore default</Button>
+                : null
+              }
             </div>
           </div>
           <p className={cn('weights-msg', {

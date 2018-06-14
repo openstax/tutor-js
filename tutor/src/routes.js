@@ -7,6 +7,11 @@ const getMyCourses = function() {
   return MyCourses;
 };
 
+const NewCourseWizard = asyncComponent(
+  () => System.import('./screens/new-course')
+);
+const getNewCourseWizard = () => NewCourseWizard;
+
 const TeacherDashboard = asyncComponent(
   () => System.import('./screens/teacher-dashboard')
 );
@@ -75,10 +80,6 @@ const getChangeStudentId = function() {
   return StudentId;
 };
 
-const getCreateCourse = function() {
-  const { default: Wizard } =  require('./components/new-course');
-  return Wizard;
-};
 
 const getTeacherReview = function() {
   const { default: TaskTeacherReview } = require('./components/task-teacher-review');
@@ -109,8 +110,9 @@ const getRoutes = (router) => {
     { path: '/dashboard', name: 'myCourses', renderer: getMyCourses },
     { path: '/only-college-instructors', name: 'onlyCollegeInstructors', renderer: () => OnlyCollege },
     { path: '/enroll/start/:enrollmentCode', name: 'createEnrollmentChange', renderer: getCreateEnrollmentChange },
-      { path: '/new-course/:sourceId?', name: 'createNewCourse', renderer: getCreateCourse },
-      {
+    { path: '/new-course/offering/:appearanceCode?', name: 'createNewCourseFromOffering', renderer: getNewCourseWizard },
+    { path: '/new-course/:sourceId?', name: 'createNewCourse', renderer: getNewCourseWizard },
+    {
       name: 'QADashboard',
       path: '/qa/:ecosystemId?/:chapterSection?',
       settings: { navBar: 'Plugable' },
@@ -163,7 +165,7 @@ const getRoutes = (router) => {
         { path: 'change-student-id', name: 'changeStudentId', renderer: getChangeStudentId },
       ],
 
-}, {
+    }, {
       path: '/accessibility-statement/:courseId?', name: 'accessibilityStatement', renderer: getAccessibilityStatement,
     }, {
       path: '/student-preview/:courseId?', name: 'studentPreview', renderer: getStudentPreview,

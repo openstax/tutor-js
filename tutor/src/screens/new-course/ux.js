@@ -2,17 +2,17 @@ import {
   BaseModel, identifiedBy,
 } from 'shared/model';
 import {
-  filter, result, isEmpty, pick, values, every, get, delay,
+  invoke, filter, result, isEmpty, pick, values, every, get, delay, find,
 } from 'lodash';
 import { readonly } from 'core-decorators';
 import { when, observable, computed, action, observe } from 'mobx';
-import Course from '../course';
-import Courses from '../courses-map';
+import Course from '../../models/course';
+import Courses from '../../models/courses-map';
 import TutorRouter from '../../helpers/router';
-import Offerings from './offerings';
-import CreateCourse from './create';
+import Offerings from '../../models/course/offerings';
+import CreateCourse from '../../models/course/create';
 import Router from '../../helpers/router';
-import User from '../user';
+import User from '../../models/user';
 
 @identifiedBy('course/builder-ux')
 export default class CourseBuilderUX extends BaseModel {
@@ -32,10 +32,12 @@ export default class CourseBuilderUX extends BaseModel {
 
   @readonly maximumSectionCount = 99;
   @observable course_type = 'tutor';
+  @observable alternateOffering;
 
-  constructor(router) {
+  constructor(router = { route: { match: { params: {} } } }) {
     super();
     this.router = router;
+
     if (!User.isCollegeTeacher) {
       delay(() => // use delay in case we're called from a React constructor
         router.history.replace(
@@ -46,7 +48,8 @@ export default class CourseBuilderUX extends BaseModel {
       return;
     }
 
-    Offerings.fetch();
+    invoke(Offerings.fetch(), 'then', this.onOfferingsAvailable);
+
     observe(this, 'source', ({ newValue: newSource }) => {
       if (newSource) {
         this.newCourse.cloned_from = newSource;
@@ -64,6 +67,14 @@ export default class CourseBuilderUX extends BaseModel {
     });
 
     this.currentStageIndex = this.firstStageIndex;
+  }
+
+  @action.bound onOfferingsAvailable() {
+    if (this.preselectedAppearanceCode) {
+      this.newCourse.offering = find(Offerings.available.array,
+        { appearance_code: this.preselectedAppearanceCode }
+      );
+    }
   }
 
   @computed get canNavigate() {
@@ -101,6 +112,14 @@ export default class CourseBuilderUX extends BaseModel {
   }
 
   @computed get stage() {
+    if (!this.isBusy && this.offering && this.offering.is_available === false) {
+      if (this.offering.isLegacyBiology) {
+        return 'bio1e_unavail';
+      } else {
+        return 'offering_unavail';
+      }
+    }
+
     if (this.currentStageIndex > 1 && this.newCourse.isFutureBio2e) {
       return 'bio2e_unavail';
     }
@@ -120,18 +139,28 @@ export default class CourseBuilderUX extends BaseModel {
   }
 
   @computed get offering() {
+    if (this.preselectedAppearanceCode) {
+      return find(Offerings.available.array,
+        { appearance_code: this.preselectedAppearanceCode }
+      );
+    }
     return this.newCourse.offering_id ? Offerings.get(this.newCourse.offering_id) : null;
   }
 
   @computed get validOfferings() {
-    return Offerings.tutor.array;
+    return Offerings.available.array;
+  }
+
+  @computed get preselectedAppearanceCode() {
+    return this.router.route.match.params.appearanceCode;
   }
 
   @computed get canSkipOffering() {
-    return Boolean(this.source);
+    return Boolean(this.source || this.preselectedAppearanceCode);
   }
 
   @computed get cloneSources() {
+    if (!this.offering) return [];
     return filter(Courses.tutor.nonPreview.teaching.array, c => c.offering_id == this.offering.id);
   }
 
@@ -140,7 +169,7 @@ export default class CourseBuilderUX extends BaseModel {
   }
 
   @computed get hasOfferingTitle() {
-    return Boolean(this.currentStageIndex > 1 && this.offering);
+    return Boolean(this.currentStageIndex >= 1 && this.offering);
   }
 
   @computed get shouldSkip() {
@@ -179,7 +208,9 @@ export default class CourseBuilderUX extends BaseModel {
 
   // skips
   skip_new_or_copy() {
-    return Boolean(this.source);
+    return Boolean(
+      this.source || isEmpty(this.cloneSources)
+    );
   }
 
   skip_cloned_from_id() {

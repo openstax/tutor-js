@@ -43,7 +43,7 @@ export default class Course extends BaseModel {
   @field name;
   @field is_lms_enabled;
 
-  @field appearance_code;
+  @field appearance_code = '';
   @field uuid;
   @field does_cost;
   @field book_pdf_url;
@@ -238,6 +238,7 @@ export default class Course extends BaseModel {
         }
       }
     }
+
     if (this.isStudent) { tags.push('student'); }
     return tags;
   }

@@ -24,6 +24,15 @@ describe('Offerings Model', function() {
     expect(Offerings.get('1').description).to.equal('Biology with Courseware');
   });
 
+  it('filters for biology2e', () => {
+    const offering = Offerings.get('1');
+    offering.appearance_code = 'biology_2e';
+    expect(Offerings.biology2e.array).toHaveLength(1);
+    expect(offering.isLegacyBiology).toBe(false);
+    offering.appearance_code = 'college_biology';
+    expect(offering.isLegacyBiology).toBe(true);
+  });
+
   it('limits CC to spring/summer 2017', () => {
     const offering = new OfferingsModel({
       id: 42,

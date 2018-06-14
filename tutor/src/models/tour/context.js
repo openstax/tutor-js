@@ -3,7 +3,7 @@ import {
 } from 'shared/model';
 import {
   find, isEmpty, intersection, compact, uniq, flatMap, map, get,
-  filter, delay, forEach, flatten, first, includes,
+  filter, delay, forEach, flatten, first,
 } from 'lodash';
 import { observe, action } from 'mobx';
 
@@ -118,9 +118,12 @@ export default class TourContext extends BaseModel {
   }
 
   @computed get allTours() {
-    return compact(flatten(this.tourIds.map(id => {
-        return this.courseIds.map(courseId => Tour.forIdentifier(id, {courseId}));
-      })
+    return compact(uniq(
+      flatten(this.tourIds.map(id =>
+        this.courseIds.map(courseId => Tour.forIdentifier(id, { courseId }))
+      )).concat(
+        this.tourIds.map(id => Tour.forIdentifier(id, {}))
+      )
     ));
   }
 

@@ -1,26 +1,14 @@
-import React from 'react';
-import { observer } from 'mobx-react';
+import { React, observer, cn, observable } from '../../helpers/react';
 import { Button, Panel } from 'react-bootstrap';
-import classnames from 'classnames';
 import { isFunction } from 'lodash';
-import { observable, computed } from 'mobx';
-
+import BackButton from './back-button';
 import CourseOfferingTitle from './offering-title';
-import OXFancyLoader from '../ox-fancy-loader';
+import OXFancyLoader from '../../components/ox-fancy-loader';
 
 import * as Steps from './steps';
 const componentFor = key => Steps[ key ];
 
-import CourseBuilderUX from '../../models/course/builder-ux';
-
-const BackButton = observer(({ ux }) => {
-  if (!ux.canGoBackward) { return null; }
-  return (
-    <Button onClick={ux.goBackward} className="back">
-      Back
-    </Button>
-  );
-});
+import BuilderUX from './ux';
 
 const Footer = observer(({ ux }) => {
   const Component = componentFor(ux.stage);
@@ -64,18 +52,14 @@ const Title = observer(({ ux }) => {
 @observer
 export default class NewCourseWizard extends React.PureComponent {
 
-  @observable ux = new CourseBuilderUX(this.context.router);
+  @observable ux = new BuilderUX(this.context.router);
 
   static contextTypes = {
     router: React.PropTypes.object,
   }
 
-  // @computed get isBusy() {
-  //   return Boolean(this.ux.isBusy || this.ux.newCourse.api.isPending);
-  // }
-
   render() {
-    const wizardClasses = classnames('new-course-wizard', this.ux.stage, {
+    const wizardClasses = cn('new-course-wizard', this.ux.stage, {
       'is-loading': this.ux.isBusy,
       'is-building': this.ux.isBuilding,
     });
@@ -85,13 +69,14 @@ export default class NewCourseWizard extends React.PureComponent {
       <Panel
         header={<Title ux={this.ux} />}
         className={wizardClasses}
-        footer={<Footer ux={this.ux} />}>
+        footer={<Footer ux={this.ux} />}
+      >
         <div className="panel-content">
           <OXFancyLoader
             isLoading={this.ux.isBusy}
             message={this.ux.isBuilding ? 'Building your course' : 'Loading…'}
           />
-          {this.isBusy ? undefined : <Component ux={this.ux} />}
+          {!this.ux.isBusy && <Component ux={this.ux} />}
         </div>
       </Panel>
     );

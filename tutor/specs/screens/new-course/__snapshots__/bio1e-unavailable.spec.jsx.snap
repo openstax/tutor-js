@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Bio2e unavailable matches snapshot 1`] = `
+<div>
+  <p>
+    Select Biology 2e to create a new course.  Use our 
+    <a
+      className="external-icon"
+      href="https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/biology_2e_conversion_guide_-_digital.pdf"
+      tabIndex={0}
+      target="_blank"
+    >
+      transition guide
+    </a>
+     to see chapter-by-chapter what was updated in Biology 2e.
+  </p>
+  <div
+    className="choices-listing list-group"
+  >
+    <div
+      aria-pressed={false}
+      className="list-group-item choice"
+      data-appearance="biology_2e"
+      onClick={[Function]}
+      role="button"
+    >
+      College Physics
+    </div>
+  </div>
+</div>
+`;

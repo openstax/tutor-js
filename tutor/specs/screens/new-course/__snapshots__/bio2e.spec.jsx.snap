@@ -38,7 +38,6 @@ exports[`Bio2e unavailable matches snapshot 1`] = `
     <a
       className="external-icon"
       href="https://openstax.org/details/books/biology-2e"
-      onClick={[Function]}
       tabIndex={0}
       target="_blank"
     >

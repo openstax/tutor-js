@@ -1,11 +1,9 @@
-import React from 'react';
-import { observer } from 'mobx-react';
-import { action } from 'mobx';
+import { React, action, observer } from '../../helpers/react';
 import { isEmpty } from 'lodash';
 import { Alert, Form, FormControl, FormGroup, InputGroup, ControlLabel } from 'react-bootstrap';
 import UserMenu from '../../models/user/menu';
-import BuilderUX from '../../models/course/builder-ux';
-import BestPracticesIcon from '../icons/best-practices';
+import BuilderUX from './ux';
+import BestPracticesIcon from '../../components/icons/best-practices';
 
 @observer
 export default class CourseNumbers extends React.PureComponent {

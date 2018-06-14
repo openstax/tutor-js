@@ -1,8 +1,7 @@
-import { React, SnapShot } from '../helpers/component-testing';
-
+import { React, SnapShot } from '../../components/helpers/component-testing';
 import Offerings from '../../../src/models/course/offerings';
 import OFFERINGS from '../../../api/offerings';
-import OfferingTitle from '../../../src/components/new-course/offering-title';
+import OfferingTitle from '../../../src/screens/new-course/offering-title';
 
 
 describe('CreateCourse: choosing offering', function() {

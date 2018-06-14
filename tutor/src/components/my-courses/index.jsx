@@ -53,9 +53,10 @@ export default class MyCourses extends React.PureComponent {
         id="my-courses"
         otherTours={[
           'my-courses-coach-migrate',
-          'my-courses-coach-no-migrate',
-          'explore-a-preview',
+          'biology2e-available',
           'create-a-course',
+          'my-courses-coach-no-migrate',
+          'explore-a-preview', // this must come last, there's no dismiss btn
         ]}
         className="my-courses"
       >

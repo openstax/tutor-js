@@ -1,6 +1,6 @@
-import { React, SnapShot } from '../helpers/component-testing';
-import SelectCourse from '../../../src/components/new-course/select-course';
-import BuilderUX from '../../../src/models/course/builder-ux';
+import { React, SnapShot } from '../../components/helpers/component-testing';
+import SelectCourse from '../../../src/screens/new-course/select-course';
+import BuilderUX from '../../../src/screens/new-course/ux';
 import Offerings from '../../../src/models/course/offerings';
 
 import OFFERINGS from '../../../api/offerings';

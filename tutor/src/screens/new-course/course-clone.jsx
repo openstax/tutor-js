@@ -1,11 +1,7 @@
-import React from 'react';
-import { observer } from 'mobx-react';
+import { React, action, observer } from '../../helpers/react';
 import { partial } from 'lodash';
-
-import { action } from 'mobx';
-import { Listing, Choice } from '../choices-listing';
-
-import BuilderUX from '../../models/course/builder-ux';
+import { Listing, Choice } from '../../components/choices-listing';
+import BuilderUX from './ux';
 
 @observer
 export default class CourseClone extends React.PureComponent {

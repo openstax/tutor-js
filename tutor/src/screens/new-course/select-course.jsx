@@ -1,16 +1,13 @@
-import React from 'react';
-
-import { Listing, Choice } from '../choices-listing';
-import { observer, propTypes as MobxPropTypes } from 'mobx-react';
-import { action } from 'mobx';
+import { React, observer, action, mobxPropTypes } from '../../helpers/react';
 import { partial } from 'lodash';
+import { Listing, Choice } from '../../components/choices-listing';
 
 @observer
 export default class SelectCourse extends React.PureComponent {
 
   static title = 'Which course are you teaching?';
   static propTypes = {
-    ux: MobxPropTypes.observableObject.isRequired,
+    ux: mobxPropTypes.observableObject.isRequired,
   }
 
   @action.bound

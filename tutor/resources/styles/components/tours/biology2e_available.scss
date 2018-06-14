@@ -1,0 +1,30 @@
+.joyride-tooltip.biology2e-available {
+  width: 540px;
+
+  .heading,
+  .body,
+  .footer {
+        padding: 40px;
+  }
+
+  .heading {
+        background-color: #d7f1f6;
+        font-size: 1.8rem;
+        color: $tutor-neutral-darker;
+        font-size: 16px;
+        font-weight: 700;
+        display: flex;
+        .tutor-icon {
+          margin-right: 20px;
+          font-size: 40px;
+          color: #26649b;
+        }
+  }
+  .body {
+    color: $tutor-neutral-darker;
+    padding-bottom: 0
+  }
+  .footer {
+    .btn { font-weight: normal; }
+  }
+}

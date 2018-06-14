@@ -355,9 +355,8 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
     className="footer"
   >
     <a
-      className="refund-policy"
-      href="/foo"
-      onClick={[Function]}
+      className="refund-policy external-icon"
+      href="https://openstax.secure.force.com/help/articles/FAQ/OpenStax-Tutor-Student-Refund-Policy"
       tabIndex={0}
       target="_blank"
     >
@@ -368,11 +367,10 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
     >
       Need help?
       <a
-        className=""
-        href="/foo"
-        onClick={[Function]}
+        className="external-icon"
         tabIndex={0}
         target="_blank"
+        to="https://openstax.secure.force.com/help"
       >
         Contact Support
       </a>
@@ -408,9 +406,8 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
     className="footer"
   >
     <a
-      className="refund-policy"
-      href="/foo"
-      onClick={[Function]}
+      className="refund-policy external-icon"
+      href="https://openstax.secure.force.com/help/articles/FAQ/OpenStax-Tutor-Student-Refund-Policy"
       tabIndex={0}
       target="_blank"
     >
@@ -421,11 +418,10 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
     >
       Need help?
       <a
-        className=""
-        href="/foo"
-        onClick={[Function]}
+        className="external-icon"
         tabIndex={0}
         target="_blank"
+        to="https://openstax.secure.force.com/help"
       >
         Contact Support
       </a>
