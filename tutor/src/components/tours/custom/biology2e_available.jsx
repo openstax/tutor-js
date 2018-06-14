@@ -4,12 +4,21 @@ import NewTabLink from '../../new-tab-link';
 import { Button } from 'react-bootstrap';
 import { action } from 'mobx';
 import Icon from '../../icon';
-import TutorLink from '../../link';
+import Router from '../../../helpers/router';
 
 export default class Biology2eAvailable extends React.Component {
 
+  static contextTypes = {
+    router: React.PropTypes.object,
+  };
+
   @action.bound onClose() {
     this.props.step.joyrideRef.next();
+  }
+
+  @action.bound onCreate() {
+    this.onClose();
+    this.context.router.history.push(Router.makePathname('createNewCourse'));
   }
 
   render () {
@@ -24,12 +33,12 @@ export default class Biology2eAvailable extends React.Component {
         </div>
         <div className="body">
           Biology 2e has new assessments and improved art and explanations.
-          Download <NewTabLink href="https://openstax.secure.force.com/help/articles/How_To/Where-can-I-find-book-information-and-the-additional-resources?search=biology%202e">a summary</NewTabLink> of the key changes from the first edition of Biology to Biology 2e.
+          Download <NewTabLink href="https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/biology_2e_conversion_guide_-_digital.pdf">a summary</NewTabLink> of the key changes from the first edition of Biology to Biology 2e.
         </div>
         <div className="footer">
-          <TutorLink to="createNewCourse" className="btn btn-primary">
+          <Button bsStyle="primary" onClick={this.onCreate}>
             Create a Biology 2e course
-          </TutorLink>
+          </Button>
           <Button onClick={this.onClose}>
             Close
           </Button>

@@ -62,7 +62,7 @@ export default class Biology1eUnavailable extends React.Component {
 
         <p>
           Select Biology 2e to create a new course.  Use
-          our <NewTabLink href="https://openstax.secure.force.com/help/articles/How_To/Where-can-I-find-book-information-and-the-additional-resources?search=biology%202e">transition guide</NewTabLink> to
+          our <NewTabLink href="https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/biology_2e_conversion_guide_-_digital.pdf">transition guide</NewTabLink> to
           see chapter-by-chapter what was updated in Biology 2e.
         </p>
 
