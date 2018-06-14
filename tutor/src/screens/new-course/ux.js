@@ -189,7 +189,9 @@ export default class CourseBuilderUX extends BaseModel {
 
   // skips
   skip_new_or_copy() {
-    return Boolean(this.source);
+    return Boolean(
+      this.source || isEmpty(this.cloneSources)
+    );
   }
 
   skip_cloned_from_id() {
