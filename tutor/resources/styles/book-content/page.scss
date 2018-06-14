@@ -35,8 +35,7 @@
 
     .page {
       @include tutor-book-content-body();
-      counter-reset: question;
-      counter-reset: figure;
+
       border: 1px solid $tutor-neutral-bright;
       background-color: $tutor-white;
       // shown if parent is-teacher present below.
