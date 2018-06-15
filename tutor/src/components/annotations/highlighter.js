@@ -39,8 +39,7 @@ const HIGHLIGHT_CSS = 'tutor-highlight',
  * @returns {boolean}
  */
 function haveSameColor(a, b) {
-  return a.dataset.timestamp === b.dataset.timestamp;
-  // return dom(a).color() === dom(b).color();
+  return dom(a).color() === dom(b).color();
 }
 
 /**
