@@ -142,6 +142,7 @@ export default class AnnotationWidget extends React.Component {
       message: 'Waiting for page to finish loading…',
     });
 
+
     this.getReferenceElements();
     invokeMap(this.annotationsForThisPage, 'selection.restore', highlighter);
     const initialize = () => {
@@ -151,14 +152,17 @@ export default class AnnotationWidget extends React.Component {
       }
       this.ux.statusMessage.hide();
     };
-    return imagesComplete({
-      body: this.props.windowImpl.document.querySelector('.book-content'),
-    }).then(initialize).catch(initialize);
-
+    const win = this.props.windowImpl;
+    win.MathJax.Hub.Register.MessageHook('End Process', () => {
+      imagesComplete({
+        body: win.document.querySelector('.book-content'),
+      }).then(initialize).catch(initialize);
+    });
   }
 
   getCurrentSelectionInfo() {
     const selection = document.getSelection();
+
     // can happen if dom was modified after mouseup
     if (!selection.anchorNode) { return { isCollapsed: true }; }
     const node = dom(selection.anchorNode);
@@ -237,6 +241,7 @@ export default class AnnotationWidget extends React.Component {
         this.activeAnnotation = null;
         this.ux.statusMessage.hide();
         this.savedSelection = selection;
+
       }
     }
   }
