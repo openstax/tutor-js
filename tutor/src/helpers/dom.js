@@ -1,7 +1,7 @@
+import { get } from 'lodash';
+
 /**
  * Utility functions to make DOM manipulation easier.
- * @param {Node|HTMLElement} [el] - base DOM element to manipulate
- * @returns {object}
  */
 
 const NODE_TYPE = {
@@ -169,7 +169,7 @@ export default function dom(el) {
      * @returns {CSSStyleDeclaration.backgroundColor}
      */
     color() {
-      return el.style.backgroundColor;
+      return get(el, 'style.backgroundColor');
     },
 
     /**
