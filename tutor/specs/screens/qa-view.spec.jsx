@@ -18,7 +18,7 @@ describe('QA Screen', function() {
   beforeEach(function() {
     const exercises = Factory.exercisesMap();
     const ecosystems = Factory.ecosystemsMap();
-
+    exercises.fetch = jest.fn()
     jest.spyOn(Book.prototype, 'fetch').mockImplementation(function() {
       this.onApiRequestComplete({
         data: [FactoryBot.create('Book', { id: this.id, type: 'biology' })],
@@ -55,4 +55,14 @@ describe('QA Screen', function() {
     qa.unmount();
   });
 
+  it('loads exercises', () => {
+    const qa = mount(<MemoryRouter><QA {...props} /></MemoryRouter>);
+    expect(ux.exercisesMap.fetch).toHaveBeenCalledWith({
+      book: ux.book,
+      course: undefined,
+      limit: false,
+      page_ids: [ux.page.id],
+    });
+    qa.unmount();
+  });
 });
