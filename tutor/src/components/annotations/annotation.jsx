@@ -178,8 +178,14 @@ export default class AnnotationWidget extends React.Component {
           return { isCollapsed, splitParts: true };
         }
 
+        const frag = selection.getRangeAt(0).cloneContents();
+        invokeMap(frag.querySelectorAll('.MJX_Assistive_MathML'), 'remove');
+        invokeMap(frag.querySelectorAll('math'), 'remove');
+        invokeMap(frag.querySelectorAll('script'), 'remove');
+
         return Object.assign(serializeSelection.save(re), {
           isCollapsed,
+          content: frag.textContent,
           referenceElementId: re.id,
           rect: getSelectionRect(this.props.windowImpl, selection),
         });

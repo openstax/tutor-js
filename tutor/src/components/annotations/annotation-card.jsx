@@ -1,15 +1,12 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { observable, action, computed } from 'mobx';
+import { observable, action } from 'mobx';
 import { Label } from 'react-bootstrap';
 import { autobind } from 'core-decorators';
-import { ArbitraryHtmlAndMath } from 'shared'
+import { ArbitraryHtmlAndMath } from 'shared';
 import Annotation from '../../models/annotations/annotation';
 import Icon from '../icon';
 import SuretyGuard from 'shared/components/surety-guard';
-var htmlparser = require('htmlparser2');
-var serializer = require('dom-serializer');
-
 
 @observer
 class EditBox extends React.Component {
@@ -54,19 +51,6 @@ class EditBox extends React.Component {
   }
 }
 
-function removeMath(dom) {
-  return dom.filter(function (node) {
-    if (node.children) {
-      node.children = removeMath(node.children);
-    }
-    //console.log(node)
-    if ('tag' === node.type && 'math' === node.name) {
-      return false;
-    }
-
-    return true;
-  });
-}
 
 @observer
 export default class AnnotationCard extends React.Component {
@@ -111,12 +95,6 @@ export default class AnnotationCard extends React.Component {
     window.open(url, '_blank');
   }
 
-  @computed get content() {
-    var dom = new htmlparser.parseDOM(this.props.annotation.selection.content);
-    const content = serializer(removeMath(dom));
-    return content;
-  }
-
   render() {
     const { annotation } = this.props;
 
@@ -125,7 +103,7 @@ export default class AnnotationCard extends React.Component {
         <div className="annotation-body">
           <div className="annotation-content">
             <blockquote className="selected-text">
-              <ArbitraryHtmlAndMath html={this.content} />
+              <ArbitraryHtmlAndMath html={this.props.annotation.selection.content} />
             </blockquote>
             {this.editing ? (
                <EditBox
