@@ -161,7 +161,13 @@ exports[`Annotations renders and matches snapshot 1`] = `
                     <blockquote
                       className="selected-text"
                     >
-                      ng world, elements are found in different proportions, and some elements common to living organisms are relatively rare on the earth as a whole, as shown in See Table. For examp
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "ng world, elements are found in different proportions, and some elements common to living organisms are relatively rare on the earth as a whole, as shown in See Table. For examp",
+                          }
+                        }
+                      />
                     </blockquote>
                     <div
                       className="plain-text"
@@ -220,10 +226,16 @@ exports[`Annotations renders and matches snapshot 1`] = `
                     <blockquote
                       className="selected-text"
                     >
-                      Hydrogen (H)
+                      <div
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Hydrogen (H)
                 10%
                 trace
-                0.1%
+                0.1%",
+                          }
+                        }
+                      />
                     </blockquote>
                     <div
                       className="plain-text"

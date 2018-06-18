@@ -153,11 +153,16 @@ export default class AnnotationWidget extends React.Component {
       this.ux.statusMessage.hide();
     };
     const win = this.props.windowImpl;
-    win.MathJax.Hub.Register.MessageHook('End Process', () => {
+    const runImagesComplete = () => {
       imagesComplete({
         body: win.document.querySelector('.book-content'),
       }).then(initialize).catch(initialize);
-    });
+    };
+    if (win.MathJax) {
+      win.MathJax.Hub.Register.MessageHook('End Process', runImagesComplete);
+    } else {
+      runImagesComplete();
+    }
   }
 
   getCurrentSelectionInfo() {

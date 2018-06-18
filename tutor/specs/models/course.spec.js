@@ -2,12 +2,14 @@ import UiSettings from 'shared/model/ui-settings';
 import { map, cloneDeep, shuffle } from 'lodash';
 import Courses from '../../src/models/courses-map';
 import Course from '../../src/models/course';
+import Payments from '../../src/models/payments';
 import PH from '../../src/helpers/period';
 import FeatureFlags from '../../src/models/feature_flags';
 import { autorun } from 'mobx';
 import { bootstrapCoursesList } from '../courses-test-data';
 
 import COURSE from '../../api/courses/1.json';
+jest.mock('../../src/models/payments');
 jest.mock('../../src/models/feature_flags');
 jest.mock('shared/model/ui-settings', () => ({
   set: jest.fn(),
@@ -146,7 +148,22 @@ describe('Course Model', () => {
     expect(course.canAnnotate).toBe(false);
     FeatureFlags.is_highlighting_allowed = true;
     expect(course.canAnnotate).toBe(true);
-    course.appearance_code = 'hs_physics_something_or_other';
-    expect(course.canAnnotate).toBe(false);
+  });
+  it('calculates payments needed', () => {
+    const course = Courses.get(1);
+    expect(course.needsPayment).toBe(false);
+    course.does_cost = true;
+    expect(course.needsPayment).toBe(false);
+    Payments.config.is_enabled = true;
+    expect(course.needsPayment).toBe(true);
+  });
+  it('returns savable attrs', () => {
+    const course = Courses.get(1);
+    expect(course.save()).toMatchObject({
+      id: course.id,
+      data: {
+        name: course.name,
+      },
+    });
   });
 });
