@@ -5,16 +5,19 @@ import { Listing, Choice } from '../../components/choices-listing';
 import { find } from 'lodash';
 import NewTabLink from '../../components/new-tab-link';
 import BuilderUX from './ux';
-
+import Icon from '../../components/icon';
 
 @observer
 export default class Biology1eUnavailable extends React.Component {
 
   static title = (
-    <div>
-      OpenStax now uses Bio 2e!<br />
-      It is no longer possible to copy first
-      edition Biology courses
+    <div className="heading">
+      <Icon type="bullhorn" />
+      <div className="notice">
+        OpenStax now uses Bio 2e!<br />
+        It is no longer possible to copy first
+        edition Biology courses
+      </div>
     </div>
   );
 

@@ -1,0 +1,13 @@
+.mini-notice {
+  &-wrapper {
+    .joyride-overlay {
+      height: 100% !important;
+    }
+  }
+  .joyride-tooltip__button {
+    display: none;
+  }
+  .joyride-tooltip__close {
+    display: none;
+  }
+}

@@ -1,5 +1,5 @@
 $openstax-book-white: rgb(255, 255, 255);
-$openstax-book-gray: rgb(94, 96, 98);
+$openstax-book-gray: rgb(86, 87, 89);
 $openstax-book-darker-green: darken($tutor-secondary, 8%); //rgb(119, 175, 66);
 $openstax-book-green: $tutor-secondary;
 $openstax-book-blue: $tutor-tertiary;
@@ -73,10 +73,10 @@ $openstax-books: (
   ),
   biology_2e: (
     primary    : $openstax-book-white,
-    secondary  : $openstax-book-green,
+    secondary  : $openstax-book-gray,
     text       : $openstax-book-text-on-dark-labels,
-    tertiary   : rgb(35, 48, 102), // dark blue
-    quaternary : rgb(244, 208, 25), // yellow
+    tertiary   : $openstax-book-gray,
+    quaternary : $openstax-book-green,
     accent     : $openstax-book-darker-green-accent,
     highlight  : rgb(255, 255, 187), // pale yellow
   ),

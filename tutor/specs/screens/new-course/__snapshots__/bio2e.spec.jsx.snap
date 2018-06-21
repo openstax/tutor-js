@@ -1,6 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Bio2e unavailable matches snapshot 1`] = `
+exports[`Bio2e unavailable matches snapshot 1`] = `<Biology 2e will be available July 20, 2018 />`;
+
+exports[`Bio2e unavailable matches snapshot 2`] = `
 <div>
   <p
     className="book-covers"
