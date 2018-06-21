@@ -91,10 +91,15 @@ export default class CourseCreate extends BaseModel {
   }
 
   // used for the bio2e switchover
-  @computed get isFutureBio2e() {
+  @computed get isFutureLegacyBio() {
     return Boolean(
-      this.offering && this.offering.isLegacyBiology &&
-        this.term && this.term.year == 2018 && !['spring', 'summer'].includes(this.term.term)
+      this.offering &&
+        this.offering.isLegacyBiology && (
+          this.term && (
+            this.term.year !== 2018 ||
+              !['spring', 'summer'].includes(this.term.term)
+          )
+        )
     );
   }
 

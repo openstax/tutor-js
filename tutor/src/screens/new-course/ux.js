@@ -120,7 +120,7 @@ export default class CourseBuilderUX extends BaseModel {
       }
     }
 
-    if (this.currentStageIndex > 1 && this.newCourse.isFutureBio2e) {
+    if (this.currentStageIndex > 1 && this.newCourse.isFutureLegacyBio) {
       return 'bio2e_unavail';
     }
     return this.stages[this.currentStageIndex];
