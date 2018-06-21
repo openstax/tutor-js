@@ -13,6 +13,10 @@ export default class Biology2eAvailable extends React.Component {
     const ttprops = omit(this.props, 'step', 'buttons', 'children');
     const { step } = this.props;
     step.text = this.props.children;
+    step.style.hole = {
+      maxWidth: 0,
+      maxHeight: 0
+    };
 
     return (
       <Tooltip
