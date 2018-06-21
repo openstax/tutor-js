@@ -16,7 +16,7 @@
   "id": "biology2e-available",
   "autoplay": true,
   "standalone": true,
-  "showOverlay": false,
+  "showOverlay": true,
   "audience_tags": [ "biology2e-available" ],
   "steps": [
     {
