@@ -80,19 +80,19 @@ export class ExercisesMap extends Map {
     return false;
   }
 
-  ensureExercisesLoaded({ book, exercise_ids }) {
+  ensureExercisesLoaded({ book, course, exercise_ids, limit }) {
     const unFetchedExerciseIds = filter(exercise_ids, exId => !this.get(exId));
     if (!isEmpty(unFetchedExerciseIds)) {
-      this.fetch({ book, exercise_ids: unFetchedExerciseIds });
+      this.fetch({ book, course, exercise_ids: unFetchedExerciseIds, limit });
     }
   }
 
-  ensurePagesLoaded({ book, page_ids }) {
+  ensurePagesLoaded({ book, course, page_ids, limit }) {
     const unFetchedPageIds = filter(page_ids, page_id =>
       !this.isFetching({ page_id }) && !this.hasFetched({ page_id })
     );
     if (!isEmpty(unFetchedPageIds)) {
-      this.fetch({ book, page_ids: unFetchedPageIds });
+      this.fetch({ book, course, page_ids: unFetchedPageIds, limit });
     }
   }
 

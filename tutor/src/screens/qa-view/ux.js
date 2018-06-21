@@ -40,7 +40,9 @@ export default class QaScreenUX extends BookUX {
         this.ecosystemId = this.ecosystem.id;
       }
       if (this.book && this.page) {
-        this.exercisesMap.ensureLoaded({ book: this.book, page_ids: [this.page.id] });
+        this.exercisesMap.ensurePagesLoaded({
+          book: this.book, page_ids: [this.page.id], limit: false,
+        });
       }
     });
   }
