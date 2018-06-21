@@ -6,6 +6,7 @@
 @import './tours/new-enrollment-link';
 @import './tours/biology2e_available';
 @import './tours/centered-wheel';
+@import './tours/mini-notice';
 @import './tours/joyride';
 
 .joyride-tooltip {
@@ -18,14 +19,7 @@
     margin-top: -26px;
   }
 
-  &.mini-notice {
-    .joyride-tooltip__button {
-      display: none;
-    }
-    .joyride-tooltip__close {
-      display: none;
-    }
-  }
+
 }
 
 .openstax-exercise-preview.has-actions .panel-body.on-demo-hover .controls-overlay {

@@ -1,7 +1,7 @@
 import React from 'react';
 import cn from 'classnames';
 import { omit } from 'lodash';
-import { Tooltip }  from 'react-joyride';
+import CenteredWheel          from './centered-wheel';
 
 export default class Biology2eAvailable extends React.Component {
 
@@ -19,7 +19,7 @@ export default class Biology2eAvailable extends React.Component {
     };
 
     return (
-      <Tooltip
+      <CenteredWheel
         {...ttprops}
         step={step}
         disableOverlay={true}
