@@ -191,7 +191,15 @@
         font-size: 1.8rem;
         font-weight: 700;
         padding-bottom: 40px;
+        .heading {
+          display: flex;
+          .tutor-icon {
+            margin-right: 20px;
+            font-size: 40px;
+            color: #26649b;
+          }
 
+        }
         .course-offering-title {
           &::before {
             display: none;
