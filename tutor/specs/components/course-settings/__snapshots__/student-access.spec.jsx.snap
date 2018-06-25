@@ -579,7 +579,7 @@ exports[`Course Settings, student access renders with only link for non-lms enab
       Interested in learning management system (LMS) integration? 
       <a
         className="external-icon"
-        href="https://openstax.secure.force.com/help/articles/How_To/Instructors-integrating-OpenStax-Tutor-with-LMS?search=LMS"
+        href="https://openstax.secure.force.com/help/articles/How_To/LMS-integration-for-OpenStax-Tutor-Beta"
         target="_blank"
       >
         Find out more.
