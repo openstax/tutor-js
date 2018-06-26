@@ -375,7 +375,9 @@ exports[`Course Settings, student access can switch to lms 1`] = `
               className="blackboard"
             >
               <a
-                href="https://openstax.secure.force.com/help/articles/How_To/Integrating-OpenStax-Tutor-into-Blackboard-LMS"
+                className="external-icon"
+                href="https://openstax.secure.force.com/help/articles/How_To/Blackboard-LMS-integration-for-OpenStax-Tutor-Beta"
+                tabIndex={0}
                 target="_blank"
               >
                 <i

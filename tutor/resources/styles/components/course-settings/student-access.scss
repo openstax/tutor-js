@@ -101,7 +101,12 @@
   .lms-access {
     .btn-group {
       display: flex;
-      .btn { flex: 1; }
+      .btn {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
       margin-bottom: 15px;
     }
     @include student-access-rows-of-inputs();
