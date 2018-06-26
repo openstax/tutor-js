@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, ToggleButtonGroup, ToggleButton, Button } from 'react-bootstrap';
 import { observable, computed, action } from 'mobx';
 import { observer } from 'mobx-react';
-
+import Link from '../new-tab-link';
 import LoadingScreen from '../loading-screen';
 import Course from '../../models/course';
 import CopyOnFocusInput from '../copy-on-focus-input';
@@ -11,9 +11,9 @@ import Icon from '../icon';
 
 const blackboard = ({ lms }) => (
   <div className="blackboard">
-    <a href="https://openstax.secure.force.com/help/articles/How_To/Integrating-OpenStax-Tutor-into-Blackboard-LMS" target="_blank">
+    <Link href="https://openstax.secure.force.com/help/articles/How_To/Blackboard-LMS-integration-for-OpenStax-Tutor-Beta">
       <Icon type="info-circle" /> How do I integrate with Blackboard?
-    </a>
+    </Link>
     <CopyOnFocusInput label="URL" value={lms.launch_url} />
     <CopyOnFocusInput label="Key" value={lms.key} />
     <CopyOnFocusInput label="Secret" value={lms.secret} />
@@ -22,9 +22,9 @@ const blackboard = ({ lms }) => (
 
 const canvas = ({ lms }) => (
   <div className="canvas">
-    <a href="https://openstax.secure.force.com/help/articles/How_To/Integrating-OpenStax-Tutor-into-Canvas-LMS" target="_blank">
+    <Link href="https://openstax.secure.force.com/help/articles/How_To/Canvas-LMS-integration-for-OpenStax-Tutor-Beta">
       <Icon type="info-circle" /> How do I integrate with Canvas?
-    </a>
+    </Link>
     <CopyOnFocusInput label="Consumer key" value={lms.key} />
     <CopyOnFocusInput label="Shared secret" value={lms.secret} />
     <CopyOnFocusInput label="Configuration URL" value={lms.configuration_url} />
@@ -33,9 +33,9 @@ const canvas = ({ lms }) => (
 
 const moodle = ({ lms }) => (
   <div className="moodle">
-    <a href="https://openstax.secure.force.com/help/articles/How_To/How-can-I-integrate-OpenStax-Tutor-with-Moodle" target="_blank">
+    <Link href="https://openstax.secure.force.com/help/articles/How_To/Moodle-LMS-integration-for-OpenStax-Tutor-Beta">
       <Icon type="info-circle" /> How do I integrate with Moodle?
-    </a>
+    </Link>
     <CopyOnFocusInput label="Secure tool URL" value={lms.launch_url} />
     <CopyOnFocusInput label="Consumer key" value={lms.key} />
     <CopyOnFocusInput label="Shared secret" value={lms.secret} />
@@ -44,9 +44,9 @@ const moodle = ({ lms }) => (
 
 const d2l = ({ lms }) => (
   <div className="d2l">
-    <a href="https://openstax.secure.force.com/help/articles/FAQ/How-can-I-integrate-OpenStax-Tutor-with-Desire2Learn" target="_blank">
+    <Link href="https://openstax.secure.force.com/help/articles/FAQ/Desire2Learn-LMS-integration-for-OpenStax-Tutor-Beta">
       <Icon type="info-circle" /> How do I integrate with Desire2Learn?
-    </a>
+    </Link>
     <CopyOnFocusInput label="URL" value={lms.launch_url} />
     <CopyOnFocusInput label="Key" value={lms.key} />
     <CopyOnFocusInput label="Secret" value={lms.secret} />
@@ -55,9 +55,9 @@ const d2l = ({ lms }) => (
 
 const sakai = ({ lms }) => (
   <div className="sakai">
-    <a href="https://openstax.secure.force.com/help/articles/FAQ/How-can-I-integrate-OpenStax-Tutor-with-Sakai" target="_blank">
+    <Link href="https://openstax.secure.force.com/help/articles/FAQ/Sakai-LMS-integration-for-OpenStax-Tutor-Beta">
       <Icon type="info-circle" /> How do I integrate with Sakai?
-    </a>
+    </Link>
     <CopyOnFocusInput label="Launch URL" value={lms.launch_url} />
     <CopyOnFocusInput label="Launch key" value={lms.key} />
     <CopyOnFocusInput label="Launch secret" value={lms.secret} />
