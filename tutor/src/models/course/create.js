@@ -75,9 +75,13 @@ export default class CourseCreate extends BaseModel {
     this.num_sections = course.periods.length;
   }
 
+  get cloned_from_offering() {
+    return this.cloned_from && Offerings.get(this.cloned_from.offering_id);
+  }
+
   @computed get canCloneCourse() {
     return Boolean(
-      this.cloned_from_id && this.offering && this.offering.is_available
+      this.cloned_from_offering && this.cloned_from_offering.is_available
     );
   }
 
