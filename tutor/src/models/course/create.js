@@ -20,7 +20,7 @@ export default class CourseCreate extends BaseModel {
   @field is_preview = false;
   @field time_zone = 'Central Time (US & Canada)';
   @session new_or_copy = 'new';
-  @field cloned_from_id = false;
+  @session cloned_from_id = false;
   @field copy_question_library = true;
 
   @observable createdCourse;
@@ -75,14 +75,23 @@ export default class CourseCreate extends BaseModel {
     this.num_sections = course.periods.length;
   }
 
+  @computed get canCloneCourse() {
+    return Boolean(
+      this.cloned_from_id && this.offering && this.offering.is_available
+    );
+  }
+
   save() {
     const data = extend(omit(this.serialize(), 'term'), {
       term: this.term.term,
       year: this.term.year,
     });
+    if (this.canCloneCourse) {
+      data.cloned_from_id = this.cloned_from_id;
+    }
     return {
       data,
-      url: this.cloned_from_id ? `/courses/${this.cloned_from_id}/clone` : '/courses',
+      url: this.canCloneCourse ? `/courses/${this.cloned_from_id}/clone` : '/courses',
     };
   }
 

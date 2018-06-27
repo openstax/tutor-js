@@ -29,15 +29,6 @@ describe('Course Builder UX Model', () => {
     expect(saved.data).toMatchSnapshot();
   });
 
-  it('clones a course', () => {
-    const course = bootstrapCoursesList().get('2');
-    creator.cloned_from = course;
-    expect(creator.cloned_from_id).toBe(course.id);
-    const saved = creator.save();
-    expect(saved.url).toEqual('/courses/2/clone');
-    expect(saved.data).toMatchSnapshot();
-  });
-
   it('validates ranges', () => {
     expect(creator.error).toBeNull();
     creator.setValue('estimated_student_count', 2000);
@@ -60,6 +51,29 @@ describe('Course Builder UX Model', () => {
     expect(creator.isFutureLegacyBio).toBe(true);
     Offerings.get.mockImplementation(() => ({ isLegacyBiology: false }));
     expect(creator.isFutureLegacyBio).toBe(false);
+  });
+
+  describe('cloning a course', () => {
+    const prepCourseClone = () => {
+      const course = bootstrapCoursesList().get('2');
+      creator.cloned_from = course;
+      expect(creator.cloned_from_id).toBe(course.id);
+      return creator.save();
+    };
+
+    it('clones a course', () => {
+      Offerings.get.mockImplementation(() => ({ is_available: true }));
+      const saved = prepCourseClone();
+      expect(saved.url).toEqual('/courses/2/clone');
+      expect(saved.data).toMatchSnapshot();
+    });
+
+    it('does not clone if the course offering is no longer available', () => {
+      Offerings.get.mockImplementation(() => ({ is_available: false }));
+      const saved = prepCourseClone();
+      expect(saved.url).toEqual('/courses');
+      expect(saved.data.cloned_from_id).toBeUndefined();
+    });
   });
 
 });
