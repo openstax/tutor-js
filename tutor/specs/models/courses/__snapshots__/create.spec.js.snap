@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Course Builder UX Model clones a course 1`] = `
+exports[`Course Builder UX Model cloning a course clones a course 1`] = `
 Object {
   "cloned_from_id": "2",
   "copy_question_library": true,
@@ -17,7 +17,6 @@ Object {
 
 exports[`Course Builder UX Model creates a course 1`] = `
 Object {
-  "cloned_from_id": false,
   "copy_question_library": true,
   "estimated_student_count": 100,
   "is_preview": false,
