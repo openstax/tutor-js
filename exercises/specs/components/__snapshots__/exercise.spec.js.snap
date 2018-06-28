@@ -1046,6 +1046,56 @@ exports[`Exercises component renders and matches snapshot 1`] = `
             className="attachments"
           >
             <div
+              className="attachment with-image"
+            >
+              <img
+                className="preview"
+                src={undefined}
+              />
+              <div
+                className="controls"
+              >
+                <button
+                  className="btn btn-default"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Delete
+                </button>
+              </div>
+              <textarea
+                className="copypaste"
+                readOnly={true}
+                value="<img src=\\"undefined\\" alt=\\"\\">"
+              />
+            </div>
+            <div
+              className="attachment with-image"
+            >
+              <img
+                className="preview"
+                src={undefined}
+              />
+              <div
+                className="controls"
+              >
+                <button
+                  className="btn btn-default"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Delete
+                </button>
+              </div>
+              <textarea
+                className="copypaste"
+                readOnly={true}
+                value="<img src=\\"undefined\\" alt=\\"\\">"
+              />
+            </div>
+            <div
               className="attachment"
             >
               <div
@@ -2438,6 +2488,56 @@ exports[`Exercises component renders with intro and a multiple questions when ex
           <div
             className="attachments"
           >
+            <div
+              className="attachment with-image"
+            >
+              <img
+                className="preview"
+                src={undefined}
+              />
+              <div
+                className="controls"
+              >
+                <button
+                  className="btn btn-default"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Delete
+                </button>
+              </div>
+              <textarea
+                className="copypaste"
+                readOnly={true}
+                value="<img src=\\"undefined\\" alt=\\"\\">"
+              />
+            </div>
+            <div
+              className="attachment with-image"
+            >
+              <img
+                className="preview"
+                src={undefined}
+              />
+              <div
+                className="controls"
+              >
+                <button
+                  className="btn btn-default"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Delete
+                </button>
+              </div>
+              <textarea
+                className="copypaste"
+                readOnly={true}
+                value="<img src=\\"undefined\\" alt=\\"\\">"
+              />
+            </div>
             <div
               className="attachment"
             >
