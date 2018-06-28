@@ -2,7 +2,7 @@ React = require 'react'
 {Button} = require 'react-bootstrap'
 {TaskStepStore} = require '../../flux/task-step'
 {TaskPanelStore} = require '../../flux/task-panel'
-{ArbitraryHtmlAndMath, ChapterSectionMixin} = require 'shared'
+{AsyncButton, ArbitraryHtmlAndMath, ChapterSectionMixin} = require 'shared'
 CourseData = require '../../helpers/course-data'
 {BookContentMixin, LinkContentMixin} = require '../book-content-mixin'
 RelatedContent = require '../related-content'
@@ -28,12 +28,24 @@ ReadingStepContent = React.createClass
 
   shouldExcludeFrame: ->
     @props.stepType is 'interactive'
+  getInitialState: ->
+    { isContinuing: false }
+
+  onContinue: ->
+    @setState(isContinuing: true)
+    @props.onContinue()
 
   renderNextStepLink: ->
     return null unless @props.onContinue
-    <Button bsStyle="primary" onClick={@props.onContinue}>
+
+    <AsyncButton
+      bsStyle="primary"
+      isWaiting={@state.isContinuing}
+      waitingText="Loading…"
+      onClick={this.onContinue}
+    >
       Continue
-    </Button>
+    </AsyncButton>
 
   shouldOpenNewTab: -> true
 
