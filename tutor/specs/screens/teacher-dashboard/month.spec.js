@@ -11,9 +11,8 @@ describe('CourseCalendar Month display', () => {
   beforeEach(() => {
     course = Factory.course({ is_teacher: true });
     Factory.taskPlans({ course });
-
     props = {
-      date: moment(),
+      date: course.taskPlans.array[0].duration.end(),
       course: course,
       termEnd: moment().add(2, 'month'),
       termStart: moment().subtract(3, 'month'),
