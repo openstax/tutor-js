@@ -45,7 +45,7 @@ const start = function() {
 const CSRF_TOKEN = get(document.head.querySelector('meta[name=csrf-token]'), 'content');
 
 Exercise.prototype.uploadImage = function(image, cb) {
-  const url = `/api/exercises/${this.number}@draft/attachments`;
+  const url = `/api/exercises/${this.uid}/attachments`;
   const xhr = new XMLHttpRequest();
   xhr.addEventListener('load', req => {
     if (req.currentTarget.status === 201) {
