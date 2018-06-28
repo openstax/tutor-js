@@ -33,6 +33,13 @@ const start = function() {
     onFail: 'onError',
   });
 
+  connectModelUpdate(Exercise, 'deleteAttachment', {
+    method: 'DELETE',
+    pattern: 'exercises/{exerciseId}/attachments',
+    onSuccess: 'onAttachmentDelete',
+    onFail: 'onError',
+  });
+
 };
 
 const CSRF_TOKEN = get(document.head.querySelector('meta[name=csrf-token]'), 'content');

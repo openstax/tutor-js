@@ -21,9 +21,7 @@ class Attachment extends React.Component {
   };
 
   @action.bound deleteImage() {
-    this.props.exercise.attachments.remove(
-      this.props.attachment
-    );
+    this.props.exercise.deleteAttachment(this.props.attachment);
   }
 
   render() {

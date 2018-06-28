@@ -1,4 +1,5 @@
 import { Exercise, ExercisesMap } from '../../src/models/exercises';
+import { FactoryBot } from '../factories';
 
 describe('Exercises map', () => {
 
@@ -14,6 +15,14 @@ describe('Exercises map', () => {
     expect(map.get(1)).toMatchObject({
       number: 1, version: 2,
     });
+  });
+
+  it('deletes attachments', () => {
+    const exercise = new Exercise(FactoryBot.create('Exercise'));
+    const [ attachment ] = exercise.attachments;
+    expect(exercise.attachments).toContain(attachment);
+    exercise.deleteAttachment(attachment);
+    expect(exercise.attachments).not.toContain(attachment);
   });
 
 });
