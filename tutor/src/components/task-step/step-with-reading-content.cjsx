@@ -31,9 +31,14 @@ ReadingStepContent = React.createClass
   getInitialState: ->
     { isContinuing: false }
 
+  componentDidMount: -> @isMounted = true
+  componentWillUnmount: -> @isMounted = false
+
   onContinue: ->
     @setState(isContinuing: true)
-    @props.onContinue()
+    @props.onContinue().then(=>
+      @setState(isContinuing: false) if @isMounted
+    )
 
   renderNextStepLink: ->
     return null unless @props.onContinue

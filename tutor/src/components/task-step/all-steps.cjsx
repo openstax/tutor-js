@@ -19,9 +19,9 @@ Reading = React.createClass
   displayName: 'Reading'
   mixins: [StepMixin]
   isContinueEnabled: -> true
-  onContinue: ->
-    @props.onStepCompleted()
-    @props.onNextStep()
+  onContinue: (cb) ->
+    @props.onStepCompleted().then(@props.onNextStep)
+
   renderBody: ->
     {id, taskId} = @props
     {courseId} = Router.currentParams()
@@ -37,8 +37,7 @@ Interactive = React.createClass
   mixins: [StepMixin]
   isContinueEnabled: -> true
   onContinue: ->
-    @props.onStepCompleted()
-    @props.onNextStep()
+    @props.onStepCompleted().then(@props.onNextStep)
   renderBody: ->
     {id} = @props
     {courseId} = Router.currentParams()
@@ -50,8 +49,7 @@ Video = React.createClass
   mixins: [StepMixin]
   isContinueEnabled: -> true
   onContinue: ->
-    @props.onStepCompleted()
-    @props.onNextStep()
+    @props.onStepCompleted().then(@props.onNextStep)
   renderBody: ->
     {id} = @props
     {courseId} = Router.currentParams()
