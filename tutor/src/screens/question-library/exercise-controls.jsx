@@ -6,7 +6,7 @@ import { Button, ButtonGroup } from 'react-bootstrap';
 import classNames from 'classnames';
 import Course from '../../models/course';
 import TourAnchor from '../../components/tours/anchor';
-
+import ScrollTo from '../../helpers/scroll-to';
 
 @observer
 export default class ExerciseControls extends React.Component {
@@ -29,11 +29,7 @@ export default class ExerciseControls extends React.Component {
 
   static defaultProps = { sectionizerProps: {} };
 
-  state = {
-    hasSaved: false,
-  };
-
-  scrollingTargetDOM = () => { return this.props.windowImpl.document; };
+  scroller = new ScrollTo({ windowImpl: this.props.windowImpl });
 
   getSections = () => {
     return (
@@ -48,6 +44,10 @@ export default class ExerciseControls extends React.Component {
       this.props.onFilterChange( filter )
     );
   };
+
+  @action.bound scrollToTop() {
+    this.scroller.scrollToTop();
+  }
 
   render() {
     const { course } = this.props;
