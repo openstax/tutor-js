@@ -24,7 +24,7 @@ taskPlanEditingInitialize = require '../initialize-editing'
 {default:DraftButton}   = require '../footer/save-as-draft'
 
 PlanMixin       = require '../plan-mixin'
-ServerErrorHandlers = require '../../error-monitoring/handlers'
+{default: ServerErrorHandlers} = require '../../error-monitoring/handlers'
 
 TaskPlanMiniEditor = React.createClass
 
