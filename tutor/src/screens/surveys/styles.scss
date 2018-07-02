@@ -1,13 +1,12 @@
 @import '../screen-styles';
 
-@import "~bootstrap-sass/assets/stylesheets/bootstrap/buttons";
-@import "~bootstrap-sass/assets/stylesheets/bootstrap/button-groups";
-
 // These styles should be kept in sync with the BE research console preview styles located in
 // tutor-server's app/assets/stylesheets/research/survey-preview.scss
 
 .course-page.research-surveys {
   // This can be removed once we're able to import the entire pattern library into Tutor
+  @import "~bootstrap-sass/assets/stylesheets/bootstrap/buttons";
+  @import "~bootstrap-sass/assets/stylesheets/bootstrap/button-groups";
   @import '~pattern-library/core/pattern-library/elements';
 
   .body-wrapper {
