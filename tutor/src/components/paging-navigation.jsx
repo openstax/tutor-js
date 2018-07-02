@@ -8,7 +8,7 @@ import { observer } from 'mobx-react';
 import ScrollTo from '../helpers/scroll-to';
 
 @observer
-export default class PagingNavigation extends React.PureComponent {
+export default class PagingNavigation extends React.Component {
 
   static propTypes = {
     children:             React.PropTypes.node.isRequired,
