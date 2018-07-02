@@ -1,8 +1,9 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { observable, action, computed } from 'mobx';
+import { observable, action } from 'mobx';
 import { Label } from 'react-bootstrap';
 import { autobind } from 'core-decorators';
+import { ArbitraryHtmlAndMath } from 'shared';
 import Annotation from '../../models/annotations/annotation';
 import Icon from '../icon';
 import SuretyGuard from 'shared/components/surety-guard';
@@ -49,6 +50,7 @@ class EditBox extends React.Component {
     );
   }
 }
+
 
 @observer
 export default class AnnotationCard extends React.Component {
@@ -101,7 +103,7 @@ export default class AnnotationCard extends React.Component {
         <div className="annotation-body">
           <div className="annotation-content">
             <blockquote className="selected-text">
-              {annotation.selection.content}
+              <ArbitraryHtmlAndMath html={this.props.annotation.selection.content} />
             </blockquote>
             {this.editing ? (
                <EditBox

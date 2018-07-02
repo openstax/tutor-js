@@ -200,10 +200,7 @@ export default class Course extends BaseModel {
 
   @computed get canAnnotate() {
     return Boolean(
-      FeatureFlags.is_highlighting_allowed &&
-        this.isStudent &&
-        this.isActive &&
-        !/physics/.test(this.appearance_code)
+      FeatureFlags.is_highlighting_allowed && this.isStudent && this.isActive
     );
   }
 

@@ -142,6 +142,7 @@ export default class AnnotationWidget extends React.Component {
       message: 'Waiting for page to finish loading…',
     });
 
+
     this.getReferenceElements();
     invokeMap(this.annotationsForThisPage, 'selection.restore', highlighter);
     const initialize = () => {
@@ -151,14 +152,22 @@ export default class AnnotationWidget extends React.Component {
       }
       this.ux.statusMessage.hide();
     };
-    return imagesComplete({
-      body: this.props.windowImpl.document.querySelector('.book-content'),
-    }).then(initialize).catch(initialize);
-
+    const win = this.props.windowImpl;
+    const runImagesComplete = () => {
+      imagesComplete({
+        body: win.document.querySelector('.book-content'),
+      }).then(initialize).catch(initialize);
+    };
+    if (win.MathJax && win.MathJax.Hub.queue.running) {
+      win.MathJax.Hub.Register.MessageHook('End Process', runImagesComplete);
+    } else {
+      runImagesComplete();
+    }
   }
 
   getCurrentSelectionInfo() {
     const selection = document.getSelection();
+
     // can happen if dom was modified after mouseup
     if (!selection.anchorNode) { return { isCollapsed: true }; }
     const node = dom(selection.anchorNode);
@@ -174,8 +183,14 @@ export default class AnnotationWidget extends React.Component {
           return { isCollapsed, splitParts: true };
         }
 
+        const frag = selection.getRangeAt(0).cloneContents();
+        invokeMap(frag.querySelectorAll('.MJX_Assistive_MathML'), 'remove');
+        invokeMap(frag.querySelectorAll('math'), 'remove');
+        invokeMap(frag.querySelectorAll('script'), 'remove');
+
         return Object.assign(serializeSelection.save(re), {
           isCollapsed,
+          content: frag.textContent,
           referenceElementId: re.id,
           rect: getSelectionRect(this.props.windowImpl, selection),
         });
@@ -237,6 +252,7 @@ export default class AnnotationWidget extends React.Component {
         this.activeAnnotation = null;
         this.ux.statusMessage.hide();
         this.savedSelection = selection;
+
       }
     }
   }
