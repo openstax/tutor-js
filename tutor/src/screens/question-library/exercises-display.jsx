@@ -10,7 +10,6 @@ import Icon from '../../components/icon';
 import ExerciseControls from './exercise-controls';
 import ExerciseDetails from '../../components/exercises/details';
 import ExerciseCards from '../../components/exercises/cards';
-import NoExercisesFound from '../../components/exercises/no-exercises-found';
 import ScrollSpy from '../../components/scroll-spy';
 import Sectionizer from '../../components/exercises/sectionizer';
 import ExerciseHelpers from '../../helpers/exercise';
@@ -239,7 +238,6 @@ class ExercisesDisplay extends React.Component {
   };
 
   renderExercises = (exercises) => {
-    if (exercises.isEmpty) { return <NoExercisesFound />; }
 
     const sharedProps = {
       exercises,

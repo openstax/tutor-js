@@ -148,7 +148,8 @@ class AddExercises extends React.Component {
 
   render() {
     const { pageIds, exercises, course } = this.props;
-    if (exercises.isFetching({ pageIds }) || isEmpty(pageIds)){
+
+    if (exercises.isFetching({ pageIds })){
       return <Loading />;
     }
 

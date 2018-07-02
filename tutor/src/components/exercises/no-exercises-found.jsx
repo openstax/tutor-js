@@ -1,12 +1,25 @@
-React = require 'react'
+import React from 'react';
+import ScrollTo from '../../helpers/scroll-to';
 
-NoExercisesFound = React.createClass
+export default class NoExercisesFound extends React.Component {
 
-  render: ->
-    <div className="no-exercises">
-      <h3>No exercises were found for the given sections or types.</h3>
-      <p className="lead">Please select addtional sections and retry</p>
-    </div>
+  scroller = new ScrollTo();
 
+  componentDidMount() {
+    this.scroller.scrollToSelector('.no-exercises-found');
+  }
 
-module.exports = NoExercisesFound
+  render() {
+    return (
+      <div className="no-exercises-found">
+        <h3>
+          No exercises were found for the given sections or types.
+        </h3>
+        <p className="lead">
+          Please select addtional sections and retry
+        </p>
+      </div>
+    );
+  }
+
+}
