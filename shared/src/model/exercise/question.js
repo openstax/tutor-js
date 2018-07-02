@@ -11,6 +11,7 @@ import invariant from 'invariant';
 export default class ExerciseQuestion extends BaseModel {
 
   static FORMAT_TYPES = {
+    'open-ended'      : 'Open Ended',
     'multiple-choice' : 'Multiple Choice',
     'true-false'      : 'True/False',
   };
@@ -28,6 +29,10 @@ export default class ExerciseQuestion extends BaseModel {
 
   @computed get isMultipleChoice() {
     return this.hasFormat('multiple-choice');
+  }
+
+  @computed get isOpenEnded() {
+    return this.hasFormat('open-ended');
   }
 
   hasFormat(value) {
