@@ -7,7 +7,7 @@ import { bind } from 'lodash';
 
 
 var win = typeof window !== 'undefined' ? window : false;
-const ScrollElement = document.body;
+const ScrollElement = document.scrollingElement;
 
 var ScrollListenerMixin = {
 
@@ -51,6 +51,7 @@ var ScrollListenerMixin = {
 
   _onPageScroll() {
     const { scrollTop } = ScrollElement;
+
     this.setState({
       scrollTop: scrollTop,
       isScrolling: true,
