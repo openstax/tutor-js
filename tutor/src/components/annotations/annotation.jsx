@@ -158,7 +158,7 @@ export default class AnnotationWidget extends React.Component {
         body: win.document.querySelector('.book-content'),
       }).then(initialize).catch(initialize);
     };
-    if (win.MathJax) {
+    if (win.MathJax && win.MathJax.Hub.queue.running) {
       win.MathJax.Hub.Register.MessageHook('End Process', runImagesComplete);
     } else {
       runImagesComplete();
