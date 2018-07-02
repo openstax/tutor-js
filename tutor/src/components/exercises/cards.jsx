@@ -105,7 +105,7 @@ export default class ExerciseCards extends React.Component {
   render() {
     const { pageIds, exercises, ...sectionProps } = this.props;
 
-    if (!exercises.existsForPageIds(pageIds)) {
+    if (exercises.noneForPageIds(pageIds)) {
       return <NoExercisesFound />;
     }
 
