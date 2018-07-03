@@ -21,7 +21,7 @@ describe('Course Builder UX Model', () => {
     Router.currentParams.mockReturnValue({});
     User.isCollegeTeacher = true;
     courses = bootstrapCoursesList();
-    mockOffering = { id: 1, title: 'A Test Course' };
+    mockOffering = { id: 1, title: 'A Test Course', is_available: true };
     ux = new BuilderUX();
   });
 
@@ -46,6 +46,7 @@ describe('Course Builder UX Model', () => {
   it('sets cloned course when sourceId is present', () => {
     Router.currentParams.mockReturnValue({ sourceId: '2' });
     courses.get('2').name = 'CLONE ME';
+    Offerings.get.mockReturnValue(mockOffering);
     ux = new BuilderUX();
     expect(ux.newCourse.cloned_from_id).toEqual('2');
     expect(ux.newCourse.name).toEqual('CLONE ME');

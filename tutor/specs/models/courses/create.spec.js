@@ -59,24 +59,25 @@ describe('Course Builder UX Model', () => {
       creator.cloned_from = course;
       expect(creator.cloned_from_id).toBe(course.id);
       expect(creator.cloned_from).toBe(course);
-      return creator.save();
+      return { saved: creator.save(), course };
     };
 
     it('clones a course', () => {
       const mockOffering = { is_available: true };
       Offerings.get.mockImplementation(() => mockOffering);
-      const saved = prepCourseClone();
+      const { saved, course } = prepCourseClone();
       expect(creator.cloned_from_offering).toBe(mockOffering);
+      expect(creator.name).toEqual(course.name);
       expect(saved.url).toEqual('/courses/2/clone');
       expect(saved.data).toMatchSnapshot();
     });
 
     it('does not clone if the course offering is no longer available', () => {
-      const mockOffering = { is_available: false };
+      const mockOffering = { name: 'My Test Course', is_available: false };
       Offerings.get.mockImplementation(() => mockOffering);
-      const saved = prepCourseClone();
-      const course = bootstrapCoursesList().get('2');
+      const { course, saved } = prepCourseClone();
       expect(creator.cloned_from_offering).toBe(mockOffering);
+      expect(creator.name).not.toEqual(course.name);
       expect(Offerings.get).toHaveBeenCalledWith(course.offering_id);
       expect(saved.url).toEqual('/courses');
       expect(saved.data.cloned_from_id).toBeUndefined();
