@@ -46,4 +46,12 @@ describe('Exercise Question', () => {
     });
   });
 
+  it('validates', () => {
+    expect(question.validity.valid).toBe(true);
+    question.answers.clear();
+    expect(question.validity.valid).toBe(false);
+    question.formats = ['free-response'];
+    expect(question.isOpenEnded).toBe(true);
+    expect(question.validity.valid).toBe(true);
+  });
 });

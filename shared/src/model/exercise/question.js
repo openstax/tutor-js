@@ -11,6 +11,7 @@ import invariant from 'invariant';
 export default class ExerciseQuestion extends BaseModel {
 
   static FORMAT_TYPES = {
+    'open-ended'      : 'Open Ended',
     'multiple-choice' : 'Multiple Choice',
     'true-false'      : 'True/False',
   };
@@ -30,7 +31,14 @@ export default class ExerciseQuestion extends BaseModel {
     return this.hasFormat('multiple-choice');
   }
 
+  @computed get isOpenEnded() {
+    return Boolean(
+      this.formats.length == 1 && this.hasFormat('free-response')
+    );
+  }
+
   hasFormat(value) {
+    if (value == 'open-ended') { return this.isOpenEnded; }
     return Boolean(find(this.formats, { value }));
   }
 
@@ -56,6 +64,8 @@ export default class ExerciseQuestion extends BaseModel {
   }
 
   @action setExclusiveFormat(name) {
+    if (name == 'open-ended') { name = 'free-response'; }
+
     let formats = without(map(this.formats, 'value'), ...keys(ExerciseQuestion.FORMAT_TYPES));
     formats.push(name);
     if ('true-false' === name) {
@@ -80,7 +90,9 @@ export default class ExerciseQuestion extends BaseModel {
     if (isEmpty(this.stem_html)){
       return { valid: false, part: 'Question Stem' };
     }
-
+    if (isEmpty(this.answers) && !this.isOpenEnded) {
+      return { valid: false, part: 'Answer' };
+    }
     return reduce(this.answers, (memo, answer) => ({
       valid: memo.valid && answer.validity.valid,
       part: memo.part || answer.validity.part,

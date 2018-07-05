@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash';
+import { isEmpty, get } from 'lodash';
 import {
   BaseModel, identifiedBy, identifier, field, computed, belongsTo,
 } from '../../model';

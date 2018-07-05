@@ -14,7 +14,11 @@ export { Attachment, Author, Question, Tag };
 export default class Exercise extends BaseModel {
 
   static build(attrs) {
-    return new this(merge(attrs, { questions: [{ }] }));
+    return new this(merge(attrs, {
+      questions: [{
+        formats: ['free-response'],
+      }],
+    }));
   }
 
   @identifier uuid;
@@ -23,7 +27,7 @@ export default class Exercise extends BaseModel {
   @field version;
   @field nickname;
   @field({ type: 'array' }) versions;
-  @field({ type: 'array' }) formats;
+
   @field is_vocab;
   @field number;
   @field stimulus_html;
@@ -44,10 +48,6 @@ export default class Exercise extends BaseModel {
       },
     },
   }) tags;
-
-  @computed get hasFreeResponse() {
-    return this.formats.includes('free-response');
-  }
 
   @computed get pool_types() {
     return [];
