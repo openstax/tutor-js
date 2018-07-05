@@ -71,8 +71,10 @@ export default class CourseCreate extends BaseModel {
 
   set cloned_from(course) {
     this.cloned_from_id = course.id;
-    this.name = course.name;
-    this.num_sections = course.periods.length;
+    if (this.canCloneCourse) {
+      this.name = course.name;
+      this.num_sections = course.periods.length;
+    }
   }
 
   get cloned_from_offering() {
