@@ -177,7 +177,7 @@ export default class ManagePayments extends React.PureComponent {
           </NewTabLink>
           <div className="help">
             Need help?
-            <NewTabLink to={UserMenu.helpURL}>Contact Support</NewTabLink>
+            <NewTabLink href={UserMenu.helpURL}>Contact Support</NewTabLink>
           </div>
         </div>
       </Grid>
