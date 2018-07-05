@@ -38,7 +38,7 @@ export default class ExerciseQuestion extends BaseModel {
   }
 
   hasFormat(value) {
-    if (value == 'open-ended') { value = 'free-response'; }
+    if (value == 'open-ended') { return this.isOpenEnded; }
     return Boolean(find(this.formats, { value }));
   }
 
