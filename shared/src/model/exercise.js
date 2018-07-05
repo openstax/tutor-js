@@ -14,7 +14,11 @@ export { Attachment, Author, Question, Tag };
 export default class Exercise extends BaseModel {
 
   static build(attrs) {
-    return new this(merge(attrs, { questions: [{ }] }));
+    return new this(merge(attrs, {
+      questions: [{
+        formats: ['free-response'],
+      }],
+    }));
   }
 
   @identifier uuid;
