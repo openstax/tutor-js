@@ -32,10 +32,13 @@ export default class ExerciseQuestion extends BaseModel {
   }
 
   @computed get isOpenEnded() {
-    return this.hasFormat('open-ended');
+    return Boolean(
+      this.formats.length == 1 && this.hasFormat('free-response')
+    );
   }
 
   hasFormat(value) {
+    if (value == 'open-ended') { value = 'free-response'; }
     return Boolean(find(this.formats, { value }));
   }
 
@@ -61,6 +64,8 @@ export default class ExerciseQuestion extends BaseModel {
   }
 
   @action setExclusiveFormat(name) {
+    if (name == 'open-ended') { name = 'free-response'; }
+
     let formats = without(map(this.formats, 'value'), ...keys(ExerciseQuestion.FORMAT_TYPES));
     formats.push(name);
     if ('true-false' === name) {
@@ -85,7 +90,9 @@ export default class ExerciseQuestion extends BaseModel {
     if (isEmpty(this.stem_html)){
       return { valid: false, part: 'Question Stem' };
     }
-
+    if (isEmpty(this.answers) && !this.isOpenEnded) {
+      return { valid: false, part: 'Answer' };
+    }
     return reduce(this.answers, (memo, answer) => ({
       valid: memo.valid && answer.validity.valid,
       part: memo.part || answer.validity.part,
