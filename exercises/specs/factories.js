@@ -22,4 +22,6 @@ Factories.exercisesMap = ({ count = 4 } = {}) => {
   return map;
 };
 
+export { FactoryBot };
+
 export default Factories;

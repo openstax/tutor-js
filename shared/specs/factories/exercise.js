@@ -71,6 +71,13 @@ Factory.define('ExerciseAnswer')
     ]
   ][ parent.object.id % 5 ][ object.id % 4 ]);
 
+Factory.define('ExerciseAttachment')
+  .id(sequence)
+  .url(({ object: { id } }) => `/attachments/${id}.png`)
+  .filename(({ object: { id } }) => `${id}.png`)
+  .small(({ object: { id } }) => `/attachments/small_${id}.png`)
+  .medium(({ object: { id } }) => `/attachments/medium_${id}.png`)
+  .large(({ object: { id } }) => `/attachments/large_${id}.png`);
 
 Factory.define('ExerciseQuestion')
   .id(sequence)
@@ -125,4 +132,4 @@ Factory.define('Exercise')
   .is_vocab(false)
   .questions(reference('ExerciseQuestion', { count: ({ multipart }) => multipart ? 3: 1 }) )
   .versions(({ object }) => [object.version])
-  .attachments(() => []);
+  .attachments(reference('ExerciseAttachment', { count: 2 }))
