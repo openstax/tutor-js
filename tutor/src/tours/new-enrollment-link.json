@@ -8,8 +8,8 @@
   ],
   "steps": [
     {
-      "title": "Your new course has new enrollment links",
-      "body": "We're glad you're using OpenStax Tutor Beta again! Remember that you need to send your students new enrollment links for this course. Do not reuse a past enrollment link, and please update your syllabus with the new links.",
+      "title": "This course has new student enrollment links",
+      "body": "Share this course's new new enrollment links with your students. Do not reuse a past link, and please update your syllabus.\n\nIf you wish to enable single sign-on with your school's learning management system (LMS), visit the Course Settings page to learn more.",
       "customComponent": "NewEnrollmentLink"
     },
     {
