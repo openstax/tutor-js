@@ -14,9 +14,7 @@ export default class ExerciseAnswer extends BaseModel {
   @belongsTo({ model: 'exercise/question' }) question;
 
   @computed get validity() {
-    if (
-      isEmpty(this.content_html) && !get(this, 'question.isOpenEnded')
-    ) {
+    if (isEmpty(this.content_html)) {
       return { valid: false, part: 'Answer Distractor' };
     } else {
       return { valid: true };
