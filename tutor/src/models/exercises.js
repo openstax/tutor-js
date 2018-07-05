@@ -1,7 +1,7 @@
 import Map from 'shared/model/map';
 import { computed, action, observable, toJS } from 'mobx';
 import Exercise from './exercises/exercise';
-import { extend, groupBy, filter, isEmpty } from 'lodash';
+import { extend, groupBy, filter, isEmpty, find } from 'lodash';
 import { readonly } from 'core-decorators';
 
 const MIN_EXCLUDED_COUNT = 5;
@@ -14,6 +14,10 @@ export class ExercisesMap extends Map {
 
   @computed get byPageId() {
     return groupBy(this.array, 'page.id');
+  }
+
+  noneForPageIds(pageIds) {
+    return !find(pageIds, pgId => !isEmpty(this.byPageId[pgId]));
   }
 
   forPageId(pageId) {

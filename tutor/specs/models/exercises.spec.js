@@ -19,6 +19,15 @@ describe('Exercises Map', () => {
     });
   });
 
+  it('detects if none exist for page ids', () => {
+    exercises = Factory.exercisesMap({ book, pageIds: page_ids });
+    expect(exercises.noneForPageIds()).toBe(true);
+    expect(exercises.noneForPageIds([page_ids[0]])).toBe(false);
+    expect(exercises.noneForPageIds([null, 12345, page_ids[0]])).toBe(false);
+    expect(exercises.noneForPageIds([123, 456])).toBe(true);
+
+  });
+
   it('filters', () => {
     exercises = Factory.exercisesMap({ book, pageIds: page_ids });
     const ex = exercises.array[0];

@@ -34,7 +34,7 @@ class ChooseExercises extends React.Component {
   scroller = new ScrollTo({ windowImpl: this.props.windowImpl });
 
   @action.bound selectProblems() {
-    this.props.exercises.fetch({ book: this.props.course.referenceBook, page_ids: this.selectedPageIds });
+    this.props.exercises.fetch({ course: this.props.course, page_ids: this.selectedPageIds });
     this.scroller.scrollToSelector('.select-topics .panel-footer'); // move down so loader shows
     this.showProblems = true;
   }

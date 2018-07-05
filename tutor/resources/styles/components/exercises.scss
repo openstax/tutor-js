@@ -91,6 +91,8 @@ $exercise-details-body-height: calc(100vh - 150px);
 
 .no-exercises-found {
   text-align: center;
+  padding-top: 200px;
+  min-height: 100vh; // make it fill screen so it can be scrolled to
 }
 
 .exercise-controls-bar {

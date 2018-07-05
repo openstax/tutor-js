@@ -8,6 +8,7 @@ import { ExercisesMap } from '../../models/exercises';
 import Exercise from '../../models/exercises/exercise';
 import Book from '../../models/reference-book';
 import { ArrayOrMobxType } from 'shared/helpers/react';
+import NoExercisesFound from './no-exercises-found';
 
 @observer
 class SectionsExercises extends React.Component {
@@ -102,23 +103,20 @@ export default class ExerciseCards extends React.Component {
   };
 
   render() {
-    const { pageIds, ...sectionProps } = this.props;
+    const { pageIds, exercises, ...sectionProps } = this.props;
+
+    if (exercises.noneForPageIds(pageIds)) {
+      return <NoExercisesFound />;
+    }
 
     let sections = map(pageIds, pageId => (
       <SectionsExercises
         key={pageId}
+        exercises={exercises}
         pageId={pageId}
         {...sectionProps}
       />
     ));
-
-    if (isEmpty(sections)) {
-      sections = (
-        <p className="no-exercises-found">
-          No exercises found in the selected sections.
-        </p>
-      );
-    }
 
     return (
       <div className="exercise-cards">{sections}</div>

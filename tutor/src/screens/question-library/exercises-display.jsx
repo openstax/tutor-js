@@ -12,7 +12,6 @@ import ExerciseDetails from '../../components/exercises/details';
 import ExerciseCards from '../../components/exercises/cards';
 import ScrollSpy from '../../components/scroll-spy';
 import Sectionizer from '../../components/exercises/sectionizer';
-import NoExercisesFound from './no-exercises-found';
 import ExerciseHelpers from '../../helpers/exercise';
 import Dialog from '../../components/tutor-dialog';
 import TourRegion from '../../components/tours/region';
@@ -239,7 +238,6 @@ class ExercisesDisplay extends React.Component {
   };
 
   renderExercises = (exercises) => {
-    if (exercises.isEmpty) { return <NoExercisesFound />; }
 
     const sharedProps = {
       exercises,
@@ -277,7 +275,10 @@ class ExercisesDisplay extends React.Component {
 
   render() {
     const { pageIds, exercises } = this.props;
-    if (exercises.isFetching({ pageIds }) || isEmpty(pageIds)){
+    if (isEmpty(pageIds)) {
+      return null;
+    }
+    if (exercises.isFetching({ pageIds })) {
       return <Loading />;
     }
 
