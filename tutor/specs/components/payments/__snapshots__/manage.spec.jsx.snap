@@ -356,7 +356,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
   >
     <a
       className="refund-policy external-icon"
-      href="https://openstax.secure.force.com/help/articles/FAQ/OpenStax-Tutor-Student-Refund-Policy"
+      href="https://openstax.secure.force.com/help/articles/FAQ/OpenStax-Tutor-Beta-Student-Refund-Policy"
       tabIndex={0}
       target="_blank"
     >
@@ -365,12 +365,9 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
     <div
       className="help"
     >
-      Need help?
+      Need help? 
       <a
-        className="external-icon"
-        href="https://openstax.secure.force.com/help"
-        tabIndex={0}
-        target="_blank"
+        href="mailto:support@openstax.org"
       >
         Contact Support
       </a>
@@ -407,7 +404,7 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
   >
     <a
       className="refund-policy external-icon"
-      href="https://openstax.secure.force.com/help/articles/FAQ/OpenStax-Tutor-Student-Refund-Policy"
+      href="https://openstax.secure.force.com/help/articles/FAQ/OpenStax-Tutor-Beta-Student-Refund-Policy"
       tabIndex={0}
       target="_blank"
     >
@@ -416,12 +413,9 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
     <div
       className="help"
     >
-      Need help?
+      Need help? 
       <a
-        className="external-icon"
-        href="https://openstax.secure.force.com/help"
-        tabIndex={0}
-        target="_blank"
+        href="mailto:support@openstax.org"
       >
         Contact Support
       </a>
