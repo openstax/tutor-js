@@ -171,13 +171,12 @@ export default class ManagePayments extends React.PureComponent {
         <div className="footer">
           <NewTabLink
             className="refund-policy"
-            href="https://openstax.secure.force.com/help/articles/FAQ/OpenStax-Tutor-Student-Refund-Policy"
+            href="https://openstax.secure.force.com/help/articles/FAQ/OpenStax-Tutor-Beta-Student-Refund-Policy"
           >
             Refund policy for OpenStax Tutor Beta courses
           </NewTabLink>
           <div className="help">
-            Need help?
-            <NewTabLink href={UserMenu.helpURL}>Contact Support</NewTabLink>
+            Need help? <a href={`mailto:${UserMenu.supportEmail}`}>Contact Support</a>
           </div>
         </div>
       </Grid>
