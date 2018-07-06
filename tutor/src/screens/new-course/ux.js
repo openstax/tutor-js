@@ -51,13 +51,14 @@ export default class CourseBuilderUX extends BaseModel {
     invoke(Offerings.fetch(), 'then', this.onOfferingsAvailable);
 
     observe(this, 'source', ({ newValue: newSource }) => {
-      if (newSource) {
-        this.newCourse.cloned_from = newSource;
-        when(
-          () => Offerings.get(newSource.offering_id),
-          () => this.newCourse.offering = Offerings.get(newSource.offering_id),
-        );
-      }
+      if (!newSource) { return; }
+      when(
+        () => Offerings.get(newSource.offering_id),
+        () => {
+          this.newCourse.offering = Offerings.get(newSource.offering_id);
+          this.newCourse.cloned_from = newSource;
+        },
+      );
     }, true);
 
     observe(this, 'currentStageIndex', ({ newValue: index }) => {

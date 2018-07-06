@@ -60,9 +60,7 @@ export default class CourseCreate extends BaseModel {
 
   set offering(offering) {
     this.offering_id = offering.id;
-    if (!this.name) {
-      this.name = offering.title;
-    }
+    this.name = offering.title;
   }
 
   @computed get cloned_from() {
