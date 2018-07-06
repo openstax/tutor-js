@@ -134,15 +134,16 @@ simplifyRequestConfig = (requestConfig) ->
   simpleRequest.url = simpleRequest.url.replace(requestConfig.baseURL, '') if requestConfig.baseURL
   simpleRequest.url = trim(simpleRequest.url, '/')
 
-  if isEmpty(simpleRequest.data)
-    simpleRequest = omit(simpleRequest, 'data')
-  else if isString(simpleRequest.data)
+  if isString(simpleRequest.data)
     try
       simpleRequest.data = JSON.parse(simpleRequest.data)
     catch e
 
-  simpleRequest.data = omitBy(simpleRequest.data, isUndefined) if simpleRequest.data
+  if isEmpty(simpleRequest.data)
+    delete simpleRequest.data
 
+  if simpleRequest.data
+    simpleRequest.data = omitBy(simpleRequest.data, isUndefined)
   simpleRequest
 
 class XHRRecords
