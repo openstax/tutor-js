@@ -148,7 +148,10 @@ describe('Course Model', () => {
     expect(course.canAnnotate).toBe(false);
     FeatureFlags.is_highlighting_allowed = true;
     expect(course.canAnnotate).toBe(true);
+    course.appearance_code = 'my_physics_test';
+    expect(course.canAnnotate).toBe(false);
   });
+
   it('calculates payments needed', () => {
     const course = Courses.get(1);
     expect(course.needsPayment).toBe(false);
