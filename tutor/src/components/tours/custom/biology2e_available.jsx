@@ -35,7 +35,7 @@ export default class Biology2eAvailable extends React.Component {
         </div>
         <div className="body">
           Biology 2e has new assessments and improved art and explanations.
-          Download <NewTabLink href="https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/biology_2e_conversion_guide_-_digital.pdf">a summary</NewTabLink> of the key changes from the first edition of Biology to Biology 2e.
+          Download our <NewTabLink href="https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/biology_2e_conversion_guide_-_digital.pdf">transition guide</NewTabLink> to see the key changes from the first edition of Biology to Biology 2e.
         </div>
         <div className="footer">
           <Button bsStyle="primary" onClick={this.onCreate}>
