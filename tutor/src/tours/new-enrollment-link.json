@@ -9,7 +9,7 @@
   "steps": [
     {
       "title": "This course has new student enrollment links",
-      "body": "Share this course's new new enrollment links with your students. Do not reuse a past link, and please update your syllabus.\n\nIf you wish to enable single sign-on with your school's learning management system (LMS), visit the Course Settings page to learn more.",
+      "body": "Share this course's new enrollment links with your students. Do not reuse a past link, and please update your syllabus.\n\nIf you wish to enable single sign-on with your school's learning management system (LMS), visit the Course Settings page to learn more.",
       "customComponent": "NewEnrollmentLink"
     },
     {
