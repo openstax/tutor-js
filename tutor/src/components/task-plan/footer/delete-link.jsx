@@ -1,7 +1,38 @@
-import React from 'react';
-import { AsyncButton, SuretyGuard } from 'shared';
+import { React, observer, observable, action } from '../../../helpers/react';
+import { AsyncButton } from 'shared';
 import Icon from '../../icon';
+import { Modal, Button } from 'react-bootstrap';
 
+const DeleteModal = ({ message, show, onClose, isBusy, onDelete }) => (
+  <Modal
+    show={show}
+    onHide={onClose}
+    className="settings-delete-assessment-modal">
+    <Modal.Header closeButton={true}>
+      <Modal.Title>
+        Delete
+      </Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+      <p>{message}</p>
+    </Modal.Body>
+    <Modal.Footer>
+      <AsyncButton
+        className="delete"
+        bsStyle="danger"
+        onClick={onDelete}
+        waitingText="Deleting…"
+        isWaiting={isBusy}>
+        Delete
+      </AsyncButton>
+      <Button disabled={isBusy} onClick={onClose}>
+        Cancel
+      </Button>
+    </Modal.Footer>
+  </Modal>
+);
+
+@observer
 export default class DeleteLink extends React.PureComponent {
 
   static propTypes = {
@@ -10,6 +41,16 @@ export default class DeleteLink extends React.PureComponent {
     isFailed:    React.PropTypes.bool.isRequired,
     isNew:       React.PropTypes.bool.isRequired,
     isVisibleToStudents: React.PropTypes.bool.isRequired,
+  }
+
+  @observable showModal = false;
+
+  @action.bound close() {
+    this.showModal = false;
+  }
+
+  @action.bound open() {
+    this.showModal = true;
   }
 
   render() {
@@ -22,21 +63,19 @@ export default class DeleteLink extends React.PureComponent {
     }
 
     return (
-      <SuretyGuard
-        onConfirm={this.props.onClick}
-        okButtonLabel="Yes"
-        placement="top"
-        message={message}>
-        <AsyncButton
-          className="delete-link pull-right"
-          isWaiting={this.props.isWaiting}
-          isFailed={this.props.isFailed}
-          waitingText="Deleting…"
-        >
-          <Icon type="trash" />
-          Delete
-        </AsyncButton>
-      </SuretyGuard>
+      <Button
+        onClick={this.open}
+        bsStyle="default"
+        className="control delete-assignment">
+        <DeleteModal
+          message={message}
+          show={this.showModal}
+          onClose={this.close}
+          isBusy={this.props.isWaiting}
+          onDelete={this.props.onClick}
+        />
+        <Icon type="trash" />Delete
+      </Button>
     );
   }
 
