@@ -177,12 +177,10 @@ export class LateWorkPopover extends React.PureComponent {
     const { content } = this;
 
     const status = this.props.task.type === 'homework' ? content.score() : content.progress();
-    const arrowOffsetTop = TH.hasAdditionalLateWork(this.props.task) ? 128 : 95;
     const popoverProps = omit(this.props, 'hide', 'task', 'show', 'columnIndex');
     return (
       <Popover
         {...popoverProps}
-        arrowOffsetTop={arrowOffsetTop}
         title={content.get('title')}
         id={`late-work-info-popover-${content.task.id}`}
         className={content.className()}>

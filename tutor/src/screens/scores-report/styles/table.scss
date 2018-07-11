@@ -315,7 +315,6 @@ $pie-color-due: #268FBE;
 }
 
 .late-work-info-popover {
-  height: 98px;
   min-width: 315px;
   border-radius: 0;
   border: 1px solid $tutor-neutral-light;
@@ -331,9 +330,6 @@ $pie-color-due: #268FBE;
       }
     }
   }
-  &.additional {
-    height: 130px;
-  }
   .popover-title {
     text-align: center;
     font-weight: bold;
@@ -346,40 +342,37 @@ $pie-color-due: #268FBE;
   }
   .popover-content {
     padding: 3px;
-    .late-status {
-      height: 60px;
-      .description {
-        height: inherit;
-        display: table;
-        width: 48%;
-        float: left;
-        font-weight: bold;
-      }
 
+    .late-status {
+      display: flex;
+      flex-direction: row;
+
+      .description {
+        font-weight: bold;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .title {
+          white-space: nowrap;
+          margin: 0 5px 0 10px;
+        }
+
+        .status {
+          margin: 0 10px 0 5px;
+          color: $tutor-primary;
+        }
+      }
       .body {
         margin: 0 10px;
       }
-
-      .title {
-        display: table-cell;
-        vertical-align: middle;
-        text-align: center;
-
+      .late-button {
+        flex: 1;
+        margin: 3px;
+        white-space: normal;
+        text-transform: none !important;
+        font-size: 1.1em !important;
       }
-      .status {
-        display: table-cell;
-        vertical-align: middle;
-        color: $tutor-primary;
-        text-align: center;
-      }
-    }
-    .late-button {
-      padding-left: 2px !important;
-      padding-right: 2px !important;
-      width: 48%;
-      text-transform: none !important;
-      font-size: 1.1em !important;
-      float: right;
     }
   }
 
