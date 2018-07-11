@@ -194,7 +194,7 @@ makeDevelopmentBase = (projectConfig) ->
       # It suppress everything except error, so it has to be set to false as well
       # to see success build.
       noInfo: false
-      host: "#{host}",
+      host: "0.0.0.0",
       filename: '[name].js'
       hot: true
       stats: 'errors-only'
