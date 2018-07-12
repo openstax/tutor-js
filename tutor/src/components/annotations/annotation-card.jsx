@@ -118,16 +118,16 @@ export default class AnnotationCard extends React.Component {
             )}
           </div>
           <div className="controls">
-            {!this.editing && <button title="Edit" onClick={this.startEditing} tabIndex={-1}><Icon type="edit" /></button>}
+            {!this.editing && <button title="Edit" onClick={this.startEditing}><Icon type="edit" /></button>}
 
-            <button title="View in book" onClick={this.openPage} tabIndex={-1}><Icon type="external-link" /></button>
+            <button title="View in book" onClick={this.openPage}><Icon type="external-link" /></button>
             <SuretyGuard
               title="Are you sure you want to delete this note?"
               message="If you delete this note, your work cannot be recovered."
               okButtonLabel="Delete"
               onConfirm={this.doDelete}
             >
-              <button title="Delete" tabIndex={-1}><Icon type="trash" /></button>
+              <button title="Delete"><Icon type="trash" /></button>
             </SuretyGuard>
           </div>
         </div>
