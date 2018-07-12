@@ -9,6 +9,10 @@ import ANNOTATIONS from '../../api/annotations.json';
 import Router from '../../src/helpers/router';
 
 jest.mock('keymaster');
+jest.mock('react-addons-css-transition-group', () => ({children, component = 'div'}) => {
+  const { createElement } = require('react');
+  return createElement(component, null, children)
+});
 jest.mock('../../src/models/feature_flags', () => ({ is_highlighting_allowed: true }));
 jest.mock('../../src/helpers/router');
 jest.mock('../../../shared/src/components/html', () => ({ html }) =>
@@ -67,13 +71,13 @@ describe('Annotations', () => {
 
   it('hides window shade on esc key', () => {
     const widget = mount(<AnnotationWidget {...props} />);
-    expect(widget).toHaveRendered('.highlights-windowshade.up');
+    expect(widget).not.toHaveRendered('.highlights-windowshade');
     annotations.ux.isSummaryVisible = true;
-    expect(widget).toHaveRendered('.highlights-windowshade.down');
+    expect(widget).toHaveRendered('.highlights-windowshade');
     expect(keymaster).toHaveBeenCalledWith('esc', expect.any(Function));
     expect(annotations.ux.isSummaryVisible).toBe(true);
     keymaster.mock.calls[0][1]();
-    expect(widget).toHaveRendered('.highlights-windowshade.up');
+    expect(widget).not.toHaveRendered('.highlights-windowshade');
     expect(annotations.ux.isSummaryVisible).toBe(false);
     widget.unmount();
     expect(keymaster.unbind).toHaveBeenCalledWith('esc', expect.any(Function));
@@ -97,7 +101,15 @@ describe('Annotations', () => {
   });
 
   it('renders and matches snapshot', () => {
-    const comp = Renderer.create(<AnnotationWidget {...props} />);
+    annotations.ux.isSummaryVisible = true;
+    const comp = Renderer.create(<AnnotationWidget {...props} />, {
+      createNodeMock: e => {
+        const parent = document.createElement('div');
+        const child = document.createElement(e.type);
+        parent.appendChild(child);
+        return child;
+      }
+    });
     expect(comp.toJSON()).toMatchSnapshot();
     comp.unmount();
   });

@@ -30,6 +30,10 @@ export default class AnnotationSummaryPage extends React.Component {
     this.resetToSection(this.props.currentChapter, this.props.currentSection);
   }
 
+  componentDidMount() {
+    this.prepareFocus();
+  }
+
   componentWillReceiveProps(nextProps) {
     if (
       nextProps.currentSection !== this.props.currentSection ||
@@ -37,6 +41,16 @@ export default class AnnotationSummaryPage extends React.Component {
     ) {
       this.resetToSection(nextProps.currentChapter, nextProps.currentSection);
     }
+  }
+
+  prepareFocus() {
+    const {containerRef} = this;
+    const focusAnchor = document.createElement("a");
+
+    focusAnchor.setAttribute("href", "#");
+    containerRef.insertBefore(focusAnchor, containerRef.firstChild);
+    focusAnchor.focus();
+    focusAnchor.addEventListener("blur", () => containerRef.removeChild(focusAnchor), false);
   }
 
   @computed get annotationsBySection() {
@@ -49,7 +63,7 @@ export default class AnnotationSummaryPage extends React.Component {
 
   renderEmpty() {
     return (
-      <div className="summary-page">
+      <div className="summary-page" ref={ref => this.containerRef = ref}>
         <div className="annotations">
           <h1>
             Highlights and annotations
@@ -81,7 +95,7 @@ export default class AnnotationSummaryPage extends React.Component {
     }
 
     return (
-      <div className="summary-page">
+      <div className="summary-page" ref={ref => this.containerRef = ref}>
         <h1>
           Highlights and annotations
         </h1>
