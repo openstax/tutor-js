@@ -142,9 +142,9 @@ export default class AnnotationWidget extends React.Component {
       message: 'Waiting for page to finish loading…',
     });
 
-
     this.getReferenceElements();
-    invokeMap(this.annotationsForThisPage, 'selection.restore', highlighter);
+
+    const win = this.props.windowImpl;
     const initialize = () => {
       invokeMap(this.annotationsForThisPage, 'selection.restore', highlighter);
       if (this.scrollToPendingAnnotation) {
@@ -152,13 +152,13 @@ export default class AnnotationWidget extends React.Component {
       }
       this.ux.statusMessage.hide();
     };
-    const win = this.props.windowImpl;
-    const runImagesComplete = () => {
-      imagesComplete({
-        body: win.document.querySelector('.book-content'),
-      }).then(initialize).catch(initialize);
-    };
-    if (win.MathJax && win.MathJax.Hub.queue.running) {
+    
+    const unprocessedMath = !!win.document.querySelector('.book-content *:not(.MJX_Assistive_MathML) > math');
+    const runImagesComplete = () => imagesComplete({
+      body: win.document.querySelector('.book-content'),
+    }).then(initialize).catch(initialize);
+    
+    if (win.MathJax && unprocessedMath) {
       win.MathJax.Hub.Register.MessageHook('End Process', runImagesComplete);
     } else {
       runImagesComplete();
@@ -184,13 +184,25 @@ export default class AnnotationWidget extends React.Component {
         }
 
         const frag = selection.getRangeAt(0).cloneContents();
+        invokeMap(frag.querySelectorAll('.MathJax'), 'remove');
+        invokeMap(frag.querySelectorAll('.MathJax_Preview'), 'remove');
         invokeMap(frag.querySelectorAll('.MJX_Assistive_MathML'), 'remove');
-        invokeMap(frag.querySelectorAll('math'), 'remove');
-        invokeMap(frag.querySelectorAll('script'), 'remove');
+
+        const container = document.createElement('div');
+        container.appendChild(frag);
+
+        container.querySelectorAll('script[type="math/mml"]').forEach(element => {
+          const template = document.createElement('template');
+          template.innerHTML = element.textContent;
+          const math = template.content.firstChild;
+
+          element.parentElement.insertBefore(math, element);
+          element.remove();
+        });
 
         return Object.assign(serializeSelection.save(re), {
           isCollapsed,
-          content: frag.textContent,
+          content: container.innerHTML,
           referenceElementId: re.id,
           rect: getSelectionRect(this.props.windowImpl, selection),
         });
@@ -227,9 +239,64 @@ export default class AnnotationWidget extends React.Component {
     return null;
   }
 
+  snapSelection() {
+    const selection = window.getSelection();
+
+    if (selection.isCollapsed || selection.rangeCount < 1) {
+      return;
+    }
+
+    // snap to math
+    const range = selection.getRangeAt(0);
+    const getMath = node => dom(node).farthest('.MathJax,.MathJax_Display'); 
+
+    const startMath = getMath(range.startContainer); 
+    if (startMath) {
+      range.setStartBefore(startMath);
+    }
+    const endMath = getMath(range.endContainer);
+    if (endMath) {
+      const mml = dom(endMath.nextSibling).matches('script[type="math/mml"]') ? endMath.nextSibling : null; 
+      range.setEndAfter(mml || endMath);
+    }
+
+    selection.removeAllRanges();
+    selection.addRange(range);
+
+    // snap to words
+    const endNode = selection.focusNode;
+    const endOffset = selection.focusOffset;
+
+    const shouldGobbleCharacter = (container, targetOffset) =>
+      targetOffset >= 0 && container.length >= targetOffset && /\S/.test(container.substringData(targetOffset, 1));
+
+    const shouldGobbleBackward = () => {
+      const range = selection.getRangeAt(0);
+      return shouldGobbleCharacter(range.startContainer, range.startOffset - 1);
+    }
+    const shouldGobbleForward = () => {
+      const range = selection.getRangeAt(0);
+      return shouldGobbleCharacter(range.endContainer, range.endOffset);
+    }
+
+    if (range.startContainer.nodeName == '#text') {
+      while (shouldGobbleBackward()) {
+        selection.modify("move", "backward", "character");
+      }
+
+      selection.extend(endNode, endOffset);
+    }
+    if (range.endContainer.nodeName == '#text') {
+      while (shouldGobbleForward()) {
+        selection.modify("extend", "forward", "character");
+      }
+    }
+  }
+
   @action.bound onSelection(ev) {
     if (dom(ev.target).closest('.slide-out-edit-box')) { return; }
 
+    this.snapSelection();
     const selection = this.getCurrentSelectionInfo();
 
     // If it's a cursor placement with no highlighted text, check
@@ -252,7 +319,6 @@ export default class AnnotationWidget extends React.Component {
         this.activeAnnotation = null;
         this.ux.statusMessage.hide();
         this.savedSelection = selection;
-
       }
     }
   }

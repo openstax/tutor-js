@@ -256,6 +256,18 @@ export default function dom(el) {
       }
     },
 
+    farthest(selector) {
+      const thisMatches = this.matches(selector);
+
+      if (el.parentNode && thisMatches) {
+        return dom(el.parentNode).farthest(selector) || el;
+      } else if (el.parentNode) {
+        return dom(el.parentNode).farthest(selector);
+      } else {
+        return thisMatches ? el : null;
+      }
+    },
+
   };
 
 }
