@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
 import keymaster from 'keymaster';
@@ -29,11 +30,20 @@ export default class WindowShade extends React.Component {
     const { ux, children } = this.props;
 
     return (
-      <div className={`highlights-windowshade ${ux.isSummaryVisible ? 'down' : 'up'}`}>
-        <div className='centered-content'>
-          {children}
-        </div>
-      </div>
+      <ReactCSSTransitionGroup
+        component={(props) => React.Children.toArray(props.children)[0] || null}
+        transitionName="animate"
+        transitionEnterTimeout={300}
+        transitionLeaveTimeout={300}
+      >
+        {ux.isSummaryVisible &&
+          <div key="shade" className="highlights-windowshade">
+            <div className='centered-content'>
+              {children}
+            </div>
+          </div>
+        }
+      </ReactCSSTransitionGroup>
     );
 
   }
