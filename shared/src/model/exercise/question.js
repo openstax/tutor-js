@@ -1,6 +1,6 @@
 import { get, first, map, keys, inRange, find, reduce, isEmpty, without } from 'lodash';
 import {
-  BaseModel, identifiedBy, identifier, field, session, hasMany, computed, action,
+  BaseModel, identifiedBy, identifier, field, belongsTo, hasMany, computed, action,
 } from '../../model';
 import Answer from './answer';
 import Solution from './solution';
@@ -25,7 +25,7 @@ export default class ExerciseQuestion extends BaseModel {
   @hasMany({ model: Answer, inverseOf: 'question' }) answers;
   @hasMany({ model: Solution, inverseOf: 'question' }) collaborator_solutions;
 
-  @session exercise;
+  @belongsTo({ model: 'exercise' }) exercise;
 
   @computed get isMultipleChoice() {
     return this.hasFormat('multiple-choice');
