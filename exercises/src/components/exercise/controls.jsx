@@ -42,7 +42,7 @@ class ExerciseControls extends React.Component {
   @action.bound publishExercise() {
     const { exercise } = this;
     this.props.exercises.publish(exercise).then(() => {
-      this.props.history.push(`/exercise/${exercise.uid}`);
+      this.props.history.push(`/exercise/new`);
     });
   }
 
