@@ -1,3 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Exercise controls component does not enable the save draft on blank exercises 1`] = `null`;
+exports[`Exercise controls component does not enable the save draft on blank exercises 1`] = `
+<li
+  className="exercise-navbar-controls"
+>
+  <div
+    className="navbar-btn btn-toolbar"
+    role="toolbar"
+  >
+    <button
+      className="async-button draft btn btn-info"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Save Draft
+    </button>
+    <button
+      className="async-button publish btn btn-primary"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Publish
+    </button>
+    <a
+      className="btn btn-info"
+      href="/preview/1@1"
+      onClick={[Function]}
+    >
+      Preview Only
+    </a>
+  </div>
+  <div
+    className="right-side"
+  >
+    <div
+      className="mpq-toggle form-group"
+    >
+      <input
+        checked={false}
+        className="form-control"
+        id="mpq-toggle"
+        onChange={[Function]}
+        type="checkbox"
+      />
+      <label
+        className="control-label"
+        htmlFor="mpq-toggle"
+      >
+        Exercise contains multiple parts
+      </label>
+    </div>
+  </div>
+</li>
+`;

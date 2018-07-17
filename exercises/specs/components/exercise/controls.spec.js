@@ -2,7 +2,7 @@ import Renderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router-dom';
 import Factory from '../../factories';
 import ExerciseControls from '../../../src/components/exercise/controls';
-
+import EnzymeContext from '../../../../tutor/specs/components/helpers/enzyme-context';
 
 describe('Exercise controls component', function() {
   let exercise;
@@ -13,6 +13,9 @@ describe('Exercise controls component', function() {
     exercise = exercises.array[0];
     props = {
       exercises,
+      history: {
+        push: jest.fn(),
+      },
       match: {
         params: {
           uid: exercise.number,
@@ -25,6 +28,15 @@ describe('Exercise controls component', function() {
     const ex = Renderer.create(<MemoryRouter><ExerciseControls {...props} /></MemoryRouter>);
     expect(ex.toJSON()).toMatchSnapshot();
     ex.unmount();
+  });
+
+  it('disables publish/draft if exercise is published', () => {
+    const controls = mount(<ExerciseControls {...props} />, EnzymeContext.build());
+    expect(controls.find('button.publish').props().disabled).toBe(false);
+    exercise.published_at = new Date();
+    expect(controls.find('button.draft').props().disabled).toBe(false);
+    expect(controls.find('button.publish').props().disabled).toBe(true);
+    controls.unmount();
   });
 
 });
