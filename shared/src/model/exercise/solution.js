@@ -5,7 +5,7 @@ import {
 @identifiedBy('exercise/solution')
 export default class ExerciseSolution extends BaseModel {
 
-  @field content_html;
+  @field content_html = '';
   @field solution_type = 'detailed';
   @hasMany({ model: 'exercise/attachment' }) attachments;
 
