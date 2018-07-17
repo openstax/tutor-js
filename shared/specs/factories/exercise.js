@@ -71,13 +71,17 @@ Factory.define('ExerciseAnswer')
     ]
   ][ parent.object.id % 5 ][ object.id % 4 ]);
 
+
+Factory.define('ExerciseAttachmentAsset')
+  .url(({ parent: { object: { id } } }) => `/attachments/${id}.png`)
+  .filename(({ parent: { object: { id } } }) => `${id}.png`)
+  .small(({ parent: { object: { id } } }) => ({ url: `/attachments/small_${id}.png` }))
+  .medium(({ parent: { object: { id } } }) => ({ url: `/attachments/medium_${id}.png` }))
+  .large(({ parent: { object: { id } } }) => ({ url: `/attachments/large_${id}.png` }));
+
 Factory.define('ExerciseAttachment')
   .id(sequence)
-  .url(({ object: { id } }) => `/attachments/${id}.png`)
-  .filename(({ object: { id } }) => `${id}.png`)
-  .small(({ object: { id } }) => `/attachments/small_${id}.png`)
-  .medium(({ object: { id } }) => `/attachments/medium_${id}.png`)
-  .large(({ object: { id } }) => `/attachments/large_${id}.png`);
+  .asset(reference('ExerciseAttachmentAsset'));
 
 Factory.define('ExerciseQuestion')
   .id(sequence)
