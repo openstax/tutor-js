@@ -14,7 +14,7 @@ export default class App extends React.Component {
 
   ux = new UX();
 
-  @action.bound onNav(ev) {
+  @action.bound onSearch(ev) {
     ev.preventDefault();
     this.router.history.push(ev.currentTarget.pathname);
   }
@@ -39,7 +39,7 @@ export default class App extends React.Component {
                 </Navbar.Brand>
               </Navbar.Header>
               <Nav className="exercise-navbar-controls" >
-                <NavItem onClick={this.onNav} href="/search">
+                <NavItem onClick={this.onSearch} href="/search">
                   Search
                 </NavItem>
                 <NavItem onClick={this.onNew} href="/exercise/new">
