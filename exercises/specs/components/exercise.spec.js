@@ -45,11 +45,12 @@ describe('Exercises component', () => {
       target: { value: 'MY-NICK-NAME' },
     });
     expect(exercise.nickname).toEqual('MY-NICK-NAME');
+    ex.unmount();
   });
 
   it('resets fields when model is new', () => {
     const ex = mount(<Exercise {...props} />, EnzymeContext.build());
-    props.exercises.createNewRecord(); // = ExerciseModel.build({ id: 'NEW' }) ;
+    props.exercises.createNewRecord();
     ex.setProps({ match: { params: { uid: 'new' } } });
     expect(ex.debug()).toMatchSnapshot();
     ex.unmount();
