@@ -5,6 +5,7 @@ import { Provider, observer } from 'mobx-react';
 import { action } from 'mobx';
 import UX from './ux';
 import Search from './components/search';
+import ExerciseMap from './models/exercises';
 import Exercise from './components/exercise';
 import Preview from './components/preview';
 import UserActionsMenu from './components/user-actions-menu';
@@ -15,6 +16,12 @@ export default class App extends React.Component {
 
   @action.bound onNav(ev) {
     ev.preventDefault();
+    this.router.history.push(ev.currentTarget.pathname);
+  }
+
+  @action.bound onNew(ev) {
+    ev.preventDefault();
+    ExerciseMap.createNewRecord();
     this.router.history.push(ev.currentTarget.pathname);
   }
 
@@ -35,7 +42,7 @@ export default class App extends React.Component {
                 <NavItem onClick={this.onNav} href="/search">
                   Search
                 </NavItem>
-                <NavItem onClick={this.onNav} href="/exercise/new">
+                <NavItem onClick={this.onNew} href="/exercise/new">
                   New
                 </NavItem>
                 <Route path="/search" component={Search.Controls} />
