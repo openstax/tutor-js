@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
@@ -9,7 +8,7 @@ import AsyncButton from 'shared/components/buttons/async-button.cjsx';
 import MPQToggle from 'components/exercise/mpq-toggle';
 import { SuretyGuard, idType } from 'shared';
 
-@withRouter
+
 @observer
 class ExerciseControls extends React.Component {
   static propTypes = {
@@ -42,7 +41,7 @@ class ExerciseControls extends React.Component {
   @action.bound publishExercise() {
     const { exercise } = this;
     this.props.exercises.publish(exercise).then(() => {
-      this.props.history.push(`/exercise/${exercise.uid}`);
+      this.props.history.push('/exercise/new');
     });
   }
 
@@ -50,15 +49,8 @@ class ExerciseControls extends React.Component {
     const { exercise } = this;
     if (!exercise) { return null; }
 
-    const guardProps = {
-      onlyPromptIf: this.isExerciseDirty,
-      placement: 'right',
-      message: "You will lose all unsaved changes"
-    };
-
     return (
       <li className="exercise-navbar-controls">
-
         <ButtonToolbar className="navbar-btn">
           <AsyncButton
             bsStyle="info"
@@ -93,7 +85,7 @@ class ExerciseControls extends React.Component {
         <div className="right-side">
           <MPQToggle exercise={exercise} />
         </div>
-          </li>
+      </li>
     );
   }
 }

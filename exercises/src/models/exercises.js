@@ -19,18 +19,19 @@ export class ExerciseVersions extends Map {
 
 export class ExercisesMap extends Map {
 
-  findOrCreateNewRecord() {
-    let ex = this.get(NEW);
-    if (!ex) {
-      ex = Exercise.build({ id: NEW });
-      this.set(NEW, ex);
-    }
+  createNewRecord() {
+    const ex = Exercise.build({ id: NEW });
+    this.set(NEW, ex);
     return ex;
+  }
+
+  findOrCreateNewRecord() {
+    return this.get(NEW) || this.createNewRecord();
   }
 
   get(idWithVersion) {
     const [id, version = 'latest'] = String(idWithVersion).split('@');
-    if (id === NEW) { return super.get(id); }
+    if (id === NEW) { return super.get(id) || this.createNewRecord(); }
     const versions = super.get(id);
     return versions ? versions.get(version) : null;
   }
@@ -49,6 +50,7 @@ export class ExercisesMap extends Map {
     let existing = versions.get(data.version);
     if (exercise) {
       versions.set(data.version, exercise);
+      exercise.published_at = data.published_at;
       existing = exercise;
     }
     existing ? existing.update(data) : versions.set(data.version, exercise || new Exercise(data));

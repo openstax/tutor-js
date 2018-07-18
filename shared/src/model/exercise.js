@@ -31,6 +31,7 @@ export default class Exercise extends BaseModel {
   @field is_vocab;
   @field number;
   @field stimulus_html;
+  @session published_at;
   @session wrapper;
 
   @hasMany({ model: Attachment }) attachments;
@@ -84,6 +85,6 @@ export default class Exercise extends BaseModel {
   }
 
   @computed get isPublishable() {
-    return Boolean(!this.isNew && this.validity.valid);
+    return Boolean(!this.isNew && this.validity.valid && !this.published_at);
   }
 }
