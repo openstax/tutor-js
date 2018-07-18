@@ -11,6 +11,7 @@ export default class CourseRole extends BaseModel {
 
   @field({ type: 'date' }) joined_at;
   @field type;
+  @field research_identifier;
 
   @computed get isStudent() {
     return this.type == 'student';
