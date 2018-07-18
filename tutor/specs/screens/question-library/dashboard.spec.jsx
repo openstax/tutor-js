@@ -97,4 +97,12 @@ describe('Questions Dashboard Component', function() {
     dash.unmount();
   });
 
+  it('clears when cancel is clicked', () => {
+    const dash = mount(<Dashboard {...props} />, EnzymeContext.build());
+    dash.find('.chapter-heading .tutor-icon').at(1).simulate('click');
+    expect(dash.find('.section.selected')).toHaveLength(3);
+    dash.find('.cancel').simulate('click');
+    expect(dash.find('.section.selected')).toHaveLength(0);
+  });
+
 });
