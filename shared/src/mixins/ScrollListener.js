@@ -7,7 +7,8 @@ import { bind } from 'lodash';
 
 
 var win = typeof window !== 'undefined' ? window : false;
-const ScrollElement = document.scrollingElement;
+
+const ScrollElement = document.scrollingElement || document.documentElement;
 
 var ScrollListenerMixin = {
 
