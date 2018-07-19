@@ -39,8 +39,8 @@ export default class CourseStudent extends BaseModel {
     return Boolean(this.needsPayment && moment(this.payment_due_at).isBefore(TimeStore.getNow()));
   }
 
-  get trialDaysRemaining() {
-    return Math.max(moment(this.payment_due_at).diff(TimeStore.getNow(), 'days'), 0);
+  get trialTimeRemaining() {
+    return moment.duration(moment().diff(moment(this.payment_due_at))).humanize();
   }
 
   onSaved({ data }) {
