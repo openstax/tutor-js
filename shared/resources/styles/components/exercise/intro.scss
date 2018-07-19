@@ -6,10 +6,6 @@
   h1 {
     display: flex;
     align-items: center;
-
-    &::before {
-      padding-right: 1rem;
-    }
   }
 
   &.card-body { // overide normal card-body styles
@@ -41,30 +37,25 @@
     color: $openstax-blue !important;
   }
 }
-&-two-step-intro {
-  h1::before {
-    content: data-uri('image/svg+xml;charset=UTF-8', "../#{$icon-path}/icon-two-step-intro-heading.svg");
-  }
-}
 
 &-individual-review-intro {
-  h1::before {
-    content: data-uri('image/svg+xml;charset=UTF-8', "../#{$icon-path}/icon-individual-review-heading.svg");
-  }
   .continue {
     margin-top: 40px;
     @include button-variant($openstax-white, $openstax-primary, darken($openstax-primary, 5%));
   }
 }
 
-&-personalized-intro {
-  h1::before {
-    content: data-uri('image/svg+xml;charset=UTF-8', "../#{$icon-path}/icon-personalized-intro-heading.svg");
-  }
-}
-
-&-spaced-practice-intro {
-  h1::before {
-    content: data-uri('image/svg+xml;charset=UTF-8', "../#{$icon-path}/icon-spaced-practice-intro-heading.svg");
+@each $selector, $icon in (two-step-intro, icon-two-step-intro-heading),
+                          (individual-review-intro, icon-individual-review-heading),
+                          (personalized-intro, icon-personalized-intro-heading),
+                          (spaced-practice-intro, icon-spaced-practice-intro-heading) {
+  &-#{$selector} {
+    h1::before {
+      content: " ";
+      min-width: 100px;
+      min-height: 100px;
+      margin-right: 20px;
+      background: url("#{$icon-path}/#{$icon}.svg") no-repeat center;
+    }
   }
 }
