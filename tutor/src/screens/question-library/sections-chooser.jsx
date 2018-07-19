@@ -32,7 +32,7 @@ export default class QLSectionsChooser extends React.Component {
     this.props.onSelectionsChange(this.pageIds);
   }
 
-  clearQuestions() {
+  @action.bound clearQuestions() {
     this.pageIds = [];
     this.props.onSelectionsChange(this.pageIds);
   }
@@ -75,7 +75,7 @@ export default class QLSectionsChooser extends React.Component {
             >
               Show Questions
             </Button>
-            <Button onClick={this.clearQuestions}>
+            <Button className="cancel" onClick={this.clearQuestions}>
               Cancel
             </Button>
           </div>

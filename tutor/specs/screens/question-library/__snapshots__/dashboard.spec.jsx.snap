@@ -556,7 +556,7 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
           Show Questions
         </button>
         <button
-          className="btn btn-default"
+          className="cancel btn btn-default"
           disabled={false}
           onClick={[Function]}
           type="button"
