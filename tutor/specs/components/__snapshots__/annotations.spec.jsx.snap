@@ -17,7 +17,7 @@ exports[`Annotations renders and matches snapshot 1`] = `
       role="button"
       style={
         Object {
-          "top": 100,
+          "top": 0,
         }
       }
       type="comment-o"
