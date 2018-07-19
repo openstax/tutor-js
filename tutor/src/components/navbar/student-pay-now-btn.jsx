@@ -71,7 +71,7 @@ export default class StudentPayNowBtn extends React.PureComponent {
 
     return (
       <span className="student-pay-now">
-        You have {this.course.userStudentRecord.trialDaysRemaining} days left in your free trial
+        You have {this.course.userStudentRecord.trialTimeRemaining} left in your free trial
         {this.renderModal()}
         <Button bsStyle="primary" onClick={this.onClick}>
           Pay now
