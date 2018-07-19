@@ -21,12 +21,6 @@ $exercise-details-body-height: calc(100vh - 150px);
     margin-left: 450px;
     z-index: 1; // above details forward/back nav when scrolling up
 
-    .pinned-on & {
-      position: fixed;
-      top: 190px;
-      z-index: 10;
-    }
-
     .pinned-shy & {
       top: 130px;
       @include transition('top 0.2s ease-out');
@@ -61,30 +55,6 @@ $exercise-details-body-height: calc(100vh - 150px);
 
   .paging-control {
     .icon.arrow { position: absolute; }
-  }
-
-}
-
-// switch controls to fixed when not scrolling up
-.pinned-view.pinned-on {
-  .paging-control {
-    .icon.arrow { position: fixed; }
-  }
-
-  .exercise-details {
-    .exercise-card {
-      .controls-overlay {
-        height: 100vh;
-        position: fixed;
-        top: 0px;
-        left: calc(50% - 400px);
-      }
-      &.has-interactive {
-        .controls-overlay {
-          left: calc(50% - #{$tutor-interactive-iframe-width/2} );
-        }
-      }
-    }
   }
 
 }
