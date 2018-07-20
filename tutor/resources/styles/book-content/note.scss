@@ -181,14 +181,22 @@ $tutor-book-note-selector: '
     }
 
     @include tutor-book-label-style() {
-      position: absolute;
       @include tutor-sans-font($tutor-book-ui-top-height - 18px, $tutor-book-ui-top-height);
       font-weight: 900;
-      padding: 0 40px;
-      height: $tutor-book-ui-top-height;
-      display: inline-block;
-      top: $book-content-note-with-background-top;
-      left: $book-content-note-with-background-left;
+      padding: 0 0 0 40px;
+      display: flex;
+      flex-direction: row;
+      margin: ($tutor-note-padding-vertical + 8px) * -1 $tutor-note-padding-horizontal * -1;
+      margin-bottom: $tutor-note-padding-vertical;
+      border-bottom: solid 8px $tutor-neutral-lighter;
+
+      &::after {
+        content: "";
+        flex: 1;
+        background-color: $tutor-white;
+        display: block;
+        margin-left: 40px;
+      }
     };
 
     &#{$has-data-label-selector}::before {
