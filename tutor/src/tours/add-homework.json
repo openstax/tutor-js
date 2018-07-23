@@ -39,7 +39,7 @@
   "steps": [
     {
       "title": "Personalized questions",
-      "body": "OpenStax Tutor selects questions using machine learning algorithms, using knowledge about each student's performance. You can allow up to four, but no fewer than two personalized questions per homework assignment.",
+      "body": "OpenStax Tutor selects questions using machine learning algorithms, using knowledge about each student's performance. You can allow up to four personalized questions per homework assignment.",
       "position": "bottom",
       "anchor_id": "tutor-selections",
       "action": {
