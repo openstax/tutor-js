@@ -199,7 +199,7 @@ export default class Course extends BaseModel {
   }
 
   @computed get canAnnotate() {
-    return Boolean(FeatureFlags.is_highlighting_allowed && this.isStudent && this.isActive);
+    return Boolean(FeatureFlags.is_highlighting_allowed && this.isActive);
   }
 
   @computed get needsPayment() {

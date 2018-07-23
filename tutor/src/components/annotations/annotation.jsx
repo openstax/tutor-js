@@ -348,7 +348,8 @@ export default class AnnotationWidget extends React.Component {
   @autobind
   saveNewHighlight() {
     return this.props.annotations.create({
-      research_identifier: this.course.userStudentRecord.research_identifier,
+      research_identifier: this.course.primaryRole.research_identifier,
+      userRole: this.course.primaryRole.type,
       documentId: this.props.documentId,
       selection: this.savedSelection,
       courseId: this.props.courseId,
