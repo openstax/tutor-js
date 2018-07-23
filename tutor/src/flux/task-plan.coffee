@@ -25,7 +25,7 @@ hasValue = negate(isEmpty)
 TUTOR_SELECTIONS =
   default: 3
   max: 4
-  min: 2
+  min: 0
 
 PLAN_TYPES =
   HOMEWORK: 'homework'
