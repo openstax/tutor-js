@@ -10,7 +10,6 @@ function Attachments({ exercise }) {
       {exercise.attachments.map((attachment) =>
         <Attachment
           key={attachment.asset.url}
-          exercise={exercise}
           attachment={attachment}
         />
       )}
