@@ -1,6 +1,6 @@
 const Factory = require('object-factory-bot');
-require('../../../factories/book');
-const GUIDE = require('../../../../api/courses/1/guide.json');
+require('../../../specs/factories/book');
+const GUIDE = require('../../../api/courses/1/guide.json');
 
 let ROLE = 'teacher';
 
