@@ -280,6 +280,8 @@ export default class AnnotationWidget extends React.Component {
     }
 
     if (range.startContainer.nodeName == '#text') {
+      selection.collapse(selection.anchorNode, selection.anchorOffset);
+
       while (shouldGobbleBackward()) {
         selection.modify("move", "backward", "character");
       }
