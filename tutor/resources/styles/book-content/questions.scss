@@ -12,40 +12,43 @@
     width: 4%;
   };
 
-  .exercise[data-type=exercise]:not(.unnumbered) {
-    > [data-type=problem] {
-      > p {
-        margin: 0;
-
-        &::before {
-          @include question-number();
-        }
-      }
-
-      // make fully imported questions imitate embedded exercises
-      // If the list follows something else in the problem,
-      // kinda assume it is most likely multiple-choices.
-      > ol:not(:first-child) {
-        counter-reset: lowerAlpha;
-        list-style: none;
-        padding-left: 3rem;
-
-        li {
-          counter-increment: lowerAlpha;
-          padding-top: 1.5rem;
-          color: $openstax-answer-label-color;
+  .exercise,
+  [data-type=exercise] {
+    &:not(.unnumbered) {
+      > [data-type=problem] {
+        > p {
+          margin: 0;
 
           &::before {
-            content: counter(lowerAlpha, lower-alpha);
-            @include answer-bubble();
-            line-height: 4rem;
-            display: inline-block;
-            text-align: center;
-            margin-right: 1rem;
+            @include question-number();
           }
         }
-      }
 
+        // make fully imported questions imitate embedded exercises
+        // If the list follows something else in the problem,
+        // kinda assume it is most likely multiple-choices.
+        > ol:not(:first-child) {
+          counter-reset: lowerAlpha;
+          list-style: none;
+          padding-left: 3rem;
+
+          li {
+            counter-increment: lowerAlpha;
+            padding-top: 1.5rem;
+            color: $openstax-answer-label-color;
+
+            &::before {
+              content: counter(lowerAlpha, lower-alpha);
+              @include answer-bubble();
+              line-height: 4rem;
+              display: inline-block;
+              text-align: center;
+              margin-right: 1rem;
+            }
+          }
+        }
+
+      }
     }
 
     &[data-element-type$=quiz] {

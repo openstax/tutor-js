@@ -147,9 +147,12 @@ $tutor-book-note-selector: '
       padding: $tutor-note-padding;
       width: 100%;
 
-      .exercise[data-type=exercise] .solution {
-        // undo general hiding of solutions
-        display: block;
+      .exercise,
+      [data-type=exercise]  {
+        .solution {
+          // undo general hiding of solutions
+          display: block;
+        }
       }
     }
 
