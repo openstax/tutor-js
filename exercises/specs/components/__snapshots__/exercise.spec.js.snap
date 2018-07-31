@@ -102,7 +102,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 <input
                   checked={false}
                   id="input-open-ended"
-                  name="1-formats"
+                  name="0-formats"
                   onChange={[Function]}
                   type="radio"
                   value="open-ended"
@@ -117,7 +117,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 <input
                   checked={true}
                   id="input-multiple-choice"
-                  name="1-formats"
+                  name="0-formats"
                   onChange={[Function]}
                   type="radio"
                   value="multiple-choice"
@@ -132,7 +132,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 <input
                   checked={false}
                   id="input-true-false"
-                  name="1-formats"
+                  name="0-formats"
                   onChange={[Function]}
                   type="radio"
                   value="true-false"
@@ -1585,7 +1585,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                 <input
                   checked={false}
                   id="input-open-ended"
-                  name="5-formats"
+                  name="0-formats"
                   onChange={[Function]}
                   type="radio"
                   value="open-ended"
@@ -1600,7 +1600,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                 <input
                   checked={true}
                   id="input-multiple-choice"
-                  name="5-formats"
+                  name="0-formats"
                   onChange={[Function]}
                   type="radio"
                   value="multiple-choice"
@@ -1615,7 +1615,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                 <input
                   checked={false}
                   id="input-true-false"
-                  name="5-formats"
+                  name="0-formats"
                   onChange={[Function]}
                   type="radio"
                   value="true-false"
@@ -2977,19 +2977,19 @@ exports[`Exercises component resets fields when model is new 1`] = `
                             <QuestionFormatType question={{...}}>
                               <div className=\\"format-type\\">
                                 <div>
-                                  <input type=\\"radio\\" id=\\"input-open-ended\\" name=\\"undefined-formats\\" value=\\"open-ended\\" onChange={[Function]} checked={true} />
+                                  <input type=\\"radio\\" id=\\"input-open-ended\\" name=\\"0-formats\\" value=\\"open-ended\\" onChange={[Function]} checked={true} />
                                   <label htmlFor=\\"input-open-ended\\">
                                     Open Ended
                                   </label>
                                 </div>
                                 <div>
-                                  <input type=\\"radio\\" id=\\"input-multiple-choice\\" name=\\"undefined-formats\\" value=\\"multiple-choice\\" onChange={[Function]} checked={false} />
+                                  <input type=\\"radio\\" id=\\"input-multiple-choice\\" name=\\"0-formats\\" value=\\"multiple-choice\\" onChange={[Function]} checked={false} />
                                   <label htmlFor=\\"input-multiple-choice\\">
                                     Multiple Choice
                                   </label>
                                 </div>
                                 <div>
-                                  <input type=\\"radio\\" id=\\"input-true-false\\" name=\\"undefined-formats\\" value=\\"true-false\\" onChange={[Function]} checked={false} />
+                                  <input type=\\"radio\\" id=\\"input-true-false\\" name=\\"0-formats\\" value=\\"true-false\\" onChange={[Function]} checked={false} />
                                   <label htmlFor=\\"input-true-false\\">
                                     True/False
                                   </label>

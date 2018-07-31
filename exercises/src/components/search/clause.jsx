@@ -3,6 +3,7 @@ import {
   Row, Col, FormGroup, InputGroup, Dropdown, Button,
   FormControl, DropdownButton, MenuItem,
 } from 'react-bootstrap';
+import AsyncButton from 'shared/components/buttons/async-button.cjsx';
 import { observer } from 'mobx-react';
 
 @observer
@@ -37,7 +38,13 @@ export default class Clause extends React.Component {
                 value={clause.value}
               />
               <InputGroup.Button>
-                <Button onClick={clause.search.execute}>Go</Button>
+                <AsyncButton
+                  isWaiting={clause.search.api.isPending}
+                  waitingText="Searching…"
+                  onClick={clause.search.execute}
+                >
+                  Go
+                </AsyncButton>
               </InputGroup.Button>
             </InputGroup>
           </FormGroup>

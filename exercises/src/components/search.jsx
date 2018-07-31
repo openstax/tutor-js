@@ -14,6 +14,9 @@ class Search extends React.Component {
 
   static propTypes = {
     ux: React.PropTypes.instanceOf(UX).isRequired,
+    history: React.PropTypes.shape({
+      push: React.PropTypes.func.isRequired,
+    }).isRequired,
   };
 
   get search() {
