@@ -137,7 +137,8 @@ $tutor-book-note-selector: '
 @mixin tutor-book-notes() {
   #{$tutor-book-note-selector} {
 
-    >[data-type=content] {
+    >[data-type=content],
+    &:not([data-tutor-transform]) {
       background: $tutor-neutral-lightest;
       margin: 0;
       clear: both;
@@ -145,7 +146,7 @@ $tutor-book-note-selector: '
       border-bottom: solid 8px $tutor-neutral-lighter;
       padding: $tutor-note-padding;
       width: 100%;
-     
+
       .exercise[data-type=exercise] .solution {
         // undo general hiding of solutions
         display: block;
@@ -185,6 +186,20 @@ $tutor-book-note-selector: '
       padding: 0 40px 0 40px;
       display: inline-block;
     };
+
+    &:not([data-tutor-transform]) {
+      position: relative;
+      top: $tutor-book-ui-top-height + 8px;
+      margin-bottom: $tutor-book-ui-top-height * 2 + 8px;
+      @include tutor-book-label-style() {
+        display: block;
+        position: absolute;
+        top: -1 * $tutor-book-ui-top-height - 8px;
+        height: $tutor-book-ui-top-height;
+        left: 0;
+        right: 0;
+      };
+    }
 
     &#{$has-data-label-selector}::before {
       content: attr(data-label);
