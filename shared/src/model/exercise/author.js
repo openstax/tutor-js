@@ -7,5 +7,5 @@ import {
 export default class ExerciseAuthor extends BaseModel {
 
   @identifier user_id;
-
+  @field name;
 }

@@ -35,7 +35,11 @@ export default class Exercise extends BaseModel {
   @session wrapper;
 
   @hasMany({ model: Attachment }) attachments;
-  @hasMany({ model: Author }) authors;
+  @hasMany({ model: Author, extend: {
+    names() {
+      return map(this, 'name');
+    },
+  } }) authors;
   @hasMany({ model: Author })  copyright_holders;
   @hasMany({ model: Question, inverseOf: 'exercise' }) questions;
   @hasMany({
