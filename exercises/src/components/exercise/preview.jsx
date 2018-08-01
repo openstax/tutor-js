@@ -27,7 +27,7 @@ export default class ExerciseEditingPreview extends React.Component {
     return (
       <CornerRibbon
         shadow
-        color="red"
+        color="navy"
         position="topRight"
         label={
           [<div key="ro">READ ONLY</div>,<div key="n">Author: {exercise.authors.names().join(',')}</div>]

@@ -69,17 +69,17 @@
     }
 
     /* Colors */
-
-    &.white{background: #f0f0f0; color: #555;}
-    &.black{background: #333;}
-    &.grey{background: #999;}
-    &.blue{background: #39d;}
-    &.green{background: #2c7;}
-    &.turquoise{background: #1b9;}
-    &.purple{background: #95b;}
-    &.red{background: #e43;}
-    &.orange{background: #e82;}
-    &.yellow{background: #ec0;}
+    &.white     { background: #f0f0f0; color: #555;}
+    &.black     { background: #333;}
+    &.grey      { background: #999;}
+    &.blue      { background: #39d;}
+    &.navy      { background: #232e66; }
+    &.green     { background: #2c7;}
+    &.turquoise { background: #1b9;}
+    &.purple    { background: #95b;}
+    &.red       { background: #e43;}
+    &.orange    { background: #e82;}
+    &.yellow    { background: #ec0;}
   }
 
 }
