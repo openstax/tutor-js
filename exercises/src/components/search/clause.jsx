@@ -33,6 +33,7 @@ export default class Clause extends React.Component {
               </DropdownButton>
               <FormControl
                 type="text"
+                autoFocus
                 onKeyDown={clause.onKey}
                 onChange={clause.setValue}
                 value={clause.value}

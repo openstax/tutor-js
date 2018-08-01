@@ -10,12 +10,16 @@
     top: 25px;
     left: -50px;
     text-align: center;
-    line-height: 50px;
+    min-height: 50px;
     letter-spacing: 1px;
     color: #f0f0f0;
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
     z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
     /* Custom styles */
 
