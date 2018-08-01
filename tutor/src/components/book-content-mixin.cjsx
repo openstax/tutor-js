@@ -15,10 +15,7 @@ Router = require '../helpers/router'
 
 # According to the tagging legend exercises with a link should have `a.os-embed`
 # but in the content they are just a vanilla link.
-EXERCISE_LINK_SELECTOR = [
-  '.os-exercise > [data-type="problem"] > p > a[href]'
-  '.ost-exercise > [data-type="problem"] > p > a[href]'
-].join(', ')
+EXERCISE_LINK_SELECTOR = 'a[href][data-type="exercise"]'
 
 LEARNING_OBJECTIVE_SELECTORS = '.learning-objectives, [data-type=abstract]'
 IS_INTRO_SELECTORS = '.splash img, [data-type="cnx.flag.introduction"]'
