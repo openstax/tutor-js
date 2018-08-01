@@ -33,7 +33,8 @@ getMultipleUrl = (multipleUrls, baseUrl) ->
 ReferenceBookExerciseConfig = {
   _toSeparate: {}
 
-  loadMultiple: (multipleUrls, baseUrl) ->
+  loadMultiple: (multipleUrls) ->
+    baseUrl = _.first(multipleUrls).split(QUERY_START_STRING)[0]
     {queryString, urlsAndTags} = combineQueries(multipleUrls, baseUrl)
     url = "#{baseUrl}?q=#{queryString}"
 
@@ -66,13 +67,6 @@ ReferenceBookExerciseConfig = {
         )
         .isObject()
         .value()
-
-    getMultipleUrl: (multipleUrls) ->
-      baseUrl = _.first(multipleUrls).split(QUERY_START_STRING)[0]
-      url = getMultipleUrl(multipleUrls, baseUrl)
-      @loadMultiple(multipleUrls, baseUrl) unless @_toSeparate[url]?
-
-      url
 }
 
 extendConfig(ReferenceBookExerciseConfig, new CrudConfig())
