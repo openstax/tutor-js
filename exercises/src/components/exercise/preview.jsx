@@ -26,10 +26,11 @@ export default class ExerciseEditingPreview extends React.Component {
 
     return (
       <CornerRibbon
+        shadow
         color="red"
         position="topRight"
         label={
-          [<div key="ro">READ ONLY</div>,<div key="n">{exercise.authors.names().join(',')}</div>]
+          [<div key="ro">READ ONLY</div>,<div key="n">Author: {exercise.authors.names().join(',')}</div>]
         }
         hidden={this.isAuthor}
       >
