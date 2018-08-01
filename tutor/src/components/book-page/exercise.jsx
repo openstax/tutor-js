@@ -5,6 +5,7 @@ import { ReferenceBookExerciseActions, ReferenceBookExerciseStore } from '../../
 import { get } from 'lodash';
 import LoadableItem from '../loadable-item';
 import { ArbitraryHtmlAndMath, Question } from 'shared';
+import QuestionModel from 'shared/model/exercise/question';
 
 function ReferenceBookMissingExercise(props) {
   const {exerciseAPIUrl} = props;
@@ -26,7 +27,7 @@ export function ReferenceBookExercise(props) {
   const {exerciseAPIUrl} = props;
   const ex = ReferenceBookExerciseStore.get(exerciseAPIUrl);
 
-  const question = get(ex, 'items[0].questions[0]');
+  let question = get(ex, 'items[0].questions[0]');
   if (!question) {
     // warning about missing exercise --
     // is there a need to show the reader anything?
@@ -35,7 +36,7 @@ export function ReferenceBookExercise(props) {
       <ReferenceBookMissingExercise exerciseAPIUrl={exerciseAPIUrl} />
     );
   }
-
+  question = new QuestionModel(question);
   return (
     <Question question={question} />
   );
