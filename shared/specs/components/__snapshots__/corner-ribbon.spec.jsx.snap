@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CornerRibbon renders and matches snapshot for bottomLeft 1`] = `
+<div
+  className="corner-ribbon"
+>
+  <div
+    className="corner-ribbon-content bottom-left"
+  >
+    test
+  </div>
+  <p>
+    This is the Body
+  </p>
+</div>
+`;
+
+exports[`CornerRibbon renders and matches snapshot for bottomRight 1`] = `
+<div
+  className="corner-ribbon"
+>
+  <div
+    className="corner-ribbon-content bottom-right"
+  >
+    test
+  </div>
+  <p>
+    This is the Body
+  </p>
+</div>
+`;
+
+exports[`CornerRibbon renders and matches snapshot for topLeft 1`] = `
+<div
+  className="corner-ribbon"
+>
+  <div
+    className="corner-ribbon-content top-left"
+  >
+    test
+  </div>
+  <p>
+    This is the Body
+  </p>
+</div>
+`;
+
+exports[`CornerRibbon renders and matches snapshot for topRight 1`] = `
+<div
+  className="corner-ribbon"
+>
+  <div
+    className="corner-ribbon-content top-right"
+  >
+    test
+  </div>
+  <p>
+    This is the Body
+  </p>
+</div>
+`;

@@ -13,7 +13,7 @@ export OXRouter from './helpers/router';
 export OXLink from './factories/link';
 export OXButtonLink from './factories/button-link';
 export OXMatchByRouter from './helpers/match-by-router';
-
+export CornerRibbon from './components/corner-ribbon';
 
 export APIActionAdapter from './api/action-adapter';
 export ReactHelpers from './helpers/react';
