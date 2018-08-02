@@ -58,9 +58,8 @@ BookPage = React.createClass
 
   renderExercises: (exerciseLinks) ->
     ReferenceBookExerciseStore.setMaxListeners(exerciseLinks.length)
-    allExercises = map(exerciseLinks, 'href')
-    multipleUrl = ReferenceBookExerciseStore.getMultipleUrl(allExercises)
-    ReferenceBookExerciseActions.load(multipleUrl) unless ReferenceBookExerciseStore.isLoaded(multipleUrl)
+    links = map(exerciseLinks, 'href')
+    ReferenceBookExerciseActions.loadMultiple(links) unless ReferenceBookExerciseStore.isLoaded(links)
 
     forEach(exerciseLinks, @renderExercise)
 
