@@ -137,23 +137,23 @@ $tutor-book-note-selector: '
 @mixin tutor-book-notes() {
   #{$tutor-book-note-selector} {
 
-    background: $tutor-neutral-lightest;
-    margin: 0 0 71px 0;
-    clear: both;
-    border-top: solid 8px $tutor-neutral-lighter;
-    border-bottom: solid 8px $tutor-neutral-lighter;
-    padding: $tutor-note-padding;
-    width: 100%;
-    position: relative;
-    top: $tutor-note-margin-vertical;
+    >[data-type=content],
+    &:not([data-tutor-transform]) {
+      background: $tutor-neutral-lightest;
+      margin: 0;
+      clear: both;
+      border-top: solid 8px $tutor-neutral-lighter;
+      border-bottom: solid 8px $tutor-neutral-lighter;
+      padding: $tutor-note-padding;
+      width: 100%;
 
-    .exercise[data-type=exercise] .solution {
-      // undo general hiding of solutions
-      display: block;
+      .exercise[data-type=exercise] .solution {
+        // undo general hiding of solutions
+        display: block;
+      }
     }
 
     @include tutor-book-note-style();
-
 
     .grasp-check {
       margin: 0 0 71px 0;
@@ -181,32 +181,28 @@ $tutor-book-note-selector: '
     }
 
     @include tutor-book-label-style() {
-      @include tutor-sans-font($tutor-book-ui-top-height - 18px, $tutor-book-ui-top-height);
+      @include tutor-sans-font($tutor-book-ui-top-height - 8px, $tutor-book-ui-top-height);
       font-weight: 900;
-      padding: 0 0 0 40px;
-      display: flex;
-      flex-direction: row;
-      margin: ($tutor-note-padding-vertical + 8px) * -1 $tutor-note-padding-horizontal * -1;
-      margin-bottom: $tutor-note-padding-vertical;
-      border-bottom: solid 8px $tutor-neutral-lighter;
-
-      &::after {
-        content: "";
-        flex: 1;
-        background-color: $tutor-white;
-        display: block;
-        margin-left: 40px;
-      }
+      padding: 0 40px 0 40px;
+      display: inline-block;
     };
+
+    &:not([data-tutor-transform]) {
+      position: relative;
+      top: $tutor-book-ui-top-height + 8px;
+      margin-bottom: $tutor-book-ui-top-height * 2 + 8px;
+      @include tutor-book-label-style() {
+        display: block;
+        position: absolute;
+        top: -1 * $tutor-book-ui-top-height - 8px;
+        height: $tutor-book-ui-top-height;
+        left: 0;
+        right: 0;
+      };
+    }
 
     &#{$has-data-label-selector}::before {
       content: attr(data-label);
-    }
-
-    #{$tutor-book-note-selector} {
-      @include tutor-book-label-style() {
-        top: auto;
-      };
     }
   }
 
