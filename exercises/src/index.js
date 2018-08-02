@@ -2,6 +2,7 @@ import React from 'react';
 import { get } from 'lodash';
 import MathJaxHelper from 'shared/helpers/mathjax';
 import api from './api';
+import User from './models/user';
 import { ReactHelpers } from 'shared';
 
 function loadApp() {
@@ -10,6 +11,7 @@ function loadApp() {
   const data = JSON.parse(
     get(document.getElementById('exercises-boostrap-data'), 'innerHTML', '{}')
   );
+  User.bootstrap(data.user);
   // Both require and module.hot.accept must be passed a bare string, not variable
   const Renderer = ReactHelpers.renderRoot( function() {
     const Component = require('./app').default;

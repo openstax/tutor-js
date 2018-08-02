@@ -33,7 +33,7 @@ class QuestionFormatType extends React.Component {
             <input
               type="radio"
               id={`input-${id}`}
-              name={`${question.id}-formats`}
+              name={`${question.index}-formats`}
               value={id}
               onChange={this.updateRadioFormat}
               checked={question.hasFormat(id)}

@@ -31,7 +31,7 @@ export default class App extends React.Component {
     return (
       <Provider ux={ux}>
         <BrowserRouter ref={br => this.router = br}>
-          <Grid fluid className="exercises">
+          <Grid fluid className="openstax exercises">
             <Navbar fixedTop>
               <Navbar.Header>
                 <Navbar.Brand>

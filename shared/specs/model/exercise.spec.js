@@ -28,5 +28,26 @@ describe('Exercise Model', () => {
     ).toThrow();
   });
 
+  it('gets author names', () => {
+    expect(exercise.authors.names()).toEqual(exercise.authors.map(a=>a.name));
+  });
 
+  it('calculates validity', () => {
+    expect(exercise.validity.valid).toBe(true);
+    exercise.questions[0].stem_html = '';
+    expect(exercise.questions[0].validity.valid).toBe(false);
+    expect(exercise.validity.valid).toBe(false);
+  });
+
+  it('toggles multipart', () => {
+    expect(exercise.isMultiPart).toBe(false);
+    exercise.toggleMultiPart();
+    expect(exercise.isMultiPart).toBe(true);
+  });
+
+  it('tests isPublishable', () => {
+    expect(exercise.isPublishable).toBe(true);
+    exercise.published_at = new Date();
+    expect(exercise.isPublishable).toBe(false);
+  });
 });

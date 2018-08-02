@@ -14,6 +14,9 @@ class Search extends React.Component {
 
   static propTypes = {
     ux: React.PropTypes.instanceOf(UX).isRequired,
+    history: React.PropTypes.shape({
+      push: React.PropTypes.func.isRequired,
+    }).isRequired,
   };
 
   get search() {
@@ -33,9 +36,7 @@ class Search extends React.Component {
       <div className="search">
         {clauses.map((c, i) => <Clause key={i} clause={c} />)}
         {exercises.map((e) => (
-          <Preview key={e.uuid} exercise={e}>
-            <a onClick={this.onEdit} href={`/exercise/${e.uid}`}>EDIT {e.uid}</a>
-          </Preview>
+          <Preview key={e.uuid} exercise={e} showEdit />
         ))}
       </div>
     );
