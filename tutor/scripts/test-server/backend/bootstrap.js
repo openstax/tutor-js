@@ -1,8 +1,8 @@
 const Factory = require('object-factory-bot');
 
 const BOOTSTRAP_DATA = require('./static-bootstra-data.json');
-require('../../../factories/user');
-require('../../../factories/course');
+require('../../../specs/factories/user');
+require('../../../specs/factories/course');
 const { now } = require('../time-now');
 const { fe_port, be_port } = require('../ports');
 

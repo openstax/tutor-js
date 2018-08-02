@@ -6,7 +6,7 @@ const faker = require('faker');
 const { now } = require('./time-now');
 const { fe_port, be_port } = require('./ports');
 const server = jsonServer.create();
-const DIR = require('../helpers/working-directory');
+const os = require('os');
 
 faker.seed(12345);
 
@@ -17,7 +17,7 @@ server.all('/*', function(req, res, next) {
 });
 
 
-const DB = path.join(DIR, 'backend/db.json');
+const DB = path.join(os.tmpdir(), 'tutor-test-server/backend/db.json');
 fs.copySync(path.join(__dirname, './backend/db.json'), DB);
 
 

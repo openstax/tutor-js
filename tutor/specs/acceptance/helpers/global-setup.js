@@ -1,4 +1,4 @@
-const Server = require('../server');
+const Server = require('../../../scripts/test-server');
 const puppeteer = require('puppeteer');
 const fs = require('fs-extra');
 const del = require('del');

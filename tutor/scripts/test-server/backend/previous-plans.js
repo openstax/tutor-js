@@ -1,5 +1,5 @@
 const Factory = require('object-factory-bot');
-require('../../../factories/book');
+require('../../../specs/factories/book');
 const { times } = require('lodash');
 const { now } = require('../time-now');
 
