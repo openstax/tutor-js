@@ -34,244 +34,246 @@ exports[`Annotations renders and matches snapshot 1`] = `
      
     Waiting for page to finish loading…
   </div>
-  <div
-    className="highlights-windowshade"
-  >
+  <div>
     <div
-      className="centered-content"
+      className="highlights-windowshade"
     >
       <div
-        className="summary-page"
+        className="centered-content"
       >
-        <h1>
-          Highlights and annotations
-        </h1>
         <div
-          className="filter-area"
+          className="summary-page"
         >
+          <h1>
+            Highlights and annotations
+          </h1>
           <div
-            className="filter-widget"
+            className="filter-area"
           >
             <div
-              className="multi-select"
+              className="filter-widget"
             >
               <div
-                className="dropdown btn-group"
+                className="multi-select"
               >
-                <button
-                  aria-expanded={false}
-                  aria-haspopup={true}
-                  className="dropdown-toggle btn btn-default"
-                  disabled={false}
-                  id="multi-select"
-                  onClick={[Function]}
-                  onKeyDown={[Function]}
-                  role="button"
-                  tabIndex={0}
-                  type="button"
+                <div
+                  className="dropdown btn-group"
                 >
-                  Display sections
-                   
-                  <span
-                    className="caret"
-                  />
-                </button>
-                <ul
-                  aria-labelledby="multi-select"
-                  className="dropdown-menu"
-                  role="menu"
-                >
-                  <li
-                    className="multi-selection-option"
-                    role="presentation"
-                    style={undefined}
+                  <button
+                    aria-expanded={false}
+                    aria-haspopup={true}
+                    className="dropdown-toggle btn btn-default"
+                    disabled={false}
+                    id="multi-select"
+                    onClick={[Function]}
+                    onKeyDown={[Function]}
+                    role="button"
+                    tabIndex={0}
+                    type="button"
                   >
-                    <a
-                      href="#"
-                      onClick={[Function]}
-                      onKeyDown={[Function]}
-                      role="menuitem"
-                      tabIndex="-1"
+                    Display sections
+                     
+                    <span
+                      className="caret"
+                    />
+                  </button>
+                  <ul
+                    aria-labelledby="multi-select"
+                    className="dropdown-menu"
+                    role="menu"
+                  >
+                    <li
+                      className="multi-selection-option"
+                      role="presentation"
+                      style={undefined}
                     >
-                      <i
-                        className="tutor-icon fa fa-check-square-o"
-                        role="presentation"
-                        type="check-square-o"
-                      />
-                      <span
-                        className="title"
+                      <a
+                        href="#"
+                        onClick={[Function]}
+                        onKeyDown={[Function]}
+                        role="menuitem"
+                        tabIndex="-1"
                       >
-                        <span>
-                          <span
-                            className="section"
-                          >
-                            2.1
-                          </span>
+                        <i
+                          className="tutor-icon fa fa-check-square-o"
+                          role="presentation"
+                          type="check-square-o"
+                        />
+                        <span
+                          className="title"
+                        >
                           <span>
-                            Atoms, Isotopes, Ions, and Molecules: The Building Blocks
+                            <span
+                              className="section"
+                            >
+                              2.1
+                            </span>
+                            <span>
+                              Atoms, Isotopes, Ions, and Molecules: The Building Blocks
+                            </span>
                           </span>
                         </span>
-                      </span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div>
-            <button
-              className="print-btn btn btn-default"
-              disabled={false}
-              onClick={[Function]}
-              type="button"
-            >
-              <i
-                className="tutor-icon fa fa-print"
-                role="presentation"
-                type="print"
-              />
-               Print this page
-            </button>
-          </div>
-        </div>
-        <div
-          className="annotations"
-        >
-          <div
-            className="section"
-          >
-            <h2>
-              2.1
-               
-              Atoms, Isotopes, Ions, and Molecules: The Building Blocks
-            </h2>
-            <div
-              className="section-annotations-list"
-            >
-              <div
-                className="annotation-card"
-              >
-                <div
-                  className="annotation-body"
-                >
-                  <div
-                    className="annotation-content"
-                  >
-                    <blockquote
-                      className="selected-text"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "ng world, elements are found in different proportions, and some elements common to living organisms are relatively rare on the earth as a whole, as shown in See Table. For examp",
-                          }
-                        }
-                      />
-                    </blockquote>
-                    <div
-                      className="plain-text"
-                    >
-                      ee
-                    </div>
-                  </div>
-                  <div
-                    className="controls"
-                  >
-                    <button
-                      onClick={[Function]}
-                      title="Edit"
-                    >
-                      <i
-                        className="tutor-icon fa fa-edit"
-                        role="presentation"
-                        type="edit"
-                      />
-                    </button>
-                    <button
-                      onClick={[Function]}
-                      title="View in book"
-                    >
-                      <i
-                        className="tutor-icon fa fa-external-link"
-                        role="presentation"
-                        type="external-link"
-                      />
-                    </button>
-                    <button
-                      onClick={[Function]}
-                      title="Delete"
-                    >
-                      <i
-                        className="tutor-icon fa fa-trash"
-                        role="presentation"
-                        type="trash"
-                      />
-                    </button>
-                  </div>
+                      </a>
+                    </li>
+                  </ul>
                 </div>
               </div>
+            </div>
+            <div>
+              <button
+                className="print-btn btn btn-default"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                <i
+                  className="tutor-icon fa fa-print"
+                  role="presentation"
+                  type="print"
+                />
+                 Print this page
+              </button>
+            </div>
+          </div>
+          <div
+            className="annotations"
+          >
+            <div
+              className="section"
+            >
+              <h2>
+                2.1
+                 
+                Atoms, Isotopes, Ions, and Molecules: The Building Blocks
+              </h2>
               <div
-                className="annotation-card"
+                className="section-annotations-list"
               >
                 <div
-                  className="annotation-body"
+                  className="annotation-card"
                 >
                   <div
-                    className="annotation-content"
+                    className="annotation-body"
                   >
-                    <blockquote
-                      className="selected-text"
+                    <div
+                      className="annotation-content"
                     >
+                      <blockquote
+                        className="selected-text"
+                      >
+                        <div
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "ng world, elements are found in different proportions, and some elements common to living organisms are relatively rare on the earth as a whole, as shown in See Table. For examp",
+                            }
+                          }
+                        />
+                      </blockquote>
                       <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "Hydrogen (H)
+                        className="plain-text"
+                      >
+                        ee
+                      </div>
+                    </div>
+                    <div
+                      className="controls"
+                    >
+                      <button
+                        onClick={[Function]}
+                        title="Edit"
+                      >
+                        <i
+                          className="tutor-icon fa fa-edit"
+                          role="presentation"
+                          type="edit"
+                        />
+                      </button>
+                      <button
+                        onClick={[Function]}
+                        title="View in book"
+                      >
+                        <i
+                          className="tutor-icon fa fa-external-link"
+                          role="presentation"
+                          type="external-link"
+                        />
+                      </button>
+                      <button
+                        onClick={[Function]}
+                        title="Delete"
+                      >
+                        <i
+                          className="tutor-icon fa fa-trash"
+                          role="presentation"
+                          type="trash"
+                        />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="annotation-card"
+                >
+                  <div
+                    className="annotation-body"
+                  >
+                    <div
+                      className="annotation-content"
+                    >
+                      <blockquote
+                        className="selected-text"
+                      >
+                        <div
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "Hydrogen (H)
                 10%
                 trace
                 0.1%",
+                            }
                           }
-                        }
-                      />
-                    </blockquote>
-                    <div
-                      className="plain-text"
-                    >
-                      
+                        />
+                      </blockquote>
+                      <div
+                        className="plain-text"
+                      >
+                        
+                      </div>
                     </div>
-                  </div>
-                  <div
-                    className="controls"
-                  >
-                    <button
-                      onClick={[Function]}
-                      title="Edit"
+                    <div
+                      className="controls"
                     >
-                      <i
-                        className="tutor-icon fa fa-edit"
-                        role="presentation"
-                        type="edit"
-                      />
-                    </button>
-                    <button
-                      onClick={[Function]}
-                      title="View in book"
-                    >
-                      <i
-                        className="tutor-icon fa fa-external-link"
-                        role="presentation"
-                        type="external-link"
-                      />
-                    </button>
-                    <button
-                      onClick={[Function]}
-                      title="Delete"
-                    >
-                      <i
-                        className="tutor-icon fa fa-trash"
-                        role="presentation"
-                        type="trash"
-                      />
-                    </button>
+                      <button
+                        onClick={[Function]}
+                        title="Edit"
+                      >
+                        <i
+                          className="tutor-icon fa fa-edit"
+                          role="presentation"
+                          type="edit"
+                        />
+                      </button>
+                      <button
+                        onClick={[Function]}
+                        title="View in book"
+                      >
+                        <i
+                          className="tutor-icon fa fa-external-link"
+                          role="presentation"
+                          type="external-link"
+                        />
+                      </button>
+                      <button
+                        onClick={[Function]}
+                        title="Delete"
+                      >
+                        <i
+                          className="tutor-icon fa fa-trash"
+                          role="presentation"
+                          type="trash"
+                        />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

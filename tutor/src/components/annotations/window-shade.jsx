@@ -31,7 +31,6 @@ export default class WindowShade extends React.Component {
 
     return (
       <ReactCSSTransitionGroup
-        component={(props) => React.Children.toArray(props.children)[0] || null}
         transitionName="animate"
         transitionEnterTimeout={300}
         transitionLeaveTimeout={300}
