@@ -1,9 +1,10 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { observable, action } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import { Label } from 'react-bootstrap';
 import { autobind } from 'core-decorators';
 import { ArbitraryHtmlAndMath } from 'shared';
+import Courses from '../../models/courses-map';
 import Annotation from '../../models/annotations/annotation';
 import Icon from '../icon';
 import SuretyGuard from 'shared/components/surety-guard';
@@ -84,10 +85,14 @@ export default class AnnotationCard extends React.Component {
     );
   }
 
+  @computed get course() {
+    return Courses.get(this.props.annotation.courseId);
+  }
+
   @autobind
   openPage() {
-    const { id, selection: { courseId, chapter, section } } = this.props.annotation;
-    let url = `/book/${courseId}/section/${chapter}`;
+    const { id, selection: { chapter, section } } = this.props.annotation;
+    let url = `/book/${this.course.ecosystem_id}/section/${chapter}`;
     if (section) {
       url += `.${section}`;
     }
