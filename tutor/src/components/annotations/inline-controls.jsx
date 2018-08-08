@@ -3,13 +3,15 @@ import { observer } from 'mobx-react';
 import Icon from '../icon';
 import HighlightIcon from './highlight-icon';
 
-const InlineControls = observer(({  selection, annotate, parentRect, highlight }) => {
+const MARGIN = 100; // min amount of space that should be available on right of page
+
+const InlineControls = observer(({ selection, annotate, parentRect, highlight }) => {
   if (!selection) { return null; }
 
   const { rect } = selection;
   const style = {
     top: `${rect.top - 70 - parentRect.top}px`,
-    right: `${parentRect.right - rect.right - 10}px`,
+    right: `${Math.max(parentRect.right - rect.right - 10, MARGIN)}px`,
   };
 
   return (
@@ -18,11 +20,12 @@ const InlineControls = observer(({  selection, annotate, parentRect, highlight }
       <button className="highlight" onClick={highlight}>
         <HighlightIcon role="button" alt="highlight" />
       </button>
-
     </div>
   );
 
 });
+
+InlineControls.displayName = 'InlineControls';
 
 InlineControls.propTypes = {
   annotate: React.PropTypes.func.isRequired,
