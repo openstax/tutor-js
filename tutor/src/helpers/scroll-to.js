@@ -100,6 +100,7 @@ export default class ScrollTo {
 
   _desiredTopPosition(el, options ) {
     if (options == null) { options = {}; }
+
     return GetPositionMixin.getTopPosition(el) - (
       options.scrollTopOffset || result(this, 'getScrollTopOffset', DEFAULT_TOP_OFFSET)
     );
