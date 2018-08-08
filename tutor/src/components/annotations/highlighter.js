@@ -82,7 +82,27 @@ function refineRangeBoundaries(range) {
     ancestor = range.commonAncestorContainer,
     goDeeper = true;
 
-  if (range.endOffset === 0) {
+  const getMath = node => {
+    const mathjax = dom(node).farthest('.MathJax');
+    if (mathjax) {
+      return mathjax;
+    }
+
+    const mml = dom(node).farthest('script[type="math/mml"]');
+    if (mml && mml.previousSibling.matches('.MathJax')) {
+      return mml.previousSibling;
+    }
+    if (mml && mml.previousSibling.matches('.MathJax_Display')) {
+      return mml.previousSibling.querySelector('.MathJax');
+    }
+
+    return null;
+  };
+
+  const endMath = getMath(range.endContainer);
+  if (endMath) {
+    endContainer = endMath;
+  } else if (range.endOffset === 0) {
     while (!endContainer.previousSibling && endContainer.parentNode !== ancestor) {
       endContainer = endContainer.parentNode;
     }
@@ -95,7 +115,11 @@ function refineRangeBoundaries(range) {
     endContainer = endContainer.childNodes.item(range.endOffset - 1);
   }
 
-  if (startContainer.nodeType === NODE_TYPE.TEXT_NODE) {
+  const startMath = getMath(range.startContainer);
+  if (startMath) {
+    startContainer = startMath;
+    goDeeper = false;
+  } else if (startContainer.nodeType === NODE_TYPE.TEXT_NODE) {
     if (range.startOffset === startContainer.nodeValue.length) {
       goDeeper = false;
     } else if (range.startOffset > 0) {
@@ -275,19 +299,27 @@ TextHighlighter.prototype.highlightRange = function (range, wrapper) {
     wrapperClone,
     nodeParent;
 
+  const highlightNode = node => {
+    wrapperClone = wrapper.cloneNode(true);
+    wrapperClone.setAttribute(DATA_ATTR, true);
+    nodeParent = node.parentNode;
+
+    // highlight if a node is inside the el
+    if (dom(this.el).contains(nodeParent) || nodeParent === this.el) {
+      highlight = dom(node).wrap(wrapperClone);
+      highlights.push(highlight);
+    }
+  };
+
   do {
+    if (dom(node).matches('.MathJax')) {
+      highlightNode(node);
+      goDeeper = false;
+    }
     if (goDeeper && node.nodeType === NODE_TYPE.TEXT_NODE) {
 
       if (IGNORE_TAGS.indexOf(node.parentNode.tagName) === -1 && node.nodeValue.trim() !== '') {
-        wrapperClone = wrapper.cloneNode(true);
-        wrapperClone.setAttribute(DATA_ATTR, true);
-        nodeParent = node.parentNode;
-
-        // highlight if a node is inside the el
-        if (dom(this.el).contains(nodeParent) || nodeParent === this.el) {
-          highlight = dom(node).wrap(wrapperClone);
-          highlights.push(highlight);
-        }
+        highlightNode(node);
       }
 
       goDeeper = false;
