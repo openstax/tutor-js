@@ -80,7 +80,8 @@ export class CoursesMap extends Map {
   }
 
   forEcosystemId(ecosystem_id) {
-    return find(this.array, c => c.ecosystem_id == ecosystem_id);
+    return find(this.array, c => c.isActive && c.ecosystem_id == ecosystem_id ) ||
+      find(this.array, c => c.ecosystem_id == ecosystem_id) ;
   }
 
   isNameValid(name) {
