@@ -3,9 +3,9 @@ const webpack            = require('webpack');
 const ProgressBarPlugin  = require('progress-bar-webpack-plugin');
 
 const PORTS = {
-  tutor: '8000',
-  exercises: '8001',
-  shared: '8000',
+  tutor:      '8000',
+  shared:     '8000',
+  exercises:  '8001',
 };
 
 const project      = process.env.OX_PROJECT || 'tutor';
@@ -53,7 +53,7 @@ const config = {
     alias: {
       shared: path.resolve(__dirname, 'shared', 'src'),
     },
-    extensions: ['.js', '.jsx', '.coffee', '.cjsx'],
+    extensions: ['.js', '.jsx', '.coffee', '.cjsx', '.json'],
   },
   plugins: [
     new webpack.DefinePlugin({
