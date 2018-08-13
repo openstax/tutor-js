@@ -312,6 +312,8 @@ TextHighlighter.prototype.highlightRange = function (range, wrapper) {
   };
 
   do {
+    if(!node) { done = true; }
+
     if (dom(node).matches('.MathJax')) {
       highlightNode(node);
       goDeeper = false;
