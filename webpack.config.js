@@ -5,6 +5,7 @@ const ProgressBarPlugin  = require('progress-bar-webpack-plugin');
 const PORTS = {
   tutor: '8000',
   exercises: '8001',
+  shared: '8000',
 };
 
 const project      = process.env.OX_PROJECT || 'tutor';
@@ -20,6 +21,7 @@ const ENTRIES = {
     tutor: defaultEntry,
   },
   exercises: { exercises: defaultEntry },
+  shared: { demo: './shared/demo.cjsx' },
 };
 
 const config = {
