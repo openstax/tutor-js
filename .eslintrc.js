@@ -15,6 +15,12 @@ module.exports = {
   "plugins": [
     "react"
   ],
+  "globals": {
+    "__dirname": false,
+    "process": false,
+    "require": false,
+    "module": false,
+  },
   "rules": {
     "comma-dangle": ["error", "always-multiline"],
     "no-console":  "error",
@@ -31,6 +37,7 @@ module.exports = {
     "no-multi-spaces": [2, {
       "exceptions": {
         "Identifier": true,
+        "ObjectExpression": true,
         "ClassProperty": true,
         "ImportDeclaration": true,
         "VariableDeclarator": true,
