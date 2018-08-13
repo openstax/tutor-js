@@ -8,7 +8,7 @@ import Courses from '../models/courses-map';
 import { OXMatchByRouter } from 'shared';
 
 const StudentDashboard = asyncComponent(
-  () => System.import('../screens/student-dashboard')
+  () => import('../screens/student-dashboard')
 );
 
 const getConditionalHandlers = (Router) => {
