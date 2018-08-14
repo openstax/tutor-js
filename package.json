@@ -169,7 +169,6 @@
     "parallelshell": "2.0.0",
     "pixelmatch": "^4.0.2",
     "pngjs": "^3.3.2",
-    "progress-bar-webpack-plugin": "^1.11.0",
     "puppeteer": "^1.1.0",
     "react-dnd-test-backend": "2.2.3",
     "react-stub-context": "0.7.0",

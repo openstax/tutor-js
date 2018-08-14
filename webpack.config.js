@@ -1,6 +1,5 @@
 const path               = require('path');
 const webpack            = require('webpack');
-const ProgressBarPlugin  = require('progress-bar-webpack-plugin');
 
 const PORTS = {
   tutor:      '8000',
@@ -19,6 +18,7 @@ const defaultEntry = `./${project}/index.js`;
 const ENTRIES = {
   tutor: {
     tutor: defaultEntry,
+
   },
   exercises: { exercises: defaultEntry },
   shared: { demo: './shared/demo.cjsx' },
@@ -84,7 +84,6 @@ const config = {
 
 if (!production) {
   config.plugins.push(
-    new ProgressBarPlugin(),
     new webpack.HotModuleReplacementPlugin(),
   );
 }
