@@ -87,7 +87,7 @@
     "pluralize": "3.1.0",
     "promise-loader": "1.0.0",
     "qs": "6.3.0",
-    "raven-js": "^3.24.1",
+    "raven-js": "^3.26.4",
     "react": "15.4.2",
     "react-addons-css-transition-group": "15.4.2",
     "react-addons-pure-render-mixin": "15.4.2",
