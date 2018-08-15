@@ -6,7 +6,7 @@ import './resources/styles/tutor.scss';
 
 import UiSettings from 'shared/model/ui-settings';
 import App from './src/models/app';
-
+import whenDomReady from 'when-dom-ready';
 
 import OFFERINGS from './src/models/course/offerings';
 import USER from './src/models/user';
@@ -44,18 +44,11 @@ window._LOGGING = Logging;
 // In dev builds this enables hot-reloading,
 // in production it simply renders the root app
 
-const loadApp = function() {
-  if (document.readyState !== 'interactive') {
-    return false;
-  }
+whenDomReady().then(() => {
   const app = new App();
   app.boot().then(() => {
     // Both require and module.hot.accept must be passed a bare string, not variable
     const Renderer = ReactHelpers.renderRoot( () => require('./src/components/root').default);
     if (module.hot) { module.hot.accept('./src/components/root', Renderer); }
   });
-
-  return true;
-};
-
-loadApp() || document.addEventListener('readystatechange', loadApp);
+});

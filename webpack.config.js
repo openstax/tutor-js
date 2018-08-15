@@ -18,6 +18,7 @@ const defaultEntry = `./${project}/index.js`;
 const ENTRIES = {
   tutor: {
     tutor: defaultEntry,
+    lmspair: './tutor/lms-pair.js',
   },
   exercises: { exercises: defaultEntry },
   shared: { demo: './shared/demo.cjsx' },
@@ -64,7 +65,7 @@ const config = {
   ],
   watchOptions: {
     aggregateTimeout: 500,
-    poll: 1000
+    poll: 1000,
   },
   devServer: {
     contentBase: project,
