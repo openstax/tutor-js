@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`_class2 renders and matches snapshot 1`] = `
+exports[`_default renders and matches snapshot 1`] = `
 <a
   className="browse-the-book btn btn-default"
   href="/book/1/section/1.2"

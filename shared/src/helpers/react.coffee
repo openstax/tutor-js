@@ -1,8 +1,5 @@
-require 'react-hot-loader/patch'
-
 React          = require 'react'
 ReactDOM       = require 'react-dom'
-{AppContainer} = require 'react-hot-loader'
 indexOf        = require 'lodash/indexOf'
 pickBy         = require 'lodash/pickBy'
 concat         = require 'lodash/concat'
@@ -39,7 +36,7 @@ renderRoot = (getComponent, rootEl) ->
   render = ->
     Root = getComponent()
     ReactDOM.render(
-      React.createElement(AppContainer, {}, React.createElement(Root))
+      React.createElement(Root),
     , rootEl)
 
   render()

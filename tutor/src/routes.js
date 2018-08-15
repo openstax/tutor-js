@@ -8,23 +8,23 @@ const getMyCourses = function() {
 };
 
 const NewCourseWizard = asyncComponent(
-  () => System.import('./screens/new-course')
+  () => import('./screens/new-course')
 );
 const getNewCourseWizard = () => NewCourseWizard;
 
 const TeacherDashboard = asyncComponent(
-  () => System.import('./screens/teacher-dashboard')
+  () => import('./screens/teacher-dashboard')
 );
 const getTeacherDashboard = () => TeacherDashboard;
 
 const ReferenceBook = asyncComponent(
-  () => System.import('./screens/reference-book/index.jsx')
+  () => import('./screens/reference-book/index.jsx')
 );
 const getReferenceBook = () => ReferenceBook;
 const legacyReferenceBookRedirect = () => LegacyReferenceBookRedirect
 
 const QAView = asyncComponent(
-  () => System.import('./screens/qa-view/index.jsx')
+  () => import('./screens/qa-view/index.jsx')
 );
 const getQAView = () => QAView;
 
@@ -123,7 +123,7 @@ const getRoutes = (router) => {
 
       routes: [
         { path: 'scores', name: 'viewScores',
-          renderer: loadAsync(() => System.import('./screens/scores-report/index.jsx')) },
+          renderer: loadAsync(() => import('./screens/scores-report/index.jsx')) },
         { path: 'cc/help', name: 'ccDashboardHelp', renderer: getCCHelp },
         { path: 'guide/:roleId?', name: 'viewPerformanceGuide', renderer: getPerformanceForecastGuide },
         {
@@ -161,7 +161,7 @@ const getRoutes = (router) => {
         { path: 'settings', name: 'courseSettings', renderer: getCourseSettings },
         { path: 'roster', name: 'courseRoster', renderer: getCourseRoster },
         { path: 'questions', name: 'viewQuestionsLibrary',
-          renderer: loadAsync(() => System.import('./screens/question-library/index.jsx')) },
+          renderer: loadAsync(() => import('./screens/question-library/index.jsx')) },
         { path: 'change-student-id', name: 'changeStudentId', renderer: getChangeStudentId },
       ],
 
@@ -190,7 +190,7 @@ const getRoutes = (router) => {
     },
     {
       path: '/surveys/:courseId/:surveyId', name: 'researchSurvey',
-      renderer: loadAsync(() => System.import('./screens/surveys/index.jsx')),
+      renderer: loadAsync(() => import('./screens/surveys/index.jsx')),
     },
   ];
 };

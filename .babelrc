@@ -1,6 +1,5 @@
 {
   "plugins": [
-    "react-hot-loader/babel",
     "transform-decorators-legacy",
     "transform-class-properties",
     "transform-function-bind",
@@ -16,11 +15,12 @@
   "env": {
     "test": {
       "plugins": [
-        "react-hot-loader/babel",
         "transform-decorators-legacy",
         "transform-class-properties",
         "transform-function-bind",
+        "syntax-dynamic-import",
         "transform-react-jsx",
+        "dynamic-import-node",
         "transform-runtime"
       ],
       "presets": [
