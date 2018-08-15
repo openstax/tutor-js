@@ -17,7 +17,7 @@ const Events = {
 };
 
 // a bit shorter helper methods
-const isTeacher = courseId => Courses.get(courseId).is_teacher;
+const isTeacher = courseId => get(Courses.get(courseId),'is_teacher', false);
 const getRole = function(courseId) {
   if (Courses.get(courseId).is_teacher) { return 'teacher'; } else { return 'student'; }
 };
