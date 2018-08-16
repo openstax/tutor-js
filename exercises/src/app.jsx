@@ -32,7 +32,7 @@ export default class App extends React.Component {
       <Provider ux={ux}>
         <BrowserRouter ref={br => this.router = br}>
           <Grid fluid className="openstax exercises">
-            <Navbar fixedTop>
+            <Navbar fluid fixedTop>
               <Navbar.Header>
                 <Navbar.Brand>
                   <a href="#home">OX Exercises</a>
