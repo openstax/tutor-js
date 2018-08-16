@@ -37,6 +37,9 @@ BookPage = React.createClass
   getSplashTitle: ->
     this.props.ux.page.title
 
+  componentDidMount: ->
+    this.props.ux.checkForTeacherContent()
+
   componentDidUpdate: ->
     this.props.ux.checkForTeacherContent()
 
