@@ -588,6 +588,11 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   >
                     Micro Economics
                   </option>
+                  <option
+                    value="stax-apush"
+                  >
+                    U.S. History for AP® Courses
+                  </option>
                 </select>
                 <span
                   className="controls"
@@ -2036,6 +2041,11 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                     value="stax-micro"
                   >
                     Micro Economics
+                  </option>
+                  <option
+                    value="stax-apush"
+                  >
+                    U.S. History for AP® Courses
                   </option>
                 </select>
                 <span

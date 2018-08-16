@@ -79,6 +79,11 @@ exports[`Book tags component renders tags 1`] = `
       >
         Micro Economics
       </option>
+      <option
+        value="stax-apush"
+      >
+        U.S. History for AP® Courses
+      </option>
     </select>
     <span
       className="controls"
