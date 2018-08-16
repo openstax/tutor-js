@@ -98,13 +98,8 @@ class Hypothesis extends BaseModel {
           }],
           group: this.userInfo.id,
         },
-      }))
-      .then((data) => {
-        if (!data) {
-          throw new Error("server returned malformed response");
-        }
-        return data;
-      });
+      }));
+
   }
 
   fetchAllAnnotations() {
@@ -139,9 +134,12 @@ class Hypothesis extends BaseModel {
       responseType: 'json',
       headers,
     }))
-      .then((axiosResponse) => axiosResponse.data)
-      .catch((err) => {
-        AppActions.setServerError(err);
+      .then((axiosResponse) => {
+        if (axiosResponse.data) {
+          return axiosResponse.data
+        } else {
+          throw new Error(`server returned malformed response: ${JSON.stringify(axiosResponse)}`);
+        }
       });
   }
 
