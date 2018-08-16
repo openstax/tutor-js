@@ -12,7 +12,8 @@ const BOOKS = {
   'stax-econ'    : 'Economics',
   'stax-anp'     : 'Anatomy and Physiology',
   'stax-macro'   : 'Macro Economics',
-  'stax-micro'   : 'Micro Economics'
+  'stax-micro'   : 'Micro Economics',
+  'stax-apush'   : 'U.S. History for AP® Courses',
 };
 
 function BookSelection(props) {
