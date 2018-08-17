@@ -16,7 +16,7 @@ export default class CourseOfferingTitle extends React.PureComponent {
 
   render() {
     const { offering: { appearance_code }, children, className } = this.props;
-    const baseName = ReactHelpers.getBaseName(this);
+    const baseName = 'course-offering-title';
     const { title } = CourseInformation.forAppearanceCode(appearance_code);
     return (
       <div

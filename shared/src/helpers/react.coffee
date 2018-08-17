@@ -8,9 +8,6 @@ kebabCase      = require 'lodash/kebabCase'
 {detect}       = require 'detect-browser'
 {PropTypes: MobxPropTypes} = require 'mobx-react'
 
-getBaseName = (context) -> kebabCase(context.constructor.displayName || context.constructor.name)
-
-
 PASSABLE_PROPS = ['className', 'id', 'children', 'target', 'ref', 'tabIndex', 'role']
 PASSABLE_PREFIXES = ['data-', 'aria-', 'on']
 filterProps = (props, options = {}) ->
@@ -54,5 +51,5 @@ idType = React.PropTypes.oneOfType([
     ])
 
 module.exports = {
-  getBaseName, filterProps, renderRoot, ArrayOrMobxType, idType,
+  filterProps, renderRoot, ArrayOrMobxType, idType,
 }

@@ -6,7 +6,6 @@ import { isEmpty, merge, map, reject, last, take } from 'lodash';
 import { Col, Row, Grid } from 'react-bootstrap';
 import classnames from 'classnames';
 
-import { ReactHelpers } from 'shared';
 import PreviewCourseOffering from '../../models/course/offerings/previews';
 import Courses from '../../models/courses-map';
 import User from '../../models/user';
@@ -108,7 +107,7 @@ class MyCoursesTitle extends React.Component {
 export class MyCoursesCurrent extends React.Component {
 
   render () {
-    const baseName = ReactHelpers.getBaseName(this);
+    const baseName = 'my-courses-current';
     const courses = Courses.tutor.nonPreview.currentAndFuture.array;
 
     return (
@@ -162,7 +161,7 @@ export class MyCoursesPast extends React.Component {
     return (
       <MyCoursesBasic
         courses={Courses.tutor.nonPreview.completed.array}
-        baseName={ReactHelpers.getBaseName(this)}
+        baseName={'my-courses-past'}
         title="Past Courses"
       />
     );
@@ -176,7 +175,7 @@ export class MyCoursesFuture extends React.Component {
     return (
       <MyCoursesBasic
         courses={Courses.tutor.nonPreview.future.array}
-        baseName={ReactHelpers.getBaseName(this)}
+        baseName={'my-courses-future'}
         title="Future Courses"
       />
     );
@@ -214,7 +213,7 @@ export class MyCoursesPreview extends React.Component {
     return (
       <MyCoursesBasic
         courses={take(courses, courses.length - 1)}
-        baseName={ReactHelpers.getBaseName(this)}
+        baseName={'my-courses-preview'}
         after={<ExploreAPreview course={last(courses)} />}
         title="Preview Courses"
       />

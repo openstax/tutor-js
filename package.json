@@ -1,7 +1,9 @@
 {
   "name": "openstax-frontend",
   "version": "0.0.0",
-  "sideEffects": false,
+  "sideEffects": [
+    "*.scss"
+  ],
   "private": true,
   "description": "Frontend Code for OpenStax",
   "main": "index.js",

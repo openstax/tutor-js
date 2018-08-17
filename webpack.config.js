@@ -7,12 +7,12 @@ const PORTS = {
   exercises:  '8001',
 };
 
+const production   = process.env.NODE_ENV === 'production';
 const project      = process.env.OX_PROJECT || 'tutor';
 const port         = process.env.DEV_PORT || PORTS[project] || '8000';
 const host         = process.env.OX_PROJECT_HOST || 'localhost';
 const servePath    = `http://${host}:${port}`;
-const publicPath   = `${servePath}/dist/`;
-const production   = process.env.NODE_ENV === 'production';
+const publicPath   = production ? '/assets/' : `${servePath}/dist/`;
 const defaultEntry = `./${project}/index.js`;
 
 const ENTRIES = {
@@ -31,7 +31,7 @@ const config = {
     filename: production ? '[name].min.js' : '[name].js',
     path: path.resolve(__dirname, project, 'dist'),
     chunkFilename: '[name]-chunk-[hash].js',
-    publicPath: production ? '/assets/' : `${servePath}/dist/`,
+    publicPath,
   },
   devtool: production ? 'source-map' : 'inline-source-map',
   module: {
