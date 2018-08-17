@@ -88,5 +88,5 @@ if (!production) {
     new webpack.HotModuleReplacementPlugin(),
   );
 }
-console.log(config)
+
 module.exports = config;
