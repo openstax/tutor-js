@@ -28,6 +28,7 @@ describe('Task Plan Publish job', () => {
     });
     job.requestJobStatus = jest.fn();
     const dispose = autorun(() => plan.publishing.reportObserved());
+    expect(plan.isPollable).toBe(true);
     expect(job.isPolling).toBe(true);
     jest.runAllTimers();
     expect(job.requestJobStatus).toHaveBeenCalledTimes(1);

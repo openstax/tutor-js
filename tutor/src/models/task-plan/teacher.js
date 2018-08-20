@@ -95,8 +95,17 @@ export default class TeacherTaskPlan extends BaseModel {
   @computed get isTrouble() { return this.is_trouble; }
   @computed get isOpen() { return this.durationRange.start().isBefore(TimeStore.getNow()); }
   @computed get isEditable() { return this.durationRange.start().isAfter(TimeStore.getNow()); }
-  @computed get isFailed() { return this.publishingUpdates && this.publishingUpdates.hasFailed(); }
+  @computed get isFailed() { return Boolean(this.failed_at || this.killed_at); }
   @computed get isPastDue() { return this.durationRange.end().isBefore(TimeStore.getNow()) }
+
+  @computed get isPollable() {
+    return Boolean(
+      !this.failed_at &&
+      !this.killed_at &&
+      this.is_publishing &&
+        this.publish_job_url
+    );
+  }
 
   isPastDueWithPeriodId(periodId) {
     return find(this.tasking_plans, 'isPastDue');

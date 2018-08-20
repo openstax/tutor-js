@@ -8,7 +8,9 @@ body.modal-open {
 
   &.is-published,
   &.is-publishing {
-    @include tutor-plan-set(modal);
+    &:not(.is-failed) {
+      @include tutor-plan-set(modal);
+    }
   }
 
   &.is-publishing {
@@ -28,6 +30,16 @@ body.modal-open {
       }
     }
   }
+
+  &.is-failed {
+    .modal-header {
+      background-color: fade_out($tutor-danger, 0.2);
+    }
+    .modal-title::before {
+      content: 'failed ';
+    }
+  }
+
 
   @include tutor-modal();
 

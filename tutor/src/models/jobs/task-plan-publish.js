@@ -68,7 +68,7 @@ export default class TaskPlanPublish extends Job {
   }
 
   @computed get shouldPoll() {
-    return Boolean(this.plan && this.plan.is_publishing && this.plan.publish_job_url);
+    return Boolean(this.plan && this.plan.isPollable)
   }
 
   onPollComplete() {
