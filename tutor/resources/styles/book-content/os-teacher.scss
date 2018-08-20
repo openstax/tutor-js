@@ -1,8 +1,17 @@
 %tutor-book-content-teacher {
   .os-teacher {
+    // shown if parent is-teacher present below.
+    display: none;
     &:before {
       color: $tutor-neutral-dark;
       background: $tutor-quaternary;
     }
   }
+
+  .is-teacher {
+    .os-teacher {
+      display: inline-block;
+    }
+  }
+
 }

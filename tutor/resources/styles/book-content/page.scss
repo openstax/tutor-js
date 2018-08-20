@@ -39,9 +39,6 @@
       border: 1px solid $tutor-neutral-bright;
       background-color: $tutor-white;
       // shown if parent is-teacher present below.
-      .os-teacher {
-        display: none;
-      }
 
       > section {
         > h1, h2 {
@@ -68,14 +65,6 @@
       margin: 0;
       border: 0;
       @include tutor-shadow(2);
-    }
-  }
-
-  &.is-teacher {
-    .content .page {
-      .os-teacher {
-        display: inline-block;
-      }
     }
   }
 
