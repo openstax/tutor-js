@@ -38,7 +38,6 @@
 
       border: 1px solid $tutor-neutral-bright;
       background-color: $tutor-white;
-      // shown if parent is-teacher present below.
 
       > section {
         > h1, h2 {
@@ -66,6 +65,12 @@
       border: 0;
       @include tutor-shadow(2);
     }
+  }
+
+  // include selector chain so the specificity matches
+  // the hiding rule in book-content/os-teacher.scss
+  &.is-teacher .content .page .os-teacher {
+    display: inline-block;
   }
 
   .book-page-wrapper {
