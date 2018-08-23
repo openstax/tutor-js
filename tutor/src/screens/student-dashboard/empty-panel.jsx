@@ -10,7 +10,7 @@ const EmptyPanel = inject('studentDashboardUX')(observer(({
   title,
 }) => {
 
-  if (studentDashboardUX && studentDashboardUX.isEmptyNewStudent) {
+  if (studentDashboardUX && studentDashboardUX.shouldFastPoll) {
     return (
       <Panel className="empty" header={title}>
         <Icon type="spinner" spin /> Loading assignments for course
@@ -27,7 +27,7 @@ const EmptyPanel = inject('studentDashboardUX')(observer(({
 
 EmptyPanel.propTypes = {
   studentDashboardUX: React.PropTypes.shape({
-    isEmptyNewStudent: React.PropTypes.bool,
+    shouldFastPoll: React.PropTypes.bool,
   }),
   message: React.PropTypes.string.isRequired,
   title: React.PropTypes.string,

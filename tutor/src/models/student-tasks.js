@@ -16,6 +16,7 @@ export class CourseStudentTasks extends Map {
 
   @observable researchSurveys;
   @observable expecting_assignments_count = 0;
+  @observable all_tasks_are_ready;
 
   constructor(courseId) {
     super();
