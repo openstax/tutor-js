@@ -227,10 +227,10 @@ export default class AnnotationWidget extends React.Component {
     for (const other of this.annotationsForThisPage) {
       if (selection.referenceElementId === other.referenceElementId) {
         if (selection.start >= 0 &&
-          (other.selection.start > selection.start &&
-            other.selection.start < selection.end) ||
-          (other.selection.end > selection.start &&
-            other.selection.end < selection.end)) {
+          (other.selection.start >= selection.start &&
+            other.selection.start <= selection.end) ||
+          (other.selection.end >= selection.start &&
+            other.selection.end <= selection.end)) {
 
           return 'Highlights cannot overlap one another';
         }
