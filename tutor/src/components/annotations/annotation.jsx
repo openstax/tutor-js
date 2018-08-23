@@ -24,8 +24,8 @@ import AnnotationsMap from '../../models/annotations';
 
 const highlighter = new TextHighlighter(document.body);
 
-function getSelectionRect(win, selection) {
-  const rect = selection.getRangeAt(0).getBoundingClientRect();
+function getRangeRect(win, range) {
+  const rect = range.getBoundingClientRect();
   const wLeft = win.pageXOffset;
   const wTop = win.pageYOffset;
   return {
@@ -34,6 +34,26 @@ function getSelectionRect(win, selection) {
     left: rect.left + wLeft,
     right: rect.right + wLeft,
   };
+}
+
+// modified copy/paste out of 'serialize-selection' module
+function serializeSelectionSave(referenceNode, range) {
+  referenceNode = referenceNode || document.body
+
+  const cloneRange = range.cloneRange();
+  const startContainer = cloneRange.startContainer;
+  const startOffset = cloneRange.startOffset;
+  const state = { content: cloneRange.toString() };
+
+  cloneRange.selectNodeContents(referenceNode);
+  cloneRange.setEnd(startContainer, startOffset);
+
+  state.start = cloneRange.toString().length;
+  state.end = cloneRange.toString().length + state.content.length;
+
+  state.restore = serializeSelection.restore.bind(null, state, referenceNode);
+
+  return state
 }
 
 
@@ -152,12 +172,12 @@ export default class AnnotationWidget extends React.Component {
       }
       this.ux.statusMessage.hide();
     };
-    
+
     const unprocessedMath = !!win.document.querySelector('.book-content *:not(.MJX_Assistive_MathML) > math');
     const runImagesComplete = () => imagesComplete({
       body: win.document.querySelector('.book-content'),
     }).then(initialize).catch(initialize);
-    
+
     if (win.MathJax && unprocessedMath) {
       win.MathJax.Hub.Register.MessageHook('End Process', runImagesComplete);
     } else {
@@ -165,31 +185,28 @@ export default class AnnotationWidget extends React.Component {
     }
   }
 
-  getCurrentSelectionInfo() {
-    const selection = document.getSelection();
+  getRangeSelectionInfo(range) {
+    if (!range) {
+      return { isCollapsed: true };
+    }
 
-    // can happen if dom was modified after mouseup
-    if (!selection.anchorNode) { return { isCollapsed: true }; }
-    const node = dom(selection.anchorNode);
-    const { isCollapsed } = selection;
+    const isCollapsed = range.collapsed;
+    const node = dom(range.commonAncestorContainer);
+
     if (!node.closest('.book-content')) {
       return { isCollapsed, outOfBounds: true };
     }
 
     for (const re of this.referenceElements) {
       if (node.isParent(re)) {
-
-        if (!dom(selection.focusNode).isParent(re)) {
-          return { isCollapsed, splitParts: true };
-        }
-
-        const frag = selection.getRangeAt(0).cloneContents();
-        invokeMap(frag.querySelectorAll('.MathJax'), 'remove');
-        invokeMap(frag.querySelectorAll('.MathJax_Preview'), 'remove');
-        invokeMap(frag.querySelectorAll('.MJX_Assistive_MathML'), 'remove');
-
+        const fragment = range.cloneContents();
         const container = document.createElement('div');
-        container.appendChild(frag);
+
+        container.appendChild(fragment);
+        invokeMap(container.querySelectorAll('.MathJax'), 'remove');
+        invokeMap(container.querySelectorAll('.MathJax_Display'), 'remove');
+        invokeMap(container.querySelectorAll('.MathJax_Preview'), 'remove');
+        invokeMap(container.querySelectorAll('.MJX_Assistive_MathML'), 'remove');
 
         container.querySelectorAll('script[type="math/mml"]').forEach(element => {
           const template = document.createElement('template');
@@ -200,11 +217,11 @@ export default class AnnotationWidget extends React.Component {
           element.remove();
         });
 
-        return Object.assign(serializeSelection.save(re), {
+        return Object.assign(serializeSelectionSave(re, range), {
           isCollapsed,
           content: container.innerHTML,
           referenceElementId: re.id,
-          rect: getSelectionRect(this.props.windowImpl, selection),
+          rect: getRangeRect(this.props.windowImpl, range),
         });
       }
     }
@@ -240,66 +257,73 @@ export default class AnnotationWidget extends React.Component {
   }
 
   snapSelection() {
-    const selection = window.getSelection();
+    const selection = this.props.windowImpl.getSelection();
 
-    if (selection.isCollapsed || selection.rangeCount < 1) {
-      return;
+    if (selection.rangeCount < 1) {
+      return null;
+    }
+
+    // set up range to modify
+    const range = selection.getRangeAt(0);
+    const endRange = selection.getRangeAt(selection.rangeCount - 1);
+
+    range.setEnd(endRange.endContainer, endRange.endOffset);
+
+    if (range.collapsed) {
+      return range;
     }
 
     // snap to math
-    const range = selection.getRangeAt(0);
-    const getMath = node => dom(node).farthest('.MathJax,.MathJax_Display'); 
+    const getMath = node => dom(node).farthest('.MathJax,.MathJax_Display');
 
-    const startMath = getMath(range.startContainer); 
+    const startMath = getMath(range.startContainer);
     if (startMath) {
       range.setStartBefore(startMath);
     }
     const endMath = getMath(range.endContainer);
     if (endMath) {
-      const mml = dom(endMath.nextSibling).matches('script[type="math/mml"]') ? endMath.nextSibling : null; 
+      const mml = dom(endMath.nextSibling).matches('script[type="math/mml"]') ? endMath.nextSibling : null;
       range.setEndAfter(mml || endMath);
+    }
+
+    // snap to words
+    const shouldGobbleCharacter = (container, targetOffset) =>
+      targetOffset >= 0 && container.length >= targetOffset && /\S/.test(container.substringData(targetOffset, 1));
+
+    const shouldGobbleBackward = () => {
+      return shouldGobbleCharacter(range.startContainer, range.startOffset - 1);
+    }
+    const shouldGobbleForward = () => {
+      return shouldGobbleCharacter(range.endContainer, range.endOffset);
+    }
+    const gobbleBackward = () => {
+      range.setStart(range.startContainer, range.startOffset - 1);
+    };
+    const gobbleForward = () => {
+      range.setEnd(range.endContainer, range.endOffset + 1);
+    };
+    if (range.startContainer.nodeName == '#text') {
+      while (shouldGobbleBackward()) {
+        gobbleBackward();
+      }
+    }
+    if (range.endContainer.nodeName == '#text') {
+      while (shouldGobbleForward()) {
+        gobbleForward();
+      }
     }
 
     selection.removeAllRanges();
     selection.addRange(range);
 
-    // snap to words
-    const endNode = selection.focusNode;
-    const endOffset = selection.focusOffset;
-
-    const shouldGobbleCharacter = (container, targetOffset) =>
-      targetOffset >= 0 && container.length >= targetOffset && /\S/.test(container.substringData(targetOffset, 1));
-
-    const shouldGobbleBackward = () => {
-      const range = selection.getRangeAt(0);
-      return shouldGobbleCharacter(range.startContainer, range.startOffset - 1);
-    }
-    const shouldGobbleForward = () => {
-      const range = selection.getRangeAt(0);
-      return shouldGobbleCharacter(range.endContainer, range.endOffset);
-    }
-
-    if (range.startContainer.nodeName == '#text') {
-      selection.collapse(selection.anchorNode, selection.anchorOffset);
-
-      while (shouldGobbleBackward()) {
-        selection.modify("move", "backward", "character");
-      }
-
-      selection.extend(endNode, endOffset);
-    }
-    if (range.endContainer.nodeName == '#text') {
-      while (shouldGobbleForward()) {
-        selection.modify("extend", "forward", "character");
-      }
-    }
+    return range;
   }
 
   @action.bound onSelection(ev) {
     if (dom(ev.target).closest('.slide-out-edit-box')) { return; }
 
-    this.snapSelection();
-    const selection = this.getCurrentSelectionInfo();
+    const range = this.snapSelection();
+    const selection = this.getRangeSelectionInfo(range);
 
     // If it's a cursor placement with no highlighted text, check
     // for whether it's in an existing highlight
