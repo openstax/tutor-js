@@ -3,7 +3,7 @@
   cursor: pointer;
   transition: 0.3s background-color;
   &.focus {
-    background-color: $tutor-neutral-light;
+    background-color: $tutor-highlight-active;
   }
 }
 
