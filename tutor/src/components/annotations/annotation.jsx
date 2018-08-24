@@ -6,7 +6,7 @@ import serializeSelection from 'serialize-selection';
 import cn from 'classnames';
 import './highlighter';
 import User from '../../models/user';
-import { filter, last, sortBy, get, find, findLast, isEmpty, invokeMap } from 'lodash';
+import { filter, last, sortBy, get, find, findLast, isEmpty, invokeMap, once } from 'lodash';
 import Icon from '../icon';
 import SummaryPage from './summary-page';
 import dom from '../../helpers/dom';
@@ -165,18 +165,20 @@ export default class AnnotationWidget extends React.Component {
     this.getReferenceElements();
 
     const win = this.props.windowImpl;
-    const initialize = () => {
+    const initialize = once(() => {
       invokeMap(this.annotationsForThisPage, 'selection.restore', highlighter);
       if (this.scrollToPendingAnnotation) {
         this.scrollToPendingAnnotation();
       }
       this.ux.statusMessage.hide();
-    };
+    });
 
     const unprocessedMath = !!win.document.querySelector('.book-content *:not(.MJX_Assistive_MathML) > math');
     const runImagesComplete = () => imagesComplete({
       body: win.document.querySelector('.book-content'),
-    }).then(initialize).catch(initialize);
+    })
+      .finally(initialize)
+    ;
 
     if (win.MathJax && unprocessedMath) {
       win.MathJax.Hub.Register.MessageHook('End Process', runImagesComplete);
