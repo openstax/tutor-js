@@ -1,4 +1,4 @@
-_ = require 'underscore'
+_ = require 'lodash'
 
 MATH_MARKER_BLOCK  = '\u200c\u200c\u200c' # zero-width non-joiner
 MATH_MARKER_INLINE = '\u200b\u200b\u200b' # zero-width space
@@ -9,9 +9,9 @@ MATH_ML_SELECTOR   = "math:not(.#{MATH_RENDERED_CLASS})"
 COMBINED_MATH_SELECTOR = "#{MATH_DATA_SELECTOR}, #{MATH_ML_SELECTOR}"
 
 # Search document for math and [data-math] elements and then typeset them
-typesetDocument = (windowImpl) ->
+typesetDocument = (root, windowImpl) ->
   latexNodes = []
-  for node in windowImpl.document.querySelectorAll(MATH_DATA_SELECTOR)
+  for node in root.querySelectorAll(MATH_DATA_SELECTOR)
     formula = node.getAttribute('data-math')
     # divs should be rendered as a block, others inline
     if node.tagName.toLowerCase() is 'div'
@@ -20,23 +20,34 @@ typesetDocument = (windowImpl) ->
       node.textContent = "#{MATH_MARKER_INLINE}#{formula}#{MATH_MARKER_INLINE}"
     latexNodes.push(node)
 
-  unless _.isEmpty(latexNodes)
-    windowImpl.MathJax.Hub.Typeset(latexNodes)
+  windowImpl.MathJax.Hub.Queue(
+    ->
+      if _.isEmpty(latexNodes)
+        return
 
-  mathMLNodes = _.toArray(windowImpl.document.querySelectorAll(MATH_ML_SELECTOR))
-  unless _.isEmpty(mathMLNodes)
-    # style the entire document because mathjax is unable to style individual math elements
-    windowImpl.MathJax.Hub.Typeset( windowImpl.document )
+      windowImpl.MathJax.Hub.Typeset(latexNodes)
+    ->
+      mathMLNodes = _.toArray(root.querySelectorAll(MATH_ML_SELECTOR))
+      if _.isEmpty(mathMLNodes)
+        return
 
-  windowImpl.MathJax.Hub.Queue ->
-    # Queue a call to mark the found nodes as rendered so are ignored if typesetting is called repeatedly
-    # uses className += instead of classList because IE
-    for node in latexNodes.concat(mathMLNodes)
-      node.className += " #{MATH_RENDERED_CLASS}"
+      # style the entire document because mathjax is unable to style individual math elements
+      windowImpl.MathJax.Hub.Typeset( root )
+    ->
+      # Queue a call to mark the found nodes as rendered so are ignored if typesetting is called repeatedly
+      # uses className += instead of classList because IE
+      for node in latexNodes
+        node.className += " #{MATH_RENDERED_CLASS}"
+  )
 
-# Install a debounce around typesetting function so that it will only run once
-# every Xms even if called multiple times in that period
-typesetDocument = _.debounce( typesetDocument, 100)
+_.memoize.Cache = WeakMap
+# memoize'd getter for typeset document function so that each node's
+# typeset has its own debounce
+getTypesetDocument = _.memoize((root, windowImpl) ->
+  # Install a debounce around typesetting function so that it will only run once
+  # every Xms even if called multiple times in that period
+  _.debounce(typesetDocument, 100).bind(null, root, windowImpl)
+)
 
 # typesetMath is the main exported function.
 # It's called by components like HTML after they're rendered
@@ -44,7 +55,7 @@ typesetMath = (root, windowImpl = window) ->
   # schedule a Mathjax pass if there is at least one [data-math] or <math> element present
 
   if windowImpl.MathJax?.Hub?.Queue? and root.querySelector(COMBINED_MATH_SELECTOR)
-    typesetDocument(windowImpl)
+    getTypesetDocument(root, windowImpl)()
 
 
 # The following should be called once and configures MathJax.
