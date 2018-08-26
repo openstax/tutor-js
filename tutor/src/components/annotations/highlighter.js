@@ -82,6 +82,34 @@ function refineRangeBoundaries(range) {
     ancestor = range.commonAncestorContainer,
     goDeeper = true;
 
+  if (range.endOffset === 0) {
+    while (!endContainer.previousSibling && endContainer.parentNode !== ancestor) {
+      endContainer = endContainer.parentNode;
+    }
+    endContainer = endContainer.previousSibling;
+  } else if (endContainer.nodeType === NODE_TYPE.TEXT_NODE) {
+    if (range.endOffset < endContainer.nodeValue.length) {
+      endContainer.splitText(range.endOffset);
+    }
+  } else if (range.endOffset > 0) {
+    endContainer = endContainer.childNodes.item(range.endOffset - 1);
+  }
+  if (startContainer.nodeType === NODE_TYPE.TEXT_NODE) {
+    if (range.startOffset === startContainer.nodeValue.length) {
+      goDeeper = false;
+    } else if (range.startOffset > 0) {
+      startContainer = startContainer.splitText(range.startOffset);
+      if (endContainer === startContainer.previousSibling) {
+        endContainer = startContainer;
+      }
+    }
+  } else if (range.startOffset < startContainer.childNodes.length) {
+    startContainer = startContainer.childNodes.item(range.startOffset);
+  } else {
+    startContainer = startContainer.nextSibling;
+  }
+
+
   const getMath = node => {
     const mathjax = dom(node).farthest('.MathJax');
     if (mathjax) {
@@ -98,40 +126,14 @@ function refineRangeBoundaries(range) {
 
     return null;
   };
-
-  const endMath = getMath(range.endContainer);
+  const endMath = getMath(endContainer);
   if (endMath) {
     endContainer = endMath;
-  } else if (range.endOffset === 0) {
-    while (!endContainer.previousSibling && endContainer.parentNode !== ancestor) {
-      endContainer = endContainer.parentNode;
-    }
-    endContainer = endContainer.previousSibling;
-  } else if (endContainer.nodeType === NODE_TYPE.TEXT_NODE) {
-    if (range.endOffset < endContainer.nodeValue.length) {
-      endContainer.splitText(range.endOffset);
-    }
-  } else if (range.endOffset > 0) {
-    endContainer = endContainer.childNodes.item(range.endOffset - 1);
   }
-
-  const startMath = getMath(range.startContainer);
+  const startMath = getMath(startContainer);
   if (startMath) {
     startContainer = startMath;
     goDeeper = false;
-  } else if (startContainer.nodeType === NODE_TYPE.TEXT_NODE) {
-    if (range.startOffset === startContainer.nodeValue.length) {
-      goDeeper = false;
-    } else if (range.startOffset > 0) {
-      startContainer = startContainer.splitText(range.startOffset);
-      if (endContainer === startContainer.previousSibling) {
-        endContainer = startContainer;
-      }
-    }
-  } else if (range.startOffset < startContainer.childNodes.length) {
-    startContainer = startContainer.childNodes.item(range.startOffset);
-  } else {
-    startContainer = startContainer.nextSibling;
   }
 
   return {
