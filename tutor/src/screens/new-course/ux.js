@@ -18,7 +18,7 @@ import User from '../../models/user';
 export default class CourseBuilderUX extends BaseModel {
 
   @readonly course = new Course();
-
+  @observable canCancel = true;
   @observable source = Courses.get(TutorRouter.currentParams().sourceId);
 
   newCourse = new CreateCourse();
@@ -98,6 +98,10 @@ export default class CourseBuilderUX extends BaseModel {
   }
 
   @action.bound goBackward() {
+    this._goBackward();
+  }
+
+  _goBackward() {
     this.currentStageIndex -= 1;
     // reset new course state to initial
     if(this.currentStageIndex == 0) {

@@ -17,7 +17,7 @@ const Footer = observer(({ ux }) => {
   }
   return (
     <div className="controls">
-      <Button onClick={ux.onCancel} className="cancel">
+      <Button hidden={!ux.canCancel} onClick={ux.onCancel} className="cancel">
         Cancel
       </Button>
       <BackButton ux={ux} />
@@ -52,7 +52,7 @@ const Title = observer(({ ux }) => {
 @observer
 export default class NewCourseWizard extends React.PureComponent {
 
-  @observable ux = new BuilderUX(this.context.router);
+  @observable ux = this.props.ux || new BuilderUX(this.context.router);
 
   static contextTypes = {
     router: React.PropTypes.object,
