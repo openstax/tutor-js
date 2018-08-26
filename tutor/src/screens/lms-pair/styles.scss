@@ -1,0 +1,13 @@
+@import '../new-course/styles';
+@import '../../../resources/styles/components/choices-listing';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/forms';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/input-groups';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/list-group';
+@import '../../../resources/styles/components/ox-fancy-loader';
+
+.new-course-wizard {
+  background-color: white;
+  &::before {
+    top: 0;
+  }
+}

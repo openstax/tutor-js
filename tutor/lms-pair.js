@@ -1,8 +1,11 @@
 import whenDomReady from 'when-dom-ready';
-//import App from './src/models/app';
-import { ReactHelpers } from 'shared';
+import ReactDOM from 'react-dom';
+import React from 'react';
+import App from './src/screens/lms-pair/app';
+import LmsPair from './src/screens/lms-pair';
 
 whenDomReady().then(() => {
-  const Renderer = ReactHelpers.renderRoot( () => require('./src/screens/lms-pair').default);
-  if (module.hot) { module.hot.accept('./src/screens/lms-pair', Renderer); }
+  App.bootstrap();
+  const root = document.getElementById('ox-root-view');
+  ReactDOM.render(React.createElement(LmsPair, { ux: App.ux }), root);
 });
