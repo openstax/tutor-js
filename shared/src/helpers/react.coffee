@@ -18,7 +18,7 @@ filterProps = (props, options = {}) ->
         name.indexOf(prefix) is 0
       )
 
-renderRoot = (getComponent, rootEl) ->
+renderRoot = (getComponent, rootEl, props = {}) ->
   unless rootEl
     rootEl = document.createElement('div')
     document.body.appendChild(rootEl)
@@ -33,7 +33,7 @@ renderRoot = (getComponent, rootEl) ->
   render = ->
     Root = getComponent()
     ReactDOM.render(
-      React.createElement(Root),
+      React.createElement(Root, props),
     , rootEl)
 
   render()
