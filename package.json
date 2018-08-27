@@ -117,6 +117,7 @@
     "ultimate-pagination": "0.8.0",
     "underscore": "1.8.3",
     "validator": "6.2.1",
+    "weak-map": "^1.0.5",
     "webpack-cli": "^3.1.0",
     "when-dom-ready": "^1.2.12"
   },
