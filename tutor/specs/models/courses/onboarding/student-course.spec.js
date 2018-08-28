@@ -102,13 +102,15 @@ describe('Full Course Onboarding', () => {
       isEmpty: true,
       fetch: jest.fn(() => fetchMock),
     };
-    ux.course.primaryRole = { joinedAgo: jest.fn(() => 1) };
+    ux.course.primaryRole = { joinedAgo: jest.fn(() => 8) };
     expect(ux.isEmptyNewStudent).toBe(true);
     ux.mount();
     expect(ux.course.studentTasks.fetch).toHaveBeenCalledWith();
     return fetchMock.then(() => {
       // fetches every minute
-      expect(setTimeout).toHaveBeenCalledWith(ux.fetchTaskPeriodically, 1000 * 60);
+      expect(setTimeout).toHaveBeenCalledWith(ux.fetchTaskPeriodically,
+        (1000 * 60 * 10) - 8
+      );
 
       ux.course.studentTasks.expecting_assignments_count = 0;
       expect(ux.isEmptyNewStudent).toBe(false);

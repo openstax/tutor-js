@@ -46,4 +46,14 @@ describe('Student Dashboard', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('displays as loading', () => {
+    const ux = { isEmptyNewStudent: true, fetchTasksInterval: 1000 * 60 * 8 };
+    const component = SnapShot.create(
+      <Wrapper injected={{ studentDashboardUX: ux }}
+        _wrapped_component={Dashboard} {...props} />
+    );
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+
+  });
 });
