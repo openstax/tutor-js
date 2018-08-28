@@ -26,4 +26,10 @@ describe('Exercise Tags', () => {
     expect(book.isImportant).toBe(false);
   });
 
+  it('computes validity', () => {
+    const lo = new Tag('lo:stax-phys:1-2-1');
+    expect(lo.validity).toEqual({ valid: true });
+    lo.value = '';
+    expect(lo.validity).toEqual({ valid: false, part: 'lo must have value' });
+  });
 });
