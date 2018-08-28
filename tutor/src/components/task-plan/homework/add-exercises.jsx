@@ -99,7 +99,7 @@ class AddExercises extends React.Component {
     }
     return (
       actions['report-error'] = {
-        message: 'Report an error',
+        message: 'Suggest a correction',
         handler: this.reportError,
       }
     );
