@@ -63,9 +63,9 @@ export default class Exercise extends BaseModel {
   }
 
   @computed get validity() {
-    return reduce(this.questions, (memo, question) => ({
-      valid: memo.valid && question.validity.valid,
-      part: memo.part || question.validity.part,
+    return reduce(this.questions.concat(this.tags), (memo, model) => ({
+      valid: memo.valid && model.validity.valid,
+      part: memo.part || model.validity.part,
     }) , { valid: true });
   }
 

@@ -29,6 +29,14 @@ export default class ExerciseTag extends BaseModel {
     return TYPES.IMPORTANT.includes(this.type);
   }
 
+  @computed get validity() {
+    // if it's an "important" tag it must have a value
+    if (!this.isImportant || this.value) {
+      return { valid: true };
+    }
+    return { valid: false, part: `${this.type} must have value` };
+  }
+
   @computed get name() {
     return this.asString;
   }

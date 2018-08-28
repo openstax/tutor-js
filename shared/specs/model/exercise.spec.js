@@ -32,7 +32,12 @@ describe('Exercise Model', () => {
     expect(exercise.authors.names()).toEqual(exercise.authors.map(a=>a.name));
   });
 
-  it('calculates validity', () => {
+  fit('calculates validity', () => {
+    expect(exercise.validity.valid).toBe(true);
+    const dok = exercise.tags.withType('dok');
+    dok.value = '';
+    expect(exercise.validity.valid).toBe(false);
+    dok.value = '3';
     expect(exercise.validity.valid).toBe(true);
     exercise.questions[0].stem_html = '';
     expect(exercise.questions[0].validity.valid).toBe(false);

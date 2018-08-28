@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row } from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
 import Books from '../tags/books';
 import Lo from '../tags/lo';
 import QuestionType from '../tags/question-type';
@@ -13,21 +13,24 @@ import RequiresContext from '../tags/requires-context';
 import Exercise from '../../models/exercises/exercise';
 
 function ExerciseTags({ exercise }) {
-
+  const { validity } = exercise;
   const tagProps = { exercise };
 
   return (
-    <div className="tags">
-      <Books {...tagProps} />
-      <Lo {...tagProps} />
-      <QuestionType {...tagProps} />
-      <FilterType {...tagProps} />
-      <RequiresContext {...tagProps} />
-      <CnxMod {...tagProps} />
-      <CnxFeature {...tagProps} />
-      <Dok {...tagProps} />
-      <Blooms {...tagProps} />
-      <Time {...tagProps} />
+    <div class="tags-panel">
+      {!validity.valid && <Alert bsStyle="warning">{validity.part}</Alert>}
+      <div className="tags">
+        <Books {...tagProps} />
+        <Lo {...tagProps} />
+        <QuestionType {...tagProps} />
+        <FilterType {...tagProps} />
+        <RequiresContext {...tagProps} />
+        <CnxMod {...tagProps} />
+        <CnxFeature {...tagProps} />
+        <Dok {...tagProps} />
+        <Blooms {...tagProps} />
+        <Time {...tagProps} />
+      </div>
     </div>
   );
 
