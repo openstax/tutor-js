@@ -508,7 +508,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
           role="tabpanel"
         >
           <div
-            class="tags-panel"
+            className="tags-panel"
           >
             <div
               className="tags"
@@ -1966,7 +1966,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
           role="tabpanel"
         >
           <div
-            class="tags-panel"
+            className="tags-panel"
           >
             <div
               className="tags"
@@ -3026,7 +3026,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                     <TabPane eventKey=\\"tags\\" bsClass=\\"tab-pane\\">
                       <div id=\\"exercise-parts-pane-tags\\" aria-labelledby=\\"exercise-parts-tab-tags\\" role=\\"tabpanel\\" aria-hidden={true} className=\\"tab-pane\\">
                         <ExerciseTags exercise={{...}}>
-                          <div class=\\"tags-panel\\">
+                          <div className=\\"tags-panel\\">
                             <Alert bsStyle=\\"warning\\" closeLabel=\\"Close alert\\" bsClass=\\"alert\\">
                               <div role=\\"alert\\" className=\\"alert alert-warning\\">
                                 Question Stem

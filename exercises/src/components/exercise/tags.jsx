@@ -17,7 +17,7 @@ function ExerciseTags({ exercise }) {
   const tagProps = { exercise };
 
   return (
-    <div class="tags-panel">
+    <div className="tags-panel">
       {!validity.valid && <Alert bsStyle="warning">{validity.part}</Alert>}
       <div className="tags">
         <Books {...tagProps} />
