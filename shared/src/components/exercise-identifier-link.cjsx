@@ -45,7 +45,7 @@ ExerciseIdentifierLink = React.createClass
       <span className='exercise-identifier-link'>
         ID# {@props.exerciseId} | <a
           target="_blank" tabIndex={-1} href={url}
-        >Report an error</a>
+        >Suggest a correction</a>
       </span>
     </div>
 module.exports = ExerciseIdentifierLink
