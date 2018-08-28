@@ -16,9 +16,7 @@
     position: relative;
     min-width: 700px;
     .add-mpq {
-      position: absolute;
-      right: 0;
-      z-index: 2; // above tabs;
+      float: right;
     }
 
   }

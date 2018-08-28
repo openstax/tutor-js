@@ -33,6 +33,9 @@
 
   @include editing-panes();
 
+  .nav-tabs {
+    max-width: calc(100% - 120px);
+  }
 
   .tab-pane {
     padding: 20px;
