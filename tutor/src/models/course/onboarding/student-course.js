@@ -10,7 +10,8 @@ import User from '../../user';
 
 const PAY_LATER_CHOICE  = 'PL';
 const TRIAL_ACKNOWLEDGED = 'FTA';
-const FETCH_INITIAL_TASKS_INTERVAL = 1000 * 60; // every minute;
+const INITIAL_LOADING_DELAY = 10;
+const FETCH_INITIAL_TASKS_INTERVAL = 1000 * 60 * INITIAL_LOADING_DELAY; // every X minutes;
 const REFRESH_TASKS_INTERVAL = 1000 * 60 * 60 * 4; // every 4 hours
 
 export default class StudentCourseOnboarding extends BaseOnboarding {
@@ -88,16 +89,20 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
   @computed get isEmptyNewStudent() {
     return Boolean(
       this.course.studentTasks.expecting_assignments_count &&
-        this.course.studentTasks.isEmpty &&
-        this.course.primaryRole.joinedAgo('minutes') < 30
+        this.course.primaryRole.joinedAgo('minutes') < 10
     );
+  }
+
+  @computed get fetchTasksInterval() {
+    if (this.isEmptyNewStudent) {
+      return FETCH_INITIAL_TASKS_INTERVAL - this.course.primaryRole.joinedAgo('ms');
+    }
+    return REFRESH_TASKS_INTERVAL;
   }
 
   @action.bound fetchTaskPeriodically() {
     return this.course.studentTasks.fetch().then(() => {
-      const interval =  this.isEmptyNewStudent ?
-        FETCH_INITIAL_TASKS_INTERVAL : REFRESH_TASKS_INTERVAL;
-      this.refreshTasksTimer = setTimeout(this.fetchTaskPeriodically, interval);
+      this.refreshTasksTimer = setTimeout(this.fetchTaskPeriodically, this.fetchTasksInterval);
     });
   }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
 import { Panel } from 'react-bootstrap';
+import moment from 'moment';
 import StudentTasks from '../../models/student-tasks';
 import Icon from '../../components/icon';
 
@@ -13,7 +14,8 @@ const EmptyPanel = inject('studentDashboardUX')(observer(({
   if (studentDashboardUX && studentDashboardUX.isEmptyNewStudent) {
     return (
       <Panel className="empty" header={title}>
-        <Icon type="spinner" spin /> Loading assignments for course
+        <Icon type="spinner" spin /> Preparing assignments for your course.  This
+        will take about {moment.duration(studentDashboardUX.fetchTasksInterval, 'ms').humanize()}.
       </Panel>
     );
   }
