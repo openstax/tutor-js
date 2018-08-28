@@ -1,6 +1,7 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
 import { Panel } from 'react-bootstrap';
+import moment from 'moment';
 import StudentTasks from '../../models/student-tasks';
 import Icon from '../../components/icon';
 
@@ -10,10 +11,11 @@ const EmptyPanel = inject('studentDashboardUX')(observer(({
   title,
 }) => {
 
-  if (studentDashboardUX && studentDashboardUX.shouldFastPoll) {
+  if (studentDashboardUX && studentDashboardUX.isPendingTaskLoading) {
     return (
       <Panel className="empty" header={title}>
-        <Icon type="spinner" spin /> Loading assignments for course
+        <Icon type="spinner" spin /> Preparing assignments for your course.  This
+        can take up to 10 minutes.
       </Panel>
     );
   }
@@ -27,7 +29,7 @@ const EmptyPanel = inject('studentDashboardUX')(observer(({
 
 EmptyPanel.propTypes = {
   studentDashboardUX: React.PropTypes.shape({
-    shouldFastPoll: React.PropTypes.bool,
+    isPendingTaskLoading: React.PropTypes.bool,
   }),
   message: React.PropTypes.string.isRequired,
   title: React.PropTypes.string,

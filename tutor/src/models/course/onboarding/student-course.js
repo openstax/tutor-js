@@ -85,7 +85,7 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
     return Promise.resolve();
   }
 
-  @computed get shouldFastPoll() {
+  @computed get isPendingTaskLoading() {
     return Boolean(
       !this.course.studentTasks.all_tasks_are_ready &&
         this.course.primaryRole.joinedAgo('minutes') < 30
@@ -94,7 +94,7 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
 
   @action.bound fetchTaskPeriodically() {
     return this.course.studentTasks.fetch().then(() => {
-      const interval =  this.shouldFastPoll ?
+      const interval =  this.isPendingTaskLoading ?
         FETCH_INITIAL_TASKS_INTERVAL : REFRESH_TASKS_INTERVAL;
       this.refreshTasksTimer = setTimeout(this.fetchTaskPeriodically, interval);
     });

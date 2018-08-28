@@ -104,7 +104,7 @@ describe('Full Course Onboarding', () => {
       isEmpty: true,
       fetch: jest.fn(() => fetchMock),
     };
-    expect(ux.shouldFastPoll).toBe(true);
+    expect(ux.isPendingTaskLoading).toBe(true);
     ux.mount();
     expect(ux.course.studentTasks.fetch).toHaveBeenCalledWith();
     return fetchMock.then(() => {
@@ -112,7 +112,7 @@ describe('Full Course Onboarding', () => {
       expect(setTimeout).toHaveBeenCalledWith(ux.fetchTaskPeriodically, 1000 * 60);
 
       ux.course.studentTasks.all_tasks_are_ready = true;
-      expect(ux.shouldFastPoll).toBe(false);
+      expect(ux.isPendingTaskLoading).toBe(false);
       jest.runOnlyPendingTimers();
       expect(ux.course.studentTasks.fetch).toHaveBeenCalledTimes(2);
       return fetchMock.then(() => {

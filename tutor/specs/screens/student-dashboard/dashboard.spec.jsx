@@ -37,7 +37,7 @@ describe('Student Dashboard', () => {
   });
 
   it('matches snapshot', function() {
-    const ux = { isEmptyNewStudent: false };
+    const ux = { isPendingTaskLoading: false };
     const component = SnapShot.create(
       <Wrapper injected={{ studentDashboardUX: ux }}
         _wrapped_component={Dashboard} {...props} />
@@ -46,4 +46,14 @@ describe('Student Dashboard', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('displays as loading', () => {
+    const ux = { isPendingTaskLoading: true };
+    const component = SnapShot.create(
+      <Wrapper injected={{ studentDashboardUX: ux }}
+        _wrapped_component={Dashboard} {...props} />
+    );
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+
+  });
 });

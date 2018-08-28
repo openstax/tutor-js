@@ -1,18 +1,22 @@
 import React from 'react';
 import moment from 'moment';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import { autobind } from 'core-decorators';
 import EmptyPanel from './empty-panel';
 import EventsPanel from './events-panel';
 import StudentTasks from '../../models/student-tasks';
 import { map, isEmpty } from 'lodash';
 
+@inject('studentDashboardUX')
 @observer
 export default class AllEventsByWeek extends React.PureComponent {
 
   static propTypes = {
     courseId: React.PropTypes.string.isRequired,
     isCollege: React.PropTypes.bool.isRequired,
+    studentDashboardUX: React.PropTypes.shape({
+      isPendingTaskLoading: React.PropTypes.bool,
+    }).isRequired,
   }
 
   @autobind
@@ -31,10 +35,10 @@ export default class AllEventsByWeek extends React.PureComponent {
   }
 
   render() {
-    const { courseId } = this.props;
+    const { courseId, studentDashboardUX } = this.props;
     const weeks = StudentTasks.get(courseId).pastEventsByWeek;
 
-    if (isEmpty(weeks)) {
+    if (studentDashboardUX.isPendingTaskLoading || isEmpty(weeks)) {
       return <EmptyPanel courseId={courseId} message="No past assignments" />;
     }
 
