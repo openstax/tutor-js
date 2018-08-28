@@ -12,7 +12,7 @@ import Event from '../../components/plan-stats/event';
 import LmsInfo from '../../components/task-plan/lms-info';
 import TutorLink from '../../components/link';
 import TeacherTaskPlan from '../../models/task-plan/teacher';
-
+import SupportEmailLink from '../../components/support-email-link';
 
 @inject((allStores, props) => ({
   tourContext: ( props.tourContext || allStores.tourContext ),
@@ -120,12 +120,14 @@ export default class CoursePlanDetails extends React.PureComponent {
           <Stats plan={plan} course={course} />
         );
       }
-    } else if (plan.isPublishing) {
+    } else if (plan.isFailed) {
       return (
         <p>
-          This assignment is publishing.
+          This assignment failed to publish. Please <SupportEmailLink label="Contact Support" />
         </p>
       );
+    } else if (plan.isPublishing) {
+      return <p>This assignment is publishing.</p>;
     }
     return null;
   }

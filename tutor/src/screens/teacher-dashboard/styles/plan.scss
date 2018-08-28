@@ -60,6 +60,9 @@ $calendar-inactive-background: $tutor-neutral;
 
       &.is-failed, &.is-killed, &.is-404 {
         @include tutor-plan-display($tutor-danger);
+        label:not(.continued)::before {
+          content: 'failed';
+        }
       }
     }
     &.is-publishing {

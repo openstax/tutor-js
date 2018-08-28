@@ -57,6 +57,7 @@ export default class CoursePlan extends React.Component {
       isViewingStats: this._doesPlanMatchesRoute(props),
       status: plan.publishedStatus,
       isPublishing: plan.isPublishing,
+      isFailed: plan.isFailed,
       isHovered: false,
       isPublished: plan.isPublished,
     };
@@ -179,6 +180,7 @@ export default class CoursePlan extends React.Component {
       classnames('plan-label-long', `course-plan-${plan.id}`, {
         'is-published': plan.isPublished,
         'is-publishing': plan.isPublishing,
+        'is-failed': plan.isFailed,
         'is-open': plan.isOpen,
         'is-new': plan.isNew,
         'is-trouble': plan.isTrouble,
@@ -228,7 +230,7 @@ export default class CoursePlan extends React.Component {
   render() {
     let planModal;
     const { item, course } = this.props;
-    const { isPublishing, isPublished, isHovered, isViewingStats } = this.state;
+    const { isPublishing, isPublished, isHovered, isFailed, isViewingStats } = this.state;
     const { plan, displays } = item;
     plan.publishing.reportObserved(); // let plan know that it's observed
 
@@ -246,6 +248,7 @@ export default class CoursePlan extends React.Component {
         ref: 'details',
         isPublished,
         isPublishing,
+        isFailed,
         hasReview,
       };
 
