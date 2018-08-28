@@ -24,6 +24,7 @@ describe('Full Course Onboarding', () => {
       new Course({ id: 1 }),
       { tour: null },
     );
+    ux.course.primaryRole = { joinedAgo: jest.fn(() => 18120) };
     ux.course.studentTasks = { fetch: jest.fn(() => Promise.resolve()) };
   });
 
@@ -97,21 +98,21 @@ describe('Full Course Onboarding', () => {
 
   it('fast fetches when expected task count is set', () => {
     const fetchMock = Promise.resolve();
+    ux.course.primaryRole = { joinedAgo: jest.fn(() => 1) };
     ux.course.studentTasks = {
-      expecting_assignments_count: 12,
+      all_tasks_are_ready: false,
       isEmpty: true,
       fetch: jest.fn(() => fetchMock),
     };
-    ux.course.primaryRole = { joinedAgo: jest.fn(() => 1) };
-    expect(ux.isEmptyNewStudent).toBe(true);
+    expect(ux.isPendingTaskLoading).toBe(true);
     ux.mount();
     expect(ux.course.studentTasks.fetch).toHaveBeenCalledWith();
     return fetchMock.then(() => {
       // fetches every minute
       expect(setTimeout).toHaveBeenCalledWith(ux.fetchTaskPeriodically, 1000 * 60);
 
-      ux.course.studentTasks.expecting_assignments_count = 0;
-      expect(ux.isEmptyNewStudent).toBe(false);
+      ux.course.studentTasks.all_tasks_are_ready = true;
+      expect(ux.isPendingTaskLoading).toBe(false);
       jest.runOnlyPendingTimers();
       expect(ux.course.studentTasks.fetch).toHaveBeenCalledTimes(2);
       return fetchMock.then(() => {

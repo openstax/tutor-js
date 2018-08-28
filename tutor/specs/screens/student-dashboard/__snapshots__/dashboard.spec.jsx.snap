@@ -1,5 +1,147 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Student Dashboard displays as loading 1`] = `
+<div
+  className="dashboard"
+>
+  <div
+    className="openstax-notifications-bar"
+  />
+  <div
+    className="course-title-banner"
+    data-appearance="testing"
+    data-book-title="Testing"
+    data-is-preview={false}
+    data-term="Spring 2017"
+    data-title="Local Test Course One"
+  >
+    <div
+      className="book-title"
+    >
+      <h1
+        className="book-title-text"
+      >
+        Local Test Course One
+      </h1>
+    </div>
+    <div
+      className="course-term"
+    >
+      Spring 2017
+    </div>
+  </div>
+  <div
+    className="container"
+    data-tour-region-id="student-dashboard"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col-lg-9 col-md-8 col-xs-12"
+      >
+        <nav
+          className="tutor-tabs"
+        >
+          <ul
+            className="nav nav-tabs"
+            role="tablist"
+          >
+            <li
+              aria-selected={true}
+              className="active"
+              role="tab"
+            >
+              <a
+                href="#"
+                onClick={[Function]}
+              >
+                <h2>
+                  This Week
+                </h2>
+              </a>
+            </li>
+            <li
+              aria-selected={false}
+              className=""
+              role="tab"
+            >
+              <a
+                href="#"
+                onClick={[Function]}
+              >
+                <h2>
+                  All Past Work
+                </h2>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <div
+          className="tab-pane active"
+          role="tabpanel"
+        >
+          <div
+            className="empty panel panel-default"
+            id={undefined}
+          >
+            <div
+              className="panel-body"
+            >
+              <i
+                className="tutor-icon fa fa-spinner fa-spin"
+                role="presentation"
+                type="spinner"
+              />
+               Preparing assignments for your course.  This can take up to 10 minutes.
+            </div>
+          </div>
+          <div
+            className="empty panel panel-default"
+            id={undefined}
+          >
+            <div
+              className="panel-body"
+            >
+              <i
+                className="tutor-icon fa fa-spinner fa-spin"
+                role="presentation"
+                type="spinner"
+              />
+               Preparing assignments for your course.  This can take up to 10 minutes.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="sidebar col-lg-3 col-md-4 col-xs-12"
+      >
+        <div
+          className="actions-box loadable is-loading"
+        >
+          Loading progress information... 
+        </div>
+        <div
+          className="actions-box"
+        >
+          <a
+            className="browse-the-book"
+            data-appearance="testing"
+            href="/book/11"
+            onClick={[Function]}
+            target="_blank"
+          >
+            <div>
+              Browse the Book
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Student Dashboard matches snapshot 1`] = `
 <div
   className="dashboard"
