@@ -15,7 +15,7 @@ export class CourseStudentTasks extends Map {
   @readonly static Model = Task;
 
   @observable researchSurveys;
-  @observable expecting_assignments_count = 0;
+  @observable expecting_assignments_count;
 
   constructor(courseId) {
     super();
