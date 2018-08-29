@@ -169,7 +169,7 @@ export default class CourseEnrollment extends BaseModel {
     this.isLoadingCourses = true;
     this.courses.fetch().then(() => {
       if (this.course) { // should always be set but maybe the BE messes up and doesn't return the new course yet?
-        this.course.studentTasks.expecting_assignments_count = get(this, 'to.period.assignments_count', 0);
+        this.course.studentTasks.expecting_assignments_count = get(this, 'to.period.assignments_count');
       }
       this.isLoadingCourses = false;
       this.isComplete = true;
