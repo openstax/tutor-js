@@ -87,10 +87,10 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
   }
 
   @computed get isEmptyNewStudent() {
-    return Boolean(
-      this.course.studentTasks.expecting_assignments_count &&
-        this.course.primaryRole.joinedAgo('minutes') < 10
-    );
+    if (0 === this.course.studentTasks.expecting_assignments_count) {
+      return false;
+    }
+    return this.course.primaryRole.joinedAgo('minutes') < INITIAL_LOADING_DELAY;
   }
 
   @computed get fetchTasksInterval() {

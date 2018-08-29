@@ -25,6 +25,7 @@ describe('Full Course Onboarding', () => {
       { tour: null },
     );
     ux.course.studentTasks = { fetch: jest.fn(() => Promise.resolve()) };
+    ux.course.primaryRole = { joinedAgo: jest.fn(() => 20) };
   });
 
   afterEach(() => {
@@ -95,10 +96,9 @@ describe('Full Course Onboarding', () => {
 
   });
 
-  it('fast fetches when expected task count is set', () => {
+  it('fetches after delay when newly joined', () => {
     const fetchMock = Promise.resolve();
     ux.course.studentTasks = {
-      expecting_assignments_count: 12,
       isEmpty: true,
       fetch: jest.fn(() => fetchMock),
     };
@@ -111,8 +111,8 @@ describe('Full Course Onboarding', () => {
       expect(setTimeout).toHaveBeenCalledWith(ux.fetchTaskPeriodically,
         (1000 * 60 * 10) - 8
       );
-
-      ux.course.studentTasks.expecting_assignments_count = 0;
+      expect(ux.isEmptyNewStudent).toBe(true);
+      ux.course.primaryRole = { joinedAgo: jest.fn(() => 18) };
       expect(ux.isEmptyNewStudent).toBe(false);
       jest.runOnlyPendingTimers();
       expect(ux.course.studentTasks.fetch).toHaveBeenCalledTimes(2);
