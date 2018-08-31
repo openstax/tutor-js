@@ -35,7 +35,7 @@ const Footer = observer(({ ux }) => {
 
 const Title = observer(({ ux }) => {
   let { title } = componentFor(ux.stage);
-  if (isFunction(title)) { title = title(); }
+  if (isFunction(title)) { title = title(ux); }
   if (ux.hasOfferingTitle) {
     return (
       <CourseOfferingTitle offering={ux.offering}>

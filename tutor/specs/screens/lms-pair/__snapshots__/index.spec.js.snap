@@ -145,7 +145,7 @@ exports[`pairing a course displays find or create when existing courses 1`] = `
     <div
       className="panel-heading"
     >
-      Do you want to pair with an new or existing course?
+      Do you want to use a new or existing Tutor Course with your LMS?
     </div>
     <div
       className="panel-body"
@@ -207,7 +207,7 @@ exports[`pairing a course displays only create when no courses 1`] = `
       className="panel-heading"
     >
       <div>
-        Which course are you teaching?
+        Which course would you like to use with your LMS?
       </div>
     </div>
     <div

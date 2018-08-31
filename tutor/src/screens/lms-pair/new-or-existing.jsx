@@ -30,7 +30,7 @@ export default class NewOrExisting extends React.PureComponent {
 
     return (
       <Panel
-        header={"Do you want to use a new or existing Tutor Course with your LMS?"}
+        header="Do you want to use a new or existing Tutor Course with your LMS?"
         className={'new-course-wizard'}
         footer={<Footer ux={ux} />}
       >

@@ -33,6 +33,7 @@ export default class CourseBuilderUX extends BaseModel {
   @readonly maximumSectionCount = 99;
   @observable course_type = 'tutor';
   @observable alternateOffering;
+  @observable selectOfferingTitle = 'Which course are you teaching?';
 
   constructor(router = { route: { match: { params: {} } } }) {
     super();
