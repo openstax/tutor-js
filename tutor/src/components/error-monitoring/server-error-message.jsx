@@ -22,7 +22,6 @@ ${reqDetails}.`;
 };
 
 const makeContactURL = function({ status, statusMessage, config }) {
-  if (!status) { status = 0; }
   const location = window.location.href;
   const body = encodeURIComponent(makeContactMessage({ status, statusMessage, config, location }));
   const subject = encodeURIComponent(`OpenStax Tutor Error ${status} at ${location}`);
@@ -33,6 +32,9 @@ const ServerErrorMessage = observer((props) => {
   let dataMessage, debugInfo;
   let { status, statusMessage, config, debug, data } = props;
   if (statusMessage == null) { statusMessage = 'No response was received'; }
+  if (status == null) { status = 0; }
+
+  const noStatusMessage = status ? '' : <h4>It looks like your internet connection was interrupted,<br />please check your connection and retry</h4>;
 
   const errorsMessage = (
     <span>
@@ -65,6 +67,7 @@ const ServerErrorMessage = observer((props) => {
       <h3>
         An error with code {status} has occured
       </h3>
+      {noStatusMessage}
       <p>
         Please <a href={mailTo}>contact us</a> to file a bug report.
       </p>
