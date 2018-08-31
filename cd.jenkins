@@ -1,0 +1,27 @@
+pipeline {
+  agent { label 'docker' }
+  stages {
+    stage('Build') {
+      environment {
+        nginx = sh(returnStdout: true, script: 'docker create nginx').trim()
+      }
+      steps {
+        sh "docker build -t tutor-js-buildenv ."
+        sh 'docker run -v $(pwd):/code -w /code  -e PUBLIC_PATH='https://tutor-assets.sandbox.openstax.org/' tutor-js-buildenv bash -c "yarn && yarn build tutor"'
+        sh "docker cp tutor/dist/. $nginx:/usr/share/nginx/html"
+        sh "docker cp docker/nginx.conf $nginx:/etc/nginx/conf.d/default.conf"
+        sh "docker commit $nginx openstax/tutor-js:dev"
+      }
+    }
+    stage('Publish Dev') {
+      steps {
+        withDockerRegistry([credentialsId: 'docker-registry', url: '']) {
+          sh "docker push openstax/tutor-js:dev"
+        }
+        withDockerServer([uri: env.SWARM_URI, credentialsId: '']) {
+          sh "docker stack deploy --prune -c docker-compose.yml -c docker/docker-compose.dev.yml tutor-js"
+        }
+      }
+    }
+  }
+}
