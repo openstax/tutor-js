@@ -65,6 +65,8 @@ class Hypothesis extends BaseModel {
           return this.fetchAllAnnotations();
         });
       } else { return this; }
+    }).catch(err => {
+      AppActions.setServerError(err);
     });
   }
 
