@@ -4,29 +4,27 @@ import UserMenu from '../../models/user/menu';
 
 const SUPPORT_LINK_PARAMS = '&cu=1&fs=ContactUs&q=';
 
-const makeContactMessage = function(status, message, data, request) {
-  if (request == null) { request = { method: 'unknown', url: '' }; }
+const makeContactMessage = function({ status, statusMessage, config, location }) {
   const { userAgent } = window.navigator;
-  const location = window.location.href;
-
-  let errorInfo = `${status} with ${message} for ${request.method} on ${request.url}`;
-
-  if (request.data) {
-    const data = isObject(request.data) ? JSON.stringify(request.data, null, 2) : request.data;
-    errorInfo += ` with\n${data}`;
+  const { data } = config;
+  let reqDetails = `${config.method} on ${config.url} returned status "${status}" with message "${statusMessage}"`;
+  if (data) {
+    reqDetails += `\n\nThe request body was:\n${isObject(data) ? JSON.stringify(data, null, 2) : data}`;
   }
 
   return `Hello!
-I ran into a problem on
-${userAgent} at ${location}.
 
-Here is some additional info:
-${errorInfo}.`;
+I ran into a problem at ${location} while using browser
+${userAgent}.
+
+The request details are:
+${reqDetails}.`;
 };
 
-const makeContactURL = function(supportLinkBase, status, message, data, request) {
+const makeContactURL = function({ status, statusMessage, config }) {
+  if (!status) { status = 0; }
   const location = window.location.href;
-  const body = encodeURIComponent(makeContactMessage(status, message, data, request));
+  const body = encodeURIComponent(makeContactMessage({ status, statusMessage, config, location }));
   const subject = encodeURIComponent(`OpenStax Tutor Error ${status} at ${location}`);
   return `mailto:${UserMenu.supportEmail}?subject=${subject}&body=${body}`;
 };
@@ -60,7 +58,7 @@ const ServerErrorMessage = observer((props) => {
     ];
   }
 
-  const mailTo = makeContactURL(status, statusMessage, data, config);
+  const mailTo = makeContactURL({ status, statusMessage, config });
 
   return (
     <div className="server-error">
