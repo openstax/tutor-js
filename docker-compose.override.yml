@@ -1,12 +1,13 @@
 version: '3.5'
 services:
-  tutor-js:
+  build:
     command: bash -c "if [ -z \"`ls -A node_modules`\" ]; then yarn; fi && yarn serve tutor"
-    build: .
+    build:
+      context: .
+      target: builder
     working_dir: /code
     volumes:
       - .:/code
       - /code/node_modules
     ports:
       - "8000:8000"
-

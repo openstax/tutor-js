@@ -25,3 +25,17 @@ docker-compose up
 the js files will be served at `http://localhost:8000`
 
 the ui is available through the tutor-server project at `http://localhost:3001`
+
+## node_modules
+
+if you need to update node modules run:
+
+```bash
+docker-compose exec build yarn
+```
+
+in general you can run anythin in the build container with
+
+```
+docker-compose exec build <command>
+```

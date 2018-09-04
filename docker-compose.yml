@@ -1,4 +1,1 @@
 version: '3.5'
-services:
-  tutor-js:
-    image: "openstax/tutor-js"
