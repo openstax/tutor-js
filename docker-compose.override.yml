@@ -7,7 +7,6 @@ services:
       target: builder
     working_dir: /code
     volumes:
-      - .:/code
-      - /code/node_modules
+      - .:/code:cached
     ports:
       - "8000:8000"

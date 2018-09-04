@@ -62,6 +62,10 @@ const config = {
       },
     }),
   ],
+  watchOptions: {
+    aggregateTimeout: 500,
+    poll: 1000
+  },
   devServer: {
     contentBase: project,
     headers: {
