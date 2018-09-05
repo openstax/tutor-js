@@ -96,7 +96,7 @@ describe('Full Course Onboarding', () => {
 
   });
 
-  it('fast fetches when expected task count is set', () => {
+  it('waits until all tasks are ready', () => {
     const fetchMock = Promise.resolve();
     ux.course.primaryRole = { joinedAgo: jest.fn(() => 1) };
     ux.course.studentTasks = {
