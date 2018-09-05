@@ -4,7 +4,6 @@ import { observable, action, computed, when } from 'mobx';
 import { autobind } from 'core-decorators';
 import serializeSelection from 'serialize-selection';
 import cn from 'classnames';
-import './highlighter';
 import User from '../../models/user';
 import { filter, last, sortBy, get, find, findLast, isEmpty, invokeMap } from 'lodash';
 import Icon from '../icon';

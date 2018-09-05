@@ -2,7 +2,8 @@
   "name": "openstax-frontend",
   "version": "0.0.0",
   "sideEffects": [
-    "*.scss"
+    "*.scss",
+    "tutor/src/models/tour/actions/*.js"
   ],
   "private": true,
   "description": "Frontend Code for OpenStax",

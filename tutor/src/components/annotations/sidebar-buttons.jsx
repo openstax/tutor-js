@@ -3,7 +3,6 @@ import { autobind } from 'core-decorators';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 import { get, map, filter } from 'lodash';
-import './highlighter';
 import Icon from '../icon';
 import Annotation from '../../models/annotations/annotation';
 
