@@ -51,4 +51,11 @@ describe('Student Tasks Model', () => {
     task.due_at = mockedNow.add(1, 'week').toDate();
     expect(tasks.upcomingEvents()).toEqual([task]);
   });
+
+  it('#all_tasks_are_ready', () => {
+    const tasks = StudentTasks.forCourseId(1);
+    expect(tasks.all_tasks_are_ready).toEqual(true);
+    tasks.onLoaded({ data: { tasks: [], all_tasks_are_ready: false } });
+    expect(tasks.all_tasks_are_ready).toEqual(false);
+  });
 });

@@ -87,7 +87,7 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
 
   @computed get isPendingTaskLoading() {
     return Boolean(
-      !this.course.studentTasks.all_tasks_are_ready &&
+      (false === this.course.studentTasks.all_tasks_are_ready) &&
         this.course.primaryRole.joinedAgo('minutes') < 30
     );
   }
