@@ -1,6 +1,7 @@
 import Map from 'shared/model/map';
 import moment from 'moment-timezone';
 import { readonly } from 'core-decorators';
+
 import { computed, action, observable } from 'mobx';
 import { filter, groupBy, sortBy, pickBy } from 'lodash';
 import { TimeStore } from '../flux/time';
@@ -16,7 +17,7 @@ export class CourseStudentTasks extends Map {
 
   @observable researchSurveys;
   @observable expecting_assignments_count = 0;
-  @observable all_tasks_are_ready;
+  @observable all_tasks_are_ready = false;
 
   constructor(courseId) {
     super();
@@ -48,9 +49,10 @@ export class CourseStudentTasks extends Map {
   }
 
   // note: the response also contains limited course and role information but they're currently unused
-  onLoaded({ data: { tasks, research_surveys } }) {
+  onLoaded({ data: { tasks, research_surveys, all_tasks_are_ready } }) {
     this.researchSurveys = research_surveys ? new ResearchSurveys(research_surveys) : null;
     this.mergeModelData(tasks);
+    this.all_tasks_are_ready = all_tasks_are_ready;
   }
 }
 
