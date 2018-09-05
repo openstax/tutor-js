@@ -14,7 +14,7 @@ export default class LmsPairUX {
   @observable courses;
   @observable createCourseUX = new CreateCourseUX(this);
 
-  constructor(courses = Courses.nonPreview.teaching.currentAndFuture) {
+  constructor(courses = Courses.nonPreview.teaching.currentAndFuture.withoutStudents) {
     this.courses = courses;
   }
 
