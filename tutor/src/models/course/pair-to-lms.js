@@ -15,7 +15,7 @@ export default class CoursePair extends BaseModel {
   }
 
   save() {
-    return this; //{ courseId: this.course.id };
+    return this;
   }
 
   onPaired({ data: { success } }) {
