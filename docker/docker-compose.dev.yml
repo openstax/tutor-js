@@ -1,0 +1,7 @@
+version: '3.5'
+services:
+  serve:
+    image: "openstax/tutor-js:dev"
+    ports:
+      - "8000:80"
+

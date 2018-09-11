@@ -12,13 +12,12 @@ const project      = process.env.OX_PROJECT || 'tutor';
 const port         = process.env.DEV_PORT || PORTS[project] || '8000';
 const host         = process.env.OX_PROJECT_HOST || 'localhost';
 const servePath    = `http://${host}:${port}`;
-const publicPath   = production ? '/assets/' : `${servePath}/dist/`;
+const publicPath   = process.env.PUBLIC_PATH || (production ? '/assets/' : `${servePath}/dist/`);
 const defaultEntry = `./${project}/index.js`;
 
 const ENTRIES = {
   tutor: {
     tutor: defaultEntry,
-
   },
   exercises: { exercises: defaultEntry },
   shared: { demo: './shared/demo.cjsx' },
@@ -63,6 +62,10 @@ const config = {
       },
     }),
   ],
+  watchOptions: {
+    aggregateTimeout: 500,
+    poll: 1000
+  },
   devServer: {
     contentBase: project,
     headers: {
