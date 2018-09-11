@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 BS = require 'react-bootstrap'
 defer = require 'lodash/defer'
 SuretyGuard = React.createClass
@@ -25,6 +26,7 @@ SuretyGuard = React.createClass
 
   onCancel: ->
     @refs.overlay.hide()
+    ReactDOM.findDOMNode(@refs.overlay).focus()
 
   renderPopover: ->
     <BS.Popover
@@ -34,7 +36,7 @@ SuretyGuard = React.createClass
     >
       <span className="message">{@props.message}</span>
       <div className="controls">
-        <BS.Button onClick={@onCancel}>
+        <BS.Button ref="popoverButton" onClick={@onCancel}>
           {@props.cancelButtonLabel}
         </BS.Button>
         <BS.Button onClick={@onConfirm} bsStyle="primary">
@@ -48,6 +50,8 @@ SuretyGuard = React.createClass
     if @props.onlyPromptIf and not @props.onlyPromptIf()
       defer => @refs.overlay.hide()
       @onConfirm(ev)
+    else
+      defer => ReactDOM.findDOMNode(@refs.popoverButton).focus()
 
   render: ->
     <BS.OverlayTrigger

@@ -2,7 +2,7 @@ import React from 'react';
 import { readonly } from 'core-decorators';
 import { map, keys, pickBy, isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
-import { observable, computed } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import SectionsFilter from './sections-filter';
 import AnnotationCard from './annotation-card';
 import SummaryPopup from "./summary-popup";
@@ -51,6 +51,11 @@ export default class AnnotationSummaryPage extends React.Component {
     containerRef.insertBefore(focusAnchor, containerRef.firstChild);
     focusAnchor.focus();
     focusAnchor.addEventListener("blur", () => containerRef.removeChild(focusAnchor), false);
+  }
+
+  @action.bound onDelete(...args) {
+    this.props.onDelete(...args);
+    this.prepareFocus();
   }
 
   @computed get annotationsBySection() {
@@ -116,7 +121,7 @@ export default class AnnotationSummaryPage extends React.Component {
                   <AnnotationCard
                     key={annotation.id}
                     annotation={annotation}
-                    onDelete={this.props.onDelete}
+                    onDelete={this.onDelete}
                   />
                 ))}
               </div>

@@ -102,7 +102,6 @@ export default class AnnotationCard extends React.Component {
 
   render() {
     const { annotation } = this.props;
-
     return (
       <div className="annotation-card">
         <div className="annotation-body">
