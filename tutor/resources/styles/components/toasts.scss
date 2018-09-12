@@ -1,70 +1,4 @@
 .toast-notification {
-  position: fixed;
-  z-index: $zindex-modal;
-  min-height: 50px;
-  right: 20px;
-  top: 85px;
-  background-color: white;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-  display: flex;
-  align-items: center;
-  max-width: 280px;
-
-  .title {
-    padding: 10px;
-    font-weight: bold;
-    background-color: #e0edd3;
-    display: flex;
-    align-content: center;
-    justify-content: space-between;
-    &::before {
-      @include fa-icon();
-      font-size: 26px;
-      font-weight: normal;
-      margin-right: 0.5rem;
-    }
-  }
-
-  .body {
-    padding: 10px;
-  }
-
-  .success {
-    .title{
-      color: #629030;
-      &::before {
-        content: $fa-var-check-circle;
-      }
-    }
-  }
-
-  .neutral {
-    .title {
-      color: $tutor-neutral-darker;
-      background-color: $tutor-neutral-lighter;
-    }
-  }
-
-  .failure {
-    .title {
-      color: #C22032;
-      background-color: #f5e9ea;
-      &::before {
-        content: $fa-var-exclamation-triangle;
-      }
-      .tutor-icon[type="close"] {
-        color: $tutor-neutral-dark;
-        margin-left: 2rem;
-        align-self: flex-start;
-      }
-    }
-    .body {
-      button {
-        padding-left: 0;
-        font-size: 16px;
-      }
-    }
-  }
 
   .scores {
     iframe {
@@ -79,6 +13,7 @@
       margin-top: 1rem;
     }
   }
+
 }
 
 .lms-push-partial-failure {
