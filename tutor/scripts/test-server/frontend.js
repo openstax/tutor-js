@@ -13,27 +13,21 @@ function WebpackDriverStatusPlugin() { }
 
 WebpackDriverStatusPlugin.prototype.apply = function(compiler) {
 
-  compiler.plugin('compile', function() {
+  compiler.hooks['compile'].tap('WebPackDriver', function() {
     log('status', 'compiling');
   });
 
-  compiler.plugin('invalid', function() {
-    log('status', 'invalid');
-  });
-
-  compiler.plugin('failed-module', function(module) {
-    log('failed-module', module);
-  });
-  compiler.plugin('done', function(stats) {
+  compiler.hooks['done'].tap('WebPackDriver', function(stats) {
     if (stats.compilation.errors && stats.compilation.errors.length){
+      log('status', 'invalid');
       for(var i = 0; i < stats.compilation.errors.length; i++){
         var err = stats.compilation.errors[i];
         log('error', {
           name: err.name, message: err.message,
           resource: err.module ? err.module.resource : '',
         });
-        log('FAILED', true);
       }
+      log('FAILED', true);
     } else {
       log('READY', true);
     }
