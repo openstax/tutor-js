@@ -17,6 +17,19 @@ COPY . /code
 WORKDIR /code
 RUN yarn && yarn build tutor
 
+FROM build as ui-testing
+
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
+
+RUN apt-get update && apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    google-chrome-stable \
+  && rm -rf /var/lib/apt/lists/*
+
 FROM nginx as serve
 
 COPY --from=build /code/tutor/dist/. /usr/share/nginx/html
