@@ -1,4 +1,5 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 import { Alert } from 'react-bootstrap';
 import Books from '../tags/books';
 import Lo from '../tags/lo';
@@ -41,4 +42,4 @@ ExerciseTags.propTypes = {
 };
 
 
-export default ExerciseTags;
+export default observer(ExerciseTags);

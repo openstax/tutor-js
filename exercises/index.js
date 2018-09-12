@@ -1,6 +1,6 @@
 import React from 'react';
 import { get } from 'lodash';
-import MathJaxHelper from 'shared/helpers/mathjax';
+import { startMathJax } from 'shared/helpers/mathjax';
 import api from './src/api';
 import User from './src/models/user';
 import { ReactHelpers } from 'shared';
@@ -8,7 +8,7 @@ import './resources/styles/app.scss';
 
 function loadApp() {
   api.start();
-  MathJaxHelper.startMathJax();
+  startMathJax();
   const data = JSON.parse(
     get(document.getElementById('exercises-boostrap-data'), 'innerHTML', '{}')
   );

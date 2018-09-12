@@ -7,7 +7,7 @@ import { Button, ButtonToolbar } from 'react-bootstrap';
 import AsyncButton from 'shared/components/buttons/async-button.cjsx';
 import MPQToggle from 'components/exercise/mpq-toggle';
 import { SuretyGuard, idType } from 'shared';
-
+import Toasts from '../../models/toasts';
 
 @observer
 class ExerciseControls extends React.Component {
@@ -27,6 +27,9 @@ class ExerciseControls extends React.Component {
     exercises: Exercises,
   }
 
+  componentDidMount() {
+  }
+
   @computed get exercise() {
     return this.props.exercises.get(this.props.match.params.uid);
   }
@@ -34,6 +37,8 @@ class ExerciseControls extends React.Component {
   @action.bound saveExerciseDraft() {
     const { exercise } = this;
     this.props.exercises.saveDraft(exercise).then(() => {
+      Toasts.push({ handler: 'published', status: 'ok',
+        info: { isDraft: true, exercise } });
       this.props.history.push(`/exercise/${exercise.uid}`);
     });
   }
@@ -42,7 +47,8 @@ class ExerciseControls extends React.Component {
     const { exercise } = this;
     this.props.exercises.publish(exercise).then(() => {
       this.props.exercises.createNewRecord();
-      this.props.history.push('/exercise/new');
+      Toasts.push({ handler: 'published', status: 'ok', info: { exercise } });
+      this.props.history.push('/search');
     });
   }
 
