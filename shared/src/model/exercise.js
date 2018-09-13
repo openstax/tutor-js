@@ -2,6 +2,7 @@ import {
   BaseModel, identifiedBy, identifier, session, field, hasMany, computed, action,
 } from '../model';
 import { reduce, map, filter, find, inRange, merge } from 'lodash';
+import TagAssociation from './exercise/tag-association';
 import invariant from 'invariant';
 import Attachment from './exercise/attachment';
 import Author from './exercise/author';
@@ -44,14 +45,7 @@ export default class Exercise extends BaseModel {
   @hasMany({ model: Question, inverseOf: 'exercise' }) questions;
   @hasMany({
     model: Tag,
-    extend: {
-      withType(type, { multiple = false } = {}) {
-        return multiple ? filter(this, { type }) : find(this, { type });
-      },
-      findOrAddWithType(type) {
-        return this.withType(type) || this.get(this.push(`${type}:`) - 1);
-      },
-    },
+    extend: TagAssociation,
   }) tags;
 
   @computed get pool_types() {

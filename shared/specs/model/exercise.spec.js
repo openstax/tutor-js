@@ -55,4 +55,16 @@ describe('Exercise Model', () => {
     exercise.published_at = new Date();
     expect(exercise.isPublishable).toBe(false);
   });
+
+  it('sets tags uniquely', () => {
+    const book = exercise.tags.withType('book');
+    book.value = 'uniq';
+    const secondBook = exercise.tags[
+      exercise.tags.push({ type: 'book', value: 'new' }) - 1
+    ];
+    const len = exercise.tags.length;
+    exercise.tags.setUniqueValue(secondBook, 'uniq');
+    expect(exercise.tags.length).toEqual(len - 1);
+    expect(exercise.tags.includes(secondBook)).toBe(false);
+  });
 });

@@ -16,7 +16,7 @@ class BookTagSelect extends React.Component {
   };
 
   @action.bound updateTag(ev) {
-    this.props.tag.value = ev.target.value;
+    this.props.exercise.tags.setUniqueValue(this.props.tag, ev.target.value);
   }
 
   @action.bound onDelete() {
