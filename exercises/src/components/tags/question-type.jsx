@@ -1,4 +1,5 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 import Exercise from '../../models/exercises/exercise';
 import SingleDropdown from './single-dropdown';
 
@@ -22,4 +23,4 @@ QuestionTypeTag.propTypes = {
   exercise: React.PropTypes.instanceOf(Exercise).isRequired,
 };
 
-export default QuestionTypeTag;
+export default observer(QuestionTypeTag);

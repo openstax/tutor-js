@@ -1,4 +1,5 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 import SingleDropdown from './single-dropdown';
 import Exercise from '../../models/exercises/exercise';
 
@@ -18,4 +19,4 @@ TimeTag.propTypes = {
   exercise: React.PropTypes.instanceOf(Exercise).isRequired,
 };
 
-export default TimeTag;
+export default observer(TimeTag);
