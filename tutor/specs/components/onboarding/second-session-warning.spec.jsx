@@ -33,7 +33,7 @@ describe('Second Session Warning', () => {
     expect(ux.dismissNag).toHaveBeenCalled();
   });
 
-  fit('navigates and logs on add', async () => {
+  it('navigates and logs on add', async () => {
     const context =  EnzymeContext.build();
     const wrapper = shallow(<SecondSessionWarning ux={ux} />, context);
     expect(await axe(wrapper.html())).toHaveNoViolations();

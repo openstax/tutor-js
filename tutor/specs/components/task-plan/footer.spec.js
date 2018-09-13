@@ -70,7 +70,7 @@ const helper = model => PlanRenderHelper(model, PlanFooter,
 describe('Task Plan Footer', function() {
   beforeEach(() => TaskPlanActions.reset());
 
-  fit('should have correct buttons when reading is new', () =>
+  it('should have correct buttons when reading is new', () =>
     helper(NEW_READING).then(function({ dom }) {
       expect(dom.querySelector('.delete-link')).to.be.null;
       expect(dom.querySelector('.preview-btn')).to.not.be.null;
