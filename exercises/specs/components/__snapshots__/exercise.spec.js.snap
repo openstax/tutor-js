@@ -3293,9 +3293,9 @@ exports[`Exercises component resets fields when model is new 1`] = `
       </Uncontrolled(Tabs)>
     </div>
     <ExerciseEditingPreview exercise={{...}}>
-      <CornerRibbon shadow={true} color=\\"navy\\" position=\\"topRight\\" label={{...}} hidden={false}>
+      <CornerRibbon shadow={true} color=\\"navy\\" position=\\"topRight\\" label={{...}} hidden={true}>
         <div className=\\"corner-ribbon\\">
-          <div className=\\"corner-ribbon-content navy shadow top-right\\">
+          <div className=\\"corner-ribbon-content navy shadow hidden top-right\\">
             <div>
               READ ONLY
             </div>
