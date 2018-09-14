@@ -10,7 +10,9 @@
   .reading-content {
     @include tutor-book-content();
     @include tutor-book-content-body();
-
+    .book-content {
+      @include clearfix;
+    }
     .splash {
       margin-top: -20px;
     }
