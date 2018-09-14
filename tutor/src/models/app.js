@@ -2,7 +2,6 @@ import { isEmpty, forIn, isNil } from 'lodash';
 import { observable, action } from 'mobx';
 import { BootstrapURLs, ExerciseHelpers } from 'shared';
 import UiSettings from 'shared/model/ui-settings';
-import ErrorMonitoring from 'shared/helpers/error-monitoring';
 import { startMathJax } from 'shared/helpers/mathjax';
 import Notifications from 'shared/model/notifications';
 import { connectModelRead } from '../api/adapter';
@@ -56,7 +55,6 @@ export default class TutorApp {
     Notices.start(this.data);
     this.osweb_base_url = this.data.osweb_base_url;
     ExerciseHelpers.setOSWebURL(this.osweb_base_url);
-    ErrorMonitoring.start();
     Chat.initialize();
     startMathJax();
     TransitionAssistant.startMonitoring();
