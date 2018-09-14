@@ -68,6 +68,7 @@
   color: $openstax-answer-label-color;
   .answer-letter {
     @include answer-bubble();
+    background-color: $openstax-white;
   }
 }
 
