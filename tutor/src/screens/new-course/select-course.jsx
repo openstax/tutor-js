@@ -5,7 +5,7 @@ import { Listing, Choice } from '../../components/choices-listing';
 @observer
 export default class SelectCourse extends React.PureComponent {
 
-  static title = 'Which course are you teaching?';
+  static title = (ux) => ux.selectOfferingTitle;
   static propTypes = {
     ux: mobxPropTypes.observableObject.isRequired,
   }

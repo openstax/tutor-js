@@ -1,0 +1,259 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pairing a course displays course listing 1`] = `
+<div
+  className="new-course-wizard"
+>
+  <div
+    className="new-course-wizard panel panel-default"
+    id={undefined}
+  >
+    <div
+      className="panel-heading"
+    >
+      Choose course to pair with
+    </div>
+    <div
+      className="panel-body"
+    >
+      <div
+        className="panel-content"
+      >
+        <div
+          className="choices-listing list-group"
+        >
+          <div
+            aria-pressed={false}
+            className="list-group-item choice"
+            data-appearance="college_physics"
+            onClick={[Function]}
+            role="button"
+          >
+            College Physics
+          </div>
+          <div
+            aria-pressed={false}
+            className="list-group-item choice"
+            data-appearance="college_physics"
+            onClick={[Function]}
+            role="button"
+          >
+            College Physics
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="panel-footer"
+    >
+      <div
+        className="controls"
+      >
+        <button
+          className="back btn btn-default"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Back
+        </button>
+        <button
+          className="next btn btn-primary"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          Continue
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`pairing a course displays create course 1`] = `
+<div
+  className="new-course-wizard"
+>
+  <div
+    className="new-course-wizard offering panel panel-default"
+    id={undefined}
+  >
+    <div
+      className="panel-heading"
+    >
+      <div>
+        Which course are you teaching?
+      </div>
+    </div>
+    <div
+      className="panel-body"
+    >
+      <div
+        className="panel-content"
+      >
+        <ul
+          className="choices-listing list-group"
+        />
+      </div>
+    </div>
+    <div
+      className="panel-footer"
+    >
+      <div
+        className="controls"
+      >
+        <button
+          className="cancel btn btn-default"
+          disabled={false}
+          hidden={true}
+          onClick={[Function]}
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          className="back btn btn-default"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Back
+        </button>
+        <button
+          className="next btn btn-primary"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          Continue
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`pairing a course displays find or create when existing courses 1`] = `
+<div
+  className="new-course-wizard"
+>
+  <div
+    className="new-course-wizard panel panel-default"
+    id={undefined}
+  >
+    <div
+      className="panel-heading"
+    >
+      Do you want to use a new or existing Tutor Course with your LMS?
+    </div>
+    <div
+      className="panel-body"
+    >
+      <div
+        className="panel-content"
+      >
+        <div
+          className="choices-listing list-group"
+        >
+          <div
+            aria-pressed={false}
+            className="list-group-item choice"
+            onClick={[Function]}
+            role="button"
+          >
+            Create a new course
+          </div>
+          <div
+            aria-pressed={false}
+            className="list-group-item choice"
+            onClick={[Function]}
+            role="button"
+          >
+            Pair LMS to an existing course
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="panel-footer"
+    >
+      <div
+        className="controls"
+      >
+        <button
+          className="next btn btn-primary"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          Continue
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`pairing a course displays only create when no courses 1`] = `
+<div
+  className="new-course-wizard"
+>
+  <div
+    className="new-course-wizard offering panel panel-default"
+    id={undefined}
+  >
+    <div
+      className="panel-heading"
+    >
+      <div>
+        Which course would you like to use with your LMS?
+      </div>
+    </div>
+    <div
+      className="panel-body"
+    >
+      <div
+        className="panel-content"
+      >
+        <ul
+          className="choices-listing list-group"
+        />
+      </div>
+    </div>
+    <div
+      className="panel-footer"
+    >
+      <div
+        className="controls"
+      >
+        <button
+          className="cancel btn btn-default"
+          disabled={false}
+          hidden={true}
+          onClick={[Function]}
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          className="back btn btn-default"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Back
+        </button>
+        <button
+          className="next btn btn-primary"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          Continue
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
