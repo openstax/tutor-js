@@ -51,7 +51,7 @@ const urls = [
   '/course/6',
 ];
 
-const chromeFlags = ['--headless'];
+const chromeFlags = ['--headless', '--no-sandbox'];
 const onlyCategories = ['accessibility'];
 
 const server = new TestServer({role: 'teacher'});

@@ -1,0 +1,40 @@
+pipeline {
+  agent { label 'docker' }
+  stages {
+    stage('Parallel') {
+      parallel {
+        stage('Accessibility Report') {
+          stages {
+            stage('Build Environment') {
+              steps {
+                sh "docker build --target=ui-testing -t openstax/tutor-js:ui-testing ."
+              }
+            }
+            stage('Run Audit') {
+              steps {
+                sh 'docker run -v $(pwd):/code -v /code/node_modules openstax/tutor-js:ui-testing node tutor/scripts/accessibility-audit --json=accessibility-report.json'
+                archiveArtifacts artifacts: 'accessibility-report.json', fingerprint: true
+              }
+            }
+          }
+        }
+        stage('Docker') {
+          stages {
+            stage('Build') {
+              steps {
+                sh "docker build -t openstax/tutor-js:dev --build-arg PUBLIC_PATH='https://tutor-assets.sandbox.openstax.org/' ."
+              }
+            }
+            stage('Push') {
+              steps {
+                withDockerRegistry([credentialsId: 'docker-registry', url: '']) {
+                  sh "docker push openstax/tutor-js:dev"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
