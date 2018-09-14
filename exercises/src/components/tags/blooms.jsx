@@ -1,4 +1,5 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 import { range } from 'lodash';
 import Exercise from '../../models/exercises/exercise';
 import SingleDropdown from './single-dropdown';
@@ -16,4 +17,4 @@ BloomsTag.propTypes = {
   exercise: React.PropTypes.instanceOf(Exercise).isRequired,
 };
 
-export default BloomsTag;
+export default observer(BloomsTag);

@@ -57,7 +57,7 @@ const typesetDocument = function(root, windowImpl) {
 const getTypesetDocument = memoize((root, windowImpl) => {
   // Install a debounce around typesetting function so that it will only run once
   // every Xms even if called multiple times in that period
-  return debounce(typesetDocument, 100).bind(null, root, windowImpl)
+  return debounce(typesetDocument, 100).bind(null, root, windowImpl);
 });
 getTypesetDocument.cache = new WeakMap();
 
@@ -66,7 +66,7 @@ getTypesetDocument.cache = new WeakMap();
 const typesetMath = (root, windowImpl = window) => {
   // schedule a Mathjax pass if there is at least one [data-math] or <math> element present
   if (get(windowImpl, 'MathJax.Hub.Queue') && root.querySelector(COMBINED_MATH_SELECTOR)) {
-    getTypesetDocument(root, windowImpl)()
+    getTypesetDocument(root, windowImpl)();
   }
 };
 
@@ -77,19 +77,19 @@ const typesetMath = (root, windowImpl = window) => {
 const startMathJax = function() {
   const MATHJAX_CONFIG = {
     showProcessingMessages: false,
-    extensions: ["[a11y]/explorer.js"],
+    extensions: ['[a11y]/explorer.js'],
     tex2jax: {
       displayMath: [[MATH_MARKER_BLOCK, MATH_MARKER_BLOCK]],
-      inlineMath:  [[MATH_MARKER_INLINE, MATH_MARKER_INLINE]]
+      inlineMath:  [[MATH_MARKER_INLINE, MATH_MARKER_INLINE]],
     },
     styles: {
       '#MathJax_Message': {
-        visibility: 'hidden', left: '', right: 0
+        visibility: 'hidden', left: '', right: 0,
       },
       '#MathJax_MSIE_Frame': {
-        visibility: 'hidden', left: '', right: 0
-      }
-    }
+        visibility: 'hidden', left: '', right: 0,
+      },
+    },
   };
   const configuredCallback = () => window.MathJax.Hub.Configured();
 
@@ -111,4 +111,4 @@ const startMathJax = function() {
 export {
   typesetMath,
   startMathJax,
-}
+};

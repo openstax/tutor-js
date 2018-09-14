@@ -70,7 +70,7 @@ const helper = model => PlanRenderHelper(model, PlanFooter,
 describe('Task Plan Footer', function() {
   beforeEach(() => TaskPlanActions.reset());
 
-  fit('should have correct buttons when reading is new', () =>
+  it('should have correct buttons when reading is new', () =>
     helper(NEW_READING).then(function({ dom }) {
       expect(dom.querySelector('.delete-link')).to.be.null;
       expect(dom.querySelector('.preview-btn')).to.not.be.null;
@@ -80,40 +80,7 @@ describe('Task Plan Footer', function() {
     })
   );
 
-  it('should have correct buttons when reading is unpublished', () =>
-    helper(UNPUBLISHED_READING).then(function({ dom }) {
-      expect(dom.querySelector('.delete-link')).to.not.be.null;
-      expect(dom.querySelector('.-save')).to.not.be.null;
-      expect(dom.querySelector('.-publish')).to.not.be.null;
-    })
-  );
-
-  it('should have correct buttons when reading is published', () =>
-    helper(PUBLISHED_READING).then(function({ dom }) {
-      expect(dom.querySelector('.delete-link')).to.not.be.null;
-      expect(dom.querySelector('.-save')).to.be.null;
-      expect(dom.querySelector('.-publish')).to.not.be.null;
-      expect(dom.querySelector('.-publish').textContent).to.equal('Save');
-    })
-  );
-
-  it('should have correct buttons when reading is visible', () =>
-    helper(VISIBLE_READING).then(function({ dom }) {
-      expect(dom.querySelector('.delete-link')).to.not.be.null;
-      expect(dom.querySelector('.-save')).to.be.null;
-      expect(dom.querySelector('.-publish')).to.not.be.null;
-    })
-  );
-
-  it('should have correct buttons when reading is past due', () =>
-    helper(PAST_DUE_PUBLISHED_READING).then(function({ dom }) {
-      expect(dom.querySelector('.delete-link')).to.not.be.null;
-      expect(dom.querySelector('.-save')).to.be.null;
-      expect(dom.querySelector('.-publish')).to.not.be.null;
-    })
-  );
-
   it('should have help tooltip', () =>
-    helper(PUBLISHED_READING).then(({ dom }) => expect(dom.querySelector('.footer-instructions')).to.not.be.null)
+    helper(PUBLISHED_READING).then(({ dom }) => expect(dom.querySelector('.footer-instructions')).not.toBeNull())
   );
 });

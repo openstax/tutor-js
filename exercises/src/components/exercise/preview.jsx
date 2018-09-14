@@ -18,7 +18,10 @@ export default class ExerciseEditingPreview extends React.Component {
 
 
   @computed get isAuthor() {
-    return !!find(this.props.exercise.authors, { user_id: CurrentUser.id });
+    const { exercise } = this.props;
+    return Boolean(
+      exercise.isNew || find(exercise.authors, { user_id: CurrentUser.id })
+    );
   }
 
   render() {

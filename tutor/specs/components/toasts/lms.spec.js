@@ -1,9 +1,8 @@
-import { Success, LMSErrors, Failure } from '../../../src/components/toasts/lms';
+import { LMSErrors } from '../../../src/components/toasts/lms';
 import EnzyeContext from '../helpers/enzyme-context';
-import { SnapShot, Wrapper } from '../helpers/component-testing';
 import { portalContents as PC } from '../../helpers/portals';
 
-import { ToastModel } from '../../../src/models/toasts';
+import { Toast } from 'shared/model/toasts';
 jest.useFakeTimers();
 
 describe('LMS Background job toasts', () => {
@@ -12,7 +11,7 @@ describe('LMS Background job toasts', () => {
   let props;
 
   beforeEach(() => {
-    const toast = new ToastModel({
+    const toast = new Toast({
       succeeded: true,
       handler: 'job',
       type: 'lms',

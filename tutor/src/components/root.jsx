@@ -5,7 +5,7 @@ import App from './app';
 export default function TutorRoot() {
   return (
     <BrowserRouter>
-      <div className="tutor-root">
+      <div className="tutor-root openstax">
         <Route
           path="/"
           render={props => <App {...props} />}

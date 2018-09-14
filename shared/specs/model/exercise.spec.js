@@ -32,7 +32,7 @@ describe('Exercise Model', () => {
     expect(exercise.authors.names()).toEqual(exercise.authors.map(a=>a.name));
   });
 
-  fit('calculates validity', () => {
+  it('calculates validity', () => {
     expect(exercise.validity.valid).toBe(true);
     const dok = exercise.tags.withType('dok');
     dok.value = '';
@@ -54,5 +54,17 @@ describe('Exercise Model', () => {
     expect(exercise.isPublishable).toBe(true);
     exercise.published_at = new Date();
     expect(exercise.isPublishable).toBe(false);
+  });
+
+  it('sets tags uniquely', () => {
+    const book = exercise.tags.withType('book');
+    book.value = 'uniq';
+    const secondBook = exercise.tags[
+      exercise.tags.push({ type: 'book', value: 'new' }) - 1
+    ];
+    const len = exercise.tags.length;
+    exercise.tags.setUniqueValue(secondBook, 'uniq');
+    expect(exercise.tags.length).toEqual(len - 1);
+    expect(exercise.tags.includes(secondBook)).toBe(false);
   });
 });

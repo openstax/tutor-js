@@ -22,6 +22,8 @@ describe('Exercise Question', () => {
     expect(map(question.formats, 'value')).toEqual(['multiple-choice', 'free-response']);
     question.toggleFormat('free-response', true);
     expect(map(question.formats, 'value')).toEqual(['multiple-choice', 'free-response']);
+    question.toggleFormat('free-response', true); // doesn't add twice
+    expect(map(question.formats, 'value')).toEqual(['multiple-choice', 'free-response']);
   });
 
   it('can move answers up/down', () => {

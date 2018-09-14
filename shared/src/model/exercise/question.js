@@ -70,7 +70,7 @@ export default class ExerciseQuestion extends BaseModel {
     formats.push(name);
     if ('true-false' === name) {
       formats = without(formats, 'free-response');
-    } else if ('multiple-choice' === name) {
+    } else if ('multiple-choice' === name && !formats.includes('free-response')) {
       formats = formats.concat('free-response');
     }
     this.formats = formats;

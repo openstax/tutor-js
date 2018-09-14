@@ -8,6 +8,7 @@ import Search from './components/search';
 import ExerciseMap from './models/exercises';
 import Exercise from './components/exercise';
 import Preview from './components/preview';
+import Toasts from 'shared/components/toasts';
 import UserActionsMenu from './components/user-actions-menu';
 
 export default class App extends React.Component {
@@ -51,6 +52,7 @@ export default class App extends React.Component {
               </Nav>
               <UserActionsMenu user={user} />
             </Navbar>
+            <Toasts />
             <div className="exercises-body">
               <Route path="/search" component={Search} />
               <Route path="/exercise/:uid" component={Exercise} />

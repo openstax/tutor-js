@@ -1,8 +1,6 @@
-import Toasts from '../../../src/components/navbar/background-toasts';
-import EnzyeContext from '../helpers/enzyme-context';
-import { last } from 'lodash';
-import { SnapShot, Wrapper } from '../helpers/component-testing';
-import { ToastModel } from '../../../src/models/toasts';
+import SnapShot from 'react-test-renderer';
+import Toasts from 'shared/components/toasts';
+import { Toast } from '../../../src/models/toasts';
 import { createCollection } from 'mobx-decorated-models';
 
 jest.useFakeTimers();
@@ -12,11 +10,9 @@ describe('Background job toasts', () => {
   let toastsStore;
 
   beforeEach(() => {
-    toastsStore = createCollection({ model: ToastModel });
-    toast = mount(<Toasts toasts={toastsStore} />, EnzyeContext.build());
+    toastsStore = createCollection({ model: Toast });
+    toast = mount(<Toasts toasts={toastsStore} />);
   });
-
-  //afterEach(() => ToastsStore.clear());
 
   it('renders empty and matches snapshot', () => {
     expect(SnapShot.create(<Toasts />).toJSON()).toMatchSnapshot();

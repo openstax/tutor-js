@@ -1,6 +1,7 @@
 import React from 'react';
 import { get } from 'lodash';
 import { Provider } from 'mobx-react';
+import Toasts                from 'shared/components/toasts';
 import Router                from '../../helpers/router';
 import TutorLink             from '../link';
 import ServerErrorMonitoring from '../error-monitoring';
@@ -11,7 +12,6 @@ import CenterControls        from './center-controls';
 import PreviewAddCourseBtn   from './preview-add-course-btn';
 import SupportMenu           from './support-menu';
 import StudentPayNowBtn      from './student-pay-now-btn';
-import BackgroundJobToasts   from './background-toasts';
 import PlugableNavBar        from './plugable';
 import NavbarContext         from './context';
 
@@ -36,7 +36,7 @@ function DefaultNavBar({ params }) {
         </div>
       </div>
       <ServerErrorMonitoring />
-      <BackgroundJobToasts />
+      <Toasts />
     </nav>
   );
 }

@@ -32,7 +32,7 @@ describe('CreateCourse: entering details', function() {
     wrapper.unmount();
   });
 
-  fit('sets field values', function() {
+  it('sets field values', function() {
     ux.newCourse.cloned_from = courses.get(COURSE_ID);
     const wrapper = shallow(<CourseNumbers ux={ux} />);
     expect(wrapper).toHaveRendered('.course-details-sections FormControl[type="number"][defaultValue=0]');

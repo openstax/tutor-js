@@ -1,0 +1,45 @@
+import React from 'react';
+import { observer } from 'mobx-react';
+import { action, observable } from 'mobx';
+import { Button } from 'react-bootstrap';
+
+@observer
+class PublishedToast extends React.Component {
+
+  static propTypes = {
+    dismiss: React.PropTypes.func.isRequired,
+    toast: React.PropTypes.object.isRequired,
+  }
+
+  render() {
+    const { dismiss, toast: { info: { isDraft, exercise } } }= this.props;
+
+    const message = isDraft ?
+      `A draft of ${exercise.uid} was created` :
+      `Exercise ${exercise.uid} was published successfully`;
+
+    return (
+      <div className="toast success">
+        <div className="title">
+          <span>Save Complete</span>
+        </div>
+        <div className="body">
+          <p>
+            {message}
+          </p>
+          <Button
+            bsStyle="primary"
+            bsSize="small"
+            onClick={dismiss}
+          >
+            OK
+          </Button>
+        </div>
+
+      </div>
+    );
+  }
+
+}
+
+export default PublishedToast;

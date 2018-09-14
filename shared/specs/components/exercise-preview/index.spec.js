@@ -19,7 +19,9 @@ describe('Exercise Preview Component', function() {
   });
 
   it('renders and matches snapshot', () => {
-    expect(Snapshot.create(<ExercisePreview {...props} />).toJSON()).toMatchSnapshot();
+    const preview = Snapshot.create(<ExercisePreview {...props} />);
+    expect(preview.toJSON()).toMatchSnapshot();
+    preview.unmount();
   });
 
   it('sets the className when displaying feedback', () => {
@@ -27,6 +29,7 @@ describe('Exercise Preview Component', function() {
     const preview = mount(<ExercisePreview {...props} />);
     expect(preview).toHaveRendered('.openstax-exercise-preview.is-displaying-feedback');
     expect(Snapshot.create(<ExercisePreview {...props} />).toJSON()).toMatchSnapshot();
+    preview.unmount();
   });
 
   it('can hide the answers', function() {
@@ -35,6 +38,7 @@ describe('Exercise Preview Component', function() {
     expect(preview).not.toHaveRendered('.answers-table');
     expect(preview).toHaveRendered('.answers-hidden');
     expect(Snapshot.create(<ExercisePreview {...props} />).toJSON()).toMatchSnapshot();
+    preview.unmount();
   });
 
   it('can render question formats', () => {
@@ -44,6 +48,7 @@ describe('Exercise Preview Component', function() {
       'free-response', 'multiple-choice',
     ]);
     expect(Snapshot.create(<ExercisePreview {...props} />).toJSON()).toMatchSnapshot();
+    preview.unmount();
   });
 
   it('does not render overlay by default', () => {
@@ -67,6 +72,7 @@ describe('Exercise Preview Component', function() {
     preview.find('.controls-overlay .action.include').simulate('click');
     expect(actions.include.handler).toHaveBeenCalled();
     expect(Snapshot.create(<ExercisePreview {...props} />).toJSON()).toMatchSnapshot();
+    preview.unmount();
   });
 
   it('hides context if missing', function() {
@@ -74,6 +80,7 @@ describe('Exercise Preview Component', function() {
     const preview = mount(<ExercisePreview {...props} />);
     expect(preview).not.toHaveRendered('.context');
     expect(Snapshot.create(<ExercisePreview {...props} />).toJSON()).toMatchSnapshot();
+    preview.unmount();
   });
 
   it('limits tags', () => {
@@ -84,6 +91,7 @@ describe('Exercise Preview Component', function() {
     preview.setProps(props);
     expect(preview.find('.exercise-tag').map(t => t.text())).toHaveLength(exercise.tags.length + 1);
     expect(Snapshot.create(<ExercisePreview {...props} />).toJSON()).toMatchSnapshot();
+    preview.unmount();
   });
 
 });
