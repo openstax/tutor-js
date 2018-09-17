@@ -126,9 +126,7 @@ export default class TaskResult extends BaseModel {
   }
 
   @computed get completedPercent() {
-    const percent = this.isHomework ?
-      (this.completedExerciseCount / this.exercise_count) :
-      (this.completedStepCount / this.step_count);
+    const percent = this.completedStepCount / this.step_count;
     return Math.round(percent * 100);
   }
 
