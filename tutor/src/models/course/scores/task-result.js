@@ -50,10 +50,7 @@ export default class TaskResult extends BaseModel {
   }
 
   @computed get lateStepCount() {
-    if (this.isHomework) {
-      return this.completed_exercise_count - this.completed_on_time_exercise_count;
-    }
-    return this.completed_step_count - this.completed_on_time_step_count;
+    return this.completed_step_count - this.completedStepCount;
   }
 
   @computed get hasLateWork() {
