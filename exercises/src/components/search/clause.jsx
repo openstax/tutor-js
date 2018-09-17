@@ -27,9 +27,13 @@ export default class Clause extends React.Component {
                 onSelect={clause.onSelect}
                 id="input-dropdown-addon"
               >
-                <MenuItem eventKey="id">ID</MenuItem>
-                <MenuItem eventKey="name">Text</MenuItem>
+                <MenuItem eventKey="id">ID (Number@Version)</MenuItem>
+                <MenuItem eventKey="nickname">Nickname</MenuItem>
                 <MenuItem eventKey="tag">Tag</MenuItem>
+                <MenuItem eventKey="content">Content</MenuItem>
+                <MenuItem eventKey="author">Author</MenuItem>
+                <MenuItem eventKey="copyright_holder">Copyright Holder</MenuItem>
+                <MenuItem eventKey="collaborator">Any Collaborator</MenuItem>
               </DropdownButton>
               <FormControl
                 type="text"
