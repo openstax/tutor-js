@@ -92,7 +92,7 @@ class HomeworkContent extends LateWorkMessages {
     return {
       additional: (
         <div className="body">
-          This student worked {this.task.lateStepCount} questions
+          This student worked {this.task.unacceptedLateStepCount} questions
           after you accepted a late score
           on <Time date={this.task.accepted_late_at || new Date()} format="shortest" />.
         </div>

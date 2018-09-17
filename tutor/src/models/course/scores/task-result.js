@@ -49,12 +49,12 @@ export default class TaskResult extends BaseModel {
     return this.type === 'homework';
   }
 
-  @computed get lateStepCount() {
+  @computed get unacceptedLateStepCount() {
     return this.completed_step_count - this.completedStepCount;
   }
 
-  @computed get hasLateWork() {
-    return this.lateStepCount > 0;
+  @computed get hasUnacceptedLateWork() {
+    return this.unacceptedLateStepCount > 0;
   }
 
   @computed get isLate() {
@@ -87,7 +87,7 @@ export default class TaskResult extends BaseModel {
   // https://github.com/openstax/tutor-server/blob/master/app/subsystems/tasks/models/task.rb#L286-L291
   @action onLateWorkAccepted() {
     // nothing to do if it's not actually late
-    if (!this.hasLateWork) { return; }
+    if (!this.hasUnacceptedLateWork) { return; }
     this.completed_accepted_late_step_count = this.completed_step_count;
     this.completed_accepted_late_exercise_count = this.completed_exercise_count;
     this.correct_accepted_late_exercise_count = this.correct_exercise_count;

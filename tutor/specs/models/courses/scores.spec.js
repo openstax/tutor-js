@@ -60,7 +60,7 @@ describe('scores store', function() {
 
   it('marks late work as accepted', function() {
     const task = gT(PARTIALLY_WORKED_LATE_TASK_ID);
-    expect(task.lateStepCount).toEqual(2);
+    expect(task.unacceptedLateStepCount).toEqual(2);
     expect( task.is_late_work_accepted ).toBe(false);
     task.onLateWorkAccepted();
     expect( task.is_late_work_accepted ).toBe(true);
