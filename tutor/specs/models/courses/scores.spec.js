@@ -72,10 +72,10 @@ describe('scores store', function() {
     expect( acceptTask(UNWORKED_TASK_ID).completed_accepted_late_exercise_count ).toEqual(0);
     expect( acceptTask(UNWORKED_TASK_ID).correct_accepted_late_exercise_count ).toEqual(0);
 
-    expect( acceptTask(PARTIALLY_WORKED_LATE_TASK_ID).completed_accepted_late_exercise_count ).toEqual(2);
-    expect( acceptTask(PARTIALLY_WORKED_LATE_TASK_ID).correct_accepted_late_exercise_count ).toEqual(1);
+    expect( acceptTask(PARTIALLY_WORKED_LATE_TASK_ID).completed_accepted_late_exercise_count ).toEqual(4);
+    expect( acceptTask(PARTIALLY_WORKED_LATE_TASK_ID).correct_accepted_late_exercise_count ).toEqual(3);
     expect( acceptTask(ALL_LATE_TASK_ID ).completed_accepted_late_exercise_count ).toEqual(2);
-    expect( acceptTask(ALL_LATE_TASK_ID ).correct_accepted_late_exercise_count ).toEqual(0);
+    expect( acceptTask(ALL_LATE_TASK_ID ).correct_accepted_late_exercise_count ).toEqual(1);
   });
 
   it('adjusts average when late work is accepted', function() {

@@ -42,8 +42,7 @@ export default class TaskResult extends BaseModel {
 
   @computed get progress() {
     if (!this.step_count){ return null; }
-    const count = this.completed_on_time_step_count + this.completed_accepted_late_step_count;
-    return count / this.step_count;
+    return this.completedStepCount / this.step_count;
   }
 
   @computed get isHomework() {
@@ -52,13 +51,9 @@ export default class TaskResult extends BaseModel {
 
   @computed get lateStepCount() {
     if (this.isHomework) {
-      return this.completed_exercise_count -
-             this.completed_on_time_exercise_count -
-             this.completed_accepted_late_exercise_count;
+      return this.completed_exercise_count - this.completed_on_time_exercise_count;
     }
-    return this.completed_step_count -
-           this.completed_on_time_step_count -
-           this.completed_accepted_late_step_count;
+    return this.completed_step_count - this.completed_on_time_step_count;
   }
 
   @computed get hasLateWork() {
@@ -81,6 +76,7 @@ export default class TaskResult extends BaseModel {
   acceptLate() {}
   rejectLate() {}
 
+  // https://github.com/openstax/tutor-server/blob/master/app/subsystems/tasks/models/task.rb#L293-L298
   @action onLateWorkRejected() {
     this.is_late_work_accepted = false;
     this.completed_accepted_late_exercise_count = 0;
@@ -91,19 +87,15 @@ export default class TaskResult extends BaseModel {
     this.adjustScore();
   }
 
+  // https://github.com/openstax/tutor-server/blob/master/app/subsystems/tasks/models/task.rb#L286-L291
   @action onLateWorkAccepted() {
     // nothing to do if it's not actually late
     if (!this.hasLateWork) { return; }
-
+    this.completed_accepted_late_step_count = this.completed_step_count;
+    this.completed_accepted_late_exercise_count = this.completed_exercise_count;
+    this.correct_accepted_late_exercise_count = this.correct_exercise_count;
     this.is_late_work_accepted = true;
-    this.completed_accepted_late_exercise_count =
-      this.completed_exercise_count - this.completed_on_time_exercise_count;
-    this.correct_accepted_late_exercise_count =
-      this.correct_exercise_count - this.correct_on_time_exercise_count;
-    this.completed_accepted_late_step_count =
-      this.completed_step_count - this.completed_on_time_step_count;
     this.accepted_late_at = TimeStore.getNow().toISOString();
-
     this.adjustScore();
   }
 
@@ -122,19 +114,9 @@ export default class TaskResult extends BaseModel {
       this.correct_accepted_late_exercise_count);
   }
 
-  @computed get scoredStepCount() {
-    return this.completed_on_time_exercise_count + this.completed_accepted_late_exercise_count;
-  }
-
-  @computed get scoredCorrectCount() {
-    return this.correct_on_time_exercise_count + this.correct_accepted_late_exercise_count;
-  }
-
   @action adjustScore() {
     if (this.exercise_count) {
-      this.score = new Big(
-        this.correct_on_time_exercise_count + this.correct_accepted_late_exercise_count
-      ).div(this.exercise_count);
+      this.score = new Big(this.correctExerciseCount).div(this.exercise_count);
     } else {
       this.score = new Big(0);
     }
