@@ -42,7 +42,7 @@ describe('scores store task results', () => {
       tests = [
         {
           object: task, property: 'completed_accepted_late_exercise_count',
-          from: 0, to: 3,
+          from: 0, to: 7,
         }, {
           object: task, property: 'student.homework_progress',
           precision: 5, from: 0.142857, to: 0.25,
@@ -104,7 +104,7 @@ describe('scores store task results', () => {
       tests = [
         {
           object: task, property: 'completed_accepted_late_exercise_count',
-          from: 0, to: 3,
+          from: 0, to: 7,
         }, {
           object: task, property: 'student.homework_progress',
           precision: 5, from: 0.142857, to: 0.25,

@@ -29,10 +29,9 @@ describe('Student Scores Latework Popover', function() {
   it('displays re-approve messages for addtional work', function() {
     props.task.is_late_work_accepted = true;
     props.task.completed_exercise_count = 7;
-    props.task.completed_on_time_step_count = 0;
-    props.task.completed_accepted_late_exercise_count = 2;
-    props.task.completed_accepted_late_step_count = 2;
     props.task.completed_step_count = 7;
+    props.task.completed_on_time_exercise_count = 4;
+    props.task.completed_accepted_late_step_count = 4;
     const lw = mount(<LateWorkPopover {...props} />);
     expect(lw.text()).toContain('student worked 3 questions');
     expect(lw.find('.popover-title').first().text()).to.equal('Additional late work');

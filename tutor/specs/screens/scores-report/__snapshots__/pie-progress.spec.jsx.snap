@@ -2,7 +2,7 @@
 
 exports[`Scores Report: pie progress SVG icon renders < 50% quarters 1`] = `
 <svg
-  className="pie-progress started"
+  className="pie-progress due started"
   height="20"
   viewBox="0 0 24 24"
   width="20"
@@ -45,7 +45,7 @@ exports[`Scores Report: pie progress SVG icon renders < 50% quarters 1`] = `
 
 exports[`Scores Report: pie progress SVG icon renders 50% > 75% quarters 1`] = `
 <svg
-  className="pie-progress started"
+  className="pie-progress due started"
   height="20"
   viewBox="0 0 24 24"
   width="20"
@@ -88,7 +88,7 @@ exports[`Scores Report: pie progress SVG icon renders 50% > 75% quarters 1`] = `
 
 exports[`Scores Report: pie progress SVG icon renders 75% > 100% quarters 1`] = `
 <svg
-  className="pie-progress started"
+  className="pie-progress due started"
   height="20"
   viewBox="0 0 24 24"
   width="20"
@@ -135,7 +135,7 @@ exports[`Scores Report: pie progress SVG icon renders 75% > 100% quarters 1`] = 
 
 exports[`Scores Report: pie progress SVG icon renders 100% quarters 1`] = `
 <svg
-  className="pie-progress started"
+  className="pie-progress due started"
   height="20"
   viewBox="0 0 24 24"
   width="20"

@@ -7,7 +7,6 @@ import { observable, action } from 'mobx';
 import Correctness from './correctness-value';
 import PieProgress from './pie-progress';
 import { LateWork } from './late-work';
-import TH from '../../helpers/task';
 import UX from './ux';
 
 @observer
@@ -56,12 +55,12 @@ export default class ReadingCell extends React.PureComponent {
           <div className="info">
             <div className="row">
               <div>
-                Completed {TH.getHumanCompletedPercent(task)}
+                Completed {task.humanCompletedPercent}
               </div>
             </div>
             <div className="row">
               <div>
-                {TH.getHumanProgress(task)}
+                {task.humanProgress}
               </div>
             </div>
           </div>

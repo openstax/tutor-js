@@ -1,6 +1,5 @@
 import React from 'react';
 import TaskResult from '../../models/course/scores/task-result';
-import TH from '../../helpers/task';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 
@@ -148,7 +147,7 @@ export default class PieProgress extends React.Component {
   }
 
   roundToQuarters(task) {
-    const value = TH.getCompletedPercent(task);
+    const value = task.completedPercent;
     if (!value)                         { return 0;  }
     if (value <= 49)                    { return 25; }
     if ((value >= 50) && (value < 75))  { return 50; }
@@ -157,8 +156,7 @@ export default class PieProgress extends React.Component {
   }
 
   render() {
-    const { size, task } = this.props;
-    const isDue = TH.isDue(task);
+    const { size, task, task: { isDue } } = this.props;
 
     if (!isDue && !task.isStarted) {
       return <div className="unstarted">---</div>;
