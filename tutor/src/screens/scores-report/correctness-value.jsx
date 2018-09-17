@@ -3,7 +3,6 @@ import { isNil } from 'lodash';
 import { observer } from 'mobx-react';
 import { asPercent } from '../../helpers/string';
 import TaskResult from '../../models/course/scores/task-result';
-import TH from '../../helpers/task';
 import TutorLink from '../../components/link';
 import UX from './ux';
 
@@ -24,7 +23,7 @@ const ReviewLink = ({ task, children }) => {
 };
 
 const Progress = observer(({ task }) => {
-  const progress = isNil(task.correct_exercise_count) ? '---' : TH.getHumanScoreNumber(task);
+  const progress = isNil(task.correct_exercise_count) ? '---' : task.humanScoreNumber;
   return <div className="correct-progress">{progress}</div>;
 });
 
@@ -43,8 +42,7 @@ export default class CorrectnessValue extends React.Component {
   }
 
   render() {
-    const { ux, task } = this.props;
-    const isDue = TH.isDue(task);
+    const { ux, task, task: { isDue } } = this.props;
 
     if (task.isStarted || isDue) {
       const Display = (ux.displayValuesAs === 'percentage') ? Percent : Progress;

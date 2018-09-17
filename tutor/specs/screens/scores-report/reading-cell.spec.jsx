@@ -33,12 +33,13 @@ describe('Student Scores Report Reading Cell', function() {
   it('renders as not started', function() {
     props.task.completed_step_count = 0;
     props.task.completed_on_time_step_count = 0;
-    expect(TH.getCompletedPercent(props.task)).to.equal(0);
+    expect(props.task.completedPercent).to.equal(0);
     const cell = mount(<Cell {...props} />, EnzymeContext.build());
     expect(cell).not.toHaveRendered('.worked .not-started');
     expect(cell.text()).toEqual('17%');
     ux.displayValuesAs = 'number';
-    expect(cell.text()).toEqual('5 of 29');
+    expect(props.task.exercise_count).toEqual(11);
+    expect(cell.text()).toEqual('5 of 11');
   });
 
   it('displays late caret when worked late', function() {

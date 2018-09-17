@@ -9,43 +9,35 @@ import omit from 'lodash/omit';
 import { AsyncButton } from 'shared';
 import TaskResult from '../../models/course/scores/task-result';
 
-import TH from '../../helpers/task';
-
 class LateWorkMessages {
 
   displayName = 'LateWork';
 
   constructor(task) {
     this.task = task;
-    this.isAccepted = this.task.is_late_work_accepted;
-    this.status = this.isAccepted ?
-      TH.hasAdditionalLateWork(this.task) ? 'additional' : 'accepted'
-      :
-      'pending';
+  }
+
+  @computed get status() {
+    if (this.task.is_late_work_accepted) {
+      return this.task.hasAdditionalLateWork ? 'additional' : 'accepted';
+    }
+    return 'pending';
+  }
+
+  @computed get isAccepted() {
+    return Boolean(
+      this.task.is_late_work_accepted && !this.task.hasAdditionalLateWork
+    );
   }
 
   score() {
-    if (this.status === 'accepted') {
-      return (
-        TH.getHumanUnacceptedScore(this.task)
-      );
-    } else {
-      return (
-        TH.getHumanScoreWithLateWork(this.task)
-      );
-    }
+    return this.isAccepted ?
+      this.task.humanUnacceptedScore : this.task.humanScoreWithLateWork;
   }
 
   progress() {
-    if (this.status === 'accepted') {
-      return (
-        TH.getHumanUnacceptedProgress(this.task)
-      );
-    } else {
-      return (
-        TH.getHumanProgressWithLateWork(this.task)
-      );
-    }
+    return this.isAccepted ?
+      this.task.humanUnacceptedProgress : this.task.humanProgressWithLateWork;
   }
 
   lateExerciseCount() {
@@ -55,14 +47,10 @@ class LateWorkMessages {
   }
 
   lateDueDate() {
-    if (this.status === 'accepted') {
-      return (
-        'due date'
-      );
+    if (this.isAccepted && this.task.last_worked_at) {
+      return 'due date';
     } else {
-      return (
-        <Time date={this.task.last_worked_at} format="shortest" />
-      );
+      return <Time date={this.task.last_worked_at} format="shortest" />;
     }
   }
 
@@ -85,41 +73,33 @@ class HomeworkContent extends LateWorkMessages {
   reportingOn = 'Score';
 
   title() {
-    return (
-      {
-        additional: 'Additional late work',
-        accepted:   'You accepted this student\'s late score.',
-        pending:    `${this.lateExerciseCount()} questions worked after the due date`,
-      }
-    );
+    return {
+      additional: 'Additional late work',
+      accepted:   'You accepted this student\'s late score.',
+      pending:    `${this.lateExerciseCount()} questions worked after the due date`,
+    };
   }
+
   button() {
-    return (
-      {
-        additional: 'Accept new late score',
-        accepted:   'Use this score',
-        pending:    'Accept late score',
-      }
-    );
+    return {
+      additional: 'Accept new late score',
+      accepted:   'Use this score',
+      pending:    'Accept late score',
+    };
   }
+
   body() {
-    return (
-      {
-        additional:
-    <div className="body">
-      {'\
-      This student worked '}
-      {this.task.lateStepCount}
-      {` questions
-      after you accepted a late score
-      on `}
-      <Time date={this.task.accepted_late_at} format="shortest" />
-      {'.\
-      '}
-    </div>,
-      }
-    );
+    return {
+      additional: (
+        <div className="body">
+          This student worked {this.task.lateStepCount} questions
+          after you accepted a late score
+          on <Time date={this.task.accepted_late_at || new Date()} format="shortest" />.
+        </div>
+      ),
+    };
   }
+
 }
 
 
@@ -166,7 +146,7 @@ export class LateWorkPopover extends React.PureComponent {
   }
 
   @action.bound onButtonClick() {
-    if (this.content.isAccepted && !TH.hasAdditionalLateWork(this.props.task)) {
+    if (this.content.isAccepted && !this.props.task.hasAdditionalLateWork) {
       this.props.task.rejectLate().then(this.props.hide);
     } else {
       this.props.task.acceptLate().then(this.props.hide);
@@ -237,7 +217,7 @@ export class LateWork extends React.PureComponent {
     if (!this.props.task.isLate) { return null; }
 
     const caretClass = classnames('late-caret', {
-      accepted: this.props.task.is_late_work_accepted && !TH.hasAdditionalLateWork(this.props.task),
+      accepted: this.props.task.is_late_work_accepted && !this.props.task.hasAdditionalLateWork,
     });
 
     return (

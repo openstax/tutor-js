@@ -1,9 +1,10 @@
-import { findIndex } from 'lodash';
+import { findIndex, isNan } from 'lodash';
 import { computed, action } from 'mobx';
 import {
   BaseModel, identifiedBy, belongsTo, identifier, field,
 } from 'shared/model';
 import Big from 'big.js';
+import moment from 'moment';
 import { TimeStore } from '../../../flux/time';
 
 @identifiedBy('course/scores/task-result')
@@ -45,8 +46,12 @@ export default class TaskResult extends BaseModel {
     return count / this.step_count;
   }
 
+  @computed get isHomework() {
+    return this.type === 'homework';
+  }
+
   @computed get lateStepCount() {
-    if (this.type === 'homework') {
+    if (this.isHomework) {
       return this.completed_exercise_count -
              this.completed_on_time_exercise_count -
              this.completed_accepted_late_exercise_count;
@@ -103,7 +108,18 @@ export default class TaskResult extends BaseModel {
   }
 
   @computed get completedStepCount() {
-    return this.completed_accepted_late_step_count + this.completed_on_time_step_count;
+    return Math.max(this.completed_accepted_late_step_count,
+      this.completed_on_time_step_count);
+  }
+
+  @computed get completedExerciseCount() {
+    return Math.max(this.completed_on_time_exercise_count,
+      this.completed_accepted_late_exercise_count);
+  }
+
+  @computed get correctExerciseCount() {
+    return Math.max(this.correct_on_time_exercise_count,
+      this.correct_accepted_late_exercise_count);
   }
 
   @computed get scoredStepCount() {
@@ -126,5 +142,74 @@ export default class TaskResult extends BaseModel {
     this.period.adjustScores(this);
     this.reportHeading.adjustScores();
   }
+
+  @computed get completedPercent() {
+    const percent = this.isHomework ?
+      (this.completedExerciseCount / this.exercise_count) :
+      (this.completedStepCount / this.step_count);
+    return Math.round(percent * 100);
+  }
+
+  @computed get humanProgressWithLateWork() {
+    const percent = this.isHomework ?
+      this.completed_exercise_count / this.exercise_count :
+      this.completed_step_count / this.step_count;
+    if (isNaN(percent)) {
+      return '0%';
+    }
+    return `${Math.round(percent * 100)}%`;
+  }
+
+  @computed get humanUnacceptedProgress() {
+    if (!this.completed_on_time_exercise_count || !this.exercise_count) {
+      return '0%';
+    }
+    const progress = Math.round((
+      this.completed_on_time_exercise_count / this.exercise_count
+    ) * 100 );
+    return `${progress}%`;
+  }
+
+  @computed get humanScoreWithLateWork() {
+    if (!this.correct_exercise_count || !this.exercise_count) {
+      return '0%';
+    }
+    const score = Math.round((
+      this.correct_exercise_count / this.exercise_count
+    ) * 100 );
+    return `${score}%`;
+  }
+
+  @computed get humanUnacceptedScore() {
+    if (!this.correct_on_time_exercise_count || !this.exercise_count) {
+      return '0%';
+    }
+    const score = Math.round((
+      this.correct_on_time_exercise_count / this.exercise_count
+    ) * 100 );
+    return `${score}%`;
+  }
+
+  @computed get hasAdditionalLateWork() {
+    return this.completed_accepted_late_step_count &&
+      this.completed_step_count > this.completedStepCount;
+  }
+
+  @computed get humanProgress() {
+    return `${this.completedStepCount} of ${this.step_count}`;
+  }
+
+  @computed get humanCompletedPercent() {
+    return `${this.completedPercent}%`;
+  }
+
+  @computed get humanScoreNumber() {
+    return `${this.correctExerciseCount} of ${this.exercise_count}`;
+  }
+
+  @computed get isDue() {
+    return moment(this.due_at).isBefore(TimeStore.getNow());
+  }
+
 
 }

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { Overlay, Popover } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
-import TH from '../../helpers/task';
 import TutorLink from '../../components/link';
 import { LateWork } from './late-work';
 import PieProgress from './pie-progress';
@@ -61,12 +60,12 @@ export default class HomeworkCell extends React.PureComponent {
             <div className="info">
               <div className="row">
                 <div>
-                  Completed {TH.getHumanCompletedPercent(task)}
+                  Completed {task.humanCompletedPercent}
                 </div>
               </div>
               <div className="row">
                 <div>
-                  {TH.getHumanProgress(task)} questions
+                  {task.humanProgress} questions
                 </div>
               </div>
             </div>
