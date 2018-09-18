@@ -18,12 +18,27 @@ pipeline {
         stage('Post Audit') {
           environment {
             USER = credentials('github')
+            PREVIOUS = sh(returnStdout: true, script: "curl -s https://api.github.com/repos/openstax/tutor-js/issues/$CHANGE_ID/comments | docker run --rm -i stedolan/jq '.[] | select(.body | contains(\"Accessibility Audit Report\")) | select(.user.login == \"staxbot\") .id'") 
             AUDIT = sh(returnStdout: true, script: "cat accessibility-report.md | awk 1 ORS='\\\\n'")
           }
-          steps {
-            sh '''
-              curl -X POST -d "{\\"body\\": \\"$AUDIT\\"}" -u $USER https://api.github.com/repos/openstax/tutor-js/issues/$CHANGE_ID/comments
-            '''
+          stages {
+            stage('Cleanup') {
+              when {
+                expression { env.PREVIOUS != null }
+              }
+              steps {
+                sh '''
+                  curl -X DELETE -u $USER https://api.github.com/repos/openstax/tutor-js/issues/comments/$PREVIOUS
+                '''
+              }
+            }
+            stage('Post') {
+              steps {
+                sh '''
+                  curl -X POST -d "{\\"body\\": \\"$AUDIT\\"}" -u $USER https://api.github.com/repos/openstax/tutor-js/issues/$CHANGE_ID/comments
+                '''
+              }
+            }
           }
         }
       }
