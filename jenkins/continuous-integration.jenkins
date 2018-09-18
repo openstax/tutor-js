@@ -1,0 +1,47 @@
+pipeline {
+  agent { label 'docker' }
+  stages {
+    stage('Accessibility Report') {
+      stages {
+        stage('Build Environment') {
+          steps {
+            sh "docker build --target=ui-testing -t openstax/tutor-js:ui-testing ."
+          }
+        }
+        stage('Run Audit') {
+          steps {
+            copyArtifacts projectName: 'openstax/tutor-js/master', filter: 'accessibility-report.json'
+            sh 'docker run -v $(pwd):/code -v /code/node_modules openstax/tutor-js:ui-testing node tutor/scripts/accessibility-audit --diff=accessibility-report.json --report=accessibility-report.md'
+            archiveArtifacts artifacts: 'accessibility-report.md', fingerprint: true
+          }
+        }
+        stage('Post Audit') {
+          environment {
+            USER = credentials('github')
+            PREVIOUS = sh(returnStdout: true, script: "curl -s https://api.github.com/repos/openstax/tutor-js/issues/$CHANGE_ID/comments | docker run --rm -i stedolan/jq '.[] | select(.body | contains(\"Accessibility Audit Report\")) | select(.user.login == \"staxbot\") .id'") 
+            AUDIT = sh(returnStdout: true, script: "cat accessibility-report.md | awk 1 ORS='\\\\n'")
+          }
+          stages {
+            stage('Cleanup') {
+              when {
+                expression { env.PREVIOUS != null }
+              }
+              steps {
+                sh '''
+                  curl -X DELETE -u $USER https://api.github.com/repos/openstax/tutor-js/issues/comments/$PREVIOUS
+                '''
+              }
+            }
+            stage('Post') {
+              steps {
+                sh '''
+                  curl -X POST -d "{\\"body\\": \\"$AUDIT\\"}" -u $USER https://api.github.com/repos/openstax/tutor-js/issues/$CHANGE_ID/comments
+                '''
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
