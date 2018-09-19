@@ -13,6 +13,9 @@ export default function dom(el) {
 
   return {
 
+    get el() {
+      return el;
+    },
     /**
      * Adds class to element.
      * @param {string} className
