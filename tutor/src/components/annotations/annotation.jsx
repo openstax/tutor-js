@@ -100,12 +100,10 @@ export default class AnnotationWidget extends React.Component {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps() {
     if (!this.course.canAnnotate) { return; }
-    if (nextProps.documentId !== this.props.documentId) {
-      this.activeAnnotation = null;
-      this.initializePage();
-    }
+    this.activeAnnotation = null;
+    this.initializePage();
   }
 
   componentWillUnmount() {
