@@ -13,6 +13,9 @@ export default function dom(el) {
 
   return {
 
+    get el() {
+      return el;
+    },
     /**
      * Adds class to element.
      * @param {string} className
@@ -236,13 +239,13 @@ export default function dom(el) {
       return (method != null ? method.call(el, selector) : undefined);
     },
 
-    isParent(parent, options) {
+    isParent(node, options) {
       if (options == null) { options = { matchSame: true }; }
       if (!parent) { return false; }
-      if (options.matchSame && (parent === el)) { return true; }
-      let node = el.parentNode;
+      if (options.matchSame && (node === el)) { return true; }
+      node = node.parentNode;
       while (node) {
-        if (node === parent) { return true; }
+        if (node === el) { return true; }
         node = node.parentNode;
       }
       return false;

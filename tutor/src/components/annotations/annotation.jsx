@@ -100,12 +100,10 @@ export default class AnnotationWidget extends React.Component {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps() {
     if (!this.course.canAnnotate) { return; }
-    if (nextProps.documentId !== this.props.documentId) {
-      this.activeAnnotation = null;
-      this.initializePage();
-    }
+    this.activeAnnotation = null;
+    this.initializePage();
   }
 
   componentWillUnmount() {
@@ -199,7 +197,7 @@ export default class AnnotationWidget extends React.Component {
     }
 
     for (const re of this.referenceElements) {
-      if (node.isParent(re)) {
+      if (dom(re).isParent(node.el)) {
         const fragment = range.cloneContents();
         const container = document.createElement('div');
 
