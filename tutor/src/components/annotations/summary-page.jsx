@@ -116,15 +116,13 @@ export default class AnnotationSummaryPage extends React.Component {
           {map(this.selectedAnnotations, (notes, ch) =>
             <div key={ch} className="section">
               <h2>{notes[0].formattedChapterSection} {notes[0].title}</h2>
-              <div className="section-annotations-list">
-                {map(notes, (annotation) => (
-                  <AnnotationCard
-                    key={annotation.id}
-                    annotation={annotation}
-                    onDelete={this.onDelete}
-                  />
-                ))}
-              </div>
+              {map(notes, (annotation) => (
+                <AnnotationCard
+                  key={annotation.id}
+                  annotation={annotation}
+                  onDelete={this.onDelete}
+                />
+              ))}
             </div>
           )}
         </div>
