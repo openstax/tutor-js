@@ -34,14 +34,14 @@ describe('Error monitoring: handlers', () => {
     args.error = {
       status: 500, statusMessage: '500 Error fool!', config: {},
     };
-    const attrs = Handlers.getAttributesForCode('blarg', args);
+    const attrs = Handlers.forError('blarg', args);
     expect(attrs.title).to.include('Server Error');
     const wrapper = shallow(<Wrapper body={attrs.body} />);
     expect(wrapper.find('ServerErrorMessage')).to.have.length(1);
   });
 
   it('renders not started message', function() {
-    const attrs = Handlers.getAttributesForCode('course_not_started', args);
+    const attrs = Handlers.forError('course_not_started', args);
     expect(attrs.title).to.include('Future');
     const wrapper = shallow(<Wrapper body={attrs.body} />);
     expect(wrapper.text()).to.include('not yet started');
@@ -51,7 +51,7 @@ describe('Error monitoring: handlers', () => {
   });
 
   it('renders course ended message', function() {
-    const attrs = Handlers.getAttributesForCode('course_ended', args);
+    const attrs = Handlers.forError('course_ended', args);
     expect(attrs.title).to.include('Past');
     const wrapper = shallow(<Wrapper body={attrs.body} />);
     expect(wrapper.text()).to.include('course ended');
@@ -61,12 +61,16 @@ describe('Error monitoring: handlers', () => {
   });
 
   it('renders exercises not found', function() {
-    const attrs = Handlers.getAttributesForCode('no_exercises', args);
+    const attrs = Handlers.forError('no_exercises', args);
     expect(attrs.title).to.include('No exercises are available');
     const wrapper = shallow(<Wrapper body={attrs.body} />);
     expect(wrapper.text()).to.include('no problems to show');
     attrs.onOk();
     expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', { courseId: COURSE_ID });
     expect(args.context.router.history.push).toHaveBeenCalledWith('/go/to/dash');
+  });
+
+  it('renders nothing for payment_overdue', function() {
+    expect(Handlers.forError('paymend_overdue', args)).to.be.null;
   });
 });

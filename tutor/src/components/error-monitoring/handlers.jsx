@@ -149,6 +149,11 @@ const ERROR_HANDLERS = {
     };
   },
 
+  // Payment overdue: don't render the error dialog because we want to display the modal instead
+  payment_overdue(error, message, context) {
+    return null;
+  }
+
   // The default error dialog that's displayed when we have no idea what's going on
   default(error, message, context) {
     if (context == null) { context = {}; }
@@ -172,24 +177,19 @@ const ERROR_HANDLERS = {
 
 
 const ServerErrorHandlers = {
-  defaultAttributes({ error, data, context }) {
-    return ERROR_HANDLERS.default(error, data, context);
-  },
-
-  getAttributesForCode(code, { error, data, context }) {
-    const handler = ERROR_HANDLERS[code] || ERROR_HANDLERS.default;
-    return handler(error, data, context);
-  },
 
   forError(error, context) {
-    let attrs;
-    const handlerArgs = { error, data: error.data, context };
-    if (isObject(handlerArgs.data) && ((handlerArgs.data.errors != null ? handlerArgs.data.errors.length : undefined) === 1)) {
-      attrs = this.getAttributesForCode(
-        handlerArgs.data.errors[0].code, handlerArgs
-      );
+    const data = error.data;
+    if (isObject(data)) {
+      const num_errors = data.errors != null ? data.errors.length : undefined;
+      if (num_errors === 1) {
+        const code = data.errors[0].code;
+        if (code in ERROR_HANDLERS) {
+          return ERROR_HANDLERS[code](error, data, context);
+        }
+      }
     }
-    return attrs || this.defaultAttributes(handlerArgs);
+    return ERROR_HANDLERS.default(error, data, context);
   },
 
 };

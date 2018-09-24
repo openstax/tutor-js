@@ -24,7 +24,9 @@ export default class ServerErrorMonitoring extends React.Component {
     const error = AppStore.getError();
     if (error && !isReloaded()) {
       const dialogAttrs = ErrorHandlers.forError(error, this.context);
-      Dialog.show( dialogAttrs ).then(dialogAttrs.onOk, dialogAttrs.onCancel);
+      if (dialogAttrs) {
+        Dialog.show( dialogAttrs ).then(dialogAttrs.onOk, dialogAttrs.onCancel);
+      }
     }
   }
 
