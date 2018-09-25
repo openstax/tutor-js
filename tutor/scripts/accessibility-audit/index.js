@@ -145,7 +145,7 @@ ${tips.map(printAudit).join('\n')}
   if (argv.html) {
     await Promise.all(results.map(({lhr}) => {
       const fileName = path.join(htmlOutDir, new URL(lhr.requestedUrl).pathname.replace(/\//g, '_').replace(/^_/, ''));
-      return write(reportGenerator.generateReportHtml(lhr), 'html', fileName)
+      return write(reportGenerator.generateReportHtml(lhr), 'html', fileName + '.html')
     }));
   }
 }

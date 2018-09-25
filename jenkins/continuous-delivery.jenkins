@@ -12,8 +12,12 @@ pipeline {
             }
             stage('Run Audit') {
               steps {
-                sh 'docker run -v $(pwd):/code -v /code/node_modules openstax/tutor-js:ui-testing node tutor/scripts/accessibility-audit --json=accessibility-report.json'
+                sh '''
+                  docker run -v $(pwd):/code -v /code/node_modules openstax/tutor-js:ui-testing \
+                    node tutor/scripts/accessibility-audit --json=accessibility-report.json --html=audits
+                '''
                 archiveArtifacts artifacts: 'accessibility-report.json', fingerprint: true
+                archiveArtifacts artifacts: 'audits/*.html', fingerprint: true
               }
             }
           }
