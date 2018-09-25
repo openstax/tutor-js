@@ -49,13 +49,6 @@
   .summary-page {
     padding: 50px;
 
-    .section-annotations-list {
-      column-count: 2;
-      @media screen and (max-width: $tutor-card-padding-collapse-breakpoint) {
-        column-count: 1;
-      }
-    }
-
     .annotation-card {
       padding-bottom: 3rem;
     }
