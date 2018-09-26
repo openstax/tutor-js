@@ -1,9 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-
-import partial from 'lodash/partial';
-import isEmpty from 'lodash/isEmpty';
-import isObject from 'lodash/isObject';
+import { partial, isString, isObject } from 'lodash';
 
 import Dialog from '../tutor-dialog';
 import TutorRouter from '../../helpers/router';
@@ -152,7 +149,7 @@ const ERROR_HANDLERS = {
   // Payment overdue: don't render the error dialog because we want to display the modal instead
   payment_overdue(error, message, context) {
     return null;
-  }
+  },
 
   // The default error dialog that's displayed when we have no idea what's going on
   default(error, message, context) {

@@ -11,8 +11,12 @@ const Wrapper = props => <span>
   {props.body}
 </span>;
 
+function error(code) {
+  return { data: { errors: [ { code } ] } };
+}
+
 describe('Error monitoring: handlers', () => {
-  let args;
+  let context;
   let course;
 
   beforeEach(() => {
@@ -20,57 +24,53 @@ describe('Error monitoring: handlers', () => {
     course = Courses.get(COURSE_ID);
     TutorRouter.currentParams.mockReturnValue({ courseId: COURSE_ID });
     TutorRouter.makePathname.mockReturnValue('/go/to/dash');
-    args = {
-      error: {},
-      data: {},
-      context: {
-        router: new TestRouter,
-      },
+    context = {
+      router: new TestRouter,
     };
   });
 
 
   it('renders default if code isnt recognized', function() {
-    args.error = {
+    context.error = {
       status: 500, statusMessage: '500 Error fool!', config: {},
     };
-    const attrs = Handlers.forError('blarg', args);
+    const attrs = Handlers.forError(error`blarg`, context);
     expect(attrs.title).to.include('Server Error');
     const wrapper = shallow(<Wrapper body={attrs.body} />);
     expect(wrapper.find('ServerErrorMessage')).to.have.length(1);
   });
 
   it('renders not started message', function() {
-    const attrs = Handlers.forError('course_not_started', args);
+    const attrs = Handlers.forError(error`course_not_started`, context);
     expect(attrs.title).to.include('Future');
     const wrapper = shallow(<Wrapper body={attrs.body} />);
     expect(wrapper.text()).to.include('not yet started');
     attrs.onOk();
     expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', { courseId: COURSE_ID });
-    expect(args.context.router.history.push).toHaveBeenCalledWith('/go/to/dash');
+    expect(context.router.history.push).toHaveBeenCalledWith('/go/to/dash');
   });
 
   it('renders course ended message', function() {
-    const attrs = Handlers.forError('course_ended', args);
+    const attrs = Handlers.forError(error`course_ended`, context);
     expect(attrs.title).to.include('Past');
     const wrapper = shallow(<Wrapper body={attrs.body} />);
     expect(wrapper.text()).to.include('course ended');
     attrs.onOk();
     expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', { courseId: COURSE_ID });
-    expect(args.context.router.history.push).toHaveBeenCalledWith('/go/to/dash');
+    expect(context.router.history.push).toHaveBeenCalledWith('/go/to/dash');
   });
 
   it('renders exercises not found', function() {
-    const attrs = Handlers.forError('no_exercises', args);
+    const attrs = Handlers.forError(error`no_exercises`, context);
     expect(attrs.title).to.include('No exercises are available');
     const wrapper = shallow(<Wrapper body={attrs.body} />);
     expect(wrapper.text()).to.include('no problems to show');
     attrs.onOk();
     expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', { courseId: COURSE_ID });
-    expect(args.context.router.history.push).toHaveBeenCalledWith('/go/to/dash');
+    expect(context.router.history.push).toHaveBeenCalledWith('/go/to/dash');
   });
 
   it('renders nothing for payment_overdue', function() {
-    expect(Handlers.forError('paymend_overdue', args)).to.be.null;
+    expect(Handlers.forError(error`payment_overdue`, context)).toBeNull();
   });
 });
