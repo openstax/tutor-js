@@ -82,7 +82,7 @@ exports[`Student Dashboard displays as loading 1`] = `
           role="tabpanel"
         >
           <div
-            className="empty panel panel-default"
+            className="empty pending panel panel-default"
             id={undefined}
           >
             <div
@@ -97,7 +97,7 @@ exports[`Student Dashboard displays as loading 1`] = `
             </div>
           </div>
           <div
-            className="empty panel panel-default"
+            className="empty pending upcoming panel panel-default"
             id={undefined}
           >
             <div
@@ -234,7 +234,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
             </div>
           </div>
           <div
-            className="-upcoming panel panel-default"
+            className="upcoming panel panel-default"
             id={undefined}
           >
             <div
