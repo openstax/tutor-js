@@ -18,7 +18,9 @@ export default class PracticeWeakestButton extends React.PureComponent {
     return (
       <TutorLink
         className="weakest btn btn-default view-performance-forecast"
-        params={{ courseId }} to="practiceTopics" query={{ worst: true }}
+        params={{ courseId }}
+        to="practiceTopics"
+        query={{ worst: true }}
       >
         {this.props.title}
       </TutorLink>
