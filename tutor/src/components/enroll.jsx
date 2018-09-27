@@ -13,6 +13,7 @@ import selectPeriod from './enroll/select-periods';
 import droppedStudent from './enroll/dropped-student';
 import courseEnded from './enroll/course-ended';
 import unknownError from './enroll/unknown-error';
+import User from '../models/user';
 
 @observer
 export default class CourseEnroll extends React.PureComponent {
@@ -47,6 +48,7 @@ export default class CourseEnroll extends React.PureComponent {
 
   render() {
     const { enrollment } = this;
+    if (User.terms_signatures_needed) { return null; }
 
     return (
       <Modal.Dialog

@@ -3,8 +3,7 @@ import React from 'react';
 import { observable, computed, action, observe } from 'mobx';
 import { observer, inject, Provider } from 'mobx-react';
 import StudentDashboard from './dashboard';
-import CourseNagModal from '../../components/onboarding/course-nag';
-import TermsModal from '../../components/terms-modal';
+
 import onboardingForCourse from '../../models/course/onboarding';
 import Courses from '../../models/courses-map';
 import WarningModal from '../../components/warning-modal';
@@ -55,14 +54,9 @@ export default class StudentDashboardShell extends React.PureComponent {
 
     const { params, params: { courseId } } = this.props;
 
-    // if student is past due BE will raise "forbidden" if we load the dashboard data
-    if (this.ux.paymentIsPastDue) { return <CourseNagModal ux={this.ux} />; }
-
     return (
       <Provider studentDashboardUX={this.ux}>
         <div className="student-dashboard ">
-          <TermsModal />
-          <CourseNagModal ux={this.ux} />
           <StudentDashboard params={params} courseId={courseId} />
         </div>
       </Provider>

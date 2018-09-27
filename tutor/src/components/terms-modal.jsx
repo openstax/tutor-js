@@ -11,10 +11,6 @@ import String from '../helpers/string';
 @observer
 export default class TermsModal extends React.PureComponent {
 
-  static propTypes = {
-    ux: MobxPropTypes.observableObject,
-  }
-
   @computed get title() {
     return String.toSentence(map(User.unsignedTerms, 'title'));
   }
