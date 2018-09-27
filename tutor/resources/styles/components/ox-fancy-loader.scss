@@ -10,26 +10,24 @@
     display: flex;
     align-items: center;
     height: 100%;
-
-    .ox-loader--inner {
-      padding-bottom: 7rem;
-    }
   }
 }
 
 .ox-loader {
   .message {
     text-align: center;
+    font-weight: bold;
+    font-size: 2rem;
   }
   .ox-loader--inner {
     margin: auto;
-
+    padding: 5rem;
     svg {
       display: block;
       height: 100%;
       margin: 0 auto;
       position: relative;
-      padding: 3rem;
+      padding-top: 2rem;
       max-width: 200px;
       .ox-green,
       .ox-orange,
