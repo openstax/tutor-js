@@ -13,7 +13,6 @@ import selectPeriod from './enroll/select-periods';
 import droppedStudent from './enroll/dropped-student';
 import courseEnded from './enroll/course-ended';
 import unknownError from './enroll/unknown-error';
-import User from '../models/user';
 
 @observer
 export default class CourseEnroll extends React.PureComponent {
