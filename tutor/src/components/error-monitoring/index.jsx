@@ -1,7 +1,6 @@
 import { React, action, observer } from '../../helpers/react';
 import ErrorHandlers from './handlers';
 import { isReloaded } from '../../helpers/reload';
-import fluxToMobx from '../../helpers/flux-to-mobx';
 import { AppStore } from '../../flux/app';
 import Dialog from '../tutor-dialog';
 
@@ -24,7 +23,9 @@ export default class ServerErrorMonitoring extends React.Component {
     const error = AppStore.getError();
     if (error && !isReloaded()) {
       const dialogAttrs = ErrorHandlers.forError(error, this.context);
-      Dialog.show( dialogAttrs ).then(dialogAttrs.onOk, dialogAttrs.onCancel);
+      if (dialogAttrs) {
+        Dialog.show( dialogAttrs ).then(dialogAttrs.onOk, dialogAttrs.onCancel);
+      }
     }
   }
 

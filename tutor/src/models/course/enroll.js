@@ -1,15 +1,13 @@
 import React from 'react';
 import {
-  BaseModel, identifiedBy, field, identifier, computed, session, belongsTo,
+  BaseModel, identifiedBy, field, identifier, computed, session,
 } from 'shared/model';
 import { action, when, observable } from 'mobx';
 import { get, pick, isEmpty } from 'lodash';
 import { Redirect } from 'react-router-dom';
 import S from '../../helpers/string';
 import Router from '../../../src/helpers/router';
-import User from '../user';
-import StudentTasks from '../student-tasks';
-import Courses, { CoursesMap } from '../courses-map';
+import Courses from '../courses-map';
 import Activity from '../../../src/components/ox-fancy-loader';
 
 import Enroll from '../../../src/components/enroll';
