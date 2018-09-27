@@ -2,6 +2,7 @@ import { Wrapper, SnapShot } from './helpers/component-testing';
 
 import TermsModal from '../../src/components/terms-modal';
 import User from '../../src/models/user';
+import Factory from '../factories';
 import { Term } from '../../src/models/user/terms';
 
 jest.mock('../../src/models/user', () => ({
@@ -14,9 +15,13 @@ jest.mock('../../src/models/user', () => ({
 
 describe('Terms agreement modal', () => {
 
-  it('does not render when there are no terms', () => {
+  it('only renders when there are terms and course', () => {
     const modal = shallow(<TermsModal />);
-    expect(modal.children()).toHaveLength(0);
+    expect(modal.is('Modal')).toBe(false);
+    User.terms_signatures_needed = true;
+    expect(modal.is('Modal')).toBe(false);
+    modal.setProps({ course: Factory.course() });
+    expect(modal.is('Modal')).toBe(true);
   });
 
   it('signs term when agreed', () => {
@@ -27,7 +32,8 @@ describe('Terms agreement modal', () => {
     User.terms.sign = jest.fn();
     User.terms_signatures_needed = true;
     User.unsignedTerms = [ term ];
-    const modal = shallow(<TermsModal />);
+    const course = Factory.course();
+    const modal = shallow(<TermsModal course={course} />);
     modal.find('Button').simulate('click');
     expect(User.terms.sign).toHaveBeenCalled();
   });

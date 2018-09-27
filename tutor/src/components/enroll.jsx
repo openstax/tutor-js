@@ -48,7 +48,6 @@ export default class CourseEnroll extends React.PureComponent {
 
   render() {
     const { enrollment } = this;
-    if (User.terms_signatures_needed) { return null; }
 
     return (
       <Modal.Dialog

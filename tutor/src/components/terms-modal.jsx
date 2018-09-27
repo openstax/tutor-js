@@ -5,11 +5,16 @@ import { Modal, Button } from 'react-bootstrap';
 import classnames from 'classnames';
 import Branding from './branding/course';
 import User from '../models/user';
+import Course from '../models/course';
 import { map } from 'lodash';
 import String from '../helpers/string';
 
 @observer
 export default class TermsModal extends React.PureComponent {
+
+  static propTypes = {
+    course: React.PropTypes.instanceOf(Course), // is NOT required
+  }
 
   @computed get title() {
     return String.toSentence(map(User.unsignedTerms, 'title'));
@@ -20,7 +25,8 @@ export default class TermsModal extends React.PureComponent {
   }
 
   render() {
-    if (!User.terms_signatures_needed) { return null; }
+    // for terms to be displayed the user must need them signed and be in a course
+    if (!User.terms_signatures_needed || !this.props.course) { return null; }
 
     const className = classnames('user-terms', { 'is-loading': User.terms.api.isPending });
 
