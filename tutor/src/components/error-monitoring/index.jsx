@@ -1,7 +1,6 @@
 import { React, action, observer } from '../../helpers/react';
 import ErrorHandlers from './handlers';
 import { isReloaded } from '../../helpers/reload';
-import fluxToMobx from '../../helpers/flux-to-mobx';
 import { AppStore } from '../../flux/app';
 import Dialog from '../tutor-dialog';
 
