@@ -196,9 +196,71 @@ export default class AnnotationWidget extends React.Component {
       return { isCollapsed, outOfBounds: true };
     }
 
+    const cloneForRange = (element, range, foundStart = false) => {
+      const isStart = node => node.parentElement === range.startContainer
+        && Array.prototype.indexOf.call(range.startContainer.childNodes, node) === range.startOffset;
+      const isEnd = node => node.parentElement === range.endContainer
+        && Array.prototype.indexOf.call(range.endContainer.childNodes, node) === range.endOffset;
+
+      const result = element.cloneNode();
+
+      if (element.nodeType === 3 /* #text */) {
+        if (element === range.startContainer && element === range.endContainer) {
+          result.textContent = element.textContent.substring(range.startOffset, range.endOffset + 1);
+        } else if (element === range.startContainer) {
+          result.textContent = element.textContent.substring(range.startOffset);
+        } else if (element === range.endContainer) {
+          result.textContent = element.textContent.substring(0, range.endOffset);
+        } else {
+          result.textContent = element.textContent;
+        }
+      } else {
+        let node = element.firstChild;
+        let foundEnd;
+
+        while (node && !isEnd(node) && !foundEnd) {
+          foundStart = foundStart || isStart(node);
+          foundEnd = dom(node).isParent(range.endContainer);
+
+          if (foundStart && !foundEnd) {
+            const copy = node.cloneNode(true);
+            result.appendChild(copy);
+          } else if (foundStart || dom(node).isParent(range.startContainer)) {
+            const copy = cloneForRange(node, range, foundStart);
+            result.appendChild(copy);
+            foundStart = true;
+          }
+
+          node = node.nextSibling;
+        }
+      }
+
+      return result;
+    };
+
+    const cloneRangeContents = range => {
+      const tableTags = ['TR', 'TBODY', 'TABLE'];
+      const fragment = document.createDocumentFragment();
+
+      const getStartNode = () => {
+        if (range.commonAncestorContainer.nodeType === 3 /* #text */) {
+          return range.commonAncestorContainer.parentNode;
+        } else if (tableTags.indexOf(range.commonAncestorContainer.nodeName) > -1) {
+          return dom(range.commonAncestorContainer).closest('table').parentNode;
+        } else {
+          return range.commonAncestorContainer;
+        }
+      };
+
+      cloneForRange(getStartNode(), range).childNodes
+        .forEach(node => fragment.appendChild(node.cloneNode(true)));
+
+      return fragment;
+    };
+
     for (const re of this.referenceElements) {
       if (dom(re).isParent(node.el)) {
-        const fragment = range.cloneContents();
+        const fragment = cloneRangeContents(range);
         const container = document.createElement('div');
 
         container.appendChild(fragment);
@@ -272,6 +334,19 @@ export default class AnnotationWidget extends React.Component {
       return range;
     }
 
+    // snap to table rows
+    if (range.commonAncestorContainer.nodeName === 'TBODY') {
+      const startRow = dom(range.startContainer).farthest('tr');
+      const endRow = dom(range.endContainer).farthest('tr');
+
+      if (startRow) {
+        range.setStartBefore(startRow);
+      }
+      if (endRow) {
+        range.setEndAfter(endRow);
+      }
+    }
+
     // snap to math
     const getMath = node => dom(node).farthest('.MathJax,.MathJax_Display');
 
@@ -281,8 +356,9 @@ export default class AnnotationWidget extends React.Component {
     }
     const endMath = getMath(range.endContainer);
     if (endMath) {
-      const mml = dom(endMath.nextSibling).matches('script[type="math/mml"]') ? endMath.nextSibling : null;
-      range.setEndAfter(mml || endMath);
+      const endElement = dom(endMath.nextSibling).matches('script[type="math/mml"]') ? endMath.nextSibling : endMath;
+      const endContainer = endElement.parentNode;
+      range.setEnd(endContainer, Array.prototype.indexOf.call(endContainer.childNodes, endElement) + 1)
     }
 
     // snap to words
