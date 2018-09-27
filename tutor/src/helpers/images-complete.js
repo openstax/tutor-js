@@ -1,10 +1,16 @@
+import { isFunction } from 'lodash';
+
 export default function imagesComplete({
   body = document.body,
   timeoutAfter = 10000, // in ms, 10 seconds
 } = {}) {
   return new Promise((resolve, reject) => {
-    const images = Array.from(body.querySelectorAll('img'));
+    if (!body || !isFunction(body.querySelectorAll)) {
+      resolve([]);
+      return;
+    }
 
+    const images = Array.from(body.querySelectorAll('img'));
     if (0 === images.length) {
       resolve(images);
       return;
