@@ -5,7 +5,7 @@ import { autobind } from 'core-decorators';
 import serializeSelection from 'serialize-selection';
 import cn from 'classnames';
 import User from '../../models/user';
-import { filter, last, sortBy, get, find, findLast, isEmpty, invokeMap, once } from 'lodash';
+import { filter, last, sortBy, get, find, findLast, forEach, invokeMap, once } from 'lodash';
 import Icon from '../icon';
 import SummaryPage from './summary-page';
 import dom from '../../helpers/dom';
@@ -253,8 +253,9 @@ export default class AnnotationWidget extends React.Component {
         }
       };
 
-      cloneForRange(getStartNode(), range).childNodes
-        .forEach(node => fragment.appendChild(node.cloneNode(true)));
+      forEach(cloneForRange(getStartNode(), range).childNodes, node =>
+        fragment.appendChild(node.cloneNode(true))
+      );
 
       return fragment;
     };
@@ -270,7 +271,7 @@ export default class AnnotationWidget extends React.Component {
         invokeMap(container.querySelectorAll('.MathJax_Preview'), 'remove');
         invokeMap(container.querySelectorAll('.MJX_Assistive_MathML'), 'remove');
 
-        container.querySelectorAll('script[type="math/mml"]').forEach(element => {
+        forEach(container.querySelectorAll('script[type="math/mml"]', element => {
           const template = document.createElement('template');
           template.innerHTML = element.textContent;
           const math = template.content.firstChild;
@@ -529,7 +530,7 @@ export default class AnnotationWidget extends React.Component {
     // just in case the annotation hasn't been mounted
     annotation.selection.restore(highlighter);
     if (annotation.isAttached) {
-      annotation.elements.forEach(el => highlighter.removeHighlights(el));
+      forEach(annotation.elements, el => highlighter.removeHighlights(el));
     }
   }
 
