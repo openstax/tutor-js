@@ -271,7 +271,7 @@ export default class AnnotationWidget extends React.Component {
         invokeMap(container.querySelectorAll('.MathJax_Preview'), 'remove');
         invokeMap(container.querySelectorAll('.MJX_Assistive_MathML'), 'remove');
 
-        forEach(container.querySelectorAll('script[type="math/mml"]', element => {
+        forEach(container.querySelectorAll('script[type="math/mml"]'), element => {
           const template = document.createElement('template');
           template.innerHTML = element.textContent;
           const math = template.content.firstChild;
