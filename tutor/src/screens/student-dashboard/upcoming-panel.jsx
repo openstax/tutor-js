@@ -26,12 +26,12 @@ export default class UpcomingPanel extends React.PureComponent {
     const events  = tasks ? tasks.upcomingEvents(startAt.toDate()) : [];
 
     if (studentDashboardUX.isPendingTaskLoading || isEmpty(events)) {
-      return <EmptyPanel courseId={courseId} message='No upcoming assignments' />;
+      return <EmptyPanel className="upcoming" courseId={courseId} message='No upcoming assignments' />;
     }
 
     return (
       <EventsPanel
-        className="-upcoming"
+        className="upcoming"
         onTaskClick={this.onTaskClick}
         courseId={courseId}
         isCollege={this.props.isCollege}

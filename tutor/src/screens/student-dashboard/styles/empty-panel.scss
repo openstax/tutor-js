@@ -1,7 +1,14 @@
 .student-dashboard {
-  .panel.empty .panel-body {
-    padding: 20px;
-    text-align: center;
+  .panel.empty {
+    .panel-body {
+      padding: 20px;
+      text-align: center;
+    }
+    &.pending {
+      margin-top: 5rem;
+      &.upcoming {
+        display: none;
+      }
+    }
   }
 }
-

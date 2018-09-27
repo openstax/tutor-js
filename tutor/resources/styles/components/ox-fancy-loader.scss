@@ -23,14 +23,14 @@
   }
   .ox-loader--inner {
     margin: auto;
-    width: 25%;
 
     svg {
       display: block;
       height: 100%;
       margin: 0 auto;
       position: relative;
-      padding-top: 5px;
+      padding: 3rem;
+      max-width: 200px;
       .ox-green,
       .ox-orange,
       .ox-gray,
