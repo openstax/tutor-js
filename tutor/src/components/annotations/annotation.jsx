@@ -160,6 +160,7 @@ export default class AnnotationWidget extends React.Component {
     });
 
     this.getReferenceElements();
+    if (!this.referenceElements.length) { return; }
 
     const win = this.props.windowImpl;
     const initialize = once(() => {
