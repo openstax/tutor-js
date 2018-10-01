@@ -1,6 +1,6 @@
-import CourseNag from '../../../src/components/onboarding/course-nag';
+import CourseNag from '../../../src/components/navbar/course-nag';
 import TourContext from '../../../src/models/tour/context';
-
+import Factory from '../../factories';
 import { observable } from 'mobx';
 import Onboarding from '../../../src/models/course/onboarding/base';
 
@@ -25,7 +25,6 @@ describe('Second Session Warning', () => {
     spyMode = observable.object({ isEnabled: false });
     tourContext = new TourContext();
     props = {
-      ux,
       spyMode,
       tourContext,
     };

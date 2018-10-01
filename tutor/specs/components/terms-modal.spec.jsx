@@ -20,7 +20,7 @@ describe('Terms agreement modal', () => {
     expect(modal.is('Modal')).toBe(false);
     User.terms_signatures_needed = true;
     expect(modal.is('Modal')).toBe(false);
-    modal.setProps({ course: Factory.course() });
+    modal.setProps({ canBeDisplayed: true });
     expect(modal.is('Modal')).toBe(true);
   });
 
@@ -32,8 +32,7 @@ describe('Terms agreement modal', () => {
     User.terms.sign = jest.fn();
     User.terms_signatures_needed = true;
     User.unsignedTerms = [ term ];
-    const course = Factory.course();
-    const modal = shallow(<TermsModal course={course} />);
+    const modal = shallow(<TermsModal canBeDisplayed />);
     modal.find('Button').simulate('click');
     expect(User.terms.sign).toHaveBeenCalled();
   });

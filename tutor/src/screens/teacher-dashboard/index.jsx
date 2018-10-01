@@ -1,21 +1,14 @@
 import React from 'react';
-
 import { extend, pick, isEmpty } from 'lodash';
 import { observable, computed, action, observe } from 'mobx';
 import { observer, inject } from 'mobx-react';
-
 import { NotificationsBar } from 'shared';
 import CoursePage from '../../components/course-page';
 import ModelLoader from '../../models/loader';
-import TaskPlans from '../../models/course/task-plans';
-import onboardingForCourse from '../../models/course/onboarding';
 import Courses from '../../models/courses-map';
 import { TimeStore } from '../../flux/time';
 import TimeHelper from '../../helpers/time';
 import CourseDataHelper from '../../helpers/course-data';
-import PH from '../../helpers/period';
-import CourseTitleBanner from '../../components/course-title-banner';
-import CourseNagModal from '../../components/onboarding/course-nag';
 import NotificationHelpers from '../../helpers/notifications';
 import TermsModal from '../../components/terms-modal';
 import CourseMonth from './month';
@@ -81,8 +74,6 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
     return { termStart: term.start, termEnd: term.end };
   }
 
-  ux = onboardingForCourse(this.course, this.props.tourContext);
-
   @observable loader = new ModelLoader({ model: this.course.taskPlans });
 
   @observable displayAs = 'month';
@@ -127,7 +118,6 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
   componentWillUnmount() {
     TimeHelper.unsyncCourseTimezone();
     this.disposePlanObserver();
-    this.ux.close();
   }
 
   getDateFromParams({ termStart }) {
@@ -192,7 +182,6 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
         }
       >
         <TermsModal />
-        <CourseNagModal ux={this.ux} />
         <CourseCalendar {...calendarProps} />
       </CoursePage>
     );
