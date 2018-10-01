@@ -76,7 +76,7 @@ class DefaultNavBar extends React.Component {
           </div>
         </div>
         <ServerErrorMonitoring />
-        <TermsModal />
+        <TermsModal canBeDisplayed={Boolean(courseId)} />
         <Toasts />
         <CourseNagModal ux={this.courseOnboarding} />
       </nav>
