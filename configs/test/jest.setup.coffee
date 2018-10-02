@@ -4,6 +4,7 @@ sinonChai = require('sinon-chai')
 chai.use(sinonChai)
 isFunction = require('lodash/isFunction')
 { axe, toHaveNoViolations } = require('jest-axe')
+require('faker').seed(123)
 
 global.enzyme = require 'enzyme'
 
