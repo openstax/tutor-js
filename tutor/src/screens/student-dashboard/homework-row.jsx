@@ -2,6 +2,8 @@ import React from 'react';
 import { isNil } from 'lodash';
 import { observer } from 'mobx-react';
 import { computed } from 'mobx';
+import Course from '../../models/course';
+import Task from '../../models/student/task';
 import EventRow from './event-row';
 // complete_exercise_count
 import TourAnchor from '../../components/tours/anchor';
@@ -10,8 +12,8 @@ import TourAnchor from '../../components/tours/anchor';
 export default class HomeworkRow extends React.PureComponent {
 
   static propTypes = {
-    event: React.PropTypes.object.isRequired,
-    courseId: React.PropTypes.string.isRequired,
+    event:  React.PropTypes.instanceOf(Task).isRequired,
+    course: React.PropTypes.instanceOf(Course).isRequired,
   }
 
   @computed get hasStarted() {
@@ -31,12 +33,11 @@ export default class HomeworkRow extends React.PureComponent {
       `${event.complete_exercise_count}/${event.exercise_count} answered`;
 
     if (this.hasStarted) {
-      feedback = <TourAnchor
-        id="assignment-progress-status"
-        tag="span"
-      >
-        {feedback}
-      </TourAnchor>
+      feedback = (
+        <TourAnchor id="assignment-progress-status" tag="span">
+          {feedback}
+        </TourAnchor>
+      );
     }
 
     return (

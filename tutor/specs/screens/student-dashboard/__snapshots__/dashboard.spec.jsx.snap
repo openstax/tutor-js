@@ -2,7 +2,7 @@
 
 exports[`Student Dashboard displays as loading 1`] = `
 <div
-  className="dashboard"
+  className="student-dashboard"
 >
   <div
     className="openstax-notifications-bar"
@@ -13,7 +13,7 @@ exports[`Student Dashboard displays as loading 1`] = `
     data-book-title="Testing"
     data-is-preview={false}
     data-term="Spring 2017"
-    data-title="Local Test Course One"
+    data-title="Local Test Course Two"
   >
     <div
       className="book-title"
@@ -21,7 +21,7 @@ exports[`Student Dashboard displays as loading 1`] = `
       <h1
         className="book-title-text"
       >
-        Local Test Course One
+        Local Test Course Two
       </h1>
     </div>
     <div
@@ -126,8 +126,8 @@ exports[`Student Dashboard displays as loading 1`] = `
         >
           <a
             className="browse-the-book"
-            data-appearance="testing"
-            href="/book/11"
+            data-appearance="college_physics"
+            href="/book/1"
             onClick={[Function]}
             target="_blank"
           >
@@ -144,11 +144,32 @@ exports[`Student Dashboard displays as loading 1`] = `
 
 exports[`Student Dashboard matches snapshot 1`] = `
 <div
-  className="dashboard"
+  className="student-dashboard"
 >
   <div
-    className="openstax-notifications-bar"
-  />
+    className="openstax-notifications-bar viewable"
+  >
+    <div
+      className="notification missing-student-id"
+    >
+      <span
+        className="body"
+      >
+        <i
+          className="icon fa fa-info-circle"
+        />
+        <span>
+          To get credit for your work, add your student ID.
+        </span>
+        <a
+          className="action"
+          onClick={[Function]}
+        >
+          Add Student ID
+        </a>
+      </span>
+    </div>
+  </div>
   <div
     className="course-title-banner"
     data-appearance="testing"
@@ -234,72 +255,13 @@ exports[`Student Dashboard matches snapshot 1`] = `
             </div>
           </div>
           <div
-            className="upcoming panel panel-default"
+            className="empty upcoming panel panel-default"
             id={undefined}
           >
             <div
               className="panel-body"
             >
-              <div
-                className="row labels"
-              >
-                <div
-                  className="col-sm-7 col-xs-12"
-                >
-                  <span
-                    className="title"
-                  >
-                    Coming Up
-                  </span>
-                </div>
-                <div
-                  className="progress-label col-sm-3 col-sm-offset-0 col-xs-5 col-xs-offset-2"
-                >
-                  Progress
-                </div>
-                <div
-                  className="due-at-label col-sm-2 col-xs-5"
-                >
-                  Due
-                </div>
-              </div>
-              <a
-                aria-label="Work on reading: Read Chapter 1"
-                className="task row reading workable"
-                data-event-id="118"
-                href="/course/1/task/118"
-                onClick={[Function]}
-                onKeyDown={undefined}
-                tabIndex={0}
-              >
-                <div
-                  className="column-icon col-sm-1 col-xs-2"
-                >
-                  <i
-                    aria-label="reading icon"
-                    className="icon icon-lg icon-reading"
-                  />
-                </div>
-                <div
-                  className="title col-sm-6 col-xs-10"
-                >
-                  Read Chapter 1
-                </div>
-                <div
-                  className="feedback col-sm-3 col-xs-5"
-                >
-                  <span>
-                    Complete
-                  </span>
-                </div>
-                <div
-                  className="due-at col-sm-2 col-xs-5"
-                >
-                  <time>
-                    May 19, 7:00am
-                  </time>
-                </div>
-              </a>
+              No upcoming assignments
             </div>
           </div>
         </div>
@@ -317,8 +279,8 @@ exports[`Student Dashboard matches snapshot 1`] = `
         >
           <a
             className="browse-the-book"
-            data-appearance="testing"
-            href="/book/11"
+            data-appearance="college_physics"
+            href="/book/1"
             onClick={[Function]}
             target="_blank"
           >

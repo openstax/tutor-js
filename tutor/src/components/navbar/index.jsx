@@ -1,7 +1,7 @@
 import React from 'react';
 import { get } from 'lodash';
-import { Provider, inject, observer, observable, computed } from '../../helpers/react';
-import CourseNagModal        from '../../components/onboarding/course-nag';
+import { Provider, inject, observer, observable, action, computed } from '../../helpers/react';
+import CourseNagModal        from './course-nag';
 import TermsModal            from '../../components/terms-modal';
 import Courses               from '../../models/courses-map';
 import Toasts                from 'shared/components/toasts';
@@ -17,12 +17,10 @@ import SupportMenu           from './support-menu';
 import StudentPayNowBtn      from './student-pay-now-btn';
 import PlugableNavBar        from './plugable';
 import NavbarContext         from './context';
-import onboardingForCourse   from '../../models/course/onboarding';
 
 @inject((allStores, props) => ({ tourContext: ( props.tourContext || allStores.tourContext ) }))
 @observer
 class DefaultNavBar extends React.Component {
-
 
   static propTypes = {
     params: React.PropTypes.shape({
@@ -31,27 +29,9 @@ class DefaultNavBar extends React.Component {
     tourContext: React.PropTypes.object,
   }
 
-  @observable courseOnboarding;
-
-  componentWillMount() {
-    if (!this.course) { return; }
-    this.courseOnboarding = onboardingForCourse(this.course, this.props.tourContext);
-    this.courseOnboarding.mount();
-  }
-
   @computed get course() {
     const { params: { courseId } } = this.props;
     return courseId ? Courses.get(courseId) : null;
-  }
-
-  componentDidUpdate() {
-    if (this.courseOnboarding) {
-      this.courseOnboarding.course = this.course;
-    }
-  }
-
-  componentWillUnmount() {
-    if (this.courseOnboarding) { this.courseOnboarding.close(); } // courseOnboarding will tell context it's ok to display tours
   }
 
   render() {
@@ -76,9 +56,9 @@ class DefaultNavBar extends React.Component {
           </div>
         </div>
         <ServerErrorMonitoring />
-        <TermsModal />
+        <TermsModal canBeDisplayed={Boolean(courseId)} />
         <Toasts />
-        <CourseNagModal ux={this.courseOnboarding} />
+        <CourseNagModal key={this.course || 'no-course'} course={this.course} />
       </nav>
     );
   }

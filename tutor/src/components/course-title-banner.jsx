@@ -10,7 +10,10 @@ import CourseUX from '../models/course/ux';
 export default class CourseTitleBanner extends React.PureComponent {
 
   static propTypes = {
-    courseId: React.PropTypes.string.isRequired
+    courseId: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number,
+    ]).isRequired,
   }
 
   @computed get course () {

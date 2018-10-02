@@ -9,13 +9,19 @@ MissingStudentIdNotification = React.createClass
     ).isRequired
     notice: React.PropTypes.shape(
       role:   React.PropTypes.shape(
-        id:        React.PropTypes.string
+        id: React.PropTypes.oneOfType([
+          React.PropTypes.string,
+          React.PropTypes.number,
+        ])
         type:      React.PropTypes.string
         joined_at: React.PropTypes.string
         latest_enrollment_at: React.PropTypes.string
       )
       course: React.PropTypes.shape(
-        id: React.PropTypes.string
+        id: React.PropTypes.oneOfType([
+          React.PropTypes.string,
+          React.PropTypes.number,
+        ])
       )
     ).isRequired
 

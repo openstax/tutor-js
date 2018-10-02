@@ -22,7 +22,10 @@ ProgressGuide = React.createClass
   displayName: 'ProgressGuide'
 
   propTypes:
-    courseId: React.PropTypes.string.isRequired
+    courseId: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number,
+    ]).isRequired
 
   render: ->
     courseId = @props.courseId
@@ -107,7 +110,10 @@ module.exports = React.createClass
   displayName: 'ProgressGuideShell'
 
   propTypes:
-    courseId: React.PropTypes.string.isRequired
+    courseId: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number,
+    ]).isRequired
 
   renderLoading: (refreshButton) ->
     <div className='actions-box loadable is-loading'>

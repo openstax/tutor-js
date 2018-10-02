@@ -8,7 +8,7 @@ import './styles.scss';
 export default class NewCourse extends React.PureComponent {
 
   render() {
-    if (User.terms_signatures_needed) return <TermsModal />;
+    if (User.terms_signatures_needed) return <TermsModal canBeDisplayed />;
 
     return (
       <div className="new-course-wizard">

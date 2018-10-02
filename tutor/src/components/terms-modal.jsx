@@ -10,10 +10,10 @@ import { map } from 'lodash';
 import String from '../helpers/string';
 
 @observer
-export default class TermsModal extends React.PureComponent {
+export default class TermsModal extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course), // is NOT required
+    canBeDisplayed: React.PropTypes.bool,
   }
 
   @computed get title() {
@@ -26,7 +26,7 @@ export default class TermsModal extends React.PureComponent {
 
   render() {
     // for terms to be displayed the user must need them signed and be in a course
-    if (!User.terms_signatures_needed || !this.props.course) { return null; }
+    if (!User.terms_signatures_needed || !this.props.canBeDisplayed) { return null; }
 
     const className = classnames('user-terms', { 'is-loading': User.terms.api.isPending });
 

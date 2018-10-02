@@ -1,5 +1,6 @@
 import EventRow from '../../../src/screens/student-dashboard/event-row';
 import { Testing, _, React } from '../../components/helpers/component-testing';
+import Factory from '../../factories';
 
 const EVENT = {
   'id': '118',
@@ -46,33 +47,36 @@ let deletedRow = null;
 let deletedNotStartedRow = null;
 
 describe('Event Row', function() {
+  const course = Factory.course();
   beforeEach(function() {
-    const regular = <EventRow
-      className="testing"
-      event={EVENT}
-      eventType="generic"
-      isCollege={false}
-      courseId="3"
-      feedback="" />;
-    const deleted = <EventRow
-      className=""
-      event={DELETED_EVENT}
-      eventType="generic"
-      isCollege={false}
-      courseId="3"
-      feedback="" />;
-    const deletedNotStarted = <EventRow
-      className=""
-      event={DELETED_NOT_STARTED_EVENT}
-      eventType="generic"
-      isCollege={false}
-      courseId="3"
-      feedback="" />;
+    const regular = (
+      <EventRow
+        className="testing"
+        event={Factory.studentDashboardTask()}
+        eventType="generic"
+        course={course}
+        feedback="" />
+    );
+    const deleted = (
+      <EventRow
+        className=""
+        event={Factory.studentDashboardTask({ is_deleted: true })}
+        eventType="generic"
+        course={course}
+        feedback="" />
+    );
+    const deletedNotStarted = (
+      <EventRow
+        className=""
+        event={Factory.studentDashboardTask({ is_deleted: true })}
+        eventType="generic"
+        isCollege={false}
+        course={course}
+        feedback="" />
+    );
     regularRow = mount(regular);
     deletedRow = mount(deleted);
-    return (
-        deletedNotStartedRow = mount(deleted)
-    );
+    deletedNotStartedRow = mount(deletedNotStarted);
   });
 
   it('passes classnames to containing div for eventType', function() {

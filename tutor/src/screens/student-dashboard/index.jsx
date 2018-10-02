@@ -24,19 +24,6 @@ export default class StudentDashboardShell extends React.PureComponent {
     return Courses.get(this.props.params.courseId);
   }
 
-  @observable ux;
-
-  componentWillMount() {
-    if (!this.course) { return; }
-    this.ux = onboardingForCourse(this.course, this.props.tourContext);
-
-    this.ux.mount(); // ux will use this to start silencing tours while it's displaying payment nags
-  }
-
-  componentWillUnmount() {
-    this.ux.close(); // ux will tell context it's ok to display tours
-  }
-
   renderNotAStudent() {
     let onDismiss;
     if (Courses.size) { onDismiss = this.goToMyCourses; }
@@ -52,14 +39,8 @@ export default class StudentDashboardShell extends React.PureComponent {
   render() {
     if (!this.course) { return this.renderNotAStudent(); }
 
-    const { params, params: { courseId } } = this.props;
-
     return (
-      <Provider studentDashboardUX={this.ux}>
-        <div className="student-dashboard ">
-          <StudentDashboard params={params} courseId={courseId} />
-        </div>
-      </Provider>
+      <StudentDashboard params={this.props.params} course={this.course} />
     );
   }
 }

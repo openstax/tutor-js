@@ -10,14 +10,11 @@ import User from '../../user';
 
 const PAY_LATER_CHOICE  = 'PL';
 const TRIAL_ACKNOWLEDGED = 'FTA';
-const FETCH_INITIAL_TASKS_INTERVAL = 1000 * 60; // every minute;
-const REFRESH_TASKS_INTERVAL = 1000 * 60 * 60 * 4; // every 4 hours
 
 export default class StudentCourseOnboarding extends BaseOnboarding {
 
   @observable displayPayment = false;
   @observable displayTrialActive = false;
-  @observable refreshTasksTimer = null;
 
   @computed get nagComponent() {
     if (this.needsTermsSigned) { return null; }
@@ -79,41 +76,20 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
     this.displayPayment = false;
     this.course.userStudentRecord.markPaid();
     // fetch tasks since they could not be fetched while student was in unpaid status
-    if (!this.refreshTasksTimer) {
-      return this.fetchTaskPeriodically();
-    }
-    return Promise.resolve();
-  }
-
-  @computed get isPendingTaskLoading() {
-    return Boolean(
-      (false === this.course.studentTasks.all_tasks_are_ready) &&
-        this.course.primaryRole.joinedAgo('minutes') < 30
-    );
-  }
-
-  @action.bound fetchTaskPeriodically() {
-    return this.course.studentTasks.fetch().then(() => {
-      const interval =  this.isPendingTaskLoading ?
-        FETCH_INITIAL_TASKS_INTERVAL : REFRESH_TASKS_INTERVAL;
-      this.refreshTasksTimer = setTimeout(this.fetchTaskPeriodically, interval);
-    });
+    return this.course.studentTasks.startFetching();
   }
 
   mount() {
     super.mount();
-    if (!this.refreshTasksTimer && !this.paymentIsPastDue) {
-      this.fetchTaskPeriodically();
+    if (!this.paymentIsPastDue) {
+      this.course.studentTasks.startFetching();
     }
     this.tourContext.otherModal = this;
   }
 
   close() {
     super.close();
-    if (this.refreshTasksTimer) {
-      clearInterval(this.refreshTasksTimer);
-      this.refreshTasksTimer = null;
-    }
+    this.course.studentTasks.stopFetching();
     this.tourContext.otherModal = null;
   }
 
