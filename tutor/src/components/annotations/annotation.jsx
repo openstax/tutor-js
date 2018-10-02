@@ -352,11 +352,18 @@ export default class AnnotationWidget extends React.Component {
     // snap to math
     const getMath = node => dom(node).farthest('.MathJax,.MathJax_Display');
 
-    const startMath = getMath(range.startContainer);
+    const startMath = getMath(range.startContainer.nodeType === 3 /* #text */
+      ? range.startContainer
+      : range.startContainer.childNodes[range.startOffset]
+    );
     if (startMath) {
       range.setStartBefore(startMath);
     }
-    const endMath = getMath(range.endContainer);
+
+    const endMath = getMath(range.endContainer.nodeType === 3 /* #text */
+      ? range.endContainer
+      : range.endContainer.childNodes[range.endOffset - 1]
+    );
     if (endMath) {
       const endElement = dom(endMath.nextSibling).matches('script[type="math/mml"]') ? endMath.nextSibling : endMath;
       const endContainer = endElement.parentNode;
