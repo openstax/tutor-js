@@ -11,6 +11,8 @@ import { CoursesMap } from '../../src/models/courses-map';
 import { EcosystemsMap, Ecosystem } from '../../src/models/ecosystems';
 import { ExercisesMap } from '../../src/models/exercises';
 import { ResearchSurvey } from '../../src/models/research-surveys/survey';
+import StudentDashboardTask from '../../src/models/student/task';
+
 import './research_survey';
 import './dashboard';
 import './course';
@@ -31,6 +33,7 @@ each({
   TaskPlanStat,
   ResearchSurvey,
   Offering,
+  StudentDashboardTask,
 }, (Model, name) => {
   Factories[camelCase(name)] = (attrs = {}) => {
     const o = FactoryBot.create(name, attrs);
@@ -64,6 +67,12 @@ Factories.pastTaskPlans = ({ course, count = 4 }) => {
 Factories.taskPlans = ({ course, count = 4 }) => {
   course.taskPlans.onLoaded({ data: {
     plans: range(count).map(() => FactoryBot.create('TeacherDashboardTask', { course })),
+  } });
+};
+
+Factories.studentTasks = ({ course, count = 4 }) => {
+  course.studentTasks.onLoaded({ data: {
+    tasks: range(count).map(() => FactoryBot.create('StudentDashboardTask', { course })),
   } });
 };
 
