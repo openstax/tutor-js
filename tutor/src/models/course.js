@@ -118,7 +118,7 @@ export default class Course extends BaseModel {
   }
 
   @computed get studentTasks() {
-    return StudentTasks.forCourseId(this.id);
+    return StudentTasks.forCourse(this);
   }
 
   @lazyGetter lms = new LMS({ course: this });

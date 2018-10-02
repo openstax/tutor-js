@@ -11,6 +11,8 @@ import ResearchSurveys from './research-surveys';
 const MAX_POLLING_ATTEMPTS = 10;
 const POLL_SECONDS = 30;
 const ISOWEEK_FORMAT = 'GGGGWW';
+const FETCH_INITIAL_TASKS_INTERVAL = 1000 * 60; // every minute;
+const REFRESH_TASKS_INTERVAL = 1000 * 60 * 60 * 4; // every 4 hours
 
 export class CourseStudentTasks extends Map {
   @readonly static Model = Task;
@@ -18,10 +20,11 @@ export class CourseStudentTasks extends Map {
   @observable researchSurveys;
   @observable expecting_assignments_count = 0;
   @observable all_tasks_are_ready = false;
+  @observable refreshTimer;
 
-  constructor(courseId) {
+  constructor(course) {
     super();
-    this.courseId = courseId;
+    this.course = course;
   }
 
   @computed get byWeek() {
@@ -54,17 +57,44 @@ export class CourseStudentTasks extends Map {
     this.mergeModelData(tasks);
     this.all_tasks_are_ready = all_tasks_are_ready;
   }
+
+  @computed get isPendingTaskLoading() {
+    return Boolean(
+      (false === this.all_tasks_are_ready) &&
+        this.course.primaryRole.joinedAgo('minutes') < 30
+    );
+  }
+
+  @action.bound fetchTaskPeriodically() {
+    return this.fetch().then(() => {
+      const interval = this.isPendingTaskLoading ?
+        FETCH_INITIAL_TASKS_INTERVAL : REFRESH_TASKS_INTERVAL;
+      this.refreshTimer = setTimeout(this.fetchTaskPeriodically, interval);
+    });
+  }
+
+  @action startFetching() {
+    return this.refreshTimer ? Promise.resolve() : this.fetchTaskPeriodically();
+  }
+
+  @action stopFetching() {
+    if (this.refreshTimer) {
+      clearInterval(this.refreshTimer);
+      this.refreshTimer = null;
+    }
+  }
+
 }
 
 class StudentTasks extends Map {
 
-  forCourseId(courseId) {
-    let courseMap = this.get(courseId);
-    if (!courseMap) {
-      courseMap = new CourseStudentTasks(courseId);
-      this.set(courseId, courseMap);
+  forCourse(course) {
+    let tasks = this.get(course.id);
+    if (!tasks) {
+      tasks = new CourseStudentTasks(course);
+      this.set(course.id, tasks);
     }
-    return courseMap;
+    return tasks;
   }
 
 }

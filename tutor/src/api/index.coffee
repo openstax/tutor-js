@@ -196,7 +196,7 @@ startAPI = ->
     pattern: 'enrollment/{id}/approve', method: 'PUT'
     onSuccess: 'onApiRequestComplete', onFail: 'setApiErrors')
 
-  connectModelRead(CourseStudentTasks, 'fetch', onSuccess: 'onLoaded', pattern: 'courses/{courseId}/dashboard')
+  connectModelRead(CourseStudentTasks, 'fetch', onSuccess: 'onLoaded', pattern: 'courses/{course.id}/dashboard')
   connectModelDelete(StudentTask, 'hide', onSuccess: 'onHidden', pattern: 'tasks/{id}')
 
   connectModelUpdate(Course, 'save', pattern: 'courses/{id}', onSuccess: 'onApiRequestComplete')
