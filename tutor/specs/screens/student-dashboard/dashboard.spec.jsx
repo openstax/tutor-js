@@ -1,34 +1,25 @@
 import {React, SnapShot, Wrapper} from '../../components/helpers/component-testing';
 import Dashboard from '../../../src/screens/student-dashboard/dashboard';
-import StudentTasks from '../../../src/models/student-tasks';
-import ux from '../../../src/models/course/onboarding/student-course.js';
+import Factory from '../../factories';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import chronokinesis from 'chronokinesis';
 import moment from 'moment-timezone';
+import { TimeActions } from '../../../src/flux/time';
 
 describe('Student Dashboard', () => {
   let props;
 
   beforeEach(() => {
     moment.tz.setDefault('America/Chicago');
-    chronokinesis.travel(new Date('2015-10-14T12:00:00.000Z'));
+    const now = new Date('2015-10-14T12:00:00.000Z');
+    chronokinesis.travel(now);
+    const course = Factory.course();
     bootstrapCoursesList();
+    Factory.studentTasks({ course, attributes: { now: new Date('2015-10-21T12:00:00.000Z') } });
     props = {
-      courseId: '1',
+      course,
       params: {},
     };
-    StudentTasks.forCourseId(1).onLoaded({ data: { tasks: [{
-      'id': '118',
-      'title': 'Read Chapter 1',
-      'opens_at': (new Date(Date.now() - 1000 * 3600 * 24)).toString(),
-      'due_at': '2016-05-19T12:00:00.000Z',
-      'last_worked_at': '2016-05-19T11:59:00.000Z',
-      'type': 'reading',
-      'complete': true,
-      'is_deleted': false,
-      'exercise_count': 3,
-      'complete_exercise_count': 3,
-    }] } });
   });
 
   afterEach(() => {
@@ -37,23 +28,23 @@ describe('Student Dashboard', () => {
   });
 
   it('matches snapshot', function() {
-    const ux = { isPendingTaskLoading: false };
+    props.course.studentTasks.all_tasks_are_ready = false;
+    props.course.primaryRole.joined_at = new Date('2015-09-14T12:00:00.000Z');
     const component = SnapShot.create(
-      <Wrapper injected={{ studentDashboardUX: ux }}
-        _wrapped_component={Dashboard} {...props} />
+      <Wrapper _wrapped_component={Dashboard} {...props} />
     );
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('displays as loading', () => {
-    const ux = { isPendingTaskLoading: true };
+    props.course.studentTasks.all_tasks_are_ready = false;
+    props.course.primaryRole.joined_at = new Date('2015-10-14T12:00:00.000Z');
     const component = SnapShot.create(
-      <Wrapper injected={{ studentDashboardUX: ux }}
-        _wrapped_component={Dashboard} {...props} />
+      <Wrapper _wrapped_component={Dashboard} {...props} />
     );
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
-
   });
+
 });

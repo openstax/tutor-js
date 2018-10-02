@@ -10,6 +10,7 @@ import EventInfoIcon from './event-info-icon';
 import { Instructions } from '../../components/task/details';
 import { SuretyGuard } from 'shared';
 import classnames from 'classnames';
+import Course from '../../models/course';
 
 @observer
 export default class EventRow extends React.PureComponent {
@@ -17,11 +18,10 @@ export default class EventRow extends React.PureComponent {
   static propTypes = {
     eventType: React.PropTypes.string.isRequired,
     event:     React.PropTypes.object.isRequired,
-    courseId:  React.PropTypes.string.isRequired,
+    course:    React.PropTypes.instanceOf(Course).isRequired,
     feedback:  React.PropTypes.oneOfType([
       React.PropTypes.string, React.PropTypes.element,
     ]).isRequired,
-    isCollege:  React.PropTypes.bool.isRequired,
   }
 
   static contextTypes = {
@@ -51,7 +51,7 @@ export default class EventRow extends React.PureComponent {
   }
 
   render() {
-    const { event, courseId } = this.props;
+    const { event, course } = this.props;
     let feedback, hideButton, time;
 
     if (event.hidden) { return null; }
@@ -97,14 +97,14 @@ export default class EventRow extends React.PureComponent {
         <span key="feedback">
           {this.props.feedback}
         </span>,
-        <EventInfoIcon key="icon" event={this.props.event} isCollege={this.props.isCollege} />,
+        <EventInfoIcon key="icon" event={this.props.event} isCollege={course.is_college} />,
       ];
     }
 
     return (
       <a
         className={classes}
-        href={Router.makePathname('viewTask', { courseId, id: event.id })}
+        href={Router.makePathname('viewTask', { courseId: course.id, id: event.id })}
         aria-label={`Work on ${this.props.eventType}: ${this.props.event.title}`}
         tabIndex={this.isWorkable ? 0 : -1}
         onClick={this.onClick}

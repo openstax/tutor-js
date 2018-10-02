@@ -1,15 +1,17 @@
-import { React, cn, observer, inject } from '../../helpers/react';
+import { React, cn, observer } from '../../helpers/react';
+import Course from '../../models/course';
 import { Panel } from 'react-bootstrap';
 import Icon from '../../components/icon';
 
-const EmptyPanel = inject('studentDashboardUX')(observer(({
-  studentDashboardUX,
+const EmptyPanel = observer(({
+  course,
   message,
   title,
   className,
 }) => {
+  const { studentTasks } = course;
 
-  if (studentDashboardUX && studentDashboardUX.isPendingTaskLoading) {
+  if (studentTasks.isPendingTaskLoading) {
     return (
       <Panel className={cn('empty', 'pending', className)} header={title}>
         <Icon type="spinner" spin /> Preparing assignments for your course.  This
@@ -23,12 +25,10 @@ const EmptyPanel = inject('studentDashboardUX')(observer(({
       {message}
     </Panel>
   );
-}));
+});
 
 EmptyPanel.propTypes = {
-  studentDashboardUX: React.PropTypes.shape({
-    isPendingTaskLoading: React.PropTypes.bool,
-  }),
+  course: React.PropTypes.instanceOf(Course).isRequired,
   message: React.PropTypes.string.isRequired,
   title: React.PropTypes.string,
 };

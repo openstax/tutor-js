@@ -40,32 +40,32 @@ exports[`EventsPanel renders with events 1`] = `
       </div>
     </div>
     <a
-      aria-label="Work on homework: Chapter 6 Homework Before Due, no feedback"
-      className="task row homework"
-      data-event-id="6"
-      href="/course/1/task/6"
+      aria-label="Work on reading: dot-com recontextualize communities"
+      className="task row reading workable"
+      data-event-id={1}
+      href="/course/1/task/1"
       onClick={[Function]}
       onKeyDown={undefined}
-      tabIndex={-1}
+      tabIndex={0}
     >
       <div
         className="column-icon col-sm-1 col-xs-2"
       >
         <i
-          aria-label="homework icon"
-          className="icon icon-lg icon-homework"
+          aria-label="reading icon"
+          className="icon icon-lg icon-reading"
         />
       </div>
       <div
         className="title col-sm-6 col-xs-10"
       >
-        Chapter 6 Homework Before Due, no feedback
+        dot-com recontextualize communities
       </div>
       <div
         className="feedback col-sm-3 col-xs-5"
       >
         <span>
-          0/2 answered
+          In progress
         </span>
         <span
           className="tour-anchor"
@@ -86,31 +86,31 @@ exports[`EventsPanel renders with events 1`] = `
         className="due-at col-sm-2 col-xs-5"
       >
         <time>
-          Apr 24, 7:45pm
+          Oct 11, 7:00am
         </time>
       </div>
     </a>
     <a
-      aria-label="Work on reading: Chapter 5 and Chapter 6 Reading"
-      className="task row reading"
-      data-event-id="4"
-      href="/course/1/task/4"
+      aria-label="Work on external: out-of-the-box embrace supply-chains"
+      className="task row external workable"
+      data-event-id={2}
+      href="/course/1/task/2"
       onClick={[Function]}
       onKeyDown={undefined}
-      tabIndex={-1}
+      tabIndex={0}
     >
       <div
         className="column-icon col-sm-1 col-xs-2"
       >
         <i
-          aria-label="reading icon"
-          className="icon icon-lg icon-reading"
+          aria-label="external icon"
+          className="icon icon-lg icon-external"
         />
       </div>
       <div
         className="title col-sm-6 col-xs-10"
       >
-        Chapter 5 and Chapter 6 Reading
+        out-of-the-box embrace supply-chains
       </div>
       <div
         className="feedback col-sm-3 col-xs-5"
@@ -118,56 +118,33 @@ exports[`EventsPanel renders with events 1`] = `
         <span>
           Not started
         </span>
-      </div>
-      <div
-        className="due-at col-sm-2 col-xs-5"
-      >
-        <time>
-          Apr 24, 7:45pm
-        </time>
-      </div>
-    </a>
-    <a
-      aria-label="Work on reading: Chapter 10 and Chapter 11 Reading, multi-part"
-      className="task row reading"
-      data-event-id="9"
-      href="/course/1/task/9"
-      onClick={[Function]}
-      onKeyDown={undefined}
-      tabIndex={-1}
-    >
-      <div
-        className="column-icon col-sm-1 col-xs-2"
-      >
-        <i
-          aria-label="reading icon"
-          className="icon icon-lg icon-reading"
-        />
-      </div>
-      <div
-        className="title col-sm-6 col-xs-10"
-      >
-        Chapter 10 and Chapter 11 Reading, multi-part
-      </div>
-      <div
-        className="feedback col-sm-3 col-xs-5"
-      >
-        <span>
-          Not started
+        <span
+          className="tour-anchor"
+          data-tour-anchor-id="about-late-icon"
+          id="about-late-icon"
+        >
+          <i
+            className="info late"
+            onBlur={[Function]}
+            onClick={null}
+            onFocus={[Function]}
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
+          />
         </span>
       </div>
       <div
         className="due-at col-sm-2 col-xs-5"
       >
         <time>
-          Apr 24, 7:45pm
+          Oct 11, 7:00am
         </time>
       </div>
     </a>
     <a
-      aria-label="Work on reading: iReading 1: Force"
-      className="task row reading"
-      data-event-id="3"
+      aria-label="Work on event: B2B deliver content"
+      className="task row event"
+      data-event-id={3}
       href="/course/1/task/3"
       onClick={[Function]}
       onKeyDown={undefined}
@@ -177,149 +154,52 @@ exports[`EventsPanel renders with events 1`] = `
         className="column-icon col-sm-1 col-xs-2"
       >
         <i
-          aria-label="reading icon"
-          className="icon icon-lg icon-reading"
+          aria-label="event icon"
+          className="icon icon-lg icon-event"
         />
       </div>
       <div
         className="title col-sm-6 col-xs-10"
       >
-        iReading 1: Force
+        B2B deliver content
       </div>
       <div
         className="feedback col-sm-3 col-xs-5"
       >
         <span>
-          Not started
+          
+        </span>
+        <span
+          className="tour-anchor"
+          data-tour-anchor-id="about-late-icon"
+          id="about-late-icon"
+        >
+          <i
+            className="info late"
+            onBlur={[Function]}
+            onClick={null}
+            onFocus={[Function]}
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
+          />
         </span>
       </div>
       <div
         className="due-at col-sm-2 col-xs-5"
       >
         <time>
-          Apr 12, 3:15am
+          Oct 11, 7:00am
         </time>
       </div>
     </a>
     <a
-      aria-label="Work on reading: iReading 2: Newton's First Law of Motion: Inertia"
-      className="task row reading"
-      data-event-id="5"
-      href="/course/1/task/5"
+      aria-label="Work on homework: virtual strategize infomediaries"
+      className="task row homework workable"
+      data-event-id={4}
+      href="/course/1/task/4"
       onClick={[Function]}
       onKeyDown={undefined}
-      tabIndex={-1}
-    >
-      <div
-        className="column-icon col-sm-1 col-xs-2"
-      >
-        <i
-          aria-label="reading icon"
-          className="icon icon-lg icon-reading"
-        />
-      </div>
-      <div
-        className="title col-sm-6 col-xs-10"
-      >
-        iReading 2: Newton's First Law of Motion: Inertia
-      </div>
-      <div
-        className="feedback col-sm-3 col-xs-5"
-      >
-        <span>
-          Complete
-        </span>
-      </div>
-      <div
-        className="due-at col-sm-2 col-xs-5"
-      >
-        <time>
-          Apr 13, 3:15am
-        </time>
-      </div>
-    </a>
-    <a
-      aria-label="Work on reading: iReading 3: Newton's Second Law of Motion:"
-      className="task row reading"
-      data-event-id="7"
-      href="/course/1/task/7"
-      onClick={[Function]}
-      onKeyDown={undefined}
-      tabIndex={-1}
-    >
-      <div
-        className="column-icon col-sm-1 col-xs-2"
-      >
-        <i
-          aria-label="reading icon"
-          className="icon icon-lg icon-reading"
-        />
-      </div>
-      <div
-        className="title col-sm-6 col-xs-10"
-      >
-        iReading 3: Newton's Second Law of Motion:
-      </div>
-      <div
-        className="feedback col-sm-3 col-xs-5"
-      >
-        <span>
-          In progress
-        </span>
-      </div>
-      <div
-        className="due-at col-sm-2 col-xs-5"
-      >
-        <time>
-          Apr 16, 9:15am
-        </time>
-      </div>
-    </a>
-    <a
-      aria-label="Work on reading: iReading 4: Newton's Third Law of Motion"
-      className="task row reading"
-      data-event-id="10"
-      href="/course/1/task/10"
-      onClick={[Function]}
-      onKeyDown={undefined}
-      tabIndex={-1}
-    >
-      <div
-        className="column-icon col-sm-1 col-xs-2"
-      >
-        <i
-          aria-label="reading icon"
-          className="icon icon-lg icon-reading"
-        />
-      </div>
-      <div
-        className="title col-sm-6 col-xs-10"
-      >
-        iReading 4: Newton's Third Law of Motion
-      </div>
-      <div
-        className="feedback col-sm-3 col-xs-5"
-      >
-        <span>
-          Not started
-        </span>
-      </div>
-      <div
-        className="due-at col-sm-2 col-xs-5"
-      >
-        <time>
-          Apr 19, 9:15am
-        </time>
-      </div>
-    </a>
-    <a
-      aria-label="Work on homework: Homework #1"
-      className="task row homework"
-      data-event-id="11"
-      href="/course/1/task/11"
-      onClick={[Function]}
-      onKeyDown={undefined}
-      tabIndex={-1}
+      tabIndex={0}
     >
       <div
         className="column-icon col-sm-1 col-xs-2"
@@ -332,7 +212,7 @@ exports[`EventsPanel renders with events 1`] = `
       <div
         className="title col-sm-6 col-xs-10"
       >
-        Homework #1
+        virtual strategize infomediaries
       </div>
       <div
         className="feedback col-sm-3 col-xs-5"
@@ -343,144 +223,29 @@ exports[`EventsPanel renders with events 1`] = `
             data-tour-anchor-id="assignment-progress-status"
             id="assignment-progress-status"
           >
-            6/7 correct
+            10/11 answered
           </span>
+        </span>
+        <span
+          className="tour-anchor"
+          data-tour-anchor-id="about-late-icon"
+          id="about-late-icon"
+        >
+          <i
+            className="info late"
+            onBlur={[Function]}
+            onClick={null}
+            onFocus={[Function]}
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
+          />
         </span>
       </div>
       <div
         className="due-at col-sm-2 col-xs-5"
       >
         <time>
-          Apr 20, 9:15am
-        </time>
-      </div>
-    </a>
-    <a
-      aria-label="Work on homework: Homework #2"
-      className="task row homework"
-      data-event-id="13"
-      href="/course/1/task/13"
-      onClick={[Function]}
-      onKeyDown={undefined}
-      tabIndex={-1}
-    >
-      <div
-        className="column-icon col-sm-1 col-xs-2"
-      >
-        <i
-          aria-label="homework icon"
-          className="icon icon-lg icon-homework"
-        />
-      </div>
-      <div
-        className="title col-sm-6 col-xs-10"
-      >
-        Homework #2
-      </div>
-      <div
-        className="feedback col-sm-3 col-xs-5"
-      >
-        <span>
-          <span
-            className="tour-anchor"
-            data-tour-anchor-id="assignment-progress-status"
-            id="assignment-progress-status"
-          >
-            7/8 correct
-          </span>
-        </span>
-      </div>
-      <div
-        className="due-at col-sm-2 col-xs-5"
-      >
-        <time>
-          Apr 21, 9:15am
-        </time>
-      </div>
-    </a>
-    <a
-      aria-label="Work on homework: Homework #3"
-      className="task row homework"
-      data-event-id="15"
-      href="/course/1/task/15"
-      onClick={[Function]}
-      onKeyDown={undefined}
-      tabIndex={-1}
-    >
-      <div
-        className="column-icon col-sm-1 col-xs-2"
-      >
-        <i
-          aria-label="homework icon"
-          className="icon icon-lg icon-homework"
-        />
-      </div>
-      <div
-        className="title col-sm-6 col-xs-10"
-      >
-        Homework #3
-      </div>
-      <div
-        className="feedback col-sm-3 col-xs-5"
-      >
-        <span>
-          <span
-            className="tour-anchor"
-            data-tour-anchor-id="assignment-progress-status"
-            id="assignment-progress-status"
-          >
-            6/6 answered
-          </span>
-        </span>
-      </div>
-      <div
-        className="due-at col-sm-2 col-xs-5"
-      >
-        <time>
-          May 04, 6:15pm
-        </time>
-      </div>
-    </a>
-    <a
-      aria-label="Work on homework: Homework #4 (final)"
-      className="task row homework"
-      data-event-id="17"
-      href="/course/1/task/17"
-      onClick={[Function]}
-      onKeyDown={undefined}
-      tabIndex={-1}
-    >
-      <div
-        className="column-icon col-sm-1 col-xs-2"
-      >
-        <i
-          aria-label="homework icon"
-          className="icon icon-lg icon-homework"
-        />
-      </div>
-      <div
-        className="title col-sm-6 col-xs-10"
-      >
-        Homework #4 (final)
-      </div>
-      <div
-        className="feedback col-sm-3 col-xs-5"
-      >
-        <span>
-          <span
-            className="tour-anchor"
-            data-tour-anchor-id="assignment-progress-status"
-            id="assignment-progress-status"
-          >
-            7/3 answered
-          </span>
-        </span>
-      </div>
-      <div
-        className="due-at col-sm-2 col-xs-5"
-      >
-        <time>
-          May 19, 9:15am
+          Oct 11, 7:00am
         </time>
       </div>
     </a>

@@ -1,13 +1,14 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import EventRow from './event-row';
+import Course from '../../models/course';
 
 @observer
 export default class ExternalRow extends React.PureComponent {
 
   static propTypes = {
-    event: React.PropTypes.object.isRequired,
-    courseId: React.PropTypes.string.isRequired,
+    event:  React.PropTypes.object.isRequired,
+    course: React.PropTypes.instanceOf(Course).isRequired,
   }
 
   static contextTypes = {

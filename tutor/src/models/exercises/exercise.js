@@ -28,7 +28,6 @@ export default class TutorExercise extends BaseModel {
 
   @hasMany({ model: Tag, inverseOf: 'exercise', extend: extendHasMany({
     importantInfo() {
-      //console.log("IMP", filter(this, 'isImportant'))
       return reduce(filter(this, 'isImportant'),
         (o, t) => t.recordInfo(o),
         { lo: '', section: '', tagString: [] });

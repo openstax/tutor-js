@@ -70,9 +70,11 @@ Factories.taskPlans = ({ course, count = 4 }) => {
   } });
 };
 
-Factories.studentTasks = ({ course, count = 4 }) => {
+Factories.studentTasks = ({ course, count = 4, attributes = {} }) => {
   course.studentTasks.onLoaded({ data: {
-    tasks: range(count).map(() => FactoryBot.create('StudentDashboardTask', { course })),
+    tasks: range(count).map(() => FactoryBot.create('StudentDashboardTask',
+      Object.assign({ course }, attributes)
+    )),
   } });
 };
 

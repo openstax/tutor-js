@@ -1,9 +1,8 @@
 import React from 'react';
 import SnapShot from 'react-test-renderer';
-import { filter, map } from 'lodash';
+import { map } from 'lodash';
 import moment from 'moment-timezone';
-
-import MOCK_DASHBOARD_RESPONSE from '../../../api/courses/1/dashboard';
+import Factory from '../../factories';
 import EventsPanel from '../../../src/screens/student-dashboard/events-panel';
 import chronokinesis from 'chronokinesis';
 
@@ -13,10 +12,11 @@ describe('EventsPanel', function() {
   beforeEach(function() {
     chronokinesis.travel(new Date('2017-10-14T12:00:00.000Z'));
     moment.tz.setDefault('America/Chicago');
+    const course = Factory.course();
+    Factory.studentTasks({ course });
     props = {
-      events: MOCK_DASHBOARD_RESPONSE.tasks,
-      courseId: '1',
-      isCollege: false,
+      course,
+      events: course.studentTasks.array,
     };
   });
 
@@ -32,23 +32,28 @@ describe('EventsPanel', function() {
   it('renders with events as named', function() {
     const wrapper = mount(<EventsPanel {...props} />);
     const renderedTitles = wrapper.find('.title').map(item => item.text());
-    const mockTitles = map(MOCK_DASHBOARD_RESPONSE.tasks, 'title');
+    const mockTitles = map(props.events, 'title');
     expect(renderedTitles).to.deep.equal(mockTitles);
   });
 
-  it('renders late only for homework when isCollege is false', function() {
+  it('renders late only for homework when is_college is false', function() {
+    props.events.forEach(e => e.update({
+      type: 'homework', due_at: moment ('2017-10-13T12:00:00.000Z'),
+    }));
+    props.course.is_college = true;
     const wrapper = mount(<EventsPanel {...props} />);
-    const mockHomeworkTasks = filter(
-      MOCK_DASHBOARD_RESPONSE.tasks, { type: 'homework', complete: false }
-    );
-    expect(wrapper.find('.late').length).to.equal(mockHomeworkTasks.length);
+    expect(wrapper.find('.late').length).toEqual(2); //props.events.length);
   });
 
-  it('renders late only for all tasks when isCollege is true', function() {
-    props.isCollege = true;
+  it('does not render late only for other tasks when is_college is true', function() {
+    props.events.forEach(e => e.update({
+      type: 'reading', due_at: moment ('2017-10-13T12:00:00.000Z'),
+    }));
+    props.course.is_college = true;
     const wrapper = mount(<EventsPanel {...props} />);
-    const mockTasks = filter(MOCK_DASHBOARD_RESPONSE.tasks, { complete: false });
-    expect(wrapper.find('.late').length).to.equal(mockTasks.length);
+    expect(wrapper.find('.late').length).toEqual(2);
+    props.course.is_college = false;
+    expect(wrapper.find('.late').length).toEqual(0);
   });
 
 });

@@ -11,7 +11,7 @@ import ProgressGuideShell from './progress-guide';
 import BrowseTheBook from '../../components/buttons/browse-the-book';
 import CourseTitleBanner from '../../components/course-title-banner';
 
-import Courses from '../../models/courses-map';
+import Course from '../../models/course';
 import Tabs from '../../components/tabs';
 import { NotificationsBar } from 'shared';
 import NotificationHelpers from '../../helpers/notifications';
@@ -21,7 +21,7 @@ import Surveys from './surveys';
 export default class StudentDashboard extends React.PureComponent {
 
   static propTypes = {
-    courseId: React.PropTypes.string.isRequired,
+    course: React.PropTypes.instanceOf(Course).isRequired,
     params: React.PropTypes.object.isRequired,
   }
 
@@ -44,7 +44,7 @@ export default class StudentDashboard extends React.PureComponent {
   renderPastWork(course) {
     return (
       <div className="tab-pane active" role="tabpanel">
-        <AllEventsByWeek courseId={course.id} isCollege={course.is_college} />
+        <AllEventsByWeek course={course} />
       </div>
     );
   }
@@ -52,26 +52,26 @@ export default class StudentDashboard extends React.PureComponent {
   renderThisWeek(course) {
     return (
       <div className="tab-pane active" role="tabpanel">
-        <ThisWeekPanel courseId={course.id} isCollege={course.is_college} />
-        <UpcomingPanel courseId={course.id} isCollege={course.is_college} />
+        <ThisWeekPanel course={course} />
+        <UpcomingPanel course={course} />
       </div>
     );
   }
 
   render() {
-    const { tabIndex, props: { courseId } } = this;
-    const course = Courses.get(courseId);
+    const { tabIndex, props: { course } } = this;
+
     return (
-      <div className="dashboard">
+      <div className="student-dashboard">
         <NotificationsBar
           role={course.primaryRole.serialize()}
           course={course.serialize()}
           callbacks={NotificationHelpers.buildCallbackHandlers(this)} />
-        <CourseTitleBanner courseId={courseId} />
+        <CourseTitleBanner courseId={course.id} />
         <TourRegion
           id="student-dashboard"
-          otherTours={["about-late", "assignment-progress"]}
-          courseId={courseId}
+          otherTours={['about-late', 'assignment-progress']}
+          courseId={course.id}
           className="container"
         >
           <Row>
@@ -84,7 +84,7 @@ export default class StudentDashboard extends React.PureComponent {
             </Col>
             <Col xs={12} md={4} lg={3} className="sidebar">
               <Surveys course={course} />
-              <ProgressGuideShell courseId={courseId} />
+              <ProgressGuideShell courseId={course.id} />
               <div className="actions-box">
                 <BrowseTheBook
                   unstyled

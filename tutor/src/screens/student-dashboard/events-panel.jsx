@@ -10,6 +10,7 @@ import HomeworkRow from './homework-row';
 import ExternalRow from './external-row';
 import EventTaskRow from './event-task-row';
 import GenericEventRow from './generic-event-row';
+import Course from '../../models/course';
 
 const ROW_TYPES = {
   reading:  ReadingRow,
@@ -24,8 +25,7 @@ const ROW_TYPES = {
 export default class EventsPanel extends React.PureComponent {
   static propTypes = {
     events:     React.PropTypes.array.isRequired,
-    courseId:   React.PropTypes.string.isRequired,
-    isCollege:  React.PropTypes.bool.isRequired,
+    course:     React.PropTypes.instanceOf(Course).isRequired,
     startAt:    React.PropTypes.object,
     endAt:      React.PropTypes.object,
     limit:      React.PropTypes.number,
@@ -52,8 +52,7 @@ export default class EventsPanel extends React.PureComponent {
     return (
       <Row
         key={event.id}
-        courseId={this.props.courseId}
-        isCollege={this.props.isCollege}
+        course={this.props.course}
         event={event}
       />
     );

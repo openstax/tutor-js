@@ -1,7 +1,6 @@
 import Map from 'shared/model/map';
 import moment from 'moment-timezone';
 import { readonly } from 'core-decorators';
-
 import { computed, action, observable } from 'mobx';
 import { filter, groupBy, sortBy, pickBy } from 'lodash';
 import { TimeStore } from '../flux/time';
@@ -28,7 +27,7 @@ export class CourseStudentTasks extends Map {
   }
 
   @computed get byWeek() {
-    const weeks = groupBy(this.array, event => moment(event.due_at).startOf('isoweek').format(ISOWEEK_FORMAT));
+    const weeks = groupBy(this.array, event => moment(event.due_at).startOf('week').format(ISOWEEK_FORMAT));
     const sorted = {};
     for (let weekId in weeks) {
       const events = weeks[weekId];
@@ -38,12 +37,12 @@ export class CourseStudentTasks extends Map {
   }
 
   @computed get pastEventsByWeek() {
-    const thisWeek = moment(TimeStore.getNow()).startOf('isoweek').format(ISOWEEK_FORMAT);
+    const thisWeek = moment(TimeStore.getNow()).startOf('week').format(ISOWEEK_FORMAT);
     return pickBy(this.byWeek, (events, week) => week < thisWeek);
   }
 
   weeklyEventsForDay(day) {
-    return this.byWeek[moment(day).startOf('isoweek').format(ISOWEEK_FORMAT)] || [];
+    return this.byWeek[moment(day).startOf('week').format(ISOWEEK_FORMAT)] || [];
   }
 
   // Returns events who's due date has not passed
