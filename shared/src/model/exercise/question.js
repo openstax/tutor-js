@@ -1,4 +1,4 @@
-import { get, first, map, keys, inRange, find, reduce, isEmpty, without } from 'lodash';
+import { uniq, map, keys, inRange, find, reduce, isEmpty, without } from 'lodash';
 import {
   BaseModel, identifiedBy, identifier, field, belongsTo, hasMany, computed, action,
 } from '../../model';
@@ -73,7 +73,7 @@ export default class ExerciseQuestion extends BaseModel {
     } else if ('multiple-choice' === name && !formats.includes('free-response')) {
       formats = formats.concat('free-response');
     }
-    this.formats = formats;
+    this.formats = uniq(formats).sort();
   }
 
   @action toggleFormat(value, selected) {
