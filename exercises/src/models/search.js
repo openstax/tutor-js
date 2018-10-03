@@ -10,7 +10,7 @@ import Exercise from 'shared/model/exercise';
 @identifiedBy('search/clause')
 class Clause extends BaseModel {
 
-  @observable filter = 'id';
+  @observable filter = 'uid';
   @observable value = '';
   @belongsTo({ model: 'search' }) search;
 
