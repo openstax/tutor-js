@@ -12,6 +12,7 @@ jest.mock('shared/model/ui-settings', () => ({
 jest.mock('../../../../src/models/course');
 jest.mock('../../../../src/models/payments');
 
+jest.useFakeTimers();
 
 describe('Student Course Onboarding', () => {
   let ux;
@@ -19,10 +20,12 @@ describe('Student Course Onboarding', () => {
   beforeEach(() => {
     UiSettings.get.mockImplementation(() => undefined);
     User.terms_signatures_needed = false;
+    window.location.assign = jest.fn();
     ux = new CourseUX(
       new Course({ id: 1 }),
       { tour: null },
     );
+    ux.course.id = 1;
     ux.course.primaryRole = { joinedAgo: jest.fn(() => 18120) };
     ux.course.studentTasks = { startFetching: jest.fn(() => Promise.resolve()), stopFetching: jest.fn() };
   });
@@ -87,6 +90,17 @@ describe('Student Course Onboarding', () => {
     return ux.onPaymentComplete().then(() => {
       expect(ux.course.studentTasks.startFetching).toHaveBeenCalledTimes(1);
     });
+  });
+
+  it('reloads course dashboard when paid after being locked out', () => {
+    ux.course.userStudentRecord = {
+      mustPayImmediately: true, markPaid: jest.fn(() => Promise.resolve()),
+    };
+    expect(ux.paymentIsPastDue).toEqual(true);
+    ux.onPaymentComplete();
+    expect(setTimeout).toHaveBeenCalled();
+    jest.runOnlyPendingTimers();
+    expect(window.location.assign).toHaveBeenCalledWith('/course/1');
   });
 
 });
