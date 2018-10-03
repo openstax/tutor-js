@@ -73,6 +73,9 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
 
   @action.bound
   onPaymentComplete() {
+    if (this.paymentIsPastDue) {
+      setTimeout(() => window.location.assign(`/course/${this.course.id}`));
+    }
     this.displayPayment = false;
     this.course.userStudentRecord.markPaid();
     // fetch tasks since they could not be fetched while student was in unpaid status
