@@ -12,6 +12,10 @@ export class AnnotationSelector extends BaseModel {
   @identifier referenceElementId;
 
   @field chapter;
+  @field startContainer;
+  @field startOffset;
+  @field endContainer;
+  @field endOffset;
   @field content;
   @field courseId;
   @field end;
@@ -21,24 +25,74 @@ export class AnnotationSelector extends BaseModel {
   @field start;
   @field title;
   @belongsTo({ model: 'annotations/annotation/target' }) target;
-  @field type = 'TextPositionSelector'
+  @field type = 'XpathRangeSelector'
   @observable bounds;
 
-  @action restore(highlighter) {
-    this.measure();
-    highlighter.doHighlight({ data_id: this.target.annotation.id });
+  range = null;
+
+  intersects(range) {
+    if (!range) {
+      return false;
+    }
+    return this.range.compareBoundaryPoints(Range.START_TO_END, range) !== -1
+      && this.range.compareBoundaryPoints(Range.END_TO_START, range) !== 1
   }
 
-  @action measure() {
+  @action restore(highlighter) {
+    switch (this.type) {
+      case 'TextPositionSelector':
+        return this.restoreV1(highlighter);
+      case 'XpathRangeSelector':
+        return this.restoreV2(highlighter);
+      default:
+        return false;
+    }
+  }
+
+  restoreV2(highlighter) {
+    this.range = document.createRange();
+
+    const referenceElement = document.getElementById(this.referenceElementId);
+
+    if (!referenceElement) {
+      return false;
+    }
+
+    const startContainer = document.evaluate(this.startContainer, referenceElement).iterateNext();
+    const endContainer = document.evaluate(this.endContainer, referenceElement).iterateNext();
+
+    if (!startContainer || !endContainer) {
+      return false;
+    }
+
+    this.range.setStart(startContainer, this.startOffset);
+    this.range.setEnd(endContainer, this.endOffset);
+
+    const highlights = highlighter.doHighlight({
+      range: this.range.cloneRange(),
+      data_id: this.target.annotation.id
+    });
+
+    this.range.setStartBefore(highlights[0]);
+    this.range.setEndAfter(highlights[highlights.length - 1]);
+
+    this.setBounds();
+  }
+
+  restoreV1(highlighter) {
     const el = document.getElementById(this.referenceElementId);
     if (!el) { return false; }
     const selection = serializeSelection.restore(this, el);
-    this.bounds = pick(selection.getRangeAt(0).getBoundingClientRect(), 'x', 'y', 'width', 'height', 'top', 'bottom', 'left');
-    this.bounds.top += window.pageYOffset;
-    this.bounds.left += window.pageXOffset;
-    return true;
+    this.range = selection.getRangeAt(0);
+    highlighter.doHighlight({ data_id: this.target.annotation.id });
+    this.setBounds();
   }
 
+  setBounds() {
+    this.bounds = pick(this.range.cloneRange().getBoundingClientRect(), 'x', 'y', 'width', 'height', 'top', 'bottom', 'left');
+    this.bounds.top += window.pageYOffset;
+    this.bounds.left += window.pageXOffset;
+  }
 }
 
 @identifiedBy('annotations/annotation/target')
@@ -77,6 +131,17 @@ export default class Annotation extends BaseModel {
   constructor(attrs) {
     super(attrs);
     intercept(this, 'text', this.validateTextLength);
+  }
+
+  intersects(range) {
+    for (const target of this.target) {
+      for (const selector of target.selector) {
+        if (selector.intersects(range)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   validateTextLength(change) {

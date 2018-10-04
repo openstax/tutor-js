@@ -250,7 +250,7 @@ TextHighlighter.prototype.unfocusAll = function() {
  * @memberof TextHighlighter
  */
 TextHighlighter.prototype.doHighlight = function (options = {}) {
-  var range = dom(this.el).getRange(),
+  var range = options.range || dom(this.el).getRange(),
     wrapper,
     createdHighlights,
     normalizedHighlights,
@@ -275,6 +275,8 @@ TextHighlighter.prototype.doHighlight = function (options = {}) {
   if (!options.keepRange) {
     dom(this.el).removeAllRanges();
   }
+
+  return normalizedHighlights;
 };
 
 /**
@@ -316,7 +318,7 @@ TextHighlighter.prototype.highlightRange = function (range, wrapper) {
   do {
     if(!node) { done = true; }
 
-    if (dom(node).matches('.MathJax')) {
+    if (dom(node).matches('.MathJax,img')) {
       highlightNode(node);
       goDeeper = false;
     }
@@ -375,7 +377,18 @@ TextHighlighter.prototype.normalizeHighlights = function (highlights) {
 
   normalizedHighlights = unique(normalizedHighlights);
   normalizedHighlights.sort(function (a, b) {
-    return a.offsetTop - b.offsetTop || a.offsetLeft - b.offsetLeft;
+    if( !a.compareDocumentPosition) {
+      // support for IE8 and below
+      return a.sourceIndex - b.sourceIndex;
+    }
+    const position = a.compareDocumentPosition(b);
+    if (position & Node.DOCUMENT_POSITION_FOLLOWING || position & Node.DOCUMENT_POSITION_CONTAINED_BY) {
+      return -1;
+    } else if (position & Node.DOCUMENT_POSITION_PRECEDING || position & Node.DOCUMENT_POSITION_CONTAINS) {
+      return 1;
+    } else {
+      return 0;
+    }
   });
 
   return normalizedHighlights;

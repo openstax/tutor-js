@@ -20,6 +20,8 @@ import TextHighlighter from './highlighter';
 import Router from '../../helpers/router';
 import AnnotationsMap from '../../models/annotations';
 import Overlay from '../obscured-page/overlay';
+import {getXPathForElement} from './xpath';
+
 const highlighter = new TextHighlighter(document.body);
 
 function getRangeRect(win, range) {
@@ -34,24 +36,15 @@ function getRangeRect(win, range) {
   };
 }
 
-// modified copy/paste out of 'serialize-selection' module
 function serializeSelectionSave(referenceNode, range) {
   referenceNode = referenceNode || document.body
 
-  const cloneRange = range.cloneRange();
-  const startContainer = cloneRange.startContainer;
-  const startOffset = cloneRange.startOffset;
-  const state = { content: cloneRange.toString() };
-
-  cloneRange.selectNodeContents(referenceNode);
-  cloneRange.setEnd(startContainer, startOffset);
-
-  state.start = cloneRange.toString().length;
-  state.end = cloneRange.toString().length + state.content.length;
-
-  state.restore = serializeSelection.restore.bind(null, state, referenceNode);
-
-  return state
+  return {
+    startContainer: getXPathForElement(range.startContainer, referenceNode),
+    startOffset: range.startOffset,
+    endContainer: getXPathForElement(range.endContainer, referenceNode),
+    endOffset: range.endOffset,
+  };
 }
 
 
@@ -290,7 +283,7 @@ export default class AnnotationWidget extends React.Component {
     return { isCollapsed, noParent: true };
   }
 
-  cantHighlightReason(selection) {
+  cantHighlightReason(selection, range) {
     // Is it a selectable area?
     if (selection.outOfBounds) {
       return 'Only content can be highlighted';
@@ -304,15 +297,8 @@ export default class AnnotationWidget extends React.Component {
     // Is it free from overlaps with other selections?
     // Compare by using the same reference node
     for (const other of this.annotationsForThisPage) {
-      if (selection.referenceElementId === other.referenceElementId) {
-        if (selection.start >= 0 &&
-          (other.selection.start >= selection.start &&
-            other.selection.start <= selection.end) ||
-          (other.selection.end >= selection.start &&
-            other.selection.end <= selection.end)) {
-
-          return 'Highlights cannot overlap one another';
-        }
+      if (other.intersects(range)) {
+        return 'Highlights cannot overlap one another';
       }
     }
     return null;
@@ -341,10 +327,10 @@ export default class AnnotationWidget extends React.Component {
       const endRow = dom(range.endContainer).farthest('tr');
 
       if (startRow) {
-        range.setStartBefore(startRow);
+        range.setStartBefore(startRow.firstElementChild.firstChild);
       }
       if (endRow) {
-        range.setEndAfter(endRow);
+        range.setEndAfter(endRow.lastElementChild.lastChild);
       }
     }
 
@@ -353,7 +339,7 @@ export default class AnnotationWidget extends React.Component {
 
     const startMath = getMath(range.startContainer.nodeType === 3 /* #text */
       ? range.startContainer
-      : range.startContainer.childNodes[range.startOffset]
+      : range.startContainer.childNodes[range.startOffset] || range.startContainer
     );
     if (startMath) {
       range.setStartBefore(startMath);
@@ -361,8 +347,9 @@ export default class AnnotationWidget extends React.Component {
 
     const endMath = getMath(range.endContainer.nodeType === 3 /* #text */
       ? range.endContainer
-      : range.endContainer.childNodes[range.endOffset - 1]
+      : range.endContainer.childNodes[range.endOffset - 1] || range.endContainer
     );
+
     if (endMath) {
       const endElement = dom(endMath.nextSibling).matches('script[type="math/mml"]') ? endMath.nextSibling : endMath;
       const endContainer = endElement.parentNode;
@@ -413,14 +400,10 @@ export default class AnnotationWidget extends React.Component {
     if (selection.isCollapsed) {
       this.savedSelection = null;
       const referenceEl = document.getElementById(selection.referenceElementId);
-      this.activeAnnotation = this.annotationsForThisPage.find((note) => {
-        return (note.referenceElement === referenceEl) &&
-          note.selection.start <= selection.start &&
-          note.selection.end >= selection.start;
-      });
+      this.activeAnnotation = this.annotationsForThisPage.find((note) => note.intersects(range));
       this.ux.statusMessage.hide();
     } else {
-      const errorMessage = this.cantHighlightReason(selection);
+      const errorMessage = this.cantHighlightReason(selection, range);
       if (errorMessage) {
         this.savedSelection = null;
         this.ux.statusMessage.show({ message: errorMessage, autoHide: true });
@@ -550,7 +533,6 @@ export default class AnnotationWidget extends React.Component {
 
   @action.bound editAnnotation(annotation) {
     this.activeAnnotation = annotation;
-
   }
 
 
