@@ -92,7 +92,7 @@ class Hypothesis extends BaseModel {
           target: [{
             selector: [
               Object.assign(
-                { type: 'TextPositionSelector' },
+                { type: 'XpathRangeSelector' },
                 additionalData,
                 selection,
               ),
