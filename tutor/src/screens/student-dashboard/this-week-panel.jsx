@@ -16,7 +16,7 @@ export default class ThisWeekPanel extends React.PureComponent {
   render() {
     const { course, course: { studentTasks } } = this.props;
 
-    const startAt = moment(TimeStore.getNow()).startOf('isoweek');
+    const startAt = moment(TimeStore.getNow()).startOf('week');
     const events = studentTasks.weeklyEventsForDay(startAt);
 
     if (studentTasks.isPendingTaskLoading || !events.length) {

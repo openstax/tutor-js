@@ -45,8 +45,8 @@ describe('Student Tasks Model', () => {
 
   it('#upcomingEvents', () => {
     const task = tasks.array[0];
-    task.due_at = mockedNow.add(1, 'week').toDate();
-    expect(tasks.upcomingEvents()).toEqual(tasks.array);
+    task.due_at = mockedNow.startOf('week').add(1, 'week').toDate();
+    expect(tasks.upcomingEvents()).toContain(task);
   });
 
   it('#all_tasks_are_ready', () => {
