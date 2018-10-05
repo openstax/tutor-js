@@ -38,11 +38,11 @@ export default class TourAnchor extends React.PureComponent {
   }
 
   render() {
-    const { tag, className, tourContext: _, ...otherProps } = this.props;
+    const { id, tag, className, tourContext: _, ...otherProps } = this.props;
 
     return React.createElement(tag, extend({
       className: cn('tour-anchor', className),
-      'data-tour-anchor-id': this.props.id,
+      'data-tour-anchor-id': id,
       ref: ref => (this.wrapperEl = ref),
     }, ReactHelpers.filterProps(otherProps)), this.props.children);
   }
