@@ -10,8 +10,8 @@ pipeline {
         }
         stage('Run Audit') {
           steps {
-            copyArtifacts projectName: 'openstax/tutor-js/master', filter: 'accessibility-report.json'
-            sh 'docker run -v $(pwd):/code -v /code/node_modules openstax/tutor-js:ui-testing node tutor/scripts/accessibility-audit --diff=accessibility-report.json --report=accessibility-report.md'
+            copyArtifacts projectName: 'openstax-continuous-integration/tutor-js/master', filter: 'accessibility-report.json'
+            sh 'docker run -v $(pwd):/code -v /code/node_modules openstax/tutor-js:ui-testing node tutor/scripts/accessibility-audit --diff=accessibility-report.json --summary-label="#$CHANGE_ID" --diff-label="master" --report=accessibility-report.md'
             archiveArtifacts artifacts: 'accessibility-report.md', fingerprint: true
           }
         }
