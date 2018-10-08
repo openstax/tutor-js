@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  compact, trimEnd, includes, sortBy, find, filter, indexOf, map, isEmpty, omit, last, 
+  compact, trimEnd, includes, sortBy, find, filter, indexOf, map, isEmpty, omit, last,
 } from 'lodash';
 import classnames from 'classnames';
 import { Panel } from 'react-bootstrap';
@@ -21,6 +21,7 @@ class ExercisePreview extends React.Component {
     displayFeedback: React.PropTypes.bool,
     displayAllTags:  React.PropTypes.bool,
     displayFormats:  React.PropTypes.bool,
+    displayNickname: React.PropTypes.bool,
     panelStyle:      React.PropTypes.string,
     className:       React.PropTypes.string,
     header:          React.PropTypes.element,
@@ -73,12 +74,15 @@ class ExercisePreview extends React.Component {
   };
 
   @computed get tags() {
-    let tags = this.props.exercise.tags.slice();
-    if (!this.props.displayAllTags) {
-      tags = filter(tags, 'isImportant');
-    }
+    const { displayAllTags, displayNickname, exercise } = this.props;
+    let tags = exercise.tags.slice();
+    if (!displayAllTags) { tags = filter(tags, 'isImportant'); }
     tags = sortBy(tags, tag => tag.isLO);
-    tags.push(new Tag(`ID:${this.exercise.uid}`));
+    if (displayNickname && exercise.nickname) {
+      tags.push(new Tag(`Nickname:${exercise.nickname}`));
+    }
+    tags.push(new Tag(`ID:${exercise.uid}`));
+
     return tags;
   }
 

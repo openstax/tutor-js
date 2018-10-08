@@ -51,6 +51,12 @@ describe('Exercise Preview Component', function() {
     preview.unmount();
   });
 
+  it('renders nickname', () => {
+    props.displayNickname = true;
+    const preview = mount(<ExercisePreview {...props} />);
+    expect(preview.text()).toContain(`Nickname:${props.exercise.nickname}`);
+  });
+
   it('does not render overlay by default', () => {
     const preview = mount(<ExercisePreview {...props} />);
     expect(preview).not.toHaveRendered('.controls-overlay');
