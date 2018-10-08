@@ -125,6 +125,7 @@ Factory.define('Exercise')
     'context-cnxmod:',
     'context-cnxfeature:one-1',
   ])
+  .nickname(fake.internet.domainWord)
   .uuid(uuid)
   .group_uuid(uuid)
   .number(sequence)

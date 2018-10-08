@@ -99,23 +99,6 @@ class ExercisePreview extends React.Component {
       'has-interactive':  this.props.exercise.has_interactive,
     });
 
-    const questions = map(this.exercise.questions, (question, index) => {
-      if (this.props.hideAnswers) { question = omit(question, 'answers'); }
-
-      return (
-        <Question
-          key={index}
-          className="openstax-question-preview"
-          question={question}
-          choicesEnabled={false}
-          displayFormats={this.props.displayFormats}
-          show_all_feedback={this.props.displayFeedback}
-          type="teacher-preview">
-          {this.props.questionFooters != null ? this.props.questionFooters[questionIter] : undefined}
-        </Question>
-      );
-    });
-
     return (
       <Panel
         className={classes}
@@ -133,7 +116,19 @@ class ExercisePreview extends React.Component {
           <ExerciseBadges exercise={this.props.exercise} />
           {!isEmpty(this.props.exercise.context) && !!this.props.isInteractive ? <ArbitraryHtmlAndMath className="context" block={true} html={this.props.exercise.context} /> : undefined}
           {this.renderStimulus()}
-          {questions}
+          {map(this.exercise.questions, (question, index) => (
+            <Question
+              key={index}
+              hideAnswers={this.props.hideAnswers}
+              className="openstax-question-preview"
+              question={question}
+              choicesEnabled={false}
+              displayFormats={this.props.displayFormats}
+              show_all_feedback={this.props.displayFeedback}
+              type="teacher-preview">
+              {this.props.questionFooters != null ? this.props.questionFooters[questionIter] : undefined}
+            </Question>
+          ))}
         </div>
         <div className="exercise-tags">
           {map(this.tags, (tag, index) => (
