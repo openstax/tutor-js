@@ -20,7 +20,7 @@ describe('Student Course Onboarding', () => {
   beforeEach(() => {
     UiSettings.get.mockImplementation(() => undefined);
     User.terms_signatures_needed = false;
-    window.location.assign = jest.fn();
+    window.location.reload = jest.fn();
     ux = new CourseUX(
       new Course({ id: 1 }),
       { tour: null },
@@ -81,18 +81,15 @@ describe('Student Course Onboarding', () => {
 
   it('fetches tasks on mount and periodically after that', () => {
     ux.course.userStudentRecord = {
-      mustPayImmediately: true, markPaid: jest.fn(),
+      mustPayImmediately: false, markPaid: jest.fn(),
     };
     expect(ux.course.studentTasks.startFetching).not.toHaveBeenCalled();
-    expect(ux.paymentIsPastDue).toBe(true);
+    expect(ux.paymentIsPastDue).toBe(false);
     ux.mount();
-    expect(ux.course.studentTasks.startFetching).not.toHaveBeenCalled();
-    return ux.onPaymentComplete().then(() => {
-      expect(ux.course.studentTasks.startFetching).toHaveBeenCalledTimes(1);
-    });
+    expect(ux.course.studentTasks.startFetching).toHaveBeenCalledTimes(1);
   });
 
-  it('reloads course dashboard when paid after being locked out', () => {
+  it('reloads page when paid after being locked out', () => {
     ux.course.userStudentRecord = {
       mustPayImmediately: true, markPaid: jest.fn(() => Promise.resolve()),
     };
@@ -100,7 +97,7 @@ describe('Student Course Onboarding', () => {
     ux.onPaymentComplete();
     expect(setTimeout).toHaveBeenCalled();
     jest.runOnlyPendingTimers();
-    expect(window.location.assign).toHaveBeenCalledWith('/course/1');
+    expect(window.location.reload).toHaveBeenCalled();
   });
 
 });
