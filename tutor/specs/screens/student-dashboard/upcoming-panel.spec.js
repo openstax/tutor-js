@@ -33,7 +33,6 @@ describe('Upcoming Events', () => {
 
     // subtract a day so it's due this week
     event.due_at = moment(event.due_at).subtract(1, 'day').toDate();
-    console.log("SET DUE", event.due_at)
     expect(panel.text()).not.toContain(event.title);
 
     // go crazy and add a year

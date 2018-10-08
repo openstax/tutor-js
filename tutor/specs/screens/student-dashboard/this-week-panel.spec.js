@@ -31,11 +31,12 @@ describe('This Week Events', () => {
     props.course.studentTasks.set(event.id, event);
     expect(panel.text()).not.toContain(event.title);
 
+
     // subtract a day so it's due this week
     event.due_at = moment(event.due_at).subtract(1, 'day').toDate();
     expect(panel.text()).toContain(event.title);
 
-    // subtract an entire week so it's last week
+    // subtract an entire week so it's last week day so it's due this week
     event.due_at = moment(now).subtract(1, 'week').toDate();
     expect(panel.text()).not.toContain(event.title);
 

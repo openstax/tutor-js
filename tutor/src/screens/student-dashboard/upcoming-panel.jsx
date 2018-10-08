@@ -17,7 +17,6 @@ export default class UpcomingPanel extends React.PureComponent {
   render() {
     const { course, course: { studentTasks } } = this.props;
     const startAt = moment(TimeStore.getNow()).startOf('week').add(1, 'week');
-    console.log("STARTING AT", startAt.toDate())
     const events  = studentTasks.upcomingEvents(startAt.toDate());
 
     if (studentTasks.isPendingTaskLoading || isEmpty(events)) {
