@@ -88,8 +88,9 @@ exports[`Exercise Details Component renders and matches snapshot 1`] = `
                   <div
                     className="openstax-answer"
                   >
-                    <div
+                    <section
                       className="answers-answer disabled"
+                      role="region"
                     >
                       <label
                         className="answer-label"
@@ -116,13 +117,14 @@ exports[`Exercise Details Component renders and matches snapshot 1`] = `
                           />
                         </div>
                       </label>
-                    </div>
+                    </section>
                   </div>
                   <div
                     className="openstax-answer"
                   >
-                    <div
+                    <section
                       className="answers-answer disabled"
+                      role="region"
                     >
                       <label
                         className="answer-label"
@@ -149,13 +151,14 @@ exports[`Exercise Details Component renders and matches snapshot 1`] = `
                           />
                         </div>
                       </label>
-                    </div>
+                    </section>
                   </div>
                   <div
                     className="openstax-answer"
                   >
-                    <div
+                    <section
                       className="answers-answer disabled"
+                      role="region"
                     >
                       <label
                         className="answer-label"
@@ -182,13 +185,14 @@ exports[`Exercise Details Component renders and matches snapshot 1`] = `
                           />
                         </div>
                       </label>
-                    </div>
+                    </section>
                   </div>
                   <div
                     className="openstax-answer"
                   >
-                    <div
+                    <section
                       className="answers-answer disabled"
+                      role="region"
                     >
                       <label
                         className="answer-label"
@@ -215,13 +219,14 @@ exports[`Exercise Details Component renders and matches snapshot 1`] = `
                           />
                         </div>
                       </label>
-                    </div>
+                    </section>
                   </div>
                   <div
                     className="openstax-answer"
                   >
-                    <div
+                    <section
                       className="answers-answer disabled"
+                      role="region"
                     >
                       <label
                         className="answer-label"
@@ -248,7 +253,7 @@ exports[`Exercise Details Component renders and matches snapshot 1`] = `
                           />
                         </div>
                       </label>
-                    </div>
+                    </section>
                   </div>
                 </div>
                 <div

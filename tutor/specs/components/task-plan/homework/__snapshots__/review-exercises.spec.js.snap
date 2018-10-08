@@ -255,8 +255,9 @@ exports[`choose exercises component matches snapshot 1`] = `
                 <div
                   className="openstax-answer"
                 >
-                  <div
+                  <section
                     className="answers-answer disabled"
+                    role="region"
                   >
                     <label
                       className="answer-label"
@@ -288,13 +289,14 @@ exports[`choose exercises component matches snapshot 1`] = `
                         />
                       </div>
                     </label>
-                  </div>
+                  </section>
                 </div>
                 <div
                   className="openstax-answer"
                 >
-                  <div
+                  <section
                     className="answers-answer disabled"
+                    role="region"
                   >
                     <label
                       className="answer-label"
@@ -326,13 +328,14 @@ exports[`choose exercises component matches snapshot 1`] = `
                         />
                       </div>
                     </label>
-                  </div>
+                  </section>
                 </div>
                 <div
                   className="openstax-answer"
                 >
-                  <div
+                  <section
                     className="answers-answer disabled"
+                    role="region"
                   >
                     <label
                       className="answer-label"
@@ -364,13 +367,14 @@ exports[`choose exercises component matches snapshot 1`] = `
                         />
                       </div>
                     </label>
-                  </div>
+                  </section>
                 </div>
                 <div
                   className="openstax-answer"
                 >
-                  <div
+                  <section
                     className="answers-answer disabled"
+                    role="region"
                   >
                     <label
                       className="answer-label"
@@ -402,13 +406,14 @@ exports[`choose exercises component matches snapshot 1`] = `
                         />
                       </div>
                     </label>
-                  </div>
+                  </section>
                 </div>
                 <div
                   className="openstax-answer"
                 >
-                  <div
+                  <section
                     className="answers-answer disabled"
+                    role="region"
                   >
                     <label
                       className="answer-label"
@@ -440,7 +445,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                         />
                       </div>
                     </label>
-                  </div>
+                  </section>
                 </div>
               </div>
               <div
@@ -538,8 +543,9 @@ exports[`choose exercises component matches snapshot 1`] = `
                 <div
                   className="openstax-answer"
                 >
-                  <div
+                  <section
                     className="answers-answer disabled"
+                    role="region"
                   >
                     <label
                       className="answer-label"
@@ -566,13 +572,14 @@ exports[`choose exercises component matches snapshot 1`] = `
                         />
                       </div>
                     </label>
-                  </div>
+                  </section>
                 </div>
                 <div
                   className="openstax-answer"
                 >
-                  <div
+                  <section
                     className="answers-answer disabled"
+                    role="region"
                   >
                     <label
                       className="answer-label"
@@ -599,13 +606,14 @@ exports[`choose exercises component matches snapshot 1`] = `
                         />
                       </div>
                     </label>
-                  </div>
+                  </section>
                 </div>
                 <div
                   className="openstax-answer"
                 >
-                  <div
+                  <section
                     className="answers-answer disabled"
+                    role="region"
                   >
                     <label
                       className="answer-label"
@@ -632,13 +640,14 @@ exports[`choose exercises component matches snapshot 1`] = `
                         />
                       </div>
                     </label>
-                  </div>
+                  </section>
                 </div>
                 <div
                   className="openstax-answer"
                 >
-                  <div
+                  <section
                     className="answers-answer disabled"
+                    role="region"
                   >
                     <label
                       className="answer-label"
@@ -665,13 +674,14 @@ exports[`choose exercises component matches snapshot 1`] = `
                         />
                       </div>
                     </label>
-                  </div>
+                  </section>
                 </div>
                 <div
                   className="openstax-answer"
                 >
-                  <div
+                  <section
                     className="answers-answer disabled"
+                    role="region"
                   >
                     <label
                       className="answer-label"
@@ -698,7 +708,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                         />
                       </div>
                     </label>
-                  </div>
+                  </section>
                 </div>
               </div>
               <div
@@ -803,8 +813,9 @@ exports[`choose exercises component matches snapshot 1`] = `
                 <div
                   className="openstax-answer"
                 >
-                  <div
+                  <section
                     className="answers-answer disabled"
+                    role="region"
                   >
                     <label
                       className="answer-label"
@@ -831,13 +842,14 @@ exports[`choose exercises component matches snapshot 1`] = `
                         />
                       </div>
                     </label>
-                  </div>
+                  </section>
                 </div>
                 <div
                   className="openstax-answer"
                 >
-                  <div
+                  <section
                     className="answers-answer disabled"
+                    role="region"
                   >
                     <label
                       className="answer-label"
@@ -864,13 +876,14 @@ exports[`choose exercises component matches snapshot 1`] = `
                         />
                       </div>
                     </label>
-                  </div>
+                  </section>
                 </div>
                 <div
                   className="openstax-answer"
                 >
-                  <div
+                  <section
                     className="answers-answer disabled"
+                    role="region"
                   >
                     <label
                       className="answer-label"
@@ -897,13 +910,14 @@ exports[`choose exercises component matches snapshot 1`] = `
                         />
                       </div>
                     </label>
-                  </div>
+                  </section>
                 </div>
                 <div
                   className="openstax-answer"
                 >
-                  <div
+                  <section
                     className="answers-answer disabled"
+                    role="region"
                   >
                     <label
                       className="answer-label"
@@ -930,13 +944,14 @@ exports[`choose exercises component matches snapshot 1`] = `
                         />
                       </div>
                     </label>
-                  </div>
+                  </section>
                 </div>
                 <div
                   className="openstax-answer"
                 >
-                  <div
+                  <section
                     className="answers-answer disabled"
+                    role="region"
                   >
                     <label
                       className="answer-label"
@@ -963,7 +978,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                         />
                       </div>
                     </label>
-                  </div>
+                  </section>
                 </div>
               </div>
               <div

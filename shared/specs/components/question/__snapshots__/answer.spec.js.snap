@@ -4,8 +4,9 @@ exports[`Answer Component renders answer 1`] = `
 <div
   className="openstax-answer"
 >
-  <div
+  <section
     className="answers-answer"
+    role="region"
   >
     <input
       checked={false}
@@ -47,7 +48,7 @@ exports[`Answer Component renders answer 1`] = `
         />
       </div>
     </label>
-  </div>
+  </section>
 </div>
 `;
 
@@ -55,8 +56,9 @@ exports[`Answer Component renders answer feedback based on props 1`] = `
 <div
   className="openstax-answer"
 >
-  <div
+  <section
     className="answers-answer"
+    role="region"
   >
     <input
       checked={false}
@@ -95,12 +97,14 @@ exports[`Answer Component renders answer feedback based on props 1`] = `
           className="question-feedback-content has-html"
           dangerouslySetInnerHTML={
             Object {
-              "__html": "Physics helps in predicting dynamics and movement of weather phenomenon such as a tornado or rain.",
+              "__html": <aside>
+                Physics helps in predicting dynamics and movement of weather phenomenon such as a tornado or rain.
+              </aside>,
             }
           }
         />
       </div>
     </label>
-  </div>
+  </section>
 </div>
 `;
