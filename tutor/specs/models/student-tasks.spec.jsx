@@ -39,7 +39,7 @@ describe('Student Tasks Model', () => {
     const start = moment('2015-11-01');
     tasks.array.forEach(t => t.due_at = moment(start).add(week += 1, 'week'));
     expect(keys(tasks.byWeek)).toEqual([
-      '201546', '201547', '201548', '201549', '201550', '201551', '201552', '201553',
+      '201547', '201548', '201549', '201550', '201551', '201552', '201601', '201602',
     ]);
   });
 
