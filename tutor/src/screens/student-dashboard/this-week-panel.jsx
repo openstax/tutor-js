@@ -18,6 +18,7 @@ export default class ThisWeekPanel extends React.PureComponent {
 
     const startAt = moment(TimeStore.getNow()).startOf('isoweek');
     const events = studentTasks.weeklyEventsForDay(startAt);
+
     if (studentTasks.isPendingTaskLoading || !events.length) {
       return <EmptyPanel course={course} message='No assignments this week' />;
     }
