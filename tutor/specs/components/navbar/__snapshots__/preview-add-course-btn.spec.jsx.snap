@@ -4,7 +4,6 @@ exports[`Preview Add Course Button renders and matches snapshot 1`] = `
 <div
   className="tour-anchor"
   data-tour-anchor-id="preview-add-course-nav-button"
-  id="preview-add-course-nav-button"
 >
   <button
     className="btn btn-default"

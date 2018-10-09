@@ -44,7 +44,6 @@ exports[`choose exercises component matches snapshot 1`] = `
         <div
           className="tour-anchor num tutor"
           data-tour-anchor-id="tutor-selections"
-          id="tutor-selections"
         >
           <div
             className="tutor-selections"
