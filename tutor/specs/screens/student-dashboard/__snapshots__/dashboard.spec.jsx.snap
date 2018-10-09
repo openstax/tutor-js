@@ -422,7 +422,6 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     <span
                       className="tour-anchor"
                       data-tour-anchor-id="assignment-progress-status"
-                      id="assignment-progress-status"
                     >
                       10/11 answered
                     </span>
