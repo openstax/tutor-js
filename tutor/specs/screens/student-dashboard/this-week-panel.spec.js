@@ -12,6 +12,7 @@ describe('This Week Events', () => {
     now = new Date('2017-10-14T12:00:00.000Z');
     chronokinesis.travel(now);
     moment.tz.setDefault('America/Chicago');
+    moment.locale('en');
     props = {
       course: Factory.course(),
     };
@@ -27,7 +28,7 @@ describe('This Week Events', () => {
     const event = Factory.studentDashboardTask();
 
     // add task that's due next week
-    event.due_at = moment(now).endOf('week').add(1, 'day').toDate();
+    event.due_at = moment(now).endOf('isoweek').add(1, 'day').toDate();
     props.course.studentTasks.set(event.id, event);
     expect(panel.text()).not.toContain(event.title);
 

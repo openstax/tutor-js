@@ -11,6 +11,7 @@ describe('Student Dashboard', () => {
 
   beforeEach(() => {
     moment.tz.setDefault('America/Chicago');
+    moment.locale('en');
     const now = new Date('2015-10-14T12:00:00.000Z');
     chronokinesis.travel(now);
     const course = Factory.course();

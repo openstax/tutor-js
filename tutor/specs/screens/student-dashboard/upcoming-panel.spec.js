@@ -12,6 +12,7 @@ describe('Upcoming Events', () => {
     now = new Date('2017-10-14T12:00:00.000Z');
     chronokinesis.travel(now);
     moment.tz.setDefault('America/Chicago');
+    moment.locale('en');
     props = {
       course: Factory.course(),
     };

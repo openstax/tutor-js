@@ -245,17 +245,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
           role="tabpanel"
         >
           <div
-            className="empty panel panel-default"
-            id={undefined}
-          >
-            <div
-              className="panel-body"
-            >
-              No assignments this week
-            </div>
-          </div>
-          <div
-            className="upcoming panel panel-default"
+            className="-this-week panel panel-default"
             id={undefined}
           >
             <div
@@ -268,9 +258,17 @@ exports[`Student Dashboard matches snapshot 1`] = `
                   className="col-sm-7 col-xs-12"
                 >
                   <span
-                    className="title"
+                    className="date-range"
                   >
-                    Coming Up
+                    <time>
+                      Oct 12, 2015
+                    </time>
+                    <span>
+                      –
+                    </span>
+                    <time>
+                      Oct 18, 2015
+                    </time>
                   </span>
                 </div>
                 <div
@@ -438,6 +436,16 @@ exports[`Student Dashboard matches snapshot 1`] = `
                   </time>
                 </div>
               </a>
+            </div>
+          </div>
+          <div
+            className="empty upcoming panel panel-default"
+            id={undefined}
+          >
+            <div
+              className="panel-body"
+            >
+              No upcoming assignments
             </div>
           </div>
         </div>
