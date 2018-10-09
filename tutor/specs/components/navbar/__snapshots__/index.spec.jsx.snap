@@ -41,7 +41,6 @@ exports[`Main navbar renders and matches snapshot 1`] = `
             aria-labelledby="support-menu"
             className="tour-anchor"
             data-tour-anchor-id="support-menu-button"
-            id="support-menu-button"
             onSelect={[Function]}
           >
             <i
@@ -101,7 +100,6 @@ exports[`Main navbar renders and matches snapshot 1`] = `
               <div
                 className="tour-anchor"
                 data-tour-anchor-id="menu-support-document"
-                id="menu-support-document"
               >
                 Getting Started Guide
               </div>

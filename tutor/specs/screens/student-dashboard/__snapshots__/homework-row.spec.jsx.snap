@@ -30,7 +30,6 @@ exports[`Homework Row renders with completed count 1`] = `
       <span
         className="tour-anchor"
         data-tour-anchor-id="assignment-progress-status"
-        id="assignment-progress-status"
       >
         2/3 answered
       </span>
@@ -76,7 +75,6 @@ exports[`Homework Row renders with correct count 1`] = `
       <span
         className="tour-anchor"
         data-tour-anchor-id="assignment-progress-status"
-        id="assignment-progress-status"
       >
         0/10 correct
       </span>
@@ -84,7 +82,6 @@ exports[`Homework Row renders with correct count 1`] = `
     <span
       className="tour-anchor"
       data-tour-anchor-id="about-late-icon"
-      id="about-late-icon"
     >
       <i
         className="info late"
@@ -136,7 +133,6 @@ exports[`Homework Row renders with correct count 2`] = `
       <span
         className="tour-anchor"
         data-tour-anchor-id="assignment-progress-status"
-        id="assignment-progress-status"
       >
         2/10 correct
       </span>
@@ -144,7 +140,6 @@ exports[`Homework Row renders with correct count 2`] = `
     <span
       className="tour-anchor"
       data-tour-anchor-id="about-late-icon"
-      id="about-late-icon"
     >
       <i
         className="info late"

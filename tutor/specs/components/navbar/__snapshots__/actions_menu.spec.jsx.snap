@@ -52,7 +52,6 @@ exports[`Student Navbar Component has actions menu that matches snapshot 1`] = `
         <div
           className="tour-anchor"
           data-tour-anchor-id="menu-option-myCourses"
-          id="menu-option-myCourses"
         >
           My Courses
         </div>
@@ -80,7 +79,6 @@ exports[`Student Navbar Component has actions menu that matches snapshot 1`] = `
         <div
           className="tour-anchor"
           data-tour-anchor-id="menu-option-dashboard"
-          id="menu-option-dashboard"
         >
           Dashboard
         </div>
@@ -103,7 +101,6 @@ exports[`Student Navbar Component has actions menu that matches snapshot 1`] = `
         <div
           className="tour-anchor"
           data-tour-anchor-id="menu-option-browse-book"
-          id="menu-option-browse-book"
         >
           Browse the Book
         </div>
@@ -125,7 +122,6 @@ exports[`Student Navbar Component has actions menu that matches snapshot 1`] = `
         <div
           className="tour-anchor"
           data-tour-anchor-id="menu-option-viewScores"
-          id="menu-option-viewScores"
         >
           Scores
         </div>
@@ -147,7 +143,6 @@ exports[`Student Navbar Component has actions menu that matches snapshot 1`] = `
         <div
           className="tour-anchor"
           data-tour-anchor-id="menu-option-viewPerformanceGuide"
-          id="menu-option-viewPerformanceGuide"
         >
           Performance Forecast
         </div>
@@ -169,7 +164,6 @@ exports[`Student Navbar Component has actions menu that matches snapshot 1`] = `
         <div
           className="tour-anchor"
           data-tour-anchor-id="menu-option-changeStudentId"
-          id="menu-option-changeStudentId"
         >
           Change Student ID
         </div>
@@ -231,7 +225,6 @@ exports[`Teacher Navbar Component has actions menu that matches snapshot 1`] = `
         <div
           className="tour-anchor"
           data-tour-anchor-id="menu-option-myCourses"
-          id="menu-option-myCourses"
         >
           My Courses
         </div>
@@ -259,7 +252,6 @@ exports[`Teacher Navbar Component has actions menu that matches snapshot 1`] = `
         <div
           className="tour-anchor"
           data-tour-anchor-id="menu-option-dashboard"
-          id="menu-option-dashboard"
         >
           Dashboard
         </div>
@@ -282,7 +274,6 @@ exports[`Teacher Navbar Component has actions menu that matches snapshot 1`] = `
         <div
           className="tour-anchor"
           data-tour-anchor-id="menu-option-browse-book"
-          id="menu-option-browse-book"
         >
           Browse the Book
         </div>
@@ -304,7 +295,6 @@ exports[`Teacher Navbar Component has actions menu that matches snapshot 1`] = `
         <div
           className="tour-anchor"
           data-tour-anchor-id="menu-option-viewPerformanceGuide"
-          id="menu-option-viewPerformanceGuide"
         >
           Performance Forecast
         </div>
@@ -326,7 +316,6 @@ exports[`Teacher Navbar Component has actions menu that matches snapshot 1`] = `
         <div
           className="tour-anchor"
           data-tour-anchor-id="menu-option-viewQuestionsLibrary"
-          id="menu-option-viewQuestionsLibrary"
         >
           Question Library
         </div>
@@ -348,7 +337,6 @@ exports[`Teacher Navbar Component has actions menu that matches snapshot 1`] = `
         <div
           className="tour-anchor"
           data-tour-anchor-id="menu-option-viewScores"
-          id="menu-option-viewScores"
         >
           Student Scores
         </div>
@@ -370,7 +358,6 @@ exports[`Teacher Navbar Component has actions menu that matches snapshot 1`] = `
         <div
           className="tour-anchor"
           data-tour-anchor-id="menu-option-courseSettings"
-          id="menu-option-courseSettings"
         >
           Course Settings
         </div>
@@ -392,7 +379,6 @@ exports[`Teacher Navbar Component has actions menu that matches snapshot 1`] = `
         <div
           className="tour-anchor"
           data-tour-anchor-id="menu-option-courseRoster"
-          id="menu-option-courseRoster"
         >
           Course Roster
         </div>
@@ -420,7 +406,6 @@ exports[`Teacher Navbar Component has actions menu that matches snapshot 1`] = `
         <div
           className="tour-anchor"
           data-tour-anchor-id="menu-option-createNewCourse"
-          id="menu-option-createNewCourse"
         >
           Create a Course
         </div>
@@ -442,7 +427,6 @@ exports[`Teacher Navbar Component has actions menu that matches snapshot 1`] = `
         <div
           className="tour-anchor"
           data-tour-anchor-id="menu-option-clone-course"
-          id="menu-option-clone-course"
         >
           Copy this Course
         </div>

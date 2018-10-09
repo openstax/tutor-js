@@ -50,7 +50,6 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                   aria-labelledby="support-menu"
                   className="tour-anchor"
                   data-tour-anchor-id="support-menu-button"
-                  id="support-menu-button"
                   onSelect={[Function]}
                 >
                   <i
@@ -110,7 +109,6 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                     <div
                       className="tour-anchor"
                       data-tour-anchor-id="menu-support-document"
-                      id="menu-support-document"
                     >
                       Getting Started Guide
                     </div>
@@ -192,7 +190,6 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                     <div
                       className="tour-anchor"
                       data-tour-anchor-id="menu-option-createNewCourse"
-                      id="menu-option-createNewCourse"
                     >
                       Create a Course
                     </div>
@@ -311,7 +308,6 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                 <div
                   className="tour-anchor"
                   data-tour-anchor-id="create-course-zone"
-                  id="create-course-zone"
                 >
                   <div
                     className="my-courses-add-zone"
