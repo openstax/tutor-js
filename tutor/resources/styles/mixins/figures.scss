@@ -15,6 +15,14 @@
       & + .tutor-ui-vertical-img {
         margin-right: 0;
       }
+      & + .example-video {
+        // force break
+        &:before {
+          content: ' ';
+          width: 100%;
+          display: table;
+        }
+      }
     }
 
     > [data-type="media"] { width: 100%; }
