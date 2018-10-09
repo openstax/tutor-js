@@ -59,6 +59,19 @@ export default class ExerciseQuestion extends BaseModel {
       this.collaborator_solutions[0].content_html : '';
   }
 
+  set collaborator_solution_html(val) {
+    if (!val) {
+      if (this.collaborator_solutions.length) {
+        this.collaborator_solutions.clear();
+      }
+    } else {
+      if (!this.collaborator_solutions.length) {
+        this.collaborator_solutions.push({});
+      }
+      this.collaborator_solutions[0].content_html = val;
+    }
+  }
+
   @computed get requiresChoicesFormat() {
     return !this.hasFormat('free-response');
   }
