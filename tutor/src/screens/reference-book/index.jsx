@@ -5,7 +5,7 @@ import UX from './ux';
 import NavbarContext from '../../components/navbar/context';
 import './styles.scss';
 
-@inject('navBar')
+@inject('navBar', 'tourContext')
 @observer
 export default class ReferenceBookShell extends React.Component {
 
@@ -15,13 +15,14 @@ export default class ReferenceBookShell extends React.Component {
       chapterSection: React.PropTypes.string,
     }).isRequired,
     navBar: React.PropTypes.instanceOf(NavbarContext).isRequired,
+    tourContext: React.PropTypes.object.isRequired,
   }
 
   static contextTypes = {
     router: React.PropTypes.object,
   }
 
-  ux = new UX(this.context.router);
+  ux = new UX(this.context.router, this.props.tourContext);
 
   componentWillMount() {
     this.ux.update(this.props.params);
