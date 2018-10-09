@@ -1,6 +1,8 @@
 # Store for getting the current server time.
 # Defaults to browser time if a server request has not been made yet.
 
+{setNow} = require '../models/time'
+
 flux = require 'flux-react'
 
 {makeSimpleStore} = require './helpers'
@@ -12,7 +14,8 @@ TimeConfig =
     @_shiftMs = 0
 
   setNow: (now, localNow = new Date()) ->
-    # called by API
+    setNow(now, localNow) # also notify the mobx store
+    # # called by API
     @_shiftMs = now.getTime() - localNow.getTime()
 
   setFromString: (txtDate, localNow = new Date()) ->
