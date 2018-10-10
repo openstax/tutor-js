@@ -64,4 +64,16 @@ describe('Exercise Question', () => {
     expect(question.isOpenEnded).toBe(true);
     expect(question.validity.valid).toBe(true);
   });
+
+  it('#collaborator_solution_html', () => {
+    question.collaborator_solutions.clear();
+    expect(question.collaborator_solutions).toHaveLength(0);
+    question.collaborator_solution_html = 'one, two, three';
+    expect(question.collaborator_solutions).toHaveLength(1);
+    expect(question.collaborator_solutions[0].content_html).toEqual('one, two, three');
+    question.collaborator_solution_html = 'four';
+    expect(question.collaborator_solutions[0].content_html).toEqual('four');
+    question.collaborator_solution_html = '';
+    expect(question.collaborator_solutions).toHaveLength(0);
+  });
 });

@@ -31,10 +31,7 @@ export default class Question extends React.Component {
 
   @action.bound updateSolution(event) {
     const { question } = this.props;
-    if (isEmpty(question.collaborator_solutions)) {
-      question.collaborator_solutions.push({});
-    }
-    question.collaborator_solutions[0].content_html = event.target.value;
+    question.collaborator_solution_html = event.target.value;
   }
 
   @action.bound addAnswer() {
