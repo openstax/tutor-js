@@ -56,8 +56,6 @@ describe('Course Model', () => {
     UiSettings.get = jest.fn(() => 2);
     teacher.just_created = false;
     expect(teacher.tourAudienceTags).toEqual(['teacher']);
-    teacher.primaryRole.joined_at = new Date();
-    expect(teacher.tourAudienceTags).toEqual(['teacher', 'teacher-settings-roster-split']);
     teacher.is_preview = true;
     expect(teacher.tourAudienceTags).toEqual(['teacher-preview']);
     const course = Courses.get(3);

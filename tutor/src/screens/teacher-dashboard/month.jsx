@@ -302,8 +302,7 @@ class CourseMonth extends React.Component {
         className={calendarClassName}
         id="teacher-calendar"
         otherTours={[
-          'teacher-calendar-super', 'reading-published', 'homework-published',
-          'teacher-settings-roster-split', 'new-enrollment-link',
+          'teacher-calendar-super', 'reading-published', 'homework-published', 'new-enrollment-link',
         ]}
         courseId={course.id}>
         <AddAssignment
