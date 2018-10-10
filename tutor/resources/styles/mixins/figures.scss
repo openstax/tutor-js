@@ -17,6 +17,14 @@
         margin-left: $vertical-image-margin;
         margin-right: 0;
       }
+      & + .example-video {
+        // force break
+        &:before {
+          content: ' ';
+          width: 100%;
+          display: table;
+        }
+      }
     }
 
     > [data-type="media"] { width: 100%; }

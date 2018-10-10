@@ -82,4 +82,16 @@
     }
   }
 
+  [data-type="example"],
+  .solution,
+  .commentary {
+    clear: both;
+
+    [data-type=title] {
+      @include tutor-sans-font(1.8rem, 1.75em);
+      font-weight: bold;
+    }
+  }
+
+
 }
