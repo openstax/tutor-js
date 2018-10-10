@@ -12,11 +12,11 @@ function SlideOutMenuToggle({ ux, width, height }) {
     { triangle: 'translate(0 0)', line: 'scale(1 1) translate(0 0)' }
     :
     { triangle: 'translate(-30 0)', line: 'scale(2 1) translate(-50 0)' };
-
   return (
     <a
       className={cn('book-menu-toggle', { invisible, open: ux.isMenuVisible })}
-      onClick={ux.toggleTocMenu}
+      onClick={(ev) => { ev.preventDefault(); ux.toggleTocMenu(); }}
+      href="#"
       tabIndex={0}
       aria-label={ux.isMenuVisible ? 'Close Sections Menu' : 'Open Sections Menu'}
     >
