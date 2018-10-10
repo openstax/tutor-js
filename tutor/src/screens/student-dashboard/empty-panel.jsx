@@ -19,6 +19,13 @@ const EmptyPanel = observer(({
       </Panel>
     );
   }
+  if (studentTasks.api.isPending) {
+    return (
+      <Panel className={cn('empty', 'pending', className)} header={title}>
+        <Icon type="spinner" spin /> Fetching assignments for your course.
+      </Panel>
+    );
+  }
 
   return (
     <Panel className={cn('empty', className)} header={title}>
