@@ -24,13 +24,6 @@ exports[`Exercise controls component does not enable the save draft on blank exe
     >
       Publish
     </button>
-    <a
-      className="btn btn-info"
-      href="/preview/1@1"
-      onClick={[Function]}
-    >
-      Preview Only
-    </a>
   </div>
   <div
     className="right-side"

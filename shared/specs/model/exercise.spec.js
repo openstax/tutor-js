@@ -48,6 +48,10 @@ describe('Exercise Model', () => {
     expect(exercise.isMultiPart).toBe(false);
     exercise.toggleMultiPart();
     expect(exercise.isMultiPart).toBe(true);
+    expect(exercise.questions.length).toBe(2);
+    exercise.toggleMultiPart();
+    expect(exercise.isMultiPart).toBe(false);
+    expect(exercise.questions.length).toBe(1);
   });
 
   it('tests isPublishable', () => {

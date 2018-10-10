@@ -65,7 +65,7 @@ export default class Exercise extends BaseModel {
 
   @action toggleMultiPart() {
     if (this.isMultiPart) {
-      this.questions.slice(1);
+      this.questions.replace([this.questions[0]]);
     } else {
       this.questions.push({});
     }

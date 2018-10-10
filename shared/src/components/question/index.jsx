@@ -6,6 +6,7 @@ import { observer } from 'mobx-react';
 import AnswersTable from './answers-table';
 import ArbitraryHtmlAndMath from '../html';
 import FormatsListing from './formats-listing';
+import QuestionModel from '../../model/exercise/question';
 
 @observer
 class QuestionHtml extends React.Component {
@@ -48,9 +49,10 @@ class QuestionHtml extends React.Component {
 export default class Question extends React.Component {
 
   static propTypes = {
-    question: React.PropTypes.object.isRequired,
+    question: React.PropTypes.instanceOf(QuestionModel).isRequired,
     task: React.PropTypes.object,
     correct_answer_id: React.PropTypes.string,
+    hideAnswers: React.PropTypes.bool,
     exercise_uid: React.PropTypes.string,
     displayFormats:  React.PropTypes.bool,
   };
@@ -72,13 +74,11 @@ export default class Question extends React.Component {
   };
 
   hasAnswerCorrectness = () => {
-    const { correct_answer_id, question } = this.props;
+    const { hideAnswers, correct_answer_id, question } = this.props;
     const { answers } = question;
 
     return (
-
-      correct_answer_id || this.doesArrayHaveProperty(answers, 'correctness')
-
+      !hideAnswers && (correct_answer_id || this.doesArrayHaveProperty(answers, 'correctness'))
     );
   };
 

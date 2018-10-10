@@ -43,6 +43,7 @@ export default class ExerciseEditingPreview extends React.Component {
           displayAllTags
           displayFeedback
           displayFormats
+          displayNickname
           exercise={exercise}
           {...previewProps}
         >

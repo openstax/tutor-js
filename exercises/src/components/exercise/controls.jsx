@@ -85,9 +85,6 @@ class ExerciseControls extends React.Component {
                 Publish
               </AsyncButton>
             </SuretyGuard>}
-          <Link to={`/preview/${exercise.uid}`} className="btn btn-info">
-            Preview Only
-          </Link>
         </ButtonToolbar>
         <div className="right-side">
           <MPQToggle exercise={exercise} />

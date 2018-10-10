@@ -41,6 +41,8 @@ export default class AnswersTable extends React.Component {
     answered_count: React.PropTypes.number,
     show_all_feedback: React.PropTypes.bool,
     onChange: React.PropTypes.func,
+    hideAnswers: React.PropTypes.bool,
+    hasCorrectAnswer: React.PropTypes.bool,
     onChangeAttempt: React.PropTypes.func,
     keySet: React.PropTypes.oneOf(KEYSETS_PROPS),
   };
@@ -123,13 +125,12 @@ export default class AnswersTable extends React.Component {
   render() {
     let feedback, instructions;
     const {
-      question, type, answered_count, choicesEnabled, correct_answer_id,
-      answer_id, feedback_html, show_all_feedback, keySet, project, hasCorrectAnswer,
-      focus,
+      question, hideAnswers, type, answered_count, choicesEnabled, correct_answer_id,
+      answer_id, feedback_html, show_all_feedback, keySet, project, hasCorrectAnswer, focus,
     } = this.props;
+    if (hideAnswers) { return null; }
 
     const { answers, id } = question;
-    if (!((answers != null ? answers.length : undefined) > 0)) { return null; }
 
     const chosenAnswer = [answer_id, this.state.answer_id];
     let checkedAnswerIndex = null;

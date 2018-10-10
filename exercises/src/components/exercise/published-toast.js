@@ -15,7 +15,7 @@ class PublishedToast extends React.Component {
     const { dismiss, toast: { info: { isDraft, exercise } } }= this.props;
 
     const message = isDraft ?
-      `A draft of ${exercise.uid} was created` :
+      `Your changes to ${exercise.uid} were saved` :
       `Exercise ${exercise.uid} was published successfully`;
 
     return (

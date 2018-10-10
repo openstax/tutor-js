@@ -88,7 +88,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               Exercise Nickname:
               <input
                 onChange={[Function]}
-                value=""
+                value="maurine"
               />
             </label>
           </div>
@@ -1474,6 +1474,11 @@ exports[`Exercises component renders and matches snapshot 1`] = `
           <span
             className="exercise-tag"
           >
+            Nickname:maurine
+          </span>
+          <span
+            className="exercise-tag"
+          >
             ID:1@1
           </span>
         </div>
@@ -1571,7 +1576,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
               Exercise Nickname:
               <input
                 onChange={[Function]}
-                value=""
+                value="dessie"
               />
             </label>
           </div>
@@ -2907,6 +2912,11 @@ exports[`Exercises component renders with intro and a multiple questions when ex
           <span
             className="exercise-tag"
           >
+            Nickname:dessie
+          </span>
+          <span
+            className="exercise-tag"
+          >
             ID:5@1
           </span>
         </div>
@@ -3303,7 +3313,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
               Author: 
             </div>
           </div>
-          <ExercisePreview className=\\"exercise-editing-preview\\" isInteractive={true} displayAllTags={true} displayFeedback={true} displayFormats={true} exercise={{...}} panelStyle=\\"default\\" overlayActions={{...}}>
+          <ExercisePreview className=\\"exercise-editing-preview\\" isInteractive={true} displayAllTags={true} displayFeedback={true} displayFormats={true} displayNickname={true} exercise={{...}} panelStyle=\\"default\\" overlayActions={{...}}>
             <Panel className=\\"openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback\\" bsStyle=\\"default\\" header={[undefined]} data-exercise-id={[undefined]} tabIndex={-1} footer={[undefined]} defaultExpanded={false} bsClass=\\"panel\\">
               <div data-exercise-id={[undefined]} tabIndex={-1} className=\\"openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback panel panel-default\\" id={[undefined]}>
                 <div className=\\"panel-body\\">
@@ -3311,12 +3321,14 @@ exports[`Exercises component resets fields when model is new 1`] = `
                   <div className=\\"exercise-body\\">
                     <ExerciseBadges exercise={{...}} isMultipart={false} hasInteractive={false} hasVideo={false} />
                     <Component className=\\"stimulus\\" block={true} html={[undefined]} />
-                    <Question className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\">
+                    <Question hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\">
                       <div className=\\"openstax-question openstax-question-preview\\" data-question-number={[undefined]}>
                         <QuestionHtml type=\\"context\\" html=\\"\\" />
                         <QuestionHtml type=\\"stimulus\\" html=\\"\\" />
                         <QuestionHtml type=\\"stem\\" html=\\"\\" questionNumber={[undefined]} />
-                        <AnswersTable className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" hasCorrectAnswer={false} keySet=\\"multiple-choice\\" />
+                        <AnswersTable hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
+                          <div className=\\"answers-table\\" />
+                        </AnswersTable>
                         <FormatsListing formats={{...}}>
                           <div className=\\"formats-listing\\">
                             <div className=\\"header\\">
