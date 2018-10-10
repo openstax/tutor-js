@@ -6,6 +6,7 @@ import {Button} from 'react-bootstrap';
 import Icon from '../icon';
 import Courses from '../../models/courses-map';
 import PopoutWindow from 'shared/components/popout-window';
+import { ArbitraryHtmlAndMath } from 'shared';
 
 @observer
 export default class SummaryPopup extends React.Component {
@@ -35,7 +36,8 @@ export default class SummaryPopup extends React.Component {
 
   @action.bound onPopupReady(popup) {
     this.popup = popup;
-    this.popup.print();
+    // give math a bit of time to render
+    setTimeout(() => this.popup.print(), 100);
   }
 
   render() {
@@ -81,8 +83,9 @@ export default class SummaryPopup extends React.Component {
                           borderLeft: '2px solid lightgrey',
                           paddingLeft: '0.5rem',
                         }}
+
                       >
-                        {annotation.selection.content}
+                        <ArbitraryHtmlAndMath html={annotation.selection.content} />
                       </blockquote>
                       <p
                         style={{
