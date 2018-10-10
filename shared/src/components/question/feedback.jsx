@@ -11,7 +11,7 @@ const SimpleFeedback = observer((props, context) => {
     <ArbitraryHtmlAndMath
       {...htmlAndMathProps}
       className={classnames('question-feedback-content', 'has-html', props.className)}
-      html={props.children}
+      html={<aside>{props.children}</aside>}
       block={true} />
   );
 });
@@ -28,12 +28,12 @@ const Feedback = observer((props, context) => {
   const htmlAndMathProps = pick(context, 'processHtmlAndMath');
 
   return (
-    <div className={wrapperClasses}>
+    <aside className={wrapperClasses}>
       <div className="arrow" aria-label="Answer Feedback" />
       <SimpleFeedback {...htmlAndMathProps}>
         {props.children}
       </SimpleFeedback>
-    </div>
+    </aside>
   );
 });
 Feedback.propTypes = {

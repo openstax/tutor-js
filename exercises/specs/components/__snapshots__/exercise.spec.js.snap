@@ -1162,8 +1162,9 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               <div
                 className="openstax-answer"
               >
-                <div
+                <section
                   className="answers-answer disabled"
+                  role="region"
                 >
                   <label
                     className="answer-label"
@@ -1196,19 +1197,22 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       <div
                         dangerouslySetInnerHTML={
                           Object {
-                            "__html": "Objects far smaller than what is visible may require quantum mechanics.",
+                            "__html": <aside>
+                              Objects far smaller than what is visible may require quantum mechanics.
+                            </aside>,
                           }
                         }
                       />
                     </div>
                   </label>
-                </div>
+                </section>
               </div>
               <div
                 className="openstax-answer"
               >
-                <div
+                <section
                   className="answers-answer disabled"
+                  role="region"
                 >
                   <label
                     className="answer-label"
@@ -1241,19 +1245,22 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       <div
                         dangerouslySetInnerHTML={
                           Object {
-                            "__html": "Speeds greater than roughly 1% pf the speed of light start to involve significant effects from relativity.",
+                            "__html": <aside>
+                              Speeds greater than roughly 1% pf the speed of light start to involve significant effects from relativity.
+                            </aside>,
                           }
                         }
                       />
                     </div>
                   </label>
-                </div>
+                </section>
               </div>
               <div
                 className="openstax-answer"
               >
-                <div
+                <section
                   className="answers-answer disabled"
+                  role="region"
                 >
                   <label
                     className="answer-label"
@@ -1286,19 +1293,22 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       <div
                         dangerouslySetInnerHTML={
                           Object {
-                            "__html": "A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain.",
+                            "__html": <aside>
+                              A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain.
+                            </aside>,
                           }
                         }
                       />
                     </div>
                   </label>
-                </div>
+                </section>
               </div>
               <div
                 className="openstax-answer"
               >
-                <div
+                <section
                   className="answers-answer disabled"
+                  role="region"
                 >
                   <label
                     className="answer-label"
@@ -1331,19 +1341,22 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       <div
                         dangerouslySetInnerHTML={
                           Object {
-                            "__html": "Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied.",
+                            "__html": <aside>
+                              Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied.
+                            </aside>,
                           }
                         }
                       />
                     </div>
                   </label>
-                </div>
+                </section>
               </div>
               <div
                 className="openstax-answer"
               >
-                <div
+                <section
                   className="answers-answer disabled"
+                  role="region"
                 >
                   <label
                     className="answer-label"
@@ -1376,13 +1389,15 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       <div
                         dangerouslySetInnerHTML={
                           Object {
-                            "__html": "Objects far smaller than what is visible may require quantum mechanics.",
+                            "__html": <aside>
+                              Objects far smaller than what is visible may require quantum mechanics.
+                            </aside>,
                           }
                         }
                       />
                     </div>
                   </label>
-                </div>
+                </section>
               </div>
             </div>
             <div
@@ -2625,8 +2640,9 @@ exports[`Exercises component renders with intro and a multiple questions when ex
               <div
                 className="openstax-answer"
               >
-                <div
+                <section
                   className="answers-answer disabled"
+                  role="region"
                 >
                   <label
                     className="answer-label"
@@ -2654,19 +2670,22 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                       <div
                         dangerouslySetInnerHTML={
                           Object {
-                            "__html": "Physics is part of natural philosophy.",
+                            "__html": <aside>
+                              Physics is part of natural philosophy.
+                            </aside>,
                           }
                         }
                       />
                     </div>
                   </label>
-                </div>
+                </section>
               </div>
               <div
                 className="openstax-answer"
               >
-                <div
+                <section
                   className="answers-answer disabled"
+                  role="region"
                 >
                   <label
                     className="answer-label"
@@ -2694,19 +2713,22 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                       <div
                         dangerouslySetInnerHTML={
                           Object {
-                            "__html": "Natural philosophy included all aspects of nature, including physics.",
+                            "__html": <aside>
+                              Natural philosophy included all aspects of nature, including physics.
+                            </aside>,
                           }
                         }
                       />
                     </div>
                   </label>
-                </div>
+                </section>
               </div>
               <div
                 className="openstax-answer"
               >
-                <div
+                <section
                   className="answers-answer disabled"
+                  role="region"
                 >
                   <label
                     className="answer-label"
@@ -2734,19 +2756,22 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                       <div
                         dangerouslySetInnerHTML={
                           Object {
-                            "__html": "Natural philosophy dealt with all aspects of nature by lumping physics with other fields of sciences, such as chemistry and biology. Physics mainly describes the most fundamental aspect of our universe.",
+                            "__html": <aside>
+                              Natural philosophy dealt with all aspects of nature by lumping physics with other fields of sciences, such as chemistry and biology. Physics mainly describes the most fundamental aspect of our universe.
+                            </aside>,
                           }
                         }
                       />
                     </div>
                   </label>
-                </div>
+                </section>
               </div>
               <div
                 className="openstax-answer"
               >
-                <div
+                <section
                   className="answers-answer disabled"
+                  role="region"
                 >
                   <label
                     className="answer-label"
@@ -2774,19 +2799,22 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                       <div
                         dangerouslySetInnerHTML={
                           Object {
-                            "__html": "Biology and chemistry are also part of natural philosophy, but not part of physics.",
+                            "__html": <aside>
+                              Biology and chemistry are also part of natural philosophy, but not part of physics.
+                            </aside>,
                           }
                         }
                       />
                     </div>
                   </label>
-                </div>
+                </section>
               </div>
               <div
                 className="openstax-answer"
               >
-                <div
+                <section
                   className="answers-answer disabled"
+                  role="region"
                 >
                   <label
                     className="answer-label"
@@ -2814,13 +2842,15 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                       <div
                         dangerouslySetInnerHTML={
                           Object {
-                            "__html": "Physics is part of natural philosophy.",
+                            "__html": <aside>
+                              Physics is part of natural philosophy.
+                            </aside>,
                           }
                         }
                       />
                     </div>
                   </label>
-                </div>
+                </section>
               </div>
             </div>
             <div

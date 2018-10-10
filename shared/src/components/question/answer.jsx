@@ -179,7 +179,7 @@ export default class Answer extends React.Component {
 
     return (
       <div className="openstax-answer">
-        <div className={classes}>
+        <section role="region" className={classes}>
           {selectedCount}
           {radioBox}
           <label
@@ -201,7 +201,7 @@ export default class Answer extends React.Component {
               {feedback}
             </div>
           </label>
-        </div>
+        </section>
       </div>
     );
   }

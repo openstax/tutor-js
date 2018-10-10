@@ -47,8 +47,9 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -75,13 +76,14 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -108,13 +110,14 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -141,13 +144,14 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -174,13 +178,14 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -207,7 +212,7 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
         </div>
         <div
@@ -357,8 +362,9 @@ exports[`Exercise Preview Component can render question formats 1`] = `
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -385,13 +391,14 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -418,13 +425,14 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -451,13 +459,14 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -484,13 +493,14 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -517,7 +527,7 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
         </div>
         <div
@@ -623,8 +633,9 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -651,13 +662,14 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -684,13 +696,14 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -717,13 +730,14 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -750,13 +764,14 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -783,7 +798,7 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
         </div>
         <div
@@ -867,8 +882,9 @@ exports[`Exercise Preview Component limits tags 1`] = `
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -895,13 +911,14 @@ exports[`Exercise Preview Component limits tags 1`] = `
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -928,13 +945,14 @@ exports[`Exercise Preview Component limits tags 1`] = `
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -961,13 +979,14 @@ exports[`Exercise Preview Component limits tags 1`] = `
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -994,13 +1013,14 @@ exports[`Exercise Preview Component limits tags 1`] = `
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -1027,7 +1047,7 @@ exports[`Exercise Preview Component limits tags 1`] = `
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
         </div>
         <div
@@ -1141,8 +1161,9 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -1174,13 +1195,14 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -1212,13 +1234,14 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -1250,13 +1273,14 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -1288,13 +1312,14 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -1326,7 +1351,7 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
         </div>
         <div
@@ -1410,8 +1435,9 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -1439,19 +1465,22 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                   <div
                     dangerouslySetInnerHTML={
                       Object {
-                        "__html": "Physics helps in predicting dynamics and movement of weather phenomenon such as a tornado or rain.",
+                        "__html": <aside>
+                          Physics helps in predicting dynamics and movement of weather phenomenon such as a tornado or rain.
+                        </aside>,
                       }
                     }
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -1479,19 +1508,22 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                   <div
                     dangerouslySetInnerHTML={
                       Object {
-                        "__html": "This would be chemistry rather than physics.",
+                        "__html": <aside>
+                          This would be chemistry rather than physics.
+                        </aside>,
                       }
                     }
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -1519,19 +1551,22 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                   <div
                     dangerouslySetInnerHTML={
                       Object {
-                        "__html": "This is true, but its effects are not involved in day-to-day weather prediction.",
+                        "__html": <aside>
+                          This is true, but its effects are not involved in day-to-day weather prediction.
+                        </aside>,
                       }
                     }
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -1559,19 +1594,22 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                   <div
                     dangerouslySetInnerHTML={
                       Object {
-                        "__html": "This is true, but it is not involved in day to day weather prediction.",
+                        "__html": <aside>
+                          This is true, but it is not involved in day to day weather prediction.
+                        </aside>,
                       }
                     }
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
           <div
             className="openstax-answer"
           >
-            <div
+            <section
               className="answers-answer disabled"
+              role="region"
             >
               <label
                 className="answer-label"
@@ -1599,13 +1637,15 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                   <div
                     dangerouslySetInnerHTML={
                       Object {
-                        "__html": "Physics helps in predicting dynamics and movement of weather phenomenon such as a tornado or rain.",
+                        "__html": <aside>
+                          Physics helps in predicting dynamics and movement of weather phenomenon such as a tornado or rain.
+                        </aside>,
                       }
                     }
                   />
                 </div>
               </label>
-            </div>
+            </section>
           </div>
         </div>
         <div
