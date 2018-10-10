@@ -18,9 +18,11 @@ describe('Student Tasks Model', () => {
     Factory.studentTasks({ course, count: 8 });
     tasks = course.studentTasks;
 
-    mockedNow = moment('2017-10-14T12:00:00.000Z');
     moment.tz.setDefault('America/Chicago');
+    moment.locale('en');
     chronokinesis.travel(mockedNow);
+    mockedNow = moment('2017-10-14T12:00:00.000Z');
+
     jest.mock('../../src/flux/time', () => ({
       TimeStore: {
         getNow: jest.fn(() => mockedNow),
@@ -43,10 +45,16 @@ describe('Student Tasks Model', () => {
     ]);
   });
 
-  it('#upcomingEvents', () => {
+  it('#thisWeeksTasks', () => {
+    expect(tasks.thisWeeksTasks.length).toEqual(0);
+    tasks.array.forEach(t => t.due_at = tasks.startOfThisWeek);
+    expect(tasks.thisWeeksTasks.length).toEqual(tasks.array.length);
+  });
+
+  it('#upcomingTasks', () => {
     const task = tasks.array[0];
-    task.due_at = mockedNow.add(1, 'week').toDate();
-    expect(tasks.upcomingEvents()).toEqual(tasks.array);
+    task.due_at = mockedNow.startOf('isoweek').add(1, 'week').toDate();
+    expect(tasks.upcomingTasks).toContain(task);
   });
 
   it('#all_tasks_are_ready', () => {

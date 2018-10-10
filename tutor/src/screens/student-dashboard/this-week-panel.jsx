@@ -1,10 +1,8 @@
 import React from 'react';
 import Course from '../../models/course';
 import { observer } from 'mobx-react';
-import moment from 'moment';
 import Events from './events-panel';
 import EmptyPanel from './empty-panel';
-import { TimeStore } from '../../flux/time';
 
 @observer
 export default class ThisWeekPanel extends React.PureComponent {
@@ -15,11 +13,9 @@ export default class ThisWeekPanel extends React.PureComponent {
 
   render() {
     const { course, course: { studentTasks } } = this.props;
+    const tasks = studentTasks.thisWeeksTasks;
 
-    const startAt = moment(TimeStore.getNow()).startOf('isoweek');
-    const events = studentTasks.weeklyEventsForDay(startAt);
-
-    if (studentTasks.isPendingTaskLoading || !events.length) {
+    if (studentTasks.isPendingTaskLoading || !tasks.length) {
       return <EmptyPanel course={course} message='No assignments this week' />;
     }
 
@@ -27,9 +23,9 @@ export default class ThisWeekPanel extends React.PureComponent {
       <Events
         className="-this-week"
         course={course}
-        events={events}
-        startAt={startAt}
-        endAt={startAt.clone().add(1, 'week').subtract(1, 'second')}
+        events={tasks}
+        startAt={studentTasks.startOfThisWeek}
+        endAt={studentTasks.endOfThisWeek}
       />
     );
   }

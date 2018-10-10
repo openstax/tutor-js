@@ -16,14 +16,14 @@ export default class AllEventsByWeek extends React.PureComponent {
   }
 
   @autobind
-  renderWeek(events, week) {
+  renderWeek(tasks, week) {
     const startAt = moment(week, 'YYYYww');
     return (
       <EventsPanel
         key={week}
         className="-weeks-events"
         course={this.props.course}
-        events={events}
+        events={tasks}
         startAt={startAt}
         endAt={startAt.clone().add(1, 'week')} />
     );
@@ -31,7 +31,7 @@ export default class AllEventsByWeek extends React.PureComponent {
 
   render() {
     const { course, course: { studentTasks } } = this.props;
-    const weeks = studentTasks.pastEventsByWeek;
+    const weeks = studentTasks.pastTasksByWeek;
 
     if (studentTasks.isPendingTaskLoading || isEmpty(weeks)) {
       return <EmptyPanel course={course} message="No past assignments" />;

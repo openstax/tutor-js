@@ -245,13 +245,196 @@ exports[`Student Dashboard matches snapshot 1`] = `
           role="tabpanel"
         >
           <div
-            className="empty panel panel-default"
+            className="-this-week panel panel-default"
             id={undefined}
           >
             <div
               className="panel-body"
             >
-              No assignments this week
+              <div
+                className="row labels"
+              >
+                <div
+                  className="col-sm-7 col-xs-12"
+                >
+                  <span
+                    className="date-range"
+                  >
+                    <time>
+                      Oct 12, 2015
+                    </time>
+                    <span>
+                      –
+                    </span>
+                    <time>
+                      Oct 18, 2015
+                    </time>
+                  </span>
+                </div>
+                <div
+                  className="progress-label col-sm-3 col-sm-offset-0 col-xs-5 col-xs-offset-2"
+                >
+                  Progress
+                </div>
+                <div
+                  className="due-at-label col-sm-2 col-xs-5"
+                >
+                  Due
+                </div>
+              </div>
+              <a
+                aria-label="Work on reading: dot-com recontextualize communities"
+                className="task row reading"
+                data-event-id={1}
+                href="/course/1/task/1"
+                onClick={[Function]}
+                onKeyDown={undefined}
+                tabIndex={-1}
+              >
+                <div
+                  className="column-icon col-sm-1 col-xs-2"
+                >
+                  <i
+                    aria-label="reading icon"
+                    className="icon icon-lg icon-reading"
+                  />
+                </div>
+                <div
+                  className="title col-sm-6 col-xs-10"
+                >
+                  dot-com recontextualize communities
+                </div>
+                <div
+                  className="feedback col-sm-3 col-xs-5"
+                >
+                  <span>
+                    In progress
+                  </span>
+                </div>
+                <div
+                  className="due-at col-sm-2 col-xs-5"
+                >
+                  <time>
+                    Oct 18, 7:00am
+                  </time>
+                </div>
+              </a>
+              <a
+                aria-label="Work on external: out-of-the-box embrace supply-chains"
+                className="task row external"
+                data-event-id={2}
+                href="/course/1/task/2"
+                onClick={[Function]}
+                onKeyDown={undefined}
+                tabIndex={-1}
+              >
+                <div
+                  className="column-icon col-sm-1 col-xs-2"
+                >
+                  <i
+                    aria-label="external icon"
+                    className="icon icon-lg icon-external"
+                  />
+                </div>
+                <div
+                  className="title col-sm-6 col-xs-10"
+                >
+                  out-of-the-box embrace supply-chains
+                </div>
+                <div
+                  className="feedback col-sm-3 col-xs-5"
+                >
+                  <span>
+                    Not started
+                  </span>
+                </div>
+                <div
+                  className="due-at col-sm-2 col-xs-5"
+                >
+                  <time>
+                    Oct 18, 7:00am
+                  </time>
+                </div>
+              </a>
+              <a
+                aria-label="Work on event: B2B deliver content"
+                className="task row event"
+                data-event-id={3}
+                href="/course/1/task/3"
+                onClick={[Function]}
+                onKeyDown={undefined}
+                tabIndex={-1}
+              >
+                <div
+                  className="column-icon col-sm-1 col-xs-2"
+                >
+                  <i
+                    aria-label="event icon"
+                    className="icon icon-lg icon-event"
+                  />
+                </div>
+                <div
+                  className="title col-sm-6 col-xs-10"
+                >
+                  B2B deliver content
+                </div>
+                <div
+                  className="feedback col-sm-3 col-xs-5"
+                >
+                  <span>
+                    
+                  </span>
+                </div>
+                <div
+                  className="due-at col-sm-2 col-xs-5"
+                >
+                  <time>
+                    Oct 18, 7:00am
+                  </time>
+                </div>
+              </a>
+              <a
+                aria-label="Work on homework: virtual strategize infomediaries"
+                className="task row homework"
+                data-event-id={4}
+                href="/course/1/task/4"
+                onClick={[Function]}
+                onKeyDown={undefined}
+                tabIndex={-1}
+              >
+                <div
+                  className="column-icon col-sm-1 col-xs-2"
+                >
+                  <i
+                    aria-label="homework icon"
+                    className="icon icon-lg icon-homework"
+                  />
+                </div>
+                <div
+                  className="title col-sm-6 col-xs-10"
+                >
+                  virtual strategize infomediaries
+                </div>
+                <div
+                  className="feedback col-sm-3 col-xs-5"
+                >
+                  <span>
+                    <span
+                      className="tour-anchor"
+                      data-tour-anchor-id="assignment-progress-status"
+                    >
+                      10/11 answered
+                    </span>
+                  </span>
+                </div>
+                <div
+                  className="due-at col-sm-2 col-xs-5"
+                >
+                  <time>
+                    Oct 18, 7:00am
+                  </time>
+                </div>
+              </a>
             </div>
           </div>
           <div

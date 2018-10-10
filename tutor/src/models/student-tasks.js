@@ -3,13 +3,13 @@ import moment from 'moment-timezone';
 import { readonly } from 'core-decorators';
 import { computed, action, observable } from 'mobx';
 import { filter, groupBy, sortBy, pickBy } from 'lodash';
-import { TimeStore } from '../flux/time';
 import Task from './student/task';
 import ResearchSurveys from './research-surveys';
+import Time from './time';
 
 const MAX_POLLING_ATTEMPTS = 10;
 const POLL_SECONDS = 30;
-const ISOWEEK_FORMAT = 'GGGGWW';
+const WEEK_FORMAT = 'GGGGWW';
 const FETCH_INITIAL_TASKS_INTERVAL = 1000 * 60; // every minute;
 const REFRESH_TASKS_INTERVAL = 1000 * 60 * 60 * 4; // every 4 hours
 
@@ -27,7 +27,7 @@ export class CourseStudentTasks extends Map {
   }
 
   @computed get byWeek() {
-    const weeks = groupBy(this.array, event => moment(event.due_at).startOf('week').format(ISOWEEK_FORMAT));
+    const weeks = groupBy(this.array, event => moment(event.due_at).startOf('isoWeek').format(WEEK_FORMAT));
     const sorted = {};
     for (let weekId in weeks) {
       const events = weeks[weekId];
@@ -36,18 +36,36 @@ export class CourseStudentTasks extends Map {
     return sorted;
   }
 
-  @computed get pastEventsByWeek() {
-    const thisWeek = moment(TimeStore.getNow()).startOf('week').format(ISOWEEK_FORMAT);
+  @computed get pastTasksByWeek() {
+    const thisWeek = moment(Time.now).startOf('isoWeek').format(WEEK_FORMAT);
     return pickBy(this.byWeek, (events, week) => week < thisWeek);
   }
 
-  weeklyEventsForDay(day) {
-    return this.byWeek[moment(day).startOf('week').format(ISOWEEK_FORMAT)] || [];
+  weeklyTasksForDay(day) {
+    return this.byWeek[moment(day).startOf('isoWeek').format(WEEK_FORMAT)] || [];
   }
 
-  // Returns events who's due date has not passed
-  upcomingEvents(now = TimeStore.getNow()) {
-    return sortBy(filter(this.array, event => event.due_at > now), 'due_at');
+  @computed get startOfThisWeek() {
+    return moment(Time.now).startOf('isoWeek');
+  }
+
+  @computed get endOfThisWeek() {
+    return this.startOfThisWeek.clone().add(1, 'week').subtract(1, 'second');
+  }
+
+  @computed get thisWeeksTasks() {
+    return this.weeklyTasksForDay(this.startOfThisWeek);
+  }
+
+  // Returns events who's due after this week
+  @computed get upcomingTasks() {
+    const endOfWeek = this.endOfThisWeek;
+    return sortBy(
+      filter(
+        this.array, event => endOfWeek.isBefore(event.due_at)
+      ),
+      ['due_at', 'type', 'title']
+    );
   }
 
   // note: the response also contains limited course and role information but they're currently unused

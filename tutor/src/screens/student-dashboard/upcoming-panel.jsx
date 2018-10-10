@@ -1,10 +1,8 @@
 import React from 'react';
-import moment from 'moment';
 import { isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
 import EventsPanel from './events-panel';
 import EmptyPanel from './empty-panel';
-import { TimeStore } from '../../flux/time';
 import Course from '../../models/course';
 
 @observer
@@ -16,10 +14,10 @@ export default class UpcomingPanel extends React.PureComponent {
 
   render() {
     const { course, course: { studentTasks } } = this.props;
-    const startAt = moment(TimeStore.getNow()).startOf('isoweek').add(1, 'week');
-    const events  = studentTasks.upcomingEvents(startAt.toDate());
 
-    if (studentTasks.isPendingTaskLoading || isEmpty(events)) {
+    const tasks = studentTasks.upcomingTasks;
+
+    if (studentTasks.isPendingTaskLoading || isEmpty(tasks)) {
       return <EmptyPanel className="upcoming" course={course} message='No upcoming assignments' />;
     }
 
@@ -28,7 +26,7 @@ export default class UpcomingPanel extends React.PureComponent {
         className="upcoming"
         onTaskClick={this.onTaskClick}
         course={course}
-        events={events}
+        events={tasks}
         title="Coming Up" />
     );
   }
