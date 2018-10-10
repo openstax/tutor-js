@@ -76,6 +76,7 @@ export default class BookUX {
       cs = first(this.book.pages.byChapterSection.keys());
     }
     if (this.tours && this.tours.tourRide) {
+      // wait for React to re-render, mathjax to run, and the page to reflow
       setTimeout(() => invoke(this, 'tours.tourRide.joyrideRef.calcPlacement'), 10);
     }
     this.chapterSection = cs;
