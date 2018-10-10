@@ -71,7 +71,9 @@
   }
 }
 
-@mixin book-content-interactives() {
+@mixin book-content-interactives(
+  $narrow-horizontal-margin: $book-content-narrow-horizontal-padding
+) {
   iframe.interactive {
     width: 100%;
     height: $tutor-interactive-iframe-height;
@@ -82,7 +84,8 @@
     width: $tutor-interactive-iframe-width;
     margin-left: calc(50% - #{($tutor-interactive-iframe-width / 2)});
     @media screen and ( max-width: $book-content-collapse-breakpoint ){
-      margin-left: -$tutor-card-body-padding-horizontal;
+      margin-left: -$narrow-horizontal-margin;
+      margin-right: $narrow-horizontal-margin;
     }
 
   }

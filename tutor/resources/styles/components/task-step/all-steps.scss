@@ -63,7 +63,10 @@
         width: 100%;
 
         @include tutor-book-note-style();
-        @include book-content-interactives();
+        @include book-content-interactives(
+          $narrow-horizontal-margin: $tutor-card-body-padding-horizontal
+        );
+
       }
     }
 
