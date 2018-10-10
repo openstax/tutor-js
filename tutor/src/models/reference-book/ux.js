@@ -1,5 +1,5 @@
 import { observable, computed, action, observe } from 'mobx';
-import { extend, first } from 'lodash';
+import { first, invoke } from 'lodash';
 
 import WindowSize from '../window-size';
 import Courses from '../courses-map';
@@ -74,6 +74,10 @@ export default class BookUX {
   @action setChapterSection(cs) {
     if (this.book && !cs) {
       cs = first(this.book.pages.byChapterSection.keys());
+    }
+    if (this.tours && this.tours.tourRide) {
+      // wait for React to re-render, mathjax to run, and the page to reflow
+      setTimeout(() => invoke(this, 'tours.tourRide.joyrideRef.calcPlacement'), 10);
     }
     this.chapterSection = cs;
   }

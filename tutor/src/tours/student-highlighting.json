@@ -13,7 +13,10 @@
       "anchor_id": "student-highlighting-button",
       "position": "bottom",
       "is_fixed": true,
-      "customComponent": "NoClose"
+      "customComponent": "NoClose",
+      "action": {
+        "id": "reposition"
+      }
     }
   ]
 },
