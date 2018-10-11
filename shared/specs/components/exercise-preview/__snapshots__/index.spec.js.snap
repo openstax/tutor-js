@@ -1462,15 +1462,15 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                       }
                     }
                   />
-                  <div
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": <aside>
-                          Physics helps in predicting dynamics and movement of weather phenomenon such as a tornado or rain.
-                        </aside>,
+                  <aside>
+                    <div
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Physics helps in predicting dynamics and movement of weather phenomenon such as a tornado or rain.",
+                        }
                       }
-                    }
-                  />
+                    />
+                  </aside>
                 </div>
               </label>
             </section>
@@ -1505,15 +1505,15 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                       }
                     }
                   />
-                  <div
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": <aside>
-                          This would be chemistry rather than physics.
-                        </aside>,
+                  <aside>
+                    <div
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "This would be chemistry rather than physics.",
+                        }
                       }
-                    }
-                  />
+                    />
+                  </aside>
                 </div>
               </label>
             </section>
@@ -1548,15 +1548,15 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                       }
                     }
                   />
-                  <div
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": <aside>
-                          This is true, but its effects are not involved in day-to-day weather prediction.
-                        </aside>,
+                  <aside>
+                    <div
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "This is true, but its effects are not involved in day-to-day weather prediction.",
+                        }
                       }
-                    }
-                  />
+                    />
+                  </aside>
                 </div>
               </label>
             </section>
@@ -1591,15 +1591,15 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                       }
                     }
                   />
-                  <div
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": <aside>
-                          This is true, but it is not involved in day to day weather prediction.
-                        </aside>,
+                  <aside>
+                    <div
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "This is true, but it is not involved in day to day weather prediction.",
+                        }
                       }
-                    }
-                  />
+                    />
+                  </aside>
                 </div>
               </label>
             </section>
@@ -1634,15 +1634,15 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                       }
                     }
                   />
-                  <div
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": <aside>
-                          Physics helps in predicting dynamics and movement of weather phenomenon such as a tornado or rain.
-                        </aside>,
+                  <aside>
+                    <div
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Physics helps in predicting dynamics and movement of weather phenomenon such as a tornado or rain.",
+                        }
                       }
-                    }
-                  />
+                    />
+                  </aside>
                 </div>
               </label>
             </section>

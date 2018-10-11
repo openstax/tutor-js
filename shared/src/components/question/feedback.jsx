@@ -8,11 +8,13 @@ import ArbitraryHtmlAndMath from '../html';
 const SimpleFeedback = observer((props, context) => {
   const htmlAndMathProps = pick(context, 'processHtmlAndMath');
   return (
-    <ArbitraryHtmlAndMath
-      {...htmlAndMathProps}
-      className={classnames('question-feedback-content', 'has-html', props.className)}
-      html={<aside>{props.children}</aside>}
-      block={true} />
+    <aside>
+      <ArbitraryHtmlAndMath
+        {...htmlAndMathProps}
+        className={classnames('question-feedback-content', 'has-html', props.className)}
+        html={props.children}
+        block={true} />
+    </aside>
   );
 });
 SimpleFeedback.propTypes = {
@@ -26,7 +28,6 @@ SimpleFeedback.contextTypes = {
 const Feedback = observer((props, context) => {
   const wrapperClasses = classnames('question-feedback', props.position);
   const htmlAndMathProps = pick(context, 'processHtmlAndMath');
-
   return (
     <aside className={wrapperClasses}>
       <div className="arrow" aria-label="Answer Feedback" />
