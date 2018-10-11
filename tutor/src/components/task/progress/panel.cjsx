@@ -3,7 +3,7 @@ PureRenderMixin = require 'react-addons-pure-render-mixin'
 
 keymaster = require 'keymaster'
 classnames = require 'classnames'
-
+{default: ObscuredPage} = require '../../obscured-page'
 {default: PagingNavigation}  = require '../../paging-navigation'
 
 {TaskStore, TaskActions} = require '../../../flux/task'
@@ -71,16 +71,17 @@ ProgressPanel = React.createClass
     titles = TaskPanelStore.getTitlesForStepIndex(@props.taskId, this.props.stepKey)
     className = classnames('progress-panel', 'page-loading': isCompleting or isLoading)
 
-    <PagingNavigation
-      className={className}
-      enableKeys={@props.enableKeys}
-      isForwardEnabled={@state.shouldShowRight}
-      isBackwardEnabled={@state.shouldShowLeft}
-      onForwardNavigation={@goForward}
-      onBackwardNavigation={@goBackward}
-      titles={titles}
-    >
-      {@props.children}
-    </PagingNavigation>
-
+    <ObscuredPage>
+        <PagingNavigation
+           className={className}
+           enableKeys={@props.enableKeys}
+           isForwardEnabled={@state.shouldShowRight}
+           isBackwardEnabled={@state.shouldShowLeft}
+           onForwardNavigation={@goForward}
+           onBackwardNavigation={@goBackward}
+           titles={titles}
+         >
+           {@props.children}
+       </PagingNavigation>
+    </ObscuredPage>
 module.exports = ProgressPanel

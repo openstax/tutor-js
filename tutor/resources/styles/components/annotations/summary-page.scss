@@ -1,50 +1,41 @@
-.annotater {
-  .highlights-windowshade {
-    background-color: $tutor-neutral-light;
-    display: flex;
-    justify-content: center;
-    left: 0;
-    position: fixed;
-    right: 0;
-    top: 0;
-    z-index: 20;
+.highlights-windowshade {
+  background-color: $tutor-neutral-light;
+  display: flex;
+  justify-content: center;
+  overflow: auto;
+  padding-top: 5rem;
+  flex: 1;
+
+  @media print {
+    padding: 0;
+    position: static;
+  }
+  @include no-select();
+
+  &.animate-enter {
+    bottom: 100%;
+    overflow: hidden;
+  }
+  &.animate-enter-active {
     bottom: 0;
-    overflow: auto;
-    padding-top: 5rem;
-
-    @media print {
-      padding: 0;
-      position: static;
-    }
-    @include no-select();
-
-    &.animate-enter {
-      bottom: 100%;
-      overflow: hidden;
-    }
-    &.animate-enter-active {
-      transition: bottom 0.3s;
-      bottom: 0;
-    }
-
-    &.animate-leave {
-      bottom: 0;
-      overflow: hidden;
-    }
-    &.animate-leave-active {
-      transition: bottom 0.3s;
-      bottom: 100%;
-    }
-
-    h1 {
-      @include tutor-main-title-font();
-      border-top-width: 0;
-    }
-    h2 {
-      @include tutor-main-subtitle-font();
-    }
   }
 
+  &.animate-leave {
+    bottom: 0;
+    overflow: hidden;
+  }
+  &.animate-leave-active {
+    transition: bottom 0.3s;
+    bottom: 100%;
+  }
+
+  h1 {
+    @include tutor-main-title-font();
+    border-top-width: 0;
+  }
+  h2 {
+    @include tutor-main-subtitle-font();
+  }
 
   .summary-page {
     padding: 50px;
