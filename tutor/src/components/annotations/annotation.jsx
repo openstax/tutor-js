@@ -20,7 +20,7 @@ import ScrollTo from '../../helpers/scroll-to';
 import TextHighlighter from './highlighter';
 import Router from '../../helpers/router';
 import AnnotationsMap from '../../models/annotations';
-
+import Overlay from '../obscured-page/overlay';
 const highlighter = new TextHighlighter(document.body);
 
 function getRangeRect(win, range) {
@@ -350,7 +350,7 @@ export default class AnnotationWidget extends React.Component {
     }
 
     // snap to math
-    const getMath = node => dom(node).farthest('.MathJax,.MathJax_Display');
+    const getMath = node => node ? dom(node).farthest('.MathJax,.MathJax_Display') : null;
 
     const startMath = getMath(range.startContainer.nodeType === 3 /* #text */
       ? range.startContainer
@@ -593,15 +593,17 @@ export default class AnnotationWidget extends React.Component {
           activeAnnotation={this.activeAnnotation}
         />
         {this.renderStatusMessage()}
-        <WindowShade ux={this.ux}>
-          <SummaryPage
-            courseId={this.props.courseId}
-            annotations={this.props.annotations}
-            onDelete={this.onAnnotationDelete}
-            currentChapter={this.props.chapter}
-            currentSection={this.props.section}
-          />
-        </WindowShade>
+        <Overlay id="annotations-summary" visible={this.ux.isSummaryVisible}>
+          {() => (
+            <SummaryPage
+              courseId={this.props.courseId}
+              annotations={this.props.annotations}
+              onDelete={this.onAnnotationDelete}
+              currentChapter={this.props.chapter}
+              currentSection={this.props.section}
+            />
+          )}
+        </Overlay>
       </div>
     );
   }

@@ -10,6 +10,7 @@ import { TaskPanelStore } from '../../flux/task-panel';
 import TourRegion from '../tours/region';
 import TourAnchor from '../tours/anchor';
 import HighlightIcon from './highlight-icon';
+import Overlay from '../obscured-page/overlay';
 
 @observer
 export default class AnnotationSummaryToggle extends React.Component {

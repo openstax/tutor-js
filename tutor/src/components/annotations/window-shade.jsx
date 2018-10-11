@@ -3,6 +3,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
 import keymaster from 'keymaster';
+import Overlay from '../obscured-page/overlay';
 
 @observer
 export default class WindowShade extends React.Component {
@@ -29,20 +30,16 @@ export default class WindowShade extends React.Component {
   render() {
     const { ux, children } = this.props;
 
+    if (!ux.isSummaryVisible) { return null; }
+
     return (
-      <ReactCSSTransitionGroup
-        transitionName="animate"
-        transitionEnterTimeout={300}
-        transitionLeaveTimeout={300}
-      >
-        {ux.isSummaryVisible &&
-          <div key="shade" className="highlights-windowshade">
-            <div className='centered-content'>
-              {children}
-            </div>
+      <Overlay id="annotation-summary">
+        <div key="shade" className="highlights-windowshade">
+          <div className='centered-content'>
+            {children}
           </div>
-        }
-      </ReactCSSTransitionGroup>
+        </div>
+      </Overlay>
     );
 
   }

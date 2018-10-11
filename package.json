@@ -112,6 +112,7 @@
     "recordo": "0.0.6",
     "serializr": "^1.1.14",
     "simple-git": "^1.89.0",
+    "styled-components": "^3.4.10",
     "survey-react": "^1.0.1",
     "svg-url-loader": "2.3.2",
     "twix": "1.1.3",
