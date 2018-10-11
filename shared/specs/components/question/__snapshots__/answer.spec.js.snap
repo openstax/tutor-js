@@ -93,16 +93,16 @@ exports[`Answer Component renders answer feedback based on props 1`] = `
             }
           }
         />
-        <div
-          className="question-feedback-content has-html"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": <aside>
-                Physics helps in predicting dynamics and movement of weather phenomenon such as a tornado or rain.
-              </aside>,
+        <aside>
+          <div
+            className="question-feedback-content has-html"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Physics helps in predicting dynamics and movement of weather phenomenon such as a tornado or rain.",
+              }
             }
-          }
-        />
+          />
+        </aside>
       </div>
     </label>
   </section>
