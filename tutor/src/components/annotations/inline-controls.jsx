@@ -5,10 +5,9 @@ import HighlightIcon from './highlight-icon';
 
 const MARGIN = 100; // min amount of space that should be available on right of page
 
-const InlineControls = observer(({ selection, annotate, parentRect, highlight }) => {
-  if (!selection) { return null; }
+const InlineControls = observer(({rect, pendingHighlight, annotate, parentRect, highlight }) => {
+  if (!pendingHighlight || !rect) { return null; }
 
-  const { rect } = selection;
   const style = {
     top: `${rect.top - 70 - parentRect.top}px`,
     right: `${Math.max(parentRect.right - rect.right - 10, MARGIN)}px`,
@@ -30,8 +29,9 @@ InlineControls.displayName = 'InlineControls';
 InlineControls.propTypes = {
   annotate: React.PropTypes.func.isRequired,
   highlight: React.PropTypes.func.isRequired,
-  selection: React.PropTypes.object,
+  pendingHighlight: React.PropTypes.object,
   parentRect:  React.PropTypes.object,
+  rect: React.PropTypes.object,
 };
 
 export default InlineControls;

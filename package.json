@@ -43,6 +43,7 @@
   },
   "homepage": "https://github.com/openstax/tutor-js",
   "dependencies": {
+    "highlighter": "link:../highlighter",
     "axios": "0.15.3",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",

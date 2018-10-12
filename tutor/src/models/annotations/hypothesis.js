@@ -91,11 +91,7 @@ class Hypothesis extends BaseModel {
           text: annotation,
           target: [{
             selector: [
-              Object.assign(
-                { type: 'XpathRangeSelector' },
-                additionalData,
-                selection,
-              ),
+              additionalData
             ],
           }],
           group: this.userInfo.id,

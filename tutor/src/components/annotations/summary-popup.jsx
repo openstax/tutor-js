@@ -85,7 +85,7 @@ export default class SummaryPopup extends React.Component {
                         }}
 
                       >
-                        <ArbitraryHtmlAndMath html={annotation.selection.content} />
+                        <ArbitraryHtmlAndMath html={annotation.content} />
                       </blockquote>
                       <p
                         style={{

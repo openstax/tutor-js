@@ -36,7 +36,7 @@ const config = {
   devtool: production ? 'source-map' : 'inline-source-map',
   module: {
     rules: [
-      { test: /\.jsx?$/,   exclude: /node_modules/, loader: 'babel-loader'         },
+      { test: /\.jsx?$/,   exclude: /(node_modules|highlighter)/, loader: 'babel-loader'         },
       { test: /\.coffee$/, exclude: /node_modules/, loader: 'coffee-loader'        },
       { test: /\.cjsx$/,   exclude: /node_modules/, loader: 'coffee-jsx-loader'    },
       { test: /\.(png|jpg|svg|gif)/, loader: 'file-loader', options: {}            },
