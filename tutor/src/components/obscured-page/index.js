@@ -1,24 +1,25 @@
-import { React, action, observer } from '../../helpers/react';
+import { React, action, observer, cn } from '../../helpers/react';
+import styled, { css } from 'styled-components';
+import keymaster from 'keymaster';
 import { DefaultRegistry, OverlayRegistry } from './overlay-registry';
-import styled from 'styled-components';
 
-const PageWrapper = styled.div`
-  .overlay {
-     display: flex;
-     position: fixed;
-     left: 0;
-     right: 0;
-     top: 0;
-     height: 0%;
-     z-index: 20;
-overflow: hidden;
-     transition: height 3s;
-border: 1px solid red;
-     &.visible {
-        height: 100%;
-     }
-  }
-`
+const Overlay = styled.div`
+  display: flex;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 0%;
+  z-index: 20;
+  overflow: auto;
+  transition: height 0.4s;
+${props => props.isHidden && css`
+display: none;
+`}
+${props => props.isExpanded && css`
+height: 100%;
+`}
+`;
 
 @observer
 export default class ObscuredPage extends React.Component {
@@ -35,25 +36,31 @@ export default class ObscuredPage extends React.Component {
   @action.bound setPage(el) {
     this.props.registry.page = el;
   }
-  //
-  //   componentDidMount() {
-  //     this.props.registry.renderPage(this.props.children);
-  //   }
+
+
+  componentDidMount() {
+    keymaster('esc', this.props.registry.onEscKey);
+  }
 
   componentWillUnmount() {
-    this.props.registry.closePage();
+    keymaster.unbind('esc', this.props.registry.onEscKey);
   }
 
   render() {
-    const { registry } = this.props;
-
-//
+    const { registry, children } = this.props;
 
     return (
-      <PageWrapper className="obscured-page">
-        <div className={registry.pageClassName}>{this.props.children}</div>
-        <div className={registry.overlayClassName}>{registry.overlay}</div>
-      </PageWrapper>
+      <div className="obscured-page">
+        <div className={registry.pageClassName}>{children}</div>
+        <Overlay
+          isExpanded={registry.isOverlayExpanded}
+          isHidden={registry.isOverlayHidden}
+          onTransitionEnd={registry.onOverlayAnimated}
+          className={registry.overlayClassName}
+        >
+          {registry.overlay}
+        </Overlay>
+      </div>
     );
   }
 

@@ -1,44 +1,49 @@
-.highlights-windowshade {
+.overlay.annotations-summary {
   background-color: $tutor-neutral-light;
-  display: flex;
   justify-content: center;
-  overflow: auto;
-  padding-top: 5rem;
-  flex: 1;
+
+  @media print {
+    flex-basis: calc(100% - 8rem);
+    transform: translateX(1rem);
+  }
+
 
   @media print {
     padding: 0;
     position: static;
   }
-  @include no-select();
 
-  &.animate-enter {
-    bottom: 100%;
-    overflow: hidden;
-  }
-  &.animate-enter-active {
-    bottom: 0;
-  }
-
-  &.animate-leave {
-    bottom: 0;
-    overflow: hidden;
-  }
-  &.animate-leave-active {
-    transition: bottom 0.3s;
-    bottom: 100%;
-  }
-
-  h1 {
-    @include tutor-main-title-font();
-    border-top-width: 0;
-  }
-  h2 {
-    @include tutor-main-subtitle-font();
-  }
 
   .summary-page {
     padding: 50px;
+    flex-basis: 100%;
+    max-width: $tutor-max-panel-width;
+    margin-top: $openstax-navbar-height;
+
+    .filter-area {
+      display: flex;
+      justify-content: space-between;
+    }
+    .filter-widget {
+      display: flex;
+      flex-direction: column;
+      width: 40rem;
+      .rw-widget { width: 100%; }
+      .section {
+        display: inline-block;
+        margin-left: 0.5rem;
+        min-width: 2.8rem;
+        font-weight: bold;
+      }
+    }
+
+    h1 {
+      @include tutor-main-title-font();
+      border-top-width: 0;
+    }
+    h2 {
+      @include tutor-main-subtitle-font();
+    }
 
     .annotation-card {
       padding-bottom: 3rem;

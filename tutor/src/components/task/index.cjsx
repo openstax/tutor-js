@@ -20,6 +20,7 @@ Breadcrumbs = require './breadcrumbs'
 TaskProgress = require './progress'
 ProgressPanel = require './progress/panel'
 {Milestones, Milestone} = require './progress/milestones'
+{default: Overlay} = require '../obscured-page/overlay'
 TeacherReviewControls = require './teacher-review-controls'
 
 {StepPanel} = require '../../helpers/policies'
@@ -285,6 +286,7 @@ Task = React.createClass
 
   render: ->
     {id} = @props
+
     {milestonesEntered} = @state
     {courseId} = Router.currentParams()
     showMilestones = Router.currentParams().milestones?
@@ -312,17 +314,26 @@ Task = React.createClass
         goToStep={@goToStep}
         key="task-#{id}-breadcrumbs"/>
       header = breadcrumbs
-
+    milestones = null
     if TaskStore.hasProgress(id)
 
       header = <TaskProgress taskId={id} stepIndex={@state.currentStep} key='task-progress'/>
-      milestones = <Milestones
-        id={id}
-        goToStep={@goToStep}
-        closeMilestones={@closeMilestones}
-        filterClick={@filterClickForMilestones}
-        handleTransitions={@toggleMilestonesEntered}
-        showMilestones={showMilestones}/>
+      milestones = (
+        <Overlay
+          id="task-milestones"
+          visible={!!showMilestones}
+          onHide={@closeMilestones}
+          renderer={() => (
+              <Milestones
+                id={id}
+                goToStep={@goToStep}
+                filterClick={@filterClickForMilestones}
+                handleTransitions={@toggleMilestonesEntered}
+                showMilestones={showMilestones}
+              />
+          )}
+        />
+      )
 
       panel = <ProgressPanel
         taskId={id}

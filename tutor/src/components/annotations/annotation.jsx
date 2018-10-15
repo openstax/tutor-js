@@ -15,7 +15,6 @@ import Courses from '../../models/courses-map';
 import EditBox from './edit-box';
 import SidebarButtons from './sidebar-buttons';
 import InlineControls from './inline-controls';
-import WindowShade from './window-shade';
 import ScrollTo from '../../helpers/scroll-to';
 import TextHighlighter from './highlighter';
 import Router from '../../helpers/router';
@@ -593,8 +592,11 @@ export default class AnnotationWidget extends React.Component {
           activeAnnotation={this.activeAnnotation}
         />
         {this.renderStatusMessage()}
-        <Overlay id="annotations-summary" visible={this.ux.isSummaryVisible}>
-          {() => (
+        <Overlay
+          id="annotations-summary"
+          visible={this.ux.isSummaryVisible}
+          onHide={this.ux.hideSummary}
+          renderer={() => (
             <SummaryPage
               courseId={this.props.courseId}
               annotations={this.props.annotations}
@@ -603,7 +605,7 @@ export default class AnnotationWidget extends React.Component {
               currentSection={this.props.section}
             />
           )}
-        </Overlay>
+        />
       </div>
     );
   }
