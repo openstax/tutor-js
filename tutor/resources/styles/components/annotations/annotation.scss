@@ -198,25 +198,6 @@
       display: none;
     }
   }
-
-  .filter-area {
-    display: flex;
-    justify-content: space-between;
-  }
-  .filter-widget {
-    display: flex;
-    flex-direction: column;
-    width: 40rem;
-    .rw-widget { width: 100%; }
-    .section {
-      display: inline-block;
-      margin-left: 0.5rem;
-      min-width: 2.8rem;
-      font-weight: bold;
-    }
-  }
-
-
 }
 
 // override reference book style

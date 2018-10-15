@@ -43,6 +43,10 @@ export default class AnnotatorUX {
 
   @observable isSummaryVisible = false;
 
+  @action.bound hideSummary() {
+    this.isSummaryVisible = false;
+  }
+
   @action.bound toggleSummary() {
     this.isSummaryVisible = !this.isSummaryVisible;
   }

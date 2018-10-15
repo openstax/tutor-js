@@ -68,8 +68,8 @@ Milestone = React.createClass
       </div>
     </BS.Col>
 
-MilestonesWrapper = React.createClass
-  displayName: 'MilestonesWrapper'
+Milestones = React.createClass
+  displayName: 'Milestones'
 
   mixins: [ChapterSectionMixin]
 
@@ -147,26 +147,4 @@ MilestonesWrapper = React.createClass
       </div>
     </div>
 
-
-Milestones = React.createClass
-  displayName: 'Milestones'
-  propTypes:
-    showMilestones: React.PropTypes.bool.isRequired
-
-  render: ->
-
-    milestones = <MilestonesWrapper
-      {...@props}
-      ref='milestones'/> if @props.showMilestones
-
-    <ReactCSSTransitionGroup
-      transitionName='task-with-milestones'
-      transitionEnterTimeout={300}
-      transitionLeaveTimeout={300}
-      transitionAppearTimeout={0}
-      transitionAppear={true}
-    >
-      {milestones}
-    </ReactCSSTransitionGroup>
-
-module.exports = {MilestonesWrapper, Milestone, Milestones}
+module.exports = {Milestones, Milestone}
