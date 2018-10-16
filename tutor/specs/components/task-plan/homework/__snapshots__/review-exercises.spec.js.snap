@@ -255,16 +255,18 @@ exports[`choose exercises component matches snapshot 1`] = `
                   className="openstax-answer"
                 >
                   <section
-                    aria-label="Choice a:"
+                    aria-labelledby="1-label-0"
                     className="answers-answer disabled"
                     role="region"
                   >
                     <label
                       className="answer-label"
                       htmlFor="1-option-0"
+                      id="1-label-0"
                       onKeyPress={[Function]}
                     >
                       <button
+                        aria-label="Choice a:"
                         className="answer-letter"
                         disabled={true}
                         onClick={undefined}
@@ -294,16 +296,18 @@ exports[`choose exercises component matches snapshot 1`] = `
                   className="openstax-answer"
                 >
                   <section
-                    aria-label="Choice b:"
+                    aria-labelledby="1-label-1"
                     className="answers-answer disabled"
                     role="region"
                   >
                     <label
                       className="answer-label"
                       htmlFor="1-option-1"
+                      id="1-label-1"
                       onKeyPress={[Function]}
                     >
                       <button
+                        aria-label="Choice b:"
                         className="answer-letter"
                         disabled={true}
                         onClick={undefined}
@@ -333,16 +337,18 @@ exports[`choose exercises component matches snapshot 1`] = `
                   className="openstax-answer"
                 >
                   <section
-                    aria-label="Choice c:"
+                    aria-labelledby="1-label-2"
                     className="answers-answer disabled"
                     role="region"
                   >
                     <label
                       className="answer-label"
                       htmlFor="1-option-2"
+                      id="1-label-2"
                       onKeyPress={[Function]}
                     >
                       <button
+                        aria-label="Choice c:"
                         className="answer-letter"
                         disabled={true}
                         onClick={undefined}
@@ -372,16 +378,18 @@ exports[`choose exercises component matches snapshot 1`] = `
                   className="openstax-answer"
                 >
                   <section
-                    aria-label="Choice d:"
+                    aria-labelledby="1-label-3"
                     className="answers-answer disabled"
                     role="region"
                   >
                     <label
                       className="answer-label"
                       htmlFor="1-option-3"
+                      id="1-label-3"
                       onKeyPress={[Function]}
                     >
                       <button
+                        aria-label="Choice d:"
                         className="answer-letter"
                         disabled={true}
                         onClick={undefined}
@@ -411,16 +419,18 @@ exports[`choose exercises component matches snapshot 1`] = `
                   className="openstax-answer"
                 >
                   <section
-                    aria-label="Choice e:"
+                    aria-labelledby="1-label-4"
                     className="answers-answer disabled"
                     role="region"
                   >
                     <label
                       className="answer-label"
                       htmlFor="1-option-4"
+                      id="1-label-4"
                       onKeyPress={[Function]}
                     >
                       <button
+                        aria-label="Choice e:"
                         className="answer-letter"
                         disabled={true}
                         onClick={undefined}
@@ -543,16 +553,18 @@ exports[`choose exercises component matches snapshot 1`] = `
                   className="openstax-answer"
                 >
                   <section
-                    aria-label="Choice a:"
+                    aria-labelledby="2-label-0"
                     className="answers-answer disabled"
                     role="region"
                   >
                     <label
                       className="answer-label"
                       htmlFor="2-option-0"
+                      id="2-label-0"
                       onKeyPress={[Function]}
                     >
                       <button
+                        aria-label="Choice a:"
                         className="answer-letter"
                         disabled={true}
                         onClick={undefined}
@@ -577,16 +589,18 @@ exports[`choose exercises component matches snapshot 1`] = `
                   className="openstax-answer"
                 >
                   <section
-                    aria-label="Choice b:"
+                    aria-labelledby="2-label-1"
                     className="answers-answer disabled"
                     role="region"
                   >
                     <label
                       className="answer-label"
                       htmlFor="2-option-1"
+                      id="2-label-1"
                       onKeyPress={[Function]}
                     >
                       <button
+                        aria-label="Choice b:"
                         className="answer-letter"
                         disabled={true}
                         onClick={undefined}
@@ -611,16 +625,18 @@ exports[`choose exercises component matches snapshot 1`] = `
                   className="openstax-answer"
                 >
                   <section
-                    aria-label="Choice c:"
+                    aria-labelledby="2-label-2"
                     className="answers-answer disabled"
                     role="region"
                   >
                     <label
                       className="answer-label"
                       htmlFor="2-option-2"
+                      id="2-label-2"
                       onKeyPress={[Function]}
                     >
                       <button
+                        aria-label="Choice c:"
                         className="answer-letter"
                         disabled={true}
                         onClick={undefined}
@@ -645,16 +661,18 @@ exports[`choose exercises component matches snapshot 1`] = `
                   className="openstax-answer"
                 >
                   <section
-                    aria-label="Choice d:"
+                    aria-labelledby="2-label-3"
                     className="answers-answer disabled"
                     role="region"
                   >
                     <label
                       className="answer-label"
                       htmlFor="2-option-3"
+                      id="2-label-3"
                       onKeyPress={[Function]}
                     >
                       <button
+                        aria-label="Choice d:"
                         className="answer-letter"
                         disabled={true}
                         onClick={undefined}
@@ -679,16 +697,18 @@ exports[`choose exercises component matches snapshot 1`] = `
                   className="openstax-answer"
                 >
                   <section
-                    aria-label="Choice e:"
+                    aria-labelledby="2-label-4"
                     className="answers-answer disabled"
                     role="region"
                   >
                     <label
                       className="answer-label"
                       htmlFor="2-option-4"
+                      id="2-label-4"
                       onKeyPress={[Function]}
                     >
                       <button
+                        aria-label="Choice e:"
                         className="answer-letter"
                         disabled={true}
                         onClick={undefined}
@@ -813,16 +833,18 @@ exports[`choose exercises component matches snapshot 1`] = `
                   className="openstax-answer"
                 >
                   <section
-                    aria-label="Choice a:"
+                    aria-labelledby="3-label-0"
                     className="answers-answer disabled"
                     role="region"
                   >
                     <label
                       className="answer-label"
                       htmlFor="3-option-0"
+                      id="3-label-0"
                       onKeyPress={[Function]}
                     >
                       <button
+                        aria-label="Choice a:"
                         className="answer-letter"
                         disabled={true}
                         onClick={undefined}
@@ -847,16 +869,18 @@ exports[`choose exercises component matches snapshot 1`] = `
                   className="openstax-answer"
                 >
                   <section
-                    aria-label="Choice b:"
+                    aria-labelledby="3-label-1"
                     className="answers-answer disabled"
                     role="region"
                   >
                     <label
                       className="answer-label"
                       htmlFor="3-option-1"
+                      id="3-label-1"
                       onKeyPress={[Function]}
                     >
                       <button
+                        aria-label="Choice b:"
                         className="answer-letter"
                         disabled={true}
                         onClick={undefined}
@@ -881,16 +905,18 @@ exports[`choose exercises component matches snapshot 1`] = `
                   className="openstax-answer"
                 >
                   <section
-                    aria-label="Choice c:"
+                    aria-labelledby="3-label-2"
                     className="answers-answer disabled"
                     role="region"
                   >
                     <label
                       className="answer-label"
                       htmlFor="3-option-2"
+                      id="3-label-2"
                       onKeyPress={[Function]}
                     >
                       <button
+                        aria-label="Choice c:"
                         className="answer-letter"
                         disabled={true}
                         onClick={undefined}
@@ -915,16 +941,18 @@ exports[`choose exercises component matches snapshot 1`] = `
                   className="openstax-answer"
                 >
                   <section
-                    aria-label="Choice d:"
+                    aria-labelledby="3-label-3"
                     className="answers-answer disabled"
                     role="region"
                   >
                     <label
                       className="answer-label"
                       htmlFor="3-option-3"
+                      id="3-label-3"
                       onKeyPress={[Function]}
                     >
                       <button
+                        aria-label="Choice d:"
                         className="answer-letter"
                         disabled={true}
                         onClick={undefined}
@@ -949,16 +977,18 @@ exports[`choose exercises component matches snapshot 1`] = `
                   className="openstax-answer"
                 >
                   <section
-                    aria-label="Choice e:"
+                    aria-labelledby="3-label-4"
                     className="answers-answer disabled"
                     role="region"
                   >
                     <label
                       className="answer-label"
                       htmlFor="3-option-4"
+                      id="3-label-4"
                       onKeyPress={[Function]}
                     >
                       <button
+                        aria-label="Choice e:"
                         className="answer-letter"
                         disabled={true}
                         onClick={undefined}
