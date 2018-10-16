@@ -42,7 +42,7 @@ Interactive = React.createClass
     {id} = @props
     {courseId} = Router.currentParams()
 
-    <ReadingStepContent id={id} stepType='interactive' courseId={courseId} />
+    <ReadingStepContent id={id} onContinue={@onContinue} stepType='interactive' courseId={courseId} />
 
 Video = React.createClass
   displayName: 'Video'
@@ -54,7 +54,7 @@ Video = React.createClass
     {id} = @props
     {courseId} = Router.currentParams()
 
-    <ReadingStepContent id={id} stepType='video' courseId={courseId} />
+    <ReadingStepContent id={id} onContinue={@onContinue} stepType='video' courseId={courseId} />
 
 ExternalUrl = React.createClass
   displayName: 'ExternalUrl'

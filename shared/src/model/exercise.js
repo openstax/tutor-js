@@ -66,6 +66,7 @@ export default class Exercise extends BaseModel {
   @action toggleMultiPart() {
     if (this.isMultiPart) {
       this.questions.replace([this.questions[0]]);
+      this.stimulus_html = '';
     } else {
       this.questions.push({});
     }

@@ -5,6 +5,7 @@ exports[`Answer Component renders answer 1`] = `
   className="openstax-answer"
 >
   <section
+    aria-label="Choice b:"
     className="answers-answer"
     role="region"
   >
@@ -23,7 +24,6 @@ exports[`Answer Component renders answer 1`] = `
       onKeyPress={[Function]}
     >
       <button
-        aria-label="Choice b:"
         className="answer-letter"
         disabled={false}
         onClick={[Function]}
@@ -57,6 +57,7 @@ exports[`Answer Component renders answer feedback based on props 1`] = `
   className="openstax-answer"
 >
   <section
+    aria-label="Choice b:"
     className="answers-answer"
     role="region"
   >
@@ -75,7 +76,6 @@ exports[`Answer Component renders answer feedback based on props 1`] = `
       onKeyPress={[Function]}
     >
       <button
-        aria-label="Choice b:"
         className="answer-letter"
         disabled={false}
         onClick={[Function]}
