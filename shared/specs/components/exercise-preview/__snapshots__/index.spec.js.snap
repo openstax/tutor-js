@@ -48,6 +48,7 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
             className="openstax-answer"
           >
             <section
+              aria-label="Choice a:"
               className="answers-answer disabled"
               role="region"
             >
@@ -57,7 +58,6 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice a:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -82,6 +82,7 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
             className="openstax-answer"
           >
             <section
+              aria-label="Choice b:"
               className="answers-answer disabled"
               role="region"
             >
@@ -91,7 +92,6 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice b:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -116,6 +116,7 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
             className="openstax-answer"
           >
             <section
+              aria-label="Choice c:"
               className="answers-answer disabled"
               role="region"
             >
@@ -125,7 +126,6 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice c:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -150,6 +150,7 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
             className="openstax-answer"
           >
             <section
+              aria-label="Choice d:"
               className="answers-answer disabled"
               role="region"
             >
@@ -159,7 +160,6 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice d:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -184,6 +184,7 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
             className="openstax-answer"
           >
             <section
+              aria-label="Choice e:"
               className="answers-answer disabled"
               role="region"
             >
@@ -193,7 +194,6 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice e:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -363,6 +363,7 @@ exports[`Exercise Preview Component can render question formats 1`] = `
             className="openstax-answer"
           >
             <section
+              aria-label="Choice a:"
               className="answers-answer disabled"
               role="region"
             >
@@ -372,7 +373,6 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice a:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -397,6 +397,7 @@ exports[`Exercise Preview Component can render question formats 1`] = `
             className="openstax-answer"
           >
             <section
+              aria-label="Choice b:"
               className="answers-answer disabled"
               role="region"
             >
@@ -406,7 +407,6 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice b:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -431,6 +431,7 @@ exports[`Exercise Preview Component can render question formats 1`] = `
             className="openstax-answer"
           >
             <section
+              aria-label="Choice c:"
               className="answers-answer disabled"
               role="region"
             >
@@ -440,7 +441,6 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice c:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -465,6 +465,7 @@ exports[`Exercise Preview Component can render question formats 1`] = `
             className="openstax-answer"
           >
             <section
+              aria-label="Choice d:"
               className="answers-answer disabled"
               role="region"
             >
@@ -474,7 +475,6 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice d:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -499,6 +499,7 @@ exports[`Exercise Preview Component can render question formats 1`] = `
             className="openstax-answer"
           >
             <section
+              aria-label="Choice e:"
               className="answers-answer disabled"
               role="region"
             >
@@ -508,7 +509,6 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice e:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -634,6 +634,7 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
             className="openstax-answer"
           >
             <section
+              aria-label="Choice a:"
               className="answers-answer disabled"
               role="region"
             >
@@ -643,7 +644,6 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice a:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -668,6 +668,7 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
             className="openstax-answer"
           >
             <section
+              aria-label="Choice b:"
               className="answers-answer disabled"
               role="region"
             >
@@ -677,7 +678,6 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice b:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -702,6 +702,7 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
             className="openstax-answer"
           >
             <section
+              aria-label="Choice c:"
               className="answers-answer disabled"
               role="region"
             >
@@ -711,7 +712,6 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice c:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -736,6 +736,7 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
             className="openstax-answer"
           >
             <section
+              aria-label="Choice d:"
               className="answers-answer disabled"
               role="region"
             >
@@ -745,7 +746,6 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice d:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -770,6 +770,7 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
             className="openstax-answer"
           >
             <section
+              aria-label="Choice e:"
               className="answers-answer disabled"
               role="region"
             >
@@ -779,7 +780,6 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice e:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -883,6 +883,7 @@ exports[`Exercise Preview Component limits tags 1`] = `
             className="openstax-answer"
           >
             <section
+              aria-label="Choice a:"
               className="answers-answer disabled"
               role="region"
             >
@@ -892,7 +893,6 @@ exports[`Exercise Preview Component limits tags 1`] = `
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice a:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -917,6 +917,7 @@ exports[`Exercise Preview Component limits tags 1`] = `
             className="openstax-answer"
           >
             <section
+              aria-label="Choice b:"
               className="answers-answer disabled"
               role="region"
             >
@@ -926,7 +927,6 @@ exports[`Exercise Preview Component limits tags 1`] = `
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice b:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -951,6 +951,7 @@ exports[`Exercise Preview Component limits tags 1`] = `
             className="openstax-answer"
           >
             <section
+              aria-label="Choice c:"
               className="answers-answer disabled"
               role="region"
             >
@@ -960,7 +961,6 @@ exports[`Exercise Preview Component limits tags 1`] = `
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice c:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -985,6 +985,7 @@ exports[`Exercise Preview Component limits tags 1`] = `
             className="openstax-answer"
           >
             <section
+              aria-label="Choice d:"
               className="answers-answer disabled"
               role="region"
             >
@@ -994,7 +995,6 @@ exports[`Exercise Preview Component limits tags 1`] = `
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice d:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -1019,6 +1019,7 @@ exports[`Exercise Preview Component limits tags 1`] = `
             className="openstax-answer"
           >
             <section
+              aria-label="Choice e:"
               className="answers-answer disabled"
               role="region"
             >
@@ -1028,7 +1029,6 @@ exports[`Exercise Preview Component limits tags 1`] = `
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice e:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -1162,6 +1162,7 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
             className="openstax-answer"
           >
             <section
+              aria-label="Choice a:"
               className="answers-answer disabled"
               role="region"
             >
@@ -1171,7 +1172,6 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice a:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -1201,6 +1201,7 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
             className="openstax-answer"
           >
             <section
+              aria-label="Choice b:"
               className="answers-answer disabled"
               role="region"
             >
@@ -1210,7 +1211,6 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice b:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -1240,6 +1240,7 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
             className="openstax-answer"
           >
             <section
+              aria-label="Choice c:"
               className="answers-answer disabled"
               role="region"
             >
@@ -1249,7 +1250,6 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice c:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -1279,6 +1279,7 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
             className="openstax-answer"
           >
             <section
+              aria-label="Choice d:"
               className="answers-answer disabled"
               role="region"
             >
@@ -1288,7 +1289,6 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice d:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -1318,6 +1318,7 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
             className="openstax-answer"
           >
             <section
+              aria-label="Choice e:"
               className="answers-answer disabled"
               role="region"
             >
@@ -1327,7 +1328,6 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice e:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -1436,6 +1436,7 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
             className="openstax-answer"
           >
             <section
+              aria-label="Choice a:"
               className="answers-answer disabled"
               role="region"
             >
@@ -1445,7 +1446,6 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice a:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -1479,6 +1479,7 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
             className="openstax-answer"
           >
             <section
+              aria-label="Choice b:"
               className="answers-answer disabled"
               role="region"
             >
@@ -1488,7 +1489,6 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice b:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -1522,6 +1522,7 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
             className="openstax-answer"
           >
             <section
+              aria-label="Choice c:"
               className="answers-answer disabled"
               role="region"
             >
@@ -1531,7 +1532,6 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice c:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -1565,6 +1565,7 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
             className="openstax-answer"
           >
             <section
+              aria-label="Choice d:"
               className="answers-answer disabled"
               role="region"
             >
@@ -1574,7 +1575,6 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice d:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}
@@ -1608,6 +1608,7 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
             className="openstax-answer"
           >
             <section
+              aria-label="Choice e:"
               className="answers-answer disabled"
               role="region"
             >
@@ -1617,7 +1618,6 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                 onKeyPress={[Function]}
               >
                 <button
-                  aria-label="Choice e:"
                   className="answer-letter"
                   disabled={true}
                   onClick={undefined}

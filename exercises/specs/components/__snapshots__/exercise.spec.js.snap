@@ -1163,6 +1163,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 className="openstax-answer"
               >
                 <section
+                  aria-label="Choice a:"
                   className="answers-answer disabled"
                   role="region"
                 >
@@ -1172,7 +1173,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     onKeyPress={[Function]}
                   >
                     <button
-                      aria-label="Choice a:"
                       className="answer-letter"
                       disabled={true}
                       onClick={undefined}
@@ -1211,6 +1211,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 className="openstax-answer"
               >
                 <section
+                  aria-label="Choice b:"
                   className="answers-answer disabled"
                   role="region"
                 >
@@ -1220,7 +1221,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     onKeyPress={[Function]}
                   >
                     <button
-                      aria-label="Choice b:"
                       className="answer-letter"
                       disabled={true}
                       onClick={undefined}
@@ -1259,6 +1259,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 className="openstax-answer"
               >
                 <section
+                  aria-label="Choice c:"
                   className="answers-answer disabled"
                   role="region"
                 >
@@ -1268,7 +1269,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     onKeyPress={[Function]}
                   >
                     <button
-                      aria-label="Choice c:"
                       className="answer-letter"
                       disabled={true}
                       onClick={undefined}
@@ -1307,6 +1307,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 className="openstax-answer"
               >
                 <section
+                  aria-label="Choice d:"
                   className="answers-answer disabled"
                   role="region"
                 >
@@ -1316,7 +1317,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     onKeyPress={[Function]}
                   >
                     <button
-                      aria-label="Choice d:"
                       className="answer-letter"
                       disabled={true}
                       onClick={undefined}
@@ -1355,6 +1355,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 className="openstax-answer"
               >
                 <section
+                  aria-label="Choice e:"
                   className="answers-answer disabled"
                   role="region"
                 >
@@ -1364,7 +1365,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     onKeyPress={[Function]}
                   >
                     <button
-                      aria-label="Choice e:"
                       className="answer-letter"
                       disabled={true}
                       onClick={undefined}
@@ -2641,6 +2641,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                 className="openstax-answer"
               >
                 <section
+                  aria-label="Choice a:"
                   className="answers-answer disabled"
                   role="region"
                 >
@@ -2650,7 +2651,6 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                     onKeyPress={[Function]}
                   >
                     <button
-                      aria-label="Choice a:"
                       className="answer-letter"
                       disabled={true}
                       onClick={undefined}
@@ -2684,6 +2684,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                 className="openstax-answer"
               >
                 <section
+                  aria-label="Choice b:"
                   className="answers-answer disabled"
                   role="region"
                 >
@@ -2693,7 +2694,6 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                     onKeyPress={[Function]}
                   >
                     <button
-                      aria-label="Choice b:"
                       className="answer-letter"
                       disabled={true}
                       onClick={undefined}
@@ -2727,6 +2727,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                 className="openstax-answer"
               >
                 <section
+                  aria-label="Choice c:"
                   className="answers-answer disabled"
                   role="region"
                 >
@@ -2736,7 +2737,6 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                     onKeyPress={[Function]}
                   >
                     <button
-                      aria-label="Choice c:"
                       className="answer-letter"
                       disabled={true}
                       onClick={undefined}
@@ -2770,6 +2770,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                 className="openstax-answer"
               >
                 <section
+                  aria-label="Choice d:"
                   className="answers-answer disabled"
                   role="region"
                 >
@@ -2779,7 +2780,6 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                     onKeyPress={[Function]}
                   >
                     <button
-                      aria-label="Choice d:"
                       className="answer-letter"
                       disabled={true}
                       onClick={undefined}
@@ -2813,6 +2813,7 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                 className="openstax-answer"
               >
                 <section
+                  aria-label="Choice e:"
                   className="answers-answer disabled"
                   role="region"
                 >
@@ -2822,7 +2823,6 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                     onKeyPress={[Function]}
                   >
                     <button
-                      aria-label="Choice e:"
                       className="answer-letter"
                       disabled={true}
                       onClick={undefined}

@@ -179,7 +179,7 @@ export default class Answer extends React.Component {
 
     return (
       <div className="openstax-answer">
-        <section role="region" className={classes}>
+        <section aria-label={ariaLabel} role="region" className={classes}>
           {selectedCount}
           {radioBox}
           <label
@@ -189,7 +189,6 @@ export default class Answer extends React.Component {
             <button
               onClick={onChange}
               className="answer-letter"
-              aria-label={ariaLabel}
               disabled={disabled}>
               {ALPHABET[iter]}
             </button>
