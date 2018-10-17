@@ -112,6 +112,7 @@ class ExerciseDetails extends React.Component {
               isSelected={this.props.getExerciseIsSelected(exercise)}
               overlayActions={this.props.getExerciseActions(exercise)}
               displayFeedback={this.props.displayFeedback}
+              extractedInfo={exercise}
               exercise={exercise.content}
               actionsOnSide={true} />
           </PagingNavigation>

@@ -15,6 +15,7 @@ const ExercisePreviewWrapper = observer((props) => {
         isVerticallyTruncated={true}
         isSelected={props.getExerciseIsSelected(exercise)}
         exercise={exercise.content}
+        extractedInfo={exercise}
         onOverlayClick={props.onExerciseToggle}
         overlayActions={props.getExerciseActions(exercise)} />
     </TourAnchor>
