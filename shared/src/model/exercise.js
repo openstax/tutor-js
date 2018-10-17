@@ -32,6 +32,7 @@ export default class Exercise extends BaseModel {
   @field is_vocab;
   @field number;
   @field stimulus_html;
+
   @session published_at;
   @session wrapper;
 

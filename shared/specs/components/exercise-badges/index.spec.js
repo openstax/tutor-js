@@ -1,35 +1,41 @@
-import { Testing, expect, sinon, _, ReactTestUtils } from 'shared/specs/helpers';
-import ld from 'lodash';
+import Renderer from 'react-test-renderer';
 import Badges from 'components/exercise-badges';
-
-import EXERCISE from '../../../api/exercise-preview/data';
 
 describe('Exercise Preview Component', function() {
   let props = null;
   beforeEach(function() {
     props = {
-      exercise: ld.cloneDeep(EXERCISE),
+      flags: {
+        hasInteractive: false,
+        hasVideo: false,
+        isMultiPart: false,
+      },
     };});
 
   it('doesnt render if no items were found', function() {
-    props.exercise.has_interactive = false;
-    props.exercise.has_video = false;
-    props.exercise.content.questions = [ props.exercise.content.questions[0] ];
-    return Testing.renderComponent( Badges, { props: props } ).then(({ dom }) => expect(dom).not.to.exist);
+    const badges = mount(<Badges {...props} />);
+    expect(badges.html()).toBeNull();
+    badges.unmount();
   });
 
-  it('renders interactive embed', function() {
-    props.exercise.has_interactive = true;
-    return Testing.renderComponent( Badges, { props: props } ).then(({ dom }) => expect( dom.querySelector('.interactive') ).to.exist);
+  it('renders interactive', function() {
+    props.flags.hasInteractive = true;
+    const badges = Renderer.create(<Badges {...props} />);
+    expect(badges.toJSON()).toMatchSnapshot();
+    badges.unmount();
   });
 
   it('renders for video', function() {
-    props.exercise.has_video = true;
-    return Testing.renderComponent( Badges, { props: props } ).then(({ dom }) => expect( dom.querySelector('.video') ).to.exist);
+    props.flags.hasVideo = true;
+    const badges = Renderer.create(<Badges {...props} />);
+    expect(badges.toJSON()).toMatchSnapshot();
+    badges.unmount();
   });
 
   return it('renders for MPQs', function() {
-    props.exercise.content.questions.push(ld.cloneDeep(props.exercise.content.questions[0]));
-    return Testing.renderComponent( Badges, { props: props } ).then(({ dom }) => expect( dom.querySelector('.mpq') ).to.exist);
+    props.flags.isMultiPart = true;
+    const badges = Renderer.create(<Badges {...props} />);
+    expect(badges.toJSON()).toMatchSnapshot();
+    badges.unmount();
   });
 });

@@ -32,6 +32,7 @@ class ExercisePreview extends React.Component {
     actionsOnSide:   React.PropTypes.bool,
     sortTags:        React.PropTypes.func,
     overlayActions:  React.PropTypes.object,
+    extractedInfo:   React.PropTypes.object,
     isVerticallyTruncated: React.PropTypes.bool,
   };
 
@@ -39,7 +40,7 @@ class ExercisePreview extends React.Component {
     panelStyle: 'default',
     isInteractive:   true,
     overlayActions:  {},
-
+    extractedInfo:   {},
   };
 
   get exercise() {
@@ -55,16 +56,16 @@ class ExercisePreview extends React.Component {
   };
 
   getCleanPreview = () => {
-    return trimEnd(last(this.exercise.questions).question.stem_html);
+    return trimEnd(last(this.exercise.questions).stem_html);
   };
 
   renderStimulus = () => {
-    if (this.props.isInteractive || !this.exercise.preview) {
+    if (this.props.isInteractive || !this.props.extractedInfo.preview) {
       return (
         <ArbitraryHtmlAndMath
           className="stimulus"
           block={true}
-          html={this.exercise.stimulus_html} />
+          html={this.props.exercise.stimulus_html} />
       );
     } else {
       return (
@@ -96,7 +97,7 @@ class ExercisePreview extends React.Component {
       'is-vertically-truncated': this.props.isVerticallyTruncated,
       'is-displaying-formats':   this.props.displayFormats,
       'is-displaying-feedback':  this.props.displayFeedback,
-      'has-interactive':  this.props.exercise.has_interactive,
+      'has-interactive':  this.props.extractedInfo.hasInteractive,
     });
 
     return (
@@ -113,8 +114,8 @@ class ExercisePreview extends React.Component {
           actions={this.props.overlayActions}
           onClick={this.props.onOverlayClick} />
         <div className="exercise-body">
-          <ExerciseBadges exercise={this.props.exercise} />
-          {!isEmpty(this.props.exercise.context) && !!this.props.isInteractive ? <ArbitraryHtmlAndMath className="context" block={true} html={this.props.exercise.context} /> : undefined}
+          <ExerciseBadges flags={this.props.extractedInfo} />
+          {!isEmpty(this.props.extractedInfo.context) && !!this.props.isInteractive ? <ArbitraryHtmlAndMath className="context" block={true} html={this.props.extractedInfo.context} /> : undefined}
           {this.renderStimulus()}
           {map(this.exercise.questions, (question, index) => (
             <Question
