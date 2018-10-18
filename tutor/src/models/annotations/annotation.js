@@ -1,7 +1,7 @@
 import { get, pick, omit, extend, isString, isEmpty, toArray } from 'lodash';
 import { computed, action, observable, intercept } from 'mobx';
 import serializeSelection from 'serialize-selection';
-import {Highlight, SerializedHighlight} from 'highlighter';
+import {Highlight, SerializedHighlight} from '@openstax/highlighter';
 import {
   BaseModel, identifiedBy, field, identifier
 } from 'shared/model';

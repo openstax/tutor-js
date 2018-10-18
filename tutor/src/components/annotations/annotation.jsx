@@ -16,13 +16,10 @@ import EditBox from './edit-box';
 import SidebarButtons from './sidebar-buttons';
 import InlineControls from './inline-controls';
 import ScrollTo from '../../helpers/scroll-to';
-import Highlighter from 'highlighter';
+import Highlighter from '@openstax/highlighter';
 import Router from '../../helpers/router';
 import AnnotationsMap from '../../models/annotations';
 import Overlay from '../obscured-page/overlay';
-import {getXPathForElement} from './xpath';
-
-const highlighter = new TextHighlighter(document.body);
 
 function getRangeRect(win, range) {
   const rect = range.getBoundingClientRect();
@@ -186,76 +183,6 @@ export default class AnnotationWidget extends React.Component {
     if (!node.closest('.book-content')) {
       return 'Only content can be highlighted';
     }
-<<<<<<< HEAD
-    if (selection.noParent) {
-      return 'Only content that is enclosed in paragraphs can be highlighted';
-    }
-    if (selection.splitParts) {
-      return 'Only a single paragraphs can be highlighted at a time';
-    }
-    // Is it free from overlaps with other selections?
-    // Compare by using the same reference node
-    for (const other of this.annotationsForThisPage) {
-      if (other.intersects(range)) {
-        return 'Highlights cannot overlap one another';
-      }
-    }
-    return null;
-  }
-
-  snapSelection() {
-    const selection = this.props.windowImpl.getSelection();
-
-    if (selection.rangeCount < 1) {
-      return null;
-    }
-
-    // set up range to modify
-    const range = selection.getRangeAt(0);
-    const endRange = selection.getRangeAt(selection.rangeCount - 1);
-
-    range.setEnd(endRange.endContainer, endRange.endOffset);
-
-    if (range.collapsed) {
-      return range;
-    }
-
-    // snap to table rows
-    if (range.commonAncestorContainer.nodeName === 'TBODY') {
-      const startRow = dom(range.startContainer).farthest('tr');
-      const endRow = dom(range.endContainer).farthest('tr');
-
-      if (startRow) {
-        range.setStartBefore(startRow.firstElementChild.firstChild);
-      }
-      if (endRow) {
-        range.setEndAfter(endRow.lastElementChild.lastChild);
-      }
-    }
-
-    // snap to math
-    const getMath = node => node ? dom(node).farthest('.MathJax,.MathJax_Display') : null;
-
-    const startMath = getMath(range.startContainer.nodeType === 3 /* #text */
-      ? range.startContainer
-      : range.startContainer.childNodes[range.startOffset] || range.startContainer
-    );
-    if (startMath) {
-      range.setStartBefore(startMath);
-    }
-
-    const endMath = getMath(range.endContainer.nodeType === 3 /* #text */
-      ? range.endContainer
-      : range.endContainer.childNodes[range.endOffset - 1] || range.endContainer
-    );
-
-    if (endMath) {
-      const endElement = dom(endMath.nextSibling).matches('script[type="math/mml"]') ? endMath.nextSibling : endMath;
-      const endContainer = endElement.parentNode;
-      range.setEnd(endContainer, Array.prototype.indexOf.call(endContainer.childNodes, endElement) + 1)
-    }
-=======
->>>>>>> integrating highlighter library
 
     for (const re of this.referenceElements) {
       if (dom(re).isParent(node.el)) {
