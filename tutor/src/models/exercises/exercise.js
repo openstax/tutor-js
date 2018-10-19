@@ -25,6 +25,8 @@ export default class TutorExercise extends BaseModel {
   @field page_uuid = false;
   @field({ type: 'array' }) pool_types;
   @field url = '';
+  @field context;
+  @field preview;
 
   @hasMany({ model: Tag, inverseOf: 'exercise', extend: extendHasMany({
     importantInfo() {
@@ -71,5 +73,15 @@ export default class TutorExercise extends BaseModel {
     return { id: course.id, data: {} };
   }
 
+  @computed get isMultiPart() {
+    return this.content.isMultiPart;
+  }
+
+  @computed get hasInteractive() {
+    return this.has_interactive;
+  }
+  @computed get hasVideo() {
+    return this.has_video;
+  }
 
 }

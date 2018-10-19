@@ -1,4 +1,4 @@
-import { random, first } from 'lodash';
+import { first } from 'lodash';
 const {
   Factory, sequence, uuid, reference, fake,
 } = require('./helpers');
@@ -6,8 +6,8 @@ const {
 Factory.define('TutorExercise')
   .id(sequence)
   .content(reference('Exercise'))
-  .has_interactive(() => random(0,3) == 1)
-  .has_video(() => random(0,1) == 1)
+  .has_interactive(() => fake.random.arrayElement([true, false, false, false]))
+  .has_video(() => fake.random.arrayElement([true, false, false]))
   .is_excluded(false)
   .page_uuid(uuid)
   .pool_types(() => [

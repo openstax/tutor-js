@@ -3363,13 +3363,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
               Author: 
             </div>
           </div>
-          <ExercisePreview className=\\"exercise-editing-preview\\" isInteractive={true} displayAllTags={true} displayFeedback={true} displayFormats={true} displayNickname={true} exercise={{...}} panelStyle=\\"default\\" overlayActions={{...}}>
+          <ExercisePreview className=\\"exercise-editing-preview\\" isInteractive={true} displayAllTags={true} displayFeedback={true} displayFormats={true} displayNickname={true} exercise={{...}} panelStyle=\\"default\\" overlayActions={{...}} extractedInfo={{...}}>
             <Panel className=\\"openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback\\" bsStyle=\\"default\\" header={[undefined]} data-exercise-id={[undefined]} tabIndex={-1} footer={[undefined]} defaultExpanded={false} bsClass=\\"panel\\">
               <div data-exercise-id={[undefined]} tabIndex={-1} className=\\"openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback panel panel-default\\" id={[undefined]}>
                 <div className=\\"panel-body\\">
                   <Component exercise={{...}} actions={{...}} onClick={[undefined]} />
                   <div className=\\"exercise-body\\">
-                    <ExerciseBadges exercise={{...}} isMultipart={false} hasInteractive={false} hasVideo={false} />
+                    <ExerciseBadges flags={{...}} isMultipart={false} hasInteractive={false} hasVideo={false} />
                     <Component className=\\"stimulus\\" block={true} html={[undefined]} />
                     <Question hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\">
                       <div className=\\"openstax-question openstax-question-preview\\" data-question-number={[undefined]}>

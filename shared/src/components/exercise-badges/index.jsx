@@ -8,10 +8,10 @@ import classnames from 'classnames';
 export default class ExerciseBadges extends React.PureComponent {
 
   static propTypes = {
-    isMultipart:    React.PropTypes.bool,
+    isMultiPart:    React.PropTypes.bool,
     hasInteractive: React.PropTypes.bool,
     hasVideo:       React.PropTypes.bool,
-    exercise:       React.PropTypes.object,
+    flags:          React.PropTypes.object,
     className:      React.PropTypes.string,
   }
 
@@ -19,13 +19,15 @@ export default class ExerciseBadges extends React.PureComponent {
     isMultipart: false,
     hasInteractive: false,
     hasVideo: false,
-    exercise: {},
+    flags: {},
   }
 
   render() {
+    const { flags, isMultiPart, hasInteractive, hasVideo } = this.props;
+
     const classes = classnames('openstax-exercise-badges', this.props.className);
     const badges = [];
-    if (this.props.isMultipart || Exercise.isMultipart(this.props.exercise)) {
+    if (isMultiPart || flags.isMultiPart) {
       badges.push(<span key="mpq" className="mpq">
         <MultiPart />
         <span>
@@ -35,7 +37,7 @@ export default class ExerciseBadges extends React.PureComponent {
       );
     }
 
-    if (this.props.hasInteractive || Exercise.hasInteractive(this.props.exercise)) {
+    if (hasInteractive || flags.hasInteractive) {
       badges.push(<span key="interactive" className="interactive">
         <Interactive />
         <span>
@@ -45,7 +47,7 @@ export default class ExerciseBadges extends React.PureComponent {
       );
     }
 
-    if (this.props.hasVideo || Exercise.hasVideo(this.props.exercise)) {
+    if (hasVideo || flags.hasVideo) {
       badges.push(<span key="video" className="video">
         <Interactive />
         <span>

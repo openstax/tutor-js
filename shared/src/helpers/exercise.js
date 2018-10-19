@@ -46,18 +46,6 @@ var Exercises = {
   getParts(exercise) {
     return (exercise.content != null ? exercise.content.questions : undefined) || [];
   },
-
-  isMultipart(exercise) {
-    return this.getParts(exercise).length > 1;
-  },
-
-  hasInteractive(exercise) {
-    return exercise.has_interactive;
-  },
-
-  hasVideo(exercise) {
-    return exercise.has_video;
-  },
 };
 
 
