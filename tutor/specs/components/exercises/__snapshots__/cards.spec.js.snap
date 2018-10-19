@@ -57,14 +57,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="1-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="1-option-0"
-                        id="1-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -98,14 +96,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="1-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="1-option-1"
-                        id="1-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -139,14 +135,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="1-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="1-option-2"
-                        id="1-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -180,14 +174,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="1-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="1-option-3"
-                        id="1-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -221,14 +213,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="1-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="1-option-4"
-                        id="1-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -343,14 +333,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="2-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="2-option-0"
-                        id="2-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -379,14 +367,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="2-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="2-option-1"
-                        id="2-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -415,14 +401,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="2-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="2-option-2"
-                        id="2-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -451,14 +435,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="2-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="2-option-3"
-                        id="2-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -487,14 +469,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="2-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="2-option-4"
-                        id="2-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -611,14 +591,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="3-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="3-option-0"
-                        id="3-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -647,14 +625,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="3-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="3-option-1"
-                        id="3-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -683,14 +659,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="3-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="3-option-2"
-                        id="3-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -719,14 +693,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="3-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="3-option-3"
-                        id="3-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -755,14 +727,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="3-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="3-option-4"
-                        id="3-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -872,14 +842,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="4-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="4-option-0"
-                        id="4-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -908,14 +876,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="4-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="4-option-1"
-                        id="4-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -944,14 +910,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="4-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="4-option-2"
-                        id="4-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -980,14 +944,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="4-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="4-option-3"
-                        id="4-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -1016,14 +978,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="4-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="4-option-4"
-                        id="4-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -1154,14 +1114,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="5-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="5-option-0"
-                        id="5-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -1190,14 +1148,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="5-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="5-option-1"
-                        id="5-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -1226,14 +1182,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="5-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="5-option-2"
-                        id="5-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -1262,14 +1216,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="5-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="5-option-3"
-                        id="5-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -1298,14 +1250,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="5-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="5-option-4"
-                        id="5-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -1415,14 +1365,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="6-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="6-option-0"
-                        id="6-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -1456,14 +1404,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="6-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="6-option-1"
-                        id="6-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -1497,14 +1443,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="6-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="6-option-2"
-                        id="6-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -1538,14 +1482,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="6-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="6-option-3"
-                        id="6-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -1579,14 +1521,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="6-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="6-option-4"
-                        id="6-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -1701,14 +1641,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="7-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="7-option-0"
-                        id="7-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -1737,14 +1675,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="7-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="7-option-1"
-                        id="7-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -1773,14 +1709,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="7-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="7-option-2"
-                        id="7-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -1809,14 +1743,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="7-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="7-option-3"
-                        id="7-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -1845,14 +1777,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="7-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="7-option-4"
-                        id="7-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -1969,14 +1899,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="8-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="8-option-0"
-                        id="8-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -2005,14 +1933,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="8-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="8-option-1"
-                        id="8-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -2041,14 +1967,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="8-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="8-option-2"
-                        id="8-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -2077,14 +2001,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="8-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="8-option-3"
-                        id="8-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -2113,14 +2035,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="8-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="8-option-4"
-                        id="8-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -2251,14 +2171,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="9-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="9-option-0"
-                        id="9-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -2287,14 +2205,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="9-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="9-option-1"
-                        id="9-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -2323,14 +2239,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="9-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="9-option-2"
-                        id="9-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -2359,14 +2273,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="9-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="9-option-3"
-                        id="9-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -2395,14 +2307,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="9-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="9-option-4"
-                        id="9-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -2512,14 +2422,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="10-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="10-option-0"
-                        id="10-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -2548,14 +2456,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="10-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="10-option-1"
-                        id="10-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -2584,14 +2490,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="10-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="10-option-2"
-                        id="10-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -2620,14 +2524,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="10-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="10-option-3"
-                        id="10-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -2656,14 +2558,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="10-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="10-option-4"
-                        id="10-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -2773,14 +2673,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="11-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="11-option-0"
-                        id="11-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -2814,14 +2712,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="11-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="11-option-1"
-                        id="11-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -2855,14 +2751,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="11-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="11-option-2"
-                        id="11-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -2896,14 +2790,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="11-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="11-option-3"
-                        id="11-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -2937,14 +2829,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="11-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="11-option-4"
-                        id="11-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -3059,14 +2949,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="12-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="12-option-0"
-                        id="12-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -3095,14 +2983,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="12-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="12-option-1"
-                        id="12-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -3131,14 +3017,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="12-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="12-option-2"
-                        id="12-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -3167,14 +3051,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="12-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="12-option-3"
-                        id="12-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -3203,14 +3085,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="12-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="12-option-4"
-                        id="12-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -3348,14 +3228,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="13-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="13-option-0"
-                        id="13-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -3384,14 +3262,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="13-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="13-option-1"
-                        id="13-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -3420,14 +3296,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="13-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="13-option-2"
-                        id="13-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -3456,14 +3330,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="13-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="13-option-3"
-                        id="13-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -3492,14 +3364,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="13-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="13-option-4"
-                        id="13-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -3609,14 +3479,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="14-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="14-option-0"
-                        id="14-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -3645,14 +3513,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="14-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="14-option-1"
-                        id="14-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -3681,14 +3547,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="14-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="14-option-2"
-                        id="14-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -3717,14 +3581,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="14-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="14-option-3"
-                        id="14-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -3753,14 +3615,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="14-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="14-option-4"
-                        id="14-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -3870,14 +3730,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="15-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="15-option-0"
-                        id="15-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -3906,14 +3764,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="15-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="15-option-1"
-                        id="15-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -3942,14 +3798,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="15-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="15-option-2"
-                        id="15-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -3978,14 +3832,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="15-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="15-option-3"
-                        id="15-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -4014,14 +3866,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="15-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="15-option-4"
-                        id="15-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -4131,14 +3981,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="16-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="16-option-0"
-                        id="16-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -4172,14 +4020,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="16-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="16-option-1"
-                        id="16-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -4213,14 +4059,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="16-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="16-option-2"
-                        id="16-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -4254,14 +4098,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="16-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="16-option-3"
-                        id="16-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -4295,14 +4137,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="16-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="16-option-4"
-                        id="16-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -4438,14 +4278,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="17-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="17-option-0"
-                        id="17-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -4474,14 +4312,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="17-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="17-option-1"
-                        id="17-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -4510,14 +4346,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="17-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="17-option-2"
-                        id="17-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -4546,14 +4380,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="17-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="17-option-3"
-                        id="17-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -4582,14 +4414,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="17-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="17-option-4"
-                        id="17-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -4706,14 +4536,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="18-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="18-option-0"
-                        id="18-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -4742,14 +4570,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="18-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="18-option-1"
-                        id="18-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -4778,14 +4604,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="18-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="18-option-2"
-                        id="18-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -4814,14 +4638,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="18-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="18-option-3"
-                        id="18-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -4850,14 +4672,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="18-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="18-option-4"
-                        id="18-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -4967,14 +4787,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="19-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="19-option-0"
-                        id="19-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -5003,14 +4821,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="19-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="19-option-1"
-                        id="19-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -5039,14 +4855,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="19-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="19-option-2"
-                        id="19-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -5075,14 +4889,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="19-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="19-option-3"
-                        id="19-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -5111,14 +4923,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="19-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="19-option-4"
-                        id="19-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -5228,14 +5038,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="20-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="20-option-0"
-                        id="20-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -5264,14 +5072,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="20-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="20-option-1"
-                        id="20-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -5300,14 +5106,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="20-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="20-option-2"
-                        id="20-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -5336,14 +5140,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="20-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="20-option-3"
-                        id="20-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -5372,14 +5174,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="20-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="20-option-4"
-                        id="20-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -5510,14 +5310,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="21-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="21-option-0"
-                        id="21-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -5551,14 +5349,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="21-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="21-option-1"
-                        id="21-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -5592,14 +5388,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="21-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="21-option-2"
-                        id="21-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -5633,14 +5427,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="21-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="21-option-3"
-                        id="21-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -5674,14 +5466,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="21-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="21-option-4"
-                        id="21-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -5796,14 +5586,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="22-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="22-option-0"
-                        id="22-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -5832,14 +5620,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="22-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="22-option-1"
-                        id="22-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -5868,14 +5654,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="22-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="22-option-2"
-                        id="22-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -5904,14 +5688,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="22-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="22-option-3"
-                        id="22-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -5940,14 +5722,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="22-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="22-option-4"
-                        id="22-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -6064,14 +5844,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="23-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="23-option-0"
-                        id="23-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -6100,14 +5878,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="23-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="23-option-1"
-                        id="23-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -6136,14 +5912,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="23-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="23-option-2"
-                        id="23-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -6172,14 +5946,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="23-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="23-option-3"
-                        id="23-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -6208,14 +5980,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="23-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="23-option-4"
-                        id="23-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -6325,14 +6095,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="24-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="24-option-0"
-                        id="24-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -6361,14 +6129,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="24-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="24-option-1"
-                        id="24-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -6397,14 +6163,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="24-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="24-option-2"
-                        id="24-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -6433,14 +6197,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="24-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="24-option-3"
-                        id="24-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -6469,14 +6231,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="24-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="24-option-4"
-                        id="24-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -6607,14 +6367,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="25-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="25-option-0"
-                        id="25-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -6643,14 +6401,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="25-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="25-option-1"
-                        id="25-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -6679,14 +6435,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="25-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="25-option-2"
-                        id="25-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -6715,14 +6469,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="25-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="25-option-3"
-                        id="25-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -6751,14 +6503,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="25-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="25-option-4"
-                        id="25-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -6868,14 +6618,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="26-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="26-option-0"
-                        id="26-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -6909,14 +6657,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="26-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="26-option-1"
-                        id="26-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -6950,14 +6696,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="26-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="26-option-2"
-                        id="26-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -6991,14 +6735,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="26-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="26-option-3"
-                        id="26-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -7032,14 +6774,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="26-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="26-option-4"
-                        id="26-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -7154,14 +6894,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="27-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="27-option-0"
-                        id="27-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -7190,14 +6928,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="27-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="27-option-1"
-                        id="27-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -7226,14 +6962,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="27-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="27-option-2"
-                        id="27-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -7262,14 +6996,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="27-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="27-option-3"
-                        id="27-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -7298,14 +7030,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="27-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="27-option-4"
-                        id="27-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -7422,14 +7152,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="28-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="28-option-0"
-                        id="28-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -7458,14 +7186,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="28-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="28-option-1"
-                        id="28-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -7494,14 +7220,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="28-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="28-option-2"
-                        id="28-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -7530,14 +7254,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="28-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="28-option-3"
-                        id="28-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -7566,14 +7288,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="28-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="28-option-4"
-                        id="28-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -7704,14 +7424,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="29-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="29-option-0"
-                        id="29-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -7740,14 +7458,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="29-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="29-option-1"
-                        id="29-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -7776,14 +7492,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="29-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="29-option-2"
-                        id="29-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -7812,14 +7526,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="29-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="29-option-3"
-                        id="29-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -7848,14 +7560,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="29-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="29-option-4"
-                        id="29-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -7965,14 +7675,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="30-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="30-option-0"
-                        id="30-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -8001,14 +7709,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="30-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="30-option-1"
-                        id="30-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -8037,14 +7743,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="30-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="30-option-2"
-                        id="30-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -8073,14 +7777,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="30-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="30-option-3"
-                        id="30-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -8109,14 +7811,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="30-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="30-option-4"
-                        id="30-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -8226,14 +7926,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="31-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="31-option-0"
-                        id="31-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -8267,14 +7965,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="31-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="31-option-1"
-                        id="31-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -8308,14 +8004,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="31-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="31-option-2"
-                        id="31-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -8349,14 +8043,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="31-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="31-option-3"
-                        id="31-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -8390,14 +8082,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="31-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="31-option-4"
-                        id="31-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -8512,14 +8202,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="32-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="32-option-0"
-                        id="32-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -8548,14 +8236,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="32-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="32-option-1"
-                        id="32-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -8584,14 +8270,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="32-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="32-option-2"
-                        id="32-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -8620,14 +8304,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="32-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="32-option-3"
-                        id="32-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -8656,14 +8338,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="32-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="32-option-4"
-                        id="32-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -8801,14 +8481,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="33-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="33-option-0"
-                        id="33-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -8837,14 +8515,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="33-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="33-option-1"
-                        id="33-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -8873,14 +8549,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="33-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="33-option-2"
-                        id="33-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -8909,14 +8583,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="33-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="33-option-3"
-                        id="33-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -8945,14 +8617,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="33-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="33-option-4"
-                        id="33-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -9062,14 +8732,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="34-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="34-option-0"
-                        id="34-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -9098,14 +8766,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="34-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="34-option-1"
-                        id="34-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -9134,14 +8800,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="34-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="34-option-2"
-                        id="34-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -9170,14 +8834,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="34-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="34-option-3"
-                        id="34-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -9206,14 +8868,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="34-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="34-option-4"
-                        id="34-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -9323,14 +8983,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="35-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="35-option-0"
-                        id="35-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -9359,14 +9017,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="35-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="35-option-1"
-                        id="35-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -9395,14 +9051,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="35-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="35-option-2"
-                        id="35-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -9431,14 +9085,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="35-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="35-option-3"
-                        id="35-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -9467,14 +9119,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="35-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="35-option-4"
-                        id="35-label-4"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -9584,14 +9234,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="36-label-0"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="36-option-0"
-                        id="36-label-0"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -9625,14 +9273,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="36-label-1"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="36-option-1"
-                        id="36-label-1"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -9666,14 +9312,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="36-label-2"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="36-option-2"
-                        id="36-label-2"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -9707,14 +9351,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="36-label-3"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="36-option-3"
-                        id="36-label-3"
                         onKeyPress={[Function]}
                       >
                         <button
@@ -9748,14 +9390,12 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                     className="openstax-answer"
                   >
                     <section
-                      aria-labelledby="36-label-4"
                       className="answers-answer disabled"
                       role="region"
                     >
                       <label
                         className="answer-label"
                         htmlFor="36-option-4"
-                        id="36-label-4"
                         onKeyPress={[Function]}
                       >
                         <button

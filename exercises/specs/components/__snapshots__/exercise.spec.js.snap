@@ -1163,14 +1163,12 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 className="openstax-answer"
               >
                 <section
-                  aria-labelledby="1-label-0"
                   className="answers-answer disabled"
                   role="region"
                 >
                   <label
                     className="answer-label"
                     htmlFor="1-option-0"
-                    id="1-label-0"
                     onKeyPress={[Function]}
                   >
                     <button
@@ -1213,14 +1211,12 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 className="openstax-answer"
               >
                 <section
-                  aria-labelledby="1-label-1"
                   className="answers-answer disabled"
                   role="region"
                 >
                   <label
                     className="answer-label"
                     htmlFor="1-option-1"
-                    id="1-label-1"
                     onKeyPress={[Function]}
                   >
                     <button
@@ -1263,14 +1259,12 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 className="openstax-answer"
               >
                 <section
-                  aria-labelledby="1-label-2"
                   className="answers-answer disabled"
                   role="region"
                 >
                   <label
                     className="answer-label"
                     htmlFor="1-option-2"
-                    id="1-label-2"
                     onKeyPress={[Function]}
                   >
                     <button
@@ -1313,14 +1307,12 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 className="openstax-answer"
               >
                 <section
-                  aria-labelledby="1-label-3"
                   className="answers-answer disabled"
                   role="region"
                 >
                   <label
                     className="answer-label"
                     htmlFor="1-option-3"
-                    id="1-label-3"
                     onKeyPress={[Function]}
                   >
                     <button
@@ -1363,14 +1355,12 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 className="openstax-answer"
               >
                 <section
-                  aria-labelledby="1-label-4"
                   className="answers-answer disabled"
                   role="region"
                 >
                   <label
                     className="answer-label"
                     htmlFor="1-option-4"
-                    id="1-label-4"
                     onKeyPress={[Function]}
                   >
                     <button
@@ -2651,14 +2641,12 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                 className="openstax-answer"
               >
                 <section
-                  aria-labelledby="5-label-0"
                   className="answers-answer disabled"
                   role="region"
                 >
                   <label
                     className="answer-label"
                     htmlFor="5-option-0"
-                    id="5-label-0"
                     onKeyPress={[Function]}
                   >
                     <button
@@ -2696,14 +2684,12 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                 className="openstax-answer"
               >
                 <section
-                  aria-labelledby="5-label-1"
                   className="answers-answer disabled"
                   role="region"
                 >
                   <label
                     className="answer-label"
                     htmlFor="5-option-1"
-                    id="5-label-1"
                     onKeyPress={[Function]}
                   >
                     <button
@@ -2741,14 +2727,12 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                 className="openstax-answer"
               >
                 <section
-                  aria-labelledby="5-label-2"
                   className="answers-answer disabled"
                   role="region"
                 >
                   <label
                     className="answer-label"
                     htmlFor="5-option-2"
-                    id="5-label-2"
                     onKeyPress={[Function]}
                   >
                     <button
@@ -2786,14 +2770,12 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                 className="openstax-answer"
               >
                 <section
-                  aria-labelledby="5-label-3"
                   className="answers-answer disabled"
                   role="region"
                 >
                   <label
                     className="answer-label"
                     htmlFor="5-option-3"
-                    id="5-label-3"
                     onKeyPress={[Function]}
                   >
                     <button
@@ -2831,14 +2813,12 @@ exports[`Exercises component renders with intro and a multiple questions when ex
                 className="openstax-answer"
               >
                 <section
-                  aria-labelledby="5-label-4"
                   className="answers-answer disabled"
                   role="region"
                 >
                   <label
                     className="answer-label"
                     htmlFor="5-option-4"
-                    id="5-label-4"
                     onKeyPress={[Function]}
                   >
                     <button

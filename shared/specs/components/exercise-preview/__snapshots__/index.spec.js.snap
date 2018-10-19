@@ -48,14 +48,12 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
             className="openstax-answer"
           >
             <section
-              aria-labelledby="7-label-0"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="7-option-0"
-                id="7-label-0"
                 onKeyPress={[Function]}
               >
                 <button
@@ -84,14 +82,12 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
             className="openstax-answer"
           >
             <section
-              aria-labelledby="7-label-1"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="7-option-1"
-                id="7-label-1"
                 onKeyPress={[Function]}
               >
                 <button
@@ -120,14 +116,12 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
             className="openstax-answer"
           >
             <section
-              aria-labelledby="7-label-2"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="7-option-2"
-                id="7-label-2"
                 onKeyPress={[Function]}
               >
                 <button
@@ -156,14 +150,12 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
             className="openstax-answer"
           >
             <section
-              aria-labelledby="7-label-3"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="7-option-3"
-                id="7-label-3"
                 onKeyPress={[Function]}
               >
                 <button
@@ -192,14 +184,12 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
             className="openstax-answer"
           >
             <section
-              aria-labelledby="7-label-4"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="7-option-4"
-                id="7-label-4"
                 onKeyPress={[Function]}
               >
                 <button
@@ -373,14 +363,12 @@ exports[`Exercise Preview Component can render question formats 1`] = `
             className="openstax-answer"
           >
             <section
-              aria-labelledby="4-label-0"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="4-option-0"
-                id="4-label-0"
                 onKeyPress={[Function]}
               >
                 <button
@@ -409,14 +397,12 @@ exports[`Exercise Preview Component can render question formats 1`] = `
             className="openstax-answer"
           >
             <section
-              aria-labelledby="4-label-1"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="4-option-1"
-                id="4-label-1"
                 onKeyPress={[Function]}
               >
                 <button
@@ -445,14 +431,12 @@ exports[`Exercise Preview Component can render question formats 1`] = `
             className="openstax-answer"
           >
             <section
-              aria-labelledby="4-label-2"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="4-option-2"
-                id="4-label-2"
                 onKeyPress={[Function]}
               >
                 <button
@@ -481,14 +465,12 @@ exports[`Exercise Preview Component can render question formats 1`] = `
             className="openstax-answer"
           >
             <section
-              aria-labelledby="4-label-3"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="4-option-3"
-                id="4-label-3"
                 onKeyPress={[Function]}
               >
                 <button
@@ -517,14 +499,12 @@ exports[`Exercise Preview Component can render question formats 1`] = `
             className="openstax-answer"
           >
             <section
-              aria-labelledby="4-label-4"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="4-option-4"
-                id="4-label-4"
                 onKeyPress={[Function]}
               >
                 <button
@@ -654,14 +634,12 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
             className="openstax-answer"
           >
             <section
-              aria-labelledby="8-label-0"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="8-option-0"
-                id="8-label-0"
                 onKeyPress={[Function]}
               >
                 <button
@@ -690,14 +668,12 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
             className="openstax-answer"
           >
             <section
-              aria-labelledby="8-label-1"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="8-option-1"
-                id="8-label-1"
                 onKeyPress={[Function]}
               >
                 <button
@@ -726,14 +702,12 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
             className="openstax-answer"
           >
             <section
-              aria-labelledby="8-label-2"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="8-option-2"
-                id="8-label-2"
                 onKeyPress={[Function]}
               >
                 <button
@@ -762,14 +736,12 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
             className="openstax-answer"
           >
             <section
-              aria-labelledby="8-label-3"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="8-option-3"
-                id="8-label-3"
                 onKeyPress={[Function]}
               >
                 <button
@@ -798,14 +770,12 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
             className="openstax-answer"
           >
             <section
-              aria-labelledby="8-label-4"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="8-option-4"
-                id="8-label-4"
                 onKeyPress={[Function]}
               >
                 <button
@@ -913,14 +883,12 @@ exports[`Exercise Preview Component limits tags 1`] = `
             className="openstax-answer"
           >
             <section
-              aria-labelledby="9-label-0"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="9-option-0"
-                id="9-label-0"
                 onKeyPress={[Function]}
               >
                 <button
@@ -949,14 +917,12 @@ exports[`Exercise Preview Component limits tags 1`] = `
             className="openstax-answer"
           >
             <section
-              aria-labelledby="9-label-1"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="9-option-1"
-                id="9-label-1"
                 onKeyPress={[Function]}
               >
                 <button
@@ -985,14 +951,12 @@ exports[`Exercise Preview Component limits tags 1`] = `
             className="openstax-answer"
           >
             <section
-              aria-labelledby="9-label-2"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="9-option-2"
-                id="9-label-2"
                 onKeyPress={[Function]}
               >
                 <button
@@ -1021,14 +985,12 @@ exports[`Exercise Preview Component limits tags 1`] = `
             className="openstax-answer"
           >
             <section
-              aria-labelledby="9-label-3"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="9-option-3"
-                id="9-label-3"
                 onKeyPress={[Function]}
               >
                 <button
@@ -1057,14 +1019,12 @@ exports[`Exercise Preview Component limits tags 1`] = `
             className="openstax-answer"
           >
             <section
-              aria-labelledby="9-label-4"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="9-option-4"
-                id="9-label-4"
                 onKeyPress={[Function]}
               >
                 <button
@@ -1202,14 +1162,12 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
             className="openstax-answer"
           >
             <section
-              aria-labelledby="1-label-0"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="1-option-0"
-                id="1-label-0"
                 onKeyPress={[Function]}
               >
                 <button
@@ -1243,14 +1201,12 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
             className="openstax-answer"
           >
             <section
-              aria-labelledby="1-label-1"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="1-option-1"
-                id="1-label-1"
                 onKeyPress={[Function]}
               >
                 <button
@@ -1284,14 +1240,12 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
             className="openstax-answer"
           >
             <section
-              aria-labelledby="1-label-2"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="1-option-2"
-                id="1-label-2"
                 onKeyPress={[Function]}
               >
                 <button
@@ -1325,14 +1279,12 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
             className="openstax-answer"
           >
             <section
-              aria-labelledby="1-label-3"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="1-option-3"
-                id="1-label-3"
                 onKeyPress={[Function]}
               >
                 <button
@@ -1366,14 +1318,12 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
             className="openstax-answer"
           >
             <section
-              aria-labelledby="1-label-4"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="1-option-4"
-                id="1-label-4"
                 onKeyPress={[Function]}
               >
                 <button
@@ -1486,14 +1436,12 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
             className="openstax-answer"
           >
             <section
-              aria-labelledby="2-label-0"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="2-option-0"
-                id="2-label-0"
                 onKeyPress={[Function]}
               >
                 <button
@@ -1531,14 +1479,12 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
             className="openstax-answer"
           >
             <section
-              aria-labelledby="2-label-1"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="2-option-1"
-                id="2-label-1"
                 onKeyPress={[Function]}
               >
                 <button
@@ -1576,14 +1522,12 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
             className="openstax-answer"
           >
             <section
-              aria-labelledby="2-label-2"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="2-option-2"
-                id="2-label-2"
                 onKeyPress={[Function]}
               >
                 <button
@@ -1621,14 +1565,12 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
             className="openstax-answer"
           >
             <section
-              aria-labelledby="2-label-3"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="2-option-3"
-                id="2-label-3"
                 onKeyPress={[Function]}
               >
                 <button
@@ -1666,14 +1608,12 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
             className="openstax-answer"
           >
             <section
-              aria-labelledby="2-label-4"
               className="answers-answer disabled"
               role="region"
             >
               <label
                 className="answer-label"
                 htmlFor="2-option-4"
-                id="2-label-4"
                 onKeyPress={[Function]}
               >
                 <button
