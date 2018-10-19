@@ -125,6 +125,7 @@ exports[`Student Dashboard displays as loading 1`] = `
           className="actions-box"
         >
           <a
+            aria-label="Browse course reference book"
             className="browse-the-book"
             data-appearance="college_physics"
             href="/book/1"
@@ -461,6 +462,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
           className="actions-box"
         >
           <a
+            aria-label="Browse course reference book"
             className="browse-the-book"
             data-appearance="college_physics"
             href="/book/1"

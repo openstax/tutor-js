@@ -97,6 +97,7 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                      
                   </span>
                   <div
+                    aria-label="Browse course reference book"
                     className="browse-the-book"
                     onClick={[Function]}
                     role="link"
@@ -266,6 +267,7 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                      
                   </span>
                   <div
+                    aria-label="Browse course reference book"
                     className="browse-the-book"
                     onClick={[Function]}
                     role="link"
@@ -435,6 +437,7 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                      
                   </span>
                   <div
+                    aria-label="Browse course reference book"
                     className="browse-the-book"
                     onClick={[Function]}
                     role="link"

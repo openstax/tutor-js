@@ -66,7 +66,7 @@ export default class extends React.Component {
     });
 
     return (
-      <Tag onClick={this.onClick} {...tagProps}>
+      <Tag aria-label="Browse course reference book" onClick={this.onClick} {...tagProps}>
         {children}
       </Tag>
     );
