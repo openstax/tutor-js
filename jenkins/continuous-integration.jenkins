@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Run Audit') {
           steps {
-            copyArtifacts projectName: 'openstax-continuous-integration/tutor-js/master', filter: 'accessibility-report.json'
+            copyArtifacts projectName: 'openstax-continuous-delivery/tutor-js/master', filter: 'accessibility-report.json'
             sh 'docker run -v $(pwd):/code -v /code/node_modules openstax/tutor-js:ui-testing node tutor/scripts/accessibility-audit --diff=accessibility-report.json --summary-label="#$CHANGE_ID" --diff-label="master" --report=accessibility-report.md'
             archiveArtifacts artifacts: 'accessibility-report.md', fingerprint: true
           }
@@ -18,7 +18,7 @@ pipeline {
         stage('Post Audit') {
           environment {
             USER = credentials('github')
-            PREVIOUS = sh(returnStdout: true, script: "curl -s https://api.github.com/repos/openstax/tutor-js/issues/$CHANGE_ID/comments | docker run --rm -i stedolan/jq '.[] | select(.body | contains(\"Accessibility Audit Report\")) | select(.user.login == \"staxbot\") .id'") 
+            PREVIOUS = sh(returnStdout: true, script: "curl -s https://api.github.com/repos/openstax/tutor-js/issues/$CHANGE_ID/comments | docker run --rm -i stedolan/jq '.[] | select(.body | contains(\"Accessibility Audit Report\")) | select(.user.login == \"staxbot\") .id'")
             AUDIT = sh(returnStdout: true, script: "cat accessibility-report.md | awk 1 ORS='\\\\n'")
           }
           stages {
