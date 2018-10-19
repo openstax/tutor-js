@@ -1,6 +1,7 @@
 import { invoke, defer } from 'lodash';
 import { observable, action, computed } from 'mobx';
 import cn from 'classnames';
+import Analytics from '../../helpers/analytics';
 
 export class OverlayRegistry {
 
@@ -56,6 +57,7 @@ export class OverlayRegistry {
       }
       this.activeOverlay = { id, renderer, onHide };
       this.expandOverlay();
+      Analytics.sendPageView(`/overlay/${id}`);
     } else if (id == this.activeOverlay.id) {
       this.hideOverlay();
     }
