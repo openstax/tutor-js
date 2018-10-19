@@ -142,6 +142,7 @@ export default class SupportMenu extends React.PureComponent {
       >
         <Dropdown.Toggle
           ref={m => (this.dropdownToggle = m)}
+          aria-label="Page tips and support"
           useAnchor={true}
           noCaret
         >

@@ -129,6 +129,7 @@ export default class ActionsMenu extends React.Component {
       >
         <Dropdown.Toggle
           useAnchor={true}
+          aria-label="Menu and settings"
           noCaret
         >
           <Icon type="bars" />

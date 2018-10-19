@@ -30,6 +30,7 @@ exports[`Main navbar renders and matches snapshot 1`] = `
         <a
           aria-expanded={false}
           aria-haspopup={true}
+          aria-label="Page tips and support"
           className="dropdown-toggle"
           href="#"
           id="support-menu"
@@ -130,6 +131,7 @@ exports[`Main navbar renders and matches snapshot 1`] = `
         <a
           aria-expanded={false}
           aria-haspopup={true}
+          aria-label="Account settings"
           className="dropdown-toggle"
           href="#"
           id="user-menu"
