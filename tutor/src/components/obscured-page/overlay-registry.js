@@ -2,12 +2,9 @@ import { invoke, defer } from 'lodash';
 import { observable, action, computed } from 'mobx';
 import cn from 'classnames';
 
-
 export class OverlayRegistry {
 
-
   @observable activeOverlay = {};
-
   @observable page;
   @observable detached;
   @observable isOverlayExpanded = false;

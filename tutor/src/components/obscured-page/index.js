@@ -13,12 +13,12 @@ const Overlay = styled.div`
   z-index: 20;
   overflow: auto;
   transition: height 0.4s;
-${props => props.isHidden && css`
-display: none;
-`}
-${props => props.isExpanded && css`
-height: 100%;
-`}
+  ${props => props.isHidden && css`
+    display: none;
+  `}
+  ${props => props.isExpanded && css`
+    height: 100%;
+  `}
 `;
 
 @observer
