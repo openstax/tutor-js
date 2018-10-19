@@ -32,7 +32,7 @@ describe('main Tutor App', () => {
 
 
   it('records user session', () => {
-    shallow(<App {...props} />);
+    mount(<Wrapper _wrapped_component={App} {...props} />);
     expect(User.recordSessionStart).toHaveBeenCalled();
   });
 
