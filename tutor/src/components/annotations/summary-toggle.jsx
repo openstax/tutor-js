@@ -3,14 +3,12 @@ import { get } from 'lodash';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
-import Icon from '../icon';
 import User from '../../models/user';
 import Courses from '../../models/courses-map';
 import { TaskPanelStore } from '../../flux/task-panel';
 import TourRegion from '../tours/region';
 import TourAnchor from '../tours/anchor';
 import HighlightIcon from './highlight-icon';
-import Overlay from '../obscured-page/overlay';
 
 @observer
 export default class AnnotationSummaryToggle extends React.Component {
