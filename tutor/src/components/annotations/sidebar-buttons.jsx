@@ -43,7 +43,6 @@ export default class SidebarButtons extends React.Component {
   }
 
   render() {
-
     return (
       <div className="annotation-edit-buttons">
         {map(filter(this.props.annotations, 'text'), this.renderAnnotation)}

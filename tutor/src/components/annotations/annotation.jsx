@@ -86,7 +86,9 @@ export default class AnnotationWidget extends React.Component {
   }
 
   componentWillUnmount() {
-    this.highlighter.unmount();
+    if (this.highlighter) {
+      this.highlighter.unmount();
+    }
   }
 
   @computed get course() {
@@ -120,6 +122,27 @@ export default class AnnotationWidget extends React.Component {
     };
   }
 
+  waitForPageReady() {
+    return new Promise(resolve => {
+      const win = this.props.windowImpl;
+      const unprocessedMath = !!win.document.querySelector('.book-content *:not(.MJX_Assistive_MathML) > math');
+      const runImagesComplete = () => imagesComplete({
+        body: win.document.querySelector('.book-content'),
+      })
+        .finally(resolve)
+      ;
+
+      if (win.MathJax && unprocessedMath) {
+        win.MathJax.Hub.Register.MessageHook('End Process', runImagesComplete);
+      } else {
+        runImagesComplete();
+      }
+    });
+  }
+
+  getBookContentRef() {
+    return this.props.windowImpl.document.querySelector('.book-content');
+  }
 
   initializePage() {
     this.ux.statusMessage.show({
@@ -130,9 +153,8 @@ export default class AnnotationWidget extends React.Component {
     this.getReferenceElements();
     if (!this.referenceElements.length) { return; }
 
-    const win = this.props.windowImpl;
     const initialize = once(() => {
-      this.highlighter = new Highlighter(win.document.querySelector('.book-content'), {
+      this.highlighter = new Highlighter(this.getBookContentRef(), {
         snapTableRows: true,
         snapMathJax: true,
         snapWords: true,
@@ -149,18 +171,7 @@ export default class AnnotationWidget extends React.Component {
       this.ux.statusMessage.hide();
     });
 
-    const unprocessedMath = !!win.document.querySelector('.book-content *:not(.MJX_Assistive_MathML) > math');
-    const runImagesComplete = () => imagesComplete({
-      body: win.document.querySelector('.book-content'),
-    })
-      .finally(initialize)
-    ;
-
-    if (win.MathJax && unprocessedMath) {
-      win.MathJax.Hub.Register.MessageHook('End Process', runImagesComplete);
-    } else {
-      runImagesComplete();
-    }
+    return this.waitForPageReady().then(initialize);
   }
 
   onHighlightClick = highlight => {
