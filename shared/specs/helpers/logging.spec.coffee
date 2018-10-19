@@ -73,5 +73,4 @@ describe 'Loggging', ->
     expect(
       ConsoleLogger.error
     ).toHaveBeenCalledTimes(10)
-    expect(debounce).toHaveBeenCalled()
     undefined
