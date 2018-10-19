@@ -3,7 +3,6 @@ import { get } from 'lodash';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
-import Icon from '../icon';
 import User from '../../models/user';
 import Courses from '../../models/courses-map';
 import { TaskPanelStore } from '../../flux/task-panel';

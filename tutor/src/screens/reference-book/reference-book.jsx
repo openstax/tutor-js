@@ -1,6 +1,6 @@
 import { React, observer, cn } from '../../helpers/react';
 import { SpyMode } from 'shared';
-
+import ObscuredPage from '../../components/obscured-page';
 import Menu from '../../components/book-menu/menu';
 import Page from '../../components/book-page';
 
@@ -42,10 +42,12 @@ export default class ReferenceBook extends React.Component {
     return (
       <div {...ux.dataProps} className={className}>
         <SpyMode.Wrapper>
-          <div className="content">
-            <Menu ux={ux} />
-            <WrappedPage ux={ux} />
-          </div>
+          <ObscuredPage>
+            <div className="content">
+              <Menu ux={ux} />
+              <WrappedPage ux={ux} />
+            </div>
+          </ObscuredPage>
         </SpyMode.Wrapper>
       </div>
     );

@@ -1,6 +1,5 @@
 import AnnotationWidget from '../../src/components/annotations/annotation';
 import Renderer from 'react-test-renderer';
-import keymaster from 'keymaster';
 import { bootstrapCoursesList } from '../courses-test-data';
 import AnnotationsMap from '../../src/models/annotations';
 
@@ -8,7 +7,6 @@ import Page from '../../api/pages/be8818d0-2dba-4bf3-859a-737c25fb2c99@20.json';
 import ANNOTATIONS from '../../api/annotations.json';
 import Router from '../../src/helpers/router';
 
-jest.mock('keymaster');
 jest.mock('react-addons-css-transition-group', () => ({children, component = 'div'}) => {
   const { createElement } = require('react');
   return createElement(component, null, children)
@@ -67,20 +65,6 @@ describe('Annotations', () => {
       chapter: Page.chapter_section[0],
       section: Page.chapter_section[1],
     };
-  });
-
-  it('hides window shade on esc key', () => {
-    const widget = mount(<AnnotationWidget {...props} />);
-    expect(widget).not.toHaveRendered('.highlights-windowshade');
-    annotations.ux.isSummaryVisible = true;
-    expect(widget).toHaveRendered('.highlights-windowshade');
-    expect(keymaster).toHaveBeenCalledWith('esc', expect.any(Function));
-    expect(annotations.ux.isSummaryVisible).toBe(true);
-    keymaster.mock.calls[0][1]();
-    expect(widget).not.toHaveRendered('.highlights-windowshade');
-    expect(annotations.ux.isSummaryVisible).toBe(false);
-    widget.unmount();
-    expect(keymaster.unbind).toHaveBeenCalledWith('esc', expect.any(Function));
   });
 
   it('sorts in model', () => {
