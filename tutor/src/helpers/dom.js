@@ -6,7 +6,7 @@ import { get } from 'lodash';
 
 const NODE_TYPE = {
   ELEMENT_NODE: 1,
-  TEXT_NODE: 3
+  TEXT_NODE: 3,
 };
 
 export default function dom(el) {
@@ -139,7 +139,7 @@ export default function dom(el) {
      */
     parents() {
       var parent, path = [];
-      while (!!(parent = el.parentNode)) {
+      while (parent = el.parentNode) {
         path.push(parent);
         el = parent;
       }
@@ -181,7 +181,7 @@ export default function dom(el) {
      * @returns {NodeList}
      */
     fromHTML(html) {
-      var div = document.createElement('div');
+      const div = document.createElement('div');
       div.innerHTML = html;
       return div.childNodes;
     },

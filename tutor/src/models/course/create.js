@@ -10,8 +10,9 @@ import Term from './offerings/term';
 import S from '../../helpers/string';
 
 
+export default
 @identifiedBy('course/create')
-export default class CourseCreate extends BaseModel {
+class CourseCreate extends BaseModel {
 
   @field name = '';
   @field offering_id = '';
@@ -108,12 +109,12 @@ export default class CourseCreate extends BaseModel {
     return Boolean(
       this.offering &&
         this.offering.isLegacyBiology && (
-          this.term && (
-            this.term.year !== 2018 ||
+        this.term && (
+          this.term.year !== 2018 ||
               !['spring', 'summer'].includes(this.term.term)
-          )
         )
+      )
     );
   }
 
-}
+};

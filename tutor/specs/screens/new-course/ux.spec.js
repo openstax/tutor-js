@@ -9,7 +9,7 @@ jest.mock('../../../src/helpers/router');
 jest.mock('../../../src/models/course/offerings', () => ({
   get: jest.fn(() => undefined),
   fetch: jest.fn(() => Promise.resolve()),
-  api: { isPending: false }
+  api: { isPending: false },
 }));
 jest.mock('../../../src/models/user', () => ({
   isCollegeTeacher: true,
@@ -177,10 +177,12 @@ describe('Course Builder UX Model', () => {
       };
       ux.newCourseMock = { id: 42 };
       ux.newCourse.term = { year: 2018, term: 'spring' };
-      ux.newCourse.save = jest.fn(() => ({ then: (c) => {
-        ux.newCourse.onCreated({ data: ux.newCourseMock });
-        c();
-      } }));
+      ux.newCourse.save = jest.fn(() => ({
+        then: (c) => {
+          ux.newCourse.onCreated({ data: ux.newCourseMock });
+          c();
+        },
+      }));
     });
 
     it('redirects after building', function() {

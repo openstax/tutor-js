@@ -7,8 +7,9 @@ import {
 } from 'shared/model';
 import { TimeStore } from '../../../flux/time';
 
+export default
 @identifiedBy('course/scores/heading')
-export default class Heading extends BaseModel {
+class Heading extends BaseModel {
   @field({ type: 'bignum' }) average_score;
   @field({ type: 'bignum' }) average_progress;
   @field({ type: 'date' }) due_at;
@@ -42,4 +43,4 @@ export default class Heading extends BaseModel {
     ).div(this.tasks.length);
   }
 
-}
+};

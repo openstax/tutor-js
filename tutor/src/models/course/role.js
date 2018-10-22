@@ -5,8 +5,9 @@ import { computed } from 'mobx';
 import moment from 'moment';
 import { TimeStore } from '../../flux/time';
 
+export default
 @identifiedBy('course/role')
-export default class CourseRole extends BaseModel {
+class CourseRole extends BaseModel {
   @identifier id;
 
   @field({ type: 'date' }) joined_at;
@@ -24,4 +25,4 @@ export default class CourseRole extends BaseModel {
   joinedAgo(terms = 'days') {
     return moment(TimeStore.getNow()).diff(this.joined_at, terms);
   }
-}
+};

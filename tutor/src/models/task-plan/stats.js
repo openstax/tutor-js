@@ -66,8 +66,9 @@ const AnswersAssociation = {
   },
 };
 
+export
 @identifiedBy('task-plan/stats/question')
-export class QuestionStats extends BaseModel {
+ class QuestionStats extends BaseModel {
 
   @session question_id;
   @session answered_count;
@@ -110,8 +111,9 @@ export class QuestionStats extends BaseModel {
 // }
 //
 
+export
 @identifiedBy('task-plan/stats/page')
-export class Page extends BaseModel {
+ class Page extends BaseModel {
 
   @identifier id;
   @field({ model: ChapterSection }) chapter_section
@@ -124,8 +126,9 @@ export class Page extends BaseModel {
   @hasMany({ model: Exercise, inverseOf: 'page' }) exercises;
 }
 
+export
 @identifiedBy('task-plan/stats/stat')
-export class Stats extends BaseModel {
+ class Stats extends BaseModel {
 
   @session period_id;
   @session name;
@@ -152,8 +155,9 @@ export class Stats extends BaseModel {
   }
 }
 
+export default
 @identifiedBy('task-plan/stats')
-export default class TaskPlanStats extends BaseModel {
+ class TaskPlanStats extends BaseModel {
 
   @identifier id;
   @session title;

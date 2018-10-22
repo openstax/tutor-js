@@ -18,12 +18,12 @@ const MAXIMUM_SCROLL_ATTEMPTS = 3;
 // http://blog.greweb.fr/2012/02/bezier-curve-based-easing-functions-from-concept-to-implementation/
 function EASE_IN_OUT(t) {
   if (t < .5) { return 4 * t * t * t; } else { return ((t - 1) * ((2 * t) - 2) * ((2 * t) - 2)) + 1; }
-};
+}
 
 function POSITION(start, end, elapsed, duration) {
   if (elapsed > duration) { return end; }
   return start + ((end - start) * EASE_IN_OUT(elapsed / duration));
-};
+}
 
 export default class ScrollTo {
 
@@ -131,7 +131,7 @@ export default class ScrollTo {
     const requestAnimationFrame = win.requestAnimationFrame || delay;
     if (!options.attemptNumber) { options.attemptNumber = 0; }
 
-    var step = () => {
+    const step = () => {
       const elapsed = Date.now() - startTime;
       win.scroll(0, POSITION(startPos, endPos, elapsed, duration) );
       if (elapsed < duration) { return requestAnimationFrame(step);

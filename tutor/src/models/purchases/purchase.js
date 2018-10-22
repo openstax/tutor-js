@@ -15,8 +15,9 @@ class Product extends BaseModel {
   @field price;
 }
 
+export default
 @identifiedBy('purchase')
-export default class Purchase extends BaseModel {
+class Purchase extends BaseModel {
 
   @identifier identifier;
   @field product_instance_uuid;
@@ -70,4 +71,4 @@ export default class Purchase extends BaseModel {
     }
   }
 
-}
+};

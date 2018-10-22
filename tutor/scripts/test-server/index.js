@@ -1,6 +1,6 @@
 const { bind } = require('lodash');
 const path = require('path');
-var fork = require('child_process').fork;
+const fork = require('child_process').fork;
 const chalk = require('chalk');
 const { fe_port, be_port } = require('./ports');
 const SERVERS = ['backend', 'frontend'];

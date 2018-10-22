@@ -59,23 +59,29 @@ Factories.ecosystemsMap = ({ count = 4 } = {}) => {
 };
 
 Factories.pastTaskPlans = ({ course, count = 4 }) => {
-  course.pastTaskPlans.onLoaded({ data: {
-    items: range(count).map(() => FactoryBot.create('TeacherDashboardTask', { course })),
-  } });
+  course.pastTaskPlans.onLoaded({
+    data: {
+      items: range(count).map(() => FactoryBot.create('TeacherDashboardTask', { course })),
+    },
+  });
 };
 
 Factories.taskPlans = ({ course, count = 4 }) => {
-  course.taskPlans.onLoaded({ data: {
-    plans: range(count).map(() => FactoryBot.create('TeacherDashboardTask', { course })),
-  } });
+  course.taskPlans.onLoaded({
+    data: {
+      plans: range(count).map(() => FactoryBot.create('TeacherDashboardTask', { course })),
+    },
+  });
 };
 
 Factories.studentTasks = ({ course, count = 4, attributes = {} }) => {
-  course.studentTasks.onLoaded({ data: {
-    tasks: range(count).map(() => FactoryBot.create('StudentDashboardTask',
-      Object.assign({ course }, attributes)
-    )),
-  } });
+  course.studentTasks.onLoaded({
+    data: {
+      tasks: range(count).map(() => FactoryBot.create('StudentDashboardTask',
+        Object.assign({ course }, attributes)
+      )),
+    },
+  });
 };
 
 Factories.scores = ({ course }) => {
@@ -88,12 +94,13 @@ Factories.exercisesMap = ({ book, pageIds = [], count = 4 } = {}) => {
   const map = new ExercisesMap();
   if (!book) { return map; }
   pageIds.forEach(pgId => {
-    map.onLoaded(
-      { data: { items: range(count).map(() => FactoryBot.create('TutorExercise', {
-        page_uuid: book.pages.byId.get(pgId).uuid,
-      })) } },
-      [{ book, page_ids: [ pgId ] }]
-    );
+    map.onLoaded({
+      data: {
+        items: range(count).map(() => FactoryBot.create('TutorExercise', {
+          page_uuid: book.pages.byId.get(pgId).uuid,
+        })),
+      },
+    }, [{ book, page_ids: [ pgId ] }]);
   });
   return map;
 };

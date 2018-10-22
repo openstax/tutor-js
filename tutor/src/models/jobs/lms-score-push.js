@@ -13,8 +13,9 @@ import Job from '../job';
 const CURRENT = observable.map();
 const LAST_PUSH = 'sclp';
 
+export default
 @identifiedBy('jobs/lms-score-push')
-export default class LmsScorePush extends Job {
+class LmsScorePush extends Job {
 
   static forCourse(course) {
     let exp = CURRENT.get(course.id);
@@ -63,4 +64,4 @@ export default class LmsScorePush extends Job {
     this.startPolling(data.job);
   }
 
-}
+};

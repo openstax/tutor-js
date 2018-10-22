@@ -8,8 +8,9 @@ import invariant from 'invariant';
 
 const MAX_ATTEMPTS = 50;
 
+export default
 @identifiedBy('job')
-export default class Job extends BaseModel {
+class Job extends BaseModel {
 
   @identifier jobId;
 
@@ -86,4 +87,4 @@ export default class Job extends BaseModel {
       this.pollingId = setTimeout(this.checkForUpdate, this.interval * 1000);
     }
   }
-}
+};

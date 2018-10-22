@@ -14,8 +14,9 @@ import CreateCourse from '../../models/course/create';
 import Router from '../../helpers/router';
 import User from '../../models/user';
 
+export default
 @identifiedBy('course/builder-ux')
-export default class CourseBuilderUX extends BaseModel {
+class CourseBuilderUX extends BaseModel {
 
   @readonly course = new Course();
   @observable canCancel = true;
@@ -222,4 +223,4 @@ export default class CourseBuilderUX extends BaseModel {
   skip_cloned_from_id() {
     return Boolean(this.newCourse.new_or_copy === 'new');
   }
-}
+};

@@ -11,7 +11,7 @@ describe('Exercise Question', () => {
   it('validates', () => {
     expect(answer.validity.valid).toBe(true);
     answer.content_html = '';
-    expect(answer.validity).toEqual({"part": "Answer Distractor", "valid": false});
+    expect(answer.validity).toEqual({ 'part': 'Answer Distractor', 'valid': false });
   });
 
 });

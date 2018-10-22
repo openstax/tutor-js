@@ -29,7 +29,7 @@ describe('Learning Guide Practice Button', function() {
       { props: { courseId: COURSE_ID, title: 'Practice moar' } }
     ).then(async ({ dom }) => {
       expect(await axe(dom.outerHTML)).toHaveNoViolations();
-      expect(dom.textContent).to.equal('Practice moar')
+      expect(dom.textContent).to.equal('Practice moar');
     })
   );
 

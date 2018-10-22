@@ -9,7 +9,6 @@ const isActiveCheckFn   = period => !period.is_archived;
 const NumberLike = /[^0-9]+/;
 
 
-
 const PeriodHelper = {
   getOrder(period) {
     return S.getNumberAndStringOrder(period.name);

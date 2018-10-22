@@ -35,8 +35,9 @@ const SAVEABLE_ATTRS = [
   'reading_score_weight', 'reading_progress_weight',
 ];
 
+export default
 @identifiedBy('course')
-export default class Course extends BaseModel {
+class Course extends BaseModel {
 
   @identifier id;
 
@@ -77,9 +78,9 @@ export default class Course extends BaseModel {
   @field just_created = false;
 
   @hasMany({ model: Period, inverseOf: 'course', extend: extendHasMany({
-    sorted()   { return PH.sort(this.active);                        },
+    sorted() { return PH.sort(this.active);                        },
     archived() { return filter(this, period => !period.is_archived); },
-    active()   { return filter(this, period => !period.is_archived); },
+    active() { return filter(this, period => !period.is_archived); },
   }) }) periods;
 
   @hasMany({ model: Role }) roles;
@@ -258,7 +259,7 @@ export default class Course extends BaseModel {
 
   @computed get isSunsetting() {
     return !!(this.is_concept_coach && !(
-        /biology/.test(this.appearance_code) ||
+      /biology/.test(this.appearance_code) ||
         /physics/.test(this.appearance_code) ||
         /sociology/.test(this.appearance_code)
     ));
@@ -277,4 +278,4 @@ export default class Course extends BaseModel {
     exercise.update(exerciseAttrs);
   }
 
-}
+};

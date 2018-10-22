@@ -6,12 +6,13 @@ import {
 
 import SharedExercise from 'shared/model/exercise';
 
+export default
 @identifiedBy('exercises/exercise')
-export default class Exercise extends SharedExercise {
+class Exercise extends SharedExercise {
 
   @session error;
 
   @action onError({ message }) {
     this.error = message;
   }
-}
+};

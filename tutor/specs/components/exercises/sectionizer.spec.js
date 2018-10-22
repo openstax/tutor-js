@@ -12,10 +12,10 @@ describe('Exercise Sectionizer Component', function() {
 
   beforeEach(() => {
     props = {
-      chapter_sections:  [ "1", "1.1", "1.2", "1.3", "2", "2.1", "2.2", "2.3", "3", "3.1", "3.2" ],
+      chapter_sections:  [ '1', '1.1', '1.2', '1.3', '2', '2.1', '2.2', '2.3', '3', '3.1', '3.2' ],
       onScreenElements:  [],
       nonAvailableWidth: 1000,
-      windowImpl:        new FakeWindow
+      windowImpl:        new FakeWindow,
     };
   });
 

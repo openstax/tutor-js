@@ -7,8 +7,9 @@ import Big from 'big.js';
 import moment from 'moment';
 import { TimeStore } from '../../../flux/time';
 
+export default
 @identifiedBy('course/scores/task-result')
-export default class TaskResult extends BaseModel {
+class TaskResult extends BaseModel {
   @identifier id;
   @field type;
   @field status;
@@ -189,4 +190,4 @@ export default class TaskResult extends BaseModel {
   }
 
 
-}
+};

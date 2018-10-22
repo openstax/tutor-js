@@ -10,7 +10,7 @@ describe('Student Scores Latework Popover', function() {
   let task;
 
   beforeEach(() => {
-    ({ scores } = bootstrapScores());
+    const { scores } = bootstrapScores();
     task = scores.getTask(18);
     task.acceptLate = jest.fn(() => Promise.resolve());
     props = {

@@ -1,13 +1,15 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { Listing, Choice } from '../choices-listing';
 import { Modal, Button } from 'react-bootstrap';
 
+export default
 @observer
-export default class SelectPeriod extends React.PureComponent {
+class SelectPeriod extends React.Component {
 
   static propTypes = {
-    enrollment: React.PropTypes.object.isRequired,
+    enrollment: PropTypes.object.isRequired,
   }
 
   render() {
@@ -44,4 +46,4 @@ export default class SelectPeriod extends React.PureComponent {
       </div>
     );
   }
-}
+};

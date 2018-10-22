@@ -13,7 +13,7 @@ import Exercises from '../exercises';
 const UPDATEABLE_FIELDS = ['content_html', 'spy'];
 
 @identifiedBy('reference-book/page')
-export default class ReferenceBookPage extends BaseModel {
+class ReferenceBookPage extends BaseModel {
   @identifier id;
   @field title;
   @field type;

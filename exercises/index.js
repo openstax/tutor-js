@@ -19,6 +19,6 @@ function loadApp() {
     return () => React.createElement(Component, { data });
   });
   if (module.hot) { return module.hot.accept('./src/app', Renderer); }
-};
+}
 
 document.addEventListener('DOMContentLoaded', loadApp);

@@ -16,7 +16,7 @@ describe('Scores Report summary columns', function() {
   let period;
 
   beforeEach(() => {
-    ({ course, period } = bootstrapScores());
+    ((((({ course, period } = bootstrapScores())))));
     props = {
       params: { courseId: course.id },
     };

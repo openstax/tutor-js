@@ -1,13 +1,13 @@
-const {Testing, expect, sinon, _} = require('./index');
+const { Testing, expect, sinon, _ } = require('./index');
 
-const {typesetMath} = require('helpers/mathjax');
+const { typesetMath } = require('helpers/mathjax');
 const FakeWindow = require('./fake-window');
 
 const callTypeset = (dom, window) =>
   new Promise( function( res, rej ) {
     typesetMath(dom, window);
     return _.delay(() => res(dom)
-    , 190);
+      , 190);
   })
 ;
 
@@ -23,7 +23,7 @@ describe('Mathjax Helper', function() {
       Hub: {
         Typeset: sinon.spy(),
         Queue: (...args) => args.map(arg => arg()), 
-      }
+      },
     };
     return window.document = dom;
   });

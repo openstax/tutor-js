@@ -12,8 +12,9 @@ import Toasts from '../toasts';
 const CURRENT = observable.map();
 const LAST_EXPORT = 'sce';
 
+export default
 @identifiedBy('jobs/scores-export')
-export default class ScoresExport extends Job {
+class ScoresExport extends Job {
 
   static forCourse(course) {
     let exp = CURRENT.get(course.id);
@@ -56,4 +57,4 @@ export default class ScoresExport extends Job {
     this.startPolling(data.job);
   }
 
-}
+};

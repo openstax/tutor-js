@@ -11,8 +11,9 @@ import Tag from './exercise/tag';
 
 export { Attachment, Author, Question, Tag };
 
+export default
 @identifiedBy('exercise')
-export default class Exercise extends BaseModel {
+class Exercise extends BaseModel {
 
   static build(attrs) {
     return new this(merge(attrs, {
@@ -87,4 +88,4 @@ export default class Exercise extends BaseModel {
   @computed get isPublishable() {
     return Boolean(!this.isNew && this.validity.valid && !this.published_at);
   }
-}
+};

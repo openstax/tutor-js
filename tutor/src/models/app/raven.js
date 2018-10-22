@@ -4,7 +4,7 @@ const isProd = (process.env.NODE_ENV === 'production');
 
 const isMathJaxUrl = /mathjax/;
 
-const isMathjax = (crumb) => ('xhr' === crumb.category && isMathJaxUrl.test(crumb.data.url))
+const isMathjax = (crumb) => ('xhr' === crumb.category && isMathJaxUrl.test(crumb.data.url));
 
 const RavenErrorLogging = {
 

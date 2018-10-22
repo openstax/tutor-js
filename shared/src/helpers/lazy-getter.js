@@ -1,8 +1,8 @@
 // credit to https://github.com/jayphelps/core-decorators/blob/master/src/lazy-initialize.js
 export default function lazyGetter(target, key, descriptor) {
   const configurable = descriptor.configurable,
-        initializer  = descriptor.initializer,
-        value        = descriptor.value;
+    initializer  = descriptor.initializer,
+    value        = descriptor.value;
 
   return {
     configurable,

@@ -9,7 +9,7 @@ Object.defineProperties(mockCourses, {
     get: function() { return this.length === 0; },
   },
   api: {
-    get: function() { return {} },
+    get: function() { return {}; },
   },
 });
 

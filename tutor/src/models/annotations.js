@@ -69,7 +69,7 @@ export default class Annotations extends Map {
     ).then(document => {
       const data = get(document, 'target.0.selector.0');
       if (!data || !document.id) {
-        throw new Error("server returned malformed response from create");
+        throw new Error('server returned malformed response from create');
       }
       this.api.requestsInProgress.delete('create');
       this.api.requestCounts.create += 1;

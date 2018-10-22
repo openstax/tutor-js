@@ -23,7 +23,7 @@ describe('Learning Guide Chapter Panel', function() {
       _.delay(async () => {
         expect(await axe(dom.outerHTML)).toHaveNoViolations();
         expect(dom.querySelector('.amount-worked').textContent).to
-          .equal(`${pluralize(' problems', total, true)} worked in this chapter`)
+          .equal(`${pluralize(' problems', total, true)} worked in this chapter`);
       })
     );
   });

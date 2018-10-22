@@ -7,8 +7,9 @@ import moment from 'moment';
 import { pick } from 'lodash';
 import Payments from '../payments';
 
+export default
 @identifiedBy('course/student')
-export default class CourseStudent extends BaseModel {
+class CourseStudent extends BaseModel {
   @identifier id;
 
   @field name;
@@ -94,4 +95,4 @@ export default class CourseStudent extends BaseModel {
     return { id: this.id, data: pick(this, 'student_identifier') };
   }
 
-}
+};

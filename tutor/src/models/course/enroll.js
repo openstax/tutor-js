@@ -13,8 +13,9 @@ import Activity from '../../../src/components/ox-fancy-loader';
 import Enroll from '../../../src/components/enroll';
 import Course from '../course';
 
+export default
 @identifiedBy('course/student')
-export default class CourseEnrollment extends BaseModel {
+class CourseEnrollment extends BaseModel {
 
   @identifier id;
   @field enrollment_code;
@@ -97,7 +98,7 @@ export default class CourseEnrollment extends BaseModel {
 
   @computed get courseIsLmsEnabled() {
     return this.courseToJoin ?
-           this.courseToJoin.is_lms_enabled : get(this, 'to.course.is_lms_enabled', null);
+      this.courseToJoin.is_lms_enabled : get(this, 'to.course.is_lms_enabled', null);
   }
 
   @action.bound
@@ -200,4 +201,4 @@ export default class CourseEnrollment extends BaseModel {
     return { data: pick(this, 'student_identifier') };
   }
 
-}
+};

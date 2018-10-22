@@ -33,9 +33,13 @@ describe('review exercises table', function() {
     Factory.setSeed(1); // make factory deterministic so it has both reading/hw
     course = Factory.course();
     course.referenceBook.onApiRequestComplete({ data: [FactoryBot.create('Book')] });
-    exercises = Factory.exercisesMap({ book: course.referenceBook, pageIds: [
-      course.referenceBook.pages.byId.keys()[0],
-    ] });
+    exercises = Factory.exercisesMap({
+      book: course.referenceBook,
+
+      pageIds: [
+        course.referenceBook.pages.byId.keys()[0],
+      ],
+    });
 
     return props = {
       course,

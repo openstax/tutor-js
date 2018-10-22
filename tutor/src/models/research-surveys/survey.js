@@ -4,8 +4,9 @@ import {
   BaseModel, identifiedBy, field, identifier, hasMany,
 } from 'shared/model';
 
+export default
 @identifiedBy('student/task')
-export default class ResearchSurvey extends BaseModel {
+class ResearchSurvey extends BaseModel {
 
   @identifier id;
   @field title;
@@ -26,4 +27,4 @@ export default class ResearchSurvey extends BaseModel {
     return { id: this.id, data: pick(this, 'response') };
   }
 
-}
+};

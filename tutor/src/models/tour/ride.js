@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   BaseModel, identifiedBy, belongsTo, computed,
 } from 'shared/model';
@@ -20,8 +19,9 @@ const DEFAULT_JOYRIDE_CONFIG = {
   holePadding: 5,
 };
 
+export default
 @identifiedBy('tour/ride')
-export default class TourRide extends BaseModel {
+class TourRide extends BaseModel {
 
   @belongsTo({ model: 'tour' }) tour;
   @belongsTo({ model: 'tour/context' }) context;
@@ -60,7 +60,7 @@ export default class TourRide extends BaseModel {
           (!step.anchor_id ||
           this.context.anchors.has(step.anchor_id))
         );
-    });
+      });
   }
 
   @computed get replaySteps() {
@@ -138,4 +138,4 @@ export default class TourRide extends BaseModel {
     }
   }
 
-}
+};

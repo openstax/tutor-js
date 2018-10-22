@@ -7,13 +7,14 @@ import Solution from './solution';
 import Format from './format';
 import invariant from 'invariant';
 
+export default
 @identifiedBy('exercise/question')
-export default class ExerciseQuestion extends BaseModel {
+class ExerciseQuestion extends BaseModel {
 
   static FORMAT_TYPES = {
-    'open-ended'      : 'Open Ended',
-    'multiple-choice' : 'Multiple Choice',
-    'true-false'      : 'True/False',
+    'open-ended': 'Open Ended',
+    'multiple-choice': 'Multiple Choice',
+    'true-false': 'True/False',
   };
 
   @identifier id;
@@ -127,4 +128,4 @@ export default class ExerciseQuestion extends BaseModel {
     this.answers.splice(index+offset, 0, this.answers.splice(index, 1)[0]);
   }
 
-}
+};

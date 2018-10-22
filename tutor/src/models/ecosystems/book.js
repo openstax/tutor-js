@@ -3,8 +3,9 @@ import {
   BaseModel, identifiedBy, field, identifier, belongsTo,
 } from 'shared/model';
 
+export default
 @identifiedBy('ecosystems/ecosystem')
-export default class EcosystemBook extends BaseModel {
+class EcosystemBook extends BaseModel {
 
   @identifier id;
   @field title;
@@ -15,4 +16,4 @@ export default class EcosystemBook extends BaseModel {
   @computed get titleWithVersion() {
     return `${this.title} ${this.version}`;
   }
-}
+};

@@ -5,8 +5,9 @@ import {
 import { action, computed, observable } from 'mobx';
 import { filter } from 'lodash';
 
+export
 @identifiedBy('user/term')
-export class Term extends BaseModel {
+ class Term extends BaseModel {
   @identifier id;
   @field title;
   @field content;
@@ -17,8 +18,9 @@ export class Term extends BaseModel {
 
 }
 
+export
 @identifiedBy('user/terms')
-export class UserTerms extends BaseModel {
+ class UserTerms extends BaseModel {
 
   @belongsTo({ model: 'user' }) user;
   @hasMany({ model: Term }) terms;

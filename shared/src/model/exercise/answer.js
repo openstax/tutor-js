@@ -3,8 +3,9 @@ import {
   BaseModel, identifiedBy, identifier, field, computed, belongsTo,
 } from '../../model';
 
+export default
 @identifiedBy('exercise/answer')
-export default class ExerciseAnswer extends BaseModel {
+class ExerciseAnswer extends BaseModel {
   @identifier id;
   @field content_html;
   @field correctness;
@@ -24,4 +25,4 @@ export default class ExerciseAnswer extends BaseModel {
   @computed get isCorrect() {
     return this.correctness === '1.0';
   }
-}
+};

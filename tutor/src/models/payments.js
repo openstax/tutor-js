@@ -20,8 +20,9 @@ const REQUIRED_OPTIONS = [
   'course',
 ];
 
+export default
 @identifiedBy('payments')
-export default class Payments extends BaseModel {
+class Payments extends BaseModel {
 
   @readonly static config = observable({
     base_url: '',
@@ -143,4 +144,4 @@ export default class Payments extends BaseModel {
     });
   }
 
-}
+};

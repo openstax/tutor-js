@@ -1,13 +1,13 @@
 const TestServer = require('../test-server');
 const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
-const {set, differenceBy, max, values, getOr, filter, flatten, mean, get} = require('lodash/fp');
-const {write} = require('lighthouse/lighthouse-cli/printer');
+const { set, differenceBy, max, values, getOr, filter, flatten, mean, get } = require('lodash/fp');
+const { write } = require('lighthouse/lighthouse-cli/printer');
 const reportGenerator = require('lighthouse/lighthouse-core/report/report-generator');
 const fs = require('fs');
 const path = require('path');
-const {argv} = require('yargs');
-const {URL} = require('url');
+const { argv } = require('yargs');
+const { URL } = require('url');
 
 const diffFile = argv.diff && path.resolve(process.cwd(), argv.diff);
 if (argv.diff && !fs.existsSync(diffFile)){
@@ -54,7 +54,7 @@ const urls = [
 const chromeFlags = ['--headless', '--no-sandbox'];
 const onlyCategories = ['accessibility'];
 
-const server = new TestServer({role: 'teacher'});
+const server = new TestServer({ role: 'teacher' });
 const baseUrl = server.url;
 
 if (!cache) {
@@ -73,9 +73,9 @@ async function runAudit() {
     results.push(...cache);
   } else {
     for (const url of urls) {
-      const chrome = await chromeLauncher.launch({chromeFlags});
-      const {port} = chrome;
-      const auditUrl = url => lighthouse(baseUrl + url, {onlyCategories, chromeFlags, port});
+      const chrome = await chromeLauncher.launch({ chromeFlags });
+      const { port } = chrome;
+      const auditUrl = url => lighthouse(baseUrl + url, { onlyCategories, chromeFlags, port });
       const result = await auditUrl(url);
       try {
         results.push(set('lhr.relativeUrl', url, result));
@@ -99,7 +99,7 @@ async function runAudit() {
     const summary = () => {
       const columns = printColumns([
         rowHeaders,
-        tableStats(stats)
+        tableStats(stats),
       ]);
 
       return `\`\`\`\n${columns}\n\`\`\`\n`;
@@ -108,17 +108,21 @@ async function runAudit() {
       const otherStats = getStats(otherResults);
       const ourTableStats = tableStats(stats);
       const otherTableStats = tableStats(otherStats);
-      const {indicators, deltas} = diff(ourTableStats, otherTableStats, {
-        reverseIndicators: [2],
-        ignoreIndicators: [3]
-      });
+      const { indicators, deltas } = diff(
+        ourTableStats,
+        otherTableStats,
+        {
+          reverseIndicators: [2],
+          ignoreIndicators: [3],
+        },
+      );
 
       const columns = printColumns([
         ['', ...indicators],
         ['', ...rowHeaders],
         [argv.summaryLabel || 'current', ...ourTableStats],
         [argv.diffLabel || 'other', ...otherTableStats],
-        ['+/-', ...deltas]
+        ['+/-', ...deltas],
       ]);
       return `\`\`\`diff\n${columns}\n\`\`\`\n`;
     };
@@ -143,9 +147,9 @@ ${tips.map(printAudit).join('\n')}
   }
 
   if (argv.html) {
-    await Promise.all(results.map(({lhr}) => {
+    await Promise.all(results.map(({ lhr }) => {
       const fileName = path.join(htmlOutDir, new URL(lhr.requestedUrl).pathname.replace(/\//g, '_').replace(/^_/, ''));
-      return write(reportGenerator.generateReportHtml(lhr), 'html', fileName + '.html')
+      return write(reportGenerator.generateReportHtml(lhr), 'html', fileName + '.html');
     }));
   }
 }
@@ -168,9 +172,9 @@ function getStats(results) {
 
   return {
     averageScore, allAudits,
-    passingAudits: filter({score: 1}, allAudits).length,
-    failingAudits: filter({score: 0}, allAudits).length,
-    notApplicableAudits: filter({score: null}, allAudits).length,
+    passingAudits: filter({ score: 1 }, allAudits).length,
+    failingAudits: filter({ score: 0 }, allAudits).length,
+    notApplicableAudits: filter({ score: null }, allAudits).length,
     numAudits: allAudits.length,
     formattedScore: (averageScore * 100).toFixed(0),
   };
@@ -202,7 +206,7 @@ function diff(column1, column2, config = {}) {
     return '';
   });
 
-  return {deltas, indicators};
+  return { deltas, indicators };
 }
 
 function printAudit(audit) {
@@ -213,7 +217,7 @@ ${audit.description}
 }
 
 function failingAudits(results) {
-  return flatten(results.map(({lhr}) => values(lhr.audits).filter(audit => audit.score === 0).map(audit => ({
+  return flatten(results.map(({ lhr }) => values(lhr.audits).filter(audit => audit.score === 0).map(audit => ({
     id: `${lhr.relativeUrl}-${audit.id}`,
     url: lhr.relativeUrl,
     title: audit.title,

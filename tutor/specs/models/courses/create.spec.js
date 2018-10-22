@@ -1,4 +1,4 @@
-import CourseCreate from '../../../src/models/course/create'
+import CourseCreate from '../../../src/models/course/create';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import Offerings from '../../../src/models/course/offerings';
 import Router from '../../../src/helpers/router';

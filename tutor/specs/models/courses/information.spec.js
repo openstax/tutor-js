@@ -20,9 +20,9 @@ describe('Course Information lookup', function() {
   });
 
   it('calculates url for best practices doc', () => {
-    expect(CourseInfo.bestPracticesDocumentURLFor('bad')).toEqual('')
+    expect(CourseInfo.bestPracticesDocumentURLFor('bad')).toEqual('');
     expect(CourseInfo.bestPracticesDocumentURLFor('college_biology')).toEqual(
       'https://s3-us-west-2.amazonaws.com/openstax-assets/oscms-prodcms/media/documents/oxt-biology-best-practices.pdf'
-    )
+    );
   });
 });

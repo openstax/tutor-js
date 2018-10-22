@@ -166,7 +166,7 @@ const UserMenu = observable({
     if (courseId) {
       course = Courses.get(courseId);
       if (course) {
-        ({ isTeacher, primaryRole: { type: menuRole } } = course);
+        ((((({ isTeacher, primaryRole: { type: menuRole } } = course)))));
       }
     }
     const options = { courseId, menuRole };

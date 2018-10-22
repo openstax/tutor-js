@@ -11,8 +11,9 @@ import { TimeStore } from '../../flux/time';
 import TaskPlanStats from './stats';
 import TaskPlanReview from './review';
 
+export default
 @identifiedBy('task-plan/teacher')
-export default class TeacherTaskPlan extends BaseModel {
+class TeacherTaskPlan extends BaseModel {
 
   @identifier id;
   @field title;
@@ -96,7 +97,7 @@ export default class TeacherTaskPlan extends BaseModel {
   @computed get isOpen() { return this.durationRange.start().isBefore(TimeStore.getNow()); }
   @computed get isEditable() { return this.durationRange.start().isAfter(TimeStore.getNow()); }
   @computed get isFailed() { return Boolean(this.failed_at || this.killed_at); }
-  @computed get isPastDue() { return this.durationRange.end().isBefore(TimeStore.getNow()) }
+  @computed get isPastDue() { return this.durationRange.end().isBefore(TimeStore.getNow()); }
 
   @computed get isPollable() {
     return Boolean(
@@ -118,4 +119,4 @@ export default class TeacherTaskPlan extends BaseModel {
     return 'unknown';
   }
 
-}
+};

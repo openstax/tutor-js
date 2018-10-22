@@ -21,7 +21,7 @@ const ReferenceBook = asyncComponent(
   () => import('./screens/reference-book/index.jsx')
 );
 const getReferenceBook = () => ReferenceBook;
-const legacyReferenceBookRedirect = () => LegacyReferenceBookRedirect
+const legacyReferenceBookRedirect = () => LegacyReferenceBookRedirect;
 
 const QAView = asyncComponent(
   () => import('./screens/qa-view/index.jsx')
@@ -121,49 +121,35 @@ const getRoutes = (router) => {
     {
       path: '/course/:courseId', name: 'dashboard', renderer:  ConditionalHandlers.dashboard,
 
-      routes: [
-        { path: 'scores', name: 'viewScores',
-          renderer: loadAsync(() => import('./screens/scores-report/index.jsx')) },
-        { path: 'cc/help', name: 'ccDashboardHelp', renderer: getCCHelp },
-        { path: 'guide/:roleId?', name: 'viewPerformanceGuide', renderer: getPerformanceForecastGuide },
-        {
-          path: 't', name: 'viewTeacherDashboard', renderer: getTeacherDashboard,
-          routes: [
-            {
-              path: 'month/:date', name: 'calendarByDate', renderer: getTeacherDashboard,
-              routes: [{
-                path: 'plan/:planId', name: 'calendarViewPlanStats', renderer: getTeacherDashboard,
-              }],
-            },
-          ],
-        },
-        { path: 'metrics/:id', name: 'reviewTask', renderer: getTeacherReview },
-        {
-          path: 'task/:id', name: 'viewTask', renderer: getTaskShell,
-          routes: [
-            {
-              path: 'step/:stepIndex', name: 'viewTaskStep', renderer: getTaskShell,
-              routes: [{
-                path: ':milestones', name: 'viewTaskStepMilestones', renderer: getTaskShell,
-              }],
-            },
-          ],
-        },
-        { path: 'practice/:taskId?', name: 'practiceTopics', renderer: getPractice },
-        { path: 'homework/new', name: 'createHomework' },
-        { path: 'homework/:id', name: 'editHomework', renderer: getHomeworkShell },
-        { path: 'reading/new', name: 'createReading' },
-        { path: 'reading/:id', name: 'editReading', renderer: getReadingShell },
-        { path: 'external/new', name: 'createExternal' },
-        { path: 'external/:id', name: 'editExternal', renderer: getExternalShell },
-        { path: 'event/new', name: 'createEvent' },
-        { path: 'event/:id', name: 'editEvent', renderer: getEventShell },
-        { path: 'settings', name: 'courseSettings', renderer: getCourseSettings },
-        { path: 'roster', name: 'courseRoster', renderer: getCourseRoster },
-        { path: 'questions', name: 'viewQuestionsLibrary',
-          renderer: loadAsync(() => import('./screens/question-library/index.jsx')) },
-        { path: 'change-student-id', name: 'changeStudentId', renderer: getChangeStudentId },
-      ],
+      routes: [{
+        path: 'scores',
+        name: 'viewScores',
+        renderer: loadAsync(() => import('./screens/scores-report/index.jsx')),
+      }, { path: 'cc/help', name: 'ccDashboardHelp', renderer: getCCHelp }, { path: 'guide/:roleId?', name: 'viewPerformanceGuide', renderer: getPerformanceForecastGuide }, {
+        path: 't', name: 'viewTeacherDashboard', renderer: getTeacherDashboard,
+        routes: [
+          {
+            path: 'month/:date', name: 'calendarByDate', renderer: getTeacherDashboard,
+            routes: [{
+              path: 'plan/:planId', name: 'calendarViewPlanStats', renderer: getTeacherDashboard,
+            }],
+          },
+        ],
+      }, { path: 'metrics/:id', name: 'reviewTask', renderer: getTeacherReview }, {
+        path: 'task/:id', name: 'viewTask', renderer: getTaskShell,
+        routes: [
+          {
+            path: 'step/:stepIndex', name: 'viewTaskStep', renderer: getTaskShell,
+            routes: [{
+              path: ':milestones', name: 'viewTaskStepMilestones', renderer: getTaskShell,
+            }],
+          },
+        ],
+      }, { path: 'practice/:taskId?', name: 'practiceTopics', renderer: getPractice }, { path: 'homework/new', name: 'createHomework' }, { path: 'homework/:id', name: 'editHomework', renderer: getHomeworkShell }, { path: 'reading/new', name: 'createReading' }, { path: 'reading/:id', name: 'editReading', renderer: getReadingShell }, { path: 'external/new', name: 'createExternal' }, { path: 'external/:id', name: 'editExternal', renderer: getExternalShell }, { path: 'event/new', name: 'createEvent' }, { path: 'event/:id', name: 'editEvent', renderer: getEventShell }, { path: 'settings', name: 'courseSettings', renderer: getCourseSettings }, { path: 'roster', name: 'courseRoster', renderer: getCourseRoster }, {
+        path: 'questions',
+        name: 'viewQuestionsLibrary',
+        renderer: loadAsync(() => import('./screens/question-library/index.jsx')),
+      }, { path: 'change-student-id', name: 'changeStudentId', renderer: getChangeStudentId }],
 
     }, {
       path: '/accessibility-statement/:courseId?', name: 'accessibilityStatement', renderer: getAccessibilityStatement,

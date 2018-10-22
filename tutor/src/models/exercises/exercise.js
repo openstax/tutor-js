@@ -10,8 +10,9 @@ import Page from '../reference-book/page';
 import Book from '../reference-book';
 import { extendHasMany } from '../../helpers/computed-property';
 
+export default
 @identifiedBy('exercises/exercise')
-export default class TutorExercise extends BaseModel {
+class TutorExercise extends BaseModel {
 
   @identifier id;
   @field ecosystem_id;
@@ -84,4 +85,4 @@ export default class TutorExercise extends BaseModel {
     return this.has_video;
   }
 
-}
+};

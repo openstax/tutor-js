@@ -3,7 +3,7 @@ import Student from '../../../src/models/course/student';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import Payments from '../../../src/models/payments';
 
-jest.mock('../../../src/models/payments')
+jest.mock('../../../src/models/payments');
 jest.mock('../../../src/flux/time', () => ({
   TimeStore: {
     getNow: jest.fn(() => new Date('2000-01-01')),

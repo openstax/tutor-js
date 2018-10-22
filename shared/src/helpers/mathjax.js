@@ -1,4 +1,4 @@
-import {get, isEmpty, memoize, debounce, toArray} from 'lodash';
+import { get, isEmpty, memoize, debounce, toArray } from 'lodash';
 import WeakMap from 'weak-map';
 
 const MATH_MARKER_BLOCK  = '\u200c\u200c\u200c'; // zero-width non-joiner

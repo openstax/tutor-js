@@ -20,7 +20,7 @@ async function compare(file) {
     const doneReading = () => {
       if (++filesRead < 2) return;
 
-      var diff = new PNG({width: old.width, height: old.height});
+      const diff = new PNG({ width: old.width, height: old.height });
       const mismatched = pixelmatch(old.data, current.data, diff.data, old.width, old.height, { threshold: 0.4 });
       if (mismatched > 100) {
         const diffFile = `${file}-diff.png`;

@@ -6,11 +6,11 @@ import { bind } from 'lodash';
 //
 
 
-var win = typeof window !== 'undefined' ? window : false;
+const win = typeof window !== 'undefined' ? window : false;
 
 const ScrollElement = document.scrollingElement || document.documentElement;
 
-var ScrollListenerMixin = {
+const ScrollListenerMixin = {
 
   getDefaultProps() {
     return {

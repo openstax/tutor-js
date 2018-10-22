@@ -1,5 +1,5 @@
 export function downloadData(content, fileName, mimeType) {
-  var a = document.createElement('a');
+  const a = document.createElement('a');
   mimeType = mimeType || 'application/octet-stream';
 
   if (navigator.msSaveBlob) { // IE10
@@ -20,7 +20,7 @@ export function downloadData(content, fileName, mimeType) {
 }
 
 export function arrayToCSV(array) {
-  var csvContent = '';
+  let csvContent = '';
   array.forEach(function(infoArray, index) {
     const dataString = infoArray.join(';');
     csvContent += index < array.length ? dataString + '\n' : dataString;

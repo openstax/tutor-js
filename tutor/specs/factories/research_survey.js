@@ -4,10 +4,10 @@ const {
 } = require('./helpers');
 
 Factory.define('ResearchSurvey')
-    .id(sequence)
-    .title(() => `Do you like ${fake.commerce.productName()}`)
-    .model(
-      `{
+  .id(sequence)
+  .title(() => `Do you like ${fake.commerce.productName()}`)
+  .model(
+    `{
         pages: [
           {
             name: "page1",

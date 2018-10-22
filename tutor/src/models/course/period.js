@@ -4,8 +4,9 @@ import {
   BaseModel, identifiedBy, field, identifier, belongsTo,
 } from 'shared/model';
 
+export default
 @identifiedBy('course/period')
-export default class CoursePeriod extends BaseModel {
+class CoursePeriod extends BaseModel {
   @identifier id;
 
   @field name;
@@ -56,4 +57,4 @@ export default class CoursePeriod extends BaseModel {
   }
 
 
-}
+};

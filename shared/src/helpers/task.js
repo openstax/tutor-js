@@ -132,7 +132,7 @@ const stepMapOneTimeCardForGroup = function(group, condition, isAvailable, task,
 const befores = {};
 
 const isFirstReview = (task, step) => get(find(task.steps, function(step) {
-  return includes(step.labels, REVIEW_LABEL)
+  return includes(step.labels, REVIEW_LABEL);
 }), 'id') === step.id;
 
 const isFirstSpacedPractice = (task, step) => get(find(task.steps, { group: SPACED_PRACTICE_GROUP }), 'id') === step.id;

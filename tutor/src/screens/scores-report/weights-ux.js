@@ -1,5 +1,5 @@
 import { observable, computed, action } from 'mobx';
-import {sum, toArray, flow, each, inRange, keys, isEqual, pick, some, invert, mapValues, isNaN, partial} from 'lodash';
+import { sum, toArray, flow, each, inRange, keys, isEqual, pick, some, invert, mapValues, isNaN, partial } from 'lodash';
 
 const CELL_AVERAGES_SINGLE_WIDTH = 80;
 
@@ -47,7 +47,7 @@ const stringToInt = (string) => {
   }
 
   return int;
-}
+};
 
 export default class ScoresReportWeightsUX {
 

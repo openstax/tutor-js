@@ -1,7 +1,6 @@
 const path = require('path');
 const jsonServer = require('json-server');
 const fs = require('fs-extra');
-const chalk = require('chalk');
 const faker = require('faker');
 const { now } = require('./time-now');
 const { fe_port, be_port } = require('./ports');

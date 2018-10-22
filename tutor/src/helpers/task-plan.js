@@ -26,7 +26,7 @@ export default {
         memo[tp.target_id] = pickFn(tp);
         return memo;
       }
-      , {});
+        , {});
     }
   },
 

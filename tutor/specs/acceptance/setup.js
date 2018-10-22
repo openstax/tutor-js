@@ -1,5 +1,4 @@
-import {EXPECTED_COLOR, matcherHint, RECEIVED_COLOR} from 'jest-matcher-utils';
-const path = require('path');
+import { EXPECTED_COLOR, matcherHint, RECEIVED_COLOR } from 'jest-matcher-utils';
 const fs = require('fs');
 
 jest.setTimeout(1000 * 60 * 15); // 15 minutes

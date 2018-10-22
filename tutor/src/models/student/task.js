@@ -5,8 +5,9 @@ import {
   BaseModel, identifiedBy, field, identifier, hasMany,
 } from 'shared/model';
 
+export default
 @identifiedBy('student/task')
-export default class StudentTask extends BaseModel {
+class StudentTask extends BaseModel {
 
   @observable hidden = false;
 
@@ -39,4 +40,4 @@ export default class StudentTask extends BaseModel {
   onHidden() {
     this.hidden = true;
   }
-}
+};

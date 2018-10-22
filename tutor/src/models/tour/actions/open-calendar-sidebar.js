@@ -3,8 +3,9 @@ import { defer } from 'lodash';
 import { action, computed } from 'mobx';
 import browser from 'detect-browser';
 
+export default
 @identifiedBy('tour/action/open-calendar-sidebar')
-export default class OpenCalendarSidebar extends BaseAction {
+class OpenCalendarSidebar extends BaseAction {
 
   beforeStep() {
     this.wasOpen = this.toggle.classList.contains('open');
@@ -30,4 +31,4 @@ export default class OpenCalendarSidebar extends BaseAction {
     });
   }
 
-}
+};

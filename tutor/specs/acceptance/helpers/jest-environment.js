@@ -1,7 +1,6 @@
 const NodeEnvironment = require('jest-environment-node');
 const puppeteer = require('puppeteer');
 const fs = require('fs');
-const os = require('os');
 const path = require('path');
 
 const DIR = require('./working-directory');

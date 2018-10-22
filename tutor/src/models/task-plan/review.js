@@ -4,12 +4,13 @@ import {
 import { computed } from 'mobx';
 
 
+export default
 @identifiedBy('task-plan/review')
-export default class TaskPlanReview extends BaseModel {
+class TaskPlanReview extends BaseModel {
 
   @belongsTo({ model: 'task-plan/teacher' }) taskPlan;
 
   fetch() {
     return { id: this.taskPlan.id };
   }
-}
+};

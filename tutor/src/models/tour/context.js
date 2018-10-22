@@ -16,8 +16,9 @@ import TourRide  from './ride';
 // Created by the upper-most React element (the Conductor)
 // Regions and Anchors check in and out as they're mounted/unmounted
 
+export default
 @identifiedBy('tour/context')
-export default class TourContext extends BaseModel {
+class TourContext extends BaseModel {
 
   @observable regions = observable.shallowArray();
   @observable anchors = observable.shallowMap();
@@ -157,4 +158,4 @@ export default class TourContext extends BaseModel {
     if (oldRide) { oldRide.dispose(); }
   }
 
-}
+};
