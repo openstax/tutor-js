@@ -5,6 +5,7 @@ import cn from 'classnames';
 import { get, map, filter } from 'lodash';
 import Icon from '../icon';
 import Annotation from '../../models/annotations/annotation';
+import getRangeRect from './getRangeRect';
 
 @observer
 export default class SidebarButtons extends React.Component {
@@ -22,9 +23,16 @@ export default class SidebarButtons extends React.Component {
 
   @autobind renderAnnotation(note) {
     const {
-      parentRect, onClick, activeAnnotation,
+      parentRect, onClick, activeAnnotation, highlighter, windowImpl
     } = this.props;
     const isActive = note === activeAnnotation;
+    const highlight = highlighter.getHighlight(note.id);
+
+    if (!highlight || !parentRect) {
+      return null;
+    }
+
+    const {top} = getRangeRect(windowImpl, highlight.range);
 
     return (
       <Icon
@@ -33,9 +41,7 @@ export default class SidebarButtons extends React.Component {
         className={
           cn('sidebar-button', { active: isActive })
         }
-        style={{
-          top: get(note.selection, 'bounds.top', 0) - parentRect.top,
-        }}
+        style={{top: top - parentRect.top}}
         alt="View annotation"
         onClick={() => onClick(note)}
       />
@@ -43,9 +49,13 @@ export default class SidebarButtons extends React.Component {
   }
 
   render() {
+    if (!this.props.highlighter) {
+      return null;
+    }
+
     return (
       <div className="annotation-edit-buttons">
-        {map(filter(this.props.annotations, 'text'), this.renderAnnotation)}
+        {filter(map(filter(this.props.annotations, annotation => annotation.text), this.renderAnnotation))}
       </div>
     );
 

@@ -10,6 +10,8 @@ import Router from '../../src/helpers/router';
 
 const mockHighlighter = {
   highlight: jest.fn(),
+  clearFocus: () => {},
+  getHighlight: jest.fn(() => null),
   unmount: () => {},
 };
 jest.mock('@openstax/highlighter', () => ({
@@ -48,6 +50,8 @@ describe('Annotations', () => {
 
   beforeEach(function() {
     mockHighlighter.highlight.mockClear();
+    mockHighlighter.getHighlight.mockClear();
+
     Courses = bootstrapCoursesList();
     Router.currentQuery.mockReturnValue({});
     Courses.get(1).appearance_code = 'college_biology';
@@ -109,15 +113,20 @@ describe('Annotations', () => {
     widget.unmount();
   });
 
-  it.skip('scrolls to linked annotation', async () => {
+  it('scrolls to linked annotation', async () => {
     const annotation = annotations.keys()[0];
-    annotation.highlight.scrollTo = jest.fn();
+    const mockHighlight = {
+      focus: jest.fn(() => mockHighlight),
+      scrollTo: jest.fn(() => mockHighlight),
+    };
 
+    mockHighlighter.getHighlight.mockImplementation(id => id === annotation ? mockHighlight : null);
     Router.currentQuery.mockReturnValue({ highlight: annotation });
 
     const widget = await getWidget(props);
 
-    expect(annotation.highlight.scrollTo).toHaveBeenCalled();
+    expect(mockHighlight.scrollTo).toHaveBeenCalled();
+    expect(mockHighlight.focus).toHaveBeenCalled();
 
     widget.unmount();
   });

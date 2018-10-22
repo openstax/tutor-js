@@ -21,18 +21,6 @@ import Router from '../../helpers/router';
 import AnnotationsMap from '../../models/annotations';
 import Overlay from '../obscured-page/overlay';
 
-function getRangeRect(win, range) {
-  const rect = range.getBoundingClientRect();
-  const wLeft = win.pageXOffset;
-  const wTop = win.pageYOffset;
-  return {
-    bottom: rect.bottom + wTop,
-    top: rect.top + wTop,
-    left: rect.left + wLeft,
-    right: rect.right + wLeft,
-  };
-}
-
 @observer
 export default class AnnotationWidget extends React.Component {
 
@@ -364,7 +352,7 @@ export default class AnnotationWidget extends React.Component {
       <div className="annotater" ref={this.setElement}>
         <InlineControls
           pendingHighlight={this.pendingHighlight}
-          rect={this.pendingHighlight && getRangeRect(this.props.windowImpl, this.pendingHighlight.range)}
+          windowImpl={this.props.windowImpl}
           parentRect={this.parentRect}
           annotate={this.openAnnotator}
           highlight={this.highlightAndClose}
@@ -379,6 +367,8 @@ export default class AnnotationWidget extends React.Component {
           seeAll={this.seeAll}
         />
         <SidebarButtons
+          windowImpl={this.props.windowImpl}
+          highlighter={this.highlighter}
           annotations={this.annotationsForThisPage}
           parentRect={this.parentRect}
           onClick={this.editAnnotation}

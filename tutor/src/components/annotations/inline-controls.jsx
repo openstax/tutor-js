@@ -2,11 +2,14 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import Icon from '../icon';
 import HighlightIcon from './highlight-icon';
+import getRangeRect from './getRangeRect';
 
 const MARGIN = 100; // min amount of space that should be available on right of page
 
-const InlineControls = observer(({rect, pendingHighlight, annotate, parentRect, highlight }) => {
-  if (!pendingHighlight || !rect) { return null; }
+const InlineControls = observer(({windowImpl, pendingHighlight, annotate, parentRect, highlight }) => {
+  if (!pendingHighlight || !pendingHighlight.range) { return null; }
+
+  const rect = getRangeRect(windowImpl, pendingHighlight.range);
 
   const style = {
     top: `${rect.top - 70 - parentRect.top}px`,
@@ -27,6 +30,7 @@ const InlineControls = observer(({rect, pendingHighlight, annotate, parentRect, 
 InlineControls.displayName = 'InlineControls';
 
 InlineControls.propTypes = {
+  windowImpl: React.PropTypes.object.isRequired,
   annotate: React.PropTypes.func.isRequired,
   highlight: React.PropTypes.func.isRequired,
   pendingHighlight: React.PropTypes.object,

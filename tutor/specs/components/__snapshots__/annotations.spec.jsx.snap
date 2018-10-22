@@ -8,9 +8,6 @@ exports[`Annotations renders and matches snapshot 1`] = `
     className="slide-out-edit-box closed"
   />
   <div
-    className="annotation-edit-buttons"
-  />
-  <div
     className="status-message-toast info"
   >
     <i
