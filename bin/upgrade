@@ -21,7 +21,7 @@ class Upgrade
     # binding.irb
     if file =~ COFFEE
       @original_coffee = Pathname.new(file)
-      `decaffeinate --disable-suggestion-comment --use-js-modules --loose --prefer-const #{file}`
+      puts `decaffeinate --disable-suggestion-comment --use-js-modules --loose --prefer-const #{file}`
       file = file.gsub(COFFEE, '.js')
     end
 
@@ -47,9 +47,9 @@ class Upgrade
     codemod
     system('eslint', '--fix', @tmp.to_s)
 
-    # @tmp.rename(file)
-    # @original_cjsx.delete if @original_cjsx
-    # @original_coffee.delete if @original_coffee
+    @tmp.rename(file)
+    @original_cjsx.delete if @original_cjsx
+    @original_coffee.delete if @original_coffee
   end
 
 
@@ -81,7 +81,7 @@ end
 LOG = File.open('configs/upgrade.log', 'r+')
 PROGRESS = LOG.readlines.map(&:chomp)
 
-Dir.glob('{tutor,shared,exercises}/**/*.cjsx').each do |js|
+Dir.glob('{tutor,shared,exercises}/**/*.coffee').each do |js|
   puts js
   next if PROGRESS.include?(js)
   up = Upgrade.new(js)
