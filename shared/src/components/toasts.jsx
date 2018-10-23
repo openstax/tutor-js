@@ -1,4 +1,4 @@
-import mobxPropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { observable, autorun, action } from 'mobx';
@@ -12,7 +12,7 @@ export default
 class Toasts extends React.Component {
 
   static propTypes = {
-    toasts: mobxPropTypes.observableArray,
+    toasts: PropTypes.array,
   }
 
   static defaultProps = {

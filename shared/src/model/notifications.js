@@ -9,10 +9,10 @@ import defaults from 'lodash/defaults';
 import uniqueId from 'lodash/uniqueId';
 import without from 'lodash/without';
 import extend from 'lodash/extend';
-find      = require('lodash/find');
 import isEmpty from 'lodash/isEmpty';
 import isMatch from 'lodash/isMatch';
 import { observable } from 'mobx';
+import Poller from './notifications/pollers';
 
 import URLs from './urls';
 const EVENT_BUS = new EventEmitter2;
@@ -23,7 +23,7 @@ let NOTICES = observable.array([]);
 let HIDDEN = observable.array([]);
 
 const CLIENT_ID = 'client-specified';
-const Poller = require('./notifications/pollers');
+//const Poller = require('./notifications/pollers');
 
 const Notifications = {
   POLLING_TYPES: {

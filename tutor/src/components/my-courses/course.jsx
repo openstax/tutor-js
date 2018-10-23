@@ -23,11 +23,10 @@ const CoursePropType = PropTypes.shape({
   term: PropTypes.string.isRequired,
   is_concept_coach: PropTypes.bool.isRequired,
 });
-export { CoursePropType };
 
-export
+
 @observer
- class CoursePreview extends React.Component {
+class CoursePreview extends React.Component {
 
   static contextTypes = {
     router: PropTypes.object,
@@ -100,7 +99,8 @@ export
   }
 }
 
-export class Course extends React.Component {
+
+class Course extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(CourseModel).isRequired,
@@ -159,9 +159,9 @@ export class Course extends React.Component {
   }
 }
 
-export
+
 @wrapCourseDragComponent
- class CourseTeacher extends React.Component {
+class CourseTeacher extends React.Component {
 
   static propTypes = omit(Course.propTypes, 'controls');
 
@@ -186,3 +186,5 @@ export
     );
   }
 }
+
+export { CoursePropType, CoursePreview, Course, CourseTeacher };

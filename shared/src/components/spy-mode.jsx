@@ -11,9 +11,9 @@ export class SpyModeContext {
   toggle() { this.isEnabled = !this.isEnabled; }
 }
 
-export
+
 @observer
- class SpyModeWrapper extends React.Component {
+class SpyModeWrapper extends React.Component {
 
   @observable mode = new SpyModeContext();
 
@@ -47,7 +47,7 @@ export
   }
 }
 
-export class SpyModeContent extends React.Component {
+class SpyModeContent extends React.Component {
 
   static propTypes = {
     className: PropTypes.string,
@@ -70,4 +70,5 @@ const SpyMode = {
   Wrapper: SpyModeWrapper,
 };
 
+export { SpyModeWrapper, SpyModeContent };
 export default SpyMode;

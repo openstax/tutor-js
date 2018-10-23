@@ -7,9 +7,9 @@ import { action } from 'mobx';
 import { readonly } from 'core-decorators';
 import { ReactHelpers } from 'shared';
 
-export
+
 @observer
- class Choice extends React.Component {
+class Choice extends React.Component {
 
   static propTypes = {
     onClick:    PropTypes.func.isRequired,
@@ -42,9 +42,8 @@ export
   }
 }
 
-export
 @observer
- class Listing extends React.Component {
+class Listing extends React.Component {
 
   @readonly static Choice = Choice;
 
@@ -57,3 +56,5 @@ export
   }
 
 }
+
+export { Choice, Listing };

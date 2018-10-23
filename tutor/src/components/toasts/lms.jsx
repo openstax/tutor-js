@@ -19,9 +19,8 @@ const Troubleshoot = () => (
   </NewTabLink>
 );
 
-export
 @observer
- class LMSErrors extends React.Component {
+class LMSErrors extends React.Component {
 
   static propTypes = {
     toast: PropTypes.object.isRequired,
@@ -166,9 +165,8 @@ const renderFailedToSend = (footer) => (
   </WarningModal>
 );
 
-export
 @observer
- class Failure extends React.Component {
+class Failure extends React.Component {
 
   static propTypes = {
     dismiss: PropTypes.func.isRequired,
@@ -210,7 +208,7 @@ export
   }
 }
 
-export function Success() {
+function Success() {
   return (
     <div className="toast success">
       <div className="title">Scores sent successfully</div>
@@ -218,3 +216,5 @@ export function Success() {
     </div>
   );
 }
+
+export { Failure, Success, LMSErrors };

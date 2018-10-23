@@ -133,7 +133,7 @@ class ReadingContent extends LateWorkMessages {
   }
 }
 
-export class LateWorkPopover extends React.Component {
+class LateWorkPopover extends React.Component {
 
   static propTypes = {
     columnIndex: PropTypes.number.isRequired,
@@ -190,9 +190,8 @@ export class LateWorkPopover extends React.Component {
 }
 
 
-export
 @observer
- class LateWork extends React.Component {
+class LateWork extends React.Component {
 
   static propTypes = {
     onMouseOver:  PropTypes.func.isRequired,
@@ -246,3 +245,5 @@ export
     );
   }
 }
+
+export { LateWorkPopover, LateWork };

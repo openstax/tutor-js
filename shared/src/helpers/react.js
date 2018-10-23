@@ -1,5 +1,6 @@
 import MobxPropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import indexOf from 'lodash/indexOf';
 import pickBy from 'lodash/pickBy';
@@ -45,7 +46,7 @@ const renderRoot = function(getComponent, rootEl, props = {}) {
 
 const ArrayOrMobxType = MobxPropTypes.oneOfType([
   MobxPropTypes.array,
-  MobxPropTypes.observableArray,
+  PropTypes.array,
 ]);
 
 const idType = MobxPropTypes.oneOfType([

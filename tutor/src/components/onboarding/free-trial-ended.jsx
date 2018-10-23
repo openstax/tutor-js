@@ -1,4 +1,4 @@
-import MobxPropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { action } from 'mobx';
@@ -13,11 +13,12 @@ export default
 class FreeTrialEnded extends React.Component {
 
   static propTypes = {
-    ux: MobxPropTypes.observableObject.isRequired,
+    ux: PropTypes.object.isRequired,
+    onDismiss: PropTypes.func.isRequired,
   }
 
   static contextTypes = {
-    router: MobxPropTypes.object,
+    router: PropTypes.object,
   }
 
   static className = 'free-trial-ended'

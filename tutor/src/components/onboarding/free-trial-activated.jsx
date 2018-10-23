@@ -1,4 +1,4 @@
-import MobxPropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
@@ -10,7 +10,8 @@ export default
 class FreeTrialActivated extends React.Component {
 
   static propTypes = {
-    ux: MobxPropTypes.observableObject.isRequired,
+    ux: PropTypes.object.isRequired,
+    onDismiss: PropTypes.func.isRequired,
   }
 
   static className = 'free-trial-activated';

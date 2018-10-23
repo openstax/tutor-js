@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import ReactDOM from 'react-dom';
-import { flow } from 'lodash';
+import { flow, omit, extend, clone} from 'lodash';
 import { Promise } from 'es6-promise';
 
 
@@ -79,12 +79,12 @@ class DetachedTutorDialog extends React.Component {
 
 export default (TutorDialog = createReactClass({
   displayName: 'TutorDialog',
-  propTypes: _.omit(DialogProperties, 'body'),
+  propTypes: omit(DialogProperties, 'body'),
 
   componentDidMount() {
     // While unlikely, the onOk and onCancel properties could have been updated while the dialog was visible
     // If they were we need to call their current functions
-    return TutorDialog.show(_.extend({}, this.props, { body: this.props.children })).then(
+    return TutorDialog.show(extend({}, this.props, { body: this.props.children })).then(
       ( function() { return (typeof this.props.onOk === 'function' ? this.props.onOk(...arguments) : undefined);  }.bind(this)) , ( typeof this.props.onCancel === 'function' ? this.props.onCancel(...arguments) : undefined)
     );
   },
@@ -105,8 +105,8 @@ export default (TutorDialog = createReactClass({
     show(props) {
       return new Promise((onOk, onCancel) => {
         let div;
-        props = _.extend(
-          _.clone(props),
+        props = extend(
+          clone(props),
           {
             onOk,
             onCancel,

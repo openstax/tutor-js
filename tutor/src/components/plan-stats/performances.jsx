@@ -41,10 +41,8 @@ ChaptersPerformance.propTypes = {
   activeSection: PropTypes.string,
 };
 
-
-export
 @observer
- class PracticesPerformance extends React.Component {
+class PracticesPerformance extends React.Component {
 
   static propTypes = {
     spacedPages: PropTypes.object.isRequired,
@@ -114,3 +112,5 @@ export
     );
   }
 }
+
+export { PracticesPerformance };

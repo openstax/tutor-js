@@ -1,4 +1,4 @@
-import MobxPropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { action, observe, observable } from 'mobx';
@@ -17,9 +17,9 @@ export default
 class CourseNagModal extends React.Component {
 
   static propTypes = {
-    course: MobxPropTypes.instanceOf(Course),
-    tourContext: MobxPropTypes.instanceOf(TourContext).isRequired,
-    spyMode: MobxPropTypes.observableObject,
+    course: PropTypes.instanceOf(Course),
+    tourContext: PropTypes.instanceOf(TourContext).isRequired,
+    spyMode: PropTypes.object,
   }
 
   @observable ux;

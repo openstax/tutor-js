@@ -89,9 +89,8 @@ class CoursePlanDisplay extends React.Component {
 
 }
 
-export
 @observer
- class CoursePlanDisplayEdit extends CoursePlanDisplay {
+class CoursePlanDisplayEdit extends CoursePlanDisplay {
 
   render() {
     const { course, plan, planClasses, label, setHover } = this.props;
@@ -120,9 +119,8 @@ export
 }
 
 
-export
 @observer
- class CoursePlanDisplayMiniEditor extends CoursePlanDisplay {
+class CoursePlanDisplayMiniEditor extends CoursePlanDisplay {
 
   @observable isShowingEditor = false;
 
@@ -174,9 +172,9 @@ export
 
 }
 
-export
+
 @observer
- class CoursePlanDisplayQuickLook extends CoursePlanDisplay {
+class CoursePlanDisplayQuickLook extends CoursePlanDisplay {
 
   render() {
     const { planClasses, planModal, label, setHover, setIsViewing, plan, hasReview } = this.props;
@@ -200,3 +198,5 @@ export
     );
   }
 }
+
+export { CoursePlanDisplayQuickLook, CoursePlanDisplayMiniEditor, CoursePlanDisplayEdit };

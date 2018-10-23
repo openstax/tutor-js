@@ -1,4 +1,4 @@
-import MobxPropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { action, computed } from 'mobx';
@@ -15,7 +15,7 @@ export default
 class TermsModal extends React.Component {
 
   static propTypes = {
-    canBeDisplayed: MobxPropTypes.bool,
+    canBeDisplayed: PropTypes.bool,
   }
 
   @computed get title() {

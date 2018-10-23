@@ -229,18 +229,11 @@ class APIHandlerBase {
 
 class APIHandler extends APIHandlerBase {
   constructor(options, routes = [], channel) {
-    {
-      // Hack: trick Babel/TypeScript into allowing this before super.
-      if (false) { super(); }
-      let thisFn = (() => { return this; }).toString();
-      let thisName = thisFn.slice(thisFn.indexOf('return') + 6 + 1, thisFn.indexOf(';')).trim();
-      eval(`${thisName} = this;`);
-    }
+    super(options, channel);
     this.initializeRoutes = this.initializeRoutes.bind(this);
     this.setUpReceivers = this.setUpReceivers.bind(this);
     this.initializeEvents = this.initializeEvents.bind(this);
     this.sendRequest = this.sendRequest.bind(this);
-    super(options, channel);
 
     if (!isEmpty(routes)) { this.initializeRoutes(routes); }
     this.setUpReceivers(this.getOptions().events);

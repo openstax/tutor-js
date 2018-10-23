@@ -18,7 +18,6 @@ import bind from 'lodash/bind';
 import clone from 'lodash/clone';
 import isFunction from 'lodash/isFunction';
 import isObjectLike from 'lodash/isObjectLike';
-isFunction    = require('lodash/isFunction');
 
 const makeRequestHandlers = function(Actions, options) {
   let { onSuccess, onFail } = options;

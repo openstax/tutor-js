@@ -20,8 +20,8 @@ export default
 @identifiedBy('tour/context')
 class TourContext extends BaseModel {
 
-  @observable regions = observable.shallowArray();
-  @observable anchors = observable.shallowMap();
+  @observable regions = observable.array([], { deep: false });
+  @observable anchors = observable.map({}, { deep: false });
 
   @field isEnabled = true;
 

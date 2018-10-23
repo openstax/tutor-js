@@ -1,4 +1,4 @@
-import MobxPropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { range, isEmpty, sortBy } from 'lodash';
 import { observer } from 'mobx-react';
@@ -42,11 +42,11 @@ export default
 class ScoresTable extends React.Component {
 
   static propTypes = {
-    ux: MobxPropTypes.instanceOf(UX).isRequired,
-    sort: MobxPropTypes.object.isRequired,
-    onSort: MobxPropTypes.func.isRequired,
-    dataType: MobxPropTypes.string,
-    isConceptCoach: MobxPropTypes.bool.isRequired,
+    ux: PropTypes.instanceOf(UX).isRequired,
+    sort: PropTypes.object.isRequired,
+    onSort: PropTypes.func.isRequired,
+    dataType: PropTypes.string,
+    isConceptCoach: PropTypes.bool.isRequired,
   }
 
   @computed get students() {

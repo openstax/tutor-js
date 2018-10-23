@@ -8,7 +8,7 @@ import WarningModal from '../warning-modal';
 import SupportEmailLink from '../support-email-link';
 
 
-export function Success({ toast: { info: { url } } }) {
+function Success({ toast: { info: { url } } }) {
   return (
     <div className="toast scores success">
       <div className="title">Scores successfully exported</div>
@@ -20,9 +20,8 @@ export function Success({ toast: { info: { url } } }) {
   );
 }
 
-export
 @observer
- class Failure extends React.Component {
+class Failure extends React.Component {
 
   static propTypes = {
     dismiss: PropTypes.func.isRequired,
@@ -59,3 +58,5 @@ export
     );
   }
 }
+
+export { Failure, Success };

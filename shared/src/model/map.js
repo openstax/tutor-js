@@ -1,24 +1,35 @@
-import { ObservableMap, computed, action } from 'mobx';
-import { isArray } from 'lodash';
+import { observable, computed, action } from 'mobx';
+import { isArray, isObject } from 'lodash';
 import ModelApi from './api';
 import lazyGetter from '../helpers/lazy-getter.js';
 
-export default class Map extends ObservableMap {
+export default class Map {
+
+  _map = observable.map()
 
   constructor(data) {
-    super();
     if (isArray(data)) {
       this.mergeModelData(data);
+    } else if (isObject(data)) {
+      this._map.merge(data);
     }
   }
 
   @computed get array() {
-    return this.values();
+    return this._map.values();
+  }
+
+  get(key) {
+    return this._map.get(key);
+  }
+
+  set(key, value) {
+    this._map.set(key, value);
   }
 
   where(condition) {
     const map = new this.constructor(this.chainedValues);
-    this.forEach(c => {
+    this._map.forEach(c => {
       if(condition(c)) { map.set(c.id, c); }
     });
     return map;
@@ -29,7 +40,7 @@ export default class Map extends ObservableMap {
   }
 
   @computed get isEmpty() {
-    return this.size === 0;
+    return this._map.size === 0;
   }
 
   @computed get any() {

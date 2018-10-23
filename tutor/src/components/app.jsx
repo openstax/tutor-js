@@ -36,11 +36,15 @@ class App extends React.Component {
   static contextTypes = {
     router: PropTypes.object,
   }
-
-  static childContextTypes = {
-    courseId: PropTypes.string,
-  }
-
+  //
+  //   static childContextTypes = {
+  //     courseId: PropTypes.string,
+  //   }
+  //
+  //   getChildContext() {
+  //     return this.context.router.route.match.params.courseId
+  //   }
+  //
   componentDidMount() {
     Analytics.setGa(window.ga);
     User.recordSessionStart();

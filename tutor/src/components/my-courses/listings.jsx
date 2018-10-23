@@ -104,9 +104,9 @@ class MyCoursesTitle extends React.Component {
   }
 }
 
-export
+
 @observer
- class MyCoursesCurrent extends React.Component {
+class MyCoursesCurrent extends React.Component {
 
   render () {
     const baseName = 'my-courses-current';
@@ -157,9 +157,9 @@ class MyCoursesBasic extends React.Component {
   }
 }
 
-export
+
 @observer
- class MyCoursesPast extends React.Component {
+class MyCoursesPast extends React.Component {
   render() {
     return (
       <MyCoursesBasic
@@ -172,9 +172,8 @@ export
 }
 
 
-export
 @observer
- class MyCoursesFuture extends React.Component {
+class MyCoursesFuture extends React.Component {
   render() {
     return (
       <MyCoursesBasic
@@ -198,9 +197,9 @@ function ExploreAPreview({ course }) {
   );
 }
 
-export
+
 @observer
- class MyCoursesPreview extends React.Component {
+class MyCoursesPreview extends React.Component {
 
   @observable previews;
 
@@ -225,3 +224,5 @@ export
     );
   }
 }
+
+export { MyCoursesCurrent, MyCoursesPast, MyCoursesFuture, MyCoursesPreview };

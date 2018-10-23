@@ -1,4 +1,4 @@
-import MobxPropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
@@ -20,7 +20,7 @@ export default
 class SetWeightsModal extends React.Component {
 
   static propTypes = {
-    ux: MobxPropTypes.observableObject,
+    ux: PropTypes.object,
   }
 
   render() {

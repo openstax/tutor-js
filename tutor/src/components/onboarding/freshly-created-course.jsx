@@ -1,4 +1,4 @@
-import MobxPropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button, Panel } from 'react-bootstrap';
 import { action } from 'mobx';
@@ -11,7 +11,7 @@ export default
 class FreshlyCreatedCourse extends React.Component {
 
   static propTypes = {
-    ux: MobxPropTypes.observableObject.isRequired,
+    ux: PropTypes.object.isRequired,
   }
 
   @action.bound
@@ -44,7 +44,7 @@ class FreshlyCreatedCourse extends React.Component {
             <Button
               key={id}
               onClick={partial(this.onChoice, id)}
-            >
+              >
               {txt}
             </Button>)}
         </Footer>

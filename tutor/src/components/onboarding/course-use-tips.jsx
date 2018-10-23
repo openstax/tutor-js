@@ -1,4 +1,4 @@
-import MobxPropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { computed } from 'mobx';
@@ -11,8 +11,8 @@ export default
 class CourseUseTips extends React.Component {
 
   static propTypes = {
-    ux: MobxPropTypes.observableObject.isRequired,
-    onDismiss: MobxPropTypes.func.isRequired,
+    ux: PropTypes.object.isRequired,
+    onDismiss: PropTypes.func.isRequired,
   }
 
   @computed get course() {

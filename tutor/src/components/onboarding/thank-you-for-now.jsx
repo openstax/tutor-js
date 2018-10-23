@@ -1,17 +1,16 @@
-import MobxPropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
-import { OnboardingNag, Body, Heading, Footer } from './onboarding-nag';
-import Link from '../link';
+import { OnboardingNag, Body, Heading } from './onboarding-nag';
 
 export default
 @observer
 class ThankYouForNow extends React.Component {
 
   static propTypes = {
-    ux: MobxPropTypes.observableObject.isRequired,
-    onDismiss: MobxPropTypes.func.isRequired,
+    ux: PropTypes.object.isRequired,
+    onDismiss: PropTypes.func.isRequired,
   }
 
   render() {

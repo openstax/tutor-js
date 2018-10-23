@@ -1,4 +1,4 @@
-import MobxPropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
@@ -11,9 +11,9 @@ export default
 class PaymentsPanel extends React.Component {
 
   static propTypes = {
-    course: MobxPropTypes.observableObject.isRequired,
-    onCancel: MobxPropTypes.func.isRequired,
-    onPaymentComplete: MobxPropTypes.func.isRequired,
+    course: PropTypes.object.isRequired,
+    onCancel: PropTypes.func.isRequired,
+    onPaymentComplete: PropTypes.func.isRequired,
   }
 
   payments = new Payments({
