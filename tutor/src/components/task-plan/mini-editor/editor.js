@@ -1,31 +1,21 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
 import createReactClass from 'create-react-class';
-
-import BS from 'react-bootstrap';
+import { Col, Alert, Button } from 'react-bootstrap';
 import isEmpty from 'lodash/isEmpty';
-
 import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
-
 import classnames from 'classnames';
-import camelCase from 'lodash/camelCase';
-import Icon from '../../icon';
-import Loading from './loading';
+import { camelCase } from 'lodash';
 import TutorLink from '../../link';
 import TaskingDateTimes from '../builder/tasking-date-times';
 import BindStoresMixin from '../../bind-stores-mixin';
-import { TutorInput, TutorTextArea } from '../../tutor-input';
+import { TutorInput } from '../../tutor-input';
 import { TaskingStore, TaskingActions } from '../../../flux/tasking';
 import Courses from '../../../models/courses-map';
-
 import TimeHelper from '../../../helpers/time';
-
 import taskPlanEditingInitialize from '../initialize-editing';
-
 import PublishButton from '../footer/save-button';
 import DraftButton from '../footer/save-as-draft';
-
 import PlanMixin from '../plan-mixin';
 import ServerErrorHandlers from '../../error-monitoring/handlers';
 
@@ -141,14 +131,14 @@ const TaskPlanMiniEditor = createReactClass({
     return (
       <div className={classes}>
         <div className="row">
-          <BS.Col xs={12}>
+          <Col xs={12}>
             <h4>
               Add Copied Assignment
             </h4>
-          </BS.Col>
+          </Col>
         </div>
         <div className="row">
-          <BS.Col xs={12}>
+          <Col xs={12}>
             <TutorInput
               label="Title"
               className="assignment-name"
@@ -157,7 +147,7 @@ const TaskPlanMiniEditor = createReactClass({
               required={true}
               onChange={this.setTitle}
               disabled={this.state.error != null} />
-          </BS.Col>
+          </Col>
         </div>
         <div className="row times">
           <TaskingDateTimes
@@ -170,25 +160,25 @@ const TaskPlanMiniEditor = createReactClass({
             taskingIdentifier="all" />
         </div>
         <div className="row">
-          <BS.Col xs={6}>
+          <Col xs={6}>
             {'\
     Assigned to all sections\
     '}
-          </BS.Col>
-          <BS.Col xs={6} className="text-right">
+          </Col>
+          <Col xs={6} className="text-right">
             <TutorLink to={camelCase(`edit-${plan.type}`)} params={{ id: plan.id, courseId }}>
               {'\
     Edit other assignment details\
     '}
             </TutorLink>
-          </BS.Col>
+          </Col>
         </div>
-        {errorAttrs ? <BS.Alert bsStyle="danger">
+        {errorAttrs ? <Alert bsStyle="danger">
           <h3>
             {errorAttrs.title}
           </h3>
           {errorAttrs.body}
-        </BS.Alert> : undefined}
+        </Alert> : undefined}
         <div className="builder-footer-controls">
           <PublishButton
             bsSize="small"
@@ -209,7 +199,7 @@ const TaskPlanMiniEditor = createReactClass({
             hasError={hasError}
             isPublished={isPublished}
             isPublishing={!!this.state.publishing} />
-          <BS.Button
+          <Button
             bsSize="small"
             className="cancel"
             bsStyle={(this.state.error != null) ? 'primary' : undefined}
@@ -218,7 +208,7 @@ const TaskPlanMiniEditor = createReactClass({
             {'\
     Cancel\
     '}
-          </BS.Button>
+          </Button>
         </div>
       </div>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { isNil } from 'lodash';
 import { observer } from 'mobx-react';
-import { asPercent } from '../../helpers/string';
+import S from '../../helpers/string';
 import TaskResult from '../../models/course/scores/task-result';
 import TutorLink from '../../components/link';
 import UX from './ux';
@@ -28,7 +28,7 @@ const Progress = observer(({ task }) => {
 });
 
 const Percent = observer(({ task: { score } }) => {
-  const display = isNil(score) ? '---' : `${asPercent(score)}%`;
+  const display = isNil(score) ? '---' : `${S.asPercent(score)}%`;
   return <div className="correct-score">{display}</div>;
 });
 

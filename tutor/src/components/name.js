@@ -1,7 +1,7 @@
-import _ from 'underscore';
+import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
-import BS from 'react-bootstrap';
+import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 
 class Name extends React.Component {
   static propTypes = {
@@ -13,7 +13,7 @@ class Name extends React.Component {
   };
 
   render() {
-    const name = _.isEmpty(this.props.name) ?
+    const name = isEmpty(this.props.name) ?
       `${this.props.first_name} ${this.props.last_name}`
       :
       this.props.name;
@@ -23,17 +23,17 @@ class Name extends React.Component {
     </span>;
 
     if (this.props.tooltip != null ? this.props.tooltip.enable : undefined) {
-      const tooltip = <BS.Tooltip id={`name-tooltip-${this.props.first_name}-${this.props.last_name}`}>
+      const tooltip = <Tooltip id={`name-tooltip-${this.props.first_name}-${this.props.last_name}`}>
         {name}
-      </BS.Tooltip>;
+      </Tooltip>;
       return (
-        <BS.OverlayTrigger
+        <OverlayTrigger
           placement={this.props.tooltip.placement}
           delayShow={this.props.tooltip.delayShow}
           delayHide={this.props.tooltip.delayHide}
           overlay={tooltip}>
           {span}
-        </BS.OverlayTrigger>
+        </OverlayTrigger>
       );
     } else {
       return span;

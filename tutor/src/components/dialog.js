@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import BS from 'react-bootstrap';
+import { Button, Panel } from 'react-bootstrap';
 import TutorDialog from './tutor-dialog';
 
 import { CloseButton } from 'shared';
@@ -48,9 +48,9 @@ export default class extends React.Component {
     let { className, header, footer, primary, cancel, isChanged } = this.props;
 
     if (cancel) {
-      cancelBtn = <BS.Button key="cancel" onClick={this.onCancel}>
+      cancelBtn = <Button key="cancel" onClick={this.onCancel}>
         {cancel}
-      </BS.Button>;
+      </Button>;
     }
 
     const closeBtn = <CloseButton key="close" onClick={this.onCancel} />;
@@ -64,9 +64,9 @@ export default class extends React.Component {
     className = classes.join(' ');
 
     return (
-      <BS.Panel className={className} header={header} footer={footer}>
+      <Panel className={className} header={header} footer={footer}>
         {this.props.children}
-      </BS.Panel>
+      </Panel>
     );
   }
 }

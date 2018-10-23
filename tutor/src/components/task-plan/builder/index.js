@@ -1,29 +1,18 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
-import _ from 'underscore';
-import BS from 'react-bootstrap';
-
+import { Row, Col } from 'react-bootstrap';
 import { UnsavedStateMixin } from '../../unsaved-state';
 import CourseGroupingLabel from '../../course-grouping-label';
-import PlanMixin from '../plan-mixin';
 import BindStoresMixin from '../../bind-stores-mixin';
-CourseGroupingLabel = require('../../course-grouping-label');
 import TimeZoneSettings from './time-zone-settings-link';
-
 import taskPlanEditingInitialize from '../initialize-editing';
-
-import { TimeStore } from '../../../flux/time';
 import TimeHelper from '../../../helpers/time';
 import CourseDataHelper from '../../../helpers/course-data';
-
-
 import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
 import { TaskingStore, TaskingActions } from '../../../flux/tasking';
 import { TutorInput, TutorTextArea } from '../../tutor-input';
 import Courses from '../../../models/courses-map';
-import { AsyncButton } from 'shared';
-
 import Tasking from './tasking';
 
 const TaskPlanBuilder = createReactClass({
@@ -127,14 +116,14 @@ const TaskPlanBuilder = createReactClass({
     const taskings = TaskingStore.get(this.props.id);
 
     if (this.state.showingPeriods && !taskings.length) {
-      invalidPeriodsAlert = <BS.Row>
-        <BS.Col className="periods-invalid" sm={12}>
+      invalidPeriodsAlert = <Row>
+        <Col className="periods-invalid" sm={12}>
           {`\
   Please select at least
   one `}
           <CourseGroupingLabel lowercase={true} courseId={this.props.courseId} />
-        </BS.Col>
-      </BS.Row>;
+        </Col>
+      </Row>;
     }
 
     const assignmentNameLabel = [
@@ -148,8 +137,8 @@ const TaskPlanBuilder = createReactClass({
 
     return (
       <div className="assignment">
-        <BS.Row>
-          <BS.Col xs={12}>
+        <Row>
+          <Col xs={12}>
             <TutorInput
               label={assignmentNameLabel}
               className="assignment-name"
@@ -158,10 +147,10 @@ const TaskPlanBuilder = createReactClass({
               required={true}
               disabled={!this.props.isEditable}
               onChange={this.setTitle} />
-          </BS.Col>
-        </BS.Row>
-        <BS.Row>
-          <BS.Col xs={12}>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
             <TutorTextArea
               label="Description or special instructions"
               className="assignment-description"
@@ -169,17 +158,17 @@ const TaskPlanBuilder = createReactClass({
               default={TaskPlanStore.getDescription(this.props.id)}
               disabled={!this.props.isEditable}
               onChange={this.setDescription} />
-          </BS.Col>
-        </BS.Row>
-        <BS.Row>
-          <BS.Col sm={12} className="assign-to-label">
+          </Col>
+        </Row>
+        <Row>
+          <Col sm={12} className="assign-to-label">
             {'\
     Assign to\
     '}
-          </BS.Col>
-        </BS.Row>
-        <BS.Row>
-          <BS.Col sm={12}>
+          </Col>
+        </Row>
+        <Row>
+          <Col sm={12}>
             <div className="instructions">
               <p>
                 {`\
@@ -194,8 +183,8 @@ const TaskPlanBuilder = createReactClass({
       '}
               </p> : undefined}
             </div>
-          </BS.Col>
-        </BS.Row>
+          </Col>
+        </Row>
         {!!this.props.isSwitchable || !this.state.showingPeriods ? this.renderCommonChoice() : undefined}
         {!!this.props.isSwitchable || !!this.state.showingPeriods ? this.renderPeriodsChoice() : undefined}
         {invalidPeriodsAlert}
@@ -215,17 +204,17 @@ const TaskPlanBuilder = createReactClass({
       checked={!this.state.showingPeriods} />; }
 
     return (
-      <BS.Row className="common tutor-date-input">
-        <BS.Col sm={4} md={3}>
+      <Row className="common tutor-date-input">
+        <Col sm={4} md={3}>
           {radio}
           <label className="period" htmlFor="hide-periods-radio">
             {'\
     All '}
             <CourseGroupingLabel courseId={this.props.courseId} plural={true} />
           </label>
-        </BS.Col>
+        </Col>
         {this.renderTaskPlanRow()}
-      </BS.Row>
+      </Row>
     );
   },
 
@@ -239,16 +228,16 @@ const TaskPlanBuilder = createReactClass({
       onChange={this.setIndividualPeriods}
       checked={this.state.showingPeriods} />; }
 
-    const choiceLabel = <BS.Row key="tasking-individual-choice">
-      <BS.Col md={12}>
+    const choiceLabel = <Row key="tasking-individual-choice">
+      <Col md={12}>
         {radio}
         <label className="period" htmlFor="show-periods-radio">
           {'\
   Individual '}
           <CourseGroupingLabel courseId={this.props.courseId} plural={true} />
         </label>
-      </BS.Col>
-    </BS.Row>;
+      </Col>
+    </Row>;
 
     if (this.state.showingPeriods) { periodsChoice = Courses.get(this.props.courseId).periods.sorted.map(this.renderTaskPlanRow); }
     if (periodsChoice == null) { periodsChoice = []; }

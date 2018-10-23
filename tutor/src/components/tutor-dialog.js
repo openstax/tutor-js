@@ -1,10 +1,10 @@
 let TutorDialog;
-import BS from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import ReactDOM from 'react-dom';
-import _ from 'underscore';
+import { flow } from 'lodash';
 import { Promise } from 'es6-promise';
 
 
@@ -42,37 +42,37 @@ class DetachedTutorDialog extends React.Component {
   render() {
     if (!this.state.show) { return null; }
     const buttons = this.props.buttons || [
-      <BS.Button
+      <Button
         key="ok"
         className="ok"
-        onClick={_.compose(this.props.onOk, this._hide)}
+        onClick={flow(this.props.onOk, this._hide)}
         bsStyle="primary">
         {this.props.okBtnText || 'OK'}
-      </BS.Button>,
-      <BS.Button
+      </Button>,
+      <Button
         key="cancel"
         className="cancel"
-        onClick={_.compose(this.props.onCancel, this._hide)}>
+        onClick={flow(this.props.onCancel, this._hide)}>
         {this.props.cancelBtnText || 'Cancel'}
-      </BS.Button>,
+      </Button>,
     ];
     const classes = ['tutor-dialog'];
     if (this.props.className) { classes.push(this.props.className); }
 
     return (
-      <BS.Modal className={classes.join(' ')} show={this.state.show} onHide={this.hide}>
-        <BS.Modal.Header closeButton={true}>
-          <BS.Modal.Title>
+      <Modal className={classes.join(' ')} show={this.state.show} onHide={this.hide}>
+        <Modal.Header closeButton={true}>
+          <Modal.Title>
             {this.props.title}
-          </BS.Modal.Title>
-        </BS.Modal.Header>
+          </Modal.Title>
+        </Modal.Header>
         <div className="modal-body">
           {this.props.body}
         </div>
         <div className="modal-footer">
           {buttons}
         </div>
-      </BS.Modal>
+      </Modal>
     );
   }
 }

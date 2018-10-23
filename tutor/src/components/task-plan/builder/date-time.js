@@ -1,11 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import moment from 'moment-timezone';
-import BS from 'react-bootstrap';
-import _ from 'underscore';
-
+import { Row, Col, Popover, OverlayTrigger } from 'react-bootstrap';
+import { delay, isEmpty, isUndefined, omit } from 'underscore';
 import { TutorDateInput, TutorTimeInput } from '../../tutor-input';
-import TimeHelper from '../../../helpers/time';
 import { AsyncButton } from 'shared';
 
 class DateTime extends React.Component {
@@ -27,7 +24,7 @@ class DateTime extends React.Component {
       const { messageTime } = this.props;
 
       this.setState({ justSet: true });
-      return _.delay(() => {
+      return delay(() => {
         return this.setState({ justSet: false, setClicked: null });
       }
         , messageTime);
@@ -45,12 +42,10 @@ class DateTime extends React.Component {
   };
 
   onTimeUpdated = () => {
-    const { date, time } = this.state;
     return this.setState({ isTimeValid: this.isTimeValid(), isTimeDefault: this.isTimeDefault() });
   };
 
-  getStateFromProps = (props, time) => {
-    if (props == null) { (((((((({ props } = this)))))))); }
+  getStateFromProps = (props = this.props, time) => {
     const { value, defaultValue, isSetting } = props;
 
     return {
@@ -84,7 +79,7 @@ class DateTime extends React.Component {
   };
 
   isDateValid = () => {
-    return ((this.state != null ? this.state.date : undefined) != null) && _.isEmpty(__guard__(__guard__(this.refs != null ? this.refs.date : undefined, x1 => x1.state), x => x.errors));
+    return ((this.state != null ? this.state.date : undefined) != null) && isEmpty(__guard__(__guard__(this.refs != null ? this.refs.date : undefined, x1 => x1.state), x => x.errors));
   };
 
   isJustSet = (prevProps, prevState) => {
@@ -96,7 +91,7 @@ class DateTime extends React.Component {
 
   isTimeDefault = (time, props) => {
     if (time == null) { time = this.state != null ? this.state.time : undefined; }
-    if (_.isUndefined(time)) { return true; }
+    if (isUndefined(time)) { return true; }
 
     if (props == null) { (((((((({ props } = this)))))))); }
     const { defaultTime } = props;
@@ -106,7 +101,7 @@ class DateTime extends React.Component {
   isTimeValid = (time) => {
     if (time == null) { time = this.state != null ? this.state.time : undefined; }
 
-    return (time != null) && _.isEmpty(__guard__(__guard__(__guard__(__guard__(this.refs != null ? this.refs.time : undefined, x3 => x3.refs), x2 => x2.timeInput), x1 => x1.state), x => x.errors));
+    return (time != null) && isEmpty(__guard__(__guard__(__guard__(__guard__(this.refs != null ? this.refs.time : undefined, x3 => x3.refs), x2 => x2.timeInput), x1 => x1.state), x => x.errors));
   };
 
   render() {
@@ -116,18 +111,18 @@ class DateTime extends React.Component {
 
     const type = label.toLowerCase();
 
-    const timeProps = _.omit(this.props, 'value', 'onChange', 'label');
-    const dateProps = _.omit(this.props, 'defaultValue', 'onChange', 'label');
+    const timeProps = omit(this.props, 'value', 'onChange', 'label');
+    const dateProps = omit(this.props, 'defaultValue', 'onChange', 'label');
 
     timeProps.label = `${label} Time`;
     dateProps.label = `${label} Date`;
 
     if (!isTimeDefault && isTimeValid) {
-      const setAsDefaultExplanation = <BS.Popover id={`tasking-datetime-default-tip-${label}-${taskingIdentifier}`}>
+      const setAsDefaultExplanation = <Popover id={`tasking-datetime-default-tip-${label}-${taskingIdentifier}`}>
         {label}
         {' times for assignments created from now on will have this time set as the default.\
   '}
-      </BS.Popover>;
+      </Popover>;
 
       setAsDefaultOption = <AsyncButton
         className="tasking-time-default"
@@ -138,9 +133,9 @@ class DateTime extends React.Component {
         {'\
   Set as default\
   '}
-        <BS.OverlayTrigger placement="top" overlay={setAsDefaultExplanation}>
+        <OverlayTrigger placement="top" overlay={setAsDefaultExplanation}>
           <i className="fa fa-info-circle" />
-        </BS.OverlayTrigger>
+        </OverlayTrigger>
       </AsyncButton>;
     } else if (justSet) {
       setAsDefaultOption = <span className="tasking-time-default tasking-time-default-set">
@@ -152,21 +147,21 @@ class DateTime extends React.Component {
 
 
     return (
-      <BS.Col xs={12} md={6}>
-        <BS.Row>
-          <BS.Col xs={8} md={7} className={`tasking-date -assignment-${type}-date`}>
+      <Col xs={12} md={6}>
+        <Row>
+          <Col xs={8} md={7} className={`tasking-date -assignment-${type}-date`}>
             <TutorDateInput {...dateProps} onChange={this.onDateChange} ref="date" />
-          </BS.Col>
-          <BS.Col xs={4} md={5} className={`tasking-time -assignment-${type}-time`}>
+          </Col>
+          <Col xs={4} md={5} className={`tasking-time -assignment-${type}-time`}>
             <TutorTimeInput
               {...timeProps}
               onChange={this.onTimeChange}
               onUpdated={this.onTimeUpdated}
               ref="time" />
             {setAsDefaultOption}
-          </BS.Col>
-        </BS.Row>
-      </BS.Col>
+          </Col>
+        </Row>
+      </Col>
     );
   }
 }

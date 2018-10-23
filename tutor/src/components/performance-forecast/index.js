@@ -1,7 +1,6 @@
 import React from 'react';
-
 import Router from '../../helpers/router';
-import PerformanceForecast from '../../flux/performance-forecast';
+import * as PerformanceForecast from '../../flux/performance-forecast';
 import LoadableItem from '../loadable-item';
 import TeacherComponent from './teacher';
 import StudentComponent from './student';

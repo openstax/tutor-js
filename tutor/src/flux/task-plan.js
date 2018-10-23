@@ -1,22 +1,11 @@
 // coffeelint: disable=no_empty_functions
 import _ from 'underscore';
-import cloneDeep from 'lodash/cloneDeep';
-import each from 'lodash/each';
-import map from 'lodash/map';
-import pick from 'lodash/pick';
-import isEmpty from 'lodash/isEmpty';
-import negate from 'lodash/negate';
-import validator from 'validator';
-import moment from 'moment';
+import { sortBy, extend, keys, pick, isObject, isString, clone, omit, isEqual, negate, cloneDeep, each, isEmpty } from 'lodash';
+
 import { CrudConfig, makeSimpleStore, extendConfig } from './helpers';
-
-import TimeHelper from '../helpers/time';
-
 import Publishing from '../models/jobs/task-plan-publish';
-
 import Courses from '../models/courses-map';
-
-import ContentHelpers from '../helpers/content';
+import { chapterSectionToNumber } from '../helpers/content';
 
 const planCrudConfig = new CrudConfig();
 
@@ -38,9 +27,9 @@ const PLAN_TYPES = {
 const DEFAULT_TYPE = PLAN_TYPES.READING;
 
 const sortTopics = (topics, pages) =>
-  _.sortBy(topics, function(topicId) {
+  sortBy(topics, function(topicId) {
     const topic = pages[topicId];
-    return ContentHelpers.chapterSectionToNumber(topic.chapter_section);
+    return chapterSectionToNumber(topic.chapter_section);
   })
 ;
 
@@ -76,7 +65,7 @@ const newTaskPlan = function(attributes = {}) {
   if (attributes.type == null) { attributes.type = DEFAULT_TYPE; }
 
   if (BASE_PLANS[attributes.type] != null) {
-    return _.extend({}, attributes, cloneDeep(BASE_PLANS[attributes.type]));
+    return extend({}, attributes, cloneDeep(BASE_PLANS[attributes.type]));
   } else {
     return {};
   }
@@ -85,8 +74,8 @@ const newTaskPlan = function(attributes = {}) {
 const validateSettings = function(taskPlan = {}) {
   if (taskPlan.type == null) { taskPlan.type = DEFAULT_TYPE; }
 
-  const expectedSettings = _.keys(BASE_PLANS[taskPlan.type].settings);
-  taskPlan.settings = _.pick(taskPlan.settings, expectedSettings);
+  const expectedSettings = keys(BASE_PLANS[taskPlan.type].settings);
+  taskPlan.settings = pick(taskPlan.settings, expectedSettings);
 
   return taskPlan;
 };
@@ -98,7 +87,7 @@ const TaskPlanConfig = {
   _silentError: {},
 
   _loaded(obj, planId) {
-    if (_.isObject(obj)) { this._server_copy[planId] = JSON.stringify(obj); }
+    if (isObject(obj)) { this._server_copy[planId] = JSON.stringify(obj); }
     this.emit(`loaded.${planId}`);
     return obj;
   },
@@ -106,7 +95,7 @@ const TaskPlanConfig = {
   // Somewhere, the local copy gets taken apart and rebuilt.
   // Keep a copy of what was served.
   _getOriginal(planId) {
-    if (_.isString(this._server_copy[planId])) {
+    if (isString(this._server_copy[planId])) {
       return JSON.parse(this._server_copy[planId]);
     } else {
       return {};
@@ -141,14 +130,14 @@ const TaskPlanConfig = {
     const plan = this._getPlan(id);
     const settings = {};
     for (let name of names) {
-      settings[name] = _.clone(plan.settings[name]);
+      settings[name] = clone(plan.settings[name]);
     }
     return settings;
   },
 
   _changeSettings(id, attributes) {
     const plan = this._getPlan(id);
-    return this._change(id, { settings: _.extend({}, plan.settings, attributes) });
+    return this._change(id, { settings: extend({}, plan.settings, attributes) });
   },
 
   replaceTaskings(id, taskings) {
@@ -307,7 +296,7 @@ const TaskPlanConfig = {
   },
 
   resetPlan(id) {
-    this._local[id] = _.clone(this._getOriginal(id));
+    this._local[id] = clone(this._getOriginal(id));
     return this.clearChanged(id);
   },
 
@@ -345,7 +334,7 @@ const TaskPlanConfig = {
     })
     );
 
-    const plan = _.extend(
+    const plan = extend(
       newTaskPlan({ type: original.type }),
       originalPlan,
       {
@@ -471,12 +460,12 @@ const TaskPlanConfig = {
 
       if (this.exports.isNew.call(this, id)) {
         // omit tasking plan changes if new plan, only check for changes in other fields
-        changed = _.omit(changed, 'tasking_plans');
+        changed = omit(changed, 'tasking_plans');
         const defaultTaskPlan = newTaskPlan({ type: changed.type });
-        return !_.isEqual(changed, defaultTaskPlan);
+        return !isEqual(changed, defaultTaskPlan);
       }
 
-      return !_.isEmpty(changed);
+      return !isEmpty(changed);
     },
   },
 };

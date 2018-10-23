@@ -1,10 +1,16 @@
-
 import React from 'react';
-import BS from 'react-bootstrap';
-
+import PropTypes from 'prop-types';
+import { Popover } from 'react-bootstrap';
 import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
 
+export default
 class FeedbackSetting extends React.Component {
+
+  static propTypes = {
+    id:        PropTypes.string.isRequired,
+    showPopup: PropTypes.bool,
+  }
+
   setImmediateFeedback = (ev) => {
     return TaskPlanActions.setImmediateFeedback( this.props.id, ev.target.value === 'immediate' );
   };
@@ -12,18 +18,19 @@ class FeedbackSetting extends React.Component {
   render() {
     let popover;
     const { id, showPopup } = this.props;
-    if (showPopup &&
-      TaskPlanStore.isChangingToDueAt(id) &&
-      !TaskPlanStore.isFeedbackImmediate(id)) { popover = <BS.Popover
-      className="feedback-tip"
-      placement="bottom"
-      ref="popover"
-      id="feedback-tip-popover">
-      {`\
-  Some students may have already seen feedback and answers
-  to questions in this assignment.\
-  `}
-    </BS.Popover>; }
+    if (showPopup && TaskPlanStore.isChangingToDueAt(id) && !TaskPlanStore.isFeedbackImmediate(id)) {
+      popover = (
+        <Popover
+          className="feedback-tip"
+          placement="bottom"
+          ref="popover"
+          id="feedback-tip-popover"
+        >
+          Some students may have already seen feedback and answers
+          to questions in this assignment.
+        </Popover>
+      );
+    }
 
     return (
       <div className="form-group">
@@ -34,16 +41,13 @@ class FeedbackSetting extends React.Component {
           onChange={this.setImmediateFeedback}
           value={TaskPlanStore.isFeedbackImmediate(id) ? 'immediate' : 'due_at'}
           id="feedback-select"
-          className="form-control">
+          className="form-control"
+        >
           <option value="immediate">
-            {'\
-    instantly after the student answers each question\
-    '}
+            instantly after the student answers each question
           </option>
           <option value="due_at">
-            {'\
-    only after due date\x2Ftime passes\
-    '}
+            only after due date\x2Ftime passes
           </option>
         </select>
         {popover}
@@ -51,5 +55,3 @@ class FeedbackSetting extends React.Component {
     );
   }
 }
-
-export default FeedbackSetting;

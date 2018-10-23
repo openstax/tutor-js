@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, field, session, identifier, hasMany,
 } from 'shared/model';
-import { action, computed, observable, Atom } from 'mobx';
+import { action, computed, observable, createAtom } from 'mobx';
 import { sortBy, first, map, union, find } from 'lodash';
 import { lazyInitialize } from 'core-decorators';
 import TaskingPlan from '../tasking-plan';
@@ -43,7 +43,7 @@ class TeacherTaskPlan extends BaseModel {
 
   constructor(attrs) {
     super(attrs);
-    this.publishing = new Atom(
+    this.publishing = createAtom(
       'TaskPlanUpdates',
       () => { TaskPlanPublish.forPlan(this).startListening(); },
       () => { TaskPlanPublish.stopPollingForPlan(this); },
@@ -102,8 +102,8 @@ class TeacherTaskPlan extends BaseModel {
   @computed get isPollable() {
     return Boolean(
       !this.failed_at &&
-      !this.killed_at &&
-      this.is_publishing &&
+        !this.killed_at &&
+        this.is_publishing &&
         this.publish_job_url
     );
   }

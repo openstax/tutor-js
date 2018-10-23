@@ -1,15 +1,12 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import _ from 'underscore';
-import BS from 'react-bootstrap';
-import Router from 'react-router-dom';
+import { pick } from 'lodash';
+import { Panel, Grid, Row, Col } from 'react-bootstrap';
 import validator from 'validator';
 import classnames from 'classnames';
-
-import { TutorInput, TutorDateInput, TutorTextArea } from '../../tutor-input';
+import { TutorInput } from '../../tutor-input';
 import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
 import { TaskingStore } from '../../../flux/tasking';
-
 import PlanFooter from '../footer';
 import PlanMixin from '../plan-mixin';
 import TaskPlanBuilder from '../builder';
@@ -30,7 +27,7 @@ const ExternalPlan = createReactClass({
 
   render() {
     const { id, courseId } = this.props;
-    const builderProps = _.pick(this.state, 'isVisibleToStudents', 'isEditable', 'isSwitchable');
+    const builderProps = pick(this.state, 'isVisibleToStudents', 'isEditable', 'isSwitchable');
     const hasError = this.hasError();
 
     const plan = TaskPlanStore.get(id);
@@ -65,11 +62,11 @@ const ExternalPlan = createReactClass({
 
     return (
       <div className="external-plan task-plan" data-assignment-type="external">
-        <BS.Panel className={formClasses} footer={footer} header={header}>
-          <BS.Grid fluid={true}>
+        <Panel className={formClasses} footer={footer} header={header}>
+          <Grid fluid={true}>
             <TaskPlanBuilder courseId={courseId} id={id} {...builderProps} />
-            <BS.Row>
-              <BS.Col xs={12} md={12}>
+            <Row>
+              <Col xs={12} md={12}>
                 <TutorInput
                   disabled={isURLLocked}
                   label={label}
@@ -79,10 +76,10 @@ const ExternalPlan = createReactClass({
                   required={true}
                   validate={this.validate}
                   onChange={this.setUrl} />
-              </BS.Col>
-            </BS.Row>
-          </BS.Grid>
-        </BS.Panel>
+              </Col>
+            </Row>
+          </Grid>
+        </Panel>
       </div>
     );
   },

@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import _ from 'underscore';
-import BS from 'react-bootstrap';
-import camelCase from 'lodash/camelCase';
+import { keys } from 'lodash';
+import { Popover, OverlayTrigger } from 'react-bootstrap';
 
-import { INDIVIDUAL_REVIEW, SPACED_PRACTICE_GROUP, PERSONALIZED_GROUP, ALIASES, LABELS, getHelpText } from '../../helpers/step-helps';
-import Markdown from '../markdown';
+import {
+  INDIVIDUAL_REVIEW, SPACED_PRACTICE_GROUP,
+  PERSONALIZED_GROUP as SH_PERSONALIZED_GROUP,
+  ALIASES, LABELS, getHelpText,
+} from '../../helpers/step-helps';
 
 const DEFAULT_GROUP =
   { show: false };
@@ -14,9 +16,9 @@ const REVIEW_GROUP = {
   label: LABELS[SPACED_PRACTICE_GROUP],
 };
 
-PERSONALIZED_GROUP = {
+const PERSONALIZED_GROUP = {
   show: true,
-  label: LABELS[PERSONALIZED_GROUP],
+  label: LABELS[SH_PERSONALIZED_GROUP],
 };
 
 const RULES = {
@@ -37,12 +39,11 @@ class ExerciseGroup extends React.Component {
   static displayName = 'ExerciseGroup';
 
   static propTypes = {
-    group: PropTypes.oneOf(_.keys(RULES)).isRequired,
+    group: PropTypes.oneOf(keys(RULES)).isRequired,
     project: PropTypes.oneOf(['tutor', 'concept-coach']).isRequired,
   };
 
   getGroupLabel = (group, related_content) => {
-
     let labels;
     if (RULES[group].label != null) {
       labels = RULES[group].label;
@@ -52,7 +53,7 @@ class ExerciseGroup extends React.Component {
   };
 
   getPossibleGroups = () => {
-    return _.keys(RULES);
+    return keys(RULES);
   };
 
   render() {
@@ -74,13 +75,13 @@ class ExerciseGroup extends React.Component {
     }
 
     if (RULES[group].show) {
-      const popover = <BS.Popover id="instructions" ref="popover" className="openstax instructions">
+      const popover = <Popover id="instructions" ref="popover" className="openstax instructions">
         {getHelpText[group](project)}
-      </BS.Popover>;
+      </Popover>;
       groupDOM.push(
-        <BS.OverlayTrigger key="info" placement="bottom" overlay={popover}>
+        <OverlayTrigger key="info" placement="bottom" overlay={popover}>
           <i className="fa fa-info-circle" />
-        </BS.OverlayTrigger>
+        </OverlayTrigger>
       );
     }
     return (

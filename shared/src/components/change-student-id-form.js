@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import BS from 'react-bootstrap';
-import isEmpty from 'lodash/isEmpty';
+import { ControlLabel } from 'react-bootstrap';
+import { isEmpty } from 'lodash';
 import AsyncButton from './buttons/async-button';
-const ENTER = 'Enter';
 import classnames from 'classnames';
+
+const ENTER = 'Enter';
 
 const BlankWarning = props =>
   <div className={classnames('blank-warning', { visible: isEmpty(props.value) })}>
@@ -60,9 +61,9 @@ class ChangeStudentIdForm extends React.Component {
         {this.props.children}
         <div className="controls">
           <div className="main">
-            <BS.ControlLabel>
+            <ControlLabel>
               {this.props.label}
-            </BS.ControlLabel>
+            </ControlLabel>
             <div className="inputs">
               <input
                 autoFocus={true}

@@ -1,11 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import BS from 'react-bootstrap';
+import { Panel } from 'react-bootstrap';
 import BackButton from '../buttons/back-button';
 import Router from '../../helpers/router';
-import _ from 'underscore';
-
-import PerformanceForecast from '../../flux/performance-forecast';
+import * as PerformanceForecast from '../../flux/performance-forecast';
 
 import Guide from './guide';
 import ColorKey from './color-key';
@@ -66,7 +64,7 @@ export default class extends React.Component {
   render() {
     const { courseId } = this.props;
     return (
-      <BS.Panel className="performance-forecast student">
+      <Panel className="performance-forecast student">
         <Guide
           canPractice={true}
           courseId={courseId}
@@ -77,7 +75,7 @@ export default class extends React.Component {
           emptyMessage={this.renderEmptyMessage()}
           allSections={PerformanceForecast.Student.store.getAllSections(courseId)}
           chapters={PerformanceForecast.Student.store.get(courseId).children} />
-      </BS.Panel>
+      </Panel>
     );
   }
 }

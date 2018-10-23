@@ -1,29 +1,32 @@
 import { get, pick, omit, extend, isString, isEmpty, toArray } from 'lodash';
+<<<<<<< HEAD
 import { computed, action, intercept } from 'mobx';
 import { SerializedHighlight } from '@openstax/highlighter';
 import {
   BaseModel, identifiedBy, field, identifier,
+=======
+import { computed, action, observable, intercept } from 'mobx';
+import serializeSelection from 'serialize-selection';
+import { readonly } from 'core-decorators';
+import {
+  BaseModel, identifiedBy, field, identifier, session, belongsTo, hasMany,
+>>>>>>> fix bootstrap and lodash/underscore imports
 } from 'shared/model';
 
-<<<<<<< HEAD
-=======
-export
 @identifiedBy('annotations/annotation/selector')
- class AnnotationSelector extends BaseModel {
->>>>>>> update all jsx? files
+class AnnotationSelector extends BaseModel {
 
-@identifiedBy('annotations/annotation')
-export default class Annotation extends BaseModel {
+  @identifier referenceElementId;
 
-  static MAX_TEXT_LENGTH = 500;
-  @identifier id;
   @field chapter;
   @field content;
   @field courseId;
+  @field end;
+  @field({ type: 'object' }) rect;
+  @field researchId;
   @field section;
+  @field start;
   @field title;
-<<<<<<< HEAD
-=======
   @belongsTo({ model: 'annotations/annotation/target' }) target;
   @field type = 'TextPositionSelector'
   @observable bounds;
@@ -45,9 +48,9 @@ export default class Annotation extends BaseModel {
 
 }
 
-export
+
 @identifiedBy('annotations/annotation/target')
- class AnnotationTarget extends BaseModel {
+class AnnotationTarget extends BaseModel {
 
   @identifier source;
   @belongsTo({ model: 'annotations/annotation' }) annotation;
@@ -60,13 +63,12 @@ export
 
 export default
 @identifiedBy('annotations/annotation')
- class Annotation extends BaseModel {
+class Annotation extends BaseModel {
 
   @readonly static MAX_TEXT_LENGTH = 500;
 
   @identifier id;
   @field user;
->>>>>>> update all jsx? files
   @field text;
   @field type;
   @field({ type: 'object' }) rect;
@@ -75,8 +77,6 @@ export default
 
   constructor(attrs) {
     super(attrs);
-    this.highlight = new SerializedHighlight(attrs);
-    this.listing = attrs.listing;
     intercept(this, 'text', this.validateTextLength);
   }
 
@@ -85,6 +85,38 @@ export default
       change.newValue = change.newValue.slice(0, Annotation.MAX_TEXT_LEN);
     }
     return change;
+  }
+
+  @computed get selection() {
+    return get(this, 'target[0].selector[0]', {});
+  }
+
+  @computed get referenceElementId() {
+    return get(this.selection, 'referenceElementId');
+  }
+
+  get referenceElement() {
+    return this.referenceElementId ? document.getElementById(this.referenceElementId) : null;
+  }
+
+  get elements() {
+    return toArray(document.querySelectorAll(`[data-id="${this.id}"]`));
+  }
+
+  @computed get isAttached() {
+    return !isEmpty(this.elements);
+  }
+
+  @computed get courseId() {
+    return this.selection.courseId;
+  }
+
+  @computed get chapter() {
+    return this.selection.chapter;
+  }
+
+  @computed get section() {
+    return this.selection.section;
   }
 
   @computed get chapter_section() {
@@ -97,6 +129,10 @@ export default
     return cs;
   }
 
+  @computed get title() {
+    return this.selection.title;
+  }
+
   @action save() {
     return this.listing.update(this);
   }
@@ -104,4 +140,33 @@ export default
   @action destroy() {
     return this.listing.destroy(this);
   }
-}
+
+  @action updateAfterSave(data) {
+    // update target so it doesn't overwrite and lose the serialized bounds
+    this.update(omit(data, 'target'));
+    this.selection.update(get(data, 'target[0].selector[0]', {}));
+  }
+
+  @computed get asPage() {
+    return extend(
+      { csId: `${this.chapter}.${this.section}`, annotation: this },
+      pick(this.selection, ['courseId', 'title', 'chapter', 'section']),
+    );
+  }
+
+  isSiblingOfElement(el) {
+    if (!el) { return false; }
+    if (el === this.referenceElement) { return true; }
+    let node = el.parentNode;
+    while (node != null) {
+      if (node == this.referenceElement) {
+        return true;
+      }
+      node = node.parentNode;
+    }
+    return false;
+  }
+
+};
+
+export { AnnotationSelector, AnnotationTarget, Annotation };

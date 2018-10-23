@@ -2,18 +2,14 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import _ from 'underscore';
-import BS from 'react-bootstrap';
-import Router from 'react-router-dom';
+import { Button, Panel, Col, Row, Grid } from 'react-bootstrap';
 import classnames from 'classnames';
-
-import { TutorInput, TutorDateInput, TutorTextArea } from '../tutor-input';
 import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
 import SelectTopics from './select-topics';
 import PlanFooter from './footer';
 import Page from '../../models/reference-book/page';
 import ChapterSection from './chapter-section';
 import PlanMixin from './plan-mixin';
-import LoadableItem from '../loadable-item';
 import TaskPlanBuilder from './builder';
 import NoQuestionsTooltip from './reading/no-questions-tooltip';
 import Fn from '../../helpers/function';
@@ -25,6 +21,7 @@ class ReviewReadingLi extends React.Component {
 
   static propTypes = {
     page: PropTypes.instanceOf(Page).isRequired,
+    index: PropTypes.number.isRequired,
     planId: PropTypes.string.isRequired,
     topicId: PropTypes.string.isRequired,
     canEdit: PropTypes.bool,
@@ -33,21 +30,21 @@ class ReviewReadingLi extends React.Component {
   getActionButtons = () => {
     let moveUpButton;
     if (this.props.index) {
-      moveUpButton = <BS.Button onClick={this.moveReadingUp} className="btn-xs -move-reading-up">
+      moveUpButton = <Button onClick={this.moveReadingUp} className="btn-xs -move-reading-up">
         <i className="fa fa-arrow-up" />
-      </BS.Button>;
+      </Button>;
     }
 
     if (this.props.canEdit) {
       return (
         <span className="section-buttons">
           {moveUpButton}
-          <BS.Button onClick={this.moveReadingDown} className="btn-xs move-reading-down">
+          <Button onClick={this.moveReadingDown} className="btn-xs move-reading-down">
             <i className="fa fa-arrow-down" />
-          </BS.Button>
-          <BS.Button className="remove-topic" onClick={this.removeTopic} bsStyle="default">
+          </Button>
+          <Button className="remove-topic" onClick={this.removeTopic} bsStyle="default">
             <i className="fa fa-close" />
-          </BS.Button>
+          </Button>
         </span>
       );
     }
@@ -143,14 +140,14 @@ class ChooseReadings extends React.Component {
     const buttonStyle = 'primary';
 
     const primary =
-      <BS.Button
+      <Button
         className="-show-problems"
         bsStyle={buttonStyle}
         disabled={(this.props.selected != null ? this.props.selected.length : undefined) === 0}
         onClick={this.hide}>
         {'Add Readings\
   '}
-      </BS.Button>;
+      </Button>;
 
     return (
       <SelectTopics
@@ -188,15 +185,15 @@ const ReadingPlan = createReactClass({
     const topics = TaskPlanStore.getTopics(id);
 
     const footer = <PlanFooter
-      id={id}
-      courseId={courseId}
-      onPublish={this.publish}
-      onSave={this.save}
-      onCancel={this.cancel}
-      hasError={hasError}
-      isVisibleToStudents={this.state.isVisibleToStudents}
-      getBackToCalendarParams={this.getBackToCalendarParams}
-      goBackToCalendar={this.goBackToCalendar} />;
+                     id={id}
+                     courseId={courseId}
+                     onPublish={this.publish}
+                     onSave={this.save}
+                     onCancel={this.cancel}
+                     hasError={hasError}
+                     isVisibleToStudents={this.state.isVisibleToStudents}
+                     getBackToCalendarParams={this.getBackToCalendarParams}
+                     goBackToCalendar={this.goBackToCalendar} />;
     const header = this.builderHeader('reading');
 
     const addReadingText = (topics != null ? topics.length : undefined) ? 'Add More Readings' : 'Add Readings';
@@ -204,12 +201,12 @@ const ReadingPlan = createReactClass({
 
     if (this.state.showSectionTopics) {
       selectReadings = <ChooseReadings
-        hide={this.hideSectionTopics}
-        cancel={this.cancelSelection}
-        courseId={courseId}
-        planId={id}
-        ecosystemId={ecosystemId}
-        selected={topics} />;
+                         hide={this.hideSectionTopics}
+                         cancel={this.cancelSelection}
+                         courseId={courseId}
+                         planId={id}
+                         ecosystemId={ecosystemId}
+                         selected={topics} />;
     }
 
     const formClasses = classnames(
@@ -222,14 +219,14 @@ const ReadingPlan = createReactClass({
     );
 
     if (!this.state.isVisibleToStudents) {
-      addReadingsButton = <BS.Button
-        id="reading-select"
-        className={classnames('-select-sections-btn', { 'invalid': hasError && !(topics != null ? topics.length : undefined) })}
-        onClick={this.showSectionTopics}
-        bsStyle="default">
+      addReadingsButton = <Button
+                            id="reading-select"
+                            className={classnames('-select-sections-btn', { 'invalid': hasError && !(topics != null ? topics.length : undefined) })}
+                            onClick={this.showSectionTopics}
+                            bsStyle="default">
         {'+ '}
         {addReadingText}
-      </BS.Button>;
+      </Button>;
     }
 
     if (hasError && !(topics != null ? topics.length : undefined)) {
@@ -242,11 +239,11 @@ const ReadingPlan = createReactClass({
 
     return (
       <div className="reading-plan task-plan" data-assignment-type="reading">
-        <BS.Panel className={formClasses} footer={footer} header={header}>
-          {!this.state.showSectionTopics ? <BS.Grid fluid={true}>
+        <Panel className={formClasses} footer={footer} header={header}>
+          {!this.state.showSectionTopics ? <Grid fluid={true}>
             <TaskPlanBuilder courseId={courseId} id={id} {...builderProps} />
-            <BS.Row>
-              <BS.Col xs={12} md={12}>
+            <Row>
+              <Col xs={12} md={12}>
                 <ReviewReadings
                   canEdit={!this.state.isVisibleToStudents}
                   courseId={courseId}
@@ -256,10 +253,10 @@ const ReadingPlan = createReactClass({
                 {addReadingsButton}
                 <NoQuestionsTooltip />
                 {readingsRequired}
-              </BS.Col>
-            </BS.Row>
-          </BS.Grid> : undefined}
-        </BS.Panel>
+              </Col>
+            </Row>
+          </Grid> : undefined}
+        </Panel>
         {selectReadings}
       </div>
     );

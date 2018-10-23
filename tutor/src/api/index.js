@@ -4,14 +4,15 @@
 //
 // For example, `TaskActions.load` everntually yields either
 // `TaskActions.loaded` or `TaskActions.FAILED`
-import { connectModify, connectCreate, connectRead, connectUpdate, connectDelete, connectModelCreate, connectModelRead, connectModelUpdate, connectModelDelete } from './adapter';
+import adapters from './adapter';
+
 import pick from 'lodash/pick';
 import assign from 'lodash/assign';
 
 import { CoursePracticeActions } from '../flux/practice';
 import { CourseGuideActions } from '../flux/guide';
 import { EcosystemsActions } from '../flux/ecosystems';
-import PerformanceForecast from '../flux/performance-forecast';
+import * as PerformanceForecast from '../flux/performance-forecast';
 
 import { TaskActions } from '../flux/task';
 import { TaskPanelActions } from '../flux/task-panel';
@@ -58,7 +59,8 @@ import TaskResult from '../models/course/scores/task-result';
 import CourseTeacher from '../models/course/teacher';
 import TeacherTaskPlan from '../models/task-plan/teacher';
 import TaskPlanStats from '../models/task-plan/stats';
-(((({ default: Course } = require('../models/course')))));
+
+const { connectModify, connectCreate, connectRead, connectUpdate, connectDelete, connectModelCreate, connectModelRead, connectModelUpdate, connectModelDelete } = adapters;
 
 const startAPI = function() {
   connectRead(TaskActions, { pattern: 'tasks/{id}' });

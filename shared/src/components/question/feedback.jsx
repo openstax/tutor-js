@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 import { pick } from 'lodash';
 import { observer } from 'mobx-react';
 
@@ -18,10 +19,10 @@ const SimpleFeedback = observer((props, context) => {
   );
 });
 SimpleFeedback.propTypes = {
-  children: React.PropTypes.string.isRequired,
+  children: PropTypes.string.isRequired,
 };
 SimpleFeedback.contextTypes = {
-  processHtmlAndMath: React.PropTypes.func,
+  processHtmlAndMath: PropTypes.func,
 };
 
 
@@ -38,12 +39,12 @@ const Feedback = observer((props, context) => {
   );
 });
 Feedback.propTypes = {
-  children: React.PropTypes.string.isRequired,
-  position: React.PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
+  children: PropTypes.string.isRequired,
+  position: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
 };
 Feedback.defaultProps = { position: 'bottom' };
 Feedback.contextTypes = {
-  processHtmlAndMath: React.PropTypes.func,
+  processHtmlAndMath: PropTypes.func,
 };
 
 export { Feedback, SimpleFeedback };

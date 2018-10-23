@@ -66,9 +66,8 @@ const AnswersAssociation = {
   },
 };
 
-export
 @identifiedBy('task-plan/stats/question')
- class QuestionStats extends BaseModel {
+class QuestionStats extends BaseModel {
 
   @session question_id;
   @session answered_count;
@@ -91,29 +90,10 @@ export
   }
 }
 
-//
-// @identifiedBy('task-plan/stats/exercise')
-// export class Exercise extends BaseModel {
-//
-//   @session content;
-//
-//   @session average_step_number;
-//   @belongsTo({ model: 'task-plan/stats/page' }) page;
-//   @hasMany({ model: Question, inverseOf: 'exercise' }) question_stats;
-//
-//   @computed get contentData() {
-//     return (isNil(this.content) || isObject(this.content)) ? this.content : JSON.parse(this.content) || {};
-//   }
-//
-//   @computed get uid() {
-//     return this.contentData ? this.contentData.uid : '';
-//   }
-// }
-//
+export { QuestionStats, Page, Stats };
 
-export
 @identifiedBy('task-plan/stats/page')
- class Page extends BaseModel {
+class Page extends BaseModel {
 
   @identifier id;
   @field({ model: ChapterSection }) chapter_section
@@ -126,9 +106,9 @@ export
   @hasMany({ model: Exercise, inverseOf: 'page' }) exercises;
 }
 
-export
+
 @identifiedBy('task-plan/stats/stat')
- class Stats extends BaseModel {
+class Stats extends BaseModel {
 
   @session period_id;
   @session name;
@@ -157,7 +137,7 @@ export
 
 export default
 @identifiedBy('task-plan/stats')
- class TaskPlanStats extends BaseModel {
+class TaskPlanStats extends BaseModel {
 
   @identifier id;
   @session title;
@@ -172,4 +152,4 @@ export default
   fetch() { return { id: this.taskPlan.id }; }
   fetchReview() { return { id: this.taskPlan.id }; }
 
-}
+};

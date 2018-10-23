@@ -1,11 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import _ from 'underscore';
-import BS from 'react-bootstrap';
-
-import TimeHelper from '../../../helpers/time';
+import { Row, Col } from 'react-bootstrap';
 import TaskingDateTimes from './tasking-date-times';
-import { toJS } from 'mobx';
 import { TaskingActions, TaskingStore } from '../../../flux/tasking';
 
 class Tasking extends React.Component {
@@ -47,10 +43,10 @@ class Tasking extends React.Component {
     if (isEnabled) {
       if (period != null) {
         return (
-          <BS.Row
+          <Row
             key={`tasking-enabled-${taskingIdentifier}`}
             className="tasking-plan tutor-date-input">
-            <BS.Col sm={4} md={3}>
+            <Col sm={4} md={3}>
               <input
                 id={`period-toggle-${taskingIdentifier}`}
                 disabled={isVisibleToStudents}
@@ -60,9 +56,9 @@ class Tasking extends React.Component {
               <label className="period" htmlFor={`period-toggle-${taskingIdentifier}`}>
                 {period.name}
               </label>
-            </BS.Col>
+            </Col>
             <TaskingDateTimes {...this.props} {...taskingDateTimesProps} />
-          </BS.Row>
+          </Row>
         );
       } else {
         return <TaskingDateTimes {...this.props} {...taskingDateTimesProps} />;
@@ -71,10 +67,10 @@ class Tasking extends React.Component {
       if (period != null) {
         // if isVisibleToStudents, we cannot re-enable this task for the period.
         return (
-          <BS.Row
+          <Row
             key={`tasking-disabled-${taskingIdentifier}`}
             className="tasking-plan disabled">
-            <BS.Col sm={12}>
+            <Col sm={12}>
               <input
                 id={`period-toggle-${taskingIdentifier}`}
                 type="checkbox"
@@ -84,8 +80,8 @@ class Tasking extends React.Component {
               <label className="period" htmlFor={`period-toggle-${taskingIdentifier}`}>
                 {period.name}
               </label>
-            </BS.Col>
-          </BS.Row>
+            </Col>
+          </Row>
         );
       } else {
         return null;

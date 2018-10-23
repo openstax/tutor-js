@@ -37,10 +37,11 @@ const config = {
   module: {
     rules: [
       { test: /\.jsx?$/,   exclude: /node_modules/, loader: 'babel-loader'         },
-      { test: /\.coffee$/, exclude: /node_modules/, loader: 'coffee-loader'        },
-      { test: /\.cjsx$/,   exclude: /node_modules/, loader: 'coffee-jsx-loader'    },
+      // { test: /\.coffee$/, exclude: /node_modules/, loader: 'coffee-loader'        },
+      // { test: /\.cjsx$/,   exclude: /node_modules/, loader: 'coffee-jsx-loader'    },
       { test: /\.(png|jpg|svg|gif)/, loader: 'file-loader', options: {}            },
       { test: /\.scss$/, use: [ 'style-loader', 'css-loader', 'fast-sass-loader' ] },
+      { test: /\.css$/, use: [ 'style-loader', 'css-loader' ] },
       { test: /\.(woff|woff2|eot|ttf)/, loader: 'url-loader',
         options: { limit: 30000, name: '[name]-[hash].[ext]' } },
     ],
@@ -53,7 +54,7 @@ const config = {
     alias: {
       shared: path.resolve(__dirname, 'shared', 'src'),
     },
-    extensions: ['.js', '.jsx', '.coffee', '.cjsx', '.json'],
+    extensions: ['.js', '.jsx', '.json'],
   },
   plugins: [
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),

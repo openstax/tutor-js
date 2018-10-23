@@ -67,7 +67,8 @@ module.exports = {
       "ignorePureComponents": true
     }],
     "react/prop-types": 2,
-    "react/jsx-uses-vars": [2],
+    "react/jsx-uses-vars": ["error"],
+    "react/jsx-uses-react":  ["error"],
     "react/jsx-indent": [2, 2],
     "react/jsx-indent-props": [2, 2],
     "key-spacing": [2, {

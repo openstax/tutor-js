@@ -1,7 +1,3 @@
-// Only load recordo for dev code for now
-import Recordo from 'recordo';
-Recordo.initialize();
-// Recordo.start()
 import './resources/styles/tutor.scss';
 
 import UiSettings from 'shared/model/ui-settings';

@@ -4,7 +4,7 @@ import { BootstrapURLs, ExerciseHelpers } from 'shared';
 import UiSettings from 'shared/model/ui-settings';
 import { startMathJax } from 'shared/helpers/mathjax';
 import Notifications from 'shared/model/notifications';
-import { connectModelRead } from '../api/adapter';
+import adapters from '../api/adapter';
 import { TransitionAssistant } from '../components/unsaved-state';
 import { readBootstrapData } from '../helpers/dom';
 import { startAPI } from '../api';
@@ -80,4 +80,4 @@ export default class TutorApp {
   }
 }
 
-connectModelRead(TutorApp, 'fetch', { url: '/bootstrap', onSuccess: 'onLoaded' });
+adapters.connectModelRead(TutorApp, 'fetch', { url: '/bootstrap', onSuccess: 'onLoaded' });

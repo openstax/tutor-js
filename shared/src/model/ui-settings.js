@@ -1,17 +1,9 @@
-import get from 'lodash/get';
-import setWith from 'lodash/setWith';
-import debounce from 'lodash/debounce';
-import includes from 'lodash/includes';
-import assign from 'lodash/assign';
-import isObject from 'lodash/isObject';
-import isNil from 'lodash/isNil';
-import cloneDeep from 'lodash/cloneDeep';
-import mobx from 'mobx';
+import { debounce, isNil, isObject } from 'lodash';
+import { toJS, observable } from 'mobx';
 import URLs from './urls';
 import Networking from './networking';
-import { toJS, observable } from 'mobx';
 
-const SETTINGS = mobx.observable.map();
+const SETTINGS = observable.map();
 
 const saveSettings = debounce( () =>
   Networking.perform({
@@ -20,7 +12,7 @@ const saveSettings = debounce( () =>
     withCredentials: true,
 
     data: {
-      ui_settings: mobx.toJS(SETTINGS),
+      ui_settings: toJS(SETTINGS),
     },
   })
 
@@ -58,7 +50,7 @@ const UiSettings = {
   },
 
   // for debugging purposes
-  _dump() { return mobx.toJS(SETTINGS); },
+  _dump() { return toJS(SETTINGS); },
 };
 
 export default UiSettings;

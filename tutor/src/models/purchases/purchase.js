@@ -5,7 +5,7 @@ import {
 } from 'shared/model';
 import Courses from '../courses-map';
 import { TimeStore } from '../../flux/time';
-import { numberWithTwoDecimalPlaces } from '../../helpers/string';
+import S from '../../helpers/string';
 import Payments from '../payments';
 
 @identifiedBy('purchase/product')
@@ -56,7 +56,7 @@ class Purchase extends BaseModel {
   }
 
   @computed get formattedTotal() {
-    const amount = numberWithTwoDecimalPlaces(this.total);
+    const amount = S.numberWithTwoDecimalPlaces(this.total);
     return amount;
   }
 

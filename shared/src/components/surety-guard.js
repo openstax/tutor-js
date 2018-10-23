@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import BS from 'react-bootstrap';
-import defer from 'lodash/defer';
+import { Popover, OverlayTrigger, Button } from 'react-bootstrap';
+import { defer } from 'lodash';
 
 class SuretyGuard extends React.Component {
   static defaultProps = {
@@ -48,7 +48,7 @@ class SuretyGuard extends React.Component {
 
   renderPopover = () => {
     return (
-      <BS.Popover
+      <Popover
         id="confirmation-alert"
         className="openstax-surety-guard"
         title={this.props.title}>
@@ -56,20 +56,20 @@ class SuretyGuard extends React.Component {
           {this.props.message}
         </span>
         <div className="controls">
-          <BS.Button ref="popoverButton" onClick={this.onCancel}>
+          <Button ref="popoverButton" onClick={this.onCancel}>
             {this.props.cancelButtonLabel}
-          </BS.Button>
-          <BS.Button onClick={this.onConfirm} bsStyle="primary">
+          </Button>
+          <Button onClick={this.onConfirm} bsStyle="primary">
             {this.props.okButtonLabel}
-          </BS.Button>
+          </Button>
         </div>
-      </BS.Popover>
+      </Popover>
     );
   };
 
   render() {
     return (
-      <BS.OverlayTrigger
+      <OverlayTrigger
         ref="overlay"
         trigger="click"
         onClick={this.maybeShow}
@@ -77,7 +77,7 @@ class SuretyGuard extends React.Component {
         rootClose={true}
         overlay={this.renderPopover()}>
         {this.props.children}
-      </BS.OverlayTrigger>
+      </OverlayTrigger>
     );
   }
 }

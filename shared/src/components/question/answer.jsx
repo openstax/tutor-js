@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { partial, pick, debounce } from 'lodash';
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
@@ -36,24 +37,24 @@ const isAnswerChecked = function(answer, chosenAnswer) {
 export default class Answer extends React.Component {
 
   static propTypes = {
-    answer: React.PropTypes.instanceOf(AnswerModel).isRequired,
-    iter: React.PropTypes.number.isRequired,
-    qid: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number,
+    answer: PropTypes.instanceOf(AnswerModel).isRequired,
+    iter: PropTypes.number.isRequired,
+    qid: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
     ]).isRequired,
-    type: React.PropTypes.string.isRequired,
-    hasCorrectAnswer: React.PropTypes.bool.isRequired,
-    onChangeAnswer: React.PropTypes.func.isRequired,
-    disabled: React.PropTypes.bool,
-    chosenAnswer: React.PropTypes.array,
-    correctAnswerId: React.PropTypes.string,
-    answered_count: React.PropTypes.number,
-    show_all_feedback: React.PropTypes.bool,
-    keyControl: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number,
-      React.PropTypes.array,
+    type: PropTypes.string.isRequired,
+    hasCorrectAnswer: PropTypes.bool.isRequired,
+    onChangeAnswer: PropTypes.func.isRequired,
+    disabled: PropTypes.bool,
+    chosenAnswer: PropTypes.array,
+    correctAnswerId: PropTypes.string,
+    answered_count: PropTypes.number,
+    show_all_feedback: PropTypes.bool,
+    keyControl: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.array,
     ]),
   };
 
@@ -63,16 +64,16 @@ export default class Answer extends React.Component {
   };
 
   static contextTypes = {
-    processHtmlAndMath: React.PropTypes.func,
+    processHtmlAndMath: PropTypes.func,
   };
 
   componentWillMount() {
-    if (this.shouldKey()) { return this.setUpKeys(); }
+    if (this.shouldKey()) { this.setUpKeys(); }
   }
 
   componentWillUnmount() {
     const { keyControl } = this.props;
-    if (keyControl != null) { return keysHelper.off(keyControl, 'multiple-choice'); }
+    if (keyControl != null) { keysHelper.off(keyControl, 'multiple-choice'); }
   }
 
   componentDidUpdate(prevProps) {
@@ -83,9 +84,7 @@ export default class Answer extends React.Component {
     }
 
     if (this.shouldKey() && (prevProps.keyControl !== keyControl)) {
-      return (
-        this.setUpKeys()
-      );
+      this.setUpKeys();
     }
   }
 

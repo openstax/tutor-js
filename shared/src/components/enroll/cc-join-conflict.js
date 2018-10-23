@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import BS from 'react-bootstrap';
-const ENTER = 'Enter';
-
+import { Row } from 'react-bootstrap';
 import AsyncButton from '../buttons/async-button';
 import MessageList from './message-list';
+
+const ENTER = 'Enter';
 
 class CcJoinConflict extends React.Component {
   static propTypes = {
@@ -36,7 +36,7 @@ class CcJoinConflict extends React.Component {
   render() {
 
     return (
-      <BS.Row>
+      <Row>
         <div className="conflict form-group">
           <MessageList messages={[this.getConflictMessage()]} />
           <h3 className="title text-center no-border">
@@ -72,7 +72,7 @@ class CcJoinConflict extends React.Component {
             </a>
           </div>
         </div>
-      </BS.Row>
+      </Row>
     );
   }
 }

@@ -12,9 +12,8 @@ import ViewedTourStat from './user/viewed-tour-stat';
 import { read_csrf } from '../helpers/dom';
 import Offerings from './course/offerings';
 
-export
 @identifiedBy('user')
- class User extends BaseModel {
+class User extends BaseModel {
 
   @action.bound
   bootstrap(data) {
@@ -183,6 +182,8 @@ export
   }
 
 }
+
+export { User };
 
 const currentUser = new User;
 

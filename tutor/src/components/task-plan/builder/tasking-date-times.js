@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import BS from 'react-bootstrap';
-import _ from 'underscore';
+import { Col } from 'react-bootstrap';
+import { first, assign, pick, partial } from 'underscore';
 import moment from 'moment-timezone';
 
 import { TimeStore } from '../../../flux/time';
@@ -34,7 +34,7 @@ class TaskingDateTimes extends React.Component {
 
     if (TaskingStore.isTaskingValid(id, period != null ? period.serialize() : undefined)) { return false; }
 
-    return _.first(TaskingStore.getTaskingErrors(id, period));
+    return first(TaskingStore.getTaskingErrors(id, period));
   };
 
   setDate = (type, value) => {
@@ -46,7 +46,7 @@ class TaskingDateTimes extends React.Component {
   setDefaultTime = (timeChange) => {
     const { courseId, period } = this.props;
     const model = period ? period : Courses.get(courseId);
-    _.assign(model, timeChange);
+    assign(model, timeChange);
     model.save();
     return this.forceUpdate();
   };
@@ -66,7 +66,7 @@ class TaskingDateTimes extends React.Component {
     let extraError;
     let { isVisibleToStudents, isEditable, period, courseId, id, termStart, termEnd } = this.props;
     if (period) { period = period.serialize(); }
-    const commonDateTimesProps = _.pick(this.props, 'required', 'currentLocale', 'taskingIdentifier');
+    const commonDateTimesProps = pick(this.props, 'required', 'currentLocale', 'taskingIdentifier');
 
     const model = period ? period : Courses.get(courseId);
     const { default_open_time, default_due_time } = model;
@@ -90,16 +90,16 @@ class TaskingDateTimes extends React.Component {
 
     const error = this.getError();
 
-    if (error) { extraError = <BS.Col xs={12} md={6} mdOffset={6}>
+    if (error) { extraError = <Col xs={12} md={6} mdOffset={6}>
       <p className="due-before-open">
         {error}
         <Icon type="exclamation-circle" />
       </p>
-    </BS.Col>; }
+    </Col>; }
 
 
     return (
-      <BS.Col
+      <Col
         {...this.props.bsSizes}
         className="tasking-date-times"
         data-period-id={period ? period.id : 'all'}>
@@ -110,8 +110,8 @@ class TaskingDateTimes extends React.Component {
           ref="open"
           min={minOpensAt}
           max={maxOpensAt}
-          setDate={_.partial(this.setDate, 'open')}
-          setTime={_.partial(this.setTime, 'open')}
+          setDate={partial(this.setDate, 'open')}
+          setTime={partial(this.setTime, 'open')}
           value={openDate}
           defaultValue={open_time || defaults.open_time}
           defaultTime={default_open_time}
@@ -125,8 +125,8 @@ class TaskingDateTimes extends React.Component {
           ref="due"
           min={minDueAt}
           max={maxDueAt}
-          setDate={_.partial(this.setDate, 'due')}
-          setTime={_.partial(this.setTime, 'due')}
+          setDate={partial(this.setDate, 'due')}
+          setTime={partial(this.setTime, 'due')}
           value={due_date}
           defaultValue={due_time || defaults.due_time}
           defaultTime={default_due_time}
@@ -134,7 +134,7 @@ class TaskingDateTimes extends React.Component {
           timeLabel="default_due_time"
           isSetting={this.isSetting} />
         {extraError}
-      </BS.Col>
+      </Col>
     );
   }
 }

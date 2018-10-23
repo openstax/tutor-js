@@ -1,8 +1,8 @@
-import { formatSection, defaults } from '../helpers/step-content';
+import { formatSection, defaultSettings } from '../helpers/step-content';
 
 export default {
   getDefaultProps() {
-    return defaults;
+    return defaultSettings;
   },
 
   sectionFormat(section, separator) {

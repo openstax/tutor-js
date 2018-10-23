@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import BS from 'react-bootstrap';
+import { Panel } from 'react-bootstrap';
 import BackButton from '../buttons/back-button';
 import Router from '../../helpers/router';
-import _ from 'underscore';
-
+import { first } from 'lodash';
 import CoursePeriodsNavShell from '../course-periods-nav';
 import CourseGroupingLabel from '../course-grouping-label';
-import PerformanceForecast from '../../flux/performance-forecast';
+import * as PerformanceForecast from '../../flux/performance-forecast';
 import TourRegion from '../tours/region';
 
 import Guide from './guide';
@@ -24,7 +23,7 @@ export default class extends React.Component {
   constructor(props) {
     super(props);
     const periods = PerformanceForecast.Teacher.store.get(props.courseId);
-    this.state = { periodId: __guard__(_.first(periods), x => x.period_id) };
+    this.state = { periodId: __guard__(first(periods), x => x.period_id) };
   }
 
   selectPeriod = (period) => {
@@ -92,7 +91,7 @@ export default class extends React.Component {
   render() {
     const { courseId } = this.props;
     return (
-      <BS.Panel className="performance-forecast teacher">
+      <Panel className="performance-forecast teacher">
         <TourRegion id="performance-forecast">
           <Guide
             courseId={courseId}
@@ -104,7 +103,7 @@ export default class extends React.Component {
             allSections={PerformanceForecast.Teacher.store.getSectionsForPeriod(courseId, this.state.periodId)}
             chapters={PerformanceForecast.Teacher.store.getChaptersForPeriod(courseId, this.state.periodId)} />
         </TourRegion>
-      </BS.Panel>
+      </Panel>
     );
   }
 }

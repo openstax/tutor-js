@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Link } from 'react-router-dom';
-import concat from 'lodash/concat';
-import BS from 'react-bootstrap';
-
+import { concat } from 'lodash';
+import { Button } from 'react-bootstrap';
 import { filterProps } from '../helpers/react';
+
 const filterPropsBase = filterProps;
 
 const BUTTON_LINK_PROPS = [
@@ -62,7 +61,7 @@ const make = function(router, name = 'OpenStax') {
       const { fullPathname } = this.state;
 
       return (
-        <BS.Button
+        <Button
           href={fullPathname}
           onClick={this.goToPathname}
           {...filterProps(this.props)} />

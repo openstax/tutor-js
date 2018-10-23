@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import BS from 'react-bootstrap';
-import _ from 'underscore';
-
+import { Popover, OverlayTrigger } from 'react-bootstrap';
+import { compact, map, partial, extend, clone } from 'underscore';
 
 class TutorPopover extends React.Component {
   static defaultProps = {
@@ -49,7 +48,7 @@ class TutorPopover extends React.Component {
   };
 
   areImagesLoading = () => {
-    return _.compact(this.state.imagesLoading).length !== 0;
+    return compact(this.state.imagesLoading).length !== 0;
   };
 
   checkImages = () => {
@@ -57,9 +56,9 @@ class TutorPopover extends React.Component {
     if ((this.refs.popcontent != null) && this.state.firstShow) {
       const images = this.getImages();
 
-      const imagesLoading = _.map(images, (image, iter) => {
+      const imagesLoading = map(images, (image, iter) => {
         if ((image.onload == null) && !image.complete) {
-          image.onload = _.partial(this.imageLoaded, iter);
+          image.onload = partial(this.imageLoaded, iter);
         }
         return !image.complete;
       });
@@ -88,7 +87,7 @@ class TutorPopover extends React.Component {
   imageLoaded = (iter) => {
     const { imagesLoading } = this.state;
 
-    const currentImageStatus = _.clone(imagesLoading);
+    const currentImageStatus = clone(imagesLoading);
     currentImageStatus[iter] = false;
 
     return this.setState({ imagesLoading: currentImageStatus });
@@ -136,7 +135,7 @@ class TutorPopover extends React.Component {
     const { scrollable, placement, delayShow } = this.state;
 
     if (scrollable) {
-      popoverProps = _.clone(popoverProps || {});
+      popoverProps = clone(popoverProps || {});
       if (popoverProps.className == null) { popoverProps.className = ''; }
       popoverProps.className += ' scrollable';
     }
@@ -149,18 +148,18 @@ class TutorPopover extends React.Component {
 
     const popoverId = id ? `tutor-popover-${id}` : `tutor-popover-${this._reactInternalInstance._rootNodeID}`;
 
-    overlayProps = _.extend({}, overlayProps, { onEnter: this.checkOverlay, onEntering: this.updateOverlayPositioning });
+    overlayProps = extend({}, overlayProps, { onEnter: this.checkOverlay, onEntering: this.updateOverlayPositioning });
 
-    const popover = <BS.Popover {...popoverProps} id={popoverId} ref="popover">
+    const popover = <Popover {...popoverProps} id={popoverId} ref="popover">
       <div ref="popcontent">
         {content}
       </div>
-    </BS.Popover>;
+    </Popover>;
 
     return (
-      <BS.OverlayTrigger {...overlayProps} placement={placement} overlay={popover} ref="popper">
+      <OverlayTrigger {...overlayProps} placement={placement} overlay={popover} ref="popper">
         {children}
-      </BS.OverlayTrigger>
+      </OverlayTrigger>
     );
   }
 }

@@ -1,15 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
-import BS from 'react-bootstrap';
+import { DropdownButton, MenuItem, Panel } from 'react-bootstrap';
 import BackButton from '../buttons/back-button';
 import Router from '../../helpers/router';
-import _ from 'underscore';
-import matches from 'lodash/matches';
-
+import { sortBy, matches } from 'lodash';
 import Name from '../name';
 import BindStoreMixin from '../bind-store-mixin';
-import PerformanceForecast from '../../flux/performance-forecast';
+import * as PerformanceForecast from '../../flux/performance-forecast';
 
 import Courses from '../../models/courses-map';
 import Guide from './guide';
@@ -61,17 +59,17 @@ export default createReactClass({
           <span className="preamble">
             Performance Forecast for:
           </span>
-          <BS.DropdownButton
+          <DropdownButton
             id="student-selection"
             className="student-selection"
             title={name}
             bsStyle="link"
             onSelect={this.onSelectStudent}>
-            {_.sortBy(students, 'name').filter((student) => student.role_id !== selected.role_id).map((student) =>
-              <BS.MenuItem key={student.role_id} eventKey={student.role_id}>
+            {sortBy(students, 'name').filter((student) => student.role_id !== selected.role_id).map((student) =>
+              <MenuItem key={student.role_id} eventKey={student.role_id}>
                 <Name {...student} />
-              </BS.MenuItem>)}
-          </BS.DropdownButton>
+              </MenuItem>)}
+          </DropdownButton>
           <InfoLink type="teacher_student" />
         </div>
         <div className="info">
@@ -115,7 +113,7 @@ export default createReactClass({
     const isLoading = PerformanceForecast.TeacherStudent.store.isLoading.bind(PerformanceForecast.TeacherStudent.store, courseId, { roleId });
 
     return (
-      <BS.Panel className="performance-forecast teacher-student">
+      <Panel className="performance-forecast teacher-student">
         <Guide
           courseId={courseId}
           roleId={roleId}
@@ -129,7 +127,7 @@ export default createReactClass({
           weakerEmptyMessage="Your student hasn't worked enough problems for Tutor to predict their weakest topics."
           allSections={PerformanceForecast.TeacherStudent.store.getAllSections(courseId, { roleId })}
           chapters={PerformanceForecast.TeacherStudent.store.getChapters(courseId, { roleId })} />
-      </BS.Panel>
+      </Panel>
     );
   },
 });

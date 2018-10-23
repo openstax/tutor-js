@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import BS from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 const ENTER = 'Enter';
 
 import AsyncButton from '../buttons/async-button';
@@ -33,7 +33,7 @@ class ConfirmJoinCourse extends React.Component {
   };
 
   onKeyPress = (ev) => {
-    if (ev.key === ENTER) { return this.onSubmit(); }
+    if (ev.key === ENTER) { this.onSubmit(); }
   };
 
   onSubmit = () => {
@@ -47,7 +47,7 @@ class ConfirmJoinCourse extends React.Component {
   render() {
 
     return (
-      <BS.Row>
+      <Row>
         <div className="confirm-join form-group">
           {this.props.courseEnrollmentStore.hasConflict() ? <MessageList
             messages={[<CcConflictMessage courseEnrollmentStore={this.props.courseEnrollmentStore} />]}
@@ -81,25 +81,16 @@ class ConfirmJoinCourse extends React.Component {
                 className="btn btn-success continue"
                 isWaiting={!!this.props.courseEnrollmentStore.isBusy}
                 waitingText="Confirming…"
-                onClick={this.onSubmit}>
-                {'\
-    Continue\
-    '}
-              </AsyncButton>
-              <a href="#" className="skip" onClick={this.onCancel}>
-                {'\
-    Add it later\
-    '}
-              </a>
+                onClick={this.onSubmit}
+              >Continue</AsyncButton>
+              <a
+                href="#" className="skip" onClick={this.onCancel}
+              >Add it later</a>
             </div>
-            <div className="required">
-              {'\
-    Required for credit\
-    '}
-            </div>
+            <div className="required">Required for credit</div>
           </div>
         </div>
-      </BS.Row>
+      </Row>
     );
   }
 }

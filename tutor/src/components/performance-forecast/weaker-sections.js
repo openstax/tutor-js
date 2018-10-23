@@ -1,10 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import BS from 'react-bootstrap';
-import Router from 'react-router-dom';
-import _ from 'underscore';
-
-import PerformanceForecast from '../../flux/performance-forecast';
+import * as PerformanceForecast from '../../flux/performance-forecast';
 import Section from './section';
 
 class WeakerSections extends React.Component {

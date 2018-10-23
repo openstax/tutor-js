@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import BS from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 import Practice from '../performance-forecast/practice';
 
@@ -19,9 +19,9 @@ class PracticeButton extends React.Component {
 
     return (
       <Practice courseId={courseId} page_ids={pageIds}>
-        <BS.Button bsStyle="primary" className="-practice">
+        <Button bsStyle="primary" className="-practice">
           {text}
-        </BS.Button>
+        </Button>
       </Practice>
     );
   }

@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import concat from 'lodash/concat';
 import PropTypes from 'prop-types';
 import qs from 'qs';
-import { filterProps } from '../helpers/react';
-const filterPropsBase = filterProps;
+import { filterProps as filterPropsBase } from '../helpers/react';
+
 import classnames from 'classnames';
 
 const LINK_PROPS = [
@@ -17,7 +17,7 @@ const LINK_PROPS = [
   'disabled',
 ];
 
-filterProps = function(props, options = {}) {
+const filterProps = function(props, options = {}) {
   options.props = concat(LINK_PROPS, options.props || []);
   return filterPropsBase(props, options);
 };

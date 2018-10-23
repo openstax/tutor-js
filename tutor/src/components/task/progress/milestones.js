@@ -2,20 +2,14 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import ReactDOM from 'react-dom';
-import _ from 'underscore';
-import BS from 'react-bootstrap';
+import { partial, map } from 'underscore';
+import { Col } from 'react-bootstrap';
 import classnames from 'classnames';
-
 import { ChapterSectionMixin, ArbitraryHtmlAndMath } from 'shared';
 import { BreadcrumbStatic } from '../../breadcrumb';
-
-import { TaskStepActions, TaskStepStore } from '../../../flux/task-step';
-import { TaskProgressActions, TaskProgressStore } from '../../../flux/task-progress';
-import { TaskPanelActions, TaskPanelStore } from '../../../flux/task-panel';
-import { TaskStore } from '../../../flux/task';
 import { StepTitleStore } from '../../../flux/step-title';
-
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { TaskProgressStore } from '../../../flux/task-progress';
+import { TaskPanelStore } from '../../../flux/task-panel';
 
 class Milestone extends React.Component {
   static displayName = 'Milestone';
@@ -24,12 +18,13 @@ class Milestone extends React.Component {
     goToStep: PropTypes.func.isRequired,
     crumb: PropTypes.object.isRequired,
     currentStep: PropTypes.number.isRequired,
+    stepIndex: PropTypes.number,
   };
 
   handleKeyUp = (crumbKey, keyEvent) => {
     if ((keyEvent.keyCode === 13) || (keyEvent.keyCode === 32)) {
       this.props.goToStep(crumbKey);
-      return keyEvent.preventDefault();
+      keyEvent.preventDefault();
     }
   };
 
@@ -52,16 +47,16 @@ class Milestone extends React.Component {
       </div>;
     }
 
-    const goToStepForCrumb = _.partial(goToStep, stepIndex);
+    const goToStepForCrumb = partial(goToStep, stepIndex);
 
     return (
-      <BS.Col xs={3} lg={2} className="milestone-wrapper">
+      <Col xs={3} lg={2} className="milestone-wrapper">
         <div
           tabIndex="0"
           className={classes}
           aria-label={previewText}
           onClick={goToStepForCrumb}
-          onKeyUp={_.partial(this.handleKeyUp, stepIndex)}>
+          onKeyUp={partial(this.handleKeyUp, stepIndex)}>
           <BreadcrumbStatic
             crumb={crumb}
             data-label={crumb.label}
@@ -72,7 +67,7 @@ class Milestone extends React.Component {
             ref={`breadcrumb-${crumb.type}-${stepIndex}`} />
           {preview}
         </div>
-      </BS.Col>
+      </Col>
     );
   }
 }
@@ -115,7 +110,9 @@ const Milestones = createReactClass({
   },
 
   componentDidEnter(transitionEvent) {
-    if (transitionEvent.propertyName === 'transform') { return (typeof this.props.handleTransitions === 'function' ? this.props.handleTransitions(transitionEvent) : undefined); }
+    if (transitionEvent.propertyName === 'transform') {
+      typeof this.props.handleTransitions === 'function' && this.props.handleTransitions(transitionEvent);
+    }
   },
 
   switchTransitionListen(switchOn = true) {
@@ -152,7 +149,7 @@ const Milestones = createReactClass({
   render() {
     const { crumbs, currentStep } = this.state;
 
-    const stepButtons = _.map(crumbs, (crumb, crumbIndex) => {
+    const stepButtons = map(crumbs, (crumb, crumbIndex) => {
       return (
         <Milestone
           key={`crumb-wrapper-${crumbIndex}`}

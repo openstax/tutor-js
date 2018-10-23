@@ -6,9 +6,10 @@ import Courses from '../../courses-map';
 import Offerings from './index';
 import CourseCreate from '../create';
 
-export
+export { PreviewCourseOffering };
+
 @identifiedBy('course/offerings/preview')
- class PreviewCourseOffering extends Course {
+class PreviewCourseOffering extends Course {
 
   @observable offering;
   @observable courseCreate;
@@ -66,6 +67,7 @@ const Previews = {
 
 decorate(Previews, {
   fetch: action,
-  all, computed,
-}
+  all: computed,
+});
+
 export default Previews;

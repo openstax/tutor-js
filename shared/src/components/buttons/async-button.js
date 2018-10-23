@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import BS from 'react-bootstrap';
-import delay from 'lodash/delay';
-
-import OXLink from '../../factories/link';
-
+import { Button } from 'react-bootstrap';
+import { delay } from 'lodash';
+import { filterProps } from '../../factories/link';
 import RefreshButton from './refresh-button';
 
 export default class extends React.Component {
@@ -104,13 +102,13 @@ export default class extends React.Component {
     }
 
     return (
-      <BS.Button
-        {...OXLink.filterProps(this.props, { prefixes: 'bs' })}
+      <Button
+        {...filterProps(this.props, { prefixes: 'bs' })}
         className={[buttonTypeClass, stateClass, className]}
         disabled={disabled}>
         {spinner}
         {text}
-      </BS.Button>
+      </Button>
     );
   }
 }

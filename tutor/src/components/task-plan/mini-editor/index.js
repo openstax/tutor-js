@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
-import BS from 'react-bootstrap';
+import { Overlay, Popover } from 'react-bootstrap';
 import classnames from 'classnames';
-
 import LoadableItem from '../../loadable-item';
 import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
 import Editor from './editor';
@@ -54,20 +52,20 @@ class TaskPlanMiniEditorShell extends React.Component {
 
     return (
       <div className="task-plan-mini-editor">
-        <BS.Overlay
+        <Overlay
           show={this.state.isVisible}
           onHide={this.props.onHide}
           placement={this.calculatePlacement()}
           ref="overlay"
           target={this.props.findPopOverTarget}>
-          <BS.Popover id="mini-task-editor-popover" className={popoverClasses}>
+          <Popover id="mini-task-editor-popover" className={popoverClasses}>
             <LoadableItem
               id={planId}
               store={TaskPlanStore}
               actions={TaskPlanActions}
               renderItem={this.renderEditor} />
-          </BS.Popover>
-        </BS.Overlay>
+          </Popover>
+        </Overlay>
       </div>
     );
   }

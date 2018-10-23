@@ -1,11 +1,12 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import BS from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import classnames from 'classnames';
 import { propHelpers } from 'shared';
-import _ from 'underscore';
+import { uniqueId, omit } from 'lodash';
 
-export default class extends React.Component {
+export default
+class Icon extends React.Component {
   static defaultProps = {
     tooltipProps: {
       placement: 'bottom',
@@ -19,7 +20,7 @@ export default class extends React.Component {
     type: PropTypes.string.isRequired,
     spin: PropTypes.bool,
     className: PropTypes.string,
-
+    onClick: PropTypes.func,
     tooltip: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.element,
@@ -30,8 +31,7 @@ export default class extends React.Component {
   };
 
   UNSAFE_componentWillMount() {
-    const uniqueId = _.uniqueId('icon-tooltip-');
-    return this.setState({ uniqueId });
+    return this.setState({ uniqueId: uniqueId('icon-tooltip-') });
   }
 
   render() {
@@ -48,7 +48,7 @@ export default class extends React.Component {
     );
 
     if (!this.props.tooltip) {
-      const iconProps = _.omit(this.props, 'tooltipProps', 'spin');
+      const iconProps = omit(this.props, 'tooltipProps', 'spin');
       return (
         <i
           {...iconProps}
@@ -59,16 +59,16 @@ export default class extends React.Component {
     const buttonProps = propHelpers.removeDefined(this);
     const icon = <button {...buttonProps} className={classNames} />;
     const tooltip =
-      <BS.Tooltip
+      <Tooltip
         id={this.state.uniqueId}
         className={classnames('icon-tt', { 'on-navbar': this.props.onNavbar })}>
         {this.props.tooltip}
-      </BS.Tooltip>;
+      </Tooltip>;
 
     return (
-      <BS.OverlayTrigger {...this.props.tooltipProps} overlay={tooltip}>
+      <OverlayTrigger {...this.props.tooltipProps} overlay={tooltip}>
         {icon}
-      </BS.OverlayTrigger>
+      </OverlayTrigger>
     );
   }
 }

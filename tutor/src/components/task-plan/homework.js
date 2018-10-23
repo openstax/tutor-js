@@ -1,31 +1,32 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import _ from 'underscore';
-import BS from 'react-bootstrap';
-import Router from 'react-router-dom';
+import { pick } from 'lodash';
+import { idType } from 'shared';
+import { Panel, Grid, Row, Col, Button } from 'react-bootstrap';
 import classnames from 'classnames';
-
-import Icon from '../icon';
 import PlanMixin from './plan-mixin';
 import TaskPlanBuilder from './builder';
 import ChooseExercises from './homework/choose-exercises';
 import ReviewExercises from './homework/review-exercises';
 import FeedbackSetting from './feedback';
 import PlanFooter from './footer';
-
-import { TutorInput, TutorDateInput, TutorTextArea } from '../tutor-input';
-import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
+import { TaskPlanStore } from '../../flux/task-plan';
 
 const HomeworkPlan = createReactClass({
   displayName: 'HomeworkPlan',
   mixins: [PlanMixin],
 
+  propTypes: {
+    id: idType.isRequired,
+    courseId: idType.isRequired,
+  },
+
   render() {
     const { id, courseId } = this.props;
-    const builderProps = _.pick(this.state, 'isVisibleToStudents', 'isEditable', 'isSwitchable');
+    const builderProps = pick(this.state, 'isVisibleToStudents', 'isEditable', 'isSwitchable');
     const hasError = this.hasError();
     const course = this.getCourse();
-    const plan = TaskPlanStore.get(id);
+
     const ecosystemId = TaskPlanStore.getEcosystemId(id, courseId);
 
     const topics = TaskPlanStore.getTopics(id);
@@ -41,64 +42,63 @@ const HomeworkPlan = createReactClass({
 
     return (
       <div className="homework-plan task-plan" data-assignment-type="homework">
-        <BS.Panel
+        <Panel
           header={this.builderHeader('homework')}
           className={formClasses}
-          footer={React.createElement(
-            PlanFooter,
-            {
-              'id': (id),
-              'courseId': (courseId),
-              'onPublish': (this.publish),
-              'onSave': (this.save),
-              'onCancel': (this.cancel),
-              'hasError': (hasError),
-              'isVisibleToStudents': (this.state.isVisibleToStudents),
-              'getBackToCalendarParams': (this.getBackToCalendarParams),
-              'goBackToCalendar': (this.goBackToCalendar),
-            },
-          )}>
-          <BS.Grid fluid={true}>
+          footer={React.createElement(PlanFooter, {
+            id: (id),
+            courseId: (courseId),
+            onPublish: (this.publish),
+            onSave: (this.save),
+            onCancel: (this.cancel),
+            hasError: (hasError),
+            isVisibleToStudents: (this.state.isVisibleToStudents),
+            getBackToCalendarParams: (this.getBackToCalendarParams),
+            goBackToCalendar: (this.goBackToCalendar),
+          })}>
+          <Grid fluid={true}>
             <TaskPlanBuilder courseId={courseId} id={id} {...builderProps} />
-            <BS.Row>
-              <BS.Col xs={8}>
+            <Row>
+              <Col xs={8}>
                 <FeedbackSetting id={id} showPopup={this.state.isVisibleToStudents} />
-              </BS.Col>
-            </BS.Row>
-            <BS.Row>
-              <BS.Col xs={12} md={12}>
-                {!this.state.isVisibleToStudents ? <BS.Button
-                  id="problems-select"
-                  className={classnames('-select-sections-btn', { 'invalid': hasError && !hasExercises })}
-                  onClick={this.showSectionTopics}
-                  bsStyle="default">
-                  {'+ Select Problems\
-      '}
-                </BS.Button> : undefined}
-                {hasError && !hasExercises ? <span className="problems-required">
-                  {'\
-      Please select problems for this assignment.\
-      '}
-                </span> : undefined}
-              </BS.Col>
-            </BS.Row>
-          </BS.Grid>
-        </BS.Panel>
-        {this.state.showSectionTopics ? <ChooseExercises
-          course={course}
-          planId={id}
-          cancel={this.cancelSelection}
-          hide={this.hideSectionTopics}
-          canEdit={!this.state.isVisibleToStudents} /> : undefined}
-        {hasExercises && !this.state.showSectionTopics ? <ReviewExercises
-          course={course}
-          canAdd={!this.state.isVisibleToStudents}
-          canEdit={!this.state.isVisibleToStudents}
-          showSectionTopics={this.showSectionTopics}
-          courseId={courseId}
-          sectionIds={topics}
-          ecosystemId={ecosystemId}
-          planId={id} /> : undefined}
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={12} md={12}>
+                {!this.state.isVisibleToStudents && (
+                  <Button
+                    id="problems-select"
+                    className={classnames('-select-sections-btn', { 'invalid': hasError && !hasExercises })}
+                    onClick={this.showSectionTopics}
+                    bsStyle="default"
+                  >+ Select Problems</Button>)}
+                {hasError && !hasExercises && (
+                  <span className="problems-required">
+                    Please select problems for this assignment.
+                  </span>)}
+              </Col>
+            </Row>
+          </Grid>
+        </Panel>
+        {this.state.showSectionTopics && (
+          <ChooseExercises
+            course={course}
+            planId={id}
+            cancel={this.cancelSelection}
+            hide={this.hideSectionTopics}
+            canEdit={!this.state.isVisibleToStudents}
+          />)}
+        {hasExercises && !this.state.showSectionTopics && (
+          <ReviewExercises
+            course={course}
+            canAdd={!this.state.isVisibleToStudents}
+            canEdit={!this.state.isVisibleToStudents}
+            showSectionTopics={this.showSectionTopics}
+            courseId={courseId}
+            sectionIds={topics}
+            ecosystemId={ecosystemId}
+            planId={id}
+          />)}
       </div>
     );
   },

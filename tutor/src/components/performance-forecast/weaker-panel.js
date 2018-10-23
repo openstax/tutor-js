@@ -1,11 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import BS from 'react-bootstrap';
-import Router from 'react-router-dom';
-import _ from 'underscore';
-
-import PerformanceForecast from '../../flux/performance-forecast';
-import PracticeButton from './practice-button';
+import * as PerformanceForecast from '../../flux/performance-forecast';
 import WeakerSections from './weaker-sections';
 import PracticeWeakestButton from './weakest-practice-button';
 
