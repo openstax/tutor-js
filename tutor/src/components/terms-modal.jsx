@@ -1,5 +1,6 @@
+import MobxPropTypes from 'prop-types';
 import React from 'react';
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { action, computed } from 'mobx';
 import { Modal, Button } from 'react-bootstrap';
 import classnames from 'classnames';
@@ -9,11 +10,12 @@ import Course from '../models/course';
 import { map } from 'lodash';
 import String from '../helpers/string';
 
+export default
 @observer
-export default class TermsModal extends React.Component {
+class TermsModal extends React.Component {
 
   static propTypes = {
-    canBeDisplayed: React.PropTypes.bool,
+    canBeDisplayed: MobxPropTypes.bool,
   }
 
   @computed get title() {
@@ -54,4 +56,4 @@ export default class TermsModal extends React.Component {
       </Modal>
     );
   }
-}
+};

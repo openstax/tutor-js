@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import { observable, action } from 'mobx';
@@ -10,7 +11,7 @@ import { Popover, OverlayTrigger } from 'react-bootstrap';
 class TeacherContentToggle extends React.Component {
 
   static propTypes = {
-    ux:  React.PropTypes.object.isRequired,
+    ux:  PropTypes.object.isRequired,
   };
 
   renderNoContentTooltip = () => {

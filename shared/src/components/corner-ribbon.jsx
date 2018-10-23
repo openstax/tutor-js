@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
 
@@ -7,13 +8,13 @@ export default function CornerRibbon({ hidden, label, fixed, shadow, color, posi
     <div className='corner-ribbon'>
 
       <div className={classnames('corner-ribbon-content', color, {
-          fixed,
-          shadow,
-          hidden,
-          'top-left':     position == 'topLeft',
-          'top-right':    position == 'topRight',
-          'bottom-right': position == 'bottomRight',
-          'bottom-left':  position == 'bottomLeft',
+        fixed,
+        shadow,
+        hidden,
+        'top-left':     position == 'topLeft',
+        'top-right':    position == 'topRight',
+        'bottom-right': position == 'bottomRight',
+        'bottom-left':  position == 'bottomLeft',
       })}
       >{label}</div>
       {children}
@@ -22,10 +23,10 @@ export default function CornerRibbon({ hidden, label, fixed, shadow, color, posi
 }
 
 CornerRibbon.propTypes = {
-  position: React.PropTypes.oneOf(['topLeft', 'topRight', 'bottomRight', 'bottomLeft']),
-  color: React.PropTypes.string,
-  children: React.PropTypes.node,
-  shadow: React.PropTypes.bool,
-  fixed: React.PropTypes.bool,
-  hidden: React.PropTypes.bool,
+  position: PropTypes.oneOf(['topLeft', 'topRight', 'bottomRight', 'bottomLeft']),
+  color: PropTypes.string,
+  children: PropTypes.node,
+  shadow: PropTypes.bool,
+  fixed: PropTypes.bool,
+  hidden: PropTypes.bool,
 };

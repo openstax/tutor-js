@@ -1,12 +1,13 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import OXColoredStripe from 'shared/components/ox-colored-stripe';
 import { isReloaded, reloadOnce, forceReload } from '../../helpers/reload';
 
-export default class AsyncLoadError extends React.PureComponent {
+export default class AsyncLoadError extends React.Component {
 
   static propTypes = {
-    error: React.PropTypes.object.isRequired,
+    error: PropTypes.object.isRequired,
   }
 
   componentWillMount() {

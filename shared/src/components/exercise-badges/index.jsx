@@ -1,18 +1,17 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import _ from 'underscore';
-import Exercise from '../../helpers/exercise';
 import Interactive from './interactive-icon';
 import MultiPart from './multipart-icon';
 import classnames from 'classnames';
 
-export default class ExerciseBadges extends React.PureComponent {
+export default class ExerciseBadges extends React.Component {
 
   static propTypes = {
-    isMultiPart:    React.PropTypes.bool,
-    hasInteractive: React.PropTypes.bool,
-    hasVideo:       React.PropTypes.bool,
-    flags:          React.PropTypes.object,
-    className:      React.PropTypes.string,
+    isMultiPart:    PropTypes.bool,
+    hasInteractive: PropTypes.bool,
+    hasVideo:       PropTypes.bool,
+    flags:          PropTypes.object,
+    className:      PropTypes.string,
   }
 
   static defaultProps = {

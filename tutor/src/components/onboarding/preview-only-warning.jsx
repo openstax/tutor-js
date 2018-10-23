@@ -5,8 +5,9 @@ import { observer } from 'mobx-react';
 import { OnboardingNag, GotItOnboardingNag, Heading, Body, Footer } from './onboarding-nag';
 import CourseUX from '../../models/course/ux';
 
+export default
 @observer
-export default class PreviewOnlyWarning extends GotItOnboardingNag {
+class PreviewOnlyWarning extends GotItOnboardingNag {
 
 
   @action.bound
@@ -32,4 +33,4 @@ export default class PreviewOnlyWarning extends GotItOnboardingNag {
       </OnboardingNag>
     );
   }
-}
+};

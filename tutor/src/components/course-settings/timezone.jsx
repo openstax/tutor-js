@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observable, computed, action } from 'mobx';
 import { observer } from 'mobx-react';
@@ -14,14 +15,14 @@ import S from '../../helpers/string';
 
 import Course from '../../models/course';
 
-const timezonePropType = React.PropTypes.oneOf(values(TimeHelper.getTimezones()));
+const timezonePropType = PropTypes.oneOf(values(TimeHelper.getTimezones()));
 
 @observer
-class TimezonePreview extends React.PureComponent {
+class TimezonePreview extends React.Component {
 
   static propTypes = {
     timezone: timezonePropType,
-    interval: React.PropTypes.number,
+    interval: PropTypes.number,
   };
 
   static defaultProps = {
@@ -68,15 +69,15 @@ class TimezonePreview extends React.PureComponent {
 }
 
 @observer
-class SetTimezoneField extends React.PureComponent {
+class SetTimezoneField extends React.Component {
 
   static propTypes = {
-    courseId: React.PropTypes.string,
-    name: React.PropTypes.string.isRequired,
+    courseId: PropTypes.string,
+    name: PropTypes.string.isRequired,
     defaultValue: timezonePropType,
-    onChange: React.PropTypes.func.isRequired,
-    autofocus: React.PropTypes.bool,
-    validate: React.PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
+    autofocus: PropTypes.bool,
+    validate: PropTypes.func.isRequired,
   }
 
   @observable courseTimezone = this.props.defaultValue;
@@ -124,11 +125,12 @@ class SetTimezoneField extends React.PureComponent {
 }
 
 
+export default
 @observer
-export default class SetTimezone extends React.PureComponent {
+class SetTimezone extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
   }
 
 
@@ -195,4 +197,4 @@ export default class SetTimezone extends React.PureComponent {
       </Button>
     );
   }
-}
+};

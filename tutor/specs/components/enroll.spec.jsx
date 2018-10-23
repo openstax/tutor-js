@@ -75,10 +75,19 @@ describe('Student Enrollment', () => {
     beforeEach(() => {
       enrollment.enrollment_code = enrollment.originalEnrollmentCode = 'cc3c6ff9-83d8-4375-94be-8c7ae3024938';
 
-      enrollment.onEnrollmentCreate({ data: { name: 'My Grand Course', periods: [
-        { name: 'Period #1', enrollment_code: '1234' }, {
-          name: 'Period #2', enrollment_code: '4321' },
-      ] } });
+      enrollment.onEnrollmentCreate({
+        data: {
+          name: 'My Grand Course',
+
+          periods: [
+            { name: 'Period #1', enrollment_code: '1234' },
+            {
+              name: 'Period #2',
+              enrollment_code: '4321',
+            },
+          ],
+        },
+      });
     });
 
     it('matches snapshot', () => {
@@ -97,11 +106,13 @@ describe('Student Enrollment', () => {
 
     it('skips period selection when course has only one', () => {
       enrollment.create = jest.fn();
-      enrollment.onEnrollmentCreate({ data: {
-        name: 'My Grand Course', periods: [{
-          name: 'single period', enrollment_code: '4321',
-        }],
-      } });
+      enrollment.onEnrollmentCreate({
+        data: {
+          name: 'My Grand Course', periods: [{
+            name: 'single period', enrollment_code: '4321',
+          }],
+        },
+      });
       const enroll = mount(<Enroll enrollment={enrollment} />);
       expect(enroll).toHaveRendered('StudentIDForm');
     });

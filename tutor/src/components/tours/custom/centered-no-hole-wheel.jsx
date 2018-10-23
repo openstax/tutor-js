@@ -4,14 +4,14 @@ import { omit }               from 'lodash';
 
 import CenteredWheel          from './centered-wheel';
 
-export default class CenteredNoHoleWheel extends React.PureComponent {
+export default class CenteredNoHoleWheel extends React.Component {
 
   render () {
     const step = this.props.step;
     // close hole
     step.style.hole = {
       maxWidth: 0,
-      maxHeight: 0
+      maxHeight: 0,
     };
 
     return (

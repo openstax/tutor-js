@@ -1,12 +1,14 @@
+import MobxPropTypes from 'prop-types';
 import React from 'react';
 import { Button, Panel } from 'react-bootstrap';
 import { action } from 'mobx';
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { map, partial } from 'lodash';
 import { OnboardingNag, Body, Footer } from './onboarding-nag';
 
+export default
 @observer
-export default class FreshlyCreatedCourse extends React.PureComponent {
+class FreshlyCreatedCourse extends React.Component {
 
   static propTypes = {
     ux: MobxPropTypes.observableObject.isRequired,
@@ -42,11 +44,11 @@ export default class FreshlyCreatedCourse extends React.PureComponent {
             <Button
               key={id}
               onClick={partial(this.onChoice, id)}
-              >
+            >
               {txt}
             </Button>)}
         </Footer>
       </OnboardingNag>
     );
   }
-}
+};

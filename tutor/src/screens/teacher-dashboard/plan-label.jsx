@@ -1,4 +1,5 @@
 import { React, observable, observer, action } from '../../helpers/react';
+import PropTypes from 'prop-types';
 import twix from 'twix';
 import TourAnchor from '../../components/tours/anchor';
 
@@ -6,15 +7,15 @@ import TourAnchor from '../../components/tours/anchor';
 class CoursePlanLabel extends React.Component {
 
   static propTypes = {
-    rangeDuration: React.PropTypes.instanceOf(twix).isRequired,
-    plan: React.PropTypes.shape({
-      title: React.PropTypes.string.isRequired,
-      durationLength: React.PropTypes.number.isRequired,
-      opensAt: React.PropTypes.string,
+    rangeDuration: PropTypes.instanceOf(twix).isRequired,
+    plan: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      durationLength: PropTypes.number.isRequired,
+      opensAt: PropTypes.string,
     }).isRequired,
-    offsetFromPlanStart: React.PropTypes.number.isRequired,
-    index: React.PropTypes.number.isRequired,
-    offset: React.PropTypes.number.isRequired,
+    offsetFromPlanStart: PropTypes.number.isRequired,
+    index: PropTypes.number.isRequired,
+    offset: PropTypes.number.isRequired,
   };
 
   calcPercentOfPlanLength = (partLength) => {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
 
@@ -21,23 +22,23 @@ const RouteChange = function(props) {
 };
 
 RouteChange.propTypes = {
-  pathname: React.PropTypes.string.isRequired,
+  pathname: PropTypes.string.isRequired,
 };
 
-class App extends React.PureComponent {
+class App extends React.Component {
 
   static propTypes = {
-    location: React.PropTypes.shape({
-      pathname: React.PropTypes.string,
+    location: PropTypes.shape({
+      pathname: PropTypes.string,
     }).isRequired,
   }
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   static childContextTypes = {
-    courseId: React.PropTypes.string,
+    courseId: PropTypes.string,
   }
 
   componentDidMount() {

@@ -2,8 +2,9 @@ import { React, observer, action, mobxPropTypes } from '../../helpers/react';
 import { partial } from 'lodash';
 import { Listing, Choice } from '../../components/choices-listing';
 
+export default
 @observer
-export default class SelectCourse extends React.PureComponent {
+class SelectCourse extends React.Component {
 
   static title = (ux) => ux.selectOfferingTitle;
   static propTypes = {
@@ -33,4 +34,4 @@ export default class SelectCourse extends React.PureComponent {
       </Listing>
     );
   }
-}
+};

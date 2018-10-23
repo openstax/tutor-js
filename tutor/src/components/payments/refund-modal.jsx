@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { observable, action } from 'mobx';
@@ -7,11 +8,11 @@ import { AsyncButton } from 'shared';
 import Purchase from '../../models/purchases/purchase';
 
 @observer
-class ProcessRefund extends React.PureComponent {
+class ProcessRefund extends React.Component {
   static propTypes = {
-    purchase:   React.PropTypes.instanceOf(Purchase).isRequired,
-    onCancel:   React.PropTypes.func.isRequired,
-    onContinue: React.PropTypes.func.isRequired,
+    purchase:   PropTypes.instanceOf(Purchase).isRequired,
+    onCancel:   PropTypes.func.isRequired,
+    onContinue: PropTypes.func.isRequired,
   }
 
   @action.bound
@@ -53,11 +54,11 @@ class ProcessRefund extends React.PureComponent {
 
 
 @observer
-class Survey extends React.PureComponent {
+class Survey extends React.Component {
 
   static propTypes = {
-    purchase:   React.PropTypes.instanceOf(Purchase).isRequired,
-    onContinue: React.PropTypes.func.isRequired,
+    purchase:   PropTypes.instanceOf(Purchase).isRequired,
+    onContinue: PropTypes.func.isRequired,
   }
 
   @action.bound
@@ -139,14 +140,14 @@ function AreYouSure({ purchase, onCancel, onContinue }) {
   );
 }
 AreYouSure.propTypes = {
-  purchase:   React.PropTypes.instanceOf(Purchase).isRequired,
-  onContinue: React.PropTypes.func.isRequired,
-  onCancel:   React.PropTypes.func.isRequired,
+  purchase:   PropTypes.instanceOf(Purchase).isRequired,
+  onContinue: PropTypes.func.isRequired,
+  onCancel:   PropTypes.func.isRequired,
 };
 
 
 @observer
-class RefundStages extends React.PureComponent {
+class RefundStages extends React.Component {
 
   @observable stage = 0;
 
@@ -171,5 +172,5 @@ export default function RefundModal(props) {
 }
 
 RefundModal.propTypes = {
-  purchase: React.PropTypes.instanceOf(Purchase),
+  purchase: PropTypes.instanceOf(Purchase),
 };

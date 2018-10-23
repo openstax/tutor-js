@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { observable, action, computed } from 'mobx';
@@ -12,15 +13,15 @@ import CourseGroupingLabel from '../course-grouping-label';
 
 
 @observer
-class RenamePeriodField extends React.PureComponent {
+class RenamePeriodField extends React.Component {
 
   static propTypes = {
-    label: React.PropTypes.object.isRequired,
-    name:  React.PropTypes.string.isRequired,
-    default: React.PropTypes.string.isRequired,
-    onChange:  React.PropTypes.func.isRequired,
-    autofocus: React.PropTypes.bool,
-    validate: React.PropTypes.func.isRequired,
+    label: PropTypes.object.isRequired,
+    name:  PropTypes.string.isRequired,
+    default: PropTypes.string.isRequired,
+    onChange:  PropTypes.func.isRequired,
+    autofocus: PropTypes.bool,
+    validate: PropTypes.func.isRequired,
   }
 
   componentDidMount() {
@@ -42,11 +43,12 @@ class RenamePeriodField extends React.PureComponent {
 }
 
 
+export default
 @observer
-export default class RenamePeriod extends React.PureComponent {
+class RenamePeriod extends React.Component {
 
   static propTypes = {
-    period: React.PropTypes.instanceOf(Period).isRequired,
+    period: PropTypes.instanceOf(Period).isRequired,
   }
 
 
@@ -130,4 +132,4 @@ export default class RenamePeriod extends React.PureComponent {
     );
   }
 
-}
+};

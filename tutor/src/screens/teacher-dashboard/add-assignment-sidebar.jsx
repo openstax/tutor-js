@@ -1,5 +1,6 @@
 import { React, observable, observer, action, cn } from '../../helpers/react';
 import { partial } from 'lodash';
+import PropTypes from 'prop-types';
 import { Overlay, Popover, Button } from 'react-bootstrap';
 import UiSettings from 'shared/model/ui-settings';
 import { AddAssignmentLink } from './task-dnd';
@@ -28,17 +29,18 @@ const IntroPopover = props => (
   </Overlay>
 );
 
+export default
 @observer
-export default class AddAssignmentSidebar extends React.Component {
+class AddAssignmentSidebar extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
-    isOpen: React.PropTypes.bool.isRequired,
-    cloningPlanId: React.PropTypes.string,
+    course: PropTypes.instanceOf(Course).isRequired,
+    isOpen: PropTypes.bool.isRequired,
+    cloningPlanId: PropTypes.string,
   }
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired,
+    router: PropTypes.object.isRequired,
   }
 
   @observable shouldshowIntro = false;
@@ -117,4 +119,4 @@ export default class AddAssignmentSidebar extends React.Component {
       </div>
     );
   }
-}
+};

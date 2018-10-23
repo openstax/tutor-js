@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import UserMenu from '../models/user/menu';
 
@@ -9,6 +10,6 @@ export default function SupportEmailLink({ displayEmail = false, label = 'Suppor
 }
 
 SupportEmailLink.propTypes = {
-  displayEmail: React.PropTypes.bool,
-  label: React.PropTypes.string,
+  displayEmail: PropTypes.bool,
+  label: PropTypes.string,
 };

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
@@ -8,13 +9,13 @@ import Exercise from '../../../models/exercises/exercise';
 @observer
 class Attachment extends React.Component {
   static propTypes = {
-    attachment: React.PropTypes.shape({
-      asset: React.PropTypes.shape({
-        filename: React.PropTypes.string.isRequired,
-        url: React.PropTypes.string.isRequired,
-        large: React.PropTypes.shape({ url: React.PropTypes.string.isRequired }).isRequired,
-        medium: React.PropTypes.shape({ url: React.PropTypes.string.isRequired }).isRequired,
-        small: React.PropTypes.shape({ url: React.PropTypes.string.isRequired }).isRequired,
+    attachment: PropTypes.shape({
+      asset: PropTypes.shape({
+        filename: PropTypes.string.isRequired,
+        url: PropTypes.string.isRequired,
+        large: PropTypes.shape({ url: PropTypes.string.isRequired }).isRequired,
+        medium: PropTypes.shape({ url: PropTypes.string.isRequired }).isRequired,
+        small: PropTypes.shape({ url: PropTypes.string.isRequired }).isRequired,
       }).isRequired,
     }).isRequired,
   };

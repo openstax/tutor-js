@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { React, observer, action  } from '../../helpers/react';
 import moment from 'moment';
 
@@ -9,10 +10,10 @@ class CourseCalendarTitleNav extends React.Component {
   static displayName = 'CourseCalendarTitleNav';
 
   static propTypes = {
-    setDate: React.PropTypes.func,
+    setDate: PropTypes.func,
     date: TimeHelper.PropTypes.moment,
-    format: React.PropTypes.string.isRequired,
-    duration: React.PropTypes.string.isRequired,
+    format: PropTypes.string.isRequired,
+    duration: PropTypes.string.isRequired,
   };
 
   static defaultProps = {

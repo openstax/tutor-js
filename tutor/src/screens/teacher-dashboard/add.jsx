@@ -1,4 +1,5 @@
 import { React, observer, cn, action } from '../../helpers/react';
+import PropTypes from 'prop-types';
 import { Dropdown } from 'react-bootstrap';
 import moment from 'moment';
 import _ from 'underscore';
@@ -8,17 +9,18 @@ import TimeHelper from '../../helpers/time';
 
 import AddMenu from './add-menu';
 
+export default
 @observer
-export default class AddAssignment extends React.Component {
+class AddAssignment extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
     termStart:  TimeHelper.PropTypes.moment,
     termEnd:    TimeHelper.PropTypes.moment,
   }
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired,
+    router: PropTypes.object.isRequired,
   }
 
   addMenu = new AddMenu({ router: this.context.router });
@@ -43,7 +45,7 @@ export default class AddAssignment extends React.Component {
     this.setState({
       addDate: null,
       open: false,
-    })
+    });
   }
 
   getDateType() {
@@ -101,4 +103,4 @@ export default class AddAssignment extends React.Component {
       </Dropdown.Menu>
     );
   }
-}
+};

@@ -93,7 +93,7 @@ const actions = {
   },
 
   goToMonthWithPlans(...args) {
-    ((((({ courseId } = args[0])))));
+    (((((((({ courseId } = args[0]))))))));
     const testMoment = actions._getMomentWithPlans(courseId);
     return actions._goToMonth(testMoment, ...Array.from(args));
   },

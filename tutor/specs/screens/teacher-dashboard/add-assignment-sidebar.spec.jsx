@@ -23,7 +23,10 @@ describe('CourseCalendar AddAssignmentMenu', function() {
     const wrapper = mount(<Sidebar {...props} />, EnzymeContext.withDnD());
     const links = wrapper.find('.new-assignments li').map(el => el.render().text());
     expect(links).toEqual([
-      'Add Reading', 'Add Homework', 'Add External Assignment', 'Add Event'
+      'Add Reading',
+      'Add Homework',
+      'Add External Assignment',
+      'Add Event',
     ]);
   });
 
@@ -46,8 +49,8 @@ describe('CourseCalendar AddAssignmentMenu', function() {
   it('clears timeout on unmount', function() {
     Helper.scheduleIntroEvent.mockReturnValueOnce('one');
     const wrapper = mount(<Sidebar {...props} />, EnzymeContext.withDnD());
-    wrapper.setState({willShowIntro: true});
-    wrapper.setProps({isOpen: true});
+    wrapper.setState({ willShowIntro: true });
+    wrapper.setProps({ isOpen: true });
     expect(Helper.scheduleIntroEvent).toHaveBeenCalled();
     wrapper.unmount();
     expect(Helper.clearScheduledEvent).toHaveBeenCalledWith('one');

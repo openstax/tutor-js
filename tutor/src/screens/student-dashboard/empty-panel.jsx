@@ -1,5 +1,6 @@
 import { React, cn, observer } from '../../helpers/react';
 import Course from '../../models/course';
+import PropTypes from 'prop-types';
 import { Panel } from 'react-bootstrap';
 import Icon from '../../components/icon';
 
@@ -35,9 +36,9 @@ const EmptyPanel = observer(({
 });
 
 EmptyPanel.propTypes = {
-  course: React.PropTypes.instanceOf(Course).isRequired,
-  message: React.PropTypes.string.isRequired,
-  title: React.PropTypes.string,
+  course: PropTypes.instanceOf(Course).isRequired,
+  message: PropTypes.string.isRequired,
+  title: PropTypes.string,
 };
 
 export default EmptyPanel;

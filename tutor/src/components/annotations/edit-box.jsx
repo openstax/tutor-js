@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { defer } from 'lodash';
 import { observer } from 'mobx-react';
@@ -11,20 +12,18 @@ import Annotation from '../../models/annotations/annotation';
 class EditBox extends React.Component {
 
   static propTypes = {
-    annotation: React.PropTypes.instanceOf(Annotation),
-    onHide: React.PropTypes.func.isRequired,
-    onDelete: React.PropTypes.func.isRequired,
-    next: React.PropTypes.instanceOf(Annotation),
-    previous: React.PropTypes.instanceOf(Annotation),
-    goToAnnotation: React.PropTypes.func.isRequired,
-    seeAll: React.PropTypes.func.isRequired,
+    annotation: PropTypes.instanceOf(Annotation),
+    onHide: PropTypes.func.isRequired,
+    next: PropTypes.instanceOf(Annotation),
+    previous: PropTypes.instanceOf(Annotation),
+    goToAnnotation: PropTypes.func.isRequired,
+    seeAll: PropTypes.func.isRequired,
   }
 
   @action.bound onDelete() {
-    this.props.annotation.destroy().then(() => {
-      this.props.onHide()
-      this.props.onDelete(this.props.annotation);
-    });
+    this.props.annotation.destroy().then(
+      this.props.onHide
+    );
   }
 
   @observable text = this.props.annotation ? this.props.annotation.text : '';

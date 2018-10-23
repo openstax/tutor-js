@@ -7,7 +7,7 @@ import {
 import SuperTrainingWheel from './super-training-wheel';
 
 
-export default class StudentWelcomeToTutor extends React.PureComponent {
+export default class StudentWelcomeToTutor extends React.Component {
 
   render () {
     return (

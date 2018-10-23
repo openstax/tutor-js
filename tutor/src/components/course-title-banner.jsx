@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import { observer } from 'mobx-react';
@@ -6,13 +7,14 @@ import { computed, action } from 'mobx';
 import Courses from '../models/courses-map';
 import CourseUX from '../models/course/ux';
 
+export default
 @observer
-export default class CourseTitleBanner extends React.PureComponent {
+class CourseTitleBanner extends React.Component {
 
   static propTypes = {
-    courseId: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number,
+    courseId: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
     ]).isRequired,
   }
 
@@ -37,6 +39,6 @@ export default class CourseTitleBanner extends React.PureComponent {
           {this.course.termFull}
         </div>
       </div>
-    )
+    );
   }
-}
+};

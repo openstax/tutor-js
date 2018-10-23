@@ -1,16 +1,18 @@
 import { React, action, observer } from '../../helpers/react';
+import PropTypes from 'prop-types';
 import { Form, FormControl, FormGroup, InputGroup } from 'react-bootstrap';
 import { map } from 'lodash';
 
 import TimeHelper from '../../helpers/time';
 import BuilderUX from './ux';
 
+export default
 @observer
-export default class CourseName extends React.PureComponent {
+class CourseName extends React.Component {
 
   static title = 'Choose a name for your course …';
   static propTypes = {
-    ux: React.PropTypes.instanceOf(BuilderUX).isRequired,
+    ux: PropTypes.instanceOf(BuilderUX).isRequired,
   }
 
   @action.bound
@@ -56,4 +58,4 @@ export default class CourseName extends React.PureComponent {
       </Form>
     );
   }
-}
+};

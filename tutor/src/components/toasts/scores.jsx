@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
@@ -19,12 +20,13 @@ export function Success({ toast: { info: { url } } }) {
   );
 }
 
+export
 @observer
-export class Failure extends React.Component {
+ class Failure extends React.Component {
 
   static propTypes = {
-    dismiss: React.PropTypes.func.isRequired,
-    toast: React.PropTypes.object.isRequired,
+    dismiss: PropTypes.func.isRequired,
+    toast: PropTypes.object.isRequired,
   }
 
   @observable showDetails = false;

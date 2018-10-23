@@ -12,7 +12,7 @@ const EVENT = {
   'complete': true,
   'is_deleted': false,
   'exercise_count': 3,
-  'complete_exercise_count': 3
+  'complete_exercise_count': 3,
 };
 
 const DELETED_EVENT = {
@@ -39,7 +39,7 @@ const DELETED_NOT_STARTED_EVENT = {
   'complete': true,
   'is_deleted': true,
   'exercise_count': 3,
-  'complete_exercise_count': 0
+  'complete_exercise_count': 0,
 };
 
 let regularRow = null;

@@ -1,4 +1,4 @@
-import { SnapShot, Wrapper} from '../helpers/component-testing';
+import { SnapShot, Wrapper } from '../helpers/component-testing';
 import TaskPlan from '../../../src/models/task-plan/teacher';
 
 import LmsInfo from '../../../src/components/task-plan/lms-info';

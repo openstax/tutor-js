@@ -1,6 +1,7 @@
+import MobxPropTypes from 'prop-types';
 import React from 'react';
 import { range, isEmpty, sortBy } from 'lodash';
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { computed } from 'mobx';
 import { Table, Column, ColumnGroup, Cell } from 'fixed-data-table-2';
 import { autobind } from 'core-decorators';
@@ -36,15 +37,16 @@ const NameHeader = observer(({ sort, onSort, isConceptCoach }) => (
 ));
 
 
+export default
 @observer
-export default class ScoresTable extends React.PureComponent {
+class ScoresTable extends React.Component {
 
   static propTypes = {
-    ux: React.PropTypes.instanceOf(UX).isRequired,
-    sort: React.PropTypes.object.isRequired,
-    onSort: React.PropTypes.func.isRequired,
-    dataType: React.PropTypes.string,
-    isConceptCoach: React.PropTypes.bool.isRequired,
+    ux: MobxPropTypes.instanceOf(UX).isRequired,
+    sort: MobxPropTypes.object.isRequired,
+    onSort: MobxPropTypes.func.isRequired,
+    dataType: MobxPropTypes.string,
+    isConceptCoach: MobxPropTypes.bool.isRequired,
   }
 
   @computed get students() {
@@ -169,4 +171,4 @@ export default class ScoresTable extends React.PureComponent {
       </Table>
     );
   }
-}
+};

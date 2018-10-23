@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import TutorLink from '../link';
@@ -5,10 +6,10 @@ import { get } from 'lodash';
 import Courses from '../../models/courses-map';
 import Icon from '../icon';
 
-export default class BookLinks extends React.PureComponent {
+export default class BookLinks extends React.Component {
 
   static propTypes = {
-    courseId: React.PropTypes.string,
+    courseId: PropTypes.string,
   }
 
   render() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Navbar, Nav, NavItem, } from 'react-bootstrap';
+import { Grid, Navbar, Nav, NavItem } from 'react-bootstrap';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Provider, observer } from 'mobx-react';
 import { action } from 'mobx';

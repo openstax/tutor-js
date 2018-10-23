@@ -1,18 +1,20 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observable, computed, action, observe } from 'mobx';
 import { observer, inject } from 'mobx-react';
 import { Button } from 'react-bootstrap';
 import Router from '../../helpers/router';
 
+export default
 @observer
-export default class Surveys extends React.PureComponent {
+class Surveys extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.object.isRequired,
+    course: PropTypes.object.isRequired,
   }
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   @computed get survey() {
@@ -55,4 +57,4 @@ export default class Surveys extends React.PureComponent {
     );
   }
 
-}
+};

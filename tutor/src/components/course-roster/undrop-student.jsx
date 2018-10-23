@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
@@ -7,11 +8,12 @@ import Name from '../name';
 import Student from '../../models/course/student';
 
 
+export default
 @observer
-export default class UnDropStudentLink extends React.PureComponent {
+class UnDropStudentLink extends React.Component {
 
   static propTypes = {
-    student: React.PropTypes.instanceOf(Student).isRequired,
+    student: PropTypes.instanceOf(Student).isRequired,
   }
 
   @action.bound performUnDeletion() {
@@ -87,4 +89,4 @@ export default class UnDropStudentLink extends React.PureComponent {
       </OverlayTrigger>
     );
   }
-}
+};

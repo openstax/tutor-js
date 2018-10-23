@@ -1,4 +1,5 @@
 import { React, observable, observer, action, cn } from '../../helpers/react';
+import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import Course from '../../models/course';
 import Icon from '../../components/icon';
@@ -7,13 +8,14 @@ import CalendarHelper from './helper';
 const OPEN_ICON = 'times';
 const CLOSED_ICON = 'bars';
 
+export default
 @observer
-export default class CalendarSidebarToggle extends React.Component {
+class CalendarSidebarToggle extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
-    onToggle: React.PropTypes.func.isRequired,
-    defaultOpen: React.PropTypes.bool,
+    course: PropTypes.instanceOf(Course).isRequired,
+    onToggle: PropTypes.func.isRequired,
+    defaultOpen: PropTypes.bool,
   };
 
   static defaultProps = { defaultOpen: false };
@@ -60,4 +62,4 @@ export default class CalendarSidebarToggle extends React.Component {
       </Button>
     );
   }
-}
+};

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { React, observer } from '../../helpers/react';
 import Course from '../../models/course';
 import TourAnchor from '../../components/tours/anchor';
@@ -40,10 +41,10 @@ const CourseCalendarHeader = observer((props) => {
 CourseCalendarHeader.displayName = 'CourseCalendarHeader';
 
 CourseCalendarHeader.propTypes = {
-  hasPeriods: React.PropTypes.bool.isRequired,
-  course: React.PropTypes.instanceOf(Course).isRequired,
-  onSidebarToggle: React.PropTypes.func.isRequired,
-  defaultOpen: React.PropTypes.bool,
+  hasPeriods: PropTypes.bool.isRequired,
+  course: PropTypes.instanceOf(Course).isRequired,
+  onSidebarToggle: PropTypes.func.isRequired,
+  defaultOpen: PropTypes.bool,
 };
 
 

@@ -1,24 +1,26 @@
+import PropTypes from 'prop-types';
 import { React, inject, observer, cn } from '../../helpers/react';
 import ReferenceBook from './reference-book';
 import UX from './ux';
 import NavbarContext from '../../components/navbar/context';
 import './styles.scss';
 
+export default
 @inject('navBar', 'tourContext')
 @observer
-export default class ReferenceBookShell extends React.Component {
+class ReferenceBookShell extends React.Component {
 
   static propTypes = {
-    params: React.PropTypes.shape({
-      ecosystemId: React.PropTypes.string.isRequired,
-      chapterSection: React.PropTypes.string,
+    params: PropTypes.shape({
+      ecosystemId: PropTypes.string.isRequired,
+      chapterSection: PropTypes.string,
     }).isRequired,
-    navBar: React.PropTypes.instanceOf(NavbarContext).isRequired,
-    tourContext: React.PropTypes.object.isRequired,
+    navBar: PropTypes.instanceOf(NavbarContext).isRequired,
+    tourContext: PropTypes.object.isRequired,
   }
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   ux = new UX(this.context.router, this.props.tourContext);
@@ -47,4 +49,4 @@ export default class ReferenceBookShell extends React.Component {
     );
   }
 
-}
+};

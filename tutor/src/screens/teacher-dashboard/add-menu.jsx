@@ -73,7 +73,7 @@ export default class CourseAddMenu {
     const renderLink = this.options.renderMenuLink || this.renderMenuLink;
 
     return map(links, (link) => {
-      var linkQuery;
+      let linkQuery;
       const { query } = link;
       if (query.due_at != null) { linkQuery = { query }; }
 

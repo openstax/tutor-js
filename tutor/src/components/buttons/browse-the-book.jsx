@@ -1,28 +1,30 @@
+import PropTypes from 'prop-types';
 import { React, observer, action, computed, cn } from '../../helpers/react';
 import invariant from 'invariant';
 import Course from '../../models/course';
 import Book from '../../models/reference-book';
 import Router from '../../helpers/router';
 
+export default
 @observer
-export default class extends React.Component {
+class extends React.Component {
   static displayName = 'BrowseTheBook';
 
   static contextTypes = {
-    courseId: React.PropTypes.string,
+    courseId: PropTypes.string,
   };
 
   static propTypes = {
-    book:           React.PropTypes.instanceOf(Book),
-    course:         React.PropTypes.instanceOf(Course),
-    unstyled:       React.PropTypes.bool,
-    tag:            React.PropTypes.string,
-    tabIndex:       React.PropTypes.number,
-    onClick:        React.PropTypes.func,
-    children:       React.PropTypes.node,
-    className:      React.PropTypes.string,
-    windowImpl:     React.PropTypes.shape({ open: React.PropTypes.func }),
-    chapterSection: React.PropTypes.string,
+    book:           PropTypes.instanceOf(Book),
+    course:         PropTypes.instanceOf(Course),
+    unstyled:       PropTypes.bool,
+    tag:            PropTypes.string,
+    tabIndex:       PropTypes.number,
+    onClick:        PropTypes.func,
+    children:       PropTypes.node,
+    className:      PropTypes.string,
+    windowImpl:     PropTypes.shape({ open: PropTypes.func }),
+    chapterSection: PropTypes.string,
   };
 
   static defaultProps = {
@@ -57,7 +59,7 @@ export default class extends React.Component {
     invariant(book || course, 'browse the book requires either a course or book');
 
     Object.assign(tagProps, ('a' === Tag) ? {
-        href: this.href, target: '_blank',
+      href: this.href, target: '_blank',
     } : {
       'role': 'link',
     });
@@ -71,4 +73,4 @@ export default class extends React.Component {
       </Tag>
     );
   }
-}
+};

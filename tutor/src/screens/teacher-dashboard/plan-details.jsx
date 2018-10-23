@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer, inject } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
@@ -14,23 +15,24 @@ import TutorLink from '../../components/link';
 import TeacherTaskPlan from '../../models/task-plan/teacher';
 import SupportEmailLink from '../../components/support-email-link';
 
+export default
 @inject((allStores, props) => ({
   tourContext: ( props.tourContext || allStores.tourContext ),
 }))
 @observer
-export default class CoursePlanDetails extends React.PureComponent {
+class CoursePlanDetails extends React.Component {
 
   static defaultProps = {
     hasReview: false,
   }
 
   static propTypes = {
-    plan: React.PropTypes.instanceOf(TeacherTaskPlan).isRequired,
-    course: React.PropTypes.instanceOf(Course).isRequired,
-    onHide: React.PropTypes.func.isRequired,
-    hasReview: React.PropTypes.bool,
-    className: React.PropTypes.string,
-    tourContext: React.PropTypes.instanceOf(TourContext),
+    plan: PropTypes.instanceOf(TeacherTaskPlan).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
+    onHide: PropTypes.func.isRequired,
+    hasReview: PropTypes.bool,
+    className: PropTypes.string,
+    tourContext: PropTypes.instanceOf(TourContext),
   }
 
   componentWillMount() {
@@ -160,4 +162,4 @@ export default class CoursePlanDetails extends React.PureComponent {
       </Modal>
     );
   }
-}
+};

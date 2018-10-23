@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Panel } from 'react-bootstrap';
 import { observer } from 'mobx-react';
@@ -8,11 +9,12 @@ import LogoutLink from './navbar/logout';
 import CountdownRedirect from './countdown-redirect';
 
 
+export default
 @observer
-export default class CCStudentRedirect extends React.PureComponent {
+class CCStudentRedirect extends React.Component {
 
   static propTypes = {
-    courseId: React.PropTypes.string.isRequired,
+    courseId: PropTypes.string.isRequired,
   }
 
   render() {
@@ -39,6 +41,6 @@ export default class CCStudentRedirect extends React.PureComponent {
           <LogoutLink label="Or logout now to access your instructor account." />
         </ul>
       </Panel>
-    )
+    );
   }
-}
+};

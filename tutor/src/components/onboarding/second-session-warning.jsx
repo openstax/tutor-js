@@ -6,8 +6,9 @@ import { OnboardingNag, GotItOnboardingNag, NagWarning, Body, Footer } from './o
 import User from '../../models/user';
 import CourseUX from '../../models/course/ux';
 
+export default
 @observer
-export default class SecondSessionWarning extends GotItOnboardingNag {
+class SecondSessionWarning extends GotItOnboardingNag {
 
   @action.bound
   onLoggedContinue(ev) {
@@ -36,4 +37,4 @@ export default class SecondSessionWarning extends GotItOnboardingNag {
     );
   }
 
-}
+};

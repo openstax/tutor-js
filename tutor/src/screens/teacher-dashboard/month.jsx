@@ -3,6 +3,7 @@ import moment from 'moment';
 import { isEmpty, find, defer, get, invoke } from 'lodash';
 import 'moment-timezone';
 import twix from 'twix';
+import PropTypes from 'prop-types';
 import qs from 'qs';
 import extend from 'lodash/extend';
 import { DropTarget } from 'react-dnd';
@@ -25,26 +26,26 @@ import CoursePlan from './plan';
 class CourseMonth extends React.Component {
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   };
 
   static propTypes = {
     date:       TimeHelper.PropTypes.moment,
     termStart:  TimeHelper.PropTypes.moment,
     termEnd:    TimeHelper.PropTypes.moment,
-    className:  React.PropTypes.string,
-    hasPeriods: React.PropTypes.bool.isRequired,
-    dateFormat: React.PropTypes.string.isRequired,
-    course:     React.PropTypes.instanceOf(Course).isRequired,
-    showingSideBar: React.PropTypes.bool.isRequired,
+    className:  PropTypes.string,
+    hasPeriods: PropTypes.bool.isRequired,
+    dateFormat: PropTypes.string.isRequired,
+    course:     PropTypes.instanceOf(Course).isRequired,
+    showingSideBar: PropTypes.bool.isRequired,
   };
 
   static childContextTypes = {
     date: TimeHelper.PropTypes.moment,
-    dateFormatted: React.PropTypes.string,
+    dateFormatted: PropTypes.string,
   };
 
-  static defaultProps = {date: moment(TimeStore.getNow())};
+  static defaultProps = { date: moment(TimeStore.getNow()) };
   @observable activeAddDate;
   @observable hoveredDay;
   @observable cloningPlan;
@@ -74,7 +75,7 @@ class CourseMonth extends React.Component {
 
   getMonthMods = (calendarDuration) => {
     const date = moment(TimeStore.getNow());
-    const {termStart, termEnd} = this.props;
+    const { termStart, termEnd } = this.props;
 
     const mods = [
       {
@@ -90,27 +91,27 @@ class CourseMonth extends React.Component {
       const className =
         dateToModify.isBefore(date, 'day') ?
           'past'
-        : dateToModify.isAfter(date, 'day') ?
-          'upcoming'
-        :
-          'current';
+          : dateToModify.isAfter(date, 'day') ?
+            'upcoming'
+            :
+            'current';
 
       const termClasses =
         (() => {
-        if (dateToModify.isBefore(termStart, 'day')) {
-          return (
+          if (dateToModify.isBefore(termStart, 'day')) {
+            return (
               'before-term'
-          );
-        } else if (dateToModify.isAfter(termEnd, 'day')) {
-          return (
+            );
+          } else if (dateToModify.isAfter(termEnd, 'day')) {
+            return (
               'after-term'
-          );
-        }
-      })();
+            );
+          }
+        })();
 
       return cn(className, termClasses,
-            {hovered: this.hoveredDay && dateToModify.isSame(this.hoveredDay, 'day')}
-          );
+        { hovered: this.hoveredDay && dateToModify.isSame(this.hoveredDay, 'day') }
+      );
     };
 
     const hackMoment = function(dateToModify, calendarDate) {
@@ -119,29 +120,31 @@ class CourseMonth extends React.Component {
       // TODO make a pr to include mods for month edges in react-calendar
       // Otherwise, outside of month days do not get the mods.
       const hackedDate = dateToModify.clone();
-      const {isSame} = hackedDate;
+      const { isSame } = hackedDate;
       hackedDate.isSame = function(dateToCompare, period) {
         if (dateToCompare.isSame(calendarDate, 'day') && (period === 'month')) {
           return (
-              true
+            true
           );
         } else {
           return (
-              isSame.call(hackedDate, dateToCompare, period)
+            isSame.call(hackedDate, dateToCompare, period)
           );
         }
       };
       return (
-          hackedDate
+        hackedDate
       );
     };
 
-    const makeModForDate = (dateToModify, calendarDate) =>
-      ({
-        date: hackMoment(dateToModify, calendarDate),
-        component: [ 'day' ],
-        classNames: [ getClassNameForDate(dateToModify) ]
-      })
+    const makeModForDate = (
+      dateToModify,
+      calendarDate,
+    ) => ({
+      date: hackMoment(dateToModify, calendarDate),
+      component: [ 'day' ],
+      classNames: [ getClassNameForDate(dateToModify) ],
+    })
     ;
 
     const daysOfDuration = calendarDuration.iterate('days');
@@ -187,7 +190,7 @@ class CourseMonth extends React.Component {
     // Adjust calendar height for each week to accomodate the number of plans shown on this week
     // CALENDAR_DAY_DYNAMIC_HEIGHT, see less for property that is overwritten.
     Array.prototype.forEach.call(nodesWithHeights, function(node, nthRange) {
-      const range = find(ranges, {nthRange});
+      const range = find(ranges, { nthRange });
       node.style.height = range.dayHeight + 'rem';
     });
   };
@@ -200,7 +203,7 @@ class CourseMonth extends React.Component {
     const calendarDuration = moment(startMonthBlock).twix(endMonthBlock);
     const calendarWeeks = calendarDuration.split(1, 'week');
     return (
-        {calendarDuration, calendarWeeks}
+      { calendarDuration, calendarWeeks }
     );
   };
 
@@ -211,14 +214,14 @@ class CourseMonth extends React.Component {
 
   checkAddOnDay = (componentName, dayMoment, mouseEvent) => {
     if (mouseEvent.relatedTarget !== ReactDOM.findDOMNode(this.refs.addOnDay)) {
-      this.hideAddOnDay(componentName, dayMoment, mouseEvent)
+      this.hideAddOnDay(componentName, dayMoment, mouseEvent);
     }
   };
 
   undoActives = (componentName, dayMoment, mouseEvent) => {
     if ((dayMoment == null) || !dayMoment.isSame(this.refs.addOnDay.state.addDate, 'day')) {
       return (
-          this.hideAddOnDay(componentName, dayMoment, mouseEvent)
+        this.hideAddOnDay(componentName, dayMoment, mouseEvent)
       );
     }
   };
@@ -233,37 +236,44 @@ class CourseMonth extends React.Component {
   };
 
   @action.bound onDrop(item, offset) {
-    const {termStart, termEnd} = this.props;
+    const { termStart, termEnd } = this.props;
     if (!this.hoveredDay ||
       !this.hoveredDay.isBetween(termStart, termEnd, 'day', '[]') ||
       !this.hoveredDay.isSameOrAfter(TimeStore.getNow(), 'day')) { return; }
     if (item.pathname) { // is a link to create an assignment
-      const url = item.pathname + "?" + qs.stringify({
-        due_at: this.hoveredDay.format(this.props.dateFormat)
+      const url = item.pathname + '?' + qs.stringify({
+        due_at: this.hoveredDay.format(this.props.dateFormat),
       });
-      this.context.router.history.push(url)
+      this.context.router.history.push(url);
     } else { // is a task plan to clone
-      this.cloningPlan = extend({}, item, {
-        due_at: this.hoveredDay,
-        position: offset
-      });
+      this.cloningPlan = extend(
+        {},
+        item,
+        {
+          due_at: this.hoveredDay,
+          position: offset,
+        },
+      );
     }
   }
 
   onCloneLoaded = (newPlanId) => {
     defer(() => { // give flux store time to update
-      return extend(this, {
-        editingPlanId: newPlanId,
-        cloningPlanId: this.cloningPlan.id,
-        editingPosition: this.cloningPlan.position,
-        cloningPlan: undefined
-      })
+      return extend(
+        this,
+        {
+          editingPlanId: newPlanId,
+          cloningPlanId: this.cloningPlan.id,
+          editingPosition: this.cloningPlan.position,
+          cloningPlan: undefined,
+        },
+      );
     });
   };
 
   getEditingPlanEl = () => {
     if (!this.editingPlanId) { return null; }
-    return ReactDOM.findDOMNode(this).querySelector(`.course-plan-${this.editingPlanId}`)
+    return ReactDOM.findDOMNode(this).querySelector(`.course-plan-${this.editingPlanId}`);
   };
 
   onDragHover = (day) => {
@@ -329,54 +339,54 @@ class CourseMonth extends React.Component {
               setDate={this.setDate}
             />
             {this.props.connectDropTarget(
-               <div
-                 className={cn("month-wrapper", { 'is-dragging': this.props.isDragging })}
-                 >
-                 <Month
-                   date={date}
-                   monthNames={false}
-                   weekdayFormat="ddd"
-                   mods={this.getMonthMods(calendarDuration)}
-                 />
-                 {plans && (
-                    <CourseDuration
-                      referenceDate={moment(TimeStore.getNow())}
-                      durations={plans}
-                      viewingDuration={calendarDuration}
-                      groupingDurations={calendarWeeks}
+              <div
+                className={cn('month-wrapper', { 'is-dragging': this.props.isDragging })}
+              >
+                <Month
+                  date={date}
+                  monthNames={false}
+                  weekdayFormat="ddd"
+                  mods={this.getMonthMods(calendarDuration)}
+                />
+                {plans && (
+                  <CourseDuration
+                    referenceDate={moment(TimeStore.getNow())}
+                    durations={plans}
+                    viewingDuration={calendarDuration}
+                    groupingDurations={calendarWeeks}
+                    course={course}
+                    ref="courseDurations"
+                  >
+                    <CoursePlan
                       course={course}
-                      ref="courseDurations"
-                    >
-                      <CoursePlan
-                        course={course}
-                        onShow={this.onIfIsEditing}
-                        onHide={this.offIfIsEditing}
-                      />
-                    </CourseDuration>
-                 )}
-               </div>
+                      onShow={this.onIfIsEditing}
+                      onHide={this.offIfIsEditing}
+                    />
+                  </CourseDuration>
+                )}
+              </div>
             )}
           </div>
         </div>
         {this.cloningPlan && (
-           <PlanClonePlaceholder
-             planId={this.cloningPlan.id}
-             planType={this.cloningPlan.type}
-             position={this.cloningPlan.position}
-             course={this.props.course}
-             due_at={this.cloningPlan.due_at}
-             onLoad={this.onCloneLoaded}
-           />)}
+          <PlanClonePlaceholder
+            planId={this.cloningPlan.id}
+            planType={this.cloningPlan.type}
+            position={this.cloningPlan.position}
+            course={this.props.course}
+            due_at={this.cloningPlan.due_at}
+            onLoad={this.onCloneLoaded}
+          />)}
         {this.editingPlanId && this.showMiniEditor && (
-           <TaskPlanMiniEditor
-             planId={this.editingPlanId}
-             position={this.editingPosition}
-             courseId={course.id}
-             termStart={termStart}
-             termEnd={termEnd}
-             onHide={this.onEditorHide}
-             findPopOverTarget={this.getEditingPlanEl}
-           />)}
+          <TaskPlanMiniEditor
+            planId={this.editingPlanId}
+            position={this.editingPosition}
+            courseId={course.id}
+            termStart={termStart}
+            termEnd={termEnd}
+            onHide={this.onEditorHide}
+            findPopOverTarget={this.getEditingPlanEl}
+          />)}
       </TourRegion>
     );
   }

@@ -161,7 +161,7 @@ This error only happens locally.`;
 
   handleErrorMessage(error) {
     let data, e, msg, statusText;
-    if (isObjectLike(error.response)) { (((({ statusText, data } = error.response)))); }
+    if (isObjectLike(error.response)) { ((((((({ statusText, data } = error.response))))))); }
 
     try {
       msg = JSON.parse(statusText);
@@ -184,7 +184,7 @@ This error only happens locally.`;
   filterErrors(error) {
     let data;
     const { response, config } = error;
-    if (isObjectLike(response)) { (((({ data } = response)))); }
+    if (isObjectLike(response)) { ((((((({ data } = response))))))); }
     if (isEmpty(config)) { return Promise.reject(error); }
     if (isEmpty(config.handledErrors) ||
       !areAllErrorsHandled(config.handledErrors, data != null ? data.errors : undefined, this._apiHandler.getOptions().errorNameProperty)) {

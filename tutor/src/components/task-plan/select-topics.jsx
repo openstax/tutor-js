@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { constant, isEqual } from 'underscore';
 import { observer } from 'mobx-react';
@@ -13,13 +14,13 @@ import TourRegion from '../tours/region';
 class SelectTopics extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(CourseModel).isRequired,
-    planId: React.PropTypes.string.isRequired,
-    onSectionChange: React.PropTypes.func.isRequired,
-    hide: React.PropTypes.func.isRequired,
-    selected: React.PropTypes.array,
-    header: React.PropTypes.string.isRequired,
-    cancel: React.PropTypes.func.isRequired,
+    course: PropTypes.instanceOf(CourseModel).isRequired,
+    planId: PropTypes.string.isRequired,
+    onSectionChange: PropTypes.func.isRequired,
+    hide: PropTypes.func.isRequired,
+    selected: PropTypes.array,
+    header: PropTypes.string.isRequired,
+    cancel: PropTypes.func.isRequired,
   };
 
   state = { initialSelected: this.props.selected };

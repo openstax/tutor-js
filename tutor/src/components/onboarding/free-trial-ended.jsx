@@ -1,21 +1,23 @@
+import MobxPropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { action } from 'mobx';
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { OnboardingNag, Heading, Body, Footer } from './onboarding-nag';
 import CourseUX from '../../models/course/ux';
 import Courses from '../../models/courses-map';
 import TutorRouter from '../../helpers/router';
 
+export default
 @observer
-export default class FreeTrialEnded extends React.PureComponent {
+class FreeTrialEnded extends React.Component {
 
   static propTypes = {
     ux: MobxPropTypes.observableObject.isRequired,
   }
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: MobxPropTypes.object,
   }
 
   static className = 'free-trial-ended'
@@ -60,4 +62,4 @@ export default class FreeTrialEnded extends React.PureComponent {
 
   }
 
-}
+};

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { computed, action } from 'mobx';
@@ -7,11 +8,12 @@ import Icon from '../../components/icon';
 import Course from '../../models/course';
 import Export from '../../models/jobs/scores-export';
 
+export default
 @observer
-export default class ScoresExport extends React.PureComponent {
+class ScoresExport extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
   }
 
   @computed get scoresExport() {
@@ -47,4 +49,4 @@ export default class ScoresExport extends React.PureComponent {
     );
   }
 
-}
+};

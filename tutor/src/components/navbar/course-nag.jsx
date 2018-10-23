@@ -1,5 +1,6 @@
+import MobxPropTypes from 'prop-types';
 import React from 'react';
-import { inject, observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import { action, observe, observable } from 'mobx';
 import { Modal } from 'react-bootstrap';
 import { get, pick } from 'lodash';
@@ -10,13 +11,14 @@ import Onboarding from '../../models/course/onboarding/base';
 import { autobind } from 'core-decorators';
 import classnames from 'classnames';
 
+export default
 @inject((context) => pick(context, 'tourContext', 'spyMode'))
 @observer
-export default class CourseNagModal extends React.Component {
+class CourseNagModal extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course),
-    tourContext: React.PropTypes.instanceOf(TourContext).isRequired,
+    course: MobxPropTypes.instanceOf(Course),
+    tourContext: MobxPropTypes.instanceOf(TourContext).isRequired,
     spyMode: MobxPropTypes.observableObject,
   }
 
@@ -76,4 +78,4 @@ export default class CourseNagModal extends React.Component {
   }
 
 
-}
+};

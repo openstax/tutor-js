@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { map, isEqual, isEmpty } from 'lodash';
@@ -13,13 +14,13 @@ import NoExercisesFound from './no-exercises-found';
 @observer
 class SectionsExercises extends React.Component {
   static propTypes = {
-    pageId:                 React.PropTypes.string.isRequired,
-    book:                   React.PropTypes.instanceOf(Book).isRequired,
-    exercises:              React.PropTypes.instanceOf(ExercisesMap).isRequired,
-    onShowDetailsViewClick: React.PropTypes.func.isRequired,
-    onExerciseToggle:       React.PropTypes.func.isRequired,
-    getExerciseIsSelected:  React.PropTypes.func.isRequired,
-    getExerciseActions:     React.PropTypes.func.isRequired,
+    pageId:                 PropTypes.string.isRequired,
+    book:                   PropTypes.instanceOf(Book).isRequired,
+    exercises:              PropTypes.instanceOf(ExercisesMap).isRequired,
+    onShowDetailsViewClick: PropTypes.func.isRequired,
+    onExerciseToggle:       PropTypes.func.isRequired,
+    getExerciseIsSelected:  PropTypes.func.isRequired,
+    getExerciseActions:     PropTypes.func.isRequired,
   };
 
   render() {
@@ -48,20 +49,21 @@ class SectionsExercises extends React.Component {
 }
 
 
+export default
 @observer
-export default class ExerciseCards extends React.Component {
+class ExerciseCards extends React.Component {
 
   static propTypes = {
     pageIds:                ArrayOrMobxType.isRequired,
-    book:                   React.PropTypes.instanceOf(Book).isRequired,
-    exercises:              React.PropTypes.instanceOf(ExercisesMap).isRequired,
-    onExerciseToggle:       React.PropTypes.func.isRequired,
-    getExerciseIsSelected:  React.PropTypes.func.isRequired,
-    getExerciseActions:     React.PropTypes.func.isRequired,
-    onShowDetailsViewClick: React.PropTypes.func.isRequired,
-    focusedExercise:        React.PropTypes.instanceOf(Exercise),
-    topScrollOffset:        React.PropTypes.number,
-    windowImpl:             React.PropTypes.object,
+    book:                   PropTypes.instanceOf(Book).isRequired,
+    exercises:              PropTypes.instanceOf(ExercisesMap).isRequired,
+    onExerciseToggle:       PropTypes.func.isRequired,
+    getExerciseIsSelected:  PropTypes.func.isRequired,
+    getExerciseActions:     PropTypes.func.isRequired,
+    onShowDetailsViewClick: PropTypes.func.isRequired,
+    focusedExercise:        PropTypes.instanceOf(Exercise),
+    topScrollOffset:        PropTypes.number,
+    windowImpl:             PropTypes.object,
   };
 
   static defaultProps = {
@@ -122,4 +124,4 @@ export default class ExerciseCards extends React.Component {
       <div className="exercise-cards">{sections}</div>
     );
   }
-}
+};

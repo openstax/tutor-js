@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
@@ -15,12 +16,13 @@ import LoadingScreen from '../../components/loading-screen';
 import './styles.scss';
 import UX from './ux';
 
+export default
 @observer
-export default class StudentScores extends React.PureComponent {
+class StudentScores extends React.Component {
 
   static propTypes = {
-    params: React.PropTypes.shape({
-      courseId: React.PropTypes.string.isRequired,
+    params: PropTypes.shape({
+      courseId: PropTypes.string.isRequired,
     }).isRequired,
   }
 
@@ -123,4 +125,4 @@ export default class StudentScores extends React.PureComponent {
       </CoursePage>
     );
   }
-}
+};

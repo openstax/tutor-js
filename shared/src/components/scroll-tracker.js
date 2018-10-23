@@ -115,7 +115,7 @@ const ScrollTrackerParentMixin = {
   },
 
   shouldCheckForScrollingState(state) {
-    if (state == null) { (((((({ state } = this)))))); }
+    if (state == null) { ((((((((({ state } = this))))))))); }
     return !_.isEmpty(state.scrollPoints) && !_.isUndefined(state.scrollState) && this.isScrollPointsStable(state);
   },
 

@@ -120,7 +120,7 @@ class ExercisePart extends React.Component {
 
   render() {
     let getWaitingText, id, waitingText;
-    (((((((({ id, step, getWaitingText, waitingText } = this.props))))))));
+    ((((((((((({ id, step, getWaitingText, waitingText } = this.props)))))))))));
     const { currentPanel } = this.state;
 
     // panel is one of ['review', 'multiple-choice', 'free-response', 'teacher-read-only']

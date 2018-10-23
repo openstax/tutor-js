@@ -11,8 +11,9 @@ import PendingVerification from './pending-verification';
 import NoHSTeachers from './no-hs-teachers';
 import { MyCoursesPast, MyCoursesCurrent, MyCoursesPreview } from './listings';
 
+export default
 @observer
-export default class MyCourses extends React.PureComponent {
+class MyCourses extends React.Component {
 
   componentWillMount() {
     User.logEvent({ category: 'onboarding', code: 'arrived_my_courses' });
@@ -67,4 +68,4 @@ export default class MyCourses extends React.PureComponent {
     );
   }
 
-}
+};

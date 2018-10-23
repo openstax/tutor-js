@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 
@@ -6,18 +7,18 @@ import Time from '../../components/time';
 import PieProgress from './pie-progress';
 
 
-export default class ConceptCoachCell extends React.PureComponent {
+export default class ConceptCoachCell extends React.Component {
 
   static propTypes = {
-    courseId: React.PropTypes.string.isRequired,
-    displayAs: React.PropTypes.oneOf(['number', 'percent']),
-    isConceptCoach: React.PropTypes.bool,
-    rowIndex: React.PropTypes.number.isRequired,
-    task: React.PropTypes.shape({
-      status:          React.PropTypes.string,
-      due_at:          React.PropTypes.string,
-      last_worked_at:  React.PropTypes.string,
-      type:            React.PropTypes.string,
+    courseId: PropTypes.string.isRequired,
+    displayAs: PropTypes.oneOf(['number', 'percent']),
+    isConceptCoach: PropTypes.bool,
+    rowIndex: PropTypes.number.isRequired,
+    task: PropTypes.shape({
+      status:          PropTypes.string,
+      due_at:          PropTypes.string,
+      last_worked_at:  PropTypes.string,
+      type:            PropTypes.string,
     }).isRequired,
   }
 

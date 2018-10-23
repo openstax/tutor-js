@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
@@ -12,14 +13,14 @@ import Period from '../../models/course/period';
 import classnames from 'classnames';
 
 @observer
-class AddPeriodField extends React.PureComponent {
+class AddPeriodField extends React.Component {
 
   static propTypes = {
-    label: React.PropTypes.object.isRequired,
-    name:  React.PropTypes.string.isRequired,
-    onChange:  React.PropTypes.func.isRequired,
-    validate: React.PropTypes.func.isRequired,
-    autofocus: React.PropTypes.bool,
+    label: PropTypes.object.isRequired,
+    name:  PropTypes.string.isRequired,
+    onChange:  PropTypes.func.isRequired,
+    validate: PropTypes.func.isRequired,
+    autofocus: PropTypes.bool,
   }
 
   componentDidMount() {
@@ -40,11 +41,12 @@ class AddPeriodField extends React.PureComponent {
 }
 
 
+export default
 @observer
-export default class AddPeriodLink extends React.PureComponent {
+class AddPeriodLink extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
   }
 
   @observable showModal = Router.currentQuery().add;
@@ -122,4 +124,4 @@ export default class AddPeriodLink extends React.PureComponent {
     );
   }
 
-}
+};

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { autobind } from 'core-decorators';
 import { observer } from 'mobx-react';
@@ -7,18 +8,19 @@ import Icon from '../icon';
 import Annotation from '../../models/annotations/annotation';
 import getRangeRect from './getRangeRect';
 
+export default
 @observer
-export default class SidebarButtons extends React.Component {
+class SidebarButtons extends React.Component {
   static propTypes = {
-    editing: React.PropTypes.instanceOf(Annotation),
-    annotations: React.PropTypes.arrayOf(
-      React.PropTypes.instanceOf(Annotation)
+    editing: PropTypes.instanceOf(Annotation),
+    annotations: PropTypes.arrayOf(
+      PropTypes.instanceOf(Annotation)
     ).isRequired,
-    parentRect: React.PropTypes.shape({
-      top: React.PropTypes.number,
+    parentRect: PropTypes.shape({
+      top: PropTypes.number,
     }),
-    onClick: React.PropTypes.func.isRequired,
-    activeAnnotation: React.PropTypes.instanceOf(Annotation),
+    onClick: PropTypes.func.isRequired,
+    activeAnnotation: PropTypes.instanceOf(Annotation),
   }
 
   @autobind renderAnnotation(note) {
@@ -61,4 +63,4 @@ export default class SidebarButtons extends React.Component {
 
   }
 
-}
+};

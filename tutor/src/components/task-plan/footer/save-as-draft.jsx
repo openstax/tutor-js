@@ -1,16 +1,17 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import omit from 'lodash/omit';
 import { AsyncButton, OXLink } from 'shared';
 
-export default class SaveAsDraft extends React.PureComponent {
+export default class SaveAsDraft extends React.Component {
 
   static propTypes = {
-    onClick:      React.PropTypes.func.isRequired,
-    isWaiting:    React.PropTypes.bool.isRequired,
-    isFailed:     React.PropTypes.bool.isRequired,
-    hasError:     React.PropTypes.bool.isRequired,
-    isPublished:  React.PropTypes.bool.isRequired,
-    isPublishing: React.PropTypes.bool.isRequired,
+    onClick:      PropTypes.func.isRequired,
+    isWaiting:    PropTypes.bool.isRequired,
+    isFailed:     PropTypes.bool.isRequired,
+    hasError:     PropTypes.bool.isRequired,
+    isPublished:  PropTypes.bool.isRequired,
+    isPublishing: PropTypes.bool.isRequired,
   }
 
   render() {

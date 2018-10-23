@@ -14,7 +14,7 @@ import DashboardShell from '../../../src/components/cc-dashboard';
 import BaseModel from '../../../api/courses/1/cc/dashboard.json';
 const ExtendBaseStore = props => extend({}, BaseModel, props);
 
-const BlankCourse = ExtendBaseStore({course:{ periods: [], name: "Blank!"}});
+const BlankCourse = ExtendBaseStore({ course: { periods: [], name: 'Blank!' } });
 
 const IDS = {
   BLANK: '0',

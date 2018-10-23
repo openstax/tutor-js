@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { get } from 'lodash';
 import { Provider, inject, observer, observable, action, computed } from '../../helpers/react';
@@ -23,10 +24,10 @@ import NavbarContext         from './context';
 class DefaultNavBar extends React.Component {
 
   static propTypes = {
-    params: React.PropTypes.shape({
-      courseId: React.PropTypes.string,
+    params: PropTypes.shape({
+      courseId: PropTypes.string,
     }).isRequired,
-    tourContext: React.PropTypes.object,
+    tourContext: PropTypes.object,
   }
 
   @computed get course() {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { includes } from 'lodash';
 import { observer } from 'mobx-react';
@@ -6,14 +7,15 @@ import BuilderPopup from '../../student-preview/builder-popup';
 
 const VALID_PLAN_TYPES = ['reading', 'homework'];
 
+export default
 @observer
-export default class PreviewButton extends React.PureComponent {
+class PreviewButton extends React.Component {
 
   static propTypes = {
-    courseId:   React.PropTypes.string.isRequired,
-    planType:   React.PropTypes.string.isRequired,
-    isWaiting:  React.PropTypes.bool.isRequired,
-    isNew:      React.PropTypes.bool.isRequired,
+    courseId:   PropTypes.string.isRequired,
+    planType:   PropTypes.string.isRequired,
+    isWaiting:  PropTypes.bool.isRequired,
+    isNew:      PropTypes.bool.isRequired,
   }
 
   render() {
@@ -25,4 +27,4 @@ export default class PreviewButton extends React.PureComponent {
       <BuilderPopup courseId={this.props.courseId} planType={planType} />
     );
   }
-}
+};

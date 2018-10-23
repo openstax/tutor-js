@@ -120,14 +120,14 @@ export default createReactClass({
   },
 
   stopListeningForProgress(props) {
-    if (props == null) { ((((((({ props } = this))))))); }
+    if (props == null) { (((((((((({ props } = this)))))))))); }
     const { id } = props;
 
     return TaskProgressStore.off(`update.${id}`, this.setCurrentStep);
   },
 
   startListeningForProgress(props) {
-    if (props == null) { ((((((({ props } = this))))))); }
+    if (props == null) { (((((((((({ props } = this)))))))))); }
     const { id } = props;
 
     return TaskProgressStore.on(`update.${id}`, this.setCurrentStep);

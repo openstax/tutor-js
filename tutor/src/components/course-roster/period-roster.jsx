@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { observable } from 'mobx';
@@ -11,11 +12,12 @@ import CourseGroupingLabel from '../course-grouping-label';
 import StudentIdField from './student-id-field';
 import Period from '../../models/course/period';
 
+export default
 @observer
-export default class PeriodRoster extends React.PureComponent {
+class PeriodRoster extends React.Component {
 
   static propTypes = {
-    period: React.PropTypes.instanceOf(Period).isRequired,
+    period: PropTypes.instanceOf(Period).isRequired,
   }
 
   @autobind
@@ -89,4 +91,4 @@ export default class PeriodRoster extends React.PureComponent {
       </Table>
     );
   }
-}
+};

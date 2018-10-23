@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observable, computed, action } from 'mobx';
 import { observer } from 'mobx-react';
@@ -14,12 +15,13 @@ import moment from 'moment-timezone';
 
 const df = (d) => moment(d).format('MM/DD/YYYY');
 
+export default
 @observer
-export default class CourseSettings extends React.PureComponent {
+class CourseSettings extends React.Component {
 
   static propTypes = {
-    params: React.PropTypes.shape({
-      courseId: React.PropTypes.string.isRequired,
+    params: PropTypes.shape({
+      courseId: PropTypes.string.isRequired,
     }).isRequired,
   }
 
@@ -79,4 +81,4 @@ export default class CourseSettings extends React.PureComponent {
       </CoursePage>
     );
   }
-}
+};

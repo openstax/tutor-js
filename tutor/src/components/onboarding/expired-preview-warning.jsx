@@ -4,8 +4,9 @@ import { observer } from 'mobx-react';
 
 import { OnboardingNag, GotItOnboardingNag, Heading, Body, Footer } from './onboarding-nag';
 
+export default
 @observer
-export default class ExpiredPreviewWarning extends GotItOnboardingNag {
+class ExpiredPreviewWarning extends GotItOnboardingNag {
 
   renderPrompt() {
     return (
@@ -24,4 +25,4 @@ export default class ExpiredPreviewWarning extends GotItOnboardingNag {
     );
   }
 
-}
+};

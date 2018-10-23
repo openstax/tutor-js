@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Preview from './exercise/preview';
 import Clause from './search/clause';
@@ -13,9 +14,9 @@ class Search extends React.Component {
   static Controls = Controls;
 
   static propTypes = {
-    ux: React.PropTypes.instanceOf(UX).isRequired,
-    history: React.PropTypes.shape({
-      push: React.PropTypes.func.isRequired,
+    ux: PropTypes.instanceOf(UX).isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired,
     }).isRequired,
   };
 

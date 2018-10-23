@@ -2,6 +2,7 @@ import { React, observer, cn, action, mobxPropTypes } from '../../helpers/react'
 
 import classnames from 'classnames';
 import _ from 'underscore';
+import PropTypes from 'prop-types';
 import twix from 'twix';
 import Course from '../../models/course';
 import CoursePlanDetails from './plan-details';
@@ -17,38 +18,39 @@ import TeacherTaskPlan from '../../models/task-plan/teacher';
 
 // TODO drag and drop, and resize behavior
 
+export default
 @observer
-export default class CoursePlan extends React.Component {
+class CoursePlan extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
-    item: React.PropTypes.shape({
-      plan: React.PropTypes.instanceOf(TeacherTaskPlan).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
+    item: PropTypes.shape({
+      plan: PropTypes.instanceOf(TeacherTaskPlan).isRequired,
       displays: mobxPropTypes.arrayOrObservableArrayOf(
-        React.PropTypes.shape({
-          rangeDuration: React.PropTypes.instanceOf(twix).isRequired,
-          offset: React.PropTypes.number.isRequired,
-          index: React.PropTypes.number.isRequired,
-          offsetFromPlanStart: React.PropTypes.number.isRequired,
-          order: React.PropTypes.number.isRequired,
-          weekTopOffset: React.PropTypes.number.isRequired,
+        PropTypes.shape({
+          rangeDuration: PropTypes.instanceOf(twix).isRequired,
+          offset: PropTypes.number.isRequired,
+          index: PropTypes.number.isRequired,
+          offsetFromPlanStart: PropTypes.number.isRequired,
+          order: PropTypes.number.isRequired,
+          weekTopOffset: PropTypes.number.isRequired,
         }).isRequired
       ).isRequired,
     }),
-    activeHeight: React.PropTypes.number,
-    onShow: React.PropTypes.func,
-    onHide: React.PropTypes.func,
+    activeHeight: PropTypes.number,
+    onShow: PropTypes.func,
+    onHide: PropTypes.func,
   };
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired,
-    dateFormatted: React.PropTypes.string.isRequired,
+    router: PropTypes.object.isRequired,
+    dateFormatted: PropTypes.string.isRequired,
   };
 
   static defaultProps = { activeHeight: 35 };
 
   getStateByProps = (props) => {
-    if (props == null) { ({ props } = this); }
+    if (props == null) { ((((({ props } = this))))); }
 
     const { item } = props;
     const { plan } = item;
@@ -65,7 +67,7 @@ export default class CoursePlan extends React.Component {
 
   // utility functions for functions called in lifecycle methods
   _doesPlanMatchesRoute = (props) => {
-    if (props == null) { ({ props } = this); }
+    if (props == null) { ((((({ props } = this))))); }
 
     const { item } = props;
     const { plan } = item;
@@ -267,4 +269,4 @@ export default class CoursePlan extends React.Component {
       </div>
     );
   }
-}
+};

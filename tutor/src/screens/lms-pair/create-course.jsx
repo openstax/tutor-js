@@ -1,11 +1,13 @@
+import PropTypes from 'prop-types';
 import { React, observer } from '../../helpers/react';
 import Wizard from '../new-course/wizard';
 
+export default
 @observer
-export default class NewOrExisting extends React.PureComponent {
+class NewOrExisting extends React.Component {
 
   static propTypes = {
-    ux: React.PropTypes.object.isRequired,
+    ux: PropTypes.object.isRequired,
   }
 
   render() {
@@ -16,4 +18,4 @@ export default class NewOrExisting extends React.PureComponent {
     );
 
   }
-}
+};

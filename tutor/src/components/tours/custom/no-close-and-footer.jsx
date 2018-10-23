@@ -1,14 +1,15 @@
+import PropTypes from 'prop-types';
 import React        from 'react';
 import ReactDOM     from 'react-dom';
 import { get, defaultsDeep }      from 'lodash';
 import classnames   from 'classnames';
 import NoClose      from './no-close';
 
-export default class NoCloseAndFooter extends React.PureComponent {
+export default class NoCloseAndFooter extends React.Component {
   className = 'no-footer'
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   componentWillReceiveProps(nextProps) {
@@ -34,7 +35,7 @@ export default class NoCloseAndFooter extends React.PureComponent {
       },
     });
 
-    const className = classnames(this.className,  this.props.className);
+    const className = classnames(this.className, this.props.className);
 
     return (
       <NoClose

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
@@ -20,7 +21,7 @@ function TagError(props) {
 }
 
 TagError.propTypes = {
-  error: React.PropTypes.string,
+  error: PropTypes.string,
 };
 
 export default TagError;

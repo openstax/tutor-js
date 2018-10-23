@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Modal, ToggleButtonGroup, ToggleButton, Button } from 'react-bootstrap';
 import { observable, computed, action } from 'mobx';
@@ -66,11 +67,12 @@ const sakai = ({ lms }) => (
 
 const VENDORS = { blackboard, canvas, moodle, d2l, sakai };
 
+export default
 @observer
-export default class LMSAccessPanel extends React.PureComponent {
+class LMSAccessPanel extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
   };
 
   componentWillMount() {
@@ -161,4 +163,4 @@ export default class LMSAccessPanel extends React.PureComponent {
   }
 
 
-}
+};

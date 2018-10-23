@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { computed, action, observable } from 'mobx';
@@ -8,7 +9,7 @@ import { SuretyGuard } from 'shared';
 @observer
 class MPQToggle extends React.Component {
   static propTypes = {
-    exercise: React.PropTypes.instanceOf(Exercise).isRequired,
+    exercise: PropTypes.instanceOf(Exercise).isRequired,
   };
 
   @action.bound onConfirm() {

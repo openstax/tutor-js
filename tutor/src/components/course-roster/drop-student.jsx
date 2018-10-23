@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button, Popover, OverlayTrigger } from 'react-bootstrap';
 import { observer } from 'mobx-react';
@@ -7,11 +8,12 @@ import Icon from '../icon';
 import Name from '../name';
 import Student from '../../models/course/student';
 
+export default
 @observer
-export default class DropStudentLink extends React.PureComponent {
+class DropStudentLink extends React.Component {
 
   static propTypes = {
-    student: React.PropTypes.instanceOf(Student).isRequired,
+    student: PropTypes.instanceOf(Student).isRequired,
   }
 
   @action.bound performDeletion() {
@@ -55,4 +57,4 @@ export default class DropStudentLink extends React.PureComponent {
       </OverlayTrigger>
     );
   }
-}
+};

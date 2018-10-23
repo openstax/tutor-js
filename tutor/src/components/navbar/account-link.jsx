@@ -1,13 +1,15 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { MenuItem } from 'react-bootstrap';
 import User from '../../models/user';
 import { observer } from 'mobx-react';
 
+export default
 @observer
-export default class AccountLink extends React.PureComponent {
+class AccountLink extends React.Component {
 
   static propTypes = {
-    onClick: React.PropTypes.func,
+    onClick: PropTypes.func,
   }
 
   render() {
@@ -19,4 +21,4 @@ export default class AccountLink extends React.PureComponent {
       </MenuItem>
     );
   }
-}
+};

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TutorLink from '../../components/link';
@@ -9,17 +10,18 @@ import PieProgress from './pie-progress';
 import { LateWork } from './late-work';
 import UX from './ux';
 
+export default
 @observer
-export default class ReadingCell extends React.PureComponent {
+class ReadingCell extends React.Component {
 
   static propTypes = {
-    ux: React.PropTypes.instanceOf(UX).isRequired,
-    className: React.PropTypes.string,
-    columnIndex: React.PropTypes.number.isRequired,
-    task: React.PropTypes.shape({
-      id: React.PropTypes.number,
-      type: React.PropTypes.string,
-      status: React.PropTypes.string,
+    ux: PropTypes.instanceOf(UX).isRequired,
+    className: PropTypes.string,
+    columnIndex: PropTypes.number.isRequired,
+    task: PropTypes.shape({
+      id: PropTypes.number,
+      type: PropTypes.string,
+      status: PropTypes.string,
     }).isRequired,
   }
 
@@ -78,11 +80,11 @@ export default class ReadingCell extends React.PureComponent {
     }
 
     return (<LateWork
-        task={task}
-        onMouseOver={this.show}
-        onMouseLeave={this.hide}
-        columnIndex={columnIndex}
-      />
+      task={task}
+      onMouseOver={this.show}
+      onMouseLeave={this.hide}
+      columnIndex={columnIndex}
+    />
     );
   }
 
@@ -100,4 +102,4 @@ export default class ReadingCell extends React.PureComponent {
       </div>
     );
   }
-}
+};

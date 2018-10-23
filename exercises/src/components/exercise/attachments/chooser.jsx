@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { withRouter } from 'react-router';
 import Exercises, { Exercise, ExercisesMap } from '../../../models/exercises';
@@ -16,10 +17,10 @@ class AttachmentChooser extends React.Component {
   displayName: 'AttachmentChooser'
 
   static propTypes = {
-    exercise: React.PropTypes.instanceOf(Exercise).isRequired,
-    exercises: React.PropTypes.instanceOf(ExercisesMap),
-    history: React.PropTypes.shape({
-      push: React.PropTypes.func,
+    exercise: PropTypes.instanceOf(Exercise).isRequired,
+    exercises: PropTypes.instanceOf(ExercisesMap),
+    history: PropTypes.shape({
+      push: PropTypes.func,
     }).isRequired,
   }
 

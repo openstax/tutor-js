@@ -14,14 +14,14 @@ class SuretyGuard extends React.Component {
 
   static propTypes = {
     onConfirm:  PropTypes.func.isRequired,
-
+    title: PropTypes.string,
     message:    PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.element,
     ]).isRequired,
-
-    placement:  PropTypes.string,
-    okButtonLabel: PropTypes.string,
+    placement:         PropTypes.string,
+    children:          PropTypes.node,
+    okButtonLabel:     PropTypes.string,
     cancelButtonLabel: PropTypes.string,
     onlyPromptIf: PropTypes.func,
   };

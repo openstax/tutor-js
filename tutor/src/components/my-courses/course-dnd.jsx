@@ -7,16 +7,16 @@ import { DragSource, DropTarget } from 'react-dnd';
 const CloneCourseDrag = {
   beginDrag({ course }) {
     return (
-        course
+      course
     );
   },
 
   endDrag(props, monitor) {
     const { onDrop, offset } = monitor.getDropResult() || {};
     return (
-        __guardFunc__(onDrop, f => f(
-          monitor.getItem(), offset
-        ))
+      __guardFunc__(onDrop, f => f(
+        monitor.getItem(), offset
+      ))
     );
   },
 };
@@ -30,7 +30,7 @@ const DragInjector = (connect, monitor) => ({ connectDragSource: connect.dragSou
 const CloneCourseDrop = {
   drop(props, monitor, comp) {
     return (
-        { onDrop: comp.onDrop, offset: monitor.getClientOffset() }
+      { onDrop: comp.onDrop, offset: monitor.getClientOffset() }
     );
   },
 };
@@ -44,12 +44,12 @@ export function wrapCourseDragComponent(component) {
 
 
 export function wrapCourseDropComponent(component) {
-  return DropTarget(Types.CloneCourse, CloneCourseDrop, DropInjector)(component)
+  return DropTarget(Types.CloneCourse, CloneCourseDrop, DropInjector)(component);
 }
 
 
 function __guardFunc__(func, transform) {
   return (
-      typeof func === 'function' ? transform(func) : undefined
+    typeof func === 'function' ? transform(func) : undefined
   );
 }

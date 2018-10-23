@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { isEmpty } from 'lodash';
 import { Button } from 'react-bootstrap';
@@ -15,13 +16,13 @@ import CourseModel from '../../../models/course';
 class ChooseExercises extends React.Component {
 
   static propTypes = {
-    course:      React.PropTypes.instanceOf(CourseModel).isRequired,
-    exercises:   React.PropTypes.instanceOf(ExercisesMap),
-    planId:      React.PropTypes.string.isRequired,
-    hide:        React.PropTypes.func.isRequired,
-    cancel:      React.PropTypes.func.isRequired,
-    canEdit:     React.PropTypes.bool,
-    windowImpl:  React.PropTypes.object,
+    course:      PropTypes.instanceOf(CourseModel).isRequired,
+    exercises:   PropTypes.instanceOf(ExercisesMap),
+    planId:      PropTypes.string.isRequired,
+    hide:        PropTypes.func.isRequired,
+    cancel:      PropTypes.func.isRequired,
+    canEdit:     PropTypes.bool,
+    windowImpl:  PropTypes.object,
   };
 
   static defaultProps = {

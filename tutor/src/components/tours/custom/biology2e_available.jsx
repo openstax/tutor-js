@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import MiniNotice from './mini-notice';
 import NewTabLink from '../../new-tab-link';
@@ -9,7 +10,7 @@ import Router from '../../../helpers/router';
 export default class Biology2eAvailable extends React.Component {
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   };
 
   @action.bound onClose() {

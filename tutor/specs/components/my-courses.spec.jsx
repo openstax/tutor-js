@@ -11,11 +11,11 @@ jest.mock('../../src/models/chat');
 
 import { bootstrapCoursesList, STUDENT_COURSE_ONE_MODEL, TEACHER_COURSE_TWO_MODEL, TEACHER_AND_STUDENT_COURSE_THREE_MODEL, MASTER_COURSES_LIST, TUTOR_HELP, CONCEPT_COACH_HELP, STUDENT_ARCHIVED_COURSE, TEACHER_PAST_COURSE, STUDENT_PAST_COURSE } from '../courses-test-data';
 
-const loadTeacherUser = () => User.faculty_status = 'confirmed_faculty'
+const loadTeacherUser = () => User.faculty_status = 'confirmed_faculty';
 
 const loadOfferings = () => {
   Offerings.onLoaded({ data: OFFERINGS });
-}
+};
 
 describe('My Courses Component', function() {
 

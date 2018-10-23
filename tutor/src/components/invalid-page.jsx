@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import OXColoredStripe from 'shared/components/ox-colored-stripe';
@@ -28,5 +29,5 @@ export default function InvalidPage(props) {
 }
 
 InvalidPage.propTypes = {
-  message: React.PropTypes.string,
+  message: PropTypes.string,
 };

@@ -81,7 +81,11 @@ end
 LOG = File.open('configs/upgrade.log', 'r+')
 PROGRESS = LOG.readlines.map(&:chomp)
 
-Dir.glob('{tutor,shared,exercises}/**/*.jsx').each do |js|
+Dir.glob('{tutor,shared,exercises}/**/*.{js,jsx,cjsx,coffee}').each do |js|
+  if js =~ /\.bak\.\w+$/
+    FileUtils.rm(js)
+    next
+  end
   puts js
   next if PROGRESS.include?(js)
   up = Upgrade.new(js)

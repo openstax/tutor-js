@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer, propTypes as mobxPropTypes } from 'mobx-react';
 import { map, partial } from 'lodash';
@@ -5,15 +6,12 @@ import cn from 'classnames';
 import TutorLink from '../link';
 
 
-
-
-
 @observer
 class BookMenuTocSection extends React.Component {
 
   static propTypes = {
     ux: mobxPropTypes.observableObject.isRequired,
-    section: React.PropTypes.object,
+    section: PropTypes.object,
   };
 
   render() {
@@ -48,8 +46,9 @@ class BookMenuTocSection extends React.Component {
 }
 
 
+export default
 @observer
-export default class BookMenu extends React.Component {
+class BookMenu extends React.Component {
 
   static propTypes = {
     ux: mobxPropTypes.observableObject.isRequired,
@@ -71,4 +70,4 @@ export default class BookMenu extends React.Component {
     );
   }
 
-}
+};

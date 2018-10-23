@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { isNil } from 'lodash';
 import { observer } from 'mobx-react';
@@ -8,12 +9,13 @@ import EventRow from './event-row';
 // complete_exercise_count
 import TourAnchor from '../../components/tours/anchor';
 
+export default
 @observer
-export default class HomeworkRow extends React.PureComponent {
+class HomeworkRow extends React.Component {
 
   static propTypes = {
-    event:  React.PropTypes.instanceOf(Task).isRequired,
-    course: React.PropTypes.instanceOf(Course).isRequired,
+    event:  PropTypes.instanceOf(Task).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
   }
 
   @computed get hasStarted() {
@@ -46,4 +48,4 @@ export default class HomeworkRow extends React.PureComponent {
       </EventRow>
     );
   }
-}
+};

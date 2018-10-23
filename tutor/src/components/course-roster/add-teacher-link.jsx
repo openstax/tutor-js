@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
@@ -30,11 +31,12 @@ const AddTeacherModal = ({ show, onClose, url }) => (
   </Modal>
 );
 
+export default
 @observer
-export default class AddTeacherLink extends React.PureComponent {
+class AddTeacherLink extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
   }
 
   @observable isShown = false;
@@ -64,4 +66,4 @@ export default class AddTeacherLink extends React.PureComponent {
     );
   }
 
-}
+};

@@ -4,7 +4,7 @@ import { omit }               from 'lodash';
 
 import { Tooltip }  from 'react-joyride';
 
-export default class ForceScrollOnMount extends React.PureComponent {
+export default class ForceScrollOnMount extends React.Component {
   constructor(props) {
     super(props);
 
@@ -18,11 +18,11 @@ export default class ForceScrollOnMount extends React.PureComponent {
     // close hole
     step.style.hole = {
       maxWidth: 0,
-      maxHeight: 0
+      maxHeight: 0,
     };
     // hide arrow
     step.style.arrow = {
-      display: 'none'
+      display: 'none',
     };
 
     const adjustedYPos = this.props.yPos + step.joyrideRef.getElementDimensions().height;

@@ -1,14 +1,16 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import EventRow from './event-row';
 import Course from '../../models/course';
 
+export default
 @observer
-export default class ReadingRow extends React.PureComponent {
+class ReadingRow extends React.Component {
 
   static propTypes = {
-    event:  React.PropTypes.object.isRequired,
-    course: React.PropTypes.instanceOf(Course).isRequired,
+    event:  PropTypes.object.isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
   }
 
   render() {
@@ -26,4 +28,4 @@ export default class ReadingRow extends React.PureComponent {
       </EventRow>
     );
   }
-}
+};

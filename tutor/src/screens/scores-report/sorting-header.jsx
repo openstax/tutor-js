@@ -1,16 +1,17 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { autobind } from 'core-decorators';
 import classnames from 'classnames';
 
-export default class SortingHeader extends React.PureComponent {
+export default class SortingHeader extends React.Component {
 
   static propTypes = {
-    onSort:  React.PropTypes.func.isRequired,
-    sortKey: React.PropTypes.any.isRequired,
-    sortState: React.PropTypes.object.isRequired,
-    dataType: React.PropTypes.string,
-    type: React.PropTypes.string,
-    children: React.PropTypes.element,
+    onSort:  PropTypes.func.isRequired,
+    sortKey: PropTypes.any.isRequired,
+    sortState: PropTypes.object.isRequired,
+    dataType: PropTypes.string,
+    type: PropTypes.string,
+    children: PropTypes.element,
   }
 
   @autobind

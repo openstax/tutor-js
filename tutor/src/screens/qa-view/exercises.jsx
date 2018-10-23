@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { isEmpty } from 'lodash';
@@ -6,11 +7,12 @@ import ExerciseCard from './exercise-card';
 import Loading from '../../components/loading-screen';
 import UX from './ux';
 
+export default
 @observer
-export default class Exercises extends React.Component {
+class Exercises extends React.Component {
 
   static propTypes = {
-    ux: React.PropTypes.instanceOf(UX).isRequired,
+    ux: PropTypes.instanceOf(UX).isRequired,
   };
 
   @autobind renderExercise(exercise) {
@@ -34,4 +36,4 @@ export default class Exercises extends React.Component {
     );
   }
 
-}
+};

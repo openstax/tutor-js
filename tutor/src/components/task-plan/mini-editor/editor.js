@@ -69,7 +69,7 @@ const TaskPlanMiniEditor = createReactClass({
   },
 
   initializePlan(props) {
-    if (props == null) { ((((((({ props } = this))))))); }
+    if (props == null) { (((((((((({ props } = this)))))))))); }
     const { id, courseId, termStart, termEnd } = props;
 
     // make sure timezone is synced before working with plan

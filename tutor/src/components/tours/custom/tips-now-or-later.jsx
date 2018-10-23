@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { action } from 'mobx';
 import { observer, inject } from 'mobx-react';
@@ -13,15 +14,16 @@ import classnames   from 'classnames';
 
 import { bindClickHandler } from './common';
 
+export default
 @inject((allStores, props) => ({ tourContext: ( props.tourContext || allStores.tourContext ) }))
 @observer
-export default class TipsNowOrLater extends React.PureComponent {
+class TipsNowOrLater extends React.Component {
   static propTypes = {
-    tourContext: React.PropTypes.object.isRequired,
-    step:  React.PropTypes.object.isRequired,
-    className: React.PropTypes.string,
-    buttons: React.PropTypes.object,
-    style: React.PropTypes.object,
+    tourContext: PropTypes.object.isRequired,
+    step:  PropTypes.object.isRequired,
+    className: PropTypes.string,
+    buttons: PropTypes.object,
+    style: PropTypes.object,
   }
 
   @action.bound
@@ -55,4 +57,4 @@ export default class TipsNowOrLater extends React.PureComponent {
       />
     );
   }
-}
+};

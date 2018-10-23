@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { observable, action, computed } from 'mobx';
@@ -13,9 +14,9 @@ import SuretyGuard from 'shared/components/surety-guard';
 class EditBox extends React.Component {
 
   static propTypes = {
-    text: React.PropTypes.string.isRequired,
-    dismiss: React.PropTypes.func.isRequired,
-    save: React.PropTypes.func.isRequired,
+    text: PropTypes.string.isRequired,
+    dismiss: PropTypes.func.isRequired,
+    save: PropTypes.func.isRequired,
   };
 
   @observable text = this.props.text;
@@ -53,12 +54,13 @@ class EditBox extends React.Component {
 }
 
 
+export default
 @observer
-export default class AnnotationCard extends React.Component {
+class AnnotationCard extends React.Component {
 
   static propTypes = {
-    onDelete: React.PropTypes.func.isRequired,
-    annotation: React.PropTypes.instanceOf(Annotation).isRequired,
+    onDelete: PropTypes.func.isRequired,
+    annotation: PropTypes.instanceOf(Annotation).isRequired,
   };
 
   @observable editing = false;
@@ -110,15 +112,15 @@ export default class AnnotationCard extends React.Component {
               <ArbitraryHtmlAndMath html={this.props.annotation.content} />
             </blockquote>
             {this.editing ? (
-               <EditBox
-                 text={annotation.text}
-                 dismiss={this.stopEditing}
-                 save={this.saveAnnotation}
-               />
+              <EditBox
+                text={annotation.text}
+                dismiss={this.stopEditing}
+                save={this.saveAnnotation}
+              />
             ) : (
-               <div className="plain-text">
-                 {annotation.text}
-               </div>
+              <div className="plain-text">
+                {annotation.text}
+              </div>
             )}
           </div>
           <div className="controls">
@@ -138,4 +140,4 @@ export default class AnnotationCard extends React.Component {
       </div>
     );
   }
-}
+};

@@ -8,7 +8,7 @@ export default function AccessibilityStatement() {
   const params = Router.currentParams();
   const { courseId } = params;
   const backLink = courseId ? { to: 'dashboard', text: 'Back to Dashboard', params: { courseId } } :
-                   { to: 'myCourses', text: 'Back to My Courses' };
+    { to: 'myCourses', text: 'Back to My Courses' };
 
   return (
     <Grid className="accessibility-statement">

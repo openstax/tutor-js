@@ -67,13 +67,13 @@ export default class extends React.Component {
 
   isLoaded = (...args) => {
     let { isLoaded, store } = this.props;
-    if (isLoaded == null) { (((((((({ isLoaded } = store)))))))); }
+    if (isLoaded == null) { ((((((((((({ isLoaded } = store))))))))))); }
     return isLoaded(...Array.from(args || []));
   };
 
   isLoading = (...args) => {
     let { isLoading, store } = this.props;
-    if (isLoading == null) { (((((((({ isLoading } = store)))))))); }
+    if (isLoading == null) { ((((((((((({ isLoading } = store))))))))))); }
     return isLoading(...Array.from(args || []));
   };
 
@@ -86,7 +86,7 @@ export default class extends React.Component {
 
   load = (...args) => {
     let { load, actions } = this.props;
-    if (load == null) { (((((((({ load } = actions)))))))); }
+    if (load == null) { ((((((((((({ load } = actions))))))))))); }
     return load(...Array.from(args || []));
   };
 

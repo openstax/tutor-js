@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
@@ -5,14 +6,15 @@ import { omit, keys } from 'lodash';
 
 const BRAND = 'OpenStax';
 
+export default
 @observer
-export default class CourseBranding extends React.PureComponent {
+class CourseBranding extends React.Component {
 
   static propTypes = {
-    isConceptCoach: React.PropTypes.bool,
-    isBeta:         React.PropTypes.bool,
-    tag:            React.PropTypes.string,
-    className:      React.PropTypes.string,
+    isConceptCoach: PropTypes.bool,
+    isBeta:         PropTypes.bool,
+    tag:            PropTypes.string,
+    className:      PropTypes.string,
   }
 
   static defaultProps = {
@@ -46,4 +48,4 @@ export default class CourseBranding extends React.PureComponent {
       </Tag>
     );
   }
-}
+};

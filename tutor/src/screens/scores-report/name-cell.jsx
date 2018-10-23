@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
@@ -5,15 +6,16 @@ import Name from '../../components/name';
 import TutorLink from '../../components/link';
 const TOOLTIP_OPTIONS = { enable: true, placement: 'top', delayShow: 1500, delayHide: 150 };
 
+export default
 @observer
-export default class NameCell extends React.PureComponent {
+class NameCell extends React.Component {
 
   static propTypes = {
-    courseId: React.PropTypes.string.isRequired,
-    isConceptCoach: React.PropTypes.bool.isRequired,
-    className: React.PropTypes.string,
-    students: React.PropTypes.array.isRequired,
-    rowIndex: React.PropTypes.number,
+    courseId: PropTypes.string.isRequired,
+    isConceptCoach: PropTypes.bool.isRequired,
+    className: PropTypes.string,
+    students: PropTypes.array.isRequired,
+    rowIndex: PropTypes.number,
   }
 
   render() {
@@ -47,4 +49,4 @@ export default class NameCell extends React.PureComponent {
       </div>
     );
   }
-}
+};

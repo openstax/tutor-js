@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import CoursePeriodsNav from '../../components/course-periods-nav';
 import Course from '../../models/course';
@@ -6,10 +7,10 @@ import { keys, pick } from 'lodash';
 
 const COURSE_PERIODS_NAV_PROPS = keys(CoursePeriodsNav.propTypes);
 
-export default class ScoresReportNav extends React.PureComponent {
+export default class ScoresReportNav extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
   }
 
   render() {

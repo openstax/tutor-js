@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { MenuItem, DropdownButton } from 'react-bootstrap';
 import { find } from 'lodash';
@@ -10,27 +11,29 @@ import Icon from './icon';
 class MultiSelect extends React.Component {
 
   static propTypes = {
-    title:      React.PropTypes.string.isRequired,
-    className:  React.PropTypes.string,
-    closeAfterSelect: React.PropTypes.bool,
-    selections: React.PropTypes.arrayOf(
-      React.PropTypes.shape({
-        id:       React.PropTypes.string,
-        title:    React.PropTypes.oneOfType([
-          React.PropTypes.string, React.PropTypes.element,
+    title:      PropTypes.string.isRequired,
+    className:  PropTypes.string,
+    closeAfterSelect: PropTypes.bool,
+
+    selections: PropTypes.arrayOf(
+      PropTypes.shape({
+        id:       PropTypes.string,
+        title:    PropTypes.oneOfType([
+          PropTypes.string, PropTypes.element,
         ]),
-        selected: React.PropTypes.bool,
+        selected: PropTypes.bool,
       })
     ).isRequired,
-    onOnlySelection: React.PropTypes.func,
-    onSelect: React.PropTypes.func,
-    tabIndex: React.PropTypes.number
+
+    onOnlySelection: PropTypes.func,
+    onSelect: PropTypes.func,
+    tabIndex: PropTypes.number,
   };
 
   static defaultProps = {
     closeAfterSelect: true,
-    tabIndex: 0
-  }
+    tabIndex: 0,
+  };
 
   @observable isOpen = false;
 

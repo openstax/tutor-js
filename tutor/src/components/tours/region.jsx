@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import invariant from 'invariant';
@@ -6,11 +7,12 @@ import TourContext from '../../models/tour/context';
 
 import { delay } from 'lodash';
 
+export default
 @inject((allStores, props) => ({
   tourContext: ( props.tourContext || allStores.tourContext ),
 }))
 @observer
-export default class TourRegion extends React.PureComponent {
+class TourRegion extends React.Component {
 
   static defaultProps = {
     courseId: undefined,
@@ -21,17 +23,17 @@ export default class TourRegion extends React.PureComponent {
   }
 
   static propTypes = {
-    id: React.PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     // will default to id if tours is not given
-    otherTours: React.PropTypes.arrayOf(React.PropTypes.string),
-    courseId: React.PropTypes.oneOfType([
-      React.PropTypes.string, React.PropTypes.number,
+    otherTours: PropTypes.arrayOf(PropTypes.string),
+    courseId: PropTypes.oneOfType([
+      PropTypes.string, PropTypes.number,
     ]),
-    children: React.PropTypes.node.isRequired,
-    tourContext: React.PropTypes.instanceOf(TourContext),
-    tag: React.PropTypes.string,
-    delay: React.PropTypes.number,
-    className: React.PropTypes.string,
+    children: PropTypes.node.isRequired,
+    tourContext: PropTypes.instanceOf(TourContext),
+    tag: PropTypes.string,
+    delay: PropTypes.number,
+    className: PropTypes.string,
   }
 
   constructor(props) {
@@ -48,7 +50,7 @@ export default class TourRegion extends React.PureComponent {
   // not really sure this is needed, but we may update the courseId somwhere
   componentWillReceiveProps({ id, tours, courseId }) {
     invariant(id === this.props.id,
-              `Cannot update region id, was ${this.props.id} attempted to set ${id}`);
+      `Cannot update region id, was ${this.props.id} attempted to set ${id}`);
     if (tours) { this.region.tour_ids = tours; }
     this.region.courseId = courseId;
   }
@@ -68,4 +70,4 @@ export default class TourRegion extends React.PureComponent {
     }, this.props.children);
   }
 
-}
+};

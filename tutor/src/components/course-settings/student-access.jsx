@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observable, computed, action } from 'mobx';
 import { observer } from 'mobx-react';
@@ -8,11 +9,12 @@ import cn from 'classnames';
 import CopyOnFocusInput from '../copy-on-focus-input';
 import LMS from './lms-panel';
 
+export default
 @observer
-export default class StudentAccess extends React.PureComponent {
+class StudentAccess extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
   };
 
   @observable displayLinksWarning = false;
@@ -107,11 +109,11 @@ export default class StudentAccess extends React.PureComponent {
   }
 
   @action.bound onHideLinkSwitch() {
-      this.displayLinksWarning = false;
+    this.displayLinksWarning = false;
   }
 
   @action.bound forceLinksSwitch() {
-      this.onSelectOption(false, {}, false);
+    this.onSelectOption(false, {}, false);
   }
 
   renderLinkSwitchWarning() {
@@ -200,4 +202,4 @@ export default class StudentAccess extends React.PureComponent {
       </div>
     );
   }
-}
+};

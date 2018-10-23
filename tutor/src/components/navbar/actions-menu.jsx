@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Dropdown, MenuItem } from 'react-bootstrap';
 import TutorRouter from '../../helpers/router';
@@ -32,7 +33,7 @@ const RoutedMenuItem = (props) => {
 };
 
 function BrowseBookMenuItem({ params: { courseId }, className, active, label, ...props }) {
-  const course = Courses.get(courseId)
+  const course = Courses.get(courseId);
   return (
     <MenuItem
       {...props}
@@ -50,18 +51,19 @@ const CustomComponents = {
   browseBook: BrowseBookMenuItem,
 };
 
+export default
 @observer
-export default class ActionsMenu extends React.Component {
+class ActionsMenu extends React.Component {
 
   static defaultProps = { windowImpl: window }
 
   static propTypes = {
-    courseId: React.PropTypes.string,
-    windowImpl: React.PropTypes.object,
+    courseId: PropTypes.string,
+    windowImpl: PropTypes.object,
   }
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   @autobind
@@ -104,12 +106,12 @@ export default class ActionsMenu extends React.Component {
       const separator = (suffix = 'divider') =>
         <MenuItem divider={true} key={`${key}-${suffix}`} />;
       switch (options.separator) {
-        case 'after':
-          return [item, separator()];
-        case 'before':
-          return [separator(), item];
-        case 'both':
-          return [separator('before'), item, separator('after')];
+      case 'after':
+        return [item, separator()];
+      case 'before':
+        return [separator(), item];
+      case 'both':
+        return [separator('before'), item, separator('after')];
       }
     }
     return item;
@@ -143,4 +145,4 @@ export default class ActionsMenu extends React.Component {
     );
   }
 
-}
+};

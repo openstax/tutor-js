@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { isEmpty, compact, map, pick } from 'lodash';
 import classnames from 'classnames';
@@ -12,9 +13,9 @@ import QuestionModel from '../../model/exercise/question';
 class QuestionHtml extends React.Component {
 
   static propTypes = {
-    html: React.PropTypes.string,
-    type: React.PropTypes.string,
-    questionNumber: React.PropTypes.number,
+    html: PropTypes.string,
+    type: PropTypes.string,
+    questionNumber: PropTypes.number,
   };
 
   static defaultProps = {
@@ -23,7 +24,7 @@ class QuestionHtml extends React.Component {
   };
 
   static contextTypes = {
-    processHtmlAndMath: React.PropTypes.func,
+    processHtmlAndMath: PropTypes.func,
   };
 
   render() {
@@ -45,20 +46,21 @@ class QuestionHtml extends React.Component {
 }
 
 
+export default
 @observer
-export default class Question extends React.Component {
+class Question extends React.Component {
 
   static propTypes = {
-    question: React.PropTypes.instanceOf(QuestionModel).isRequired,
-    task: React.PropTypes.object,
-    correct_answer_id: React.PropTypes.string,
-    hideAnswers: React.PropTypes.bool,
-    exercise_uid: React.PropTypes.string,
-    displayFormats:  React.PropTypes.bool,
+    question: PropTypes.instanceOf(QuestionModel).isRequired,
+    task: PropTypes.object,
+    correct_answer_id: PropTypes.string,
+    hideAnswers: PropTypes.bool,
+    exercise_uid: PropTypes.string,
+    displayFormats:  PropTypes.bool,
   };
 
   static childContextTypes = {
-    processHtmlAndMath: React.PropTypes.func,
+    processHtmlAndMath: PropTypes.func,
   };
 
   getChildContext() {
@@ -136,4 +138,4 @@ export default class Question extends React.Component {
       </div>
     );
   }
-}
+};

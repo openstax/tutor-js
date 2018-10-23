@@ -6,8 +6,9 @@ import Course from '../../models/course';
 import User from '../../models/user';
 import CourseInformation from '../../models/course/information';
 
+export default
 @observer
-export default class SupportDocumentLink extends React.Component {
+class SupportDocumentLink extends React.Component {
 
   render() {
     const url = CourseInformation.gettingStartedGuide[
@@ -27,4 +28,4 @@ export default class SupportDocumentLink extends React.Component {
     );
   }
 
-}
+};

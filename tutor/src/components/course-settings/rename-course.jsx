@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
@@ -10,11 +11,12 @@ import { TutorInput } from '../tutor-input';
 import Icon from '../icon';
 
 
+export default
 @observer
-export default class RenameCourse extends React.PureComponent {
+class RenameCourse extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
   }
 
   @observable showModal = false;
@@ -88,4 +90,4 @@ export default class RenameCourse extends React.PureComponent {
     );
   }
 
-}
+};

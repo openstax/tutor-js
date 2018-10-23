@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { observer } from 'mobx-react';
@@ -12,19 +13,20 @@ import ScrollTo from '../../helpers/scroll-to';
 import { idType } from 'shared/helpers/react';
 import NoStats from './no-stats';
 
+export default
 @observer
-export default class TaskTeacherReview extends React.Component {
+class TaskTeacherReview extends React.Component {
   static propTypes = {
-    id: React.PropTypes.string,
-    params: React.PropTypes.shape({
-      id: React.PropTypes.string,
+    id: PropTypes.string,
+    params: PropTypes.shape({
+      id: PropTypes.string,
       courseId: idType,
     }).isRequired,
-    windowImpl: React.PropTypes.object,
+    windowImpl: PropTypes.object,
   };
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   };
 
   @computed get course() {
@@ -117,4 +119,4 @@ export default class TaskTeacherReview extends React.Component {
       </PinnedHeaderFooterCard>
     );
   }
-}
+};

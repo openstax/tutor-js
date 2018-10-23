@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
@@ -13,11 +14,11 @@ class Input extends React.Component {
   static defaultProps = { inputType: 'text' };
 
   static propTypes = {
-    tag:           React.PropTypes.instanceOf(TagModel).isRequired,
-    type:          React.PropTypes.string.isRequired,
-    exercise:      React.PropTypes.instanceOf(Exercise).isRequired,
-    cleanInput:    React.PropTypes.func.isRequired,
-    validateInput: React.PropTypes.func.isRequired,
+    tag:           PropTypes.instanceOf(TagModel).isRequired,
+    type:          PropTypes.string.isRequired,
+    exercise:      PropTypes.instanceOf(Exercise).isRequired,
+    cleanInput:    PropTypes.func.isRequired,
+    validateInput: PropTypes.func.isRequired,
   };
 
   @observable errorMsg = '';
@@ -66,11 +67,11 @@ class Input extends React.Component {
 @observer
 class MultiInput extends React.Component {
   static propTypes = {
-    exercise:      React.PropTypes.instanceOf(Exercise).isRequired,
-    label:         React.PropTypes.string.isRequired,
-    type:          React.PropTypes.string.isRequired,
-    cleanInput:    React.PropTypes.func.isRequired,
-    validateInput: React.PropTypes.func.isRequired,
+    exercise:      PropTypes.instanceOf(Exercise).isRequired,
+    label:         PropTypes.string.isRequired,
+    type:          PropTypes.string.isRequired,
+    cleanInput:    PropTypes.func.isRequired,
+    validateInput: PropTypes.func.isRequired,
   };
 
   @action.bound add() {

@@ -4,8 +4,9 @@ import NewTabLink from '../../components/new-tab-link';
 import Icon from '../../components/icon';
 import SupportEmailLink from '../../components/support-email-link';
 
+export default
 @observer
-export default class Bio2eUnavailable extends React.Component {
+class Bio2eUnavailable extends React.Component {
 
   static title = 'Biology 2e will be available July 20, 2018';
 
@@ -31,8 +32,8 @@ export default class Bio2eUnavailable extends React.Component {
         <p>
           You can create a new Biology 2e course in OpenStax Tutor Beta starting July 20. Until then, view
           the <NewTabLink
-                href="https://openstax.org/details/books/biology-2e"
-              >Biology 2e textbook</NewTabLink>.
+            href="https://openstax.org/details/books/biology-2e"
+          >Biology 2e textbook</NewTabLink>.
         </p>
 
         <p>
@@ -42,4 +43,4 @@ export default class Bio2eUnavailable extends React.Component {
       </div>
     );
   }
-}
+};

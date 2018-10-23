@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
@@ -13,18 +14,19 @@ import SelectionsTooltip from './selections-tooltip';
 
 import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
 
+export default
 @observer
-export default class ExerciseControls extends React.Component {
+class ExerciseControls extends React.Component {
   static propTypes = {
-    planId:              React.PropTypes.string.isRequired,
-    onCancel:            React.PropTypes.func,
-    canAdd:              React.PropTypes.bool,
-    canEdit:             React.PropTypes.bool,
-    canReview:           React.PropTypes.bool,
-    addClicked:          React.PropTypes.func,
-    reviewClicked:       React.PropTypes.func,
-    sectionizerProps:    React.PropTypes.object,
-    hideDisplayControls: React.PropTypes.bool,
+    planId:              PropTypes.string.isRequired,
+    onCancel:            PropTypes.func,
+    canAdd:              PropTypes.bool,
+    canEdit:             PropTypes.bool,
+    canReview:           PropTypes.bool,
+    addClicked:          PropTypes.func,
+    reviewClicked:       PropTypes.func,
+    sectionizerProps:    PropTypes.object,
+    hideDisplayControls: PropTypes.bool,
   };
 
 
@@ -180,4 +182,4 @@ export default class ExerciseControls extends React.Component {
       </div>
     );
   }
-}
+};

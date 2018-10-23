@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { get } from 'lodash';
@@ -14,11 +15,12 @@ to your course. You will not lose any of the work you have completed
 during the free trial.
 `;
 
+export default
 @observer
-export default class StudentPayNowBtn extends React.PureComponent {
+class StudentPayNowBtn extends React.Component {
 
   static propTypes = {
-    courseId: React.PropTypes.string,
+    courseId: PropTypes.string,
   }
 
   @observable isShowingModal = false;
@@ -79,4 +81,4 @@ export default class StudentPayNowBtn extends React.PureComponent {
       </span>
     );
   }
-}
+};

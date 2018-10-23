@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observable, observe } from 'mobx';
 import { Provider, observer, inject } from 'mobx-react';
@@ -7,14 +8,16 @@ import TourContext from '../../models/tour/context';
 import User from '../../models/user';
 import { SpyModeContext, SpyModeContent } from 'shared/components/spy-mode';
 
-@inject("spyMode") @observer
-export default class TourConductor extends React.PureComponent {
+export default
+@inject('spyMode')
+@observer
+class TourConductor extends React.Component {
 
   @observable tourContext;
 
   static propTypes = {
-    children: React.PropTypes.node.isRequired,
-    spyMode: React.PropTypes.instanceOf(SpyModeContext).isRequired,
+    children: PropTypes.node.isRequired,
+    spyMode: PropTypes.instanceOf(SpyModeContext).isRequired,
   }
 
   constructor(props) {
@@ -63,4 +66,4 @@ export default class TourConductor extends React.PureComponent {
   }
 
 
-}
+};

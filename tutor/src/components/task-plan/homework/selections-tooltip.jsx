@@ -1,7 +1,7 @@
 import React from 'react';
 import { OverlayTrigger, Button, Popover } from 'react-bootstrap';
 
-export default class SelectionsTooltip extends React.PureComponent {
+export default class SelectionsTooltip extends React.Component {
 
   render() {
     return (

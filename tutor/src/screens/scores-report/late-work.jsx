@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Popover, Overlay, Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
@@ -132,12 +133,12 @@ class ReadingContent extends LateWorkMessages {
   }
 }
 
-export class LateWorkPopover extends React.PureComponent {
+export class LateWorkPopover extends React.Component {
 
   static propTypes = {
-    columnIndex: React.PropTypes.number.isRequired,
-    hide: React.PropTypes.func.isRequired,
-    task: React.PropTypes.instanceOf(TaskResult).isRequired,
+    columnIndex: PropTypes.number.isRequired,
+    hide: PropTypes.func.isRequired,
+    task: PropTypes.instanceOf(TaskResult).isRequired,
   }
 
   @computed get content() {
@@ -189,14 +190,15 @@ export class LateWorkPopover extends React.PureComponent {
 }
 
 
+export
 @observer
-export class LateWork extends React.PureComponent {
+ class LateWork extends React.Component {
 
   static propTypes = {
-    onMouseOver:  React.PropTypes.func.isRequired,
-    onMouseLeave: React.PropTypes.func.isRequired,
-    columnIndex: React.PropTypes.number.isRequired,
-    task: React.PropTypes.instanceOf(TaskResult).isRequired,
+    onMouseOver:  PropTypes.func.isRequired,
+    onMouseLeave: PropTypes.func.isRequired,
+    columnIndex: PropTypes.number.isRequired,
+    task: PropTypes.instanceOf(TaskResult).isRequired,
   }
 
   @observable isShown = false;

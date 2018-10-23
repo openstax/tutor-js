@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
@@ -8,23 +9,24 @@ import Course from '../../models/course';
 import TourAnchor from '../../components/tours/anchor';
 import ScrollTo from '../../helpers/scroll-to';
 
+export default
 @observer
-export default class ExerciseControls extends React.Component {
+class ExerciseControls extends React.Component {
   static propTypes = {
-    course:      React.PropTypes.instanceOf(Course).isRequired,
+    course:      PropTypes.instanceOf(Course).isRequired,
 
-    exercises: React.PropTypes.shape({
-      all: React.PropTypes.object,
-      homework: React.PropTypes.object,
-      reading: React.PropTypes.object,
+    exercises: PropTypes.shape({
+      all: PropTypes.object,
+      homework: PropTypes.object,
+      reading: PropTypes.object,
     }).isRequired,
 
-    selectedExercises: React.PropTypes.array,
-    filter: React.PropTypes.string,
-    onFilterChange: React.PropTypes.func.isRequired,
-    sectionizerProps:  React.PropTypes.object,
-    onShowDetailsViewClick: React.PropTypes.func.isRequired,
-    onShowCardViewClick: React.PropTypes.func.isRequired,
+    selectedExercises: PropTypes.array,
+    filter: PropTypes.string,
+    onFilterChange: PropTypes.func.isRequired,
+    sectionizerProps:  PropTypes.object,
+    onShowDetailsViewClick: PropTypes.func.isRequired,
+    onShowCardViewClick: PropTypes.func.isRequired,
   };
 
   static defaultProps = { sectionizerProps: {} };
@@ -87,4 +89,4 @@ export default class ExerciseControls extends React.Component {
       </div>
     );
   }
-}
+};

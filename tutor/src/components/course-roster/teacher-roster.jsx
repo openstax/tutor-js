@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Table } from 'react-bootstrap';
 import { map } from 'lodash';
@@ -7,11 +8,12 @@ import RemoveTeacherLink from './remove-teacher';
 import AddTeacherLink from './add-teacher-link';
 import Course from '../../models/course';
 
+export default
 @observer
-export default class TeacherRoster extends React.PureComponent {
+class TeacherRoster extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
   }
 
   @autobind renderRow(teacher) {
@@ -70,4 +72,4 @@ export default class TeacherRoster extends React.PureComponent {
       </div>
     );
   }
-}
+};

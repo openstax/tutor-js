@@ -1,20 +1,22 @@
+import MobxPropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { action, observable } from 'mobx';
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { observer } from 'mobx-react';
 import Router from '../../helpers/router';
 
 import { OnboardingNag, Heading, Body, Footer } from './nag-components';
 
 export { OnboardingNag, Heading, Body, Footer };
 
+export
 @observer
-export class GotItOnboardingNag extends React.PureComponent {
+ class GotItOnboardingNag extends React.Component {
   static propTypes = {
     ux: MobxPropTypes.observableObject.isRequired,
   }
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: MobxPropTypes.object,
   }
 
   @observable noProblemo = false;

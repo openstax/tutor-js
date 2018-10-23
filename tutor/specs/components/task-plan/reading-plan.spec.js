@@ -10,7 +10,7 @@ import TimeHelper from '../../../src/helpers/time';
 
 import { ReadingPlan } from '../../../src/components/task-plan/reading';
 import Factory from '../../factories';
-(((({ Testing, sinon, _, React } = require('../helpers/component-testing')))));
+((((((({ Testing, sinon, _, React } = require('../helpers/component-testing'))))))));
 import { ExtendBasePlan, PlanRenderHelper } from '../helpers/task-plan';
 
 const yesterday = moment(TimeStore.getNow()).subtract(1, 'day').format(TimeHelper.ISO_DATE_FORMAT);

@@ -8,7 +8,7 @@ import CourseBranding from '../branding/course';
 import Courses from '../../models/courses-map';
 import StudentPreviewUX from '../../models/course/student-preview-ux';
 
-function PreviewVideo({ux, type}) {
+function PreviewVideo({ ux, type }) {
   const studentPreviewVideoId = ux.studentPreviewVideoId(type);
   if (!studentPreviewVideoId) { return null; }
   return (
@@ -25,7 +25,7 @@ export default function StudentPreview() {
   const ux = new StudentPreviewUX(Courses.get(courseId));
 
   const backLink = courseId ? { to: 'dashboard', text: 'Back to Dashboard', params: { courseId } } :
-                   { to: 'myCourses', text: 'Back to My Courses' };
+    { to: 'myCourses', text: 'Back to My Courses' };
 
   return (
     <Grid className="student-preview">

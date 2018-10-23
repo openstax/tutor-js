@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { action, observable } from 'mobx';
@@ -18,16 +19,16 @@ import NotificationHelpers from '../../helpers/notifications';
 import TourRegion from '../../components/tours/region';
 import Surveys from './surveys';
 
-export default class StudentDashboard extends React.PureComponent {
+export default class StudentDashboard extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
-    params: React.PropTypes.object.isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
+    params: PropTypes.object.isRequired,
   }
 
   // router context is needed for Navbar helpers
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   @observable tabIndex = 0;

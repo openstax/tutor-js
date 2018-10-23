@@ -1,5 +1,7 @@
 import { React, mobxPropTypes, observer, action, computed } from '../../helpers/react';
 
+import PropTypes from 'prop-types';
+
 import { Button } from 'react-bootstrap';
 import { Listing, Choice } from '../../components/choices-listing';
 import { find } from 'lodash';
@@ -7,8 +9,9 @@ import NewTabLink from '../../components/new-tab-link';
 import BuilderUX from './ux';
 import Icon from '../../components/icon';
 
+export default
 @observer
-export default class Biology1eUnavailable extends React.Component {
+class Biology1eUnavailable extends React.Component {
 
   static title = (
     <div className="heading">
@@ -38,16 +41,16 @@ export default class Biology1eUnavailable extends React.Component {
   ));
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   static propTypes = {
-    ux: React.PropTypes.instanceOf(BuilderUX).isRequired,
+    ux: PropTypes.instanceOf(BuilderUX).isRequired,
   }
 
   @computed get bio2eOffering() {
     return find(this.props.ux.validOfferings,
-      { is_available: true, appearance_code: 'biology_2e'},
+      { is_available: true, appearance_code: 'biology_2e' },
     );
   }
 
@@ -70,18 +73,18 @@ export default class Biology1eUnavailable extends React.Component {
         </p>
 
         {bio2eOffering && (
-           <Listing>
-             <Choice
-               data-appearance={bio2eOffering.appearance_code}
-               active={bio2eOffering === ux.alternateOffering}
-               onClick={this.onSelect}
-             >
-               {bio2eOffering.title}
-             </Choice>
-           </Listing>
+          <Listing>
+            <Choice
+              data-appearance={bio2eOffering.appearance_code}
+              active={bio2eOffering === ux.alternateOffering}
+              onClick={this.onSelect}
+            >
+              {bio2eOffering.title}
+            </Choice>
+          </Listing>
         )}
 
       </div>
     );
   }
-}
+};

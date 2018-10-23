@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { partial } from 'lodash';
 import { observer } from 'mobx-react';
@@ -7,16 +8,17 @@ import cn from 'classnames';
 //import _ from 'underscore';
 //import { AnswerActions, AnswerStore } from 'stores/answer';
 
+export default
 @observer
-export default class Answer extends React.Component {
+class Answer extends React.Component {
 
   static propTypes = {
-    answer: React.PropTypes.instanceOf(AnswerModel).isRequired,
-    canMoveUp: React.PropTypes.bool.isRequired,
-    canMoveDown: React.PropTypes.bool.isRequired,
-    moveAnswer: React.PropTypes.func.isRequired,
-    removeAnswer: React.PropTypes.func.isRequired,
-    changeCorrect: React.PropTypes.func.isRequired,
+    answer: PropTypes.instanceOf(AnswerModel).isRequired,
+    canMoveUp: PropTypes.bool.isRequired,
+    canMoveDown: PropTypes.bool.isRequired,
+    moveAnswer: PropTypes.func.isRequired,
+    removeAnswer: PropTypes.func.isRequired,
+    changeCorrect: PropTypes.func.isRequired,
   };
 
   state = {};
@@ -80,4 +82,4 @@ export default class Answer extends React.Component {
       </li>
     );
   }
-}
+};

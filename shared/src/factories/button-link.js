@@ -2,9 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { concat } from 'lodash';
 import { Button } from 'react-bootstrap';
-import { filterProps } from '../helpers/react';
-
-const filterPropsBase = filterProps;
+import { filterProps as reactFilterProps } from '../helpers/react';
 
 const BUTTON_LINK_PROPS = [
   'alt',
@@ -20,10 +18,10 @@ const BUTTON_LINK_PREFIXES = [
   'bs',
 ];
 
-filterProps = function(props, options = {}) {
+const filterProps = function(props, options = {}) {
   options.props = concat(BUTTON_LINK_PROPS, options.props || []);
   options.prefixes = concat(BUTTON_LINK_PREFIXES, options.prefixes || []);
-  return filterPropsBase(props, options);
+  return reactFilterProps(props, options);
 };
 
 const make = function(router, name = 'OpenStax') {
@@ -45,7 +43,7 @@ const make = function(router, name = 'OpenStax') {
     }
 
     makeFullPathname = (props) => {
-      if (props == null) { ((((((({ props } = this))))))); }
+      if (props == null) { (((((((((({ props } = this)))))))))); }
       const { to, params, query } = props;
       return router.makePathname(to, params, { query });
     };

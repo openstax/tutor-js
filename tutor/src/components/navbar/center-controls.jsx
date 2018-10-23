@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { action } from 'mobx';
 import { observer } from 'mobx-react';
@@ -14,13 +15,14 @@ import TutorLink from '../link';
 
 const VALID_ROUTE_NAMES = ['viewTaskStepMilestones', 'viewTaskStep', 'viewTask'];
 
+export default
 @observer
-export default class CenterControls extends React.Component {
+class CenterControls extends React.Component {
 
   static propTypes = {
-    shouldShow: React.PropTypes.bool,
-    params:     React.PropTypes.object,
-    pathname:   React.PropTypes.string,
+    shouldShow: PropTypes.bool,
+    params:     PropTypes.object,
+    pathname:   PropTypes.string,
   }
 
   static defaultProps = {
@@ -37,7 +39,7 @@ export default class CenterControls extends React.Component {
   }
 
   getParams(params) {
-    if (params == null) { ({ params } = this.props); }
+    if (params == null) { ((((({ params } = this.props))))); }
 
     params = cloneDeep(params) || {};
     if (params.stepIndex == null) {
@@ -194,4 +196,4 @@ export default class CenterControls extends React.Component {
       </div>
     );
   }
-}
+};

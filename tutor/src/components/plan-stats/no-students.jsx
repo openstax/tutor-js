@@ -2,7 +2,7 @@ import React from 'react';
 import CourseGroupingLabel from '../course-grouping-label';
 import TutorLink from '../link';
 
-const NoStudents = ({courseId}) =>
+const NoStudents = ({ courseId }) =>
   <div className="no-students">
     <p>
       No students enrolled. This assignment will automatically be given to students in

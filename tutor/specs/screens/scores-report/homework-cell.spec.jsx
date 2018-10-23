@@ -12,7 +12,7 @@ describe('Student Scores Homework Cell', function() {
   let ux;
 
   beforeEach(() => {
-    ({ course, scores } = bootstrapScores());
+    (((({ course, scores } = bootstrapScores()))));
     ux = new ScoresUX(course);
     task = scores.getTask(18);
     props = {
@@ -65,7 +65,7 @@ describe('Student Scores Homework Cell', function() {
     expect(props.task.isStarted).toBe(false);
     const cell = mount(<Cell {...props} />, EnzymeContext.build());
     expect(cell).toHaveRendered('.pie-progress.due');
-    expect(cell.text()).toEqual(`50%`);
+    expect(cell.text()).toEqual('50%');
     expect(cell).not.toHaveRendered('.late-caret-trigger');
   });
 

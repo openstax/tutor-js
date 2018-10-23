@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { action, computed } from 'mobx';
@@ -12,13 +13,14 @@ import TeacherTaskPlan from '../../models/task-plan/teacher';
 
 const DUE_FORMAT = 'M/D/YYYY [at] h:mma';
 
+export default
 @observer
-export default class LmsInfoPanel extends React.PureComponent {
+class LmsInfoPanel extends React.Component {
 
   static propTypes = {
-    courseId: React.PropTypes.string.isRequired,
-    plan: React.PropTypes.instanceOf(TeacherTaskPlan).isRequired,
-    onBack: React.PropTypes.func.isRequired,
+    courseId: PropTypes.string.isRequired,
+    plan: PropTypes.instanceOf(TeacherTaskPlan).isRequired,
+    onBack: PropTypes.func.isRequired,
   }
 
   @action.bound
@@ -125,4 +127,4 @@ export default class LmsInfoPanel extends React.PureComponent {
       </div>
     );
   }
-}
+};

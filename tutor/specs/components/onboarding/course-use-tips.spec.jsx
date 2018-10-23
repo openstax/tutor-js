@@ -1,7 +1,7 @@
 import { Wrapper, SnapShot } from '../helpers/component-testing';
 import EnzymeContext from '../helpers/enzyme-context';
 import Course from '../../../src/models/course';
-import CourseUseTips from '../../../src/components/onboarding/course-use-tips'
+import CourseUseTips from '../../../src/components/onboarding/course-use-tips';
 
 import { observable } from 'mobx';
 

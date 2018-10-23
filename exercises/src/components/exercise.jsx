@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { withRouter } from 'react-router';
 import { observer } from 'mobx-react';
@@ -12,16 +13,17 @@ import Controls from './exercise/controls';
 import { idType } from 'shared';
 import { Loading, NotFound } from './exercise-state';
 
+export default
 @observer
-export default class Exercise extends React.Component {
+class Exercise extends React.Component {
 
   static propTypes = {
-    match: React.PropTypes.shape({
-      params: React.PropTypes.shape({
+    match: PropTypes.shape({
+      params: PropTypes.shape({
         uid: idType,
       }),
     }),
-    exercises: React.PropTypes.instanceOf(ExercisesMap),
+    exercises: PropTypes.instanceOf(ExercisesMap),
   };
 
   static defaultProps = {
@@ -158,4 +160,4 @@ export default class Exercise extends React.Component {
       </div>
     );
   }
-}
+};

@@ -1,4 +1,4 @@
-import {React, SnapShot} from './helpers/component-testing';
+import { React, SnapShot } from './helpers/component-testing';
 import WarningModal from '../../src/components/warning-modal';
 
 describe('warning modal', () => {

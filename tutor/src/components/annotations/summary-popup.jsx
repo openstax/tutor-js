@@ -1,24 +1,27 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import {observer} from 'mobx-react';
+import { observer } from 'mobx-react';
 import { isEmpty, map } from 'lodash';
-import {action, observable, computed} from 'mobx';
-import {Button} from 'react-bootstrap';
+import { action, observable, computed } from 'mobx';
+import { Button } from 'react-bootstrap';
 import Icon from '../icon';
 import Courses from '../../models/courses-map';
 import PopoutWindow from 'shared/components/popout-window';
 import { ArbitraryHtmlAndMath } from 'shared';
 import Analytics from '../../helpers/analytics';
 
+export default
 @observer
-export default class SummaryPopup extends React.Component {
+class SummaryPopup extends React.Component {
 
   static propTypes = {
-    windowImpl: React.PropTypes.shape({
-      open: React.PropTypes.func,
+    windowImpl: PropTypes.shape({
+      open: PropTypes.func,
     }),
-    courseId: React.PropTypes.string.isRequired,
-    annotations: React.PropTypes.object.isRequired
-  }
+
+    courseId: PropTypes.string.isRequired,
+    annotations: PropTypes.object.isRequired,
+  };
 
   @observable isOpen = false;
 
@@ -80,7 +83,7 @@ export default class SummaryPopup extends React.Component {
                       style={{
                         marginBottom: '2rem',
                       }}
-                      >
+                    >
                       <blockquote
                         style={{
                           fontStyle: 'italic',
@@ -109,4 +112,4 @@ export default class SummaryPopup extends React.Component {
       </div>
     );
   }
-}
+};

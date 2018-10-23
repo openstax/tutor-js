@@ -1,16 +1,18 @@
 import { React, action, observer } from '../../helpers/react';
 import { isEmpty } from 'lodash';
+import PropTypes from 'prop-types';
 import { Alert, Form, FormControl, FormGroup, InputGroup, ControlLabel } from 'react-bootstrap';
 import UserMenu from '../../models/user/menu';
 import BuilderUX from './ux';
 import BestPracticesIcon from '../../components/icons/best-practices';
 
+export default
 @observer
-export default class CourseNumbers extends React.PureComponent {
+class CourseNumbers extends React.Component {
 
   static title = 'Estimate your course size';
   static propTypes = {
-    ux: React.PropTypes.instanceOf(BuilderUX).isRequired,
+    ux: PropTypes.instanceOf(BuilderUX).isRequired,
   }
 
   @action.bound
@@ -85,4 +87,4 @@ export default class CourseNumbers extends React.PureComponent {
       </Form>
     );
   }
-}
+};

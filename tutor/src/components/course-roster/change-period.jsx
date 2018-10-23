@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { computed, action } from 'mobx';
@@ -11,12 +12,13 @@ import Student from '../../models/course/student';
 import Period from '../../models/course/period';
 import { autobind } from 'core-decorators';
 
+export default
 @observer
-export default class ChangePeriodLink extends React.PureComponent {
+class ChangePeriodLink extends React.Component {
 
   static propTypes = {
-    period: React.PropTypes.instanceOf(Period).isRequired,
-    student: React.PropTypes.instanceOf(Student).isRequired,
+    period: PropTypes.instanceOf(Period).isRequired,
+    student: PropTypes.instanceOf(Student).isRequired,
   }
 
   @action.bound
@@ -82,4 +84,4 @@ export default class ChangePeriodLink extends React.PureComponent {
       </OverlayTrigger>
     );
   }
-}
+};

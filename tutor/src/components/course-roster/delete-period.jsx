@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
@@ -48,12 +49,13 @@ const DeletePeriodModal = ({ section, show, onClose, period, isBusy, onDelete })
   </Modal>
 );
 
+export default
 @observer
-export default class DeletePeriodLink extends React.PureComponent {
+class DeletePeriodLink extends React.Component {
 
   static propTypes = {
-    period: React.PropTypes.instanceOf(Period).isRequired,
-    onDelete: React.PropTypes.func.isRequired,
+    period: PropTypes.instanceOf(Period).isRequired,
+    onDelete: PropTypes.func.isRequired,
   }
 
   @observable showModal = false;
@@ -90,4 +92,4 @@ export default class DeletePeriodLink extends React.PureComponent {
       </Button>
     );
   }
-}
+};

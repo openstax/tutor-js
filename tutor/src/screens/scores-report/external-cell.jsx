@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import TutorLink from '../../components/link';
 import LateIcon from '../../components/late-icon';
@@ -9,15 +10,15 @@ const STATUS = {
   'not_started': '---',
 };
 
-export default class ExternalCell extends React.PureComponent {
+export default class ExternalCell extends React.Component {
 
   static propTypes = {
-    ux: React.PropTypes.instanceOf(UX).isRequired,
-    className: React.PropTypes.string,
-    task: React.PropTypes.shape({
-      id: React.PropTypes.number,
-      type: React.PropTypes.string,
-      status: React.PropTypes.string,
+    ux: PropTypes.instanceOf(UX).isRequired,
+    className: PropTypes.string,
+    task: PropTypes.shape({
+      id: PropTypes.number,
+      type: PropTypes.string,
+      status: PropTypes.string,
     }).isRequired,
   }
 

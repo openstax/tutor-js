@@ -14,7 +14,7 @@ describe('Student Scores Report Reading Cell', function() {
   let ux;
 
   beforeEach(function() {
-    ({ course, scores } = bootstrapScores());
+    (((({ course, scores } = bootstrapScores()))));
     ux = new ScoresUX(course);
     task = scores.getTask(8);
     props = {

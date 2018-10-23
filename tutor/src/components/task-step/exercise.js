@@ -55,7 +55,7 @@ export default createReactClass({
   },
 
   getPartsInfo(props) {
-    if (props == null) { ((((((({ props } = this))))))); }
+    if (props == null) { (((((((((({ props } = this)))))))))); }
 
     const { id, taskId, courseId, onNextStep } = props;
     let parts = TaskStore.getStepParts(taskId, id);
@@ -74,7 +74,7 @@ export default createReactClass({
   },
 
   getTaskInfo(props) {
-    if (props == null) { ((((((({ props } = this))))))); }
+    if (props == null) { (((((((((({ props } = this)))))))))); }
     const { taskId } = props;
 
     const task = TaskStore.get(taskId);
@@ -107,14 +107,14 @@ export default createReactClass({
   },
 
   stopListeningForProgress(props) {
-    if (props == null) { ((((((({ props } = this))))))); }
+    if (props == null) { (((((((((({ props } = this)))))))))); }
     const { taskId } = props;
 
     return TaskProgressStore.off(`update.${taskId}`, this.setCurrentStepFromProgress);
   },
 
   startListeningForProgress(props) {
-    if (props == null) { ((((((({ props } = this))))))); }
+    if (props == null) { (((((((((({ props } = this)))))))))); }
     const { taskId } = props;
 
     return TaskProgressStore.on(`update.${taskId}`, this.setCurrentStepFromProgress);

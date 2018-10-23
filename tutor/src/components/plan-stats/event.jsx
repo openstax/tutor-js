@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { map } from 'lodash';
 import { Panel } from 'react-bootstrap';
@@ -22,6 +23,6 @@ export default function Event({ plan, course }) {
 }
 
 Event.propTypes = {
-  plan: React.PropTypes.instanceOf(TeacherTaskPlan).isRequired,
-  course: React.PropTypes.instanceOf(Course).isRequired,
+  plan: PropTypes.instanceOf(TeacherTaskPlan).isRequired,
+  course: PropTypes.instanceOf(Course).isRequired,
 };

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { isNil } from 'lodash';
 import { observer } from 'mobx-react';
@@ -33,12 +34,13 @@ const Percent = observer(({ task: { score } }) => {
 });
 
 
+export default
 @observer
-export default class CorrectnessValue extends React.Component {
+class CorrectnessValue extends React.Component {
 
   static propTypes = {
-    ux: React.PropTypes.instanceOf(UX).isRequired,
-    task: React.PropTypes.instanceOf(TaskResult).isRequired,
+    ux: PropTypes.instanceOf(UX).isRequired,
+    task: PropTypes.instanceOf(TaskResult).isRequired,
   }
 
   render() {
@@ -54,4 +56,4 @@ export default class CorrectnessValue extends React.Component {
       return <div className="correct unstarted">---</div>;
     }
   }
-}
+};

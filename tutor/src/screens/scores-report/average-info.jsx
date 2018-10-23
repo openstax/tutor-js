@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 import Icon from '../../components/icon';
@@ -14,10 +15,10 @@ Scores from completed assignments
 `;
 
 
-export default class AverageInfo extends React.PureComponent {
+export default class AverageInfo extends React.Component {
 
   static propTypes = {
-    isConceptCoach: React.PropTypes.bool.isRequired,
+    isConceptCoach: PropTypes.bool.isRequired,
   }
 
   render() {

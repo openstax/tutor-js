@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
@@ -17,10 +18,10 @@ import TourAnchor from '../tours/anchor';
 const TOGGLE_FREE_RESPONSE_LIMIT = 3;
 
 @observer
-class TaskTeacherReviewQuestion extends React.PureComponent {
+class TaskTeacherReviewQuestion extends React.Component {
 
   static propTypes = {
-    question: React.PropTypes.instanceOf(QuestionStats).isRequired,
+    question: PropTypes.instanceOf(QuestionStats).isRequired,
   };
 
   @observable showNamesAndFreeResponse = false;
@@ -134,9 +135,9 @@ export default class TaskTeacherReviewExercise extends React.Component {
   static displayName = 'TaskTeacherReviewExercise';
 
   static propTypes = {
-    exercise: React.PropTypes.instanceOf(Exercise).isRequired,
-    question_stats: React.PropTypes.object,
-    sectionKey: React.PropTypes.string,
+    exercise: PropTypes.instanceOf(Exercise).isRequired,
+    question_stats: PropTypes.object,
+    sectionKey: PropTypes.string,
   };
 
   getQuestionStatsById = (questionId) => {

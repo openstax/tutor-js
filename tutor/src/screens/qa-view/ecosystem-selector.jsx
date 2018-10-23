@@ -2,8 +2,9 @@ import React from 'react';
 import { inject, observer, propTypes as mobxPropTypes } from 'mobx-react';
 import { Dropdown, MenuItem } from 'react-bootstrap';
 
+export default
 @observer
-export default class EcosystemSelector extends React.Component {
+class EcosystemSelector extends React.Component {
 
   static propTypes = {
     ux: mobxPropTypes.observableObject.isRequired,
@@ -40,4 +41,4 @@ export default class EcosystemSelector extends React.Component {
   }
 
 
-}
+};

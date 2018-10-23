@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { extend, pick, isEmpty } from 'lodash';
 import { observable, computed, action, observe } from 'mobx';
@@ -33,19 +34,20 @@ const getDisplayBounds = {
 };
 
 
+export default
 @inject((allStores, props) => ({
   tourContext: ( props.tourContext || allStores.tourContext ),
 }))
 @observer
-export default class TeacherTaskPlanListing extends React.PureComponent {
+class TeacherTaskPlanListing extends React.Component {
 
   static propTypes = {
-    dateFormat: React.PropTypes.string,
-    params: React.PropTypes.shape({
-      courseId: React.PropTypes.string,
-      date: React.PropTypes.string,
+    dateFormat: PropTypes.string,
+    params: PropTypes.shape({
+      courseId: PropTypes.string,
+      date: PropTypes.string,
     }).isRequired,
-    tourContext: React.PropTypes.object,
+    tourContext: PropTypes.object,
   }
 
   static defaultProps = {
@@ -54,7 +56,7 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
 
   // router context is needed for Navbar helpers
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   constructor(props) {
@@ -187,4 +189,4 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
     );
   }
 
-}
+};

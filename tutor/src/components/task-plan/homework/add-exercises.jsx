@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { keys, isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
@@ -18,10 +19,10 @@ import sharedExercises, { ExercisesMap } from '../../../models/exercises';
 @observer
 class AddExercises extends React.Component {
   static propTypes = {
-    course:     React.PropTypes.instanceOf(Course).isRequired,
-    exercises:  React.PropTypes.instanceOf(ExercisesMap),
-    planId:     React.PropTypes.string.isRequired,
-    onAddClick: React.PropTypes.func.isRequired,
+    course:     PropTypes.instanceOf(Course).isRequired,
+    exercises:  PropTypes.instanceOf(ExercisesMap),
+    planId:     PropTypes.string.isRequired,
+    onAddClick: PropTypes.func.isRequired,
     pageIds:    ArrayOrMobxType.isRequired,
   };
 

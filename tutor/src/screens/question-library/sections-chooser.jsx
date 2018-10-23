@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
@@ -12,13 +13,14 @@ import BackButton from '../../components/buttons/back-button';
 import Chooser from '../../components/sections-chooser';
 
 
+export default
 @observer
-export default class QLSectionsChooser extends React.Component {
+class QLSectionsChooser extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
-    exercises: React.PropTypes.instanceOf(ExercisesMap).isRequired,
-    onSelectionsChange: React.PropTypes.func.isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
+    exercises: PropTypes.instanceOf(ExercisesMap).isRequired,
+    onSelectionsChange: PropTypes.func.isRequired,
   };
 
   @observable pageIds = [];
@@ -84,4 +86,4 @@ export default class QLSectionsChooser extends React.Component {
     );
   }
 
-}
+};

@@ -1,5 +1,8 @@
 // coffeelint: disable=no_empty_functions
-import _ from 'underscore';
+import {
+  map, find, filter, each, values, findIndex, isEqual, first, pick,
+  findLastIndex, isEmpty, pluck, uniq, compact,
+} from 'lodash';
 import moment from 'moment';
 import flux from 'flux-react';
 
@@ -11,7 +14,7 @@ import { MediaActions } from './media';
 import { StepTitleActions } from './step-title';
 
 const getSteps = steps =>
-  _.map(steps, ({ id }) => TaskStepStore.get(id))
+  map(steps, ({ id }) => TaskStepStore.get(id))
 ;
 
 const getCurrentStepIndex = function(steps) {
@@ -27,7 +30,7 @@ const getCurrentStepIndex = function(steps) {
 };
 
 const getCurrentStep = steps =>
-  _.find(steps, step =>
+  find(steps, step =>
     // return for first step where step.is_completed = false or
     // step.is_completed is undefined
     !step.is_completed || (step.is_completed == null)
@@ -35,15 +38,15 @@ const getCurrentStep = steps =>
 ;
 
 const getIncompleteSteps = steps =>
-  _.filter(steps, step => (step != null) && !step.is_completed)
+  filter(steps, step => (step != null) && !step.is_completed)
 ;
 
 const getCompleteSteps = steps =>
-  _.filter(steps, step => (step != null) && step.is_completed)
+  filter(steps, step => (step != null) && step.is_completed)
 ;
 
 const getChangedSteps = steps =>
-  _.filter(steps, step => (step != null) && TaskStepStore.isChanged(step.id))
+  filter(steps, step => (step != null) && TaskStepStore.isChanged(step.id))
 ;
 
 // HACK When working locally a step completion triggers a reload but the is_completed field on the TaskStep
@@ -60,7 +63,7 @@ const TaskConfig = {
   _steps: {},
 
   _getStep(taskId, stepId) {
-    const step = _.find(this._steps[taskId], s => s.id === stepId);
+    const step = find(this._steps[taskId], s => s.id === stepId);
     return step;
   },
 
@@ -72,13 +75,13 @@ const TaskConfig = {
     if (step.content == null) { return ''; }
 
     let html = step.content.stimulus_html;
-    const questionHtml = _.pluck(step.content.questions, 'stem_html').join('');
+    const questionHtml = pluck(step.content.questions, 'stem_html').join('');
     return html += questionHtml;
   },
 
   _grabHtml(obj) {
     let htmlToParse;
-    return htmlToParse = _.map(obj.steps, step => {
+    return htmlToParse = map(obj.steps, step => {
       let html;
       if (step.type === 'reading') {
         html = this._grabHtmlFromReading(step);
@@ -119,7 +122,7 @@ const TaskConfig = {
     if (this.exports.hasPlaceholders.call(this, taskId) &&
       !this.exports.hasIncompleteCoreStepsIndexes.call(this, taskId)) {
       const placeholderSteps = this.exports.getPlaceholders.call(this, taskId);
-      return _.forEach(placeholderSteps, step => TaskStepActions._loadPersonalized(step.id));
+      return each(placeholderSteps, step => TaskStepActions._loadPersonalized(step.id));
     }
   },
 
@@ -135,7 +138,7 @@ const TaskConfig = {
       return getSteps(this._steps[id]);
     },
 
-    getAll() { return _.values(this._local); },
+    getAll() { return values(this._local); },
 
     getCurrentStepIndex(taskId) {
       const steps = getSteps(this._steps[taskId]);
@@ -150,7 +153,7 @@ const TaskConfig = {
 
       // replace findIndex with findLastIndex if we should be going to the
       // most recent step of a related reading
-      const relatedStepIndex = _.findIndex(steps, step => (step.type === 'reading') && (_.isEqual(step.chapter_section, _.first(related_content).chapter_section)));
+      const relatedStepIndex = findIndex(steps, step => (step.type === 'reading') && (isEqual(step.chapter_section, first(related_content).chapter_section)));
 
       // should never happen if the taskId was valid
       if (relatedStepIndex <= -1) { throw new Error('BUG: Invalid taskId.  Unable to find index'); }
@@ -164,7 +167,7 @@ const TaskConfig = {
     },
 
     getStepsIds(id) {
-      return _.map(this._steps[id], step => _.pick(step, 'id'));
+      return map(this._steps[id], step => pick(step, 'id'));
     },
 
     getCurrentStep(taskId) {
@@ -187,9 +190,9 @@ const TaskConfig = {
 
     getIncompleteCoreStepsIndexes(taskId) {
       const allSteps = getSteps(this._steps[taskId]);
-      const firstIndex =   _.findIndex(allSteps, step => (step != null) && !step.is_completed && TaskStepStore.isCore(step.id));
+      const firstIndex =   findIndex(allSteps, step => (step != null) && !step.is_completed && TaskStepStore.isCore(step.id));
 
-      const lastIndex = _.findLastIndex(allSteps, step => (step != null) && !step.is_completed && TaskStepStore.isCore(step.id));
+      const lastIndex = findLastIndex(allSteps, step => (step != null) && !step.is_completed && TaskStepStore.isCore(step.id));
 
       const coreSteps = [
         firstIndex,
@@ -208,23 +211,23 @@ const TaskConfig = {
 
     hasIncompleteCoreStepsIndexes(taskId) {
       const allSteps = getSteps(this._steps[taskId]);
-      const steps = _.find(allSteps, step => (step != null) && !step.is_completed && TaskStepStore.isCore(step.id));
+      const steps = find(allSteps, step => (step != null) && !step.is_completed && TaskStepStore.isCore(step.id));
       return (steps != null);
     },
 
     getPlaceholders(taskId) {
       const allSteps = getSteps(this._steps[taskId]);
-      return _.where(allSteps, { type: 'placeholder' });
+      return filter(allSteps, { type: 'placeholder' });
     },
 
     getFirstNonCoreIndex(taskId) {
       let stepIndex;
       const allSteps = getSteps(this._steps[taskId]);
-      return stepIndex = _.findIndex(allSteps, step => (step != null) && !TaskStepStore.isCore(step.id));
+      return stepIndex = findIndex(allSteps, step => (step != null) && !TaskStepStore.isCore(step.id));
     },
 
     hasPlaceholders(taskId) {
-      return !_.isEmpty(this.exports.getPlaceholders.call(this, taskId));
+      return !isEmpty(this.exports.getPlaceholders.call(this, taskId));
     },
 
     isTaskCompleted(taskId) {
@@ -245,22 +248,33 @@ const TaskConfig = {
     },
 
     getRelatedSections(taskId) {
-      return _.chain(getSteps(this._steps[taskId]))
-        .pluck('chapter_section')
-        .compact()
-        .uniq( cs => cs.join('.'))
-        .value();
+      return uniq(
+        compact(
+          pluck(
+            getSteps(this._steps[taskId]), 'chapter_section'
+          )
+        )
+      );
     },
 
     getStepsRelatedContent(taskId) {
-      return _.chain(getSteps(this._steps[taskId]))
-        .filter( step => TaskStepStore.isCore(step.id))
-        .pluck('related_content')
-        .compact()
-        .flatten()
-        .uniq( cs => cs.chapter_section.join('.'))
-        .sortBy( cs => cs.chapter_section.join('.'))
-        .value();
+      return sortBy(
+        uniqBy(
+          flatten(
+            compact(
+              pluck(
+                filter(
+                  getSteps(this._steps[taskId]),
+                  step => TaskStepStore.isCore(step.id)
+                ),
+                'related_content'
+              ),
+            )
+          ),
+          cs => cs.chapter_section.join('.')
+        ),
+        cs => cs.chapter_section.join('.')
+      );
     },
 
     getDetails(taskId) {
@@ -268,14 +282,14 @@ const TaskConfig = {
       let title = '';
       let sections = [];
 
-      (((({ title, type } = this._get(taskId)))));
+      ({ title, type } = this._get(taskId));
       sections = this.exports.getRelatedSections.call(this, taskId);
 
-      if (_.isEmpty(sections) && (type === 'concept_coach')) {
+      if (isEmpty(sections) && (type === 'concept_coach')) {
         const details = this.exports.getStepsRelatedContent.call(this, taskId);
-        if (!_.isEmpty(details)) {
-          sections = _.pluck(details, 'chapter_section');
-          (((({ title } = details[0]))));
+        if (!isEmpty(details)) {
+          sections = pluck(details, 'chapter_section');
+          ({ title } = details[0]);
         }
       }
 
@@ -311,7 +325,7 @@ const TaskConfig = {
     },
 
     getStepIndex(taskId, stepId) {
-      return _.findIndex(this._steps[taskId], { id: stepId });
+      return findIndex(this._steps[taskId], { id: stepId });
     },
 
     getStepLateness(taskId, stepId) {
@@ -338,9 +352,9 @@ const TaskConfig = {
     getStepParts(taskId, stepId) {
       const currentStep = this._getStep(taskId, stepId);
       const { content_url } = currentStep;
-      let parts = _.filter(this._steps[taskId], step => step.is_in_multipart && (step.content_url === content_url));
+      let parts = filter(this._steps[taskId], step => step.is_in_multipart && (step.content_url === content_url));
 
-      if (_.isEmpty(parts)) { parts = [currentStep]; }
+      if (isEmpty(parts)) { parts = [currentStep]; }
 
       return parts = getSteps(parts);
     },
@@ -360,8 +374,8 @@ const TaskConfig = {
     },
 
     isSameStep(taskId, ...stepIds) {
-      const contentUrls = _.chain(stepIds)
-        .map(stepId => {
+      const contentUrls = uniq(
+        map(stepIds, stepId => {
           const step = this._getStep(taskId, stepId);
 
           if ((step != null ? step.is_in_multipart : undefined)) {
@@ -369,10 +383,9 @@ const TaskConfig = {
           } else {
             return null;
           }
-        }).uniq()
-        .value();
-
-      return (contentUrls.length === 1) && (_.first(contentUrls) != null);
+        })
+      );
+      return (contentUrls.length === 1) && (first(contentUrls) != null);
     },
   },
 };

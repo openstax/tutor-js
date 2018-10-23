@@ -33,8 +33,9 @@ const isAnswerChecked = function(answer, chosenAnswer) {
 };
 
 
+export default
 @observer
-export default class Answer extends React.Component {
+class Answer extends React.Component {
 
   static propTypes = {
     answer: PropTypes.instanceOf(AnswerModel).isRequired,
@@ -89,7 +90,7 @@ export default class Answer extends React.Component {
   }
 
   shouldKey = (props) => {
-    if (props == null) { ({ props } = this); }
+    if (props == null) { (((({ props } = this)))); }
     const { keyControl, disabled } = props;
 
     return (
@@ -120,8 +121,8 @@ export default class Answer extends React.Component {
   }; // silence react event return value warning
 
   @action.bound onChange() {
-    this.props.onChangeAnswer(this.props.answer)
-  };
+    this.props.onChangeAnswer(this.props.answer);
+  }
 
   render() {
     let feedback, onChange, radioBox, selectedCount;
@@ -139,26 +140,26 @@ export default class Answer extends React.Component {
     );
 
     if (!hasCorrectAnswer && (type !== 'teacher-review') && (type !== 'teacher-preview')) {
-      ({ onChange } = this);
+      (((({ onChange } = this))));
     }
 
     if (onChange) {
       radioBox = <input
-                   type="radio"
-                   className="answer-input-box"
-                   checked={isChecked}
-                   id={`${qid}-option-${iter}`}
-                   name={`${qid}-options`}
-                   onChange={onChange}
-                   disabled={disabled} />;
+        type="radio"
+        className="answer-input-box"
+        checked={isChecked}
+        id={`${qid}-option-${iter}`}
+        name={`${qid}-options`}
+        onChange={onChange}
+        disabled={disabled} />;
     }
 
     if (type === 'teacher-review') {
       const percent = Math.round((answer.selected_count / answered_count) * 100) || 0;
       selectedCount = <div
-                        className="selected-count"
-                        data-count={`${answer.selected_count}`}
-                        data-percent={`${percent}`} />;
+        className="selected-count"
+        data-count={`${answer.selected_count}`}
+        data-percent={`${percent}`} />;
     }
 
     if (this.props.show_all_feedback && answer.feedback_html) {
@@ -204,4 +205,4 @@ export default class Answer extends React.Component {
       </div>
     );
   }
-}
+};

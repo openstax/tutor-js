@@ -98,8 +98,8 @@ const Task = createReactClass({
   unsavedStateMessages() { return 'The assignment has unsaved changes'; },
 
   _getClasses(props, state) {
-    if (props == null) { (((((((({ props } = this)))))))); }
-    if (state == null) { (((((((({ state } = this)))))))); }
+    if (props == null) { ((((((((((({ props } = this))))))))))); }
+    if (state == null) { ((((((((((({ state } = this))))))))))); }
 
     return { 'prevent-scroll': state.milestonesEntered };
   },
@@ -417,7 +417,7 @@ const Task = createReactClass({
 
   onNextStep(state) {
     let { currentStep } = (state != null);
-    if (currentStep == null) { (((((((({ currentStep } = this.state)))))))); }
+    if (currentStep == null) { ((((((((((({ currentStep } = this.state))))))))))); }
     return this.goToStep(currentStep + 1);
   },
 });

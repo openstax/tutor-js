@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
 import String from '../../helpers/string';
@@ -9,8 +10,8 @@ import Exercise from '../../models/exercises/exercise';
 export default class ExerciseCard extends React.Component {
 
   static propTypes = {
-    ux: React.PropTypes.instanceOf(UX).isRequired,
-    exercise: React.PropTypes.instanceOf(Exercise).isRequired,
+    ux: PropTypes.instanceOf(UX).isRequired,
+    exercise: PropTypes.instanceOf(Exercise).isRequired,
   };
 
   renderHeader() {

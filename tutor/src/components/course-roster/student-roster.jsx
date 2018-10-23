@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { isEmpty, sortBy } from 'lodash';
@@ -11,11 +12,12 @@ import StudentIdField from './student-id-field';
 import Period from '../../models/course/period';
 import LoadingScreen from '../loading-screen';
 
+export default
 @observer
-export default class StudentsRoster extends React.PureComponent {
+class StudentsRoster extends React.Component {
 
   static propTypes = {
-    period: React.PropTypes.instanceOf(Period).isRequired,
+    period: PropTypes.instanceOf(Period).isRequired,
   }
 
   @autobind
@@ -94,4 +96,4 @@ export default class StudentsRoster extends React.PureComponent {
       </Table>
     );
   }
-}
+};

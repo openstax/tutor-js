@@ -8,7 +8,7 @@ import { ArbitraryHtmlAndMath, Question } from 'shared';
 import QuestionModel from 'shared/model/exercise/question';
 
 function ReferenceBookMissingExercise(props) {
-  const {exerciseAPIUrl} = props;
+  const { exerciseAPIUrl } = props;
 
   return (
     <small
@@ -24,7 +24,7 @@ function ReferenceBookMissingExercise(props) {
 ReferenceBookMissingExercise.displayName = 'ReferenceBookMissingExercise';
 
 export function ReferenceBookExercise(props) {
-  const {exerciseAPIUrl} = props;
+  const { exerciseAPIUrl } = props;
   const ex = ReferenceBookExerciseStore.get(exerciseAPIUrl);
 
   let question = get(ex, 'items[0].questions[0]');
@@ -48,14 +48,14 @@ export class ReferenceBookExerciseShell extends React.Component {
   static displayName = 'ReferenceBookExerciseShell';
 
   isLoading = () => {
-    const {exerciseAPIUrl} = this.props;
+    const { exerciseAPIUrl } = this.props;
     return (
       ReferenceBookExerciseStore.isLoading(exerciseAPIUrl) || ReferenceBookExerciseStore.isQueued(exerciseAPIUrl)
     );
   };
 
   load = () => {
-    const {exerciseAPIUrl} = this.props;
+    const { exerciseAPIUrl } = this.props;
     if (!this.isLoading()) { return ReferenceBookExerciseActions.load(exerciseAPIUrl); }
   };
 
@@ -67,7 +67,7 @@ export class ReferenceBookExerciseShell extends React.Component {
   };
 
   render() {
-    const {exerciseAPIUrl} = this.props;
+    const { exerciseAPIUrl } = this.props;
 
     return (
       <LoadableItem
@@ -79,10 +79,10 @@ export class ReferenceBookExerciseShell extends React.Component {
         actions={ReferenceBookExerciseActions}
         renderItem={this.renderExercise}
         renderLoading={function() { return (
-            <span className="loading-exercise">
+          <span className="loading-exercise">
               Loading exercise...
-            </span>
-        )}}
+          </span>
+        );}}
         renderError={function() { return <ReferenceBookMissingExercise />; }}
       />
     );

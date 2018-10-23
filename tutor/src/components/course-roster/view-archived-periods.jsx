@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
@@ -12,11 +13,11 @@ import Course from '../../models/course';
 import Period from '../../models/course/period';
 
 @observer
-class ArchivedPeriodRow extends React.PureComponent {
+class ArchivedPeriodRow extends React.Component {
 
   static propTypes = {
-    period: React.PropTypes.instanceOf(Period).isRequired,
-    onComplete: React.PropTypes.func.isRequired,
+    period: PropTypes.instanceOf(Period).isRequired,
+    onComplete: PropTypes.func.isRequired,
   }
 
 
@@ -53,12 +54,13 @@ class ArchivedPeriodRow extends React.PureComponent {
 }
 
 
+export default
 @observer
-export default class ViewArchivedPeriods extends React.PureComponent {
+class ViewArchivedPeriods extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
-    onComplete: React.PropTypes.func.isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
+    onComplete: PropTypes.func.isRequired,
   }
 
   @observable showModal = false;
@@ -125,4 +127,4 @@ export default class ViewArchivedPeriods extends React.PureComponent {
       </SpyMode.Content>
     );
   }
-}
+};

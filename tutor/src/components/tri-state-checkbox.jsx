@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { keys } from 'lodash';
 import classnames from 'classnames';
@@ -12,8 +13,8 @@ const ICON_TYPES = {
 
 class TriStateCheckbox extends React.Component {
   static propTypes = {
-    type: React.PropTypes.oneOf(keys(ICON_TYPES)).isRequired,
-    onClick: React.PropTypes.func,
+    type: PropTypes.oneOf(keys(ICON_TYPES)).isRequired,
+    onClick: PropTypes.func,
   };
 
   onClick = (ev) => {

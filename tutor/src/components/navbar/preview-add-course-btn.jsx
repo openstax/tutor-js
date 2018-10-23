@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { observer, inject } from 'mobx-react';
@@ -11,19 +12,20 @@ import Courses from '../../models/courses-map.js';
 
 import onboardingForCourse from '../../models/course/onboarding';
 
+export default
 @inject((allStores, props) => ({
   tourContext: ( props.tourContext || allStores.tourContext ),
 }))
 @observer
-export default class PreviewAddCourseBtn extends React.PureComponent {
+class PreviewAddCourseBtn extends React.Component {
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   static propTypes = {
-    courseId: React.PropTypes.string,
-    tourContext: React.PropTypes.instanceOf(TourContext),
+    courseId: PropTypes.string,
+    tourContext: PropTypes.instanceOf(TourContext),
   }
 
   @computed get course() {
@@ -57,4 +59,4 @@ export default class PreviewAddCourseBtn extends React.PureComponent {
       </TourAnchor>
     );
   }
-}
+};

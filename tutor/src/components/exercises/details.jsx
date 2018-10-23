@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { first, partial, findIndex } from 'lodash';
 import { observer } from 'mobx-react';
@@ -16,18 +17,18 @@ class ExerciseDetails extends React.Component {
   static displayName = 'ExerciseDetails';
 
   static propTypes = {
-    book:                  React.PropTypes.instanceOf(Book).isRequired,
-    exercises:             React.PropTypes.instanceOf(ExercisesMap).isRequired,
-    selectedExercise:      React.PropTypes.object.isRequired,
-    onExerciseToggle:      React.PropTypes.func.isRequired,
-    onShowCardViewClick:   React.PropTypes.func.isRequired,
-    getExerciseActions:    React.PropTypes.func.isRequired,
-    getExerciseIsSelected: React.PropTypes.func.isRequired,
-    selectedSection:       React.PropTypes.string,
-    displayFeedback:       React.PropTypes.bool,
-    onSectionChange:       React.PropTypes.func,
-    topScrollOffset:       React.PropTypes.number,
-    windowImpl:            React.PropTypes.object,
+    book:                  PropTypes.instanceOf(Book).isRequired,
+    exercises:             PropTypes.instanceOf(ExercisesMap).isRequired,
+    selectedExercise:      PropTypes.object.isRequired,
+    onExerciseToggle:      PropTypes.func.isRequired,
+    onShowCardViewClick:   PropTypes.func.isRequired,
+    getExerciseActions:    PropTypes.func.isRequired,
+    getExerciseIsSelected: PropTypes.func.isRequired,
+    selectedSection:       PropTypes.string,
+    displayFeedback:       PropTypes.bool,
+    onSectionChange:       PropTypes.func,
+    topScrollOffset:       PropTypes.number,
+    windowImpl:            PropTypes.object,
   };
 
   static defaultProps = {

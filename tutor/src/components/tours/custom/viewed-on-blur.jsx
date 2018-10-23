@@ -1,18 +1,19 @@
+import PropTypes from 'prop-types';
 import React        from 'react';
 import ReactDOM     from 'react-dom';
 import { Tooltip }  from 'react-joyride';
 import { get }      from 'lodash';
 import classnames   from 'classnames';
 
-export default class ViewedOnBlur extends React.PureComponent {
+export default class ViewedOnBlur extends React.Component {
   className = 'viewed-on-blur-tooltip'
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   constructor(props) {
-    super(props)
+    super(props);
 
     this.checkIsBlur = this.checkIsBlur.bind(this);
   }
@@ -47,7 +48,7 @@ export default class ViewedOnBlur extends React.PureComponent {
   }
 
   render () {
-    const className = classnames(this.className,  this.props.className);
+    const className = classnames(this.className, this.props.className);
 
     return (
       <Tooltip

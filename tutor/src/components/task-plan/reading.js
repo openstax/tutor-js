@@ -185,15 +185,15 @@ const ReadingPlan = createReactClass({
     const topics = TaskPlanStore.getTopics(id);
 
     const footer = <PlanFooter
-                     id={id}
-                     courseId={courseId}
-                     onPublish={this.publish}
-                     onSave={this.save}
-                     onCancel={this.cancel}
-                     hasError={hasError}
-                     isVisibleToStudents={this.state.isVisibleToStudents}
-                     getBackToCalendarParams={this.getBackToCalendarParams}
-                     goBackToCalendar={this.goBackToCalendar} />;
+      id={id}
+      courseId={courseId}
+      onPublish={this.publish}
+      onSave={this.save}
+      onCancel={this.cancel}
+      hasError={hasError}
+      isVisibleToStudents={this.state.isVisibleToStudents}
+      getBackToCalendarParams={this.getBackToCalendarParams}
+      goBackToCalendar={this.goBackToCalendar} />;
     const header = this.builderHeader('reading');
 
     const addReadingText = (topics != null ? topics.length : undefined) ? 'Add More Readings' : 'Add Readings';
@@ -201,12 +201,12 @@ const ReadingPlan = createReactClass({
 
     if (this.state.showSectionTopics) {
       selectReadings = <ChooseReadings
-                         hide={this.hideSectionTopics}
-                         cancel={this.cancelSelection}
-                         courseId={courseId}
-                         planId={id}
-                         ecosystemId={ecosystemId}
-                         selected={topics} />;
+        hide={this.hideSectionTopics}
+        cancel={this.cancelSelection}
+        courseId={courseId}
+        planId={id}
+        ecosystemId={ecosystemId}
+        selected={topics} />;
     }
 
     const formClasses = classnames(
@@ -220,10 +220,10 @@ const ReadingPlan = createReactClass({
 
     if (!this.state.isVisibleToStudents) {
       addReadingsButton = <Button
-                            id="reading-select"
-                            className={classnames('-select-sections-btn', { 'invalid': hasError && !(topics != null ? topics.length : undefined) })}
-                            onClick={this.showSectionTopics}
-                            bsStyle="default">
+        id="reading-select"
+        className={classnames('-select-sections-btn', { 'invalid': hasError && !(topics != null ? topics.length : undefined) })}
+        onClick={this.showSectionTopics}
+        bsStyle="default">
         {'+ '}
         {addReadingText}
       </Button>;

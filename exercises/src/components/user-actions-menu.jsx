@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 import { get } from 'lodash';
@@ -5,11 +6,12 @@ import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
 import classnames from 'classnames';
 
+export default
 @observer
-export default class UserActionsMenu extends React.Component {
+class UserActionsMenu extends React.Component {
 
   static propTypes = {
-    user: React.PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
   };
 
   crsfToken = get(document.querySelector('meta[name=csrf-token]'), 'content')
@@ -44,4 +46,4 @@ export default class UserActionsMenu extends React.Component {
       </Nav>
     );
   }
-}
+};

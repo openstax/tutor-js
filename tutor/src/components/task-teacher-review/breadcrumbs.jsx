@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { map } from 'lodash';
 import { idType } from 'shared';
@@ -9,15 +10,16 @@ import BackButton from '../buttons/back-button';
 import { Stats } from '../../models/task-plan/stats';
 import TeacherTaskPlan from '../../models/task-plan/teacher';
 
+export default
 @observer
-export default class Breadcrumbs extends React.PureComponent {
+class Breadcrumbs extends React.Component {
 
   static propTypes = {
-    taskPlan: React.PropTypes.instanceOf(TeacherTaskPlan).isRequired,
-    stats: React.PropTypes.instanceOf(Stats),
+    taskPlan: PropTypes.instanceOf(TeacherTaskPlan).isRequired,
+    stats: PropTypes.instanceOf(Stats),
     courseId: idType.isRequired,
-    currentStep: React.PropTypes.number,
-    scrollToStep: React.PropTypes.func.isRequired,
+    currentStep: PropTypes.number,
+    scrollToStep: PropTypes.func.isRequired,
   };
 
   @action.bound goToStep(key) {
@@ -60,4 +62,4 @@ export default class Breadcrumbs extends React.PureComponent {
     );
   }
 
-}
+};

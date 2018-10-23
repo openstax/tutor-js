@@ -1,17 +1,19 @@
+import MobxPropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { observer } from 'mobx-react';
 import Payments from '../../models/payments';
 import OXFancyLoader from '../ox-fancy-loader';
 import BrowserWarning, { isBrowserExcluded } from '../browser-warning-modal';
 
+export default
 @observer
-export default class PaymentsPanel extends React.PureComponent {
+class PaymentsPanel extends React.Component {
 
   static propTypes = {
     course: MobxPropTypes.observableObject.isRequired,
-    onCancel: React.PropTypes.func.isRequired,
-    onPaymentComplete: React.PropTypes.func.isRequired,
+    onCancel: MobxPropTypes.func.isRequired,
+    onPaymentComplete: MobxPropTypes.func.isRequired,
   }
 
   payments = new Payments({
@@ -56,4 +58,4 @@ export default class PaymentsPanel extends React.PureComponent {
     );
   }
 
-}
+};

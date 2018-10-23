@@ -1,15 +1,17 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Multiselect from '../multi-select';
 import { observer } from 'mobx-react';
 import { action, computed } from 'mobx';
 import { filter, map } from 'lodash';
 
+export default
 @observer
-export default class SectionsFilter extends React.Component {
+class SectionsFilter extends React.Component {
 
   static propTypes = {
-    sections: React.PropTypes.object.isRequired,
-    selected: React.PropTypes.object.isRequired,
+    sections: PropTypes.object.isRequired,
+    selected: PropTypes.object.isRequired,
   };
 
   @action.bound onSelect({ id, selected }) {
@@ -44,4 +46,4 @@ export default class SectionsFilter extends React.Component {
     );
   }
 
-}
+};

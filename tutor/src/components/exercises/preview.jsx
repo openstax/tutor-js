@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { ExercisePreview } from 'shared';
@@ -23,11 +24,11 @@ const ExercisePreviewWrapper = observer((props) => {
 });
 
 ExercisePreviewWrapper.propTypes = {
-  exercise:               React.PropTypes.object.isRequired,
-  onShowDetailsViewClick: React.PropTypes.func.isRequired,
-  onExerciseToggle:       React.PropTypes.func.isRequired,
-  getExerciseIsSelected:  React.PropTypes.func.isRequired,
-  getExerciseActions:     React.PropTypes.func.isRequired,
+  exercise:               PropTypes.object.isRequired,
+  onShowDetailsViewClick: PropTypes.func.isRequired,
+  onExerciseToggle:       PropTypes.func.isRequired,
+  getExerciseIsSelected:  PropTypes.func.isRequired,
+  getExerciseActions:     PropTypes.func.isRequired,
 };
 
 export default ExercisePreviewWrapper;

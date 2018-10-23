@@ -11,4 +11,4 @@ export function chapterSectionToNumber(chapter_section) {
   let position = -1;
   return reduceRight(chapter_section, (memo, num) => memo + (num * Math.pow(100, (position += 1)))
     , 0);
-};
+}

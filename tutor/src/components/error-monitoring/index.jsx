@@ -1,14 +1,16 @@
+import PropTypes from 'prop-types';
 import { React, action, observer } from '../../helpers/react';
 import ErrorHandlers from './handlers';
 import { isReloaded } from '../../helpers/reload';
 import { AppStore } from '../../flux/app';
 import Dialog from '../tutor-dialog';
 
+export default
 @observer
-export default class ServerErrorMonitoring extends React.Component {
+class ServerErrorMonitoring extends React.Component {
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   componentDidMount() {
@@ -33,4 +35,4 @@ export default class ServerErrorMonitoring extends React.Component {
     // We don't actually render anything
     return null;
   }
-}
+};

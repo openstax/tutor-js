@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observable, action, computed } from 'mobx';
 import { observer } from 'mobx-react';
@@ -16,9 +17,9 @@ import PageModel from '../models/reference-book/page';
 @observer
 class Page extends React.Component {
   static propTypes = {
-    page: React.PropTypes.instanceOf(PageModel).isRequired,
-    selections: React.PropTypes.object.isRequired,
-    onChange: React.PropTypes.func.isRequired,
+    page: PropTypes.instanceOf(PageModel).isRequired,
+    selections: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired,
   };
 
   isSelected = () => { return !!this.props.selections[this.props.page.id]; };
@@ -49,10 +50,10 @@ class Page extends React.Component {
 @observer
 class ChapterAccordion extends React.Component {
   static propTypes = {
-    book: React.PropTypes.instanceOf(BookModel).isRequired,
-    chapter: React.PropTypes.instanceOf(ChapterModel).isRequired,
-    onChange: React.PropTypes.func.isRequired,
-    selections: React.PropTypes.object.isRequired,
+    book: PropTypes.instanceOf(BookModel).isRequired,
+    chapter: PropTypes.instanceOf(ChapterModel).isRequired,
+    onChange: PropTypes.func.isRequired,
+    selections: PropTypes.object.isRequired,
   };
 
   @computed get isAnySelected() {
@@ -76,13 +77,13 @@ class ChapterAccordion extends React.Component {
   };
 
   renderHeader = () => {
-    const {chapter } = this.props;
+    const { chapter } = this.props;
     const selected = filter(chapter.children, this.isSectionSelected);
 
     const checkBoxType = selected.length === chapter.children.length ? 'checked'
       : selected.length ? 'partial' : 'unchecked';
 
-    const classNames = classnames('chapter-heading', {'empty-chapter': isEmpty(chapter.children)});
+    const classNames = classnames('chapter-heading', { 'empty-chapter': isEmpty(chapter.children) });
 
     return (
       <div className={classNames} data-chapter-section={chapter.chapter_section.chapter}>
@@ -125,14 +126,15 @@ class ChapterAccordion extends React.Component {
   }
 }
 
+export default
 @observer
-export default class SectionsChooser extends React.Component {
+class SectionsChooser extends React.Component {
 
   static propTypes = {
-    book: React.PropTypes.instanceOf(BookModel).isRequired,
-    onSelectionChange: React.PropTypes.func,
-    selectedPageIds: React.PropTypes.arrayOf(
-      React.PropTypes.string
+    book: PropTypes.instanceOf(BookModel).isRequired,
+    onSelectionChange: PropTypes.func,
+    selectedPageIds: PropTypes.arrayOf(
+      PropTypes.string
     ),
   };
 
@@ -193,4 +195,4 @@ export default class SectionsChooser extends React.Component {
       </div>
     );
   }
-}
+};

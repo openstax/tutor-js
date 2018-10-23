@@ -13,10 +13,10 @@ jest.mock('../../../src/models/user', () => ({
 jest.mock('../../../src/models/course/offerings', () => {
   const mockOffering = {
     id: 1, title: 'Test Offering',
-    validTerms: [ {
+    validTerms: [{
       term: 'spring',
       year: 2018,
-    } ],
+    }],
   };
 
   return mockObservable({

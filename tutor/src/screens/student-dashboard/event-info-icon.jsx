@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Tooltip, OverlayTrigger }  from 'react-bootstrap';
 import S from '../../helpers/string';
@@ -7,11 +8,12 @@ import { observer } from 'mobx-react';
 
 import TourAnchor from '../../components/tours/anchor';
 
+export default
 @observer
-export default class EventInfoIcon extends React.PureComponent {
+class EventInfoIcon extends React.Component {
   static propTypes = {
-    event: React.PropTypes.object.isRequired,
-    isCollege:  React.PropTypes.bool.isRequired,
+    event: PropTypes.object.isRequired,
+    isCollege:  PropTypes.bool.isRequired,
   }
 
   render() {
@@ -41,15 +43,15 @@ export default class EventInfoIcon extends React.PureComponent {
 
     let icon = <OverlayTrigger placement="top" overlay={tooltip}>
       <i className={`info ${status}`} />
-    </OverlayTrigger>
+    </OverlayTrigger>;
 
     if (pastDue) {
       icon = <TourAnchor
         id="about-late-icon"
         tag="span"
-      >{icon}</TourAnchor>
+      >{icon}</TourAnchor>;
     }
 
     return icon;
   }
-}
+};

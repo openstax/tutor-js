@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
@@ -8,19 +9,20 @@ import { Loading, NotFound } from './exercise-state';
 import Controls from './preview/controls';
 import { ExercisePreview } from 'shared';
 
+export default
 @observer
-export default class Preview extends React.Component {
+class Preview extends React.Component {
 
   static propTypes = {
-    match: React.PropTypes.shape({
-      params: React.PropTypes.shape({
+    match: PropTypes.shape({
+      params: PropTypes.shape({
         uid: idType,
       }),
     }),
-    history: React.PropTypes.shape({
-      push: React.PropTypes.func,
+    history: PropTypes.shape({
+      push: PropTypes.func,
     }).isRequired,
-    exercises: React.PropTypes.instanceOf(ExercisesMap),
+    exercises: PropTypes.instanceOf(ExercisesMap),
   };
 
   static defaultProps = {
@@ -55,4 +57,4 @@ export default class Preview extends React.Component {
       </div>
     );
   }
-}
+};

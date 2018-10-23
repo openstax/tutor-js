@@ -29,10 +29,15 @@ xdescribe('Scores Report: set weights modal', () => {
 
   it('sets values to error when not matching 100%', () => {
     expect(modal.find('input').map(i => i.props().value)).toEqual([80, 15, 5, 0]);
-    modal.find('input[name="homework_scores"]').first().simulate('change', { target: {
-      name: 'homework_scores',
-      value: '100',
-    } });
+    modal.find('input[name="homework_scores"]').first().simulate(
+      'change',
+      {
+        target: {
+          name: 'homework_scores',
+          value: '100',
+        },
+      },
+    );
     expect(modal).toHaveRendered('.valid-msg.invalid');
   });
 
@@ -43,14 +48,19 @@ xdescribe('Scores Report: set weights modal', () => {
       reading_scores: 10,
       reading_progress: 25,
     }, (value, name) => {
-      modal.find('input[name="homework_scores"]').first().simulate('change', { target: {
-        name, value,
-      } });
+      modal.find('input[name="homework_scores"]').first().simulate(
+        'change',
+        {
+          target: {
+            name, value,
+          },
+        },
+      );
     });
     expect(ux.weights.isValid).toBe(true);
     course.save = jest.fn();
     modal.find('Button').first().simulate('click');
-    expect(course.save).toHaveBeenCalled()
+    expect(course.save).toHaveBeenCalled();
   });
 
 });

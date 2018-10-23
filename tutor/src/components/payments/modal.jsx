@@ -1,5 +1,6 @@
+import MobxPropTypes from 'prop-types';
 import React from 'react';
-import { inject, observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import { action, observe, observable } from 'mobx';
 import { Modal } from 'react-bootstrap';
 import { delay } from 'lodash';
@@ -11,12 +12,13 @@ import OXFancyLoader from '../ox-fancy-loader';
 
 import Payments from '../../models/payments';
 
+export default
 @observer
-export default class PaymentsModal extends React.PureComponent {
+class PaymentsModal extends React.Component {
   static propTypes = {
     course: MobxPropTypes.observableObject.isRequired,
-    onCancel: React.PropTypes.func.isRequired,
-    onPaymentComplete: React.PropTypes.func.isRequired,
+    onCancel: MobxPropTypes.func.isRequired,
+    onPaymentComplete: MobxPropTypes.func.isRequired,
   }
 
   render() {
@@ -29,4 +31,4 @@ export default class PaymentsModal extends React.PureComponent {
   }
 
 
-}
+};

@@ -1,19 +1,20 @@
 import { Promise } from 'es6-promise';
 import axios from 'axios';
-
+import {
+  isEmpty, partial, pick, omit, merge, delay, spread, each, defaultsDeep,
+} from 'lodash';
 import interpolate from 'interpolate';
-
-import partial from 'lodash/partial';
-import isEmpty from 'lodash/isEmpty';
-import pick from 'lodash/pick';
-import omit from 'lodash/omit';
-import merge from 'lodash/merge';
-import delay from 'lodash/delay';
-import assign from 'lodash/assign';
-import spread from 'lodash/spread';
-import forEach from 'lodash/forEach';
-isEmpty   = require('lodash/isEmpty');
-import defaultsDeep from 'lodash/defaultsDeep';
+//import partial from 'lodash/partial';
+//
+// import pick from 'lodash/pick';
+// import omit from 'lodash/omit';
+// import merge from 'lodash/merge';
+// import delay from 'lodash/delay';
+// import assign from 'lodash/assign';
+// import spread from 'lodash/spread';
+// import forEach from 'lodash/forEach';
+//
+// import defaultsDeep from 'lodash/defaultsDeep';
 
 // this is pretty terrible.
 import 'extract-values';
@@ -264,7 +265,7 @@ class APIHandler extends APIHandlerBase {
 
   initializeEvents(events, numberOfRoutes, channel) {
     this.channel = channel || new EventEmitter2({ wildcard: true, maxListeners: numberOfRoutes * 2 });
-    return forEach(events, spread(this.channel.on.bind(this.channel)));
+    each(events, spread(this.channel.on.bind(this.channel)));
   }
 
   sendRequest(requestInfo, routeData, requestData, ...args) {

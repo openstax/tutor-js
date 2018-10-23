@@ -1,10 +1,12 @@
+import MobxPropTypes from 'prop-types';
 import React from 'react';
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { observer } from 'mobx-react';
 import cn from 'classnames';
 import { Modal, Button } from 'react-bootstrap';
 
+export default
 @observer
-export default class SetWeightsModal extends React.Component {
+class SetWeightsModal extends React.Component {
 
   static propTypes = {
     ux: MobxPropTypes.observableObject,
@@ -26,7 +28,7 @@ export default class SetWeightsModal extends React.Component {
         </Modal.Header>
         <Modal.Body
           className={
-            cn({'page-loading loadable is-loading': true})
+            cn({ 'page-loading loadable is-loading': true })
           }
         >
           <p className="header">Counts for</p>
@@ -64,4 +66,4 @@ export default class SetWeightsModal extends React.Component {
       </Modal>
     );
   }
-}
+};

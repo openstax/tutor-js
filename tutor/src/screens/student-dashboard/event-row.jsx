@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { computed, action } from 'mobx';
@@ -12,20 +13,21 @@ import { SuretyGuard } from 'shared';
 import classnames from 'classnames';
 import Course from '../../models/course';
 
+export default
 @observer
-export default class EventRow extends React.PureComponent {
+class EventRow extends React.Component {
 
   static propTypes = {
-    eventType: React.PropTypes.string.isRequired,
-    event:     React.PropTypes.object.isRequired,
-    course:    React.PropTypes.instanceOf(Course).isRequired,
-    feedback:  React.PropTypes.oneOfType([
-      React.PropTypes.string, React.PropTypes.element,
+    eventType: PropTypes.string.isRequired,
+    event:     PropTypes.object.isRequired,
+    course:    PropTypes.instanceOf(Course).isRequired,
+    feedback:  PropTypes.oneOfType([
+      PropTypes.string, PropTypes.element,
     ]).isRequired,
   }
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   @action.bound onClick(ev) {
@@ -132,4 +134,4 @@ export default class EventRow extends React.PureComponent {
       </a>
     );
   }
-}
+};

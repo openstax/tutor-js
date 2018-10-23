@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { isNil } from 'lodash';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
@@ -152,7 +153,7 @@ const AssignmentHeader = observer((props) => {
 });
 
 AssignmentHeader.propTypes = {
-  ux: React.PropTypes.instanceOf(UX).isRequired,
+  ux: PropTypes.instanceOf(UX).isRequired,
 };
 
 export default AssignmentHeader;

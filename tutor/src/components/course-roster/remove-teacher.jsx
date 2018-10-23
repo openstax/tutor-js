@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { action, computed } from 'mobx';
 import { observer } from 'mobx-react';
@@ -13,16 +14,17 @@ const WARN_REMOVE_CURRENT = 'If you remove yourself from the course you will be 
 import Course from '../../models/course';
 import Teacher from '../../models/course/teacher';
 
+export default
 @observer
-export default class RemoveTeacherLink extends React.PureComponent {
+class RemoveTeacherLink extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
-    teacher: React.PropTypes.instanceOf(Teacher).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
+    teacher: PropTypes.instanceOf(Teacher).isRequired,
   }
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   @action.bound goToDashboard() {
@@ -76,4 +78,4 @@ export default class RemoveTeacherLink extends React.PureComponent {
     );
   }
 
-}
+};

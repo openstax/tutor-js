@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { ListGroup } from 'react-bootstrap';
 import classnames from 'classnames';
@@ -6,16 +7,17 @@ import { action } from 'mobx';
 import { readonly } from 'core-decorators';
 import { ReactHelpers } from 'shared';
 
+export
 @observer
-export class Choice extends React.PureComponent {
+ class Choice extends React.Component {
 
   static propTypes = {
-    onClick:    React.PropTypes.func.isRequired,
-    className:  React.PropTypes.string,
-    children:   React.PropTypes.node,
-    active:     React.PropTypes.bool,
-    disabled:   React.PropTypes.bool,
-    record:     React.PropTypes.any,
+    onClick:    PropTypes.func.isRequired,
+    className:  PropTypes.string,
+    children:   PropTypes.node,
+    active:     PropTypes.bool,
+    disabled:   PropTypes.bool,
+    record:     PropTypes.any,
   }
 
   @action.bound
@@ -40,8 +42,9 @@ export class Choice extends React.PureComponent {
   }
 }
 
+export
 @observer
-export class Listing extends React.PureComponent {
+ class Listing extends React.Component {
 
   @readonly static Choice = Choice;
 

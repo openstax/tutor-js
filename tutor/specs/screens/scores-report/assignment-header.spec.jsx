@@ -32,7 +32,7 @@ describe('Scores Report: assignment column header', function() {
 
   it('renders properly when average is undefined for an external assignment', () => {
     props.columnIndex = 2;
-    props.ux.periodTasksByType.external.average_progress = undefined
+    props.ux.periodTasksByType.external.average_progress = undefined;
 
     const wrapper = shallow(<Header {...props} />);
     expect(wrapper.render().find('.click-rate').text()).toEqual('0% clicked on time');

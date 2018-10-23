@@ -1,15 +1,16 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import TutorLink from '../link';
 
-export default class PracticeWeakestButton extends React.PureComponent {
+export default class PracticeWeakestButton extends React.Component {
 
   static defaultProps = {
     title: 'Practice my weakest topics',
   }
 
   static propTypes = {
-    courseId: React.PropTypes.string.isRequired,
-    title:    React.PropTypes.string,
+    courseId: PropTypes.string.isRequired,
+    title:    PropTypes.string,
   }
 
   render() {

@@ -1,5 +1,6 @@
 import { React, observable, observer } from '../../helpers/react';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 import twix from 'twix';
 import _ from 'underscore';
 import { padStart } from 'lodash';
@@ -7,16 +8,17 @@ import PlanPublish from '../../models/jobs/task-plan-publish';
 import TimeHelper from '../../helpers/time';
 import Course from '../../models/course';
 
+export default
 @observer
-export default class CourseDuration extends React.Component {
+class CourseDuration extends React.Component {
 
   static propTypes = {
-    durations: React.PropTypes.array.isRequired,
-    course: React.PropTypes.instanceOf(Course).isRequired,
-    viewingDuration: React.PropTypes.instanceOf(twix).isRequired,
-    groupingDurations: React.PropTypes.arrayOf(React.PropTypes.instanceOf(twix)).isRequired,
+    durations: PropTypes.array.isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
+    viewingDuration: PropTypes.instanceOf(twix).isRequired,
+    groupingDurations: PropTypes.arrayOf(PropTypes.instanceOf(twix)).isRequired,
     referenceDate: TimeHelper.PropTypes.moment,
-    children: React.PropTypes.element,
+    children: PropTypes.element,
   };
 
   @observable ranges = [];
@@ -214,7 +216,7 @@ export default class CourseDuration extends React.Component {
       const dayIter = range.iterateInner('days');
       while (dayIter.hasNext()) {
         const dayOfWeek = dayIter.next();
-        var dayDuration = dayOfWeek.twix(dayOfWeek.endOf('day'));
+        const dayDuration = dayOfWeek.twix(dayOfWeek.endOf('day'));
         const plansOnDay = _.filter(rangeData.plansInRange, plan => plan.rangeDuration.engulfs(dayDuration));
         rangeData.plansByDays.push(plansOnDay);
       }
@@ -235,4 +237,4 @@ export default class CourseDuration extends React.Component {
       </div>
     );
   }
-}
+};

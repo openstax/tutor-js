@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { each, every, map, times } from 'lodash';
 import { TaskPlanStore } from '../../../flux/task-plan';
@@ -13,9 +14,9 @@ import TourRegion from '../../tours/region';
 class ExerciseTable extends React.Component {
   //  mixins: [LoadingExercises]
   static propTypes = {
-    course:     React.PropTypes.instanceOf(Course).isRequired,
+    course:     PropTypes.instanceOf(Course).isRequired,
     exercises:  ArrayOrMobxType.isRequired,
-    planId:     React.PropTypes.string.isRequired,
+    planId:     PropTypes.string.isRequired,
   };
 
   renderExerciseRow = (exercise, index) => {

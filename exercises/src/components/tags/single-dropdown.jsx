@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { get, map }  from 'lodash';
 import Exercise from '../../models/exercises/exercise';
@@ -8,9 +9,9 @@ import Wrapper from './wrapper';
 @observer
 class SingleDropdown extends React.Component {
   static propTypes = {
-    exercise: React.PropTypes.instanceOf(Exercise).isRequired,
-    label:   React.PropTypes.string.isRequired,
-    type:  React.PropTypes.string.isRequired,
+    exercise: PropTypes.instanceOf(Exercise).isRequired,
+    label:   PropTypes.string.isRequired,
+    type:  PropTypes.string.isRequired,
   };
 
   @action.bound updateTag(ev) {

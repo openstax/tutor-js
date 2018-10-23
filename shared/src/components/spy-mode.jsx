@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
 import { observable, action } from 'mobx';
@@ -10,13 +11,14 @@ export class SpyModeContext {
   toggle() { this.isEnabled = !this.isEnabled; }
 }
 
+export
 @observer
-export class SpyModeWrapper extends React.PureComponent {
+ class SpyModeWrapper extends React.Component {
 
   @observable mode = new SpyModeContext();
 
   static propTypes = {
-    children: React.PropTypes.node,
+    children: PropTypes.node,
   }
 
   @action.bound
@@ -45,12 +47,12 @@ export class SpyModeWrapper extends React.PureComponent {
   }
 }
 
-export class SpyModeContent extends React.PureComponent {
+export class SpyModeContent extends React.Component {
 
   static propTypes = {
-    className: React.PropTypes.string,
-    unstyled:  React.PropTypes.bool,
-    children: React.PropTypes.node,
+    className: PropTypes.string,
+    unstyled:  PropTypes.bool,
+    children: PropTypes.node,
   }
 
   render() {

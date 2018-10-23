@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Col } from 'react-bootstrap';
 import classnames from 'classnames';
@@ -27,7 +28,7 @@ function TagWrapper(props) {
 }
 
 TagWrapper.propTypes = {
-  label: React.PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
 };
 
 

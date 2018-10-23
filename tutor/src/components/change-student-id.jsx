@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { action, observable } from 'mobx';
@@ -8,15 +9,16 @@ import { AsyncButton } from 'shared';
 import Router from '../helpers/router';
 import BackButton from './buttons/back-button';
 
+export default
 @observer
-export default class ChangeStudentId extends React.PureComponent {
+class ChangeStudentId extends React.Component {
 
   static propTypes = {
-    courseId: React.PropTypes.string,
+    courseId: PropTypes.string,
   }
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   courseId = Router.currentParams().courseId;
@@ -118,4 +120,4 @@ export default class ChangeStudentId extends React.PureComponent {
       </Modal.Dialog>
     );
   }
-}
+};

@@ -24,7 +24,7 @@ let props = {};
 describe('Concept Coach Dashboard', function() {
 
   beforeEach(function() {
-    const CourseObj = extend({}, pick(BaseModel.course, 'name', 'teachers'), {id: COURSE_ID, is_concept_coach: true});
+    const CourseObj = extend({}, pick(BaseModel.course, 'name', 'teachers'), { id: COURSE_ID, is_concept_coach: true });
     BaseModel.course.periods = PeriodHelper.sort(get(BaseModel.course, 'periods'));
 
     BaseModel.course.periods[BLANK_PERIOD].chapters = [];

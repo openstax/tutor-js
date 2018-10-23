@@ -1,5 +1,6 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import { idType} from 'shared';
+import { idType } from 'shared';
 import { observer } from 'mobx-react';
 import { observable, computed, action } from 'mobx';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
@@ -10,15 +11,16 @@ import Courses from '../models/courses-map';
 import PeriodHelper from '../helpers/period';
 import Tabs from './tabs';
 
+export default
 @observer
-export default class CoursePeriodsNav extends React.PureComponent {
+class CoursePeriodsNav extends React.Component {
 
   static propTypes = {
     courseId: idType,
-    course: React.PropTypes.instanceOf(Course),
-    handleSelect: React.PropTypes.func,
-    initialActive: React.PropTypes.number.isRequired,
-    afterTabsItem: React.PropTypes.element,
+    course: PropTypes.instanceOf(Course),
+    handleSelect: PropTypes.func,
+    initialActive: PropTypes.number.isRequired,
+    afterTabsItem: PropTypes.element,
   }
 
   static defaultProps = {
@@ -78,4 +80,4 @@ export default class CoursePeriodsNav extends React.PureComponent {
       </Tabs>
     );
   }
-}
+};

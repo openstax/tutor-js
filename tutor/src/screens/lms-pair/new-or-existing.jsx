@@ -1,4 +1,5 @@
 import { React, observer } from '../../helpers/react';
+import PropTypes from 'prop-types';
 import { Button, Panel } from 'react-bootstrap';
 import { Listing, Choice } from '../../components/choices-listing';
 
@@ -18,11 +19,12 @@ const Footer = observer(({ ux }) => {
 });
 
 
+export default
 @observer
-export default class NewOrExisting extends React.PureComponent {
+class NewOrExisting extends React.Component {
 
   static propTypes = {
-    ux: React.PropTypes.object.isRequired,
+    ux: PropTypes.object.isRequired,
   }
 
   render() {
@@ -55,4 +57,4 @@ export default class NewOrExisting extends React.PureComponent {
       </Panel>
     );
   }
-}
+};

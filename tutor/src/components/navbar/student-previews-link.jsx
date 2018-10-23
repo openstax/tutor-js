@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import User from '../../models/user';
 import TutorLink from '../link';
@@ -23,5 +24,5 @@ export default function StudentPreviewLinks({ courseId, ...props }) {
 
 
 StudentPreviewLinks.propTypes = {
-  courseId: React.PropTypes.string,
+  courseId: PropTypes.string,
 };

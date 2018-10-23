@@ -1,7 +1,7 @@
 import React from 'react';
 import { OverlayTrigger, Button, Popover } from 'react-bootstrap';
 
-export default class NoQuestionsTooltip extends React.PureComponent {
+export default class NoQuestionsTooltip extends React.Component {
 
   render() {
     return (

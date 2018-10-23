@@ -4,8 +4,9 @@ import TermsModal from '../../components/terms-modal';
 import Wizard from './wizard';
 import './styles.scss';
 
+export default
 @observer
-export default class NewCourse extends React.PureComponent {
+class NewCourse extends React.Component {
 
   render() {
     if (User.terms_signatures_needed) return <TermsModal canBeDisplayed />;
@@ -17,4 +18,4 @@ export default class NewCourse extends React.PureComponent {
     );
   }
 
-}
+};

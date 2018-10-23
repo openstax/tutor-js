@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
@@ -7,11 +8,12 @@ import { observable, action, computed } from 'mobx';
 import Icon from '../icon';
 import Student from '../../models/course/student';
 
+export default
 @observer
-export default class StudentIdField extends React.PureComponent {
+class StudentIdField extends React.Component {
 
   static propTypes = {
-    student: React.PropTypes.instanceOf(Student).isRequired,
+    student: PropTypes.instanceOf(Student).isRequired,
   }
 
   @observable identifier = '';
@@ -115,4 +117,4 @@ export default class StudentIdField extends React.PureComponent {
       </div>
     );
   }
-}
+};

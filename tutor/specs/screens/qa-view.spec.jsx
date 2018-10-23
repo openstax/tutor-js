@@ -18,7 +18,7 @@ describe('QA Screen', function() {
   beforeEach(function() {
     const exercises = Factory.exercisesMap();
     const ecosystems = Factory.ecosystemsMap();
-    exercises.fetch = jest.fn()
+    exercises.fetch = jest.fn();
     jest.spyOn(Book.prototype, 'fetch').mockImplementation(function() {
       this.onApiRequestComplete({
         data: [FactoryBot.create('Book', { id: this.id, type: 'biology' })],
@@ -38,9 +38,13 @@ describe('QA Screen', function() {
     };
 
     const page = ux.page;
-    ux.exercisesMap.onLoaded({ data: { items: times(8, () => FactoryBot.create('TutorExercise', {
-      page_uuid: page.uuid,
-    })) } }, [{ book, page_ids: [ page.id ]  }]);
+    ux.exercisesMap.onLoaded({
+      data: {
+        items: times(8, () => FactoryBot.create('TutorExercise', {
+          page_uuid: page.uuid,
+        })),
+      },
+    }, [{ book, page_ids: [ page.id ]  }]);
 
     props = {
       ux,

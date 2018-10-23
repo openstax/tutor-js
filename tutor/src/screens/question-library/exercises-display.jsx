@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { keys, first, pluck, map, isEmpty } from 'lodash';
@@ -38,12 +39,12 @@ const ExerciseCardsWrapper = props => (
 class ExercisesDisplay extends React.Component {
 
   static propTypes = {
-    course:      React.PropTypes.instanceOf(Course).isRequired,
-    exercises:   React.PropTypes.instanceOf(ExercisesMap),
+    course:      PropTypes.instanceOf(Course).isRequired,
+    exercises:   PropTypes.instanceOf(ExercisesMap),
     pageIds:     ArrayOrMobxType.isRequired,
-    onShowDetailsViewClick: React.PropTypes.func.isRequired,
-    onShowCardViewClick: React.PropTypes.func.isRequired,
-    showingDetails: React.PropTypes.bool.isRequired,
+    onShowDetailsViewClick: PropTypes.func.isRequired,
+    onShowCardViewClick: PropTypes.func.isRequired,
+    showingDetails: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {

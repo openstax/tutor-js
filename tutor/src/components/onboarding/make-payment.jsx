@@ -1,11 +1,13 @@
+import MobxPropTypes from 'prop-types';
 import React from 'react';
 
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { observer } from 'mobx-react';
 import PaymentsPanel from '../payments/panel';
 import { OnboardingNag, Body } from './onboarding-nag';
 
+export default
 @observer
-export default class MakePayment extends React.PureComponent {
+class MakePayment extends React.Component {
 
   static propTypes = {
     ux: MobxPropTypes.observableObject.isRequired,
@@ -23,4 +25,4 @@ export default class MakePayment extends React.PureComponent {
     );
   }
 
-}
+};

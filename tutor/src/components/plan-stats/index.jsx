@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import { observer } from 'mobx-react';
@@ -13,16 +14,17 @@ import TeacherTaskPlan from '../../models/task-plan/teacher';
 import LoadingScreen from '../loading-screen';
 import NoStudents from './no-students';
 
+export default
 @observer
-export default class Stats extends React.PureComponent {
+class Stats extends React.Component {
 
   static propTypes = {
-    plan: React.PropTypes.instanceOf(TeacherTaskPlan).isRequired,
-    course: React.PropTypes.instanceOf(Course).isRequired,
-    activeSection: React.PropTypes.string,
-    initialActivePeriodIndex: React.PropTypes.number,
-    handlePeriodSelect: React.PropTypes.func,
-    shouldOverflowData: React.PropTypes.bool,
+    plan: PropTypes.instanceOf(TeacherTaskPlan).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
+    activeSection: PropTypes.string,
+    initialActivePeriodIndex: PropTypes.number,
+    handlePeriodSelect: PropTypes.func,
+    shouldOverflowData: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -132,4 +134,4 @@ export default class Stats extends React.PureComponent {
       </Panel>
     );
   }
-}
+};

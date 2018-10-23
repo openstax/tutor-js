@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { Table } from 'react-bootstrap';
@@ -9,11 +10,12 @@ import StudentIdField from './student-id-field';
 import Course from '../../models/course';
 
 
+export default
 @observer
-export default class DroppedRoster extends React.PureComponent {
+class DroppedRoster extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
   }
 
   @autobind
@@ -77,4 +79,4 @@ export default class DroppedRoster extends React.PureComponent {
       </div>
     );
   }
-}
+};

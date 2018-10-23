@@ -19,7 +19,9 @@ describe('Second Session Warning', () => {
     ux = observable.object({
       nagComponent: SomethingToDo,
       course: {
-        isActive: true, primaryRole: { joined_at: new Date } },
+        isActive: true,
+        primaryRole: { joined_at: new Date },
+      },
     });
     spyMode = observable.object({ isEnabled: false });
     tourContext = new TourContext();

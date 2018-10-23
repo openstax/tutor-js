@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { extend } from 'lodash';
@@ -5,11 +6,12 @@ import TourContext from '../../models/tour/context';
 import cn from 'classnames';
 import { ReactHelpers } from 'shared';
 
+export default
 @inject((allStores, props) => ({
   tourContext: ( props.tourContext || allStores.tourContext ),
 }))
 @observer
-export default class TourAnchor extends React.PureComponent {
+class TourAnchor extends React.Component {
 
   static defaultProps = {
     tag: 'div',
@@ -18,11 +20,11 @@ export default class TourAnchor extends React.PureComponent {
   }
 
   static propTypes = {
-    tag: React.PropTypes.string,
-    className: React.PropTypes.string,
-    id: React.PropTypes.string.isRequired,
-    children: React.PropTypes.node.isRequired,
-    tourContext: React.PropTypes.instanceOf(TourContext),
+    tag: PropTypes.string,
+    className: PropTypes.string,
+    id: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
+    tourContext: PropTypes.instanceOf(TourContext),
   }
 
   componentDidMount() {
@@ -47,4 +49,4 @@ export default class TourAnchor extends React.PureComponent {
     }, ReactHelpers.filterProps(otherProps)), this.props.children);
   }
 
-}
+};

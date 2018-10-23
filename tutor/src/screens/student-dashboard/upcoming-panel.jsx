@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
@@ -5,11 +6,12 @@ import EventsPanel from './events-panel';
 import EmptyPanel from './empty-panel';
 import Course from '../../models/course';
 
+export default
 @observer
-export default class UpcomingPanel extends React.PureComponent {
+class UpcomingPanel extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
   }
 
   render() {
@@ -31,4 +33,4 @@ export default class UpcomingPanel extends React.PureComponent {
     );
   }
 
-}
+};

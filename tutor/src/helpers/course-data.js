@@ -7,7 +7,7 @@ export default {
   getCourseDataProps(courseId) {
     let dataProps;
     if (courseId == null) {
-      (((({ courseId } = Router.currentParams()))));
+      ((((((({ courseId } = Router.currentParams())))))));
     }
     const course = Courses.get(courseId);
     return dataProps = {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import moment from 'moment';
 import { observer } from 'mobx-react';
@@ -8,11 +9,12 @@ import EventsPanel from './events-panel';
 import StudentTasks from '../../models/student-tasks';
 import { map, isEmpty } from 'lodash';
 
+export default
 @observer
-export default class AllEventsByWeek extends React.PureComponent {
+class AllEventsByWeek extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
   }
 
   @autobind
@@ -43,4 +45,4 @@ export default class AllEventsByWeek extends React.PureComponent {
       </div>
     );
   }
-}
+};

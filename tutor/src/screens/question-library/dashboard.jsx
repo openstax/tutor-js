@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
@@ -11,8 +12,8 @@ import LoadingDisplay from './loading-display';
 @observer
 class QuestionsDashboard extends React.Component {
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
-    exercises: React.PropTypes.instanceOf(ExercisesMap),
+    course: PropTypes.instanceOf(Course).isRequired,
+    exercises: PropTypes.instanceOf(ExercisesMap),
   };
 
   static defaultProps = {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { map, partial } from 'lodash';
 import { Grid, Row, Col } from 'react-bootstrap';
@@ -8,9 +9,9 @@ class CourseBar extends React.Component {
   static displayName = 'CourseBar';
 
   static propTypes = {
-    data: React.PropTypes.object.isRequired,
-    type: React.PropTypes.string.isRequired,
-    totalCols: React.PropTypes.number,
+    data: PropTypes.object.isRequired,
+    type: PropTypes.string.isRequired,
+    totalCols: PropTypes.number,
   };
 
   static defaultProps = { totalCols: 12 };

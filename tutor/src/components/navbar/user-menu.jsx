@@ -2,12 +2,13 @@ import React from 'react';
 import { Dropdown, MenuItem } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 
-import User from '../../models/user'
+import User from '../../models/user';
 import AccountLink from './account-link';
 import LogOut from './logout';
 
+export default
 @observer
-export default class UserMenu extends React.Component {
+class UserMenu extends React.Component {
 
   render() {
     return (
@@ -31,4 +32,4 @@ export default class UserMenu extends React.Component {
     );
   }
 
-}
+};

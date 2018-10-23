@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   Row, Col, FormGroup, InputGroup, Dropdown, Button,
@@ -6,11 +7,12 @@ import {
 import AsyncButton from 'shared/components/buttons/async-button.cjsx';
 import { observer } from 'mobx-react';
 
+export default
 @observer
-export default class Clause extends React.Component {
+class Clause extends React.Component {
 
   static propTypes = {
-    clause: React.PropTypes.object.isRequired,
+    clause: PropTypes.object.isRequired,
   };
 
   render() {
@@ -59,4 +61,4 @@ export default class Clause extends React.Component {
 
   }
 
-}
+};

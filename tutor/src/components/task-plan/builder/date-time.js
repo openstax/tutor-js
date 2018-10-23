@@ -93,7 +93,7 @@ class DateTime extends React.Component {
     if (time == null) { time = this.state != null ? this.state.time : undefined; }
     if (isUndefined(time)) { return true; }
 
-    if (props == null) { (((((((({ props } = this)))))))); }
+    if (props == null) { ((((((((((({ props } = this))))))))))); }
     const { defaultTime } = props;
     return time === defaultTime;
   };

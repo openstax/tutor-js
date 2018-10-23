@@ -1,18 +1,20 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import { observable } from 'mobx'
-import { observer } from 'mobx-react'
+import { observable } from 'mobx';
+import { observer } from 'mobx-react';
 import { autobind } from 'core-decorators';
 import classnames from 'classnames';
 import Clipboard from '../helpers/clipboard';
 
+export default
 @observer
-export default class CopyOnFocusInput extends React.PureComponent {
+class CopyOnFocusInput extends React.Component {
 
   static propTypes = {
-    value: React.PropTypes.string,
-    label: React.PropTypes.string,
-    className: React.PropTypes.string,
-    focusOnMount: React.PropTypes.bool,
+    value: PropTypes.string,
+    label: PropTypes.string,
+    className: PropTypes.string,
+    focusOnMount: PropTypes.bool,
   }
 
   @observable input;
@@ -62,4 +64,4 @@ export default class CopyOnFocusInput extends React.PureComponent {
 
     return input;
   }
-}
+};

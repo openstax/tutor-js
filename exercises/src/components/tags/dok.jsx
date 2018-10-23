@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { range } from 'lodash';
@@ -14,7 +15,7 @@ function DokTag(props) {
 }
 
 DokTag.propTypes = {
-  exercise: React.PropTypes.instanceOf(Exercise).isRequired,
+  exercise: PropTypes.instanceOf(Exercise).isRequired,
 };
 
 export default observer(DokTag);

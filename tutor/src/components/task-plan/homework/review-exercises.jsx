@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { compact, map, isEmpty } from 'lodash';
@@ -19,12 +20,12 @@ import ExerciseTable from './exercises-table';
 class ReviewExerciseCard extends React.Component {
 
   static propTypes = {
-    planId:   React.PropTypes.string.isRequired,
-    exercise: React.PropTypes.instanceOf(Exercise).isRequired,
-    canEdit:  React.PropTypes.bool.isRequired,
-    isFirst:  React.PropTypes.bool.isRequired,
-    isLast:   React.PropTypes.bool.isRequired,
-    index:    React.PropTypes.number.isRequired,
+    planId:   PropTypes.string.isRequired,
+    exercise: PropTypes.instanceOf(Exercise).isRequired,
+    canEdit:  PropTypes.bool.isRequired,
+    isFirst:  PropTypes.bool.isRequired,
+    isLast:   PropTypes.bool.isRequired,
+    index:    PropTypes.number.isRequired,
   };
 
   moveExerciseUp = () => {
@@ -48,11 +49,11 @@ class ReviewExerciseCard extends React.Component {
           <Icon type="arrow-up" />
         </Button> : undefined}
         {this.props.isLast && (
-           <Button
-             onClick={this.moveExerciseDown}
-             className="btn-xs -move-exercise-down circle">
-             <Icon type="arrow-down" />
-           </Button>)}
+          <Button
+            onClick={this.moveExerciseDown}
+            className="btn-xs -move-exercise-down circle">
+            <Icon type="arrow-down" />
+          </Button>)}
         <SuretyGuard
           title={false}
           onConfirm={this.removeExercise}
@@ -98,13 +99,14 @@ class ReviewExerciseCard extends React.Component {
   }
 }
 
+export default
 @observer
-export default class ReviewExercises extends React.Component {
+class ReviewExercises extends React.Component {
 
   static propTypes = {
-    course:     React.PropTypes.instanceOf(Course).isRequired,
-    exercises:  React.PropTypes.instanceOf(ExercisesMap),
-    planId:     React.PropTypes.string.isRequired,
+    course:     PropTypes.instanceOf(Course).isRequired,
+    exercises:  PropTypes.instanceOf(ExercisesMap),
+    planId:     PropTypes.string.isRequired,
   };
 
   static defaultProps = {
@@ -168,7 +170,7 @@ export default class ReviewExercises extends React.Component {
     );
   }
 
-}
+};
 // ReviewExercises.propTypes = {
 //   planId: React.PropTypes.string.isRequired,
 //   courseId: React.PropTypes.string.isRequired,

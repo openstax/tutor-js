@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
@@ -12,15 +13,15 @@ import Toasts from '../../models/toasts';
 @observer
 class ExerciseControls extends React.Component {
   static propTypes = {
-    match: React.PropTypes.shape({
-      params: React.PropTypes.shape({
+    match: PropTypes.shape({
+      params: PropTypes.shape({
         uid: idType,
       }),
     }),
-    history: React.PropTypes.shape({
-      push: React.PropTypes.func,
+    history: PropTypes.shape({
+      push: PropTypes.func,
     }).isRequired,
-    exercises: React.PropTypes.instanceOf(ExercisesMap),
+    exercises: PropTypes.instanceOf(ExercisesMap),
   };
 
   static defaultProps = {
@@ -37,8 +38,11 @@ class ExerciseControls extends React.Component {
   @action.bound saveExerciseDraft() {
     const { exercise } = this;
     this.props.exercises.saveDraft(exercise).then(() => {
-      Toasts.push({ handler: 'published', status: 'ok',
-        info: { isDraft: true, exercise } });
+      Toasts.push({
+        handler: 'published',
+        status: 'ok',
+        info: { isDraft: true, exercise },
+      });
       this.props.history.push(`/exercise/${exercise.uid}`);
     });
   }

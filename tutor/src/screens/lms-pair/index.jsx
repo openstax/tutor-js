@@ -1,16 +1,18 @@
+import PropTypes from 'prop-types';
 import { React, observer, cn, observable } from '../../helpers/react';
 import './styles.scss';
 import UX from './ux';
 
+export default
 @observer
-export default class LmsPairWrapper extends React.PureComponent {
+class LmsPairWrapper extends React.Component {
 
   static propTypes = {
-    ux: React.PropTypes.instanceOf(UX).isRequired,
+    ux: PropTypes.instanceOf(UX).isRequired,
   }
 
   static childContextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   getChildContext() {
@@ -26,4 +28,4 @@ export default class LmsPairWrapper extends React.PureComponent {
       </div>
     );
   }
-}
+};

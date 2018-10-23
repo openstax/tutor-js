@@ -126,7 +126,7 @@ const ExerciseMixin = {
     const step = _.last(parts);
 
     // TODO check whether or not if related is still needed
-    if (related) { ((((((({ related_content } = step))))))); }
+    if (related) { (((((((((({ related_content } = step)))))))))); }
 
     if (step.content != null ? step.content.uid : undefined) {
       return (

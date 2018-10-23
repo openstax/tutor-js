@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { Dropdown, MenuItem } from 'react-bootstrap';
@@ -23,7 +24,7 @@ const StudentPreview = observer(({ courseId, tourContext, ...props }, { router }
       {...props}
       id="student-preview-videos"
       onClick={() => {
-          router.history.push(Router.makePathname('studentPreview', { courseId }));
+        router.history.push(Router.makePathname('studentPreview', { courseId }));
       }}
     >
       <TourAnchor id="student-preview-link">
@@ -34,7 +35,7 @@ const StudentPreview = observer(({ courseId, tourContext, ...props }, { router }
 });
 
 StudentPreview.contextTypes = {
-  router: React.PropTypes.object,
+  router: PropTypes.object,
 };
 
 const PageTips = observer(({ courseId, onPlayClick, tourContext, ...props }) => {
@@ -53,12 +54,13 @@ const PageTips = observer(({ courseId, onPlayClick, tourContext, ...props }) => 
 });
 
 
+export default
 @inject((allStores, props) => ({ tourContext: ( props.tourContext || allStores.tourContext ) }))
 @observer
-export default class SupportMenu extends React.PureComponent {
+class SupportMenu extends React.Component {
   static propTypes = {
-    tourContext: React.PropTypes.instanceOf(TourContext),
-    courseId: React.PropTypes.string,
+    tourContext: PropTypes.instanceOf(TourContext),
+    courseId: PropTypes.string,
   }
 
 
@@ -67,14 +69,14 @@ export default class SupportMenu extends React.PureComponent {
   }
 
   static propTypes = {
-    open: React.PropTypes.bool,
-    courseId: React.PropTypes.string,
-    onClose:  React.PropTypes.func,
-    tourContext: React.PropTypes.object.isRequired,
+    open: PropTypes.bool,
+    courseId: PropTypes.string,
+    onClose:  PropTypes.func,
+    tourContext: PropTypes.object.isRequired,
   }
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   componentDidMount() {
@@ -185,4 +187,4 @@ export default class SupportMenu extends React.PureComponent {
     );
   }
 
-}
+};

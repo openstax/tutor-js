@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { first }  from 'lodash';
 import { observer } from 'mobx-react';
@@ -10,7 +11,7 @@ import Wrapper from './wrapper';
 @observer
 class RequiresContextTag extends React.Component {
   static propTypes = {
-    exercise: React.PropTypes.instanceOf(Exercise).isRequired,
+    exercise: PropTypes.instanceOf(Exercise).isRequired,
   };
 
   @action.bound updateTag(ev) {

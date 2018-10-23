@@ -5,7 +5,7 @@ import IconAdd from '../icons/add';
 
 import Icon from '../icon';
 
-export default class PendingVerification extends React.PureComponent {
+export default class PendingVerification extends React.Component {
 
   componentDidMount() {
     Chat.setElementVisiblity(this.onlineChatButton);

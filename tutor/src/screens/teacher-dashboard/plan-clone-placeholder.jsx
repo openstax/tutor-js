@@ -1,20 +1,22 @@
+import PropTypes from 'prop-types';
 import { React, observable, observer, action } from '../../helpers/react';
 import TimeHelper from '../../helpers/time';
 import Icon from '../../components/icon';
 import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
 import Course from '../../models/course';
 
+export default
 @observer
-export default class PlanClonePlaceholder extends React.Component {
+class PlanClonePlaceholder extends React.Component {
   static propTypes = {
-    planType: React.PropTypes.string.isRequired,
-    course:   React.PropTypes.instanceOf(Course).isRequired,
-    planId:   React.PropTypes.string.isRequired,
+    planType: PropTypes.string.isRequired,
+    course:   PropTypes.instanceOf(Course).isRequired,
+    planId:   PropTypes.string.isRequired,
     due_at:   TimeHelper.PropTypes.moment,
-    onLoad:   React.PropTypes.func.isRequired,
-    position: React.PropTypes.shape({
-      x: React.PropTypes.number,
-      y: React.PropTypes.number,
+    onLoad:   PropTypes.func.isRequired,
+    position: PropTypes.shape({
+      x: PropTypes.number,
+      y: PropTypes.number,
     }).isRequired,
   };
 
@@ -51,4 +53,4 @@ export default class PlanClonePlaceholder extends React.Component {
       </div>
     );
   }
-}
+};

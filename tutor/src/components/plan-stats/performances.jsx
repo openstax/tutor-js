@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { isEmpty, map } from 'lodash';
 import { observer } from 'mobx-react';
@@ -36,17 +37,18 @@ export function ChaptersPerformance(props) {
 ChaptersPerformance.displayName = 'ChaptersPerformance';
 
 ChaptersPerformance.propTypes = {
-  currentPages: React.PropTypes.object.isRequired,
-  activeSection: React.PropTypes.string,
+  currentPages: PropTypes.object.isRequired,
+  activeSection: PropTypes.string,
 };
 
 
+export
 @observer
-export class PracticesPerformance extends React.PureComponent {
+ class PracticesPerformance extends React.Component {
 
   static propTypes = {
-    spacedPages: React.PropTypes.object.isRequired,
-    activeSection: React.PropTypes.string,
+    spacedPages: PropTypes.object.isRequired,
+    activeSection: PropTypes.string,
   };
 
   calculatePercentDelta = (a, b) => {

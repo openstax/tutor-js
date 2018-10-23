@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Panel, Col } from 'react-bootstrap';
 import { observer } from 'mobx-react';
@@ -21,16 +22,17 @@ const ROW_TYPES = {
 };
 
 
+export default
 @observer
-export default class EventsPanel extends React.PureComponent {
+class EventsPanel extends React.Component {
   static propTypes = {
-    events:     React.PropTypes.array.isRequired,
-    course:     React.PropTypes.instanceOf(Course).isRequired,
-    startAt:    React.PropTypes.object,
-    endAt:      React.PropTypes.object,
-    limit:      React.PropTypes.number,
-    title:      React.PropTypes.string,
-    className:  React.PropTypes.string,
+    events:     PropTypes.array.isRequired,
+    course:     PropTypes.instanceOf(Course).isRequired,
+    startAt:    PropTypes.object,
+    endAt:      PropTypes.object,
+    limit:      PropTypes.number,
+    title:      PropTypes.string,
+    className:  PropTypes.string,
   }
 
   renderTitle() {
@@ -76,4 +78,4 @@ export default class EventsPanel extends React.PureComponent {
       </Panel>
     );
   }
-}
+};

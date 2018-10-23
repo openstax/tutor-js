@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import Exercise from '../../models/exercises/exercise';
@@ -6,7 +7,7 @@ import MultiInput from './multi-input';
 @observer
 class CnxModTag extends React.Component {
   static propTypes = {
-    exercise: React.PropTypes.instanceOf(Exercise).isRequired,
+    exercise: PropTypes.instanceOf(Exercise).isRequired,
   };
 
   validateInput = (value) => {

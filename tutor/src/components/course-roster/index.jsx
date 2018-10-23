@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Panel } from 'react-bootstrap';
 import { computed, observable, action } from 'mobx';
@@ -17,12 +18,13 @@ import DroppedRoster from './dropped-roster';
 import CoursePage from '../course-page';
 import NoPeriods from '../no-periods';
 
+export default
 @observer
-export default class CourseRoster extends React.PureComponent {
+class CourseRoster extends React.Component {
 
   static propTypes = {
-    params: React.PropTypes.shape({
-      courseId: React.PropTypes.string.isRequired,
+    params: PropTypes.shape({
+      courseId: PropTypes.string.isRequired,
     }).isRequired,
   }
 
@@ -114,4 +116,4 @@ export default class CourseRoster extends React.PureComponent {
       </CoursePage>
     );
   }
-}
+};

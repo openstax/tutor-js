@@ -6,8 +6,8 @@ import Dashboard from '../../../src/screens/question-library/dashboard';
 import ExerciseHelpers from '../../../src/helpers/exercise';
 import ScrollTo from '../../../src/helpers/scroll-to';
 jest.mock('../../../../shared/src/components/html', () => ({ html }) =>
-    html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
-  );
+  html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
+);
 jest.mock('../../../src/helpers/exercise');
 jest.mock('../../../src/helpers/scroll-to');
 
@@ -23,9 +23,13 @@ describe('Questions Dashboard Component', function() {
     exercises.fetch = jest.fn(() => Promise.resolve());
     page_ids = slice(course.referenceBook.pages.byId.keys(), 2, 5);
     const items = page_ids.map(page_id =>
-      FactoryBot.create('TutorExercise', {
-        pool_types: ['reading_dynamic'],
-        page_uuid: book.pages.byId.get(page_id).uuid }),
+      FactoryBot.create(
+        'TutorExercise',
+        {
+          pool_types: ['reading_dynamic'],
+          page_uuid: book.pages.byId.get(page_id).uuid,
+        },
+      ),
     );
     exercises.onLoaded({ data: { items } }, [{ book, page_ids }]);
     props = {

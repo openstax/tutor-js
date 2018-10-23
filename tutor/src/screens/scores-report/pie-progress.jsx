@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import TaskResult from '../../models/course/scores/task-result';
 import { observer } from 'mobx-react';
@@ -134,13 +135,14 @@ const Q4 = (
   </g>
 );
 
+export default
 @observer
-export default class PieProgress extends React.Component {
+class PieProgress extends React.Component {
 
   static propTypes = {
-    task: React.PropTypes.instanceOf(TaskResult).isRequired,
-    size: React.PropTypes.number
-  }
+    task: PropTypes.instanceOf(TaskResult).isRequired,
+    size: PropTypes.number,
+  };
 
   static defaultProps = {
     size: 20,
@@ -171,14 +173,14 @@ export default class PieProgress extends React.Component {
         className={cn('pie-progress', { due: isDue, started: task.isStarted })}
         viewBox="0 0 24 24"
       >
-        {progress === 0   && Q0}
-        {progress === 25  && Q1}
-        {progress === 50  && Q2}
-        {progress === 75  && Q3}
+        {progress === 0 && Q0}
+        {progress === 25 && Q1}
+        {progress === 50 && Q2}
+        {progress === 75 && Q3}
         {progress === 100 && Q4}
       </svg>;
 
     return pieCircle;
 
   }
-}
+};

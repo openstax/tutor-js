@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { get } from 'lodash';
 import { computed } from 'mobx';
@@ -10,18 +11,19 @@ import TourRegion from '../tours/region';
 import TourAnchor from '../tours/anchor';
 import HighlightIcon from './highlight-icon';
 
+export default
 @observer
-export default class AnnotationSummaryToggle extends React.Component {
+class AnnotationSummaryToggle extends React.Component {
 
   static propTypes = {
-    courseId: React.PropTypes.string,
-    type: React.PropTypes.oneOf(['reading', 'refbook']),
-    taskId: React.PropTypes.string,
-    taskStepIndex: React.PropTypes.any,
+    courseId: PropTypes.string,
+    type: PropTypes.oneOf(['reading', 'refbook']),
+    taskId: PropTypes.string,
+    taskStepIndex: PropTypes.any,
   }
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   @computed get isViewable() {
@@ -47,7 +49,7 @@ export default class AnnotationSummaryToggle extends React.Component {
         <TourAnchor id="student-highlighting-button">
           <button
             onClick={User.annotations.ux.toggleSummary}
-            className={cn('annotation-summary-toggle', { active: User.annotations.ux.isSummaryVisible})}
+            className={cn('annotation-summary-toggle', { active: User.annotations.ux.isSummaryVisible })}
           >
             <HighlightIcon />
           </button>
@@ -56,4 +58,4 @@ export default class AnnotationSummaryToggle extends React.Component {
     );
   }
 
-}
+};

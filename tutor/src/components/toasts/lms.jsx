@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import pluralize from 'pluralize';
@@ -18,12 +19,13 @@ const Troubleshoot = () => (
   </NewTabLink>
 );
 
+export
 @observer
-export class LMSErrors extends React.Component {
+ class LMSErrors extends React.Component {
 
   static propTypes = {
-    toast: React.PropTypes.object.isRequired,
-    footer: React.PropTypes.node.isRequired,
+    toast: PropTypes.object.isRequired,
+    footer: PropTypes.node.isRequired,
   }
 
   @observable displayInfo = false;
@@ -164,12 +166,13 @@ const renderFailedToSend = (footer) => (
   </WarningModal>
 );
 
+export
 @observer
-export class Failure extends React.Component {
+ class Failure extends React.Component {
 
   static propTypes = {
-    dismiss: React.PropTypes.func.isRequired,
-    toast: React.PropTypes.object.isRequired,
+    dismiss: PropTypes.func.isRequired,
+    toast: PropTypes.object.isRequired,
   }
 
   @observable showDetails = false;

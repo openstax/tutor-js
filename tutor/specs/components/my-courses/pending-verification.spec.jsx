@@ -1,4 +1,4 @@
-import {React, SnapShot, Wrapper} from '../helpers/component-testing';
+import { React, SnapShot, Wrapper } from '../helpers/component-testing';
 import PendingVerification from '../../../src/components/my-courses/pending-verification';
 
 jest.mock('../../../src/models/chat');

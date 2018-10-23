@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { OverlayTrigger, Button, Popover } from 'react-bootstrap';
 import { TaskPlanStore } from '../../../flux/task-plan';
@@ -53,14 +54,14 @@ function buildTooltip({ isPublished }) {
   );
 }
 buildTooltip.propTypes = {
-  isPublished: React.PropTypes.bool.isRequired,
+  isPublished: PropTypes.bool.isRequired,
 };
 
 
-export default class HelpTooltip extends React.PureComponent {
+export default class HelpTooltip extends React.Component {
 
   static propTypes = {
-    isPublished: React.PropTypes.bool.isRequired,
+    isPublished: PropTypes.bool.isRequired,
   }
 
   render() {

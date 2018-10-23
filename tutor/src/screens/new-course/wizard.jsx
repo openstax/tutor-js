@@ -1,4 +1,5 @@
 import { React, observer, cn, observable } from '../../helpers/react';
+import PropTypes from 'prop-types';
 import { Button, Panel } from 'react-bootstrap';
 import { isFunction } from 'lodash';
 import BackButton from './back-button';
@@ -49,13 +50,14 @@ const Title = observer(({ ux }) => {
 });
 
 
+export default
 @observer
-export default class NewCourseWizard extends React.PureComponent {
+class NewCourseWizard extends React.Component {
 
   @observable ux = this.props.ux || new BuilderUX(this.context.router);
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   render() {
@@ -81,4 +83,4 @@ export default class NewCourseWizard extends React.PureComponent {
       </Panel>
     );
   }
-}
+};

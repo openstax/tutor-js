@@ -1,12 +1,13 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 
-export default class CancelButton extends React.PureComponent {
+export default class CancelButton extends React.Component {
 
   static propTypes = {
-    onClick:    React.PropTypes.func.isRequired,
-    isWaiting:  React.PropTypes.bool.isRequired,
-    isEditable: React.PropTypes.bool.isRequired,
+    onClick:    PropTypes.func.isRequired,
+    isWaiting:  PropTypes.bool.isRequired,
+    isEditable: PropTypes.bool.isRequired,
   }
 
   render() {

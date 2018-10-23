@@ -1,4 +1,4 @@
-import { SnapShot, Wrapper} from '../helpers/component-testing';
+import { SnapShot, Wrapper } from '../helpers/component-testing';
 import Factory, { FactoryBot } from '../../factories';
 import Courses from '../../../src/models/courses-map';
 import Breadcrumbs from '../../../src/components/task-teacher-review/breadcrumbs';

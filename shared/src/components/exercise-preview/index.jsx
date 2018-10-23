@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   compact, trimEnd, includes, sortBy, find, filter, indexOf, map, isEmpty, omit, last,
@@ -17,23 +18,23 @@ import Exercise from '../../model/exercise';
 class ExercisePreview extends React.Component {
 
   static propTypes = {
-    exercise:        React.PropTypes.instanceOf(Exercise).isRequired,
-    displayFeedback: React.PropTypes.bool,
-    displayAllTags:  React.PropTypes.bool,
-    displayFormats:  React.PropTypes.bool,
-    displayNickname: React.PropTypes.bool,
-    panelStyle:      React.PropTypes.string,
-    className:       React.PropTypes.string,
-    header:          React.PropTypes.element,
-    hideAnswers:     React.PropTypes.bool,
-    onOverlayClick:  React.PropTypes.func,
-    isSelected:      React.PropTypes.bool,
-    isInteractive:   React.PropTypes.bool,
-    actionsOnSide:   React.PropTypes.bool,
-    sortTags:        React.PropTypes.func,
-    overlayActions:  React.PropTypes.object,
-    extractedInfo:   React.PropTypes.object,
-    isVerticallyTruncated: React.PropTypes.bool,
+    exercise:        PropTypes.instanceOf(Exercise).isRequired,
+    displayFeedback: PropTypes.bool,
+    displayAllTags:  PropTypes.bool,
+    displayFormats:  PropTypes.bool,
+    displayNickname: PropTypes.bool,
+    panelStyle:      PropTypes.string,
+    className:       PropTypes.string,
+    header:          PropTypes.element,
+    hideAnswers:     PropTypes.bool,
+    onOverlayClick:  PropTypes.func,
+    isSelected:      PropTypes.bool,
+    isInteractive:   PropTypes.bool,
+    actionsOnSide:   PropTypes.bool,
+    sortTags:        PropTypes.func,
+    overlayActions:  PropTypes.object,
+    extractedInfo:   PropTypes.object,
+    isVerticallyTruncated: PropTypes.bool,
   };
 
   static defaultProps = {

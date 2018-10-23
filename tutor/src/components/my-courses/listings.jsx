@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import { observer } from 'mobx-react';
@@ -48,11 +49,11 @@ const DEFAULT_COURSE_ITEMS = {
 class MyCoursesBase extends React.Component {
 
   static propTypes = {
-    courses:    React.PropTypes.arrayOf( React.PropTypes.instanceOf(CourseModel) ).isRequired,
-    items:      React.PropTypes.objectOf(React.PropTypes.element),
-    className:  React.PropTypes.string,
-    before:     React.PropTypes.element,
-    after:      React.PropTypes.element,
+    courses:    PropTypes.arrayOf( PropTypes.instanceOf(CourseModel) ).isRequired,
+    items:      PropTypes.objectOf(PropTypes.element),
+    className:  PropTypes.string,
+    before:     PropTypes.element,
+    after:      PropTypes.element,
   }
 
   @computed get items() {
@@ -83,8 +84,8 @@ class MyCoursesBase extends React.Component {
 @observer
 class MyCoursesTitle extends React.Component {
   static propTypes = {
-    title: React.PropTypes.string.isRequired,
-    main: React.PropTypes.bool,
+    title: PropTypes.string.isRequired,
+    main: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -103,8 +104,9 @@ class MyCoursesTitle extends React.Component {
   }
 }
 
+export
 @observer
-export class MyCoursesCurrent extends React.Component {
+ class MyCoursesCurrent extends React.Component {
 
   render () {
     const baseName = 'my-courses-current';
@@ -128,9 +130,9 @@ export class MyCoursesCurrent extends React.Component {
 @observer
 class MyCoursesBasic extends React.Component {
   static propTypes = {
-    title:    React.PropTypes.string.isRequired,
-    baseName: React.PropTypes.string.isRequired,
-    courses:  React.PropTypes.arrayOf( React.PropTypes.instanceOf(CourseModel) ).isRequired,
+    title:    PropTypes.string.isRequired,
+    baseName: PropTypes.string.isRequired,
+    courses:  PropTypes.arrayOf( PropTypes.instanceOf(CourseModel) ).isRequired,
   }
 
   render() {
@@ -155,8 +157,9 @@ class MyCoursesBasic extends React.Component {
   }
 }
 
+export
 @observer
-export class MyCoursesPast extends React.Component {
+ class MyCoursesPast extends React.Component {
   render() {
     return (
       <MyCoursesBasic
@@ -169,8 +172,9 @@ export class MyCoursesPast extends React.Component {
 }
 
 
+export
 @observer
-export class MyCoursesFuture extends React.Component {
+ class MyCoursesFuture extends React.Component {
   render() {
     return (
       <MyCoursesBasic
@@ -194,8 +198,9 @@ function ExploreAPreview({ course }) {
   );
 }
 
+export
 @observer
-export class MyCoursesPreview extends React.Component {
+ class MyCoursesPreview extends React.Component {
 
   @observable previews;
 

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { action, observable } from 'mobx';
@@ -9,14 +10,15 @@ import Courses from '../../models/courses-map';
 import PopoutWindow from 'shared/components/popout-window';
 import StudentPreviewUX from '../../models/course/student-preview-ux';
 
+export default
 @observer
-export default class BuilderPopup extends React.Component {
+class BuilderPopup extends React.Component {
 
   static propTypes = {
-    courseId:   React.PropTypes.string.isRequired,
-    planType:   React.PropTypes.string.isRequired,
-    windowImpl: React.PropTypes.shape({
-      open: React.PropTypes.func,
+    courseId:   PropTypes.string.isRequired,
+    planType:   PropTypes.string.isRequired,
+    windowImpl: PropTypes.shape({
+      open: PropTypes.func,
     }),
   }
 
@@ -83,4 +85,4 @@ export default class BuilderPopup extends React.Component {
       </Button>
     );
   }
-}
+};

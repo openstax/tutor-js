@@ -1,16 +1,18 @@
+import PropTypes from 'prop-types';
 import { React, action, observer } from '../../helpers/react';
 import { partial } from 'lodash';
 
 import { Listing, Choice } from '../../components/choices-listing';
 import BuilderUX from './ux';
 
+export default
 @observer
-export default class NewOrCopy extends React.PureComponent {
+class NewOrCopy extends React.Component {
 
   static title = 'Do you want to create a new course or copy a previous course?';
 
   static propTypes = {
-    ux: React.PropTypes.instanceOf(BuilderUX).isRequired,
+    ux: PropTypes.instanceOf(BuilderUX).isRequired,
   }
 
   @action.bound
@@ -40,4 +42,4 @@ export default class NewOrCopy extends React.PureComponent {
       </Listing>
     );
   }
-}
+};

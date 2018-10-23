@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { computed, action } from 'mobx';
@@ -7,11 +8,12 @@ import Icon from '../../components/icon';
 import Course from '../../models/course';
 import Push from '../../models/jobs/lms-score-push';
 
+export default
 @observer
-export default class LmsPush extends React.PureComponent {
+class LmsPush extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
   }
 
   @computed get lmsPush() {
@@ -49,4 +51,4 @@ export default class LmsPush extends React.PureComponent {
     );
   }
 
-}
+};

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { React, ReactDOM, observable, observer, action } from '../../helpers/react';
 import { partial, camelCase } from 'lodash';
 import TaskPlan from '../../models/task-plan/teacher';
@@ -8,21 +9,21 @@ import TaskPlanMiniEditor from '../../components/task-plan/mini-editor';
 class CoursePlanDisplay extends React.Component {
 
   static propTypes = {
-    plan: React.PropTypes.instanceOf(TaskPlan).isRequired,
-    display: React.PropTypes.shape({
-      offset: React.PropTypes.number.isRequired,
-      order: React.PropTypes.number.isRequired,
-      weekTopOffset: React.PropTypes.number.isRequired,
+    plan: PropTypes.instanceOf(TaskPlan).isRequired,
+    display: PropTypes.shape({
+      offset: PropTypes.number.isRequired,
+      order: PropTypes.number.isRequired,
+      weekTopOffset: PropTypes.number.isRequired,
     }).isRequired,
-    label: React.PropTypes.node.isRequired,
-    course: React.PropTypes.instanceOf(Course).isRequired,
-    planClasses: React.PropTypes.string.isRequired,
-    setHover: React.PropTypes.func.isRequired,
-    hasReview: React.PropTypes.bool,
-    isFirst: React.PropTypes.bool,
-    isLast: React.PropTypes.bool,
-    setIsViewing: React.PropTypes.func,
-    spacingMargin: React.PropTypes.number,
+    label: PropTypes.node.isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
+    planClasses: PropTypes.string.isRequired,
+    setHover: PropTypes.func.isRequired,
+    hasReview: PropTypes.bool,
+    isFirst: PropTypes.bool,
+    isLast: PropTypes.bool,
+    setIsViewing: PropTypes.func,
+    spacingMargin: PropTypes.number,
   };
 
   static defaultProps = {
@@ -88,8 +89,9 @@ class CoursePlanDisplay extends React.Component {
 
 }
 
+export
 @observer
-export class CoursePlanDisplayEdit extends CoursePlanDisplay {
+ class CoursePlanDisplayEdit extends CoursePlanDisplay {
 
   render() {
     const { course, plan, planClasses, label, setHover } = this.props;
@@ -118,8 +120,9 @@ export class CoursePlanDisplayEdit extends CoursePlanDisplay {
 }
 
 
+export
 @observer
-export class CoursePlanDisplayMiniEditor extends CoursePlanDisplay {
+ class CoursePlanDisplayMiniEditor extends CoursePlanDisplay {
 
   @observable isShowingEditor = false;
 
@@ -171,8 +174,9 @@ export class CoursePlanDisplayMiniEditor extends CoursePlanDisplay {
 
 }
 
+export
 @observer
-export class CoursePlanDisplayQuickLook extends CoursePlanDisplay {
+ class CoursePlanDisplayQuickLook extends CoursePlanDisplay {
 
   render() {
     const { planClasses, planModal, label, setHover, setIsViewing, plan, hasReview } = this.props;
