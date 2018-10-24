@@ -25,7 +25,7 @@ class SidebarButtons extends React.Component {
 
   @autobind renderAnnotation(note) {
     const {
-      parentRect, onClick, activeAnnotation, highlighter, windowImpl
+      parentRect, onClick, activeAnnotation, highlighter, windowImpl,
     } = this.props;
     const isActive = note === activeAnnotation;
     const highlight = highlighter.getHighlight(note.id);
@@ -34,7 +34,7 @@ class SidebarButtons extends React.Component {
       return null;
     }
 
-    const {top} = getRangeRect(windowImpl, highlight.range);
+    const { top } = getRangeRect(windowImpl, highlight.range);
 
     return (
       <Icon
@@ -43,7 +43,7 @@ class SidebarButtons extends React.Component {
         className={
           cn('sidebar-button', { active: isActive })
         }
-        style={{top: top - parentRect.top}}
+        style={{ top: top - parentRect.top }}
         alt="View annotation"
         onClick={() => onClick(note)}
       />
