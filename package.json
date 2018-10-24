@@ -43,6 +43,7 @@
   },
   "homepage": "https://github.com/openstax/tutor-js",
   "dependencies": {
+    "@openstax/highlighter": "1.1.4",
     "axios": "0.15.3",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
@@ -181,7 +182,6 @@
     "react-stub-context": "0.7.0",
     "react-test-renderer": "15.4.2",
     "sass-loader": "7.1.0",
-    "serialize-selection": "1.1.1",
     "sinon": "1.17.7",
     "sinon-chai": "2.8.0",
     "sinon-spy-react": "2.0.1",

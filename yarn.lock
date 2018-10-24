@@ -18,6 +18,13 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
+"@openstax/highlighter@1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@openstax/highlighter/-/highlighter-1.1.4.tgz#76ed277c26dee108ffce4354fceddef8b4c4faf3"
+  integrity sha512-4f63Ut+snt/Bmgdsh5rhe02VNfIOdfihrs+VWS90eGRNkfr4Hxl3SWSXMVg5zLMt9j7l1TlzClg+/nPvPUMFkQ==
+  dependencies:
+    serialize-selection "^1.1.1"
+
 "@types/core-js@^0.9.41":
   version "0.9.46"
   resolved "https://registry.yarnpkg.com/@types/core-js/-/core-js-0.9.46.tgz#ea701ee34cbb6dfe6d100f1530319547c93c8d79"
@@ -9078,7 +9085,7 @@ serialize-javascript@^1.4.0:
   resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-1.4.0.tgz#7c958514db6ac2443a8abc062dc9f7886a7f6005"
   integrity sha1-fJWFFNtqwkQ6irwGLcn3iGp/YAU=
 
-serialize-selection@1.1.1:
+serialize-selection@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/serialize-selection/-/serialize-selection-1.1.1.tgz#d77d17ca999220d40019e23f4383dca4ff6ace35"
   integrity sha1-130XypmSINQAGeI/Q4PcpP9qzjU=

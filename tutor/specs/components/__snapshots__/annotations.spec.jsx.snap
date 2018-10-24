@@ -8,22 +8,6 @@ exports[`Annotations renders and matches snapshot 1`] = `
     className="slide-out-edit-box closed"
   />
   <div
-    className="annotation-edit-buttons"
-  >
-    <i
-      alt="View annotation"
-      className="tutor-icon fa fa-comment-o sidebar-button clickable"
-      onClick={[Function]}
-      role="button"
-      style={
-        Object {
-          "top": 0,
-        }
-      }
-      type="comment-o"
-    />
-  </div>
-  <div
     className="status-message-toast info"
   >
     <i

@@ -91,7 +91,7 @@ export default class AnnotationCard extends React.Component {
 
   @autobind
   openPage() {
-    const { id, selection: { chapter, section } } = this.props.annotation;
+    const { id, chapter, section } = this.props.annotation;
     let url = `/book/${this.course.ecosystem_id}/section/${chapter}`;
     if (section) {
       url += `.${section}`;
@@ -107,7 +107,7 @@ export default class AnnotationCard extends React.Component {
         <div className="annotation-body">
           <div className="annotation-content">
             <blockquote className="selected-text">
-              <ArbitraryHtmlAndMath html={this.props.annotation.selection.content} />
+              <ArbitraryHtmlAndMath html={this.props.annotation.content} />
             </blockquote>
             {this.editing ? (
                <EditBox

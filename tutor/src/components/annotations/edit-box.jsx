@@ -13,6 +13,7 @@ class EditBox extends React.Component {
   static propTypes = {
     annotation: React.PropTypes.instanceOf(Annotation),
     onHide: React.PropTypes.func.isRequired,
+    onDelete: React.PropTypes.func.isRequired,
     next: React.PropTypes.instanceOf(Annotation),
     previous: React.PropTypes.instanceOf(Annotation),
     goToAnnotation: React.PropTypes.func.isRequired,
@@ -20,9 +21,10 @@ class EditBox extends React.Component {
   }
 
   @action.bound onDelete() {
-    this.props.annotation.destroy().then(
-      this.props.onHide
-    );
+    this.props.annotation.destroy().then(() => {
+      this.props.onHide()
+      this.props.onDelete(this.props.annotation);
+    });
   }
 
   @observable text = this.props.annotation ? this.props.annotation.text : '';
