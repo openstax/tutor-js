@@ -26,7 +26,7 @@ export default class AnnotationWidget extends React.Component {
 
   static propTypes = {
     courseId: React.PropTypes.string.isRequired,
-    documentId: React.PropTypes.string.isRequired,
+    documentId: React.PropTypes.string,
     windowImpl: React.PropTypes.shape({
       open: React.PropTypes.func,
     }),
