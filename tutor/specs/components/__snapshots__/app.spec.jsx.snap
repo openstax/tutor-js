@@ -39,6 +39,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
               <a
                 aria-expanded={false}
                 aria-haspopup={true}
+                aria-label="Page tips and support"
                 className="dropdown-toggle"
                 href="#"
                 id="support-menu"
@@ -139,6 +140,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
               <a
                 aria-expanded={false}
                 aria-haspopup={true}
+                aria-label="Menu and settings"
                 className="dropdown-toggle"
                 href="#"
                 id="actions-menu"
@@ -209,6 +211,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
               <a
                 aria-expanded={false}
                 aria-haspopup={true}
+                aria-label="Account settings"
                 className="dropdown-toggle"
                 href="#"
                 id="user-menu"

@@ -7,6 +7,7 @@ exports[`Student Navbar Component has actions menu that matches snapshot 1`] = `
   <a
     aria-expanded={false}
     aria-haspopup={true}
+    aria-label="Menu and settings"
     className="dropdown-toggle"
     href="#"
     id="actions-menu"
@@ -180,6 +181,7 @@ exports[`Teacher Navbar Component has actions menu that matches snapshot 1`] = `
   <a
     aria-expanded={false}
     aria-haspopup={true}
+    aria-label="Menu and settings"
     className="dropdown-toggle"
     href="#"
     id="actions-menu"

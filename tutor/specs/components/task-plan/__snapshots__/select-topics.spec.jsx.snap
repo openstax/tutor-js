@@ -92,6 +92,7 @@ exports[`Select Topics matches snapshot 1`] = `
                        
                     </span>
                     <div
+                      aria-label="Browse course reference book"
                       className="browse-the-book"
                       onClick={[Function]}
                       role="link"
@@ -261,6 +262,7 @@ exports[`Select Topics matches snapshot 1`] = `
                        
                     </span>
                     <div
+                      aria-label="Browse course reference book"
                       className="browse-the-book"
                       onClick={[Function]}
                       role="link"
@@ -430,6 +432,7 @@ exports[`Select Topics matches snapshot 1`] = `
                        
                     </span>
                     <div
+                      aria-label="Browse course reference book"
                       className="browse-the-book"
                       onClick={[Function]}
                       role="link"

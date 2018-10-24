@@ -7,6 +7,7 @@ exports[`Support Menu renders and matches snapshot 1`] = `
   <a
     aria-expanded={false}
     aria-haspopup={true}
+    aria-label="Page tips and support"
     className="dropdown-toggle"
     href="#"
     id="support-menu"
@@ -130,6 +131,7 @@ exports[`Support Menu renders support links when in a course for student 1`] = `
   <a
     aria-expanded={false}
     aria-haspopup={true}
+    aria-label="Page tips and support"
     className="dropdown-toggle"
     href="#"
     id="support-menu"
@@ -233,6 +235,7 @@ exports[`Support Menu renders support links when in a course for teacher 1`] = `
   <a
     aria-expanded={false}
     aria-haspopup={true}
+    aria-label="Page tips and support"
     className="dropdown-toggle"
     href="#"
     id="support-menu"

@@ -19,6 +19,7 @@ export default class UserMenu extends React.Component {
         <Dropdown.Toggle
           useAnchor={true}
           noCaret
+          aria-label="Account settings"
         >
           <span className="initials">{User.initials}</span>
         </Dropdown.Toggle>

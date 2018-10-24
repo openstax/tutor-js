@@ -95,6 +95,7 @@ exports[`choose exercises component can select exercises 1`] = `
                          
                       </span>
                       <div
+                        aria-label="Browse course reference book"
                         className="browse-the-book"
                         onClick={[Function]}
                         role="link"
@@ -264,6 +265,7 @@ exports[`choose exercises component can select exercises 1`] = `
                          
                       </span>
                       <div
+                        aria-label="Browse course reference book"
                         className="browse-the-book"
                         onClick={[Function]}
                         role="link"
@@ -433,6 +435,7 @@ exports[`choose exercises component can select exercises 1`] = `
                          
                       </span>
                       <div
+                        aria-label="Browse course reference book"
                         className="browse-the-book"
                         onClick={[Function]}
                         role="link"
@@ -660,6 +663,7 @@ exports[`choose exercises component renders selections 1`] = `
                          
                       </span>
                       <div
+                        aria-label="Browse course reference book"
                         className="browse-the-book"
                         onClick={[Function]}
                         role="link"
@@ -829,6 +833,7 @@ exports[`choose exercises component renders selections 1`] = `
                          
                       </span>
                       <div
+                        aria-label="Browse course reference book"
                         className="browse-the-book"
                         onClick={[Function]}
                         role="link"
@@ -998,6 +1003,7 @@ exports[`choose exercises component renders selections 1`] = `
                          
                       </span>
                       <div
+                        aria-label="Browse course reference book"
                         className="browse-the-book"
                         onClick={[Function]}
                         role="link"
