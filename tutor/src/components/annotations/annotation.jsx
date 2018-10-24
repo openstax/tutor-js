@@ -138,7 +138,7 @@ export default class AnnotationWidget extends React.Component {
     });
 
     this.getReferenceElements();
-    if (!this.referenceElements.length) { return; }
+    if (!this.referenceElements.length) { return Promise.resolve(); }
 
     const initialize = action(() => {
       // remove any existing highlighter
@@ -164,7 +164,7 @@ export default class AnnotationWidget extends React.Component {
       this.ux.statusMessage.hide();
     });
 
-    this.waitForPageReady().then(initialize);
+    return this.waitForPageReady().then(initialize);
   }
 
   onHighlightClick = highlight => {
