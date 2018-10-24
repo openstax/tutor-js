@@ -5,7 +5,6 @@ exports[`Answer Component renders answer 1`] = `
   className="openstax-answer"
 >
   <section
-    aria-labelledby="1-label-1"
     className="answers-answer"
     role="region"
   >
@@ -21,7 +20,6 @@ exports[`Answer Component renders answer 1`] = `
     <label
       className="answer-label"
       htmlFor="1-option-1"
-      id="1-label-1"
       onKeyPress={[Function]}
     >
       <button
@@ -59,7 +57,6 @@ exports[`Answer Component renders answer feedback based on props 1`] = `
   className="openstax-answer"
 >
   <section
-    aria-labelledby="6-label-1"
     className="answers-answer"
     role="region"
   >
@@ -75,7 +72,6 @@ exports[`Answer Component renders answer feedback based on props 1`] = `
     <label
       className="answer-label"
       htmlFor="6-option-1"
-      id="6-label-1"
       onKeyPress={[Function]}
     >
       <button
