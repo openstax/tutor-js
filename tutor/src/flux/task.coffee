@@ -109,7 +109,8 @@ TaskConfig =
 
   stepCompleted: (obj, taskStepId) ->
     TaskStepActions.completed(obj, taskStepId)
-    this.loaded(obj, obj.id)
+    this._loaded(obj, obj.id)
+    Object.assign(@_local[obj.id], obj)
     @emit('step.completed', taskStepId, obj.id)
 
   exports:
