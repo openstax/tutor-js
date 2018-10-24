@@ -37,8 +37,6 @@ const config = {
   module: {
     rules: [
       { test: /\.jsx?$/,   exclude: /node_modules/, loader: 'babel-loader'         },
-      // { test: /\.coffee$/, exclude: /node_modules/, loader: 'coffee-loader'        },
-      // { test: /\.cjsx$/,   exclude: /node_modules/, loader: 'coffee-jsx-loader'    },
       { test: /\.(png|jpg|svg|gif)/, loader: 'file-loader', options: {}            },
       { test: /\.scss$/, use: [ 'style-loader', 'css-loader', 'fast-sass-loader' ] },
       { test: /\.css$/, use: [ 'style-loader', 'css-loader' ] },
