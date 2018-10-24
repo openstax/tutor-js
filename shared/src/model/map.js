@@ -16,7 +16,11 @@ export default class Map {
   }
 
   @computed get array() {
-    return this._map.values();
+    return this.values;
+  }
+
+  @computed values() {
+    return Array.from(this._map.values());
   }
 
   get(key) {
