@@ -7,6 +7,7 @@ import Icon from '../icon';
 import Courses from '../../models/courses-map';
 import PopoutWindow from 'shared/components/popout-window';
 import { ArbitraryHtmlAndMath } from 'shared';
+import Analytics from '../../helpers/analytics';
 
 @observer
 export default class SummaryPopup extends React.Component {
@@ -23,6 +24,10 @@ export default class SummaryPopup extends React.Component {
 
   static defaultProps = {
     windowImpl: window,
+  }
+
+  componentDidMount() {
+    Analytics.sendPageView('/annotations/print');
   }
 
   @action.bound onSummaryWindowClose() {

@@ -1,4 +1,6 @@
 import AnnotationWidget from '../../src/components/annotations/annotation';
+import SummaryPopup from '../../src/components/annotations/summary-popup';
+
 import Renderer from 'react-test-renderer';
 import { bootstrapCoursesList } from '../courses-test-data';
 import AnnotationsMap from '../../src/models/annotations';
@@ -6,6 +8,7 @@ import AnnotationsMap from '../../src/models/annotations';
 import Page from '../../api/pages/be8818d0-2dba-4bf3-859a-737c25fb2c99@20.json';
 import ANNOTATIONS from '../../api/annotations.json';
 import Router from '../../src/helpers/router';
+import Analytics from '../../src/helpers/analytics';
 
 jest.mock('react-addons-css-transition-group', () => ({children, component = 'div'}) => {
   const { createElement } = require('react');
@@ -16,6 +19,7 @@ jest.mock('../../src/helpers/router');
 jest.mock('../../../shared/src/components/html', () => ({ html }) =>
   html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
 );
+jest.mock('../../src/helpers/analytics');
 
 describe('Annotations', () => {
 
@@ -92,9 +96,25 @@ describe('Annotations', () => {
         const child = document.createElement(e.type);
         parent.appendChild(child);
         return child;
-      }
+      },
     });
     expect(comp.toJSON()).toMatchSnapshot();
+    comp.unmount();
+  });
+
+  it('renders print summary', () => {
+    annotations.ux.isSummaryVisible = true;
+    props.annotations = { '1.1': props.annotations.array };
+    const comp = Renderer.create(<SummaryPopup {...props} />, {
+      createNodeMock: e => {
+        const parent = document.createElement('div');
+        const child = document.createElement(e.type);
+        parent.appendChild(child);
+        return child;
+      },
+    });
+    expect(comp.toJSON()).toMatchSnapshot();
+    expect(Analytics.sendPageView).toHaveBeenCalledWith('/annotations/print');
     comp.unmount();
   });
 

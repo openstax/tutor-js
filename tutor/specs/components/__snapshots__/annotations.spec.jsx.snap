@@ -36,3 +36,21 @@ exports[`Annotations renders and matches snapshot 1`] = `
   </div>
 </div>
 `;
+
+exports[`Annotations renders print summary 1`] = `
+<div>
+  <button
+    className="print-btn btn btn-default"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    <i
+      className="tutor-icon fa fa-print"
+      role="presentation"
+      type="print"
+    />
+     Print this page
+  </button>
+</div>
+`;
