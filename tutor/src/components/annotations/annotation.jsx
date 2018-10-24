@@ -145,7 +145,7 @@ export default class AnnotationWidget extends React.Component {
       if (this.highlighter) {
         this.highlighter.unmount();
       }
-      // create a new highlighter, but don't set instance yet
+      // create a new highlighter
       this.highlighter = new Highlighter(this.getBookContentRef(), {
         snapTableRows: true,
         snapMathJax: true,
@@ -154,7 +154,7 @@ export default class AnnotationWidget extends React.Component {
         onClick: this.onHighlightClick,
         onSelect: this.onHighlightSelect,
       });
-      // attach annotations ot highlghter
+      // attach annotations to highlghter
       this.annotationsForThisPage.forEach(annotation => this.highlighter.highlight(annotation.highlight));
       // scroll if needed
       if (this.scrollToPendingAnnotation) {
