@@ -16,8 +16,7 @@ class ExerciseEditingPreview extends React.Component {
     exercise: PropTypes.object.isRequired,
     displayEditLink: PropTypes.bool,
     showEdit: PropTypes.bool,
-  };
-
+  }
 
   @computed get isAuthor() {
     const { exercise } = this.props;

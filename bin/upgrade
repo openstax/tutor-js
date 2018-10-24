@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-#require 'dir'
-
 require 'pathname'
 require 'fileutils'
 require 'irb'
@@ -32,8 +30,6 @@ class Upgrade
   def do_regex
     contents.gsub!(%r|\({ scores } = bootstrapScores\(\)\);|, "const { scores } = bootstrapScores();")
     contents.gsub!(/PureComponent/, 'Component')
-#    contents.sub!(/@observer(\n+|\s+)export default/m, "export default\n@observer")
-#    binding.irb
     contents.gsub!(
       /(@\w+(?:\('(?:\w+|\/|-|_)+'\))*)(?:\n+|\s+)(export(?: default)*)/m,
       "\\2\n\\1\n"

@@ -2,11 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { partial } from 'lodash';
 import { observer } from 'mobx-react';
-import { computed, action, observable } from 'mobx';
+import { action } from 'mobx';
 import AnswerModel  from 'shared/model/exercise/answer';
 import cn from 'classnames';
-//import _ from 'underscore';
-//import { AnswerActions, AnswerStore } from 'stores/answer';
 
 export default
 @observer
