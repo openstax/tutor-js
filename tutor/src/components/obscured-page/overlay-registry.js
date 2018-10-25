@@ -11,6 +11,7 @@ export class OverlayRegistry {
   @observable isOverlayExpanded = false;
   @observable isOverlayHidden = true;
   @observable isPageHidden = false;
+  @observable pageScrollPosition;
 
   @computed get pageClassName() {
     return cn('page', {
@@ -23,6 +24,9 @@ export class OverlayRegistry {
   }
 
   @action.bound onOverlayAnimated() {
+    if (this.isOverlayExpanded) {
+      this.pageScrollPosition = { x: window.pageXOffset, y: window.pageYOffset };
+    }
     this.isPageHidden = this.isOverlayExpanded;
     if (!this.isOverlayExpanded) {
       this.isOverlayHidden = true;
@@ -34,6 +38,12 @@ export class OverlayRegistry {
       this.onHide();
     }
     this.isPageHidden = false;
+    if (this.pageScrollPosition) {
+      defer(() => { // schedule a scroll to take place after the page is re-displayed
+        window.scroll(this.pageScrollPosition.x, this.pageScrollPosition.y);
+        this.pageScrollPosition = null;
+      });
+    }
     this.isOverlayExpanded = false;
   }
 
