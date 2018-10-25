@@ -15,7 +15,7 @@ describe('Exercise controls component', function() {
 
   beforeEach(() => {
     const exercises = Factory.exercisesMap();
-    exercise = exercises.array[0];
+    exercise = exercises.array[0].array[0];
     props = {
       exercises,
       history: {
@@ -29,17 +29,13 @@ describe('Exercise controls component', function() {
     };
   });
 
-  it('does not enable the save draft on blank exercises', () => {
-    const ex = Renderer.create(<MemoryRouter><ExerciseControls {...props} /></MemoryRouter>);
-    expect(ex.toJSON()).toMatchSnapshot();
-    ex.unmount();
-  });
-
   it('disables publish/draft if exercise is published', () => {
     const controls = mount(<ExerciseControls {...props} />, EnzymeContext.build());
     expect(controls.find('button.publish').props().disabled).toBe(false);
     exercise.published_at = new Date();
     expect(controls.find('button.draft').props().disabled).toBe(false);
+    expect(exercise.isPublishable).toBe(false);
+    controls.update();
     expect(controls.find('button.publish').props().disabled).toBe(true);
     controls.unmount();
   });

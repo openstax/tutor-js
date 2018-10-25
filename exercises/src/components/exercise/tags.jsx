@@ -20,7 +20,7 @@ function ExerciseTags({ exercise }) {
 
   return (
     <div className="tags-panel">
-      {!validity.valid && <Alert bsStyle="warning">{validity.part}</Alert>}
+      {!validity.valid && <Alert variant="warning">{validity.part}</Alert>}
       <div className="tags">
         <Books {...tagProps} />
         <Lo {...tagProps} />

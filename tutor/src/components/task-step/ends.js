@@ -1,22 +1,9 @@
-// coffeelint: disable=no_empty_functions
-
 import PropTypes from 'prop-types';
-
 import React from 'react';
-import BS from 'react-bootstrap';
-
 import TutorLink from '../link';
-import _ from 'underscore';
-
-import PracticeButton from '../buttons/practice-button';
 import BackButton from '../buttons/back-button';
-import BindStoreMixin from '../bind-store-mixin';
-import StepFooterMixin from './step-footer-mixin';
-
-import TaskStep from './index';
 import { CoursePracticeStore } from '../../flux/practice';
 import { TaskStore } from '../../flux/task';
-import { TaskStepStore } from '../../flux/task-step';
 import { CardBody, PinnableFooter } from 'shared';
 import Review from '../task/review';
 import { ConceptCoachEnd } from './concept-coach-end';

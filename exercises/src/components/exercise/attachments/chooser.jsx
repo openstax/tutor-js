@@ -4,17 +4,13 @@ import { withRouter } from 'react-router';
 import Exercises, { Exercise, ExercisesMap } from '../../../models/exercises';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
-import createReactClass from 'create-react-class';
 import { Button, ProgressBar } from 'react-bootstrap';
 import { first, partial } from 'lodash';
 import classnames from 'classnames';
-import api from 'api';
 
 @withRouter
 @observer
 class AttachmentChooser extends React.Component {
-
-  displayName: 'AttachmentChooser'
 
   static propTypes = {
     exercise: PropTypes.instanceOf(Exercise).isRequired,

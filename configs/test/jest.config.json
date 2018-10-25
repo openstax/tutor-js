@@ -7,11 +7,10 @@
   "coverageReporters": ["json", "lcov", "text-summary"],
   "testRegex": "specs\/.*\\.spec\\.(coffee|js|jsx|cjsx|json)$",
   "transform": {
-    "\\.(coffee|cjsx)$": "<rootDir>/../configs/test/jest.preprocessor.js",
-    "^.+\\.jsx?$": "babel-jest"
+    "^.+\\.jsx?$": "babel7-jest"
   },
-  "moduleFileExtensions": [ "coffee", "js", "cjsx", "jsx", "json" ],
-  "setupTestFrameworkScriptFile": "<rootDir>../configs/test/jest.setup.coffee",
+  "moduleFileExtensions": [ "js", "jsx", "json" ],
+  "setupTestFrameworkScriptFile": "<rootDir>../configs/test/jest.setup.js",
   "modulePaths": [
     "<rootDir>/src"
   ],

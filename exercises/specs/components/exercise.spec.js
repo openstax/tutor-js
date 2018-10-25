@@ -14,7 +14,7 @@ describe('Exercises component', () => {
 
   beforeEach(() => {
     const exercises = Factory.exercisesMap();
-    exercise = exercises.array[0];
+    exercise = exercises.array[0].array[0];
     props = {
       exercises,
       match: {
@@ -32,10 +32,12 @@ describe('Exercises component', () => {
   });
 
   it('renders with intro and a multiple questions when exercise is MC', () => {
-    props.exercise = new ExerciseModel(Factory.data('Exercise', { multipart: true }));
-    const ex = Renderer.create(<MemoryRouter><Exercise {...props} /></MemoryRouter>);
-    expect(ex.toJSON()).toMatchSnapshot();
-    ex.unmount();
+    const ex = new ExerciseModel(Factory.data('Exercise', { multipart: true }));
+    props.exercises.set(ex.uid, ex);
+    props.match.params.uid = ex.uid;
+    const exercise = Renderer.create(<Exercise {...props} />);
+    expect(exercise.toJSON()).toMatchSnapshot();
+    exercise.unmount();
   });
 
   it('can save edits', () => {

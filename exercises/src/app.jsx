@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Navbar, Nav, NavItem } from 'react-bootstrap';
+import { Container, Navbar, Nav } from 'react-bootstrap';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Provider, observer } from 'mobx-react';
 import { action } from 'mobx';
@@ -32,33 +32,33 @@ export default class App extends React.Component {
     return (
       <Provider ux={ux}>
         <BrowserRouter ref={br => this.router = br}>
-          <Grid fluid className="openstax exercises">
-            <Navbar fluid fixedTop>
-              <Navbar.Header>
-                <Navbar.Brand>
-                  <a href="#home">OX Exercises</a>
-                </Navbar.Brand>
-              </Navbar.Header>
-              <Nav className="exercise-navbar-controls" >
-                <NavItem onClick={this.onSearch} href="/search">
-                  Search
-                </NavItem>
-                <NavItem onClick={this.onNew} href="/exercise/new">
-                  New
-                </NavItem>
-                <Route path="/search" component={Search.Controls} />
-                <Route path="/exercise/:uid" component={Exercise.Controls} />
-                <Route path="/preview/:uid" component={Preview.Controls} />
-              </Nav>
+          <div>
+            <Navbar bg="light" expand="lg">
+              <Navbar.Brand href="#home">OX Exercises</Navbar.Brand>
+              <Navbar.Collapse>
+                <Nav className="exercise-navbar-controls" >
+                  <Nav.Link onClick={this.onSearch} href="/search">
+                    Search
+                  </Nav.Link>
+                  <Nav.Link onClick={this.onNew} href="/exercise/new">
+                    New
+                  </Nav.Link>
+                  <Route path="/search" component={Search.Controls} />
+                  <Route path="/exercise/:uid" component={Exercise.Controls} />
+                  <Route path="/preview/:uid" component={Preview.Controls} />
+                </Nav>
+              </Navbar.Collapse>
               <UserActionsMenu user={user} />
             </Navbar>
-            <Toasts />
-            <div className="exercises-body">
-              <Route path="/search" component={Search} />
-              <Route path="/exercise/:uid" component={Exercise} />
-              <Route path="/preview/:uid" component={Preview} />
-            </div>
-          </Grid>
+            <Container fluid className="openstax exercises">
+              <Toasts />
+              <div className="exercises-body">
+                <Route path="/search" component={Search} />
+                <Route path="/exercise/:uid" component={Exercise} />
+                <Route path="/preview/:uid" component={Preview} />
+              </div>
+            </Container>
+          </div>
         </BrowserRouter>
       </Provider>
     );

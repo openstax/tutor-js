@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { ControlLabel } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
 import AsyncButton from './buttons/async-button';
 import classnames from 'classnames';
@@ -61,9 +61,9 @@ class ChangeStudentIdForm extends React.Component {
         {this.props.children}
         <div className="controls">
           <div className="main">
-            <ControlLabel>
+            <Form.Label>
               {this.props.label}
-            </ControlLabel>
+            </Form.Label>
             <div className="inputs">
               <input
                 autoFocus={true}

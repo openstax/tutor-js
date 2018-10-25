@@ -6,34 +6,27 @@ exports[`Exercise controls component renders and matches snapshot 1`] = `
 >
   <div
     className="paging-controls btn-group"
+    role="group"
   >
     <a
-      className="btn btn-default disabled"
+      aria-disabled={true}
+      className="btn btn-primary disabled"
       href="#"
       onClick={[Function]}
       onKeyDown={[Function]}
       role="button"
-      style={
-        Object {
-          "pointerEvents": "none",
-        }
-      }
       tabIndex={-1}
       title="Go to previous exercise"
     >
       ◅
     </a>
     <a
-      className="btn btn-default disabled"
+      aria-disabled={true}
+      className="btn btn-primary disabled"
       href="#"
       onClick={[Function]}
       onKeyDown={[Function]}
       role="button"
-      style={
-        Object {
-          "pointerEvents": "none",
-        }
-      }
       tabIndex={-1}
       title="Go down a version"
     >
@@ -46,23 +39,19 @@ exports[`Exercise controls component renders and matches snapshot 1`] = `
       1@1
     </span>
     <a
-      className="btn btn-default disabled"
+      aria-disabled={true}
+      className="btn btn-primary disabled"
       href="#"
       onClick={[Function]}
       onKeyDown={[Function]}
       role="button"
-      style={
-        Object {
-          "pointerEvents": "none",
-        }
-      }
       tabIndex={-1}
       title="Go up a version"
     >
       △
     </a>
     <a
-      className="btn btn-default"
+      className="btn btn-primary"
       href="#"
       onClick={[Function]}
       onKeyDown={[Function]}

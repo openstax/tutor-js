@@ -121,7 +121,7 @@ class Exercise extends React.Component {
 
   renderMPQ() {
     return (
-      <Button onClick={this.addQuestion} className="add-mpq" bsStyle="primary">
+      <Button onClick={this.addQuestion} className="add-mpq" variant="primary">
         Add Question
       </Button>
     );
@@ -131,12 +131,13 @@ class Exercise extends React.Component {
     if (this.props.exercises.api.isPending) { return <Loading />; }
     const { exercise } = this;
     if (!exercise) { return <NotFound />; }
+
     const { isMultiPart } = exercise;
 
     return (
       <div className="exercise-editor">
         <div className="editing-controls">
-          {exercise.error && <Alert bsStyle="danger">{String(exercise.error)}</Alert>}
+          {exercise.error && <Alert variant="danger">{String(exercise.error)}</Alert>}
           {isMultiPart && this.renderMPQ()}
 
           <Tabs
@@ -144,7 +145,6 @@ class Exercise extends React.Component {
             activeKey={this.activeTabKey}
             onSelect={this.selectTab}
             defaultActiveKey="question-0"
-            animation={false}
           >
             {isMultiPart && this.renderIntroTab()}
             {isMultiPart ? this.renderMpqTabs() : this.renderSingleQuestionTab()}

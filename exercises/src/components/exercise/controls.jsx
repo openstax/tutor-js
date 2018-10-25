@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { computed, observable, action } from 'mobx';
+import { computed, action } from 'mobx';
 import Exercises, { ExercisesMap } from '../../models/exercises';
-import { Button, ButtonToolbar } from 'react-bootstrap';
-import AsyncButton from 'shared/components/buttons/async-button.cjsx';
+import { ButtonToolbar } from 'react-bootstrap';
+import AsyncButton from 'shared/components/buttons/async-button';
 import MPQToggle from 'components/exercise/mpq-toggle';
 import { SuretyGuard, idType } from 'shared';
 import Toasts from '../../models/toasts';
@@ -64,7 +63,7 @@ class ExerciseControls extends React.Component {
       <li className="exercise-navbar-controls">
         <ButtonToolbar className="navbar-btn">
           <AsyncButton
-            bsStyle="info"
+            variant="info"
             className="draft"
             onClick={this.saveExerciseDraft}
             disabled={!exercise.validity.valid}
@@ -80,7 +79,7 @@ class ExerciseControls extends React.Component {
               placement="right"
               message="Once an exercise is published, it is available for use.">
               <AsyncButton
-                bsStyle="primary"
+                variant="primary"
                 className="publish"
                 disabled={!exercise.isPublishable}
                 isWaiting={exercise.api.isPending}

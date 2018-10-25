@@ -1,7 +1,7 @@
-// coffeelint: disable=no_empty_functions
-import _ from 'underscore';
-import { sortBy, extend, keys, pick, isObject, isString, clone, omit, isEqual, negate, cloneDeep, each, isEmpty } from 'lodash';
-
+import {
+  sortBy, extend, keys, pick, isObject, isString, clone,
+  omit, isEqual, negate, cloneDeep, each, isEmpty,
+} from 'lodash';
 import { CrudConfig, makeSimpleStore, extendConfig } from './helpers';
 import Publishing from '../models/jobs/task-plan-publish';
 import Courses from '../models/courses-map';

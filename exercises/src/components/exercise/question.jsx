@@ -90,7 +90,7 @@ class Question extends React.Component {
         {question.exercise.isMultiPart && this.renderControls()}
 
         {!validity.valid && (
-          <Alert bsStyle="warning">
+          <Alert variant="warning">
              To save your work, you must fill out the {validity.part}
           </Alert>)}
 

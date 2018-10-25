@@ -11,7 +11,6 @@ export default class extends React.Component {
     isFailed: false,
     waitingText: 'Loading…',
     failedState: RefreshButton,
-
     failedProps: {
       beforeText: 'There was a problem.  ',
     },
@@ -26,14 +25,15 @@ export default class extends React.Component {
     isWaiting: PropTypes.bool.isRequired,
     isDone: PropTypes.bool,
     isFailed: PropTypes.bool,
-
-    // TODO: This should be a Component or array
+    active: PropTypes.bool,
     waitingText: PropTypes.node,
-
     failedState: PropTypes.func,
     failedProps: PropTypes.object,
     doneText: PropTypes.node,
     isJob: PropTypes.bool,
+    onClick: PropTypes.func,
+    variant: PropTypes.string,
+    size: PropTypes.string,
     timeoutLength: PropTypes.number,
   };
 
@@ -99,13 +99,18 @@ export default class extends React.Component {
     } else {
       stateClass = null;
       text = children;
+      disabled = this.props.disabled;
     }
 
     return (
       <Button
-        {...filterProps(this.props, { prefixes: 'bs' })}
+        size={this.props.size}
+        variant={this.props.variant}
+        onClick={this.props.onClick}
         className={[buttonTypeClass, stateClass, className]}
-        disabled={disabled}>
+        active={this.props.active}
+        disabled={disabled}
+      >
         {spinner}
         {text}
       </Button>

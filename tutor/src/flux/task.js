@@ -1,4 +1,3 @@
-// coffeelint: disable=no_empty_functions
 import {
   map, find, filter, each, values, findIndex, isEqual, first, pick,
   findLastIndex, isEmpty, pluck, uniq, compact,

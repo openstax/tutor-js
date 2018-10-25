@@ -2,7 +2,7 @@
 // derived model's identifiedBy strings
 import { computed, action } from 'mobx';
 import { find, isNil, get } from 'lodash';
-
+import { getSchema } from 'mobx-decorated-models';
 const FLUX_NEW = /_CREATING_/;
 import lazyGetter from './helpers/lazy-getter.js';
 import ModelApi from './model/api';
@@ -17,7 +17,8 @@ export class BaseModel {
   @lazyGetter api = new ModelApi();
 
   @computed get isNew() {
-    const idField = find(Array.from(this.constructor.$schema.values()), { type: 'identifier' });
+    const schema = getSchema(this.constructor);
+    const idField = find(Array.from(schema.properties.values()), { type: 'identifier' });
     const id = this[idField.name];
     return isNil(id) || FLUX_NEW.test(id);
   }

@@ -1,4 +1,3 @@
-// coffeelint: disable=no_empty_functions
 import _ from 'underscore';
 import flux from 'flux-react';
 import Durations from '../helpers/durations';

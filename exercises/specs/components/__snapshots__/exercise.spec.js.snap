@@ -7,788 +7,771 @@ exports[`Exercises component renders and matches snapshot 1`] = `
   <div
     className="editing-controls"
   >
-    <div
-      className={undefined}
-      id="exercise-parts"
-      style={undefined}
+    <nav
+      className="nav nav-tabs"
+      onKeyDown={[Function]}
+      role="tablist"
     >
-      <ul
-        className="nav nav-tabs"
-        role="tablist"
+      <a
+        aria-controls="exercise-parts-tabpane-question-0"
+        aria-selected={true}
+        className="nav-item nav-link active"
+        data-rb-event-key="question-0"
+        href="#"
+        id="exercise-parts-tab-question-0"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="tab"
       >
-        <li
-          className="active"
-          role="presentation"
-          style={undefined}
-        >
-          <a
-            aria-controls="exercise-parts-pane-question-0"
-            aria-selected={true}
-            href="#"
-            id="exercise-parts-tab-question-0"
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="tab"
-            tabIndex={undefined}
-          >
-            Question
-          </a>
-        </li>
-        <li
-          className=""
-          role="presentation"
-          style={undefined}
-        >
-          <a
-            aria-controls="exercise-parts-pane-tags"
-            aria-selected={false}
-            href="#"
-            id="exercise-parts-tab-tags"
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="tab"
-            tabIndex={-1}
-          >
-            Tags
-          </a>
-        </li>
-        <li
-          className=""
-          role="presentation"
-          style={undefined}
-        >
-          <a
-            aria-controls="exercise-parts-pane-assets"
-            aria-selected={false}
-            href="#"
-            id="exercise-parts-tab-assets"
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="tab"
-            tabIndex={-1}
-          >
-            Assets
-          </a>
-        </li>
-      </ul>
+        Question
+      </a>
+      <a
+        aria-controls="exercise-parts-tabpane-tags"
+        aria-selected={false}
+        className="nav-item nav-link"
+        data-rb-event-key="tags"
+        href="#"
+        id="exercise-parts-tab-tags"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="tab"
+        tabIndex={-1}
+      >
+        Tags
+      </a>
+      <a
+        aria-controls="exercise-parts-tabpane-assets"
+        aria-selected={false}
+        className="nav-item nav-link"
+        data-rb-event-key="assets"
+        href="#"
+        id="exercise-parts-tab-assets"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="tab"
+        tabIndex={-1}
+      >
+        Assets
+      </a>
+    </nav>
+    <div
+      className="tab-content"
+    >
       <div
-        className="tab-content"
+        aria-hidden={false}
+        aria-labelledby="exercise-parts-tab-question-0"
+        className="fade tab-pane active show"
+        id="exercise-parts-tabpane-question-0"
+        role="tabpanel"
       >
         <div
-          aria-hidden={false}
-          aria-labelledby="exercise-parts-tab-question-0"
-          className="tab-pane active"
-          id="exercise-parts-pane-question-0"
-          role="tabpanel"
+          className="nickname"
+        >
+          <label>
+            Exercise Nickname:
+            <input
+              onChange={[Function]}
+              value="maurine"
+            />
+          </label>
+        </div>
+        <div
+          className="question"
         >
           <div
-            className="nickname"
+            className="format-type"
           >
-            <label>
-              Exercise Nickname:
+            <div>
               <input
+                checked={false}
+                id="input-open-ended"
+                name="0-formats"
                 onChange={[Function]}
-                value="maurine"
+                type="radio"
+                value="open-ended"
               />
-            </label>
-          </div>
-          <div
-            className="question"
-          >
+              <label
+                htmlFor="input-open-ended"
+              >
+                Open Ended
+              </label>
+            </div>
+            <div>
+              <input
+                checked={true}
+                id="input-multiple-choice"
+                name="0-formats"
+                onChange={[Function]}
+                type="radio"
+                value="multiple-choice"
+              />
+              <label
+                htmlFor="input-multiple-choice"
+              >
+                Multiple Choice
+              </label>
+            </div>
+            <div>
+              <input
+                checked={false}
+                id="input-true-false"
+                name="0-formats"
+                onChange={[Function]}
+                type="radio"
+                value="true-false"
+              />
+              <label
+                htmlFor="input-true-false"
+              >
+                True/False
+              </label>
+            </div>
             <div
-              className="format-type"
+              className="multi-choice-boxes"
             >
-              <div>
+              <div
+                className="requires-choices"
+              >
                 <input
                   checked={false}
-                  id="input-open-ended"
-                  name="0-formats"
+                  id="input-rq"
                   onChange={[Function]}
-                  type="radio"
-                  value="open-ended"
+                  type="checkbox"
                 />
                 <label
-                  htmlFor="input-open-ended"
+                  htmlFor="input-rq"
                 >
-                  Open Ended
-                </label>
-              </div>
-              <div>
-                <input
-                  checked={true}
-                  id="input-multiple-choice"
-                  name="0-formats"
-                  onChange={[Function]}
-                  type="radio"
-                  value="multiple-choice"
-                />
-                <label
-                  htmlFor="input-multiple-choice"
-                >
-                  Multiple Choice
-                </label>
-              </div>
-              <div>
-                <input
-                  checked={false}
-                  id="input-true-false"
-                  name="0-formats"
-                  onChange={[Function]}
-                  type="radio"
-                  value="true-false"
-                />
-                <label
-                  htmlFor="input-true-false"
-                >
-                  True/False
+                  Requires Choices
                 </label>
               </div>
               <div
-                className="multi-choice-boxes"
+                className="order-matters"
               >
-                <div
-                  className="requires-choices"
+                <input
+                  checked={false}
+                  id="input-om"
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <label
+                  htmlFor="input-om"
                 >
-                  <input
-                    checked={false}
-                    id="input-rq"
-                    onChange={[Function]}
-                    type="checkbox"
-                  />
-                  <label
-                    htmlFor="input-rq"
-                  >
-                    Requires Choices
-                  </label>
-                </div>
-                <div
-                  className="order-matters"
-                >
-                  <input
-                    checked={false}
-                    id="input-om"
-                    onChange={[Function]}
-                    type="checkbox"
-                  />
-                  <label
-                    htmlFor="input-om"
-                  >
-                    Order Matters
-                  </label>
-                </div>
+                  Order Matters
+                </label>
               </div>
             </div>
-            <div>
-              <label>
-                Question Stem
-              </label>
-              <textarea
-                onChange={[Function]}
-                value="What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?"
-              />
-            </div>
-            <div>
-              <label>
-                Answers:
-              </label>
-              <a
-                className="pull-right"
-                onClick={[Function]}
+          </div>
+          <div>
+            <label>
+              Question Stem
+            </label>
+            <textarea
+              onChange={[Function]}
+              value="What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?"
+            />
+          </div>
+          <div>
+            <label>
+              Answers:
+            </label>
+            <a
+              className="pull-right"
+              onClick={[Function]}
+            >
+              Add New
+            </a>
+            <ol>
+              <li
+                className="answer"
               >
-                Add New
-              </a>
-              <ol>
-                <li
-                  className="answer"
-                >
-                  <p>
-                    <span
-                      className="answer-actions"
+                <p>
+                  <span
+                    className="answer-actions"
+                  >
+                    <a
+                      className="pull-right"
+                      onClick={[Function]}
                     >
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-ban"
-                        />
-                      </a>
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-arrow-circle-down"
-                        />
-                      </a>
-                      <a
-                        className="pull-right is-correct"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-check-circle-o"
-                        />
-                      </a>
-                    </span>
-                  </p>
-                  <label>
-                    Distractor
-                  </label>
-                  <textarea
-                    onChange={[Function]}
-                    value="<ol>
+                      <i
+                        className="fa fa-ban"
+                      />
+                    </a>
+                    <a
+                      className="pull-right"
+                      onClick={[Function]}
+                    >
+                      <i
+                        className="fa fa-arrow-circle-down"
+                      />
+                    </a>
+                    <a
+                      className="pull-right is-correct"
+                      onClick={[Function]}
+                    >
+                      <i
+                        className="fa fa-check-circle-o"
+                      />
+                    </a>
+                  </span>
+                </p>
+                <label>
+                  Distractor
+                </label>
+                <textarea
+                  onChange={[Function]}
+                  value="<ol>
   <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
   <li>objects are too small to be seen with the naked eye, and</li>
   <li>there is the involvement of only a weak gravitational field</li>
 </ol>
 "
-                  />
-                  <label>
-                    Choice-Level Feedback
-                  </label>
-                  <textarea
-                    onChange={[Function]}
-                    value="Objects far smaller than what is visible may require quantum mechanics."
-                  />
-                </li>
-                <li
-                  className="answer"
-                >
-                  <p>
-                    <span
-                      className="answer-actions"
+                />
+                <label>
+                  Choice-Level Feedback
+                </label>
+                <textarea
+                  onChange={[Function]}
+                  value="Objects far smaller than what is visible may require quantum mechanics."
+                />
+              </li>
+              <li
+                className="answer"
+              >
+                <p>
+                  <span
+                    className="answer-actions"
+                  >
+                    <a
+                      className="pull-right"
+                      onClick={[Function]}
                     >
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-ban"
-                        />
-                      </a>
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-arrow-circle-down"
-                        />
-                      </a>
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-arrow-circle-up"
-                        />
-                      </a>
-                      <a
-                        className="pull-right is-correct"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-check-circle-o"
-                        />
-                      </a>
-                    </span>
-                  </p>
-                  <label>
-                    Distractor
-                  </label>
-                  <textarea
-                    onChange={[Function]}
-                    value="<ol>
+                      <i
+                        className="fa fa-ban"
+                      />
+                    </a>
+                    <a
+                      className="pull-right"
+                      onClick={[Function]}
+                    >
+                      <i
+                        className="fa fa-arrow-circle-down"
+                      />
+                    </a>
+                    <a
+                      className="pull-right"
+                      onClick={[Function]}
+                    >
+                      <i
+                        className="fa fa-arrow-circle-up"
+                      />
+                    </a>
+                    <a
+                      className="pull-right is-correct"
+                      onClick={[Function]}
+                    >
+                      <i
+                        className="fa fa-check-circle-o"
+                      />
+                    </a>
+                  </span>
+                </p>
+                <label>
+                  Distractor
+                </label>
+                <textarea
+                  onChange={[Function]}
+                  value="<ol>
   <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>
   <li>objects are large enough to be seen with the naked eye, and</li>
   <li>there is the involvement of a strong gravitational field</li>
 </ol>
 "
-                  />
-                  <label>
-                    Choice-Level Feedback
-                  </label>
-                  <textarea
-                    onChange={[Function]}
-                    value="Speeds greater than roughly 1% pf the speed of light start to involve significant effects from relativity."
-                  />
-                </li>
-                <li
-                  className="answer"
-                >
-                  <p>
-                    <span
-                      className="answer-actions"
+                />
+                <label>
+                  Choice-Level Feedback
+                </label>
+                <textarea
+                  onChange={[Function]}
+                  value="Speeds greater than roughly 1% pf the speed of light start to involve significant effects from relativity."
+                />
+              </li>
+              <li
+                className="answer"
+              >
+                <p>
+                  <span
+                    className="answer-actions"
+                  >
+                    <a
+                      className="pull-right"
+                      onClick={[Function]}
                     >
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-ban"
-                        />
-                      </a>
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-arrow-circle-down"
-                        />
-                      </a>
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-arrow-circle-up"
-                        />
-                      </a>
-                      <a
-                        className="pull-right is-correct"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-check-circle-o"
-                        />
-                      </a>
-                    </span>
-                  </p>
-                  <label>
-                    Distractor
-                  </label>
-                  <textarea
-                    onChange={[Function]}
-                    value="<ol>
+                      <i
+                        className="fa fa-ban"
+                      />
+                    </a>
+                    <a
+                      className="pull-right"
+                      onClick={[Function]}
+                    >
+                      <i
+                        className="fa fa-arrow-circle-down"
+                      />
+                    </a>
+                    <a
+                      className="pull-right"
+                      onClick={[Function]}
+                    >
+                      <i
+                        className="fa fa-arrow-circle-up"
+                      />
+                    </a>
+                    <a
+                      className="pull-right is-correct"
+                      onClick={[Function]}
+                    >
+                      <i
+                        className="fa fa-check-circle-o"
+                      />
+                    </a>
+                  </span>
+                </p>
+                <label>
+                  Distractor
+                </label>
+                <textarea
+                  onChange={[Function]}
+                  value="<ol>
   <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
   <li>objects are large enough to be seen with the naked eye, and</li>
   <li>there is the involvement of a strong gravitational field</li>
 </ol>
 "
-                  />
-                  <label>
-                    Choice-Level Feedback
-                  </label>
-                  <textarea
-                    onChange={[Function]}
-                    value="A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain."
-                  />
-                </li>
-                <li
-                  className="answer"
-                >
-                  <p>
-                    <span
-                      className="answer-actions"
+                />
+                <label>
+                  Choice-Level Feedback
+                </label>
+                <textarea
+                  onChange={[Function]}
+                  value="A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain."
+                />
+              </li>
+              <li
+                className="answer"
+              >
+                <p>
+                  <span
+                    className="answer-actions"
+                  >
+                    <a
+                      className="pull-right"
+                      onClick={[Function]}
                     >
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-ban"
-                        />
-                      </a>
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-arrow-circle-down"
-                        />
-                      </a>
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-arrow-circle-up"
-                        />
-                      </a>
-                      <a
-                        className="pull-right is-correct"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-check-circle-o"
-                        />
-                      </a>
-                    </span>
-                  </p>
-                  <label>
-                    Distractor
-                  </label>
-                  <textarea
-                    onChange={[Function]}
-                    value="<ol>
+                      <i
+                        className="fa fa-ban"
+                      />
+                    </a>
+                    <a
+                      className="pull-right"
+                      onClick={[Function]}
+                    >
+                      <i
+                        className="fa fa-arrow-circle-down"
+                      />
+                    </a>
+                    <a
+                      className="pull-right"
+                      onClick={[Function]}
+                    >
+                      <i
+                        className="fa fa-arrow-circle-up"
+                      />
+                    </a>
+                    <a
+                      className="pull-right is-correct"
+                      onClick={[Function]}
+                    >
+                      <i
+                        className="fa fa-check-circle-o"
+                      />
+                    </a>
+                  </span>
+                </p>
+                <label>
+                  Distractor
+                </label>
+                <textarea
+                  onChange={[Function]}
+                  value="<ol>
   <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
   <li>objects are large enough to be seen with the naked eye, and</li>
   <li>there is the involvement of a weak gravitational field</li>
 </ol>
 "
-                  />
-                  <label>
-                    Choice-Level Feedback
-                  </label>
-                  <textarea
-                    onChange={[Function]}
-                    value="Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied."
-                  />
-                </li>
-                <li
-                  className="answer"
-                >
-                  <p>
-                    <span
-                      className="answer-actions"
+                />
+                <label>
+                  Choice-Level Feedback
+                </label>
+                <textarea
+                  onChange={[Function]}
+                  value="Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied."
+                />
+              </li>
+              <li
+                className="answer"
+              >
+                <p>
+                  <span
+                    className="answer-actions"
+                  >
+                    <a
+                      className="pull-right"
+                      onClick={[Function]}
                     >
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-ban"
-                        />
-                      </a>
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-arrow-circle-up"
-                        />
-                      </a>
-                      <a
-                        className="pull-right is-correct"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-check-circle-o"
-                        />
-                      </a>
-                    </span>
-                  </p>
-                  <label>
-                    Distractor
-                  </label>
-                  <textarea
-                    onChange={[Function]}
-                    value="<ol>
+                      <i
+                        className="fa fa-ban"
+                      />
+                    </a>
+                    <a
+                      className="pull-right"
+                      onClick={[Function]}
+                    >
+                      <i
+                        className="fa fa-arrow-circle-up"
+                      />
+                    </a>
+                    <a
+                      className="pull-right is-correct"
+                      onClick={[Function]}
+                    >
+                      <i
+                        className="fa fa-check-circle-o"
+                      />
+                    </a>
+                  </span>
+                </p>
+                <label>
+                  Distractor
+                </label>
+                <textarea
+                  onChange={[Function]}
+                  value="<ol>
   <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>
   <li>objects are too small to be seen with the naked eye, and</li>
   <li>there is the involvement of only a weak gravitational field</li>
 </ol>
 "
-                  />
-                  <label>
-                    Choice-Level Feedback
-                  </label>
-                  <textarea
-                    onChange={[Function]}
-                    value="Objects far smaller than what is visible may require quantum mechanics."
-                  />
-                </li>
-              </ol>
-            </div>
-            <div>
-              <label>
-                Detailed Solution
-              </label>
-              <textarea
-                onChange={[Function]}
-                value="four"
-              />
-            </div>
+                />
+                <label>
+                  Choice-Level Feedback
+                </label>
+                <textarea
+                  onChange={[Function]}
+                  value="Objects far smaller than what is visible may require quantum mechanics."
+                />
+              </li>
+            </ol>
+          </div>
+          <div>
+            <label>
+              Detailed Solution
+            </label>
+            <textarea
+              onChange={[Function]}
+              value="four"
+            />
           </div>
         </div>
+      </div>
+      <div
+        aria-hidden={true}
+        aria-labelledby="exercise-parts-tab-tags"
+        className="fade tab-pane"
+        id="exercise-parts-tabpane-tags"
+        role="tabpanel"
+      >
         <div
-          aria-hidden={true}
-          aria-labelledby="exercise-parts-tab-tags"
-          className="tab-pane"
-          id="exercise-parts-pane-tags"
-          role="tabpanel"
+          className="tags-panel"
         >
           <div
-            className="tags-panel"
+            className="tags"
           >
             <div
-              className="tags"
+              className="tag-type has-single-tag"
             >
               <div
-                className="tag-type has-single-tag"
+                className="heading"
               >
-                <div
-                  className="heading"
+                <span
+                  className="label"
                 >
-                  <span
-                    className="label"
-                  >
-                    Book
-                  </span>
-                  <div
-                    className="controls"
-                  >
-                    <i
-                      className="fa fa-plus-circle"
-                      onClick={[Function]}
-                    />
-                  </div>
-                </div>
+                  Book
+                </span>
                 <div
-                  className="tag"
+                  className="controls"
                 >
-                  <select
-                    className="form-control"
-                    onChange={[Function]}
-                    value="stax-phys"
-                  >
-                    <option
-                      value="stax-soc"
-                    >
-                      Sociology
-                    </option>
-                    <option
-                      value="stax-phys"
-                    >
-                      College Physics
-                    </option>
-                    <option
-                      value="stax-k12phys"
-                    >
-                      Physics
-                    </option>
-                    <option
-                      value="stax-bio"
-                    >
-                      Biology
-                    </option>
-                    <option
-                      value="stax-apbio"
-                    >
-                      Biology for AP® Courses
-                    </option>
-                    <option
-                      value="stax-cbio"
-                    >
-                      Concepts of Biology
-                    </option>
-                    <option
-                      value="stax-econ"
-                    >
-                      Economics
-                    </option>
-                    <option
-                      value="stax-anp"
-                    >
-                      Anatomy and Physiology
-                    </option>
-                    <option
-                      value="stax-macro"
-                    >
-                      Macro Economics
-                    </option>
-                    <option
-                      value="stax-micro"
-                    >
-                      Micro Economics
-                    </option>
-                    <option
-                      value="stax-apush"
-                    >
-                      U.S. History for AP® Courses
-                    </option>
-                  </select>
-                  <span
-                    className="controls"
-                  >
-                    <i
-                      className="fa fa-trash"
-                      onClick={[Function]}
-                    />
-                  </span>
+                  <i
+                    className="fa fa-plus-circle"
+                    onClick={[Function]}
+                  />
                 </div>
               </div>
               <div
-                className="tag-type"
+                className="tag"
               >
-                <div
-                  className="heading"
+                <select
+                  className="form-control"
+                  onChange={[Function]}
+                  value="stax-phys"
                 >
-                  <span
-                    className="label"
+                  <option
+                    value="stax-soc"
                   >
-                    LO
-                  </span>
-                  <div
-                    className="controls"
-                  >
-                    <i
-                      className="fa fa-plus-circle"
-                      onClick={[Function]}
-                    />
-                  </div>
-                </div>
-                <div
-                  className="tag"
-                >
-                  <select
-                    className="form-control"
-                    onChange={[Function]}
+                    Sociology
+                  </option>
+                  <option
                     value="stax-phys"
                   >
-                    <option
-                      value="stax-phys"
-                    >
-                      College Physics
-                    </option>
-                  </select>
-                  <input
-                    className="form-control"
-                    onBlur={[Function]}
-                    onChange={[Function]}
-                    placeholder="##-##-##"
-                    type="text"
-                    value="1-2-1"
-                  />
-                  <span
-                    className="controls"
+                    College Physics
+                  </option>
+                  <option
+                    value="stax-k12phys"
                   >
-                    <i
-                      className="fa fa-trash"
-                      onClick={[Function]}
-                    />
-                  </span>
+                    Physics
+                  </option>
+                  <option
+                    value="stax-bio"
+                  >
+                    Biology
+                  </option>
+                  <option
+                    value="stax-apbio"
+                  >
+                    Biology for AP® Courses
+                  </option>
+                  <option
+                    value="stax-cbio"
+                  >
+                    Concepts of Biology
+                  </option>
+                  <option
+                    value="stax-econ"
+                  >
+                    Economics
+                  </option>
+                  <option
+                    value="stax-anp"
+                  >
+                    Anatomy and Physiology
+                  </option>
+                  <option
+                    value="stax-macro"
+                  >
+                    Macro Economics
+                  </option>
+                  <option
+                    value="stax-micro"
+                  >
+                    Micro Economics
+                  </option>
+                  <option
+                    value="stax-apush"
+                  >
+                    U.S. History for AP® Courses
+                  </option>
+                </select>
+                <span
+                  className="controls"
+                >
+                  <i
+                    className="fa fa-trash"
+                    onClick={[Function]}
+                  />
+                </span>
+              </div>
+            </div>
+            <div
+              className="tag-type"
+            >
+              <div
+                className="heading"
+              >
+                <span
+                  className="label"
+                >
+                  LO
+                </span>
+                <div
+                  className="controls"
+                >
+                  <i
+                    className="fa fa-plus-circle"
+                    onClick={[Function]}
+                  />
                 </div>
               </div>
               <div
-                className="tag-type has-single-tag"
+                className="tag"
               >
-                <div
-                  className="heading"
+                <select
+                  className="form-control"
+                  onChange={[Function]}
+                  value="stax-phys"
                 >
-                  <span
-                    className="label"
+                  <option
+                    value="stax-phys"
                   >
-                    Question Type
-                  </span>
-                  <div
-                    className="controls"
-                  />
-                </div>
-                <div
-                  className="tag"
+                    College Physics
+                  </option>
+                </select>
+                <input
+                  className="form-control"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  placeholder="##-##-##"
+                  type="text"
+                  value="1-2-1"
+                />
+                <span
+                  className="controls"
                 >
-                  <select
-                    className="form-control"
-                    onChange={[Function]}
+                  <i
+                    className="fa fa-trash"
+                    onClick={[Function]}
+                  />
+                </span>
+              </div>
+            </div>
+            <div
+              className="tag-type has-single-tag"
+            >
+              <div
+                className="heading"
+              >
+                <span
+                  className="label"
+                >
+                  Question Type
+                </span>
+                <div
+                  className="controls"
+                />
+              </div>
+              <div
+                className="tag"
+              >
+                <select
+                  className="form-control"
+                  onChange={[Function]}
+                  value="conceptual"
+                >
+                  <option
+                    value="conceptual-or-recall"
+                  >
+                    Conceptual or Recall
+                  </option>
+                  <option
                     value="conceptual"
                   >
-                    <option
-                      value="conceptual-or-recall"
-                    >
-                      Conceptual or Recall
-                    </option>
-                    <option
-                      value="conceptual"
-                    >
-                      Conceptual
-                    </option>
-                    <option
-                      value="recall"
-                    >
-                      Recall
-                    </option>
-                    <option
-                      value="practice"
-                    >
-                      Practice
-                    </option>
-                  </select>
-                </div>
+                    Conceptual
+                  </option>
+                  <option
+                    value="recall"
+                  >
+                    Recall
+                  </option>
+                  <option
+                    value="practice"
+                  >
+                    Practice
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div
+              className="tag-type"
+            >
+              <div
+                className="heading"
+              >
+                <span
+                  className="label"
+                >
+                  Filter Type
+                </span>
+                <div
+                  className="controls"
+                />
               </div>
               <div
-                className="tag-type"
+                className="tag"
               >
                 <div
-                  className="heading"
+                  className="rw-multiselect rw-widget"
+                  onBlur={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  tabIndex="-1"
                 >
                   <span
-                    className="label"
-                  >
-                    Filter Type
-                  </span>
-                  <div
-                    className="controls"
+                    aria-atomic="true"
+                    aria-live="assertive"
+                    aria-relevant="additions removals text"
+                    className="rw-sr"
+                    id="rw_1_notify_area"
+                    role="status"
                   />
-                </div>
-                <div
-                  className="tag"
-                >
                   <div
-                    className="rw-multiselect rw-widget"
-                    id="rw_1"
-                    onBlur={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
+                    className="rw-widget-input rw-widget-picker rw-widget-container"
+                    onClick={[Function]}
+                    onDoubleClick={[Function]}
                     onTouchEnd={[Function]}
-                    tabIndex="-1"
                   >
-                    <span
-                      aria-atomic="true"
-                      aria-live="assertive"
-                      aria-relevant="additions removals text"
-                      className="rw-sr"
-                      id="rw_1__notify"
-                      role="status"
-                    />
-                    <div
-                      className="rw-multiselect-wrapper"
-                    >
+                    <div>
                       <ul
-                        aria-label="selected items"
+                        aria-label="Selected items"
                         className="rw-multiselect-taglist"
                         id="rw_1_taglist"
                         role="listbox"
-                        tabIndex="-1"
                       >
                         <li
-                          className=""
-                          id="rw_1_taglist__option__0"
+                          className="rw-multiselect-tag"
+                          id={null}
                           role="option"
-                          tabIndex="-1"
                         >
-                          Test Prep
-                          <span
-                            aria-disabled={false}
-                            aria-label="Unselect"
-                            disabled={false}
-                            onClick={[Function]}
-                            tabIndex="-1"
-                          >
-                            <span
-                              aria-hidden="true"
-                              className="rw-tag-btn"
-                            >
-                              ×
-                            </span>
+                          <span>
+                            Test Prep
                           </span>
+                          <div>
+                            <button
+                              className="rw-multiselect-tag-btn rw-btn rw-btn-select"
+                              onClick={[Function]}
+                              tabIndex="-1"
+                              type="button"
+                            >
+                              <span
+                                aria-hidden="true"
+                              >
+                                ×
+                              </span>
+                            </button>
+                          </div>
                         </li>
                       </ul>
                       <input
+                        aria-activedescendant={null}
                         aria-busy={false}
                         aria-disabled={false}
                         aria-expanded={false}
                         aria-haspopup={true}
-                        aria-owns="rw_1__listbox rw_1__notify rw_1_taglist"
+                        aria-owns="rw_1_listbox rw_1_notify_area rw_1_taglist"
                         aria-readonly={false}
                         autoComplete="off"
-                        autoFocus={undefined}
-                        className="rw-input"
+                        className="rw-input-reset"
                         disabled={false}
                         onChange={[Function]}
-                        onClick={[Function]}
                         onKeyDown={[Function]}
                         onKeyUp={[Function]}
-                        onTouchEnd={[Function]}
                         placeholder=""
                         readOnly={false}
                         role="listbox"
@@ -797,322 +780,335 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                         value=""
                       />
                     </div>
+                    <span
+                      className="rw-select"
+                    >
+                      <button
+                        aria-disabled={false}
+                        aria-hidden="true"
+                        className="rw-btn rw-btn-select"
+                        disabled={false}
+                        role="presentational"
+                        tabIndex="-1"
+                        type="button"
+                      />
+                    </span>
                   </div>
                 </div>
               </div>
+            </div>
+            <div
+              className="tag-type"
+            >
               <div
-                className="tag-type"
+                className="heading"
               >
-                <div
-                  className="heading"
+                <span
+                  className="label"
                 >
-                  <span
-                    className="label"
-                  >
-                    Requires Context
-                  </span>
-                  <div
-                    className="controls"
-                  />
-                </div>
+                  Requires Context
+                </span>
                 <div
-                  className="tag"
+                  className="controls"
+                />
+              </div>
+              <div
+                className="tag"
+              >
+                <input
+                  checked={true}
+                  label=""
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+              </div>
+            </div>
+            <div
+              className="tag-type has-single-tag"
+            >
+              <div
+                className="heading"
+              >
+                <span
+                  className="label"
                 >
-                  <input
-                    checked={true}
-                    label=""
-                    onChange={[Function]}
-                    type="checkbox"
+                  CNX Module
+                </span>
+                <div
+                  className="controls"
+                >
+                  <i
+                    className="fa fa-plus-circle"
+                    onClick={[Function]}
                   />
                 </div>
               </div>
               <div
-                className="tag-type has-single-tag"
+                className="tag"
               >
-                <div
-                  className="heading"
+                <input
+                  className="form-control"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  placeholder="########-####-####-####-############"
+                  type="text"
+                  value=""
+                />
+                <span
+                  className="controls"
                 >
-                  <span
-                    className="label"
-                  >
-                    CNX Module
-                  </span>
-                  <div
-                    className="controls"
-                  >
-                    <i
-                      className="fa fa-plus-circle"
-                      onClick={[Function]}
-                    />
-                  </div>
-                </div>
-                <div
-                  className="tag"
-                >
-                  <input
-                    className="form-control"
-                    onBlur={[Function]}
-                    onChange={[Function]}
-                    placeholder="########-####-####-####-############"
-                    type="text"
-                    value=""
+                  <i
+                    className="fa fa-trash"
+                    onClick={[Function]}
                   />
-                  <span
-                    className="controls"
-                  >
-                    <i
-                      className="fa fa-trash"
-                      onClick={[Function]}
-                    />
-                  </span>
+                </span>
+              </div>
+            </div>
+            <div
+              className="tag-type has-single-tag"
+            >
+              <div
+                className="heading"
+              >
+                <span
+                  className="label"
+                >
+                  CNX Feature
+                </span>
+                <div
+                  className="controls"
+                >
+                  <i
+                    className="fa fa-plus-circle"
+                    onClick={[Function]}
+                  />
                 </div>
               </div>
               <div
-                className="tag-type has-single-tag"
+                className="tag"
               >
-                <div
-                  className="heading"
+                <input
+                  className="form-control"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  placeholder="feature-id"
+                  type="text"
+                  value="one-1"
+                />
+                <span
+                  className="controls"
                 >
-                  <span
-                    className="label"
-                  >
-                    CNX Feature
-                  </span>
-                  <div
-                    className="controls"
-                  >
-                    <i
-                      className="fa fa-plus-circle"
-                      onClick={[Function]}
-                    />
-                  </div>
-                </div>
-                <div
-                  className="tag"
-                >
-                  <input
-                    className="form-control"
-                    onBlur={[Function]}
-                    onChange={[Function]}
-                    placeholder="feature-id"
-                    type="text"
-                    value="one-1"
+                  <i
+                    className="fa fa-trash"
+                    onClick={[Function]}
                   />
-                  <span
-                    className="controls"
-                  >
-                    <i
-                      className="fa fa-trash"
-                      onClick={[Function]}
-                    />
-                  </span>
-                </div>
+                </span>
+              </div>
+            </div>
+            <div
+              className="tag-type has-single-tag"
+            >
+              <div
+                className="heading"
+              >
+                <span
+                  className="label"
+                >
+                  DOK
+                </span>
+                <div
+                  className="controls"
+                />
               </div>
               <div
-                className="tag-type has-single-tag"
+                className="tag"
               >
-                <div
-                  className="heading"
+                <select
+                  className="form-control"
+                  onChange={[Function]}
+                  value="3"
                 >
-                  <span
-                    className="label"
+                  <option
+                    value="1"
                   >
-                    DOK
-                  </span>
-                  <div
-                    className="controls"
-                  />
-                </div>
-                <div
-                  className="tag"
-                >
-                  <select
-                    className="form-control"
-                    onChange={[Function]}
+                    1
+                  </option>
+                  <option
+                    value="2"
+                  >
+                    2
+                  </option>
+                  <option
                     value="3"
                   >
-                    <option
-                      value="1"
-                    >
-                      1
-                    </option>
-                    <option
-                      value="2"
-                    >
-                      2
-                    </option>
-                    <option
-                      value="3"
-                    >
-                      3
-                    </option>
-                    <option
-                      value="4"
-                    >
-                      4
-                    </option>
-                  </select>
-                </div>
+                    3
+                  </option>
+                  <option
+                    value="4"
+                  >
+                    4
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div
+              className="tag-type has-single-tag"
+            >
+              <div
+                className="heading"
+              >
+                <span
+                  className="label"
+                >
+                  Blooms
+                </span>
+                <div
+                  className="controls"
+                />
               </div>
               <div
-                className="tag-type has-single-tag"
+                className="tag"
               >
-                <div
-                  className="heading"
+                <select
+                  className="form-control"
+                  onChange={[Function]}
+                  value="3"
                 >
-                  <span
-                    className="label"
+                  <option
+                    value="1"
                   >
-                    Blooms
-                  </span>
-                  <div
-                    className="controls"
-                  />
-                </div>
-                <div
-                  className="tag"
-                >
-                  <select
-                    className="form-control"
-                    onChange={[Function]}
+                    1
+                  </option>
+                  <option
+                    value="2"
+                  >
+                    2
+                  </option>
+                  <option
                     value="3"
                   >
-                    <option
-                      value="1"
-                    >
-                      1
-                    </option>
-                    <option
-                      value="2"
-                    >
-                      2
-                    </option>
-                    <option
-                      value="3"
-                    >
-                      3
-                    </option>
-                    <option
-                      value="4"
-                    >
-                      4
-                    </option>
-                    <option
-                      value="5"
-                    >
-                      5
-                    </option>
-                    <option
-                      value="6"
-                    >
-                      6
-                    </option>
-                    <option
-                      value="7"
-                    >
-                      7
-                    </option>
-                  </select>
-                </div>
+                    3
+                  </option>
+                  <option
+                    value="4"
+                  >
+                    4
+                  </option>
+                  <option
+                    value="5"
+                  >
+                    5
+                  </option>
+                  <option
+                    value="6"
+                  >
+                    6
+                  </option>
+                  <option
+                    value="7"
+                  >
+                    7
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div
+              className="tag-type has-single-tag"
+            >
+              <div
+                className="heading"
+              >
+                <span
+                  className="label"
+                >
+                  Time
+                </span>
+                <div
+                  className="controls"
+                />
               </div>
               <div
-                className="tag-type has-single-tag"
+                className="tag"
               >
-                <div
-                  className="heading"
+                <select
+                  className="form-control"
+                  onChange={[Function]}
+                  value="long"
                 >
-                  <span
-                    className="label"
+                  <option
+                    value="short"
                   >
-                    Time
-                  </span>
-                  <div
-                    className="controls"
-                  />
-                </div>
-                <div
-                  className="tag"
-                >
-                  <select
-                    className="form-control"
-                    onChange={[Function]}
+                    Short
+                  </option>
+                  <option
+                    value="medium"
+                  >
+                    Medium
+                  </option>
+                  <option
                     value="long"
                   >
-                    <option
-                      value="short"
-                    >
-                      Short
-                    </option>
-                    <option
-                      value="medium"
-                    >
-                      Medium
-                    </option>
-                    <option
-                      value="long"
-                    >
-                      Long
-                    </option>
-                  </select>
-                </div>
+                    Long
+                  </option>
+                </select>
               </div>
             </div>
           </div>
         </div>
+      </div>
+      <div
+        aria-hidden={true}
+        aria-labelledby="exercise-parts-tab-assets"
+        className="fade tab-pane"
+        id="exercise-parts-tabpane-assets"
+        role="tabpanel"
+      >
         <div
-          aria-hidden={true}
-          aria-labelledby="exercise-parts-tab-assets"
-          className="tab-pane"
-          id="exercise-parts-pane-assets"
-          role="tabpanel"
+          className="attachments"
         >
           <div
-            className="attachments"
+            className="attachment with-image"
+          >
+            <img
+              className="preview"
+              src="/attachments/1.png"
+            />
+            <textarea
+              className="copypaste"
+              readOnly={true}
+              value="<img src=\\"/attachments/large_1.png\\" alt=\\"\\">"
+            />
+          </div>
+          <div
+            className="attachment with-image"
+          >
+            <img
+              className="preview"
+              src="/attachments/2.png"
+            />
+            <textarea
+              className="copypaste"
+              readOnly={true}
+              value="<img src=\\"/attachments/large_2.png\\" alt=\\"\\">"
+            />
+          </div>
+          <div
+            className="attachment"
           >
             <div
-              className="attachment with-image"
+              className="controls"
             >
-              <img
-                className="preview"
-                src="/attachments/1.png"
-              />
-              <textarea
-                className="copypaste"
-                readOnly={true}
-                value="<img src=\\"/attachments/large_1.png\\" alt=\\"\\">"
-              />
-            </div>
-            <div
-              className="attachment with-image"
-            >
-              <img
-                className="preview"
-                src="/attachments/2.png"
-              />
-              <textarea
-                className="copypaste"
-                readOnly={true}
-                value="<img src=\\"/attachments/large_2.png\\" alt=\\"\\">"
-              />
-            </div>
-            <div
-              className="attachment"
-            >
-              <div
-                className="controls"
+              <label
+                className="selector"
               >
-                <label
-                  className="selector"
-                >
-                  Add new image
-                  <input
-                    className="file"
-                    id="file"
-                    onChange={[Function]}
-                    type="file"
-                  />
-                </label>
-              </div>
+                Add new image
+                <input
+                  className="file"
+                  id="file"
+                  onChange={[Function]}
+                  type="file"
+                />
+              </label>
             </div>
           </div>
         </div>
@@ -1134,20 +1130,18 @@ exports[`Exercises component renders and matches snapshot 1`] = `
       </div>
     </div>
     <div
-      className="openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback panel panel-default"
+      className="openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback card bg-light"
       data-exercise-id="1@1"
-      id={undefined}
       tabIndex={-1}
     >
       <div
-        className="panel-body"
+        className="card-body"
       >
         <div
           className="exercise-body"
         >
           <div
             className="openstax-question openstax-question-preview"
-            data-question-number={undefined}
           >
             <div
               dangerouslySetInnerHTML={
@@ -1175,7 +1169,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       aria-label="Choice a:"
                       className="answer-letter"
                       disabled={true}
-                      onClick={undefined}
                     >
                       a
                     </button>
@@ -1223,7 +1216,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       aria-label="Choice b:"
                       className="answer-letter"
                       disabled={true}
-                      onClick={undefined}
                     >
                       b
                     </button>
@@ -1271,7 +1263,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       aria-label="Choice c:"
                       className="answer-letter"
                       disabled={true}
-                      onClick={undefined}
                     >
                       c
                     </button>
@@ -1319,7 +1310,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       aria-label="Choice d:"
                       className="answer-letter"
                       disabled={true}
-                      onClick={undefined}
                     >
                       d
                     </button>
@@ -1367,7 +1357,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       aria-label="Choice e:"
                       className="answer-letter"
                       disabled={true}
-                      onClick={undefined}
                     >
                       e
                     </button>
@@ -1505,1454 +1494,10 @@ exports[`Exercises component renders and matches snapshot 1`] = `
 
 exports[`Exercises component renders with intro and a multiple questions when exercise is MC 1`] = `
 <div
-  className="exercise-editor"
+  className="fade alert alert-danger show"
+  role="alert"
 >
-  <div
-    className="editing-controls"
-  >
-    <div
-      className={undefined}
-      id="exercise-parts"
-      style={undefined}
-    >
-      <ul
-        className="nav nav-tabs"
-        role="tablist"
-      >
-        <li
-          className="active"
-          role="presentation"
-          style={undefined}
-        >
-          <a
-            aria-controls="exercise-parts-pane-question-0"
-            aria-selected={true}
-            href="#"
-            id="exercise-parts-tab-question-0"
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="tab"
-            tabIndex={undefined}
-          >
-            Question
-          </a>
-        </li>
-        <li
-          className=""
-          role="presentation"
-          style={undefined}
-        >
-          <a
-            aria-controls="exercise-parts-pane-tags"
-            aria-selected={false}
-            href="#"
-            id="exercise-parts-tab-tags"
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="tab"
-            tabIndex={-1}
-          >
-            Tags
-          </a>
-        </li>
-        <li
-          className=""
-          role="presentation"
-          style={undefined}
-        >
-          <a
-            aria-controls="exercise-parts-pane-assets"
-            aria-selected={false}
-            href="#"
-            id="exercise-parts-tab-assets"
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="tab"
-            tabIndex={-1}
-          >
-            Assets
-          </a>
-        </li>
-      </ul>
-      <div
-        className="tab-content"
-      >
-        <div
-          aria-hidden={false}
-          aria-labelledby="exercise-parts-tab-question-0"
-          className="tab-pane active"
-          id="exercise-parts-pane-question-0"
-          role="tabpanel"
-        >
-          <div
-            className="nickname"
-          >
-            <label>
-              Exercise Nickname:
-              <input
-                onChange={[Function]}
-                value="dessie"
-              />
-            </label>
-          </div>
-          <div
-            className="question"
-          >
-            <div
-              className="format-type"
-            >
-              <div>
-                <input
-                  checked={false}
-                  id="input-open-ended"
-                  name="0-formats"
-                  onChange={[Function]}
-                  type="radio"
-                  value="open-ended"
-                />
-                <label
-                  htmlFor="input-open-ended"
-                >
-                  Open Ended
-                </label>
-              </div>
-              <div>
-                <input
-                  checked={true}
-                  id="input-multiple-choice"
-                  name="0-formats"
-                  onChange={[Function]}
-                  type="radio"
-                  value="multiple-choice"
-                />
-                <label
-                  htmlFor="input-multiple-choice"
-                >
-                  Multiple Choice
-                </label>
-              </div>
-              <div>
-                <input
-                  checked={false}
-                  id="input-true-false"
-                  name="0-formats"
-                  onChange={[Function]}
-                  type="radio"
-                  value="true-false"
-                />
-                <label
-                  htmlFor="input-true-false"
-                >
-                  True/False
-                </label>
-              </div>
-              <div
-                className="multi-choice-boxes"
-              >
-                <div
-                  className="requires-choices"
-                >
-                  <input
-                    checked={false}
-                    id="input-rq"
-                    onChange={[Function]}
-                    type="checkbox"
-                  />
-                  <label
-                    htmlFor="input-rq"
-                  >
-                    Requires Choices
-                  </label>
-                </div>
-                <div
-                  className="order-matters"
-                >
-                  <input
-                    checked={false}
-                    id="input-om"
-                    onChange={[Function]}
-                    type="checkbox"
-                  />
-                  <label
-                    htmlFor="input-om"
-                  >
-                    Order Matters
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div>
-              <label>
-                Question Stem
-              </label>
-              <textarea
-                onChange={[Function]}
-                value="Which statement best compares and contrasts the aims and topics of natural philosophy had versus physics?"
-              />
-            </div>
-            <div>
-              <label>
-                Answers:
-              </label>
-              <a
-                className="pull-right"
-                onClick={[Function]}
-              >
-                Add New
-              </a>
-              <ol>
-                <li
-                  className="answer"
-                >
-                  <p>
-                    <span
-                      className="answer-actions"
-                    >
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-ban"
-                        />
-                      </a>
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-arrow-circle-down"
-                        />
-                      </a>
-                      <a
-                        className="pull-right is-correct"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-check-circle-o"
-                        />
-                      </a>
-                    </span>
-                  </p>
-                  <label>
-                    Distractor
-                  </label>
-                  <textarea
-                    onChange={[Function]}
-                    value="Natural philosophy and physics are different."
-                  />
-                  <label>
-                    Choice-Level Feedback
-                  </label>
-                  <textarea
-                    onChange={[Function]}
-                    value="Physics is part of natural philosophy."
-                  />
-                </li>
-                <li
-                  className="answer"
-                >
-                  <p>
-                    <span
-                      className="answer-actions"
-                    >
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-ban"
-                        />
-                      </a>
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-arrow-circle-down"
-                        />
-                      </a>
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-arrow-circle-up"
-                        />
-                      </a>
-                      <a
-                        className="pull-right is-correct"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-check-circle-o"
-                        />
-                      </a>
-                    </span>
-                  </p>
-                  <label>
-                    Distractor
-                  </label>
-                  <textarea
-                    onChange={[Function]}
-                    value="Natural philosophy included all aspects of nature excluding physics."
-                  />
-                  <label>
-                    Choice-Level Feedback
-                  </label>
-                  <textarea
-                    onChange={[Function]}
-                    value="Natural philosophy included all aspects of nature, including physics."
-                  />
-                </li>
-                <li
-                  className="answer"
-                >
-                  <p>
-                    <span
-                      className="answer-actions"
-                    >
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-ban"
-                        />
-                      </a>
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-arrow-circle-down"
-                        />
-                      </a>
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-arrow-circle-up"
-                        />
-                      </a>
-                      <a
-                        className="pull-right is-correct"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-check-circle-o"
-                        />
-                      </a>
-                    </span>
-                  </p>
-                  <label>
-                    Distractor
-                  </label>
-                  <textarea
-                    onChange={[Function]}
-                    value="Natural philosophy included all aspects of nature including physics."
-                  />
-                  <label>
-                    Choice-Level Feedback
-                  </label>
-                  <textarea
-                    onChange={[Function]}
-                    value="Natural philosophy dealt with all aspects of nature by lumping physics with other fields of sciences, such as chemistry and biology. Physics mainly describes the most fundamental aspect of our universe."
-                  />
-                </li>
-                <li
-                  className="answer"
-                >
-                  <p>
-                    <span
-                      className="answer-actions"
-                    >
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-ban"
-                        />
-                      </a>
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-arrow-circle-down"
-                        />
-                      </a>
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-arrow-circle-up"
-                        />
-                      </a>
-                      <a
-                        className="pull-right is-correct"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-check-circle-o"
-                        />
-                      </a>
-                    </span>
-                  </p>
-                  <label>
-                    Distractor
-                  </label>
-                  <textarea
-                    onChange={[Function]}
-                    value="Natural philosophy and physics are essentially the same thing."
-                  />
-                  <label>
-                    Choice-Level Feedback
-                  </label>
-                  <textarea
-                    onChange={[Function]}
-                    value="Biology and chemistry are also part of natural philosophy, but not part of physics."
-                  />
-                </li>
-                <li
-                  className="answer"
-                >
-                  <p>
-                    <span
-                      className="answer-actions"
-                    >
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-ban"
-                        />
-                      </a>
-                      <a
-                        className="pull-right"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-arrow-circle-up"
-                        />
-                      </a>
-                      <a
-                        className="pull-right is-correct"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="fa fa-check-circle-o"
-                        />
-                      </a>
-                    </span>
-                  </p>
-                  <label>
-                    Distractor
-                  </label>
-                  <textarea
-                    onChange={[Function]}
-                    value="Natural philosophy and physics are different."
-                  />
-                  <label>
-                    Choice-Level Feedback
-                  </label>
-                  <textarea
-                    onChange={[Function]}
-                    value="Physics is part of natural philosophy."
-                  />
-                </li>
-              </ol>
-            </div>
-            <div>
-              <label>
-                Detailed Solution
-              </label>
-              <textarea
-                onChange={[Function]}
-                value="four"
-              />
-            </div>
-          </div>
-        </div>
-        <div
-          aria-hidden={true}
-          aria-labelledby="exercise-parts-tab-tags"
-          className="tab-pane"
-          id="exercise-parts-pane-tags"
-          role="tabpanel"
-        >
-          <div
-            className="tags-panel"
-          >
-            <div
-              className="tags"
-            >
-              <div
-                className="tag-type has-single-tag"
-              >
-                <div
-                  className="heading"
-                >
-                  <span
-                    className="label"
-                  >
-                    Book
-                  </span>
-                  <div
-                    className="controls"
-                  >
-                    <i
-                      className="fa fa-plus-circle"
-                      onClick={[Function]}
-                    />
-                  </div>
-                </div>
-                <div
-                  className="tag"
-                >
-                  <select
-                    className="form-control"
-                    onChange={[Function]}
-                    value="stax-phys"
-                  >
-                    <option
-                      value="stax-soc"
-                    >
-                      Sociology
-                    </option>
-                    <option
-                      value="stax-phys"
-                    >
-                      College Physics
-                    </option>
-                    <option
-                      value="stax-k12phys"
-                    >
-                      Physics
-                    </option>
-                    <option
-                      value="stax-bio"
-                    >
-                      Biology
-                    </option>
-                    <option
-                      value="stax-apbio"
-                    >
-                      Biology for AP® Courses
-                    </option>
-                    <option
-                      value="stax-cbio"
-                    >
-                      Concepts of Biology
-                    </option>
-                    <option
-                      value="stax-econ"
-                    >
-                      Economics
-                    </option>
-                    <option
-                      value="stax-anp"
-                    >
-                      Anatomy and Physiology
-                    </option>
-                    <option
-                      value="stax-macro"
-                    >
-                      Macro Economics
-                    </option>
-                    <option
-                      value="stax-micro"
-                    >
-                      Micro Economics
-                    </option>
-                    <option
-                      value="stax-apush"
-                    >
-                      U.S. History for AP® Courses
-                    </option>
-                  </select>
-                  <span
-                    className="controls"
-                  >
-                    <i
-                      className="fa fa-trash"
-                      onClick={[Function]}
-                    />
-                  </span>
-                </div>
-              </div>
-              <div
-                className="tag-type"
-              >
-                <div
-                  className="heading"
-                >
-                  <span
-                    className="label"
-                  >
-                    LO
-                  </span>
-                  <div
-                    className="controls"
-                  >
-                    <i
-                      className="fa fa-plus-circle"
-                      onClick={[Function]}
-                    />
-                  </div>
-                </div>
-                <div
-                  className="tag"
-                >
-                  <select
-                    className="form-control"
-                    onChange={[Function]}
-                    value="stax-phys"
-                  >
-                    <option
-                      value="stax-phys"
-                    >
-                      College Physics
-                    </option>
-                  </select>
-                  <input
-                    className="form-control"
-                    onBlur={[Function]}
-                    onChange={[Function]}
-                    placeholder="##-##-##"
-                    type="text"
-                    value="1-2-1"
-                  />
-                  <span
-                    className="controls"
-                  >
-                    <i
-                      className="fa fa-trash"
-                      onClick={[Function]}
-                    />
-                  </span>
-                </div>
-              </div>
-              <div
-                className="tag-type has-single-tag"
-              >
-                <div
-                  className="heading"
-                >
-                  <span
-                    className="label"
-                  >
-                    Question Type
-                  </span>
-                  <div
-                    className="controls"
-                  />
-                </div>
-                <div
-                  className="tag"
-                >
-                  <select
-                    className="form-control"
-                    onChange={[Function]}
-                    value="conceptual"
-                  >
-                    <option
-                      value="conceptual-or-recall"
-                    >
-                      Conceptual or Recall
-                    </option>
-                    <option
-                      value="conceptual"
-                    >
-                      Conceptual
-                    </option>
-                    <option
-                      value="recall"
-                    >
-                      Recall
-                    </option>
-                    <option
-                      value="practice"
-                    >
-                      Practice
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div
-                className="tag-type"
-              >
-                <div
-                  className="heading"
-                >
-                  <span
-                    className="label"
-                  >
-                    Filter Type
-                  </span>
-                  <div
-                    className="controls"
-                  />
-                </div>
-                <div
-                  className="tag"
-                >
-                  <div
-                    className="rw-multiselect rw-widget"
-                    id="rw_3"
-                    onBlur={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onTouchEnd={[Function]}
-                    tabIndex="-1"
-                  >
-                    <span
-                      aria-atomic="true"
-                      aria-live="assertive"
-                      aria-relevant="additions removals text"
-                      className="rw-sr"
-                      id="rw_3__notify"
-                      role="status"
-                    />
-                    <div
-                      className="rw-multiselect-wrapper"
-                    >
-                      <ul
-                        aria-label="selected items"
-                        className="rw-multiselect-taglist"
-                        id="rw_3_taglist"
-                        role="listbox"
-                        tabIndex="-1"
-                      >
-                        <li
-                          className=""
-                          id="rw_3_taglist__option__0"
-                          role="option"
-                          tabIndex="-1"
-                        >
-                          Test Prep
-                          <span
-                            aria-disabled={false}
-                            aria-label="Unselect"
-                            disabled={false}
-                            onClick={[Function]}
-                            tabIndex="-1"
-                          >
-                            <span
-                              aria-hidden="true"
-                              className="rw-tag-btn"
-                            >
-                              ×
-                            </span>
-                          </span>
-                        </li>
-                      </ul>
-                      <input
-                        aria-busy={false}
-                        aria-disabled={false}
-                        aria-expanded={false}
-                        aria-haspopup={true}
-                        aria-owns="rw_3__listbox rw_3__notify rw_3_taglist"
-                        aria-readonly={false}
-                        autoComplete="off"
-                        autoFocus={undefined}
-                        className="rw-input"
-                        disabled={false}
-                        onChange={[Function]}
-                        onClick={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyUp={[Function]}
-                        onTouchEnd={[Function]}
-                        placeholder=""
-                        readOnly={false}
-                        role="listbox"
-                        size={2}
-                        tabIndex={0}
-                        value=""
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                className="tag-type"
-              >
-                <div
-                  className="heading"
-                >
-                  <span
-                    className="label"
-                  >
-                    Requires Context
-                  </span>
-                  <div
-                    className="controls"
-                  />
-                </div>
-                <div
-                  className="tag"
-                >
-                  <input
-                    checked={true}
-                    label=""
-                    onChange={[Function]}
-                    type="checkbox"
-                  />
-                </div>
-              </div>
-              <div
-                className="tag-type has-single-tag"
-              >
-                <div
-                  className="heading"
-                >
-                  <span
-                    className="label"
-                  >
-                    CNX Module
-                  </span>
-                  <div
-                    className="controls"
-                  >
-                    <i
-                      className="fa fa-plus-circle"
-                      onClick={[Function]}
-                    />
-                  </div>
-                </div>
-                <div
-                  className="tag"
-                >
-                  <input
-                    className="form-control"
-                    onBlur={[Function]}
-                    onChange={[Function]}
-                    placeholder="########-####-####-####-############"
-                    type="text"
-                    value=""
-                  />
-                  <span
-                    className="controls"
-                  >
-                    <i
-                      className="fa fa-trash"
-                      onClick={[Function]}
-                    />
-                  </span>
-                </div>
-              </div>
-              <div
-                className="tag-type has-single-tag"
-              >
-                <div
-                  className="heading"
-                >
-                  <span
-                    className="label"
-                  >
-                    CNX Feature
-                  </span>
-                  <div
-                    className="controls"
-                  >
-                    <i
-                      className="fa fa-plus-circle"
-                      onClick={[Function]}
-                    />
-                  </div>
-                </div>
-                <div
-                  className="tag"
-                >
-                  <input
-                    className="form-control"
-                    onBlur={[Function]}
-                    onChange={[Function]}
-                    placeholder="feature-id"
-                    type="text"
-                    value="one-1"
-                  />
-                  <span
-                    className="controls"
-                  >
-                    <i
-                      className="fa fa-trash"
-                      onClick={[Function]}
-                    />
-                  </span>
-                </div>
-              </div>
-              <div
-                className="tag-type has-single-tag"
-              >
-                <div
-                  className="heading"
-                >
-                  <span
-                    className="label"
-                  >
-                    DOK
-                  </span>
-                  <div
-                    className="controls"
-                  />
-                </div>
-                <div
-                  className="tag"
-                >
-                  <select
-                    className="form-control"
-                    onChange={[Function]}
-                    value="3"
-                  >
-                    <option
-                      value="1"
-                    >
-                      1
-                    </option>
-                    <option
-                      value="2"
-                    >
-                      2
-                    </option>
-                    <option
-                      value="3"
-                    >
-                      3
-                    </option>
-                    <option
-                      value="4"
-                    >
-                      4
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div
-                className="tag-type has-single-tag"
-              >
-                <div
-                  className="heading"
-                >
-                  <span
-                    className="label"
-                  >
-                    Blooms
-                  </span>
-                  <div
-                    className="controls"
-                  />
-                </div>
-                <div
-                  className="tag"
-                >
-                  <select
-                    className="form-control"
-                    onChange={[Function]}
-                    value="3"
-                  >
-                    <option
-                      value="1"
-                    >
-                      1
-                    </option>
-                    <option
-                      value="2"
-                    >
-                      2
-                    </option>
-                    <option
-                      value="3"
-                    >
-                      3
-                    </option>
-                    <option
-                      value="4"
-                    >
-                      4
-                    </option>
-                    <option
-                      value="5"
-                    >
-                      5
-                    </option>
-                    <option
-                      value="6"
-                    >
-                      6
-                    </option>
-                    <option
-                      value="7"
-                    >
-                      7
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div
-                className="tag-type has-single-tag"
-              >
-                <div
-                  className="heading"
-                >
-                  <span
-                    className="label"
-                  >
-                    Time
-                  </span>
-                  <div
-                    className="controls"
-                  />
-                </div>
-                <div
-                  className="tag"
-                >
-                  <select
-                    className="form-control"
-                    onChange={[Function]}
-                    value="long"
-                  >
-                    <option
-                      value="short"
-                    >
-                      Short
-                    </option>
-                    <option
-                      value="medium"
-                    >
-                      Medium
-                    </option>
-                    <option
-                      value="long"
-                    >
-                      Long
-                    </option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          aria-hidden={true}
-          aria-labelledby="exercise-parts-tab-assets"
-          className="tab-pane"
-          id="exercise-parts-pane-assets"
-          role="tabpanel"
-        >
-          <div
-            className="attachments"
-          >
-            <div
-              className="attachment with-image"
-            >
-              <img
-                className="preview"
-                src="/attachments/9.png"
-              />
-              <textarea
-                className="copypaste"
-                readOnly={true}
-                value="<img src=\\"/attachments/large_9.png\\" alt=\\"\\">"
-              />
-            </div>
-            <div
-              className="attachment with-image"
-            >
-              <img
-                className="preview"
-                src="/attachments/10.png"
-              />
-              <textarea
-                className="copypaste"
-                readOnly={true}
-                value="<img src=\\"/attachments/large_10.png\\" alt=\\"\\">"
-              />
-            </div>
-            <div
-              className="attachment"
-            >
-              <div
-                className="controls"
-              >
-                <label
-                  className="selector"
-                >
-                  Add new image
-                  <input
-                    className="file"
-                    id="file"
-                    onChange={[Function]}
-                    type="file"
-                  />
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="corner-ribbon"
-  >
-    <div
-      className="corner-ribbon-content navy shadow top-right"
-    >
-      <div>
-        READ ONLY
-      </div>
-      <div>
-        Author: 
-        
-      </div>
-    </div>
-    <div
-      className="openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback panel panel-default"
-      data-exercise-id="5@1"
-      id={undefined}
-      tabIndex={-1}
-    >
-      <div
-        className="panel-body"
-      >
-        <div
-          className="exercise-body"
-        >
-          <div
-            className="openstax-question openstax-question-preview"
-            data-question-number={undefined}
-          >
-            <div
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "Which statement best compares and contrasts the aims and topics of natural philosophy had versus physics?",
-                }
-              }
-            />
-            <div
-              className="answers-table"
-            >
-              <div
-                className="openstax-answer"
-              >
-                <section
-                  className="answers-answer disabled"
-                  role="region"
-                >
-                  <label
-                    className="answer-label"
-                    htmlFor="5-option-0"
-                    onKeyPress={[Function]}
-                  >
-                    <button
-                      aria-label="Choice a:"
-                      className="answer-letter"
-                      disabled={true}
-                      onClick={undefined}
-                    >
-                      a
-                    </button>
-                    <div
-                      className="answer-answer"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "Natural philosophy and physics are different.",
-                          }
-                        }
-                      />
-                      <aside>
-                        <div
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "Physics is part of natural philosophy.",
-                            }
-                          }
-                        />
-                      </aside>
-                    </div>
-                  </label>
-                </section>
-              </div>
-              <div
-                className="openstax-answer"
-              >
-                <section
-                  className="answers-answer disabled"
-                  role="region"
-                >
-                  <label
-                    className="answer-label"
-                    htmlFor="5-option-1"
-                    onKeyPress={[Function]}
-                  >
-                    <button
-                      aria-label="Choice b:"
-                      className="answer-letter"
-                      disabled={true}
-                      onClick={undefined}
-                    >
-                      b
-                    </button>
-                    <div
-                      className="answer-answer"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "Natural philosophy included all aspects of nature excluding physics.",
-                          }
-                        }
-                      />
-                      <aside>
-                        <div
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "Natural philosophy included all aspects of nature, including physics.",
-                            }
-                          }
-                        />
-                      </aside>
-                    </div>
-                  </label>
-                </section>
-              </div>
-              <div
-                className="openstax-answer"
-              >
-                <section
-                  className="answers-answer disabled"
-                  role="region"
-                >
-                  <label
-                    className="answer-label"
-                    htmlFor="5-option-2"
-                    onKeyPress={[Function]}
-                  >
-                    <button
-                      aria-label="Choice c:"
-                      className="answer-letter"
-                      disabled={true}
-                      onClick={undefined}
-                    >
-                      c
-                    </button>
-                    <div
-                      className="answer-answer"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "Natural philosophy included all aspects of nature including physics.",
-                          }
-                        }
-                      />
-                      <aside>
-                        <div
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "Natural philosophy dealt with all aspects of nature by lumping physics with other fields of sciences, such as chemistry and biology. Physics mainly describes the most fundamental aspect of our universe.",
-                            }
-                          }
-                        />
-                      </aside>
-                    </div>
-                  </label>
-                </section>
-              </div>
-              <div
-                className="openstax-answer"
-              >
-                <section
-                  className="answers-answer disabled"
-                  role="region"
-                >
-                  <label
-                    className="answer-label"
-                    htmlFor="5-option-3"
-                    onKeyPress={[Function]}
-                  >
-                    <button
-                      aria-label="Choice d:"
-                      className="answer-letter"
-                      disabled={true}
-                      onClick={undefined}
-                    >
-                      d
-                    </button>
-                    <div
-                      className="answer-answer"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "Natural philosophy and physics are essentially the same thing.",
-                          }
-                        }
-                      />
-                      <aside>
-                        <div
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "Biology and chemistry are also part of natural philosophy, but not part of physics.",
-                            }
-                          }
-                        />
-                      </aside>
-                    </div>
-                  </label>
-                </section>
-              </div>
-              <div
-                className="openstax-answer"
-              >
-                <section
-                  className="answers-answer disabled"
-                  role="region"
-                >
-                  <label
-                    className="answer-label"
-                    htmlFor="5-option-4"
-                    onKeyPress={[Function]}
-                  >
-                    <button
-                      aria-label="Choice e:"
-                      className="answer-letter"
-                      disabled={true}
-                      onClick={undefined}
-                    >
-                      e
-                    </button>
-                    <div
-                      className="answer-answer"
-                    >
-                      <div
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "Natural philosophy and physics are different.",
-                          }
-                        }
-                      />
-                      <aside>
-                        <div
-                          dangerouslySetInnerHTML={
-                            Object {
-                              "__html": "Physics is part of natural philosophy.",
-                            }
-                          }
-                        />
-                      </aside>
-                    </div>
-                  </label>
-                </section>
-              </div>
-            </div>
-            <div
-              className="formats-listing"
-            >
-              <div
-                className="header"
-              >
-                Formats:
-              </div>
-              <span>
-                free-response
-              </span>
-              <span>
-                multiple-choice
-              </span>
-            </div>
-            <div
-              className="detailed-solution"
-            >
-              <div
-                className="header"
-              >
-                Detailed solution
-              </div>
-              <div
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "four",
-                  }
-                }
-              />
-            </div>
-          </div>
-        </div>
-        <div
-          className="exercise-tags"
-        >
-          <span
-            className="exercise-tag"
-          >
-            type:conceptual
-          </span>
-          <span
-            className="exercise-tag"
-          >
-            requires-context:true
-          </span>
-          <span
-            className="exercise-tag"
-          >
-            filter-type:test-prep
-          </span>
-          <span
-            className="exercise-tag"
-          >
-            blooms:3
-          </span>
-          <span
-            className="exercise-tag"
-          >
-            time:long
-          </span>
-          <span
-            className="exercise-tag"
-          >
-            dok:3
-          </span>
-          <span
-            className="exercise-tag"
-          >
-            book:stax-phys
-          </span>
-          <span
-            className="exercise-tag"
-          >
-            context-cnxmod:
-          </span>
-          <span
-            className="exercise-tag"
-          >
-            context-cnxfeature:one-1
-          </span>
-          <span
-            className="exercise-tag"
-          >
-            lo:stax-phys:1-2-1
-          </span>
-          <span
-            className="exercise-tag"
-          >
-            Nickname:dessie
-          </span>
-          <span
-            className="exercise-tag"
-          >
-            ID:5@1
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
+  Exercise was not found
 </div>
 `;
 
@@ -2960,377 +1505,469 @@ exports[`Exercises component resets fields when model is new 1`] = `
 "<Exercise exercises={{...}} match={{...}}>
   <div className=\\"exercise-editor\\">
     <div className=\\"editing-controls\\">
-      <Uncontrolled(Tabs) id=\\"exercise-parts\\" activeKey=\\"question-0\\" onSelect={[Function]} defaultActiveKey=\\"question-0\\" animation={false}>
-        <Tabs id=\\"exercise-parts\\" activeKey=\\"question-0\\" onSelect={[Function]} animation={false} bsStyle=\\"tabs\\" mountOnEnter={false} unmountOnExit={false} bsClass=\\"tab\\">
-          <TabContainer id=\\"exercise-parts\\" activeKey=\\"question-0\\" onSelect={[Function]} className={[undefined]} style={[undefined]}>
-            <div id=\\"exercise-parts\\" className={[undefined]} style={[undefined]}>
-              <Nav bsStyle=\\"tabs\\" role=\\"tablist\\" justified={false} pullRight={false} pullLeft={false} stacked={false} bsClass=\\"nav\\">
-                <ul role=\\"tablist\\" className=\\"nav nav-tabs\\">
-                  <NavItem eventKey=\\"question-0\\" disabled={false} className={[undefined]} active={true} id=\\"exercise-parts-tab-question-0\\" role=\\"tab\\" onKeyDown={[Function]} aria-controls=\\"exercise-parts-pane-question-0\\" tabIndex={[undefined]} activeKey=\\"question-0\\" activeHref={[undefined]} onSelect={[Function]}>
-                    <li role=\\"presentation\\" className=\\"active\\" style={[undefined]}>
-                      <SafeAnchor id=\\"exercise-parts-tab-question-0\\" role=\\"tab\\" onKeyDown={[Function]} aria-controls=\\"exercise-parts-pane-question-0\\" tabIndex={[undefined]} aria-selected={true} disabled={false} onClick={[Function]} componentClass=\\"a\\">
-                        <a id=\\"exercise-parts-tab-question-0\\" role=\\"tab\\" aria-controls=\\"exercise-parts-pane-question-0\\" tabIndex={[undefined]} aria-selected={true} onClick={[Function]} href=\\"#\\" onKeyDown={[Function]}>
-                          Question
-                        </a>
-                      </SafeAnchor>
-                    </li>
-                  </NavItem>
-                  <NavItem eventKey=\\"tags\\" disabled={false} className={[undefined]} active={false} id=\\"exercise-parts-tab-tags\\" role=\\"tab\\" onKeyDown={[Function]} aria-controls=\\"exercise-parts-pane-tags\\" tabIndex={-1} activeKey=\\"question-0\\" activeHref={[undefined]} onSelect={[Function]}>
-                    <li role=\\"presentation\\" className=\\"\\" style={[undefined]}>
-                      <SafeAnchor id=\\"exercise-parts-tab-tags\\" role=\\"tab\\" onKeyDown={[Function]} aria-controls=\\"exercise-parts-pane-tags\\" tabIndex={-1} aria-selected={false} disabled={false} onClick={[Function]} componentClass=\\"a\\">
-                        <a id=\\"exercise-parts-tab-tags\\" role=\\"tab\\" aria-controls=\\"exercise-parts-pane-tags\\" tabIndex={-1} aria-selected={false} onClick={[Function]} href=\\"#\\" onKeyDown={[Function]}>
-                          Tags
-                        </a>
-                      </SafeAnchor>
-                    </li>
-                  </NavItem>
-                  <NavItem eventKey=\\"assets\\" disabled={false} className={[undefined]} active={false} id=\\"exercise-parts-tab-assets\\" role=\\"tab\\" onKeyDown={[Function]} aria-controls=\\"exercise-parts-pane-assets\\" tabIndex={-1} activeKey=\\"question-0\\" activeHref={[undefined]} onSelect={[Function]}>
-                    <li role=\\"presentation\\" className=\\"\\" style={[undefined]}>
-                      <SafeAnchor id=\\"exercise-parts-tab-assets\\" role=\\"tab\\" onKeyDown={[Function]} aria-controls=\\"exercise-parts-pane-assets\\" tabIndex={-1} aria-selected={false} disabled={false} onClick={[Function]} componentClass=\\"a\\">
-                        <a id=\\"exercise-parts-tab-assets\\" role=\\"tab\\" aria-controls=\\"exercise-parts-pane-assets\\" tabIndex={-1} aria-selected={false} onClick={[Function]} href=\\"#\\" onKeyDown={[Function]}>
-                          Assets
-                        </a>
-                      </SafeAnchor>
-                    </li>
-                  </NavItem>
-                </ul>
-              </Nav>
-              <TabContent bsClass=\\"tab\\" animation={false} mountOnEnter={false} unmountOnExit={false} componentClass=\\"div\\">
-                <div className=\\"tab-content\\">
-                  <Tab eventKey=\\"question-0\\" title=\\"Question\\">
-                    <TabPane eventKey=\\"question-0\\" bsClass=\\"tab-pane\\">
-                      <div id=\\"exercise-parts-pane-question-0\\" aria-labelledby=\\"exercise-parts-tab-question-0\\" role=\\"tabpanel\\" aria-hidden={false} className=\\"tab-pane active\\">
-                        <div className=\\"nickname\\">
-                          <label>
-                            Exercise Nickname:
-                            <input onChange={[Function]} value=\\"\\" />
-                          </label>
-                        </div>
-                        <Question onRemove={[Function]} onMove={[Function]} question={{...}}>
-                          <div className=\\"question\\">
-                            <Alert bsStyle=\\"warning\\" closeLabel=\\"Close alert\\" bsClass=\\"alert\\">
-                              <div role=\\"alert\\" className=\\"alert alert-warning\\">
-                                To save your work, you must fill out the 
-                                Question Stem
-                              </div>
-                            </Alert>
-                            <QuestionFormatType question={{...}}>
-                              <div className=\\"format-type\\">
-                                <div>
-                                  <input type=\\"radio\\" id=\\"input-open-ended\\" name=\\"0-formats\\" value=\\"open-ended\\" onChange={[Function]} checked={true} />
-                                  <label htmlFor=\\"input-open-ended\\">
-                                    Open Ended
+      <ForwardRef id=\\"exercise-parts\\" activeKey=\\"question-0\\" onSelect={[Function: res]} defaultActiveKey=\\"question-0\\">
+        <Uncontrolled(Tabs) id=\\"exercise-parts\\" activeKey=\\"question-0\\" onSelect={[Function: res]} defaultActiveKey=\\"question-0\\" innerRef={{...}}>
+          <Tabs id=\\"exercise-parts\\" activeKey=\\"question-0\\" onSelect={[Function: handleChange]} variant=\\"tabs\\" mountOnEnter={false} unmountOnExit={false}>
+            <TabContainer id=\\"exercise-parts\\" activeKey=\\"question-0\\" onSelect={[Function: handleChange]} transition={[undefined]} mountOnEnter={false} unmountOnExit={false}>
+              <ForwardRef(ContextTransform) variant=\\"tabs\\" role=\\"tablist\\" as=\\"nav\\">
+                <ForwardRef variant=\\"tabs\\" role=\\"tablist\\" as=\\"nav\\">
+                  <Uncontrolled(Component) variant=\\"tabs\\" role=\\"tablist\\" as=\\"nav\\" innerRef={{...}}>
+                    <ForwardRef(Bootstrap(Nav)) variant=\\"tabs\\" role=\\"tablist\\" as=\\"nav\\" activeKey={[undefined]} onSelect={[Function: handleChange]}>
+                      <Nav variant=\\"tabs\\" role=\\"tablist\\" as=\\"nav\\" activeKey={[undefined]} onSelect={[Function: handleChange]} bsPrefix=\\"nav\\" justify={false} fill={false}>
+                        <ForwardRef(ContextTransform(AbstractNav)) as=\\"nav\\" activeKey={[undefined]} className=\\"nav nav-tabs\\" role=\\"tablist\\" onSelect={[Function: handleChange]}>
+                          <AbstractNav as=\\"nav\\" activeKey=\\"question-0\\" className=\\"nav nav-tabs\\" role=\\"tablist\\" onSelect={[Function: handleChange]} parentOnSelect={[Function: handleChange]} getControllerId={[Function]} getControlledId={[Function]}>
+                            <nav className=\\"nav nav-tabs\\" role=\\"tablist\\" onKeyDown={[Function]}>
+                              <ForwardRef(Bootstrap(NavItem)) as={{...}} eventKey=\\"question-0\\" disabled={[undefined]} className={[undefined]}>
+                                <NavItem as={{...}} eventKey=\\"question-0\\" disabled={[undefined]} className={[undefined]} bsPrefix=\\"nav-item\\">
+                                  <ForwardRef(Bootstrap(NavLink)) eventKey=\\"question-0\\" disabled={[undefined]} className=\\"nav-item\\">
+                                    <NavLink eventKey=\\"question-0\\" disabled={false} className=\\"nav-item\\" innerRef={{...}} bsPrefix=\\"nav-link\\" as={[Function: SafeAnchor]}>
+                                      <AbstractNavItem href={[undefined]} eventKey=\\"question-0\\" as={[Function: SafeAnchor]} disabled={false} onSelect={[undefined]} className=\\"nav-item nav-link\\">
+                                        <SafeAnchor href={[undefined]} disabled={false} role=\\"tab\\" data-rb-event-key=\\"question-0\\" id=\\"exercise-parts-tab-question-0\\" aria-controls=\\"exercise-parts-tabpane-question-0\\" tabIndex={[undefined]} aria-selected={true} className=\\"nav-item nav-link active\\" onClick={[Function: onClick]} as=\\"a\\">
+                                          <a href=\\"#\\" role=\\"tab\\" data-rb-event-key=\\"question-0\\" id=\\"exercise-parts-tab-question-0\\" aria-controls=\\"exercise-parts-tabpane-question-0\\" tabIndex={[undefined]} aria-selected={true} className=\\"nav-item nav-link active\\" onClick={[Function: bound handleClick]} onKeyDown={[Function: bound handleKeyDown]}>
+                                            Question
+                                          </a>
+                                        </SafeAnchor>
+                                      </AbstractNavItem>
+                                    </NavLink>
+                                  </ForwardRef(Bootstrap(NavLink))>
+                                </NavItem>
+                              </ForwardRef(Bootstrap(NavItem))>
+                              <ForwardRef(Bootstrap(NavItem)) as={{...}} eventKey=\\"tags\\" disabled={[undefined]} className={[undefined]}>
+                                <NavItem as={{...}} eventKey=\\"tags\\" disabled={[undefined]} className={[undefined]} bsPrefix=\\"nav-item\\">
+                                  <ForwardRef(Bootstrap(NavLink)) eventKey=\\"tags\\" disabled={[undefined]} className=\\"nav-item\\">
+                                    <NavLink eventKey=\\"tags\\" disabled={false} className=\\"nav-item\\" innerRef={{...}} bsPrefix=\\"nav-link\\" as={[Function: SafeAnchor]}>
+                                      <AbstractNavItem href={[undefined]} eventKey=\\"tags\\" as={[Function: SafeAnchor]} disabled={false} onSelect={[undefined]} className=\\"nav-item nav-link\\">
+                                        <SafeAnchor href={[undefined]} disabled={false} role=\\"tab\\" data-rb-event-key=\\"tags\\" id=\\"exercise-parts-tab-tags\\" aria-controls=\\"exercise-parts-tabpane-tags\\" tabIndex={-1} aria-selected={false} className=\\"nav-item nav-link\\" onClick={[Function: onClick]} as=\\"a\\">
+                                          <a href=\\"#\\" role=\\"tab\\" data-rb-event-key=\\"tags\\" id=\\"exercise-parts-tab-tags\\" aria-controls=\\"exercise-parts-tabpane-tags\\" tabIndex={-1} aria-selected={false} className=\\"nav-item nav-link\\" onClick={[Function: bound handleClick]} onKeyDown={[Function: bound handleKeyDown]}>
+                                            Tags
+                                          </a>
+                                        </SafeAnchor>
+                                      </AbstractNavItem>
+                                    </NavLink>
+                                  </ForwardRef(Bootstrap(NavLink))>
+                                </NavItem>
+                              </ForwardRef(Bootstrap(NavItem))>
+                              <ForwardRef(Bootstrap(NavItem)) as={{...}} eventKey=\\"assets\\" disabled={[undefined]} className={[undefined]}>
+                                <NavItem as={{...}} eventKey=\\"assets\\" disabled={[undefined]} className={[undefined]} bsPrefix=\\"nav-item\\">
+                                  <ForwardRef(Bootstrap(NavLink)) eventKey=\\"assets\\" disabled={[undefined]} className=\\"nav-item\\">
+                                    <NavLink eventKey=\\"assets\\" disabled={false} className=\\"nav-item\\" innerRef={{...}} bsPrefix=\\"nav-link\\" as={[Function: SafeAnchor]}>
+                                      <AbstractNavItem href={[undefined]} eventKey=\\"assets\\" as={[Function: SafeAnchor]} disabled={false} onSelect={[undefined]} className=\\"nav-item nav-link\\">
+                                        <SafeAnchor href={[undefined]} disabled={false} role=\\"tab\\" data-rb-event-key=\\"assets\\" id=\\"exercise-parts-tab-assets\\" aria-controls=\\"exercise-parts-tabpane-assets\\" tabIndex={-1} aria-selected={false} className=\\"nav-item nav-link\\" onClick={[Function: onClick]} as=\\"a\\">
+                                          <a href=\\"#\\" role=\\"tab\\" data-rb-event-key=\\"assets\\" id=\\"exercise-parts-tab-assets\\" aria-controls=\\"exercise-parts-tabpane-assets\\" tabIndex={-1} aria-selected={false} className=\\"nav-item nav-link\\" onClick={[Function: bound handleClick]} onKeyDown={[Function: bound handleKeyDown]}>
+                                            Assets
+                                          </a>
+                                        </SafeAnchor>
+                                      </AbstractNavItem>
+                                    </NavLink>
+                                  </ForwardRef(Bootstrap(NavLink))>
+                                </NavItem>
+                              </ForwardRef(Bootstrap(NavItem))>
+                            </nav>
+                          </AbstractNav>
+                        </ForwardRef(ContextTransform(AbstractNav))>
+                      </Nav>
+                    </ForwardRef(Bootstrap(Nav))>
+                  </Uncontrolled(Component)>
+                </ForwardRef>
+              </ForwardRef(ContextTransform)>
+              <ForwardRef(Bootstrap(TabContent))>
+                <TabContent bsPrefix=\\"tab-content\\" as=\\"div\\">
+                  <div className=\\"tab-content\\">
+                    <ForwardRef(ContextTransform) eventKey=\\"question-0\\">
+                      <ForwardRef(Bootstrap(TabPane)) eventKey=\\"question-0\\" active={true} id=\\"exercise-parts-tabpane-question-0\\" aria-labelledby=\\"exercise-parts-tab-question-0\\" transition={[Function: Fade]} mountOnEnter={false} unmountOnExit={false}>
+                        <TabPane eventKey=\\"question-0\\" active={true} id=\\"exercise-parts-tabpane-question-0\\" aria-labelledby=\\"exercise-parts-tab-question-0\\" transition={[Function: Fade]} mountOnEnter={false} unmountOnExit={false} bsPrefix=\\"tab-pane\\">
+                          <Fade in={true} onEnter={[undefined]} onEntering={[undefined]} onEntered={[undefined]} onExit={[undefined]} onExiting={[undefined]} onExited={[undefined]} mountOnEnter={false} unmountOnExit={false} timeout={300} appear={false}>
+                            <Transition addEndListener={[Function: onEnd]} in={true} onEnter={[Function]} onEntering={[Function: noop]} onEntered={[Function: noop]} onExit={[Function: noop]} onExiting={[Function: noop]} onExited={[Function: noop]} mountOnEnter={false} unmountOnExit={false} timeout={300} appear={false} enter={true} exit={true}>
+                              <div id=\\"exercise-parts-tabpane-question-0\\" aria-labelledby=\\"exercise-parts-tab-question-0\\" role=\\"tabpanel\\" aria-hidden={false} className=\\"fade tab-pane active show\\">
+                                <div className=\\"nickname\\">
+                                  <label>
+                                    Exercise Nickname:
+                                    <input onChange={[Function: res]} value=\\"\\" />
                                   </label>
                                 </div>
-                                <div>
-                                  <input type=\\"radio\\" id=\\"input-multiple-choice\\" name=\\"0-formats\\" value=\\"multiple-choice\\" onChange={[Function]} checked={false} />
-                                  <label htmlFor=\\"input-multiple-choice\\">
-                                    Multiple Choice
-                                  </label>
-                                </div>
-                                <div>
-                                  <input type=\\"radio\\" id=\\"input-true-false\\" name=\\"0-formats\\" value=\\"true-false\\" onChange={[Function]} checked={false} />
-                                  <label htmlFor=\\"input-true-false\\">
-                                    True/False
-                                  </label>
-                                </div>
-                              </div>
-                            </QuestionFormatType>
-                            <div>
-                              <label>
-                                Question Stem
-                              </label>
-                              <textarea onChange={[Function]} value=\\"\\" />
-                            </div>
-                            <div>
-                              <label>
-                                Answers:
-                              </label>
-                              <a className=\\"pull-right\\" onClick={[Function]}>
-                                Add New
-                              </a>
-                              <ol />
-                            </div>
-                            <div>
-                              <label>
-                                Detailed Solution
-                              </label>
-                              <textarea onChange={[Function]} value=\\"\\" />
-                            </div>
-                          </div>
-                        </Question>
-                      </div>
-                    </TabPane>
-                  </Tab>
-                  <Tab eventKey=\\"tags\\" title=\\"Tags\\">
-                    <TabPane eventKey=\\"tags\\" bsClass=\\"tab-pane\\">
-                      <div id=\\"exercise-parts-pane-tags\\" aria-labelledby=\\"exercise-parts-tab-tags\\" role=\\"tabpanel\\" aria-hidden={true} className=\\"tab-pane\\">
-                        <ExerciseTags exercise={{...}}>
-                          <div className=\\"tags-panel\\">
-                            <Alert bsStyle=\\"warning\\" closeLabel=\\"Close alert\\" bsClass=\\"alert\\">
-                              <div role=\\"alert\\" className=\\"alert alert-warning\\">
-                                Question Stem
-                              </div>
-                            </Alert>
-                            <div className=\\"tags\\">
-                              <BookTags exercise={{...}}>
-                                <TagWrapper label=\\"Book\\" onAdd={[Function]} singleTag={false}>
-                                  <div className=\\"tag-type\\">
-                                    <div className=\\"heading\\">
-                                      <span className=\\"label\\">
-                                        Book
-                                      </span>
-                                      <div className=\\"controls\\">
-                                        <i onClick={[Function]} className=\\"fa fa-plus-circle\\" />
+                                <Question onRemove={[Function: onRemove]} onMove={[Function: onMove]} question={{...}}>
+                                  <div className=\\"question\\">
+                                    <ForwardRef variant=\\"warning\\">
+                                      <Uncontrolled(Component) variant=\\"warning\\" innerRef={{...}}>
+                                        <ForwardRef(Bootstrap(Alert)) variant=\\"warning\\" show={[undefined]} onClose={[Function: handleChange]}>
+                                          <Alert variant=\\"warning\\" show={true} onClose={[Function: handleChange]} bsPrefix=\\"alert\\" transition={[Function: Fade]} closeLabel=\\"Close alert\\">
+                                            <Fade unmountOnExit={true} in={true} timeout={300} mountOnEnter={false} appear={false}>
+                                              <Transition addEndListener={[Function: onEnd]} unmountOnExit={true} in={true} timeout={300} mountOnEnter={false} appear={false} onEnter={[Function]} enter={true} exit={true} onEntering={[Function: noop]} onEntered={[Function: noop]} onExit={[Function: noop]} onExiting={[Function: noop]} onExited={[Function: noop]}>
+                                                <div role=\\"alert\\" className=\\"fade alert alert-warning show\\">
+                                                  To save your work, you must fill out the 
+                                                  Question Stem
+                                                </div>
+                                              </Transition>
+                                            </Fade>
+                                          </Alert>
+                                        </ForwardRef(Bootstrap(Alert))>
+                                      </Uncontrolled(Component)>
+                                    </ForwardRef>
+                                    <QuestionFormatType question={{...}}>
+                                      <div className=\\"format-type\\">
+                                        <div>
+                                          <input type=\\"radio\\" id=\\"input-open-ended\\" name=\\"0-formats\\" value=\\"open-ended\\" onChange={[Function: res]} checked={true} />
+                                          <label htmlFor=\\"input-open-ended\\">
+                                            Open Ended
+                                          </label>
+                                        </div>
+                                        <div>
+                                          <input type=\\"radio\\" id=\\"input-multiple-choice\\" name=\\"0-formats\\" value=\\"multiple-choice\\" onChange={[Function: res]} checked={false} />
+                                          <label htmlFor=\\"input-multiple-choice\\">
+                                            Multiple Choice
+                                          </label>
+                                        </div>
+                                        <div>
+                                          <input type=\\"radio\\" id=\\"input-true-false\\" name=\\"0-formats\\" value=\\"true-false\\" onChange={[Function: res]} checked={false} />
+                                          <label htmlFor=\\"input-true-false\\">
+                                            True/False
+                                          </label>
+                                        </div>
                                       </div>
+                                    </QuestionFormatType>
+                                    <div>
+                                      <label>
+                                        Question Stem
+                                      </label>
+                                      <textarea onChange={[Function: res]} value=\\"\\" />
+                                    </div>
+                                    <div>
+                                      <label>
+                                        Answers:
+                                      </label>
+                                      <a className=\\"pull-right\\" onClick={[Function: res]}>
+                                        Add New
+                                      </a>
+                                      <ol />
+                                    </div>
+                                    <div>
+                                      <label>
+                                        Detailed Solution
+                                      </label>
+                                      <textarea onChange={[Function: res]} value=\\"\\" />
                                     </div>
                                   </div>
-                                </TagWrapper>
-                              </BookTags>
-                              <LoTags exercise={{...}}>
-                                <TagWrapper label=\\"LO\\" onAdd={[Function]}>
-                                  <div className=\\"tag-type\\">
-                                    <div className=\\"heading\\">
-                                      <span className=\\"label\\">
-                                        LO
-                                      </span>
-                                      <div className=\\"controls\\">
-                                        <i onClick={[Function]} className=\\"fa fa-plus-circle\\" />
-                                      </div>
-                                    </div>
-                                  </div>
-                                </TagWrapper>
-                              </LoTags>
-                              <QuestionTypeTag exercise={{...}}>
-                                <SingleDropdown exercise={{...}} label=\\"Question Type\\" type=\\"type\\" choices={{...}}>
-                                  <TagWrapper label=\\"Question Type\\" singleTag={true}>
-                                    <div className=\\"tag-type has-single-tag\\">
-                                      <div className=\\"heading\\">
-                                        <span className=\\"label\\">
-                                          Question Type
-                                        </span>
-                                        <div className=\\"controls\\" />
-                                      </div>
-                                      <div className=\\"tag\\">
-                                        <select className=\\"form-control\\" onChange={[Function]} value=\\"\\">
-                                          <option value=\\"\\" />
-                                          <option value=\\"conceptual-or-recall\\">
-                                            Conceptual or Recall
-                                          </option>
-                                          <option value=\\"conceptual\\">
-                                            Conceptual
-                                          </option>
-                                          <option value=\\"recall\\">
-                                            Recall
-                                          </option>
-                                          <option value=\\"practice\\">
-                                            Practice
-                                          </option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                  </TagWrapper>
-                                </SingleDropdown>
-                              </QuestionTypeTag>
-                              <FilterTypeTag exercise={{...}}>
-                                <TagWrapper label=\\"Filter Type\\">
-                                  <div className=\\"tag-type\\">
-                                    <div className=\\"heading\\">
-                                      <span className=\\"label\\">
-                                        Filter Type
-                                      </span>
-                                      <div className=\\"controls\\" />
-                                    </div>
-                                    <div className=\\"tag\\">
-                                      <Uncontrolled(Multiselect) valueField=\\"value\\" textField=\\"title\\" data={{...}} value={{...}} onChange={[Function]}>
-                                        <Multiselect valueField=\\"value\\" textField=\\"title\\" data={{...}} value={{...}} onChange={[Function]} open={false} onToggle={[Function]} searchTerm=\\"\\" onSearch={[Function]} caseSensitive={false} minLength={1} filter=\\"startsWith\\" ariaActiveDescendantKey=\\"multiselect\\" messages={{...}}>
-                                          <Widget id=\\"rw_7\\" open={false} dropUp={[undefined]} focused={[undefined]} disabled={false} readOnly={false} onKeyDown={[Function]} onBlur={[Function]} onFocus={[Function]} onTouchEnd={[Function]} className=\\"rw-multiselect\\">
-                                            <div id=\\"rw_7\\" onKeyDown={[Function]} onBlur={[Function]} onFocus={[Function]} onTouchEnd={[Function]} tabIndex=\\"-1\\" className=\\"rw-multiselect rw-widget\\">
-                                              <span id=\\"rw_7__notify\\" role=\\"status\\" className=\\"rw-sr\\" aria-live=\\"assertive\\" aria-atomic=\\"true\\" aria-relevant=\\"additions removals text\\" />
-                                              <div className=\\"rw-multiselect-wrapper\\">
-                                                <MultiselectInput tabIndex={0} role=\\"listbox\\" aria-expanded={false} aria-busy={false} autoFocus={[undefined]} aria-owns=\\"rw_7__listbox rw_7__notify \\" aria-haspopup={true} value=\\"\\" maxLength={[undefined]} disabled={false} readOnly={false} placeholder=\\"\\" inputSize={[undefined]} onKeyDown={[Function]} onKeyUp={[Function]} onChange={[Function]} onClick={[Function]} onTouchEnd={[Function]}>
-                                                  <input tabIndex={0} role=\\"listbox\\" aria-expanded={false} aria-busy={false} autoFocus={[undefined]} aria-owns=\\"rw_7__listbox rw_7__notify \\" aria-haspopup={true} onKeyDown={[Function]} onKeyUp={[Function]} onClick={[Function]} onTouchEnd={[Function]} size={2} className=\\"rw-input\\" autoComplete=\\"off\\" aria-disabled={false} aria-readonly={false} disabled={false} readOnly={false} placeholder=\\"\\" onChange={[Function]} value=\\"\\" />
-                                                </MultiselectInput>
+                                </Question>
+                              </div>
+                            </Transition>
+                          </Fade>
+                        </TabPane>
+                      </ForwardRef(Bootstrap(TabPane))>
+                    </ForwardRef(ContextTransform)>
+                    <ForwardRef(ContextTransform) eventKey=\\"tags\\">
+                      <ForwardRef(Bootstrap(TabPane)) eventKey=\\"tags\\" active={false} id=\\"exercise-parts-tabpane-tags\\" aria-labelledby=\\"exercise-parts-tab-tags\\" transition={[Function: Fade]} mountOnEnter={false} unmountOnExit={false}>
+                        <TabPane eventKey=\\"tags\\" active={false} id=\\"exercise-parts-tabpane-tags\\" aria-labelledby=\\"exercise-parts-tab-tags\\" transition={[Function: Fade]} mountOnEnter={false} unmountOnExit={false} bsPrefix=\\"tab-pane\\">
+                          <Fade in={false} onEnter={[undefined]} onEntering={[undefined]} onEntered={[undefined]} onExit={[undefined]} onExiting={[undefined]} onExited={[undefined]} mountOnEnter={false} unmountOnExit={false} timeout={300} appear={false}>
+                            <Transition addEndListener={[Function: onEnd]} in={false} onEnter={[Function]} onEntering={[Function: noop]} onEntered={[Function: noop]} onExit={[Function: noop]} onExiting={[Function: noop]} onExited={[Function: noop]} mountOnEnter={false} unmountOnExit={false} timeout={300} appear={false} enter={true} exit={true}>
+                              <div id=\\"exercise-parts-tabpane-tags\\" aria-labelledby=\\"exercise-parts-tab-tags\\" role=\\"tabpanel\\" aria-hidden={true} className=\\"fade tab-pane\\">
+                                <ExerciseTags exercise={{...}}>
+                                  <div className=\\"tags-panel\\">
+                                    <ForwardRef variant=\\"warning\\">
+                                      <Uncontrolled(Component) variant=\\"warning\\" innerRef={{...}}>
+                                        <ForwardRef(Bootstrap(Alert)) variant=\\"warning\\" show={[undefined]} onClose={[Function: handleChange]}>
+                                          <Alert variant=\\"warning\\" show={true} onClose={[Function: handleChange]} bsPrefix=\\"alert\\" transition={[Function: Fade]} closeLabel=\\"Close alert\\">
+                                            <Fade unmountOnExit={true} in={true} timeout={300} mountOnEnter={false} appear={false}>
+                                              <Transition addEndListener={[Function: onEnd]} unmountOnExit={true} in={true} timeout={300} mountOnEnter={false} appear={false} onEnter={[Function]} enter={true} exit={true} onEntering={[Function: noop]} onEntered={[Function: noop]} onExit={[Function: noop]} onExiting={[Function: noop]} onExited={[Function: noop]}>
+                                                <div role=\\"alert\\" className=\\"fade alert alert-warning show\\">
+                                                  Question Stem
+                                                </div>
+                                              </Transition>
+                                            </Fade>
+                                          </Alert>
+                                        </ForwardRef(Bootstrap(Alert))>
+                                      </Uncontrolled(Component)>
+                                    </ForwardRef>
+                                    <div className=\\"tags\\">
+                                      <BookTags exercise={{...}}>
+                                        <TagWrapper label=\\"Book\\" onAdd={[Function: res]} singleTag={false}>
+                                          <div className=\\"tag-type\\">
+                                            <div className=\\"heading\\">
+                                              <span className=\\"label\\">
+                                                Book
+                                              </span>
+                                              <div className=\\"controls\\">
+                                                <i onClick={[Function: res]} className=\\"fa fa-plus-circle\\" />
                                               </div>
                                             </div>
-                                          </Widget>
-                                        </Multiselect>
-                                      </Uncontrolled(Multiselect)>
+                                          </div>
+                                        </TagWrapper>
+                                      </BookTags>
+                                      <LoTags exercise={{...}}>
+                                        <TagWrapper label=\\"LO\\" onAdd={[Function: res]}>
+                                          <div className=\\"tag-type\\">
+                                            <div className=\\"heading\\">
+                                              <span className=\\"label\\">
+                                                LO
+                                              </span>
+                                              <div className=\\"controls\\">
+                                                <i onClick={[Function: res]} className=\\"fa fa-plus-circle\\" />
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </TagWrapper>
+                                      </LoTags>
+                                      <QuestionTypeTag exercise={{...}}>
+                                        <SingleDropdown exercise={{...}} label=\\"Question Type\\" type=\\"type\\" choices={{...}}>
+                                          <TagWrapper label=\\"Question Type\\" singleTag={true}>
+                                            <div className=\\"tag-type has-single-tag\\">
+                                              <div className=\\"heading\\">
+                                                <span className=\\"label\\">
+                                                  Question Type
+                                                </span>
+                                                <div className=\\"controls\\" />
+                                              </div>
+                                              <div className=\\"tag\\">
+                                                <select className=\\"form-control\\" onChange={[Function: res]} value=\\"\\">
+                                                  <option value=\\"\\" />
+                                                  <option value=\\"conceptual-or-recall\\">
+                                                    Conceptual or Recall
+                                                  </option>
+                                                  <option value=\\"conceptual\\">
+                                                    Conceptual
+                                                  </option>
+                                                  <option value=\\"recall\\">
+                                                    Recall
+                                                  </option>
+                                                  <option value=\\"practice\\">
+                                                    Practice
+                                                  </option>
+                                                </select>
+                                              </div>
+                                            </div>
+                                          </TagWrapper>
+                                        </SingleDropdown>
+                                      </QuestionTypeTag>
+                                      <FilterTypeTag exercise={{...}}>
+                                        <TagWrapper label=\\"Filter Type\\">
+                                          <div className=\\"tag-type\\">
+                                            <div className=\\"heading\\">
+                                              <span className=\\"label\\">
+                                                Filter Type
+                                              </span>
+                                              <div className=\\"controls\\" />
+                                            </div>
+                                            <div className=\\"tag\\">
+                                              <Uncontrolled(Multiselect) valueField=\\"value\\" textField=\\"title\\" data={{...}} value={{...}} onChange={[Function: res]}>
+                                                <Multiselect valueField=\\"value\\" textField=\\"title\\" data={{...}} value={{...}} onChange={[Function: handleChange]} open={[undefined]} searchTerm=\\"\\" onToggle={[Function: handleChange]} onSearch={[Function: handleChange]} allowCreate=\\"onFilter\\" filter=\\"startsWith\\" selectIcon={{...}} listComponent={[Function: List]} showPlaceholderWithValues={false}>
+                                                  <Widget open={[undefined]} dropUp={[undefined]} focused={[undefined]} disabled={false} readOnly={false} onKeyDown={[Function: bound decoratedMethod]} onBlur={[Function: handleBlur]} onFocus={[Function: handleFocus]} className=\\"rw-multiselect\\">
+                                                    <div onKeyDown={[Function: bound decoratedMethod]} onBlur={[Function: handleBlur]} onFocus={[Function: handleFocus]} tabIndex=\\"-1\\" className=\\"rw-multiselect rw-widget\\">
+                                                      <span id=\\"rw_3_notify_area\\" role=\\"status\\" className=\\"rw-sr\\" aria-live=\\"assertive\\" aria-atomic=\\"true\\" aria-relevant=\\"additions removals text\\" />
+                                                      <WidgetPicker onClick={[Function: bound decoratedMethod]} onTouchEnd={[Function: bound decoratedMethod]} onDoubleClick={[Function: bound decoratedMethod]} className=\\"rw-widget-input\\">
+                                                        <div onClick={[Function: bound decoratedMethod]} onTouchEnd={[Function: bound decoratedMethod]} onDoubleClick={[Function: bound decoratedMethod]} className=\\"rw-widget-input rw-widget-picker rw-widget-container\\">
+                                                          <div>
+                                                            <MultiselectInput autoFocus={[undefined]} tabIndex={0} role=\\"listbox\\" aria-expanded={false} aria-busy={false} aria-owns=\\"rw_3_listbox rw_3_notify_area \\" aria-haspopup={true} aria-activedescendant={{...}} value=\\"\\" maxLength={[undefined]} disabled={false} readOnly={false} placeholder=\\"\\" onKeyDown={[Function]} onKeyUp={[Function]} onChange={[Function]}>
+                                                              <input autoFocus={[undefined]} tabIndex={0} role=\\"listbox\\" aria-expanded={false} aria-busy={false} aria-owns=\\"rw_3_listbox rw_3_notify_area \\" aria-haspopup={true} aria-activedescendant={{...}} value=\\"\\" maxLength={[undefined]} placeholder=\\"\\" onKeyDown={[Function]} onKeyUp={[Function]} onChange={[Function]} size={2} className=\\"rw-input-reset\\" autoComplete=\\"off\\" aria-disabled={false} aria-readonly={false} disabled={false} readOnly={false} />
+                                                            </MultiselectInput>
+                                                          </div>
+                                                          <Select busy={[undefined]} spinner={[undefined]} icon={{...}} aria-hidden=\\"true\\" role=\\"presentational\\" disabled={false}>
+                                                            <span className=\\"rw-select\\">
+                                                              <Button busy={[undefined]} spinner={[undefined]} icon={{...}} aria-hidden=\\"true\\" role=\\"presentational\\" disabled={false} variant=\\"select\\">
+                                                                <button aria-hidden=\\"true\\" role=\\"presentational\\" tabIndex=\\"-1\\" title={[undefined]} type=\\"button\\" disabled={false} aria-disabled={false} aria-label={[undefined]} className=\\"rw-btn rw-btn-select\\" />
+                                                              </Button>
+                                                            </span>
+                                                          </Select>
+                                                        </div>
+                                                      </WidgetPicker>
+                                                    </div>
+                                                  </Widget>
+                                                </Multiselect>
+                                              </Uncontrolled(Multiselect)>
+                                            </div>
+                                          </div>
+                                        </TagWrapper>
+                                      </FilterTypeTag>
+                                      <RequiresContextTag exercise={{...}}>
+                                        <TagWrapper label=\\"Requires Context\\">
+                                          <div className=\\"tag-type\\">
+                                            <div className=\\"heading\\">
+                                              <span className=\\"label\\">
+                                                Requires Context
+                                              </span>
+                                              <div className=\\"controls\\" />
+                                            </div>
+                                            <div className=\\"tag\\">
+                                              <input type=\\"checkbox\\" label=\\"\\" onChange={[Function: res]} checked={false} />
+                                            </div>
+                                          </div>
+                                        </TagWrapper>
+                                      </RequiresContextTag>
+                                      <CnxModTag exercise={{...}}>
+                                        <MultiInput exercise={{...}} label=\\"CNX Module\\" type=\\"context-cnxmod\\" cleanInput={[Function]} validateInput={[Function]} placeholder=\\"########-####-####-####-############\\">
+                                          <TagWrapper label=\\"CNX Module\\" onAdd={[Function: res]} singleTag={false}>
+                                            <div className=\\"tag-type\\">
+                                              <div className=\\"heading\\">
+                                                <span className=\\"label\\">
+                                                  CNX Module
+                                                </span>
+                                                <div className=\\"controls\\">
+                                                  <i onClick={[Function: res]} className=\\"fa fa-plus-circle\\" />
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </TagWrapper>
+                                        </MultiInput>
+                                      </CnxModTag>
+                                      <CnxFeature exercise={{...}}>
+                                        <MultiInput exercise={{...}} label=\\"CNX Feature\\" type=\\"context-cnxfeature\\" cleanInput={[Function]} placeholder=\\"feature-id\\" validateInput={[Function]}>
+                                          <TagWrapper label=\\"CNX Feature\\" onAdd={[Function: res]} singleTag={false}>
+                                            <div className=\\"tag-type\\">
+                                              <div className=\\"heading\\">
+                                                <span className=\\"label\\">
+                                                  CNX Feature
+                                                </span>
+                                                <div className=\\"controls\\">
+                                                  <i onClick={[Function: res]} className=\\"fa fa-plus-circle\\" />
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </TagWrapper>
+                                        </MultiInput>
+                                      </CnxFeature>
+                                      <DokTag exercise={{...}}>
+                                        <SingleDropdown exercise={{...}} label=\\"DOK\\" type=\\"dok\\" choices={{...}}>
+                                          <TagWrapper label=\\"DOK\\" singleTag={true}>
+                                            <div className=\\"tag-type has-single-tag\\">
+                                              <div className=\\"heading\\">
+                                                <span className=\\"label\\">
+                                                  DOK
+                                                </span>
+                                                <div className=\\"controls\\" />
+                                              </div>
+                                              <div className=\\"tag\\">
+                                                <select className=\\"form-control\\" onChange={[Function: res]} value=\\"\\">
+                                                  <option value=\\"\\" />
+                                                  <option value=\\"1\\">
+                                                    1
+                                                  </option>
+                                                  <option value=\\"2\\">
+                                                    2
+                                                  </option>
+                                                  <option value=\\"3\\">
+                                                    3
+                                                  </option>
+                                                  <option value=\\"4\\">
+                                                    4
+                                                  </option>
+                                                </select>
+                                              </div>
+                                            </div>
+                                          </TagWrapper>
+                                        </SingleDropdown>
+                                      </DokTag>
+                                      <BloomsTag exercise={{...}}>
+                                        <SingleDropdown exercise={{...}} label=\\"Blooms\\" type=\\"blooms\\" choices={{...}}>
+                                          <TagWrapper label=\\"Blooms\\" singleTag={true}>
+                                            <div className=\\"tag-type has-single-tag\\">
+                                              <div className=\\"heading\\">
+                                                <span className=\\"label\\">
+                                                  Blooms
+                                                </span>
+                                                <div className=\\"controls\\" />
+                                              </div>
+                                              <div className=\\"tag\\">
+                                                <select className=\\"form-control\\" onChange={[Function: res]} value=\\"\\">
+                                                  <option value=\\"\\" />
+                                                  <option value=\\"1\\">
+                                                    1
+                                                  </option>
+                                                  <option value=\\"2\\">
+                                                    2
+                                                  </option>
+                                                  <option value=\\"3\\">
+                                                    3
+                                                  </option>
+                                                  <option value=\\"4\\">
+                                                    4
+                                                  </option>
+                                                  <option value=\\"5\\">
+                                                    5
+                                                  </option>
+                                                  <option value=\\"6\\">
+                                                    6
+                                                  </option>
+                                                  <option value=\\"7\\">
+                                                    7
+                                                  </option>
+                                                </select>
+                                              </div>
+                                            </div>
+                                          </TagWrapper>
+                                        </SingleDropdown>
+                                      </BloomsTag>
+                                      <TimeTag exercise={{...}}>
+                                        <SingleDropdown exercise={{...}} label=\\"Time\\" type=\\"time\\" choices={{...}}>
+                                          <TagWrapper label=\\"Time\\" singleTag={true}>
+                                            <div className=\\"tag-type has-single-tag\\">
+                                              <div className=\\"heading\\">
+                                                <span className=\\"label\\">
+                                                  Time
+                                                </span>
+                                                <div className=\\"controls\\" />
+                                              </div>
+                                              <div className=\\"tag\\">
+                                                <select className=\\"form-control\\" onChange={[Function: res]} value=\\"\\">
+                                                  <option value=\\"\\" />
+                                                  <option value=\\"short\\">
+                                                    Short
+                                                  </option>
+                                                  <option value=\\"medium\\">
+                                                    Medium
+                                                  </option>
+                                                  <option value=\\"long\\">
+                                                    Long
+                                                  </option>
+                                                </select>
+                                              </div>
+                                            </div>
+                                          </TagWrapper>
+                                        </SingleDropdown>
+                                      </TimeTag>
                                     </div>
                                   </div>
-                                </TagWrapper>
-                              </FilterTypeTag>
-                              <RequiresContextTag exercise={{...}}>
-                                <TagWrapper label=\\"Requires Context\\">
-                                  <div className=\\"tag-type\\">
-                                    <div className=\\"heading\\">
-                                      <span className=\\"label\\">
-                                        Requires Context
-                                      </span>
-                                      <div className=\\"controls\\" />
-                                    </div>
-                                    <div className=\\"tag\\">
-                                      <input type=\\"checkbox\\" label=\\"\\" onChange={[Function]} checked={false} />
-                                    </div>
+                                </ExerciseTags>
+                              </div>
+                            </Transition>
+                          </Fade>
+                        </TabPane>
+                      </ForwardRef(Bootstrap(TabPane))>
+                    </ForwardRef(ContextTransform)>
+                    <ForwardRef(ContextTransform) eventKey=\\"assets\\">
+                      <ForwardRef(Bootstrap(TabPane)) eventKey=\\"assets\\" active={false} id=\\"exercise-parts-tabpane-assets\\" aria-labelledby=\\"exercise-parts-tab-assets\\" transition={[Function: Fade]} mountOnEnter={false} unmountOnExit={false}>
+                        <TabPane eventKey=\\"assets\\" active={false} id=\\"exercise-parts-tabpane-assets\\" aria-labelledby=\\"exercise-parts-tab-assets\\" transition={[Function: Fade]} mountOnEnter={false} unmountOnExit={false} bsPrefix=\\"tab-pane\\">
+                          <Fade in={false} onEnter={[undefined]} onEntering={[undefined]} onEntered={[undefined]} onExit={[undefined]} onExiting={[undefined]} onExited={[undefined]} mountOnEnter={false} unmountOnExit={false} timeout={300} appear={false}>
+                            <Transition addEndListener={[Function: onEnd]} in={false} onEnter={[Function]} onEntering={[Function: noop]} onEntered={[Function: noop]} onExit={[Function: noop]} onExiting={[Function: noop]} onExited={[Function: noop]} mountOnEnter={false} unmountOnExit={false} timeout={300} appear={false} enter={true} exit={true}>
+                              <div id=\\"exercise-parts-tabpane-assets\\" aria-labelledby=\\"exercise-parts-tab-assets\\" role=\\"tabpanel\\" aria-hidden={true} className=\\"fade tab-pane\\">
+                                <Attachments exercises={{...}} exercise={{...}}>
+                                  <div className=\\"attachments\\">
+                                    <withRouter(AttachmentChooser) exercise={{...}}>
+                                      <Route>
+                                        <AttachmentChooser exercise={{...}} match={[undefined]} location={{...}} history={{...}} staticContext={[undefined]} exercises={{...}}>
+                                          <div className=\\"attachment\\">
+                                            <div className=\\"controls\\">
+                                              <label className=\\"selector\\">
+                                                Add new image
+                                                <input id=\\"file\\" className=\\"file\\" type=\\"file\\" onChange={[Function: res]} />
+                                              </label>
+                                            </div>
+                                          </div>
+                                        </AttachmentChooser>
+                                      </Route>
+                                    </withRouter(AttachmentChooser)>
                                   </div>
-                                </TagWrapper>
-                              </RequiresContextTag>
-                              <CnxModTag exercise={{...}}>
-                                <MultiInput exercise={{...}} label=\\"CNX Module\\" type=\\"context-cnxmod\\" cleanInput={[Function]} validateInput={[Function]} placeholder=\\"########-####-####-####-############\\">
-                                  <TagWrapper label=\\"CNX Module\\" onAdd={[Function]} singleTag={false}>
-                                    <div className=\\"tag-type\\">
-                                      <div className=\\"heading\\">
-                                        <span className=\\"label\\">
-                                          CNX Module
-                                        </span>
-                                        <div className=\\"controls\\">
-                                          <i onClick={[Function]} className=\\"fa fa-plus-circle\\" />
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </TagWrapper>
-                                </MultiInput>
-                              </CnxModTag>
-                              <CnxFeature exercise={{...}}>
-                                <MultiInput exercise={{...}} label=\\"CNX Feature\\" type=\\"context-cnxfeature\\" cleanInput={[Function]} placeholder=\\"feature-id\\" validateInput={[Function]}>
-                                  <TagWrapper label=\\"CNX Feature\\" onAdd={[Function]} singleTag={false}>
-                                    <div className=\\"tag-type\\">
-                                      <div className=\\"heading\\">
-                                        <span className=\\"label\\">
-                                          CNX Feature
-                                        </span>
-                                        <div className=\\"controls\\">
-                                          <i onClick={[Function]} className=\\"fa fa-plus-circle\\" />
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </TagWrapper>
-                                </MultiInput>
-                              </CnxFeature>
-                              <DokTag exercise={{...}}>
-                                <SingleDropdown exercise={{...}} label=\\"DOK\\" type=\\"dok\\" choices={{...}}>
-                                  <TagWrapper label=\\"DOK\\" singleTag={true}>
-                                    <div className=\\"tag-type has-single-tag\\">
-                                      <div className=\\"heading\\">
-                                        <span className=\\"label\\">
-                                          DOK
-                                        </span>
-                                        <div className=\\"controls\\" />
-                                      </div>
-                                      <div className=\\"tag\\">
-                                        <select className=\\"form-control\\" onChange={[Function]} value=\\"\\">
-                                          <option value=\\"\\" />
-                                          <option value=\\"1\\">
-                                            1
-                                          </option>
-                                          <option value=\\"2\\">
-                                            2
-                                          </option>
-                                          <option value=\\"3\\">
-                                            3
-                                          </option>
-                                          <option value=\\"4\\">
-                                            4
-                                          </option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                  </TagWrapper>
-                                </SingleDropdown>
-                              </DokTag>
-                              <BloomsTag exercise={{...}}>
-                                <SingleDropdown exercise={{...}} label=\\"Blooms\\" type=\\"blooms\\" choices={{...}}>
-                                  <TagWrapper label=\\"Blooms\\" singleTag={true}>
-                                    <div className=\\"tag-type has-single-tag\\">
-                                      <div className=\\"heading\\">
-                                        <span className=\\"label\\">
-                                          Blooms
-                                        </span>
-                                        <div className=\\"controls\\" />
-                                      </div>
-                                      <div className=\\"tag\\">
-                                        <select className=\\"form-control\\" onChange={[Function]} value=\\"\\">
-                                          <option value=\\"\\" />
-                                          <option value=\\"1\\">
-                                            1
-                                          </option>
-                                          <option value=\\"2\\">
-                                            2
-                                          </option>
-                                          <option value=\\"3\\">
-                                            3
-                                          </option>
-                                          <option value=\\"4\\">
-                                            4
-                                          </option>
-                                          <option value=\\"5\\">
-                                            5
-                                          </option>
-                                          <option value=\\"6\\">
-                                            6
-                                          </option>
-                                          <option value=\\"7\\">
-                                            7
-                                          </option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                  </TagWrapper>
-                                </SingleDropdown>
-                              </BloomsTag>
-                              <TimeTag exercise={{...}}>
-                                <SingleDropdown exercise={{...}} label=\\"Time\\" type=\\"time\\" choices={{...}}>
-                                  <TagWrapper label=\\"Time\\" singleTag={true}>
-                                    <div className=\\"tag-type has-single-tag\\">
-                                      <div className=\\"heading\\">
-                                        <span className=\\"label\\">
-                                          Time
-                                        </span>
-                                        <div className=\\"controls\\" />
-                                      </div>
-                                      <div className=\\"tag\\">
-                                        <select className=\\"form-control\\" onChange={[Function]} value=\\"\\">
-                                          <option value=\\"\\" />
-                                          <option value=\\"short\\">
-                                            Short
-                                          </option>
-                                          <option value=\\"medium\\">
-                                            Medium
-                                          </option>
-                                          <option value=\\"long\\">
-                                            Long
-                                          </option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                  </TagWrapper>
-                                </SingleDropdown>
-                              </TimeTag>
-                            </div>
-                          </div>
-                        </ExerciseTags>
-                      </div>
-                    </TabPane>
-                  </Tab>
-                  <Tab eventKey=\\"assets\\" title=\\"Assets\\">
-                    <TabPane eventKey=\\"assets\\" bsClass=\\"tab-pane\\">
-                      <div id=\\"exercise-parts-pane-assets\\" aria-labelledby=\\"exercise-parts-tab-assets\\" role=\\"tabpanel\\" aria-hidden={true} className=\\"tab-pane\\">
-                        <Attachments exercises={{...}} exercise={{...}}>
-                          <div className=\\"attachments\\">
-                            <withRouter(AttachmentChooser) exercise={{...}}>
-                              <Route render={[Function]} />
-                            </withRouter(AttachmentChooser)>
-                          </div>
-                        </Attachments>
-                      </div>
-                    </TabPane>
-                  </Tab>
-                </div>
-              </TabContent>
-            </div>
-          </TabContainer>
-        </Tabs>
-      </Uncontrolled(Tabs)>
+                                </Attachments>
+                              </div>
+                            </Transition>
+                          </Fade>
+                        </TabPane>
+                      </ForwardRef(Bootstrap(TabPane))>
+                    </ForwardRef(ContextTransform)>
+                  </div>
+                </TabContent>
+              </ForwardRef(Bootstrap(TabContent))>
+            </TabContainer>
+          </Tabs>
+        </Uncontrolled(Tabs)>
+      </ForwardRef>
     </div>
     <ExerciseEditingPreview exercise={{...}}>
       <CornerRibbon shadow={true} color=\\"navy\\" position=\\"topRight\\" label={{...}} hidden={true}>
@@ -3344,42 +1981,48 @@ exports[`Exercises component resets fields when model is new 1`] = `
             </div>
           </div>
           <ExercisePreview className=\\"exercise-editing-preview\\" isInteractive={true} displayAllTags={true} displayFeedback={true} displayFormats={true} displayNickname={true} exercise={{...}} panelStyle=\\"default\\" overlayActions={{...}} extractedInfo={{...}}>
-            <Panel className=\\"openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback\\" bsStyle=\\"default\\" header={[undefined]} data-exercise-id={[undefined]} tabIndex={-1} footer={[undefined]} defaultExpanded={false} bsClass=\\"panel\\">
-              <div data-exercise-id={[undefined]} tabIndex={-1} className=\\"openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback panel panel-default\\" id={[undefined]}>
-                <div className=\\"panel-body\\">
-                  <Component exercise={{...}} actions={{...}} onClick={[undefined]} />
-                  <div className=\\"exercise-body\\">
-                    <ExerciseBadges flags={{...}} isMultipart={false} hasInteractive={false} hasVideo={false} />
-                    <Component className=\\"stimulus\\" block={true} html={[undefined]} />
-                    <Question hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\">
-                      <div className=\\"openstax-question openstax-question-preview\\" data-question-number={[undefined]}>
-                        <QuestionHtml type=\\"context\\" html=\\"\\" />
-                        <QuestionHtml type=\\"stimulus\\" html=\\"\\" />
-                        <QuestionHtml type=\\"stem\\" html=\\"\\" questionNumber={[undefined]} />
-                        <AnswersTable hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
-                          <div className=\\"answers-table\\" />
-                        </AnswersTable>
-                        <FormatsListing formats={{...}}>
-                          <div className=\\"formats-listing\\">
-                            <div className=\\"header\\">
-                              Formats:
+            <ForwardRef(Bootstrap(Card)) bg=\\"light\\" className=\\"openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback\\" data-exercise-id={[undefined]} tabIndex={-1}>
+              <Card bg=\\"light\\" className=\\"openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback\\" data-exercise-id={[undefined]} tabIndex={-1} bsPrefix=\\"card\\" as=\\"div\\" body={false}>
+                <div className=\\"openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback card bg-light\\" data-exercise-id={[undefined]} tabIndex={-1}>
+                  <ForwardRef(Bootstrap(CardBody))>
+                    <CardBody bsPrefix=\\"card-body\\">
+                      <div className=\\"card-body\\">
+                        <ControlsOverlay exercise={{...}} actions={{...}} onClick={[undefined]} />
+                        <div className=\\"exercise-body\\">
+                          <ExerciseBadges flags={{...}} isMultipart={false} hasInteractive={false} hasVideo={false} />
+                          <Component className=\\"stimulus\\" block={true} html={[undefined]} />
+                          <Question hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\">
+                            <div className=\\"openstax-question openstax-question-preview\\" data-question-number={[undefined]}>
+                              <QuestionHtml type=\\"context\\" html=\\"\\" />
+                              <QuestionHtml type=\\"stimulus\\" html=\\"\\" />
+                              <QuestionHtml type=\\"stem\\" html=\\"\\" questionNumber={[undefined]} />
+                              <AnswersTable hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={true} show_all_feedback={true} type=\\"teacher-preview\\" hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
+                                <div className=\\"answers-table\\" />
+                              </AnswersTable>
+                              <FormatsListing formats={{...}}>
+                                <div className=\\"formats-listing\\">
+                                  <div className=\\"header\\">
+                                    Formats:
+                                  </div>
+                                  <span>
+                                    free-response
+                                  </span>
+                                </div>
+                              </FormatsListing>
                             </div>
-                            <span>
-                              free-response
-                            </span>
-                          </div>
-                        </FormatsListing>
+                          </Question>
+                        </div>
+                        <div className=\\"exercise-tags\\">
+                          <span className=\\"exercise-tag\\">
+                            ID:undefined
+                          </span>
+                        </div>
                       </div>
-                    </Question>
-                  </div>
-                  <div className=\\"exercise-tags\\">
-                    <span className=\\"exercise-tag\\">
-                      ID:undefined
-                    </span>
-                  </div>
+                    </CardBody>
+                  </ForwardRef(Bootstrap(CardBody))>
                 </div>
-              </div>
-            </Panel>
+              </Card>
+            </ForwardRef(Bootstrap(Card))>
           </ExercisePreview>
         </div>
       </CornerRibbon>

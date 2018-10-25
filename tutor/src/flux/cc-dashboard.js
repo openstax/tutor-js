@@ -1,4 +1,3 @@
-// coffeelint: disable=no_empty_functions
 import _ from 'underscore';
 
 import { TaskActions, TaskStore } from './task';

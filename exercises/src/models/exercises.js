@@ -1,6 +1,6 @@
 import Map from 'shared/model/map';
 import { sortBy, last, get } from 'lodash';
-import { computed, action, observable, toJS } from 'mobx';
+import { action } from 'mobx';
 import Exercise from './exercises/exercise';
 
 const NEW = 'new';

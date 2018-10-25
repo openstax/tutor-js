@@ -3,7 +3,7 @@ This directory contains React and `flex-react` components.
 # tl;dr
 
 - Synchronous state changes on objects **only** occur in the Store
-- Async AJAX transitions are handled by the `API` (`./api.coffee`)
+- Async AJAX transitions are handled by the `API` (`./api.js`)
 - React has no knowledge and just renders the state of the Store.
 
 

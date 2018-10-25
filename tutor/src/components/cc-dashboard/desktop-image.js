@@ -1,5 +1,3 @@
-// coffeelint: disable=max_line_length
-
 import PropTypes from 'prop-types';
 
 import React from 'react';

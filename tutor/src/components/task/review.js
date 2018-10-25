@@ -1,11 +1,7 @@
-// coffeelint: disable=no_empty_functions
-
 import PropTypes from 'prop-types';
-
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import _ from 'underscore';
-
+import ReactCSSTransitionGroup from 'react-transition-group';
+import { omit, map, uniq } from 'lodash';
 import TaskStep from '../task-step';
 
 
@@ -23,28 +19,28 @@ class Review extends React.Component {
   };
 
   render() {
-    const { taskId, steps, focus } = this.props;
+    const { steps, focus } = this.props;
 
-    const stepProps = _.omit(this.props, 'steps', 'focus');
+    const stepProps = omit(this.props, 'steps', 'focus');
+    const uniqSteps = uniq(steps, step => {
+      if (step.is_in_multipart && (step.content_url != null)) {
+        return step.content_url;
+      } else {
+        return step.id;
+      }
+    });
 
-    const stepsList = _.chain(steps)
-      .uniq(false, function(step) {
-        if (step.is_in_multipart && (step.content_url != null)) {
-          return step.content_url;
-        } else {
-          return step.id;
-        }
-      }).map((step, index) =>
-        <TaskStep
-          {...stepProps}
-          id={step.id}
-          key={`task-review-${step.id}`}
-          focus={true}
-          on={true}
-          first={true}
-          problem={true}
-          focus={focus && (index === 0)}
-          pinned={false} />).value();
+    const stepsList = map(uniqSteps, (step, index) =>
+      <TaskStep
+        {...stepProps}
+        id={step.id}
+        key={`task-review-${step.id}`}
+        focus={true}
+        on={true}
+        first={true}
+        problem={true}
+        focus={focus && (index === 0)}
+        pinned={false} />);
 
     return (
       <ReactCSSTransitionGroup

@@ -1,4 +1,4 @@
-// policies.coffee describes the following situations.
+// policies describes the following situations.
 // This should handle the 4 different states an Exercise can be in:
 // 1. `not(free_response)`: Show the question stem and a text area
 // 2. `free_response and not(is_completed)`: Show stem, your free_response, and the multiple choice options

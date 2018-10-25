@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Nav, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Nav, Dropdown, NavDropdown } from 'react-bootstrap';
 import { get } from 'lodash';
 import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
@@ -24,9 +24,14 @@ class UserActionsMenu extends React.Component {
     const { user } = this.props;
 
     return (
-      <Nav pullRight={true} navbar={true}>
-        <NavDropdown eventKey={1} id="navbar-dropdown" title={user.username} ref="navDropDown">
-          <MenuItem className="logout">
+      <Nav navbar={true}>
+        <NavDropdown as={Nav.Item}
+          alignRight
+          id="navbar-dropdown"
+          title={user.username}
+          ref="navDropDown"
+        >
+          <NavDropdown.Item className="logout">
             <form
               ref="logoutForm"
               acceptCharset="UTF-8"
@@ -41,7 +46,7 @@ class UserActionsMenu extends React.Component {
                 value="Log Out"
                 onClick={this.onLogoutClick} />
             </form>
-          </MenuItem>
+          </NavDropdown.Item>
         </NavDropdown>
       </Nav>
     );

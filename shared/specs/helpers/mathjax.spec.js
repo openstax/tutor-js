@@ -1,12 +1,11 @@
-const { Testing, expect, sinon, _ } = require('./index');
-
 const { typesetMath } = require('helpers/mathjax');
 const FakeWindow = require('./fake-window');
+import { delay } from 'lodash';
 
 const callTypeset = (dom, window) =>
-  new Promise( function( res, rej ) {
+  new Promise( function( res ) {
     typesetMath(dom, window);
-    return _.delay(() => res(dom)
+    return delay(() => res(dom)
       , 190);
   })
 ;
@@ -21,8 +20,8 @@ describe('Mathjax Helper', function() {
     window = new FakeWindow;
     window.MathJax = {
       Hub: {
-        Typeset: sinon.spy(),
-        Queue: (...args) => args.map(arg => arg()), 
+        Typeset: jest.fn(),
+        Queue: (...args) => args.map(arg => arg()),
       },
     };
     return window.document = dom;

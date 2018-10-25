@@ -5,9 +5,12 @@ import lazyGetter from '../helpers/lazy-getter.js';
 
 export default class Map {
 
+  keyType = Number
+
   _map = observable.map()
 
-  constructor(data) {
+  constructor(data, options = {}) {
+    Object.assign(this, options);
     if (isArray(data)) {
       this.mergeModelData(data);
     } else if (isObject(data)) {
@@ -16,23 +19,27 @@ export default class Map {
   }
 
   @computed get array() {
-    return this.values;
+    return this.values();
   }
 
-  @computed values() {
+  keys() {
+    return Array.from(this._map.keys());
+  }
+
+  values() {
     return Array.from(this._map.values());
   }
 
   get(key) {
-    return this._map.get(key);
+    return this._map.get(this.keyType(key));
   }
 
   set(key, value) {
-    this._map.set(key, value);
+    this._map.set(this.keyType(key), value);
   }
 
   where(condition) {
-    const map = new this.constructor(this.chainedValues);
+    const map = new this.constructor(this.chainedValues, { keyType: this.keyType });
     this._map.forEach(c => {
       if(condition(c)) { map.set(c.id, c); }
     });

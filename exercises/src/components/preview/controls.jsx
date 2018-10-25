@@ -73,13 +73,13 @@ class PreviewControls extends React.Component {
 
   @computed get nextVersion() {
     const { exercise } = this;
-    const versions = exercise.versions.sort();
+    const versions = exercise.versions.slice().sort();
     return find(versions, (v) => v > exercise.version);
   }
 
   @computed get prevVersion() {
     const { exercise } = this;
-    const versions = exercise.versions.sort();
+    const versions = exercise.versions.slice().sort();
     return find(versions, (v) => v < exercise.version);
   }
 

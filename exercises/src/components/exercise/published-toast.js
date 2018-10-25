@@ -29,7 +29,7 @@ class PublishedToast extends React.Component {
             {message}
           </p>
           <Button
-            bsStyle="primary"
+            variant="primary"
             bsSize="small"
             onClick={dismiss}
           >

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Testing, expect, sinon, _ } from 'shared/specs/helpers';
-
+import { Testing } from 'shared/specs/helpers';
+import { delay } from 'lodash';
 import Button from 'components/buttons/async-button';
 
 class Failed extends React.Component {
@@ -29,7 +29,7 @@ describe('Async Button Component', function() {
       })
     );
 
-    return it('shows spinner and is disabled when true', function() {
+    it('shows spinner and is disabled when true', function() {
       props.isWaiting = true;
       return Testing.renderComponent( Button, { props } ).then(function({ dom }) {
         expect(dom.getAttribute('disabled')).equal('');
@@ -47,18 +47,18 @@ describe('Async Button Component', function() {
     });
   });
 
-  return it('sets timeout', function(done) {
+  it('sets timeout', function(done) {
     props.timeoutLength = 2;
     props.isWaiting = true;
-    Testing.renderComponent( Button, { unmountAfter: 10, props } ).then(function({ dom, wrapper, element }) {
-      element.componentDidUpdate();
-      expect(element.state.isTimedout).equal(false);
-      return _.delay(function() {
-        expect(element.state.isTimedout).equal(true);
-        return done();
-      }
-        , 3);
-    });
+    Testing.renderComponent( Button, { unmountAfter: 10, props } )
+      .then(function({ element }) {
+        element.componentDidUpdate();
+        expect(element.state.isTimedout).equal(false);
+        return delay(function() {
+          expect(element.state.isTimedout).equal(true);
+          return done();
+        }, 3);
+      });
     return true;
   });
 }); //

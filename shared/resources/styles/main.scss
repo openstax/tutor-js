@@ -4,11 +4,13 @@
 
 @import './variables/index';
 
-@import "~bootstrap-sass/assets/stylesheets/bootstrap/variables";
-@import "~bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
 @import '~font-awesome/scss/font-awesome';
 
-// @import './variables/openstax-bootstrap';
+
 @import './mixins/index';
 
 @import './components/pinned-header-footer-card/index';

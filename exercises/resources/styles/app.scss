@@ -9,16 +9,36 @@ $fa-font-path: '~font-awesome/fonts';
 
 @import './mixins/generic';
 
+
 @import "./bootstrap";
 
-$rw-img-path: '~react-widgets/dist/img';
-@import "~react-widgets/lib/scss/variables";
-@import "~react-widgets/lib/scss/bootstrap-theme";
-@import "~react-widgets/lib/scss/mixins";
-@import "~react-widgets/lib/scss/core";
-@import "~react-widgets/lib/scss/popup";
-@import "~react-widgets/lib/scss/selectlist";
-@import "~react-widgets/lib/scss/multiselect";
+$input-height: 1.5rem;
+$img-path: '~react-widgets/dist/img';
+
+@import "~react-widgets/lib/scss/variables.scss";
+@import "~react-widgets/lib/scss/mixins.scss";
+@import "~react-widgets/lib/scss/normalize.scss";
+
+// @import "~react-widgets/lib/scss/icons.scss";
+
+@import "~react-widgets/lib/scss/button.scss";
+@import "~react-widgets/lib/scss/widget.scss";
+@import "~react-widgets/lib/scss/list.scss";
+@import "~react-widgets/lib/scss/dropdown-list.scss";
+@import "~react-widgets/lib/scss/number-picker.scss";
+@import "~react-widgets/lib/scss/calendar.scss";
+@import "~react-widgets/lib/scss/select-list.scss";
+@import "~react-widgets/lib/scss/multiselect.scss";
+@import "~react-widgets/lib/scss/autocomplete.scss";
+
+@import "~react-widgets/lib/scss/popup.scss";
+@import "~react-widgets/lib/scss/state.scss";
+
+
+// @import "~react-widgets/lib/scss/core";
+// @import "~react-widgets/lib/scss/popup";
+// @import "~react-widgets/lib/scss/selectlist";
+// @import "~react-widgets/lib/scss/multiselect";
 
 @import '../../../shared/resources/styles/main.scss';
 

@@ -134,7 +134,7 @@
 
 
 // limit an element's height to max-height and display a gradient at the bottom
-@mixin height-limited-panel($max-height: 150px) {
+@mixin height-limited-card($max-height: 150px) {
   position: relative;
   max-height: $max-height;
   overflow: hidden;
@@ -147,4 +147,8 @@
     top: $max-height - 150px;
     background: linear-gradient(to top, white, white 10%, rgba(255,255,255,0));
   }
+}
+
+@mixin scale($ratio...) {
+  transform: scale($ratio);
 }

@@ -5,7 +5,6 @@ import { Dropdown, MenuItem } from 'react-bootstrap';
 import { get } from 'lodash';
 import { action, computed } from 'mobx';
 import { observer, inject } from 'mobx-react';
-import RootCloseWrapper from 'react-overlays/lib/RootCloseWrapper';
 import User from '../../models/user';
 import TourAnchor from '../tours/anchor';
 import Chat from '../../models/chat';
