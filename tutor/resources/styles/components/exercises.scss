@@ -99,12 +99,12 @@ $exercise-details-body-height: calc(100vh - 150px);
         }
       }
       &.active {
-        background-color: $tutor-neutral-light;
+        background-color: $tutor-neutral-neutral-light;
         z-index: 10;
       }
       &.disabled {
         cursor: default;
-        color: $tutor-neutral-light;
+        color: $tutor-neutral-neutral-light;
       }
     }
   }
@@ -126,7 +126,7 @@ $exercise-details-body-height: calc(100vh - 150px);
         margin-left: 0;
       }
       &.active {
-        background-color: $tutor-neutral-light;
+        background-color: $tutor-neutral-neutral-light;
         z-index: 10;
       }
       .tutor-icon {

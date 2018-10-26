@@ -70,7 +70,7 @@
       line-height: 1.2rem;
     }
     a {
-      color: $state-danger-text;
+      color: theme-color("danger");
       text-decoration: underline;
     }
   }

@@ -3,10 +3,10 @@
 
   .task {
     background: $tutor-white;
-    border-top: thin dotted $tutor-neutral-light;
+    border-top: thin dotted $tutor-neutral-neutral-light;
     position: relative;
     display: block;
-    color: $tutor-neutral-darker;
+    color: $tutor-neutral-neutral-neutral-darker;
     overflow: hidden;
     // if the screen is wide enought, set a hight and use line-height to vertically center content.
     // This breaks when the responsive small view kicks in and it becomes multi-line
@@ -16,7 +16,7 @@
     }
     &.deleted:not(.workable) {
       cursor: default;
-      background-color: $tutor-neutral-lightest;
+      background-color: $tutor-neutral-neutral-lightest;
     }
     .icon {
       background-position: center;
@@ -59,7 +59,7 @@
     }
 
     // Adjust height for when the columns collapse and progress appears below task title
-    @media screen and ( max-width: $screen-sm-min ) {
+    @include media-breakpoint-down('sm') {
       .column-icon {
         text-align: center;
         height: $student-dashboard-row-height;
@@ -75,7 +75,7 @@
     &.workable {
       cursor: pointer;
       &:hover {
-        background-color: $tutor-neutral-lightest;
+        background-color: $tutor-neutral-neutral-lightest;
         .icon { @include tutor-icon-active(1.2); }
       }
     }

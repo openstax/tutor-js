@@ -5,8 +5,8 @@
 
 .course-page.research-surveys {
   // This can be removed once we're able to import the entire pattern library into Tutor
-  @import "~bootstrap-sass/assets/stylesheets/bootstrap/buttons";
-  @import "~bootstrap-sass/assets/stylesheets/bootstrap/button-groups";
+  @import "~bootstrap/scss/buttons";
+  @import "~bootstrap/scss/button-group";
   @import '~pattern-library/core/pattern-library/elements';
 
   .body-wrapper {
@@ -22,7 +22,8 @@
   }
 
   .sv_q_erbox {
-    @include alert-variant($alert-danger-bg, $alert-danger-border, $alert-danger-text);
+    @include alert-variant(theme-color-level("danger", $alert-bg-level), theme-color-level("danger", $alert-border-level), theme-color-level("danger", $alert-color-level));
+
     padding: 0.8rem;
     margin-left: -0.8rem;
     margin-top: 1rem;
@@ -67,7 +68,7 @@
     font-weight: normal;
     line-height: 2.4rem;
     margin-bottom: 20px;
-    color: $tutor-neutral-darker;
+    color: $tutor-neutral-neutral-neutral-darker;
   }
 
   // answer choices wrapper

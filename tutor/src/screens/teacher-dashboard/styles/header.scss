@@ -13,11 +13,11 @@ $calendar-header-padding: 2rem;
     .no-periods-message { min-width: 100%; }
 
     .btn-default {
-      background-color: $tutor-neutral-lightest;
+      background-color: $tutor-neutral-neutral-lightest;
     }
 
     .btn-default {
-      background-color: $tutor-neutral-lightest;
+      background-color: $tutor-neutral-neutral-lightest;
     }
 
     .sidebar-toggle {
@@ -52,7 +52,7 @@ $calendar-header-padding: 2rem;
 
   .calendar-header {
     &-actions {
-      border-bottom: 1px solid $tutor-neutral-light;
+      border-bottom: 1px solid $tutor-neutral-neutral-light;
       padding-top: 1rem;
       padding-bottom: 1rem;
     }
@@ -72,7 +72,7 @@ $calendar-header-padding: 2rem;
 
     &-control {
       @include no-select();
-      color: $tutor-neutral-darker;
+      color: $tutor-neutral-neutral-neutral-darker;
       padding: 0 $calendar-header-padding;
       display: inline-block;
 

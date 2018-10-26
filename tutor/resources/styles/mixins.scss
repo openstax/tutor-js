@@ -26,7 +26,7 @@
     }
     @if $full-screen {
       top: 0;
-      z-index: $zindex-navbar-fixed + 1;
+      z-index: $zindex-fixed + 1;
       &::before {
         background-image: url('../images/openstax-logo-white.png'), url('../images/ost-hero.jpg');
         top: 0;
@@ -39,14 +39,14 @@
 
 @mixin ost-hero-modal($full-screen: false) {
   &.modal-backdrop {
-    z-index: $zindex-navbar-fixed - 2;
+    z-index: $zindex-fixed - 2;
     if $full-screen {
-      z-index: $zindex-navbar-fixed + 1;
+      z-index: $zindex-fixed + 1;
     }
   }
   &.modal {
     top: $tutor-navbar-height;
-    z-index: $zindex-navbar-fixed - 1;
+    z-index: $zindex-fixed - 1;
     @include ost-hero-backdrop($full-screen);
     .modal-dialog { // move modal down so the ox logo appears
       transform: translateY(80px);
@@ -201,19 +201,19 @@ $tutor-shadow-types: (
   }
 
   &.left .arrow:after{
-    border-left-color: $popover-title-bg;
+    border-left-color: $popover-header-bg;
   }
 
   &.right .arrow:after{
-    border-right-color: $popover-title-bg;
+    border-right-color: $popover-header-bg;
   }
 
   &.top .arrow:after{
-    border-top-color: $popover-title-bg;
+    border-top-color: $popover-header-bg;
   }
 
   &.bottom .arrow:after{
-    border-bottom-color: $popover-title-bg;
+    border-bottom-color: $popover-header-bg;
   }
 }
 
@@ -286,6 +286,14 @@ $tutor-shadow-types: (
   }
 }
 
+@mixin tab-focus() {
+  // WebKit-specific. Other browsers will keep their default outline style.
+  // (Initially tried to also force default via `outline: initial`,
+  // but that seems to erroneously remove the outline in Firefox altogether.)
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
 @mixin tutor-external-link-indicator() {
   &::after {
     @include fa-icon();
@@ -326,6 +334,10 @@ $tutor-shadow-types: (
   justify-content: center;
   flex-direction: column;
   margin: 0 auto;
+}
+
+@mixin translate($x, $y) {
+  transform: translate($x, $y);
 }
 
 @import './book-content/ap-bio/variables';

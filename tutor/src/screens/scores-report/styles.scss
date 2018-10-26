@@ -1,7 +1,7 @@
 @import '../screen-styles';
 
 $scores-table-border-color: rgb(210, 210, 210);
-$scores-student-header-bg-color: $tutor-neutral-lighter;
+$scores-student-header-bg-color: $tutor-neutral-neutral-lighter;
 $scores-student-header-fg-color: #f2f2f2;
 $scores-thin-grey-border: 1px solid $scores-table-border-color;
 $scores-thick-grey-border: 2px solid $scores-table-border-color;
@@ -18,7 +18,7 @@ $scores-group-row-height: 60px;
 @mixin overall-border-style() {
   border-style: solid;
   border-width: 2px;
-  border-color: $tutor-tertiary-light;
+  border-color: $tutor-tertiary-neutral-light;
 }
 
 
@@ -124,7 +124,7 @@ $scores-group-row-height: 60px;
 
   .course-scores-note {
     color: $tutor-neutral;
-    @include tutor-sans-light-font(14px);
+    @include tutor-sans-neutral-light-font(14px);
     flex: 1;
     text-align: right;
     &.tab {

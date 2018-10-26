@@ -164,10 +164,10 @@ $concept-coach-breadcrumb-border-radius: 0;
   }
   .active {
     .icon-personalized-intro {
-      @include x-icon-portable(personalized-light);
+      @include x-icon-portable(personalized-neutral-light);
     }
     .icon-spaced-practice-intro {
-      @include x-icon-portable(spaced-practice-light);
+      @include x-icon-portable(spaced-practice-neutral-light);
     }
     .icon-two-step-intro {
       @include x-icon-portable(two-step-intro-heading);

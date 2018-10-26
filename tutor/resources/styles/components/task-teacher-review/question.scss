@@ -3,7 +3,7 @@ $correct-answer-color: $tutor-correct-color;
 $wrong-answer-color: $tutor-incorrect-color;
 $answer-vertical-spacing: 5px;
 $free-response-color: $tutor-neutral-dark;
-$free-response-background:  $tutor-neutral-lighter;
+$free-response-background:  $tutor-neutral-neutral-lighter;
 
 @mixin answer() {
   display: flex;
@@ -114,7 +114,7 @@ $free-response-background:  $tutor-neutral-lighter;
       @include box-shadow(none);
       border-width: 0;
       &.is-expandable:not(.active) {
-        @include height-limited-panel(250px);
+        @include height-limited-card(250px);
       }
       > .panel-heading {
         color: $free-response-color;
@@ -171,7 +171,7 @@ $free-response-background:  $tutor-neutral-lighter;
         margin: 0;
 
         &:hover {
-          background: $tutor-neutral-lightest;
+          background: $tutor-neutral-neutral-lightest;
         }
       }
     }

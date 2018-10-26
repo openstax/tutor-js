@@ -19,7 +19,7 @@ $calendar-inactive-background: $tutor-neutral;
   .plan {
     display: block;
     position: absolute;
-    border: 1px solid $gray-light;
+    border: 1px solid $openstax-neutral-light;
     font-size: 1.25rem;
     max-height: $calendar-plan-height;
     height: auto;
@@ -148,7 +148,7 @@ $calendar-inactive-background: $tutor-neutral;
   .plan-clone-placeholder {
     position: absolute;
     display: inline;
-    border: 1px solid $tutor-neutral-lighter;
+    border: 1px solid $tutor-neutral-neutral-lighter;
     @include tutor-plan-set(display);
     label {
       margin: 0;

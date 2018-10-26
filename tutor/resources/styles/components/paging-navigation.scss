@@ -34,7 +34,7 @@
         top: calc(55vh - #{$arrow-height});
         path {
           transition: fill 150ms linear;
-          fill: $tutor-neutral-light;
+          fill: $tutor-neutral-neutral-light;
         }
         height: $arrow-height;
         width: $arrow-height / 2;

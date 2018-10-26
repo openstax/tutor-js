@@ -27,12 +27,12 @@
   .num, .tutor-added-later {
     $padding: 25px;
 
-    border-left: 1px solid $tutor-neutral-light;
+    border-left: 1px solid $tutor-neutral-neutral-light;
     margin-left: $padding;
     padding-left: $padding;
 
     &:last-child {
-      border-right: 1px solid $tutor-neutral-light;
+      border-right: 1px solid $tutor-neutral-neutral-light;
       padding-right: $padding;
     }
   }

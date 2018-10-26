@@ -14,11 +14,11 @@
   // to fit beside it, otherwise it will overlay on top of the next element
   min-height: auto;
 }
-  background: $tutor-neutral-lightest;
+  background: $tutor-neutral-neutral-lightest;
   margin: 0 0 32px 0;
   clear: both;
-  border-top: solid 8px $tutor-neutral-lighter;
-  border-bottom: solid 8px $tutor-neutral-lighter;
+  border-top: solid 8px $tutor-neutral-neutral-lighter;
+  border-bottom: solid 8px $tutor-neutral-neutral-lighter;
   padding: 20px 40px;
 
   p {
@@ -49,10 +49,10 @@
   }
   table {
     tr {
-      border: solid 1px $tutor-neutral-light;
+      border: solid 1px $tutor-neutral-neutral-light;
     }
       tr:nth-child(odd) {
-      background: $tutor-neutral-lighter;
+      background: $tutor-neutral-neutral-lighter;
    }
      tr:nth-child(even) {
       background: $tutor-white;

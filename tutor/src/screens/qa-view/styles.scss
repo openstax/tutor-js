@@ -63,7 +63,7 @@
         color: black;
         margin-left: 0.5rem;
         padding: 0 5px;
-        border-radius: $border-radius-base;
+        border-radius: $border-radius;
       }
       .is-ignored     { text-decoration: line-through;              }
       .practice       { background-color: $reading-color;           }
@@ -85,7 +85,7 @@
       overflow-y: auto;
     }
     .available-books .book {
-      border-top: 1px dashed $tutor-neutral-light;
+      border-top: 1px dashed $tutor-neutral-neutral-light;
       .title-version {
         display: flex;
         flex-direction: row;

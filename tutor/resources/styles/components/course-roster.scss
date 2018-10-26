@@ -2,14 +2,14 @@
   cursor: pointer;
   display: inline;
   margin-left: 10px;
-  color: $tutor-tertiary-light;
+  color: $tutor-tertiary-neutral-light;
   transistion: color 0.4s;
   &:hover {
-    color: darken($tutor-tertiary-light, 10%);
+    color: darken($tutor-tertiary-neutral-light, 10%);
     text-decoration: none;
   }
   a, button {
-    color: $tutor-tertiary-light;
+    color: $tutor-tertiary-neutral-light;
     .tutor-icon { margin-right: 0.5rem; }
   }
 }
@@ -61,19 +61,19 @@
       margin-left: 5px;
     }
     .disabled-for-preview {
-      border: 1px solid $tutor-neutral-light;
+      border: 1px solid $tutor-neutral-neutral-light;
       padding: 5px;
     }
   }
 
   .delete-period {
-    color: $tutor-tertiary-light;
+    color: $tutor-tertiary-neutral-light;
   }
 
 
   .enrollment-code {
     padding: 0 0.5rem;
-    border: 1px solid $tutor-neutral-light;
+    border: 1px solid $tutor-neutral-neutral-light;
     color: $tutor-neutral;
     .title { margin-right: 0.5rem; }
     input {
@@ -155,7 +155,7 @@
   table { width: 100%; }
   .control {
     button.btn-link {
-      color: $tutor-tertiary-light;
+      color: $tutor-tertiary-neutral-light;
       text-transform: capitalize;
       font-size: 1.5rem;
     }
@@ -204,12 +204,12 @@
 .settings-view-archived-periods-modal {
   @include tutor-modal();
   .modal-header {
-    color: $tutor-neutral-darker;
+    color: $tutor-neutral-neutral-neutral-darker;
     background-color: $tutor-neutral-bright;
     button.close {
       opacity: 0.8;
       font-size: 3rem;
-      color: $tutor-neutral-darker;
+      color: $tutor-neutral-neutral-neutral-darker;
     }
   }
   .modal-footer {

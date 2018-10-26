@@ -25,7 +25,7 @@ $set-weights-modal-button-height: 40px;
     }
   }
 
-  @media (min-width: $screen-sm-min) {
+  @include media-breakpoint-down('sm') {
     .modal-dialog {
       width: 540px;
     }
@@ -39,7 +39,7 @@ $set-weights-modal-button-height: 40px;
 
   .header {
     text-align: right;
-    @include tutor-sans-light-font(14px);
+    @include tutor-sans-neutral-light-font(14px);
   }
 
   .weights-controls--wrapper {

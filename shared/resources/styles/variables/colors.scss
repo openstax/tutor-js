@@ -16,7 +16,7 @@ $white: rgb(255, 255, 255);
 $black: rgb(0, 0, 0);
 
 $openstax-blue: rgb(0, 125, 164);          // #007DA4
-$openstax-light-blue: rgb(13, 192, 220);  // #0DC0DC
+$openstax-neutral-light-blue: rgb(13, 192, 220);  // #0DC0DC
 $openstax-gold: rgb(254, 189, 62);        // #FDBD3E
 $openstax-gray: rgb(94, 96, 98);          // #5E6062
 
@@ -26,17 +26,17 @@ $openstax-tertiary: $dark-blue;
 $openstax-quaternary: $yellow;
 $openstax-highlight: $pale-yellow;
 
-$openstax-secondary-light: $light-green;
-$openstax-tertiary-light: $light-blue;
+$openstax-secondary-neutral-light: $light-green;
+$openstax-tertiary-neutral-light: $light-blue;
 
 $openstax-success: $openstax-secondary;
-$openstax-info: $openstax-tertiary-light;
+$openstax-info: $openstax-tertiary-neutral-light;
 $openstax-info-bg: tint($openstax-info, 80%); // even lighter blue
 $openstax-warning: $openstax-quaternary;
 $openstax-danger: $red; // red
 
 $reading-color: $tangerine;
-$homework-color: $openstax-tertiary-light;
+$homework-color: $openstax-tertiary-neutral-light;
 $external-color: $openstax-tertiary;
 $event-color: $openstax-secondary;
 $extras-color: $openstax-primary;

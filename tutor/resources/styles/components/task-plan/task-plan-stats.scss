@@ -41,7 +41,7 @@ $progress-on-hover-label-height: 24px;
 
   &-none {
     text-align: center;
-    color: $gray-light;
+    color: $openstax-neutral-light;
   }
 
   &-average {
@@ -51,7 +51,7 @@ $progress-on-hover-label-height: 24px;
 }
 
 .progress {
-  background: $gray-lighter;
+  background: $openstax-neutral-lighter;
   margin-bottom: 0;
 
   &-bar{

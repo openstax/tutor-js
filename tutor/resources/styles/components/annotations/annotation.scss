@@ -15,7 +15,7 @@
 
   .inline-controls {
     background: $tutor-white;
-    border: thin solid $tutor-neutral-light;
+    border: thin solid $tutor-neutral-neutral-light;
     font-size: 2rem;
     padding: 0;
     position: absolute;
@@ -37,7 +37,7 @@
         width: 30px;
         height: 30px;
         path {
-          fill: $tutor-neutral-darker;
+          fill: $tutor-neutral-neutral-neutral-darker;
         }
       }
       .outline { display: none; }
@@ -47,8 +47,8 @@
       }
     }
     .annotate {
-      border-right: thin solid $tutor-neutral-light;
-      color: $tutor-neutral-darker;
+      border-right: thin solid $tutor-neutral-neutral-light;
+      color: $tutor-neutral-neutral-neutral-darker;
       &:hover {
         color: $tutor-black;
       }
@@ -57,7 +57,7 @@
     &::before {
       @include triangle(
         bottom,
-        $color: $tutor-neutral-light,
+        $color: $tutor-neutral-neutral-light,
         $height: 16px,
         $width: 22px
       );
@@ -88,11 +88,11 @@
     bottom: 0;
     padding: 1rem 2rem;
     opacity: 0.8;
-    border-top-left-radius: $border-radius-small;
+    border-top-left-radius: $border-radius-sm;
     background-color: #e1f3df;
     color: #75a048;
     &.error {
-      color: $tutor-neutral-darker;
+      color: $tutor-neutral-neutral-neutral-darker;
       background-color: $tutor-warning;
     }
 
@@ -100,7 +100,7 @@
 
   .slide-out-edit-box {
     background-color: $tutor-neutral-bright;
-    border: thin solid $tutor-neutral-light;
+    border: thin solid $tutor-neutral-neutral-light;
     padding: 1rem;
     position: fixed;
     right: 0;
@@ -116,7 +116,7 @@
     }
 
     textarea {
-      border: thin solid $tutor-neutral-light;
+      border: thin solid $tutor-neutral-neutral-light;
       height: 10rem;
       width: 100%;
     }
@@ -128,14 +128,14 @@
 
       button {
         background-color: $tutor-white;
-        border: thin solid $tutor-neutral-light;
+        border: thin solid $tutor-neutral-neutral-light;
         border-radius: 3px;
         color: $tutor-neutral;
         margin: 5px;
         min-width: 46px;
         padding: 5px 10px;
         &[disabled] {
-          color: $tutor-neutral-light;
+          color: $tutor-neutral-neutral-light;
           cursor: not-allowed;
         }
         &.primary {
@@ -162,7 +162,7 @@
     transform: translateY(-25%);
     color: $tutor-neutral;
     transition: 0.3s color;
-    &:hover { color: $tutor-neutral-darker; }
+    &:hover { color: $tutor-neutral-neutral-neutral-darker; }
     transition: 0.3s color;
     &.active {
       color: $tutor-neutral-dark;

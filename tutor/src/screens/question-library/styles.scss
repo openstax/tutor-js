@@ -13,7 +13,7 @@
     .header {
       background-color: $tutor-white;
       padding: 0 $padding+5px;
-      border-bottom: 1px solid $tutor-neutral-light;
+      border-bottom: 1px solid $tutor-neutral-neutral-light;
       .wrapper {
         height: 95px;
         display: flex;
@@ -89,7 +89,7 @@
     top: 40%;
     z-index: 1;
     background-color: $tutor-neutral-bright;
-    border: 1px solid $tutor-neutral-light;
+    border: 1px solid $tutor-neutral-neutral-light;
     height: 200px;
     text-align: center;
     @include tutor-sans-font(3rem, 200px);
@@ -98,7 +98,7 @@
   .exercise-card {
     &.is-selected {
       .selected-mask {
-        background-color: $tutor-neutral-light;
+        background-color: $tutor-neutral-neutral-light;
       }
     }
   }
@@ -129,8 +129,8 @@
     text-align: right;
     .btn-primary {
       color: $tutor-white;
-      background-color: $tutor-tertiary-light !important; // material design override
-      border: 1px solid darken($tutor-tertiary-light, 10%) !important;
+      background-color: $tutor-tertiary-neutral-light !important; // material design override
+      border: 1px solid darken($tutor-tertiary-neutral-light, 10%) !important;
     }
   }
 

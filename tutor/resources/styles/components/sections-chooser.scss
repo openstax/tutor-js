@@ -7,8 +7,8 @@
       border-radius: 0;
     }
     &:last-child .panel {
-      border-bottom-left-radius: $border-radius-large;
-      border-bottom-right-radius: $border-radius-large;
+      border-bottom-left-radius: $border-radius-lg;
+      border-bottom-right-radius: $border-radius-lg;
     }
     .panel {
       margin-top: 0;
@@ -16,12 +16,12 @@
 
       .panel-heading {
         position: relative;
-        border-bottom: 1px solid $tutor-neutral-light;
+        border-bottom: 1px solid $tutor-neutral-neutral-light;
         background: none;
         padding: 0;
 
         .chapter-heading > a {
-          color: $tutor-neutral-darker;
+          color: $tutor-neutral-neutral-neutral-darker;
           display: flex;
           height: 3.5rem;
           align-items: center;
@@ -38,7 +38,7 @@
             font-weight: 700;
           }
           .chapter-section {
-            color: $tutor-neutral-darker;
+            color: $tutor-neutral-neutral-neutral-darker;
             font-size: 1.7rem;
           }
 
@@ -72,14 +72,14 @@
 
       > .section {
         padding: 1px 10px;
-        border-bottom: 1px solid $tutor-neutral-light;
+        border-bottom: 1px solid $tutor-neutral-neutral-light;
         font-weight: 400;
         cursor: pointer;
         background: white;
         transition: background .05s ease-in;
         line-height: 3rem;
         &:hover {
-          background: $state-info-bg;
+          background: theme-color("info");
           transition: background .05s ease-in;
         }
 

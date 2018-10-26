@@ -41,8 +41,8 @@
         padding: 15 20px;
 
         &:hover {
-          background-color: $tutor-neutral-lighter;
-          color: $tutor-neutral-darker;
+          background-color: $tutor-neutral-neutral-lighter;
+          color: $tutor-neutral-neutral-neutral-darker;
         }
 
         form input[type="submit"] {
@@ -52,8 +52,8 @@
 
       &.active {
         > a {
-          background-color: $tutor-neutral-lighter;
-          color: $tutor-neutral-darker;
+          background-color: $tutor-neutral-neutral-lighter;
+          color: $tutor-neutral-neutral-neutral-darker;
         }
       }
     }
@@ -107,7 +107,7 @@
       color: white;
       background-color: #2e7194;
       letter-spacing: -2px;
-      font-family: $tutor-light-font-face;
+      font-family: $tutor-neutral-light-font-face;
     }
 
     .dropdown-toggle:focus {

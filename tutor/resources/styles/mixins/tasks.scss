@@ -9,21 +9,21 @@
   font-weight: 400;
   font-style: italic;
   content: 'opens ' attr(data-opens-at);
-  color: $tutor-neutral-darker;
+  color: $tutor-neutral-neutral-neutral-darker;
 }
 
 @mixin is-draft() {
   font-weight: 400;
   font-style: italic;
   content: 'draft';
-  color: $tutor-neutral-darker;
+  color: $tutor-neutral-neutral-neutral-darker;
 }
 
 @mixin is-publishing() {
   font-weight: 400;
   font-style: italic;
   content: 'publishing';
-  color: $tutor-neutral-darker;
+  color: $tutor-neutral-neutral-neutral-darker;
   -webkit-animation: tutor-plan-publishing 1800ms linear infinite;
   animation: tutor-plan-publishing 1800ms linear infinite;
 }

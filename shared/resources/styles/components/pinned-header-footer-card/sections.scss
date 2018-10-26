@@ -1,7 +1,7 @@
 .pinned-footer {
   @include fixed-bar();
   background: fadeout($openstax-white, 20%);
-  padding: 10px $openstax-navbar-padding-horizontal;
+  padding: 10px $openstax-navbar-padding-x;
   bottom: 0;
 }
 

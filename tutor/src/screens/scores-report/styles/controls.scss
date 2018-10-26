@@ -4,7 +4,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    @include tutor-sans-light-font(14px);
+    @include tutor-sans-neutral-light-font(14px);
 
     justify-content: space-between;
 
@@ -27,7 +27,7 @@
 
       &.selected,
       &.active {
-        background-color: $tutor-neutral-light;
+        background-color: $tutor-neutral-neutral-light;
       }
     }
 

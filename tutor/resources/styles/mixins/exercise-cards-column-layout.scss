@@ -9,8 +9,8 @@
     column-width: $column-width;
   }
 
-  @media (min-width: $screen-md-min) {
-    .panel { margin: 5px; }
+  @include media-breakpoint-up('md') {
+    .card { margin: 5px; }
   }
 
   .exercise-card {

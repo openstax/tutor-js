@@ -86,8 +86,6 @@ const getTeacherReview = function() {
   return TaskTeacherReview;
 };
 
-const getCCHelp = () => require('./components/cc-dashboard/help');
-
 const getCreateEnrollmentChange = function() {
   const { default: CourseEnroll } = require('./components/enroll');
   return CourseEnroll;
@@ -125,8 +123,9 @@ const getRoutes = (router) => {
         path: 'scores',
         name: 'viewScores',
         renderer: loadAsync(() => import('./screens/scores-report/index.jsx')),
-      }, { path: 'cc/help', name: 'ccDashboardHelp', renderer: getCCHelp }, { path: 'guide/:roleId?', name: 'viewPerformanceGuide', renderer: getPerformanceForecastGuide }, {
-        path: 't', name: 'viewTeacherDashboard', renderer: getTeacherDashboard,
+      },
+        { path: 'guide/:roleId?', name: 'viewPerformanceGuide', renderer: getPerformanceForecastGuide },
+        { path: 't', name: 'viewTeacherDashboard', renderer: getTeacherDashboard,
         routes: [
           {
             path: 'month/:date', name: 'calendarByDate', renderer: getTeacherDashboard,

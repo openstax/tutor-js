@@ -21,7 +21,7 @@
   }
 
   .onboarding-nag {
-    background-color: $tutor-neutral-lighter;
+    background-color: $tutor-neutral-neutral-lighter;
 
     .heading {
       font-weight: 700;
@@ -70,7 +70,7 @@
       text-align: center;
       .btn.later {
         background-color: $tutor-neutral;
-        color: $tutor-neutral-lightest;
+        color: $tutor-neutral-neutral-lightest;
       }
       p {
         font-size: 1.4rem;
@@ -83,7 +83,7 @@
         margin: 20px 0;
         &:before,
         &:after {
-          background-color: $tutor-neutral-light;
+          background-color: $tutor-neutral-neutral-light;
           content: "";
           display: inline-block;
           height: 1px;

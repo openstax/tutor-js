@@ -59,7 +59,7 @@ $calendar-cell-height: 10rem;
       .rc-Day--upcoming,
       .rc-Day--current {
         &.hovered:not(.before-term):not(.after-term) {
-          border: 1px solid $tutor-tertiary-light;
+          border: 1px solid $tutor-tertiary-neutral-light;
         }
       }
       .rc-Day--past,
@@ -114,25 +114,25 @@ $calendar-cell-height: 10rem;
       height: $calendar-cell-height;
 
       &-number {
-        color: $gray-light;
+        color: $openstax-neutral-light;
         @include calendar-cell($calendar-cell-width);
       }
       &-days {
         width: 100%;
         height: 100%;
-        border-left: 1px solid $tutor-neutral-light;
+        border-left: 1px solid $tutor-neutral-neutral-light;
         display: inline-block;
       }
       &:last-child {
         .rc-Week-days {
-          border-bottom: 1px solid $tutor-neutral-light;
+          border-bottom: 1px solid $tutor-neutral-neutral-light;
         }
       }
     }
     &-Day {
       @include calendar-cell($calendar-cell-width);
-      border-top: 1px solid $tutor-neutral-light;
-      border-right: 1px solid $tutor-neutral-light;
+      border-top: 1px solid $tutor-neutral-neutral-light;
+      border-right: 1px solid $tutor-neutral-neutral-light;
       position: relative;
       cursor: default;
       line-height: 1.5rem;
@@ -142,14 +142,14 @@ $calendar-cell-height: 10rem;
         cursor: pointer;
 
         &:hover, &.active {
-          background-color: fade_out($tutor-tertiary-light, 0.9);
+          background-color: fade_out($tutor-tertiary-neutral-light, 0.9);
           &::after{
             content: '+';
             font-size: 2rem;
             position: absolute;
             top: 0.5rem;
             left: 0.5rem;
-            color: $tutor-tertiary-light;
+            color: $tutor-tertiary-neutral-light;
           }
         }
       }
@@ -158,11 +158,11 @@ $calendar-cell-height: 10rem;
       &.before-term,
       &.after-term {
         color: $tutor-neutral;
-        background-color: $tutor-neutral-lightest;
+        background-color: $tutor-neutral-neutral-lightest;
       }
 
       &--outside {
-        color: $tutor-neutral-light;
+        color: $tutor-neutral-neutral-light;
       }
 
       &--current {

@@ -14,7 +14,7 @@
       &:last-child {
         margin: 0 0 0 0.5rem;
       }
-      @media screen and ( min-width: $screen-md-min ){
+      @include media-breakpoint-up("md") {
         &:first-child {
           margin: 0 1rem 0 0;
         }
@@ -23,7 +23,7 @@
         }
       }
     }
-    @media screen and ( max-width: $screen-md ){
+    @include media-breakpoint-down('md') {
       .control-label { display: none; }
     }
   }
@@ -39,9 +39,9 @@
   flex-direction: row;
   justify-content: center;
   min-height: $tutor-navbar-height;
-  padding-right: $navbar-padding-horizontal;
-  padding-left:  $navbar-padding-horizontal;
-  z-index: $zindex-navbar-fixed;
+  padding-right: $navbar-padding-x;
+  padding-left:  $navbar-padding-x;
+  z-index: $zindex-fixed;
 
   @media print {
     display: none;
@@ -95,7 +95,7 @@
     min-height: $tutor-navbar-height;
     > * {
       margin-left: 20px;
-      @media screen and (min-width: $screen-md-min ) {
+      @include media-breakpoint-up('md') {
         margin-left: 40px;
       }
 
@@ -106,7 +106,7 @@
   }
 
   .book-links {
-    border-right: 1px solid $tutor-neutral-light;
+    border-right: 1px solid $tutor-neutral-neutral-light;
     display: flex;
     align-self: stretch;
     align-items: stretch;
@@ -115,7 +115,7 @@
       align-items: center;
       padding-left: 1rem;
       padding-right: 1rem;
-      border-left: 1px solid $tutor-neutral-light;
+      border-left: 1px solid $tutor-neutral-neutral-light;
       .tutor-icon { margin-left: 0.5rem; }
     }
   }

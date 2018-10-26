@@ -13,7 +13,7 @@
 
 @mixin tutor-plan-heading($plan-type, $plan-border-width: 5px) {
   $plan-color: task-plan-color($plan-type);
-  color: $tutor-neutral-darker;
+  color: $tutor-neutral-neutral-neutral-darker;
   background-color: fade_out($plan-color, 0.8);
   border-top-color: $plan-color;
   border-top-width: $plan-border-width;
@@ -23,7 +23,7 @@
 @mixin tutor-plan-header($plan-type, $plan-border-width: 12px) {
   $plan-color: task-plan-color($plan-type);
 
-  color: $tutor-neutral-darker;
+  color: $tutor-neutral-neutral-neutral-darker;
   background-color: fade_out($plan-color, 0.8);
   border-left-color: $plan-color;
   border-left-width: $plan-border-width;
@@ -54,7 +54,7 @@
 @mixin tutor-plan-sidebar-type($plan-type) {
   $plan-color: task-plan-color($plan-type);
   &[data-assignment-type=#{$plan-type}] {
-    color: $tutor-neutral-darker;
+    color: $tutor-neutral-neutral-neutral-darker;
     border-left: 4px solid transparent;
     .grabby-dots {
       fill: $plan-color;
@@ -74,11 +74,11 @@
 @mixin tutor-plan-add($plan-type) {
   $plan-color: task-plan-color($plan-type);
 
-  color: $tutor-neutral-darker;
+  color: $tutor-neutral-neutral-neutral-darker;
   border-left: 4px solid transparent;
 
   > * {
-    color: $tutor-neutral-darker;
+    color: $tutor-neutral-neutral-neutral-darker;
     text-decoration: none;
 
     &:hover,
@@ -99,11 +99,11 @@
 
 @mixin tutor-plan-display($plan-color) {
 
-  color: $tutor-neutral-darker;
+  color: $tutor-neutral-neutral-neutral-darker;
   border-left: 3px solid $plan-color;
 
   a {
-    color: $tutor-neutral-darker;
+    color: $tutor-neutral-neutral-neutral-darker;
     text-decoration: none;
 
     &:hover {

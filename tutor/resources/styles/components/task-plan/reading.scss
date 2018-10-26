@@ -4,7 +4,7 @@ ul.selected-reading-list {
   margin-top: 1em;
 
   li {
-    border-bottom: 1px solid $tutor-neutral-lighter;
+    border-bottom: 1px solid $tutor-neutral-neutral-lighter;
 
     @include tutor-fade-in(2s);
 

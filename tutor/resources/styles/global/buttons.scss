@@ -63,7 +63,7 @@ $primary-background-hover: #fa804d;
       padding: 15px 0;
       color: $tutor-neutral-dark;
       text-align: left;
-      border: 1px solid $tutor-neutral-light;
+      border: 1px solid $tutor-neutral-neutral-light;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
       background: white;
@@ -120,14 +120,14 @@ $primary-background-hover: #fa804d;
     &:hover,
     &:focus {
       background: $tutor-neutral-dark;
-      border: 1px solid $tutor-neutral-darker;
+      border: 1px solid $tutor-neutral-neutral-neutral-darker;
     }
   }
   &.active {
-    background-color: $tutor-neutral-light;
+    background-color: $tutor-neutral-neutral-light;
     box-shadow: none;
     &:hover, &:focus {
-      background-color: $tutor-neutral-light;
+      background-color: $tutor-neutral-neutral-light;
     }
   }
 }
