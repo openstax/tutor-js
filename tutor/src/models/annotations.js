@@ -1,5 +1,5 @@
 import { action, computed } from 'mobx';
-import { get, pick, sortBy, map, groupBy, mapValues, extend, isArray } from 'lodash';
+import { get, sortBy, groupBy, mapValues, isArray } from 'lodash';
 import Map from 'shared/model/map';
 import lazyGetter from 'shared/helpers/lazy-getter';
 import { chapterSectionToNumber } from '../helpers/content';
@@ -28,7 +28,7 @@ export default class Annotations extends Map {
           sortBy(cpgs, c=>chapterSectionToNumber(c.chapter_section)),
           a => a.chapter_section.join('.')
         ),
-        (annotations) => sortBy(annotations, ['selection.rect.top', 'selection.start'])
+        (annotations) => sortBy(annotations, ['rect.top', 'selection.rect.top', 'selection.start'])
       )
     );
   }

@@ -271,6 +271,20 @@ export default function dom(el) {
       }
     },
 
+
+    get boundingClientRect() {
+      const rect = el.getBoundingClientRect();
+      const wLeft = window.pageXOffset;
+      const wTop = window.pageYOffset;
+      return {
+        bottom: rect.bottom + wTop,
+        top: rect.top + wTop,
+        left: rect.left + wLeft,
+        right: rect.right + wLeft,
+      };
+    },
+
+
   };
 
 }

@@ -250,7 +250,8 @@ export default class AnnotationWidget extends React.Component {
       chapter: this.props.chapter,
       section: this.props.section,
       title: this.props.title,
-      ...serializedHighlight.data
+      rect: dom(highlight.range).boundingClientRect,
+      ...serializedHighlight.data,
     });
   }
 
