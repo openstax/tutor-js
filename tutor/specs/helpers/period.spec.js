@@ -79,7 +79,7 @@ describe('Period helpers', () =>
       const randoedPeriods = shuffle(periods);
       const sortedByFunction = PeriodHelper.sort(randoedPeriods);
 
-      return expect(pluck(sortedByFunction, 'name').join()).to.equal(pluck(periods, 'name').join());
+      return expect(pluck(sortedByFunction, 'name').join()).toEqual(pluck(periods, 'name').join());
     });
     return undefined;
   })

@@ -1,4 +1,4 @@
-import { Testing, sinon, _, React } from '../helpers/component-testing';
+import { Testing, sinon, ld, React } from 'helpers';
 import moment from 'moment';
 
 import { TaskPlanActions, TaskPlanStore } from '../../../src/flux/task-plan';
@@ -76,7 +76,7 @@ describe('Task Plan Footer', function() {
       expect(dom.querySelector('.preview-btn')).to.not.be.null;
       expect(dom.querySelector('.-save')).to.not.be.null;
       expect(dom.querySelector('.-publish')).to.not.be.null;
-      expect(dom.querySelector('.-publish').textContent).to.equal('Publish');
+      expect(dom.querySelector('.-publish').textContent).toEqual('Publish');
     })
   );
 

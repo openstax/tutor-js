@@ -3,7 +3,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import pluralize from 'pluralize';
 import { observable, action, computed } from 'mobx';
-import { Button, Panel, Table } from 'react-bootstrap';
+import { Button, Card, Table } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
 import Icon from '../icon';
 import WarningModal from '../warning-modal';
@@ -74,7 +74,7 @@ class LMSErrors extends React.Component {
         </p>
         <Troubleshoot />
         <div className="controls">
-          <Button bsStyle="primary" onClick={this.toggleInfo}>
+          <Button variant="primary" onClick={this.toggleInfo}>
             View those scores
           </Button>
           <Button onClick={this.props.dismiss}>
@@ -201,7 +201,7 @@ class Failure extends React.Component {
           <Icon type="close" onClick={this.props.dismiss} />
         </div>
         <div className="body">
-          <Button bsStyle="link" onClick={this.onShowDetails}>Details</Button>
+          <Button variant="link" onClick={this.onShowDetails}>Details</Button>
         </div>
       </div>
     );

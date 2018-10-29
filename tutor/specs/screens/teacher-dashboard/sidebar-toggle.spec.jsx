@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../../components/helpers/component-testing';
+import { React, SnapShot } from '../../helpers';
 import Factory from '../../factories';
 import UiSettings from 'shared/model/ui-settings';
 import Helper from '../../../src/screens/teacher-dashboard/helper';

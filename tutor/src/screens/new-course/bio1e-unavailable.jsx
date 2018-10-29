@@ -31,7 +31,7 @@ class Biology1eUnavailable extends React.Component {
       </Button>
       <Button
         onClick={() => ux.newCourse.offering = ux.alternateOffering}
-        bsStyle="primary"
+        variant="primary"
         className="next"
         disabled={!ux.alternateOffering}
       >

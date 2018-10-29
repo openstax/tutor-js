@@ -23,7 +23,7 @@ describe('Notifications', function() {
     URLs.update({ accounts_api_url: 'http://localhost:2999/api' });
     Notifications.startPolling(this.windowImpl);
     expect(Poller.prototype.poll).to.have.callCount(1);
-    expect(Poller.prototype.setUrl.lastCall.args).to.deep.equal(['http://localhost:2999/api/user']);
+    expect(Poller.prototype.setUrl.lastCall.args).toEqual(['http://localhost:2999/api/user']);
     URLs.update({ tutor_api_url: 'http://localhost:3001/api' });
     Notifications.startPolling(this.windowImpl);
     expect(Poller.prototype.poll).to.have.callCount(2);
@@ -59,9 +59,9 @@ describe('Notifications', function() {
     Notifications.setCourseRole(course, role);
     expect(changeListener).to.have.been.called;
     const active = Notifications.getActive()[0];
-    expect(active.type).to.equal('missing_student_id');
-    expect(active.course).to.deep.equal(course);
-    expect(active.role).to.deep.equal(role);
+    expect(active.type).toEqual('missing_student_id');
+    expect(active.course).toEqual(course);
+    expect(active.role).toEqual(role);
     return undefined;
   });
 
@@ -72,7 +72,7 @@ describe('Notifications', function() {
       { id: '111' }
     );
     expect(Notifications.getActive()).toHaveLength(1);
-    expect(Notifications.getActive()[0].type).to.equal('course_has_ended');
+    expect(Notifications.getActive()[0].type).toEqual('course_has_ended');
     Notifications.setCourseRole(
       { id: '1', students: [{ role_id: '111' }], ends_at: moment().add('1 month').toISOString() },
       { id: '111' }
@@ -90,7 +90,7 @@ describe('Notifications', function() {
     Notifications.setCourseRole(course, { id: '111' });
     expect(changeListener).to.have.been.called;
     const active = Notifications.getActive()[0];
-    expect(active.type).to.equal('course_has_ended');
+    expect(active.type).toEqual('course_has_ended');
     return undefined;
   });
 

@@ -1,4 +1,4 @@
-import _ from 'underscore';
+import ld from 'underscore';
 
 jest.mock('../../src/flux/task-plan');
 const TaskPlanFlux = require('../../src/flux/task-plan');
@@ -21,7 +21,7 @@ describe('task-plan helper', function() {
 
   it('returns a single due date for single task plan', function() {
     const dates = TaskPlan.dates(SINGLE);
-    expect( dates ).to.deep.equal({
+    expect( dates ).toEqual({
       all: {
         opens_at: '2015-03-31T11:40:23.796Z',
         due_at:   '2015-04-05T10:00:00.000Z',
@@ -32,7 +32,7 @@ describe('task-plan helper', function() {
 
   it('returns a single due date when all dates are identical', function() {
     const dates = TaskPlan.dates(SAME);
-    expect( dates ).to.deep.equal({
+    expect( dates ).toEqual({
       all: {
         opens_at: '2015-02-31T11:40:23.796Z',
         due_at:   '2015-04-05T10:00:00.000Z',
@@ -43,7 +43,7 @@ describe('task-plan helper', function() {
 
   it('returns the period id with dates when not the same', function() {
     const dates = TaskPlan.dates(DIFFER);
-    expect( dates ).to.deep.equal({
+    expect( dates ).toEqual({
       1: {
         opens_at: '2015-01-31T11:40:23.796Z',
         due_at:   '2015-04-05T10:00:00.000Z',
@@ -59,7 +59,7 @@ describe('task-plan helper', function() {
 
   it('will check and return only a given attr', function() {
     const dates = TaskPlan.dates(DIFFER, { only: 'due_at' });
-    expect( dates ).to.deep.equal({
+    expect( dates ).toEqual({
       all: {
         due_at: '2015-04-05T10:00:00.000Z',
       },
@@ -70,15 +70,15 @@ describe('task-plan helper', function() {
 
   return it('calculates api options depending on plan isNew', function() {
     expect(TaskPlan.apiEndpointOptions(SINGLE.id, COURSE_ID))
-      .to.deep.equal({ url: `plans/${SINGLE.id}` });
+      .toEqual({ url: `plans/${SINGLE.id}` });
 
     TaskPlanFlux.TaskPlanStore.isNew.mockReturnValue(true);
     expect(TaskPlan.apiEndpointOptions(SINGLE.id, COURSE_ID))
-      .to.deep.equal({ url: `courses/${COURSE_ID}/plans`, method: 'POST' });
+      .toEqual({ url: `courses/${COURSE_ID}/plans`, method: 'POST' });
 
     TaskPlanFlux.TaskPlanStore.get.mockReturnValue({ ecosystem_id: 42 });
     expect(TaskPlan.apiEndpointOptions(SINGLE.id, COURSE_ID))
-      .to.deep.equal({
+      .toEqual({
         url: `courses/${COURSE_ID}/plans`,
         method: 'POST',
         params: { ecosystem_id: 42 },

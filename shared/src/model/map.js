@@ -67,3 +67,9 @@ export default class Map {
     });
   }
 }
+
+['map', 'replace'].forEach(prop => {
+  Map.prototype[prop] = function(...args) {
+    return this._map[prop](...args);
+  };
+});

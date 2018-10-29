@@ -77,7 +77,7 @@ class ExerciseControls extends React.Component {
         [
           <Button
             key="next"
-            bsStyle="primary"
+            variant="primary"
             className="review-exercises"
             onClick={this.props.reviewClicked}
           >
@@ -85,7 +85,7 @@ class ExerciseControls extends React.Component {
           </Button>,
           <Button
             key="cancel"
-            bsStyle="default"
+            variant="default"
             className="-cancel-add"
             onClick={this.props.onCancel}
           >
@@ -96,7 +96,7 @@ class ExerciseControls extends React.Component {
     } else if (this.props.canAdd) {
       return (
         <Button
-          bsStyle="default"
+          variant="default"
           className="add-sections"
           onClick={this.props.addClicked}
         >

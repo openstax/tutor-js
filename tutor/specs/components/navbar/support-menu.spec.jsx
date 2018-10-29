@@ -1,4 +1,4 @@
-import { Wrapper, SnapShot } from '../helpers/component-testing';
+import { Wrapper, SnapShot } from 'helpers';
 import SupportMenu from '../../../src/components/navbar/support-menu';
 import { bootstrapCoursesList } from '../../courses-test-data';
 
@@ -39,22 +39,22 @@ describe('Support Menu', () => {
   });
 
   it('renders support links when in a course for student', () => {
-    expect(SnapShot.create(
-      <Wrapper _wrapped_component={SupportMenu} courseId="1" tourContext={context} />).toJSON()
+    expect.snapshot(
+      <Wrapper _wrapped_component={SupportMenu} courseId="1" tourContext={context} />
     ).toMatchSnapshot();
   });
 
   it('renders support links when in a course for teacher', () => {
     courses.get('2').appearance_code = 'college_biology';
-    expect(SnapShot.create(
-      <Wrapper _wrapped_component={SupportMenu} courseId="2" tourContext={context} />).toJSON()
+    expect.snapshot(
+      <Wrapper _wrapped_component={SupportMenu} courseId="2" tourContext={context} />
     ).toMatchSnapshot();
   });
 
   it('renders and matches snapshot', () => {
     context.openRegion(region);
-    expect(SnapShot.create(
-      <Wrapper _wrapped_component={SupportMenu} courseId="2" tourContext={context} />).toJSON()
+    expect.snapshot(
+      <Wrapper _wrapped_component={SupportMenu} courseId="2" tourContext={context} />
     ).toMatchSnapshot();
   });
 

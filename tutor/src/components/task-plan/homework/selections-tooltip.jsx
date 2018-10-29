@@ -13,7 +13,7 @@ export default class SelectionsTooltip extends React.Component {
           <p>Questions are drawn from the Question Library, accessible from your dashboard.</p>
         </Popover>}
         rootClose={true}>
-        <Button bsStyle="link" id="homework-selections-trigger">
+        <Button variant="link" id="homework-selections-trigger">
           What are these?
         </Button>
       </OverlayTrigger>

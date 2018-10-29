@@ -35,7 +35,7 @@ class FreeTrialActivated extends React.Component {
         </Body>
 
         <Footer>
-          <Button bsStyle="primary" className="now" onClick={ux.onAccessCourse}>
+          <Button variant="primary" className="now" onClick={ux.onAccessCourse}>
             Access your course
           </Button>
         </Footer>

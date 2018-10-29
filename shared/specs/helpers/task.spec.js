@@ -77,9 +77,9 @@ describe('Task Helper', function() {
     let stepModifications = {};
 
     const testForTwoStep = function(task, steps) {
-      expect(steps.length).to.equal(task.steps.length + 2);
-      expect(steps[1].type).to.equal('two-step-intro');
-      return expect(UiSettings.get(`two-step-info-${task.type}`).stepId).to.equal('1');
+      expect(steps.length).toEqual(task.steps.length + 2);
+      expect(steps[1].type).toEqual('two-step-intro');
+      return expect(UiSettings.get(`two-step-info-${task.type}`).stepId).toEqual('1');
     };
 
     beforeEach(() => stepModifications = _.object(twoStepPositions, times(twoStepPositions.length, makeTwoStep)));
@@ -89,8 +89,8 @@ describe('Task Helper', function() {
         const readingTask = makeTask(TASK_READING_TYPE, numberOfSteps, stepModifications);
         const steps = TaskHelper.mapSteps(readingTask);
 
-        expect(steps.length).to.equal(readingTask.steps.length + 1);
-        expect(_.where(steps, { isAvailable: true }).length).to.equal(1);
+        expect(steps.length).toEqual(readingTask.steps.length + 1);
+        expect(_.where(steps, { isAvailable: true }).length).toEqual(1);
         return undefined;
       });
 
@@ -103,7 +103,7 @@ describe('Task Helper', function() {
         const steps = TaskHelper.mapSteps(readingTask);
 
         testForTwoStep(readingTask, steps);
-        expect(_.where(steps, { isAvailable: true }).length).to.equal(3);
+        expect(_.where(steps, { isAvailable: true }).length).toEqual(3);
         return undefined;
       });
     });
@@ -115,7 +115,7 @@ describe('Task Helper', function() {
 
       testForTwoStep(homeworkTask, steps);
       expect(_.where(steps, { isAvailable: true }).length)
-        .to.equal(homeworkTask.steps.length + 2);
+        toEqual(homeworkTask.steps.length + 2);
       return undefined;
     });
 
@@ -126,7 +126,7 @@ describe('Task Helper', function() {
 
       testForTwoStep(coachTask, steps);
       expect(_.where(steps, { isAvailable: true }).length)
-        .to.equal(coachTask.steps.length + 2);
+        toEqual(coachTask.steps.length + 2);
       return undefined;
     });
 
@@ -137,7 +137,7 @@ describe('Task Helper', function() {
 
       testForTwoStep(practiceTask, steps);
       expect(_.where(steps, { isAvailable: true }).length)
-        .to.equal(practiceTask.steps.length + 2);
+        toEqual(practiceTask.steps.length + 2);
       return undefined;
     });
 
@@ -151,7 +151,7 @@ describe('Task Helper', function() {
 
       const homeworkTask = makeTask(TASK_HOMEWORK_TYPE, numberOfSteps, stepModifications);
       const steps = TaskHelper.mapSteps(homeworkTask);
-      expect(steps.length).to.equal(homeworkTask.steps.length + 1);
+      expect(steps.length).toEqual(homeworkTask.steps.length + 1);
       return undefined;
     });
   });
@@ -166,9 +166,9 @@ describe('Task Helper', function() {
     };
 
     const testReviewAndSpacedPractice = function(task, steps) {
-      expect(steps.length).to.equal(task.steps.length + 3);
-      expect(steps[12].type).to.equal('individual-review-intro');
-      return expect(steps[13].type).to.equal('spaced-practice-intro');
+      expect(steps.length).toEqual(task.steps.length + 3);
+      expect(steps[12].type).toEqual('individual-review-intro');
+      return expect(steps[13].type).toEqual('spaced-practice-intro');
     };
 
     beforeEach(() =>
@@ -187,7 +187,7 @@ describe('Task Helper', function() {
       testReviewAndSpacedPractice(readingTask, steps);
       expect(UiSettings.get('spaced-practice-info-reading')).to.be.not.ok;
       expect(_.where(steps, { isAvailable: true }).length)
-        .to.equal(1);
+        toEqual(1);
       return undefined;
     });
 
@@ -197,9 +197,9 @@ describe('Task Helper', function() {
       const steps = TaskHelper.mapSteps(homeworkTask);
 
       testReviewAndSpacedPractice(homeworkTask, steps);
-      expect(UiSettings.get('spaced-practice-info-homework').stepId).to.equal('12');
+      expect(UiSettings.get('spaced-practice-info-homework').stepId).toEqual('12');
       expect(_.where(steps, { isAvailable: true }).length)
-        .to.equal(homeworkTask.steps.length + 3);
+        toEqual(homeworkTask.steps.length + 3);
       return undefined;
     });
 
@@ -209,7 +209,7 @@ describe('Task Helper', function() {
       const steps = TaskHelper.mapSteps(coachTask);
 
       expect(_.where(steps, { isAvailable: true }).length)
-        .to.equal(coachTask.steps.length + 2);
+        toEqual(coachTask.steps.length + 2);
       return undefined;
     });
 
@@ -218,7 +218,7 @@ describe('Task Helper', function() {
       const practiceTask = makeTask(pickRandom(TASK_PRACTICE_TYPES), numberOfSteps, stepModifications);
       const steps = TaskHelper.mapSteps(practiceTask);
 
-      expect(steps.length).to.equal(practiceTask.steps.length + 1);
+      expect(steps.length).toEqual(practiceTask.steps.length + 1);
       return undefined;
     });
 
@@ -232,7 +232,7 @@ describe('Task Helper', function() {
 
       const homeworkTask = makeTask(TASK_HOMEWORK_TYPE, numberOfSteps, stepModifications);
       const steps = TaskHelper.mapSteps(homeworkTask);
-      expect(steps.length).to.equal(homeworkTask.steps.length + 2);
+      expect(steps.length).toEqual(homeworkTask.steps.length + 2);
       return undefined;
     });
   });
@@ -246,9 +246,9 @@ describe('Task Helper', function() {
       { group: EXERCISE_PERSONALIZED_GROUP };
 
     const testForPersonalized = function(task, steps) {
-      expect(steps.length).to.equal(task.steps.length + 2);
-      expect(steps[12].type).to.equal('personalized-intro');
-      return expect(UiSettings.get(`personalized-info-${task.type}`).stepId).to.equal('12');
+      expect(steps.length).toEqual(task.steps.length + 2);
+      expect(steps[12].type).toEqual('personalized-intro');
+      return expect(UiSettings.get(`personalized-info-${task.type}`).stepId).toEqual('12');
     };
 
     beforeEach(() =>
@@ -264,8 +264,8 @@ describe('Task Helper', function() {
         const readingTask = makeTask(TASK_READING_TYPE, numberOfSteps, stepModifications);
         const steps = TaskHelper.mapSteps(readingTask);
 
-        expect(steps.length).to.equal(readingTask.steps.length + 1);
-        expect(_.where(steps, { isAvailable: true }).length).to.equal(1);
+        expect(steps.length).toEqual(readingTask.steps.length + 1);
+        expect(_.where(steps, { isAvailable: true }).length).toEqual(1);
         return undefined;
       });
 
@@ -280,7 +280,7 @@ describe('Task Helper', function() {
         const steps = TaskHelper.mapSteps(readingTask);
 
         testForPersonalized(readingTask, steps);
-        expect(_.where(steps, { isAvailable: true }).length).to.equal(14);
+        expect(_.where(steps, { isAvailable: true }).length).toEqual(14);
         return undefined;
       });
     });
@@ -292,7 +292,7 @@ describe('Task Helper', function() {
 
       testForPersonalized(homeworkTask, steps);
       expect(_.where(steps, { isAvailable: true }).length)
-        .to.equal(homeworkTask.steps.length + 2);
+        toEqual(homeworkTask.steps.length + 2);
       return undefined;
     });
 
@@ -303,7 +303,7 @@ describe('Task Helper', function() {
 
       testForPersonalized(coachTask, steps);
       expect(_.where(steps, { isAvailable: true }).length)
-        .to.equal(coachTask.steps.length + 2);
+        toEqual(coachTask.steps.length + 2);
       return undefined;
     });
 
@@ -312,7 +312,7 @@ describe('Task Helper', function() {
       const practiceTask = makeTask(pickRandom(TASK_PRACTICE_TYPES), numberOfSteps, stepModifications);
       const steps = TaskHelper.mapSteps(practiceTask);
 
-      expect(steps.length).to.equal(practiceTask.steps.length + 1);
+      expect(steps.length).toEqual(practiceTask.steps.length + 1);
       return undefined;
     });
 
@@ -326,7 +326,7 @@ describe('Task Helper', function() {
 
       const homeworkTask = makeTask(TASK_HOMEWORK_TYPE, numberOfSteps, stepModifications);
       const steps = TaskHelper.mapSteps(homeworkTask);
-      expect(steps.length).to.equal(homeworkTask.steps.length + 1);
+      expect(steps.length).toEqual(homeworkTask.steps.length + 1);
       return undefined;
     });
   });

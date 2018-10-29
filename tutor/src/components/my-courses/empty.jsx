@@ -1,9 +1,9 @@
 import React from 'react';
-import { Panel } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 
 export default function EmptyCourses() {
   return (
-    <Panel className="-course-list-empty">
+    <Card className="-course-list-empty">
       <p className="lead">
         We cannot find an OpenStax course associated with your account.
       </p>
@@ -12,6 +12,6 @@ export default function EmptyCourses() {
           Get help >
         </a>
       </p>
-    </Panel>
+    </Card>
   );
 }

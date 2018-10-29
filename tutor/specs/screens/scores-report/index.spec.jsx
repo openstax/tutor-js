@@ -1,8 +1,8 @@
-import { React, SnapShot, Wrapper } from '../../components/helpers/component-testing';
+import { React, SnapShot, Wrapper } from '../../helpers';
 import { map, sortBy } from 'lodash';
 import Courses from '../../../src/models/courses-map';
 import bootstrapScores from '../../helpers/scores-data';
-import EnzymeContext from '../../components/helpers/enzyme-context';
+import EnzymeContext from '../../helpers/enzyme-context';
 import Scores from '../../../src/screens/scores-report/index';
 import Sorter from '../../../src/screens/scores-report/student-data-sorter';
 
@@ -14,7 +14,7 @@ function mockedContainerDimensions({ height = 1024, width = 1200 } = {}) {
 jest.mock('react-container-dimensions', () => mockedContainerDimensions());
 
 const getStudentNames = function(wrapper) {
-  return wrapper.find('.student-name').map(el => el.text());
+  return wrapper.find('span.student-name').map(el => el.text());
 };
 
 describe('Scores Report', function() {
@@ -24,7 +24,7 @@ describe('Scores Report', function() {
   let period;
 
   beforeEach(() => {
-    (((({ course, period } = bootstrapScores()))));
+    ({ course, period } = bootstrapScores());
     props = {
       params: { courseId: course.id },
       course,
@@ -32,18 +32,14 @@ describe('Scores Report', function() {
     };
   });
 
-  afterEach(() => {
-    course.scores.periods.clear();
-  });
-
   it('sorts', function() {
     const wrapper = mount(<Scores {...props} />, EnzymeContext.build());
     wrapper.find('.header-cell.sortable').at(1).simulate('click');
     const sorter = Sorter({ sort: { key: 0, dataType: 'score' }, displayAs: 'percentage' });
     const sorted = map(sortBy(period.students, sorter).reverse(), 'name');
-    expect(getStudentNames(wrapper)).to.deep.equal(sorted);
+    expect(getStudentNames(wrapper)).toEqual(sorted);
     wrapper.find('.header-cell.sortable').at(1).simulate('click');
-    expect(getStudentNames(wrapper)).to.deep.equal(sorted.reverse());
+    expect(getStudentNames(wrapper)).toEqual(sorted.reverse());
     wrapper.unmount();
   });
 
@@ -58,7 +54,7 @@ describe('Scores Report', function() {
 
   it('renders', function() {
     const wrapper = mount(<Scores {...props} />, EnzymeContext.build());
-    expect(getStudentNames(wrapper)).to.deep.equal(map(period.students, 'name'));
+    expect(getStudentNames(wrapper)).toEqual(map(period.students, 'name'));
     wrapper.unmount();
   });
 

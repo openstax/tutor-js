@@ -4,9 +4,9 @@ import { Row, Col } from 'react-bootstrap';
 import { action, observable } from 'mobx';
 import { includes } from 'lodash';
 
-import UpcomingPanel from './upcoming-panel';
+import UpcomingCard from './upcoming-panel';
 import AllEventsByWeek from './all-events-by-week';
-import ThisWeekPanel from './this-week-panel';
+import ThisWeekCard from './this-week-panel';
 
 import ProgressGuideShell from './progress-guide';
 import BrowseTheBook from '../../components/buttons/browse-the-book';
@@ -53,8 +53,8 @@ export default class StudentDashboard extends React.Component {
   renderThisWeek(course) {
     return (
       <div className="tab-pane active" role="tabpanel">
-        <ThisWeekPanel course={course} />
-        <UpcomingPanel course={course} />
+        <ThisWeekCard course={course} />
+        <UpcomingCard course={course} />
       </div>
     );
   }

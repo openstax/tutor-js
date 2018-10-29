@@ -69,7 +69,7 @@ const VENDORS = { blackboard, canvas, moodle, d2l, sakai };
 
 export default
 @observer
-class LMSAccessPanel extends React.Component {
+class LMSAccessCard extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
@@ -123,13 +123,13 @@ class LMSAccessPanel extends React.Component {
   renderKeys() {
     const { course: { lms } } = this.props;
     if (lms.api.isPending) { return <LoadingScreen />; }
-    const VendorPanel = VENDORS[lms.vendor];
+    const VendorCard = VENDORS[lms.vendor];
 
     return (
       <div className="lms-access">
 
         <ToggleButtonGroup
-          bsSize="small"
+          size="small"
           name="vendor"
           onChange={lms.setVendor}
           value={lms.vendor}
@@ -146,7 +146,7 @@ class LMSAccessPanel extends React.Component {
           launch OpenStax Tutor from your LMS to pair.
         </p>
 
-        <VendorPanel lms={lms} />
+        <VendorCard lms={lms} />
 
       </div>
     );

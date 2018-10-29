@@ -1,14 +1,14 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import _ from 'underscore';
+import ld from 'underscore';
 
 import { MediaActions, MediaStore } from '../../src/flux/media';
 import { TaskActions, TaskStore } from '../../src/flux/task';
 import { bootstrapCoursesList } from '../courses-test-data';
 
-import TASK_DATA from '../../api/tasks/4.json';
-import REFERENCE_BOOK from '../../api/ecosystems/1/readings.json';
-import REFERENCE_BOOK_PAGE_DATA from '../../api/pages/17f6ff53-2d92-4669-acdd-9a958ea7fd0a@12.json';
+import TASKldDATA from '../../api/tasks/4.json';
+import REFERENCEldBOOK from '../../api/ecosystems/1/readings.json';
+import REFERENCE_BOOK_PAGEldDATA from '../../api/pages/17f6ff53-2d92-4669-acdd-9a958ea7fd0a@12.json';
 
 const TEST_MEDIA_ID = 'test-media';
 const TEST_MEDIA = `<figure id=\"${TEST_MEDIA_ID}\"><figcaption>This is some test media.</figcaption></figure>`;

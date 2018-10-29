@@ -1,7 +1,7 @@
 import moment from 'moment-timezone';
 import Upcoming from '../../../src/screens/student-dashboard/upcoming-panel';
 import chronokinesis from 'chronokinesis';
-import { Testing, _, React } from '../../components/helpers/component-testing';
+import { Testing, ld, React } from '../../helpers';
 import Factory from '../../factories';
 
 describe('Upcoming Events', () => {

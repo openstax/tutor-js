@@ -36,7 +36,7 @@ class DefaultNavBar extends React.Component {
   }
 
   render() {
-    const { params, params: { courseId } } = this.props;
+    const { course, props: { params, params: { courseId } } } = this;
 
     return (
       <nav className="tutor-top-navbar">
@@ -49,7 +49,7 @@ class DefaultNavBar extends React.Component {
           </div>
           <CenterControls params={params} />
           <div className="right-side-controls">
-            <SupportMenu         courseId={courseId} />
+            <SupportMenu         course={course} />
             <StudentPayNowBtn    courseId={courseId} />
             <ActionsMenu         courseId={courseId} />
             <PreviewAddCourseBtn courseId={courseId} />

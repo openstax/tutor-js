@@ -9,15 +9,15 @@ import ObscuredPage from '../../obscured-page';
 import PagingNavigation from '../../paging-navigation';
 
 import { TaskStore, TaskActions } from '../../../flux/task';
-import { StepPanel } from '../../../helpers/policies';
+import { StepCard } from '../../../helpers/policies';
 import { TaskStepStore } from '../../../flux/task-step';
-import { TaskPanelStore } from '../../../flux/task-panel';
+import { TaskCardStore } from '../../../flux/task-panel';
 
 import isEqual from 'lodash/isEqual';
 import pick from 'lodash/pick';
 
-const ProgressPanel = createReactClass({
-  displayName: 'ProgressPanel',
+const ProgressCard = createReactClass({
+  displayName: 'ProgressCard',
 
   propTypes: {
     taskId: PropTypes.string,
@@ -52,7 +52,7 @@ const ProgressPanel = createReactClass({
 
     return {
       shouldShowLeft: stepKey > 0,
-      shouldShowRight: isSpacer || ((stepId != null) && StepPanel.canForward(stepId)),
+      shouldShowRight: isSpacer || ((stepId != null) && StepCard.canForward(stepId)),
       isCompleting: false,
     };
   },
@@ -86,7 +86,7 @@ const ProgressPanel = createReactClass({
   render() {
     const { isCompleting } = this.state;
     const isLoading = TaskStepStore.isLoading(this.props.stepId);
-    const titles = TaskPanelStore.getTitlesForStepIndex(this.props.taskId, this.props.stepKey);
+    const titles = TaskCardStore.getTitlesForStepIndex(this.props.taskId, this.props.stepKey);
     const className = classnames('progress-panel', { 'page-loading': isCompleting || isLoading });
 
     return (
@@ -105,7 +105,7 @@ const ProgressPanel = createReactClass({
     );
   },
 });
-export default ProgressPanel;
+export default ProgressCard;
 
 function __guard__(value, transform) {
   return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;

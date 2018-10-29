@@ -60,7 +60,7 @@ class ChangePeriodLink extends React.Component {
   selectNewPeriod() {
     return (
       <Popover id="change-period" className="change-period" title={this.popOverTitle()}>
-        <Nav stacked={true} bsStyle="pills" onSelect={this.updatePeriod}>
+        <Nav stacked={true} variant="pills" onSelect={this.updatePeriod}>
           {this.otherPeriods.map(this.renderPeriod)}
         </Nav>
       </Popover>

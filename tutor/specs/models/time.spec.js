@@ -13,7 +13,7 @@ describe('Time Store', () => {
   it('sets time', () => {
     setNow(SERVER_TIME);
     const time = Time.now;
-    expect(`${time}`).to.equal(`${SERVER_TIME}`);
+    expect(`${time}`).toEqual(`${SERVER_TIME}`);
   });
 
   it('is observable', () => {

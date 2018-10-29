@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../../components/helpers/component-testing';
+import { React, SnapShot } from '../../helpers';
 import CourseNumbers from '../../../src/screens/new-course/course-numbers';
 import BuilderUX from '../../../src/screens/new-course/ux';
 import { bootstrapCoursesList } from '../../courses-test-data';

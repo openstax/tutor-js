@@ -1,4 +1,4 @@
-import { Wrapper, SnapShot } from './helpers/component-testing';
+import { Wrapper, SnapShot } from './helpers';
 import EnzymeContext from './helpers/enzyme-context';
 import App from '../../src/components/app';
 import User from '../../src/models/user';
@@ -25,8 +25,8 @@ describe('main Tutor App', () => {
   });
 
   it('renders and matches snapshot', () => {
-    expect(SnapShot.create(
-      <Wrapper _wrapped_component={App} {...props} />).toJSON()
+    expect.snapshot(
+      <Wrapper _wrapped_component={App} {...props} />
     ).toMatchSnapshot();
   });
 

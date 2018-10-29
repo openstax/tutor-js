@@ -30,7 +30,7 @@ class PublishedToast extends React.Component {
           </p>
           <Button
             variant="primary"
-            bsSize="small"
+            size="small"
             onClick={dismiss}
           >
             OK

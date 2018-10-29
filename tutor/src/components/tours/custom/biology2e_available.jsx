@@ -39,7 +39,7 @@ export default class Biology2eAvailable extends React.Component {
           Download our <NewTabLink href="https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/biology_2e_conversion_guide_-_digital.pdf">transition guide</NewTabLink> to see the key changes from the first edition of Biology to Biology 2e.
         </div>
         <div className="footer">
-          <Button bsStyle="primary" onClick={this.onCreate}>
+          <Button variant="primary" onClick={this.onCreate}>
             Create a Biology 2e course
           </Button>
           <Button onClick={this.onClose}>

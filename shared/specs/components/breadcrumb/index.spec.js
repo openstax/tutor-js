@@ -64,7 +64,7 @@ describe('Breadcrumb Component', function() {
     return it('passes on data-label props', function() {
       props['data-label'] = 'This is a Label';
       return Testing.renderComponent( BC, { props } ).then(({ dom }) => {
-        return expect(dom.getAttribute('data-label')).to.equal(props['data-label']);
+        return expect(dom.getAttribute('data-label')).toEqual(props['data-label']);
       });
     });
   });

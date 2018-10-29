@@ -1,11 +1,11 @@
-import { Testing, _ } from '../helpers/component-testing';
+import { Testing, ld } from 'helpers';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import { CoursePracticeActions, CoursePracticeStore } from '../../../src/flux/practice';
 import PerformanceForecast from '../../../src/flux/performance-forecast';
 import Button from '../../../src/components/performance-forecast/practice-button';
 
 const COURSE_ID  = '1';
-import GUIDE_DATA from '../../../api/courses/1/guide.json';
+import GUIDEldDATA from '../../../api/courses/1/guide.json';
 
 const failToCreatePractice = function(pageIds) {
   const params =
@@ -29,7 +29,7 @@ describe('Learning Guide Practice Button', function() {
       { props: { courseId: COURSE_ID, title: 'Practice moar' } }
     ).then(async ({ dom }) => {
       expect(await axe(dom.outerHTML)).toHaveNoViolations();
-      expect(dom.textContent).to.equal('Practice moar');
+      expect(dom.textContent).toEqual('Practice moar');
     })
   );
 

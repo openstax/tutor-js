@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { React, Wrapper, SnapShot } from '../../components/helpers/component-testing';
+import { React, Wrapper, SnapShot } from '../../helpers';
 import Month from '../../../src/screens/teacher-dashboard/month';
 import Factory from '../../factories';
 import TimeHelper from '../../../src/helpers/time';

@@ -1,4 +1,4 @@
-import { SnapShot, Wrapper } from './helpers/component-testing';
+import { SnapShot, Wrapper } from './helpers';
 import CourseListing from '../../src/components/my-courses';
 import { flatten } from 'lodash';
 import EnzymeContext from './helpers/enzyme-context';
@@ -9,7 +9,7 @@ import OFFERINGS from '../../api/offerings';
 import moment from 'moment';
 jest.mock('../../src/models/chat');
 
-import { bootstrapCoursesList, STUDENT_COURSE_ONE_MODEL, TEACHER_COURSE_TWO_MODEL, TEACHER_AND_STUDENT_COURSE_THREE_MODEL, MASTER_COURSES_LIST, TUTOR_HELP, CONCEPT_COACH_HELP, STUDENT_ARCHIVED_COURSE, TEACHER_PAST_COURSE, STUDENT_PAST_COURSE } from '../courses-test-data';
+import { bootstrapCoursesList, STUDENT_COURSE_ONE_MODEL, TEACHER_COURSE_TWO_MODEL, TEACHER_AND_STUDENT_COURSE_THREE_MODEL, MASTER_COURSES_LIST, TUTOR_HELP, CONCEPT_COACH_HELP, STUDENT_ARCHIVED_COURSE, TEACHER_PAST_COURSE, STUDENT_PASTldCOURSE } from '../courses-test-data';
 
 const loadTeacherUser = () => User.faculty_status = 'confirmed_faculty';
 

@@ -51,7 +51,7 @@ export default class TaskSaveButton extends React.Component {
     return (
       <AsyncButton
         isJob={true}
-        bsStyle="primary"
+        variant="primary"
         className="-publish publish"
         onClick={isPublished ? this.props.onSave : this.props.onPublish}
         waitingText={Text.waiting}

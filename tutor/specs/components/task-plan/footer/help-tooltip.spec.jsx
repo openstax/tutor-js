@@ -1,4 +1,4 @@
-import { React, _ } from '../../helpers/component-testing';
+import { React, ld } from '../../../helpers';
 import Promise from 'es6-promise';
 import HelpTooltip from '../../../../src/components/task-plan/footer/help-tooltip';
 

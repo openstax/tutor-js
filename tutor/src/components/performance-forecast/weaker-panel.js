@@ -4,7 +4,7 @@ import * as PerformanceForecast from '../../flux/performance-forecast';
 import WeakerSections from './weaker-sections';
 import PracticeWeakestButton from './weakest-practice-button';
 
-class WeakerPanel extends React.Component {
+class WeakerCard extends React.Component {
   static propTypes = {
     courseId:            PropTypes.string.isRequired,
     sections:            PropTypes.array.isRequired,
@@ -39,4 +39,4 @@ class WeakerPanel extends React.Component {
 }
 
 
-export default WeakerPanel;
+export default WeakerCard;

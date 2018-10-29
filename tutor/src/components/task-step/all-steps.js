@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 import { TaskStepStore } from '../../flux/task-step';
 import { TaskStore } from '../../flux/task';
-import { TaskPanelStore } from '../../flux/task-panel';
+import { TaskCardStore } from '../../flux/task-panel';
 import { StepContent, ReadingStepContent } from './step-with-reading-content';
 import Exercise from './exercise';
 import Placeholder from './placeholder';
@@ -14,7 +14,7 @@ import StepMixin from './step-mixin';
 import StepFooterMixin from './step-footer-mixin';
 import Router from '../../helpers/router';
 
-import { StepPanel } from '../../helpers/policies';
+import { StepCard } from '../../helpers/policies';
 
 const Reading = createReactClass({
   displayName: 'Reading',
@@ -31,7 +31,7 @@ const Reading = createReactClass({
 
     return (
       <ReadingStepContent
-        nextStepTitle={TaskPanelStore.getNextStepTitle(taskId, id)}
+        nextStepTitle={TaskCardStore.getNextStepTitle(taskId, id)}
         onContinue={this.onContinue}
         id={id}
         stepType="reading"
@@ -87,7 +87,7 @@ const ExternalUrl = createReactClass({
 
   onContinue() {
     const { id, taskId, onStepCompleted } = this.props;
-    if (StepPanel.canContinue(id) && !TaskStore.isDeleted(taskId)) { return onStepCompleted(); }
+    if (StepCard.canContinue(id) && !TaskStore.isDeleted(taskId)) { return onStepCompleted(); }
   },
 
   getUrl() {

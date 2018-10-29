@@ -1,4 +1,4 @@
-import { React, Wrapper } from '../helpers/component-testing';
+import { React, Wrapper } from 'helpers';
 import Renderer from 'react-test-renderer';
 import { Roster, courseRosterBootstrap } from './bootstrap-data';
 
@@ -16,7 +16,7 @@ describe('Course Settings', function() {
     for (let i = 0; i < iterable.length; i++) {
       const period = iterable[i];
       expect(wrapper.find('.periods .nav-tabs li').at(i).text())
-        .to.equal(period);
+        toEqual(period);
     }
     wrapper.unmount();
   });
@@ -27,7 +27,7 @@ describe('Course Settings', function() {
     for (let i = 0; i < iterable.length; i++) {
       const name = iterable[i];
       expect(wrapper.find('.roster.students tbody tr').at(i).find('td').at(1).text())
-        .to.equal(name);
+        toEqual(name);
     }
     wrapper.unmount();
 
@@ -38,9 +38,9 @@ describe('Course Settings', function() {
     const tab = wrapper.find('.periods .nav-tabs li').at(1).find('h2');
     tab.simulate('click');
     expect(wrapper.find('.roster tbody tr').at(0).find('td').at(1).text())
-      .to.equal('Bloom');
+      toEqual('Bloom');
     expect(wrapper.find('.roster tbody tr').at(1).find('td').at(1).text())
-      .to.equal('Kirlin');
+      toEqual('Kirlin');
   });
 
 });

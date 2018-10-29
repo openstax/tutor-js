@@ -76,7 +76,7 @@ class ChooseExercises extends React.Component {
     const primaryBtn =
       <Button
         className="show-problems"
-        bsStyle="primary"
+        variant="primary"
         disabled={isEmpty(this.selectedPageIds)}
         onClick={this.selectProblems}
         key="show-problems" // need key because button is passed in and rendered in array

@@ -67,7 +67,7 @@ const exerciseActionsAndChecks = {
       '.openstax-exercise-card .exercise-multiple-choice'
     )).not.to.be.null;
 
-    expect(_.pluck(dom.querySelectorAll('.answer-content'), 'textContent')).to.deep.equal(_.pluck(CHOICES, 'content_html'));
+    expect(_.pluck(dom.querySelectorAll('.answer-content'), 'textContent')).toEqual(_.pluck(CHOICES, 'content_html'));
     return expect(dom.querySelectorAll('.answer-input-box:not([disabled])')).to.have.length(CHOICES.length);
   },
 
@@ -79,12 +79,12 @@ const exerciseActionsAndChecks = {
 
     Testing.actions._changeDOMNode(choicesDOMs[FIRST_CHOICE_INDEX]);
     expect(_.pluck(dom.querySelectorAll('.answer-checked .answer-content'), 'textContent'))
-      .to.deep.equal([CHOICES[FIRST_CHOICE_INDEX].content_html]);
+      .toEqual([CHOICES[FIRST_CHOICE_INDEX].content_html]);
     expect(props.setAnswerId).to.have.been.calledWith(step.id, CHOICES[FIRST_CHOICE_INDEX].id);
 
     Testing.actions._changeDOMNode(choicesDOMs[SECOND_CHOICE_INDEX]);
     expect(_.pluck(dom.querySelectorAll('.answer-checked .answer-content'), 'textContent'))
-      .to.deep.equal([CHOICES[SECOND_CHOICE_INDEX].content_html]);
+      .toEqual([CHOICES[SECOND_CHOICE_INDEX].content_html]);
     return expect(props.setAnswerId).to.have.been.calledWith(step.id, CHOICES[SECOND_CHOICE_INDEX].id);
   },
 

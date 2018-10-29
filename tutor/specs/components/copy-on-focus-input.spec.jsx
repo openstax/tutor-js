@@ -1,4 +1,4 @@
-import { React } from './helpers/component-testing';
+import { React } from './helpers';
 import Clipboard from '../../src/helpers/clipboard';
 import CopyOnFocusInput from '../../src/components/copy-on-focus-input';
 

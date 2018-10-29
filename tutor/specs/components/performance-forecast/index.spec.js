@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../helpers/component-testing';
+import { React, SnapShot } from 'helpers';
 import { bootstrapCoursesList } from '../../courses-test-data';
 
 import ReactTestUtils from 'react-addons-test-utils';
@@ -9,7 +9,7 @@ import { routerStub, commonActions } from '../helpers/utilities';
 import PerformanceForecast from '../../../src/flux/performance-forecast';
 import Guide from '../../../src/components/performance-forecast/guide';
 
-import GUIDE_DATA from '../../../api/courses/1/guide.json';
+import GUIDEldDATA from '../../../api/courses/1/guide.json';
 const COURSE_ID = '1'; // needs to be a string, that's what LoadableItem expects
 
 

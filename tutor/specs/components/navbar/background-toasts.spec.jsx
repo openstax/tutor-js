@@ -15,7 +15,7 @@ describe('Background job toasts', () => {
   });
 
   it('renders empty and matches snapshot', () => {
-    expect(SnapShot.create(<Toasts />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<Toasts />).toMatchSnapshot();
   });
 
   describe('scores', () => {
@@ -31,7 +31,7 @@ describe('Background job toasts', () => {
 
     it('renders success', () => {
       expect(toast).toHaveRendered('Success');
-      expect(SnapShot.create(<Toasts />).toJSON()).toMatchSnapshot();
+      expect.snapshot(<Toasts />).toMatchSnapshot();
       jest.runAllTimers();
       expect(toast).not.toHaveRendered('Success');
     });
@@ -39,7 +39,7 @@ describe('Background job toasts', () => {
     it('renders failure', () => {
       toast.instance().currentToast.status = 'failed';
       expect(toast).toHaveRendered('Failure');
-      expect(SnapShot.create(<Toasts />).toJSON()).toMatchSnapshot();
+      expect.snapshot(<Toasts />).toMatchSnapshot();
       toast.find('[type="close"]').simulate('click');
       expect(toast).not.toHaveRendered('Failure');
     });
@@ -48,7 +48,7 @@ describe('Background job toasts', () => {
       toast.instance().currentToast.status = 'failed';
       toast.find('button').simulate('click');
       expect(toast).toHaveRendered('WarningModal');
-      expect(SnapShot.create(<Toasts />).toJSON()).toMatchSnapshot();
+      expect.snapshot(<Toasts />).toMatchSnapshot();
     });
 
   });
@@ -70,7 +70,7 @@ describe('Background job toasts', () => {
 
     it('renders success', () => {
       expect(toast).toHaveRendered('Success');
-      expect(SnapShot.create(<Toasts />).toJSON()).toMatchSnapshot();
+      expect.snapshot(<Toasts />).toMatchSnapshot();
       jest.runAllTimers();
       expect(toast).not.toHaveRendered('Success');
     });
@@ -78,7 +78,7 @@ describe('Background job toasts', () => {
     it('renders failure', () => {
       toast.instance().currentToast.status = 'failed';
       expect(toast).toHaveRendered('Failure');
-      expect(SnapShot.create(<Toasts />).toJSON()).toMatchSnapshot();
+      expect.snapshot(<Toasts />).toMatchSnapshot();
       toast.find('[type="close"]').simulate('click');
       expect(toast).not.toHaveRendered('Failure');
     });
@@ -87,7 +87,7 @@ describe('Background job toasts', () => {
       toast.instance().currentToast.status = 'failed';
       toast.find('button').simulate('click');
       expect(toast).toHaveRendered('WarningModal');
-      expect(SnapShot.create(<Toasts />).toJSON()).toMatchSnapshot();
+      expect.snapshot(<Toasts />).toMatchSnapshot();
     });
 
     it('renders no scores failure modal', () => {
@@ -96,7 +96,7 @@ describe('Background job toasts', () => {
       t.status = 'failed';
       toast.find('button').simulate('click');
       expect(toast).toHaveRendered('WarningModal');
-      expect(SnapShot.create(<Toasts />).toJSON()).toMatchSnapshot();
+      expect.snapshot(<Toasts />).toMatchSnapshot();
     });
 
   });

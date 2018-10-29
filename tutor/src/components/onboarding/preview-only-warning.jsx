@@ -27,7 +27,7 @@ class PreviewOnlyWarning extends GotItOnboardingNag {
           If you’re ready to create real assignments your students can see, create your real course now. It’s free for you and students will pay {CourseUX.formattedStudentCost} per course per semester.
         </Body>
         <Footer>
-          <Button bsStyle="primary" onClick={this.onAddCourse}>Create a course</Button>
+          <Button variant="primary" onClick={this.onAddCourse}>Create a course</Button>
           <Button onClick={this.onContinue}>Stay in Preview course</Button>
         </Footer>
       </OnboardingNag>

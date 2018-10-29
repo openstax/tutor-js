@@ -1,4 +1,4 @@
-import { TEACHER_COURSE_TWO_MODEL } from '../../../courses-test-data';
+import { TEACHER_COURSE_TWOldMODEL } from '../../../courses-test-data';
 
 import CourseUX from '../../../../src/models/course/onboarding/full-course';
 import UiSettings from 'shared/model/ui-settings';

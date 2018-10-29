@@ -71,7 +71,7 @@ export default class ScoresReportUX {
 
   @computed get allTasksByType() {
     return groupBy(
-      flatMap(this.course.scores.periods.values(), p => p.data_headings.peek()),
+      flatMap(this.course.scores.periods.values(), p => p.data_headings),
       'type'
     );
   }

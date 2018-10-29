@@ -43,7 +43,7 @@ class GotItOnboardingNag extends React.Component {
           When you’re ready to create a real course, click “Create a course” on the top right of your dashboard.
         </Body>
         <Footer className="got-it">
-          <Button bsStyle="primary" onClick={this.onContinue}>Got it</Button>
+          <Button variant="primary" onClick={this.onContinue}>Got it</Button>
         </Footer>
       </OnboardingNag>
     );

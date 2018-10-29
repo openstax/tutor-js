@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import _ from 'underscore';
-import { Button, Panel, Col, Row, Grid } from 'react-bootstrap';
+import { Button, Card, Col, Row, Container } from 'react-bootstrap';
 import classnames from 'classnames';
 import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
 import SelectTopics from './select-topics';
@@ -42,7 +42,7 @@ class ReviewReadingLi extends React.Component {
           <Button onClick={this.moveReadingDown} className="btn-xs move-reading-down">
             <i className="fa fa-arrow-down" />
           </Button>
-          <Button className="remove-topic" onClick={this.removeTopic} bsStyle="default">
+          <Button className="remove-topic" onClick={this.removeTopic} variant="default">
             <i className="fa fa-close" />
           </Button>
         </span>
@@ -142,7 +142,7 @@ class ChooseReadings extends React.Component {
     const primary =
       <Button
         className="-show-problems"
-        bsStyle={buttonStyle}
+        variant={buttonStyle}
         disabled={(this.props.selected != null ? this.props.selected.length : undefined) === 0}
         onClick={this.hide}>
         {'Add Readings\
@@ -223,7 +223,7 @@ const ReadingPlan = createReactClass({
         id="reading-select"
         className={classnames('-select-sections-btn', { 'invalid': hasError && !(topics != null ? topics.length : undefined) })}
         onClick={this.showSectionTopics}
-        bsStyle="default">
+        variant="default">
         {'+ '}
         {addReadingText}
       </Button>;
@@ -239,8 +239,8 @@ const ReadingPlan = createReactClass({
 
     return (
       <div className="reading-plan task-plan" data-assignment-type="reading">
-        <Panel className={formClasses} footer={footer} header={header}>
-          {!this.state.showSectionTopics ? <Grid fluid={true}>
+        <Card className={formClasses} footer={footer} header={header}>
+          {!this.state.showSectionTopics ? <Container fluid={true}>
             <TaskPlanBuilder courseId={courseId} id={id} {...builderProps} />
             <Row>
               <Col xs={12} md={12}>
@@ -255,8 +255,8 @@ const ReadingPlan = createReactClass({
                 {readingsRequired}
               </Col>
             </Row>
-          </Grid> : undefined}
-        </Panel>
+          </Container> : undefined}
+        </Card>
         {selectReadings}
       </div>
     );

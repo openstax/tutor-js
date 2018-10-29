@@ -71,7 +71,7 @@ class QLSectionsChooser extends React.Component {
         <div className="section-controls panel-footer">
           <div className="wrapper">
             <Button
-              bsStyle="primary"
+              variant="primary"
               disabled={isEmpty(this.pageIds)}
               onClick={this.showQuestions}
             >

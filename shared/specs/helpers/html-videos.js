@@ -8,7 +8,7 @@ frameborder="0" allowfullscreen></iframe>`;
 
     dom.innerHTML = html;
     dom = HtmlVideo.wrapFrames(dom);
-    return expect(dom.getElementsByClassName('embed-responsive').length).to.equal(1);
+    return expect(dom.getElementsByClassName('embed-responsive').length).toEqual(1);
   });
 
   it('can wrap multiple html videos frame each in a div', function() {
@@ -20,7 +20,7 @@ frameborder="0" allowfullscreen></iframe>`;
 
     dom.innerHTML = html;
     dom = HtmlVideo.wrapFrames(dom);
-    return expect(dom.getElementsByClassName('embed-responsive').length).to.equal(2);
+    return expect(dom.getElementsByClassName('embed-responsive').length).toEqual(2);
   });
 
   it('can will not wrap frames if a wrapper already exists', function() {
@@ -31,7 +31,7 @@ frameborder="0" allowfullscreen></iframe></div>`;
 
     dom.innerHTML = html;
     dom = HtmlVideo.wrapFrames(dom);
-    return expect(dom.getElementsByClassName('embed-responsive').length).to.equal(1);
+    return expect(dom.getElementsByClassName('embed-responsive').length).toEqual(1);
   });
 
   it('can wrap html videos frame even if nested', function() {
@@ -43,7 +43,7 @@ frameborder="0" allowfullscreen></iframe>`;
 
     dom.innerHTML = html;
     dom = HtmlVideo.wrapFrames(dom);
-    return expect(dom.getElementsByClassName('embed-responsive').length).to.equal(2);
+    return expect(dom.getElementsByClassName('embed-responsive').length).toEqual(2);
   });
 
   return it('can add responsive embed classes with correct aspect ratio', function() {
@@ -53,12 +53,12 @@ frameborder="0" allowfullscreen></iframe>`;
 frameborder="0" allowfullscreen></iframe>`;
     dom.innerHTML = html;
     dom = HtmlVideo.wrapFrames(dom);
-    expect(dom.getElementsByClassName('embed-responsive-16by9').length).to.equal(1);
+    expect(dom.getElementsByClassName('embed-responsive-16by9').length).toEqual(1);
 
     html = `<iframe width="560" height="420" src="https://www.youtube.com/embed/BINK6r1Wy78"
 frameborder="0" allowfullscreen></iframe>`;
     dom.innerHTML = html;
     dom = HtmlVideo.wrapFrames(dom);
-    return expect(dom.getElementsByClassName('embed-responsive-4by3').length).to.equal(1);
+    return expect(dom.getElementsByClassName('embed-responsive-4by3').length).toEqual(1);
   });
 });

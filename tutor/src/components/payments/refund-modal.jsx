@@ -38,7 +38,7 @@ class ProcessRefund extends React.Component {
         </Modal.Body>
         <Modal.Footer>
           <AsyncButton
-            bsStyle="primary"
+            variant="primary"
             data-identifier={purchase.identifier}
             isWaiting={purchase.api.isPending}
             onClick={this.onRequestRefund}
@@ -111,7 +111,7 @@ class Survey extends React.Component {
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.onSubmit} bsStyle="primary">Submit</Button>
+          <Button onClick={this.onSubmit} variant="primary">Submit</Button>
           <Button onClick={onContinue}>Skip this</Button>
         </Modal.Footer>
       </Modal.Dialog>
@@ -133,7 +133,7 @@ function AreYouSure({ purchase, onCancel, onContinue }) {
         your work. Are you sure you want to continue?
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={onContinue} bsStyle="primary">Continue</Button>
+        <Button onClick={onContinue} variant="primary">Continue</Button>
         <Button onClick={onCancel}>Cancel</Button>
       </Modal.Footer>
     </Modal.Dialog>

@@ -59,7 +59,7 @@ class SuretyGuard extends React.Component {
           <Button ref="popoverButton" onClick={this.onCancel}>
             {this.props.cancelButtonLabel}
           </Button>
-          <Button onClick={this.onConfirm} bsStyle="primary">
+          <Button onClick={this.onConfirm} variant="primary">
             {this.props.okButtonLabel}
           </Button>
         </div>

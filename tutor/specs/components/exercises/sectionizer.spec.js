@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../helpers/component-testing';
+import { React, SnapShot } from 'helpers';
 import Sectionizer from '../../../src/components/exercises/sectionizer';
 import FakeWindow from 'shared/specs/helpers/fake-window';
 

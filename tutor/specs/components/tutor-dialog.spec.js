@@ -1,4 +1,4 @@
-import { React, Testing } from './helpers/component-testing';
+import { React, Testing } from './helpers';
 import { Promise } from 'es6-promise';
 
 import TutorDialog from '../../src/components/tutor-dialog';
@@ -14,8 +14,8 @@ describe('TutorDialog', () =>
         const dialogs = document.body.querySelectorAll('.tutor-dialog');
         expect(dialogs).to.have.length(1);
         const el = document.body.querySelector('.tutor-dialog');
-        expect(el.querySelector('.modal-title').textContent).to.equal(title);
-        expect(el.querySelector('.modal-body').textContent).to.equal(body);
+        expect(el.querySelector('.modal-title').textContent).toEqual(title);
+        expect(el.querySelector('.modal-body').textContent).toEqual(body);
         return Testing.actions.click(document.body.querySelector('.tutor-dialog button.ok'));
       }));
     return Promise.all(promises);

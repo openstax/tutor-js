@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 import Course from '../../../../src/models/course';
-import { TEACHER_COURSE_TWO_MODEL } from '../../../courses-test-data';
+import { TEACHER_COURSE_TWOldMODEL } from '../../../courses-test-data';
 import OnboardingUX from '../../../../src/models/course/onboarding/preview';
 
 describe('Course Onboarding base class', () => {

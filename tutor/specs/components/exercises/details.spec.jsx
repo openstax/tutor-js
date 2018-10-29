@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../helpers/component-testing';
+import { React, SnapShot } from 'helpers';
 import Details from '../../../src/components/exercises/details';
 import FakeWindow from 'shared/specs/helpers/fake-window';
 import Factory from '../../factories';

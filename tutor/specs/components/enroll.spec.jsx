@@ -1,4 +1,4 @@
-import { SnapShot } from './helpers/component-testing';
+import { SnapShot } from './helpers';
 import Factory from '../factories';
 import Enroll from '../../src/components/enroll';
 import EnzymeContext from './helpers/enzyme-context';
@@ -33,13 +33,13 @@ describe('Student Enrollment', () => {
     expect(await axe(wrapper.html())).toHaveNoViolations();
     expect(enrollment.create).toHaveBeenCalled();
     expect(wrapper).toHaveRendered('OXFancyLoader');
-    expect(SnapShot.create(<Enroll enrollment={enrollment} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<Enroll enrollment={enrollment} />).toMatchSnapshot();
   });
 
 
   it('blocks teacher enrollment', () => {
     enrollment.api.errors = { is_teacher: { data: { course_name: 'My Fairly Graded Course' } } };
-    expect(SnapShot.create(<Enroll enrollment={enrollment} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<Enroll enrollment={enrollment} />).toMatchSnapshot();
     const enroll = mount(<Enroll enrollment={enrollment} />);
 
     Router.makePathname = jest.fn(() => '/courses');
@@ -63,12 +63,12 @@ describe('Student Enrollment', () => {
 
   it('displays an invalid message', () => {
     enrollment.api.errors = { invalid_enrollment_code: true };
-    expect(SnapShot.create(<Enroll enrollment={enrollment} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<Enroll enrollment={enrollment} />).toMatchSnapshot();
   });
 
   it('displays generic error message', () => {
     enrollment.api.errors = [{ code: 'blah', message: 'this is a error that we cant handle' }];
-    expect(SnapShot.create(<Enroll enrollment={enrollment} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<Enroll enrollment={enrollment} />).toMatchSnapshot();
   });
 
   describe('select periods', () => {
@@ -91,7 +91,7 @@ describe('Student Enrollment', () => {
     });
 
     it('matches snapshot', () => {
-      expect(SnapShot.create(<Enroll enrollment={enrollment} />).toJSON()).toMatchSnapshot();
+      expect.snapshot(<Enroll enrollment={enrollment} />).toMatchSnapshot();
     });
 
     it('can display a list of periods when joining from enrollment launch uuid', () => {
@@ -121,7 +121,7 @@ describe('Student Enrollment', () => {
   it('submits with student id when form is clicked', () => {
     const enroll = mount(<Enroll enrollment={enrollment}  />, context);
     expect(enroll).toHaveRendered('StudentIDForm');
-    expect(SnapShot.create(<Enroll enrollment={enrollment} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<Enroll enrollment={enrollment} />).toMatchSnapshot();
     enroll.find('input').simulate('change', { target: { value: '411' } });
     expect(enrollment.student_identifier).toEqual('411');
     enrollment.confirm = jest.fn();

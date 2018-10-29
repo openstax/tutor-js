@@ -4,7 +4,7 @@ import createReactClass from 'create-react-class';
 import ReactDOM from 'react-dom';
 import { TaskStepActions, TaskStepStore } from '../../flux/task-step';
 import { TaskProgressActions, TaskProgressStore } from '../../flux/task-progress';
-import { TaskPanelActions, TaskPanelStore } from '../../flux/task-panel';
+import { TaskCardActions, TaskCardStore } from '../../flux/task-panel';
 import { TaskStore } from '../../flux/task';
 
 import _ from 'underscore';
@@ -75,7 +75,7 @@ export default createReactClass({
   },
 
   getCrumbs() {
-    return TaskPanelStore.get(this.props.id);
+    return TaskCardStore.get(this.props.id);
   },
 
   calculateCrumbsWidth(crumbDOM) {

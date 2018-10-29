@@ -11,13 +11,13 @@ describe('URLs', function() {
   afterEach(() => URLs.reset());
 
   it('strips _url from keys', function() {
-    expect( URLs.get('foo') ).to.equal( 'http://foo.bar.com' );
+    expect( URLs.get('foo') ).toEqual( 'http://foo.bar.com' );
     return undefined;
   });
 
   it('can construct a url from parts', function() {
     expect( URLs.construct('foo', 'bar', 'baz', 1) )
-      .to.equal( 'http://foo.bar.com/bar/baz/1' );
+      toEqual( 'http://foo.bar.com/bar/baz/1' );
     return undefined;
   });
 
@@ -26,7 +26,7 @@ describe('URLs', function() {
       '1test_url': 'http://test.com',
       '2test':     'http://test.com',
     });
-    expect( URLs.get('1test') ).to.equal('http://test.com');
+    expect( URLs.get('1test') ).toEqual('http://test.com');
     expect( URLs.get('2test') ).not.to.exist;
     return undefined;
   });

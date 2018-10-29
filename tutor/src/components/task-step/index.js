@@ -9,7 +9,7 @@ import { TaskStepActions, TaskStepStore } from '../../flux/task-step';
 import { Reading, Interactive, Video, Exercise, Placeholder, ExternalUrl } from './all-steps';
 import BindStoreMixin from '../bind-store-mixin';
 
-import { StepPanel } from '../../helpers/policies';
+import { StepCard } from '../../helpers/policies';
 
 // React swallows thrown errors so log them first
 const err = function(...msgs) {
@@ -45,7 +45,7 @@ const TaskStep = createReactClass({
 
   onStepCompleted(id) {
     if (id == null) { ((((((((({ id } = this.props))))))))); } // need to allow `id` from arguments pass through, especially for multi-part
-    if (StepPanel.canWrite(id)) {
+    if (StepCard.canWrite(id)) {
       TaskActions.completeStep(id, this.props.taskId);
       return new Promise(function(resolve) { return TaskStore.once('step.completed', resolve); });
     } else {

@@ -40,7 +40,7 @@ class ArchivedPeriodRow extends React.Component {
           <span className="control restore-period">
             <AsyncButton
               className="unarchive-section"
-              bsStyle="link"
+              variant="link"
               onClick={this.restore}
               isWaiting={period.api.isPending}
             >
@@ -84,7 +84,7 @@ class ViewArchivedPeriods extends React.Component {
       <SpyMode.Content unstyled={true} className="view-archived-periods">
         <Button
           onClick={this.open}
-          bsStyle="link"
+          variant="link"
           className="control view-archived-periods"
         >
           View Archived {section}

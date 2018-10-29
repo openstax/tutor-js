@@ -3,7 +3,7 @@ import React from 'react';
 import { observable, action, computed } from 'mobx';
 import { observer } from 'mobx-react';
 import { filter, isEmpty, extend, forEach, find } from 'lodash';
-import { Accordion, Panel } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 
 import ChapterSection from './task-plan/chapter-section';
 import BrowseTheBook from './buttons/browse-the-book';
@@ -113,15 +113,15 @@ class ChapterAccordion extends React.Component {
   render() {
     const { chapter } = this.props;
     return (
-      <Accordion
+      <div className="accordian"
         onSelect={this.onAccordianToggle}
         activeKey={this.expanded ? chapter.id : ''}
       >
-        <Panel key={chapter.id} header={this.renderHeader()} eventKey={chapter.id}>
+        <Card key={chapter.id} header={this.renderHeader()} eventKey={chapter.id}>
           {chapter.children.map((page) =>
             <Page key={page.cnx_id} {...this.props} page={page} />)}
-        </Panel>
-      </Accordion>
+        </Card>
+      </div>
     );
   }
 }

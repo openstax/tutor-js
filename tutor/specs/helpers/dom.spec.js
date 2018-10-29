@@ -26,13 +26,13 @@ describe('DOM Helpers', function() {
   });
 
   it('can query using closest', function() {
-    expect( DOM(p).closest('.dc' ).tagName ).to.equal('DIV');
-    expect( DOM(figure).closest('.dc' ).tagName ).to.equal('DIV');
-    expect( DOM(figure).closest('div').className ).to.equal('wfig');
+    expect( DOM(p).closest('.dc' ).tagName ).toEqual('DIV');
+    expect( DOM(figure).closest('.dc' ).tagName ).toEqual('DIV');
+    expect( DOM(figure).closest('div').className ).toEqual('wfig');
   });
 
   it('can find using closest when same element matches', function() {
-    expect( DOM(p).closest( '.para' ).className ).to.equal('para');
+    expect( DOM(p).closest( '.para' ).className ).toEqual('para');
   });
 
   it('returns null when not found', function() {
@@ -44,6 +44,6 @@ describe('DOM Helpers', function() {
   });
 
   return it('can read bootstrap data', function() {
-    expect(readBootstrapData(root)).to.deep.equal({ 'user': { 'name': 'Atticus Finch' } });
+    expect(readBootstrapData(root)).toEqual({ 'user': { 'name': 'Atticus Finch' } });
   });
 });

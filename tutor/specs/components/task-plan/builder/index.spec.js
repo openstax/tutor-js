@@ -12,7 +12,7 @@ const CourseDataHelper = require('../../../../src/helpers/course-data');
 
 const { TaskPlanActions, TaskPlanStore } = require('../../../../src/flux/task-plan');
 const { TaskingActions, TaskingStore } = require('../../../../src/flux/tasking');
-(((((((({ Testing, sinon, _, React, ReactDOM } = require('../../helpers/component-testing')))))))));
+(((((((({ Testing, sinon, _, React, ReactDOM } = require('../../../helpers')))))))));
 const { commonActions } = require('../../helpers/utilities');
 const { ExtendBasePlan, PlanRenderHelper } = require('../../helpers/task-plan');
 
@@ -135,9 +135,9 @@ describe('Task Plan Builder', function() {
 
   it('should load expected plan', () =>
     helper(PUBLISHED_MODEL).then(function({ dom }) {
-      expect(dom.querySelector('#reading-title').value).to.equal(PUBLISHED_MODEL.title);
+      expect(dom.querySelector('#reading-title').value).toEqual(PUBLISHED_MODEL.title);
       const descriptionValue = dom.querySelector('.assignment-description textarea').value;
-      return expect(descriptionValue).to.equal(PUBLISHED_MODEL.description);
+      return expect(descriptionValue).toEqual(PUBLISHED_MODEL.description);
     })
   );
 
@@ -175,7 +175,7 @@ describe('Task Plan Builder', function() {
   it('can show individual periods', () =>
     helper(NEW_READING).then(function({ dom, element }) {
       element.setIndividualPeriods();
-      return expect(dom.querySelectorAll('.tasking-plan.tutor-date-input').length).to.equal(COURSES[0].periods.length);
+      return expect(dom.querySelectorAll('.tasking-plan.tutor-date-input').length).toEqual(COURSES[0].periods.length);
     })
   );
 
@@ -220,7 +220,7 @@ describe('Task Plan Builder', function() {
       // reset to individual, due dates should still exist
       element.setIndividualPeriods();
       expect(hasAnyDueDate(dom)).to.be.true;
-      return expect(getDueDates(dom)).to.deep.equal(dueDates);
+      return expect(getDueDates(dom)).toEqual(dueDates);
     });
   });
 

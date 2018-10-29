@@ -1,10 +1,10 @@
-import { React, Testing, _ } from '../../components/helpers/component-testing';
+import { React, Testing, ld } from '../../helpers';
 import ScoresUX from '../../../src/screens/scores-report/ux';
 import bootstrapScores from '../../helpers/scores-data.js';
 import Cell from '../../../src/screens/scores-report/reading-cell';
 import PieProgress from '../../../src/screens/scores-report/pie-progress';
 import TH from '../../../src/helpers/task';
-import EnzymeContext from '../../components/helpers/enzyme-context';
+import EnzymeContext from '../../helpers/enzyme-context';
 
 describe('Student Scores Report Reading Cell', function() {
   let task;
@@ -14,7 +14,7 @@ describe('Student Scores Report Reading Cell', function() {
   let ux;
 
   beforeEach(function() {
-    (((({ course, scores } = bootstrapScores()))));
+    ({ course, scores } = bootstrapScores());
     ux = new ScoresUX(course);
     task = scores.getTask(8);
     props = {
@@ -33,7 +33,7 @@ describe('Student Scores Report Reading Cell', function() {
   it('renders as not started', function() {
     props.task.completed_step_count = 0;
     props.task.completed_on_time_step_count = 0;
-    expect(props.task.completedPercent).to.equal(0);
+    expect(props.task.completedPercent).toEqual(0);
     const cell = mount(<Cell {...props} />, EnzymeContext.build());
     expect(cell).not.toHaveRendered('.worked .not-started');
     expect(cell.text()).toEqual('17%');
@@ -65,7 +65,7 @@ describe('Student Scores Report Reading Cell', function() {
     const cell = mount(<Cell {...props} />, EnzymeContext.build());
     expect(cell).toHaveRendered('.late-caret');
     props.task.student.period.course.roles[0].type = 'student';
-    expect(cell).not.toHaveRendered('.late-caret');
+    expect(cell.update()).not.toHaveRendered('.late-caret');
   });
 
 });

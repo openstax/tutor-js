@@ -1,4 +1,4 @@
-import { SnapShot, Wrapper } from '../helpers/component-testing';
+import { SnapShot, Wrapper } from 'helpers';
 import Factory, { FactoryBot } from '../../factories';
 import Courses from '../../../src/models/courses-map';
 import Breadcrumbs from '../../../src/components/task-teacher-review/breadcrumbs';
@@ -31,8 +31,8 @@ describe('Task Teacher Review: Breadcrumbs', function() {
 
   it('renders and matches snapshot', () => {
     const bc = shallow(<Breadcrumbs {...props} />);
-    expect(SnapShot.create(
-      <Wrapper _wrapped_component={Breadcrumbs} noReference={true} {...props} />).toJSON()
+    expect.snapshot(
+      <Wrapper _wrapped_component={Breadcrumbs} noReference={true} {...props} />
     ).toMatchSnapshot();
   });
 

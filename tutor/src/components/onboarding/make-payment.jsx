@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import { observer } from 'mobx-react';
-import PaymentsPanel from '../payments/panel';
+import PaymentsCard from '../payments/panel';
 import { OnboardingNag, Body } from './onboarding-nag';
 
 export default
@@ -21,7 +21,7 @@ class MakePayment extends React.Component {
 
     return (
       <OnboardingNag className="make-payment">
-        <PaymentsPanel onCancel={ux.onPayLater} onPaymentComplete={ux.onPaymentComplete} course={ux.course} />
+        <PaymentsCard onCancel={ux.onPayLater} onPaymentComplete={ux.onPaymentComplete} course={ux.course} />
       </OnboardingNag>
     );
   }

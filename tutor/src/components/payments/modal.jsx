@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { Modal } from 'react-bootstrap';
-import Panel from './panel';
+import Card from './panel';
 
 export default
 @observer
@@ -17,7 +17,7 @@ class PaymentsModal extends React.Component {
 
     return (
       <Modal show className="make-payment">
-        <Panel {...this.props} />
+        <Card {...this.props} />
       </Modal>
     );
   }

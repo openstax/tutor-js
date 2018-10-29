@@ -1,7 +1,7 @@
 import Factory, { FactoryBot } from '../../factories';
 import { slice, last } from 'lodash';
-import { SnapShot, Wrapper } from '../../components/helpers/component-testing';
-import EnzymeContext from '../../components/helpers/enzyme-context';
+import { SnapShot, Wrapper } from '../../helpers';
+import EnzymeContext from '../../helpers/enzyme-context';
 import Dashboard from '../../../src/screens/question-library/dashboard';
 import ExerciseHelpers from '../../../src/helpers/exercise';
 import ScrollTo from '../../../src/helpers/scroll-to';

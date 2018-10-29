@@ -16,7 +16,7 @@ export default function InvalidTeacher({ enrollment }) {
         </p>
       </Modal.Body>
       <Modal.Footer>
-        <Button bsStyle="primary" className="cancel" onClick={enrollment.onCancel}>
+        <Button variant="primary" className="cancel" onClick={enrollment.onCancel}>
           Continue to My courses
         </Button>
       </Modal.Footer>

@@ -8,7 +8,7 @@ import BrowserWarning, { isBrowserExcluded } from '../browser-warning-modal';
 
 export default
 @observer
-class PaymentsPanel extends React.Component {
+class PaymentsCard extends React.Component {
 
   static propTypes = {
     course: PropTypes.object.isRequired,
@@ -33,7 +33,7 @@ class PaymentsPanel extends React.Component {
       return (
         <div className="error-message">
           <p>{payments.errorMessage}</p>
-          <Button bsStyle="primary" onClick={this.props.onCancel}>
+          <Button variant="primary" onClick={this.props.onCancel}>
             Close
           </Button>
         </div>

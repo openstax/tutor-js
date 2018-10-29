@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../helpers/component-testing';
+import { React, SnapShot } from 'helpers';
 import Progress from '../../../src/components/plan-stats/progress';
 
 import { Page } from '../../../src/models/task-plan/stats';

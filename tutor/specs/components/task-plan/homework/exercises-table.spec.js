@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../../helpers/component-testing';
+import { React, SnapShot } from '../../../helpers';
 import ReviewExercisesTable from '../../../../src/components/task-plan/homework/exercises-table';
 import Factory, { FactoryBot } from '../../../factories';
 import { ExtendBasePlan } from '../../helpers/task-plan';
@@ -49,7 +49,7 @@ describe('review exercises table', function() {
   });
 
   it('renders selections', () => {
-    expect(SnapShot.create(<ReviewExercisesTable {...props} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<ReviewExercisesTable {...props} />).toMatchSnapshot();
   });
 
 });

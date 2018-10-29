@@ -50,7 +50,7 @@ const ERROR_HANDLERS = {
     {TimeHelper.toHumanDate(course.starts_at)}
   </p>,
       buttons: [
-        <Button key="ok" onClick={navigateAction} bsStyle="primary">
+        <Button key="ok" onClick={navigateAction} variant="primary">
           OK
         </Button>,
       ],
@@ -75,7 +75,7 @@ const ERROR_HANDLERS = {
   `}
   </p>,
       buttons: [
-        <Button key="ok" onClick={navigateAction} bsStyle="primary">
+        <Button key="ok" onClick={navigateAction} variant="primary">
           OK
         </Button>,
       ],
@@ -95,7 +95,7 @@ const ERROR_HANDLERS = {
   `}
   </p>,
       buttons: [
-        <Button key="ok" onClick={function() { return Dialog.hide(); }} bsStyle="primary">
+        <Button key="ok" onClick={function() { return Dialog.hide(); }} variant="primary">
           OK
         </Button>,
       ],
@@ -116,7 +116,7 @@ const ERROR_HANDLERS = {
     </p>
   </div>,
       buttons: [
-        <Button key="ok" onClick={navigateAction} bsStyle="primary">
+        <Button key="ok" onClick={navigateAction} variant="primary">
           OK
         </Button>,
       ],
@@ -137,7 +137,7 @@ const ERROR_HANDLERS = {
     </p>
   </div>,
       buttons: [
-        <Button key="ok" onClick={navigateAction} bsStyle="primary">
+        <Button key="ok" onClick={navigateAction} variant="primary">
           OK
         </Button>,
       ],
@@ -162,7 +162,7 @@ const ERROR_HANDLERS = {
       title: 'Server Error',
       body: <ServerErrorMessage {...error} />,
       buttons: [
-        <Button key="ok" onClick={function() { return Dialog.hide(); }} bsStyle="primary">
+        <Button key="ok" onClick={function() { return Dialog.hide(); }} variant="primary">
           OK
         </Button>,
       ],

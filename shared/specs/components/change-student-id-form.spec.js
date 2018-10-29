@@ -16,9 +16,9 @@ describe('ChangeStudentIdForm Component', function() {
 
   it('renders values from props', () =>
     Testing.renderComponent( ChangeStudentIdForm, { props } ).then(({ dom }) => {
-      expect(dom.querySelector('.title').textContent).to.equal(props.title);
-      expect(dom.querySelector('.control-label').textContent).to.equal(props.label);
-      return expect(dom.querySelector('.btn').textContent).to.equal(props.saveButtonLabel);
+      expect(dom.querySelector('.title').textContent).toEqual(props.title);
+      expect(dom.querySelector('.control-label').textContent).toEqual(props.label);
+      return expect(dom.querySelector('.btn').textContent).toEqual(props.saveButtonLabel);
     })
   );
 

@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import ld from 'lodash';
 
 import { expect } from 'chai';
 import { CoursePracticeActions, CoursePracticeStore } from '../../src/flux/practice';
@@ -7,7 +7,7 @@ const COURSE_ID = '1';
 const PAGE_IDS_1 = ['1', '2', '3'];
 const PAGE_IDS_2 = ['2', '3', '4'];
 
-import COURSE_PRACTICE_1 from '../../api/courses/1/practice/POST.json';
+import COURSE_PRACTICEld1 from '../../api/courses/1/practice/POST.json';
 const COURSE_PRACTICE_2 = _.extend({ id: 'Practice-Course-2' }, COURSE_PRACTICE_1);
 
 const makePageIdParams = pageIds => ({ page_ids: pageIds });

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { MenuItem } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 
 import User from '../../models/user';
 
@@ -27,10 +27,7 @@ class LogoutLink extends React.Component {
 
   render() {
     return (
-      <MenuItem
-        className="logout" {...this.props} onClick={this.onLinkClick}
-        aria-label="Log out"
-      >
+      <Dropdown.Item aria-label="Log out" className="logout" {...this.props} onClick={this.onLinkClick}>
         <form
           acceptCharset="UTF-8"
           action={this.props.isConceptCoach ? LOGOUT_URL_CC : LOGOUT_URL}
@@ -41,7 +38,7 @@ class LogoutLink extends React.Component {
           <input type="hidden" name="authenticity_token" value={User.csrf_token} />
           <input type="submit" aria-label={this.props.label} value={this.props.label} />
         </form>
-      </MenuItem>
+      </Dropdown.Item>
     );
   }
 };

@@ -1,4 +1,4 @@
-import { SnapShot, Wrapper } from '../helpers/component-testing';
+import { SnapShot, Wrapper } from 'helpers';
 import BTB from '../../../src/components/buttons/browse-the-book';
 import EnzymeContext from '../helpers/enzyme-context';
 import Factory from '../../factories';

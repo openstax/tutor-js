@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 import moment from 'moment';
-import _ from 'underscore';
+import ld from 'underscore';
 
 import { TaskActions, TaskStore } from '../src/flux/task';
 import { TimeActions, TimeStore } from '../src/flux/time';
 
-import VALID_MODEL from '../api/tasks/5.json';
+import VALIDldMODEL from '../api/tasks/5.json';
 
 describe('Task Store', function() {
   afterEach(() => TaskActions.reset());
@@ -27,7 +27,7 @@ describe('Task Store', function() {
       return calledSynchronously && done();
     });
     TaskActions.loaded({ hello: 'world', steps: [] }, 123);
-    expect(TaskStore.get(123).hello).to.equal('world');
+    expect(TaskStore.get(123).hello).toEqual('world');
     return undefined;
   });
 
@@ -52,7 +52,7 @@ describe('Task Store', function() {
     expect(TaskStore.isLoading(id)).to.be.false;
     expect(TaskStore.isFailed(id)).to.be.false;
 
-    expect(TaskStore.get(id).hello).to.equal('bar');
+    expect(TaskStore.get(id).hello).toEqual('bar');
     return undefined;
   });
 

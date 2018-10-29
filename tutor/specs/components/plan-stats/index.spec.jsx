@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../helpers/component-testing';
+import { React, SnapShot } from 'helpers';
 import Stats from '../../../src/components/plan-stats';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import EnzymeContext from '../helpers/enzyme-context';

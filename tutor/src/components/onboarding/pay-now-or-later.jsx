@@ -22,7 +22,7 @@ class PayNowOrLater extends React.Component {
       <OnboardingNag className="pay-now-or-later">
         <Body>
 
-          <Button bsStyle="primary" className="now" onClick={ux.payNow}>
+          <Button variant="primary" className="now" onClick={ux.payNow}>
             Buy access now
           </Button>
           <p>You may request a refund within 14 days of purchasing</p>

@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../../components/helpers/component-testing';
+import { React, SnapShot } from '../../helpers';
 import Offerings from '../../../src/models/course/offerings';
 import OFFERINGS from '../../../api/offerings';
 import OfferingTitle from '../../../src/screens/new-course/offering-title';

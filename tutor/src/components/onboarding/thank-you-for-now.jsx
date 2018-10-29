@@ -21,7 +21,7 @@ class ThankYouForNow extends React.Component {
         </Heading>
         <Body>
           Thanks for letting us know!
-          <Button bsStyle="link" onClick={this.props.onDismiss}>Back to dashboard</Button>
+          <Button variant="link" onClick={this.props.onDismiss}>Back to dashboard</Button>
         </Body>
       </OnboardingNag>
     );

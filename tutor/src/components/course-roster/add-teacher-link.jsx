@@ -9,7 +9,7 @@ import Icon from '../icon';
 
 const AddTeacherModal = ({ show, onClose, url }) => (
   <Modal
-    bsSize="lg"
+    size="lg"
     show={show}
     onHide={onClose}
     className="settings-add-instructor-modal"
@@ -54,7 +54,7 @@ class AddTeacherLink extends React.Component {
     return (
       <Button
         onClick={this.onShow}
-        bsStyle="link"
+        variant="link"
         className="control add-teacher">
         <Icon type="plus" />
         Add Instructor

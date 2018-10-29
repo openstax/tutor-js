@@ -21,17 +21,17 @@ describe('Reading Row', function() {
 
   it('renders unstarted', function() {
     props.event.complete_exercise_count = 0;
-    expect(SnapShot.create(<ReadingRow {...props} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<ReadingRow {...props} />).toMatchSnapshot();
   });
 
   it('renders in progress', function() {
     props.event.complete_exercise_count = 1;
-    expect(SnapShot.create(<ReadingRow {...props} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<ReadingRow {...props} />).toMatchSnapshot();
   });
 
   it('renders complete', function() {
     props.event.complete = true;
-    expect(SnapShot.create(<ReadingRow {...props} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<ReadingRow {...props} />).toMatchSnapshot();
   });
 
 });

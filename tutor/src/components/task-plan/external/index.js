@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import { pick } from 'lodash';
-import { Panel, Grid, Row, Col } from 'react-bootstrap';
+import { Card, Container, Row, Col } from 'react-bootstrap';
 import validator from 'validator';
 import classnames from 'classnames';
 import { TutorInput } from '../../tutor-input';
@@ -62,8 +62,8 @@ const ExternalPlan = createReactClass({
 
     return (
       <div className="external-plan task-plan" data-assignment-type="external">
-        <Panel className={formClasses} footer={footer} header={header}>
-          <Grid fluid={true}>
+        <Card className={formClasses} footer={footer} header={header}>
+          <Container fluid={true}>
             <TaskPlanBuilder courseId={courseId} id={id} {...builderProps} />
             <Row>
               <Col xs={12} md={12}>
@@ -78,8 +78,8 @@ const ExternalPlan = createReactClass({
                   onChange={this.setUrl} />
               </Col>
             </Row>
-          </Grid>
-        </Panel>
+          </Container>
+        </Card>
       </div>
     );
   },

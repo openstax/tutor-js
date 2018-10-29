@@ -1,4 +1,4 @@
-import { Testing, _, React } from './helpers/component-testing';
+import { Testing, ld, React } from './helpers';
 
 import { UnsavedStateMixin, TransitionAssistant } from '../../src/components/unsaved-state';
 

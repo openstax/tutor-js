@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { observable, action, computed } from 'mobx';
-import { Grid, Table, Button } from 'react-bootstrap';
+import { Container, Table, Button } from 'react-bootstrap';
 import moment from 'moment';
 import { map, extend, isFunction } from 'lodash';
 import cn from 'classnames';
@@ -102,7 +102,7 @@ class ManagePayments extends React.Component {
   renderInvoiceButton(purchase) {
     if (purchase.is_refund_record) { return null; }
     return (
-      <Button bsStyle="link"
+      <Button variant="link"
         data-identifier={purchase.identifier}
         onClick={this.onShowInvoiceClick}
         href={purchase.invoiceURL}
@@ -159,7 +159,7 @@ class ManagePayments extends React.Component {
 
   render() {
     return (
-      <Grid className="manage-payments">
+      <Container className="manage-payments">
         <RefundModal
           purchase={this.refunding}
           onRefund={this.onRefundConfirm}
@@ -181,7 +181,7 @@ class ManagePayments extends React.Component {
             Need help? <a href={`mailto:${UserMenu.supportEmail}`}>Contact Support</a>
           </div>
         </div>
-      </Grid>
+      </Container>
     );
   }
 

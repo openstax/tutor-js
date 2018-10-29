@@ -3,7 +3,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
 import { isEmpty, map, pick, find } from 'lodash';
-import { Panel } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import classnames from 'classnames';
 import Exercise from '../../models/exercises/exercise';
 import { QuestionStats } from '../../models/task-plan/stats';
@@ -46,7 +46,7 @@ class TaskTeacherReviewQuestion extends React.Component {
     </i>;
 
     return (
-      <Panel header={header} className={freeResponsesClasses} />
+      <Card header={header} className={freeResponsesClasses} />
     );
   };
 
@@ -89,13 +89,13 @@ class TaskTeacherReviewQuestion extends React.Component {
 
     return (
       <TourAnchor id="student-responses">
-        <Panel
+        <Card
           header={toggleFreeResponseControls}
           eventKey={question.id}
           className={freeResponsesClasses}
         >
           {freeResponses}
-        </Panel>
+        </Card>
       </TourAnchor>
 
     );

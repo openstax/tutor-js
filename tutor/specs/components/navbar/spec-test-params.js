@@ -3,7 +3,7 @@ import { extend, clone, invoke } from 'lodash';
 import User from '../../../src/models/user';
 import Courses from '../../../src/models/courses-map';
 
-import STUDENT_DASHBOARD_MODEL from '../../../api/courses/1/dashboard.json';
+import STUDENT_DASHBOARDldMODEL from '../../../api/courses/1/dashboard.json';
 const TEACHER_DASHBOARD_MODEL = STUDENT_DASHBOARD_MODEL;
 
 const STUDENT_DASHROUTE = 'viewStudentDashboard';
@@ -90,9 +90,9 @@ const TEACHER_MENU = [
 ];
 
 
-import COURSES_LIST from '../../../api/user/courses.json';
+import COURSESldLIST from '../../../api/user/courses.json';
 const COURSE_ID = COURSES_LIST[0].id;
-import USER_MODEL from '../../../api/user.json';
+import USERldMODEL from '../../../api/user.json';
 
 const USER_ROLE_MODES = {
   teacher: {

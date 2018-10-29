@@ -39,7 +39,7 @@ class TableFilters extends React.Component {
         <ToggleButtonGroup
           value={ux.displayValuesAs}
           onChange={ux.onChangeDisplayValuesAs}
-          bsSize="small"
+          size="small"
           name="filter-by"
           className="filter-group"
         >

@@ -6554,9 +6554,9 @@ mobx-decorated-models@^1.1.0-0:
   integrity sha512-8DLF61Z+dv9BMaA1lueMIDczkpVP+LSVM9UPXQ7jEOXNKBjy+ixBd29h1oCF7JTKIazhum0621Q8iVMYW5SnlQ==
 
 mobx-react@^5.3.5:
-  version "5.3.5"
-  resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-5.3.5.tgz#749d15e569628e5b269b77d8f9e5e540b559e429"
-  integrity sha512-CEdadLjwCEXx7B2WCeoNh2ARtZLThGrP5zonnTAbilUq0sTpd5jInRIPRE+O4+BtK9Cqnnvd6r/Y3SJNT6I2hA==
+  version "5.3.6"
+  resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-5.3.6.tgz#0bead0173aed7d12ace4981b53c28db4d61de9ef"
+  integrity sha512-u0ehjkyMllnt+SQ/G5BACxwi4VkJOqDVauA7cL8UvDi4oLO1ID9Z5c/nudTdIAmtsDDhJSxW85mrgsA2Iv/56Q==
   dependencies:
     hoist-non-react-statics "^3.0.0"
     react-lifecycles-compat "^3.0.2"
@@ -8843,13 +8843,6 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
-
-simple-git@^1.105.0:
-  version "1.105.0"
-  resolved "https://registry.yarnpkg.com/simple-git/-/simple-git-1.105.0.tgz#c4dcd903e8892b34d1ec73a6d965157642eaa2ad"
-  integrity sha512-ZrGcCPRIKCm6Q8gNJ+gx+leHqaokKpXae6K9lZpVD4sfeA2/rVvxcIR4KVVujNOmA6wHE2xaQ0GQWuIY88o6pA==
-  dependencies:
-    debug "^4.0.1"
 
 sinon-chai@3.2.0:
   version "3.2.0"

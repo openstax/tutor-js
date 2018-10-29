@@ -1,4 +1,4 @@
-import { Wrapper, SnapShot } from '../helpers/component-testing';
+import { Wrapper, SnapShot } from 'helpers';
 import Factory, { FactoryBot } from '../../factories';
 import EnzymeContext from '../helpers/enzyme-context';
 import planData from '../../../api/plans/1.json';

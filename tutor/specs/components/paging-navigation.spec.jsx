@@ -1,4 +1,4 @@
-import { SnapShot } from './helpers/component-testing';
+import { SnapShot } from './helpers';
 import keymaster from 'keymaster';
 import Nav from '../../src/components/paging-navigation';
 
@@ -48,7 +48,7 @@ describe('Paging Navigation', () => {
   });
 
   it('renders and matches snapshot', () => {
-    expect(SnapShot.create(<Nav {...props}><TestComponent /></Nav>).toJSON()).toMatchSnapshot();
+    expect.snapshot(<Nav {...props}><TestComponent /></Nav>).toMatchSnapshot();
   });
 
   it('is accessibile', async () => {

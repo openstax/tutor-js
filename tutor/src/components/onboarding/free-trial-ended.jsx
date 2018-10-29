@@ -32,7 +32,7 @@ class FreeTrialEnded extends React.Component {
     if (Courses.active.size <= 1) { return null; }
 
     return (
-      <Button bsStyle="link" onClick={this.goToMyCourses}>
+      <Button variant="link" onClick={this.goToMyCourses}>
         Return to my courses
       </Button>
     );
@@ -53,7 +53,7 @@ class FreeTrialEnded extends React.Component {
           </p>
         </Body>
         <Footer>
-          <Button bsStyle="primary" onClick={ux.payNow}>
+          <Button variant="primary" onClick={ux.payNow}>
             Buy access now
           </Button>
           {this.renderBackLink()}

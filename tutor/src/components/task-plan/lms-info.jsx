@@ -15,7 +15,7 @@ const DUE_FORMAT = 'M/D/YYYY [at] h:mma';
 
 export default
 @observer
-class LmsInfoPanel extends React.Component {
+class LmsInfoCard extends React.Component {
 
   static propTypes = {
     courseId: PropTypes.string.isRequired,

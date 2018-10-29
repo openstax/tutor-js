@@ -1,6 +1,6 @@
 import { expect, utils, Assertion } from 'chai';
 
-import _ from 'underscore';
+import ld from 'underscore';
 import moment from 'moment-timezone';
 
 import { TaskingActions, TaskingStore } from '../../src/flux/tasking';

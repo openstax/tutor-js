@@ -44,7 +44,7 @@ describe('CRUD Store', function() {
       return calledSynchronously && done();
     });
     CrudActions.loaded({ hello: 'world', steps: [] }, 123);
-    expect(CrudStore.get(123).hello).to.equal('world');
+    expect(CrudStore.get(123).hello).toEqual('world');
     return undefined;
   });
 
@@ -69,7 +69,7 @@ describe('CRUD Store', function() {
     expect(CrudStore.isLoading(id)).to.be.false;
     expect(CrudStore.isFailed(id)).to.be.false;
 
-    expect(CrudStore.get(id).hello).to.equal('bar');
+    expect(CrudStore.get(id).hello).toEqual('bar');
     return undefined;
   });
 
@@ -103,12 +103,12 @@ describe('CRUD Store', function() {
 
     CrudActions._change(id, { foo: 'baz' });
     expect(CrudStore.isChanged(id)).to.be.true;
-    expect(CrudStore.get(id)).to.deep.equal({ hello: 'bar', foo: 'baz' });
-    expect(CrudStore.getChanged(id)).to.deep.equal({ foo: 'baz' });
+    expect(CrudStore.get(id)).toEqual({ hello: 'bar', foo: 'baz' });
+    expect(CrudStore.getChanged(id)).toEqual({ foo: 'baz' });
 
     CrudActions._change(id, { hello: 'bam' });
-    expect(CrudStore.get(id)).to.deep.equal({ hello: 'bam', foo: 'baz' });
-    expect(CrudStore.getChanged(id)).to.deep.equal({ foo: 'baz', hello: 'bam' });
+    expect(CrudStore.get(id)).toEqual({ hello: 'bam', foo: 'baz' });
+    expect(CrudStore.getChanged(id)).toEqual({ foo: 'baz', hello: 'bam' });
     return undefined;
   });
 
@@ -118,7 +118,7 @@ describe('CRUD Store', function() {
     CrudActions._change(id, { foo: 'baz' });
     CrudActions.saved({ afterSave: true }, id);
     expect(CrudStore.isChanged(id)).to.be.false;
-    expect(CrudStore.get(id)).to.deep.equal({ afterSave: true });
+    expect(CrudStore.get(id)).toEqual({ afterSave: true });
     return undefined;
   });
 
@@ -127,8 +127,8 @@ describe('CRUD Store', function() {
     CrudActions.loaded({ hello: 'bar' }, id);
     CrudActions._change(id, { foo: 'baz' });
     CrudActions.clearChanged(id);
-    expect(CrudStore.get(id)).to.deep.equal({ hello: 'bar' });
-    expect(CrudStore.getChanged(id)).to.deep.equal({});
+    expect(CrudStore.get(id)).toEqual({ hello: 'bar' });
+    expect(CrudStore.getChanged(id)).toEqual({});
     return undefined;
   });
 
@@ -154,7 +154,7 @@ describe('CRUD Store', function() {
     const storeObj = { hello: 'bar' };
     CrudActions.loaded(storeObj, id);
     expect(CrudActions._loaded).to.be.undefined;
-    expect(CrudStore.get(id)).to.deep.equal(storeObj);
+    expect(CrudStore.get(id)).toEqual(storeObj);
     return undefined;
   });
 
@@ -163,7 +163,7 @@ describe('CRUD Store', function() {
     const nestedStore = { hello: 'bar' };
     ExtendedActions.loaded(nestedStore, id);
     expect(ExtendedConfig._loaded(nestedStore, id)).to.not.be.undefined;
-    expect(ExtendedStore.get(id).nested).to.deep.equal(nestedStore);
+    expect(ExtendedStore.get(id).nested).toEqual(nestedStore);
     return undefined;
   });
 
@@ -172,7 +172,7 @@ describe('CRUD Store', function() {
     const storeObj = { hello: 'bar', doNotModify: true };
     ExtendedActions.loaded(storeObj, id);
     expect(ExtendedConfig._loaded(storeObj, id)).to.be.undefined;
-    expect(ExtendedStore.get(id)).to.deep.equal(storeObj);
+    expect(ExtendedStore.get(id)).toEqual(storeObj);
     return undefined;
   });
 
@@ -181,7 +181,7 @@ describe('CRUD Store', function() {
     const storeObj = { hello: 'bar' };
     CrudActions.saved(storeObj, id);
     expect(CrudActions._saved).to.be.undefined;
-    expect(CrudStore.get(id)).to.deep.equal(storeObj);
+    expect(CrudStore.get(id)).toEqual(storeObj);
     return undefined;
   });
 
@@ -190,7 +190,7 @@ describe('CRUD Store', function() {
     const nestedStore = { hello: 'bar' };
     ExtendedActions.saved(nestedStore, id);
     expect(ExtendedConfig._saved(nestedStore, id)).to.not.be.undefined;
-    expect(ExtendedStore.get(id).nested).to.deep.equal(nestedStore);
+    expect(ExtendedStore.get(id).nested).toEqual(nestedStore);
     return undefined;
   });
 
@@ -199,7 +199,7 @@ describe('CRUD Store', function() {
     const storeObj = { hello: 'bar', doNotModify: true };
     ExtendedActions.saved(storeObj, id);
     expect(ExtendedConfig._saved(storeObj, id)).to.be.undefined;
-    expect(ExtendedStore.get(id)).to.deep.equal(storeObj);
+    expect(ExtendedStore.get(id)).toEqual(storeObj);
     return undefined;
   });
 });

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Breadcrumb } from 'shared';
 
-import { StepPanel } from '../../helpers/policies';
+import { StepCard } from '../../helpers/policies';
 
 import { TaskStepActions, TaskStepStore } from '../../flux/task-step';
 import { TaskStore } from '../../flux/task';
@@ -74,7 +74,7 @@ class BreadcrumbTaskDynamic extends React.Component {
       step = TaskStepStore.get(crumb.id);
     }
 
-    if ((crumb.id != null) && (step != null)) { canReview = StepPanel.canReview(step.id); }
+    if ((crumb.id != null) && (step != null)) { canReview = StepCard.canReview(step.id); }
 
     return this.setState({ step, canReview });
   };

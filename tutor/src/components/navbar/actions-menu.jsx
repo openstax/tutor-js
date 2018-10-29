@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Dropdown, MenuItem } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import TutorRouter from '../../helpers/router';
 import { Route } from 'react-router';
 import { partial, flatMap, isEmpty, omit } from 'lodash';
@@ -11,15 +11,15 @@ import Icon from '../icon';
 import TourAnchor from '../tours/anchor';
 import Router from '../../helpers/router';
 import UserMenu from '../../models/user/menu';
-import Courses from '../../models/courses-map';
+import Course from '../../models/course';
 
-const RoutedMenuItem = (props) => {
+const RoutedDropdownItem = (props) => {
   const { label, name, tourId, className, route } = props;
   const isActive = TutorRouter.isActive(route.name, route.params, route.options);
 
   return (
     <Route path={props.href} exact>
-      <MenuItem
+      <Dropdown.Item
         className={classnames(name, className, { 'active': isActive })}
         data-name={name}
         {...omit(props, ['label', 'name', 'tourId', 'className', 'route'])}
@@ -27,15 +27,14 @@ const RoutedMenuItem = (props) => {
         <TourAnchor id={tourId}>
           {label}
         </TourAnchor>
-      </MenuItem>
+      </Dropdown.Item>
     </Route>
   );
 };
 
-function BrowseBookMenuItem({ params: { courseId }, className, active, label, ...props }) {
-  const course = Courses.get(courseId);
+function BrowseBookDropdownItem({ params: { course }, className, active, label, ...props }) {
   return (
-    <MenuItem
+    <Dropdown.Item
       {...props}
       href={`/book/${course.ecosystem_id}`}
       target="_blank"
@@ -43,37 +42,34 @@ function BrowseBookMenuItem({ params: { courseId }, className, active, label, ..
       <TourAnchor id="menu-option-browse-book">
         Browse the Book
       </TourAnchor>
-    </MenuItem>
+    </Dropdown.Item>
   );
 }
 
 const CustomComponents = {
-  browseBook: BrowseBookMenuItem,
+  browseBook: BrowseBookDropdownItem,
 };
 
 export default
 @observer
 class ActionsMenu extends React.Component {
 
-  static defaultProps = { windowImpl: window }
-
   static propTypes = {
-    courseId: PropTypes.string,
-    windowImpl: PropTypes.object,
+    course: PropTypes.instanceOf(Course),
   }
 
-  static contextTypes = {
+  static contexttypes = {
     router: PropTypes.object,
   }
 
   @autobind
-  transitionToMenuItem(href, evKey, clickEvent) {
+  transitionToDropdownItem(href, evKey, clickEvent) {
     clickEvent.preventDefault();
     this.context.router.history.push(href);
   }
 
   @autobind
-  renderMenuItem(menuOption) {
+  renderDropdownItem(menuOption) {
     const options = menuOption.options || {};
     const isActive = TutorRouter.isActive(menuOption.name, menuOption.params, menuOption.options);
     const key = `menu-option-${options.key || menuOption.name || menuOption.key || menuOption.label}`;
@@ -88,11 +84,11 @@ class ActionsMenu extends React.Component {
       props = { href: menuOption.href };
     } else {
       const href = Router.makePathname(menuOption.name, menuOption.params, menuOption.options);
-      props = { href, onSelect: partial(this.transitionToMenuItem, href) };
+      props = { href, onSelect: partial(this.transitionToDropdownItem, href) };
     }
 
     const item = (
-      <RoutedMenuItem
+      <RoutedDropdownItem
         {...props}
         route={menuOption}
         key={key}
@@ -104,7 +100,7 @@ class ActionsMenu extends React.Component {
 
     if (options.separator) {
       const separator = (suffix = 'divider') =>
-        <MenuItem divider={true} key={`${key}-${suffix}`} />;
+        <Dropdown.Item divider={true} key={`${key}-${suffix}`} />;
       switch (options.separator) {
       case 'after':
         return [item, separator()];
@@ -118,7 +114,7 @@ class ActionsMenu extends React.Component {
   }
 
   render() {
-    const menuRoutes = UserMenu.getRoutes(this.props.courseId);
+    const menuRoutes = UserMenu.getRoutes(this.props.course);
 
     if (isEmpty(menuRoutes)) {
       return null;
@@ -126,20 +122,18 @@ class ActionsMenu extends React.Component {
 
     return (
       <Dropdown
-        id="actions-menu"
         className={classnames('actions-menu')}
       >
         <Dropdown.Toggle
-          useAnchor={true}
+          id="actions-menu"
           aria-label="Menu and settings"
-          noCaret
         >
           <Icon type="bars" />
           <span className="control-label" title="Menu and settings">Menu</span>
           <Icon type="angle-down" className="toggle" />
         </Dropdown.Toggle>
-        <Dropdown.Menu >
-          {flatMap(menuRoutes, this.renderMenuItem)}
+        <Dropdown.Menu>
+          {flatMap(menuRoutes, this.renderDropdownItem)}
         </Dropdown.Menu>
       </Dropdown>
     );

@@ -74,7 +74,7 @@ describe('Notification Pollers', function() {
     UiSettings.get.mockReturnValue(['2']);
     tutor.onReply({ data: TEST_NOTICES });
     const active = tutor.getActiveNotifications();
-    expect( _.pluck(active, 'id') ).to.deep.equal(['1']); // no id "2"
+    expect( _.pluck(active, 'id') ).toEqual(['1']); // no id "2"
     return undefined;
   });
 

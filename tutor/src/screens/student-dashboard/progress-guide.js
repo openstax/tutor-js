@@ -52,8 +52,8 @@ class ProgressGuide extends React.Component {
 }
 
 
-const ProgressGuidePanels = createReactClass({
-  displayName: 'ProgressGuidePanels',
+const ProgressGuideCards = createReactClass({
+  displayName: 'ProgressGuideCards',
 
   contextTypes: {
     router: PropTypes.object,
@@ -161,7 +161,7 @@ export default class extends React.Component {
         renderLoading={this.renderLoading}
         actions={PerformanceForecast.Student.actions}
         renderItem={() => {
-          return <ProgressGuidePanels {...this.props} />;
+          return <ProgressGuideCards {...this.props} />;
         }} />
     );
   }

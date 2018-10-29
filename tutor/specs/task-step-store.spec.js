@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import moment from 'moment';
-import _ from 'underscore';
+import ld from 'underscore';
 
 import { TimeStore } from '../src/flux/time';
 import { TaskStepActions, TaskStepStore } from '../src/flux/task-step';

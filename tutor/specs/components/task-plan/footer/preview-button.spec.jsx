@@ -1,4 +1,4 @@
-import { SnapShot } from '../../helpers/component-testing';
+import { SnapShot } from '../../../helpers';
 import Preview from '../../../../src/components/task-plan/footer/preview-button';
 
 describe('Task Plan Builder: Preview button', () => {
@@ -24,7 +24,7 @@ describe('Task Plan Builder: Preview button', () => {
 
   it('matches snapshot', function() {
     expect(
-      SnapShot.create(<Preview {...props} />).toJSON()
+      SnapShot.create(<Preview {...props} />
     ).toMatchSnapshot();
   });
 

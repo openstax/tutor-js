@@ -53,7 +53,7 @@ class RenameCourse extends React.Component {
     const { course } = this.props;
 
     return (
-      <Button onClick={this.open} bsStyle="link" className="control edit-course">
+      <Button onClick={this.open} variant="link" className="control edit-course">
         <Icon type="pencil" />
         <Modal
           show={this.showModal}

@@ -26,7 +26,7 @@ class PaymentsDisabled extends React.Component {
             You are now enrolled in {ux.course.name}
           </h3>
 
-          <Button bsStyle="primary" onClick={ux.acknowledgeTrial}>
+          <Button variant="primary" onClick={ux.acknowledgeTrial}>
             Start your free trial
           </Button>
           <p>

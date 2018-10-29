@@ -38,7 +38,7 @@ class SelectPeriod extends React.Component {
         <Modal.Footer>
           <Button
             disabled={!enrollment.periodIsSelected}
-            bsStyle="primary"
+            variant="primary"
             className="btn btn-success" onClick={enrollment.onSubmitPeriod}>
             Continue
           </Button>

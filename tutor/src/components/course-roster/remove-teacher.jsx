@@ -48,7 +48,7 @@ class RemoveTeacherLink extends React.Component {
         title={<span>Remove <Name {...teacher} />?</span>}
       >
         <AsyncButton
-          bsStyle="danger"
+          variant="danger"
           onClick={this.performDeletion}
           isWaiting={teacher.api.isPending}
           waitingText="Removing..."

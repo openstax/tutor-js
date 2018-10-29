@@ -36,7 +36,7 @@ class DropStudentLink extends React.Component {
   confirmPopOver() {
     return (
       <Popover id="drop-student" title={this.popOverTitle()}>
-        <Button className="-drop-student" onClick={this.performDeletion} bsStyle="danger">
+        <Button className="-drop-student" onClick={this.performDeletion} variant="danger">
           <Icon type="ban" /> Drop
         </Button>
       </Popover>

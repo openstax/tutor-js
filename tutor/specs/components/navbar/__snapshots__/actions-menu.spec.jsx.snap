@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Student Navbar Component has actions menu that matches snapshot 1`] = `
+<div
+  className="actions-menu dropdown"
+  onKeyDown={[Function]}
+>
+  <button
+    aria-expanded={false}
+    aria-haspopup={true}
+    aria-label="Menu and settings"
+    className="dropdown-toggle btn btn-primary"
+    disabled={false}
+    id="actions-menu"
+    noCaret={true}
+    onClick={[Function]}
+    type="button"
+    useAnchor={true}
+  >
+    <i
+      className="tutor-icon fa fa-bars"
+      role="presentation"
+      type="bars"
+    />
+    <span
+      className="control-label"
+      title="Menu and settings"
+    >
+      Menu
+    </span>
+    <i
+      className="tutor-icon fa fa-angle-down toggle"
+      role="presentation"
+      type="angle-down"
+    />
+  </button>
+</div>
+`;
+
+exports[`Teacher Navbar Component has actions menu that matches snapshot 1`] = `
+<div
+  className="actions-menu dropdown"
+  onKeyDown={[Function]}
+>
+  <button
+    aria-expanded={false}
+    aria-haspopup={true}
+    aria-label="Menu and settings"
+    className="dropdown-toggle btn btn-primary"
+    disabled={false}
+    id="actions-menu"
+    noCaret={true}
+    onClick={[Function]}
+    type="button"
+    useAnchor={true}
+  >
+    <i
+      className="tutor-icon fa fa-bars"
+      role="presentation"
+      type="bars"
+    />
+    <span
+      className="control-label"
+      title="Menu and settings"
+    >
+      Menu
+    </span>
+    <i
+      className="tutor-icon fa fa-angle-down toggle"
+      role="presentation"
+      type="angle-down"
+    />
+  </button>
+</div>
+`;

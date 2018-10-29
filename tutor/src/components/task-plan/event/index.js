@@ -1,7 +1,7 @@
 import React from 'react';
 import { idType } from 'shared';
 import createReactClass from 'create-react-class';
-import { Panel, Grid } from 'react-bootstrap';
+import { Card, Container } from 'react-bootstrap';
 import { pick } from 'lodash';
 import classnames from 'classnames';
 import { TaskPlanStore  } from '../../../flux/task-plan';
@@ -41,11 +41,11 @@ const EventPlan = createReactClass({
 
     return (
       <div className="event-plan task-plan" data-assignment-type="event">
-        <Panel className={formClasses} footer={footer} header={header}>
-          <Grid fluid={true}>
+        <Card className={formClasses} footer={footer} header={header}>
+          <Container fluid={true}>
             <TaskPlanBuilder courseId={courseId} id={id} label="Event" {...builderProps} />
-          </Grid>
-        </Panel>
+          </Container>
+        </Card>
       </div>
     );
   },

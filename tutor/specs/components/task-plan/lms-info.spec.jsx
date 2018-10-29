@@ -1,4 +1,4 @@
-import { SnapShot, Wrapper } from '../helpers/component-testing';
+import { SnapShot, Wrapper } from 'helpers';
 import TaskPlan from '../../../src/models/task-plan/teacher';
 
 import LmsInfo from '../../../src/components/task-plan/lms-info';
@@ -46,7 +46,7 @@ describe('LmsInfo Component', function() {
     expect(
       SnapShot.create(
         <LmsInfo {...props} />
-      ).toJSON()
+      
     ).toMatchSnapshot();
   });
 

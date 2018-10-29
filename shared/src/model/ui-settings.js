@@ -1,9 +1,10 @@
 import { debounce, isNil, isObject } from 'lodash';
 import { toJS, observable } from 'mobx';
+import Map from './map';
 import URLs from './urls';
 import Networking from './networking';
 
-const SETTINGS = observable.map();
+const SETTINGS = new Map();
 
 const saveSettings = debounce( () =>
   Networking.perform({

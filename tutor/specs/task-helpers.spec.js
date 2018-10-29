@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import _ from 'underscore';
+import ld from 'underscore';
 
 import Helpers from '../src/helpers/task';
 
@@ -21,7 +21,7 @@ describe('TaskHelpers', function() {
       last_worked_at: '2015-07-23T12:00:00.000Z',
     });
     expect( lateness.is_late ).to.be.true;
-    expect( lateness.how_late ).to.equal('a day');
+    expect( lateness.how_late ).toEqual('a day');
     return undefined;
   });
 
@@ -31,7 +31,7 @@ describe('TaskHelpers', function() {
       last_worked_at: '2015-07-22T12:30:20.000Z',
     });
     expect( lateness.is_late ).to.be.true;
-    expect( lateness.how_late ).to.equal('30 minutes');
+    expect( lateness.how_late ).toEqual('30 minutes');
     return undefined;
   });
 });

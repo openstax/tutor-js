@@ -1,9 +1,9 @@
-import { React, ReactTestUtils } from '../../components/helpers/component-testing';
+import { React, ReactTestUtils } from '../../helpers';
 import { last } from 'lodash';
 import Factory from '../../factories';
 import { Provider } from 'mobx-react';
 import PlanDetails from '../../../src/screens/teacher-dashboard/plan-details';
-import EnzymeContext from '../../components/helpers/enzyme-context';
+import EnzymeContext from '../../helpers/enzyme-context';
 import TourContext from '../../../src/models/tour/context';
 
 const renderModal = props =>

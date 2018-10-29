@@ -32,7 +32,7 @@ class ExercisePart extends React.Component {
     taskId: PropTypes.string.isRequired,
     onStepCompleted: PropTypes.func.isRequired,
     onNextStep: PropTypes.func.isRequired,
-    getCurrentPanel: PropTypes.func.isRequired,
+    getCurrentCard: PropTypes.func.isRequired,
     step,
     setFreeResponseAnswer: PropTypes.func.isRequired,
     setAnswerId: PropTypes.func.isRequired,
@@ -51,7 +51,7 @@ class ExercisePart extends React.Component {
     super(props);
     const { id } = props;
 
-    this.state = { currentPanel: props.getCurrentPanel(id) };
+    this.state = { currentCard: props.getCurrentCard(id) };
   }
 
   onFreeResponseContinue = (state) => {
@@ -98,11 +98,11 @@ class ExercisePart extends React.Component {
 
   UNSAFE_componentWillMount() {
     const { id } = this.props;
-    if (!this.state.currentPanel) { return this.updateCurrentPanel(this.props); }
+    if (!this.state.currentCard) { return this.updateCurrentCard(this.props); }
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    return this.updateCurrentPanel(nextProps);
+    return this.updateCurrentCard(nextProps);
   }
 
   tryAnother = () => {
@@ -110,10 +110,10 @@ class ExercisePart extends React.Component {
     return this.props.recoverFor(id);
   };
 
-  updateCurrentPanel = (props) => {
-    const { id, getCurrentPanel } = props || this.props;
-    const currentPanel = getCurrentPanel(id);
-    if ((currentPanel != null) && (this.state.currentPanel !== currentPanel)) { return this.setState({ currentPanel }); }
+  updateCurrentCard = (props) => {
+    const { id, getCurrentCard } = props || this.props;
+    const currentCard = getCurrentCard(id);
+    if ((currentCard != null) && (this.state.currentCard !== currentCard)) { return this.setState({ currentCard }); }
   };
 
   // add get props methods for different panel types as needed here
@@ -121,17 +121,17 @@ class ExercisePart extends React.Component {
   render() {
     let getWaitingText, id, waitingText;
     ((((((((((({ id, step, getWaitingText, waitingText } = this.props)))))))))));
-    const { currentPanel } = this.state;
+    const { currentCard } = this.state;
 
     // panel is one of ['review', 'multiple-choice', 'free-response', 'teacher-read-only']
-    const getPropsForPanel = camelCase(`get-${currentPanel}-props`);
-    const cardProps = typeof this[getPropsForPanel] === 'function' ? this[getPropsForPanel]() : undefined;
+    const getPropsForCard = camelCase(`get-${currentCard}-props`);
+    const cardProps = typeof this[getPropsForCard] === 'function' ? this[getPropsForCard]() : undefined;
 
     return (
       <ExerciseStepCard
         {...cardProps}
         step={step}
-        panel={currentPanel}
+        panel={currentCard}
         waitingText={(typeof getWaitingText === 'function' ? getWaitingText(id) : undefined) || waitingText} />
     );
   }

@@ -1,6 +1,6 @@
 import StudentTasks from '../../src/models/student-tasks';
-import COURSE_1_DATA from '../../api/courses/1/dashboard.json';
-import COURSE_2_DATA from '../../api/courses/2/dashboard.json';
+import COURSE_1ldDATA from '../../api/courses/1/dashboard.json';
+import COURSE_2ldDATA from '../../api/courses/2/dashboard.json';
 import { keys, times } from 'lodash';
 import chronokinesis from 'chronokinesis';
 import moment from 'moment-timezone';

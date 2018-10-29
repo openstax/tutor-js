@@ -13,7 +13,7 @@ import { ChapterSectionMixin } from 'shared';
 import { TaskStore } from '../../flux/task';
 import { ViewingAsStudentName } from '../task/viewing-as-student-name';
 
-import { StepPanel } from '../../helpers/policies';
+import { StepCard } from '../../helpers/policies';
 
 export default {
   mixins: [ ChapterSectionMixin ],
@@ -87,10 +87,10 @@ export default {
   },
 
   renderTaskDetails({ stepId, taskId, courseId, review }) {
-    const panel = StepPanel.getPanel(stepId);
-    const renderDetailsForPanelMethod = camelCase(`render-${panel}-details`);
+    const panel = StepCard.getCard(stepId);
+    const renderDetailsForCardMethod = camelCase(`render-${panel}-details`);
 
-    return (typeof this[renderDetailsForPanelMethod] === 'function' ? this[renderDetailsForPanelMethod]({ stepId, taskId, courseId, review }) : undefined) || this.renderDefaultDetails({ stepId, taskId, courseId, review });
+    return (typeof this[renderDetailsForCardMethod] === 'function' ? this[renderDetailsForCardMethod]({ stepId, taskId, courseId, review }) : undefined) || this.renderDefaultDetails({ stepId, taskId, courseId, review });
   },
 
   renderBackButton({ taskId, courseId, review, panel }, custombuttonClasses) {
@@ -143,11 +143,11 @@ export default {
   },
 
   renderButtons({ stepId, taskId, courseId, review }) {
-    const panel = StepPanel.getPanel(stepId);
-    const renderButtonsForPanelMethod = camelCase(`render-${panel}-buttons`);
+    const panel = StepCard.getCard(stepId);
+    const renderButtonsForCardMethod = camelCase(`render-${panel}-buttons`);
 
     return (typeof this.renderFooterButtons === 'function' ? this.renderFooterButtons() : undefined) ||
-      (typeof this[renderButtonsForPanelMethod] === 'function' ? this[renderButtonsForPanelMethod]({ taskId, courseId, review, panel }) : undefined) ||
+      (typeof this[renderButtonsForCardMethod] === 'function' ? this[renderButtonsForCardMethod]({ taskId, courseId, review, panel }) : undefined) ||
       this.renderDefaultButtons({ taskId, courseId, review, panel });
   },
 
@@ -173,7 +173,7 @@ export default {
   },
 
   renderEndFooter({ stepId, taskId, courseId, review }) {
-    const panel = StepPanel.getPanel(stepId);
+    const panel = StepCard.getCard(stepId);
     const className = this.getFooterClasses({ stepId, taskId, courseId, review });
 
     const backButton = this.renderBackButton({ taskId, courseId, review, panel }, 'btn btn-primary');

@@ -2,7 +2,7 @@ import React from 'react';
 import Router from 'react-router-dom';
 import routes from '../../../src/routes';
 import { Promise } from 'es6-promise';
-import _ from 'underscore';
+import ld from 'underscore';
 import ReactTestUtils from 'react-addons-test-utils';
 
 const routerStub = {

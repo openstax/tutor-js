@@ -1,7 +1,7 @@
 import React from 'react';
 import BS from 'react-bootstrap';
 import _ from 'underscore';
-import { StepPanel } from '../../helpers/policies';
+import { StepCard } from '../../helpers/policies';
 
 import { AsyncButton, CardBody } from 'shared';
 

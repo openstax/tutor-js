@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import _ from 'underscore';
+import ld from 'underscore';
 import moment from 'moment';
 
 import { TimeActions, TimeStore } from '../src/flux/time';
@@ -10,7 +10,7 @@ import { StepPanel } from '../src/helpers/policies';
 
 // fake model stuffs for homework, late homework, reading, and practice
 const homeworkTaskId = 6;
-import homework_model from '../api/tasks/6.json';
+import homeworkldmodel from '../api/tasks/6.json';
 homework_model.due_at = moment(TimeStore.getNow()).add(1, 'year').toDate();
 
 const late_homework_model = require('../api/tasks/5.json');
@@ -65,23 +65,23 @@ const testForExerciseStepWithReview = taskId =>
 
     it('should return free-response and multiple-choice as available panels', function() {
       const panels = StepPanel.getPanelsWithStatus(stepId);
-      expect(panels.length).to.equal(3);
-      expect(panels[0].name).to.equal('free-response');
-      expect(panels[1].name).to.equal('multiple-choice');
-      expect(panels[2].name).to.equal('review');
+      expect(panels.length).toEqual(3);
+      expect(panels[0].name).toEqual('free-response');
+      expect(panels[1].name).toEqual('multiple-choice');
+      expect(panels[2].name).toEqual('review');
       return undefined;
     });
 
     it('should allow review for past due homework', function() {
       const canReview = StepPanel.canReview(stepId);
-      expect(canReview).to.equal(true);
+      expect(canReview).toEqual(true);
       return undefined;
     });
 
     it('should return multiple-choice as the panel after free-response answered', function() {
       TaskStepActions.setFreeResponseAnswer(stepId, 'Hello!');
       const panel = StepPanel.getPanel(stepId);
-      expect(panel).to.equal('multiple-choice');
+      expect(panel).toEqual('multiple-choice');
       return undefined;
     });
 
@@ -89,7 +89,7 @@ const testForExerciseStepWithReview = taskId =>
       TaskStepActions.setFreeResponseAnswer(stepId, 'Hello!');
       TaskStepActions.setAnswerId(stepId, answerId);
       const panel = StepPanel.getPanel(stepId);
-      expect(panel).to.equal('multiple-choice');
+      expect(panel).toEqual('multiple-choice');
       return undefined;
     });
 
@@ -98,7 +98,7 @@ const testForExerciseStepWithReview = taskId =>
       TaskStepActions.setAnswerId(stepId, answerId);
       fakeComplete(stepId);
       const panel = StepPanel.getPanel(stepId);
-      expect(panel).to.equal('review');
+      expect(panel).toEqual('review');
       return undefined;
     });
   }
@@ -115,16 +115,16 @@ describe('Step Panel Store, homework before due', function() {
 
   it('should return free-response and multiple-choice as available panels', function() {
     const panels = StepPanel.getPanelsWithStatus(stepIds[0]);
-    expect(panels.length).to.equal(2);
-    expect(panels[0].name).to.equal('free-response');
-    expect(panels[1].name).to.equal('multiple-choice');
+    expect(panels.length).toEqual(2);
+    expect(panels[0].name).toEqual('free-response');
+    expect(panels[1].name).toEqual('multiple-choice');
     return undefined;
   });
 
   it('should return multiple-choice as the panel after free-response answered', function() {
     TaskStepActions.setFreeResponseAnswer(stepIds[0], 'Hello!');
     const panel = StepPanel.getPanel(stepIds[0]);
-    expect(panel).to.equal('multiple-choice');
+    expect(panel).toEqual('multiple-choice');
     return undefined;
   });
 
@@ -132,7 +132,7 @@ describe('Step Panel Store, homework before due', function() {
     TaskStepActions.setFreeResponseAnswer(stepIds[0], 'Hello!');
     TaskStepActions.setAnswerId(stepIds[0], answerId);
     const panel = StepPanel.getPanel(stepIds[0]);
-    expect(panel).to.equal('multiple-choice');
+    expect(panel).toEqual('multiple-choice');
     return undefined;
   });
 
@@ -141,7 +141,7 @@ describe('Step Panel Store, homework before due', function() {
     TaskStepActions.setAnswerId(stepIds[0], answerId);
     fakeComplete(stepIds[0]);
     const panel = StepPanel.getPanel(stepIds[0]);
-    expect(panel).to.equal('multiple-choice');
+    expect(panel).toEqual('multiple-choice');
     return undefined;
   });
 });
@@ -159,7 +159,7 @@ describe('Step Panel Store, reading, view non-exercise', function() {
     const panel = StepPanel.getPanel(stepId);
     const taskStep = TaskStepStore.get(stepId);
     expect(taskStep.type).to.not.equal('exercise');
-    expect(panel).to.equal('view');
+    expect(panel).toEqual('view');
     return undefined;
   });
 });

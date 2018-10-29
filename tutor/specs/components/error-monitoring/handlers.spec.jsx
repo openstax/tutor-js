@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../helpers/component-testing';
+import { React, SnapShot } from 'helpers';
 import TutorRouter from '../../../src/helpers/router';
 import Courses from '../../../src/models/courses-map';
 import TestRouter from '../helpers/test-router';

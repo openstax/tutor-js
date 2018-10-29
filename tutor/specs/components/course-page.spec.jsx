@@ -1,4 +1,4 @@
-import { React } from './helpers/component-testing';
+import { React } from './helpers';
 import Renderer from 'react-test-renderer';
 import COURSE from '../../api/courses/1.json';
 import Course from '../../src/models/course';
@@ -22,7 +22,7 @@ describe('Course Page', () => {
       <CoursePage {...props}>
         <h3>Hello, this is the body</h3>
       </CoursePage>
-    ).toJSON()).toMatchSnapshot();
+    ).toMatchSnapshot();
     expect(Renderer.create(
       <CoursePage
         {...props}
@@ -33,5 +33,5 @@ describe('Course Page', () => {
       >
         <h3>Hello, this is the body</h3>
       </CoursePage>
-    ).toJSON()).toMatchSnapshot();});
+    ).toMatchSnapshot();});
 });

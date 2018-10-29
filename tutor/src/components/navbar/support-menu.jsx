@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { findDOMNode } from 'react-dom';
-import { Dropdown, MenuItem } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import { get } from 'lodash';
 import { action, computed } from 'mobx';
 import { observer, inject } from 'mobx-react';
@@ -14,22 +14,22 @@ import SupportDocument from './support-document-link';
 import BestPracticesGuide from './best-practices-guide';
 import TourContext from '../../models/tour/context';
 import Router from '../../helpers/router';
-import Courses from '../../models/courses-map';
+import Course from '../../models/course';
 
-const StudentPreview = observer(({ courseId, tourContext, ...props }, { router }) => {
-  if( !courseId || !( User.isConfirmedFaculty || User.isUnverifiedInstructor ) ) { return null; }
+const StudentPreview = observer(({ course, tourContext, ...props }, { router }) => {
+  if( !course || !( User.isConfirmedFaculty || User.isUnverifiedInstructor ) ) { return null; }
   return (
-    <MenuItem
+    <Dropdown.Item
       {...props}
       id="student-preview-videos"
       onClick={() => {
-        router.history.push(Router.makePathname('studentPreview', { courseId }));
+          router.history.push(Router.makePathname('studentPreview', { courseId: course.id }));
       }}
     >
       <TourAnchor id="student-preview-link">
         <span className="control-label" title="See what students see">Student preview videos</span>
       </TourAnchor>
-    </MenuItem>
+    </Dropdown.Item>
   );
 });
 
@@ -37,10 +37,10 @@ StudentPreview.contextTypes = {
   router: PropTypes.object,
 };
 
-const PageTips = observer(({ courseId, onPlayClick, tourContext, ...props }) => {
+const PageTips = observer(({ course, onPlayClick, tourContext, ...props }) => {
   if (!get(tourContext, 'hasTriggeredTour', false)){ return null; }
   return (
-    <MenuItem
+    <Dropdown.Item
       className="page-tips"
       {...props}
       onSelect={onPlayClick}
@@ -48,7 +48,7 @@ const PageTips = observer(({ courseId, onPlayClick, tourContext, ...props }) => 
       <TourAnchor id="menu-option-page-tips">
         Page Tips
       </TourAnchor>
-    </MenuItem>
+    </Dropdown.Item>
   );
 });
 
@@ -57,19 +57,15 @@ export default
 @inject((allStores, props) => ({ tourContext: ( props.tourContext || allStores.tourContext ) }))
 @observer
 class SupportMenu extends React.Component {
-  static propTypes = {
-    tourContext: PropTypes.instanceOf(TourContext),
-    courseId: PropTypes.string,
-  }
-
 
   static defaultProps = {
     bsRole: 'menu',
   }
 
   static propTypes = {
+    tourContext: PropTypes.instanceOf(TourContext),
+    course: PropTypes.instanceOf(Course),
     open: PropTypes.bool,
-    courseId: PropTypes.string,
     onClose:  PropTypes.func,
     tourContext: PropTypes.object.isRequired,
   }
@@ -85,7 +81,7 @@ class SupportMenu extends React.Component {
   renderChat() {
     if (!Chat.isEnabled) { return null; }
     return [
-      <MenuItem
+      <Dropdown.Item
         style={{ display: 'none' }}
         key="chat-enabled"
         className="chat enabled"
@@ -94,8 +90,8 @@ class SupportMenu extends React.Component {
         onClick={Chat.start}
       >
         <Icon type='comments' /><span>Chat with Support</span>
-      </MenuItem>,
-      <MenuItem
+      </Dropdown.Item>,
+      <Dropdown.Item
         style={{ display: 'none' }}
         key="chat-disabled"
         className="chat disabled"
@@ -103,7 +99,7 @@ class SupportMenu extends React.Component {
         ref={opt => this.chatDisabled = opt}
       >
         <Icon type='comments-o' /><span>Chat Support Offline</span>
-      </MenuItem>,
+      </Dropdown.Item>,
     ];
   }
 
@@ -127,25 +123,20 @@ class SupportMenu extends React.Component {
 
   @computed
   get accessibilityLink() {
-    return `/accessibility-statement/${this.props.courseId || ''}`;
+    return `/accessibility-statement/${this.props.course || ''}`;
   }
 
   render() {
-    const { open, onClose, rootCloseEvent, courseId } = this.props;
-    let course;
-    if (courseId) {
-      course = Courses.get(courseId);
-    }
+    const { course, open, onClose, rootCloseEvent } = this.props;
+
     return (
       <Dropdown
-        id="support-menu"
         className="support-menu"
       >
         <Dropdown.Toggle
+          id="support-menu"
           ref={m => (this.dropdownToggle = m)}
           aria-label="Page tips and support"
-          useAnchor={true}
-          noCaret
         >
           <TourAnchor
             id="support-menu-button"
@@ -159,19 +150,19 @@ class SupportMenu extends React.Component {
         </Dropdown.Toggle>
         <Dropdown.Menu>
           <PageTips onPlayClick={this.onPlayTourClick} {...this.props} />
-          <MenuItem
+          <Dropdown.Item
             key="nav-help-link"
             className="-help-link"
             target="_blank"
             onSelect={this.onSelect}
-            href={UserMenu.helpLinkForCourseId(courseId)}
+            href={UserMenu.helpLinkForCourse(course)}
           >
             <span>Help Articles</span>
-          </MenuItem>
-          <StudentPreview courseId={courseId} {...this.props} />
+          </Dropdown.Item>
+          <StudentPreview courseId={course ? course.id : null} {...this.props} />
           <SupportDocument course={course} />
           <BestPracticesGuide course={course} />
-          <MenuItem
+          <Dropdown.Item
             key="nav-keyboard-shortcuts"
             className="-help-link"
             onSelect={this.onSelect}
@@ -179,7 +170,7 @@ class SupportMenu extends React.Component {
             onClick={this.goToAccessibility}
           >
             <span>Accessibility Statement</span>
-          </MenuItem>
+          </Dropdown.Item>
           {this.renderChat()}
         </Dropdown.Menu>
       </Dropdown>

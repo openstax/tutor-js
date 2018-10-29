@@ -1,4 +1,4 @@
-import { Wrapper, SnapShot } from './helpers/component-testing';
+import { Wrapper, SnapShot } from './helpers';
 
 import TermsModal from '../../src/components/terms-modal';
 import User from '../../src/models/user';

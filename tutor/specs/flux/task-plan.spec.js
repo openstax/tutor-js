@@ -1,4 +1,4 @@
-import _ from 'underscore';
+import ld from 'underscore';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 
@@ -31,10 +31,10 @@ describe('TaskPlan Store', function() {
     );
     const clone = TaskPlanStore.getChanged(newId);
     for (let attr of ['title', 'description', 'type', 'settings', 'is_feedback_immediate']) {
-      expect(clone[attr]).to.deep.equal(PLAN[attr]);
+      expect(clone[attr]).toEqual(PLAN[attr]);
     }
 
-    expect(clone.cloned_from_id).to.equal(PLAN.id);
+    expect(clone.cloned_from_id).toEqual(PLAN.id);
     for (let period of Courses.get(COURSE_ID).periods.active) {
       const tasking_plan = _.find(clone.tasking_plans, { target_id: period.id });
       expect(tasking_plan).to.exist;
@@ -56,10 +56,10 @@ describe('TaskPlan Store', function() {
     );
     const clone = TaskPlanStore.getChanged(newId);
     for (let attr of ['title', 'description', 'type', 'settings', 'is_feedback_immediate']) {
-      expect(clone[attr]).to.deep.equal(HOMEWORK_WITH_FALSE[attr]);
+      expect(clone[attr]).toEqual(HOMEWORK_WITH_FALSE[attr]);
     }
 
-    expect(clone.cloned_from_id).to.equal(HOMEWORK_WITH_FALSE.id);
+    expect(clone.cloned_from_id).toEqual(HOMEWORK_WITH_FALSE.id);
     for (let period of Courses.get(COURSE_ID).periods.active) {
       const tasking_plan = _.find(clone.tasking_plans, { target_id: period.id });
       expect(tasking_plan).to.exist;

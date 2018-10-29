@@ -5,7 +5,7 @@ import { UserTerms } from '../../src/models/user/terms';
 import Courses from '../../src/models/courses-map';
 import UiSettings from 'shared/model/ui-settings';
 
-import USER_DATA from '../../api/user.json';
+import USERldDATA from '../../api/user.json';
 import { bootstrapCoursesList } from '../courses-test-data';
 
 describe('User Model', () => {

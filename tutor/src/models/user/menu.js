@@ -77,14 +77,14 @@ const ROUTES = {
   createNewCourse: {
     label: 'Create a Course',
     isAllowed() { return User.isCollegeTeacher; },
-    options({ courseId }) {
-      return courseId ? { separator: 'before' } : { separator: 'both' };
+    options({ course }) {
+      return course ? { separator: 'before' } : { separator: 'both' };
     },
   },
   cloneCourse: {
     label: 'Copy this Course',
     params(course) {
-      return { sourceId: course.courseId };
+      return { sourceId: course.id };
     },
     roles: {
       teacher: 'createNewCourse',
@@ -153,23 +153,19 @@ const UserMenu = observable({
     return SUPPORT_EMAIL;
   },
 
-  helpLinkForCourseId(courseId) {
-    if (!courseId) { return this.helpURL; }
-    const course = Courses.get(courseId);
+  helpLinkForCourse(course) {
     if (!course) { return this.helpURL; }
     return TUTOR_HELP;
   },
 
-  getRoutes(courseId) {
-    let isTeacher = false, menuRole;
-    let course;
-    if (courseId) {
-      course = Courses.get(courseId);
-      if (course) {
-        ((((({ isTeacher, primaryRole: { type: menuRole } } = course)))));
-      }
+  getRoutes(course) {
+    let isTeacher = false, menuRole, courseId;
+
+    if (course) {
+      courseId = course.id;
+      ({ isTeacher, primaryRole: { type: menuRole } } = course);
     }
-    const options = { courseId, menuRole };
+    const options = { courseId: courseId, menuRole };
     const validRoutes = pickBy(
       ROUTES, (route, routeName) =>
         (invoke(route, 'isAllowed', course) !== false) &&
@@ -183,7 +179,7 @@ const UserMenu = observable({
       const route = { name };
       if (routeRules.href){ route.href = routeRules.href; }
       addRouteProperty(route, 'options', routeRules, options);
-      addRouteProperty(route, 'params', routeRules, options, courseId ? { courseId } : null);
+      addRouteProperty(route, 'params', routeRules, options, course ? { courseId } : null);
       addRouteProperty(route, 'label', routeRules, options);
       routes.push(route);
     });

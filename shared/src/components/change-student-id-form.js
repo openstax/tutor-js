@@ -72,7 +72,7 @@ class ChangeStudentIdForm extends React.Component {
                 onChange={this.handleChange}
                 onKeyPress={this.onKeyPress} />
               <AsyncButton
-                bsStyle="primary"
+                variant="primary"
                 className="btn btn-success"
                 isWaiting={!!this.props.isBusy}
                 waitingText="Confirming…"

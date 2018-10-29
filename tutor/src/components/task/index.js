@@ -9,7 +9,7 @@ import classnames from 'classnames';
 
 import { TaskActions, TaskStore } from '../../flux/task';
 import { TaskStepActions, TaskStepStore } from '../../flux/task-step';
-import { TaskPanelActions, TaskPanelStore } from '../../flux/task-panel';
+import { TaskCardActions, TaskCardStore } from '../../flux/task-panel';
 import { TaskProgressActions, TaskProgressStore } from '../../flux/task-progress';
 import Courses from '../../models/courses-map';
 
@@ -20,12 +20,12 @@ import Ends from '../task-step/ends';
 import Breadcrumbs from './breadcrumbs';
 
 import TaskProgress from './progress';
-import ProgressPanel from './progress/panel';
+import ProgressCard from './progress/panel';
 import { Milestones, Milestone } from './progress/milestones';
 import Overlay from '../obscured-page/overlay';
 import TeacherReviewControls from './teacher-review-controls';
 
-import { StepPanel } from '../../helpers/policies';
+import { StepCard } from '../../helpers/policies';
 
 import { UnsavedStateMixin } from '../unsaved-state';
 import LoadableItem from '../loadable-item';
@@ -62,7 +62,7 @@ const Task = createReactClass({
   scrollingTargetDOM() { return window.document; },
 
   getDefaultCurrentStep() {
-    return TaskPanelStore.getStepKey(this.props.id, { is_completed: false });
+    return TaskCardStore.getStepKey(this.props.id, { is_completed: false });
   },
 
   setStepKey() {
@@ -73,7 +73,7 @@ const Task = createReactClass({
     const stepKey = params.stepIndex ? parseInt(params.stepIndex) : defaultKey;
     const stepIndex = stepKey - 1;
 
-    const step = TaskPanelStore.getStep(this.props.id, stepIndex);
+    const step = TaskCardStore.getStep(this.props.id, stepIndex);
     TaskProgressActions.update(this.props.id, stepIndex);
 
     // go ahead and render this step only if this step is accessible
@@ -123,7 +123,7 @@ const Task = createReactClass({
   },
 
   updateSteps() {
-    return TaskPanelActions.sync(this.props.id);
+    return TaskCardActions.sync(this.props.id);
   },
 
   updateTask(id) {
@@ -246,12 +246,12 @@ const Task = createReactClass({
   },
 
   filterClickForMilestones(focusEvent) {
-    const stepPanel = ReactDOM.findDOMNode(this.refs.stepPanel);
-    return !(stepPanel != null ? stepPanel.contains(focusEvent.target) : undefined);
+    const stepCard = ReactDOM.findDOMNode(this.refs.stepCard);
+    return !(stepCard != null ? stepCard.contains(focusEvent.target) : undefined);
   },
 
   getStep(stepIndex) {
-    return TaskPanelStore.getStep(this.props.id, stepIndex);
+    return TaskCardStore.getStep(this.props.id, stepIndex);
   },
 
   shouldShowTeacherReviewControls(panelType) {
@@ -274,7 +274,7 @@ const Task = createReactClass({
         onNextStep={this.onNextStep}
         recoverFor={this.recoverFor}
         pinned={pinned}
-        ref="stepPanel" />
+        ref="stepCard" />
     );
   },
 
@@ -306,7 +306,7 @@ const Task = createReactClass({
       taskId={id}
       reloadPractice={this.reloadTask}
       footer={footer}
-      ref="stepPanel" />;
+      ref="stepCard" />;
   },
 
   renderStatics(data) {
@@ -340,7 +340,7 @@ const Task = createReactClass({
 
     // get the crumb that matches the current state
     const step = this.getStep(this.state.currentStep);
-    const panelType = StepPanel.getPanel(this.state.currentStep);
+    const panelType = StepCard.getCard(this.state.currentStep);
 
     if (step.id) {
       panel = this.renderStep(step);
@@ -382,7 +382,7 @@ const Task = createReactClass({
           )} />
       );
 
-      panel = <ProgressPanel
+      panel = <ProgressCard
         taskId={id}
         stepId={step != null ? step.id : undefined}
         goToStep={this.goToStep}
@@ -391,7 +391,7 @@ const Task = createReactClass({
         enableKeys={!showMilestones}>
         {milestones}
         {panel}
-      </ProgressPanel>;
+      </ProgressCard>;
 
       taskClasses = classnames(
         taskClasses,

@@ -116,7 +116,7 @@ class AddPeriodLink extends React.Component {
 
   render() {
     return (
-      <Button onClick={this.open} bsStyle="link" className="control add-period">
+      <Button onClick={this.open} variant="link" className="control add-period">
         <Icon type="plus" />
         Add <CourseGroupingLabel courseId={this.props.course.id} />
         {this.renderForm()}

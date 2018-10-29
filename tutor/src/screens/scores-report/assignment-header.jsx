@@ -141,7 +141,9 @@ const AssignmentHeader = observer((props) => {
             className={classnames('header-cell', 'group', 'title', { cc: isConceptCoach })}>
             {heading.title}
           </div>
-          {!isConceptCoach ? <div className="due">due <Time date={heading.due_at} format="shortest" /></div> : null}
+          <div className="due">
+            due <Time date={heading.due_at} format="shortest" />
+          </div>
         </TourAnchor>
       </OverlayTrigger>
       <div className="header-row">

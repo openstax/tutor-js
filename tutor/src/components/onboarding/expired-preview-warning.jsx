@@ -18,7 +18,7 @@ class ExpiredPreviewWarning extends GotItOnboardingNag {
           Want to create a real course that students can access? Click “Create a course” on the top right of your dashboard.
         </Body>
         <Footer>
-          <Button bsStyle="primary" onClick={this.onAddCourse}>Create a course</Button>
+          <Button variant="primary" onClick={this.onAddCourse}>Create a course</Button>
           <Button onClick={this.onContinue}>Stay in Preview course</Button>
         </Footer>
       </OnboardingNag>

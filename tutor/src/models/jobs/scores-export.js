@@ -5,11 +5,12 @@ import {
 import moment from 'moment';
 import { observable, computed } from 'mobx';
 import Job from '../job';
+import Map from 'shared/model/map';
 import UiSettings from 'shared/model/ui-settings';
 import { TimeStore } from '../../flux/time';
 import Toasts from '../toasts';
 
-const CURRENT = observable.map();
+const CURRENT = new Map();
 const LAST_EXPORT = 'sce';
 
 export default

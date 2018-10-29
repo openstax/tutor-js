@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../../components/helpers/component-testing';
+import { React, SnapShot } from '../../helpers';
 
 const COURSE_ID = '1';
 import bootstrapScores from '../../helpers/scores-data.js';
@@ -26,7 +26,7 @@ describe('Scores Report: pie progress SVG icon', function() {
     expect(wrapper).not.toHaveRendered('g#q2');
     expect(wrapper).not.toHaveRendered('g#q3');
     expect(wrapper).not.toHaveRendered('g#q4');
-    expect(SnapShot.create(<PieProgress {...props} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<PieProgress {...props} />).toMatchSnapshot();
   });
 
   it('renders 50% > 75% quarters', function() {
@@ -37,7 +37,7 @@ describe('Scores Report: pie progress SVG icon', function() {
     expect(wrapper).toHaveRendered('g#q2');
     expect(wrapper).not.toHaveRendered('g#q3');
     expect(wrapper).not.toHaveRendered('g#q4');
-    expect(SnapShot.create(<PieProgress {...props} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<PieProgress {...props} />).toMatchSnapshot();
   });
 
   it('renders 75% > 100% quarters', function() {
@@ -48,7 +48,7 @@ describe('Scores Report: pie progress SVG icon', function() {
     expect(wrapper).not.toHaveRendered('g#q2');
     expect(wrapper).toHaveRendered('g#q3');
     expect(wrapper).not.toHaveRendered('g#q4');
-    expect(SnapShot.create(<PieProgress {...props} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<PieProgress {...props} />).toMatchSnapshot();
   });
 
   it('renders 100% quarters', function() {
@@ -59,6 +59,6 @@ describe('Scores Report: pie progress SVG icon', function() {
     expect(wrapper).not.toHaveRendered('g#q2');
     expect(wrapper).not.toHaveRendered('g#q3');
     expect(wrapper).toHaveRendered('g#q4');
-    expect(SnapShot.create(<PieProgress {...props} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<PieProgress {...props} />).toMatchSnapshot();
   });
 });

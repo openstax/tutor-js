@@ -71,7 +71,7 @@ export default class HelpTooltip extends React.Component {
         placement="top"
         overlay={buildTooltip(this.props)}
         rootClose={true}>
-        <Button className="footer-instructions" bsStyle="link">
+        <Button className="footer-instructions" variant="link">
           <i className="fa fa-info-circle" />
         </Button>
       </OverlayTrigger>

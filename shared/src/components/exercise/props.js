@@ -84,6 +84,6 @@ const propTypes = {
 
 const props = _.mapObject(propTypes, _.keys);
 props.StepFooter = FOOTER_PROPS;
-props.notPanel = _.union(props.ExReviewControls, props.StepFooter, ['step']);
+props.notCard = _.union(props.ExReviewControls, props.StepFooter, ['step']);
 
 export { propTypes, props };

@@ -27,7 +27,7 @@ class NoPeriods extends React.Component {
     return (
       <Button
         className="no-periods-course-settings-link"
-        bsStyle="primary"
+        variant="primary"
         onClick={this.onAddSection}>
         {'\
     Add a '}

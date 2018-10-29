@@ -52,7 +52,7 @@ class Failure extends React.Component {
           <Icon type="close" onClick={this.props.dismiss} />
         </div>
         <div className="body">
-          <Button bsStyle="link" onClick={this.onShowDetails}>Details</Button>
+          <Button variant="link" onClick={this.onShowDetails}>Details</Button>
         </div>
       </div>
     );

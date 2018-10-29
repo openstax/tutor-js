@@ -145,7 +145,7 @@ class ExerciseStepCard extends React.Component {
 
     const onInputChange = ON_CHANGE[panel];
 
-    const panelProps = _.omit(this.props, props.notPanel);
+    const panelProps = _.omit(this.props, props.notCard);
     panelProps.choicesEnabled = !waitingText && (panel === 'multiple-choice');
     panelProps[onInputChange] = this[onInputChange];
 

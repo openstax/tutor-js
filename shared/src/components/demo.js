@@ -40,7 +40,7 @@ const breadcrumbStub = require('../../api/breadcrumbs/steps');
 const ArbitraryHtmlAndMath = require('./html');
 const HTMLStub = require('../../api/html/data');
 
-const getCurrentPanel = function(stepId) {
+const getCurrentCard = function(stepId) {
   const step = steps[stepId];
   let panel = 'free-response';
   if (step.answer_id) {
@@ -53,7 +53,7 @@ const getCurrentPanel = function(stepId) {
 
 const getUpdatedStep = function(stepId) {
   const step = steps[stepId];
-  const panel = getCurrentPanel(stepId);
+  const panel = getCurrentCard(stepId);
   return steps[stepId] = merge({}, stubsForExercises[stepId][panel], step);
 };
 
@@ -72,7 +72,7 @@ const getProps = function(stepIds) {
       return (localSteps[stepId].correct_answer_id != null);
     },
 
-    getCurrentPanel,
+    getCurrentCard,
 
     setAnswerId(stepId, answerId) {
       return localSteps[stepId].answer_id = answerId;
@@ -475,9 +475,9 @@ class Demo extends React.Component {
       </BS.Row>
     );
     return (
-      <BS.Grid className="demos openstax">
+      <BS.Container className="demos openstax">
         {demos}
-      </BS.Grid>
+      </BS.Container>
     );
   }
 }

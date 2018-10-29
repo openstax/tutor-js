@@ -9,7 +9,7 @@ import { cloneDeep, extend, includes, omit, pick, get } from 'lodash';
 import AnnotationsSummaryToggle from '../annotations/summary-toggle';
 import Icon from '../icon';
 import { TaskStore } from '../../flux/task';
-import { TaskPanelStore } from '../../flux/task-panel';
+import { TaskCardStore } from '../../flux/task-panel';
 import TutorRouter from '../../helpers/router';
 import TutorLink from '../link';
 
@@ -43,19 +43,19 @@ class CenterControls extends React.Component {
 
     params = cloneDeep(params) || {};
     if (params.stepIndex == null) {
-      params.stepIndex = TaskPanelStore.getStepKey(params.id, { is_completed: false });
+      params.stepIndex = TaskCardStore.getStepKey(params.id, { is_completed: false });
     }
     return params;
   }
 
   componentWillMount() {
     TaskStore.on('loaded', this.updateTask);
-    TaskPanelStore.on('loaded', this.updateControls);
+    TaskCardStore.on('loaded', this.updateControls);
   }
 
   componentWillUnmount() {
     TaskStore.off('loaded', this.updateTask);
-    TaskPanelStore.off('loaded', this.updateControls);
+    TaskCardStore.off('loaded', this.updateControls);
   }
 
   componentWillReceiveProps(nextProps) {

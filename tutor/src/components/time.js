@@ -3,13 +3,11 @@ import { TimeStore } from '../flux/time';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default class extends React.Component {
+export default class Time extends React.Component {
   static defaultProps = {
     format: 'short',
     date: TimeStore.getNow(),
   };
-
-  static displayName = 'Time';
 
   static propTypes = {
     date: PropTypes.oneOfType([

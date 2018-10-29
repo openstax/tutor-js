@@ -1,4 +1,4 @@
-import { Testing } from '../../components/helpers/component-testing';
+import { Testing } from '../../helpers';
 import bootstrapScores from '../../helpers/scores-data.js';
 
 import { LateWorkPopover } from '../../../src/screens/scores-report/late-work';
@@ -6,7 +6,6 @@ import { LateWorkPopover } from '../../../src/screens/scores-report/late-work';
 describe('Student Scores Latework Popover', function() {
 
   let props;
-  let scores;
   let task;
 
   beforeEach(() => {
@@ -22,7 +21,7 @@ describe('Student Scores Latework Popover', function() {
 
   it('accepts task on late button click and hides itself', function() {
     const lw = mount(<LateWorkPopover {...props} />);
-    lw.find('.late-button').simulate('click');
+    lw.find('button.late-button').simulate('click');
     expect(task.acceptLate).toHaveBeenCalled();
   });
 
@@ -34,6 +33,6 @@ describe('Student Scores Latework Popover', function() {
     props.task.completed_accepted_late_step_count = 4;
     const lw = mount(<LateWorkPopover {...props} />);
     expect(lw.text()).toContain('student worked 3 questions');
-    expect(lw.find('.popover-title').first().text()).to.equal('Additional late work');
+    expect(lw.find('.popover-header').first().text()).toEqual('Additional late work');
   });
 });

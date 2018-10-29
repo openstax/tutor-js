@@ -68,7 +68,7 @@ Default ${policyFor} policy for ${step.type} being used.`;
     return policy;
   },
 
-  _isPanelPassed(step, checks) {
+  _isCardPassed(step, checks) {
     const panelPassed = _.reduce(checks, (memo, next) =>
       // needs to detect both if the property next exists and if the value is truthy
       memo && (step[next] != null) && step[next]
@@ -78,11 +78,11 @@ Default ${policyFor} policy for ${step.type} being used.`;
     return panelPassed;
   },
 
-  _getPanels(task, step) {
-    const allPanels = utils._getPolicy(task, step, 'panels');
+  _getCards(task, step) {
+    const allCards = utils._getPolicy(task, step, 'panels');
 
     // get a list of panels need for question
-    const panels = _.filter(allPanels, function(panel) {
+    const panels = _.filter(allCards, function(panel) {
       if (!panel.optional) { return true; }
 
       const optionalFn = `_${panel.optional}`;
@@ -92,24 +92,24 @@ Default ${policyFor} policy for ${step.type} being used.`;
     return panels;
   },
 
-  _arePanelsPassed(task, step, panels) {
+  _areCardsPassed(task, step, panels) {
     let panelsWithPass;
     return panelsWithPass = _.map(panels, function(panel) {
       panel.passed = false;
-      if (panel.passCheck != null) { panel.passed = utils._isPanelPassed(step, panel.passCheck); }
+      if (panel.passCheck != null) { panel.passed = utils._isCardPassed(step, panel.passCheck); }
       return panel;
     });
   },
 
-  _getPanel(panelsWithStatus) {
+  _getCard(panelsWithStatus) {
     let panel = _.findWhere(panelsWithStatus, { passed: false });
 
     return panel != null ? panel : (panel = _.last(panelsWithStatus));
   },
 
   _canReview(panels) {
-    const reviewPanel = _.findWhere(panels, { canReview: true });
-    return (reviewPanel != null);
+    const reviewCard = _.findWhere(panels, { canReview: true });
+    return (reviewCard != null);
   },
 
   _canWrite(panels) {

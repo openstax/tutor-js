@@ -1,6 +1,6 @@
 import { React, observer } from '../../helpers/react';
 import PropTypes from 'prop-types';
-import { Button, Panel } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import { partial } from 'lodash';
 import { Listing, Choice } from '../../components/choices-listing';
 
@@ -12,7 +12,7 @@ const Footer = observer(({ ux }) => {
       </Button>
       <Button
         onClick={ux.goForward}
-        bsStyle="primary"
+        variant="primary"
         className="next"
         disabled={!ux.canGoForward}
       >
@@ -35,7 +35,7 @@ class ExistingCourse extends React.Component {
     const { ux } = this.props;
 
     return (
-      <Panel
+      <Card
         header="Choose course to pair with"
         className={'new-course-wizard'}
         footer={<Footer ux={ux} />}
@@ -54,7 +54,7 @@ class ExistingCourse extends React.Component {
             ))}
           </Listing>
         </div>
-      </Panel>
+      </Card>
     );
   }
 };

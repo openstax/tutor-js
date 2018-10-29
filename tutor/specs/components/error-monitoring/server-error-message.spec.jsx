@@ -1,4 +1,4 @@
-import { React } from '../helpers/component-testing';
+import { React } from 'helpers';
 import ErrorMessage from '../../../src/components/error-monitoring/server-error-message';
 
 

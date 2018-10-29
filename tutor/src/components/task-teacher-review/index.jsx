@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
 import { first, find } from 'lodash';
@@ -76,7 +76,7 @@ class TaskTeacherReview extends React.Component {
     );
   }
 
-  renderReviewPanel() {
+  renderReviewCard() {
     if (!this.stats) {
       return (
         <NoStats taskPlan={this.taskPlan} header={this.renderBreadcrumbs()} course={this.course} period={this.period} />
@@ -100,10 +100,10 @@ class TaskTeacherReview extends React.Component {
         header={this.renderBreadcrumbs()}
         cardType="task"
       >
-        <Grid fluid={true} className="task-teacher-review">
+        <Container fluid={true} className="task-teacher-review">
           <Row>
             <Col sm={8}>
-              {this.renderReviewPanel()}
+              {this.renderReviewCard()}
             </Col>
             <Col sm={4}>
               <Stats
@@ -115,7 +115,7 @@ class TaskTeacherReview extends React.Component {
               />
             </Col>
           </Row>
-        </Grid>
+        </Container>
       </PinnedHeaderFooterCard>
     );
   }

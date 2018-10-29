@@ -46,7 +46,7 @@ exports[`Biology2eAvailable matches snapshot 1`] = `
       Create a Biology 2e course
     </button>
     <button
-      className="btn btn-default"
+      className="btn btn-primary"
       disabled={false}
       onClick={[Function]}
       type="button"

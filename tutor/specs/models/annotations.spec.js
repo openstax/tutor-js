@@ -1,7 +1,7 @@
 import DATA from '../../api/annotations.json';
 import { keys } from 'lodash';
 import Annotations from '../../src/models/annotations';
-import FeatureFlags from '../../src/models/feature_flags';
+import FeatureFlags from '../../src/models/featureldflags';
 import Hypothesis from '../../src/models/annotations/hypothesis';
 jest.mock('../../src/models/feature_flags');
 jest.mock('../../src/models/annotations/hypothesis');

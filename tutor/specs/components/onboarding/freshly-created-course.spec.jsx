@@ -1,4 +1,4 @@
-import { Wrapper, SnapShot } from '../helpers/component-testing';
+import { Wrapper, SnapShot } from 'helpers';
 import FreshlyCreatedCourse from '../../../src/components/onboarding/freshly-created-course';
 import OnboardingUX from '../../../src/models/course/onboarding/full-course';
 
@@ -13,7 +13,7 @@ describe('Freshly Created Course prompt', () => {
 
   it('renders and matches snapshot', () => {
     expect(
-      SnapShot.create(<FreshlyCreatedCourse ux={ux} />).toJSON()
+      SnapShot.create(<FreshlyCreatedCourse ux={ux} />
     ).toMatchSnapshot();
   });
 

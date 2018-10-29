@@ -4,7 +4,7 @@ import { Row } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
 import classnames from 'classnames';
 import Chapter from './chapter';
-import WeakerPanel from './weaker-panel';
+import WeakerCard from './weaker-panel';
 import ChapterSectionType from './chapter-section-type';
 
 export default class PerformanceForecast extends React.Component {
@@ -23,7 +23,7 @@ export default class PerformanceForecast extends React.Component {
   renderBody = () => {
     return (
       <div className="guide-group">
-        <WeakerPanel sections={this.props.allSections} {...this.props} />
+        <WeakerCard sections={this.props.allSections} {...this.props} />
         <Row>
           <h3>
             Individual Chapters

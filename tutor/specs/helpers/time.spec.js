@@ -1,4 +1,4 @@
-import _ from 'underscore';
+import ld from 'underscore';
 import moment from 'moment-timezone';
 
 import TimeHelper from '../../src/helpers/time';
@@ -32,7 +32,7 @@ describe('Time Helpers', function() {
     const courseTimezone = Courses.get(COURSE_ID).time_zone;
 
     TimeHelper.syncCourseTimezone(courseTimezone);
-    expect(moment()._z).to.have.property('name').and.to.equal(TEST_TIMEZONE);
+    expect(moment()._z).to.have.property('name').andtoEqual(TEST_TIMEZONE);
     expect(moment().startOf('day').format()).to.not.equal(TODAY_IN_CURRENT_ZONE);
     return undefined;
   });
@@ -41,7 +41,7 @@ describe('Time Helpers', function() {
   it('will reset the default timezone to user time', function() {
     const localTimezone = TimeHelper.getLocal();
     TimeHelper.unsyncCourseTimezone();
-    expect(moment()._z).to.have.property('name').and.to.equal(localTimezone);
+    expect(moment()._z).to.have.property('name').andtoEqual(localTimezone);
     expect(moment().startOf('day').isSame(TODAY_IN_CURRENT_ZONE)).to.be.true;
     return undefined;
   });

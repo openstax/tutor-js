@@ -1,8 +1,8 @@
-import { React } from '../../components/helpers/component-testing';
+import { React } from '../../helpers';
 import moment from 'moment';
 import bootstrapScores from '../../helpers/scores-data.js';
 import Cell from '../../../src/screens/scores-report/external-cell';
-import EnzymeContext from '../../components/helpers/enzyme-context';
+import EnzymeContext from '../../helpers/enzyme-context';
 import ScoresUX from '../../../src/screens/scores-report/ux';
 
 describe('Student Scores External Cell', function() {

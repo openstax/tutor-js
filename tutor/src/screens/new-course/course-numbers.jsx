@@ -1,7 +1,7 @@
 import { React, action, observer } from '../../helpers/react';
 import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
-import { Alert, Form, FormControl, FormGroup, InputGroup, ControlLabel } from 'react-bootstrap';
+import { Alert, FormControl, FormGroup, InputGroup, Form } from 'react-bootstrap';
 import UserMenu from '../../models/user/menu';
 import BuilderUX from './ux';
 import BestPracticesIcon from '../../components/icons/best-practices';
@@ -29,7 +29,7 @@ class CourseNumbers extends React.Component {
     const { error } = this.props.ux.newCourse;
     if (!error) { return null; }
     return (
-      <Alert bsStyle="danger">
+      <Alert variant="danger">
         <p>
           More than {error.value} {error.attribute} is not supported. Need
           more? <a href={`mailto:${UserMenu.supportEmail}`}>Contact
@@ -51,7 +51,7 @@ class CourseNumbers extends React.Component {
         </p>
 
         <FormGroup className="course-details-sections">
-          <ControlLabel>
+          <Form.Label>
             <InputGroup>
               <InputGroup.Addon>
                 Number of sections
@@ -64,11 +64,11 @@ class CourseNumbers extends React.Component {
                 defaultValue={newCourse.num_sections}
                 onChange={this.updateSectionCount} />
             </InputGroup>
-          </ControlLabel>
+          </Form.Label>
         </FormGroup>
 
         <FormGroup className="course-details-numbers">
-          <ControlLabel>
+          <Form.Label>
             <InputGroup>
               <InputGroup.Addon>
                 Estimated number of students
@@ -80,7 +80,7 @@ class CourseNumbers extends React.Component {
                 defaultValue={newCourse.estimated_student_count || ''}
                 onChange={this.updateStudentCount} />
             </InputGroup>
-          </ControlLabel>
+          </Form.Label>
         </FormGroup>
 
         {this.renderErrors()}

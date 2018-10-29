@@ -19,7 +19,7 @@ class PracticeButton extends React.Component {
 
     return (
       <Practice courseId={courseId} page_ids={pageIds}>
-        <Button bsStyle="primary" className="-practice">
+        <Button variant="primary" className="-practice">
           {text}
         </Button>
       </Practice>

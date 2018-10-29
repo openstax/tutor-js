@@ -24,7 +24,7 @@ export default class AsyncLoadError extends React.Component {
           Uh-oh, the page failed to load
         </h1>
         <p>{String(this.props.error)}</p>
-        <Button bsStyle="primary" onClick={forceReload}>Retry</Button>
+        <Button variant="primary" onClick={forceReload}>Retry</Button>
       </div>
     );
   }

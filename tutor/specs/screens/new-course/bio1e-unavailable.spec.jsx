@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../../components/helpers/component-testing';
+import { React, SnapShot } from '../../helpers';
 import Bio1eUnavail from '../../../src/screens/new-course/bio1e-unavailable';
 import BuilderUX from '../../../src/screens/new-course/ux';
 import Offerings from '../../../src/models/course/offerings';

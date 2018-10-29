@@ -164,7 +164,8 @@ class LateWorkPopover extends React.Component {
         {...popoverProps}
         title={content.get('title')}
         id={`late-work-info-popover-${content.task.id}`}
-        className={content.className()}>
+        className={content.className()}
+      >
         <div className="late-status">
           {content.get('body')}
           <div className="description">
@@ -228,7 +229,6 @@ class LateWork extends React.Component {
         onClick={this.show}
         onMouseLeave={this.props.onMouseLeave}>
         <Overlay
-          ref="overlay"
           placement="top"
           trigger="click"
           rootClose={true}

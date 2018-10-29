@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../components/helpers/component-testing';
+import { React, SnapShot } from '../helpers';
 import { Promise } from 'es6-promise';
 import Factory, { FactoryBot } from '../factories';
 
@@ -9,7 +9,7 @@ import Router from '../../src/helpers/router';
 import ReferenceBook from '../../src/screens/reference-book/reference-book';
 import { bootstrapCoursesList } from '../courses-test-data';
 import ReferenceBookUX from '../../src/screens/reference-book/ux';
-import EnzymeContext from '../components/helpers/enzyme-context';
+import EnzymeContext from '../helpers/enzyme-context';
 
 jest.mock('../../src/helpers/router');
 

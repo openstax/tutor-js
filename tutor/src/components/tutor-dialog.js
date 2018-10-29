@@ -46,7 +46,7 @@ class DetachedTutorDialog extends React.Component {
         key="ok"
         className="ok"
         onClick={flow(this.props.onOk, this._hide)}
-        bsStyle="primary">
+        variant="primary">
         {this.props.okBtnText || 'OK'}
       </Button>,
       <Button

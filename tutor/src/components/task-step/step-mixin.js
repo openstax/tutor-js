@@ -3,7 +3,7 @@ import BS from 'react-bootstrap';
 import classnames from 'classnames';
 
 import _ from 'underscore';
-import { StepPanel } from '../../helpers/policies';
+import { StepCard } from '../../helpers/policies';
 
 import { AsyncButton, CardBody } from 'shared';
 import { TaskStore } from '../../flux/task';
@@ -22,11 +22,11 @@ export default {
     default: return null;
       } })();
 
-    const cannotContinue = !StepPanel.canContinue(this.props.id) || !(typeof this.isContinueEnabled === 'function' ? this.isContinueEnabled() : undefined);
+    const cannotContinue = !StepCard.canContinue(this.props.id) || !(typeof this.isContinueEnabled === 'function' ? this.isContinueEnabled() : undefined);
 
     return (
       <AsyncButton
-        bsStyle="primary"
+        variant="primary"
         className="continue"
         key="step-continue"
         onClick={this.onContinue}

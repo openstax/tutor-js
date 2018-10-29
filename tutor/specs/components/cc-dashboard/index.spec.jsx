@@ -8,7 +8,7 @@ import Context from '../helpers/enzyme-context';
 
 import { CCDashboardStore, CCDashboardActions } from '../../../src/flux/cc-dashboard';
 import Courses from '../../../src/models/courses-map';
-import { Testing } from '../helpers/component-testing';
+import { Testing } from 'helpers';
 
 import DashboardShell from '../../../src/components/cc-dashboard';
 import BaseModel from '../../../api/courses/1/cc/dashboard.json';

@@ -75,7 +75,7 @@ class StudentPayNowBtn extends React.Component {
       <span className="student-pay-now">
         You have {this.course.userStudentRecord.trialTimeRemaining} left in your free trial
         {this.renderModal()}
-        <Button bsStyle="primary" onClick={this.onClick}>
+        <Button variant="primary" onClick={this.onClick}>
           Pay now
         </Button>
       </span>

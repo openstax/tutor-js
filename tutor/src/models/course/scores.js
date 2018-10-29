@@ -1,5 +1,6 @@
 import { find } from 'lodash';
 import { observable, action } from 'mobx';
+import Map from 'shared/model/map'
 
 import {
   BaseModel, identifiedBy, belongsTo,
@@ -13,7 +14,7 @@ class CourseScores extends BaseModel {
 
   @belongsTo({ model: 'course' }) course;
 
-  @observable periods = observable.map();
+  @observable periods = new Map();
 
   fetch() {
     return { courseId: this.course.id };

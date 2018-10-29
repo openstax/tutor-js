@@ -51,7 +51,7 @@ class TermsModal extends React.Component {
             </div>)}
         </Modal.Body>
         <Modal.Footer>
-          <Button bsStyle="primary" onClick={this.onAgreement}>I agree</Button>
+          <Button variant="primary" onClick={this.onAgreement}>I agree</Button>
         </Modal.Footer>
       </Modal>
     );

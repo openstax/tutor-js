@@ -191,7 +191,7 @@ class SetTimezone extends React.Component {
 
   render() {
     return (
-      <Button onClick={this.open} bsStyle="link" className="control edit-course">
+      <Button onClick={this.open} variant="link" className="control edit-course">
         <Icon type="pencil" />
         {this.renderForm()}
       </Button>

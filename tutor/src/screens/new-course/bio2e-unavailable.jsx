@@ -23,7 +23,7 @@ class Bio2eUnavailable extends React.Component {
           including new assessments, for Fall 2018!
         </p>
 
-        <Alert bsStyle="warning">
+        <Alert variant="warning">
           <Icon type="hand-paper-o" />
           <p>
             It is not possible to copy courses based on the first edition of Biology.

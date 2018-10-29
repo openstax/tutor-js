@@ -1,5 +1,5 @@
 import AsyncLoadErrors from '../../../src/components/error-monitoring/async-load-error';
-import { SnapShot } from '../helpers/component-testing';
+import { SnapShot } from 'helpers';
 import { isReloaded, reloadOnce, forceReload } from '../../../src/helpers/reload';
 jest.mock('../../../src/helpers/reload');
 
@@ -19,7 +19,7 @@ describe('AsyncLoadErrors Component', function() {
     isReloaded.mockImplementation(() => true);
     const err = mount(<AsyncLoadErrors {...props} />);
     expect(err.html()).not.toBeNull();
-    expect(SnapShot.create(<AsyncLoadErrors {...props} />)).toMatchSnapshot();
+    expect.snapshot(<AsyncLoadErrors {...props} />)).toMatchSnapshot();
   });
 
   it('forces a reload when clicked', () => {

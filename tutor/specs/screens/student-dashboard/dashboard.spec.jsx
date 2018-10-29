@@ -1,4 +1,4 @@
-import { React, SnapShot, Wrapper } from '../../components/helpers/component-testing';
+import { React, SnapShot, Wrapper } from '../../helpers';
 import Dashboard from '../../../src/screens/student-dashboard/dashboard';
 import Factory from '../../factories';
 import { bootstrapCoursesList } from '../../courses-test-data';

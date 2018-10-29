@@ -1,4 +1,4 @@
-import _ from 'underscore';
+import ld from 'underscore';
 
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';

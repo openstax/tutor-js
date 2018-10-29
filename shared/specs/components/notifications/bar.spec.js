@@ -29,7 +29,7 @@ describe('Notifications Bar', function() {
     Notifications.getActive.mockReturnValue([{ id: '1', message: 'A test' }]);
     const wrapper = shallow(<Bar {...props} />);
     jest.runAllTimers();
-    expect(wrapper.hasClass('viewable')).to.equal(true);
+    expect(wrapper.hasClass('viewable')).toEqual(true);
     expect(wrapper.find('SystemNotification[noticeId=\'1\']')).to.have.length(1);
 
     const component = SnapShot.create(<Bar {...props} />);
@@ -50,11 +50,11 @@ describe('Notifications Bar', function() {
   it('shows itself after a delay if there are notifications', function() {
     Notifications.getActive.mockReturnValueOnce([{ id: '1', message: 'A test' }]);
     const wrapper = shallow(<Bar {...props} />);
-    expect(wrapper.hasClass('viewable')).to.equal(false);
+    expect(wrapper.hasClass('viewable')).toEqual(false);
     expect(setTimeout.mock.calls.length).toBe(1);
     expect(setTimeout.mock.calls[0][1]).toBe(777);
     jest.runAllTimers();
-    expect(wrapper.hasClass('viewable')).to.equal(true);
+    expect(wrapper.hasClass('viewable')).toEqual(true);
     return undefined;
   });
 
@@ -63,7 +63,7 @@ describe('Notifications Bar', function() {
     Notifications.getActive.mockReturnValue([firstNotice]);
     const wrapper = shallow(<Bar {...props} />);
     jest.runAllTimers();
-    expect(wrapper.hasClass('viewable')).to.equal(true);
+    expect(wrapper.hasClass('viewable')).toEqual(true);
     const systemNotice = wrapper.find('SystemNotification[noticeId=\'1\']');
     expect(systemNotice).to.have.length(1);
     const secondNotice = { id: '2', message: 'TEST 2' };
@@ -88,7 +88,7 @@ describe('Notifications Bar', function() {
     jest.runAllTimers();
     expect(Notifications.acknowledge).toHaveBeenLastCalledWith(secondNotice);
 
-    expect(wrapper.hasClass('viewable')).to.equal(false);
+    expect(wrapper.hasClass('viewable')).toEqual(false);
     return undefined;
   });
 
@@ -96,10 +96,10 @@ describe('Notifications Bar', function() {
     Notifications.getActive.mockReturnValue(null);
     const wrapper = shallow(<Bar {...props} />);
     expect(wrapper.find('SystemNotification')).to.have.length(0);
-    expect(wrapper.hasClass('viewable')).to.equal(false);
+    expect(wrapper.hasClass('viewable')).toEqual(false);
     Notifications.getActive.mockReturnValue([{ id: '42', message: 'Foo' }]);
     Notifications.on.mock.calls[0][1]();
-    expect(wrapper.hasClass('viewable')).to.equal(true);
+    expect(wrapper.hasClass('viewable')).toEqual(true);
     expect(wrapper.find('SystemNotification[noticeId=\'42\']')).to.have.length(1);
     return undefined;
   });

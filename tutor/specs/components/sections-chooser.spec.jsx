@@ -1,4 +1,4 @@
-import { SnapShot } from './helpers/component-testing';
+import { SnapShot } from './helpers';
 import Factory, { FactoryBot } from '../factories';
 import Chooser from '../../src/components/sections-chooser';
 
@@ -15,7 +15,7 @@ describe('Sections Chooser', () => {
   });
 
   it('renders and matches snapshot', () => {
-    expect(SnapShot.create(<Chooser {...props} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<Chooser {...props} />).toMatchSnapshot();
   });
 
   it('can select', () => {

@@ -46,8 +46,8 @@ class FakeWindow {
       }
     }
     this.localStorage = {
-      getItem: sinon.stub().returns('[]'),
-      setItem: sinon.stub(),
+      getItem: jest.fn(() => '[]'),
+      setItem: jest.fn(() => null),
     };
     this.document.body = global.document.body;
     this.history =

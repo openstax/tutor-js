@@ -3,7 +3,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { action, observable } from 'mobx';
 import { isEmpty } from 'lodash';
-import { Modal, Button, ControlLabel } from 'react-bootstrap';
+import { Modal, Button, Form } from 'react-bootstrap';
 import Courses from '../models/courses-map';
 import { AsyncButton } from 'shared';
 import Router from '../helpers/router';
@@ -87,7 +87,7 @@ class ChangeStudentId extends React.Component {
           <div className="title">
             <h3>Update your student ID</h3>
           </div>
-          <ControlLabel className="id-number-body">
+          <Form.Label className="id-number-body">
             <div className="sub-title">Enter your school-issued student ID number *</div>
             <div className="inputs">
 
@@ -100,14 +100,14 @@ class ChangeStudentId extends React.Component {
                 defaultValue={this.student.student_identifier}
               />
             </div>
-          </ControlLabel>
+          </Form.Label>
           {this.isValid ? null : this.renderWarning()}
           <div className="required">* required for course credit</div>
         </Modal.Body>
         <Modal.Footer>
           <AsyncButton
             disabled={!this.isValid}
-            bsStyle="primary"
+            variant="primary"
             className="btn btn-success"
             isWaiting={!!this.student.api.isPending}
             waitingText={'Confirming…'}
@@ -115,7 +115,7 @@ class ChangeStudentId extends React.Component {
           >
             Save
           </AsyncButton>
-          <Button className="cancel" bsStyle="link" onClick={this.goToDashboard}>Cancel</Button>
+          <Button className="cancel" variant="link" onClick={this.goToDashboard}>Cancel</Button>
         </Modal.Footer>
       </Modal.Dialog>
     );

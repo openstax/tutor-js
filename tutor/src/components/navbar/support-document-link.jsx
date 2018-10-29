@@ -1,5 +1,5 @@
 import React from 'react';
-import { MenuItem } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import TourAnchor from '../tours/anchor';
 import Course from '../../models/course';
@@ -16,7 +16,7 @@ class SupportDocumentLink extends React.Component {
     ];
 
     return (
-      <MenuItem
+      <Dropdown.Item
         className="support-document-link"
         target="_blank"
         href={url}
@@ -24,7 +24,7 @@ class SupportDocumentLink extends React.Component {
         <TourAnchor id="menu-support-document">
           Getting Started Guide
         </TourAnchor>
-      </MenuItem>
+      </Dropdown.Item>
     );
   }
 

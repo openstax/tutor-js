@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../../components/helpers/component-testing';
+import { React, SnapShot } from '../../helpers';
 import BuildCourse from '../../../src/screens/new-course/build-course';
 import BuilderUX from '../../../src/screens/new-course/ux';
 
@@ -10,7 +10,7 @@ describe('CreateCourse: saving new course', function() {
   });
 
   it('matches snapshot', function() {
-    const component = SnapShot.create(<BuildCourse ux={ux} />).toJSON();
+    const component = SnapShot.create(<BuildCourse ux={ux} />;
     expect(component).toMatchSnapshot();
   });
 });

@@ -1,4 +1,4 @@
-import { React, Wrapper, SnapShot } from '../../components/helpers/component-testing';
+import { React, Wrapper, SnapShot } from '../../helpers';
 import { map } from 'lodash';
 import Factory from '../../factories';
 import PastAssignments from '../../../src/screens/teacher-dashboard/past-assignments';

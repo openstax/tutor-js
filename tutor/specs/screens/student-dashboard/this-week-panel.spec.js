@@ -1,7 +1,7 @@
 import moment from 'moment-timezone';
 import ThisWeek from '../../../src/screens/student-dashboard/this-week-panel';
 import chronokinesis from 'chronokinesis';
-import { Testing, _, React } from '../../components/helpers/component-testing';
+import { Testing, ld, React } from '../../helpers';
 import Factory from '../../factories';
 
 describe('This Week Events', () => {

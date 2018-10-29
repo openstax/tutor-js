@@ -4,14 +4,14 @@ import moment from 'moment-timezone';
 import CenterControls from '../../../src/components/navbar/center-controls';
 import { TaskActions, TaskStore } from '../../../src/flux/task';
 import EnzymeContext from '../helpers/enzyme-context';
-import { Wrapper, SnapShot } from '../helpers/component-testing';
+import { Wrapper, SnapShot } from 'helpers';
 import Router from '../../../src/helpers/router';
 
 jest.mock('../../../src/helpers/router');
 
 const TASK_ID = '4';
 
-import VALID_MODEL from '../../../api/tasks/4.json';
+import VALIDldMODEL from '../../../api/tasks/4.json';
 
 describe('Center Controls', function() {
   let props;
@@ -42,7 +42,7 @@ describe('Center Controls', function() {
       '/course/1/task/4/step/1/milestones'
     );
     expect(
-      SnapShot.create(<Wrapper {...props} shouldShow={true} _wrapped_component={CenterControls} />).toJSON()
+      SnapShot.create(<Wrapper {...props} shouldShow={true} _wrapped_component={CenterControls} />
     ).toMatchSnapshot();
   });
 

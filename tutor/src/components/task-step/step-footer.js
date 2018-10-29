@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import BS from 'react-bootstrap';
 import _ from 'underscore';
-import { StepPanel } from '../../helpers/policies';
+import { StepCard } from '../../helpers/policies';
 
 import { TaskStore } from '../../flux/task';
 import StepFooterMixin from './step-footer-mixin';

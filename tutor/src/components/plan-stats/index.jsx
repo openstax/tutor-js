@@ -4,7 +4,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { observable, computed, action } from 'mobx';
 import { isEmpty, find } from 'lodash';
-import { Panel } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import Course from '../../models/course';
 import { SmartOverflow } from 'shared';
 import CoursePeriodsNav from '../course-periods-nav';
@@ -62,14 +62,14 @@ class Stats extends React.Component {
 
   renderWrapped(body) {
     return (
-      <Panel className="task-stats">
+      <Card className="task-stats">
         <CoursePeriodsNav
           handleSelect={this.handlePeriodSelect}
           periods={this.course.periods}
           course={this.course}
         />
         {body}
-      </Panel>
+      </Card>
     );
   }
 
@@ -124,14 +124,14 @@ class Stats extends React.Component {
     }
 
     return (
-      <Panel className="task-stats">
+      <Card className="task-stats">
         <CoursePeriodsNav
           handleSelect={this.handlePeriodSelect}
           periods={this.course.periods}
           course={this.course}
         />
         {dataComponent}
-      </Panel>
+      </Card>
     );
   }
 };

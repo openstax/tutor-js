@@ -1,4 +1,4 @@
-import { React, Testing, sinon, _, ReactTestUtils } from '../helpers/component-testing';
+import { React, Testing, sinon, ld, ReactTestUtils } from 'helpers';
 import { Promise } from 'es6-promise';
 import Clipboard from '../../../src/helpers/clipboard';
 import { courseRosterBootstrap } from './bootstrap-data';

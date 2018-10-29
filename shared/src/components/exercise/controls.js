@@ -21,7 +21,7 @@ class ExContinueButton extends React.Component {
 
     return (
       <AsyncButton
-        bsStyle="primary"
+        variant="primary"
         className="continue"
         key="step-continue"
         onClick={onContinue}
@@ -56,7 +56,7 @@ class ExReviewControls extends React.Component {
     if (canTryAnother) {
       tryAnotherButton = <AsyncButton
         key="step-try-another"
-        bsStyle="primary"
+        variant="primary"
         className="-try-another"
         onClick={tryAnother}
         isWaiting={isRecovering}

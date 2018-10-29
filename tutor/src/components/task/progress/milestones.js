@@ -9,7 +9,7 @@ import { ChapterSectionMixin, ArbitraryHtmlAndMath } from 'shared';
 import { BreadcrumbStatic } from '../../breadcrumb';
 import { StepTitleStore } from '../../../flux/step-title';
 import { TaskProgressStore } from '../../../flux/task-progress';
-import { TaskPanelStore } from '../../../flux/task-panel';
+import { TaskCardStore } from '../../../flux/task-panel';
 
 class Milestone extends React.Component {
   static displayName = 'Milestone';
@@ -83,7 +83,7 @@ const Milestones = createReactClass({
 
   getInitialState() {
     const currentStep = TaskProgressStore.get(this.props.id);
-    const crumbs = TaskPanelStore.get(this.props.id);
+    const crumbs = TaskCardStore.get(this.props.id);
 
     return {
       currentStep,

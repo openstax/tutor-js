@@ -2,11 +2,12 @@ import {
   identifiedBy, session,
 } from 'shared/model';
 
+import Map from 'shared/model/map';
 import { observable, computed, reaction } from 'mobx';
 import invariant from 'invariant';
 import Job from '../job';
 
-const CURRENT = observable.map();
+const CURRENT = new Map();
 
 export default
 @identifiedBy('jobs/task-plan-publish')

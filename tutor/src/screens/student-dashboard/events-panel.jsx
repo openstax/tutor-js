@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Panel, Col } from 'react-bootstrap';
+import { Card, Col } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { map } from 'lodash';
 import { autobind } from 'core-decorators';
@@ -24,7 +24,7 @@ const ROW_TYPES = {
 
 export default
 @observer
-class EventsPanel extends React.Component {
+class EventsCard extends React.Component {
   static propTypes = {
     events:     PropTypes.array.isRequired,
     course:     PropTypes.instanceOf(Course).isRequired,
@@ -62,7 +62,7 @@ class EventsPanel extends React.Component {
 
   render() {
     return (
-      <Panel className={this.props.className}>
+      <Card className={this.props.className}>
         <div className="row labels">
           <Col xs={12} sm={7}>
             {this.renderTitle()}
@@ -75,7 +75,7 @@ class EventsPanel extends React.Component {
           </Col>
         </div>
         {map(this.props.events, this.renderEvent)}
-      </Panel>
+      </Card>
     );
   }
 };

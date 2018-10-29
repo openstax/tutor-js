@@ -22,7 +22,7 @@ const IntroPopover = props => (
       <p>
         Click to add, or just drag to calendar.
       </p>
-      <Button bsSize="small" onClick={props.onClose}>
+      <Button size="small" onClick={props.onClose}>
         Got it
       </Button>
     </Popover>

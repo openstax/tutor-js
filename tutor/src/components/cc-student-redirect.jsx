@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Panel } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 
 import User from '../models/course';
@@ -22,7 +22,7 @@ class CCStudentRedirect extends React.Component {
     const course = Courses.get(courseId);
 
     return (
-      <Panel className="cc-student-redirect">
+      <Card className="cc-student-redirect">
         <p>
           {'You are logged in as a student account '}
           {User.name}.
@@ -40,7 +40,7 @@ class CCStudentRedirect extends React.Component {
         <ul>
           <LogoutLink label="Or logout now to access your instructor account." />
         </ul>
-      </Panel>
+      </Card>
     );
   }
 };

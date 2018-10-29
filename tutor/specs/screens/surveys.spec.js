@@ -1,7 +1,7 @@
-import { SnapShot, Wrapper } from '../components/helpers/component-testing';
+import { SnapShot, Wrapper } from '../helpers';
 import Factory, { faker } from '../../specs/factories';
 import Survey from '../../src/screens/surveys';
-import EnzymeContext from '../components/helpers/enzyme-context';
+import EnzymeContext from '../helpers/enzyme-context';
 
 
 describe('Surveys Screen', () => {

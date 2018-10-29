@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import _ from 'underscore';
+import ld from 'underscore';
 
 import PerformanceForecast from '../src/flux/performance-forecast';
 const LGH = PerformanceForecast.Helpers;
@@ -40,7 +40,7 @@ const testWeakCount = function( returnedLength, sampleSizes ) {
     const weakest = LGH.weakestSections( sections );
     expect( weakest ).to.have.length(returnedLength);
     const ourWeakest = _.sortBy( LGH.filterForecastedSections(sections), s => s.clue.most_likely);
-    expect(ourWeakest.slice(0, +(returnedLength - 1) + 1 || undefined)).to.deep.equal(weakest);
+    expect(ourWeakest.slice(0, +(returnedLength - 1) + 1 || undefined)).toEqual(weakest);
   }
   return undefined;
 };
@@ -50,14 +50,14 @@ describe('Learning Guide Store', function() {
 
   it('returns recent', function() {
     const sections = makeSections(10, 3);
-    expect( LGH.recentSections(sections) ).to.deep.equal( _.last(sections, 4) );
+    expect( LGH.recentSections(sections) ).toEqual( _.last(sections, 4) );
     return undefined;
   });
 
   it('finds sections with a valid forecast', function() {
     const sections = makeSections(8, 33);
     const valid = LGH.filterForecastedSections(sections);
-    expect( valid.length ).to.equal(8);
+    expect( valid.length ).toEqual(8);
     expect( _.findWhere(valid, { is_real: false }) ).to.be.undefined;
     return undefined;
   });
@@ -65,7 +65,7 @@ describe('Learning Guide Store', function() {
   it('finds the weakest sections', function() {
     const sections = makeSections(8, 33);
     const weakest = LGH.weakestSections(sections);
-    expect(weakest.length).to.equal(4);
+    expect(weakest.length).toEqual(4);
     return undefined;
   });
 

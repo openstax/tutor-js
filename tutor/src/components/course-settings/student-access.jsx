@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { observable, computed, action } from 'mobx';
 import { observer } from 'mobx-react';
-import { Button, Modal, PanelGroup, Panel } from 'react-bootstrap';
+import { Button, Modal, CardGroup, Card } from 'react-bootstrap';
 import Course from '../../models/course';
 import Icon from '../icon';
 import cn from 'classnames';
@@ -133,7 +133,7 @@ class StudentAccess extends React.Component {
           to enroll using direct links?
         </Modal.Body>
         <Modal.Footer>
-          <Button bsStyle="primary" onClick={this.forceLinksSwitch}>I'm sure</Button>
+          <Button variant="primary" onClick={this.forceLinksSwitch}>I'm sure</Button>
           <Button onClick={this.onHideLinkSwitch}>Cancel</Button>
         </Modal.Footer>
       </Modal>
@@ -178,27 +178,27 @@ class StudentAccess extends React.Component {
         <a href="https://openstax.secure.force.com/help/articles/FAQ/What-is-the-difference-between-using-a-direct-link-and-using-LMS-integration-to-give-your-students-access-to-OpenStax-Tutor" target="_blank">
           <Icon type="info-circle" /> Which option is right for my course?
         </a>
-        <PanelGroup
+        <CardGroup
           accordion
           activeKey={isLMS ? true : isLinks ? false : 'none'}
           onSelect={this.onSelectOption}
         >
-          <Panel
+          <Card
             className={cn('links', { active: isLinks })}
             header={this.renderDirectHeader()}
             eventKey={false}
           >
             <p>Send your students their section's direct links to enroll.</p>
             {course.periods.active.map(p => <CopyOnFocusInput key={p.id} label={p.name} value={p.enrollment_url_with_details} />)}
-          </Panel>
-          <Panel
+          </Card>
+          <Card
             className={cn('lms', { active: isLMS })}
             eventKey={true}
             header={this.renderLMSHeader()}
           >
             {this.renderLMS()}
-          </Panel>
-        </PanelGroup>
+          </Card>
+        </CardGroup>
       </div>
     );
   }

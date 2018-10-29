@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { map, partial } from 'lodash';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
 import Icon from '../icon';
 
@@ -105,11 +105,11 @@ so it may differ from the average you see in Student Scores.\
     const statsColumns = map(stats, partial(this.renderCourseStat, partial.placeholder, cols));
 
     return (
-      <Grid className="data-container" key="course-bar">
+      <Container className="data-container" key="course-bar">
         <Row className="stats">
           {statsColumns}
         </Row>
-      </Grid>
+      </Container>
     );
   }
 }

@@ -1,4 +1,4 @@
-import { React, SnapShot, Wrapper } from '../../components/helpers/component-testing';
+import { React, SnapShot, Wrapper } from '../../helpers';
 import Bio2eUnavail from '../../../src/screens/new-course/bio2e-unavailable';
 
 describe('Bio2e unavailable', () => {

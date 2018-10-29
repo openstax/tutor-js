@@ -48,7 +48,7 @@ describe('Concept Coach Dashboard', function() {
       const periodId = BaseModel.course.periods[props.initialActivePeriod].id;
       const chapters = CCDashboardStore.chaptersForDisplay(COURSE_ID, periodId);
       const wrapper = shallow(<Dashboard {...props} />, Context.build());
-      expect(wrapper.find('DashboardChapter').length).to.equal(chapters.length);
+      expect(wrapper.find('DashboardChapter').length).toEqual(chapters.length);
       for (let chapter of Array.from(chapters)) {
         expect(wrapper).toHaveRendered(`DashboardChapter[id=\"${chapter.id}\"]`);
       }

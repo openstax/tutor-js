@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'underscore';
+import ld from 'underscore';
 
 import Courses from '../../../src/models/courses-map';
 

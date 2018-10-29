@@ -1,4 +1,4 @@
-import { Testing, _ } from '../helpers/component-testing';
+import { Testing, ld } from 'helpers';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import Chapter from '../../../src/components/performance-forecast/chapter';
 
@@ -31,7 +31,7 @@ describe('Learning Guide Chapter Panel', function() {
   return it('displays the title', function() {
     return Testing.renderComponent( Chapter, { props: props } ).then(async ({ dom }) => {
       expect(await axe(dom.outerHTML)).toHaveNoViolations();
-      return expect(dom.querySelector('.title').textContent).to.equal(props.chapter.title);
+      return expect(dom.querySelector('.title').textContent).toEqual(props.chapter.title);
     });
   });
 });

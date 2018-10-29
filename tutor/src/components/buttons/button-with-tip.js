@@ -26,7 +26,7 @@ export default class extends React.Component {
 
     const tip = getTip(this.props);
 
-    const buttonProps = _.pick(this.props, 'className', 'bsStyle', 'block');
+    const buttonProps = _.pick(this.props, 'className', 'variant', 'block');
     buttonProps.disabled = isDisabled;
     if (!isDisabled) { buttonProps.onClick = onClick; }
 

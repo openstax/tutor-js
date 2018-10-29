@@ -158,9 +158,9 @@ class ExercisesDisplay extends React.Component {
           </Button>,
           <Button
             key="cancel"
-            bsStyle="primary"
+            variant="primary"
             onClick={function() { return Dialog.hide(); }}
-            bsStyle="primary">
+            variant="primary">
             Cancel
           </Button>,
         ],

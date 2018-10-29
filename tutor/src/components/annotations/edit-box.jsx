@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import { action, observable } from 'mobx';
 import cn from 'classnames';
 import Icon from '../icon';
-import { Label } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import Annotation from '../../models/annotations/annotation';
 
 @observer
@@ -65,7 +65,7 @@ class EditBox extends React.Component {
 
   renderWarning() {
     if (this.text.length > Annotation.MAX_TEXT_LENGTH) {
-      return <Label bsStyle="danger">Text cannot be longer than {Annotation.MAX_TEXT_LENGTH} characters</Label>;
+      return <Form.Label variant="danger">Text cannot be longer than {Annotation.MAX_TEXT_LENGTH} characters</Form.Label>;
     }
     return null;
   }

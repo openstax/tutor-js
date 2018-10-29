@@ -125,7 +125,7 @@ class RenamePeriod extends React.Component {
 
   render() {
     return (
-      <Button onClick={this.open} bsStyle="link" className="control rename-period">
+      <Button onClick={this.open} variant="link" className="control rename-period">
         <Icon type="pencil" /> Rename
         {this.renderForm()}
       </Button>

@@ -2,14 +2,14 @@ let defaultProps;
 import { expect } from 'chai';
 import PropTypes from 'prop-types';
 import React from 'react';
-import _ from 'underscore';
-import { sinon } from '../../helpers/component-testing';
+import ld from 'underscore';
+import { sinon } from '../../../helpers';
 
 
 import { TaskPlanActions, TaskPlanStore } from '../../../../src/flux/task-plan';
 import ExerciseControls from '../../../../src/components/task-plan/homework/exercise-controls';
 
-import VALID_MODEL from '../../../../api/plans/2.json';
+import VALIDldMODEL from '../../../../api/plans/2.json';
 
 const helper = function(props) {
   const html = React.renderToString(<ExerciseControls {...props} />);

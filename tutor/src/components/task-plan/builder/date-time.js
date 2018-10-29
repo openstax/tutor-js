@@ -126,7 +126,7 @@ class DateTime extends React.Component {
 
       setAsDefaultOption = <AsyncButton
         className="tasking-time-default"
-        bsStyle="link"
+        variant="link"
         waitingText="Saving…"
         isWaiting={isSetting && setClicked}
         onClick={this.setDefaultTime}>

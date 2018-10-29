@@ -1,5 +1,5 @@
-import { React } from '../../helpers/component-testing';
-import _ from 'underscore';
+import { React } from '../../../helpers';
+import ld from 'underscore';
 
 import moment from 'moment-timezone';
 
@@ -96,15 +96,15 @@ describe('TaskPlan MiniEditor wrapper', function() {
     const wrapper = mount(React.createElement(MiniEditor, Object.assign({}, props )), options);
     const { publish, save, cancel } = getButtons(wrapper);
     sandbox.stub(TaskPlanStore, 'isSaving', () => true);
-    expect(publish.text()).to.equal('Publish');
+    expect(publish.text()).toEqual('Publish');
     publish.simulate('click');
     expect(TaskPlanActions.publish).to.have.been.called;
 
-    expect(publish.text()).to.equal('Publishing…');
-    expect(save.text()).to.equal('Save as Draft');
-    expect( publish.prop('disabled') ).to.equal(true);
-    expect( save.prop('disabled') ).to.equal(true);
-    expect( cancel.prop('disabled') ).to.equal(true);
+    expect(publish.text()).toEqual('Publishing…');
+    expect(save.text()).toEqual('Save as Draft');
+    expect( publish.prop('disabled') ).toEqual(true);
+    expect( save.prop('disabled') ).toEqual(true);
+    expect( cancel.prop('disabled') ).toEqual(true);
     return undefined;
   });
 
@@ -112,16 +112,16 @@ describe('TaskPlan MiniEditor wrapper', function() {
     const wrapper = mount(React.createElement(MiniEditor, Object.assign({}, props )), options);
     const { publish, save, cancel } = getButtons(wrapper);
 
-    expect(save.text()).to.equal('Save as Draft');
+    expect(save.text()).toEqual('Save as Draft');
     sandbox.stub(TaskPlanStore, 'isSaving', () => true);
     save.simulate('click');
 
     expect(TaskPlanActions.save).to.have.been.called;
-    expect(save.text()).to.equal('Saving…');
-    expect(publish.text()).to.equal('Publish');
-    expect( publish.prop('disabled') ).to.equal(true);
-    expect( save.prop('disabled') ).to.equal(true);
-    expect( cancel.prop('disabled') ).to.equal(true);
+    expect(save.text()).toEqual('Saving…');
+    expect(publish.text()).toEqual('Publish');
+    expect( publish.prop('disabled') ).toEqual(true);
+    expect( save.prop('disabled') ).toEqual(true);
+    expect( cancel.prop('disabled') ).toEqual(true);
     return undefined;
   });
 
@@ -151,8 +151,8 @@ describe('TaskPlan MiniEditor wrapper', function() {
     const wrapper = mount(React.createElement(MiniEditor, Object.assign({}, props )), options);
     const datePickers = wrapper.find('DatePicker');
 
-    expect(datePickers.at(0).props().minDate.isSame(props.termStart, 'day')).to.equal(true);
-    expect(datePickers.at(1).props().maxDate.isSame(props.termEnd, 'day')).to.equal(true);
+    expect(datePickers.at(0).props().minDate.isSame(props.termStart, 'day')).toEqual(true);
+    expect(datePickers.at(1).props().maxDate.isSame(props.termEnd, 'day')).toEqual(true);
     return undefined;
   });
 });

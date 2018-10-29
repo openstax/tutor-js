@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import { pick } from 'lodash';
 import { idType } from 'shared';
-import { Panel, Grid, Row, Col, Button } from 'react-bootstrap';
+import { Card, Container, Row, Col, Button } from 'react-bootstrap';
 import classnames from 'classnames';
 import PlanMixin from './plan-mixin';
 import TaskPlanBuilder from './builder';
@@ -42,7 +42,7 @@ const HomeworkPlan = createReactClass({
 
     return (
       <div className="homework-plan task-plan" data-assignment-type="homework">
-        <Panel
+        <Card
           header={this.builderHeader('homework')}
           className={formClasses}
           footer={React.createElement(PlanFooter, {
@@ -56,7 +56,7 @@ const HomeworkPlan = createReactClass({
             getBackToCalendarParams: (this.getBackToCalendarParams),
             goBackToCalendar: (this.goBackToCalendar),
           })}>
-          <Grid fluid={true}>
+          <Container fluid={true}>
             <TaskPlanBuilder courseId={courseId} id={id} {...builderProps} />
             <Row>
               <Col xs={8}>
@@ -70,7 +70,7 @@ const HomeworkPlan = createReactClass({
                     id="problems-select"
                     className={classnames('-select-sections-btn', { 'invalid': hasError && !hasExercises })}
                     onClick={this.showSectionTopics}
-                    bsStyle="default"
+                    variant="default"
                   >+ Select Problems</Button>)}
                 {hasError && !hasExercises && (
                   <span className="problems-required">
@@ -78,8 +78,8 @@ const HomeworkPlan = createReactClass({
                   </span>)}
               </Col>
             </Row>
-          </Grid>
-        </Panel>
+          </Container>
+        </Card>
         {this.state.showSectionTopics && (
           <ChooseExercises
             course={course}

@@ -1,11 +1,11 @@
-import { React, SnapShot, Wrapper } from '../components/helpers/component-testing';
+import { React, SnapShot, Wrapper } from '../helpers';
 import { times } from 'lodash';
 import Factory, { FactoryBot } from '../factories';
 import { MemoryRouter } from 'react-router-dom';
 import QA from '../../src/screens/qa-view/view';
 import Book from '../../src/models/reference-book';
 import QaUX from '../../src/screens/qa-view/ux';
-import EnzymeContext from '../components/helpers/enzyme-context';
+import EnzymeContext from '../helpers/enzyme-context';
 
 jest.mock('../../../shared/src/components/html', () => ({ html }) =>
   html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null

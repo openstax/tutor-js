@@ -19,7 +19,7 @@ class ViewToggle extends React.Component {
         offText="Book"
         offColor="primary"
         value={ux.isDisplayingExercises}
-        onChange={ux.setDisplayingPanel}
+        onChange={ux.setDisplayingCard}
       />
 
     );

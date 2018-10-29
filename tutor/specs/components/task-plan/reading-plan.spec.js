@@ -1,5 +1,5 @@
 let React, sinon, Testing;
-import _ from 'underscore';
+import ld from 'underscore';
 import moment from 'moment-timezone';
 
 import { TaskPlanActions, TaskPlanStore } from '../../../src/flux/task-plan';
@@ -10,7 +10,7 @@ import TimeHelper from '../../../src/helpers/time';
 
 import { ReadingPlan } from '../../../src/components/task-plan/reading';
 import Factory from '../../factories';
-((((((({ Testing, sinon, _, React } = require('../helpers/component-testing'))))))));
+((((((({ Testing, sinon, _, React } = require('helpers'))))))));
 import { ExtendBasePlan, PlanRenderHelper } from '../helpers/task-plan';
 
 const yesterday = moment(TimeStore.getNow()).subtract(1, 'day').format(TimeHelper.ISO_DATE_FORMAT);

@@ -20,11 +20,11 @@ class LmsPairWrapper extends React.Component {
   }
 
   render() {
-    const { ux, ux: { panel: Panel } } = this.props;
+    const { ux, ux: { panel: Card } } = this.props;
 
     return (
       <div className="new-course-wizard">
-        <Panel {...ux.props} />
+        <Card {...ux.props} />
       </div>
     );
   }

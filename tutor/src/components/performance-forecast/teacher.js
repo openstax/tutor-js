@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Panel } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import BackButton from '../buttons/back-button';
 import Router from '../../helpers/router';
 import { first } from 'lodash';
@@ -91,7 +91,7 @@ export default class extends React.Component {
   render() {
     const { courseId } = this.props;
     return (
-      <Panel className="performance-forecast teacher">
+      <Card className="performance-forecast teacher">
         <TourRegion id="performance-forecast">
           <Guide
             courseId={courseId}
@@ -103,7 +103,7 @@ export default class extends React.Component {
             allSections={PerformanceForecast.Teacher.store.getSectionsForPeriod(courseId, this.state.periodId)}
             chapters={PerformanceForecast.Teacher.store.getChaptersForPeriod(courseId, this.state.periodId)} />
         </TourRegion>
-      </Panel>
+      </Card>
     );
   }
 }

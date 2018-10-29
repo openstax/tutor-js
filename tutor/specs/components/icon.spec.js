@@ -1,4 +1,4 @@
-import { Testing, sinon, _, ReactTestUtils } from './helpers/component-testing';
+import { Testing, sinon, ld, ReactTestUtils } from './helpers';
 import React from 'react';
 import Icon from '../../src/components/icon';
 
@@ -9,7 +9,7 @@ describe('Icon Component', function() {
 
   it('renders', () =>
     Testing.renderComponent( Icon, { props } ).then(function({ dom }) {
-      expect(dom.tagName).to.equal('I');
+      expect(dom.tagName).toEqual('I');
       return expect(_.toArray(dom.classList)).to.include('fa-test', 'fa');
     })
   );
@@ -19,11 +19,11 @@ describe('Icon Component', function() {
     props.tooltip = 'a testing tooltip';
     return Testing.renderComponent( Icon, { props } ).then(({ dom }) => {
       //icon should be a button so it's easy to tap and click when tooltip prop is defined
-      expect(dom.tagName).to.equal('BUTTON');
+      expect(dom.tagName).toEqual('BUTTON');
 
       ReactTestUtils.Simulate.mouseOver(dom);
       const tooltipEl = document.querySelector('div[role="tooltip"]');
-      return expect(tooltipEl.textContent).to.equal(props.tooltip);
+      return expect(tooltipEl.textContent).toEqual(props.tooltip);
     });
   });
 

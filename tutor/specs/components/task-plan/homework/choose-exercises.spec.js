@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../../helpers/component-testing';
+import { React, SnapShot } from '../../../helpers';
 import { last } from 'lodash';
 import ChooseExercises from '../../../../src/components/task-plan/homework/choose-exercises';
 import Factory, { FactoryBot } from '../../../factories';
@@ -71,7 +71,7 @@ describe('choose exercises component', function() {
   });
 
   it('renders selections', () => {
-    expect(SnapShot.create(<ChooseExercises {...props} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<ChooseExercises {...props} />).toMatchSnapshot();
   });
 
   it('can select exercises', () => {
@@ -82,7 +82,7 @@ describe('choose exercises component', function() {
     expect(exercise.isSelected).toEqual(true);
     expect(TaskPlanActions.addExercise).toHaveBeenCalledWith(PLAN_ID, exercise.id);
     expect(ce).toHaveRendered('.exercise-controls-bar .review-exercises');
-    expect(SnapShot.create(<ChooseExercises {...props} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<ChooseExercises {...props} />).toMatchSnapshot();
     ce.unmount();
   });
 

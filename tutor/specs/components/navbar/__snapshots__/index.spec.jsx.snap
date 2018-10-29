@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Main navbar renders and matches snapshot 1`] = `
+exports[`Main Navbar renders and matches snapshot 1`] = `
 <nav
   className="tutor-top-navbar"
 >
@@ -25,18 +25,20 @@ exports[`Main navbar renders and matches snapshot 1`] = `
       className="right-side-controls"
     >
       <div
-        className="support-menu dropdown btn-group"
+        className="support-menu dropdown"
+        onKeyDown={[Function]}
       >
-        <a
+        <button
           aria-expanded={false}
           aria-haspopup={true}
           aria-label="Page tips and support"
-          className="dropdown-toggle"
-          href="#"
+          className="dropdown-toggle btn btn-primary"
+          disabled={false}
           id="support-menu"
+          noCaret={true}
           onClick={[Function]}
-          onKeyDown={[Function]}
-          role="button"
+          type="button"
+          useAnchor={true}
         >
           <div
             aria-labelledby="support-menu"
@@ -61,134 +63,31 @@ exports[`Main navbar renders and matches snapshot 1`] = `
               type="angle-down"
             />
           </div>
-        </a>
-        <ul
-          aria-labelledby="support-menu"
-          className="dropdown-menu"
-          role="menu"
-        >
-          <li
-            className="-help-link"
-            role="presentation"
-            style={undefined}
-          >
-            <a
-              href="https://openstax.secure.force.com/help"
-              onClick={[Function]}
-              onKeyDown={[Function]}
-              role="menuitem"
-              tabIndex="-1"
-              target="_blank"
-            >
-              <span>
-                Help Articles
-              </span>
-            </a>
-          </li>
-          <li
-            className="support-document-link"
-            role="presentation"
-            style={undefined}
-          >
-            <a
-              href="https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_student_getting_started_guide.pdf"
-              onClick={[Function]}
-              onKeyDown={[Function]}
-              role="menuitem"
-              tabIndex="-1"
-              target="_blank"
-            >
-              <div
-                className="tour-anchor"
-                data-tour-anchor-id="menu-support-document"
-              >
-                Getting Started Guide
-              </div>
-            </a>
-          </li>
-          <li
-            className="-help-link"
-            role="presentation"
-            style={undefined}
-          >
-            <a
-              href="/accessibility-statement/"
-              onClick={[Function]}
-              onKeyDown={[Function]}
-              role="menuitem"
-              tabIndex="-1"
-            >
-              <span>
-                Accessibility Statement
-              </span>
-            </a>
-          </li>
-        </ul>
+        </button>
       </div>
       <div
-        className="user-menu dropdown btn-group"
+        className="user-menu dropdown"
+        onKeyDown={[Function]}
+        pullRight={true}
       >
-        <a
+        <button
           aria-expanded={false}
           aria-haspopup={true}
           aria-label="Account settings"
-          className="dropdown-toggle"
-          href="#"
+          className="dropdown-toggle btn btn-primary"
+          disabled={false}
           id="user-menu"
+          noCaret={true}
           onClick={[Function]}
-          onKeyDown={[Function]}
-          role="button"
+          type="button"
+          useAnchor={true}
         >
           <span
             className="initials"
           >
             
           </span>
-        </a>
-        <ul
-          aria-labelledby="user-menu"
-          className="dropdown-menu dropdown-menu-right"
-          role="menu"
-        >
-          <li
-            className="logout"
-            role="presentation"
-            style={undefined}
-          >
-            <a
-              aria-label="Log out"
-              href="#"
-              label="Log out"
-              onClick={[Function]}
-              onKeyDown={[Function]}
-              role="menuitem"
-              tabIndex="-1"
-            >
-              <form
-                acceptCharset="UTF-8"
-                action="/accounts/logout"
-                className="-logout-form"
-                method="post"
-              >
-                <input
-                  name="_method"
-                  type="hidden"
-                  value="delete"
-                />
-                <input
-                  name="authenticity_token"
-                  type="hidden"
-                  value={undefined}
-                />
-                <input
-                  aria-label="Log out"
-                  type="submit"
-                  value="Log out"
-                />
-              </form>
-            </a>
-          </li>
-        </ul>
+        </button>
       </div>
     </div>
   </div>

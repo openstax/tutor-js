@@ -1,4 +1,4 @@
-import _ from 'underscore';
+import ld from 'underscore';
 
 import S from '../../src/helpers/string';
 
@@ -57,7 +57,7 @@ const testSortOrderHelper = function(originalArray) {
   const rando = _.shuffle(originalArray);
   const firstSortRando = _.clone(rando).sort();
   const sortedByFunc = _.sortBy(firstSortRando, S.getNumberAndStringOrder);
-  return expect(sortedByFunc.join(',')).to.equal(originalArray.join(','));
+  return expect(sortedByFunc.join(',')).toEqual(originalArray.join(','));
 };
 
 const toRandomCase = function(string) {
@@ -81,9 +81,9 @@ describe('String helpers', function() {
       const allLowerString = stringToMatch.toLowerCase();
       const randomCasedString = toRandomCase(stringToMatch);
 
-      expect(S.capitalize(allCapsString)).to.equal(stringToMatch);
-      expect(S.capitalize(allLowerString)).to.equal(stringToMatch);
-      return expect(S.capitalize(randomCasedString)).to.equal(stringToMatch);
+      expect(S.capitalize(allCapsString)).toEqual(stringToMatch);
+      expect(S.capitalize(allLowerString)).toEqual(stringToMatch);
+      return expect(S.capitalize(randomCasedString)).toEqual(stringToMatch);
     });
     return undefined;
   });
@@ -105,7 +105,7 @@ describe('String helpers', function() {
 
   it('can titleize a string', function() {
     // straight up title
-    expect(S.titleize('foo bar baz')).to.equal('Foo Bar Baz');
+    expect(S.titleize('foo bar baz')).toEqual('Foo Bar Baz');
     // ignores short words
     expect(S.titleize('the 1st bar in a row went via postal mail')).to
       .equal('The 1st Bar in a Row Went via Postal Mail');

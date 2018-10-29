@@ -1,4 +1,4 @@
-import { Testing, _ } from '../helpers/component-testing';
+import { Testing, ld } from 'helpers';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import Sections from '../../../src/components/performance-forecast/weaker-sections';
 import PerformanceForecast from '../../../src/flux/performance-forecast';
@@ -18,7 +18,7 @@ describe('Weaker Sections listing', function() {
 
   it('renders forecast bars', function() {
     return Testing.renderComponent( Sections, { props: props } ).then(function({ dom }) {
-      expect(dom.querySelectorAll('.section').length).to.equal(1);
+      expect(dom.querySelectorAll('.section').length).toEqual(1);
       expect(dom.querySelector('.section:first-child .title').textContent).to
         .equal('Newton\'s First Law of Motion: Inertia');
     });

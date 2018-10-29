@@ -1,7 +1,7 @@
 import last from 'lodash/last';
 import Helper from '../../../src/screens/teacher-dashboard/helper';
 import Sidebar from '../../../src/screens/teacher-dashboard/add-assignment-sidebar';
-import EnzymeContext from '../../components/helpers/enzyme-context';
+import EnzymeContext from '../../helpers/enzyme-context';
 import Factory, { FactoryBot } from '../../factories';
 
 jest.mock('../../../src/screens/teacher-dashboard/helper');

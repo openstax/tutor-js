@@ -17,11 +17,11 @@ describe('Offerings Model', function() {
   });
 
   it('can get offering title', () => {
-    expect(Offerings.get('1').title).to.equal('Biology');
+    expect(Offerings.get('1').title).toEqual('Biology');
   });
 
   it('can get offering description', () => {
-    expect(Offerings.get('1').description).to.equal('Biology with Courseware');
+    expect(Offerings.get('1').description).toEqual('Biology with Courseware');
   });
 
   it('filters for biology2e', () => {

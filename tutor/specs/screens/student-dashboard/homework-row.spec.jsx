@@ -20,14 +20,14 @@ describe('Homework Row', function() {
 
   it('renders with completed count', function() {
     props.event.correct_exercise_count = null;
-    expect(SnapShot.create(<HomeworkRow {...props} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<HomeworkRow {...props} />).toMatchSnapshot();
   });
 
   it('renders with correct count', function() {
     props.event.correct_exercise_count = 0;
-    expect(SnapShot.create(<HomeworkRow {...props} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<HomeworkRow {...props} />).toMatchSnapshot();
     props.event.correct_exercise_count = 2;
-    expect(SnapShot.create(<HomeworkRow {...props} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<HomeworkRow {...props} />).toMatchSnapshot();
   });
 
 });

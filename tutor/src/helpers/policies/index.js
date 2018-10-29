@@ -27,53 +27,53 @@ const defaultTask =
 const defaultStep =
   { type: 'placeholder' };
 
-const getTaskStepPanels = function(stepId) {
+const getTaskStepCards = function(stepId) {
   let step = TaskStepStore.get(stepId);
   if (step == null) { step = defaultStep; }
 
   let task = TaskStore.get(step.task_id);
   if (task == null) { task = defaultTask; }
 
-  const panels = utils._getPanels(task, step);
+  const panels = utils._getCards(task, step);
   return { panels, step, task };
 };
 
-const getPanelsWithStatus = function(stepId) {
+const getCardsWithStatus = function(stepId) {
   let panelsWithStatus;
-  const { task, step, panels } = getTaskStepPanels(stepId);
-  return panelsWithStatus = utils._arePanelsPassed(task, step, panels);
+  const { task, step, panels } = getTaskStepCards(stepId);
+  return panelsWithStatus = utils._areCardsPassed(task, step, panels);
 };
 
 
-const StepPanel = {
-  getPanelsWithStatus,
+const StepCard = {
+  getCardsWithStatus,
 
-  getPanel(stepId) {
-    const panelsWithStatus = getPanelsWithStatus(stepId);
-    const panel = utils._getPanel(panelsWithStatus);
+  getCard(stepId) {
+    const panelsWithStatus = getCardsWithStatus(stepId);
+    const panel = utils._getCard(panelsWithStatus);
 
     return panel.name;
   },
 
   getRemainingActions(stepId) {
-    const panelsWithStatus = getPanelsWithStatus(stepId);
-    const remainingPanels = _.where(panelsWithStatus, { passed: false });
+    const panelsWithStatus = getCardsWithStatus(stepId);
+    const remainingCards = _.where(panelsWithStatus, { passed: false });
 
-    return _.chain(remainingPanels).pluck('actions').flatten().value();
+    return _.chain(remainingCards).pluck('actions').flatten().value();
   },
 
   canReview(stepId) {
-    const { panels } = getTaskStepPanels(stepId);
+    const { panels } = getTaskStepCards(stepId);
     return utils._canReview(panels);
   },
 
   canWrite(stepId) {
-    const { panels } = getTaskStepPanels(stepId);
+    const { panels } = getTaskStepCards(stepId);
     return utils._canWrite(panels);
   },
 
   canForward(stepId) {
-    return StepPanel.canContinue(stepId) && _.isEqual(StepPanel.getRemainingActions(stepId), ['clickContinue']);
+    return StepCard.canContinue(stepId) && _.isEqual(StepCard.getRemainingActions(stepId), ['clickContinue']);
   },
 
   canContinue(stepId) {
@@ -92,4 +92,4 @@ const StepPanel = {
   },
 };
 
-export { StepPanel, utils };
+export { StepCard, utils };

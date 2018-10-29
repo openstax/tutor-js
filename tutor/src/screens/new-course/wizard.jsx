@@ -1,6 +1,6 @@
 import { React, observer, cn, observable } from '../../helpers/react';
 import PropTypes from 'prop-types';
-import { Button, Panel } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import { isFunction } from 'lodash';
 import BackButton from './back-button';
 import CourseOfferingTitle from './offering-title';
@@ -24,7 +24,7 @@ const Footer = observer(({ ux }) => {
       <BackButton ux={ux} />
       <Button
         onClick={ux.goForward}
-        bsStyle="primary"
+        variant="primary"
         className="next"
         disabled={!ux.canGoForward}
       >
@@ -68,7 +68,7 @@ class NewCourseWizard extends React.Component {
     const Component = componentFor(this.ux.stage);
 
     return (
-      <Panel
+      <Card
         header={<Title ux={this.ux} />}
         className={wizardClasses}
         footer={<Footer ux={this.ux} />}
@@ -80,7 +80,7 @@ class NewCourseWizard extends React.Component {
           />
           {!this.ux.isBusy && <Component ux={this.ux} />}
         </div>
-      </Panel>
+      </Card>
     );
   }
 };

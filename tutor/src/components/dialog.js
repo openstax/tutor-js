@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Button, Panel } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import TutorDialog from './tutor-dialog';
 
 import { CloseButton } from 'shared';
@@ -64,9 +64,9 @@ export default class extends React.Component {
     className = classes.join(' ');
 
     return (
-      <Panel className={className} header={header} footer={footer}>
+      <Card className={className} header={header} footer={footer}>
         {this.props.children}
-      </Panel>
+      </Card>
     );
   }
 }

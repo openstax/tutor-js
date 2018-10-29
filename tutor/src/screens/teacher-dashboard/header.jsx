@@ -11,7 +11,7 @@ const CourseCalendarHeader = observer((props) => {
   const { course, hasPeriods, defaultOpen } = props;
   return (
     <div className="calendar-header">
-      {!hasPeriods ? <NoPeriods courseId={course.id} noPanel={true} /> : undefined}
+      {!hasPeriods ? <NoPeriods courseId={course.id} noCard={true} /> : undefined}
       <SidebarToggle
         course={props.course}
         defaultOpen={defaultOpen}

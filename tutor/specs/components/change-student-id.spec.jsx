@@ -1,4 +1,4 @@
-import { SnapShot } from './helpers/component-testing';
+import { SnapShot } from './helpers';
 
 import ChangeStudentId from '../../src/components/change-student-id';
 import { bootstrapCoursesList } from '../courses-test-data';
@@ -18,7 +18,7 @@ describe('Change Student ID', () => {
   });
 
   it('renders and matches snapshot for various states', () => {
-    expect(SnapShot.create(<ChangeStudentId />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<ChangeStudentId />).toMatchSnapshot();
   });
 
   it('is accessible', async () => {

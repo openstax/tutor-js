@@ -13,7 +13,7 @@ import Icon from '../../icon';
 import DateTime from './date-time';
 
 class TaskingDateTimes extends React.Component {
-  static defaultProps = { bsSizes: { sm: 8, md: 9 } };
+  static defaultProps = { sizes: { sm: 8, md: 9 } };
 
   static propTypes = {
     id:                  PropTypes.string.isRequired,
@@ -24,7 +24,7 @@ class TaskingDateTimes extends React.Component {
     isVisibleToStudents: PropTypes.bool,
     taskingIdentifier:   PropTypes.string.isRequired,
     period:              PropTypes.object,
-    bsSizes:             PropTypes.object,
+    sizes:             PropTypes.object,
   };
 
   getError = () => {
@@ -100,7 +100,7 @@ class TaskingDateTimes extends React.Component {
 
     return (
       <Col
-        {...this.props.bsSizes}
+        {...this.props.sizes}
         className="tasking-date-times"
         data-period-id={period ? period.id : 'all'}>
         <DateTime

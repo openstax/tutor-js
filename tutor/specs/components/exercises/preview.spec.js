@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../helpers/component-testing';
+import { React, SnapShot } from 'helpers';
 import ExercisePreviewWrapper from '../../../src/components/exercises/preview';
 
 import Factory from '../../factories';
@@ -26,7 +26,7 @@ describe('Exercise Preview Wrapper Component', function() {
 
 
   it('renders and matches snapshot', () => {
-    expect(SnapShot.create(<ExercisePreviewWrapper {...props} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<ExercisePreviewWrapper {...props} />).toMatchSnapshot();
   });
 
   it('re-renders when model is updated', () => {

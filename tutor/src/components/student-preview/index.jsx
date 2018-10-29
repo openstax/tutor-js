@@ -1,7 +1,7 @@
 import React from 'react';
 import Router from '../../helpers/router';
 
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import YouTube from 'react-youtube';
 import BackButton from '../buttons/back-button';
 import CourseBranding from '../branding/course';
@@ -28,7 +28,7 @@ export default function StudentPreview() {
     { to: 'myCourses', text: 'Back to My Courses' };
 
   return (
-    <Grid className="student-preview">
+    <Container className="student-preview">
       <header>
         <h1>Preview the Student Experience</h1>
         <BackButton fallbackLink={backLink} />
@@ -73,6 +73,6 @@ export default function StudentPreview() {
         </Col>
       </Row>
 
-    </Grid>
+    </Container>
   );
 }

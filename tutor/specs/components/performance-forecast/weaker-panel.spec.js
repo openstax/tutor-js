@@ -1,4 +1,4 @@
-import { Testing, _ } from '../helpers/component-testing';
+import { Testing, ld } from 'helpers';
 import { bootstrapCoursesList } from '../../courses-test-data';
 
 import Weaker from '../../../src/components/performance-forecast/weaker-panel';
@@ -22,7 +22,7 @@ describe('Weaker Section Panel', function() {
   it('displays the title', function() {
     return Testing.renderComponent( Weaker, { props: props } ).then(async ({ dom }) => {
       expect(await axe(dom.outerHTML)).toHaveNoViolations();
-      return expect(dom.querySelector('.title').textContent).to.equal(props.weakerTitle);
+      return expect(dom.querySelector('.title').textContent).toEqual(props.weakerTitle);
     });
   });
 

@@ -1,5 +1,5 @@
 import EventRow from '../../../src/screens/student-dashboard/event-row';
-import { Testing, _, React } from '../../components/helpers/component-testing';
+import { Testing, ld, React } from '../../helpers';
 import Factory from '../../factories';
 
 const EVENT = {
@@ -93,7 +93,7 @@ describe('Event Row', function() {
   });
 
   it('shows withdrawn in due column when showing deleted tasks', function() {
-    expect(deletedRow.find('.due-at').text()).to.equal('Withdrawn');
+    expect(deletedRow.find('.due-at').text()).toEqual('Withdrawn');
   });
 
   it('allows onclick for event row if deleted', function() {

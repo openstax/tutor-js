@@ -30,7 +30,7 @@ class SecondSessionWarning extends GotItOnboardingNag {
           Ready to create your real course? It’s free for you and students will pay {CourseUX.formattedStudentCost} per course.
         </Body>
         <Footer>
-          <Button bsStyle="primary" onClick={this.onLoggedAddCourse}>Create your course</Button>
+          <Button variant="primary" onClick={this.onLoggedAddCourse}>Create your course</Button>
           <Button onClick={this.onLoggedContinue}>Ask me later</Button>
         </Footer>
       </OnboardingNag>

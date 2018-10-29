@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import _ from 'underscore';
+import ld from 'underscore';
 import ld from 'lodash';
 
 import EXERCISES from '../../api/exercises.json';
@@ -34,7 +34,7 @@ describe('QA Exercise Data Filter', function() {
       _.reject(
         _.pluck(this.tags, 'id'), id => _.include(BAD_TAG_IDS, id))
     );
-    expect(tags).to.deep.equal(valid);
+    expect(tags).toEqual(valid);
     return undefined;
   });
 

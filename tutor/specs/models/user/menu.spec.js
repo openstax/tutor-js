@@ -1,8 +1,6 @@
-import SnapShot from 'react-test-renderer';
-import Courses from '../../../src/models/courses-map';
+import { ld, Factory } from '../../../helpers';
 import UserMenu from '../../../src/models/user/menu';
 import User from '../../../src/models/user';
-import { bootstrapCoursesList } from '../../courses-test-data';
 
 jest.mock('../../../src/models/user', () => ({
   isCollegeTeacher: true,
@@ -11,29 +9,35 @@ jest.mock('../../../src/models/user', () => ({
 
 describe('Current User Store', function() {
 
-  beforeEach(function() {
-    bootstrapCoursesList();
-  });
-
-  afterEach(function() {
-    Courses.clear();
-  });
-
   it('computes help URL', () => {
     expect(UserMenu.helpURL).toContain('help');
   });
 
-  it('should return expected menu routes for courses', function() {
+  it('should return expected menu routes when course is missing', () => {
+    User.isConfirmedFaculty = true;
+    expect.snapshot(UserMenu.getRoutes()).toMatchSnapshot();
+  });
+
+  it('should return expected menu routes for a teacher', () => {
+    User.isConfirmedFaculty = true;
+    const course = Factory.course({ is_teacher: true });
+    expect(course.isTeacher).toBe(true);
+    expect.snapshot(UserMenu.getRoutes(course)).toMatchSnapshot();
+  });
+
+  it('should return expected menu routes for a student', () => {
     User.isConfirmedFaculty = false;
-    expect(UserMenu.getRoutes('1')).toMatchSnapshot();
-    expect(UserMenu.getRoutes('2')).toMatchSnapshot();
-    Courses.clear();
-    expect(UserMenu.getRoutes()).toMatchSnapshot();
+    const course = Factory.course({ is_teacher: false });
+    expect(course.isTeacher).toBe(false);
+    expect.snapshot(UserMenu.getRoutes(course)).toMatchSnapshot();
   });
 
   it('hides course creation from non-college faculty', () => {
-    Courses.clear();
     User.isCollegeTeacher = false;
-    expect(UserMenu.getRoutes()).toHaveLength(0);
+    const course = Factory.course({ is_teacher: true });
+    const options = ld.map(UserMenu.getRoutes(course), 'name');
+    expect(options).not.toContain('createNewCourse');
+    expect(options).not.toContain('cloneCourse');
   });
+
 });

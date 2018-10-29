@@ -1,4 +1,4 @@
-import _ from 'underscore';
+import ld from 'underscore';
 import moment from 'moment';
 
 import React from 'react';
@@ -13,8 +13,8 @@ import Add from '../../../../src/components/course-calendar/add';
 
 const planId = '1';
 let courseId = '1';
-import VALID_PLAN_MODEL from '../../../../api/plans/1/stats.json';
-import VALID_COURSE_MODEL from '../../../../api/user/courses/1.json';
+import VALID_PLANldMODEL from '../../../../api/plans/1/stats.json';
+import VALID_COURSEldMODEL from '../../../../api/user/courses/1.json';
 
 import { routerStub, commonActions } from '../utilities';
 

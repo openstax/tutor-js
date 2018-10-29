@@ -1,4 +1,4 @@
-import { Wrapper, SnapShot } from '../helpers/component-testing';
+import { Wrapper, SnapShot } from 'helpers';
 import SecondSessionWarning from '../../../src/components/onboarding/second-session-warning';
 import CoursePreviewUX from '../../../src/models/course/onboarding/preview';
 import EnzymeContext from '../helpers/enzyme-context';
@@ -18,18 +18,18 @@ describe('Second Session Warning', () => {
   });
 
   it('renders and matches snapshot', () => {
-    expect(SnapShot.create(
-      <Wrapper _wrapped_component={SecondSessionWarning} ux={ux} />).toJSON()
+    expect.snapshot(
+      <Wrapper _wrapped_component={SecondSessionWarning} ux={ux} />
     ).toMatchSnapshot();
   });
 
   it('dislays got it and dismisses on continue', async () => {
     const wrapper = shallow(<SecondSessionWarning ux={ux} />);
     expect(await axe(wrapper.html())).toHaveNoViolations();
-    wrapper.find('Button[bsStyle="default"]').simulate('click');
+    wrapper.find('Button[variant="default"]').simulate('click');
     expect(User.logEvent).toHaveBeenCalledWith({ category: 'onboarding', code: 'like_preview_ask_later' });
     expect(wrapper.find('Body').render().text()).toContain('ready to create a real course');
-    wrapper.find('Button[bsStyle="primary"]').simulate('click');
+    wrapper.find('Button[variant="primary"]').simulate('click');
     expect(ux.dismissNag).toHaveBeenCalled();
   });
 
@@ -37,7 +37,7 @@ describe('Second Session Warning', () => {
     const context =  EnzymeContext.build();
     const wrapper = shallow(<SecondSessionWarning ux={ux} />, context);
     expect(await axe(wrapper.html())).toHaveNoViolations();
-    wrapper.find('Button[bsStyle="primary"]').simulate('click');
+    wrapper.find('Button[variant="primary"]').simulate('click');
     expect(User.logEvent).toHaveBeenCalledWith({ category: 'onboarding', code: 'like_preview_yes' });
     expect(context.context.router.history.push).toHaveBeenCalledWith('/dashboard');
   });

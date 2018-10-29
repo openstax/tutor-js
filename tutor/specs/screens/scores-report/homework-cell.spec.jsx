@@ -1,7 +1,7 @@
-import { React } from '../../components/helpers/component-testing';
+import { React } from '../../helpers';
 import bootstrapScores from '../../helpers/scores-data.js';
 import Cell from '../../../src/screens/scores-report/homework-cell';
-import EnzymeContext from '../../components/helpers/enzyme-context';
+import EnzymeContext from '../../helpers/enzyme-context';
 import ScoresUX from '../../../src/screens/scores-report/ux';
 
 describe('Student Scores Homework Cell', function() {
@@ -12,7 +12,7 @@ describe('Student Scores Homework Cell', function() {
   let ux;
 
   beforeEach(() => {
-    (((({ course, scores } = bootstrapScores()))));
+    ({ course, scores } = bootstrapScores());
     ux = new ScoresUX(course);
     task = scores.getTask(18);
     props = {
@@ -88,7 +88,7 @@ describe('Student Scores Homework Cell', function() {
     const cell = mount(<Cell {...props} />, EnzymeContext.build());
     expect(cell).toHaveRendered('.late-caret');
     props.task.student.period.course.roles[0].type = 'student';
-    expect(cell).not.toHaveRendered('.late-caret');
+    expect(cell.update()).not.toHaveRendered('.late-caret');
   });
 
 });

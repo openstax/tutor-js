@@ -20,7 +20,7 @@ const DeleteModal = ({ message, show, onClose, isBusy, onDelete }) => (
     <Modal.Footer>
       <AsyncButton
         className="delete"
-        bsStyle="danger"
+        variant="danger"
         onClick={onDelete}
         waitingText="Deleting…"
         isWaiting={isBusy}>
@@ -67,7 +67,7 @@ class DeleteLink extends React.Component {
     return (
       <Button
         onClick={this.open}
-        bsStyle="default"
+        variant="default"
         className="control delete-assignment">
         <DeleteModal
           message={message}

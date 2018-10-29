@@ -1,6 +1,7 @@
 import { readonly } from 'core-decorators';
 import { uniq, compact, map, first, last, mapValues, omit } from 'lodash';
 import { action, observable, computed } from 'mobx';
+import Map from 'shared/model/map';
 import {
   BaseModel, identifiedBy, belongsTo, identifier, field, session, hasMany,
 } from 'shared/model';
@@ -32,7 +33,7 @@ class ReferenceBook extends BaseModel {
 
   @computed get pages() {
     return mapPages(this, {
-      byId: observable.map(),
+      byId: new Map(), // support string or number keys
       byUUID: observable.map(),
       byChapterSection: observable.map(),
     });

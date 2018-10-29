@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { Promise } from 'es6-promise';
-import _ from 'underscore';
+import ld from 'underscore';
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
 
@@ -35,13 +35,13 @@ const checks = {
   },
 
   _checkIsTargetStepId(targetStepId, { div, component, stepId, taskId, state, router, history }) {
-    expect(stepId).to.equal(targetStepId);
+    expect(stepId).toEqual(targetStepId);
 
     const step = TaskStepStore.get(targetStepId);
 
     const componentStepId = typeof component.getId === 'function' ? component.getId() : undefined;
     if (componentStepId) {
-      expect(componentStepId).to.equal(targetStepId);
+      expect(componentStepId).toEqual(targetStepId);
     }
 
     return { div, component, state, router, history };
@@ -58,14 +58,14 @@ const checks = {
     // response for now.
     const step = TaskStepStore.get(stepId);
     expect(step.free_response).to.be.undefined;
-    expect(div.querySelector('textarea').value).to.equal('');
+    expect(div.querySelector('textarea').value).toEqual('');
     return { div, component, stepId, taskId, state, router, history };
   },
 
   _checkAnswerFreeResponse({ div, component, stepId, taskId, state, router, history, textarea }) {
     const step = TaskStepStore.get(stepId);
     expect(step.free_response.length).to.not.equal(0);
-    expect(step.free_response).to.equal(textarea.value);
+    expect(step.free_response).toEqual(textarea.value);
     return { div, component, stepId, taskId, state, router, history, textarea };
   },
 
@@ -86,7 +86,7 @@ const checks = {
     // Continue should be allowed
     expect(continueButton.disabled).to.not.be.ok;
     expect(step.answer_id).to.not.be.null;
-    expect(step.answer_id).to.equal(answer.id);
+    expect(step.answer_id).toEqual(answer.id);
     return { div, component, stepId, taskId, state, router, history, answer };
   },
 
@@ -94,10 +94,10 @@ const checks = {
     const canReview = StepPanel.canReview(stepId);
 
     if (canReview) {
-      expect(div.querySelector('.answer-correct .answer-answer').innerText).to.equal(correct_answer.content_html);
+      expect(div.querySelector('.answer-correct .answer-answer').innerText).toEqual(correct_answer.content_html);
       expect(div.querySelector('.answer-correct .answer-answer').innerHTML).to.not.equal(div.querySelector('.answer-checked').innerHTML);
 
-      expect(div.querySelector('.question-feedback-content').innerHTML).to.equal(feedback_html);
+      expect(div.querySelector('.question-feedback-content').innerHTML).toEqual(feedback_html);
     } else {
       expect(div.querySelector('.answer-correct .answer-answer')).to.be.null;
     }
@@ -111,7 +111,7 @@ const checks = {
   },
 
   _checkForFeedback({ div, component, stepId, taskId, state, router, history, correct_answer, feedback_html }) {
-    expect(div.querySelector('.question-feedback-content').innerHTML).to.equal(feedback_html);
+    expect(div.querySelector('.question-feedback-content').innerHTML).toEqual(feedback_html);
     return { div, component, stepId, taskId, state, router, history, correct_answer, feedback_html };
   },
 
@@ -172,7 +172,7 @@ const checks = {
     const steps = TaskStore.getStepsIds(taskId);
     const stepNodes = div.querySelectorAll('.openstax-breadcrumbs-step');
 
-    expect(stepNodes.length).to.equal(steps.length + 1);
+    expect(stepNodes.length).toEqual(steps.length + 1);
 
     return { div, component, stepId, taskId, state, router, history };
   },
@@ -184,8 +184,8 @@ const checks = {
     const completedSteps = TaskStore.getCompletedSteps(taskId);
     const incompleteSteps = TaskStore.getIncompleteSteps(taskId);
 
-    expect(completedStepsInReview.length).to.equal(completedSteps.length);
-    expect(todoStepsInReview.length).to.equal(incompleteSteps.length);
+    expect(completedStepsInReview.length).toEqual(completedSteps.length);
+    expect(todoStepsInReview.length).toEqual(incompleteSteps.length);
 
     return { div, component, stepId, taskId, state, router, history };
   },
@@ -194,7 +194,7 @@ const checks = {
     const breadcrumbs = ReactTestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic);
     const steps = TaskStore.getStepsIds(taskId);
 
-    expect(breadcrumbs.length).to.equal(steps.length + 1);
+    expect(breadcrumbs.length).toEqual(steps.length + 1);
 
     return { div, component, stepId, taskId, state, router, history };
   },
@@ -208,7 +208,7 @@ const checks = {
     const { type } = TaskStore.get(taskId);
 
     if (type === 'homework') { expectedCrumbs = steps.length + 1; }
-    expect(breadcrumbs.length).to.equal(expectedCrumbs);
+    expect(breadcrumbs.length).toEqual(expectedCrumbs);
 
     return { div, component, stepId, taskId, state, router, history };
   },
@@ -217,8 +217,8 @@ const checks = {
     const progress = ReactTestUtils.scryRenderedComponentsWithType(component, ProgressBar);
     const progressPanel = ReactTestUtils.scryRenderedComponentsWithType(component, ProgressPanel);
 
-    expect(progress.length).to.equal(1);
-    expect(progressPanel.length).to.equal(1);
+    expect(progress.length).toEqual(1);
+    expect(progressPanel.length).toEqual(1);
 
     return { div, component, stepId, taskId, state, router, history };
   },
@@ -297,7 +297,7 @@ checks.checkIsNotPendingStep = matchStepIndex =>
 checks._checkContinueButtonText = function(buttonText, ...args) {
   const { div } = args[0];
   const continueButton = div.querySelector('.continue');
-  expect(continueButton.innerText).to.equal(buttonText);
+  expect(continueButton.innerText).toEqual(buttonText);
 
   return args[0];
 };

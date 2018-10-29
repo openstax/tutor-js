@@ -13,14 +13,14 @@ describe('Server Time', function() {
     TimeActions.setNow(SERVER_TIME, LOCAL_TIME);
     const time = TimeStore.getNow(LOCAL_TIME);
     // Use strings so millisecs do not matter
-    expect(`${time}`).to.equal(`${SERVER_TIME}`);
+    expect(`${time}`).toEqual(`${SERVER_TIME}`);
     return undefined;
   });
 
   it('prevents invalid dates from being set', function() {
     const today = TimeStore.getNow().toDateString();
     TimeActions.setFromString('an invalid date');
-    expect(TimeStore.getNow().toDateString()).to.equal(today);
+    expect(TimeStore.getNow().toDateString()).toEqual(today);
     return undefined;
   });
 
@@ -29,7 +29,7 @@ describe('Server Time', function() {
     const iso_string = 'Fri Nov 11 2011 00:00:00 GMT+0000 (UTC)';
     TimeActions.setFromString(iso_string, now);
     const time = TimeStore.getNow(now);
-    expect( new Date(iso_string).toDateString() ).to.equal( time.toDateString() );
+    expect( new Date(iso_string).toDateString() ).toEqual( time.toDateString() );
     return undefined;
   });
 });

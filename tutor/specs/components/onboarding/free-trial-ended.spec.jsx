@@ -1,4 +1,4 @@
-import { Wrapper, SnapShot } from '../helpers/component-testing';
+import { Wrapper, SnapShot } from 'helpers';
 import FreeTrialEnded from '../../../src/components/onboarding/free-trial-ended';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import Course from '../../../src/models/course';
@@ -13,12 +13,12 @@ describe('Free trial ended modal', () => {
   });
 
   it('renders and matches snapshot', () => {
-    expect(SnapShot.create(
-      <Wrapper _wrapped_component={FreeTrialEnded} ux={ux} />).toJSON()
+    expect.snapshot(
+      <Wrapper _wrapped_component={FreeTrialEnded} ux={ux} />
     ).toMatchSnapshot();
     courses.clear();
-    expect(SnapShot.create(
-      <Wrapper _wrapped_component={FreeTrialEnded} ux={ux} />).toJSON()
+    expect.snapshot(
+      <Wrapper _wrapped_component={FreeTrialEnded} ux={ux} />
     ).toMatchSnapshot();
   });
 

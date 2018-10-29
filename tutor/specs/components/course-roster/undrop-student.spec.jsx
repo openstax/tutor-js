@@ -1,4 +1,4 @@
-import { React, Testing, sinon, _, ReactTestUtils } from '../helpers/component-testing';
+import { React, Testing, sinon, ld, ReactTestUtils } from 'helpers';
 import { Promise } from 'es6-promise';
 import Student from '../../../src/models/course/student';
 

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { MenuItem, DropdownButton } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import { find } from 'lodash';
 import classnames from 'classnames';
 import { action, observable } from 'mobx';
@@ -66,7 +66,7 @@ class MultiSelect extends React.Component {
     }
 
     return (
-      <MenuItem
+      <Dropdown.Item
         key={selection.id}
         eventKey={selection.id}
         className="multi-selection-option"
@@ -74,14 +74,14 @@ class MultiSelect extends React.Component {
         <Icon type={selection.selected ? 'check-square-o' : 'square-o'} />
         <span className="title">{selection.title}</span>
         {onlyToggle}
-      </MenuItem>
+      </Dropdown.Item>
     );
   };
 
   render() {
     return (
       <div className={classnames('multi-select', this.props.className)}>
-        <DropdownButton
+        <Dropdown.Toggle
           id="multi-select"
           aria-label={this.props.title}
           onSelect={this.onSelect}
@@ -91,7 +91,7 @@ class MultiSelect extends React.Component {
           tabIndex={this.props.tabIndex}
         >
           {Array.from(this.props.selections).map((selection) => this.renderMenuSelection(selection))}
-        </DropdownButton>
+        </Dropdown.Toggle>
       </div>
     );
   }

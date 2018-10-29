@@ -6,8 +6,8 @@ import _ from 'underscore';
 import { TaskStepActions, TaskStepStore } from '../../flux/task-step';
 import { TaskProgressActions, TaskProgressStore } from '../../flux/task-progress';
 import { TaskStore } from '../../flux/task';
-import { TaskPanelStore } from '../../flux/task-panel';
-import { StepPanel } from '../../helpers/policies';
+import { TaskCardStore } from '../../flux/task-panel';
+import { StepCard } from '../../helpers/policies';
 
 import RelatedContentLink from '../related-content-link';
 import { ChapterSectionMixin, CardBody, ExerciseWithScroll, ExControlButtons } from 'shared';
@@ -15,7 +15,7 @@ import { ChapterSectionMixin, CardBody, ExerciseWithScroll, ExControlButtons } f
 import StepFooter from './step-footer';
 
 const canOnlyContinue = id =>
-  _.chain(StepPanel.getRemainingActions(id))
+  _.chain(StepCard.getRemainingActions(id))
     .difference(['clickContinue'])
     .isEmpty()
     .value()
@@ -31,7 +31,7 @@ const getWaitingText = function(id) {
 
 const getReadingForStep = (id, taskId) => TaskStore.getReadingForTaskId(taskId, id);
 
-const getCurrentPanel = id => StepPanel.getPanel(id);
+const getCurrentCard = id => StepCard.getCard(id);
 
 export default createReactClass({
   displayName: 'ExerciseShell',
@@ -61,7 +61,7 @@ export default createReactClass({
     let parts = TaskStore.getStepParts(taskId, id);
 
     parts = _.map(parts, function(part) {
-      const stepIndex = TaskPanelStore.getStepIndex(taskId, { id: part.id });
+      const stepIndex = TaskCardStore.getStepIndex(taskId, { id: part.id });
       const questionNumber = TaskStore.getStepIndex(taskId, part.id) + 1;
 
       return _.extend({}, part, { stepIndex, questionNumber });
@@ -156,7 +156,7 @@ export default createReactClass({
 
   setCurrentStepByStepId(id) {
     const { taskId } = this.props;
-    const stepNavIndex = TaskPanelStore.getStepIndex(taskId, { id });
+    const stepNavIndex = TaskCardStore.getStepIndex(taskId, { id });
     return this.setCurrentStep(stepNavIndex);
   },
 
@@ -237,11 +237,11 @@ export default createReactClass({
         helpLink={React.createElement(RelatedContentLink, { 'courseId': (courseId), 'content': (part.related_content) })}
         onStepCompleted={onStepCompleted}
         controlButtons={controlButtons}
-        canReview={StepPanel.canReview(part.id)}
+        canReview={StepCard.canReview(part.id)}
         disabled={TaskStepStore.isSaving(part.id)}
         canOnlyContinue={canOnlyContinue}
         getWaitingText={getWaitingText}
-        getCurrentPanel={getCurrentPanel}
+        getCurrentCard={getCurrentCard}
         getReadingForStep={getReadingForStep}
         setFreeResponseAnswer={setFreeResponse}
         onFreeResponseChange={this.onFreeResponseChange}

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Button, Panel } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import { action } from 'mobx';
 import { observer } from 'mobx-react';
 import { map, partial } from 'lodash';
@@ -27,7 +27,7 @@ class FreshlyCreatedCourse extends React.Component {
             Now that you've created your OpenStax Tutor course, tell us how you plan to use it:
           </p>
 
-          <Panel
+          <Card
             collapsible
             bsClass='why-ask'
             headerRole='button'
@@ -36,7 +36,7 @@ class FreshlyCreatedCourse extends React.Component {
             OpenStax Tutor is funded by philanthropic foundations who want to know how their gifts
             impact student learning. Your confirmation helps us send accurate student numbers to our
             foundation supporters, helping to secure future funding.
-          </Panel>
+          </Card>
 
         </Body>
         <Footer>

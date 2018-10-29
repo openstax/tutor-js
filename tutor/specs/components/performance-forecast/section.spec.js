@@ -1,4 +1,4 @@
-import { Testing, _ } from '../helpers/component-testing';
+import { Testing, ld } from 'helpers';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import Section from '../../../src/components/performance-forecast/section';
 
@@ -19,7 +19,7 @@ describe('Learning Guide Section Panel', function() {
 
   it('displays the title', function() {
     return Testing.renderComponent( Section, { props: props } ).then(({ dom }) => {
-      return expect(dom.querySelector('.title').textContent).to.equal(props.section.title);
+      return expect(dom.querySelector('.title').textContent).toEqual(props.section.title);
     });
   });
 

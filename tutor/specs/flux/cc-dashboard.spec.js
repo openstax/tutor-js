@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import _ from 'underscore';
+import ld from 'underscore';
 import ld from 'lodash';
 
 const COURSE_ID = '4'; // CC course
@@ -18,14 +18,14 @@ describe('CC Dashboard Store', function() {
 
   it('returns chapters that can be displayed', function() {
     const chapters = CCDashboardStore.chaptersForDisplay(COURSE_ID, PERIOD_ID);
-    expect(_.pluck(chapters, 'id') ).to.deep.equal(['39', '40']);
+    expect(_.pluck(chapters, 'id') ).toEqual(['39', '40']);
     return undefined;
   });
 
   return it('calculates completion on returned chapters', function() {
     const chapters = CCDashboardStore.chaptersForDisplay(COURSE_ID, PERIOD_ID);
     const percents = _.pluck( _.flatten( _.pluck(chapters, 'pages') ), 'completed_percentage');
-    expect(percents).to.deep.equal([0.4, 0.8, 0.8, 0.8]);
+    expect(percents).toEqual([0.4, 0.8, 0.8, 0.8]);
     return undefined;
   });
 });

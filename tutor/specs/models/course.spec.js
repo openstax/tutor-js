@@ -4,7 +4,7 @@ import Courses from '../../src/models/courses-map';
 import Course from '../../src/models/course';
 import Payments from '../../src/models/payments';
 import PH from '../../src/helpers/period';
-import FeatureFlags from '../../src/models/feature_flags';
+import FeatureFlags from '../../src/models/featureldflags';
 import { autorun } from 'mobx';
 import { bootstrapCoursesList } from '../courses-test-data';
 
@@ -70,9 +70,9 @@ describe('Course Model', () => {
 
 
   it('should return expected roles for courses', function() {
-    expect(Courses.get(1).primaryRole.type).to.equal('student');
-    expect(Courses.get(2).primaryRole.type).to.equal('teacher');
-    expect(Courses.get(3).primaryRole.type).to.equal('teacher');
+    expect(Courses.get(1).primaryRole.type).toEqual('student');
+    expect(Courses.get(2).primaryRole.type).toEqual('teacher');
+    expect(Courses.get(3).primaryRole.type).toEqual('teacher');
     expect(Courses.get(1).primaryRole.joinedAgo('days')).toEqual(7);
   });
 

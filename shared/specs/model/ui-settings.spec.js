@@ -23,8 +23,8 @@ describe('UiSettings', function() {
 
   it('remembers initialized values', function() {
     UiSettings.initialize({ 'one': 1, 'two': 'II' });
-    expect(UiSettings.get('one')).to.equal(1);
-    expect(UiSettings.get('two')).to.equal('II');
+    expect(UiSettings.get('one')).toEqual(1);
+    expect(UiSettings.get('two')).toEqual('II');
     return undefined;
   });
 

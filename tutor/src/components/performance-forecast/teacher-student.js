@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
-import { DropdownButton, MenuItem, Panel } from 'react-bootstrap';
+import { Dropdown, Card } from 'react-bootstrap';
 import BackButton from '../buttons/back-button';
 import Router from '../../helpers/router';
 import { sortBy, matches } from 'lodash';
@@ -59,18 +59,23 @@ export default createReactClass({
           <span className="preamble">
             Performance Forecast for:
           </span>
-          <DropdownButton
-            id="student-selection"
-            className="student-selection"
-            title={name}
-            bsStyle="link"
-            onSelect={this.onSelectStudent}>
-            {sortBy(students, 'name').filter((student) => student.role_id !== selected.role_id).map((student) =>
-              <MenuItem key={student.role_id} eventKey={student.role_id}>
-                <Name {...student} />
-              </MenuItem>)}
-          </DropdownButton>
-          <InfoLink type="teacher_student" />
+          <Dropdown>
+            <Dropdown.Toggle
+              id="student-selection"
+              className="student-selection"
+              variant="link"
+              onSelect={this.onSelectStudent}
+            >
+              {name}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {sortBy(students, 'name').filter((student) => student.role_id !== selected.role_id).map((student) =>
+                <Dropdown.Item key={student.role_id} eventKey={student.role_id}>
+                  <Name {...student} />
+                </Dropdown.Item>)}
+            </Dropdown.Menu>
+            <InfoLink type="teacher_student" />
+          </Dropdown>
         </div>
         <div className="info">
           <div className="guide-group-key">
@@ -113,7 +118,7 @@ export default createReactClass({
     const isLoading = PerformanceForecast.TeacherStudent.store.isLoading.bind(PerformanceForecast.TeacherStudent.store, courseId, { roleId });
 
     return (
-      <Panel className="performance-forecast teacher-student">
+      <Card className="performance-forecast teacher-student">
         <Guide
           courseId={courseId}
           roleId={roleId}
@@ -127,7 +132,7 @@ export default createReactClass({
           weakerEmptyMessage="Your student hasn't worked enough problems for Tutor to predict their weakest topics."
           allSections={PerformanceForecast.TeacherStudent.store.getAllSections(courseId, { roleId })}
           chapters={PerformanceForecast.TeacherStudent.store.getChapters(courseId, { roleId })} />
-      </Panel>
+      </Card>
     );
   },
 });

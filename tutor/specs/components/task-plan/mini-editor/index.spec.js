@@ -1,4 +1,4 @@
-import { React, _ } from '../../helpers/component-testing';
+import { React, ld } from '../../../helpers';
 
 import MiniEditor from '../../../../src/components/task-plan/mini-editor';
 import { TaskPlanActions } from '../../../../src/flux/task-plan';

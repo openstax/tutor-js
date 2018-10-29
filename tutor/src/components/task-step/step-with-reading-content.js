@@ -3,7 +3,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import { Button } from 'react-bootstrap';
 import { TaskStepStore } from '../../flux/task-step';
-import { TaskPanelStore } from '../../flux/task-panel';
+import { TaskCardStore } from '../../flux/task-panel';
 import { AsyncButton, ArbitraryHtmlAndMath, ChapterSectionMixin } from 'shared';
 import CourseData from '../../helpers/course-data';
 import { BookContentMixin, LinkContentMixin } from '../book-content-mixin';
@@ -56,7 +56,7 @@ const ReadingStepContent = createReactClass({
 
     return (
       <AsyncButton
-        bsStyle="primary"
+        variant="primary"
         isWaiting={this.state.isContinuing}
         waitingText="Loading…"
         onClick={this.onContinue}>

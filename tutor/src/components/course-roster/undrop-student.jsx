@@ -42,7 +42,7 @@ class UnDropStudentLink extends React.Component {
       <Button
         className="-undrop-student"
         onClick={this.performUnDeletion}
-        bsStyle="success"
+        variant="success"
       >
           Add <Name {...this.props.student} />?
       </Button>

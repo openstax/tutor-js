@@ -26,14 +26,14 @@ describe('EventsPanel', function() {
   });
 
   it('renders with events', function() {
-    expect(SnapShot.create(<EventsPanel {...props} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<EventsPanel {...props} />).toMatchSnapshot();
   });
 
   it('renders with events as named', function() {
     const wrapper = mount(<EventsPanel {...props} />);
     const renderedTitles = wrapper.find('.title').map(item => item.text());
     const mockTitles = map(props.events, 'title');
-    expect(renderedTitles).to.deep.equal(mockTitles);
+    expect(renderedTitles).toEqual(mockTitles);
   });
 
   it('renders late only for homework when is_college is false', function() {

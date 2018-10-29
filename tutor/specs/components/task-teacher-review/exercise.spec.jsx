@@ -1,4 +1,4 @@
-import { SnapShot } from '../helpers/component-testing';
+import { SnapShot } from 'helpers';
 import Factory, { FactoryBot } from '../../factories';
 import TaskPlan from '../../../src/models/task-plan/teacher';
 import planData from '../../../api/plans/1.json';

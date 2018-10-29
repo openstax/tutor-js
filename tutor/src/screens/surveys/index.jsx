@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Survey, Model, StylesManager } from 'survey-react';
 import { observable, computed, action, observe } from 'mobx';
-import { Panel } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import Router from '../../helpers/router';
 import { observer, inject } from 'mobx-react';
 import Courses from '../../models/courses-map';
@@ -21,12 +21,12 @@ const ThankYou = ({ survey }) => {
     { to: 'myCourses', text: 'Back to My Courses' };
 
   return (
-    <Panel>
+    <Card>
       <h3>Thank you for completing the survey!</h3>
       <p>
         <BackButton fallbackLink={backLink} />
       </p>
-    </Panel>
+    </Card>
   );
 };
 

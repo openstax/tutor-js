@@ -75,7 +75,7 @@ class SetWeightsModal extends React.Component {
               { !weights.isDefault?
                 <Button
                   onClick={weights.setDefaults}
-                  bsStyle='link'
+                  variant='link'
                 >Restore default</Button>
                 : null
               }
@@ -94,7 +94,7 @@ class SetWeightsModal extends React.Component {
             waitingText={weights.savingButtonText}
             onClick={weights.onSaveWeights}
             disabled={!weights.isSaveable}
-            bsStyle={(weights.isSaveable && 'primary') || 'default'}
+            variant={(weights.isSaveable && 'primary') || 'default'}
           >Save</AsyncButton>
           <Button
             disabled={weights.isBusy}

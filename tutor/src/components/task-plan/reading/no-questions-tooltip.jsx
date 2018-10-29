@@ -13,7 +13,7 @@ export default class NoQuestionsTooltip extends React.Component {
           <p>Questions are drawn from the Question Library, which you can get to from your dashboard. Remember — if you plan to exclude questions, do so before publishing.</p>
         </Popover>}
         rootClose={true}>
-        <Button bsStyle="link">
+        <Button variant="link">
           Why can't I see the questions for this assignment?
         </Button>
       </OverlayTrigger>

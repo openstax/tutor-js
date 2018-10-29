@@ -4,7 +4,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { computed, observable } from 'mobx';
 import { isEmpty, merge, map, reject, last, take } from 'lodash';
-import { Col, Row, Grid } from 'react-bootstrap';
+import { Col, Row, Container } from 'react-bootstrap';
 import classnames from 'classnames';
 
 import PreviewCourseOffering from '../../models/course/offerings/previews';
@@ -114,14 +114,14 @@ class MyCoursesCurrent extends React.Component {
 
     return (
       <div className={baseName}>
-        <Grid>
+        <Container>
           <MyCoursesTitle title="Current Courses" main={true} />
           {isEmpty(courses) ? <MyCoursesNone /> : undefined}
           <MyCoursesBase
             className={`${baseName}-section`}
             courses={courses}
             after={User.isConfirmedFaculty ? <MyCoursesCreate /> : undefined} />
-        </Grid>
+        </Container>
       </div>
     );
   }
@@ -142,7 +142,7 @@ class MyCoursesBasic extends React.Component {
     return (
       (
         <div className={baseName}>
-          <Grid>
+          <Container>
             <MyCoursesTitle title={title} />
             <MyCoursesBase
               className={`${baseName}-section`}
@@ -150,7 +150,7 @@ class MyCoursesBasic extends React.Component {
               before={before}
               after={after}
             />
-          </Grid>
+          </Container>
         </div>
       )
     );

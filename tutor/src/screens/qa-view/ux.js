@@ -84,7 +84,7 @@ export default class QaScreenUX extends BookUX {
 
   checkForTeacherContent() { }
 
-  @action.bound setDisplayingPanel(el, checked) {
+  @action.bound setDisplayingCard(el, checked) {
     this.isDisplayingExercises = checked;
   }
 

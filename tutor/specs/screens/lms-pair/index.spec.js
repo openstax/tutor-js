@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../../components/helpers/component-testing';
+import { React, SnapShot } from '../../helpers';
 import LmsPair from '../../../src/screens/lms-pair';
 import UX from '../../../src/screens/lms-pair/ux';
 import Factory from '../../factories';

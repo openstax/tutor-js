@@ -12,7 +12,7 @@ describe('MessageList Component', () =>
       'Your enrollment in this course has been processed. Please reload the page.',
     ];
     const wrapper = shallow(<MessageList messages={messages} />);
-    expect(wrapper.find('li').map(node => node.text())).to.deep.equal([
+    expect(wrapper.find('li').map(node => node.text())).toEqual([
       'You are already enrolled in this course.  Please verify the enrollment code and try again.',
       'Your enrollment in this course has been processed. Please reload the page.',
     ]);

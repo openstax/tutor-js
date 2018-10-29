@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { Promise } from 'es6-promise';
-import _ from 'underscore';
+import ld from 'underscore';
 import camelCase from 'lodash/camelCase';
 
 import moment from 'moment-timezone';
@@ -38,7 +38,7 @@ const checks = {
     const expectedMonthLabel = testMoment.format(monthFormat);
 
     expect(monthLabel).to.not.be.null;
-    expect(monthLabel.innerText).to.equal(expectedMonthLabel);
+    expect(monthLabel.innerText).toEqual(expectedMonthLabel);
 
     return { div, component, state, router, history, courseId };
   },
@@ -55,7 +55,7 @@ const checks = {
     const isSameDay = testMoment.isSame(date, 'month');
 
     expect(isSameDay).to.be.true;
-    expect(firstCalBox.innerText).to.equal(firstTestDateMonthBox.date().toString());
+    expect(firstCalBox.innerText).toEqual(firstTestDateMonthBox.date().toString());
     expect(testMonthBox.equals(viewingDuration)).to.be.true;
 
     return { div, component, state, router, history, courseId };
@@ -117,7 +117,7 @@ const checks = {
       const routeName = camelCase(`create-${link.key}`);
       const expectedLink = router.makeHref(routeName, { courseId });
 
-      return expect(link._store.props.href).to.equal(expectedLink);
+      return expect(link._store.props.href).toEqual(expectedLink);
     });
 
     return { div, component, state, router, history, courseId };
@@ -239,7 +239,7 @@ const checks = {
 
     const routeQuery = { due_at: addOnDayDropdown.state.addDate.format(addOnDayDropdown.props.dateFormat) };
     const targetHomeworkLink = router.makeHref('createHomework', { courseId }, routeQuery);
-    expect(state.path).to.equal(targetHomeworkLink);
+    expect(state.path).toEqual(targetHomeworkLink);
     return { div, component, state, router, history, courseId };
   },
 
@@ -263,7 +263,7 @@ checks._checkDoesViewShowPlan = function(planId, { div, component, state, router
   const plansList = TeacherTaskPlanStore.getActiveCoursePlans(courseId);
   const plan = _.findWhere(plansList, { id: planId });
 
-  return expect(document.querySelector('.modal-title').innerText).to.equal(plan.title);
+  return expect(document.querySelector('.modal-title').innerText).toEqual(plan.title);
 };
 
 checks.checkDoesViewShowPlan = planId =>
@@ -307,7 +307,7 @@ checks.checkIsViewPlanElement = planId =>
 checks._checkDoesViewShowPlanStats = function(planId, { div, component, state, router, history, courseId }) {
   const plan = TaskPlanStatsStore.get(planId);
 
-  return expect(document.querySelector('.text-complete').innerText).to.equal(plan.stats[0].complete_count.toString());
+  return expect(document.querySelector('.text-complete').innerText).toEqual(plan.stats[0].complete_count.toString());
 };
 
 checks.checkDoesViewShowPlanStats = planId =>

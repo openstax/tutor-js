@@ -21,12 +21,12 @@ describe('Course Settings, student access', () => {
     expect(access).toHaveRendered(
       `.direct-links-only input[value="${course.periods[0].enrollment_url_with_details}"]`,
     );
-    expect(Renderer.create(<StudentAccess {...props} />).toJSON()).toMatchSnapshot();
+    expect(Renderer.create(<StudentAccess {...props} />).toMatchSnapshot();
   });
 
   it('renders chooser when lms is enabled', () => {
     course.is_lms_enabling_allowed = true;
-    expect(Renderer.create(<StudentAccess {...props} />).toJSON()).toMatchSnapshot();
+    expect(Renderer.create(<StudentAccess {...props} />).toMatchSnapshot();
   });
 
   it('can switch to links', () => {
@@ -38,7 +38,7 @@ describe('Course Settings, student access', () => {
     document.querySelector('.modal.warn-before-links .btn-primary').click();
     expect(course.save).toHaveBeenCalled();
     expect(course.is_lms_enabled).toEqual(false);
-    expect(Renderer.create(<StudentAccess {...props} />).toJSON()).toMatchSnapshot();
+    expect(Renderer.create(<StudentAccess {...props} />).toMatchSnapshot();
     access.unmount();
   });
 
@@ -54,7 +54,7 @@ describe('Course Settings, student access', () => {
     expect(course.lms.fetch).toHaveBeenCalled();
     expect(course.save).toHaveBeenCalled();
     expect(course.is_lms_enabled).toEqual(true);
-    expect(Renderer.create(<StudentAccess {...props} />).toJSON()).toMatchSnapshot();
+    expect(Renderer.create(<StudentAccess {...props} />).toMatchSnapshot();
     access.unmount();
   });
 });

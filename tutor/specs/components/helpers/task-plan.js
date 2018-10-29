@@ -1,6 +1,6 @@
-import _ from 'underscore';
+import ld from 'underscore';
 import { TaskPlanActions, TaskPlanStore } from '../../../src/flux/task-plan';
-import { Testing } from '../helpers/component-testing';
+import { Testing } from 'helpers';
 
 const tomorrow = (new Date(Date.now() + (1000 * 3600 * 24))).toISOString();
 const dayAfter = (new Date(Date.now() + (1000 * 3600 * 24 * 2))).toISOString();

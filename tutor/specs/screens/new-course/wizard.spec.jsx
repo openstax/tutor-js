@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../../components/helpers/component-testing';
+import { React, SnapShot } from '../../helpers';
 import { observable as mockObservable } from 'mobx';
 import Factory from '../../factories';
 import Router from '../../../src/helpers/router';

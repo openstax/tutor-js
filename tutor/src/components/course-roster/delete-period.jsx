@@ -36,7 +36,7 @@ const DeletePeriodModal = ({ section, show, onClose, period, isBusy, onDelete })
     <Modal.Footer>
       <AsyncButton
         className="delete"
-        bsStyle="danger"
+        variant="danger"
         onClick={onDelete}
         waitingText="Deleting…"
         isWaiting={isBusy}>
@@ -78,7 +78,7 @@ class DeletePeriodLink extends React.Component {
     return (
       <Button
         onClick={this.open}
-        bsStyle="link"
+        variant="link"
         className="control delete-period">
         <DeletePeriodModal
           show={this.showModal}

@@ -151,7 +151,7 @@ const TaskPlanMiniEditor = createReactClass({
         </div>
         <div className="row times">
           <TaskingDateTimes
-            bsSizes={{}}
+            sizes={{}}
             id={plan.id}
             isEditable={this.state.error == null}
             courseId={courseId}
@@ -173,7 +173,7 @@ const TaskPlanMiniEditor = createReactClass({
             </TutorLink>
           </Col>
         </div>
-        {errorAttrs ? <Alert bsStyle="danger">
+        {errorAttrs ? <Alert variant="danger">
           <h3>
             {errorAttrs.title}
           </h3>
@@ -181,7 +181,7 @@ const TaskPlanMiniEditor = createReactClass({
         </Alert> : undefined}
         <div className="builder-footer-controls">
           <PublishButton
-            bsSize="small"
+            size="small"
             onSave={this.onSave}
             onPublish={this.onPublish}
             isWaiting={!!(this.isWaiting() && this.state.publishing && isEmpty(this.state.error))}
@@ -192,7 +192,7 @@ const TaskPlanMiniEditor = createReactClass({
             isFailed={false}
             hasError={hasError} />
           <DraftButton
-            bsSize="small"
+            size="small"
             onClick={this.onSave}
             isWaiting={!!(this.isWaiting() && this.state.saving && isEmpty(this.state.error))}
             isFailed={TaskPlanStore.isFailed(id)}
@@ -200,9 +200,9 @@ const TaskPlanMiniEditor = createReactClass({
             isPublished={isPublished}
             isPublishing={!!this.state.publishing} />
           <Button
-            bsSize="small"
+            size="small"
             className="cancel"
-            bsStyle={(this.state.error != null) ? 'primary' : undefined}
+            variant={(this.state.error != null) ? 'primary' : undefined}
             onClick={this.onCancel}
             disabled={this.isWaiting() && (this.state.error == null)}>
             {'\

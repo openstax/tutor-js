@@ -1,4 +1,4 @@
-import { Wrapper, SnapShot } from '../helpers/component-testing';
+import { Wrapper, SnapShot } from 'helpers';
 import StudentPreview from '../../../src/components/student-preview';
 import Router from '../../../src/helpers/router';
 import EnzymeContext from '../helpers/enzyme-context';
@@ -13,7 +13,7 @@ describe('Student Preview Builder', () => {
     Router.currentParams.mockReturnValue({ courseId: '2' });
     Router.makePathname.mockImplementation(() => '/foo');
     expect(
-      SnapShot.create(<Wrapper noReference _wrapped_component={StudentPreview} />).toJSON()
+      SnapShot.create(<Wrapper noReference _wrapped_component={StudentPreview} />
     ).toMatchSnapshot();
   });
 
