@@ -160,7 +160,10 @@ export default class CenterControls extends React.Component {
             {assignment}
           </span>
           <div className="icons">
-            <span className="due-date fa-stack">
+            <span
+              className="due-date fa-stack"
+              aria-label={`Due on ${date}`}
+            >
               <Icon
                 className="due-date"
                 type="calendar-o"

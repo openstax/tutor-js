@@ -16,6 +16,7 @@ exports[`Center Controls matches snapshot 1`] = `
       className="icons"
     >
       <span
+        aria-label="Due on 9"
         className="due-date fa-stack"
       >
         <button
