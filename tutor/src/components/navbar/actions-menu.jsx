@@ -102,12 +102,12 @@ class ActionsMenu extends React.Component {
       const separator = (suffix = 'divider') =>
         <Dropdown.Item divider={true} key={`${key}-${suffix}`} />;
       switch (options.separator) {
-      case 'after':
-        return [item, separator()];
-      case 'before':
-        return [separator(), item];
-      case 'both':
-        return [separator('before'), item, separator('after')];
+        case 'after':
+          return [item, separator()];
+        case 'before':
+          return [separator(), item];
+        case 'both':
+          return [separator('before'), item, separator('after')];
       }
     }
     return item;
@@ -127,6 +127,7 @@ class ActionsMenu extends React.Component {
         <Dropdown.Toggle
           id="actions-menu"
           aria-label="Menu and settings"
+          variant="ox"
         >
           <Icon type="bars" />
           <span className="control-label" title="Menu and settings">Menu</span>

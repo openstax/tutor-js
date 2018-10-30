@@ -58,16 +58,11 @@ export default
 @observer
 class SupportMenu extends React.Component {
 
-  static defaultProps = {
-    bsRole: 'menu',
-  }
-
   static propTypes = {
     tourContext: PropTypes.instanceOf(TourContext),
     course: PropTypes.instanceOf(Course),
     open: PropTypes.bool,
     onClose:  PropTypes.func,
-    tourContext: PropTypes.object.isRequired,
   }
 
   static contextTypes = {
@@ -137,6 +132,7 @@ class SupportMenu extends React.Component {
           id="support-menu"
           ref={m => (this.dropdownToggle = m)}
           aria-label="Page tips and support"
+          variant="ox"
         >
           <TourAnchor
             id="support-menu-button"

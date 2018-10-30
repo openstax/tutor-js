@@ -67,7 +67,11 @@ class EventsCard extends React.Component {
           <Col xs={12} sm={7}>
             {this.renderTitle()}
           </Col>
-          <Col xs={5} xsOffset={2} smOffset={0} sm={3} className="progress-label">
+          <Col
+            xs={{ span: 5, offset: 2 }}
+            sm={{ span: 3, offset: 0 }}
+            className="progress-label"
+          >
             Progress
           </Col>
           <Col xs={5} sm={2} className="due-at-label">

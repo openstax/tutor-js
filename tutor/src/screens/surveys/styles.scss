@@ -51,7 +51,7 @@
     @extend .btn-group;
     > label {
       @extend .btn;
-      @extend .btn-default;
+//      @extend .btn-default;
       height: inherit; // override pattern library default of 5rem
     }
   }

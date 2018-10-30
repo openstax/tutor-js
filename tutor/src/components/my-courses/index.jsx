@@ -33,7 +33,7 @@ class MyCourses extends React.Component {
   }
 
   render() {
-    if (!Courses.size) {
+    if (Courses.isEmpty) {
       if (User.isConfirmedFaculty) {
         if (!User.isCollegeTeacher) {
           return <NoHSTeachers />;

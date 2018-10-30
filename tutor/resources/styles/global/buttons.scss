@@ -16,7 +16,11 @@ $primary-background-hover: #fa804d;
 
 .btn + .btn { margin-left: 0.5rem; }
 
-// .btn-group { border-radius: $btn-border-radius; }
+.btn-ox {
+  color: $tutor-gray;
+}
+
+// // .btn-group { border-radius: $btn-border-radius; }
 
 @mixin btn-round() {
   font-size: 1.6rem;
@@ -84,33 +88,25 @@ $primary-background-hover: #fa804d;
   }
   padding: 9px 18px;
 
-  &.btn-lg {
-    font-size: 1.8rem;
-    padding: 12px 36px;
-  }
+  // &.btn-lg {
+  //   font-size: 1.8rem;
+  //   padding: 12px 36px;
+  // }
 
-  &.btn-sm {
-    height: 30px;
-    padding: 0 20px;
-    border-radius: 2px;
-    font-size: 1.4rem;
-    font-weight: bold;
-  }
+  // &.btn-sm {
+  //   height: 30px;
+  //   padding: 0 20px;
+  //   border-radius: 2px;
+  //   font-size: 1.4rem;
+  //   font-weight: bold;
+  // }
 
-  &.btn-default {
-    @include btn-tutor-default();
-  }
+  // &.btn-default {
+  //   @include btn-tutor-default();
+  // }
 
   &.btn-primary {
     @include btn-tutor-primary();
-  }
-
-  &.btn-secondary {
-    @include button-variant($openstax-white, $openstax-neutral, $openstax-neutral);
-  }
-
-  &.btn-outline-secondary {
-    @include button-variant($openstax-neutral-dark, $openstax-white, $openstax-neutral-light);
   }
 
   &.dark {

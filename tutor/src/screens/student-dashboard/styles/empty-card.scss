@@ -1,0 +1,13 @@
+.student-dashboard {
+  .card.empty {
+      text-align: center;
+
+      &.pending {
+        margin-top: 5rem;
+        &.upcoming {
+          display: none;
+        }
+      }
+  }
+
+}

@@ -1,6 +1,6 @@
-.panel {
+.card {
   &-primary { border: 0; }
-  > .panel-heading {
+  > .card-heading {
     position: relative;
     padding: 10px 20px;
     background-color: $tutor-secondary;
@@ -13,7 +13,7 @@
       font-weight: 700;
     }
 
-    > .panel-title {
+    > .card-title {
       line-height: 1.2rem;
 
       > a {

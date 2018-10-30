@@ -13,19 +13,19 @@ class UserMenu extends React.Component {
   render() {
     return (
       <Dropdown
-
         pullRight
         className="user-menu"
       >
         <Dropdown.Toggle
           id="user-menu"
+          variant="link"
           aria-label="Account settings"
         >
           <span className="initials">{User.initials}</span>
         </Dropdown.Toggle>
         <Dropdown.Menu >
-          <AccountLink bsRole="menu-item" />
-          <LogOut bsRole="menu" />
+          <AccountLink />
+          <LogOut />
         </Dropdown.Menu>
       </Dropdown>
     );

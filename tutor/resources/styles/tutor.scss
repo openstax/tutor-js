@@ -6,7 +6,6 @@
 @import './variables';
 @import './mixins';
 @import './variables/tutor-bootstrap';
-@import './variables/tutor-material';
 
 // External Libraries
 @import './variables/paths';
@@ -20,7 +19,7 @@
 @import './global/notifications-bar';
 @import './global/forms';
 @import './global/maths';
-@import './global/panel';
+@import './global/card';
 @import './global/links';
 @import './global/buttons';
 @import './global/progress-bars';

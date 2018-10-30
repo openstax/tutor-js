@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
-import { Button } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import { SpyMode } from 'shared';
 import Router from '../../helpers/router';
 import LoadableItem from '../../components/loadable-item';
@@ -32,8 +32,8 @@ class ProgressGuide extends React.Component {
     );
 
     return (
-      <div className="progress-guide">
-        <h2 className="panel-title">
+      <Card className="progress-guide">
+        <h2>
           Performance Forecast
         </h2>
         <h3 className="recent">
@@ -46,7 +46,7 @@ class ProgressGuide extends React.Component {
           </div>
         </div>
         <PerformanceForecastColorKey />
-      </div>
+      </Card>
     );
   }
 }
@@ -73,28 +73,27 @@ const ProgressGuideCards = createReactClass({
 
   renderEmpty(sections) {
     return (
-      <div className="progress-guide panel empty">
+      <Card className="progress-guide empty">
         <div className="actions-box">
-          <h1 className="panel-title">
+          <h2>
             Performance Forecast
-          </h1>
+          </h2>
           <p>
-            {`\
-  The performance forecast is an estimate of your current understanding of a topic.
-  It is a personalized display based on your answers to reading questions,
-  homework problems, and previous practices.\
-  `}
+            The performance forecast is an estimate of your
+            current understanding of a topic.
+            It is a personalized display based on your answers
+            to reading questions, homework problems,
+            and previous practices.
           </p>
           <p>
-            {'\
-      This area will fill in with topics as you complete your assignments\
-      '}
+            This area will fill in with topics as you
+            complete your assignments
           </p>
           <SpyMode.Content>
             <ul>
               <li>
-                {sections.length}
-                {' sections were returned by the performance forecast'}
+                {sections.length} sections were returned
+                by the performance forecast
               </li>
               {sections.map((section) =>
                 <li>
@@ -104,7 +103,7 @@ const ProgressGuideCards = createReactClass({
             </ul>
           </SpyMode.Content>
         </div>
-      </div>
+      </Card>
     );
   },
 
@@ -114,21 +113,18 @@ const ProgressGuideCards = createReactClass({
     if (isEmpty(recent)) { return this.renderEmpty(sections); }
 
     return (
-      <div className="progress-guide panel">
+      <Card className="progress-guide">
         <div className="actions-box">
           <ProgressGuide sections={recent} {...this.props} />
           <PracticeWeakestButton courseId={this.props.courseId} />
           <Button
-            role="link"
+            variant="outline-secondary"
             onClick={this.viewPerformanceForecast}
             className="view-performance-forecast"
-            role="link">
-            {'\
-    View All Topics\
-    '}
-          </Button>
+            role="link"
+          >View All Topics</Button>
         </div>
-      </div>
+      </Card>
     );
   },
 });
@@ -146,8 +142,7 @@ export default class extends React.Component {
   renderLoading = (refreshButton) => {
     return (
       <div className="actions-box loadable is-loading">
-        {'\
-    Loading progress information... '}
+        Loading progress information...
         {refreshButton}
       </div>
     );

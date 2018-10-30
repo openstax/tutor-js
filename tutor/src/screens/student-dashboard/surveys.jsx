@@ -35,7 +35,7 @@ class Surveys extends React.Component {
     if (!survey) { return null; }
 
     return (
-      <div className="research-surveys panel">
+      <div className="research-surveys card">
         <div className='actions-box'>
           <h1 className='panel-title'>Research Survey Available</h1>
           <p>

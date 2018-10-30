@@ -5,7 +5,8 @@
     background: $tutor-white;
     border-top: thin dotted $tutor-neutral-neutral-light;
     position: relative;
-    display: block;
+    display: flex;
+    width: 100%;
     color: $tutor-neutral-neutral-neutral-darker;
     overflow: hidden;
     // if the screen is wide enought, set a hight and use line-height to vertically center content.

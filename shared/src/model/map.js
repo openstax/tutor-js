@@ -50,6 +50,10 @@ export default class Map {
     return {};
   }
 
+  @computed get size() {
+    return this._map.size;
+  }
+
   @computed get isEmpty() {
     return this._map.size === 0;
   }

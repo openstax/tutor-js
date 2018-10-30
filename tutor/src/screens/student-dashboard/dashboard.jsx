@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Card } from 'react-bootstrap';
 import { action, observable } from 'mobx';
 import { includes } from 'lodash';
 
@@ -86,7 +86,7 @@ export default class StudentDashboard extends React.Component {
             <Col xs={12} md={4} lg={3} className="sidebar">
               <Surveys course={course} />
               <ProgressGuideShell courseId={course.id} />
-              <div className="actions-box">
+              <Card className="actions-box browse-the-book">
                 <BrowseTheBook
                   unstyled
                   course={course}
@@ -94,7 +94,7 @@ export default class StudentDashboard extends React.Component {
                 >
                   <div>Browse the Book</div>
                 </BrowseTheBook>
-              </div>
+              </Card>
             </Col>
           </Row>
         </TourRegion>

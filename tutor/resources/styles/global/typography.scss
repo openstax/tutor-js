@@ -92,7 +92,7 @@ html {
 }
 
 body {
-  @include tutor-sans-font;
+  @include tutor-sans-font(14px, 16px);
   color: $body-font-color;
 }
 

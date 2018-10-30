@@ -1,7 +1,7 @@
 .student-dashboard {
   // The first panel inside a tab should be positioned at the top with no margin
   .tab-pane, .sidebar {
-    .panel:first-child { margin-top: 0px; }
+    .card:first-child { margin-top: 0px; }
   }
 
   .labels {
@@ -32,8 +32,9 @@
     }
   }
 
-  .panel > .panel-body {
-    padding: 0;
+  .card {
+    padding: 20px;
+    margin-top: 20px;
   }
 
   .sidebar {
