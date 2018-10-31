@@ -58,7 +58,7 @@ describe('ConfirmJoinCourse Component', function() {
         courseEnrollmentActions={courseEnrollmentActions}
         courseEnrollmentStore={COURSE_ENROLLMENT_STORE_WITH_CONFLICT} />);
       wrapper.find('.btn.continue').simulate('click');
-      expect(courseEnrollmentActions.confirm.calledOnce).to.be.true;
+      expect(courseEnrollmentActions.confirm.calledOnce).toBe(true);
       return undefined;
     });
 
@@ -71,7 +71,7 @@ describe('ConfirmJoinCourse Component', function() {
       // http://airbnb.io/enzyme/docs/api/ShallowWrapper/simulate.html
       wrapper.simulate('keyPress', { key: 'Enter' });
       wrapper.find('.btn.continue').simulate('keyPress', { key: 'Enter' });
-      expect(courseEnrollmentActions.confirm.called).to.be.true;
+      expect(courseEnrollmentActions.confirm.called).toBe(true);
       return undefined;
     });
   });
@@ -101,7 +101,7 @@ describe('ConfirmJoinCourse Component', function() {
         courseEnrollmentActions={courseEnrollmentActions}
         courseEnrollmentStore={COURSE_ENROLLMENT_STORE_WITHOUT_CONFLICT} />);
       wrapper.find('.btn.continue').simulate('click');
-      expect(courseEnrollmentActions.confirm.calledOnce).to.be.true;
+      expect(courseEnrollmentActions.confirm.calledOnce).toBe(true);
       return undefined;
     });
 
@@ -114,7 +114,7 @@ describe('ConfirmJoinCourse Component', function() {
       // http://airbnb.io/enzyme/docs/api/ShallowWrapper/simulate.html
       wrapper.simulate('keyPress', { key: 'Enter' });
       wrapper.find('.btn.continue').simulate('keyPress', { key: 'Enter' });
-      expect(courseEnrollmentActions.confirm.called).to.be.true;
+      expect(courseEnrollmentActions.confirm.called).toBe(true);
       return undefined;
     });
   });

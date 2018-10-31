@@ -12,7 +12,7 @@ describe('TutorDialog', () =>
         const body  = `dialog body ${i}`;
         TutorDialog.show({ title, body }).then( () => resolve());
         const dialogs = document.body.querySelectorAll('.tutor-dialog');
-        expect(dialogs).to.have.length(1);
+        expect(dialogs).toHaveLength(1);
         const el = document.body.querySelector('.tutor-dialog');
         expect(el.querySelector('.modal-title').textContent).toEqual(title);
         expect(el.querySelector('.modal-body').textContent).toEqual(body);

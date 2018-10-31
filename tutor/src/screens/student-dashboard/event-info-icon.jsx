@@ -4,6 +4,7 @@ import { Tooltip, OverlayTrigger }  from 'react-bootstrap';
 import S from '../../helpers/string';
 import { TimeStore } from '../../flux/time';
 import moment from 'moment';
+import Icon from '../../components/icon';
 import { observer } from 'mobx-react';
 
 import TourAnchor from '../../components/tours/anchor';
@@ -32,18 +33,27 @@ class EventInfoIcon extends React.Component {
       return null;
     }
 
-    const status = (workedLate || pastDue) ? 'late' : 'incomplete';
+    const isLate = workedLate || pastDue;
 
     const tooltip =
       <Tooltip id={`event-info-icon-${event.id}`}>
         <b>
-          {S.capitalize(status)}
+          {S.capitalize(isLate ? 'late' : 'incomplete')}
         </b>
       </Tooltip>;
 
-    let icon = <OverlayTrigger placement="top" overlay={tooltip}>
-      <i className={`info ${status}`} />
-    </OverlayTrigger>;
+
+    let icon = (
+      <Icon
+        tooltip={tooltip}
+        variant={isLate ? 'warning' : 'danger'}
+        type={isLate ? 'clock' : 'exclamation-circle'}
+      />
+    );
+
+    //  <OverlayTrigger placement="top" overlay={tooltip}>
+    //     <i className={`info ${status}`} />
+    //  </OverlayTrigger>;
 
     if (pastDue) {
       icon = <TourAnchor

@@ -1,6 +1,11 @@
 .student-dashboard {
   .card.empty {
       text-align: center;
+      flex-direction: row;
+      justify-content: center;
+      .spinner {
+        margin-right: 1rem;
+      }
 
       &.pending {
         margin-top: 5rem;

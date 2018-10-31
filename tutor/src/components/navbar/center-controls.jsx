@@ -168,7 +168,7 @@ class CenterControls extends React.Component {
             >
               <Icon
                 className="due-date"
-                type="calendar-o"
+                type="calendar"
                 onNavbar={true}
                 className="fa-stack-2x"
                 tooltipProps={{ placement: 'bottom' }}

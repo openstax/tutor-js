@@ -34,9 +34,10 @@ export default {
     if (_.isNaN(parsedInt)) { return string.toLowerCase(); } else { return parsedInt; }
   },
 
-  // from http://jamesroberts.name/blog/2010/02/22/string-functions-for-javascript-trim-to-camel-case-to-dashed-and-to-underscore/
   dasherize(string) {
-    return string.replace(/\W+/g, '').replace(/([A-Z])/g, $1 => `-${$1.toLowerCase()}`);
+    return string.replace(/[A-Z]/g, function(char, index) {
+      return (index !== 0 ? '-' : '') + char.toLowerCase();
+    });
   },
 
   // originated from http://individed.com/code/to-title-case/

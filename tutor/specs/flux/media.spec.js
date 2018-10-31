@@ -104,7 +104,7 @@ describe('Media flux', function() {
     const mediaIds = MediaStore.getMediaIds();
 
     expect(mediaIds)
-      .to.have.length(10);
+      .toHaveLength(10);
     return undefined;
   });
 });

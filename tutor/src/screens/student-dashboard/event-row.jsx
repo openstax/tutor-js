@@ -44,7 +44,9 @@ class EventRow extends React.Component {
     this.props.event.hide();
   }
 
-  stopEventPropagation(event) {
+  killEvent(event) {
+    debugger
+    event.preventDefault();
     event.stopPropagation();
   }
 
@@ -83,9 +85,13 @@ class EventRow extends React.Component {
       hideButton = (
         <span>
           <SuretyGuard {...guardProps}>
-            <Button className="hide-task" onClick={this.stopEventPropagation}>
-              <Icon type="close" />
-            </Button>
+            <Icon
+              size="lg"
+              type="times-circle"
+              className="hide-task"
+              buttonProps={{ variant: 'link' }}
+              onClick={this.killEvent}
+            />
           </SuretyGuard>
           <span>
             Withdrawn

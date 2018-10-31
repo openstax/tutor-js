@@ -28,7 +28,7 @@ describe('Pinned Header/Footer Card Component', function() {
         <TestChildComponent />
       </PinnedHeaderFooterCard>
     );
-    expect(wrapper.find('TestChildComponent')).to.have.length(1);
+    expect(wrapper.find('TestChildComponent')).toHaveLength(1);
     return undefined;
   });
 
@@ -41,12 +41,12 @@ describe('Pinned Header/Footer Card Component', function() {
         <TestChildComponent />
       </PinnedHeaderFooterCard>
     );
-    expect(document.body.classList.contains(testClass)).to.be.true;
-    expect(document.body.classList.contains('test-view')).to.be.true;
-    expect(document.body.classList.contains('pinned-view')).to.be.true;
+    expect(document.body.classList.contains(testClass)).toBe(true);
+    expect(document.body.classList.contains('test-view')).toBe(true);
+    expect(document.body.classList.contains('pinned-view')).toBe(true);
     expect(document.body.classList.contains('pinned-force-shy')).to.be.false;
     wrapper.unmount();
-    expect(document.body.classList.contains(testClass)).to.be.true;
+    expect(document.body.classList.contains(testClass)).toBe(true);
     return undefined;
   });
 

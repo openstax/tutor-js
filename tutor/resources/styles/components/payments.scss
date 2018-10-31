@@ -48,7 +48,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     .help a { margin-left: 0.5rem; }
-    a { @include tutor-external-link-indicator(); }
+//    a { @include tutor-external-link-indicator(); }
   }
 
 }

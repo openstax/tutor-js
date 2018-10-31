@@ -12,7 +12,7 @@ describe('SpyMode', function() {
   describe('Wrapper', function() {
     it('renders with className', () =>
       Testing.renderComponent( Wrapper ).then(function({ dom }) {
-        expect(dom.classList.contains('openstax-debug-content')).to.be.true;
+        expect(dom.classList.contains('openstax-debug-content')).toBe(true);
         return expect(dom.classList.contains('is-enabled')).to.be.false;
       })
     );
@@ -24,7 +24,7 @@ describe('SpyMode', function() {
     it('enables debug class when pi symbol is clicked', () =>
       Testing.renderComponent( Wrapper ).then(function({ dom }) {
         Testing.actions.click(dom.querySelector('.debug-toggle-link'));
-        return _.defer(() => expect(dom.classList.contains('is-enabled')).to.be.true);
+        return _.defer(() => expect(dom.classList.contains('is-enabled')).toBe(true));
       })
     );
 
@@ -46,7 +46,7 @@ describe('SpyMode', function() {
 
   describe('Content', function() {
     it('renders with className', () =>
-      Testing.renderComponent( Content ).then(({ dom }) => expect(dom.classList.contains('visible-when-debugging')).to.be.true)
+      Testing.renderComponent( Content ).then(({ dom }) => expect(dom.classList.contains('visible-when-debugging')).toBe(true))
     );
 
     it('renders child components', function() {

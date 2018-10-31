@@ -1,4 +1,4 @@
-import { observable, computed, action } from 'mobx';
+import { observable, computed, action, toJS } from 'mobx';
 import { isArray, isObject } from 'lodash';
 import ModelApi from './api';
 import lazyGetter from '../helpers/lazy-getter.js';
@@ -20,6 +20,10 @@ export default class Map {
 
   @computed get array() {
     return this.values();
+  }
+
+  toJS() {
+    return toJS(this._map);
   }
 
   keys() {
@@ -72,7 +76,7 @@ export default class Map {
   }
 }
 
-['map', 'replace'].forEach(prop => {
+['map', 'replace', 'clear'].forEach(prop => {
   Map.prototype[prop] = function(...args) {
     return this._map[prop](...args);
   };

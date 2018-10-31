@@ -51,7 +51,7 @@ const checks = {
     const continueButton = div.querySelector('.continue');
 
     expect(div.querySelector('.answers-table')).to.be.null;
-    expect(continueButton.disabled).to.be.true;
+    expect(continueButton.disabled).toBe(true);
 
     // TODO
     // Will eventually test based on task type.  Assuming exercise with free
@@ -73,7 +73,7 @@ const checks = {
     const continueButton = div.querySelector('.continue');
 
     // Prevent continue until answer chosen, answers should be showing.
-    expect(continueButton.disabled).to.be.true;
+    expect(continueButton.disabled).toBe(true);
     expect(div.querySelector('.answers-table')).to.not.be.null;
     expect(div.querySelector('.answer-checked')).to.be.null;
     return { div, component, stepId, taskId, state, router, history };

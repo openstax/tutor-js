@@ -8,10 +8,10 @@ import Notifications from '../../model/notifications';
 
 // Keep in sync with keys on model/notifications
 const TYPES = {
-  system: require('./system'),
-  accounts: require('./email'),
-  [Notifications.POLLING_TYPES.MISSING_STUDENT_ID]: require('./missing-student-id'),
-  [Notifications.POLLING_TYPES.COURSE_HAS_ENDED]:   require('./course-has-ended'),
+  system: require('./system').default,
+  accounts: require('./email').default,
+  [Notifications.POLLING_TYPES.MISSING_STUDENT_ID]: require('./missing-student-id').default,
+  [Notifications.POLLING_TYPES.COURSE_HAS_ENDED]:   require('./course-has-ended').default,
 };
 
 class NotificationBar extends React.Component {
@@ -67,22 +67,24 @@ class NotificationBar extends React.Component {
   }
 
   render() {
+    const notices = [];
+    for (let notice of this.state.notices || []) {
+      const Notice = TYPES[(notice && notice.type) || 'system'] || TYPES['system'];
+      notices.push(
+        <Notice
+          key={notice.id}
+          noticeId={notice.id}
+          notice={notice}
+          onDismiss={partial(this.onDismiss, notice)}
+          callbacks={this.props.callbacks[notice.type]} />
+      );
+    }
+
     return (
       <div
-        className={classnames('openstax-notifications-bar', this.props.className, { viewable: !isEmpty(this.state.notices) })}>
-        {(() => {
-          const result = [];
-          for (let notice of this.state.notices || []) {
-            const Notice = TYPES[(notice != null ? notice.type : undefined) || 'system'] || TYPES['system'];
-            result.push(<Notice
-              key={notice.id}
-              noticeId={notice.id}
-              notice={notice}
-              onDismiss={partial(this.onDismiss, notice)}
-              callbacks={this.props.callbacks[notice.type]} />);
-          }
-          return result;
-        })()}
+        className={classnames('openstax-notifications-bar', this.props.className, { viewable: !isEmpty(this.state.notices) })}
+      >
+        {notices}
       </div>
     );
   }

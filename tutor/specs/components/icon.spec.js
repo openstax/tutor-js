@@ -1,41 +1,42 @@
-import { Testing, sinon, ld, ReactTestUtils } from './helpers';
-import React from 'react';
+import { React } from '../helpers';
 import Icon from '../../src/components/icon';
+import { last } from 'lodash';
 
 describe('Icon Component', function() {
   let props = {};
 
-  beforeEach(() => props = { type: 'test' });
+  beforeEach(() => props = { type: 'ghost' });
 
-  it('renders', () =>
-    Testing.renderComponent( Icon, { props } ).then(function({ dom }) {
-      expect(dom.tagName).toEqual('I');
-      return expect(_.toArray(dom.classList)).to.include('fa-test', 'fa');
-    })
-  );
-
-  it('renders with a tooltip', function() {
-    props.tooltipProps = { placement: 'bottom' };
-    props.tooltip = 'a testing tooltip';
-    return Testing.renderComponent( Icon, { props } ).then(({ dom }) => {
-      //icon should be a button so it's easy to tap and click when tooltip prop is defined
-      expect(dom.tagName).toEqual('BUTTON');
-
-      ReactTestUtils.Simulate.mouseOver(dom);
-      const tooltipEl = document.querySelector('div[role="tooltip"]');
-      return expect(tooltipEl.textContent).toEqual(props.tooltip);
-    });
+  it('renders', () => {
+    expect.snapshot(<Icon {...props} />).toMatchSnapshot();
   });
 
+  it('renders with a tooltip', () => {
+    props.tooltipProps = { placement: 'bottom' };
+    props.tooltip = 'a testing tooltip';
+    const icon = shallow(<Icon {...props} />);
+    expect(icon).toHaveRendered('OverlayTrigger');
+    icon.unmount();
+  });
 
-  return it('sets on-navbar css class', function() {
+  it('renders as button when given an onClick', () => {
+    props.onClick = jest.fn();
+    const icon = mount(<Icon {...props} />);
+    expect(icon).toHaveRendered('Button');
+    icon.find('Button').simulate('click');
+    expect(props.onClick).toHaveBeenCalled();
+    icon.unmount();
+  });
+
+  it('sets on-navbar css class', () => {
     props.onNavbar = true;
     props.tooltipProps = { placement: 'bottom' };
     props.tooltip = 'a testing tooltip';
-    return Testing.renderComponent( Icon, { props } ).then(function({ dom }) {
-      ReactTestUtils.Simulate.mouseOver(dom);
-      const tooltipEl = _.last(document.querySelectorAll('div[role="tooltip"]'));
-      return expect(_.toArray(tooltipEl.classList)).to.include('on-navbar');
-    });
+    const icon = mount(<Icon {...props} />);
+    icon.find('FontAwesomeIcon').simulate('mouseover');
+    const tooltipEl = last(document.body.querySelectorAll('[role=tooltip]'));
+    expect(tooltipEl.classList).toContain('on-navbar');
+    icon.unmount();
   });
+
 });

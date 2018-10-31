@@ -6,7 +6,6 @@ import { autobind } from 'core-decorators';
 import Course from '../../models/course';
 import EmptyCard from './empty-panel';
 import EventsCard from './events-panel';
-import StudentTasks from '../../models/student-tasks';
 import { map, isEmpty } from 'lodash';
 
 export default

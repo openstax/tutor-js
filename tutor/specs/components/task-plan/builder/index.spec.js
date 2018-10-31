@@ -152,7 +152,7 @@ describe('Task Plan Builder', function() {
     helper(PUBLISHED_MODEL).then(function({ dom, element }) {
       expect(dom.querySelector('#show-periods-radio')).to.be.null;
       expect(dom.querySelector('#hide-periods-radio')).to.be.null;
-      return expect(element.props.isVisibleToStudents).to.be.true;
+      return expect(element.props.isVisibleToStudents).toBe(true);
     })
   );
 
@@ -163,7 +163,7 @@ describe('Task Plan Builder', function() {
       const inputDom = dom.querySelector('.-assignment-open-date .-tutor-date-input input');
 
       expect(datepicker).to.be.null;
-      return expect(inputDom.disabled).to.be.true;
+      return expect(inputDom.disabled).toBe(true);
     })
   );
 
@@ -210,7 +210,7 @@ describe('Task Plan Builder', function() {
       //set due dates to be different
       setDate(element, NEW_READING, onePeriod, tomorrow, 'due');
       setDate(element, NEW_READING, anotherPeriod, dayAfter, 'due');
-      expect(hasAnyDueDate(dom)).to.be.true;
+      expect(hasAnyDueDate(dom)).toBe(true);
       const dueDates = getDueDates(dom);
 
       // set all periods, due at should be cleared
@@ -219,7 +219,7 @@ describe('Task Plan Builder', function() {
 
       // reset to individual, due dates should still exist
       element.setIndividualPeriods();
-      expect(hasAnyDueDate(dom)).to.be.true;
+      expect(hasAnyDueDate(dom)).toBe(true);
       return expect(getDueDates(dom)).toEqual(dueDates);
     });
   });
@@ -282,7 +282,7 @@ describe('Task Plan Builder', function() {
 
       const { tasking_plans } = TaskPlanStore.get(NEW_READING.id);
 
-      expect(tasking_plans).to.have.length(COURSES[0].periods.length - 2);
+      expect(tasking_plans).toHaveLength(COURSES[0].periods.length - 2);
       return expect(_.pluck(tasking_plans, 'id')).to.not.have
         .members(_.pluck([disabledPeriod, anotherDisabledPeriod], 'id'));
     });

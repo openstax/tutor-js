@@ -149,7 +149,7 @@ describe('Tasking Flux', function() {
     TaskingActions.loadTaskToCourse(NEW_TASK_ID, course.id);
     TaskingActions.create(NEW_TASK_ID);
 
-    expect(TaskingStore.getTaskingsIsAll(NEW_TASK_ID)).to.be.true;
+    expect(TaskingStore.getTaskingsIsAll(NEW_TASK_ID)).toBe(true);
     return undefined;
   });
 
@@ -212,13 +212,13 @@ describe('Tasking Flux', function() {
     const newTaskingsDifferent = TaskingStore.get('different');
 
     _.each(newTaskings, function(tasking) {
-      expect(TimeHelper.isDateTimeString(tasking.opens_at)).to.be.true;
-      return expect(TimeHelper.isDateTimeString(tasking.due_at)).to.be.true;
+      expect(TimeHelper.isDateTimeString(tasking.opens_at)).toBe(true);
+      return expect(TimeHelper.isDateTimeString(tasking.due_at)).toBe(true);
     });
 
     _.each(newTaskingsDifferent, function(tasking) {
-      expect(TimeHelper.isDateTimeString(tasking.opens_at)).to.be.true;
-      return expect(TimeHelper.isDateTimeString(tasking.due_at)).to.be.true;
+      expect(TimeHelper.isDateTimeString(tasking.opens_at)).toBe(true);
+      return expect(TimeHelper.isDateTimeString(tasking.due_at)).toBe(true);
     });
     return undefined;
   });

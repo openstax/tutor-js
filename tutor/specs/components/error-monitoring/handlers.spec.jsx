@@ -37,7 +37,7 @@ describe('Error monitoring: handlers', () => {
     const attrs = Handlers.forError(error`blarg`, context);
     expect(attrs.title).to.include('Server Error');
     const wrapper = shallow(<Wrapper body={attrs.body} />);
-    expect(wrapper.find('ServerErrorMessage')).to.have.length(1);
+    expect(wrapper.find('ServerErrorMessage')).toHaveLength(1);
   });
 
   it('renders not started message', function() {

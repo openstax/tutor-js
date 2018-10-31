@@ -48,15 +48,15 @@
       }
       .info { font-style: italic; }
       &.checked {
-        .box::after {
-          @include fa-icon();
-          content: $fa-var-check;
-          color: $tutor-secondary;
-          font-size: 45px;
-          border-radius: 50%;
-          margin-left: -5px;
-          margin-top: -15px;
-        }
+        // .box::after {
+        //   @include fa-icon();
+        //   content: $fa-var-check;
+        //   color: $tutor-secondary;
+        //   font-size: 45px;
+        //   border-radius: 50%;
+        //   margin-left: -5px;
+        //   margin-top: -15px;
+        // }
         .info { display: none; }
       }
 

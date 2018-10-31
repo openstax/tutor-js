@@ -23,8 +23,8 @@ describe('SmartOverflow Component', function() {
 
   it('renders with className', () =>
     Testing.renderComponent( SmartOverflow, { props } ).then(function({ dom }) {
-      expect(dom.classList.contains('testing')).to.be.true;
-      return expect(dom.classList.contains('openstax-smart-overflow')).to.be.true;
+      expect(dom.classList.contains('testing')).toBe(true);
+      return expect(dom.classList.contains('openstax-smart-overflow')).toBe(true);
     })
   );
 

@@ -17,12 +17,6 @@
     display: flex;
     align-content: center;
     justify-content: space-between;
-    &::before {
-      @include fa-icon();
-      font-size: 26px;
-      font-weight: normal;
-      margin-right: 0.5rem;
-    }
   }
 
   .body {
@@ -32,9 +26,9 @@
   .success {
     .title{
       color: #629030;
-      &::before {
-        content: $fa-var-check-circle;
-      }
+      // &::before {
+      //   content: $fa-var-check-circle;
+      // }
     }
   }
 
@@ -49,9 +43,9 @@
     .title {
       color: #C22032;
       background-color: #f5e9ea;
-      &::before {
-        content: $fa-var-exclamation-triangle;
-      }
+      // &::before {
+      //   content: $fa-var-exclamation-triangle;
+      // }
       .openstax-icon[type="close"] {
         color: $openstax-neutral-dark;
         margin-left: 2rem;

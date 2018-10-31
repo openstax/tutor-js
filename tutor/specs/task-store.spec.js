@@ -12,11 +12,11 @@ describe('Task Store', function() {
 
   it('should clear the store', function() {
     const id = '0';
-    expect(TaskStore.isUnknown(id)).to.be.true;
+    expect(TaskStore.isUnknown(id)).toBe(true);
     TaskActions.loaded({ hello: 'foo', steps: [] }, id);
     expect(TaskStore.isUnknown(id)).to.be.false;
     TaskActions.reset();
-    expect(TaskStore.isUnknown(id)).to.be.true;
+    expect(TaskStore.isUnknown(id)).toBe(true);
     return undefined;
   });
 
@@ -33,7 +33,7 @@ describe('Task Store', function() {
 
   it('should load a task through the happy path', function() {
     const id = '0';
-    expect(TaskStore.isUnknown(id)).to.be.true;
+    expect(TaskStore.isUnknown(id)).toBe(true);
     expect(TaskStore.isLoaded(id)).to.be.false;
     expect(TaskStore.isLoading(id)).to.be.false;
     expect(TaskStore.isFailed(id)).to.be.false;
@@ -42,13 +42,13 @@ describe('Task Store', function() {
 
     expect(TaskStore.isUnknown(id)).to.be.false;
     expect(TaskStore.isLoaded(id)).to.be.false;
-    expect(TaskStore.isLoading(id)).to.be.true;
+    expect(TaskStore.isLoading(id)).toBe(true);
     expect(TaskStore.isFailed(id)).to.be.false;
 
     TaskActions.loaded({ hello: 'bar', steps: [] }, id);
 
     expect(TaskStore.isUnknown(id)).to.be.false;
-    expect(TaskStore.isLoaded(id)).to.be.true;
+    expect(TaskStore.isLoaded(id)).toBe(true);
     expect(TaskStore.isLoading(id)).to.be.false;
     expect(TaskStore.isFailed(id)).to.be.false;
 
@@ -59,7 +59,7 @@ describe('Task Store', function() {
 
   it('should note when a load failed', function() {
     const id = '0';
-    expect(TaskStore.isUnknown(id)).to.be.true;
+    expect(TaskStore.isUnknown(id)).toBe(true);
     expect(TaskStore.isLoaded(id)).to.be.false;
     expect(TaskStore.isLoading(id)).to.be.false;
     expect(TaskStore.isFailed(id)).to.be.false;
@@ -68,7 +68,7 @@ describe('Task Store', function() {
 
     expect(TaskStore.isUnknown(id)).to.be.false;
     expect(TaskStore.isLoaded(id)).to.be.false;
-    expect(TaskStore.isLoading(id)).to.be.true;
+    expect(TaskStore.isLoading(id)).toBe(true);
     expect(TaskStore.isFailed(id)).to.be.false;
 
     TaskActions.FAILED(404, { err: 'message' }, id);
@@ -76,7 +76,7 @@ describe('Task Store', function() {
     expect(TaskStore.isUnknown(id)).to.be.false;
     expect(TaskStore.isLoaded(id)).to.be.false;
     expect(TaskStore.isLoading(id)).to.be.false;
-    expect(TaskStore.isFailed(id)).to.be.true;
+    expect(TaskStore.isFailed(id)).toBe(true);
     return undefined;
   });
 
@@ -91,7 +91,7 @@ describe('Task Store', function() {
     TaskActions.loaded(pastDue, 'past');
     TaskActions.loaded(beforeDue, 'before');
 
-    expect(TaskStore.isTaskPastDue('past')).to.be.true;
+    expect(TaskStore.isTaskPastDue('past')).toBe(true);
     expect(TaskStore.isTaskPastDue('before')).to.be.false;
     return undefined;
   });

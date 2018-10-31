@@ -25,7 +25,7 @@ describe('Unsaved State Mixin', function() {
   });
 
   it('checks component to see if it has unsaved data', function() {
-    expect(TransitionAssistant.canTransition()).to.be.true;
+    expect(TransitionAssistant.canTransition()).toBe(true);
 
     return Testing.renderComponent( DirtyComponent, {} ).then(({ element }) => {
       expect(checks.dirty).not.toHaveBeenCalled();

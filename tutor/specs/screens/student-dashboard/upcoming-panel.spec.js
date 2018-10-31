@@ -1,26 +1,21 @@
 import moment from 'moment-timezone';
 import Upcoming from '../../../src/screens/student-dashboard/upcoming-panel';
-import chronokinesis from 'chronokinesis';
-import { Testing, ld, React } from '../../helpers';
+import { TimeMock, React } from '../../helpers';
 import Factory from '../../factories';
 
 describe('Upcoming Events', () => {
 
-  let props, now;
+  let props;
+  const now = new Date('2017-10-14T12:00:00.000Z');
+  TimeMock.setTo(now);
 
   beforeEach(() => {
-    now = new Date('2017-10-14T12:00:00.000Z');
-    chronokinesis.travel(now);
-    moment.tz.setDefault('America/Chicago');
-    moment.locale('en');
     props = {
       course: Factory.course(),
     };
   });
 
-
   it('shows anything past next week', () => {
-
     const panel = mount(<Upcoming {...props} />);
     expect(panel.text()).toContain('No upcoming assignments');
 

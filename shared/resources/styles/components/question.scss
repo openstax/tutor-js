@@ -1,6 +1,6 @@
 &-question {
 
-  @include clearfix;
+  //@include clearfix;
 
   .detailed-solution {
     margin-bottom: 1.5rem;
@@ -156,7 +156,7 @@
       width: calc('100% + #{$openstax-feedback-horizontal-buffer}');
       max-width: calc('100% + #{$openstax-feedback-horizontal-buffer}');
       margin-left: -1 * $openstax-feedback-horizontal-spacing;
-      margin-top: -1 * (($openstax-answer-vertical-spacing - $popover-arrow-width)/10);
+      margin-top: -1 * (($openstax-answer-vertical-spacing - 1rem)/10);
       margin-bottom: $openstax-answer-horizontal-spacing;
       z-index: 1;
       @include box-shadow(0 0 10px rgba(0, 0, 0, .25));
@@ -164,7 +164,7 @@
 
       .arrow {
         &::after {
-          border-width: $popover-arrow-width;
+          border-width: 1rem;
           content: "";
         }
         // @extend .popover > .arrow;

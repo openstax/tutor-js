@@ -38,7 +38,7 @@ const testWeakCount = function( returnedLength, sampleSizes ) {
   for (let count of sampleSizes) {
     const sections = makeSections(count, 10);
     const weakest = LGH.weakestSections( sections );
-    expect( weakest ).to.have.length(returnedLength);
+    expect( weakest ).toHaveLength(returnedLength);
     const ourWeakest = _.sortBy( LGH.filterForecastedSections(sections), s => s.clue.most_likely);
     expect(ourWeakest.slice(0, +(returnedLength - 1) + 1 || undefined)).toEqual(weakest);
   }

@@ -54,9 +54,9 @@ const checks = {
 
     const isSameDay = testMoment.isSame(date, 'month');
 
-    expect(isSameDay).to.be.true;
+    expect(isSameDay).toBe(true);
     expect(firstCalBox.innerText).toEqual(firstTestDateMonthBox.date().toString());
-    expect(testMonthBox.equals(viewingDuration)).to.be.true;
+    expect(testMonthBox.equals(viewingDuration)).toBe(true);
 
     return { div, component, state, router, history, courseId };
   },
@@ -129,7 +129,7 @@ const checks = {
 
     const isYesterday = shouldBeYesterday._reactInternalInstance._context.date
       .isSame(moment(TimeStore.getNow()).subtract(1, 'day'), 'day');
-    expect(isYesterday).to.be.true;
+    expect(isYesterday).toBe(true);
     return { div, component, state, router, history, courseId };
   },
 
@@ -138,7 +138,7 @@ const checks = {
     const shouldBeToday = _.first(currents);
 
     const isToday = shouldBeToday._reactInternalInstance._context.date.isSame(moment(TimeStore.getNow()), 'day');
-    expect(isToday).to.be.true;
+    expect(isToday).toBe(true);
     return { div, component, state, router, history, courseId };
   },
 
@@ -146,7 +146,7 @@ const checks = {
     const upcomings = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--upcoming');
     const shouldBeTomorrow = _.first(upcomings);
     const isTomorrow = shouldBeTomorrow._reactInternalInstance._context.date.isSame(moment(TimeStore.getNow()).add(1, 'day'), 'day');
-    expect(isTomorrow).to.be.true;
+    expect(isTomorrow).toBe(true);
     return { div, component, state, router, history, courseId };
   },
 
@@ -205,14 +205,14 @@ const checks = {
   _checkTodayAddPlansDropDown({ div, component, state, router, history, courseId }) {
     const currents = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--current');
     const shouldBeToday = _.first(currents);
-    expect(shouldBeToday.getDOMNode().classList.contains('active')).to.be.true;
+    expect(shouldBeToday.getDOMNode().classList.contains('active')).toBe(true);
 
     const addOnDayDropdown = ReactTestUtils.findRenderedComponentWithType(component, Add);
     expect(addOnDayDropdown.getDOMNode().style.display).to.not.equal('none');
 
     const isToday = addOnDayDropdown.state.addDate.isSame(moment(TimeStore.getNow()), 'day');
     // add date for drop down should be Today
-    expect(isToday).to.be.true;
+    expect(isToday).toBe(true);
     checks._checkAddMenu(addOnDayDropdown, router, courseId);
 
     return { div, component, state, router, history, courseId };
@@ -221,14 +221,14 @@ const checks = {
   _checkTomorrowAddPlansDropDown({ div, component, state, router, history, courseId }) {
     const upcomings = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--upcoming');
     const shouldBeTomorrow = _.first(upcomings);
-    expect(shouldBeTomorrow.getDOMNode().classList.contains('active')).to.be.true;
+    expect(shouldBeTomorrow.getDOMNode().classList.contains('active')).toBe(true);
 
     const addOnDayDropdown = ReactTestUtils.findRenderedComponentWithType(component, Add);
     expect(addOnDayDropdown.getDOMNode().style.display).to.not.equal('none');
 
     const isTomorrow = addOnDayDropdown.state.addDate.isSame(moment(TimeStore.getNow()).add(1, 'day'), 'day');
     // add date for drop down should be Tomorrow
-    expect(isTomorrow).to.be.true;
+    expect(isTomorrow).toBe(true);
     checks._checkAddMenu(addOnDayDropdown, router, courseId);
 
     return { div, component, state, router, history, courseId };

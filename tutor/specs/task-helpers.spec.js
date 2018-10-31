@@ -20,7 +20,7 @@ describe('TaskHelpers', function() {
       due_at: '2015-07-22T12:00:00.000Z',
       last_worked_at: '2015-07-23T12:00:00.000Z',
     });
-    expect( lateness.is_late ).to.be.true;
+    expect( lateness.is_late ).toBe(true);
     expect( lateness.how_late ).toEqual('a day');
     return undefined;
   });
@@ -30,7 +30,7 @@ describe('TaskHelpers', function() {
       due_at: '2015-07-22T12:00:00.000Z',
       last_worked_at: '2015-07-22T12:30:20.000Z',
     });
-    expect( lateness.is_late ).to.be.true;
+    expect( lateness.is_late ).toBe(true);
     expect( lateness.how_late ).toEqual('30 minutes');
     return undefined;
   });

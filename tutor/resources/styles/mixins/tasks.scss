@@ -1,6 +1,5 @@
 @mixin is-trouble() {
-  content: $fa-var-bookmark;
-  @include fa-icon();
+//  content: $fa-var-bookmark;
   transform: rotate(90deg);
   color: $tutor-danger;
 }

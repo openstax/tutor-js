@@ -2,14 +2,7 @@
 // care must be taken with imports listed here so that they don't import actual styles
 // doing so will cause them to be imported multiple times
 // (once in main Tutor build, and then in each screen's build)
-@import '../../resources/styles/variables';
-
-$fa-font-path: '~font-awesome/fonts';
-@import '~font-awesome/scss/font-awesome';
-
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins";
+@import '../../resources/styles/definitions';
 
 @import '../../../shared/resources/styles/mixins/index';
 @import '../../../shared/resources/styles/variables/index';

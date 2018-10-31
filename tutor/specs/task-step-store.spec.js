@@ -31,7 +31,7 @@ describe('Task Step Store', function() {
 
     it('is allowed if conditions are right', function() {
       const step = LoadStepData();
-      expect(TaskStepStore.canTryAnother(step.id, task)).to.be.true;
+      expect(TaskStepStore.canTryAnother(step.id, task)).toBe(true);
       return undefined;
     });
 
@@ -50,7 +50,7 @@ describe('Task Step Store', function() {
     it('checks loading state', function() {
       const step = LoadStepData();
       TaskStepActions.load(step.id);
-      expect(TaskStepStore.isLoading(step.id)).to.be.true;
+      expect(TaskStepStore.isLoading(step.id)).toBe(true);
       expect(TaskStepStore.canTryAnother(step.id, task)).to.be.false;
       return undefined;
     });
@@ -58,7 +58,7 @@ describe('Task Step Store', function() {
     it('checks saving state', function() {
       const step = LoadStepData();
       TaskStepActions.save(step.id);
-      expect(TaskStepStore.isSaving(step.id)).to.be.true;
+      expect(TaskStepStore.isSaving(step.id)).toBe(true);
       expect(TaskStepStore.canTryAnother(step.id, task)).to.be.false;
       return undefined;
     });
@@ -74,10 +74,10 @@ describe('Task Step Store', function() {
       const step = LoadStepData();
       expect(TaskStepStore.isRecovering(step.id)).to.be.false;
       TaskStepActions.loadRecovery(step.id);
-      expect(TaskStepStore.isRecovering(step.id)).to.be.true;
-      expect(TaskStepStore.canTryAnother(step.id, task)).to.be.true;
+      expect(TaskStepStore.isRecovering(step.id)).toBe(true);
+      expect(TaskStepStore.canTryAnother(step.id, task)).toBe(true);
       TaskStepActions.loadedRecovery({ id: 'RECOVERED_STEP' }, step.id);
-      expect(TaskStepStore.isRecovering(step.id)).to.be.true;
+      expect(TaskStepStore.isRecovering(step.id)).toBe(true);
       TaskStepActions.loaded({ id: 'RECOVERED_STEP' }, 'RECOVERED_STEP');
       expect(TaskStepStore.isRecovering(step.id)).to.be.false;
       return undefined;

@@ -38,13 +38,13 @@
       display: flex;
       align-items: center;
 
-      &::before {
-        @include fa-icon();
-        content: $fa-var-lock;
-        font-size: 6rem;
-        color: $tutor-neutral;
-        padding-right: 2rem;
-      }
+      // &::before {
+      //   @include fa-icon();
+      //   content: $fa-var-lock;
+      //   font-size: 6rem;
+      //   color: $tutor-neutral;
+      //   padding-right: 2rem;
+      // }
     }
   }
 

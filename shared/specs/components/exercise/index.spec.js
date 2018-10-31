@@ -68,7 +68,7 @@ const exerciseActionsAndChecks = {
     )).not.to.be.null;
 
     expect(_.pluck(dom.querySelectorAll('.answer-content'), 'textContent')).toEqual(_.pluck(CHOICES, 'content_html'));
-    return expect(dom.querySelectorAll('.answer-input-box:not([disabled])')).to.have.length(CHOICES.length);
+    return expect(dom.querySelectorAll('.answer-input-box:not([disabled])')).toHaveLength(CHOICES.length);
   },
 
   pickMultipleChoice({ dom, wrapper }) {
@@ -105,7 +105,7 @@ const exerciseActionsAndChecks = {
 
     expect(dom.querySelector('.question-feedback').textContent).equals(step.feedback_html);
     expect(dom.querySelector('.answer-correct .answer-content').textContent).equals(CHOICES[choiceIndex].content_html);
-    expect(dom.querySelectorAll('.answer-input-box')).to.have.length(0);
+    expect(dom.querySelectorAll('.answer-input-box')).toHaveLength(0);
     return expect(dom.querySelector('button.continue').textContent).equals('Next Question');
   },
 

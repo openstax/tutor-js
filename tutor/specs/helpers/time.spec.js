@@ -42,7 +42,7 @@ describe('Time Helpers', function() {
     const localTimezone = TimeHelper.getLocal();
     TimeHelper.unsyncCourseTimezone();
     expect(moment()._z).to.have.property('name').andtoEqual(localTimezone);
-    expect(moment().startOf('day').isSame(TODAY_IN_CURRENT_ZONE)).to.be.true;
+    expect(moment().startOf('day').isSame(TODAY_IN_CURRENT_ZONE)).toBe(true);
     return undefined;
   });
 
@@ -55,7 +55,7 @@ describe('Time Helpers', function() {
 
     TimeHelper.syncCourseTimezone(courseTimezone);
     isCourseTimezone = TimeHelper.isCourseTimezone(courseTimezone);
-    expect(isCourseTimezone).to.be.true;
+    expect(isCourseTimezone).toBe(true);
     TimeHelper.unsyncCourseTimezone();
     return undefined;
   });

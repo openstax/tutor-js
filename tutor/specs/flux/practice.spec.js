@@ -75,9 +75,9 @@ describe('CoursePractice Store', function() {
     const params2 = makePageIdParams(PAGE_IDS_2);
 
     expect(CoursePracticeStore.isDisabled(COURSE_ID, params1))
-      .to.be.true;
+      .toBe(true);
     expect(CoursePracticeStore.isDisabled(COURSE_ID, params2))
-      .to.be.true;
+      .toBe(true);
     return undefined;
   });
 });

@@ -1,4 +1,18 @@
 .tutor-icon {
+//      @include fa-icon();
+
+  &[data-variant=warning] {
+    path {
+      fill: $tutor-warning;
+    }
+  }
+
+  &[data-variant=danger] {
+    path {
+      fill: $tutor-danger;
+    }
+  }
+
   &.clickable { cursor: pointer; }
 
   &:focus {

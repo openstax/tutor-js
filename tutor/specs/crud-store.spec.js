@@ -29,11 +29,11 @@ describe('CRUD Store', function() {
 
   it('should clear the store', function() {
     const id = 0;
-    expect(CrudStore.isUnknown(id)).to.be.true;
+    expect(CrudStore.isUnknown(id)).toBe(true);
     CrudActions.loaded({ hello: 'foo', steps: [] }, id);
     expect(CrudStore.isUnknown(id)).to.be.false;
     CrudActions.reset();
-    expect(CrudStore.isUnknown(id)).to.be.true;
+    expect(CrudStore.isUnknown(id)).toBe(true);
     return undefined;
   });
 
@@ -50,7 +50,7 @@ describe('CRUD Store', function() {
 
   it('should load a task through the happy path', function() {
     const id = 0;
-    expect(CrudStore.isUnknown(id)).to.be.true;
+    expect(CrudStore.isUnknown(id)).toBe(true);
     expect(CrudStore.isLoaded(id)).to.be.false;
     expect(CrudStore.isLoading(id)).to.be.false;
     expect(CrudStore.isFailed(id)).to.be.false;
@@ -59,13 +59,13 @@ describe('CRUD Store', function() {
 
     expect(CrudStore.isUnknown(id)).to.be.false;
     expect(CrudStore.isLoaded(id)).to.be.false;
-    expect(CrudStore.isLoading(id)).to.be.true;
+    expect(CrudStore.isLoading(id)).toBe(true);
     expect(CrudStore.isFailed(id)).to.be.false;
 
     CrudActions.loaded({ hello: 'bar', steps: [] }, id);
 
     expect(CrudStore.isUnknown(id)).to.be.false;
-    expect(CrudStore.isLoaded(id)).to.be.true;
+    expect(CrudStore.isLoaded(id)).toBe(true);
     expect(CrudStore.isLoading(id)).to.be.false;
     expect(CrudStore.isFailed(id)).to.be.false;
 
@@ -75,7 +75,7 @@ describe('CRUD Store', function() {
 
   it('should note when a load failed', function() {
     const id = 0;
-    expect(CrudStore.isUnknown(id)).to.be.true;
+    expect(CrudStore.isUnknown(id)).toBe(true);
     expect(CrudStore.isLoaded(id)).to.be.false;
     expect(CrudStore.isLoading(id)).to.be.false;
     expect(CrudStore.isFailed(id)).to.be.false;
@@ -84,7 +84,7 @@ describe('CRUD Store', function() {
 
     expect(CrudStore.isUnknown(id)).to.be.false;
     expect(CrudStore.isLoaded(id)).to.be.false;
-    expect(CrudStore.isLoading(id)).to.be.true;
+    expect(CrudStore.isLoading(id)).toBe(true);
     expect(CrudStore.isFailed(id)).to.be.false;
 
     CrudActions.FAILED(404, { err: 'message' }, id);
@@ -92,7 +92,7 @@ describe('CRUD Store', function() {
     expect(CrudStore.isUnknown(id)).to.be.false;
     expect(CrudStore.isLoaded(id)).to.be.false;
     expect(CrudStore.isLoading(id)).to.be.false;
-    expect(CrudStore.isFailed(id)).to.be.true;
+    expect(CrudStore.isFailed(id)).toBe(true);
     return undefined;
   });
 
@@ -102,7 +102,7 @@ describe('CRUD Store', function() {
     expect(CrudStore.isChanged(id)).to.be.false;
 
     CrudActions._change(id, { foo: 'baz' });
-    expect(CrudStore.isChanged(id)).to.be.true;
+    expect(CrudStore.isChanged(id)).toBe(true);
     expect(CrudStore.get(id)).toEqual({ hello: 'bar', foo: 'baz' });
     expect(CrudStore.getChanged(id)).toEqual({ foo: 'baz' });
 
@@ -135,7 +135,7 @@ describe('CRUD Store', function() {
   it('should be loaded when a new item is created', function() {
     const id = CrudStore.freshLocalId();
     CrudActions.create(id, { hello: 'bar' });
-    expect(CrudStore.isLoaded(id)).to.be.true;
+    expect(CrudStore.isLoaded(id)).toBe(true);
     return undefined;
   });
 

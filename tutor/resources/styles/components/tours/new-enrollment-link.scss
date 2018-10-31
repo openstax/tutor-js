@@ -28,14 +28,14 @@
       display: flex;
       padding: 2rem 3rem;
 
-      &::before {
-        @include fa-icon();
-        color: $openstax-quaternary;
-        content: $fa-var-hand-paper-o;
-        font-size: 3.6rem;
-        margin-right: 1rem;
-        align-items: center;
-      }
+      // &::before {
+      //   @include fa-icon();
+      //   color: $openstax-quaternary;
+      //   content: $fa-var-hand-paper-o;
+      //   font-size: 3.6rem;
+      //   margin-right: 1rem;
+      //   align-items: center;
+      // }
     }
 
     &main {

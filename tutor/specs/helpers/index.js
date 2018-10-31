@@ -1,7 +1,9 @@
 export * from 'shared/specs/helpers';
 import { MemoryRouter as Router } from 'react-router-dom';
 
-export { Router };
+import TimeMock from './time-mock';
+
+export { Router, TimeMock };
 export Factory from '../factories';
 
 

@@ -48,7 +48,7 @@ describe('Breadcrumb Component', function() {
       props.canReview = true;
       props.step.is_correct = true;
       return Testing.renderComponent( BC, { props } ).then(function({ dom }) {
-        expect(dom.classList.contains('status-correct')).to.be.true;
+        expect(dom.classList.contains('status-correct')).toBe(true);
         return expect(dom.querySelector('i.icon-correct')).not.to.be.null;
       });
     });
@@ -56,7 +56,7 @@ describe('Breadcrumb Component', function() {
       props.canReview = true;
       props.step.answer_id = 11;
       return Testing.renderComponent( BC, { props } ).then(function({ dom }) {
-        expect(dom.classList.contains('status-incorrect')).to.be.true;
+        expect(dom.classList.contains('status-incorrect')).toBe(true);
         return expect(dom.querySelector('i.icon-incorrect')).not.to.be.null;
       });
     });

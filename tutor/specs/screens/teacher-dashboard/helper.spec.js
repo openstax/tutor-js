@@ -13,13 +13,13 @@ describe('CourseCalendar Helper', function() {
   it('detects if sidebar should show intro', function() {
     expect(Helper.shouldIntro()).to.be.false;
     Router.currentQuery.mockReturnValueOnce({ showIntro: 'true' });
-    expect(Helper.shouldIntro()).to.be.true;
+    expect(Helper.shouldIntro()).toBe(true);
   });
 
   it('stores sidebar state in settings', function() {
     expect(Helper.isSidebarOpen(courseId)).to.be.false;
     Helper.setSidebarOpen(courseId, true);
-    expect(Helper.isSidebarOpen(courseId)).to.be.true;
+    expect(Helper.isSidebarOpen(courseId)).toBe(true);
   });
 
   return xit('will schedule intro callbacks', function() {

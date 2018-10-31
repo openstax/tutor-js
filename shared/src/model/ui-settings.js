@@ -13,7 +13,7 @@ const saveSettings = debounce( () =>
     withCredentials: true,
 
     data: {
-      ui_settings: toJS(SETTINGS),
+      ui_settings: SETTINGS.toJS(),
     },
   })
 
@@ -51,7 +51,7 @@ const UiSettings = {
   },
 
   // for debugging purposes
-  _dump() { return toJS(SETTINGS); },
+  _dump() { return SETTINGS.toJS(); },
 };
 
 export default UiSettings;

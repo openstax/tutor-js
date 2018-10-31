@@ -42,7 +42,7 @@ describe('CcJoinConflict Component', function() {
       courseEnrollmentActions={courseEnrollmentActions}
       courseEnrollmentStore={COURSE_ENROLLMENT_STORE} />);
     wrapper.find('.btn.continue').simulate('click');
-    expect(courseEnrollmentActions.conflictContinue.calledOnce).to.be.true;
+    expect(courseEnrollmentActions.conflictContinue.calledOnce).toBe(true);
     return undefined;
   });
 
@@ -55,7 +55,7 @@ describe('CcJoinConflict Component', function() {
     // http://airbnb.io/enzyme/docs/api/ShallowWrapper/simulate.html
     wrapper.simulate('keyPress', { key: 'Enter' });
     wrapper.find('.btn.continue').simulate('keyPress', { key: 'Enter' });
-    expect(courseEnrollmentActions.conflictContinue.called).to.be.true;
+    expect(courseEnrollmentActions.conflictContinue.called).toBe(true);
     return undefined;
   });
 });

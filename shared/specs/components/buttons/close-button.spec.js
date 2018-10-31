@@ -10,7 +10,7 @@ describe('Close Button Component', function() {
   return it('has proper classes', () =>
     Testing.renderComponent( Button, { props } ).then(function({ dom }) {
       expect(dom.tagName).equal('BUTTON');
-      return expect(dom.classList.contains('openstax-close-x')).to.be.true;
+      return expect(dom.classList.contains('openstax-close-x')).toBe(true);
     })
   );
 });
