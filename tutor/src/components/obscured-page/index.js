@@ -46,6 +46,14 @@ export default class ObscuredPage extends React.Component {
     keymaster.unbind('esc', this.props.registry.onEscKey);
   }
 
+  get ariaLiveProps() {
+    return this.props.registry.isOverlayExpanded ? {
+      'aria-live': 'polite',
+      'aria-atomic': 'true',
+      'aria-relevant': 'additions',
+    } : {};
+  }
+
   render() {
     const { registry, children } = this.props;
 
@@ -57,6 +65,7 @@ export default class ObscuredPage extends React.Component {
           isHidden={registry.isOverlayHidden}
           onTransitionEnd={registry.onOverlayAnimated}
           className={registry.overlayClassName}
+          {...this.ariaLiveProps}
         >
           {registry.overlay}
         </Overlay>

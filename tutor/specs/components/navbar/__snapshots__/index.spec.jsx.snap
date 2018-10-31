@@ -156,6 +156,7 @@ exports[`Main navbar renders and matches snapshot 1`] = `
             style={undefined}
           >
             <a
+              aria-label="Log out"
               href="#"
               label="Log out"
               onClick={[Function]}

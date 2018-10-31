@@ -25,7 +25,10 @@ export default class LogoutLink extends React.PureComponent {
 
   render() {
     return (
-      <MenuItem className="logout" {...this.props} onClick={this.onLinkClick}>
+      <MenuItem
+        className="logout" {...this.props} onClick={this.onLinkClick}
+        aria-label="Log out"
+      >
         <form
           acceptCharset="UTF-8"
           action={this.props.isConceptCoach ? LOGOUT_URL_CC : LOGOUT_URL}

@@ -10,6 +10,7 @@ exports[`MultiSelect component renders selections 1`] = `
     <button
       aria-expanded={false}
       aria-haspopup={true}
+      aria-label="Food Selections"
       className="dropdown-toggle btn btn-default"
       disabled={false}
       id="multi-select"

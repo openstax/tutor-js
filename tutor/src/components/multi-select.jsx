@@ -80,6 +80,7 @@ class MultiSelect extends React.Component {
       <div className={classnames('multi-select', this.props.className)}>
         <DropdownButton
           id="multi-select"
+          aria-label={this.props.title}
           onSelect={this.onSelect}
           title={this.props.title}
           onToggle={this.onToggle}
