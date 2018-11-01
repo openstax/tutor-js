@@ -1,7 +1,8 @@
-@import "./heading";
-@import "./statistics";
-@import "./teacher";
-@import "./teacher-student";
+@import "../screen-styles";
+@import "./styles/heading";
+@import "./styles/statistics";
+@import "./styles/teacher";
+@import "./styles/teacher-student";
 
 .performance-forecast {
 
@@ -99,4 +100,4 @@
 
 }
 
-@import "./responsive";
+@import "./styles/responsive";

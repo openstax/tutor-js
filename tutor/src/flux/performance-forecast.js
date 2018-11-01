@@ -1,5 +1,5 @@
 import { CrudConfig, makeSimpleStore, extendConfig } from './helpers';
-import _ from 'underscore';
+import { find, sortBy, take, takeRight, first, filter, pluck, flatten, uniq } from 'lodash';
 
 // Unlike other stores defined in TutorJS, this contains three separate stores that have very similar capabilities.
 // They're combined in one file because they're pretty lightweight and share helper methods.
@@ -28,12 +28,12 @@ const findAllSections = function(section) {
 const Teacher = makeSimpleStore(extendConfig({
   exports: {
     getChaptersForPeriod(courseId, periodId) {
-      const period = _.findWhere(this._get(courseId), { period_id: periodId });
+      const period = find(this._get(courseId), { period_id: periodId });
       return (period != null ? period.children : undefined) || [];
     },
 
     getSectionsForPeriod(courseId, periodId) {
-      const period = _.findWhere(this._get(courseId), { period_id: periodId });
+      const period = find(this._get(courseId), { period_id: periodId });
       return findAllSections(period);
     },
   },
@@ -46,7 +46,7 @@ const Student = makeSimpleStore(extendConfig({
   exports: {
     getSortedSections(courseId) {
       const sections = findAllSections(this._get(courseId));
-      return _.sortBy(sections, s => s.clue.most_likely);
+      return sortBy(sections, s => s.clue.most_likely);
     },
 
     getAllSections(courseId) {
@@ -84,7 +84,7 @@ const TeacherStudent = makeSimpleStore(extendConfig({
   exports: {
     getSortedSections(courseId, roleId, property = 'current_level') {
       const sections = findAllSections(this._get(courseId));
-      return _.sortBy(sections, property);
+      return sortBy(sections, property);
     },
 
     get(courseId, { roleId }) {
@@ -119,13 +119,13 @@ const Helpers = {
   // Since the learning guide doesn't currently include worked dates
   // the best we can do is return from the end of the list
   recentSections(sections, limit = 4) {
-    return _.last(sections, limit);
+    return takeRight(sections, limit);
   },
 
   canDisplayForecast(clue) { return clue.is_real; },
 
   filterForecastedSections(sections) {
-    return _.filter(sections, s => Helpers.canDisplayForecast(s.clue));
+    return filter(sections, s => Helpers.canDisplayForecast(s.clue));
   },
 
   weakestSections(sections, displayCount = 4) {
@@ -137,10 +137,7 @@ const Helpers = {
       Math.max(1, Math.floor(validSections.length / 2))
       , displayCount);
 
-    return _.chain(validSections)
-      .sortBy(s => s.clue.most_likely)
-      .first(displayCount)
-      .value();
+    return take(sortBy(validSections, s => s.clue.most_likely), displayCount);
   },
 
   canPracticeWeakest({ sections, displayCount, minimumSectionCount }) {
@@ -154,7 +151,7 @@ const Helpers = {
   },
 
   pagesForSections(sections) {
-    return _.chain(sections).pluck('page_ids').flatten().uniq().value();
+    return uniq(flatten(pluck(sections, 'page_ids')));
   },
 };
 

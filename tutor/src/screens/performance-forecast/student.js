@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import BackButton from '../buttons/back-button';
+import BackButton from '../../components/buttons/back-button';
 import Router from '../../helpers/router';
 import * as PerformanceForecast from '../../flux/performance-forecast';
 
@@ -63,6 +63,7 @@ export default class extends React.Component {
 
   render() {
     const { courseId } = this.props;
+
     return (
       <Card className="performance-forecast student">
         <Guide

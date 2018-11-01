@@ -8,9 +8,9 @@ import LoadableItem from '../../components/loadable-item';
 import { isEmpty } from 'lodash';
 import * as PerformanceForecast from '../../flux/performance-forecast';
 import { ChapterSectionMixin } from 'shared';
-import PerformanceForecastColorKey from '../../components/performance-forecast/color-key';
-import Section from '../../components/performance-forecast/section';
-import PracticeWeakestButton from '../../components/performance-forecast/weakest-practice-button';
+import PerformanceForecastColorKey from '../../screens/performance-forecast/color-key';
+import Section from '../../screens/performance-forecast/section';
+import PracticeWeakestButton from '../../components/buttons/practice-weakest';
 
 // Number of sections to display
 const NUM_SECTIONS = 4;
@@ -26,7 +26,6 @@ class ProgressGuide extends React.Component {
 
   render() {
     const { courseId } = this.props;
-    const guide = PerformanceForecast.Student.store.get(courseId);
     const sections = PerformanceForecast.Helpers.recentSections(
       PerformanceForecast.Student.store.getAllSections(courseId)
     );

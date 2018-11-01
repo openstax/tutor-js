@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import { Dropdown, Card } from 'react-bootstrap';
-import BackButton from '../buttons/back-button';
+import BackButton from '../../components/buttons/back-button';
 import Router from '../../helpers/router';
 import { sortBy, matches } from 'lodash';
-import Name from '../name';
-import BindStoreMixin from '../bind-store-mixin';
+import Name from '../../components/name';
+import BindStoreMixin from '../../components/bind-store-mixin';
 import * as PerformanceForecast from '../../flux/performance-forecast';
 
 import Courses from '../../models/courses-map';

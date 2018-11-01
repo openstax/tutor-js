@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import BackButton from '../buttons/back-button';
+import BackButton from '../../components/buttons/back-button';
 import Router from '../../helpers/router';
 import { first } from 'lodash';
-import CoursePeriodsNavShell from '../course-periods-nav';
-import CourseGroupingLabel from '../course-grouping-label';
+import CoursePeriodsNavShell from '../../components/course-periods-nav';
+import CourseGroupingLabel from '../../components/course-grouping-label';
 import * as PerformanceForecast from '../../flux/performance-forecast';
-import TourRegion from '../tours/region';
+import TourRegion from '../../components/tours/region';
 
 import Guide from './guide';
 import ColorKey from './color-key';

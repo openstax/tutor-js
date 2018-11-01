@@ -1,18 +1,19 @@
 import React from 'react';
 import Router from '../../helpers/router';
 import * as PerformanceForecast from '../../flux/performance-forecast';
-import LoadableItem from '../loadable-item';
+import LoadableItem from '../../components/loadable-item';
 import TeacherComponent from './teacher';
 import StudentComponent from './student';
 import TeacherStudentComponent from './teacher-student';
-
 import Courses from '../../models/courses-map';
+import './styles.scss';
 
 class Student extends React.Component {
   static displayName = 'PerformanceForecastStudentShell';
 
   render() {
     const { courseId } = Router.currentParams();
+
     return (
       <LoadableItem
         id={courseId}
@@ -66,4 +67,6 @@ class Guide extends React.Component {
 }
 
 
-export { Teacher, TeacherStudent, Student, Guide };
+export default Guide;
+
+//{ Teacher, TeacherStudent, Student, Guide };

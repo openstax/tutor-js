@@ -58,10 +58,10 @@ const getEventShell = function() {
   return EventShell;
 };
 
-const getPerformanceForecastGuide = function() {
-  const PerformanceForecast = require('./components/performance-forecast');
-  return PerformanceForecast.Guide;
-};
+const PerformanceForecast = asyncComponent(
+  () => import('./screens/performance-forecast'),
+);
+const getPerformanceForecastGuide = () => PerformanceForecast;
 
 const getCourseSettings = function() {
   const { default: CourseSettings } = require('./components/course-settings');

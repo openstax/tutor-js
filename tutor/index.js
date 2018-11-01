@@ -17,7 +17,6 @@ import TOASTS from './src/models/toasts';
 window._STORES = {
   SETTINGS: UiSettings,
   APP:                  require('./src/flux/app'),
-  PERFORMANCE_FORECAST: require('./src/flux/performance-forecast'),
   TASK_PLAN:            require('./src/flux/task-plan'),
   TASK_STEP:            require('./src/flux/task-step'),
   TASK:                 require('./src/flux/task'),

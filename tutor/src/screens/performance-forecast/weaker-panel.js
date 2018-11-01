@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import * as PerformanceForecast from '../../flux/performance-forecast';
 import WeakerSections from './weaker-sections';
-import PracticeWeakestButton from './weakest-practice-button';
+import PracticeWeakestButton from '../../components/buttons/practice-weakest';
 
 class WeakerCard extends React.Component {
   static propTypes = {

@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import TutorLink from '../link';
 
-export default class PracticeWeakestButton extends React.Component {
+export default
+class PracticeWeakestButton extends React.Component {
 
   static defaultProps = {
     title: 'Practice my weakest topics',
