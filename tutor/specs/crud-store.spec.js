@@ -153,7 +153,7 @@ describe('CRUD Store', function() {
     const id = 0;
     const storeObj = { hello: 'bar' };
     CrudActions.loaded(storeObj, id);
-    expect(CrudActions._loaded).to.be.undefined;
+    expect(CrudActions._loaded).toBeUndefined();
     expect(CrudStore.get(id)).toEqual(storeObj);
     return undefined;
   });
@@ -171,7 +171,7 @@ describe('CRUD Store', function() {
     const id = 0;
     const storeObj = { hello: 'bar', doNotModify: true };
     ExtendedActions.loaded(storeObj, id);
-    expect(ExtendedConfig._loaded(storeObj, id)).to.be.undefined;
+    expect(ExtendedConfig._loaded(storeObj, id)).toBeUndefined();
     expect(ExtendedStore.get(id)).toEqual(storeObj);
     return undefined;
   });
@@ -180,7 +180,7 @@ describe('CRUD Store', function() {
     const id = 0;
     const storeObj = { hello: 'bar' };
     CrudActions.saved(storeObj, id);
-    expect(CrudActions._saved).to.be.undefined;
+    expect(CrudActions._saved).toBeUndefined();
     expect(CrudStore.get(id)).toEqual(storeObj);
     return undefined;
   });
@@ -198,7 +198,7 @@ describe('CRUD Store', function() {
     const id = 0;
     const storeObj = { hello: 'bar', doNotModify: true };
     ExtendedActions.saved(storeObj, id);
-    expect(ExtendedConfig._saved(storeObj, id)).to.be.undefined;
+    expect(ExtendedConfig._saved(storeObj, id)).toBeUndefined();
     expect(ExtendedStore.get(id)).toEqual(storeObj);
     return undefined;
   });

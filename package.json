@@ -142,7 +142,6 @@
     "babel-loader": "^8.0.4",
     "babel-plugin-lodash": "^3.3.4",
     "blanket": "1.2.3",
-    "chai": "4.2.0",
     "chalk": "^2.4.1",
     "check-dependencies": "1.1.0",
     "chrome-launcher": "^0.10.5",

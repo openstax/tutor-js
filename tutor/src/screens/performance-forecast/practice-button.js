@@ -1,39 +1,44 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import _ from 'underscore';
+import { uniqueId } from 'lodash';
 import classnames from 'classnames';
-
-import PerformanceForecast from '../../flux/performance-forecast';
+import * as PerformanceForecast from '../../flux/performance-forecast';
 import ChapterSectionType from './chapter-section-type';
-
-import ButtonWithTip from '../buttons/button-with-tip';
+import ButtonWithTip from '../../components/buttons/button-with-tip';
 import Practice from './practice';
 
-export default class extends React.Component {
-  static defaultProps = { id: _.uniqueId('practice-button-tooltip-') };
+export default
+class PracticeButton extends React.Component {
 
   static displayName = 'PracticeButton';
 
   static propTypes = {
     courseId: PropTypes.string.isRequired,
+    practiceType: PropTypes.string,
     title:    PropTypes.string.isRequired,
     sections: PropTypes.arrayOf(ChapterSectionType),
   };
+
+  id = uniqueId('practice-button-tooltip-');
 
   getTip = (props) => {
     if (props.isDisabled) { return 'No problems are available for practicing'; }
   };
 
   render() {
-    const { sections, courseId, id } = this.props;
+    const { sections, courseId } = this.props;
     const page_ids = PerformanceForecast.Helpers.pagesForSections(sections);
     const classes = classnames('practice', this.props.practiceType);
 
     return (
       <Practice courseId={courseId} page_ids={page_ids}>
-        <ButtonWithTip id={id} className={classes} getTip={this.getTip} placement="top">
+        <ButtonWithTip
+          id={this.id}
+          className={classes}
+          getTip={this.getTip}
+          placement="top"
+        >
           {this.props.title}
-          <i />
         </ButtonWithTip>
       </Practice>
     );

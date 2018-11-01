@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import BS from 'react-bootstrap';
-import _ from 'underscore';
+import { Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
+import { pick } from 'lodash';
 
 export default class extends React.Component {
   static defaultProps = {
@@ -26,26 +26,26 @@ export default class extends React.Component {
 
     const tip = getTip(this.props);
 
-    const buttonProps = _.pick(this.props, 'className', 'variant', 'block');
+    const buttonProps = pick(this.props, 'className', 'variant', 'block');
     buttonProps.disabled = isDisabled;
     if (!isDisabled) { buttonProps.onClick = onClick; }
 
     if ((disabledState != null) && isDisabled) {
       button = disabledState;
     } else {
-      button = <BS.Button {...buttonProps} role="link">
+      button = <Button {...buttonProps} role="link">
         {children}
-      </BS.Button>;
+      </Button>;
     }
 
     if (tip) {
-      const tooltip = <BS.Tooltip id={id}>
+      const tooltip = <Tooltip id={id}>
         {tip}
-      </BS.Tooltip>;
+      </Tooltip>;
       return (
-        <BS.OverlayTrigger placement={placement} overlay={tooltip}>
+        <OverlayTrigger placement={placement} overlay={tooltip}>
           {button}
-        </BS.OverlayTrigger>
+        </OverlayTrigger>
       );
     } else {
       return button;

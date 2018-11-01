@@ -57,7 +57,7 @@ const checks = {
     // Will eventually test based on task type.  Assuming exercise with free
     // response for now.
     const step = TaskStepStore.get(stepId);
-    expect(step.free_response).to.be.undefined;
+    expect(step.free_response).toBeUndefined();
     expect(div.querySelector('textarea').value).toEqual('');
     return { div, component, stepId, taskId, state, router, history };
   },

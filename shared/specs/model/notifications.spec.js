@@ -46,7 +46,7 @@ describe('Notifications', function() {
 
     Notifications.acknowledge(active);
     expect(changeListener).to.have.callCount(2);
-    expect(Notifications.getActive()).to.be.empty;
+    expect(Notifications.getActive()).toBeFalsy();
     return undefined;
   });
 

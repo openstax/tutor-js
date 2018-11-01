@@ -118,7 +118,7 @@ class SupportMenu extends React.Component {
 
   @computed
   get accessibilityLink() {
-    return `/accessibility-statement/${this.props.course || ''}`;
+    return `/accessibility-statement/${(this.props.course && this.props.course.id) || ''}`;
   }
 
   render() {

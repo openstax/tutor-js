@@ -3,6 +3,7 @@ import React from 'react';
 import * as PerformanceForecast from '../../flux/performance-forecast';
 import Section from './section';
 
+export default
 class WeakerSections extends React.Component {
   static propTypes = {
     courseId:     PropTypes.string.isRequired,
@@ -31,6 +32,3 @@ class WeakerSections extends React.Component {
     );
   }
 }
-
-
-export default WeakerSections;
