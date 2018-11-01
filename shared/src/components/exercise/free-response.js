@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { isEmpty } from 'lodash';
 
 class FreeResponse extends React.Component {
   static defaultProps = { free_response: '' };
@@ -12,19 +13,22 @@ class FreeResponse extends React.Component {
 
   render() {
     const { free_response, student_names } = this.props;
-    FreeResponse = null;
 
-    const freeResponseProps =
-      { className: 'free-response' };
-    if (student_names != null) { freeResponseProps['data-student-names'] = student_names.join(', '); }
+    const freeResponseProps = { className: 'free-response' };
 
-    if ((free_response != null) && free_response.length) {
-      FreeResponse = <div {...freeResponseProps}>
-        {free_response}
-      </div>;
+    if (student_names != null) {
+      freeResponseProps['data-student-names'] = student_names.join(', ');
     }
 
-    return FreeResponse;
+    if (!isEmpty(free_response)) {
+      return(
+        <div {...freeResponseProps}>
+          {free_response}
+        </div>
+      );
+    }
+
+    return null;
   }
 }
 

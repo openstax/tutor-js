@@ -39,8 +39,10 @@
       display: flex;
       align-items: center;
       .calendar-text {
-        font-size: 0.9em;
-        margin: 3px 0 0 2px; // shift so it's centered on cal icon
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 5px;
       }
     }
   }

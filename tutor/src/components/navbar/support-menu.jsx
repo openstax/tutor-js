@@ -84,7 +84,7 @@ class SupportMenu extends React.Component {
         onSelect={this.onSelect}
         onClick={Chat.start}
       >
-        <Icon type='comments' /><span>Chat with Support</span>
+        <Icon type='comments-solid' /><span>Chat with Support</span>
       </Dropdown.Item>,
       <Dropdown.Item
         style={{ display: 'none' }}
@@ -93,7 +93,7 @@ class SupportMenu extends React.Component {
         onSelect={this.onSelect}
         ref={opt => this.chatDisabled = opt}
       >
-        <Icon type='comments-o' /><span>Chat Support Offline</span>
+        <Icon type='comments' /><span>Chat Support Offline</span>
       </Dropdown.Item>,
     ];
   }

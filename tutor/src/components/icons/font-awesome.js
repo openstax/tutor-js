@@ -2,6 +2,19 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 
 const ICONS = {};
 
+
+// regular
+[
+  'Calendar',
+  'Comments',
+].forEach(name => {
+  const icon = require(`@fortawesome/free-regular-svg-icons/fa${name}.js`);
+  library.add(
+    ICONS[icon.iconName] = icon.definition,
+  );
+});
+
+// solid
 [
   'Bars',
   'Ghost',
@@ -9,15 +22,19 @@ const ICONS = {};
   'AngleDown',
   'TimesCircle',
   'Spinner',
-  'Calendar',
   'ExclamationCircle',
   'Clock',
   'Th',
+  'Comments',
+  'InfoCircle',
 ].forEach(name => {
   const icon = require(`@fortawesome/free-solid-svg-icons/fa${name}.js`);
+  let iconName = icon.iconName;
+  if (ICONS[iconName]) { iconName = `${iconName}-solid`; }
   library.add(
-    ICONS[icon.iconName] = icon.definition,
+    ICONS[iconName] = icon.definition,
   );
 });
+
 
 export default ICONS;

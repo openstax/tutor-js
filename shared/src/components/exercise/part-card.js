@@ -3,7 +3,7 @@ import _ from 'underscore';
 
 import classnames from 'classnames';
 import keymaster from 'keymaster';
-
+import { Card } from 'react-bootstrap';
 import ExerciseGroup from './group';
 import { CardBody } from '../pinned-header-footer-card/sections';
 
@@ -170,26 +170,24 @@ class ExerciseStepCard extends React.Component {
           related_content={related_content} />;
     }
 
-    const cardClasses = classnames(
-      'task-step',
-      'openstax-exercise-card',
-      className,
-      {
-        'deleted-homework': ((this.props.task != null ? this.props.task.type : undefined) === 'homework') && (this.props.task != null ? this.props.task.is_deleted : undefined),
-        'deleted-reading': ((this.props.task != null ? this.props.task.type : undefined) === 'reading') && (this.props.task != null ? this.props.task.is_deleted : undefined),
-      },
+    const cardClasses = classnames('task-step', 'openstax-exercise-card', className, {
+      'deleted-homework': ((this.props.task != null ? this.props.task.type : undefined) === 'homework') && (this.props.task != null ? this.props.task.is_deleted : undefined),
+      'deleted-reading': ((this.props.task != null ? this.props.task.type : undefined) === 'reading') && (this.props.task != null ? this.props.task.is_deleted : undefined),
+    },
     );
 
 
     return (
-      <CardBody className={cardClasses} pinned={pinned} footer={footer}>
-        <div className={`exercise-${panel}`} data-step={this.props.stepPartIndex}>
-          {exerciseGroup}
-          <ExMode focusParent={this} {...step} {...panelProps} mode={panel} />
-          {pinned ? idLink : undefined}
-        </div>
-        {helpLink}
-      </CardBody>
+      <Card>
+        <CardBody className={cardClasses} pinned={pinned} footer={footer}>
+          <div className={`exercise-${panel}`} data-step={this.props.stepPartIndex}>
+            {exerciseGroup}
+            <ExMode focusParent={this} {...step} {...panelProps} mode={panel} />
+            {pinned ? idLink : undefined}
+          </div>
+          {helpLink}
+        </CardBody>
+      </Card>
     );
   }
 }

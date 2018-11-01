@@ -31,7 +31,6 @@ class Breadcrumb extends React.Component {
     onMouseLeave: PropTypes.func,
   };
 
-  state = this.getState(this.props);
 
   getState = ({ crumb, stepIndex, currentStep, step, canReview }) => {
     let isCorrect = false;
@@ -55,6 +54,8 @@ class Breadcrumb extends React.Component {
 
     return { isCorrect, isIncorrect, isCurrent, isCompleted, isEnd, crumbType };
   };
+
+  state = this.getState(this.props);
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     const nextState = this.getState(nextProps);

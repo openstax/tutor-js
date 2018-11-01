@@ -25,9 +25,9 @@ class WeakerSections extends React.Component {
 
   render() {
     return (
-      <div className="sections">
+      <React.Fragment>
         {PerformanceForecast.Helpers.canDisplayWeakest(this.props) ? this.renderSections() : this.renderLackingData()}
-      </div>
+      </React.Fragment>
     );
   }
 }

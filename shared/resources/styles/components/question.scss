@@ -146,46 +146,54 @@
     }
 
     .question-feedback {
-      @extend .popover;
+      $arrow-width: 20px;
+      $arrow-height: 15px;
 
-      font-style: italic;
       color: $openstax-answer-label-color;
-      // marked as important so they override the extended .popover styles
-      position: relative !important;
-      display: block !important;
-      width: calc('100% + #{$openstax-feedback-horizontal-buffer}');
-      max-width: calc('100% + #{$openstax-feedback-horizontal-buffer}');
-      margin-left: -1 * $openstax-feedback-horizontal-spacing;
-      margin-top: -1 * (($openstax-answer-vertical-spacing - 1rem)/10);
-      margin-bottom: $openstax-answer-horizontal-spacing;
+
+      @include reset-text();
       z-index: 1;
-      @include box-shadow(0 0 10px rgba(0, 0, 0, .25));
-      border: none;
+      position: relative;
+      border: $popover-border-width solid $popover-border-color;
+      background-color: $popover-bg;
+      background-clip: padding-box;
+      border: $popover-border-width solid $popover-border-color;
+      @include border-radius($popover-border-radius);
+      max-width: $popover-max-width;
+      margin: ($arrow-height - 5px) 0 $openstax-answer-horizontal-spacing  (-1 * $openstax-feedback-horizontal-spacing);
+      box-shadow: 10px 0px 10px rgba(0, 0, 0, .25);
+      color: $openstax-neutral;
+      font-size: 1.4rem;
+      font-style: italic;
 
       .arrow {
+        position: absolute;
+        display: block;
+        width: $arrow-width;
+        height: $arrow-height;
+        margin-left: 30px;
+        top: calc((#{$arrow-height} + #{$popover-border-width}) * -1);
+
+        &::before,
         &::after {
-          border-width: 1rem;
+          position: absolute;
+          display: block;
           content: "";
+          border-color: transparent;
+          border-style: solid;
+          border-width: 0 ($arrow-width / 2) $arrow-height ($arrow-width / 2);
         }
-        // @extend .popover > .arrow;
-      }
-
-      &.bottom,
-      &.top {
-        > .arrow {
-          left: $openstax-answer-bubble-size/2 + $openstax-feedback-horizontal-spacing;
+        &::before {
+          top: 0;
+          border-bottom-color: $popover-arrow-outer-color;
         }
-
-      }
-      &.bottom {
-        margin-top: -5px;
-      }
-      &.top {
-        margin-bottom: -5px;
+        &::after {
+          top: $popover-border-width;
+          border-bottom-color: $popover-arrow-color;
+        }
       }
 
       .question-feedback-content {
-        @extend .popover-body;
         padding: $openstax-feedback-vertical-spacing $openstax-feedback-horizontal-spacing;
       }
     }

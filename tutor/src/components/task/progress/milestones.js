@@ -91,11 +91,11 @@ const Milestones = createReactClass({
     };
   },
 
-  UNSAFE_componentWillMount() {
-    const bStyle = document.body.style;
-    this._bodyOverflowStyle = bStyle.overflow;
-    return bStyle.overflow = 'hidden';
-  },
+  // UNSAFE_componentWillMount() {
+  //   const bStyle = document.body.style;
+  //   this._bodyOverflowStyle = bStyle.overflow;
+  //   return bStyle.overflow = 'hidden';
+  // },
 
   componentDidMount() {
     this.switchCheckingClick();
@@ -105,8 +105,8 @@ const Milestones = createReactClass({
   componentWillUnmount() {
     this.switchCheckingClick(false);
     this.switchTransitionListen(false);
-    const bStyle = document.body.style;
-    return bStyle.overflow = this._bodyOverflowStyle;
+    // const bStyle = document.body.style;
+    // return bStyle.overflow = this._bodyOverflowStyle;
   },
 
   componentDidEnter(transitionEvent) {

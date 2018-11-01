@@ -42,10 +42,10 @@ export default class extends React.Component {
             section={chapter}
             displaying="chapter" />
         </div>
-        <div ref="sections" className="sections">
-          {chapter.children.map((section, i) =>
-            <Section key={i} section={section} {...this.props} />)}
-        </div>
+
+        {chapter.children.map((section, i) =>
+          <Section key={i} section={section} {...this.props} />)}
+
       </div>
     );
   }

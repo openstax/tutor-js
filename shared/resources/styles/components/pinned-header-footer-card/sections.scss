@@ -17,4 +17,8 @@
 }
 
 // always wrap around elements by extending bootstrap's clearfix
-//.card-body { @include clearfix; }
+.task-step.card-body {
+  background-color: white;
+  @include clearfix;
+  padding: 0;
+}

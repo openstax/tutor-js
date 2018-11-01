@@ -1,12 +1,12 @@
-import _ from 'underscore';
+import { omit, isArray, first } from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Breadcrumb } from 'shared';
 
-import { StepCard } from '../../helpers/policies';
+import { StepCard } from '../helpers/policies';
 
-import { TaskStepActions, TaskStepStore } from '../../flux/task-step';
-import { TaskStore } from '../../flux/task';
+import { TaskStepActions, TaskStepStore } from '../flux/task-step';
+import { TaskStore } from '../flux/task';
 
 class BreadcrumbStatic extends React.Component {
   static displayName = 'BreadcrumbStatic';
@@ -32,8 +32,8 @@ class BreadcrumbStatic extends React.Component {
 
   render() {
     let { step } = this.state;
-    const crumbProps = _.omit(this.props, 'step');
-    if (_.isArray(step)) { step = _.first(step); }
+    const crumbProps = omit(this.props, 'step');
+    if (isArray(step)) { step = first(step); }
 
     return <Breadcrumb {...crumbProps} step={step} />;
   }
@@ -111,7 +111,7 @@ class BreadcrumbTaskDynamic extends React.Component {
 
   render() {
     const { step } = this.state;
-    const crumbProps = _.omit(this.props, 'step', 'onMount');
+    const crumbProps = omit(this.props, 'step', 'onMount');
 
     return <Breadcrumb {...crumbProps} step={step} />;
   }

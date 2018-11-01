@@ -39,7 +39,7 @@ class CenterControls extends React.Component {
   }
 
   getParams(params) {
-    if (params == null) { ((((({ params } = this.props))))); }
+    if (params == null) { ({ params } = this.props); }
 
     params = cloneDeep(params) || {};
     if (params.stepIndex == null) {

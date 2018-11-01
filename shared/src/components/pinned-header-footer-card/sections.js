@@ -33,7 +33,7 @@ class PinnableFooter extends React.Component {
 
   render() {
     const { className, pinned } = this.props;
-    const classPrefix = pinned ? 'pinned' : 'card';
+    const classPrefix = pinned ? 'pinned' : 'step';
     let classes = `${classPrefix}-footer`;
     if (className != null) { classes += ` ${className}`; }
 

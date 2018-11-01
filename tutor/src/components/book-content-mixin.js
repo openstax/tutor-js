@@ -270,11 +270,8 @@ const ReadingContentMixin = {
   },
 
   detectImgAspectRatio(root) {
-    return root.querySelectorAll('figure:not(.splash) img').map((img) =>
-      img.complete ?
-        processImage.call(img)
-        :
-        (img.onload = processImage));
+    root.querySelectorAll('figure:not(.splash) img').forEach((img) =>
+      img.complete ? processImage.call(img) : (img.onload = processImage));
   },
 };
 
