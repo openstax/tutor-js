@@ -39,7 +39,7 @@ class ViewingAsStudentName extends React.Component {
   }
 
   updateStudent = (props) => {
-    if (props == null) { ((((((((((({ props } = this))))))))))); }
+    if (props == null) { ({ props } = this); }
     return this.setState(this.getStudentState(props));
   };
 
