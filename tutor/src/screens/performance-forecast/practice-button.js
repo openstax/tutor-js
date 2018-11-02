@@ -34,6 +34,7 @@ class PracticeButton extends React.Component {
       <Practice courseId={courseId} page_ids={page_ids}>
         <ButtonWithTip
           id={this.id}
+          variant="light"
           className={classes}
           getTip={this.getTip}
           placement="top"

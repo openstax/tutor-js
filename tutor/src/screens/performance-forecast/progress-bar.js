@@ -50,7 +50,7 @@ export default class extends React.Component {
     if (canPractice) {
       return (
         <Practice courseId={courseId} page_ids={page_ids}>
-          <Button id={id} block={true} variant="outline-secondary">
+          <Button id={id} block={true} variant="practice">
             {bar}
           </Button>
         </Practice>

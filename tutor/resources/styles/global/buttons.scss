@@ -1,26 +1,14 @@
-// TODO get rid of this after we upgrade to Bootstrap 4.
-// This was only needed when we were using bootstrap-material-design.
-// Modifications on the default bootstrap styles should be made by adjust
-// the bootstrap variables.
-
 $default-border: rgba(66,66,66,.1);
 $default-background: rgba(245,245,245,.4);
 $default-background-hover: rgba(255,255,255,.8);
 $primary-background: #f47642;
 $primary-background-hover: #fa804d;
 
-// // Override the defaults from bootstrap-material-design
-// .btn-hover() {
-//   box-shadow: 0 4px 10px rgba(0, 0, 0, .1), 0 6px 28px rgba(0, 0, 0, .2);
-// }
-
 .btn + .btn { margin-left: 0.5rem; }
 
 .btn-ox {
   color: $tutor-gray;
 }
-
-// // .btn-group { border-radius: $btn-border-radius; }
 
 @mixin btn-round() {
   font-size: 1.6rem;
@@ -82,28 +70,24 @@ $primary-background-hover: #fa804d;
   }
 }
 
+
+
 .btn {
   &:not(.btn-link){
     @include btn-round();
   }
   padding: 9px 18px;
 
-  // &.btn-lg {
-  //   font-size: 1.8rem;
-  //   padding: 12px 36px;
-  // }
+  &.btn-practice {
 
-  // &.btn-sm {
-  //   height: 30px;
-  //   padding: 0 20px;
-  //   border-radius: 2px;
-  //   font-size: 1.4rem;
-  //   font-weight: bold;
-  // }
+    color: #424242;
+    background: rgba(245, 245, 245, 0.4);
+    border: 1px solid rgba(66, 66, 66, 0.1);
+    &:hover {
+      box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1);
+    }
 
-  // &.btn-default {
-  //   @include btn-tutor-default();
-  // }
+  }
 
   &.btn-primary {
     @include btn-tutor-primary();
