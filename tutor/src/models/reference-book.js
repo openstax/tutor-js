@@ -44,6 +44,7 @@ export default class ReferenceBook extends BaseModel {
   @field type;
   @field uuid;
   @field({ type: 'date' }) baked_at;
+  @field is_collated;
 
   fetch() {
     return { id: this.id };

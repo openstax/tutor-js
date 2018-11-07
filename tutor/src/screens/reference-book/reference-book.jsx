@@ -3,11 +3,12 @@ import { SpyMode } from 'shared';
 import ObscuredPage from '../../components/obscured-page';
 import Menu from '../../components/book-menu/menu';
 import Page from '../../components/book-page';
+import LoadingScreen from '../../components/loading-screen';
 
 import ReferenceViewPageNavigation from './page-navigation';
 import UX from './ux';
 
-const WrappedPage = observer(({ ux }) => {
+const BookPage = observer(({ ux }) => {
   if (ux.page) {
     return (
       <ReferenceViewPageNavigation ux={ux}>
@@ -33,6 +34,10 @@ export default class ReferenceBook extends React.Component {
 
   render() {
     const { ux } = this.props;
+    const Content = ux.isFetching ? LoadingScreen : BookPage;
+    //   return <LoadingScreen />;
+    // }
+
 
     const className = cn('reference-book', this.props.className, {
       'menu-open': ux.isMenuVisible,
@@ -45,7 +50,7 @@ export default class ReferenceBook extends React.Component {
           <ObscuredPage>
             <div className="content">
               <Menu ux={ux} />
-              <WrappedPage ux={ux} />
+              <Content ux={ux} />
             </div>
           </ObscuredPage>
         </SpyMode.Wrapper>

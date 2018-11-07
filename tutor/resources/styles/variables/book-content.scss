@@ -22,6 +22,7 @@ $openstax-book-default-accent: $openstax-book-gray-accent;
 $openstax-book-default-fg-inverse: $openstax-gold;
 $openstax-book-drop-cap-color: $tutor-gray;
 $openstax-book-text-on-dark-labels: #fff;
+
 // NOTE:
 //  * The 'biology' and 'physics' codes are deprecated, but are retained for older courses that may have them
 //  * These must be kept in sync with the books in src/flux/course-information.coffee

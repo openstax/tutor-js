@@ -1,0 +1,50 @@
+%tutor-book-content-baked-styles {
+  &.book-is-collated,
+  .book-is-collated {
+
+    .os-chapter-outline {
+      > .os-title {
+        display: none;
+      }
+
+      .os-chapter-objective {
+        > a.os-chapter-objective {
+          display: none;
+        }
+        & + .os-chapter-objective {
+          .learning-objective {
+
+            [data-type="abstract"] {
+              min-height: inherit;
+              padding: 0;
+            }
+
+          }
+        }
+      }
+    }
+
+    [data-type="document-title"] {
+      display: none;
+    }
+
+    .related-content[data-has-learning-objectives=false] {
+      display: none;
+    }
+  }
+
+  .os-figure.with-vertical-child-figures {
+    margin-right: $book-content-vertical-image-margin;
+    max-width: calc(50% - #{$book-content-vertical-image-margin});
+    float: left;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    .tutor-ui-vertical-img {
+      width: 100%;
+      float: none;
+      margin-right: 0;
+    }
+
+  }
+}

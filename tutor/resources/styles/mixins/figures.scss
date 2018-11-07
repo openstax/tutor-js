@@ -1,5 +1,5 @@
 @mixin tutor-figure() {
-  $vertical-image-margin: 1rem;
+
   figure {
     display: flex;
     flex-wrap: wrap;
@@ -10,11 +10,11 @@
     }
 
     &.tutor-ui-vertical-img {
-      margin-right: $vertical-image-margin;
-      width: calc(50% - #{$vertical-image-margin});
+      margin-right: $book-content-vertical-image-margin;
+      width: calc(50% - #{$book-content-vertical-image-margin});
       float: left;
       & + .tutor-ui-vertical-img {
-        margin-left: $vertical-image-margin;
+        margin-left: $book-content-vertical-image-margin;
         margin-right: 0;
       }
       & + .example-video {
@@ -77,5 +77,20 @@
     float: none;
   }
 
+  .os-caption-container {
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 1px solid $border-color;
+    color: $caption-font-color;
+    .os-title-label,
+    .os-number {
+      font-style: italic;
+      font-weight: 800;
+    }
+    .os-title-label + .os-number {
+      margin-left: 0.5rem;
+    }
+    .os-divider { flex: 1; }
+  }
 
 }

@@ -1,6 +1,5 @@
 import { React, inject, observer, cn } from '../../helpers/react';
 import ReferenceBook from './reference-book';
-import LoadingScreen from '../../components/loading-screen';
 import UX from './ux';
 import NavbarContext from '../../components/navbar/context';
 import './styles.scss';
@@ -39,10 +38,6 @@ export default class ReferenceBookShell extends React.Component {
 
   render() {
     const { ux } = this;
-
-    if (ux.isFetching) {
-      return <LoadingScreen />;
-    }
 
     return (
       <ReferenceBook

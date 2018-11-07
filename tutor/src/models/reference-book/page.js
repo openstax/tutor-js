@@ -10,6 +10,8 @@ import { StepTitleActions } from '../../flux/step-title';
 import { MediaActions } from '../../flux/media';
 import Exercises from '../exercises';
 
+const UPDATEABLE_FIELDS = ['content_html', 'spy'];
+
 @identifiedBy('reference-book/page')
 export default class ReferenceBookPage extends BaseModel {
   @identifier id;
@@ -19,7 +21,7 @@ export default class ReferenceBookPage extends BaseModel {
   @field short_id;
   @field uuid;
   @field({ model: ChapterSection }) chapter_section;
-  @session part;
+  @session chapter;
   @readonly depth = 2;
   @field content_html = '';
   @readonly isPage = true;
@@ -53,13 +55,17 @@ export default class ReferenceBookPage extends BaseModel {
   fetchContent() { }
 
   @action onContentFetchComplete({ data }) {
-    this.update(data);
+    this.update(pick(data, UPDATEABLE_FIELDS));
     MediaActions.parse(this.content_html);
     StepTitleActions.parseMetaOnly(this.cnx_id, this.content_html);
   }
 
   @computed get asTopic() {
     return merge({ chapter_section: this.chapter_section.asString }, pick(this, 'id', 'title'));
+  }
+
+  @computed get bookIsCollated() {
+    return get(this, 'chapter.book.is_collated', false);
   }
 
 }
