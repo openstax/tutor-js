@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import qs from 'qs';
 import extend from 'lodash/extend';
 import { DropTarget } from 'react-dnd';
-import { Month } from 'react-calendar';
+import Calendar from 'react-calendar';
 import TourRegion from '../../components/tours/region';
 import Course from '../../models/course';
 import { TimeStore } from '../../flux/time';
@@ -208,6 +208,7 @@ class CourseMonth extends React.Component {
   };
 
   handleDayClick = (dayMoment, mouseEvent) => {
+    debugger
     this.refs.addOnDay.updateState(dayMoment, mouseEvent.pageX, mouseEvent.pageY);
     this.activeAddDate = dayMoment;
   };
@@ -277,6 +278,7 @@ class CourseMonth extends React.Component {
   };
 
   onDragHover = (day) => {
+    console.log("hover", day)
     this.hoveredDay = TimeHelper.getMomentPreserveDate(day);
   };
 
@@ -298,14 +300,18 @@ class CourseMonth extends React.Component {
     }
   }
 
+  // onHover(ev) {
+  //   console.log(ev)
+  // }
+
   render() {
     const { course, className, date, hasPeriods, termStart, termEnd } = this.props;
     const { calendarDuration, calendarWeeks } = this.getDurationInfo(date);
-
     const calendarClassName = cn('calendar-container', className,
       { 'with-sidebar-open': this.props.showingSideBar }
     );
     const plans = course.taskPlans.active.array;
+    console.log(plans)
 
     return (
       <TourRegion
@@ -339,36 +345,40 @@ class CourseMonth extends React.Component {
               setDate={this.setDate}
             />
             {this.props.connectDropTarget(
-              <div
-                className={cn('month-wrapper', { 'is-dragging': this.props.isDragging })}
+            <div
+              onMouseMove={this.onDragHover}
+              className={cn('month-wrapper', { 'is-dragging': this.props.isDragging })}
               >
-                <Month
-                  date={date}
-                  monthNames={false}
-                  weekdayFormat="ddd"
-                  mods={this.getMonthMods(calendarDuration)}
-                />
-                {plans && (
-                  <CourseDuration
-                    referenceDate={moment(TimeStore.getNow())}
-                    durations={plans}
-                    viewingDuration={calendarDuration}
-                    groupingDurations={calendarWeeks}
-                    course={course}
-                    ref="courseDurations"
-                  >
-                    <CoursePlan
-                      course={course}
-                      onShow={this.onIfIsEditing}
-                      onHide={this.offIfIsEditing}
-                    />
-                  </CourseDuration>
-                )}
+              <Calendar
+              date={date}
+              monthNames={false}
+              calendarType="US"
+              weekdayFormat="ddd"
+              onClickDay={this.handleDayClick}
+              onMouseOver={this.onDragHover}
+              mods={this.getMonthMods(calendarDuration)}
+              />
+              {plans && (
+              <CourseDuration
+              referenceDate={moment(TimeStore.getNow())}
+              durations={plans}
+              viewingDuration={calendarDuration}
+              groupingDurations={calendarWeeks}
+              course={course}
+              ref="courseDurations"
+              >
+              <CoursePlan
+              course={course}
+              onShow={this.onIfIsEditing}
+              onHide={this.offIfIsEditing}
+              />
+              </CourseDuration>
+              )}
               </div>
-            )}
+              )}
+            </div>
           </div>
-        </div>
-        {this.cloningPlan && (
+          {this.cloningPlan && (
           <PlanClonePlaceholder
             planId={this.cloningPlan.id}
             planType={this.cloningPlan.type}
@@ -377,7 +387,7 @@ class CourseMonth extends React.Component {
             due_at={this.cloningPlan.due_at}
             onLoad={this.onCloneLoaded}
           />)}
-        {this.editingPlanId && this.showMiniEditor && (
+          {this.editingPlanId && this.showMiniEditor && (
           <TaskPlanMiniEditor
             planId={this.editingPlanId}
             position={this.editingPosition}

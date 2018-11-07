@@ -106,7 +106,7 @@
   }
 
   .book-links {
-    border-right: 1px solid $tutor-neutral-neutral-light;
+    border-right: 1px solid $tutor-neutral-light;
     display: flex;
     align-self: stretch;
     align-items: stretch;
@@ -115,7 +115,7 @@
       align-items: center;
       padding-left: 1rem;
       padding-right: 1rem;
-      border-left: 1px solid $tutor-neutral-neutral-light;
+      border-left: 1px solid $tutor-neutral-light;
       .tutor-icon { margin-left: 0.5rem; }
     }
   }

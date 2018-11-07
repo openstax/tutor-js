@@ -38,11 +38,11 @@
 
       min-height: 7rem;
       @include media-breakpoint-up('md') {
-        border-right: 1px solid $tutor-neutral-neutral-light;
+        border-right: 1px solid $tutor-neutral-light;
       }
       @include media-breakpoint-down('md') {
         border-right: 0px;
-        border-bottom: 1px solid $tutor-neutral-neutral-light;
+        border-bottom: 1px solid $tutor-neutral-light;
         margin-bottom: 2rem;
         padding-bottom: 2rem;
       }

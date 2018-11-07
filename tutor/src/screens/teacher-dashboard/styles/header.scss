@@ -13,11 +13,11 @@ $calendar-header-padding: 2rem;
     .no-periods-message { min-width: 100%; }
 
     .btn-default {
-      background-color: $tutor-neutral-neutral-lightest;
+      background-color: $tutor-neutral-lightest;
     }
 
     .btn-default {
-      background-color: $tutor-neutral-neutral-lightest;
+      background-color: $tutor-neutral-lightest;
     }
 
     .sidebar-toggle {
@@ -52,7 +52,7 @@ $calendar-header-padding: 2rem;
 
   .calendar-header {
     &-actions {
-      border-bottom: 1px solid $tutor-neutral-neutral-light;
+      border-bottom: 1px solid $tutor-neutral-light;
       padding-top: 1rem;
       padding-bottom: 1rem;
     }

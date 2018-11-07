@@ -1,6 +1,6 @@
 @mixin make-wizard-choice-active() {
-  background-color: fade_out($tutor-neutral-neutral-light, 0.4);
-  border-color: $tutor-neutral-neutral-light;
+  background-color: fade_out($tutor-neutral-light, 0.4);
+  border-color: $tutor-neutral-light;
   color: inherit;
   position: relative;
 }
@@ -10,8 +10,8 @@
 
   max-height: $choice-height * 3.5;
   overflow-y: auto;
-  border-top: 1px solid $tutor-neutral-neutral-light;
-  border-bottom: 1px solid $tutor-neutral-neutral-light;
+  border-top: 1px solid $tutor-neutral-light;
+  border-bottom: 1px solid $tutor-neutral-light;
 
   .list-group-item:first-child {
     border-top: none;
@@ -53,7 +53,7 @@
     //   right: 16px;
     //   @include fa-icon();
     //   content: $fa-var-square-o;
-    //   color: $tutor-neutral-neutral-light;
+    //   color: $tutor-neutral-light;
     //   font-size: 20px;
     // }
 

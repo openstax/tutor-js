@@ -3,7 +3,7 @@
 
   .task {
     background: $tutor-white;
-    border-top: thin dotted $tutor-neutral-neutral-light;
+    border-top: thin dotted $tutor-neutral-light;
     position: relative;
     display: flex;
     width: 100%;
@@ -19,7 +19,7 @@
     }
     &.deleted:not(.workable) {
       cursor: default;
-      background-color: $tutor-neutral-neutral-lightest;
+      background-color: $tutor-neutral-lightest;
     }
     .icon {
       background-position: center;
@@ -63,7 +63,7 @@
     &.workable {
       cursor: pointer;
       &:hover {
-        background-color: $tutor-neutral-neutral-lightest;
+        background-color: $tutor-neutral-lightest;
         .icon { @include tutor-icon-active(1.2); }
       }
     }

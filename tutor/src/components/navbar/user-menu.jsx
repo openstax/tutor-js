@@ -13,7 +13,7 @@ class UserMenu extends React.Component {
   render() {
     return (
       <Dropdown
-        pullRight
+
         className="user-menu"
       >
         <Dropdown.Toggle

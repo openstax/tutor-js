@@ -14,7 +14,7 @@
   }
 
   @include tutor-figure();
-  @include tutor-tables($tutor-neutral-neutral-light, $tutor-neutral-neutral-light);
+  @include tutor-tables($tutor-neutral-light, $tutor-neutral-light);
 
   table {
     text-align: left;

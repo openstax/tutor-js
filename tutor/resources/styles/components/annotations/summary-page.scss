@@ -1,5 +1,5 @@
 .overlay.annotations-summary {
-  background-color: $tutor-neutral-neutral-light;
+  background-color: $tutor-neutral-light;
   justify-content: center;
 
   @media print {
@@ -63,7 +63,7 @@
 
       button {
         background-color: $tutor-white;
-        border: thin solid $tutor-neutral-neutral-light;
+        border: thin solid $tutor-neutral-light;
         border-radius: 2px;
         height: 3rem;
         margin-right: 0.5rem;
@@ -88,7 +88,7 @@
         flex: 1;
 
         .selected-text {
-          border-left: 3px solid $tutor-neutral-neutral-light;
+          border-left: 3px solid $tutor-neutral-light;
           font-family: Georgia, serif;
           background: $tutor-white;
           font-size: 1.5rem;
@@ -104,7 +104,7 @@
           margin-top: 2rem;
 
           textarea {
-            border: thin solid $tutor-neutral-neutral-light;
+            border: thin solid $tutor-neutral-light;
             padding: 1rem;
             width: 100%;
           }

@@ -3,7 +3,7 @@ $correct-answer-color: $tutor-correct-color;
 $wrong-answer-color: $tutor-incorrect-color;
 $answer-vertical-spacing: 5px;
 $free-response-color: $tutor-neutral-dark;
-$free-response-background:  $tutor-neutral-neutral-lighter;
+$free-response-background:  $tutor-neutral-lighter;
 
 @mixin answer() {
   display: flex;
@@ -171,7 +171,7 @@ $free-response-background:  $tutor-neutral-neutral-lighter;
         margin: 0;
 
         &:hover {
-          background: $tutor-neutral-neutral-lightest;
+          background: $tutor-neutral-lightest;
         }
       }
     }

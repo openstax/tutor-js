@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { computed, action } from 'mobx';
 import { observer } from 'mobx-react';
 import TourAnchor from '../../components/tours/anchor';
@@ -42,7 +42,7 @@ class ScoresExport extends React.Component {
           disabled={this.scoresExport.isPending}
           onClick={this.startExport}
         >
-          <Icon type="download" />
+          hi <Icon type="download" />
         </Button>
         {this.message}
       </TourAnchor>

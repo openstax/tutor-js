@@ -148,7 +148,7 @@ $calendar-inactive-background: $tutor-neutral;
   .plan-clone-placeholder {
     position: absolute;
     display: inline;
-    border: 1px solid $tutor-neutral-neutral-lighter;
+    border: 1px solid $tutor-neutral-lighter;
     @include tutor-plan-set(display);
     label {
       margin: 0;

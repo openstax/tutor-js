@@ -15,7 +15,7 @@
 
   .inline-controls {
     background: $tutor-white;
-    border: thin solid $tutor-neutral-neutral-light;
+    border: thin solid $tutor-neutral-light;
     font-size: 2rem;
     padding: 0;
     position: absolute;
@@ -47,7 +47,7 @@
       }
     }
     .annotate {
-      border-right: thin solid $tutor-neutral-neutral-light;
+      border-right: thin solid $tutor-neutral-light;
       color: $tutor-neutral-neutral-neutral-darker;
       &:hover {
         color: $tutor-black;
@@ -57,7 +57,7 @@
     &::before {
       @include triangle(
         bottom,
-        $color: $tutor-neutral-neutral-light,
+        $color: $tutor-neutral-light,
         $height: 16px,
         $width: 22px
       );
@@ -100,7 +100,7 @@
 
   .slide-out-edit-box {
     background-color: $tutor-neutral-bright;
-    border: thin solid $tutor-neutral-neutral-light;
+    border: thin solid $tutor-neutral-light;
     padding: 1rem;
     position: fixed;
     right: 0;
@@ -116,7 +116,7 @@
     }
 
     textarea {
-      border: thin solid $tutor-neutral-neutral-light;
+      border: thin solid $tutor-neutral-light;
       height: 10rem;
       width: 100%;
     }
@@ -128,14 +128,14 @@
 
       button {
         background-color: $tutor-white;
-        border: thin solid $tutor-neutral-neutral-light;
+        border: thin solid $tutor-neutral-light;
         border-radius: 3px;
         color: $tutor-neutral;
         margin: 5px;
         min-width: 46px;
         padding: 5px 10px;
         &[disabled] {
-          color: $tutor-neutral-neutral-light;
+          color: $tutor-neutral-light;
           cursor: not-allowed;
         }
         &.primary {

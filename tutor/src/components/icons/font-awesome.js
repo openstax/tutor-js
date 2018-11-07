@@ -27,6 +27,13 @@ const ICONS = {};
   'Th',
   'Comments',
   'InfoCircle',
+  'Eye',
+  'Times',
+  'CaretLeft',
+  'CaretRight',
+  'Download',
+  'ChevronLeft',
+
 ].forEach(name => {
   const icon = require(`@fortawesome/free-solid-svg-icons/fa${name}.js`);
   let iconName = icon.iconName;

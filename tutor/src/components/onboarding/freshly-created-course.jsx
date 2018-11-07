@@ -28,8 +28,7 @@ class FreshlyCreatedCourse extends React.Component {
           </p>
 
           <Card
-            collapsible
-            bsClass='why-ask'
+            className='why-ask'
             headerRole='button'
             header = "Why are you asking?"
           >

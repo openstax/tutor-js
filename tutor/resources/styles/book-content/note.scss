@@ -131,11 +131,11 @@ $tutor-book-note-selector: '
 
     >[data-type=content],
     &:not([data-tutor-transform]) {
-      background: $tutor-neutral-neutral-lightest;
+      background: $tutor-neutral-lightest;
       margin: 0;
       clear: both;
-      border-top: solid 8px $tutor-neutral-neutral-lighter;
-      border-bottom: solid 8px $tutor-neutral-neutral-lighter;
+      border-top: solid 8px $tutor-neutral-lighter;
+      border-bottom: solid 8px $tutor-neutral-lighter;
       padding: $tutor-note-padding;
       width: 100%;
 

@@ -13,7 +13,7 @@
   @include tutor-shadow(pop);
   padding: 40px;
   header {
-    border-bottom: 1px solid $tutor-neutral-neutral-light;
+    border-bottom: 1px solid $tutor-neutral-light;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -71,7 +71,7 @@
   }
   .modal-header {
     background-color: $tutor-neutral-bright;
-    border-bottom-color: $tutor-neutral-neutral-light;
+    border-bottom-color: $tutor-neutral-light;
     margin-bottom: $spacing;
     .modal-title {
       color: black;
@@ -103,7 +103,7 @@
     }
     textarea {
       width: 100%;
-      border: thin solid $tutor-neutral-neutral-light;
+      border: thin solid $tutor-neutral-light;
       height: 60px;
       margin-bottom: $spacing/3;
     }

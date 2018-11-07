@@ -16,11 +16,11 @@
 }
 
 .add-assignment-sidebar {
-  border-right: 1px solid $tutor-neutral-neutral-light;
+  border-right: 1px solid $tutor-neutral-light;
   position: absolute;
   width: $calendar-sidebar-width;
   height: 100%;
-  background-color: $tutor-neutral-neutral-lightest;
+  background-color: $tutor-neutral-lightest;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -119,7 +119,7 @@
       @include draggable();
       // needs to match the background of the sidebar
       // Otherwise Safari won't show it when dragging
-      background-color: $tutor-neutral-neutral-lightest;
+      background-color: $tutor-neutral-lightest;
       line-height: 3.6rem;
       position: relative;
       & + li { margin-top: 3px; }
@@ -146,8 +146,8 @@
   }
 
   .past-assignments {
-    background-color: $tutor-neutral-neutral-lighter;
-    border-top: 1px solid $tutor-neutral-neutral-light;
+    background-color: $tutor-neutral-lighter;
+    border-top: 1px solid $tutor-neutral-light;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -161,7 +161,7 @@
       @include tutor-plan-sidebar();
 
       @include draggable();
-      background-color: $tutor-neutral-neutral-lighter;
+      background-color: $tutor-neutral-lighter;
       display: flex;
       align-items: center;
       padding-left: 10px;

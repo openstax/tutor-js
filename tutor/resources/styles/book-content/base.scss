@@ -19,7 +19,7 @@
   blockquote {
     @include tutor-serif-font(1.75rem, 190%);
     font-style: italic;
-    background-color: $tutor-neutral-neutral-lighter;
+    background-color: $tutor-neutral-lighter;
   }
 
   [data-type=term]{
@@ -27,7 +27,7 @@
     font-style: italic;
   }
 
-  @include tutor-tables($tutor-neutral-neutral-light, $tutor-neutral-neutral-light);
+  @include tutor-tables($tutor-neutral-light, $tutor-neutral-light);
 
   div[data-type="document-title"],
   cnx-pi{

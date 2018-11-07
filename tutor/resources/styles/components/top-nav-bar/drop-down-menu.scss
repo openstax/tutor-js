@@ -42,7 +42,7 @@
       padding: 15 20px;
 
       &:hover {
-        background-color: $tutor-neutral-neutral-lighter;
+        background-color: $tutor-neutral-lighter;
         color: $tutor-neutral-neutral-neutral-darker;
       }
 
@@ -53,7 +53,7 @@
 
     &.active {
       > a {
-        background-color: $tutor-neutral-neutral-lighter;
+        background-color: $tutor-neutral-lighter;
         color: $tutor-neutral-neutral-neutral-darker;
       }
     }
