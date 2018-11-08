@@ -1,4 +1,4 @@
-import { invoke, defer } from 'lodash';
+import { invoke, defer, get, pick } from 'lodash';
 import { observable, action, computed } from 'mobx';
 import cn from 'classnames';
 import Analytics from '../../helpers/analytics';
@@ -38,11 +38,12 @@ export class OverlayRegistry {
       this.onHide();
     }
     this.isPageHidden = false;
-    if (this.pageScrollPosition) {
+    const pos = pick(this.pageScrollPosition, 'x', 'y');
+    if  (pos.x || pos.y) {
       defer(() => { // schedule a scroll to take place after the page is re-displayed
-        window.scroll(this.pageScrollPosition.x, this.pageScrollPosition.y);
-        this.pageScrollPosition = null;
+        window.scroll(pos.x, pos.y);
       });
+      this.pageScrollPosition = null;
     }
     this.isOverlayExpanded = false;
   }
