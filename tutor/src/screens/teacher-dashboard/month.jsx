@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import qs from 'qs';
 import extend from 'lodash/extend';
 import { DropTarget } from 'react-dnd';
-import Calendar from 'react-calendar';
+import Calendar from 'dayz';
 import TourRegion from '../../components/tours/region';
 import Course from '../../models/course';
 import { TimeStore } from '../../flux/time';
