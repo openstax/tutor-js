@@ -176,10 +176,11 @@ $tutor-book-note-selector: '
     }
 
     @include tutor-book-label-style() {
-      @include tutor-sans-font($tutor-book-ui-top-height - 8px, $tutor-book-ui-top-height);
+      @include tutor-sans-font($tutor-book-ui-top-height - 10px);
+      display: inline-flex;
+      align-items: center;
       font-weight: 900;
-      padding: 0 40px 0 40px;
-      display: inline-block;
+      padding-left: 40px;
     };
 
     &:not([data-tutor-transform]) {

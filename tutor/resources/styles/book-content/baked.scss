@@ -1,6 +1,5 @@
 %tutor-book-content-baked-styles {
-  &.book-is-collated,
-  .book-is-collated {
+  &.book-is-collated {
 
     .os-chapter-outline {
       > .os-title {
@@ -24,6 +23,7 @@
       }
     }
 
+    .os-chapter-outline +
     [data-type="document-title"] {
       display: none;
     }
