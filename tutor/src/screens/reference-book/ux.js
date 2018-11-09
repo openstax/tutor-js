@@ -54,7 +54,6 @@ export default class ReferenceBookUX extends BookUX {
         'teacher-content-toggle': TeacherContentToggle,
       });
     }
-
     this.navBar = nav;
   }
 

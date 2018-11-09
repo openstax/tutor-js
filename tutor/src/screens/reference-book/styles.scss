@@ -8,6 +8,9 @@
   @include book-page();
   .book-page-wrapper.not-found {
     text-align: center;
-    height: 100vh;
+    height: calc(100vh - #{$tutor-navbar-height});
+  }
+  .loading-screen-animation {
+    min-height: calc(100vh - #{$tutor-navbar-height});
   }
 }

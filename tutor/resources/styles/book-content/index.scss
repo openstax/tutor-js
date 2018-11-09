@@ -9,9 +9,9 @@
 @import './related-content';
 @import './splash-image';
 @import './target';
-
 @import './os-teacher';
 @import './questions';
+@import './baked';
 
 // mixins
 @import './note';
@@ -40,7 +40,7 @@
   @extend %tutor-book-content-target;
   @extend %tutor-book-content-teacher;
   @extend %tutor-book-content-questions;
-
+  @extend %tutor-book-content-baked-styles;
   @include book-content-interactives();
   @include tutor-book-notes();
 

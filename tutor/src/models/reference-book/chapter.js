@@ -12,6 +12,6 @@ export default class ReferenceBookChapter extends BaseModel {
   @field type;
   @field({ model: ChapterSection }) chapter_section;
   @session book;
-  @hasMany({ model: Page, inverseOf: 'part' }) children;
+  @hasMany({ model: Page, inverseOf: 'chapter' }) children;
   @readonly depth = 1;
 }

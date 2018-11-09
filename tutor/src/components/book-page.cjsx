@@ -88,8 +88,10 @@ BookPage = React.createClass
 
     <div
       className={
-        classnames('book-page', @props.className,
-          {'page-loading loadable is-loading': isLoading})
+        classnames('book-page', @props.className, {
+          'page-loading loadable is-loading': isLoading,
+          'book-is-collated': page.bookIsCollated,
+          })
       }
       {...ux.courseDataProps}
     >

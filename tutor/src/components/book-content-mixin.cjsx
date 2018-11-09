@@ -242,17 +242,20 @@ processImage = ->
   figure = dom(@).closest('figure') or dom(@).closest('[data-type=media]')
   # console.log("process", @, figure)
   return unless figure
-  if figure.parentNode?.nodeName is 'FIGURE'
-    figure.parentNode.classList.add('with-child-figures')
-
   @title = @alt
   aspectRatio = @naturalWidth / @naturalHeight
-
+  type = ''
   # let wide, square, and almost square figures be natural.
   if aspectRatio > 0.9 or figure.parentNode?.dataset.orient is 'horizontal'
-    figure.classList.add('tutor-ui-horizontal-img')
+    type = 'horizontal'
   else
-    figure.classList.add('tutor-ui-vertical-img')
+    type = 'vertical'
+
+  figure.classList.add("tutor-ui-#{type}-img")
+
+  if figure.parentNode and (figure.parentNode.nodeName is 'FIGURE' or dom(figure.parentNode).matches('.os-figure'))
+    figure.parentNode.classList.add("with-#{type}-child-figures")
+
 
 
 BookContentMixin = _.extend({}, LinkContentMixin, ReadingContentMixin)

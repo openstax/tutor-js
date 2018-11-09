@@ -43,6 +43,8 @@ export default class ReferenceBook extends BaseModel {
   @field title;
   @field type;
   @field uuid;
+  @field({ type: 'date' }) baked_at;
+  @field is_collated;
 
   fetch() {
     return { id: this.id };
@@ -55,6 +57,10 @@ export default class ReferenceBook extends BaseModel {
   // a simplified data structure suitable for passing into flux
   @computed get topicInfo() {
     return mapValues(this.pages.byId.toJS(), pg => pg.asTopic);
+  }
+
+  @computed get isBaked() {
+    return Boolean(this.baked_at);
   }
 
   sectionsForPageIds(pageIds) {

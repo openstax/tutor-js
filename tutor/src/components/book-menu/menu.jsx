@@ -18,6 +18,7 @@ class BookMenuTocSection extends React.Component {
 
   render() {
     const { ux, section } = this.props;
+
     return (
       <ul
         className="section"
