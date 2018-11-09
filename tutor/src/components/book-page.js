@@ -107,8 +107,10 @@ const BookPage = createReactClass({
 
     return (
       <div
-        className={classnames('book-page', this.props.className,
-          { 'page-loading loadable is-loading': isLoading })}
+        className={classnames('book-page', this.props.className, {
+          'page-loading loadable is-loading': isLoading,
+          'book-is-collated': page.bookIsCollated,
+        })}
         {...ux.courseDataProps}>
         {this.props.children}
         <div className="page center-panel">
@@ -116,11 +118,7 @@ const BookPage = createReactClass({
           <ArbitraryHtmlAndMath className="book-content" block={true} html={page.contents} />
         </div>
         <SpyMode.Content className="ecosystem-info">
-          {'\
-    PageId: '}
-          {page.cnx_id}
-          {', Ecosystem: '}
-          {JSON.stringify(page != null ? page.spy : undefined)}
+          PageId: {page.cnx_id}, Ecosystem: {JSON.stringify(page && page.spy)}
         </SpyMode.Content>
         {ux.allowsAnnotating && (
           <AnnotationWidget

@@ -37,9 +37,6 @@ class ReferenceBook extends React.Component {
   render() {
     const { ux } = this.props;
     const Content = ux.isFetching ? LoadingScreen : BookPage;
-    //   return <LoadingScreen />;
-    // }
-
 
     const className = cn('reference-book', this.props.className, {
       'menu-open': ux.isMenuVisible,
