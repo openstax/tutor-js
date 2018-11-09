@@ -5,15 +5,14 @@ import 'moment-timezone';
 import twix from 'twix';
 import PropTypes from 'prop-types';
 import qs from 'qs';
+import Month from './month';
 import extend from 'lodash/extend';
-import { DropTarget } from 'react-dnd';
 import Calendar from 'dayz';
 import TourRegion from '../../components/tours/region';
 import Course from '../../models/course';
 import { TimeStore } from '../../flux/time';
 import TimeHelper from '../../helpers/time';
 import TutorRouter from '../../helpers/router';
-import { ItemTypes, TaskDrop, DropInjector } from './task-dnd';
 import TaskPlanMiniEditor from '../../components/task-plan/mini-editor';
 import PlanClonePlaceholder from './plan-clone-placeholder';
 import AddAssignmentSidebar from './add-assignment-sidebar';
@@ -22,8 +21,9 @@ import MonthTitleNav from './month-title-nav';
 import AddAssignment from './add';
 import CoursePlan from './plan';
 
+export default
 @observer
-class CourseMonth extends React.Component {
+class TeacherDashboard extends React.Component {
 
   static contextTypes = {
     router: PropTypes.object,
@@ -311,7 +311,7 @@ class CourseMonth extends React.Component {
       { 'with-sidebar-open': this.props.showingSideBar }
     );
     const plans = course.taskPlans.active.array;
-    console.log(plans)
+//    console.log(plans)
 
     return (
       <TourRegion
@@ -344,49 +344,19 @@ class CourseMonth extends React.Component {
               date={date}
               setDate={this.setDate}
             />
-            {this.props.connectDropTarget(
-            <div
-              onMouseMove={this.onDragHover}
-              className={cn('month-wrapper', { 'is-dragging': this.props.isDragging })}
-              >
-              <Calendar
-              date={date}
-              monthNames={false}
-              calendarType="US"
-              weekdayFormat="ddd"
-              onClickDay={this.handleDayClick}
-              onMouseOver={this.onDragHover}
-              mods={this.getMonthMods(calendarDuration)}
-              />
-              {plans && (
-              <CourseDuration
-              referenceDate={moment(TimeStore.getNow())}
-              durations={plans}
-              viewingDuration={calendarDuration}
-              groupingDurations={calendarWeeks}
-              course={course}
-              ref="courseDurations"
-              >
-              <CoursePlan
-              course={course}
-              onShow={this.onIfIsEditing}
-              onHide={this.offIfIsEditing}
-              />
-              </CourseDuration>
-              )}
-              </div>
-              )}
-            </div>
+            <Month course={course} date={date} />
           </div>
-          {this.cloningPlan && (
-          <PlanClonePlaceholder
-            planId={this.cloningPlan.id}
-            planType={this.cloningPlan.type}
-            position={this.cloningPlan.position}
-            course={this.props.course}
-            due_at={this.cloningPlan.due_at}
-            onLoad={this.onCloneLoaded}
-          />)}
+        </div>
+
+      {this.cloningPlan && (
+        <PlanClonePlaceholder
+          planId={this.cloningPlan.id}
+          planType={this.cloningPlan.type}
+          position={this.cloningPlan.position}
+          course={this.props.course}
+          due_at={this.cloningPlan.due_at}
+          onLoad={this.onCloneLoaded}
+        />)}
           {this.editingPlanId && this.showMiniEditor && (
           <TaskPlanMiniEditor
             planId={this.editingPlanId}
@@ -402,5 +372,3 @@ class CourseMonth extends React.Component {
   }
 
 }
-
-export default DropTarget([ItemTypes.NewTask, ItemTypes.CloneTask], TaskDrop, DropInjector)(CourseMonth);

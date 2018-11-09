@@ -37,7 +37,7 @@
         width: 30px;
         height: 30px;
         path {
-          fill: $tutor-neutral-neutral-neutral-darker;
+          fill: $tutor-neutral-darker;
         }
       }
       .outline { display: none; }
@@ -48,7 +48,7 @@
     }
     .annotate {
       border-right: thin solid $tutor-neutral-light;
-      color: $tutor-neutral-neutral-neutral-darker;
+      color: $tutor-neutral-darker;
       &:hover {
         color: $tutor-black;
       }
@@ -92,7 +92,7 @@
     background-color: #e1f3df;
     color: #75a048;
     &.error {
-      color: $tutor-neutral-neutral-neutral-darker;
+      color: $tutor-neutral-darker;
       background-color: $tutor-warning;
     }
 
@@ -162,7 +162,7 @@
     transform: translateY(-25%);
     color: $tutor-neutral;
     transition: 0.3s color;
-    &:hover { color: $tutor-neutral-neutral-neutral-darker; }
+    &:hover { color: $tutor-neutral-darker; }
     transition: 0.3s color;
     &.active {
       color: $tutor-neutral-dark;

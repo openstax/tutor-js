@@ -8,21 +8,21 @@
   font-weight: 400;
   font-style: italic;
   content: 'opens ' attr(data-opens-at);
-  color: $tutor-neutral-neutral-neutral-darker;
+  color: $tutor-neutral-darker;
 }
 
 @mixin is-draft() {
   font-weight: 400;
   font-style: italic;
   content: 'draft';
-  color: $tutor-neutral-neutral-neutral-darker;
+  color: $tutor-neutral-darker;
 }
 
 @mixin is-publishing() {
   font-weight: 400;
   font-style: italic;
   content: 'publishing';
-  color: $tutor-neutral-neutral-neutral-darker;
+  color: $tutor-neutral-darker;
   -webkit-animation: tutor-plan-publishing 1800ms linear infinite;
   animation: tutor-plan-publishing 1800ms linear infinite;
 }

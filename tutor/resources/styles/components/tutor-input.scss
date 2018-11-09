@@ -9,13 +9,13 @@
     #reading-title,
     #external-url {
       font-size: 2rem;
-      color: $tutor-neutral-neutral-neutral-darker;
+      color: $tutor-neutral-darker;
     }
 
     textarea {
       overflow: hidden;
       font-size: 2rem;
-      color: $tutor-neutral-neutral-neutral-darker;
+      color: $tutor-neutral-darker;
       height: 28px;
       margin: 0;
       padding: 0;
@@ -130,7 +130,7 @@
     }
 
     &:hover {
-      color: $tutor-neutral-neutral-neutral-darker;
+      color: $tutor-neutral-darker;
     }
   }
 }

@@ -29,7 +29,6 @@ class FreshlyCreatedCourse extends React.Component {
 
           <Card
             className='why-ask'
-            headerRole='button'
             header = "Why are you asking?"
           >
             OpenStax Tutor is funded by philanthropic foundations who want to know how their gifts

@@ -43,7 +43,7 @@
 
       &:hover {
         background-color: $tutor-neutral-lighter;
-        color: $tutor-neutral-neutral-neutral-darker;
+        color: $tutor-neutral-darker;
       }
 
       form input[type="submit"] {
@@ -54,7 +54,7 @@
     &.active {
       > a {
         background-color: $tutor-neutral-lighter;
-        color: $tutor-neutral-neutral-neutral-darker;
+        color: $tutor-neutral-darker;
       }
     }
 

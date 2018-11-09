@@ -1,6 +1,6 @@
 .tooltip {
   .tooltip-inner {
-    color: $tutor-neutral-neutral-neutral-darker;
+    color: $tutor-neutral-darker;
     @include tutor-shadow(2);
   }
   .tooltip-arrow { display: block; }

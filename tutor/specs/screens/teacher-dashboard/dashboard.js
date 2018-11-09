@@ -1,9 +1,8 @@
 import moment from 'moment';
-import { React, Renderer, wrapInDnDTestContext, SnapShot } from '../../helpers';
-import Month from '../../../src/screens/teacher-dashboard/month';
+import { React, Wrapper } from '../../helpers';
+import Dashboard from '../../../src/screens/teacher-dashboard/dashboard';
 import Factory from '../../factories';
 import TimeHelper from '../../../src/helpers/time';
-import { DragDropManager } from 'dnd-core';
 
 describe('CourseCalendar Month display', () => {
   let course;
@@ -24,11 +23,8 @@ describe('CourseCalendar Month display', () => {
   });
 
   it('renders plans and hides when deleting', function() {
-    const M = wrapInDnDTestContext(Month);
-    // Renderer.create(<M {...props} />)
+    const month = mount(<Dashboard {...props} />);
 
-    // console.log(typeof(M))
-    const month = mount(<M {...props} />);
     console.log(month.debug())
     // const plan = course.taskPlans.array[0];
     // expect(month).toHaveRendered(`[data-plan-id="${plan.id}"]`);

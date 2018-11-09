@@ -3,8 +3,15 @@ import React from 'react';
 import merge from 'lodash/merge';
 import TestBackend from 'react-dnd-test-backend';
 import TestRouter from './test-router';
-import { DragDropManager } from 'dnd-core';
+//import { DragDropManager } from 'dnd-core';
+import { DragDropContext } from 'react-dnd';
 
+function wrapInDnDTestContext(DecoratedComponent) {
+  return DragDropContext(TestBackend)(
+    (props) => <DecoratedComponent {...props} />
+  );
+}
+export { wrapInDnDTestContext };
 
 const EnzymeContext = {
   withDnD(options = {}) {

@@ -3,6 +3,7 @@ import { MemoryRouter as Router } from 'react-router-dom';
 
 import TimeMock from './time-mock';
 
+export { wrapInDnDTestContext } from './enzyme-context';
 export { Router, TimeMock };
 export Factory from '../factories';
 

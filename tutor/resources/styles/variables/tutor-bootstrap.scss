@@ -8,7 +8,7 @@
 //## Gray and brand colors for use across Bootstrap.
 
 $gray-base:              $tutor-black;
-$openstax-neutral-darker:            $tutor-neutral-neutral-neutral-darker; // #222
+$openstax-neutral-darker:            $tutor-neutral-darker; // #222
 $gray-dark:              $tutor-neutral-dark;   // #333
 $gray:                   $tutor-neutral; // #555
 $openstax-neutral-light:             $tutor-neutral-light; // #777
@@ -28,7 +28,7 @@ $link-hover-decoration: none;
 $popover-max-width:     370px;
 
 $tooltip-border-color: $tutor-info;
-$tooltip-color: $tutor-neutral-neutral-neutral-darker;
+$tooltip-color: $tutor-neutral-darker;
 $tooltip-arrow-color: $tutor-white;
 $tooltip-arrow-outer-fallback-color: $tutor-info;
 $tooltip-arrow-outer-color: $tutor-info;

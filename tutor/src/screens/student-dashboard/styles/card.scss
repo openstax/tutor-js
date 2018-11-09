@@ -16,12 +16,12 @@
     .title {
       @include tutor-sans-font(2.4rem, $student-dashboard-row-height);
       font-weight: 900;
-      color: $tutor-neutral-neutral-neutral-darker;
+      color: $tutor-neutral-darker;
     }
 
     .date-range {
       @include tutor-sans-font(1.4rem, $student-dashboard-row-height);
-      color: $tutor-neutral-neutral-neutral-darker;
+      color: $tutor-neutral-darker;
       text-transform: uppercase;
     }
     // Adjust height for when the columns collapse and progress appears below task title

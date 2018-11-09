@@ -12,14 +12,14 @@ import TimeHelper from '../../helpers/time';
 import CourseDataHelper from '../../helpers/course-data';
 import NotificationHelpers from '../../helpers/notifications';
 import TermsModal from '../../components/terms-modal';
-import CourseMonth from './month';
+import Dashboard from './dashboard';
 import CourseCalendarHeader from './header';
 import './styles.scss';
 
-const displayAsHandler = {
-  month: CourseMonth,
-};
-
+// const displayAsHandler = {
+//   month: CourseMonth,
+// };
+//
 const getDisplayBounds = {
   month(date) {
     return {
@@ -157,16 +157,14 @@ class TeacherTaskPlanListing extends React.Component {
     } = this;
 
     const hasPeriods = !isEmpty(course.periods.active);
-    const calendarProps = {
+    const dashboardProps = {
       course, date, displayAs, hasPeriods, params,
       termStart, termEnd, showingSideBar, dateFormat,
     };
 
     if (this.loader.isBusy) {
-      extend(calendarProps, { className: 'calendar-loading' });
+      extend(dashboardProps, { className: 'calendar-loading' });
     }
-
-    const CourseCalendar = displayAsHandler[this.displayAs];
 
     return (
       <CoursePage
@@ -178,13 +176,13 @@ class TeacherTaskPlanListing extends React.Component {
         notices={
           <NotificationsBar
             course={course}
-            role={course.primaryRole}
-            callbacks={NotificationHelpers.buildCallbackHandlers(this)}
+                   role={course.primaryRole}
+                   callbacks={NotificationHelpers.buildCallbackHandlers(this)}
           />
         }
       >
         <TermsModal />
-        <CourseCalendar {...calendarProps} />
+        <Dashboard {...dashboardProps} />
       </CoursePage>
     );
   }

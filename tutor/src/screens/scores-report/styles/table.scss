@@ -228,7 +228,7 @@ $pie-color-due: #268FBE;
         overflow: hidden;
       }
       .student-name {
-        color: $tutor-neutral-neutral-neutral-darker;
+        color: $tutor-neutral-darker;
         @include tutor-sans-font(1.6rem);
       }
       .student-id {

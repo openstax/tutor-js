@@ -14,7 +14,7 @@
 // @include tutor-font-face('MerriWeather'; 'MerriWeather-Italic';         'merriweather-v8-latin-regularitalic'; 400; $style: 'italic');
 // @include tutor-font-face('Architects Daughter'; 'Architects Daughter';  'architects-daughter-v6-latin-regular'; 400);
 
-$body-font-color: $tutor-neutral-neutral-neutral-darker;
+$body-font-color: $tutor-neutral-darker;
 $caption-font-color: #646464;
 $html-font-size: 10px;
 $tutor-default-font-face: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -72,17 +72,17 @@ $tutor-neutral-light-font-face: "HelveticaNeue-Light", "Helvetica Neue Light", $
 }
 @mixin tutor-main-title-font() {
   @include tutor-sans-font(3rem, 3.7rem);
-  color: $tutor-neutral-neutral-neutral-darker;
+  color: $tutor-neutral-darker;
   font-weight: 600;
 }
 @mixin tutor-main-subtitle-font() {
   @include tutor-sans-font(2.5rem, 2.7rem);
-  color: $tutor-neutral-neutral-neutral-darker;
+  color: $tutor-neutral-darker;
   font-weight: 500;
 }
 @mixin tutor-section-title-font() {
   @include tutor-sans-font(2.5rem, 2.7rem);
-  color: $tutor-neutral-neutral-neutral-darker;
+  color: $tutor-neutral-darker;
   font-weight: 500;
 }
 

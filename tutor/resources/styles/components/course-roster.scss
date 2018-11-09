@@ -204,12 +204,12 @@
 .settings-view-archived-periods-modal {
   @include tutor-modal();
   .modal-header {
-    color: $tutor-neutral-neutral-neutral-darker;
+    color: $tutor-neutral-darker;
     background-color: $tutor-neutral-bright;
     button.close {
       opacity: 0.8;
       font-size: 3rem;
-      color: $tutor-neutral-neutral-neutral-darker;
+      color: $tutor-neutral-darker;
     }
   }
   .modal-footer {

@@ -2,7 +2,9 @@ import {
   BaseModel, identifiedBy, field, session, identifier, hasMany,
 } from 'shared/model';
 import { action, computed, observable, createAtom } from 'mobx';
-import { sortBy, first, map, union, find } from 'lodash';
+import {
+  sortBy, first, last, map, union, find
+} from 'lodash';
 import { lazyInitialize } from 'core-decorators';
 import TaskingPlan from '../tasking-plan';
 import TaskPlanPublish from '../jobs/task-plan-publish';
@@ -10,6 +12,7 @@ import * as Dates from '../../helpers/dates';
 import { TimeStore } from '../../flux/time';
 import TaskPlanStats from './stats';
 import TaskPlanReview from './review';
+import moment from '../../helpers/moment-range';
 
 export default
 @identifiedBy('task-plan/teacher')
@@ -72,6 +75,11 @@ class TeacherTaskPlan extends BaseModel {
     return Dates.getDurationFromMoments(
       map(this.tasking_plans, 'due_at'),
     );
+  }
+
+  @computed get dueRange() {
+    const range = sortBy(this.tasking_plans, tp => moment(tp.due_at));
+    return moment.range(first(range), last(range));
   }
 
   @action onPublishComplete() {

@@ -39,7 +39,11 @@ export default class Map {
   }
 
   set(key, value) {
-    this._map.set(this.keyType(key), value);
+    return this._map.set(this.keyType(key), value);
+  }
+
+  delete(key) {
+    return this._map.delete(this.keyType(key));
   }
 
   where(condition) {
@@ -76,7 +80,7 @@ export default class Map {
   }
 }
 
-['map', 'replace', 'clear'].forEach(prop => {
+['replace', 'clear'].forEach(prop => {
   Map.prototype[prop] = function(...args) {
     return this._map[prop](...args);
   };

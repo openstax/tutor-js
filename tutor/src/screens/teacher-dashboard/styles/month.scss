@@ -28,7 +28,9 @@ $calendar-cell-height: 10rem;
 
 .calendar-container{
   @include bootstrap-column-padding-override();
-  line-height: 3rem; // needs to be a known value that matches the task layout logic
+
+
+//  line-height: 3rem; // needs to be a known value that matches the task layout logic
   padding-bottom: $tutor-card-body-padding-vertical;
 
   .calendar-body {
