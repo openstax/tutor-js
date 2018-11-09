@@ -90,6 +90,7 @@
     "phantomjs-prebuilt": "^2.1.16",
     "pluralize": "3.1.0",
     "promise-loader": "1.0.0",
+    "prop-types": "^15.6.2",
     "qs": "6.3.0",
     "raven-js": "^3.26.4",
     "react": "15.4.2",

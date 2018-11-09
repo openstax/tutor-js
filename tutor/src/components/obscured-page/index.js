@@ -1,4 +1,5 @@
 import { React, action, observer, cn } from '../../helpers/react';
+import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import keymaster from 'keymaster';
 import { DefaultRegistry, OverlayRegistry } from './overlay-registry';
@@ -21,12 +22,17 @@ const Overlay = styled.div`
   `}
 `;
 
+const Page = styled.div`
+  ${props => props.isHidden && 'display: none'};
+`;
+
+export default
 @observer
-export default class ObscuredPage extends React.Component {
+class ObscuredPage extends React.Component {
 
   static propTypes = {
-    children: React.PropTypes.node.isRequired,
-    registry: React.PropTypes.instanceOf(OverlayRegistry),
+    children: PropTypes.node.isRequired,
+    registry: PropTypes.instanceOf(OverlayRegistry),
   }
 
   static defaultProps = {
@@ -46,26 +52,20 @@ export default class ObscuredPage extends React.Component {
     keymaster.unbind('esc', this.props.registry.onEscKey);
   }
 
-  get ariaLiveProps() {
-    return this.props.registry.isOverlayExpanded ? {
-      'aria-live': 'polite',
-      'aria-atomic': 'true',
-      'aria-relevant': 'additions',
-    } : {};
-  }
-
   render() {
     const { registry, children } = this.props;
 
     return (
       <div className="obscured-page">
-        <div className={registry.pageClassName}>{children}</div>
+        <Page
+          isHidden={registry.isPageHidden}
+          className={registry.pageClassName}
+        >{children}</Page>
         <Overlay
           isExpanded={registry.isOverlayExpanded}
           isHidden={registry.isOverlayHidden}
           onTransitionEnd={registry.onOverlayAnimated}
           className={registry.overlayClassName}
-          {...this.ariaLiveProps}
         >
           {registry.overlay}
         </Overlay>
@@ -73,4 +73,4 @@ export default class ObscuredPage extends React.Component {
     );
   }
 
-}
+};

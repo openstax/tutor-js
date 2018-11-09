@@ -1,16 +1,18 @@
-import { pick } from 'lodash';
+import PropTypes from 'prop-types';
 import { React, observer } from '../../helpers/react';
+import { pick } from 'lodash';
 import { DefaultRegistry, OverlayRegistry } from './overlay-registry';
 
+export default
 @observer
-export default class Overlay extends React.Component {
+class Overlay extends React.Component {
 
   static propTypes = {
-    id: React.PropTypes.string.isRequired,
-    visible: React.PropTypes.bool.isRequired,
-    renderer: React.PropTypes.func.isRequired,
-    onHide: React.PropTypes.func.isRequired,
-    registry: React.PropTypes.instanceOf(OverlayRegistry),
+    id: PropTypes.string.isRequired,
+    visible: PropTypes.bool.isRequired,
+    renderer: PropTypes.func.isRequired,
+    onHide: PropTypes.func.isRequired,
+    registry: PropTypes.instanceOf(OverlayRegistry),
   }
 
   static defaultProps = {
@@ -28,4 +30,4 @@ export default class Overlay extends React.Component {
     return null;
   }
 
-}
+};
