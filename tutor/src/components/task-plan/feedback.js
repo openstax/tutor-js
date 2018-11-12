@@ -47,7 +47,7 @@ class FeedbackSetting extends React.Component {
             instantly after the student answers each question
           </option>
           <option value="due_at">
-            only after due date\x2Ftime passes
+            only after due date/time passes
           </option>
         </select>
         {popover}

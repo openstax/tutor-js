@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { map, pick } from 'lodash';
 import createReactClass from 'create-react-class';
-import _ from 'underscore';
 import { Button, Card, Col, Row, Container } from 'react-bootstrap';
 import classnames from 'classnames';
 import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
@@ -13,11 +13,11 @@ import PlanMixin from './plan-mixin';
 import TaskPlanBuilder from './builder';
 import NoQuestionsTooltip from './reading/no-questions-tooltip';
 import Fn from '../../helpers/function';
+import Icon from '../icon';
 import Courses from '../../models/courses-map';
 import TourRegion from '../tours/region';
 
-class ReviewReadingLi extends React.Component {
-  static displayName = 'ReviewReadingLi';
+class ReviewReading extends React.Component {
 
   static propTypes = {
     page: PropTypes.instanceOf(Page).isRequired,
@@ -30,21 +30,17 @@ class ReviewReadingLi extends React.Component {
   getActionButtons = () => {
     let moveUpButton;
     if (this.props.index) {
-      moveUpButton = <Button onClick={this.moveReadingUp} className="btn-xs -move-reading-up">
-        <i className="fa fa-arrow-up" />
-      </Button>;
+      moveUpButton = (
+        <Icon onClick={this.moveReadingUp} size="xs" type="arrow-up" />
+      );
     }
 
     if (this.props.canEdit) {
       return (
         <span className="section-buttons">
           {moveUpButton}
-          <Button onClick={this.moveReadingDown} className="btn-xs move-reading-down">
-            <i className="fa fa-arrow-down" />
-          </Button>
-          <Button className="remove-topic" onClick={this.removeTopic} variant="default">
-            <i className="fa fa-close" />
-          </Button>
+          <Icon onClick={this.moveReadingDown} size="xs" type="arrow-down" />
+          <Icon onClick={this.removeTopic} type="times" />
         </span>
       );
     }
@@ -80,7 +76,6 @@ class ReviewReadingLi extends React.Component {
 }
 
 class ReviewReadings extends React.Component {
-  static displayName = 'ReviewReadings';
 
   static propTypes = {
     courseId: PropTypes.string.isRequired,
@@ -96,7 +91,7 @@ class ReviewReadings extends React.Component {
 
   renderSection = (topicId, index) => {
     return (
-      <ReviewReadingLi
+      <ReviewReading
         topicId={topicId}
         page={this.book.pages.byId.get(topicId)}
         planId={this.props.planId}
@@ -120,7 +115,7 @@ class ReviewReadings extends React.Component {
           <li>
             Currently selected
           </li>
-          {_.map(this.props.selected, this.renderSection)}
+          {map(this.props.selected, this.renderSection)}
         </TourRegion>
       );
     } else {
@@ -176,7 +171,7 @@ const ReadingPlan = createReactClass({
   render() {
     let addReadingsButton, readingsRequired, selectReadings;
     const { id, courseId } = this.props;
-    const builderProps = _.pick(this.state, 'isVisibleToStudents', 'isEditable', 'isSwitchable');
+    const builderProps = pick(this.state, 'isVisibleToStudents', 'isEditable', 'isSwitchable');
     const hasError = this.hasError();
 
     const plan = TaskPlanStore.get(id);
@@ -184,29 +179,17 @@ const ReadingPlan = createReactClass({
 
     const topics = TaskPlanStore.getTopics(id);
 
-    const footer = <PlanFooter
-      id={id}
-      courseId={courseId}
-      onPublish={this.publish}
-      onSave={this.save}
-      onCancel={this.cancel}
-      hasError={hasError}
-      isVisibleToStudents={this.state.isVisibleToStudents}
-      getBackToCalendarParams={this.getBackToCalendarParams}
-      goBackToCalendar={this.goBackToCalendar} />;
-    const header = this.builderHeader('reading');
-
     const addReadingText = (topics != null ? topics.length : undefined) ? 'Add More Readings' : 'Add Readings';
 
 
     if (this.state.showSectionTopics) {
       selectReadings = <ChooseReadings
-        hide={this.hideSectionTopics}
-        cancel={this.cancelSelection}
-        courseId={courseId}
-        planId={id}
-        ecosystemId={ecosystemId}
-        selected={topics} />;
+                         hide={this.hideSectionTopics}
+                         cancel={this.cancelSelection}
+                         courseId={courseId}
+                         planId={id}
+                         ecosystemId={ecosystemId}
+                         selected={topics} />;
     }
 
     const formClasses = classnames(
@@ -220,42 +203,62 @@ const ReadingPlan = createReactClass({
 
     if (!this.state.isVisibleToStudents) {
       addReadingsButton = <Button
-        id="reading-select"
-        className={classnames('-select-sections-btn', { 'invalid': hasError && !(topics != null ? topics.length : undefined) })}
-        onClick={this.showSectionTopics}
-        variant="default">
+                            id="reading-select"
+                            className={classnames('-select-sections-btn', { 'invalid': hasError && !(topics != null ? topics.length : undefined) })}
+                            onClick={this.showSectionTopics}
+                            variant="default">
         {'+ '}
         {addReadingText}
       </Button>;
     }
 
     if (hasError && !(topics != null ? topics.length : undefined)) {
-      readingsRequired = <span className="readings-required">
-        {'\
-  Please add readings to this assignment.\
-  '}
-      </span>;
+      readingsRequired = (
+        <span className="readings-required">
+          Please add readings to this assignment.
+        </span>
+      );
     }
 
     return (
       <div className="reading-plan task-plan" data-assignment-type="reading">
-        <Card className={formClasses} footer={footer} header={header}>
-          {!this.state.showSectionTopics ? <Container fluid={true}>
-            <TaskPlanBuilder courseId={courseId} id={id} {...builderProps} />
-            <Row>
-              <Col xs={12} md={12}>
-                <ReviewReadings
-                  canEdit={!this.state.isVisibleToStudents}
-                  courseId={courseId}
-                  planId={id}
-                  ecosystemId={ecosystemId}
-                  selected={topics} />
-                {addReadingsButton}
-                <NoQuestionsTooltip />
-                {readingsRequired}
-              </Col>
-            </Row>
-          </Container> : undefined}
+        <Card className={formClasses}>
+          <Card.Header>
+            {this.builderHeader('reading')}
+          </Card.Header>
+          {!this.state.showSectionTopics && (
+            <Card.Body>
+              <TaskPlanBuilder
+                id={id}
+                courseId={courseId}
+                {...builderProps}
+              />
+              <Row>
+                <Col xs={12} md={12}>
+                  <ReviewReadings
+                    canEdit={!this.state.isVisibleToStudents}
+                    courseId={courseId}
+                    planId={id}
+                    ecosystemId={ecosystemId}
+                    selected={topics} />
+                  {addReadingsButton}
+                  <NoQuestionsTooltip />
+                  {readingsRequired}
+                </Col>
+              </Row>
+            </Card.Body>
+          )}
+          <PlanFooter
+            id={id}
+            courseId={courseId}
+            onPublish={this.publish}
+            onSave={this.save}
+            onCancel={this.cancel}
+            hasError={hasError}
+            isVisibleToStudents={this.state.isVisibleToStudents}
+            getBackToCalendarParams={this.getBackToCalendarParams}
+            goBackToCalendar={this.goBackToCalendar}
+          />
         </Card>
         {selectReadings}
       </div>

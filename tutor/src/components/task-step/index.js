@@ -44,7 +44,7 @@ const TaskStep = createReactClass({
   bindStore: TaskStepStore,
 
   onStepCompleted(id) {
-    if (id == null) { ((((((((({ id } = this.props))))))))); } // need to allow `id` from arguments pass through, especially for multi-part
+    if (id == null) { (({ id } = this.props)); } // need to allow `id` from arguments pass through, especially for multi-part
     if (StepCard.canWrite(id)) {
       TaskActions.completeStep(id, this.props.taskId);
       return new Promise(function(resolve) { return TaskStore.once('step.completed', resolve); });

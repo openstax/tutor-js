@@ -49,8 +49,8 @@ export default createReactClass({
   mixins: [ScrollListenerMixin, ResizeListenerMixin, GetPositionMixin, HandleBodyClassesMixin],
 
   _getClasses(props, state) {
-    if (props == null) { (((((((((({ props } = this)))))))))); }
-    if (state == null) { (((((((((({ state } = this)))))))))); }
+    if (props == null) { (((({ props } = this)))); }
+    if (state == null) { (((({ state } = this)))); }
 
     return {
       [`${props.cardType}-view`]: true,

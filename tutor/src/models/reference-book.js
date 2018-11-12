@@ -1,5 +1,5 @@
 import { readonly } from 'core-decorators';
-import { uniq, compact, map, first, last, mapValues, omit } from 'lodash';
+import { uniq, compact, map, first, last, fromPairs, omit } from 'lodash';
 import { action, observable, computed } from 'mobx';
 import Map from 'shared/model/map';
 import {
@@ -58,7 +58,10 @@ class ReferenceBook extends BaseModel {
 
   // a simplified data structure suitable for passing into flux
   @computed get topicInfo() {
-    return mapValues(this.pages.byId.toJS(), pg => pg.asTopic);
+    const pages = this.pages.byId;
+    return fromPairs(map(pages.keys(), id =>
+      [id, pages.get(id).asTopic]
+    ));
   }
 
   @computed get isBaked() {

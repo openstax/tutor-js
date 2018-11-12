@@ -58,7 +58,7 @@ class ActionsMenu extends React.Component {
     course: PropTypes.instanceOf(Course),
   }
 
-  static contexttypes = {
+  static contextTypes = {
     router: PropTypes.object,
   }
 

@@ -24,11 +24,13 @@
       justify-content: center;
       @include tutor-sans-font(14px);
       background-color: $tutor-white;
-
+      color: $tutor-neutral-dark;
+      border: 0;
       &.selected,
       &.active {
         background-color: $tutor-neutral-light;
       }
+
     }
 
     .job {

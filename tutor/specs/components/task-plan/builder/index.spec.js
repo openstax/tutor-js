@@ -12,7 +12,7 @@ const CourseDataHelper = require('../../../../src/helpers/course-data');
 
 const { TaskPlanActions, TaskPlanStore } = require('../../../../src/flux/task-plan');
 const { TaskingActions, TaskingStore } = require('../../../../src/flux/tasking');
-(((((((({ Testing, sinon, _, React, ReactDOM } = require('../../../helpers')))))))));
+(({ Testing, sinon, _, React, ReactDOM } = require('../../../helpers')));
 const { commonActions } = require('../../helpers/utilities');
 const { ExtendBasePlan, PlanRenderHelper } = require('../../helpers/task-plan');
 

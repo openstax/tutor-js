@@ -14,7 +14,9 @@ class SuretyGuard extends React.Component {
 
   static propTypes = {
     onConfirm:  PropTypes.func.isRequired,
-    title: PropTypes.string,
+    title: PropTypes.oneOfType([
+      PropTypes.string, PropTypes.bool,
+    ]),
     message:    PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.element,

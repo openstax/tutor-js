@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import _ from 'underscore';
+import { isEmpty, partial } from 'lodash';
 import classnames from 'classnames';
 
 class ControlsOverlay extends React.Component {
@@ -20,7 +20,7 @@ class ControlsOverlay extends React.Component {
   };
 
   render() {
-    if (_.isEmpty(this.props.actions)) { return null; }
+    if (isEmpty(this.props.actions)) { return null; }
 
     return (
       <div
@@ -28,19 +28,21 @@ class ControlsOverlay extends React.Component {
         className={classnames('controls-overlay', { active: this.props.isSelected })}>
         <div className="message">
           {(() => {
-            const result = [];
-            for (let type in this.props.actions) {
-              const action = this.props.actions[type];
-              result.push(<div
-                key={type}
-                className={`action ${type}`}
-                onClick={_.partial(this.onActionClick, _, action.handler)}>
-                <span>
-                  {action.message}
-                </span>
-              </div>);
-            }
-            return result;
+             const result = [];
+             for (let type in this.props.actions) {
+               const action = this.props.actions[type];
+               result.push(
+                 <div
+                   key={type}
+                   className={`action ${type}`}
+                   onClick={partial(this.onActionClick, partial.placeholder, action.handler)}
+                   >
+                 <span>
+                   {action.message}
+                 </span>
+               </div>);
+             }
+             return result;
           })()}
         </div>
       </div>

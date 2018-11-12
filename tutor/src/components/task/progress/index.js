@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TaskCardStore } from '../../../flux/task-panel';
+import { TaskPanelStore } from '../../../flux/task-panel';
 import { ProgressBar } from 'react-bootstrap';
 
 export default
 function Progress(props) {
-  const progress = TaskCardStore.getProgress(props.taskId, props.stepIndex);
+  const progress = TaskPanelStore.getProgress(props.taskId, props.stepIndex);
   return (
     <div className="reading-task-bar">
       <ProgressBar now={progress} variant="success" />

@@ -40,11 +40,7 @@ $calendar-sidebar-width: 250px;
 @import './styles/sidebar';
 @import './styles/plan-details';
 
-$dayz-event-default-color:  white;
-$dayz-event-text-default-color: $tutor-neutral-darker;
-$dayz-event-border-radius: 0;
 
-@import '~dayz/dayz.scss';
 .calendar-container {
   $sidebar-animation-duration: 0.5s;
   margin-top: 20px;

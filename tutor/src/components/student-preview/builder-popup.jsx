@@ -47,6 +47,7 @@ class BuilderPopup extends React.Component {
 
     return (
       <Button
+        variant="default"
         className="preview-btn pull-right"
         onClick={this.openPreviewWindow}
       >
@@ -80,7 +81,7 @@ class BuilderPopup extends React.Component {
             />
           </div>
         </PopoutWindow>
-        <Icon type="video-camera" />
+        <Icon type="video" />
         What do students see?
       </Button>
     );

@@ -9,7 +9,7 @@ import classnames from 'classnames';
 
 import { TaskActions, TaskStore } from '../../flux/task';
 import { TaskStepActions, TaskStepStore } from '../../flux/task-step';
-import { TaskCardActions, TaskCardStore } from '../../flux/task-panel';
+import { TaskPanelActions, TaskPanelStore } from '../../flux/task-panel';
 import { TaskProgressActions, TaskProgressStore } from '../../flux/task-progress';
 import Courses from '../../models/courses-map';
 
@@ -62,7 +62,7 @@ const Task = createReactClass({
   scrollingTargetDOM() { return window.document; },
 
   getDefaultCurrentStep() {
-    return TaskCardStore.getStepKey(this.props.id, { is_completed: false });
+    return TaskPanelStore.getStepKey(this.props.id, { is_completed: false });
   },
 
   setStepKey() {
@@ -73,7 +73,7 @@ const Task = createReactClass({
     const stepKey = params.stepIndex ? parseInt(params.stepIndex) : defaultKey;
     const stepIndex = stepKey - 1;
 
-    const step = TaskCardStore.getStep(this.props.id, stepIndex);
+    const step = TaskPanelStore.getStep(this.props.id, stepIndex);
     TaskProgressActions.update(this.props.id, stepIndex);
 
     // go ahead and render this step only if this step is accessible
@@ -123,7 +123,7 @@ const Task = createReactClass({
   },
 
   updateSteps() {
-    return TaskCardActions.sync(this.props.id);
+    return TaskPanelActions.sync(this.props.id);
   },
 
   updateTask(id) {
@@ -251,7 +251,7 @@ const Task = createReactClass({
   },
 
   getStep(stepIndex) {
-    return TaskCardStore.getStep(this.props.id, stepIndex);
+    return TaskPanelStore.getStep(this.props.id, stepIndex);
   },
 
   shouldShowTeacherReviewControls(panelType) {

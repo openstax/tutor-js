@@ -198,7 +198,7 @@ class Failure extends React.Component {
       <div className="toast scores failure">
         <div className="title">
           {num_callbacks ? 'Some scores not sent' : 'Scores not sent'}
-          <Icon type="close" onClick={this.props.dismiss} />
+          <Icon type="times" onClick={this.props.dismiss} />
         </div>
         <div className="body">
           <Button variant="link" onClick={this.onShowDetails}>Details</Button>

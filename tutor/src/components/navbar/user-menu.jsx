@@ -13,7 +13,6 @@ class UserMenu extends React.Component {
   render() {
     return (
       <Dropdown
-
         className="user-menu"
       >
         <Dropdown.Toggle
@@ -23,7 +22,7 @@ class UserMenu extends React.Component {
         >
           <span className="initials">{User.initials}</span>
         </Dropdown.Toggle>
-        <Dropdown.Menu >
+        <Dropdown.Menu alignRight>
           <AccountLink />
           <LogOut />
         </Dropdown.Menu>

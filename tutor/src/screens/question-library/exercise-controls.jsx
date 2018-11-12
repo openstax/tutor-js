@@ -61,6 +61,7 @@ class ExerciseControls extends React.Component {
       <TourAnchor id="exercise-type-toggle">
         <ButtonGroup className="filters">
           <Button
+            variant="default"
             data-filter="reading"
             onClick={this.onFilterClick}
             className={classNames('reading', { 'active': this.props.filter === 'reading' })}
@@ -68,6 +69,7 @@ class ExerciseControls extends React.Component {
             Reading
           </Button>
           <Button
+            variant="default"
             data-filter="homework"
             onClick={this.onFilterClick}
             className={classNames('homework', { 'active': this.props.filter === 'homework' })}

@@ -17,8 +17,9 @@ import { CloseButton } from 'shared';
 </Dialog>
 */
 
-export default class extends React.Component {
-  static displayName = 'Dialog';
+export default
+class Dialog extends React.Component {
+
 
   static propTypes = {
     header: PropTypes.node.isRequired,
@@ -48,13 +49,11 @@ export default class extends React.Component {
     let { className, header, footer, primary, cancel, isChanged } = this.props;
 
     if (cancel) {
-      cancelBtn = <Button key="cancel" onClick={this.onCancel}>
+      cancelBtn = <Button variant="default" key="cancel" onClick={this.onCancel}>
         {cancel}
       </Button>;
     }
 
-    const closeBtn = <CloseButton key="close" onClick={this.onCancel} />;
-    header = [header, closeBtn];
     if (footer || primary || cancelBtn) { footer = [primary, cancelBtn, footer]; }
 
     const classes = ['dialog default-dialog'];
@@ -64,8 +63,14 @@ export default class extends React.Component {
     className = classes.join(' ');
 
     return (
-      <Card className={className} header={header} footer={footer}>
+      <Card className={className}>
+        <Card.Header>
+          {header}
+          <CloseButton onClick={this.onCancel} />
+
+        </Card.Header>
         {this.props.children}
+        <Card.Footer>{footer}</Card.Footer>
       </Card>
     );
   }

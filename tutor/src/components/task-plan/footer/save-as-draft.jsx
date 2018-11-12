@@ -25,6 +25,7 @@ export default class SaveAsDraft extends React.Component {
       <AsyncButton
         className="-save save"
         onClick={this.props.onClick}
+        variant="secondary"
         isWaiting={this.props.isWaiting}
         isFailed={this.props.isFailed}
         waitingText="Saving…"

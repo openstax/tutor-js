@@ -1,18 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Button } from 'react-bootstrap';
 import { compact, map, isEmpty } from 'lodash';
 import Loading from '../../loading-screen';
 import Icon from '../../icon';
 import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
 import { ExercisePreview, SuretyGuard, PinnedHeaderFooterCard } from 'shared';
 import { observer } from 'mobx-react';
-import { observable, action, computed } from 'mobx';
 import Course from '../../../models/course';
 import Book from '../../../models/reference-book';
 import sharedExercises, { ExercisesMap, Exercise } from '../../../models/exercises';
-import { ArrayOrMobxType } from 'shared/helpers/react';
-
 import ExerciseControls from './exercise-controls';
 import ExerciseTable from './exercises-table';
 
@@ -45,15 +41,13 @@ class ReviewExerciseCard extends React.Component {
 
     return (
       <span className="pull-right card-actions">
-        {!this.props.isFirst ? <Button onClick={this.moveExerciseUp} className="btn-xs -move-exercise-up circle">
-          <Icon type="arrow-up" />
-        </Button> : undefined}
+        {!this.props.isFirst ? <Icon onClick={this.moveExerciseUp} className="-move-exercise-up circle" size="xs" type="arrow-up" /> : undefined}
         {this.props.isLast && (
-          <Button
-            onClick={this.moveExerciseDown}
-            className="btn-xs -move-exercise-down circle">
-            <Icon type="arrow-down" />
-          </Button>)}
+           <Icon type="arrow-down"
+             size="xs"
+             onClick={this.moveExerciseDown}
+             className="-move-exercise-down circle"
+             />)}
         <SuretyGuard
           title={false}
           onConfirm={this.removeExercise}
@@ -61,9 +55,7 @@ class ReviewExerciseCard extends React.Component {
           placement="left"
           message="Are you sure you want to remove this exercise?"
         >
-          <Button className="btn-xs -remove-exercise circle">
-            <Icon type="close" />
-          </Button>
+          <Icon size="xs" className="-remove-exercise circle" type="times" />
         </SuretyGuard>
       </span>
     );

@@ -340,6 +340,21 @@ $tutor-shadow-types: (
   transform: translate($x, $y);
 }
 
+@mixin card-footer() {
+  display: flex;
+  width: 100%;
+  padding: 10px 15px;
+  background-color: $tutor-neutral-bright;
+  border-top: 1px solid $tutor-neutral-lightest;
+  align-items: center;
+  > * {
+    margin-left: 0.5rem;
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}
+
 @import './book-content/ap-bio/variables';
 @import './book-content/hs-physics/variables';
 @import './mixins/tutor-plans';

@@ -29,7 +29,7 @@ class QLSectionsChooser extends React.Component {
     this.props.exercises.fetch({
       limit: false,
       course: this.props.course,
-      page_ids: this.pageIds.peek(),
+      page_ids: this.pageIds,
     });
     this.props.onSelectionsChange(this.pageIds);
   }
@@ -64,11 +64,11 @@ class QLSectionsChooser extends React.Component {
           courseId={this.props.course.id}>
           <Chooser
             onSelectionChange={this.onSectionChange}
-            selectedPageIds={this.pageIds.peek()}
+            selectedPageIds={this.pageIds}
             book={this.props.course.referenceBook}
           />
         </TourRegion>
-        <div className="section-controls panel-footer">
+        <div className="section-controls footer">
           <div className="wrapper">
             <Button
               variant="primary"
@@ -77,7 +77,11 @@ class QLSectionsChooser extends React.Component {
             >
               Show Questions
             </Button>
-            <Button className="cancel" onClick={this.clearQuestions}>
+            <Button
+              variant="default"
+              className="cancel"
+              onClick={this.clearQuestions}
+            >
               Cancel
             </Button>
           </div>

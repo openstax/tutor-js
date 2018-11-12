@@ -37,7 +37,7 @@ export function ChaptersPerformance(props) {
 ChaptersPerformance.displayName = 'ChaptersPerformance';
 
 ChaptersPerformance.propTypes = {
-  currentPages: PropTypes.object.isRequired,
+  currentPages: PropTypes.array.isRequired,
   activeSection: PropTypes.string,
 };
 

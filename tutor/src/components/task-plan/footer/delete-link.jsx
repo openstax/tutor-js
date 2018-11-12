@@ -68,7 +68,8 @@ class DeleteLink extends React.Component {
       <Button
         onClick={this.open}
         variant="default"
-        className="control delete-assignment">
+        className="control delete-assignment"
+      >
         <DeleteModal
           message={message}
           show={this.showModal}

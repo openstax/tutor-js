@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 import { TaskStepStore } from '../../flux/task-step';
 import { TaskStore } from '../../flux/task';
-import { TaskCardStore } from '../../flux/task-panel';
+import { TaskPanelStore } from '../../flux/task-panel';
 import { StepContent, ReadingStepContent } from './step-with-reading-content';
 import Exercise from './exercise';
 import Placeholder from './placeholder';
@@ -31,7 +31,7 @@ const Reading = createReactClass({
 
     return (
       <ReadingStepContent
-        nextStepTitle={TaskCardStore.getNextStepTitle(taskId, id)}
+        nextStepTitle={TaskPanelStore.getNextStepTitle(taskId, id)}
         onContinue={this.onContinue}
         id={id}
         stepType="reading"

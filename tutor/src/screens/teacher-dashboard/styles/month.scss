@@ -2,6 +2,14 @@
 
 $calendar-cell-width: calc(100%/7);
 $calendar-cell-height: 10rem;
+$dayz-outside-background-color: $tutor-neutral-lightest;
+
+$dayz-event-border-color: transparent;
+$dayz-event-default-color:  white;
+$dayz-event-text-default-color: $tutor-neutral-darker;
+$dayz-event-border-radius: 0;
+
+@import '~dayz/dayz.scss';
 
 @mixin bootstrap-column-padding-override() {
   // Overriding bootstrap's tricks for nice column floating.
@@ -29,9 +37,13 @@ $calendar-cell-height: 10rem;
 .calendar-container{
   @include bootstrap-column-padding-override();
 
-
+  .dayz .event .evbody {
+    padding-left: 0;
+  }
 //  line-height: 3rem; // needs to be a known value that matches the task layout logic
   padding-bottom: $tutor-card-body-padding-vertical;
+
+
 
   .calendar-body {
     background-color: $tutor-white;

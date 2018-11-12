@@ -48,7 +48,7 @@ class ExerciseDetails extends React.Component {
   }
 
   componentDidMount() {
-    this.scroller.scrollToSelector('.exercise-controls-bar');
+//    this.scroller.scrollToSelector('.exercise-controls-bar');
   }
 
   componentWillMount() {
@@ -97,7 +97,7 @@ class ExerciseDetails extends React.Component {
             className="show-cards"
             onClick={partial(this.props.onShowCardViewClick, partial.placeholder, exercise)}
           >
-            <Icon type="th-large" /> Back to Card View
+            <Icon type="th" size="lg" /> Back to Card View
           </a>
         </div>
         <div className="content">

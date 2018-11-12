@@ -6,7 +6,7 @@ import _ from 'underscore';
 import { TaskStepActions, TaskStepStore } from '../../flux/task-step';
 import { TaskProgressActions, TaskProgressStore } from '../../flux/task-progress';
 import { TaskStore } from '../../flux/task';
-import { TaskCardStore } from '../../flux/task-panel';
+import { TaskPanelStore } from '../../flux/task-panel';
 import { StepCard } from '../../helpers/policies';
 
 import RelatedContentLink from '../related-content-link';
@@ -55,13 +55,13 @@ export default createReactClass({
   },
 
   getPartsInfo(props) {
-    if (props == null) { (((((((((({ props } = this)))))))))); }
+    if (props == null) { (({ props } = this)); }
 
     const { id, taskId, courseId, onNextStep } = props;
     let parts = TaskStore.getStepParts(taskId, id);
 
     parts = _.map(parts, function(part) {
-      const stepIndex = TaskCardStore.getStepIndex(taskId, { id: part.id });
+      const stepIndex = TaskPanelStore.getStepIndex(taskId, { id: part.id });
       const questionNumber = TaskStore.getStepIndex(taskId, part.id) + 1;
 
       return _.extend({}, part, { stepIndex, questionNumber });
@@ -74,7 +74,7 @@ export default createReactClass({
   },
 
   getTaskInfo(props) {
-    if (props == null) { (((((((((({ props } = this)))))))))); }
+    if (props == null) { (({ props } = this)); }
     const { taskId } = props;
 
     const task = TaskStore.get(taskId);
@@ -107,14 +107,14 @@ export default createReactClass({
   },
 
   stopListeningForProgress(props) {
-    if (props == null) { (((((((((({ props } = this)))))))))); }
+    if (props == null) { (({ props } = this)); }
     const { taskId } = props;
 
     return TaskProgressStore.off(`update.${taskId}`, this.setCurrentStepFromProgress);
   },
 
   startListeningForProgress(props) {
-    if (props == null) { (((((((((({ props } = this)))))))))); }
+    if (props == null) { (({ props } = this)); }
     const { taskId } = props;
 
     return TaskProgressStore.on(`update.${taskId}`, this.setCurrentStepFromProgress);
@@ -156,7 +156,7 @@ export default createReactClass({
 
   setCurrentStepByStepId(id) {
     const { taskId } = this.props;
-    const stepNavIndex = TaskCardStore.getStepIndex(taskId, { id });
+    const stepNavIndex = TaskPanelStore.getStepIndex(taskId, { id });
     return this.setCurrentStep(stepNavIndex);
   },
 

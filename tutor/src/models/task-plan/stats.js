@@ -122,7 +122,7 @@ class Stats extends BaseModel {
 
   @computed get exercises() {
     return flatMap(['current_pages', 'spaced_pages'], pageType => {
-      return flatMap(this[pageType], pg => pg.exercises.peek());
+      return flatMap(this[pageType], pg => pg.exercises);
     });
   }
 

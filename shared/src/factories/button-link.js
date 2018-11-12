@@ -43,7 +43,7 @@ const make = function(router, name = 'OpenStax') {
     }
 
     makeFullPathname = (props) => {
-      if (props == null) { (((((((((({ props } = this)))))))))); }
+      if (props == null) { (((({ props } = this)))); }
       const { to, params, query } = props;
       return router.makePathname(to, params, { query });
     };

@@ -1,14 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Col } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { first, assign, pick, partial } from 'underscore';
 import moment from 'moment-timezone';
-
 import { TimeStore } from '../../../flux/time';
 import TimeHelper from '../../../helpers/time';
 import Courses from '../../../models/courses-map';
 import { TaskingActions, TaskingStore } from '../../../flux/tasking';
-
 import Icon from '../../icon';
 import DateTime from './date-time';
 
@@ -102,38 +100,41 @@ class TaskingDateTimes extends React.Component {
       <Col
         {...this.props.sizes}
         className="tasking-date-times"
-        data-period-id={period ? period.id : 'all'}>
-        <DateTime
-          {...commonDateTimesProps}
-          disabled={isVisibleToStudents || !isEditable}
-          label="Open"
-          ref="open"
-          min={minOpensAt}
-          max={maxOpensAt}
-          setDate={partial(this.setDate, 'open')}
-          setTime={partial(this.setTime, 'open')}
-          value={openDate}
-          defaultValue={open_time || defaults.open_time}
-          defaultTime={default_open_time}
-          setDefaultTime={this.setDefaultTime}
-          timeLabel="default_open_time"
-          isSetting={this.isSetting} />
-        <DateTime
-          {...commonDateTimesProps}
-          disabled={!isEditable}
-          label="Due"
-          ref="due"
-          min={minDueAt}
-          max={maxDueAt}
-          setDate={partial(this.setDate, 'due')}
-          setTime={partial(this.setTime, 'due')}
-          value={due_date}
-          defaultValue={due_time || defaults.due_time}
-          defaultTime={default_due_time}
-          setDefaultTime={this.setDefaultTime}
-          timeLabel="default_due_time"
-          isSetting={this.isSetting} />
-        {extraError}
+        data-period-id={period ? period.id : 'all'}
+      >
+        <Row>
+          <DateTime
+            {...commonDateTimesProps}
+            disabled={isVisibleToStudents || !isEditable}
+            label="Open"
+            ref="open"
+            min={minOpensAt}
+            max={maxOpensAt}
+            setDate={partial(this.setDate, 'open')}
+            setTime={partial(this.setTime, 'open')}
+            value={openDate}
+            defaultValue={open_time || defaults.open_time}
+            defaultTime={default_open_time}
+            setDefaultTime={this.setDefaultTime}
+            timeLabel="default_open_time"
+            isSetting={this.isSetting} />
+          <DateTime
+            {...commonDateTimesProps}
+            disabled={!isEditable}
+            label="Due"
+            ref="due"
+            min={minDueAt}
+            max={maxDueAt}
+            setDate={partial(this.setDate, 'due')}
+            setTime={partial(this.setTime, 'due')}
+            value={due_date}
+            defaultValue={due_time || defaults.due_time}
+            defaultTime={default_due_time}
+            setDefaultTime={this.setDefaultTime}
+            timeLabel="default_due_time"
+            isSetting={this.isSetting} />
+          {extraError}
+        </Row>
       </Col>
     );
   }

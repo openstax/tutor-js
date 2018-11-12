@@ -4,12 +4,12 @@ import { pick } from 'lodash';
 import { Card, Container, Row, Col } from 'react-bootstrap';
 import validator from 'validator';
 import classnames from 'classnames';
-import { TutorInput } from '../../tutor-input';
-import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
-import { TaskingStore } from '../../../flux/tasking';
-import PlanFooter from '../footer';
-import PlanMixin from '../plan-mixin';
-import TaskPlanBuilder from '../builder';
+import { TutorInput } from '../tutor-input';
+import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
+import { TaskingStore } from '../../flux/tasking';
+import PlanFooter from './footer';
+import PlanMixin from './plan-mixin';
+import TaskPlanBuilder from './builder';
 
 const ExternalPlan = createReactClass({
   displayName: 'ExternalPlan',
@@ -35,18 +35,6 @@ const ExternalPlan = createReactClass({
 
     let formClasses = ['edit-external', 'dialog'];
 
-    const footer = <PlanFooter
-      id={id}
-      courseId={courseId}
-      onPublish={this.publish}
-      onSave={this.save}
-      onCancel={this.cancel}
-      hasError={hasError}
-      isVisibleToStudents={this.state.isVisibleToStudents}
-      getBackToCalendarParams={this.getBackToCalendarParams}
-      goBackToCalendar={this.goBackToCalendar} />;
-
-    const header = this.builderHeader('external');
     let label = 'Assignment URL';
 
     const isURLLocked = TaskingStore.isTaskOpened(id) && TaskPlanStore.isPublished(id);
@@ -62,8 +50,11 @@ const ExternalPlan = createReactClass({
 
     return (
       <div className="external-plan task-plan" data-assignment-type="external">
-        <Card className={formClasses} footer={footer} header={header}>
-          <Container fluid={true}>
+        <Card className={formClasses}>
+          <Card.Header>
+            {this.builderHeader('external')}
+          </Card.Header>
+          <Card.Body>
             <TaskPlanBuilder courseId={courseId} id={id} {...builderProps} />
             <Row>
               <Col xs={12} md={12}>
@@ -78,7 +69,18 @@ const ExternalPlan = createReactClass({
                   onChange={this.setUrl} />
               </Col>
             </Row>
-          </Container>
+          </Card.Body>
+          <PlanFooter
+            id={id}
+            courseId={courseId}
+            onPublish={this.publish}
+            onSave={this.save}
+            onCancel={this.cancel}
+            hasError={hasError}
+            isVisibleToStudents={this.state.isVisibleToStudents}
+            getBackToCalendarParams={this.getBackToCalendarParams}
+            goBackToCalendar={this.goBackToCalendar}
+          />
         </Card>
       </div>
     );

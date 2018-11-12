@@ -79,7 +79,7 @@ class AnswersTable extends React.Component {
   }
 
   getOriginalKeyScope = (props) => {
-    if (props == null) { (((({ props } = this)))); }
+    if (props == null) { ({ props } = this); }
 
     const originalKeyScope = keymaster.getScope();
     if ((props.keySet !== originalKeyScope) && (originalKeyScope !== (this.state != null ? this.state.originalKeyScope : undefined))) {

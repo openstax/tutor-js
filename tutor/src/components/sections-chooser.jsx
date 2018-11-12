@@ -2,50 +2,81 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { observable, action, computed } from 'mobx';
 import { observer } from 'mobx-react';
+import { Collapse } from 'react-bootstrap';
 import { filter, isEmpty, extend, forEach, find } from 'lodash';
-import { Card } from 'react-bootstrap';
-
+import styled from 'styled-components';
 import ChapterSection from './task-plan/chapter-section';
 import BrowseTheBook from './buttons/browse-the-book';
 import TriStateCheckbox from './tri-state-checkbox';
-import classnames from 'classnames';
+import cn from 'classnames';
 import Loading from './loading-screen';
 import BookModel from '../models/reference-book';
 import ChapterModel from '../models/reference-book/chapter';
 import PageModel from '../models/reference-book/page';
 
+const SectionWrapper = styled.div`
+  display: flex;
+  height: 2.5rem;
+  align-items: center;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+  > * { margin-left: 1rem; }
+  input { font-size: 1.7rem; margin-left: 1.2rem; }
+  border-bottom: ${props => props.theme.borders.box};
+`;
+
 @observer
-class Page extends React.Component {
+class Section extends React.Component {
   static propTypes = {
-    page: PropTypes.instanceOf(PageModel).isRequired,
+    section: PropTypes.instanceOf(PageModel).isRequired,
     selections: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
   };
 
-  isSelected = () => { return !!this.props.selections[this.props.page.id]; };
+  isSelected = () => { return !!this.props.selections[this.props.section.id]; };
 
   @action.bound toggleSection() {
-    this.props.onChange({ [this.props.page.id]: !this.isSelected() });
+    this.props.onChange({ [this.props.section.id]: !this.isSelected() });
   }
 
   render() {
-    const { page } = this.props;
-    const classNames = classnames('section', { selected: this.isSelected() });
+    const { section } = this.props;
+    const classNames = cn('section', { selected: this.isSelected() });
     return (
-      <div
+      <SectionWrapper
         className={classNames}
-        data-page-id={page.id}
+        data-section-id={section.id}
         onClick={this.toggleSection}
       >
         <span className="section-checkbox">
           <input type="checkbox" readOnly={true} checked={this.isSelected()} />
         </span>
-        <ChapterSection section={page.chapter_section.asString} />
-        <span className="section-title"> {page.title}</span>
-      </div>
+        <ChapterSection section={section.chapter_section.asString} />
+        <span className="section-title"> {section.title}</span>
+      </SectionWrapper>
     );
   }
 }
+
+const ChapterHeading = styled.div`
+  display: flex;
+  height: 3.5rem;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.7rem;
+  border-bottom: ${props => props.theme.borders.box};
+  > * {
+  margin-left: 1rem;
+  }
+  .chapter-title {
+  flex: 1;
+  }
+`;
+
+const ChapterWrapper = styled.div`
+
+`;
 
 @observer
 class ChapterAccordion extends React.Component {
@@ -76,35 +107,13 @@ class ChapterAccordion extends React.Component {
     this.props.onChange(newSelections);
   };
 
-  renderHeader = () => {
-    const { chapter } = this.props;
-    const selected = filter(chapter.children, this.isSectionSelected);
-
-    const checkBoxType = selected.length === chapter.children.length ? 'checked'
-      : selected.length ? 'partial' : 'unchecked';
-
-    const classNames = classnames('chapter-heading', { 'empty-chapter': isEmpty(chapter.children) });
-
-    return (
-      <div className={classNames} data-chapter-section={chapter.chapter_section.chapter}>
-        <span className="chapter-checkbox">
-          <TriStateCheckbox type={checkBoxType} onClick={this.toggleSectionSelections} />
-        </span>
-        <span className="chapter-number">
-          Chapter <ChapterSection section={chapter.chapter_section.asString} /> - </span>
-        <span className="chapter-title"> {chapter.title} </span>
-        <BrowseTheBook
-          unstyled
-          tag="div"
-          onClick={this.browseBook}
-          chapterSection={chapter.chapter_section.asString}
-          book={this.props.book}
-        >
-          Browse this Chapter
-        </BrowseTheBook>
-      </div>
-    );
-  };
+  //   renderHeader = () => {
+  //     const { chapter } = this.props;
+  //
+  //     return (
+  //
+  //     );
+  //   };
 
   @action.bound onAccordianToggle() {
     this.expanded = !this.expanded;
@@ -112,19 +121,53 @@ class ChapterAccordion extends React.Component {
 
   render() {
     const { chapter } = this.props;
+    const selected = filter(chapter.children, this.isSectionSelected);
+
+    const checkBoxType = selected.length === chapter.children.length ? 'checked'
+      : selected.length ? 'partial' : 'unchecked';
+
+    //const classNames = ;
+
     return (
-      <div className="accordian"
-        onSelect={this.onAccordianToggle}
-        activeKey={this.expanded ? chapter.id : ''}
+      <ChapterWrapper className="chapter"
+        data-is-expanded={this.expanded}
       >
-        <Card key={chapter.id} header={this.renderHeader()} eventKey={chapter.id}>
-          {chapter.children.map((page) =>
-            <Page key={page.cnx_id} {...this.props} page={page} />)}
-        </Card>
-      </div>
+        <ChapterHeading
+          role="button"
+          data-chapter-section={chapter.chapter_section.chapter}
+          onClick={this.onAccordianToggle}
+        >
+          <span className="chapter-checkbox">
+            <TriStateCheckbox type={checkBoxType} onClick={this.toggleSectionSelections} />
+          </span>
+          <span className="chapter-number">
+            Chapter <ChapterSection section={chapter.chapter_section.asString} /> - </span>
+          <span className="chapter-title"> {chapter.title} </span>
+          <BrowseTheBook
+            unstyled
+            tag="div"
+            onClick={this.browseBook}
+            chapterSection={chapter.chapter_section.asString}
+            book={this.props.book}
+          >
+            Browse this Chapter
+          </BrowseTheBook>
+        </ChapterHeading>
+        <Collapse in={this.expanded}>
+          <div className="sections">
+            {chapter.children.map((section) =>
+              <Section key={section.cnx_id} {...this.props} section={section} />)}
+          </div>
+        </Collapse>
+      </ChapterWrapper>
     );
   }
 }
+
+const SectionChooserWrapper = styled.div`
+  border: ${props => props.theme.borders.box};
+  border-radius: 4px;
+`;
 
 export default
 @observer
@@ -183,7 +226,7 @@ class SectionsChooser extends React.Component {
     }
 
     return (
-      <div className="sections-chooser">
+      <SectionChooserWrapper>
         {book.children.map((chapter) =>
           <ChapterAccordion
             key={chapter.id}
@@ -192,7 +235,7 @@ class SectionsChooser extends React.Component {
             selections={this.selections}
             chapter={chapter}
           />)}
-      </div>
+      </SectionChooserWrapper>
     );
   }
 };

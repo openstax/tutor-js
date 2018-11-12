@@ -6,7 +6,7 @@ import { observer } from 'mobx-react';
 import cn from 'classnames';
 import User from '../../models/user';
 import Courses from '../../models/courses-map';
-import { TaskCardStore } from '../../flux/task-panel';
+import { TaskPanelStore } from '../../flux/task-panel';
 import TourRegion from '../tours/region';
 import TourAnchor from '../tours/anchor';
 import HighlightIcon from './highlight-icon';
@@ -34,7 +34,7 @@ class AnnotationSummaryToggle extends React.Component {
     if (this.props.type === 'refbook') {
       return true;
     }
-    const crumbs = TaskCardStore.get(this.props.taskId);
+    const crumbs = TaskPanelStore.get(this.props.taskId);
     return 'reading' === get(crumbs, `[${this.props.taskStepIndex-1}].type`);
   }
 

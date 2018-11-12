@@ -38,12 +38,11 @@ class ScoresExport extends React.Component {
   render() {
     return (
       <TourAnchor className="job scores-export" id="scores-export-button">
-        <Button
+        <Icon
+          type="download"
           disabled={this.scoresExport.isPending}
           onClick={this.startExport}
-        >
-          hi <Icon type="download" />
-        </Button>
+        />
         {this.message}
       </TourAnchor>
     );

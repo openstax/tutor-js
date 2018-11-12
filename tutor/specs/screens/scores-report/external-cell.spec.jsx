@@ -13,7 +13,7 @@ describe('Student Scores External Cell', function() {
   let ux;
 
   beforeEach(() => {
-    (((({ course, scores } = bootstrapScores()))));
+    ({ course, scores } = bootstrapScores());
     ux = new ScoresUX(course);
     task = scores.getTask(702);
     props = {

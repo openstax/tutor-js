@@ -10,14 +10,9 @@ class CoursePlanDisplay extends React.Component {
 
   static propTypes = {
     plan: PropTypes.instanceOf(TaskPlan).isRequired,
-    display: PropTypes.shape({
-      offset: PropTypes.number.isRequired,
-      order: PropTypes.number.isRequired,
-      weekTopOffset: PropTypes.number.isRequired,
-    }).isRequired,
     label: PropTypes.node.isRequired,
     course: PropTypes.instanceOf(Course).isRequired,
-    planClasses: PropTypes.string.isRequired,
+    className: PropTypes.string.isRequired,
     setHover: PropTypes.func.isRequired,
     hasReview: PropTypes.bool,
     isFirst: PropTypes.bool,
@@ -35,75 +30,72 @@ class CoursePlanDisplay extends React.Component {
     defaultPlansCount: 3,
   };
 
-  calcPercentOfRangeLength(partLength) {
-    return (
-      ((partLength / this.props.rangeLength) * 100) + '%'
-    );
-  }
-
-  adjustPlanSpacing(planStyle) {
-    const { isFirst, isLast, spacingMargin } = this.props;
-
-    if (isFirst || isLast) {
-      planStyle.width = `calc(${planStyle.width} - ${spacingMargin * 3}px)`;
-    }
-
-    if (isFirst) {
-      planStyle.marginLeft = spacingMargin + 'px';
-    }
-
-    if (!isFirst && !isLast) {
-      planStyle.marginLeft = (-1 * spacingMargin) + 'px';
-    }
-
-    return (
-
-      planStyle
-
-    );
-  }
-
-  buildPlanStyles() {
-    const { display, plan, spacingMargin, defaultPlansCount } = this.props;
-    const { offset, weekTopOffset, order } = display;
-    const { durationLength } = plan;
-
-    // Adjust width based on plan duration and left position based on offset of plan from start of week
-    // CALENDAR_EVENT_DYNAMIC_WIDTH and CALENDAR_EVENT_DYNAMIC_POSITION
-    // top is calculated by using:
-    //   weekTopOffset -- the distance from the top of the calendar for plans in the same week
-    //   order -- the order the plan should be from the bottom, is an int more than 1 when a plan needs to
-    //       stack on top of other plans that overlap in duration.
-    const planStyle = {
-      width: this.calcPercentOfRangeLength(durationLength),
-      left: this.calcPercentOfRangeLength(offset),
-      top: ((weekTopOffset + (spacingMargin * 2)) - (order * defaultPlansCount)) + 'rem',
-    };
-
-    return (
-
-      this.adjustPlanSpacing(planStyle)
-
-    );
-  }
-
+  // calcPercentOfRangeLength(partLength) {
+  //   return (
+  //     ((partLength / this.props.rangeLength) * 100) + '%'
+  //   );
+  //   // }
+  //
+  // adjustPlanSpacing(planStyle) {
+  //   const { isFirst, isLast, spacingMargin } = this.props;
+  //
+  //   if (isFirst || isLast) {
+  //     planStyle.width = `calc(${planStyle.width} - ${spacingMargin * 3}px)`;
+  //   }
+  //
+  //   if (isFirst) {
+  //     planStyle.marginLeft = spacingMargin + 'px';
+  //   }
+  //
+  //   if (!isFirst && !isLast) {
+  //     planStyle.marginLeft = (-1 * spacingMargin) + 'px';
+  //   }
+  //
+  //   return (
+  //
+  //     planStyle
+  //
+  //   );
+  // }
+  //
+  // buildPlanStyles() {
+  //   const { plan, spacingMargin, defaultPlansCount } = this.props;
+  //   //    const { offset, weekTopOffset, order } = display;
+  //   const { durationLength } = plan;
+  //
+  //   // Adjust width based on plan duration and left position based on offset of plan from start of week
+  //   // CALENDAR_EVENT_DYNAMIC_WIDTH and CALENDAR_EVENT_DYNAMIC_POSITION
+  //   // top is calculated by using:
+  //   //   weekTopOffset -- the distance from the top of the calendar for plans in the same week
+  //   //   order -- the order the plan should be from the bottom, is an int more than 1 when a plan needs to
+  //   //       stack on top of other plans that overlap in duration.
+  //   // const planStyle = {
+  //   //   width: this.calcPercentOfRangeLength(durationLength),
+  //   //   left: this.calcPercentOfRangeLength(offset),
+  //   //   top: ((weekTopOffset + (spacingMargin * 2)) - (order * defaultPlansCount)) + 'rem',
+  //   // };
+  //
+  //   return (
+  //     this.adjustPlanSpacing(planStyle)
+  //   );
+  // }
+  //
 }
 
 @observer
 class CoursePlanDisplayEdit extends CoursePlanDisplay {
 
   render() {
-    const { course, plan, planClasses, label, setHover } = this.props;
+    const { course, plan, className, label, setHover } = this.props;
 
     const linkTo = camelCase(`edit-${plan.type}`);
     const params = { id: plan.id, courseId: course.id };
 
-    const planStyle = this.buildPlanStyles();
+    //    const planStyle = this.buildPlanStyles();
 
     return (
       <div
-        style={planStyle}
-        className={planClasses}
+        className={className}
         data-plan-id={`${plan.id}`}
         data-assignment-type={plan.type}
         onMouseEnter={partial(setHover, true)}
@@ -139,17 +131,14 @@ class CoursePlanDisplayMiniEditor extends CoursePlanDisplay {
   }
 
   render() {
-    const { course, plan, planClasses, label, setHover } = this.props;
+    const { course, plan, className, label, setHover } = this.props;
 
     const linkTo = camelCase(`edit-${plan.type}`);
     const params = { id: plan.id, courseId: course.id };
 
-    const planStyle = this.buildPlanStyles();
-
     return (
       <div
-        style={planStyle}
-        className={planClasses}
+        className={className}
         data-plan-id={`${plan.id}`}
         data-assignment-type={plan.type}
         onMouseEnter={partial(setHover, true)}
@@ -177,14 +166,14 @@ class CoursePlanDisplayMiniEditor extends CoursePlanDisplay {
 class CoursePlanDisplayQuickLook extends CoursePlanDisplay {
 
   render() {
-    const { planClasses, planModal, label, setHover, setIsViewing, plan, hasReview } = this.props;
+    const { className, planModal, label, setHover, setIsViewing, plan, hasReview } = this.props;
 
-    const planStyle = this.buildPlanStyles();
+
 
     return (
       <div
-        style={planStyle}
-        className={planClasses}
+
+        className={className}
         data-plan-id={`${plan.id}`}
         data-assignment-type={plan.type}
         data-has-review={hasReview}

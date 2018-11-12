@@ -43,10 +43,6 @@ class CoursePlanDetails extends React.Component {
     this.props.tourContext.otherModal = null;
   }
 
-  @computed get isDisplaying() {
-    return true;
-  }
-
   @observable showAssignmentLinks = false;
 
   @computed get linkParams() {
@@ -64,7 +60,7 @@ class CoursePlanDetails extends React.Component {
   @computed get assignmentLinksButton() {
     if (this.props.plan.type === 'event'){ return null; }
     return (
-      <Button onClick={this.onShowAssignmentLinks}>
+      <Button variant="default" onClick={this.onShowAssignmentLinks}>
         Get assignment link
       </Button>
     );

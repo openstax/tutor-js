@@ -11,7 +11,7 @@ import PagingNavigation from '../../paging-navigation';
 import { TaskStore, TaskActions } from '../../../flux/task';
 import { StepCard } from '../../../helpers/policies';
 import { TaskStepStore } from '../../../flux/task-step';
-import { TaskCardStore } from '../../../flux/task-panel';
+import { TaskPanelStore } from '../../../flux/task-panel';
 
 import isEqual from 'lodash/isEqual';
 import pick from 'lodash/pick';
@@ -86,7 +86,7 @@ const ProgressCard = createReactClass({
   render() {
     const { isCompleting } = this.state;
     const isLoading = TaskStepStore.isLoading(this.props.stepId);
-    const titles = TaskCardStore.getTitlesForStepIndex(this.props.taskId, this.props.stepKey);
+    const titles = TaskPanelStore.getTitlesForStepIndex(this.props.taskId, this.props.stepKey);
     const className = classnames('progress-panel', { 'page-loading': isCompleting || isLoading });
 
     return (

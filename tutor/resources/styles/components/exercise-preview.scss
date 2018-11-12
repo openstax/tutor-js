@@ -1,6 +1,6 @@
 .openstax-exercise-preview.has-actions {
-  .panel-body,
-  .panel-body:hover {
+  .card-body,
+  .card-body:hover {
     .controls-overlay {
       .message {
         .action {
@@ -34,8 +34,8 @@
   }
 
   &.actions-on-side {
-    .panel-body,
-    .panel-body:hover {
+    .card-body,
+    .card-body:hover {
       .controls-overlay {
         .message {
           .action {

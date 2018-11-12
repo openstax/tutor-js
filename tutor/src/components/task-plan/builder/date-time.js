@@ -3,6 +3,7 @@ import React from 'react';
 import { Row, Col, Popover, OverlayTrigger } from 'react-bootstrap';
 import { delay, isEmpty, isUndefined, omit } from 'underscore';
 import { TutorDateInput, TutorTimeInput } from '../../tutor-input';
+import InfoIcon from '../../icons/info';
 import { AsyncButton } from 'shared';
 
 class DateTime extends React.Component {
@@ -15,6 +16,34 @@ class DateTime extends React.Component {
     timeLabel:      PropTypes.string.isRequired,
     setDefaultTime: PropTypes.func.isRequired,
     messageTime:    PropTypes.number,
+  };
+
+  isTimeDefault = (time, props) => {
+    if (time == null) { time = this.state != null ? this.state.time : undefined; }
+    if (isUndefined(time)) { return true; }
+
+    if (props == null) { ({ props } = this); }
+    const { defaultTime } = props;
+    return time === defaultTime;
+  };
+
+  isTimeValid = (time) => {
+    if (time == null) { time = this.state != null ? this.state.time : undefined; }
+
+    return (time != null) && isEmpty(__guard__(__guard__(__guard__(__guard__(this.refs != null ? this.refs.time : undefined, x3 => x3.refs), x2 => x2.timeInput), x1 => x1.state), x => x.errors));
+  };
+
+  getStateFromProps = (props = this.props, time) => {
+    const { value, defaultValue, isSetting } = props;
+
+    return {
+      date: value,
+      time: defaultValue,
+      justSet: false,
+      isSetting: isSetting(),
+      isTimeValid: this.isTimeValid(time),
+      isTimeDefault: this.isTimeDefault(time, props),
+    };
   };
 
   state = this.getStateFromProps(this.props, this.props.defaultValue);
@@ -43,19 +72,6 @@ class DateTime extends React.Component {
 
   onTimeUpdated = () => {
     return this.setState({ isTimeValid: this.isTimeValid(), isTimeDefault: this.isTimeDefault() });
-  };
-
-  getStateFromProps = (props = this.props, time) => {
-    const { value, defaultValue, isSetting } = props;
-
-    return {
-      date: value,
-      time: defaultValue,
-      justSet: false,
-      isSetting: isSetting(),
-      isTimeValid: this.isTimeValid(time),
-      isTimeDefault: this.isTimeDefault(time, props),
-    };
   };
 
   setDefaultTime = () => {
@@ -89,21 +105,6 @@ class DateTime extends React.Component {
       this.state.isTimeDefault;
   };
 
-  isTimeDefault = (time, props) => {
-    if (time == null) { time = this.state != null ? this.state.time : undefined; }
-    if (isUndefined(time)) { return true; }
-
-    if (props == null) { ({ props } = this); }
-    const { defaultTime } = props;
-    return time === defaultTime;
-  };
-
-  isTimeValid = (time) => {
-    if (time == null) { time = this.state != null ? this.state.time : undefined; }
-
-    return (time != null) && isEmpty(__guard__(__guard__(__guard__(__guard__(this.refs != null ? this.refs.time : undefined, x3 => x3.refs), x2 => x2.timeInput), x1 => x1.state), x => x.errors));
-  };
-
   render() {
     let setAsDefaultOption;
     const { label, taskingIdentifier } = this.props;
@@ -118,31 +119,27 @@ class DateTime extends React.Component {
     dateProps.label = `${label} Date`;
 
     if (!isTimeDefault && isTimeValid) {
-      const setAsDefaultExplanation = <Popover id={`tasking-datetime-default-tip-${label}-${taskingIdentifier}`}>
-        {label}
-        {' times for assignments created from now on will have this time set as the default.\
-  '}
-      </Popover>;
-
-      setAsDefaultOption = <AsyncButton
-        className="tasking-time-default"
-        variant="link"
-        waitingText="Saving…"
-        isWaiting={isSetting && setClicked}
-        onClick={this.setDefaultTime}>
-        {'\
-  Set as default\
-  '}
-        <OverlayTrigger placement="top" overlay={setAsDefaultExplanation}>
-          <i className="fa fa-info-circle" />
-        </OverlayTrigger>
-      </AsyncButton>;
+      setAsDefaultOption = (
+        <AsyncButton
+          className="tasking-time-default"
+          variant="link"
+          waitingText="Saving…"
+          isWaiting={isSetting && setClicked}
+          onClick={this.setDefaultTime}
+        >
+          Set as default
+          <InfoIcon
+            tooltipProps={{ placement: 'top' }}
+            tooltip={`${label} times for assignments created from now on will have this time set as the default.`}
+          />
+        </AsyncButton>
+      );
     } else if (justSet) {
-      setAsDefaultOption = <span className="tasking-time-default tasking-time-default-set">
-        {'\
-  Default set.\
-  '}
-      </span>;
+      setAsDefaultOption = (
+        <span
+          className="tasking-time-default tasking-time-default-set"
+        >Default set.</span>
+      );
     }
 
 

@@ -5,7 +5,7 @@ import { TaskStore } from '../flux/task';
 import { StepTitleStore } from '../flux/step-title';
 import { TaskHelper } from 'shared';
 
-const TaskCard = {
+const TaskPanel = {
   _steps: {},
 
   loaded(task, taskId) {
@@ -58,7 +58,7 @@ const TaskCard = {
 
     getTitlesForStepIndex(taskId, stepIndex) {
       let previous;
-      const crumbs = this._get(taskId); // TaskCardStore.get(@props.id)
+      const crumbs = this._get(taskId); // TaskPanelStore.get(@props.id)
       if (stepIndex >= 0) { previous = crumbs[stepIndex - 1]; }
       const next = crumbs[stepIndex + 1];
 
@@ -71,8 +71,8 @@ const TaskCard = {
   },
 };
 
-const { actions, store } = makeSimpleStore(TaskCard);
+const { actions, store } = makeSimpleStore(TaskPanel);
 
 TaskStore.on('step.completed', (stepId, taskId) => actions.sync(taskId));
 
-export { actions as TaskCardActions, store as TaskCardStore };
+export { actions as TaskPanelActions, store as TaskPanelStore };

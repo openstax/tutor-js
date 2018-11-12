@@ -10,7 +10,7 @@ import TimeHelper from '../../../src/helpers/time';
 
 import { ReadingPlan } from '../../../src/components/task-plan/reading';
 import Factory from '../../factories';
-((((((({ Testing, sinon, _, React } = require('helpers'))))))));
+(((({ Testing, sinon, _, React } = require('helpers'));
 import { ExtendBasePlan, PlanRenderHelper } from '../helpers/task-plan';
 
 const yesterday = moment(TimeStore.getNow()).subtract(1, 'day').format(TimeHelper.ISO_DATE_FORMAT);
@@ -25,7 +25,7 @@ const helper = model => PlanRenderHelper(model, ReadingPlan);
 
 xdescribe('Reading Plan', function() {
   let ECO_READING, ECO_READING_ECOSYSTEM_ID, NEW_READING, props, UNPUBLISHED_READING;
-  let VISIBLE_READING = (UNPUBLISHED_READING = (NEW_READING = (ECO_READING = (ECO_READING_ECOSYSTEM_ID = (props = null)))));
+  let VISIBLE_READING = (UNPUBLISHED_READING = (NEW_READING = (ECO_READING = (ECO_READING_ECOSYSTEM_ID = (props = null));
 
   beforeEach(function() {
     console.log(Factory);

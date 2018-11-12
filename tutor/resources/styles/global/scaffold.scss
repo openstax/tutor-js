@@ -12,6 +12,10 @@ body {
   }
 }
 
+.hide {
+  display: none !important;
+}
+
 .panel {
   max-width: $tutor-max-panel-width;
   margin: 20px auto;

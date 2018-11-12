@@ -3,22 +3,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import BS from 'react-bootstrap';
 import moment from 'moment-timezone';
-import _ from 'underscore';
+import { isEmpty, isEqual, map, omit, extend, defer, clone, pick, keys, isUndefined } from 'lodash';
 import classnames from 'classnames';
 import MaskedInput from 'react-maskedinput';
-
+import DatePicker from 'react-datepicker';
+import * as TutorErrors from './tutor-errors';
 import { TimeStore } from '../flux/time';
 import TimeHelper from '../helpers/time';
 import S from '../helpers/string';
-const TutorDateFormat = TimeStore.getFormat();
 
-const DatePicker = require('react-datepicker');
-const TutorErrors = require('./tutor-errors');
+const TutorDateFormat = TimeStore.getFormat();
 
 class TutorInput extends React.Component {
   static defaultProps = {
     validate(inputValue) {
-      if (_.isEmpty(inputValue)) { return ['required']; }
+      if (isEmpty(inputValue)) { return ['required']; }
     },
 
     type: 'text',
@@ -40,12 +39,12 @@ class TutorInput extends React.Component {
 
   componentDidMount() {
     const errors = this.props.validate(this.props.default);
-    if (!_.isEmpty(errors)) { this.setState({ errors }); }
+    if (!isEmpty(errors)) { this.setState({ errors }); }
     if (this.props.autofocus) { return this.focus().cursorToEnd(); }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (!_.isEqual(prevState, this.state)) { return (typeof this.props.onUpdated === 'function' ? this.props.onUpdated(this.state) : undefined); }
+    if (!isEqual(prevState, this.state)) { return (typeof this.props.onUpdated === 'function' ? this.props.onUpdated(this.state) : undefined); }
   }
 
   onChange = (event) => {
@@ -94,7 +93,7 @@ class TutorInput extends React.Component {
       },
     );
 
-    const errors = _.map(this.state.errors, function(error) {
+    const errors = map(this.state.errors, function(error) {
       if (TutorErrors[error] == null) { return; }
       const ErrorWarning = TutorErrors[error];
       return <ErrorWarning key={error} />;
@@ -111,8 +110,8 @@ class TutorInput extends React.Component {
     if (children != null) {
       inputBox = React.cloneElement(children, inputProps);
     } else {
-      props = _.omit(this.props, 'label', 'className', 'onChange', 'validate', 'default', 'children', 'ref');
-      inputProps = _.extend({}, inputProps, props);
+      props = omit(this.props, 'label', 'className', 'onChange', 'validate', 'default', 'children', 'ref');
+      inputProps = extend({}, inputProps, props);
 
       inputBox = <input {...inputProps} />;
     }
@@ -143,8 +142,6 @@ class TutorDateInput extends React.Component {
     const currentLocale = TimeHelper.getCurrentLocales();
     return { currentLocale };
   }();
-
-  static displayName = 'TutorDateInput';
 
   static propTypes = {
     currentLocale: PropTypes.shape({
@@ -203,7 +200,7 @@ class TutorDateInput extends React.Component {
   restoreLocales = () => {
     const { abbr } = this.props.currentLocale;
 
-    const localeOptions = _.omit(this.props.currentLocale, 'abbr');
+    const localeOptions = omit(this.props.currentLocale, 'abbr');
     return moment.locale(abbr, localeOptions);
   };
 
@@ -238,7 +235,6 @@ class TutorDateInput extends React.Component {
 
     if (!this.props.disabled) {
       dateElem = <DatePicker
-        readOnly={true}
         minDate={min}
         maxDate={max}
         onFocus={this.expandCalendar}
@@ -270,9 +266,7 @@ class TutorDateInput extends React.Component {
           {this.props.label}
         </div>
         <div className="hint required-hint">
-          {'\
-    Required field\
-    '}
+          Required field
         </div>
         <div className="date-wrapper">
           {dateElem}
@@ -330,9 +324,9 @@ class TutorTimeInput extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.timeValue !== prevState.timeValue) { __guard__(this.getMask(), x => x.setValue(this.state.timeValue)); }
-    if ((this.state.selection != null) && !_.isEqual(__guard__(this.getMask(), x1 => x1.selection), this.state.selection)) {
+    if ((this.state.selection != null) && !isEqual(__guard__(this.getMask(), x1 => x1.selection), this.state.selection)) {
       // update cursor to expected time, doesnt quite work for some reason for expanding mask
-      _.defer(() => {
+      defer(() => {
         __guard__(this.getMask(), x2 => x2.setSelection(this.state.selection));
         return __guard__(this.getInput(), x3 => x3._updateInputSelection());
       });
@@ -350,7 +344,7 @@ class TutorTimeInput extends React.Component {
       { selection: undefined };
     if (timePattern !== this.state.timePattern) { nextState.timePattern = timePattern; }
     if (timeValue !== this.state.timeValue) { nextState.timeValue = timeValue; }
-    if (!_.isEqual(this.getMask().selection, selection)) { nextState.selection = selection; }
+    if (!isEqual(this.getMask().selection, selection)) { nextState.selection = selection; }
 
     this.setState(nextState);
 
@@ -392,7 +386,7 @@ class TutorTimeInput extends React.Component {
   getUpdates = (timePattern, timeValue) => {
     const cursorChange =  timePattern.length - this.state.timePattern.length;
     let { selection } = this.getMask();
-    selection = _.clone(selection);
+    selection = clone(selection);
 
     if (/^(_+[1-9])/.test(timeValue)) {
       timeValue = S.removeAt(timeValue, 0);
@@ -423,7 +417,7 @@ class TutorTimeInput extends React.Component {
       charCode: 58,
     };
 
-    return _.isEqual(_.pick(changeEvent, _.keys(KEY_CODE)), KEY_CODE);
+    return isEqual(pick(changeEvent, keys(KEY_CODE)), KEY_CODE);
   };
 
   isCursor = () => {
@@ -450,14 +444,14 @@ class TutorTimeInput extends React.Component {
   };
 
   validate = (inputValue) => {
-    if (!_.isUndefined(inputValue)) {
+    if (!isUndefined(inputValue)) {
       if (inputValue.indexOf(__guard__(this.getMask(), x => x.placeholderChar)) > -1) { return ['incorrectTime']; }
     }
   };
 
   render() {
-    const maskedProps = _.omit(this.props, 'defaultValue', 'onChange', 'formatCharacters');
-    const inputProps = _.pick(this.props, 'disabled');
+    const maskedProps = omit(this.props, 'defaultValue', 'onChange', 'formatCharacters');
+    const inputProps = pick(this.props, 'disabled');
 
     const { formatCharacters } = this.props;
     const { timePattern, timeValue } = this.state;
@@ -564,7 +558,7 @@ class TutorRadio extends React.Component {
 
   render() {
     let { label, className, value, id, checked } = this.props;
-    const inputProps = _.pick(this.props, 'value', 'id', 'name', 'checked', 'disabled');
+    const inputProps = pick(this.props, 'value', 'id', 'name', 'checked', 'disabled');
 
     if (label == null) { label = value; }
     const classes = classnames('tutor-radio', className,

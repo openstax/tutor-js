@@ -5,10 +5,13 @@ $calendar-header-padding: 2rem;
     padding-bottom: 0;
   }
   .controls-wrapper > .calendar-header {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-
+    .calendar-header-label {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      min-width: 340px;
+      justify-content: space-between;
+    }
     // expand "no sections" message so it completely fills course
     .no-periods-message { min-width: 100%; }
 
@@ -66,8 +69,6 @@ $calendar-header-padding: 2rem;
     }
 
     &-label {
-      font-weight: stronger;
-
     }
 
     &-control {

@@ -115,9 +115,7 @@ class ExerciseControls extends React.Component {
   renderIncreaseButton() {
     if (this.canChangeTutorQty() && TaskPlanStore.canIncreaseTutorExercises(this.props.planId)) {
       return (
-        <Button onClick={this.addTutorSelection} className="btn-xs hover-circle">
-          <Icon type="chevron-up" />
-        </Button>
+        <Icon onClick={this.addTutorSelection} size="xs" className="hover-circle" type="chevron-up" />
       );
     } else {
       return <span className="circle-btn-placeholder" />;
@@ -127,9 +125,7 @@ class ExerciseControls extends React.Component {
   renderDecreaseButton() {
     if (this.canChangeTutorQty() && TaskPlanStore.canDecreaseTutorExercises(this.props.planId)) {
       return (
-        <Button onClick={this.removeTutorSelection} className="btn-xs hover-circle">
-          <Icon type="chevron-down" />
-        </Button>
+        <Icon type="chevron-down" size="xs" onClick={this.removeTutorSelection} className="hover-circle" />
       );
     } else {
       return <span className="circle-btn-placeholder" />;

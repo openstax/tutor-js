@@ -90,7 +90,7 @@ class Answer extends React.Component {
   }
 
   shouldKey = (props) => {
-    if (props == null) { (((({ props } = this)))); }
+    if (props == null) { ({ props } = this); }
     const { keyControl, disabled } = props;
 
     return (
@@ -125,7 +125,7 @@ class Answer extends React.Component {
   }
 
   render() {
-    let feedback, onChange, radioBox, selectedCount;
+    let feedback, onChange, radioBox, selectedCount, correctIncorrectIcon;
     let { answer, iter, qid, type, correctAnswerId, answered_count, hasCorrectAnswer, chosenAnswer, disabled } = this.props;
     if (qid == null) { qid = `auto-${idCounter++}`; }
 
@@ -140,7 +140,7 @@ class Answer extends React.Component {
     );
 
     if (!hasCorrectAnswer && (type !== 'teacher-review') && (type !== 'teacher-preview')) {
-      (((({ onChange } = this))));
+      ({ onChange } = this);
     }
 
     if (onChange) {
@@ -156,10 +156,22 @@ class Answer extends React.Component {
 
     if (type === 'teacher-review') {
       const percent = Math.round((answer.selected_count / answered_count) * 100) || 0;
-      selectedCount = <div
-        className="selected-count"
-        data-count={`${answer.selected_count}`}
-        data-percent={`${percent}`} />;
+      selectedCount = (
+        <div
+          className="selected-count"
+          data-percent={`${percent}`}
+        >
+          {answer.selected_count}
+        </div>
+      );
+      correctIncorrectIcon = (
+        <div
+          className="correct-incorrect"
+          data-is-correct={isCorrect}
+        >
+        {isCorrect ? '✓' : '✘'}
+        </div>
+      );
     }
 
     if (this.props.show_all_feedback && answer.feedback_html) {
@@ -180,6 +192,7 @@ class Answer extends React.Component {
     return (
       <div className="openstax-answer">
         <section role="region" className={classes}>
+          {correctIncorrectIcon}
           {selectedCount}
           {radioBox}
           <label

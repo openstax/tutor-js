@@ -14,7 +14,11 @@ export default class CancelButton extends React.Component {
     if (!this.props.isEditable) { return null; }
 
     return (
-      <Button disabled={this.props.isWaiting} onClick={this.props.onClick}>
+      <Button
+        variant="default"
+        disabled={this.props.isWaiting}
+        onClick={this.props.onClick}
+      >
         Cancel
       </Button>
     );

@@ -77,7 +77,7 @@ export default class CourseTaskPlans extends Map {
   }
 
   withPeriodId(periodId) {
-    return this.where(plan => find(plan.tasking_plans.peek(), { target_id: periodId }));
+    return this.where(plan => find(plan.tasking_plans, { target_id: periodId }));
   }
 
   pastDueWithPeriodId(periodId) {

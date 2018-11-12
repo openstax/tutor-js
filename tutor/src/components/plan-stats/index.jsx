@@ -63,12 +63,14 @@ class Stats extends React.Component {
   renderWrapped(body) {
     return (
       <Card className="task-stats">
-        <CoursePeriodsNav
-          handleSelect={this.handlePeriodSelect}
-          periods={this.course.periods}
-          course={this.course}
-        />
-        {body}
+        <Card.Body>
+          <CoursePeriodsNav
+            handleSelect={this.handlePeriodSelect}
+            periods={this.course.periods}
+            course={this.course}
+          />
+          {body}
+        </Card.Body>
       </Card>
     );
   }
@@ -125,12 +127,14 @@ class Stats extends React.Component {
 
     return (
       <Card className="task-stats">
-        <CoursePeriodsNav
-          handleSelect={this.handlePeriodSelect}
-          periods={this.course.periods}
-          course={this.course}
-        />
-        {dataComponent}
+        <Card.Body>
+          <CoursePeriodsNav
+            handleSelect={this.handlePeriodSelect}
+            periods={this.course.periods}
+            course={this.course}
+          />
+          {dataComponent}
+        </Card.Body>
       </Card>
     );
   }

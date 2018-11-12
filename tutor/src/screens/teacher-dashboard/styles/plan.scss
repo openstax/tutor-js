@@ -17,20 +17,20 @@ $calendar-inactive-background: $tutor-neutral;
 
 .list-task-plans {
   .plan {
-    display: block;
-    position: absolute;
-    border: 1px solid $openstax-neutral-light;
+    // display: block;
+    // position: absolute;
+    // border: 1px solid $openstax-neutral-light;
     font-size: 1.25rem;
-    max-height: $calendar-plan-height;
-    height: auto;
-    line-height: $calendar-plan-height;
-    margin-top: $calendar-plan-top-margin;
-    margin-left: $calendar-plan-left-offset;
+    // max-height: $calendar-plan-height;
+    // height: auto;
+    // line-height: $calendar-plan-height;
+    // margin-top: $calendar-plan-top-margin;
+    // margin-left: $calendar-plan-left-offset;
     cursor: pointer;
-    border: none;
+    // border: none;
     font-weight: bold;
-    transition: max-height .1s ease-in, margin-top .1s ease-in;
-    overflow: hidden;
+    // transition: max-height .1s ease-in, margin-top .1s ease-in;
+    // overflow: hidden;
     @include tutor-plan-display($calendar-inactive-background);
     transition: background-color 0.1s linear;
 
@@ -41,7 +41,7 @@ $calendar-inactive-background: $tutor-neutral;
     &.is-new {
       @include is-progressing-background();
       border-left: none;
-      height: 20px;
+      //height: 20px;
       label {
         display: none,
       }

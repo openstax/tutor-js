@@ -15,7 +15,7 @@ import { EcosystemsActions } from '../flux/ecosystems';
 import * as PerformanceForecast from '../flux/performance-forecast';
 
 import { TaskActions } from '../flux/task';
-import { TaskCardActions } from '../flux/task-panel';
+import { TaskPanelActions } from '../flux/task-panel';
 import { TaskStepActions, TaskStepStore } from '../flux/task-step';
 import { TaskPlanActions, TaskPlanStore } from '../flux/task-plan';
 

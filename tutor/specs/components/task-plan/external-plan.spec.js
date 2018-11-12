@@ -10,7 +10,7 @@ import TimeHelper from '../../../src/helpers/time';
 
 import { ExternalPlan } from '../../../src/components/task-plan/external';
 
-(((((((({ Testing, sinon, _, React, ReactTestUtils } = require('helpers')))))))));
+(({ Testing, sinon, _, React, ReactTestUtils } = require('helpers')));
 import { ExtendBasePlan, PlanRenderHelper } from '../helpers/task-plan';
 
 const yesterday = moment(TimeStore.getNow()).subtract(1, 'day').format(TimeHelper.ISO_DATE_FORMAT);

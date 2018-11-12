@@ -6,7 +6,12 @@
     margin: 0;
     @include make-shy-animate();
   }
-
+  .task-step {
+    margin-bottom: 4rem;
+  }
+  .card-body {
+    background-color: white;
+  }
   &.task-homework {
     counter-reset: question;
     .question-stem {
@@ -39,7 +44,6 @@
   .task-teacher-review {
     .task-stats {
       position: fixed;
-      width: inherit;
     }
   }
 }

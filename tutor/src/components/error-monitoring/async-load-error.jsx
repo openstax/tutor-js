@@ -16,6 +16,8 @@ export default class AsyncLoadError extends React.Component {
 
   render() {
     if (!isReloaded()) { return null; }
+    // eslint-disable-next-line no-console
+    console.warn(this.props.error);
 
     return (
       <div className="invalid-page">
