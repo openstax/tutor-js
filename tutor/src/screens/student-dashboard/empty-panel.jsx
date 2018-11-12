@@ -2,7 +2,7 @@ import { React, cn, observer } from '../../helpers/react';
 import Course from '../../models/course';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 
 const EmptyCard = observer(({
   course,

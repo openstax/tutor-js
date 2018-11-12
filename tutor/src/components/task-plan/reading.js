@@ -13,7 +13,7 @@ import PlanMixin from './plan-mixin';
 import TaskPlanBuilder from './builder';
 import NoQuestionsTooltip from './reading/no-questions-tooltip';
 import Fn from '../../helpers/function';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import Courses from '../../models/courses-map';
 import TourRegion from '../tours/region';
 

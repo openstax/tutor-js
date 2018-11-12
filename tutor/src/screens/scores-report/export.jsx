@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 import { computed, action } from 'mobx';
 import { observer } from 'mobx-react';
 import TourAnchor from '../../components/tours/anchor';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 import Course from '../../models/course';
 import Export from '../../models/jobs/scores-export';
 

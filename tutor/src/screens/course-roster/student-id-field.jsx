@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { observer } from 'mobx-react';
 import { isEmpty } from 'lodash';
 import { observable, action, computed } from 'mobx';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 import Student from '../../models/course/student';
 
 export default

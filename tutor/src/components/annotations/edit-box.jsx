@@ -4,7 +4,7 @@ import { defer } from 'lodash';
 import { observer } from 'mobx-react';
 import { action, observable } from 'mobx';
 import cn from 'classnames';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import { Form } from 'react-bootstrap';
 import Annotation from '../../models/annotations/annotation';
 

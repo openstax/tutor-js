@@ -8,7 +8,7 @@ import ScrollTo from '../../helpers/scroll-to';
 import { ExercisePreview } from 'shared';
 import PagingNavigation from '../paging-navigation';
 import NoExercisesFound from './no-exercises-found';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import { ExercisesMap } from '../../models/exercises';
 import Book from '../../models/reference-book';
 

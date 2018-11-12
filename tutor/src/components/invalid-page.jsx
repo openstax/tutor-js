@@ -3,7 +3,7 @@ import React from 'react';
 
 import OXColoredStripe from 'shared/components/ox-colored-stripe';
 import TutorLink from './link';
-import Icon from './icon';
+import { Icon } from 'shared';
 
 const DEFAULT_MESSAGE = 'Kudos on your desire to explore! Unfortunately, ' +
                         'we don’t have a page to go with that particular location.';

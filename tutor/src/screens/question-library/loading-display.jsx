@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { ExercisesMap } from '../../models/exercises';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 
 export default
 @observer

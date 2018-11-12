@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 import { observer, inject } from 'mobx-react';
 import { computed, action } from 'mobx';
 import { get } from 'lodash';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import TourAnchor from '../tours/anchor';
 import TourContext from '../../models/tour/context';
 import Router from '../../helpers/router';

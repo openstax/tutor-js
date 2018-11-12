@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import { observable, action, computed } from 'mobx';
 import ScrollSpy from '../../scroll-spy';
 import Sectionizer from '../../exercises/sectionizer';
-import Icon from '../../icon';
+import { Icon } from 'shared';
 import fluxToMobx from '../../../helpers/flux-to-mobx';
 import { fromResource } from 'mobx-utils';
 

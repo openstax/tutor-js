@@ -6,7 +6,7 @@ import { observer } from 'mobx-react';
 import { action } from 'mobx';
 import { readonly } from 'core-decorators';
 import { ReactHelpers } from 'shared';
-import Icon from './icon';
+import { Icon } from 'shared';
 import Theme from '../theme';
 
 @observer

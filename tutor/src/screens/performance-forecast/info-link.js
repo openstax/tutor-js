@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import BS from 'react-bootstrap';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 
 const MESSAGES = {
   student:

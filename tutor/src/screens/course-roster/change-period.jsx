@@ -5,7 +5,7 @@ import { computed, action } from 'mobx';
 import { without, find } from 'lodash';
 import { autobind } from 'core-decorators';
 import { Nav, NavItem, Popover, OverlayTrigger } from 'react-bootstrap';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 import CGL from '../../components/course-grouping-label';
 import Student from '../../models/course/student';
 import Period from '../../models/course/period';

@@ -15,7 +15,7 @@ export { OXLink };
 
 import * as OXButtonLink from './factories/button-link';
 export { OXButtonLink };
-
+export Icon from './components/icon';
 export OXMatchByRouter from './helpers/match-by-router';
 export CornerRibbon from './components/corner-ribbon';
 

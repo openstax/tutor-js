@@ -5,7 +5,7 @@ import pluralize from 'pluralize';
 import { observable, action, computed } from 'mobx';
 import { Button, Card, Table } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import WarningModal from '../warning-modal';
 import NewTabLink from '../new-tab-link';
 import S from '../../helpers/string';

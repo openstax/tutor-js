@@ -8,7 +8,7 @@ import classnames from 'classnames';
 import Exercise from '../../models/exercises/exercise';
 import { QuestionStats } from '../../models/task-plan/stats';
 
-import Icon from '../icon';
+import { Icon } from 'shared';
 import {
   ArbitraryHtmlAndMath, Question, CardBody, FreeResponse,
   ExerciseGroup, ExerciseIdentifierLink,

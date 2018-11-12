@@ -6,7 +6,7 @@ import { Col, Button } from 'react-bootstrap';
 import { get } from 'lodash';
 import Time from '../../components/time';
 import Router from '../../helpers/router';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 import EventInfoIcon from './event-info-icon';
 import { Instructions } from '../../components/task/details';
 import { SuretyGuard } from 'shared';

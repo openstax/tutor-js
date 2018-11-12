@@ -7,7 +7,7 @@ import { Listing, Choice } from '../../components/choices-listing';
 import { find } from 'lodash';
 import NewTabLink from '../../components/new-tab-link';
 import BuilderUX from './ux';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 
 export default
 @observer

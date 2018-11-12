@@ -1,7 +1,7 @@
 import React from 'react';
 import { map } from 'lodash';
 import { Modal } from 'react-bootstrap';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import S from '../../helpers/string';
 
 export default function unknownError({ errors }) {

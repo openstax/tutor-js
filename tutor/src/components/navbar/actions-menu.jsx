@@ -7,7 +7,7 @@ import { partial, flatMap, isEmpty, omit } from 'lodash';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
 import { autobind } from 'core-decorators';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import TourAnchor from '../tours/anchor';
 import Router from '../../helpers/router';
 import UserMenu from '../../models/user/menu';

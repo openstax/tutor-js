@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { React, observer, action  } from '../../helpers/react';
 import moment from 'moment';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 import { TimeStore } from '../../flux/time';
 import TimeHelper from '../../helpers/time';
 

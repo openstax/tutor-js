@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { action, observable } from 'mobx';
 import { Modal } from 'react-bootstrap';
 import classnames from 'classnames';
-import Icon from './icon';
+import { Icon } from 'shared';
 
 export default
 @observer

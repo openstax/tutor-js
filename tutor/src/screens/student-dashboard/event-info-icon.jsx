@@ -4,7 +4,7 @@ import { Tooltip, OverlayTrigger }  from 'react-bootstrap';
 import S from '../../helpers/string';
 import { TimeStore } from '../../flux/time';
 import moment from 'moment';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 import { observer } from 'mobx-react';
 
 import TourAnchor from '../../components/tours/anchor';

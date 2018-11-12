@@ -1,5 +1,3 @@
-import { Testing, expect, sinon, _ } from 'shared/specs/helpers';
-
 import Button from 'components/buttons/close-button';
 
 describe('Close Button Component', function() {
@@ -7,10 +5,8 @@ describe('Close Button Component', function() {
 
   beforeEach(() => props = {});
 
-  return it('has proper classes', () =>
-    Testing.renderComponent( Button, { props } ).then(function({ dom }) {
-      expect(dom.tagName).equal('BUTTON');
-      return expect(dom.classList.contains('openstax-close-x')).toBe(true);
-    })
-  );
+  return it('has proper classes', () => {
+    expect.snapshot(<Button {...props} />).toMatchSnapshot();
+  });
+
 });

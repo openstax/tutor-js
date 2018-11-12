@@ -6,7 +6,7 @@ import { isEmpty } from 'lodash';
 import { Button, Modal } from 'react-bootstrap';
 import { SpyMode, AsyncButton } from 'shared';
 import Time from '../../components/time';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 import CourseGroupingLabel from '../../components/course-grouping-label';
 import Course from '../../models/course';
 import Period from '../../models/course/period';

@@ -5,7 +5,7 @@ import { find } from 'lodash';
 import classnames from 'classnames';
 import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
-import Icon from './icon';
+import { Icon } from 'shared';
 
 @observer
 class MultiSelect extends React.Component {

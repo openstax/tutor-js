@@ -5,7 +5,7 @@ import { action, observable } from 'mobx';
 import { autobind } from 'core-decorators';
 import YouTube from 'react-youtube';
 import { Button } from 'react-bootstrap';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import Courses from '../../models/courses-map';
 import PopoutWindow from 'shared/components/popout-window';
 import StudentPreviewUX from '../../models/course/student-preview-ux';

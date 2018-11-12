@@ -4,7 +4,7 @@ import React from 'react';
 import TutorLink from '../link';
 import { get } from 'lodash';
 import Courses from '../../models/courses-map';
-import Icon from '../icon';
+import { Icon } from 'shared';
 
 export default class BookLinks extends React.Component {
 

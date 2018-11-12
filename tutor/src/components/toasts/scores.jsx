@@ -3,7 +3,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
 import { Button } from 'react-bootstrap';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import WarningModal from '../warning-modal';
 import SupportEmailLink from '../support-email-link';
 

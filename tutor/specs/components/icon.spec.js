@@ -1,5 +1,5 @@
 import { React } from '../helpers';
-import Icon from '../../src/components/icon';
+import { Icon } from 'shared';
 import { last } from 'lodash';
 
 describe('Icon Component', function() {

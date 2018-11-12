@@ -2,7 +2,74 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { uniqueId, defaults } from 'lodash';
 import { Tooltip, OverlayTrigger, Button } from 'react-bootstrap';
 import { React, PropTypes, cn } from '../helpers/react';
-import ICONS from './icons/font-awesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+
+const Icons = {};
+
+// regular
+[
+  'Square',
+  'Calendar',
+  'Comments',
+  'CheckSquare',
+  'Circle',
+].forEach(name => {
+  const icon = require(`@fortawesome/free-regular-svg-icons/fa${name}.js`);
+  library.add(
+    Icons[icon.iconName] = icon.definition,
+  );
+});
+
+// solid
+[
+  'ArrowUp',
+  'ArrowLeft',
+  'ArrowRight',
+  'PencilAlt',
+  'ArrowDown',
+  'CheckCircle',
+  'Bars',
+  'Bullhorn',
+  'HandPaper',
+  'Ghost',
+  'CheckSquare',
+  'QuestionCircle',
+  'AngleDown',
+  'TimesCircle',
+  'Spinner',
+  'ExclamationTriangle',
+  'ExclamationCircle',
+  'Clock',
+  'Times',
+  'PaperPlane',
+  'UserPlus',
+  'PlusSquare',
+  'Th',
+  'Comments',
+  'InfoCircle',
+  'Eye',
+  'Times',
+  'CaretLeft',
+  'CaretRight',
+  'Download',
+  'ChevronRight',
+  'ChevronUp',
+  'ChevronDown',
+  'ChevronLeft',
+  'EyeSlash',
+  'Eye',
+  'Trash',
+  'Video',
+].forEach(name => {
+  const icon = require(`@fortawesome/free-solid-svg-icons/fa${name}.js`);
+  let iconName = icon.iconName;
+  if (Icons[iconName]) { iconName = `${iconName}-solid`; }
+  library.add(
+    Icons[iconName] = icon.definition,
+  );
+});
+
+export { Icons };
 
 const defaultTooltipProps = {
   placement: 'top',
@@ -10,10 +77,10 @@ const defaultTooltipProps = {
 };
 
 export default
-class TutorIcon extends React.Component {
+class Icon extends React.Component {
 
   static propTypes = {
-    type: PropTypes.oneOf(Object.keys(ICONS)).isRequired,
+    type: PropTypes.oneOf(Object.keys(Icons)).isRequired,
     spin: PropTypes.bool,
     className: PropTypes.string,
     onClick: PropTypes.func,
@@ -42,11 +109,13 @@ class TutorIcon extends React.Component {
       ...props
     } = this.props;
 
+    //invariant(Icons[type], `${type} has not been imported`);
+
     let iconEl = (
       <FontAwesomeIcon
         data-variant={variant}
         className={cn('tutor-icon', type, className)}
-        icon={ICONS[type]}
+        icon={Icons[type]}
         {...props}
       />
     );

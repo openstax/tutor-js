@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
 import { Modal, Button } from 'react-bootstrap';
 import { AsyncButton } from 'shared';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 import Period from '../../models/course/period';
 import CourseGroupingLabel from '../../components/course-grouping-label';
 

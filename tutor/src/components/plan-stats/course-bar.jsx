@@ -3,7 +3,7 @@ import React from 'react';
 import { map, partial } from 'lodash';
 import { Container, Row, Col } from 'react-bootstrap';
 
-import Icon from '../icon';
+import { Icon } from 'shared';
 
 class CourseBar extends React.Component {
   static displayName = 'CourseBar';

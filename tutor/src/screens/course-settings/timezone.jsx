@@ -7,7 +7,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { AsyncButton } from 'shared';
 import { TutorRadio } from '../../components/tutor-input';
 import classnames from 'classnames';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 import moment from 'moment-timezone';
 import TimeHelper from '../../helpers/time';
 import S from '../../helpers/string';

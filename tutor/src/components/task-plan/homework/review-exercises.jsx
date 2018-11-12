@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { compact, map, isEmpty } from 'lodash';
 import Loading from '../../loading-screen';
-import Icon from '../../icon';
+import { Icon } from 'shared';
 import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
 import { ExercisePreview, SuretyGuard, PinnedHeaderFooterCard } from 'shared';
 import { observer } from 'mobx-react';

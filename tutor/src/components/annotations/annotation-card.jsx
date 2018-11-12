@@ -7,7 +7,7 @@ import { autobind } from 'core-decorators';
 import { ArbitraryHtmlAndMath } from 'shared';
 import Courses from '../../models/courses-map';
 import Annotation from '../../models/annotations/annotation';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import SuretyGuard from 'shared/components/surety-guard';
 
 @observer

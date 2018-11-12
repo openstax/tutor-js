@@ -6,7 +6,7 @@ import moment from 'moment';
 import { autobind } from 'core-decorators';
 import TaskPlanHelper from '../../helpers/task-plan';
 import CopyOnFocusInput from '../copy-on-focus-input';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import Courses from '../../models/courses-map';
 import CopyOnfocusInput from '../copy-on-focus-input';
 import TeacherTaskPlan from '../../models/task-plan/teacher';

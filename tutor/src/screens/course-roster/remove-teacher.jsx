@@ -4,7 +4,7 @@ import { action, computed } from 'mobx';
 import { observer } from 'mobx-react';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 import Router from '../../helpers/router';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 import Name from '../../components/name';
 import { AsyncButton } from 'shared';
 

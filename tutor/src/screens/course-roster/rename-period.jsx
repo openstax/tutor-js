@@ -8,7 +8,7 @@ import classnames from 'classnames';
 
 import Period from '../../models/course/period';
 import { TutorInput } from '../../components/tutor-input';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 import CourseGroupingLabel from '../../components/course-grouping-label';
 
 

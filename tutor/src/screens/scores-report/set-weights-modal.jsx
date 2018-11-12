@@ -6,7 +6,7 @@ import { snakeCase, map } from 'lodash';
 import { Modal, Button } from 'react-bootstrap';
 import { AsyncButton } from 'shared';
 import NewTabLink from '../../components/new-tab-link';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 
 const WEIGHTS = [
   'Homework scores',

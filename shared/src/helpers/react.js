@@ -6,8 +6,8 @@ import indexOf from 'lodash/indexOf';
 import pickBy from 'lodash/pickBy';
 import concat from 'lodash/concat';
 import some from 'lodash/some';
-import kebabCase from 'lodash/kebabCase';
 import { detect } from 'detect-browser';
+import cn from 'classnames';
 import 'mobx-react';
 
 const PASSABLE_PROPS = ['className', 'id', 'children', 'target', 'ref', 'tabIndex', 'role'];
@@ -54,4 +54,4 @@ const idType = MobxPropTypes.oneOfType([
   MobxPropTypes.number,
 ]);
 
-export { filterProps, renderRoot, ArrayOrMobxType, idType };
+export { React, PropTypes, cn, filterProps, renderRoot, ArrayOrMobxType, idType };

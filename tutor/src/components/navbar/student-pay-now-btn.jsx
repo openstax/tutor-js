@@ -7,7 +7,7 @@ import { computed, action, observable } from 'mobx';
 import PaymentsModal from '../payments/modal';
 import Payments from '../../models/payments';
 import Course from '../../models/course';
-import Icon from '../icon';
+import { Icon } from 'shared';
 
 const FREE_TRIAL_MESSAGE = `
 When the free trial ends, you'll be prompted to pay to maintain access

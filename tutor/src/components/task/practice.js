@@ -7,7 +7,7 @@ import LoadableItem from '../loadable-item';
 import { TaskActions, TaskStore } from '../../flux/task';
 import { CoursePracticeActions, CoursePracticeStore } from '../../flux/practice';
 import InvalidPage from '../invalid-page';
-import Icon from '../icon';
+import { Icon } from 'shared';
 
 class PracticeTask extends React.Component {
   static propTypes = {

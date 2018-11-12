@@ -6,7 +6,7 @@ import { autobind } from 'core-decorators';
 import cn from 'classnames';
 import User from '../../models/user';
 import { filter, last, sortBy } from 'lodash';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import SummaryPage from './summary-page';
 import dom from '../../helpers/dom';
 import imagesComplete from '../../helpers/images-complete';

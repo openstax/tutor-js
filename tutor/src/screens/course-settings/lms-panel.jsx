@@ -7,7 +7,7 @@ import Link from '../../components/new-tab-link';
 import LoadingScreen from '../../components/loading-screen';
 import Course from '../../models/course';
 import CopyOnFocusInput from '../../components/copy-on-focus-input';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 
 
 const blackboard = ({ lms }) => (

@@ -3,7 +3,7 @@ import React from 'react';
 import { keys } from 'lodash';
 import classnames from 'classnames';
 import Theme from '../theme';
-import Icon from './icon';
+import { Icon } from 'shared';
 
 const ICON_TYPES = {
   partial:   'check-square',

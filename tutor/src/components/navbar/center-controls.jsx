@@ -7,7 +7,7 @@ import moment from 'moment-timezone';
 import classnames from 'classnames';
 import { cloneDeep, extend, includes, omit, pick, get } from 'lodash';
 import AnnotationsSummaryToggle from '../annotations/summary-toggle';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import { TaskStore } from '../../flux/task';
 import { TaskPanelStore } from '../../flux/task-panel';
 import TutorRouter from '../../helpers/router';

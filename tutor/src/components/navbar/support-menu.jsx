@@ -9,7 +9,7 @@ import User from '../../models/user';
 import TourAnchor from '../tours/anchor';
 import Chat from '../../models/chat';
 import UserMenu from '../../models/user/menu';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import SupportDocument from './support-document-link';
 import BestPracticesGuide from './best-practices-guide';
 import TourContext from '../../models/tour/context';

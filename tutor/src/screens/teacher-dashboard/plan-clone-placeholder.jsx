@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { React, observable, observer, action } from '../../helpers/react';
 import TimeHelper from '../../helpers/time';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
 import Course from '../../models/course';
 

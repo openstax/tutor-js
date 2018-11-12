@@ -3,7 +3,7 @@ import Chat from '../../models/chat';
 import TutorLink from '../link';
 import IconAdd from '../icons/add';
 
-import Icon from '../icon';
+import { Icon } from 'shared';
 
 export default class PendingVerification extends React.Component {
 

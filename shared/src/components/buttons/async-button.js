@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 import { delay } from 'lodash';
 import { filterProps } from '../../factories/link';
 import RefreshButton from './refresh-button';
+import Icon from '../icon';
 
 export default class extends React.Component {
   static defaultProps = {
@@ -92,7 +93,7 @@ export default class extends React.Component {
       stateClass = 'is-waiting';
       text = waitingText;
       disabled = true;
-      spinner = <i className="fa fa-spinner fa-spin" />;
+      spinner = <Icon type='spinner' spin />;
     } else if (isDone) {
       stateClass = 'is-done';
       text = doneText;

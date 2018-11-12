@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
 import CopyOnFocusInput from '../../components/copy-on-focus-input';
 import Course from '../../models/course';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 
 export default
 @observer

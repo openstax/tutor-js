@@ -1,5 +1,4 @@
 import React from 'react';
-import { Testing } from 'shared/specs/helpers';
 import { delay } from 'lodash';
 import Button from 'components/buttons/async-button';
 
@@ -22,19 +21,24 @@ describe('Async Button Component', function() {
 
   describe('waiting state', function() {
 
-    it('hides spinner and is not disabled', () =>
-      Testing.renderComponent( Button, { props } ).then(function({ dom }) {
-        expect(dom.getAttribute('disabled')).to.be.null;
-        return expect(dom.querySelector('i.fa-spinner')).to.be.null;
-      })
-    );
+    it('hides spinner and is not disabled', () => {
+      const button = mount(<Button {...props} />);
+      expect(button).not.toHaveRendered('[disabled]');
+      expect(button).not.toHaveRendered('Icon');
+    });
 
-    it('shows spinner and is disabled when true', function() {
+    fit('shows spinner and is disabled when true', function() {
       props.isWaiting = true;
-      return Testing.renderComponent( Button, { props } ).then(function({ dom }) {
-        expect(dom.getAttribute('disabled')).equal('');
-        return expect(dom.querySelector('i.fa-spinner')).not.to.be.null;
-      });
+      const button = mount(<Button {...props} />);
+      console.log(button.debug())
+      expect(button).not.toHaveRendered('[disabled]');
+      expect(button).not.toHaveRendered('Icon');
+
+      // props.isWaiting = true;
+      // return Testing.renderComponent( Button, { props } ).then(function({ dom }) {
+      //   expect(dom.getAttribute('disabled')).equal('');
+      //   return expect(dom.querySelector('i.fa-spinner')).not.to.be.null;
+      // });
     });
   });
 

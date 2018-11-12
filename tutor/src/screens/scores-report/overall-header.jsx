@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import cn from 'classnames';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import SetWeights from './set-weights-modal';

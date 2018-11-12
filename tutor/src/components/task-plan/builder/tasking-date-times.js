@@ -7,7 +7,7 @@ import { TimeStore } from '../../../flux/time';
 import TimeHelper from '../../../helpers/time';
 import Courses from '../../../models/courses-map';
 import { TaskingActions, TaskingStore } from '../../../flux/tasking';
-import Icon from '../../icon';
+import { Icon } from 'shared';
 import DateTime from './date-time';
 
 class TaskingDateTimes extends React.Component {

@@ -7,7 +7,7 @@ import { observer } from 'mobx-react';
 import { PinnedHeaderFooterCard } from 'shared';
 import Loading from '../../components/loading-screen';
 import { ArrayOrMobxType } from 'shared/helpers/react';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 import ExerciseControls from './exercise-controls';
 import ExerciseDetails from '../../components/exercises/details';
 import ExerciseCards from '../../components/exercises/cards';

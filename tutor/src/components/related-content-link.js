@@ -4,7 +4,7 @@ import createReactClass from 'create-react-class';
 import _ from 'underscore';
 import Courses from '../models/courses-map';
 import { ChapterSectionMixin } from 'shared';
-import Icon from './icon';
+import { Icon } from 'shared';
 import BrowseTheBook from './buttons/browse-the-book';
 
 

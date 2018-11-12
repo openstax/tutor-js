@@ -4,7 +4,7 @@ import { autobind } from 'core-decorators';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 import { get, map, filter } from 'lodash';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import Annotation from '../../models/annotations/annotation';
 import getRangeRect from './getRangeRect';
 

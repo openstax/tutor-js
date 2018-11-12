@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import { TaskStepStore } from '../../flux/task-step';
 import { TaskStore } from '../../flux/task';
 
-import Icon from '../icon';
+import { Icon } from 'shared';
 import { ChapterSectionMixin, CardBody, ExerciseGroup, ExControlButtons } from 'shared';
 
 import StepFooter from './step-footer';

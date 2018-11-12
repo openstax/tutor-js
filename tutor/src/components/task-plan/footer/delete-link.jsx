@@ -1,6 +1,6 @@
 import { React, observer, observable, action } from '../../../helpers/react';
 import { AsyncButton } from 'shared';
-import Icon from '../../icon';
+import { Icon } from 'shared';
 import PropTypes from 'prop-types';
 import { Modal, Button } from 'react-bootstrap';
 

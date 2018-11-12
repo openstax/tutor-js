@@ -10,7 +10,7 @@ import { BookContentMixin, LinkContentMixin } from '../book-content-mixin';
 import RelatedContent from '../related-content';
 import Router from '../../helpers/router';
 import AnnotationWidget from '../annotations/annotation';
-import Icon from '../icon';
+import { Icon } from 'shared';
 
 // TODO: will combine with below, after BookContentMixin clean up
 const ReadingStepContent = createReactClass({

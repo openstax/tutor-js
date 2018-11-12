@@ -7,7 +7,7 @@ import { AsyncButton } from 'shared';
 import Courses from '../../models/courses-map';
 import Course from '../../models/course';
 import { TutorInput } from '../../components/tutor-input';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 
 
 export default

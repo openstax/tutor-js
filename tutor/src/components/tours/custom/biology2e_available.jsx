@@ -4,7 +4,7 @@ import MiniNotice from './mini-notice';
 import NewTabLink from '../../new-tab-link';
 import { Button } from 'react-bootstrap';
 import { action } from 'mobx';
-import Icon from '../../icon';
+import { Icon } from 'shared';
 import Router from '../../../helpers/router';
 
 export default class Biology2eAvailable extends React.Component {

@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Close Button Component has proper classes 1`] = `
+<button
+  className="openstax-close-x close"
+/>
+`;

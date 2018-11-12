@@ -1,7 +1,7 @@
 import { React, observer } from '../../helpers/react';
 import { Alert } from 'react-bootstrap';
 import NewTabLink from '../../components/new-tab-link';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 import SupportEmailLink from '../../components/support-email-link';
 
 export default

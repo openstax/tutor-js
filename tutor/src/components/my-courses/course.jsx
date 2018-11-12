@@ -6,7 +6,7 @@ import { omit } from 'lodash';
 import { computed, action } from 'mobx';
 import Router from '../../helpers/router';
 import TutorLink from '../link';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import CourseModel from '../../models/course';
 import CourseUX from '../../models/course/ux';
 import OXFancyLoader from '../ox-fancy-loader';

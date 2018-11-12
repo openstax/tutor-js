@@ -2,7 +2,7 @@ import { React, observable, observer, action, cn } from '../../helpers/react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import Course from '../../models/course';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 import CalendarHelper from './helper';
 
 const OPEN_ICON = 'times';
