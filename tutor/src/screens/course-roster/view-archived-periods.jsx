@@ -4,11 +4,10 @@ import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
 import { isEmpty } from 'lodash';
 import { Button, Modal } from 'react-bootstrap';
-
 import { SpyMode, AsyncButton } from 'shared';
-import Time from '../time';
-import Icon from '../icon';
-import CourseGroupingLabel from '../course-grouping-label';
+import Time from '../../components/time';
+import Icon from '../../components/icon';
+import CourseGroupingLabel from '../../components/course-grouping-label';
 import Course from '../../models/course';
 import Period from '../../models/course/period';
 
@@ -19,7 +18,6 @@ class ArchivedPeriodRow extends React.Component {
     period: PropTypes.instanceOf(Period).isRequired,
     onComplete: PropTypes.func.isRequired,
   }
-
 
   @action.bound restore() {
     this.props.period.unarchive().then(this.props.onComplete);

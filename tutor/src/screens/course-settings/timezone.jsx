@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { observable, computed, action } from 'mobx';
+import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import { map, values } from 'lodash';
 import { Modal, Button } from 'react-bootstrap';
-
 import { AsyncButton } from 'shared';
-import { TutorRadio } from '../tutor-input';
+import { TutorRadio } from '../../components/tutor-input';
 import classnames from 'classnames';
-import Icon from '../icon';
+import Icon from '../../components/icon';
 import moment from 'moment-timezone';
 import TimeHelper from '../../helpers/time';
 import S from '../../helpers/string';
@@ -133,7 +132,6 @@ class SetTimezone extends React.Component {
     course: PropTypes.instanceOf(Course).isRequired,
   }
 
-
   @observable showModal = false
   @observable invalid = false;
   @observable course_timezone = this.props.course.time_zone;
@@ -155,46 +153,40 @@ class SetTimezone extends React.Component {
     this.props.course.save().then(this.close);
   }
 
-  renderForm() {
-    return (
-      <Modal
-        show={this.showModal}
-        onHide={this.close}
-        className="settings-edit-course-modal">
-        <Modal.Header closeButton={true}>
-          <Modal.Title>
-            Change Course Timezone
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body className={classnames({ 'is-invalid-form': this.invalid })}>
-          <SetTimezoneField
-            name="course-timezone"
-            defaultValue={this.props.course.time_zone}
-            onChange={val => this.course_timezone = val}
-            validate={this.validate}
-            autofocus={true} />
-        </Modal.Body>
-        <Modal.Footer>
-          <AsyncButton
-            className="-edit-course-confirm"
-            onClick={this.performUpdate}
-            isWaiting={this.props.course.api.isPending}
-            waitingText="Saving..."
-            disabled={this.invalid}
-          >
-            Save
-          </AsyncButton>
-        </Modal.Footer>
-      </Modal>
-    );
-  }
-
   render() {
     return (
-      <Button onClick={this.open} variant="link" className="control edit-course">
-        <Icon type="pencil" />
-        {this.renderForm()}
-      </Button>
+      <React.Fragment>
+        <Icon type="pencil-alt" onClick={this.open} className="control edit-course" />
+        <Modal
+          show={this.showModal}
+          onHide={this.close}
+          className="settings-edit-course-modal">
+          <Modal.Header closeButton={true}>
+            <Modal.Title>
+              Change Course Timezone
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body className={classnames({ 'is-invalid-form': this.invalid })}>
+            <SetTimezoneField
+              name="course-timezone"
+              defaultValue={this.props.course.time_zone}
+              onChange={val => this.course_timezone = val}
+              validate={this.validate}
+              autofocus={true} />
+          </Modal.Body>
+          <Modal.Footer>
+            <AsyncButton
+              className="-edit-course-confirm"
+              onClick={this.performUpdate}
+              isWaiting={this.props.course.api.isPending}
+              waitingText="Saving..."
+              disabled={this.invalid}
+            >
+              Save
+            </AsyncButton>
+          </Modal.Footer>
+        </Modal>
+      </React.Fragment>
     );
   }
 };

@@ -4,19 +4,18 @@ import { Card } from 'react-bootstrap';
 import { computed, observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import { map } from 'lodash';
-
-import Tabs from '../tabs';
+import Tabs from '../../components/tabs';
 import Courses from '../../models/courses-map';
 import TeacherRoster from './teacher-roster';
 import StudentRoster from './student-roster';
 import ViewArchivedPeriods from './view-archived-periods';
-import TourRegion from '../tours/region';
 import AddPeriodLink       from './add-period';
 import RenamePeriodLink    from './rename-period';
 import DeletePeriodLink    from './delete-period';
 import DroppedRoster from './dropped-roster';
-import CoursePage from '../course-page';
-import NoPeriods from '../no-periods';
+import CoursePage from '../../components/course-page';
+import NoPeriods from '../../components/no-periods';
+import './styles.scss';
 
 export default
 @observer

@@ -2,16 +2,14 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { observable, computed, action } from 'mobx';
 import { observer } from 'mobx-react';
-
 import Courses from '../../models/courses-map';
-import CoursePage from '../course-page';
-
-import Tabs from '../tabs';
-
+import CoursePage from '../../components/course-page';
+import Tabs from '../../components/tabs';
 import StudentAccess from './student-access';
 import RenameCourseLink from './rename-course';
 import Timezone from './timezone';
 import moment from 'moment-timezone';
+import './styles.scss';
 
 const df = (d) => moment(d).format('MM/DD/YYYY');
 

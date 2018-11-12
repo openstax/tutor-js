@@ -1,6 +1,6 @@
 import { React, action, observer } from '../../helpers/react';
 import PropTypes from 'prop-types';
-import { Form, FormControl, FormGroup, InputGroup } from 'react-bootstrap';
+import { Form, InputGroup } from 'react-bootstrap';
 import { map } from 'lodash';
 
 import TimeHelper from '../../helpers/time';
@@ -31,30 +31,30 @@ class CourseName extends React.Component {
 
     return (
       <Form>
-        <FormGroup className="course-details-name">
-          <FormControl
+        <Form.Group className="course-details-name">
+          <Form.Control
             autoFocus={true}
             type="text"
             defaultValue={newCourse.name}
             placeholder="Choose a name for your course"
             onChange={this.updateName} />
-        </FormGroup>
-        <FormGroup className="course-details-sections">
+        </Form.Group>
+        <Form.Group className="course-details-sections">
           <InputGroup>
-            <InputGroup.Addon>
-              Time zone
-            </InputGroup.Addon>
-            <FormControl
-              componentClass="select"
+            <InputGroup.Prepend>
+              <InputGroup.Text>Time zone</InputGroup.Text>
+            </InputGroup.Prepend>
+            <Form.Control
+              as="select"
               placeholder="select"
               value={newCourse.time_zone}
               onChange={this.updateTimeZone}
             >
               {map(zones, (tz, key) =>
                 <option key={key} value={tz}>{tz}</option>)}
-            </FormControl>
+            </Form.Control>
           </InputGroup>
-        </FormGroup>
+        </Form.Group>
       </Form>
     );
   }

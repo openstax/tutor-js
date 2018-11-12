@@ -28,8 +28,12 @@ const TutorTheme = {
 
     neutral,
 
+    states: {
+      correct: '#009c10',
+    },
+
     controls: {
-      active: '#337eb5',
+      active:  '#337eb5',
     },
 
   },

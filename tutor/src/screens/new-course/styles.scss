@@ -1,8 +1,8 @@
 @import '../screen-styles';
 
 .new-course-wizard {
-  $panel-choice-height: 70px;
-  $panel-body-height: $panel-choice-height * 3.5;
+  $card-choice-height: 70px;
+  $card-body-height: $card-choice-height * 3.5;
 
   @include ost-hero-backdrop();
   font-size: 16px;
@@ -25,23 +25,23 @@
   max-width: 440px;
   margin: 134px auto 0 auto;
 
-  .panel {
+  .card {
     position: relative;
     @include tutor-shadow('pop');
 
-    .panel-heading,
-    .panel-footer {
+    .card-header,
+    .card-footer {
       padding: 40px;
       color: inherit;
       background-color: white;
       border: 0;
     }
 
-    .panel-body {
-      min-height: $panel-body-height;
+    .card-body {
+      min-height: $card-body-height;
       padding: 20px 40px;
     }
-    .panel-footer {
+    .card-footer {
       .controls { text-align: right; }
       .btn {
         font-weight: 600;
@@ -55,7 +55,7 @@
       }
     }
 
-    .panel-heading {
+    .card-header {
       font-size: 1.6rem;
       line-height: 2rem;
       padding-bottom: 0;
@@ -76,7 +76,7 @@
         }
       }
     }
-    .panel-body .ox-loader {
+    .card-body .ox-loader {
       background-color: white;
       z-index: 1;
       .ox-loader--inner {
@@ -87,7 +87,7 @@
       height: 2rem;
     }
     &.is-loading {
-      .panel-body {
+      .card-body {
         @include tutor-subtle-load('loading');
       }
     }
@@ -128,7 +128,7 @@
       }
     }
 
-    .input-group-addon {
+    .input-group-prepend {
       background: $tutor-white;
       color: inherit;
       font-weight: 600;
@@ -151,7 +151,7 @@
     &.course_type,
     &.offering_id,
     &.offering {
-      .panel-heading {
+      .card-header {
         font-weight: 800;
         text-align: center;
         min-height: 6rem;
@@ -186,7 +186,7 @@
       }
     }
     &.bio1e_unavail {
-      .panel-heading {
+      .card-header {
         background-color: #d7f1f6;
         font-size: 1.8rem;
         font-weight: 700;
@@ -216,7 +216,7 @@
 
     }
     &.bio2e_unavail {
-      .panel-heading {
+      .card-header {
         text-align: center;
         font-size: 1.8rem;
         font-weight: 700;
@@ -261,6 +261,7 @@
 
       .input-group {
         width: 100%;
+        flex-wrap: nowrap;
       }
 
       .form-control {
@@ -279,8 +280,8 @@
       }
 
       input[type=number] {
-        padding-right: 4px;
-        padding-left: 16px;
+        width: 100px;
+        margin-left: 1rem;
       }
     }
   }

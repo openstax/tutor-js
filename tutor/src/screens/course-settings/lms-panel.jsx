@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Modal, ToggleButtonGroup, ToggleButton, Button } from 'react-bootstrap';
-import { observable, computed, action } from 'mobx';
+import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
-import Link from '../new-tab-link';
-import LoadingScreen from '../loading-screen';
+import Link from '../../components/new-tab-link';
+import LoadingScreen from '../../components/loading-screen';
 import Course from '../../models/course';
-import CopyOnFocusInput from '../copy-on-focus-input';
-import Icon from '../icon';
+import CopyOnFocusInput from '../../components/copy-on-focus-input';
+import Icon from '../../components/icon';
 
 
 const blackboard = ({ lms }) => (

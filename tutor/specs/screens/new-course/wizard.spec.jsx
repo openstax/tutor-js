@@ -1,49 +1,40 @@
-import { React, SnapShot } from '../../helpers';
-import { observable as mockObservable } from 'mobx';
-import Factory from '../../factories';
+import { Factory, React, SnapShot } from '../../helpers';
+
 import Router from '../../../src/helpers/router';
 import BuilderUX from '../../../src/screens/new-course/ux';
 import Wizard from '../../../src/screens/new-course/wizard';
-import Offerings from '../../../src/models/course/offerings';
+import { OfferingsMap, Offering } from '../../../src/models/course/offerings';
 
 jest.mock('../../../src/helpers/router');
 jest.mock('../../../src/models/user', () => ({
   isCollegeTeacher: true,
 }));
-jest.mock('../../../src/models/course/offerings', () => {
-  const mockOffering = {
-    id: 1, title: 'Test Offering',
-    validTerms: [{
-      term: 'spring',
-      year: 2018,
-    }],
-  };
-
-  return mockObservable({
-    get: jest.fn(() => mockOffering),
-    fetch: jest.fn(function(){
-      return Promise.resolve();
-    }),
-    api: { isPending: true },
-    available: {
-      array: [ mockOffering ],
-    },
-  });
-});
 
 describe('Creating a course', function() {
 
   let props;
   beforeEach(() => {
     Router.currentParams.mockReturnValue({});
+    const offerings = new OfferingsMap();
+    offerings.fetch = jest.fn(function() {
+      this.api.requestsInProgress.set('fake','fake');
+      this.set(1, new Offering({ id: 1, title: 'Test Offering' }));
+      return Promise.resolve();
+    });
+    props = {
+      ux: new BuilderUX({
+        router: { route: { match: { params: {} } } },
+        offerings,
+      }),
+    };
   });
 
   it('displays as loading and then sets stage when done', async function() {
-    const wrapper = shallow(<Wizard />);
+    const wrapper = shallow(<Wizard {...props} />);
     expect(await axe(wrapper.html())).toHaveNoViolations();
-    expect(wrapper.instance().ux.isBusy).toBe(true);
+    expect(props.ux.isBusy).toBe(true);
     expect(wrapper).toHaveRendered('OXFancyLoader[isLoading=true]');
-    Offerings.api.isPending = false;
+    props.ux.offerings.api.requestsInProgress.clear();
     expect(wrapper).toHaveRendered('OXFancyLoader[isLoading=false]');
   });
 
@@ -52,13 +43,15 @@ describe('Creating a course', function() {
 
     expect(await axe(wrapper.html())).toHaveNoViolations();
     expect(wrapper.instance().ux.currentStageIndex).toEqual(0);
-    Offerings.api.isPending = false;
+    props.ux.offerings.api.requestsInProgress.clear();
+    expect(props.ux.isBusy).toBe(false);
 
     expect(wrapper).toHaveRendered('SelectCourse');
     expect(wrapper).toHaveRendered('.btn.next[disabled=true]');
+
     wrapper.find('.choice').simulate('click');
     wrapper.find('.btn.next[disabled=false]').simulate('click');
-    expect(wrapper.instance().ux.currentStageIndex).toEqual(1);
+    expect(props.ux.currentStageIndex).toEqual(1);
     expect(wrapper).toHaveRendered('SelectDates');
     wrapper.find('.btn.back').simulate('click');
     expect(wrapper.instance().ux.currentStageIndex).toEqual(0);
@@ -66,8 +59,7 @@ describe('Creating a course', function() {
   });
 
   it('matches snapshot', function() {
-    const component = SnapShot.create(<Wizard {...props} />);
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    props.ux.offerings.api.requestsInProgress.clear();
+    expect.snapshot(<Wizard {...props} />).toMatchSnapshot();
   });
 });

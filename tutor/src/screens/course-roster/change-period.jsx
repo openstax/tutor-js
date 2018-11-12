@@ -1,16 +1,14 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { computed, action } from 'mobx';
 import { without, find } from 'lodash';
-
+import { autobind } from 'core-decorators';
 import { Nav, NavItem, Popover, OverlayTrigger } from 'react-bootstrap';
-import Icon from '../icon';
-import CGL from '../course-grouping-label';
-
+import Icon from '../../components/icon';
+import CGL from '../../components/course-grouping-label';
 import Student from '../../models/course/student';
 import Period from '../../models/course/period';
-import { autobind } from 'core-decorators';
 
 export default
 @observer

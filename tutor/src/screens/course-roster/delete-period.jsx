@@ -3,12 +3,10 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
 import { Modal, Button } from 'react-bootstrap';
-
-
 import { AsyncButton } from 'shared';
-import Icon from '../icon';
+import Icon from '../../components/icon';
 import Period from '../../models/course/period';
-import CourseGroupingLabel from '../course-grouping-label';
+import CourseGroupingLabel from '../../components/course-grouping-label';
 
 const EMPTY_WARNING = 'EMPTY';
 
@@ -76,10 +74,14 @@ class DeletePeriodLink extends React.Component {
   render() {
     const section = <CourseGroupingLabel courseId={this.props.period.course.id} />;
     return (
-      <Button
-        onClick={this.open}
-        variant="link"
-        className="control delete-period">
+      <React.Fragment>
+        <Button
+          onClick={this.open}
+          variant="link"
+          className="control delete-period"
+        >
+          <Icon type="trash" />Delete {section}
+        </Button>
         <DeletePeriodModal
           show={this.showModal}
           period={this.props.period}
@@ -88,8 +90,7 @@ class DeletePeriodLink extends React.Component {
           isBusy={this.props.period.api.isPending}
           onDelete={this.performDelete}
         />
-        <Icon type="trash" />Delete {section}
-      </Button>
+      </React.Fragment>
     );
   }
 };

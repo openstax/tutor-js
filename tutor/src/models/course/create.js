@@ -7,8 +7,6 @@ import { extend, omit, inRange } from 'lodash';
 import Offerings from './offerings';
 import Courses from '../courses-map';
 import Term from './offerings/term';
-import S from '../../helpers/string';
-
 
 export default
 @identifiedBy('course/create')
@@ -41,6 +39,12 @@ class CourseCreate extends BaseModel {
     },
   }
 
+  constructor({ courses = Courses, offerings = Offerings } = {}) {
+    super();
+    this.courses = courses;
+    this.offerings = offerings;
+  }
+
   @action setValue(attr, count) {
     const range = this.validations[attr].range;
     if (range && inRange(count, range[0], range[1]+1)) {
@@ -52,11 +56,11 @@ class CourseCreate extends BaseModel {
   }
 
   @computed get error() {
-    return this.errors.size ? this.errors.values()[0] : null;
+    return this.errors.size ? Array.from(this.errors.values())[0] : null;
   }
 
   @computed get offering() {
-    return Offerings.get(this.offering_id);
+    return this.offerings.get(this.offering_id);
   }
 
   set offering(offering) {
@@ -65,7 +69,7 @@ class CourseCreate extends BaseModel {
   }
 
   @computed get cloned_from() {
-    return this.cloned_from_id ? Courses.get(this.cloned_from_id) : null;
+    return this.cloned_from_id ? this.courses.get(this.cloned_from_id) : null;
   }
 
   set cloned_from(course) {
@@ -77,7 +81,7 @@ class CourseCreate extends BaseModel {
   }
 
   get cloned_from_offering() {
-    return this.cloned_from && Offerings.get(this.cloned_from.offering_id);
+    return this.cloned_from && this.offerings.get(this.cloned_from.offering_id);
   }
 
   @computed get canCloneCourse() {
@@ -101,7 +105,7 @@ class CourseCreate extends BaseModel {
   }
 
   onCreated({ data: courseData }) {
-    this.createdCourse = Courses.addNew(courseData);
+    this.createdCourse = this.courses.addNew(courseData);
   }
 
   // used for the bio2e switchover

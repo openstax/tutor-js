@@ -8,7 +8,7 @@ import Icon from '../icon';
 import TourAnchor from '../tours/anchor';
 import TourContext from '../../models/tour/context';
 import Router from '../../helpers/router';
-import Courses from '../../models/courses-map.js';
+import Course from '../../models/course.js';
 
 import onboardingForCourse from '../../models/course/onboarding';
 
@@ -19,21 +19,17 @@ export default
 @observer
 class PreviewAddCourseBtn extends React.Component {
 
+  static propTypes = {
+    course: PropTypes.instanceOf(Course),
+    tourContext: PropTypes.instanceOf(TourContext),
+  }
+
   static contextTypes = {
     router: PropTypes.object,
   }
 
-  static propTypes = {
-    courseId: PropTypes.string,
-    tourContext: PropTypes.instanceOf(TourContext),
-  }
-
-  @computed get course() {
-    return this.props.courseId ? Courses.get(this.props.courseId) : null;
-  }
-
   @computed get ux() {
-    return this.course ? onboardingForCourse(this.course, this.props.tourContext) : null;
+    return this.props.course ? onboardingForCourse(this.props.course, this.props.tourContext) : null;
   }
 
   componentWillUnmount() {
@@ -53,7 +49,7 @@ class PreviewAddCourseBtn extends React.Component {
     return (
       <TourAnchor id="preview-add-course-nav-button">
         <Button onClick={this.onAddCourse}>
-          <Icon type="plus" />
+          <Icon type="plus-square" />
           Create a course
         </Button>
       </TourAnchor>

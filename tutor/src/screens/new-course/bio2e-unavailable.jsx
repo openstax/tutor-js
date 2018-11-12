@@ -24,7 +24,7 @@ class Bio2eUnavailable extends React.Component {
         </p>
 
         <Alert variant="warning">
-          <Icon type="hand-paper-o" />
+          <Icon type="hand-paper" />
           <p>
             It is not possible to copy courses based on the first edition of Biology.
           </p>

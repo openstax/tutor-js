@@ -22,9 +22,9 @@
 
   .choice {
 
-    padding: 0px 35px 0px 0px;
+    //    padding: 0px 35px 0px 0px;
     display: flex;
-    align-content: center;
+
     height: $choice-height;
     position: relative;
     font-size: 1.6rem;
@@ -36,14 +36,20 @@
     &:focus {
       outline: none;
     }
-    &::before {
-      content: '';
-      background-size: contain;
-      background-repeat: no-repeat;
-      height: 2.5rem;
-      margin-right: 1rem;
-      display: block;
-      margin-top: 0;
+    .content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+
+      &::before {
+        content: '';
+        background-size: contain;
+        background-repeat: no-repeat;
+        height: 2.5rem;
+        margin-right: 1rem;
+        display: block;
+        margin-top: 0;
+      }
     }
     // &::after {
     //   position: absolute;

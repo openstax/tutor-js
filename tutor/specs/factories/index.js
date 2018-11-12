@@ -6,7 +6,7 @@ import Course from '../../src/models/course';
 import TutorExercise from '../../src/models/exercises/exercise';
 import Book from '../../src/models/reference-book';
 import TaskPlanStat from '../../src/models/task-plan/stats';
-import { Offering } from '../../src/models/course/offerings';
+import { OfferingsMap, Offering } from '../../src/models/course/offerings';
 import { CoursesMap } from '../../src/models/courses-map';
 import { EcosystemsMap, Ecosystem } from '../../src/models/ecosystems';
 import { ExercisesMap } from '../../src/models/exercises';
@@ -105,6 +105,15 @@ Factories.exercisesMap = ({ book, pageIds = [], count = 4 } = {}) => {
   return map;
 };
 
+Factories.offeringsMap = ({ count = 4 } = {}) => {
+  const map = new OfferingsMap();
+  map.onLoaded({
+    data: {
+      items: range(count).map(() => FactoryBot.create('Offering', {})),
+    },
+  });
+  return map;
+};
 
 export { FactoryBot, faker };
 export default Factories;

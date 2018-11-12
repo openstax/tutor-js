@@ -2,13 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
-import { Modal, Button } from 'react-bootstrap';
-
+import { Modal } from 'react-bootstrap';
 import { AsyncButton } from 'shared';
 import Courses from '../../models/courses-map';
 import Course from '../../models/course';
-import { TutorInput } from '../tutor-input';
-import Icon from '../icon';
+import { TutorInput } from '../../components/tutor-input';
+import Icon from '../../components/icon';
 
 
 export default
@@ -53,8 +52,8 @@ class RenameCourse extends React.Component {
     const { course } = this.props;
 
     return (
-      <Button onClick={this.open} variant="link" className="control edit-course">
-        <Icon type="pencil" />
+      <React.Fragment>
+        <Icon onClick={this.open} className="control edit-course" type="pencil-alt" />
         <Modal
           show={this.showModal}
           onHide={this.close}
@@ -86,7 +85,7 @@ class RenameCourse extends React.Component {
             </AsyncButton>
           </div>
         </Modal>
-      </Button>
+      </React.Fragment>
     );
   }
 

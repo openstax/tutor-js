@@ -3,9 +3,8 @@ import React from 'react';
 import { Button, Popover, OverlayTrigger } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
-
-import Icon from '../icon';
-import Name from '../name';
+import Icon from '../../components/icon';
+import Name from '../../components/name';
 import Student from '../../models/course/student';
 
 export default

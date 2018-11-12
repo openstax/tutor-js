@@ -1,4 +1,4 @@
-import { ld, Factory } from '../../../helpers';
+import { ld, Factory } from '../../helpers';
 import UserMenu from '../../../src/models/user/menu';
 import User from '../../../src/models/user';
 

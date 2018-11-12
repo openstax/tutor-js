@@ -7,6 +7,7 @@ jasmine.addMatchers({
     return {
       compare: function(wrapper, selector) {
         let matchCount, result;
+        wrapper.update(); // needed bc enzyme stopped updating
         matchCount = wrapper.find(selector).length;
         result = {
           pass: matchCount === 1,

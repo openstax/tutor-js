@@ -1,14 +1,6 @@
-import { React, SnapShot } from '../../helpers';
+import { React, Factory } from '../../helpers';
 import CourseNumbers from '../../../src/screens/new-course/course-numbers';
 import BuilderUX from '../../../src/screens/new-course/ux';
-import { bootstrapCoursesList } from '../../courses-test-data';
-
-jest.mock('../../../src/models/course/offerings', () => ({
-  fetch: jest.fn(),
-  get: jest.fn(() => ({ is_available: true })),
-}));
-
-const COURSE_ID = '1';
 
 jest.mock('../../../src/models/user', () => ({
   isCollegeTeacher: true,
@@ -17,13 +9,13 @@ jest.mock('../../../src/models/user', () => ({
 describe('CreateCourse: entering details', function() {
 
   let ux;
-  let courses;
 
   beforeEach(() => {
-    const route = { match: { params: { } } };
-
-    courses = bootstrapCoursesList();
-    ux = new BuilderUX({ route });
+    ux = new BuilderUX({
+      router: { route: { match: { params: {} } } },
+      courses: Factory.coursesMap({ count: 1 }),
+      offerings: Factory.offeringsMap({ count: 4 }),
+    });
   });
 
   it('is accessible', async () => {
@@ -33,17 +25,17 @@ describe('CreateCourse: entering details', function() {
   });
 
   it('sets field values', function() {
-    ux.newCourse.cloned_from = courses.get(COURSE_ID);
+    ux.newCourse.cloned_from = ux.courses.array[0];
     const wrapper = shallow(<CourseNumbers ux={ux} />);
-    expect(wrapper).toHaveRendered('.course-details-sections FormControl[type="number"][defaultValue=0]');
+    expect(wrapper).toHaveRendered('[id="number-students"]');
     wrapper.unmount();
   });
 
   it('updates values when edited', function() {
     const wrapper = mount(<CourseNumbers ux={ux} />);
-    wrapper.find('.course-details-numbers .form-control')
+    wrapper.find('FormControl[id="number-students"] input')
       .simulate('change', { target: { value: 3 } });
-    wrapper.find('.course-details-sections .form-control')
+    wrapper.find('FormControl[id="number-sections"] input')
       .simulate('change', { target: { value: 12 } });
     expect(ux.newCourse.estimated_student_count).toEqual(3);
     expect(ux.newCourse.num_sections).not.toEqual(12);
@@ -54,9 +46,6 @@ describe('CreateCourse: entering details', function() {
   });
 
   it('matches snapshot', function() {
-    const component = SnapShot.create(<CourseNumbers ux={ux} />);
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-    component.unmount();
+    expect.snapshot(<CourseNumbers ux={ux} />).toMatchSnapshot();
   });
 });

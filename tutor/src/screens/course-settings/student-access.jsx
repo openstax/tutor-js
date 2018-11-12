@@ -4,9 +4,9 @@ import { observable, computed, action } from 'mobx';
 import { observer } from 'mobx-react';
 import { Button, Modal, CardGroup, Card } from 'react-bootstrap';
 import Course from '../../models/course';
-import Icon from '../icon';
+import Icon from '../../components/icon';
 import cn from 'classnames';
-import CopyOnFocusInput from '../copy-on-focus-input';
+import CopyOnFocusInput from '../../components/copy-on-focus-input';
 import LMS from './lms-panel';
 
 export default

@@ -7,9 +7,9 @@ import { AsyncButton } from 'shared';
 import classnames from 'classnames';
 
 import Period from '../../models/course/period';
-import { TutorInput } from '../tutor-input';
-import Icon from '../icon';
-import CourseGroupingLabel from '../course-grouping-label';
+import { TutorInput } from '../../components/tutor-input';
+import Icon from '../../components/icon';
+import CourseGroupingLabel from '../../components/course-grouping-label';
 
 
 @observer
@@ -125,10 +125,12 @@ class RenamePeriod extends React.Component {
 
   render() {
     return (
-      <Button onClick={this.open} variant="link" className="control rename-period">
-        <Icon type="pencil" /> Rename
+      <React.Fragment>
+        <Button onClick={this.open} variant="link" className="control rename-period">
+          <Icon type="pencil-alt" /> Rename
+        </Button>
         {this.renderForm()}
-      </Button>
+      </React.Fragment>
     );
   }
 

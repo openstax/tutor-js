@@ -83,8 +83,8 @@ const ROUTES = {
   },
   cloneCourse: {
     label: 'Copy this Course',
-    params(course) {
-      return { sourceId: course.id };
+    params({ courseId }) {
+      return { sourceId: courseId };
     },
     roles: {
       teacher: 'createNewCourse',

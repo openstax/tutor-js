@@ -63,15 +63,15 @@ const PerformanceForecast = asyncComponent(
 );
 const getPerformanceForecastGuide = () => PerformanceForecast;
 
-const getCourseSettings = function() {
-  const { default: CourseSettings } = require('./components/course-settings');
-  return CourseSettings;
-};
+const CourseSettings = asyncComponent(
+  () => import('./screens/course-settings'),
+);
+const getCourseSettings = () => CourseSettings;
 
-const getCourseRoster = function() {
-  const { default: CourseRoster } = require('./components/course-roster');
-  return CourseRoster;
-};
+const CourseRoster = asyncComponent(
+  () => import('./screens/course-roster'),
+);
+const getCourseRoster = () => CourseRoster;
 
 const getPractice = () => require('./components/task/practice');
 

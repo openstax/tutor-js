@@ -50,9 +50,9 @@ class DefaultNavBar extends React.Component {
           <CenterControls params={params} />
           <div className="right-side-controls">
             <SupportMenu         course={course} />
-            <StudentPayNowBtn    courseId={courseId} />
-            <ActionsMenu         courseId={courseId} />
-            <PreviewAddCourseBtn courseId={courseId} />
+            <StudentPayNowBtn    course={course} />
+            <ActionsMenu         course={course} />
+            <PreviewAddCourseBtn course={course} />
             <UserMenu />
           </div>
         </div>

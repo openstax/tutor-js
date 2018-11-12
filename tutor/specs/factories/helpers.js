@@ -13,7 +13,6 @@ const TITLES = {
   physics: 'College Physics',
   sociology: 'Sociology w Courseware',
   apush: 'AP US History',
-
 };
 
 const APPEARANCE_CODES = {

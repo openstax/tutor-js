@@ -32,7 +32,7 @@ const RoutedDropdownItem = (props) => {
   );
 };
 
-function BrowseBookDropdownItem({ params: { course }, className, active, label, ...props }) {
+function BrowseBookDropdownItem({ course, className, active, label, ...props }) {
   return (
     <Dropdown.Item
       {...props}
@@ -76,7 +76,7 @@ class ActionsMenu extends React.Component {
     const Component = CustomComponents[menuOption.name];
 
     if (Component) {
-      return <Component key={key} {...menuOption} active={isActive} />;
+      return <Component key={key} {...menuOption} course={this.props.course} active={isActive} />;
     }
 
     let props;
@@ -100,7 +100,7 @@ class ActionsMenu extends React.Component {
 
     if (options.separator) {
       const separator = (suffix = 'divider') =>
-        <Dropdown.Item divider={true} key={`${key}-${suffix}`} />;
+        <Dropdown.Divider key={`${key}-${suffix}`} />;
       switch (options.separator) {
         case 'after':
           return [item, separator()];

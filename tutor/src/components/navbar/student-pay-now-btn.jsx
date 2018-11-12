@@ -6,7 +6,7 @@ import { observer } from 'mobx-react';
 import { computed, action, observable } from 'mobx';
 import PaymentsModal from '../payments/modal';
 import Payments from '../../models/payments';
-import Courses from '../../models/courses-map';
+import Course from '../../models/course';
 import Icon from '../icon';
 
 const FREE_TRIAL_MESSAGE = `
@@ -20,13 +20,10 @@ export default
 class StudentPayNowBtn extends React.Component {
 
   static propTypes = {
-    courseId: PropTypes.string,
+    course: PropTypes.instanceOf(Course),
   }
 
   @observable isShowingModal = false;
-  @computed get course() {
-    return this.props.courseId ? Courses.get(this.props.courseId) : null;
-  }
 
   @action.bound
   onClick() {
@@ -35,7 +32,7 @@ class StudentPayNowBtn extends React.Component {
 
   @action.bound
   onComplete() {
-    this.course.userStudentRecord.markPaid();
+    this.props.course.userStudentRecord.markPaid();
     this.isShowingModal = false;
   }
 
@@ -50,7 +47,7 @@ class StudentPayNowBtn extends React.Component {
         <PaymentsModal
           onPaymentComplete={this.onComplete}
           onCancel={this.onCancel}
-          course={this.course}
+          course={this.props.course}
         />
       );
     }
@@ -59,9 +56,9 @@ class StudentPayNowBtn extends React.Component {
 
   render() {
     // if the student is locked out then the pay now modal is already being displayed
-    if (get(this.course, 'userStudentRecord.mustPayImmediately')) { return null; }
+    if (get(this.props.course, 'userStudentRecord.mustPayImmediately')) { return null; }
 
-    if (!Payments.config.is_enabled && this.course && this.course.isInTrialPeriod) {
+    if (!Payments.config.is_enabled && this.props.course && this.props.course.isInTrialPeriod) {
       return (
         <span className="student-pay-now">
           Free trial <Icon type="info-circle" tooltip={FREE_TRIAL_MESSAGE} />
@@ -69,11 +66,11 @@ class StudentPayNowBtn extends React.Component {
       );
     }
 
-    if (!this.course || !this.course.needsPayment) { return null; }
+    if (!this.props.course || !this.props.course.needsPayment) { return null; }
 
     return (
       <span className="student-pay-now">
-        You have {this.course.userStudentRecord.trialTimeRemaining} left in your free trial
+        You have {this.props.course.userStudentRecord.trialTimeRemaining} left in your free trial
         {this.renderModal()}
         <Button variant="primary" onClick={this.onClick}>
           Pay now

@@ -3,8 +3,8 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
 import { Button, Popover, OverlayTrigger } from 'react-bootstrap';
-import Icon from '../icon';
-import Name from '../name';
+import Icon from '../../components/icon';
+import Name from '../../components/name';
 import Student from '../../models/course/student';
 
 
@@ -83,7 +83,7 @@ class UnDropStudentLink extends React.Component {
         placement="left"
         overlay={this.confirmPopOver()}>
         <a>
-          <Icon type="plus" />
+          <Icon type="user-plus" />
           {' Add Back to Active Roster'}
         </a>
       </OverlayTrigger>

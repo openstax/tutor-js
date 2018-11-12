@@ -48,7 +48,7 @@ class TeacherRoster extends React.Component {
         <Table
           striped={true}
           bordered={true}
-          condensed={true}
+          size="sm"
           hover={true}
           className="roster"
         >

@@ -1,10 +1,13 @@
 class TestRouter {
 
-  constructor(pathname = '/') {
+  constructor({ pathname = '/', params = {} } = {}) {
     this.route = {
       hash: '',
       search: '',
       location: { pathname },
+      match: {
+        params,
+      },
     };
 
     this.history = {

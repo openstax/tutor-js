@@ -6,7 +6,8 @@ import { observer } from 'mobx-react';
 import { action } from 'mobx';
 import { readonly } from 'core-decorators';
 import { ReactHelpers } from 'shared';
-
+import Icon from './icon';
+import Theme from '../theme';
 
 @observer
 class Choice extends React.Component {
@@ -26,17 +27,25 @@ class Choice extends React.Component {
   }
 
   render() {
+    const { active } = this.props;
+
     return (
       <div
         role="button"
         aria-pressed={this.props.active}
         {...ReactHelpers.filterProps(this.props)}
         className={classnames('list-group-item', 'choice', this.props.className, {
-            active: this.props.active, disabled: this.props.disabled,
+          active: active, disabled: this.props.disabled,
         })}
         onClick={this.onClick}
       >
-        {this.props.children}
+        <div className="content">
+          {this.props.children}
+        </div>
+        <Icon
+          color={active ? Theme.colors.states.correct : Theme.colors.neutral.gray}
+          type={active ? 'check-circle' : 'circle'}
+        />
       </div>
     );
   }

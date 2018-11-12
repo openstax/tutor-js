@@ -1,20 +1,20 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { isEmpty, sortBy } from 'lodash';
+import { observable } from 'mobx';
+import { isEmpty, sortBy, map } from 'lodash';
 import { Table } from 'react-bootstrap';
-import TutorLink from '../link';
+
 import { autobind } from 'core-decorators';
 import ChangePeriodLink from './change-period';
 import DropStudentLink from './drop-student';
 import CourseGroupingLabel from '../course-grouping-label';
 import StudentIdField from './student-id-field';
 import Period from '../../models/course/period';
-import LoadingScreen from '../loading-screen';
 
 export default
 @observer
-class StudentsRoster extends React.Component {
+class PeriodRoster extends React.Component {
 
   static propTypes = {
     period: PropTypes.instanceOf(Period).isRequired,
@@ -44,15 +44,14 @@ class StudentsRoster extends React.Component {
   }
 
   renderEmpty(course) {
-    const courseId = course.id;
     return (
       <div className="roster-empty-info">
-        <p>
-          No students have enrolled in
-          this <CourseGroupingLabel lowercase courseId={courseId} /> yet. Manage student access
-          in <TutorLink to="settings" params={{ courseId: courseId }}>Course settings</TutorLink>.
-        </p>
-        <TutorLink primaryBtn to="settings" params={{ courseId: this.props.period.course.id }}>Manage student access</TutorLink>
+        Use the "Get Student Enrollment Code" link above to get the code for
+        this <CourseGroupingLabel lowercase={true} courseId={course.id} /> of your course.
+        As your students login to Concept Coach, they will start appearing here.
+        You will be able to drop students or change
+        their <CourseGroupingLabel lowercase={true} plural={true} courseId={course.id} /> from
+        this page.
       </div>
     );
   }
@@ -61,19 +60,15 @@ class StudentsRoster extends React.Component {
     const course = this.props.period.course;
     const students = course.roster.students.activeByPeriod[this.props.period.id];
 
-    if (!course.roster.api.hasBeenFetched){
-      return <LoadingScreen message="Loading Roster…" />;
-    }
     if (isEmpty(students)) { return this.renderEmpty(course); }
 
     return (
       <Table
         striped={true}
         bordered={true}
-        condensed={true}
+        size="sm"
         hover={true}
-        className="roster students"
-      >
+        className="roster">
         <thead>
           <tr>
             <th>

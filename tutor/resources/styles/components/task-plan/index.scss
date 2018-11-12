@@ -12,9 +12,6 @@
 
 
 .task-plan {
-  max-width: $tutor-max-panel-width;
-  margin: 50px auto;
-  @include tutor-shadow(subtle);
 
   .panel-default {
     border: none;
@@ -31,6 +28,19 @@
     button.close {
       top: 0;
       transistion: opacity 0.3s;
+    }
+  }
+
+  > .card {
+    max-width: $tutor-max-panel-width;
+    margin: 50px auto;
+    @include tutor-shadow(subtle);
+
+    > .card-body {
+      padding: 50px 140px;
+      @include media-breakpoint-down('md') {
+        padding: 50px 30px;
+      }
     }
   }
 

@@ -52,9 +52,11 @@ class CalendarSidebarToggle extends React.Component {
   render() {
     return (
       <Button
+        variant="default"
         onTransitionEnd={this.setIconType}
         onClick={this.onToggle}
-        className={cn('sidebar-toggle', { open: this.isOpen })}>
+        className={cn('sidebar-toggle', { open: this.isOpen })}
+      >
         <Icon type={this.iconType} />
         <span className="text">
           Add Assignment

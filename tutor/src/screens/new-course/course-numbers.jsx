@@ -50,38 +50,39 @@ class CourseNumbers extends React.Component {
           You can add or remove sections later.
         </p>
 
-        <FormGroup className="course-details-sections">
-          <Form.Label>
+        <Form.Group className="course-details-sections">
+          <Form.Label htmlFor="number-sections">
             <InputGroup>
-              <InputGroup.Addon>
+              <InputGroup.Prepend>
                 Number of sections
                 <p className="course-details-explain">in this course</p>
-
-              </InputGroup.Addon>
+              </InputGroup.Prepend>
               <FormControl
+                id="number-sections"
                 type="number"
                 min="1"
                 defaultValue={newCourse.num_sections}
                 onChange={this.updateSectionCount} />
             </InputGroup>
           </Form.Label>
-        </FormGroup>
+        </Form.Group>
 
-        <FormGroup className="course-details-numbers">
-          <Form.Label>
+        <Form.Group className="course-details-numbers">
+          <Form.Label htmlFor="number-students">
             <InputGroup>
-              <InputGroup.Addon>
+              <InputGroup.Prepend>
                 Estimated number of students
                 <p className="course-details-explain">in this course</p>
-              </InputGroup.Addon>
+              </InputGroup.Prepend>
               <FormControl
+                id="number-students"
                 type="number"
                 min="1"
                 defaultValue={newCourse.estimated_student_count || ''}
                 onChange={this.updateStudentCount} />
             </InputGroup>
           </Form.Label>
-        </FormGroup>
+        </Form.Group>
 
         {this.renderErrors()}
       </Form>

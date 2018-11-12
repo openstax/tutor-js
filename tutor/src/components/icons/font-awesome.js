@@ -9,6 +9,7 @@ const ICONS = {};
   'Calendar',
   'Comments',
   'CheckSquare',
+  'Circle',
 ].forEach(name => {
   const icon = require(`@fortawesome/free-regular-svg-icons/fa${name}.js`);
   library.add(
@@ -19,18 +20,27 @@ const ICONS = {};
 // solid
 [
   'ArrowUp',
+  'ArrowLeft',
+  'ArrowRight',
+  'PencilAlt',
   'ArrowDown',
+  'CheckCircle',
   'Bars',
+  'Bullhorn',
+  'HandPaper',
   'Ghost',
   'CheckSquare',
   'QuestionCircle',
   'AngleDown',
   'TimesCircle',
   'Spinner',
+  'ExclamationTriangle',
   'ExclamationCircle',
   'Clock',
   'Times',
   'PaperPlane',
+  'UserPlus',
+  'PlusSquare',
   'Th',
   'Comments',
   'InfoCircle',

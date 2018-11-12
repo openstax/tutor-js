@@ -4,9 +4,8 @@ import { action, computed } from 'mobx';
 import { observer } from 'mobx-react';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 import Router from '../../helpers/router';
-
-import Icon from '../icon';
-import Name from '../name';
+import Icon from '../../components/icon';
+import Name from '../../components/name';
 import { AsyncButton } from 'shared';
 
 const WARN_REMOVE_CURRENT = 'If you remove yourself from the course you will be redirected to the dashboard.';
