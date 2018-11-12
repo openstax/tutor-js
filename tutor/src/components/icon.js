@@ -1,14 +1,19 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { uniqueId } from 'lodash';
+import { uniqueId, defaults } from 'lodash';
 import { Tooltip, OverlayTrigger, Button } from 'react-bootstrap';
-import { React, PropTypes, cn, invariant } from '../helpers/react';
+import { React, PropTypes, cn } from '../helpers/react';
 import ICONS from './icons/font-awesome';
+
+const defaultTooltipProps = {
+  placement: 'top',
+  trigger: ['hover', 'focus'],
+};
 
 export default
 class TutorIcon extends React.Component {
 
   static propTypes = {
-    type: PropTypes.string.isRequired,
+    type: PropTypes.oneOf(Object.keys(ICONS)).isRequired,
     spin: PropTypes.bool,
     className: PropTypes.string,
     onClick: PropTypes.func,
@@ -16,6 +21,7 @@ class TutorIcon extends React.Component {
     tooltipProps: PropTypes.object,
     buttonProps: PropTypes.object,
     variant: PropTypes.string,
+    btnVariant: PropTypes.string,
     tooltip: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.element,
@@ -24,22 +30,19 @@ class TutorIcon extends React.Component {
 
   static defaultProps = {
     buttonProps: {},
-    tooltipProps: {
-      placement: 'bottom',
-      trigger: ['hover', 'focus'],
-    },
+    tooltipProps: defaultTooltipProps,
   };
 
   uniqueId = uniqueId('icon-tooltip-')
 
   render() {
     const {
-      onClick, buttonProps, tooltipProps,
+      onClick, buttonProps, tooltipProps, btnVariant,
       type, className, tooltip, onNavbar, variant,
       ...props
     } = this.props;
 
-    invariant(ICONS[type], `${type} has not been imported`);
+    //invariant(ICONS[type], `${type} has not been imported`);
 
     let iconEl = (
       <FontAwesomeIcon
@@ -50,9 +53,10 @@ class TutorIcon extends React.Component {
       />
     );
 
-    if (onClick) {
+    if (onClick || btnVariant) {
       iconEl = (
         <Button
+          variant={btnVariant || 'plain'}
           className={cn(type, className)}
           onClick={onClick}
           {...buttonProps}
@@ -69,7 +73,7 @@ class TutorIcon extends React.Component {
         <Tooltip
           id={this.uniqueId}
           className={cn('icon-tt', { 'on-navbar': onNavbar })}
-          {...tooltipProps}
+          {...defaults(tooltipProps, defaultTooltipProps)}
         >
           {this.props.tooltip}
         </Tooltip>
