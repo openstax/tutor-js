@@ -1,8 +1,5 @@
-import Renderer from 'react-test-renderer';
-import { MemoryRouter } from 'react-router-dom';
-import Factory from '../../factories';
+import { C, React, Factory } from '../../helpers';
 import ExerciseControls from '../../../src/components/exercise/controls';
-import EnzymeContext from '../../../../tutor/specs/components/helpers/enzyme-context';
 import ToastsStore from '../../../src/models/toasts';
 
 jest.mock('../../../src/models/toasts', () => ({
@@ -30,7 +27,7 @@ describe('Exercise controls component', function() {
   });
 
   it('disables publish/draft if exercise is published', () => {
-    const controls = mount(<ExerciseControls {...props} />, EnzymeContext.build());
+    const controls = mount(<C><ExerciseControls {...props} /></C>);
     expect(controls.find('button.publish').props().disabled).toBe(false);
     exercise.published_at = new Date();
     expect(controls.find('button.draft').props().disabled).toBe(false);
@@ -41,7 +38,7 @@ describe('Exercise controls component', function() {
   });
 
   it('adds a toast when saved', () => {
-    const controls = mount(<ExerciseControls {...props} />, EnzymeContext.build());
+    const controls = mount(<C><ExerciseControls {...props} /></C>);
     exercise.published_at = new Date();
     props.exercises.saveDraft = jest.fn(() => Promise.resolve());
     controls.find('button.draft').simulate('click');
@@ -59,11 +56,11 @@ describe('Exercise controls component', function() {
   });
 
   it('adds a toast when published', () => {
-    const controls = mount(<ExerciseControls {...props} />, EnzymeContext.build());
+    const controls = mount(<C><ExerciseControls {...props} /></C>);
     exercise.published_at = new Date();
     props.exercises.publish = jest.fn(() => Promise.resolve());
     controls.find('button.publish').simulate('click');
-    controls.instance().publishExercise();
+    controls.find('ExerciseControls').instance().publishExercise();
     expect(props.exercises.publish).toHaveBeenCalled();
     controls.unmount();
     return new Promise((done) => {
