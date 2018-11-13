@@ -188,7 +188,6 @@ $tutor-book-note-selector: '
       top: $tutor-book-ui-top-height + 8px;
       margin-bottom: $tutor-book-ui-top-height * 2 + 8px;
       @include tutor-book-label-style() {
-        display: block;
         position: absolute;
         top: -1 * $tutor-book-ui-top-height - 8px;
         height: $tutor-book-ui-top-height;
