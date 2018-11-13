@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { keys } from 'lodash';
+import Icon from '../icon';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 
 import {
@@ -80,7 +81,7 @@ class ExerciseGroup extends React.Component {
       </Popover>;
       groupDOM.push(
         <OverlayTrigger key="info" placement="bottom" overlay={popover}>
-          <i className="fa fa-info-circle" />
+          <Icon type="info-circle" />
         </OverlayTrigger>
       );
     }

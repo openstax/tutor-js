@@ -1,76 +1,64 @@
-import { sinon, _ } from 'shared/specs/helpers';
+import { ld } from 'shared/specs/helpers';
 import { autorun } from 'mobx';
-const saveSettingsMock = jest.fn();
-jest.mock('lodash/debounce', () => jest.fn(() => saveSettingsMock));
-
-const UiSettings = require('model/ui-settings');
-const Networking = require('model/networking');
+import UiSettings from 'model/ui-settings';
 
 
 describe('UiSettings', function() {
+  let saveSettings;
 
   beforeEach(function() {
-    saveSettingsMock.mockReset();
-    return sinon.stub(Networking, 'perform').returns({
-      then(fn) { return fn({}); },
-    });
+    saveSettings = jest.fn();
+    UiSettings.initialize({}, saveSettings);
   });
 
   afterEach(function() {
     UiSettings._reset();
-    return Networking.perform.restore();
   });
 
   it('remembers initialized values', function() {
-    UiSettings.initialize({ 'one': 1, 'two': 'II' });
+    UiSettings.initialize({ 'one': 1, 'two': 'II' }, saveSettings);
     expect(UiSettings.get('one')).toEqual(1);
     expect(UiSettings.get('two')).toEqual('II');
-    return undefined;
   });
 
   it('saves when set', function() {
-    const initialSetting = { 'one': 1, 'two': 'II' };
-    UiSettings.initialize(initialSetting);
-
     UiSettings.set({ one: 'five' });
-    return expect(saveSettingsMock).toHaveBeenCalledTimes(1);
+    expect(saveSettings).toHaveBeenCalledTimes(1);
   });
 
   it('groups saves together', function() {
     const initialSetting = { one: 18, two: 'III', deep: { key: 'value', bar: 'bz' } };
-    UiSettings.initialize(initialSetting);
+    UiSettings.initialize(initialSetting, saveSettings);
     UiSettings.set({ one: 'five' });
     UiSettings.set({ one: 'six', deep: { bar: 'foo' } });
     UiSettings.set({ one: 'seven' });
-    expect(saveSettingsMock).toHaveBeenCalledTimes(3);
-    return undefined;
+    expect(saveSettings).toHaveBeenCalledTimes(3);
   });
 
   it('can set with key and id', function() {
     const initialSetting = { one: 18, two: 'III', deep: { key: 'value', bar: 'bz' } };
     UiSettings.initialize(initialSetting);
-    expect(UiSettings.get('deep', 'bar')).to.eql('bz');
+    expect(UiSettings.get('deep', 'bar')).toEqual('bz');
     UiSettings.set('deep', 42, 'answer');
     expect(UiSettings.get('deep', 'bar')).toEqual('bz');
     expect(UiSettings.get('deep', 'key')).toEqual('value');
     expect(UiSettings.get('deep', 42)).toEqual('answer');
     expect(UiSettings.get('deep')).toEqual({ 42: 'answer', key: 'value', bar: 'bz' });
-    return undefined;
   });
 
   it('can observe', function() {
     const initialSetting = { one: 18, two: 'III', deep: { key: 'value', bar: 'bz' } };
-    UiSettings.initialize(initialSetting);
+    UiSettings.initialize(initialSetting, saveSettings);
     const spy = jest.fn(() => UiSettings.get('deep', 'bar'));
     autorun(spy);
     expect(spy).toHaveBeenCalledTimes(1); // mobx fires two observed events per set; one for the insert
     UiSettings.set('deep', 'bar', 'foo'); // and one for converting to observable object
-    return expect(spy).toHaveBeenCalledTimes(3);
+    expect(saveSettings).toHaveBeenCalledTimes(1);
   });
 
-  return it('can observe when bad values are present', function() {
+  it('can observe when bad values are present', function() {
     const initialSetting = { deep: {} };
-    UiSettings.initialize(initialSetting);
+    UiSettings.initialize(initialSetting, saveSettings);
     const spy = jest.fn(() => UiSettings.get('deep', 'bar'));
     autorun(spy);
     expect(spy).toHaveBeenCalledTimes(1);

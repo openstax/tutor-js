@@ -1,6 +1,4 @@
-import { Testing, sinon, _ } from 'shared/specs/helpers';
-
-import Group from 'components/exercise/group';
+import Group from '../../../src/components/exercise/group';
 
 describe('Exercise Group Component', function() {
   let props = null;
@@ -16,23 +14,23 @@ describe('Exercise Group Component', function() {
     });
 
 
-  it('renders the label and icon', () =>
-    Testing.renderComponent( Group, { props } ).then(function({ dom, wrapper }) {
-      expect(dom.textContent).equal('Personalized');
-      return expect(dom.querySelector('i.icon-personalized')).not.to.be.null;
-    })
-  );
-
-  it('renders null label and icon for groups that should not be visible', function() {
-    props.group = 'core';
-    return Testing.renderComponent( Group, { props } ).then(function({ dom, wrapper }) {
-      expect(dom.querySelector('i.icon-personalized')).to.be.null;
-      return expect(dom.textContent).equal('');
-    });
+  it('renders the label and icon', () => {
+    const group = mount(<Group {...props} />);
+    expect(group.text()).toMatch('Personalized');
+    group.unmount();
   });
 
-  return it('renders the exercise uid when passed in', function() {
+  it('renders null label and icon for groups that should not be visible', () => {
+    props.group = 'core';
+    const group = mount(<Group {...props} />);
+    expect(group.text()).toBe('');
+    group.unmount();
+  });
+
+  it('renders the exercise uid when passed in', function() {
     props.group = 'spaced practice';
-    return Testing.renderComponent( Group, { props } ).then(({ dom, wrapper, root, element }) => expect(dom.textContent).toContain('Spaced Practice'));
+    const group = mount(<Group {...props} />);
+    expect(group.text()).toBe('Spaced Practice');
+    group.unmount();
   });
 });

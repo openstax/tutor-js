@@ -1,6 +1,4 @@
-import { Testing, expect, sinon, _ } from 'shared/specs/helpers';
-
-import SystemNotifications from 'components/notifications/system';
+import SystemNotifications from '../../../src/components/notifications/system';
 import Notifications from 'model/notifications';
 
 describe('System Notifications', function() {
@@ -8,7 +6,7 @@ describe('System Notifications', function() {
 
   beforeEach(() =>
     props = {
-      onDismiss: sinon.spy(),
+      onDismiss: jest.fn(),
 
       notice: {
         id: '1',
@@ -18,20 +16,21 @@ describe('System Notifications', function() {
     }
   );
 
-  it('remembers notice as ignored when dismiss is clicked', () =>
-    Testing.renderComponent( SystemNotifications, { props } ).then(({ dom }) => {
-      Testing.actions.click(dom.querySelector('.dismiss'));
-      return expect(props.onDismiss).to.have.been.called;
-    })
-  );
+  it('remembers notice as ignored when dismiss is clicked', () => {
+    const notice = mount(<SystemNotifications {...props} />);
+    notice.find('button.dismiss').simulate('click');
+    expect(props.onDismiss).toHaveBeenCalled();
+  });
 
   it('displays icon based on level', function() {
     props.notice.level = 'alert';
-    return Testing.renderComponent( SystemNotifications, { props } ).then(({ dom }) => expect(dom.querySelector('.fa-exclamation-triangle')).to.exist);
+    const notices = mount(<SystemNotifications {...props} />);
+    expect(notices).toHaveRendered('Icon[type="exclamation-triangle"]');
   });
 
-  return it('displays icon provided', function() {
-    props.notice.icon = 'beer';
-    return Testing.renderComponent( SystemNotifications, { props } ).then(({ dom }) => expect(dom.querySelector('.fa-beer')).to.exist);
+  it('displays icon provided', function() {
+    props.notice.icon = 'ghost';
+    const notices = mount(<SystemNotifications {...props} />);
+    expect(notices).toHaveRendered('Icon[type="ghost"]');
   });
 });

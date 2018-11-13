@@ -1,8 +1,7 @@
+import Networking from 'model/networking';
+import axios from 'axios';
+
 jest.mock('axios', () => jest.fn( () => Promise.resolve()));
-
-const axios = require('axios');
-
-const Networking = require('model/networking');
 
 describe('Stand-alone Networking', () =>
 

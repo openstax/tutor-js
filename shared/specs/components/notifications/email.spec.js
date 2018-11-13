@@ -1,6 +1,4 @@
-import { Testing, _ } from 'shared/specs/helpers';
-
-import EmailNotification from 'components/notifications/email';
+import EmailNotification from '../../../src/components/notifications/email';
 
 describe('Email Notifications', function() {
   let props = null;
@@ -8,7 +6,6 @@ describe('Email Notifications', function() {
   beforeEach(() =>
     props = {
       onDismiss: jest.fn(),
-
       notice: {
         id: 1,
         value: 'one',
@@ -22,23 +19,18 @@ describe('Email Notifications', function() {
     }
   );
 
-  it('displays verify message initially', () =>
-    Testing.renderComponent( EmailNotification, { props } ).then(({ dom }) => {
-      expect(dom.textContent).to.contain('Verify now');
-      expect(dom.querySelector('input')).not.to.exist;
-      Testing.actions.click(dom.querySelector('.action'));
-      return expect(props.notice.sendConfirmation).toHaveBeenCalled();
-    })
-  );
+  it('displays verify message initially', () => {
+    const notice = mount(<EmailNotification {...props} />);
+    notice.find('.action').simulate('click');
+    expect(props.notice.sendConfirmation).toHaveBeenCalled();
+    notice.unmount();
+  });
 
-  return it('displays verification input', function() {
+  it('displays verification input', function() {
     props.notice.verifyInProgress = true;
-    return Testing.renderComponent( EmailNotification, { props } ).then(({ dom }) => {
-      expect(dom.querySelector('input')).to.exist;
-      expect(dom.textContent).to.contain('Check your email');
-      dom.querySelector('input').value = '123456';
-      Testing.actions.click(dom.querySelector('.action'));
-      return expect(props.notice.sendVerification).toHaveBeenCalledWith('123456', expect.anything());
-    });
+    const notice = mount(<EmailNotification {...props} />);
+    notice.find('input').instance().value = '123456';
+    notice.find('.action').simulate('click');
+    expect(props.notice.sendVerification).toHaveBeenCalledWith('123456', expect.anything());
   });
 });

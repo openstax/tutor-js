@@ -1,19 +1,20 @@
-import { Testing, expect, sinon, _ } from 'shared/specs/helpers';
-
 import Button from 'components/buttons/refresh-button';
 
 describe('Refresh Button Component', function() {
   let props = null;
 
-  beforeEach(() =>
+  beforeEach(() => {
     props = {
       beforeText: 'before ',
       buttonText: 'Refresh',
       afterText: ' after',
-    }
-  );
+    };
+  });
 
-  return it('can use custom text', () =>
-    Testing.renderComponent( Button, { props } ).then(({ dom }) => expect(dom.textContent).equal('before Refresh after'))
-  );
+  it('can use custom text', () => {
+    const btn = mount(<Button {...props} />);
+    expect(btn.text()).toMatch('before Refresh after')
+    btn.unmount();
+  });
+
 });

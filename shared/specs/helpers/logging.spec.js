@@ -1,3 +1,7 @@
+import Log from 'helpers/logging';
+import Networking from 'model/networking';
+import URLs from 'model/urls';
+
 jest.mock('model/networking');
 jest.mock('loglevel');
 jest.mock('lodash/debounce', () =>
@@ -6,12 +10,9 @@ jest.mock('lodash/debounce', () =>
 );
 
 const debounce = require('lodash/debounce');
-const Networking = require('model/networking');
 const ConsoleLogger = require('loglevel');
 
-const URLs = require('model/urls');
 
-const Log = require('helpers/logging');
 
 jest.useFakeTimers();
 
@@ -41,7 +42,7 @@ describe('Loggging', function() {
     expect(ConsoleLogger.info).toHaveBeenLastCalledWith(msg);
     jest.runAllTimers();
     return expect(Networking.perform).toHaveBeenLastCalledWith({
-      data: { entries: [{ location: 'about:blank', level: 'info', message: msg }] },
+      data: { entries: [{ location: 'http://localhost/', level: 'info', message: msg }] },
       method: 'POST',
       url: 'http://foo.bar.com/log/entry',
     });
@@ -54,7 +55,6 @@ describe('Loggging', function() {
     expect(ConsoleLogger.info).toHaveBeenLastCalledWith(msg);
     jest.runAllTimers();
     expect(Networking.perform).not.toHaveBeenCalled();
-    return undefined;
   });
 
   it('defaults to persisting for warnings', function() {
@@ -64,7 +64,7 @@ describe('Loggging', function() {
     jest.runAllTimers();
 
     return expect(Networking.perform).toHaveBeenLastCalledWith({
-      data: { entries: [{ location: 'about:blank', level: 'error', message: msg }] },
+      data: { entries: [{ location: 'http://localhost/', level: 'error', message: msg }] },
       method: 'POST',
       url: 'http://foo.bar.com/log/entry',
     });
@@ -74,17 +74,15 @@ describe('Loggging', function() {
     const msg = 'warning you of things';
     Log.warn(msg, { persist: false });
     expect(ConsoleLogger.warn).toHaveBeenLastCalledWith(msg);
-    return expect(Networking.perform).to.not.haveBeenCalled;
+    expect(Networking.perform).not.toHaveBeenCalled();
   });
 
-  return it('transmits multiple messages together', function() {
+  it('transmits multiple messages together', function() {
     for (let num = 1; num <= 10; num++) {
       Log.error(`bang(${num}) goes the err`);
     }
     expect(
       ConsoleLogger.error
     ).toHaveBeenCalledTimes(10);
-    expect(debounce).toHaveBeenCalled();
-    return undefined;
   });
 });

@@ -27,7 +27,8 @@ describe('Exercise Preview Component', function() {
   it('sets the className when displaying feedback', () => {
     props.displayFeedback = true;
     const preview = mount(<ExercisePreview {...props} />);
-    expect(preview).toHaveRendered('.openstax-exercise-preview.is-displaying-feedback');
+//    console.log(preview.debug())
+    expect(preview).toHaveRendered('.card.openstax-exercise-preview.is-displaying-feedback');
     expect(Snapshot.create(<ExercisePreview {...props} />).toJSON()).toMatchSnapshot();
     preview.unmount();
   });
@@ -36,7 +37,7 @@ describe('Exercise Preview Component', function() {
     props.hideAnswers = true;
     const preview = mount(<ExercisePreview {...props} />);
     expect(preview).not.toHaveRendered('.answers-table');
-    expect(preview).toHaveRendered('.answers-hidden');
+    expect(preview).toHaveRendered('.card.answers-hidden');
     expect(Snapshot.create(<ExercisePreview {...props} />).toJSON()).toMatchSnapshot();
     preview.unmount();
   });

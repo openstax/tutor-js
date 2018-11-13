@@ -1,4 +1,4 @@
-import _ from 'underscore';
+import { extend, first, map, filter } from 'lodash';
 import Networking from './networking';
 import URLs from './urls';
 import EventEmitter2 from 'eventemitter2';
@@ -11,16 +11,9 @@ const ERROR_CODES = {
 class Email extends EventEmitter2 {
 
   constructor(user, attrs) {
-    {
-      // Hack: trick Babel/TypeScript into allowing this before super.
-      if (false) { super(); }
-      let thisFn = (() => { return this; }).toString();
-      let thisName = thisFn.slice(thisFn.indexOf('return') + 6 + 1, thisFn.indexOf(';')).trim();
-      eval(`${thisName} = this;`);
-    }
-    this.user = user;
     super();
-    _.extend(this, attrs);
+    this.user = user;
+    extend(this, attrs);
   }
 
   sendVerification(pin, successCallBack) {
@@ -30,7 +23,7 @@ class Email extends EventEmitter2 {
         this.is_verified = true;
         successCallBack(this);
       } else {
-        const code = __guard__(_.first(resp.data != null ? resp.data.errors : undefined), x => x.code);
+        const code = __guard__(first(resp.data != null ? resp.data.errors : undefined), x => x.code);
         this.error = ERROR_CODES[code];
         if (code === 'no_pin_confirmation_attempts_remaining') {
           this.verificationFailed = true;
@@ -79,11 +72,11 @@ class User extends EventEmitter2 {
   constructor(data) {
     super();
     this.attibutes = data;
-    this.emails = _.map(this.attibutes.contact_infos, ci => new Email(this, ci));
+    this.emails = map(this.attibutes.contact_infos, ci => new Email(this, ci));
   }
 
   unVerfiedEmails() {
-    return _.where(this.emails, { is_verified: false });
+    return filter(this.emails, { is_verified: false });
   }
 }
 

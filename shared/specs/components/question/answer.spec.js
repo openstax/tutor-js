@@ -25,14 +25,14 @@ describe('Answer Component', function() {
 
   it('renders answer', () => {
     const a = mount(<Answer {...props} />);
-    expect(a).toHaveRendered('.openstax-answer');
+    expect(a).toHaveRendered('div.openstax-answer');
     expect(Snapshot.create(<Answer {...props} />).toJSON()).toMatchSnapshot();
   });
 
   it('renders answer feedback based on props', () => {
     props.show_all_feedback = true;
     const a = mount(<Answer {...props} />);
-    expect(a).toHaveRendered('.question-feedback-content');
+    expect(a).toHaveRendered('div.question-feedback-content');
     expect(Snapshot.create(<Answer {...props} />).toJSON()).toMatchSnapshot();
   });
 

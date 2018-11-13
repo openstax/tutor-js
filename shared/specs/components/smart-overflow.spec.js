@@ -1,7 +1,5 @@
 import React from 'react';
-import { Testing, expect, sinon, _ } from 'shared/specs/helpers';
-
-import SmartOverflow from 'components/smart-overflow';
+import SmartOverflow from '../../src/components/smart-overflow';
 
 class TestChildComponent extends React.Component {
   render() { return (
@@ -21,14 +19,7 @@ describe('SmartOverflow Component', function() {
     }
   );
 
-  it('renders with className', () =>
-    Testing.renderComponent( SmartOverflow, { props } ).then(function({ dom }) {
-      expect(dom.classList.contains('testing')).toBe(true);
-      return expect(dom.classList.contains('openstax-smart-overflow')).toBe(true);
-    })
-  );
-
-  return it('renders child components', () =>
-    Testing.renderComponent( SmartOverflow, { props } ).then(({ dom }) => expect(dom.textContent).equal('i am a test'))
-  );
+  it('renders with className', () => {
+    expect.snapshot(<SmartOverflow {...props} />).toMatchSnapshot();
+  });
 });

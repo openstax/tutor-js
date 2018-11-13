@@ -1,4 +1,4 @@
-import { Testing, expect, sinon, _ } from 'shared/specs/helpers';
+import { ld } from 'shared/specs/helpers';
 
 import URLs from 'model/urls';
 import User from 'model/user';
@@ -7,9 +7,10 @@ import Networking from 'model/networking';
 
 describe('User mode', function() {
   let user = null;
+  let perform;
 
   beforeEach(function() {
-    sinon.spy(Networking, 'perform');
+    perform = jest.spyOn(Networking, 'perform');
     URLs.update({ accounts_api_url: 'http://localhost:2999/api' });
     return user = new User({
       contact_infos: [
@@ -20,14 +21,14 @@ describe('User mode', function() {
 
   afterEach(function() {
     UiSettings._reset();
-    return Networking.perform.restore();
+    perform.mockRestore();
   });
 
   it('can request email confirmation', function() {
-    const email = _.first(user.unVerfiedEmails());
-    expect(email).to.exist;
+    const email = ld.first(user.unVerfiedEmails());
+    expect(email).toBeTruthy();
     email.sendConfirmation();
-    expect(Networking.perform).to.have.been.calledWith({
+    expect(Networking.perform).toHaveBeenCalledWith({
       method: 'PUT',
       url: 'http://localhost:2999/api/contact_infos/1234/resend_confirmation.json',
       silenceErrors: true,
@@ -38,9 +39,9 @@ describe('User mode', function() {
   });
 
   return it('can send an email confirmation', function() {
-    const email = _.first(user.unVerfiedEmails());
+    const email = ld.first(user.unVerfiedEmails());
     email.sendVerification('1234');
-    expect(Networking.perform).to.have.been.calledWith({
+    expect(Networking.perform).toHaveBeenCalledWith({
       method: 'PUT',
       url: 'http://localhost:2999/api/contact_infos/1234/confirm_by_pin.json',
       silenceErrors: true,

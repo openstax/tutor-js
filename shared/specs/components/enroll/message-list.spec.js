@@ -1,7 +1,4 @@
-import { Testing, expect, sinon, _, ReactTestUtils } from 'shared/specs/helpers';
-
 import React from 'react';
-
 import { MessageList } from 'shared';
 
 describe('MessageList Component', () =>

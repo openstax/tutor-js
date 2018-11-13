@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChangeStudentIdForm Component renders values from props 1`] = `
+<div
+  className="openstax-change-student-id-form"
+>
+  <h2
+    className="title"
+  >
+    this is title
+  </h2>
+  <div
+    className="controls"
+  >
+    <div
+      className="main"
+    >
+      <label
+        className="form-label"
+      >
+        a test label
+      </label>
+      <div
+        className="inputs"
+      >
+        <input
+          autoFocus={true}
+          onChange={[Function]}
+          onKeyPress={[Function]}
+          placeholder="School issued ID"
+        />
+        <button
+          className="async-button btn btn-success btn btn-primary"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          this is save btn
+        </button>
+      </div>
+      <div
+        className="blank-warning visible"
+      >
+          An ID is required for credit. You have not yet entered an ID  
+      </div>
+    </div>
+    <div
+      className="cancel"
+    >
+      <a
+        href="#"
+        onClick={[Function]}
+      >
+        Cancel
+      </a>
+    </div>
+  </div>
+  <div
+    className="ask-for-it"
+  >
+        Don’t have one? Contact your instructor.    
+  </div>
+</div>
+`;

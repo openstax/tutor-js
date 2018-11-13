@@ -38,7 +38,7 @@ describe('External Homework Plan', function() {
     helper(UNPUBLISHED_EXTERNAL).then(({ dom }) =>
       expect(
         dom.querySelector('#external-url').getAttribute('disabled')
-      ).not.to.exist
+      ).toBeFalsy()
     )
   );
 
@@ -46,7 +46,7 @@ describe('External Homework Plan', function() {
     helper(VISIBLE_EXTERNAL).then(({ dom, element }) =>
       expect(
         dom.querySelector('#external-url').getAttribute('disabled')
-      ).to.exist
+      ).toBeTruthy()
     )
   );
 

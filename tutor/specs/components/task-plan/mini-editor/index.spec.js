@@ -15,8 +15,8 @@ describe('TaskPlan MiniEditor wrapper', function() {
     props = {
       courseId: '1',
       planId:   '42',
-      findPopOverTarget: sinon.spy(),
-      onHide: sinon.spy(),
+      findPopOverTarget: jest.fn(),
+      onHide: jest.fn(),
       position: { x: 100, y: 100 },
     });
 

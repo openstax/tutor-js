@@ -2,11 +2,10 @@ import React from 'react';
 import SnapShot from 'react-test-renderer';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
+import Notifications from '../../../src/model/notifications';
+import Bar from '../../../src/components/notifications/bar';
+
 jest.mock('../../../src/model/notifications');
-const Notifications = require('../../../src/model/notifications');
-
-const Bar = require('../../../src/components/notifications/bar');
-
 jest.useFakeTimers();
 
 describe('Notifications Bar', function() {

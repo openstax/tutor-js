@@ -1,12 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
-import map from 'lodash/map';
-import omit from 'lodash/omit';
-import partial from 'lodash/partial';
-
+import { map, omit, partial } from 'lodash';
 import classnames from 'classnames';
-import { propHelpers } from 'shared';
+import propHelpers from '../../helpers/props'
 
 class Breadcrumb extends React.Component {
   static defaultProps = {

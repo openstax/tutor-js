@@ -1,8 +1,6 @@
-import { expect, _ } from 'shared/specs/helpers';
-import times from 'lodash/times';
-import cloneDeep from 'lodash/cloneDeep';
+import { ld } from 'shared/specs/helpers';
 
-import TaskHelper from 'helpers/task';
+import { TaskHelper } from '../../src/helpers/task';
 import UiSettings from 'model/ui-settings';
 
 const TASK_PRACTICE_TYPES = ['practice', 'chapter_practice', 'page_practice', 'practice_worst_topics'];
@@ -38,30 +36,30 @@ const TASK_BASE = {
   type: '',
 };
 
-const pickRandom = types => types[_.random(0, types.length - 1)];
+const pickRandom = types => types[ld.random(0, types.length - 1)];
 
 const makeTwoStep = function() {
   const question = {
     formats:
-      ['free-response'],
+        ['free-response'],
   };
 
   question.formats.push(pickRandom(QUESTION_MULTI_TYPES));
   return {
     content: {
       questions:
-        [question],
+          [question],
     },
   };
 };
 
 const makeTask = function(taskType = 'reading', stepLength = 1, stepModifications = {}) {
-  const task = cloneDeep(TASK_BASE);
+  const task = ld.cloneDeep(TASK_BASE);
   task.type = taskType;
 
-  task.steps = times(stepLength, () => cloneDeep(EXERCISE_STEP_BASE));
+  task.steps = ld.times(stepLength, () => ld.cloneDeep(EXERCISE_STEP_BASE));
 
-  _.each(stepModifications, (mod, stepIndex) => _.extend(task.steps[stepIndex], { id: String(stepIndex) }, mod));
+  ld.each(stepModifications, (mod, stepIndex) => ld.extend(task.steps[stepIndex], { id: String(stepIndex) }, mod));
 
   return task;
 };
@@ -82,7 +80,7 @@ describe('Task Helper', function() {
       return expect(UiSettings.get(`two-step-info-${task.type}`).stepId).toEqual('1');
     };
 
-    beforeEach(() => stepModifications = _.object(twoStepPositions, times(twoStepPositions.length, makeTwoStep)));
+    beforeEach(() => stepModifications = ld.zipObject(twoStepPositions, ld.times(twoStepPositions.length, makeTwoStep)));
 
     describe('for reading task', function() {
       it('does not intro if two-step is not yet available', function() {
@@ -90,7 +88,7 @@ describe('Task Helper', function() {
         const steps = TaskHelper.mapSteps(readingTask);
 
         expect(steps.length).toEqual(readingTask.steps.length + 1);
-        expect(_.where(steps, { isAvailable: true }).length).toEqual(1);
+        expect(ld.filter(steps, { isAvailable: true }).length).toEqual(1);
         return undefined;
       });
 
@@ -103,7 +101,7 @@ describe('Task Helper', function() {
         const steps = TaskHelper.mapSteps(readingTask);
 
         testForTwoStep(readingTask, steps);
-        expect(_.where(steps, { isAvailable: true }).length).toEqual(3);
+        expect(ld.filter(steps, { isAvailable: true }).length).toEqual(3);
         return undefined;
       });
     });
@@ -114,8 +112,8 @@ describe('Task Helper', function() {
       const steps = TaskHelper.mapSteps(homeworkTask);
 
       testForTwoStep(homeworkTask, steps);
-      expect(_.where(steps, { isAvailable: true }).length)
-        toEqual(homeworkTask.steps.length + 2);
+      expect(ld.filter(steps, { isAvailable: true }).length)
+        .toEqual(homeworkTask.steps.length + 2);
       return undefined;
     });
 
@@ -125,8 +123,8 @@ describe('Task Helper', function() {
       const steps = TaskHelper.mapSteps(coachTask);
 
       testForTwoStep(coachTask, steps);
-      expect(_.where(steps, { isAvailable: true }).length)
-        toEqual(coachTask.steps.length + 2);
+      expect(ld.filter(steps, { isAvailable: true }).length)
+        .toEqual(coachTask.steps.length + 2);
       return undefined;
     });
 
@@ -136,8 +134,8 @@ describe('Task Helper', function() {
       const steps = TaskHelper.mapSteps(practiceTask);
 
       testForTwoStep(practiceTask, steps);
-      expect(_.where(steps, { isAvailable: true }).length)
-        toEqual(practiceTask.steps.length + 2);
+      expect(ld.filter(steps, { isAvailable: true }).length)
+        .toEqual(practiceTask.steps.length + 2);
       return undefined;
     });
 
@@ -185,9 +183,9 @@ describe('Task Helper', function() {
       const steps = TaskHelper.mapSteps(readingTask);
 
       testReviewAndSpacedPractice(readingTask, steps);
-      expect(UiSettings.get('spaced-practice-info-reading')).to.be.not.ok;
-      expect(_.where(steps, { isAvailable: true }).length)
-        toEqual(1);
+      expect(UiSettings.get('spaced-practice-info-reading')).toBeFalsy();
+      expect(ld.filter(steps, { isAvailable: true }).length)
+        .toEqual(1);
       return undefined;
     });
 
@@ -198,8 +196,8 @@ describe('Task Helper', function() {
 
       testReviewAndSpacedPractice(homeworkTask, steps);
       expect(UiSettings.get('spaced-practice-info-homework').stepId).toEqual('12');
-      expect(_.where(steps, { isAvailable: true }).length)
-        toEqual(homeworkTask.steps.length + 3);
+      expect(ld.filter(steps, { isAvailable: true }).length)
+        .toEqual(homeworkTask.steps.length + 3);
       return undefined;
     });
 
@@ -208,8 +206,8 @@ describe('Task Helper', function() {
       const coachTask = makeTask(TASK_CONCEPT_COACH_TYPE, numberOfSteps, stepModifications);
       const steps = TaskHelper.mapSteps(coachTask);
 
-      expect(_.where(steps, { isAvailable: true }).length)
-        toEqual(coachTask.steps.length + 2);
+      expect(ld.filter(steps, { isAvailable: true }).length)
+        .toEqual(coachTask.steps.length + 2);
       return undefined;
     });
 
@@ -265,13 +263,13 @@ describe('Task Helper', function() {
         const steps = TaskHelper.mapSteps(readingTask);
 
         expect(steps.length).toEqual(readingTask.steps.length + 1);
-        expect(_.where(steps, { isAvailable: true }).length).toEqual(1);
+        expect(ld.filter(steps, { isAvailable: true }).length).toEqual(1);
         return undefined;
       });
 
       return it('only if personalized is completed or next upcoming step', function() {
 
-        _.each(_.range(0, 12), function(stepIndex) {
+        ld.each(ld.range(0, 12), function(stepIndex) {
           if (stepModifications[stepIndex] == null) { stepModifications[stepIndex] = {}; }
           return stepModifications[stepIndex].is_completed = true;
         });
@@ -280,7 +278,7 @@ describe('Task Helper', function() {
         const steps = TaskHelper.mapSteps(readingTask);
 
         testForPersonalized(readingTask, steps);
-        expect(_.where(steps, { isAvailable: true }).length).toEqual(14);
+        expect(ld.filter(steps, { isAvailable: true }).length).toEqual(14);
         return undefined;
       });
     });
@@ -291,8 +289,8 @@ describe('Task Helper', function() {
       const steps = TaskHelper.mapSteps(homeworkTask);
 
       testForPersonalized(homeworkTask, steps);
-      expect(_.where(steps, { isAvailable: true }).length)
-        toEqual(homeworkTask.steps.length + 2);
+      expect(ld.filter(steps, { isAvailable: true }).length)
+        .toEqual(homeworkTask.steps.length + 2);
       return undefined;
     });
 
@@ -302,8 +300,8 @@ describe('Task Helper', function() {
       const steps = TaskHelper.mapSteps(coachTask);
 
       testForPersonalized(coachTask, steps);
-      expect(_.where(steps, { isAvailable: true }).length)
-        toEqual(coachTask.steps.length + 2);
+      expect(ld.filter(steps, { isAvailable: true }).length)
+        .toEqual(coachTask.steps.length + 2);
       return undefined;
     });
 

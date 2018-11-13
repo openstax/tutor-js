@@ -13,6 +13,7 @@ const Icons = {};
   'Comments',
   'CheckSquare',
   'Circle',
+  'Envelope',
 ].forEach(name => {
   const icon = require(`@fortawesome/free-regular-svg-icons/fa${name}.js`);
   library.add(

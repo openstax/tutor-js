@@ -369,7 +369,7 @@ describe('Task Plan Builder', function() {
   return it('displays default timezone as a links to settings', () =>
     helper(NEW_READING).then(function({ dom }) {
       const tz = dom.querySelector('.course-time-zone');
-      expect(tz).to.exist;
+      expect(tz).toBeTruthy();
       return expect(tz.textContent).to.include('Central Time');
     })
   );

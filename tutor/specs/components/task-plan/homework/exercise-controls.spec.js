@@ -27,7 +27,7 @@ let newProps = (defaultProps = {
 
   sectionizerProps: {
     currentSection: '1.2',
-    onSectionClick: sinon.spy(),
+    onSectionClick: jest.fn(),
     chapter_sections: ['1.1', '1.2', '3.1'],
   },
 });

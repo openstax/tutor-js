@@ -58,12 +58,12 @@ const getBackToCalendarParams = () =>
 const helper = model => PlanRenderHelper(model, PlanFooter,
   {
     getBackToCalendarParams,
-    onCancel: sinon.spy(),
-    onPublish: sinon.spy(),
-    goBackToCalendar: sinon.spy(),
+    onCancel: jest.fn(),
+    onPublish: jest.fn(),
+    goBackToCalendar: jest.fn(),
     isValid: true,
     hasError: false,
-    onSave: sinon.spy(),
+    onSave: jest.fn(),
   }
 ) ;
 

@@ -37,7 +37,7 @@ describe('TaskPlan Store', function() {
     expect(clone.cloned_from_id).toEqual(PLAN.id);
     for (let period of Courses.get(COURSE_ID).periods.active) {
       const tasking_plan = _.find(clone.tasking_plans, { target_id: period.id });
-      expect(tasking_plan).to.exist;
+      expect(tasking_plan).toBeTruthy();
     }
 
     return undefined;
@@ -62,7 +62,7 @@ describe('TaskPlan Store', function() {
     expect(clone.cloned_from_id).toEqual(HOMEWORK_WITH_FALSE.id);
     for (let period of Courses.get(COURSE_ID).periods.active) {
       const tasking_plan = _.find(clone.tasking_plans, { target_id: period.id });
-      expect(tasking_plan).to.exist;
+      expect(tasking_plan).toBeTruthy();
     }
 
     return undefined;

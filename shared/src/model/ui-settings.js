@@ -4,9 +4,9 @@ import Map from './map';
 import URLs from './urls';
 import Networking from './networking';
 
-const SETTINGS = new Map();
+const SETTINGS = observable.map();
 
-const saveSettings = debounce( () =>
+const saveSettingsDefaultImpl = debounce( () =>
   Networking.perform({
     method: 'PUT',
     url: URLs.construct('tutor_api', 'user', 'ui_settings'),
@@ -16,11 +16,13 @@ const saveSettings = debounce( () =>
       ui_settings: SETTINGS.toJS(),
     },
   })
-
   , 500);
 
+let saveSettings = saveSettingsDefaultImpl;
+
 const UiSettings = {
-  initialize(settings) {
+  initialize(settings, saver = saveSettingsDefaultImpl) {
+    saveSettings = saver;
     return SETTINGS.replace(observable.object(settings));
   },
 
@@ -47,7 +49,8 @@ const UiSettings = {
 
   // for use by specs to reset
   _reset() {
-    return SETTINGS.clear();
+    SETTINGS.clear();
+    saveSettings = saveSettingsDefaultImpl;
   },
 
   // for debugging purposes

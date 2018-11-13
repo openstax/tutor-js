@@ -1,4 +1,4 @@
-import { Testing, expect, sinon, _ } from 'shared/specs/helpers';
+//import { Testing, expect, sinon, _ } from 'shared/specs/helpers';
 
 import Html from 'components/html';
 
@@ -10,7 +10,7 @@ describe('Arbitrary Html Component', function() {
     props = {
       className: 'html',
       html: '<span>a test phrase</span>',
-      processHtmlAndMath: sinon.spy(),
+      processHtmlAndMath: jest.fn(),
       block: true,
     };
 
@@ -20,7 +20,7 @@ describe('Arbitrary Html Component', function() {
       html: `<iframe width="560" height="315" src="https://www.youtube.com/embed/BINK6r1Wy78"
 frameborder="0" allowfullscreen></iframe>`,
 
-      processHtmlAndMath: sinon.spy(),
+      processHtmlAndMath: jest.fn(),
       block: true,
     };
 
@@ -30,34 +30,25 @@ frameborder="0" allowfullscreen></iframe>`,
       html: `<div><iframe width="560" height="315" src="https://www.youtube.com/embed/BINK6r1Wy78"
 frameborder="0" allowfullscreen></iframe></div>`,
 
-      processHtmlAndMath: sinon.spy(),
+      processHtmlAndMath: jest.fn(),
       block: true,
     };
   });
 
-  it('renders html', () =>
-    Testing.renderComponent( Html, { props } ).then(function({ dom }) {
-      expect(dom.tagName).equal('DIV');
-      return expect(dom.textContent).equal('a test phrase');
-    })
-  );
+  it('renders html', () => {
+    const html = mount(<Html {...props} />);
+    expect(html.html()).toMatchSnapshot();
+  });
 
-  it('calls math processing function when rendered', () =>
-    Testing.renderComponent( Html, { props } ).then(({ dom }) => {
-      return expect(props.processHtmlAndMath).to.have.been.calledWith(dom);
-    })
-  );
+  it('calls math processing function when rendered', () => {
+    mount(<Html {...props} />);
+    expect(props.processHtmlAndMath).toHaveBeenCalled();
+  });
 
   it('renders using span when block is false', function() {
     props.block = false;
-    return Testing.renderComponent( Html, { props } ).then(({ dom }) => expect(dom.tagName).equal('SPAN'));
+    const html = mount(<Html {...props} />);
+    expect(html.html()).toMatchSnapshot();
   });
 
-  it('wraps iframes with embed classes', () =>
-    Testing.renderComponent( Html, { props: frameProps } ).then(({ dom }) => expect(dom.getElementsByClassName('embed-responsive').length).equal(1))
-  );
-
-  return it('wraps nested iframes with embed classes', () =>
-    Testing.renderComponent( Html, { props: nestedFrameProps } ).then(({ dom }) => expect(dom.getElementsByClassName('embed-responsive').length).equal(1))
-  );
 });

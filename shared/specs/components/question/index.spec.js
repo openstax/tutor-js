@@ -22,7 +22,6 @@ describe('Question Component', function() {
     expect(Snapshot.create(<Question {...props} />).toJSON()).toMatchSnapshot();
   });
 
-
   it('highlights when answer is clicked', () => {
     const q = mount(<Question {...props} />);
     const answer = q.find('.answers-answer').at(1);

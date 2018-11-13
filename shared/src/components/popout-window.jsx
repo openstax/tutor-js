@@ -46,7 +46,11 @@ export default class PopoutWindow extends React.Component {
     left: (o, w) => ((w.innerWidth - o.width) / 2) + w.screenX,
   };
 
-  componentWillReceiveProps(nextProps) {
+  componentDidMount() {
+    this.open();
+  }
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // re-render
     if (this.isOpen && nextProps.children != this.props.children) {
       this.reRender();
@@ -70,6 +74,7 @@ export default class PopoutWindow extends React.Component {
       this.popup.print();
     }
   }
+
 
   open(){
     if (this.isOpen) {
@@ -113,6 +118,7 @@ export default class PopoutWindow extends React.Component {
     this.popup.document.title = this.props.title;
     const container = this.popup.document.createElement('div');
     container.id = this.containerId;
+
     this.popup.document.body.appendChild(container);
 
     ReactDOM.render(this.props.children, container);

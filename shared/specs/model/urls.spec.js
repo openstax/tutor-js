@@ -1,5 +1,3 @@
-import { Testing, expect, sinon, _ } from 'shared/specs/helpers';
-
 import URLs from 'model/urls';
 describe('URLs', function() {
 
@@ -12,13 +10,11 @@ describe('URLs', function() {
 
   it('strips _url from keys', function() {
     expect( URLs.get('foo') ).toEqual( 'http://foo.bar.com' );
-    return undefined;
   });
 
   it('can construct a url from parts', function() {
     expect( URLs.construct('foo', 'bar', 'baz', 1) )
-      toEqual( 'http://foo.bar.com/bar/baz/1' );
-    return undefined;
+      .toEqual( 'http://foo.bar.com/bar/baz/1' );
   });
 
   it('only remembers keys that end in _url', function() {
@@ -27,17 +23,15 @@ describe('URLs', function() {
       '2test':     'http://test.com',
     });
     expect( URLs.get('1test') ).toEqual('http://test.com');
-    expect( URLs.get('2test') ).not.to.exist;
-    return undefined;
+    expect( URLs.get('2test') ).toBeFalsy();
   });
 
-  return it('ignores non-string urls', function() {
+  it('ignores non-string urls', function() {
     URLs.update({
       'object_url': { object: true },
       'number_url': 42,
     });
-    expect( URLs.get('object') ).not.to.exist;
-    expect( URLs.get('number') ).not.to.exist;
-    return undefined;
+    expect( URLs.get('object') ).toBeFalsy();
+    expect( URLs.get('number') ).toBeFalsy();
   });
 });

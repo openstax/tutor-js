@@ -21,7 +21,6 @@ describe('Exercise Identifier Link', function() {
   it('reads the parts from props and sets the url', function() {
     const link = shallow(React.createElement(ExerciseIdentifierLink, Object.assign({}, props )));
     expect(link).toHaveRendered(`a[href=\"${Exercise.ERRATA_FORM_URL}?source=tutor&location=123442%201.2%20Introduction%20to%20Apples&book=College%20Physics\"]`);
-    return undefined;
   });
 
   it('falls back to context if props are missing', function() {
@@ -36,21 +35,19 @@ describe('Exercise Identifier Link', function() {
         },
       },
     );
+
     expect(link).toHaveRendered(
       `a[href=\"${Exercise.ERRATA_FORM_URL}?source=TESTING&location=123442%201.2%20Introduction%20to%20Apples&book=Principles%20of%20Microeconomics\"]`
     );
-    return undefined;
   });
 
   it('opens in new tab', function() {
     const link = shallow(React.createElement(ExerciseIdentifierLink, Object.assign({}, props )));
     expect(link).toHaveRendered('a[target="_blank"]');
-    return undefined;
   });
 
-  return it('renders the the exercise id before the trouble link', function() {
+  it('renders the the exercise id before the trouble link', function() {
     const link = shallow(React.createElement(ExerciseIdentifierLink, Object.assign({}, props )));
-    expect(link.text()).to.include(`ID# ${props.exerciseId}`);
-    return undefined;
+    expect(link.text()).toMatch(`ID# ${props.exerciseId}`);
   });
 });

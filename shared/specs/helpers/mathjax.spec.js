@@ -1,5 +1,5 @@
-const { typesetMath } = require('helpers/mathjax');
-const FakeWindow = require('./fake-window');
+import { typesetMath } from '../../src/helpers/mathjax';
+import FakeWindow from './fake-window';
 import { delay } from 'lodash';
 
 const callTypeset = (dom, window) =>
@@ -30,8 +30,8 @@ describe('Mathjax Helper', function() {
   it('can typeset latex', function() {
     dom.innerHTML = '<div data-math="\\pi">a pi symbol</div>';
     return callTypeset(dom, window).then(() => {
-      expect( window.MathJax.Hub.Typeset ).to.have.been.calledWith([dom.children[0]]);
-      return expect( dom.textContent ).to.include('\\pi');
+      expect( window.MathJax.Hub.Typeset ).toHaveBeenCalledWith([dom.children[0]]);
+      return expect( dom.textContent ).toContain('\\pi');
     });
   });
 
@@ -43,10 +43,10 @@ describe('Mathjax Helper', function() {
     <mi>PI</mi>
   </mrow>
 </math>\
-`;
+    `;
     return callTypeset(dom, window).then(() => {
-      expect( window.MathJax.Hub.Typeset ).to.have.been.calledWith(window.document);
-      return expect( dom.textContent ).to.include('PI');
+      expect( window.MathJax.Hub.Typeset ).toHaveBeenCalledWith(window.document);
+      return expect( dom.textContent ).toContain('PI');
     });
   });
 });

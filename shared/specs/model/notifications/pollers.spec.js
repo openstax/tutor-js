@@ -1,15 +1,12 @@
+import { ld } from '../../helpers';
+import FakeWindow from 'shared/specs/helpers/fake-window';
+import Notifications from 'model/notifications';
+import UiSettings from 'model/ui-settings';
+import TEST_NOTICES from '../../../api/notifications';
+import Poller from 'model/notifications/pollers';
+
 jest.mock('model/notifications');
 jest.mock('model/ui-settings');
-
-const { Testing, sinon, _ } = require('shared/specs/helpers');
-let FakeWindow = require('shared/specs/helpers/fake-window');
-
-const Notifications = require('model/notifications');
-const UiSettings = require('model/ui-settings');
-const TEST_NOTICES = require('../../../api/notifications');
-
-const Poller = require('model/notifications/pollers');
-FakeWindow = require('shared/specs/helpers/fake-window');
 
 describe('Notification Pollers', function() {
   let notices = null;
@@ -38,7 +35,8 @@ describe('Notification Pollers', function() {
         ],
       },
     });
-    return pollers = [tutor, accounts];});
+    return pollers = [tutor, accounts];
+  });
 
 
   it('polls when url is set', function() {
@@ -49,36 +47,33 @@ describe('Notification Pollers', function() {
       expect(notices.windowImpl.setInterval).toHaveBeenCalled();
       notices.windowImpl.setInterval.mockClear();
     }
-    return undefined;
   });
 
   it('returns list of active notices', function() {
     expect(tutor.getActiveNotifications()).toEqual([
       { id: 'test', message: 'A test notice', type: 'tutor' },
     ]);
-    return expect(accounts.getActiveNotifications()).toMatchObject([
+    expect(accounts.getActiveNotifications()).toMatchObject([
       { id: 1234, is_verified: false, type: 'accounts' },
     ]);
   });
 
   it('remembers when acknowledged', function() {
     for (let poller of pollers) {
-      const notice = _.first(poller.getActiveNotifications());
+      const notice = ld.first(poller.getActiveNotifications());
       poller.acknowledge(notice);
       expect(UiSettings.set).toHaveBeenLastCalledWith(`ox-notifications-${poller.type}`, [notice.id]);
     }
-    return undefined;
   });
 
   it('does not list items that are already acknowledged', function() {
     UiSettings.get.mockReturnValue(['2']);
     tutor.onReply({ data: TEST_NOTICES });
     const active = tutor.getActiveNotifications();
-    expect( _.pluck(active, 'id') ).toEqual(['1']); // no id "2"
-    return undefined;
+    expect( ld.map(active, 'id') ).toEqual(['1']); // no id "2"
   });
 
-  return it('removes outdated ids from prefs', function() {
+  it('removes outdated ids from prefs', function() {
     // mock that we've observed the current notices
     UiSettings.get.mockReturnValue(['1', '2']);
     tutor.onReply({ data: TEST_NOTICES });
@@ -89,6 +84,5 @@ describe('Notification Pollers', function() {
     });
     // 1 and 2 are removed
     expect(UiSettings.set).toHaveBeenLastCalledWith('ox-notifications-tutor', []);
-    return undefined;
   });
 });

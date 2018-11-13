@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SpyMode Wrapper renders a pi symbol 1`] = `
+<div
+  className="openstax-debug-content"
+>
+  <a
+    aria-hidden="true"
+    className="debug-toggle-link"
+    href="#spy"
+    onClick={[Function]}
+    tabIndex={-1}
+  >
+    π
+  </a>
+</div>
+`;

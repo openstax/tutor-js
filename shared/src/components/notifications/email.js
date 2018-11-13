@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import BS from 'react-bootstrap';
+import Icon from '../icon';
 import classnames from 'classnames';
-import _ from 'underscore';
-
+import { delay, defer } from 'lodash';
 import URLs from '../../model/urls';
 import Notifications from '../../model/notifications';
 
@@ -27,12 +26,14 @@ class EmailNotification extends React.Component {
   };
 
   onPinCheck = () => {
-    return this.props.notice.sendVerification( ReactDOM.findDOMNode(this.refs.verifyInput).value, this.onSuccess);
+    return this.props.notice.sendVerification(
+      this.pinInput.value, this.onSuccess,
+    );
   };
 
   onSuccess = () => {
     // wait a bit so the "Success" message is seen, then hide
-    return _.delay(this.props.onDismiss, 1500);
+    return delay(this.props.onDismiss, 1500);
   };
 
   onVerify = () => {
@@ -68,25 +69,29 @@ class EmailNotification extends React.Component {
         <a href={URLs.get('accounts_profile')} className="action" target="_blank">
           {'\
     Visit Profile \x3E\x3E\
-    '}
+           '}
         </a>
       </span>
     );
   };
 
+  setInputRef = (pinInput) => {
+    this.pinInput = pinInput;
+  }
+
   renderPin = () => {
-    _.defer(() => (this.refs.verifyInput != null ? this.refs.verifyInput.focus() : undefined));
+    defer(() => (this.pinInput != null ? this.pinInput.focus() : undefined));
     return (
       <span className="body verify">
-        <i className="icon fa fa-envelope-o" />
+        <Icon type="envelope" />
         <span className="message">
           {'\
     Check your email inbox. Enter the 6-digit verification code:\
-    '}
+           '}
         </span>
         <input
           autoFocus={true}
-          ref="verifyInput"
+          ref={this.setInputRef}
           onKeyPress={this.onVerifyKey}
           type="text" />
         <a className="pin-check action" onClick={this.onPinCheck}>
@@ -102,7 +107,7 @@ class EmailNotification extends React.Component {
         <span className="message">
           {'\
     Requesting...\
-    '}
+           '}
         </span>
         <i className="fa fa-spin fa-2x fa-spinner" />
       </span>
@@ -112,10 +117,10 @@ class EmailNotification extends React.Component {
   renderStart = () => {
     return (
       <span className="body">
-        <i className="icon fa fa-envelope-o" />
+        <Icon type="envelope" />
         {'\
     Verifying your email address allows you to recover your password if you ever forget it.\
-    '}
+         '}
         <a className="action" onClick={this.onVerify}>
           Verify now
         </a>
@@ -126,7 +131,7 @@ class EmailNotification extends React.Component {
   renderSuccess = () => {
     return (
       <span className="body">
-        <i className="icon fa fa-envelope-o" />
+        <Icon type="envelope" />
         <span className="message">
           Verification was successful!
         </span>

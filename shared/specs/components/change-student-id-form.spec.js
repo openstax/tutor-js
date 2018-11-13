@@ -1,41 +1,33 @@
-import { Testing, expect, sinon, _, ReactTestUtils } from 'shared/specs/helpers';
 import { ChangeStudentIdForm } from 'shared';
 
 describe('ChangeStudentIdForm Component', function() {
   let props = null;
 
-  beforeEach(() =>
+  beforeEach(() => {
     props = {
-      onCancel: sinon.spy(),
-      onSubmit: sinon.spy(),
+      onCancel: jest.fn(),
+      onSubmit: jest.fn(),
       label: 'a test label',
       saveButtonLabel: 'this is save btn',
       title: 'this is title',
     }
-  );
+  });
 
-  it('renders values from props', () =>
-    Testing.renderComponent( ChangeStudentIdForm, { props } ).then(({ dom }) => {
-      expect(dom.querySelector('.title').textContent).toEqual(props.title);
-      expect(dom.querySelector('.control-label').textContent).toEqual(props.label);
-      return expect(dom.querySelector('.btn').textContent).toEqual(props.saveButtonLabel);
-    })
-  );
+  it('renders values from props', () => {
+    expect.snapshot(<ChangeStudentIdForm {...props} />).toMatchSnapshot();
+  });
 
-  it('calls onSubmit when save button is clicked', () =>
-    Testing.renderComponent( ChangeStudentIdForm, { props } ).then(({ dom }) => {
-      expect(props.onSubmit).not.to.have.been.called;
-      dom.querySelector('input').value = 'test value';
-      Testing.actions.click(dom.querySelector('.btn'));
-      return expect(props.onSubmit).to.have.been.called;
-    })
-  );
+  it('calls onSubmit when save button is clicked', () => {
+    const csid = mount(<ChangeStudentIdForm {...props} />);
+    csid.find('input').instance().value = '123456';
+    csid.find('Button').simulate('click');
+    expect(props.onSubmit).toHaveBeenCalled();
+  });
 
-  return it('calls onCancel when cancel button is clicked', () =>
-    Testing.renderComponent( ChangeStudentIdForm, { props } ).then(({ dom }) => {
-      expect(props.onCancel).not.to.have.been.called;
-      Testing.actions.click(dom.querySelector('.cancel a'));
-      return expect(props.onCancel).to.have.been.called;
-    })
-  );
+  it('calls onCancel when cancel button is clicked', () => {
+    const csid = mount(<ChangeStudentIdForm {...props} />);
+    csid.find('input').instance().value = '123456';
+    csid.find('.cancel a').simulate('click');
+    expect(props.onCancel).toHaveBeenCalled();
+  });
 });

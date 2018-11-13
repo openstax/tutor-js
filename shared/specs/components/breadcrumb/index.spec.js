@@ -1,13 +1,11 @@
-import { Testing, expect, sinon, _ } from 'shared/specs/helpers';
-
-import BC from 'components/breadcrumb';
+import BC from '../../../src/components/breadcrumb';
 
 describe('Breadcrumb Component', function() {
   let props = null;
 
   beforeEach(() =>
     props = {
-      goToStep: sinon.spy(),
+      goToStep: jest.fn(),
 
       step: {
         type: 'reading',
@@ -30,15 +28,27 @@ describe('Breadcrumb Component', function() {
     it('indicates current step', function() {
       props.stepIndex = 1;
       props.step.is_completed = false;
-      return Testing.renderComponent( BC, { props } ).then(({ dom }) => expect(dom.getAttribute('title')).equal('Current Step (reading)'));
+      const bc = mount(<BC {...props} />);
+      expect(bc.find('.openstax-breadcrumbs-step').props().title)
+        .toEqual('Current Step (reading)');
     });
+
     it('indicates completed', function() {
       props.step.is_completed = true;
-      return Testing.renderComponent( BC, { props } ).then(({ dom }) => expect(dom.getAttribute('title')).equal('Step Completed (reading). Click to review'));
+      const bc = mount(<BC {...props} />);
+      //console.log(bc.debug())
+      expect(bc.find('.openstax-breadcrumbs-step').props().title)
+        .toEqual('Step Completed (reading). Click to review');
+      bc.unmount();
     });
-    return it('shows end', function() {
+
+    it('shows end', function() {
       props.crumb.type = 'end';
-      return Testing.renderComponent( BC, { props } ).then(({ dom }) => expect(dom.getAttribute('title')).equal('My Assignment Completion'));
+      props.step.is_completed = true;
+      const bc = mount(<BC {...props} />);
+      expect(bc.find('.openstax-breadcrumbs-step').props().title)
+        .toEqual('My Assignment Completion');
+      bc.unmount();
     });
   });
 
@@ -47,32 +57,30 @@ describe('Breadcrumb Component', function() {
     it('can be correct', function() {
       props.canReview = true;
       props.step.is_correct = true;
-      return Testing.renderComponent( BC, { props } ).then(function({ dom }) {
-        expect(dom.classList.contains('status-correct')).toBe(true);
-        return expect(dom.querySelector('i.icon-correct')).not.to.be.null;
-      });
+      const bc = mount(<BC {...props} />);
+      expect(bc).toHaveRendered('.icon-correct');
+      bc.unmount();
     });
     it('can be incorrect', function() {
       props.canReview = true;
       props.step.answer_id = 11;
-      return Testing.renderComponent( BC, { props } ).then(function({ dom }) {
-        expect(dom.classList.contains('status-incorrect')).toBe(true);
-        return expect(dom.querySelector('i.icon-incorrect')).not.to.be.null;
-      });
+      const bc = mount(<BC {...props} />);
+      expect(bc).toHaveRendered('.icon-incorrect');
+      bc.unmount();
     });
-
-    return it('passes on data-label props', function() {
+    it('passes on data-label props', function() {
       props['data-label'] = 'This is a Label';
-      return Testing.renderComponent( BC, { props } ).then(({ dom }) => {
-        return expect(dom.getAttribute('data-label')).toEqual(props['data-label']);
-      });
+      const bc = mount(<BC {...props} />);
+      //      console.log(bc.debug())
+      expect(bc).toHaveRendered('.openstax-breadcrumbs-step[data-label="This is a Label"]');
+      bc.unmount();
     });
   });
 
-  return it('calls onClick handler', () =>
-    Testing.renderComponent( BC, { props } ).then(({ dom }) => {
-      Testing.actions.click(dom);
-      return expect(props.goToStep).to.have.been.calledWith(2);
-    })
-  );
+  it('calls onClick handler', () => {
+    const bc = mount(<BC {...props} />);
+    bc.simulate('click');
+    expect(props.goToStep).toHaveBeenCalledWith(2, expect.anything());
+    bc.unmount();
+  });
 });

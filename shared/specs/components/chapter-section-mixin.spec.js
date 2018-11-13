@@ -1,6 +1,5 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import { Testing, expect, sinon, _ } from 'shared/specs/helpers';
 
 import ChapterSection from 'components/chapter-section-mixin';
 
@@ -20,20 +19,25 @@ const Component = createReactClass({
 describe('Chapter Section Mixin', function() {
   let props = null;
 
-  beforeEach(() =>
+  beforeEach(() => {
     props = {
       section: [1, 2],
       separator: '.',
-    }
-  );
+    };
+  });
 
   it('can use custom separator', function() {
     props.separator = '-';
-    return Testing.renderComponent( Component, { props } ).then(({ dom }) => expect(dom.textContent).equal('1-2'));
+    const cs = mount(<Component {...props} />);
+    expect(cs.text()).toMatch('1-2');
+    cs.unmount();
   });
 
-  return it('can render chapter/section thats a string', function() {
+  it('can render chapter/section thats a string', function() {
     props.section = '3.4';
-    return Testing.renderComponent( Component, { props } ).then(({ dom }) => expect(dom.textContent).equal('3.4'));
+    const cs = mount(<Component {...props} />);
+    expect(cs.text()).toMatch('3.4');
+    cs.unmount();
   });
+
 });

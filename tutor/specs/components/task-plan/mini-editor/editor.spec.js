@@ -65,10 +65,10 @@ describe('TaskPlan MiniEditor wrapper', function() {
     return props = {
       id: PLAN.id,
       courseId: COURSE_ID,
-      onHide: sinon.spy(),
+      onHide: jest.fn(),
       termStart: term.start,
       termEnd: term.end,
-      handleError: sinon.spy(),
+      handleError: jest.fn(),
     };
   });
 
@@ -81,7 +81,7 @@ describe('TaskPlan MiniEditor wrapper', function() {
     const title = wrapper.find(`input[value=\"${PLAN.title}\"]`);
     expect(title).length.to.be(1);
     title.simulate('change', { target: { value: 'foo' } });
-    expect(TaskPlanActions.updateTitle).to.have.been.calledWith(props.id, 'foo');
+    expect(TaskPlanActions.updateTitle).toHaveBeenCalledWith(props.id, 'foo');
     return undefined;
   });
 

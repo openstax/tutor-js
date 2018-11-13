@@ -1,45 +1,58 @@
-import { Testing, expect, sinon, _ } from 'shared/specs/helpers';
-import React from 'react';
-
+import { ld, React } from 'shared/specs/helpers';
 import SuretyGuard from 'components/surety-guard';
 
-class WrappedComponent extends React.Component {
-  render() {
-    return (
-      <SuretyGuard {...this.props}>
-        <a>
-          i am a test link
-        </a>
-      </SuretyGuard>
-    );
-  }
-}
+const WrappedComponent = (props) => (
+  <SuretyGuard {...props}>
+    <a>
+      i am a test link
+    </a>
+  </SuretyGuard>
+);
+
+jest.mock('popper.js', () => {
+  const PopperJS = jest.requireActual('popper.js');
+
+  return class {
+    static placements = PopperJS.placements;
+
+    constructor() {
+      return {
+        destroy: () => {},
+        scheduleUpdate: () => {},
+      };
+    }
+  };
+});
 
 describe('SuretyGuard', function() {
   let props = null;
 
   beforeEach(() =>
     props = {
-      onConfirm: sinon.spy(),
+      onConfirm: jest.fn(),
       message: 'Yo!, you sure?',
     }
   );
 
-  it('renders children', () =>
-    Testing.renderComponent( WrappedComponent, { props } ).then(({ dom }) => expect(dom.textContent).to.include('i am a test link'))
-  );
+  it('renders children', () => {
+    const guard = mount(<WrappedComponent {...props} />);
+    expect(guard.text()).toContain('test link');
+    guard.unmount();
+  });
 
-  return it('displays when clicked', function(done) {
-    Testing.renderComponent( WrappedComponent, { props } ).then(function({ dom, element }) {
-      expect(window.document.querySelector('.openstax-surety-guard')).not.to.exist;
-      Testing.actions.click(dom);
-      return _.defer(function() {
-        const guard = window.document.querySelector('.openstax-surety-guard');
-        expect(guard).to.exist;
-        expect(guard.textContent).to.include('Yo!');
-        return done();
+  it('displays when clicked', () => {
+    const guard = mount(<WrappedComponent {...props} />);
+    guard.simulate('click');
+    return new Promise(done => {
+      ld.defer(() => {
+        expect(
+          window.document.querySelector('.openstax-surety-guard')
+        ).toBeTruthy();
+        guard.unmount();
+        done();
       });
     });
-    return true;
+
   });
+
 });

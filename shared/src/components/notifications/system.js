@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
+import Icon from '../icon';
 
 class SystemNotification extends React.Component {
   static displayName = 'SystemNotification';
@@ -32,12 +33,10 @@ class SystemNotification extends React.Component {
           { acknowledged: this.props.notice.acknowledged }
         )}>
         <span className="body">
-          <i className={`icon fa fa-${this.getIcon()}`} />
+          <Icon type={this.getIcon()} />
           {this.props.notice.message}
         </span>
-        <a className="dismiss" onClick={this.props.onDismiss}>
-          <i className="icon fa fa-close" />
-        </a>
+        <Icon type="times" className="dismiss" onClick={this.props.onDismiss} />
       </div>
     );
   }

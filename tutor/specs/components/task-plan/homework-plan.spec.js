@@ -70,10 +70,10 @@ xdescribe('Homework Plan', function() {
   );
 
   return it('toggles immediate feedback when options are changed', function() {
-    sinon.spy(TaskPlanActions, 'setImmediateFeedback');
+    jest.fn(TaskPlanActions, 'setImmediateFeedback');
     return helper(NEW_HW).then(function({ dom }) {
       ReactTestUtils.Simulate.change(dom.querySelector('#feedback-select'), { target: { value: 'immediate' } });
-      return expect(TaskPlanActions.setImmediateFeedback).to.have.been.calledWith(NEW_HW.id, true);
+      return expect(TaskPlanActions.setImmediateFeedback).toHaveBeenCalledWith(NEW_HW.id, true);
     });
   });
 });
