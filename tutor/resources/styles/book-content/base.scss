@@ -94,4 +94,28 @@
     }
   }
 
+  [data-type="document-title"] {
+    display: none;
+  }
+
+  .os-chapter-outline {
+    .os-chapter-objective {
+      > a.os-chapter-objective {
+        display: none;
+      }
+      & + .os-chapter-objective {
+        .learning-objective {
+          [data-type="abstract"] {
+            min-height: inherit;
+            padding: 0;
+          }
+
+        }
+      }
+
+      > .os-title {
+        display: none;
+      }
+    }
+  }
 }

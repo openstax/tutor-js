@@ -1,33 +1,6 @@
 %tutor-book-content-baked-styles {
   &.book-is-collated {
 
-    .os-chapter-outline {
-      > .os-title {
-        display: none;
-      }
-
-      .os-chapter-objective {
-        > a.os-chapter-objective {
-          display: none;
-        }
-        & + .os-chapter-objective {
-          .learning-objective {
-
-            [data-type="abstract"] {
-              min-height: inherit;
-              padding: 0;
-            }
-
-          }
-        }
-      }
-    }
-
-    .os-chapter-outline +
-    [data-type="document-title"] {
-      display: none;
-    }
-
     .related-content[data-has-learning-objectives=false] {
       display: none;
     }
