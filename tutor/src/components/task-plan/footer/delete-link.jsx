@@ -35,7 +35,7 @@ const DeleteModal = ({ message, show, onClose, isBusy, onDelete }) => (
 
 export default
 @observer
-class DeleteLink extends React.Component {
+class DeleteTaskButton extends React.Component {
 
   static propTypes = {
     onClick:     PropTypes.func.isRequired,
@@ -77,7 +77,7 @@ class DeleteLink extends React.Component {
           isBusy={this.props.isWaiting}
           onDelete={this.props.onClick}
         />
-        <Icon type="trash" />Delete
+        <Icon type="trash-alt" />Delete
       </Button>
     );
   }

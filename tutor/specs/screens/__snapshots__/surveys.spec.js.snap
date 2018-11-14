@@ -32,531 +32,504 @@ exports[`Surveys Screen renders and matches snapshot 1`] = `
       className="body"
     >
       <h3>
-        Do you like Licensed Metal Salad
+        Do you like Sleek Frozen Bike
       </h3>
       <div
         className="sv_main sv_default_css"
       >
-        <div
-          className="sv_custom_header"
-        />
-        <div
-          className="sv_container"
-        >
+        <form>
           <div
-            className="sv_body"
-            id="sp_100"
+            className="sv_custom_header"
+          />
+          <div
+            className="sv_container"
           >
             <div
-              className="sv_p_root"
+              className="sv_body"
+              id="sp_100"
             >
               <div
-                className="sv_row"
+                className="sv_p_root"
               >
                 <div
-                  className="sv_q sv_qstn"
-                  id="sq_100"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
+                  className="sv_row"
                 >
                   <div
-                    className={null}
-                  >
-                    <h5
-                      className="sv_q_title"
-                    >
-                      <span
-                        style={null}
-                      >
-                        1. * Please enter your name:
-                      </span>
-                    </h5>
-                  </div>
-                  <div
-                    className={null}
-                  >
-                    <input
-                      aria-label="1. * Please enter your name:"
-                      className="sv_q_text_root"
-                      id="sq_100i"
-                      maxLength={null}
-                      onBlur={[Function]}
-                      onChange={[Function]}
-                      placeholder="Jon Snow"
-                      size={25}
-                      type="text"
-                      value=""
-                    />
-                  </div>
-                </div>
-              </div>
-              <div
-                className="sv_row"
-              >
-                <div
-                  className="sv_q sv_qstn"
-                  id="sq_101"
-                  style={
-                    Object {
-                      "width": "100%",
+                    className="sv_q sv_qstn"
+                    id="sq_100"
+                    style={
+                      Object {
+                        "width": "100.000000%",
+                      }
                     }
-                  }
-                >
-                  <div
-                    className={null}
                   >
-                    <h5
-                      className="sv_q_title"
+                    <div
+                      className={null}
                     >
-                      <span
-                        style={null}
+                      <h5
+                        className="sv_q_title"
                       >
-                        2. Your e-mail:
-                      </span>
-                    </h5>
-                  </div>
-                  <div
-                    className={null}
-                  >
-                    <input
-                      aria-label="2. Your e-mail:"
-                      className="sv_q_text_root"
-                      id="sq_101i"
-                      maxLength={null}
-                      onBlur={[Function]}
-                      onChange={[Function]}
-                      placeholder="jon.snow@nightwatch.org"
-                      size={25}
-                      type="email"
-                      value=""
-                    />
-                  </div>
-                </div>
-              </div>
-              <div
-                className="sv_row"
-              >
-                <div
-                  className="sv_q sv_qstn"
-                  id="sq_102"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                  <div
-                    className={null}
-                  >
-                    <h5
-                      className="sv_q_title"
-                    >
-                      <span
-                        style={null}
-                      >
-                        3. * Do you like to eat bananas?
-                      </span>
-                    </h5>
-                  </div>
-                  <div
-                    className={null}
-                  >
-                    <fieldset
-                      className="sv_qcbc"
-                    >
-                      <div
-                        className="sv_q_radiogroup"
-                        style={
-                          Object {
-                            "display": "inline-block",
-                            "width": "100%",
-                          }
-                        }
-                      >
-                        <label
-                          className="sv_q_radiogroup_label"
+                        <span
+                          style={null}
                         >
-                          <input
-                            aria-label="3. * Do you like to eat bananas?"
-                            checked={false}
-                            className="sv_q_radiogroup_control_item"
-                            disabled={false}
-                            id="sq_102i"
-                            name="bananas_sq_102"
-                            onChange={[Function]}
-                            type="radio"
-                            value="no"
-                          />
-                          <span
-                            className="circle"
-                          />
-                          <span
-                            className="check"
-                          />
-                          <span
-                            className=""
+                          1. * Please enter your name:
+                        </span>
+                      </h5>
+                    </div>
+                    <div
+                      className={null}
+                    >
+                      <input
+                        aria-label="1. * Please enter your name:"
+                        className="sv_q_text_root"
+                        id="sq_100i"
+                        maxLength={null}
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        placeholder="Jon Snow"
+                        size={25}
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="sv_row"
+                >
+                  <div
+                    className="sv_q sv_qstn"
+                    id="sq_101"
+                    style={
+                      Object {
+                        "width": "100.000000%",
+                      }
+                    }
+                  >
+                    <div
+                      className={null}
+                    >
+                      <h5
+                        className="sv_q_title"
+                      >
+                        <span
+                          style={null}
+                        >
+                          2. Your e-mail:
+                        </span>
+                      </h5>
+                    </div>
+                    <div
+                      className={null}
+                    >
+                      <input
+                        aria-label="2. Your e-mail:"
+                        className="sv_q_text_root"
+                        id="sq_101i"
+                        maxLength={null}
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        placeholder="jon.snow@nightwatch.org"
+                        size={25}
+                        type="email"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="sv_row"
+                >
+                  <div
+                    className="sv_q sv_qstn"
+                    id="sq_102"
+                    style={
+                      Object {
+                        "width": "100.000000%",
+                      }
+                    }
+                  >
+                    <div
+                      className={null}
+                    >
+                      <h5
+                        className="sv_q_title"
+                      >
+                        <span
+                          style={null}
+                        >
+                          3. * Do you like to eat bananas?
+                        </span>
+                      </h5>
+                    </div>
+                    <div
+                      className={null}
+                    >
+                      <fieldset
+                        className="sv_qcbc"
+                      >
+                        <div
+                          className="sv_q_radiogroup sv-q-col-1"
+                        >
+                          <label
+                            className="sv_q_radiogroup_label"
                           >
+                            <input
+                              aria-label="No"
+                              checked={false}
+                              className="sv_q_radiogroup_control_item"
+                              disabled={false}
+                              id="sq_102i-0"
+                              name="bananas_sq_102"
+                              onChange={[Function]}
+                              type="radio"
+                              value="no"
+                            />
                             <span
+                              className="circle"
+                            />
+                            <span
+                              className="check"
+                            />
+                            <span
+                              className=""
+                            >
+                              <span
+                                style={
+                                  Object {
+                                    "display": "inline",
+                                    "marginLeft": "3px",
+                                    "position": "static",
+                                  }
+                                }
+                              >
+                                No
+                              </span>
+                            </span>
+                          </label>
+                        </div>
+                        <div
+                          className="sv_q_radiogroup sv-q-col-1"
+                        >
+                          <label
+                            className="sv_q_radiogroup_label"
+                          >
+                            <input
+                              aria-label="Yes, they're great!"
+                              checked={false}
+                              className="sv_q_radiogroup_control_item"
+                              disabled={false}
+                              id="sq_102i-1"
+                              name="bananas_sq_102"
+                              onChange={[Function]}
+                              type="radio"
+                              value="yes"
+                            />
+                            <span
+                              className="circle"
+                            />
+                            <span
+                              className="check"
+                            />
+                            <span
+                              className=""
+                            >
+                              <span
+                                style={
+                                  Object {
+                                    "display": "inline",
+                                    "marginLeft": "3px",
+                                    "position": "static",
+                                  }
+                                }
+                              >
+                                Yes, they're great!
+                              </span>
+                            </span>
+                          </label>
+                        </div>
+                        <legend
+                          style={
+                            Object {
+                              "display": "none",
+                            }
+                          }
+                        >
+                          3. * Do you like to eat bananas?
+                        </legend>
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="sv_row"
+                >
+                  <div
+                    className="sv_q sv_qstn"
+                    id="sq_103"
+                    style={
+                      Object {
+                        "width": "100.000000%",
+                      }
+                    }
+                  >
+                    <div
+                      className={null}
+                    >
+                      <h5
+                        className="sv_q_title"
+                      >
+                        <span
+                          style={null}
+                        >
+                          4. Why?
+                        </span>
+                      </h5>
+                    </div>
+                    <div
+                      className={null}
+                    >
+                      <textarea
+                        aria-label="4. Why?"
+                        className=""
+                        cols={50}
+                        id="sq_103i"
+                        maxLength={null}
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        placeholder=""
+                        readOnly={false}
+                        rows={4}
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="sv_row"
+                >
+                  <div
+                    className="sv_q sv_qstn"
+                    id="sq_104"
+                    style={
+                      Object {
+                        "width": "100.000000%",
+                      }
+                    }
+                  >
+                    <div
+                      className={null}
+                    >
+                      <h5
+                        className="sv_q_title"
+                      >
+                        <span
+                          style={null}
+                        >
+                          5. Check other types of fruit you like
+                        </span>
+                      </h5>
+                    </div>
+                    <div
+                      className={null}
+                    >
+                      <fieldset
+                        className="sv_qcbc sv_qcbx"
+                      >
+                        <div
+                          className="sv_q_checkbox sv-q-col-1"
+                        >
+                          <label
+                            className="sv_q_checkbox_label"
+                          >
+                            <input
+                              aria-label="Apples"
+                              checked={false}
+                              className="sv_q_checkbox_control_item"
+                              disabled={false}
+                              id="sq_104i-0"
+                              onChange={[Function]}
                               style={
                                 Object {
-                                  "display": "inline",
-                                  "marginLeft": "3px",
-                                  "position": "static",
+                                  "marginRight": "3px",
                                 }
                               }
-                            >
-                              No
-                            </span>
-                          </span>
-                        </label>
-                      </div>
-                      <div
-                        className="sv_q_radiogroup"
-                        style={
-                          Object {
-                            "display": "inline-block",
-                            "width": "100%",
-                          }
-                        }
-                      >
-                        <label
-                          className="sv_q_radiogroup_label"
-                        >
-                          <input
-                            aria-label="3. * Do you like to eat bananas?"
-                            checked={false}
-                            className="sv_q_radiogroup_control_item"
-                            disabled={false}
-                            id={null}
-                            name="bananas_sq_102"
-                            onChange={[Function]}
-                            type="radio"
-                            value="yes"
-                          />
-                          <span
-                            className="circle"
-                          />
-                          <span
-                            className="check"
-                          />
-                          <span
-                            className=""
-                          >
+                              type="checkbox"
+                              value="apples"
+                            />
                             <span
+                              className="checkbox-material"
+                            >
+                              <span
+                                className="check"
+                              />
+                            </span>
+                            <span
+                              className="sv_q_checkbox_control_label"
+                            >
+                              <span
+                                style={null}
+                              >
+                                Apples
+                              </span>
+                            </span>
+                          </label>
+                        </div>
+                        <div
+                          className="sv_q_checkbox sv-q-col-1"
+                        >
+                          <label
+                            className="sv_q_checkbox_label"
+                          >
+                            <input
+                              aria-label="Mango"
+                              checked={false}
+                              className="sv_q_checkbox_control_item"
+                              disabled={false}
+                              id="sq_104i-1"
+                              onChange={[Function]}
                               style={
                                 Object {
-                                  "display": "inline",
-                                  "marginLeft": "3px",
-                                  "position": "static",
+                                  "marginRight": "3px",
                                 }
                               }
+                              type="checkbox"
+                              value="mango"
+                            />
+                            <span
+                              className="checkbox-material"
                             >
-                              Yes, they're great!
+                              <span
+                                className="check"
+                              />
                             </span>
-                          </span>
-                        </label>
-                      </div>
-                      <legend
-                        style={
-                          Object {
-                            "display": "none",
+                            <span
+                              className="sv_q_checkbox_control_label"
+                            >
+                              <span
+                                style={null}
+                              >
+                                Mango
+                              </span>
+                            </span>
+                          </label>
+                        </div>
+                        <div
+                          className="sv_q_checkbox sv-q-col-1"
+                        >
+                          <label
+                            className="sv_q_checkbox_label"
+                          >
+                            <input
+                              aria-label="STEAK!"
+                              checked={false}
+                              className="sv_q_checkbox_control_item"
+                              disabled={false}
+                              id="sq_104i-2"
+                              onChange={[Function]}
+                              style={
+                                Object {
+                                  "marginRight": "3px",
+                                }
+                              }
+                              type="checkbox"
+                              value="steak"
+                            />
+                            <span
+                              className="checkbox-material"
+                            >
+                              <span
+                                className="check"
+                              />
+                            </span>
+                            <span
+                              className="sv_q_checkbox_control_label"
+                            >
+                              <span
+                                style={null}
+                              >
+                                STEAK!
+                              </span>
+                            </span>
+                          </label>
+                        </div>
+                        <legend
+                          style={
+                            Object {
+                              "display": "none",
+                            }
                           }
-                        }
+                        >
+                          5. Check other types of fruit you like
+                        </legend>
+                      </fieldset>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="sv_row"
+                >
+                  <div
+                    className="sv_q sv_qstn"
+                    id="sq_105"
+                    style={
+                      Object {
+                        "width": "100.000000%",
+                      }
+                    }
+                  >
+                    <div
+                      className={null}
+                    >
+                      <h5
+                        className="sv_q_title"
                       >
-                        3. * Do you like to eat bananas?
-                      </legend>
-                    </fieldset>
+                        <span
+                          style={null}
+                        >
+                          6. What else would you like to say?
+                        </span>
+                      </h5>
+                    </div>
+                    <div
+                      className={null}
+                    >
+                      <textarea
+                        aria-label="6. What else would you like to say?"
+                        className=""
+                        cols={50}
+                        id="sq_105i"
+                        maxLength={null}
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        placeholder=""
+                        readOnly={false}
+                        rows={4}
+                        value=""
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
               <div
-                className="sv_row"
+                className="sv_nav"
               >
-                <div
-                  className="sv_q sv_qstn"
-                  id="sq_103"
+                <input
+                  className=" sv_complete_btn"
+                  onClick={[Function]}
+                  onMouseDown={null}
                   style={
                     Object {
-                      "width": "100%",
+                      "marginRight": "5px",
                     }
                   }
-                >
-                  <div
-                    className={null}
-                  >
-                    <h5
-                      className="sv_q_title"
-                    >
-                      <span
-                        style={null}
-                      >
-                        4. Why?
-                      </span>
-                    </h5>
-                  </div>
-                  <div
-                    className={null}
-                  >
-                    <textarea
-                      aria-label="4. Why?"
-                      className=""
-                      cols={50}
-                      id="sq_103i"
-                      maxLength={null}
-                      onBlur={[Function]}
-                      onChange={[Function]}
-                      placeholder=""
-                      readOnly={false}
-                      rows={4}
-                      value=""
-                    />
-                  </div>
-                </div>
+                  type="button"
+                  value="Complete"
+                />
               </div>
-              <div
-                className="sv_row"
-              >
-                <div
-                  className="sv_q sv_qstn"
-                  id="sq_104"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                  <div
-                    className={null}
-                  >
-                    <h5
-                      className="sv_q_title"
-                    >
-                      <span
-                        style={null}
-                      >
-                        5. Check other types of fruit you like
-                      </span>
-                    </h5>
-                  </div>
-                  <div
-                    className={null}
-                  >
-                    <fieldset
-                      className="sv_qcbc sv_qcbx"
-                    >
-                      <div
-                        className="sv_q_checkbox"
-                        style={
-                          Object {
-                            "display": "inline-block",
-                            "width": "100%",
-                          }
-                        }
-                      >
-                        <label
-                          className="sv_q_checkbox_label"
-                        >
-                          <input
-                            aria-label="5. Check other types of fruit you like"
-                            checked={false}
-                            className="sv_q_checkbox_control_item"
-                            disabled={false}
-                            id="sq_104i"
-                            onChange={[Function]}
-                            style={
-                              Object {
-                                "marginRight": "3px",
-                              }
-                            }
-                            type="checkbox"
-                            value="apples"
-                          />
-                          <span
-                            className="checkbox-material"
-                          >
-                            <span
-                              className="check"
-                            />
-                          </span>
-                          <span
-                            className="sv_q_checkbox_control_label"
-                          >
-                            <span
-                              style={null}
-                            >
-                              Apples
-                            </span>
-                          </span>
-                        </label>
-                      </div>
-                      <div
-                        className="sv_q_checkbox"
-                        style={
-                          Object {
-                            "display": "inline-block",
-                            "width": "100%",
-                          }
-                        }
-                      >
-                        <label
-                          className="sv_q_checkbox_label"
-                        >
-                          <input
-                            aria-label="5. Check other types of fruit you like"
-                            checked={false}
-                            className="sv_q_checkbox_control_item"
-                            disabled={false}
-                            id={null}
-                            onChange={[Function]}
-                            style={
-                              Object {
-                                "marginRight": "3px",
-                              }
-                            }
-                            type="checkbox"
-                            value="mango"
-                          />
-                          <span
-                            className="checkbox-material"
-                          >
-                            <span
-                              className="check"
-                            />
-                          </span>
-                          <span
-                            className="sv_q_checkbox_control_label"
-                          >
-                            <span
-                              style={null}
-                            >
-                              Mango
-                            </span>
-                          </span>
-                        </label>
-                      </div>
-                      <div
-                        className="sv_q_checkbox"
-                        style={
-                          Object {
-                            "display": "inline-block",
-                            "width": "100%",
-                          }
-                        }
-                      >
-                        <label
-                          className="sv_q_checkbox_label"
-                        >
-                          <input
-                            aria-label="5. Check other types of fruit you like"
-                            checked={false}
-                            className="sv_q_checkbox_control_item"
-                            disabled={false}
-                            id={null}
-                            onChange={[Function]}
-                            style={
-                              Object {
-                                "marginRight": "3px",
-                              }
-                            }
-                            type="checkbox"
-                            value="steak"
-                          />
-                          <span
-                            className="checkbox-material"
-                          >
-                            <span
-                              className="check"
-                            />
-                          </span>
-                          <span
-                            className="sv_q_checkbox_control_label"
-                          >
-                            <span
-                              style={null}
-                            >
-                              STEAK!
-                            </span>
-                          </span>
-                        </label>
-                      </div>
-                      <legend
-                        style={
-                          Object {
-                            "display": "none",
-                          }
-                        }
-                      >
-                        5. Check other types of fruit you like
-                      </legend>
-                    </fieldset>
-                  </div>
-                </div>
-              </div>
-              <div
-                className="sv_row"
-              >
-                <div
-                  className="sv_q sv_qstn"
-                  id="sq_105"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                  <div
-                    className={null}
-                  >
-                    <h5
-                      className="sv_q_title"
-                    >
-                      <span
-                        style={null}
-                      >
-                        6. What else would you like to say?
-                      </span>
-                    </h5>
-                  </div>
-                  <div
-                    className={null}
-                  >
-                    <textarea
-                      aria-label="6. What else would you like to say?"
-                      className=""
-                      cols={50}
-                      id="sq_105i"
-                      maxLength={null}
-                      onBlur={[Function]}
-                      onChange={[Function]}
-                      placeholder=""
-                      readOnly={false}
-                      rows={4}
-                      value=""
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              className="sv_nav"
-            >
-              <input
-                className=" sv_complete_btn"
-                onClick={[Function]}
-                style={
-                  Object {
-                    "marginRight": "5px",
-                  }
-                }
-                type="button"
-                value="Complete"
-              />
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>

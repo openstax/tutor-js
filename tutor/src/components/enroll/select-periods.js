@@ -14,7 +14,6 @@ class SelectPeriod extends React.Component {
 
   render() {
     const { enrollment, enrollment: { courseToJoin: course } } = this.props;
-
     return (
       <div className="enroll-form periods">
         <Modal.Body>

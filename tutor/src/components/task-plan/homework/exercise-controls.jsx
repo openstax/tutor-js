@@ -86,7 +86,7 @@ class ExerciseControls extends React.Component {
           <Button
             key="cancel"
             variant="default"
-            className="-cancel-add"
+            className="cancel-add"
             onClick={this.props.onCancel}
           >
             Cancel

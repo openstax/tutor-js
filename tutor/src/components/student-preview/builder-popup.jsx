@@ -1,3 +1,4 @@
+import { idType } from 'shared';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
@@ -15,7 +16,7 @@ export default
 class BuilderPopup extends React.Component {
 
   static propTypes = {
-    courseId:   PropTypes.string.isRequired,
+    courseId:   idType.isRequired,
     planType:   PropTypes.string.isRequired,
     windowImpl: PropTypes.shape({
       open: PropTypes.func,

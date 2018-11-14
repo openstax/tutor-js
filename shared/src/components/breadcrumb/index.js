@@ -113,6 +113,7 @@ class Breadcrumb extends React.Component {
         {...propsToPassOn}
         className={classes}
         title={title}
+        aria-label={title}
         onClick={partial(goToStep, stepIndex)}
         data-chapter={crumb.sectionLabel}
         key={`step-${crumb.key}`}>

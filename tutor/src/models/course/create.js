@@ -39,8 +39,8 @@ class CourseCreate extends BaseModel {
     },
   }
 
-  constructor({ courses = Courses, offerings = Offerings } = {}) {
-    super();
+  constructor({ courses = Courses, offerings = Offerings, ...attrs } = {}) {
+    super(attrs);
     this.courses = courses;
     this.offerings = offerings;
   }

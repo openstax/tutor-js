@@ -1,8 +1,7 @@
-import { React, SnapShot, Wrapper } from '../../helpers';
+import { C, EnzymeContext } from '../../helpers';
 import { map, sortBy } from 'lodash';
 import Courses from '../../../src/models/courses-map';
 import bootstrapScores from '../../helpers/scores-data';
-import EnzymeContext from '../../helpers/enzyme-context';
 import Scores from '../../../src/screens/scores-report/index';
 import Sorter from '../../../src/screens/scores-report/student-data-sorter';
 
@@ -44,13 +43,8 @@ describe('Scores Report', function() {
   });
 
   // disabled because column widths are different when ran on travis, and not sure why
-  xit('matches snapshot', () => {
-    const scores = SnapShot.create(
-      <Wrapper _wrapped_component={Scores} noReference {...props}/>
-    );
-    expect(scores.toJSON()).toMatchSnapshot();
-    scores.unmount();
-  });
+  //   expect.snapshot(<C><Scores {...props} /></C>).toMatchSnapshot();
+  // });
 
   it('renders', function() {
     const wrapper = mount(<Scores {...props} />, EnzymeContext.build());

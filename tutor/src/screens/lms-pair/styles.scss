@@ -10,12 +10,12 @@
   &::before {
     top: 0;
   }
-  .panel-heading {
+  .card-header {
     line-height: 1.5em;
     font-weight: 800;
   }
 
-  .new-course-wizard.offering .panel-heading {
+  .new-course-wizard.offering .card-header {
     align-items: flex-start;
     text-align: left;
   }

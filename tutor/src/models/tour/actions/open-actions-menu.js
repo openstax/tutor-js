@@ -6,6 +6,6 @@ export default
 class OpenActionsMenu extends OpenDowndownMenu {
 
   get menu() {
-    return document.querySelector('.actions-menu');
+    return document.querySelector('button#actions-menu');
   }
 };

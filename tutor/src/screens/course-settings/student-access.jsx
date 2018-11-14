@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { partial } from 'lodash';
 import { observable, computed, action } from 'mobx';
 import { observer } from 'mobx-react';
 import { Button, Modal, CardGroup, Card } from 'react-bootstrap';
@@ -8,6 +9,15 @@ import { Icon } from 'shared';
 import cn from 'classnames';
 import CopyOnFocusInput from '../../components/copy-on-focus-input';
 import LMS from './lms-panel';
+import Theme from '../../theme';
+
+const SelectedIcon = ({ checked }) => (
+  <Icon
+    type={checked ? 'check-square' : 'square' }
+    color={Theme.colors.controls[checked ? 'selected' : 'muted']}
+  />
+);
+
 
 export default
 @observer
@@ -19,27 +29,35 @@ class StudentAccess extends React.Component {
 
   @observable displayLinksWarning = false;
 
-  renderCheckboxFor(lms) {
+  @action.bound onSelectOption(type, displayLinksWarning = true) {
+    const isLMSEnabled = (type === 'lms');
     const { course } = this.props;
-    if (lms === course.is_lms_enabled) {
-      return <Icon type="check" />;
+    if (course.is_lms_enabled === isLMSEnabled){ return; }
+
+    if (!isLMSEnabled) {
+      this.displayLinksWarning = displayLinksWarning;
+      if (this.displayLinksWarning) {
+        return;
+      }
     }
-    return null;
+    course.is_lms_enabled = isLMSEnabled;
+    course.save();
   }
 
   renderDirectHeader() {
     const checked = false === this.props.course.is_lms_enabled;
 
     return (
-      <div className={cn('choice', { checked })}>
-        <div
-          className="box"
-          aria-label={checked ? 'Selected' : ''}
-        />
+      <div role="button"
+        aria-selected={checked}
+        className={cn('links', 'choice', { checked })}
+        onClick={partial(this.onSelectOption, 'links')}
+      >
         <div className="heading">
-          <p className="title">
+          <h3 className="title">
+            <SelectedIcon checked={checked} />
             Give students direct links
-          </p>
+          </h3>
           <p className="info">
             You will give students links to access OpenStax Tutor directly.
           </p>
@@ -52,15 +70,16 @@ class StudentAccess extends React.Component {
     const checked = true === this.props.course.is_lms_enabled;
 
     return (
-      <div className={cn('choice', { checked })}>
-        <div
-          className="box"
-          aria-label={checked ? 'Selected' : ''}
-        />
+      <div role="button"
+        aria-selected={checked}
+        className={cn('lms', 'choice', { checked })}
+        onClick={partial(this.onSelectOption, 'lms')}
+      >
         <div className="heading">
-          <p className="title">
+          <h3 className="title">
+            <SelectedIcon checked={checked} />
             Integrate with your learning management system (LMS)
-          </p>
+          </h3>
           <p className="info">
             Integrate OpenStax Tutor with Blackboard, Canvas, etc., to send
             student course averages to your LMS and enable single sign on.
@@ -68,20 +87,6 @@ class StudentAccess extends React.Component {
         </div>
       </div>
     );
-  }
-
-  @action.bound onSelectOption(isLMSEnabled, ev, displayLinksWarning = true) {
-    const { course } = this.props;
-    if (course.is_lms_enabled === isLMSEnabled){ return; }
-
-    if (!isLMSEnabled) {
-      this.displayLinksWarning = displayLinksWarning;
-      if (this.displayLinksWarning) {
-        return;
-      }
-    }
-    course.is_lms_enabled = isLMSEnabled;
-    course.save();
   }
 
   renderDirectLinks() {
@@ -113,13 +118,13 @@ class StudentAccess extends React.Component {
   }
 
   @action.bound forceLinksSwitch() {
-    this.onSelectOption(false, {}, false);
+    this.onSelectOption('links', false);
   }
 
   renderLinkSwitchWarning() {
     return (
       <Modal
-        show={this.displayLinksWarning}
+        show={!!this.displayLinksWarning}
         onHide={this.onHideLinkSwitch}
         className="warn-before-links"
       >
@@ -178,27 +183,31 @@ class StudentAccess extends React.Component {
         <a href="https://openstax.secure.force.com/help/articles/FAQ/What-is-the-difference-between-using-a-direct-link-and-using-LMS-integration-to-give-your-students-access-to-OpenStax-Tutor" target="_blank">
           <Icon type="info-circle" /> Which option is right for my course?
         </a>
-        <CardGroup
-          accordion
-          activeKey={isLMS ? true : isLinks ? false : 'none'}
-          onSelect={this.onSelectOption}
+        <div
         >
           <Card
             className={cn('links', { active: isLinks })}
-            header={this.renderDirectHeader()}
-            eventKey={false}
           >
-            <p>Send your students their section's direct links to enroll.</p>
-            {course.periods.active.map(p => <CopyOnFocusInput key={p.id} label={p.name} value={p.enrollment_url_with_details} />)}
+            <Card.Header>
+              {this.renderDirectHeader()}
+            </Card.Header>
+            <Card.Body>
+              <p>Send your students their section's direct links to enroll.</p>
+              {course.periods.active.map(p => <CopyOnFocusInput key={p.id} label={p.name} value={p.enrollment_url_with_details} />)}
+            </Card.Body>
           </Card>
+
           <Card
             className={cn('lms', { active: isLMS })}
-            eventKey={true}
-            header={this.renderLMSHeader()}
           >
-            {this.renderLMS()}
+            <Card.Header>
+              {this.renderLMSHeader()}
+            </Card.Header>
+            <Card.Body>
+              {this.renderLMS()}
+            </Card.Body>
           </Card>
-        </CardGroup>
+        </div>
       </div>
     );
   }

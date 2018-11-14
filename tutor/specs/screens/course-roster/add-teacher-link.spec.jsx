@@ -1,18 +1,17 @@
-import { React, Testing, sinon, ld, ReactTestUtils } from 'helpers';
-import { Promise } from 'es6-promise';
+import { ld } from '../../helpers';
 import Clipboard from '../../../src/helpers/clipboard';
 import { courseRosterBootstrap } from './bootstrap-data';
-import AddTeacher from '../../../src/components/course-roster/add-teacher-link';
+import AddTeacher from '../../../src/screens/course-roster/add-teacher-link';
 
 const COURSE_ID = '1';
 
 jest.mock('../../../src/helpers/clipboard');
 
 const displayPopover = props =>
-  new Promise( function(resolve, reject) {
+  new Promise( function(resolve) {
     const wrapper = mount(<AddTeacher {...props} />);
     wrapper.simulate('click');
-    resolve(_.last(document.querySelectorAll('.settings-add-instructor-modal')));
+    resolve(ld.last(document.querySelectorAll('.settings-add-instructor-modal')));
   })
 ;
 

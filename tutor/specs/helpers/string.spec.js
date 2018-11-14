@@ -54,17 +54,17 @@ const sortNumbersAndStrings = [[
 ]];
 
 const testSortOrderHelper = function(originalArray) {
-  const rando = _.shuffle(originalArray);
-  const firstSortRando = _.clone(rando).sort();
-  const sortedByFunc = _.sortBy(firstSortRando, S.getNumberAndStringOrder);
+  const rando = ld.shuffle(originalArray);
+  const firstSortRando = ld.clone(rando).sort();
+  const sortedByFunc = ld.sortBy(firstSortRando, S.getNumberAndStringOrder);
   return expect(sortedByFunc.join(',')).toEqual(originalArray.join(','));
 };
 
 const toRandomCase = function(string) {
   const cases = ['toLowerCase', 'toUpperCase'];
 
-  const randomedChars = _.map(string, function(letter) {
-    const randomCase = cases[_.random(0, 1)];
+  const randomedChars = ld.map(string, function(letter) {
+    const randomCase = cases[ld.random(0, 1)];
     const randoedLetter = letter[randomCase]();
     return randoedLetter;
   });
@@ -76,7 +76,7 @@ const toRandomCase = function(string) {
 describe('String helpers', function() {
 
   it('capitalizes', function() {
-    _.each(capitalizeStrings, function(stringToMatch) {
+    ld.each(capitalizeStrings, function(stringToMatch) {
       const allCapsString = stringToMatch.toUpperCase();
       const allLowerString = stringToMatch.toLowerCase();
       const randomCasedString = toRandomCase(stringToMatch);
@@ -89,17 +89,17 @@ describe('String helpers', function() {
   });
 
   it('helps sort strings and numbers', function() {
-    _.each(sortNumbersAndStrings, numAndStrings => testSortOrderHelper(numAndStrings));
+    ld.each(sortNumbersAndStrings, numAndStrings => testSortOrderHelper(numAndStrings));
     return undefined;
   });
 
   it('helps sort numbers only', function() {
-    _.each(sortNumbersOnly, numbersOnly => testSortOrderHelper(numbersOnly));
+    ld.each(sortNumbersOnly, numbersOnly => testSortOrderHelper(numbersOnly));
     return undefined;
   });
 
   it('helps sort strings only', function() {
-    _.each(sortStringsOnly, stringsOnly => testSortOrderHelper(stringsOnly));
+    ld.each(sortStringsOnly, stringsOnly => testSortOrderHelper(stringsOnly));
     return undefined;
   });
 
@@ -107,11 +107,11 @@ describe('String helpers', function() {
     // straight up title
     expect(S.titleize('foo bar baz')).toEqual('Foo Bar Baz');
     // ignores short words
-    expect(S.titleize('the 1st bar in a row went via postal mail')).to
-      .equal('The 1st Bar in a Row Went via Postal Mail');
+    expect(S.titleize('the 1st bar in a row went via postal mail'))
+      .toEqual('The 1st Bar in a Row Went via Postal Mail');
     // treats underscores and dashes properly
-    expect(S.titleize('my_words_are_concatenated-please help')).to
-      .equal('My Words Are Concatenated-Please Help');
+    expect(S.titleize('my_words_are_concatenated-please help'))
+      .toEqual('My Words Are Concatenated-Please Help');
     return undefined;
   });
 

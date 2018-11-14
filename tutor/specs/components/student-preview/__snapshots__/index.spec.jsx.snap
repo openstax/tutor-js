@@ -32,10 +32,12 @@ exports[`Student Preview Builder renders and matches snapshot 1`] = `
     <div
       className="vid col-sm-6"
     >
-      <span>
+      <span
+        className=""
+      >
         <div
-          className={undefined}
-          id={undefined}
+          className={null}
+          id={null}
         />
       </span>
     </div>

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import ld from 'underscore';
 
 import Helpers from '../src/helpers/task';
@@ -10,8 +9,8 @@ describe('TaskHelpers', function() {
       due_at: '2015-07-22T12:00:00.000Z',
       last_worked_at: '2015-07-21T17:09:44.012Z',
     });
-    expect( lateness.is_late ).to.be.false;
-    expect( lateness.how_late ).to.be.null;
+    expect( lateness.is_late ).toBe(false);
+    expect( lateness.how_late ).toBeNull();
     return undefined;
   });
 

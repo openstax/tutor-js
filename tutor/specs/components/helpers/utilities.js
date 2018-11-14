@@ -1,9 +1,8 @@
 import React from 'react';
 import Router from 'react-router-dom';
 import routes from '../../../src/routes';
-import { Promise } from 'es6-promise';
-import ld from 'underscore';
-import ReactTestUtils from 'react-addons-test-utils';
+import ld from 'lodash';
+import ReactTestUtils from 'react-dom/test-utils';
 
 const routerStub = {
   container: document.createElement('div'),
@@ -20,7 +19,7 @@ const routerStub = {
           return React.render(<Handler />, div, function() {
             const component = this;
             // merge in custom results with the default kitchen sink of results
-            result = _.defaults({ div, component, state, router, history }, result);
+            result = ld.defaults({ div, component, state, router, history }, result);
             return resolve(result);
           });
         } catch (error) {
@@ -65,7 +64,7 @@ const componentStub = {
         return React.render(component, div, function() {
           component = this;
           // merge in custom results with the default kitchen sink of results
-          result = _.defaults({ div, component }, result);
+          result = ld.defaults({ div, component }, result);
           return resolve(result);
         });
       } catch (error) {
@@ -187,7 +186,7 @@ const commonActions = {
     ReactTestUtils.Simulate.keyDown(textarea, { key: 'Enter' });
     ReactTestUtils.Simulate.change(textarea);
 
-    return _.defaults(args[0], { textarea });
+    return ld.defaults(args[0], { textarea });
   },
 
   fillTextarea(selector, response) {

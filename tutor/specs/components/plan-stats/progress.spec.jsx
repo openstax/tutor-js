@@ -1,4 +1,3 @@
-import { React, SnapShot } from 'helpers';
 import Progress from '../../../src/components/plan-stats/progress';
 
 import { Page } from '../../../src/models/task-plan/stats';
@@ -20,9 +19,7 @@ describe('TaskPlan stats progress bar', function() {
   });
 
   it('matches snapshot', function() {
-    const component = SnapShot.create(<Progress {...props} />);
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    expect.snapshot(<Progress {...props} />).toMatchSnapshot();
   });
 
   it('renders as all incorrect', async () => {

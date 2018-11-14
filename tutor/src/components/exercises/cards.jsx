@@ -70,14 +70,6 @@ class ExerciseCards extends React.Component {
     topScrollOffset: 110,
   };
 
-  // Important! - as an optimization, this component will only update if props have changed.
-  // This is necessary because there can be a very large number of exercise previews displaying at once
-  shouldComponentUpdate(nextProps) {
-    return (
-      !isEqual(nextProps, this.props)
-    );
-  }
-
   scroller = new ScrollTo({
     windowImpl: this.props.windowImpl,
     onAfterScroll: this.onAfterScroll,

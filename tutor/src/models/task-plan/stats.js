@@ -8,7 +8,7 @@ import { computed } from 'mobx';
 import { lazyInitialize } from 'core-decorators';
 import ChapterSection from '../chapter-section';
 import Exercise from '../exercises/exercise';
-import Question from 'shared/model/exercise/question';
+import { ReviewQuestion } from 'shared/model/exercise/question';
 
 @identifiedBy('task-plan/stats/answer-stat')
 class AnswerStat extends BaseModel {
@@ -46,18 +46,6 @@ class Answer extends BaseModel {
 
 }
 
-
-class ReviewQuestion {
-
-  constructor(question) {
-    this.q = question;
-  }
-  get id() { return this.q.question_id; }
-  @computed get answers() { return this.q.answer_stats; }
-  @computed get formats() { return this.q.content.formats; }
-  @computed get stem_html(){ return this.q.content.stem_html; }
-  @computed get stimulus_html() { return this.q.content.stimulus_html; }
-}
 
 
 const AnswersAssociation = {

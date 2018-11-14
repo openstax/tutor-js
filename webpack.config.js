@@ -21,7 +21,7 @@ const ENTRIES = {
     lmspair: './tutor/lms-pair.js',
   },
   exercises: { exercises: defaultEntry },
-  shared: { demo: './shared/demo.cjsx' },
+  shared: { demo: './shared/demo.js' },
 };
 
 const config = {

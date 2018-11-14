@@ -7,13 +7,14 @@ import Networking from './networking';
 const SETTINGS = observable.map();
 
 const saveSettingsDefaultImpl = debounce( () =>
+
   Networking.perform({
     method: 'PUT',
     url: URLs.construct('tutor_api', 'user', 'ui_settings'),
     withCredentials: true,
 
     data: {
-      ui_settings: SETTINGS.toJS(),
+      ui_settings: Map.toObject(SETTINGS),
     },
   })
   , 500);

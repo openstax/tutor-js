@@ -1,6 +1,5 @@
-import { React, SnapShot } from 'helpers';
+import { FakeWindow, Factory } from '../../helpers';
 import Sectionizer from '../../../src/components/exercises/sectionizer';
-import FakeWindow from 'shared/specs/helpers/fake-window';
 
 jest.mock('../../../../shared/src/components/html', () => ({ html }) =>
   html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
@@ -20,8 +19,7 @@ describe('Exercise Sectionizer Component', function() {
   });
 
   it('renders and matches snapshot', () => {
-    const component = SnapShot.create(<Sectionizer {...props} />);
-    expect(component.toJSON()).toMatchSnapshot();
+    expect.snapshot(<Sectionizer {...props} />).toMatchSnapshot();
   });
 
 });

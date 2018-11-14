@@ -88,7 +88,6 @@ exports[`Main Navbar renders and matches snapshot 1`] = `
       <div
         className="user-menu dropdown"
         onKeyDown={[Function]}
-        pullRight={true}
       >
         <button
           aria-expanded={false}

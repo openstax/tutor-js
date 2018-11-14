@@ -176,18 +176,21 @@ class CourseEnrollment extends BaseModel {
   }
 
   // called by api
-  create() {
+  @action create() {
     if (this.needsPeriodSelection) {
-      this.courseToJoin = new Course();
+      this.courseToJoin = new Course({});
       return { method: 'GET', url: `enrollment/${this.originalEnrollmentCode}/choices` };
     }
     return { data: pick(this, 'enrollment_code') };
   }
 
-  onEnrollmentCreate({ data }) {
+  @action onEnrollmentCreate({ data }) {
     if (this.needsPeriodSelection) {
-      if (!this.courseToJoin) { this.courseToJoin = new Course(); }
-      this.courseToJoin.update(data);
+      if (!this.courseToJoin) {
+        this.courseToJoin = new Course(data);
+      } else {
+        this.courseToJoin.update(data);
+      }
       if (this.courseToJoin.periods.length == 1) {
         this.enrollment_code = this.courseToJoin.periods[0].enrollment_code;
         this.create();

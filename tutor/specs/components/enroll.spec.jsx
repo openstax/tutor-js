@@ -1,8 +1,5 @@
-import { SnapShot } from './helpers';
-import Factory from '../factories';
+import { EnzymeContext, Factory, TutorRouter } from '../helpers';
 import Enroll from '../../src/components/enroll';
-import EnzymeContext from './helpers/enzyme-context';
-import Router from '../../src/helpers/router';
 import EnrollModel from '../../src/models/course/enroll';
 
 jest.mock('../../src/helpers/router');
@@ -11,20 +8,21 @@ describe('Student Enrollment', () => {
   let params, context, enrollment;
   let coursesMap;
   let fetchMock;
+  let course;
 
   beforeEach(() => {
     coursesMap = Factory.coursesMap();
     fetchMock = Promise.resolve();
     coursesMap.fetch = jest.fn(() => fetchMock);
-    const course = coursesMap.array[0];
+    course = coursesMap.array[0];
     coursesMap.set(course.id, course);
     params = { courseId: course.id };
 
     context = EnzymeContext.build();
     enrollment = new EnrollModel({ courses: coursesMap, llment_code: '1234', router: context.context.router });
     enrollment.create = jest.fn();
-    Router.currentParams.mockReturnValue(params);
-    Router.makePathname = jest.fn((name) => name);
+    TutorRouter.currentParams.mockReturnValue(params);
+    TutorRouter.makePathname = jest.fn((name) => name);
   });
 
   it('loads when mounted', async () => {
@@ -42,9 +40,9 @@ describe('Student Enrollment', () => {
     expect.snapshot(<Enroll enrollment={enrollment} />).toMatchSnapshot();
     const enroll = mount(<Enroll enrollment={enrollment} />);
 
-    Router.makePathname = jest.fn(() => '/courses');
+    TutorRouter.makePathname = jest.fn(() => '/courses');
     enroll.find('Button').simulate('click');
-    expect(Router.makePathname).toHaveBeenCalledWith('myCourses');
+    expect(TutorRouter.makePathname).toHaveBeenCalledWith('myCourses');
     expect(enrollment.router.history.push).toHaveBeenCalledWith('/courses');
   });
 
@@ -95,13 +93,12 @@ describe('Student Enrollment', () => {
     });
 
     it('can display a list of periods when joining from enrollment launch uuid', () => {
-      enrollment.onSubmitPeriod = jest.fn();
       const enroll = mount(<Enroll enrollment={enrollment} />);
       expect(enroll).toHaveRendered('SelectPeriod');
       enroll.find('.choice').last().simulate('click');
       enroll.find('.btn-primary').simulate('click');
       expect(enrollment.pendingEnrollmentCode).toEqual('4321');
-      expect(enrollment.onSubmitPeriod).toHaveBeenCalled();
+
     });
 
     it('skips period selection when course has only one', () => {

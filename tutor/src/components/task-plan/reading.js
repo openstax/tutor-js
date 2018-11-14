@@ -136,7 +136,8 @@ class ChooseReadings extends React.Component {
 
     const primary =
       <Button
-        className="-show-problems"
+        key="show-problems-btn"
+        className="show-problems"
         variant={buttonStyle}
         disabled={(this.props.selected != null ? this.props.selected.length : undefined) === 0}
         onClick={this.hide}>
@@ -181,15 +182,17 @@ const ReadingPlan = createReactClass({
 
     const addReadingText = (topics != null ? topics.length : undefined) ? 'Add More Readings' : 'Add Readings';
 
-
     if (this.state.showSectionTopics) {
-      selectReadings = <ChooseReadings
-                         hide={this.hideSectionTopics}
-                         cancel={this.cancelSelection}
-                         courseId={courseId}
-                         planId={id}
-                         ecosystemId={ecosystemId}
-                         selected={topics} />;
+      selectReadings = (
+        <ChooseReadings
+          hide={this.hideSectionTopics}
+          cancel={this.cancelSelection}
+          courseId={courseId}
+          planId={id}
+          ecosystemId={ecosystemId}
+          selected={topics}
+        />
+      );
     }
 
     const formClasses = classnames(
@@ -202,14 +205,19 @@ const ReadingPlan = createReactClass({
     );
 
     if (!this.state.isVisibleToStudents) {
-      addReadingsButton = <Button
-                            id="reading-select"
-                            className={classnames('-select-sections-btn', { 'invalid': hasError && !(topics != null ? topics.length : undefined) })}
-                            onClick={this.showSectionTopics}
-                            variant="default">
-        {'+ '}
-        {addReadingText}
-      </Button>;
+      addReadingsButton = (
+        <Button
+          id="reading-select"
+          className={classnames('-select-sections-btn', {
+            'invalid': hasError && !(topics != null ? topics.length : undefined)
+          })}
+          onClick={this.showSectionTopics}
+          variant="default"
+        >
+          {'+ '}
+          {addReadingText}
+        </Button>
+      );
     }
 
     if (hasError && !(topics != null ? topics.length : undefined)) {
@@ -240,7 +248,8 @@ const ReadingPlan = createReactClass({
                     courseId={courseId}
                     planId={id}
                     ecosystemId={ecosystemId}
-                    selected={topics} />
+                    selected={topics}
+                  />
                   {addReadingsButton}
                   <NoQuestionsTooltip />
                   {readingsRequired}

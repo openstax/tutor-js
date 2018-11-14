@@ -1,8 +1,4 @@
-import { expect } from 'chai';
-import { Promise } from 'es6-promise';
-import ld from 'underscore';
-import React from 'react';
-import ReactTestUtils from 'react-addons-test-utils';
+import { ld, TestUtils } from '../../../helpers';
 
 import { TaskStepActions, TaskStepStore } from '../../../../src/flux/task-step';
 import { TaskActions, TaskStore } from '../../../../src/flux/task';
@@ -29,7 +25,7 @@ const checks = {
   },
 
   _checkIsNotIntroScreen({ div, component, state, router, history }) {
-    expect(div.querySelector('.-task-intro')).to.be.null;
+    expect(div.querySelector('.-task-intro')).toBeNull();
 
     return { div, component, state, router, history };
   },
@@ -50,7 +46,7 @@ const checks = {
   _checkRenderFreeResponse({ div, component, stepId, taskId, state, router, history }) {
     const continueButton = div.querySelector('.continue');
 
-    expect(div.querySelector('.answers-table')).to.be.null;
+    expect(div.querySelector('.answers-table')).toBeNull();
     expect(continueButton.disabled).toBe(true);
 
     // TODO
@@ -75,7 +71,7 @@ const checks = {
     // Prevent continue until answer chosen, answers should be showing.
     expect(continueButton.disabled).toBe(true);
     expect(div.querySelector('.answers-table')).to.not.be.null;
-    expect(div.querySelector('.answer-checked')).to.be.null;
+    expect(div.querySelector('.answer-checked')).toBeNull();
     return { div, component, stepId, taskId, state, router, history };
   },
 
@@ -99,14 +95,14 @@ const checks = {
 
       expect(div.querySelector('.question-feedback-content').innerHTML).toEqual(feedback_html);
     } else {
-      expect(div.querySelector('.answer-correct .answer-answer')).to.be.null;
+      expect(div.querySelector('.answer-correct .answer-answer')).toBeNull();
     }
 
     return { div, component, stepId, taskId, state, router, history, correct_answer, feedback_html };
   },
 
   _checkNotFeedback({ div, component, stepId, taskId, state, router, history }) {
-    expect(div.querySelector('.question-feedback-content')).to.be.null;
+    expect(div.querySelector('.question-feedback-content')).toBeNull();
     return { div, component, stepId, taskId, state, router, history };
   },
 
@@ -117,7 +113,7 @@ const checks = {
 
   _checkRecoveryContent({ div, component, stepId, taskId, state, router, history }) {
     expect(div.innerText).to.contain('recovery');
-    expect(div.querySelector('.task-footer-buttons')).to.be.null;
+    expect(div.querySelector('.task-footer-buttons')).toBeNull();
     expect(div.querySelector('.continue')).to.not.be.null;
 
     return { div, component, stepId, taskId, state, router, history };
@@ -136,7 +132,7 @@ const checks = {
   _checkIsNotCompletePage({ div, component, stepId, taskId, state, router, history }) {
     let { type } = TaskStore.get(taskId);
     if (type == null) { type = 'task'; }
-    expect(div.querySelector(`.-${type}-completed`)).to.be.null;
+    expect(div.querySelector(`.-${type}-completed`)).toBeNull();
 
     return { div, component, stepId, taskId, state, router, history };
   },
@@ -191,7 +187,7 @@ const checks = {
   },
 
   _checkHasAllBreadcrumbs({ div, component, stepId, taskId, state, router, history }) {
-    const breadcrumbs = ReactTestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic);
+    const breadcrumbs = TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic);
     const steps = TaskStore.getStepsIds(taskId);
 
     expect(breadcrumbs.length).toEqual(steps.length + 1);
@@ -201,8 +197,8 @@ const checks = {
 
   _checkHasReviewableBreadcrumbs({ div, component, stepId, taskId, state, router, history }) {
     let expectedCrumbs;
-    const breadcrumbs = ReactTestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic);
-    const progress = ReactTestUtils.scryRenderedComponentsWithType(component, ProgressBar);
+    const breadcrumbs = TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic);
+    const progress = TestUtils.scryRenderedComponentsWithType(component, ProgressBar);
     const completedSteps = TaskStore.getCompletedSteps(taskId);
     const steps = TaskStore.getSteps(taskId);
     const { type } = TaskStore.get(taskId);
@@ -214,8 +210,8 @@ const checks = {
   },
 
   _checkHasReadingProgressBar({ div, component, stepId, taskId, state, router, history }) {
-    const progress = ReactTestUtils.scryRenderedComponentsWithType(component, ProgressBar);
-    const progressPanel = ReactTestUtils.scryRenderedComponentsWithType(component, ProgressPanel);
+    const progress = TestUtils.scryRenderedComponentsWithType(component, ProgressBar);
+    const progressPanel = TestUtils.scryRenderedComponentsWithType(component, ProgressPanel);
 
     expect(progress.length).toEqual(1);
     expect(progressPanel.length).toEqual(1);
@@ -224,7 +220,7 @@ const checks = {
   },
 
   _checkHasExpectedGroupLabel({ div, component, stepId, taskId, state, router, history }) {
-    const group = ReactTestUtils.scryRenderedComponentsWithType(component, ExerciseGroup)[0];
+    const group = TestUtils.scryRenderedComponentsWithType(component, ExerciseGroup)[0];
     const step = TaskStepStore.get(stepId);
 
     if (step.group === 'personalized') {
@@ -240,7 +236,7 @@ const checks = {
 
 
 // promisify for chainability in specs
-_.each(checks, function(check, checkName) {
+ld.each(checks, function(check, checkName) {
   // rename without _ in front
   const promiseName = checkName.slice(1);
 
@@ -261,7 +257,7 @@ checks.checkIsMatchStep = matchStepIndex =>
 ;
 
 checks._checkIsPendingStep = function(stepIndex, { div, component, stepId, taskId, state, router, history }) {
-  const breadcrumbs = ReactTestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic);
+  const breadcrumbs = TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic);
   const placeholderBreadcrumb = breadcrumbs[stepIndex];
 
   const placeholderBreadcrumbDOM = placeholderBreadcrumb.getDOMNode();
@@ -279,8 +275,8 @@ checks.checkIsPendingStep = matchStepIndex =>
 
 checks._checkIsNotPendingStep = function(stepIndex, ...args) {
   const { component } = args[0];
-  let breadcrumbs = ReactTestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic);
-  breadcrumbs = ReactTestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic);
+  let breadcrumbs = TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic);
+  breadcrumbs = TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic);
   const placeholderBreadcrumb = breadcrumbs[stepIndex];
 
   const placeholderBreadcrumbDOM = placeholderBreadcrumb.getDOMNode();

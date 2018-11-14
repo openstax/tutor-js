@@ -1,7 +1,6 @@
-import { SnapShot, Wrapper } from './helpers';
+import { C, EnzymeContext } from '../helpers';
 import CourseListing from '../../src/components/my-courses';
 import { flatten } from 'lodash';
-import EnzymeContext from './helpers/enzyme-context';
 import Courses from '../../src/models/courses-map';
 import User from '../../src/models/user';
 import Offerings from '../../src/models/course/offerings/index';
@@ -9,7 +8,7 @@ import OFFERINGS from '../../api/offerings';
 import moment from 'moment';
 jest.mock('../../src/models/chat');
 
-import { bootstrapCoursesList, STUDENT_COURSE_ONE_MODEL, TEACHER_COURSE_TWO_MODEL, TEACHER_AND_STUDENT_COURSE_THREE_MODEL, MASTER_COURSES_LIST, TUTOR_HELP, CONCEPT_COACH_HELP, STUDENT_ARCHIVED_COURSE, TEACHER_PAST_COURSE, STUDENT_PASTldCOURSE } from '../courses-test-data';
+import { bootstrapCoursesList, STUDENT_COURSE_ONE_MODEL, TEACHER_COURSE_TWO_MODEL, TEACHER_AND_STUDENT_COURSE_THREE_MODEL, MASTER_COURSES_LIST, TUTOR_HELP, CONCEPT_COACH_HELP, STUDENT_ARCHIVED_COURSE, TEACHER_PAST_COURSE, STUDENT_PAST_COURSE } from '../courses-test-data';
 
 const loadTeacherUser = () => User.faculty_status = 'confirmed_faculty';
 
@@ -29,16 +28,11 @@ describe('My Courses Component', function() {
   });
 
   it('matches snapshot', function() {
-    const component = SnapShot.create(
-      <Wrapper _wrapped_component={CourseListing} noReference />
-    );
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-    component.unmount();
+    expect.snapshot(<C><CourseListing /></C>).toMatchSnapshot();
   });
 
   it('renders the listing sorted', async function() {
-    const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
+    const wrapper = mount(<C><CourseListing /></C>);
     expect(await axe(wrapper.html())).toHaveNoViolations();
     for (let i = 0; i < MASTER_COURSES_LIST.length; i++) {
       const course = MASTER_COURSES_LIST[i];
@@ -56,15 +50,16 @@ describe('My Courses Component', function() {
 
   it('renders add course action if user is teacher', function() {
     loadTeacherUser();
-    const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
+    const wrapper = mount(<C><CourseListing /></C>);
     expect(User.isConfirmedFaculty).toBeTruthy();
+
     expect(wrapper).toHaveRendered('.my-courses-add-zone');
     wrapper.unmount();
   });
 
   it('renders controls for course if user is teacher of course', function() {
     loadTeacherUser();
-    const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
+    const wrapper = mount(<C><CourseListing /></C>);
     for (let i = 0; i < MASTER_COURSES_LIST.length; i++) {
       const course = MASTER_COURSES_LIST[i];
       if (Courses.get(course.id).isTeacher) {
@@ -76,7 +71,7 @@ describe('My Courses Component', function() {
 
   it('does not render controls for course if user is student of course', function() {
     loadTeacherUser();
-    const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
+    const wrapper = mount(<C><CourseListing /></C>);
     for (let i = 0; i < MASTER_COURSES_LIST.length; i++) {
       const course = MASTER_COURSES_LIST[i];
       if (!Courses.get(course.id).isTeacher) {
@@ -89,7 +84,7 @@ describe('My Courses Component', function() {
   it('renders past courses in past courses listing', function() {
     loadTeacherUser();
     Courses.bootstrap([TEACHER_PAST_COURSE, STUDENT_PAST_COURSE], { clear: true });
-    const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
+    const wrapper = mount(<C><CourseListing /></C>);
     expect(wrapper).toHaveRendered(`.my-courses-past [data-course-id='${TEACHER_PAST_COURSE.id}']`);
     expect(wrapper).toHaveRendered(`.my-courses-past [data-course-id='${STUDENT_PAST_COURSE.id}']`);
   });
@@ -101,12 +96,12 @@ describe('My Courses Component', function() {
   });
 
   it('renders course appropriate flag', function() {
-    const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
+    const wrapper = mount(<C><CourseListing /></C>);
     for (let i = 0; i < MASTER_COURSES_LIST.length; i++) {
       const course = MASTER_COURSES_LIST[i];
       expect(
-        wrapper.find(`[data-course-id='${course.id}'] .my-courses-item-brand`).render().text()
-      ).equal('OpenStax Tutor');
+        wrapper.find(`[data-course-id='${course.id}'] p.my-courses-item-brand`).render().text()
+      ).toEqual('OpenStax Tutor');
     }
   });
 
@@ -132,9 +127,8 @@ describe('My Courses Component', function() {
     Courses.clear();
     loadTeacherUser();
     loadOfferings();
-    const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
+    const wrapper = mount(<C><CourseListing /></C>);
     expect(wrapper).toHaveRendered('[data-tour-anchor-id="explore-a-preview-zone"]');
-    expect(wrapper).toHaveRendered('[data-tour-anchor-id="create-course-zone"]');
     wrapper.unmount();
   });
 
@@ -150,7 +144,7 @@ describe('My Courses Component', function() {
 
     it('hides previews if they have courses', () => {
       loadTeacherUser();
-      const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
+      const wrapper = mount(<C><CourseListing /></C>);
       expect(wrapper).toHaveRendered('MyCoursesPreview MyCoursesBasic');
       User.school_type = 'unknown_school_type';
       expect(wrapper).not.toHaveRendered('MyCoursesPreview MyCoursesBasic');

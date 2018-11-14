@@ -19,6 +19,9 @@ export class BaseModel {
   @computed get isNew() {
     const schema = getSchema(this.constructor);
     const idField = find(Array.from(schema.properties.values()), { type: 'identifier' });
+    if (!idField) {
+      return false;
+    }
     const id = this[idField.name];
     return isNil(id) || FLUX_NEW.test(id);
   }

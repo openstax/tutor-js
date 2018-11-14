@@ -1,6 +1,5 @@
-import { React, SnapShot } from '../../helpers';
+import { React } from '../../helpers';
 import Factory from '../../factories';
-import UiSettings from 'shared/model/ui-settings';
 import Helper from '../../../src/screens/teacher-dashboard/helper';
 import Toggle from '../../../src/screens/teacher-dashboard/sidebar-toggle';
 
@@ -57,8 +56,6 @@ describe('CourseCalendar Sidebar Toggle', function() {
   });
 
   it('matches snapshot', function() {
-    const component = SnapShot.create(<Toggle {...props} />);
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    expect.snapshot(<Toggle {...props} />).toMatchSnapshot();
   });
 });

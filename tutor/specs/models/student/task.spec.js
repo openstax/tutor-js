@@ -1,6 +1,6 @@
 import Task from '../../../src/models/student/task';
 import moment from 'moment';
-import COURSE_1ldDATA from '../../../api/courses/1/dashboard.json';
+import COURSE_1_DATA from '../../../api/courses/1/dashboard.json';
 
 const TASK = COURSE_1_DATA.tasks[0];
 jest.mock('../../../src/flux/time', () => ({

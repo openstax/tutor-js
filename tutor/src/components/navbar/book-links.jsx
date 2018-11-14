@@ -3,17 +3,17 @@ import React from 'react';
 
 import TutorLink from '../link';
 import { get } from 'lodash';
-import Courses from '../../models/courses-map';
+import Course from '../../models/course';
 import { Icon } from 'shared';
 
 export default class BookLinks extends React.Component {
 
   static propTypes = {
-    courseId: PropTypes.string,
+    course: PropTypes.instanceOf(Course),
   }
 
   render() {
-    const course = Courses.get(this.props.courseId);
+    const course = this.props.course;
     if (!get(course, 'is_concept_coach')) { return null; }
 
     const links = [];
@@ -28,7 +28,7 @@ export default class BookLinks extends React.Component {
       links.push(
         <a key="webview" target="_blank" href={course.webview_url}>
           <span>Online Book</span>
-          <Icon type="external-link" />
+          <Icon type="external-link-alt" />
         </a>
       );
     }

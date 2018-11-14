@@ -1,6 +1,6 @@
-import ld from 'underscore';
+import { C, ld } from '../../helpers/index';
 import { TaskPlanActions, TaskPlanStore } from '../../../src/flux/task-plan';
-import { Testing } from 'helpers';
+
 
 const tomorrow = (new Date(Date.now() + (1000 * 3600 * 24))).toISOString();
 const dayAfter = (new Date(Date.now() + (1000 * 3600 * 24 * 2))).toISOString();
@@ -22,10 +22,10 @@ const ExtendBasePlan = function(props, taskingProps = {}, extendTasking = true) 
     target_type: 'period',
   };
 
-  baseModel = _.extend({}, baseModel, props);
+  baseModel = ld.extend({}, baseModel, props);
 
   if ((taskingProps != null) && extendTasking) {
-    baseTaskingPlan = _.extend({}, baseTaskingPlan, taskingProps);
+    baseTaskingPlan = ld.extend({}, baseTaskingPlan, taskingProps);
 
     baseModel.tasking_plans = [];
     baseModel.tasking_plans.push(baseTaskingPlan);
@@ -34,12 +34,12 @@ const ExtendBasePlan = function(props, taskingProps = {}, extendTasking = true) 
   return baseModel;
 };
 
-const PlanRenderHelper = function(model, component, moreProps = {}, routerParams, routerQuery) {
+const PlanRenderHelper = function(model, Component, moreProps = {}, routerParams, routerQuery) {
   const { id } = model;
   // Load the plan into the store
   TaskPlanActions.loaded(model, id);
-  const props = _.extend({ id, courseId: '1' }, moreProps);
-  return Testing.renderComponent( component, { props, routerParams, routerQuery });
+  const props = ld.extend({ id }, moreProps);
+  return mount(<C><Component {...props} /></C>);
 };
 
 export { ExtendBasePlan, PlanRenderHelper };

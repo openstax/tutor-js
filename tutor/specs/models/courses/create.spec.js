@@ -73,6 +73,7 @@ describe('Course Builder UX Model', () => {
     });
 
     it('does not clone if the course offering is no longer available', () => {
+      expect(creator.term).not.toBeUndefined();
       const mockOffering = { name: 'My Test Course', is_available: false };
       Offerings.get.mockImplementation(() => mockOffering);
       const { course, saved } = prepCourseClone();

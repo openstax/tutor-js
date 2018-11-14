@@ -36,11 +36,11 @@ describe('DOM Helpers', function() {
   });
 
   it('returns null when not found', function() {
-    expect( DOM(p).closest( 'img' ) ).to.be.null;
+    expect( DOM(p).closest( 'img' ) ).toBeNull();
   });
 
   it('does not find siblings', function() {
-    expect( DOM(p).closest( '.wfig' ) ).to.be.null;
+    expect( DOM(p).closest( '.wfig' ) ).toBeNull();
   });
 
   return it('can read bootstrap data', function() {

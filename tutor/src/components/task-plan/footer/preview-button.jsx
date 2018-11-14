@@ -1,3 +1,4 @@
+import { idType } from 'shared';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { includes } from 'lodash';
@@ -12,7 +13,7 @@ export default
 class PreviewButton extends React.Component {
 
   static propTypes = {
-    courseId:   PropTypes.string.isRequired,
+    courseId:   idType.isRequired,
     planType:   PropTypes.string.isRequired,
     isWaiting:  PropTypes.bool.isRequired,
     isNew:      PropTypes.bool.isRequired,

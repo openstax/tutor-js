@@ -1,6 +1,6 @@
 import { autorun } from 'mobx';
 
-import FeatureFlags, { FeatureFlagsApi, defaultValues } from '../../src/models/featureldflags';
+import FeatureFlags, { FeatureFlagsApi, defaultValues } from '../../src/models/feature_flags';
 
 describe('Feature Flags', () => {
 

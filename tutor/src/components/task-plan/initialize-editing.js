@@ -2,7 +2,6 @@ import moment from 'moment-timezone';
 import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
 import Courses from '../../models/courses-map';
 import TimeHelper from '../../helpers/time';
-import { toJS } from 'mobx';
 import { TimeStore } from '../../flux/time';
 import { TaskingStore, TaskingActions } from '../../flux/tasking';
 import _ from 'underscore';

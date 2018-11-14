@@ -23,14 +23,14 @@ const StudentPreview = observer(({ course, tourContext, ...props }, { router }) 
       {...props}
       id="student-preview-videos"
       onClick={() => {
-          router.history.push(Router.makePathname('studentPreview', { courseId: course.id }));
+        router.history.push(Router.makePathname('studentPreview', { courseId: course.id }));
       }}
     >
       <TourAnchor id="student-preview-link">
         <span className="control-label" title="See what students see">Student preview videos</span>
       </TourAnchor>
     </Dropdown.Item>
-  );
+        );
 });
 
 StudentPreview.contextTypes = {
@@ -123,7 +123,6 @@ class SupportMenu extends React.Component {
 
   render() {
     const { course, open, onClose, rootCloseEvent } = this.props;
-
     return (
       <Dropdown
         className="support-menu"
@@ -155,7 +154,7 @@ class SupportMenu extends React.Component {
           >
             <span>Help Articles</span>
           </Dropdown.Item>
-          <StudentPreview courseId={course ? course.id : null} {...this.props} />
+          <StudentPreview course={course} {...this.props} />
           <SupportDocument course={course} />
           <BestPracticesGuide course={course} />
           <Dropdown.Item

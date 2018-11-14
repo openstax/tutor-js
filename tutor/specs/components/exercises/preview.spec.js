@@ -1,8 +1,6 @@
-import { React, SnapShot } from 'helpers';
+import { React } from '../../helpers';
 import ExercisePreviewWrapper from '../../../src/components/exercises/preview';
-
 import Factory from '../../factories';
-import Sequence from 'object-factory-bot/sequences';
 
 jest.mock('../../../../shared/src/components/html', () => ({ className, html }) =>
   html ? <div className={className} dangerouslySetInnerHTML={{ __html: html }} /> : null
@@ -13,8 +11,6 @@ describe('Exercise Preview Wrapper Component', function() {
 
   beforeEach(() => {
     exercise = Factory.tutorExercise();
-    Sequence.map.clear();
-
     props = {
       exercise,
       onShowDetailsViewClick: jest.fn(),

@@ -134,7 +134,7 @@ class Hypothesis extends BaseModel {
     }))
       .then((axiosResponse) => {
         if (axiosResponse.data) {
-          return axiosResponse.data;
+          return axiosResponse.data
         } else {
           throw new Error(`server returned malformed response: ${JSON.stringify(axiosResponse)}`);
         }

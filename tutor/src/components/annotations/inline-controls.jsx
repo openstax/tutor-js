@@ -19,7 +19,7 @@ const InlineControls = observer(({ windowImpl, pendingHighlight, annotate, paren
 
   return (
     <div className="inline-controls" style={style}>
-      <Icon className="annotate" type="comment" alt="annotate" onClick={annotate} />
+      <Icon className="annotate" size="lg" type="comment" alt="annotate" onClick={annotate} />
       <button className="highlight" onClick={highlight}>
         <HighlightIcon role="button" alt="highlight" />
       </button>

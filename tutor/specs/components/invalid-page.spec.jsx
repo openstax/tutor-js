@@ -1,13 +1,11 @@
-import { SnapShot, Wrapper } from './helpers';
+import { C } from '../helpers';
 import InvalidPage from '../../src/components/invalid-page';
 
 describe('Invalid Page', () => {
   it('renders and matches snapshot', () => {
     const wrapper = shallow(<InvalidPage />);
     expect(wrapper).toHaveRendered('OXColoredStripe');
-    expect.snapshot(
-      <Wrapper _wrapped_component={InvalidPage} noReference />
-    ).toMatchSnapshot();
+    expect.snapshot(<C noRef><InvalidPage /></C>).toMatchSnapshot();
   });
 
   it('renders a custom message', () => {

@@ -7,7 +7,7 @@ import { observer } from 'mobx-react';
 import AnswersTable from './answers-table';
 import ArbitraryHtmlAndMath from '../html';
 import FormatsListing from './formats-listing';
-import QuestionModel from '../../model/exercise/question';
+import QuestionModel, { ReviewQuestion } from '../../model/exercise/question';
 
 @observer
 class QuestionHtml extends React.Component {
@@ -51,7 +51,10 @@ export default
 class Question extends React.Component {
 
   static propTypes = {
-    question: PropTypes.instanceOf(QuestionModel).isRequired,
+    question: PropTypes.oneOfType([
+      PropTypes.instanceOf(QuestionModel),
+      PropTypes.instanceOf(ReviewQuestion),
+    ]).isRequired,
     task: PropTypes.object,
     correct_answer_id: PropTypes.string,
     hideAnswers: PropTypes.bool,

@@ -1,14 +1,12 @@
-import { expect } from 'chai';
-import sinon from 'sinon';
 import ld from 'underscore';
 
 import { MediaActions, MediaStore } from '../../src/flux/media';
 import { TaskActions, TaskStore } from '../../src/flux/task';
 import { bootstrapCoursesList } from '../courses-test-data';
 
-import TASKldDATA from '../../api/tasks/4.json';
-import REFERENCEldBOOK from '../../api/ecosystems/1/readings.json';
-import REFERENCE_BOOK_PAGEldDATA from '../../api/pages/17f6ff53-2d92-4669-acdd-9a958ea7fd0a@12.json';
+import TASK_DATA from '../../api/tasks/4.json';
+import REFERENCE_BOOK from '../../api/ecosystems/1/readings.json';
+import REFERENCE_BOOK_PAGE_DATA from '../../api/pages/17f6ff53-2d92-4669-acdd-9a958ea7fd0a@12.json';
 
 const TEST_MEDIA_ID = 'test-media';
 const TEST_MEDIA = `<figure id=\"${TEST_MEDIA_ID}\"><figcaption>This is some test media.</figcaption></figure>`;
@@ -42,15 +40,13 @@ describe('Media flux', function() {
 
   it('should have expected functions', function() {
 
-    _.each(expectedActions, action =>
-      expect(MediaActions)
-        .to.have.property(action).that.is.a('function')
-    );
+    ld.each(expectedActions, action => {
+      expect(MediaActions[action]).toBeTruthy();
+    });
 
-    _.each(expectedStore, storeAsker =>
-      expect(MediaStore)
-        .to.have.property(storeAsker).that.is.a('function')
-    );
+    ld.each(expectedStore, storeAsker => {
+      expect(MediaStore[storeAsker]).toBeTruthy();
+    });
     return undefined;
   });
 
@@ -58,11 +54,8 @@ describe('Media flux', function() {
     MediaActions.parse(TEST_HTML);
     const media = MediaStore.get(TEST_MEDIA_ID);
 
-    expect(media)
-      .to.have.property('name').and.equal('figure');
-    expect(media)
-      .to.have.property('html').and.equal(TEST_MEDIA);
-    return undefined;
+    expect(media.name).toEqual('figure');
+    expect(media.html).toEqual(TEST_MEDIA);
   });
 
   it('should be able to parse over a stored media', function() {
@@ -70,10 +63,8 @@ describe('Media flux', function() {
     MediaActions.parse(TEST_SECOND_HTML);
     const media = MediaStore.get(TEST_MEDIA_ID);
 
-    expect(media)
-      .to.have.property('name').and.equal('table');
-    expect(media)
-      .to.have.property('html').and.equal(TEST_SECOND_MEDIA);
+    expect(media.name).toEqual('table');
+    expect(media.html).toEqual(TEST_SECOND_MEDIA);
     return undefined;
   });
 
@@ -81,20 +72,15 @@ describe('Media flux', function() {
     MediaActions.parse(TEST_BOTH_HTML);
     const media = MediaStore.get(TEST_MEDIA_ID);
 
-    expect(media)
-      .to.have.property('name').and.equal('figure');
-    expect(media)
-      .to.have.property('html').and.equal(TEST_MEDIA);
-    return undefined;
+    expect(media.name).toEqual('figure');
+    expect(media.html).toEqual(TEST_MEDIA);
   });
 
   it('should be able to parse HTML from tasks, even across steps and in questions', function() {
     TaskActions.loaded(TASK_DATA);
     const mediaIds = MediaStore.getMediaIds();
 
-    expect(mediaIds)
-      .to.include('figure-from-another-step').and.to.include('fig25-3');
-    return undefined;
+    expect(mediaIds).toContain('fig25-3');
   });
 
   return it('should be able to parse HTML from reference book pages', function() {
@@ -103,8 +89,7 @@ describe('Media flux', function() {
     course.referenceBook.pages.byChapterSection.get('1.2').onContentFetchComplete({ data: REFERENCE_BOOK_PAGE_DATA });
     const mediaIds = MediaStore.getMediaIds();
 
-    expect(mediaIds)
-      .toHaveLength(10);
+    expect(mediaIds).toHaveLength(10);
     return undefined;
   });
 });

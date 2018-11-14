@@ -23,7 +23,7 @@ describe('Async Button Component', function() {
 
     it('hides spinner and is not disabled', () => {
       const button = mount(<Button {...props} />);
-      expect(button).not.toHaveRendered('[disabled]');
+      expect(button).toHaveRendered('Button[disabled=false]');
       expect(button).not.toHaveRendered('Icon');
       button.unmount();
     });
@@ -31,7 +31,7 @@ describe('Async Button Component', function() {
     it('shows spinner and is disabled when true', function() {
       props.isWaiting = true;
       const button = mount(<Button {...props} />);
-      expect(button).not.toHaveRendered('[disabled]');
+      expect(button).toHaveRendered('Button[disabled=true]');
       expect(button).toHaveRendered('Icon');
       button.setProps({ isDisabled: true });
       expect(button).toHaveRendered('button[disabled]');

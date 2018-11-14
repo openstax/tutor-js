@@ -133,7 +133,7 @@ Array [
       "separator": "after",
     },
     "params": Object {
-      "sourceId": undefined,
+      "sourceId": 1,
     },
   },
 ]

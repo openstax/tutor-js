@@ -1,9 +1,9 @@
-import { React, SnapShot } from 'helpers';
+import { C, TestRouter } from '../../helpers';
 import TutorRouter from '../../../src/helpers/router';
 import Courses from '../../../src/models/courses-map';
-import TestRouter from '../helpers/test-router';
 import COURSE from '../../../api/user/courses/1.json';
 import Handlers from '../../../src/components/error-monitoring/handlers';
+
 jest.mock('../../../src/helpers/router');
 const COURSE_ID = '1';
 
@@ -35,16 +35,16 @@ describe('Error monitoring: handlers', () => {
       status: 500, statusMessage: '500 Error fool!', config: {},
     };
     const attrs = Handlers.forError(error`blarg`, context);
-    expect(attrs.title).to.include('Server Error');
+    expect(attrs.title).toContain('Server Error');
     const wrapper = shallow(<Wrapper body={attrs.body} />);
     expect(wrapper.find('ServerErrorMessage')).toHaveLength(1);
   });
 
   it('renders not started message', function() {
     const attrs = Handlers.forError(error`course_not_started`, context);
-    expect(attrs.title).to.include('Future');
+    expect(attrs.title).toContain('Future');
     const wrapper = shallow(<Wrapper body={attrs.body} />);
-    expect(wrapper.text()).to.include('not yet started');
+    expect(wrapper.text()).toContain('not yet started');
     attrs.onOk();
     expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', { courseId: COURSE_ID });
     expect(context.router.history.push).toHaveBeenCalledWith('/go/to/dash');
@@ -52,9 +52,9 @@ describe('Error monitoring: handlers', () => {
 
   it('renders course ended message', function() {
     const attrs = Handlers.forError(error`course_ended`, context);
-    expect(attrs.title).to.include('Past');
+    expect(attrs.title).toContain('Past');
     const wrapper = shallow(<Wrapper body={attrs.body} />);
-    expect(wrapper.text()).to.include('course ended');
+    expect(wrapper.text()).toContain('course ended');
     attrs.onOk();
     expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', { courseId: COURSE_ID });
     expect(context.router.history.push).toHaveBeenCalledWith('/go/to/dash');
@@ -62,9 +62,9 @@ describe('Error monitoring: handlers', () => {
 
   it('renders exercises not found', function() {
     const attrs = Handlers.forError(error`no_exercises`, context);
-    expect(attrs.title).to.include('No exercises are available');
+    expect(attrs.title).toContain('No exercises are available');
     const wrapper = shallow(<Wrapper body={attrs.body} />);
-    expect(wrapper.text()).to.include('no problems to show');
+    expect(wrapper.text()).toContain('no problems to show');
     attrs.onOk();
     expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', { courseId: COURSE_ID });
     expect(context.router.history.push).toHaveBeenCalledWith('/go/to/dash');

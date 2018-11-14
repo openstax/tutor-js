@@ -18,7 +18,7 @@ const MESSAGES = {
 };
 
 
-export default class TaskSaveButton extends React.Component {
+export default class SaveTaskButton extends React.Component {
 
   static propTypes = {
     onSave: PropTypes.func.isRequired,

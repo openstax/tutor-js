@@ -1,8 +1,4 @@
-import { SnapShot } from 'helpers';
-import Factory, { FactoryBot } from '../../factories';
-import TaskPlan from '../../../src/models/task-plan/teacher';
-import planData from '../../../api/plans/1.json';
-import statsData from '../../../api/plans/1/review.json';
+import { Factory } from '../../helpers';
 import Exercise from '../../../src/components/task-teacher-review/exercise';
 
 

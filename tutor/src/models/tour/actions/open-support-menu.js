@@ -6,6 +6,6 @@ export default
 class OpenSupportMenu extends OpenDowndownMenu {
 
   get menu() {
-    return document.querySelector('.support-menu');
+    return document.querySelector('button#support-menu');
   }
 };

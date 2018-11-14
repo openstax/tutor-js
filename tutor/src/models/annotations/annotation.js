@@ -6,9 +6,8 @@ import {
 } from 'shared/model';
 
 
-export default
 @identifiedBy('annotations/annotation')
-class Annotation extends BaseModel {
+export default class Annotation extends BaseModel {
 
   static MAX_TEXT_LENGTH = 500;
   @identifier id;
@@ -54,4 +53,4 @@ class Annotation extends BaseModel {
   @action destroy() {
     return this.listing.destroy(this);
   }
-};
+}

@@ -1,7 +1,6 @@
-import { React } from '../../helpers';
+import { React, EnzymeContext } from '../../helpers';
 import bootstrapScores from '../../helpers/scores-data.js';
 import Cell from '../../../src/screens/scores-report/homework-cell';
-import EnzymeContext from '../../helpers/enzyme-context';
 import ScoresUX from '../../../src/screens/scores-report/ux';
 
 describe('Student Scores Homework Cell', function() {

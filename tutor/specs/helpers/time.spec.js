@@ -14,49 +14,29 @@ describe('Time Helpers', function() {
 
   afterEach(() => Courses.clear());
 
-  it('can get current locale', function() {
-    const currentLocale = TimeHelper.getCurrentLocales();
-
-    // check on the essential properties for being able to use
-    // currentLocale to fix calendar's locale changing
-    expect(currentLocale).to.have.property('abbr').and.to.be.a('string');
-    expect(currentLocale).to.have.property('week').and.to.be.an('object');
-    expect(currentLocale).to.have.deep.property('week.dow').and.to.be.a('number');
-    expect(currentLocale).to.have.deep.property('week.doy').and.to.be.a('number');
-    expect(currentLocale).to.have.property('weekdaysMin').and.to.be.an('array');
-    return undefined;
-  });
-
 
   it('will set the default timezone', function() {
     const courseTimezone = Courses.get(COURSE_ID).time_zone;
 
     TimeHelper.syncCourseTimezone(courseTimezone);
-    expect(moment()._z).to.have.property('name').andtoEqual(TEST_TIMEZONE);
-    expect(moment().startOf('day').format()).to.not.equal(TODAY_IN_CURRENT_ZONE);
-    return undefined;
+    expect(moment().startOf('day').format()).not.toEqual(TODAY_IN_CURRENT_ZONE);
   });
 
 
   it('will reset the default timezone to user time', function() {
-    const localTimezone = TimeHelper.getLocal();
     TimeHelper.unsyncCourseTimezone();
-    expect(moment()._z).to.have.property('name').andtoEqual(localTimezone);
     expect(moment().startOf('day').isSame(TODAY_IN_CURRENT_ZONE)).toBe(true);
-    return undefined;
   });
 
-
-  return it('can check the default timezone', function() {
+  it('can check the default timezone', function() {
     const courseTimezone = Courses.get(COURSE_ID).time_zone;
 
     let isCourseTimezone = TimeHelper.isCourseTimezone(courseTimezone);
-    expect(isCourseTimezone).to.be.false;
+    expect(isCourseTimezone).toBe(false);
 
     TimeHelper.syncCourseTimezone(courseTimezone);
     isCourseTimezone = TimeHelper.isCourseTimezone(courseTimezone);
     expect(isCourseTimezone).toBe(true);
     TimeHelper.unsyncCourseTimezone();
-    return undefined;
   });
 });

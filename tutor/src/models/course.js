@@ -81,7 +81,7 @@ class Course extends BaseModel {
     sorted() { return PH.sort(this.active);                        },
     archived() { return filter(this, period => !period.is_archived); },
     active() { return filter(this, period => !period.is_archived); },
-  }) }) periods;
+  }) }) periods = [];
 
   @hasMany({ model: Role }) roles;
   @hasMany({ model: Student, inverseOf: 'course' }) students;

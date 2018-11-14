@@ -1,4 +1,4 @@
-import { Wrapper, SnapShot } from 'helpers';
+import { C } from '../../helpers';
 import moment from 'moment';
 import Payments from '../../../src/components/payments/manage';
 import Purchases from '../../../src/models/purchases';
@@ -31,16 +31,12 @@ describe('Student Payments Management', () => {
   });
 
   it('renders and matches snapshot', () => {
-    expect(
-      SnapShot.create(<Wrapper noReference _wrapped_component={Payments} />
-    ).toMatchSnapshot();
+    expect.snapshot(<C noRef><Payments /></C>).toMatchSnapshot();
   });
 
   it('renders empty when no payments', () => {
     Purchases.clear();
-    expect(
-      SnapShot.create(<Wrapper noReference _wrapped_component={Payments} />
-    ).toMatchSnapshot();
+    expect.snapshot(<C noRef><Payments /></C>).toMatchSnapshot();
   });
 
 });

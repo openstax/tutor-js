@@ -1,10 +1,16 @@
 import React from 'react';
 import { Container, Card } from 'react-bootstrap';
+import styled from 'styled-components';
+
+const Wrapper = styled(Card)`
+margin-top: 40px;
+font-size: 2rem;
+`;
 
 export default function EmptyCourses() {
   return (
     <Container>
-      <Card className="-course-list-empty">
+      <Wrapper className="-course-list-empty">
         <Card.Body>
           <p className="lead">
             We cannot find an OpenStax course associated with your account.
@@ -15,7 +21,7 @@ export default function EmptyCourses() {
             </a>
           </Card.Text>
         </Card.Body>
-      </Card>
+      </Wrapper>
     </Container>
   );
 }

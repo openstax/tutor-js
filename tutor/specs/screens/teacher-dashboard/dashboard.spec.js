@@ -1,7 +1,6 @@
+import { C, Factory } from '../../helpers';
 import moment from 'moment';
-import { React, Wrapper } from '../../helpers';
 import Dashboard from '../../../src/screens/teacher-dashboard/dashboard';
-import Factory from '../../factories';
 import TimeHelper from '../../../src/helpers/time';
 
 describe('CourseCalendar Month display', () => {
@@ -23,9 +22,7 @@ describe('CourseCalendar Month display', () => {
   });
 
   it('renders plans and hides when deleting', function() {
-    const month = mount(<Dashboard {...props} />);
-    console.log(month.debug());
-
+    const month = mount(<C><Dashboard {...props} /></C>);
     // const plan = course.taskPlans.array[0];
     // expect(month).toHaveRendered(`[data-plan-id="${plan.id}"]`);
     // plan.is_deleting = true;

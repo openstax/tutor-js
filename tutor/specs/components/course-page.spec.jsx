@@ -1,7 +1,4 @@
-import { React } from './helpers';
-import Renderer from 'react-test-renderer';
-import COURSE from '../../api/courses/1.json';
-import Course from '../../src/models/course';
+import { Factory } from '../helpers';
 import CoursePage from '../../src/components/course-page';
 
 describe('Course Page', () => {
@@ -10,7 +7,7 @@ describe('Course Page', () => {
 
   beforeEach(function() {
     props = {
-      course: new Course(COURSE),
+      course: Factory.course(),
       className: 'test-page',
     };
   });
@@ -18,12 +15,12 @@ describe('Course Page', () => {
   const Title = () => <h1>A Big Bad Page</h1>;
 
   it('renders and matches snapshot', () => {
-    expect(Renderer.create(
+    expect.snapshot(
       <CoursePage {...props}>
         <h3>Hello, this is the body</h3>
       </CoursePage>
     ).toMatchSnapshot();
-    expect(Renderer.create(
+    expect.snapshot(
       <CoursePage
         {...props}
         title={<Title />}
@@ -33,5 +30,6 @@ describe('Course Page', () => {
       >
         <h3>Hello, this is the body</h3>
       </CoursePage>
-    ).toMatchSnapshot();});
+    ).toMatchSnapshot();
+  });
 });

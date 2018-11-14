@@ -1,4 +1,3 @@
-import { React } from 'helpers';
 import ErrorMessage from '../../../src/components/error-monitoring/server-error-message';
 
 
@@ -19,13 +18,13 @@ describe('Error monitoring: server-error message', function() {
   it('renders for errors with status 500', function() {
     props.status = 500;
     const wrapper = shallow(<ErrorMessage {...props} />);
-    expect(wrapper.text()).to.include('500');
+    expect(wrapper.text()).toContain('500');
   });
 
   it('shows interrupted message', function() {
     props.status = undefined;
     const wrapper = shallow(<ErrorMessage {...props} />);
-    expect(wrapper.text()).to.include('It looks like your internet connection was interrupted');
+    expect(wrapper.text()).toContain('It looks like your internet connection was interrupted');
   });
 
 });

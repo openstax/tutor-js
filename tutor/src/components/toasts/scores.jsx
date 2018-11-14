@@ -37,7 +37,7 @@ class Failure extends React.Component {
         <WarningModal
           backdrop={false}
           title="Scores not exported"
-          footer={<Button onClick={this.props.dismiss}>Close</Button>}
+          footer={<Button className="dismiss" onClick={this.props.dismiss}>Close</Button>}
         >
           The scores spreadsheet could not be exported. Return
           to the student scores page to try again.  If
@@ -49,10 +49,10 @@ class Failure extends React.Component {
       <div className="toast scores failure">
         <div className="title">
           Scores not exported
-          <Icon type="times" onClick={this.props.dismiss} />
+          <Icon type="times" className="dismiss" onClick={this.props.dismiss} />
         </div>
         <div className="body">
-          <Button variant="link" onClick={this.onShowDetails}>Details</Button>
+          <Button className="details" variant="link" onClick={this.onShowDetails}>Details</Button>
         </div>
       </div>
     );

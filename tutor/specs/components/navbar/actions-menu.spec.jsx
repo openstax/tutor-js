@@ -1,5 +1,6 @@
+import { Factory } from '../../helpers';
 import UserActionsMenu from '../../../src/components/navbar/actions-menu';
-import { Factory, React } from '../../../helpers';
+
 
 const testWithRole = is_teacher =>
 

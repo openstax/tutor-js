@@ -57,7 +57,6 @@ class ChangeStudentId extends React.Component {
     return (
       <Modal.Dialog
         className="change-student-id"
-        backdropClassName="change-student-id"
       >
         <Modal.Body>
           <h3>You have successfully updated your student ID.</h3>
@@ -81,7 +80,6 @@ class ChangeStudentId extends React.Component {
     return (
       <Modal.Dialog
         className="change-student-id"
-        backdropClassName="change-student-id"
       >
         <Modal.Body>
           <div className="title">

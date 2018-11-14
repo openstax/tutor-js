@@ -1,9 +1,4 @@
-import ld from 'underscore';
-
-import React from 'react';
-import ReactTestUtils from 'react-addons-test-utils';
-import { Promise } from 'es6-promise';
-
+import { ld, TestUtils } from '../../../helpers';
 import { TaskStepActions, TaskStepStore } from '../../../../src/flux/task-step';
 import { TaskActions, TaskStore } from '../../../../src/flux/task';
 import { StepPanel } from '../../../../src/helpers/policies';
@@ -17,8 +12,8 @@ import { routerStub, commonActions } from '../utilities';
 const actions = {
   forceUpdate(...args) {
     const { component, div } = args[0];
-    const taskStep = ReactTestUtils.scryRenderedComponentsWithType(component, TaskStep);
-    const breadcrumbs = ReactTestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic);
+    const taskStep = TestUtils.scryRenderedComponentsWithType(component, TaskStep);
+    const breadcrumbs = TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic);
 
     if (breadcrumbs.length === 1) {
       routerStub.forceUpdate(breadcrumbs[0], ...Array.from(args));
@@ -84,7 +79,7 @@ const actions = {
     const answer = step.content.questions[0].answers[0];
     const answerElement = div.querySelector('.answer-input-box');
 
-    ReactTestUtils.Simulate.change(answerElement, answer);
+    TestUtils.Simulate.change(answerElement, answer);
     step.answer_id = answer.id;
     TaskStepActions.saved(step, stepId);
 
@@ -171,7 +166,7 @@ const actions = {
 
   forceRecovery(...args) {
     const { component } = args[0];
-    const exerciseReview = ReactTestUtils.findRenderedComponentWithType(component, Exercise);
+    const exerciseReview = TestUtils.findRenderedComponentWithType(component, Exercise);
     exerciseReview.props.onNextStep();
 
     return actions.forceUpdate(args[0]);

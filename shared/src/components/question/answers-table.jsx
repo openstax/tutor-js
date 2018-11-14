@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import { action } from 'mobx';
 import keymaster from 'keymaster';
 import keysHelper from '../../helpers/keys';
-import QuestionModel from '../../model/exercise/question';
+import QuestionModel, { ReviewQuestion } from '../../model/exercise/question';
 import Answer from './answer';
 import { Feedback } from './feedback';
 import Instructions  from './instructions';
@@ -33,7 +33,10 @@ export default
 class AnswersTable extends React.Component {
 
   static propTypes = {
-    question: PropTypes.instanceOf(QuestionModel).isRequired,
+    question: PropTypes.oneOfType([
+      PropTypes.instanceOf(QuestionModel),
+      PropTypes.instanceOf(ReviewQuestion),
+    ]).isRequired,
     type: PropTypes.string.isRequired,
     answer_id: PropTypes.string,
     correct_answer_id: PropTypes.string,

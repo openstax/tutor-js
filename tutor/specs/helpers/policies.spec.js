@@ -1,30 +1,29 @@
-import { expect } from 'chai';
 import ld from 'underscore';
 import moment from 'moment';
 
-import { TimeActions, TimeStore } from '../src/flux/time';
-import { TaskActions, TaskStore } from '../src/flux/task';
-import { TaskStepActions, TaskStepStore } from '../src/flux/task-step';
-import { TaskPlanActions, TaskPlanStore } from '../src/flux/task-plan';
-import { StepPanel } from '../src/helpers/policies';
+import { TimeActions, TimeStore } from '../../src/flux/time';
+import { TaskActions, TaskStore } from '../../src/flux/task';
+import { TaskStepActions, TaskStepStore } from '../../src/flux/task-step';
+import { TaskPlanActions, TaskPlanStore } from '../../src/flux/task-plan';
+import { StepCard } from '../../src/helpers/policies';
 
 // fake model stuffs for homework, late homework, reading, and practice
 const homeworkTaskId = 6;
-import homeworkldmodel from '../api/tasks/6.json';
+import homework_model from '../../api/tasks/6.json';
 homework_model.due_at = moment(TimeStore.getNow()).add(1, 'year').toDate();
 
-const late_homework_model = require('../api/tasks/5.json');
+const late_homework_model = require('../../api/tasks/5.json');
 late_homework_model.due_at = moment(TimeStore.getNow()).subtract(1, 'year').toDate();
 const lateHomeworkId = 5;
 
-const stepIds = _.pluck(homework_model.steps, 'id');
+const stepIds = ld.pluck(homework_model.steps, 'id');
 let answerId = homework_model.steps[0].content.questions[0].answers[0].id;
 
 const readingTaskId = 4;
-const fake_reading_model = require('../api/tasks/4.json');
+const fake_reading_model = require('../../api/tasks/4.json');
 
 const practiceTaskId = 8;
-const fake_practice_model = require('../api/courses/1/practice.json');
+const fake_practice_model = require('../../api/courses/1/practice.json');
 
 const models = {};
 models[lateHomeworkId] = late_homework_model;
@@ -48,7 +47,7 @@ const testForExerciseStepWithReview = taskId =>
       TaskActions.loaded(models[taskId], taskId);
       const steps = TaskStore.getSteps(taskId);
 
-      const firstUnansweredExercise = _.find(steps, step => (step.type === 'exercise') && !step.is_completed);
+      const firstUnansweredExercise = ld.find(steps, step => (step.type === 'exercise') && !step.is_completed);
 
       answerId = firstUnansweredExercise.content.questions[0].answers[0].id;
       stepId = firstUnansweredExercise.id;
@@ -64,7 +63,7 @@ const testForExerciseStepWithReview = taskId =>
 
 
     it('should return free-response and multiple-choice as available panels', function() {
-      const panels = StepPanel.getPanelsWithStatus(stepId);
+      const panels = StepCard.getCardsWithStatus(stepId);
       expect(panels.length).toEqual(3);
       expect(panels[0].name).toEqual('free-response');
       expect(panels[1].name).toEqual('multiple-choice');
@@ -73,14 +72,14 @@ const testForExerciseStepWithReview = taskId =>
     });
 
     it('should allow review for past due homework', function() {
-      const canReview = StepPanel.canReview(stepId);
+      const canReview = StepCard.canReview(stepId);
       expect(canReview).toEqual(true);
       return undefined;
     });
 
     it('should return multiple-choice as the panel after free-response answered', function() {
       TaskStepActions.setFreeResponseAnswer(stepId, 'Hello!');
-      const panel = StepPanel.getPanel(stepId);
+      const panel = StepCard.getCard(stepId);
       expect(panel).toEqual('multiple-choice');
       return undefined;
     });
@@ -88,7 +87,7 @@ const testForExerciseStepWithReview = taskId =>
     it('should return multiple-choice as the panel after multiple-choice answered', function() {
       TaskStepActions.setFreeResponseAnswer(stepId, 'Hello!');
       TaskStepActions.setAnswerId(stepId, answerId);
-      const panel = StepPanel.getPanel(stepId);
+      const panel = StepCard.getCard(stepId);
       expect(panel).toEqual('multiple-choice');
       return undefined;
     });
@@ -97,7 +96,7 @@ const testForExerciseStepWithReview = taskId =>
       TaskStepActions.setFreeResponseAnswer(stepId, 'Hello!');
       TaskStepActions.setAnswerId(stepId, answerId);
       fakeComplete(stepId);
-      const panel = StepPanel.getPanel(stepId);
+      const panel = StepCard.getCard(stepId);
       expect(panel).toEqual('review');
       return undefined;
     });
@@ -114,7 +113,7 @@ describe('Step Panel Store, homework before due', function() {
   });
 
   it('should return free-response and multiple-choice as available panels', function() {
-    const panels = StepPanel.getPanelsWithStatus(stepIds[0]);
+    const panels = StepCard.getCardsWithStatus(stepIds[0]);
     expect(panels.length).toEqual(2);
     expect(panels[0].name).toEqual('free-response');
     expect(panels[1].name).toEqual('multiple-choice');
@@ -123,7 +122,7 @@ describe('Step Panel Store, homework before due', function() {
 
   it('should return multiple-choice as the panel after free-response answered', function() {
     TaskStepActions.setFreeResponseAnswer(stepIds[0], 'Hello!');
-    const panel = StepPanel.getPanel(stepIds[0]);
+    const panel = StepCard.getCard(stepIds[0]);
     expect(panel).toEqual('multiple-choice');
     return undefined;
   });
@@ -131,7 +130,7 @@ describe('Step Panel Store, homework before due', function() {
   it('should return multiple-choice as the panel after multiple-choice answered', function() {
     TaskStepActions.setFreeResponseAnswer(stepIds[0], 'Hello!');
     TaskStepActions.setAnswerId(stepIds[0], answerId);
-    const panel = StepPanel.getPanel(stepIds[0]);
+    const panel = StepCard.getCard(stepIds[0]);
     expect(panel).toEqual('multiple-choice');
     return undefined;
   });
@@ -140,7 +139,7 @@ describe('Step Panel Store, homework before due', function() {
     TaskStepActions.setFreeResponseAnswer(stepIds[0], 'Hello!');
     TaskStepActions.setAnswerId(stepIds[0], answerId);
     fakeComplete(stepIds[0]);
-    const panel = StepPanel.getPanel(stepIds[0]);
+    const panel = StepCard.getCard(stepIds[0]);
     expect(panel).toEqual('multiple-choice');
     return undefined;
   });
@@ -156,9 +155,9 @@ describe('Step Panel Store, reading, view non-exercise', function() {
 
   return it('should return view panel for a non-exercise step', function() {
     const stepId = 'step-id-4-3';
-    const panel = StepPanel.getPanel(stepId);
+    const panel = StepCard.getCard(stepId);
     const taskStep = TaskStepStore.get(stepId);
-    expect(taskStep.type).to.not.equal('exercise');
+    expect(taskStep.type).not.toEqual('exercise');
     expect(panel).toEqual('view');
     return undefined;
   });

@@ -13,8 +13,8 @@ import Add from '../../../../src/components/course-calendar/add';
 
 const planId = '1';
 let courseId = '1';
-import VALID_PLANldMODEL from '../../../../api/plans/1/stats.json';
-import VALID_COURSEldMODEL from '../../../../api/user/courses/1.json';
+import VALID_PLAN_MODEL from '../../../../api/plans/1/stats.json';
+import VALID_COURSE_MODEL from '../../../../api/user/courses/1.json';
 
 import { routerStub, commonActions } from '../utilities';
 
@@ -54,7 +54,7 @@ const actions = {
   clickYesterday(...args) {
     const { component } = args[0];
     const pasts = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--past');
-    return commonActions.clickComponent(_.last(pasts))(args[0]);
+    return commonActions.clickComponent(ld.last(pasts))(args[0]);
   },
 
   clickAddHomework(...args) {
@@ -73,7 +73,7 @@ const actions = {
   _getMomentWithPlans(courseId) {
     const plansList = TeacherTaskPlanStore.getActiveCoursePlans(courseId);
 
-    const firstPlan = _.chain(plansList)
+    const firstPlan = ld.chain(plansList)
       .clone()
       .sortBy('opens_at')
       .first()

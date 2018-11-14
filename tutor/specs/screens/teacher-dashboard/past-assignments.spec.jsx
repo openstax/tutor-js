@@ -1,8 +1,6 @@
-import { React, Wrapper, SnapShot } from '../../helpers';
-import { map } from 'lodash';
+import { C, ld } from '../../helpers';
 import Factory from '../../factories';
 import PastAssignments from '../../../src/screens/teacher-dashboard/past-assignments';
-
 
 describe('CourseCalendar Past Assignments listing', function() {
   let course;
@@ -19,8 +17,8 @@ describe('CourseCalendar Past Assignments listing', function() {
 
   it('lists plans in due date order', function() {
     expect(course.isCloned).toBe(true);
-    const wrapper = mount(<Wrapper _wrapped_component={PastAssignments} {...props} />);
+    const wrapper = mount(<C><PastAssignments {...props} /></C>);
     const ids = wrapper.find('[data-assignment-id]').map(d => Number(d.props()['data-assignment-id']));
-    expect(ids).toEqual(map(course.pastTaskPlans.array, 'id'));
+    expect(ids).toEqual(ld.map(course.pastTaskPlans.array, 'id'));
   });
 });

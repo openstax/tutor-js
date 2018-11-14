@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../../../helpers';
+import { React, C } from '../../../helpers';
 import { last } from 'lodash';
 import ChooseExercises from '../../../../src/components/task-plan/homework/choose-exercises';
 import Factory, { FactoryBot } from '../../../factories';
@@ -35,15 +35,15 @@ describe('choose exercises component', function() {
   let exercises, props, course, page_ids, availableExercises;
 
   function renderExerciseCards(props) {
-    const ce = mount(<ChooseExercises {...props} />);
-    ce.find('.chapter-heading .tutor-icon').at(1).simulate('click');
-    expect(ce).toHaveRendered('.show-problems[disabled=false]');
     props.exercises.fetch = jest.fn();
-    ce.find('.show-problems').simulate('click');
+    const ce = mount(<C><ChooseExercises {...props} /></C>);
+    ce.find('.chapter-checkbox button').at(1).simulate('click');
+    ce.find('.card-footer button.show-problems').simulate('click');
+
     expect(props.exercises.fetch).toHaveBeenCalled();
 
     props.exercises.onLoaded({ data: { items: availableExercises } }, [{ book: props.course.referenceBook, page_ids }]);
-    return ce;
+    return ce.update();
   }
 
   beforeEach(function() {
@@ -71,18 +71,19 @@ describe('choose exercises component', function() {
   });
 
   it('renders selections', () => {
-    expect.snapshot(<ChooseExercises {...props} />).toMatchSnapshot();
+    expect.snapshot(<C><ChooseExercises {...props} /></C>).toMatchSnapshot();
   });
 
   it('can select exercises', () => {
     const ce = renderExerciseCards(props);
+    // console.log(ce.update().debug())
     const uid = ce.find('[data-exercise-id]').last().prop('data-exercise-id');
     const exercise = exercises.array.find(e => uid == e.content.uid);
     ce.find(`[data-exercise-id="${uid}"] .action.include`).simulate('click');
     expect(exercise.isSelected).toEqual(true);
     expect(TaskPlanActions.addExercise).toHaveBeenCalledWith(PLAN_ID, exercise.id);
     expect(ce).toHaveRendered('.exercise-controls-bar .review-exercises');
-    expect.snapshot(<ChooseExercises {...props} />).toMatchSnapshot();
+    expect.snapshot(<C><ChooseExercises {...props} /></C>).toMatchSnapshot();
     ce.unmount();
   });
 

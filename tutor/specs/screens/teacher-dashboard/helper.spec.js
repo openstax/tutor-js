@@ -11,13 +11,13 @@ describe('CourseCalendar Helper', function() {
   beforeEach(() => UiSettings._reset());
 
   it('detects if sidebar should show intro', function() {
-    expect(Helper.shouldIntro()).to.be.false;
+    expect(Helper.shouldIntro()).toBe(false);
     Router.currentQuery.mockReturnValueOnce({ showIntro: 'true' });
     expect(Helper.shouldIntro()).toBe(true);
   });
 
   it('stores sidebar state in settings', function() {
-    expect(Helper.isSidebarOpen(courseId)).to.be.false;
+    expect(Helper.isSidebarOpen(courseId)).toBe(false);
     Helper.setSidebarOpen(courseId, true);
     expect(Helper.isSidebarOpen(courseId)).toBe(true);
   });

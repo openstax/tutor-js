@@ -7,7 +7,6 @@ import COURSE from '../../../../api/courses/1.json';
 const COURSE_ID = '1';
 
 import DATA from '../../../../api/courses/1/dashboard';
-const PLAN = _.findWhere(DATA.plans, { id: '7' });
 
 describe('TaskPlan MiniEditor wrapper', function() {
   let props = {};
@@ -20,9 +19,8 @@ describe('TaskPlan MiniEditor wrapper', function() {
       position: { x: 100, y: 100 },
     });
 
-  return it('renders with loadable', function() {
+  it('renders with loadable', function() {
     const wrapper = shallow(React.createElement(MiniEditor, Object.assign({}, props )));
-    expect(wrapper.find('LoadableItem[id="42"]')).length.to.be(1);
-    return undefined;
+    expect(wrapper.find('LoadableItem[id="42"]')).toHaveLength(1);
   });
 });

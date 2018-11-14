@@ -7,6 +7,8 @@
   .modal-dialog {
     width: 500px;
     margin: 0 auto;
+  }
+  &.show .modal-dialog {
     transform: translateY(130px);
   }
   .modal-content {
@@ -49,10 +51,7 @@
     }
 
     &.freshly-created-course {
-      .why-ask-heading { cursor: pointer; }
-      .footer button:first-child {
-        @include btn-tutor-primary();
-      }
+      .btn-link { padding: 1rem 0; }
     }
 
     &.free-trial-ended,

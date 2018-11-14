@@ -16,14 +16,14 @@ exports[`CreateCourse: entering details matches snapshot 1`] = `
     className="course-details-sections form-group"
   >
     <label
-      className="control-label"
-      htmlFor={undefined}
+      className="form-label"
+      htmlFor="number-sections"
     >
-      <span
+      <div
         className="input-group"
       >
-        <span
-          className="input-group-addon"
+        <div
+          className="input-group-prepend"
         >
           Number of sections
           <p
@@ -31,30 +31,30 @@ exports[`CreateCourse: entering details matches snapshot 1`] = `
           >
             in this course
           </p>
-        </span>
+        </div>
         <input
           className="form-control"
           defaultValue={1}
-          id={undefined}
+          id="number-sections"
           min="1"
           onChange={[Function]}
           type="number"
         />
-      </span>
+      </div>
     </label>
   </div>
   <div
     className="course-details-numbers form-group"
   >
     <label
-      className="control-label"
-      htmlFor={undefined}
+      className="form-label"
+      htmlFor="number-students"
     >
-      <span
+      <div
         className="input-group"
       >
-        <span
-          className="input-group-addon"
+        <div
+          className="input-group-prepend"
         >
           Estimated number of students
           <p
@@ -62,16 +62,16 @@ exports[`CreateCourse: entering details matches snapshot 1`] = `
           >
             in this course
           </p>
-        </span>
+        </div>
         <input
           className="form-control"
           defaultValue=""
-          id={undefined}
+          id="number-students"
           min="1"
           onChange={[Function]}
           type="number"
         />
-      </span>
+      </div>
     </label>
   </div>
 </form>

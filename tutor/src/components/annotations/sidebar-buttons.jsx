@@ -38,7 +38,7 @@ class SidebarButtons extends React.Component {
 
     return (
       <Icon
-        type={isActive ? 'comment' : 'comment-o'}
+        type={isActive ? 'comment-solit' : 'comment'}
         key={note.id}
         className={
           cn('sidebar-button', { active: isActive })

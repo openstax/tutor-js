@@ -69,9 +69,10 @@ class MultiSelect extends React.Component {
       <Dropdown.Item
         key={selection.id}
         eventKey={selection.id}
+        onSelect={this.onSelect}
         className="multi-selection-option"
       >
-        <Icon type={selection.selected ? 'check-square-o' : 'square-o'} />
+        <Icon type={selection.selected ? 'check-square' : 'square'} />
         <span className="title">{selection.title}</span>
         {onlyToggle}
       </Dropdown.Item>
@@ -80,19 +81,21 @@ class MultiSelect extends React.Component {
 
   render() {
     return (
-      <div className={classnames('multi-select', this.props.className)}>
+      <Dropdown variant="default" className={classnames('multi-select', this.props.className)}>
         <Dropdown.Toggle
           id="multi-select"
+          variant="default"
           aria-label={this.props.title}
-          onSelect={this.onSelect}
-          title={this.props.title}
           onToggle={this.onToggle}
           open={this.isOpen}
           tabIndex={this.props.tabIndex}
         >
-          {Array.from(this.props.selections).map((selection) => this.renderMenuSelection(selection))}
+          {this.props.title}
         </Dropdown.Toggle>
-      </div>
+        <Dropdown.Menu>
+          {Array.from(this.props.selections).map((selection) => this.renderMenuSelection(selection))}
+        </Dropdown.Menu>
+      </Dropdown>
     );
   }
 }

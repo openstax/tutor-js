@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import { TimeActions, TimeStore } from '../../src/flux/time';
 
 const SERVER_TIME = new Date('2000-02-02');
@@ -7,7 +5,17 @@ const LOCAL_TIME = new Date('2011-11-11');
 
 describe('Server Time', function() {
 
-  afterEach(() => TimeActions.reset());
+  let consoleMock;
+
+  beforeEach(() => {
+    consoleMock = jest.spyOn(console, 'warn');
+    consoleMock.mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    TimeActions.reset();
+    consoleMock.mockRestore();
+  });
 
   it('returns the server time', function() {
     TimeActions.setNow(SERVER_TIME, LOCAL_TIME);

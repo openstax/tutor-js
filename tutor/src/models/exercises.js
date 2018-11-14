@@ -10,7 +10,7 @@ const PENDING = Symbol('PENDING');
 
 export class ExercisesMap extends Map {
 
-  @readonly fetched = observable.map();
+  @readonly fetched = new Map();
 
   @computed get byPageId() {
     return groupBy(this.array, 'page.id');

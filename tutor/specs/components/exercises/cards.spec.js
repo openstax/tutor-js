@@ -1,4 +1,3 @@
-import { React, SnapShot } from 'helpers';
 import Cards from '../../../src/components/exercises/cards';
 import FakeWindow from 'shared/specs/helpers/fake-window';
 import Factory from '../../factories';
@@ -28,8 +27,7 @@ describe('Exercise Cards Component', function() {
   });
 
   it('renders and matches snapshot', () => {
-    const component = SnapShot.create(<Cards {...props} />);
-    expect(component.toJSON()).toMatchSnapshot();
+    expect.snapshot(<Cards {...props} />).toMatchSnapshot();
   });
 
 });

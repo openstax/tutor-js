@@ -19,7 +19,7 @@ class ExpiredPreviewWarning extends GotItOnboardingNag {
         </Body>
         <Footer>
           <Button variant="primary" onClick={this.onAddCourse}>Create a course</Button>
-          <Button onClick={this.onContinue}>Stay in Preview course</Button>
+          <Button variant="default" onClick={this.onContinue}>Stay in Preview course</Button>
         </Footer>
       </OnboardingNag>
     );

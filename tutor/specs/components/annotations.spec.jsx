@@ -1,5 +1,4 @@
 import AnnotationWidget from '../../src/components/annotations/annotation';
-import Renderer from 'react-test-renderer';
 import { bootstrapCoursesList } from '../courses-test-data';
 import AnnotationsMap from '../../src/models/annotations';
 
@@ -7,10 +6,6 @@ import Page from '../../api/pages/be8818d0-2dba-4bf3-859a-737c25fb2c99@20.json';
 import ANNOTATIONS from '../../api/annotations.json';
 import Router from '../../src/helpers/router';
 
-jest.mock('react-addons-css-transition-group', () => ({ children, component = 'div' }) => {
-  const { createElement } = require('react');
-  return createElement(component, null, children);
-});
 jest.mock('../../src/models/feature_flags', () => ({ is_highlighting_allowed: true }));
 jest.mock('../../src/helpers/router');
 jest.mock('../../../shared/src/components/html', () => ({ html }) =>
@@ -73,20 +68,9 @@ describe('Annotations', () => {
     expect(Object.keys(annotations.byCourseAndPage[1]['2.1'])).toHaveLength(2);
   });
 
-  it('scrolls to linked annotation', () => {
-    const highlight = annotations.keys()[0];
-    Router.currentQuery.mockReturnValue({ highlight });
-    const widget = mount(<AnnotationWidget {...props} />);
-    expect(widget.instance().scrollToPendingAnnotation).not.toBeUndefined();
-    widget.instance().scrollToAnnotation = jest.fn();
-    widget.instance().scrollToPendingAnnotation();
-    expect(widget.instance().scrollToAnnotation).toHaveBeenCalled();
-    widget.unmount();
-  });
-
   it('renders and matches snapshot', () => {
     annotations.ux.isSummaryVisible = true;
-    const comp = Renderer.create(
+    expect.snapshot(
       <AnnotationWidget {...props} />,
       {
         createNodeMock: e => {
@@ -96,9 +80,7 @@ describe('Annotations', () => {
           return child;
         },
       },
-    );
-    expect(comp.toJSON()).toMatchSnapshot();
-    comp.unmount();
+    ).toMatchSnapshot();
   });
 
 });

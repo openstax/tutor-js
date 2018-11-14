@@ -1,7 +1,4 @@
-import { expect } from 'chai';
-import ld from 'underscore';
-
-import Helpers from '../../src/helpers/content';
+import * as Helpers from '../../src/helpers/content';
 
 describe('ExerciseHelpers', () =>
 
@@ -12,6 +9,5 @@ describe('ExerciseHelpers', () =>
     expect(Helpers.chapterSectionToNumber([1, 0, 8])).toEqual(10008);
     expect(Helpers.chapterSectionToNumber([0, 1])).toEqual(1);
     expect(Helpers.chapterSectionToNumber([31, 88, 42])).toEqual(318842);
-    return undefined;
   })
 );

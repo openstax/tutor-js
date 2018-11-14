@@ -77,7 +77,7 @@ class ChangePeriodLink extends React.Component {
         overlay={this.selectNewPeriod()}
       >
         <a>
-          <Icon type="clock-o" /> Change <CGL courseId={this.course.id} />
+          <Icon type="clock" /> Change <CGL courseId={this.course.id} />
         </a>
       </OverlayTrigger>
     );

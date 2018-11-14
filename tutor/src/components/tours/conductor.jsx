@@ -22,7 +22,7 @@ class TourConductor extends React.Component {
 
   constructor(props) {
     super(props);
-    this.tourContext = new TourContext();
+    this.tourContext = props.tourContext || new TourContext();
   }
 
   componentWillUnmount() {

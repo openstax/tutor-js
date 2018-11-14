@@ -46,10 +46,6 @@ export default class PopoutWindow extends React.Component {
     left: (o, w) => ((w.innerWidth - o.width) / 2) + w.screenX,
   };
 
-  componentDidMount() {
-    this.open();
-  }
-
   UNSAFE_componentWillReceiveProps(nextProps) {
     // re-render
     if (this.isOpen && nextProps.children != this.props.children) {

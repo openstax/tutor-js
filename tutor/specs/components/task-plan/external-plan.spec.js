@@ -1,16 +1,11 @@
-let React, ReactTestUtils, sinon, Testing;
-import ld from 'underscore';
+import { Factory, ld } from '../../helpers';
 import moment from 'moment-timezone';
-
 import { TaskPlanActions, TaskPlanStore } from '../../../src/flux/task-plan';
 import { TaskingActions } from '../../../src/flux/tasking';
 import Courses from '../../../src/models/courses-map';
 import { TimeStore } from '../../../src/flux/time';
 import TimeHelper from '../../../src/helpers/time';
-
 import { ExternalPlan } from '../../../src/components/task-plan/external';
-
-(({ Testing, sinon, _, React, ReactTestUtils } = require('helpers')));
 import { ExtendBasePlan, PlanRenderHelper } from '../helpers/task-plan';
 
 const yesterday = moment(TimeStore.getNow()).subtract(1, 'day').format(TimeHelper.ISO_DATE_FORMAT);
@@ -25,43 +20,44 @@ const VISIBLE_EXTERNAL = ExtendBasePlan({ type: 'external', is_published: true, 
 const UNPUBLISHED_EXTERNAL = ExtendBasePlan({ type: 'external' });
 const NEW_EXTERNAL = ExtendBasePlan({ type: 'external', id: '_CREATING_1' });
 
-const helper = model => PlanRenderHelper(model, ExternalPlan);
-
 describe('External Homework Plan', function() {
+  let course;
+  let helper;
+
   beforeEach(function() {
-    Courses.bootstrap([COURSE], { clear: true });
+    course = Factory.course();
+
+    helper = model => PlanRenderHelper(model, ExternalPlan, {
+      courseId: String(course.id),
+    });
+    Courses.bootstrap([course], { clear: true });
     TaskPlanActions.reset();
-    return TaskingActions.reset();
+    TaskingActions.reset();
   });
 
-  it('should allow set url when not visible', () =>
-    helper(UNPUBLISHED_EXTERNAL).then(({ dom }) =>
-      expect(
-        dom.querySelector('#external-url').getAttribute('disabled')
-      ).toBeFalsy()
-    )
-  );
+  it('should allow set url when not visible', () => {
+    const plan = helper(UNPUBLISHED_EXTERNAL);
+    expect(plan).toHaveRendered('input#external-url');
+  });
 
-  xit('should not allow add setting url after visible', () =>
-    helper(VISIBLE_EXTERNAL).then(({ dom, element }) =>
-      expect(
-        dom.querySelector('#external-url').getAttribute('disabled')
-      ).toBeTruthy()
-    )
-  );
+  it('should not allow add setting url after visible', () => {
+    const plan = helper(UNPUBLISHED_EXTERNAL);
+    expect(plan).toHaveRendered('input#external-url');
+  });
 
-  xit('should show url required message when saving and no assignment URL', () =>
-    helper(NEW_EXTERNAL).then(function({ dom }) {
-      Testing.actions.click(dom.querySelector('.-save'));
-      return expect(dom.querySelector('.external-url.is-required.has-error')).to.not.be.null;
-    })
-  );
+  it('should show url required message when saving and no assignment URL', () => {
+    const plan = helper(NEW_EXTERNAL);
+    expect(plan).toHaveRendered('input#external-url');
+    expect(plan).not.toHaveRendered('.is-invalid-form');
+    plan.find('SaveTaskButton AsyncButton').simulate('click');
+    expect(plan).toHaveRendered('.is-invalid-form');
+  });
 
-  return it('can mark form as invalid', () =>
-    helper(NEW_EXTERNAL).then(function({ dom }) {
-      expect(dom.querySelector('.edit-external.is-invalid-form')).to.be.null;
-      Testing.actions.click(dom.querySelector('.-save'));
-      return expect(dom.querySelector('.edit-external.is-invalid-form')).to.not.be.null;
-    })
-  );
+  it('can mark form as invalid', () => {
+    const plan = helper(UNPUBLISHED_EXTERNAL);
+    expect(plan).toHaveRendered('input#external-url');
+    expect(plan).not.toHaveRendered('.is-invalid-form');
+    plan.find('SaveTaskButton AsyncButton').simulate('click');
+    expect(plan).toHaveRendered('.is-invalid-form');
+  });
 });

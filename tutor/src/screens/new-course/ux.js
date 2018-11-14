@@ -22,8 +22,6 @@ class CourseBuilderUX extends BaseModel {
   @observable canCancel = true;
   @observable source;
 
-
-
   @observable currentStageIndex;
 
   @readonly stages = [

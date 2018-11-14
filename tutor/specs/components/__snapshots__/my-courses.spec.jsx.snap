@@ -15,7 +15,7 @@ exports[`My Courses Component matches snapshot 1`] = `
         className="my-courses-title row"
       >
         <div
-          className="col-xs-12"
+          className="col-12"
         >
           <h1>
             Current Courses
@@ -26,7 +26,7 @@ exports[`My Courses Component matches snapshot 1`] = `
         className="my-courses-section my-courses-current-section row"
       >
         <div
-          className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+          className="col-lg-3 col-md-4 col-sm-6 col-12"
         >
           <div
             className="my-courses-item-wrapper"
@@ -46,7 +46,6 @@ exports[`My Courses Component matches snapshot 1`] = `
                 className="my-courses-item-title"
               >
                 <a
-                  className={undefined}
                   href="/course/1"
                   onClick={[Function]}
                 >
@@ -58,7 +57,6 @@ exports[`My Courses Component matches snapshot 1`] = `
                 data-has-controls={false}
               >
                 <a
-                  className={undefined}
                   href="/course/1"
                   onClick={[Function]}
                 >
@@ -81,7 +79,7 @@ exports[`My Courses Component matches snapshot 1`] = `
           </div>
         </div>
         <div
-          className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+          className="col-lg-3 col-md-4 col-sm-6 col-12"
         >
           <div
             className="my-courses-item-wrapper"
@@ -101,7 +99,6 @@ exports[`My Courses Component matches snapshot 1`] = `
                 className="my-courses-item-title"
               >
                 <a
-                  className={undefined}
                   href="/course/3"
                   onClick={[Function]}
                 >
@@ -113,7 +110,6 @@ exports[`My Courses Component matches snapshot 1`] = `
                 data-has-controls={false}
               >
                 <a
-                  className={undefined}
                   href="/course/3"
                   onClick={[Function]}
                 >
@@ -136,7 +132,7 @@ exports[`My Courses Component matches snapshot 1`] = `
           </div>
         </div>
         <div
-          className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+          className="col-lg-3 col-md-4 col-sm-6 col-12"
         >
           <div
             className="my-courses-item-wrapper"
@@ -156,7 +152,6 @@ exports[`My Courses Component matches snapshot 1`] = `
                 className="my-courses-item-title"
               >
                 <a
-                  className={undefined}
                   href="/course/2"
                   onClick={[Function]}
                 >
@@ -168,7 +163,6 @@ exports[`My Courses Component matches snapshot 1`] = `
                 data-has-controls={false}
               >
                 <a
-                  className={undefined}
                   href="/course/2"
                   onClick={[Function]}
                 >

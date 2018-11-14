@@ -156,7 +156,7 @@ const ERROR_HANDLERS = {
     if (context == null) { context = {}; }
     if (error.supportLinkBase == null) {
       const { courseId } = context;
-      error.supportLinkBase = UserMenu.helpLinkForCourseId(courseId);
+      error.supportLinkBase = UserMenu.helpLinkForCourse(Courses.get(courseId));
     }
     return {
       title: 'Server Error',

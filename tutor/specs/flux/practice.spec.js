@@ -1,14 +1,12 @@
 import ld from 'lodash';
-
-import { expect } from 'chai';
 import { CoursePracticeActions, CoursePracticeStore } from '../../src/flux/practice';
 
 const COURSE_ID = '1';
 const PAGE_IDS_1 = ['1', '2', '3'];
 const PAGE_IDS_2 = ['2', '3', '4'];
 
-import COURSE_PRACTICEld1 from '../../api/courses/1/practice/POST.json';
-const COURSE_PRACTICE_2 = _.extend({ id: 'Practice-Course-2' }, COURSE_PRACTICE_1);
+import COURSE_PRACTICE_1 from '../../api/courses/1/practice/POST.json';
+const COURSE_PRACTICE_2 = ld.extend({ id: 'Practice-Course-2' }, COURSE_PRACTICE_1);
 
 const makePageIdParams = pageIds => ({ page_ids: pageIds });
 
@@ -36,9 +34,9 @@ describe('CoursePractice Store', function() {
     const params2 = makePageIdParams(PAGE_IDS_2);
 
     expect(CoursePracticeStore.get(COURSE_ID, params1).id)
-      .to.be.equal(COURSE_PRACTICE_1.id);
+      .toEqual(COURSE_PRACTICE_1.id);
     expect(CoursePracticeStore.get(COURSE_ID, params2).id)
-      .to.be.equal(COURSE_PRACTICE_2.id);
+      .toEqual(COURSE_PRACTICE_2.id);
     return undefined;
   });
 
@@ -49,7 +47,7 @@ describe('CoursePractice Store', function() {
     const params1 = makePageIdParams(PAGE_IDS_1);
 
     expect(CoursePracticeStore.get(COURSE_ID, params1).id)
-      .to.be.equal(COURSE_PRACTICE_2.id);
+      .toEqual(COURSE_PRACTICE_2.id);
     return undefined;
   });
 
@@ -61,9 +59,9 @@ describe('CoursePractice Store', function() {
     const params2 = makePageIdParams(PAGE_IDS_2);
 
     expect(CoursePracticeStore.isDisabled(COURSE_ID, params1))
-      .to.be.false;
+      .toBe(false);
     expect(CoursePracticeStore.isDisabled(COURSE_ID, params2))
-      .to.be.false;
+      .toBe(false);
     return undefined;
   });
 

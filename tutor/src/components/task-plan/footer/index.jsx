@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { idType } from 'shared';
 import { action } from 'mobx';
 import { observer } from 'mobx-react';
 import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
@@ -19,8 +20,8 @@ export default
 class PlanFooter extends React.Component {
 
   static propTypes = {
-    id:               PropTypes.string.isRequired,
-    courseId:         PropTypes.string.isRequired,
+    id:               idType.isRequired,
+    courseId:         idType.isRequired,
     hasError:         PropTypes.bool.isRequired,
     onSave:           PropTypes.func.isRequired,
     onPublish:        PropTypes.func.isRequired,

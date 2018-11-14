@@ -1,6 +1,4 @@
-import { expect } from 'chai';
-
-import { CrudConfig, makeSimpleStore, extendConfig } from '../src/flux/helpers';
+import { CrudConfig, makeSimpleStore, extendConfig } from '../../src/flux/helpers';
 
 const TestCrudConfig = CrudConfig();
 const { actions: CrudActions, store: CrudStore } = makeSimpleStore(TestCrudConfig);
@@ -31,7 +29,7 @@ describe('CRUD Store', function() {
     const id = 0;
     expect(CrudStore.isUnknown(id)).toBe(true);
     CrudActions.loaded({ hello: 'foo', steps: [] }, id);
-    expect(CrudStore.isUnknown(id)).to.be.false;
+    expect(CrudStore.isUnknown(id)).toBe(false);
     CrudActions.reset();
     expect(CrudStore.isUnknown(id)).toBe(true);
     return undefined;
@@ -51,23 +49,23 @@ describe('CRUD Store', function() {
   it('should load a task through the happy path', function() {
     const id = 0;
     expect(CrudStore.isUnknown(id)).toBe(true);
-    expect(CrudStore.isLoaded(id)).to.be.false;
-    expect(CrudStore.isLoading(id)).to.be.false;
-    expect(CrudStore.isFailed(id)).to.be.false;
+    expect(CrudStore.isLoaded(id)).toBe(false);
+    expect(CrudStore.isLoading(id)).toBe(false);
+    expect(CrudStore.isFailed(id)).toBe(false);
 
     CrudActions.load(id);
 
-    expect(CrudStore.isUnknown(id)).to.be.false;
-    expect(CrudStore.isLoaded(id)).to.be.false;
+    expect(CrudStore.isUnknown(id)).toBe(false);
+    expect(CrudStore.isLoaded(id)).toBe(false);
     expect(CrudStore.isLoading(id)).toBe(true);
-    expect(CrudStore.isFailed(id)).to.be.false;
+    expect(CrudStore.isFailed(id)).toBe(false);
 
     CrudActions.loaded({ hello: 'bar', steps: [] }, id);
 
-    expect(CrudStore.isUnknown(id)).to.be.false;
+    expect(CrudStore.isUnknown(id)).toBe(false);
     expect(CrudStore.isLoaded(id)).toBe(true);
-    expect(CrudStore.isLoading(id)).to.be.false;
-    expect(CrudStore.isFailed(id)).to.be.false;
+    expect(CrudStore.isLoading(id)).toBe(false);
+    expect(CrudStore.isFailed(id)).toBe(false);
 
     expect(CrudStore.get(id).hello).toEqual('bar');
     return undefined;
@@ -76,22 +74,22 @@ describe('CRUD Store', function() {
   it('should note when a load failed', function() {
     const id = 0;
     expect(CrudStore.isUnknown(id)).toBe(true);
-    expect(CrudStore.isLoaded(id)).to.be.false;
-    expect(CrudStore.isLoading(id)).to.be.false;
-    expect(CrudStore.isFailed(id)).to.be.false;
+    expect(CrudStore.isLoaded(id)).toBe(false);
+    expect(CrudStore.isLoading(id)).toBe(false);
+    expect(CrudStore.isFailed(id)).toBe(false);
 
     CrudActions.load(id);
 
-    expect(CrudStore.isUnknown(id)).to.be.false;
-    expect(CrudStore.isLoaded(id)).to.be.false;
+    expect(CrudStore.isUnknown(id)).toBe(false);
+    expect(CrudStore.isLoaded(id)).toBe(false);
     expect(CrudStore.isLoading(id)).toBe(true);
-    expect(CrudStore.isFailed(id)).to.be.false;
+    expect(CrudStore.isFailed(id)).toBe(false);
 
     CrudActions.FAILED(404, { err: 'message' }, id);
 
-    expect(CrudStore.isUnknown(id)).to.be.false;
-    expect(CrudStore.isLoaded(id)).to.be.false;
-    expect(CrudStore.isLoading(id)).to.be.false;
+    expect(CrudStore.isUnknown(id)).toBe(false);
+    expect(CrudStore.isLoaded(id)).toBe(false);
+    expect(CrudStore.isLoading(id)).toBe(false);
     expect(CrudStore.isFailed(id)).toBe(true);
     return undefined;
   });
@@ -99,7 +97,7 @@ describe('CRUD Store', function() {
   it('should store changed attributes locally', function() {
     const id = 0;
     CrudActions.loaded({ hello: 'bar' }, id);
-    expect(CrudStore.isChanged(id)).to.be.false;
+    expect(CrudStore.isChanged(id)).toBe(false);
 
     CrudActions._change(id, { foo: 'baz' });
     expect(CrudStore.isChanged(id)).toBe(true);
@@ -117,7 +115,7 @@ describe('CRUD Store', function() {
     CrudActions.loaded({ hello: 'bar' }, id);
     CrudActions._change(id, { foo: 'baz' });
     CrudActions.saved({ afterSave: true }, id);
-    expect(CrudStore.isChanged(id)).to.be.false;
+    expect(CrudStore.isChanged(id)).toBe(false);
     expect(CrudStore.get(id)).toEqual({ afterSave: true });
     return undefined;
   });
@@ -140,13 +138,12 @@ describe('CRUD Store', function() {
   });
 
   it('should have additional actions if the config has been extended', function() {
-    expect(ExtendedActions._loaded).to.be.a('function');
+    expect(ExtendedActions._loaded).toBeDefined();
     return undefined;
   });
 
   it('should additional store functions if the config has been extended', function() {
-    expect(ExtendedStore.testExtendedStore).to.be.a('function');
-    return undefined;
+    expect(ExtendedStore.testExtendedStore).toBeDefined();    return undefined;
   });
 
   it('should not change what is loaded if _loaded function is undefined', function() {
@@ -162,7 +159,7 @@ describe('CRUD Store', function() {
     const id = 0;
     const nestedStore = { hello: 'bar' };
     ExtendedActions.loaded(nestedStore, id);
-    expect(ExtendedConfig._loaded(nestedStore, id)).to.not.be.undefined;
+    expect(ExtendedConfig._loaded(nestedStore, id)).not.toBeUndefined();
     expect(ExtendedStore.get(id).nested).toEqual(nestedStore);
     return undefined;
   });
@@ -189,7 +186,7 @@ describe('CRUD Store', function() {
     const id = 0;
     const nestedStore = { hello: 'bar' };
     ExtendedActions.saved(nestedStore, id);
-    expect(ExtendedConfig._saved(nestedStore, id)).to.not.be.undefined;
+    expect(ExtendedConfig._saved(nestedStore, id)).not.toBeUndefined();
     expect(ExtendedStore.get(id).nested).toEqual(nestedStore);
     return undefined;
   });

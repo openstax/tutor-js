@@ -1,12 +1,11 @@
-import { expect } from 'chai';
 import moment from 'moment';
-import ld from 'underscore';
+import ld from 'lodash';
 
-import { TimeStore } from '../src/flux/time';
-import { TaskStepActions, TaskStepStore } from '../src/flux/task-step';
+import { TimeStore } from '../../src/flux/time';
+import { TaskStepActions, TaskStepStore } from '../../src/flux/task-step';
 
 const LoadStepData = function(properties = {}) {
-  const step = _.extend({
+  const step = ld.extend({
     id: '1',
     task_id: '5',
     has_recovery: true,
@@ -37,13 +36,13 @@ describe('Task Step Store', function() {
 
     it('is false if has_recovery is false', function() {
       const step = LoadStepData({ has_recovery: false });
-      expect(TaskStepStore.canTryAnother(step.id, task)).to.be.false;
+      expect(TaskStepStore.canTryAnother(step.id, task)).toBe(false);
       return undefined;
     });
 
     it('is false if answer is correct', function() {
       const step = LoadStepData({ correct_answer_id: '2', answer_id: '2' });
-      expect(TaskStepStore.canTryAnother(step.id, task)).to.be.false;
+      expect(TaskStepStore.canTryAnother(step.id, task)).toBe(false);
       return undefined;
     });
 
@@ -51,7 +50,7 @@ describe('Task Step Store', function() {
       const step = LoadStepData();
       TaskStepActions.load(step.id);
       expect(TaskStepStore.isLoading(step.id)).toBe(true);
-      expect(TaskStepStore.canTryAnother(step.id, task)).to.be.false;
+      expect(TaskStepStore.canTryAnother(step.id, task)).toBe(false);
       return undefined;
     });
 
@@ -59,27 +58,27 @@ describe('Task Step Store', function() {
       const step = LoadStepData();
       TaskStepActions.save(step.id);
       expect(TaskStepStore.isSaving(step.id)).toBe(true);
-      expect(TaskStepStore.canTryAnother(step.id, task)).to.be.false;
+      expect(TaskStepStore.canTryAnother(step.id, task)).toBe(false);
       return undefined;
     });
 
     it('doesnt work on past due tasks', function() {
       const step = LoadStepData();
       task.due_at = moment(TimeStore.getNow()).subtract(1, 'minute').toDate();
-      expect(TaskStepStore.canTryAnother(step.id, task)).to.be.false;
+      expect(TaskStepStore.canTryAnother(step.id, task)).toBe(false);
       return undefined;
     });
 
     return it('isRecovering updates when recovering a task', function() {
       const step = LoadStepData();
-      expect(TaskStepStore.isRecovering(step.id)).to.be.false;
+      expect(TaskStepStore.isRecovering(step.id)).toBe(false);
       TaskStepActions.loadRecovery(step.id);
       expect(TaskStepStore.isRecovering(step.id)).toBe(true);
       expect(TaskStepStore.canTryAnother(step.id, task)).toBe(true);
       TaskStepActions.loadedRecovery({ id: 'RECOVERED_STEP' }, step.id);
       expect(TaskStepStore.isRecovering(step.id)).toBe(true);
       TaskStepActions.loaded({ id: 'RECOVERED_STEP' }, 'RECOVERED_STEP');
-      expect(TaskStepStore.isRecovering(step.id)).to.be.false;
+      expect(TaskStepStore.isRecovering(step.id)).toBe(false);
       return undefined;
     });
   });

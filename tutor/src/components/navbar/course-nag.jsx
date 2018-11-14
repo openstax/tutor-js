@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { action, observe, observable } from 'mobx';
-import { Modal } from 'react-bootstrap';
+import { Modal, ModalDialog } from 'react-bootstrap';
 import { get, pick } from 'lodash';
 import Course from '../../models/course';
 import onboardingForCourse from '../../models/course/onboarding';
@@ -54,7 +54,6 @@ class CourseNagModal extends React.Component {
 
   render() {
     const NagComponent = this.ux && this.ux.nagComponent;
-
     if (this.props.tourContext.tour || this.isDismissed || !NagComponent) {
       return null;
     }
@@ -62,17 +61,16 @@ class CourseNagModal extends React.Component {
 
     return (
       <Modal
-        animation={false}
         dialogClassName={className}
         backdropClassName={className}
         className={className}
-        show={!this.isDismissed}
         onHide={this.onClose}
+        show={true}
       >
-        <NagComponent
-          onDismiss={this.onDismiss}
-          ux={this.ux}
-        />
+      <NagComponent
+        onDismiss={this.onDismiss}
+        ux={this.ux}
+      />
       </Modal>
     );
   }

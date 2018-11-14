@@ -36,15 +36,7 @@ class App extends React.Component {
   static contextTypes = {
     router: PropTypes.object,
   }
-  //
-  //   static childContextTypes = {
-  //     courseId: PropTypes.string,
-  //   }
-  //
-  //   getChildContext() {
-  //     return this.context.router.route.match.params.courseId
-  //   }
-  //
+
   componentDidMount() {
     Analytics.setGa(window.ga);
     User.recordSessionStart();
@@ -61,7 +53,7 @@ class App extends React.Component {
   }
 
   render() {
-    const params = Router.currentParams();
+    const { params } = this.context.router.route.match;
     const { courseId } = params;
     const course = courseId ? Courses.get(courseId) : null;
     const classNames = classnames('tutor-app', 'openstax-wrapper', {
@@ -74,7 +66,7 @@ class App extends React.Component {
         <SpyMode.Wrapper>
           <Navbar.context>
             <TourConductor>
-              <Navbar.bar {...this.props} />
+              <Navbar.bar />
               <MatchForTutor routes={Router.getRenderableRoutes()} />
             </TourConductor>
           </Navbar.context>

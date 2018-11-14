@@ -23,7 +23,7 @@ describe('Reading Row', function() {
     props.event.complete = false;
     const row = mount(<ReadingRow {...props} />);
     expect(row.find('Col[className="feedback"]').text()).toEqual('Not started');
-    expect(row).toHaveRendered('TutorIcon[type="clock"]');
+    expect(row).toHaveRendered('Icon[type="clock"]');
     row.unmount();
   });
 
@@ -40,7 +40,7 @@ describe('Reading Row', function() {
     props.event.complete = false;
     const row = mount(<ReadingRow {...props} />);
     expect(row.find('Col[className="feedback"]').text()).toEqual('In progress');
-    expect(row).toHaveRendered('TutorIcon[type="exclamation-circle"]');
+    expect(row).toHaveRendered('Icon[type="exclamation-circle"]');
     row.unmount();
   });
 

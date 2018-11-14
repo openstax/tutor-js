@@ -1,4 +1,3 @@
-import { SnapShot } from './helpers';
 import keymaster from 'keymaster';
 import Nav from '../../src/components/paging-navigation';
 

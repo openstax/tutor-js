@@ -111,7 +111,6 @@ class MyCoursesCurrent extends React.Component {
   render () {
     const baseName = 'my-courses-current';
     const courses = Courses.tutor.nonPreview.currentAndFuture.array;
-
     return (
       <div className={baseName}>
         <Container>

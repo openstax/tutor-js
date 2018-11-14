@@ -1,6 +1,4 @@
-import { expect } from 'chai';
-import { Promise } from 'es6-promise';
-import ld from 'underscore';
+import { last, first, each, find, filter } from 'lodash';
 import camelCase from 'lodash/camelCase';
 
 import moment from 'moment-timezone';
@@ -97,7 +95,7 @@ const checks = {
     expect(div.querySelectorAll('.plan').length).to.be.above(0);
 
     // TODO: Commented_because_in_alpha_plans_in_the_calendar_do_not_have_ranges
-    // _.each(durations, (plan) ->
+    // each(durations, (plan) ->
     //   fullDuration = moment(plan.opens_at).startOf('day').twix(moment(plan.due_at).endOf('day'), {allDay: true})
     //   if fullDuration.overlaps(viewingDuration)
     //     expect(div.querySelectorAll(".course-plan-#{plan.id}").length).to.be.above(0)
@@ -125,7 +123,7 @@ const checks = {
 
   _checkIsYesterdayPast({ div, component, state, router, history, courseId }) {
     const past = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--past');
-    const shouldBeYesterday = _.last(past);
+    const shouldBeYesterday = last(past);
 
     const isYesterday = shouldBeYesterday._reactInternalInstance._context.date
       .isSame(moment(TimeStore.getNow()).subtract(1, 'day'), 'day');
@@ -135,7 +133,7 @@ const checks = {
 
   _checkIsTodayCurrent({ div, component, state, router, history, courseId }) {
     const currents = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--current');
-    const shouldBeToday = _.first(currents);
+    const shouldBeToday = first(currents);
 
     const isToday = shouldBeToday._reactInternalInstance._context.date.isSame(moment(TimeStore.getNow()), 'day');
     expect(isToday).toBe(true);
@@ -144,7 +142,7 @@ const checks = {
 
   _checkIsTomorrowUpcoming({ div, component, state, router, history, courseId }) {
     const upcomings = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--upcoming');
-    const shouldBeTomorrow = _.first(upcomings);
+    const shouldBeTomorrow = first(upcomings);
     const isTomorrow = shouldBeTomorrow._reactInternalInstance._context.date.isSame(moment(TimeStore.getNow()).add(1, 'day'), 'day');
     expect(isTomorrow).toBe(true);
     return { div, component, state, router, history, courseId };
@@ -152,7 +150,7 @@ const checks = {
 
   _checkIsYesterdayClickable({ div, component, state, router, history, courseId }) {
     const past = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--past');
-    const shouldBeYesterday = _.last(past);
+    const shouldBeYesterday = last(past);
     expect(shouldBeYesterday.props.onClick).to.be.a('function');
 
     return { div, component, state, router, history, courseId };
@@ -188,7 +186,7 @@ const checks = {
 
   _checkIsTodayClickable({ div, component, state, router, history, courseId }) {
     const currents = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--current');
-    const shouldBeToday = _.first(currents);
+    const shouldBeToday = first(currents);
     expect(shouldBeToday.props.onClick).to.be.a('function');
 
     return { div, component, state, router, history, courseId };
@@ -196,7 +194,7 @@ const checks = {
 
   _checkIsTomorrowClickable({ div, component, state, router, history, courseId }) {
     const upcomings = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--upcoming');
-    const shouldBeTomorrow = _.first(upcomings);
+    const shouldBeTomorrow = first(upcomings);
     expect(shouldBeTomorrow.props.onClick).to.be.a('function');
 
     return { div, component, state, router, history, courseId };
@@ -204,7 +202,7 @@ const checks = {
 
   _checkTodayAddPlansDropDown({ div, component, state, router, history, courseId }) {
     const currents = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--current');
-    const shouldBeToday = _.first(currents);
+    const shouldBeToday = first(currents);
     expect(shouldBeToday.getDOMNode().classList.contains('active')).toBe(true);
 
     const addOnDayDropdown = ReactTestUtils.findRenderedComponentWithType(component, Add);
@@ -220,7 +218,7 @@ const checks = {
 
   _checkTomorrowAddPlansDropDown({ div, component, state, router, history, courseId }) {
     const upcomings = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--upcoming');
-    const shouldBeTomorrow = _.first(upcomings);
+    const shouldBeTomorrow = first(upcomings);
     expect(shouldBeTomorrow.getDOMNode().classList.contains('active')).toBe(true);
 
     const addOnDayDropdown = ReactTestUtils.findRenderedComponentWithType(component, Add);
@@ -252,7 +250,7 @@ const checks = {
 
 
 // promisify for chainability in specs
-_.each(checks, function(check, checkName) {
+each(checks, function(check, checkName) {
   // rename without _ in front
   const promiseName = checkName.slice(1);
 
@@ -261,7 +259,7 @@ _.each(checks, function(check, checkName) {
 
 checks._checkDoesViewShowPlan = function(planId, { div, component, state, router, history, courseId }) {
   const plansList = TeacherTaskPlanStore.getActiveCoursePlans(courseId);
-  const plan = _.findWhere(plansList, { id: planId });
+  const plan = filter(plansList, { id: planId });
 
   return expect(document.querySelector('.modal-title').innerText).toEqual(plan.title);
 };
@@ -272,13 +270,13 @@ checks.checkDoesViewShowPlan = planId =>
 
 checks._checkIsEditPlanLink = function(planId, { div, component, state, router, history, courseId }) {
   const plansList = TeacherTaskPlanStore.getActiveCoursePlans(courseId);
-  const plan = _.findWhere(plansList, { id: planId });
+  const plan = filter(plansList, { id: planId });
 
   const planEditRoute = `edit-${plan.type}`;
 
   const targetEditLink = router.makeHref(camelCase(planEditRoute), { courseId, id: planId });
   const planEdits = ReactTestUtils.scryRenderedComponentsWithType(component, CoursePlanDisplayEdit);
-  const thisPlanEdit = _.find(planEdits, planEdit => planEdit.props.plan.id === planId);
+  const thisPlanEdit = find(planEdits, planEdit => planEdit.props.plan.id === planId);
 
   // checks that there's a link, and that the href matches
   expect(div.querySelector(`.course-plan-${planId} a`).href).to.contain(targetEditLink);
@@ -292,10 +290,10 @@ checks.checkIsEditPlanLink = planId =>
 
 checks._checkIsViewPlanElement = function(planId, { div, component, state, router, history, courseId }) {
   const planQuickLooks = ReactTestUtils.scryRenderedComponentsWithType(component, CoursePlanDisplayQuickLook);
-  const thisPlanQuickLook = _.find(planQuickLooks, planQuickLook => planQuickLook.props.plan.id === planId);
+  const thisPlanQuickLook = find(planQuickLooks, planQuickLook => planQuickLook.props.plan.id === planId);
 
   // checks that there's not a link.
-  expect(div.querySelector(`.course-plan-${planId} a`)).to.be.null;
+  expect(div.querySelector(`.course-plan-${planId} a`)).toBeNull();
   // checks that a CoursePlanDisplayQuickLook component was rendered for this plan
   return expect(thisPlanQuickLook).to.not.be.null;
 };

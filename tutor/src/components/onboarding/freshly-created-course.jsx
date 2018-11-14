@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Button, Card } from 'react-bootstrap';
-import { action } from 'mobx';
+import { Button, Collapse } from 'react-bootstrap';
+import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { map, partial } from 'lodash';
 import { OnboardingNag, Body, Footer } from './onboarding-nag';
@@ -12,6 +12,12 @@ class FreshlyCreatedCourse extends React.Component {
 
   static propTypes = {
     ux: PropTypes.object.isRequired,
+  }
+
+  @observable isShowingWhy = false;
+
+  @action.bound toggleWhy() {
+    this.isShowingWhy = !this.isShowingWhy;
   }
 
   @action.bound
@@ -27,20 +33,29 @@ class FreshlyCreatedCourse extends React.Component {
             Now that you've created your OpenStax Tutor course, tell us how you plan to use it:
           </p>
 
-          <Card
-            className='why-ask'
-            header = "Why are you asking?"
+          <Button
+            variant="link"
+            onClick={this.toggleWhy}
+            aria-expanded={this.isShowingWhy}
           >
-            OpenStax Tutor is funded by philanthropic foundations who want to know how their gifts
-            impact student learning. Your confirmation helps us send accurate student numbers to our
-            foundation supporters, helping to secure future funding.
-          </Card>
+            Why are you asking?
+          </Button>
+          <Collapse in={this.isShowingWhy}>
+            <p>
+              OpenStax Tutor is funded by philanthropic foundations
+              who want to know how their gifts impact student learning.
+              Your confirmation helps us send accurate student numbers
+              to our foundation supporters, helping to secure
+              future funding.
+            </p>
+          </Collapse>
 
         </Body>
         <Footer>
           {map(this.props.ux.usageOptions, (txt, id) =>
             <Button
               key={id}
+              variant="default"
               onClick={partial(this.onChoice, id)}
               >
               {txt}

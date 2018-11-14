@@ -32,11 +32,12 @@ class NewOrExisting extends React.Component {
 
     return (
       <Card
-        header="Do you want to use a new or existing Tutor Course with your LMS?"
         className={'new-course-wizard'}
-        footer={<Footer ux={ux} />}
       >
-        <div className="panel-content">
+        <Card.Header>
+          <h3>Do you want to use a new or existing Tutor Course with your LMS?</h3>
+        </Card.Header>
+        <Card.Body className="panel-content">
           <Listing>
             <Choice
               key="course-new"
@@ -53,7 +54,8 @@ class NewOrExisting extends React.Component {
               Pair LMS to an existing course
             </Choice>
           </Listing>
-        </div>
+        </Card.Body>
+        <Footer ux={ux} />
       </Card>
     );
   }

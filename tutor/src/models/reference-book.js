@@ -10,7 +10,7 @@ import Chapter from './reference-book/chapter';
 
 function mapPages(page, pages) {
   if (page.isPage) {
-    const lastPage = last(pages.byId.values());
+    const lastPage = last(Array.from(pages.byId.values()));
     if (lastPage) { lastPage.linkNextPage(page); }
     pages.byId.set(page.id, page);
     pages.byUUID.set(page.uuid, page);
@@ -29,11 +29,12 @@ class ReferenceBook extends BaseModel {
   @identifier id;
   @field archive_url;
   @field webview_url;
+
   @field({ model: ChapterSection }) chapter_section;
 
   @computed get pages() {
     return mapPages(this, {
-      byId: new Map(), // support string or number keys
+      byId: new Map({}, { keyType: String }),
       byUUID: observable.map(),
       byChapterSection: observable.map(),
     });
@@ -59,7 +60,7 @@ class ReferenceBook extends BaseModel {
   // a simplified data structure suitable for passing into flux
   @computed get topicInfo() {
     const pages = this.pages.byId;
-    return fromPairs(map(pages.keys(), id =>
+    return fromPairs(Array.from(pages.keys()).map(id =>
       [id, pages.get(id).asTopic]
     ));
   }

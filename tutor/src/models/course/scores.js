@@ -1,6 +1,6 @@
 import { find } from 'lodash';
 import { observable, action } from 'mobx';
-import Map from 'shared/model/map'
+import Map from 'shared/model/map';
 
 import {
   BaseModel, identifiedBy, belongsTo,

@@ -5,6 +5,14 @@ import lazyGetter from '../helpers/lazy-getter.js';
 
 export default class Map {
 
+  static toObject(map) {
+    const obj = {};
+    for(let prop of map){
+      obj[prop[0]] = prop[1];
+    }
+    return obj;
+  }
+
   keyType = Number
 
   _map = observable.map()
@@ -22,8 +30,8 @@ export default class Map {
     return this.values();
   }
 
-  toJS() {
-    return toJS(this._map);
+  get toObject() {
+    return Map.toObject(this._map);
   }
 
   keys() {
@@ -32,6 +40,10 @@ export default class Map {
 
   values() {
     return Array.from(this._map.values());
+  }
+
+  has(key) {
+    return this._map.has(this.keyType(key));
   }
 
   get(key) {
@@ -70,6 +82,10 @@ export default class Map {
     return ! this.isEmpty;
   }
 
+  @action merge(obj) {
+    return this._map.merge(obj)
+  }
+
   @lazyGetter api = new ModelApi();
 
   @action mergeModelData(data) {
@@ -80,7 +96,7 @@ export default class Map {
   }
 }
 
-['replace', 'clear'].forEach(prop => {
+['forEach', 'replace', 'clear'].forEach(prop => {
   Map.prototype[prop] = function(...args) {
     return this._map[prop](...args);
   };

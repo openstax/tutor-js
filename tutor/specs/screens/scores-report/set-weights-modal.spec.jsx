@@ -1,9 +1,8 @@
-import { React, SnapShot, Wrapper } from '../../helpers';
+import { React, EnzymeContext } from '../../helpers';
 import { each, pick } from 'lodash';
 import bootstrapScores from '../../helpers/scores-data.js';
 import UX from '../../../src/screens/scores-report/ux';
 import SetWeightsModal from '../../../src/screens/scores-report/set-weights-modal';
-import EnzymeContext from '../../helpers/enzyme-context';
 import { wrapModalContents } from '../../helpers/modal-wrapper';
 
 

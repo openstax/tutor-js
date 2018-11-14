@@ -56,7 +56,7 @@ class SelectTopics extends React.Component {
           isChanged={constant(this.hasChanged())}
           onCancel={cancel}
         >
-          <div className="select-chapters">
+          <div key="select-chapters" className="select-chapters">
             <SectionsChooser
               book={course.referenceBook}
               selectedPageIds={selected}

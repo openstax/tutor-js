@@ -1,11 +1,10 @@
-import { expect } from 'chai';
 import moment from 'moment';
-import ld from 'underscore';
+import ld from 'lodash';
 
-import { TaskActions, TaskStore } from '../src/flux/task';
-import { TimeActions, TimeStore } from '../src/flux/time';
+import { TaskActions, TaskStore } from '../../src/flux/task';
+import { TimeActions, TimeStore } from '../../src/flux/time';
 
-import VALIDldMODEL from '../api/tasks/5.json';
+import VALID_MODEL from '../../api/tasks/5.json';
 
 describe('Task Store', function() {
   afterEach(() => TaskActions.reset());
@@ -14,7 +13,7 @@ describe('Task Store', function() {
     const id = '0';
     expect(TaskStore.isUnknown(id)).toBe(true);
     TaskActions.loaded({ hello: 'foo', steps: [] }, id);
-    expect(TaskStore.isUnknown(id)).to.be.false;
+    expect(TaskStore.isUnknown(id)).toBe(false);
     TaskActions.reset();
     expect(TaskStore.isUnknown(id)).toBe(true);
     return undefined;
@@ -34,23 +33,23 @@ describe('Task Store', function() {
   it('should load a task through the happy path', function() {
     const id = '0';
     expect(TaskStore.isUnknown(id)).toBe(true);
-    expect(TaskStore.isLoaded(id)).to.be.false;
-    expect(TaskStore.isLoading(id)).to.be.false;
-    expect(TaskStore.isFailed(id)).to.be.false;
+    expect(TaskStore.isLoaded(id)).toBe(false);
+    expect(TaskStore.isLoading(id)).toBe(false);
+    expect(TaskStore.isFailed(id)).toBe(false);
 
     TaskActions.load(id);
 
-    expect(TaskStore.isUnknown(id)).to.be.false;
-    expect(TaskStore.isLoaded(id)).to.be.false;
+    expect(TaskStore.isUnknown(id)).toBe(false);
+    expect(TaskStore.isLoaded(id)).toBe(false);
     expect(TaskStore.isLoading(id)).toBe(true);
-    expect(TaskStore.isFailed(id)).to.be.false;
+    expect(TaskStore.isFailed(id)).toBe(false);
 
     TaskActions.loaded({ hello: 'bar', steps: [] }, id);
 
-    expect(TaskStore.isUnknown(id)).to.be.false;
+    expect(TaskStore.isUnknown(id)).toBe(false);
     expect(TaskStore.isLoaded(id)).toBe(true);
-    expect(TaskStore.isLoading(id)).to.be.false;
-    expect(TaskStore.isFailed(id)).to.be.false;
+    expect(TaskStore.isLoading(id)).toBe(false);
+    expect(TaskStore.isFailed(id)).toBe(false);
 
     expect(TaskStore.get(id).hello).toEqual('bar');
     return undefined;
@@ -60,22 +59,22 @@ describe('Task Store', function() {
   it('should note when a load failed', function() {
     const id = '0';
     expect(TaskStore.isUnknown(id)).toBe(true);
-    expect(TaskStore.isLoaded(id)).to.be.false;
-    expect(TaskStore.isLoading(id)).to.be.false;
-    expect(TaskStore.isFailed(id)).to.be.false;
+    expect(TaskStore.isLoaded(id)).toBe(false);
+    expect(TaskStore.isLoading(id)).toBe(false);
+    expect(TaskStore.isFailed(id)).toBe(false);
 
     TaskActions.load(id);
 
-    expect(TaskStore.isUnknown(id)).to.be.false;
-    expect(TaskStore.isLoaded(id)).to.be.false;
+    expect(TaskStore.isUnknown(id)).toBe(false);
+    expect(TaskStore.isLoaded(id)).toBe(false);
     expect(TaskStore.isLoading(id)).toBe(true);
-    expect(TaskStore.isFailed(id)).to.be.false;
+    expect(TaskStore.isFailed(id)).toBe(false);
 
     TaskActions.FAILED(404, { err: 'message' }, id);
 
-    expect(TaskStore.isUnknown(id)).to.be.false;
-    expect(TaskStore.isLoaded(id)).to.be.false;
-    expect(TaskStore.isLoading(id)).to.be.false;
+    expect(TaskStore.isUnknown(id)).toBe(false);
+    expect(TaskStore.isLoaded(id)).toBe(false);
+    expect(TaskStore.isLoading(id)).toBe(false);
     expect(TaskStore.isFailed(id)).toBe(true);
     return undefined;
   });
@@ -83,8 +82,8 @@ describe('Task Store', function() {
 
   return it('should be able to tell us if something is past due', function() {
     const timeNow = TimeStore.getNow();
-    const pastDue = _.clone(VALID_MODEL);
-    const beforeDue = _.clone(VALID_MODEL);
+    const pastDue = ld.clone(VALID_MODEL);
+    const beforeDue = ld.clone(VALID_MODEL);
     pastDue.due_at = moment(timeNow).subtract(1, 'minute').format();
     beforeDue.due_at = moment(timeNow).add(1, 'hour').format();
 
@@ -92,7 +91,7 @@ describe('Task Store', function() {
     TaskActions.loaded(beforeDue, 'before');
 
     expect(TaskStore.isTaskPastDue('past')).toBe(true);
-    expect(TaskStore.isTaskPastDue('before')).to.be.false;
+    expect(TaskStore.isTaskPastDue('before')).toBe(false);
     return undefined;
   });
 });

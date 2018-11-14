@@ -1,8 +1,6 @@
-import { Wrapper, SnapShot } from 'helpers';
+import { C, EnzymeContext } from '../../helpers';
 import SecondSessionWarning from '../../../src/components/onboarding/second-session-warning';
 import CoursePreviewUX from '../../../src/models/course/onboarding/preview';
-import EnzymeContext from '../helpers/enzyme-context';
-import { extend } from 'lodash';
 import User from '../../../src/models/user';
 
 jest.mock('../../../src/models/user', () => ({
@@ -19,25 +17,23 @@ describe('Second Session Warning', () => {
 
   it('renders and matches snapshot', () => {
     expect.snapshot(
-      <Wrapper _wrapped_component={SecondSessionWarning} ux={ux} />
+      <C><SecondSessionWarning ux={ux} /></C>
     ).toMatchSnapshot();
   });
 
   it('dislays got it and dismisses on continue', async () => {
-    const wrapper = shallow(<SecondSessionWarning ux={ux} />);
+    const wrapper = mount(<C><SecondSessionWarning ux={ux} /></C>);
     expect(await axe(wrapper.html())).toHaveNoViolations();
-    wrapper.find('Button[variant="default"]').simulate('click');
-    expect(User.logEvent).toHaveBeenCalledWith({ category: 'onboarding', code: 'like_preview_ask_later' });
-    expect(wrapper.find('Body').render().text()).toContain('ready to create a real course');
-    wrapper.find('Button[variant="primary"]').simulate('click');
-    expect(ux.dismissNag).toHaveBeenCalled();
+    wrapper.find('button.create').simulate('click');
+    expect(User.logEvent).toHaveBeenCalledWith({ category: 'onboarding', code: 'like_preview_yes' });
+    expect(wrapper.find('Body').render().text()).toContain('Ready to create your real course');
   });
 
   it('navigates and logs on add', async () => {
     const context =  EnzymeContext.build();
-    const wrapper = shallow(<SecondSessionWarning ux={ux} />, context);
+    const wrapper = mount(<SecondSessionWarning ux={ux} />, context);
     expect(await axe(wrapper.html())).toHaveNoViolations();
-    wrapper.find('Button[variant="primary"]').simulate('click');
+    wrapper.find('button.create').simulate('click');
     expect(User.logEvent).toHaveBeenCalledWith({ category: 'onboarding', code: 'like_preview_yes' });
     expect(context.context.router.history.push).toHaveBeenCalledWith('/dashboard');
   });

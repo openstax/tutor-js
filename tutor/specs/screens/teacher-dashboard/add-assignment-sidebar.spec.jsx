@@ -1,8 +1,6 @@
-import last from 'lodash/last';
+import { Factory, C, EnzymeContext } from '../../helpers';
 import Helper from '../../../src/screens/teacher-dashboard/helper';
 import Sidebar from '../../../src/screens/teacher-dashboard/add-assignment-sidebar';
-import EnzymeContext from '../../helpers/enzyme-context';
-import Factory, { FactoryBot } from '../../factories';
 
 jest.mock('../../../src/screens/teacher-dashboard/helper');
 
@@ -20,7 +18,7 @@ describe('CourseCalendar AddAssignmentMenu', function() {
   });
 
   it('renders with style for periods', function() {
-    const wrapper = mount(<Sidebar {...props} />, EnzymeContext.withDnD());
+    const wrapper = mount(<C><Sidebar {...props} /></C>);
     const links = wrapper.find('.new-assignments li').map(el => el.render().text());
     expect(links).toEqual([
       'Add Reading',
@@ -37,6 +35,7 @@ describe('CourseCalendar AddAssignmentMenu', function() {
     expect(Helper.scheduleIntroEvent).not.toHaveBeenCalled();
     wrapper.setState({ willShowIntro: true });
     wrapper.setProps({ isOpen: true });
+
     expect(Helper.scheduleIntroEvent).toHaveBeenCalled();
     expect(wrapper.state('showIntro')).toBeUndefined();
     Helper.scheduleIntroEvent.mock.calls[0][0]();

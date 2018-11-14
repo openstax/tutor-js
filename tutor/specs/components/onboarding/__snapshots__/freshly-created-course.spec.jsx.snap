@@ -1,81 +1,156 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Freshly Created Course prompt renders and matches snapshot 1`] = `
-<div
-  className="onboarding-nag freshly-created-course"
+<C
+  path="/"
 >
-  <div
-    className="body"
-  >
-    <p>
-      Now that you've created your OpenStax Tutor course, tell us how you plan to use it:
-    </p>
-    <div
-      className="why-ask why-ask-default"
-      id={null}
-    >
-      <div
-        className="why-ask-heading"
-      >
-        <h4
-          className="why-ask-title"
-          role="presentation"
-        >
-          <a
-            aria-controls={undefined}
-            aria-expanded={false}
-            aria-selected={false}
-            className="collapsed"
-            href={undefined}
-            onClick={[Function]}
-            role="button"
-          >
-            Why are you asking?
-          </a>
-        </h4>
-      </div>
-      <div
-        aria-expanded={null}
-        aria-hidden={true}
-        className="why-ask-collapse collapse"
-        id={undefined}
-        role={undefined}
-      >
-        <div
-          className="why-ask-body"
-        >
-          OpenStax Tutor is funded by philanthropic foundations who want to know how their gifts impact student learning. Your confirmation helps us send accurate student numbers to our foundation supporters, helping to secure future funding.
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="footer"
-  >
-    <button
-      className="btn btn-default"
-      disabled={false}
-      onClick={[Function]}
-      type="button"
-    >
-      Required as part of the grade
-    </button>
-    <button
-      className="btn btn-default"
-      disabled={false}
-      onClick={[Function]}
-      type="button"
-    >
-      For extra credit
-    </button>
-    <button
-      className="btn btn-default"
-      disabled={false}
-      onClick={[Function]}
-      type="button"
-    >
-      I don’t know yet
-    </button>
-  </div>
-</div>
+  <FreshlyCreatedCourse
+    ux={
+      FullCourseOnboarding {
+        "course": Object {
+          Symbol(mobx administration): ObservableObjectAdministration$$1 {
+            "defaultEnhancer": [Function],
+            "keysAtom": Atom$$1 {
+              "diffValue": 0,
+              "isBeingObserved": false,
+              "isPendingUnobservation": false,
+              "lastAccessedBy": 0,
+              "lowestObserverState": -1,
+              "name": "FullCourseOnboarding@26.course.keys",
+              "observers": Set {},
+            },
+            "name": "FullCourseOnboarding@26.course",
+            "pendingKeys": Map {
+              "__jest-styled-components__" => false,
+              "$$typeof" => false,
+              "nodeType" => false,
+              "@@__IMMUTABLE_ITERABLE__@@" => false,
+              "@@__IMMUTABLE_RECORD__@@" => false,
+              "_isMockFunction" => false,
+              "toJSON" => false,
+            },
+            "proxy": [Circular],
+            "target": Object {
+              Symbol(mobx administration): [Circular],
+            },
+            "values": Map {},
+          },
+        },
+        "dismissNag": [MockFunction],
+        "response": false,
+        "tourContext": Object {
+          Symbol(mobx administration): ObservableObjectAdministration$$1 {
+            "defaultEnhancer": [Function],
+            "keysAtom": Atom$$1 {
+              "diffValue": 0,
+              "isBeingObserved": false,
+              "isPendingUnobservation": false,
+              "lastAccessedBy": 0,
+              "lowestObserverState": -1,
+              "name": "FullCourseOnboarding@26.tourContext.keys",
+              "observers": Set {},
+            },
+            "name": "FullCourseOnboarding@26.tourContext",
+            "pendingKeys": Map {
+              "__jest-styled-components__" => false,
+              "$$typeof" => false,
+              "nodeType" => false,
+              "@@__IMMUTABLE_ITERABLE__@@" => false,
+              "@@__IMMUTABLE_RECORD__@@" => false,
+              "_isMockFunction" => false,
+              "toJSON" => false,
+            },
+            "proxy": [Circular],
+            "target": Object {
+              Symbol(mobx administration): [Circular],
+            },
+            "values": Map {},
+          },
+        },
+        Symbol(mobx did run lazy initializers): true,
+        Symbol(mobx administration): ObservableObjectAdministration$$1 {
+          "defaultEnhancer": [Function],
+          "keysAtom": Atom$$1 {
+            "diffValue": 0,
+            "isBeingObserved": false,
+            "isPendingUnobservation": false,
+            "lastAccessedBy": 0,
+            "lowestObserverState": 2,
+            "name": "FullCourseOnboarding@26.keys",
+            "observers": Set {},
+          },
+          "name": "FullCourseOnboarding@26",
+          "target": [Circular],
+          "values": Map {
+            "course" => Object {
+              Symbol(mobx administration): ObservableObjectAdministration$$1 {
+                "defaultEnhancer": [Function],
+                "keysAtom": Atom$$1 {
+                  "diffValue": 0,
+                  "isBeingObserved": false,
+                  "isPendingUnobservation": false,
+                  "lastAccessedBy": 0,
+                  "lowestObserverState": -1,
+                  "name": "FullCourseOnboarding@26.course.keys",
+                  "observers": Set {},
+                },
+                "name": "FullCourseOnboarding@26.course",
+                "pendingKeys": Map {
+                  "__jest-styled-components__" => false,
+                  "$$typeof" => false,
+                  "nodeType" => false,
+                  "@@__IMMUTABLE_ITERABLE__@@" => false,
+                  "@@__IMMUTABLE_RECORD__@@" => false,
+                  "_isMockFunction" => false,
+                  "toJSON" => false,
+                },
+                "proxy": [Circular],
+                "target": Object {
+                  Symbol(mobx administration): [Circular],
+                },
+                "values": Map {},
+              },
+            },
+            "tourContext" => Object {
+              Symbol(mobx administration): ObservableObjectAdministration$$1 {
+                "defaultEnhancer": [Function],
+                "keysAtom": Atom$$1 {
+                  "diffValue": 0,
+                  "isBeingObserved": false,
+                  "isPendingUnobservation": false,
+                  "lastAccessedBy": 0,
+                  "lowestObserverState": -1,
+                  "name": "FullCourseOnboarding@26.tourContext.keys",
+                  "observers": Set {},
+                },
+                "name": "FullCourseOnboarding@26.tourContext",
+                "pendingKeys": Map {
+                  "__jest-styled-components__" => false,
+                  "$$typeof" => false,
+                  "nodeType" => false,
+                  "@@__IMMUTABLE_ITERABLE__@@" => false,
+                  "@@__IMMUTABLE_RECORD__@@" => false,
+                  "_isMockFunction" => false,
+                  "toJSON" => false,
+                },
+                "proxy": [Circular],
+                "target": Object {
+                  Symbol(mobx administration): [Circular],
+                },
+                "values": Map {},
+              },
+            },
+            "otherModalsAreDisplaying" => false,
+            "courseIsNaggable" => undefined,
+            "response" => false,
+            "nagComponent" => null,
+            "displayInitialPrompt" => false,
+            "lastNaggedAgo" => null,
+            "isOnboardingUndecided" => true,
+          },
+        },
+      }
+    }
+  />
+</C>
 `;

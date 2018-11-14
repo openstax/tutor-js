@@ -52,7 +52,6 @@ class CourseEnroll extends React.Component {
 
     return (
       <Modal.Dialog
-        backdropClassName="course-enroll"
         className="course-enroll"
       >
         {enrollment.bodyContents}

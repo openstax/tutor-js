@@ -1,10 +1,7 @@
-import { React, Testing, ld } from '../../helpers';
+import { EnzymeContext, React } from '../../helpers';
 import ScoresUX from '../../../src/screens/scores-report/ux';
 import bootstrapScores from '../../helpers/scores-data.js';
 import Cell from '../../../src/screens/scores-report/reading-cell';
-import PieProgress from '../../../src/screens/scores-report/pie-progress';
-import TH from '../../../src/helpers/task';
-import EnzymeContext from '../../helpers/enzyme-context';
 
 describe('Student Scores Report Reading Cell', function() {
   let task;

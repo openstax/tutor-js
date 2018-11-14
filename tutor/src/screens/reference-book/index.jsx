@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { React, inject, observer, cn } from '../../helpers/react';
+import { React, observable, action, inject, observer, cn } from '../../helpers/react';
 import ReferenceBook from './reference-book';
 import UX from './ux';
 import NavbarContext from '../../components/navbar/context';
@@ -23,9 +23,10 @@ class ReferenceBookShell extends React.Component {
     router: PropTypes.object,
   }
 
-  ux = new UX(this.context.router, this.props.tourContext);
+  @observable ux;
 
-  componentWillMount() {
+  @action componentDidMount() {
+    this.ux = this.props.ux || new UX(this.context.router, this.props.tourContext);
     this.ux.update(this.props.params);
     this.ux.setNavBar(this.props.navBar);
   }
@@ -40,6 +41,7 @@ class ReferenceBookShell extends React.Component {
 
   render() {
     const { ux } = this;
+    if (!ux) { return null; }
 
     return (
       <ReferenceBook

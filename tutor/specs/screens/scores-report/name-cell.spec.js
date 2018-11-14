@@ -1,5 +1,4 @@
-import { Testing, ld } from '../../helpers';
-import EnzymeContext from '../../helpers/enzyme-context';
+import { EnzymeContext } from '../../helpers';
 import NameCell from '../../../src/screens/scores-report/name-cell';
 
 

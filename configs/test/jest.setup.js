@@ -3,6 +3,7 @@ import enzyme from 'enzyme';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import faker from 'faker';
 import React from 'react';
+import 'jest-styled-components';
 
 faker.seed(123);
 

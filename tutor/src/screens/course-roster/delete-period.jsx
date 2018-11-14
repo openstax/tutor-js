@@ -80,7 +80,7 @@ class DeletePeriodLink extends React.Component {
           variant="link"
           className="control delete-period"
         >
-          <Icon type="trash" />Delete {section}
+          <Icon type="trash-alt" />Delete {section}
         </Button>
         <DeletePeriodModal
           show={this.showModal}

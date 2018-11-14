@@ -1,6 +1,6 @@
-import { Wrapper, SnapShot } from 'helpers';
+import { C } from '../../helpers';
 import FreeTrialActivated from '../../../src/components/onboarding/free-trial-activated';
-import { STUDENT_COURSE_ONEldMODEL } from '../../courses-test-data';
+import { STUDENT_COURSE_ONE_MODEL } from '../../courses-test-data';
 import Course from '../../../src/models/course';
 import Student from '../../../src/models/course/onboarding/student-course';
 
@@ -12,7 +12,11 @@ describe('Free trial ended modal', () => {
 
   it('renders and matches snapshot', () => {
     expect.snapshot(
-      <Wrapper _wrapped_component={FreeTrialActivated} ux={ux} />
+      <C>
+        <FreeTrialActivated
+          onDismiss={jest.fn()}
+          ux={ux} />
+      </C>
     ).toMatchSnapshot();
   });
 

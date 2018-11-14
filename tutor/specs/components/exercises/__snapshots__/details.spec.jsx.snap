@@ -11,11 +11,22 @@ exports[`Exercise Details Component renders and matches snapshot 1`] = `
       className="show-cards"
       onClick={[Function]}
     >
-      <i
-        className="tutor-icon fa fa-th-large"
-        role="presentation"
-        type="th-large"
-      />
+      <svg
+        aria-hidden="true"
+        className="svg-inline--fa fa-th fa-w-16 fa-lg tutor-icon th"
+        data-icon="th"
+        data-prefix="fas"
+        role="img"
+        style={Object {}}
+        viewBox="0 0 512 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M149.333 56v80c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V56c0-13.255 10.745-24 24-24h101.333c13.255 0 24 10.745 24 24zm181.334 240v-80c0-13.255-10.745-24-24-24H205.333c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24h101.333c13.256 0 24.001-10.745 24.001-24zm32-240v80c0 13.255 10.745 24 24 24H488c13.255 0 24-10.745 24-24V56c0-13.255-10.745-24-24-24H386.667c-13.255 0-24 10.745-24 24zm-32 80V56c0-13.255-10.745-24-24-24H205.333c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24h101.333c13.256 0 24.001-10.745 24.001-24zm-205.334 56H24c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24h101.333c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24zM0 376v80c0 13.255 10.745 24 24 24h101.333c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H24c-13.255 0-24 10.745-24 24zm386.667-56H488c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H386.667c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24zm0 160H488c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H386.667c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24zM181.333 376v80c0 13.255 10.745 24 24 24h101.333c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H205.333c-13.255 0-24 10.745-24 24z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
        Back to Card View
     </a>
   </div>
@@ -60,20 +71,18 @@ exports[`Exercise Details Component renders and matches snapshot 1`] = `
         tabIndex="0"
       >
         <div
-          className="openstax-exercise-preview exercise-card actions-on-side panel panel-default"
+          className="openstax-exercise-preview exercise-card actions-on-side card bg-light"
           data-exercise-id="2@1"
-          id={undefined}
           tabIndex={-1}
         >
           <div
-            className="panel-body"
+            className="card-body"
           >
             <div
               className="exercise-body"
             >
               <div
                 className="openstax-question openstax-question-preview"
-                data-question-number={undefined}
               >
                 <div
                   dangerouslySetInnerHTML={
@@ -101,7 +110,6 @@ exports[`Exercise Details Component renders and matches snapshot 1`] = `
                           aria-label="Choice a:"
                           className="answer-letter"
                           disabled={true}
-                          onClick={undefined}
                         >
                           a
                         </button>
@@ -135,7 +143,6 @@ exports[`Exercise Details Component renders and matches snapshot 1`] = `
                           aria-label="Choice b:"
                           className="answer-letter"
                           disabled={true}
-                          onClick={undefined}
                         >
                           b
                         </button>
@@ -169,7 +176,6 @@ exports[`Exercise Details Component renders and matches snapshot 1`] = `
                           aria-label="Choice c:"
                           className="answer-letter"
                           disabled={true}
-                          onClick={undefined}
                         >
                           c
                         </button>
@@ -203,7 +209,6 @@ exports[`Exercise Details Component renders and matches snapshot 1`] = `
                           aria-label="Choice d:"
                           className="answer-letter"
                           disabled={true}
-                          onClick={undefined}
                         >
                           d
                         </button>
@@ -237,7 +242,6 @@ exports[`Exercise Details Component renders and matches snapshot 1`] = `
                           aria-label="Choice e:"
                           className="answer-letter"
                           disabled={true}
-                          onClick={undefined}
                         >
                           e
                         </button>

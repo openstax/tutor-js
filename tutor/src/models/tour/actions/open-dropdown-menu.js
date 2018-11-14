@@ -11,13 +11,13 @@ export default class OpenDowndownMenu extends BaseAction {
   }
 
   get isOpen() {
-    return !!this.menu.classList.contains('open');
+    return $0.getAttribute('aria-expanded') === 'true';
   }
 
   @action.bound
   clickMenu() {
     defer(() => {
-      this.menu.querySelector('.dropdown-toggle').click();
+      this.menu.click();
     });
   }
 }

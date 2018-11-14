@@ -1,9 +1,8 @@
-import { SnapShot, Wrapper } from 'helpers';
+import { C, EnzymeContext } from '../../helpers';
 import Factory, { FactoryBot } from '../../factories';
 import Courses from '../../../src/models/courses-map';
 import Breadcrumbs from '../../../src/components/task-teacher-review/breadcrumbs';
 import Router from '../../../src/helpers/router';
-import EnzymeContext from '../helpers/enzyme-context';
 
 jest.mock('../../../src/helpers/router');
 
@@ -16,6 +15,7 @@ describe('Task Teacher Review: Breadcrumbs', function() {
     course = Factory.course();
     Courses.set(course.id, course);
     plan = course.taskPlans.withPlanId(1);
+    plan.update(FactoryBot.create('TeacherDashboardTask'));
     plan.analytics.onApiRequestComplete({
       data: FactoryBot.create('TaskPlanStat', { course }),
     });
@@ -30,9 +30,8 @@ describe('Task Teacher Review: Breadcrumbs', function() {
   });
 
   it('renders and matches snapshot', () => {
-    const bc = shallow(<Breadcrumbs {...props} />);
     expect.snapshot(
-      <Wrapper _wrapped_component={Breadcrumbs} noReference={true} {...props} />
+      <C><Breadcrumbs {...props} /></C>
     ).toMatchSnapshot();
   });
 

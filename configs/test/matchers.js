@@ -10,7 +10,7 @@ jasmine.addMatchers({
         wrapper.update(); // needed bc enzyme stopped updating
         matchCount = wrapper.find(selector).length;
         result = {
-          pass: matchCount === 1,
+          pass: matchCount >= 1,
         };
         if (result.pass) {
           result.message = function() {
@@ -18,7 +18,7 @@ jasmine.addMatchers({
           };
         } else {
           result.message = function() {
-            return `Expected wrapper to contain \`${selector}\` only once, but it was found ${matchCount} times`;
+            return `Expected wrapper to contain \`${selector}\`, but it was not found`;
           };
         }
         return result;

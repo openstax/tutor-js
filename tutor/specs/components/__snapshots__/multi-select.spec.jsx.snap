@@ -2,180 +2,24 @@
 
 exports[`MultiSelect component renders selections 1`] = `
 <div
-  className="multi-select"
+  className="multi-select dropdown"
+  onKeyDown={[Function]}
+  variant="default"
 >
-  <div
-    className="dropdown btn-group"
+  <button
+    aria-expanded={false}
+    aria-haspopup={true}
+    aria-label="Food Selections"
+    className="dropdown-toggle btn btn-default"
+    disabled={false}
+    id="multi-select"
+    onClick={[Function]}
+    onToggle={[Function]}
+    open={false}
+    tabIndex={0}
+    type="button"
   >
-    <button
-      aria-expanded={false}
-      aria-haspopup={true}
-      aria-label="Food Selections"
-      className="dropdown-toggle btn btn-default"
-      disabled={false}
-      id="multi-select"
-      onClick={[Function]}
-      onKeyDown={[Function]}
-      role="button"
-      tabIndex={0}
-      type="button"
-    >
-      Food Selections
-       
-      <span
-        className="caret"
-      />
-    </button>
-    <ul
-      aria-labelledby="multi-select"
-      className="dropdown-menu"
-      role="menu"
-    >
-      <li
-        className="multi-selection-option"
-        role="presentation"
-        style={undefined}
-      >
-        <a
-          href="#"
-          onClick={[Function]}
-          onKeyDown={[Function]}
-          role="menuitem"
-          tabIndex="-1"
-        >
-          <i
-            className="tutor-icon fa fa-check-square-o"
-            role="presentation"
-            type="check-square-o"
-          />
-          <span
-            className="title"
-          >
-            Turkey
-          </span>
-        </a>
-      </li>
-      <li
-        className="multi-selection-option"
-        role="presentation"
-        style={undefined}
-      >
-        <a
-          href="#"
-          onClick={[Function]}
-          onKeyDown={[Function]}
-          role="menuitem"
-          tabIndex="-1"
-        >
-          <i
-            className="tutor-icon fa fa-square-o"
-            role="presentation"
-            type="square-o"
-          />
-          <span
-            className="title"
-          >
-            Ham
-          </span>
-        </a>
-      </li>
-      <li
-        className="multi-selection-option"
-        role="presentation"
-        style={undefined}
-      >
-        <a
-          href="#"
-          onClick={[Function]}
-          onKeyDown={[Function]}
-          role="menuitem"
-          tabIndex="-1"
-        >
-          <i
-            className="tutor-icon fa fa-check-square-o"
-            role="presentation"
-            type="check-square-o"
-          />
-          <span
-            className="title"
-          >
-            Potatoes & Gravy
-          </span>
-        </a>
-      </li>
-      <li
-        className="multi-selection-option"
-        role="presentation"
-        style={undefined}
-      >
-        <a
-          href="#"
-          onClick={[Function]}
-          onKeyDown={[Function]}
-          role="menuitem"
-          tabIndex="-1"
-        >
-          <i
-            className="tutor-icon fa fa-square-o"
-            role="presentation"
-            type="square-o"
-          />
-          <span
-            className="title"
-          >
-            Green Beans
-          </span>
-        </a>
-      </li>
-      <li
-        className="multi-selection-option"
-        role="presentation"
-        style={undefined}
-      >
-        <a
-          href="#"
-          onClick={[Function]}
-          onKeyDown={[Function]}
-          role="menuitem"
-          tabIndex="-1"
-        >
-          <i
-            className="tutor-icon fa fa-square-o"
-            role="presentation"
-            type="square-o"
-          />
-          <span
-            className="title"
-          >
-            Cranberries
-          </span>
-        </a>
-      </li>
-      <li
-        className="multi-selection-option"
-        role="presentation"
-        style={undefined}
-      >
-        <a
-          href="#"
-          onClick={[Function]}
-          onKeyDown={[Function]}
-          role="menuitem"
-          tabIndex="-1"
-        >
-          <i
-            className="tutor-icon fa fa-check-square-o"
-            role="presentation"
-            type="check-square-o"
-          />
-          <span
-            className="title"
-          >
-            Stuffing
-          </span>
-        </a>
-      </li>
-    </ul>
-  </div>
+    Food Selections
+  </button>
 </div>
 `;

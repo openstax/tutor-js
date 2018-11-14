@@ -7,6 +7,19 @@ import Solution from './solution';
 import Format from './format';
 import invariant from 'invariant';
 
+export
+class ReviewQuestion {
+  constructor(question) {
+    this.q = question;
+  }
+  get id() { return this.q.question_id; }
+  @computed get answers() { return this.q.answer_stats; }
+  @computed get formats() { return this.q.content.formats; }
+  @computed get stem_html(){ return this.q.content.stem_html; }
+  @computed get stimulus_html() { return this.q.content.stimulus_html; }
+}
+
+
 export default
 @identifiedBy('exercise/question')
 class ExerciseQuestion extends BaseModel {

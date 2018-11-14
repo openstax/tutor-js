@@ -1,7 +1,6 @@
 import imagesComplete from '../../src/helpers/images-complete';
 import { JSDOM } from 'jsdom';
-
-jest.useFakeTimers();
+import { deferred } from './index';
 
 describe('Images Complete Helper', () => {
 
@@ -27,7 +26,7 @@ describe('Images Complete Helper', () => {
     });
   });
 
-  it('resolves after images are loaded', () => {
+  fit('resolves after images are loaded', () => {
     body.innerHTML = '<img id="one" /><img id="two" />';
     const imgs = Array.from(body.querySelectorAll('img'));
     imgs.forEach(img => img.addEventListener = jest.fn());
@@ -38,9 +37,10 @@ describe('Images Complete Helper', () => {
       expect(img.addEventListener).toHaveBeenCalledWith('load', expect.any(Function), false);
       img.addEventListener.mock.calls[0][1]();
     });
-    jest.runAllTimers();
-    expect(complete).toHaveBeenCalledWith(expect.arrayContaining(imgs));
-    expect(reject).not.toHaveBeenCalled();
+    return deferred(() => {
+      expect(complete).toHaveBeenCalledWith(expect.arrayContaining(imgs));
+      expect(reject).not.toHaveBeenCalled();
+    });
   });
 
 });

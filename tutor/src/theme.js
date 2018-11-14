@@ -33,7 +33,9 @@ const TutorTheme = {
     },
 
     controls: {
-      active:  '#337eb5',
+      selected: '#63a524',
+      active:   '#337eb5',
+      muted:    neutral.lite,
     },
 
   },

@@ -65,7 +65,7 @@ const exerciseActionsAndChecks = {
   updateToMultipleChoice({ dom, wrapper }) {
     expect(dom.querySelector(
       '.openstax-exercise-card .exercise-multiple-choice'
-    )).not.to.be.null;
+    )).nottoBeNull();
 
     expect(_.pluck(dom.querySelectorAll('.answer-content'), 'textContent')).toEqual(_.pluck(CHOICES, 'content_html'));
     return expect(dom.querySelectorAll('.answer-input-box:not([disabled])')).toHaveLength(CHOICES.length);
@@ -101,7 +101,7 @@ const exerciseActionsAndChecks = {
   checkCorrectAnswerAndFeedback({ dom, wrapper }, choiceIndex = 0) {
     expect(dom.querySelector(
       '.openstax-exercise-card .exercise-review'
-    )).not.to.be.null;
+    )).nottoBeNull();
 
     expect(dom.querySelector('.question-feedback').textContent).equals(step.feedback_html);
     expect(dom.querySelector('.answer-correct .answer-content').textContent).equals(CHOICES[choiceIndex].content_html);
@@ -123,7 +123,7 @@ xdescribe('Exercise Component', function() {
     Testing.renderComponent( Exercise, { props } ).then(({ dom }) =>
       expect(dom.querySelector(
         '.openstax-exercise-card .exercise-free-response'
-      )).not.to.be.null
+      )).nottoBeNull()
     )
   );
 

@@ -20,7 +20,6 @@ class CoursePlan extends React.Component {
 
   static contextTypes = {
     router: PropTypes.object.isRequired,
-    dateFormatted: PropTypes.string.isRequired,
   };
 
   static defaultProps = { activeHeight: 35 };
