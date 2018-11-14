@@ -135,7 +135,7 @@ $tutor-book-note-selector: '
     }
 
     @include tutor-book-label-style() {
-      @include tutor-sans-font(2.2rem);
+      @include tutor-sans-font(2rem);
       display: inline-flex;
       align-items: center;
       font-weight: 900;
