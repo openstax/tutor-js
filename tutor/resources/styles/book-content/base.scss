@@ -99,8 +99,11 @@
   }
 
   .os-chapter-outline {
+    .os-title {
+      display: none;
+    }
     .os-chapter-objective {
-      > a.os-chapter-objective {
+    > a.os-chapter-objective {
         display: none;
       }
       & + .os-chapter-objective {
@@ -111,10 +114,6 @@
           }
 
         }
-      }
-
-      > .os-title {
-        display: none;
       }
     }
   }
