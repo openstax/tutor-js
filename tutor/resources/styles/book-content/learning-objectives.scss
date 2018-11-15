@@ -34,7 +34,7 @@
 
     &[data-is-intro=false]::before {
       width: 220px; // keep line length consistent
-
+      margin-top: -1rem;
       content: 'By the end of this section, you will be able to:';
     }
 
@@ -42,11 +42,9 @@
       content: attr(data-preamble);
     }
 
-    &[data-is-intro=false] {
-      margin-bottom: 3rem;
-      margin-top: -1rem;
+    & + p {
+      margin-top: 3rem;
     }
-
 
     ul {
       text-transform: none;
