@@ -1,5 +1,4 @@
-.tutor-icon {
-//      @include fa-icon();
+.ox-icon {
 
   &[data-variant=warning] {
     path {
@@ -13,15 +12,8 @@
     }
   }
 
-  &.clickable { cursor: pointer; }
-
   &:focus {
     @include tutor-shadow(outline);
   }
 
-}
-
-button.ox-icon {
-  border: 0;
-  background-color: transparent;
 }

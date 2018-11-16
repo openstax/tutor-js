@@ -76,9 +76,9 @@ $primary-background-hover: #fa804d;
   &:not(.btn-link){
     @include btn-round();
   }
-  padding: 9px 18px;
+  // padding: 9px 18px;
 
-  > .tutor-icon {
+  > .ox-icon {
     margin: 0 0.5rem;
   }
 

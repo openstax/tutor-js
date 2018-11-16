@@ -178,6 +178,8 @@ class LateWorkPopover extends React.Component {
           </div>
           <AsyncButton
             className="late-button"
+            size="sm"
+            variant="default"
             onClick={this.onButtonClick}
             isWaiting={this.props.task.api.isPending}
             waitingText="Saving…"

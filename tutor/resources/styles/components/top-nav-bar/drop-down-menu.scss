@@ -12,12 +12,19 @@
     @include top-nav-action();
 
     &:focus {
-      .tutor-icon.toggle {
+      .ox-icon.toggle {
         @include tutor-shadow(outline);
       }
     }
+    > .tour-anchor > .ox-icon,
+    > .ox-icon {
+      margin: 0 1rem 0 0;
+    }
     &::after {
       display: none;
+    }
+    .ox-icon.toggle {
+      margin-left: 0.5rem;
     }
   }
 
