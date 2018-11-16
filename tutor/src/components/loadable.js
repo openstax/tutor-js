@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
-import BS from 'react-bootstrap';
+import LoadingScreen from './loading-screen';
 
 import BindStoreMixin from './bind-store-mixin';
 import { RefreshButton } from 'shared';
@@ -30,11 +30,7 @@ export default createReactClass({
     // Enables a renderStatus prop function with a component other than a div
     return {
       renderLoading() {
-        return (
-          <div className="loadable is-loading">
-            {'Loading... '}
-          </div>
-        );
+        return <LoadingScreen className='loadable is-loading' />;
       },
 
       renderError(refreshButton) {

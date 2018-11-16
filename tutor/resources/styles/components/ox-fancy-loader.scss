@@ -1,18 +1,5 @@
 // stolen from https://github.com/openstax/os-webview/blob/master/src/app/components/loading-section/loading-section.scss
 
-.is-loading {
-  .ox-loader {
-    position: absolute;
-    z-index: 2;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    height: 100%;
-  }
-}
-
 .ox-loader {
   .message {
     text-align: center;
