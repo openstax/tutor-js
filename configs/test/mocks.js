@@ -17,14 +17,10 @@ jest.mock(
         'right-start',
         'top',
         'top-end',
-        'top-start'
+        'top-start',
       ];
-
-      constructor() {
-        return {
-          destroy: () => {},
-          scheduleUpdate: () => {}
-        };
-      }
+      destroy() { }
+      scheduleUpdate() { }
+      disableEventListeners() { }
     }
 );

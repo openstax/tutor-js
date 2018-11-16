@@ -10,8 +10,6 @@ import Theme from '../../src/theme';
 import Actions from './actions';
 import { EnzymeContext, C, wrapInDnDTestContext } from './context';
 
-import './popper-mock';
-
 export function getPortalNode(modal) {
   return modal.find('Portal').first().getDOMNode()
 }

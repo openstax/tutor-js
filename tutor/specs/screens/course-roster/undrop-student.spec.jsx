@@ -1,36 +1,4 @@
-import { Actions, ld } from '../../helpers';
 import Student from '../../../src/models/course/student';
-jest.mock(
-  'popper.js',
-  () =>
-    class Popper {
-      static placements = [
-        'auto',
-        'auto-end',
-        'auto-start',
-        'bottom',
-        'bottom-end',
-        'bottom-start',
-        'left',
-        'left-end',
-        'left-start',
-        'right',
-        'right-end',
-        'right-start',
-        'top',
-        'top-end',
-        'top-start'
-      ];
-
-      constructor() {
-        return {
-          destroy: () => {},
-          scheduleUpdate: () => {}
-        };
-      }
-    }
-);
-
 import UndropStudent from '../../../src/screens/course-roster/undrop-student';
 import { courseRosterBootstrap } from './bootstrap-data';
 

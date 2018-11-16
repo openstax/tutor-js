@@ -26,3 +26,4 @@ global.expect.extend(toHaveNoViolations);
 global.axe = axe;
 
 require('./matchers');
+require('./mocks');
