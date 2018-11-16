@@ -1,8 +1,6 @@
 import {
-  BaseModel, belongsTo, identifiedBy, session, hasMany, field, identifier,
+  BaseModel, belongsTo, identifiedBy,
 } from 'shared/model';
-import { computed } from 'mobx';
-
 
 export default
 @identifiedBy('task-plan/review')

@@ -7,7 +7,7 @@ import React from 'react';
 const createAsyncHandler = function(getHandlerAsync, exportedObjectName) {
 
   return (
-    // idea from https://gist.github.com/gaearon/fbd581089255cd529e62
+  // idea from https://gist.github.com/gaearon/fbd581089255cd529e62
 
     // This renders a simple loading message while webpack loads the code
     // and then displays the component that was exported

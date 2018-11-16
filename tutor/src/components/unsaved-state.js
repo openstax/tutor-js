@@ -42,7 +42,7 @@ const TransitionAssistant = {
           this.lastCancel = moment();
           return onOk();
         }
-          , onCancel );
+        , onCancel );
       }
     });
   },

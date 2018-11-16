@@ -3,7 +3,6 @@ import {
 } from 'shared/model';
 import { computed } from 'mobx';
 import moment from 'moment';
-import twix from 'twix';
 import { TimeStore } from '../flux/time';
 
 export default

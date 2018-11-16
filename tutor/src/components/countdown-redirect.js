@@ -1,8 +1,6 @@
-import _ from 'underscore';
 import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
-import WindowHelper from '../helpers/window';
 
 class CountdownRedirect extends React.Component {
   static defaultProps = {
@@ -13,11 +11,12 @@ class CountdownRedirect extends React.Component {
   };
 
   static propTypes = {
-    delay: PropTypes.number,
+    children: PropTypes.node,
+    secondsDelay: PropTypes.number,
     className: PropTypes.string,
     destinationUrl: PropTypes.string.isRequired,
     redirectType: PropTypes.oneOf(['replace', 'assign']),
-
+    windowImpl: PropTypes.object,
     message: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.element,

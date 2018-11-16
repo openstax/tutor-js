@@ -12,8 +12,6 @@ import { ReferenceBookExerciseShell } from './book-page/exercise';
 import RelatedContent from './related-content';
 import Loading from './loading-screen';
 
-import Router from '../helpers/router';
-import Dialog from './dialog';
 import AnnotationWidget from './annotations/annotation';
 import { ReferenceBookExerciseActions, ReferenceBookExerciseStore } from '../flux/reference-book-exercise';
 import map from 'lodash/map';
@@ -36,7 +34,7 @@ const BookPage = createReactClass({
     return this.props.ux.page.ensureLoaded();
   },
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps() {
     return this.props.ux.page.ensureLoaded();
   },
 
@@ -62,7 +60,7 @@ const BookPage = createReactClass({
       imagesToLoad -= 1;
       if (imagesToLoad === 0) {
         // final scroll to
-        return this.scrollToSelector(hash);
+        this.scrollToSelector(hash);
       }
     };
     for (let image of images) {
@@ -83,7 +81,10 @@ const BookPage = createReactClass({
   renderExercise(link) {
     const exerciseAPIUrl = link.href;
     const exerciseNode = link.parentNode.parentNode;
-    if (exerciseNode != null) { return ReactDOM.render(<ReferenceBookExerciseShell exerciseAPIUrl={exerciseAPIUrl} />, exerciseNode); }
+    if (exerciseNode != null) {
+      return ReactDOM.render(<ReferenceBookExerciseShell exerciseAPIUrl={exerciseAPIUrl} />, exerciseNode);
+    }
+    return null;
   },
 
   render() {

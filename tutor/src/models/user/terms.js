@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, identifier, field, belongsTo, hasMany,
 } from 'shared/model';
 
-import { action, computed, observable } from 'mobx';
+import { computed } from 'mobx';
 import { filter } from 'lodash';
 
 @identifiedBy('user/term')

@@ -2,7 +2,7 @@ import {
   BaseModel, belongsTo, identifiedBy, session, hasMany, field, identifier,
 } from 'shared/model';
 import {
-  get, flatMap, groupBy, find, isNil, isObject, isEmpty, keys,
+  get, flatMap, groupBy, find, isEmpty, keys,
 } from 'lodash';
 import { computed } from 'mobx';
 import { lazyInitialize } from 'core-decorators';
@@ -45,7 +45,6 @@ class Answer extends BaseModel {
   }
 
 }
-
 
 
 const AnswersAssociation = {

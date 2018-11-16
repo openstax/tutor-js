@@ -2,12 +2,10 @@ import { React, ReactDOM, observable, observer, action, cn } from '../../helpers
 import moment from 'moment';
 import { isEmpty, find, defer, get, invoke } from 'lodash';
 import 'moment-timezone';
-import twix from 'twix';
 import PropTypes from 'prop-types';
 import qs from 'qs';
 import Month from './month';
 import extend from 'lodash/extend';
-import Calendar from 'dayz';
 import TourRegion from '../../components/tours/region';
 import Course from '../../models/course';
 import { TimeStore } from '../../flux/time';
@@ -16,10 +14,8 @@ import TutorRouter from '../../helpers/router';
 import TaskPlanMiniEditor from '../../components/task-plan/mini-editor';
 import PlanClonePlaceholder from './plan-clone-placeholder';
 import AddAssignmentSidebar from './add-assignment-sidebar';
-import CourseDuration from './duration';
 import MonthTitleNav from './month-title-nav';
 import AddAssignment from './add';
-import CoursePlan from './plan';
 
 export default
 @observer
@@ -38,6 +34,7 @@ class TeacherDashboard extends React.Component {
     dateFormat: PropTypes.string.isRequired,
     course:     PropTypes.instanceOf(Course).isRequired,
     showingSideBar: PropTypes.bool.isRequired,
+    params: PropTypes.object,
   };
 
   static childContextTypes = {
@@ -195,20 +192,8 @@ class TeacherDashboard extends React.Component {
     });
   };
 
-  getDurationInfo = (date) => {
-    const startMonthBlock = date.clone().startOf('month').startOf('week');
-    // needs to be 12:00 AM the next day
-    const endMonthBlock = date.clone().endOf('month').endOf('week').add(1, 'millisecond');
-
-    const calendarDuration = moment(startMonthBlock).twix(endMonthBlock);
-    const calendarWeeks = calendarDuration.split(1, 'week');
-    return (
-      { calendarDuration, calendarWeeks }
-    );
-  };
 
   handleDayClick = (dayMoment, mouseEvent) => {
-    debugger
     this.refs.addOnDay.updateState(dayMoment, mouseEvent.pageX, mouseEvent.pageY);
     this.activeAddDate = dayMoment;
   };
@@ -221,13 +206,11 @@ class TeacherDashboard extends React.Component {
 
   undoActives = (componentName, dayMoment, mouseEvent) => {
     if ((dayMoment == null) || !dayMoment.isSame(this.refs.addOnDay.state.addDate, 'day')) {
-      return (
-        this.hideAddOnDay(componentName, dayMoment, mouseEvent)
-      );
+      this.hideAddOnDay(componentName, dayMoment, mouseEvent)
     }
   };
 
-  hideAddOnDay = (componentName, dayMoment, mouseEvent) => {
+  hideAddOnDay = (componentName) => {
     this.refs.addOnDay.close();
     this.activeAddDate = null;
   };
@@ -278,7 +261,6 @@ class TeacherDashboard extends React.Component {
   };
 
   onDragHover = (day) => {
-    console.log("hover", day)
     this.hoveredDay = TimeHelper.getMomentPreserveDate(day);
   };
 
@@ -300,18 +282,12 @@ class TeacherDashboard extends React.Component {
     }
   }
 
-  // onHover(ev) {
-  //   console.log(ev)
-  // }
-
   render() {
     const { course, className, date, hasPeriods, termStart, termEnd } = this.props;
-    const { calendarDuration, calendarWeeks } = this.getDurationInfo(date);
+
     const calendarClassName = cn('calendar-container', className,
       { 'with-sidebar-open': this.props.showingSideBar }
     );
-    const plans = course.taskPlans.active.array;
-//    console.log(plans)
 
     return (
       <TourRegion
@@ -348,16 +324,16 @@ class TeacherDashboard extends React.Component {
           </div>
         </div>
 
-      {this.cloningPlan && (
-        <PlanClonePlaceholder
-          planId={this.cloningPlan.id}
-          planType={this.cloningPlan.type}
-          position={this.cloningPlan.position}
-          course={this.props.course}
-          due_at={this.cloningPlan.due_at}
-          onLoad={this.onCloneLoaded}
-        />)}
-          {this.editingPlanId && this.showMiniEditor && (
+        {this.cloningPlan && (
+          <PlanClonePlaceholder
+            planId={this.cloningPlan.id}
+            planType={this.cloningPlan.type}
+            position={this.cloningPlan.position}
+            course={this.props.course}
+            due_at={this.cloningPlan.due_at}
+            onLoad={this.onCloneLoaded}
+          />)}
+        {this.editingPlanId && this.showMiniEditor && (
           <TaskPlanMiniEditor
             planId={this.editingPlanId}
             position={this.editingPosition}
@@ -371,4 +347,4 @@ class TeacherDashboard extends React.Component {
     );
   }
 
-}
+};

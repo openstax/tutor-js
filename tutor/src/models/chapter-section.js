@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, session,
+  BaseModel, identifiedBy,
 } from 'shared/model';
 
 import { computed } from 'mobx';

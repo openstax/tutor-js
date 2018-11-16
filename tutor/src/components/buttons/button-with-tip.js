@@ -12,17 +12,19 @@ export default class extends React.Component {
   static displayName = 'ButtonWithTip';
 
   static propTypes = {
-    isDisabled:  PropTypes.bool,
-    onClick: PropTypes.func,
-    id: PropTypes.string.isRequired,
-    placement: PropTypes.oneOf(['bottom', 'top', 'left', 'right']),
-    className: PropTypes.string,
-    getTip: PropTypes.func.isRequired,
+    children:      PropTypes.node,
+    disabledState: PropTypes.bool,
+    isDisabled:    PropTypes.bool,
+    onClick:       PropTypes.func,
+    id:            PropTypes.string.isRequired,
+    placement:     PropTypes.oneOf(['bottom', 'top', 'left', 'right']),
+    className:     PropTypes.string,
+    getTip:        PropTypes.func.isRequired,
   };
 
   render() {
     let button;
-    const { isDisabled, onClick, id, placement, children, className, getTip, disabledState } = this.props;
+    const { isDisabled, onClick, id, placement, children, getTip, disabledState } = this.props;
 
     const tip = getTip(this.props);
 

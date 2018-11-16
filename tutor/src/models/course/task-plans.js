@@ -3,10 +3,6 @@ import { find } from 'lodash';
 import Map from 'shared/model/map';
 import TaskPlan from '../task-plan/teacher';
 
-import {
-  BaseModel, identifiedBy, identifier, field, session, belongsTo,
-} from 'shared/model';
-
 export default class CourseTaskPlans extends Map {
 
   @observable course;

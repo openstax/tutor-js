@@ -55,7 +55,7 @@ class TourRide extends BaseModel {
 
   @computed get validSteps() {
     return filter(
-      this.tourSteps, (step, stepIndex) => {
+      this.tourSteps, (step) => {
         return !!(step &&
           (!step.anchor_id ||
           this.context.anchors.has(step.anchor_id))

@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'underscore';
-import S from '../helpers/string';
 import dom from '../helpers/dom';
 
 import { MediaPreview } from './media-preview';
@@ -40,7 +39,7 @@ const LinkContentMixin = {
     return _.last(beforeHash.split('/'));
   },
 
-  buildReferenceBookLink(cnxId) {
+  buildReferenceBookLink() {
     let chapterSection;
     let { courseId, ecosystemId } = Router.currentParams();
     const { query, id } = this.props;
@@ -85,7 +84,7 @@ const LinkContentMixin = {
     } catch (error) {
       // silently handle error in case selector is
       // still invalid.
-      console.warn(error);
+      console.warn(error); // eslint-disable-line
       return false;
     }
   },
@@ -157,7 +156,11 @@ const LinkContentMixin = {
     if (otherLinks != null ? otherLinks.length : undefined) { if (typeof this.renderOtherLinks === 'function') {
       this.renderOtherLinks(otherLinks);
     } }
-    if (exerciseLinks != null ? exerciseLinks.length : undefined) { return (typeof this.renderExercises === 'function' ? this.renderExercises(exerciseLinks) : undefined); }
+    if (exerciseLinks != null ? exerciseLinks.length : undefined) {
+      if (typeof this.renderExercises === 'function') {
+        this.renderExercises(exerciseLinks);
+      }
+    }
   },
 };
 
@@ -193,7 +196,9 @@ const ReadingContentMixin = {
 
   insertSplash(root) {
     const splashFigure = root.querySelector(`${LEARNING_OBJECTIVE_SELECTORS} + figure`);
-    if (splashFigure && !splashFigure.querySelector('figure')) { return splashFigure.classList.add('splash'); }
+    if (splashFigure && !splashFigure.querySelector('figure')) {
+      splashFigure.classList.add('splash');
+    }
   },
 
   insertCanonicalLink() {
@@ -218,7 +223,7 @@ const ReadingContentMixin = {
 
     // webview actually links to webview_url as it's canonical url.
     // will need to ask them why.
-    return this.linkNode.href = `${baseWebviewUrl}/contents/${canonicalCNXId}`;
+    this.linkNode.href = `${baseWebviewUrl}/contents/${canonicalCNXId}`;
   },
 
   removeCanonicalLink() {
@@ -228,20 +233,17 @@ const ReadingContentMixin = {
   insertOverlays(root) {
     const title = this.getSplashTitle();
     if (!title) { return; }
-    return (() => {
-      const result = [];
-      for (let img of root.querySelectorAll('.splash img')) {
-        if (img.parentElement.querySelector('.ui-overlay')) { continue; }
-        const overlay = document.createElement('div');
-        // don't apply overlay twice or if cnx content already includes it
-        if (img.parentElement.querySelector('.tutor-ui-overlay')) { continue; }
-        // Prefix the class to distinguish it from a class in the original HTML content
-        overlay.className = 'tutor-ui-overlay';
-        overlay.innerHTML = title;
-        result.push(img.parentElement.appendChild(overlay));
-      }
-      return result;
-    })();
+
+    for (let img of root.querySelectorAll('.splash img')) {
+      if (img.parentElement.querySelector('.ui-overlay')) { continue; }
+      const overlay = document.createElement('div');
+      // don't apply overlay twice or if cnx content already includes it
+      if (img.parentElement.querySelector('.tutor-ui-overlay')) { continue; }
+      // Prefix the class to distinguish it from a class in the original HTML content
+      overlay.className = 'tutor-ui-overlay';
+      overlay.innerHTML = title;
+      img.parentElement.appendChild(overlay);
+    }
   },
 
   cleanUpAbstracts(root) {
@@ -266,7 +268,7 @@ const ReadingContentMixin = {
       }
     }
 
-    return abstract.dataset.isIntro = (root.querySelector(IS_INTRO_SELECTORS) != null);
+    abstract.dataset.isIntro = (root.querySelector(IS_INTRO_SELECTORS) != null);
   },
 
   detectImgAspectRatio(root) {
@@ -290,9 +292,9 @@ var processImage = function() {
 
   // let wide, square, and almost square figures be natural.
   if ((aspectRatio > 0.9) || ((figure.parentNode != null ? figure.parentNode.dataset.orient : undefined) === 'horizontal')) {
-    return figure.classList.add('tutor-ui-horizontal-img');
+    figure.classList.add('tutor-ui-horizontal-img');
   } else {
-    return figure.classList.add('tutor-ui-vertical-img');
+    figure.classList.add('tutor-ui-vertical-img');
   }
 };
 

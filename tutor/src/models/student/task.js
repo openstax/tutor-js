@@ -1,8 +1,8 @@
 import { observable } from 'mobx';
-import { computed, action } from 'mobx';
+import { computed } from 'mobx';
 import { TimeStore } from '../../flux/time';
 import {
-  BaseModel, identifiedBy, field, identifier, hasMany,
+  BaseModel, identifiedBy, field, identifier,
 } from 'shared/model';
 
 export default

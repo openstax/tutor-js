@@ -56,7 +56,7 @@ class DateTime extends React.Component {
       return delay(() => {
         return this.setState({ justSet: false, setClicked: null });
       }
-        , messageTime);
+      , messageTime);
     }
   }
 

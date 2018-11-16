@@ -4,7 +4,6 @@ import isNil from 'lodash/isNil';
 
 const COURSE_SETTINGS = 'Course Settings';
 const COURSE_ROSTER = 'Course Roster';
-const COURSES = 'Courses';
 const DASHBOARD = 'Dashboard';
 const QUESTION_LIBRARY = 'Question Library';
 const EXTERNAL_BUILDER = 'External Assignment';
@@ -13,10 +12,7 @@ const PERFORMANCE_FORECAST = 'Performance Forecast';
 const SCORES = 'Scores';
 const PLAN_REVIEW = 'Plan Review';
 const PLAN_STATS = 'Plan Stats';
-const PRACTICE = 'Practice';
 const READING_BUILDER = 'Reading Builder';
-const STEP = 'Step';
-const TASK = 'Task';
 
 const REMEMBERED_ROUTES = {
   dashboard: {

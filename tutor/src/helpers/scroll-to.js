@@ -109,7 +109,7 @@ export default class ScrollTo {
   scrollToTop() {
     const root = this.windowImpl.document.body.querySelector('#ox-react-root-container');
     if (root) {
-      return this.scrollToElement(root, { updateHistory: false });
+      this.scrollToElement(root, { updateHistory: false });
     }
   }
 

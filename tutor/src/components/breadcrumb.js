@@ -85,7 +85,7 @@ class BreadcrumbTaskDynamic extends React.Component {
     TaskStore.on('step.completed', this.update);
     TaskStore.on('step.completing', this.update);
     if (TaskStepStore.isPlaceholder(crumb.id)) {
-      return TaskStepStore.on('step.loaded', this.update);
+      TaskStepStore.on('step.loaded', this.update);
     }
   }
 
@@ -96,7 +96,7 @@ class BreadcrumbTaskDynamic extends React.Component {
 
     if (!TaskStore.hasIncompleteCoreStepsIndexes(taskId) &&
       !TaskStepStore.isLoadingPersonalized(stepId)) {
-      return TaskStepActions.loadPersonalized(stepId);
+      TaskStepActions.loadPersonalized(stepId);
     }
   };
 
@@ -105,7 +105,7 @@ class BreadcrumbTaskDynamic extends React.Component {
     if (TaskStepStore.isPlaceholder(crumb.id)) { this.checkPlaceholder(); }
 
     if (crumb.id === id) {
-      return this.setStep(this.props);
+      this.setStep(this.props);
     }
   };
 

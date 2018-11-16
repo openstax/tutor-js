@@ -88,7 +88,7 @@ class TaskingDateTimes extends React.Component {
 
     const error = this.getError();
 
-    if (error) { extraError = <Col xs={12} md={{ span: 6, offset: 6}}>
+    if (error) { extraError = <Col xs={12} md={{ span: 6, offset: 6 }}>
       <p className="due-before-open">
         {error}
         <Icon type="exclamation-circle" />

@@ -47,6 +47,7 @@ const utils = {
       const warning = `${taskType} policy is missing. \
 Please check src/helpers/policies/policies file. \
 Default ${policyFor} policy for ${step.type} being used.`;
+      // eslint-disable-next-line
       console.warn(warning);
       taskType = DEFAULT;
     }
@@ -69,11 +70,10 @@ Default ${policyFor} policy for ${step.type} being used.`;
   },
 
   _isCardPassed(step, checks) {
-    const panelPassed = _.reduce(checks, (memo, next) =>
+    const panelPassed = _.reduce(checks, (memo, next) => (
       // needs to detect both if the property next exists and if the value is truthy
       memo && (step[next] != null) && step[next]
-    
-      , true);
+    ), true);
 
     return panelPassed;
   },
@@ -93,8 +93,7 @@ Default ${policyFor} policy for ${step.type} being used.`;
   },
 
   _areCardsPassed(task, step, panels) {
-    let panelsWithPass;
-    return panelsWithPass = _.map(panels, function(panel) {
+    return _.map(panels, function(panel) {
       panel.passed = false;
       if (panel.passCheck != null) { panel.passed = utils._isCardPassed(step, panel.passCheck); }
       return panel;

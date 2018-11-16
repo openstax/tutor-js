@@ -1,5 +1,5 @@
 import Map from 'shared/model/map';
-import { computed, action, observable, toJS } from 'mobx';
+import { computed, action, toJS } from 'mobx';
 import Exercise from './exercises/exercise';
 import { extend, groupBy, filter, isEmpty, find } from 'lodash';
 import { readonly } from 'core-decorators';

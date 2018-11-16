@@ -1,5 +1,4 @@
 import moment from 'moment';
-import twix from 'twix';
 import _ from 'underscore';
 import { TimeStore } from '../flux/time';
 

@@ -1,4 +1,4 @@
-import { find, pickBy, invoke, each, isFunction, get, pick } from 'lodash';
+import { pickBy, invoke, each, isFunction, get } from 'lodash';
 import { observable } from 'mobx';
 
 import User from '../user';

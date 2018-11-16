@@ -1,4 +1,4 @@
-import { filter, sortBy, find } from 'lodash';
+import { sortBy, find } from 'lodash';
 import { action, observable, computed, decorate } from 'mobx';
 import { identifiedBy } from 'shared/model';
 import Course from '../../course';

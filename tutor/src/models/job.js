@@ -1,8 +1,8 @@
 import {
   BaseModel, identifiedBy, identifier, session,
 } from 'shared/model';
-import { merge, extend, defer, last } from 'lodash';
-import { action, observable, when,computed } from 'mobx';
+import { last } from 'lodash';
+import { action, observable, computed } from 'mobx';
 
 import invariant from 'invariant';
 

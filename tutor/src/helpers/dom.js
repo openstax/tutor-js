@@ -139,7 +139,7 @@ export default function dom(el) {
      */
     parents() {
       var parent, path = [];
-      while (parent = el.parentNode) {
+      while ((parent = el.parentNode)) {
         path.push(parent);
         el = parent;
       }

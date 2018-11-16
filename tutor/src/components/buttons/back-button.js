@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import BS from 'react-bootstrap';
-import _ from 'underscore';
 import classnames from 'classnames';
 
 import Router from '../../helpers/router';
@@ -13,6 +11,7 @@ class BackButton extends React.Component {
   static displayName = 'BackButton';
 
   static propTypes = {
+    className: PropTypes.string,
     fallbackLink: PropTypes.shape({
       to: PropTypes.string,
       params: PropTypes.object,
@@ -25,7 +24,6 @@ class BackButton extends React.Component {
     // See TransitionStore for more detail.
     const historyInfo = TransitionStore.getPrevious();
     let { fallbackLink, className } = this.props;
-    const { text } = fallbackLink;
     className = classnames('btn', 'btn-default', className);
 
     const backText = (historyInfo != null ? historyInfo.name : undefined) ? `Back to ${historyInfo.name}` : fallbackLink.text;

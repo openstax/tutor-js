@@ -14,7 +14,6 @@
 // 8. After due -- does show feedback before moving on
 
 import _ from 'underscore';
-import flux from 'flux-react';
 
 import { TaskStepStore } from '../../flux/task-step';
 import { TaskStore } from '../../flux/task';
@@ -39,9 +38,8 @@ const getTaskStepCards = function(stepId) {
 };
 
 const getCardsWithStatus = function(stepId) {
-  let panelsWithStatus;
   const { task, step, panels } = getTaskStepCards(stepId);
-  return panelsWithStatus = utils._areCardsPassed(task, step, panels);
+  return utils._areCardsPassed(task, step, panels);
 };
 
 

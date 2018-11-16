@@ -13,7 +13,7 @@ import Actions from './actions';
 
 const MD = Markdown({ html: true, linkify: true, typographer: true });
 
-MD.use(MDRegex(/\:best-practices\:/, () => '<i class="tour-step-best-practices"></i>' ));
+MD.use(MDRegex(/:best-practices:/, () => '<i class="tour-step-best-practices"></i>' ));
 
 // TourStep
 // A step in a tour, where steps are connected by a “next” button that leads from one step to the next.

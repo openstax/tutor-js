@@ -21,7 +21,6 @@ const ReferenceBook = asyncComponent(
   () => import('./screens/reference-book/index.jsx')
 );
 const getReferenceBook = () => ReferenceBook;
-const legacyReferenceBookRedirect = () => LegacyReferenceBookRedirect;
 
 const QAView = asyncComponent(
   () => import('./screens/qa-view/index.jsx')
@@ -124,8 +123,8 @@ const getRoutes = (router) => {
         name: 'viewScores',
         renderer: loadAsync(() => import('./screens/scores-report/index.jsx')),
       },
-        { path: 'guide/:roleId?', name: 'viewPerformanceGuide', renderer: getPerformanceForecastGuide },
-        { path: 't', name: 'viewTeacherDashboard', renderer: getTeacherDashboard,
+      { path: 'guide/:roleId?', name: 'viewPerformanceGuide', renderer: getPerformanceForecastGuide },
+      { path: 't', name: 'viewTeacherDashboard', renderer: getTeacherDashboard,
         routes: [
           {
             path: 'month/:date', name: 'calendarByDate', renderer: getTeacherDashboard,

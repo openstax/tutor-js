@@ -46,7 +46,9 @@ const OPTIONS = {
   handlers: {
     onFail(error) {
       const { response } = error;
-      if (!(error != null ? error.isRecorded : undefined)) { return AppActions.setServerError(response || error); }
+      if (!(error != null ? error.isRecorded : undefined)) {
+        AppActions.setServerError(response || error);
+      }
     },
   },
 
@@ -66,7 +68,9 @@ tutorAPIHandler.channel.on('*.*.*.receive.*', function(response) {
 });
 
 observe(User, 'csrf_token', function(change) {
-  if (change.newValue) { return tutorAPIHandler.channel.emit('set.tokens', change.newValue); }
+  if (change.newValue) {
+    tutorAPIHandler.channel.emit('set.tokens', change.newValue);
+  }
 });
 
 export default merge({ handler: tutorAPIHandler }, APIActionAdapter(tutorAPIHandler));

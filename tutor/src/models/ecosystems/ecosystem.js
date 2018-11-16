@@ -1,7 +1,6 @@
-import { find } from 'lodash';
 import { computed } from 'mobx';
 import {
-  BaseModel, identifiedBy, field, identifier, hasMany,
+  BaseModel, identifiedBy, identifier, hasMany,
 } from 'shared/model';
 
 import ReferenceBook from '../reference-book';

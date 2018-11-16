@@ -30,7 +30,7 @@ const HomeworkPlan = createReactClass({
     const ecosystemId = TaskPlanStore.getEcosystemId(id, courseId);
 
     const topics = TaskPlanStore.getTopics(id);
-    const hasExercises = !isEmpty(TaskPlanStore.getExercises(id))
+    const hasExercises = !isEmpty(TaskPlanStore.getExercises(id));
 
     const formClasses = classnames(
       'edit-homework dialog',
@@ -56,16 +56,16 @@ const HomeworkPlan = createReactClass({
             <Row>
               <Col xs={12} md={12}>
                 {!this.state.isVisibleToStudents && (
-                   <Button
-                     id="problems-select"
-                     className={classnames('-select-sections-btn', { 'invalid': hasError && !hasExercises })}
-                     onClick={this.showSectionTopics}
-                     variant="default"
-                     >+ Select Problems</Button>)}
+                  <Button
+                    id="problems-select"
+                    className={classnames('-select-sections-btn', { 'invalid': hasError && !hasExercises })}
+                    onClick={this.showSectionTopics}
+                    variant="default"
+                  >+ Select Problems</Button>)}
                 {hasError && !hasExercises && (
-                   <span className="problems-required">
+                  <span className="problems-required">
                      Please select problems for this assignment.
-                   </span>)}
+                  </span>)}
               </Col>
             </Row>
           </Card.Body>
@@ -82,24 +82,24 @@ const HomeworkPlan = createReactClass({
           />
         </Card>
         {this.state.showSectionTopics && (
-           <ChooseExercises
-             course={course}
-             planId={id}
-             cancel={this.cancelSelection}
-             hide={this.hideSectionTopics}
-             canEdit={!this.state.isVisibleToStudents}
-           />)}
+          <ChooseExercises
+            course={course}
+            planId={id}
+            cancel={this.cancelSelection}
+            hide={this.hideSectionTopics}
+            canEdit={!this.state.isVisibleToStudents}
+          />)}
         {hasExercises && !this.state.showSectionTopics && (
-           <ReviewExercises
-             course={course}
-             canAdd={!this.state.isVisibleToStudents}
-             canEdit={!this.state.isVisibleToStudents}
-             showSectionTopics={this.showSectionTopics}
-             courseId={courseId}
-             sectionIds={topics}
-             ecosystemId={ecosystemId}
-             planId={id}
-           />)}
+          <ReviewExercises
+            course={course}
+            canAdd={!this.state.isVisibleToStudents}
+            canEdit={!this.state.isVisibleToStudents}
+            showSectionTopics={this.showSectionTopics}
+            courseId={courseId}
+            sectionIds={topics}
+            ecosystemId={ecosystemId}
+            planId={id}
+          />)}
       </div>
     );
   },

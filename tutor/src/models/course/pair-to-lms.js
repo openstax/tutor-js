@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, observable, field, belongsTo, computed, session,
+  BaseModel, identifiedBy, observable,
 } from 'shared/model';
 
 export default

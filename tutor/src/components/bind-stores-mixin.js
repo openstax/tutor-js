@@ -19,13 +19,13 @@ export default {
   _addListeners() {
     const bindEvents = typeof this.getBindEvents === 'function' ? this.getBindEvents() : undefined;
     if (_.isEmpty(bindEvents)) { return; }
-    return _.each(bindEvents, this._addListener);
+    _.each(bindEvents, this._addListener);
   },
 
   _removeListeners() {
     const bindEvents = typeof this.getBindEvents === 'function' ? this.getBindEvents() : undefined;
     if (_.isEmpty(bindEvents)) { return; }
-    return _.each(bindEvents, this._removeListener);
+    _.each(bindEvents, this._removeListener);
   },
 
   UNSAFE_componentWillMount() { return this._addListeners(); },

@@ -1,6 +1,6 @@
 import Map from 'shared/model/map';
 import Ecosystem from './ecosystems/ecosystem';
-import { computed, action } from 'mobx';
+import { action } from 'mobx';
 
 class EcosystemsMap extends Map {
   static Model = Ecosystem;

@@ -36,7 +36,7 @@ const ScrollSpy = createReactClass({
   onPageScroll: _.debounce( function() {
     return this.calculateScroll();
   }
-    , 100),
+  , 100),
 
   calculateScroll() {
     const onScreen = [];

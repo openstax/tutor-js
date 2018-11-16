@@ -3,7 +3,7 @@ import {
 } from 'shared/model';
 import { action, computed, observable, createAtom } from 'mobx';
 import {
-  sortBy, first, last, map, union, find
+  sortBy, first, last, map, union, find,
 } from 'lodash';
 import { lazyInitialize } from 'core-decorators';
 import TaskingPlan from '../tasking-plan';
@@ -11,7 +11,6 @@ import TaskPlanPublish from '../jobs/task-plan-publish';
 import * as Dates from '../../helpers/dates';
 import { TimeStore } from '../../flux/time';
 import TaskPlanStats from './stats';
-import TaskPlanReview from './review';
 import moment from '../../helpers/moment-range';
 
 export default
@@ -116,7 +115,7 @@ class TeacherTaskPlan extends BaseModel {
     );
   }
 
-  isPastDueWithPeriodId(periodId) {
+  isPastDueWithPeriodId() {
     return find(this.tasking_plans, 'isPastDue');
   }
 

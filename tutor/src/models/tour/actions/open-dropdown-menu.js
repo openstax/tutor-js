@@ -1,4 +1,4 @@
-import { BaseAction, identifiedBy } from './base';
+import { BaseAction } from './base';
 import { defer } from 'lodash';
 import { action } from 'mobx';
 

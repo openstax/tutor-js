@@ -152,7 +152,7 @@ class User extends BaseModel {
       this.viewed_tour_stats.push(stats);
     }
 
-    this.saveTourView({id: tour.countId}, options);
+    this.saveTourView({ id: tour.countId }, options);
   }
 
   verifiedRoleForCourse(course) {

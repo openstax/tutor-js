@@ -1,7 +1,7 @@
 import { pick } from 'lodash';
-import { observable, computed, action } from 'mobx';
+import { computed } from 'mobx';
 import {
-  BaseModel, identifiedBy, field, identifier, hasMany,
+  BaseModel, identifiedBy, field, identifier,
 } from 'shared/model';
 
 export default

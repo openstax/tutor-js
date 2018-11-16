@@ -4,7 +4,7 @@ import {
 import {
   sumBy, first, sortBy, find, get, endsWith, capitalize, filter, pick,
 } from 'lodash';
-import { computed, action, observable } from 'mobx';
+import { computed, action } from 'mobx';
 import lazyGetter from 'shared/helpers/lazy-getter';
 import UiSettings from 'shared/model/ui-settings';
 import Offering from './course/offerings/offering';
@@ -274,7 +274,7 @@ class Course extends BaseModel {
     exercise.is_excluded = is_excluded; // eagerly set exclusion
     return { data: [{ id: exercise.id, is_excluded }] };
   }
-  onExerciseExcluded({ data: [ exerciseAttrs ] }, [{ exercise, is_excluded }]) {
+  onExerciseExcluded({ data: [ exerciseAttrs ] }, [{ exercise }]) {
     exercise.update(exerciseAttrs);
   }
 

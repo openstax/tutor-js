@@ -1,6 +1,6 @@
 import { readonly } from 'core-decorators';
 import {
-  BaseModel, identifiedBy, belongsTo, identifier, field, session, hasMany,
+  BaseModel, identifiedBy, identifier, field, session, hasMany,
 } from 'shared/model';
 import Page from './page';
 import ChapterSection from '../chapter-section';

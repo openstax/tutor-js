@@ -9,9 +9,10 @@ export default {
     if (!SUPPORTED) { return; }
 
     try {
-      return document.execCommand('copy');
+      document.execCommand('copy');
     } catch (e) {
-      return console.warn('clipboard copy failed', e);
+      // eslint-disable-next-line no-console
+      console.warn('clipboard copy failed', e);
     }
   },
 };

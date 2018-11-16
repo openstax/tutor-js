@@ -1,9 +1,8 @@
 import moment from 'moment';
 import _ from 'underscore';
-import { TimeStore } from '../flux/time';
 
 export default {
-  getLateness({ due_at, last_worked_at, status }) {
+  getLateness({ due_at, last_worked_at }) {
 
     const result = {
       is_late: false,

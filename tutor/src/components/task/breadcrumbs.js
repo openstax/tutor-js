@@ -71,7 +71,7 @@ export default createReactClass({
       const crumbListeners = crumb.type === 'placeholder' ? 3 : 1;
       return memo + crumbListeners;
     }
-      , 0);
+    , 0);
   },
 
   getCrumbs() {
@@ -88,7 +88,7 @@ export default createReactClass({
         currentCrumbWidth = refDOMBox.width + parseInt(computedStyle.marginRight) + parseInt(computedStyle.marginLeft);
         return currentCrumbWidth + memo;
       }
-        , 0);
+      , 0);
 
       crumbsWidth += currentCrumbWidth;
       if (crumbsWidth > this.state.crumbsWidth) { return this.setState({ crumbsWidth }); }

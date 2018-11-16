@@ -209,7 +209,7 @@ const ReadingPlan = createReactClass({
         <Button
           id="reading-select"
           className={classnames('-select-sections-btn', {
-            'invalid': hasError && !(topics != null ? topics.length : undefined)
+            'invalid': hasError && !(topics != null ? topics.length : undefined),
           })}
           onClick={this.showSectionTopics}
           variant="default"

@@ -1,9 +1,8 @@
-import { readonly } from 'core-decorators';
 import { uniq, compact, map, first, last, fromPairs, omit } from 'lodash';
 import { action, observable, computed } from 'mobx';
 import Map from 'shared/model/map';
 import {
-  BaseModel, identifiedBy, belongsTo, identifier, field, session, hasMany,
+  BaseModel, identifiedBy, identifier, field, hasMany,
 } from 'shared/model';
 import ChapterSection from './chapter-section';
 import Chapter from './reference-book/chapter';

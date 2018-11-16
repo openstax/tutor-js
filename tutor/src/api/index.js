@@ -5,22 +5,15 @@
 // For example, `TaskActions.load` everntually yields either
 // `TaskActions.loaded` or `TaskActions.FAILED`
 import adapters from './adapter';
-
-import pick from 'lodash/pick';
-import assign from 'lodash/assign';
-
+import { pick } from 'lodash';
 import { CoursePracticeActions } from '../flux/practice';
 import { CourseGuideActions } from '../flux/guide';
-import { EcosystemsActions } from '../flux/ecosystems';
 import * as PerformanceForecast from '../flux/performance-forecast';
 
 import { TaskActions } from '../flux/task';
-import { TaskPanelActions } from '../flux/task-panel';
 import { TaskStepActions, TaskStepStore } from '../flux/task-step';
 import { TaskPlanActions, TaskPlanStore } from '../flux/task-plan';
-
 import { CCDashboardActions } from '../flux/cc-dashboard';
-import Exercise from '../models/exercises/exercise';
 import Exercises from '../models/exercises';
 import ReferenceBook from '../models/reference-book';
 import ReferenceBookPage from '../models/reference-book/page';
@@ -32,7 +25,7 @@ import { FeatureFlagsApi as FeatureFlags } from '../models/feature_flags';
 import Survey from '../models/research-surveys/survey';
 import Job from '../models/job';
 import User from '../models/user';
-import { UserTerms, Term } from '../models/user/terms';
+import { UserTerms } from '../models/user/terms';
 import Course from '../models/course';
 import Period from '../models/course/period';
 import Courses from '../models/courses-map';
@@ -53,7 +46,6 @@ import CourseLMS from '../models/course/lms';
 import CoursePairLMS from '../models/course/pair-to-lms';
 import CourseScores from '../models/course/scores';
 import ScoresExport from '../models/jobs/scores-export';
-import TaskPlanPublish from '../models/jobs/task-plan-publish';
 import LmsPushScores from '../models/jobs/lms-score-push';
 import TaskResult from '../models/course/scores/task-result';
 import CourseTeacher from '../models/course/teacher';
@@ -100,7 +92,7 @@ const startAPI = function() {
         if ((query != null ? query.worst : undefined)) { return `${url}/worst`; } else { return url; }
       },
 
-      data({ courseId, query }) { return query; },
+      data({ query }) { return query; },
     },
   );
 
@@ -209,7 +201,7 @@ const startAPI = function() {
       pattern: 'courses/{course.id}/dashboard',
       onSuccess: 'onLoaded',
 
-      params({ id, startAt, endAt }) {
+      params({ startAt, endAt }) {
         return {
           start_at: startAt,
           end_at: endAt,
@@ -319,10 +311,7 @@ const bootstrap = function(bootstrapData) {
 };
 
 const start = function(bootstrapData) {
-  if (bootstrapData) {
-    return bootstrap(bootstrapData);
-  }
-  else {}
+  return bootstrapData ? bootstrap(bootstrapData) : {};
 };
 
 

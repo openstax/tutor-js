@@ -26,7 +26,7 @@ export default class Time extends React.Component {
     case 'concise': return 'MMM DD[,] h:mma';
     case 'long': return 'dddd, MMMM Do YYYY, h:mm:ss a'; // Sunday, February 14th 2010, 3:25:50 pm
     default: return this.props.format;
-      } })();
+    } })();
 
     return (
       <time>

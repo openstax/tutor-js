@@ -91,7 +91,7 @@ class Hypothesis extends BaseModel {
           text: annotation,
           target: [{
             selector: [
-              additionalData
+              additionalData,
             ],
           }],
           group: this.userInfo.id,
@@ -134,7 +134,7 @@ class Hypothesis extends BaseModel {
     }))
       .then((axiosResponse) => {
         if (axiosResponse.data) {
-          return axiosResponse.data
+          return axiosResponse.data;
         } else {
           throw new Error(`server returned malformed response: ${JSON.stringify(axiosResponse)}`);
         }

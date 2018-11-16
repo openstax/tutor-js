@@ -20,7 +20,7 @@ export default {
     case !TaskStepStore.isLoading(this.props.id): return 'Loading…';
     case !TaskStepStore.isSaving(this.props.id): return 'Saving…';
     default: return null;
-      } })();
+    } })();
 
     const cannotContinue = !StepCard.canContinue(this.props.id) || !(typeof this.isContinueEnabled === 'function' ? this.isContinueEnabled() : undefined);
 

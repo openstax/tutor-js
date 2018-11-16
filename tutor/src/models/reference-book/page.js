@@ -1,14 +1,12 @@
 import { readonly } from 'core-decorators';
-import { merge, extend, defer, last, get, pick } from 'lodash';
-import htmlparser from 'htmlparser2';
-import { action, observable, when,computed } from 'mobx';
+import { merge, get, pick } from 'lodash';
+import { action, computed } from 'mobx';
 import {
-  BaseModel, identifiedBy, belongsTo, identifier, field, session, hasMany,
+  BaseModel, identifiedBy, identifier, field, session,
 } from 'shared/model';
 import ChapterSection from '../chapter-section';
 import { StepTitleActions } from '../../flux/step-title';
 import { MediaActions } from '../../flux/media';
-import Exercises from '../exercises';
 
 const UPDATEABLE_FIELDS = ['content_html', 'spy'];
 
@@ -69,8 +67,9 @@ class ReferenceBookPage extends BaseModel {
     return get(this, 'chapter.book.is_collated', false);
   }
 
-}
+};
 
 // a mock page for use by entities such as exercises that need to indicate
 // they are not linked to a "real" page
+// eslint-disable-next-line
 ReferenceBookPage.UNKNOWN = new ReferenceBookPage({ id: 'UNKNOWN', chapter_section: ['99','99'] });

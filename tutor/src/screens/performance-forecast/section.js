@@ -1,13 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
-import BS from 'react-bootstrap';
-import Router from 'react-router-dom';
 import { ChapterSectionMixin } from 'shared';
 import ChapterSectionType from './chapter-section-type';
 import ProgressBar from './progress-bar';
 import Statistics from './statistics';
-
 
 export default createReactClass({
   displayName: 'PerformanceForecastSection',
@@ -22,7 +19,7 @@ export default createReactClass({
   mixins: [ChapterSectionMixin],
 
   render() {
-    const { courseId, section } = this.props;
+    const { section } = this.props;
 
     return (
       <div className="section">

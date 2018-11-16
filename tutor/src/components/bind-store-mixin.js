@@ -26,7 +26,7 @@ export default {
       this.addBindListener();
     }
     const bindStore = this._bindStore();
-    if (this._bindStore != null) { return bindStore.on(this.boundEvent, this._bindUpdate); }
+    if (this._bindStore != null) { bindStore.on(this.boundEvent, this._bindUpdate); }
   },
 
   _removeListener() {
@@ -34,7 +34,7 @@ export default {
       this.removeBindListener();
     }
     const bindStore = this._bindStore();
-    if (this._bindStore != null) { return bindStore.off(this.boundEvent, this._bindUpdate); }
+    if (this._bindStore != null) { bindStore.off(this.boundEvent, this._bindUpdate); }
   },
 
   UNSAFE_componentWillMount() { return this._addListener(); },

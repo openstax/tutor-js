@@ -1,10 +1,9 @@
 import {
-  identifiedBy, session,
+  identifiedBy,
 } from 'shared/model';
 
 import Map from 'shared/model/map';
 import { observable, computed, reaction } from 'mobx';
-import invariant from 'invariant';
 import Job from '../job';
 
 const CURRENT = new Map();

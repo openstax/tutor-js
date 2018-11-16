@@ -1,4 +1,6 @@
-import { React, ReactDOM, observable, computed, observer, action, cn } from '../../helpers/react';
+import {
+  React, observable, computed, observer, action,
+} from '../../helpers/react';
 import TimeHelper from '../../helpers/time';
 import { partial } from 'lodash';
 import 'moment-timezone';

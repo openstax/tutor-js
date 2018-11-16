@@ -1,13 +1,11 @@
-import { last, map, filter, find, reduce } from 'lodash';
+import { last, map, filter, reduce } from 'lodash';
 import { computed, action, observable } from 'mobx';
 import {
   BaseModel, identifiedBy, belongsTo, identifier, field, session, hasMany,
 } from 'shared/model';
 import Tag from './tag';
-import lazyGetter from 'shared/helpers/lazy-getter';
 import ExerciseContent from 'shared/model/exercise';
 import Page from '../reference-book/page';
-import Book from '../reference-book';
 import { extendHasMany } from '../../helpers/computed-property';
 
 export default

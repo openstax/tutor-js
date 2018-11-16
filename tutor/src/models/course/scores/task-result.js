@@ -1,4 +1,4 @@
-import { findIndex, isNan } from 'lodash';
+import { findIndex, isNaN } from 'lodash';
 import { computed, action } from 'mobx';
 import {
   BaseModel, identifiedBy, belongsTo, identifier, field,

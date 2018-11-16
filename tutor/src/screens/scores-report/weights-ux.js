@@ -1,5 +1,5 @@
 import { observable, computed, action } from 'mobx';
-import { sum, toArray, flow, each, inRange, keys, isEqual, pick, some, invert, mapValues, isNaN, partial } from 'lodash';
+import { sum, toArray, flow, inRange, keys, isEqual, pick, invert, mapValues, isNaN, partial } from 'lodash';
 
 const CELL_AVERAGES_SINGLE_WIDTH = 80;
 
@@ -83,7 +83,6 @@ export default class ScoresReportWeightsUX {
   }
 
   @action.bound onSetClick() {
-    const { course } = this;
     this.isSetting = true;
     Object.assign(this, this.currentPercents);
   }

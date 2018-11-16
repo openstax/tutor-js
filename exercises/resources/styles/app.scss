@@ -1,12 +1,7 @@
 @import './variables/paths';
-
 @import './vendor-variables';
-
 @import 'variables';
-
 @import './mixins/generic';
-
-
 @import "./bootstrap";
 
 $input-height: 1.5rem;
@@ -15,9 +10,6 @@ $img-path: '~react-widgets/dist/img';
 @import "~react-widgets/lib/scss/variables.scss";
 @import "~react-widgets/lib/scss/mixins.scss";
 @import "~react-widgets/lib/scss/normalize.scss";
-
-// @import "~react-widgets/lib/scss/icons.scss";
-
 @import "~react-widgets/lib/scss/button.scss";
 @import "~react-widgets/lib/scss/widget.scss";
 @import "~react-widgets/lib/scss/list.scss";
@@ -27,23 +19,14 @@ $img-path: '~react-widgets/dist/img';
 @import "~react-widgets/lib/scss/select-list.scss";
 @import "~react-widgets/lib/scss/multiselect.scss";
 @import "~react-widgets/lib/scss/autocomplete.scss";
-
 @import "~react-widgets/lib/scss/popup.scss";
 @import "~react-widgets/lib/scss/state.scss";
 
-
-// @import "~react-widgets/lib/scss/core";
-// @import "~react-widgets/lib/scss/popup";
-// @import "~react-widgets/lib/scss/selectlist";
-// @import "~react-widgets/lib/scss/multiselect";
-
 @import '../../../shared/resources/styles/main.scss';
-
 
 @import "global/defaults";
 @import "global/widgets";
 @import "./navbar";
-
 @import "./exercises";
 @import "./exercise/preview";
 @import "./vocabulary";

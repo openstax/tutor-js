@@ -29,7 +29,9 @@ const TransitionStore = flux.createStore({
     let last;
     const history = this._get();
     if (history.length) { last = history[history.length - 1]; }
-    if ((path !== last) && DestinationHelper.shouldRememberRoute(path)) { return this._local.push(path); }
+    if ((path !== last) && DestinationHelper.shouldRememberRoute(path)) {
+      return this._local.push(path);
+    }
   },
 
   reset() {
@@ -42,7 +44,9 @@ const TransitionStore = flux.createStore({
 
   exports: {
     getPrevious(current) {
-      if (!current) { current = window.document != null ? window.document.location.pathname : undefined; }
+      if (!current) {
+        current = window.document != null ? window.document.location.pathname : undefined;
+      }
       for (let i = this._local.length - 1; i >= 0; i--) {
         const path = this._local[i];
         if (path !== current) {

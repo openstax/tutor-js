@@ -1,4 +1,3 @@
-import React from 'react';
 import { asyncComponent as asyncLoader } from 'react-async-component';
 import ErrorComponent from '../components/error-monitoring/async-load-error';
 import LoadingComponent from '../components/loading-screen';
