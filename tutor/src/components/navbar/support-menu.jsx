@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { Dropdown } from 'react-bootstrap';
-import { get } from 'lodash';
-import { action, computed } from 'mobx';
+import { get, delay } from 'lodash';
+import { action, computed, observable } from 'mobx';
 import { observer, inject } from 'mobx-react';
 import User from '../../models/user';
 import TourAnchor from '../tours/anchor';
@@ -15,6 +15,7 @@ import BestPracticesGuide from './best-practices-guide';
 import TourContext from '../../models/tour/context';
 import Router from '../../helpers/router';
 import Course from '../../models/course';
+import Theme from '../../theme';
 
 const StudentPreview = observer(({ course, tourContext, ...props }, { router }) => {
   if( !course || !( User.isConfirmedFaculty || User.isUnverifiedInstructor ) ) { return null; }
@@ -69,12 +70,13 @@ class SupportMenu extends React.Component {
     router: PropTypes.object,
   }
 
+  @observable hasShown = false;
+
   componentDidMount() {
-    Chat.setElementVisiblity(findDOMNode(this.chatEnabled), findDOMNode(this.chatDisabled));
   }
 
   renderChat() {
-    if (!Chat.isEnabled) { return null; }
+    if (!this.hasShown || !Chat.isEnabled) { return null; }
     return [
       <Dropdown.Item
         style={{ display: 'none' }}
@@ -84,7 +86,7 @@ class SupportMenu extends React.Component {
         onSelect={this.onSelect}
         onClick={Chat.start}
       >
-        <Icon type='comments-solid' /><span>Chat with Support</span>
+        <Icon type='comments-solid' color={Theme.colors.controls.active} /><span>Chat with Support</span>
       </Dropdown.Item>,
       <Dropdown.Item
         style={{ display: 'none' }}
@@ -93,7 +95,7 @@ class SupportMenu extends React.Component {
         onSelect={this.onSelect}
         ref={opt => this.chatDisabled = opt}
       >
-        <Icon type='comments' /><span>Chat Support Offline</span>
+        <Icon type='comments' color={Theme.colors.states.disabled} /><span>Chat Support Offline</span>
       </Dropdown.Item>,
     ];
   }
@@ -121,11 +123,24 @@ class SupportMenu extends React.Component {
     return `/accessibility-statement/${(this.props.course && this.props.course.id) || ''}`;
   }
 
+  @action.bound onShown() {
+    if (!this.hasShown) { // showing for first time
+      delay(() => {
+        Chat.setElementVisiblity(
+          findDOMNode(this.chatEnabled),
+          findDOMNode(this.chatDisabled));
+      }, 10);
+      this.hasShown = true;
+    }
+
+  }
+
   render() {
     const { course, open, onClose, rootCloseEvent } = this.props;
     return (
       <Dropdown
         className="support-menu"
+        onToggle={this.onShown}
       >
         <Dropdown.Toggle
           id="support-menu"
@@ -143,7 +158,10 @@ class SupportMenu extends React.Component {
             <Icon type="angle-down" className="toggle" />
           </TourAnchor>
         </Dropdown.Toggle>
-        <Dropdown.Menu>
+        <Dropdown.Menu
+
+
+        >
           <PageTips onPlayClick={this.onPlayTourClick} {...this.props} />
           <Dropdown.Item
             key="nav-help-link"

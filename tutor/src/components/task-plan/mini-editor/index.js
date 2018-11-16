@@ -3,12 +3,13 @@ import React from 'react';
 import { Overlay, Popover } from 'react-bootstrap';
 import classnames from 'classnames';
 import LoadableItem from '../../loadable-item';
+import Course from '../../../models/course';
 import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
 import Editor from './editor';
 
 class TaskPlanMiniEditorShell extends React.Component {
   static propTypes = {
-    courseId: PropTypes.string.isRequired,
+    course:   PropTypes.instanceOf(Course).isRequired,
     planId:   PropTypes.string.isRequired,
     onHide:   PropTypes.func.isRequired,
     findPopOverTarget: PropTypes.func.isRequired,
@@ -36,7 +37,7 @@ class TaskPlanMiniEditorShell extends React.Component {
       <Editor
         id={this.props.planId}
         onHide={this.props.onHide}
-        courseId={this.props.courseId}
+        course={this.props.course}
         termStart={this.props.termStart}
         termEnd={this.props.termEnd}
         save={TaskPlanActions.saveSilent}
@@ -55,15 +56,17 @@ class TaskPlanMiniEditorShell extends React.Component {
         <Overlay
           show={this.state.isVisible}
           onHide={this.props.onHide}
-          placement={this.calculatePlacement()}
-          ref="overlay"
-          target={this.props.findPopOverTarget}>
+          placement="auto"
+          target={this.props.findPopOverTarget}
+        >
           <Popover id="mini-task-editor-popover" className={popoverClasses}>
+
             <LoadableItem
               id={planId}
               store={TaskPlanStore}
               actions={TaskPlanActions}
               renderItem={this.renderEditor} />
+
           </Popover>
         </Overlay>
       </div>

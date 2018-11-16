@@ -4,7 +4,7 @@ import {
   BaseModel, identifiedBy, field, identifier, belongsTo, computed,
 } from 'shared/model';
 import Courses from '../courses-map';
-import { TimeStore } from '../../flux/time';
+import Time from '../time';
 import S from '../../helpers/string';
 import Payments from '../payments';
 
@@ -48,7 +48,7 @@ class Purchase extends BaseModel {
 
   @computed get isRefundable() {
     return !this.is_refunded &&
-           moment(this.purchased_at).add(14, 'days').isAfter(TimeStore.getNow());
+           moment(this.purchased_at).add(14, 'days').isAfter(Time.now);
   }
 
   @computed get invoiceURL() {

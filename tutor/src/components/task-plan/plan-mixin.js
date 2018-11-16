@@ -25,12 +25,11 @@ const PlanMixin = {
   },
 
   getCourse() {
-    return Courses.get(this.props.courseId);
+    return this.props.course || Courses.get(this.props.courseId);
   },
 
   getStates() {
     const id = this.props.id || this.props.planId;
-    const { courseId } = this.props;
 
     const isPublishedOrPublishing = TaskPlanStore.isPublished(id) || TaskPlanStore.isPublishing(id);
     const isTaskOpened = TaskingStore.isTaskOpened(id);
@@ -113,13 +112,14 @@ const PlanMixin = {
   },
 
   save() {
-    const { id, courseId } = this.props;
+    const { id } = this.props;
+    const course = this.getCourse();
 
     if (this.isSaveable()) {
       this.setState({ invalid: false });
       if (TaskPlanStore.hasChanged(id)) {
         TaskPlanStore.once(`saved.${id}`, this.saved);
-        if (this.props.save != null) { this.props.save(id, courseId); } else { TaskPlanActions.save(id, courseId); }
+        if (this.props.save != null) { this.props.save(id, course.id); } else { TaskPlanActions.save(id, course.id); }
       } else {
         this.saved();
       }
@@ -131,11 +131,11 @@ const PlanMixin = {
   },
 
   saved(savedPlan) {
-    const { courseId } = this.props;
+    const course = this.getCourse();
 
     if (savedPlan) {
       TaskPlanActions.loaded(savedPlan, savedPlan.id);
-      TaskingActions.loadTaskToCourse(savedPlan.id, courseId);
+      TaskingActions.loadTaskToCourse(savedPlan.id, course.id);
       TaskingActions.loadTaskings(savedPlan.id, savedPlan.tasking_plans);
       if (savedPlan.cloned_from_id) { this.getCourse().pastTaskPlans.delete(savedPlan.cloned_from_id); }
     }
@@ -144,7 +144,7 @@ const PlanMixin = {
   },
 
   cancel() {
-    const { id, courseId } = this.props;
+    const { id } = this.props;
 
     if (!TaskPlanStore.hasChanged(id)) {
       return this.reset();
@@ -161,7 +161,7 @@ const PlanMixin = {
   },
 
   reset() {
-    const { id, courseId } = this.props;
+    const { id } = this.props;
     TaskPlanActions.resetPlan(id);
     TaskingActions.resetFor(id);
     return this.goBackToCalendar();
@@ -170,7 +170,9 @@ const PlanMixin = {
   // TODO move to helper type thing.
   getBackToCalendarParams() {
     let date;
-    const { id, courseId } = this.props;
+    const { id } = this.props;
+    const course = this.getCourse();
+
     const dueAt = TaskingStore.getFirstDueDate(id) || this.context.router.getCurrentQuery().due_at;
     if (dueAt != null) {
       date = dueAt;
@@ -178,7 +180,7 @@ const PlanMixin = {
       date = TimeStore.getNow();
     }
     date = moment(date).format(CALENDAR_DATE_FORMAT);
-    return { courseId, date };
+    return { courseId: course.id, date };
   },
 
   goBackToCalendar() {

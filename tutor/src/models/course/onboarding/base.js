@@ -2,11 +2,9 @@ import {
   observable,
   computed,
 } from 'mobx';
-
 import moment from 'moment';
-
 import User from '../../user';
-import { TimeStore } from '../../../flux/time';
+import Time from '../../time';
 
 const SPY_MODE = observable.box(false);
 
@@ -31,7 +29,7 @@ export default class BasicCourseOnboarding {
 
   @computed get courseIsNaggable() {
     return SPY_MODE.get() || (
-      this.course.isActive && moment(TimeStore.getNow()).isAfter(
+      this.course.isActive && moment(Time.now).isAfter(
         moment(this.course.primaryRole.joined_at).add(4, 'hours')
       )
     );

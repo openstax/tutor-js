@@ -3,7 +3,7 @@ import {
 } from 'shared/model';
 import { computed } from 'mobx';
 import moment from 'moment';
-import { TimeStore } from '../flux/time';
+import Time from './time';
 
 export default
 @identifiedBy('tasking-plan')
@@ -27,7 +27,7 @@ class TaskingPlan extends BaseModel {
   }
 
   @computed get isPastDue() {
-    return moment(this.due_at).isBefore(TimeStore.getNow());
+    return moment(this.due_at).isBefore(Time.now);
   }
 
 };

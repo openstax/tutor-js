@@ -50,7 +50,9 @@ class AddAssignmentSidebar extends React.Component {
     CalendarHelper.shouldIntro() && !(USE_SETTINGS ? UiSettings.get(IS_INTRO_VIEWED) : false)
   )
 
-  addMenu = new AddMenu({ router: this.context.router, renderMenuLink: this.renderMenuLink });
+  addMenu = new AddMenu({
+    router: this.context.router, renderMenuLink: this.renderMenuLink
+  });
 
   // componentWillMount() {
   //   console.log("MOUNT", CalendarHelper.shouldIntro(), this.willShowIntro, this.showIntro)

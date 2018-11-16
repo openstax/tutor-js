@@ -9,7 +9,7 @@ import { lazyInitialize } from 'core-decorators';
 import TaskingPlan from '../tasking-plan';
 import TaskPlanPublish from '../jobs/task-plan-publish';
 import * as Dates from '../../helpers/dates';
-import { TimeStore } from '../../flux/time';
+import Time from '../time';
 import TaskPlanStats from './stats';
 import moment from '../../helpers/moment-range';
 
@@ -101,10 +101,10 @@ class TeacherTaskPlan extends BaseModel {
   @computed get isPublished() { return this.is_published; }
   @computed get isPublishing() { return this.is_publishing; }
   @computed get isTrouble() { return this.is_trouble; }
-  @computed get isOpen() { return this.durationRange.start().isBefore(TimeStore.getNow()); }
-  @computed get isEditable() { return this.durationRange.start().isAfter(TimeStore.getNow()); }
+  @computed get isOpen() { return this.durationRange.start().isBefore(Time.now); }
+  @computed get isEditable() { return this.durationRange.start().isAfter(Time.now); }
   @computed get isFailed() { return Boolean(this.failed_at || this.killed_at); }
-  @computed get isPastDue() { return this.durationRange.end().isBefore(TimeStore.getNow()); }
+  @computed get isPastDue() { return this.durationRange.end().isBefore(Time.now); }
 
   @computed get isPollable() {
     return Boolean(

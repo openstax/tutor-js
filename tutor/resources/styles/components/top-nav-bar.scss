@@ -5,24 +5,6 @@
   @mixin top-nav-action() {
     font-size: 1.6rem;
 
-    .tutor-icon {
-      font-size: 1.6rem;
-
-      &:first-child {
-        margin: 0 0.5rem 0 0;
-      }
-      &:last-child {
-        margin: 0 0 0 0.5rem;
-      }
-      @include media-breakpoint-up("md") {
-        &:first-child {
-          margin: 0 1rem 0 0;
-        }
-        &:last-child {
-          margin: 0 0 0 1rem;
-        }
-      }
-    }
     @include media-breakpoint-down('md') {
       .control-label { display: none; }
     }

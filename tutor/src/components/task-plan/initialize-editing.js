@@ -1,10 +1,9 @@
 import moment from 'moment-timezone';
-import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
-import Courses from '../../models/courses-map';
+import { TaskPlanStore } from '../../flux/task-plan';
 import TimeHelper from '../../helpers/time';
 import { TimeStore } from '../../flux/time';
 import { TaskingStore, TaskingActions } from '../../flux/tasking';
-import _ from 'underscore';
+import { get } from 'lodash';
 import Router from '../../helpers/router';
 
 const getOpensAtDefault = function(termStart) {
@@ -53,12 +52,13 @@ const getCurrentDueAt = function(planId) {
 };
 
 const getTaskPlanOpensAt = function(planId) {
-  const firstDueAt = __guard__(_.first(__guard__(TaskPlanStore.get(planId), x1 => x1.tasking_plans)), x => x.due_at);
-  if (firstDueAt) { return TimeHelper.getMomentPreserveDate(firstDueAt).format(TimeHelper.ISO_DATE_FORMAT); }
+  const firstDueAt = get(TaskPlanStore.get(planId), 'tasking_plans[0].due_at');
+  return firstDueAt ?
+      TimeHelper.getMomentPreserveDate(firstDueAt).format(TimeHelper.ISO_DATE_FORMAT) : null;
 };
 
 
-const setPeriodDefaults = function(courseId, planId, term) {
+const setPeriodDefaults = function(course, planId, term) {
   if (!TaskingStore.hasTasking(planId)) {
     if (TaskPlanStore.isNew(planId)) {
       const due_date = getCurrentDueAt(planId) || getTaskPlanOpensAt(planId);
@@ -75,22 +75,16 @@ const setPeriodDefaults = function(courseId, planId, term) {
 };
 
 
-const loadCourseDefaults = function(courseId) {
-  const course = Courses.get(courseId);
+const loadCourseDefaults = function(course) {
   const periods = course.periods.sorted.map(p => p.serialize());
-  return TaskingActions.loadDefaults(courseId, course.defaultTimes, periods);
+  return TaskingActions.loadDefaults(course.id, course.defaultTimes, periods);
 };
 
 
-export default function(planId, courseId, term) {
-  const courseTimezone = Courses.get(courseId).time_zone;
-  TaskingActions.loadTaskToCourse(planId, courseId);
-  loadCourseDefaults(courseId);
+export default function(planId, course, term) {
+  TaskingActions.loadTaskToCourse(planId, course.id);
+  loadCourseDefaults(course);
 
   //set the periods defaults only after the timezone has been synced
-  return setPeriodDefaults(courseId, planId, term);
-}
-
-function __guard__(value, transform) {
-  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
+  return setPeriodDefaults(course, planId, term);
 }

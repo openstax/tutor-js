@@ -18,7 +18,7 @@ import LMS from './course/lms';
 import PH from '../helpers/period';
 import TimeHelper from '../helpers/time';
 import FeatureFlags from './feature_flags';
-import { TimeStore } from '../flux/time';
+import Time from './time';
 import { extendHasMany } from '../helpers/computed-property';
 import moment from 'moment-timezone';
 import StudentTasks from './student-tasks';
@@ -166,15 +166,15 @@ class Course extends BaseModel {
   }
 
   @computed get hasEnded() {
-    return moment(this.ends_at).isBefore(TimeStore.getNow());
+    return moment(this.ends_at).isBefore(Time.now);
   }
 
   @computed get hasStarted() {
-    return moment(this.starts_at).isBefore(TimeStore.getNow());
+    return moment(this.starts_at).isBefore(Time.now);
   }
 
   @computed get isFuture() {
-    return moment(this.starts_at).isAfter(TimeStore.getNow());
+    return moment(this.starts_at).isAfter(Time.now);
   }
 
   @computed get isActive() {

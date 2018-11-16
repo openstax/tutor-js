@@ -3,7 +3,7 @@ import {
 } from 'shared/model';
 import { computed } from 'mobx';
 import moment from 'moment';
-import { TimeStore } from '../../flux/time';
+import Time from '../time';
 
 export default
 @identifiedBy('course/role')
@@ -23,6 +23,6 @@ class CourseRole extends BaseModel {
   }
 
   joinedAgo(terms = 'days') {
-    return moment(TimeStore.getNow()).diff(this.joined_at, terms);
+    return moment(Time.now).diff(this.joined_at, terms);
   }
 };

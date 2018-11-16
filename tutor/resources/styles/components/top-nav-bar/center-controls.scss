@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
   .fa-stack {
-    .tutor-icon {
+    .ox-icon {
       // icon needs to be hoverable for tooltip
       z-index: 10;
     }
@@ -50,7 +50,7 @@
   .milestones-toggle {
     &:hover,
     &.active {
-      .tutor-icon {
+      .ox-icon {
         color: $tutor-info;
       }
     }

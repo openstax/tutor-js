@@ -5,7 +5,7 @@ import moment from 'moment';
 import {
   BaseModel, identifiedBy, field, belongsTo,
 } from 'shared/model';
-import { TimeStore } from '../../../flux/time';
+import Time from '../../time';
 
 export default
 @identifiedBy('course/scores/heading')
@@ -23,7 +23,7 @@ class Heading extends BaseModel {
   }
 
   @computed get isDue() {
-    return moment(this.due_at).isBefore(TimeStore.getNow());
+    return moment(this.due_at).isBefore(Time.now);
   }
 
   @computed get tasks() {

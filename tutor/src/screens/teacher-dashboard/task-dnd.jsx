@@ -14,9 +14,7 @@ const NewTaskDrag = {
     }
 
     return (
-
       link
-
     );
   },
 
@@ -62,6 +60,7 @@ const TaskDrop = {
       { onDrop: comp.onDrop, offset: monitor.getClientOffset() }
     );
   },
+
 };
 
 const DragInjector = (connect, monitor) => ({ connectDragSource: connect.dragSource(), isDragging: monitor.isDragging() });

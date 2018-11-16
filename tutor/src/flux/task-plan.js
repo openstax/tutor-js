@@ -318,11 +318,10 @@ const TaskPlanConfig = {
   createClonedPlan(newPlanId, { planId, courseId, due_at }) {
     const original = this._local[planId];
     const originalPlan = {};
-    const copyKeys = ['title', 'description', 'is_feedback_immediate', 'settings', 'ecosystem_id'];
-    each(copyKeys, function(key) {
+
+    ['title', 'description', 'is_feedback_immediate',
+      'settings', 'ecosystem_id'].forEach((key) => {
       originalPlan[key] = cloneDeep(original[key]);
-      // need to prevent false from being returned and ending the each loop early.
-      return true;
     });
 
     const course = Courses.get(courseId);
@@ -331,8 +330,7 @@ const TaskPlanConfig = {
       target_id: period.id,
       target_type: 'period',
       due_at,
-    })
-    );
+    }));
 
     const plan = extend(
       newTaskPlan({ type: original.type }),

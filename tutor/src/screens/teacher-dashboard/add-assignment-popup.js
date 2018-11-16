@@ -6,12 +6,13 @@ import _ from 'underscore';
 import Course from '../../models/course';
 import { TimeStore } from '../../flux/time';
 import TimeHelper from '../../helpers/time';
+import Time from '../../models/time';
 
 import AddMenu from './add-menu';
 
 export default
 @observer
-class AddAssignment extends React.Component {
+class AddAssignmentPopUp extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
@@ -24,44 +25,43 @@ class AddAssignment extends React.Component {
   }
 
   addMenu = new AddMenu({ router: this.context.router });
+  //
+  //   state = {
+  //     positionLeft: 0,
+  //     positionTop: 0,
+  //     open: false,
+  //     referenceDate: moment(TimeStore.getNow()),
+  //   }
+  //
+  //   @action.bound updateState(date, x, y) {
+  //     this.setState({
+  //       addDate: date,
+  //       positionLeft: x,
+  //       positionTop: y,
+  //       open: true,
+  //     });
+  //   }
+  //
+  //   @action.bound close() {
+  //     this.setState({
+  //       addDate: null,
+  //       open: false,
+  //     });
+  //   }
+  //
 
-  state = {
-    positionLeft: 0,
-    positionTop: 0,
-    open: false,
-    referenceDate: moment(TimeStore.getNow()),
-  }
+  get dateType() {
+    const { date, termStart, termEnd } = this.props;
 
-  @action.bound updateState(date, x, y) {
-    this.setState({
-      addDate: date,
-      positionLeft: x,
-      positionTop: y,
-      open: true,
-    });
-  }
-
-  @action.bound close() {
-    this.setState({
-      addDate: null,
-      open: false,
-    });
-  }
-
-  getDateType() {
-    const { referenceDate, addDate } = this.state;
-    const { termStart, termEnd } = this.props;
-    if (addDate == null) { return null; }
-
-    if (addDate.isBefore(termStart, 'day')) {
+    if (date.isBefore(termStart, 'day')) {
       return (
         'day before term starts'
       );
-    } else if (addDate.isAfter(termEnd, 'day')) {
+    } else if (date.isAfter(termEnd, 'day')) {
       return (
         'day after term ends'
       );
-    } else if (addDate.isBefore(referenceDate, 'day')) {
+    } else if (date.isBefore(Time.now, 'day')) {
       return (
         'past day'
       );
@@ -70,18 +70,18 @@ class AddAssignment extends React.Component {
 
   render() {
     let dropdownContent;
-    const { referenceDate, addDate, open } = this.state;
+    const { date, x, y } = this.props;
+
+    if (!date) { return null; }
 
     // DYNAMIC_ADD_ON_CALENDAR_POSITIONING
     // Positions Add menu on date
     const style = {
-      left: this.state.positionLeft,
-      top: this.state.positionTop,
+      left: x,
+      top: y,
     };
 
-    style['display'] = open ? 'block' : 'none';
-
-    const addDateType = this.getDateType();
+    const addDateType = this.dateType;
     const className = cn('course-add-dropdown', { 'no-add': addDateType });
 
     // only allow add if addDate is on or after reference date
@@ -89,11 +89,12 @@ class AddAssignment extends React.Component {
       <li>
         <span className="no-add-text">Cannot assign to {addDateType}</span>
       </li>
-    ) : this.addMenu.render(this.props, this.state);
+    ) : this.addMenu.render(this.props);
 
 
     return (
       <Dropdown.Menu
+        show
         id="course-add-dropdown"
         ref="addOnDayMenu"
         style={style}

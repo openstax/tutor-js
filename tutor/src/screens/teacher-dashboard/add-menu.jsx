@@ -1,4 +1,5 @@
 import { React, observer, cn, action } from '../../helpers/react';
+import { Dropdown } from 'react-bootstrap';
 import { map, partial } from 'lodash';
 import { autobind } from 'core-decorators';
 import Router from '../../helpers/router';
@@ -10,15 +11,14 @@ export default class CourseAddMenu {
     this.options = options;
   }
 
-  @autobind goToBuilder(link, ev) {
-    ev.preventDefault();
-    this.options.router.history.push(link.pathname);
+  @autobind goToBuilder(ev, link) {
+    this.options.router.history.push(link);
   }
 
-  render(props, { addDate } = {}) {
+  render({ course, hasPeriods, date, dateFormat = 'YYYY-MM-DD' } = {}) {
     let links;
-    const { course, hasPeriods, dateFormat = 'YYYY-MM-DD' } = props;
-    const due_at = addDate && addDate.format(dateFormat);
+
+    const due_at = date && date.format(dateFormat);
     if (hasPeriods) {
       links = [
         {
@@ -47,7 +47,6 @@ export default class CourseAddMenu {
           query: { due_at },
         },
       ];
-
     } else {
       const linkText = [
         <span key="no-periods-link-1">Please add a </span>,
@@ -85,11 +84,16 @@ export default class CourseAddMenu {
 
   @autobind renderMenuLink(link, goToBuilder) {
     return (
-      <li key={link.type} data-assignment-type={link.type}>
-        <a href={link.pathname} onClick={partial(goToBuilder, link)}>
-          {link.text}
-        </a>
-      </li>
+      <Dropdown.Item
+        className="dropdown-item"
+        key={link.type}
+        data-assignment-type={link.type}
+        eventKey={link.pathname}
+        onSelect={partial(goToBuilder, link)}
+      >
+        {link.text}
+      </Dropdown.Item>
+
     );
   }
 

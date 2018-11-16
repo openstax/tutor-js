@@ -13,7 +13,6 @@ class CoursePlanDisplay extends React.Component {
     label: PropTypes.node.isRequired,
     course: PropTypes.instanceOf(Course).isRequired,
     className: PropTypes.string.isRequired,
-    setHover: PropTypes.func.isRequired,
     hasReview: PropTypes.bool,
     isFirst: PropTypes.bool,
     isLast: PropTypes.bool,
@@ -86,7 +85,7 @@ class CoursePlanDisplay extends React.Component {
 class CoursePlanDisplayEdit extends CoursePlanDisplay {
 
   render() {
-    const { course, plan, className, label, setHover } = this.props;
+    const { course, plan, className, label } = this.props;
 
     const linkTo = camelCase(`edit-${plan.type}`);
     const params = { id: plan.id, courseId: course.id };
@@ -98,9 +97,8 @@ class CoursePlanDisplayEdit extends CoursePlanDisplay {
         className={className}
         data-plan-id={`${plan.id}`}
         data-assignment-type={plan.type}
-        onMouseEnter={partial(setHover, true)}
-        onMouseLeave={partial(setHover, false)}
-        ref="plan">
+        ref="plan"
+      >
         <TutorLink to={linkTo} params={params}>
           {label}
         </TutorLink>
@@ -131,7 +129,7 @@ class CoursePlanDisplayMiniEditor extends CoursePlanDisplay {
   }
 
   render() {
-    const { course, plan, className, label, setHover } = this.props;
+    const { course, plan, className, label } = this.props;
 
     const linkTo = camelCase(`edit-${plan.type}`);
     const params = { id: plan.id, courseId: course.id };
@@ -141,8 +139,6 @@ class CoursePlanDisplayMiniEditor extends CoursePlanDisplay {
         className={className}
         data-plan-id={`${plan.id}`}
         data-assignment-type={plan.type}
-        onMouseEnter={partial(setHover, true)}
-        onMouseLeave={partial(setHover, false)}
         ref="plan"
       >
         {this.isShowingEditor && (
@@ -166,19 +162,16 @@ class CoursePlanDisplayMiniEditor extends CoursePlanDisplay {
 class CoursePlanDisplayQuickLook extends CoursePlanDisplay {
 
   render() {
-    const { className, planModal, label, setHover, setIsViewing, plan, hasReview } = this.props;
+    const { className, planModal, label, setIsViewing, plan, hasReview } = this.props;
 
 
 
     return (
       <div
-
         className={className}
         data-plan-id={`${plan.id}`}
         data-assignment-type={plan.type}
         data-has-review={hasReview}
-        onMouseEnter={partial(setHover, true)}
-        onMouseLeave={partial(setHover, false)}
         onClick={partial(setIsViewing, true)}
         ref="plan"
       >

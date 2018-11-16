@@ -46,7 +46,6 @@
       color: inherit;
       height: auto;
       line-height: 2;
-      padding: 15 20px;
 
       &:hover {
         background-color: $tutor-neutral-lighter;
@@ -77,23 +76,11 @@
       &:hover { text-decoration: initial; }
     }
 
-    .tutor-icon {
+    .ox-icon {
       margin: 0 0.5rem;
     }
 
-    .chat {
-      .tutor-icon {
-        font-size: 18px;
-      }
-      &.enabled {
-        .tutor-icon { color: $tutor-secondary; }
-      }
-      &.disabled {
-        a { color: $tutor-neutral-lite; }
-      }
-    }
-
-    .divider {
+    .dropdown-divider {
       &:first-child,
       &:last-child {
         display: none;

@@ -5,7 +5,9 @@
   max-width: 450px;
 
   @include tutor-shadow(pop);
-
+  .popover-body {
+    padding: 0px;
+  }
   // offset error content
   &.is-errored {
     margin-top: -80px;
@@ -16,9 +18,13 @@
   }
 }
 
-.task-plan-mini-editor {
-  padding: 1rem;
 
+.task-plan-mini-editor {
+  padding: 0;
+
+  .container {
+    padding-top: 1.5rem;
+  }
   h4 {
     margin-top: 0;
     margin-bottom: 2rem;

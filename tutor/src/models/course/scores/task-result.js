@@ -5,7 +5,7 @@ import {
 } from 'shared/model';
 import Big from 'big.js';
 import moment from 'moment';
-import { TimeStore } from '../../../flux/time';
+import Time from '../../time';
 
 export default
 @identifiedBy('course/scores/task-result')
@@ -93,7 +93,7 @@ class TaskResult extends BaseModel {
     this.completed_accepted_late_exercise_count = this.completed_exercise_count;
     this.correct_accepted_late_exercise_count = this.correct_exercise_count;
     this.is_late_work_accepted = true;
-    this.accepted_late_at = TimeStore.getNow().toISOString();
+    this.accepted_late_at = Time.now.toISOString();
     this.adjustScore();
   }
 
@@ -186,7 +186,7 @@ class TaskResult extends BaseModel {
   }
 
   @computed get isDue() {
-    return moment(this.due_at).isBefore(TimeStore.getNow());
+    return moment(this.due_at).isBefore(Time.now);
   }
 
 

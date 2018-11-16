@@ -67,10 +67,11 @@ const TaskPlanBuilder = createReactClass({
 
     // better to have `syncCourseTimezone` out here to make the symmetry
     // of the unsync in the unmount obvious.
-    const courseTimezone = Courses.get(courseId).time_zone;
+    const course = Courses.get(courseId);
+    const courseTimezone = course.time_zone;
     TimeHelper.syncCourseTimezone(courseTimezone);
 
-    const nextState = taskPlanEditingInitialize(id, courseId, term);
+    const nextState = taskPlanEditingInitialize(id, course, term);
     return this.setState(nextState);
   },
 

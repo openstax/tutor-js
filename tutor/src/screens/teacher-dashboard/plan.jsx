@@ -24,13 +24,6 @@ class CoursePlan extends React.Component {
 
   static defaultProps = { activeHeight: 35 };
 
-  @observable isHovered;
-
-  @action.bound
-  setHover(isHovered) {
-    this.isHovered = isHovered;
-  }
-
   @computed get className() {
     const { plan, isViewingStats } = this.props;
     return cn('plan', `course-plan-${plan.id}`,
@@ -41,7 +34,7 @@ class CoursePlan extends React.Component {
         'is-open': plan.isOpen,
         'is-new': plan.isNew,
         'is-trouble': plan.isTrouble,
-        'active': this.isHovered || isViewingStats,
+        'active': isViewingStats,
         [`is-${plan.publishedStatus}`]: plan.publishedStatus,
       }
     );
@@ -68,7 +61,7 @@ class CoursePlan extends React.Component {
           course={course}
           label={<CoursePlanLabel plan={plan} />}
           setIsViewing={onPlanView}
-          setHover={this.setHover}
+          dataPlanId={1}
           className={this.className}
         />
       </div>

@@ -16,8 +16,6 @@ export default class CourseTaskPlans extends Map {
     return { course: this.course };
   }
 
-  //  get courseId() { return this.course.id; }
-
   withPlanId(planId) {
     let plan = this.get(planId);
     if (!plan) {

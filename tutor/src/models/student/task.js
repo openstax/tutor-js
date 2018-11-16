@@ -1,6 +1,6 @@
 import { observable } from 'mobx';
 import { computed } from 'mobx';
-import { TimeStore } from '../../flux/time';
+import Time from '../time';
 import {
   BaseModel, identifiedBy, field, identifier,
 } from 'shared/model';
@@ -28,7 +28,7 @@ class StudentTask extends BaseModel {
   @computed get canWork() {
     //students cannot work or view a task if it has been deleted and they haven't started it
     return Boolean(
-      this.opens_at < TimeStore.getNow() && !(
+      this.opens_at < Time.now && !(
         this.is_deleted &&
         this.complete_exercise_count === 0
       )
