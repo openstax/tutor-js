@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import cn from 'classnames';
 import { Icon } from 'shared';
-import { OverlayTrigger, Popover } from 'react-bootstrap';
+import Theme from '../../theme';
 import { observer } from 'mobx-react';
 import SetWeights from './set-weights-modal';
 import ViewWeights from './view-weights-modal';
@@ -24,7 +24,8 @@ const WeightsLink = observer(({ ux }) => {
         Set weights
         {!ux.areWeightsInUse &&
           <Icon
-            type="warning"
+            type="exclamation-triangle"
+            color={Theme.colors.danger}
             tooltipProps={{ placement: 'top' }}
             tooltip="Change weights to generate course averages" />}
       </a>

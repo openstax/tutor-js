@@ -176,14 +176,6 @@ $tutor-shadow-types: (
   border-radius: 50%;
 }
 
-// @mixin tutor-late-icon() {
-//   // &::after {
-//   //   @include fa-icon();
-//   //   content: $fa-var-clock-o;
-//   //   color: $tutor-warning;
-//   // }
-// }
-
 @mixin tutor-popover() {
   font-size: 0.8em;
   max-width: 500px;
@@ -293,15 +285,6 @@ $tutor-shadow-types: (
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
-
-// @mixin tutor-external-link-indicator() {
-//   &::after {
-//     //@include fa-icon();
-//     display: inline;
-//     font-size: 80%;
-//     content: " #{$fa-var-external-link}";
-//   }
-// }
 
 @mixin tutor-pad-panel() {
   .panel-body { padding: $tutor-panel-padding; }

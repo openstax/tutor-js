@@ -12,7 +12,7 @@
   }
   a, button {
     color: $tutor-tertiary-neutral-light;
-    .tutor-icon { margin-right: 0.5rem; }
+    .ox-icon { margin-right: 0.5rem; }
   }
 }
 
@@ -120,14 +120,14 @@
     &.with-error {
       color: $form-error-color;
       border-bottom: 1px dashed $form-error-color;
-      .tutor-icon { color: $form-error-color; }
+      .ox-icon { color: $form-error-color; }
     }
     .identifier {
       cursor: pointer;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .tutor-icon { margin-left: 0.5rem; }
+    .ox-icon { margin-left: 0.5rem; }
   }
 }
 

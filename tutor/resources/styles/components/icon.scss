@@ -19,17 +19,9 @@
     @include tutor-shadow(outline);
   }
 
-  &.best-practices {
-    display: block;
-    @include tutor-background-image("icons/best-practices.svg");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 1.8rem;
-    margin: 1rem 0;
-  }
 }
 
-button.tutor-icon {
+button.ox-icon {
   border: 0;
   background-color: transparent;
 }

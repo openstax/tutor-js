@@ -29,7 +29,7 @@ $calendar-header-padding: 2rem;
       width: $calendar-sidebar-width;
       background-color: $tutor-primary;
       color: white;
-      .tutor-icon { margin-right: 2rem; }
+      .ox-icon { margin-right: 2rem; }
       &.open { background-color: $tutor-neutral-lite; }
     }
     .calendar-header-actions-buttons {

@@ -26,9 +26,6 @@
   .success {
     .title{
       color: #629030;
-      // &::before {
-      //   content: $fa-var-check-circle;
-      // }
     }
   }
 
@@ -43,9 +40,6 @@
     .title {
       color: #C22032;
       background-color: #f5e9ea;
-      // &::before {
-      //   content: $fa-var-exclamation-triangle;
-      // }
       .openstax-icon[type="close"] {
         color: $openstax-neutral-dark;
         margin-left: 2rem;

@@ -3,7 +3,6 @@ $modal-header-font-size: 16px;
 $set-weights-modal-header-height: 75px;
 $set-weights-modal-header-padding: ($set-weights-modal-header-height - $modal-header-font-size) / 2;
 $set-weights-modal-padding: 30px;
-$set-weights-modal-button-height: 40px;
 
 .set-weights.modal {
   font-size: 1.6rem;
@@ -20,9 +19,6 @@ $set-weights-modal-button-height: 40px;
   .modal-footer {
     padding: 0 $set-weights-modal-padding $set-weights-modal-padding $set-weights-modal-padding;
 
-    button {
-      height: $set-weights-modal-button-height;
-    }
   }
 
   @include media-breakpoint-down('sm') {

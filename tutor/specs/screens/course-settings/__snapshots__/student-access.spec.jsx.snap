@@ -13,7 +13,7 @@ exports[`Course Settings, student access can switch to links 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-info-circle fa-w-16 tutor-icon info-circle"
+      className="svg-inline--fa fa-info-circle fa-w-16 ox-icon info-circle"
       data-icon="info-circle"
       data-prefix="fas"
       role="img"
@@ -50,7 +50,7 @@ exports[`Course Settings, student access can switch to links 1`] = `
             >
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-check-square fa-w-14 tutor-icon check-square"
+                className="svg-inline--fa fa-check-square fa-w-14 ox-icon check-square"
                 color="#63a524"
                 data-icon="check-square"
                 data-prefix="far"
@@ -114,7 +114,7 @@ exports[`Course Settings, student access can switch to links 1`] = `
             >
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-square fa-w-14 tutor-icon square"
+                className="svg-inline--fa fa-square fa-w-14 ox-icon square"
                 color="#999999"
                 data-icon="square"
                 data-prefix="far"
@@ -160,7 +160,7 @@ exports[`Course Settings, student access can switch to lms 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-info-circle fa-w-16 tutor-icon info-circle"
+      className="svg-inline--fa fa-info-circle fa-w-16 ox-icon info-circle"
       data-icon="info-circle"
       data-prefix="fas"
       role="img"
@@ -197,7 +197,7 @@ exports[`Course Settings, student access can switch to lms 1`] = `
             >
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-square fa-w-14 tutor-icon square"
+                className="svg-inline--fa fa-square fa-w-14 ox-icon square"
                 color="#999999"
                 data-icon="square"
                 data-prefix="far"
@@ -261,7 +261,7 @@ exports[`Course Settings, student access can switch to lms 1`] = `
             >
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-check-square fa-w-14 tutor-icon check-square"
+                className="svg-inline--fa fa-check-square fa-w-14 ox-icon check-square"
                 color="#63a524"
                 data-icon="check-square"
                 data-prefix="far"
@@ -401,7 +401,7 @@ exports[`Course Settings, student access can switch to lms 1`] = `
             >
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-info-circle fa-w-16 tutor-icon info-circle"
+                className="svg-inline--fa fa-info-circle fa-w-16 ox-icon info-circle"
                 data-icon="info-circle"
                 data-prefix="fas"
                 role="img"
@@ -470,7 +470,7 @@ exports[`Course Settings, student access renders chooser when lms is enabled 1`]
   >
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-info-circle fa-w-16 tutor-icon info-circle"
+      className="svg-inline--fa fa-info-circle fa-w-16 ox-icon info-circle"
       data-icon="info-circle"
       data-prefix="fas"
       role="img"
@@ -507,7 +507,7 @@ exports[`Course Settings, student access renders chooser when lms is enabled 1`]
             >
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-square fa-w-14 tutor-icon square"
+                className="svg-inline--fa fa-square fa-w-14 ox-icon square"
                 color="#999999"
                 data-icon="square"
                 data-prefix="far"
@@ -571,7 +571,7 @@ exports[`Course Settings, student access renders chooser when lms is enabled 1`]
             >
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-square fa-w-14 tutor-icon square"
+                className="svg-inline--fa fa-square fa-w-14 ox-icon square"
                 color="#999999"
                 data-icon="square"
                 data-prefix="far"

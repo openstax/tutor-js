@@ -25,11 +25,14 @@ const TutorTheme = {
     blue_control:  '#337eb5', // 337eb5
     black:         'black',
     white:         'white',
+    danger:        '#c2002f', // dark red
 
     neutral,
 
     states: {
-      correct: '#009c10',
+      active:   neutral.dark,
+      disabled: neutral.std,
+      correct:  '#009c10',
     },
 
     controls: {

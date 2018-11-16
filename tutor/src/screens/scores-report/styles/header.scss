@@ -54,7 +54,7 @@
         background-color: $tutor-neutral-cool;
       }
 
-      .tutor-icon {
+      .icon {
         margin-left: 0.5rem;
         align-self: center;
         font-size: 75%;
@@ -107,22 +107,8 @@
     position: relative;
     &.sortable {
       background-color: $scores-student-header-bg-color;
-//      &:not(.is-descending):not(.is-ascending):hover::after { content: $fa-var-sort-desc; }
-      // &.is-descending:hover::after { content: $fa-var-sort-asc;  }
-      // &.is-ascending:hover::after  { content: $fa-var-sort-desc; }
+      .ox-icon { margin-right: 0.5rem; }
     }
-    // &.is-ascending,
-    // &.is-descending,
-    // &.sortable:hover {
-    //   &:after {
-    //     position: absolute;
-    //     right: 6px;
-    //     top: 6px;
-    //     @include fa-icon();
-    //   }
-    // }
-    // &.is-ascending::after  { content: $fa-var-sort-asc;  }
-    // &.is-descending::after { content: $fa-var-sort-desc; }
     &.group.title {
       // border-top rules are defaults for the cell and are overridden by .tutor-plan-set() mixin
       // for various assignment types

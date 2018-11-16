@@ -186,14 +186,6 @@
         &.answer-correct {
           color: $openstax-secondary;
           padding-left: 0;
-
-          // &:before {
-          //   @include fa-icon();
-          //   padding-top: 0.15em;
-          //   padding-right: .125em;
-          //   content: $fa-var-check;
-          //   display: table-cell;
-          // }
         }
 
         .answer-label {

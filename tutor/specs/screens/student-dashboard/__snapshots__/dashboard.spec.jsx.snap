@@ -86,7 +86,7 @@ exports[`Student Dashboard displays as loading 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="svg-inline--fa fa-spinner fa-w-16 fa-spin tutor-icon spinner"
+              className="svg-inline--fa fa-spinner fa-w-16 fa-spin ox-icon spinner"
               data-icon="spinner"
               data-prefix="fas"
               role="img"
@@ -107,7 +107,7 @@ exports[`Student Dashboard displays as loading 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="svg-inline--fa fa-spinner fa-w-16 fa-spin tutor-icon spinner"
+              className="svg-inline--fa fa-spinner fa-w-16 fa-spin ox-icon spinner"
               data-icon="spinner"
               data-prefix="fas"
               role="img"

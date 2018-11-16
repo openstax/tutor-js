@@ -58,11 +58,15 @@ const Icons = {};
   'PlusSquare',
   'QuestionCircle',
   'Save',
+  'Sort',
+  'SortDown',
+  'SortUp',
   'Edit',
   'ExternalLinkAlt',
   'Print',
   'Spinner',
   'Th',
+  'ThumbsUp',
   'Times',
   'Times',
   'TimesCircle',
@@ -123,7 +127,7 @@ class Icon extends React.Component {
     let iconEl = (
       <FontAwesomeIcon
         data-variant={variant}
-        className={cn('tutor-icon', type, className)}
+        className={cn('ox-icon', type, className)}
         icon={Icons[type]}
         {...props}
       />
@@ -148,7 +152,7 @@ class Icon extends React.Component {
       tooltip : (
         <Tooltip
           id={this.uniqueId}
-          className={cn('icon-tt', { 'on-navbar': onNavbar })}
+          className={cn('ox-icon-tt', { 'on-navbar': onNavbar })}
           {...defaults(tooltipProps, defaultTooltipProps)}
         >
           {this.props.tooltip}

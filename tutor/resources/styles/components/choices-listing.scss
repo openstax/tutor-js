@@ -51,31 +51,12 @@
         margin-top: 0;
       }
     }
-    // &::after {
-    //   position: absolute;
-    //   background-repeat: no-repeat;
-    //   background-position: center center;
-    //   display: block;
-    //   right: 16px;
-    //   @include fa-icon();
-    //   content: $fa-var-square-o;
-    //   color: $tutor-neutral-light;
-    //   font-size: 20px;
-    // }
-
     &.active {
       @include make-wizard-choice-active();
       &:hover,
       &:focus {
         @include make-wizard-choice-active();
       }
-      // &::after {
-      //   content: $fa-var-check;
-      //   color: $tutor-secondary;
-      //   background-color: $tutor-white;
-      //   border-radius: 50%;
-      //   right: 14px;
-      // }
     }
   }
 }

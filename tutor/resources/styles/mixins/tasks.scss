@@ -1,9 +1,3 @@
-@mixin is-trouble() {
-//  content: $fa-var-bookmark;
-  transform: rotate(90deg);
-  color: $tutor-danger;
-}
-
 @mixin is-not-open() {
   font-weight: 400;
   font-style: italic;

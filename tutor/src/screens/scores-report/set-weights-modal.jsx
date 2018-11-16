@@ -97,6 +97,7 @@ class SetWeightsModal extends React.Component {
             variant={(weights.isSaveable && 'primary') || 'default'}
           >Save</AsyncButton>
           <Button
+            variant="default"
             disabled={weights.isBusy}
             onClick={weights.onCancelClick}
             className={'btn-outline-secondary'}

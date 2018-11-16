@@ -83,7 +83,7 @@
         padding: 1.6rem 0;
       }
     }
-    .tutor-icon.best-practices {
+    .ox-icon.best-practices {
       height: 2rem;
     }
     &.is-loading {
@@ -193,7 +193,7 @@
         padding-bottom: 40px;
         .heading {
           display: flex;
-          .tutor-icon {
+          .ox-icon {
             margin-right: 20px;
             font-size: 40px;
             color: #26649b;
@@ -238,7 +238,7 @@
         align-items: center;
         margin-top: 20px;
         margin-bottom: 40px;
-        .tutor-icon {
+        .ox-icon {
           font-size: 30px;
           color: $tutor-neutral-lite;
           margin: 2rem;

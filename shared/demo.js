@@ -1,8 +1,5 @@
 import ReactHelpers from './src/helpers/react';
 
-//require 'react-hot-loader/patch'
-// React = require 'react'
-
 import { startMathJax } from './src/helpers/mathjax';
 // In dev builds this enables hot-reloading,
 // in production it simply renders the root app

@@ -7,11 +7,6 @@ button.task-details-instructions {
   padding-left: 20px;
   @include transition(color .25s);
 
-  // &::after {
-  //   @include fa-icon();
-  //   content: $fa-var-info-circle;
-  // }
-
   &:hover,
   &:focus {
     color: $tutor-info;

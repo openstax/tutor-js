@@ -12,7 +12,7 @@ exports[`Annotations renders and matches snapshot 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-info-circle fa-w-16 tutor-icon info-circle"
+      className="svg-inline--fa fa-info-circle fa-w-16 ox-icon info-circle"
       data-icon="info-circle"
       data-prefix="fas"
       role="img"

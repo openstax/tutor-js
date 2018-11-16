@@ -93,16 +93,6 @@ $free-response-background:  $tutor-neutral-lighter;
         }
       }
     }
-
-    // &.answer-correct::before {
-    //   content: $fa-var-check;
-    //   color: $correct-answer-color;
-    // }
-
-    // &:not(.answer-correct)::before {
-    //   content: $fa-var-close;
-    //   color: $wrong-answer-color;
-    // }
   }
 
   .answers-table {

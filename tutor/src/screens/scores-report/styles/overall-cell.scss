@@ -17,8 +17,8 @@
     border-top-color: $tutor-neutral;
     border-top-width: 5px;
     border-top-style: solid;
-    .set-weights .fa-warning {
-      color: $form-error-color;
+    .exclamation-triangle {
+      margin-left: 1rem;
     }
     .btn.averages-toggle {
       position: absolute;
@@ -37,7 +37,7 @@
       // border-top: 1px solid $tutor-neutral-light;
       // border-bottom: 1px solid $tutor-neutral-light;
 
-      // &.tutor-icon {
+      // &.ox-icon {
       //   height: 42px;
       //   margin: 5px;
       //   //width: 20px;

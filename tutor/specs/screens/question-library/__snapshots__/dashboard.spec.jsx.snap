@@ -118,7 +118,7 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                 >
                   <svg
                     aria-hidden="true"
-                    className="svg-inline--fa fa-square fa-w-14 tutor-icon square"
+                    className="svg-inline--fa fa-square fa-w-14 ox-icon square"
                     color="#999999"
                     data-icon="square"
                     data-prefix="far"
@@ -281,7 +281,7 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                 >
                   <svg
                     aria-hidden="true"
-                    className="svg-inline--fa fa-square fa-w-14 tutor-icon square"
+                    className="svg-inline--fa fa-square fa-w-14 ox-icon square"
                     color="#999999"
                     data-icon="square"
                     data-prefix="far"
@@ -444,7 +444,7 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                 >
                   <svg
                     aria-hidden="true"
-                    className="svg-inline--fa fa-square fa-w-14 tutor-icon square"
+                    className="svg-inline--fa fa-square fa-w-14 ox-icon square"
                     color="#999999"
                     data-icon="square"
                     data-prefix="far"

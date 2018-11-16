@@ -112,7 +112,7 @@ exports[`choose exercises component can select exercises 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-square fa-w-14 tutor-icon square"
+                      className="svg-inline--fa fa-square fa-w-14 ox-icon square"
                       color="#999999"
                       data-icon="square"
                       data-prefix="far"
@@ -275,7 +275,7 @@ exports[`choose exercises component can select exercises 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-square fa-w-14 tutor-icon square"
+                      className="svg-inline--fa fa-square fa-w-14 ox-icon square"
                       color="#999999"
                       data-icon="square"
                       data-prefix="far"
@@ -438,7 +438,7 @@ exports[`choose exercises component can select exercises 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-square fa-w-14 tutor-icon square"
+                      className="svg-inline--fa fa-square fa-w-14 ox-icon square"
                       color="#999999"
                       data-icon="square"
                       data-prefix="far"
@@ -714,7 +714,7 @@ exports[`choose exercises component renders selections 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-square fa-w-14 tutor-icon square"
+                      className="svg-inline--fa fa-square fa-w-14 ox-icon square"
                       color="#999999"
                       data-icon="square"
                       data-prefix="far"
@@ -877,7 +877,7 @@ exports[`choose exercises component renders selections 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-square fa-w-14 tutor-icon square"
+                      className="svg-inline--fa fa-square fa-w-14 ox-icon square"
                       color="#999999"
                       data-icon="square"
                       data-prefix="far"
@@ -1040,7 +1040,7 @@ exports[`choose exercises component renders selections 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-square fa-w-14 tutor-icon square"
+                      className="svg-inline--fa fa-square fa-w-14 ox-icon square"
                       color="#999999"
                       data-icon="square"
                       data-prefix="far"
