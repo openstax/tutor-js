@@ -104,7 +104,6 @@ class ExercisePreview extends React.Component {
 
     return (
       <Card
-        bg="light"
         className={classes}
         data-exercise-id={this.props.exercise.uid}
         tabIndex={-1}

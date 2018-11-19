@@ -7,14 +7,13 @@ import { Button, ButtonGroup } from 'react-bootstrap';
 import classNames from 'classnames';
 import Course from '../../models/course';
 import TourAnchor from '../../components/tours/anchor';
-import ScrollTo from '../../helpers/scroll-to';
 
 export default
 @observer
 class ExerciseControls extends React.Component {
   static propTypes = {
     course:      PropTypes.instanceOf(Course).isRequired,
-
+    onSelectSections: PropTypes.func.isRequired,
     exercises: PropTypes.shape({
       all: PropTypes.object,
       homework: PropTypes.object,
@@ -31,8 +30,6 @@ class ExerciseControls extends React.Component {
 
   static defaultProps = { sectionizerProps: {} };
 
-  scroller = new ScrollTo({ windowImpl: this.props.windowImpl });
-
   getSections = () => {
     return (
       keys(this.props.exercises.all.grouped)
@@ -46,10 +43,6 @@ class ExerciseControls extends React.Component {
       this.props.onFilterChange( filter )
     );
   };
-
-  @action.bound scrollToTop() {
-    this.scroller.scrollToTop();
-  }
 
   render() {
     const { course } = this.props;
@@ -85,7 +78,7 @@ class ExerciseControls extends React.Component {
         <div className="filters-wrapper">
           {!course.is_concept_coach ? filters : undefined}
         </div>
-        <Button onClick={this.scrollToTop}>
+        <Button onClick={this.props.onSelectSections}>
           + Select more sections
         </Button>
       </div>

@@ -42,6 +42,7 @@ class ExercisesDisplay extends React.Component {
     course:      PropTypes.instanceOf(Course).isRequired,
     exercises:   PropTypes.instanceOf(ExercisesMap),
     pageIds:     ArrayOrMobxType.isRequired,
+    onSelectSections: PropTypes.func.isRequired,
     onShowDetailsViewClick: PropTypes.func.isRequired,
     onShowCardViewClick: PropTypes.func.isRequired,
     showingDetails: PropTypes.bool.isRequired,
@@ -73,6 +74,7 @@ class ExercisesDisplay extends React.Component {
 
     return (
       <ExerciseControls
+        onSelectSections={this.props.onSelectSections}
         filter={this.filter}
         course={this.props.course}
         showingDetails={this.props.showingDetails}
@@ -287,7 +289,7 @@ class ExercisesDisplay extends React.Component {
       <div className="exercises-display">
         <PinnedHeaderFooterCard
           ref="controls"
-          containerBuffer={50}
+          containerBuffer={0}
           header={this.renderControls(exercises)}
           cardType="sections-questions"
         >

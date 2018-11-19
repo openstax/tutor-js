@@ -7,7 +7,6 @@ import Course from '../../models/course';
 import Exercises, { ExercisesMap } from '../../models/exercises';
 import SectionsChooser from './sections-chooser';
 import ExercisesDisplay from './exercises-display';
-import LoadingDisplay from './loading-display';
 
 @observer
 class QuestionsDashboard extends React.Component {
@@ -20,6 +19,7 @@ class QuestionsDashboard extends React.Component {
     exercises: Exercises,
   }
 
+  @observable isShowingExercises = false;
   @observable showingDetails = false;
   @observable focusedExercise = false;
   @observable chapterIds;
@@ -35,6 +35,11 @@ class QuestionsDashboard extends React.Component {
 
   @action.bound onSelectionsChange(pageIds) {
     this.pageIds = pageIds;
+    this.isShowingExercises = true;
+  }
+
+  @action.bound onSelectSections() {
+    this.isShowingExercises = false;
   }
 
   render() {
@@ -42,14 +47,18 @@ class QuestionsDashboard extends React.Component {
     const classes = classnames( 'questions-dashboard', { 'is-showing-details': this.focusedExercise } );
     return (
       <div className={classes}>
-        <LoadingDisplay exercises={exercises} />
-        <SectionsChooser {...this.props} onSelectionsChange={this.onSelectionsChange} />
-        <ExercisesDisplay
-          {...this.props}
-          showingDetails={this.showingDetails}
-          onShowCardViewClick={this.onShowCardViewClick}
-          onShowDetailsViewClick={this.onShowDetailsViewClick}
-          pageIds={this.pageIds} />
+        {!this.isShowingExercises && (
+          <SectionsChooser {...this.props} onSelectionsChange={this.onSelectionsChange} />
+        )}
+        {this.isShowingExercises && (
+          <ExercisesDisplay
+            {...this.props}
+            onSelectSections={this.onSelectSections}
+            showingDetails={this.showingDetails}
+            onShowCardViewClick={this.onShowCardViewClick}
+            onShowDetailsViewClick={this.onShowDetailsViewClick}
+            pageIds={this.pageIds} />
+        )}
       </div>
     );
   }

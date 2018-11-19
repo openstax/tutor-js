@@ -44,11 +44,11 @@ class ExerciseDetails extends React.Component {
   @observable currentSection;
 
   @computed get exercises() {
-    return this.props.exercises.array; //this.flattenExercises(this.props);
+    return this.props.exercises.array;
   }
 
   componentDidMount() {
-//    this.scroller.scrollToSelector('.exercise-controls-bar');
+    // this.scroller.scrollToSelector('.exercise-controls-bar');
   }
 
   componentWillMount() {
@@ -65,8 +65,8 @@ class ExerciseDetails extends React.Component {
 
   @action.bound moveTo(index) {
     this.currentIndex = index;
-    this.exercise = this.exercises[index];
-    const section = this.exercise.page.chapter_section.asString;
+    const exercise = this.exercises[index];
+    const section = exercise.page.chapter_section.asString;
     if (this.currentSection !== section) {
       this.currentSection = section;
       if (this.props.onSectionChange) {
@@ -100,13 +100,15 @@ class ExerciseDetails extends React.Component {
             <Icon type="th" size="lg" /> Back to Card View
           </a>
         </div>
-        <div className="content">
-          <PagingNavigation
-            isForwardEnabled={moves.next}
-            isBackwardEnabled={moves.prev}
-            onForwardNavigation={this.onNext}
-            onBackwardNavigation={this.onPrev}
-            scrollOnNavigation={false}>
+
+        <PagingNavigation
+          isForwardEnabled={moves.next}
+          isBackwardEnabled={moves.prev}
+          onForwardNavigation={this.onNext}
+          onBackwardNavigation={this.onPrev}
+          scrollOnNavigation={false}
+        >
+          <div className="exercise-content">
             <ExercisePreview
               className="exercise-card"
               isVerticallyTruncated={false}
@@ -115,9 +117,11 @@ class ExerciseDetails extends React.Component {
               displayFeedback={this.props.displayFeedback}
               extractedInfo={exercise}
               exercise={exercise.content}
-              actionsOnSide={true} />
-          </PagingNavigation>
-        </div>
+              actionsOnSide={true}
+            />
+          </div>
+        </PagingNavigation>
+
       </div>
     );
   }
