@@ -22,6 +22,7 @@ import './ecosystem';
 import './exercise';
 import './scores';
 import './offering';
+import './course-roster';
 
 const Factories = {};
 
@@ -81,6 +82,12 @@ Factories.studentTasks = ({ course, count = 4, attributes = {} }) => {
         Object.assign({ course }, attributes)
       )),
     },
+  });
+};
+
+Factories.courseRoster = ({ course }) => {
+  course.roster.onApiRequestComplete({
+    data: FactoryBot.create('CourseRoster', { course }),
   });
 };
 
