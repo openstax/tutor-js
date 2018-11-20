@@ -2,7 +2,7 @@
 
 exports[`Exercise Preview Component callbacks are called when overlay and actions are clicked 1`] = `
 <div
-  className="openstax-exercise-preview has-actions card bg-light"
+  className="openstax-exercise-preview has-actions card"
   data-exercise-id="7@1"
   tabIndex={-1}
 >
@@ -261,7 +261,7 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
 
 exports[`Exercise Preview Component can hide the answers 1`] = `
 <div
-  className="openstax-exercise-preview answers-hidden card bg-light"
+  className="openstax-exercise-preview answers-hidden card"
   data-exercise-id="3@1"
   tabIndex={-1}
 >
@@ -325,7 +325,7 @@ exports[`Exercise Preview Component can hide the answers 1`] = `
 
 exports[`Exercise Preview Component can render question formats 1`] = `
 <div
-  className="openstax-exercise-preview is-displaying-formats card bg-light"
+  className="openstax-exercise-preview is-displaying-formats card"
   data-exercise-id="4@1"
   tabIndex={-1}
 >
@@ -582,7 +582,7 @@ exports[`Exercise Preview Component can render question formats 1`] = `
 
 exports[`Exercise Preview Component hides context if missing 1`] = `
 <div
-  className="openstax-exercise-preview card bg-light"
+  className="openstax-exercise-preview card"
   data-exercise-id="8@1"
   tabIndex={-1}
 >
@@ -831,7 +831,7 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
 
 exports[`Exercise Preview Component limits tags 1`] = `
 <div
-  className="openstax-exercise-preview card bg-light"
+  className="openstax-exercise-preview card"
   data-exercise-id="9@1"
   tabIndex={-1}
 >
@@ -1103,7 +1103,7 @@ exports[`Exercise Preview Component limits tags 1`] = `
 
 exports[`Exercise Preview Component renders and matches snapshot 1`] = `
 <div
-  className="openstax-exercise-preview card bg-light"
+  className="openstax-exercise-preview card"
   data-exercise-id="1@1"
   tabIndex={-1}
 >
@@ -1370,7 +1370,7 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
 
 exports[`Exercise Preview Component sets the className when displaying feedback 1`] = `
 <div
-  className="openstax-exercise-preview is-displaying-feedback card bg-light"
+  className="openstax-exercise-preview is-displaying-feedback card"
   data-exercise-id="2@1"
   tabIndex={-1}
 >

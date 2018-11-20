@@ -1130,7 +1130,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
       </div>
     </div>
     <div
-      className="openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback card bg-light"
+      className="openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback card"
       data-exercise-id="1@1"
       tabIndex={-1}
     >
@@ -2207,9 +2207,9 @@ exports[`Exercises component resets fields when model is new 1`] = `
                 </div>
               </div>
               <ExercisePreview className=\\"exercise-editing-preview\\" isInteractive={true} displayAllTags={true} displayFeedback={true} displayFormats={true} displayNickname={true} exercise={{...}} panelStyle=\\"default\\" overlayActions={{...}} extractedInfo={{...}}>
-                <ForwardRef(Bootstrap(Card)) bg=\\"light\\" className=\\"openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback\\" data-exercise-id=\\"14@1\\" tabIndex={-1}>
-                  <Card bg=\\"light\\" className=\\"openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback\\" data-exercise-id=\\"14@1\\" tabIndex={-1} bsPrefix=\\"card\\" as=\\"div\\" body={false}>
-                    <div className=\\"openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback card bg-light\\" data-exercise-id=\\"14@1\\" tabIndex={-1}>
+                <ForwardRef(Bootstrap(Card)) className=\\"openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback\\" data-exercise-id=\\"14@1\\" tabIndex={-1}>
+                  <Card className=\\"openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback\\" data-exercise-id=\\"14@1\\" tabIndex={-1} bsPrefix=\\"card\\" as=\\"div\\" body={false}>
+                    <div className=\\"openstax-exercise-preview exercise-editing-preview is-displaying-formats is-displaying-feedback card\\" data-exercise-id=\\"14@1\\" tabIndex={-1}>
                       <ForwardRef(Bootstrap(CardBody))>
                         <CardBody bsPrefix=\\"card-body\\">
                           <div className=\\"card-body\\">
