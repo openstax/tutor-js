@@ -55,13 +55,16 @@ const makeTaskingPeriodKey = function(period) {
 
 const helper = function(model, routerQuery) {
   const { id } = model;
-  let props = { id, courseId: '1' };
+  let props = {
+    id,
+    courseId: '1',
+  };
   // Load the plan into the store
   TaskPlanActions.loaded(model, id);
 
   if (!TaskPlanStore.isNew(id)) {
     const term = CourseDataHelper.getCourseBounds(props.courseId);
-    taskPlanEditingInitialize(id, props.courseId, term);
+    taskPlanEditingInitialize(id, Courses.get('1'), term);
   }
 
   PlanMixin.props = props;
@@ -126,10 +129,12 @@ describe('Task Plan Builder', function() {
   beforeEach(function() {
     TaskPlanActions.reset();
     TaskingActions.reset();
-    return Courses.bootstrap(COURSES, { clear: true });
+    Courses.bootstrap(COURSES, { clear: true });
   });
 
-  it('should load expected plan', () => {
+  fit('should load expected plan', () => {
+    const course = Courses.get(1)
+    //console.log(course.periods)
     const bld = helper(PUBLISHED_MODEL);
     expect(bld.find('input#reading-title').props().defaultValue)
       .toEqual(PUBLISHED_MODEL.title);

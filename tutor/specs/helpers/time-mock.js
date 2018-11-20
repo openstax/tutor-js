@@ -1,6 +1,8 @@
+import Time from '../../src/models/time';
 import chronokinesis from 'chronokinesis';
 import moment from 'moment-timezone';
 import { partial } from 'lodash';
+
 
 const TimeMock = {
 
@@ -12,6 +14,9 @@ const TimeMock = {
   mock(dateTime) {
     const now = new Date(dateTime);
     chronokinesis.travel(now);
+    //setNow(now);
+    const spy = jest.spyOn(Time, 'now', 'get');
+    spy.mockImplementation(() => now);
     moment.tz.setDefault('America/Chicago');
     moment.locale('en');
   },

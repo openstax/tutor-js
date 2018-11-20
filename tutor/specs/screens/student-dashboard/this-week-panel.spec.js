@@ -1,8 +1,6 @@
 import moment from 'moment-timezone';
 import ThisWeek from '../../../src/screens/student-dashboard/this-week-panel';
-import chronokinesis from 'chronokinesis';
-import { TimeMock, React } from '../../helpers';
-import Factory from '../../factories';
+import { Factory, TimeMock, React } from '../../helpers';
 
 describe('This Week Events', () => {
 

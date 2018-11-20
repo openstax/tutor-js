@@ -6,14 +6,12 @@ export function addComputedProperty(obj, name, fn) {
   Object.defineProperty(obj, name, {
     configurable: true,
     get() {
-      const me = this;
+      const getter = computed(fn, { context: this });
       Object.defineProperty(this, name, {
         configurable: false,
-        get: () => {
-          return fn.call(me);
-        },
+        get: () => getter.get(),
       });
-      return fn.call(me);
+      return getter.get();
     },
   });
 

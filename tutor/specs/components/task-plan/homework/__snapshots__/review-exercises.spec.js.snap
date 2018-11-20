@@ -213,7 +213,7 @@ exports[`choose exercises component matches snapshot 1`] = `
       className="openstax exercise-wrapper"
     >
       <div
-        className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+        className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
         data-exercise-id="1@1"
         tabIndex={-1}
       >
@@ -494,7 +494,7 @@ exports[`choose exercises component matches snapshot 1`] = `
       className="openstax exercise-wrapper"
     >
       <div
-        className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+        className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
         data-exercise-id="2@1"
         tabIndex={-1}
       >
@@ -750,7 +750,7 @@ exports[`choose exercises component matches snapshot 1`] = `
       className="openstax exercise-wrapper"
     >
       <div
-        className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+        className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
         data-exercise-id="3@1"
         tabIndex={-1}
       >

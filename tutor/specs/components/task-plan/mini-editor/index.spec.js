@@ -1,18 +1,12 @@
-import { React, ld } from '../../../helpers';
+import { React, Factory } from '../../../helpers';
 
 import MiniEditor from '../../../../src/components/task-plan/mini-editor';
-import { TaskPlanActions } from '../../../../src/flux/task-plan';
-
-import COURSE from '../../../../api/courses/1.json';
-const COURSE_ID = '1';
-
-import DATA from '../../../../api/courses/1/dashboard';
 
 describe('TaskPlan MiniEditor wrapper', function() {
   let props = {};
   beforeEach(() =>
     props = {
-      courseId: '1',
+      course: Factory.course(),
       planId:   '42',
       findPopOverTarget: jest.fn(),
       onHide: jest.fn(),

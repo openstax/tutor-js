@@ -28,7 +28,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card"
           data-exercise-id="1@1"
           tabIndex={-1}
         >
@@ -357,7 +357,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
           data-exercise-id="2@1"
           tabIndex={-1}
         >
@@ -601,7 +601,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
           data-exercise-id="3@1"
           tabIndex={-1}
         >
@@ -912,7 +912,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card"
           data-exercise-id="4@1"
           tabIndex={-1}
         >
@@ -1237,7 +1237,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
           data-exercise-id="5@1"
           tabIndex={-1}
         >
@@ -1541,7 +1541,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
           data-exercise-id="6@1"
           tabIndex={-1}
         >
@@ -1870,7 +1870,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
           data-exercise-id="7@1"
           tabIndex={-1}
         >
@@ -2114,7 +2114,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card"
           data-exercise-id="8@1"
           tabIndex={-1}
         >
@@ -2446,7 +2446,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
           data-exercise-id="9@1"
           tabIndex={-1}
         >
@@ -2750,7 +2750,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card"
           data-exercise-id="10@1"
           tabIndex={-1}
         >
@@ -3110,7 +3110,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
           data-exercise-id="11@1"
           tabIndex={-1}
         >
@@ -3379,7 +3379,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
           data-exercise-id="12@1"
           tabIndex={-1}
         >
@@ -3644,7 +3644,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
           data-exercise-id="13@1"
           tabIndex={-1}
         >
@@ -3895,7 +3895,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
           data-exercise-id="14@1"
           tabIndex={-1}
         >
@@ -4139,7 +4139,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card"
           data-exercise-id="15@1"
           tabIndex={-1}
         >
@@ -4499,7 +4499,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
           data-exercise-id="16@1"
           tabIndex={-1}
         >
@@ -4789,7 +4789,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
           data-exercise-id="17@1"
           tabIndex={-1}
         >
@@ -5033,7 +5033,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card"
           data-exercise-id="18@1"
           tabIndex={-1}
         >
@@ -5400,7 +5400,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
           data-exercise-id="19@1"
           tabIndex={-1}
         >
@@ -5644,7 +5644,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card"
           data-exercise-id="20@1"
           tabIndex={-1}
         >
@@ -5969,7 +5969,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
           data-exercise-id="21@1"
           tabIndex={-1}
         >
@@ -6238,7 +6238,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card"
           data-exercise-id="22@1"
           tabIndex={-1}
         >
@@ -6542,7 +6542,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
           data-exercise-id="23@1"
           tabIndex={-1}
         >
@@ -6853,7 +6853,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card"
           data-exercise-id="24@1"
           tabIndex={-1}
         >
@@ -7178,7 +7178,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card"
           data-exercise-id="25@1"
           tabIndex={-1}
         >
@@ -7482,7 +7482,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card"
           data-exercise-id="26@1"
           tabIndex={-1}
         >
@@ -7867,7 +7867,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
           data-exercise-id="27@1"
           tabIndex={-1}
         >
@@ -8111,7 +8111,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
           data-exercise-id="28@1"
           tabIndex={-1}
         >
@@ -8383,7 +8383,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
           data-exercise-id="29@1"
           tabIndex={-1}
         >
@@ -8627,7 +8627,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
           data-exercise-id="30@1"
           tabIndex={-1}
         >
@@ -8871,7 +8871,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
           data-exercise-id="31@1"
           tabIndex={-1}
         >
@@ -9140,7 +9140,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
           data-exercise-id="32@1"
           tabIndex={-1}
         >
@@ -9405,7 +9405,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
           data-exercise-id="33@1"
           tabIndex={-1}
         >
@@ -9716,7 +9716,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated has-interactive card"
           data-exercise-id="34@1"
           tabIndex={-1}
         >
@@ -10076,7 +10076,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
           data-exercise-id="35@1"
           tabIndex={-1}
         >
@@ -10380,7 +10380,7 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
         data-tour-anchor-id="exercise-preview"
       >
         <div
-          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+          className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
           data-exercise-id="36@1"
           tabIndex={-1}
         >

@@ -3,11 +3,11 @@
 exports[`Reading Row matches snapshot 1`] = `
 <a
   aria-label="Work on reading: turn-key leverage content"
-  className="task row reading workable"
+  className="task row reading"
   data-event-id={1}
   href="/course/1/task/1"
   onClick={[Function]}
-  tabIndex={0}
+  tabIndex={-1}
 >
   <div
     className="column-icon col-sm-1 col-2"

@@ -70,7 +70,6 @@ const TaskPlanBuilder = createReactClass({
     const course = Courses.get(courseId);
     const courseTimezone = course.time_zone;
     TimeHelper.syncCourseTimezone(courseTimezone);
-
     const nextState = taskPlanEditingInitialize(id, course, term);
     return this.setState(nextState);
   },
@@ -119,10 +118,7 @@ const TaskPlanBuilder = createReactClass({
     if (this.state.showingPeriods && !taskings.length) {
       invalidPeriodsAlert = <Row>
         <Col className="periods-invalid" sm={12}>
-          {`\
-  Please select at least
-  one `}
-          <CourseGroupingLabel lowercase={true} courseId={this.props.courseId} />
+          Please select at least one <CourseGroupingLabel lowercase={true} courseId={this.props.courseId} />
         </Col>
       </Row>;
     }

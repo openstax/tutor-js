@@ -1,21 +1,23 @@
 import { TEACHER_COURSE_TWO_MODEL } from '../../../courses-test-data';
-
+import { Factory, TimeMock } from '../../../helpers';
 import CourseUX from '../../../../src/models/course/onboarding/full-course';
 import UiSettings from 'shared/model/ui-settings';
 import User from '../../../../src/models/user';
 import moment from 'moment';
-import { TimeStore } from '../../../../src/flux/time';
+import Time from '../../../../src/models/time';
 import Nags from '../../../../src/components/onboarding/nags';
 
 jest.mock('shared/model/ui-settings', () => ({
   set: jest.fn(),
   get: jest.fn(),
 }));
-jest.mock('../../../../src/flux/time', () => ({
-  TimeStore: {
-    getNow: jest.fn(() => new Date('Thu Aug 31 2017 16:53:12 GMT-0500 (CDT)')),
-  },
-}));
+
+// jest.mock('../../../../src/flux/time', () => ({
+//   TimeStore: {
+//     getNow: jest.fn(() => new Date('Thu Aug 31 2017 16:53:12 GMT-0500 (CDT)')),
+//   },
+// }));
+
 jest.mock('../../../../src/models/user', ()=> ({
   logEvent: jest.fn(),
 }));
@@ -23,12 +25,15 @@ jest.mock('../../../../src/models/user', ()=> ({
 describe('Full Course Onboarding', () => {
   let ux;
 
+  const now = new Date('Thu Aug 31 2017 16:53:12 GMT-0500 (CDT)');
+  TimeMock.setTo(now);
+
   beforeEach(() => {
     UiSettings.get.mockImplementation(() => undefined);
     ux = new CourseUX(
       {
         id: 1, isActive: true, primaryRole: {
-          joined_at: moment(TimeStore.getNow()).subtract(4, 'hours').subtract(1, 'second').toDate(),
+          joined_at: moment(Time.now).subtract(4, 'hours').subtract(1, 'second').toDate(),
         },
       },
       { tour: null },
@@ -73,13 +78,13 @@ describe('Full Course Onboarding', () => {
     UiSettings.get.mockImplementation((id) => id == 'OBNT' ? 1504216390000 : 'dn');
     expect(UiSettings.set).toHaveBeenCalledWith('OBC', 1, 'dn');
     expect(UiSettings.set).toHaveBeenCalledWith('OBNT', 1, 1504216392000);
+
     expect(ux.lastNaggedAgo).toEqual(2000);
     expect(ux.isOnboardingUndecided).toBe(false);
     expect(ux.nagComponent).toBeNull();
 
-    TimeStore.getNow.mockImplementation(() =>
-      new Date('Thu Sept 7 2017 16:53:12 GMT-0500 (CDT)')
-    );
+    TimeMock.mock(new Date('Thu Sept 7 2017 16:53:12 GMT-0500 (CDT)'));
+
     expect(ux.lastNaggedAgo).toEqual(604802000);
     expect(ux.isOnboardingUndecided).toBe(true);
     expect(ux.nagComponent).toBe(Nags.freshlyCreatedCourse);

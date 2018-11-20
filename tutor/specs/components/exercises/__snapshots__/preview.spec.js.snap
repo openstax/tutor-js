@@ -6,7 +6,7 @@ exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
   data-tour-anchor-id="exercise-preview"
 >
   <div
-    className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card bg-light"
+    className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
     data-exercise-id="1@1"
     tabIndex={-1}
   >

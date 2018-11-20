@@ -14,8 +14,11 @@ describe('CourseCalendar Month display', () => {
     props = {
       date: course.taskPlans.array[0].duration.end(),
       course: course,
+      onDrop: jest.fn(),
+      onDrag: jest.fn(),
       termEnd: moment().add(2, 'month'),
       termStart: moment().subtract(3, 'month'),
+      onDayClick: jest.fn(),
       dateFormat: TimeHelper.ISO_DATE_FORMAT,
       hasPeriods: true,
       showingSideBar: true,

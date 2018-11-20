@@ -1,17 +1,15 @@
-import { assign } from 'lodash';
+import { TimeMock } from '../../helpers';
 import Student from '../../../src/models/course/student';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import Payments from '../../../src/models/payments';
 
 jest.mock('../../../src/models/payments');
-jest.mock('../../../src/flux/time', () => ({
-  TimeStore: {
-    getNow: jest.fn(() => new Date('2000-01-01')),
-  },
-}));
 
 describe('Course Student', () => {
   let course;
+  const now = new Date('2000-01-01');
+  TimeMock.setTo(now);
+
   beforeEach(() => {
     Payments.config = { is_enabled: false };
     course = bootstrapCoursesList().get('1');
