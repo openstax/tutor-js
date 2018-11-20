@@ -1,11 +1,17 @@
 import { React } from '../helpers';
-import { Icon } from 'shared';
+import Icon, { Icons }  from '../../src/components/icon';
 import { last } from 'lodash';
 
 describe('Icon Component', function() {
   let props = {};
 
   beforeEach(() => props = { type: 'ghost' });
+
+  it('correctly requires everything', () => {
+    Object.keys(Icons).forEach(k => {
+      expect(Icons[k]).toBeTruthy();
+    });
+  });
 
   it('renders', () => {
     expect.snapshot(<Icon {...props} />).toMatchSnapshot();

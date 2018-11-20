@@ -1,6 +1,5 @@
 import React from 'react';
-import BS from 'react-bootstrap';
-import _ from 'underscore';
+import { pick } from 'lodash';
 
 import AsyncButton from '../buttons/async-button';
 import { propTypes, props } from './props';
@@ -119,7 +118,7 @@ class ExControlButtons extends React.Component {
     const ControlButtons = CONTROLS[panel];
     if (controlText == null) { controlText = CONTROLS_TEXT[panel]; }
 
-    const controlProps = _.pick(this.props, props.ExReviewControls);
+    const controlProps = pick(this.props, props.ExReviewControls);
     controlProps.children = controlText;
 
     return <ControlButtons {...controlProps} />;
@@ -151,7 +150,7 @@ class ExFooter extends React.Component {
   render() {
     const { footer, idLink } = this.props;
 
-    const footerProps = _.pick(this.props, props.StepFooter);
+    const footerProps = pick(this.props, props.StepFooter);
     if (footerProps.controlButtons == null) { footerProps.controlButtons = <ExControlButtons {...this.props} />; }
 
     return (

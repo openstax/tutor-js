@@ -1,5 +1,5 @@
 import { CrudConfig, makeSimpleStore, extendConfig } from './helpers';
-import { find, sortBy, take, takeRight, first, filter, pluck, flatten, uniq } from 'lodash';
+import { find, sortBy, take, takeRight, filter, map, flatten, uniq } from 'lodash';
 
 // Unlike other stores defined in TutorJS, this contains three separate stores that have very similar capabilities.
 // They're combined in one file because they're pretty lightweight and share helper methods.
@@ -151,7 +151,7 @@ const Helpers = {
   },
 
   pagesForSections(sections) {
-    return uniq(flatten(pluck(sections, 'page_ids')));
+    return uniq(flatten(map(sections, 'page_ids')));
   },
 };
 

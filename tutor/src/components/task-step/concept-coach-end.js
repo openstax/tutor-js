@@ -1,9 +1,7 @@
 import React from 'react';
-import BS from 'react-bootstrap';
-import _ from 'underscore';
-
+import { isEmpty } from 'lodash';
 import { TaskStore } from '../../flux/task';
-import { CardBody, PinnableFooter, ChapterSectionMixin } from 'shared';
+import { PinnableFooter } from 'shared';
 import Review from '../task/review';
 
 class ConceptCoachEnd extends React.Component {
@@ -12,7 +10,7 @@ class ConceptCoachEnd extends React.Component {
   isDone = () => {
     const { taskId } = this.props;
     const incompleteSteps = TaskStore.getIncompleteSteps(taskId);
-    return _.isEmpty(incompleteSteps);
+    return isEmpty(incompleteSteps);
   };
 
   renderReviewSteps = (taskId, steps, type = 'completed') => {

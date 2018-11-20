@@ -1,15 +1,12 @@
-import BS from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import _ from 'underscore';
+import { invert } from 'lodash';
 import classnames from 'classnames';
-
-import Markdown from '../markdown';
 import { CardBody } from '../pinned-header-footer-card/sections';
 import { TITLES, ALIASES, INTRO_ALIASES, getIntroText } from '../../helpers/step-helps';
 
-const GROUP_BY_INTRO_ALIAS = _.invert(INTRO_ALIASES);
+const GROUP_BY_INTRO_ALIAS = invert(INTRO_ALIASES);
 
 const PROJECT_NAME = {
   tutor: 'OpenStax Tutor',

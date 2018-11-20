@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { range, map, zip, partial, keys, isNil, extend, placeholder } from 'lodash';
+import { range, map, zip, keys, isNil, extend } from 'lodash';
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
 import keymaster from 'keymaster';
@@ -15,7 +15,10 @@ const KEYS =
   { 'multiple-choice-numbers': range(1, 10) }; // 1 - 9
 
 // a - i
-KEYS['multiple-choice-alpha'] = map(KEYS['multiple-choice-numbers'], partial(keysHelper.getCharFromNumKey, placeholder, null));
+KEYS['multiple-choice-alpha'] = map(
+  KEYS['multiple-choice-numbers'],
+  (k) => keysHelper.getCharFromNumKey(k, null)
+);
 
 KEYS['multiple-choice'] = zip(KEYS['multiple-choice-numbers'], KEYS['multiple-choice-alpha']);
 

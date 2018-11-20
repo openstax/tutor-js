@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { keys, first, pluck, map, isEmpty } from 'lodash';
-import { observable, action, computed } from 'mobx';
+import { isEmpty } from 'lodash';
+import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import { PinnedHeaderFooterCard } from 'shared';
 import Loading from '../../components/loading-screen';

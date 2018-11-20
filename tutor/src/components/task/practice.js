@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import BS from 'react-bootstrap';
 import { Task } from './index';
 import Router from '../../helpers/router';
 import LoadableItem from '../loadable-item';

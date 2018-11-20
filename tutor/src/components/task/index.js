@@ -2,9 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import ReactDOM from 'react-dom';
-import BS from 'react-bootstrap';
-
-import _ from 'underscore';
+import { isEmpty, debounce, clone } from 'lodash';
 import classnames from 'classnames';
 
 import { TaskActions, TaskStore } from '../../flux/task';
@@ -146,7 +144,7 @@ const Task = createReactClass({
     if (nextProps.id !== this.props.id) { return false; }
     const step = this.getStep(this.state.currentStep);
     const nextStep = this.getStep(nextState.currentStep);
-    if (_.isEmpty(step) || _.isEmpty(nextStep)) { return false; }
+    if (isEmpty(step) || isEmpty(nextStep)) { return false; }
     return TaskStore.isSameStep(this.props.id, step.id, nextStep.id);
   },
 
@@ -217,10 +215,10 @@ const Task = createReactClass({
     return (key === keyToCompare) || (parseInt(key) === parseInt(keyToCompare));
   },
 
-  goToStep: _.debounce(function(stepKey, silent = false) {
+  goToStep: debounce(function(stepKey, silent = false) {
     const { id } = this.props;
     stepKey = parseInt(stepKey);
-    const params = _.clone(Router.currentParams());
+    const params = clone(Router.currentParams());
     if (this.areKeysSame(this.state.currentStep, stepKey)) { return false; }
     // url is 1 based so it matches the breadcrumb button numbers
     params.stepIndex = stepKey + 1;

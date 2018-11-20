@@ -1,6 +1,6 @@
 import {
   map, find, filter, each, values, findIndex, isEqual, first, pick,
-  findLastIndex, isEmpty, pluck, uniq, compact,
+  findLastIndex, isEmpty, uniq, compact, sortBy, uniqBy, flatten,
 } from 'lodash';
 import moment from 'moment';
 import flux from 'flux-react';
@@ -74,7 +74,7 @@ const TaskConfig = {
     if (step.content == null) { return ''; }
 
     let html = step.content.stimulus_html;
-    const questionHtml = pluck(step.content.questions, 'stem_html').join('');
+    const questionHtml = map(step.content.questions, 'stem_html').join('');
     return html += questionHtml;
   },
 
@@ -250,7 +250,7 @@ const TaskConfig = {
     getRelatedSections(taskId) {
       return uniq(
         compact(
-          pluck(
+          map(
             getSteps(this._steps[taskId]), 'chapter_section'
           )
         )
@@ -262,7 +262,7 @@ const TaskConfig = {
         uniqBy(
           flatten(
             compact(
-              pluck(
+              map(
                 filter(
                   getSteps(this._steps[taskId]),
                   step => TaskStepStore.isCore(step.id)
@@ -288,7 +288,7 @@ const TaskConfig = {
       if (isEmpty(sections) && (type === 'concept_coach')) {
         const details = this.exports.getStepsRelatedContent.call(this, taskId);
         if (!isEmpty(details)) {
-          sections = pluck(details, 'chapter_section');
+          sections = map(details, 'chapter_section');
           ({ title } = details[0]);
         }
       }

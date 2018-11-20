@@ -1,6 +1,5 @@
 import moment from 'moment-timezone';
 import 'moment-timezone/moment-timezone-utils';
-
 import map from 'lodash/map';
 import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
@@ -87,7 +86,10 @@ const TimeHelper = {
   linkZoneNames() {
     // uses moment-timezone-utils to alias loaded timezone data to timezone names in Rails
     const ALIAS_TIMEZONE_DATA = map(TIME_LINKS, function(alternativeZoneName, loadedZoneName) {
-      const loadedUnpackedObject = pick(moment.tz.zone(loadedZoneName), ['abbrs', 'offsets', 'untils']);
+      const loadedUnpackedObject = pick(
+        moment.tz.zone(loadedZoneName),
+        ['abbrs', 'offsets', 'untils']
+      );
       loadedUnpackedObject.name = alternativeZoneName;
 
       return moment.tz.pack(loadedUnpackedObject);

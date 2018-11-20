@@ -1,14 +1,8 @@
 import React from 'react';
-import BS from 'react-bootstrap';
 import classnames from 'classnames';
-
-import _ from 'underscore';
 import { StepCard } from '../../helpers/policies';
-
 import { AsyncButton, CardBody } from 'shared';
-import { TaskStore } from '../../flux/task';
 
-import { TaskStepStore } from '../../flux/task-step';
 
 export default {
   renderContinueButton() {

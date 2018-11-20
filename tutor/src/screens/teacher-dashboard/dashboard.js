@@ -56,7 +56,6 @@ class TeacherDashboard extends React.Component {
       courseId: course.id,
       date: date.format(this.props.dateFormat),
     };
-    console.log('setDate', date)
     this.context.router.history.push(
       TutorRouter.makePathname('calendarByDate', newParams)
     );

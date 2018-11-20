@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import BS from 'react-bootstrap';
 import moment from 'moment-timezone';
 import { isEmpty, isEqual, map, omit, extend, defer, clone, pick, keys, isUndefined } from 'lodash';
 import classnames from 'classnames';

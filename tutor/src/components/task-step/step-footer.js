@@ -1,13 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import BS from 'react-bootstrap';
-import _ from 'underscore';
-import { StepCard } from '../../helpers/policies';
-
-import { TaskStore } from '../../flux/task';
 import StepFooterMixin from './step-footer-mixin';
-
-import { TaskStepStore } from '../../flux/task-step';
 
 const StepFooter = createReactClass({
   displayName: 'StepFooter',

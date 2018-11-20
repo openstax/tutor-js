@@ -54,10 +54,6 @@ class AddAssignmentSidebar extends React.Component {
     router: this.context.router, renderMenuLink: this.renderMenuLink
   });
 
-  // componentWillMount() {
-  //   console.log("MOUNT", CalendarHelper.shouldIntro(), this.willShowIntro, this.showIntro)
-  // }
-
   componentWillReceiveProps(nextProps) {
     // kickoff intro if we're opening after being closed
     if (this.willShowIntro && nextProps.isOpen && !this.props.isOpen) {
