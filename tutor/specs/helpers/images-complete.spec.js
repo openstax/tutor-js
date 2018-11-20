@@ -2,6 +2,8 @@ import imagesComplete from '../../src/helpers/images-complete';
 import { JSDOM } from 'jsdom';
 import { deferred } from './index';
 
+jest.useFakeTimers();
+
 describe('Images Complete Helper', () => {
 
   let body;
@@ -26,7 +28,7 @@ describe('Images Complete Helper', () => {
     });
   });
 
-  fit('resolves after images are loaded', () => {
+  it('resolves after images are loaded', () => {
     body.innerHTML = '<img id="one" /><img id="two" />';
     const imgs = Array.from(body.querySelectorAll('img'));
     imgs.forEach(img => img.addEventListener = jest.fn());
