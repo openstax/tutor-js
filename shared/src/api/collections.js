@@ -5,7 +5,7 @@ import partial from 'lodash/partial';
 import every from 'lodash/every';
 import pick from 'lodash/pick';
 import trim from 'lodash/trim';
-import omit from 'lodash/omit';
+
 import omitBy from 'lodash/omitBy';
 import merge from 'lodash/merge';
 import some from 'lodash/some';

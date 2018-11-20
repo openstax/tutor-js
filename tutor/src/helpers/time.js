@@ -1,12 +1,6 @@
 import moment from 'moment-timezone';
 import 'moment-timezone/moment-timezone-utils';
-import map from 'lodash/map';
-import isEmpty from 'lodash/isEmpty';
-import isEqual from 'lodash/isEqual';
-import clone from 'lodash/clone';
-import values from 'lodash/values';
-import pick from 'lodash/pick';
-import first from 'lodash/first';
+import { isEmpty, isEqual, pick, map, clone, values, first } from 'lodash';
 
 // Map http://www.iana.org/time-zones names to timezone names in Rails
 // https://github.com/openstax/tutor-server/pull/1057#issuecomment-212678167
@@ -21,6 +15,18 @@ const TIME_LINKS = {
   'US/East-Indiana': 'Indiana (East)',
   'Canada/Atlantic': 'Atlantic Time (Canada)',
 };
+
+// uses moment-timezone-utils to alias loaded timezone data to timezone names in Rails
+moment.tz.add(
+  map(TIME_LINKS, (alternativeZoneName, loadedZoneName) => {
+    const loadedUnpackedObject = pick(
+      moment.tz.zone(loadedZoneName),
+      ['abbrs', 'offsets', 'untils']
+    );
+    loadedUnpackedObject.name = alternativeZoneName;
+    return moment.tz.pack(loadedUnpackedObject);
+  })
+);
 
 const ISO_DATE_REGEX = /\d{4}[\/\-](0[1-9]|1[012])[\/\-](0[1-9]|[12][0-9]|3[01])/;
 const ISO_TIME_REGEX = /([01][0-9]|2[0-3]):[0-5]\d/;
@@ -81,21 +87,6 @@ const TimeHelper = {
 
   getDateOnly(stringToCheck) {
     return first(stringToCheck.match(ISO_DATE_REGEX));
-  },
-
-  linkZoneNames() {
-    // uses moment-timezone-utils to alias loaded timezone data to timezone names in Rails
-    const ALIAS_TIMEZONE_DATA = map(TIME_LINKS, function(alternativeZoneName, loadedZoneName) {
-      const loadedUnpackedObject = pick(
-        moment.tz.zone(loadedZoneName),
-        ['abbrs', 'offsets', 'untils']
-      );
-      loadedUnpackedObject.name = alternativeZoneName;
-
-      return moment.tz.pack(loadedUnpackedObject);
-    });
-
-    return moment.tz.add(ALIAS_TIMEZONE_DATA);
   },
 
   PropTypes: {
@@ -189,8 +180,5 @@ const TimeHelper = {
     return isEqual(offsets, courseTimezoneOffsets);
   },
 };
-
-// link on require.
-TimeHelper.linkZoneNames();
 
 export default TimeHelper;

@@ -1,5 +1,6 @@
-const path               = require('path');
-const webpack            = require('webpack');
+const path    = require('path');
+const webpack = require('webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const PORTS = {
   tutor:      '8000',
@@ -55,7 +56,13 @@ const config = {
     extensions: ['.js', '.jsx', '.json'],
   },
   plugins: [
+    // don't need locales and they're huge
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    // use custom definitions containing only zones we support
+    new webpack.NormalModuleReplacementPlugin(
+      /moment-timezone\/data\/packed\/latest\.json/,
+      require.resolve('./configs/timezone-definitions')
+    ),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(production ? 'production' : 'development'),
@@ -89,6 +96,12 @@ const config = {
 if (!production) {
   config.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
+  );
+}
+
+if (process.env.ANALYZE) {
+  config.plugins.push(
+    new BundleAnalyzerPlugin()
   );
 }
 
