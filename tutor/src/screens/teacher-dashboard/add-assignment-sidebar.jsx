@@ -85,7 +85,7 @@ class AddAssignmentSidebar extends React.Component {
   @action.bound renderMenuLink(link, goToBuilder) {
     return (
       <TourAnchor tag="li" key={link.type} id={`sidebar-add-${link.type}-assignment`}>
-        <AddAssignmentLink link={link} goToBuilder={partial(goToBuilder, link)} onDrag={this.onPopoverClose} />
+        <AddAssignmentLink link={link} goToBuilder={partial(goToBuilder, link.pathname, null)} onDrag={this.onPopoverClose} />
       </TourAnchor>
     );
   }
