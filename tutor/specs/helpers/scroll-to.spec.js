@@ -32,14 +32,14 @@ describe('DOM Helpers', function() {
   it('scrolls to top', () => {
     scroller.scrollToTop();
     jest.runAllTimers();
-    expect(window.scroll).toHaveBeenCalledWith(0,0);
+    expect(window.scroll).toHaveBeenCalled();
   });
 
   it('can defer a scroll', () => {
     scroller.scrollToSelector('.wfig', { deferred: true });
     expect(window.scroll).not.toHaveBeenCalled();
     jest.runAllTimers();
-    expect(window.scroll).toHaveBeenCalledWith(0,0);
+    expect(window.scroll).toHaveBeenCalled();
   });
 
 });
