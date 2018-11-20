@@ -19,6 +19,7 @@ describe('Task Plan Builder: Preview button', () => {
     expect(btn.html()).toBeNull();
     btn.setProps({ planType: 'homework' });
     expect(btn.html()).not.toBeNull();
+    btn.unmount();
   });
 
   it('matches snapshot', function() {

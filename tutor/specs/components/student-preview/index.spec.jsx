@@ -2,6 +2,9 @@ import { EnzymeContext, C, TutorRouter } from '../../helpers';
 import StudentPreview from '../../../src/components/student-preview';
 import { bootstrapCoursesList } from '../../courses-test-data';
 
+jest.mock('react-youtube', () => (
+  (props) => <div data-type="youtube-mock">{JSON.stringify(props)}</div>
+));
 jest.mock('../../../src/helpers/router');
 
 describe('Student Preview Builder', () => {
@@ -21,6 +24,7 @@ describe('Student Preview Builder', () => {
       text: 'Back to Dashboard',
       params: { courseId: '142' },
     });
+    preview.unmount();
   });
 
 });
