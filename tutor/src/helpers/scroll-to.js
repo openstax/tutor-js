@@ -1,4 +1,4 @@
-import { get, extend, isEmpty, delay, result } from 'lodash';
+import { get, extend, isEmpty, delay, result, omit } from 'lodash';
 
 // Note that the GetPositionMixin methods are called directly rather than mixing it in
 // since we're a mixin ourselves our consumers also include GetPosition and it causes
@@ -106,16 +106,27 @@ export default class ScrollTo {
     );
   }
 
-  scrollToTop() {
+  scrollToTop({ deferred = false } = {}) {
     const root = this.windowImpl.document.body.querySelector('#ox-react-root-container');
     if (root) {
-      this.scrollToElement(root, { updateHistory: false });
+      return this.scrollToElement(root, { updateHistory: false, deferred });
     }
+    return Promise.resolve();
   }
 
-  scrollToElement(el, options ) {
-    if (options == null) { options = {}; }
+  // deferedScrollToTop() {
+  //   delay(() => this.scrollToTop(), 10);
+  // }
+  //
+  scrollToElement(el, options = {}) {
     if (!el.parentElement) { return Promise.resolve(); } // the element has been deleted
+    if (options.deferred) {
+      return new Promise(resolve => {
+        delay(() => {
+          this.scrollToElement(el, omit(options, 'deferred'), 10).then(resolve);
+        });
+      });
+    }
     const win       = this.windowImpl;
     const endPos    = this._desiredTopPosition(el, options);
 
@@ -142,9 +153,4 @@ export default class ScrollTo {
     step();
     return new Promise((resolve) => this.whenScrollCompete = resolve);
   }
-}
-
-
-function __guard__(value, transform) {
-  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
 }
