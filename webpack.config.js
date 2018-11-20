@@ -69,6 +69,11 @@ const config = {
       },
     }),
   ],
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
   watchOptions: {
     aggregateTimeout: 500,
     poll: 1000,

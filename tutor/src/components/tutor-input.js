@@ -255,7 +255,7 @@ class TutorDateInput extends React.Component {
       disabled: true,
       readOnly: true,
       className: classes,
-      value: displayValue,
+      value: displayValue || '',
     };
 
     return (

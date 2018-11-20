@@ -21,17 +21,16 @@ export default createReactClass({
     isLoading: PropTypes.func.isRequired,
     isLoaded: PropTypes.func.isRequired,
     isFailed: PropTypes.func.isRequired,
-    renderLoading: PropTypes.func.isRequired,
+    renderLoading: PropTypes.func,
     renderError: PropTypes.func.isRequired,
+    loadingMessage: PropTypes.string,
   },
 
   getDefaultProps() {
-
+    const loadingMessage = 'Loading …';
     // Enables a renderStatus prop function with a component other than a div
     return {
-      renderLoading() {
-        return <LoadingScreen className='loadable is-loading' />;
-      },
+      loadingMessage,
 
       renderError(refreshButton) {
         return (
@@ -53,17 +52,15 @@ export default createReactClass({
   bindUpdate() { return (typeof this.props.update === 'function' ? this.props.update() : undefined) || this.setState({}); },
 
   render() {
-    const { isLoading, isLoaded, isFailed, render, renderLoading, renderError } = this.props;
-
-    const refreshButton = <RefreshButton />;
+    const { isLoading, refreshButton, loadingMessage, isLoaded, isFailed, render, renderLoading, renderError } = this.props;
 
     if (isLoading()) {
-      return renderLoading();
+      return renderLoading ? renderLoading()
+        : <LoadingScreen className='loadable is-loading' message={loadingMessage} />;
     } else if (isLoaded()) {
       return render();
     } else if (isFailed()) {
       return renderError(refreshButton);
-
     } else {
       return render();
     }

@@ -1,10 +1,9 @@
 import React from 'react';
 import { idType } from 'shared';
 import createReactClass from 'create-react-class';
-import { Card, Container } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { pick } from 'lodash';
 import classnames from 'classnames';
-import { TaskPlanStore  } from '../../flux/task-plan';
 import PlanFooter from './footer';
 import PlanMixin from './plan-mixin';
 import TaskPlanBuilder from './builder';
@@ -57,3 +56,5 @@ const EventPlan = createReactClass({
 });
 
 export { EventPlan };
+const EventShell = PlanMixin.makePlanRenderer('event', EventPlan);
+export default EventShell;

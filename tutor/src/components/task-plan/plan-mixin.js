@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import extend from 'lodash/extend';
+import { memoize, extend } from 'lodash';
 import Courses from '../../models/courses-map';
 import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
 import { TaskingStore, TaskingActions } from '../../flux/tasking';
-
+import LoadableItem from '../loadable-item';
+import TourRegion from '../tours/region';
 import { TimeStore } from '../../flux/time';
 import { CloseButton } from 'shared';
 import TutorDialog from '../tutor-dialog';
@@ -211,6 +212,43 @@ const PlanMixin = {
 
     return [headerSpan, closeBtn];
   },
+
+
+  initialPlanId() {
+    id;
+  },
+
+  makePlanRenderer(type, Type) {
+    let { id, courseId } = Router.currentParams();
+
+    if (!id || (id === 'new')) {
+      id = TaskPlanStore.freshLocalId();
+      TaskPlanActions.create(id, { type });
+    }
+
+    const whenLoaded = () => (
+      <TourRegion
+        id={`${type}-assignment-editor`}
+        otherTours={[`${type}-assignment-editor-super`]}
+        courseId={courseId}
+      >
+        <Type id={id} courseId={courseId} />
+      </TourRegion>
+    );
+
+    return memoize(() => {
+      return (
+        <LoadableItem
+          id={id}
+          store={TaskPlanStore}
+          actions={TaskPlanActions}
+          renderItem={whenLoaded}
+        />
+      );
+    });
+  },
+
+
 };
 
 export default PlanMixin;

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Loadable from './loadable';
-import _ from 'underscore';
+import { isEmpty, isEqual, pick, partial } from 'lodash';
 
 // This component is useful for viewing a single Object from the Backend (ie Task, TaskPlan).
 // It uses methods defined in `CrudConfig` (maybe that should be renamed) to:
@@ -20,7 +20,7 @@ export default class extends React.Component {
       PropTypes.string,
       PropTypes.number,
     ]).isRequired,
-
+    loadingMessage: PropTypes.string,
     options: PropTypes.object,
     store: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
@@ -30,12 +30,18 @@ export default class extends React.Component {
     renderLoading: PropTypes.func,
     renderError: PropTypes.func,
     update: PropTypes.func,
+    isLoaded: PropTypes.bool,
+    isLoading: PropTypes.bool,
     bindEvent: PropTypes.string,
+  };
+
+  static defaultProps = {
+    loadingMessage: 'Loading …',
   };
 
   UNSAFE_componentWillMount() {
     const { id, store, options } = this.props;
-    if ((id != null) && !store.isNew(id, options)) { return this.load(id, options); }
+    if ((id != null) && !store.isNew(id, options)) { this.load(id, options); }
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -48,7 +54,7 @@ export default class extends React.Component {
     if (id == null) { return true; }
 
     switch (false) {
-    case !_.isEmpty(id): return true;
+    case !isEmpty(id): return true;
     case !store.get(id, options): return false;
     case !this.isLoading(id, options): return true;
     case !this.isLoaded(id, options): return false;
@@ -59,10 +65,9 @@ export default class extends React.Component {
   };
 
   arePropsSame = (prevProps, nextProps) => {
-    const { id, store, load, actions, options } = nextProps;
 
     const propsToCheck = ['id', 'store', 'load', 'actions', 'options'];
-    return _.isEqual(_.pick(prevProps, propsToCheck), _.pick(nextProps, propsToCheck));
+    return isEqual(pick(prevProps, propsToCheck), pick(nextProps, propsToCheck));
   };
 
   isLoaded = (...args) => {
@@ -78,7 +83,7 @@ export default class extends React.Component {
   };
 
   isLoadingOrLoad = (...args) => {
-    let { id, options, store, isLoadingOrLoad } = this.props;
+    let { isLoadingOrLoad } = this.props;
 
     if (isLoadingOrLoad == null) { isLoadingOrLoad = this._isLoadingOrLoad; }
     return isLoadingOrLoad(...Array.from(args || []));
@@ -91,25 +96,25 @@ export default class extends React.Component {
   };
 
   reload = (prevProps, nextProps) => {
-    const { id, store, load, actions, options } = nextProps;
+    const { id, store, options } = nextProps;
     if (id == null) { return; }
 
     // Skip reloading if all the props are the same (the case in the Calendar for some reason)
     if (this.arePropsSame(prevProps, nextProps)) { return; }
-    if (!store.isNew(id, options)) { return this.load(id, options); }
+    if (!store.isNew(id, options)) { this.load(id, options); }
   };
 
   render() {
     const { id, renderItem, store } = this.props;
 
-    const propsForLoadable = _.pick(this.props, 'store', 'update', 'bindEvent', 'renderLoading', 'renderError');
+    const propsForLoadable = pick(this.props, 'loadingMessage', 'store', 'update', 'bindEvent', 'renderLoading', 'renderError');
 
     return (
       <Loadable
         {...propsForLoadable}
         isLoading={this.isLoadingOrLoad}
-        isLoaded={_.partial(this.isLoaded, id)}
-        isFailed={_.partial(store.isFailed, id)}
+        isLoaded={partial(this.isLoaded, id)}
+        isFailed={partial(store.isFailed, id)}
         render={renderItem} />
     );
   }

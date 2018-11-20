@@ -1,7 +1,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import { pick } from 'lodash';
-import { Card, Container, Row, Col } from 'react-bootstrap';
+import { pick, get } from 'lodash';
+import { Card, Row, Col } from 'react-bootstrap';
+import { idType } from 'shared';
 import validator from 'validator';
 import classnames from 'classnames';
 import { TutorInput } from '../tutor-input';
@@ -14,6 +15,11 @@ import TaskPlanBuilder from './builder';
 const ExternalPlan = createReactClass({
   displayName: 'ExternalPlan',
   mixins: [PlanMixin],
+
+  propTypes: {
+    id: idType.isRequired,
+    courseId: idType.isRequired,
+  },
 
   setUrl(url) {
     const { id } = this.props;
@@ -31,7 +37,7 @@ const ExternalPlan = createReactClass({
     const hasError = this.hasError();
 
     const plan = TaskPlanStore.get(id);
-    const externalUrl = __guard__(plan != null ? plan.settings : undefined, x => x.external_url);
+    const externalUrl = get(plan, 'settings.external_url');
 
     let formClasses = ['edit-external', 'dialog'];
 
@@ -88,7 +94,5 @@ const ExternalPlan = createReactClass({
 });
 
 export { ExternalPlan };
-
-function __guard__(value, transform) {
-  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
-}
+const ExternalShell = PlanMixin.makePlanRenderer('external', ExternalPlan);
+export default ExternalShell;

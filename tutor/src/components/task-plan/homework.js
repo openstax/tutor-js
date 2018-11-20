@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import { pick, isEmpty } from 'lodash';
 import { idType } from 'shared';
-import { Card, Container, Row, Col, Button } from 'react-bootstrap';
+import { Card, Row, Col, Button } from 'react-bootstrap';
 import classnames from 'classnames';
 import PlanMixin from './plan-mixin';
 import TaskPlanBuilder from './builder';
@@ -105,9 +105,6 @@ const HomeworkPlan = createReactClass({
   },
 });
 
-
 export { HomeworkPlan };
-
-function __guard__(value, transform) {
-  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
-}
+const HomeworkShell = PlanMixin.makePlanRenderer('homework', HomeworkPlan);
+export default HomeworkShell;

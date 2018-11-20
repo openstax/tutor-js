@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { map, pick } from 'lodash';
 import createReactClass from 'create-react-class';
-import { Button, Card, Col, Row, Container } from 'react-bootstrap';
+import { Button, Card, Col, Row } from 'react-bootstrap';
 import classnames from 'classnames';
 import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
 import SelectTopics from './select-topics';
@@ -276,3 +276,5 @@ const ReadingPlan = createReactClass({
 });
 
 export { ReadingPlan };
+const ReadingShell = PlanMixin.makePlanRenderer('reading', ReadingPlan);
+export default ReadingShell;

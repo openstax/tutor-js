@@ -1,180 +1,106 @@
-import { loadAsync, asyncComponent } from './helpers/async-component';
+import { loadAsync as r, asyncComponent } from './helpers/async-component';
 import { getConditionalHandlers } from './helpers/conditional-handlers';
 import OnlyCollege from './components/my-courses/no-hs-teachers';
-
-const getMyCourses = function() {
-  const { default: MyCourses } = require('./components/my-courses');
-  return MyCourses;
-};
-
-const NewCourseWizard = asyncComponent(
-  () => import('./screens/new-course')
-);
-const getNewCourseWizard = () => NewCourseWizard;
-
-const TeacherDashboard = asyncComponent(
-  () => import('./screens/teacher-dashboard')
-);
-const getTeacherDashboard = () => TeacherDashboard;
-
-const ReferenceBook = asyncComponent(
-  () => import('./screens/reference-book/index.jsx')
-);
-const getReferenceBook = () => ReferenceBook;
-
-const QAView = asyncComponent(
-  () => import('./screens/qa-view/index.jsx')
-);
-const getQAView = () => QAView;
-
-const getTaskShell = function() {
-  const { TaskShell } = require('./components/task');
-  return TaskShell;
-};
-
-const getReadingShell = function() {
-  const { ReadingShell } = require('./components/task-plan');
-  return ReadingShell;
-};
-
-const getHomeworkShell = function() {
-  const { HomeworkShell } = require('./components/task-plan');
-  return HomeworkShell;
-};
-
-const getExternalShell = function() {
-  const { ExternalShell } = require('./components/task-plan');
-  return ExternalShell;
-};
-
-const getPaymentsShell = function() {
-  const { default: Payments } = require('./components/payments/manage');
-  return Payments;
-};
-
-const getEventShell = function() {
-  const { EventShell } = require('./components/task-plan');
-  return EventShell;
-};
-
-const PerformanceForecast = asyncComponent(
-  () => import('./screens/performance-forecast'),
-);
-const getPerformanceForecastGuide = () => PerformanceForecast;
-
-const CourseSettings = asyncComponent(
-  () => import('./screens/course-settings'),
-);
-const getCourseSettings = () => CourseSettings;
-
-const CourseRoster = asyncComponent(
-  () => import('./screens/course-roster'),
-);
-const getCourseRoster = () => CourseRoster;
-
-const getPractice = () => require('./components/task/practice');
-
-const getChangeStudentId = function() {
-  const { default: StudentId } = require('./components/change-student-id');
-  return StudentId;
-};
-
-
-const getTeacherReview = function() {
-  const { default: TaskTeacherReview } = require('./components/task-teacher-review');
-  return TaskTeacherReview;
-};
-
-const getCreateEnrollmentChange = function() {
-  const { default: CourseEnroll } = require('./components/enroll');
-  return CourseEnroll;
-};
-
-const getAccessibilityStatement = function() {
-  const { default: AccessibilityStatement } = require('./components/accessibility-statement');
-  return AccessibilityStatement;
-};
-
-const getStudentPreview = function() {
-  const { default: StudentPreview } = require('./components/student-preview');
-  return StudentPreview;
-};
 
 const getRoutes = (router) => {
   const ConditionalHandlers = getConditionalHandlers(router);
 
   return [
-    { path: '/dashboard', name: 'myCourses', renderer: getMyCourses },
-    { path: '/only-college-instructors', name: 'onlyCollegeInstructors', renderer: () => OnlyCollege },
-    { path: '/enroll/start/:enrollmentCode', name: 'createEnrollmentChange', renderer: getCreateEnrollmentChange },
-    { path: '/new-course/offering/:appearanceCode?', name: 'createNewCourseFromOffering', renderer: getNewCourseWizard },
-    { path: '/new-course/:sourceId?', name: 'createNewCourse', renderer: getNewCourseWizard },
+    { path: '/dashboard', name: 'myCourses',
+      renderer: r(() => import('./components/my-courses'), 'Courses Listing') },
+    { path: '/only-college-instructors', name: 'onlyCollegeInstructors',
+      renderer: () => OnlyCollege },
+    { path: '/enroll/start/:enrollmentCode', name: 'createEnrollmentChange',
+      renderer: r(() => import('./components/enroll'), 'Course Enrollment') },
+    { path: '/new-course/offering/:appearanceCode?', name: 'createNewCourseFromOffering',
+      renderer: r(() => import('./components/enroll'), 'Create Course') },
+    { path: '/new-course/:sourceId?', name: 'createNewCourse',
+      renderer: r(() => import('./components/enroll'), 'Copy Course') },
     {
       name: 'QADashboard',
       path: '/qa/:ecosystemId?/:chapterSection?',
       settings: { navBar: 'Plugable' },
-      renderer: getQAView,
-    },
+      renderer: r(() => import('./screens/qa-view'), 'QA View') },
     {
-      path: '/course/:courseId', name: 'dashboard', renderer:  ConditionalHandlers.dashboard,
-
-      routes: [{
-        path: 'scores',
-        name: 'viewScores',
-        renderer: loadAsync(() => import('./screens/scores-report/index.jsx')),
-      },
-      { path: 'guide/:roleId?', name: 'viewPerformanceGuide', renderer: getPerformanceForecastGuide },
-      { path: 't', name: 'viewTeacherDashboard', renderer: getTeacherDashboard,
-        routes: [
-          {
-            path: 'month/:date', name: 'calendarByDate', renderer: getTeacherDashboard,
-            routes: [{
-              path: 'plan/:planId', name: 'calendarViewPlanStats', renderer: getTeacherDashboard,
-            }],
-          },
-        ],
-      }, { path: 'metrics/:id', name: 'reviewTask', renderer: getTeacherReview }, {
-        path: 'task/:id', name: 'viewTask', renderer: getTaskShell,
-        routes: [
-          {
-            path: 'step/:stepIndex', name: 'viewTaskStep', renderer: getTaskShell,
-            routes: [{
-              path: ':milestones', name: 'viewTaskStepMilestones', renderer: getTaskShell,
-            }],
-          },
-        ],
-      }, { path: 'practice/:taskId?', name: 'practiceTopics', renderer: getPractice }, { path: 'homework/new', name: 'createHomework' }, { path: 'homework/:id', name: 'editHomework', renderer: getHomeworkShell }, { path: 'reading/new', name: 'createReading' }, { path: 'reading/:id', name: 'editReading', renderer: getReadingShell }, { path: 'external/new', name: 'createExternal' }, { path: 'external/:id', name: 'editExternal', renderer: getExternalShell }, { path: 'event/new', name: 'createEvent' }, { path: 'event/:id', name: 'editEvent', renderer: getEventShell }, { path: 'settings', name: 'courseSettings', renderer: getCourseSettings }, { path: 'roster', name: 'courseRoster', renderer: getCourseRoster }, {
-        path: 'questions',
-        name: 'viewQuestionsLibrary',
-        renderer: loadAsync(() => import('./screens/question-library/index.jsx')),
-      }, { path: 'change-student-id', name: 'changeStudentId', renderer: getChangeStudentId }],
-
+      path: '/course/:courseId', name: 'dashboard',
+      renderer:  ConditionalHandlers.dashboard,
+      routes: [
+        {
+          path: 'scores', name: 'viewScores',
+          renderer: r(() => import('./screens/scores-report/index.jsx')) },
+        { path: 'guide/:roleId?', name: 'viewPerformanceGuide',
+          renderer: r(() => import('./screens/performance-forecast')) },
+        { path: 't', name: 'viewTeacherDashboard',
+          renderer: r(() => import('./screens/teacher-dashboard'), 'Course'),
+          routes: [
+            { path: 'month/:date', name: 'calendarByDate',
+              renderer: r(() => import('./screens/teacher-dashboard'), 'Course'),
+              routes: [
+                { path: 'plan/:planId', name: 'calendarViewPlanStats',
+                  renderer: r(() => import('./screens/teacher-dashboard'), 'Course') },
+              ],
+            },
+          ],
+        }, {
+          path: 'metrics/:id', name: 'reviewTask',
+          renderer: r(() => import('./components/task-teacher-review')) },
+        { path: 'task/:id', name: 'viewTask',
+          renderer: r(() => import('./components/task')),
+          routes: [
+            {
+              path: 'step/:stepIndex', name: 'viewTaskStep',
+              renderer: r(() => import('./components/task')),
+              routes: [{
+                path: ':milestones', name: 'viewTaskStepMilestones',
+                renderer: r(() => import('./components/task')),
+              }],
+            },
+          ],
+        }, {
+          path: 'practice/:taskId?', name: 'practiceTopics',
+          renderer: r(() => import('./components/task/practice'), 'Practice'),
+        }, {
+          path: 'homework/:id', name: 'editHomework',
+          renderer: r(() => import('./components/task-plan/homework'), 'Homework') },
+        { path: 'reading/:id', name: 'editReading',
+          renderer: r(() => import('./components/task-plan/reading'), 'Reading') },
+        { path: 'external/:id', name: 'editExternal',
+          renderer: r(() => import('./components/task-plan/external'), 'External') },
+        { path: 'event/:id', name: 'editEvent',
+          renderer: r(() => import('./components/task-plan/event'), 'Event') },
+        { path: 'settings', name: 'courseSettings',
+          renderer: r(() => import('./screens/course-settings'), 'Course Settings') },
+        { path: 'roster', name: 'courseRoster',
+          renderer: r(() => import('./screens/course-roster'), 'Course Roster') },
+        { path: 'questions', name: 'viewQuestionsLibrary',
+          renderer: r(() => import('./screens/question-library/index.jsx')),
+        },
+        { path: 'change-student-id', name: 'changeStudentId',
+          renderer: r(() => import('./components/change-student-id')),
+        },
+      ],
     }, {
-      path: '/accessibility-statement/:courseId?', name: 'accessibilityStatement', renderer: getAccessibilityStatement,
+      path: '/accessibility-statement/:courseId?', name: 'accessibilityStatement',
+      renderer: r(() => import('./components/accessibility-statement')),
     }, {
-      path: '/student-preview/:courseId?', name: 'studentPreview', renderer: getStudentPreview,
-    },
-    { path: '/payments', name: 'managePayments', renderer: getPaymentsShell },
+      path: '/student-preview/:courseId?', name: 'studentPreview',
+      renderer: r(() => import('./components/student-preview')) },
+    { path: '/payments', name: 'managePayments',
+      renderer: r(() => import('./components/payments/manage')) },
     {
-      path: '/book/:ecosystemId',
-      name: 'viewReferenceBook',
-      renderer: getReferenceBook,
-      settings: { navBar: 'Plugable' },
-    },
+      path: '/book/:ecosystemId', name: 'viewReferenceBook', settings: { navBar: 'Plugable' },
+      renderer: r(() => import('./screens/reference-book/index.jsx')) },
     {
       path: '/book/:ecosystemId/section/:chapterSection',
-      name: 'viewReferenceBookSection',
-      renderer: getReferenceBook,
-      settings: { navBar: 'Plugable' },
-    },
+      name: 'viewReferenceBookSection', settings: { navBar: 'Plugable' },
+      renderer: r(() => import('./screens/reference-book/index.jsx')) },
     {
       path: '/books/:parts*',
       name: 'legacyReferenceBookRedirect',
       renderer: ConditionalHandlers.legacyReferenceBookRedirect,
-    },
-    {
+    }, {
       path: '/surveys/:courseId/:surveyId', name: 'researchSurvey',
-      renderer: loadAsync(() => import('./screens/surveys/index.jsx')),
+      renderer: r(() => import('./screens/surveys/index.jsx')),
     },
   ];
 };

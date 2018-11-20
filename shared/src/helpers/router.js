@@ -1,19 +1,11 @@
 import qs from 'qs';
-import map from 'lodash/map';
-import last from 'lodash/last';
-import omit from 'lodash/omit';
-import pick from 'lodash/pick';
-import partial from 'lodash/partial';
-import merge from 'lodash/merge';
-import remove from 'lodash/remove';
-import extend from 'lodash/extend';
-import memoize from 'lodash/memoize';
-import compact from 'lodash/compact';
-import isEmpty from 'lodash/isEmpty';
-import forEach from 'lodash/forEach';
-import mapValues from 'lodash/mapValues';
-import cloneDeep from 'lodash/cloneDeep';
-import pathToRegexp from 'path-to-regexp';
+
+import {
+  map, last, omit, pick, partial, isFunction, remove,
+  extend, memoize, compact, isEmpty, forEach, mapValues, cloneDeep,
+} from 'lodash';
+
+import  pathToRegexp from 'path-to-regexp';
 
 
 import { matchPath } from 'react-router-dom';
@@ -82,7 +74,6 @@ class OXRouter {
 
     return traverseRoutes(routes, function(route) {
       if (renderers[route.name] == null) { return null; }
-
       route.render = renderers[route.name]();
       route.getParamsForPath = partial(getParamsByPath, routesMap[route.name].path);
       return route;

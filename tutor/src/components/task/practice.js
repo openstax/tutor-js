@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Task } from './index';
+import Loading from '../loading-screen';
 import Router from '../../helpers/router';
 import LoadableItem from '../loadable-item';
 import { TaskActions, TaskStore } from '../../flux/task';
 import { CoursePracticeActions, CoursePracticeStore } from '../../flux/practice';
 import InvalidPage from '../invalid-page';
-import { Icon } from 'shared';
 
 class PracticeTask extends React.Component {
   static propTypes = {
@@ -18,6 +18,7 @@ class PracticeTask extends React.Component {
     return (
       <LoadableItem
         id={this.props.taskId}
+        loadingMessage="Loading Practice…"
         store={TaskStore}
         actions={TaskActions}
         renderItem={() => <Task id={this.props.taskId} />} />
@@ -51,10 +52,7 @@ class LoadPractice extends React.Component {
 
   render() {
     return (
-      <h1>
-        <Icon type="spinner" spin={true} />
-        {' Retrieving practice exercises…'}
-      </h1>
+      <Loading message="Retrieving practice exercises…" />
     );
   }
 }
