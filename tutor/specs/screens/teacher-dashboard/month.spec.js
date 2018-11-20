@@ -25,13 +25,10 @@ describe('CourseCalendar Month display', () => {
     };
   });
 
-  fit('renders plans and hides when deleting', function() {
+  it('renders plans', function() {
     const m = mount(<C><Month {...props} /></C>);
-    // const plan = course.taskPlans.array[0];
-
-    // expect(month).toHaveRendered(`[data-plan-id="${plan.id}"]`);
-    // plan.is_deleting = true;
-    // expect(month).not.toHaveRendered(`[data-plan-id="${plan.id}"]`);
+    const taskPlan = course.taskPlans.array[0];
+    expect(m).toHaveRendered(`[data-plan-id="${taskPlan.id}"]`);
     m.unmount();
   });
 

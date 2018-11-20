@@ -2687,10 +2687,10 @@ dateformat@3.0.3:
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
-dayz@^1.1.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/dayz/-/dayz-1.2.0.tgz#29d520d7888475a2a92599dad532295cbb75b00b"
-  integrity sha512-/Ra7LsIY8BcrrLFPsfFwnRmYkELeCTA5XDH+icXTM3DoJPEwgZYXs7viy+A05xz3M+rwMzuKNwLIHIVQaedspA==
+dayz@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/dayz/-/dayz-2.0.0.tgz#bb3fc79520c66ed3da9c4c66b2813eaf72fc068b"
+  integrity sha512-rakKOELvCnNBzj+lxFXLFUndgxW8pEgv6jweefymZCIELrOj86tGfh859L95jq4bvw2Ue4YcyhwhG/ZgUBq3sA==
   dependencies:
     "@babel/core" "^7.1.6"
     "@babel/preset-env" "^7.1.6"

@@ -37,22 +37,28 @@ class TeacherDashboard extends React.Component {
     params: PropTypes.object,
   };
 
-  static defaultProps = { date: moment(TimeStore.getNow()) };
+  static defaultProps = {
+    date: moment(TimeStore.getNow()),
+    params: {},
+  };
   @observable activeAddAssignment;
   @observable hoveredDay;
   @observable cloningPlan;
   @observable editingPlan;
 
   @action.bound setDate(date) {
+    const { course, params } = this.props;
     if (moment(date).isSame(this.props.date, 'month')) {
       return;
     }
-    const params = {
-      ...this.props,
+    const newParams = {
+      ...params,
+      courseId: course.id,
       date: date.format(this.props.dateFormat),
     };
+    console.log('setDate', date)
     this.context.router.history.push(
-      TutorRouter.makePathname('calendarByDate', params)
+      TutorRouter.makePathname('calendarByDate', newParams)
     );
   }
 
