@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { action, observable } from 'mobx';
 import { forceReload } from '../../helpers/reload';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import { AsyncButton } from 'shared';
 
 @observer
@@ -27,8 +27,8 @@ class ReloadToast extends React.Component {
           </p>
           <AsyncButton
             isWaiting={this.isReloading}
-            bsStyle="primary"
-            bsSize="small"
+            variant="primary"
+            size="small"
             waitingText="Reloading…"
             onClick={this.onReload}
           >

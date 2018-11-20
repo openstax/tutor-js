@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { React, observer } from '../../helpers/react';
 import Course from '../../models/course';
 import TourAnchor from '../../components/tours/anchor';
@@ -10,7 +11,7 @@ const CourseCalendarHeader = observer((props) => {
   const { course, hasPeriods, defaultOpen } = props;
   return (
     <div className="calendar-header">
-      {!hasPeriods ? <NoPeriods courseId={course.id} noPanel={true} /> : undefined}
+      {!hasPeriods ? <NoPeriods courseId={course.id} noCard={true} /> : undefined}
       <SidebarToggle
         course={props.course}
         defaultOpen={defaultOpen}
@@ -40,10 +41,10 @@ const CourseCalendarHeader = observer((props) => {
 CourseCalendarHeader.displayName = 'CourseCalendarHeader';
 
 CourseCalendarHeader.propTypes = {
-  hasPeriods: React.PropTypes.bool.isRequired,
-  course: React.PropTypes.instanceOf(Course).isRequired,
-  onSidebarToggle: React.PropTypes.func.isRequired,
-  defaultOpen: React.PropTypes.bool,
+  hasPeriods: PropTypes.bool.isRequired,
+  course: PropTypes.instanceOf(Course).isRequired,
+  onSidebarToggle: PropTypes.func.isRequired,
+  defaultOpen: PropTypes.bool,
 };
 
 

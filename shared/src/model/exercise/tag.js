@@ -7,8 +7,9 @@ const TYPES = {
   IMPORTANT: ['lo', 'aplo', 'blooms', 'dok', 'length', 'time'],
 };
 
+export default
 @identifiedBy('exercise/tag')
-export default class ExerciseTag extends BaseModel {
+class ExerciseTag extends BaseModel {
 
   @observable _tag;
 
@@ -90,4 +91,4 @@ export default class ExerciseTag extends BaseModel {
     ).join(':');
   }
 
-}
+};

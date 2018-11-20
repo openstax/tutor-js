@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import { autobind } from 'core-decorators';
 import { isNil, extend, partial, map, get } from 'lodash';
 import Router from '../helpers/router';
+import PropTypes from 'prop-types';
 import qs from 'qs';
 
 import { observable, action } from 'mobx';
@@ -24,19 +25,20 @@ FakeEvent.initClass();
 
 const getTab = (props) => Router.currentQuery(props.windowImpl).tab;
 
+export default
 @observer
-export default class CourseSettings extends React.PureComponent {
+class CourseSettings extends React.Component {
 
   static propTypes = {
-    onSelect: React.PropTypes.func.isRequired,
-    tabIndex: React.PropTypes.number,
-    initialActive: React.PropTypes.number,
-    params: React.PropTypes.object,
-    className: React.PropTypes.string,
-    tabs: React.PropTypes.arrayOf(
-      React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.element ])
+    onSelect: PropTypes.func.isRequired,
+    tabIndex: PropTypes.number,
+    initialActive: PropTypes.number,
+    params: PropTypes.object,
+    className: PropTypes.string,
+    tabs: PropTypes.arrayOf(
+      PropTypes.oneOfType([ PropTypes.string, PropTypes.element ])
     ).isRequired,
-    windowImpl: React.PropTypes.object,
+    windowImpl: PropTypes.object,
   }
 
   static defaultProps = {
@@ -45,7 +47,7 @@ export default class CourseSettings extends React.PureComponent {
   }
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   @observable activeIndex = isNil(getTab(this.props)) ? this.props.initialActive : parseInt(getTab(this.props));
@@ -132,4 +134,4 @@ export default class CourseSettings extends React.PureComponent {
       </nav>
     );
   }
-}
+};

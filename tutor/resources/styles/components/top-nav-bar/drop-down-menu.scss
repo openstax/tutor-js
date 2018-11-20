@@ -12,11 +12,20 @@
     @include top-nav-action();
 
     &:focus {
-      .tutor-icon.toggle {
+      .ox-icon.toggle {
         @include tutor-shadow(outline);
       }
     }
-
+    > .tour-anchor > .ox-icon,
+    > .ox-icon {
+      margin: 0 1rem 0 0;
+    }
+    &::after {
+      display: none;
+    }
+    .ox-icon.toggle {
+      margin-left: 0.5rem;
+    }
   }
 
 
@@ -31,32 +40,30 @@
     margin-top: -4px;
     min-width: calc(100% + 15px);
     margin-left: -15px;
-
     border-radius: 0;
-    > li {
-      > a {
-        color: inherit;
-        height: auto;
-        line-height: 2;
-        padding: 15 20px;
 
-        &:hover {
-          background-color: $tutor-neutral-lighter;
-          color: $tutor-neutral-darker;
-        }
+    > a {
+      color: inherit;
+      height: auto;
+      line-height: 2;
 
-        form input[type="submit"] {
-          line-height: inherit;
-        }
+      &:hover {
+        background-color: $tutor-neutral-lighter;
+        color: $tutor-neutral-darker;
       }
 
-      &.active {
-        > a {
-          background-color: $tutor-neutral-lighter;
-          color: $tutor-neutral-darker;
-        }
+      form input[type="submit"] {
+        line-height: inherit;
       }
     }
+
+    &.active {
+      > a {
+        background-color: $tutor-neutral-lighter;
+        color: $tutor-neutral-darker;
+      }
+    }
+
 
     input[type=submit] {
       @include tutor-sans-font(1.4rem, 1.4rem);
@@ -69,23 +76,11 @@
       &:hover { text-decoration: initial; }
     }
 
-    .tutor-icon {
+    .ox-icon {
       margin: 0 0.5rem;
     }
 
-    .chat {
-      .tutor-icon {
-        font-size: 18px;
-      }
-      &.enabled {
-        .tutor-icon { color: $tutor-secondary; }
-      }
-      &.disabled {
-        a { color: $tutor-neutral-lite; }
-      }
-    }
-
-    .divider {
+    .dropdown-divider {
       &:first-child,
       &:last-child {
         display: none;
@@ -107,7 +102,7 @@
       color: white;
       background-color: #2e7194;
       letter-spacing: -2px;
-      font-family: $tutor-light-font-face;
+      font-family: $tutor-neutral-light-font-face;
     }
 
     .dropdown-toggle:focus {

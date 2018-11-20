@@ -1,9 +1,8 @@
-import { React, SnapShot, Wrapper } from '../../components/helpers/component-testing';
+import { React, EnzymeContext } from '../../helpers';
 import { each, pick } from 'lodash';
 import bootstrapScores from '../../helpers/scores-data.js';
 import UX from '../../../src/screens/scores-report/ux';
 import SetWeightsModal from '../../../src/screens/scores-report/set-weights-modal';
-import EnzymeContext from '../../components/helpers/enzyme-context';
 import { wrapModalContents } from '../../helpers/modal-wrapper';
 
 
@@ -29,10 +28,15 @@ xdescribe('Scores Report: set weights modal', () => {
 
   it('sets values to error when not matching 100%', () => {
     expect(modal.find('input').map(i => i.props().value)).toEqual([80, 15, 5, 0]);
-    modal.find('input[name="homework_scores"]').first().simulate('change', { target: {
-      name: 'homework_scores',
-      value: '100',
-    } });
+    modal.find('input[name="homework_scores"]').first().simulate(
+      'change',
+      {
+        target: {
+          name: 'homework_scores',
+          value: '100',
+        },
+      },
+    );
     expect(modal).toHaveRendered('.valid-msg.invalid');
   });
 
@@ -43,14 +47,19 @@ xdescribe('Scores Report: set weights modal', () => {
       reading_scores: 10,
       reading_progress: 25,
     }, (value, name) => {
-      modal.find('input[name="homework_scores"]').first().simulate('change', { target: {
-        name, value,
-      } });
+      modal.find('input[name="homework_scores"]').first().simulate(
+        'change',
+        {
+          target: {
+            name, value,
+          },
+        },
+      );
     });
     expect(ux.weights.isValid).toBe(true);
     course.save = jest.fn();
     modal.find('Button').first().simulate('click');
-    expect(course.save).toHaveBeenCalled()
+    expect(course.save).toHaveBeenCalled();
   });
 
 });

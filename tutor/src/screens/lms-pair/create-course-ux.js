@@ -2,7 +2,8 @@ import CreateCourseUX from '../new-course/ux';
 import Router from './router';
 import { when, observable, computed, action, observe } from 'mobx';
 
-export default class PairingCreateCourseUX extends CreateCourseUX {
+export default
+class PairingCreateCourseUX extends CreateCourseUX {
 
   @computed get selectOfferingTitle() {
     return this.parentUX.stage === 0 ?
@@ -10,7 +11,10 @@ export default class PairingCreateCourseUX extends CreateCourseUX {
   }
 
   constructor(ux) {
-    super(new Router(ux));
+    super({
+      router: new Router(ux),
+      courses: ux.courses,
+    });
     this.parentUX = ux;
     this.canCancel = false;
   }

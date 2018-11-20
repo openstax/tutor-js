@@ -19,5 +19,4 @@ function mapPages(page, pages) {
   return pages;
 }
 
-Factory.define('Book')
-  .page_ids(({ type }) => getPages(book)
+// Factory.define('Book').page_ids(({ type }) => getPages(book));

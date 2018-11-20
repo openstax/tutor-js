@@ -1,11 +1,12 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Card } from 'react-bootstrap';
 import { action, observable } from 'mobx';
 import { includes } from 'lodash';
 
-import UpcomingPanel from './upcoming-panel';
+import UpcomingCard from './upcoming-panel';
 import AllEventsByWeek from './all-events-by-week';
-import ThisWeekPanel from './this-week-panel';
+import ThisWeekCard from './this-week-panel';
 
 import ProgressGuideShell from './progress-guide';
 import BrowseTheBook from '../../components/buttons/browse-the-book';
@@ -18,16 +19,16 @@ import NotificationHelpers from '../../helpers/notifications';
 import TourRegion from '../../components/tours/region';
 import Surveys from './surveys';
 
-export default class StudentDashboard extends React.PureComponent {
+export default class StudentDashboard extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
-    params: React.PropTypes.object.isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
+    params: PropTypes.object.isRequired,
   }
 
   // router context is needed for Navbar helpers
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   @observable tabIndex = 0;
@@ -52,8 +53,8 @@ export default class StudentDashboard extends React.PureComponent {
   renderThisWeek(course) {
     return (
       <div className="tab-pane active" role="tabpanel">
-        <ThisWeekPanel course={course} />
-        <UpcomingPanel course={course} />
+        <ThisWeekCard course={course} />
+        <UpcomingCard course={course} />
       </div>
     );
   }
@@ -85,7 +86,7 @@ export default class StudentDashboard extends React.PureComponent {
             <Col xs={12} md={4} lg={3} className="sidebar">
               <Surveys course={course} />
               <ProgressGuideShell courseId={course.id} />
-              <div className="actions-box">
+              <Card className="actions-box browse-the-book">
                 <BrowseTheBook
                   unstyled
                   course={course}
@@ -93,7 +94,7 @@ export default class StudentDashboard extends React.PureComponent {
                 >
                   <div>Browse the Book</div>
                 </BrowseTheBook>
-              </div>
+              </Card>
             </Col>
           </Row>
         </TourRegion>

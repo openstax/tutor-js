@@ -1,15 +1,17 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
-import EventsPanel from './events-panel';
-import EmptyPanel from './empty-panel';
+import EventsCard from './events-panel';
+import EmptyCard from './empty-panel';
 import Course from '../../models/course';
 
+export default
 @observer
-export default class UpcomingPanel extends React.PureComponent {
+class UpcomingCard extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
   }
 
   render() {
@@ -18,11 +20,11 @@ export default class UpcomingPanel extends React.PureComponent {
     const tasks = studentTasks.upcomingTasks;
 
     if (studentTasks.isPendingTaskLoading || isEmpty(tasks)) {
-      return <EmptyPanel className="upcoming" course={course} message='No upcoming assignments' />;
+      return <EmptyCard className="upcoming" course={course} message='No upcoming assignments' />;
     }
 
     return (
-      <EventsPanel
+      <EventsCard
         className="upcoming"
         onTaskClick={this.onTaskClick}
         course={course}
@@ -31,4 +33,4 @@ export default class UpcomingPanel extends React.PureComponent {
     );
   }
 
-}
+};

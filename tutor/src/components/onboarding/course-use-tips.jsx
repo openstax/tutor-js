@@ -1,16 +1,18 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { computed } from 'mobx';
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { OnboardingNag, Body, Heading, Footer } from './onboarding-nag';
 import TutorLink from '../link';
 
+export default
 @observer
-export default class CourseUseTips extends React.PureComponent {
+class CourseUseTips extends React.Component {
 
   static propTypes = {
-    ux: MobxPropTypes.observableObject.isRequired,
-    onDismiss: React.PropTypes.func.isRequired,
+    ux: PropTypes.object.isRequired,
+    onDismiss: PropTypes.func.isRequired,
   }
 
   @computed get course() {
@@ -37,11 +39,11 @@ export default class CourseUseTips extends React.PureComponent {
           the <TutorLink to="courseSettings" params={{ courseId: this.course.id }}>Course settings</TutorLink>. {this.downloadHelp}
         </Body>
         <Footer className="got-it">
-          <Button bsStyle="primary" onClick={this.props.onDismiss}>Got it</Button>
+          <Button variant="primary" onClick={this.props.onDismiss}>Got it</Button>
         </Footer>
       </OnboardingNag>
     );
   }
 
 
-}
+};

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React                  from 'react';
 
 import { action }             from 'mobx';
@@ -10,12 +11,12 @@ import { bindClickHandler }   from './common';
 
 import Router from '../../../helpers/router';
 
-export default class NewEnrollmentLink extends React.PureComponent {
+export default class NewEnrollmentLink extends React.Component {
 
   className = 'new-enrollment-link-wheel'
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   @action.bound
@@ -34,7 +35,7 @@ export default class NewEnrollmentLink extends React.PureComponent {
   }
 
   triggerView() {
-    const {courseId} = this.props.step.region;
+    const { courseId } = this.props.step.region;
 
     this.context.router.history.push(
       Router.makePathname('courseSettings', { courseId })
@@ -51,10 +52,10 @@ export default class NewEnrollmentLink extends React.PureComponent {
   render() {
     const { step } = this.props;
     const buttons = {
-      primary: "I'll get them later",
-      skip: "Go to the new links"
+      primary: 'I\'ll get them later',
+      skip: 'Go to the new links',
     };
-    const className = classnames(this.className,  this.props.className);
+    const className = classnames(this.className, this.props.className);
     step.isFixed = true;
 
     defaultsDeep(step.style, this.props.style);

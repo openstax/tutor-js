@@ -10,7 +10,7 @@ describe('Exercise controls component', function() {
 
   beforeEach(() => {
     const exercises = Factory.exercisesMap();
-    exercise = exercises.array[0];
+    exercise = exercises.array[0].array[0];
     props = {
       exercises,
       history: {
@@ -18,7 +18,7 @@ describe('Exercise controls component', function() {
       },
       match: {
         params: {
-          uid: exercise.number,
+          uid: exercise.uid,
         },
       },
     };

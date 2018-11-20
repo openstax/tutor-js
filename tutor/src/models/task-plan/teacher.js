@@ -1,18 +1,21 @@
 import {
   BaseModel, identifiedBy, field, session, identifier, hasMany,
 } from 'shared/model';
-import { action, computed, observable, Atom } from 'mobx';
-import { sortBy, first, map, union, find } from 'lodash';
+import { action, computed, observable, createAtom } from 'mobx';
+import {
+  sortBy, first, last, map, union, find,
+} from 'lodash';
 import { lazyInitialize } from 'core-decorators';
 import TaskingPlan from '../tasking-plan';
 import TaskPlanPublish from '../jobs/task-plan-publish';
 import * as Dates from '../../helpers/dates';
-import { TimeStore } from '../../flux/time';
+import Time from '../time';
 import TaskPlanStats from './stats';
-import TaskPlanReview from './review';
+import moment from '../../helpers/moment-range';
 
+export default
 @identifiedBy('task-plan/teacher')
-export default class TeacherTaskPlan extends BaseModel {
+class TeacherTaskPlan extends BaseModel {
 
   @identifier id;
   @field title;
@@ -42,7 +45,7 @@ export default class TeacherTaskPlan extends BaseModel {
 
   constructor(attrs) {
     super(attrs);
-    this.publishing = new Atom(
+    this.publishing = createAtom(
       'TaskPlanUpdates',
       () => { TaskPlanPublish.forPlan(this).startListening(); },
       () => { TaskPlanPublish.stopPollingForPlan(this); },
@@ -73,6 +76,11 @@ export default class TeacherTaskPlan extends BaseModel {
     );
   }
 
+  @computed get dueRange() {
+    const due_times = map(this.tasking_plans, tp => moment(tp.due_at)).sort();
+    return moment.range(last(due_times), first(due_times));
+  }
+
   @action onPublishComplete() {
     this.is_published = true;
     this.is_publishing = false;
@@ -93,21 +101,21 @@ export default class TeacherTaskPlan extends BaseModel {
   @computed get isPublished() { return this.is_published; }
   @computed get isPublishing() { return this.is_publishing; }
   @computed get isTrouble() { return this.is_trouble; }
-  @computed get isOpen() { return this.durationRange.start().isBefore(TimeStore.getNow()); }
-  @computed get isEditable() { return this.durationRange.start().isAfter(TimeStore.getNow()); }
+  @computed get isOpen() { return this.durationRange.start().isBefore(Time.now); }
+  @computed get isEditable() { return this.durationRange.start().isAfter(Time.now); }
   @computed get isFailed() { return Boolean(this.failed_at || this.killed_at); }
-  @computed get isPastDue() { return this.durationRange.end().isBefore(TimeStore.getNow()) }
+  @computed get isPastDue() { return this.durationRange.end().isBefore(Time.now); }
 
   @computed get isPollable() {
     return Boolean(
       !this.failed_at &&
-      !this.killed_at &&
-      this.is_publishing &&
+        !this.killed_at &&
+        this.is_publishing &&
         this.publish_job_url
     );
   }
 
-  isPastDueWithPeriodId(periodId) {
+  isPastDueWithPeriodId() {
     return find(this.tasking_plans, 'isPastDue');
   }
 
@@ -118,4 +126,4 @@ export default class TeacherTaskPlan extends BaseModel {
     return 'unknown';
   }
 
-}
+};

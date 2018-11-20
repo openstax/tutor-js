@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
@@ -5,7 +6,7 @@ import { omit } from 'lodash';
 import { computed, action } from 'mobx';
 import Router from '../../helpers/router';
 import TutorLink from '../link';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import CourseModel from '../../models/course';
 import CourseUX from '../../models/course/ux';
 import OXFancyLoader from '../ox-fancy-loader';
@@ -15,25 +16,25 @@ import CourseBranding from '../branding/course';
 
 import CourseData from '../../helpers/course-data';
 
-const CoursePropType = React.PropTypes.shape({
-  id:   React.PropTypes.string.isRequired,
-  name: React.PropTypes.string.isRequired,
-  year: React.PropTypes.number.isRequired,
-  term: React.PropTypes.string.isRequired,
-  is_concept_coach: React.PropTypes.bool.isRequired,
+const CoursePropType = PropTypes.shape({
+  id:   PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  year: PropTypes.number.isRequired,
+  term: PropTypes.string.isRequired,
+  is_concept_coach: PropTypes.bool.isRequired,
 });
-export { CoursePropType };
+
 
 @observer
-export class CoursePreview extends React.PureComponent {
+class CoursePreview extends React.Component {
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(CourseModel).isRequired,
-    className: React.PropTypes.string,
+    course: PropTypes.instanceOf(CourseModel).isRequired,
+    className: PropTypes.string,
   }
 
   @computed get ux () {
@@ -98,12 +99,13 @@ export class CoursePreview extends React.PureComponent {
   }
 }
 
-export class Course extends React.PureComponent {
+
+class Course extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(CourseModel).isRequired,
-    className:        React.PropTypes.string,
-    controls:         React.PropTypes.element,
+    course: PropTypes.instanceOf(CourseModel).isRequired,
+    className:        PropTypes.string,
+    controls:         PropTypes.element,
   }
 
   @computed get ux () {
@@ -157,8 +159,9 @@ export class Course extends React.PureComponent {
   }
 }
 
+
 @wrapCourseDragComponent
-export class CourseTeacher extends React.Component {
+class CourseTeacher extends React.Component {
 
   static propTypes = omit(Course.propTypes, 'controls');
 
@@ -183,3 +186,5 @@ export class CourseTeacher extends React.Component {
     );
   }
 }
+
+export { CoursePropType, CoursePreview, Course, CourseTeacher };

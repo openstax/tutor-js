@@ -1,7 +1,6 @@
 const Server = require('../../../scripts/test-server');
 const puppeteer = require('puppeteer');
 const fs = require('fs-extra');
-const del = require('del');
 const path = require('path');
 
 const DIR = require('./working-directory');

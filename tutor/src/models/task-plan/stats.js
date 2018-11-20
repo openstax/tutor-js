@@ -2,13 +2,13 @@ import {
   BaseModel, belongsTo, identifiedBy, session, hasMany, field, identifier,
 } from 'shared/model';
 import {
-  get, flatMap, groupBy, find, isNil, isObject, isEmpty, keys,
+  get, flatMap, groupBy, find, isEmpty, keys,
 } from 'lodash';
 import { computed } from 'mobx';
 import { lazyInitialize } from 'core-decorators';
 import ChapterSection from '../chapter-section';
 import Exercise from '../exercises/exercise';
-import Question from 'shared/model/exercise/question';
+import { ReviewQuestion } from 'shared/model/exercise/question';
 
 @identifiedBy('task-plan/stats/answer-stat')
 class AnswerStat extends BaseModel {
@@ -47,19 +47,6 @@ class Answer extends BaseModel {
 }
 
 
-class ReviewQuestion {
-
-  constructor(question) {
-    this.q = question;
-  }
-  get id() { return this.q.question_id; }
-  @computed get answers() { return this.q.answer_stats; }
-  @computed get formats() { return this.q.content.formats; }
-  @computed get stem_html(){ return this.q.content.stem_html; }
-  @computed get stimulus_html() { return this.q.content.stimulus_html; }
-}
-
-
 const AnswersAssociation = {
   withFreeResponse() {
     return this.filter(ans => !isEmpty(ans.free_response));
@@ -67,7 +54,7 @@ const AnswersAssociation = {
 };
 
 @identifiedBy('task-plan/stats/question')
-export class QuestionStats extends BaseModel {
+class QuestionStats extends BaseModel {
 
   @session question_id;
   @session answered_count;
@@ -90,28 +77,10 @@ export class QuestionStats extends BaseModel {
   }
 }
 
-//
-// @identifiedBy('task-plan/stats/exercise')
-// export class Exercise extends BaseModel {
-//
-//   @session content;
-//
-//   @session average_step_number;
-//   @belongsTo({ model: 'task-plan/stats/page' }) page;
-//   @hasMany({ model: Question, inverseOf: 'exercise' }) question_stats;
-//
-//   @computed get contentData() {
-//     return (isNil(this.content) || isObject(this.content)) ? this.content : JSON.parse(this.content) || {};
-//   }
-//
-//   @computed get uid() {
-//     return this.contentData ? this.contentData.uid : '';
-//   }
-// }
-//
+export { QuestionStats, Page, Stats };
 
 @identifiedBy('task-plan/stats/page')
-export class Page extends BaseModel {
+class Page extends BaseModel {
 
   @identifier id;
   @field({ model: ChapterSection }) chapter_section
@@ -124,8 +93,9 @@ export class Page extends BaseModel {
   @hasMany({ model: Exercise, inverseOf: 'page' }) exercises;
 }
 
+
 @identifiedBy('task-plan/stats/stat')
-export class Stats extends BaseModel {
+class Stats extends BaseModel {
 
   @session period_id;
   @session name;
@@ -139,7 +109,7 @@ export class Stats extends BaseModel {
 
   @computed get exercises() {
     return flatMap(['current_pages', 'spaced_pages'], pageType => {
-      return flatMap(this[pageType], pg => pg.exercises.peek());
+      return flatMap(this[pageType], pg => pg.exercises);
     });
   }
 
@@ -152,8 +122,9 @@ export class Stats extends BaseModel {
   }
 }
 
+export default
 @identifiedBy('task-plan/stats')
-export default class TaskPlanStats extends BaseModel {
+class TaskPlanStats extends BaseModel {
 
   @identifier id;
   @session title;
@@ -168,4 +139,4 @@ export default class TaskPlanStats extends BaseModel {
   fetch() { return { id: this.taskPlan.id }; }
   fetchReview() { return { id: this.taskPlan.id }; }
 
-}
+};

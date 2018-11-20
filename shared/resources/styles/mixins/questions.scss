@@ -10,13 +10,6 @@
   border-style: solid;
 };
 
-@mixin answer-fa-icon() {
-  @include fa-icon();
-  // em used here for line-height for compatibility with IE
-  // http://caniuse.com/#feat=rem -- rem ignored in pseudo elements
-  line-height: 1.6em;
-  font-size: 2.5rem;
-};
 
 @mixin answer-bubble() {
   @include openstax-bubble();
@@ -39,21 +32,12 @@
   border-color: $openstax-wrong-answer-color;
   background-color: $openstax-wrong-answer-color;
   color: $openstax-white;
-  &::after {
-    @include answer-fa-icon();
-    content: $fa-var-close;
-  }
 }
 
 @mixin answer-bubble-correct {
   border-color: $openstax-correct-answer-color;
   background-color: $openstax-correct-answer-color;
   color: $openstax-white;
-
-  &::after {
-    @include answer-fa-icon();
-    content: $fa-var-check;
-  }
 }
 
 @mixin answer-bubble-correct-answer {

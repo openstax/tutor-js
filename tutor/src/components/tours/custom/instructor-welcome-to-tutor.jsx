@@ -19,7 +19,7 @@ function WelcomeToTutorContent() {
 
 export { WelcomeToTutorContent };
 
-export default class InstructorWelcomeToTutor extends React.PureComponent {
+export default class InstructorWelcomeToTutor extends React.Component {
 
   render () {
     return (

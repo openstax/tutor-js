@@ -1,11 +1,12 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { observer } from 'mobx-react';
 import cn from 'classnames';
 import { snakeCase, map } from 'lodash';
 import { Modal, Button } from 'react-bootstrap';
 import { AsyncButton } from 'shared';
 import NewTabLink from '../../components/new-tab-link';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 
 const WEIGHTS = [
   'Homework scores',
@@ -14,11 +15,12 @@ const WEIGHTS = [
   'Reading progress',
 ];
 
+export default
 @observer
-export default class SetWeightsModal extends React.Component {
+class SetWeightsModal extends React.Component {
 
   static propTypes = {
-    ux: MobxPropTypes.observableObject,
+    ux: PropTypes.object,
   }
 
   render() {
@@ -36,7 +38,7 @@ export default class SetWeightsModal extends React.Component {
         </Modal.Header>
         <Modal.Body
           className={
-            cn({'page-loading loadable is-loading': true})
+            cn({ 'page-loading loadable is-loading': true })
           }
         >
           <div>
@@ -73,15 +75,15 @@ export default class SetWeightsModal extends React.Component {
               { !weights.isDefault?
                 <Button
                   onClick={weights.setDefaults}
-                  bsStyle='link'
-                  >Restore default</Button>
+                  variant='link'
+                >Restore default</Button>
                 : null
               }
             </div>
           </div>
           <p className={cn('weights-msg', {
-              invalid: weights.showIsInvalid,
-              valid: weights.showIsValid,
+            invalid: weights.showIsInvalid,
+            valid: weights.showIsValid,
           })}>
             <Icon type={weights.msgIconType}/>{weights.msg}
           </p>
@@ -92,9 +94,10 @@ export default class SetWeightsModal extends React.Component {
             waitingText={weights.savingButtonText}
             onClick={weights.onSaveWeights}
             disabled={!weights.isSaveable}
-            bsStyle={(weights.isSaveable && 'primary') || 'default'}
+            variant={(weights.isSaveable && 'primary') || 'default'}
           >Save</AsyncButton>
           <Button
+            variant="default"
             disabled={weights.isBusy}
             onClick={weights.onCancelClick}
             className={'btn-outline-secondary'}
@@ -103,4 +106,4 @@ export default class SetWeightsModal extends React.Component {
       </Modal>
     );
   }
-}
+};

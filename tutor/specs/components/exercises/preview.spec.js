@@ -1,8 +1,6 @@
-import { React, SnapShot } from '../helpers/component-testing';
+import { React } from '../../helpers';
 import ExercisePreviewWrapper from '../../../src/components/exercises/preview';
-
 import Factory from '../../factories';
-import Sequence from 'object-factory-bot/sequences';
 
 jest.mock('../../../../shared/src/components/html', () => ({ className, html }) =>
   html ? <div className={className} dangerouslySetInnerHTML={{ __html: html }} /> : null
@@ -13,8 +11,6 @@ describe('Exercise Preview Wrapper Component', function() {
 
   beforeEach(() => {
     exercise = Factory.tutorExercise();
-    Sequence.map.clear();
-
     props = {
       exercise,
       onShowDetailsViewClick: jest.fn(),
@@ -26,7 +22,7 @@ describe('Exercise Preview Wrapper Component', function() {
 
 
   it('renders and matches snapshot', () => {
-    expect(SnapShot.create(<ExercisePreviewWrapper {...props} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<ExercisePreviewWrapper {...props} />).toMatchSnapshot();
   });
 
   it('re-renders when model is updated', () => {

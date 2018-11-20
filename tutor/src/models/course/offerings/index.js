@@ -8,7 +8,7 @@ class OfferingsMap extends Map {
     items.forEach(offering => this.set(offering.id, new Offering(offering)));
   }
 
-  @computed get fetched() {
+  get fetched() {
     if (!this.isFetched && this.fetch){
       this.fetch();
       this.isFetched = true;

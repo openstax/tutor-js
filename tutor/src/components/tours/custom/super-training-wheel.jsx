@@ -8,12 +8,12 @@ import classnames             from 'classnames';
 import CenteredNoHoleWheel    from './centered-no-hole-wheel';
 import { bindClickHandler }   from './common';
 
-export default class SuperTrainingWheel extends React.PureComponent {
+export default class SuperTrainingWheel extends React.Component {
 
   className = 'super-training-wheel'
 
   @action.bound
-  handleClick = bindClickHandler.call(this, {close: this.triggerNext.bind(this)});
+  handleClick = bindClickHandler.call(this, { close: this.triggerNext.bind(this) });
 
   triggerNext() {
     if (this.props.step.step.tour.autoplay) {
@@ -26,11 +26,11 @@ export default class SuperTrainingWheel extends React.PureComponent {
 
   render () {
     const { step } = this.props;
-    const buttons = step.step.tour.autoplay? {
+    const buttons = step.step.tour.autoplay ? {
       primary: 'Continue',
-      secondary: null
+      secondary: null,
     } : {};
-    const className = classnames(this.className,  this.props.className);
+    const className = classnames(this.className, this.props.className);
 
     step.text = this.props.children;
     step.isFixed = true;

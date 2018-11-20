@@ -1,17 +1,19 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { observer } from 'mobx-react';
 import Payments from '../../models/payments';
 import OXFancyLoader from '../ox-fancy-loader';
 import BrowserWarning, { isBrowserExcluded } from '../browser-warning-modal';
 
+export default
 @observer
-export default class PaymentsPanel extends React.PureComponent {
+class PaymentsCard extends React.Component {
 
   static propTypes = {
-    course: MobxPropTypes.observableObject.isRequired,
-    onCancel: React.PropTypes.func.isRequired,
-    onPaymentComplete: React.PropTypes.func.isRequired,
+    course: PropTypes.object.isRequired,
+    onCancel: PropTypes.func.isRequired,
+    onPaymentComplete: PropTypes.func.isRequired,
   }
 
   payments = new Payments({
@@ -31,7 +33,7 @@ export default class PaymentsPanel extends React.PureComponent {
       return (
         <div className="error-message">
           <p>{payments.errorMessage}</p>
-          <Button bsStyle="primary" onClick={this.props.onCancel}>
+          <Button variant="primary" onClick={this.props.onCancel}>
             Close
           </Button>
         </div>
@@ -56,4 +58,4 @@ export default class PaymentsPanel extends React.PureComponent {
     );
   }
 
-}
+};

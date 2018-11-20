@@ -1,10 +1,18 @@
+@mixin progress-bar-variant($color) {
+  background-color: $color;
+
+  // Deprecated parent class requirement as of v3.2.0
+  .progress-striped & {
+    @include gradient-striped;
+  }
+}
+
 .progress .progress-bar-correct {
-  @include progress-bar-variant($progress-bar-success-bg);
+  @include progress-bar-variant(theme-color('success'));
 }
 
 .progress .progress-bar-incorrect {
-  @include progress-bar-variant($progress-bar-danger-bg);
-  // #gradient > .striped(rgba(255,255,255,.15), 135deg);
+  @include progress-bar-variant(theme-color('danger'));
   background-size: 20px 20px;
 }
 

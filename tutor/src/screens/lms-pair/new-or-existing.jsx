@@ -1,5 +1,6 @@
 import { React, observer } from '../../helpers/react';
-import { Button, Panel } from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import { Button, Card } from 'react-bootstrap';
 import { Listing, Choice } from '../../components/choices-listing';
 
 const Footer = observer(({ ux }) => {
@@ -7,7 +8,7 @@ const Footer = observer(({ ux }) => {
     <div className="controls">
       <Button
         onClick={ux.goForward}
-        bsStyle="primary"
+        variant="primary"
         className="next"
         disabled={!ux.canGoForward}
       >
@@ -18,23 +19,25 @@ const Footer = observer(({ ux }) => {
 });
 
 
+export default
 @observer
-export default class NewOrExisting extends React.PureComponent {
+class NewOrExisting extends React.Component {
 
   static propTypes = {
-    ux: React.PropTypes.object.isRequired,
+    ux: PropTypes.object.isRequired,
   }
 
   render() {
     const { ux } = this.props;
 
     return (
-      <Panel
-        header="Do you want to use a new or existing Tutor Course with your LMS?"
+      <Card
         className={'new-course-wizard'}
-        footer={<Footer ux={ux} />}
       >
-        <div className="panel-content">
+        <Card.Header>
+          <h3>Do you want to use a new or existing Tutor Course with your LMS?</h3>
+        </Card.Header>
+        <Card.Body className="panel-content">
           <Listing>
             <Choice
               key="course-new"
@@ -51,8 +54,9 @@ export default class NewOrExisting extends React.PureComponent {
               Pair LMS to an existing course
             </Choice>
           </Listing>
-        </div>
-      </Panel>
+        </Card.Body>
+        <Footer ux={ux} />
+      </Card>
     );
   }
-}
+};

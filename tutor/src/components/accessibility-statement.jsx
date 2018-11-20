@@ -2,16 +2,16 @@ import React from 'react';
 import Router from '../helpers/router';
 import CourseBranding from './branding/course';
 import BackButton from './buttons/back-button';
-import { Grid, Table } from 'react-bootstrap';
+import { Container, Table } from 'react-bootstrap';
 
 export default function AccessibilityStatement() {
   const params = Router.currentParams();
   const { courseId } = params;
   const backLink = courseId ? { to: 'dashboard', text: 'Back to Dashboard', params: { courseId } } :
-                   { to: 'myCourses', text: 'Back to My Courses' };
+    { to: 'myCourses', text: 'Back to My Courses' };
 
   return (
-    <Grid className="accessibility-statement">
+    <Container className="accessibility-statement">
       <header>
         <h1>
           <CourseBranding /> accessibility
@@ -129,6 +129,6 @@ export default function AccessibilityStatement() {
           </tr>
         </tbody>
       </Table>
-    </Grid>
+    </Container>
   );
 }

@@ -1,20 +1,22 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { action, observable } from 'mobx';
 import { Modal } from 'react-bootstrap';
 import classnames from 'classnames';
-import Icon from './icon';
+import { Icon } from 'shared';
 
+export default
 @observer
-export default class WarningModal extends React.PureComponent {
+class WarningModal extends React.Component {
 
   static propTypes = {
-    title: React.PropTypes.string.isRequired,
-    children: React.PropTypes.any,
-    footer: React.PropTypes.element,
-    onDismiss: React.PropTypes.func,
-    className: React.PropTypes.string,
-    backdrop: React.PropTypes.bool,
+    title: PropTypes.string.isRequired,
+    children: PropTypes.any,
+    footer: PropTypes.element,
+    onDismiss: PropTypes.func,
+    className: PropTypes.string,
+    backdrop: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -60,4 +62,4 @@ export default class WarningModal extends React.PureComponent {
     );
   }
 
-}
+};

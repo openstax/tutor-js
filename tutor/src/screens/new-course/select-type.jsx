@@ -9,8 +9,9 @@ import TutorLogo from 'shared/components/logos/tutor-horizontal';
 import BuilderUX from '../../models/course/builder-ux';
 import { Listing, Choice } from '../choices-listing';
 
+export default
 @observer
-export default class SelectType extends React.PureComponent {
+class SelectType extends React.Component {
 
   static title = 'Which tool do you want to use?';
   static propTypes = {
@@ -43,4 +44,4 @@ export default class SelectType extends React.PureComponent {
       </Listing>
     );
   }
-}
+};

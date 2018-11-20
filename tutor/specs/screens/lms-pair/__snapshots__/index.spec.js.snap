@@ -1,104 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`pairing a course displays course listing 1`] = `
-<div
-  className="new-course-wizard"
->
-  <div
-    className="new-course-wizard panel panel-default"
-    id={undefined}
-  >
-    <div
-      className="panel-heading"
-    >
-      Choose course to pair with
-    </div>
-    <div
-      className="panel-body"
-    >
-      <div
-        className="panel-content"
-      >
-        <div
-          className="choices-listing list-group"
-        >
-          <div
-            aria-pressed={false}
-            className="list-group-item choice"
-            data-appearance="college_physics"
-            onClick={[Function]}
-            role="button"
-          >
-            College Physics
-          </div>
-          <div
-            aria-pressed={false}
-            className="list-group-item choice"
-            data-appearance="college_physics"
-            onClick={[Function]}
-            role="button"
-          >
-            College Physics
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="panel-footer"
-    >
-      <div
-        className="controls"
-      >
-        <button
-          className="back btn btn-default"
-          disabled={false}
-          onClick={[Function]}
-          type="button"
-        >
-          Back
-        </button>
-        <button
-          className="next btn btn-primary"
-          disabled={true}
-          onClick={[Function]}
-          type="button"
-        >
-          Continue
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`pairing a course displays create course 1`] = `
 <div
   className="new-course-wizard"
 >
   <div
-    className="new-course-wizard offering panel panel-default"
-    id={undefined}
+    className="new-course-wizard offering card"
   >
     <div
-      className="panel-heading"
+      className="card-header"
     >
       <div>
         Which course are you teaching?
       </div>
     </div>
     <div
-      className="panel-body"
+      className="card-body"
     >
       <div
-        className="panel-content"
-      >
-        <ul
-          className="choices-listing list-group"
-        />
-      </div>
+        className="choices-listing list-group"
+        onKeyDown={[Function]}
+      />
     </div>
     <div
-      className="panel-footer"
+      className="card-footer"
     >
       <div
         className="controls"
@@ -113,7 +38,7 @@ exports[`pairing a course displays create course 1`] = `
           Cancel
         </button>
         <button
-          className="back btn btn-default"
+          className="back btn btn-primary"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -139,57 +64,93 @@ exports[`pairing a course displays find or create when existing courses 1`] = `
   className="new-course-wizard"
 >
   <div
-    className="new-course-wizard panel panel-default"
-    id={undefined}
+    className="new-course-wizard card"
   >
     <div
-      className="panel-heading"
+      className="card-header"
     >
-      Do you want to use a new or existing Tutor Course with your LMS?
+      <h3>
+        Do you want to use a new or existing Tutor Course with your LMS?
+      </h3>
     </div>
     <div
-      className="panel-body"
+      className="panel-content card-body"
     >
       <div
-        className="panel-content"
+        className="choices-listing list-group"
+        onKeyDown={[Function]}
       >
         <div
-          className="choices-listing list-group"
+          aria-pressed={false}
+          className="list-group-item choice"
+          onClick={[Function]}
+          role="button"
         >
           <div
-            aria-pressed={false}
-            className="list-group-item choice"
-            onClick={[Function]}
-            role="button"
+            className="content"
           >
             Create a new course
           </div>
+          <svg
+            aria-hidden="true"
+            className="svg-inline--fa fa-circle fa-w-16 ox-icon circle"
+            color="#5e5e5e"
+            data-icon="circle"
+            data-prefix="far"
+            role="img"
+            style={Object {}}
+            viewBox="0 0 512 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200z"
+              fill="currentColor"
+              style={Object {}}
+            />
+          </svg>
+        </div>
+        <div
+          aria-pressed={false}
+          className="list-group-item choice"
+          onClick={[Function]}
+          role="button"
+        >
           <div
-            aria-pressed={false}
-            className="list-group-item choice"
-            onClick={[Function]}
-            role="button"
+            className="content"
           >
             Pair LMS to an existing course
           </div>
+          <svg
+            aria-hidden="true"
+            className="svg-inline--fa fa-circle fa-w-16 ox-icon circle"
+            color="#5e5e5e"
+            data-icon="circle"
+            data-prefix="far"
+            role="img"
+            style={Object {}}
+            viewBox="0 0 512 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200z"
+              fill="currentColor"
+              style={Object {}}
+            />
+          </svg>
         </div>
       </div>
     </div>
     <div
-      className="panel-footer"
+      className="controls"
     >
-      <div
-        className="controls"
+      <button
+        className="next btn btn-primary"
+        disabled={true}
+        onClick={[Function]}
+        type="button"
       >
-        <button
-          className="next btn btn-primary"
-          disabled={true}
-          onClick={[Function]}
-          type="button"
-        >
-          Continue
-        </button>
-      </div>
+        Continue
+      </button>
     </div>
   </div>
 </div>
@@ -200,59 +161,93 @@ exports[`pairing a course displays only create when no courses 1`] = `
   className="new-course-wizard"
 >
   <div
-    className="new-course-wizard offering panel panel-default"
-    id={undefined}
+    className="new-course-wizard card"
   >
     <div
-      className="panel-heading"
+      className="card-header"
     >
-      <div>
-        Which course would you like to use with your LMS?
+      <h3>
+        Do you want to use a new or existing Tutor Course with your LMS?
+      </h3>
+    </div>
+    <div
+      className="panel-content card-body"
+    >
+      <div
+        className="choices-listing list-group"
+        onKeyDown={[Function]}
+      >
+        <div
+          aria-pressed={false}
+          className="list-group-item choice"
+          onClick={[Function]}
+          role="button"
+        >
+          <div
+            className="content"
+          >
+            Create a new course
+          </div>
+          <svg
+            aria-hidden="true"
+            className="svg-inline--fa fa-circle fa-w-16 ox-icon circle"
+            color="#5e5e5e"
+            data-icon="circle"
+            data-prefix="far"
+            role="img"
+            style={Object {}}
+            viewBox="0 0 512 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200z"
+              fill="currentColor"
+              style={Object {}}
+            />
+          </svg>
+        </div>
+        <div
+          aria-pressed={false}
+          className="list-group-item choice"
+          onClick={[Function]}
+          role="button"
+        >
+          <div
+            className="content"
+          >
+            Pair LMS to an existing course
+          </div>
+          <svg
+            aria-hidden="true"
+            className="svg-inline--fa fa-circle fa-w-16 ox-icon circle"
+            color="#5e5e5e"
+            data-icon="circle"
+            data-prefix="far"
+            role="img"
+            style={Object {}}
+            viewBox="0 0 512 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200z"
+              fill="currentColor"
+              style={Object {}}
+            />
+          </svg>
+        </div>
       </div>
     </div>
     <div
-      className="panel-body"
+      className="controls"
     >
-      <div
-        className="panel-content"
+      <button
+        className="next btn btn-primary"
+        disabled={true}
+        onClick={[Function]}
+        type="button"
       >
-        <ul
-          className="choices-listing list-group"
-        />
-      </div>
-    </div>
-    <div
-      className="panel-footer"
-    >
-      <div
-        className="controls"
-      >
-        <button
-          className="cancel btn btn-default"
-          disabled={false}
-          hidden={true}
-          onClick={[Function]}
-          type="button"
-        >
-          Cancel
-        </button>
-        <button
-          className="back btn btn-default"
-          disabled={false}
-          onClick={[Function]}
-          type="button"
-        >
-          Back
-        </button>
-        <button
-          className="next btn btn-primary"
-          disabled={true}
-          onClick={[Function]}
-          type="button"
-        >
-          Continue
-        </button>
-      </div>
+        Continue
+      </button>
     </div>
   </div>
 </div>

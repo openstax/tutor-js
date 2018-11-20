@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { isFunction, partial, defer } from 'lodash';
 import classnames from 'classnames';
@@ -7,27 +8,28 @@ import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import ScrollTo from '../helpers/scroll-to';
 
+export default
 @observer
-export default class PagingNavigation extends React.Component {
+class PagingNavigation extends React.Component {
 
   static propTypes = {
-    children:             React.PropTypes.node.isRequired,
-    onForwardNavigation:  React.PropTypes.func.isRequired,
-    onBackwardNavigation: React.PropTypes.func.isRequired,
-    isForwardEnabled:     React.PropTypes.bool.isRequired,
-    isBackwardEnabled:    React.PropTypes.bool.isRequired,
-    className:            React.PropTypes.string,
-    forwardHref:          React.PropTypes.string,
-    backwardHref:         React.PropTypes.string,
-    enableKeys:           React.PropTypes.bool,
-    scrollOnNavigation:   React.PropTypes.bool,
-    titles:               React.PropTypes.shape({
-      next:     React.PropTypes.string,
-      current:  React.PropTypes.string,
-      previous: React.PropTypes.string,
+    children:             PropTypes.node.isRequired,
+    onForwardNavigation:  PropTypes.func.isRequired,
+    onBackwardNavigation: PropTypes.func.isRequired,
+    isForwardEnabled:     PropTypes.bool.isRequired,
+    isBackwardEnabled:    PropTypes.bool.isRequired,
+    className:            PropTypes.string,
+    forwardHref:          PropTypes.string,
+    backwardHref:         PropTypes.string,
+    enableKeys:           PropTypes.bool,
+    scrollOnNavigation:   PropTypes.bool,
+    titles:               PropTypes.shape({
+      next:     PropTypes.string,
+      current:  PropTypes.string,
+      previous: PropTypes.string,
     }),
-    documentImpl: React.PropTypes.shape({
-      title: React.PropTypes.string,
+    documentImpl: PropTypes.shape({
+      title: PropTypes.string,
     }),
   }
 
@@ -180,4 +182,4 @@ export default class PagingNavigation extends React.Component {
       </div>
     );
   }
-}
+};

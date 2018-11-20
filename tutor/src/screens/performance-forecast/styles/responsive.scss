@@ -1,0 +1,57 @@
+.performance-forecast {
+
+  padding: 4rem;
+
+  @include media-breakpoint-down('md') {
+    .weaker .explanation {
+      p {
+        display: inline;
+        & + p { margin-left: 1rem; }
+      }
+      margin-bottom: 1rem;
+    }
+  }
+
+  .chapter-panel {
+    // use flex display unless the columns should collapse
+    // this allows the height of the colums to match so the
+    // border will extend the complete height
+    @include media-breakpoint-up('md') {
+      display: flex;
+    }
+
+    .chapter,
+    .section {
+      @extend %grid-column;
+      @include media-breakpoint-down(md) {
+        @include make-col(6)
+      }
+      @include media-breakpoint-up(md) {
+        @include make-col(4)
+      }
+      @include media-breakpoint-up(lg) {
+        @include make-col(3)
+      }
+    }
+
+    .chapter {
+
+      min-height: 7rem;
+      @include media-breakpoint-up('md') {
+        border-right: 1px solid $tutor-neutral-light;
+      }
+      @include media-breakpoint-down('md') {
+        border-right: 0px;
+        border-bottom: 1px solid $tutor-neutral-light;
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+      }
+    }
+
+    .section {
+      min-height: 5.5rem;
+    }
+
+  }
+
+}

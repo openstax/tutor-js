@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { Alert } from 'react-bootstrap';
@@ -19,7 +20,7 @@ function ExerciseTags({ exercise }) {
 
   return (
     <div className="tags-panel">
-      {!validity.valid && <Alert bsStyle="warning">{validity.part}</Alert>}
+      {!validity.valid && <Alert variant="warning">{validity.part}</Alert>}
       <div className="tags">
         <Books {...tagProps} />
         <Lo {...tagProps} />
@@ -38,7 +39,7 @@ function ExerciseTags({ exercise }) {
 }
 
 ExerciseTags.propTypes = {
-  exercise: React.PropTypes.instanceOf(Exercise).isRequired,
+  exercise: PropTypes.instanceOf(Exercise).isRequired,
 };
 
 

@@ -1,13 +1,15 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { ExercisesMap } from '../../models/exercises';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 
+export default
 @observer
-export default class LoadingDisplay extends React.Component {
+class LoadingDisplay extends React.Component {
 
   static propTypes = {
-    exercises: React.PropTypes.instanceOf(ExercisesMap),
+    exercises: PropTypes.instanceOf(ExercisesMap),
   }
 
   render() {
@@ -19,4 +21,4 @@ export default class LoadingDisplay extends React.Component {
       </div>
     );
   }
-}
+};

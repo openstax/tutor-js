@@ -1,15 +1,16 @@
 import {
-  identifiedBy, session,
+  identifiedBy,
 } from 'shared/model';
 
+import Map from 'shared/model/map';
 import { observable, computed, reaction } from 'mobx';
-import invariant from 'invariant';
 import Job from '../job';
 
-const CURRENT = observable.map();
+const CURRENT = new Map();
 
+export default
 @identifiedBy('jobs/task-plan-publish')
-export default class TaskPlanPublish extends Job {
+class TaskPlanPublish extends Job {
 
   static forPlan(plan) {
     let pub = CURRENT.get(plan.id);
@@ -68,7 +69,7 @@ export default class TaskPlanPublish extends Job {
   }
 
   @computed get shouldPoll() {
-    return Boolean(this.plan && this.plan.isPollable)
+    return Boolean(this.plan && this.plan.isPollable);
   }
 
   onPollComplete() {
@@ -76,4 +77,4 @@ export default class TaskPlanPublish extends Job {
   }
 
 
-}
+};

@@ -32,12 +32,11 @@ exports[`Student Preview Builder renders and matches snapshot 1`] = `
     <div
       className="vid col-sm-6"
     >
-      <span>
-        <div
-          className={undefined}
-          id={undefined}
-        />
-      </span>
+      <div
+        data-type="youtube-mock"
+      >
+        {"videoId":"IbYU5py9YP8","opts":{"width":"100%"}}
+      </div>
     </div>
   </div>
   <div

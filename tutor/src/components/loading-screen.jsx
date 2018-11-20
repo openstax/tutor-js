@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cn from 'classnames';
 import OXFancyLoader from './ox-fancy-loader';
@@ -12,6 +13,6 @@ export default function LoadingScreen({ className, message = 'Loading…' }) {
 }
 
 LoadingScreen.props = {
-  className:React.PropTypes.string,
-  message: React.PropTypes.string,
-}
+  className: PropTypes.string,
+  message: PropTypes.string,
+};

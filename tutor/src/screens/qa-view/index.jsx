@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import './styles.scss';
 import { inject, observer } from 'mobx-react';
@@ -6,20 +7,21 @@ import NavbarContext from '../../components/navbar/context';
 import Loading from '../../components/loading-screen';
 import QAView from './view';
 
+export default
 @inject('navBar')
 @observer
-export default class QAViewWrapper extends React.Component {
+class QAViewWrapper extends React.Component {
 
   static propTypes = {
-    params: React.PropTypes.shape({
-      ecosystemId: React.PropTypes.string,
-      chapterSection: React.PropTypes.string,
+    params: PropTypes.shape({
+      ecosystemId: PropTypes.string,
+      chapterSection: PropTypes.string,
     }).isRequired,
-    navBar: React.PropTypes.instanceOf(NavbarContext).isRequired,
+    navBar: PropTypes.instanceOf(NavbarContext).isRequired,
   }
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   ux = new UX({ router: this.context.router });
@@ -47,4 +49,4 @@ export default class QAViewWrapper extends React.Component {
     );
   }
 
-}
+};

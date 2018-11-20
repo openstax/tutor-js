@@ -25,9 +25,11 @@ Factory.define('TaskPlanStatPage')
   .exercises(({ parent }) =>
     times(parent.object.total_count, (i) =>
       Factory.create('TutorExercise', {
-        question_stats: [ Factory.create('TaskPlanExerciseStat', {
-          period: parent,
-        }) ],
+        question_stats: [
+          Factory.create('TaskPlanExerciseStat', {
+            period: parent,
+          }),
+        ],
       })
     )
   )

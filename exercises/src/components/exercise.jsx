@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { withRouter } from 'react-router';
 import { observer } from 'mobx-react';
@@ -12,16 +13,17 @@ import Controls from './exercise/controls';
 import { idType } from 'shared';
 import { Loading, NotFound } from './exercise-state';
 
+export default
 @observer
-export default class Exercise extends React.Component {
+class Exercise extends React.Component {
 
   static propTypes = {
-    match: React.PropTypes.shape({
-      params: React.PropTypes.shape({
+    match: PropTypes.shape({
+      params: PropTypes.shape({
         uid: idType,
       }),
     }),
-    exercises: React.PropTypes.instanceOf(ExercisesMap),
+    exercises: PropTypes.instanceOf(ExercisesMap),
   };
 
   static defaultProps = {
@@ -119,7 +121,7 @@ export default class Exercise extends React.Component {
 
   renderMPQ() {
     return (
-      <Button onClick={this.addQuestion} className="add-mpq" bsStyle="primary">
+      <Button onClick={this.addQuestion} className="add-mpq" variant="primary">
         Add Question
       </Button>
     );
@@ -129,12 +131,13 @@ export default class Exercise extends React.Component {
     if (this.props.exercises.api.isPending) { return <Loading />; }
     const { exercise } = this;
     if (!exercise) { return <NotFound />; }
+
     const { isMultiPart } = exercise;
 
     return (
       <div className="exercise-editor">
         <div className="editing-controls">
-          {exercise.error && <Alert bsStyle="danger">{String(exercise.error)}</Alert>}
+          {exercise.error && <Alert variant="danger">{String(exercise.error)}</Alert>}
           {isMultiPart && this.renderMPQ()}
 
           <Tabs
@@ -142,7 +145,6 @@ export default class Exercise extends React.Component {
             activeKey={this.activeTabKey}
             onSelect={this.selectTab}
             defaultActiveKey="question-0"
-            animation={false}
           >
             {isMultiPart && this.renderIntroTab()}
             {isMultiPart ? this.renderMpqTabs() : this.renderSingleQuestionTab()}
@@ -158,4 +160,4 @@ export default class Exercise extends React.Component {
       </div>
     );
   }
-}
+};

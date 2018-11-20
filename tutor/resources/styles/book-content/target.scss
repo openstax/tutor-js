@@ -12,7 +12,7 @@
 }
 
 %tutor-book-content-target {
-  a[target=_blank] { @include tutor-external-link-indicator(); }
+//  a[target=_blank] { @include tutor-external-link-indicator(); }
 
   figure {
     @include highlight-target(will-transition);

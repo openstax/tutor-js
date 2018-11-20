@@ -1,13 +1,12 @@
-const {Testing, expect, sinon, _} = require('./index');
-
-const {typesetMath} = require('helpers/mathjax');
-const FakeWindow = require('./fake-window');
+import { typesetMath } from '../../src/helpers/mathjax';
+import FakeWindow from './fake-window';
+import { delay } from 'lodash';
 
 const callTypeset = (dom, window) =>
-  new Promise( function( res, rej ) {
+  new Promise( function( res ) {
     typesetMath(dom, window);
-    return _.delay(() => res(dom)
-    , 190);
+    return delay(() => res(dom)
+      , 190);
   })
 ;
 
@@ -21,9 +20,9 @@ describe('Mathjax Helper', function() {
     window = new FakeWindow;
     window.MathJax = {
       Hub: {
-        Typeset: sinon.spy(),
-        Queue: (...args) => args.map(arg => arg()), 
-      }
+        Typeset: jest.fn(),
+        Queue: (...args) => args.map(arg => arg()),
+      },
     };
     return window.document = dom;
   });
@@ -31,8 +30,8 @@ describe('Mathjax Helper', function() {
   it('can typeset latex', function() {
     dom.innerHTML = '<div data-math="\\pi">a pi symbol</div>';
     return callTypeset(dom, window).then(() => {
-      expect( window.MathJax.Hub.Typeset ).to.have.been.calledWith([dom.children[0]]);
-      return expect( dom.textContent ).to.include('\\pi');
+      expect( window.MathJax.Hub.Typeset ).toHaveBeenCalledWith([dom.children[0]]);
+      return expect( dom.textContent ).toContain('\\pi');
     });
   });
 
@@ -44,10 +43,10 @@ describe('Mathjax Helper', function() {
     <mi>PI</mi>
   </mrow>
 </math>\
-`;
+    `;
     return callTypeset(dom, window).then(() => {
-      expect( window.MathJax.Hub.Typeset ).to.have.been.calledWith(window.document);
-      return expect( dom.textContent ).to.include('PI');
+      expect( window.MathJax.Hub.Typeset ).toHaveBeenCalledWith(window.document);
+      return expect( dom.textContent ).toContain('PI');
     });
   });
 });

@@ -1,11 +1,11 @@
-var KarmaServer = require('karma').Server;
+const KarmaServer = require('karma').Server;
 
-var files = JSON.parse(process.argv[2]);
+const files = JSON.parse(process.argv[2]);
 
 server = new KarmaServer({
   configFile: __dirname + '/karma-dev.config.coffee',
   files: files,
-  singleRun: false
-})
+  singleRun: false,
+});
 
-server.start()
+server.start();

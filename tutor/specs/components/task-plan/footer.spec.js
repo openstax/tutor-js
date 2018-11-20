@@ -1,4 +1,4 @@
-import { Testing, sinon, _, React } from '../helpers/component-testing';
+import { ld, Factory } from '../../helpers';
 import moment from 'moment';
 
 import { TaskPlanActions, TaskPlanStore } from '../../../src/flux/task-plan';
@@ -15,8 +15,6 @@ jest.mock('../../../src/models/courses-map', () => ({
 
 const twoDaysBefore = moment(TimeStore.getNow()).subtract(2, 'days').format(ISO_DATE_FORMAT);
 const yesterday = moment(TimeStore.getNow()).subtract(1, 'day').format(ISO_DATE_FORMAT);
-const tomorrow = moment(TimeStore.getNow()).add(1, 'day').format(ISO_DATE_FORMAT);
-const dayAfter = moment(TimeStore.getNow()).add(2, 'day').format(ISO_DATE_FORMAT);
 
 const NEW_READING = ExtendBasePlan({ type: 'reading', id: '_CREATING_1' });
 const UNPUBLISHED_READING = ExtendBasePlan({ type: 'reading', is_published: false, is_publishing: false });
@@ -55,32 +53,35 @@ const getBackToCalendarParams = () =>
 ;
 
 
-const helper = model => PlanRenderHelper(model, PlanFooter,
-  {
-    getBackToCalendarParams,
-    onCancel: sinon.spy(),
-    onPublish: sinon.spy(),
-    goBackToCalendar: sinon.spy(),
-    isValid: true,
-    hasError: false,
-    onSave: sinon.spy(),
-  }
-) ;
-
 describe('Task Plan Footer', function() {
-  beforeEach(() => TaskPlanActions.reset());
+  let course;
+  let helper;
 
-  it('should have correct buttons when reading is new', () =>
-    helper(NEW_READING).then(function({ dom }) {
-      expect(dom.querySelector('.delete-link')).to.be.null;
-      expect(dom.querySelector('.preview-btn')).to.not.be.null;
-      expect(dom.querySelector('.-save')).to.not.be.null;
-      expect(dom.querySelector('.-publish')).to.not.be.null;
-      expect(dom.querySelector('.-publish').textContent).to.equal('Publish');
-    })
-  );
+  beforeEach(() => {
+    course = Factory.course();
+    helper = model => PlanRenderHelper(model, PlanFooter,
+      {
+        courseId: course.id,
+        getBackToCalendarParams,
+        onCancel: jest.fn(),
+        onPublish: jest.fn(),
+        goBackToCalendar: jest.fn(),
+        isValid: true,
+        hasError: false,
+        onSave: jest.fn(),
+      }
+    ) ;
 
-  it('should have help tooltip', () =>
-    helper(PUBLISHED_READING).then(({ dom }) => expect(dom.querySelector('.footer-instructions')).not.toBeNull())
-  );
+    TaskPlanActions.reset();
+  });
+
+  it('should have correct buttons when reading is new', () => {
+    const reading = helper(NEW_READING);
+    //    console.log(reading.debug())
+    expect(reading).not.toHaveRendered('DeleteTaskButton Button');
+    expect(reading).toHaveRendered('SaveTaskButton');
+    expect(reading.find('SaveTaskButton').text()).toEqual('Publish');
+    expect(reading).toHaveRendered('HelpTooltip');
+  });
+
 });

@@ -1,19 +1,14 @@
-import {React, SnapShot, Wrapper} from '../../components/helpers/component-testing';
+import { React, Router, TimeMock } from '../../helpers';
 import Dashboard from '../../../src/screens/student-dashboard/dashboard';
 import Factory from '../../factories';
 import { bootstrapCoursesList } from '../../courses-test-data';
-import chronokinesis from 'chronokinesis';
-import moment from 'moment-timezone';
-import { TimeActions } from '../../../src/flux/time';
 
 describe('Student Dashboard', () => {
   let props;
 
+  TimeMock.setTo('2015-10-14T12:00:00.000Z');
+
   beforeEach(() => {
-    moment.tz.setDefault('America/Chicago');
-    moment.locale('en');
-    const now = new Date('2015-10-14T12:00:00.000Z');
-    chronokinesis.travel(now);
     const course = Factory.course();
     bootstrapCoursesList();
     Factory.studentTasks({ course, attributes: { now: new Date('2015-10-21T12:00:00.000Z') } });
@@ -23,29 +18,18 @@ describe('Student Dashboard', () => {
     };
   });
 
-  afterEach(() => {
-    chronokinesis.reset();
-    moment.tz.setDefault();
-  });
-
   it('matches snapshot', function() {
     props.course.studentTasks.all_tasks_are_ready = false;
     props.course.primaryRole.joined_at = new Date('2015-09-14T12:00:00.000Z');
-    const component = SnapShot.create(
-      <Wrapper _wrapped_component={Dashboard} {...props} />
-    );
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    expect.snapshot(<Router><Dashboard {...props} /></Router>).toMatchSnapshot();
   });
 
   it('displays as loading', () => {
     props.course.studentTasks.all_tasks_are_ready = false;
     props.course.primaryRole.joined_at = new Date('2015-10-14T12:00:00.000Z');
-    const component = SnapShot.create(
-      <Wrapper _wrapped_component={Dashboard} {...props} />
-    );
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    const dash = mount(<Router><Dashboard {...props} /></Router>);
+    expect(dash).toHaveRendered('ThisWeekCard Card[className="empty pending"]');
+    expect.snapshot(<Router><Dashboard {...props} /></Router>).toMatchSnapshot();
   });
 
 });

@@ -1,14 +1,15 @@
+import PropTypes from 'prop-types';
 import React        from 'react';
 import ReactDOM     from 'react-dom';
 import { Tooltip }  from 'react-joyride';
 import { defaultsDeep }      from 'lodash';
 import classnames   from 'classnames';
 
-export default class NoClose extends React.PureComponent {
+export default class NoClose extends React.Component {
   className = 'no-close'
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   render () {
@@ -18,7 +19,7 @@ export default class NoClose extends React.PureComponent {
       },
     });
 
-    const className = classnames(this.className,  this.props.className);
+    const className = classnames(this.className, this.props.className);
 
     return (
       <Tooltip

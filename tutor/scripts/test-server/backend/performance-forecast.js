@@ -1,4 +1,3 @@
-const Factory = require('object-factory-bot');
 require('../../../specs/factories/book');
 const GUIDE = require('../../../api/courses/1/guide.json');
 

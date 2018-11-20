@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { extend } from 'lodash';
 import { observer } from 'mobx-react';
@@ -9,13 +10,14 @@ import ExternalCell from './external-cell';
 import ConceptCoachCell from './concept-coach-cell';
 import UX from './ux';
 
+export default
 @observer
-export default class AssignmentCell extends React.PureComponent {
+class AssignmentCell extends React.Component {
   static propTypes = {
-    ux: React.PropTypes.instanceOf(UX).isRequired,
-    students: React.PropTypes.array.isRequired,
-    rowIndex: React.PropTypes.number,
-    columnIndex: React.PropTypes.number.isRequired,
+    ux: PropTypes.instanceOf(UX).isRequired,
+    students: PropTypes.array.isRequired,
+    rowIndex: PropTypes.number,
+    columnIndex: PropTypes.number.isRequired,
   }
 
   render() {
@@ -35,4 +37,4 @@ export default class AssignmentCell extends React.PureComponent {
     default: return <AbsentCell key="absent" {...props} />;
     }
   }
-}
+};

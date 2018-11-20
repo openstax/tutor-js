@@ -1,14 +1,16 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Course from '../../models/course';
 import { observer } from 'mobx-react';
 import Events from './events-panel';
-import EmptyPanel from './empty-panel';
+import EmptyCard from './empty-panel';
 
+export default
 @observer
-export default class ThisWeekPanel extends React.PureComponent {
+class ThisWeekCard extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
   }
 
   render() {
@@ -16,7 +18,7 @@ export default class ThisWeekPanel extends React.PureComponent {
     const tasks = studentTasks.thisWeeksTasks;
 
     if (studentTasks.isPendingTaskLoading || !tasks.length) {
-      return <EmptyPanel course={course} message='No assignments this week' />;
+      return <EmptyCard course={course} message='No assignments this week' />;
     }
 
     return (
@@ -29,4 +31,4 @@ export default class ThisWeekPanel extends React.PureComponent {
       />
     );
   }
-}
+};

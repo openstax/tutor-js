@@ -1,5 +1,5 @@
 import EventRow from '../../../src/screens/student-dashboard/event-row';
-import { Testing, _, React } from '../../components/helpers/component-testing';
+import { React } from '../../helpers';
 import Factory from '../../factories';
 
 const EVENT = {
@@ -12,7 +12,7 @@ const EVENT = {
   'complete': true,
   'is_deleted': false,
   'exercise_count': 3,
-  'complete_exercise_count': 3
+  'complete_exercise_count': 3,
 };
 
 const DELETED_EVENT = {
@@ -39,7 +39,7 @@ const DELETED_NOT_STARTED_EVENT = {
   'complete': true,
   'is_deleted': true,
   'exercise_count': 3,
-  'complete_exercise_count': 0
+  'complete_exercise_count': 0,
 };
 
 let regularRow = null;
@@ -79,30 +79,35 @@ describe('Event Row', function() {
     deletedNotStartedRow = mount(deletedNotStarted);
   });
 
+  afterEach(() => {
+    regularRow.unmount();
+    deletedRow.unmount();
+    deletedNotStartedRow.unmount();
+  });
+
   it('passes classnames to containing div for eventType', function() {
-    expect(regularRow.find('.task').hasClass('generic')).to.be.true;
+    expect(regularRow.find('.task').hasClass('generic')).toBe(true);
   });
 
   it('adds a deleted class for deleted tasks', function() {
-    expect(deletedRow.find('.task').hasClass('deleted')).to.be.true;
+    expect(deletedRow.find('.task').hasClass('deleted')).toBe(true);
   });
 
   it('shows the hide button when showing deleted tasks', function() {
-    expect(deletedRow.find('button')).to.have.length(1);
-    expect(deletedRow.find('button').hasClass('hide-task')).to.be.true;
+    expect(deletedRow.find('button')).toHaveLength(1);
+    expect(deletedRow.find('button').hasClass('hide-task')).toBe(true);
   });
 
   it('shows withdrawn in due column when showing deleted tasks', function() {
-    expect(deletedRow.find('.due-at').text()).to.equal('Withdrawn');
+    expect(deletedRow.find('Col[className="due-at"]').text()).toEqual('Withdrawn');
   });
 
   it('allows onclick for event row if deleted', function() {
-    expect(deletedRow.find('a').prop('onClick')).to.not.be.falsy;
-    expect(regularRow.find('a').prop('onClick')).to.not.be.falsy;
+    expect(deletedRow.find('a').prop('onClick')).toBeTruthy();
+    expect(regularRow.find('a').prop('onClick')).toBeTruthy();
   });
 
   it('disallows onclick for event row if deleted and not started', function() {
-    expect(deletedNotStartedRow.props.onClick).to.be.falsy;
-    expect(regularRow.props.onClick).to.not.be.falsy;
+    expect(deletedNotStartedRow.props.onClick).toBeFalsy();
   });
 });

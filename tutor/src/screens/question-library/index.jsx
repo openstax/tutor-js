@@ -9,8 +9,9 @@ import Loading from '../../components/loading-screen';
 
 import './styles.scss';
 
+export default
 @observer
-export default class QuestionsDashboardShell extends React.Component {
+class QuestionsDashboardShell extends React.Component {
 
   @computed get course() {
     const { courseId } = Router.currentParams();
@@ -26,4 +27,4 @@ export default class QuestionsDashboardShell extends React.Component {
     return <Dashboard course={this.course} />;
   }
 
-}
+};

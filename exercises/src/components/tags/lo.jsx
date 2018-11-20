@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { defaults, map } from 'lodash';
 import classnames from 'classnames';
@@ -15,8 +16,8 @@ import BookSelection from './book-selection';
 @observer
 class Input extends React.Component {
   static propTypes = {
-    exercise: React.PropTypes.instanceOf(Exercise).isRequired,
-    tag: React.PropTypes.instanceOf(TagModel).isRequired,
+    exercise: PropTypes.instanceOf(Exercise).isRequired,
+    tag: PropTypes.instanceOf(TagModel).isRequired,
   };
 
   @observable errorMsg;
@@ -89,7 +90,7 @@ class Input extends React.Component {
 @observer
 class LoTags extends React.Component {
   static propTypes = {
-    exercise: React.PropTypes.instanceOf(Exercise).isRequired,
+    exercise: PropTypes.instanceOf(Exercise).isRequired,
   };
 
   @action.bound onAdd() {

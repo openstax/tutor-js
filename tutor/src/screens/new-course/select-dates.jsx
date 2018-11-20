@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
@@ -6,13 +7,14 @@ import { Listing, Choice } from '../../components/choices-listing';
 import OfferingUnavailable from './offering-unavail';
 import BuilderUX from './ux';
 
+export default
 @observer
-export default class SelectDates extends React.PureComponent {
+class SelectDates extends React.Component {
 
   static title = 'When will you teach this course?';
 
   static propTypes = {
-    ux: React.PropTypes.instanceOf(BuilderUX).isRequired,
+    ux: PropTypes.instanceOf(BuilderUX).isRequired,
   }
 
   @action.bound
@@ -33,7 +35,7 @@ export default class SelectDates extends React.PureComponent {
             key={index}
             active={ux.newCourse.term === term}
             onClick={partial(this.onSelect, term)}
-            >
+          >
             <span className="term">
               {term.term}
             </span>
@@ -44,4 +46,4 @@ export default class SelectDates extends React.PureComponent {
       </Listing>
     );
   }
-}
+};

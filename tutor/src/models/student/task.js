@@ -1,12 +1,13 @@
 import { observable } from 'mobx';
-import { computed, action } from 'mobx';
-import { TimeStore } from '../../flux/time';
+import { computed } from 'mobx';
+import Time from '../time';
 import {
-  BaseModel, identifiedBy, field, identifier, hasMany,
+  BaseModel, identifiedBy, field, identifier,
 } from 'shared/model';
 
+export default
 @identifiedBy('student/task')
-export default class StudentTask extends BaseModel {
+class StudentTask extends BaseModel {
 
   @observable hidden = false;
 
@@ -27,7 +28,7 @@ export default class StudentTask extends BaseModel {
   @computed get canWork() {
     //students cannot work or view a task if it has been deleted and they haven't started it
     return Boolean(
-      this.opens_at < TimeStore.getNow() && !(
+      this.opens_at < Time.now && !(
         this.is_deleted &&
         this.complete_exercise_count === 0
       )
@@ -39,4 +40,4 @@ export default class StudentTask extends BaseModel {
   onHidden() {
     this.hidden = true;
   }
-}
+};

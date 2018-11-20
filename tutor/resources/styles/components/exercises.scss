@@ -1,4 +1,4 @@
-$exercise-details-body-height: calc(100vh - 150px);
+$exercise-details-body-height: calc(100vh - 250px);
 
 .exercise-details {
   min-height: $exercise-details-body-height;
@@ -6,13 +6,23 @@ $exercise-details-body-height: calc(100vh - 150px);
   display: flex;
   flex-direction: column;
 
-  .content {
-    flex: 1;
+  // .content {
+  //   flex: 1;
+  //   display: flex;
+  //   align-items: flex-start;
+  // }
+
+  .paged-content {
+
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+
   }
+
   .tutor-paging-navigation {
     flex: 1;
+
   }
   .controls {
     position: absolute;
@@ -34,6 +44,7 @@ $exercise-details-body-height: calc(100vh - 150px);
 
   .exercise-card {
     width: 800px;
+    min-height: 450px;
     &:focus { outline: none; }
 
     .panel-body {
@@ -44,7 +55,7 @@ $exercise-details-body-height: calc(100vh - 150px);
 
     .controls-overlay {
       transition: none;
-      height: 100vh;
+//      height: 100vh;
     }
     &.has-interactive {
       .controls-overlay {
@@ -129,7 +140,7 @@ $exercise-details-body-height: calc(100vh - 150px);
         background-color: $tutor-neutral-light;
         z-index: 10;
       }
-      .tutor-icon {
+      .ox-icon {
         margin: 0;
       }
     }

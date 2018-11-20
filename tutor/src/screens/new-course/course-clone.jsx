@@ -1,15 +1,17 @@
+import PropTypes from 'prop-types';
 import { React, action, observer } from '../../helpers/react';
 import { partial } from 'lodash';
 import { Listing, Choice } from '../../components/choices-listing';
 import BuilderUX from './ux';
 
+export default
 @observer
-export default class CourseClone extends React.PureComponent {
+class CourseClone extends React.Component {
 
   static title = 'Which course do you want to copy?';
 
   static propTypes = {
-    ux: React.PropTypes.instanceOf(BuilderUX).isRequired,
+    ux: PropTypes.instanceOf(BuilderUX).isRequired,
   }
 
   @action.bound
@@ -42,4 +44,4 @@ export default class CourseClone extends React.PureComponent {
       </Listing>
     );
   }
-}
+};

@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../helpers/component-testing';
+import { C } from '../../helpers';
 import Factory, { FactoryBot } from '../../factories';
 import SelectTopics from '../../../src/components/task-plan/select-topics';
 import HOMEWORK from '../../../api/plans/2.json';
@@ -24,7 +24,7 @@ describe('Select Topics', function() {
   });
 
   it('matches snapshot', function() {
-    expect(SnapShot.create(<SelectTopics {...props} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<C><SelectTopics {...props} /></C>).toMatchSnapshot();
   });
 
 });

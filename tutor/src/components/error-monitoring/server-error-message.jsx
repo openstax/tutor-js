@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { React, observer } from '../../helpers/react';
 import { map, get, isObject } from 'lodash';
 import UserMenu from '../../models/user/menu';
@@ -79,11 +80,11 @@ const ServerErrorMessage = observer((props) => {
 ServerErrorMessage.displayName = 'ServerErrorMessage';
 
 ServerErrorMessage.propTypes = {
-  status: React.PropTypes.number,
-  data: React.PropTypes.object,
-  statusMessage: React.PropTypes.string,
-  config: React.PropTypes.object,
-  debug: React.PropTypes.bool,
+  status: PropTypes.number,
+  data: PropTypes.object,
+  statusMessage: PropTypes.string,
+  config: PropTypes.object,
+  debug: PropTypes.bool,
 };
 
 ServerErrorMessage.defaultProps = { debug: true };

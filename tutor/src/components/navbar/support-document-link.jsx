@@ -1,13 +1,14 @@
 import React from 'react';
-import { MenuItem } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import TourAnchor from '../tours/anchor';
 import Course from '../../models/course';
 import User from '../../models/user';
 import CourseInformation from '../../models/course/information';
 
+export default
 @observer
-export default class SupportDocumentLink extends React.Component {
+class SupportDocumentLink extends React.Component {
 
   render() {
     const url = CourseInformation.gettingStartedGuide[
@@ -15,7 +16,7 @@ export default class SupportDocumentLink extends React.Component {
     ];
 
     return (
-      <MenuItem
+      <Dropdown.Item
         className="support-document-link"
         target="_blank"
         href={url}
@@ -23,8 +24,8 @@ export default class SupportDocumentLink extends React.Component {
         <TourAnchor id="menu-support-document">
           Getting Started Guide
         </TourAnchor>
-      </MenuItem>
+      </Dropdown.Item>
     );
   }
 
-}
+};

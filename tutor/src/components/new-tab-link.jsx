@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { omit } from 'lodash';
 import cn from 'classnames';
@@ -20,7 +21,7 @@ function NewTabLink(props) {
 NewTabLink.displayName = 'NewTabLink';
 
 NewTabLink.contextTypes = {
-  router: React.PropTypes.object,
+  router: PropTypes.object,
 };
 
 NewTabLink.defaultProps = {
@@ -30,11 +31,11 @@ NewTabLink.defaultProps = {
 };
 
 NewTabLink.propTypes = {
-  href:      React.PropTypes.string,
-  tabIndex:  React.PropTypes.number,
-  hideIcon:  React.PropTypes.bool,
-  children:  React.PropTypes.node.isRequired,
-  className: React.PropTypes.string,
+  href:      PropTypes.string,
+  tabIndex:  PropTypes.number,
+  hideIcon:  PropTypes.bool,
+  children:  PropTypes.node.isRequired,
+  className: PropTypes.string,
 };
 
 export default NewTabLink;

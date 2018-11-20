@@ -1,5 +1,6 @@
 import { React, observer, cn, observable } from '../../helpers/react';
-import { Button, Panel } from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import { Button, Card } from 'react-bootstrap';
 import { isFunction } from 'lodash';
 import BackButton from './back-button';
 import CourseOfferingTitle from './offering-title';
@@ -17,13 +18,18 @@ const Footer = observer(({ ux }) => {
   }
   return (
     <div className="controls">
-      <Button hidden={!ux.canCancel} onClick={ux.onCancel} className="cancel">
+      <Button
+        variant="default"
+        hidden={!ux.canCancel}
+        onClick={ux.onCancel}
+        className="cancel"
+      >
         Cancel
       </Button>
       <BackButton ux={ux} />
       <Button
         onClick={ux.goForward}
-        bsStyle="primary"
+        variant="primary"
         className="next"
         disabled={!ux.canGoForward}
       >
@@ -49,13 +55,14 @@ const Title = observer(({ ux }) => {
 });
 
 
+export default
 @observer
-export default class NewCourseWizard extends React.PureComponent {
+class NewCourseWizard extends React.Component {
 
-  @observable ux = this.props.ux || new BuilderUX(this.context.router);
+  @observable ux = this.props.ux || new BuilderUX({ router: this.context.router });
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   render() {
@@ -66,19 +73,23 @@ export default class NewCourseWizard extends React.PureComponent {
     const Component = componentFor(this.ux.stage);
 
     return (
-      <Panel
-        header={<Title ux={this.ux} />}
+      <Card
         className={wizardClasses}
-        footer={<Footer ux={this.ux} />}
       >
-        <div className="panel-content">
+        <Card.Header>
+          <Title ux={this.ux} />
+        </Card.Header>
+        <Card.Body>
           <OXFancyLoader
             isLoading={this.ux.isBusy}
             message={this.ux.isBuilding ? 'Building your course' : 'Loading…'}
           />
           {!this.ux.isBusy && <Component ux={this.ux} />}
-        </div>
-      </Panel>
+        </Card.Body>
+        <Card.Footer>
+          <Footer ux={this.ux} />
+        </Card.Footer>
+      </Card>
     );
   }
-}
+};

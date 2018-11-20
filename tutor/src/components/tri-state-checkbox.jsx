@@ -1,19 +1,26 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { keys } from 'lodash';
 import classnames from 'classnames';
-
-import Icon from './icon';
+import Theme from '../theme';
+import { Icon } from 'shared';
 
 const ICON_TYPES = {
-  partial:   'check-square-o',
-  checked:   'check-square',
-  unchecked: 'square-o',
+  partial:   'check-square',
+  checked:   'check-square-solid',
+  unchecked: 'square',
+};
+
+const COLORS = {
+  partial: Theme.colors.neutral.lite,
+  checked: '#4b89f5', // chrome's checked color
+  unchecked: Theme.colors.neutral.lite,
 };
 
 class TriStateCheckbox extends React.Component {
   static propTypes = {
-    type: React.PropTypes.oneOf(keys(ICON_TYPES)).isRequired,
-    onClick: React.PropTypes.func,
+    type: PropTypes.oneOf(keys(ICON_TYPES)).isRequired,
+    onClick: PropTypes.func,
   };
 
   onClick = (ev) => {
@@ -32,6 +39,7 @@ class TriStateCheckbox extends React.Component {
     return (
       <span tabIndex={1} className={classNames} onClick={this.onClick}>
         <Icon
+          color={COLORS[this.props.type]}
           type={ICON_TYPES[this.props.type]}
           onClick={this.props.onClick}
           style={styles} />

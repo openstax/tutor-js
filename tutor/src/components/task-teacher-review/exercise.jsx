@@ -1,13 +1,14 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
 import { isEmpty, map, pick, find } from 'lodash';
-import { Panel } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import classnames from 'classnames';
 import Exercise from '../../models/exercises/exercise';
 import { QuestionStats } from '../../models/task-plan/stats';
 
-import Icon from '../icon';
+import { Icon } from 'shared';
 import {
   ArbitraryHtmlAndMath, Question, CardBody, FreeResponse,
   ExerciseGroup, ExerciseIdentifierLink,
@@ -17,10 +18,10 @@ import TourAnchor from '../tours/anchor';
 const TOGGLE_FREE_RESPONSE_LIMIT = 3;
 
 @observer
-class TaskTeacherReviewQuestion extends React.PureComponent {
+class TaskTeacherReviewQuestion extends React.Component {
 
   static propTypes = {
-    question: React.PropTypes.instanceOf(QuestionStats).isRequired,
+    question: PropTypes.instanceOf(QuestionStats).isRequired,
   };
 
   @observable showNamesAndFreeResponse = false;
@@ -45,7 +46,7 @@ class TaskTeacherReviewQuestion extends React.PureComponent {
     </i>;
 
     return (
-      <Panel header={header} className={freeResponsesClasses} />
+      <Card header={header} className={freeResponsesClasses} />
     );
   };
 
@@ -88,13 +89,14 @@ class TaskTeacherReviewQuestion extends React.PureComponent {
 
     return (
       <TourAnchor id="student-responses">
-        <Panel
-          header={toggleFreeResponseControls}
+        <Card
+
           eventKey={question.id}
           className={freeResponsesClasses}
         >
+          <Card.Body>{toggleFreeResponseControls}</Card.Body>
           {freeResponses}
-        </Panel>
+        </Card>
       </TourAnchor>
 
     );
@@ -134,9 +136,9 @@ export default class TaskTeacherReviewExercise extends React.Component {
   static displayName = 'TaskTeacherReviewExercise';
 
   static propTypes = {
-    exercise: React.PropTypes.instanceOf(Exercise).isRequired,
-    question_stats: React.PropTypes.object,
-    sectionKey: React.PropTypes.string,
+    exercise: PropTypes.instanceOf(Exercise).isRequired,
+    question_stats: PropTypes.object,
+    sectionKey: PropTypes.string,
   };
 
   getQuestionStatsById = (questionId) => {

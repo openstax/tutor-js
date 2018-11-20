@@ -1,5 +1,3 @@
-$tutor-tabs-horizontal-padding: 15px;
-
 .tutor-tabs {
   display: flex;
   border-bottom: 1px solid $nav-tabs-border-color;
@@ -31,6 +29,7 @@ $tutor-tabs-horizontal-padding: 15px;
         margin: 0;
         outline: 0;
         text-transform: uppercase;
+        padding: 1rem 2rem;
         span.tab-item-period-name {
           overflow: hidden;
           text-overflow: ellipsis;
@@ -65,20 +64,6 @@ $tutor-tabs-horizontal-padding: 15px;
           color: $tutor-neutral-darker;
         }
         border-bottom-color: $tutor-secondary;
-      }
-
-      &.is-trouble {
-        a {
-          display: inline-block;
-          padding: 10px;
-          height: 20px;
-          min-width: 55px;
-          &:before {
-            @include is-trouble();
-            margin: 2px 5px 0px 0px;
-            float: left;
-          }
-        }
       }
     }
   }

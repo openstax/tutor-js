@@ -1,13 +1,16 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { OnboardingNag, Body } from './onboarding-nag';
 
+export default
 @observer
-export default class PayNowOrLater extends React.PureComponent {
+class PayNowOrLater extends React.Component {
 
   static propTypes = {
-    ux: MobxPropTypes.observableObject.isRequired,
+    ux: PropTypes.object.isRequired,
+    onDismiss: PropTypes.func.isRequired,
   }
 
   static className = 'pay-now-or-later';
@@ -19,7 +22,7 @@ export default class PayNowOrLater extends React.PureComponent {
       <OnboardingNag className="pay-now-or-later">
         <Body>
 
-          <Button bsStyle="primary" className="now" onClick={ux.payNow}>
+          <Button variant="primary" className="now" onClick={ux.payNow}>
             Buy access now
           </Button>
           <p>You may request a refund within 14 days of purchasing</p>
@@ -37,4 +40,4 @@ export default class PayNowOrLater extends React.PureComponent {
     );
   }
 
-}
+};

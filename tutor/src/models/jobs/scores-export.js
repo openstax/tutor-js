@@ -5,15 +5,17 @@ import {
 import moment from 'moment';
 import { observable, computed } from 'mobx';
 import Job from '../job';
+import Map from 'shared/model/map';
 import UiSettings from 'shared/model/ui-settings';
 import { TimeStore } from '../../flux/time';
 import Toasts from '../toasts';
 
-const CURRENT = observable.map();
+const CURRENT = new Map();
 const LAST_EXPORT = 'sce';
 
+export default
 @identifiedBy('jobs/scores-export')
-export default class ScoresExport extends Job {
+class ScoresExport extends Job {
 
   static forCourse(course) {
     let exp = CURRENT.get(course.id);
@@ -56,4 +58,4 @@ export default class ScoresExport extends Job {
     this.startPolling(data.job);
   }
 
-}
+};

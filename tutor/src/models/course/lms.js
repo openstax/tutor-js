@@ -6,8 +6,9 @@ import UiSettings from 'shared/model/ui-settings';
 
 const LMS_VENDOR = 'lmsv';
 
+export default
 @identifiedBy('course/lms')
-export default class CourseLMS extends BaseModel {
+class CourseLMS extends BaseModel {
 
   @observable course;
 
@@ -35,4 +36,4 @@ export default class CourseLMS extends BaseModel {
   pushScores() {}
   fetch() { }
 
-}
+};

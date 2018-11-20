@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { observable, action, computed, when } from 'mobx';
@@ -5,7 +6,7 @@ import { autobind } from 'core-decorators';
 import cn from 'classnames';
 import User from '../../models/user';
 import { filter, last, sortBy } from 'lodash';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import SummaryPage from './summary-page';
 import dom from '../../helpers/dom';
 import imagesComplete from '../../helpers/images-complete';
@@ -20,19 +21,20 @@ import Router from '../../helpers/router';
 import AnnotationsMap from '../../models/annotations';
 import Overlay from '../obscured-page/overlay';
 
+export default
 @observer
-export default class AnnotationWidget extends React.Component {
+class AnnotationWidget extends React.Component {
 
   static propTypes = {
-    courseId: React.PropTypes.string.isRequired,
-    documentId: React.PropTypes.string,
-    windowImpl: React.PropTypes.shape({
-      open: React.PropTypes.func,
+    courseId: PropTypes.string.isRequired,
+    documentId: PropTypes.string,
+    windowImpl: PropTypes.shape({
+      open: PropTypes.func,
     }),
-    title: React.PropTypes.string,
-    chapter: React.PropTypes.number.isRequired,
-    section: React.PropTypes.number.isRequired,
-    annotations: React.PropTypes.instanceOf(AnnotationsMap),
+    title: PropTypes.string,
+    chapter: PropTypes.number.isRequired,
+    section: PropTypes.number.isRequired,
+    annotations: PropTypes.instanceOf(AnnotationsMap),
   };
 
   static defaultProps = {
@@ -399,4 +401,4 @@ export default class AnnotationWidget extends React.Component {
     );
   }
 
-}
+};

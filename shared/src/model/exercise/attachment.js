@@ -3,11 +3,12 @@ import {
 } from '../../model';
 
 
+export default
 @identifiedBy('exercise/attachment')
-export default class ExerciseAttachment extends BaseModel {
+class ExerciseAttachment extends BaseModel {
 
   @identifier id;
 
   @field({ type: 'object' }) asset;
 
-}
+};

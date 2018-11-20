@@ -73,7 +73,7 @@ export default class BookUX {
 
   @action setChapterSection(cs) {
     if (this.book && !cs) {
-      cs = first(this.book.pages.byChapterSection.keys());
+      cs = first(Array.from(this.book.pages.byChapterSection.keys()));
     }
     if (this.tours && this.tours.tourRide) {
       // wait for React to re-render, mathjax to run, and the page to reflow

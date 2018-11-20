@@ -7,7 +7,7 @@ import {
 import CourseBranding from '../../branding/course';
 import SuperTrainingWheel from './super-training-wheel';
 
-export default class HowToUseQL extends React.PureComponent {
+export default class HowToUseQL extends React.Component {
 
   render () {
     return (

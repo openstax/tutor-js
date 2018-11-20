@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { omit, map, compact, flatMap, extend, isNil } from 'lodash';
 import ReviewExercise from './exercise';
@@ -48,6 +49,6 @@ export default function Review(props) {
 Review.displayName = 'Review';
 
 Review.propTypes = {
-  currentStep: React.PropTypes.number,
-  stats: React.PropTypes.instanceOf(Stats).isRequired,
+  currentStep: PropTypes.number,
+  stats: PropTypes.instanceOf(Stats).isRequired,
 };

@@ -56,4 +56,6 @@ Exercise.prototype.uploadImage = function(image, cb) {
   return xhr.send(form);
 };
 
-export default { start };
+export default {
+  start,
+};

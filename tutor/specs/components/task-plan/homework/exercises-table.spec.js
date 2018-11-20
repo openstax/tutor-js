@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../../helpers/component-testing';
+import { React, SnapShot } from '../../../helpers';
 import ReviewExercisesTable from '../../../../src/components/task-plan/homework/exercises-table';
 import Factory, { FactoryBot } from '../../../factories';
 import { ExtendBasePlan } from '../../helpers/task-plan';
@@ -32,10 +32,15 @@ describe('review exercises table', function() {
   beforeEach(function() {
     Factory.setSeed(1); // make factory deterministic so it has both reading/hw
     course = Factory.course();
-    course.referenceBook.onApiRequestComplete({ data: [FactoryBot.create('Book')] });
-    exercises = Factory.exercisesMap({ book: course.referenceBook, pageIds: [
-      course.referenceBook.pages.byId.keys()[0],
-    ] });
+    course.referenceBook.onApiRequestComplete({
+      data: [FactoryBot.create('Book')],
+    });
+    exercises = Factory.exercisesMap({
+      book: course.referenceBook,
+      pageIds: [
+        course.referenceBook.pages.byId.keys()[0],
+      ],
+    });
 
     return props = {
       course,
@@ -45,7 +50,7 @@ describe('review exercises table', function() {
   });
 
   it('renders selections', () => {
-    expect(SnapShot.create(<ReviewExercisesTable {...props} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<ReviewExercisesTable {...props} />).toMatchSnapshot();
   });
 
 });

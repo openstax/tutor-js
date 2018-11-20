@@ -1,5 +1,6 @@
 import { React, observable, observer, action, cn } from '../../helpers/react';
 import { partial } from 'lodash';
+import PropTypes from 'prop-types';
 import { Overlay, Popover, Button } from 'react-bootstrap';
 import UiSettings from 'shared/model/ui-settings';
 import { AddAssignmentLink } from './task-dnd';
@@ -21,24 +22,25 @@ const IntroPopover = props => (
       <p>
         Click to add, or just drag to calendar.
       </p>
-      <Button bsSize="small" onClick={props.onClose}>
+      <Button size="small" onClick={props.onClose}>
         Got it
       </Button>
     </Popover>
   </Overlay>
 );
 
+export default
 @observer
-export default class AddAssignmentSidebar extends React.Component {
+class AddAssignmentSidebar extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
-    isOpen: React.PropTypes.bool.isRequired,
-    cloningPlanId: React.PropTypes.string,
+    course: PropTypes.instanceOf(Course).isRequired,
+    isOpen: PropTypes.bool.isRequired,
+    cloningPlanId: PropTypes.string,
   }
 
   static contextTypes = {
-    router: React.PropTypes.object.isRequired,
+    router: PropTypes.object.isRequired,
   }
 
   @observable shouldshowIntro = false;
@@ -48,11 +50,9 @@ export default class AddAssignmentSidebar extends React.Component {
     CalendarHelper.shouldIntro() && !(USE_SETTINGS ? UiSettings.get(IS_INTRO_VIEWED) : false)
   )
 
-  addMenu = new AddMenu({ router: this.context.router, renderMenuLink: this.renderMenuLink });
-
-  // componentWillMount() {
-  //   console.log("MOUNT", CalendarHelper.shouldIntro(), this.willShowIntro, this.showIntro)
-  // }
+  addMenu = new AddMenu({
+    router: this.context.router, renderMenuLink: this.renderMenuLink
+  });
 
   componentWillReceiveProps(nextProps) {
     // kickoff intro if we're opening after being closed
@@ -117,4 +117,4 @@ export default class AddAssignmentSidebar extends React.Component {
       </div>
     );
   }
-}
+};

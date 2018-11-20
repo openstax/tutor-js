@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { action } from 'mobx';
 import { observer } from 'mobx-react';
@@ -6,7 +7,7 @@ import moment from 'moment-timezone';
 import classnames from 'classnames';
 import { cloneDeep, extend, includes, omit, pick, get } from 'lodash';
 import AnnotationsSummaryToggle from '../annotations/summary-toggle';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import { TaskStore } from '../../flux/task';
 import { TaskPanelStore } from '../../flux/task-panel';
 import TutorRouter from '../../helpers/router';
@@ -14,13 +15,14 @@ import TutorLink from '../link';
 
 const VALID_ROUTE_NAMES = ['viewTaskStepMilestones', 'viewTaskStep', 'viewTask'];
 
+export default
 @observer
-export default class CenterControls extends React.Component {
+class CenterControls extends React.Component {
 
   static propTypes = {
-    shouldShow: React.PropTypes.bool,
-    params:     React.PropTypes.object,
-    pathname:   React.PropTypes.string,
+    shouldShow: PropTypes.bool,
+    params:     PropTypes.object,
+    pathname:   PropTypes.string,
   }
 
   static defaultProps = {
@@ -166,7 +168,7 @@ export default class CenterControls extends React.Component {
             >
               <Icon
                 className="due-date"
-                type="calendar-o"
+                type="calendar"
                 onNavbar={true}
                 className="fa-stack-2x"
                 tooltipProps={{ placement: 'bottom' }}
@@ -194,4 +196,4 @@ export default class CenterControls extends React.Component {
       </div>
     );
   }
-}
+};

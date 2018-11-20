@@ -21,6 +21,12 @@ module.exports = {
     "require": false,
     "module": false,
   },
+  "settings": {
+    "react": {
+      "pragma": "React",  // Pragma to use, default to "React"
+      "version": "16.0", // React version, default to the latest React stable release
+    },
+  },
   "rules": {
     "comma-dangle": ["error", "always-multiline"],
     "no-console":  "error",
@@ -59,15 +65,13 @@ module.exports = {
       "error",
       "single"
     ],
-    "semi": [
-      "error",
-      "always"
-    ],
+    semi: ["error", "always"],
     "react/prefer-stateless-function": [2, {
       "ignorePureComponents": true
     }],
     "react/prop-types": 2,
-    "react/jsx-uses-vars": [2],
+    "react/jsx-uses-vars": ["error"],
+    "react/jsx-uses-react":  ["error"],
     "react/jsx-indent": [2, 2],
     "react/jsx-indent-props": [2, 2],
     "key-spacing": [2, {

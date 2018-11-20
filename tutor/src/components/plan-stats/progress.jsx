@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import { map, partial } from 'lodash';
@@ -6,13 +7,14 @@ import classnames from 'classnames';
 import { observer } from 'mobx-react';
 import { Page } from '../../models/task-plan/stats';
 
+export default
 @observer
-export default class Progress extends React.PureComponent {
+class Progress extends React.Component {
 
   static propTypes = {
-    data: React.PropTypes.instanceOf(Page).isRequired,
-    type: React.PropTypes.string.isRequired,
-    activeSection: React.PropTypes.string,
+    data: PropTypes.instanceOf(Page).isRequired,
+    type: PropTypes.string.isRequired,
+    activeSection: PropTypes.string,
   }
 
   renderPercentBar(data, type, percent, correctOrIncorrect) {
@@ -89,4 +91,4 @@ export default class Progress extends React.PureComponent {
       </div>
     );
   }
-}
+};

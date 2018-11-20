@@ -1,10 +1,8 @@
-import React from 'react';
+import { EnzymeContext, C } from '../../helpers';
 import chronokinesis from 'chronokinesis';
 import moment from 'moment-timezone';
 import CenterControls from '../../../src/components/navbar/center-controls';
 import { TaskActions, TaskStore } from '../../../src/flux/task';
-import EnzymeContext from '../helpers/enzyme-context';
-import { Wrapper, SnapShot } from '../helpers/component-testing';
 import Router from '../../../src/helpers/router';
 
 jest.mock('../../../src/helpers/router');
@@ -34,16 +32,6 @@ describe('Center Controls', function() {
     TaskActions.reset();
     chronokinesis.reset();
     moment.tz.setDefault();
-  });
-
-
-  it('matches snapshot', () => {
-    Router.makePathname.mockImplementation(() =>
-      '/course/1/task/4/step/1/milestones'
-    );
-    expect(
-      SnapShot.create(<Wrapper {...props} shouldShow={true} _wrapped_component={CenterControls} />).toJSON()
-    ).toMatchSnapshot();
   });
 
   it('hides itself when not on milestones path', () => {

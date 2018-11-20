@@ -2,8 +2,9 @@ import {
   BaseModel, identifiedBy, identifier, field, hasMany, belongsTo,
 } from '../../model';
 
+export default
 @identifiedBy('exercise/solution')
-export default class ExerciseSolution extends BaseModel {
+class ExerciseSolution extends BaseModel {
 
   @field content_html = '';
   @field solution_type = 'detailed';
@@ -11,4 +12,4 @@ export default class ExerciseSolution extends BaseModel {
 
   // set via inverseOf
   @belongsTo({ model: 'exercise/question' }) question;
-}
+};

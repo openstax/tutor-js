@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { action } from 'mobx';
 import { observer } from 'mobx-react';
@@ -10,8 +11,8 @@ import TagModel from 'shared/model/exercise/tag';
 @observer
 class BookTagSelect extends React.Component {
   static propTypes = {
-    tag: React.PropTypes.instanceOf(TagModel).isRequired,
-    exercise: React.PropTypes.instanceOf(Exercise).isRequired,
+    tag: PropTypes.instanceOf(TagModel).isRequired,
+    exercise: PropTypes.instanceOf(Exercise).isRequired,
 
   };
 
@@ -38,10 +39,11 @@ class BookTagSelect extends React.Component {
   }
 }
 
+export default
 @observer
-export default class BookTags extends React.Component {
+class BookTags extends React.Component {
   static propTypes = {
-    exercise: React.PropTypes.instanceOf(Exercise).isRequired,
+    exercise: PropTypes.instanceOf(Exercise).isRequired,
   };
 
   @action.bound add() {
@@ -57,4 +59,4 @@ export default class BookTags extends React.Component {
       </Wrapper>
     );
   }
-}
+};

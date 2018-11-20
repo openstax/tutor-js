@@ -13,7 +13,7 @@ import { read_csrf } from '../helpers/dom';
 import Offerings from './course/offerings';
 
 @identifiedBy('user')
-export class User extends BaseModel {
+class User extends BaseModel {
 
   @action.bound
   bootstrap(data) {
@@ -152,7 +152,7 @@ export class User extends BaseModel {
       this.viewed_tour_stats.push(stats);
     }
 
-    this.saveTourView({id: tour.countId}, options);
+    this.saveTourView({ id: tour.countId }, options);
   }
 
   verifiedRoleForCourse(course) {
@@ -182,6 +182,8 @@ export class User extends BaseModel {
   }
 
 }
+
+export { User };
 
 const currentUser = new User;
 

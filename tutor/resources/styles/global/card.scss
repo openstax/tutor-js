@@ -1,0 +1,68 @@
+.card {
+  &-primary { border: 0; }
+  > .card-heading {
+    position: relative;
+    padding: 10px 20px;
+    background-color: $tutor-secondary;
+    color: white;
+    border-radius: 0;
+
+    span {
+      vertical-align: top;
+      font-size: 2.4rem;
+      font-weight: 700;
+    }
+
+    > .card-title {
+      line-height: 1.2rem;
+
+      > a {
+        &:focus {
+          text-decoration: none;
+        }
+      }
+    }
+
+    .dialog & {
+      button {
+        position: absolute;
+        right: 15px;
+        top: 5px;
+        padding: 0;
+        margin: 0;
+        color: white;
+        font-size: 4rem;
+        text-shadow: 0 1px 0 rgba(0, 0, 0, .2);
+        opacity: .8;
+
+        &:hover {
+          text-decoration: none;
+          box-shadow: none !important; // override Bootstrap styling
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  > .panel-body {
+    padding: 20px;
+  }
+
+  > .panel-footer {
+    > span {
+      .btn-link {
+        padding: 10px 20px;
+        margin-left: 25px;
+        text-transform: none;
+        font-size: 1.8rem;
+        border: 1px solid lightgray;
+        border-radius: 0;
+
+        &:hover {
+          text-decoration: none;
+          background-color: rgb(240, 240, 240);
+        }
+      }
+    }
+  }
+}

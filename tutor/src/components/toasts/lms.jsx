@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import pluralize from 'pluralize';
 import { observable, action, computed } from 'mobx';
-import { Button, Panel, Table } from 'react-bootstrap';
+import { Button, Card, Table } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import WarningModal from '../warning-modal';
 import NewTabLink from '../new-tab-link';
 import S from '../../helpers/string';
@@ -19,11 +20,11 @@ const Troubleshoot = () => (
 );
 
 @observer
-export class LMSErrors extends React.Component {
+class LMSErrors extends React.Component {
 
   static propTypes = {
-    toast: React.PropTypes.object.isRequired,
-    footer: React.PropTypes.node.isRequired,
+    toast: PropTypes.object.isRequired,
+    footer: PropTypes.node.isRequired,
   }
 
   @observable displayInfo = false;
@@ -73,7 +74,7 @@ export class LMSErrors extends React.Component {
         </p>
         <Troubleshoot />
         <div className="controls">
-          <Button bsStyle="primary" onClick={this.toggleInfo}>
+          <Button variant="primary" onClick={this.toggleInfo}>
             View those scores
           </Button>
           <Button onClick={this.props.dismiss}>
@@ -165,11 +166,11 @@ const renderFailedToSend = (footer) => (
 );
 
 @observer
-export class Failure extends React.Component {
+class Failure extends React.Component {
 
   static propTypes = {
-    dismiss: React.PropTypes.func.isRequired,
-    toast: React.PropTypes.object.isRequired,
+    dismiss: PropTypes.func.isRequired,
+    toast: PropTypes.object.isRequired,
   }
 
   @observable showDetails = false;
@@ -197,17 +198,17 @@ export class Failure extends React.Component {
       <div className="toast scores failure">
         <div className="title">
           {num_callbacks ? 'Some scores not sent' : 'Scores not sent'}
-          <Icon type="close" onClick={this.props.dismiss} />
+          <Icon type="times" className="dismiss" onClick={this.props.dismiss} />
         </div>
         <div className="body">
-          <Button bsStyle="link" onClick={this.onShowDetails}>Details</Button>
+          <Button variant="link" className="details" onClick={this.onShowDetails}>Details</Button>
         </div>
       </div>
     );
   }
 }
 
-export function Success() {
+function Success() {
   return (
     <div className="toast success">
       <div className="title">Scores sent successfully</div>
@@ -215,3 +216,5 @@ export function Success() {
     </div>
   );
 }
+
+export { Failure, Success, LMSErrors };

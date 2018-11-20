@@ -1,11 +1,12 @@
 import { pick } from 'lodash';
-import { observable, computed, action } from 'mobx';
+import { computed } from 'mobx';
 import {
-  BaseModel, identifiedBy, field, identifier, hasMany,
+  BaseModel, identifiedBy, field, identifier,
 } from 'shared/model';
 
+export default
 @identifiedBy('student/task')
-export default class ResearchSurvey extends BaseModel {
+class ResearchSurvey extends BaseModel {
 
   @identifier id;
   @field title;
@@ -26,4 +27,4 @@ export default class ResearchSurvey extends BaseModel {
     return { id: this.id, data: pick(this, 'response') };
   }
 
-}
+};

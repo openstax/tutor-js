@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { map } from 'lodash';
-import { Panel } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import Course from '../../models/course';
 import TeacherTaskPlan from '../../models/task-plan/teacher';
 import { Markdown } from 'shared';
@@ -12,16 +13,16 @@ export default function Event({ plan, course }) {
     description = <Markdown text={plan.description} block={true} />;
   }
   return (
-    <Panel className="event-stats">
+    <Card className="event-stats">
       <h3>
         For <strong>{periodNames}</strong>
       </h3>
       {description}
-    </Panel>
+    </Card>
   );
 }
 
 Event.propTypes = {
-  plan: React.PropTypes.instanceOf(TeacherTaskPlan).isRequired,
-  course: React.PropTypes.instanceOf(Course).isRequired,
+  plan: PropTypes.instanceOf(TeacherTaskPlan).isRequired,
+  course: PropTypes.instanceOf(Course).isRequired,
 };

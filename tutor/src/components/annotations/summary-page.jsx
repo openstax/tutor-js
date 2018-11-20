@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { readonly } from 'core-decorators';
 import { map, keys, pickBy, isEmpty } from 'lodash';
@@ -5,18 +6,19 @@ import { observer } from 'mobx-react';
 import { observable, action, computed } from 'mobx';
 import SectionsFilter from './sections-filter';
 import AnnotationCard from './annotation-card';
-import SummaryPopup from "./summary-popup";
+import SummaryPopup from './summary-popup';
 import AnnotationsMap from '../../models/annotations';
 
+export default
 @observer
-export default class AnnotationSummaryPage extends React.Component {
+class AnnotationSummaryPage extends React.Component {
 
   static propTypes = {
-    annotations: React.PropTypes.instanceOf(AnnotationsMap).isRequired,
-    onDelete: React.PropTypes.func.isRequired,
-    currentChapter: React.PropTypes.number.isRequired,
-    currentSection: React.PropTypes.number.isRequired,
-    courseId: React.PropTypes.string.isRequired,
+    annotations: PropTypes.instanceOf(AnnotationsMap).isRequired,
+    onDelete: PropTypes.func.isRequired,
+    currentChapter: PropTypes.number.isRequired,
+    currentSection: PropTypes.number.isRequired,
+    courseId: PropTypes.string.isRequired,
   };
 
   @readonly selectedSections = observable.map();
@@ -44,13 +46,13 @@ export default class AnnotationSummaryPage extends React.Component {
   }
 
   prepareFocus() {
-    const {containerRef} = this;
-    const focusAnchor = document.createElement("a");
+    const { containerRef } = this;
+    const focusAnchor = document.createElement('a');
 
-    focusAnchor.setAttribute("href", "#");
+    focusAnchor.setAttribute('href', '#');
     containerRef.insertBefore(focusAnchor, containerRef.firstChild);
     focusAnchor.focus();
-    focusAnchor.addEventListener("blur", () => containerRef.removeChild(focusAnchor), false);
+    focusAnchor.addEventListener('blur', () => containerRef.removeChild(focusAnchor), false);
   }
 
   @action.bound onDelete(...args) {
@@ -130,4 +132,4 @@ export default class AnnotationSummaryPage extends React.Component {
     );
   }
 
-}
+};

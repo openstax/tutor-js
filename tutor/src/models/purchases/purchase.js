@@ -4,8 +4,8 @@ import {
   BaseModel, identifiedBy, field, identifier, belongsTo, computed,
 } from 'shared/model';
 import Courses from '../courses-map';
-import { TimeStore } from '../../flux/time';
-import { numberWithTwoDecimalPlaces } from '../../helpers/string';
+import Time from '../time';
+import S from '../../helpers/string';
 import Payments from '../payments';
 
 @identifiedBy('purchase/product')
@@ -15,8 +15,9 @@ class Product extends BaseModel {
   @field price;
 }
 
+export default
 @identifiedBy('purchase')
-export default class Purchase extends BaseModel {
+class Purchase extends BaseModel {
 
   @identifier identifier;
   @field product_instance_uuid;
@@ -47,7 +48,7 @@ export default class Purchase extends BaseModel {
 
   @computed get isRefundable() {
     return !this.is_refunded &&
-           moment(this.purchased_at).add(14, 'days').isAfter(TimeStore.getNow());
+           moment(this.purchased_at).add(14, 'days').isAfter(Time.now);
   }
 
   @computed get invoiceURL() {
@@ -55,7 +56,7 @@ export default class Purchase extends BaseModel {
   }
 
   @computed get formattedTotal() {
-    const amount = numberWithTwoDecimalPlaces(this.total);
+    const amount = S.numberWithTwoDecimalPlaces(this.total);
     return amount;
   }
 
@@ -70,4 +71,4 @@ export default class Purchase extends BaseModel {
     }
   }
 
-}
+};

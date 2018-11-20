@@ -1,12 +1,13 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Export from './export';
 import LmsPush from './lms-push';
 import Course from '../../models/course';
 
-export default class ScoresReportExportControls extends React.PureComponent {
+export default class ScoresReportExportControls extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
   }
 
   render() {

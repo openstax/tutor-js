@@ -6,8 +6,9 @@ import { OnboardingNag, GotItOnboardingNag, NagWarning, Body, Footer } from './o
 import User from '../../models/user';
 import CourseUX from '../../models/course/ux';
 
+export default
 @observer
-export default class SecondSessionWarning extends GotItOnboardingNag {
+class SecondSessionWarning extends GotItOnboardingNag {
 
   @action.bound
   onLoggedContinue(ev) {
@@ -29,11 +30,15 @@ export default class SecondSessionWarning extends GotItOnboardingNag {
           Ready to create your real course? It’s free for you and students will pay {CourseUX.formattedStudentCost} per course.
         </Body>
         <Footer>
-          <Button bsStyle="primary" onClick={this.onLoggedAddCourse}>Create your course</Button>
-          <Button onClick={this.onLoggedContinue}>Ask me later</Button>
+          <Button variant="primary"
+            className="create"
+            onClick={this.onLoggedAddCourse}>Create your course</Button>
+          <Button
+            className="ask-later"
+            onClick={this.onLoggedContinue}>Ask me later</Button>
         </Footer>
       </OnboardingNag>
     );
   }
 
-}
+};

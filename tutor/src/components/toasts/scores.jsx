@@ -1,13 +1,14 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
 import { Button } from 'react-bootstrap';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import WarningModal from '../warning-modal';
 import SupportEmailLink from '../support-email-link';
 
 
-export function Success({ toast: { info: { url } } }) {
+function Success({ toast: { info: { url } } }) {
   return (
     <div className="toast scores success">
       <div className="title">Scores successfully exported</div>
@@ -20,11 +21,11 @@ export function Success({ toast: { info: { url } } }) {
 }
 
 @observer
-export class Failure extends React.Component {
+class Failure extends React.Component {
 
   static propTypes = {
-    dismiss: React.PropTypes.func.isRequired,
-    toast: React.PropTypes.object.isRequired,
+    dismiss: PropTypes.func.isRequired,
+    toast: PropTypes.object.isRequired,
   }
 
   @observable showDetails = false;
@@ -36,7 +37,7 @@ export class Failure extends React.Component {
         <WarningModal
           backdrop={false}
           title="Scores not exported"
-          footer={<Button onClick={this.props.dismiss}>Close</Button>}
+          footer={<Button className="dismiss" onClick={this.props.dismiss}>Close</Button>}
         >
           The scores spreadsheet could not be exported. Return
           to the student scores page to try again.  If
@@ -48,12 +49,14 @@ export class Failure extends React.Component {
       <div className="toast scores failure">
         <div className="title">
           Scores not exported
-          <Icon type="close" onClick={this.props.dismiss} />
+          <Icon type="times" className="dismiss" onClick={this.props.dismiss} />
         </div>
         <div className="body">
-          <Button bsStyle="link" onClick={this.onShowDetails}>Details</Button>
+          <Button className="details" variant="link" onClick={this.onShowDetails}>Details</Button>
         </div>
       </div>
     );
   }
 }
+
+export { Failure, Success };

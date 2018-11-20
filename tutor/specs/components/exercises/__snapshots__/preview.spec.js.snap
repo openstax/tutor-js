@@ -6,13 +6,12 @@ exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
   data-tour-anchor-id="exercise-preview"
 >
   <div
-    className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated panel panel-default"
+    className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
     data-exercise-id="1@1"
-    id={undefined}
     tabIndex={-1}
   >
     <div
-      className="panel-body"
+      className="card-body"
     >
       <div
         className="exercise-body"
@@ -79,7 +78,6 @@ exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
         </div>
         <div
           className="openstax-question openstax-question-preview"
-          data-question-number={undefined}
         >
           <div
             className="question-stem"
@@ -108,7 +106,6 @@ exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
                     aria-label="Choice a:"
                     className="answer-letter"
                     disabled={true}
-                    onClick={undefined}
                   >
                     a
                   </button>
@@ -148,7 +145,6 @@ exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
                     aria-label="Choice b:"
                     className="answer-letter"
                     disabled={true}
-                    onClick={undefined}
                   >
                     b
                   </button>
@@ -188,7 +184,6 @@ exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
                     aria-label="Choice c:"
                     className="answer-letter"
                     disabled={true}
-                    onClick={undefined}
                   >
                     c
                   </button>
@@ -228,7 +223,6 @@ exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
                     aria-label="Choice d:"
                     className="answer-letter"
                     disabled={true}
-                    onClick={undefined}
                   >
                     d
                   </button>
@@ -268,7 +262,6 @@ exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
                     aria-label="Choice e:"
                     className="answer-letter"
                     disabled={true}
-                    onClick={undefined}
                   >
                     e
                   </button>

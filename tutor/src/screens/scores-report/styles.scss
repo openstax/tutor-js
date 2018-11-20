@@ -18,7 +18,7 @@ $scores-group-row-height: 60px;
 @mixin overall-border-style() {
   border-style: solid;
   border-width: 2px;
-  border-color: $tutor-tertiary-light;
+  border-color: $tutor-tertiary-neutral-light;
 }
 
 
@@ -124,7 +124,7 @@ $scores-group-row-height: 60px;
 
   .course-scores-note {
     color: $tutor-neutral;
-    @include tutor-sans-light-font(14px);
+    @include tutor-sans-neutral-light-font(14px);
     flex: 1;
     text-align: right;
     &.tab {

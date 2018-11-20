@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { extend, pick, isEmpty } from 'lodash';
 import { observable, computed, action, observe } from 'mobx';
@@ -11,14 +12,14 @@ import TimeHelper from '../../helpers/time';
 import CourseDataHelper from '../../helpers/course-data';
 import NotificationHelpers from '../../helpers/notifications';
 import TermsModal from '../../components/terms-modal';
-import CourseMonth from './month';
+import Dashboard from './dashboard';
 import CourseCalendarHeader from './header';
 import './styles.scss';
 
-const displayAsHandler = {
-  month: CourseMonth,
-};
-
+// const displayAsHandler = {
+//   month: CourseMonth,
+// };
+//
 const getDisplayBounds = {
   month(date) {
     return {
@@ -33,19 +34,20 @@ const getDisplayBounds = {
 };
 
 
+export default
 @inject((allStores, props) => ({
   tourContext: ( props.tourContext || allStores.tourContext ),
 }))
 @observer
-export default class TeacherTaskPlanListing extends React.PureComponent {
+class TeacherTaskPlanListing extends React.Component {
 
   static propTypes = {
-    dateFormat: React.PropTypes.string,
-    params: React.PropTypes.shape({
-      courseId: React.PropTypes.string,
-      date: React.PropTypes.string,
+    dateFormat: PropTypes.string,
+    params: PropTypes.shape({
+      courseId: PropTypes.string,
+      date: PropTypes.string,
     }).isRequired,
-    tourContext: React.PropTypes.object,
+    tourContext: PropTypes.object,
   }
 
   static defaultProps = {
@@ -54,7 +56,7 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
 
   // router context is needed for Navbar helpers
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   constructor(props) {
@@ -155,16 +157,14 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
     } = this;
 
     const hasPeriods = !isEmpty(course.periods.active);
-    const calendarProps = {
+    const dashboardProps = {
       course, date, displayAs, hasPeriods, params,
       termStart, termEnd, showingSideBar, dateFormat,
     };
 
     if (this.loader.isBusy) {
-      extend(calendarProps, { className: 'calendar-loading' });
+      extend(dashboardProps, { className: 'calendar-loading' });
     }
-
-    const CourseCalendar = displayAsHandler[this.displayAs];
 
     return (
       <CoursePage
@@ -176,15 +176,15 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
         notices={
           <NotificationsBar
             course={course}
-            role={course.primaryRole}
-            callbacks={NotificationHelpers.buildCallbackHandlers(this)}
+                   role={course.primaryRole}
+                   callbacks={NotificationHelpers.buildCallbackHandlers(this)}
           />
         }
       >
         <TermsModal />
-        <CourseCalendar {...calendarProps} />
+        <Dashboard {...dashboardProps} />
       </CoursePage>
     );
   }
 
-}
+};

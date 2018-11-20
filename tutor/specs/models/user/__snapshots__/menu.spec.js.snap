@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Current User Store should return expected menu routes for courses 1`] = `
+exports[`Current User Store should return expected menu routes for a student 1`] = `
 Array [
   Object {
     "label": "My Courses",
@@ -13,51 +13,51 @@ Array [
     "label": "Dashboard",
     "name": "dashboard",
     "params": Object {
-      "courseId": "1",
+      "courseId": 2,
     },
   },
   Object {
     "label": "Browse the Book",
     "name": "browseBook",
     "params": Object {
-      "courseId": "1",
+      "courseId": 2,
     },
   },
   Object {
     "label": "Scores",
     "name": "viewScores",
     "params": Object {
-      "courseId": "1",
+      "courseId": 2,
     },
   },
   Object {
     "label": "Performance Forecast",
     "name": "viewPerformanceGuide",
     "params": Object {
-      "courseId": "1",
+      "courseId": 2,
     },
   },
   Object {
     "label": "Change Student ID",
     "name": "changeStudentId",
     "params": Object {
-      "courseId": "1",
+      "courseId": 2,
     },
   },
   Object {
     "label": "Create a Course",
     "name": "createNewCourse",
     "options": Object {
-      "separator": "before",
+      "separator": "both",
     },
     "params": Object {
-      "courseId": "1",
+      "courseId": 2,
     },
   },
 ]
 `;
 
-exports[`Current User Store should return expected menu routes for courses 2`] = `
+exports[`Current User Store should return expected menu routes for a teacher 1`] = `
 Array [
   Object {
     "label": "My Courses",
@@ -70,59 +70,59 @@ Array [
     "label": "Dashboard",
     "name": "dashboard",
     "params": Object {
-      "courseId": "2",
+      "courseId": 1,
     },
   },
   Object {
     "label": "Browse the Book",
     "name": "browseBook",
     "params": Object {
-      "courseId": "2",
+      "courseId": 1,
     },
   },
   Object {
     "label": "Performance Forecast",
     "name": "viewPerformanceGuide",
     "params": Object {
-      "courseId": "2",
+      "courseId": 1,
     },
   },
   Object {
     "label": "Question Library",
     "name": "viewQuestionsLibrary",
     "params": Object {
-      "courseId": "2",
+      "courseId": 1,
     },
   },
   Object {
     "label": "Student Scores",
     "name": "viewScores",
     "params": Object {
-      "courseId": "2",
+      "courseId": 1,
     },
   },
   Object {
     "label": "Course Settings",
     "name": "courseSettings",
     "params": Object {
-      "courseId": "2",
+      "courseId": 1,
     },
   },
   Object {
     "label": "Course Roster",
     "name": "courseRoster",
     "params": Object {
-      "courseId": "2",
+      "courseId": 1,
     },
   },
   Object {
     "label": "Create a Course",
     "name": "createNewCourse",
     "options": Object {
-      "separator": "before",
+      "separator": "both",
     },
     "params": Object {
-      "courseId": "2",
+      "courseId": 1,
     },
   },
   Object {
@@ -133,13 +133,13 @@ Array [
       "separator": "after",
     },
     "params": Object {
-      "sourceId": "2",
+      "sourceId": 1,
     },
   },
 ]
 `;
 
-exports[`Current User Store should return expected menu routes for courses 3`] = `
+exports[`Current User Store should return expected menu routes when course is missing 1`] = `
 Array [
   Object {
     "label": "Create a Course",

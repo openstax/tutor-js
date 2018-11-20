@@ -1,11 +1,9 @@
-import { React, SnapShot, Wrapper } from '../components/helpers/component-testing';
+import { EnzymeContext, C  } from '../helpers';
 import { times } from 'lodash';
 import Factory, { FactoryBot } from '../factories';
-import { MemoryRouter } from 'react-router-dom';
 import QA from '../../src/screens/qa-view/view';
 import Book from '../../src/models/reference-book';
 import QaUX from '../../src/screens/qa-view/ux';
-import EnzymeContext from '../components/helpers/enzyme-context';
 
 jest.mock('../../../shared/src/components/html', () => ({ html }) =>
   html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
@@ -16,9 +14,14 @@ describe('QA Screen', function() {
 
 
   beforeEach(function() {
+    const router = {
+      history: {
+        push: jest.fn(),
+      },
+    };
     const exercises = Factory.exercisesMap();
     const ecosystems = Factory.ecosystemsMap();
-    exercises.fetch = jest.fn()
+    exercises.fetch = jest.fn();
     jest.spyOn(Book.prototype, 'fetch').mockImplementation(function() {
       this.onApiRequestComplete({
         data: [FactoryBot.create('Book', { id: this.id, type: 'biology' })],
@@ -31,16 +34,15 @@ describe('QA Screen', function() {
       ecosystemId: ecosystem.id,
       chapterSection: '1.1',
     });
-    const router = {
-      history: {
-        push: jest.fn(),
-      },
-    };
 
     const page = ux.page;
-    ux.exercisesMap.onLoaded({ data: { items: times(8, () => FactoryBot.create('TutorExercise', {
-      page_uuid: page.uuid,
-    })) } }, [{ book, page_ids: [ page.id ]  }]);
+    ux.exercisesMap.onLoaded({
+      data: {
+        items: times(8, () => FactoryBot.create('TutorExercise', {
+          page_uuid: page.uuid,
+        })),
+      },
+    }, [{ book, page_ids: [ page.id ]  }]);
 
     props = {
       ux,
@@ -48,15 +50,11 @@ describe('QA Screen', function() {
   });
 
   it('matches snapshot', () => {
-    const qa = SnapShot.create(
-      <MemoryRouter><QA {...props} /></MemoryRouter>
-    );
-    expect(qa.toJSON()).toMatchSnapshot();
-    qa.unmount();
+    expect.snapshot(<C><QA {...props} /></C>).toMatchSnapshot();
   });
 
   it('loads exercises', () => {
-    const qa = mount(<MemoryRouter><QA {...props} /></MemoryRouter>);
+    const qa = mount(<C><QA {...props} /></C>);
     expect(ux.exercisesMap.fetch).toHaveBeenCalledWith({
       book: ux.book,
       course: undefined,

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Alert } from'react-bootstrap';
 import { SuretyGuard } from 'shared';
@@ -8,13 +9,14 @@ import QuestionModel  from 'shared/model/exercise/question';
 import QuestionFormatType from './question-format-type';
 import Answer from './answer';
 
+export default
 @observer
-export default class Question extends React.Component {
+class Question extends React.Component {
 
   static propTypes = {
-    question: React.PropTypes.instanceOf(QuestionModel).isRequired,
-    onMove: React.PropTypes.func.isRequired,
-    onRemove: React.PropTypes.func.isRequired,
+    question: PropTypes.instanceOf(QuestionModel).isRequired,
+    onMove: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired,
   };
 
   @action.bound setCorrectAnswer(answer) {
@@ -75,7 +77,7 @@ export default class Question extends React.Component {
 
   render() {
     const {
-      question, removeQuestion, moveQuestion, canMoveLeft, canMoveRight
+      question, removeQuestion, moveQuestion, canMoveLeft, canMoveRight,
     } = this.props;
 
 
@@ -88,9 +90,9 @@ export default class Question extends React.Component {
         {question.exercise.isMultiPart && this.renderControls()}
 
         {!validity.valid && (
-           <Alert bsStyle="warning">
+          <Alert variant="warning">
              To save your work, you must fill out the {validity.part}
-           </Alert>)}
+          </Alert>)}
 
         <QuestionFormatType question={question} />
 
@@ -129,4 +131,4 @@ export default class Question extends React.Component {
       </div>
     );
   }
-}
+};

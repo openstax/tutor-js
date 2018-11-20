@@ -3,11 +3,11 @@
 exports[`Course Page renders and matches snapshot 1`] = `
 <div
   className="course-page test-page"
-  data-appearance="biology"
-  data-book-title="Biology"
+  data-appearance="college_physics"
+  data-book-title="College Physics"
   data-is-preview={false}
-  data-term="Fall 2015"
-  data-title="Local Test Course"
+  data-term="Spring 2017"
+  data-title="College Physics"
 >
   <header />
   <div
@@ -27,11 +27,11 @@ exports[`Course Page renders and matches snapshot 1`] = `
 exports[`Course Page renders and matches snapshot 2`] = `
 <div
   className="course-page test-page"
-  data-appearance="biology"
-  data-book-title="Biology"
+  data-appearance="college_physics"
+  data-book-title="College Physics"
   data-is-preview={false}
-  data-term="Fall 2015"
-  data-title="Local Test Course"
+  data-term="Spring 2017"
+  data-title="College Physics"
 >
   <header>
     <div

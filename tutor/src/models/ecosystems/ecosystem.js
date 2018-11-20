@@ -1,15 +1,15 @@
-import { find } from 'lodash';
 import { computed } from 'mobx';
 import {
-  BaseModel, identifiedBy, field, identifier, hasMany,
+  BaseModel, identifiedBy, identifier, hasMany,
 } from 'shared/model';
 
 import ReferenceBook from '../reference-book';
 import Book from './book';
 import lazyGetter from 'shared/helpers/lazy-getter';
 
+export default
 @identifiedBy('ecosystems/ecosystem')
-export default class Ecosystem extends BaseModel {
+class Ecosystem extends BaseModel {
 
   @identifier id;
   @hasMany({ model: Book, inverseOf: 'ecosystem' }) books;
@@ -21,4 +21,4 @@ export default class Ecosystem extends BaseModel {
 
   @lazyGetter referenceBook = new ReferenceBook({ id: this.id });
 
-}
+};

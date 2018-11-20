@@ -13,18 +13,22 @@ describe('User Terms Store', function() {
   });
 
   it('filters out signed terms', () => {
-    terms.onLoaded({ data: [
-      { id: 1, is_signed: false },
-      { id: 2, is_signed: true },
-      { id: 3, is_signed: false },
-    ] });
+    terms.onLoaded({
+      data: [
+        { id: 1, is_signed: false },
+        { id: 2, is_signed: true },
+        { id: 3, is_signed: false },
+      ],
+    });
     expect(terms.unsigned.map((t) => t.id)).toEqual([1, 3]);
   });
 
   it('signs unsigned terms and removes them from list', () => {
-    terms.onLoaded({ data: [
-      { id: 1, is_signed: false, title: 'TEST' },
-    ] });
+    terms.onLoaded({
+      data: [
+        { id: 1, is_signed: false, title: 'TEST' },
+      ],
+    });
     const term = terms.unsigned[0];
     terms.onSigned();
     expect(term.is_signed).toBe(true);

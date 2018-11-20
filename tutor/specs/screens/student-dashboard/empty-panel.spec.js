@@ -1,6 +1,6 @@
 import EmptyPanel from '../../../src/screens/student-dashboard/empty-panel';
 import { observable as mockObservable } from 'mobx';
-import { Testing, _, React } from '../../components/helpers/component-testing';
+import { Testing, ld, React } from '../../helpers';
 import Factory from '../../factories';
 
 jest.mock('../../../src/models/student-tasks', () => ({

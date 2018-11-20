@@ -3,8 +3,9 @@ import {
 } from '../../model';
 
 
+export default
 @identifiedBy('exercise/format')
-export default class ExerciseFormat extends BaseModel {
+class ExerciseFormat extends BaseModel {
 
   static serialize(format) {
     return format ? format.value : '';
@@ -29,4 +30,4 @@ export default class ExerciseFormat extends BaseModel {
     this._format = v;
   }
 
-}
+};

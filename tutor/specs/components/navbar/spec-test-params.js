@@ -90,7 +90,7 @@ const TEACHER_MENU = [
 ];
 
 
-import COURSES_LIST from '../../../api/user/courses.json';
+import COURSESldLIST from '../../../api/user/courses.json';
 const COURSE_ID = COURSES_LIST[0].id;
 import USER_MODEL from '../../../api/user.json';
 

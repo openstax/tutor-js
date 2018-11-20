@@ -21,7 +21,7 @@ function Column({ className, children }) {
 function getClickTarget(clickEvent) {
   return clickEvent.currentTarget.className.includes('joyride-') && [
     'A',
-    'BUTTON'
+    'BUTTON',
   ].includes(clickEvent.currentTarget.tagName) ? clickEvent.currentTarget : clickEvent.target;
 }
 
@@ -121,5 +121,5 @@ export {
   TutorValueColumns,
   TutorCoachSunset,
   WelcomeToTutorMessage,
-  bindClickHandler
+  bindClickHandler,
 };

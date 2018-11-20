@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
@@ -6,12 +7,13 @@ import Offering from '../../models/course/offerings/offering';
 import CourseInformation from '../../models/course/information';
 import { ReactHelpers } from 'shared';
 
+export default
 @observer
-export default class CourseOfferingTitle extends React.PureComponent {
+class CourseOfferingTitle extends React.Component {
   static propTypes = {
-    offering: React.PropTypes.instanceOf(Offering).isRequired,
-    className:  React.PropTypes.string,
-    children:   React.PropTypes.node,
+    offering: PropTypes.instanceOf(Offering).isRequired,
+    className:  PropTypes.string,
+    children:   PropTypes.node,
   }
 
   render() {
@@ -33,4 +35,4 @@ export default class CourseOfferingTitle extends React.PureComponent {
       </div>
     );
   }
-}
+};

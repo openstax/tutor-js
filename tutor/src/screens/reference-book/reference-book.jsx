@@ -1,4 +1,5 @@
 import { React, observer, cn } from '../../helpers/react';
+import PropTypes from 'prop-types';
 import { SpyMode } from 'shared';
 import ObscuredPage from '../../components/obscured-page';
 import Menu from '../../components/book-menu/menu';
@@ -24,20 +25,18 @@ const BookPage = observer(({ ux }) => {
   }
 });
 
+export default
 @observer
-export default class ReferenceBook extends React.Component {
+class ReferenceBook extends React.Component {
 
   static propTypes = {
-    ux: React.PropTypes.instanceOf(UX).isRequired,
-    className: React.PropTypes.string,
+    ux: PropTypes.instanceOf(UX).isRequired,
+    className: PropTypes.string,
   };
 
   render() {
     const { ux } = this.props;
     const Content = ux.isFetching ? LoadingScreen : BookPage;
-    //   return <LoadingScreen />;
-    // }
-
 
     const className = cn('reference-book', this.props.className, {
       'menu-open': ux.isMenuVisible,
@@ -57,4 +56,4 @@ export default class ReferenceBook extends React.Component {
       </div>
     );
   }
-}
+};

@@ -5,9 +5,6 @@ $calendar-header-padding: 2rem;
     padding-bottom: 0;
   }
   .controls-wrapper > .calendar-header {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
 
     // expand "no sections" message so it completely fills course
     .no-periods-message { min-width: 100%; }
@@ -26,15 +23,23 @@ $calendar-header-padding: 2rem;
       width: $calendar-sidebar-width;
       background-color: $tutor-primary;
       color: white;
-      .tutor-icon { margin-right: 2rem; }
+      .ox-icon { margin-right: 2rem; }
       &.open { background-color: $tutor-neutral-lite; }
     }
     .calendar-header-actions-buttons {
       display: flex;
       flex: auto;
       justify-content: flex-end;
-      > * { margin-left: 0.5rem; }
+      .btn {
+        margin-left: 0.5rem;
+        height: 100%;
+        align-items: center;
+        display: flex;
+        padding: 0 1.5rem;
+      }
     }
+
+    flex-direction: row;
 
     @media (max-width: 1050px) {
       flex-direction: column-reverse;
@@ -51,6 +56,7 @@ $calendar-header-padding: 2rem;
   }
 
   .calendar-header {
+
     &-actions {
       border-bottom: 1px solid $tutor-neutral-light;
       padding-top: 1rem;
@@ -66,8 +72,8 @@ $calendar-header-padding: 2rem;
     }
 
     &-label {
-      font-weight: stronger;
-
+      display: flex;
+      align-items: center;
     }
 
     &-control {

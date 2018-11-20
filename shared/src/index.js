@@ -10,13 +10,19 @@ export {
 
 export SuretyGuard from './components/surety-guard';
 export OXRouter from './helpers/router';
-export OXLink from './factories/link';
-export OXButtonLink from './factories/button-link';
+import * as OXLink from './factories/link';
+export { OXLink };
+
+import * as OXButtonLink from './factories/button-link';
+export { OXButtonLink };
+export Icon from './components/icon';
 export OXMatchByRouter from './helpers/match-by-router';
 export CornerRibbon from './components/corner-ribbon';
 
 export APIActionAdapter from './api/action-adapter';
-export ReactHelpers from './helpers/react';
+
+import * as ReactHelpers from './helpers/react';
+export { ReactHelpers };
 
 export ArbitraryHtmlAndMath from './components/html';
 export Markdown from './components/markdown';
@@ -37,7 +43,9 @@ export ExerciseHelpers from './helpers/exercise';
 export ExercisePreview from './components/exercise-preview';
 
 export { TaskHelper } from './helpers/task';
-export StepHelpsHelper from './helpers/step-helps';
+import * as StepHelpsHelper from './helpers/step-helps';
+export { StepHelpsHelper };
+
 export propHelpers from './helpers/props';
 export Logging from './helpers/logging';
 export ExerciseIntro from './components/exercise/intro';

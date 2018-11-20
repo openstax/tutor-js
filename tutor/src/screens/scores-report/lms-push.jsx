@@ -1,17 +1,19 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { computed, action } from 'mobx';
 import { observer } from 'mobx-react';
 import TourAnchor from '../../components/tours/anchor';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 import Course from '../../models/course';
 import Push from '../../models/jobs/lms-score-push';
 
+export default
 @observer
-export default class LmsPush extends React.PureComponent {
+class LmsPush extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
   }
 
   @computed get lmsPush() {
@@ -39,14 +41,10 @@ export default class LmsPush extends React.PureComponent {
 
     return (
       <TourAnchor className="scores-push" id="scores-export-button">
-        <Button
-          onClick={this.startPush}
-        >
-          <Icon type="paper-plane" />
-        </Button>
+        <Icon onClick={this.startPush} type="paper-plane" />
         {this.message}
       </TourAnchor>
     );
   }
 
-}
+};

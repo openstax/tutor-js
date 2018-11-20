@@ -2,22 +2,24 @@
 // this version triggers popup directly and leaves it open
 // after the parent component unmounts
 
-import React        from 'react';
+import PropTypes from 'prop-types';
+
+import React from 'react';
 import ReactDOM     from 'react-dom';
 import { isFunction, invoke, defaults, map, uniqueId } from 'lodash';
 import { autobind } from 'core-decorators';
 
-export default class PopoutWindow extends React.PureComponent {
+export default class PopoutWindow extends React.Component {
 
   static propTypes = {
-    title:      React.PropTypes.string.isRequired,
-    children:   React.PropTypes.node.isRequired,
-    onClose:    React.PropTypes.func.isRequired,
-    onReady:    React.PropTypes.func,
-    url:        React.PropTypes.string,
-    options:    React.PropTypes.object,
-    windowImpl: React.PropTypes.shape({
-      open: React.PropTypes.func,
+    title:      PropTypes.string.isRequired,
+    children:   PropTypes.node.isRequired,
+    onClose:    PropTypes.func.isRequired,
+    onReady:    PropTypes.func,
+    url:        PropTypes.string,
+    options:    PropTypes.object,
+    windowImpl: PropTypes.shape({
+      open: PropTypes.func,
     }),
   };
 
@@ -44,7 +46,7 @@ export default class PopoutWindow extends React.PureComponent {
     left: (o, w) => ((w.innerWidth - o.width) / 2) + w.screenX,
   };
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // re-render
     if (this.isOpen && nextProps.children != this.props.children) {
       this.reRender();
@@ -68,6 +70,7 @@ export default class PopoutWindow extends React.PureComponent {
       this.popup.print();
     }
   }
+
 
   open(){
     if (this.isOpen) {
@@ -111,6 +114,7 @@ export default class PopoutWindow extends React.PureComponent {
     this.popup.document.title = this.props.title;
     const container = this.popup.document.createElement('div');
     container.id = this.containerId;
+
     this.popup.document.body.appendChild(container);
 
     ReactDOM.render(this.props.children, container);

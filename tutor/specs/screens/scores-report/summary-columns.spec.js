@@ -1,7 +1,6 @@
-import { React, SnapShot, Wrapper } from '../../components/helpers/component-testing';
+import { EnzymeContext, React } from '../../helpers';
 import { map, sortBy } from 'lodash';
 import bootstrapScores from '../../helpers/scores-data';
-import EnzymeContext from '../../components/helpers/enzyme-context';
 import Scores from '../../../src/screens/scores-report/index';
 
 jest.mock('../../../src/helpers/bezier', () => ({ range, onStep, onComplete }) => {
@@ -25,7 +24,7 @@ describe('Scores Report summary columns', function() {
   it('toggles expanding/collapsing', function() {
     const table = mount(<Scores {...props} />, EnzymeContext.build());
     expect(table.render().find('.overall-average').parent().css('width')).toEqual('450px');
-    table.find('.averages-toggle').simulate('click');
+    table.find('Icon[className="averages-toggle"]').simulate('click');
     expect(table.render().find('.overall-average').parent().css('width')).toEqual('120px');
     table.unmount();
   });

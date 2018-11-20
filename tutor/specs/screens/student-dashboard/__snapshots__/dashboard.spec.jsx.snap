@@ -38,7 +38,7 @@ exports[`Student Dashboard displays as loading 1`] = `
       className="row"
     >
       <div
-        className="col-lg-9 col-md-8 col-xs-12"
+        className="col-lg-9 col-md-8 col-12"
       >
         <nav
           className="tutor-tabs"
@@ -82,47 +82,59 @@ exports[`Student Dashboard displays as loading 1`] = `
           role="tabpanel"
         >
           <div
-            className="empty pending panel panel-default"
-            id={undefined}
+            className="empty pending card"
           >
-            <div
-              className="panel-body"
+            <svg
+              aria-hidden="true"
+              className="svg-inline--fa fa-spinner fa-w-16 fa-spin ox-icon spinner"
+              data-icon="spinner"
+              data-prefix="fas"
+              role="img"
+              style={Object {}}
+              viewBox="0 0 512 512"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <i
-                className="tutor-icon fa fa-spinner fa-spin"
-                role="presentation"
-                type="spinner"
+              <path
+                d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"
+                fill="currentColor"
+                style={Object {}}
               />
-               Preparing assignments for your course.  This can take up to 10 minutes.
-            </div>
+            </svg>
+             Preparing assignments for your course.  This can take up to 10 minutes.
           </div>
           <div
-            className="empty pending upcoming panel panel-default"
-            id={undefined}
+            className="empty pending upcoming card"
           >
-            <div
-              className="panel-body"
+            <svg
+              aria-hidden="true"
+              className="svg-inline--fa fa-spinner fa-w-16 fa-spin ox-icon spinner"
+              data-icon="spinner"
+              data-prefix="fas"
+              role="img"
+              style={Object {}}
+              viewBox="0 0 512 512"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <i
-                className="tutor-icon fa fa-spinner fa-spin"
-                role="presentation"
-                type="spinner"
+              <path
+                d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"
+                fill="currentColor"
+                style={Object {}}
               />
-               Preparing assignments for your course.  This can take up to 10 minutes.
-            </div>
+            </svg>
+             Preparing assignments for your course.  This can take up to 10 minutes.
           </div>
         </div>
       </div>
       <div
-        className="sidebar col-lg-3 col-md-4 col-xs-12"
+        className="sidebar col-lg-3 col-md-4 col-12"
       >
         <div
           className="actions-box loadable is-loading"
         >
-          Loading progress information... 
+          Loading progress information...
         </div>
         <div
-          className="actions-box"
+          className="actions-box browse-the-book card"
         >
           <a
             aria-label="Browse course reference book"
@@ -202,7 +214,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
       className="row"
     >
       <div
-        className="col-lg-9 col-md-8 col-xs-12"
+        className="col-lg-9 col-md-8 col-12"
       >
         <nav
           className="tutor-tabs"
@@ -246,220 +258,206 @@ exports[`Student Dashboard matches snapshot 1`] = `
           role="tabpanel"
         >
           <div
-            className="-this-week panel panel-default"
-            id={undefined}
+            className="-this-week card"
           >
             <div
-              className="panel-body"
+              className="row labels"
             >
               <div
-                className="row labels"
+                className="col-sm-7 col-12"
               >
-                <div
-                  className="col-sm-7 col-xs-12"
+                <span
+                  className="date-range"
                 >
-                  <span
-                    className="date-range"
-                  >
-                    <time>
-                      Oct 12, 2015
-                    </time>
-                    <span>
-                      –
-                    </span>
-                    <time>
-                      Oct 18, 2015
-                    </time>
+                  <time>
+                    Oct 12, 2015
+                  </time>
+                  <span>
+                    –
                   </span>
-                </div>
-                <div
-                  className="progress-label col-sm-3 col-sm-offset-0 col-xs-5 col-xs-offset-2"
-                >
-                  Progress
-                </div>
-                <div
-                  className="due-at-label col-sm-2 col-xs-5"
-                >
-                  Due
-                </div>
+                  <time>
+                    Oct 18, 2015
+                  </time>
+                </span>
               </div>
-              <a
-                aria-label="Work on reading: dot-com recontextualize communities"
-                className="task row reading"
-                data-event-id={1}
-                href="/course/1/task/1"
-                onClick={[Function]}
-                onKeyDown={undefined}
-                tabIndex={-1}
+              <div
+                className="progress-label col-sm-3 col-5 offset-sm-0 offset-2"
               >
-                <div
-                  className="column-icon col-sm-1 col-xs-2"
-                >
-                  <i
-                    aria-label="reading icon"
-                    className="icon icon-lg icon-reading"
-                  />
-                </div>
-                <div
-                  className="title col-sm-6 col-xs-10"
-                >
-                  dot-com recontextualize communities
-                </div>
-                <div
-                  className="feedback col-sm-3 col-xs-5"
-                >
-                  <span>
-                    In progress
-                  </span>
-                </div>
-                <div
-                  className="due-at col-sm-2 col-xs-5"
-                >
-                  <time>
-                    Oct 18, 7:00am
-                  </time>
-                </div>
-              </a>
-              <a
-                aria-label="Work on external: out-of-the-box embrace supply-chains"
-                className="task row external"
-                data-event-id={2}
-                href="/course/1/task/2"
-                onClick={[Function]}
-                onKeyDown={undefined}
-                tabIndex={-1}
+                Progress
+              </div>
+              <div
+                className="due-at-label col-sm-2 col-5"
               >
-                <div
-                  className="column-icon col-sm-1 col-xs-2"
-                >
-                  <i
-                    aria-label="external icon"
-                    className="icon icon-lg icon-external"
-                  />
-                </div>
-                <div
-                  className="title col-sm-6 col-xs-10"
-                >
-                  out-of-the-box embrace supply-chains
-                </div>
-                <div
-                  className="feedback col-sm-3 col-xs-5"
-                >
-                  <span>
-                    Not started
-                  </span>
-                </div>
-                <div
-                  className="due-at col-sm-2 col-xs-5"
-                >
-                  <time>
-                    Oct 18, 7:00am
-                  </time>
-                </div>
-              </a>
-              <a
-                aria-label="Work on event: B2B deliver content"
-                className="task row event"
-                data-event-id={3}
-                href="/course/1/task/3"
-                onClick={[Function]}
-                onKeyDown={undefined}
-                tabIndex={-1}
-              >
-                <div
-                  className="column-icon col-sm-1 col-xs-2"
-                >
-                  <i
-                    aria-label="event icon"
-                    className="icon icon-lg icon-event"
-                  />
-                </div>
-                <div
-                  className="title col-sm-6 col-xs-10"
-                >
-                  B2B deliver content
-                </div>
-                <div
-                  className="feedback col-sm-3 col-xs-5"
-                >
-                  <span>
-                    
-                  </span>
-                </div>
-                <div
-                  className="due-at col-sm-2 col-xs-5"
-                >
-                  <time>
-                    Oct 18, 7:00am
-                  </time>
-                </div>
-              </a>
-              <a
-                aria-label="Work on homework: virtual strategize infomediaries"
-                className="task row homework"
-                data-event-id={4}
-                href="/course/1/task/4"
-                onClick={[Function]}
-                onKeyDown={undefined}
-                tabIndex={-1}
-              >
-                <div
-                  className="column-icon col-sm-1 col-xs-2"
-                >
-                  <i
-                    aria-label="homework icon"
-                    className="icon icon-lg icon-homework"
-                  />
-                </div>
-                <div
-                  className="title col-sm-6 col-xs-10"
-                >
-                  virtual strategize infomediaries
-                </div>
-                <div
-                  className="feedback col-sm-3 col-xs-5"
-                >
-                  <span>
-                    <span
-                      className="tour-anchor"
-                      data-tour-anchor-id="assignment-progress-status"
-                    >
-                      10/11 answered
-                    </span>
-                  </span>
-                </div>
-                <div
-                  className="due-at col-sm-2 col-xs-5"
-                >
-                  <time>
-                    Oct 18, 7:00am
-                  </time>
-                </div>
-              </a>
+                Due
+              </div>
             </div>
+            <a
+              aria-label="Work on reading: dot-com recontextualize communities"
+              className="task row reading"
+              data-event-id={1}
+              href="/course/1/task/1"
+              onClick={[Function]}
+              tabIndex={-1}
+            >
+              <div
+                className="column-icon col-sm-1 col-2"
+              >
+                <i
+                  aria-label="reading icon"
+                  className="icon icon-lg icon-reading"
+                />
+              </div>
+              <div
+                className="title col-sm-6 col-10"
+              >
+                dot-com recontextualize communities
+              </div>
+              <div
+                className="feedback col-sm-3 col-5"
+              >
+                <span>
+                  In progress
+                </span>
+              </div>
+              <div
+                className="due-at col-sm-2 col-5"
+              >
+                <time>
+                  Oct 18, 7:00am
+                </time>
+              </div>
+            </a>
+            <a
+              aria-label="Work on external: out-of-the-box embrace supply-chains"
+              className="task row external"
+              data-event-id={2}
+              href="/course/1/task/2"
+              onClick={[Function]}
+              tabIndex={-1}
+            >
+              <div
+                className="column-icon col-sm-1 col-2"
+              >
+                <i
+                  aria-label="external icon"
+                  className="icon icon-lg icon-external"
+                />
+              </div>
+              <div
+                className="title col-sm-6 col-10"
+              >
+                out-of-the-box embrace supply-chains
+              </div>
+              <div
+                className="feedback col-sm-3 col-5"
+              >
+                <span>
+                  Not started
+                </span>
+              </div>
+              <div
+                className="due-at col-sm-2 col-5"
+              >
+                <time>
+                  Oct 18, 7:00am
+                </time>
+              </div>
+            </a>
+            <a
+              aria-label="Work on event: B2B deliver content"
+              className="task row event"
+              data-event-id={3}
+              href="/course/1/task/3"
+              onClick={[Function]}
+              tabIndex={-1}
+            >
+              <div
+                className="column-icon col-sm-1 col-2"
+              >
+                <i
+                  aria-label="event icon"
+                  className="icon icon-lg icon-event"
+                />
+              </div>
+              <div
+                className="title col-sm-6 col-10"
+              >
+                B2B deliver content
+              </div>
+              <div
+                className="feedback col-sm-3 col-5"
+              >
+                <span>
+                  
+                </span>
+              </div>
+              <div
+                className="due-at col-sm-2 col-5"
+              >
+                <time>
+                  Oct 18, 7:00am
+                </time>
+              </div>
+            </a>
+            <a
+              aria-label="Work on homework: virtual strategize infomediaries"
+              className="task row homework"
+              data-event-id={4}
+              href="/course/1/task/4"
+              onClick={[Function]}
+              tabIndex={-1}
+            >
+              <div
+                className="column-icon col-sm-1 col-2"
+              >
+                <i
+                  aria-label="homework icon"
+                  className="icon icon-lg icon-homework"
+                />
+              </div>
+              <div
+                className="title col-sm-6 col-10"
+              >
+                virtual strategize infomediaries
+              </div>
+              <div
+                className="feedback col-sm-3 col-5"
+              >
+                <span>
+                  <span
+                    className="tour-anchor"
+                    data-tour-anchor-id="assignment-progress-status"
+                  >
+                    10/11 answered
+                  </span>
+                </span>
+              </div>
+              <div
+                className="due-at col-sm-2 col-5"
+              >
+                <time>
+                  Oct 18, 7:00am
+                </time>
+              </div>
+            </a>
           </div>
           <div
-            className="empty upcoming panel panel-default"
-            id={undefined}
+            className="empty upcoming card"
           >
-            <div
-              className="panel-body"
-            >
-              No upcoming assignments
-            </div>
+            No upcoming assignments
           </div>
         </div>
       </div>
       <div
-        className="sidebar col-lg-3 col-md-4 col-xs-12"
+        className="sidebar col-lg-3 col-md-4 col-12"
       >
         <div
           className="actions-box loadable is-loading"
         >
-          Loading progress information... 
+          Loading progress information...
         </div>
         <div
-          className="actions-box"
+          className="actions-box browse-the-book card"
         >
           <a
             aria-label="Browse course reference book"

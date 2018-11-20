@@ -3,6 +3,7 @@ import {
 } from 'shared/model';
 import { isEmpty } from 'lodash';
 import moment from 'moment';
+import Map from 'shared/model/map';
 import UiSettings from 'shared/model/ui-settings';
 import { observable, computed, action } from 'mobx';
 import { TimeStore } from '../../flux/time';
@@ -10,11 +11,12 @@ import Toasts from '../toasts';
 
 import Job from '../job';
 
-const CURRENT = observable.map();
+const CURRENT = new Map();
 const LAST_PUSH = 'sclp';
 
+export default
 @identifiedBy('jobs/lms-score-push')
-export default class LmsScorePush extends Job {
+class LmsScorePush extends Job {
 
   static forCourse(course) {
     let exp = CURRENT.get(course.id);
@@ -63,4 +65,4 @@ export default class LmsScorePush extends Job {
     this.startPolling(data.job);
   }
 
-}
+};

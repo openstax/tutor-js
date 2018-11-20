@@ -11,7 +11,7 @@
     }
   }
 
-  li {
+  a {
     @include tutor-plan-set(add);
   }
 
@@ -19,10 +19,11 @@
     border: none;
   }
 
-  &.dropdown-menu > li > a {
+  &.dropdown-menu > a {
     width: 198px;
     padding: 6px 12px;
     text-align: left;
+    line-height: 1.5;
   }
 
   .no-periods-course-settings-link {

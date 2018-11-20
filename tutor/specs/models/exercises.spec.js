@@ -9,7 +9,7 @@ describe('Exercises Map', () => {
     book = Factory.book();
     course = Factory.course();
     exercises = new Exercises();
-    page_ids = sampleSize(book.pages.byId.keys(), 3);
+    page_ids = sampleSize(Array.from(book.pages.byId.keys()), 3);
   });
 
   it('collects important tag info', () => {

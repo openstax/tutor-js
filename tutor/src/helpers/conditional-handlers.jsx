@@ -15,9 +15,9 @@ const getConditionalHandlers = (Router) => {
   const MatchForTutor = OXMatchByRouter(Router, null, 'TutorRouterMatch');
 
   const renderDashboard = (props) => {
-    const {courseId} = props.params;
+    const { courseId } = props.params;
 
-    extend(props, {courseId});
+    extend(props, { courseId });
     const course = Courses.get(courseId);
 
     if (!course) {
@@ -44,7 +44,7 @@ const getConditionalHandlers = (Router) => {
           <Redirect
             to={{
               pathname: Router.makePathname('viewTeacherDashboard', props.params),
-              query: Router.currentQuery()
+              query: Router.currentQuery(),
             }} />
         );
       }

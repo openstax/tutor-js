@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { action, computed } from 'mobx';
@@ -5,20 +6,21 @@ import moment from 'moment';
 import { autobind } from 'core-decorators';
 import TaskPlanHelper from '../../helpers/task-plan';
 import CopyOnFocusInput from '../copy-on-focus-input';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import Courses from '../../models/courses-map';
 import CopyOnfocusInput from '../copy-on-focus-input';
 import TeacherTaskPlan from '../../models/task-plan/teacher';
 
 const DUE_FORMAT = 'M/D/YYYY [at] h:mma';
 
+export default
 @observer
-export default class LmsInfoPanel extends React.PureComponent {
+class LmsInfoCard extends React.Component {
 
   static propTypes = {
-    courseId: React.PropTypes.string.isRequired,
-    plan: React.PropTypes.instanceOf(TeacherTaskPlan).isRequired,
-    onBack: React.PropTypes.func.isRequired,
+    courseId: PropTypes.string.isRequired,
+    plan: PropTypes.instanceOf(TeacherTaskPlan).isRequired,
+    onBack: PropTypes.func.isRequired,
   }
 
   @action.bound
@@ -125,4 +127,4 @@ export default class LmsInfoPanel extends React.PureComponent {
       </div>
     );
   }
-}
+};

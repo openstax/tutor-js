@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import { observer } from 'mobx-react';
 import { computed, observable } from 'mobx';
 import { isEmpty, merge, map, reject, last, take } from 'lodash';
-import { Col, Row, Grid } from 'react-bootstrap';
+import { Col, Row, Container } from 'react-bootstrap';
 import classnames from 'classnames';
 
 import PreviewCourseOffering from '../../models/course/offerings/previews';
@@ -48,11 +49,11 @@ const DEFAULT_COURSE_ITEMS = {
 class MyCoursesBase extends React.Component {
 
   static propTypes = {
-    courses:    React.PropTypes.arrayOf( React.PropTypes.instanceOf(CourseModel) ).isRequired,
-    items:      React.PropTypes.objectOf(React.PropTypes.element),
-    className:  React.PropTypes.string,
-    before:     React.PropTypes.element,
-    after:      React.PropTypes.element,
+    courses:    PropTypes.arrayOf( PropTypes.instanceOf(CourseModel) ).isRequired,
+    items:      PropTypes.objectOf(PropTypes.element),
+    className:  PropTypes.string,
+    before:     PropTypes.element,
+    after:      PropTypes.element,
   }
 
   @computed get items() {
@@ -83,8 +84,8 @@ class MyCoursesBase extends React.Component {
 @observer
 class MyCoursesTitle extends React.Component {
   static propTypes = {
-    title: React.PropTypes.string.isRequired,
-    main: React.PropTypes.bool,
+    title: PropTypes.string.isRequired,
+    main: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -103,23 +104,23 @@ class MyCoursesTitle extends React.Component {
   }
 }
 
+
 @observer
-export class MyCoursesCurrent extends React.Component {
+class MyCoursesCurrent extends React.Component {
 
   render () {
     const baseName = 'my-courses-current';
     const courses = Courses.tutor.nonPreview.currentAndFuture.array;
-
     return (
       <div className={baseName}>
-        <Grid>
+        <Container>
           <MyCoursesTitle title="Current Courses" main={true} />
           {isEmpty(courses) ? <MyCoursesNone /> : undefined}
           <MyCoursesBase
             className={`${baseName}-section`}
             courses={courses}
             after={User.isConfirmedFaculty ? <MyCoursesCreate /> : undefined} />
-        </Grid>
+        </Container>
       </div>
     );
   }
@@ -128,9 +129,9 @@ export class MyCoursesCurrent extends React.Component {
 @observer
 class MyCoursesBasic extends React.Component {
   static propTypes = {
-    title:    React.PropTypes.string.isRequired,
-    baseName: React.PropTypes.string.isRequired,
-    courses:  React.PropTypes.arrayOf( React.PropTypes.instanceOf(CourseModel) ).isRequired,
+    title:    PropTypes.string.isRequired,
+    baseName: PropTypes.string.isRequired,
+    courses:  PropTypes.arrayOf( PropTypes.instanceOf(CourseModel) ).isRequired,
   }
 
   render() {
@@ -140,7 +141,7 @@ class MyCoursesBasic extends React.Component {
     return (
       (
         <div className={baseName}>
-          <Grid>
+          <Container>
             <MyCoursesTitle title={title} />
             <MyCoursesBase
               className={`${baseName}-section`}
@@ -148,15 +149,16 @@ class MyCoursesBasic extends React.Component {
               before={before}
               after={after}
             />
-          </Grid>
+          </Container>
         </div>
       )
     );
   }
 }
 
+
 @observer
-export class MyCoursesPast extends React.Component {
+class MyCoursesPast extends React.Component {
   render() {
     return (
       <MyCoursesBasic
@@ -170,7 +172,7 @@ export class MyCoursesPast extends React.Component {
 
 
 @observer
-export class MyCoursesFuture extends React.Component {
+class MyCoursesFuture extends React.Component {
   render() {
     return (
       <MyCoursesBasic
@@ -194,8 +196,9 @@ function ExploreAPreview({ course }) {
   );
 }
 
+
 @observer
-export class MyCoursesPreview extends React.Component {
+class MyCoursesPreview extends React.Component {
 
   @observable previews;
 
@@ -220,3 +223,5 @@ export class MyCoursesPreview extends React.Component {
     );
   }
 }
+
+export { MyCoursesCurrent, MyCoursesPast, MyCoursesFuture, MyCoursesPreview };

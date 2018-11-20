@@ -1,15 +1,16 @@
 import {
   BaseModel, identifiedBy, identifier, session,
 } from 'shared/model';
-import { merge, extend, defer, last } from 'lodash';
-import { action, observable, when,computed } from 'mobx';
+import { last } from 'lodash';
+import { action, observable, computed } from 'mobx';
 
 import invariant from 'invariant';
 
 const MAX_ATTEMPTS = 50;
 
+export default
 @identifiedBy('job')
-export default class Job extends BaseModel {
+class Job extends BaseModel {
 
   @identifier jobId;
 
@@ -86,4 +87,4 @@ export default class Job extends BaseModel {
       this.pollingId = setTimeout(this.checkForUpdate, this.interval * 1000);
     }
   }
-}
+};

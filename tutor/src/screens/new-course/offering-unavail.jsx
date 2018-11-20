@@ -2,8 +2,9 @@ import { React, observer } from '../../helpers/react';
 import { Listing, Choice } from '../../components/choices-listing';
 import SupportEmailLink from '../../components/support-email-link';
 
+export default
 @observer
-export default class OfferingUnavailable extends React.Component {
+class OfferingUnavailable extends React.Component {
 
   static title = 'This course is no longer available';
 
@@ -19,4 +20,4 @@ export default class OfferingUnavailable extends React.Component {
       </div>
     );
   }
-}
+};

@@ -1,12 +1,13 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import HighlightIcon from './highlight-icon';
 import getRangeRect from './getRangeRect';
 
 const MARGIN = 100; // min amount of space that should be available on right of page
 
-const InlineControls = observer(({windowImpl, pendingHighlight, annotate, parentRect, highlight }) => {
+const InlineControls = observer(({ windowImpl, pendingHighlight, annotate, parentRect, highlight }) => {
   if (!pendingHighlight || !pendingHighlight.range) { return null; }
 
   const rect = getRangeRect(windowImpl, pendingHighlight.range);
@@ -18,7 +19,7 @@ const InlineControls = observer(({windowImpl, pendingHighlight, annotate, parent
 
   return (
     <div className="inline-controls" style={style}>
-      <Icon className="annotate" type="comment" alt="annotate" onClick={annotate} />
+      <Icon className="annotate" size="lg" type="comment" alt="annotate" onClick={annotate} />
       <button className="highlight" onClick={highlight}>
         <HighlightIcon role="button" alt="highlight" />
       </button>
@@ -30,12 +31,12 @@ const InlineControls = observer(({windowImpl, pendingHighlight, annotate, parent
 InlineControls.displayName = 'InlineControls';
 
 InlineControls.propTypes = {
-  windowImpl: React.PropTypes.object.isRequired,
-  annotate: React.PropTypes.func.isRequired,
-  highlight: React.PropTypes.func.isRequired,
-  pendingHighlight: React.PropTypes.object,
-  parentRect:  React.PropTypes.object,
-  rect: React.PropTypes.object,
+  windowImpl: PropTypes.object.isRequired,
+  annotate: PropTypes.func.isRequired,
+  highlight: PropTypes.func.isRequired,
+  pendingHighlight: PropTypes.object,
+  parentRect:  PropTypes.object,
+  rect: PropTypes.object,
 };
 
 export default InlineControls;

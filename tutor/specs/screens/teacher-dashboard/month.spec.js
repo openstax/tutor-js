@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { React, Wrapper, SnapShot } from '../../components/helpers/component-testing';
+import { C } from '../../helpers';
 import Month from '../../../src/screens/teacher-dashboard/month';
 import Factory from '../../factories';
 import TimeHelper from '../../../src/helpers/time';
@@ -14,20 +14,22 @@ describe('CourseCalendar Month display', () => {
     props = {
       date: course.taskPlans.array[0].duration.end(),
       course: course,
+      onDrop: jest.fn(),
+      onDrag: jest.fn(),
       termEnd: moment().add(2, 'month'),
       termStart: moment().subtract(3, 'month'),
+      onDayClick: jest.fn(),
       dateFormat: TimeHelper.ISO_DATE_FORMAT,
       hasPeriods: true,
       showingSideBar: true,
     };
   });
 
-  it('renders plans and hides when deleting', function() {
-    const month = mount(<Wrapper _wrapped_component={Month} {...props} />);
-    const plan = course.taskPlans.array[0];
-    expect(month).toHaveRendered(`[data-plan-id="${plan.id}"]`);
-    plan.is_deleting = true;
-    expect(month).not.toHaveRendered(`[data-plan-id="${plan.id}"]`);
+  it('renders plans', function() {
+    const m = mount(<C><Month {...props} /></C>);
+    const taskPlan = course.taskPlans.array[0];
+    expect(m).toHaveRendered(`[data-plan-id="${taskPlan.id}"]`);
+    m.unmount();
   });
 
 });

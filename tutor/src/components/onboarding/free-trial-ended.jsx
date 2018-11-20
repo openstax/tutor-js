@@ -1,21 +1,24 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { action } from 'mobx';
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { OnboardingNag, Heading, Body, Footer } from './onboarding-nag';
 import CourseUX from '../../models/course/ux';
 import Courses from '../../models/courses-map';
 import TutorRouter from '../../helpers/router';
 
+export default
 @observer
-export default class FreeTrialEnded extends React.PureComponent {
+class FreeTrialEnded extends React.Component {
 
   static propTypes = {
-    ux: MobxPropTypes.observableObject.isRequired,
+    ux: PropTypes.object.isRequired,
+    onDismiss: PropTypes.func.isRequired,
   }
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   static className = 'free-trial-ended'
@@ -29,7 +32,7 @@ export default class FreeTrialEnded extends React.PureComponent {
     if (Courses.active.size <= 1) { return null; }
 
     return (
-      <Button bsStyle="link" onClick={this.goToMyCourses}>
+      <Button variant="link" onClick={this.goToMyCourses}>
         Return to my courses
       </Button>
     );
@@ -50,7 +53,7 @@ export default class FreeTrialEnded extends React.PureComponent {
           </p>
         </Body>
         <Footer>
-          <Button bsStyle="primary" onClick={ux.payNow}>
+          <Button variant="primary" onClick={ux.payNow}>
             Buy access now
           </Button>
           {this.renderBackLink()}
@@ -60,4 +63,4 @@ export default class FreeTrialEnded extends React.PureComponent {
 
   }
 
-}
+};

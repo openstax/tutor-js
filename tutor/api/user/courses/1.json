@@ -5,6 +5,8 @@
   "ecosystem_id": "1",
   "is_concept_coach": false,
   "is_college": false,
+  "ends_at": "2016-01-03T01:10:10.125Z",
+  "starts_at": "2016-07-03T01:10:10.125Z",
   "appearance_code": "college_biology",
   "roles": [{
     "id": "1",

@@ -1,6 +1,5 @@
-import { SnapShot, Wrapper } from '../helpers/component-testing';
+import { C, EnzymeContext } from '../../helpers';
 import BTB from '../../../src/components/buttons/browse-the-book';
-import EnzymeContext from '../helpers/enzyme-context';
 import Factory from '../../factories';
 import FakeWindow from 'shared/specs/helpers/fake-window';
 
@@ -18,8 +17,7 @@ describe(BTB, () => {
   });
 
   it('renders and matches snapshot', () => {
-    const component = SnapShot.create(<Wrapper _wrapped_component={BTB} {...props} />);
-    expect(component.toJSON()).toMatchSnapshot();
+    expect.snapshot(<C><BTB {...props} /></C>).toMatchSnapshot();
   });
 
   it('can use custom tag', () => {

@@ -14,9 +14,7 @@ const NewTaskDrag = {
     }
 
     return (
-
       link
-
     );
   },
 
@@ -62,6 +60,7 @@ const TaskDrop = {
       { onDrop: comp.onDrop, offset: monitor.getClientOffset() }
     );
   },
+
 };
 
 const DragInjector = (connect, monitor) => ({ connectDragSource: connect.dragSource(), isDragging: monitor.isDragging() });
@@ -96,8 +95,8 @@ const CloneAssignmentLink = DragSource(ItemTypes.CloneTask, CloneTaskDrag, DragI
       data-assignment-id={`${props.plan.id}`}
       data-assignment-type={props.plan.type}
       className={cn('task-plan', {
-          'is-dragging': props.isDragging,
-          'is-editing': props.isEditing,
+        'is-dragging': props.isDragging,
+        'is-editing': props.isEditing,
       }
       )}>
       <GrabbyDots />

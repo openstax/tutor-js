@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../../components/helpers/component-testing';
+import { React, SnapShot } from '../../helpers';
 import bootstrapScores from '../../helpers/scores-data.js';
 import Cell from '../../../src/screens/scores-report/overall-cell';
 import ScoresUX from '../../../src/screens/scores-report/ux';
@@ -18,7 +18,7 @@ describe('Student Scores Overall Cell', function() {
   });
 
   it('renders and matches snapshot', () => {
-    expect(SnapShot.create(<Cell {...props} />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<Cell {...props} />).toMatchSnapshot();
   });
 
   it('renders correct row for index', () => {

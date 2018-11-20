@@ -1,14 +1,5 @@
-import { filter, isEmpty, sortBy, toNumber, isNumber } from 'lodash';
-import { addComputedProperty } from './computed-property';
+import { sortBy, isNumber } from 'lodash';
 import S from './string';
-
-// Used to filter periods by helper methods
-const isArchivedCheckFn = period => period.is_archived;
-const isActiveCheckFn   = period => !period.is_archived;
-
-const NumberLike = /[^0-9]+/;
-
-
 
 const PeriodHelper = {
   getOrder(period) {

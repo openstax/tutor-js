@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 import { keys } from 'lodash';
@@ -43,9 +44,9 @@ const Instructions = observer((props) => {
 });
 
 Instructions.propTypes = {
-  project: React.PropTypes.oneOf(keys(PROJECT_NAME_AND_FEEDBACK)),
-  hasIncorrectAnswer: React.PropTypes.bool,
-  hasFeedback: React.PropTypes.bool,
+  project: PropTypes.oneOf(keys(PROJECT_NAME_AND_FEEDBACK)),
+  hasIncorrectAnswer: PropTypes.bool,
+  hasFeedback: PropTypes.bool,
 };
 
 export default Instructions;

@@ -1,4 +1,4 @@
-import { whenAsync } from 'mobx-utils';
+import { when } from 'mobx';
 import UX from '../../../src/models/reference-book/ux';
 import { FactoryBot } from '../../factories';
 
@@ -17,7 +17,9 @@ describe(UX, () => {
       });
       return Promise.resolve();
     });
-    jest.spyOn(Page.prototype, 'ensureLoaded');
+    jest.spyOn(Page.prototype, 'ensureLoaded').mockImplementation(function() {
+      return Promise.resolve();
+    });
   });
 
   afterEach(() => {
@@ -28,7 +30,7 @@ describe(UX, () => {
   it('sets and fetches book and then page when ecosystem is set', () => {
     expect(ux.book).toBeUndefined();
     ux.ecosystemId = 123;
-    return whenAsync(() => ux.page).then(() => {
+    return when(() => ux.page).then(() => {
       expect(Book.prototype.fetch).toHaveBeenCalled();
       expect(ux.book).not.toBeUndefined();
       expect(ux.page).not.toBeUndefined();
@@ -37,7 +39,7 @@ describe(UX, () => {
 
   it('ensures pages are loaded when updated', () => {
     ux.update({ ecosystemId: 42, chapterSection: '1.2' });
-    return whenAsync(() => ux.page).then(() => {
+    return when(() => ux.page).then(() => {
       expect(ux.book.id).toEqual(42);
       expect(ux.page.chapter_section.asString).toEqual('1.2');
       expect(ux.page.ensureLoaded).toHaveBeenCalled();

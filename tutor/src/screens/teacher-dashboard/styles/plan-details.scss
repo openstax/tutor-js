@@ -4,6 +4,7 @@ body.modal-open {
 
 .plan-modal {
 
+
 // @include tutor-plan-modal($calendar-inactive-background);
 
   &.is-published,
@@ -24,7 +25,6 @@ body.modal-open {
   &.is-published{
     &.is-open.is-trouble {
       .modal-title::before {
-        @include is-trouble();
         margin-right: $modal-padding/2;
         margin-left: -$modal-padding/2;
       }

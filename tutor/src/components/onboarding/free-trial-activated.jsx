@@ -1,14 +1,17 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { OnboardingNag, Heading, Body, Footer } from './onboarding-nag';
 import CourseUX from '../../models/course/ux';
 
+export default
 @observer
-export default class FreeTrialActivated extends React.PureComponent {
+class FreeTrialActivated extends React.Component {
 
   static propTypes = {
-    ux: MobxPropTypes.observableObject.isRequired,
+    ux: PropTypes.object.isRequired,
+    onDismiss: PropTypes.func.isRequired,
   }
 
   static className = 'free-trial-activated';
@@ -32,7 +35,7 @@ export default class FreeTrialActivated extends React.PureComponent {
         </Body>
 
         <Footer>
-          <Button bsStyle="primary" className="now" onClick={ux.onAccessCourse}>
+          <Button variant="primary" className="now" onClick={ux.onAccessCourse}>
             Access your course
           </Button>
         </Footer>
@@ -40,4 +43,4 @@ export default class FreeTrialActivated extends React.PureComponent {
       </OnboardingNag>
     );
   }
-}
+};

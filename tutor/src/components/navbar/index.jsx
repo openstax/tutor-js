@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { get } from 'lodash';
 import { Provider, inject, observer, observable, action, computed } from '../../helpers/react';
@@ -23,10 +24,10 @@ import NavbarContext         from './context';
 class DefaultNavBar extends React.Component {
 
   static propTypes = {
-    params: React.PropTypes.shape({
-      courseId: React.PropTypes.string,
+    params: PropTypes.shape({
+      courseId: PropTypes.string,
     }).isRequired,
-    tourContext: React.PropTypes.object,
+    tourContext: PropTypes.object,
   }
 
   @computed get course() {
@@ -35,7 +36,7 @@ class DefaultNavBar extends React.Component {
   }
 
   render() {
-    const { params, params: { courseId } } = this.props;
+    const { course, props: { params, params: { courseId } } } = this;
 
     return (
       <nav className="tutor-top-navbar">
@@ -48,10 +49,10 @@ class DefaultNavBar extends React.Component {
           </div>
           <CenterControls params={params} />
           <div className="right-side-controls">
-            <SupportMenu         courseId={courseId} />
-            <StudentPayNowBtn    courseId={courseId} />
-            <ActionsMenu         courseId={courseId} />
-            <PreviewAddCourseBtn courseId={courseId} />
+            <SupportMenu         course={course} />
+            <StudentPayNowBtn    course={course} />
+            <ActionsMenu         course={course} />
+            <PreviewAddCourseBtn course={course} />
             <UserMenu />
           </div>
         </div>

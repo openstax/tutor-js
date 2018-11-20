@@ -1,7 +1,8 @@
 import { BaseAction, identifiedBy } from './base';
 
+export default
 @identifiedBy('tour/action/hover-exercise')
-export default class Reposition extends BaseAction {
+class Reposition extends BaseAction {
 
   beforeStep() {
     this.$('.panel-body').classList.add('on-demo-hover');
@@ -11,4 +12,4 @@ export default class Reposition extends BaseAction {
     this.$('.panel-body').classList.remove('on-demo-hover');
   }
 
-}
+};

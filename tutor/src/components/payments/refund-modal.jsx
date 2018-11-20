@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { observable, action } from 'mobx';
@@ -7,11 +8,11 @@ import { AsyncButton } from 'shared';
 import Purchase from '../../models/purchases/purchase';
 
 @observer
-class ProcessRefund extends React.PureComponent {
+class ProcessRefund extends React.Component {
   static propTypes = {
-    purchase:   React.PropTypes.instanceOf(Purchase).isRequired,
-    onCancel:   React.PropTypes.func.isRequired,
-    onContinue: React.PropTypes.func.isRequired,
+    purchase:   PropTypes.instanceOf(Purchase).isRequired,
+    onCancel:   PropTypes.func.isRequired,
+    onContinue: PropTypes.func.isRequired,
   }
 
   @action.bound
@@ -37,7 +38,7 @@ class ProcessRefund extends React.PureComponent {
         </Modal.Body>
         <Modal.Footer>
           <AsyncButton
-            bsStyle="primary"
+            variant="primary"
             data-identifier={purchase.identifier}
             isWaiting={purchase.api.isPending}
             onClick={this.onRequestRefund}
@@ -53,11 +54,11 @@ class ProcessRefund extends React.PureComponent {
 
 
 @observer
-class Survey extends React.PureComponent {
+class Survey extends React.Component {
 
   static propTypes = {
-    purchase:   React.PropTypes.instanceOf(Purchase).isRequired,
-    onContinue: React.PropTypes.func.isRequired,
+    purchase:   PropTypes.instanceOf(Purchase).isRequired,
+    onContinue: PropTypes.func.isRequired,
   }
 
   @action.bound
@@ -110,7 +111,7 @@ class Survey extends React.PureComponent {
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.onSubmit} bsStyle="primary">Submit</Button>
+          <Button onClick={this.onSubmit} variant="primary">Submit</Button>
           <Button onClick={onContinue}>Skip this</Button>
         </Modal.Footer>
       </Modal.Dialog>
@@ -132,21 +133,21 @@ function AreYouSure({ purchase, onCancel, onContinue }) {
         your work. Are you sure you want to continue?
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={onContinue} bsStyle="primary">Continue</Button>
+        <Button onClick={onContinue} variant="primary">Continue</Button>
         <Button onClick={onCancel}>Cancel</Button>
       </Modal.Footer>
     </Modal.Dialog>
   );
 }
 AreYouSure.propTypes = {
-  purchase:   React.PropTypes.instanceOf(Purchase).isRequired,
-  onContinue: React.PropTypes.func.isRequired,
-  onCancel:   React.PropTypes.func.isRequired,
+  purchase:   PropTypes.instanceOf(Purchase).isRequired,
+  onContinue: PropTypes.func.isRequired,
+  onCancel:   PropTypes.func.isRequired,
 };
 
 
 @observer
-class RefundStages extends React.PureComponent {
+class RefundStages extends React.Component {
 
   @observable stage = 0;
 
@@ -171,5 +172,5 @@ export default function RefundModal(props) {
 }
 
 RefundModal.propTypes = {
-  purchase: React.PropTypes.instanceOf(Purchase),
+  purchase: PropTypes.instanceOf(Purchase),
 };

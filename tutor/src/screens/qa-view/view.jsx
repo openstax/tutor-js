@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
@@ -8,11 +9,12 @@ import Loading from '../../components/loading-screen';
 import Exercises from './exercises';
 import UX from './ux';
 
+export default
 @observer
-export default class QAView extends React.Component {
+class QAView extends React.Component {
 
   static propTypes = {
-    ux: React.PropTypes.instanceOf(UX).isRequired,
+    ux: PropTypes.instanceOf(UX).isRequired,
   };
 
   render() {
@@ -42,4 +44,4 @@ export default class QAView extends React.Component {
     );
   }
 
-}
+};

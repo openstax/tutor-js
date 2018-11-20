@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
-import Icon from '../icon';
+import { Icon } from 'shared';
 
 export default function invalidLinksUse() {
   return (

@@ -1,9 +1,7 @@
-import { SnapShot } from './helpers/component-testing';
-
+import { TutorRouter, EnzymeContext } from '../helpers';
 import ChangeStudentId from '../../src/components/change-student-id';
 import { bootstrapCoursesList } from '../courses-test-data';
-import EnzymeContext from './helpers/enzyme-context';
-import Router from '../../src/helpers/router';
+
 jest.mock('../../src/helpers/router');
 
 describe('Change Student ID', () => {
@@ -13,12 +11,12 @@ describe('Change Student ID', () => {
     context = EnzymeContext.build();
     params = { courseId: '1' };
     courses = bootstrapCoursesList();
-    Router.currentParams.mockReturnValue(params);
-    Router.makePathname.mockReturnValue('go-to-dash');
+    TutorRouter.currentParams.mockReturnValue(params);
+    TutorRouter.makePathname.mockReturnValue('go-to-dash');
   });
 
   it('renders and matches snapshot for various states', () => {
-    expect(SnapShot.create(<ChangeStudentId />).toJSON()).toMatchSnapshot();
+    expect.snapshot(<ChangeStudentId />).toMatchSnapshot();
   });
 
   it('is accessible', async () => {
@@ -31,9 +29,10 @@ describe('Change Student ID', () => {
     const course = courses.get(params.courseId);
     course.userStudentRecord.saveOwnStudentId = jest.fn(() => Promise.resolve({}));
     const wrapper = mount(<ChangeStudentId />, context);
-    wrapper.find('input').get(0).value = '4252';
+    wrapper.find('input').at(0).getDOMNode().value = 'MY-NEW-ID';
+
     wrapper.find('.btn-primary').simulate('click');
-    expect(course.userStudentRecord.student_identifier).toEqual('4252');
+    expect(course.userStudentRecord.student_identifier).toEqual('MY-NEW-ID');
     expect(course.userStudentRecord.saveOwnStudentId).toHaveBeenCalled();
     wrapper.unmount();
   });
@@ -41,7 +40,7 @@ describe('Change Student ID', () => {
   it('navigates to dashboard when clicked', () => {
     const form = mount(<ChangeStudentId />, context);
     form.find('.btn.cancel').simulate('click');
-    expect(Router.makePathname).toHaveBeenCalledWith('dashboard', params);
+    expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', params);
     expect(context.context.router.history.push).toHaveBeenCalledWith('go-to-dash');
   });
 

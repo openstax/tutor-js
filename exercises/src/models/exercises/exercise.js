@@ -1,17 +1,14 @@
-import { last, map, filter, find, reduce } from 'lodash';
-import { computed, action, observable } from 'mobx';
-import {
-  BaseModel, identifiedBy, belongsTo, identifier, field, session, hasMany,
-} from 'shared/model';
-
+import { action } from 'mobx';
+import { identifiedBy, session } from 'shared/model';
 import SharedExercise from 'shared/model/exercise';
 
+export default
 @identifiedBy('exercises/exercise')
-export default class Exercise extends SharedExercise {
+class Exercise extends SharedExercise {
 
   @session error;
 
   @action onError({ message }) {
     this.error = message;
   }
-}
+};

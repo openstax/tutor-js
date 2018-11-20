@@ -1,25 +1,26 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import moment from 'moment';
 import { observer } from 'mobx-react';
 import { autobind } from 'core-decorators';
 import Course from '../../models/course';
-import EmptyPanel from './empty-panel';
-import EventsPanel from './events-panel';
-import StudentTasks from '../../models/student-tasks';
+import EmptyCard from './empty-panel';
+import EventsCard from './events-panel';
 import { map, isEmpty } from 'lodash';
 
+export default
 @observer
-export default class AllEventsByWeek extends React.PureComponent {
+class AllEventsByWeek extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
   }
 
   @autobind
   renderWeek(tasks, week) {
     const startAt = moment(week, 'YYYYww');
     return (
-      <EventsPanel
+      <EventsCard
         key={week}
         className="-weeks-events"
         course={this.props.course}
@@ -34,7 +35,7 @@ export default class AllEventsByWeek extends React.PureComponent {
     const weeks = studentTasks.pastTasksByWeek;
 
     if (studentTasks.isPendingTaskLoading || isEmpty(weeks)) {
-      return <EmptyPanel course={course} message="No past assignments" />;
+      return <EmptyCard course={course} message="No past assignments" />;
     }
 
     return (
@@ -43,4 +44,4 @@ export default class AllEventsByWeek extends React.PureComponent {
       </div>
     );
   }
-}
+};

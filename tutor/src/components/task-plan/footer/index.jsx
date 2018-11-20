@@ -1,4 +1,6 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import { idType } from 'shared';
 import { action } from 'mobx';
 import { observer } from 'mobx-react';
 import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
@@ -13,18 +15,19 @@ import PreviewButton from './preview-button';
 import Courses from '../../../models/courses-map';
 import TourAnchor from '../../tours/anchor';
 
+export default
 @observer
-export default class PlanFooter extends React.PureComponent {
+class PlanFooter extends React.Component {
 
   static propTypes = {
-    id:               React.PropTypes.string.isRequired,
-    courseId:         React.PropTypes.string.isRequired,
-    hasError:         React.PropTypes.bool.isRequired,
-    onSave:           React.PropTypes.func.isRequired,
-    onPublish:        React.PropTypes.func.isRequired,
-    goBackToCalendar: React.PropTypes.func.isRequired,
-    isVisibleToStudents: React.PropTypes.bool,
-    getBackToCalendarParams: React.PropTypes.func,
+    id:               idType.isRequired,
+    courseId:         idType.isRequired,
+    hasError:         PropTypes.bool.isRequired,
+    onSave:           PropTypes.func.isRequired,
+    onPublish:        PropTypes.func.isRequired,
+    goBackToCalendar: PropTypes.func.isRequired,
+    isVisibleToStudents: PropTypes.bool,
+    getBackToCalendarParams: PropTypes.func,
   }
 
   static defaultProps = {
@@ -123,4 +126,4 @@ export default class PlanFooter extends React.PureComponent {
       </div>
     );
   }
-}
+};

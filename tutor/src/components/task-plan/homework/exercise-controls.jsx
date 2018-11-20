@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { observable, action, computed } from 'mobx';
 import ScrollSpy from '../../scroll-spy';
 import Sectionizer from '../../exercises/sectionizer';
-import Icon from '../../icon';
+import { Icon } from 'shared';
 import fluxToMobx from '../../../helpers/flux-to-mobx';
 import { fromResource } from 'mobx-utils';
 
@@ -13,18 +14,19 @@ import SelectionsTooltip from './selections-tooltip';
 
 import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
 
+export default
 @observer
-export default class ExerciseControls extends React.Component {
+class ExerciseControls extends React.Component {
   static propTypes = {
-    planId:              React.PropTypes.string.isRequired,
-    onCancel:            React.PropTypes.func,
-    canAdd:              React.PropTypes.bool,
-    canEdit:             React.PropTypes.bool,
-    canReview:           React.PropTypes.bool,
-    addClicked:          React.PropTypes.func,
-    reviewClicked:       React.PropTypes.func,
-    sectionizerProps:    React.PropTypes.object,
-    hideDisplayControls: React.PropTypes.bool,
+    planId:              PropTypes.string.isRequired,
+    onCancel:            PropTypes.func,
+    canAdd:              PropTypes.bool,
+    canEdit:             PropTypes.bool,
+    canReview:           PropTypes.bool,
+    addClicked:          PropTypes.func,
+    reviewClicked:       PropTypes.func,
+    sectionizerProps:    PropTypes.object,
+    hideDisplayControls: PropTypes.bool,
   };
 
 
@@ -75,7 +77,7 @@ export default class ExerciseControls extends React.Component {
         [
           <Button
             key="next"
-            bsStyle="primary"
+            variant="primary"
             className="review-exercises"
             onClick={this.props.reviewClicked}
           >
@@ -83,8 +85,8 @@ export default class ExerciseControls extends React.Component {
           </Button>,
           <Button
             key="cancel"
-            bsStyle="default"
-            className="-cancel-add"
+            variant="default"
+            className="cancel-add"
             onClick={this.props.onCancel}
           >
             Cancel
@@ -94,7 +96,7 @@ export default class ExerciseControls extends React.Component {
     } else if (this.props.canAdd) {
       return (
         <Button
-          bsStyle="default"
+          variant="default"
           className="add-sections"
           onClick={this.props.addClicked}
         >
@@ -113,9 +115,7 @@ export default class ExerciseControls extends React.Component {
   renderIncreaseButton() {
     if (this.canChangeTutorQty() && TaskPlanStore.canIncreaseTutorExercises(this.props.planId)) {
       return (
-        <Button onClick={this.addTutorSelection} className="btn-xs hover-circle">
-          <Icon type="chevron-up" />
-        </Button>
+        <Icon onClick={this.addTutorSelection} size="xs" className="hover-circle" type="chevron-up" />
       );
     } else {
       return <span className="circle-btn-placeholder" />;
@@ -125,9 +125,7 @@ export default class ExerciseControls extends React.Component {
   renderDecreaseButton() {
     if (this.canChangeTutorQty() && TaskPlanStore.canDecreaseTutorExercises(this.props.planId)) {
       return (
-        <Button onClick={this.removeTutorSelection} className="btn-xs hover-circle">
-          <Icon type="chevron-down" />
-        </Button>
+        <Icon type="chevron-down" size="xs" onClick={this.removeTutorSelection} className="hover-circle" />
       );
     } else {
       return <span className="circle-btn-placeholder" />;
@@ -180,4 +178,4 @@ export default class ExerciseControls extends React.Component {
       </div>
     );
   }
-}
+};

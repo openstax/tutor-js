@@ -1,12 +1,13 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-export default class BackButton extends React.PureComponent {
+export default class BackButton extends React.Component {
 
   static propTypes = {
-    isEditable: React.PropTypes.bool.isRequired,
-    getBackToCalendarParams: React.PropTypes.func.isRequired,
+    isEditable: PropTypes.bool.isRequired,
+    getBackToCalendarParams: PropTypes.func.isRequired,
   }
 
   render() {

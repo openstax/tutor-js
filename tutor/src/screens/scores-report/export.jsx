@@ -1,17 +1,19 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { computed, action } from 'mobx';
 import { observer } from 'mobx-react';
 import TourAnchor from '../../components/tours/anchor';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 import Course from '../../models/course';
 import Export from '../../models/jobs/scores-export';
 
+export default
 @observer
-export default class ScoresExport extends React.PureComponent {
+class ScoresExport extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
   }
 
   @computed get scoresExport() {
@@ -36,15 +38,14 @@ export default class ScoresExport extends React.PureComponent {
   render() {
     return (
       <TourAnchor className="job scores-export" id="scores-export-button">
-        <Button
+        <Icon
+          type="download"
           disabled={this.scoresExport.isPending}
           onClick={this.startExport}
-        >
-          <Icon type="download" />
-        </Button>
+        />
         {this.message}
       </TourAnchor>
     );
   }
 
-}
+};

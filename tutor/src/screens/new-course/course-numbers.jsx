@@ -1,16 +1,18 @@
 import { React, action, observer } from '../../helpers/react';
 import { isEmpty } from 'lodash';
-import { Alert, Form, FormControl, FormGroup, InputGroup, ControlLabel } from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import { Alert, FormControl, FormGroup, InputGroup, Form } from 'react-bootstrap';
 import UserMenu from '../../models/user/menu';
 import BuilderUX from './ux';
 import BestPracticesIcon from '../../components/icons/best-practices';
 
+export default
 @observer
-export default class CourseNumbers extends React.PureComponent {
+class CourseNumbers extends React.Component {
 
   static title = 'Estimate your course size';
   static propTypes = {
-    ux: React.PropTypes.instanceOf(BuilderUX).isRequired,
+    ux: PropTypes.instanceOf(BuilderUX).isRequired,
   }
 
   @action.bound
@@ -27,7 +29,7 @@ export default class CourseNumbers extends React.PureComponent {
     const { error } = this.props.ux.newCourse;
     if (!error) { return null; }
     return (
-      <Alert bsStyle="danger">
+      <Alert variant="danger">
         <p>
           More than {error.value} {error.attribute} is not supported. Need
           more? <a href={`mailto:${UserMenu.supportEmail}`}>Contact
@@ -48,41 +50,42 @@ export default class CourseNumbers extends React.PureComponent {
           You can add or remove sections later.
         </p>
 
-        <FormGroup className="course-details-sections">
-          <ControlLabel>
+        <Form.Group className="course-details-sections">
+          <Form.Label htmlFor="number-sections">
             <InputGroup>
-              <InputGroup.Addon>
+              <InputGroup.Prepend>
                 Number of sections
                 <p className="course-details-explain">in this course</p>
-
-              </InputGroup.Addon>
+              </InputGroup.Prepend>
               <FormControl
+                id="number-sections"
                 type="number"
                 min="1"
                 defaultValue={newCourse.num_sections}
                 onChange={this.updateSectionCount} />
             </InputGroup>
-          </ControlLabel>
-        </FormGroup>
+          </Form.Label>
+        </Form.Group>
 
-        <FormGroup className="course-details-numbers">
-          <ControlLabel>
+        <Form.Group className="course-details-numbers">
+          <Form.Label htmlFor="number-students">
             <InputGroup>
-              <InputGroup.Addon>
+              <InputGroup.Prepend>
                 Estimated number of students
                 <p className="course-details-explain">in this course</p>
-              </InputGroup.Addon>
+              </InputGroup.Prepend>
               <FormControl
+                id="number-students"
                 type="number"
                 min="1"
                 defaultValue={newCourse.estimated_student_count || ''}
                 onChange={this.updateStudentCount} />
             </InputGroup>
-          </ControlLabel>
-        </FormGroup>
+          </Form.Label>
+        </Form.Group>
 
         {this.renderErrors()}
       </Form>
     );
   }
-}
+};

@@ -5,10 +5,11 @@ import moment from 'moment';
 import {
   BaseModel, identifiedBy, field, belongsTo,
 } from 'shared/model';
-import { TimeStore } from '../../../flux/time';
+import Time from '../../time';
 
+export default
 @identifiedBy('course/scores/heading')
-export default class Heading extends BaseModel {
+class Heading extends BaseModel {
   @field({ type: 'bignum' }) average_score;
   @field({ type: 'bignum' }) average_progress;
   @field({ type: 'date' }) due_at;
@@ -22,7 +23,7 @@ export default class Heading extends BaseModel {
   }
 
   @computed get isDue() {
-    return moment(this.due_at).isBefore(TimeStore.getNow());
+    return moment(this.due_at).isBefore(Time.now);
   }
 
   @computed get tasks() {
@@ -42,4 +43,4 @@ export default class Heading extends BaseModel {
     ).div(this.tasks.length);
   }
 
-}
+};

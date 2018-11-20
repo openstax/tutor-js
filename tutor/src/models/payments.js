@@ -12,16 +12,13 @@ import User from './user';
 import UserMenu from './user/menu';
 import Chat from './chat';
 
-NotificationActions.on('tutor-update', ({ payments }) => {
-  extend(Payments.config, payments);
-});
-
 const REQUIRED_OPTIONS = [
   'course',
 ];
 
+export default
 @identifiedBy('payments')
-export default class Payments extends BaseModel {
+class Payments extends BaseModel {
 
   @readonly static config = observable({
     base_url: '',
@@ -93,7 +90,7 @@ export default class Payments extends BaseModel {
   }
 
   @action.bound
-  onChat({ error } = {}) { // we're ignoring the error, not sure how to prefill chat
+  onChat({ } = {}) { // we're ignoring the error, not sure how to prefill chat
     const chatLink = document.querySelector('.chat.enabled a');
     if (chatLink) { chatLink.click(); }
   }
@@ -143,4 +140,9 @@ export default class Payments extends BaseModel {
     });
   }
 
-}
+};
+
+NotificationActions.on('tutor-update', ({ payments }) => {
+  // eslint-disable-next-line
+  extend(Payments.config, payments);
+});

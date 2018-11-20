@@ -1,6 +1,6 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import BS from 'react-bootstrap';
-import omit from 'lodash/omit';
+import { omit } from 'lodash';
 
 import { AsyncButton, OXLink } from 'shared';
 
@@ -18,18 +18,18 @@ const MESSAGES = {
 };
 
 
-export default class TaskSaveButton extends React.PureComponent {
+export default class SaveTaskButton extends React.Component {
 
   static propTypes = {
-    onSave: React.PropTypes.func.isRequired,
-    onPublish: React.PropTypes.func.isRequired,
-    isEditable:   React.PropTypes.bool.isRequired,
-    isSaving:     React.PropTypes.bool.isRequired,
-    isWaiting:    React.PropTypes.bool.isRequired,
-    isPublished:  React.PropTypes.bool.isRequired,
-    isPublishing: React.PropTypes.bool.isRequired,
-    hasError:     React.PropTypes.bool.isRequired,
-    isFailed:     React.PropTypes.bool.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onPublish: PropTypes.func.isRequired,
+    isEditable:   PropTypes.bool.isRequired,
+    isSaving:     PropTypes.bool.isRequired,
+    isWaiting:    PropTypes.bool.isRequired,
+    isPublished:  PropTypes.bool.isRequired,
+    isPublishing: PropTypes.bool.isRequired,
+    hasError:     PropTypes.bool.isRequired,
+    isFailed:     PropTypes.bool.isRequired,
   }
 
   render() {
@@ -39,19 +39,19 @@ export default class TaskSaveButton extends React.PureComponent {
 
     const isBusy = isPublished ?
       this.props.isWaiting && (this.props.isSaving || this.props.isPublishing)
-    :
+      :
       this.props.isWaiting && this.props.isPublishing;
 
     const Text = isPublished ? MESSAGES.save : MESSAGES.publish;
 
     const additionalProps = OXLink.filterProps(
       omit(this.props, 'onSave', 'onPublish', 'isEditable', 'isSaving', 'isWaiting', 'isPublished', 'isPublishing', 'hasError')
-    , { prefixes: 'bs' });
+      , { prefixes: 'bs' });
 
     return (
       <AsyncButton
         isJob={true}
-        bsStyle="primary"
+        variant="primary"
         className="-publish publish"
         onClick={isPublished ? this.props.onSave : this.props.onPublish}
         waitingText={Text.waiting}

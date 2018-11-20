@@ -22,9 +22,9 @@
 
   .choice {
 
-    padding: 0px 35px 0px 0px;
+    //    padding: 0px 35px 0px 0px;
     display: flex;
-    align-content: center;
+
     height: $choice-height;
     position: relative;
     font-size: 1.6rem;
@@ -36,39 +36,26 @@
     &:focus {
       outline: none;
     }
-    &::before {
-      content: '';
-      background-size: contain;
-      background-repeat: no-repeat;
-      height: 2.5rem;
-      margin-right: 1rem;
-      display: block;
-      margin-top: 0;
-    }
-    &::after {
-      position: absolute;
-      background-repeat: no-repeat;
-      background-position: center center;
-      display: block;
-      right: 16px;
-      @include fa-icon();
-      content: $fa-var-square-o;
-      color: $tutor-neutral-light;
-      font-size: 20px;
-    }
+    .content {
+      flex: 1;
+      display: flex;
+      align-items: center;
 
+      &::before {
+        content: '';
+        background-size: contain;
+        background-repeat: no-repeat;
+        height: 2.5rem;
+        margin-right: 1rem;
+        display: block;
+        margin-top: 0;
+      }
+    }
     &.active {
       @include make-wizard-choice-active();
       &:hover,
       &:focus {
         @include make-wizard-choice-active();
-      }
-      &::after {
-        content: $fa-var-check;
-        color: $tutor-secondary;
-        background-color: $tutor-white;
-        border-radius: 50%;
-        right: 14px;
       }
     }
   }

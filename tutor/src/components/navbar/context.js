@@ -1,10 +1,11 @@
 import React from 'react';
-import { observable, computed, ObservableMap } from 'mobx';
+import Map from 'shared/model/map';
+import { observable, computed } from 'mobx';
 
-class Region extends ObservableMap {
+class Region extends Map {
 
   constructor(context) {
-    super();
+    super({}, { keyType: String });
     this.context = context;
   }
 
@@ -13,19 +14,16 @@ class Region extends ObservableMap {
   }
 
   @computed get components() {
-    return this.keys().map((k) =>
-      React.createElement('div',
-        {
-          key: k,
-          'data-nav-id': k,
-          className: 'navbar-item',
-        },
-        React.createElement(
-          this.get(k),
-          this.context.childProps.toJS(),
-        ),
-      )
-    );
+    return this.keys().map((k) => {
+      return React.createElement('div', {
+        key: k,
+        'data-nav-id': k,
+        className: 'navbar-item',
+      }, React.createElement(
+        this.get(k),
+        Map.toObject(this.context.childProps),
+      ));
+    });
   }
 
 }

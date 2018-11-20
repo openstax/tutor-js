@@ -8,9 +8,8 @@ jest.mock('keymaster');
 jest.mock('../../src/helpers/analytics');
 jest.useFakeTimers();
 
-
-const TestPage = () => <p>Hello From Page</p>
-const TestOverlay = () => <p>Hello From Overlay</p>
+const TestPage = () => <p>Hello From Page</p>;
+const TestOverlay = () => <p>Hello From Overlay</p>;
 
 const renderPage = (props, olprops) => {
   const page = mount(<ObscuredPage {...props}><TestPage /></ObscuredPage>);

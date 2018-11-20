@@ -1,22 +1,24 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import { range, map, zip, partial, keys, isNil, extend, placeholder } from 'lodash';
+import { range, map, zip, keys, isNil, extend } from 'lodash';
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
 import keymaster from 'keymaster';
 import keysHelper from '../../helpers/keys';
-import QuestionModel from '../../model/exercise/question'
-import ArbitraryHtmlAndMath from '../html';
+import QuestionModel, { ReviewQuestion } from '../../model/exercise/question';
 import Answer from './answer';
 import { Feedback } from './feedback';
 import Instructions  from './instructions';
 
-//console.log( "---\n", ArbitraryHtmlAndMath, "---\n", Answer, "---\n", Feedback, "---\n", Instructions)
 
 const KEYS =
   { 'multiple-choice-numbers': range(1, 10) }; // 1 - 9
 
 // a - i
-KEYS['multiple-choice-alpha'] = map(KEYS['multiple-choice-numbers'], partial(keysHelper.getCharFromNumKey, placeholder, null));
+KEYS['multiple-choice-alpha'] = map(
+  KEYS['multiple-choice-numbers'],
+  (k) => keysHelper.getCharFromNumKey(k, null)
+);
 
 KEYS['multiple-choice'] = zip(KEYS['multiple-choice-numbers'], KEYS['multiple-choice-alpha']);
 
@@ -29,22 +31,29 @@ const isAnswerChecked = function(answer, chosenAnswer) {
   return chosenAnswer.includes(answer.id);
 };
 
+export default
 @observer
-export default class AnswersTable extends React.Component {
+class AnswersTable extends React.Component {
 
   static propTypes = {
-    question: React.PropTypes.instanceOf(QuestionModel).isRequired,
-    type: React.PropTypes.string.isRequired,
-    answer_id: React.PropTypes.string,
-    correct_answer_id: React.PropTypes.string,
-    feedback_html: React.PropTypes.string,
-    answered_count: React.PropTypes.number,
-    show_all_feedback: React.PropTypes.bool,
-    onChange: React.PropTypes.func,
-    hideAnswers: React.PropTypes.bool,
-    hasCorrectAnswer: React.PropTypes.bool,
-    onChangeAttempt: React.PropTypes.func,
-    keySet: React.PropTypes.oneOf(KEYSETS_PROPS),
+    question: PropTypes.oneOfType([
+      PropTypes.instanceOf(QuestionModel),
+      PropTypes.instanceOf(ReviewQuestion),
+    ]).isRequired,
+    type: PropTypes.string.isRequired,
+    answer_id: PropTypes.string,
+    correct_answer_id: PropTypes.string,
+    feedback_html: PropTypes.string,
+    answered_count: PropTypes.number,
+    show_all_feedback: PropTypes.bool,
+    onChange: PropTypes.func,
+    hideAnswers: PropTypes.bool,
+    hasCorrectAnswer: PropTypes.bool,
+    onChangeAttempt: PropTypes.func,
+    keySet: PropTypes.oneOf(KEYSETS_PROPS),
+    focus: PropTypes.bool,
+    project: PropTypes.string,
+    choicesEnabled: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -68,24 +77,26 @@ export default class AnswersTable extends React.Component {
     if (originalKeyScope != null) { this.setState({ originalKeyScope }); }
     if (nextProps.answer_id !== this.state.answer_id) { this.setState({ answer_id: null }); }
 
-    if (!isNil(this.props.keySet) && isNil(nextProps.keySet)) { return this.resetToOriginalKeyScope(); }
+    if (!isNil(this.props.keySet) && isNil(nextProps.keySet)) { this.resetToOriginalKeyScope(); }
   }
 
   componentWillUnmount() {
-    this.resetToOriginalKeyScope()
+    this.resetToOriginalKeyScope();
   }
 
   getOriginalKeyScope = (props) => {
     if (props == null) { ({ props } = this); }
 
     const originalKeyScope = keymaster.getScope();
-    if ((props.keySet !== originalKeyScope) && (originalKeyScope !== (this.state != null ? this.state.originalKeyScope : undefined))) { return originalKeyScope; }
+    if ((props.keySet !== originalKeyScope) && (originalKeyScope !== (this.state != null ? this.state.originalKeyScope : undefined))) {
+      originalKeyScope;
+    }
   };
 
   resetToOriginalKeyScope = () => {
     const { originalKeyScope } = this.state;
     if (originalKeyScope != null) { keymaster.setScope(originalKeyScope); }
-    this.setState({ originalKeyScope: undefined })
+    this.setState({ originalKeyScope: undefined });
   };
 
   @action.bound onChangeAnswer(answer, changeEvent) {
@@ -102,7 +113,7 @@ export default class AnswersTable extends React.Component {
         (typeof this.props.onChangeAttempt === 'function' ? this.props.onChangeAttempt(answer) : undefined)
       );
     }
-  };
+  }
 
   shouldInstructionsShow = () => {
     const { type, question, answer_id, correct_answer_id } = this.props;
@@ -156,7 +167,7 @@ export default class AnswersTable extends React.Component {
       return (
         <Answer {...answerProps} />
       );
-    })
+    });
 
     if (feedback_html) {
       feedback = (
@@ -169,9 +180,9 @@ export default class AnswersTable extends React.Component {
 
     if (this.shouldInstructionsShow()) {
       instructions = <Instructions
-                       project={project}
-                       hasFeedback={feedback_html != null}
-                       hasIncorrectAnswer={this.hasIncorrectAnswer()} />;
+        project={project}
+        hasFeedback={feedback_html != null}
+        hasIncorrectAnswer={this.hasIncorrectAnswer()} />;
     }
 
     return (
@@ -181,4 +192,4 @@ export default class AnswersTable extends React.Component {
       </div>
     );
   }
-}
+};

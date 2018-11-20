@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
-  compact, trimEnd, includes, sortBy, find, filter, indexOf, map, isEmpty, omit, last,
+  trimEnd, sortBy, map, isEmpty, last, filter,
 } from 'lodash';
 import classnames from 'classnames';
-import { Panel } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
 import ArbitraryHtmlAndMath from '../html';
@@ -17,23 +18,25 @@ import Exercise from '../../model/exercise';
 class ExercisePreview extends React.Component {
 
   static propTypes = {
-    exercise:        React.PropTypes.instanceOf(Exercise).isRequired,
-    displayFeedback: React.PropTypes.bool,
-    displayAllTags:  React.PropTypes.bool,
-    displayFormats:  React.PropTypes.bool,
-    displayNickname: React.PropTypes.bool,
-    panelStyle:      React.PropTypes.string,
-    className:       React.PropTypes.string,
-    header:          React.PropTypes.element,
-    hideAnswers:     React.PropTypes.bool,
-    onOverlayClick:  React.PropTypes.func,
-    isSelected:      React.PropTypes.bool,
-    isInteractive:   React.PropTypes.bool,
-    actionsOnSide:   React.PropTypes.bool,
-    sortTags:        React.PropTypes.func,
-    overlayActions:  React.PropTypes.object,
-    extractedInfo:   React.PropTypes.object,
-    isVerticallyTruncated: React.PropTypes.bool,
+    exercise:        PropTypes.instanceOf(Exercise).isRequired,
+    displayFeedback: PropTypes.bool,
+    displayAllTags:  PropTypes.bool,
+    displayFormats:  PropTypes.bool,
+    displayNickname: PropTypes.bool,
+    panelStyle:      PropTypes.string,
+    className:       PropTypes.string,
+    header:          PropTypes.element,
+    hideAnswers:     PropTypes.bool,
+    onOverlayClick:  PropTypes.func,
+    isSelected:      PropTypes.bool,
+    isInteractive:   PropTypes.bool,
+    actionsOnSide:   PropTypes.bool,
+    sortTags:        PropTypes.func,
+    overlayActions:  PropTypes.object,
+    extractedInfo:   PropTypes.object,
+    children:        PropTypes.node,
+    isVerticallyTruncated: PropTypes.bool,
+    questionFooters: PropTypes.object,
   };
 
   static defaultProps = {
@@ -83,7 +86,6 @@ class ExercisePreview extends React.Component {
       tags.push(new Tag(`Nickname:${exercise.nickname}`));
     }
     tags.push(new Tag(`ID:${exercise.uid}`));
-
     return tags;
   }
 
@@ -101,44 +103,47 @@ class ExercisePreview extends React.Component {
     });
 
     return (
-      <Panel
+      <Card
         className={classes}
-        bsStyle={this.props.panelStyle}
-        header={this.props.header}
         data-exercise-id={this.props.exercise.uid}
         tabIndex={-1}
-        footer={this.props.children ? this.renderFooter() : undefined}>
-        {this.props.isSelected ? <div className="selected-mask" /> : undefined}
-        <ControlsOverlay
-          exercise={this.props.exercise}
-          actions={this.props.overlayActions}
-          onClick={this.props.onOverlayClick} />
-        <div className="exercise-body">
-          <ExerciseBadges flags={this.props.extractedInfo} />
-          {!isEmpty(this.props.extractedInfo.context) && !!this.props.isInteractive ? <ArbitraryHtmlAndMath className="context" block={true} html={this.props.extractedInfo.context} /> : undefined}
-          {this.renderStimulus()}
-          {map(this.exercise.questions, (question, index) => (
-            <Question
-              key={index}
-              hideAnswers={this.props.hideAnswers}
-              className="openstax-question-preview"
-              question={question}
-              choicesEnabled={false}
-              displayFormats={this.props.displayFormats}
-              show_all_feedback={this.props.displayFeedback}
-              type="teacher-preview">
-              {this.props.questionFooters != null ? this.props.questionFooters[questionIter] : undefined}
-            </Question>
-          ))}
-        </div>
-        <div className="exercise-tags">
-          {map(this.tags, (tag, index) => (
-            <span key={index} className="exercise-tag">
-              {tag.asString}
-            </span>
-          ))}
-        </div>
-      </Panel>
+      >
+        {this.props.header && <Card.Header>{this.props.header}</Card.Header>}
+        <Card.Body>
+          {this.props.isSelected ? <div className="selected-mask" /> : undefined}
+          <ControlsOverlay
+            exercise={this.props.exercise}
+            actions={this.props.overlayActions}
+            onClick={this.props.onOverlayClick} />
+          <div className="exercise-body">
+            <ExerciseBadges flags={this.props.extractedInfo} />
+            {!isEmpty(this.props.extractedInfo.context) && !!this.props.isInteractive ? <ArbitraryHtmlAndMath className="context" block={true} html={this.props.extractedInfo.context} /> : undefined}
+            {this.renderStimulus()}
+            {map(this.exercise.questions, (question, index) => (
+              <Question
+                key={index}
+                hideAnswers={this.props.hideAnswers}
+                className="openstax-question-preview"
+                question={question}
+                choicesEnabled={false}
+                displayFormats={this.props.displayFormats}
+                show_all_feedback={this.props.displayFeedback}
+                type="teacher-preview"
+              >
+                {this.props.questionFooters && this.props.questionFooters[index]}
+              </Question>
+            ))}
+          </div>
+          <div className="exercise-tags">
+            {map(this.tags, (tag, index) => (
+              <span key={index} className="exercise-tag">
+                {tag.asString}
+              </span>
+            ))}
+          </div>
+        </Card.Body>
+        {this.props.children && <Card.Footer>{this.renderFooter()}</Card.Footer>}
+      </Card>
     );
   }
 }

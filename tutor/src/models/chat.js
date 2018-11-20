@@ -2,9 +2,6 @@ const DEPLOYMENT_ID   = '572U0000000k9cB';
 const ORGANIZATION_ID = '00DU0000000Kwch';
 const ELEMENT_ID      = '573U0000000k9cB';
 
-import { computed } from 'mobx';
-import User from './user';
-
 export default {
 
   get isEnabled() {

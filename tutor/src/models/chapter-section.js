@@ -1,11 +1,12 @@
 import {
-  BaseModel, identifiedBy, session,
+  BaseModel, identifiedBy,
 } from 'shared/model';
 
 import { computed } from 'mobx';
 
+export default
 @identifiedBy('chapter-section')
-export default class ChapterSection extends BaseModel {
+class ChapterSection extends BaseModel {
 
   constructor([chapter, section]) {
     super();
@@ -28,4 +29,4 @@ export default class ChapterSection extends BaseModel {
     return [this.chapter, this.section];
   }
 
-}
+};

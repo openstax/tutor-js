@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import { observable, computed, action, observe } from 'mobx';
@@ -9,15 +10,16 @@ import Courses from '../../models/courses-map';
 import WarningModal from '../../components/warning-modal';
 import './styles.scss';
 
+export default
 @inject((allStores, props) => ({ tourContext: ( props.tourContext || allStores.tourContext ) }))
 @observer
-export default class StudentDashboardShell extends React.PureComponent {
+class StudentDashboardShell extends React.Component {
 
   static propTypes = {
-    params: React.PropTypes.shape({
-      courseId: React.PropTypes.string,
+    params: PropTypes.shape({
+      courseId: PropTypes.string,
     }).isRequired,
-    tourContext: React.PropTypes.object,
+    tourContext: PropTypes.object,
   }
 
   @computed get course() {
@@ -43,4 +45,5 @@ export default class StudentDashboardShell extends React.PureComponent {
       <StudentDashboard params={this.props.params} course={this.course} />
     );
   }
-}
+
+};

@@ -2,13 +2,12 @@
 
 exports[`Exercise Preview Component callbacks are called when overlay and actions are clicked 1`] = `
 <div
-  className="openstax-exercise-preview has-actions panel panel-default"
+  className="openstax-exercise-preview has-actions card"
   data-exercise-id="7@1"
-  id={undefined}
   tabIndex={-1}
 >
   <div
-    className="panel-body"
+    className="card-body"
   >
     <div
       className="controls-overlay"
@@ -32,7 +31,6 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
     >
       <div
         className="openstax-question openstax-question-preview"
-        data-question-number={undefined}
       >
         <div
           dangerouslySetInnerHTML={
@@ -60,7 +58,6 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                   aria-label="Choice a:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   a
                 </button>
@@ -94,7 +91,6 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                   aria-label="Choice b:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   b
                 </button>
@@ -128,7 +124,6 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                   aria-label="Choice c:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   c
                 </button>
@@ -162,7 +157,6 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                   aria-label="Choice d:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   d
                 </button>
@@ -196,7 +190,6 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
                   aria-label="Choice e:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   e
                 </button>
@@ -268,20 +261,18 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
 
 exports[`Exercise Preview Component can hide the answers 1`] = `
 <div
-  className="openstax-exercise-preview answers-hidden panel panel-default"
+  className="openstax-exercise-preview answers-hidden card"
   data-exercise-id="3@1"
-  id={undefined}
   tabIndex={-1}
 >
   <div
-    className="panel-body"
+    className="card-body"
   >
     <div
       className="exercise-body"
     >
       <div
         className="openstax-question openstax-question-preview"
-        data-question-number={undefined}
       >
         <div
           dangerouslySetInnerHTML={
@@ -334,20 +325,18 @@ exports[`Exercise Preview Component can hide the answers 1`] = `
 
 exports[`Exercise Preview Component can render question formats 1`] = `
 <div
-  className="openstax-exercise-preview is-displaying-formats panel panel-default"
+  className="openstax-exercise-preview is-displaying-formats card"
   data-exercise-id="4@1"
-  id={undefined}
   tabIndex={-1}
 >
   <div
-    className="panel-body"
+    className="card-body"
   >
     <div
       className="exercise-body"
     >
       <div
         className="openstax-question openstax-question-preview"
-        data-question-number={undefined}
       >
         <div
           dangerouslySetInnerHTML={
@@ -375,7 +364,6 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                   aria-label="Choice a:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   a
                 </button>
@@ -409,7 +397,6 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                   aria-label="Choice b:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   b
                 </button>
@@ -443,7 +430,6 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                   aria-label="Choice c:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   c
                 </button>
@@ -477,7 +463,6 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                   aria-label="Choice d:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   d
                 </button>
@@ -511,7 +496,6 @@ exports[`Exercise Preview Component can render question formats 1`] = `
                   aria-label="Choice e:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   e
                 </button>
@@ -598,20 +582,18 @@ exports[`Exercise Preview Component can render question formats 1`] = `
 
 exports[`Exercise Preview Component hides context if missing 1`] = `
 <div
-  className="openstax-exercise-preview panel panel-default"
+  className="openstax-exercise-preview card"
   data-exercise-id="8@1"
-  id={undefined}
   tabIndex={-1}
 >
   <div
-    className="panel-body"
+    className="card-body"
   >
     <div
       className="exercise-body"
     >
       <div
         className="openstax-question openstax-question-preview"
-        data-question-number={undefined}
       >
         <div
           dangerouslySetInnerHTML={
@@ -646,7 +628,6 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                   aria-label="Choice a:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   a
                 </button>
@@ -680,7 +661,6 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                   aria-label="Choice b:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   b
                 </button>
@@ -714,7 +694,6 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                   aria-label="Choice c:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   c
                 </button>
@@ -748,7 +727,6 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                   aria-label="Choice d:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   d
                 </button>
@@ -782,7 +760,6 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
                   aria-label="Choice e:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   e
                 </button>
@@ -854,20 +831,18 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
 
 exports[`Exercise Preview Component limits tags 1`] = `
 <div
-  className="openstax-exercise-preview panel panel-default"
+  className="openstax-exercise-preview card"
   data-exercise-id="9@1"
-  id={undefined}
   tabIndex={-1}
 >
   <div
-    className="panel-body"
+    className="card-body"
   >
     <div
       className="exercise-body"
     >
       <div
         className="openstax-question openstax-question-preview"
-        data-question-number={undefined}
       >
         <div
           dangerouslySetInnerHTML={
@@ -895,7 +870,6 @@ exports[`Exercise Preview Component limits tags 1`] = `
                   aria-label="Choice a:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   a
                 </button>
@@ -929,7 +903,6 @@ exports[`Exercise Preview Component limits tags 1`] = `
                   aria-label="Choice b:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   b
                 </button>
@@ -963,7 +936,6 @@ exports[`Exercise Preview Component limits tags 1`] = `
                   aria-label="Choice c:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   c
                 </button>
@@ -997,7 +969,6 @@ exports[`Exercise Preview Component limits tags 1`] = `
                   aria-label="Choice d:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   d
                 </button>
@@ -1031,7 +1002,6 @@ exports[`Exercise Preview Component limits tags 1`] = `
                   aria-label="Choice e:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   e
                 </button>
@@ -1133,20 +1103,18 @@ exports[`Exercise Preview Component limits tags 1`] = `
 
 exports[`Exercise Preview Component renders and matches snapshot 1`] = `
 <div
-  className="openstax-exercise-preview panel panel-default"
+  className="openstax-exercise-preview card"
   data-exercise-id="1@1"
-  id={undefined}
   tabIndex={-1}
 >
   <div
-    className="panel-body"
+    className="card-body"
   >
     <div
       className="exercise-body"
     >
       <div
         className="openstax-question openstax-question-preview"
-        data-question-number={undefined}
       >
         <div
           dangerouslySetInnerHTML={
@@ -1174,7 +1142,6 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
                   aria-label="Choice a:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   a
                 </button>
@@ -1213,7 +1180,6 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
                   aria-label="Choice b:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   b
                 </button>
@@ -1252,7 +1218,6 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
                   aria-label="Choice c:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   c
                 </button>
@@ -1291,7 +1256,6 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
                   aria-label="Choice d:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   d
                 </button>
@@ -1330,7 +1294,6 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
                   aria-label="Choice e:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   e
                 </button>
@@ -1407,20 +1370,18 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
 
 exports[`Exercise Preview Component sets the className when displaying feedback 1`] = `
 <div
-  className="openstax-exercise-preview is-displaying-feedback panel panel-default"
+  className="openstax-exercise-preview is-displaying-feedback card"
   data-exercise-id="2@1"
-  id={undefined}
   tabIndex={-1}
 >
   <div
-    className="panel-body"
+    className="card-body"
   >
     <div
       className="exercise-body"
     >
       <div
         className="openstax-question openstax-question-preview"
-        data-question-number={undefined}
       >
         <div
           dangerouslySetInnerHTML={
@@ -1448,7 +1409,6 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                   aria-label="Choice a:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   a
                 </button>
@@ -1491,7 +1451,6 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                   aria-label="Choice b:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   b
                 </button>
@@ -1534,7 +1493,6 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                   aria-label="Choice c:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   c
                 </button>
@@ -1577,7 +1535,6 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                   aria-label="Choice d:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   d
                 </button>
@@ -1620,7 +1577,6 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
                   aria-label="Choice e:"
                   className="answer-letter"
                   disabled={true}
-                  onClick={undefined}
                 >
                   e
                 </button>

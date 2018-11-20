@@ -1,16 +1,18 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
-  Row, Col, FormGroup, InputGroup, Dropdown, Button,
-  FormControl, DropdownButton, MenuItem,
+  Row, Col, FormGroup, InputGroup, DropdownButton,
+  FormControl, Dropdown,
 } from 'react-bootstrap';
-import AsyncButton from 'shared/components/buttons/async-button.cjsx';
+import AsyncButton from 'shared/components/buttons/async-button';
 import { observer } from 'mobx-react';
 
+export default
 @observer
-export default class Clause extends React.Component {
+class Clause extends React.Component {
 
   static propTypes = {
-    clause: React.PropTypes.object.isRequired,
+    clause: PropTypes.object.isRequired,
   };
 
   render() {
@@ -19,44 +21,43 @@ export default class Clause extends React.Component {
     return (
       <Row>
         <Col xs={8}>
-          <FormGroup>
-            <InputGroup>
-              <DropdownButton
-                title={clause.description}
-                componentClass={InputGroup.Button}
-                onSelect={clause.onSelect}
-                id="input-dropdown-addon"
+          <InputGroup>
+            <DropdownButton
+              as={InputGroup.Prepend}
+              variant="outline-secondary"
+              title={clause.description}
+              id="input-dropdown-addon"
+            >
+              <Dropdown.Item eventKey="uid">ID (Number@Version)</Dropdown.Item>
+              <Dropdown.Item eventKey="nickname">Nickname</Dropdown.Item>
+              <Dropdown.Item eventKey="tag">Tag</Dropdown.Item>
+              <Dropdown.Item eventKey="content">Content</Dropdown.Item>
+              <Dropdown.Item eventKey="author">Author</Dropdown.Item>
+              <Dropdown.Item eventKey="copyright_holder">Copyright Holder</Dropdown.Item>
+              <Dropdown.Item eventKey="collaborator">Any Collaborator</Dropdown.Item>
+            </DropdownButton>
+            <FormControl
+              type="text"
+              autoFocus
+              onKeyDown={clause.onKey}
+              onChange={clause.setValue}
+              value={clause.value}
+            />
+            <InputGroup.Append>
+              <AsyncButton
+                isWaiting={clause.search.api.isPending}
+                waitingText="Searching…"
+                onClick={clause.search.execute}
               >
-                <MenuItem eventKey="uid">ID (Number@Version)</MenuItem>
-                <MenuItem eventKey="nickname">Nickname</MenuItem>
-                <MenuItem eventKey="tag">Tag</MenuItem>
-                <MenuItem eventKey="content">Content</MenuItem>
-                <MenuItem eventKey="author">Author</MenuItem>
-                <MenuItem eventKey="copyright_holder">Copyright Holder</MenuItem>
-                <MenuItem eventKey="collaborator">Any Collaborator</MenuItem>
-              </DropdownButton>
-              <FormControl
-                type="text"
-                autoFocus
-                onKeyDown={clause.onKey}
-                onChange={clause.setValue}
-                value={clause.value}
-              />
-              <InputGroup.Button>
-                <AsyncButton
-                  isWaiting={clause.search.api.isPending}
-                  waitingText="Searching…"
-                  onClick={clause.search.execute}
-                >
-                  Go
-                </AsyncButton>
-              </InputGroup.Button>
-            </InputGroup>
-          </FormGroup>
+                Go
+              </AsyncButton>
+            </InputGroup.Append>
+          </InputGroup>
+
         </Col>
       </Row>
     );
 
   }
 
-}
+};

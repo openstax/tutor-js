@@ -1,4 +1,3 @@
-import { SnapShot } from '../../helpers/component-testing';
 import Preview from '../../../../src/components/task-plan/footer/preview-button';
 
 describe('Task Plan Builder: Preview button', () => {
@@ -20,12 +19,11 @@ describe('Task Plan Builder: Preview button', () => {
     expect(btn.html()).toBeNull();
     btn.setProps({ planType: 'homework' });
     expect(btn.html()).not.toBeNull();
+    btn.unmount();
   });
 
   it('matches snapshot', function() {
-    expect(
-      SnapShot.create(<Preview {...props} />).toJSON()
-    ).toMatchSnapshot();
+    expect.snapshot(<Preview {...props} />).toMatchSnapshot();
   });
 
 });

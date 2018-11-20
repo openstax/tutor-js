@@ -1,5 +1,6 @@
 import Loader from '../../src/models/loader';
 import { delay } from 'lodash';
+import { deferred } from '../helpers';
 
 jest.useFakeTimers();
 
@@ -38,12 +39,16 @@ describe('Model Loader', () => {
     const args = { one: 1, two: 2 };
     loader.fetch(args);
     jest.runAllTimers();
-    expect(model.fetch).toHaveBeenCalledTimes(1);
-    expect(loader.isLoading(args)).toBeFalsy();
-    expect(loader.hasLoaded(args)).toBeTruthy();
-    expect(model.fetch).toHaveBeenCalledTimes(1);
-    loader.fetch(args, { reload: true });
-    expect(model.fetch).toHaveBeenCalledTimes(2);
+    return deferred(() => {
+      expect(model.fetch).toHaveBeenCalledTimes(1);
+      expect(loader.isLoading(args)).toBeFalsy();
+      expect(loader.hasLoaded(args)).toBeTruthy();
+      expect(model.fetch).toHaveBeenCalledTimes(1);
+      loader.fetch(args, { reload: true });
+      expect(model.fetch).toHaveBeenCalledTimes(2);
+    });
+
+
   });
 
 });

@@ -1,0 +1,90 @@
+#!/usr/bin/env ruby
+
+require 'pathname'
+require 'fileutils'
+require 'irb'
+
+class Upgrade
+  CJSX = /.cjsx$/
+  COFFEE = /.coffee$/
+
+  attr_reader :file, :contents
+  def initialize(file)
+    if file =~ CJSX
+      @original_cjsx = Pathname.new(file)
+      dest = file.gsub(CJSX, '.coffee')
+      `cjsx-transform #{file} > #{dest}`
+      file = dest
+    end
+    # binding.irb
+    if file =~ COFFEE
+      @original_coffee = Pathname.new(file)
+      puts `decaffeinate --disable-suggestion-comment --use-js-modules --loose --prefer-const #{file}`
+      file = file.gsub(COFFEE, '.js')
+    end
+
+    @file = Pathname(file)
+    @contents = @file.read
+  end
+
+  def do_regex
+    contents.gsub!(%r|\({ scores } = bootstrapScores\(\)\);|, "const { scores } = bootstrapScores();")
+    contents.gsub!(/PureComponent/, 'Component')
+    contents.gsub!(
+      /(@\w+(?:\('(?:\w+|\/|-|_)+'\))*)(?:\n+|\s+)(export(?: default)*)/m,
+      "\\2\n\\1\n"
+    )
+  end
+
+  def apply!
+    do_regex
+    @tmp = Pathname.new(file.to_s.sub(file.extname, '.bak.js'))
+    @tmp.write contents
+    codemod
+    system('eslint', '--fix', @tmp.to_s)
+
+    @tmp.rename(file)
+    @original_cjsx.delete if @original_cjsx
+    @original_coffee.delete if @original_coffee
+  end
+
+
+  def codemod
+    cmd = "jscodeshift -t configs/upgrade-transforms.js"
+    unless @original_coffee
+      cmd << " --parser babylon"
+    end
+    cmd << " #{@tmp.to_s}"
+
+    puts "running #{cmd}"
+    output = %x{#{cmd} 2>&1}
+    puts output
+
+    unless output.match(/0 errors/)
+      STDERR.puts "failed:\n#{$0} #{@file.to_s}"
+      exit 1
+    end
+  end
+
+end
+
+if ARGV[0]
+  up = Upgrade.new(ARGV[0])
+  up.apply!
+  exit
+end
+
+LOG = File.open('configs/upgrade.log', 'r+')
+PROGRESS = LOG.readlines.map(&:chomp)
+
+Dir.glob('{tutor,shared,exercises}/**/*.{js,jsx,cjsx,coffee}').each do |js|
+  if js =~ /\.bak\.\w+$/
+    FileUtils.rm(js)
+    next
+  end
+  puts js
+  next if PROGRESS.include?(js)
+  up = Upgrade.new(js)
+  up.apply!
+  LOG.write("#{js}\n")
+end

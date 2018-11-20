@@ -12,7 +12,7 @@ describe('Reference Book', () => {
   it('maps pages and updates when the model changes', () => {
     const recomputeSpy = jest.fn();
     autorun(() => recomputeSpy(book.pages));
-    const page_ids = book.pages.byId.keys();
+    const page_ids = Array.from(book.pages.byId.keys());
     const oldId = sample(page_ids);
     const page = book.pages.byId.get(oldId);
     expect(book.pages.byId.keys()).toContain(oldId);

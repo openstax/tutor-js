@@ -2,8 +2,9 @@ import {
   BaseModel, field, identifiedBy,
 } from 'shared/model';
 
+export default
 @identifiedBy('offerings/term')
-export default class Term extends BaseModel {
+class Term extends BaseModel {
 
   @field term;
   @field year;
@@ -11,4 +12,4 @@ export default class Term extends BaseModel {
   is(term, year) {
     return this.term == term && this.year === year;
   }
-}
+};

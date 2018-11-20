@@ -1,37 +1,35 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { observer, inject } from 'mobx-react';
 import { computed, action } from 'mobx';
 import { get } from 'lodash';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import TourAnchor from '../tours/anchor';
 import TourContext from '../../models/tour/context';
 import Router from '../../helpers/router';
-import Courses from '../../models/courses-map.js';
+import Course from '../../models/course.js';
 
 import onboardingForCourse from '../../models/course/onboarding';
 
+export default
 @inject((allStores, props) => ({
   tourContext: ( props.tourContext || allStores.tourContext ),
 }))
 @observer
-export default class PreviewAddCourseBtn extends React.PureComponent {
-
-  static contextTypes = {
-    router: React.PropTypes.object,
-  }
+class PreviewAddCourseBtn extends React.Component {
 
   static propTypes = {
-    courseId: React.PropTypes.string,
-    tourContext: React.PropTypes.instanceOf(TourContext),
+    course: PropTypes.instanceOf(Course),
+    tourContext: PropTypes.instanceOf(TourContext),
   }
 
-  @computed get course() {
-    return this.props.courseId ? Courses.get(this.props.courseId) : null;
+  static contextTypes = {
+    router: PropTypes.object,
   }
 
   @computed get ux() {
-    return this.course ? onboardingForCourse(this.course, this.props.tourContext) : null;
+    return this.props.course ? onboardingForCourse(this.props.course, this.props.tourContext) : null;
   }
 
   componentWillUnmount() {
@@ -51,10 +49,10 @@ export default class PreviewAddCourseBtn extends React.PureComponent {
     return (
       <TourAnchor id="preview-add-course-nav-button">
         <Button onClick={this.onAddCourse}>
-          <Icon type="plus" />
+          <Icon type="plus-square" />
           Create a course
         </Button>
       </TourAnchor>
     );
   }
-}
+};

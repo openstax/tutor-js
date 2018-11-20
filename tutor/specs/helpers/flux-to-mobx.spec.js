@@ -24,8 +24,9 @@ describe('FluxToMobx', () => {
     expect(TaskPlanStore.on).not.toHaveBeenCalled();
 
     const updateSpy = jest.fn(() => {
-      // printed everytime the database updates its records
-      console.log(exCount.current());
+      // called everytime the database updates its records
+      exCount.current()
+      // console.log();
     });
     const unListen = autorun(updateSpy);
     expect(updateSpy).toHaveBeenCalledTimes(1);

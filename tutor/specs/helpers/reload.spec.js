@@ -8,12 +8,12 @@ describe('Reloading window', () => {
   it('detects if page is reloaded', () => {
     expect(isReloaded({ windowImpl })).toEqual(false);
     windowImpl.location.search = '?foo&reloaded';
-    expect(isReloaded({ windowImpl} )).toEqual(true);
+    expect(isReloaded({ windowImpl } )).toEqual(true);
   });
 
   it('reloads page once', () => {
     expect(windowImpl.location.reload).not.toHaveBeenCalled();
-    expect(isReloaded({ windowImpl} )).toEqual(false);
+    expect(isReloaded({ windowImpl } )).toEqual(false);
     reloadOnce({ windowImpl });
     expect(windowImpl.history.pushState).toHaveBeenCalledWith('', '', `${windowImpl.location.href}?reloaded`);
     expect(windowImpl.location.reload).toHaveBeenCalledWith(true); // true == no-cache

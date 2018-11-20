@@ -1,13 +1,15 @@
+import mobxPropTypes from 'prop-types';
 import React from 'react';
-import { observer, PropTypes as mobxPropTypes } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { observable, autorun, action } from 'mobx';
 import { isEmpty } from 'lodash';
 import Toasts from '../../models/toasts';
 
 const REMOVE_AFTER = 1000 * 7;
 
+export default
 @observer
-export default class BackgroundToasts extends React.Component {
+class BackgroundToasts extends React.Component {
 
   static propTypes = {
     toasts: mobxPropTypes.observableArray,
@@ -52,4 +54,4 @@ export default class BackgroundToasts extends React.Component {
     );
   }
 
-}
+};

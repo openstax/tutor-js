@@ -1,14 +1,17 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
-import PaymentsPanel from '../payments/panel';
+import { observer } from 'mobx-react';
+import PaymentsCard from '../payments/panel';
 import { OnboardingNag, Body } from './onboarding-nag';
 
+export default
 @observer
-export default class MakePayment extends React.PureComponent {
+class MakePayment extends React.Component {
 
   static propTypes = {
-    ux: MobxPropTypes.observableObject.isRequired,
+    ux: PropTypes.object.isRequired,
+    onDismiss: PropTypes.func.isRequired,
   }
 
   static className = 'make-payment';
@@ -18,9 +21,9 @@ export default class MakePayment extends React.PureComponent {
 
     return (
       <OnboardingNag className="make-payment">
-        <PaymentsPanel onCancel={ux.onPayLater} onPaymentComplete={ux.onPaymentComplete} course={ux.course} />
+        <PaymentsCard onCancel={ux.onPayLater} onPaymentComplete={ux.onPaymentComplete} course={ux.course} />
       </OnboardingNag>
     );
   }
 
-}
+};

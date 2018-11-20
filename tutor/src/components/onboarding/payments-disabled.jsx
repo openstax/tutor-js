@@ -1,13 +1,16 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { OnboardingNag, Body } from './onboarding-nag';
 
+export default
 @observer
-export default class PaymentsDisabled extends React.PureComponent {
+class PaymentsDisabled extends React.Component {
 
   static propTypes = {
-    ux: MobxPropTypes.observableObject.isRequired,
+    ux: PropTypes.object.isRequired,
+    onDismiss: PropTypes.func.isRequired,
   }
 
   static className = 'payments-disabled';
@@ -23,7 +26,7 @@ export default class PaymentsDisabled extends React.PureComponent {
             You are now enrolled in {ux.course.name}
           </h3>
 
-          <Button bsStyle="primary" onClick={ux.acknowledgeTrial}>
+          <Button variant="primary" onClick={ux.acknowledgeTrial}>
             Start your free trial
           </Button>
           <p>
@@ -36,4 +39,4 @@ export default class PaymentsDisabled extends React.PureComponent {
     );
   }
 
-}
+};

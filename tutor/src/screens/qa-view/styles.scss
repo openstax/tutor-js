@@ -43,7 +43,7 @@
         position: initial;
       }
       .edit-link {
-        @include tutor-external-link-indicator();
+//        @include tutor-external-link-indicator();
         position: absolute;
         bottom: 15px;
         right: 10px;
@@ -63,7 +63,7 @@
         color: black;
         margin-left: 0.5rem;
         padding: 0 5px;
-        border-radius: $border-radius-base;
+        border-radius: $border-radius;
       }
       .is-ignored     { text-decoration: line-through;              }
       .practice       { background-color: $reading-color;           }

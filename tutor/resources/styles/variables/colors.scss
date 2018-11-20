@@ -1,16 +1,18 @@
+// Must update src/theme.js for styled components
+
 $tutor-primary: rgb(244, 118, 65); // orange
 $tutor-secondary: rgb(99, 165, 36); // green
 $tutor-tertiary: rgb(35, 48, 102); // dark blue
 $tutor-quaternary: rgb(244, 208, 25); // yellow
 $tutor-highlight-active: rgb(255, 255, 187); // pale yellow
 
-$tutor-secondary-light: rgb(139, 199, 83); // light green
-$tutor-tertiary-light: rgb(13, 192, 220); // light blue
-$tutor-tertiary-lighter: rgb(210, 243, 248); // lighter blue
-$tutor-highlight: lighten($tutor-tertiary-light, 45%);
+$tutor-secondary-neutral-light: rgb(139, 199, 83); // light green
+$tutor-tertiary-neutral-light: rgb(13, 192, 220); // light blue
+$tutor-tertiary-neutral-lighter: rgb(210, 243, 248); // lighter blue
+$tutor-highlight: lighten($tutor-tertiary-neutral-light, 45%);
 $tutor-dark-blue: rgb(0, 36, 105); // #002469
 $tutor-success: $tutor-secondary;
-$tutor-info: $tutor-tertiary-light;
+$tutor-info: $tutor-tertiary-neutral-light;
 $tutor-info-bg: lighten($tutor-info, 53%); // even lighter blue
 $tutor-warning: $tutor-quaternary;
 $tutor-danger: rgb(194, 0, 47); // red

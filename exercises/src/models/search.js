@@ -37,8 +37,9 @@ class Clause extends BaseModel {
   }
 }
 
+export default
 @identifiedBy('search')
-export default class Search extends BaseModel {
+class Search extends BaseModel {
 
   @hasMany({ model: Clause, inverseOf: 'search' }) clauses;
   @hasMany({ model: Exercise }) exercises;
@@ -63,4 +64,4 @@ export default class Search extends BaseModel {
     return { query: { q: map(this.clauses, 'asQuery').join(' ') } };
   }
 
-}
+};

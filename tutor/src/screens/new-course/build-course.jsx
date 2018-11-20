@@ -1,15 +1,17 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 
 import Router from '../../helpers/router';
 
+export default
 @observer
-export default class BuildCourse extends React.PureComponent {
+class BuildCourse extends React.Component {
 
   static title = 'Creating your new course';
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   redirectToCourse(course) {
@@ -29,4 +31,4 @@ export default class BuildCourse extends React.PureComponent {
       </div>
     );
   }
-}
+};

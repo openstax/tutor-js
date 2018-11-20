@@ -1,12 +1,13 @@
 import { React, observer, action, observable, cn  } from '../../helpers/react';
 import { partial } from 'lodash';
+import PropTypes from 'prop-types';
 import { Overlay, Popover } from 'react-bootstrap';
 import Course from '../../models/course';
 import { CloneAssignmentLink } from './task-dnd';
 import TaskPlanHelper from '../../helpers/task-plan';
 import TimeHelper from '../../helpers/time';
 
-const PastAssignmentsLoading = ({className}) => (
+const PastAssignmentsLoading = ({ className }) => (
   <div className={cn('past-assignments', className)}>
     <div className="no-plans is-loading">
       Loading copied assignments…
@@ -14,12 +15,13 @@ const PastAssignmentsLoading = ({className}) => (
   </div>
 );
 
+export default
 @observer
-export default class PastAssignments extends React.Component {
+class PastAssignments extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
-    cloningPlanId: React.PropTypes.string,
+    course: PropTypes.instanceOf(Course).isRequired,
+    cloningPlanId: PropTypes.string,
   }
 
   @observable tooltipTarget;
@@ -72,4 +74,4 @@ export default class PastAssignments extends React.Component {
       </div>
     );
   }
-}
+};

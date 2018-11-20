@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { computed, observable, action } from 'mobx';
 import { observer } from 'mobx-react';
@@ -13,13 +14,13 @@ import { chapterSectionToNumber } from '../../helpers/content';
 class Sectionizer extends React.Component {
 
   static propTypes = {
-    chapter_sections:  React.PropTypes.array.isRequired,
-    onScreenElements:  React.PropTypes.array.isRequired,
-    nonAvailableWidth: React.PropTypes.number.isRequired,
-    onSectionClick:    React.PropTypes.func,
-    currentSection:    React.PropTypes.string,
-    windowImpl:        React.PropTypes.object,
-    initialScrollTarget: React.PropTypes.string,
+    chapter_sections:  PropTypes.array.isRequired,
+    onScreenElements:  PropTypes.array.isRequired,
+    nonAvailableWidth: PropTypes.number.isRequired,
+    onSectionClick:    PropTypes.func,
+    currentSection:    PropTypes.string,
+    windowImpl:        PropTypes.object,
+    initialScrollTarget: PropTypes.string,
   }
 
   scroller = new ScrollTo({ windowImpl: this.props.windowImpl });

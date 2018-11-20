@@ -20,7 +20,7 @@ exports[`Preview Only Warning renders and matches snapshot 1`] = `
     className="footer"
   >
     <button
-      className="btn btn-primary"
+      className="create btn btn-primary"
       disabled={false}
       onClick={[Function]}
       type="button"
@@ -28,7 +28,7 @@ exports[`Preview Only Warning renders and matches snapshot 1`] = `
       Create a course
     </button>
     <button
-      className="btn btn-default"
+      className="continue btn btn-primary"
       disabled={false}
       onClick={[Function]}
       type="button"

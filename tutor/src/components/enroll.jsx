@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { Modal } from 'react-bootstrap';
@@ -14,15 +15,16 @@ import droppedStudent from './enroll/dropped-student';
 import courseEnded from './enroll/course-ended';
 import unknownError from './enroll/unknown-error';
 
+export default
 @observer
-export default class CourseEnroll extends React.PureComponent {
+class CourseEnroll extends React.Component {
 
   static propTypes = {
-    enrollment: React.PropTypes.object,
+    enrollment: PropTypes.object,
   }
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   static Components = {
@@ -50,11 +52,10 @@ export default class CourseEnroll extends React.PureComponent {
 
     return (
       <Modal.Dialog
-        backdropClassName="course-enroll"
         className="course-enroll"
       >
         {enrollment.bodyContents}
       </Modal.Dialog>
     );
   }
-}
+};

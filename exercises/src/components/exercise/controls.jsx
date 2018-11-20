@@ -1,10 +1,10 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { computed, observable, action } from 'mobx';
+import { computed, action } from 'mobx';
 import Exercises, { ExercisesMap } from '../../models/exercises';
-import { Button, ButtonToolbar } from 'react-bootstrap';
-import AsyncButton from 'shared/components/buttons/async-button.cjsx';
+import { ButtonToolbar } from 'react-bootstrap';
+import AsyncButton from 'shared/components/buttons/async-button';
 import MPQToggle from 'components/exercise/mpq-toggle';
 import { SuretyGuard, idType } from 'shared';
 import Toasts from '../../models/toasts';
@@ -12,15 +12,15 @@ import Toasts from '../../models/toasts';
 @observer
 class ExerciseControls extends React.Component {
   static propTypes = {
-    match: React.PropTypes.shape({
-      params: React.PropTypes.shape({
+    match: PropTypes.shape({
+      params: PropTypes.shape({
         uid: idType,
       }),
     }),
-    history: React.PropTypes.shape({
-      push: React.PropTypes.func,
+    history: PropTypes.shape({
+      push: PropTypes.func,
     }).isRequired,
-    exercises: React.PropTypes.instanceOf(ExercisesMap),
+    exercises: PropTypes.instanceOf(ExercisesMap),
   };
 
   static defaultProps = {
@@ -37,8 +37,11 @@ class ExerciseControls extends React.Component {
   @action.bound saveExerciseDraft() {
     const { exercise } = this;
     this.props.exercises.saveDraft(exercise).then(() => {
-      Toasts.push({ handler: 'published', status: 'ok',
-        info: { isDraft: true, exercise } });
+      Toasts.push({
+        handler: 'published',
+        status: 'ok',
+        info: { isDraft: true, exercise },
+      });
       this.props.history.push(`/exercise/${exercise.uid}`);
     });
   }
@@ -60,7 +63,7 @@ class ExerciseControls extends React.Component {
       <li className="exercise-navbar-controls">
         <ButtonToolbar className="navbar-btn">
           <AsyncButton
-            bsStyle="info"
+            variant="info"
             className="draft"
             onClick={this.saveExerciseDraft}
             disabled={!exercise.validity.valid}
@@ -76,7 +79,7 @@ class ExerciseControls extends React.Component {
               placement="right"
               message="Once an exercise is published, it is available for use.">
               <AsyncButton
-                bsStyle="primary"
+                variant="primary"
                 className="publish"
                 disabled={!exercise.isPublishable}
                 isWaiting={exercise.api.isPending}

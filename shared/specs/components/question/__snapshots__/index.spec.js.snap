@@ -3,7 +3,6 @@
 exports[`Question Component renders and matches snapshot 1`] = `
 <div
   className="openstax-question"
-  data-question-number={undefined}
 >
   <div
     className="question-stem"

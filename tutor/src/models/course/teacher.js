@@ -4,8 +4,9 @@ import {
 
 import User from '../user';
 
+export default
 @identifiedBy('course/teacher')
-export default class CourseTeacher extends BaseModel {
+class CourseTeacher extends BaseModel {
 
   @identifier id;
 
@@ -30,4 +31,4 @@ export default class CourseTeacher extends BaseModel {
       User.removeCourse(this.roster.course);
     }
   }
-}
+};

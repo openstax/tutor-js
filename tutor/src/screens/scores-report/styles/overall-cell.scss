@@ -17,41 +17,40 @@
     border-top-color: $tutor-neutral;
     border-top-width: 5px;
     border-top-style: solid;
-    .set-weights .fa-warning {
-      color: $form-error-color;
+    .exclamation-triangle {
+      margin-left: 1rem;
     }
-    .averages-toggle {
+    .btn.averages-toggle {
       position: absolute;
-      top: 5px;
-      right: 5px;
+      top: 10px;
+      height: 40px;
+      right: 0;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+      border-bottom-left-radius: 2px;
+      border-top-left-radius: 2px;
 
-      &.averages-toggle {
-        position: absolute;
-        top: 6px;
-        right: 0;
-        background-color: white;
-        height: 42px;
-        width: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 2;
+      // border-left: 1px solid $tutor-neutral-light;
+      // border-top: 1px solid $tutor-neutral-light;
+      // border-bottom: 1px solid $tutor-neutral-light;
 
-        border-bottom-left-radius: 2px;
-        border-top-left-radius: 2px;
+      // &.ox-icon {
+      //   height: 42px;
+      //   margin: 5px;
+      //   //width: 20px;
 
-        border-left: 1px solid $tutor-neutral-light;
-        border-top: 1px solid $tutor-neutral-light;
-        border-bottom: 1px solid $tutor-neutral-light;
 
-        &::before {
-          color: $tutor-neutral;
-        }
+      //   &::before {
+      //     color: $tutor-neutral;
+      //   }
 
-        &:hover {
-          background-color: $tutor-neutral-cool;
-        }
+      &:hover {
+        background-color: $tutor-neutral-cool;
       }
+//    }
     }
 
     span {

@@ -22,7 +22,7 @@ describe('Student Scores Data Sorter', function() {
 
   it('defaults to sorting by name', () => {
     const names = map(sortBy(students, StudentDataSorter(args)), 'last_name');
-    expect(names).to.deep.equal([
+    expect(names).toEqual([
       'Angstrom', 'Bloom', 'Glass', 'Hackett', 'Jaskolski', 'Kirlin', 'Lowe', 'Reilly', 'Tromp',
     ]);
   });
@@ -31,26 +31,34 @@ describe('Student Scores Data Sorter', function() {
     args.sort.key = 0;
     args.sort.asc = false;
     const scores = map(sortBy(students, StudentDataSorter(args)), s => s.data[0].correct_on_time_exercise_count);
-    expect(scores).to.deep.equal([0, 0, 0, 0, 1, 2, 2, 3, 4]);
+    expect(scores).toEqual([0, 0, 0, 0, 1, 2, 2, 3, 4]);
   });
 
   it('can sort by reading progress', function() {
     args.sort.key = 1;
     args.sort.asc = false;
     const steps = map(sortBy(students, StudentDataSorter(args)), s => s.data[1].completed_on_time_step_count);
-    expect(steps).to.deep.equal([ 0, 0, 0, 0, 0, 0, 4, 4, 29]);
-    expect(first(steps)).to.equal(0);
-    expect(last(steps)).to.equal(29);
+    expect(steps).toEqual([ 0, 0, 0, 0, 0, 0, 4, 4, 29]);
+    expect(first(steps)).toEqual(0);
+    expect(last(steps)).toEqual(29);
   });
 
   return it('sorts external events', function() {
     args.sort.key = 2;
     args.sort.asc = false;
     const steps = map(sortBy(students, StudentDataSorter(args)), s => s.data[2].status);
-    expect(first(steps)).to.equal('completed');
-    expect(last(steps)).to.equal('not_started');
-    expect(steps).to.deep.equal([
-      'completed', 'completed', 'completed', 'not_started',
-      'not_started', 'not_started', 'not_started', 'not_started', 'not_started']);
+    expect(first(steps)).toEqual('completed');
+    expect(last(steps)).toEqual('not_started');
+    expect(steps).toEqual([
+      'completed',
+      'completed',
+      'completed',
+      'not_started',
+      'not_started',
+      'not_started',
+      'not_started',
+      'not_started',
+      'not_started',
+    ]);
   });
 });

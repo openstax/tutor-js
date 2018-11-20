@@ -4,7 +4,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    @include tutor-sans-light-font(14px);
+    @include tutor-sans-neutral-light-font(14px);
 
     justify-content: space-between;
 
@@ -24,11 +24,13 @@
       justify-content: center;
       @include tutor-sans-font(14px);
       background-color: $tutor-white;
-
+      color: $tutor-neutral-dark;
+      border: 0;
       &.selected,
       &.active {
         background-color: $tutor-neutral-light;
       }
+
     }
 
     .job {

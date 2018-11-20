@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { isEmpty, compact, map, pick } from 'lodash';
 import classnames from 'classnames';
@@ -6,15 +7,15 @@ import { observer } from 'mobx-react';
 import AnswersTable from './answers-table';
 import ArbitraryHtmlAndMath from '../html';
 import FormatsListing from './formats-listing';
-import QuestionModel from '../../model/exercise/question';
+import QuestionModel, { ReviewQuestion } from '../../model/exercise/question';
 
 @observer
 class QuestionHtml extends React.Component {
 
   static propTypes = {
-    html: React.PropTypes.string,
-    type: React.PropTypes.string,
-    questionNumber: React.PropTypes.number,
+    html: PropTypes.string,
+    type: PropTypes.string,
+    questionNumber: PropTypes.number,
   };
 
   static defaultProps = {
@@ -23,7 +24,7 @@ class QuestionHtml extends React.Component {
   };
 
   static contextTypes = {
-    processHtmlAndMath: React.PropTypes.func,
+    processHtmlAndMath: PropTypes.func,
   };
 
   render() {
@@ -45,20 +46,24 @@ class QuestionHtml extends React.Component {
 }
 
 
+export default
 @observer
-export default class Question extends React.Component {
+class Question extends React.Component {
 
   static propTypes = {
-    question: React.PropTypes.instanceOf(QuestionModel).isRequired,
-    task: React.PropTypes.object,
-    correct_answer_id: React.PropTypes.string,
-    hideAnswers: React.PropTypes.bool,
-    exercise_uid: React.PropTypes.string,
-    displayFormats:  React.PropTypes.bool,
+    question: PropTypes.oneOfType([
+      PropTypes.instanceOf(QuestionModel),
+      PropTypes.instanceOf(ReviewQuestion),
+    ]).isRequired,
+    task: PropTypes.object,
+    correct_answer_id: PropTypes.string,
+    hideAnswers: PropTypes.bool,
+    exercise_uid: PropTypes.string,
+    displayFormats:  PropTypes.bool,
   };
 
   static childContextTypes = {
-    processHtmlAndMath: React.PropTypes.func,
+    processHtmlAndMath: PropTypes.func,
   };
 
   getChildContext() {
@@ -136,4 +141,4 @@ export default class Question extends React.Component {
       </div>
     );
   }
-}
+};

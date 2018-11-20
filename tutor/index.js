@@ -1,7 +1,3 @@
-// Only load recordo for dev code for now
-import Recordo from 'recordo';
-Recordo.initialize();
-// Recordo.start()
 import './resources/styles/tutor.scss';
 
 import UiSettings from 'shared/model/ui-settings';
@@ -21,7 +17,6 @@ import TOASTS from './src/models/toasts';
 window._STORES = {
   SETTINGS: UiSettings,
   APP:                  require('./src/flux/app'),
-  PERFORMANCE_FORECAST: require('./src/flux/performance-forecast'),
   TASK_PLAN:            require('./src/flux/task-plan'),
   TASK_STEP:            require('./src/flux/task-step'),
   TASK:                 require('./src/flux/task'),

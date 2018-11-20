@@ -1,9 +1,10 @@
 import {
-  BaseModel, identifiedBy, observable, field, belongsTo, computed, session,
+  BaseModel, identifiedBy, observable,
 } from 'shared/model';
 
+export default
 @identifiedBy('course/create')
-export default class CoursePair extends BaseModel {
+class CoursePair extends BaseModel {
 
   @observable course;
   @observable success;
@@ -21,4 +22,4 @@ export default class CoursePair extends BaseModel {
   onPaired({ data: { success } }) {
     this.success = success;
   }
-}
+};

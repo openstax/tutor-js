@@ -5,25 +5,7 @@
   @mixin top-nav-action() {
     font-size: 1.6rem;
 
-    .tutor-icon {
-      font-size: 1.6rem;
-
-      &:first-child {
-        margin: 0 0.5rem 0 0;
-      }
-      &:last-child {
-        margin: 0 0 0 0.5rem;
-      }
-      @media screen and ( min-width: $screen-md-min ){
-        &:first-child {
-          margin: 0 1rem 0 0;
-        }
-        &:last-child {
-          margin: 0 0 0 1rem;
-        }
-      }
-    }
-    @media screen and ( max-width: $screen-md ){
+    @include media-breakpoint-down('md') {
       .control-label { display: none; }
     }
   }
@@ -39,9 +21,9 @@
   flex-direction: row;
   justify-content: center;
   min-height: $tutor-navbar-height;
-  padding-right: $navbar-padding-horizontal;
-  padding-left:  $navbar-padding-horizontal;
-  z-index: $zindex-navbar-fixed;
+  padding-right: $navbar-padding-x;
+  padding-left:  $navbar-padding-x;
+  z-index: $zindex-fixed;
 
   @media print {
     display: none;
@@ -82,7 +64,7 @@
 
   .ui-brand-logo {
     display: inline-block;
-    margin-top: 12px;
+    margin-top: 5px;
     height: 34px;
     width: 200px;
     background-repeat: no-repeat;
@@ -95,7 +77,7 @@
     min-height: $tutor-navbar-height;
     > * {
       margin-left: 20px;
-      @media screen and (min-width: $screen-md-min ) {
+      @include media-breakpoint-up('md') {
         margin-left: 40px;
       }
 

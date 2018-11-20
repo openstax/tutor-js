@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { partial, pick, debounce } from 'lodash';
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
@@ -32,28 +33,29 @@ const isAnswerChecked = function(answer, chosenAnswer) {
 };
 
 
+export default
 @observer
-export default class Answer extends React.Component {
+class Answer extends React.Component {
 
   static propTypes = {
-    answer: React.PropTypes.instanceOf(AnswerModel).isRequired,
-    iter: React.PropTypes.number.isRequired,
-    qid: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number,
+    answer: PropTypes.instanceOf(AnswerModel).isRequired,
+    iter: PropTypes.number.isRequired,
+    qid: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
     ]).isRequired,
-    type: React.PropTypes.string.isRequired,
-    hasCorrectAnswer: React.PropTypes.bool.isRequired,
-    onChangeAnswer: React.PropTypes.func.isRequired,
-    disabled: React.PropTypes.bool,
-    chosenAnswer: React.PropTypes.array,
-    correctAnswerId: React.PropTypes.string,
-    answered_count: React.PropTypes.number,
-    show_all_feedback: React.PropTypes.bool,
-    keyControl: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number,
-      React.PropTypes.array,
+    type: PropTypes.string.isRequired,
+    hasCorrectAnswer: PropTypes.bool.isRequired,
+    onChangeAnswer: PropTypes.func.isRequired,
+    disabled: PropTypes.bool,
+    chosenAnswer: PropTypes.array,
+    correctAnswerId: PropTypes.string,
+    answered_count: PropTypes.number,
+    show_all_feedback: PropTypes.bool,
+    keyControl: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.array,
     ]),
   };
 
@@ -63,16 +65,16 @@ export default class Answer extends React.Component {
   };
 
   static contextTypes = {
-    processHtmlAndMath: React.PropTypes.func,
+    processHtmlAndMath: PropTypes.func,
   };
 
   componentWillMount() {
-    if (this.shouldKey()) { return this.setUpKeys(); }
+    if (this.shouldKey()) { this.setUpKeys(); }
   }
 
   componentWillUnmount() {
     const { keyControl } = this.props;
-    if (keyControl != null) { return keysHelper.off(keyControl, 'multiple-choice'); }
+    if (keyControl != null) { keysHelper.off(keyControl, 'multiple-choice'); }
   }
 
   componentDidUpdate(prevProps) {
@@ -83,9 +85,7 @@ export default class Answer extends React.Component {
     }
 
     if (this.shouldKey() && (prevProps.keyControl !== keyControl)) {
-      return (
-        this.setUpKeys()
-      );
+      this.setUpKeys();
     }
   }
 
@@ -121,11 +121,11 @@ export default class Answer extends React.Component {
   }; // silence react event return value warning
 
   @action.bound onChange() {
-    this.props.onChangeAnswer(this.props.answer)
-  };
+    this.props.onChangeAnswer(this.props.answer);
+  }
 
   render() {
-    let feedback, onChange, radioBox, selectedCount;
+    let feedback, onChange, radioBox, selectedCount, correctIncorrectIcon;
     let { answer, iter, qid, type, correctAnswerId, answered_count, hasCorrectAnswer, chosenAnswer, disabled } = this.props;
     if (qid == null) { qid = `auto-${idCounter++}`; }
 
@@ -145,21 +145,33 @@ export default class Answer extends React.Component {
 
     if (onChange) {
       radioBox = <input
-                   type="radio"
-                   className="answer-input-box"
-                   checked={isChecked}
-                   id={`${qid}-option-${iter}`}
-                   name={`${qid}-options`}
-                   onChange={onChange}
-                   disabled={disabled} />;
+        type="radio"
+        className="answer-input-box"
+        checked={isChecked}
+        id={`${qid}-option-${iter}`}
+        name={`${qid}-options`}
+        onChange={onChange}
+        disabled={disabled} />;
     }
 
     if (type === 'teacher-review') {
       const percent = Math.round((answer.selected_count / answered_count) * 100) || 0;
-      selectedCount = <div
-                        className="selected-count"
-                        data-count={`${answer.selected_count}`}
-                        data-percent={`${percent}`} />;
+      selectedCount = (
+        <div
+          className="selected-count"
+          data-percent={`${percent}`}
+        >
+          {answer.selected_count}
+        </div>
+      );
+      correctIncorrectIcon = (
+        <div
+          className="correct-incorrect"
+          data-is-correct={isCorrect}
+        >
+        {isCorrect ? '✓' : '✘'}
+        </div>
+      );
     }
 
     if (this.props.show_all_feedback && answer.feedback_html) {
@@ -180,6 +192,7 @@ export default class Answer extends React.Component {
     return (
       <div className="openstax-answer">
         <section role="region" className={classes}>
+          {correctIncorrectIcon}
           {selectedCount}
           {radioBox}
           <label
@@ -205,4 +218,4 @@ export default class Answer extends React.Component {
       </div>
     );
   }
-}
+};

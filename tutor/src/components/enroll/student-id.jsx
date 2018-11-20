@@ -23,8 +23,8 @@ export default function StudentIDForm({ enrollment }) {
         <div className="required">* required for course credit</div>
       </Modal.Body>
       <Modal.Footer>
-        <Button bsStyle="primary" className="btn btn-success" onClick={enrollment.onStudentIdContinue}>Continue</Button>
-        <Button className="cancel" bsStyle="link" onClick={enrollment.onCancelStudentId}>Add it later</Button>
+        <Button variant="primary" className="btn btn-success" onClick={enrollment.onStudentIdContinue}>Continue</Button>
+        <Button className="cancel" variant="link" onClick={enrollment.onCancelStudentId}>Add it later</Button>
       </Modal.Footer>
     </div>
   );

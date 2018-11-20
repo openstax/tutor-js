@@ -5,6 +5,7 @@
 
 .openstax-exercise-preview {
   .exercise-tag { display: inline; }
+  margin-top: 1.5rem;
 }
 
 .preview-navbar-controls {
@@ -18,7 +19,7 @@
     .ex-info {
       border-top: 1px solid;
       border-bottom: 1px solid;
-      border-color: $btn-default-border;
+      border-color: $openstax-neutral-medium;
       padding: 6px 12px;
       min-width: 180px;
       display: flex;

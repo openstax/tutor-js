@@ -14,14 +14,13 @@ import CreateCourse from '../../models/course/create';
 import Router from '../../helpers/router';
 import User from '../../models/user';
 
+export default
 @identifiedBy('course/builder-ux')
-export default class CourseBuilderUX extends BaseModel {
+class CourseBuilderUX extends BaseModel {
 
   @readonly course = new Course();
   @observable canCancel = true;
-  @observable source = Courses.get(TutorRouter.currentParams().sourceId);
-
-  newCourse = new CreateCourse();
+  @observable source;
 
   @observable currentStageIndex;
 
@@ -35,9 +34,16 @@ export default class CourseBuilderUX extends BaseModel {
   @observable alternateOffering;
   @observable selectOfferingTitle = 'Which course are you teaching?';
 
-  constructor(router = { route: { match: { params: {} } } }) {
+  constructor({
+    router,
+    offerings = Offerings,
+    courses = Courses,
+  } = {}) {
     super();
     this.router = router;
+    this.offerings = offerings;
+    this.courses = courses;
+    this.newCourse = new CreateCourse({ courses, offerings });
 
     if (!User.isCollegeTeacher) {
       delay(() => // use delay in case we're called from a React constructor
@@ -49,14 +55,14 @@ export default class CourseBuilderUX extends BaseModel {
       return;
     }
 
-    invoke(Offerings.fetch(), 'then', this.onOfferingsAvailable);
+    invoke(this.offerings.fetch(), 'then', this.onOfferingsAvailable);
 
     observe(this, 'source', ({ newValue: newSource }) => {
       if (!newSource) { return; }
       when(
-        () => Offerings.get(newSource.offering_id),
+        () => this.offerings.get(newSource.offering_id),
         () => {
-          this.newCourse.offering = Offerings.get(newSource.offering_id);
+          this.newCourse.offering = this.offerings.get(newSource.offering_id);
           this.newCourse.cloned_from = newSource;
         },
       );
@@ -67,13 +73,16 @@ export default class CourseBuilderUX extends BaseModel {
         this.newCourse.save().then(this.afterCreate);
       }
     });
-
+    const { sourceId } = this.router.route.match.params;
+    if (sourceId) {
+      this.source = this.courses.get(sourceId);
+    }
     this.currentStageIndex = this.firstStageIndex;
   }
 
   @action.bound onOfferingsAvailable() {
     if (this.preselectedAppearanceCode) {
-      this.newCourse.offering = find(Offerings.available.array,
+      this.newCourse.offering = find(this.offerings.available.array,
         { appearance_code: this.preselectedAppearanceCode }
       );
     }
@@ -137,7 +146,7 @@ export default class CourseBuilderUX extends BaseModel {
   }
 
   @computed get isBusy() {
-    return Boolean(this.newCourse.api.isPending || Offerings.api.isPending);
+    return Boolean(this.newCourse.api.isPending || this.offerings.api.isPending);
   }
 
   @computed get isBuilding() {
@@ -146,15 +155,15 @@ export default class CourseBuilderUX extends BaseModel {
 
   @computed get offering() {
     if (this.preselectedAppearanceCode) {
-      return find(Offerings.available.array,
+      return find(this.offerings.available.array,
         { appearance_code: this.preselectedAppearanceCode }
       );
     }
-    return this.newCourse.offering_id ? Offerings.get(this.newCourse.offering_id) : null;
+    return this.newCourse.offering_id ? this.offerings.get(this.newCourse.offering_id) : null;
   }
 
   @computed get validOfferings() {
-    return Offerings.available.array;
+    return this.offerings.available.array;
   }
 
   @computed get preselectedAppearanceCode() {
@@ -167,7 +176,7 @@ export default class CourseBuilderUX extends BaseModel {
 
   @computed get cloneSources() {
     if (!this.offering) return [];
-    return filter(Courses.tutor.nonPreview.teaching.array, c => c.offering_id == this.offering.id);
+    return filter(this.courses.tutor.nonPreview.teaching.array, c => c.offering_id == this.offering.id);
   }
 
   @computed get isCurrentStageValid() {
@@ -222,4 +231,4 @@ export default class CourseBuilderUX extends BaseModel {
   skip_cloned_from_id() {
     return Boolean(this.newCourse.new_or_copy === 'new');
   }
-}
+};

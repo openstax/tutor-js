@@ -5,9 +5,12 @@
     background: $tutor-white;
     border-top: thin dotted $tutor-neutral-light;
     position: relative;
-    display: block;
+    display: flex;
+    width: 100%;
     color: $tutor-neutral-darker;
     overflow: hidden;
+    margin-left: 0;
+    margin-rigth: 0;
     // if the screen is wide enought, set a hight and use line-height to vertically center content.
     // This breaks when the responsive small view kicks in and it becomes multi-line
     .column-icon {
@@ -33,33 +36,18 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    i.info {
-      @include fa-icon();
-      margin-left: 0.5rem;
-      &.incomplete::before {
-        content: $fa-var-exclamation-circle;
-        color: $tutor-warning;
-      }
-      &.late::before {
-        content: $fa-var-clock-o;
-        color: $tutor-danger;
-      }
-    }
-    //.btn prefix is needed to override material design styles
-    .btn.hide-task {
-      line-height: 12px;
-      padding: 5px 7px;
-      background: #fff;
-      margin-right: 0.4rem;
-      .fa {
-        font-size: 12px;
-        font-weight: normal;
-        margin: 0;
+    .feedback {
+      .ox-icon {
+        margin-left: 0.5rem;
       }
     }
 
+    .btn.hide-task {
+      padding: 5px 7px;
+    }
+
     // Adjust height for when the columns collapse and progress appears below task title
-    @media screen and ( max-width: $screen-sm-min ) {
+    @include media-breakpoint-down('sm') {
       .column-icon {
         text-align: center;
         height: $student-dashboard-row-height;

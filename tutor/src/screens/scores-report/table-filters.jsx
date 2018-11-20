@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { map } from 'lodash';
 import { action } from 'mobx';
@@ -11,11 +12,12 @@ const FILTERS = {
   '#': 'number',
 };
 
+export default
 @observer
-export default class TableFilters extends React.PureComponent {
+class TableFilters extends React.Component {
 
   static propTypes = {
-    ux: React.PropTypes.instanceOf(UX).isRequired,
+    ux: PropTypes.instanceOf(UX).isRequired,
   }
 
   @autobind renderButton(filter, label) {
@@ -37,7 +39,7 @@ export default class TableFilters extends React.PureComponent {
         <ToggleButtonGroup
           value={ux.displayValuesAs}
           onChange={ux.onChangeDisplayValuesAs}
-          bsSize="small"
+          size="small"
           name="filter-by"
           className="filter-group"
         >
@@ -46,4 +48,4 @@ export default class TableFilters extends React.PureComponent {
       </div>
     );
   }
-}
+};

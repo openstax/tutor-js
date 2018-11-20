@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { isNil } from 'lodash';
 import { observer } from 'mobx-react';
-import { asPercent } from '../../helpers/string';
+import S from '../../helpers/string';
 import TaskResult from '../../models/course/scores/task-result';
 import TutorLink from '../../components/link';
 import UX from './ux';
@@ -28,17 +29,18 @@ const Progress = observer(({ task }) => {
 });
 
 const Percent = observer(({ task: { score } }) => {
-  const display = isNil(score) ? '---' : `${asPercent(score)}%`;
+  const display = isNil(score) ? '---' : `${S.asPercent(score)}%`;
   return <div className="correct-score">{display}</div>;
 });
 
 
+export default
 @observer
-export default class CorrectnessValue extends React.Component {
+class CorrectnessValue extends React.Component {
 
   static propTypes = {
-    ux: React.PropTypes.instanceOf(UX).isRequired,
-    task: React.PropTypes.instanceOf(TaskResult).isRequired,
+    ux: PropTypes.instanceOf(UX).isRequired,
+    task: PropTypes.instanceOf(TaskResult).isRequired,
   }
 
   render() {
@@ -54,4 +56,4 @@ export default class CorrectnessValue extends React.Component {
       return <div className="correct unstarted">---</div>;
     }
   }
-}
+};

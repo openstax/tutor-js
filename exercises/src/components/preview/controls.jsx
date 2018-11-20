@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { withRouter } from 'react-router';
 import { sortBy, partial, find } from 'lodash';
@@ -13,15 +14,15 @@ const KEYBINDING_SCOPE = 'ex-preview';
 @observer
 class PreviewControls extends React.Component {
   static propTypes = {
-    match: React.PropTypes.shape({
-      params: React.PropTypes.shape({
+    match: PropTypes.shape({
+      params: PropTypes.shape({
         uid: idType,
       }),
     }),
-    history: React.PropTypes.shape({
-      push: React.PropTypes.func,
+    history: PropTypes.shape({
+      push: PropTypes.func,
     }).isRequired,
-    exercises: React.PropTypes.instanceOf(ExercisesMap),
+    exercises: PropTypes.instanceOf(ExercisesMap),
   };
 
   static defaultProps = {
@@ -72,13 +73,13 @@ class PreviewControls extends React.Component {
 
   @computed get nextVersion() {
     const { exercise } = this;
-    const versions = exercise.versions.sort();
+    const versions = exercise.versions.slice().sort();
     return find(versions, (v) => v > exercise.version);
   }
 
   @computed get prevVersion() {
     const { exercise } = this;
-    const versions = exercise.versions.sort();
+    const versions = exercise.versions.slice().sort();
     return find(versions, (v) => v < exercise.version);
   }
 

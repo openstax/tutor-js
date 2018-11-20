@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { map } from 'lodash';
 import { observer } from 'mobx-react';
@@ -18,7 +19,7 @@ const TYPES = [
 @observer
 class FilterTypeTag extends React.Component {
   static propTypes = {
-    exercise: React.PropTypes.instanceOf(Exercise).isRequired,
+    exercise: PropTypes.instanceOf(Exercise).isRequired,
   };
 
   @action.bound updateTag(types) {

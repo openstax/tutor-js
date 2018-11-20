@@ -1,21 +1,19 @@
-.tutor-icon {
-  &.clickable { cursor: pointer; }
+.ox-icon {
+
+  &[data-variant=warning] {
+    path {
+      fill: $tutor-warning;
+    }
+  }
+
+  &[data-variant=danger] {
+    path {
+      fill: $tutor-danger;
+    }
+  }
 
   &:focus {
     @include tutor-shadow(outline);
   }
 
-  &.best-practices {
-    display: block;
-    @include tutor-background-image("icons/best-practices.svg");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 1.8rem;
-    margin: 1rem 0;
-  }
-}
-
-button.tutor-icon {
-  border: 0;
-  background-color: transparent;
 }

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { first, partial, findIndex } from 'lodash';
 import { observer } from 'mobx-react';
@@ -7,7 +8,7 @@ import ScrollTo from '../../helpers/scroll-to';
 import { ExercisePreview } from 'shared';
 import PagingNavigation from '../paging-navigation';
 import NoExercisesFound from './no-exercises-found';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import { ExercisesMap } from '../../models/exercises';
 import Book from '../../models/reference-book';
 
@@ -16,18 +17,18 @@ class ExerciseDetails extends React.Component {
   static displayName = 'ExerciseDetails';
 
   static propTypes = {
-    book:                  React.PropTypes.instanceOf(Book).isRequired,
-    exercises:             React.PropTypes.instanceOf(ExercisesMap).isRequired,
-    selectedExercise:      React.PropTypes.object.isRequired,
-    onExerciseToggle:      React.PropTypes.func.isRequired,
-    onShowCardViewClick:   React.PropTypes.func.isRequired,
-    getExerciseActions:    React.PropTypes.func.isRequired,
-    getExerciseIsSelected: React.PropTypes.func.isRequired,
-    selectedSection:       React.PropTypes.string,
-    displayFeedback:       React.PropTypes.bool,
-    onSectionChange:       React.PropTypes.func,
-    topScrollOffset:       React.PropTypes.number,
-    windowImpl:            React.PropTypes.object,
+    book:                  PropTypes.instanceOf(Book).isRequired,
+    exercises:             PropTypes.instanceOf(ExercisesMap).isRequired,
+    selectedExercise:      PropTypes.object.isRequired,
+    onExerciseToggle:      PropTypes.func.isRequired,
+    onShowCardViewClick:   PropTypes.func.isRequired,
+    getExerciseActions:    PropTypes.func.isRequired,
+    getExerciseIsSelected: PropTypes.func.isRequired,
+    selectedSection:       PropTypes.string,
+    displayFeedback:       PropTypes.bool,
+    onSectionChange:       PropTypes.func,
+    topScrollOffset:       PropTypes.number,
+    windowImpl:            PropTypes.object,
   };
 
   static defaultProps = {
@@ -43,11 +44,11 @@ class ExerciseDetails extends React.Component {
   @observable currentSection;
 
   @computed get exercises() {
-    return this.props.exercises.array; //this.flattenExercises(this.props);
+    return this.props.exercises.array;
   }
 
   componentDidMount() {
-    this.scroller.scrollToSelector('.exercise-controls-bar');
+    // this.scroller.scrollToSelector('.exercise-controls-bar');
   }
 
   componentWillMount() {
@@ -64,8 +65,8 @@ class ExerciseDetails extends React.Component {
 
   @action.bound moveTo(index) {
     this.currentIndex = index;
-    this.exercise = this.exercises[index];
-    const section = this.exercise.page.chapter_section.asString;
+    const exercise = this.exercises[index];
+    const section = exercise.page.chapter_section.asString;
     if (this.currentSection !== section) {
       this.currentSection = section;
       if (this.props.onSectionChange) {
@@ -96,16 +97,18 @@ class ExerciseDetails extends React.Component {
             className="show-cards"
             onClick={partial(this.props.onShowCardViewClick, partial.placeholder, exercise)}
           >
-            <Icon type="th-large" /> Back to Card View
+            <Icon type="th" size="lg" /> Back to Card View
           </a>
         </div>
-        <div className="content">
-          <PagingNavigation
-            isForwardEnabled={moves.next}
-            isBackwardEnabled={moves.prev}
-            onForwardNavigation={this.onNext}
-            onBackwardNavigation={this.onPrev}
-            scrollOnNavigation={false}>
+
+        <PagingNavigation
+          isForwardEnabled={moves.next}
+          isBackwardEnabled={moves.prev}
+          onForwardNavigation={this.onNext}
+          onBackwardNavigation={this.onPrev}
+          scrollOnNavigation={false}
+        >
+          <div className="exercise-content">
             <ExercisePreview
               className="exercise-card"
               isVerticallyTruncated={false}
@@ -114,9 +117,11 @@ class ExerciseDetails extends React.Component {
               displayFeedback={this.props.displayFeedback}
               extractedInfo={exercise}
               exercise={exercise.content}
-              actionsOnSide={true} />
-          </PagingNavigation>
-        </div>
+              actionsOnSide={true}
+            />
+          </div>
+        </PagingNavigation>
+
       </div>
     );
   }

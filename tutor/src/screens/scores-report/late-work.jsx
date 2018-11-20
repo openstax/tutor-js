@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Popover, Overlay, Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
@@ -132,12 +133,12 @@ class ReadingContent extends LateWorkMessages {
   }
 }
 
-export class LateWorkPopover extends React.PureComponent {
+class LateWorkPopover extends React.Component {
 
   static propTypes = {
-    columnIndex: React.PropTypes.number.isRequired,
-    hide: React.PropTypes.func.isRequired,
-    task: React.PropTypes.instanceOf(TaskResult).isRequired,
+    columnIndex: PropTypes.number.isRequired,
+    hide: PropTypes.func.isRequired,
+    task: PropTypes.instanceOf(TaskResult).isRequired,
   }
 
   @computed get content() {
@@ -163,7 +164,8 @@ export class LateWorkPopover extends React.PureComponent {
         {...popoverProps}
         title={content.get('title')}
         id={`late-work-info-popover-${content.task.id}`}
-        className={content.className()}>
+        className={content.className()}
+      >
         <div className="late-status">
           {content.get('body')}
           <div className="description">
@@ -176,6 +178,8 @@ export class LateWorkPopover extends React.PureComponent {
           </div>
           <AsyncButton
             className="late-button"
+            size="sm"
+            variant="default"
             onClick={this.onButtonClick}
             isWaiting={this.props.task.api.isPending}
             waitingText="Saving…"
@@ -190,13 +194,13 @@ export class LateWorkPopover extends React.PureComponent {
 
 
 @observer
-export class LateWork extends React.PureComponent {
+class LateWork extends React.Component {
 
   static propTypes = {
-    onMouseOver:  React.PropTypes.func.isRequired,
-    onMouseLeave: React.PropTypes.func.isRequired,
-    columnIndex: React.PropTypes.number.isRequired,
-    task: React.PropTypes.instanceOf(TaskResult).isRequired,
+    onMouseOver:  PropTypes.func.isRequired,
+    onMouseLeave: PropTypes.func.isRequired,
+    columnIndex: PropTypes.number.isRequired,
+    task: PropTypes.instanceOf(TaskResult).isRequired,
   }
 
   @observable isShown = false;
@@ -227,7 +231,6 @@ export class LateWork extends React.PureComponent {
         onClick={this.show}
         onMouseLeave={this.props.onMouseLeave}>
         <Overlay
-          ref="overlay"
           placement="top"
           trigger="click"
           rootClose={true}
@@ -244,3 +247,5 @@ export class LateWork extends React.PureComponent {
     );
   }
 }
+
+export { LateWorkPopover, LateWork };

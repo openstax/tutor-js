@@ -1,14 +1,15 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { computed, action, observable } from 'mobx';
+import { action } from 'mobx';
 import Exercise from '../../models/exercises/exercise';
-import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { SuretyGuard } from 'shared';
 
 @observer
 class MPQToggle extends React.Component {
   static propTypes = {
-    exercise: React.PropTypes.instanceOf(Exercise).isRequired,
+    exercise: PropTypes.instanceOf(Exercise).isRequired,
   };
 
   @action.bound onConfirm() {
@@ -28,12 +29,12 @@ class MPQToggle extends React.Component {
     const showMPQ = this.props.exercise.isMultiPart;
 
     const checkbox =
-      <FormGroup controlId="mpq-toggle" className="mpq-toggle">
-        <FormControl type="checkbox" ref="input" checked={showMPQ} onChange={this.onToggleMPQ} />
-        <ControlLabel>
+      <Form.Group controlId="mpq-toggle" className="mpq-toggle">
+        <Form.Control type="checkbox" ref="input" checked={showMPQ} onChange={this.onToggleMPQ} />
+        <Form.Label>
           Exercise contains multiple parts
-        </ControlLabel>
-      </FormGroup>;
+        </Form.Label>
+      </Form.Group>;
 
     if (showMPQ) {
       return (

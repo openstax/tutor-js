@@ -1,20 +1,21 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { action, observable } from 'mobx';
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { observer } from 'mobx-react';
 import Router from '../../helpers/router';
 
 import { OnboardingNag, Heading, Body, Footer } from './nag-components';
 
-export { OnboardingNag, Heading, Body, Footer };
+export { GotItOnboardingNag, OnboardingNag, Heading, Body, Footer };
 
 @observer
-export class GotItOnboardingNag extends React.PureComponent {
+class GotItOnboardingNag extends React.Component {
   static propTypes = {
-    ux: MobxPropTypes.observableObject.isRequired,
+    ux: PropTypes.object.isRequired,
   }
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   @observable noProblemo = false;
@@ -42,7 +43,7 @@ export class GotItOnboardingNag extends React.PureComponent {
           When you’re ready to create a real course, click “Create a course” on the top right of your dashboard.
         </Body>
         <Footer className="got-it">
-          <Button bsStyle="primary" onClick={this.onContinue}>Got it</Button>
+          <Button variant="primary" onClick={this.onContinue}>Got it</Button>
         </Footer>
       </OnboardingNag>
     );

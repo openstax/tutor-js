@@ -1,5 +1,4 @@
 import { observable, action, computed } from 'mobx';
-import { readonly } from 'core-decorators';
 import hash from 'object-hash';
 
 export default class ModelLoader {

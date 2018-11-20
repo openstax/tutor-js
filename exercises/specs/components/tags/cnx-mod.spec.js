@@ -8,9 +8,11 @@ describe('CNX mod tags component', function() {
 
   beforeEach(() => {
     props = {
-      exercise: Factory.exercise({ tags: [
-        'context-cnxmod:80d2e9ef-abee-40c2-8586-5459a67c81f3',
-      ] }),
+      exercise: Factory.exercise({
+        tags: [
+          'context-cnxmod:80d2e9ef-abee-40c2-8586-5459a67c81f3',
+        ],
+      }),
     };
   });
 

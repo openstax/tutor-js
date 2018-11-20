@@ -1,13 +1,15 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import PagingNavigation from '../../components/paging-navigation';
 import UX from './ux';
 
 
+export default
 @observer
-export default class ReferenceViewPageNavigation extends React.Component {
+class ReferenceViewPageNavigation extends React.Component {
   static propTypes = {
-    ux: React.PropTypes.instanceOf(UX).isRequired,
+    ux: PropTypes.instanceOf(UX).isRequired,
   };
 
   render() {
@@ -21,4 +23,4 @@ export default class ReferenceViewPageNavigation extends React.Component {
       </PagingNavigation>
     );
   }
-}
+};

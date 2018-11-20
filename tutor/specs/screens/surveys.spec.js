@@ -1,7 +1,5 @@
-import { SnapShot, Wrapper } from '../components/helpers/component-testing';
-import Factory, { faker } from '../../specs/factories';
+import { Factory, EnzymeContext } from '../helpers';
 import Survey from '../../src/screens/surveys';
-import EnzymeContext from '../components/helpers/enzyme-context';
 
 
 describe('Surveys Screen', () => {
@@ -9,7 +7,6 @@ describe('Surveys Screen', () => {
   let props, course, surveyRecord;
 
   beforeEach(() => {
-    faker.seed(12345);
     course = Factory.course();
     course.studentTasks.fetch = jest.fn();
     course.studentTasks.onLoaded({
@@ -28,9 +25,7 @@ describe('Surveys Screen', () => {
   });
 
   it('renders and matches snapshot', () => {
-    const component = SnapShot.create(<Wrapper _wrapped_component={Survey} {...props} />);
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    expect.snapshot(<Survey {...props} />).toMatchSnapshot();
   });
 
   it('submits survey when answered', async () => {

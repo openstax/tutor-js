@@ -1,3 +1,4 @@
+/* global jest */
 import { delay } from 'lodash';
 
 const Loader = jest.genMockFromModule('../loader').default;

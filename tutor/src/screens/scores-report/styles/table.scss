@@ -62,7 +62,7 @@ $pie-color-due: #268FBE;
   }
 
   i.late {
-    @include tutor-late-icon();
+//    @include tutor-late-icon();
     padding-left:8px;
   }
 
@@ -232,7 +232,7 @@ $pie-color-due: #268FBE;
         @include tutor-sans-font(1.6rem);
       }
       .student-id {
-        @include tutor-sans-light-font(1.4rem);
+        @include tutor-sans-neutral-light-font(1.4rem);
       }
     }
   }
@@ -283,7 +283,7 @@ $pie-color-due: #268FBE;
 }
 
 .scores-scores-tooltip-completed-info {
-  .popover-content {
+  .popover-body {
     height: 100%;
     overflow: hidden;
     padding: 0;
@@ -319,18 +319,18 @@ $pie-color-due: #268FBE;
   border-radius: 0;
   border: 1px solid $tutor-neutral-light;
   &.accepted {
-    .popover-title {
+    .popover-header {
       color: $tutor-black;
       background: $tutor-info-bg;
     }
-    .popover-content {
+    .popover-body {
       .status {
         padding-left: 0.5rem;
         color: $pie-color-late !important;
       }
     }
   }
-  .popover-title {
+  .popover-header {
     text-align: center;
     font-weight: bold;
     padding-top: 6px;
@@ -340,7 +340,7 @@ $pie-color-due: #268FBE;
     color: $tutor-white;
     background: $tutor-primary;
   }
-  .popover-content {
+  .popover-body {
     padding: 3px;
 
     .late-status {
@@ -379,7 +379,7 @@ $pie-color-due: #268FBE;
 }
 
 .scores-average-info-popover{
-  .popover-title {
+  .popover-header {
     text-align: center;
     font-weight: bold;
     padding-top: 6px;
@@ -390,7 +390,7 @@ $pie-color-due: #268FBE;
     background: $tutor-info-bg;
   }
 
-  .popover-content {
+  .popover-body {
     text-align: left;
   }
 

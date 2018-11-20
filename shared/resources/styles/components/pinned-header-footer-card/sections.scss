@@ -1,7 +1,7 @@
 .pinned-footer {
   @include fixed-bar();
   background: fadeout($openstax-white, 20%);
-  padding: 10px $openstax-navbar-padding-horizontal;
+  padding: 10px $openstax-navbar-padding-x;
   bottom: 0;
 }
 
@@ -17,4 +17,8 @@
 }
 
 // always wrap around elements by extending bootstrap's clearfix
-.card-body { @include clearfix; }
+.task-step.card-body {
+  background-color: white;
+  @include clearfix;
+  padding: 0;
+}

@@ -1,0 +1,112 @@
+@mixin student-access-rows-of-inputs() {
+  display: flex;
+  flex-direction: column;
+  label:not(.btn) {
+    font-weight: normal;
+    display: block;
+    input {
+      margin-top: 10px;
+    }
+    & + label {
+      margin-top: 20px;
+    }
+  }
+}
+
+.student-access {
+
+  max-width: 670px;
+  .panel-group .panel-heading+.panel-collapse>.panel-body {
+    border-top: 0;
+  }
+  .card {
+    transition: box-shadow 0.2s;
+    &:hover {
+      cursor: pointer;
+      @include tutor-shadow(pop);
+    }
+  }
+  .card-header {
+    color: black;
+    background-color: white;
+    border-bottom: 0;
+    transition: background-color 0.3s;
+    a { cursor: inherit; }
+    p { margin-bottom: 0; }
+    .choice {
+      .ox-icon {
+        font-size: 30px;
+      }
+      .info { font-style: italic; }
+      &.checked {
+        .info { display: none; }
+      }
+
+    }
+    .choice {
+      &:hover {
+        text-decoration: none;
+      }
+      display: flex;
+      padding: 20px;
+
+      .title {
+        font-size: 20px;
+        color: $tutor-neutral-darker;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        .ox-icon {
+          margin-right: 1rem;
+        }
+        .advanced {
+          color: $tutor-primary;
+
+        }
+      }
+    }
+  }
+
+  .card-body {
+    display: none;
+  }
+
+  &.active {
+    .card-body {
+      display: block;
+    }
+  }
+
+  &.direct-links-only,
+  .lms-access,
+  .links .panel-body {
+    @include student-access-rows-of-inputs();
+  }
+
+}
+
+.modal.lms-pairing-keys,
+.student-access
+{
+  .lms-access {
+    .btn-group {
+      display: flex;
+      .btn {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      margin-bottom: 15px;
+    }
+    @include student-access-rows-of-inputs();
+    a {
+      margin-top: 30px;
+      display: block;
+    }
+    &.enrolled {
+
+    }
+  }
+}

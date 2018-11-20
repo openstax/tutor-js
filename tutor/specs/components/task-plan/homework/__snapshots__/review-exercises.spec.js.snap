@@ -213,16 +213,15 @@ exports[`choose exercises component matches snapshot 1`] = `
       className="openstax exercise-wrapper"
     >
       <div
-        className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated panel panel-default"
+        className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
         data-exercise-id="1@1"
-        id={undefined}
         tabIndex={-1}
       >
         <div
-          className="panel-heading"
+          className="card-header"
         >
           <span
-            className="-exercise-header panel-title"
+            className="-exercise-header"
           >
             <span
               className="exercise-number"
@@ -232,14 +231,13 @@ exports[`choose exercises component matches snapshot 1`] = `
           </span>
         </div>
         <div
-          className="panel-body"
+          className="card-body"
         >
           <div
             className="exercise-body"
           >
             <div
               className="openstax-question openstax-question-preview"
-              data-question-number={undefined}
             >
               <div
                 dangerouslySetInnerHTML={
@@ -267,7 +265,6 @@ exports[`choose exercises component matches snapshot 1`] = `
                         aria-label="Choice a:"
                         className="answer-letter"
                         disabled={true}
-                        onClick={undefined}
                       >
                         a
                       </button>
@@ -306,7 +303,6 @@ exports[`choose exercises component matches snapshot 1`] = `
                         aria-label="Choice b:"
                         className="answer-letter"
                         disabled={true}
-                        onClick={undefined}
                       >
                         b
                       </button>
@@ -345,7 +341,6 @@ exports[`choose exercises component matches snapshot 1`] = `
                         aria-label="Choice c:"
                         className="answer-letter"
                         disabled={true}
-                        onClick={undefined}
                       >
                         c
                       </button>
@@ -384,7 +379,6 @@ exports[`choose exercises component matches snapshot 1`] = `
                         aria-label="Choice d:"
                         className="answer-letter"
                         disabled={true}
-                        onClick={undefined}
                       >
                         d
                       </button>
@@ -423,7 +417,6 @@ exports[`choose exercises component matches snapshot 1`] = `
                         aria-label="Choice e:"
                         className="answer-letter"
                         disabled={true}
-                        onClick={undefined}
                       >
                         e
                       </button>
@@ -501,16 +494,15 @@ exports[`choose exercises component matches snapshot 1`] = `
       className="openstax exercise-wrapper"
     >
       <div
-        className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated panel panel-default"
+        className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
         data-exercise-id="2@1"
-        id={undefined}
         tabIndex={-1}
       >
         <div
-          className="panel-heading"
+          className="card-header"
         >
           <span
-            className="-exercise-header panel-title"
+            className="-exercise-header"
           >
             <span
               className="exercise-number"
@@ -520,14 +512,13 @@ exports[`choose exercises component matches snapshot 1`] = `
           </span>
         </div>
         <div
-          className="panel-body"
+          className="card-body"
         >
           <div
             className="exercise-body"
           >
             <div
               className="openstax-question openstax-question-preview"
-              data-question-number={undefined}
             >
               <div
                 dangerouslySetInnerHTML={
@@ -555,7 +546,6 @@ exports[`choose exercises component matches snapshot 1`] = `
                         aria-label="Choice a:"
                         className="answer-letter"
                         disabled={true}
-                        onClick={undefined}
                       >
                         a
                       </button>
@@ -589,7 +579,6 @@ exports[`choose exercises component matches snapshot 1`] = `
                         aria-label="Choice b:"
                         className="answer-letter"
                         disabled={true}
-                        onClick={undefined}
                       >
                         b
                       </button>
@@ -623,7 +612,6 @@ exports[`choose exercises component matches snapshot 1`] = `
                         aria-label="Choice c:"
                         className="answer-letter"
                         disabled={true}
-                        onClick={undefined}
                       >
                         c
                       </button>
@@ -657,7 +645,6 @@ exports[`choose exercises component matches snapshot 1`] = `
                         aria-label="Choice d:"
                         className="answer-letter"
                         disabled={true}
-                        onClick={undefined}
                       >
                         d
                       </button>
@@ -691,7 +678,6 @@ exports[`choose exercises component matches snapshot 1`] = `
                         aria-label="Choice e:"
                         className="answer-letter"
                         disabled={true}
-                        onClick={undefined}
                       >
                         e
                       </button>
@@ -764,16 +750,15 @@ exports[`choose exercises component matches snapshot 1`] = `
       className="openstax exercise-wrapper"
     >
       <div
-        className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated panel panel-default"
+        className="openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card"
         data-exercise-id="3@1"
-        id={undefined}
         tabIndex={-1}
       >
         <div
-          className="panel-heading"
+          className="card-header"
         >
           <span
-            className="-exercise-header panel-title"
+            className="-exercise-header"
           >
             <span
               className="exercise-number"
@@ -783,14 +768,13 @@ exports[`choose exercises component matches snapshot 1`] = `
           </span>
         </div>
         <div
-          className="panel-body"
+          className="card-body"
         >
           <div
             className="exercise-body"
           >
             <div
               className="openstax-question openstax-question-preview"
-              data-question-number={undefined}
             >
               <div
                 dangerouslySetInnerHTML={
@@ -825,7 +809,6 @@ exports[`choose exercises component matches snapshot 1`] = `
                         aria-label="Choice a:"
                         className="answer-letter"
                         disabled={true}
-                        onClick={undefined}
                       >
                         a
                       </button>
@@ -859,7 +842,6 @@ exports[`choose exercises component matches snapshot 1`] = `
                         aria-label="Choice b:"
                         className="answer-letter"
                         disabled={true}
-                        onClick={undefined}
                       >
                         b
                       </button>
@@ -893,7 +875,6 @@ exports[`choose exercises component matches snapshot 1`] = `
                         aria-label="Choice c:"
                         className="answer-letter"
                         disabled={true}
-                        onClick={undefined}
                       >
                         c
                       </button>
@@ -927,7 +908,6 @@ exports[`choose exercises component matches snapshot 1`] = `
                         aria-label="Choice d:"
                         className="answer-letter"
                         disabled={true}
-                        onClick={undefined}
                       >
                         d
                       </button>
@@ -961,7 +941,6 @@ exports[`choose exercises component matches snapshot 1`] = `
                         aria-label="Choice e:"
                         className="answer-letter"
                         disabled={true}
-                        onClick={undefined}
                       >
                         e
                       </button>

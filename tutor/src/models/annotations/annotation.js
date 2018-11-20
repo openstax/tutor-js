@@ -1,4 +1,4 @@
-import { get, pick, omit, extend, isString, isEmpty, toArray } from 'lodash';
+import { isString } from 'lodash';
 import { computed, action, intercept } from 'mobx';
 import { SerializedHighlight } from '@openstax/highlighter';
 import {

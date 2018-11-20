@@ -4,8 +4,9 @@ import User from '../../models/user';
 
 import { observer } from 'mobx-react';
 
+export default
 @observer
-export default class UserName extends React.PureComponent {
+class UserName extends React.Component {
 
   render() {
     return (
@@ -14,4 +15,4 @@ export default class UserName extends React.PureComponent {
       </span>
     );
   }
-}
+};

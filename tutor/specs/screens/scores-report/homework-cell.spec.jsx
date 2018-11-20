@@ -1,7 +1,6 @@
-import { React } from '../../components/helpers/component-testing';
+import { React, EnzymeContext } from '../../helpers';
 import bootstrapScores from '../../helpers/scores-data.js';
 import Cell from '../../../src/screens/scores-report/homework-cell';
-import EnzymeContext from '../../components/helpers/enzyme-context';
 import ScoresUX from '../../../src/screens/scores-report/ux';
 
 describe('Student Scores Homework Cell', function() {
@@ -65,7 +64,7 @@ describe('Student Scores Homework Cell', function() {
     expect(props.task.isStarted).toBe(false);
     const cell = mount(<Cell {...props} />, EnzymeContext.build());
     expect(cell).toHaveRendered('.pie-progress.due');
-    expect(cell.text()).toEqual(`50%`);
+    expect(cell.text()).toEqual('50%');
     expect(cell).not.toHaveRendered('.late-caret-trigger');
   });
 
@@ -88,7 +87,7 @@ describe('Student Scores Homework Cell', function() {
     const cell = mount(<Cell {...props} />, EnzymeContext.build());
     expect(cell).toHaveRendered('.late-caret');
     props.task.student.period.course.roles[0].type = 'student';
-    expect(cell).not.toHaveRendered('.late-caret');
+    expect(cell.update()).not.toHaveRendered('.late-caret');
   });
 
 });

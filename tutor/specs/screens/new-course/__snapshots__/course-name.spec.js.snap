@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateCourse: entering name matches snapshot 1`] = `
+<form
+  className=""
+>
+  <div
+    className="course-details-name form-group"
+  >
+    <input
+      autoFocus={true}
+      className="form-control"
+      defaultValue=""
+      onChange={[Function]}
+      placeholder="Choose a name for your course"
+      type="text"
+    />
+  </div>
+  <div
+    className="course-details-sections form-group"
+  >
+    <div
+      className="input-group"
+    >
+      <div
+        className="input-group-prepend"
+      >
+        <span
+          className="input-group-text"
+        >
+          Time zone
+        </span>
+      </div>
+      <select
+        className="form-control"
+        onChange={[Function]}
+        placeholder="select"
+        value="Central Time (US & Canada)"
+      >
+        <option
+          value="Hawaii"
+        >
+          Hawaii
+        </option>
+        <option
+          value="Alaska"
+        >
+          Alaska
+        </option>
+        <option
+          value="Pacific Time (US & Canada)"
+        >
+          Pacific Time (US & Canada)
+        </option>
+        <option
+          value="Arizona"
+        >
+          Arizona
+        </option>
+        <option
+          value="Mountain Time (US & Canada)"
+        >
+          Mountain Time (US & Canada)
+        </option>
+        <option
+          value="Central Time (US & Canada)"
+        >
+          Central Time (US & Canada)
+        </option>
+        <option
+          value="Eastern Time (US & Canada)"
+        >
+          Eastern Time (US & Canada)
+        </option>
+        <option
+          value="Indiana (East)"
+        >
+          Indiana (East)
+        </option>
+        <option
+          value="Atlantic Time (Canada)"
+        >
+          Atlantic Time (Canada)
+        </option>
+      </select>
+    </div>
+  </div>
+</form>
+`;

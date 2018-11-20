@@ -1,6 +1,4 @@
-import { Wrapper, SnapShot } from '../helpers/component-testing';
-import Factory, { FactoryBot } from '../../factories';
-import EnzymeContext from '../helpers/enzyme-context';
+import { Factory, FactoryBot, EnzymeContext } from '../../helpers';
 import planData from '../../../api/plans/1.json';
 import TaskTeacherReview from '../../../src/components/task-teacher-review';
 import Courses from '../../../src/models/courses-map';

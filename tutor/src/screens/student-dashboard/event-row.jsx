@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { computed, action } from 'mobx';
@@ -5,27 +6,28 @@ import { Col, Button } from 'react-bootstrap';
 import { get } from 'lodash';
 import Time from '../../components/time';
 import Router from '../../helpers/router';
-import Icon from '../../components/icon';
+import { Icon } from 'shared';
 import EventInfoIcon from './event-info-icon';
 import { Instructions } from '../../components/task/details';
 import { SuretyGuard } from 'shared';
 import classnames from 'classnames';
 import Course from '../../models/course';
 
+export default
 @observer
-export default class EventRow extends React.PureComponent {
+class EventRow extends React.Component {
 
   static propTypes = {
-    eventType: React.PropTypes.string.isRequired,
-    event:     React.PropTypes.object.isRequired,
-    course:    React.PropTypes.instanceOf(Course).isRequired,
-    feedback:  React.PropTypes.oneOfType([
-      React.PropTypes.string, React.PropTypes.element,
+    eventType: PropTypes.string.isRequired,
+    event:     PropTypes.object.isRequired,
+    course:    PropTypes.instanceOf(Course).isRequired,
+    feedback:  PropTypes.oneOfType([
+      PropTypes.string, PropTypes.element,
     ]).isRequired,
   }
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   @action.bound onClick(ev) {
@@ -42,7 +44,9 @@ export default class EventRow extends React.PureComponent {
     this.props.event.hide();
   }
 
-  stopEventPropagation(event) {
+  killEvent(event) {
+    debugger
+    event.preventDefault();
     event.stopPropagation();
   }
 
@@ -81,9 +85,13 @@ export default class EventRow extends React.PureComponent {
       hideButton = (
         <span>
           <SuretyGuard {...guardProps}>
-            <Button className="hide-task" onClick={this.stopEventPropagation}>
-              <Icon type="close" />
-            </Button>
+            <Icon
+              size="lg"
+              type="times-circle"
+              className="hide-task"
+              buttonProps={{ variant: 'link' }}
+              onClick={this.killEvent}
+            />
           </SuretyGuard>
           <span>
             Withdrawn
@@ -132,4 +140,4 @@ export default class EventRow extends React.PureComponent {
       </a>
     );
   }
-}
+};

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cn from 'classnames';
 import { observer } from 'mobx-react';
@@ -57,9 +58,9 @@ function SlideOutMenuToggle({ ux, width, height }) {
 SlideOutMenuToggle.defaultProps = { height: 28, width: 28 };
 
 SlideOutMenuToggle.propTypes = {
-  width: React.PropTypes.number.isRequired,
-  height: React.PropTypes.number.isRequired,
-  ux: React.PropTypes.object.isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  ux: PropTypes.object.isRequired,
 };
 
 export default observer(SlideOutMenuToggle);

@@ -1,516 +1,555 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Sections Chooser renders and matches snapshot 1`] = `
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 2.5rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.c3 > * {
+  margin-left: 1rem;
+}
+
+.c3 input {
+  font-size: 1.7rem;
+  margin-left: 1.2rem;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 3.5rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.7rem;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.c2 > * {
+  margin-left: 1rem;
+}
+
+.c2 .chapter-title {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.c1 .browse-the-book {
+  font-size: 1.4rem;
+  margin-right: 2rem;
+}
+
+.c0 {
+  border: 1px solid #f1f1f1;
+  border-radius: 4px;
+}
+
 <div
-  className="sections-chooser"
+  className="c0"
 >
   <div
-    className="panel-group"
-    role="tablist"
+    className="chapter c1"
+    data-is-expanded={true}
   >
     <div
-      className="panel panel-default"
-      id={null}
+      className="c2"
+      data-chapter-section={1}
+      onClick={[Function]}
+      role="button"
+    >
+      <span
+        className="chapter-checkbox"
+      >
+        <span
+          className="tri-state-checkbox unchecked"
+          onClick={[Function]}
+          tabIndex={1}
+        >
+          <button
+            className="square btn btn-plain"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              className="svg-inline--fa fa-square fa-w-14 ox-icon square"
+              color="#999999"
+              data-icon="square"
+              data-prefix="far"
+              role="img"
+              style={
+                Object {
+                  "cursor": "pointer",
+                }
+              }
+              viewBox="0 0 448 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-6 400H54c-3.3 0-6-2.7-6-6V86c0-3.3 2.7-6 6-6h340c3.3 0 6 2.7 6 6v340c0 3.3-2.7 6-6 6z"
+                fill="currentColor"
+                style={Object {}}
+              />
+            </svg>
+          </button>
+        </span>
+      </span>
+      <span
+        className="chapter-number"
+      >
+        Chapter 
+        <span
+          className="chapter-section"
+          data-chapter-section="1"
+        >
+          1
+        </span>
+         - 
+      </span>
+      <span
+        className="chapter-title"
+      >
+         
+        Kinematics
+         
+      </span>
+      <div
+        aria-label="Browse course reference book"
+        className="browse-the-book"
+        onClick={[Function]}
+        role="link"
+      >
+        Browse this Chapter
+      </div>
+    </div>
+    <div
+      aria-expanded={null}
+      className="sections collapse show"
     >
       <div
-        className="panel-heading"
+        className="section c3"
+        data-section-id="234"
+        onClick={[Function]}
       >
-        <div
-          className="chapter-heading panel-title"
-          data-chapter-section={1}
+        <span
+          className="section-checkbox"
         >
-          <a
-            aria-controls={undefined}
-            aria-expanded={true}
-            aria-selected={true}
-            className={null}
-            href={undefined}
-            onClick={[Function]}
-            role="tab"
-          >
-            <span
-              className="chapter-checkbox"
-            >
-              <span
-                className="tri-state-checkbox unchecked"
-                onClick={[Function]}
-                tabIndex={1}
-              >
-                <i
-                  className="tutor-icon fa fa-square-o clickable"
-                  onClick={[Function]}
-                  role="button"
-                  style={
-                    Object {
-                      "cursor": "pointer",
-                    }
-                  }
-                  type="square-o"
-                />
-              </span>
-            </span>
-            <span
-              className="chapter-number"
-            >
-              Chapter 
-              <span
-                className="chapter-section"
-                data-chapter-section="1"
-              >
-                1
-              </span>
-               - 
-            </span>
-            <span
-              className="chapter-title"
-            >
-               
-              Kinematics
-               
-            </span>
-            <div
-              aria-label="Browse course reference book"
-              className="browse-the-book"
-              onClick={[Function]}
-              role="link"
-            >
-              Browse this Chapter
-            </div>
-          </a>
-        </div>
+          <input
+            checked={false}
+            readOnly={true}
+            type="checkbox"
+          />
+        </span>
+        <span
+          className="chapter-section"
+          data-chapter-section="1.1"
+        >
+          1.1
+        </span>
+        <span
+          className="section-title"
+        >
+           
+          Kinematics in 1 dim
+        </span>
       </div>
       <div
-        aria-expanded={null}
-        aria-hidden={false}
-        className="panel-collapse collapse in"
-        id={undefined}
-        role="tabpanel"
+        className="section c3"
+        data-section-id="235"
+        onClick={[Function]}
       >
-        <div
-          className="panel-body"
+        <span
+          className="section-checkbox"
         >
-          <div
-            className="section"
-            data-page-id="234"
-            onClick={[Function]}
-          >
-            <span
-              className="section-checkbox"
-            >
-              <input
-                checked={false}
-                readOnly={true}
-                type="checkbox"
-              />
-            </span>
-            <span
-              className="chapter-section"
-              data-chapter-section="1.1"
-            >
-              1.1
-            </span>
-            <span
-              className="section-title"
-            >
-               
-              Kinematics in 1 dim
-            </span>
-          </div>
-          <div
-            className="section"
-            data-page-id="235"
-            onClick={[Function]}
-          >
-            <span
-              className="section-checkbox"
-            >
-              <input
-                checked={false}
-                readOnly={true}
-                type="checkbox"
-              />
-            </span>
-            <span
-              className="chapter-section"
-              data-chapter-section="1.2"
-            >
-              1.2
-            </span>
-            <span
-              className="section-title"
-            >
-               
-              Kinematics in 2 dim
-            </span>
-          </div>
-          <div
-            className="section"
-            data-page-id="236"
-            onClick={[Function]}
-          >
-            <span
-              className="section-checkbox"
-            >
-              <input
-                checked={false}
-                readOnly={true}
-                type="checkbox"
-              />
-            </span>
-            <span
-              className="chapter-section"
-              data-chapter-section="1.3"
-            >
-              1.3
-            </span>
-            <span
-              className="section-title"
-            >
-               
-              Kinematics in 3 dim
-            </span>
-          </div>
-        </div>
+          <input
+            checked={false}
+            readOnly={true}
+            type="checkbox"
+          />
+        </span>
+        <span
+          className="chapter-section"
+          data-chapter-section="1.2"
+        >
+          1.2
+        </span>
+        <span
+          className="section-title"
+        >
+           
+          Kinematics in 2 dim
+        </span>
+      </div>
+      <div
+        className="section c3"
+        data-section-id="236"
+        onClick={[Function]}
+      >
+        <span
+          className="section-checkbox"
+        >
+          <input
+            checked={false}
+            readOnly={true}
+            type="checkbox"
+          />
+        </span>
+        <span
+          className="chapter-section"
+          data-chapter-section="1.3"
+        >
+          1.3
+        </span>
+        <span
+          className="section-title"
+        >
+           
+          Kinematics in 3 dim
+        </span>
       </div>
     </div>
   </div>
   <div
-    className="panel-group"
-    role="tablist"
+    className="chapter c1"
+    data-is-expanded={false}
   >
     <div
-      className="panel panel-default"
-      id={null}
+      className="c2"
+      data-chapter-section={2}
+      onClick={[Function]}
+      role="button"
+    >
+      <span
+        className="chapter-checkbox"
+      >
+        <span
+          className="tri-state-checkbox unchecked"
+          onClick={[Function]}
+          tabIndex={1}
+        >
+          <button
+            className="square btn btn-plain"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              className="svg-inline--fa fa-square fa-w-14 ox-icon square"
+              color="#999999"
+              data-icon="square"
+              data-prefix="far"
+              role="img"
+              style={
+                Object {
+                  "cursor": "pointer",
+                }
+              }
+              viewBox="0 0 448 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-6 400H54c-3.3 0-6-2.7-6-6V86c0-3.3 2.7-6 6-6h340c3.3 0 6 2.7 6 6v340c0 3.3-2.7 6-6 6z"
+                fill="currentColor"
+                style={Object {}}
+              />
+            </svg>
+          </button>
+        </span>
+      </span>
+      <span
+        className="chapter-number"
+      >
+        Chapter 
+        <span
+          className="chapter-section"
+          data-chapter-section="2"
+        >
+          2
+        </span>
+         - 
+      </span>
+      <span
+        className="chapter-title"
+      >
+         
+        Mechanics
+         
+      </span>
+      <div
+        aria-label="Browse course reference book"
+        className="browse-the-book"
+        onClick={[Function]}
+        role="link"
+      >
+        Browse this Chapter
+      </div>
+    </div>
+    <div
+      aria-expanded={null}
+      className="sections collapse"
     >
       <div
-        className="panel-heading"
+        className="section c3"
+        data-section-id="237"
+        onClick={[Function]}
       >
-        <div
-          className="chapter-heading panel-title"
-          data-chapter-section={2}
+        <span
+          className="section-checkbox"
         >
-          <a
-            aria-controls={undefined}
-            aria-expanded={false}
-            aria-selected={false}
-            className="collapsed"
-            href={undefined}
-            onClick={[Function]}
-            role="tab"
-          >
-            <span
-              className="chapter-checkbox"
-            >
-              <span
-                className="tri-state-checkbox unchecked"
-                onClick={[Function]}
-                tabIndex={1}
-              >
-                <i
-                  className="tutor-icon fa fa-square-o clickable"
-                  onClick={[Function]}
-                  role="button"
-                  style={
-                    Object {
-                      "cursor": "pointer",
-                    }
-                  }
-                  type="square-o"
-                />
-              </span>
-            </span>
-            <span
-              className="chapter-number"
-            >
-              Chapter 
-              <span
-                className="chapter-section"
-                data-chapter-section="2"
-              >
-                2
-              </span>
-               - 
-            </span>
-            <span
-              className="chapter-title"
-            >
-               
-              Mechanics
-               
-            </span>
-            <div
-              aria-label="Browse course reference book"
-              className="browse-the-book"
-              onClick={[Function]}
-              role="link"
-            >
-              Browse this Chapter
-            </div>
-          </a>
-        </div>
+          <input
+            checked={false}
+            readOnly={true}
+            type="checkbox"
+          />
+        </span>
+        <span
+          className="chapter-section"
+          data-chapter-section="2.1"
+        >
+          2.1
+        </span>
+        <span
+          className="section-title"
+        >
+           
+          Mechanics in 1 dim
+        </span>
       </div>
       <div
-        aria-expanded={null}
-        aria-hidden={true}
-        className="panel-collapse collapse"
-        id={undefined}
-        role="tabpanel"
+        className="section c3"
+        data-section-id="238"
+        onClick={[Function]}
       >
-        <div
-          className="panel-body"
+        <span
+          className="section-checkbox"
         >
-          <div
-            className="section"
-            data-page-id="237"
-            onClick={[Function]}
-          >
-            <span
-              className="section-checkbox"
-            >
-              <input
-                checked={false}
-                readOnly={true}
-                type="checkbox"
-              />
-            </span>
-            <span
-              className="chapter-section"
-              data-chapter-section="2.1"
-            >
-              2.1
-            </span>
-            <span
-              className="section-title"
-            >
-               
-              Mechanics in 1 dim
-            </span>
-          </div>
-          <div
-            className="section"
-            data-page-id="238"
-            onClick={[Function]}
-          >
-            <span
-              className="section-checkbox"
-            >
-              <input
-                checked={false}
-                readOnly={true}
-                type="checkbox"
-              />
-            </span>
-            <span
-              className="chapter-section"
-              data-chapter-section="2.2"
-            >
-              2.2
-            </span>
-            <span
-              className="section-title"
-            >
-               
-              Mechanics in 2 dim
-            </span>
-          </div>
-          <div
-            className="section"
-            data-page-id="239"
-            onClick={[Function]}
-          >
-            <span
-              className="section-checkbox"
-            >
-              <input
-                checked={false}
-                readOnly={true}
-                type="checkbox"
-              />
-            </span>
-            <span
-              className="chapter-section"
-              data-chapter-section="2.3"
-            >
-              2.3
-            </span>
-            <span
-              className="section-title"
-            >
-               
-              Mechanics in 3 dim
-            </span>
-          </div>
-        </div>
+          <input
+            checked={false}
+            readOnly={true}
+            type="checkbox"
+          />
+        </span>
+        <span
+          className="chapter-section"
+          data-chapter-section="2.2"
+        >
+          2.2
+        </span>
+        <span
+          className="section-title"
+        >
+           
+          Mechanics in 2 dim
+        </span>
+      </div>
+      <div
+        className="section c3"
+        data-section-id="239"
+        onClick={[Function]}
+      >
+        <span
+          className="section-checkbox"
+        >
+          <input
+            checked={false}
+            readOnly={true}
+            type="checkbox"
+          />
+        </span>
+        <span
+          className="chapter-section"
+          data-chapter-section="2.3"
+        >
+          2.3
+        </span>
+        <span
+          className="section-title"
+        >
+           
+          Mechanics in 3 dim
+        </span>
       </div>
     </div>
   </div>
   <div
-    className="panel-group"
-    role="tablist"
+    className="chapter c1"
+    data-is-expanded={false}
   >
     <div
-      className="panel panel-default"
-      id={null}
+      className="c2"
+      data-chapter-section={3}
+      onClick={[Function]}
+      role="button"
+    >
+      <span
+        className="chapter-checkbox"
+      >
+        <span
+          className="tri-state-checkbox unchecked"
+          onClick={[Function]}
+          tabIndex={1}
+        >
+          <button
+            className="square btn btn-plain"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              className="svg-inline--fa fa-square fa-w-14 ox-icon square"
+              color="#999999"
+              data-icon="square"
+              data-prefix="far"
+              role="img"
+              style={
+                Object {
+                  "cursor": "pointer",
+                }
+              }
+              viewBox="0 0 448 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-6 400H54c-3.3 0-6-2.7-6-6V86c0-3.3 2.7-6 6-6h340c3.3 0 6 2.7 6 6v340c0 3.3-2.7 6-6 6z"
+                fill="currentColor"
+                style={Object {}}
+              />
+            </svg>
+          </button>
+        </span>
+      </span>
+      <span
+        className="chapter-number"
+      >
+        Chapter 
+        <span
+          className="chapter-section"
+          data-chapter-section="3"
+        >
+          3
+        </span>
+         - 
+      </span>
+      <span
+        className="chapter-title"
+      >
+         
+        Thermodynamics
+         
+      </span>
+      <div
+        aria-label="Browse course reference book"
+        className="browse-the-book"
+        onClick={[Function]}
+        role="link"
+      >
+        Browse this Chapter
+      </div>
+    </div>
+    <div
+      aria-expanded={null}
+      className="sections collapse"
     >
       <div
-        className="panel-heading"
+        className="section c3"
+        data-section-id="240"
+        onClick={[Function]}
       >
-        <div
-          className="chapter-heading panel-title"
-          data-chapter-section={3}
+        <span
+          className="section-checkbox"
         >
-          <a
-            aria-controls={undefined}
-            aria-expanded={false}
-            aria-selected={false}
-            className="collapsed"
-            href={undefined}
-            onClick={[Function]}
-            role="tab"
-          >
-            <span
-              className="chapter-checkbox"
-            >
-              <span
-                className="tri-state-checkbox unchecked"
-                onClick={[Function]}
-                tabIndex={1}
-              >
-                <i
-                  className="tutor-icon fa fa-square-o clickable"
-                  onClick={[Function]}
-                  role="button"
-                  style={
-                    Object {
-                      "cursor": "pointer",
-                    }
-                  }
-                  type="square-o"
-                />
-              </span>
-            </span>
-            <span
-              className="chapter-number"
-            >
-              Chapter 
-              <span
-                className="chapter-section"
-                data-chapter-section="3"
-              >
-                3
-              </span>
-               - 
-            </span>
-            <span
-              className="chapter-title"
-            >
-               
-              Thermodynamics
-               
-            </span>
-            <div
-              aria-label="Browse course reference book"
-              className="browse-the-book"
-              onClick={[Function]}
-              role="link"
-            >
-              Browse this Chapter
-            </div>
-          </a>
-        </div>
+          <input
+            checked={false}
+            readOnly={true}
+            type="checkbox"
+          />
+        </span>
+        <span
+          className="chapter-section"
+          data-chapter-section="3.1"
+        >
+          3.1
+        </span>
+        <span
+          className="section-title"
+        >
+           
+          Thermodynamics in 1 dim
+        </span>
       </div>
       <div
-        aria-expanded={null}
-        aria-hidden={true}
-        className="panel-collapse collapse"
-        id={undefined}
-        role="tabpanel"
+        className="section c3"
+        data-section-id="241"
+        onClick={[Function]}
       >
-        <div
-          className="panel-body"
+        <span
+          className="section-checkbox"
         >
-          <div
-            className="section"
-            data-page-id="240"
-            onClick={[Function]}
-          >
-            <span
-              className="section-checkbox"
-            >
-              <input
-                checked={false}
-                readOnly={true}
-                type="checkbox"
-              />
-            </span>
-            <span
-              className="chapter-section"
-              data-chapter-section="3.1"
-            >
-              3.1
-            </span>
-            <span
-              className="section-title"
-            >
-               
-              Thermodynamics in 1 dim
-            </span>
-          </div>
-          <div
-            className="section"
-            data-page-id="241"
-            onClick={[Function]}
-          >
-            <span
-              className="section-checkbox"
-            >
-              <input
-                checked={false}
-                readOnly={true}
-                type="checkbox"
-              />
-            </span>
-            <span
-              className="chapter-section"
-              data-chapter-section="3.2"
-            >
-              3.2
-            </span>
-            <span
-              className="section-title"
-            >
-               
-              Thermodynamics in 2 dim
-            </span>
-          </div>
-          <div
-            className="section"
-            data-page-id="242"
-            onClick={[Function]}
-          >
-            <span
-              className="section-checkbox"
-            >
-              <input
-                checked={false}
-                readOnly={true}
-                type="checkbox"
-              />
-            </span>
-            <span
-              className="chapter-section"
-              data-chapter-section="3.2"
-            >
-              3.2
-            </span>
-            <span
-              className="section-title"
-            >
-               
-              Thermodynamics in 3 dim
-            </span>
-          </div>
-        </div>
+          <input
+            checked={false}
+            readOnly={true}
+            type="checkbox"
+          />
+        </span>
+        <span
+          className="chapter-section"
+          data-chapter-section="3.2"
+        >
+          3.2
+        </span>
+        <span
+          className="section-title"
+        >
+           
+          Thermodynamics in 2 dim
+        </span>
+      </div>
+      <div
+        className="section c3"
+        data-section-id="242"
+        onClick={[Function]}
+      >
+        <span
+          className="section-checkbox"
+        >
+          <input
+            checked={false}
+            readOnly={true}
+            type="checkbox"
+          />
+        </span>
+        <span
+          className="chapter-section"
+          data-chapter-section="3.2"
+        >
+          3.2
+        </span>
+        <span
+          className="section-title"
+        >
+           
+          Thermodynamics in 3 dim
+        </span>
       </div>
     </div>
   </div>

@@ -2,15 +2,15 @@
   cursor: pointer;
   display: inline;
   margin-left: 10px;
-  color: $tutor-tertiary-light;
+  color: $tutor-tertiary-neutral-light;
   transistion: color 0.4s;
   &:hover {
-    color: darken($tutor-tertiary-light, 10%);
+    color: darken($tutor-tertiary-neutral-light, 10%);
     text-decoration: none;
   }
   a, button {
-    color: $tutor-tertiary-light;
-    .tutor-icon { margin-right: 0.5rem; }
+    color: $tutor-tertiary-neutral-light;
+    .ox-icon { margin-right: 0.5rem; }
   }
 }
 
@@ -67,7 +67,7 @@
   }
 
   .delete-period {
-    color: $tutor-tertiary-light;
+    color: $tutor-tertiary-neutral-light;
   }
 
 
@@ -119,14 +119,14 @@
     &.with-error {
       color: $form-error-color;
       border-bottom: 1px dashed $form-error-color;
-      .tutor-icon { color: $form-error-color; }
+      .ox-icon { color: $form-error-color; }
     }
     .identifier {
       cursor: pointer;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .tutor-icon { margin-left: 0.5rem; }
+    .ox-icon { margin-left: 0.5rem; }
   }
 }
 
@@ -155,7 +155,7 @@
   table { width: 100%; }
   .control {
     button.btn-link {
-      color: $tutor-tertiary-light;
+      color: $tutor-tertiary-neutral-light;
       text-transform: capitalize;
       font-size: 1.5rem;
     }
@@ -239,7 +239,7 @@
 }
 
 .change-period.popover {
-  .popover-title {
+  .popover-header {
     min-width: 185px;
     height: 35px;
   }

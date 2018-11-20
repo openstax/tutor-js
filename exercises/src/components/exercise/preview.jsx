@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { find } from 'lodash';
 import { ExercisePreview } from 'shared';
@@ -7,15 +8,15 @@ import { observer } from 'mobx-react';
 import { CornerRibbon } from 'shared';
 import CurrentUser from '../../models/user';
 
+export default
 @observer
-export default class ExerciseEditingPreview extends React.Component {
+class ExerciseEditingPreview extends React.Component {
 
   static propTypes = {
-    exercise: React.PropTypes.object.isRequired,
-    displayEditLink: React.PropTypes.bool,
-    showEdit: React.PropTypes.bool,
-  };
-
+    exercise: PropTypes.object.isRequired,
+    displayEditLink: PropTypes.bool,
+    showEdit: PropTypes.bool,
+  }
 
   @computed get isAuthor() {
     const { exercise } = this.props;
@@ -53,4 +54,4 @@ export default class ExerciseEditingPreview extends React.Component {
     );
   }
 
-}
+};

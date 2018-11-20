@@ -1,5 +1,6 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
 import { first, find } from 'lodash';
@@ -12,19 +13,20 @@ import ScrollTo from '../../helpers/scroll-to';
 import { idType } from 'shared/helpers/react';
 import NoStats from './no-stats';
 
+export default
 @observer
-export default class TaskTeacherReview extends React.Component {
+class TaskTeacherReview extends React.Component {
   static propTypes = {
-    id: React.PropTypes.string,
-    params: React.PropTypes.shape({
-      id: React.PropTypes.string,
+    id: PropTypes.string,
+    params: PropTypes.shape({
+      id: PropTypes.string,
       courseId: idType,
     }).isRequired,
-    windowImpl: React.PropTypes.object,
+    windowImpl: PropTypes.object,
   };
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   };
 
   @computed get course() {
@@ -74,7 +76,7 @@ export default class TaskTeacherReview extends React.Component {
     );
   }
 
-  renderReviewPanel() {
+  renderReviewCard() {
     if (!this.stats) {
       return (
         <NoStats taskPlan={this.taskPlan} header={this.renderBreadcrumbs()} course={this.course} period={this.period} />
@@ -98,10 +100,10 @@ export default class TaskTeacherReview extends React.Component {
         header={this.renderBreadcrumbs()}
         cardType="task"
       >
-        <Grid fluid={true} className="task-teacher-review">
+        <Container fluid={true} className="task-teacher-review">
           <Row>
             <Col sm={8}>
-              {this.renderReviewPanel()}
+              {this.renderReviewCard()}
             </Col>
             <Col sm={4}>
               <Stats
@@ -113,8 +115,8 @@ export default class TaskTeacherReview extends React.Component {
               />
             </Col>
           </Row>
-        </Grid>
+        </Container>
       </PinnedHeaderFooterCard>
     );
   }
-}
+};

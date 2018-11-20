@@ -1,5 +1,6 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import { Panel, Col } from 'react-bootstrap';
+import { Card, Col } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { map } from 'lodash';
 import { autobind } from 'core-decorators';
@@ -21,16 +22,17 @@ const ROW_TYPES = {
 };
 
 
+export default
 @observer
-export default class EventsPanel extends React.PureComponent {
+class EventsCard extends React.Component {
   static propTypes = {
-    events:     React.PropTypes.array.isRequired,
-    course:     React.PropTypes.instanceOf(Course).isRequired,
-    startAt:    React.PropTypes.object,
-    endAt:      React.PropTypes.object,
-    limit:      React.PropTypes.number,
-    title:      React.PropTypes.string,
-    className:  React.PropTypes.string,
+    events:     PropTypes.array.isRequired,
+    course:     PropTypes.instanceOf(Course).isRequired,
+    startAt:    PropTypes.object,
+    endAt:      PropTypes.object,
+    limit:      PropTypes.number,
+    title:      PropTypes.string,
+    className:  PropTypes.string,
   }
 
   renderTitle() {
@@ -60,12 +62,16 @@ export default class EventsPanel extends React.PureComponent {
 
   render() {
     return (
-      <Panel className={this.props.className}>
+      <Card className={this.props.className}>
         <div className="row labels">
           <Col xs={12} sm={7}>
             {this.renderTitle()}
           </Col>
-          <Col xs={5} xsOffset={2} smOffset={0} sm={3} className="progress-label">
+          <Col
+            xs={{ span: 5, offset: 2 }}
+            sm={{ span: 3, offset: 0 }}
+            className="progress-label"
+          >
             Progress
           </Col>
           <Col xs={5} sm={2} className="due-at-label">
@@ -73,7 +79,7 @@ export default class EventsPanel extends React.PureComponent {
           </Col>
         </div>
         {map(this.props.events, this.renderEvent)}
-      </Panel>
+      </Card>
     );
   }
-}
+};

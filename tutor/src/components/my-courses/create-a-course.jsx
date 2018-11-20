@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import { observer } from 'mobx-react';
@@ -10,16 +11,18 @@ import IconAdd from '../icons/add';
 import Courses from '../../models/courses-map';
 import TourAnchor from '../tours/anchor';
 
-@wrapCourseDropComponent @observer
-export default class CreateACourse extends React.PureComponent {
+export default
+@wrapCourseDropComponent
+@observer
+class CreateACourse extends React.Component {
 
   static propTypes = {
-    isHovering: React.PropTypes.bool,
-    connectDropTarget: React.PropTypes.func.isRequired,
+    isHovering: PropTypes.bool,
+    connectDropTarget: PropTypes.func.isRequired,
   }
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   onDrop(course) {
@@ -52,4 +55,4 @@ export default class CreateACourse extends React.PureComponent {
         {this.renderAddZone()}
       </TourAnchor>);
   }
-}
+};

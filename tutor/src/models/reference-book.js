@@ -1,15 +1,15 @@
-import { readonly } from 'core-decorators';
-import { uniq, compact, map, first, last, mapValues, omit } from 'lodash';
+import { uniq, compact, map, first, last, fromPairs, omit } from 'lodash';
 import { action, observable, computed } from 'mobx';
+import Map from 'shared/model/map';
 import {
-  BaseModel, identifiedBy, belongsTo, identifier, field, session, hasMany,
+  BaseModel, identifiedBy, identifier, field, hasMany,
 } from 'shared/model';
 import ChapterSection from './chapter-section';
 import Chapter from './reference-book/chapter';
 
 function mapPages(page, pages) {
   if (page.isPage) {
-    const lastPage = last(pages.byId.values());
+    const lastPage = last(Array.from(pages.byId.values()));
     if (lastPage) { lastPage.linkNextPage(page); }
     pages.byId.set(page.id, page);
     pages.byUUID.set(page.uuid, page);
@@ -21,17 +21,19 @@ function mapPages(page, pages) {
   return pages;
 }
 
+export default
 @identifiedBy('reference-book')
-export default class ReferenceBook extends BaseModel {
+class ReferenceBook extends BaseModel {
 
   @identifier id;
   @field archive_url;
   @field webview_url;
+
   @field({ model: ChapterSection }) chapter_section;
 
   @computed get pages() {
     return mapPages(this, {
-      byId: observable.map(),
+      byId: new Map({}, { keyType: String }),
       byUUID: observable.map(),
       byChapterSection: observable.map(),
     });
@@ -56,7 +58,10 @@ export default class ReferenceBook extends BaseModel {
 
   // a simplified data structure suitable for passing into flux
   @computed get topicInfo() {
-    return mapValues(this.pages.byId.toJS(), pg => pg.asTopic);
+    const pages = this.pages.byId;
+    return fromPairs(Array.from(pages.keys()).map(id =>
+      [id, pages.get(id).asTopic]
+    ));
   }
 
   @computed get isBaked() {
@@ -70,4 +75,4 @@ export default class ReferenceBook extends BaseModel {
     })));
   }
 
-}
+};

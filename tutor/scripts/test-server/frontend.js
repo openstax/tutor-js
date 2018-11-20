@@ -20,8 +20,8 @@ WebpackDriverStatusPlugin.prototype.apply = function(compiler) {
   compiler.hooks['done'].tap('WebPackDriver', function(stats) {
     if (stats.compilation.errors && stats.compilation.errors.length){
       log('status', 'invalid');
-      for(var i = 0; i < stats.compilation.errors.length; i++){
-        var err = stats.compilation.errors[i];
+      for(let i = 0; i < stats.compilation.errors.length; i++){
+        const err = stats.compilation.errors[i];
         log('error', {
           name: err.name, message: err.message,
           resource: err.module ? err.module.resource : '',

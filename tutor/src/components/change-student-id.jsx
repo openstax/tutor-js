@@ -1,22 +1,24 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { action, observable } from 'mobx';
 import { isEmpty } from 'lodash';
-import { Modal, Button, ControlLabel } from 'react-bootstrap';
+import { Modal, Button, Form } from 'react-bootstrap';
 import Courses from '../models/courses-map';
 import { AsyncButton } from 'shared';
 import Router from '../helpers/router';
 import BackButton from './buttons/back-button';
 
+export default
 @observer
-export default class ChangeStudentId extends React.PureComponent {
+class ChangeStudentId extends React.Component {
 
   static propTypes = {
-    courseId: React.PropTypes.string,
+    courseId: PropTypes.string,
   }
 
   static contextTypes = {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   }
 
   courseId = Router.currentParams().courseId;
@@ -55,7 +57,6 @@ export default class ChangeStudentId extends React.PureComponent {
     return (
       <Modal.Dialog
         className="change-student-id"
-        backdropClassName="change-student-id"
       >
         <Modal.Body>
           <h3>You have successfully updated your student ID.</h3>
@@ -79,13 +80,12 @@ export default class ChangeStudentId extends React.PureComponent {
     return (
       <Modal.Dialog
         className="change-student-id"
-        backdropClassName="change-student-id"
       >
         <Modal.Body>
           <div className="title">
             <h3>Update your student ID</h3>
           </div>
-          <ControlLabel className="id-number-body">
+          <Form.Label className="id-number-body">
             <div className="sub-title">Enter your school-issued student ID number *</div>
             <div className="inputs">
 
@@ -98,14 +98,14 @@ export default class ChangeStudentId extends React.PureComponent {
                 defaultValue={this.student.student_identifier}
               />
             </div>
-          </ControlLabel>
+          </Form.Label>
           {this.isValid ? null : this.renderWarning()}
           <div className="required">* required for course credit</div>
         </Modal.Body>
         <Modal.Footer>
           <AsyncButton
             disabled={!this.isValid}
-            bsStyle="primary"
+            variant="primary"
             className="btn btn-success"
             isWaiting={!!this.student.api.isPending}
             waitingText={'Confirming…'}
@@ -113,9 +113,9 @@ export default class ChangeStudentId extends React.PureComponent {
           >
             Save
           </AsyncButton>
-          <Button className="cancel" bsStyle="link" onClick={this.goToDashboard}>Cancel</Button>
+          <Button className="cancel" variant="link" onClick={this.goToDashboard}>Cancel</Button>
         </Modal.Footer>
       </Modal.Dialog>
     );
   }
-}
+};

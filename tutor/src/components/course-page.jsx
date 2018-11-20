@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cn from 'classnames';
 import { isNil } from 'lodash';
@@ -5,16 +6,16 @@ import { computed } from 'mobx';
 import Course from '../models/course';
 import CourseUX from '../models/course/ux';
 
-export default class CoursePage extends React.PureComponent {
+export default class CoursePage extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course).isRequired,
-    children: React.PropTypes.node.isRequired,
-    controls: React.PropTypes.node,
-    title: React.PropTypes.node,
-    notices: React.PropTypes.node,
-    subtitle: React.PropTypes.node,
-    className: React.PropTypes.string,
+    course: PropTypes.instanceOf(Course).isRequired,
+    children: PropTypes.node.isRequired,
+    controls: PropTypes.node,
+    title: PropTypes.node,
+    notices: PropTypes.node,
+    subtitle: PropTypes.node,
+    className: PropTypes.string,
   }
 
   @computed get ux () {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Overlay, Popover } from 'react-bootstrap';
@@ -10,15 +11,16 @@ import Correctness from './correctness-value';
 import TaskResult from '../../models/course/scores/task-result';
 import UX from './ux';
 
+export default
 @observer
-export default class HomeworkCell extends React.PureComponent {
+class HomeworkCell extends React.Component {
 
   static propTypes = {
-    ux: React.PropTypes.instanceOf(UX).isRequired,
-    className: React.PropTypes.string,
-    isConceptCoach: React.PropTypes.bool,
-    columnIndex: React.PropTypes.number.isRequired,
-    task: React.PropTypes.instanceOf(TaskResult).isRequired,
+    ux: PropTypes.instanceOf(UX).isRequired,
+    className: PropTypes.string,
+    isConceptCoach: PropTypes.bool,
+    columnIndex: PropTypes.number.isRequired,
+    task: PropTypes.instanceOf(TaskResult).isRequired,
   }
 
   @observable isShowingPopover = false;
@@ -105,4 +107,4 @@ export default class HomeworkCell extends React.PureComponent {
     );
   }
 
-}
+};

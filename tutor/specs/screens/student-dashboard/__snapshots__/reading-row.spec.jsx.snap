@@ -1,110 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Reading Row renders complete 1`] = `
-<a
-  aria-label="Work on reading: viral cultivate applications"
-  className="task row reading workable"
-  data-event-id={3}
-  href="/course/3/task/3"
-  onClick={[Function]}
-  onKeyDown={undefined}
-  tabIndex={0}
->
-  <div
-    className="column-icon col-sm-1 col-xs-2"
-  >
-    <i
-      aria-label="reading icon"
-      className="icon icon-lg icon-reading"
-    />
-  </div>
-  <div
-    className="title col-sm-6 col-xs-10"
-  >
-    viral cultivate applications
-  </div>
-  <div
-    className="feedback col-sm-3 col-xs-5"
-  >
-    <span>
-      Complete
-    </span>
-  </div>
-  <div
-    className="due-at col-sm-2 col-xs-5"
-  >
-    <time>
-      Oct 11, 7:00am
-    </time>
-  </div>
-</a>
-`;
-
-exports[`Reading Row renders in progress 1`] = `
-<a
-  aria-label="Work on reading: out-of-the-box embrace supply-chains"
-  className="task row reading workable"
-  data-event-id={2}
-  href="/course/2/task/2"
-  onClick={[Function]}
-  onKeyDown={undefined}
-  tabIndex={0}
->
-  <div
-    className="column-icon col-sm-1 col-xs-2"
-  >
-    <i
-      aria-label="reading icon"
-      className="icon icon-lg icon-reading"
-    />
-  </div>
-  <div
-    className="title col-sm-6 col-xs-10"
-  >
-    out-of-the-box embrace supply-chains
-  </div>
-  <div
-    className="feedback col-sm-3 col-xs-5"
-  >
-    <span>
-      In progress
-    </span>
-    <span
-      className="tour-anchor"
-      data-tour-anchor-id="about-late-icon"
-    >
-      <i
-        className="info late"
-        onBlur={[Function]}
-        onClick={null}
-        onFocus={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-      />
-    </span>
-  </div>
-  <div
-    className="due-at col-sm-2 col-xs-5"
-  >
-    <time>
-      Oct 11, 7:00am
-    </time>
-  </div>
-</a>
-`;
-
-exports[`Reading Row renders unstarted 1`] = `
+exports[`Reading Row matches snapshot 1`] = `
 <a
   aria-label="Work on reading: turn-key leverage content"
-  className="task row reading workable"
+  className="task row reading"
   data-event-id={1}
   href="/course/1/task/1"
   onClick={[Function]}
-  onKeyDown={undefined}
-  tabIndex={0}
+  tabIndex={-1}
 >
   <div
-    className="column-icon col-sm-1 col-xs-2"
+    className="column-icon col-sm-1 col-2"
   >
     <i
       aria-label="reading icon"
@@ -112,19 +18,19 @@ exports[`Reading Row renders unstarted 1`] = `
     />
   </div>
   <div
-    className="title col-sm-6 col-xs-10"
+    className="title col-sm-6 col-10"
   >
     turn-key leverage content
   </div>
   <div
-    className="feedback col-sm-3 col-xs-5"
+    className="feedback col-sm-3 col-5"
   >
     <span>
       Complete
     </span>
   </div>
   <div
-    className="due-at col-sm-2 col-xs-5"
+    className="due-at col-sm-2 col-5"
   >
     <time>
       Oct 11, 7:00am

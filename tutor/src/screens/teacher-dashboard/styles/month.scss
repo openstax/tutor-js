@@ -2,6 +2,14 @@
 
 $calendar-cell-width: calc(100%/7);
 $calendar-cell-height: 10rem;
+$dayz-outside-background-color: $tutor-neutral-lightest;
+$dayz-event-border-color: transparent;
+$dayz-event-default-color:  transparent;
+$dayz-highlight-color:     transparent;
+$dayz-event-text-default-color: $tutor-neutral-darker;
+$dayz-event-border-radius: 0;
+
+@import '~dayz/dayz.scss';
 
 @mixin bootstrap-column-padding-override() {
   // Overriding bootstrap's tricks for nice column floating.
@@ -25,10 +33,18 @@ $calendar-cell-height: 10rem;
   @include no-select();
 }
 
+@keyframes preloadAnimation {
+    from {
+        background-position: -280px 0
+    }
+    to {
+        background-position: 300px 0
+    }
+}
 
 .calendar-container{
   @include bootstrap-column-padding-override();
-  line-height: 3rem; // needs to be a known value that matches the task layout logic
+
   padding-bottom: $tutor-card-body-padding-vertical;
 
   .calendar-body {
@@ -37,12 +53,15 @@ $calendar-cell-height: 10rem;
   }
 
   .month-wrapper {
+    margin: 0 10px 10px 10px;
+  }
+
+  .month-body {
     @include tutor-subtle-load('will-load', 'Loading ' attr(data-duration-name) '...');
   }
 
-
   &.calendar-loading {
-    .month-wrapper {
+    .month-body {
       @include tutor-subtle-load('loading');
     }
 
@@ -50,125 +69,71 @@ $calendar-cell-height: 10rem;
       opacity: 0.1;
     }
   }
-  .month-wrapper {
-    position: relative;
-    margin: 0 10px 10px 10px;
-    overflow: hidden;
 
-    &.is-dragging {
-      .rc-Day--upcoming,
-      .rc-Day--current {
-        &.hovered:not(.before-term):not(.after-term) {
-          border: 1px solid $tutor-tertiary-light;
-        }
-      }
-      .rc-Day--past,
-      .before-term,
-      .after-term {
-        &.hovered {
-           background: fade_out($tutor-danger, 0.9);
-        }
-      }
+  .dayz {
+    .event .evbody {
+      padding-left: 0;
     }
-  }
-  .rc {
-    &-Calendar {
-      width: 100%;
-      &-header {
-        width: 100%;
-        text-align: center;
-        font-weight: bolder;
-      }
+
+    .days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
     }
-    &-Month {
-      width: 100%;
-      display: inline-block;
-      vertical-align: top;
+
+    &.month .days .day {
+      width: 100%; // override % flex width
+    }
+    .day {
       position: relative;
 
-      &-weekdays {
-        width: 100%;
-        background-color: $tutor-white;
-        &-weekday {
-          @include calendar-cell($calendar-cell-width);
-          text-align: center;
-          height: 2rem;
-          font-weight: bolder;
-        }
-      }
-      &--current {
-        .rc-Month-header {
-          color: $tutor-primary;
-        }
-      }
-
-      &::after {
-        opacity: 0;
-      }
-    }
-    &-Week {
-      width: 100%;
-
-      // Note: property below subject to change based on data
-      // See CALENDAR_DAY_DYNAMIC_HEIGHT in CourseMonth component
-      height: $calendar-cell-height;
-
-      &-number {
-        color: $gray-light;
-        @include calendar-cell($calendar-cell-width);
-      }
-      &-days {
-        width: 100%;
-        height: 100%;
-        border-left: 1px solid $tutor-neutral-light;
-        display: inline-block;
-      }
-      &:last-child {
-        .rc-Week-days {
-          border-bottom: 1px solid $tutor-neutral-light;
-        }
-      }
-    }
-    &-Day {
-      @include calendar-cell($calendar-cell-width);
-      border-top: 1px solid $tutor-neutral-light;
-      border-right: 1px solid $tutor-neutral-light;
-      position: relative;
-      cursor: default;
-      line-height: 1.5rem;
-      text-align: right;
-
-      &--upcoming {
+      &.today,
+      &.upcoming {
         cursor: pointer;
-
-        &:hover, &.active {
-          background-color: fade_out($tutor-tertiary-light, 0.9);
+        &.hover,
+        &:hover {
+          background-color: fade_out($tutor-tertiary-neutral-light, 0.9);
           &::after{
             content: '+';
             font-size: 2rem;
             position: absolute;
             top: 0.5rem;
             left: 0.5rem;
-            color: $tutor-tertiary-light;
+            color: $tutor-tertiary-neutral-light;
           }
         }
       }
 
-      &--past,
+      &.past,
       &.before-term,
       &.after-term {
         color: $tutor-neutral;
         background-color: $tutor-neutral-lightest;
+        &.hover,
+        &:hover {
+          background: fade_out($tutor-danger, 0.9);
+        }
       }
 
-      &--outside {
-        color: $tutor-neutral-light;
+      &.today {
+        .label {
+          color: $tutor-primary;
+          font-weight: bold;
+        }
       }
 
-      &--current {
-        color: $tutor-primary;
-        font-weight: bold;
+      &.pending-clone::before {
+        content: 'Copying Plan…';
+        background: linear-gradient(to right, $tutor-neutral-light 8%, $tutor-neutral-lighter 18%, $tutor-neutral-light 33%);
+        background-size: 200% 50px;
+        animation: preloadAnimation 2s infinite;
+        position: absolute;
+        top: 40%;
+        width: 100%;
+        padding: 5px;
       }
+
     }
   }
+
+
 }

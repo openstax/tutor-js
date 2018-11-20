@@ -1,14 +1,16 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import { MenuItem } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import TourAnchor from '../tours/anchor';
-import Course from '../../models/course'
+import Course from '../../models/course';
 
+export default
 @observer
-export default class BestPracticesGuide extends React.Component {
+class BestPracticesGuide extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course),
+    course: PropTypes.instanceOf(Course),
   }
 
   render() {
@@ -20,14 +22,14 @@ export default class BestPracticesGuide extends React.Component {
     if (!url) { return null; }
 
     return (
-      <MenuItem
+      <Dropdown.Item
         className="best-practices-guide"
         target="_blank"
         href={url}
       >
         Best Practices Guide
-      </MenuItem>
+      </Dropdown.Item>
     );
   }
 
-}
+};

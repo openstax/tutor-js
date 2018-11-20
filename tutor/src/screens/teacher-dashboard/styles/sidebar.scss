@@ -76,7 +76,7 @@
       margin-bottom: 1rem;
     }
 
-    .popover-content {
+    .popover-body {
       padding: 1.5rem;
     }
 
@@ -88,7 +88,7 @@
       margin-bottom: 1.5rem;
 
       &:hover {
-        background: $state-info-bg;
+        background: theme-color("info");
       }
     }
   }
@@ -142,7 +142,7 @@
 
   .task-plan,
   .new-task {
-    border-radius: $border-radius-base;
+    border-radius: $border-radius;
   }
 
   .past-assignments {

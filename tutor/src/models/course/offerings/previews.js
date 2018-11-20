@@ -1,13 +1,15 @@
-import { filter, sortBy, find } from 'lodash';
-import { action, observable, computed } from 'mobx';
+import { sortBy, find } from 'lodash';
+import { action, observable, computed, decorate } from 'mobx';
 import { identifiedBy } from 'shared/model';
 import Course from '../../course';
 import Courses from '../../courses-map';
 import Offerings from './index';
 import CourseCreate from '../create';
 
+export { PreviewCourseOffering };
+
 @identifiedBy('course/offerings/preview')
-export class PreviewCourseOffering extends Course {
+class PreviewCourseOffering extends Course {
 
   @observable offering;
   @observable courseCreate;
@@ -50,15 +52,22 @@ export class PreviewCourseOffering extends Course {
 }
 
 
-export default {
+const Previews = {
 
-  @action fetch() {
+  fetch() {
     Offerings.fetched;
   },
 
-  @computed get all() {
+  get all() {
     const tutor = sortBy(Offerings.fetched.available.array, 'title');
     return tutor.map(o => new PreviewCourseOffering(o));
   },
 
 };
+
+decorate(Previews, {
+  fetch: action,
+  all: computed,
+});
+
+export default Previews;

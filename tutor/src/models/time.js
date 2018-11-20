@@ -1,4 +1,4 @@
-import { computed } from 'mobx';
+import { computed, decorate } from 'mobx';
 import { now as getNow } from 'mobx-utils';
 
 let shiftMs = 0;
@@ -15,11 +15,15 @@ export function setResolution(r = defaultResolution) {
 
 const Store = {
 
-  @computed get now() {
+  get now() {
     const now = getNow(timeResolution);
     return new Date(now + shiftMs);
   },
 
 };
+
+decorate(Store, {
+  now: computed,
+});
 
 export default Store;

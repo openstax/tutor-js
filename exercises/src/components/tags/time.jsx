@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import SingleDropdown from './single-dropdown';
@@ -16,7 +17,7 @@ function TimeTag(props) {
 }
 
 TimeTag.propTypes = {
-  exercise: React.PropTypes.instanceOf(Exercise).isRequired,
+  exercise: PropTypes.instanceOf(Exercise).isRequired,
 };
 
 export default observer(TimeTag);

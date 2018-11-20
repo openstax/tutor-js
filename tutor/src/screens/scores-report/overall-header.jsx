@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cn from 'classnames';
-import Icon from '../../components/icon';
-import { OverlayTrigger, Popover } from 'react-bootstrap';
-import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { Icon } from 'shared';
+import Theme from '../../theme';
+import { observer } from 'mobx-react';
 import SetWeights from './set-weights-modal';
 import ViewWeights from './view-weights-modal';
 
@@ -23,7 +24,8 @@ const WeightsLink = observer(({ ux }) => {
         Set weights
         {!ux.areWeightsInUse &&
           <Icon
-            type="warning"
+            type="exclamation-triangle"
+            color={Theme.colors.danger}
             tooltipProps={{ placement: 'top' }}
             tooltip="Change weights to generate course averages" />}
       </a>
@@ -40,7 +42,7 @@ const WeightsLink = observer(({ ux }) => {
 const OverallHeader = observer(({ ux }) => {
   const { period, periodAverages } = ux;
   let overviewHeaderRow = null;
-  let weightsModal = <ViewWeights ux={ux} />
+  let weightsModal = <ViewWeights ux={ux} />;
 
   if (period.course.isTeacher) {
     overviewHeaderRow = (
@@ -57,7 +59,7 @@ const OverallHeader = observer(({ ux }) => {
       </div>
     );
 
-    weightsModal = <SetWeights ux={ux} />
+    weightsModal = <SetWeights ux={ux} />;
   }
 
   return (

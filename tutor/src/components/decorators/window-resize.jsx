@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { defer, throttle } from 'lodash';
@@ -5,8 +6,8 @@ import { defer, throttle } from 'lodash';
 export default class WinderResizeListener extends React.Component {
 
   static propTypes = {
-    children: React.PropTypes.element.isRequired,
-    resizeThrottle: React.PropTypes.number,
+    children: PropTypes.element.isRequired,
+    resizeThrottle: PropTypes.number,
   }
 
   static defaultProps = {
@@ -75,8 +76,8 @@ export default class WinderResizeListener extends React.Component {
       sizes: {
         window: this._getWindowSize(),
         self: this._getComponentSize(),
-      }
-    })
+      },
+    });
   }
 
   render() {

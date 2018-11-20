@@ -6,7 +6,7 @@ import { computed } from 'mobx';
 import { first }    from 'lodash';
 import classnames   from 'classnames';
 
-export default class CenteredWheel extends React.PureComponent {
+export default class CenteredWheel extends React.Component {
   className = 'centered-wheel'
 
   @computed get wrapperClassName() {
@@ -38,7 +38,7 @@ export default class CenteredWheel extends React.PureComponent {
   }
 
   render () {
-    const className = classnames(this.className,  this.props.className, this.props.step.className);
+    const className = classnames(this.className, this.props.className, this.props.step.className);
 
     return (
       <Tooltip {...this.props} className={className}/>

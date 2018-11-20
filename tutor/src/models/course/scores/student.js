@@ -7,8 +7,9 @@ import {
 
 import TaskResult from './task-result';
 
+export default
 @identifiedBy('course/scores/student')
-export default class Student extends BaseModel {
+class Student extends BaseModel {
   @hasMany({ model: TaskResult, inverseOf: 'student' }) data;
   @field first_name;
   @field last_name;
@@ -66,4 +67,4 @@ export default class Student extends BaseModel {
     ).div(tasks.length);
   }
 
-}
+};

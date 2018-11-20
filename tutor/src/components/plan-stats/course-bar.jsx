@@ -1,16 +1,17 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { map, partial } from 'lodash';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
-import Icon from '../icon';
+import { Icon } from 'shared';
 
 class CourseBar extends React.Component {
   static displayName = 'CourseBar';
 
   static propTypes = {
-    data: React.PropTypes.object.isRequired,
-    type: React.PropTypes.string.isRequired,
-    totalCols: React.PropTypes.number,
+    data: PropTypes.object.isRequired,
+    type: PropTypes.string.isRequired,
+    totalCols: PropTypes.number,
   };
 
   static defaultProps = { totalCols: 12 };
@@ -104,11 +105,11 @@ so it may differ from the average you see in Student Scores.\
     const statsColumns = map(stats, partial(this.renderCourseStat, partial.placeholder, cols));
 
     return (
-      <Grid className="data-container" key="course-bar">
+      <Container className="data-container" key="course-bar">
         <Row className="stats">
           {statsColumns}
         </Row>
-      </Grid>
+      </Container>
     );
   }
 }

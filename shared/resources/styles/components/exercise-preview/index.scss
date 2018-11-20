@@ -38,19 +38,19 @@
 
   &.is-vertically-truncated {
     .context {
-      @include height-limited-panel(300px);
+      @include height-limited-card(300px);
     }
     .question-stem {
-      @include height-limited-panel(370px);
+      @include height-limited-card(370px);
     }
-    .panel-body > .exercise-body {
-      @include height-limited-panel(700px);
+    .card-body > .exercise-body {
+      @include height-limited-card(700px);
     }
   }
 
 
   &.has-actions {
-    .panel-body {
+    .card-body {
       &:hover {
         .controls-overlay {
           visibility: visible;
@@ -62,7 +62,7 @@
     .controls-overlay {
       cursor: pointer;
       position: absolute;
-      top: 0; right: 0; bottom: 0; left: 0;  // completely cover panel body
+      top: 0; right: 0; bottom: 0; left: 0;  // completely cover card body
       visibility: hidden;
       z-index: 1;
       display: flex;
@@ -89,7 +89,7 @@
           &:hover { box-shadow: 0 0 5px rgba(0,0,0,0.5); }
 
           &:before {
-            @include fa-icon();
+
             content: "";
             display: block;
             margin: 10% auto;
@@ -115,7 +115,7 @@
     $action-square-width: 67px;
     $action-square-height: 75px;
     $size-scale: 0.5;
-    .panel-body, .panel-body:hover {
+    .card-body, .card-body:hover {
       padding-left: 90px;
       position: relative;
       .controls-overlay {
@@ -151,32 +151,32 @@
 
   .selected-mask {
       position: absolute;
-      top: 0; right: 0; bottom: 0; left: 0;  // completely cover panel body
+      top: 0; right: 0; bottom: 0; left: 0;  // completely cover card body
       z-index: 1;
       opacity: 0.4;
       background-color: $openstax-neutral-light;
       pointer-events: none;
   }
 
-  .panel-body {
+  .card-body {
     position: relative;
 
     // used by formats and tags
     @mixin metadata-styles() {
       color: $openstax-neutral;
-      font-size: 1.2rem;
-      line-height: 1.4em;
+      // font-size: 1.2rem;
+      // line-height: 1.4em;
     }
     .question-stem {
       font-weight: 700;
       margin-bottom: 1rem;
-      font-size: 1.6rem;
-      line-height: 1.4em;
+      // font-size: 1.6rem;
+      // line-height: 1.4em;
     }
 
     .answers-table {
-      font-size: 1.4rem;
-      line-height: 1.4em;
+      // font-size: 1.4rem;
+      // line-height: 1.4em;
       margin-bottom: 2rem;
 
       .answers-answer {
@@ -186,14 +186,6 @@
         &.answer-correct {
           color: $openstax-secondary;
           padding-left: 0;
-
-          &:before {
-            @include fa-icon();
-            padding-top: 0.15em;
-            padding-right: .125em;
-            content: $fa-var-check;
-            display: table-cell;
-          }
         }
 
         .answer-label {
@@ -253,7 +245,7 @@
   }
 
   &.is-displaying-feedback {
-    .panel-body .answers-table .question-feedback-content { display: table; }
+    .card-body .answers-table .question-feedback-content { display: table; }
     .detailed-solution{ display: block; }
   }
 
@@ -273,10 +265,10 @@
   }
 
   // use absolute positioning for the identifer so it's link is clickable through the overlay
-  .panel-footer .controls {
+  .step-footer .controls {
     display: flex;
     justify-content: space-between;
-    font-size: 1.1rem;
+//    font-size: 1.1rem;
     color: $openstax-neutral;
 
     .exercise-identifier-link a { color: $openstax-neutral; }
@@ -284,7 +276,7 @@
     .toggle {
       border: 0;
       background-color: transparent;
-      font-size: 1.2rem;
+//      font-size: 1.2rem;
     }
   }
 

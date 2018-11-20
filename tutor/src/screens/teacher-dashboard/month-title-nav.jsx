@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import { React, observer, action  } from '../../helpers/react';
 import moment from 'moment';
-
+import { Icon } from 'shared';
 import { TimeStore } from '../../flux/time';
 import TimeHelper from '../../helpers/time';
 
@@ -9,10 +10,10 @@ class CourseCalendarTitleNav extends React.Component {
   static displayName = 'CourseCalendarTitleNav';
 
   static propTypes = {
-    setDate: React.PropTypes.func,
+    setDate: PropTypes.func,
     date: TimeHelper.PropTypes.moment,
-    format: React.PropTypes.string.isRequired,
-    duration: React.PropTypes.string.isRequired,
+    format: PropTypes.string.isRequired,
+    duration: PropTypes.string.isRequired,
   };
 
   static defaultProps = {
@@ -58,14 +59,14 @@ class CourseCalendarTitleNav extends React.Component {
             href="#"
             className="calendar-header-control previous"
             onClick={this.handlePrevious}>
-            <i className="fa fa-caret-left" />
+            <Icon type="caret-left" />
           </a>
           {this.state.date.format(this.props.format)}
           <a
             href="#"
             className="calendar-header-control next"
             onClick={this.handleNext}>
-            <i className="fa fa-caret-right" />
+            <Icon type="caret-right" />
           </a>
         </div>
       </div>

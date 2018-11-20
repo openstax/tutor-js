@@ -1,28 +1,34 @@
+import { Factory, TestRouter } from '../../helpers';
 import BuilderUX from '../../../src/screens/new-course/ux';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import Offerings from '../../../src/models/course/offerings';
-import Router from '../../../src/helpers/router';
 import User from '../../../src/models/user';
+import Router from '../../../src/helpers/router';
 
-jest.useFakeTimers();
 jest.mock('../../../src/helpers/router');
-jest.mock('../../../src/models/course/offerings', () => ({
-  get: jest.fn(() => undefined),
-  fetch: jest.fn(() => Promise.resolve()),
-  api: { isPending: false }
-}));
+jest.useFakeTimers();
+
 jest.mock('../../../src/models/user', () => ({
   isCollegeTeacher: true,
 }));
 
+const testRouter = new TestRouter();
+let courses;
+const createTestUX = () => new BuilderUX({
+  router: testRouter,
+  courses,
+  offerings: Factory.offeringsMap({ count: 1 }),
+});
+
 describe('Course Builder UX Model', () => {
-  let ux, courses, mockOffering;
+  let ux;
+
   beforeEach(() => {
-    Router.currentParams.mockReturnValue({});
     User.isCollegeTeacher = true;
-    courses = bootstrapCoursesList();
-    mockOffering = { id: 1, title: 'A Test Course', is_available: true };
-    ux = new BuilderUX();
+    courses = Factory.coursesMap({ is_teacher: true });
+    ux = createTestUX();
+
+    ux.courses.array[0].offering_id = ux.offerings.array[0].id;
   });
 
 
@@ -44,27 +50,22 @@ describe('Course Builder UX Model', () => {
   }
 
   it('sets cloned course when sourceId is present', () => {
-    Router.currentParams.mockReturnValue({ sourceId: '2' });
-    courses.get('2').name = 'CLONE ME';
-    Offerings.get.mockReturnValue(mockOffering);
-    ux = new BuilderUX();
-    expect(ux.newCourse.cloned_from_id).toEqual('2');
-    expect(ux.newCourse.name).toEqual('CLONE ME');
-  });
+    const course = courses.array[0];
+    testRouter.route.match.params = { sourceId: course.id };
+    course.name = 'CLONE ME';
+    ux = createTestUX();
+    expect(ux.source).not.toBeUndefined();
+    ux.offerings.set(course.offering_id, Factory.offering());
 
-  it('calculates first stage', () => {
-    expect(ux.firstStageIndex).toEqual(0);
-    Router.currentParams.mockReturnValue({ sourceId: '1' });
-    ux = new BuilderUX();
-    expect(ux.firstStageIndex).toEqual(1);
+    expect(ux.newCourse.cloned_from_id).toEqual(course.id);
+    expect(ux.newCourse.name).toEqual('CLONE ME');
   });
 
   it('can advance through steps for new course', () => {
     expect(ux.stage).toEqual('offering');
     expect(ux.canGoBackward).toBe(false);
     expect(ux.canGoForward).toBe(false);
-    ux.newCourse.offering = mockOffering;
-    Offerings.get.mockReturnValue(mockOffering);
+    ux.newCourse.offering = ux.offerings.array[0];
     expect(ux.canGoForward).toBe(true);
 
     ux.goForward();
@@ -75,12 +76,12 @@ describe('Course Builder UX Model', () => {
     expect(ux.canGoForward).toBe(true);
 
     ux.goForward();
-
     expect(ux.stage).toEqual('new_or_copy');
     expect(ux.canGoForward).toBe(true);
+
     ux.goForward();
     expect(ux.stage).toEqual('name');
-    expect(ux.newCourse.name).toEqual(mockOffering.title);
+    expect(ux.newCourse.name).toEqual(ux.offering.title);
 
     ux.goBackward();
     expect(ux.stage).toEqual('new_or_copy');
@@ -88,7 +89,7 @@ describe('Course Builder UX Model', () => {
     expect(ux.canGoForward).toBe(true);
     ux.goForward();
 
-    const course = courses.get('2');
+    const course = ux.courses.array[0];
 
     expect(ux.stage).toEqual('cloned_from_id');
     expect(ux.canGoForward).toBe(false);
@@ -104,20 +105,18 @@ describe('Course Builder UX Model', () => {
   });
 
   it('can advance through steps for cloned course', () => {
-    const course = courses.get('2');
-    Router.currentParams.mockReturnValue({ sourceId: course.id });
-    ux = new BuilderUX();
+    const course = ux.courses.array[0];
+    testRouter.route.match.params = { sourceId: course.id };
+    ux = createTestUX();
     expect(ux.stage).toEqual('term');
     expect(ux.canGoForward).toBe(false);
     ux.newCourse.term = { year: 2018 };
     expect(ux.canGoForward).toBe(true);
     ux.goForward();
     expect(ux.stage).toEqual('name'); // new_or_copy is skipped
-    expect(ux.canGoForward).toBe(true);
-    expect(ux.newCourse.name).toEqual(course.name);
+    ux.newCourse.name = 'test';
     expect(ux.canGoForward).toBe(true);
     ux.goForward();
-    expect(ux.newCourse.num_sections).toEqual(course.periods.length);
     advanceToSave();
   });
 
@@ -132,38 +131,17 @@ describe('Course Builder UX Model', () => {
   });
 
   it('shows unavailable message for unavailable offerings', () => {
-    ux = new BuilderUX();
-    Offerings.get.mockImplementation((id) => (
-      id == 1 ?
-        { is_available: false, isLegacyBiology: true } :
-        { is_available: false, isLegacyBiology: false }
-    ));
-    ux.newCourse.offering_id = 1;
-    expect(ux.stage).toEqual('bio1e_unavail');
-    ux.newCourse.offering_id = 2;
+    const offering = ux.offerings.array[0];
+    offering.is_available = false;
+    ux.newCourse.offering_id = offering.id;
     expect(ux.stage).toEqual('offering_unavail');
-  });
-
-  it('shows unavailable message for future bio', () => {
-    ux = new BuilderUX();
-    Offerings.get.mockImplementation(() => ({ isLegacyBiology: true }));
-    ux.goForward();
-    ux.newCourse.term = { term: 'winter', year: 2018 };
-    ux.goForward();
-    expect(ux.stage).toEqual('bio2e_unavail');
-    ux.goBackward();
-    ux.newCourse.term.term = 'spring';
-    ux.goForward();
-    expect(ux.stage).toEqual('name');
+    offering.appearance_code = 'biology_1e';
+    expect(ux.stage).toEqual('bio1e_unavail');
   });
 
   it('redirects to onlly college page if teacher isnt college', () => {
-    const router = {
-      route: { match: { params: {} } },
-      history: { replace: jest.fn() },
-    };
     User.isCollegeTeacher = false;
-    ux = new BuilderUX(router);
+    ux = createTestUX();
     Router.makePathname.mockReturnValue('/only-teacher');
     jest.runOnlyPendingTimers();
     expect(ux.router.history.replace).toHaveBeenCalledWith('/only-teacher');
@@ -177,10 +155,12 @@ describe('Course Builder UX Model', () => {
       };
       ux.newCourseMock = { id: 42 };
       ux.newCourse.term = { year: 2018, term: 'spring' };
-      ux.newCourse.save = jest.fn(() => ({ then: (c) => {
-        ux.newCourse.onCreated({ data: ux.newCourseMock });
-        c();
-      } }));
+      ux.newCourse.save = jest.fn(() => ({
+        then: (c) => {
+          ux.newCourse.onCreated({ data: ux.newCourseMock });
+          c();
+        },
+      }));
     });
 
     it('redirects after building', function() {

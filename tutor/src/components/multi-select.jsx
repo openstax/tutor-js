@@ -1,36 +1,39 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import { MenuItem, DropdownButton } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import { find } from 'lodash';
 import classnames from 'classnames';
 import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
-import Icon from './icon';
+import { Icon } from 'shared';
 
 @observer
 class MultiSelect extends React.Component {
 
   static propTypes = {
-    title:      React.PropTypes.string.isRequired,
-    className:  React.PropTypes.string,
-    closeAfterSelect: React.PropTypes.bool,
-    selections: React.PropTypes.arrayOf(
-      React.PropTypes.shape({
-        id:       React.PropTypes.string,
-        title:    React.PropTypes.oneOfType([
-          React.PropTypes.string, React.PropTypes.element,
+    title:      PropTypes.string.isRequired,
+    className:  PropTypes.string,
+    closeAfterSelect: PropTypes.bool,
+
+    selections: PropTypes.arrayOf(
+      PropTypes.shape({
+        id:       PropTypes.string,
+        title:    PropTypes.oneOfType([
+          PropTypes.string, PropTypes.element,
         ]),
-        selected: React.PropTypes.bool,
+        selected: PropTypes.bool,
       })
     ).isRequired,
-    onOnlySelection: React.PropTypes.func,
-    onSelect: React.PropTypes.func,
-    tabIndex: React.PropTypes.number
+
+    onOnlySelection: PropTypes.func,
+    onSelect: PropTypes.func,
+    tabIndex: PropTypes.number,
   };
 
   static defaultProps = {
     closeAfterSelect: true,
-    tabIndex: 0
-  }
+    tabIndex: 0,
+  };
 
   @observable isOpen = false;
 
@@ -63,33 +66,36 @@ class MultiSelect extends React.Component {
     }
 
     return (
-      <MenuItem
+      <Dropdown.Item
         key={selection.id}
         eventKey={selection.id}
+        onSelect={this.onSelect}
         className="multi-selection-option"
       >
-        <Icon type={selection.selected ? 'check-square-o' : 'square-o'} />
+        <Icon type={selection.selected ? 'check-square' : 'square'} />
         <span className="title">{selection.title}</span>
         {onlyToggle}
-      </MenuItem>
+      </Dropdown.Item>
     );
   };
 
   render() {
     return (
-      <div className={classnames('multi-select', this.props.className)}>
-        <DropdownButton
+      <Dropdown variant="default" className={classnames('multi-select', this.props.className)}>
+        <Dropdown.Toggle
           id="multi-select"
+          variant="default"
           aria-label={this.props.title}
-          onSelect={this.onSelect}
-          title={this.props.title}
           onToggle={this.onToggle}
           open={this.isOpen}
           tabIndex={this.props.tabIndex}
         >
+          {this.props.title}
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
           {Array.from(this.props.selections).map((selection) => this.renderMenuSelection(selection))}
-        </DropdownButton>
-      </div>
+        </Dropdown.Menu>
+      </Dropdown>
     );
   }
 }

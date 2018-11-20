@@ -9,7 +9,7 @@ describe('Course Student', () => {
   let createIframeImpl;
 
   beforeEach(() => {
-    Payments.config.js_url = 'http://test.test.com/test.js'
+    Payments.config.js_url = 'http://test.test.com/test.js';
     course = bootstrapCoursesList().get('1');
     createIframeImpl = () => Promise.resolve();
     class OSPaymentStub {

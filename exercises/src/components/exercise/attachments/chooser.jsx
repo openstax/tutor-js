@@ -1,25 +1,22 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { withRouter } from 'react-router';
 import Exercises, { Exercise, ExercisesMap } from '../../../models/exercises';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
-import createReactClass from 'create-react-class';
 import { Button, ProgressBar } from 'react-bootstrap';
 import { first, partial } from 'lodash';
 import classnames from 'classnames';
-import api from 'api';
 
 @withRouter
 @observer
 class AttachmentChooser extends React.Component {
 
-  displayName: 'AttachmentChooser'
-
   static propTypes = {
-    exercise: React.PropTypes.instanceOf(Exercise).isRequired,
-    exercises: React.PropTypes.instanceOf(ExercisesMap),
-    history: React.PropTypes.shape({
-      push: React.PropTypes.func,
+    exercise: PropTypes.instanceOf(Exercise).isRequired,
+    exercises: PropTypes.instanceOf(ExercisesMap),
+    history: PropTypes.shape({
+      push: PropTypes.func,
     }).isRequired,
   }
 

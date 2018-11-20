@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
 
@@ -21,23 +22,19 @@ const RouteChange = function(props) {
 };
 
 RouteChange.propTypes = {
-  pathname: React.PropTypes.string.isRequired,
+  pathname: PropTypes.string.isRequired,
 };
 
-class App extends React.PureComponent {
+class App extends React.Component {
 
   static propTypes = {
-    location: React.PropTypes.shape({
-      pathname: React.PropTypes.string,
+    location: PropTypes.shape({
+      pathname: PropTypes.string,
     }).isRequired,
   }
 
   static contextTypes = {
-    router: React.PropTypes.object,
-  }
-
-  static childContextTypes = {
-    courseId: React.PropTypes.string,
+    router: PropTypes.object,
   }
 
   componentDidMount() {
@@ -56,7 +53,7 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const params = Router.currentParams();
+    const { params } = this.context.router.route.match;
     const { courseId } = params;
     const course = courseId ? Courses.get(courseId) : null;
     const classNames = classnames('tutor-app', 'openstax-wrapper', {
@@ -69,7 +66,7 @@ class App extends React.PureComponent {
         <SpyMode.Wrapper>
           <Navbar.context>
             <TourConductor>
-              <Navbar.bar {...this.props} />
+              <Navbar.bar />
               <MatchForTutor routes={Router.getRenderableRoutes()} />
             </TourConductor>
           </Navbar.context>

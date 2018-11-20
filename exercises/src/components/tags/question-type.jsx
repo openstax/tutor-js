@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import Exercise from '../../models/exercises/exercise';
@@ -20,7 +21,7 @@ function QuestionTypeTag(props) {
 }
 
 QuestionTypeTag.propTypes = {
-  exercise: React.PropTypes.instanceOf(Exercise).isRequired,
+  exercise: PropTypes.instanceOf(Exercise).isRequired,
 };
 
 export default observer(QuestionTypeTag);

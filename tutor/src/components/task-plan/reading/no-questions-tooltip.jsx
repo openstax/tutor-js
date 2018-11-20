@@ -1,7 +1,7 @@
 import React from 'react';
 import { OverlayTrigger, Button, Popover } from 'react-bootstrap';
 
-export default class NoQuestionsTooltip extends React.PureComponent {
+export default class NoQuestionsTooltip extends React.Component {
 
   render() {
     return (
@@ -13,7 +13,7 @@ export default class NoQuestionsTooltip extends React.PureComponent {
           <p>Questions are drawn from the Question Library, which you can get to from your dashboard. Remember — if you plan to exclude questions, do so before publishing.</p>
         </Popover>}
         rootClose={true}>
-        <Button bsStyle="link">
+        <Button variant="link">
           Why can't I see the questions for this assignment?
         </Button>
       </OverlayTrigger>

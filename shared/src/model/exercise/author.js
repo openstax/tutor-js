@@ -3,9 +3,10 @@ import {
 } from '../../model';
 
 
+export default
 @identifiedBy('exercise/author')
-export default class ExerciseAuthor extends BaseModel {
+class ExerciseAuthor extends BaseModel {
 
   @identifier user_id;
   @field name;
-}
+};

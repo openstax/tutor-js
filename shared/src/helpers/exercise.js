@@ -18,7 +18,7 @@ const BOOK_UID_XREF = {
   '405335a3-7cff-4df2-a9ad-29062a4af261': 'College Physics',
 };
 
-var Exercises = {
+const Exercises = {
 
   troubleUrl({ bookUUID, project, exerciseId, chapter_section, title }) {
     const location = [];

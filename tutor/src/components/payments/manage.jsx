@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { observable, action, computed } from 'mobx';
-import { Grid, Table, Button } from 'react-bootstrap';
+import { Container, Table, Button } from 'react-bootstrap';
 import moment from 'moment';
 import { map, extend, isFunction } from 'lodash';
 import cn from 'classnames';
@@ -37,12 +38,13 @@ function openWindow(url, options = {}) {
 }
 
 
+export default
 @observer
-export default class ManagePayments extends React.PureComponent {
+class ManagePayments extends React.Component {
 
   static propTypes = {
-    windowImpl: React.PropTypes.shape({
-      open: React.PropTypes.func,
+    windowImpl: PropTypes.shape({
+      open: PropTypes.func,
     }),
   };
 
@@ -51,7 +53,7 @@ export default class ManagePayments extends React.PureComponent {
   get backLink() {
     const params = Router.currentParams();
     return params.courseId ? { to: 'dashboard', text: 'Back to Dashboard', params } :
-           { to: 'myCourses', text: 'Back to My Courses' };
+      { to: 'myCourses', text: 'Back to My Courses' };
   }
 
   componentWillMount() {
@@ -100,7 +102,7 @@ export default class ManagePayments extends React.PureComponent {
   renderInvoiceButton(purchase) {
     if (purchase.is_refund_record) { return null; }
     return (
-      <Button bsStyle="link"
+      <Button variant="link"
         data-identifier={purchase.identifier}
         onClick={this.onShowInvoiceClick}
         href={purchase.invoiceURL}
@@ -157,7 +159,7 @@ export default class ManagePayments extends React.PureComponent {
 
   render() {
     return (
-      <Grid className="manage-payments">
+      <Container className="manage-payments">
         <RefundModal
           purchase={this.refunding}
           onRefund={this.onRefundConfirm}
@@ -179,8 +181,8 @@ export default class ManagePayments extends React.PureComponent {
             Need help? <a href={`mailto:${UserMenu.supportEmail}`}>Contact Support</a>
           </div>
         </div>
-      </Grid>
+      </Container>
     );
   }
 
-}
+};

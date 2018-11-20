@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { OverlayTrigger, Button, Popover } from 'react-bootstrap';
-import { TaskPlanStore } from '../../../flux/task-plan';
+import InfoIcon from '../../icons/info';
 
 
 const publishedSaveMessage = () => (
@@ -53,27 +54,22 @@ function buildTooltip({ isPublished }) {
   );
 }
 buildTooltip.propTypes = {
-  isPublished: React.PropTypes.bool.isRequired,
+  isPublished: PropTypes.bool.isRequired,
 };
 
 
-export default class HelpTooltip extends React.PureComponent {
+export default class HelpTooltip extends React.Component {
 
   static propTypes = {
-    isPublished: React.PropTypes.bool.isRequired,
+    isPublished: PropTypes.bool.isRequired,
   }
 
   render() {
     return (
-      <OverlayTrigger
-        trigger="click"
-        placement="top"
-        overlay={buildTooltip(this.props)}
-        rootClose={true}>
-        <Button className="footer-instructions" bsStyle="link">
-          <i className="fa fa-info-circle" />
-        </Button>
-      </OverlayTrigger>
+      <InfoIcon
+        tooltipProps={{ placement: 'top' }}
+        tooltip={buildTooltip(this.props)}
+      />
     );
   }
 }

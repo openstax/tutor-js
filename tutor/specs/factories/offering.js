@@ -1,7 +1,10 @@
 const {
-  Factory, sequence, uuid, reference,
+  Factory, sequence, fake, reference,
   TITLES, APPEARANCE_CODES,
 } = require('./helpers');
+
+const TITLE_KEYS = Object.keys(TITLES);
+
 const moment = require('moment');
 
 const TERMS = [ 'spring', 'summer', 'fall', 'winter' ];
@@ -12,7 +15,7 @@ Factory.define('OfferingTerm')
 
 Factory.define('Offering')
   .id(sequence)
-  .title(({ type = 'physics' }) => TITLES[type])
+  .title(({ type = fake.random.arrayElement(TITLE_KEYS) }) => TITLES[type])
   .is_concept_coach(false)
   .is_tutor(true)
   .appearance_code(({ type = 'physics' }) => APPEARANCE_CODES[type])

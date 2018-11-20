@@ -4,7 +4,7 @@ import {
 import {
   sumBy, first, sortBy, find, get, endsWith, capitalize, filter, pick,
 } from 'lodash';
-import { computed, action, observable } from 'mobx';
+import { computed, action } from 'mobx';
 import lazyGetter from 'shared/helpers/lazy-getter';
 import UiSettings from 'shared/model/ui-settings';
 import Offering from './course/offerings/offering';
@@ -18,7 +18,7 @@ import LMS from './course/lms';
 import PH from '../helpers/period';
 import TimeHelper from '../helpers/time';
 import FeatureFlags from './feature_flags';
-import { TimeStore } from '../flux/time';
+import Time from './time';
 import { extendHasMany } from '../helpers/computed-property';
 import moment from 'moment-timezone';
 import StudentTasks from './student-tasks';
@@ -35,8 +35,9 @@ const SAVEABLE_ATTRS = [
   'reading_score_weight', 'reading_progress_weight',
 ];
 
+export default
 @identifiedBy('course')
-export default class Course extends BaseModel {
+class Course extends BaseModel {
 
   @identifier id;
 
@@ -77,10 +78,10 @@ export default class Course extends BaseModel {
   @field just_created = false;
 
   @hasMany({ model: Period, inverseOf: 'course', extend: extendHasMany({
-    sorted()   { return PH.sort(this.active);                        },
+    sorted() { return PH.sort(this.active);                        },
     archived() { return filter(this, period => !period.is_archived); },
-    active()   { return filter(this, period => !period.is_archived); },
-  }) }) periods;
+    active() { return filter(this, period => !period.is_archived); },
+  }) }) periods = [];
 
   @hasMany({ model: Role }) roles;
   @hasMany({ model: Student, inverseOf: 'course' }) students;
@@ -165,15 +166,15 @@ export default class Course extends BaseModel {
   }
 
   @computed get hasEnded() {
-    return moment(this.ends_at).isBefore(TimeStore.getNow());
+    return moment(this.ends_at).isBefore(Time.now);
   }
 
   @computed get hasStarted() {
-    return moment(this.starts_at).isBefore(TimeStore.getNow());
+    return moment(this.starts_at).isBefore(Time.now);
   }
 
   @computed get isFuture() {
-    return moment(this.starts_at).isAfter(TimeStore.getNow());
+    return moment(this.starts_at).isAfter(Time.now);
   }
 
   @computed get isActive() {
@@ -193,7 +194,7 @@ export default class Course extends BaseModel {
       !this.is_preview &&
         !this.is_lms_enabled &&
         (this.just_created || this.dashboardViewCount <= 1) &&
-        this.map.nonPreview.previouslyCreated.any &&
+        this.map && this.map.nonPreview.previouslyCreated.any &&
         (this.isActive || this.isFuture)
     );
   }
@@ -258,7 +259,7 @@ export default class Course extends BaseModel {
 
   @computed get isSunsetting() {
     return !!(this.is_concept_coach && !(
-        /biology/.test(this.appearance_code) ||
+      /biology/.test(this.appearance_code) ||
         /physics/.test(this.appearance_code) ||
         /sociology/.test(this.appearance_code)
     ));
@@ -273,8 +274,8 @@ export default class Course extends BaseModel {
     exercise.is_excluded = is_excluded; // eagerly set exclusion
     return { data: [{ id: exercise.id, is_excluded }] };
   }
-  onExerciseExcluded({ data: [ exerciseAttrs ] }, [{ exercise, is_excluded }]) {
+  onExerciseExcluded({ data: [ exerciseAttrs ] }, [{ exercise }]) {
     exercise.update(exerciseAttrs);
   }
 
-}
+};

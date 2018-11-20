@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import { inject, observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import { action, observe, observable } from 'mobx';
-import { Modal } from 'react-bootstrap';
+import { Modal, ModalDialog } from 'react-bootstrap';
 import { get, pick } from 'lodash';
 import Course from '../../models/course';
 import onboardingForCourse from '../../models/course/onboarding';
@@ -10,14 +11,15 @@ import Onboarding from '../../models/course/onboarding/base';
 import { autobind } from 'core-decorators';
 import classnames from 'classnames';
 
+export default
 @inject((context) => pick(context, 'tourContext', 'spyMode'))
 @observer
-export default class CourseNagModal extends React.Component {
+class CourseNagModal extends React.Component {
 
   static propTypes = {
-    course: React.PropTypes.instanceOf(Course),
-    tourContext: React.PropTypes.instanceOf(TourContext).isRequired,
-    spyMode: MobxPropTypes.observableObject,
+    course: PropTypes.instanceOf(Course),
+    tourContext: PropTypes.instanceOf(TourContext).isRequired,
+    spyMode: PropTypes.object,
   }
 
   @observable ux;
@@ -52,7 +54,6 @@ export default class CourseNagModal extends React.Component {
 
   render() {
     const NagComponent = this.ux && this.ux.nagComponent;
-
     if (this.props.tourContext.tour || this.isDismissed || !NagComponent) {
       return null;
     }
@@ -60,20 +61,19 @@ export default class CourseNagModal extends React.Component {
 
     return (
       <Modal
-        animation={false}
         dialogClassName={className}
         backdropClassName={className}
         className={className}
-        show={!this.isDismissed}
         onHide={this.onClose}
+        show={true}
       >
-        <NagComponent
-          onDismiss={this.onDismiss}
-          ux={this.ux}
-        />
+      <NagComponent
+        onDismiss={this.onDismiss}
+        ux={this.ux}
+      />
       </Modal>
     );
   }
 
 
-}
+};

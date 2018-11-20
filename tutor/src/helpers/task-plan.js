@@ -18,7 +18,6 @@ export default {
         return (tp.opens_at === firstTasking.opens_at) && (tp.due_at === firstTasking.due_at);
       }
     });
-
     if (isIdentical) {
       return { all: pickFn(firstTasking) };
     } else {

@@ -1,23 +1,18 @@
 import moment from 'moment-timezone';
 import ThisWeek from '../../../src/screens/student-dashboard/this-week-panel';
-import chronokinesis from 'chronokinesis';
-import { Testing, _, React } from '../../components/helpers/component-testing';
-import Factory from '../../factories';
+import { Factory, TimeMock, React } from '../../helpers';
 
 describe('This Week Events', () => {
 
-  let props, now;
+  let props;
+  const now = new Date();
+  TimeMock.setTo(now);
 
   beforeEach(() => {
-    now = new Date('2017-10-14T12:00:00.000Z');
-    chronokinesis.travel(now);
-    moment.tz.setDefault('America/Chicago');
-    moment.locale('en');
     props = {
       course: Factory.course(),
     };
   });
-
 
   it('shows anything due this week', () => {
     const panel = mount(<ThisWeek {...props} />);

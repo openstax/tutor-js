@@ -1,22 +1,25 @@
+import { idType } from 'shared';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { action, observable } from 'mobx';
 import { autobind } from 'core-decorators';
 import YouTube from 'react-youtube';
 import { Button } from 'react-bootstrap';
-import Icon from '../icon';
+import { Icon } from 'shared';
 import Courses from '../../models/courses-map';
 import PopoutWindow from 'shared/components/popout-window';
 import StudentPreviewUX from '../../models/course/student-preview-ux';
 
+export default
 @observer
-export default class BuilderPopup extends React.Component {
+class BuilderPopup extends React.Component {
 
   static propTypes = {
-    courseId:   React.PropTypes.string.isRequired,
-    planType:   React.PropTypes.string.isRequired,
-    windowImpl: React.PropTypes.shape({
-      open: React.PropTypes.func,
+    courseId:   idType.isRequired,
+    planType:   PropTypes.string.isRequired,
+    windowImpl: PropTypes.shape({
+      open: PropTypes.func,
     }),
   }
 
@@ -45,6 +48,7 @@ export default class BuilderPopup extends React.Component {
 
     return (
       <Button
+        variant="default"
         className="preview-btn pull-right"
         onClick={this.openPreviewWindow}
       >
@@ -78,9 +82,9 @@ export default class BuilderPopup extends React.Component {
             />
           </div>
         </PopoutWindow>
-        <Icon type="video-camera" />
+        <Icon type="video" />
         What do students see?
       </Button>
     );
   }
-}
+};

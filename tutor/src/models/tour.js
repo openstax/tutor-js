@@ -35,15 +35,16 @@ function getTour(id, options = {}) {
   return tour;
 }
 
+export default
 @identifiedBy('tour')
-export default class Tour extends BaseModel {
+class Tour extends BaseModel {
 
   static forIdentifier(id, options) {
     return TourData[id] ? getTour(id, options) : undefined;
   }
 
   @computed static get all() {
-    return map(TourData, (_, id) => this.forIdentifier(id, {courseId: this.courseId}));
+    return map(TourData, (_, id) => this.forIdentifier(id, { courseId: this.courseId }));
   }
 
   static forAudienceTags(tags) {
@@ -128,4 +129,4 @@ export default class Tour extends BaseModel {
       this.othersInGroup.forEach(tour => tour.isEnabled = false);
     }
   }
-}
+};

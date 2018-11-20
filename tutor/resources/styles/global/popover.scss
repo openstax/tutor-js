@@ -1,11 +1,11 @@
-.popover-title {
+.popover-header {
    @include tutor-sans-font(1.75rem, 1.75rem);
 }
 
 .popover {
   padding: 0;
    @include tutor-sans-font(1.25rem, 1.5rem);
-  background: $popover-background;
+  background: $popover-bg;
   color: $tutor-neutral-darker;
   // override border and arrow styles imposed by material design
   border: 1px solid $popover-border-color;

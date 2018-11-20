@@ -1,7 +1,5 @@
-import { React, SnapShot } from '../helpers/component-testing';
 import Details from '../../../src/components/exercises/details';
-import FakeWindow from 'shared/specs/helpers/fake-window';
-import Factory from '../../factories';
+import { FakeWindow, Factory } from '../../helpers';
 
 jest.mock('../../../../shared/src/components/html', () => ({ html }) =>
   html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
@@ -13,7 +11,7 @@ describe('Exercise Details Component', function() {
 
   beforeEach(() => {
     book = Factory.book();
-    const pageIds = book.pages.byId.keys();
+    const pageIds = Array.from(book.pages.byId.keys());
     exercises = Factory.exercisesMap({ book, pageIds, count: 4 });
     props = {
       book,
@@ -28,10 +26,8 @@ describe('Exercise Details Component', function() {
     };
   });
 
-
   it('renders and matches snapshot', () => {
-    const component = SnapShot.create(<Details {...props} />);
-    expect(component.toJSON()).toMatchSnapshot();
+    expect.snapshot(<Details {...props} />).toMatchSnapshot();
   });
 
   it('can navigate back/forward', () => {

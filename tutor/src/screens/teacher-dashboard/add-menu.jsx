@@ -1,4 +1,5 @@
 import { React, observer, cn, action } from '../../helpers/react';
+import { Dropdown } from 'react-bootstrap';
 import { map, partial } from 'lodash';
 import { autobind } from 'core-decorators';
 import Router from '../../helpers/router';
@@ -10,44 +11,42 @@ export default class CourseAddMenu {
     this.options = options;
   }
 
-  @autobind goToBuilder(link, ev) {
-    ev.preventDefault();
-    this.options.router.history.push(link.pathname);
+  @autobind goToBuilder(ev, link) {
+    this.options.router.history.push(link);
   }
 
-  render(props, { addDate } = {}) {
+  render({ course, hasPeriods, date, dateFormat = 'YYYY-MM-DD' } = {}) {
     let links;
-    const { course, hasPeriods, dateFormat = 'YYYY-MM-DD' } = props;
-    const due_at = addDate && addDate.format(dateFormat);
+
+    const due_at = date && date.format(dateFormat);
     if (hasPeriods) {
       links = [
         {
           text: 'Add Reading',
-          to: 'createReading',
-          params: { courseId: course.id },
+          to: 'editReading',
+          params: { courseId: course.id, id: 'new' },
           type: 'reading',
           query: { due_at },
         }, {
           text: 'Add Homework',
-          to: 'createHomework',
-          params: { courseId: course.id },
+          to: 'editHomework',
+          params: { courseId: course.id, id: 'new' },
           type: 'homework',
           query: { due_at },
         }, {
           text: 'Add External Assignment',
-          to: 'createExternal',
-          params: { courseId: course.id },
+          to: 'editExternal',
+          params: { courseId: course.id, id: 'new' },
           type: 'external',
           query: { due_at },
         }, {
           text: 'Add Event',
-          to: 'createEvent',
-          params: { courseId: course.id },
+          to: 'editEvent',
+          params: { courseId: course.id, id: 'new' },
           type: 'event',
           query: { due_at },
         },
       ];
-
     } else {
       const linkText = [
         <span key="no-periods-link-1">Please add a </span>,
@@ -73,7 +72,7 @@ export default class CourseAddMenu {
     const renderLink = this.options.renderMenuLink || this.renderMenuLink;
 
     return map(links, (link) => {
-      var linkQuery;
+      let linkQuery;
       const { query } = link;
       if (query.due_at != null) { linkQuery = { query }; }
 
@@ -85,11 +84,16 @@ export default class CourseAddMenu {
 
   @autobind renderMenuLink(link, goToBuilder) {
     return (
-      <li key={link.type} data-assignment-type={link.type}>
-        <a href={link.pathname} onClick={partial(goToBuilder, link)}>
-          {link.text}
-        </a>
-      </li>
+      <Dropdown.Item
+        className="dropdown-item"
+        key={link.type}
+        data-assignment-type={link.type}
+        eventKey={link.pathname}
+        onSelect={partial(goToBuilder, link)}
+      >
+        {link.text}
+      </Dropdown.Item>
+
     );
   }
 

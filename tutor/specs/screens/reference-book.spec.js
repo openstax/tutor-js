@@ -1,17 +1,12 @@
-import { React, SnapShot } from '../components/helpers/component-testing';
-import { Promise } from 'es6-promise';
-import Factory, { FactoryBot } from '../factories';
-
-import Book from '../../src/models/reference-book';
-import Page from '../../src/models/reference-book/page';
-
-import Router from '../../src/helpers/router';
+import { C, React, Factory, EnzymeContext } from '../helpers';
 import ReferenceBook from '../../src/screens/reference-book/reference-book';
-import { bootstrapCoursesList } from '../courses-test-data';
 import ReferenceBookUX from '../../src/screens/reference-book/ux';
-import EnzymeContext from '../components/helpers/enzyme-context';
+import Router from '../../src/helpers/router';
 
 jest.mock('../../src/helpers/router');
+jest.mock('../../../shared/src/components/html', () => ({ html }) =>
+  html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
+);
 
 const COURSE_ID = '1';
 
@@ -19,7 +14,7 @@ describe('Reference Book Component', function() {
   let props, ux, course, REFERENCE_BOOK, REFERENCE_BOOK_PAGE_DATA, router;
 
   beforeEach(function() {
-    router = { history: { push: jest.fn() } };
+    router = { foo: 1, history: { push: jest.fn() } };
     ux = new ReferenceBookUX(router);
     ux.book = Factory.book();
     ux.setChapterSection('2.1');
@@ -38,9 +33,8 @@ describe('Reference Book Component', function() {
     expect(book).toHaveRendered('BookPage');
   });
 
-  it('renders page html that matches snapshot', function() {
-    const book = mount(<ReferenceBook {...props} />, EnzymeContext.build());
-    expect(book.html()).toMatchSnapshot();
+  xit('renders page html that matches snapshot', function() {
+    expect.snapshot(<C><ReferenceBook {...props} /></C>).toMatchSnapshot();
   });
 
   it('navigates forward and back between pages', function() {
@@ -54,7 +48,7 @@ describe('Reference Book Component', function() {
 
   it('sets the menu item to be active based on the current page', function() {
     const book = mount(<ReferenceBook {...props} />, EnzymeContext.build());
-    expect(book).toHaveRendered(`.book-menu [data-section='${ux.page.chapter_section.asString}'] .active`);
+    expect(book).toHaveRendered(`.book-menu li[data-section='${ux.page.chapter_section.asString}'] .active`);
   });
 
   it('displays a not found message when needed', () => {

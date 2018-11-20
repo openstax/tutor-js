@@ -70,9 +70,9 @@ describe('Course Model', () => {
 
 
   it('should return expected roles for courses', function() {
-    expect(Courses.get(1).primaryRole.type).to.equal('student');
-    expect(Courses.get(2).primaryRole.type).to.equal('teacher');
-    expect(Courses.get(3).primaryRole.type).to.equal('teacher');
+    expect(Courses.get(1).primaryRole.type).toEqual('student');
+    expect(Courses.get(2).primaryRole.type).toEqual('teacher');
+    expect(Courses.get(3).primaryRole.type).toEqual('teacher');
     expect(Courses.get(1).primaryRole.joinedAgo('days')).toEqual(7);
   });
 
@@ -101,38 +101,55 @@ describe('Course Model', () => {
     expect(course.canOnlyUseLMS).toEqual(false);
   });
 
-  it('extends periods', () => {
-    const data = cloneDeep(COURSE);
-    data.periods = shuffle(data.periods);
-    jest.spyOn(PH, 'sort');
+  describe('extending periods', () => {
+    it('extends when given initial data', () => {
+      const data = cloneDeep(COURSE);
+      data.periods = shuffle(data.periods);
+      jest.spyOn(PH, 'sort');
 
-    const course = new Course(data);
-    const len = course.periods.length;
+      const course = new Course(data);
+      const len = course.periods.length;
 
-    expect(map(course.periods, 'id')).not.toEqual(
-      map(course.periods.sorted, 'id')
-    );
-    expect(PH.sort).toHaveBeenCalledTimes(1);
+      expect(map(course.periods, 'id')).not.toEqual(
+        map(course.periods.sorted, 'id')
+      );
+      expect(PH.sort).toHaveBeenCalledTimes(1);
 
-    const sortedSpy = jest.fn(() => course.periods.sorted);
-    autorun(sortedSpy);
+      const sortedSpy = jest.fn(() => course.periods.sorted);
+      autorun(sortedSpy);
 
-    expect(course.periods.sorted).toHaveLength(len - 2);
-    expect(sortedSpy).toHaveBeenCalledTimes(1);
-    expect(PH.sort).toHaveBeenCalledTimes(2);
+      expect(course.periods.sorted).toHaveLength(len - 2);
+      expect(sortedSpy).toHaveBeenCalledTimes(1);
+      expect(PH.sort).toHaveBeenCalledTimes(2);
 
-    course.periods.remove(course.periods.find(p => p.id == 1));
-    expect(course.periods.length).toEqual(len - 1);
-    expect(course.periods.sorted.length).toEqual(len - 3);
+      course.periods.remove(course.periods.find(p => p.id == 1));
+      expect(course.periods.length).toEqual(len - 1);
+      expect(course.periods.sorted.length).toEqual(len - 2);
 
-    expect(PH.sort).toHaveBeenCalledTimes(3);
-    expect(sortedSpy).toHaveBeenCalledTimes(2);
-    expect(map(course.periods, 'id')).not.toEqual(
-      map(course.periods.sorted, 'id')
-    );
-    expect(PH.sort).toHaveBeenCalledTimes(3);
-    expect(sortedSpy).toHaveBeenCalledTimes(2);
+      expect(PH.sort).toHaveBeenCalledTimes(2);
+      expect(sortedSpy).toHaveBeenCalledTimes(1);
+      expect(map(course.periods, 'id')).not.toEqual(
+        map(course.periods.sorted, 'id')
+      );
+      expect(PH.sort).toHaveBeenCalledTimes(2);
+      expect(sortedSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('extends new course', () => {
+      const course = new Course();
+      expect(course.periods).toHaveLength(0);
+      expect(course.periods.sorted).toHaveLength(0);
+      expect(course.periods.active).toHaveLength(0);
+      course.update({ name: 'My Grand Course',
+        periods:
+           [ { name: 'Period #1', enrollment_code: '1234' },
+             { name: 'Period #2', enrollment_code: '4321' } ] });
+      expect(course.periods).toHaveLength(2);
+      expect(course.periods.sorted).toHaveLength(2);
+      expect(course.periods.active).toHaveLength(2);
+    });
   });
+
 
   it('calculates if terms are before', () => {
     const course = Courses.get(2);

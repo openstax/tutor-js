@@ -24,6 +24,10 @@
         }
       }
     }
+    .footer {
+      @include card-footer();
+
+    }
   }
 
   .instructions {
@@ -35,7 +39,7 @@
     margin: 0;
     padding: $padding - 8px;
 
-    .tutor-icon {
+    .ox-icon {
       position: relative;
       left: 0.5rem;
     }
@@ -119,7 +123,7 @@
     padding: 1rem 3rem 3rem 3rem;
     min-width: 500px;
     display: flex;
-    .tutor-icon {
+    .ox-icon {
       font-size: 4rem;
       margin: 0 2.5rem 0 1rem;
       color: $tutor-primary;
@@ -129,8 +133,8 @@
     text-align: right;
     .btn-primary {
       color: $tutor-white;
-      background-color: $tutor-tertiary-light !important; // material design override
-      border: 1px solid darken($tutor-tertiary-light, 10%) !important;
+      background-color: $tutor-tertiary-neutral-light !important; // material design override
+      border: 1px solid darken($tutor-tertiary-neutral-light, 10%) !important;
     }
   }
 

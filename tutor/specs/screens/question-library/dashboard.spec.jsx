@@ -1,13 +1,14 @@
+import { EnzymeContext, C } from '../../helpers';
 import Factory, { FactoryBot } from '../../factories';
 import { slice, last } from 'lodash';
-import { SnapShot, Wrapper } from '../../components/helpers/component-testing';
-import EnzymeContext from '../../components/helpers/enzyme-context';
+import { SnapShot, Wrapper } from '../../helpers';
 import Dashboard from '../../../src/screens/question-library/dashboard';
 import ExerciseHelpers from '../../../src/helpers/exercise';
 import ScrollTo from '../../../src/helpers/scroll-to';
+
 jest.mock('../../../../shared/src/components/html', () => ({ html }) =>
-    html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
-  );
+  html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
+);
 jest.mock('../../../src/helpers/exercise');
 jest.mock('../../../src/helpers/scroll-to');
 
@@ -21,11 +22,15 @@ describe('Questions Dashboard Component', function() {
     exercises = Factory.exercisesMap({ ecosystem_id: course.ecosystem_id, pageIds: [], count: 0 });
 
     exercises.fetch = jest.fn(() => Promise.resolve());
-    page_ids = slice(course.referenceBook.pages.byId.keys(), 2, 5);
+    page_ids = slice(Array.from(course.referenceBook.pages.byId.keys()), 2, 5);
     const items = page_ids.map(page_id =>
-      FactoryBot.create('TutorExercise', {
-        pool_types: ['reading_dynamic'],
-        page_uuid: book.pages.byId.get(page_id).uuid }),
+      FactoryBot.create(
+        'TutorExercise',
+        {
+          pool_types: ['reading_dynamic'],
+          page_uuid: book.pages.byId.get(page_id).uuid,
+        },
+      ),
     );
     exercises.onLoaded({ data: { items } }, [{ book, page_ids }]);
     props = {
@@ -35,22 +40,20 @@ describe('Questions Dashboard Component', function() {
   });
 
   const displayExercises = () => {
-    const dash = mount(<Dashboard {...props} />, EnzymeContext.build());
-    dash.find('.chapter-heading .tutor-icon').at(1).simulate('click');
+    const dash = mount(<C><Dashboard {...props} /></C>);
+    dash.find('.chapter-checkbox button').at(1).simulate('click');
     dash.find('.section-controls .btn-primary').simulate('click');
     return dash;
   };
 
   it('matches snapshot', () => {
-    const dash = SnapShot.create(<Wrapper _wrapped_component={Dashboard} {...props} />);
-    expect(dash.toJSON()).toMatchSnapshot();
-    dash.unmount();
+    expect.snapshot(<C><Dashboard {...props} /></C>).toMatchSnapshot();
   });
 
   it('fetches and displays', () => {
-    const dash = mount(<Dashboard {...props} />, EnzymeContext.build());
+    const dash = mount(<C><Dashboard {...props} /></C>);
     expect(dash).not.toHaveRendered('.no-exercises');
-    dash.find(`[data-page-id="${page_ids[0]}"]`).simulate('click');
+    dash.find(`StyledComponent[data-section-id="${page_ids[0]}"]`).simulate('click');
     dash.find('.section-controls .btn-primary').simulate('click');
     expect(exercises.fetch).toHaveBeenCalledWith({
       course: course, limit: false, page_ids: [page_ids[0]],
@@ -98,10 +101,10 @@ describe('Questions Dashboard Component', function() {
   });
 
   it('clears when cancel is clicked', () => {
-    const dash = mount(<Dashboard {...props} />, EnzymeContext.build());
-    dash.find('.chapter-heading .tutor-icon').at(1).simulate('click');
-    expect(dash.find('.section.selected')).toHaveLength(3);
-    dash.find('.cancel').simulate('click');
+    const dash = mount(<C><Dashboard {...props} /></C>);
+    dash.find('.chapter-checkbox button').at(1).simulate('click');
+    expect(dash.find('.section.selected')).toHaveLength(9);
+    dash.find('button.cancel').simulate('click');
     expect(dash.find('.section.selected')).toHaveLength(0);
   });
 

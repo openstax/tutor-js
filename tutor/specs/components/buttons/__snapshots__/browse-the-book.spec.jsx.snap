@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`_default renders and matches snapshot 1`] = `
+exports[`_class3 renders and matches snapshot 1`] = `
 <a
   aria-label="Browse course reference book"
   className="browse-the-book btn btn-default"

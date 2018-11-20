@@ -1,4 +1,4 @@
-import CourseCreate from '../../../src/models/course/create'
+import CourseCreate from '../../../src/models/course/create';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import Offerings from '../../../src/models/course/offerings';
 import Router from '../../../src/helpers/router';
@@ -73,6 +73,7 @@ describe('Course Builder UX Model', () => {
     });
 
     it('does not clone if the course offering is no longer available', () => {
+      expect(creator.term).not.toBeUndefined();
       const mockOffering = { name: 'My Test Course', is_available: false };
       Offerings.get.mockImplementation(() => mockOffering);
       const { course, saved } = prepCourseClone();

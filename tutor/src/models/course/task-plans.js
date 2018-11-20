@@ -3,10 +3,6 @@ import { find } from 'lodash';
 import Map from 'shared/model/map';
 import TaskPlan from '../task-plan/teacher';
 
-import {
-  BaseModel, identifiedBy, identifier, field, session, belongsTo,
-} from 'shared/model';
-
 export default class CourseTaskPlans extends Map {
 
   @observable course;
@@ -19,8 +15,6 @@ export default class CourseTaskPlans extends Map {
   get chainedValues() {
     return { course: this.course };
   }
-
-  //  get courseId() { return this.course.id; }
 
   withPlanId(planId) {
     let plan = this.get(planId);
@@ -77,7 +71,7 @@ export default class CourseTaskPlans extends Map {
   }
 
   withPeriodId(periodId) {
-    return this.where(plan => find(plan.tasking_plans.peek(), { target_id: periodId }));
+    return this.where(plan => find(plan.tasking_plans, { target_id: periodId }));
   }
 
   pastDueWithPeriodId(periodId) {

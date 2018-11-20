@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { map } from 'lodash';
 import { observer } from 'mobx-react';
@@ -8,7 +9,7 @@ import Question  from 'shared/model/exercise/question';
 class QuestionFormatType extends React.Component {
 
   static propTypes = {
-    question: React.PropTypes.instanceOf(Question).isRequired,
+    question: PropTypes.instanceOf(Question).isRequired,
   };
 
   @action.bound updateRadioFormat(ev) {

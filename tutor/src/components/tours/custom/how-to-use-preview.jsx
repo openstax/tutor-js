@@ -2,11 +2,11 @@ import React from 'react';
 import {
   ValueProp,
   ColumnContent,
-  Column
+  Column,
 } from './common';
 import SuperTrainingWheel from './super-training-wheel';
 
-export default class HowToUsePreview extends React.PureComponent {
+export default class HowToUsePreview extends React.Component {
 
   render () {
     return (

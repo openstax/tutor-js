@@ -1,6 +1,7 @@
 import { React, observer, observable, action } from '../../../helpers/react';
 import { AsyncButton } from 'shared';
-import Icon from '../../icon';
+import { Icon } from 'shared';
+import PropTypes from 'prop-types';
 import { Modal, Button } from 'react-bootstrap';
 
 const DeleteModal = ({ message, show, onClose, isBusy, onDelete }) => (
@@ -19,7 +20,7 @@ const DeleteModal = ({ message, show, onClose, isBusy, onDelete }) => (
     <Modal.Footer>
       <AsyncButton
         className="delete"
-        bsStyle="danger"
+        variant="danger"
         onClick={onDelete}
         waitingText="Deleting…"
         isWaiting={isBusy}>
@@ -32,15 +33,16 @@ const DeleteModal = ({ message, show, onClose, isBusy, onDelete }) => (
   </Modal>
 );
 
+export default
 @observer
-export default class DeleteLink extends React.PureComponent {
+class DeleteTaskButton extends React.Component {
 
   static propTypes = {
-    onClick:     React.PropTypes.func.isRequired,
-    isWaiting:   React.PropTypes.bool.isRequired,
-    isFailed:    React.PropTypes.bool.isRequired,
-    isNew:       React.PropTypes.bool.isRequired,
-    isVisibleToStudents: React.PropTypes.bool.isRequired,
+    onClick:     PropTypes.func.isRequired,
+    isWaiting:   PropTypes.bool.isRequired,
+    isFailed:    PropTypes.bool.isRequired,
+    isNew:       PropTypes.bool.isRequired,
+    isVisibleToStudents: PropTypes.bool.isRequired,
   }
 
   @observable showModal = false;
@@ -65,8 +67,9 @@ export default class DeleteLink extends React.PureComponent {
     return (
       <Button
         onClick={this.open}
-        bsStyle="default"
-        className="control delete-assignment">
+        variant="default"
+        className="control delete-assignment"
+      >
         <DeleteModal
           message={message}
           show={this.showModal}
@@ -74,9 +77,9 @@ export default class DeleteLink extends React.PureComponent {
           isBusy={this.props.isWaiting}
           onDelete={this.props.onClick}
         />
-        <Icon type="trash" />Delete
+        <Icon type="trash-alt" />Delete
       </Button>
     );
   }
 
-}
+};

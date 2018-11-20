@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cn from 'classnames';
 import { omit } from 'lodash';
@@ -6,7 +7,7 @@ import CenteredWheel          from './centered-wheel';
 export default class Biology2eAvailable extends React.Component {
 
   static propTypes = {
-    step: React.PropTypes.object,
+    step: PropTypes.object,
   }
 
   render () {
@@ -15,7 +16,7 @@ export default class Biology2eAvailable extends React.Component {
     step.text = this.props.children;
     step.style.hole = {
       maxWidth: 0,
-      maxHeight: 0
+      maxHeight: 0,
     };
 
     return (
@@ -24,7 +25,7 @@ export default class Biology2eAvailable extends React.Component {
         step={step}
         disableOverlay={true}
         hideBackButton={true}
-        className={cn("mini-notice", this.props.className)}
+        className={cn('mini-notice', this.props.className)}
       />
     );
   }

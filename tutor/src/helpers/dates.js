@@ -1,7 +1,7 @@
 import moment from 'moment';
 import 'twix';
 import 'moment-timezone';
-import { reduce, pluck, union } from 'lodash';
+import { reduce } from 'lodash';
 
 export function getDay(oneMoment) {
   return moment(oneMoment)

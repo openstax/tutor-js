@@ -1,14 +1,16 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import NavbarContext from './context';
 import cn from 'classnames';
 
+export default
 @inject('navBar')
 @observer
-export default class PlugableNavBar extends React.Component {
+class PlugableNavBar extends React.Component {
 
   static propTypes = {
-    navBar: React.PropTypes.instanceOf(NavbarContext).isRequired,
+    navBar: PropTypes.instanceOf(NavbarContext).isRequired,
   };
 
   render() {
@@ -27,4 +29,4 @@ export default class PlugableNavBar extends React.Component {
       </nav>
     );
   }
-}
+};

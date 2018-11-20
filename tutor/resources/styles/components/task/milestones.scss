@@ -5,7 +5,7 @@ $milestone-icon-size: 60px;
 
 .task-view {
   .task-with-progress {
-    .task-step {
+    .card {
       margin-top: 40px;
 
       @media print {
@@ -20,6 +20,11 @@ $milestone-icon-size: 60px;
   background: $tutor-neutral-light;
   .milestones-wrapper {
     margin: 50px;
+    width: 100%;
+    .milestones {
+      display: flex;
+      flex-wrap: wrap;
+    }
   }
 }
 
@@ -107,8 +112,4 @@ body.pinned-shy {
       }
     }
   }
-}
-
-body.prevent-scroll {
-  overflow: hidden;
 }

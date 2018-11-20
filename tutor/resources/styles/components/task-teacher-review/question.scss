@@ -13,7 +13,7 @@ $free-response-background:  $tutor-neutral-lighter;
 
 @mixin answer-label() {
   display: inline-block;
-  margin-left: -$tutor-card-body-padding-horizontal;
+  margin-left: -120px;
   width: $tutor-card-body-padding-horizontal;
   text-align: right;
   padding-right: 8px;
@@ -26,7 +26,7 @@ $free-response-background:  $tutor-neutral-lighter;
 }
 
 @mixin answer-icon-label() {
-  @include fa-icon();
+//  @include fa-icon();
   font-size: 3.5em;
   font-weight: normal;
   color: inherit;
@@ -52,18 +52,25 @@ $free-response-background:  $tutor-neutral-lighter;
       @include answer-label();
       @include answer-icon-label();
       text-align: center;
-      width: 80px;
+      width: 40px;
       font-size: 2rem;
+      content: ' ';
       @media (max-width: $tutor-card-padding-collapse-breakpoint) {
         width: 50px;
         margin-left: -90px;
       }
       line-height: 2.4rem;
     }
-
+    .correct-incorrect {
+      margin-right: 30px;
+      color: red;
+      &[data-is-correct="true"] {
+        color: green;
+      }
+    }
     .selected-count {
       display: inline-block;
-      width: 60px;
+      width: 35px;
 
       @media (max-width: $tutor-card-padding-collapse-breakpoint) {
         width: 40px;
@@ -86,16 +93,6 @@ $free-response-background:  $tutor-neutral-lighter;
         }
       }
     }
-
-    &.answer-correct::before {
-      content: $fa-var-check;
-      color: $correct-answer-color;
-    }
-
-    &:not(.answer-correct)::before {
-      content: $fa-var-close;
-      color: $wrong-answer-color;
-    }
   }
 
   .answers-table {
@@ -110,13 +107,13 @@ $free-response-background:  $tutor-neutral-lighter;
       border: none;
     }
 
-    &.panel {
+    &.card {
       @include box-shadow(none);
       border-width: 0;
       &.is-expandable:not(.active) {
-        @include height-limited-panel(250px);
+        @include height-limited-card(250px);
       }
-      > .panel-heading {
+      > .card-body {
         color: $free-response-color;
         background: transparent;
         border-bottom: 0;
@@ -147,7 +144,6 @@ $free-response-background:  $tutor-neutral-lighter;
       &[data-student-names] {
         &::before {
           @include answer-text-label();
-          content: '';
           line-height: 1.25em;
           display: inline-block;
           margin-left: -255px;

@@ -7,7 +7,7 @@ import {
   find, first, isUndefined, clone, reverse, pick, pickBy, mapValues,
   groupBy, flatMap, flow, map, partial, uniq, some, keys, isEmpty, isNil,
 } from 'lodash';
-import { asPercent } from '../../helpers/string';
+import S from '../../helpers/string';
 
 const CELL_AVERAGES_CLOSED_SINGLE_WIDTH = 120;
 const CELL_AVERAGES_SINGLE_WIDTH = 90;
@@ -71,7 +71,7 @@ export default class ScoresReportUX {
 
   @computed get allTasksByType() {
     return groupBy(
-      flatMap(this.course.scores.periods.values(), p => p.data_headings.peek()),
+      flatMap(this.course.scores.periods.values(), p => p.data_headings),
       'type'
     );
   }
@@ -132,7 +132,7 @@ export default class ScoresReportUX {
         }
       }
 
-      return nullValue || `${asPercent(average)}%`;
+      return nullValue || `${S.asPercent(average)}%`;
     });
   }
 

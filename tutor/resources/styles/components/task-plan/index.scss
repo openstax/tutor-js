@@ -12,19 +12,36 @@
 
 
 .task-plan {
+
   .panel-default {
     border: none;
   }
 
-  .panel-heading {
+  .card-header {
     border-bottom: none;
     height: 50px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-size: 2.4rem;
+    font-weight: 700;
     button.close {
       top: 0;
       transistion: opacity 0.3s;
+    }
+  }
+
+
+  > .card {
+    max-width: $tutor-max-panel-width;
+    margin: 50px auto;
+    @include tutor-shadow(subtle);
+
+    > .card-body {
+      padding: 50px 140px;
+      @include media-breakpoint-down('md') {
+        padding: 50px 30px;
+      }
     }
   }
 
@@ -35,7 +52,7 @@
     }
   }
 
-  @include tutor-plan-set(header, '.dialog > .panel-heading');
+  @include tutor-plan-set(header, '.dialog > .card-header');
 
   > .dialog {
     @include tutor-pad-panel();

@@ -2,13 +2,14 @@ import { computed, action } from 'mobx';
 import {
   BaseModel, identifiedBy, field, identifier, belongsTo,
 } from 'shared/model';
-import { TimeStore } from '../../flux/time';
+import Time from '../time';
 import moment from 'moment';
 import { pick } from 'lodash';
 import Payments from '../payments';
 
+export default
 @identifiedBy('course/student')
-export default class CourseStudent extends BaseModel {
+class CourseStudent extends BaseModel {
   @identifier id;
 
   @field name;
@@ -35,7 +36,7 @@ export default class CourseStudent extends BaseModel {
   }
 
   get mustPayImmediately() {
-    return Boolean(this.needsPayment && moment(this.payment_due_at).isBefore(TimeStore.getNow()));
+    return Boolean(this.needsPayment && moment(this.payment_due_at).isBefore(Time.now));
   }
 
   get trialTimeRemaining() {
@@ -58,10 +59,10 @@ export default class CourseStudent extends BaseModel {
   @computed get isUnPaid() {
     return Boolean(
       this.course.does_cost &&
-      !this.course.is_preview &&
-      (
-        this.is_refund_pending || (!this.is_paid && !this.is_comped)
-      )
+        !this.course.is_preview &&
+        (
+          this.is_refund_pending || (!this.is_paid && !this.is_comped)
+        )
     );
   }
 
@@ -94,4 +95,4 @@ export default class CourseStudent extends BaseModel {
     return { id: this.id, data: pick(this, 'student_identifier') };
   }
 
-}
+};
