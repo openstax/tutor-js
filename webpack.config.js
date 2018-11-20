@@ -71,7 +71,7 @@ const config = {
   ],
   optimization: {
     splitChunks: {
-      chunks: 'all',
+      chunks: 'async',
     },
   },
   watchOptions: {
