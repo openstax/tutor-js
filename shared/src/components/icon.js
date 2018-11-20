@@ -80,6 +80,8 @@ Object.keys(Icons).forEach(k => {
   }
 });
 
+export { Icons };
+
 const defaultTooltipProps = {
   placement: 'top',
   trigger: ['hover', 'focus'],

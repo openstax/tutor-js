@@ -1,7 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import BS from 'react-bootstrap';
-
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import forEach from 'lodash/forEach';
 import extend from 'lodash/extend';
 import merge from 'lodash/merge';
@@ -117,11 +116,9 @@ class SuretyDemo extends React.Component {
           placement="right"
           message="Destroy ALL THE THINGS?"
           onConfirm={this.onConfirm}>
-          <BS.Button>
-            {'\
-    Perform Dangerous Operation!\
-    '}
-          </BS.Button>
+          <Button>
+            Perform Dangerous Operation!
+          </Button>
         </SuretyGuard>
       </div>
     );
@@ -463,21 +460,21 @@ class Demo extends React.Component {
     };
 
     demos = map(demos, (demo, name) =>
-      <BS.Row key={name} className="demo openstax-wrapper">
-        <BS.Col xs={12}>
+      <Row key={name} className="demo openstax-wrapper">
+        <Col xs={12}>
           <h1>
             {`${name}`}
           </h1>
           <section className={`${name}-demo`}>
             {demo}
           </section>
-        </BS.Col>
-      </BS.Row>
+        </Col>
+      </Row>
     );
     return (
-      <BS.Container className="demos openstax">
+      <Container className="demos openstax">
         {demos}
-      </BS.Container>
+      </Container>
     );
   }
 }

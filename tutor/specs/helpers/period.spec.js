@@ -1,4 +1,4 @@
-import { each, shuffle, pluck } from 'lodash';
+import { each, shuffle, map } from 'lodash';
 
 import PeriodHelper from '../../src/helpers/period';
 
@@ -79,7 +79,8 @@ describe('Period helpers', () =>
       const randoedPeriods = shuffle(periods);
       const sortedByFunction = PeriodHelper.sort(randoedPeriods);
 
-      return expect(pluck(sortedByFunction, 'name').join()).toEqual(pluck(periods, 'name').join());
+      return expect(map(sortedByFunction, 'name').join())
+        .toEqual(map(periods, 'name').join());
     });
     return undefined;
   })

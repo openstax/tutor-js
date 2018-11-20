@@ -1,3 +1,5 @@
+console.log();
+
 module.exports = {
   presets: [
     [
@@ -21,7 +23,7 @@ module.exports = {
       },
       lodash: {
         transform: 'lodash/${member}',
-        preventFullImport: true,
+        preventFullImport: ('test' === process.env.NODE_ENV) ? false : true,
       },
     }],
     '@babel/plugin-proposal-export-default-from',
