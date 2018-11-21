@@ -43,7 +43,7 @@ export default class ScrollTo {
     if (el && (!options.unlessInView || !this.isElementInView(el))) {
       return this.scrollToElement(el, options);
     }
-    return false;
+    return Promise.resolve(false);
   }
 
   isSelectorInView(selector) {
@@ -114,10 +114,6 @@ export default class ScrollTo {
     return Promise.resolve();
   }
 
-  // deferedScrollToTop() {
-  //   delay(() => this.scrollToTop(), 10);
-  // }
-  //
   scrollToElement(el, options = {}) {
     if (!el.parentElement) { return Promise.resolve(); } // the element has been deleted
     if (options.deferred) {
