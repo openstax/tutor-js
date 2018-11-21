@@ -10,7 +10,7 @@ import DropStudentLink from './drop-student';
 import CourseGroupingLabel from '../../components/course-grouping-label';
 import StudentIdField from './student-id-field';
 import Period from '../../models/course/period';
-import LoadingScreen from '../../components/loading-screen';
+import LoadingScreen from 'shared/components/loading-animation';
 
 export default
 @observer

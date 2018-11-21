@@ -30,7 +30,7 @@ describe('Student Enrollment', () => {
     const wrapper = mount(<Enroll enrollment={enrollment} />);
     expect(await axe(wrapper.html())).toHaveNoViolations();
     expect(enrollment.create).toHaveBeenCalled();
-    expect(wrapper).toHaveRendered('OXFancyLoader');
+    expect(wrapper).toHaveRendered('StaxlyAnimation');
     expect.snapshot(<Enroll enrollment={enrollment} />).toMatchSnapshot();
   });
 
@@ -49,7 +49,7 @@ describe('Student Enrollment', () => {
   it('forwards to your course if already a member', (done) => {
     enrollment.api.errors = { already_enrolled: { data: { course_name: 'My Course' } } };
     const enroll = mount(<Enroll enrollment={enrollment} />, context);
-    expect(enroll).toHaveRendered('OXFancyLoader');
+    expect(enroll).toHaveRendered('StaxlyAnimation');
     enrollment.isComplete = true;
     enroll.update();
     setTimeout(() => {

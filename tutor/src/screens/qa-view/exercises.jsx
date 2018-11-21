@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { isEmpty } from 'lodash';
 import { autobind } from 'core-decorators';
 import ExerciseCard from './exercise-card';
-import Loading from '../../components/loading-screen';
+import Loading from 'shared/components/loading-animation';
 import UX from './ux';
 
 export default

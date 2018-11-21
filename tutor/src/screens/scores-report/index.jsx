@@ -12,7 +12,7 @@ import Courses from '../../models/courses-map';
 import ScoresReportExportControls from './export-controls';
 import ScoresReportNav from './nav';
 import TourRegion from '../../components/tours/region';
-import LoadingScreen from '../../components/loading-screen';
+import LoadingScreen from 'shared/components/loading-animation';
 import './styles.scss';
 import UX from './ux';
 
@@ -102,16 +102,16 @@ class StudentScores extends React.Component {
         fullWidthChildren={
           <TourRegion
             id="scores"
-            courseId={courseId}
-            otherTours={['preview-scores']}
-          >
+                courseId={courseId}
+                otherTours={['preview-scores']}
+            >
             <ContainerDimensions>
               <ScoresTable
                 ux={this.ux}
-                sort={this.sort}
-                onSort={this.changeSortingOrder}
-                dataType={this.sort.dataType}
-                isConceptCoach={this.course.is_concept_coach}
+                   sort={this.sort}
+                   onSort={this.changeSortingOrder}
+                   dataType={this.sort.dataType}
+                   isConceptCoach={this.course.is_concept_coach}
               />
             </ContainerDimensions>
           </TourRegion>

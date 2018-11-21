@@ -2,15 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import ReactDOM from 'react-dom';
-import { SpyMode, ArbitraryHtmlAndMath, GetPositionMixin } from 'shared';
+import { LoadingAnimation, SpyMode, ArbitraryHtmlAndMath, GetPositionMixin } from 'shared';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
-
 import { BookContentMixin } from './book-content-mixin';
-
 import { ReferenceBookExerciseShell } from './book-page/exercise';
 import RelatedContent from './related-content';
-import Loading from './loading-screen';
 
 import AnnotationWidget from './annotations/annotation';
 import { ReferenceBookExerciseActions, ReferenceBookExerciseStore } from '../flux/reference-book-exercise';
@@ -96,7 +93,7 @@ const BookPage = createReactClass({
         isLoading = true;
         page = ux.pages.byChapterSection.get(ux.lastSection);
       } else {
-        return <Loading />;
+        return <LoadingAnimation />;
       }
     }
 
@@ -122,12 +119,12 @@ const BookPage = createReactClass({
           PageId: {page.cnx_id}, Ecosystem: {JSON.stringify(page && page.spy)}
         </SpyMode.Content>
         {ux.allowsAnnotating && (
-          <AnnotationWidget
-            courseId={ux.course.id}
-            chapter={page.chapter_section.chapter}
-            section={page.chapter_section.section}
-            title={related.title}
-            documentId={page.cnx_id} />
+           <AnnotationWidget
+             courseId={ux.course.id}
+             chapter={page.chapter_section.chapter}
+             section={page.chapter_section.section}
+             title={related.title}
+             documentId={page.cnx_id} />
         )}
       </div>
     );

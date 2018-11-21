@@ -4,7 +4,7 @@ import { Button, Card } from 'react-bootstrap';
 import { isFunction } from 'lodash';
 import BackButton from './back-button';
 import CourseOfferingTitle from './offering-title';
-import OXFancyLoader from '../../components/ox-fancy-loader';
+import OXFancyLoader from 'shared/components/staxly-animation';
 
 import * as Steps from './steps';
 const componentFor = key => Steps[ key ];

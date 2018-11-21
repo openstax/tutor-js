@@ -1,7 +1,7 @@
 import React from 'react';
 import NoStudents from '../plan-stats/no-students';
 import CGL from '../course-grouping-label';
-import LoadingScreen from '../loading-screen';
+import LoadingScreen from 'shared/components/loading-animation';
 import { PinnedHeaderFooterCard } from 'shared';
 
 const NoStats = ({ taskPlan, header, course, period }) => {

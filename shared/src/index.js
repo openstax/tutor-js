@@ -7,7 +7,7 @@ export {
   APIHandler, APIHandlerBase, CardBody, Exercise, ExControlButtons,
   ExerciseWithScroll, PinnableFooter, PinnedHeader, idType,
 };
-
+export LoadingAnimation from './components/loading-animation';
 export SuretyGuard from './components/surety-guard';
 export OXRouter from './helpers/router';
 import * as OXLink from './factories/link';

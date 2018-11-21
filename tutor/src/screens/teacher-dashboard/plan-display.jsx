@@ -4,7 +4,7 @@ import { partial, camelCase } from 'lodash';
 import TaskPlan from '../../models/task-plan/teacher';
 import Course from '../../models/course';
 import TutorLink from '../../components/link';
-import TaskPlanMiniEditor from '../../components/task-plan/mini-editor';
+import TaskPlanMiniEditor from '../../screens/assignment-builder/mini-editor';
 
 class CoursePlanDisplay extends React.Component {
 
@@ -29,56 +29,7 @@ class CoursePlanDisplay extends React.Component {
     defaultPlansCount: 3,
   };
 
-  // calcPercentOfRangeLength(partLength) {
-  //   return (
-  //     ((partLength / this.props.rangeLength) * 100) + '%'
-  //   );
-  //   // }
-  //
-  // adjustPlanSpacing(planStyle) {
-  //   const { isFirst, isLast, spacingMargin } = this.props;
-  //
-  //   if (isFirst || isLast) {
-  //     planStyle.width = `calc(${planStyle.width} - ${spacingMargin * 3}px)`;
-  //   }
-  //
-  //   if (isFirst) {
-  //     planStyle.marginLeft = spacingMargin + 'px';
-  //   }
-  //
-  //   if (!isFirst && !isLast) {
-  //     planStyle.marginLeft = (-1 * spacingMargin) + 'px';
-  //   }
-  //
-  //   return (
-  //
-  //     planStyle
-  //
-  //   );
-  // }
-  //
-  // buildPlanStyles() {
-  //   const { plan, spacingMargin, defaultPlansCount } = this.props;
-  //   //    const { offset, weekTopOffset, order } = display;
-  //   const { durationLength } = plan;
-  //
-  //   // Adjust width based on plan duration and left position based on offset of plan from start of week
-  //   // CALENDAR_EVENT_DYNAMIC_WIDTH and CALENDAR_EVENT_DYNAMIC_POSITION
-  //   // top is calculated by using:
-  //   //   weekTopOffset -- the distance from the top of the calendar for plans in the same week
-  //   //   order -- the order the plan should be from the bottom, is an int more than 1 when a plan needs to
-  //   //       stack on top of other plans that overlap in duration.
-  //   // const planStyle = {
-  //   //   width: this.calcPercentOfRangeLength(durationLength),
-  //   //   left: this.calcPercentOfRangeLength(offset),
-  //   //   top: ((weekTopOffset + (spacingMargin * 2)) - (order * defaultPlansCount)) + 'rem',
-  //   // };
-  //
-  //   return (
-  //     this.adjustPlanSpacing(planStyle)
-  //   );
-  // }
-  //
+
 }
 
 @observer
@@ -89,8 +40,6 @@ class CoursePlanDisplayEdit extends CoursePlanDisplay {
 
     const linkTo = camelCase(`edit-${plan.type}`);
     const params = { id: plan.id, courseId: course.id };
-
-    //    const planStyle = this.buildPlanStyles();
 
     return (
       <div

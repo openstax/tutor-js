@@ -8,8 +8,7 @@ import { Redirect } from 'react-router-dom';
 import S from '../../helpers/string';
 import Router from '../../../src/helpers/router';
 import Courses from '../courses-map';
-import Activity from '../../../src/components/ox-fancy-loader';
-
+import Activity from 'shared/components/staxly-animation';
 import Enroll from '../../../src/components/enroll';
 import Course from '../course';
 

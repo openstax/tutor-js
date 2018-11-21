@@ -3,7 +3,7 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
-import OXFancyLoader from '../ox-fancy-loader';
+import OXFancyLoader from 'shared/components/staxly-animation';
 import { AsyncButton } from 'shared';
 import Purchase from '../../models/purchases/purchase';
 

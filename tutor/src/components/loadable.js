@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
-import LoadingScreen from './loading-screen';
+import LoadingScreen from 'shared/components/loading-animation';
 
 import BindStoreMixin from './bind-store-mixin';
 import { RefreshButton } from 'shared';

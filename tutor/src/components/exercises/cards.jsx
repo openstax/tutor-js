@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { map, isEqual, isEmpty } from 'lodash';
-import ChapterSection from '../task-plan/chapter-section';
+import { map, isEmpty } from 'lodash';
+import ChapterSection from '../chapter-section';
 import ExercisePreview from './preview';
 import ScrollTo from '../../helpers/scroll-to';
 import { ExercisesMap } from '../../models/exercises';
