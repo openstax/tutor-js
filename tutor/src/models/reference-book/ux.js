@@ -1,9 +1,9 @@
 import { observable, computed, action, observe } from 'mobx';
 import { first, invoke } from 'lodash';
-
 import WindowSize from '../window-size';
 import Courses from '../courses-map';
 import Book from '../reference-book';
+import Scroller from '../../helpers/scroll-to';
 
 // menu width (300) + page width (1000) + 50 px padding
 // corresponds to @book-page-width and @book-menu-width in variables.scss
@@ -17,6 +17,7 @@ export default class BookUX {
   @observable book;
 
   windowSize = new WindowSize();
+  scroller = new Scroller();
 
   constructor() {
     this.disposers = [
@@ -49,6 +50,7 @@ export default class BookUX {
   @action.bound onMenuSelection(section) {
     this.setChapterSection(section);
     if (this.isMenuOnTop) { this.isMenuVisible = false; }
+    this.scroller.scrollToTop({ deferred: true });
   }
 
   @action.bound onChapterSectionChange({ newValue: section }) {
@@ -60,7 +62,6 @@ export default class BookUX {
   @computed get isMenuOnTop() {
     return this.windowSize.width < MENU_VISIBLE_BREAKPOINT;
   }
-
 
   @action.bound toggleTocMenu() {
     this.isMenuVisible = !this.isMenuVisible;

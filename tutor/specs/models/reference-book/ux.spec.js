@@ -51,4 +51,15 @@ describe(UX, () => {
     ux.ecosystemId = 123;
     expect(Book.prototype.fetch).not.toHaveBeenCalled();
   });
+
+  it('hides menu and scrolls to top when toc section is selected', () => {
+    expect(ux.isMenuOnTop).toBe(true);
+    ux.isMenuVisible = true;
+    ux.scroller = { scrollToTop: jest.fn() };
+    ux.onMenuSelection('1.2');
+    expect(ux.scroller.scrollToTop).toHaveBeenCalledWith({ deferred: true });
+    expect(ux.isMenuVisible).toBe(false);
+    ux.unmount();
+  });
+
 });

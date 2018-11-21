@@ -1,6 +1,9 @@
-import { loadAsync as r, asyncComponent } from './helpers/async-component';
+import { loadAsync } from './helpers/async-component';
+import { memoize } from 'lodash';
 import { getConditionalHandlers } from './helpers/conditional-handlers';
 import OnlyCollege from './components/my-courses/no-hs-teachers';
+
+const r = (i, n) => memoize(loadAsync(i, n));
 
 const getRoutes = (router) => {
   const ConditionalHandlers = getConditionalHandlers(router);

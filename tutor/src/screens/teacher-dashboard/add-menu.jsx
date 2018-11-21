@@ -11,8 +11,9 @@ export default class CourseAddMenu {
     this.options = options;
   }
 
-  @autobind goToBuilder(ev, link) {
+  @autobind goToBuilder(link, key, ev) {
     this.options.router.history.push(link);
+    ev.preventDefault();
   }
 
   render({ course, hasPeriods, date, dateFormat = 'YYYY-MM-DD' } = {}) {
@@ -88,8 +89,7 @@ export default class CourseAddMenu {
         className="dropdown-item"
         key={link.type}
         data-assignment-type={link.type}
-        eventKey={link.pathname}
-        onSelect={partial(goToBuilder, link)}
+        onSelect={partial(goToBuilder, link.pathname)}
       >
         {link.text}
       </Dropdown.Item>
