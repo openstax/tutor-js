@@ -27,7 +27,7 @@ describe('Tutor App model', () => {
   });
 
   it('boots raven and reads data', () => {
-    app.boot();
+    App.boot();
     expect(readBootstrapData).toHaveBeenCalled();
     expect(Raven.boot).toHaveBeenCalled();
   });

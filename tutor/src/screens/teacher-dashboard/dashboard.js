@@ -12,7 +12,7 @@ import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
 import { TimeStore } from '../../flux/time';
 import TimeHelper from '../../helpers/time';
 import TutorRouter from '../../helpers/router';
-import TaskPlanMiniEditor from '../../components/task-plan/mini-editor';
+import TaskPlanMiniEditor from '../../screens/assignment-builder/mini-editor';
 import AddAssignmentSidebar from './add-assignment-sidebar';
 import MonthTitleNav from './month-title-nav';
 import AddAssignmentPopup from './add-assignment-popup';

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Task } from './index';
-import Loading from '../loading-screen';
+import Loading from 'shared/components/loading-animation';
 import Router from '../../helpers/router';
 import LoadableItem from '../loadable-item';
 import { TaskActions, TaskStore } from '../../flux/task';

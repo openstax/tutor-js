@@ -17,6 +17,7 @@ import { FeatureFlagsApi } from './feature_flags';
 import Notices from '../helpers/notifications';
 import Chat from './chat';
 import Toasts from './toasts';
+import Tutor from '../components/root';
 
 const BOOTSTRAPED_MODELS = {
   user:     User,
@@ -31,27 +32,31 @@ export default class TutorApp {
   @observable tutor_js_url;
   @observable osweb_base_url;
 
-  boot() {
+  static rootComponent = Tutor;
+
+  static boot() {
+    const app = new TutorApp();
     Raven.boot();
     startAPI();
-    this.data = readBootstrapData();
-    Notifications.on('tutor-update', this.onNotice);
-    if (isEmpty(this.data)) {
-      return this.fetch().then(this.initializeApp);
-    } else {
-      return this.initializeApp();
+    app.data = readBootstrapData();
+    if (isEmpty(app.data)) {
+      return app.fetch().then(app.initializeApp);
     }
+    return app.initializeApp();
   }
 
   @action.bound initializeApp() {
+    // _MODELS is for adhoc console debugging ONLY, no code should rely on this!
+    window._MODELS = {};
     window._MODELS.bootstrapData = this.data;
     forIn(BOOTSTRAPED_MODELS, (model, storeId) => {
       const data = this.data[storeId];
       if (data) { model.bootstrap(data); }
+      window._MODELS[storeId] = model;
     });
     BootstrapURLs.update(this.data);
     UiSettings.initialize(this.data.ui_settings || {});
-
+    Notifications.on('tutor-update', this.onNotice);
     Notices.start(this.data);
     this.osweb_base_url = this.data.osweb_base_url;
     ExerciseHelpers.setOSWebURL(this.osweb_base_url);

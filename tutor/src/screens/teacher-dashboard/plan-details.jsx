@@ -10,7 +10,7 @@ import TourContext from '../../models/tour/context';
 import TourRegion from '../../components/tours/region';
 import Stats from '../../components/plan-stats';
 import Event from '../../components/plan-stats/event';
-import LmsInfo from '../../components/task-plan/lms-info';
+import LmsInfo from '../../components/lms-info-card';
 import TutorLink from '../../components/link';
 import TeacherTaskPlan from '../../models/task-plan/teacher';
 import SupportEmailLink from '../../components/support-email-link';

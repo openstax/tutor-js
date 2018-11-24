@@ -33,9 +33,9 @@ describe('Creating a course', function() {
     const wrapper = shallow(<Wizard {...props} />);
     expect(await axe(wrapper.html())).toHaveNoViolations();
     expect(props.ux.isBusy).toBe(true);
-    expect(wrapper).toHaveRendered('OXFancyLoader[isLoading=true]');
+    expect(wrapper).toHaveRendered('StaxlyAnimation[isLoading=true]');
     props.ux.offerings.api.requestsInProgress.clear();
-    expect(wrapper).toHaveRendered('OXFancyLoader[isLoading=false]');
+    expect(wrapper).toHaveRendered('StaxlyAnimation[isLoading=false]');
   });
 
   it('advances and can go back', async function() {

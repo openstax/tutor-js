@@ -1,12 +1,10 @@
 import MobxPropTypes from 'prop-types';
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
 import indexOf from 'lodash/indexOf';
 import pickBy from 'lodash/pickBy';
 import concat from 'lodash/concat';
 import some from 'lodash/some';
-import { detect } from 'detect-browser';
 import cn from 'classnames';
 import 'mobx-react';
 
@@ -20,30 +18,6 @@ const filterProps = (props, options = {}) =>
   )
 ;
 
-const renderRoot = function(getComponent, rootEl, props = {}) {
-  if (!rootEl) {
-    rootEl = document.createElement('div');
-    document.body.appendChild(rootEl);
-  }
-
-  rootEl.id = 'ox-react-root-container';
-  const browser = detect();
-  if (browser) {
-    rootEl.setAttribute('data-browser', browser.name);
-    rootEl.setAttribute('data-browser-version', browser.version);
-  }
-  rootEl.setAttribute('role', 'main');
-
-  const render = function() {
-    const Root = getComponent();
-    return ReactDOM.render(<Root {...props} />, rootEl);
-  };
-
-  render();
-  return render;
-};
-
-
 const ArrayOrMobxType = MobxPropTypes.oneOfType([
   MobxPropTypes.array,
   PropTypes.array,
@@ -54,4 +28,4 @@ const idType = MobxPropTypes.oneOfType([
   MobxPropTypes.number,
 ]);
 
-export { React, PropTypes, cn, filterProps, renderRoot, ArrayOrMobxType, idType };
+export { React, PropTypes, cn, filterProps, ArrayOrMobxType, idType };

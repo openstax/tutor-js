@@ -9,7 +9,7 @@ import TutorLink from '../link';
 import { Icon } from 'shared';
 import CourseModel from '../../models/course';
 import CourseUX from '../../models/course/ux';
-import OXFancyLoader from '../ox-fancy-loader';
+import OXFancyLoader from 'shared/components/staxly-animation';
 
 import { wrapCourseDragComponent } from './course-dnd';
 import CourseBranding from '../branding/course';

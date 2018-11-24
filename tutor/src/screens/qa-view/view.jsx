@@ -5,7 +5,7 @@ import cn from 'classnames';
 import BookPage from '../../components/book-page';
 import BookMenu from '../../components/book-menu/menu';
 import PagingNavigation from '../../components/paging-navigation';
-import Loading from '../../components/loading-screen';
+import Loading from 'shared/components/loading-animation';
 import Exercises from './exercises';
 import UX from './ux';
 

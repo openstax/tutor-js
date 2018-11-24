@@ -4,7 +4,7 @@ import { SpyMode } from 'shared';
 import ObscuredPage from '../../components/obscured-page';
 import Menu from '../../components/book-menu/menu';
 import Page from '../../components/book-page';
-import LoadingScreen from '../../components/loading-screen';
+import LoadingScreen from 'shared/components/loading-animation';
 
 import ReferenceViewPageNavigation from './page-navigation';
 import UX from './ux';

@@ -4,7 +4,7 @@ import './styles.scss';
 import { inject, observer } from 'mobx-react';
 import UX from './ux';
 import NavbarContext from '../../components/navbar/context';
-import Loading from '../../components/loading-screen';
+import Loading from 'shared/components/loading-animation';
 import QAView from './view';
 
 export default

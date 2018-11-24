@@ -31,6 +31,7 @@
     "validate": "./bin/validate-console-messages.sh",
     "prestart": "npm run validate",
     "start": "./bin/tdd",
+    "generate-tutor-loading-screen": "./script/tutor-boot-screen",
     "cached-start": "CACHE=true ./bin/tdd"
   },
   "repository": {
@@ -43,6 +44,7 @@
   },
   "homepage": "https://github.com/openstax/tutor-js",
   "dependencies": {
+    "@babel/node": "^7.0.0",
     "@fortawesome/fontawesome-free": "^5.5.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.8",
     "@fortawesome/free-regular-svg-icons": "^5.5.0",
@@ -128,7 +130,6 @@
     "when-dom-ready": "^1.2.12"
   },
   "devDependencies": {
-    "@babel/cli": "^7.1.5",
     "@babel/core": "^7.1.6",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/plugin-proposal-decorators": "^7.1.6",

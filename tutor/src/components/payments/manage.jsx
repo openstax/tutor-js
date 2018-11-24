@@ -9,7 +9,7 @@ import cn from 'classnames';
 import Router from '../../helpers/router';
 import BackButton from '../buttons/back-button';
 import Purchases from '../../models/purchases';
-import OXFancyLoader from '../ox-fancy-loader';
+import OXFancyLoader from 'shared/components/staxly-animation';
 import { AsyncButton } from 'shared';
 import NewTabLink from '../new-tab-link';
 import UserMenu from '../../models/user/menu';

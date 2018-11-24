@@ -71,7 +71,8 @@ const config = {
   ],
   optimization: {
     splitChunks: {
-      chunks: 'async',
+      chunks: 'all',
+      maxInitialRequests: 1,
     },
   },
   watchOptions: {

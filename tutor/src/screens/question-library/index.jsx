@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import Courses from '../../models/courses-map';
 import Router from '../../helpers/router';
 import Dashboard from './dashboard';
-import Loading from '../../components/loading-screen';
+import Loading from 'shared/components/loading-animation';
 
 import './styles.scss';
 

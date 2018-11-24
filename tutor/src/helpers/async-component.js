@@ -1,7 +1,7 @@
 import React from 'react';
 import Loadable from 'react-loadable';
 import ErrorComponent from '../components/error-monitoring/async-load-error';
-import Loading from '../components/loading-screen';
+import Loading from 'shared/components/loading-animation';
 
 export function asyncComponent(loader, name = '') {
   const loading = ({ error }) => {

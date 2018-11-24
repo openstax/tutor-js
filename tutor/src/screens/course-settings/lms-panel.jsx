@@ -4,7 +4,7 @@ import { Modal, ToggleButtonGroup, ToggleButton, Button } from 'react-bootstrap'
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import Link from '../../components/new-tab-link';
-import LoadingScreen from '../../components/loading-screen';
+import LoadingScreen from 'shared/components/loading-animation';
 import Course from '../../models/course';
 import CopyOnFocusInput from '../../components/copy-on-focus-input';
 import { Icon } from 'shared';

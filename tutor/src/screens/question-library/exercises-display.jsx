@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash';
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import { PinnedHeaderFooterCard } from 'shared';
-import Loading from '../../components/loading-screen';
+import Loading from 'shared/components/loading-animation';
 import { ArrayOrMobxType } from 'shared/helpers/react';
 import { Icon } from 'shared';
 import ExerciseControls from './exercise-controls';
