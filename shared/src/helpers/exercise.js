@@ -14,7 +14,7 @@ const BOOK_UID_XREF = {
   'd2fbadca-e4f3-4432-a074-2438c216b62a': 'Principles of Economics',
   '99e127f8-f722-4907-a6b3-2d62fca135d6': 'Anatomy and Physiology',
   '3402dc53-113d-45f3-954e-8d2ad1e73659': 'Concept of Biology', // Mini CC test version
-  '185cbf87-c72e-48f5-b51e-f14f21b5eabd': 'Biology',
+  '185cbf87-c72e-48f5-b51e-f14f21b5eabd': 'Biology 2e',
   '405335a3-7cff-4df2-a9ad-29062a4af261': 'College Physics',
 };
 
