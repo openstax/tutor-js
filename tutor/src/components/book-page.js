@@ -9,7 +9,7 @@ import { BookContentMixin } from './book-content-mixin';
 import { ReferenceBookExerciseShell } from './book-page/exercise';
 import RelatedContent from './related-content';
 
-import AnnotationWidget from './annotations/annotation';
+import NoteWidget from './notes/note';
 import { ReferenceBookExerciseActions, ReferenceBookExerciseStore } from '../flux/reference-book-exercise';
 import map from 'lodash/map';
 import forEach from 'lodash/forEach';
@@ -119,12 +119,12 @@ const BookPage = createReactClass({
           PageId: {page.cnx_id}, Ecosystem: {JSON.stringify(page && page.spy)}
         </SpyMode.Content>
         {ux.allowsAnnotating && (
-           <AnnotationWidget
-             courseId={ux.course.id}
-             chapter={page.chapter_section.chapter}
-             section={page.chapter_section.section}
-             title={related.title}
-             documentId={page.cnx_id} />
+          <NoteWidget
+            courseId={ux.course.id}
+            chapter={page.chapter_section.chapter}
+            section={page.chapter_section.section}
+            title={related.title}
+            documentId={page.cnx_id} />
         )}
       </div>
     );

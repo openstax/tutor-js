@@ -5,29 +5,29 @@ import { observer } from 'mobx-react';
 import cn from 'classnames';
 import { get, map, filter } from 'lodash';
 import { Icon } from 'shared';
-import Annotation from '../../models/annotations/annotation';
+import Note from '../../models/notes/note';
 import getRangeRect from './getRangeRect';
 
 export default
 @observer
 class SidebarButtons extends React.Component {
   static propTypes = {
-    editing: PropTypes.instanceOf(Annotation),
-    annotations: PropTypes.arrayOf(
-      PropTypes.instanceOf(Annotation)
+    editing: PropTypes.instanceOf(Note),
+    notes: PropTypes.arrayOf(
+      PropTypes.instanceOf(Note)
     ).isRequired,
     parentRect: PropTypes.shape({
       top: PropTypes.number,
     }),
     onClick: PropTypes.func.isRequired,
-    activeAnnotation: PropTypes.instanceOf(Annotation),
+    activeNote: PropTypes.instanceOf(Note),
   }
 
-  @autobind renderAnnotation(note) {
+  @autobind renderNote(note) {
     const {
-      parentRect, onClick, activeAnnotation, highlighter, windowImpl,
+      parentRect, onClick, activeNote, highlighter, windowImpl,
     } = this.props;
-    const isActive = note === activeAnnotation;
+    const isActive = note === activeNote;
     const highlight = highlighter.getHighlight(note.id);
 
     if (!highlight || !parentRect) {
@@ -44,7 +44,7 @@ class SidebarButtons extends React.Component {
           cn('sidebar-button', { active: isActive })
         }
         style={{ top: top - parentRect.top }}
-        alt="View annotation"
+        alt="View note"
         onClick={() => onClick(note)}
       />
     );
@@ -56,8 +56,8 @@ class SidebarButtons extends React.Component {
     }
 
     return (
-      <div className="annotation-edit-buttons">
-        {map(filter(this.props.annotations, 'text'), this.renderAnnotation)}
+      <div className="note-edit-buttons">
+        {map(filter(this.props.notes, 'text'), this.renderNote)}
       </div>
     );
 

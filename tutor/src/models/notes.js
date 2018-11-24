@@ -3,12 +3,12 @@ import { get, sortBy, groupBy, mapValues, isArray } from 'lodash';
 import Map from 'shared/model/map';
 import lazyGetter from 'shared/helpers/lazy-getter';
 import { chapterSectionToNumber } from '../helpers/content';
-import Hypothesis from './annotations/hypothesis';
-import Annotation from './annotations/annotation';
+import Hypothesis from './notes/hypothesis';
+import Note from './notes/note';
 import FeatureFlags from './feature_flags';
-import AnnotationsUX from './annotations/ux';
+import NotesUX from './notes/ux';
 
-export default class Annotations extends Map {
+export default class Notes extends Map {
 
   keyType = String
 
@@ -16,11 +16,11 @@ export default class Annotations extends Map {
     super();
     if (FeatureFlags.is_highlighting_allowed) {
       this.api.requestsInProgress.set('fetch', true);
-      Hypothesis.fetchUserInfo().then(this.updateAnnotations);
+      Hypothesis.fetchUserInfo().then(this.updateNotes);
     }
   }
 
-  @lazyGetter ux = new AnnotationsUX();
+  @lazyGetter ux = new NotesUX();
 
   @computed get byCourseAndPage() {
     return mapValues(
@@ -30,36 +30,36 @@ export default class Annotations extends Map {
           sortBy(cpgs, c=>chapterSectionToNumber(c.chapter_section)),
           a => a.chapter_section.join('.')
         ),
-        (annotations) => sortBy(annotations, ['rect.top', 'selection.rect.top', 'selection.start'])
+        (notes) => sortBy(notes, ['rect.top', 'selection.rect.top', 'selection.start'])
       )
     );
   }
 
-  @action.bound updateAnnotations(annotations) {
+  @action.bound updateNotes(notes) {
     this.api.requestsInProgress.delete('fetch');
     this.api.requestCounts.read += 1;
-    if (isArray(annotations)) {
-      annotations.forEach(document => {
-        const annotation = this.get(document.id);
+    if (isArray(notes)) {
+      notes.forEach(document => {
+        const note = this.get(document.id);
         const data = document.target[0].selector[0];
         data.id = document.id;
         data.text = document.text;
         data.listing = this;
-        annotation ? annotation.update(data) : this.set(data.id, new Annotation(data));
+        note ? note.update(data) : this.set(data.id, new Note(data));
       });
     }
   }
 
-  update(annotation) {
+  update(note) {
     this.api.requestsInProgress.set('update', true);
     return Hypothesis.request({
       method: 'PATCH',
-      service: `annotations/${annotation.id}`,
-      data: { text: annotation.text },
+      service: `notes/${note.id}`,
+      data: { text: note.text },
     }).then(() => {
       this.api.requestsInProgress.delete('update');
       this.api.requestCounts.update += 1;
-      return annotation;
+      return note;
     });
   }
 
@@ -79,23 +79,23 @@ export default class Annotations extends Map {
       data.id = document.id;
       data.text = document.text;
       data.listing = this;
-      const annotation = new Annotation(data);
-      this.set(annotation.id, annotation);
-      return annotation;
+      const note = new Note(data);
+      this.set(note.id, note);
+      return note;
     });
   }
 
-  destroy(annotation) {
+  destroy(note) {
     this.api.requestsInProgress.set('delete', true);
     return Hypothesis.request({
       method: 'DELETE',
-      service: `annotations/${annotation.id}`,
+      service: `notes/${note.id}`,
     }).then(() => {
-      annotation.isDeleted = true;
+      note.isDeleted = true;
       this.api.requestsInProgress.delete('delete');
       this.api.requestCounts.delete += 1;
-      this.delete(annotation.id);
-      return annotation;
+      this.delete(note.id);
+      return note;
     });
   }
 

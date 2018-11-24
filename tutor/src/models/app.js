@@ -12,7 +12,7 @@ import User from './user';
 import Raven from './app/raven';
 import Courses from './courses-map';
 import Payments from './payments';
-import Hypothesis from './annotations/hypothesis';
+import Hypothesis from './notes/hypothesis';
 import { FeatureFlagsApi } from './feature_flags';
 import Notices from '../helpers/notifications';
 import Chat from './chat';

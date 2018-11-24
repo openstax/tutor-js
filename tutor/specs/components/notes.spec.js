@@ -1,9 +1,9 @@
-import AnnotationWidget from '../../src/components/annotations/annotation';
+import NoteWidget from '../../src/components/notes/note';
 import { bootstrapCoursesList } from '../courses-test-data';
-import AnnotationsMap from '../../src/models/annotations';
+import NotesMap from '../../src/models/notes';
 
 import Page from '../../api/pages/be8818d0-2dba-4bf3-859a-737c25fb2c99@20.json';
-import ANNOTATIONS from '../../api/annotations.json';
+import NOTES from '../../api/notes.json';
 import Router from '../../src/helpers/router';
 
 jest.mock('../../src/models/feature_flags', () => ({ is_highlighting_allowed: true }));
@@ -12,9 +12,9 @@ jest.mock('../../../shared/src/components/html', () => ({ html }) =>
   html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
 );
 
-describe('Annotations', () => {
+describe('Notes', () => {
 
-  let props, Courses, body, annotations;
+  let props, Courses, body, notes;
 
   beforeEach(function() {
     Courses = bootstrapCoursesList();
@@ -22,10 +22,10 @@ describe('Annotations', () => {
     Courses.get(1).appearance_code = 'college_biology';
     body = window.document.body;
 
-    annotations = new AnnotationsMap();
+    notes = new NotesMap();
 
-    annotations.updateAnnotations(
-      ANNOTATIONS.rows
+    notes.updateNotes(
+      NOTES.rows
     );
     // from reference_book/page component
     body.innerHTML = '<div id="mount"><div class="book-content">' +
@@ -52,7 +52,7 @@ describe('Annotations', () => {
       collapse: jest.fn(),
     }));
     props = {
-      annotations,
+      notes,
       courseId: '1',
       documentId: 'be8818d0-2dba-4bf3-859a-737c25fb2c99',
       title: Page.title,
@@ -63,15 +63,15 @@ describe('Annotations', () => {
   });
 
   it('sorts in model', () => {
-    expect(Object.keys(annotations.byCourseAndPage)).toEqual(['1']);
-    expect(Object.keys(annotations.byCourseAndPage[1])).toEqual(['2.1']);
-    expect(Object.keys(annotations.byCourseAndPage[1]['2.1'])).toHaveLength(2);
+    expect(Object.keys(notes.byCourseAndPage)).toEqual(['1']);
+    expect(Object.keys(notes.byCourseAndPage[1])).toEqual(['2.1']);
+    expect(Object.keys(notes.byCourseAndPage[1]['2.1'])).toHaveLength(2);
   });
 
   it('renders and matches snapshot', () => {
-    annotations.ux.isSummaryVisible = true;
+    notes.ux.isSummaryVisible = true;
     expect.snapshot(
-      <AnnotationWidget {...props} />,
+      <NoteWidget {...props} />,
       {
         createNodeMock: e => {
           const parent = document.createElement('div');

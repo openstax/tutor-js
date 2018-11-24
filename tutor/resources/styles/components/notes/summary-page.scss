@@ -1,4 +1,4 @@
-.overlay.annotations-summary {
+.overlay.notes-summary {
   background-color: $tutor-neutral-light;
   justify-content: center;
 
@@ -45,11 +45,11 @@
       @include tutor-main-subtitle-font();
     }
 
-    .annotation-card {
+    .note-card {
       padding-bottom: 3rem;
     }
 
-    .annotation-body {
+    .note-body {
       background-color: $tutor-white;
       display: flex;
       flex-direction: column;
@@ -84,7 +84,7 @@
         justify-content: flex-end;
       }
 
-      .annotation-content {
+      .note-content {
         flex: 1;
 
         .selected-text {

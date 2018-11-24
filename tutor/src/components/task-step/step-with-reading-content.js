@@ -1,16 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
-import { Button } from 'react-bootstrap';
 import { TaskStepStore } from '../../flux/task-step';
-import { TaskPanelStore } from '../../flux/task-panel';
 import { AsyncButton, ArbitraryHtmlAndMath, ChapterSectionMixin } from 'shared';
 import CourseData from '../../helpers/course-data';
 import { BookContentMixin, LinkContentMixin } from '../book-content-mixin';
 import RelatedContent from '../related-content';
 import Router from '../../helpers/router';
-import AnnotationWidget from '../annotations/annotation';
-import { Icon } from 'shared';
+import NoteWidget from '../notes/note';
 
 // TODO: will combine with below, after BookContentMixin clean up
 const ReadingStepContent = createReactClass({
@@ -113,7 +110,7 @@ const ReadingStepContent = createReactClass({
             html={content_html} />
           {this.renderNextStepLink()}
         </div>
-        <AnnotationWidget
+        <NoteWidget
           courseId={courseId}
           chapter={this.getContentChapter()}
           section={this.getContentSection()}

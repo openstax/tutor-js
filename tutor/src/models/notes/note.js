@@ -6,8 +6,8 @@ import {
 } from 'shared/model';
 
 
-@identifiedBy('annotations/annotation')
-export default class Annotation extends BaseModel {
+@identifiedBy('notes/note')
+export default class Note extends BaseModel {
 
   static MAX_TEXT_LENGTH = 500;
   @identifier id;
@@ -30,8 +30,8 @@ export default class Annotation extends BaseModel {
   }
 
   validateTextLength(change) {
-    if (isString(change.newValue) && change.newValue.length > Annotation.MAX_TEXT_LEN) {
-      change.newValue = change.newValue.slice(0, Annotation.MAX_TEXT_LEN);
+    if (isString(change.newValue) && change.newValue.length > Note.MAX_TEXT_LEN) {
+      change.newValue = change.newValue.slice(0, Note.MAX_TEXT_LEN);
     }
     return change;
   }
