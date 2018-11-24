@@ -24,10 +24,8 @@ const Exercises = {
     const location = [];
 
     if (exerciseId) { location.push(exerciseId); }
-
     if (chapter_section) {
-      const [chapter, section] = Array.from(chapter_section);
-      location.push(`${chapter}.${section}`);
+      location.push(chapter_section.toString());
     }
 
     if (title) { location.push(title); }

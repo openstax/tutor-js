@@ -25,6 +25,10 @@ class ChapterSection extends BaseModel {
     return this.format();
   }
 
+  toString() {
+    return this.format();
+  }
+
   @computed get asArray() {
     return [this.chapter, this.section];
   }
