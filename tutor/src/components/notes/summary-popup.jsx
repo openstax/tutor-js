@@ -20,7 +20,7 @@ class SummaryPopup extends React.Component {
     }),
 
     courseId: PropTypes.string.isRequired,
-    annotations: PropTypes.object.isRequired,
+    notes: PropTypes.object.isRequired,
   };
 
   @observable isOpen = false;
@@ -30,7 +30,7 @@ class SummaryPopup extends React.Component {
   }
 
   componentDidMount() {
-    Analytics.sendPageView('/annotations/print');
+    Analytics.sendPageView('/notes/print');
   }
 
   @action.bound onSummaryWindowClose() {
@@ -49,8 +49,8 @@ class SummaryPopup extends React.Component {
   }
 
   render() {
-    const { courseId, annotations } = this.props;
-    if (isEmpty(annotations)) { return null; }
+    const { courseId, notes } = this.props;
+    if (isEmpty(notes)) { return null; }
 
     const course = Courses.get(courseId);
     return (
@@ -73,13 +73,13 @@ class SummaryPopup extends React.Component {
           }}
         >
           <div className="summary-preview summary-popup">
-            <div className="annotations">
-              {map(annotations, (notes, ch) =>
+            <div className="notes">
+              {map(notes, (notes, ch) =>
                 <div key={ch}>
                   <h2>{notes[0].formattedChapterSection} {notes[0].title}</h2>
-                  {map(notes, (annotation) => (
+                  {map(notes, (note) => (
                     <div
-                      key={annotation.id}
+                      key={note.id}
                       style={{
                         marginBottom: '2rem',
                       }}
@@ -93,14 +93,14 @@ class SummaryPopup extends React.Component {
                         }}
 
                       >
-                        <ArbitraryHtmlAndMath html={annotation.content} />
+                        <ArbitraryHtmlAndMath html={note.content} />
                       </blockquote>
                       <p
                         style={{
                           marginLeft: '0.5rem',
                         }}
                       >
-                        {annotation.text}
+                        {note.text}
                       </p>
                     </div>
                   ))}

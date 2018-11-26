@@ -64,7 +64,7 @@
 @import './components/modals';
 @import './components/payments';
 @import './components/choices-listing';
-@import './components/annotations/annotation';
+@import './components/notes/note';
 
 body[data-js-error]::before {
   content: attr(data-js-error);

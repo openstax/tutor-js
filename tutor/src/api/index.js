@@ -36,7 +36,7 @@ import PastTaskPlans from '../models/course/past-task-plans';
 import Student from '../models/course/student';
 import CourseEnroll from '../models/course/enroll';
 import Payments from '../models/payments';
-import Hypothesis from '../models/annotations/hypothesis';
+import Hypothesis from '../models/notes/hypothesis';
 import Purchases from '../models/purchases';
 import Purchase from '../models/purchases/purchase';
 import { CourseStudentTasks } from '../models/student-tasks';

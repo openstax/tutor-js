@@ -18,12 +18,12 @@ import InlineControls from './inline-controls';
 import ScrollTo from '../../helpers/scroll-to';
 import Highlighter from '@openstax/highlighter';
 import Router from '../../helpers/router';
-import AnnotationsMap from '../../models/annotations';
+import NotesMap from '../../models/notes';
 import Overlay from '../obscured-page/overlay';
 
 export default
 @observer
-class AnnotationWidget extends React.Component {
+class NoteWidget extends React.Component {
 
   static propTypes = {
     courseId: PropTypes.string.isRequired,
@@ -34,11 +34,11 @@ class AnnotationWidget extends React.Component {
     title: PropTypes.string,
     chapter: PropTypes.number.isRequired,
     section: PropTypes.number.isRequired,
-    annotations: PropTypes.instanceOf(AnnotationsMap),
+    notes: PropTypes.instanceOf(NotesMap),
   };
 
   static defaultProps = {
-    annotations: User.annotations,
+    notes: User.notes,
     windowImpl: window,
   };
 
@@ -47,10 +47,10 @@ class AnnotationWidget extends React.Component {
     scrollTopOffset: (window.innerHeight / 2) - 80,
   });
 
-  @observable scrollToPendingAnnotation;
+  @observable scrollToPendingNote;
   @observable highlighter;
   @observable referenceElements = [];
-  @observable activeAnnotation;
+  @observable activeNote;
   @observable pendingHighlight;
 
   componentDidMount() {
@@ -63,14 +63,14 @@ class AnnotationWidget extends React.Component {
     }
 
     when(
-      () => !this.props.annotations.api.isPending,
+      () => !this.props.notes.api.isPending,
       () => this.initializePage(),
     );
   }
 
   componentWillReceiveProps() {
     if (!this.course.canAnnotate) { return; }
-    this.activeAnnotation = null;
+    this.activeNote = null;
     this.initializePage();
   }
 
@@ -84,8 +84,8 @@ class AnnotationWidget extends React.Component {
     return Courses.get(this.props.courseId);
   }
 
-  @computed get annotationsForThisPage() {
-    return this.allAnnotationsForThisBook.filter(item =>
+  @computed get notesForThisPage() {
+    return this.allNotesForThisBook.filter(item =>
       (item.chapter === this.props.chapter) &&
       (item.section === this.props.section) &&
       this.highlighter &&
@@ -93,21 +93,21 @@ class AnnotationWidget extends React.Component {
     );
   }
 
-  @computed get allAnnotationsForThisBook() {
-    return filter(this.props.annotations.array, { courseId: this.props.courseId });
+  @computed get allNotesForThisBook() {
+    return filter(this.props.notes.array, { courseId: this.props.courseId });
   }
 
   setupPendingHighlightScroll(highlightId) {
-    this.scrollToPendingAnnotation = () => {
+    this.scrollToPendingNote = () => {
       const highlight = this.highlighter.getHighlight(highlightId);
 
       this.highlighter.clearFocus();
       if (highlight) {
         highlight.focus().scrollTo(this.highlightScrollHandler);
       } else {
-        Logging.error(`Page attempted to scroll to annotation id '${highlightId}' but it was not found`);
+        Logging.error(`Page attempted to scroll to note id '${highlightId}' but it was not found`);
       }
-      this.scrollToPendingAnnotation = null;
+      this.scrollToPendingNote = null;
     };
   }
 
@@ -156,11 +156,11 @@ class AnnotationWidget extends React.Component {
         onClick: this.onHighlightClick,
         onSelect: this.onHighlightSelect,
       });
-      // attach annotations to highlghter
-      this.annotationsForThisPage.forEach(annotation => this.highlighter.highlight(annotation.highlight));
+      // attach notes to highlghter
+      this.notesForThisPage.forEach(note => this.highlighter.highlight(note.highlight));
       // scroll if needed
-      if (this.scrollToPendingAnnotation) {
-        this.scrollToPendingAnnotation();
+      if (this.scrollToPendingNote) {
+        this.scrollToPendingNote();
       }
       // and we're done
       this.ux.statusMessage.hide();
@@ -170,9 +170,9 @@ class AnnotationWidget extends React.Component {
   }
 
   onHighlightClick = highlight => {
-    const annotation = highlight ? this.props.annotations.get(highlight.id) : null;
+    const note = highlight ? this.props.notes.get(highlight.id) : null;
     this.pendingHighlight = null;
-    this.activeAnnotation = annotation;
+    this.activeNote = note;
 
     this.highlighter.clearFocus();
     if (highlight) {
@@ -200,7 +200,7 @@ class AnnotationWidget extends React.Component {
   }
 
   @action.bound onHighlightSelect(highlights, highlight) {
-    this.activeAnnotation = null;
+    this.activeNote = null;
     const error = this.cantHighlightReason(highlights, highlight);
 
     if (error) {
@@ -222,17 +222,17 @@ class AnnotationWidget extends React.Component {
   @autobind
   highlightAndClose() {
     return this.saveNewHighlight().then(
-      action(annotation => {
+      action(note => {
         this.props.windowImpl.getSelection().removeAllRanges();
         this.pendingHighlight = null;
-        this.highlighter.highlight(annotation.highlight);
-        return annotation;
+        this.highlighter.highlight(note.highlight);
+        return note;
       }));
   }
 
   @autobind
   openAnnotator() {
-    return this.highlightAndClose().then(annotation => this.activeAnnotation = annotation);
+    return this.highlightAndClose().then(note => this.activeNote = note);
   }
 
   @autobind
@@ -244,7 +244,7 @@ class AnnotationWidget extends React.Component {
 
     const serializedHighlight = highlight.serialize(referenceElement);
 
-    return this.props.annotations.create({
+    return this.props.notes.create({
       research_identifier: this.course.primaryRole.research_identifier,
       userRole: this.course.primaryRole.type,
       documentId: this.props.documentId,
@@ -257,19 +257,19 @@ class AnnotationWidget extends React.Component {
     });
   }
 
-  @computed get sortedAnnotationsForPage() {
+  @computed get sortedNotesForPage() {
     return sortBy(
-      this.annotationsForThisPage,
+      this.notesForThisPage,
       ['selection.bounds.top', 'selection.start']
     );
   }
 
-  getAnnotationByOffset(offset) {
-    const annotation = this.activeAnnotation;
-    if (!annotation) {
+  getNoteByOffset(offset) {
+    const note = this.activeNote;
+    if (!note) {
       return null;
     }
-    const highlight = this.highlighter.getHighlight(annotation.id);
+    const highlight = this.highlighter.getHighlight(note.id);
     if (!highlight) {
       return null;
     }
@@ -281,17 +281,17 @@ class AnnotationWidget extends React.Component {
       return null;
     }
 
-    const targetAnnotationId = highlights[targetIndex].id;
+    const targetNoteId = highlights[targetIndex].id;
 
-    return this.props.annotations.get(targetAnnotationId);
+    return this.props.notes.get(targetNoteId);
   }
 
-  get nextAnnotation() {
-    return this.getAnnotationByOffset(1);
+  get nextNote() {
+    return this.getNoteByOffset(1);
   }
 
-  get previousAnnotation() {
-    return this.getAnnotationByOffset(-1);
+  get previousNote() {
+    return this.getNoteByOffset(-1);
   }
 
   @action.bound setElement(el) {
@@ -313,29 +313,29 @@ class AnnotationWidget extends React.Component {
     };
   }
 
-  @computed get ux() { return this.props.annotations.ux; }
+  @computed get ux() { return this.props.notes.ux; }
 
   @action.bound seeAll() {
     this.ux.isSummaryVisible = true;
-    this.activeAnnotation = null;
+    this.activeNote = null;
   }
 
-  @action.bound editAnnotation(annotation) {
-    this.activeAnnotation = annotation;
+  @action.bound editNote(note) {
+    this.activeNote = note;
 
     this.highlighter.clearFocus();
-    const highlight = this.highlighter.getHighlight(annotation.id);
+    const highlight = this.highlighter.getHighlight(note.id);
     if (highlight) {
       highlight.focus().scrollTo(this.highlightScrollHandler);
     }
   }
 
   @action.bound hideActiveHighlight() {
-    this.activeAnnotation = null;
+    this.activeNote = null;
   }
 
-  @action.bound onAnnotationDelete(annotation) {
-    const highlight = this.highlighter.getHighlight(annotation.id);
+  @action.bound onNoteDelete(note) {
+    const highlight = this.highlighter.getHighlight(note.id);
     if (highlight) {
       this.highlighter.erase(highlight);
     }
@@ -366,32 +366,32 @@ class AnnotationWidget extends React.Component {
           highlight={this.highlightAndClose}
         />
         <EditBox
-          annotation={this.activeAnnotation}
+          note={this.activeNote}
           onHide={this.hideActiveHighlight}
-          onDelete={this.onAnnotationDelete}
-          goToAnnotation={this.editAnnotation}
-          next={this.nextAnnotation}
-          previous={this.previousAnnotation}
+          onDelete={this.onNoteDelete}
+          goToNote={this.editNote}
+          next={this.nextNote}
+          previous={this.previousNote}
           seeAll={this.seeAll}
         />
         <SidebarButtons
           windowImpl={this.props.windowImpl}
           highlighter={this.highlighter}
-          annotations={this.annotationsForThisPage}
+          notes={this.notesForThisPage}
           parentRect={this.parentRect}
-          onClick={this.editAnnotation}
-          activeAnnotation={this.activeAnnotation}
+          onClick={this.editNote}
+          activeNote={this.activeNote}
         />
         {this.renderStatusMessage()}
         <Overlay
-          id="annotations-summary"
+          id="notes-summary"
           visible={this.ux.isSummaryVisible}
           onHide={this.ux.hideSummary}
           renderer={() => (
             <SummaryPage
               courseId={this.props.courseId}
-              annotations={this.props.annotations}
-              onDelete={this.onAnnotationDelete}
+              notes={this.props.notes}
+              onDelete={this.onNoteDelete}
               currentChapter={this.props.chapter}
               currentSection={this.props.section}
             />

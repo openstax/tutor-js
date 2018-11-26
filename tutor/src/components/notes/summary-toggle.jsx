@@ -13,7 +13,7 @@ import HighlightIcon from './highlight-icon';
 
 export default
 @observer
-class AnnotationSummaryToggle extends React.Component {
+class NoteSummaryToggle extends React.Component {
 
   static propTypes = {
     courseId: PropTypes.string,
@@ -48,8 +48,8 @@ class AnnotationSummaryToggle extends React.Component {
       >
         <TourAnchor id="student-highlighting-button">
           <button
-            onClick={User.annotations.ux.toggleSummary}
-            className={cn('annotation-summary-toggle', { active: User.annotations.ux.isSummaryVisible })}
+            onClick={User.notes.ux.toggleSummary}
+            className={cn('note-summary-toggle', { active: User.notes.ux.isSummaryVisible })}
           >
             <HighlightIcon />
           </button>

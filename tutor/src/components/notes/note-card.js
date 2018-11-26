@@ -6,7 +6,7 @@ import { Form } from 'react-bootstrap';
 import { autobind } from 'core-decorators';
 import { ArbitraryHtmlAndMath } from 'shared';
 import Courses from '../../models/courses-map';
-import Annotation from '../../models/annotations/annotation';
+import Note from '../../models/notes/note';
 import { Icon } from 'shared';
 import SuretyGuard from 'shared/components/surety-guard';
 
@@ -26,8 +26,8 @@ class EditBox extends React.Component {
   }
 
   renderWarning() {
-    if (this.text.length > Annotation.MAX_TEXT_LENGTH) {
-      return <Form.Label variant="danger">Text cannot be longer than {Annotation.MAX_TEXT_LENGTH} characters</Form.Label>;
+    if (this.text.length > Note.MAX_TEXT_LENGTH) {
+      return <Form.Label variant="danger">Text cannot be longer than {Note.MAX_TEXT_LENGTH} characters</Form.Label>;
     }
     return null;
   }
@@ -56,11 +56,11 @@ class EditBox extends React.Component {
 
 export default
 @observer
-class AnnotationCard extends React.Component {
+class NoteCard extends React.Component {
 
   static propTypes = {
     onDelete: PropTypes.func.isRequired,
-    annotation: PropTypes.instanceOf(Annotation).isRequired,
+    note: PropTypes.instanceOf(Note).isRequired,
   };
 
   @observable editing = false;
@@ -76,24 +76,24 @@ class AnnotationCard extends React.Component {
   }
 
   @action.bound
-  saveAnnotation(newText) {
-    this.props.annotation.text = newText;
-    this.props.annotation.save();
+  saveNote(newText) {
+    this.props.note.text = newText;
+    this.props.note.save();
   }
 
   @action.bound doDelete() {
-    this.props.annotation.destroy().then(
+    this.props.note.destroy().then(
       this.props.onDelete
     );
   }
 
   @computed get course() {
-    return Courses.get(this.props.annotation.courseId);
+    return Courses.get(this.props.note.courseId);
   }
 
   @autobind
   openPage() {
-    const { id, chapter, section } = this.props.annotation;
+    const { id, chapter, section } = this.props.note;
     let url = `/book/${this.course.ecosystem_id}/section/${chapter}`;
     if (section) {
       url += `.${section}`;
@@ -103,23 +103,23 @@ class AnnotationCard extends React.Component {
   }
 
   render() {
-    const { annotation } = this.props;
+    const { note } = this.props;
     return (
-      <div className="annotation-card">
-        <div className="annotation-body">
-          <div className="annotation-content">
+      <div className="note-card">
+        <div className="note-body">
+          <div className="note-content">
             <blockquote className="selected-text">
-              <ArbitraryHtmlAndMath html={this.props.annotation.content} />
+              <ArbitraryHtmlAndMath html={this.props.note.content} />
             </blockquote>
             {this.editing ? (
               <EditBox
-                text={annotation.text}
+                text={note.text}
                 dismiss={this.stopEditing}
-                save={this.saveAnnotation}
+                save={this.saveNote}
               />
             ) : (
               <div className="plain-text">
-                {annotation.text}
+                {note.text}
               </div>
             )}
           </div>

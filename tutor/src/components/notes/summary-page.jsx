@@ -5,16 +5,16 @@ import { map, keys, pickBy, isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
 import { observable, action, computed } from 'mobx';
 import SectionsFilter from './sections-filter';
-import AnnotationCard from './annotation-card';
+import NoteCard from './note-card';
 import SummaryPopup from './summary-popup';
-import AnnotationsMap from '../../models/annotations';
+import NotesMap from '../../models/notes';
 
 export default
 @observer
-class AnnotationSummaryPage extends React.Component {
+class NoteSummaryPage extends React.Component {
 
   static propTypes = {
-    annotations: PropTypes.instanceOf(AnnotationsMap).isRequired,
+    notes: PropTypes.instanceOf(NotesMap).isRequired,
     onDelete: PropTypes.func.isRequired,
     currentChapter: PropTypes.number.isRequired,
     currentSection: PropTypes.number.isRequired,
@@ -60,23 +60,23 @@ class AnnotationSummaryPage extends React.Component {
     this.prepareFocus();
   }
 
-  @computed get annotationsBySection() {
-    return this.props.annotations.byCourseAndPage[this.props.courseId];
+  @computed get notesBySection() {
+    return this.props.notes.byCourseAndPage[this.props.courseId];
   }
 
-  @computed get selectedAnnotations() {
-    return pickBy(this.annotationsBySection, (notes, cs) => this.selectedSections.get(cs));
+  @computed get selectedNotes() {
+    return pickBy(this.notesBySection, (notes, cs) => this.selectedSections.get(cs));
   }
 
   renderEmpty() {
     return (
       <div className="summary-page" ref={ref => this.containerRef = ref}>
-        <div className="annotations">
+        <div className="notes">
           <h1>
-            Highlights and annotations
+            Highlights and notes
           </h1>
           <h4>
-            Here’s where you will see a summary of your highlights and annotations.
+            Here’s where you will see a summary of your highlights and notes.
           </h4>
         </div>
       </div>
@@ -84,11 +84,11 @@ class AnnotationSummaryPage extends React.Component {
   }
 
   renderEmptyMessage() {
-    if (isEmpty(this.selectedAnnotations)) {
+    if (isEmpty(this.selectedNotes)) {
       return (
-        <div className="annotations">
-          <h3>This page has no annotations</h3>
-          <p>Select a section from the picker above to display it’s annotations</p>
+        <div className="notes">
+          <h3>This page has no notes</h3>
+          <p>Select a section from the picker above to display it’s notes</p>
         </div>
       );
     } else {
@@ -97,31 +97,31 @@ class AnnotationSummaryPage extends React.Component {
   }
 
   render() {
-    if (!keys(this.annotationsBySection).length) {
+    if (!keys(this.notesBySection).length) {
       return this.renderEmpty();
     }
 
     return (
       <div className="summary-page" ref={ref => this.containerRef = ref}>
         <h1>
-          Highlights and annotations
+          Highlights and notes
         </h1>
         <div className="filter-area">
           <SectionsFilter
-            sections={this.annotationsBySection}
+            sections={this.notesBySection}
             selected={this.selectedSections}
           />
-          <SummaryPopup annotations={this.selectedAnnotations} courseId={this.props.courseId} />
+          <SummaryPopup notes={this.selectedNotes} courseId={this.props.courseId} />
         </div>
         {this.renderEmptyMessage()}
-        <div className="annotations">
-          {map(this.selectedAnnotations, (notes, ch) =>
+        <div className="notes">
+          {map(this.selectedNotes, (notes, ch) =>
             <div key={ch} className="section">
               <h2>{notes[0].formattedChapterSection} {notes[0].title}</h2>
-              {map(notes, (annotation) => (
-                <AnnotationCard
-                  key={annotation.id}
-                  annotation={annotation}
+              {map(notes, (note) => (
+                <NoteCard
+                  key={note.id}
+                  note={note}
                   onDelete={this.onDelete}
                 />
               ))}

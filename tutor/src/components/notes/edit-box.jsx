@@ -6,41 +6,41 @@ import { action, observable } from 'mobx';
 import cn from 'classnames';
 import { Icon } from 'shared';
 import { Form } from 'react-bootstrap';
-import Annotation from '../../models/annotations/annotation';
+import Note from '../../models/notes/note';
 
 @observer
 class EditBox extends React.Component {
 
   static propTypes = {
-    annotation: PropTypes.instanceOf(Annotation),
+    note: PropTypes.instanceOf(Note),
     onHide: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
-    next: PropTypes.instanceOf(Annotation),
-    previous: PropTypes.instanceOf(Annotation),
-    goToAnnotation: PropTypes.func.isRequired,
+    next: PropTypes.instanceOf(Note),
+    previous: PropTypes.instanceOf(Note),
+    goToNote: PropTypes.func.isRequired,
     seeAll: PropTypes.func.isRequired,
   }
 
   @action.bound onDelete() {
-    this.props.annotation.destroy().then(() => {
+    this.props.note.destroy().then(() => {
       this.props.onHide();
-      this.props.onDelete(this.props.annotation);
+      this.props.onDelete(this.props.note);
     });
   }
 
-  @observable text = this.props.annotation ? this.props.annotation.text : '';
+  @observable text = this.props.note ? this.props.note.text : '';
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.annotation !== this.props.annotation) {
-      this.text = nextProps.annotation ? nextProps.annotation.text : '';
+    if (nextProps.note !== this.props.note) {
+      this.text = nextProps.note ? nextProps.note.text : '';
       defer(() => this.input.focus());
     }
   }
 
   componentWillUnmount() {
-    if (this.text !== this.props.annotation.text) {
-      this.props.annotation.text = this.text;
-      this.props.annotation.save();
+    if (this.text !== this.props.note.text) {
+      this.props.note.text = this.text;
+      this.props.note.save();
     }
   }
 
@@ -49,30 +49,30 @@ class EditBox extends React.Component {
   }
 
   @action.bound onSave() {
-    this.props.annotation.text = this.text;
-    this.props.annotation.save().then(
+    this.props.note.text = this.text;
+    this.props.note.save().then(
       this.props.onHide
     );
   }
 
   @action.bound goPrevious() {
-    this.props.goToAnnotation(this.props.previous);
+    this.props.goToNote(this.props.previous);
   }
 
   @action.bound goNext() {
-    this.props.goToAnnotation(this.props.next);
+    this.props.goToNote(this.props.next);
   }
 
   renderWarning() {
-    if (this.text.length > Annotation.MAX_TEXT_LENGTH) {
-      return <Form.Label variant="danger">Text cannot be longer than {Annotation.MAX_TEXT_LENGTH} characters</Form.Label>;
+    if (this.text.length > Note.MAX_TEXT_LENGTH) {
+      return <Form.Label variant="danger">Text cannot be longer than {Note.MAX_TEXT_LENGTH} characters</Form.Label>;
     }
     return null;
   }
 
   render() {
     const { text, props: {
-      annotation, previous, next, seeAll,
+      note, previous, next, seeAll,
     } } = this;
 
     return (
@@ -94,13 +94,13 @@ class EditBox extends React.Component {
             </button>
           </div>
           <div className="button-group">
-            <button aria-label="previous annotation"
+            <button aria-label="previous note"
               disabled={!previous}
               onClick={this.goPrevious}
             >
               <Icon type="chevron-up" />
             </button>
-            <button aria-label="next annotation"
+            <button aria-label="next note"
               disabled={!next}
               onClick={this.goNext}
             >
@@ -116,10 +116,10 @@ class EditBox extends React.Component {
 
 
 export default function EditBoxWrapper(props) {
-  const show = !!props.annotation;
+  const show = !!props.note;
   return (
     <div className={cn('slide-out-edit-box', { open: show, closed: !show })}>
-      {props.annotation && <EditBox {...props} />}
+      {props.note && <EditBox {...props} />}
     </div>
   );
 }

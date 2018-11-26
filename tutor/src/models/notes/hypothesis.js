@@ -45,7 +45,7 @@ class Hypothesis extends BaseModel {
   // performs multiple fetches
   //  * First the user token
   //  * Then the user's info (mainly uuid)
-  //  * And finally resolves with all the user's annotations
+  //  * And finally resolves with all the user's notes
   @action fetchUserInfo() {
     return this.whenLoggedIn = this.performRequest({
       method: 'POST',
@@ -62,7 +62,7 @@ class Hypothesis extends BaseModel {
           service: 'profile?authority=openstax.org',
         }).then((response) => {
           this.userInfo = find(response.groups, { public: false });
-          return this.fetchAllAnnotations();
+          return this.fetchAllNotes();
         });
       } else { return this; }
     }).catch(err => {
@@ -81,14 +81,14 @@ class Hypothesis extends BaseModel {
     });
   }
 
-  create(documentId, selection, annotation, additionalData) {
+  create(documentId, selection, note, additionalData) {
     return this
       .request(() => ({
         method: 'POST',
-        service: 'annotations',
+        service: 'notes',
         data: {
           uri: documentId,
-          text: annotation,
+          text: note,
           target: [{
             selector: [
               additionalData,
@@ -100,7 +100,7 @@ class Hypothesis extends BaseModel {
 
   }
 
-  fetchAllAnnotations() {
+  fetchAllNotes() {
     const perFetch = 100;
     let rows = [];
     const fetchASet = () => this.performRequest({

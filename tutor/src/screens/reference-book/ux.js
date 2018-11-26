@@ -4,7 +4,7 @@ import { extend, first } from 'lodash';
 import User from '../../models/user';
 import MenuToggle from '../../components/book-menu/toggle';
 import SectionTitle from './section-title';
-import AnnotationsSummaryToggle from './annotation-summary-toggle';
+import NotesSummaryToggle from './note-summary-toggle';
 import TeacherContentToggle from './teacher-content-toggle';
 import WindowSize from '../../models/window-size';
 import BookUX from '../../models/reference-book/ux';
@@ -47,7 +47,7 @@ export default class ReferenceBookUX extends BookUX {
       'section-title': SectionTitle,
     });
     nav.center.merge({
-      'annotation-toggle': AnnotationsSummaryToggle,
+      'note-toggle': NotesSummaryToggle,
     });
     if (this.course && this.course.isTeacher) {
       nav.right.merge({
