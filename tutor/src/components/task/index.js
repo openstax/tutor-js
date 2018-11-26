@@ -437,3 +437,5 @@ class TaskShell extends React.Component {
 }
 
 export { Task, TaskShell };
+
+export default TaskShell;

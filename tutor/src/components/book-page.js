@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { get, map, forEach } from 'lodash';
 import createReactClass from 'create-react-class';
 import ReactDOM from 'react-dom';
 import { LoadingAnimation, SpyMode, ArbitraryHtmlAndMath, GetPositionMixin } from 'shared';
@@ -11,8 +12,6 @@ import RelatedContent from './related-content';
 
 import NotesWidget from './notes';
 import { ReferenceBookExerciseActions, ReferenceBookExerciseStore } from '../flux/reference-book-exercise';
-import map from 'lodash/map';
-import forEach from 'lodash/forEach';
 
 const BookPage = createReactClass({
   displayName: 'BookPage',
@@ -116,7 +115,7 @@ const BookPage = createReactClass({
           <ArbitraryHtmlAndMath className="book-content" block={true} html={page.contents} />
         </div>
         <SpyMode.Content className="ecosystem-info">
-          PageId: {page.cnx_id}, Ecosystem: {JSON.stringify(page && page.spy)}
+          Page: {page.cnx_id}, Book: {get(page,'chapter.book.cnx_id')} Ecosystem: {get(page,'chapter.book.uuid')}
         </SpyMode.Content>
         {ux.allowsAnnotating && (
           <NotesWidget

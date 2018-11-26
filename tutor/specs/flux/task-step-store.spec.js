@@ -69,7 +69,7 @@ describe('Task Step Store', function() {
       return undefined;
     });
 
-    return it('isRecovering updates when recovering a task', function() {
+    it('isRecovering updates when recovering a task', function() {
       const step = LoadStepData();
       expect(TaskStepStore.isRecovering(step.id)).toBe(false);
       TaskStepActions.loadRecovery(step.id);

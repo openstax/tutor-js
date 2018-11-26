@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Card } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import BackButton from '../../components/buttons/back-button';
 import Router from '../../helpers/router';
-import { first } from 'lodash';
+import { first, get } from 'lodash';
 import CoursePeriodsNavShell from '../../components/course-periods-nav';
 import CourseGroupingLabel from '../../components/course-grouping-label';
 import * as PerformanceForecast from '../../flux/performance-forecast';
@@ -23,7 +23,7 @@ export default class extends React.Component {
   constructor(props) {
     super(props);
     const periods = PerformanceForecast.Teacher.store.get(props.courseId);
-    this.state = { periodId: __guard__(first(periods), x => x.period_id) };
+    this.state = { periodId: get(first(periods), 'period_id') };
   }
 
   selectPeriod = (period) => {
@@ -91,7 +91,7 @@ export default class extends React.Component {
   render() {
     const { courseId } = this.props;
     return (
-      <Card className="performance-forecast teacher">
+      <Container className="performance-forecast teacher">
         <TourRegion id="performance-forecast">
           <Guide
             courseId={courseId}
@@ -103,11 +103,7 @@ export default class extends React.Component {
             allSections={PerformanceForecast.Teacher.store.getSectionsForPeriod(courseId, this.state.periodId)}
             chapters={PerformanceForecast.Teacher.store.getChaptersForPeriod(courseId, this.state.periodId)} />
         </TourRegion>
-      </Card>
+      </Container>
     );
   }
-}
-
-function __guard__(value, transform) {
-  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
 }

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
-import { Dropdown, Card } from 'react-bootstrap';
+import { Dropdown, Container } from 'react-bootstrap';
 import BackButton from '../../components/buttons/back-button';
 import Router from '../../helpers/router';
 import { sortBy, matches } from 'lodash';
@@ -118,7 +118,7 @@ export default createReactClass({
     const isLoading = PerformanceForecast.TeacherStudent.store.isLoading.bind(PerformanceForecast.TeacherStudent.store, courseId, { roleId });
 
     return (
-      <Card className="performance-forecast teacher-student">
+      <Container className="performance-forecast teacher-student">
         <Guide
           courseId={courseId}
           roleId={roleId}
@@ -132,7 +132,7 @@ export default createReactClass({
           weakerEmptyMessage="Your student hasn't worked enough problems for Tutor to predict their weakest topics."
           allSections={PerformanceForecast.TeacherStudent.store.getAllSections(courseId, { roleId })}
           chapters={PerformanceForecast.TeacherStudent.store.getChapters(courseId, { roleId })} />
-      </Card>
+      </Container>
     );
   },
 });

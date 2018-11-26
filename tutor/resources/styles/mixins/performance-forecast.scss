@@ -54,19 +54,13 @@
     margin: 8px;
     @include performance-forecast-colors();
   }
-
-  // class is being applied when practice errors
-  // commenting out for now to further discuss with UX
-  // button.is-errored {
-  //   opacity: 0.5;
-  // }
 }
 
 @mixin performance-forecast-key() {
   display: flex;
   justify-content: space-evenly;
   min-width: 280px;
-
+  margin-top: 0.5rem;
   .item {
     display: flex;
     align-items: center;

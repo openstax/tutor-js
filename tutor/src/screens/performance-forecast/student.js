@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Card } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import BackButton from '../../components/buttons/back-button';
 import Router from '../../helpers/router';
 import * as PerformanceForecast from '../../flux/performance-forecast';
@@ -35,9 +35,7 @@ export default class extends React.Component {
         <div className="info">
           <div className="guide-group-key">
             <div className="guide-practice-message">
-              {'\
-    Click on the bar to practice the topic\
-    '}
+              Click on the bar to practice the topic
             </div>
             <ColorKey />
           </div>
@@ -65,7 +63,7 @@ export default class extends React.Component {
     const { courseId } = this.props;
 
     return (
-      <Card className="performance-forecast student">
+      <Container className="performance-forecast student">
         <Guide
           canPractice={true}
           courseId={courseId}
@@ -76,7 +74,7 @@ export default class extends React.Component {
           emptyMessage={this.renderEmptyMessage()}
           allSections={PerformanceForecast.Student.store.getAllSections(courseId)}
           chapters={PerformanceForecast.Student.store.get(courseId).children} />
-      </Card>
+      </Container>
     );
   }
 }

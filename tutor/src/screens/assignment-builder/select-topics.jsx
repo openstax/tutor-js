@@ -5,10 +5,13 @@ import { observer } from 'mobx-react';
 import Dialog from '../../components/dialog';
 import { TaskPlanActions } from '../../flux/task-plan';
 import SectionsChooser from '../../components/sections-chooser';
-
+import styled from 'styled-components';
 import CourseModel from '../../models/course';
-
 import TourRegion from '../../components/tours/region';
+
+const Wrapper = styled(TourRegion)`
+  margin: 40px;
+`;
 
 @observer
 class SelectTopics extends React.Component {
@@ -42,7 +45,7 @@ class SelectTopics extends React.Component {
     const { course, selected, header, primary, cancel, type } = this.props;
 
     return (
-      <TourRegion
+      <Wrapper
         className={`${type}-plan-select-topics`}
         id={`add-${type}-choose-sections`}
         courseId={course.id}
@@ -64,7 +67,7 @@ class SelectTopics extends React.Component {
             />
           </div>
         </Dialog>
-      </TourRegion>
+      </Wrapper>
     );
   }
 
