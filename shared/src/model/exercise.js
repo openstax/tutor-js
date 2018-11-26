@@ -81,6 +81,10 @@ class Exercise extends BaseModel {
     this.questions.splice(index+offset, 0, this.questions.splice(index, 1)[0]);
   }
 
+  @computed get hasStimulus() {
+    return Boolean(this.stimulus_html);
+  }
+
   @computed get isMultiPart() {
     return this.questions.length > 1;
   }

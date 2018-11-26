@@ -47,7 +47,7 @@ class Exercise extends React.Component {
     this.exercise.stimulus_html = ev.target.value;
   }
 
-  renderIntroTab = () => {
+  renderStimulusTab = () => {
     return (
       <Tab eventKey="intro" title="Intro">
         {this.renderNickname()}
@@ -94,7 +94,13 @@ class Exercise extends React.Component {
     const { exercise } = this;
     return {
       onRemove: (question) => {
-        exercise.questions.remove(question);
+        // toggle MPQ if it's the next-to-last question
+        // this allows the exercise to do cleanup
+        if (exercise.questions.length == 2) {
+          exercise.toggleMultiPart();
+        } else {
+          exercise.questions.remove(question);
+        }
         this.activeTabKey = 'question-0';
       },
       onMove: (question, offset) => {
@@ -131,8 +137,7 @@ class Exercise extends React.Component {
     if (this.props.exercises.api.isPending) { return <Loading />; }
     const { exercise } = this;
     if (!exercise) { return <NotFound />; }
-
-    const { isMultiPart } = exercise;
+    const { hasStimulus, isMultiPart } = exercise;
 
     return (
       <div className="exercise-editor">
@@ -146,7 +151,7 @@ class Exercise extends React.Component {
             onSelect={this.selectTab}
             defaultActiveKey="question-0"
           >
-            {isMultiPart && this.renderIntroTab()}
+            {(hasStimulus || isMultiPart) && this.renderStimulusTab()}
             {isMultiPart ? this.renderMpqTabs() : this.renderSingleQuestionTab()}
             <Tab eventKey="tags" title="Tags">
               <ExerciseTags exercise={exercise} />
