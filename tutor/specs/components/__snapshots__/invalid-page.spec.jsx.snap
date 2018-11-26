@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Invalid Page renders and matches snapshot 1`] = `
+.c0 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
 <div
   className="invalid-page"
 >
@@ -37,7 +42,7 @@ exports[`Invalid Page renders and matches snapshot 1`] = `
     Return Home
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon caret-right"
+      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon caret-right c0"
       data-icon="caret-right"
       data-prefix="fas"
       role="img"

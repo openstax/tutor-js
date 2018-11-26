@@ -77,7 +77,7 @@ class DeleteTaskButton extends React.Component {
           isBusy={this.props.isWaiting}
           onDelete={this.props.onClick}
         />
-        <Icon type="trash-alt" />Delete
+        <Icon type="trash" />Delete
       </Button>
     );
   }

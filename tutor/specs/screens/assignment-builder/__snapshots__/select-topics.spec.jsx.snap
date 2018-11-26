@@ -2,6 +2,11 @@
 
 exports[`Select Topics matches snapshot 1`] = `
 .c3 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -17,11 +22,11 @@ exports[`Select Topics matches snapshot 1`] = `
   border-bottom: 1px solid #f1f1f1;
 }
 
-.c3 > * {
+.c4 > * {
   margin-left: 1rem;
 }
 
-.c3 input {
+.c4 input {
   font-size: 1.7rem;
   margin-left: 1.2rem;
 }
@@ -109,7 +114,7 @@ exports[`Select Topics matches snapshot 1`] = `
                 >
                   <svg
                     aria-hidden="true"
-                    className="svg-inline--fa fa-square fa-w-14 ox-icon square"
+                    className="svg-inline--fa fa-square fa-w-14 ox-icon square c3"
                     color="#999999"
                     data-icon="square"
                     data-prefix="far"
@@ -164,7 +169,7 @@ exports[`Select Topics matches snapshot 1`] = `
             className="sections collapse show"
           >
             <div
-              className="section c3"
+              className="section c4"
               data-section-id="234"
               onClick={[Function]}
             >
@@ -191,7 +196,7 @@ exports[`Select Topics matches snapshot 1`] = `
               </span>
             </div>
             <div
-              className="section c3"
+              className="section c4"
               data-section-id="235"
               onClick={[Function]}
             >
@@ -218,7 +223,7 @@ exports[`Select Topics matches snapshot 1`] = `
               </span>
             </div>
             <div
-              className="section c3"
+              className="section c4"
               data-section-id="236"
               onClick={[Function]}
             >
@@ -272,7 +277,7 @@ exports[`Select Topics matches snapshot 1`] = `
                 >
                   <svg
                     aria-hidden="true"
-                    className="svg-inline--fa fa-square fa-w-14 ox-icon square"
+                    className="svg-inline--fa fa-square fa-w-14 ox-icon square c3"
                     color="#999999"
                     data-icon="square"
                     data-prefix="far"
@@ -327,7 +332,7 @@ exports[`Select Topics matches snapshot 1`] = `
             className="sections collapse"
           >
             <div
-              className="section c3"
+              className="section c4"
               data-section-id="237"
               onClick={[Function]}
             >
@@ -354,7 +359,7 @@ exports[`Select Topics matches snapshot 1`] = `
               </span>
             </div>
             <div
-              className="section c3"
+              className="section c4"
               data-section-id="238"
               onClick={[Function]}
             >
@@ -381,7 +386,7 @@ exports[`Select Topics matches snapshot 1`] = `
               </span>
             </div>
             <div
-              className="section c3"
+              className="section c4"
               data-section-id="239"
               onClick={[Function]}
             >
@@ -435,7 +440,7 @@ exports[`Select Topics matches snapshot 1`] = `
                 >
                   <svg
                     aria-hidden="true"
-                    className="svg-inline--fa fa-square fa-w-14 ox-icon square"
+                    className="svg-inline--fa fa-square fa-w-14 ox-icon square c3"
                     color="#999999"
                     data-icon="square"
                     data-prefix="far"
@@ -490,7 +495,7 @@ exports[`Select Topics matches snapshot 1`] = `
             className="sections collapse"
           >
             <div
-              className="section c3"
+              className="section c4"
               data-section-id="240"
               onClick={[Function]}
             >
@@ -517,7 +522,7 @@ exports[`Select Topics matches snapshot 1`] = `
               </span>
             </div>
             <div
-              className="section c3"
+              className="section c4"
               data-section-id="241"
               onClick={[Function]}
             >
@@ -544,7 +549,7 @@ exports[`Select Topics matches snapshot 1`] = `
               </span>
             </div>
             <div
-              className="section c3"
+              className="section c4"
               data-section-id="242"
               onClick={[Function]}
             >

@@ -90,7 +90,7 @@ class EditBox extends React.Component {
               <Icon type="save" />
             </button>
             <button aria-label="delete" className="secondary" onClick={this.onDelete}>
-              <Icon type="trash-alt" />
+              <Icon type="trash" />
             </button>
           </div>
           <div className="button-group">

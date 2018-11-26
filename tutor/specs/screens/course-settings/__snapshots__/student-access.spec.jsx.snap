@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Course Settings, student access can switch to links 1`] = `
+.c0 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
 <div
   className="student-access"
 >
@@ -13,7 +18,7 @@ exports[`Course Settings, student access can switch to links 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-info-circle fa-w-16 ox-icon info-circle"
+      className="svg-inline--fa fa-info-circle fa-w-16 ox-icon info-circle c0"
       data-icon="info-circle"
       data-prefix="fas"
       role="img"
@@ -50,7 +55,7 @@ exports[`Course Settings, student access can switch to links 1`] = `
             >
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-check-square fa-w-14 ox-icon check-square"
+                className="svg-inline--fa fa-check-square fa-w-14 ox-icon check-square c0"
                 color="#63a524"
                 data-icon="check-square"
                 data-prefix="far"
@@ -114,7 +119,7 @@ exports[`Course Settings, student access can switch to links 1`] = `
             >
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-square fa-w-14 ox-icon square"
+                className="svg-inline--fa fa-square fa-w-14 ox-icon square c0"
                 color="#999999"
                 data-icon="square"
                 data-prefix="far"
@@ -148,6 +153,11 @@ exports[`Course Settings, student access can switch to links 1`] = `
 `;
 
 exports[`Course Settings, student access can switch to lms 1`] = `
+.c0 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
 <div
   className="student-access"
 >
@@ -160,7 +170,7 @@ exports[`Course Settings, student access can switch to lms 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-info-circle fa-w-16 ox-icon info-circle"
+      className="svg-inline--fa fa-info-circle fa-w-16 ox-icon info-circle c0"
       data-icon="info-circle"
       data-prefix="fas"
       role="img"
@@ -197,7 +207,7 @@ exports[`Course Settings, student access can switch to lms 1`] = `
             >
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-square fa-w-14 ox-icon square"
+                className="svg-inline--fa fa-square fa-w-14 ox-icon square c0"
                 color="#999999"
                 data-icon="square"
                 data-prefix="far"
@@ -261,7 +271,7 @@ exports[`Course Settings, student access can switch to lms 1`] = `
             >
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-check-square fa-w-14 ox-icon check-square"
+                className="svg-inline--fa fa-check-square fa-w-14 ox-icon check-square c0"
                 color="#63a524"
                 data-icon="check-square"
                 data-prefix="far"
@@ -401,7 +411,7 @@ exports[`Course Settings, student access can switch to lms 1`] = `
             >
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-info-circle fa-w-16 ox-icon info-circle"
+                className="svg-inline--fa fa-info-circle fa-w-16 ox-icon info-circle c0"
                 data-icon="info-circle"
                 data-prefix="fas"
                 role="img"
@@ -458,6 +468,11 @@ exports[`Course Settings, student access can switch to lms 1`] = `
 `;
 
 exports[`Course Settings, student access renders chooser when lms is enabled 1`] = `
+.c0 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
 <div
   className="student-access"
 >
@@ -470,7 +485,7 @@ exports[`Course Settings, student access renders chooser when lms is enabled 1`]
   >
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-info-circle fa-w-16 ox-icon info-circle"
+      className="svg-inline--fa fa-info-circle fa-w-16 ox-icon info-circle c0"
       data-icon="info-circle"
       data-prefix="fas"
       role="img"
@@ -507,7 +522,7 @@ exports[`Course Settings, student access renders chooser when lms is enabled 1`]
             >
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-square fa-w-14 ox-icon square"
+                className="svg-inline--fa fa-square fa-w-14 ox-icon square c0"
                 color="#999999"
                 data-icon="square"
                 data-prefix="far"
@@ -571,7 +586,7 @@ exports[`Course Settings, student access renders chooser when lms is enabled 1`]
             >
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-square fa-w-14 ox-icon square"
+                className="svg-inline--fa fa-square fa-w-14 ox-icon square c0"
                 color="#999999"
                 data-icon="square"
                 data-prefix="far"

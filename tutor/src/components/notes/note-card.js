@@ -133,7 +133,7 @@ class NoteCard extends React.Component {
               okButtonLabel="Delete"
               onConfirm={this.doDelete}
             >
-              <button title="Delete"><Icon type="trash-alt" /></button>
+              <button title="Delete"><Icon type="trash" /></button>
             </SuretyGuard>
           </div>
         </div>

@@ -288,6 +288,22 @@ exports[`Exercise Preview Component can hide the answers 1`] = `
             }
           }
         />
+        <div
+          className="detailed-solution"
+        >
+          <div
+            className="header"
+          >
+            Detailed solution
+          </div>
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "four",
+              }
+            }
+          />
+        </div>
       </div>
     </div>
     <div

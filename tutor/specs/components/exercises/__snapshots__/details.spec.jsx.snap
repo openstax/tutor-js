@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Exercise Details Component renders and matches snapshot 1`] = `
+.c0 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
 <div
   className="exercise-details"
 >
@@ -13,7 +18,7 @@ exports[`Exercise Details Component renders and matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="svg-inline--fa fa-th fa-w-16 fa-lg ox-icon th"
+        className="svg-inline--fa fa-th fa-w-16 fa-lg ox-icon th c0"
         data-icon="th"
         data-prefix="fas"
         role="img"

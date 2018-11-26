@@ -64,7 +64,7 @@ const Icons = {
   'thumbs-up':            require('@fortawesome/free-solid-svg-icons/faThumbsUp'),
   'times':                require('@fortawesome/free-solid-svg-icons/faTimes'),
   'times-circle':         require('@fortawesome/free-solid-svg-icons/faTimesCircle'),
-  'trash-alt':            require('@fortawesome/free-solid-svg-icons/faTrashAlt'),
+  'trash':                require('@fortawesome/free-solid-svg-icons/faTrashAlt'),
   'user-plus':            require('@fortawesome/free-solid-svg-icons/faUserPlus'),
   'video':                require('@fortawesome/free-solid-svg-icons/faVideo'),
 };
