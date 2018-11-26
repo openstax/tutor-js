@@ -2,8 +2,15 @@
   background-color: $tutor-highlight;
   cursor: pointer;
   transition: 0.3s background-color;
+  > img:only-child {
+    padding: 1rem;
+    background-color: $tutor-highlight;
+  }
   &.focus {
     background-color: $tutor-highlight-active;
+    > img:only-child {
+      background-color: $tutor-highlight-active;
+    }
   }
 }
 
