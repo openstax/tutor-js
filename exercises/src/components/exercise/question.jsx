@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Alert } from'react-bootstrap';
-import { SuretyGuard } from 'shared';
-import { partial, isEmpty } from 'lodash';
+import { SuretyGuard, Icon } from 'shared';
+import { partial } from 'lodash';
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
 import QuestionModel  from 'shared/model/exercise/question';
@@ -63,8 +63,8 @@ class Question extends React.Component {
           onlyPromptIf={function() { return question.isChanged; }}
           message="Removing a question will permanently remove the question and it's answers">
           <a className="remove-question">
-            <i className="fa fa-trash" />
-            Remove Question
+            <Icon type="trash" />
+            <span>Remove Question</span>
           </a>
         </SuretyGuard>
         {canMoveRight &&
