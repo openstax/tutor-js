@@ -87,6 +87,9 @@ ServerErrorMessage.propTypes = {
   debug: PropTypes.bool,
 };
 
-ServerErrorMessage.defaultProps = { debug: true };
+ServerErrorMessage.defaultProps = {
+  config: {},
+  debug: true,
+};
 
 export default ServerErrorMessage;
