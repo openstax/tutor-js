@@ -1,12 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Select Topics matches snapshot 1`] = `
-.c3 {
+.c5 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
 }
 
-.c4 {
+.c1 {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -22,16 +27,16 @@ exports[`Select Topics matches snapshot 1`] = `
   border-bottom: 1px solid #f1f1f1;
 }
 
-.c4 > * {
+.c6 > * {
   margin-left: 1rem;
 }
 
-.c4 input {
+.c6 input {
   font-size: 1.7rem;
   margin-left: 1.2rem;
 }
 
-.c2 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -46,32 +51,36 @@ exports[`Select Topics matches snapshot 1`] = `
   border-bottom: 1px solid #f1f1f1;
 }
 
-.c2 > * {
+.c4 > * {
   margin-left: 1rem;
 }
 
-.c2 .chapter-title {
+.c4 .chapter-title {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
 }
 
-.c1 .browse-the-book {
+.c3 .browse-the-book {
   font-size: 1.4rem;
   margin-right: 2rem;
 }
 
-.c0 {
+.c2 {
   border: 1px solid #f1f1f1;
   border-radius: 4px;
 }
 
+.c0 {
+  margin: 40px;
+}
+
 <div
-  className="undefined-plan-select-topics"
+  className="undefined-plan-select-topics c0"
   data-tour-region-id="add-undefined-choose-sections"
 >
   <div
-    className="dialog default-dialog select-topics card"
+    className="dialog default-dialog select-topics c1 card"
   >
     <div
       className="card-header"
@@ -86,14 +95,14 @@ exports[`Select Topics matches snapshot 1`] = `
       className="select-chapters"
     >
       <div
-        className="c0"
+        className="c2"
       >
         <div
-          className="chapter c1"
+          className="chapter c3"
           data-is-expanded={true}
         >
           <div
-            className="c2"
+            className="c4"
             data-chapter-section={1}
             onClick={[Function]}
             role="button"
@@ -114,7 +123,7 @@ exports[`Select Topics matches snapshot 1`] = `
                 >
                   <svg
                     aria-hidden="true"
-                    className="svg-inline--fa fa-square fa-w-14 ox-icon square c3"
+                    className="svg-inline--fa fa-square fa-w-14 ox-icon square c5"
                     color="#999999"
                     data-icon="square"
                     data-prefix="far"
@@ -169,7 +178,7 @@ exports[`Select Topics matches snapshot 1`] = `
             className="sections collapse show"
           >
             <div
-              className="section c4"
+              className="section c6"
               data-section-id="234"
               onClick={[Function]}
             >
@@ -196,7 +205,7 @@ exports[`Select Topics matches snapshot 1`] = `
               </span>
             </div>
             <div
-              className="section c4"
+              className="section c6"
               data-section-id="235"
               onClick={[Function]}
             >
@@ -223,7 +232,7 @@ exports[`Select Topics matches snapshot 1`] = `
               </span>
             </div>
             <div
-              className="section c4"
+              className="section c6"
               data-section-id="236"
               onClick={[Function]}
             >
@@ -252,11 +261,11 @@ exports[`Select Topics matches snapshot 1`] = `
           </div>
         </div>
         <div
-          className="chapter c1"
+          className="chapter c3"
           data-is-expanded={false}
         >
           <div
-            className="c2"
+            className="c4"
             data-chapter-section={2}
             onClick={[Function]}
             role="button"
@@ -277,7 +286,7 @@ exports[`Select Topics matches snapshot 1`] = `
                 >
                   <svg
                     aria-hidden="true"
-                    className="svg-inline--fa fa-square fa-w-14 ox-icon square c3"
+                    className="svg-inline--fa fa-square fa-w-14 ox-icon square c5"
                     color="#999999"
                     data-icon="square"
                     data-prefix="far"
@@ -332,7 +341,7 @@ exports[`Select Topics matches snapshot 1`] = `
             className="sections collapse"
           >
             <div
-              className="section c4"
+              className="section c6"
               data-section-id="237"
               onClick={[Function]}
             >
@@ -359,7 +368,7 @@ exports[`Select Topics matches snapshot 1`] = `
               </span>
             </div>
             <div
-              className="section c4"
+              className="section c6"
               data-section-id="238"
               onClick={[Function]}
             >
@@ -386,7 +395,7 @@ exports[`Select Topics matches snapshot 1`] = `
               </span>
             </div>
             <div
-              className="section c4"
+              className="section c6"
               data-section-id="239"
               onClick={[Function]}
             >
@@ -415,11 +424,11 @@ exports[`Select Topics matches snapshot 1`] = `
           </div>
         </div>
         <div
-          className="chapter c1"
+          className="chapter c3"
           data-is-expanded={false}
         >
           <div
-            className="c2"
+            className="c4"
             data-chapter-section={3}
             onClick={[Function]}
             role="button"
@@ -440,7 +449,7 @@ exports[`Select Topics matches snapshot 1`] = `
                 >
                   <svg
                     aria-hidden="true"
-                    className="svg-inline--fa fa-square fa-w-14 ox-icon square c3"
+                    className="svg-inline--fa fa-square fa-w-14 ox-icon square c5"
                     color="#999999"
                     data-icon="square"
                     data-prefix="far"
@@ -495,7 +504,7 @@ exports[`Select Topics matches snapshot 1`] = `
             className="sections collapse"
           >
             <div
-              className="section c4"
+              className="section c6"
               data-section-id="240"
               onClick={[Function]}
             >
@@ -522,7 +531,7 @@ exports[`Select Topics matches snapshot 1`] = `
               </span>
             </div>
             <div
-              className="section c4"
+              className="section c6"
               data-section-id="241"
               onClick={[Function]}
             >
@@ -549,7 +558,7 @@ exports[`Select Topics matches snapshot 1`] = `
               </span>
             </div>
             <div
-              className="section c4"
+              className="section c6"
               data-section-id="242"
               onClick={[Function]}
             >
