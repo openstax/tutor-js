@@ -48,16 +48,6 @@ const getChangedSteps = steps =>
   filter(steps, step => (step != null) && TaskStepStore.isChanged(step.id))
 ;
 
-// HACK When working locally a step completion triggers a reload but the is_completed field on the TaskStep
-// is discarded. so, if is_completed is set on the local object but not on the returned JSON
-// Tack on a dummy correct_answer_id
-const hackLocalStepCompletion = function(step) {
-  if (step.is_completed && (__guard__(__guard__(step.content != null ? step.content.questions : undefined, x1 => x1[0]), x => x.answers[0]) != null) && !step.correct_answer_id) {
-    step.correct_answer_id = step.content.questions[0].answers[0].id;
-    return step.feedback_html = 'Some <em>FAKE</em> feedback';
-  }
-};
-
 const TaskConfig = {
   _steps: {},
 
@@ -104,16 +94,15 @@ const TaskConfig = {
     this._steps[id] = steps;
 
     for (let step of steps) {
-      if (obj.HACK_LOCAL_STEP_COMPLETION) { hackLocalStepCompletion(step); }
-      //HACK: set the task_id so we have a link back to the task from the step
+      // set the task_id so we have a link back to the task from the step
       step.task_id = id;
       TaskStepActions.loaded(step, step.id);
     }
-    obj;
 
     // explicit return obj to load onto @_local
     return obj;
   },
+
 
   completeStep(id, taskId) {
     TaskStepActions.complete(id);
@@ -125,10 +114,14 @@ const TaskConfig = {
     }
   },
 
-  stepCompleted(obj, taskStepId) {
-    TaskStepActions.completed(obj, taskStepId);
+  onStepSaved(obj) {
     this._loaded(obj, obj.id);
     Object.assign(this._local[obj.id], obj);
+  },
+
+  stepCompleted(obj, taskStepId) {
+    TaskStepActions.completed(obj, taskStepId);
+    this.onStepSaved(obj, taskStepId);
     return this.emit('step.completed', taskStepId, obj.id);
   },
 
@@ -392,8 +385,7 @@ const TaskConfig = {
 
 extendConfig(TaskConfig, new CrudConfig());
 const { actions, store } = makeSimpleStore(TaskConfig);
-export { actions as TaskActions, store as TaskStore };
 
-function __guard__(value, transform) {
-  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
-}
+TaskStepActions.setTaskActions(actions);
+
+export { actions as TaskActions, store as TaskStore };

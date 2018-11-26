@@ -1,13 +1,16 @@
-import _ from 'underscore';
+import { find, each, partial, extend, last } from 'lodash';
 import flux from 'flux-react';
 import Durations from '../helpers/durations';
 import { StepTitleActions } from './step-title';
 
+
+let TaskActions;
 const RECOVERY = 'recovery';
 
 import { CrudConfig, makeSimpleStore, extendConfig, STATES } from './helpers';
+const crudConfig = new CrudConfig();
 
-const isMissingExercises = response => (response.errors != null) && _.findWhere(response.errors, { code: 'no_exercises' });
+const isMissingExercises = response => (response.errors != null) && findWhere(response.errors, { code: 'no_exercises' });
 
 const TaskStepConfig = {
   _asyncStatus: {},
@@ -19,12 +22,18 @@ const TaskStepConfig = {
       obj.task_id = this._local[id] != null ? this._local[id].task_id : undefined;
     }
     this.emit('step.loaded', id);
-    _.each(this._recoveryTarget, _.partial(this._updateRecoveredFor, id), this);
+    each(this._recoveryTarget, (v,k) => this._updateRecoveredFor(id, v, k));
     StepTitleActions.parseStep(obj);
 
     if (this._loadingPersonalizedStatus[id]) { this._loadingPersonalizedStatus[id] = false; }
 
     return obj;
+  },
+
+  saved(obj, id) {
+    const stepObj = find(obj.steps, { id });
+    TaskActions.onStepSaved(obj, id);
+    crudConfig.saved.call(this, stepObj, id);
   },
 
   _saved(obj, id) {
@@ -54,6 +63,12 @@ const TaskStepConfig = {
     }
   },
 
+  // called by the Task flux store once it's initialized
+  // to prevent circular dependencies
+  setTaskActions(actions) {
+    TaskActions = actions;
+  },
+
   setNoPersonalized(id) {
     const fakeEmptyPersonalized = {
       type: 'placeholder',
@@ -64,7 +79,7 @@ const TaskStepConfig = {
       is_completed: true,
     };
 
-    return this._local[id] = _.extend({}, this._get(id), fakeEmptyPersonalized);
+    return this._local[id] = extend({}, this._get(id), fakeEmptyPersonalized);
   },
 
   forceReload(id) {
@@ -164,7 +179,7 @@ const TaskStepConfig = {
     getCnxId(id) {
       const step = this._get(id);
       const parts = __guard__(step != null ? step.content_url : undefined, x => x.split('contents/'));
-      if (parts.length > 1) { return _.last(parts); } else { return undefined; }
+      if (parts.length > 1) { return last(parts); } else { return undefined; }
     },
 
     getFreeResponse(id) {
@@ -206,7 +221,7 @@ const TaskStepConfig = {
   },
 };
 
-extendConfig(TaskStepConfig, new CrudConfig());
+extendConfig(TaskStepConfig, crudConfig);
 const { actions, store } = makeSimpleStore(TaskStepConfig);
 export { actions as TaskStepActions, store as TaskStepStore };
 
