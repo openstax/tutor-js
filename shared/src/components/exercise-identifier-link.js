@@ -35,9 +35,7 @@ const ExerciseIdentifierLink = createReactClass({
 
   getLocationInfo() {
     const info = this.props.related_content ?
-      first(this.props.related_content)
-      :
-      this.props;
+      first(this.props.related_content) : this.props;
 
     return pick(info, 'chapter_section', 'title');
   },

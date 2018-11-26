@@ -11,18 +11,18 @@ describe('Exercise Helper', function() {
       exerciseId: '22@22',
       chapter_section: [1, 2],
       title: 'Intro to Physics',
-    })).toEqual(`${Exercise.ERRATA_FORM_URL}?source=tutor&location=22%4022%201.2%20Intro%20to%20Physics&book=Biology`)
+    })).toEqual(`${Exercise.ERRATA_FORM_URL}?source=tutor&location=22%4022%201%2C2%20Intro%20to%20Physics&book=Biology%202e`)
   );
 
   it('skips missing parts', () =>
     expect(Exercise.troubleUrl({
       chapter_section: [1, 2],
       title: 'Intro to Physics',
-    })).toEqual(`${Exercise.ERRATA_FORM_URL}?location=1.2%20Intro%20to%20Physics`)
+    })).toEqual(`${Exercise.ERRATA_FORM_URL}?location=1%2C2%20Intro%20to%20Physics`)
   );
 
 
-  return it('can set the errata url', function() {
+  it('can set the errata url', function() {
     Exercise.setOSWebURL('');
     expect(Exercise.ERRATA_FORM_URL).toEqual('https://oscms.openstax.org/errata/form');
     Exercise.setOSWebURL('https://my-crazy-url');
@@ -32,6 +32,6 @@ describe('Exercise Helper', function() {
       exerciseId: '22@22',
       chapter_section: [1, 2],
       title: 'Intro to Physics',
-    })).toEqual('https://my-crazy-url/errata/form?source=tutor&location=22%4022%201.2%20Intro%20to%20Physics&book=Biology');
+    })).toEqual('https://my-crazy-url/errata/form?source=tutor&location=22%4022%201%2C2%20Intro%20to%20Physics&book=Biology%202e');
   });
 });
