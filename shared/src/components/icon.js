@@ -3,10 +3,10 @@ import { uniqueId, defaults } from 'lodash';
 import { Tooltip, OverlayTrigger, Button } from 'react-bootstrap';
 import { React, PropTypes, cn } from '../helpers/react';
 import { library } from '@fortawesome/fontawesome-svg-core';
-
+import styled from 'styled-components';
 
 // Don't attempt to remove the duplication by using variable substition without testing ;)
-// It seems like With webpack 4 it will either:
+// After trying multiple methods, it seems like webpack 4 will either:
 //   * require all icons in the build
 //   * fail to load required icons
 const Icons = {
@@ -15,6 +15,7 @@ const Icons = {
   'check-square':         require('@fortawesome/free-regular-svg-icons/faCheckSquare'),
   'circle':               require('@fortawesome/free-regular-svg-icons/faCircle'),
   'clock':                require('@fortawesome/free-regular-svg-icons/faClock'),
+  'comment':              require('@fortawesome/free-regular-svg-icons/faComment'),
   'comments':             require('@fortawesome/free-regular-svg-icons/faComments'),
   'envelope':             require('@fortawesome/free-regular-svg-icons/faEnvelope'),
   'square':               require('@fortawesome/free-regular-svg-icons/faSquare'),
@@ -87,6 +88,11 @@ const defaultTooltipProps = {
   trigger: ['hover', 'focus'],
 };
 
+const IconWrapper = styled(FontAwesomeIcon)`
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+`;
+
 export default
 class Icon extends React.Component {
 
@@ -122,8 +128,8 @@ class Icon extends React.Component {
 
     //invariant(Icons[type], `${type} has not been imported`);
 
-    let iconEl = (
-      <FontAwesomeIcon
+    let icon = (
+      <IconWrapper
         data-variant={variant}
         className={cn('ox-icon', type, className)}
         icon={Icons[type]}
@@ -132,18 +138,18 @@ class Icon extends React.Component {
     );
 
     if (onClick || btnVariant) {
-      iconEl = (
+      icon = (
         <Button
           variant={btnVariant || 'plain'}
           className={cn(type, className)}
           onClick={onClick}
           {...buttonProps}
-        >{iconEl}</Button>
+        >{icon}</Button>
       );
     }
 
     if (!tooltip) {
-      return iconEl;
+      return icon;
     }
 
     const tooltipEl = React.isValidElement(tooltip) ?
@@ -160,7 +166,7 @@ class Icon extends React.Component {
 
     return (
       <OverlayTrigger {...tooltipProps} overlay={tooltipEl}>
-        {iconEl}
+        {icon}
       </OverlayTrigger>
     );
 
