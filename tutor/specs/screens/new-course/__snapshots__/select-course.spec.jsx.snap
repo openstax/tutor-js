@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CreateCourse: Selecting course subject matches snapshot 1`] = `
+.c0 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
 <div
   className="choices-listing list-group"
   onKeyDown={[Function]}
@@ -19,7 +24,7 @@ exports[`CreateCourse: Selecting course subject matches snapshot 1`] = `
     </div>
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-circle fa-w-16 ox-icon circle"
+      className="svg-inline--fa fa-circle fa-w-16 ox-icon circle c0"
       color="#5e5e5e"
       data-icon="circle"
       data-prefix="far"
@@ -49,7 +54,7 @@ exports[`CreateCourse: Selecting course subject matches snapshot 1`] = `
     </div>
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-circle fa-w-16 ox-icon circle"
+      className="svg-inline--fa fa-circle fa-w-16 ox-icon circle c0"
       color="#5e5e5e"
       data-icon="circle"
       data-prefix="far"
@@ -79,7 +84,7 @@ exports[`CreateCourse: Selecting course subject matches snapshot 1`] = `
     </div>
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-circle fa-w-16 ox-icon circle"
+      className="svg-inline--fa fa-circle fa-w-16 ox-icon circle c0"
       color="#5e5e5e"
       data-icon="circle"
       data-prefix="far"
@@ -109,7 +114,7 @@ exports[`CreateCourse: Selecting course subject matches snapshot 1`] = `
     </div>
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-circle fa-w-16 ox-icon circle"
+      className="svg-inline--fa fa-circle fa-w-16 ox-icon circle c0"
       color="#5e5e5e"
       data-icon="circle"
       data-prefix="far"

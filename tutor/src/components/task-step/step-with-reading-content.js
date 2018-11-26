@@ -7,7 +7,7 @@ import CourseData from '../../helpers/course-data';
 import { BookContentMixin, LinkContentMixin } from '../book-content-mixin';
 import RelatedContent from '../related-content';
 import Router from '../../helpers/router';
-import NoteWidget from '../notes/note';
+import NoteWidget from '../notes';
 
 // TODO: will combine with below, after BookContentMixin clean up
 const ReadingStepContent = createReactClass({

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Support Menu renders and matches snapshot 1`] = `
+.c0 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
 <div
   className="support-menu dropdown"
   onKeyDown={[Function]}
@@ -23,7 +28,7 @@ exports[`Support Menu renders and matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="svg-inline--fa fa-question-circle fa-w-16 ox-icon question-circle"
+        className="svg-inline--fa fa-question-circle fa-w-16 ox-icon question-circle c0"
         data-icon="question-circle"
         data-prefix="fas"
         role="img"
@@ -45,7 +50,7 @@ exports[`Support Menu renders and matches snapshot 1`] = `
       </span>
       <svg
         aria-hidden="true"
-        className="svg-inline--fa fa-angle-down fa-w-10 ox-icon angle-down toggle"
+        className="svg-inline--fa fa-angle-down fa-w-10 ox-icon angle-down toggle c0"
         data-icon="angle-down"
         data-prefix="fas"
         role="img"
@@ -65,6 +70,11 @@ exports[`Support Menu renders and matches snapshot 1`] = `
 `;
 
 exports[`Support Menu renders support links when in a course for student 1`] = `
+.c0 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
 <div
   className="support-menu dropdown"
   onKeyDown={[Function]}
@@ -87,7 +97,7 @@ exports[`Support Menu renders support links when in a course for student 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="svg-inline--fa fa-question-circle fa-w-16 ox-icon question-circle"
+        className="svg-inline--fa fa-question-circle fa-w-16 ox-icon question-circle c0"
         data-icon="question-circle"
         data-prefix="fas"
         role="img"
@@ -109,7 +119,7 @@ exports[`Support Menu renders support links when in a course for student 1`] = `
       </span>
       <svg
         aria-hidden="true"
-        className="svg-inline--fa fa-angle-down fa-w-10 ox-icon angle-down toggle"
+        className="svg-inline--fa fa-angle-down fa-w-10 ox-icon angle-down toggle c0"
         data-icon="angle-down"
         data-prefix="fas"
         role="img"
@@ -129,6 +139,11 @@ exports[`Support Menu renders support links when in a course for student 1`] = `
 `;
 
 exports[`Support Menu renders support links when in a course for teacher 1`] = `
+.c0 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
 <div
   className="support-menu dropdown"
   onKeyDown={[Function]}
@@ -151,7 +166,7 @@ exports[`Support Menu renders support links when in a course for teacher 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="svg-inline--fa fa-question-circle fa-w-16 ox-icon question-circle"
+        className="svg-inline--fa fa-question-circle fa-w-16 ox-icon question-circle c0"
         data-icon="question-circle"
         data-prefix="fas"
         role="img"
@@ -173,7 +188,7 @@ exports[`Support Menu renders support links when in a course for teacher 1`] = `
       </span>
       <svg
         aria-hidden="true"
-        className="svg-inline--fa fa-angle-down fa-w-10 ox-icon angle-down toggle"
+        className="svg-inline--fa fa-angle-down fa-w-10 ox-icon angle-down toggle c0"
         data-icon="angle-down"
         data-prefix="fas"
         role="img"

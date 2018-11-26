@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Notes renders and matches snapshot 1`] = `
+.c0 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
 <div
   className="annotater"
 >
@@ -12,7 +17,7 @@ exports[`Notes renders and matches snapshot 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-info-circle fa-w-16 ox-icon info-circle"
+      className="svg-inline--fa fa-info-circle fa-w-16 ox-icon info-circle c0"
       data-icon="info-circle"
       data-prefix="fas"
       role="img"

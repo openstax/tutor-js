@@ -53,18 +53,6 @@
       }
 
     }
-    // only visible when "spy mode" is enabled
-    .ecosystem-info {
-      @include tutor-spy-mode-content();
-      position: fixed;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      padding: 0;
-      margin: 0;
-      border: 0;
-      @include tutor-shadow(2);
-    }
   }
 
   // include selector chain so the specificity matches
@@ -102,9 +90,6 @@
   &.menu-open {
     @media screen and (min-width: ($book-page-width + $book-menu-width + 50px) ) {
       .book-page-wrapper{ margin-left: $book-menu-width; }
-    }
-    .content .ecosystem-info{
-      left: $book-menu-width;
     }
   }
 }

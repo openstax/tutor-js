@@ -54,7 +54,7 @@ export default class Notes extends Map {
     this.api.requestsInProgress.set('update', true);
     return Hypothesis.request({
       method: 'PATCH',
-      service: `notes/${note.id}`,
+      service: `annotations/${note.id}`,
       data: { text: note.text },
     }).then(() => {
       this.api.requestsInProgress.delete('update');
@@ -89,7 +89,7 @@ export default class Notes extends Map {
     this.api.requestsInProgress.set('delete', true);
     return Hypothesis.request({
       method: 'DELETE',
-      service: `notes/${note.id}`,
+      service: `annotations/${note.id}`,
     }).then(() => {
       note.isDeleted = true;
       this.api.requestsInProgress.delete('delete');

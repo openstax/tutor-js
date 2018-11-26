@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CourseCalendar Sidebar Toggle matches snapshot 1`] = `
+.c0 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
 <button
   className="sidebar-toggle btn btn-default"
   disabled={false}
@@ -10,7 +15,7 @@ exports[`CourseCalendar Sidebar Toggle matches snapshot 1`] = `
 >
   <svg
     aria-hidden="true"
-    className="svg-inline--fa fa-bars fa-w-14 ox-icon bars"
+    className="svg-inline--fa fa-bars fa-w-14 ox-icon bars c0"
     data-icon="bars"
     data-prefix="fas"
     role="img"

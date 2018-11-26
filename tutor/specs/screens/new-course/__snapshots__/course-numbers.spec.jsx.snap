@@ -1,12 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CreateCourse: entering details matches snapshot 1`] = `
+.c0 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
 <form
   className=""
 >
   <svg
     aria-hidden="true"
-    className="svg-inline--fa fa-thumbs-up fa-w-16 ox-icon thumbs-up"
+    className="svg-inline--fa fa-thumbs-up fa-w-16 ox-icon thumbs-up c0"
     data-icon="thumbs-up"
     data-prefix="fas"
     role="img"

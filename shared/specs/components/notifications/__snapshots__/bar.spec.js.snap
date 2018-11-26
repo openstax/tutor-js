@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Notifications Bar renders and matches snapshot 1`] = `
+.c0 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
 <div
   className="openstax-notifications-bar viewable"
 >
@@ -12,7 +17,7 @@ exports[`Notifications Bar renders and matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="svg-inline--fa fa-info-circle fa-w-16 ox-icon info-circle"
+        className="svg-inline--fa fa-info-circle fa-w-16 ox-icon info-circle c0"
         data-icon="info-circle"
         data-prefix="fas"
         role="img"
@@ -36,7 +41,7 @@ exports[`Notifications Bar renders and matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="svg-inline--fa fa-times fa-w-11 ox-icon times dismiss"
+        className="svg-inline--fa fa-times fa-w-11 ox-icon times dismiss c0"
         data-icon="times"
         data-prefix="fas"
         role="img"

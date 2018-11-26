@@ -85,7 +85,7 @@ class Hypothesis extends BaseModel {
     return this
       .request(() => ({
         method: 'POST',
-        service: 'notes',
+        service: 'annotations',
         data: {
           uri: documentId,
           text: note,

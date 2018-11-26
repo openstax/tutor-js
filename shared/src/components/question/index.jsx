@@ -92,9 +92,7 @@ class Question extends React.Component {
     const { collaborator_solutions } = question;
 
     return (
-
-      this.hasAnswerCorrectness() && this.doesArrayHaveProperty(collaborator_solutions, 'content_html')
-
+      this.doesArrayHaveProperty(collaborator_solutions, 'content_html')
     );
   };
 
