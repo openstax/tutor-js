@@ -5,6 +5,7 @@
 @import "./styles/teacher-student";
 
 .performance-forecast {
+  margin-top: 20px;
 
   .tutor-tabs {
     margin-bottom: 20px;
@@ -15,7 +16,6 @@
     }
   }
 
-  @extend .container;
   @include tutor-shadow(pop);
 
   .guide-container {
@@ -38,10 +38,12 @@
   }
 
   .no-data {
-     @include tutor-sans-font(1.2rem);
+    @include tutor-sans-font(1.2rem);
     font-weight: 300;
     color: $tutor-neutral-lite;
     margin: 0.5rem 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   .chapter-panel {

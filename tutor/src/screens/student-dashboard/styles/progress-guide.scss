@@ -54,11 +54,23 @@
       margin-left: 0;
       margin-bottom: 0.5rem;
       width: 100%;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
 
     &.empty .actions-box{
       text-align: left;
       line-height: 1.5em;
     }
+
+    .no-data {
+      @include tutor-sans-font(1.2rem);
+      font-weight: 300;
+      color: $tutor-neutral-lite;
+      margin: 0.5rem 0;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
   }
 }
