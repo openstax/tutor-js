@@ -1,4 +1,4 @@
-import NoteWidget from '../../src/components/notes/note';
+import NotesWidget from '../../src/components/notes';
 import { bootstrapCoursesList } from '../courses-test-data';
 import NotesMap from '../../src/models/notes';
 
@@ -71,7 +71,7 @@ describe('Notes', () => {
   it('renders and matches snapshot', () => {
     notes.ux.isSummaryVisible = true;
     expect.snapshot(
-      <NoteWidget {...props} />,
+      <NotesWidget {...props} />,
       {
         createNodeMock: e => {
           const parent = document.createElement('div');

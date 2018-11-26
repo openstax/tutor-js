@@ -1,29 +1,25 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { observer } from 'mobx-react';
+import { React, PropTypes, observer, cn } from '../helpers/react';
 import { observable, action, computed, when } from 'mobx';
 import { autobind } from 'core-decorators';
-import cn from 'classnames';
-import User from '../../models/user';
+import { Icon, Logging } from 'shared';
+import User from '../models/user';
 import { filter, last, sortBy } from 'lodash';
-import { Icon } from 'shared';
-import SummaryPage from './summary-page';
-import dom from '../../helpers/dom';
-import imagesComplete from '../../helpers/images-complete';
-import { Logging } from 'shared';
-import Courses from '../../models/courses-map';
-import EditBox from './edit-box';
-import SidebarButtons from './sidebar-buttons';
-import InlineControls from './inline-controls';
-import ScrollTo from '../../helpers/scroll-to';
+import SummaryPage from './notes/summary-page';
+import dom from '../helpers/dom';
+import imagesComplete from '../helpers/images-complete';
+import Courses from '../models/courses-map';
+import EditBox from './notes/edit-box';
+import SidebarButtons from './notes/sidebar-buttons';
+import InlineControls from './notes/inline-controls';
+import ScrollTo from '../helpers/scroll-to';
 import Highlighter from '@openstax/highlighter';
-import Router from '../../helpers/router';
-import NotesMap from '../../models/notes';
-import Overlay from '../obscured-page/overlay';
+import Router from '../helpers/router';
+import NotesMap from '../models/notes';
+import Overlay from './obscured-page/overlay';
 
 export default
 @observer
-class NoteWidget extends React.Component {
+class NotesWidget extends React.Component {
 
   static propTypes = {
     courseId: PropTypes.string.isRequired,
@@ -169,7 +165,7 @@ class NoteWidget extends React.Component {
     return this.waitForPageReady().then(initialize);
   }
 
-  onHighlightClick = highlight => {
+  @action.bound onHighlightClick(highlight) {
     const note = highlight ? this.props.notes.get(highlight.id) : null;
     this.pendingHighlight = null;
     this.activeNote = note;
@@ -178,7 +174,7 @@ class NoteWidget extends React.Component {
     if (highlight) {
       highlight.focus().scrollTo(this.highlightScrollHandler);
     }
-  };
+  }
 
   cantHighlightReason(highlights, highlight) {
     if (highlights.length > 0) {
