@@ -2,20 +2,25 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
 import TutorDialog from './tutor-dialog';
-
+import styled from 'styled-components';
 import { CloseButton } from 'shared';
 
+const DialogContainer = styled(Card)`
+  max-width: 1200px;
+  margin: auto;
+`;
+
 /*
-<Dialog
-  className='my-dialog-class'
-  header='Dialog Title'
-  confirmMsg='Are you sure you want to close?'
-  isChanged={-> true}
-  onCancel={-> alert 'Cancelling'}
-  >
-  body text
-</Dialog>
-*/
+   <Dialog
+   className='my-dialog-class'
+   header='Dialog Title'
+   confirmMsg='Are you sure you want to close?'
+   isChanged={-> true}
+   onCancel={-> alert 'Cancelling'}
+   >
+   body text
+   </Dialog>
+ */
 
 export default
 class Dialog extends React.Component {
@@ -63,7 +68,7 @@ class Dialog extends React.Component {
     className = classes.join(' ');
 
     return (
-      <Card className={className}>
+      <DialogContainer className={className}>
         <Card.Header>
           {header}
           <CloseButton onClick={this.onCancel} />
@@ -71,7 +76,7 @@ class Dialog extends React.Component {
         </Card.Header>
         {this.props.children}
         <Card.Footer>{footer}</Card.Footer>
-      </Card>
+      </DialogContainer>
     );
   }
 }
