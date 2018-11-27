@@ -8,7 +8,7 @@
     }
   }
 
-  .related-content[data-has-learning-objectives=true] + .book-content {
+  .related-content[data-has-learning-objectives] + .book-content {
     .learning-objectives,
     [data-type=abstract] {
       background: $theme-accent;
@@ -18,7 +18,7 @@
 }
 
 @mixin tutor-book-theme-related-content($background, $text-color) {
-  .related-content[data-has-learning-objectives=true] {
+  .related-content[data-has-learning-objectives] {
     background: $background;
     color: $text-color;
   }
