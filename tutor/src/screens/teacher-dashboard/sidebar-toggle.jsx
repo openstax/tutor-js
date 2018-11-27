@@ -57,10 +57,8 @@ class CalendarSidebarToggle extends React.Component {
         onClick={this.onToggle}
         className={cn('sidebar-toggle', { open: this.isOpen })}
       >
+        <span className="text">Add Assignment</span>
         <Icon type={this.iconType} />
-        <span className="text">
-          Add Assignment
-        </span>
       </Button>
     );
   }
