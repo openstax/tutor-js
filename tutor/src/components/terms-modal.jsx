@@ -34,7 +34,6 @@ class TermsModal extends React.Component {
 
     return (
       <Modal
-        animation={false}
         show={true}
         backdrop="static"
         backdropClassName={className}
