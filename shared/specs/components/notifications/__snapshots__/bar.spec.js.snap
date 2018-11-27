@@ -34,14 +34,14 @@ exports[`Notifications Bar renders and matches snapshot 1`] = `
       A test
     </span>
     <button
-      className="times dismiss btn btn-plain"
+      className="close dismiss btn btn-plain"
       disabled={false}
       onClick={[Function]}
       type="button"
     >
       <svg
         aria-hidden="true"
-        className="svg-inline--fa fa-times fa-w-11 ox-icon times dismiss c0"
+        className="svg-inline--fa fa-times fa-w-11 ox-icon close dismiss c0"
         data-icon="times"
         data-prefix="fas"
         role="img"

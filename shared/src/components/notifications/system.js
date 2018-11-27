@@ -36,7 +36,7 @@ class SystemNotification extends React.Component {
           <Icon type={this.getIcon()} />
           {this.props.notice.message}
         </span>
-        <Icon type="times" className="dismiss" onClick={this.props.onDismiss} />
+        <Icon type="close" className="dismiss" onClick={this.props.onDismiss} />
       </div>
     );
   }

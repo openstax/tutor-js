@@ -55,7 +55,7 @@ class ReviewExerciseCard extends React.Component {
           placement="left"
           message="Are you sure you want to remove this exercise?"
         >
-          <Icon size="xs" className="-remove-exercise circle" type="times" />
+          <Icon size="xs" className="-remove-exercise circle" type="close" />
         </SuretyGuard>
       </span>
     );

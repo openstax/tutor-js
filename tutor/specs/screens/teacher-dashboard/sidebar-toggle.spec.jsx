@@ -45,14 +45,14 @@ describe('CourseCalendar Sidebar Toggle', function() {
     wrapper.simulate('click');
     expect(wrapper.find('Icon[type="bars"]').length).toEqual(1);
     wrapper.simulate('transitionEnd');
-    expect(wrapper.find('Icon[type="times"]').length).toEqual(1);
+    expect(wrapper.find('Icon[type="close"]').length).toEqual(1);
   });
 
   it('defaults to last opened value', function() {
     Helper.isSidebarOpen.mockReturnValueOnce(true);
     const wrapper = shallow(<Toggle {...props} />);
     expect(wrapper.hasClass('open')).toEqual(true);
-    expect(wrapper.find('Icon[type="times"]').length).toEqual(1);
+    expect(wrapper.find('Icon[type="close"]').length).toEqual(1);
   });
 
   it('matches snapshot', function() {

@@ -5,7 +5,7 @@ import Course from '../../models/course';
 import { Icon } from 'shared';
 import CalendarHelper from './helper';
 
-const OPEN_ICON = 'times';
+const OPEN_ICON = 'close';
 const CLOSED_ICON = 'bars';
 
 export default
