@@ -63,14 +63,15 @@ class CourseNagModal extends React.Component {
       <Modal
         dialogClassName={className}
         backdropClassName={className}
+        backdrop="static"
         className={className}
-        onHide={this.onClose}
+        onHide={this.onDismiss}
         show={true}
       >
-      <NagComponent
-        onDismiss={this.onDismiss}
-        ux={this.ux}
-      />
+        <NagComponent
+          onDismiss={this.onDismiss}
+          ux={this.ux}
+        />
       </Modal>
     );
   }
