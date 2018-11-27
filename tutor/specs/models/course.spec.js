@@ -124,15 +124,15 @@ describe('Course Model', () => {
 
       course.periods.remove(course.periods.find(p => p.id == 1));
       expect(course.periods.length).toEqual(len - 1);
-      expect(course.periods.sorted.length).toEqual(len - 2);
+      expect(course.periods.sorted.length).toEqual(len - 3);
 
-      expect(PH.sort).toHaveBeenCalledTimes(2);
-      expect(sortedSpy).toHaveBeenCalledTimes(1);
+      expect(PH.sort).toHaveBeenCalledTimes(3);
+      expect(sortedSpy).toHaveBeenCalledTimes(2);
       expect(map(course.periods, 'id')).not.toEqual(
         map(course.periods.sorted, 'id')
       );
-      expect(PH.sort).toHaveBeenCalledTimes(2);
-      expect(sortedSpy).toHaveBeenCalledTimes(1);
+      expect(PH.sort).toHaveBeenCalledTimes(3);
+      expect(sortedSpy).toHaveBeenCalledTimes(2);
     });
 
     it('extends new course', () => {
