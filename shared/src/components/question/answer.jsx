@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import { action } from 'mobx';
 import classnames from 'classnames';
 import keymaster from 'keymaster';
-
+import Icon from '../icon';
 import AnswerModel from '../../model/exercise/answer';
 import keysHelper from '../../helpers/keys';
 import ArbitraryHtmlAndMath from '../html';
@@ -165,11 +165,17 @@ class Answer extends React.Component {
         </div>
       );
       correctIncorrectIcon = (
-        <div
+        <Icon
           className="correct-incorrect"
-          data-is-correct={isCorrect}
-        >
-        {isCorrect ? '✓' : '✘'}
+          type={isCorrect ? 'check' : 'wrong'}
+          color={isCorrect ? 'green' : 'red'}
+        />
+      );
+    }
+    if (type === 'teacher-preview') {
+      correctIncorrectIcon = (
+        <div className="correct-incorrect">
+          {isCorrect && <Icon type="check" color="green" />}
         </div>
       );
     }

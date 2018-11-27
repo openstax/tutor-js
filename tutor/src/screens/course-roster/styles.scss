@@ -90,6 +90,7 @@
 
 
 .roster {
+
   .actions {
     a {
       @include course-settings-control-link();
@@ -109,9 +110,9 @@
   }
 
   .student-id {
-    width: 200px;
-    height: 25px;
-
+    min-width: 200px;
+    display: flex;
+    justify-content: space-around;
     .identifier,
     input {
       display: inline-block;

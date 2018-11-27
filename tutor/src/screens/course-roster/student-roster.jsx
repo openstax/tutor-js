@@ -32,7 +32,7 @@ class StudentsRoster extends React.Component {
         <td>
           {student.last_name}
         </td>
-        <td>
+        <td className="student-id-column">
           <StudentIdField student={student} course={course} />
         </td>
         <td className="actions">
@@ -70,7 +70,6 @@ class StudentsRoster extends React.Component {
       <Table
         striped={true}
         bordered={true}
-        size="sm"
         hover={true}
         className="roster students"
       >

@@ -97,6 +97,9 @@ exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
                 className="answers-answer disabled"
                 role="region"
               >
+                <div
+                  className="correct-incorrect"
+                />
                 <label
                   className="answer-label"
                   htmlFor="1-option-0"
@@ -136,6 +139,9 @@ exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
                 className="answers-answer disabled"
                 role="region"
               >
+                <div
+                  className="correct-incorrect"
+                />
                 <label
                   className="answer-label"
                   htmlFor="1-option-1"
@@ -175,6 +181,9 @@ exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
                 className="answers-answer disabled"
                 role="region"
               >
+                <div
+                  className="correct-incorrect"
+                />
                 <label
                   className="answer-label"
                   htmlFor="1-option-2"
@@ -214,6 +223,9 @@ exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
                 className="answers-answer disabled"
                 role="region"
               >
+                <div
+                  className="correct-incorrect"
+                />
                 <label
                   className="answer-label"
                   htmlFor="1-option-3"
@@ -253,6 +265,9 @@ exports[`Exercise Preview Wrapper Component renders and matches snapshot 1`] = `
                 className="answers-answer disabled"
                 role="region"
               >
+                <div
+                  className="correct-incorrect"
+                />
                 <label
                   className="answer-label"
                   htmlFor="1-option-4"

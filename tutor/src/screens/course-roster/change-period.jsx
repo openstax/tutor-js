@@ -28,9 +28,9 @@ class ChangePeriodLink extends React.Component {
   @autobind
   renderPeriod(period) {
     return (
-      <NavItem key={period.id} eventKey={period.id}>
+      <Nav.Link key={period.id} eventKey={period.id}>
         {period.name}
-      </NavItem>
+      </Nav.Link>
     );
   }
 
@@ -58,7 +58,7 @@ class ChangePeriodLink extends React.Component {
   selectNewPeriod() {
     return (
       <Popover id="change-period" className="change-period" title={this.popOverTitle()}>
-        <Nav stacked={true} variant="pills" onSelect={this.updatePeriod}>
+        <Nav stacked={true} className="flex-column" onSelect={this.updatePeriod}>
           {this.otherPeriods.map(this.renderPeriod)}
         </Nav>
       </Popover>
