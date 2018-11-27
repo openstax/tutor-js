@@ -13,10 +13,15 @@
 
     &.browse-the-book {
       flex-direction: row;
+      background-color: transparent;
+      border: 0;
+      height: 80px;
       a {
         display: flex;
+        align-items: center;
         div {
           text-align: left;
+          margin-left: 1rem;
           @include tutor-sans-font(2.5rem, 3rem);
           font-weight: 900;
           color: $tutor-black;  // override link color
