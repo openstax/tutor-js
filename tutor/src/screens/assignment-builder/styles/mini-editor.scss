@@ -1,7 +1,7 @@
 // the popover needs its dimensions set so that it stays in
 // the correct position when items are re-rendered inside it
 .mini-task-editor-popover {
-  width: 450px;
+  min-width: 450px;
   max-width: 450px;
 
   @include tutor-shadow(pop);
