@@ -75,7 +75,6 @@ class AddPeriodLink extends React.Component {
     const period = new Period({ course: this.props.course, name: this.period_name });
     period.create().then(() => {
       this.isWaiting = false;
-      this.props.course.periods.push(period);
       this.close();
     });
   }
