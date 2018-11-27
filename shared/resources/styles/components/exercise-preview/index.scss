@@ -180,14 +180,14 @@
       margin-bottom: 2rem;
 
       .answers-answer {
-        padding-left: 15px;
-        display: table;
-
-        &.answer-correct {
-          color: $openstax-secondary;
-          padding-left: 0;
+        display: flex;
+        align-items: center;
+        .correct-incorrect {
+          min-width: 2rem;
         }
-
+        .ox-icon {
+          margin: 0;
+        }
         .answer-label {
           font-weight: 400;
           display: flex;

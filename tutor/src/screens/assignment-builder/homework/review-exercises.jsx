@@ -42,12 +42,12 @@ class ReviewExerciseCard extends React.Component {
     return (
       <span className="pull-right card-actions">
         {!this.props.isFirst ? <Icon onClick={this.moveExerciseUp} className="-move-exercise-up circle" size="xs" type="arrow-up" /> : undefined}
-        {this.props.isLast && (
-           <Icon type="arrow-down"
-             size="xs"
-             onClick={this.moveExerciseDown}
-             className="-move-exercise-down circle"
-           />)}
+        {this.props.isLast &&
+          <Icon type="arrow-down"
+            size="xs"
+            onClick={this.moveExerciseDown}
+            className="-move-exercise-down circle"
+          />}
         <SuretyGuard
           title={false}
           onConfirm={this.removeExercise}
@@ -163,13 +163,3 @@ class ReviewExercises extends React.Component {
   }
 
 };
-// ReviewExercises.propTypes = {
-//   planId: React.PropTypes.string.isRequired,
-//   courseId: React.PropTypes.string.isRequired,
-//   canEdit: React.PropTypes.bool,
-//   sectionIds: React.PropTypes.array.isRequired,
-//   showSectionTopics: React.PropTypes.func.isRequired,
-// };
-
-
-// export default ReviewExercises;

@@ -86,6 +86,9 @@ Object.keys(Icons).forEach(k => {
   }
 });
 
+// aliases
+Icons['wrong'] = Icons['close'];
+
 export { Icons };
 
 const defaultTooltipProps = {
