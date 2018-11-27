@@ -18,13 +18,18 @@ $calendar-header-padding: 2rem;
     }
 
     .sidebar-toggle {
-      text-align: center;
-      padding: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
       width: $calendar-sidebar-width;
       background-color: $tutor-primary;
       color: white;
-      .ox-icon { margin-right: 2rem; }
-      &.open { background-color: $tutor-neutral-lite; }
+
+      &.open {
+        background-color: $tutor-neutral-lite;
+        .ox-icon { color: $tutor-neutral-darker; }
+      }
     }
     .calendar-header-actions-buttons {
       display: flex;

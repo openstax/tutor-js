@@ -86,8 +86,9 @@ class EditBox extends React.Component {
         {this.renderWarning()}
         <div className="button-row">
           <div className="button-group">
+
             <button aria-label="save" className="primary" onClick={this.onSave}>
-              <Icon type="save" />
+              <Icon type="check" />
             </button>
             <button aria-label="delete" className="secondary" onClick={this.onDelete}>
               <Icon type="trash" />

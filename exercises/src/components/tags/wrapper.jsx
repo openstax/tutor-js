@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Col } from 'react-bootstrap';
 import classnames from 'classnames';
+import { Icon } from 'shared';
 
 function TagWrapper(props) {
 
@@ -17,8 +17,7 @@ function TagWrapper(props) {
           {props.label}
         </span>
         <div className="controls">
-          {props.onAdd ?
-            <i onClick={props.onAdd} className="fa fa-plus-circle" /> : undefined}
+          {props.onAdd && <Icon onClick={props.onAdd} type="plus-circle" />}
         </div>
       </div>
       {props.children}
@@ -28,6 +27,11 @@ function TagWrapper(props) {
 }
 
 TagWrapper.propTypes = {
+  error: PropTypes.bool,
+  onAdd: PropTypes.func,
+  children: PropTypes.node,
+  singleTag: PropTypes.bool,
+  'has-single-tag': PropTypes.bool,
   label: PropTypes.string.isRequired,
 };
 

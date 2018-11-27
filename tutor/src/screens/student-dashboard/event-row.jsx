@@ -87,7 +87,7 @@ class EventRow extends React.Component {
           <SuretyGuard {...guardProps}>
             <Icon
               size="lg"
-              type="times-circle"
+              type="close-circle"
               className="hide-task"
               buttonProps={{ variant: 'link' }}
               onClick={this.killEvent}

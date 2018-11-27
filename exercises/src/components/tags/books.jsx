@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { action } from 'mobx';
 import { observer } from 'mobx-react';
+import { Icon } from 'shared';
 import Wrapper from './wrapper';
 import BookSelection from './book-selection';
 import Exercise from '../../models/exercises/exercise';
@@ -32,7 +33,7 @@ class BookTagSelect extends React.Component {
           selected={this.props.tag.value}
         />
         <span className="controls">
-          <i onClick={this.onDelete} className="fa fa-trash" />
+          <Icon onClick={this.onDelete} type="trash" />
         </span>
       </div>
     );

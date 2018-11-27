@@ -3,6 +3,7 @@ import React from 'react';
 import { partial } from 'lodash';
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
+import { Icon } from 'shared';
 import AnswerModel  from 'shared/model/exercise/answer';
 import cn from 'classnames';
 
@@ -34,35 +35,24 @@ class Answer extends React.Component {
 
     return (
       <li className={cn('answer', { 'correct-answer': answer.isCorrect })}>
-        <p>
-          <span className="answer-actions">
-            <a
-              className="pull-right"
-              onClick={partial(this.props.removeAnswer, answer)}>
-              <i className="fa fa-ban" />
-            </a>
-            {canMoveUp &&
-              <a
-                className="pull-right"
-                onClick={partial(this.props.moveAnswer, answer, 1)}>
-                <i className="fa fa-arrow-circle-down" />
-              </a>
-            }
-            {canMoveDown &&
-              <a
-                className="pull-right"
-                onClick={partial(this.props.moveAnswer, answer, -1)}>
-                <i className="fa fa-arrow-circle-up" />
-              </a>
-            }
-            <a
-              className="pull-right is-correct"
-              onClick={partial(this.props.changeCorrect, answer)}
-            >
-              <i className="fa fa-check-circle-o" />
-            </a>
-          </span>
-        </p>
+        <div className="answer-actions">
+          <Icon
+            type="ban"
+            onClick={partial(this.props.removeAnswer, answer)}
+          />
+          {canMoveUp &&
+            <Icon onClick={partial(this.props.moveAnswer, answer, 1)} type="arrow-circle-down" />
+          }
+          {canMoveDown &&
+            <Icon type="arrow-circle-up"
+              onClick={partial(this.props.moveAnswer, answer, -1)}  />
+          }
+          <Icon type="check-circle"
+            className="is-correct"
+            color={answer.isCorrect ? 'green' : 'lightGray'}
+            onClick={partial(this.props.changeCorrect, answer)}
+          />
+        </div>
         <label>
           Distractor
         </label>

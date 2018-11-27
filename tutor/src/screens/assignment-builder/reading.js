@@ -40,7 +40,7 @@ class ReviewReading extends React.Component {
         <span className="section-buttons">
           {moveUpButton}
           <Icon onClick={this.moveReadingDown} size="xs" type="arrow-down" />
-          <Icon onClick={this.removeTopic} type="times" />
+          <Icon onClick={this.removeTopic} type="close" />
         </span>
       );
     }

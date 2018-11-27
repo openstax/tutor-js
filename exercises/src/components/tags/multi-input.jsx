@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
+import { Icon } from 'shared';
 import { computed, action, observable } from 'mobx';
 import Exercise from '../../models/exercises/exercise';
 import TagModel from 'shared/model/exercise/tag';
@@ -57,7 +58,7 @@ class Input extends React.Component {
           placeholder={this.props.placeholder} />
         <Error error={this.errorMsg} />
         <span className="controls">
-          <i onClick={this.onDelete} className="fa fa-trash" />
+          <Icon onClick={this.onDelete} type="trash" />
         </span>
       </div>
     );

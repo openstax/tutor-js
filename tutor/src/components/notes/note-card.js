@@ -46,7 +46,7 @@ class EditBox extends React.Component {
         {this.renderWarning()}
         <div className="button-group">
           <button title="Save" onClick={this.callUpdateText}><Icon type="check" /></button>
-          <button title="Cancel editing" onClick={dismiss}><Icon type="times" /></button>
+          <button title="Cancel editing" onClick={dismiss}><Icon type="close" /></button>
         </div>
       </div>
     );

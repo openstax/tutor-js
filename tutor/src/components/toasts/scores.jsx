@@ -49,7 +49,7 @@ class Failure extends React.Component {
       <div className="toast scores failure">
         <div className="title">
           Scores not exported
-          <Icon type="times" className="dismiss" onClick={this.props.dismiss} />
+          <Icon type="close" className="dismiss" onClick={this.props.dismiss} />
         </div>
         <div className="body">
           <Button className="details" variant="link" onClick={this.onShowDetails}>Details</Button>

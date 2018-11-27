@@ -5,7 +5,7 @@ import Course from '../../models/course';
 import { Icon } from 'shared';
 import CalendarHelper from './helper';
 
-const OPEN_ICON = 'times';
+const OPEN_ICON = 'close';
 const CLOSED_ICON = 'bars';
 
 export default
@@ -57,10 +57,8 @@ class CalendarSidebarToggle extends React.Component {
         onClick={this.onToggle}
         className={cn('sidebar-toggle', { open: this.isOpen })}
       >
+        <span className="text">Add Assignment</span>
         <Icon type={this.iconType} />
-        <span className="text">
-          Add Assignment
-        </span>
       </Button>
     );
   }

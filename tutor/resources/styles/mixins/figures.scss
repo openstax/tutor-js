@@ -1,5 +1,6 @@
 @mixin tutor-figure() {
 
+  .os-figure,
   figure {
     display: flex;
     flex-wrap: wrap;
