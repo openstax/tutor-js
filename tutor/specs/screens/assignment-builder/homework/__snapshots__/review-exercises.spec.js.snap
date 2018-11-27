@@ -256,6 +256,9 @@ exports[`choose exercises component matches snapshot 1`] = `
                     className="answers-answer disabled"
                     role="region"
                   >
+                    <div
+                      className="correct-incorrect"
+                    />
                     <label
                       className="answer-label"
                       htmlFor="1-option-0"
@@ -294,6 +297,9 @@ exports[`choose exercises component matches snapshot 1`] = `
                     className="answers-answer disabled"
                     role="region"
                   >
+                    <div
+                      className="correct-incorrect"
+                    />
                     <label
                       className="answer-label"
                       htmlFor="1-option-1"
@@ -332,6 +338,9 @@ exports[`choose exercises component matches snapshot 1`] = `
                     className="answers-answer disabled"
                     role="region"
                   >
+                    <div
+                      className="correct-incorrect"
+                    />
                     <label
                       className="answer-label"
                       htmlFor="1-option-2"
@@ -370,6 +379,9 @@ exports[`choose exercises component matches snapshot 1`] = `
                     className="answers-answer disabled"
                     role="region"
                   >
+                    <div
+                      className="correct-incorrect"
+                    />
                     <label
                       className="answer-label"
                       htmlFor="1-option-3"
@@ -408,6 +420,9 @@ exports[`choose exercises component matches snapshot 1`] = `
                     className="answers-answer disabled"
                     role="region"
                   >
+                    <div
+                      className="correct-incorrect"
+                    />
                     <label
                       className="answer-label"
                       htmlFor="1-option-4"
@@ -537,6 +552,9 @@ exports[`choose exercises component matches snapshot 1`] = `
                     className="answers-answer disabled"
                     role="region"
                   >
+                    <div
+                      className="correct-incorrect"
+                    />
                     <label
                       className="answer-label"
                       htmlFor="2-option-0"
@@ -570,6 +588,9 @@ exports[`choose exercises component matches snapshot 1`] = `
                     className="answers-answer disabled"
                     role="region"
                   >
+                    <div
+                      className="correct-incorrect"
+                    />
                     <label
                       className="answer-label"
                       htmlFor="2-option-1"
@@ -603,6 +624,9 @@ exports[`choose exercises component matches snapshot 1`] = `
                     className="answers-answer disabled"
                     role="region"
                   >
+                    <div
+                      className="correct-incorrect"
+                    />
                     <label
                       className="answer-label"
                       htmlFor="2-option-2"
@@ -636,6 +660,9 @@ exports[`choose exercises component matches snapshot 1`] = `
                     className="answers-answer disabled"
                     role="region"
                   >
+                    <div
+                      className="correct-incorrect"
+                    />
                     <label
                       className="answer-label"
                       htmlFor="2-option-3"
@@ -669,6 +696,9 @@ exports[`choose exercises component matches snapshot 1`] = `
                     className="answers-answer disabled"
                     role="region"
                   >
+                    <div
+                      className="correct-incorrect"
+                    />
                     <label
                       className="answer-label"
                       htmlFor="2-option-4"
@@ -800,6 +830,9 @@ exports[`choose exercises component matches snapshot 1`] = `
                     className="answers-answer disabled"
                     role="region"
                   >
+                    <div
+                      className="correct-incorrect"
+                    />
                     <label
                       className="answer-label"
                       htmlFor="3-option-0"
@@ -833,6 +866,9 @@ exports[`choose exercises component matches snapshot 1`] = `
                     className="answers-answer disabled"
                     role="region"
                   >
+                    <div
+                      className="correct-incorrect"
+                    />
                     <label
                       className="answer-label"
                       htmlFor="3-option-1"
@@ -866,6 +902,9 @@ exports[`choose exercises component matches snapshot 1`] = `
                     className="answers-answer disabled"
                     role="region"
                   >
+                    <div
+                      className="correct-incorrect"
+                    />
                     <label
                       className="answer-label"
                       htmlFor="3-option-2"
@@ -899,6 +938,9 @@ exports[`choose exercises component matches snapshot 1`] = `
                     className="answers-answer disabled"
                     role="region"
                   >
+                    <div
+                      className="correct-incorrect"
+                    />
                     <label
                       className="answer-label"
                       htmlFor="3-option-3"
@@ -932,6 +974,9 @@ exports[`choose exercises component matches snapshot 1`] = `
                     className="answers-answer disabled"
                     role="region"
                   >
+                    <div
+                      className="correct-incorrect"
+                    />
                     <label
                       className="answer-label"
                       htmlFor="3-option-4"

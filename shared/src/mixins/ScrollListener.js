@@ -1,4 +1,4 @@
-import { bind } from 'lodash';
+import { debounce } from 'lodash';
 // imported from the inactive react-scroll-components project
 // https://github.com/jeroencoumans/react-scroll-components
 // Updated to work with React versions > 15.3
@@ -26,6 +26,7 @@ const ScrollListenerMixin = {
   },
 
   componentDidMount() {
+    this._onPageScroll = debounce(this._onPageScroll, 10);
     if (win) {
       win.addEventListener('scroll', this._onPageScroll);
     }

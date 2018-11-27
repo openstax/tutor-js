@@ -118,6 +118,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="1-option-0"
@@ -156,6 +159,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="1-option-1"
@@ -194,6 +200,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="1-option-2"
@@ -232,6 +241,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="1-option-3"
@@ -270,6 +282,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="1-option-4"
@@ -387,6 +402,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="2-option-0"
@@ -420,6 +438,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="2-option-1"
@@ -453,6 +474,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="2-option-2"
@@ -486,6 +510,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="2-option-3"
@@ -519,6 +546,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="2-option-4"
@@ -698,6 +728,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="3-option-0"
@@ -731,6 +764,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="3-option-1"
@@ -764,6 +800,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="3-option-2"
@@ -797,6 +836,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="3-option-3"
@@ -830,6 +872,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="3-option-4"
@@ -1002,6 +1047,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="4-option-0"
@@ -1035,6 +1083,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="4-option-1"
@@ -1068,6 +1119,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="4-option-2"
@@ -1101,6 +1155,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="4-option-3"
@@ -1134,6 +1191,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="4-option-4"
@@ -1327,6 +1387,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="5-option-0"
@@ -1360,6 +1423,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="5-option-1"
@@ -1393,6 +1459,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="5-option-2"
@@ -1426,6 +1495,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="5-option-3"
@@ -1459,6 +1531,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="5-option-4"
@@ -1631,6 +1706,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="6-option-0"
@@ -1669,6 +1747,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="6-option-1"
@@ -1707,6 +1788,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="6-option-2"
@@ -1745,6 +1829,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="6-option-3"
@@ -1783,6 +1870,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="6-option-4"
@@ -1900,6 +1990,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="7-option-0"
@@ -1933,6 +2026,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="7-option-1"
@@ -1966,6 +2062,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="7-option-2"
@@ -1999,6 +2098,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="7-option-3"
@@ -2032,6 +2134,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="7-option-4"
@@ -2211,6 +2316,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="8-option-0"
@@ -2244,6 +2352,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="8-option-1"
@@ -2277,6 +2388,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="8-option-2"
@@ -2310,6 +2424,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="8-option-3"
@@ -2343,6 +2460,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="8-option-4"
@@ -2536,6 +2656,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="9-option-0"
@@ -2569,6 +2692,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="9-option-1"
@@ -2602,6 +2728,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="9-option-2"
@@ -2635,6 +2764,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="9-option-3"
@@ -2668,6 +2800,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="9-option-4"
@@ -2896,6 +3031,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="10-option-0"
@@ -2929,6 +3067,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="10-option-1"
@@ -2962,6 +3103,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="10-option-2"
@@ -2995,6 +3139,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="10-option-3"
@@ -3028,6 +3175,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="10-option-4"
@@ -3140,6 +3290,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="11-option-0"
@@ -3178,6 +3331,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="11-option-1"
@@ -3216,6 +3372,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="11-option-2"
@@ -3254,6 +3413,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="11-option-3"
@@ -3292,6 +3454,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="11-option-4"
@@ -3409,6 +3574,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="12-option-0"
@@ -3442,6 +3610,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="12-option-1"
@@ -3475,6 +3646,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="12-option-2"
@@ -3508,6 +3682,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="12-option-3"
@@ -3541,6 +3718,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="12-option-4"
@@ -3681,6 +3861,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="13-option-0"
@@ -3714,6 +3897,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="13-option-1"
@@ -3747,6 +3933,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="13-option-2"
@@ -3780,6 +3969,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="13-option-3"
@@ -3813,6 +4005,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="13-option-4"
@@ -3925,6 +4120,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="14-option-0"
@@ -3958,6 +4156,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="14-option-1"
@@ -3991,6 +4192,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="14-option-2"
@@ -4024,6 +4228,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="14-option-3"
@@ -4057,6 +4264,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="14-option-4"
@@ -4285,6 +4495,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="15-option-0"
@@ -4318,6 +4531,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="15-option-1"
@@ -4351,6 +4567,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="15-option-2"
@@ -4384,6 +4603,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="15-option-3"
@@ -4417,6 +4639,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="15-option-4"
@@ -4529,6 +4754,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="16-option-0"
@@ -4567,6 +4795,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="16-option-1"
@@ -4605,6 +4836,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="16-option-2"
@@ -4643,6 +4877,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="16-option-3"
@@ -4681,6 +4918,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="16-option-4"
@@ -4819,6 +5059,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="17-option-0"
@@ -4852,6 +5095,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="17-option-1"
@@ -4885,6 +5131,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="17-option-2"
@@ -4918,6 +5167,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="17-option-3"
@@ -4951,6 +5203,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="17-option-4"
@@ -5186,6 +5441,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="18-option-0"
@@ -5219,6 +5477,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="18-option-1"
@@ -5252,6 +5513,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="18-option-2"
@@ -5285,6 +5549,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="18-option-3"
@@ -5318,6 +5585,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="18-option-4"
@@ -5430,6 +5700,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="19-option-0"
@@ -5463,6 +5736,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="19-option-1"
@@ -5496,6 +5772,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="19-option-2"
@@ -5529,6 +5808,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="19-option-3"
@@ -5562,6 +5844,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="19-option-4"
@@ -5734,6 +6019,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="20-option-0"
@@ -5767,6 +6055,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="20-option-1"
@@ -5800,6 +6091,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="20-option-2"
@@ -5833,6 +6127,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="20-option-3"
@@ -5866,6 +6163,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="20-option-4"
@@ -5999,6 +6299,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="21-option-0"
@@ -6037,6 +6340,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="21-option-1"
@@ -6075,6 +6381,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="21-option-2"
@@ -6113,6 +6422,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="21-option-3"
@@ -6151,6 +6463,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="21-option-4"
@@ -6328,6 +6643,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="22-option-0"
@@ -6361,6 +6679,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="22-option-1"
@@ -6394,6 +6715,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="22-option-2"
@@ -6427,6 +6751,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="22-option-3"
@@ -6460,6 +6787,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="22-option-4"
@@ -6639,6 +6969,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="23-option-0"
@@ -6672,6 +7005,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="23-option-1"
@@ -6705,6 +7041,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="23-option-2"
@@ -6738,6 +7077,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="23-option-3"
@@ -6771,6 +7113,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="23-option-4"
@@ -6943,6 +7288,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="24-option-0"
@@ -6976,6 +7324,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="24-option-1"
@@ -7009,6 +7360,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="24-option-2"
@@ -7042,6 +7396,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="24-option-3"
@@ -7075,6 +7432,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="24-option-4"
@@ -7268,6 +7628,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="25-option-0"
@@ -7301,6 +7664,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="25-option-1"
@@ -7334,6 +7700,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="25-option-2"
@@ -7367,6 +7736,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="25-option-3"
@@ -7400,6 +7772,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="25-option-4"
@@ -7628,6 +8003,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="26-option-0"
@@ -7666,6 +8044,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="26-option-1"
@@ -7704,6 +8085,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="26-option-2"
@@ -7742,6 +8126,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="26-option-3"
@@ -7780,6 +8167,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="26-option-4"
@@ -7897,6 +8287,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="27-option-0"
@@ -7930,6 +8323,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="27-option-1"
@@ -7963,6 +8359,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="27-option-2"
@@ -7996,6 +8395,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="27-option-3"
@@ -8029,6 +8431,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="27-option-4"
@@ -8148,6 +8553,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="28-option-0"
@@ -8181,6 +8589,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="28-option-1"
@@ -8214,6 +8625,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="28-option-2"
@@ -8247,6 +8661,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="28-option-3"
@@ -8280,6 +8697,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="28-option-4"
@@ -8413,6 +8833,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="29-option-0"
@@ -8446,6 +8869,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="29-option-1"
@@ -8479,6 +8905,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="29-option-2"
@@ -8512,6 +8941,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="29-option-3"
@@ -8545,6 +8977,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="29-option-4"
@@ -8657,6 +9092,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="30-option-0"
@@ -8690,6 +9128,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="30-option-1"
@@ -8723,6 +9164,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="30-option-2"
@@ -8756,6 +9200,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="30-option-3"
@@ -8789,6 +9236,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="30-option-4"
@@ -8901,6 +9351,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="31-option-0"
@@ -8939,6 +9392,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="31-option-1"
@@ -8977,6 +9433,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="31-option-2"
@@ -9015,6 +9474,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="31-option-3"
@@ -9053,6 +9515,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="31-option-4"
@@ -9170,6 +9635,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="32-option-0"
@@ -9203,6 +9671,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="32-option-1"
@@ -9236,6 +9707,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="32-option-2"
@@ -9269,6 +9743,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="32-option-3"
@@ -9302,6 +9779,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="32-option-4"
@@ -9502,6 +9982,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="33-option-0"
@@ -9535,6 +10018,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="33-option-1"
@@ -9568,6 +10054,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="33-option-2"
@@ -9601,6 +10090,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="33-option-3"
@@ -9634,6 +10126,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="33-option-4"
@@ -9862,6 +10357,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="34-option-0"
@@ -9895,6 +10393,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="34-option-1"
@@ -9928,6 +10429,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="34-option-2"
@@ -9961,6 +10465,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="34-option-3"
@@ -9994,6 +10501,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="34-option-4"
@@ -10166,6 +10676,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="35-option-0"
@@ -10199,6 +10712,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="35-option-1"
@@ -10232,6 +10748,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="35-option-2"
@@ -10265,6 +10784,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="35-option-3"
@@ -10298,6 +10820,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="35-option-4"
@@ -10410,6 +10935,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="36-option-0"
@@ -10448,6 +10976,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="36-option-1"
@@ -10486,6 +11017,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="36-option-2"
@@ -10524,6 +11058,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="36-option-3"
@@ -10562,6 +11099,9 @@ exports[`Exercise Cards Component renders and matches snapshot 1`] = `
                       className="answers-answer disabled"
                       role="region"
                     >
+                      <div
+                        className="correct-incorrect"
+                      />
                       <label
                         className="answer-label"
                         htmlFor="36-option-4"

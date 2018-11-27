@@ -1582,6 +1582,9 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   className="answers-answer disabled"
                   role="region"
                 >
+                  <div
+                    className="correct-incorrect"
+                  />
                   <label
                     className="answer-label"
                     htmlFor="1-option-0"
@@ -1629,6 +1632,9 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   className="answers-answer disabled"
                   role="region"
                 >
+                  <div
+                    className="correct-incorrect"
+                  />
                   <label
                     className="answer-label"
                     htmlFor="1-option-1"
@@ -1676,6 +1682,9 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   className="answers-answer disabled"
                   role="region"
                 >
+                  <div
+                    className="correct-incorrect"
+                  />
                   <label
                     className="answer-label"
                     htmlFor="1-option-2"
@@ -1723,6 +1732,9 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   className="answers-answer disabled"
                   role="region"
                 >
+                  <div
+                    className="correct-incorrect"
+                  />
                   <label
                     className="answer-label"
                     htmlFor="1-option-3"
@@ -1770,6 +1782,9 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   className="answers-answer disabled"
                   role="region"
                 >
+                  <div
+                    className="correct-incorrect"
+                  />
                   <label
                     className="answer-label"
                     htmlFor="1-option-4"
@@ -3023,6 +3038,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                       <Answer answer={{...}} iter={0} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
                                         <div className=\\"openstax-answer\\">
                                           <section role=\\"region\\" className=\\"answers-answer disabled\\">
+                                            <div className=\\"correct-incorrect\\" />
                                             <label onKeyPress={[Function]} htmlFor=\\"16-option-0\\" className=\\"answer-label\\">
                                               <button onClick={[undefined]} aria-label=\\"Choice a:\\" className=\\"answer-letter\\" disabled={true}>
                                                 a
@@ -3046,6 +3062,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                       <Answer answer={{...}} iter={1} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
                                         <div className=\\"openstax-answer\\">
                                           <section role=\\"region\\" className=\\"answers-answer disabled\\">
+                                            <div className=\\"correct-incorrect\\" />
                                             <label onKeyPress={[Function]} htmlFor=\\"16-option-1\\" className=\\"answer-label\\">
                                               <button onClick={[undefined]} aria-label=\\"Choice b:\\" className=\\"answer-letter\\" disabled={true}>
                                                 b
@@ -3069,6 +3086,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                       <Answer answer={{...}} iter={2} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
                                         <div className=\\"openstax-answer\\">
                                           <section role=\\"region\\" className=\\"answers-answer disabled\\">
+                                            <div className=\\"correct-incorrect\\" />
                                             <label onKeyPress={[Function]} htmlFor=\\"16-option-2\\" className=\\"answer-label\\">
                                               <button onClick={[undefined]} aria-label=\\"Choice c:\\" className=\\"answer-letter\\" disabled={true}>
                                                 c
@@ -3092,6 +3110,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                       <Answer answer={{...}} iter={3} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
                                         <div className=\\"openstax-answer\\">
                                           <section role=\\"region\\" className=\\"answers-answer disabled\\">
+                                            <div className=\\"correct-incorrect\\" />
                                             <label onKeyPress={[Function]} htmlFor=\\"16-option-3\\" className=\\"answer-label\\">
                                               <button onClick={[undefined]} aria-label=\\"Choice d:\\" className=\\"answer-letter\\" disabled={true}>
                                                 d
@@ -3115,6 +3134,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                       <Answer answer={{...}} iter={4} qid={16} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={true}>
                                         <div className=\\"openstax-answer\\">
                                           <section role=\\"region\\" className=\\"answers-answer disabled\\">
+                                            <div className=\\"correct-incorrect\\" />
                                             <label onKeyPress={[Function]} htmlFor=\\"16-option-4\\" className=\\"answer-label\\">
                                               <button onClick={[undefined]} aria-label=\\"Choice e:\\" className=\\"answer-letter\\" disabled={true}>
                                                 e

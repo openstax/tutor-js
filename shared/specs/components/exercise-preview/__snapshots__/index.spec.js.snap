@@ -49,6 +49,9 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="7-option-0"
@@ -82,6 +85,9 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="7-option-1"
@@ -115,6 +121,9 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="7-option-2"
@@ -148,6 +157,9 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="7-option-3"
@@ -181,6 +193,9 @@ exports[`Exercise Preview Component callbacks are called when overlay and action
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="7-option-4"
@@ -371,6 +386,9 @@ exports[`Exercise Preview Component can render question formats 1`] = `
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="4-option-0"
@@ -404,6 +422,9 @@ exports[`Exercise Preview Component can render question formats 1`] = `
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="4-option-1"
@@ -437,6 +458,9 @@ exports[`Exercise Preview Component can render question formats 1`] = `
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="4-option-2"
@@ -470,6 +494,9 @@ exports[`Exercise Preview Component can render question formats 1`] = `
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="4-option-3"
@@ -503,6 +530,9 @@ exports[`Exercise Preview Component can render question formats 1`] = `
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="4-option-4"
@@ -635,6 +665,9 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="8-option-0"
@@ -668,6 +701,9 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="8-option-1"
@@ -701,6 +737,9 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="8-option-2"
@@ -734,6 +773,9 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="8-option-3"
@@ -767,6 +809,9 @@ exports[`Exercise Preview Component hides context if missing 1`] = `
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="8-option-4"
@@ -877,6 +922,9 @@ exports[`Exercise Preview Component limits tags 1`] = `
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="9-option-0"
@@ -910,6 +958,9 @@ exports[`Exercise Preview Component limits tags 1`] = `
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="9-option-1"
@@ -943,6 +994,9 @@ exports[`Exercise Preview Component limits tags 1`] = `
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="9-option-2"
@@ -976,6 +1030,9 @@ exports[`Exercise Preview Component limits tags 1`] = `
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="9-option-3"
@@ -1009,6 +1066,9 @@ exports[`Exercise Preview Component limits tags 1`] = `
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="9-option-4"
@@ -1149,6 +1209,9 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="1-option-0"
@@ -1187,6 +1250,9 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="1-option-1"
@@ -1225,6 +1291,9 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="1-option-2"
@@ -1263,6 +1332,9 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="1-option-3"
@@ -1301,6 +1373,9 @@ exports[`Exercise Preview Component renders and matches snapshot 1`] = `
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="1-option-4"
@@ -1416,6 +1491,9 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="2-option-0"
@@ -1458,6 +1536,9 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="2-option-1"
@@ -1500,6 +1581,9 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="2-option-2"
@@ -1542,6 +1626,9 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="2-option-3"
@@ -1584,6 +1671,9 @@ exports[`Exercise Preview Component sets the className when displaying feedback 
               className="answers-answer disabled"
               role="region"
             >
+              <div
+                className="correct-incorrect"
+              />
               <label
                 className="answer-label"
                 htmlFor="2-option-4"
