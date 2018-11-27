@@ -1,4 +1,5 @@
 import { NotificationActions } from 'shared';
+import Router from './router';
 
 export default {
   start(bootstrapData) {
@@ -15,9 +16,6 @@ export default {
   },
 
   buildCallbackHandlers(comp) {
-    // Require router here because requiring it in global scope
-    // causes hot module reloading to fail in dev mode because this file is required outside the HMR scope
-    const Router = require('./router');
     const { router } = comp.context;
     if (!router) {
       throw new Error('Component\'s context must have router present');
