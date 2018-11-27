@@ -35,6 +35,7 @@ const Icons = {
   'bullhorn':             require('@fortawesome/free-solid-svg-icons/faBullhorn'),
   'caret-left':           require('@fortawesome/free-solid-svg-icons/faCaretLeft'),
   'caret-right':          require('@fortawesome/free-solid-svg-icons/faCaretRight'),
+  'check':                require('@fortawesome/free-solid-svg-icons/faCheck'),
   'check-circle':         require('@fortawesome/free-solid-svg-icons/faCheckCircle'),
   'check-square-solid':   require('@fortawesome/free-solid-svg-icons/faCheckSquare'),
   'cheveron-left':        require('@fortawesome/free-solid-svg-icons/faChevronLeft'),
@@ -68,9 +69,6 @@ const Icons = {
   'spinner':              require('@fortawesome/free-solid-svg-icons/faSpinner'),
   'th':                   require('@fortawesome/free-solid-svg-icons/faTh'),
   'thumbs-up':            require('@fortawesome/free-solid-svg-icons/faThumbsUp'),
-  'close':                require('@fortawesome/free-solid-svg-icons/faTimes'),
-  'close-circle':         require('@fortawesome/free-solid-svg-icons/faTimesCircle'),
-  'trash':                require('@fortawesome/free-solid-svg-icons/faTrashAlt'),
   'user-plus':            require('@fortawesome/free-solid-svg-icons/faUserPlus'),
   'video':                require('@fortawesome/free-solid-svg-icons/faVideo'),
 };
