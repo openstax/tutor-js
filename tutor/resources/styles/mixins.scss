@@ -26,7 +26,7 @@
     }
     @if $full-screen {
       top: 0;
-      z-index: $zindex-fixed + 1;
+      z-index: $zindex-modal;
       &::before {
         background-image: url('../images/openstax-logo-white.png'), url('../images/ost-hero.jpg');
         top: 0;
@@ -46,7 +46,7 @@
   }
   &.modal {
     top: $tutor-navbar-height;
-    z-index: $zindex-fixed - 1;
+    z-index: $zindex-modal;
     @include ost-hero-backdrop($full-screen);
     .modal-dialog { // move modal down so the ox logo appears
       transform: translateY(80px);

@@ -1,12 +1,14 @@
+.modal-dialog,
 .modal {
   $header-padding: 30px;
-
+  margin-top: 2rem;
   .modal-header {
     padding: $header-padding $modal-padding;
     font-size: 16px;
     background-color: $tutor-neutral-bright;
     border-bottom: 1px solid $tutor-neutral-light;
     align-items: center;
+    justify-content: flex-start;
   }
 
   .modal-content {
