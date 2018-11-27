@@ -55,9 +55,9 @@ class FreshlyCreatedCourse extends React.Component {
           {map(this.props.ux.usageOptions, (txt, id) =>
             <Button
               key={id}
-              variant="default"
+              variant={id === 'cc' ? 'primary' : 'default'}
               onClick={partial(this.onChoice, id)}
-              >
+            >
               {txt}
             </Button>)}
         </Footer>
