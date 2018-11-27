@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import Icon from '../icon';
 import Notifications from '../../model/notifications';
 
 class MissingStudentIdNotification extends React.Component {
@@ -16,7 +17,6 @@ class MissingStudentIdNotification extends React.Component {
           PropTypes.string,
           PropTypes.number,
         ]),
-
         type:      PropTypes.string,
         joined_at: PropTypes.string,
         latest_enrollment_at: PropTypes.string,
@@ -40,7 +40,7 @@ class MissingStudentIdNotification extends React.Component {
     return (
       <div className="notification missing-student-id">
         <span className="body">
-          <i className="icon fa fa-info-circle" />
+          <Icon type="info-circle" />
           <span>
             To get credit for your work, add your student ID.
           </span>

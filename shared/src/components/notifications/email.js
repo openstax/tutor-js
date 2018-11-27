@@ -109,7 +109,7 @@ class EmailNotification extends React.Component {
     Requesting...\
            '}
         </span>
-        <i className="fa fa-spin fa-2x fa-spinner" />
+        <Icon type="spinner" spin />
       </span>
     );
   };
@@ -145,19 +145,19 @@ class EmailNotification extends React.Component {
     const body = this.props.notice.is_verified ?
       this.renderSuccess()
       : this.props.notice.requestInProgress ?
-        this.renderSpinner()
-        : this.props.notice.verifyInProgress ?
-          this.props.notice.verificationFailed ?
-            this.renderFailure()
-            :
-            this.renderPin()
-          :
-          this.renderStart();
+      this.renderSpinner()
+      : this.props.notice.verifyInProgress ?
+      this.props.notice.verificationFailed ?
+      this.renderFailure()
+      :
+      this.renderPin()
+      :
+      this.renderStart();
 
     if (this.props.notice.error) {
       error =
         <span className="error">
-          <i className="icon fa fa-exclamation-circle" />
+          <Icon type="exclamation-circle" />
           <span className="body">
             {this.props.notice.error}
           </span>
@@ -172,7 +172,7 @@ class EmailNotification extends React.Component {
         {error}
         {body}
         <a className="dismiss" onClick={this.props.onDismiss}>
-          <i className="icon fa fa-close" />
+          <Icon type="close" />
         </a>
       </div>
     );

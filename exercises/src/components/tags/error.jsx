@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Icon } from 'shared';
 
 function TagError(props) {
   if (!props.error) { return null; }
@@ -15,7 +16,7 @@ function TagError(props) {
 
   return (
     <OverlayTrigger placement="top" overlay={tooltip}>
-      <i className="fa fa-exclamation-triangle" />
+      <Icon type="exclamation-triangle" />
     </OverlayTrigger>
   );
 }

@@ -36,7 +36,7 @@ describe('Book tags component', function() {
   it('can delete a tag', () => {
     const books = mount(<Books {...props} />);
     expect(props.exercise.tags).toHaveLength(1);
-    books.find('.fa-trash').simulate('click');
+    books.find('Icon[type="trash"]').simulate('click');
     expect(props.exercise.tags).toHaveLength(0);
   });
 
@@ -44,7 +44,7 @@ describe('Book tags component', function() {
     props.exercise.tags = [];
     const books = mount(<Books {...props} />);
     expect(books).not.toHaveRendered('select');
-    books.find('.controls .fa-plus-circle').simulate('click');
+    books.find('.controls Icon[type="plus-circle"]').simulate('click');
     expect(books).toHaveRendered('select');
     books.unmount();
   });

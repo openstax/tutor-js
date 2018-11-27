@@ -6,7 +6,7 @@ import Exercise from '../../models/exercises/exercise';
 import { observer } from 'mobx-react';
 import { computed, action, observable } from 'mobx';
 import TagModel from 'shared/model/exercise/tag';
-
+import { Icon } from 'shared';
 import Error from './error';
 import Wrapper from './wrapper';
 
@@ -80,7 +80,7 @@ class Input extends React.Component {
         />
         <Error error={this.errorMsg} />
         <span className="controls">
-          <i onClick={this.onDelete} className="fa fa-trash" />
+          <Icon type="trash" onClick={this.onDelete} />
         </span>
       </div>
     );

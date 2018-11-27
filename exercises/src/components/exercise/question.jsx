@@ -55,9 +55,11 @@ class Question extends React.Component {
     return (
       <div className="controls">
         {canMoveLeft &&
-          <a className="move-question" onClick={partial(onMove, question, -1)}>
-            <i className="fa fa-arrow-circle-left" />
-          </a>}
+          <Icon type="arrow-circle-left"
+            className="move-question"
+            onClick={partial(onMove, question, -1)}
+          />}
+
         <SuretyGuard
           onConfirm={partial(onRemove, question)}
           onlyPromptIf={function() { return question.isChanged; }}
@@ -68,9 +70,10 @@ class Question extends React.Component {
           </a>
         </SuretyGuard>
         {canMoveRight &&
-          <a className="move-question" onClick={partial(onMove, question, 1)}>
-            <i className="fa fa-arrow-circle-right" />
-          </a>}
+          <Icon type="arrow-circle-right"
+            className="move-question"
+            onClick={partial(onMove, question, 1)}
+          />}
       </div>
     );
   }

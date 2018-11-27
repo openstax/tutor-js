@@ -7,7 +7,7 @@
     .move-question {
       cursor: pointer;
       margin: 0 1rem;
-      font-size: 2rem;
+      font-size: 1.1rem;
     }
     .remove-question {
       color: $red;
@@ -25,19 +25,7 @@
   }
 
   .answer-actions {
-    > a {
-      margin-left: 10px;
-      cursor: pointer;
-      line-height: 2rem;
-
-      &.is-correct {
-        color: $openstax-neutral;
-      }
-
-      i.fa {
-        font-size: 2rem;
-      }
-    }
+    text-align: right;
   }
 
   li.correct-answer {
@@ -45,8 +33,8 @@
       color: $green;
     }
 
-    .answer-actions > a.is-correct {
-      color: $green;
+    .answer-actions > .is-correct {
+      fill: $green;
     }
 
     textarea {

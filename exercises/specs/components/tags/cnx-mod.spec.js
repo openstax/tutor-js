@@ -50,7 +50,7 @@ describe('CNX mod tags component', function() {
     const { exercise } = props;
     expect(exercise.tags.length).toEqual(1);
     const modules = mount(<CnxMod {...props} />);
-    modules.find('Input .controls i').simulate('click');
+    modules.find('Input .controls Icon[type="trash"]').simulate('click');
     expect(exercise.tags.length).toEqual(0);
     modules.unmount();
   });

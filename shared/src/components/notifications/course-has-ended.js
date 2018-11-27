@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Notifications from '../../model/notifications';
+import Icon from '../icon';
 
 class CourseHasEndedNotification extends React.Component {
   static displayName = 'CourseHasEndedNotification';
@@ -37,7 +37,7 @@ class CourseHasEndedNotification extends React.Component {
     return (
       <div className="notification course-has-ended">
         <span className="body">
-          <i className="icon fa fa-info-circle" />
+          <Icon type="info-circle" />
           <span>
             This course has ended.
           </span>
