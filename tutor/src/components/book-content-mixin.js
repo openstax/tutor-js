@@ -280,10 +280,15 @@ const ReadingContentMixin = {
 
 // called with the context set to the image
 var processImage = function() {
-  const figure = dom(this).closest('figure') || dom(this).closest('[data-type=media]');
+  const img = dom(this);
+  const figure = img.closest('.os-figure')
+    || img.closest('figure')
+    || img.closest('[data-type=media]');
   if (!figure) { return; }
-  if ((figure.parentNode != null ? figure.parentNode.nodeName : undefined) === 'FIGURE') {
-    figure.parentNode.classList.add('with-child-figures');
+
+  const { parentNode } = figure;
+  if (parentNode && parentNode.nodeName === 'FIGURE') {
+    parentNode.classList.add('with-child-figures');
   }
 
   this.title = this.alt;

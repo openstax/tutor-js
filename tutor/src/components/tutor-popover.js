@@ -78,7 +78,7 @@ class TutorPopover extends React.Component {
     }
 
     content = React.cloneElement(content, { className: contentClassName });
-    const popoverId = id ? `tutor-popover-${id}` : `tutor-popover-${this._reactInternalInstance._rootNodeID}`;
+    const popoverId = `tutor-popover-${id || 'unknown'}`;
 
     const popover = (
       <Popover {...popoverProps} id={popoverId} ref={this.setPopoverRef}>
