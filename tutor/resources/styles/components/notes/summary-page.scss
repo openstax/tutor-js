@@ -61,6 +61,10 @@
         padding: 0;
       }
 
+      .button-group {
+        display: flex;
+      }
+
       button {
         background-color: $tutor-white;
         border: thin solid $tutor-neutral-light;
@@ -68,6 +72,8 @@
         height: 3rem;
         margin-right: 0.5rem;
         width: 4.6rem;
+        display: flex;
+        justify-content: center;
 
         &:last-child {
           margin: 0;
