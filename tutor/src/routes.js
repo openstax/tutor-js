@@ -16,9 +16,9 @@ const getRoutes = (router) => {
     { path: '/enroll/start/:enrollmentCode', name: 'createEnrollmentChange',
       renderer: r(() => import('./components/enroll'), 'Course Enrollment') },
     { path: '/new-course/offering/:appearanceCode?', name: 'createNewCourseFromOffering',
-      renderer: r(() => import('./components/enroll'), 'Create Course') },
+      renderer: r(() => import('./screens/new-course'), 'Create Course') },
     { path: '/new-course/:sourceId?', name: 'createNewCourse',
-      renderer: r(() => import('./components/enroll'), 'Copy Course') },
+      renderer: r(() => import('./screens/new-course'), 'Copy Course') },
     {
       name: 'QADashboard',
       path: '/qa/:ecosystemId?/:chapterSection?',
