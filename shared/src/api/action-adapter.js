@@ -178,20 +178,19 @@ const connectModelAction = function(action, apiHandler, klass, method, options) 
     if (this.api != null) {
       this.api.requestsInProgress.set(action, requestConfig);
     }
-    return apiHandler.send(requestConfig, perRequestOptions, firstArg).then(reply => {
-      if (this.api != null) {
+    const onComplete = () => {
+      if (this.api) {
         this.api.requestCounts[action] += 1;
-      }
-      if (this.api != null) {
         this.api.requestsInProgress.delete(action);
       }
+    }
+    return apiHandler.send(requestConfig, perRequestOptions, firstArg).then(reply => {
+      onComplete();
       return reply;
     }).catch(e => {
-      if (this.api != null) {
-        this.api.requestsInProgress.delete(action);
-      }
+      onComplete();
       console.warn(e);
-      perRequestOptions.onFail(e);
+      perRequestOptions.onFail({ config: requestConfig, options: perRequestOptionsm, error: e });
       return Promise.reject(e);
     });
   };
