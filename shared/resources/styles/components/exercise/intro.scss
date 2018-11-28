@@ -41,7 +41,7 @@
 &-individual-review-intro {
   .continue {
     margin-top: 40px;
-    @include button-variant($openstax-white, $openstax-primary, darken($openstax-primary, 5%));
+    @include button-variant($openstax-primary, darken($openstax-primary, 5%));
   }
 }
 

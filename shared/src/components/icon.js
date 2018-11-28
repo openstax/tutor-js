@@ -134,8 +134,6 @@ class Icon extends React.Component {
       ...props
     } = this.props;
 
-    //invariant(Icons[type], `${type} has not been imported`);
-
     let icon = (
       <IconWrapper
         data-variant={variant}
