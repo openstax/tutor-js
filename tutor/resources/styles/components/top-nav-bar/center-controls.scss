@@ -15,16 +15,6 @@
     }
   }
 
-  .fa {
-    color: $icon-color;
-    font-size: 2.6rem;
-
-    &.fa-th {
-      position: relative;
-      top: 0.1em;
-    }
-  }
-
   .icons {
     display: flex;
     align-items: center;
@@ -38,6 +28,9 @@
     .due-date {
       display: flex;
       align-items: center;
+      .ox-icon {
+        margin: 0;
+      }
       .calendar-text {
         display: flex;
         justify-content: center;
