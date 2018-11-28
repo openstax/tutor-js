@@ -33,6 +33,7 @@ class AddPeriodField extends React.Component {
         ref="input"
         label={this.props.label}
         default={''}
+        hasValue
         required={true}
         onChange={this.props.onChange}
         validate={this.props.validate} />
