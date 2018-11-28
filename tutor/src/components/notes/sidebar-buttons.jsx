@@ -29,11 +29,9 @@ class SidebarButtons extends React.Component {
     } = this.props;
     const isActive = note === activeNote;
     const highlight = highlighter.getHighlight(note.id);
-
     if (!highlight || !parentRect) {
       return null;
     }
-
     const { top } = getRangeRect(windowImpl, highlight.range);
 
     return (
@@ -43,7 +41,9 @@ class SidebarButtons extends React.Component {
         className={
           cn('sidebar-button', { active: isActive })
         }
-        style={{ top: top - parentRect.top }}
+        buttonProps={{
+          style: { top: top - parentRect.top },
+        }}
         alt="View note"
         onClick={() => onClick(note)}
       />
