@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-transition-group';
 import { omit, map, uniq } from 'lodash';
 import TaskStep from '../task-step';
 
@@ -43,12 +42,9 @@ class Review extends React.Component {
         pinned={false} />);
 
     return (
-      <ReactCSSTransitionGroup
-        transitionName="homework-review-problem"
-        transitionEnterTimeout={300}
-        transitionLeaveTimeout={300}>
+      <div className="task-review">
         {stepsList}
-      </ReactCSSTransitionGroup>
+      </div>
     );
   }
 }
