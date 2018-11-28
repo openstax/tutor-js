@@ -9,10 +9,11 @@
 }
 
 .task-homework {
+
   .completed-message {
     @include tutor-completed-message();
     @include size-exercise-card();
-
+    background-color: $tutor-white;
     ul li {
       text-align: left;
     }
@@ -24,10 +25,11 @@
   }
 
   .task-review {
-    .card-body {
-      @include transition("max-height 0.5s ease-in, padding 0.5s ease-in, margin 0.5s ease-in");
+    .card {
       max-height: 3000px;
       overflow: hidden;
+      margin-bottom: 4rem;
+      background-color: $tutor-white;
     }
 
     .homework-review-problem-leave-active {
