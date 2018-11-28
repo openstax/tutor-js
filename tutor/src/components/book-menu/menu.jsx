@@ -14,6 +14,21 @@ class BookMenuTocSection extends React.Component {
     section: PropTypes.object,
   };
 
+  renderSection(section) {
+    return (
+      <React.Fragment>
+        <span className="section-number">
+          {section.chapter_section.asString}
+        </span>
+        {section.title}
+      </React.Fragment>
+    );
+  }
+
+  renderBakedSection(section) {
+    return <span dangerouslySetInnerHTML={{ __html: section.title }} />
+  }
+
   render() {
     const { ux, section } = this.props;
 
@@ -29,10 +44,8 @@ class BookMenuTocSection extends React.Component {
             className={section === ux.page ? 'active' : ''}
             onClick={partial(ux.onMenuSelection, section.chapter_section.asString)}
           >
-            <span className="section-number">
-              {section.chapter_section.asString}
-            </span>
-            {section.title}
+            {(ux.isCollated ? this.renderBakedSection : this.renderSection)(section)}
+
           </TutorLink>
         </li>
         {map(this.props.section.children, child => (

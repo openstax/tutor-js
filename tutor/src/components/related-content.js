@@ -1,43 +1,51 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import createReactClass from 'create-react-class';
-import _ from 'underscore';
-
-import { ChapterSectionMixin } from 'shared';
-
+import { isArray, isString, isEmpty } from 'lodash';
 import { StepTitleStore } from '../flux/step-title';
+import ChapterSection from '../models/chapter-section';
 
-const RelatedContent = createReactClass({
-  displayName: 'RelatedContent',
-
-  propTypes: {
+class RelatedContent extends React.Component {
+  static propTypes = {
     contentId: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     hasLearningObjectives: PropTypes.bool,
+    isCollated: PropTypes.bool,
+    chapter_section: PropTypes.instanceOf(ChapterSection).isRequired,
+  };
 
-    chapter_section: PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.string,
-    ]).isRequired,
-  },
-
-  mixins: [ChapterSectionMixin],
-
-  isIntro() {
-    return (_.isArray(this.props.chapter_section) &&
+  isIntro = () => {
+    return (isArray(this.props.chapter_section) &&
       ((this.props.chapter_section.length === 1) ||
       (this.props.chapter_section[1] === 0))) ||
-      (_.isString(this.props.chapter_section) &&
+      (isString(this.props.chapter_section) &&
       (this.props.chapter_section.indexOf('.') === -1));
-  },
+  };
+
+  renderSectionInfo() {
+    const { title, chapter_section } = this.props;
+
+    return (
+      <span className="part">
+        <span className="section">
+          {chapter_section.toString()}
+          {' '}
+        </span>
+        <span className="title">
+          {title}
+        </span>
+      </span>
+    );
+  }
+
+  renderCollated() {
+    return <div dangerouslySetInnerHTML={{ __html: this.props.title }} />;
+  }
 
   render() {
     let hasLearningObjectives;
-    const { title, contentId, chapter_section } = this.props;
+    const { contentId, title, isCollated } = this.props;
 
-    if (_.isEmpty(title) || this.isIntro()) { return null; }
-
-    const section = this.sectionFormat(chapter_section);
+    if (isEmpty(title) || this.isIntro()) { return null; }
 
     if (hasLearningObjectives == null) {
       hasLearningObjectives = StepTitleStore.hasLearningObjectives(contentId);
@@ -46,19 +54,12 @@ const RelatedContent = createReactClass({
     return (
       <h4
         className="related-content"
-        data-has-learning-objectives={hasLearningObjectives}>
-        <span className="part">
-          <span className="section">
-            {section}
-            {' '}
-          </span>
-          <span className="title">
-            {title}
-          </span>
-        </span>
+        data-has-learning-objectives={hasLearningObjectives}
+      >
+        {isCollated ? this.renderCollated() : this.renderSectionInfo()}
       </h4>
     );
-  },
-});
+  }
+}
 
 export default RelatedContent;

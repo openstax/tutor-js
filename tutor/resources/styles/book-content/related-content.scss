@@ -9,6 +9,7 @@
       @include book-content-full-width();
       display: inline-flex;
       margin-top: -$tutor-card-body-padding-vertical;
+      margin-bottom: 0;
       padding: 3rem;
       font-size: 2.4rem;
     }

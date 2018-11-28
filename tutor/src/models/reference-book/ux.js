@@ -99,6 +99,10 @@ export default class BookUX {
     return this.book.children;
   }
 
+  @computed get isCollated() {
+    return this.book && this.book.is_collated;
+  }
+
   @computed get courseDataProps() {
     const { course } = this;
     return course ? {

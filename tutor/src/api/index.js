@@ -157,7 +157,11 @@ const startAPI = function() {
   connectModelRead(Ecosystems.constructor, 'fetch', { onSuccess: 'onLoaded', url: 'ecosystems' });
 
   connectModelRead(ReferenceBook, 'fetch', { pattern: 'ecosystems/{id}/readings', onSuccess: 'onApiRequestComplete' });
-  connectModelRead(ReferenceBookPage, 'fetchContent', { pattern: 'pages/{cnx_id}', onSuccess: 'onContentFetchComplete' });
+  connectModelRead(ReferenceBookPage, 'fetchContent', {
+    pattern: 'pages/{cnx_id}',
+    onSuccess: 'onContentFetchComplete',
+    onFail: 'onContentFetchFail',
+  });
 
   // "User" is actually an instance, but connectModel works at the class level
   connectModelUpdate(User.constructor, 'saveTourView',

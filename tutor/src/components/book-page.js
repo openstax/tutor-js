@@ -96,11 +96,7 @@ const BookPage = createReactClass({
       }
     }
 
-
-    const related = {
-      chapter_section: page.chapter_section.asArray,
-      title: this.getSplashTitle(),
-    };
+    const title = this.getSplashTitle();
 
     return (
       <div
@@ -111,20 +107,24 @@ const BookPage = createReactClass({
         {...ux.courseDataProps}>
         {this.props.children}
         <div className="page center-panel">
-          <RelatedContent contentId={page.cnx_id} {...related} />
+          <RelatedContent
+            contentId={page.cnx_id}
+            isCollated={page.bookIsCollated}
+            chapter_section={page.chapter_section}
+            title={title}
+          />
           <ArbitraryHtmlAndMath className="book-content" block={true} html={page.contents} />
         </div>
         <SpyMode.Content className="ecosystem-info">
           Page: {page.cnx_id}, Book: {get(page,'chapter.book.cnx_id')} Ecosystem: {get(page,'chapter.book.uuid')}
         </SpyMode.Content>
-        {ux.allowsAnnotating && (
+        {ux.allowsAnnotating &&
           <NotesWidget
             courseId={ux.course.id}
             chapter={page.chapter_section.chapter}
             section={page.chapter_section.section}
-            title={related.title}
-            documentId={page.cnx_id} />
-        )}
+            title={title}
+            documentId={page.cnx_id} />}
       </div>
     );
   },
