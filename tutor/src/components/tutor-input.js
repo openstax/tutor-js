@@ -109,7 +109,7 @@ class TutorInput extends React.Component {
     if (children != null) {
       inputBox = React.cloneElement(children, inputProps);
     } else {
-      props = omit(this.props, 'label', 'className', 'onChange', 'validate', 'default', 'children', 'ref');
+      props = omit(this.props, 'label', 'className', 'onChange', 'validate', 'default', 'children', 'ref', 'hasValue');
       inputProps = extend({}, inputProps, props);
 
       inputBox = <input {...inputProps} />;
