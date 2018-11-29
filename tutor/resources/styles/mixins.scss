@@ -11,30 +11,31 @@
 }
 
 @mixin ost-hero-backdrop($full-screen: false) {
+  z-index: $zindex-fixed - 1; // right below z-index of menus
+  &::before {
+    position: fixed;
+    top: $tutor-navbar-height;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    content: "";
+    z-index: -1;
+    background-image: url('../images/ost-hero.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  @if $full-screen {
+    top: 0;
+    z-index: $zindex-modal; // on top of everything
     &::before {
-      position: fixed;
-      top: $tutor-navbar-height;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      content: "";
-      z-index: -1;
-      background-image: url('../images/ost-hero.jpg');
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
-    }
-    @if $full-screen {
+      background-image: url('../images/openstax-logo-white.png'), url('../images/ost-hero.jpg');
       top: 0;
-      z-index: $zindex-modal;
-      &::before {
-        background-image: url('../images/openstax-logo-white.png'), url('../images/ost-hero.jpg');
-        top: 0;
-        background-repeat: no-repeat, no-repeat;
-        background-size: 174px 40px, cover;
-        background-position: center 20px, center;
-      }
+      background-repeat: no-repeat, no-repeat;
+      background-size: 174px 40px, cover;
+      background-position: center 20px, center;
     }
+  }
 }
 
 @mixin ost-hero-modal($full-screen: false) {
