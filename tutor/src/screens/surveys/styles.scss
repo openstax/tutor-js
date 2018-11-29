@@ -49,10 +49,15 @@
 
   .sv_q_rating {
     @extend .btn-group;
+    flex-wrap: wrap;
+    justify-content: center;
     > label {
       @extend .btn;
-//      @extend .btn-default;
+      margin-top: 0.5rem;
       height: inherit; // override pattern library default of 5rem
+      &.active {
+        @extend .btn-primary;
+      }
     }
   }
 
@@ -60,6 +65,9 @@
     > div:last-child { // set it to flex so that warnings can be ordered to the bottom
       display: flex;
       flex-direction: column;
+    }
+    fieldset {
+      padding-left: 0.5rem;
     }
   }
 
