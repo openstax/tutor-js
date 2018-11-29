@@ -55,7 +55,7 @@ const PlanMixin = {
     TaskPlanStore.on('publish-queued', this.updateIsVisibleAndIsEditable);
     TaskPlanStore.on(`loaded.${id}`, this.updateIsVisibleAndIsEditable);
     TaskPlanStore.on('change', this.updateValidity);
-    return TaskingStore.on(`taskings.${id}.*.loaded`, this.updateIsVisibleAndIsEditable);
+    TaskingStore.on(`taskings.${id}.*.loaded`, this.updateIsVisibleAndIsEditable);
   },
 
   componentWillUnmount() {
@@ -64,7 +64,7 @@ const PlanMixin = {
     TaskPlanStore.off('publish-queued', this.updateIsVisibleAndIsEditable);
     TaskPlanStore.off(`loaded.${id}`, this.updateIsVisibleAndIsEditable);
     TaskPlanStore.off('change', this.updateValidity);
-    return TaskingStore.off(`taskings.${id}.*.loaded`, this.updateIsVisibleAndIsEditable);
+    TaskingStore.off(`taskings.${id}.*.loaded`, this.updateIsVisibleAndIsEditable);
   },
 
   showSectionTopics() {
@@ -215,40 +215,43 @@ const PlanMixin = {
   },
 
 
-  initialPlanId() {
-    id;
-  },
-
   makePlanRenderer(type, Type) {
-    let { id, courseId } = Router.currentParams();
 
-    if (!id || (id === 'new')) {
-      id = TaskPlanStore.freshLocalId();
-      TaskPlanActions.create(id, { type });
-    }
+    const getInitialState = () => {
+      let { id, courseId } = Router.currentParams();
+      if (!id || (id === 'new')) {
+        id = TaskPlanStore.freshLocalId();
+        TaskPlanActions.create(id, { type });
+      }
+      return { id, courseId };
+    };
 
-    const whenLoaded = () => (
-      <TourRegion
-        id={`${type}-assignment-editor`}
-        otherTours={[`${type}-assignment-editor-super`]}
-        courseId={courseId}
-      >
-        <Type id={id} courseId={courseId} />
-      </TourRegion>
-    );
+    return class extends React.Component {
+      static displayName = `${type}Renderer`
 
-    return memoize(() => {
-      return (
-        <LoadableItem
-          id={id}
-          store={TaskPlanStore}
-          actions={TaskPlanActions}
-          renderItem={whenLoaded}
-        />
-      );
-    });
+      state = getInitialState()
+
+      render() {
+        const { id, courseId } = this.state;
+        return (
+          <LoadableItem
+            id={id}
+            store={TaskPlanStore}
+            actions={TaskPlanActions}
+            renderItem={() =>
+              <TourRegion
+                id={`${type}-assignment-editor`}
+                otherTours={[`${type}-assignment-editor-super`]}
+                courseId={courseId}
+              >
+                <Type id={id} courseId={courseId} />
+              </TourRegion>}
+          />
+        );
+      }
+    };
+
   },
-
 
 };
 
