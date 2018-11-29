@@ -2,17 +2,31 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import ChapterSection from '../../components/chapter-section';
 
-const SectionTitle = observer(({ ux }) =>
-  ux.page ? (
-    <div className="section-title">
-      <span>
-        <ChapterSection section={ux.page.chapter_section.asArray} />
-      </span>
-      <span className="title">
-        {ux.page.title}
-      </span>
-    </div>
-  ) : null
-);
+const SectionTitle = observer(({ ux }) => (
+  <React.Fragment>
+    <span>
+      <ChapterSection section={ux.page.chapter_section.asArray} />
+    </span>
+    <span className="title">
+      {ux.page.title}
+    </span>
+  </React.Fragment>
+));
 
-export default SectionTitle;
+const BakedSectionTitle = observer(({ ux }) => (
+  <span dangerouslySetInnerHTML={{ __html: ux.page.title }} />
+));
+
+const SectionTitleWrapper = observer(({ ux }) => {
+  if (!ux.page) { return null; }
+
+  const Inner = ux.isCollated ? BakedSectionTitle : SectionTitle;
+
+  return (
+    <div className="section-title">
+      <Inner ux={ux} />
+    </div>
+  );
+});
+
+export default SectionTitleWrapper;

@@ -21,15 +21,14 @@ class EcosystemSelector extends React.Component {
       <Dropdown
         id="support-menu"
         className="support-menu"
-        pullRight
         onSelect={ux.onEcosystemSelect}
       >
         <Dropdown.Toggle
-          useAnchor={true}
+          variant="ox"
         >
           Select Ecosystem
         </Dropdown.Toggle>
-        <Dropdown.Menu>
+        <Dropdown.Menu alignRight>
           {ux.ecosystemsMap.array.map(ec => (
             <Dropdown.Item key={ec.id} eventKey={ec.id}>
               {ec.book.titleWithVersion}

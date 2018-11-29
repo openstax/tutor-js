@@ -9,6 +9,17 @@ import { StepTitleActions } from '../../flux/step-title';
 import { MediaActions } from '../../flux/media';
 
 const UPDATEABLE_FIELDS = ['content_html', 'spy'];
+const NOT_FOUND_CONTENT = {
+  id: -1,
+  content_html: `
+    <div className="invalid-page">
+      <h1>
+        Uh-oh, no page here
+      </h1>
+      <p>This page was not found</p>
+    </div>
+  `,
+};
 
 export default
 @identifiedBy('reference-book/page')
@@ -65,6 +76,10 @@ class ReferenceBookPage extends BaseModel {
 
   @computed get bookIsCollated() {
     return get(this, 'chapter.book.is_collated', false);
+  }
+
+  onContentFetchFail() {
+    this.update(NOT_FOUND_CONTENT);
   }
 
 };
