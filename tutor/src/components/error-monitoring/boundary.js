@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeContactURL } from '../../helpers/contact';
+import Warning from '../warning-modal';
 
 export default
 class ErrorBoundary extends React.Component {
@@ -8,7 +9,7 @@ class ErrorBoundary extends React.Component {
 
   static getDerivedStateFromError(error) {
     // Update state so the next render will show the fallback UI.
-    return { hasError: true };
+    return { hasError: error };
   }
 
   componentDidCatch(error, info) {
@@ -18,14 +19,17 @@ class ErrorBoundary extends React.Component {
 
   render() {
     if (this.state.hasError) {
-      const mailTo = makeContactURL();
+      const error = this.state.hasError.toString()
+      const mailTo = makeContactURL({
+        config: { data: { error } },
+      });
       return (
-        <div>
-          <h1>Something went wrong.</h1>
+        <Warning title="Something went wrong…">
           <p>
             Please <a href={mailTo}>contact us</a> to file a bug report.
           </p>
-        </div>
+          <p>error details: {error}</p>
+        </Warning>
       );
     }
 
