@@ -3,7 +3,9 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import { TaskStepStore } from '../../flux/task-step';
 import { AsyncButton, ArbitraryHtmlAndMath, ChapterSectionMixin } from 'shared';
+import { get } from 'lodash';
 import CourseData from '../../helpers/course-data';
+import ChapterSection from '../../models/chapter-section';
 import { BookContentMixin, LinkContentMixin } from '../book-content-mixin';
 import RelatedContent from '../related-content';
 import Router from '../../helpers/router';
@@ -23,7 +25,7 @@ const ReadingStepContent = createReactClass({
 
   // used by BookContentMixin
   getSplashTitle() {
-    return __guard__(TaskStepStore.get(this.props.id), x => x.title) || '';
+    return get(TaskStepStore.get(this.props.id), '.title', '');
   },
 
   getCnxId() {
@@ -68,22 +70,17 @@ const ReadingStepContent = createReactClass({
 
   getContentChapterSection() {
     const { chapter_section, related_content } = TaskStepStore.get(this.props.id);
-    return (
-      related_content &&
-      related_content[0] &&
-      related_content[0].chapter_section
-    ) || chapter_section || [];
+    return new ChapterSection(get(related_content, '[0].chapter_section', chapter_section));
   },
 
   getContentChapter() {
-    return __guard__(this.getContentChapterSection(), x => x[0]);
+    return this.getContentChapterSection().chapter;
   },
 
   getContentSection() {
-    return __guard__(this.getContentChapterSection(), x => x[1]);
+    return this.getContentChapterSection().section;
   },
 
-  // || look up by @getContentChapterSection()
   getContentTitle() {
     const { related_content } = TaskStepStore.get(this.props.id);
     return related_content && related_content[0] && related_content[0].title;
@@ -153,7 +150,3 @@ const StepContent = createReactClass({
 
 
 export { StepContent, ReadingStepContent };
-
-function __guard__(value, transform) {
-  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
-}

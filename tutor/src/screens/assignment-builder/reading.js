@@ -84,6 +84,10 @@ class ReviewReadings extends React.Component {
     canEdit: PropTypes.bool,
   };
 
+  static defaultProps = {
+    selected: [],
+  }
+
   UNSAFE_componentWillMount() {
     this.book = Courses.get(this.props.courseId).referenceBook;
     return this.book.ensureLoaded();
@@ -176,6 +180,7 @@ const ReadingPlan = createReactClass({
     const hasError = this.hasError();
 
     const plan = TaskPlanStore.get(id);
+
     const ecosystemId = TaskPlanStore.getEcosystemId(id, courseId);
 
     const topics = TaskPlanStore.getTopics(id);

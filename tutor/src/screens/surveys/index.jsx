@@ -71,11 +71,17 @@ class Surveys extends React.Component {
   }
 
   render() {
-    if (this.studentTasks.api.isPending) { return <LoadingScreen />; }
     const { course, model, survey } = this;
-    if (!survey) { return <NotFound />; }
-    if (survey.api.isPending) { return <LoadingScreen message="Saving response…" />; }
-    if (survey.isComplete) { return <ThankYou survey={survey} />; }
+    if (!survey) {
+      return this.studentTasks.api.isPending ?
+        <LoadingScreen /> : <NotFound />;
+    }
+    if (survey.api.isPending) {
+      return <LoadingScreen message="Saving response…" />;
+    }
+    if (survey.isComplete) {
+      return <ThankYou survey={survey} />;
+    }
 
     return (
       <CoursePage

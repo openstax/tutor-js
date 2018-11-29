@@ -28,18 +28,20 @@
   .card {
     position: relative;
     @include tutor-shadow('pop');
+    background: $tutor-white;
 
     .card-header,
     .card-footer {
       padding: 40px;
       color: inherit;
-      background-color: white;
+      background: $tutor-white;
       border: 0;
     }
 
     .card-body {
       min-height: $card-body-height;
       padding: 20px 40px;
+      background: $tutor-white;
     }
     .card-footer {
       .controls { text-align: right; }
@@ -155,8 +157,8 @@
         font-weight: 800;
         text-align: center;
         min-height: 6rem;
-        margin-top: 1rem;
-        margin-bottom: 1rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -261,6 +263,7 @@
 
       .input-group {
         width: 100%;
+        align-items: center;
         flex-wrap: nowrap;
       }
 
@@ -268,9 +271,6 @@
         text-align: center;
       }
 
-      .explain {
-        margin-bottom: 15px;
-      }
       label {
         margin-bottom: 0;
       }
