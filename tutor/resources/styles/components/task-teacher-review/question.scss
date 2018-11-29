@@ -63,10 +63,6 @@ $free-response-background:  $tutor-neutral-lighter;
     }
     .correct-incorrect {
       margin-right: 30px;
-      color: red;
-      &[data-is-correct="true"] {
-        color: green;
-      }
     }
     .selected-count {
       display: inline-block;
