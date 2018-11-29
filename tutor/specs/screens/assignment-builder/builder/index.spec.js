@@ -53,7 +53,7 @@ const makeTaskingPeriodKey = function(period) {
   if (period) { return `tasking-period${period.id}`; } else { return 'all'; }
 };
 
-const helper = function(model, routerQuery) {
+const helper = function(model, course) {
   const { id } = model;
   let props = {
     id,
@@ -63,7 +63,7 @@ const helper = function(model, routerQuery) {
   TaskPlanActions.loaded(model, id);
 
   if (!TaskPlanStore.isNew(id)) {
-    const term = CourseDataHelper.getCourseBounds(props.courseId);
+    const term = course.bounds;
     taskPlanEditingInitialize(id, Courses.get('1'), term);
   }
 
@@ -133,9 +133,8 @@ describe('Task Plan Builder', function() {
   });
 
   fit('should load expected plan', () => {
-    const course = Courses.get(1)
-    //console.log(course.periods)
-    const bld = helper(PUBLISHED_MODEL);
+    const course = Courses.get(1);
+    const bld = helper(PUBLISHED_MODEL, course);
     expect(bld.find('input#reading-title').props().defaultValue)
       .toEqual(PUBLISHED_MODEL.title);
     expect(bld.find('.assignment-description textarea').props().defaultValue)

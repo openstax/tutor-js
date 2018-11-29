@@ -27,8 +27,6 @@ class TeacherDashboard extends React.Component {
 
   static propTypes = {
     date:       TimeHelper.PropTypes.moment,
-    termStart:  TimeHelper.PropTypes.moment,
-    termEnd:    TimeHelper.PropTypes.moment,
     className:  PropTypes.string,
     hasPeriods: PropTypes.bool.isRequired,
     dateFormat: PropTypes.string.isRequired,
@@ -82,9 +80,10 @@ class TeacherDashboard extends React.Component {
   };
 
   @action.bound onDrop(item, offset) {
-    const { termStart, termEnd } = this.props;
+    const { start, end } = this.props.course.bounds;
+
     if (!this.hoveredDay ||
-      !this.hoveredDay.isBetween(termStart, termEnd, 'day', '[]') ||
+      !this.hoveredDay.isBetween(start, end, 'day', '[]') ||
       !this.hoveredDay.isSameOrAfter(TimeStore.getNow(), 'day')) { return; }
     if (item.pathname) { // is a link to create an assignment
       const url = item.pathname + '?' + qs.stringify({
@@ -152,7 +151,7 @@ class TeacherDashboard extends React.Component {
   }
 
   render() {
-    const { course, className, date, hasPeriods, termStart, termEnd } = this.props;
+    const { course, className, date, hasPeriods } = this.props;
 
     const calendarClassName = cn('calendar-container', className,
       { 'with-sidebar-open': this.props.showingSideBar }
@@ -171,8 +170,6 @@ class TeacherDashboard extends React.Component {
           ref="addAssignmentPopup"
           hasPeriods={hasPeriods}
           course={course}
-          termStart={termStart}
-          termEnd={termEnd}
           {...this.activeAddAssignment}
         />
         <div className="calendar-body">
@@ -207,8 +204,6 @@ class TeacherDashboard extends React.Component {
             planId={this.editingPlan.id}
             position={this.editingPosition}
             course={course}
-            termStart={termStart}
-            termEnd={termEnd}
             onHide={this.onEditorHide}
             findPopOverTarget={this.getEditingPlanEl}
           />)}

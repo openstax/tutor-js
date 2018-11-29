@@ -165,6 +165,16 @@ describe('Course Model', () => {
     expect(course.canAnnotate).toBe(true);
   });
 
+  it('returns bounds', () => {
+    const course = Courses.get(1);
+    expect(
+      course.bounds.start.isSame(course.starts_at, 'day'),
+    ).toBe(true);
+    expect(
+      course.bounds.end.isSame(course.ends_at, 'day'),
+    ).toBe(true);
+  });
+
   it('calculates payments needed', () => {
     const course = Courses.get(1);
     expect(course.needsPayment).toBe(false);
