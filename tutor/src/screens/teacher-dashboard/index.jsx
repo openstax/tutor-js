@@ -1,52 +1,33 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { extend, pick, isEmpty } from 'lodash';
+import moment from '../../helpers/moment-range';
+import Router from '../../helpers/router';
 import { observable, computed, action, observe } from 'mobx';
 import { observer, inject } from 'mobx-react';
+import { Redirect } from 'react-router-dom';
 import { NotificationsBar } from 'shared';
 import CoursePage from '../../components/course-page';
 import ModelLoader from '../../models/loader';
-import Courses from '../../models/courses-map';
-import { TimeStore } from '../../flux/time';
+import Courses, { Course } from '../../models/courses-map';
+import Time from '../../models/time';
 import TimeHelper from '../../helpers/time';
-import CourseDataHelper from '../../helpers/course-data';
 import NotificationHelpers from '../../helpers/notifications';
 import TermsModal from '../../components/terms-modal';
 import Dashboard from './dashboard';
 import CourseCalendarHeader from './header';
 import './styles.scss';
 
-// const displayAsHandler = {
-//   month: CourseMonth,
-// };
-//
-const getDisplayBounds = {
-  month(date) {
-    return {
-      startAt: TimeHelper.toISO(
-        date.clone().startOf('month').startOf('week').subtract(1, 'day')
-      ),
-      endAt: TimeHelper.toISO(
-        date.clone().endOf('month').endOf('week').add(1, 'day')
-      ),
-    };
-  },
-};
-
-
-export default
 @inject((allStores, props) => ({
   tourContext: ( props.tourContext || allStores.tourContext ),
 }))
 @observer
-class TeacherTaskPlanListing extends React.Component {
+class TeacherDashboardWrapper extends React.Component {
 
   static propTypes = {
     dateFormat: PropTypes.string,
-    params: PropTypes.shape({
-      courseId: PropTypes.string,
-      date: PropTypes.string,
-    }).isRequired,
+    date: PropTypes.string.isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
     tourContext: PropTypes.object,
   }
 
@@ -67,54 +48,45 @@ class TeacherTaskPlanListing extends React.Component {
     });
   }
 
-  @computed get course() {
-    return Courses.get(this.props.params.courseId);
+  @computed get date() {
+    return TimeHelper.getMomentPreserveDate(this.props.date, this.props.dateFormat);
   }
-
-  @computed get courseDates() {
-    const term = CourseDataHelper.getCourseBounds(this.course.id);
-    return { termStart: term.start, termEnd: term.end };
-  }
-
-  @observable loader = new ModelLoader({ model: this.course.taskPlans });
-
-  @observable displayAs = 'month';
-  @observable showingSideBar = false;
-  @observable date = this.getDateFromParams(this.courseDates);
 
   @computed get bounds() {
-    return getDisplayBounds[this.displayAs](this.date);
-  }
-
-  @computed get calendarParams() {
-    return (
-      extend({ date: this.date }, this.bounds, this.courseDates)
-    );
+    const { date } = this;
+    return {
+      startAt: TimeHelper.toISO(
+        date.clone().startOf('month').startOf('week').subtract(1, 'day')
+      ),
+      endAt: TimeHelper.toISO(
+        date.clone().endOf('month').endOf('week').add(1, 'day')
+      ),
+    };
   }
 
   @computed get fetchParams() {
     return extend(
       pick(this.calendarParams, 'startAt', 'endAt'),
-      { courseId: this.course.id }
+      { courseId: this.props.course.id }
     );
   }
 
-  componentWillMount() {
-    const courseTimezone = this.course.time_zone;
-    TimeHelper.syncCourseTimezone(courseTimezone);
-  }
+  @observable loader = new ModelLoader({
+    model: this.props.course.taskPlans,
+    fetch: true,
+  });
 
-  componentWillReceiveProps() {
-    this.date = this.getDateFromParams(this.courseDates);
-  }
+  disposePlanObserver = observe(this, 'fetchParams', ({ newValue: newFetchParams }) => {
+    this.loader.fetch(newFetchParams);
+  });
+
+  @observable displayAs = 'month';
+  @observable showingSideBar = false;
 
   componentDidMount() {
-    // the unmount from the builder often get's called after
-    // the initial `componentWillMount` so this is needed to make sure
-    // the time gets synced
-    const courseTimezone = this.course.time_zone;
+    const courseTimezone = this.props.course.time_zone;
     TimeHelper.syncCourseTimezone(courseTimezone);
-    this.course.trackDashboardView();
+    this.props.course.trackDashboardView();
   }
 
   componentWillUnmount() {
@@ -122,44 +94,21 @@ class TeacherTaskPlanListing extends React.Component {
     this.disposePlanObserver();
   }
 
-  getDateFromParams({ termStart }) {
-    const { date } = this.props.params;
-    if (date) {
-      return (
-        TimeHelper.getMomentPreserveDate(date, this.props.dateFormat)
-      );
-    } else {
-      const now = TimeHelper.getMomentPreserveDate(TimeStore.getNow(), this.props.dateFormat);
-      if (termStart.isAfter(now)) { return termStart; } else { return now; }
-    }
-  }
-
   @action.bound onSidebarToggle(isOpen) {
     this.showingSideBar = isOpen;
   }
 
-  renderCourseCalendarHeader(course, hasPeriods) {
-    return (
-      <CourseCalendarHeader
-        defaultOpen={this.showingSideBar}
-        onSidebarToggle={this.onSidebarToggle}
-        course={course}
-        hasPeriods={hasPeriods}
-      />
-    );
-  }
-
   render() {
     const {
-      course, showingSideBar, displayAs,
-      props: { dateFormat, params, params: { courseId } },
-      calendarParams: { date, termStart, termEnd },
+      showingSideBar, displayAs,
+      props: { dateFormat, course },
     } = this;
 
     const hasPeriods = !isEmpty(course.periods.active);
     const dashboardProps = {
-      course, date, displayAs, hasPeriods, params,
-      termStart, termEnd, showingSideBar, dateFormat,
+      course, date:  moment(this.props.date),
+      displayAs, hasPeriods,
+      showingSideBar, dateFormat,
     };
 
     if (this.loader.isBusy) {
@@ -172,12 +121,18 @@ class TeacherTaskPlanListing extends React.Component {
         title={course.name}
         subtitle={course.termFull}
         course={course}
-        controls={this.renderCourseCalendarHeader(course, hasPeriods)}
+        controls={
+          <CourseCalendarHeader
+            onSidebarToggle={this.onSidebarToggle}
+            course={course}
+            hasPeriods={hasPeriods}
+            defaultOpen={this.showingSideBar}
+          />}
         notices={
           <NotificationsBar
             course={course}
-                   role={course.primaryRole}
-                   callbacks={NotificationHelpers.buildCallbackHandlers(this)}
+            role={course.primaryRole}
+            callbacks={NotificationHelpers.buildCallbackHandlers(this)}
           />
         }
       >
@@ -186,5 +141,51 @@ class TeacherTaskPlanListing extends React.Component {
       </CoursePage>
     );
   }
+}
+export { TeacherDashboardWrapper };
+
+
+export default
+class TeacherDashboardDateWrapper extends React.Component {
+
+  static propTypes = {
+    params: PropTypes.shape({
+      courseId: PropTypes.string,
+      date: PropTypes.string,
+    }).isRequired,
+  }
+
+  @computed get course() {
+    return Courses.get(this.props.params.courseId);
+  }
+
+  render() {
+    if (!this.course) {
+      return <Redirect to={Router.makePathname('myCourses')} />;
+    }
+
+    if (!this.props.params.date) {
+      const { bounds } = this.course;
+      let date = Time.now;
+      if (bounds.start.isAfter(date)) {
+        date = bounds.start;
+      }
+
+      return (
+        <Redirect to={Router.makePathname('calendarByDate', {
+          courseId: this.course.id,
+          date: moment(date).format(TimeHelper.ISO_DATE_FORMAT),
+        })} />
+      );
+    }
+
+    return (
+      <TeacherDashboardWrapper
+        date={this.props.params.date}
+        course={this.course}
+      />
+    );
+  }
+
 
 };
