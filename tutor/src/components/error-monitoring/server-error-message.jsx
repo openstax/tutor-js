@@ -1,33 +1,9 @@
 import PropTypes from 'prop-types';
 import { React, observer } from '../../helpers/react';
 import { map, get, isObject } from 'lodash';
-import UserMenu from '../../models/user/menu';
-
+import { makeContactURL } from '../../helpers/contact';
 const SUPPORT_LINK_PARAMS = '&cu=1&fs=ContactUs&q=';
 
-const makeContactMessage = function({ status, statusMessage, config, location }) {
-  const { userAgent } = window.navigator;
-  const { data } = config;
-  let reqDetails = `${config.method} on ${config.url} returned status "${status}" with message "${statusMessage}"`;
-  if (data) {
-    reqDetails += `\n\nThe request body was:\n${isObject(data) ? JSON.stringify(data, null, 2) : data}`;
-  }
-
-  return `Hello!
-
-I ran into a problem at ${location} while using browser
-${userAgent}.
-
-The request details are:
-${reqDetails}.`;
-};
-
-const makeContactURL = function({ status, statusMessage, config }) {
-  const location = window.location.href;
-  const body = encodeURIComponent(makeContactMessage({ status, statusMessage, config, location }));
-  const subject = encodeURIComponent(`OpenStax Tutor Error ${status} at ${location}`);
-  return `mailto:${UserMenu.supportEmail}?subject=${subject}&body=${body}`;
-};
 
 const ServerErrorMessage = observer((props) => {
   let dataMessage, debugInfo;

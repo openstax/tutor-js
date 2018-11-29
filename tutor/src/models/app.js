@@ -45,6 +45,10 @@ export default class TutorApp {
     return app.initializeApp();
   }
 
+  logError(error, info) {
+    Raven.captureException(error, { extra: info });
+  }
+
   @action.bound initializeApp() {
     // _MODELS is for adhoc console debugging ONLY, no code should rely on this!
     window._MODELS = {};
