@@ -51,7 +51,9 @@ export default class TutorApp {
 
   @action.bound initializeApp() {
     // _MODELS is for adhoc console debugging ONLY, no code should rely on this!
-    window._MODELS = {};
+    window._MODELS = {
+      settings: UiSettings,
+    };
     window._MODELS.bootstrapData = this.data;
     forIn(BOOTSTRAPED_MODELS, (model, storeId) => {
       const data = this.data[storeId];
