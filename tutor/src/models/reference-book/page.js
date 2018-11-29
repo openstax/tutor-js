@@ -62,7 +62,13 @@ class ReferenceBookPage extends BaseModel {
       .replace(/<\/body>[\s\S]*$/, '');
   }
 
-  fetchContent() { }
+  @computed get book() {
+    return get(this, 'chapter.book', {});
+  }
+
+  fetchContent() {
+    return { cnx_id: this.cnx_id, ecosystemId: this.book.id };
+  }
 
   @action onContentFetchComplete({ data }) {
     this.update(pick(data, UPDATEABLE_FIELDS));
@@ -75,7 +81,7 @@ class ReferenceBookPage extends BaseModel {
   }
 
   @computed get bookIsCollated() {
-    return get(this, 'chapter.book.is_collated', false);
+    return this.book.is_collated;
   }
 
   onContentFetchFail() {
