@@ -55,7 +55,7 @@ class CourseNumbers extends React.Component {
             <InputGroup>
               <InputGroup.Prepend>
                 Number of sections
-                <p className="course-details-explain">in this course</p>
+                in this course
               </InputGroup.Prepend>
               <FormControl
                 id="number-sections"
@@ -72,7 +72,7 @@ class CourseNumbers extends React.Component {
             <InputGroup>
               <InputGroup.Prepend>
                 Estimated number of students
-                <p className="course-details-explain">in this course</p>
+                in this course.
               </InputGroup.Prepend>
               <FormControl
                 id="number-students"
