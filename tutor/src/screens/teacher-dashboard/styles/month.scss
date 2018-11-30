@@ -64,9 +64,13 @@ $dayz-event-border-radius: 0;
     .month-body {
       @include tutor-subtle-load('loading');
     }
-
     .plan {
       opacity: 0.1;
+    }
+    &.with-sidebar-open {
+      .month-body::after {
+        width: calc(100% - #{$calendar-sidebar-width});
+      }
     }
   }
 
