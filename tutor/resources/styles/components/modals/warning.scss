@@ -19,12 +19,9 @@
 
 
 .warning.modal {
-//  margin-top: 2rem;
-
   &.show {
     .modal-dialog {
       transform: translateY(110px);
     }
   }
-
 }

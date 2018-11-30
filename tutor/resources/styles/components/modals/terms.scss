@@ -41,6 +41,11 @@
       padding: 1rem 2rem;
     }
   }
+  &.show {
+    .modal-dialog {
+      transform: translateY(110px);
+    }
+  }
   &.is-loading {
     .modal-dialog { opacity: 0; }
     .modal-footer {
