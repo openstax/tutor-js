@@ -57,7 +57,9 @@ ServerErrorMessage.displayName = 'ServerErrorMessage';
 
 ServerErrorMessage.propTypes = {
   status: PropTypes.number,
-  data: PropTypes.object,
+  data: PropTypes.oneOfType([
+    PropTypes.object, PropTypes.string,
+  ]),
   statusMessage: PropTypes.string,
   config: PropTypes.object,
   debug: PropTypes.bool,
