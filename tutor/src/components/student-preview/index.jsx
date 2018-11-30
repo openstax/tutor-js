@@ -1,8 +1,7 @@
 import React from 'react';
 import Router from '../../helpers/router';
-
 import { Container, Row, Col } from 'react-bootstrap';
-import YouTube from 'react-youtube';
+import YouTube from '../../components/youtube';
 import BackButton from '../buttons/back-button';
 import CourseBranding from '../branding/course';
 import Courses from '../../models/courses-map';

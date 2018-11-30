@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { includes } from 'lodash';
 import { observer } from 'mobx-react';
-import BuilderPopup from '../../../components/student-preview/builder-popup';
+import BuilderPopup from './builder-popup';
 
 const VALID_PLAN_TYPES = ['reading', 'homework'];
 
