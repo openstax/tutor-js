@@ -13,4 +13,8 @@
   .loading-animation {
     min-height: calc(100vh - #{$tutor-navbar-height});
   }
+  &.menu-open .loading-animation {
+    max-width: 100%;
+    margin-left: $book-menu-width;
+  }
 }
