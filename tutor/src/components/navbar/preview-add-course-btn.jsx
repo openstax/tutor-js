@@ -47,7 +47,10 @@ class PreviewAddCourseBtn extends React.Component {
     if (!get(this, 'ux.showCreateCourseAction')) { return null; }
 
     return (
-      <TourAnchor id="preview-add-course-nav-button">
+      <TourAnchor
+        className="preview-add-course-nav-button"
+        id="preview-add-course-nav-button"
+      >
         <Button onClick={this.onAddCourse}>
           <Icon type="plus-square" />
           Create a course
