@@ -1,6 +1,6 @@
 import FakeWindow from 'shared/specs/helpers/fake-window';
-import BuilderPopup from '../../../src/components/student-preview/builder-popup';
-import { bootstrapCoursesList } from '../../courses-test-data';
+import BuilderPopup from '../../../../src/screens/assignment-builder/footer/builder-popup';
+import { bootstrapCoursesList } from '../../../courses-test-data';
 
 xdescribe('Student Preview Builder', () => {
   let props;
