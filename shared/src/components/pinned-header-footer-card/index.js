@@ -79,8 +79,8 @@ export default createReactClass({
     return 0;
   },
 
-  setOffset: debounce(function() {
-    return this.setState({ offset: this.getOffset() });
+  setOffset: debounce(function(offset) {
+    return this.setState({ offset });
   }, 10),
 
   shouldPinHeader(prevScrollTop, currentScrollTop) {
@@ -179,18 +179,19 @@ export default createReactClass({
   },
 
   componentDidMount() {
-    this.setOffset();
+    this.setOffset(this.getOffset());
     this.updatePinState(0);
     this.setOriginalContainerMargin();
     return this.setContainerMargin();
   },
 
   componentDidUpdate(prevProps, prevState) {
-    const didOffsetChange = (!this.state.pinned) && !(this.state.offset === this.getOffset());
+    const offset = this.getOffset();
+    const didOffsetChange = (!this.state.pinned) && this.state.offset !== offset;
     const didShouldPinChange = !prevState.pinned === this.shouldPinHeader(prevState.scrollTop, this.state.scrollTop);
     const didShouldBeShyChange = !prevState.shy === this.shouldBeShy(prevState.scrollTop, this.state.scrollTop);
     const didHeaderHeightChange = !(prevState.headerHeight === this.getHeaderHeight());
-    if (didOffsetChange) { this.setOffset(); }
+    if (didOffsetChange) { this.setOffset(offset); }
     if (didShouldPinChange || didShouldBeShyChange) { this.updatePinState(prevState.scrollTop); }
     if (didHeaderHeightChange || didShouldPinChange) { return this.setContainerMargin(); }
   },
