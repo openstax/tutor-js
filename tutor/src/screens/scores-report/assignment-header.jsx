@@ -126,9 +126,11 @@ const TeacherAssignmentHeaderRow = observer((props) => {
 const AssignmentHeader = observer((props) => {
   const { ux, columnIndex, isConceptCoach } = props;
   const heading = ux.period.data_headings[columnIndex];
-
   return (
-    <div className={`header-cell-wrapper col-${columnIndex} assignment`}>
+    <div
+      className="header-cell-wrapper assignment"
+      data-column={columnIndex}
+    >
       <OverlayTrigger
         placement="top"
         delayShow={1000}
