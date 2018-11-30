@@ -2,7 +2,6 @@ import { React, observer, cn, action } from '../../helpers/react';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'react-bootstrap';
 import moment from 'moment';
-import _ from 'underscore';
 import Course from '../../models/course';
 import { TimeStore } from '../../flux/time';
 import TimeHelper from '../../helpers/time';
@@ -16,6 +15,9 @@ class AddAssignmentPopUp extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
+    x: PropTypes.number,
+    y: PropTypes.number,
+    date: PropTypes.object,
   }
 
   static contextTypes = {
@@ -23,48 +25,18 @@ class AddAssignmentPopUp extends React.Component {
   }
 
   addMenu = new AddMenu({ router: this.context.router });
-  //
-  //   state = {
-  //     positionLeft: 0,
-  //     positionTop: 0,
-  //     open: false,
-  //     referenceDate: moment(TimeStore.getNow()),
-  //   }
-  //
-  //   @action.bound updateState(date, x, y) {
-  //     this.setState({
-  //       addDate: date,
-  //       positionLeft: x,
-  //       positionTop: y,
-  //       open: true,
-  //     });
-  //   }
-  //
-  //   @action.bound close() {
-  //     this.setState({
-  //       addDate: null,
-  //       open: false,
-  //     });
-  //   }
-  //
 
   get dateType() {
     const { date } = this.props;
     const { start, end } = this.props.course.bounds;
-
     if (date.isBefore(start, 'day')) {
-      return (
-        'day before term starts'
-      );
+      return 'day before term starts';
     } else if (date.isAfter(end, 'day')) {
-      return (
-        'day after term ends'
-      );
+      return 'day after term ends';
     } else if (date.isBefore(Time.now, 'day')) {
-      return (
-        'past day'
-      );
+      return 'past day';
     }
+    return null;
   }
 
   render() {
@@ -82,7 +54,6 @@ class AddAssignmentPopUp extends React.Component {
 
     const addDateType = this.dateType;
     const className = cn('course-add-dropdown', { 'no-add': addDateType });
-
     // only allow add if addDate is on or after reference date
     dropdownContent = addDateType ? (
       <li>
