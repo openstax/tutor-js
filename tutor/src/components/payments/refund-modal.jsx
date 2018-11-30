@@ -23,7 +23,8 @@ class ProcessRefund extends React.Component {
   render() {
     const { purchase, onCancel } = this.props;
     return (
-      <Modal.Dialog
+      <Modal
+        show={true}
         className="refund process"
       >
         <OXFancyLoader isLoading={purchase.api.isPending} />
@@ -47,7 +48,7 @@ class ProcessRefund extends React.Component {
           </AsyncButton>
           <Button onClick={onCancel}>Cancel</Button>
         </Modal.Footer>
-      </Modal.Dialog>
+      </Modal>
     );
   }
 }
@@ -74,7 +75,8 @@ class Survey extends React.Component {
   render() {
     const { onContinue } = this.props;
     return (
-      <Modal.Dialog
+      <Modal
+        show={true}
         className="refund survey"
       >
         <Modal.Header>
@@ -114,7 +116,7 @@ class Survey extends React.Component {
           <Button onClick={this.onSubmit} variant="primary">Submit</Button>
           <Button onClick={onContinue}>Skip this</Button>
         </Modal.Footer>
-      </Modal.Dialog>
+      </Modal>
     );
   }
 }
@@ -122,7 +124,8 @@ class Survey extends React.Component {
 
 function AreYouSure({ purchase, onCancel, onContinue }) {
   return (
-    <Modal.Dialog
+    <Modal
+      show={true}
       className="refund confirm"
     >
       <Modal.Header>
@@ -136,7 +139,7 @@ function AreYouSure({ purchase, onCancel, onContinue }) {
         <Button onClick={onContinue} variant="primary">Continue</Button>
         <Button onClick={onCancel}>Cancel</Button>
       </Modal.Footer>
-    </Modal.Dialog>
+    </Modal>
   );
 }
 AreYouSure.propTypes = {
@@ -158,7 +161,7 @@ class RefundStages extends React.Component {
 
   render() {
     const props = { onContinue: this.onContinue, ...this.props };
-
+    console.log("rend", this.stage)
     if (this.stage == 0) return <AreYouSure {...props} />;
     if (this.stage == 1) return <Survey {...props} />;
     if (this.stage == 2) return <ProcessRefund {...props} />;
@@ -168,6 +171,12 @@ class RefundStages extends React.Component {
 
 
 export default function RefundModal(props) {
+  // for testing without running payments server
+  // props = { ...props, purchase: new Purchase({
+  //   identifier: 'test',
+  //   total: 12.82,
+  //   product: { name: 'Foo' },
+  // }) };
   return props.purchase ? <RefundStages {...props} /> : null;
 }
 

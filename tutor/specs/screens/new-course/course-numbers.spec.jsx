@@ -1,4 +1,4 @@
-import { React, Factory } from '../../helpers';
+import { C, React, Factory } from '../../helpers';
 import CourseNumbers from '../../../src/screens/new-course/course-numbers';
 import BuilderUX from '../../../src/screens/new-course/ux';
 
@@ -19,7 +19,7 @@ describe('CreateCourse: entering details', function() {
   });
 
   it('is accessible', async () => {
-    const wrapper = mount(<CourseNumbers ux={ux} />);
+    const wrapper = mount(<C><CourseNumbers ux={ux} /></C>);
     expect(await axe(wrapper.html())).toHaveNoViolations();
     wrapper.unmount();
   });
@@ -32,7 +32,7 @@ describe('CreateCourse: entering details', function() {
   });
 
   it('updates values when edited', function() {
-    const wrapper = mount(<CourseNumbers ux={ux} />);
+    const wrapper = mount(<C><CourseNumbers ux={ux} /></C>);
     wrapper.find('FormControl[id="number-students"] input')
       .simulate('change', { target: { value: 3 } });
     wrapper.find('FormControl[id="number-sections"] input')
@@ -46,6 +46,6 @@ describe('CreateCourse: entering details', function() {
   });
 
   it('matches snapshot', function() {
-    expect.snapshot(<CourseNumbers ux={ux} />).toMatchSnapshot();
+    expect.snapshot(<C><CourseNumbers ux={ux} /></C>).toMatchSnapshot();
   });
 });

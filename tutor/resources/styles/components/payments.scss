@@ -67,12 +67,12 @@
   .modal-header,
   .modal-footer
   {
-    padding: $spacing;
+    padding: $spacing / 2;
   }
   .modal-header {
     background-color: $tutor-neutral-bright;
     border-bottom-color: $tutor-neutral-light;
-    margin-bottom: $spacing;
+    margin-bottom: $spacing / 2;
     .modal-title {
       color: black;
       font-size: 20px;

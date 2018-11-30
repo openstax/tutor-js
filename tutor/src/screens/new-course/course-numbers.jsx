@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Alert, FormControl, FormGroup, InputGroup, Form } from 'react-bootstrap';
 import UserMenu from '../../models/user/menu';
 import BuilderUX from './ux';
-import BestPracticesIcon from '../../components/icons/best-practices';
+import BestPracticesTip from '../../components/best-practices-tip';
 
 export default
 @observer
@@ -44,47 +44,45 @@ class CourseNumbers extends React.Component {
 
     return (
       <Form>
-        <BestPracticesIcon />
-        <p className="explain">
+        <BestPracticesTip>
           If you teach multiple sections of the same course, include all sections below.
           You can add or remove sections later.
-        </p>
+        </BestPracticesTip>
+          <Form.Group className="course-details-sections">
+            <Form.Label htmlFor="number-sections">
+              <InputGroup>
+                <InputGroup.Prepend>
+                  Number of sections
+                  in this course
+                </InputGroup.Prepend>
+                <FormControl
+                  id="number-sections"
+                  type="number"
+                  min="1"
+                  defaultValue={newCourse.num_sections}
+                  onChange={this.updateSectionCount} />
+              </InputGroup>
+            </Form.Label>
+          </Form.Group>
 
-        <Form.Group className="course-details-sections">
-          <Form.Label htmlFor="number-sections">
-            <InputGroup>
-              <InputGroup.Prepend>
-                Number of sections
-                in this course
-              </InputGroup.Prepend>
-              <FormControl
-                id="number-sections"
-                type="number"
-                min="1"
-                defaultValue={newCourse.num_sections}
-                onChange={this.updateSectionCount} />
-            </InputGroup>
-          </Form.Label>
-        </Form.Group>
+          <Form.Group className="course-details-numbers">
+            <Form.Label htmlFor="number-students">
+              <InputGroup>
+                <InputGroup.Prepend>
+                  Estimated number of students
+                  in this course.
+                </InputGroup.Prepend>
+                <FormControl
+                  id="number-students"
+                  type="number"
+                  min="1"
+                  defaultValue={newCourse.estimated_student_count || ''}
+                  onChange={this.updateStudentCount} />
+              </InputGroup>
+            </Form.Label>
+          </Form.Group>
 
-        <Form.Group className="course-details-numbers">
-          <Form.Label htmlFor="number-students">
-            <InputGroup>
-              <InputGroup.Prepend>
-                Estimated number of students
-                in this course.
-              </InputGroup.Prepend>
-              <FormControl
-                id="number-students"
-                type="number"
-                min="1"
-                defaultValue={newCourse.estimated_student_count || ''}
-                onChange={this.updateStudentCount} />
-            </InputGroup>
-          </Form.Label>
-        </Form.Group>
-
-        {this.renderErrors()}
+          {this.renderErrors()}
       </Form>
     );
   }

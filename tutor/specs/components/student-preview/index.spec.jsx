@@ -2,7 +2,7 @@ import { EnzymeContext, C, TutorRouter } from '../../helpers';
 import StudentPreview from '../../../src/components/student-preview';
 import { bootstrapCoursesList } from '../../courses-test-data';
 
-jest.mock('react-youtube', () => (
+jest.mock('../../../src/components/youtube', () => (
   (props) => <div data-type="youtube-mock">{JSON.stringify(props)}</div>
 ));
 jest.mock('../../../src/helpers/router');

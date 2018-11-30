@@ -26,7 +26,6 @@ const TutorTheme = {
     black:         'black',
     white:         'white',
     danger:        '#c2002f', // dark red
-
     neutral,
 
     states: {
@@ -39,6 +38,7 @@ const TutorTheme = {
       selected: '#63a524',
       active:   '#337eb5',
       muted:    neutral.lite,
+      notice:   '#eba927',
     },
 
   },

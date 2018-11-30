@@ -33,7 +33,8 @@ class TaskTeacherReview extends React.Component {
     return Courses.get(this.props.params.courseId);
   }
 
-  @computed get taskPlan() {
+  // not computed since withPlanId will add a missing plan
+  get taskPlan() {
     return this.course.taskPlans.withPlanId(this.props.params.id);
   }
 

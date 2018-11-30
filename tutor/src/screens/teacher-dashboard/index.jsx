@@ -65,10 +65,7 @@ class TeacherDashboardWrapper extends React.Component {
   }
 
   @computed get fetchParams() {
-    return extend(
-      pick(this.calendarParams, 'startAt', 'endAt'),
-      { courseId: this.props.course.id }
-    );
+    return extend({ courseId: this.props.course.id }, this.bounds);
   }
 
   @observable loader = new ModelLoader({
@@ -76,8 +73,8 @@ class TeacherDashboardWrapper extends React.Component {
     fetch: true,
   });
 
-  disposePlanObserver = observe(this, 'fetchParams', ({ newValue: newFetchParams }) => {
-    this.loader.fetch(newFetchParams);
+  disposePlanObserver = observe(this, 'fetchParams', ({ newValue: fetchParam }) => {
+    this.loader.fetch(fetchParam);
   });
 
   @observable displayAs = 'month';

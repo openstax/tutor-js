@@ -6,7 +6,6 @@ import { action } from 'mobx';
 import classnames from 'classnames';
 import keymaster from 'keymaster';
 import Icon from '../icon';
-import AnswerModel from '../../model/exercise/answer';
 import keysHelper from '../../helpers/keys';
 import ArbitraryHtmlAndMath from '../html';
 import { SimpleFeedback } from './feedback';
@@ -38,7 +37,7 @@ export default
 class Answer extends React.Component {
 
   static propTypes = {
-    answer: PropTypes.instanceOf(AnswerModel).isRequired,
+    answer: PropTypes.object.isRequired, // both shared exercise/answer and tutor/reviewanswer is passed in
     iter: PropTypes.number.isRequired,
     qid: PropTypes.oneOfType([
       PropTypes.string,
