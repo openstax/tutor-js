@@ -17,13 +17,13 @@ class ViewingAsStudentName extends React.Component {
     className: PropTypes.string,
   };
 
-  state = this.getStudentState();
-
   getStudentState = (props) => {
     const { courseId, taskId } = props || this.props;
     const task = Courses.get(courseId).scores.getTask(taskId);
     if (task) { return { student: task.student }; } else { return {}; }
   };
+
+  state = this.getStudentState();
 
   UNSAFE_componentWillMount() {
     const { courseId, taskId } = this.props;

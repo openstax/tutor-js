@@ -73,9 +73,12 @@
     @include tutor-spy-mode-content();
   };
 
-  // &.task-concept_coach {
-  //   @include concept-coach-breadcrumbs();
-  // }
+
+  .exercise-teacher-read-only {
+    .answers-answer .ox-icon {
+      display: none;
+    }
+  }
 }
 
 @import './external';

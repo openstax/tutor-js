@@ -40,9 +40,13 @@ const UiSettings = {
         SETTINGS.set(key, id);
       } else {
         let obj = SETTINGS.get(key) || {};
-        if (!isObject(obj)) { obj = {}; }
+        if (!isObject(obj)) {
+          obj = {};
+        } else {
+          obj = toJS(obj);
+        }
         obj[id] = value;
-        SETTINGS.set(key, observable(toJS(obj)));
+        SETTINGS.set(key, observable(obj));
       }
     }
     return saveSettings();

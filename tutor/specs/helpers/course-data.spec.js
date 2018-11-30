@@ -17,14 +17,4 @@ describe('Course Data helpers', function() {
     );
   });
 
-  return it('getCourseBounds', function() {
-    Courses.bootstrap([COURSE], { clear: true });
-    const bounds = CD.getCourseBounds(COURSE_ID);
-    expect(bounds.start).toEqual(
-      TimeHelper.getMomentPreserveDate(COURSE.starts_at, TimeHelper.ISO_DATE_FORMAT)
-    );
-    return expect(bounds.end).toEqual(
-      TimeHelper.getMomentPreserveDate(COURSE.ends_at, TimeHelper.ISO_DATE_FORMAT)
-    );
-  });
 });

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { debounce } from 'lodash';
 import createReactClass from 'create-react-class';
 import ReactDOM from 'react-dom';
 import classnames from 'classnames';
@@ -75,11 +76,12 @@ export default createReactClass({
     } else if (this.refs.header != null) {
       return this.getTopPosition(ReactDOM.findDOMNode(this.refs.header));
     }
+    return 0;
   },
 
-  setOffset() {
+  setOffset: debounce(function() {
     return this.setState({ offset: this.getOffset() });
-  },
+  }, 10),
 
   shouldPinHeader(prevScrollTop, currentScrollTop) {
     return (this.props.pinnedUntilScroll && !this.state.hasScrolled) ||

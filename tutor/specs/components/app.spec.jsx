@@ -19,6 +19,7 @@ describe('main Tutor App', () => {
 
   beforeEach(() => {
     props = {
+      app: {},
       location: { pathname: '/' },
     };
   });

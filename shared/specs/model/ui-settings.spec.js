@@ -71,7 +71,7 @@ describe('UiSettings', function() {
     obj.bar = 233;
     expect(spy).toHaveBeenCalledTimes(4);
     UiSettings.set('deep', 'bar', [2, 3] );
-    expect(spy).toHaveBeenCalledTimes(6);
+    expect(spy).toHaveBeenCalledTimes(5);
     obj = UiSettings.get('deep', 'bar');
     return expect(obj.toJS()).toEqual([2, 3]);
   });

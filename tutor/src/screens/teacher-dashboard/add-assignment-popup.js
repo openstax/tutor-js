@@ -16,8 +16,6 @@ class AddAssignmentPopUp extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
-    termStart:  TimeHelper.PropTypes.moment,
-    termEnd:    TimeHelper.PropTypes.moment,
   }
 
   static contextTypes = {
@@ -51,13 +49,14 @@ class AddAssignmentPopUp extends React.Component {
   //
 
   get dateType() {
-    const { date, termStart, termEnd } = this.props;
+    const { date } = this.props;
+    const { start, end } = this.props.course.bounds;
 
-    if (date.isBefore(termStart, 'day')) {
+    if (date.isBefore(start, 'day')) {
       return (
         'day before term starts'
       );
-    } else if (date.isAfter(termEnd, 'day')) {
+    } else if (date.isAfter(end, 'day')) {
       return (
         'day after term ends'
       );

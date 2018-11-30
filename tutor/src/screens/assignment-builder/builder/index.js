@@ -8,7 +8,6 @@ import BindStoresMixin from '../../../components/bind-stores-mixin';
 import TimeZoneSettings from './time-zone-settings-link';
 import taskPlanEditingInitialize from '../initialize-editing';
 import TimeHelper from '../../../helpers/time';
-import CourseDataHelper from '../../../helpers/course-data';
 import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
 import { TaskingStore, TaskingActions } from '../../../flux/tasking';
 import { TutorInput, TutorTextArea } from '../../../components/tutor-input';
@@ -42,10 +41,10 @@ const TaskPlanBuilder = createReactClass({
   },
 
   getInitialState() {
-    const { id } = this.props;
-
+    const { id, courseId } = this.props;
+    const course = Courses.get(courseId);
     return {
-      term: CourseDataHelper.getCourseBounds(this.props.courseId),
+      term: course.bounds,
       showingPeriods: !TaskingStore.getTaskingsIsAll(id),
       currentLocale: TimeHelper.getCurrentLocales(),
     };

@@ -45,9 +45,15 @@ export default class TutorApp {
     return app.initializeApp();
   }
 
+  logError(error, info) {
+    Raven.captureException(error, { extra: info });
+  }
+
   @action.bound initializeApp() {
     // _MODELS is for adhoc console debugging ONLY, no code should rely on this!
-    window._MODELS = {};
+    window._MODELS = {
+      settings: UiSettings,
+    };
     window._MODELS.bootstrapData = this.data;
     forIn(BOOTSTRAPED_MODELS, (model, storeId) => {
       const data = this.data[storeId];

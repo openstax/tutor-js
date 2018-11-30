@@ -16,7 +16,7 @@
       overflow: hidden;
       font-size: 2rem;
       color: $tutor-neutral-darker;
-      height: 28px;
+      min-height: 35px;
       margin: 0;
       padding: 0;
     }
@@ -31,6 +31,12 @@
     &.-tutor-date-input{
       input[disabled] ~ .date-wrapper {
         cursor: not-allowed;
+      }
+    }
+
+    .tutor-input {
+      input {
+        min-height: 35px;
       }
     }
 

@@ -43,12 +43,7 @@ exports[`CreateCourse: entering details matches snapshot 1`] = `
         <div
           className="input-group-prepend"
         >
-          Number of sections
-          <p
-            className="course-details-explain"
-          >
-            in this course
-          </p>
+          Number of sections in this course
         </div>
         <input
           className="form-control"
@@ -74,12 +69,7 @@ exports[`CreateCourse: entering details matches snapshot 1`] = `
         <div
           className="input-group-prepend"
         >
-          Estimated number of students
-          <p
-            className="course-details-explain"
-          >
-            in this course
-          </p>
+          Estimated number of students in this course.
         </div>
         <input
           className="form-control"

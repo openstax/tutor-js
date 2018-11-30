@@ -14,8 +14,8 @@ import User from '../models/user';
 import { SpyMode } from 'shared';
 import Courses from '../models/courses-map';
 import { TransitionActions } from '../flux/transition';
-
 import TourConductor from './tours/conductor';
+import ErrorBoundary from './error-monitoring/boundary';
 
 const RouteChange = function(props) {
   TransitionActions.load(props.pathname);
@@ -29,6 +29,7 @@ RouteChange.propTypes = {
 class App extends React.Component {
 
   static propTypes = {
+    app: PropTypes.object.isRequired, // can't use instanceOf (circular dep)
     location: PropTypes.shape({
       pathname: PropTypes.string,
     }).isRequired,
@@ -68,7 +69,9 @@ class App extends React.Component {
           <Navbar.context>
             <TourConductor>
               <Navbar.bar />
-              <MatchForTutor routes={Router.getRenderableRoutes()} />
+              <ErrorBoundary app={this.props.app}>
+                <MatchForTutor routes={Router.getRenderableRoutes()} />
+              </ErrorBoundary>
             </TourConductor>
           </Navbar.context>
         </SpyMode.Wrapper>

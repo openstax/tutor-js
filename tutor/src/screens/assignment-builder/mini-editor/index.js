@@ -38,8 +38,8 @@ class TaskPlanMiniEditorShell extends React.Component {
         id={this.props.planId}
         onHide={this.props.onHide}
         course={this.props.course}
-        termStart={this.props.termStart}
-        termEnd={this.props.termEnd}
+        termStart={this.props.course.bounds.start}
+        termEnd={this.props.course.bounds.end}
         save={TaskPlanActions.saveSilent}
         handleError={this.handleError} />
     );

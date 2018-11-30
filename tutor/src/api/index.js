@@ -158,7 +158,7 @@ const startAPI = function() {
 
   connectModelRead(ReferenceBook, 'fetch', { pattern: 'ecosystems/{id}/readings', onSuccess: 'onApiRequestComplete' });
   connectModelRead(ReferenceBookPage, 'fetchContent', {
-    pattern: 'pages/{cnx_id}',
+    pattern: 'ecosystems/{ecosystemId}/pages/{cnx_id}',
     onSuccess: 'onContentFetchComplete',
     onFail: 'onContentFetchFail',
   });

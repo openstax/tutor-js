@@ -27,6 +27,10 @@ const RavenErrorLogging = {
     });
   },
 
+  captureException(error, xtra) {
+    Raven.captureException(error, xtra)
+  },
+
 };
 
 

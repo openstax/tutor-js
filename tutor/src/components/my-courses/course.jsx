@@ -14,8 +14,6 @@ import OXFancyLoader from 'shared/components/staxly-animation';
 import { wrapCourseDragComponent } from './course-dnd';
 import CourseBranding from '../branding/course';
 
-import CourseData from '../../helpers/course-data';
-
 const CoursePropType = PropTypes.shape({
   id:   PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
