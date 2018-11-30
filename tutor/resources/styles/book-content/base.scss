@@ -14,6 +14,13 @@
 
   section {
     clear: both;
+
+    &.visual-exercise,
+    &.multiple-choice,
+    &.critical-thinking,
+    &.summary {
+      margin-top: 2rem;
+    }
   }
 
   blockquote {
@@ -96,6 +103,11 @@
 
   [data-type="document-title"] {
     display: none;
+  }
+
+  .os-glossary-container {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
   }
 
   .os-chapter-outline {

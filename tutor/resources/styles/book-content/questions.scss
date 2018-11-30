@@ -12,9 +12,24 @@
     width: 4%;
   };
 
+  [data-type=problem] {
+    > .os-number {
+      position: absolute;
+      position: absolute;
+      left: -25px;
+      top: -0.1rem;
+      font-weight: bold;
+      font-size: 2rem;
+      & + .os-divider {
+        display: none;
+      }
+    }
+  }
+
   .exercise,
   [data-type=exercise] {
     @include tutor-serif-font(1.75rem, 190%);
+    position: relative;
 
     &:not(.unnumbered) {
       > [data-type=problem] {
