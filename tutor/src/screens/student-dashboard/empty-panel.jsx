@@ -20,7 +20,7 @@ const EmptyCard = observer(({
       </Card>
     );
   }
-  if (studentTasks.api.isPending) {
+  if (studentTasks.api.isPendingInitialFetch) {
     return (
       <Card className={cn('empty', 'pending', className)} header={title}>
         <Icon type="spinner" spin /> Fetching assignments for your course.

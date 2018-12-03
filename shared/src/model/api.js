@@ -19,6 +19,10 @@ export default class ModelApi {
     return this.requestsInProgress.size > 0;
   }
 
+  @computed get isPendingInitialFetch() {
+    this.isPending && !this.hasBeenFetched;
+  }
+
   @computed get hasBeenFetched() {
     return Boolean(
       this.requestCounts.read > 0
