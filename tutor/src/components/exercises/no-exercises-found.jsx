@@ -13,10 +13,10 @@ export default class NoExercisesFound extends React.Component {
     return (
       <div className="no-exercises-found">
         <h3>
-          No exercises were found for the given sections or types.
+          No exercises were found for the given sections.
         </h3>
         <p className="lead">
-          Please select addtional sections and retry
+          Please select additional sections and retry
         </p>
       </div>
     );
