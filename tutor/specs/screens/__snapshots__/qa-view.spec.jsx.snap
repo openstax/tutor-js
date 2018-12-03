@@ -20,12 +20,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            1
-          </span>
-          The Study of Life
+            <span
+              className="section-number"
+            >
+              1
+            </span>
+            <span>
+              The Study of Life
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -44,12 +50,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                1
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -70,12 +77,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                1.1
-              </span>
-              The Science of Biology
+                <span
+                  className="section-number"
+                >
+                  1.1
+                </span>
+                <span>
+                  The Science of Biology
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -96,12 +109,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                1.2
-              </span>
-              Themes and Concepts of Biology
+                <span
+                  className="section-number"
+                >
+                  1.2
+                </span>
+                <span>
+                  Themes and Concepts of Biology
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -120,12 +139,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            2
-          </span>
-          The Chemical Foundation of Life
+            <span
+              className="section-number"
+            >
+              2
+            </span>
+            <span>
+              The Chemical Foundation of Life
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -144,12 +169,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                2
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -170,12 +196,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                2.1
-              </span>
-              Atoms, Isotopes, Ions, and Molecules: The Building Blocks
+                <span
+                  className="section-number"
+                >
+                  2.1
+                </span>
+                <span>
+                  Atoms, Isotopes, Ions, and Molecules: The Building Blocks
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -196,12 +228,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                2.2
-              </span>
-              Water
+                <span
+                  className="section-number"
+                >
+                  2.2
+                </span>
+                <span>
+                  Water
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -222,12 +260,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                2.3
-              </span>
-              Carbon
+                <span
+                  className="section-number"
+                >
+                  2.3
+                </span>
+                <span>
+                  Carbon
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -246,12 +290,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            3
-          </span>
-          Biological Macromolecules
+            <span
+              className="section-number"
+            >
+              3
+            </span>
+            <span>
+              Biological Macromolecules
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -270,12 +320,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                3
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -296,12 +347,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                3.1
-              </span>
-              Synthesis of Biological Macromolecules
+                <span
+                  className="section-number"
+                >
+                  3.1
+                </span>
+                <span>
+                  Synthesis of Biological Macromolecules
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -322,12 +379,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                3.2
-              </span>
-              Carbohydrates
+                <span
+                  className="section-number"
+                >
+                  3.2
+                </span>
+                <span>
+                  Carbohydrates
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -348,12 +411,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                3.3
-              </span>
-              Lipids
+                <span
+                  className="section-number"
+                >
+                  3.3
+                </span>
+                <span>
+                  Lipids
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -374,12 +443,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                3.4
-              </span>
-              Proteins
+                <span
+                  className="section-number"
+                >
+                  3.4
+                </span>
+                <span>
+                  Proteins
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -400,12 +475,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                3.5
-              </span>
-              Nucleic Acids
+                <span
+                  className="section-number"
+                >
+                  3.5
+                </span>
+                <span>
+                  Nucleic Acids
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -424,12 +505,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            4
-          </span>
-          Cell Structure
+            <span
+              className="section-number"
+            >
+              4
+            </span>
+            <span>
+              Cell Structure
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -448,12 +535,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                4
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -474,12 +562,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                4.1
-              </span>
-              Studying Cells
+                <span
+                  className="section-number"
+                >
+                  4.1
+                </span>
+                <span>
+                  Studying Cells
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -500,12 +594,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                4.2
-              </span>
-              Prokaryotic Cells
+                <span
+                  className="section-number"
+                >
+                  4.2
+                </span>
+                <span>
+                  Prokaryotic Cells
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -526,12 +626,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                4.3
-              </span>
-              Eukaryotic Cells
+                <span
+                  className="section-number"
+                >
+                  4.3
+                </span>
+                <span>
+                  Eukaryotic Cells
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -552,12 +658,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                4.4
-              </span>
-              The Endomembrane System and Proteins
+                <span
+                  className="section-number"
+                >
+                  4.4
+                </span>
+                <span>
+                  The Endomembrane System and Proteins
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -578,12 +690,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                4.5
-              </span>
-              The Cytoskeleton
+                <span
+                  className="section-number"
+                >
+                  4.5
+                </span>
+                <span>
+                  The Cytoskeleton
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -604,12 +722,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                4.6
-              </span>
-              Connections between Cells and Cellular Activities
+                <span
+                  className="section-number"
+                >
+                  4.6
+                </span>
+                <span>
+                  Connections between Cells and Cellular Activities
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -628,12 +752,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            5
-          </span>
-          Structure and Function of Plasma Membranes
+            <span
+              className="section-number"
+            >
+              5
+            </span>
+            <span>
+              Structure and Function of Plasma Membranes
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -652,12 +782,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                5
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -678,12 +809,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                5.1
-              </span>
-              Components and Structure
+                <span
+                  className="section-number"
+                >
+                  5.1
+                </span>
+                <span>
+                  Components and Structure
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -704,12 +841,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                5.2
-              </span>
-              Passive Transport
+                <span
+                  className="section-number"
+                >
+                  5.2
+                </span>
+                <span>
+                  Passive Transport
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -730,12 +873,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                5.3
-              </span>
-              Active Transport
+                <span
+                  className="section-number"
+                >
+                  5.3
+                </span>
+                <span>
+                  Active Transport
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -756,12 +905,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                5.4
-              </span>
-              Bulk Transport
+                <span
+                  className="section-number"
+                >
+                  5.4
+                </span>
+                <span>
+                  Bulk Transport
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -780,12 +935,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            6
-          </span>
-          Metabolism
+            <span
+              className="section-number"
+            >
+              6
+            </span>
+            <span>
+              Metabolism
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -804,12 +965,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                6
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -830,12 +992,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                6.1
-              </span>
-              Energy and Metabolism
+                <span
+                  className="section-number"
+                >
+                  6.1
+                </span>
+                <span>
+                  Energy and Metabolism
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -856,12 +1024,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                6.2
-              </span>
-              Potential, Kinetic, Free, and Activation Energy
+                <span
+                  className="section-number"
+                >
+                  6.2
+                </span>
+                <span>
+                  Potential, Kinetic, Free, and Activation Energy
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -882,12 +1056,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                6.3
-              </span>
-              The Laws of Thermodynamics
+                <span
+                  className="section-number"
+                >
+                  6.3
+                </span>
+                <span>
+                  The Laws of Thermodynamics
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -908,12 +1088,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                6.4
-              </span>
-              ATP: Adenosine Triphosphate
+                <span
+                  className="section-number"
+                >
+                  6.4
+                </span>
+                <span>
+                  ATP: Adenosine Triphosphate
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -934,12 +1120,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                6.5
-              </span>
-              Enzymes
+                <span
+                  className="section-number"
+                >
+                  6.5
+                </span>
+                <span>
+                  Enzymes
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -958,12 +1150,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            7
-          </span>
-          Cellular Respiration
+            <span
+              className="section-number"
+            >
+              7
+            </span>
+            <span>
+              Cellular Respiration
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -982,12 +1180,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                7
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1008,12 +1207,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                7.1
-              </span>
-              Energy in Living Systems
+                <span
+                  className="section-number"
+                >
+                  7.1
+                </span>
+                <span>
+                  Energy in Living Systems
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1034,12 +1239,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                7.2
-              </span>
-              Glycolysis
+                <span
+                  className="section-number"
+                >
+                  7.2
+                </span>
+                <span>
+                  Glycolysis
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1060,12 +1271,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                7.3
-              </span>
-              Oxidation of Pyruvate and the Citric Acid Cycle
+                <span
+                  className="section-number"
+                >
+                  7.3
+                </span>
+                <span>
+                  Oxidation of Pyruvate and the Citric Acid Cycle
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1086,12 +1303,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                7.4
-              </span>
-              Oxidative Phosphorylation
+                <span
+                  className="section-number"
+                >
+                  7.4
+                </span>
+                <span>
+                  Oxidative Phosphorylation
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1112,12 +1335,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                7.5
-              </span>
-              Metabolism without Oxygen
+                <span
+                  className="section-number"
+                >
+                  7.5
+                </span>
+                <span>
+                  Metabolism without Oxygen
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1138,12 +1367,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                7.6
-              </span>
-              Connections of Carbohydrate, Protein, and Lipid Metabolic Pathways
+                <span
+                  className="section-number"
+                >
+                  7.6
+                </span>
+                <span>
+                  Connections of Carbohydrate, Protein, and Lipid Metabolic Pathways
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1164,12 +1399,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                7.7
-              </span>
-              Regulation of Cellular Respiration
+                <span
+                  className="section-number"
+                >
+                  7.7
+                </span>
+                <span>
+                  Regulation of Cellular Respiration
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1188,12 +1429,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            8
-          </span>
-          Photosynthesis
+            <span
+              className="section-number"
+            >
+              8
+            </span>
+            <span>
+              Photosynthesis
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -1212,12 +1459,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                8
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1238,12 +1486,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                8.1
-              </span>
-              Overview of Photosynthesis
+                <span
+                  className="section-number"
+                >
+                  8.1
+                </span>
+                <span>
+                  Overview of Photosynthesis
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1264,12 +1518,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                8.2
-              </span>
-              The Light-Dependent Reactions of Photosynthesis
+                <span
+                  className="section-number"
+                >
+                  8.2
+                </span>
+                <span>
+                  The Light-Dependent Reactions of Photosynthesis
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1290,12 +1550,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                8.3
-              </span>
-              Using Light Energy to Make Organic Molecules
+                <span
+                  className="section-number"
+                >
+                  8.3
+                </span>
+                <span>
+                  Using Light Energy to Make Organic Molecules
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1314,12 +1580,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            9
-          </span>
-          Cell Communication
+            <span
+              className="section-number"
+            >
+              9
+            </span>
+            <span>
+              Cell Communication
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -1338,12 +1610,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                9
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1364,12 +1637,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                9.1
-              </span>
-              Signaling Molecules and Cellular Receptors
+                <span
+                  className="section-number"
+                >
+                  9.1
+                </span>
+                <span>
+                  Signaling Molecules and Cellular Receptors
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1390,12 +1669,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                9.2
-              </span>
-              Propagation of the Signal
+                <span
+                  className="section-number"
+                >
+                  9.2
+                </span>
+                <span>
+                  Propagation of the Signal
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1416,12 +1701,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                9.3
-              </span>
-              Response to the Signal
+                <span
+                  className="section-number"
+                >
+                  9.3
+                </span>
+                <span>
+                  Response to the Signal
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1442,12 +1733,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                9.4
-              </span>
-              Signaling in Single-Celled Organisms
+                <span
+                  className="section-number"
+                >
+                  9.4
+                </span>
+                <span>
+                  Signaling in Single-Celled Organisms
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1466,12 +1763,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            10
-          </span>
-          Cell Reproduction
+            <span
+              className="section-number"
+            >
+              10
+            </span>
+            <span>
+              Cell Reproduction
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -1490,12 +1793,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                10
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1516,12 +1820,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                10.1
-              </span>
-              Cell Division
+                <span
+                  className="section-number"
+                >
+                  10.1
+                </span>
+                <span>
+                  Cell Division
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1542,12 +1852,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                10.2
-              </span>
-              The Cell Cycle
+                <span
+                  className="section-number"
+                >
+                  10.2
+                </span>
+                <span>
+                  The Cell Cycle
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1568,12 +1884,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                10.3
-              </span>
-              Control of the Cell Cycle
+                <span
+                  className="section-number"
+                >
+                  10.3
+                </span>
+                <span>
+                  Control of the Cell Cycle
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1594,12 +1916,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                10.4
-              </span>
-              Cancer and the Cell Cycle
+                <span
+                  className="section-number"
+                >
+                  10.4
+                </span>
+                <span>
+                  Cancer and the Cell Cycle
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1620,12 +1948,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                10.5
-              </span>
-              Prokaryotic Cell Division
+                <span
+                  className="section-number"
+                >
+                  10.5
+                </span>
+                <span>
+                  Prokaryotic Cell Division
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1644,12 +1978,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            11
-          </span>
-          Meiosis and Sexual Reproduction
+            <span
+              className="section-number"
+            >
+              11
+            </span>
+            <span>
+              Meiosis and Sexual Reproduction
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -1668,12 +2008,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                11
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1694,12 +2035,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                11.1
-              </span>
-              The Process of Meiosis
+                <span
+                  className="section-number"
+                >
+                  11.1
+                </span>
+                <span>
+                  The Process of Meiosis
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1720,12 +2067,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                11.2
-              </span>
-              Sexual Reproduction
+                <span
+                  className="section-number"
+                >
+                  11.2
+                </span>
+                <span>
+                  Sexual Reproduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1744,12 +2097,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            12
-          </span>
-          Mendel's Experiments and Heredity
+            <span
+              className="section-number"
+            >
+              12
+            </span>
+            <span>
+              Mendel's Experiments and Heredity
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -1768,12 +2127,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                12
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1794,12 +2154,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                12.1
-              </span>
-              Mendel’s Experiments and the Laws of Probability
+                <span
+                  className="section-number"
+                >
+                  12.1
+                </span>
+                <span>
+                  Mendel’s Experiments and the Laws of Probability
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1820,12 +2186,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                12.2
-              </span>
-              Characteristics and Traits
+                <span
+                  className="section-number"
+                >
+                  12.2
+                </span>
+                <span>
+                  Characteristics and Traits
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1846,12 +2218,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                12.3
-              </span>
-              Laws of Inheritance
+                <span
+                  className="section-number"
+                >
+                  12.3
+                </span>
+                <span>
+                  Laws of Inheritance
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1870,12 +2248,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            13
-          </span>
-          Modern Understandings of Inheritance
+            <span
+              className="section-number"
+            >
+              13
+            </span>
+            <span>
+              Modern Understandings of Inheritance
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -1894,12 +2278,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                13
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1920,12 +2305,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                13.1
-              </span>
-              Chromosomal Theory and Genetic Linkage
+                <span
+                  className="section-number"
+                >
+                  13.1
+                </span>
+                <span>
+                  Chromosomal Theory and Genetic Linkage
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1946,12 +2337,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                13.2
-              </span>
-              Chromosomal Basis of Inherited Disorders
+                <span
+                  className="section-number"
+                >
+                  13.2
+                </span>
+                <span>
+                  Chromosomal Basis of Inherited Disorders
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -1970,12 +2367,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            14
-          </span>
-          DNA Structure and Function
+            <span
+              className="section-number"
+            >
+              14
+            </span>
+            <span>
+              DNA Structure and Function
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -1994,12 +2397,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                14
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2020,12 +2424,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                14.1
-              </span>
-              Historical Basis of Modern Understanding
+                <span
+                  className="section-number"
+                >
+                  14.1
+                </span>
+                <span>
+                  Historical Basis of Modern Understanding
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2046,12 +2456,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                14.2
-              </span>
-              DNA Structure and Sequencing
+                <span
+                  className="section-number"
+                >
+                  14.2
+                </span>
+                <span>
+                  DNA Structure and Sequencing
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2072,12 +2488,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                14.3
-              </span>
-              Basics of DNA Replication
+                <span
+                  className="section-number"
+                >
+                  14.3
+                </span>
+                <span>
+                  Basics of DNA Replication
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2098,12 +2520,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                14.4
-              </span>
-              DNA Replication in Prokaryotes
+                <span
+                  className="section-number"
+                >
+                  14.4
+                </span>
+                <span>
+                  DNA Replication in Prokaryotes
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2124,12 +2552,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                14.5
-              </span>
-              DNA Replication in Eukaryotes
+                <span
+                  className="section-number"
+                >
+                  14.5
+                </span>
+                <span>
+                  DNA Replication in Eukaryotes
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2150,12 +2584,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                14.6
-              </span>
-              DNA Repair
+                <span
+                  className="section-number"
+                >
+                  14.6
+                </span>
+                <span>
+                  DNA Repair
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2174,12 +2614,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            15
-          </span>
-          Genes and Proteins
+            <span
+              className="section-number"
+            >
+              15
+            </span>
+            <span>
+              Genes and Proteins
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -2198,12 +2644,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                15
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2224,12 +2671,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                15.1
-              </span>
-              The Genetic Code
+                <span
+                  className="section-number"
+                >
+                  15.1
+                </span>
+                <span>
+                  The Genetic Code
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2250,12 +2703,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                15.2
-              </span>
-              Prokaryotic Transcription
+                <span
+                  className="section-number"
+                >
+                  15.2
+                </span>
+                <span>
+                  Prokaryotic Transcription
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2276,12 +2735,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                15.3
-              </span>
-              Eukaryotic Transcription
+                <span
+                  className="section-number"
+                >
+                  15.3
+                </span>
+                <span>
+                  Eukaryotic Transcription
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2302,12 +2767,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                15.4
-              </span>
-              RNA Processing in Eukaryotes
+                <span
+                  className="section-number"
+                >
+                  15.4
+                </span>
+                <span>
+                  RNA Processing in Eukaryotes
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2328,12 +2799,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                15.5
-              </span>
-              Ribosomes and Protein Synthesis
+                <span
+                  className="section-number"
+                >
+                  15.5
+                </span>
+                <span>
+                  Ribosomes and Protein Synthesis
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2352,12 +2829,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            16
-          </span>
-          Gene Expression
+            <span
+              className="section-number"
+            >
+              16
+            </span>
+            <span>
+              Gene Expression
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -2376,12 +2859,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                16
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2402,12 +2886,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                16.1
-              </span>
-              Regulation of Gene Expression
+                <span
+                  className="section-number"
+                >
+                  16.1
+                </span>
+                <span>
+                  Regulation of Gene Expression
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2428,12 +2918,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                16.2
-              </span>
-              Prokaryotic Gene Regulation
+                <span
+                  className="section-number"
+                >
+                  16.2
+                </span>
+                <span>
+                  Prokaryotic Gene Regulation
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2454,12 +2950,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                16.3
-              </span>
-              Eukaryotic Epigenetic Gene Regulation
+                <span
+                  className="section-number"
+                >
+                  16.3
+                </span>
+                <span>
+                  Eukaryotic Epigenetic Gene Regulation
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2480,12 +2982,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                16.4
-              </span>
-              Eukaryotic Transcription Gene Regulation
+                <span
+                  className="section-number"
+                >
+                  16.4
+                </span>
+                <span>
+                  Eukaryotic Transcription Gene Regulation
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2506,12 +3014,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                16.5
-              </span>
-              Eukaryotic Post-transcriptional Gene Regulation
+                <span
+                  className="section-number"
+                >
+                  16.5
+                </span>
+                <span>
+                  Eukaryotic Post-transcriptional Gene Regulation
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2532,12 +3046,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                16.6
-              </span>
-              Eukaryotic Translational and Post-translational Gene Regulation
+                <span
+                  className="section-number"
+                >
+                  16.6
+                </span>
+                <span>
+                  Eukaryotic Translational and Post-translational Gene Regulation
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2558,12 +3078,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                16.7
-              </span>
-              Cancer and Gene Regulation
+                <span
+                  className="section-number"
+                >
+                  16.7
+                </span>
+                <span>
+                  Cancer and Gene Regulation
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2582,12 +3108,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            17
-          </span>
-          Biotechnology and Genomics
+            <span
+              className="section-number"
+            >
+              17
+            </span>
+            <span>
+              Biotechnology and Genomics
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -2606,12 +3138,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                17
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2632,12 +3165,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                17.1
-              </span>
-              Biotechnology
+                <span
+                  className="section-number"
+                >
+                  17.1
+                </span>
+                <span>
+                  Biotechnology
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2658,12 +3197,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                17.2
-              </span>
-              Mapping Genomes
+                <span
+                  className="section-number"
+                >
+                  17.2
+                </span>
+                <span>
+                  Mapping Genomes
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2684,12 +3229,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                17.3
-              </span>
-              Whole-Genome Sequencing
+                <span
+                  className="section-number"
+                >
+                  17.3
+                </span>
+                <span>
+                  Whole-Genome Sequencing
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2710,12 +3261,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                17.4
-              </span>
-              Applying Genomics
+                <span
+                  className="section-number"
+                >
+                  17.4
+                </span>
+                <span>
+                  Applying Genomics
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2736,12 +3293,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                17.5
-              </span>
-              Genomics and Proteomics
+                <span
+                  className="section-number"
+                >
+                  17.5
+                </span>
+                <span>
+                  Genomics and Proteomics
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2760,12 +3323,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            18
-          </span>
-          Evolution and the Origin of Species
+            <span
+              className="section-number"
+            >
+              18
+            </span>
+            <span>
+              Evolution and the Origin of Species
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -2784,12 +3353,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                18
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2810,12 +3380,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                18.1
-              </span>
-              Understanding Evolution
+                <span
+                  className="section-number"
+                >
+                  18.1
+                </span>
+                <span>
+                  Understanding Evolution
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2836,12 +3412,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                18.2
-              </span>
-              Formation of New Species
+                <span
+                  className="section-number"
+                >
+                  18.2
+                </span>
+                <span>
+                  Formation of New Species
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2862,12 +3444,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                18.3
-              </span>
-              Reconnection and Rates of Speciation
+                <span
+                  className="section-number"
+                >
+                  18.3
+                </span>
+                <span>
+                  Reconnection and Rates of Speciation
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2886,12 +3474,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            19
-          </span>
-          The Evolution of Populations
+            <span
+              className="section-number"
+            >
+              19
+            </span>
+            <span>
+              The Evolution of Populations
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -2910,12 +3504,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                19
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2936,12 +3531,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                19.1
-              </span>
-              Population Evolution
+                <span
+                  className="section-number"
+                >
+                  19.1
+                </span>
+                <span>
+                  Population Evolution
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2962,12 +3563,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                19.2
-              </span>
-              Population Genetics
+                <span
+                  className="section-number"
+                >
+                  19.2
+                </span>
+                <span>
+                  Population Genetics
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -2988,12 +3595,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                19.3
-              </span>
-              Adaptive Evolution
+                <span
+                  className="section-number"
+                >
+                  19.3
+                </span>
+                <span>
+                  Adaptive Evolution
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3012,12 +3625,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            20
-          </span>
-          Phylogenies and the History of Life
+            <span
+              className="section-number"
+            >
+              20
+            </span>
+            <span>
+              Phylogenies and the History of Life
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -3036,12 +3655,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                20
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3062,12 +3682,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                20.1
-              </span>
-              Organizing Life on Earth
+                <span
+                  className="section-number"
+                >
+                  20.1
+                </span>
+                <span>
+                  Organizing Life on Earth
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3088,12 +3714,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                20.2
-              </span>
-              Determining Evolutionary Relationships
+                <span
+                  className="section-number"
+                >
+                  20.2
+                </span>
+                <span>
+                  Determining Evolutionary Relationships
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3114,12 +3746,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                20.3
-              </span>
-              Perspectives on the Phylogenetic Tree
+                <span
+                  className="section-number"
+                >
+                  20.3
+                </span>
+                <span>
+                  Perspectives on the Phylogenetic Tree
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3138,12 +3776,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            21
-          </span>
-          Viruses
+            <span
+              className="section-number"
+            >
+              21
+            </span>
+            <span>
+              Viruses
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -3162,12 +3806,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                21
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3188,12 +3833,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                21.1
-              </span>
-              Viral Evolution, Morphology, and Classification
+                <span
+                  className="section-number"
+                >
+                  21.1
+                </span>
+                <span>
+                  Viral Evolution, Morphology, and Classification
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3214,12 +3865,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                21.2
-              </span>
-              Virus Infections and Hosts
+                <span
+                  className="section-number"
+                >
+                  21.2
+                </span>
+                <span>
+                  Virus Infections and Hosts
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3240,12 +3897,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                21.3
-              </span>
-              Prevention and Treatment of Viral Infections
+                <span
+                  className="section-number"
+                >
+                  21.3
+                </span>
+                <span>
+                  Prevention and Treatment of Viral Infections
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3266,12 +3929,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                21.4
-              </span>
-              Other Acellular Entities: Prions and Viroids
+                <span
+                  className="section-number"
+                >
+                  21.4
+                </span>
+                <span>
+                  Other Acellular Entities: Prions and Viroids
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3290,12 +3959,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            22
-          </span>
-          Prokaryotes: Bacteria and Archaea
+            <span
+              className="section-number"
+            >
+              22
+            </span>
+            <span>
+              Prokaryotes: Bacteria and Archaea
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -3314,12 +3989,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                22
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3340,12 +4016,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                22.1
-              </span>
-              Prokaryotic Diversity
+                <span
+                  className="section-number"
+                >
+                  22.1
+                </span>
+                <span>
+                  Prokaryotic Diversity
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3366,12 +4048,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                22.2
-              </span>
-              Structure of Prokaryotes
+                <span
+                  className="section-number"
+                >
+                  22.2
+                </span>
+                <span>
+                  Structure of Prokaryotes
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3392,12 +4080,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                22.3
-              </span>
-              Prokaryotic Metabolism
+                <span
+                  className="section-number"
+                >
+                  22.3
+                </span>
+                <span>
+                  Prokaryotic Metabolism
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3418,12 +4112,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                22.4
-              </span>
-              Bacterial Diseases in Humans
+                <span
+                  className="section-number"
+                >
+                  22.4
+                </span>
+                <span>
+                  Bacterial Diseases in Humans
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3444,12 +4144,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                22.5
-              </span>
-              Beneficial Prokaryotes
+                <span
+                  className="section-number"
+                >
+                  22.5
+                </span>
+                <span>
+                  Beneficial Prokaryotes
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3468,12 +4174,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            23
-          </span>
-          Protists
+            <span
+              className="section-number"
+            >
+              23
+            </span>
+            <span>
+              Protists
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -3492,12 +4204,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                23
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3518,12 +4231,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                23.1
-              </span>
-              Eukaryotic Origins
+                <span
+                  className="section-number"
+                >
+                  23.1
+                </span>
+                <span>
+                  Eukaryotic Origins
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3544,12 +4263,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                23.2
-              </span>
-              Characteristics of Protists
+                <span
+                  className="section-number"
+                >
+                  23.2
+                </span>
+                <span>
+                  Characteristics of Protists
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3570,12 +4295,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                23.3
-              </span>
-              Groups of Protists
+                <span
+                  className="section-number"
+                >
+                  23.3
+                </span>
+                <span>
+                  Groups of Protists
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3596,12 +4327,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                23.4
-              </span>
-              Ecology of Protists
+                <span
+                  className="section-number"
+                >
+                  23.4
+                </span>
+                <span>
+                  Ecology of Protists
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3620,12 +4357,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            24
-          </span>
-          Fungi
+            <span
+              className="section-number"
+            >
+              24
+            </span>
+            <span>
+              Fungi
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -3644,12 +4387,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                24
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3670,12 +4414,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                24.1
-              </span>
-              Characteristics of Fungi
+                <span
+                  className="section-number"
+                >
+                  24.1
+                </span>
+                <span>
+                  Characteristics of Fungi
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3696,12 +4446,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                24.2
-              </span>
-              Classifications of Fungi
+                <span
+                  className="section-number"
+                >
+                  24.2
+                </span>
+                <span>
+                  Classifications of Fungi
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3722,12 +4478,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                24.3
-              </span>
-              Ecology of Fungi
+                <span
+                  className="section-number"
+                >
+                  24.3
+                </span>
+                <span>
+                  Ecology of Fungi
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3748,12 +4510,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                24.4
-              </span>
-              Fungal Parasites and Pathogens
+                <span
+                  className="section-number"
+                >
+                  24.4
+                </span>
+                <span>
+                  Fungal Parasites and Pathogens
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3774,12 +4542,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                24.5
-              </span>
-              Importance of Fungi in Human Life
+                <span
+                  className="section-number"
+                >
+                  24.5
+                </span>
+                <span>
+                  Importance of Fungi in Human Life
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3798,12 +4572,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            25
-          </span>
-          Seedless Plants
+            <span
+              className="section-number"
+            >
+              25
+            </span>
+            <span>
+              Seedless Plants
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -3822,12 +4602,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                25
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3848,12 +4629,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                25.1
-              </span>
-              Early Plant Life
+                <span
+                  className="section-number"
+                >
+                  25.1
+                </span>
+                <span>
+                  Early Plant Life
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3874,12 +4661,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                25.2
-              </span>
-              Green Algae: Precursors of Land Plants
+                <span
+                  className="section-number"
+                >
+                  25.2
+                </span>
+                <span>
+                  Green Algae: Precursors of Land Plants
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3900,12 +4693,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                25.3
-              </span>
-              Bryophytes
+                <span
+                  className="section-number"
+                >
+                  25.3
+                </span>
+                <span>
+                  Bryophytes
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3926,12 +4725,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                25.4
-              </span>
-              Seedless Vascular Plants
+                <span
+                  className="section-number"
+                >
+                  25.4
+                </span>
+                <span>
+                  Seedless Vascular Plants
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -3950,12 +4755,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            26
-          </span>
-          Seed Plants
+            <span
+              className="section-number"
+            >
+              26
+            </span>
+            <span>
+              Seed Plants
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -3974,12 +4785,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                26
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4000,12 +4812,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                26.1
-              </span>
-              Evolution of Seed Plants
+                <span
+                  className="section-number"
+                >
+                  26.1
+                </span>
+                <span>
+                  Evolution of Seed Plants
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4026,12 +4844,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                26.2
-              </span>
-              Gymnosperms
+                <span
+                  className="section-number"
+                >
+                  26.2
+                </span>
+                <span>
+                  Gymnosperms
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4052,12 +4876,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                26.3
-              </span>
-              Angiosperms
+                <span
+                  className="section-number"
+                >
+                  26.3
+                </span>
+                <span>
+                  Angiosperms
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4078,12 +4908,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                26.4
-              </span>
-              The Role of Seed Plants
+                <span
+                  className="section-number"
+                >
+                  26.4
+                </span>
+                <span>
+                  The Role of Seed Plants
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4102,12 +4938,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            27
-          </span>
-          Introduction to Animal Diversity
+            <span
+              className="section-number"
+            >
+              27
+            </span>
+            <span>
+              Introduction to Animal Diversity
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -4126,12 +4968,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                27
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4152,12 +4995,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                27.1
-              </span>
-              Features of the Animal Kingdom
+                <span
+                  className="section-number"
+                >
+                  27.1
+                </span>
+                <span>
+                  Features of the Animal Kingdom
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4178,12 +5027,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                27.2
-              </span>
-              Features Used to Classify Animals
+                <span
+                  className="section-number"
+                >
+                  27.2
+                </span>
+                <span>
+                  Features Used to Classify Animals
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4204,12 +5059,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                27.3
-              </span>
-              Animal Phylogeny
+                <span
+                  className="section-number"
+                >
+                  27.3
+                </span>
+                <span>
+                  Animal Phylogeny
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4230,12 +5091,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                27.4
-              </span>
-              The Evolutionary History of the Animal Kingdom
+                <span
+                  className="section-number"
+                >
+                  27.4
+                </span>
+                <span>
+                  The Evolutionary History of the Animal Kingdom
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4254,12 +5121,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            28
-          </span>
-          Invertebrates
+            <span
+              className="section-number"
+            >
+              28
+            </span>
+            <span>
+              Invertebrates
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -4278,12 +5151,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                28
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4304,12 +5178,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                28.1
-              </span>
-              Phylum Porifera
+                <span
+                  className="section-number"
+                >
+                  28.1
+                </span>
+                <span>
+                  Phylum Porifera
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4330,12 +5210,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                28.2
-              </span>
-              Phylum Cnidaria
+                <span
+                  className="section-number"
+                >
+                  28.2
+                </span>
+                <span>
+                  Phylum Cnidaria
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4356,12 +5242,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                28.3
-              </span>
-              Superphylum Lophotrochozoa
+                <span
+                  className="section-number"
+                >
+                  28.3
+                </span>
+                <span>
+                  Superphylum Lophotrochozoa
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4382,12 +5274,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                28.4
-              </span>
-              Superphylum Ecdysozoa
+                <span
+                  className="section-number"
+                >
+                  28.4
+                </span>
+                <span>
+                  Superphylum Ecdysozoa
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4408,12 +5306,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                28.5
-              </span>
-              Superphylum Deuterostomia
+                <span
+                  className="section-number"
+                >
+                  28.5
+                </span>
+                <span>
+                  Superphylum Deuterostomia
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4432,12 +5336,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            29
-          </span>
-          Vertebrates
+            <span
+              className="section-number"
+            >
+              29
+            </span>
+            <span>
+              Vertebrates
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -4456,12 +5366,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                29
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4482,12 +5393,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                29.1
-              </span>
-              Chordates
+                <span
+                  className="section-number"
+                >
+                  29.1
+                </span>
+                <span>
+                  Chordates
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4508,12 +5425,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                29.2
-              </span>
-              Fishes
+                <span
+                  className="section-number"
+                >
+                  29.2
+                </span>
+                <span>
+                  Fishes
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4534,12 +5457,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                29.3
-              </span>
-              Amphibians
+                <span
+                  className="section-number"
+                >
+                  29.3
+                </span>
+                <span>
+                  Amphibians
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4560,12 +5489,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                29.4
-              </span>
-              Reptiles
+                <span
+                  className="section-number"
+                >
+                  29.4
+                </span>
+                <span>
+                  Reptiles
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4586,12 +5521,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                29.5
-              </span>
-              Birds
+                <span
+                  className="section-number"
+                >
+                  29.5
+                </span>
+                <span>
+                  Birds
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4612,12 +5553,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                29.6
-              </span>
-              Mammals
+                <span
+                  className="section-number"
+                >
+                  29.6
+                </span>
+                <span>
+                  Mammals
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4638,12 +5585,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                29.7
-              </span>
-              The Evolution of Primates
+                <span
+                  className="section-number"
+                >
+                  29.7
+                </span>
+                <span>
+                  The Evolution of Primates
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4662,12 +5615,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            30
-          </span>
-          Plant Form and Physiology
+            <span
+              className="section-number"
+            >
+              30
+            </span>
+            <span>
+              Plant Form and Physiology
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -4686,12 +5645,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                30
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4712,12 +5672,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                30.1
-              </span>
-              The Plant Body
+                <span
+                  className="section-number"
+                >
+                  30.1
+                </span>
+                <span>
+                  The Plant Body
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4738,12 +5704,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                30.2
-              </span>
-              Stems
+                <span
+                  className="section-number"
+                >
+                  30.2
+                </span>
+                <span>
+                  Stems
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4764,12 +5736,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                30.3
-              </span>
-              Roots
+                <span
+                  className="section-number"
+                >
+                  30.3
+                </span>
+                <span>
+                  Roots
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4790,12 +5768,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                30.4
-              </span>
-              Leaves
+                <span
+                  className="section-number"
+                >
+                  30.4
+                </span>
+                <span>
+                  Leaves
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4816,12 +5800,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                30.5
-              </span>
-              Transport of Water and Solutes in Plants
+                <span
+                  className="section-number"
+                >
+                  30.5
+                </span>
+                <span>
+                  Transport of Water and Solutes in Plants
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4842,12 +5832,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                30.6
-              </span>
-              Plant Sensory Systems and Responses
+                <span
+                  className="section-number"
+                >
+                  30.6
+                </span>
+                <span>
+                  Plant Sensory Systems and Responses
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4866,12 +5862,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            31
-          </span>
-          Soil and Plant Nutrition
+            <span
+              className="section-number"
+            >
+              31
+            </span>
+            <span>
+              Soil and Plant Nutrition
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -4890,12 +5892,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                31
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4916,12 +5919,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                31.1
-              </span>
-              Nutritional Requirements of Plants
+                <span
+                  className="section-number"
+                >
+                  31.1
+                </span>
+                <span>
+                  Nutritional Requirements of Plants
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4942,12 +5951,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                31.2
-              </span>
-              The Soil
+                <span
+                  className="section-number"
+                >
+                  31.2
+                </span>
+                <span>
+                  The Soil
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4968,12 +5983,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                31.3
-              </span>
-              Nutritional Adaptations of Plants
+                <span
+                  className="section-number"
+                >
+                  31.3
+                </span>
+                <span>
+                  Nutritional Adaptations of Plants
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -4992,12 +6013,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            32
-          </span>
-          Plant Reproduction
+            <span
+              className="section-number"
+            >
+              32
+            </span>
+            <span>
+              Plant Reproduction
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -5016,12 +6043,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                32
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5042,12 +6070,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                32.1
-              </span>
-              Reproductive Development and Structure
+                <span
+                  className="section-number"
+                >
+                  32.1
+                </span>
+                <span>
+                  Reproductive Development and Structure
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5068,12 +6102,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                32.2
-              </span>
-              Pollination and Fertilization
+                <span
+                  className="section-number"
+                >
+                  32.2
+                </span>
+                <span>
+                  Pollination and Fertilization
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5094,12 +6134,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                32.3
-              </span>
-              Asexual Reproduction
+                <span
+                  className="section-number"
+                >
+                  32.3
+                </span>
+                <span>
+                  Asexual Reproduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5118,12 +6164,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            33
-          </span>
-          The Animal Body: Basic Form and Function
+            <span
+              className="section-number"
+            >
+              33
+            </span>
+            <span>
+              The Animal Body: Basic Form and Function
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -5142,12 +6194,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                33
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5168,12 +6221,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                33.1
-              </span>
-              Animal Form and Function
+                <span
+                  className="section-number"
+                >
+                  33.1
+                </span>
+                <span>
+                  Animal Form and Function
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5194,12 +6253,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                33.2
-              </span>
-              Animal Primary Tissues
+                <span
+                  className="section-number"
+                >
+                  33.2
+                </span>
+                <span>
+                  Animal Primary Tissues
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5220,12 +6285,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                33.3
-              </span>
-              Homeostasis
+                <span
+                  className="section-number"
+                >
+                  33.3
+                </span>
+                <span>
+                  Homeostasis
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5244,12 +6315,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            34
-          </span>
-          Animal Nutrition and the Digestive System
+            <span
+              className="section-number"
+            >
+              34
+            </span>
+            <span>
+              Animal Nutrition and the Digestive System
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -5268,12 +6345,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                34
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5294,12 +6372,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                34.1
-              </span>
-              Digestive Systems
+                <span
+                  className="section-number"
+                >
+                  34.1
+                </span>
+                <span>
+                  Digestive Systems
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5320,12 +6404,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                34.2
-              </span>
-              Nutrition and Energy Production
+                <span
+                  className="section-number"
+                >
+                  34.2
+                </span>
+                <span>
+                  Nutrition and Energy Production
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5346,12 +6436,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                34.3
-              </span>
-              Digestive System Processes
+                <span
+                  className="section-number"
+                >
+                  34.3
+                </span>
+                <span>
+                  Digestive System Processes
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5372,12 +6468,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                34.4
-              </span>
-              Digestive System Regulation
+                <span
+                  className="section-number"
+                >
+                  34.4
+                </span>
+                <span>
+                  Digestive System Regulation
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5396,12 +6498,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            35
-          </span>
-          The Nervous System
+            <span
+              className="section-number"
+            >
+              35
+            </span>
+            <span>
+              The Nervous System
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -5420,12 +6528,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                35
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5446,12 +6555,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                35.1
-              </span>
-              Neurons and Glial Cells
+                <span
+                  className="section-number"
+                >
+                  35.1
+                </span>
+                <span>
+                  Neurons and Glial Cells
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5472,12 +6587,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                35.2
-              </span>
-              How Neurons Communicate
+                <span
+                  className="section-number"
+                >
+                  35.2
+                </span>
+                <span>
+                  How Neurons Communicate
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5498,12 +6619,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                35.3
-              </span>
-              The Central Nervous System
+                <span
+                  className="section-number"
+                >
+                  35.3
+                </span>
+                <span>
+                  The Central Nervous System
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5524,12 +6651,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                35.4
-              </span>
-              The Peripheral Nervous System
+                <span
+                  className="section-number"
+                >
+                  35.4
+                </span>
+                <span>
+                  The Peripheral Nervous System
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5550,12 +6683,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                35.5
-              </span>
-              Nervous System Disorders
+                <span
+                  className="section-number"
+                >
+                  35.5
+                </span>
+                <span>
+                  Nervous System Disorders
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5574,12 +6713,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            36
-          </span>
-          Sensory Systems
+            <span
+              className="section-number"
+            >
+              36
+            </span>
+            <span>
+              Sensory Systems
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -5598,12 +6743,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                36
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5624,12 +6770,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                36.1
-              </span>
-              Sensory Processes
+                <span
+                  className="section-number"
+                >
+                  36.1
+                </span>
+                <span>
+                  Sensory Processes
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5650,12 +6802,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                36.2
-              </span>
-              Somatosensation
+                <span
+                  className="section-number"
+                >
+                  36.2
+                </span>
+                <span>
+                  Somatosensation
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5676,12 +6834,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                36.3
-              </span>
-              Taste and Smell
+                <span
+                  className="section-number"
+                >
+                  36.3
+                </span>
+                <span>
+                  Taste and Smell
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5702,12 +6866,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                36.4
-              </span>
-              Hearing and Vestibular Sensation
+                <span
+                  className="section-number"
+                >
+                  36.4
+                </span>
+                <span>
+                  Hearing and Vestibular Sensation
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5728,12 +6898,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                36.5
-              </span>
-              Vision
+                <span
+                  className="section-number"
+                >
+                  36.5
+                </span>
+                <span>
+                  Vision
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5752,12 +6928,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            37
-          </span>
-          The Endocrine System
+            <span
+              className="section-number"
+            >
+              37
+            </span>
+            <span>
+              The Endocrine System
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -5776,12 +6958,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                37
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5802,12 +6985,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                37.1
-              </span>
-              Types of Hormones
+                <span
+                  className="section-number"
+                >
+                  37.1
+                </span>
+                <span>
+                  Types of Hormones
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5828,12 +7017,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                37.2
-              </span>
-              How Hormones Work
+                <span
+                  className="section-number"
+                >
+                  37.2
+                </span>
+                <span>
+                  How Hormones Work
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5854,12 +7049,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                37.3
-              </span>
-              Regulation of Body Processes
+                <span
+                  className="section-number"
+                >
+                  37.3
+                </span>
+                <span>
+                  Regulation of Body Processes
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5880,12 +7081,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                37.4
-              </span>
-              Regulation of Hormone Production
+                <span
+                  className="section-number"
+                >
+                  37.4
+                </span>
+                <span>
+                  Regulation of Hormone Production
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5906,12 +7113,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                37.5
-              </span>
-              Endocrine Glands
+                <span
+                  className="section-number"
+                >
+                  37.5
+                </span>
+                <span>
+                  Endocrine Glands
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5930,12 +7143,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            38
-          </span>
-          The Musculoskeletal System
+            <span
+              className="section-number"
+            >
+              38
+            </span>
+            <span>
+              The Musculoskeletal System
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -5954,12 +7173,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                38
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -5980,12 +7200,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                38.1
-              </span>
-              Types of Skeletal Systems
+                <span
+                  className="section-number"
+                >
+                  38.1
+                </span>
+                <span>
+                  Types of Skeletal Systems
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6006,12 +7232,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                38.2
-              </span>
-              Bone
+                <span
+                  className="section-number"
+                >
+                  38.2
+                </span>
+                <span>
+                  Bone
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6032,12 +7264,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                38.3
-              </span>
-              Joints and Skeletal Movement
+                <span
+                  className="section-number"
+                >
+                  38.3
+                </span>
+                <span>
+                  Joints and Skeletal Movement
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6058,12 +7296,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                38.4
-              </span>
-              Muscle Contraction and Locomotion
+                <span
+                  className="section-number"
+                >
+                  38.4
+                </span>
+                <span>
+                  Muscle Contraction and Locomotion
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6082,12 +7326,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            39
-          </span>
-          The Respiratory System
+            <span
+              className="section-number"
+            >
+              39
+            </span>
+            <span>
+              The Respiratory System
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -6106,12 +7356,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                39
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6132,12 +7383,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                39.1
-              </span>
-              Systems of Gas Exchange
+                <span
+                  className="section-number"
+                >
+                  39.1
+                </span>
+                <span>
+                  Systems of Gas Exchange
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6158,12 +7415,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                39.2
-              </span>
-              Gas Exchange across Respiratory Surfaces
+                <span
+                  className="section-number"
+                >
+                  39.2
+                </span>
+                <span>
+                  Gas Exchange across Respiratory Surfaces
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6184,12 +7447,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                39.3
-              </span>
-              Breathing
+                <span
+                  className="section-number"
+                >
+                  39.3
+                </span>
+                <span>
+                  Breathing
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6210,12 +7479,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                39.4
-              </span>
-              Transport of Gases in Human Bodily Fluids
+                <span
+                  className="section-number"
+                >
+                  39.4
+                </span>
+                <span>
+                  Transport of Gases in Human Bodily Fluids
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6234,12 +7509,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            40
-          </span>
-          The Circulatory System
+            <span
+              className="section-number"
+            >
+              40
+            </span>
+            <span>
+              The Circulatory System
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -6258,12 +7539,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                40
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6284,12 +7566,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                40.1
-              </span>
-              Overview of the Circulatory System
+                <span
+                  className="section-number"
+                >
+                  40.1
+                </span>
+                <span>
+                  Overview of the Circulatory System
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6310,12 +7598,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                40.2
-              </span>
-              Components of the Blood
+                <span
+                  className="section-number"
+                >
+                  40.2
+                </span>
+                <span>
+                  Components of the Blood
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6336,12 +7630,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                40.3
-              </span>
-              Mammalian Heart and Blood Vessels
+                <span
+                  className="section-number"
+                >
+                  40.3
+                </span>
+                <span>
+                  Mammalian Heart and Blood Vessels
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6362,12 +7662,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                40.4
-              </span>
-              Blood Flow and Blood Pressure Regulation
+                <span
+                  className="section-number"
+                >
+                  40.4
+                </span>
+                <span>
+                  Blood Flow and Blood Pressure Regulation
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6386,12 +7692,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            41
-          </span>
-          Osmotic Regulation and Excretion
+            <span
+              className="section-number"
+            >
+              41
+            </span>
+            <span>
+              Osmotic Regulation and Excretion
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -6410,12 +7722,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                41
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6436,12 +7749,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                41.1
-              </span>
-              Osmoregulation and Osmotic Balance
+                <span
+                  className="section-number"
+                >
+                  41.1
+                </span>
+                <span>
+                  Osmoregulation and Osmotic Balance
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6462,12 +7781,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                41.2
-              </span>
-              The Kidneys and Osmoregulatory Organs
+                <span
+                  className="section-number"
+                >
+                  41.2
+                </span>
+                <span>
+                  The Kidneys and Osmoregulatory Organs
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6488,12 +7813,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                41.3
-              </span>
-              Excretion Systems
+                <span
+                  className="section-number"
+                >
+                  41.3
+                </span>
+                <span>
+                  Excretion Systems
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6514,12 +7845,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                41.4
-              </span>
-              Nitrogenous Wastes
+                <span
+                  className="section-number"
+                >
+                  41.4
+                </span>
+                <span>
+                  Nitrogenous Wastes
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6540,12 +7877,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                41.5
-              </span>
-              Hormonal Control of Osmoregulatory Functions
+                <span
+                  className="section-number"
+                >
+                  41.5
+                </span>
+                <span>
+                  Hormonal Control of Osmoregulatory Functions
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6564,12 +7907,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            42
-          </span>
-          The Immune System
+            <span
+              className="section-number"
+            >
+              42
+            </span>
+            <span>
+              The Immune System
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -6588,12 +7937,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                42
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6614,12 +7964,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                42.1
-              </span>
-              Innate Immune Response
+                <span
+                  className="section-number"
+                >
+                  42.1
+                </span>
+                <span>
+                  Innate Immune Response
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6640,12 +7996,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                42.2
-              </span>
-              Adaptive Immune Response
+                <span
+                  className="section-number"
+                >
+                  42.2
+                </span>
+                <span>
+                  Adaptive Immune Response
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6666,12 +8028,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                42.3
-              </span>
-              Antibodies
+                <span
+                  className="section-number"
+                >
+                  42.3
+                </span>
+                <span>
+                  Antibodies
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6692,12 +8060,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                42.4
-              </span>
-              Disruptions in the Immune System
+                <span
+                  className="section-number"
+                >
+                  42.4
+                </span>
+                <span>
+                  Disruptions in the Immune System
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6716,12 +8090,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            43
-          </span>
-          Animal Reproduction and Development
+            <span
+              className="section-number"
+            >
+              43
+            </span>
+            <span>
+              Animal Reproduction and Development
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -6740,12 +8120,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                43
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6766,12 +8147,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                43.1
-              </span>
-              Reproduction Methods
+                <span
+                  className="section-number"
+                >
+                  43.1
+                </span>
+                <span>
+                  Reproduction Methods
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6792,12 +8179,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                43.2
-              </span>
-              Fertilization
+                <span
+                  className="section-number"
+                >
+                  43.2
+                </span>
+                <span>
+                  Fertilization
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6818,12 +8211,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                43.3
-              </span>
-              Human Reproductive Anatomy and Gametogenesis
+                <span
+                  className="section-number"
+                >
+                  43.3
+                </span>
+                <span>
+                  Human Reproductive Anatomy and Gametogenesis
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6844,12 +8243,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                43.4
-              </span>
-              Hormonal Control of Human Reproduction
+                <span
+                  className="section-number"
+                >
+                  43.4
+                </span>
+                <span>
+                  Hormonal Control of Human Reproduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6870,12 +8275,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                43.5
-              </span>
-              Human Pregnancy and Birth
+                <span
+                  className="section-number"
+                >
+                  43.5
+                </span>
+                <span>
+                  Human Pregnancy and Birth
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6896,12 +8307,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                43.6
-              </span>
-              Fertilization and Early Embryonic Development
+                <span
+                  className="section-number"
+                >
+                  43.6
+                </span>
+                <span>
+                  Fertilization and Early Embryonic Development
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6922,12 +8339,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                43.7
-              </span>
-              Organogenesis and Vertebrate Formation
+                <span
+                  className="section-number"
+                >
+                  43.7
+                </span>
+                <span>
+                  Organogenesis and Vertebrate Formation
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6946,12 +8369,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            44
-          </span>
-          Ecology and the Biosphere
+            <span
+              className="section-number"
+            >
+              44
+            </span>
+            <span>
+              Ecology and the Biosphere
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -6970,12 +8399,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                44
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -6996,12 +8426,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                44.1
-              </span>
-              The Scope of Ecology
+                <span
+                  className="section-number"
+                >
+                  44.1
+                </span>
+                <span>
+                  The Scope of Ecology
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -7022,12 +8458,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                44.2
-              </span>
-              Biogeography
+                <span
+                  className="section-number"
+                >
+                  44.2
+                </span>
+                <span>
+                  Biogeography
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -7048,12 +8490,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                44.3
-              </span>
-              Terrestrial Biomes
+                <span
+                  className="section-number"
+                >
+                  44.3
+                </span>
+                <span>
+                  Terrestrial Biomes
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -7074,12 +8522,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                44.4
-              </span>
-              Aquatic Biomes
+                <span
+                  className="section-number"
+                >
+                  44.4
+                </span>
+                <span>
+                  Aquatic Biomes
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -7100,12 +8554,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                44.5
-              </span>
-              Climate and the Effects of Global Climate Change
+                <span
+                  className="section-number"
+                >
+                  44.5
+                </span>
+                <span>
+                  Climate and the Effects of Global Climate Change
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -7124,12 +8584,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            45
-          </span>
-          Population and Community Ecology
+            <span
+              className="section-number"
+            >
+              45
+            </span>
+            <span>
+              Population and Community Ecology
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -7148,12 +8614,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                45
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -7174,12 +8641,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                45.1
-              </span>
-              Population Demography
+                <span
+                  className="section-number"
+                >
+                  45.1
+                </span>
+                <span>
+                  Population Demography
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -7200,12 +8673,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                45.2
-              </span>
-              Life Histories and Natural Selection
+                <span
+                  className="section-number"
+                >
+                  45.2
+                </span>
+                <span>
+                  Life Histories and Natural Selection
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -7226,12 +8705,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                45.3
-              </span>
-              Environmental Limits to Population Growth
+                <span
+                  className="section-number"
+                >
+                  45.3
+                </span>
+                <span>
+                  Environmental Limits to Population Growth
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -7252,12 +8737,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                45.4
-              </span>
-              Population Dynamics and Regulation
+                <span
+                  className="section-number"
+                >
+                  45.4
+                </span>
+                <span>
+                  Population Dynamics and Regulation
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -7278,12 +8769,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                45.5
-              </span>
-              Human Population Growth
+                <span
+                  className="section-number"
+                >
+                  45.5
+                </span>
+                <span>
+                  Human Population Growth
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -7304,12 +8801,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                45.6
-              </span>
-              Community Ecology
+                <span
+                  className="section-number"
+                >
+                  45.6
+                </span>
+                <span>
+                  Community Ecology
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -7330,12 +8833,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                45.7
-              </span>
-              Behavioral Biology: Proximate and Ultimate Causes of Behavior
+                <span
+                  className="section-number"
+                >
+                  45.7
+                </span>
+                <span>
+                  Behavioral Biology: Proximate and Ultimate Causes of Behavior
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -7354,12 +8863,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            46
-          </span>
-          Ecosystems
+            <span
+              className="section-number"
+            >
+              46
+            </span>
+            <span>
+              Ecosystems
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -7378,12 +8893,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                46
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -7404,12 +8920,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                46.1
-              </span>
-              Ecology of Ecosystems
+                <span
+                  className="section-number"
+                >
+                  46.1
+                </span>
+                <span>
+                  Ecology of Ecosystems
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -7430,12 +8952,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                46.2
-              </span>
-              Energy Flow through Ecosystems
+                <span
+                  className="section-number"
+                >
+                  46.2
+                </span>
+                <span>
+                  Energy Flow through Ecosystems
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -7456,12 +8984,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                46.3
-              </span>
-              Biogeochemical Cycles
+                <span
+                  className="section-number"
+                >
+                  46.3
+                </span>
+                <span>
+                  Biogeochemical Cycles
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -7480,12 +9014,18 @@ exports[`QA Screen matches snapshot 1`] = `
           onClick={[Function]}
           tabIndex={-1}
         >
-          <span
-            className="section-number"
+          <div
+            className="chapter-section-title"
           >
-            47
-          </span>
-          Conservation Biology and Biodiversity
+            <span
+              className="section-number"
+            >
+              47
+            </span>
+            <span>
+              Conservation Biology and Biodiversity
+            </span>
+          </div>
         </a>
       </li>
       <li
@@ -7504,12 +9044,13 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                47
-              </span>
-              Introduction
+                <span>
+                  Introduction
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -7530,12 +9071,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                47.1
-              </span>
-              The Biodiversity Crisis
+                <span
+                  className="section-number"
+                >
+                  47.1
+                </span>
+                <span>
+                  The Biodiversity Crisis
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -7556,12 +9103,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                47.2
-              </span>
-              The Importance of Biodiversity to Human Life
+                <span
+                  className="section-number"
+                >
+                  47.2
+                </span>
+                <span>
+                  The Importance of Biodiversity to Human Life
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -7582,12 +9135,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                47.3
-              </span>
-              Threats to Biodiversity
+                <span
+                  className="section-number"
+                >
+                  47.3
+                </span>
+                <span>
+                  Threats to Biodiversity
+                </span>
+              </div>
             </a>
           </li>
         </ul>
@@ -7608,12 +9167,18 @@ exports[`QA Screen matches snapshot 1`] = `
               onClick={[Function]}
               tabIndex={-1}
             >
-              <span
-                className="section-number"
+              <div
+                className="chapter-section-title"
               >
-                47.4
-              </span>
-              Preserving Biodiversity
+                <span
+                  className="section-number"
+                >
+                  47.4
+                </span>
+                <span>
+                  Preserving Biodiversity
+                </span>
+              </div>
             </a>
           </li>
         </ul>

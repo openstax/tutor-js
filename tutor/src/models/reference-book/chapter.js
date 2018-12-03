@@ -31,7 +31,7 @@ class ReferenceBookChapter extends BaseModel {
   }
 
   @computed get displayedChapterSection() {
-    return this.baked_chapter_section.isEmpty ?
-      this.chapter_section : this.baked_chapter_section;
+    const bcs = this.baked_chapter_section;
+    return !bcs || bcs.isEmpty ? this.chapter_section : bcs;
   }
 };
