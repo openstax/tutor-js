@@ -12,24 +12,29 @@
         li {
           list-style-type: none;
           border-top: 1px dotted $tutor-neutral-light;
-          background-color: $tutor-neutral-lightest;
+          background-color: $tutor-neutral-cool;
 
           a {
+            display: block;
+            &:hover {
+              background-color: $tutor-neutral-bright;
+              text-decoration: initial;
+            }
+
+            &.active {
+              background-color: $tutor-neutral-lightest;
+
+              text-decoration: initial;
+              font-weight: 900;
+            }
+          }
+
+          .chapter-section-title {
             color: $tutor-neutral-darker;
             display: block;
             text-indent:  0;
             padding: 10px 0;
             position: relative;
-            &:hover {
-              background-color: $tutor-white;
-              text-decoration: initial;
-            }
-
-            &.active {
-              background-color: $tutor-white;
-              text-decoration: initial;
-              font-weight: 900;
-            }
 
             @include tutor-sans-font( (2.0 - ($depth / 3)) + rem);
 
