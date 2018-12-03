@@ -28,7 +28,10 @@ const RavenErrorLogging = {
   },
 
   captureException(error, xtra) {
-    Raven.captureException(error, xtra)
+    if (!isProd) {
+      console.warn(error); // eslint-disable-line no-console
+    }
+    Raven.captureException(error, xtra);
   },
 
 };
