@@ -1,4 +1,4 @@
-import App from './app';
+import Raven from './app/raven';
 
 const DEPLOYMENT_ID   = '572U0000000k9cB';
 const ORGANIZATION_ID = '00DU0000000Kwch';
@@ -33,7 +33,7 @@ export default {
         this.initialized = true;
       }
     } catch(err) {
-      App.logError(err);
+      Raven.captureException(err);
     }
   },
 
