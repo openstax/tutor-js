@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { get } from 'lodash';
+import { Navbar, Nav } from 'react-bootstrap';
 import { Provider, inject, observer, observable, action, computed } from '../../helpers/react';
 import CourseNagModal        from './course-nag';
 import TermsModal            from '../../components/terms-modal';
@@ -39,28 +40,30 @@ class DefaultNavBar extends React.Component {
     const { course, props: { params, params: { courseId } } } = this;
 
     return (
-      <nav className="tutor-top-navbar">
-        <div className="tutor-nav-controls">
-          <div className="left-side-controls">
-            <TutorLink to="myCourses" className="brand" aria-label="dashboard">
-              <i className="ui-brand-logo" />
-            </TutorLink>
-            <BookLinks courseId={courseId} />
+      <Navbar>
+        <Nav className="tutor-top-navbar">
+          <div className="tutor-nav-controls">
+            <div className="left-side-controls">
+              <TutorLink to="myCourses" className="brand" aria-label="dashboard">
+                <i className="ui-brand-logo" />
+              </TutorLink>
+              <BookLinks courseId={courseId} />
+            </div>
+            <CenterControls params={params} />
+            <div className="right-side-controls">
+              <SupportMenu         course={course} />
+              <StudentPayNowBtn    course={course} />
+              <ActionsMenu         course={course} />
+              <PreviewAddCourseBtn course={course} />
+              <UserMenu />
+            </div>
           </div>
-          <CenterControls params={params} />
-          <div className="right-side-controls">
-            <SupportMenu         course={course} />
-            <StudentPayNowBtn    course={course} />
-            <ActionsMenu         course={course} />
-            <PreviewAddCourseBtn course={course} />
-            <UserMenu />
-          </div>
-        </div>
-        <ServerErrorMonitoring />
-        <TermsModal canBeDisplayed={Boolean(courseId)} />
-        <Toasts />
-        <CourseNagModal key={this.course || 'no-course'} course={this.course} />
-      </nav>
+          <ServerErrorMonitoring />
+          <TermsModal canBeDisplayed={Boolean(courseId)} />
+          <Toasts />
+          <CourseNagModal key={this.course || 'no-course'} course={this.course} />
+        </Nav>
+      </Navbar>
     );
   }
 
