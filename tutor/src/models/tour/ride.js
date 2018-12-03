@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, belongsTo, computed,
 } from 'shared/model';
-import { defaults } from 'lodash';
+import { defaults, compact } from 'lodash';
 import { action, observable } from 'mobx';
 import { filter, extend, isEmpty } from 'lodash';
 import CustomComponents from '../../components/tours/custom';
@@ -50,7 +50,7 @@ class TourRide extends BaseModel {
   }
 
   @computed get tourSteps() {
-    return this.tour.steps.map(step => this.stepForRide(step));
+    return compact(this.tour.steps.map(step => this.stepForRide(step)));
   }
 
   @computed get validSteps() {
