@@ -14,10 +14,8 @@ $joyride-header-font-size: 18px;
 .joyride-tooltip__button--secondary {
   float: left;
   &:before {
-    display: 'inline';
     margin-right: 0.5rem;
-    font-family: FontAwesome;
-    content: "\f053"; // chevron-left
+    content: "〈";
   }
 }
 
