@@ -52,7 +52,8 @@ class Section extends React.Component {
         <span className="section-checkbox">
           <input type="checkbox" readOnly={true} checked={this.isSelected()} />
         </span>
-        <ChapterSection section={section.chapter_section.asString} />
+        {!section.isChapterSectionHidden &&
+          <ChapterSection section={section.chapter_section.asString} />}
         <span className="section-title"> {section.title}</span>
       </SectionWrapper>
     );
@@ -138,7 +139,6 @@ class ChapterAccordion extends React.Component {
           <span className="chapter-title"> {chapter.title} </span>
           <BrowseTheBook
             unstyled
-            tag="div"
             onClick={this.browseBook}
             chapterSection={chapter.chapter_section.asString}
             book={this.props.book}
@@ -148,7 +148,7 @@ class ChapterAccordion extends React.Component {
         </ChapterHeading>
         <Collapse in={this.expanded}>
           <div className="sections">
-            {chapter.children.map((section) =>
+            {chapter.children.assignable.map((section) =>
               <Section key={section.cnx_id} {...this.props} section={section} />)}
           </div>
         </Collapse>
