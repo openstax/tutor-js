@@ -14,13 +14,16 @@ const NON_ASSIGNABLE_TITLES = [
   'Critical Thinking Questions',
   'Conceptual Questions',
   'Problems & Exercises',
-];
-const SUPPLEMENTARY_CONTENT_TITLES = NON_ASSIGNABLE_TITLES.concat([
   'Key Terms',
   'Chapter Summary',
   'Glossary',
   'Section Summary',
-]);
+];
+
+// currently the two are the same, but were different in past
+// and may differ in the future
+const SUPPLEMENTARY_CONTENT_TITLES = NON_ASSIGNABLE_TITLES;
+
 const UPDATEABLE_FIELDS = ['content_html', 'spy'];
 const NOT_FOUND_CONTENT = {
   id: -1,
