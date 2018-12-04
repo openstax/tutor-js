@@ -134,11 +134,11 @@ class LMSAccessCard extends React.Component {
           onChange={lms.setVendor}
           value={lms.vendor}
         >
-          <ToggleButton value="blackboard">Blackboard</ToggleButton>
-          <ToggleButton value="canvas">Canvas</ToggleButton>
-          <ToggleButton value="moodle">Moodle</ToggleButton>
-          <ToggleButton value="d2l">Desire2Learn</ToggleButton>
-          <ToggleButton value="sakai">Sakai</ToggleButton>
+          <ToggleButton variant="default" value="blackboard">Blackboard</ToggleButton>
+          <ToggleButton variant="default" value="canvas">Canvas</ToggleButton>
+          <ToggleButton variant="default" value="moodle">Moodle</ToggleButton>
+          <ToggleButton variant="default" value="d2l">Desire2Learn</ToggleButton>
+          <ToggleButton variant="default" value="sakai">Sakai</ToggleButton>
         </ToggleButtonGroup>
 
         <p>
@@ -154,7 +154,6 @@ class LMSAccessCard extends React.Component {
 
   render() {
     const { course } = this.props;
-
     if (course.canOnlyUseLMS) {
       return this.renderPaired();
     }

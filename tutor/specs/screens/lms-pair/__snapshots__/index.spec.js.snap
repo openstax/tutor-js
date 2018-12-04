@@ -146,7 +146,7 @@ exports[`pairing a course displays find or create when existing courses 1`] = `
       </div>
     </div>
     <div
-      className="controls"
+      className="controls card-footer"
     >
       <button
         className="next btn btn-primary"
@@ -248,7 +248,7 @@ exports[`pairing a course displays only create when no courses 1`] = `
       </div>
     </div>
     <div
-      className="controls"
+      className="controls card-footer"
     >
       <button
         className="next btn btn-primary"

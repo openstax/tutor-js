@@ -307,7 +307,7 @@ exports[`Course Settings, student access can switch to lms 1`] = `
             role="group"
           >
             <label
-              className="btn active btn-primary"
+              className="btn active btn-default"
               disabled={false}
               type={null}
             >
@@ -325,7 +325,7 @@ exports[`Course Settings, student access can switch to lms 1`] = `
               Blackboard
             </label>
             <label
-              className="btn btn-primary"
+              className="btn btn-default"
               disabled={false}
               type={null}
             >
@@ -343,7 +343,7 @@ exports[`Course Settings, student access can switch to lms 1`] = `
               Canvas
             </label>
             <label
-              className="btn btn-primary"
+              className="btn btn-default"
               disabled={false}
               type={null}
             >
@@ -361,7 +361,7 @@ exports[`Course Settings, student access can switch to lms 1`] = `
               Moodle
             </label>
             <label
-              className="btn btn-primary"
+              className="btn btn-default"
               disabled={false}
               type={null}
             >
@@ -379,7 +379,7 @@ exports[`Course Settings, student access can switch to lms 1`] = `
               Desire2Learn
             </label>
             <label
-              className="btn btn-primary"
+              className="btn btn-default"
               disabled={false}
               type={null}
             >
