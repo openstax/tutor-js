@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { isEmpty } from 'lodash';
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
@@ -35,7 +36,7 @@ class QuestionsDashboard extends React.Component {
 
   @action.bound onSelectionsChange(pageIds) {
     this.pageIds = pageIds;
-    this.isShowingExercises = true;
+    this.isShowingExercises = !isEmpty(pageIds);
   }
 
   @action.bound onSelectSections() {
