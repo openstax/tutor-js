@@ -8,7 +8,7 @@ jest.mock('../../../src/models/student-tasks', () => ({
     return mockObservable({
       isPendingTaskLoading: false,
       api: {
-        isPending: false,
+        isPendingInitialFetch: false,
       },
     });
   },
@@ -33,7 +33,7 @@ describe('Empty Panel', () => {
   it('shows the various states', () => {
     const panel = mount(<EmptyPanel {...props} />);
     expect(panel.text()).toContain('I be empty');
-    props.course.studentTasks.api.isPending = true;
+    props.course.studentTasks.api.isPendingInitialFetch = true;
     expect(panel.text()).toContain('Fetching assignments for your course');
     expect(panel.text()).not.toContain('This can take up to 10 minutes');
     props.course.studentTasks.isPendingTaskLoading = true;

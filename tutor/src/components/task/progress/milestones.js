@@ -72,10 +72,6 @@ class Milestones extends React.Component {
     goToStep: PropTypes.func.isRequired,
   }
 
-  state = {
-    currentStep: TaskProgressStore.get(this.props.id),
-    crumbs: TaskPanelStore.get(this.props.id),
-  }
 
   goToStep = (...args) => {
     if (!this.props.goToStep(...Array.from(args || []))) {
@@ -84,20 +80,20 @@ class Milestones extends React.Component {
   }
 
   render() {
-    const { crumbs, currentStep } = this.state;
+    const crumbs = TaskPanelStore.get(this.props.id);
+    const currentStep = TaskProgressStore.get(this.props.id);
 
     return (
       <div className="milestones-wrapper" role="dialog" tabIndex="-1">
         <div className="milestones task-breadcrumbs" role="document">
-          {map(crumbs, (crumb, crumbIndex) => (
+          {map(crumbs, (crumb, crumbIndex) =>
             <Milestone
               key={`crumb-wrapper-${crumbIndex}`}
               crumb={crumb}
               goToStep={this.goToStep}
               stepIndex={crumbIndex}
               currentStep={currentStep}
-            />
-          ))}
+            />)}
         </div>
       </div>
     );

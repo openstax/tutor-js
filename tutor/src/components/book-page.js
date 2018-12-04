@@ -109,7 +109,7 @@ const BookPage = createReactClass({
         <div className="page center-panel">
           <RelatedContent
             contentId={page.cnx_id}
-            isCollated={page.bookIsCollated}
+            isChapterSectionHidden={page.isChapterSectionHidden}
             chapter_section={page.chapter_section}
             title={title}
           />

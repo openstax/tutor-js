@@ -21,6 +21,10 @@ class ChapterSection extends BaseModel {
     return `${this.chapter}${sectionSeparator}${this.section}`;
   }
 
+  @computed get isEmpty() {
+    return !this.chapter && !this.section;
+  }
+
   @computed get asString() {
     return this.format();
   }

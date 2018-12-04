@@ -62,7 +62,6 @@ class SupportMenu extends React.Component {
   static propTypes = {
     tourContext: PropTypes.instanceOf(TourContext),
     course: PropTypes.instanceOf(Course),
-    open: PropTypes.bool,
     onClose:  PropTypes.func,
   }
 
@@ -70,13 +69,8 @@ class SupportMenu extends React.Component {
     router: PropTypes.object,
   }
 
-  @observable hasShown = false;
-
-  componentDidMount() {
-  }
-
   renderChat() {
-    if (!this.hasShown || !Chat.isEnabled) { return null; }
+    if (!Chat.isEnabled) { return null; }
     return [
       <Dropdown.Item
         style={{ display: 'none' }}
@@ -123,25 +117,16 @@ class SupportMenu extends React.Component {
     return `/accessibility-statement/${(this.props.course && this.props.course.id) || ''}`;
   }
 
-  @action.bound onShown() {
-    if (!this.hasShown) { // showing for first time
-      delay(() => {
-        Chat.setElementVisiblity(
-          findDOMNode(this.chatEnabled),
-          findDOMNode(this.chatDisabled));
-      }, 10);
-      this.hasShown = true;
-    }
-
+  componentDidMount() {
+    Chat.setElementVisiblity(
+      findDOMNode(this.chatEnabled),
+      findDOMNode(this.chatDisabled));
   }
 
   render() {
-    const { course, open, onClose, rootCloseEvent } = this.props;
+    const { course } = this.props;
     return (
-      <Dropdown
-        className="support-menu"
-        onToggle={this.onShown}
-      >
+      <Dropdown className="support-menu">
         <Dropdown.Toggle
           id="support-menu"
           ref={m => (this.dropdownToggle = m)}
@@ -158,10 +143,7 @@ class SupportMenu extends React.Component {
             <Icon type="angle-down" className="toggle" />
           </TourAnchor>
         </Dropdown.Toggle>
-        <Dropdown.Menu
-
-
-        >
+        <Dropdown.Menu>
           <PageTips onPlayClick={this.onPlayTourClick} {...this.props} />
           <Dropdown.Item
             key="nav-help-link"

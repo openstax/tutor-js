@@ -45,6 +45,10 @@ export default class TutorApp {
     return app.initializeApp();
   }
 
+  static logError(error, info) {
+    Raven.captureException(error, { extra: info });
+  }
+
   logError(error, info) {
     Raven.captureException(error, { extra: info });
   }

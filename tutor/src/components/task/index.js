@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import ReactDOM from 'react-dom';
-import { isEmpty, debounce, clone } from 'lodash';
+import { isEmpty, debounce, clone, defaults } from 'lodash';
 import classnames from 'classnames';
 
 import { TaskActions, TaskStore } from '../../flux/task';
@@ -238,6 +238,7 @@ const Task = createReactClass({
 
   closeMilestones() {
     const params = Router.currentParams();
+    defaults(params, { stepIndex: 0 });
     return this.context.router.history.push(
       Router.makePathname('viewTaskStep', params)
     );

@@ -167,14 +167,15 @@ exports[`choose exercises component can select exercises 1`] = `
                 Kinematics
                  
               </span>
-              <div
+              <a
                 aria-label="Browse course reference book"
                 className="browse-the-book"
+                href="/book/1/section/1"
                 onClick={[Function]}
-                role="link"
+                target="_blank"
               >
                 Browse this Chapter
-              </div>
+              </a>
             </div>
             <div
               aria-expanded={null}
@@ -330,14 +331,15 @@ exports[`choose exercises component can select exercises 1`] = `
                 Mechanics
                  
               </span>
-              <div
+              <a
                 aria-label="Browse course reference book"
                 className="browse-the-book"
+                href="/book/1/section/2"
                 onClick={[Function]}
-                role="link"
+                target="_blank"
               >
                 Browse this Chapter
-              </div>
+              </a>
             </div>
             <div
               aria-expanded={null}
@@ -493,14 +495,15 @@ exports[`choose exercises component can select exercises 1`] = `
                 Thermodynamics
                  
               </span>
-              <div
+              <a
                 aria-label="Browse course reference book"
                 className="browse-the-book"
+                href="/book/1/section/3"
                 onClick={[Function]}
-                role="link"
+                target="_blank"
               >
                 Browse this Chapter
-              </div>
+              </a>
             </div>
             <div
               aria-expanded={null}
@@ -783,14 +786,15 @@ exports[`choose exercises component renders selections 1`] = `
                 Kinematics
                  
               </span>
-              <div
+              <a
                 aria-label="Browse course reference book"
                 className="browse-the-book"
+                href="/book/1/section/1"
                 onClick={[Function]}
-                role="link"
+                target="_blank"
               >
                 Browse this Chapter
-              </div>
+              </a>
             </div>
             <div
               aria-expanded={null}
@@ -946,14 +950,15 @@ exports[`choose exercises component renders selections 1`] = `
                 Mechanics
                  
               </span>
-              <div
+              <a
                 aria-label="Browse course reference book"
                 className="browse-the-book"
+                href="/book/1/section/2"
                 onClick={[Function]}
-                role="link"
+                target="_blank"
               >
                 Browse this Chapter
-              </div>
+              </a>
             </div>
             <div
               aria-expanded={null}
@@ -1109,14 +1114,15 @@ exports[`choose exercises component renders selections 1`] = `
                 Thermodynamics
                  
               </span>
-              <div
+              <a
                 aria-label="Browse course reference book"
                 className="browse-the-book"
+                href="/book/1/section/3"
                 onClick={[Function]}
-                role="link"
+                target="_blank"
               >
                 Browse this Chapter
-              </div>
+              </a>
             </div>
             <div
               aria-expanded={null}

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { omit, map, compact, flatMap, extend, isNil } from 'lodash';
+import { Alert } from 'react-bootstrap';
+import { isEmpty, map, compact, flatMap, extend, isNil } from 'lodash';
 import ReviewExercise from './exercise';
 import TourRegion from '../tours/region';
 
@@ -18,6 +19,8 @@ function ReviewHeading(props) {
   );
 
 }
+
+const NotFound = () => <Alert variant="info">This assignment does‘t have any activity to display</Alert>
 
 ReviewHeading.displayName = 'ReviewHeadingTracker';
 
@@ -41,7 +44,7 @@ export default function Review(props) {
 
   return (
     <TourRegion id="review-metrics">
-      {stepsList}
+      {isEmpty(stepsList) ? <NotFound /> : stepsList}
     </TourRegion>
   );
 }

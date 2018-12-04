@@ -1,5 +1,5 @@
 import { readonly } from 'core-decorators';
-import { merge, get, pick } from 'lodash';
+import { merge, get, pick, includes } from 'lodash';
 import { action, computed } from 'mobx';
 import {
   BaseModel, identifiedBy, identifier, field, session,
@@ -8,6 +8,19 @@ import ChapterSection from '../chapter-section';
 import { StepTitleActions } from '../../flux/step-title';
 import { MediaActions } from '../../flux/media';
 
+const NON_ASSIGNABLE_TITLES = [
+  'Visual Connection Questions',
+  'Review Questions',
+  'Critical Thinking Questions',
+  'Conceptual Questions',
+  'Problems & Exercises',
+];
+const SUPPLEMENTARY_CONTENT_TITLES = NON_ASSIGNABLE_TITLES.concat([
+  'Key Terms',
+  'Chapter Summary',
+  'Glossary',
+  'Section Summary',
+]);
 const UPDATEABLE_FIELDS = ['content_html', 'spy'];
 const NOT_FOUND_CONTENT = {
   id: -1,
@@ -31,10 +44,12 @@ class ReferenceBookPage extends BaseModel {
   @field short_id;
   @field uuid;
   @field({ model: ChapterSection }) chapter_section;
+  @field({ model: ChapterSection }) baked_chapter_section;
   @session chapter;
   @readonly depth = 2;
   @field content_html = '';
   @readonly isPage = true;
+  @readonly hasContent = true;
 
   // nb these are not observable, othewise they can't be set from within mapPages computed
   nextPage = null;
@@ -88,6 +103,22 @@ class ReferenceBookPage extends BaseModel {
     this.update(NOT_FOUND_CONTENT);
   }
 
+  @computed get displayedChapterSection() {
+    const bcs = this.baked_chapter_section;
+    return !bcs || bcs.isEmpty ? this.chapter_section : bcs;
+  }
+
+  @computed get isIntro() {
+    return this.title.startsWith('Intro');
+  }
+
+  @computed get isChapterSectionHidden() {
+    return this.isIntro || includes(SUPPLEMENTARY_CONTENT_TITLES, this.title);
+  }
+
+  @computed get isAssignable() {
+    return !includes(NON_ASSIGNABLE_TITLES, this.title);
+  }
 };
 
 // a mock page for use by entities such as exercises that need to indicate

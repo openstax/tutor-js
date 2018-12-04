@@ -9,41 +9,23 @@ class RelatedContent extends React.Component {
     contentId: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     hasLearningObjectives: PropTypes.bool,
-    isCollated: PropTypes.bool,
+    isChapterSectionHidden: PropTypes.bool,
     chapter_section: PropTypes.instanceOf(ChapterSection).isRequired,
   };
 
   isIntro = () => {
     return (isArray(this.props.chapter_section) &&
       ((this.props.chapter_section.length === 1) ||
-      (this.props.chapter_section[1] === 0))) ||
+        (this.props.chapter_section[1] === 0))) ||
       (isString(this.props.chapter_section) &&
-      (this.props.chapter_section.indexOf('.') === -1));
+        (this.props.chapter_section.indexOf('.') === -1));
   };
-
-  renderSectionInfo() {
-    const { title, chapter_section } = this.props;
-
-    return (
-      <span className="part">
-        <span className="section">
-          {chapter_section.toString()}
-          {' '}
-        </span>
-        <span className="title">
-          {title}
-        </span>
-      </span>
-    );
-  }
-
-  renderCollated() {
-    return <div dangerouslySetInnerHTML={{ __html: this.props.title }} />;
-  }
 
   render() {
     let hasLearningObjectives;
-    const { contentId, title, isCollated } = this.props;
+    const {
+      contentId, title, chapter_section, isChapterSectionHidden,
+    } = this.props;
 
     if (isEmpty(title) || this.isIntro()) { return null; }
 
@@ -56,7 +38,17 @@ class RelatedContent extends React.Component {
         className="related-content"
         data-has-learning-objectives={hasLearningObjectives}
       >
-        {isCollated ? this.renderCollated() : this.renderSectionInfo()}
+        <span className="part">
+          {!isChapterSectionHidden &&
+            <span className="section">
+              {chapter_section.toString()}
+              {' '}
+            </span>}
+          <span className="title">
+            {title}
+          </span>
+        </span>
+
       </h4>
     );
   }
