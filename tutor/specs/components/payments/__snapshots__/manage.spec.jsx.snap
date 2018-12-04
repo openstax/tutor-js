@@ -61,6 +61,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
         >
           <button
             className="async-button btn btn-primary"
+            data-identifier="33uqbxbi324n"
             disabled={false}
             onClick={[Function]}
             type="button"
@@ -102,6 +103,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
         >
           <button
             className="async-button btn btn-primary"
+            data-identifier="nuvwqun23ztq"
             disabled={false}
             onClick={[Function]}
             type="button"
@@ -143,6 +145,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
         >
           <button
             className="async-button btn btn-primary"
+            data-identifier="ru6ifviicwki"
             disabled={false}
             onClick={[Function]}
             type="button"
@@ -184,6 +187,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
         >
           <button
             className="async-button btn btn-primary"
+            data-identifier="fxa4s2kj75fr"
             disabled={false}
             onClick={[Function]}
             type="button"
@@ -225,6 +229,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
         >
           <button
             className="async-button btn btn-primary"
+            data-identifier="3dmy8nu4v4bg"
             disabled={false}
             onClick={[Function]}
             type="button"
