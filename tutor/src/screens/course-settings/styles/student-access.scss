@@ -72,7 +72,7 @@
     display: none;
   }
 
-  &.active {
+  .card.active {
     .card-body {
       display: block;
     }
