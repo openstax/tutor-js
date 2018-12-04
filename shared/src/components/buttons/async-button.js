@@ -77,9 +77,11 @@ export default class extends React.Component {
 
   render() {
     let spinner, stateClass, text;
-    let { className, disabled } = this.props;
-    const { isWaiting, isDone, isFailed } = this.props;
-    const { children, waitingText, failedProps, doneText } = this.props;
+    let {
+      className, disabled, isJob, failedState,
+      isWaiting, isDone, isFailed, children, waitingText,
+      failedProps, doneText, ...buttonProps
+    } = this.props;
     const { isTimedout } = this.state;
     // needs to be capitalized so JSX will transpile as a variable, not element
     const FailedState = this.props.failedState;
@@ -111,6 +113,7 @@ export default class extends React.Component {
         className={[buttonTypeClass, stateClass, className]}
         active={this.props.active}
         disabled={disabled}
+        {...buttonProps}
       >
         {spinner}
         {text}
