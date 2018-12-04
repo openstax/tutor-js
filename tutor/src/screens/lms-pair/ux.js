@@ -17,7 +17,7 @@ export default class LmsPairUX {
 
   constructor({
     courses = Courses.nonPreview.teaching.currentAndFuture.withoutStudents,
-  }) {
+  } = {}) {
     this.courses = courses;
   }
 

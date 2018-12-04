@@ -6,7 +6,7 @@ import { Listing, Choice } from '../../components/choices-listing';
 
 const Footer = observer(({ ux }) => {
   return (
-    <div className="controls">
+    <Card.Footer className="controls">
       <Button onClick={ux.goBackward} className="back">
         Back
       </Button>
@@ -18,7 +18,7 @@ const Footer = observer(({ ux }) => {
       >
         Continue
       </Button>
-    </div>
+    </Card.Footer>
   );
 });
 
@@ -35,12 +35,11 @@ class ExistingCourse extends React.Component {
     const { ux } = this.props;
 
     return (
-      <Card
-        header="Choose course to pair with"
-        className={'new-course-wizard'}
-        footer={<Footer ux={ux} />}
-      >
-        <div className="panel-content">
+      <Card className={'new-course-wizard'}>
+        <Card.Header>
+          Choose course to pair with
+        </Card.Header>
+        <Card.Body>
           <Listing>
             {ux.courses.array.map(course => (
               <Choice
@@ -48,12 +47,13 @@ class ExistingCourse extends React.Component {
                 data-appearance={course.appearance_code}
                 active={(course === ux.pairedCourse)}
                 onClick={partial(ux.pairCourse, course)}
-              >
+                >
                 {course.name}
               </Choice>
             ))}
           </Listing>
-        </div>
+        </Card.Body>
+        <Footer ux={ux} />
       </Card>
     );
   }

@@ -5,7 +5,7 @@ import { Listing, Choice } from '../../components/choices-listing';
 
 const Footer = observer(({ ux }) => {
   return (
-    <div className="controls">
+    <Card.Footer className="controls">
       <Button
         onClick={ux.goForward}
         variant="primary"
@@ -14,7 +14,7 @@ const Footer = observer(({ ux }) => {
       >
         Continue
       </Button>
-    </div>
+    </Card.Footer>
   );
 });
 
