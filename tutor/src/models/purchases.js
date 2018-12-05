@@ -6,6 +6,8 @@ import Purchase from './purchases/purchase';
 
 class PurchasesMap extends Map {
 
+  keyType = String
+
   @computed get isAnyRefundable() {
     return find(this.array, 'isRefundable');
   }
@@ -27,5 +29,5 @@ class PurchasesMap extends Map {
 }
 
 const purchasesMap = new PurchasesMap();
-
+export { PurchasesMap, Purchase };
 export default purchasesMap;
