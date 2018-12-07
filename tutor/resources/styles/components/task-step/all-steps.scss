@@ -40,6 +40,10 @@
     }
   }
 
+  .card + .card {
+    margin-top: 2rem;
+  }
+
   .openstax-exercise-card {
     padding: $tutor-panel-padding-vertical $tutor-card-body-padding-horizontal;
 
