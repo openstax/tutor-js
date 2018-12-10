@@ -1,5 +1,9 @@
 .plan-modal {
-
+  .modal-content {
+    .modal-header {
+      justify-content: space-between;
+    }
+  }
   .no-students {
     margin: 20px;
   }
