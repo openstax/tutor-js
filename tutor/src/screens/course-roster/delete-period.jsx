@@ -40,7 +40,7 @@ const DeletePeriodModal = ({ section, show, onClose, period, isBusy, onDelete })
         isWaiting={isBusy}>
         Delete
       </AsyncButton>
-      <Button disabled={isBusy} onClick={onClose}>
+      <Button disabled={isBusy} onClick={onClose} variant="default">
         Cancel
       </Button>
     </Modal.Footer>

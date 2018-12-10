@@ -46,7 +46,7 @@ class ProcessRefund extends React.Component {
           >
             Process refund
           </AsyncButton>
-          <Button onClick={onCancel}>Cancel</Button>
+          <Button onClick={onCancel} variant="default">Cancel</Button>
         </Modal.Footer>
       </Modal>
     );
@@ -137,7 +137,7 @@ function AreYouSure({ purchase, onCancel, onContinue }) {
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={onContinue} variant="primary">Continue</Button>
-        <Button onClick={onCancel}>Cancel</Button>
+        <Button onClick={onCancel} variant="default">Cancel</Button>
       </Modal.Footer>
     </Modal>
   );
