@@ -4,6 +4,14 @@
     counter-reset: question;
   }
 
+  .os-equation-number {
+    float: left;
+    font-size: 1.75rem;
+    font-weight: bolder;
+    margin-top: 0.8Rem;
+    margin-right: 1rem;
+  }
+
   @mixin question-number {
     counter-increment: question;
     content: counter(question) ". ";
