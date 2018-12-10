@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { action, computed } from 'mobx';
+import { Button } from 'react-bootstrap';
 import moment from 'moment';
 import { autobind } from 'core-decorators';
 import TaskPlanHelper from '../helpers/task-plan';
@@ -13,11 +14,18 @@ import styled from 'styled-components';
 
 const DUE_FORMAT = 'M/D/YYYY [at] h:mma';
 
-const BackLink = styled.a`
+const BackLinkButton = styled(Button)`
   margin: 10px 0 20px 0;
-  display: block;
+  padding-left: 0 !important;
   font-size: 16px;
 `;
+
+const BackLink = (props) => (
+  <BackLinkButton variant="link" {...props}>
+    <Icon type="chevron-left" /> Back
+  </BackLinkButton>
+);
+
 
 export default
 @observer
@@ -103,9 +111,7 @@ class LmsInfoCard extends React.Component {
   renderPreview() {
     return (
       <div className="lms-info preview">
-        <BackLink onClick={this.props.onBack}>
-          <Icon type="chevron-left" /> Back
-        </BackLink>
+        <BackLink onClick={this.props.onBack} />
         <p>
           Assignment links are not available in preview courses. In
           a live course, you can send assignment links directly
@@ -122,9 +128,7 @@ class LmsInfoCard extends React.Component {
     }
     return (
       <div className="lms-info">
-        <BackLink onClick={this.props.onBack}>
-          <Icon type="chevron-left" /> Back
-        </BackLink>
+        <BackLink onClick={this.props.onBack} />
         <p>
           Copy and send to your students directly, or paste manually into your LMS.
         </p>
