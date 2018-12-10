@@ -89,6 +89,8 @@
     display: flex;
     flex-wrap: wrap;
     border-bottom: 1px solid $border-color;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
     color: $caption-font-color;
     .os-title-label,
     .os-number {
