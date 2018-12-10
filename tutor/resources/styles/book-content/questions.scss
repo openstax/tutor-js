@@ -21,16 +21,19 @@
   };
 
   [data-type=problem] {
-    > .os-number {
+    > .os-number,
+    > .os-divider {
       position: absolute;
-      position: absolute;
-      left: -25px;
+      right: calc(100% + 10px);
       top: -0.1rem;
       font-weight: bold;
       font-size: 2rem;
-      & + .os-divider {
-        display: none;
-      }
+    }
+    > .os-number {
+      right: calc(100% + 15px);
+    }
+    > .os-divider {
+      right: calc(100% + 8px);
     }
   }
 
