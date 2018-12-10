@@ -42,7 +42,6 @@
 
   @each $book in map-keys($openstax-books) {
     &[data-appearance=#{$book}] {
-
       @include tutor-book-content-theme($book);
     }
   }
