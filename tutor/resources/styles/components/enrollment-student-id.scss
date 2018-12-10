@@ -4,7 +4,6 @@
 
   &.course-enroll,
   &.change-student-id {
-    overflow: scroll;
 
     @include tutor-shadow(pop);
     @include ost-hero-backdrop();
@@ -13,6 +12,9 @@
     .modal-body,
     .modal-footer {
       background-color: $tutor-neutral-bright;
+    }
+    .modal-body {
+      overflow: scroll;
     }
     .alert-danger {
       color: $tutor-danger;
