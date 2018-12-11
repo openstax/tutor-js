@@ -25,6 +25,7 @@ const TutorTheme = {
     blue_control:  '#337eb5', // 337eb5
     black:         'black',
     white:         'white',
+    warning:       '#f4d019', // yellow
     danger:        '#c2002f', // dark red
     neutral,
 
