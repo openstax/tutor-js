@@ -10,6 +10,7 @@
 @import './target';
 @import './os-teacher';
 @import './questions';
+@import './examples';
 // mixins
 @import './note';
 
@@ -37,12 +38,12 @@
   @extend %tutor-book-content-target;
   @extend %tutor-book-content-teacher;
   @extend %tutor-book-content-questions;
+  @extend %tutor-book-content-examples;
   @include book-content-interactives();
   @include tutor-book-notes();
 
   @each $book in map-keys($openstax-books) {
     &[data-appearance=#{$book}] {
-
       @include tutor-book-content-theme($book);
     }
   }

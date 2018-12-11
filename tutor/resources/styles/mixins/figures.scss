@@ -5,7 +5,6 @@
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 20px;
-
     &.tutor-ui-horizontal-img {
       width: 100%;
     }
@@ -13,7 +12,9 @@
     &.tutor-ui-vertical-img {
       margin-right: $book-content-vertical-image-margin;
       width: calc(50% - #{$book-content-vertical-image-margin});
-      float: left;
+      &:not(:last-child) {
+        float: left;
+      }
       & + .tutor-ui-vertical-img {
         margin-left: $book-content-vertical-image-margin;
         margin-right: 0;
@@ -88,6 +89,8 @@
     display: flex;
     flex-wrap: wrap;
     border-bottom: 1px solid $border-color;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
     color: $caption-font-color;
     .os-title-label,
     .os-number {
@@ -97,7 +100,10 @@
     .os-title-label + .os-number {
       margin-left: 0.5rem;
     }
-    .os-divider { flex: 1; }
+    .os-divider {
+      flex: 1;
+      min-width: 1rem;
+    }
   }
 
 }
