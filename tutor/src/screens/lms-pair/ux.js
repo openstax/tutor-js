@@ -16,9 +16,9 @@ export default class LmsPairUX {
   @observable createCourseUX = new CreateCourseUX(this);
 
   constructor({
-    courses = Courses.nonPreview.teaching.currentAndFuture.withoutStudents,
+    courses = Courses.nonPreview.teaching.currentAndFuture,
   } = {}) {
-    this.courses = courses;
+    this.courses = courses.where(c => c.is_access_switchable);
   }
 
   @computed get panel() {
