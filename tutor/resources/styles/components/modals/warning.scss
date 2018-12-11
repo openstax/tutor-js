@@ -6,10 +6,8 @@
 .modal-header.warning {
   background-color: #f5e9ea;
   color: #b33238;
-  display: flex;
   align-items: center;
-  padding: 25px 50px;
-
+  justify-content: flex-start;
   .ox-icon {
     font-size: 24px;
     fill: $tutor-danger;
