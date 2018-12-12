@@ -183,7 +183,7 @@
         display: flex;
         align-items: center;
         .correct-incorrect {
-          min-width: 2rem;
+          min-width: 1em; // match font-awesome icon width
         }
         .ox-icon {
           margin: 0;

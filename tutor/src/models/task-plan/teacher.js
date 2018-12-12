@@ -25,7 +25,8 @@ class TeacherTaskPlan extends BaseModel {
   @field({ type: 'date' }) first_published_at
   @field({ type: 'date' }) last_published_at;
   @session({ type: 'date' }) publish_last_requested_at;
-
+  @field failed_at;
+  @field killed_at;
   @field is_draft;
   @field is_preview;
   @field is_published;

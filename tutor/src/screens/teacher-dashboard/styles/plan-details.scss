@@ -3,43 +3,36 @@ body.modal-open {
 }
 
 .plan-modal {
-
-
-// @include tutor-plan-modal($calendar-inactive-background);
-
-  &.is-published,
-  &.is-publishing {
+  .modal-dialog{
     &:not(.is-failed) {
       @include tutor-plan-set(modal);
     }
-  }
-
-  &.is-publishing {
-    .modal-title::before {
-      @include is-publishing();
-      margin-right: $modal-padding/2;
-      margin-left: -$modal-padding/2;
-    }
-  }
-
-  &.is-published{
-    &.is-open.is-trouble {
+    &.is-publishing {
       .modal-title::before {
+        @include is-publishing();
         margin-right: $modal-padding/2;
         margin-left: -$modal-padding/2;
       }
     }
-  }
 
-  &.is-failed {
-    .modal-header {
-      background-color: fade_out($tutor-danger, 0.2);
+    &.is-published{
+      &.is-open.is-trouble {
+        .modal-title::before {
+          margin-right: $modal-padding/2;
+          margin-left: -$modal-padding/2;
+        }
+      }
     }
-    .modal-title::before {
-      content: 'failed ';
+
+    &.is-failed {
+      .modal-header {
+        background-color: fade_out($tutor-danger, 0.2);
+      }
+      .modal-title::before {
+        content: 'failed ';
+      }
     }
   }
-
 
   @include tutor-modal();
 

@@ -47,7 +47,12 @@ $free-response-background:  $tutor-neutral-lighter;
   padding-right: 20px;
   @include tutor-sans-font(1.8rem, 2.4rem);
 
+  .question-stem {
+    display: flex;
+  }
+
   .answers-answer {
+    min-width: 2rem;
     &::before {
       @include answer-label();
       @include answer-icon-label();
@@ -62,11 +67,11 @@ $free-response-background:  $tutor-neutral-lighter;
       line-height: 2.4rem;
     }
     .correct-incorrect {
-      margin-right: 30px;
+      margin-right: 2rem;
     }
     .selected-count {
       display: inline-block;
-      width: 35px;
+      width: 2.4rem;
 
       @media (max-width: $tutor-card-padding-collapse-breakpoint) {
         width: 40px;

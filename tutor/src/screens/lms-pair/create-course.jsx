@@ -4,7 +4,7 @@ import Wizard from '../new-course/wizard';
 
 export default
 @observer
-class NewOrExisting extends React.Component {
+class CreateNewCourse extends React.Component {
 
   static propTypes = {
     ux: PropTypes.object.isRequired,

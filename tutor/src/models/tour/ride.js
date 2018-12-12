@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, belongsTo, computed,
+  BaseModel, identifiedBy, computed, session,
 } from 'shared/model';
 import { defaults, compact } from 'lodash';
 import { action, observable } from 'mobx';
@@ -23,9 +23,9 @@ export default
 @identifiedBy('tour/ride')
 class TourRide extends BaseModel {
 
-  @belongsTo({ model: 'tour' }) tour;
-  @belongsTo({ model: 'tour/context' }) context;
-  @belongsTo({ model: 'tour/region' }) region;
+  @session({ type: 'object' }) tour;
+  @session({ type: 'object' }) context;
+  @session({ type: 'object' }) region;
 
   @observable currentStep = 0;
   @observable joyrideRef;
