@@ -24,6 +24,7 @@ class NotesWidget extends React.Component {
   static propTypes = {
     courseId: PropTypes.string.isRequired,
     documentId: PropTypes.string,
+    children: PropTypes.node.isRequired,
     windowImpl: PropTypes.shape({
       open: PropTypes.func,
     }),
@@ -59,14 +60,8 @@ class NotesWidget extends React.Component {
 
     when(
       () => !this.props.notes.api.isPending,
-      () => this.initializePage(),
+      this.initializePage,
     );
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!this.course.canAnnotate) { return; }
-    this.activeNote = null;
-    this.initializePage();
   }
 
   componentWillUnmount() {
@@ -289,8 +284,25 @@ class NotesWidget extends React.Component {
     return this.getNoteByOffset(-1);
   }
 
+  @action.bound onMutations(mutationsList) {
+    // ignore muatations caused by highlights or mathjax
+    if (!mutationsList.find(m =>
+      m.target.matches('.tutor-highlight') || m.target.matches('.MathJax_Preview'),
+    )) {
+      this.initializePage();
+    }
+  }
+
   @action.bound setElement(el) {
+    if (this.contentObserver) {
+      this.contentObserver.disconnect();
+      this.contentObserver = null;
+    }
     this.element = el;
+    if (this.element) {
+      this.contentObserver = new MutationObserver(this.onMutations);
+      this.contentObserver.observe(el, { childList: true, subtree: true });
+    }
   }
 
   get parentRect() {
@@ -299,7 +311,7 @@ class NotesWidget extends React.Component {
     }
     const wLeft = this.props.windowImpl.pageXOffset;
     const wTop = this.props.windowImpl.pageYOffset;
-    const parentRect =  this.element.parentElement.getBoundingClientRect();
+    const parentRect =  this.element.getBoundingClientRect();
     return {
       bottom: wTop + parentRect.bottom,
       left: wLeft + parentRect.left,
@@ -352,14 +364,7 @@ class NotesWidget extends React.Component {
     if (!this.course.canAnnotate) { return null; }
 
     return (
-      <div className="annotater" ref={this.setElement}>
-        <InlineControls
-          pendingHighlight={this.pendingHighlight}
-          windowImpl={this.props.windowImpl}
-          parentRect={this.parentRect}
-          annotate={this.openAnnotator}
-          highlight={this.highlightAndClose}
-        />
+      <div className="annotater">
         <EditBox
           note={this.activeNote}
           onHide={this.hideActiveHighlight}
@@ -377,21 +382,32 @@ class NotesWidget extends React.Component {
           onClick={this.editNote}
           activeNote={this.activeNote}
         />
-        {this.renderStatusMessage()}
-        <Overlay
-          id="notes-summary"
-          visible={this.ux.isSummaryVisible}
-          onHide={this.ux.hideSummary}
-          renderer={() => (
-            <SummaryPage
-              courseId={this.props.courseId}
-              notes={this.props.notes}
-              onDelete={this.onNoteDelete}
-              currentChapter={this.props.chapter}
-              currentSection={this.props.section}
-            />
-          )}
+
+        <InlineControls
+          pendingHighlight={this.pendingHighlight}
+          windowImpl={this.props.windowImpl}
+          parentRect={this.parentRect}
+          annotate={this.openAnnotator}
+          highlight={this.highlightAndClose}
         />
+
+        <div className="annotater-content" ref={this.setElement}>
+          <Overlay
+            id="notes-summary"
+            visible={this.ux.isSummaryVisible}
+            onHide={this.ux.hideSummary}
+            renderer={() =>
+              <SummaryPage
+                courseId={this.props.courseId}
+                         notes={this.props.notes}
+                         onDelete={this.onNoteDelete}
+                         currentChapter={this.props.chapter}
+                         currentSection={this.props.section}
+              />}
+          />
+          {this.props.children}
+        </div>
+        {this.renderStatusMessage()}
       </div>
     );
   }

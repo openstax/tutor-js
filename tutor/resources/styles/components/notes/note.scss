@@ -19,7 +19,9 @@
 }
 
 .annotater {
-
+  .annotater-content {
+    position: relative;
+  }
   .inline-controls {
     background: $tutor-white;
     border: thin solid $tutor-neutral-light;
@@ -53,7 +55,7 @@
         svg path { fill: $tutor-black; }
       }
     }
-    .annotate {
+    .btn.annotate {
       border-right: thin solid $tutor-neutral-light;
       color: $tutor-neutral-darker;
       &:hover {

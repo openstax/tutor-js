@@ -101,19 +101,21 @@ const ReadingStepContent = createReactClass({
             contentId={id}
             chapter_section={this.getContentChapterSection()}
             title={this.getContentTitle()} />
-          <ArbitraryHtmlAndMath
-            className="book-content"
-            shouldExcludeFrame={this.shouldExcludeFrame}
-            html={content_html} />
+          <NoteWidget
+            courseId={courseId}
+            chapter={this.getContentChapter()}
+            section={this.getContentSection()}
+            title={this.getContentTitle()}
+            documentId={this.getCnxId()}
+            pageType={stepType}
+          >
+            <ArbitraryHtmlAndMath
+              className="book-content"
+              shouldExcludeFrame={this.shouldExcludeFrame}
+              html={content_html} />
+          </NoteWidget>
           {this.renderNextStepLink()}
         </div>
-        <NoteWidget
-          courseId={courseId}
-          chapter={this.getContentChapter()}
-          section={this.getContentSection()}
-          title={this.getContentTitle()}
-          documentId={this.getCnxId()}
-          pageType={stepType} />
       </div>
     );
   },
