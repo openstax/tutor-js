@@ -47,10 +47,6 @@ $free-response-background:  $tutor-neutral-lighter;
   padding-right: 20px;
   @include tutor-sans-font(1.8rem, 2.4rem);
 
-  .question-stem {
-    display: flex;
-  }
-
   .answers-answer {
     min-width: 2rem;
     &::before {

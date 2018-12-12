@@ -16,6 +16,7 @@
     counter-reset: question;
     .question-stem {
       &::before {
+        float: left;
         counter-increment: question;
         content: counter(question) '.';
         display: inline-block;
