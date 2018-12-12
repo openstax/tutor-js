@@ -77,8 +77,8 @@ const ChapterHeading = styled.div`
 
 const ChapterWrapper = styled.div`
   .browse-the-book {
-    font-size: 1.4rem;
-    margin-right: 2rem;
+  font-size: 1.4rem;
+  margin-right: 2rem;
   }
 `;
 
@@ -106,7 +106,7 @@ class ChapterAccordion extends React.Component {
     ev.preventDefault();
     const selected = !this.isAnySelected;
     const newSelections = {};
-    this.props.chapter.children.forEach(pg => newSelections[pg.id] = selected);
+    this.props.chapter.children.assignable.forEach(pg => newSelections[pg.id] = selected);
     this.expanded = true;
     this.props.onChange(newSelections);
   };
@@ -119,7 +119,7 @@ class ChapterAccordion extends React.Component {
     const { chapter } = this.props;
     const selected = filter(chapter.children, this.isSectionSelected);
 
-    const checkBoxType = selected.length === chapter.children.length ? 'checked'
+    const checkBoxType = selected.length === chapter.children.assignable.length ? 'checked'
       : selected.length ? 'partial' : 'unchecked';
 
     return (

@@ -89,11 +89,7 @@ class TaskTeacherReviewQuestion extends React.Component {
 
     return (
       <TourAnchor id="student-responses">
-        <Card
-
-          eventKey={question.id}
-          className={freeResponsesClasses}
-        >
+        <Card className={freeResponsesClasses}>
           <Card.Body>{toggleFreeResponseControls}</Card.Body>
           {freeResponses}
         </Card>

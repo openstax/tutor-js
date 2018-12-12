@@ -3,7 +3,7 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
-import { first, find } from 'lodash';
+import { first, find, isEmpty } from 'lodash';
 import Courses from '../../models/courses-map';
 import Breadcrumbs from './breadcrumbs';
 import Stats from '../plan-stats';
@@ -78,7 +78,7 @@ class TaskTeacherReview extends React.Component {
   }
 
   renderReviewCard() {
-    if (!this.stats) {
+    if (!this.stats || isEmpty(this.stats.exercisesBySection)) {
       return (
         <NoStats taskPlan={this.taskPlan} header={this.renderBreadcrumbs()} course={this.course} period={this.period} />
       );

@@ -3,7 +3,7 @@ import { observable, action, computed, when } from 'mobx';
 import { autobind } from 'core-decorators';
 import { Icon, Logging } from 'shared';
 import User from '../models/user';
-import { filter, last, sortBy } from 'lodash';
+import { filter, last, sortBy, debounce } from 'lodash';
 import SummaryPage from './notes/summary-page';
 import dom from '../helpers/dom';
 import imagesComplete from '../helpers/images-complete';
@@ -45,7 +45,6 @@ class NotesWidget extends React.Component {
 
   @observable scrollToPendingNote;
   @observable highlighter;
-  @observable referenceElements = [];
   @observable activeNote;
   @observable pendingHighlight;
 
@@ -64,7 +63,7 @@ class NotesWidget extends React.Component {
     );
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
     if (!this.course.canAnnotate) { return; }
     this.activeNote = null;
     this.initializePage();
@@ -116,7 +115,6 @@ class NotesWidget extends React.Component {
       })
         .finally(resolve)
       ;
-
       if (win.MathJax && unprocessedMath) {
         win.MathJax.Hub.Register.MessageHook('End Process', runImagesComplete);
       } else {
@@ -129,17 +127,13 @@ class NotesWidget extends React.Component {
     return this.props.windowImpl.document.querySelector('.book-content');
   }
 
-  initializePage() {
+  initializePage = debounce(() => {
     this.ux.statusMessage.show({
       type: 'info',
       message: 'Waiting for page to finish loading…',
     });
 
-    this.getReferenceElements();
-    if (!this.referenceElements.length) { return Promise.resolve(); }
-
     const initialize = action(() => {
-      // remove any existing highlighter
       if (this.highlighter) {
         this.highlighter.unmount();
       }
@@ -162,8 +156,8 @@ class NotesWidget extends React.Component {
       this.ux.statusMessage.hide();
     });
 
-    return this.waitForPageReady().then(initialize);
-  }
+    this.waitForPageReady().then(initialize);
+  }, 100)
 
   @action.bound onHighlightClick(highlight) {
     const note = highlight ? this.props.notes.get(highlight.id) : null;
@@ -208,11 +202,16 @@ class NotesWidget extends React.Component {
     }
   }
 
-  @action
-  getReferenceElements() {
-    this.referenceElements = Array.from(
-      this.props.windowImpl.document.querySelectorAll('.book-content > [id]')
-    ).reverse();
+  get documentRoot() {
+    const doc = this.props.windowImpl.document;
+    return doc.querySelector('[data-type="composite-page"]') || doc.querySelector('.book-content') || doc;
+
+  }
+
+  get referenceElements() {
+    return Array.from(this.documentRoot.children)
+      .filter(e => e.matches('[id]'))
+      .reverse();
   }
 
   @autobind
