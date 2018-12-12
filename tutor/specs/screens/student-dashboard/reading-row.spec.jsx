@@ -36,7 +36,7 @@ describe('Reading Row', function() {
 
   it('renders close to being due', () => {
     props.event.complete_exercise_count = 1;
-    props.event.due_at = new Date(now.getTime() + ( 24*60*60*1000 ));
+    props.event.due_at = new Date(now.getTime() + ( 24*60*60*1000 ) - 1000);
     props.event.complete = false;
     const row = mount(<ReadingRow {...props} />);
     expect(row.find('Col[className="feedback"]').text()).toEqual('In progress');
