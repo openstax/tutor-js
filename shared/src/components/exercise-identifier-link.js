@@ -1,20 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
-import createReactClass from 'create-react-class';
-
-import first from 'lodash/first';
-import pick from 'lodash/pick';
-import extend from 'lodash/extend';
-
+import { first, pick, extend } from 'lodash';
 import Exercise from '../helpers/exercise';
-import ChapterSectionMixin from './chapter-section-mixin';
 
-const ExerciseIdentifierLink = createReactClass({
-  displayName: 'ExerciseIdentifierLink',
-  mixins: [ChapterSectionMixin],
+export default
+class ExerciseIdentifierLink extends React.Component {
 
-  propTypes: {
+  static propTypes = {
     bookUUID: PropTypes.string,
     exerciseId: PropTypes.string.isRequired,
     project: PropTypes.oneOf(['concept-coach', 'tutor']),
@@ -26,19 +18,19 @@ const ExerciseIdentifierLink = createReactClass({
 
     chapter_section: PropTypes.arrayOf(PropTypes.number),
     title: PropTypes.string,
-  },
+  }
 
-  contextTypes: {
+  static contextTypes = {
     oxProject: PropTypes.string,
     bookUUID:  PropTypes.string,
-  },
+  }
 
   getLocationInfo() {
     const info = this.props.related_content ?
       first(this.props.related_content) : this.props;
 
     return pick(info, 'chapter_section', 'title');
-  },
+  }
 
   render() {
     const url = Exercise.troubleUrl(extend(
@@ -51,18 +43,12 @@ const ExerciseIdentifierLink = createReactClass({
     ));
 
     return (
-      <div>
-        <span className="exercise-identifier-link">
-          {'\
-    ID# '}
-          {this.props.exerciseId}
-          {' | '}
-          <a target="_blank" tabIndex={-1} href={url}>
-            Suggest a correction
-          </a>
-        </span>
+      <div className="exercise-identifier-link">
+        ID# {this.props.exerciseId} | <a target="_blank" tabIndex={-1} href={url}>
+          Suggest a correction
+        </a>
       </div>
     );
-  },
-});
-export default ExerciseIdentifierLink;
+  }
+
+}

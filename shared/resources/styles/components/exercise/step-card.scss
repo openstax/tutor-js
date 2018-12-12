@@ -27,12 +27,10 @@
   position: relative;
   .exercise-identifier-link {
     position: absolute;
-    right: $openstax-answer-horizontal-spacing;
-    bottom: $openstax-answer-vertical-spacing;
+    right: 3rem;
+    bottom: 3rem;
     color: $openstax-answer-label-color;
     font-size: 1.2rem;
-    line-height: 1.2rem;
-    max-width: $openstax-exercise-identifier-link-max-width;
   }
 
   &.deleted-reading,
