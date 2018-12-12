@@ -1,0 +1,19 @@
+%tutor-book-content-equations {
+  [data-type="equation"] {
+    position: relative;
+
+    .os-equation-number {
+      position: absolute;
+      right: 0;
+      top: 0;
+      top: -0.5rem;
+      padding: 0.4rem;
+      border: 1px solid $tutor-neutral-dark;
+      @include tutor-shadow(subtle);
+      .os-number {
+        font-size: 1.2rem;
+        font-weight: normal;
+      }
+    }
+  }
+}

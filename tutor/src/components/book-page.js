@@ -97,6 +97,24 @@ const BookPage = createReactClass({
     }
 
     const title = this.getSplashTitle();
+    let content = (
+      <ArbitraryHtmlAndMath
+        className="book-content"
+        block={true}
+        html={page.contents} />
+    );
+
+    if (ux.allowsAnnotating) {
+      content = (
+        <NotesWidget
+          courseId={ux.course.id}
+          chapter={page.chapter_section.chapter}
+          section={page.chapter_section.section}
+          title={title}
+          documentId={page.cnx_id}
+        >{content}</NotesWidget>
+      );
+    }
 
     return (
       <div
@@ -113,18 +131,12 @@ const BookPage = createReactClass({
             chapter_section={page.chapter_section}
             title={title}
           />
-          <ArbitraryHtmlAndMath className="book-content" block={true} html={page.contents} />
+          {content}
         </div>
         <SpyMode.Content className="ecosystem-info">
           Page: {page.cnx_id}, Book: {get(page,'chapter.book.cnx_id')} Ecosystem: {get(page,'chapter.book.uuid')}
         </SpyMode.Content>
-        {ux.allowsAnnotating &&
-          <NotesWidget
-            courseId={ux.course.id}
-            chapter={page.chapter_section.chapter}
-            section={page.chapter_section.section}
-            title={title}
-            documentId={page.cnx_id} />}
+
       </div>
     );
   },

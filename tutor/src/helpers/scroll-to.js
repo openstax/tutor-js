@@ -13,7 +13,7 @@ const DEFAULT_TOP_OFFSET = 80; // pixels
 // Attempt to scroll to element no more than this number of times.
 // In testing, no more than one attempt has been needed but it's best to have a failsafe to
 // ensure scrolling doesn't enter an infinite loop
-const MAXIMUM_SCROLL_ATTEMPTS = 3;
+const MAXIMUM_SCROLL_ATTEMPTS = 1;
 
 // http://blog.greweb.fr/2012/02/bezier-curve-based-easing-functions-from-concept-to-implementation/
 function EASE_IN_OUT(t) {

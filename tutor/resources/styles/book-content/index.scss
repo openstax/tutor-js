@@ -11,6 +11,7 @@
 @import './os-teacher';
 @import './questions';
 @import './examples';
+@import './equations';
 // mixins
 @import './note';
 
@@ -39,6 +40,7 @@
   @extend %tutor-book-content-teacher;
   @extend %tutor-book-content-questions;
   @extend %tutor-book-content-examples;
+  @extend %tutor-book-content-equations;
   @include book-content-interactives();
   @include tutor-book-notes();
 

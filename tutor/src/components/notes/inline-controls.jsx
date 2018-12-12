@@ -13,8 +13,8 @@ const InlineControls = observer(({ windowImpl, pendingHighlight, annotate, paren
   const rect = getRangeRect(windowImpl, pendingHighlight.range);
 
   const style = {
-    top: `${rect.top - 70 - parentRect.top}px`,
-    right: `${Math.max(parentRect.right - rect.right - 10, MARGIN)}px`,
+    top: `${rect.top - 10 - parentRect.top}px`,
+    right: `${Math.max(parentRect.right - rect.right + MARGIN, MARGIN)}px`,
   };
 
   return (
