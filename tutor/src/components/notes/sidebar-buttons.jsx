@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { autobind } from 'core-decorators';
 import { observer } from 'mobx-react';
-import { action, observable } from 'mobx';
+import { action, observable, computed } from 'mobx';
 import cn from 'classnames';
 import { get, map, filter } from 'lodash';
 import { Icon } from 'shared';
@@ -12,11 +12,19 @@ import getRangeRect from './getRangeRect';
 @observer
 class NoteButton extends React.Component {
 
-  calculateTop() {
-    const { windowImpl, containerTop, note, parentRect, highlighter } = this.props ;
+  static propTypes = {
+    isActive: PropTypes.bool,
+    note: PropTypes.instanceOf(Note).isRequired,
+    highlighter: PropTypes.object,
+    onClick: PropTypes.func.isRequired,
+    activeNote: PropTypes.instanceOf(Note),
+    containerTop: PropTypes.number.isRequired,
+  }
 
+  calculateTop() {
+    const { note, highlighter, windowImpl } = this.props ;
     const highlight = highlighter.getHighlight(note.id);
-    if (!highlight || !parentRect) {
+    if (!highlight) {
       return null;
     }
     const { top } = getRangeRect(windowImpl, highlight.range);
@@ -31,13 +39,11 @@ class NoteButton extends React.Component {
 
   render() {
     const { highlightTop } = this;
-    const {
-      note, isActive, containerTop,
-    } = this.props;
+    const { note, isActive, containerTop } = this.props;
 
-    if (highlightTop == null || containerTop == null) { return null; }
+    if (highlightTop == null) { return null; }
 
-    const top = this.highlightTop - containerTop + 85;
+    const top = this.highlightTop - containerTop; // - 120;
 
     return (
       <Icon
@@ -63,29 +69,35 @@ class SidebarButtons extends React.Component {
     parentRect: PropTypes.shape({
       top: PropTypes.number,
     }),
+    highlighter: PropTypes.object,
     onClick: PropTypes.func.isRequired,
     activeNote: PropTypes.instanceOf(Note),
   }
 
-  @observable containerTop;
 
-  @action.bound setParentRef(r) {
-    this.containerTop = r ? r.getBoundingClientRect().top : 0;
+  @observable containerTop = null;
+
+  @action.bound setContainerRef(el) {
+    this.containerTop = el ? getRangeRect(this.props.windowImpl, el).top : null
+  }
+
+  renderNotes() {
+    return filter(this.props.notes, 'text').map(note =>
+      <NoteButton
+        key={note.id}
+        containerTop={this.containerTop}
+        {...this.props}
+        note={note}
+      />
+    );
   }
 
   render() {
     if (!this.props.highlighter) { return null; }
 
     return (
-      <div className="note-edit-buttons" ref={this.setParentRef}>
-      {filter(this.props.notes, 'text').map(note =>
-        <NoteButton
-          key={note.id}
-          {...this.props}
-          containerTop={this.containerTop}
-          note={note}
-        />
-      )}
+      <div className="note-edit-buttons" ref={this.setContainerRef}>
+        {this.containerTop && this.renderNotes()}
       </div>
     );
 
