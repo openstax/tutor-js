@@ -30,8 +30,7 @@ class Milestone extends React.Component {
     const classes = classnames('milestone', `milestone-${crumb.type}`,
       { 'active': isCurrent });
 
-    const previewText = StepTitleStore.getTitleForCrumb(this.props.crumb);
-
+    const previewText = StepTitleStore.getTitleForCrumb(crumb);
     if (crumb.type === 'exercise') {
       preview = <ArbitraryHtmlAndMath block={true} className="milestone-preview" html={previewText} />;
     } else {
