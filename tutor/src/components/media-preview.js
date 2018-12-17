@@ -9,7 +9,14 @@ import S from '../helpers/string';
 
 import { MediaStore } from '../flux/media';
 
+function getTargetClassList(el) {
+  if (el.parentElement && el.parentElement.matches('.os-figure')) {
+    return el.parentElement.classList;
+  }
+  return el.classList;
+}
 
+export default
 class MediaPreview extends React.Component {
   static defaultProps = {
     buffer: 160,
@@ -115,7 +122,7 @@ class MediaPreview extends React.Component {
 
   highlightMedia = () => {
     const { mediaDOMOnParent } = this.props;
-    return (mediaDOMOnParent != null ? mediaDOMOnParent.classList.add('link-target') : undefined);
+    return (mediaDOMOnParent != null ? getTargetClassList(mediaDOMOnParent).add('link-target') : undefined);
   };
 
   isMediaInViewport = () => {
@@ -157,7 +164,7 @@ class MediaPreview extends React.Component {
 
   unhighlightMedia = () => {
     const { mediaDOMOnParent } = this.props;
-    return (mediaDOMOnParent != null ? mediaDOMOnParent.classList.remove('link-target') : undefined);
+    return (mediaDOMOnParent != null ? getTargetClassList(mediaDOMOnParent).remove('link-target') : undefined);
   };
 
   updateMedia = (media) => {
@@ -170,6 +177,7 @@ class MediaPreview extends React.Component {
 
     const overlayProps = this.getOverlayProps();
     let linkProps = this.getLinkProps(overlayProps);
+
     if (media != null) {
       let linkText;
       const contentHtml = media.html;
@@ -205,5 +213,3 @@ class MediaPreview extends React.Component {
     }
   }
 }
-
-export { MediaPreview };

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import _ from 'underscore';
 import dom from '../helpers/dom';
 
-import { MediaPreview } from './media-preview';
+import MediaPreview from './media-preview';
 import { TaskStepStore } from '../flux/task-step';
 import { MediaStore } from '../flux/media';
 import Courses from '../models/courses-map';

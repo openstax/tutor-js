@@ -361,7 +361,7 @@ class NotesWidget extends React.Component {
   }
 
   render() {
-    if (!this.course.canAnnotate) { return null; }
+    if (!this.course.canAnnotate) { return this.props.children; }
 
     return (
       <div className="annotater">
@@ -399,10 +399,10 @@ class NotesWidget extends React.Component {
             renderer={() =>
               <SummaryPage
                 courseId={this.props.courseId}
-                         notes={this.props.notes}
-                         onDelete={this.onNoteDelete}
-                         currentChapter={this.props.chapter}
-                         currentSection={this.props.section}
+                notes={this.props.notes}
+                onDelete={this.onNoteDelete}
+                currentChapter={this.props.chapter}
+                currentSection={this.props.section}
               />}
           />
           {this.props.children}

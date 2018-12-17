@@ -1,5 +1,4 @@
-import _ from 'underscore';
-import unescape from 'lodash/unescape';
+import { unescape, get, isEmpty, intersection, filter, first, last, partial } from 'lodash';
 import htmlparser from 'htmlparser2';
 import { makeSimpleStore } from './helpers';
 import { StepHelpsHelper } from 'shared';
@@ -35,7 +34,7 @@ const isNote = function(element) {
   if ((__guard__(element != null ? element.attribs : undefined, x => x['class']) == null) && (element.attribs['data-element-type'] == null)) { return; }
 
   const classes = element.attribs['class'].split(' ');
-  return !_.isEmpty(_.intersection(classes, ['note', 'example', 'grasp-check'])) ||
+  return !isEmpty(intersection(classes, ['note', 'example', 'grasp-check'])) ||
     (element.attribs['data-element-type'] === 'check-understanding');
 };
 
@@ -89,7 +88,7 @@ const StepTitleConfig = {
   },
 
   loadedMetaData(contentId, metaData = {}) {
-    metaData = _.extend({
+    metaData = Object.assign({
       hasLearningObjectives: false,
     }, metaData);
 
@@ -130,14 +129,14 @@ const StepTitleConfig = {
       const simpleExercise = htmlparser.DomUtils.find(keepMathsOnly, dom, false);
       let exerciseLength = 0;
 
-      const truncatedExercise = _.filter(simpleExercise, function(part) {
+      const truncatedExercise = filter(simpleExercise, function(part) {
         if (exerciseLength > TEXT_LENGTH) { return false; }
         exerciseLength += getLengthFromTextOrMaths(part);
         return true;
       });
 
       if (exerciseLength >= TEXT_LENGTH) {
-        const lastPart = _.last(truncatedExercise);
+        const lastPart = last(truncatedExercise);
 
         if (lastPart.type === 'text') {
           let start;
@@ -159,7 +158,7 @@ const StepTitleConfig = {
 
   parseReading(id, htmlString) {
     if (this._get(id) == null) {
-      const parseHandler = new htmlparser.DomHandler(_.partial(this._parseReading, this, id));
+      const parseHandler = new htmlparser.DomHandler(partial(this._parseReading, this, id));
       const titleParser = new htmlparser.Parser(parseHandler);
       return titleParser.parseComplete(htmlString);
     }
@@ -167,7 +166,7 @@ const StepTitleConfig = {
 
   parseExercise(id, htmlString) {
     if (this._get(id) == null) {
-      const parseHandler = new htmlparser.DomHandler(_.partial(this._parseExercise, this, id));
+      const parseHandler = new htmlparser.DomHandler(partial(this._parseExercise, this, id));
       const titleParser = new htmlparser.Parser(parseHandler);
       return titleParser.parseComplete(htmlString);
     }
@@ -175,19 +174,19 @@ const StepTitleConfig = {
 
   parseStep(step) {
     if (step.type === 'exercise') {
-      return this.parseExercise(step.id, _.first(step.content.questions).stem_html);
+      return this.parseExercise(step.id, first(step.content.questions).stem_html);
     } else {
       return this.parseReading(step.id, step.content_html);
     }
   },
 
   parseSteps(steps) {
-    return _.each(steps, this.parseStep, this);
+    return steps.forEach(s => this.parseStep(s))
   },
 
   parseMetaOnly(contentId, htmlString) {
     if (this._meta[contentId] == null) {
-      const parseHandler = new htmlparser.DomHandler(_.partial(this._parseMeta, this, contentId));
+      const parseHandler = new htmlparser.DomHandler(partial(this._parseMeta, this, contentId));
       const metaParser = new htmlparser.Parser(parseHandler);
       return metaParser.parseComplete(htmlString);
     }
