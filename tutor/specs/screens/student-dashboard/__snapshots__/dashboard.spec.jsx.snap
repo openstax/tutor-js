@@ -339,7 +339,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                 className="feedback col-sm-3 col-5"
               >
                 <span>
-                  In progress
+                  Not started
                 </span>
               </div>
               <div

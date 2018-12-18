@@ -27,6 +27,15 @@ describe('Reading Row', function() {
     row.unmount();
   });
 
+  it('renders in progress', function() {
+    props.event.last_worked_at = new Date();
+    props.event.complete = false;
+    const row = mount(<ReadingRow {...props} />);
+    expect(row.find('Col[className="feedback"]').text()).toEqual('In progress');
+    expect(row).toHaveRendered('Icon[type="clock"]');
+    row.unmount();
+  });
+
   it('renders complete', function() {
     props.event.complete = true;
     const row = mount(<ReadingRow {...props} />);
@@ -35,7 +44,7 @@ describe('Reading Row', function() {
   });
 
   it('renders close to being due', () => {
-    props.event.complete_exercise_count = 1;
+    props.event.last_worked_at = new Date();
     props.event.due_at = new Date(now.getTime() + ( 24*60*60*1000 ) - 1000);
     props.event.complete = false;
     const row = mount(<ReadingRow {...props} />);
