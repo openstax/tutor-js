@@ -43,7 +43,7 @@ class NoteButton extends React.Component {
 
     if (highlightTop == null) { return null; }
 
-    const top = this.highlightTop - containerTop; // - 120;
+    const top = this.highlightTop - containerTop;
 
     return (
       <Icon
