@@ -18,7 +18,6 @@ class HomeworkCell extends React.Component {
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
     className: PropTypes.string,
-    isConceptCoach: PropTypes.bool,
     columnIndex: PropTypes.number.isRequired,
     task: PropTypes.instanceOf(TaskResult).isRequired,
   }

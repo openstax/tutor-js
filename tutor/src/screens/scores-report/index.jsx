@@ -56,14 +56,6 @@ class StudentScores extends React.Component {
   renderAfterTabsItem() {
     if (!get(this.ux.period, 'students.length')) { return null; }
 
-    if (this.course.is_concept_coach) {
-      return (
-        <span className="course-scores-note tab">
-          Click on a student’s score to review their work.
-          Click the icon to see their progress completing the assignment.
-        </span>
-      );
-    }
     return (
       <span className="course-scores-note tab">
         Scores reflect work submitted on time.
@@ -102,16 +94,15 @@ class StudentScores extends React.Component {
         fullWidthChildren={
           <TourRegion
             id="scores"
-                courseId={courseId}
-                otherTours={['preview-scores']}
-            >
+            courseId={courseId}
+            otherTours={['preview-scores']}
+          >
             <ContainerDimensions>
               <ScoresTable
                 ux={this.ux}
-                   sort={this.sort}
-                   onSort={this.changeSortingOrder}
-                   dataType={this.sort.dataType}
-                   isConceptCoach={this.course.is_concept_coach}
+                sort={this.sort}
+                onSort={this.changeSortingOrder}
+                dataType={this.sort.dataType}
               />
             </ContainerDimensions>
           </TourRegion>

@@ -12,7 +12,6 @@ class NameCell extends React.Component {
 
   static propTypes = {
     courseId: PropTypes.string.isRequired,
-    isConceptCoach: PropTypes.bool.isRequired,
     className: PropTypes.string,
     students: PropTypes.array.isRequired,
     rowIndex: PropTypes.number,
@@ -32,8 +31,6 @@ class NameCell extends React.Component {
       </span>,
     ];
     const classname = classnames('name-cell', this.props.className);
-    if (this.props.isConceptCoach) { return <div className={classname}>{children}</div>; }
-
 
     return (
       <div className="name-cell-wrapper">

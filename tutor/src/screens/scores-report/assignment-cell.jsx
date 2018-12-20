@@ -7,7 +7,6 @@ import ReadingCell from './reading-cell';
 import HomeworkCell from './homework-cell';
 import AbsentCell from './absent-cell';
 import ExternalCell from './external-cell';
-import ConceptCoachCell from './concept-coach-cell';
 import UX from './ux';
 
 export default
