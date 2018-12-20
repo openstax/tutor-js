@@ -6,10 +6,15 @@
     flex-direction: column;
     margin-bottom: 20px;
     &.tutor-ui-horizontal-img {
-      width: 100%;
+      max-width: 50%;
       align-items: center;
     }
-
+    &.small-img-width {
+      max-width: 100%;
+    }
+    &.medium-img-width {
+      max-width: 75%;
+    }
     &.tutor-ui-vertical-img {
       margin-right: $book-content-vertical-image-margin;
       width: calc(50% - #{$book-content-vertical-image-margin});
