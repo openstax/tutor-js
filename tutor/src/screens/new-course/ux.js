@@ -113,10 +113,6 @@ class CourseBuilderUX extends BaseModel {
 
   _goBackward() {
     this.currentStageIndex -= 1;
-    // reset new course state to initial
-    if(this.currentStageIndex == 0) {
-      this.newCourse = new CreateCourse();
-    }
     while (this.shouldSkip) {
       this.currentStageIndex -= 1;
     }
@@ -159,7 +155,7 @@ class CourseBuilderUX extends BaseModel {
         { appearance_code: this.preselectedAppearanceCode }
       );
     }
-    return this.newCourse.offering_id ? this.offerings.get(this.newCourse.offering_id) : null;
+    return this.newCourse.offering;
   }
 
   @computed get validOfferings() {
