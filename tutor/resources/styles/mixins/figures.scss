@@ -1,19 +1,25 @@
 @mixin tutor-figure() {
 
-  .os-figure.tutor-ui-vertical-img,
+  .os-figure.tutor-ui-vertical-img, .tutor-ui-horizontal-img,
   figure {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     margin-bottom: 20px;
     &.tutor-ui-horizontal-img {
-      width: 100%;
+      max-width: 50%;
+      align-items: center;
     }
-
+    &.small-img-width {
+      max-width: 100%;
+    }
+    &.medium-img-width {
+      max-width: 75%;
+    }
     &.tutor-ui-vertical-img {
       margin-right: $book-content-vertical-image-margin;
       width: calc(50% - #{$book-content-vertical-image-margin});
       &:not(:last-child) {
-        float: left;
+        // float: left; //disabled until content that isn't plain txt is styled properly
       }
       & + .tutor-ui-vertical-img {
         margin-left: $book-content-vertical-image-margin;
@@ -81,7 +87,7 @@
 
   [data-type="note"] figure.tutor-ui-vertical-img {
     margin-right: 0;
-    width: 100%;
+    max-width: 50%;
     float: none;
   }
 

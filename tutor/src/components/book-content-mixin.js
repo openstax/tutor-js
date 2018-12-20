@@ -297,6 +297,11 @@ var processImage = function() {
   // let wide, square, and almost square figures be natural.
   if ((aspectRatio > 0.9) || ((figure.parentNode != null ? figure.parentNode.dataset.orient : undefined) === 'horizontal')) {
     figure.classList.add('tutor-ui-horizontal-img');
+    if (this.naturalWidth < 1200) {
+      figure.classList.add('small-img-width');
+    } else {
+      figure.classList.add('medium-img-width');
+    }
   } else {
     figure.classList.add('tutor-ui-vertical-img');
   }
