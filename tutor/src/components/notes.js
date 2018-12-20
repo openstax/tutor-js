@@ -104,22 +104,17 @@ class NotesWidget extends React.Component {
   waitForPageReady() {
     return new Promise(resolve => {
       const win = this.props.windowImpl;
-      const unprocessedMath = !!win.document.querySelector('.book-content *:not(.MJX_Assistive_MathML) > math');
+      const unprocessedMath = this.documentRoot.querySelector('*:not(.MJX_Assistive_MathML) > math');
       const runImagesComplete = () => imagesComplete({
-        body: win.document.querySelector('.book-content'),
-      })
-        .finally(resolve)
-      ;
+        body: this.documentRoot,
+      }).finally(resolve);
+
       if (win.MathJax && unprocessedMath) {
         win.MathJax.Hub.Register.MessageHook('End Process', runImagesComplete);
       } else {
         runImagesComplete();
       }
     });
-  }
-
-  getBookContentRef() {
-    return this.props.windowImpl.document.querySelector('.book-content');
   }
 
   initializePage = debounce(() => {
@@ -133,7 +128,7 @@ class NotesWidget extends React.Component {
         this.highlighter.unmount();
       }
       // create a new highlighter
-      this.highlighter = new Highlighter(this.getBookContentRef(), {
+      this.highlighter = new Highlighter(this.documentRoot, {
         snapTableRows: true,
         snapMathJax: true,
         snapWords: true,
@@ -287,7 +282,7 @@ class NotesWidget extends React.Component {
   @action.bound onMutations(mutationsList) {
     // ignore muatations caused by highlights or mathjax
     if (!mutationsList.find(m =>
-      m.target.matches('.tutor-highlight') || m.target.matches('.MathJax_Preview'),
+      m.target.matches('.tutor-highlight,.MathJax_Preview'),
     )) {
       this.initializePage();
     }

@@ -22,6 +22,12 @@
   .annotater-content {
     position: relative;
   }
+  .note-edit-buttons {
+    position: absolute;
+    height: 100%;
+    width: 100px;
+    right: 0;
+  }
   .inline-controls {
     background: $tutor-white;
     border: thin solid $tutor-neutral-light;
