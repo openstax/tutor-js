@@ -26,10 +26,7 @@ const getSortValue = function(student, index, dataType, displayAs) {
             return percent(score, task.exercise_count);
           }
         case 'completed':
-          progress =
-            task.is_late_work_accepted ?
-              task.completed_exercise_count : task.completed_on_time_exercise_count;
-          return percent(progress, task.exercise_count);
+          return task.completedPercent;
       }
       break;
     default: // default to using task status for external and other type of events
