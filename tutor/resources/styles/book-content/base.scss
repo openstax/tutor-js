@@ -101,7 +101,7 @@
     }
   }
 
-  [data-type="document-title"] {
+  [data-type="document-title"]:not(h3) {
     display: none;
   }
 
