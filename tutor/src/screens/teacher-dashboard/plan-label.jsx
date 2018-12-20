@@ -1,7 +1,11 @@
-import { React, observable, observer, action } from '../../helpers/react';
+import { React, observable, observer, styled } from '../../helpers/react';
 import PropTypes from 'prop-types';
-import twix from 'twix';
 import TourAnchor from '../../components/tours/anchor';
+import TroubleIcon from '../../components/icons/trouble';
+
+const Label = styled.label`
+  > .ox-icon { margin-left: 0; }
+`;
 
 @observer
 class CoursePlanLabel extends React.Component {
@@ -19,12 +23,13 @@ class CoursePlanLabel extends React.Component {
 
     return (
       <TourAnchor id="calendar-task-plan">
-        <label
+        <Label
           data-opens-at={plan.opensAt}
           data-title={plan.title}
         >
+          <TroubleIcon plan={plan} />
           {plan.title}
-        </label>
+        </Label>
       </TourAnchor>
     );
   }

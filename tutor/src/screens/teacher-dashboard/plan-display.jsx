@@ -5,13 +5,10 @@ import TaskPlan from '../../models/task-plan/teacher';
 import Course from '../../models/course';
 import TutorLink from '../../components/link';
 import TaskPlanMiniEditor from '../../screens/assignment-builder/mini-editor';
-import TroubleIcon from '../../components/icons/trouble';
 
 const Ribbon = styled.div`
   display: flex;
   align-items: center;
-  > *:last-child { flex: 1; }
-  > .ox-icon { margin-right: 0; }
 `;
 
 class CoursePlanDisplay extends React.Component {
@@ -57,7 +54,7 @@ class CoursePlanDisplayEdit extends CoursePlanDisplay {
         ref="plan"
       >
         <TutorLink to={linkTo} params={params}>
-          <TroubleIcon plan={plan} />{label}
+          {label}
         </TutorLink>
       </Ribbon>
     );
@@ -106,7 +103,7 @@ class CoursePlanDisplayMiniEditor extends CoursePlanDisplay {
             findPopOverTarget={this.getElement}
           />}
         <div onClick={this.showEditor}>
-          <TroubleIcon plan={plan} />{label}
+          {label}
         </div>
       </Ribbon>
     );
@@ -130,7 +127,7 @@ class CoursePlanDisplayQuickLook extends CoursePlanDisplay {
         onClick={partial(setIsViewing, true)}
         ref="plan"
       >
-        <TroubleIcon plan={plan} />{label}
+        {label}
       </Ribbon>
     );
   }
