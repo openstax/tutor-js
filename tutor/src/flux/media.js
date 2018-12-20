@@ -1,4 +1,4 @@
-import _ from 'underscore';
+import { get, map, union, partial, reduce } from 'lodash';
 import htmlparser from 'htmlparser2';
 import { makeSimpleStore } from './helpers';
 
@@ -16,11 +16,11 @@ const MEDIA_LINK_EXCLUDES = [
 ];
 
 const buildAllowed = function(linksBegin, linksContain) {
-  const beginSelectors = _.map(linksBegin, linkString => `a[href^='${linkString}']`);
+  const beginSelectors = map(linksBegin, linkString => `a[href^='${linkString}']`);
 
-  const containSelectors = _.map(linksContain, linkString => `a[href*='${linkString}']`);
+  const containSelectors = map(linksContain, linkString => `a[href*='${linkString}']`);
 
-  return _.union(beginSelectors, containSelectors);
+  return union(beginSelectors, containSelectors);
 };
 
 const MediaConfig = {
@@ -36,11 +36,10 @@ const MediaConfig = {
       const id = link.attribs.href.replace('#', '');
       const idDOM = htmlparser.DomUtils.getElementById(id, dom);
       if (idDOM) {
-        const idHTML = htmlparser.DomUtils.getOuterHTML(idDOM);
-
+        const outerEl = get(idDOM, 'parent.attribs.class') === 'os-figure' ? idDOM.parent : idDOM;
         const mediaDOM = {
           name: idDOM.name,
-          html: idHTML,
+          html: htmlparser.DomUtils.getOuterHTML(outerEl),
         };
 
         return actions.loaded(id, mediaDOM);
@@ -50,11 +49,11 @@ const MediaConfig = {
 
   _parseHandler(actions, error, dom) {
     const links = htmlparser.DomUtils.getElementsByTagName('a', dom);
-    return _.each(links, _.partial(actions._parseAndLoad, actions, dom));
+    return links.forEach(link => actions._parseAndLoad(actions, dom, link));
   },
 
   parse(htmlString) {
-    if (this.parseHandler == null) { this.parseHandler = new htmlparser.DomHandler(_.partial(this._parseHandler, this)); }
+    if (this.parseHandler == null) { this.parseHandler = new htmlparser.DomHandler(partial(this._parseHandler, this)); }
     if (this.parser == null) { this.parser = new htmlparser.Parser(this.parseHandler); }
     return this.parser.parseComplete(htmlString);
   },
@@ -74,7 +73,7 @@ const MediaConfig = {
     isLoaded(id) { return (this._get(id) != null); },
 
     getMediaIds() {
-      return _.keys(this._local);
+      return Object.keys(this._local);
     },
 
     getLinksContained() {
@@ -90,10 +89,10 @@ const MediaConfig = {
     },
 
     getSelector() {
-      const notMedias = _.reduce(MEDIA_LINK_EXCLUDES, (current, exclude) => `${current}:not(${exclude})`
+      const notMedias = reduce(MEDIA_LINK_EXCLUDES, (current, exclude) => `${current}:not(${exclude})`
         , '');
 
-      return _.map(buildAllowed(LINKS_BEGIN, LINKS_CONTAIN), allowed => `${allowed}${notMedias}`).join(', ');
+      return map(buildAllowed(LINKS_BEGIN, LINKS_CONTAIN), allowed => `${allowed}${notMedias}`).join(', ');
     },
   },
 };

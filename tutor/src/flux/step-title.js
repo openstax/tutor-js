@@ -1,5 +1,4 @@
-import _ from 'underscore';
-import unescape from 'lodash/unescape';
+import { unescape, get, invoke, extend, filter, partial, first, last } from 'lodash';
 import htmlparser from 'htmlparser2';
 import { makeSimpleStore } from './helpers';
 import { StepHelpsHelper } from 'shared';
@@ -17,48 +16,46 @@ const {
 } = StepHelpsHelper;
 
 const isLearningObjectives = element =>
-  ((__guard__(element != null ? element.attribs : undefined, x => x['class']) != null) &&
-    (element.attribs['class'].search(/learning-objectives/) > -1)) ||
-    (element.attribs['data-type'] === 'abstract')
-;
+  invoke(element, 'attribs.class.search', /learning-objectives/) > -1 ||
+  get(element, 'attribs[\'data-type\']') === 'abstract';
 
 const isTypedClass = element =>
-  (__guard__(element != null ? element.attribs : undefined, x => x['class']) != null) &&
-    (element.attribs['class'].search(/learning-objectives|references|ap-connection|solution/) > -1)
-;
+  invoke(element, 'attribs.class.search', /learning-objectives|references|ap-connection|solution/) > -1;
 
-const isTipsForSuccess = element => (__guard__(element != null ? element.attribs : undefined, x => x['class']) != null) && (element.attribs['class'].search(/tips-for-success/) > -1);
+const isTipsForSuccess = element =>
+  invoke(element, 'attribs.class.search', /tips-for-success/) > -1;
 
 const isCaption = element => element.name === 'caption';
 
-const isNote = function(element) {
-  if ((__guard__(element != null ? element.attribs : undefined, x => x['class']) == null) && (element.attribs['data-element-type'] == null)) { return; }
-
-  const classes = element.attribs['class'].split(' ');
-  return !_.isEmpty(_.intersection(classes, ['note', 'example', 'grasp-check'])) ||
-    (element.attribs['data-element-type'] === 'check-understanding');
-};
-
-const isTyped = element => __guard__(element != null ? element.attribs : undefined, x => x['data-element-type']) != null;
+const isTyped = element =>
+  Boolean(get(element, 'attribs[\'data-element-type\']'));
 
 const isLabel = element =>
-  (element.attribs['data-has-label'] === 'true') &&
-    !isTipsForSuccess(element)
-;
+  element.attribs['data-has-label'] === 'true' && !isTipsForSuccess(element);
 
 const isTitle = element =>
-  (element.attribs['data-type'] === 'title') &&
-    !isTyped(element.parent) &&
-    !isTypedClass(element.parent) &&
-    !isCaption(element.parent)
-;
+  element.attribs['data-type'] === 'title' &&
+  !isTyped(element.parent) &&
+  !isTypedClass(element.parent) &&
+  !isCaption(element.parent);
 
 const isDocumentTitle = element => element.attribs['data-type'] === 'document-title';
 
-const grabLabel = element => __guardMethod__(element.attribs['data-label'], 'trim', o => o.trim());
-const grabTitle = element => __guardMethod__(__guard__(element.children != null ? element.children[0] : undefined, x => x.data), 'trim', o => o.trim());
+const grabLabel = element =>
+  invoke(element,'attribs[\'data-label\'].trim');
 
-const isMaths = element => (element.attribs != null ? element.attribs['data-math'] : undefined) != null;
+const getTitleText = element => {
+  if (element.data) { return element.data; }
+  if (element.children) {
+    for(let i=0,x=element.children.length;i<x;i++){
+      return getTitleText(element.children[i]);
+    }
+  }
+  return null;
+};
+
+const isMaths = element =>
+  get(element, 'attribs[\'data-math\']');
 
 const grabTruncatedText = function(text, start = TEXT_LENGTH_CHECK, range = TEXT_CHECK_RANGE) {
   const end = start + range;
@@ -77,7 +74,8 @@ const keepMathsOnly = function(element) {
   }
 };
 
-const getLengthFromTextOrMaths = element => __guard__(htmlparser.DomUtils.getText(element), x => x.length) || 0;
+const getLengthFromTextOrMaths = element =>
+  get(htmlparser.DomUtils.getText(element), 'length', 0);
 
 const StepTitleConfig = {
   _local: {},
@@ -89,7 +87,7 @@ const StepTitleConfig = {
   },
 
   loadedMetaData(contentId, metaData = {}) {
-    metaData = _.extend({
+    metaData = extend({
       hasLearningObjectives: false,
     }, metaData);
 
@@ -107,10 +105,9 @@ const StepTitleConfig = {
   _parseReading(actions, id, error, dom) {
     let text;
     const title = htmlparser.DomUtils.findOne(isTitle, dom, false);
-    const meta = actions._parseMeta(actions, id, error, dom);
-
+    actions._parseMeta(actions, id, error, dom)
     if (title != null) {
-      text = grabTitle(title);
+      text = getTitleText(title);
     } else {
       const label = htmlparser.DomUtils.findOne(isLabel, dom, false);
       if (label != null) { text = grabLabel(label); }
@@ -130,14 +127,14 @@ const StepTitleConfig = {
       const simpleExercise = htmlparser.DomUtils.find(keepMathsOnly, dom, false);
       let exerciseLength = 0;
 
-      const truncatedExercise = _.filter(simpleExercise, function(part) {
+      const truncatedExercise = filter(simpleExercise, function(part) {
         if (exerciseLength > TEXT_LENGTH) { return false; }
         exerciseLength += getLengthFromTextOrMaths(part);
         return true;
       });
 
       if (exerciseLength >= TEXT_LENGTH) {
-        const lastPart = _.last(truncatedExercise);
+        const lastPart = last(truncatedExercise);
 
         if (lastPart.type === 'text') {
           let start;
@@ -159,7 +156,7 @@ const StepTitleConfig = {
 
   parseReading(id, htmlString) {
     if (this._get(id) == null) {
-      const parseHandler = new htmlparser.DomHandler(_.partial(this._parseReading, this, id));
+      const parseHandler = new htmlparser.DomHandler(partial(this._parseReading, this, id));
       const titleParser = new htmlparser.Parser(parseHandler);
       return titleParser.parseComplete(htmlString);
     }
@@ -167,7 +164,7 @@ const StepTitleConfig = {
 
   parseExercise(id, htmlString) {
     if (this._get(id) == null) {
-      const parseHandler = new htmlparser.DomHandler(_.partial(this._parseExercise, this, id));
+      const parseHandler = new htmlparser.DomHandler(partial(this._parseExercise, this, id));
       const titleParser = new htmlparser.Parser(parseHandler);
       return titleParser.parseComplete(htmlString);
     }
@@ -175,19 +172,19 @@ const StepTitleConfig = {
 
   parseStep(step) {
     if (step.type === 'exercise') {
-      return this.parseExercise(step.id, _.first(step.content.questions).stem_html);
+      return this.parseExercise(step.id, first(step.content.questions).stem_html);
     } else {
       return this.parseReading(step.id, step.content_html);
     }
   },
 
   parseSteps(steps) {
-    return _.each(steps, this.parseStep, this);
+    return steps.forEach(step => this.parseStep(step))
   },
 
   parseMetaOnly(contentId, htmlString) {
     if (this._meta[contentId] == null) {
-      const parseHandler = new htmlparser.DomHandler(_.partial(this._parseMeta, this, contentId));
+      const parseHandler = new htmlparser.DomHandler(partial(this._parseMeta, this, contentId));
       const metaParser = new htmlparser.Parser(parseHandler);
       return metaParser.parseComplete(htmlString);
     }
@@ -213,7 +210,7 @@ const StepTitleConfig = {
       if (crumb.id && store.get(crumb.id)) {
         return store.get(crumb.id);
       }
-      if ((crumb.type === 'reading') && (__guard__(crumb.related_content != null ? crumb.related_content[0] : undefined, x => x.title) != null)) {
+      if (crumb.type === 'reading' && get(crumb, 'related_content[0].title')) {
         const relatedTitle = crumb.related_content[0].title;
 
         if (title === 'Summary') {
@@ -237,20 +234,10 @@ const StepTitleConfig = {
           return TITLES[INDIVIDUAL_REVIEW];
         }
       }
+      return 'Section'; // return **something***
     },
   },
 };
 
 var { actions, store } = makeSimpleStore(StepTitleConfig);
 export { actions as StepTitleActions, store as StepTitleStore };
-
-function __guard__(value, transform) {
-  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
-}
-function __guardMethod__(obj, methodName, transform) {
-  if (typeof obj !== 'undefined' && obj !== null && typeof obj[methodName] === 'function') {
-    return transform(obj, methodName);
-  } else {
-    return undefined;
-  }
-}
