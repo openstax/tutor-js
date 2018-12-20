@@ -31,10 +31,7 @@ module.exports = {
     "comma-dangle": ["error", "always-multiline"],
     "no-console":  "error",
     "no-debugger": "error",
-    "indent": [
-      "error",
-      2
-    ],
+    "indent": [ "error", 2, {"SwitchCase": 1} ],
     "no-unused-vars": [2, {'varsIgnorePattern': '_+'}],
     "consistent-return": ["error", { "treatUndefinedAsUnspecified": true }],
     "object-curly-spacing": ["error", "always"],
