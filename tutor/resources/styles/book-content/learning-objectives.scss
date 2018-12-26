@@ -1,4 +1,4 @@
-%tutor-book-content-learning-objectives {
+@mixin tutor-book-content-learning-objectives() {
 
   .learning-objectives,
   [data-type=abstract] {

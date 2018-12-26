@@ -1,16 +1,17 @@
-%tutor-book-content-questions {
+@mixin tutor-book-content-question-number() {
+  counter-increment: question;
+  content: counter(question) ". ";
+  display: block;
+  float: left;
+  width: 4%;
+};
+
+@mixin tutor-book-content-questions() {
 
   section {
     counter-reset: question;
   }
 
-  @mixin question-number {
-    counter-increment: question;
-    content: counter(question) ". ";
-    display: block;
-    float: left;
-    width: 4%;
-  };
 
   [data-type=problem] {
     > .os-number,
@@ -40,7 +41,7 @@
           margin: 0;
 
           &::before {
-            @include question-number();
+            @include tutor-book-content-question-number();
           }
         }
 
@@ -84,7 +85,7 @@
     @include tutor-tables($tutor-white, $tutor-white);
 
     &::before {
-      @include question-number();
+      @include tutor-book-content-question-number();
     }
 
     .question-stem {

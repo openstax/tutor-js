@@ -31,16 +31,16 @@
   }
   width: 100%;
 
-  @extend %tutor-book-content-base-styles;
-  @extend %tutor-book-content-typography;
-  @extend %tutor-book-content-learning-objectives;
-  @extend %tutor-book-content-related-content;
-  @extend %tutor-book-content-splash-image;
-  @extend %tutor-book-content-target;
-  @extend %tutor-book-content-teacher;
-  @extend %tutor-book-content-questions;
-  @extend %tutor-book-content-examples;
-  @extend %tutor-book-content-equations;
+  @include tutor-book-content-base-styles();
+  @include tutor-book-content-typography();
+  @include tutor-book-content-learning-objectives();
+  @include tutor-book-content-related-content();
+  @include tutor-book-content-splash-image();
+  @include tutor-book-content-target();
+  @include tutor-book-content-teacher();
+  @include tutor-book-content-questions();
+  @include tutor-book-content-examples();
+  @include tutor-book-content-equations();
   @include book-content-interactives();
   @include tutor-book-notes();
 

@@ -1,4 +1,4 @@
-%tutor-book-content-equations {
+@mixin tutor-book-content-equations() {
   [data-type="equation"] {
     position: relative;
 

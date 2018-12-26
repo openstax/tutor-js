@@ -1,4 +1,4 @@
-%tutor-book-content-typography {
+@mixin tutor-book-content-typography() {
   h1 {
     border-top-width: 8px;
     border-top-style: solid;
