@@ -1,5 +1,9 @@
 .question {
 
+  .answer-choices {
+    list-style-type: lower-alpha;
+  }
+
   .controls {
     display: flex;
     align-items: center;

@@ -39,9 +39,10 @@ class Answer extends React.Component {
           <label>
             Distractor
           </label>
-          <Icon
-            type="ban"
-            onClick={partial(this.props.removeAnswer, answer)}
+          <Icon type="check-circle"
+            className="is-correct"
+            color={answer.isCorrect ? 'green' : 'lightGray'}
+            onClick={partial(this.props.changeCorrect, answer)}
           />
           {canMoveUp &&
             <Icon onClick={partial(this.props.moveAnswer, answer, 1)} type="arrow-circle-down" />
@@ -50,10 +51,9 @@ class Answer extends React.Component {
             <Icon type="arrow-circle-up"
               onClick={partial(this.props.moveAnswer, answer, -1)}  />
           }
-          <Icon type="check-circle"
-            className="is-correct"
-            color={answer.isCorrect ? 'green' : 'lightGray'}
-            onClick={partial(this.props.changeCorrect, answer)}
+          <Icon
+            type="ban"
+            onClick={partial(this.props.removeAnswer, answer)}
           />
         </div>
 
