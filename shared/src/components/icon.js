@@ -92,7 +92,7 @@ Icons['wrong'] = Icons['close'];
 export { Icons };
 
 const defaultTooltipProps = {
-  placement: 'top',
+  placement: 'auto',
   trigger: ['hover', 'focus'],
 };
 
