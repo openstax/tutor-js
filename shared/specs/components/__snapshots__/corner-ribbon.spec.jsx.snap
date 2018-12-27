@@ -1,11 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CornerRibbon renders and matches snapshot for bottomLeft 1`] = `
+.c0 {
+  position: relative;
+  overflow: hidden;
+}
+
+.c1 {
+  width: 200px;
+  background: #e43;
+  position: absolute;
+  top: 25px;
+  left: -50px;
+  text-align: center;
+  min-height: 50px;
+  -webkit-letter-spacing: 1px;
+  -moz-letter-spacing: 1px;
+  -ms-letter-spacing: 1px;
+  letter-spacing: 1px;
+  color: #f0f0f0;
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  z-index: 2;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  top: auto;
+  bottom: 25px;
+  left: -50px;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
 <div
-  className="corner-ribbon"
+  className="c0"
 >
   <div
-    className="corner-ribbon-content bottom-left"
+    className="c1"
   >
     test
   </div>
@@ -16,11 +61,57 @@ exports[`CornerRibbon renders and matches snapshot for bottomLeft 1`] = `
 `;
 
 exports[`CornerRibbon renders and matches snapshot for bottomRight 1`] = `
+.c0 {
+  position: relative;
+  overflow: hidden;
+}
+
+.c1 {
+  width: 200px;
+  background: #e43;
+  position: absolute;
+  top: 25px;
+  left: -50px;
+  text-align: center;
+  min-height: 50px;
+  -webkit-letter-spacing: 1px;
+  -moz-letter-spacing: 1px;
+  -ms-letter-spacing: 1px;
+  letter-spacing: 1px;
+  color: #f0f0f0;
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  z-index: 2;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  top: auto;
+  right: -50px;
+  bottom: 25px;
+  left: auto;
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
 <div
-  className="corner-ribbon"
+  className="c0"
 >
   <div
-    className="corner-ribbon-content bottom-right"
+    className="c1"
   >
     test
   </div>
@@ -31,11 +122,55 @@ exports[`CornerRibbon renders and matches snapshot for bottomRight 1`] = `
 `;
 
 exports[`CornerRibbon renders and matches snapshot for topLeft 1`] = `
+.c0 {
+  position: relative;
+  overflow: hidden;
+}
+
+.c1 {
+  width: 200px;
+  background: #e43;
+  position: absolute;
+  top: 25px;
+  left: -50px;
+  text-align: center;
+  min-height: 50px;
+  -webkit-letter-spacing: 1px;
+  -moz-letter-spacing: 1px;
+  -ms-letter-spacing: 1px;
+  letter-spacing: 1px;
+  color: #f0f0f0;
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  z-index: 2;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  top: 25px;
+  left: -50px;
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
 <div
-  className="corner-ribbon"
+  className="c0"
 >
   <div
-    className="corner-ribbon-content top-left"
+    className="c1"
   >
     test
   </div>
@@ -46,11 +181,56 @@ exports[`CornerRibbon renders and matches snapshot for topLeft 1`] = `
 `;
 
 exports[`CornerRibbon renders and matches snapshot for topRight 1`] = `
+.c0 {
+  position: relative;
+  overflow: hidden;
+}
+
+.c1 {
+  width: 200px;
+  background: #e43;
+  position: absolute;
+  top: 25px;
+  left: -50px;
+  text-align: center;
+  min-height: 50px;
+  -webkit-letter-spacing: 1px;
+  -moz-letter-spacing: 1px;
+  -ms-letter-spacing: 1px;
+  letter-spacing: 1px;
+  color: #f0f0f0;
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  z-index: 2;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  top: 25px;
+  right: -50px;
+  left: auto;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
 <div
-  className="corner-ribbon"
+  className="c0"
 >
   <div
-    className="corner-ribbon-content top-right"
+    className="c1"
   >
     test
   </div>
