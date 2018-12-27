@@ -67,7 +67,7 @@ class SuretyGuard extends React.Component {
           {this.props.message}
         </span>
         <Controls>
-          <Button ref="popoverButton" onClick={this.onCancel}>
+          <Button variant="default" ref="popoverButton" onClick={this.onCancel}>
             {this.props.cancelButtonLabel}
           </Button>
           <Button onClick={this.onConfirm} variant="primary">
