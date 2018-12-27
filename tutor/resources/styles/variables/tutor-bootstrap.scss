@@ -34,12 +34,10 @@ $tooltip-arrow-outer-fallback-color: $tutor-info;
 $tooltip-arrow-outer-color: $tutor-info;
 $tooltip-bg: $tutor-white;
 
-    // color: color-yiq($active-background);
-    // background-color: $active-background;
-    // @if $enable-gradients {
-    //   background-image: none; // Remove the gradient for the pressed/active state
-    // }
-    // border-color: $active-border;
+$btn-border-radius: 0px;
+$font-size-base: 1.4rem;
+$line-height-base: 1.6;
+$link-hover-decoration: none;
 $navbar-padding-y: 0;
 $component-active-bg:  $tutor-neutral-bright;
 $input-focus-color: $tutor-neutral-dark;
