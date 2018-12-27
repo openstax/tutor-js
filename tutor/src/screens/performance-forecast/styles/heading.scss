@@ -1,4 +1,6 @@
 .performance-forecast {
+
+
   .guide-heading {
     @include performance-forecast-panel();
 
@@ -20,6 +22,14 @@
       font-size: 3rem;
       display: inline-block;
       min-width: 45%;
+
+      &.teacher-student-page-heading {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-bottom: 2rem;
+      }
+
     }
     .info {
       display: flex;
