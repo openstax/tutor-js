@@ -234,8 +234,8 @@ class TutorDateInput extends React.Component {
 
     if (!this.props.disabled) {
       dateElem = <DatePicker
-        minDate={min}
-        maxDate={max}
+        minDate={min.toDate()}
+        maxDate={max.toDate()}
         onFocus={this.expandCalendar}
         onBlur={this.onBlur}
         dateFormat={TutorDateFormat}
@@ -244,7 +244,7 @@ class TutorDateInput extends React.Component {
         className={classes}
         onChange={this.dateSelected}
         disabled={this.props.disabled}
-        selected={value}
+        selected={value.toDate()}
         weekStart={`${this.props.currentLocale.week.dow}`} />;
     } else if (isDatePickerDisabled) {
       displayValue = value.format(TutorDateFormat);
