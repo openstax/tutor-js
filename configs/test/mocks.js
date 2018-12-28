@@ -24,3 +24,9 @@ jest.mock(
       disableEventListeners() { }
     }
 );
+
+jest.mock('react-overlays/Overlay.js', () =>
+  function MockedOverlay({ children }) {
+    return children;
+  }
+);
