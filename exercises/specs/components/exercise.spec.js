@@ -5,6 +5,9 @@ import ExerciseModel from '../../src/models/exercises/exercise';
 jest.mock('../../../shared/src/components/html', () => ({ html }) =>
   html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
 );
+jest.mock('react-dom', () => ({
+  findDOMNode: () => ({}),
+}));
 
 describe('Exercises component', () => {
   let exercise;

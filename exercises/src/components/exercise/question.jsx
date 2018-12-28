@@ -98,7 +98,6 @@ class Question extends React.Component {
            </Alert>)}
 
         <QuestionFormatType question={question} />
-
         <div>
           <label>
             Question Stem
