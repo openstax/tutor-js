@@ -35,19 +35,19 @@ export default class App extends React.Component {
           <div>
             <Navbar bg="light" expand="lg">
               <Navbar.Brand href="#home">OX Exercises</Navbar.Brand>
-              <Navbar.Collapse>
-                <Nav className="exercise-navbar-controls" >
-                  <Nav.Link onClick={this.onSearch} href="/search">
-                    Search
-                  </Nav.Link>
-                  <Nav.Link onClick={this.onNew} href="/exercise/new">
-                    New
-                  </Nav.Link>
-                  <Route path="/search" component={Search.Controls} />
-                  <Route path="/exercise/:uid" component={Exercise.Controls} />
-                  <Route path="/preview/:uid" component={Preview.Controls} />
-                </Nav>
-              </Navbar.Collapse>
+
+              <Nav className="exercise-navbar-controls" >
+                <Nav.Link onClick={this.onSearch} href="/search">
+                  Search
+                </Nav.Link>
+                <Nav.Link onClick={this.onNew} href="/exercise/new">
+                  New
+                </Nav.Link>
+                <Route path="/search" component={Search.Controls} />
+                <Route path="/exercise/:uid" component={Exercise.Controls} />
+                <Route path="/preview/:uid" component={Preview.Controls} />
+              </Nav>
+
               <UserActionsMenu user={user} />
             </Navbar>
             <Container fluid className="openstax exercises">
