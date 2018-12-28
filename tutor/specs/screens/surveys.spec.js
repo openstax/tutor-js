@@ -41,7 +41,7 @@ describe('Surveys Screen', () => {
     surveyRecord.save = jest.fn();
     survey.find('.sv_complete_btn').simulate('click', {});
     expect(surveyRecord.save).toHaveBeenCalled();
-    expect(surveyRecord.response).toEqual({ name: 'Bob', bananas: 'yes' });
+    expect(surveyRecord.response).toMatchObject({ name: 'Bob' });
     survey.unmount();
   });
 

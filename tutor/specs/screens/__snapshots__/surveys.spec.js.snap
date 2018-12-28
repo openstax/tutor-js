@@ -82,6 +82,7 @@ exports[`Surveys Screen renders and matches snapshot 1`] = `
                       <input
                         aria-label="1. * Please enter your name:"
                         className="sv_q_text_root"
+                        disabled={false}
                         id="sq_100i"
                         maxLength={null}
                         onBlur={[Function]}
@@ -125,6 +126,7 @@ exports[`Surveys Screen renders and matches snapshot 1`] = `
                       <input
                         aria-label="2. Your e-mail:"
                         className="sv_q_text_root"
+                        disabled={false}
                         id="sq_101i"
                         maxLength={null}
                         onBlur={[Function]}
@@ -168,6 +170,9 @@ exports[`Surveys Screen renders and matches snapshot 1`] = `
                       <fieldset
                         className="sv_qcbc"
                       >
+                        <legend
+                          aria-label="3. * Do you like to eat bananas?"
+                        />
                         <div
                           className="sv_q_radiogroup sv-q-col-1"
                         >
@@ -179,7 +184,7 @@ exports[`Surveys Screen renders and matches snapshot 1`] = `
                               checked={false}
                               className="sv_q_radiogroup_control_item"
                               disabled={false}
-                              id="sq_102i-0"
+                              id="sq_102i_0"
                               name="bananas_sq_102"
                               onChange={[Function]}
                               type="radio"
@@ -219,7 +224,7 @@ exports[`Surveys Screen renders and matches snapshot 1`] = `
                               checked={false}
                               className="sv_q_radiogroup_control_item"
                               disabled={false}
-                              id="sq_102i-1"
+                              id="sq_102i_1"
                               name="bananas_sq_102"
                               onChange={[Function]}
                               type="radio"
@@ -248,15 +253,6 @@ exports[`Surveys Screen renders and matches snapshot 1`] = `
                             </span>
                           </label>
                         </div>
-                        <legend
-                          style={
-                            Object {
-                              "display": "none",
-                            }
-                          }
-                        >
-                          3. * Do you like to eat bananas?
-                        </legend>
                       </fieldset>
                     </div>
                   </div>
@@ -336,6 +332,9 @@ exports[`Surveys Screen renders and matches snapshot 1`] = `
                       <fieldset
                         className="sv_qcbc sv_qcbx"
                       >
+                        <legend
+                          aria-label="5. Check other types of fruit you like"
+                        />
                         <div
                           className="sv_q_checkbox sv-q-col-1"
                         >
@@ -347,7 +346,7 @@ exports[`Surveys Screen renders and matches snapshot 1`] = `
                               checked={false}
                               className="sv_q_checkbox_control_item"
                               disabled={false}
-                              id="sq_104i-0"
+                              id="sq_104i_0"
                               onChange={[Function]}
                               style={
                                 Object {
@@ -386,7 +385,7 @@ exports[`Surveys Screen renders and matches snapshot 1`] = `
                               checked={false}
                               className="sv_q_checkbox_control_item"
                               disabled={false}
-                              id="sq_104i-1"
+                              id="sq_104i_1"
                               onChange={[Function]}
                               style={
                                 Object {
@@ -425,7 +424,7 @@ exports[`Surveys Screen renders and matches snapshot 1`] = `
                               checked={false}
                               className="sv_q_checkbox_control_item"
                               disabled={false}
-                              id="sq_104i-2"
+                              id="sq_104i_2"
                               onChange={[Function]}
                               style={
                                 Object {
@@ -453,15 +452,6 @@ exports[`Surveys Screen renders and matches snapshot 1`] = `
                             </span>
                           </label>
                         </div>
-                        <legend
-                          style={
-                            Object {
-                              "display": "none",
-                            }
-                          }
-                        >
-                          5. Check other types of fruit you like
-                        </legend>
                       </fieldset>
                     </div>
                   </div>
