@@ -1,6 +1,7 @@
 @mixin tutor-figure() {
 
-  .os-figure.tutor-ui-vertical-img, .tutor-ui-horizontal-img,
+  .os-figure.tutor-ui-vertical-img,
+  .os-figure.tutor-ui-horizontal-img,
   figure {
     display: flex;
     flex-direction: column;

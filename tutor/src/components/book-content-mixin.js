@@ -195,8 +195,8 @@ const ReadingContentMixin = {
   },
 
   insertSplash(root) {
-    const splashFigure = root.querySelector(`${LEARNING_OBJECTIVE_SELECTORS} + figure`);
-    if (splashFigure && !splashFigure.querySelector('figure')) {
+    const splashFigure = root.querySelector(`${LEARNING_OBJECTIVE_SELECTORS} + figure, [data-type="document-title"] + .os-figure`);
+    if (splashFigure ) {
       splashFigure.classList.add('splash');
     }
   },
@@ -285,6 +285,7 @@ var processImage = function() {
     || img.closest('figure')
     || img.closest('[data-type=media]');
   if (!figure) { return; }
+  if (figure.classList.contains('splash')) { return; }
 
   const { parentNode } = figure;
   if (parentNode && parentNode.nodeName === 'FIGURE') {

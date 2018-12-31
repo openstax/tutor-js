@@ -1,7 +1,7 @@
 %tutor-book-content-splash-image {
 
   // splash images are always full width without margin or surrounding padding
-  [data-type="document-title"] + .os-figure > figure,
+  //[data-type="document-title"] + .os-figure > figure,
   .splash,
   .splash-video {
     @include book-content-full-width();
@@ -26,10 +26,13 @@
       font-weight: 600;
       padding: 30px 20px;
     }
+    .os-caption-container,
     & + .os-caption-container {
-      @include book-content-full-width();
       padding: 0 20px 20px 20px;
       margin-bottom: 20px;
+    }
+    & + .os-caption-container {
+      @include book-content-full-width();
     }
   }
 
