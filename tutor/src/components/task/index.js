@@ -10,7 +10,7 @@ import { TaskStepActions, TaskStepStore } from '../../flux/task-step';
 import { TaskPanelActions, TaskPanelStore } from '../../flux/task-panel';
 import { TaskProgressActions, TaskProgressStore } from '../../flux/task-progress';
 import Courses from '../../models/courses-map';
-
+import Scroller from '../../helpers/scroll-to';
 import StepFooterMixin from '../task-step/step-footer-mixin';
 import Router from '../../helpers/router';
 import TaskStep from '../task-step';
@@ -28,7 +28,7 @@ import { StepCard } from '../../helpers/policies';
 import { UnsavedStateMixin } from '../unsaved-state';
 import LoadableItem from '../loadable-item';
 
-import { PinnedHeaderFooterCard, PinnedHeader, ScrollToMixin, HandleBodyClassesMixin, ExerciseIntro } from 'shared';
+import { PinnedHeaderFooterCard, PinnedHeader, HandleBodyClassesMixin, ExerciseIntro } from 'shared';
 
 const Task = createReactClass({
   displayName: 'Task',
@@ -56,7 +56,7 @@ const Task = createReactClass({
     router: PropTypes.object,
   },
 
-  mixins: [StepFooterMixin, UnsavedStateMixin, ScrollToMixin, HandleBodyClassesMixin],
+  mixins: [StepFooterMixin, UnsavedStateMixin, HandleBodyClassesMixin],
   scrollingTargetDOM() { return window.document; },
 
   getDefaultCurrentStep() {
@@ -103,6 +103,7 @@ const Task = createReactClass({
   },
 
   UNSAFE_componentWillMount() {
+    this.scroller = new Scroller();
     this.updateSteps();
     this.setStepKey();
     TaskStepStore.on('step.recovered', this.prepareToRecover);
@@ -224,7 +225,9 @@ const Task = createReactClass({
     params.stepIndex = stepKey + 1;
     params.id = id; // if we were rendered directly, the router might not have the id
 
-    if (!this._isSameStep({ id }, { currentStep: stepKey })) { this.scrollToTop(); }
+    if (!this._isSameStep({ id }, { currentStep: stepKey })) {
+      this.scroller.scrollToTop({ afterImagesLoaded: true });
+    }
 
     const action = silent ? 'replace' : 'push';
     this.context.router.history[action](Router.makePathname('viewTaskStep', params));
