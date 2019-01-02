@@ -196,7 +196,8 @@ const ReadingContentMixin = {
 
   insertSplash(root) {
     const splashFigure = root.querySelector(`${LEARNING_OBJECTIVE_SELECTORS} + figure, [data-type="document-title"] + .os-figure`);
-    if (splashFigure ) {
+    // abort if it already has a splash element
+    if (splashFigure && !splashFigure.querySelector('.splash')) {
       splashFigure.classList.add('splash');
     }
   },
