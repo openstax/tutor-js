@@ -36,6 +36,9 @@ class Answer extends React.Component {
     return (
       <li className={cn('answer', { 'correct-answer': answer.isCorrect })}>
         <div className="answer-actions">
+          <label>
+            Distractor
+          </label>
           <Icon
             type="ban"
             onClick={partial(this.props.removeAnswer, answer)}
@@ -53,9 +56,7 @@ class Answer extends React.Component {
             onClick={partial(this.props.changeCorrect, answer)}
           />
         </div>
-        <label>
-          Distractor
-        </label>
+
         <textarea
           onChange={this.updateContent}
           value={answer.content_html}

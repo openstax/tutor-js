@@ -192,6 +192,9 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 <div
                   className="answer-actions"
                 >
+                  <label>
+                    Distractor
+                  </label>
                   <button
                     className="ban btn btn-plain"
                     disabled={false}
@@ -263,9 +266,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     </svg>
                   </button>
                 </div>
-                <label>
-                  Distractor
-                </label>
                 <textarea
                   onChange={[Function]}
                   value="<ol>
@@ -289,6 +289,9 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 <div
                   className="answer-actions"
                 >
+                  <label>
+                    Distractor
+                  </label>
                   <button
                     className="ban btn btn-plain"
                     disabled={false}
@@ -383,9 +386,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     </svg>
                   </button>
                 </div>
-                <label>
-                  Distractor
-                </label>
                 <textarea
                   onChange={[Function]}
                   value="<ol>
@@ -409,6 +409,9 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 <div
                   className="answer-actions"
                 >
+                  <label>
+                    Distractor
+                  </label>
                   <button
                     className="ban btn btn-plain"
                     disabled={false}
@@ -503,9 +506,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     </svg>
                   </button>
                 </div>
-                <label>
-                  Distractor
-                </label>
                 <textarea
                   onChange={[Function]}
                   value="<ol>
@@ -529,6 +529,9 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 <div
                   className="answer-actions"
                 >
+                  <label>
+                    Distractor
+                  </label>
                   <button
                     className="ban btn btn-plain"
                     disabled={false}
@@ -623,9 +626,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     </svg>
                   </button>
                 </div>
-                <label>
-                  Distractor
-                </label>
                 <textarea
                   onChange={[Function]}
                   value="<ol>
@@ -649,6 +649,9 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 <div
                   className="answer-actions"
                 >
+                  <label>
+                    Distractor
+                  </label>
                   <button
                     className="ban btn btn-plain"
                     disabled={false}
@@ -720,9 +723,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     </svg>
                   </button>
                 </div>
-                <label>
-                  Distractor
-                </label>
                 <textarea
                   onChange={[Function]}
                   value="<ol>
@@ -2079,6 +2079,9 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                             <Answer answer={{...}} canMoveUp={true} canMoveDown={false} moveAnswer={[Function: res]} changeCorrect={[Function: res]} removeAnswer={[Function: res]} changeAnswer={[undefined]}>
                                               <li className=\\"answer\\">
                                                 <div className=\\"answer-actions\\">
+                                                  <label>
+                                                    Distractor
+                                                  </label>
                                                   <Icon type=\\"ban\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
                                                     <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ban\\" onClick={[Function: wrapper]}>
                                                       <Button variant=\\"plain\\" className=\\"ban\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
@@ -2131,9 +2134,6 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     </ForwardRef(Bootstrap(Button))>
                                                   </Icon>
                                                 </div>
-                                                <label>
-                                                  Distractor
-                                                </label>
                                                 <textarea onChange={[Function: res]} value=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a weak gravitational field</li>\\\\n</ol>\\\\n\\" />
                                                 <label>
                                                   Choice-Level Feedback
@@ -2144,6 +2144,9 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                             <Answer answer={{...}} canMoveUp={true} canMoveDown={true} moveAnswer={[Function: res]} changeCorrect={[Function: res]} removeAnswer={[Function: res]} changeAnswer={[undefined]}>
                                               <li className=\\"answer\\">
                                                 <div className=\\"answer-actions\\">
+                                                  <label>
+                                                    Distractor
+                                                  </label>
                                                   <Icon type=\\"ban\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
                                                     <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ban\\" onClick={[Function: wrapper]}>
                                                       <Button variant=\\"plain\\" className=\\"ban\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
@@ -2213,9 +2216,6 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     </ForwardRef(Bootstrap(Button))>
                                                   </Icon>
                                                 </div>
-                                                <label>
-                                                  Distractor
-                                                </label>
                                                 <textarea onChange={[Function: res]} value=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are too small to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of only a weak gravitational field</li>\\\\n</ol>\\\\n\\" />
                                                 <label>
                                                   Choice-Level Feedback
@@ -2226,6 +2226,9 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                             <Answer answer={{...}} canMoveUp={true} canMoveDown={true} moveAnswer={[Function: res]} changeCorrect={[Function: res]} removeAnswer={[Function: res]} changeAnswer={[undefined]}>
                                               <li className=\\"answer\\">
                                                 <div className=\\"answer-actions\\">
+                                                  <label>
+                                                    Distractor
+                                                  </label>
                                                   <Icon type=\\"ban\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
                                                     <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ban\\" onClick={[Function: wrapper]}>
                                                       <Button variant=\\"plain\\" className=\\"ban\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
@@ -2295,9 +2298,6 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     </ForwardRef(Bootstrap(Button))>
                                                   </Icon>
                                                 </div>
-                                                <label>
-                                                  Distractor
-                                                </label>
                                                 <textarea onChange={[Function: res]} value=\\"<ol>\\\\n  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\" />
                                                 <label>
                                                   Choice-Level Feedback
@@ -2308,6 +2308,9 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                             <Answer answer={{...}} canMoveUp={true} canMoveDown={true} moveAnswer={[Function: res]} changeCorrect={[Function: res]} removeAnswer={[Function: res]} changeAnswer={[undefined]}>
                                               <li className=\\"answer\\">
                                                 <div className=\\"answer-actions\\">
+                                                  <label>
+                                                    Distractor
+                                                  </label>
                                                   <Icon type=\\"ban\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
                                                     <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ban\\" onClick={[Function: wrapper]}>
                                                       <Button variant=\\"plain\\" className=\\"ban\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
@@ -2377,9 +2380,6 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     </ForwardRef(Bootstrap(Button))>
                                                   </Icon>
                                                 </div>
-                                                <label>
-                                                  Distractor
-                                                </label>
                                                 <textarea onChange={[Function: res]} value=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\" />
                                                 <label>
                                                   Choice-Level Feedback
@@ -2390,6 +2390,9 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                             <Answer answer={{...}} canMoveUp={false} canMoveDown={true} moveAnswer={[Function: res]} changeCorrect={[Function: res]} removeAnswer={[Function: res]} changeAnswer={[undefined]}>
                                               <li className=\\"answer\\">
                                                 <div className=\\"answer-actions\\">
+                                                  <label>
+                                                    Distractor
+                                                  </label>
                                                   <Icon type=\\"ban\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
                                                     <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ban\\" onClick={[Function: wrapper]}>
                                                       <Button variant=\\"plain\\" className=\\"ban\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
@@ -2442,9 +2445,6 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     </ForwardRef(Bootstrap(Button))>
                                                   </Icon>
                                                 </div>
-                                                <label>
-                                                  Distractor
-                                                </label>
                                                 <textarea onChange={[Function: res]} value=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a weak gravitational field</li>\\\\n</ol>\\\\n\\" />
                                                 <label>
                                                   Choice-Level Feedback
