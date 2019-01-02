@@ -8,7 +8,7 @@ exports[`Exercise Identifier Link matches snapshot 1`] = `
   123442
    | 
   <a
-    href="https://cms-qa.openstax.org/errata/form?source=tutor&location=123442%201%2C2%20Introduction%20to%20Apples&book=College%20Physics"
+    href="https://openstax.org/errata/form?source=tutor&location=123442%201%2C2%20Introduction%20to%20Apples&book=College%20Physics"
     tabIndex={-1}
     target="_blank"
   >
