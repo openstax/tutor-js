@@ -1,4 +1,4 @@
-import { React, Factory } from '../../helpers';
+import { React, Factory, TimeMock } from '../../helpers';
 import SelectDates from '../../../src/screens/new-course/select-dates';
 import BuilderUX from '../../../src/screens/new-course/ux';
 
@@ -8,6 +8,9 @@ jest.mock('../../../src/models/user', () => ({
 
 describe('CreateCourse: Selecting course dates', function() {
   let ux;
+
+  TimeMock.setTo('2018-12-01T12:00:00.000Z');
+
   beforeEach(() => {
     ux = new BuilderUX({
       router: { route: { match: { params: {} } } },
