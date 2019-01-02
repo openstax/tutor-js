@@ -79,14 +79,6 @@ $dayz-event-border-radius: 0;
       padding-left: 0;
     }
 
-    .days {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-    }
-
-    &.month .days .day {
-      width: 100%; // override % flex width
-    }
     .day {
       position: relative;
 
