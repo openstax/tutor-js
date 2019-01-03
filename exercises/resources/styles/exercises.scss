@@ -1,7 +1,10 @@
 @import "./mixins/editing-panes";
 
 .exercise-navbar-controls {
-
+  &.navbar-nav {
+    // disable responsive
+    flex-direction: row;
+  }
   .right-side {
     flex: 1;
     display: flex;
