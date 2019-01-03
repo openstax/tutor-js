@@ -111,7 +111,7 @@ class AttachmentChooser extends React.Component {
       <div className={classNames}>
         {image}
         <div className="controls">
-          <label className="selector">
+          <label className="btn btn-secondary selector">
             {image ? 'Choose different image' : 'Add new image'}
             <input id="file" className="file" type="file" onChange={this.onImageChange} />
           </label>
