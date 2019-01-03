@@ -9,6 +9,10 @@ exports[`Notes renders and matches snapshot 1`] = `
   />
   <div
     className="annotater-content"
-  />
+  >
+    <p>
+      hello
+    </p>
+  </div>
 </div>
 `;

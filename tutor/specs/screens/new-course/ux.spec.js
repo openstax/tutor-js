@@ -17,7 +17,7 @@ let courses;
 const createTestUX = () => new BuilderUX({
   router: testRouter,
   courses,
-  offerings: Factory.offeringsMap({ count: 1 }),
+  offerings: Factory.offeringsMap({ count: 2 }),
 });
 
 describe('Course Builder UX Model', () => {
@@ -27,7 +27,6 @@ describe('Course Builder UX Model', () => {
     User.isCollegeTeacher = true;
     courses = Factory.coursesMap({ is_teacher: true });
     ux = createTestUX();
-
     ux.courses.array[0].offering_id = ux.offerings.array[0].id;
   });
 
@@ -137,6 +136,20 @@ describe('Course Builder UX Model', () => {
     expect(ux.stage).toEqual('offering_unavail');
     offering.appearance_code = 'biology_1e';
     expect(ux.stage).toEqual('bio1e_unavail');
+  });
+
+  it('can backup and change offering', () => {
+    ux = createTestUX();
+    expect(ux.stage).toEqual('offering');
+    ux.newCourse.offering = ux.offerings.array[0];
+    ux.goForward();
+    expect(ux.stage).toEqual('term');
+    ux.goBackward();
+    expect(ux.stage).toEqual('offering');
+    const offering = ux.offerings.array[0];
+    ux.newCourse.offering_id = offering.id;
+    ux.newCourse.offering = ux.offerings.array[1];
+    expect(ux.offering).toEqual(ux.offerings.array[1]);
   });
 
   it('redirects to onlly college page if teacher isnt college', () => {

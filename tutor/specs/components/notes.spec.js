@@ -71,7 +71,7 @@ describe('Notes', () => {
   it('renders and matches snapshot', () => {
     notes.ux.isSummaryVisible = true;
     expect.snapshot(
-      <NotesWidget {...props} />,
+      <NotesWidget {...props}><p>hello</p></NotesWidget>,
       {
         createNodeMock: e => {
           const parent = document.createElement('div');
