@@ -3060,14 +3060,14 @@ exports[`Exercises component resets fields when model is new 1`] = `
         </div>
         <ExerciseEditingPreview exercise={{...}}>
           <preview__Preview>
-            <StyledComponent forwardedClass={{...}} forwardedRef={{...}}>
+            <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
               <div className=\\"preview__Preview-sc-1vfgcxn-0 kDJIdF\\">
                 <CornerRibbon shadow={true} color=\\"navy\\" position=\\"topRight\\" label={{...}}>
                   <corner-ribbon__Ribbon>
-                    <StyledComponent forwardedClass={{...}} forwardedRef={{...}}>
+                    <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
                       <div className=\\"corner-ribbon__Ribbon-ky3mx8-0 dTqhIT\\">
                         <corner-ribbon__Content shadow={true} color=\\"navy\\" position=\\"topRight\\">
-                          <StyledComponent shadow={true} color=\\"navy\\" position=\\"topRight\\" forwardedClass={{...}} forwardedRef={{...}}>
+                          <StyledComponent shadow={true} color=\\"navy\\" position=\\"topRight\\" forwardedComponent={{...}} forwardedRef={{...}}>
                             <div color=\\"navy\\" className=\\"corner-ribbon__Content-ky3mx8-1 kwMsFn\\">
                               <div>
                                 READ ONLY
