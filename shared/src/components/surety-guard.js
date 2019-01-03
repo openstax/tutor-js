@@ -1,8 +1,17 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import styled from 'styled-components';
 import { Popover, OverlayTrigger, Button } from 'react-bootstrap';
 import { defer } from 'lodash';
+
+const Controls = styled.div`
+  border-top: 1px solid $openstax-neutral-light;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+`;
 
 class SuretyGuard extends React.Component {
   static defaultProps = {
@@ -57,14 +66,14 @@ class SuretyGuard extends React.Component {
         <span className="message">
           {this.props.message}
         </span>
-        <div className="controls">
-          <Button ref="popoverButton" onClick={this.onCancel}>
+        <Controls>
+          <Button variant="default" ref="popoverButton" onClick={this.onCancel}>
             {this.props.cancelButtonLabel}
           </Button>
           <Button onClick={this.onConfirm} variant="primary">
             {this.props.okButtonLabel}
           </Button>
-        </div>
+        </Controls>
       </Popover>
     );
   };

@@ -26,6 +26,7 @@ export default class extends React.Component {
     isWaiting: PropTypes.bool.isRequired,
     isDone: PropTypes.bool,
     isFailed: PropTypes.bool,
+    isDisabled: PropTypes.bool,
     active: PropTypes.bool,
     waitingText: PropTypes.node,
     failedState: PropTypes.func,
@@ -78,7 +79,7 @@ export default class extends React.Component {
   render() {
     let spinner, stateClass, text;
     let {
-      className, disabled, isJob, failedState,
+      className, isDisabled, isJob, failedState,
       isWaiting, isDone, isFailed, children, waitingText,
       failedProps, doneText, ...buttonProps
     } = this.props;
@@ -94,7 +95,7 @@ export default class extends React.Component {
     } else if (isWaiting) {
       stateClass = 'is-waiting';
       text = waitingText;
-      disabled = true;
+      isDisabled = true;
       spinner = <Icon type='spinner' spin />;
     } else if (isDone) {
       stateClass = 'is-done';
@@ -102,7 +103,6 @@ export default class extends React.Component {
     } else {
       stateClass = null;
       text = children;
-      disabled = this.props.disabled;
     }
 
     return (
@@ -112,7 +112,7 @@ export default class extends React.Component {
         onClick={this.props.onClick}
         className={[buttonTypeClass, stateClass, className]}
         active={this.props.active}
-        disabled={disabled}
+        disabled={isDisabled}
         {...buttonProps}
       >
         {spinner}
