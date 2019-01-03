@@ -6,9 +6,10 @@ const SUPPORT_LINK_PARAMS = '&cu=1&fs=ContactUs&q=';
 
 
 const ServerErrorMessage = observer((props) => {
+
   let dataMessage, debugInfo;
-  let { status, statusMessage, config, debug, data } = props;
-  if (statusMessage == null) { statusMessage = 'No response was received'; }
+  let { status, statusMessage, message, config, debug, data } = props;
+  if (statusMessage == null) { statusMessage = message || 'No response was received'; }
   if (status == null) { status = 0; }
 
   const noStatusMessage = status ? '' : <h4>It looks like your internet connection was interrupted,<br />please check your connection and retry</h4>;
@@ -61,6 +62,7 @@ ServerErrorMessage.propTypes = {
     PropTypes.object, PropTypes.string,
   ]),
   statusMessage: PropTypes.string,
+  message: PropTypes.string,
   config: PropTypes.object,
   debug: PropTypes.bool,
 };

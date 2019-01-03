@@ -189,7 +189,7 @@ class TutorDateInput extends React.Component {
   };
 
   isValid = (value) => {
-    if (!moment.isMoment(value)) { return false; }
+    if (!moment.isMoment(value)) { value = moment(value); }
     let valid = true;
     if (this.props.min && value.isBefore(this.props.min, 'day')) { valid = false; }
     if (this.props.max && value.isAfter(this.props.max, 'day')) { valid = false; }
@@ -224,30 +224,30 @@ class TutorDateInput extends React.Component {
     let { value } = this.props;
 
     value = value ?
-      TimeHelper.getMomentPreserveDate(value)
-      :
-      null;
+      TimeHelper.getMomentPreserveDate(value).toDate() : null;
 
     var isDatePickerDisabled = this.props.disabled && value;
     const min = this.props.min ? moment(this.props.min) : moment(now).subtract(10, 'years');
     const max = this.props.max ? moment(this.props.max) : moment(now).add(10, 'years');
 
     if (!this.props.disabled) {
-      dateElem = <DatePicker
-        minDate={min.toDate()}
-        maxDate={max.toDate()}
-        onFocus={this.expandCalendar}
-        onBlur={this.onBlur}
-        dateFormat={TutorDateFormat}
-        key={this.props.id}
-        ref="picker"
-        className={classes}
-        onChange={this.dateSelected}
-        disabled={this.props.disabled}
-        selected={value.toDate()}
-        weekStart={`${this.props.currentLocale.week.dow}`} />;
+      dateElem = (
+        <DatePicker
+          minDate={min.toDate()}
+          maxDate={max.toDate()}
+          onFocus={this.expandCalendar}
+          onBlur={this.onBlur}
+          dateFormat={TutorDateFormat}
+          key={this.props.id}
+          ref="picker"
+          className={classes}
+          onChange={this.dateSelected}
+          disabled={this.props.disabled}
+          selected={value}
+          weekStart={`${this.props.currentLocale.week.dow}`} />
+      );
     } else if (isDatePickerDisabled) {
-      displayValue = value.format(TutorDateFormat);
+      displayValue = value ? moment(value).format(TutorDateFormat) : '';
     }
 
     const displayOnlyProps = {

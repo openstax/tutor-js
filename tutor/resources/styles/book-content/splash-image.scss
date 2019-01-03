@@ -1,8 +1,7 @@
 @mixin tutor-book-content-splash-image() {
 
   // splash images are always full width without margin or surrounding padding
-  .splash,
-  .splash-video {
+  .splash {
     @include book-content-full-width();
 
     img {
