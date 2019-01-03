@@ -101,6 +101,7 @@
 
   color: $tutor-neutral-darker;
   border-left: 3px solid $plan-color;
+  background: fade_out($plan-color, 0.8);
 
   a {
     color: $tutor-neutral-darker;
@@ -110,11 +111,6 @@
       text-decoration: none;
     }
   }
-
-  label{
-    background: fade_out($plan-color, 0.8);
-  }
-
   &:hover,
   &.active,
   &.open {
