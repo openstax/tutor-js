@@ -93,7 +93,7 @@ Icons['wrong'] = Icons['close'];
 export { Icons };
 
 const defaultTooltipProps = {
-  placement: 'top',
+  placement: 'auto',
   trigger: ['hover', 'focus'],
 };
 
@@ -159,17 +159,15 @@ class Icon extends React.Component {
       return icon;
     }
 
-    const tooltipEl = React.isValidElement(tooltip) ?
-      tooltip : (
-        <Tooltip
-          id={this.uniqueId}
-          className={cn('ox-icon-tt', { 'on-navbar': onNavbar })}
-          {...defaults(tooltipProps, defaultTooltipProps)}
-        >
-          {this.props.tooltip}
-        </Tooltip>
-      );
-
+    const tooltipEl = (
+      <Tooltip
+        id={this.uniqueId}
+        className={cn('ox-icon-tt', { 'on-navbar': onNavbar })}
+        {...defaults(tooltipProps, defaultTooltipProps)}
+      >
+        {tooltip}
+      </Tooltip>
+    );
 
     return (
       <OverlayTrigger {...tooltipProps} overlay={tooltipEl}>

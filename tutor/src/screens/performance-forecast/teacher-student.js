@@ -52,21 +52,23 @@ export default createReactClass({
     const { students } = Courses.get(this.props.courseId).roster;
     const selected = students.find(matches({ role_id: this.state.roleId }));
     if (!selected) { return null; }
-    const name = <Name {...selected} />;
+
     return (
       <div className="guide-heading">
-        <div className="guide-group-title">
+        <div className="teacher-student-page-heading guide-group-title">
           <span className="preamble">
             Performance Forecast for:
           </span>
-          <Dropdown>
+          <Dropdown
+            alignRight
+            onSelect={this.onSelectStudent}
+          >
             <Dropdown.Toggle
               id="student-selection"
               className="student-selection"
               variant="link"
-              onSelect={this.onSelectStudent}
             >
-              {name}
+              <Name {...selected} />
             </Dropdown.Toggle>
             <Dropdown.Menu>
               {sortBy(students, 'name').filter((student) => student.role_id !== selected.role_id).map((student) =>
