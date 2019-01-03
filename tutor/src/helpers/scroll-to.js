@@ -1,4 +1,5 @@
 import { get, extend, isEmpty, delay, result, omit } from 'lodash';
+import imagesComplete from './images-complete';
 
 // Note that the GetPositionMixin methods are called directly rather than mixing it in
 // since we're a mixin ourselves our consumers also include GetPosition and it causes
@@ -106,10 +107,11 @@ export default class ScrollTo {
     );
   }
 
-  scrollToTop({ deferred = false } = {}) {
+  scrollToTop(options) {
     const root = this.windowImpl.document.body.querySelector('#ox-react-root-container');
+
     if (root) {
-      return this.scrollToElement(root, { updateHistory: false, deferred });
+      return this.scrollToElement(root, extend({}, options, { updateHistory: false }));
     }
     return Promise.resolve();
   }
@@ -119,9 +121,18 @@ export default class ScrollTo {
     if (options.deferred) {
       return new Promise(resolve => {
         delay(() => {
-          this.scrollToElement(el, omit(options, 'deferred'), 10).then(resolve);
-        });
+          this
+            .scrollToElement(el, omit(options, 'deferred'))
+            .then(resolve);
+        }, 10);
       });
+    }
+    if (options.afterImagesLoaded) {
+      return imagesComplete()
+        .then(() =>
+          this.scrollToElement(el, omit(options, 'afterImagesLoaded'))
+        );
+
     }
     const win       = this.windowImpl;
     const endPos    = this._desiredTopPosition(el, options);
