@@ -15,7 +15,7 @@ export default class App extends React.Component {
 
   ux = new UX();
 
-  @action.bound onSearch(ev) {
+  @action.bound onNav(ev) {
     ev.preventDefault();
     this.router.history.push(ev.currentTarget.pathname);
   }
@@ -34,10 +34,9 @@ export default class App extends React.Component {
         <BrowserRouter ref={br => this.router = br}>
           <div>
             <Navbar bg="light" expand="lg">
-              <Navbar.Brand href="#home">OX Exercises</Navbar.Brand>
-
+              <Navbar.Brand onClick={this.onNav} href="/">OX Exercises</Navbar.Brand>
               <Nav className="exercise-navbar-controls" >
-                <Nav.Link onClick={this.onSearch} href="/search">
+                <Nav.Link onClick={this.onNav} href="/search">
                   Search
                 </Nav.Link>
                 <Nav.Link onClick={this.onNew} href="/exercise/new">
@@ -47,7 +46,6 @@ export default class App extends React.Component {
                 <Route path="/exercise/:uid" component={Exercise.Controls} />
                 <Route path="/preview/:uid" component={Preview.Controls} />
               </Nav>
-
               <UserActionsMenu user={user} />
             </Navbar>
             <Container fluid className="openstax exercises">

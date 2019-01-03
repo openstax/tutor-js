@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {
-  Row, Col, FormGroup, InputGroup, DropdownButton,
-  FormControl, Dropdown,
+  Row, Col, InputGroup, DropdownButton, FormControl, Dropdown,
 } from 'react-bootstrap';
 import AsyncButton from 'shared/components/buttons/async-button';
 import { observer } from 'mobx-react';
+import { action } from 'mobx';
 
 export default
 @observer
@@ -14,6 +14,10 @@ class Clause extends React.Component {
   static propTypes = {
     clause: PropTypes.object.isRequired,
   };
+
+  @action.bound onSelect(key) {
+    this.props.clause.filter = key;
+  }
 
   render() {
     const { clause } = this.props;
@@ -26,6 +30,7 @@ class Clause extends React.Component {
               as={InputGroup.Prepend}
               variant="outline-secondary"
               title={clause.description}
+              onSelect={this.onSelect}
               id="input-dropdown-addon"
             >
               <Dropdown.Item eventKey="uid">ID (Number@Version)</Dropdown.Item>
