@@ -93,12 +93,11 @@ class Question extends React.Component {
         {question.exercise.isMultiPart && this.renderControls()}
 
         {!validity.valid && (
-          <Alert variant="warning">
+           <Alert variant="warning">
              To save your work, you must fill out the {validity.part}
-          </Alert>)}
+           </Alert>)}
 
         <QuestionFormatType question={question} />
-
         <div>
           <label>
             Question Stem
@@ -107,11 +106,9 @@ class Question extends React.Component {
         </div>
 
         <div>
-          <label>Answers:</label>
-          <a className="pull-right" onClick={this.addAnswer}>
-            Add New
-          </a>
-          <ol>
+          <label>Answers</label>
+          <Icon tooltip="Add New" type="plus-square" onClick={this.addAnswer} />
+          <ol className="answer-choices">
             {question.answers.map((answer, index) => (
               <Answer
                 key={answer.id || `index-${index}`}
