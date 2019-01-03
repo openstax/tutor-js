@@ -49,7 +49,7 @@ const Exercises = {
 };
 
 
-Exercises.ERRATA_FORM_URL = 'https://oscms.openstax.org/errata/form';
+Exercises.ERRATA_FORM_URL = 'https://openstax.org/errata/form';
 Exercises.setOSWebURL = (url) => {
   if (url) { Exercises.ERRATA_FORM_URL = `${url}/errata/form`; }
 };
