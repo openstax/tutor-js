@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import cn from 'classnames';
 import { Icon } from 'shared';
 import Theme from '../../theme';
@@ -20,7 +21,7 @@ const AveragesToggle = observer(({ ux }) => (
 const WeightsLink = observer(({ ux }) => {
   if (ux.period.course.isTeacher) {
     return (
-      <a className="set-weights" onClick={ux.weights.onSetClick}>
+      <Button variant="link" className="set-weights" onClick={ux.weights.onSetClick}>
         Set weights
         {!ux.areWeightsInUse &&
           <Icon
@@ -28,7 +29,7 @@ const WeightsLink = observer(({ ux }) => {
             color={Theme.colors.danger}
             tooltipProps={{ placement: 'top' }}
             tooltip="Change weights to generate course averages" />}
-      </a>
+      </Button>
     );
   } else {
     return (
