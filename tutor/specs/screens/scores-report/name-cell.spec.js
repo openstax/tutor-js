@@ -25,10 +25,4 @@ describe('Student Scores Name Cell', function() {
     expect(nc).toHaveRendered('a');
   });
 
-  it('does not render with link for CC', () => {
-    props.isConceptCoach = true;
-    const nc = mount(<NameCell {...props} />, EnzymeContext.build());
-    expect(nc).not.toHaveRendered('a');
-  });
-
 });

@@ -26,7 +26,7 @@ const FIRST_DATA_COLUMN = 2;
 const MIN_TABLE_WIDTH = 500;
 const MIN_TABLE_HEIGHT = 600;
 
-const NameHeader = observer(({ sort, onSort, isConceptCoach }) => (
+const NameHeader = observer(({ sort, onSort }) => (
   <div className="header-cell-wrapper student-names">
     <div className="header-row overview-row">
       <SortingHeader sortKey="name" sortState={sort} onSort={onSort} dataType="name">
@@ -46,7 +46,7 @@ class ScoresTable extends React.Component {
     sort: PropTypes.object.isRequired,
     onSort: PropTypes.func.isRequired,
     dataType: PropTypes.string,
-    isConceptCoach: PropTypes.bool.isRequired,
+    displayAs: PropTypes.string,
   }
 
   @computed get students() {

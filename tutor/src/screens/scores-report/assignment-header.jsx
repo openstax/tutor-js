@@ -12,7 +12,7 @@ import UX from './ux';
 
 const ReviewLink = observer((props) => {
   const { ux } = props;
-  if (props.isConceptCoach || (props.heading.type === 'external') || (props.heading.plan_id == null)) {
+  if (props.heading.type === 'external' || props.heading.plan_id == null) {
     return null;
   }
   return (
@@ -124,7 +124,7 @@ const TeacherAssignmentHeaderRow = observer((props) => {
 });
 
 const AssignmentHeader = observer((props) => {
-  const { ux, columnIndex, isConceptCoach } = props;
+  const { ux, columnIndex } = props;
   const heading = ux.period.data_headings[columnIndex];
   return (
     <div
@@ -140,7 +140,8 @@ const AssignmentHeader = observer((props) => {
         <TourAnchor className="expanded-header-row" id={`scores-${heading.type}-header`}>
           <div
             data-assignment-type={`${heading.type}`}
-            className={classnames('header-cell', 'group', 'title', { cc: isConceptCoach })}>
+            className={classnames('header-cell', 'group', 'title')}
+          >
             {heading.title}
           </div>
           <div className="due">
