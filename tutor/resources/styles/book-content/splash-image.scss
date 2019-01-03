@@ -1,4 +1,4 @@
-%tutor-book-content-splash-image {
+@mixin tutor-book-content-splash-image() {
 
   // splash images are always full width without margin or surrounding padding
   .splash,

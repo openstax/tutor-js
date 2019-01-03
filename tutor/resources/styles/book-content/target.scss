@@ -11,7 +11,7 @@
   }
 }
 
-%tutor-book-content-target {
+@mixin tutor-book-content-target() {
 
   figure {
     @include highlight-target(will-transition);

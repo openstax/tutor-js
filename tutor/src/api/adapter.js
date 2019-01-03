@@ -62,7 +62,7 @@ const OPTIONS = {
 };
 
 tutorAPIHandler = new APIHandler(OPTIONS);
-tutorAPIHandler.channel.on('*.*.*.receive.*', function(response) {
+tutorAPIHandler.channel.on('*.*.*.receive.*', function(response = {}) {
   const headers = response.headers || response.response.headers;
   return setNow(headers);
 });

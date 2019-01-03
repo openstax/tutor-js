@@ -2,7 +2,7 @@
 // Hide titles, abstracts and CNX Processing instructions
 
 // References should not get drop-cap styling
-%tutor-book-content-base-styles {
+@mixin tutor-book-content-base-styles() {
 
   // Default font for text content
   p,

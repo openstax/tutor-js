@@ -1,4 +1,4 @@
-%tutor-book-content-teacher {
+@mixin tutor-book-content-teacher() {
   .os-teacher {
     // shown if parent is-teacher present below.
     display: none;

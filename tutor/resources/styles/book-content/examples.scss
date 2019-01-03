@@ -1,4 +1,4 @@
-%tutor-book-content-examples {
+@mixin tutor-book-content-examples() {
   [data-type="example"] {
     background-color: $tutor-neutral-lightest;
     padding: 1rem;

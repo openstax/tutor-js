@@ -53,10 +53,12 @@
       background-color: $tutor-white;
       display: flex;
       flex-direction: column;
-
       padding: 3rem;
       width: 100%;
       break-inside: avoid;
+
+      @include tutor-book-content-equations();
+
       @media print {
         padding: 0;
       }
