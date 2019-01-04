@@ -167,17 +167,7 @@ const TimeHelper = {
 
   isCourseTimezone(courseTimezone) {
     if (isEmpty(courseTimezone)) { return false; }
-
-    const courseMomentZone = moment.tz(courseTimezone);
-
-    if (isEmpty(courseMomentZone._z)) { return false; }
-
-    const { offsets } = moment()._z || moment.tz(TimeHelper.getLocalTimezone())._z;
-    const courseTimezoneOffsets = courseMomentZone._z.offsets;
-
-    // Use moment offsets to check if set timezone is matching.
-    // Zone abbr/zone name are not globally unique
-    return isEqual(offsets, courseTimezoneOffsets);
+    return moment().utcOffset() === moment.tz(courseTimezone).utcOffset();
   },
 };
 
