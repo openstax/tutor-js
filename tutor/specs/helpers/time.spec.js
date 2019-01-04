@@ -28,15 +28,17 @@ describe('Time Helpers', function() {
     expect(moment().startOf('day').isSame(TODAY_IN_CURRENT_ZONE)).toBe(true);
   });
 
-  it('can check the default timezone', function() {
+  it('checks if browser is in same timezone as course', function() {
     const courseTimezone = Courses.get(COURSE_ID).time_zone;
-
-    let isCourseTimezone = TimeHelper.isCourseTimezone(courseTimezone);
-    expect(isCourseTimezone).toBe(false);
+    expect(
+      TimeHelper.isCourseTimezone(courseTimezone)
+    ).toBe(false);
 
     TimeHelper.syncCourseTimezone(courseTimezone);
-    isCourseTimezone = TimeHelper.isCourseTimezone(courseTimezone);
-    expect(isCourseTimezone).toBe(true);
+    expect(
+      TimeHelper.isCourseTimezone(courseTimezone),
+    ).toBe(true);
     TimeHelper.unsyncCourseTimezone();
   });
+
 });
