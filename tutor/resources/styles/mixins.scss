@@ -257,7 +257,7 @@ $tutor-shadow-types: (
     }
   }
   caption {
-     @include tutor-sans-font(1.3rem, 2rem);
+    @include tutor-sans-font(1.3rem, 2rem);
     color: $tutor-neutral-dark;
     margin-top: 0.5rem;
     text-align: left;

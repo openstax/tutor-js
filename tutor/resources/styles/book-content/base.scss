@@ -35,6 +35,10 @@
   }
 
   @include tutor-tables($tutor-neutral-light, $tutor-neutral-light);
+  table + .os-caption-container{
+    margin-bottom: 3rem;
+    margin-top: -1rem; // move closer to bottom of table
+  }
 
   div[data-type="document-title"],
   cnx-pi{
