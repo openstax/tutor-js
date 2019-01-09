@@ -13,6 +13,7 @@ describe('Student Scores Overall Cell', function() {
     ux = new ScoresUX(course);
     props = {
       ux,
+      students: ux.period.students,
       rowIndex: 2,
     };
   });
