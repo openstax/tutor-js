@@ -2,7 +2,7 @@ import { reduce, isEmpty } from 'lodash';
 import { action } from 'mobx';
 import Big from 'big.js';
 import {
-  BaseModel, identifiedBy, field, hasMany, belongsTo,
+  BaseModel, identifiedBy, identifier, field, hasMany, belongsTo,
 } from 'shared/model';
 
 import TaskResult from './task-result';
@@ -15,7 +15,7 @@ class Student extends BaseModel {
   @field last_name;
   @field is_dropped;
   @field name;
-  @field role;
+  @identifier role;
   @field student_identifier;
   @belongsTo({ model: 'course/scores/period' }) period;
 

@@ -144,14 +144,13 @@ export default class ScoresReportUX {
       'reading_score',
       'reading_progress',
     ];
-
-    return this.period.students.map((student) => {
-      let averages = pick(student, scoreKeys);
-      averages = this.maskAverages(averages);
-      averages.student_identifier = student.student_identifier;
-
-      return averages;
+    const averages = {};
+    this.period.students.forEach((student) => {
+      averages[student.role] = this.maskAverages(
+        pick(student, scoreKeys)
+      );
     });
+    return averages;
   }
 
   @computed get periodAverages() {

@@ -3,8 +3,10 @@ import cn from 'classnames';
 import { Cell } from 'fixed-data-table-2';
 import { observer } from 'mobx-react';
 
-const OverallCell = observer(({ ux, rowIndex }) => {
-  const studentAverages = ux.periodStudentsAverages[rowIndex];
+const OverallCell = observer(({ ux, students, rowIndex }) => {
+  const student = students[rowIndex];
+  const studentAverages = ux.periodStudentsAverages[student.role];
+
   return (
     <Cell className={cn('overall-cell', { 'is-expanded': ux.isAveragesExpanded })}>
       <div className="course">
