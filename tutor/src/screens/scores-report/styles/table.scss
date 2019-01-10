@@ -38,6 +38,11 @@ $pie-color-due: #268FBE;
     }
   }
 
+  .fixedDataTableCellLayout_wrap2,
+  .fixedDataTableCellLayout_wrap2 {
+    display: flex;
+  }
+
   .course-scores-table {
     &:focus {
       outline: 0
@@ -62,7 +67,6 @@ $pie-color-due: #268FBE;
   }
 
   i.late {
-//    @include tutor-late-icon();
     padding-left:8px;
   }
 
@@ -91,8 +95,8 @@ $pie-color-due: #268FBE;
     border-bottom: $scores-table-outer-border-width solid $scores-table-outer-border-color;
   }
 
-  .external-cell,   .overall-cell {
-    display: flex;
+  .external-cell,
+  .overall-cell {
     align-items: center;
     justify-content: center;
   }
