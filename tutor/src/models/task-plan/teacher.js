@@ -78,8 +78,8 @@ class TeacherTaskPlan extends BaseModel {
   }
 
   @computed get dueRange() {
-    const due_times = map(this.tasking_plans, tp => moment(tp.due_at)).sort();
-    return moment.range(last(due_times), first(due_times));
+    const due_times = sortBy(map(this.tasking_plans, tp => moment(tp.due_at)), m => m.toDate());
+    return moment.range(first(due_times), last(due_times));
   }
 
   @action onPublishComplete() {
