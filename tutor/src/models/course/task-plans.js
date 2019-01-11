@@ -80,7 +80,7 @@ export default class CourseTaskPlans extends Map {
 
   // called from api
   fetch() { }
-  onLoaded({ data: { plans } }) {
+  @action onLoaded({ data: { plans } }) {
     plans.forEach(plan => {
       const tp = this.get(plan.id);
       tp ? tp.update(plan) : this.set(plan.id, new TaskPlan(plan));
