@@ -65,6 +65,7 @@ Factories.pastTaskPlans = ({ course, count = 4 }) => {
       items: range(count).map(() => FactoryBot.create('TeacherDashboardTask', { course })),
     },
   });
+  return course.pastTaskPlans;
 };
 
 Factories.taskPlans = ({ course, count = 4 }) => {
@@ -73,6 +74,7 @@ Factories.taskPlans = ({ course, count = 4 }) => {
       plans: range(count).map(() => FactoryBot.create('TeacherDashboardTask', { course })),
     },
   });
+  return course.taskPlans;
 };
 
 Factories.studentTasks = ({ course, count = 4, attributes = {} }) => {
@@ -95,6 +97,7 @@ Factories.scores = ({ course }) => {
   course.scores.onFetchComplete({
     data: course.periods.map(period => FactoryBot.create('ScoresForPeriod', { period })),
   });
+  return course.scores;
 };
 
 Factories.exercisesMap = ({ book, pageIds = [], count = 4 } = {}) => {
