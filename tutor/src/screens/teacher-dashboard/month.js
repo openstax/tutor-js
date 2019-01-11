@@ -43,6 +43,7 @@ class Month extends React.Component {
     const plans = taskPlans.active.array.map(plan => ({
       plan,
       range: plan.dueRange,
+      className: `type-${plan.type}`,
       render: ({ event }) => (
         <Plan
           onPlanView={partial(this.onPlanView, plan)}
