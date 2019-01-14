@@ -18,7 +18,6 @@ describe('Student Scores Report Reading Cell', function() {
       ux,
       task,
       columnIndex: 0,
-      isConceptCoach: false,
       student: {
         name: 'Molly Bloom',
         role: 1,
