@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { range, isEmpty, sortBy } from 'lodash';
+import { range, isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
 import { computed } from 'mobx';
 import { Table, Column, ColumnGroup, Cell } from 'fixed-data-table-2';
@@ -8,7 +8,6 @@ import { autobind } from 'core-decorators';
 import classnames from 'classnames';
 import TutorLink from '../../components/link';
 
-import StudentDataSorter from './student-data-sorter';
 import SortingHeader from './sorting-header';
 import AverageInfo from './average-info';
 import AssignmentCell from './assignment-cell';
@@ -26,16 +25,20 @@ const FIRST_DATA_COLUMN = 2;
 const MIN_TABLE_WIDTH = 500;
 const MIN_TABLE_HEIGHT = 600;
 
-const NameHeader = observer(({ sort, onSort }) => (
-  <div className="header-cell-wrapper student-names">
-    <div className="header-row overview-row">
-      <SortingHeader sortKey="name" sortState={sort} onSort={onSort} dataType="name">
-        <span>Overall</span>
-      </SortingHeader>
+const NameHeader = observer(({ ux }) => {
+  return (
+    <div className="header-cell-wrapper student-names">
+      <div className="header-row overview-row">
+        <SortingHeader sortKey="name" ux={ux} dataType="name">
+          <span>Overall</span>
+        </SortingHeader>
+      </div>
     </div>
-  </div>
-));
-
+  );
+});
+NameHeader.propTypes = {
+  ux: PropTypes.instanceOf(UX).isRequired,
+};
 
 export default
 @observer
@@ -43,18 +46,6 @@ class ScoresTable extends React.Component {
 
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
-    sort: PropTypes.object.isRequired,
-    onSort: PropTypes.func.isRequired,
-    dataType: PropTypes.string,
-    displayAs: PropTypes.string,
-  }
-
-  @computed get students() {
-    const students = sortBy( this.props.ux.period.students, StudentDataSorter({
-      sort: this.props.sort,
-      displayAs: this.props.displayAs,
-    }));
-    return this.props.sort.asc ? students : students.reverse();
   }
 
   get courseId() {
@@ -98,7 +89,7 @@ class ScoresTable extends React.Component {
   }
 
   renderLeftColumnGroup() {
-    const { props: { ux, ux: { COLUMN_WIDTH, course } }, courseId, students } = this;
+    const { props: { ux, ux: { students, COLUMN_WIDTH, course } }, courseId } = this;
 
     if (!course.isTeacher) {
       return (
@@ -109,7 +100,7 @@ class ScoresTable extends React.Component {
             flexGrow={0}
             allowCellsRecycling={true}
             isResizable={false}
-            cell={<OverallCell ux={ux} students={students} />}
+            cell={<OverallCell ux={ux} />}
             header={<OverallHeader ux={ux} {...this.props} />}
           />
         </ColumnGroup>
@@ -124,8 +115,8 @@ class ScoresTable extends React.Component {
           flexGrow={0}
           allowCellsRecycling={true}
           isResizable={false}
-          cell={<NameCell {...this.props} {...{ students, courseId }} />}
-          header={<NameHeader {...this.props} />}
+          cell={<NameCell ux={ux} />}
+          header={<NameHeader ux={ux} />}
         />
         <Column
           fixed={true}
@@ -141,7 +132,7 @@ class ScoresTable extends React.Component {
   }
 
   render() {
-    const { courseId, students, props: { displayAs, ux, ux: { course, COLUMN_WIDTH, ROW_HEIGHT, period } } } = this;
+    const { height, ux, ux: { students, COLUMN_WIDTH, ROW_HEIGHT, period } }  = this.props;
 
     if (!period.coursePeriod.num_enrolled_students) { return this.renderNoStudents(); }
     if (isEmpty(students)) { return this.renderNoAssignments(); }
@@ -150,7 +141,7 @@ class ScoresTable extends React.Component {
       <Table
         className={classnames('course-scores-table')}
         rowHeight={ROW_HEIGHT}
-        height={(this.props.height || ux.tableHeight)}
+        height={(height || ux.tableHeight)}
         headerHeight={ux.headerHeight}
         width={ux.tableWidth}
         rowsCount={students.length}
@@ -164,8 +155,8 @@ class ScoresTable extends React.Component {
               width={COLUMN_WIDTH}
               flexGrow={0}
               allowCellsRecycling={true}
-              cell={<AssignmentCell {...this.props} {...{ students, columnIndex }} />}
-              header={<AssignmentHeader {...this.props} {...{ students, columnIndex }} />}
+              cell={<AssignmentCell ux={ux} {...{ students, columnIndex }} />}
+              header={<AssignmentHeader ux={ux} {...{ columnIndex }} />}
             />)}
         </ColumnGroup>
       </Table>

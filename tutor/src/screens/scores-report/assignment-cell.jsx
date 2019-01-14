@@ -14,15 +14,13 @@ export default
 class AssignmentCell extends React.Component {
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
-    students: PropTypes.array.isRequired,
     rowIndex: PropTypes.number,
     columnIndex: PropTypes.number.isRequired,
   }
 
   render() {
-    const { ux, students, rowIndex } = this.props;
-    const student = students[rowIndex || 0];
-
+    const { ux, rowIndex } = this.props;
+    const student = ux.students[rowIndex || 0];
     const props = extend({}, this.props, {
       student,
       task: student.data[this.props.columnIndex],

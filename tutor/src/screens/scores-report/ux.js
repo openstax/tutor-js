@@ -1,10 +1,11 @@
 import { observable, computed, action } from 'mobx';
+import StudentDataSorter from './student-data-sorter';
 import bezierAnimation from '../../helpers/bezier';
 import WindowSize from '../../models/window-size';
 import WeightsUX from './weights-ux';
 import UiSettings from 'shared/model/ui-settings';
 import {
-  find, first, isUndefined, clone, reverse, pick, pickBy, mapValues,
+  find, first, isUndefined, clone, reverse, pick, pickBy, mapValues, sortBy,
   groupBy, flatMap, flow, map, partial, uniq, some, keys, isEmpty, isNil,
 } from 'lodash';
 import S from '../../helpers/string';
@@ -33,6 +34,20 @@ export default class ScoresReportUX {
   ROW_HEIGHT = ROW_HEIGHT;
 
   windowSize = new WindowSize();
+
+  @observable sortIndex;
+  @observable sort = { key: 'name', asc: true, dataType: 'score' };
+  @observable displayAs = 'score'
+
+  @action.bound changeSortingOrder(key, dataType) {
+    this.sort.asc = this.sort.key === key ? (!this.sort.asc) : false;
+    this.sort.key = key;
+    this.sort.dataType = dataType;
+  }
+
+  isSortedBy({ sortKey, dataType }) {
+    return (this.sort.key === sortKey) && (this.sort.dataType === dataType);
+  }
 
   @computed get isAveragesExpanded() {
     const isAveragesExpanded = UiSettings.get(IS_AVERAGES_EXPANDED_KEY);
@@ -136,7 +151,16 @@ export default class ScoresReportUX {
     });
   }
 
-  @computed get periodStudentsAverages() {
+  @computed get students() {
+    const students = sortBy(this.period.students,
+      StudentDataSorter({
+        sort: this.sort,
+        displayAs: this.displayAs,
+      }));
+    return this.sort.asc ? students : students.reverse();
+  }
+
+  @computed get studentsAverages() {
     const scoreKeys = [
       'course_average',
       'homework_score',
@@ -145,7 +169,7 @@ export default class ScoresReportUX {
       'reading_progress',
     ];
     const averages = {};
-    this.period.students.forEach((student) => {
+    this.students.forEach((student) => {
       averages[student.role] = this.maskAverages(
         pick(student, scoreKeys)
       );
@@ -202,7 +226,7 @@ export default class ScoresReportUX {
   }
 
   @computed get desiredHeight() {
-    return this.period.students.length * ROW_HEIGHT + this.headerHeight + TABLE_PADDING;
+    return this.students.length * ROW_HEIGHT + this.headerHeight + TABLE_PADDING;
   }
 
   @computed get expectedHeight() {

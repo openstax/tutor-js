@@ -17,21 +17,18 @@ describe('Student Scores Assignment Cell', function() {
     props = {
       ux,
       task,
+      rowIndex: 1,
       columnIndex: 0,
-      isConceptCoach: false,
       headings: [
         { type: 'reading' },
       ],
-      students: [{
-        name: 'Molly Bloom',
-        role: 1,
-        data: [ task ],
-      }],
     };
   });
 
   it('renders as absent for null type', function() {
     props.task.type = undefined;
+    const student = props.ux.students[props.rowIndex];
+    student.data[props.columnIndex].type = 'unknown';
     const cell = mount(<Cell {...props} />, EnzymeContext.build());
     expect(cell).toHaveRendered('AbsentCell');
     expect.snapshot(

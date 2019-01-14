@@ -1,16 +1,20 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { observer } from 'mobx-react';
 import { autobind } from 'core-decorators';
 import classnames from 'classnames';
 import Theme from '../../../src/theme';
 import { Icon } from 'shared';
+import UX from './ux';
 
+@observer
 export default class SortingHeader extends React.Component {
 
   static propTypes = {
-    onSort:  PropTypes.func.isRequired,
+    ux: PropTypes.instanceOf(UX).isRequired,
     sortKey: PropTypes.any.isRequired,
-    sortState: PropTypes.object.isRequired,
+    dataType: PropTypes.any.isRequired,
+    className: PropTypes.string,
     dataType: PropTypes.string,
     type: PropTypes.string,
     children: PropTypes.element,
@@ -18,13 +22,13 @@ export default class SortingHeader extends React.Component {
 
   @autobind
   onClick() {
-    this.props.onSort(this.props.sortKey, this.props.dataType);
+    this.props.ux.changeSortingOrder(this.props.sortKey, this.props.dataType);
   }
 
   render() {
-    const isSorted = (this.props.sortState.key === this.props.sortKey) &&
-      (this.props.sortState.dataType === this.props.dataType);
-    const ascDesc = this.props.sortState.asc ? 'is-ascending' : 'is-descending';
+    const { ux } = this.props;
+    const isSorted = ux.isSortedBy(this.props);
+    const ascDesc = ux.sort.asc ? 'is-ascending' : 'is-descending';
     const classNames = classnames('header-cell', 'sortable', this.props.className, {
       [ascDesc]: isSorted,
     });
@@ -36,10 +40,8 @@ export default class SortingHeader extends React.Component {
         className={classNames}
       >
         <Icon
-          type={isSorted ? `sort-${this.props.sortState.asc ? 'up' : 'down'}` : 'sort'}
-          color={
-          isSorted ? Theme.colors.states.active : Theme.colors.states.disabled
-          }
+          type={isSorted ? `sort-${ux.sort.asc ? 'up' : 'down'}` : 'sort'}
+          color={isSorted ? Theme.colors.states.active : Theme.colors.states.disabled}
         />
         {this.props.children}
       </div>

@@ -1,6 +1,5 @@
 import { C, EnzymeContext } from '../../helpers';
 import { map, sortBy } from 'lodash';
-import Courses from '../../../src/models/courses-map';
 import bootstrapScores from '../../helpers/scores-data';
 import Scores from '../../../src/screens/scores-report/index';
 import Sorter from '../../../src/screens/scores-report/student-data-sorter';
@@ -33,6 +32,7 @@ describe('Scores Report', function() {
 
   it('sorts', function() {
     const wrapper = mount(<Scores {...props} />, EnzymeContext.build());
+
     wrapper.find('.header-cell.sortable').at(1).simulate('click');
     const sorter = Sorter({ sort: { key: 0, dataType: 'score' }, displayAs: 'percentage' });
     const sorted = map(sortBy(period.students, sorter).reverse(), 'name');

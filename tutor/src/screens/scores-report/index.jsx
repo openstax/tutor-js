@@ -36,17 +36,8 @@ class StudentScores extends React.Component {
     return (this.course.isTeacher && 'Student Scores') || 'Scores';
   }
 
-  @observable sortIndex;
-  @observable sort = { key: 'name', asc: true, dataType: 'score' };
-
   componentWillMount() {
     this.course.scores.fetch();
-  }
-
-  @action.bound changeSortingOrder(key, dataType) {
-    this.sort.asc = this.sort.key === key ? (!this.sort.asc) : false;
-    this.sort.key = key;
-    this.sort.dataType = dataType;
   }
 
   @action.bound selectPeriod(period, key) {
@@ -98,12 +89,7 @@ class StudentScores extends React.Component {
             otherTours={['preview-scores']}
           >
             <ContainerDimensions>
-              <ScoresTable
-                ux={this.ux}
-                sort={this.sort}
-                onSort={this.changeSortingOrder}
-                dataType={this.sort.dataType}
-              />
+              <ScoresTable ux={this.ux} />
             </ContainerDimensions>
           </TourRegion>
         }
