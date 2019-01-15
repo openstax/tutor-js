@@ -3,6 +3,7 @@ import { map, sortBy } from 'lodash';
 import bootstrapScores from '../../helpers/scores-data';
 import Scores from '../../../src/screens/scores-report/index';
 import Sorter from '../../../src/screens/scores-report/student-data-sorter';
+import UX from '../../../src/screens/scores-report/ux';
 
 function mockedContainerDimensions({ height = 1024, width = 1200 } = {}) {
   return ({ children, ...childProps }) => (
@@ -12,7 +13,7 @@ function mockedContainerDimensions({ height = 1024, width = 1200 } = {}) {
 jest.mock('react-container-dimensions', () => mockedContainerDimensions());
 
 const getStudentNames = function(wrapper) {
-  return wrapper.find('span.student-name').map(el => el.text());
+  return wrapper.find('.student-name').map(el => el.text());
 };
 
 describe('Scores Report', function() {
@@ -23,7 +24,10 @@ describe('Scores Report', function() {
 
   beforeEach(() => {
     ({ course, period } = bootstrapScores());
+    const ux = new UX(course);
+    ux.windowSize = { width: 800, height: 1024 };
     props = {
+      ux,
       params: { courseId: course.id },
       course,
       period,
@@ -43,6 +47,7 @@ describe('Scores Report', function() {
   });
 
   // disabled because column widths are different when ran on travis, and not sure why
+  // it('matches snapshot', () => {
   //   expect.snapshot(<C><Scores {...props} /></C>).toMatchSnapshot();
   // });
 

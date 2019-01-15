@@ -1,11 +1,12 @@
 import { observable, computed, action } from 'mobx';
-import StudentDataSorter from './student-data-sorter';
+import { filter, sortBy } from 'lodash';
+import studentDataSorter from './student-data-sorter';
 import bezierAnimation from '../../helpers/bezier';
 import WindowSize from '../../models/window-size';
 import WeightsUX from './weights-ux';
 import UiSettings from 'shared/model/ui-settings';
 import {
-  find, first, isUndefined, clone, reverse, pick, pickBy, mapValues, sortBy,
+  find, first, isUndefined, clone, reverse, pick, pickBy, mapValues,
   groupBy, flatMap, flow, map, partial, uniq, some, keys, isEmpty, isNil,
 } from 'lodash';
 import S from '../../helpers/string';
@@ -14,7 +15,7 @@ const CELL_AVERAGES_CLOSED_SINGLE_WIDTH = 120;
 const CELL_AVERAGES_SINGLE_WIDTH = 90;
 const IS_AVERAGES_EXPANDED_KEY = 'is_scores_averages_expanded';
 const CLOSED_TO_OPENED = [CELL_AVERAGES_CLOSED_SINGLE_WIDTH, CELL_AVERAGES_SINGLE_WIDTH * 5];
-const MIN_TABLE_HEIGHT = 0;
+const MIN_TABLE_HEIGHT = 300;
 
 const OPENED_TO_CLOSED = reverse(clone(CLOSED_TO_OPENED));
 const PADDING = 80;
@@ -151,13 +152,31 @@ export default class ScoresReportUX {
     });
   }
 
+  @computed get studentSorter() {
+    return studentDataSorter({ sort: this.sort, displayAs: this.displayAs });
+  }
+
+  @computed get droppedStudents() {
+    return sortBy(
+      filter(this.period.students, 'is_dropped'),
+      this.studentSorter,
+    );
+  }
+
+  @computed get hasDroppedStudents() {
+    return Boolean(find(this.period.students, 'is_dropped'));
+  }
+
   @computed get students() {
-    const students = sortBy(this.period.students,
-      StudentDataSorter({
-        sort: this.sort,
-        displayAs: this.displayAs,
-      }));
-    return this.sort.asc ? students : students.reverse();
+    const students = sortBy(
+      filter(this.period.students, s => !s.is_dropped),
+      this.studentSorter,
+    );
+    if (!this.sort.asc) {
+      students.reverse();
+    }
+    students.push(...this.droppedStudents);
+    return students;
   }
 
   @computed get studentsAverages() {

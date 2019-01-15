@@ -8,14 +8,16 @@ $pie-color-due: #268FBE;
   }
   p {
      @include tutor-sans-font(1.3rem, 2rem);
-//    font-size: 16px;
-//    line-height: 18px;
     margin: 10px 0;
   }
   .no-reading-heading {
     margin-top: 20px;
     font-weight: bolder;
   }
+}
+
+.body-wrapper {
+  padding-top: 0;
 }
 
 .course-scores-report {
@@ -218,6 +220,7 @@ $pie-color-due: #268FBE;
 
   .name-cell-wrapper {
     height: 100%;
+
     .name-cell {
       border-left: $scores-table-outer-border-width solid $scores-table-outer-border-color;
       height: 100%;
@@ -237,6 +240,14 @@ $pie-color-due: #268FBE;
       }
       .student-id {
         @include tutor-sans-neutral-light-font(1.4rem);
+      }
+    }
+    &.is-dropped {
+      .name-cell .student-name {
+        color: $tutor-neutral-lite;
+      }
+      .name-cell .student-id {
+        color: $tutor-neutral-lite;
       }
     }
   }

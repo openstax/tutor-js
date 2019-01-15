@@ -132,7 +132,7 @@ class ScoresTable extends React.Component {
   }
 
   render() {
-    const { height, ux, ux: { students, COLUMN_WIDTH, ROW_HEIGHT, period } }  = this.props;
+    const { ux, ux: { students, COLUMN_WIDTH, ROW_HEIGHT, period } }  = this.props;
 
     if (!period.coursePeriod.num_enrolled_students) { return this.renderNoStudents(); }
     if (isEmpty(students)) { return this.renderNoAssignments(); }
@@ -141,7 +141,7 @@ class ScoresTable extends React.Component {
       <Table
         className={classnames('course-scores-table')}
         rowHeight={ROW_HEIGHT}
-        height={(height || ux.tableHeight)}
+        height={(ux.tableHeight)}
         headerHeight={ux.headerHeight}
         width={ux.tableWidth}
         rowsCount={students.length}

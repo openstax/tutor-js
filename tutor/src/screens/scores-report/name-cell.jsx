@@ -1,11 +1,7 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import classnames from 'classnames';
-import { observer } from 'mobx-react';
+import { React, PropTypes, cn, observer } from '../../helpers/react';
 import Name from '../../components/name';
 import UX from './ux';
 import TutorLink from '../../components/link';
-const TOOLTIP_OPTIONS = { enable: true, placement: 'top', delayShow: 1500, delayHide: 150 };
 
 export default
 @observer
@@ -21,26 +17,20 @@ class NameCell extends React.Component {
     const { ux, rowIndex } = this.props;
     const student = ux.students[rowIndex || 0];
 
-    const children = [
-      <Name
-        key="name"
-        tooltip={TOOLTIP_OPTIONS}
-        className="student-name"
-        {...student} />,
-      <span key="id" className="student-id">
-        {student.student_identifier}
-      </span>,
-    ];
-    const classname = classnames('name-cell', this.props.className);
-
     return (
-      <div className="name-cell-wrapper">
+      <div className={cn('name-cell-wrapper', { 'is-dropped': student.is_dropped })}>
         <TutorLink
           to="viewPerformanceGuide"
-          className={classname}
+          className="name-cell"
           params={{ roleId: student.role, courseId: ux.course.id }}
         >
-          {children}
+          <div className="student-name">
+            <Name {...student} />
+            {student.is_dropped && ' *'}
+          </div>
+          <span key="id" className="student-id">
+            {student.student_identifier}
+          </span>
         </TutorLink>
         <div className="name-cell">
           {(student.average_score != null) ? `${(student.average_score * 100).toFixed(0)}%` : undefined}
