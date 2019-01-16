@@ -42,9 +42,8 @@ class TutorExercise extends BaseModel {
     if (this._page) { return this._page; }
     if (!this.book && !this.course) { return Page.UNKNOWN; }
     const book = this.book || this.course.referenceBook;
-    return book.pages.byUUID.get(this.page_uuid);
+    return book.pages.byUUID.get(this.page_uuid) || Page.UNKNOWN;
   }
-
 
   // below fields are set if read from stats
   set page(pg) {
