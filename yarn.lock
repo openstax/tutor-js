@@ -2503,7 +2503,7 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-create-react-class@^15.5.2:
+create-react-class@^15.5.2, create-react-class@^15.6.3:
   version "15.6.3"
   resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.6.3.tgz#2d73237fb3f970ae6ebe011a9e66f46dbca80036"
   integrity sha512-M+/3Q6E6DLO6Yx3OwrWjwHBnvfXXYA7W+dFjt/ZDBemHO1DDZhsalX/NUtnTYclN6GfnBDRh4qRHjcDHmlJBJg==
@@ -3934,9 +3934,10 @@ findup-sync@^2.0.0:
     micromatch "^3.0.4"
     resolve-dir "^1.0.1"
 
-"fixed-data-table-2@github:openstax/fixed-data-table-2#trying-scroll-thing":
-  version "0.8.9"
-  resolved "https://codeload.github.com/openstax/fixed-data-table-2/tar.gz/e0df78e91591b9d764026cb72cbab99fc759a042"
+fixed-data-table-2@^0.8.16:
+  version "0.8.16"
+  resolved "https://registry.yarnpkg.com/fixed-data-table-2/-/fixed-data-table-2-0.8.16.tgz#da9239626e875faf8fb185dc48fc5ef5fade4865"
+  integrity sha512-GbHj+nyAUEOd5qudXBbbUtJPgQDgvykqSDaJSMQ4boC/z1ZA2d/XUj0I+xK2ha4j64kbjTjXNzZEGtFMb5wO/g==
   dependencies:
     create-react-class "^15.5.2"
     prop-types "^15.5.8"
