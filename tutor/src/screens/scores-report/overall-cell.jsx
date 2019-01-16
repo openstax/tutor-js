@@ -10,7 +10,10 @@ const OverallCell = observer(({ ux, rowIndex }) => {
   const studentAverages = ux.studentsAverages[student.role];
 
   return (
-    <Cell className={cn('overall-cell', { 'is-expanded': ux.isAveragesExpanded })}>
+    <Cell className={cn('overall-cell', {
+      'is-dropped': student.is_dropped,
+      'is-expanded': ux.isAveragesExpanded,
+    })}>
       <div className="course">
         {studentAverages.course_average}
       </div>
