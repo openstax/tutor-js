@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { range, isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
-import { computed } from 'mobx';
 import { Table, Column, ColumnGroup, Cell } from 'fixed-data-table-2';
 import { autobind } from 'core-decorators';
 import classnames from 'classnames';
@@ -131,6 +130,15 @@ class ScoresTable extends React.Component {
     );
   }
 
+  @autobind getRowClass(rowIndex) {
+    if (!rowIndex) { return null; }
+    const { students } = this.props.ux;
+    if (students[rowIndex].is_dropped && !students[rowIndex-1].is_dropped) {
+      return 'first-dropped-student';
+    }
+    return null;
+  }
+
   render() {
     const { ux, ux: { students, COLUMN_WIDTH, ROW_HEIGHT, period } }  = this.props;
 
@@ -146,6 +154,7 @@ class ScoresTable extends React.Component {
         width={ux.tableWidth}
         rowsCount={students.length}
         insetScrollbarX={true}
+        rowClassNameGetter={this.getRowClass}
       >
         {this.renderLeftColumnGroup()}
         <ColumnGroup>

@@ -5,14 +5,18 @@ exports[`Student Scores Assignment Cell renders as absent for null type 1`] = `
   className="scores-cell"
 >
   <div
-    className="score not-started"
+    className="scores-cell"
   >
-    ---
-  </div>
-  <div
-    className="worked not-started"
-  >
-    ---
+    <div
+      className="score not-started"
+    >
+      ---
+    </div>
+    <div
+      className="worked not-started"
+    >
+      ---
+    </div>
   </div>
 </div>
 `;

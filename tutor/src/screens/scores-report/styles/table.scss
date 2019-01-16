@@ -46,6 +46,12 @@ $scores-dropped-student-opacity: 0.65;
     display: flex;
   }
 
+  .public_fixedDataTable_hasBottomBorder {
+    &.first-dropped-student {
+      border-top: 2px solid $tutor-neutral-light;
+    }
+  }
+
   .course-scores-table {
     &:focus {
       outline: 0
