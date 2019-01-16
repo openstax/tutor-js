@@ -1,6 +1,6 @@
 const {
   Factory, sequence, uuid, reference,
-  TITLES, APPEARANCE_CODES,
+  fake, TITLES, APPEARANCE_CODES,
 } = require('./helpers');
 const moment = require('moment');
 const { ordinal } = require('../../src/helpers/number');
@@ -24,6 +24,19 @@ Factory.define('Role')
   .id(sequence)
   .type('student')
   .joined_at(({ parent }) => moment(parent.starts_at).add(1, 'week').toISOString());
+
+
+Factory.define('Student')
+  .id(sequence)
+  .is_active(true)
+  .is_comped(false)
+  .is_paid(false)
+  .first_name(fake.name.firstName)
+  .last_name(fake.name.lastName)
+  .payment_due_at(({ now, days_ago = 0 }) => moment(now).add(days_ago + 3, 'days'))
+  .prompt_student_to_pay(false)
+  .role_id(sequence)
+  .student_identifier(fake.random.alphaNumeric)
 
 Factory.define('Course')
   .id(sequence)
@@ -57,9 +70,14 @@ Factory.define('Course')
   .reading_progress_weight(0.2)
   .num_sections(3)
   .periods(reference('Period', { count: ({ num_periods = 3 }) => num_periods }))
-  .students([])
   .roles(({ object, is_teacher }) => [
     Factory.create('Role', {
-      parent: object, type: is_teacher ? 'teacher' : 'student'
-    })
-  ]);
+      parent: object, type: is_teacher ? 'teacher' : 'student',
+    }),
+  ])
+  .students(({ object, is_teacher }) => [
+    Factory.create('Student', {
+      parent: object,
+      role_id: is_teacher ? 1 : object.roles[0].id,
+    }),
+  ])
