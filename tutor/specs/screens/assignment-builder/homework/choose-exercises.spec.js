@@ -44,11 +44,11 @@ describe('choose exercises component', function() {
     expect(props.exercises.fetch).toHaveBeenCalled();
 
     props.exercises.onLoaded({ data: { items: availableExercises } }, [{ book: props.course.referenceBook, page_ids }]);
+
     return ce.update();
   }
 
   beforeEach(function() {
-    Factory.setSeed(1); // make factory deterministic so it has both reading/hw
     course = Factory.course();
     course.referenceBook.onApiRequestComplete({ data: [FactoryBot.create('Book')] });
     exercises = Factory.exercisesMap({ book: course.referenceBook });
@@ -109,11 +109,9 @@ describe('choose exercises component', function() {
   it ('always displays previous selections', () => {
     const exerciseId = availableExercises[0].id;
     TaskPlanStore.getExercises.mockImplementation(() => [exerciseId]);
-
     const ce = renderExerciseCards(props);
     const exercise = exercises.get(exerciseId);
     expect(ce).toHaveRendered(`[data-exercise-id="${exercise.content.uid}"]`);
-
     exercise.is_excluded = true;
     expect(exercise.isAssignable).toBe(false);
     // it still renders because it's part of the task plan
