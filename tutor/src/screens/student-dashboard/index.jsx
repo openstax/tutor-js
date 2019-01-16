@@ -1,11 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
-import { observable, computed, action, observe } from 'mobx';
-import { observer, inject, Provider } from 'mobx-react';
+import { computed } from 'mobx';
+import { observer, inject } from 'mobx-react';
 import StudentDashboard from './dashboard';
-
-import onboardingForCourse from '../../models/course/onboarding';
 import Courses from '../../models/courses-map';
 import WarningModal from '../../components/warning-modal';
 import './styles.scss';
