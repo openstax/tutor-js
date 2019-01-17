@@ -1,14 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { Cell } from 'fixed-data-table-2';
+import UX from './ux';
 import { observer } from 'mobx-react';
 
-const OverallCell = observer(({ ux, students, rowIndex }) => {
-  const student = students[rowIndex];
-  const studentAverages = ux.periodStudentsAverages[student.role];
+const OverallCell = observer(({ ux, rowIndex }) => {
+  const student = ux.students[rowIndex];
+  const studentAverages = ux.studentsAverages[student.role];
 
   return (
-    <Cell className={cn('overall-cell', { 'is-expanded': ux.isAveragesExpanded })}>
+    <Cell className={cn('overall-cell', {
+      'is-dropped': student.is_dropped,
+      'is-expanded': ux.isAveragesExpanded,
+    })}>
       <div className="course">
         {studentAverages.course_average}
       </div>
@@ -23,5 +28,9 @@ const OverallCell = observer(({ ux, students, rowIndex }) => {
     </Cell>
   );
 });
+OverallCell.displayName = 'OverallCell';
+OverallCell.propTypes = {
+  ux: PropTypes.instanceOf(UX).isRequired,
+};
 
 export default OverallCell;

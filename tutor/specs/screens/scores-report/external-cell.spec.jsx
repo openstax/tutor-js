@@ -19,7 +19,6 @@ describe('Student Scores External Cell', function() {
       ux,
       task,
       columnIndex: 1,
-      isConceptCoach: false,
       student: {
         name: 'Molly Bloom',
         role: 1,

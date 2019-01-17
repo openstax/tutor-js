@@ -73,6 +73,7 @@
         "course_average": 0.5,
         "student_identifier": "O7I5E8YQBR",
         "role": 9,
+        "is_dropped": false,
         "last_name": "Angstrom",
         "first_name": "Rabbit",
         "name": "Rabbit Angstrom"
@@ -135,6 +136,7 @@
         "course_average": 0.5,
         "student_identifier": "52VY7XAW4Q",
         "role": 8,
+        "is_dropped": false,
         "last_name": "Bloom",
         "first_name": "Molly",
         "name": "Molly Bloom"
@@ -201,6 +203,7 @@
         "reading_progress": 0.09,
         "student_identifier": "4C5208Z6SW",
         "role": 10,
+        "is_dropped": false,
         "last_name": "Glass",
         "first_name": "Seymour",
         "name": "Seymour Glass"
@@ -266,6 +269,7 @@
         "homework_score": 0.0,
         "homework_progress": 0.0,
         "reading_progress": 0.0,
+        "is_dropped": false,
         "last_name": "Hackett",
         "first_name": "Bettie",
         "name": "Bettie Hackett"
@@ -326,6 +330,7 @@
         "course_average": 0.0,
         "student_identifier": "W4OQZ5CV2S",
         "role": 5,
+        "is_dropped": false,
         "last_name": "Jaskolski",
         "first_name": "Giovanny",
         "name": "Giovanny Jaskolski"
@@ -386,6 +391,7 @@
         "course_average": 0.0,
         "student_identifier": "UQ5NDASCJX",
         "role": 2,
+        "is_dropped": false,
         "last_name": "Kirlin",
         "first_name": "Albin",
         "name": "Albin Kirlin"
@@ -448,6 +454,7 @@
         "course_average": 0.0,
         "student_identifier": "AJZ0CVERLD",
         "role": 6,
+        "is_dropped": false,
         "last_name": "Lowe",
         "first_name": "Kevin",
         "name": "Kevin Lowe"
@@ -508,6 +515,7 @@
         "course_average": 0.0,
         "student_identifier": "RG1TOYCQFJ",
         "role": 7,
+        "is_dropped": false,
         "last_name": "Reilly",
         "first_name": "Ignatius",
         "name": "Ignatius Reilly"
@@ -568,6 +576,7 @@
         "course_average": 0.0,
         "student_identifier": "LSH4YEFUZB",
         "role": 3,
+        "is_dropped": false,
         "last_name": "Tromp",
         "first_name": "Alyce",
         "name": "Alyce Tromp"

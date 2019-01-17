@@ -65,7 +65,7 @@ const AverageLabel = observer(({ heading }) => {
 });
 
 const AssignmentSortingHeader = observer((props) => {
-  const { heading, dataType, columnIndex, sort, onSort } = props;
+  const { heading, ux, dataType, columnIndex } = props;
   if (heading.type === 'external') {
     return (
       <div className="scores-cell">
@@ -73,9 +73,9 @@ const AssignmentSortingHeader = observer((props) => {
           type={heading.type}
           className="wide"
           sortKey={columnIndex}
-          sortState={sort}
-          onSort={onSort}
-          dataType="score">
+          dataType="score"
+          ux={ux}
+        >
           <div className="completed">
             Progress
           </div>
@@ -89,8 +89,8 @@ const AssignmentSortingHeader = observer((props) => {
         type={heading.type}
         sortKey={columnIndex}
         dataType="score"
-        sortState={sort}
-        onSort={onSort}>
+        ux={ux}
+      >
         <div>
           Score
         </div>
@@ -99,8 +99,8 @@ const AssignmentSortingHeader = observer((props) => {
         type={heading.type}
         sortKey={columnIndex}
         dataType="completed"
-        sortState={sort}
-        onSort={onSort}>
+        ux={ux}
+      >
         <div>
           Progress
         </div>

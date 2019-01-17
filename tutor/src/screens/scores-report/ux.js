@@ -1,4 +1,6 @@
 import { observable, computed, action } from 'mobx';
+import { filter, sortBy } from 'lodash';
+import studentDataSorter from './student-data-sorter';
 import bezierAnimation from '../../helpers/bezier';
 import WindowSize from '../../models/window-size';
 import WeightsUX from './weights-ux';
@@ -13,7 +15,7 @@ const CELL_AVERAGES_CLOSED_SINGLE_WIDTH = 120;
 const CELL_AVERAGES_SINGLE_WIDTH = 90;
 const IS_AVERAGES_EXPANDED_KEY = 'is_scores_averages_expanded';
 const CLOSED_TO_OPENED = [CELL_AVERAGES_CLOSED_SINGLE_WIDTH, CELL_AVERAGES_SINGLE_WIDTH * 5];
-const MIN_TABLE_HEIGHT = 0;
+const MIN_TABLE_HEIGHT = 300;
 
 const OPENED_TO_CLOSED = reverse(clone(CLOSED_TO_OPENED));
 const PADDING = 80;
@@ -33,6 +35,20 @@ export default class ScoresReportUX {
   ROW_HEIGHT = ROW_HEIGHT;
 
   windowSize = new WindowSize();
+
+  @observable sortIndex;
+  @observable sort = { key: 'name', asc: true, dataType: 'score' };
+  @observable displayAs = 'score'
+
+  @action.bound changeSortingOrder(key, dataType) {
+    this.sort.asc = this.sort.key === key ? (!this.sort.asc) : false;
+    this.sort.key = key;
+    this.sort.dataType = dataType;
+  }
+
+  isSortedBy({ sortKey, dataType }) {
+    return (this.sort.key === sortKey) && (this.sort.dataType === dataType);
+  }
 
   @computed get isAveragesExpanded() {
     const isAveragesExpanded = UiSettings.get(IS_AVERAGES_EXPANDED_KEY);
@@ -136,7 +152,34 @@ export default class ScoresReportUX {
     });
   }
 
-  @computed get periodStudentsAverages() {
+  @computed get studentSorter() {
+    return studentDataSorter({ sort: this.sort, displayAs: this.displayAs });
+  }
+
+  @computed get droppedStudents() {
+    return sortBy(
+      filter(this.period.students, 'is_dropped'),
+      this.studentSorter,
+    );
+  }
+
+  @computed get hasDroppedStudents() {
+    return Boolean(find(this.period.students, 'is_dropped'));
+  }
+
+  @computed get students() {
+    const students = sortBy(
+      filter(this.period.students, s => !s.is_dropped),
+      this.studentSorter,
+    );
+    if (!this.sort.asc) {
+      students.reverse();
+    }
+    students.push(...this.droppedStudents);
+    return students;
+  }
+
+  @computed get studentsAverages() {
     const scoreKeys = [
       'course_average',
       'homework_score',
@@ -145,7 +188,7 @@ export default class ScoresReportUX {
       'reading_progress',
     ];
     const averages = {};
-    this.period.students.forEach((student) => {
+    this.students.forEach((student) => {
       averages[student.role] = this.maskAverages(
         pick(student, scoreKeys)
       );
@@ -202,7 +245,7 @@ export default class ScoresReportUX {
   }
 
   @computed get desiredHeight() {
-    return this.period.students.length * ROW_HEIGHT + this.headerHeight + TABLE_PADDING;
+    return this.students.length * ROW_HEIGHT + this.headerHeight + TABLE_PADDING;
   }
 
   @computed get expectedHeight() {

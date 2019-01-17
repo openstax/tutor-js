@@ -16,6 +16,8 @@
     .column-icon {
       height: $student-dashboard-row-height;
       padding: 0;
+      display: flex;
+      align-items: center;
     }
     &.deleted:not(.workable) {
       cursor: default;
@@ -23,7 +25,9 @@
     }
     .icon {
       background-position: center;
-      margin: ($student-dashboard-row-height - $icon-size-lg)/2;
+      margin: 0 1rem;
+      height: 100%;
+      background-size: auto;
     }
     .title {
       padding-left: 0;
@@ -48,9 +52,8 @@
 
     // Adjust height for when the columns collapse and progress appears below task title
     @include media-breakpoint-down('sm') {
-      .column-icon {
-        text-align: center;
-        height: $student-dashboard-row-height;
+      .icon {
+        margin: 0 0.5rem;
       }
       .title, .feedback, .due-at {
         line-height: $student-dashboard-row-height / 2;

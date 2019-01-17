@@ -1,5 +1,6 @@
 $pie-color-late: #268FBE;
 $pie-color-due: #268FBE;
+$scores-dropped-student-opacity: 0.65;
 
 .course-average-help {
   h3 {
@@ -8,14 +9,16 @@ $pie-color-due: #268FBE;
   }
   p {
      @include tutor-sans-font(1.3rem, 2rem);
-//    font-size: 16px;
-//    line-height: 18px;
     margin: 10px 0;
   }
   .no-reading-heading {
     margin-top: 20px;
     font-weight: bolder;
   }
+}
+
+.body-wrapper {
+  padding-top: 0;
 }
 
 .course-scores-report {
@@ -46,6 +49,12 @@ $pie-color-due: #268FBE;
     display: flex;
   }
 
+  .public_fixedDataTable_hasBottomBorder {
+    &.first-dropped-student {
+      border-top: 2px solid $tutor-neutral-light;
+    }
+  }
+
   .course-scores-table {
     &:focus {
       outline: 0
@@ -55,6 +64,9 @@ $pie-color-due: #268FBE;
   .overall-cell {
     height: 100%;
     border-width: 0 2px 0 2px;
+    &.is-dropped {
+      opacity: $scores-dropped-student-opacity;
+    }
   }
 
   .status-cell,
@@ -217,10 +229,15 @@ $pie-color-due: #268FBE;
         }
       }
     }
+
+    &.is-dropped {
+      opacity: $scores-dropped-student-opacity;
+    }
   }
 
   .name-cell-wrapper {
     height: 100%;
+
     .name-cell {
       border-left: $scores-table-outer-border-width solid $scores-table-outer-border-color;
       height: 100%;
@@ -240,6 +257,14 @@ $pie-color-due: #268FBE;
       }
       .student-id {
         @include tutor-sans-neutral-light-font(1.4rem);
+      }
+    }
+    &.is-dropped {
+      .name-cell .student-name {
+        color: $tutor-neutral-lite;
+      }
+      .name-cell .student-id {
+        color: $tutor-neutral-lite;
       }
     }
   }

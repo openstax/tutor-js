@@ -50,6 +50,8 @@
   > .body-wrapper {
     flex: 1;
     padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
     > .body {
       @include course-page-wrapper-child();
       display: block;

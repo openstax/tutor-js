@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
-import ContainerDimensions from 'react-container-dimensions';
 import { isEmpty, get } from 'lodash';
 import CoursePage from '../../components/course-page';
 import ScoresTable from './table';
@@ -11,8 +10,10 @@ import NoPeriods from '../../components/no-periods';
 import Courses from '../../models/courses-map';
 import ScoresReportExportControls from './export-controls';
 import ScoresReportNav from './nav';
+import DroppedStudentsCaption from './dropped-students-caption';
 import TourRegion from '../../components/tours/region';
 import LoadingScreen from 'shared/components/loading-animation';
+
 import './styles.scss';
 import UX from './ux';
 
@@ -30,23 +31,14 @@ class StudentScores extends React.Component {
     return Courses.get(this.props.params.courseId);
   }
 
-  ux = new UX(this.course);
+  ux = this.props.ux || new UX(this.course);
 
   @computed get title() {
     return (this.course.isTeacher && 'Student Scores') || 'Scores';
   }
 
-  @observable sortIndex;
-  @observable sort = { key: 'name', asc: true, dataType: 'score' };
-
   componentWillMount() {
     this.course.scores.fetch();
-  }
-
-  @action.bound changeSortingOrder(key, dataType) {
-    this.sort.asc = this.sort.key === key ? (!this.sort.asc) : false;
-    this.sort.key = key;
-    this.sort.dataType = dataType;
   }
 
   @action.bound selectPeriod(period, key) {
@@ -94,17 +86,12 @@ class StudentScores extends React.Component {
         fullWidthChildren={
           <TourRegion
             id="scores"
+            className="scores-table"
             courseId={courseId}
             otherTours={['preview-scores']}
           >
-            <ContainerDimensions>
-              <ScoresTable
-                ux={this.ux}
-                sort={this.sort}
-                onSort={this.changeSortingOrder}
-                dataType={this.sort.dataType}
-              />
-            </ContainerDimensions>
+            <ScoresTable ux={this.ux} />
+            <DroppedStudentsCaption ux={this.ux} />
           </TourRegion>
         }
       >
