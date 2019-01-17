@@ -38,6 +38,9 @@ $pie-color-due: #268FBE;
     }
   }
 
+  // override the display:table
+  // otherwise firefox will render with minimal height
+  .fixedDataTableCellLayout_wrap1,
   .fixedDataTableCellLayout_wrap2,
   .fixedDataTableCellLayout_wrap2 {
     display: flex;
