@@ -9,6 +9,7 @@ import DatePicker from 'react-datepicker';
 import * as TutorErrors from './tutor-errors';
 import { TimeStore } from '../flux/time';
 import TimeHelper from '../helpers/time';
+import { Icon } from 'shared';
 import S from '../helpers/string';
 
 const TutorDateFormat = TimeStore.getFormat();
@@ -237,7 +238,6 @@ class TutorDateInput extends React.Component {
           maxDate={max.toDate()}
           onFocus={this.expandCalendar}
           onBlur={this.onBlur}
-          dateFormat={TutorDateFormat}
           key={this.props.id}
           ref="picker"
           className={classes}
@@ -269,7 +269,7 @@ class TutorDateInput extends React.Component {
         </div>
         <div className="date-wrapper">
           {dateElem}
-          <i className="fa fa-calendar" />
+          <Icon type="calendar" />
         </div>
       </div>
     );
