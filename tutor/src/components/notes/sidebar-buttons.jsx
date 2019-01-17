@@ -47,11 +47,11 @@ class NoteButton extends React.Component {
 
     return (
       <Icon
-        type={isActive ? 'comment-solid' : 'comment'}
+        type="comment-solid"
         key={note.id}
         className={cn('sidebar-button', { active: isActive })}
         buttonProps={{ style: { top } }}
-        alt="View note"
+        title="View note"
         onClick={this.onClick}
       />
     );
@@ -62,7 +62,6 @@ export default
 @observer
 class SidebarButtons extends React.Component {
   static propTypes = {
-    editing: PropTypes.instanceOf(Note),
     notes: PropTypes.arrayOf(
       PropTypes.instanceOf(Note)
     ).isRequired,
@@ -85,6 +84,7 @@ class SidebarButtons extends React.Component {
     return filter(this.props.notes, 'text').map(note =>
       <NoteButton
         key={note.id}
+        isActive={this.props.activeNote === note}
         containerTop={this.containerTop}
         {...this.props}
         note={note}
