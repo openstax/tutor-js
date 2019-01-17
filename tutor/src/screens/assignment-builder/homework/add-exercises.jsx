@@ -141,10 +141,12 @@ class AddExercises extends React.Component {
     const selected = TaskPlanStore.getExercises(this.props.planId);
     // we display all the exercises that were previously selected
     // or that are assignable homeworks for the given pages
-    return this.props.exercises.where( e =>
-      (e.isHomework && e.isAssignable && this.props.pageIds.includes(e.page.id)) ||
-      selected.includes(e.id)
-    );
+    return this.props.exercises.where(e => (
+      selected.includes(e.id) || (
+        e.isHomework && e.isAssignable &&
+          e.page && this.props.pageIds.includes(e.page.id)
+      )
+    ));
   }
 
   render() {
