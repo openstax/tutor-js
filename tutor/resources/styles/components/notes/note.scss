@@ -172,16 +172,15 @@
   .sidebar-button {
     position: absolute;
     font-size: 2.5rem;
-
+    z-index: 1;
     right: 2.5rem;
-    transform: translateY(-25%);
     color: $tutor-neutral-lite;
     transition: 0.3s color;
     &:hover { color: $tutor-neutral-dark; }
     &.active {
-      color: $tutor-neutral-lite;
+      color: darken($tutor-highlight-active, 45%);
       &:hover {
-        color: $tutor-neutral-lite;
+        color: darken($tutor-highlight-active, 45%);
         cursor: default;
       }
     }
