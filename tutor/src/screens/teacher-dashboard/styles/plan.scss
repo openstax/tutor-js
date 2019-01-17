@@ -16,13 +16,53 @@ $calendar-inactive-background: $tutor-neutral;
 }
 
 .list-task-plans {
+  .event {
+    transition: background-color 0.1s ease-in;
+
+    @each $plan-type in map-keys($task-plan-colors) {
+      $active-plan-color: task-plan-color($plan-type);
+      $plan-color: fade_out($active-plan-color, 0.75);
+
+      &.type-#{$plan-type} {
+        &.is-continued {
+          &::after {
+            border-color: transparent transparent transparent $plan-color;
+          }
+        }
+
+        &.is-continuation {
+          &::before {
+            border-color: transparent $plan-color transparent transparent;
+          }
+        }
+
+        &:hover,
+        &.active {
+          background-color: $active-plan-color;
+
+          &.is-continued {
+            &::after {
+              border-color: transparent transparent transparent $active-plan-color;
+            }
+          }
+
+          &.is-continuation {
+            &::before {
+              border-color: transparent $active-plan-color transparent transparent;
+            }
+          }
+        }
+      }
+    }
+  }
+
   .plan {
     font-size: 1.25rem;
     cursor: pointer;
     font-weight: bold;
     @include tutor-plan-display($calendar-inactive-background);
     transition: background-color 0.1s linear;
-
+    height: 20px;
     &.is-new {
       @include is-progressing-background();
       border-left: none;
