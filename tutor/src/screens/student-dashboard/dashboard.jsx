@@ -42,6 +42,13 @@ export default class StudentDashboard extends React.Component {
     }
   }
 
+  componentDidMount() {
+    const student = this.props.course.userStudentRecord;
+    if (student && !student.mustPayImmediately) {
+      this.props.course.studentTasks.fetch();
+    }
+  }
+
   renderPastWork(course) {
     return (
       <div className="tab-pane active" role="tabpanel">

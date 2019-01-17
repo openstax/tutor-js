@@ -315,7 +315,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               </div>
             </div>
             <a
-              aria-label="Work on reading: dot-com recontextualize communities"
+              aria-label="Work on reading: 24/7 synthesize content"
               className="task row reading"
               data-event-id={1}
               href="/course/1/task/1"
@@ -333,7 +333,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               <div
                 className="title col-sm-6 col-10"
               >
-                dot-com recontextualize communities
+                24/7 synthesize content
               </div>
               <div
                 className="feedback col-sm-3 col-5"
@@ -351,7 +351,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               </div>
             </a>
             <a
-              aria-label="Work on external: out-of-the-box embrace supply-chains"
+              aria-label="Work on external: interactive revolutionize schemas"
               className="task row external"
               data-event-id={2}
               href="/course/1/task/2"
@@ -369,7 +369,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               <div
                 className="title col-sm-6 col-10"
               >
-                out-of-the-box embrace supply-chains
+                interactive revolutionize schemas
               </div>
               <div
                 className="feedback col-sm-3 col-5"
@@ -387,7 +387,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               </div>
             </a>
             <a
-              aria-label="Work on event: B2B deliver content"
+              aria-label="Work on event: magnetic harness synergies"
               className="task row event"
               data-event-id={3}
               href="/course/1/task/3"
@@ -405,7 +405,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               <div
                 className="title col-sm-6 col-10"
               >
-                B2B deliver content
+                magnetic harness synergies
               </div>
               <div
                 className="feedback col-sm-3 col-5"
@@ -423,7 +423,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               </div>
             </a>
             <a
-              aria-label="Work on homework: virtual strategize infomediaries"
+              aria-label="Work on homework: cross-platform whiteboard metrics"
               className="task row homework"
               data-event-id={4}
               href="/course/1/task/4"
@@ -441,7 +441,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               <div
                 className="title col-sm-6 col-10"
               >
-                virtual strategize infomediaries
+                cross-platform whiteboard metrics
               </div>
               <div
                 className="feedback col-sm-3 col-5"
@@ -451,7 +451,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     className="tour-anchor"
                     data-tour-anchor-id="assignment-progress-status"
                   >
-                    10/11 answered
+                    3/5 answered
                   </span>
                 </span>
               </div>
