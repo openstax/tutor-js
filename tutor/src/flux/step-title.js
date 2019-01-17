@@ -44,6 +44,18 @@ const isDocumentTitle = element => element.attribs['data-type'] === 'document-ti
 const grabLabel = element =>
   invoke(element,'attribs[\'data-label\'].trim');
 
+const getDocumentTitleText = element => {
+  if (element.children) {
+    for(let i=0,x=element.children.length;i<x;i++){
+      const el = element.children[i];
+      if (get(el, 'attribs.class') === 'os-text') {
+        return get(el, 'children[0].data');
+      }
+    }
+  }
+  return  null;
+};
+
 const getTitleText = element => {
   if (element.data) { return element.data; }
   if (element.children) {
@@ -104,15 +116,21 @@ const StepTitleConfig = {
 
   _parseReading(actions, id, error, dom) {
     let text;
-    const title = htmlparser.DomUtils.findOne(isTitle, dom, false);
-    actions._parseMeta(actions, id, error, dom)
-    if (title != null) {
-      text = getTitleText(title);
+    actions._parseMeta(actions, id, error, dom);
+    const title = htmlparser.DomUtils.findOne(isDocumentTitle, dom, false);
+    if (title) {
+      text = getDocumentTitleText(title);
     } else {
-      const label = htmlparser.DomUtils.findOne(isLabel, dom, false);
-      if (label != null) { text = grabLabel(label); }
+      const title = htmlparser.DomUtils.findOne(isTitle, dom, false);
+      if (title != null) {
+        text = getTitleText(title);
+      } else {
+        const label = htmlparser.DomUtils.findOne(isLabel, dom, false);
+        if (label) {
+          text = grabLabel(label);
+        }
+      }
     }
-
     return actions.loaded(id, unescape(text));
   },
 
