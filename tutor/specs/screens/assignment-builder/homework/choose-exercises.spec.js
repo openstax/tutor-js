@@ -1,5 +1,5 @@
 import { React, C } from '../../../helpers';
-import { last } from 'lodash';
+import { last, map } from 'lodash';
 import ChooseExercises from '../../../../src/screens/assignment-builder/homework/choose-exercises';
 import Factory, { FactoryBot } from '../../../factories';
 import FakeWindow from 'shared/specs/helpers/fake-window';
@@ -77,7 +77,6 @@ describe('choose exercises component', function() {
 
   it('can select exercises', () => {
     const ce = renderExerciseCards(props);
-    // console.log(ce.update().debug())
     const uid = ce.find('[data-exercise-id]').last().prop('data-exercise-id');
     const exercise = exercises.array.find(e => uid == e.content.uid);
     ce.find(`[data-exercise-id="${uid}"] .action.include`).simulate('click');
@@ -119,6 +118,7 @@ describe('choose exercises component', function() {
   });
 
   it('shows exercise details', () => {
+    TaskPlanStore.getExercises.mockImplementation(() => map(availableExercises, 'id'));
     const ce = renderExerciseCards(props);
     const uid = ce.find('[data-exercise-id]').first().prop('data-exercise-id');
     ce.find(`[data-exercise-id="${uid}"] .action.details`).simulate('click');

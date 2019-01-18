@@ -1,17 +1,14 @@
-console.log();
-
 module.exports = {
   presets: [
     [
       '@babel/preset-env', {
         useBuiltIns: 'usage',
-        targets: '> 3% in US',
-      },
-    ], [
-      '@babel/preset-react', {
-
+        debug: false,
+        // https://browserl.ist/?q=%3E1%25%2C+last+2+versions%2C+not+op_mini+all%2C+not+ie+%3E+0%2C+not+dead%2C+safari+%3E%3D+10%2C+iOS+%3E+8
+        targets: ['>1%', 'last 2 versions', 'not op_mini all', 'not ie > 0', 'safari >= 10', 'iOS > 8', 'not dead'],
       },
     ],
+    '@babel/preset-react',
   ],
   plugins: [
     ['@babel/plugin-proposal-decorators', { legacy: true } ],
