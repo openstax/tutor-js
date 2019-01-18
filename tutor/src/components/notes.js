@@ -108,7 +108,7 @@ class NotesWidget extends React.Component {
       const runImagesComplete = () => imagesComplete({
         body: this.documentRoot,
       }).then(resolve).catch(resolve);
-      if (win.MathJax && unprocessedMath) {
+      if (unprocessedMath && win.MathJax && win.MathJax.Hub) {
         win.MathJax.Hub.Register.MessageHook('End Process', runImagesComplete);
       } else {
         runImagesComplete();
