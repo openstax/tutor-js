@@ -107,8 +107,7 @@ class NotesWidget extends React.Component {
       const unprocessedMath = this.documentRoot.querySelector('*:not(.MJX_Assistive_MathML) > math');
       const runImagesComplete = () => imagesComplete({
         body: this.documentRoot,
-      }).finally(resolve);
-
+      }).then(resolve).catch(resolve);
       if (win.MathJax && unprocessedMath) {
         win.MathJax.Hub.Register.MessageHook('End Process', runImagesComplete);
       } else {
