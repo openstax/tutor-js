@@ -5,12 +5,11 @@ import {
 import { action, when, observable } from 'mobx';
 import { get, pick, isEmpty } from 'lodash';
 import { Redirect } from 'react-router-dom';
+import Courses, { Course } from '../courses-map';
 import S from '../../helpers/string';
 import Router from '../../../src/helpers/router';
-import Courses from '../courses-map';
 import Activity from 'shared/components/staxly-animation';
 import Enroll from '../../../src/components/enroll';
-import Course from '../course';
 
 export default
 @identifiedBy('course/student')
@@ -177,19 +176,17 @@ class CourseEnrollment extends BaseModel {
   // called by api
   @action create() {
     if (this.needsPeriodSelection) {
-      this.courseToJoin = new Course({});
+      this.courseToJoin = new Course();
       return { method: 'GET', url: `enrollment/${this.originalEnrollmentCode}/choices` };
     }
     return { data: pick(this, 'enrollment_code') };
   }
 
   @action onEnrollmentCreate({ data }) {
+
     if (this.needsPeriodSelection) {
-      if (!this.courseToJoin) {
-        this.courseToJoin = new Course(data);
-      } else {
-        this.courseToJoin.update(data);
-      }
+      const c = new Course(data);
+      this.courseToJoin = c;
       if (this.courseToJoin.periods.length == 1) {
         this.enrollment_code = this.courseToJoin.periods[0].enrollment_code;
         this.create();
