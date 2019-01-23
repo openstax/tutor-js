@@ -29,7 +29,7 @@ const DEFAULT_TYPE = PLAN_TYPES.READING;
 const sortTopics = (topics, pages) =>
   sortBy(topics, function(topicId) {
     const topic = pages[topicId];
-    return chapterSectionToNumber(topic.chapter_section);
+    return topic ? chapterSectionToNumber(topic.chapter_section) : '';
   })
 ;
 
