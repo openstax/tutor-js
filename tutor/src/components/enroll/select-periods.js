@@ -21,9 +21,12 @@ class SelectPeriod extends React.Component {
             <p className="joining">You are joining</p>
             <h4>{course.name}</h4>
           </div>
-          <p>Please select the section you are a member of</p>
+          <p>
+            Please select the OpenStax Tutor section you are a member of.
+            If you don't know which section to select, ask your instructor.
+          </p>
           <Listing>
-            {course.periods.sorted.map(pr => (
+            {course.periods.map(pr => (
               <Choice key={pr.enrollment_code}
                 record={pr}
                 onClick={enrollment.selectPeriod}
