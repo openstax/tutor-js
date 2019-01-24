@@ -21,7 +21,7 @@ class DroppedStudentsCaption extends React.Component {
     return (
       <Legend>
         * Dropped students’ scores are not included in the
-        overall course averages
+        overall course averages and appear at the bottom of the table.
       </Legend>
     );
   }
