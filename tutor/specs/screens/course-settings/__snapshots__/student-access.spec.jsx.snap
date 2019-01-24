@@ -405,7 +405,7 @@ exports[`Course Settings, student access can switch to lms 1`] = `
           >
             <a
               className="external-icon"
-              href="https://openstax.secure.force.com/help/articles/How_To/Blackboard-LMS-integration-for-OpenStax-Tutor-Beta"
+              href="https://openstax.secure.force.com/help/articles/FAQ/Blackboard-LMS-integration-for-OpenStax-Tutor-Beta"
               tabIndex={0}
               target="_blank"
             >
@@ -630,7 +630,7 @@ exports[`Course Settings, student access renders with only link for non-lms enab
       Interested in learning management system (LMS) integration? 
       <a
         className="external-icon"
-        href="https://openstax.secure.force.com/help/articles/How_To/LMS-integration-for-OpenStax-Tutor-Beta"
+        href="https://openstax.secure.force.com/help/articles/FAQ/LMS-integration-for-OpenStax-Tutor-Beta"
         target="_blank"
       >
         Find out more.

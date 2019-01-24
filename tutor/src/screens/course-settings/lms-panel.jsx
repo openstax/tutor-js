@@ -12,7 +12,7 @@ import { Icon } from 'shared';
 
 const blackboard = ({ lms }) => (
   <div className="blackboard">
-    <Link href="https://openstax.secure.force.com/help/articles/How_To/Blackboard-LMS-integration-for-OpenStax-Tutor-Beta">
+    <Link href="https://openstax.secure.force.com/help/articles/FAQ/Blackboard-LMS-integration-for-OpenStax-Tutor-Beta">
       <Icon type="info-circle" /> How do I integrate with Blackboard?
     </Link>
     <CopyOnFocusInput label="URL" value={lms.launch_url} />
@@ -23,7 +23,7 @@ const blackboard = ({ lms }) => (
 
 const canvas = ({ lms }) => (
   <div className="canvas">
-    <Link href="https://openstax.secure.force.com/help/articles/How_To/Canvas-LMS-integration-for-OpenStax-Tutor-Beta">
+    <Link href="https://openstax.secure.force.com/help/articles/FAQ/Canvas-LMS-integration-for-OpenStax-Tutor-Beta">
       <Icon type="info-circle" /> How do I integrate with Canvas?
     </Link>
     <CopyOnFocusInput label="Consumer key" value={lms.key} />
@@ -34,7 +34,7 @@ const canvas = ({ lms }) => (
 
 const moodle = ({ lms }) => (
   <div className="moodle">
-    <Link href="https://openstax.secure.force.com/help/articles/How_To/Moodle-LMS-integration-for-OpenStax-Tutor-Beta">
+    <Link href="https://openstax.secure.force.com/help/articles/FAQ/Moodle-LMS-integration-for-OpenStax-Tutor-Beta">
       <Icon type="info-circle" /> How do I integrate with Moodle?
     </Link>
     <CopyOnFocusInput label="Secure tool URL" value={lms.launch_url} />

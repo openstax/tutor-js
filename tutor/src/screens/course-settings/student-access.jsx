@@ -96,7 +96,7 @@ class StudentAccess extends React.Component {
       <div className="student-access direct-links-only">
         <p>
           Interested in learning management system (LMS)
-          integration? <a target="_blank" className="external-icon" href="https://openstax.secure.force.com/help/articles/How_To/LMS-integration-for-OpenStax-Tutor-Beta">
+          integration? <a target="_blank" className="external-icon" href="https://openstax.secure.force.com/help/articles/FAQ/LMS-integration-for-OpenStax-Tutor-Beta">
           Find out more.
           </a>
         </p>
