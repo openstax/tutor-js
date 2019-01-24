@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Student Scores Name Cell renders without link for dropped students 1`] = `
+<div
+  className="name-cell-wrapper is-dropped"
+>
+  <div
+    className="name-cell"
+  >
+    <div
+      className="student-name"
+    >
+      <span
+        className="-name"
+      >
+        Rabbit Angstrom
+      </span>
+       *
+    </div>
+    <span
+      className="student-id"
+    >
+      O7I5E8YQBR
+    </span>
+  </div>
+  <div
+    className="name-cell"
+  />
+</div>
+`;

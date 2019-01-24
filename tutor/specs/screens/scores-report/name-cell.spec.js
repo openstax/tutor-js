@@ -1,4 +1,4 @@
-import { EnzymeContext } from '../../helpers';
+import { C, EnzymeContext } from '../../helpers';
 import NameCell from '../../../src/screens/scores-report/name-cell';
 import bootstrapScores from '../../helpers/scores-data';
 import UX from '../../../src/screens/scores-report/ux';
@@ -22,4 +22,13 @@ describe('Student Scores Name Cell', function() {
     expect(nc).toHaveRendered('a');
   });
 
+  it('renders without link for dropped students', () => {
+    const student = props.ux.students[0];
+    student.is_dropped = true; // this moves it to the end
+    props.rowIndex = props.ux.students.length - 1;
+    const nc = mount(<C><NameCell {...props} /></C>);
+    expect(nc).not.toHaveRendered('TutorLink');
+    expect(nc.text()).toContain(student.name);
+    expect.snapshot(<C><NameCell {...props} /></C>).toMatchSnapshot();
+  });
 });
