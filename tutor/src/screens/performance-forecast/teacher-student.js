@@ -71,7 +71,7 @@ export default createReactClass({
               <Name {...selected} />
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              {sortBy(students, 'name').filter((student) => student.role_id !== selected.role_id).map((student) =>
+              {sortBy(students, 'name').filter((student) => student.role_id !== selected.role_id && student.is_active).map((student) =>
                 <Dropdown.Item key={student.role_id} eventKey={student.role_id}>
                   <Name {...student} />
                 </Dropdown.Item>)}
