@@ -64,18 +64,18 @@ class EventsCard extends React.Component {
     return (
       <Card className={this.props.className}>
         <div className="row labels">
-          <Col xs={12} sm={7}>
+          <Col xs={12} sm={6}>
             {this.renderTitle()}
           </Col>
           <Col
             xs={{ span: 5, offset: 2 }}
             sm={{ span: 3, offset: 0 }}
-            className="progress-label"
+            className="due-at-label"
           >
-            Progress
-          </Col>
-          <Col xs={5} sm={2} className="due-at-label">
             Due
+          </Col>
+          <Col xs={5} sm={3} className="progress-label">
+            Progress
           </Col>
         </div>
         {map(this.props.events, this.renderEvent)}

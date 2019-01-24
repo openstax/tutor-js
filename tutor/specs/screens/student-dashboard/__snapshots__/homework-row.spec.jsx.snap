@@ -1,6 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Homework Row renders with completed count 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c1 {
+  font-size: 1.2rem;
+  margin-top: 5px;
+  color: #999999;
+}
+
 <a
   aria-label="Work on homework: turn-key leverage content"
   className="task row homework"
@@ -18,28 +39,39 @@ exports[`Homework Row renders with completed count 1`] = `
     />
   </div>
   <div
-    className="title col-sm-6 col-10"
+    className="title col-sm-5 col-10"
   >
     turn-key leverage content
   </div>
   <div
-    className="feedback col-sm-3 col-5"
-  >
-    <span>
-      <span
-        className="tour-anchor"
-        data-tour-anchor-id="assignment-progress-status"
-      >
-        2/3 answered
-      </span>
-    </span>
-  </div>
-  <div
-    className="due-at col-sm-2 col-5"
+    className="due-at col-sm-3 col-5"
   >
     <time>
-      Oct 11, 7:00am
+      We Oct 11, 7:00am
     </time>
+  </div>
+  <div
+    className="feedback col-sm-3 col-5"
+  >
+    <div
+      className="c0"
+    >
+      <span>
+        <span
+          className="tour-anchor"
+          data-tour-anchor-id="assignment-progress-status"
+        >
+          2/3 answered
+        </span>
+      </span>
+    </div>
+    <div
+      className="c1"
+    >
+      /
+      3
+       complete on due date
+    </div>
   </div>
 </a>
 `;

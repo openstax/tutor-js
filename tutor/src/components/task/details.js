@@ -32,14 +32,20 @@ class Instructions extends React.Component {
       <Popover
         id={`task-details-popover-${task.id}`}
         className={popverClassName}
-        title={title}>
+        title={title}
+
+      >
         <Markdown text={task.description} />
       </Popover>;
 
     const defaultTriggerButton = <button className="task-details-instructions" aria-label={`${title} info`} />;
 
     return (
-      <OverlayTrigger trigger={trigger} placement={placement} overlay={instructionsPopover}>
+      <OverlayTrigger
+        trigger={trigger}
+        placement={placement}
+        overlay={instructionsPopover}
+      >
         {children || defaultTriggerButton}
       </OverlayTrigger>
     );

@@ -11,10 +11,16 @@
     overflow: hidden;
     margin-left: 0;
     margin-rigth: 0;
+    height: $student-dashboard-row-height;
+    > * {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
     // if the screen is wide enought, set a hight and use line-height to vertically center content.
     // This breaks when the responsive small view kicks in and it becomes multi-line
     .column-icon {
-      height: $student-dashboard-row-height;
+      height: 100%;
       padding: 0;
       display: flex;
       align-items: center;
@@ -33,12 +39,12 @@
       padding-left: 0;
     }
     .title, .feedback, .due-at {
-      line-height: $student-dashboard-row-height;
-      white-space: nowrap;
+//      line-height: $student-dashboard-row-height;
+//      white-space: nowrap;
     }
     .title, .feedback {
-      overflow: hidden;
-      text-overflow: ellipsis;
+      // overflow: hidden;
+      // text-overflow: ellipsis;
     }
     .feedback {
       .ox-icon {
@@ -56,7 +62,7 @@
         margin: 0 0.5rem;
       }
       .title, .feedback, .due-at {
-        line-height: $student-dashboard-row-height / 2;
+//        line-height: $student-dashboard-row-height / 2;
       }
       // match the 0 left padding of the description
       .feedback { padding-left: 0; }
