@@ -6,12 +6,13 @@ export default class OpenDowndownMenu extends BaseAction {
   // for unknown reasons the menu always closes after the card is moved
   // therefore it'll aways be closed when the action starts, no need to check isOpen
   beforeStep() {
+    window.scroll(0,0);
     this.clickMenu();
-    this.repositionAfter(30);
+    this.repositionAfter(90);
   }
 
   get isOpen() {
-    return $0.getAttribute('aria-expanded') === 'true';
+    return false // $0.getAttribute('aria-expanded') === 'true';
   }
 
   @action.bound
