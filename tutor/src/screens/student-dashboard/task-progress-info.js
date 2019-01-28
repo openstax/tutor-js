@@ -19,7 +19,7 @@ const LateInfo = observer(({ event }) => {
   if (!event.isHomework || !event.workedLate) { return null; }
   return (
     <LateCaption>
-      {event.completed_on_time_exercise_count}/{event.exercise_count} complete on due date
+      {event.completed_on_time_exercise_count}/{event.exercise_count} answered on due date
     </LateCaption>
   );
 });

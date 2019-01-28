@@ -6,7 +6,7 @@ const Wrapper = styled.div`
   display: flex;
   margin: 1rem 0;
   span + span {
-    margin-left: 1rem;
+    margin-left: 2rem;
   }
 `;
 
@@ -22,10 +22,8 @@ const LateIconLedgend = () => {
       <span>
         <Icon color={Theme.colors.neutral.lite} type="clock" /> Late but accepted
       </span>
-
     </Wrapper>
-  )
-}
-
+  );
+};
 
 export default LateIconLedgend;

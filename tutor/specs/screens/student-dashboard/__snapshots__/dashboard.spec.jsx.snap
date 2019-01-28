@@ -15,7 +15,7 @@ exports[`Student Dashboard displays as loading 1`] = `
 }
 
 .c1 span + span {
-  margin-left: 1rem;
+  margin-left: 2rem;
 }
 
 <div
@@ -272,7 +272,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
 }
 
 .c3 span + span {
-  margin-left: 1rem;
+  margin-left: 2rem;
 }
 
 <div
@@ -591,7 +591,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                 >
                   /
                   5
-                   complete on due date
+                   answered on due date
                 </div>
               </div>
             </a>
