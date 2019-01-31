@@ -23,9 +23,9 @@ describe('Student Task Model', () => {
     task.opens_at = moment().subtract(1, 'day');
     expect(task.canWork).toBe(true);
     task.is_deleted = true;
-    expect(task.canWork).toBe(true);
-    task.complete_exercise_count = 0;
     expect(task.canWork).toBe(false);
+    task.complete_exercise_count = 1;
+    expect(task.canWork).toBe(true);
   });
 
 });

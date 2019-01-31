@@ -18,11 +18,11 @@ class StudentTask extends BaseModel {
   @field complete;
   @field is_deleted;
   @field is_college;
-  @field complete_exercise_count;
-  @field correct_exercise_count;
-  @field exercise_count;
-  @field completed_accepted_late_exercise_count;
-  @field completed_on_time_exercise_count;
+  @field complete_exercise_count = 0;
+  @field correct_exercise_count = 0;
+  @field exercise_count = 0;
+  @field completed_accepted_late_exercise_count = 0;
+  @field completed_on_time_exercise_count = 0;
   @field({ type: 'date' }) last_worked_at;
   @field({ type: 'date' }) due_at;
   @field({ type: 'date' }) opens_at;
