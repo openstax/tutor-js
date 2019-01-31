@@ -7,7 +7,6 @@ import { includes } from 'lodash';
 import UpcomingCard from './upcoming-panel';
 import AllEventsByWeek from './all-events-by-week';
 import ThisWeekCard from './this-week-panel';
-import LateIconLedgend from './late-icon-ledgend';
 import ProgressGuideShell from './progress-guide';
 import BrowseTheBook from '../../components/buttons/browse-the-book';
 import CourseTitleBanner from '../../components/course-title-banner';
@@ -89,7 +88,6 @@ export default class StudentDashboard extends React.Component {
                 onSelect={this.onTabSelection}
                 tabs={['This Week', 'All Past Work']} />
               {tabIndex === 0 ? this.renderThisWeek(course) : this.renderPastWork(course)}
-              <LateIconLedgend />
             </Col>
             <Col xs={12} md={4} lg={3} className="sidebar">
               <Surveys course={course} />

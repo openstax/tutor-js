@@ -10,6 +10,7 @@
     overflow: hidden;
     margin-left: 0;
     margin-right: 0;
+    height: $student-dashboard-row-height;
     min-height: $student-dashboard-row-height;
     max-height: $student-dashboard-row-height;
     > * {

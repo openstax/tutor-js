@@ -7,6 +7,7 @@ import Course from '../../models/course';
 import EmptyCard from './empty-panel';
 import EventsCard from './events-panel';
 import { map, isEmpty } from 'lodash';
+import LateIconLedgend from './late-icon-ledgend';
 
 export default
 @observer
@@ -41,6 +42,7 @@ class AllEventsByWeek extends React.Component {
     return (
       <div>
         {map(weeks, this.renderWeek)}
+        <LateIconLedgend />
       </div>
     );
   }
