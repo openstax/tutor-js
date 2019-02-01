@@ -12,7 +12,7 @@ export default class OpenDowndownMenu extends BaseAction {
   }
 
   get isOpen() {
-    return false // $0.getAttribute('aria-expanded') === 'true';
+    return this.menu.parentElement.classList.contains('show');
   }
 
   @action.bound
