@@ -128,9 +128,6 @@ class User extends BaseModel {
         tags.push('teacher-not-previewed');
       }
     }
-    if (Courses.teaching.legacyBiology.any && Offerings.biology2e.available.any) {
-      tags.push('biology2e-available');
-    }
     return tags;
   }
 

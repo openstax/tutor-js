@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { omit } from 'lodash';
 import CenteredWheel          from './centered-wheel';
 
-export default class Biology2eAvailable extends React.Component {
+export default class MiniNotice extends React.Component {
 
   static propTypes = {
     step: PropTypes.object,
