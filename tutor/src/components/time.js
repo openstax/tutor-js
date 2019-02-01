@@ -23,7 +23,7 @@ export default class Time extends React.Component {
     format = (() => { switch (this.props.format) {
     case 'shortest': return 'M/D'; // 9/14
     case 'short': return 'MMM DD, YYYY'; // Feb 14, 2010
-    case 'concise': return 'MMM DD[,] h:mma';
+    case 'concise': return 'dd MMM DD[,] h:mma';
     case 'long': return 'dddd, MMMM Do YYYY, h:mm:ss a'; // Sunday, February 14th 2010, 3:25:50 pm
     default: return this.props.format;
     } })();

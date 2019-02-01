@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
+import { isEmpty } from 'lodash';
 import React from 'react';
 import Course from '../../models/course';
 import { observer } from 'mobx-react';
 import Events from './events-panel';
 import EmptyCard from './empty-panel';
+import LateIconLedgend from './late-icon-ledgend';
 
 export default
 @observer
@@ -17,18 +19,21 @@ class ThisWeekCard extends React.Component {
     const { course, course: { studentTasks } } = this.props;
     const tasks = studentTasks.thisWeeksTasks;
 
-    if (studentTasks.isPendingTaskLoading || !tasks.length) {
+    if (studentTasks.isPendingTaskLoading || isEmpty(tasks)) {
       return <EmptyCard course={course} message='No assignments this week' />;
     }
 
     return (
-      <Events
-        className="-this-week"
-        course={course}
-        events={tasks}
-        startAt={studentTasks.startOfThisWeek}
-        endAt={studentTasks.endOfThisWeek}
-      />
+      <React.Fragment>
+        <Events
+          className="-this-week"
+          course={course}
+          events={tasks}
+          startAt={studentTasks.startOfThisWeek}
+          endAt={studentTasks.endOfThisWeek}
+        />
+        <LateIconLedgend />
+      </React.Fragment>
     );
   }
 };

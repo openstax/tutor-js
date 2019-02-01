@@ -2,16 +2,22 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { computed, action } from 'mobx';
-import { Col, Button } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 import { get } from 'lodash';
 import Time from '../../components/time';
 import Router from '../../helpers/router';
-import { Icon } from 'shared';
-import EventInfoIcon from './event-info-icon';
 import { Instructions } from '../../components/task/details';
-import { SuretyGuard } from 'shared';
 import classnames from 'classnames';
+import HideButton from './hide-button';
+import TaskProgressInfo from './task-progress-info';
 import Course from '../../models/course';
+
+
+const EventTime = ({ event }) => {
+  if (event.is_deleted) { return null; }
+  return <Time date={event.due_at} format="concise" />;
+};
+
 
 export default
 @observer
@@ -39,75 +45,18 @@ class EventRow extends React.Component {
     }
   }
 
-  @action.bound
-  onHideTask() {
-    this.props.event.hide();
-  }
-
-  killEvent(event) {
-    debugger
-    event.preventDefault();
-    event.stopPropagation();
-  }
-
   @computed get isWorkable() {
     return get(this.props, 'workable', this.props.event.canWork);
   }
 
   render() {
-    const { event, course } = this.props;
-    let feedback, hideButton, time;
-
+    const { feedback, event, course } = this.props;
     if (event.hidden) { return null; }
 
     const classes = classnames(`task row ${this.props.eventType}`, {
       workable: this.isWorkable,
       deleted: event.is_deleted,
     });
-
-    if (event.is_deleted) {
-      const guardProps = {
-        okButtonLabel: 'Yes',
-        onConfirm: this.onHideTask,
-        placement: 'top',
-        message: (
-          <div>
-            <p>
-              If you remove this assignment, you will lose any progress or feedback you have received.
-            </p>
-            <p>
-              Do you wish to continue?
-            </p>
-          </div>
-        ),
-      };
-
-      hideButton = (
-        <span>
-          <SuretyGuard {...guardProps}>
-            <Icon
-              size="lg"
-              type="close-circle"
-              className="hide-task"
-              buttonProps={{ variant: 'link' }}
-              onClick={this.killEvent}
-            />
-          </SuretyGuard>
-          <span>
-            Withdrawn
-          </span>
-        </span>
-      );
-
-    } else {
-      time = <Time date={this.props.event.due_at} format="concise" />;
-      feedback = [
-        <span key="feedback">
-          {this.props.feedback}
-        </span>,
-        <EventInfoIcon key="icon" event={this.props.event} isCollege={course.is_college} />,
-      ];
-    }
 
     return (
       <a
@@ -124,18 +73,18 @@ class EventRow extends React.Component {
             aria-label={`${this.props.eventType} icon`}
             className={`icon icon-lg icon-${this.props.eventType}`} />
         </Col>
-        <Col xs={10} sm={6} className="title">
+        <Col xs={10} sm={5} className="title">
           {this.props.children}
           <Instructions
             task={this.props.event}
             popverClassName="student-dashboard-instructions-popover" />
         </Col>
-        <Col xs={5} sm={3} className="feedback">
-          {feedback}
+        <Col xs={5} sm={3} className="due-at">
+          <EventTime event={event} />
+          <HideButton event={event} />
         </Col>
-        <Col xs={5} sm={2} className="due-at">
-          {time}
-          {hideButton}
+        <Col xs={5} sm={3} className="feedback">
+          <TaskProgressInfo event={event} course={course} feedback={feedback} />
         </Col>
       </a>
     );

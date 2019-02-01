@@ -7,7 +7,6 @@ import { includes } from 'lodash';
 import UpcomingCard from './upcoming-panel';
 import AllEventsByWeek from './all-events-by-week';
 import ThisWeekCard from './this-week-panel';
-
 import ProgressGuideShell from './progress-guide';
 import BrowseTheBook from '../../components/buttons/browse-the-book';
 import CourseTitleBanner from '../../components/course-title-banner';

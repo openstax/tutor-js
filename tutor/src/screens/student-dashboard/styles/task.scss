@@ -1,5 +1,4 @@
 .student-dashboard {
-  .due-at, .due-at-label { padding: 0; }
 
   .task {
     background: $tutor-white;
@@ -10,11 +9,20 @@
     color: $tutor-neutral-darker;
     overflow: hidden;
     margin-left: 0;
-    margin-rigth: 0;
-    // if the screen is wide enought, set a hight and use line-height to vertically center content.
+    margin-right: 0;
+    height: $student-dashboard-row-height;
+    min-height: $student-dashboard-row-height;
+    max-height: $student-dashboard-row-height;
+    > * {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 0
+    }
+    // if the screen is wide enough, set a hight and use line-height to vertically center content.
     // This breaks when the responsive small view kicks in and it becomes multi-line
     .column-icon {
-      height: $student-dashboard-row-height;
+      height: 100%;
       padding: 0;
       display: flex;
       align-items: center;
@@ -29,17 +37,6 @@
       height: 100%;
       background-size: auto;
     }
-    .title {
-      padding-left: 0;
-    }
-    .title, .feedback, .due-at {
-      line-height: $student-dashboard-row-height;
-      white-space: nowrap;
-    }
-    .title, .feedback {
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
     .feedback {
       .ox-icon {
         margin-left: 0.5rem;
@@ -52,14 +49,15 @@
 
     // Adjust height for when the columns collapse and progress appears below task title
     @include media-breakpoint-down('sm') {
+      .due-at {
+        padding-left: 1.5rem;
+      }
+      .column-icon {
+        height: inherit;
+      }
       .icon {
         margin: 0 0.5rem;
       }
-      .title, .feedback, .due-at {
-        line-height: $student-dashboard-row-height / 2;
-      }
-      // match the 0 left padding of the description
-      .feedback { padding-left: 0; }
     }
 
     // A task that is workable can be clicked

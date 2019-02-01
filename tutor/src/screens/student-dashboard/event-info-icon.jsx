@@ -1,11 +1,8 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { Tooltip, OverlayTrigger }  from 'react-bootstrap';
+import { React, PropTypes, observer } from '../../helpers/react';
 import S from '../../helpers/string';
 import Time from '../../models/time';
 import moment from 'moment';
 import { Icon } from 'shared';
-import { observer } from 'mobx-react';
 import Theme from '../../theme';
 import TourAnchor from '../../components/tours/anchor';
 
@@ -34,19 +31,19 @@ class EventInfoIcon extends React.Component {
 
     const isLate = workedLate || pastDue;
 
-    const tooltip = (
-      <Tooltip id={`event-info-icon-${event.id}`}>
-        <b>
-          {S.capitalize(isLate ? 'late' : 'incomplete')}
-        </b>
-      </Tooltip>
-    );
-
-
+    let color;
+    if (isLate) {
+      if (event.lateWorkIsAccepted) {
+        color = Theme.colors.neutral.lite;
+      } else {
+        color = Theme.colors.danger;
+      }
+    } else {
+      color = Theme.colors.warning;
+    }
     let icon = (
       <Icon
-        tooltip={tooltip}
-        color={Theme.colors[isLate ? 'danger' : 'warning']}
+        color={color}
         type={isLate ? 'clock' : 'exclamation-circle'}
       />
     );

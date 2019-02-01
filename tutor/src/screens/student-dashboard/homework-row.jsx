@@ -30,6 +30,7 @@ class HomeworkRow extends React.Component {
 
   render() {
     const { event } = this.props;
+
     let feedback = this.isGraded ?
       `${event.correct_exercise_count}/${event.exercise_count} correct`:
       `${event.complete_exercise_count}/${event.exercise_count} answered`;
