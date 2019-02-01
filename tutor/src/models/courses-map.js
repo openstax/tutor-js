@@ -62,14 +62,6 @@ export class CoursesMap extends Map {
     return this.where(c => !c.just_created);
   }
 
-  @computed get legacyBiology() {
-    return this.where(c =>
-      c.appearance_code &&
-      c.appearance_code.includes('biology') &&
-      c.appearance_code !== 'biology_2e'
-    );
-  }
-
   @computed get preview() {
     return this.where(c => c.is_preview);
   }

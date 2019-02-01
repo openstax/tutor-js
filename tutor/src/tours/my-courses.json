@@ -13,17 +13,6 @@
     }
   ]
 }, {
-  "id": "biology2e-available",
-  "autoplay": true,
-  "standalone": true,
-  "showOverlay": true,
-  "audience_tags": [ "biology2e-available" ],
-  "steps": [
-    {
-      "customComponent": "Biology2eAvailable"
-    }
-  ]
-}, {
   "id": "create-a-course",
   "autoplay": false,
   "standalone": true,
