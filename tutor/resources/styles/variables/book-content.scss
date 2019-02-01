@@ -54,6 +54,15 @@ $openstax-books: (
     highlight  : rgb(255, 255, 187), // pale yellow
     accent     : $openstax-book-blue-accent,
   ),
+  ap_physics: (
+    primary    : $openstax-book-green,
+    secondary  : $openstax-book-blue,
+    text       : $openstax-book-text-on-dark-labels,
+    tertiary   : rgb(119, 175, 65), // green
+    quaternary : rgb(244, 208, 25), // yellow
+    highlight  : rgb(255, 255, 187), // pale yellow
+    accent     : $openstax-book-blue-accent,
+  ),
   college_physics: (
     primary    : $openstax-book-green,
     secondary  : $openstax-book-blue,
@@ -182,6 +191,7 @@ $openstax-books: (
 $openstax-book-thumbnails: (
   intro_sociology : 'sociology-book-thumbnail.svg',
   hs_physics      : 'hs_physics-book-thumbnail.png',
+  ap_physics      : 'ap_physics-book-thumbnail.svg',
   physics         : 'college_physics-book-thumbnail.svg',
   college_physics : 'college_physics-book-thumbnail.svg',
   biology         : 'biology-book-thumbnail.svg',
