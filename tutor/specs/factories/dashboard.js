@@ -40,6 +40,7 @@ Factory.define('StudentDashboardTask')
   .due_at(({ now, days_ago = 0 }) => moment(now).subtract(days_ago + 3, 'days'))
   .complete(() => 0 == fake.random.number(3))
   .is_deleted(false)
+  .last_worked_at(({ now, days_ago = 0 }) => moment(now).subtract(days_ago, 'days').format())
   .exercise_count(() => fake.random.number({ min: 3, max: 12 }))
   .steps_count(({ object }) => object.exercise_count)
   .complete_exercise_count(({ object }) =>

@@ -72,7 +72,7 @@ class StudentTask extends BaseModel {
   }
 
   @computed get lateWorkIsAccepted() {
-    return Boolean(this.accepted_late_at);
+    return Boolean(this.accepted_late_at && moment(this.accepted_late_at).isAfter(this.last_worked_at));
   }
 
   @computed get isHomework() {

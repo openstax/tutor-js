@@ -10,7 +10,7 @@ describe('Homework Row', function() {
 
   beforeEach(function() {
     props = {
-      event: Factory.studentDashboardTask({ type: 'homework' }),
+      event: Factory.studentDashboardTask({ type: 'homework', now }),
       course: Factory.course(),
     };
   });
@@ -47,6 +47,7 @@ describe('Homework Row', function() {
     expect(row).toHaveRendered(`Icon[type="clock"][color="${Theme.colors.danger}"]`);
 
     props.event.accepted_late_at = new Date(now.getTime() - ( 48*60*60*1000 ));
+    props.event.last_worked_at = props.event.accepted_late_at - 1;
     expect(row).toHaveRendered(`Icon[type="clock"][color="${Theme.colors.neutral.lite}"]`);
 
     row.unmount();

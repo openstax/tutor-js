@@ -182,6 +182,12 @@ exports[`Student Dashboard matches snapshot 1`] = `
 }
 
 .c2 {
+  font-size: 1.2rem;
+  margin-top: 5px;
+  color: #999999;
+}
+
+.c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -189,7 +195,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
   margin: 1rem 0;
 }
 
-.c2 span + span {
+.c3 span + span {
   margin-left: 2rem;
 }
 
@@ -506,11 +512,19 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     Not started
                   </span>
                 </div>
+                <div
+                  className="c2"
+                >
+                  0
+                  /
+                  9
+                   answered on due date
+                </div>
               </div>
             </a>
           </div>
           <div
-            className="c2"
+            className="c3"
           >
             <span>
               <svg
