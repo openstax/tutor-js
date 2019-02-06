@@ -32,6 +32,15 @@ describe('Student Task Model', () => {
     expect(task.canWork).toBe(true);
   });
 
+  it('#lateWorkIsAccepted', () => {
+    expect(task.lateWorkIsAccepted).toBe(false);
+    task.accepted_late_at = now;
+    task.last_worked_at = moment(now).subtract(1, 'day');
+    expect(task.lateWorkIsAccepted).toBe(true);
+    task.last_worked_at = moment(now).add(1, 'day');
+    expect(task.lateWorkIsAccepted).toBe(false);
+  });
+
   it('hw#studentFeedback', () => {
     task.complete = false;
     task.completed_steps_count = 0;
