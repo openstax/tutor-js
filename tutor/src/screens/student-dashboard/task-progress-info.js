@@ -32,9 +32,10 @@ const TaskProgressInfo = observer(({ event, course }) => {
   return (
     <React.Fragment>
       <Feedback>
-        <TourAnchor id="assignment-progress-status" tag="span">
-          {event.studentFeedback}
-        </TourAnchor>
+        {event.studentFeedback &&
+          <TourAnchor id="assignment-progress-status" tag="span">
+            {event.studentFeedback}
+          </TourAnchor>}
         <EventInfoIcon
           event={event}
           isCollege={course.is_college}
@@ -49,7 +50,6 @@ TaskProgressInfo.displayName = 'TaskProgressInfo';
 TaskProgressInfo.propTypes = {
   event: PropTypes.object.isRequired,
   course: PropTypes.object.isRequired,
-
 };
 
 export default TaskProgressInfo;

@@ -1,5 +1,5 @@
-import { React, TimeMock } from '../../helpers';
-import Factory from '../../factories';
+import { React, TimeMock, Factory } from '../../helpers';
+
 import Theme from '../../../src/theme';
 import Row from '../../../src/screens/student-dashboard/event-row';
 

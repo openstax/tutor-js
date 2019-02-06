@@ -461,12 +461,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                 <div
                   className="c1"
                 >
-                  <span
-                    className="tour-anchor"
-                    data-tour-anchor-id="assignment-progress-status"
-                  >
-                    
-                  </span>
+                  
                 </div>
               </div>
             </a>
