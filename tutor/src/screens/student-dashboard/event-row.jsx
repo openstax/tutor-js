@@ -24,12 +24,8 @@ export default
 class EventRow extends React.Component {
 
   static propTypes = {
-    eventType: PropTypes.string.isRequired,
     event:     PropTypes.object.isRequired,
     course:    PropTypes.instanceOf(Course).isRequired,
-    feedback:  PropTypes.oneOfType([
-      PropTypes.string, PropTypes.element,
-    ]).isRequired,
   }
 
   static contextTypes = {
@@ -50,10 +46,10 @@ class EventRow extends React.Component {
   }
 
   render() {
-    const { feedback, event, course } = this.props;
+    const { event, course } = this.props;
     if (event.hidden) { return null; }
 
-    const classes = classnames(`task row ${this.props.eventType}`, {
+    const classes = classnames(`task row ${event.type}`, {
       workable: this.isWorkable,
       deleted: event.is_deleted,
     });
@@ -62,7 +58,7 @@ class EventRow extends React.Component {
       <a
         className={classes}
         href={Router.makePathname('viewTask', { courseId: course.id, id: event.id })}
-        aria-label={`Work on ${this.props.eventType}: ${this.props.event.title}`}
+        aria-label={`Work on ${event.type}: ${this.props.event.title}`}
         tabIndex={this.isWorkable ? 0 : -1}
         onClick={this.onClick}
         onKeyDown={this.isWorkable ? this.onKey : undefined}
@@ -70,11 +66,11 @@ class EventRow extends React.Component {
       >
         <Col xs={2} sm={1} className="column-icon">
           <i
-            aria-label={`${this.props.eventType} icon`}
-            className={`icon icon-lg icon-${this.props.eventType}`} />
+            aria-label={`${event.type} icon`}
+            className={`icon icon-lg icon-${event.type}`} />
         </Col>
         <Col xs={10} sm={5} className="title">
-          {this.props.children}
+          {event.title}
           <Instructions
             task={this.props.event}
             popverClassName="student-dashboard-instructions-popover" />
@@ -84,7 +80,7 @@ class EventRow extends React.Component {
           <HideButton event={event} />
         </Col>
         <Col xs={5} sm={3} className="feedback">
-          <TaskProgressInfo event={event} course={course} feedback={feedback} />
+          <TaskProgressInfo event={event} course={course} />
         </Col>
       </a>
     );

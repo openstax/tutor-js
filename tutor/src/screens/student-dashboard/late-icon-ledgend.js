@@ -14,7 +14,7 @@ const LateIconLedgend = () => {
   return (
     <Wrapper>
       <span>
-        <Icon color={Theme.colors.warning} type="exclamation-circle" /> Due Tomorrow
+        <Icon color={Theme.colors.warning} type="exclamation-circle" /> Due soon
       </span>
       <span>
         <Icon color={Theme.colors.danger} type="clock" /> Late but not accepted

@@ -16,20 +16,14 @@ class EventInfoIcon extends React.Component {
 
   render() {
     const { event, isCollege } = this.props;
-
     const shouldShowLate = isCollege || (event.type === 'homework');
-    const now   = moment(Time.now);
-    const dueAt = moment(event.due_at);
     const isIncomplete = !event.complete;
-    const pastDue      = shouldShowLate && dueAt.isBefore(now);
-    const isDueToday   = now.isBetween(dueAt.clone().subtract(1, 'day'), dueAt);
-    const workedLate   = event.last_worked_at ? moment(event.last_worked_at).isAfter(dueAt) : false;
 
-    if (!shouldShowLate || ( (!isIncomplete && !workedLate) || (!pastDue && !isDueToday ))) {
+    if (!shouldShowLate || ( (!isIncomplete && !event.workedLate) || (!event.isPastDue && !event.isAlmostDue))) {
       return null;
     }
 
-    const isLate = workedLate || pastDue;
+    const isLate = event.workedLate || event.isPastDue;
 
     let color;
     if (isLate) {
@@ -48,7 +42,7 @@ class EventInfoIcon extends React.Component {
       />
     );
 
-    if (pastDue) {
+    if (event.isPastDue) {
       icon = (
         <TourAnchor
           id="about-late-icon"
