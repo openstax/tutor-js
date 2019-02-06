@@ -182,12 +182,6 @@ exports[`Student Dashboard matches snapshot 1`] = `
 }
 
 .c2 {
-  font-size: 1.2rem;
-  margin-top: 5px;
-  color: #999999;
-}
-
-.c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -195,7 +189,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
   margin: 1rem 0;
 }
 
-.c3 span + span {
+.c2 span + span {
   margin-left: 2rem;
 }
 
@@ -381,14 +375,17 @@ exports[`Student Dashboard matches snapshot 1`] = `
                 <div
                   className="c1"
                 >
-                  <span>
+                  <span
+                    className="tour-anchor"
+                    data-tour-anchor-id="assignment-progress-status"
+                  >
                     Not started
                   </span>
                 </div>
               </div>
             </a>
             <a
-              aria-label="Work on external: interactive revolutionize schemas"
+              aria-label="Work on external: transparent extend e-markets"
               className="task row external"
               data-event-id={2}
               href="/course/1/task/2"
@@ -406,7 +403,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               <div
                 className="title col-sm-5 col-10"
               >
-                interactive revolutionize schemas
+                transparent extend e-markets
               </div>
               <div
                 className="due-at col-sm-3 col-5"
@@ -421,14 +418,17 @@ exports[`Student Dashboard matches snapshot 1`] = `
                 <div
                   className="c1"
                 >
-                  <span>
+                  <span
+                    className="tour-anchor"
+                    data-tour-anchor-id="assignment-progress-status"
+                  >
                     Not started
                   </span>
                 </div>
               </div>
             </a>
             <a
-              aria-label="Work on event: magnetic harness synergies"
+              aria-label="Work on event: clicks-and-mortar envisioneer e-services"
               className="task row event"
               data-event-id={3}
               href="/course/1/task/3"
@@ -446,7 +446,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               <div
                 className="title col-sm-5 col-10"
               >
-                magnetic harness synergies
+                clicks-and-mortar envisioneer e-services
               </div>
               <div
                 className="due-at col-sm-3 col-5"
@@ -461,14 +461,17 @@ exports[`Student Dashboard matches snapshot 1`] = `
                 <div
                   className="c1"
                 >
-                  <span>
+                  <span
+                    className="tour-anchor"
+                    data-tour-anchor-id="assignment-progress-status"
+                  >
                     
                   </span>
                 </div>
               </div>
             </a>
             <a
-              aria-label="Work on homework: cross-platform whiteboard metrics"
+              aria-label="Work on homework: user-centric morph convergence"
               className="task row homework"
               data-event-id={4}
               href="/course/1/task/4"
@@ -486,7 +489,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               <div
                 className="title col-sm-5 col-10"
               >
-                cross-platform whiteboard metrics
+                user-centric morph convergence
               </div>
               <div
                 className="due-at col-sm-3 col-5"
@@ -501,28 +504,18 @@ exports[`Student Dashboard matches snapshot 1`] = `
                 <div
                   className="c1"
                 >
-                  <span>
-                    <span
-                      className="tour-anchor"
-                      data-tour-anchor-id="assignment-progress-status"
-                    >
-                      0/5 correct
-                    </span>
+                  <span
+                    className="tour-anchor"
+                    data-tour-anchor-id="assignment-progress-status"
+                  >
+                    Not started
                   </span>
-                </div>
-                <div
-                  className="c2"
-                >
-                  0
-                  /
-                  5
-                   answered on due date
                 </div>
               </div>
             </a>
           </div>
           <div
-            className="c3"
+            className="c2"
           >
             <span>
               <svg
@@ -542,7 +535,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                   style={Object {}}
                 />
               </svg>
-               Due Tomorrow
+               Due soon
             </span>
             <span>
               <svg

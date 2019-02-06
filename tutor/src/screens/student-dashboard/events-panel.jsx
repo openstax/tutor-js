@@ -6,21 +6,8 @@ import { map } from 'lodash';
 import { autobind } from 'core-decorators';
 import Time from '../../components/time';
 import moment from 'moment';
-import ReadingRow from './reading-row';
-import HomeworkRow from './homework-row';
-import ExternalRow from './external-row';
-import EventTaskRow from './event-task-row';
-import GenericEventRow from './generic-event-row';
 import Course from '../../models/course';
-
-const ROW_TYPES = {
-  reading:  ReadingRow,
-  homework: HomeworkRow,
-  external: ExternalRow,
-  event:    EventTaskRow,
-  default:  GenericEventRow,
-};
-
+import EventRow from './event-row';
 
 export default
 @observer
@@ -50,9 +37,8 @@ class EventsCard extends React.Component {
 
   @autobind
   renderEvent(event) {
-    const Row = ROW_TYPES[event.type] || ROW_TYPES.default;
     return (
-      <Row
+      <EventRow
         key={event.id}
         course={this.props.course}
         event={event}

@@ -53,26 +53,20 @@ describe('Event Row', function() {
       <EventRow
         className="testing"
         event={Factory.studentDashboardTask()}
-        eventType="generic"
-        course={course}
-        feedback="" />
+        course={course} />
     );
     const deleted = (
       <EventRow
         className=""
         event={Factory.studentDashboardTask({ is_deleted: true })}
-        eventType="generic"
-        course={course}
-        feedback="" />
+        course={course} />
     );
     const deletedNotStarted = (
       <EventRow
         className=""
         event={Factory.studentDashboardTask({ is_deleted: true })}
-        eventType="generic"
         isCollege={false}
-        course={course}
-        feedback="" />
+        course={course} />
     );
     regularRow = mount(regular);
     deletedRow = mount(deleted);
@@ -83,10 +77,6 @@ describe('Event Row', function() {
     regularRow.unmount();
     deletedRow.unmount();
     deletedNotStartedRow.unmount();
-  });
-
-  it('passes classnames to containing div for eventType', function() {
-    expect(regularRow.find('.task').hasClass('generic')).toBe(true);
   });
 
   it('adds a deleted class for deleted tasks', function() {

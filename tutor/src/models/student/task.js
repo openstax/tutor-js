@@ -1,5 +1,7 @@
 import { observable } from 'mobx';
 import { computed } from 'mobx';
+import { invoke } from 'lodash';
+import moment from 'moment';
 import Time from '../time';
 import {
   BaseModel, identifiedBy, field, identifier,
@@ -10,7 +12,6 @@ export default
 class StudentTask extends BaseModel {
 
   @observable hidden = false;
-
 
   @identifier id;
   @field title;
@@ -35,7 +36,22 @@ class StudentTask extends BaseModel {
   @field({ type: 'date' }) accepted_late_at;
 
   @computed get workedLate() {
-    return this.complete_exercise_count !== this.completed_on_time_exercise_count;
+    return moment(this.last_worked_at).isAfter(this.due_at);
+  }
+
+  @computed get isPastDue() {
+    return moment(this.due_at).isBefore(Time.now);
+  }
+
+  @computed get isAlmostDue() {
+    return moment(Time.now).isBetween(
+      moment(this.due_at).subtract(1, 'day'),
+      this.due_at,
+    );
+  }
+
+  @computed get scoreShown() {
+    return Boolean(this.isPastDue && this.complete);
   }
 
   @computed get lateWorkIsAccepted() {
@@ -46,12 +62,20 @@ class StudentTask extends BaseModel {
     return 'homework' === this.type;
   }
 
+  @computed get isReading() {
+    return 'reading' === this.type;
+  }
+
+  @computed get isStarted() {
+    return this.completed_steps_count > 0;
+  }
+
   @computed get canWork() {
     //students cannot work or view a task if it has been deleted and they haven't started it
     return Boolean(
       this.opens_at < Time.now && !(
         this.is_deleted &&
-        this.complete_exercise_count === 0
+          this.complete_exercise_count === 0
       )
     );
   }

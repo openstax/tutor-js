@@ -1,5 +1,6 @@
 import { React, PropTypes, styled, observer } from '../../helpers/react';
 import EventInfoIcon from './event-info-icon';
+import TourAnchor from '../../components/tours/anchor';
 import Theme from '../../theme';
 
 const Feedback = styled.div`
@@ -25,13 +26,15 @@ const LateInfo = observer(({ event }) => {
 });
 
 
-const TaskProgressInfo = observer(({ event, course, feedback }) => {
+const TaskProgressInfo = observer(({ event, course }) => {
   if (event.is_deleted) { return null; }
 
   return (
     <React.Fragment>
       <Feedback>
-        <span>{feedback}</span>
+        <TourAnchor id="assignment-progress-status" tag="span">
+          {event.studentFeedback}
+        </TourAnchor>
         <EventInfoIcon
           event={event}
           isCollege={course.is_college}
@@ -46,7 +49,7 @@ TaskProgressInfo.displayName = 'TaskProgressInfo';
 TaskProgressInfo.propTypes = {
   event: PropTypes.object.isRequired,
   course: PropTypes.object.isRequired,
-  feedback: PropTypes.node.isRequired,
+
 };
 
 export default TaskProgressInfo;

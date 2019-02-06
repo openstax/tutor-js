@@ -1,6 +1,7 @@
 import { React, TimeMock } from '../../helpers';
 import Factory from '../../factories';
-import ReadingRow from '../../../src/screens/student-dashboard/reading-row';
+import Row from '../../../src/screens/student-dashboard/event-row';
+import Theme from '../../../src/theme';
 
 describe('Reading Row', function() {
   let props;
@@ -15,13 +16,13 @@ describe('Reading Row', function() {
   });
 
   it('matches snapshot', () => {
-    expect.snapshot(<ReadingRow {...props} />).toMatchSnapshot();
+    expect.snapshot(<Row {...props} />).toMatchSnapshot();
   });
 
   it('renders unstarted', function() {
-    props.event.complete_exercise_count = 0;
+    props.event.completed_steps_count = 0;
     props.event.complete = false;
-    const row = mount(<ReadingRow {...props} />);
+    const row = mount(<Row {...props} />);
     expect(row.find('Col[className="feedback"]').text()).toEqual('Not started');
     expect(row).toHaveRendered('Icon[type="clock"]');
     row.unmount();
@@ -29,8 +30,9 @@ describe('Reading Row', function() {
 
   it('renders in progress', function() {
     props.event.last_worked_at = new Date();
+    props.event.completed_steps_count = 1;
     props.event.complete = false;
-    const row = mount(<ReadingRow {...props} />);
+    const row = mount(<Row {...props} />);
     expect(row.find('Col[className="feedback"]').text()).toEqual('In progress');
     expect(row).toHaveRendered('Icon[type="clock"]');
     row.unmount();
@@ -38,18 +40,27 @@ describe('Reading Row', function() {
 
   it('renders complete', function() {
     props.event.complete = true;
-    const row = mount(<ReadingRow {...props} />);
+    props.event.completed_steps_count = 1;
+    const row = mount(<Row {...props} />);
     expect(row.find('Col[className="feedback"]').text()).toEqual('Complete');
     row.unmount();
   });
 
-  it('renders close to being due', () => {
-    props.event.last_worked_at = new Date();
-    props.event.due_at = new Date(now.getTime() + ( 24*60*60*1000 ) - 1000);
+  it('renders icon', () => {
+    props.event.completed_steps_count = 1;
+    props.event.due_at = new Date(now.getTime() + ( 18*60*60*1000 ));
     props.event.complete = false;
-    const row = mount(<ReadingRow {...props} />);
+    const row = mount(<Row {...props} />);
+
     expect(row.find('Col[className="feedback"]').text()).toEqual('In progress');
     expect(row).toHaveRendered('Icon[type="exclamation-circle"]');
+
+    props.event.due_at = new Date(now.getTime() - ( 36*60*60*1000 ));
+    expect(row).toHaveRendered(`Icon[type="clock"][color="${Theme.colors.danger}"]`);
+
+    props.event.accepted_late_at = new Date(now.getTime() - ( 48*60*60*1000 ));
+    expect(row).toHaveRendered(`Icon[type="clock"][color="${Theme.colors.neutral.lite}"]`);
+
     row.unmount();
   });
 
