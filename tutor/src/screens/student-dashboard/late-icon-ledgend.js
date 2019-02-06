@@ -17,7 +17,7 @@ const LateIconLedgend = () => {
         <Icon color={Theme.colors.warning} type="exclamation-circle" /> Due soon
       </span>
       <span>
-        <Icon color={Theme.colors.danger} type="clock" /> Late but not accepted
+        <Icon color={Theme.colors.danger} type="clock" /> Late
       </span>
       <span>
         <Icon color={Theme.colors.neutral.lite} type="clock" /> Late but accepted
