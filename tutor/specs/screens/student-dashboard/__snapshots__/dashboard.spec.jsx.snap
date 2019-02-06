@@ -550,7 +550,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                   style={Object {}}
                 />
               </svg>
-               Late but not accepted
+               Late
             </span>
             <span>
               <svg
