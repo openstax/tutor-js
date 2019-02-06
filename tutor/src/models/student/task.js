@@ -7,6 +7,23 @@ import {
   BaseModel, identifiedBy, field, identifier,
 } from 'shared/model';
 
+
+const StudentTaskFeedback = {
+  homework(t) {
+    if (!t.isStarted) { return 'Not started'; }
+    return t.scoreShown ?
+      `${t.correct_exercise_count}/${t.exercise_count} correct` :
+      `${t.complete_exercise_count}/${t.exercise_count} answered`;
+  },
+  reading(t) {
+    if (!t.isStarted) { return 'Not started'; }
+    return t.complete ? 'Complete' : 'In progress';
+  },
+  external(t) {
+    return t.complete ? 'Clicked' : 'Not started';
+  },
+};
+
 export default
 @identifiedBy('student/task')
 class StudentTask extends BaseModel {
@@ -78,6 +95,10 @@ class StudentTask extends BaseModel {
           this.complete_exercise_count === 0
       )
     );
+  }
+
+  @computed get studentFeedback() {
+    return invoke(StudentTaskFeedback, this.type, this) || '';
   }
 
   // called from API
