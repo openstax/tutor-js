@@ -184,7 +184,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
 .c2 {
   font-size: 1.2rem;
   margin-top: 5px;
-  color: #999999;
+  color: #6f6f6f;
 }
 
 .c3 {
@@ -570,7 +570,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               <svg
                 aria-hidden="true"
                 className="svg-inline--fa fa-clock fa-w-16 ox-icon clock c0"
-                color="#999999"
+                color="#6f6f6f"
                 data-icon="clock"
                 data-prefix="far"
                 role="img"

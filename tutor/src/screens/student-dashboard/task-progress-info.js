@@ -13,7 +13,7 @@ const Feedback = styled.div`
 const LateCaption = styled.div`
   font-size: 1.2rem;
   margin-top: 5px;
-  color: ${Theme.colors.neutral.lite};
+  color: ${Theme.colors.neutral.thin};
 `;
 
 const LateInfo = observer(({ event }) => {

@@ -53,7 +53,9 @@ class StudentTask extends BaseModel {
   @field({ type: 'date' }) accepted_late_at;
 
   @computed get workedLate() {
-    return moment(this.last_worked_at).isAfter(this.due_at);
+    return Boolean(
+      this.last_worked_at && moment(this.last_worked_at).isAfter(this.due_at)
+    );
   }
 
   @computed get isPastDue() {
@@ -72,7 +74,11 @@ class StudentTask extends BaseModel {
   }
 
   @computed get lateWorkIsAccepted() {
-    return Boolean(this.accepted_late_at && moment(this.accepted_late_at).isAfter(this.last_worked_at));
+    return Boolean(
+      this.accepted_late_at &&
+        this.last_worked_at &&
+        moment(this.accepted_late_at).isAfter(this.last_worked_at)
+    );
   }
 
   @computed get isHomework() {

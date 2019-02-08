@@ -1,7 +1,5 @@
 import { React, PropTypes, observer } from '../../helpers/react';
 import S from '../../helpers/string';
-import Time from '../../models/time';
-import moment from 'moment';
 import { Icon } from 'shared';
 import Theme from '../../theme';
 import TourAnchor from '../../components/tours/anchor';
@@ -28,7 +26,7 @@ class EventInfoIcon extends React.Component {
     let color;
     if (isLate) {
       if (event.lateWorkIsAccepted) {
-        color = Theme.colors.neutral.lite;
+        color = Theme.colors.neutral.thin;
       } else {
         color = Theme.colors.danger;
       }

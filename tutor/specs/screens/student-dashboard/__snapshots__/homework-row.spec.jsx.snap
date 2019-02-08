@@ -85,7 +85,7 @@ exports[`Homework Row renders with completed count 1`] = `
 .c2 {
   font-size: 1.2rem;
   margin-top: 5px;
-  color: #999999;
+  color: #6f6f6f;
 }
 
 <a
