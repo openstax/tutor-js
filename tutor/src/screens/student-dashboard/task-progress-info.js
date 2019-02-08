@@ -17,7 +17,7 @@ const LateCaption = styled.div`
 `;
 
 const LateInfo = observer(({ event }) => {
-  if (!event.isHomework || !event.workedLate) { return null; }
+  if (!event.isHomework || !event.isPastDue) { return null; }
   return (
     <LateCaption>
       {event.completed_on_time_exercise_count}/{event.exercise_count} answered on due date

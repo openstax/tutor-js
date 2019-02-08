@@ -1,7 +1,5 @@
 import { React, PropTypes, observer } from '../../helpers/react';
 import S from '../../helpers/string';
-import Time from '../../models/time';
-import moment from 'moment';
 import { Icon } from 'shared';
 import Theme from '../../theme';
 import TourAnchor from '../../components/tours/anchor';
