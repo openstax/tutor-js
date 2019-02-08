@@ -20,7 +20,7 @@ const LateIconLedgend = () => {
         <Icon color={Theme.colors.danger} type="clock" /> Late
       </span>
       <span>
-        <Icon color={Theme.colors.neutral.lite} type="clock" /> Late but accepted
+        <Icon color={Theme.colors.neutral.thin} type="clock" /> Late but accepted
       </span>
     </Wrapper>
   );
