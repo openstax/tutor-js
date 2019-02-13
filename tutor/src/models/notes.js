@@ -21,16 +21,6 @@ class PageNotes extends Map {
     }
   }
 
-  @computed get notesBySection() {
-    return mapValues(
-      groupBy(this.array, 'chapter_section.asString'),
-      (notes) => sortBy(
-        notes,
-        ['contents.selection.rect.top', 'contents.selection.start']
-      )
-    );
-  }
-
   fetch() {
     return {
       chapterSection: this.chapterSection,
@@ -72,4 +62,18 @@ class Notes {
     return pages;
   }
 
+  // TODO once BE supports getting all possible chapter.sections
+  //   @computed get array() {
+  //     this.pages.
+  //   }
+  // @computed get notesBySection() {
+  //   return mapValues(
+  //     groupBy(Array.from(this.pages.keys()), 'chapter_section.asString'),
+  //     (notes) => sortBy(
+  //       notes,
+  //       ['contents.selection.rect.top', 'contents.selection.start']
+  //     )
+  //   );
+  // }
+  //
 }

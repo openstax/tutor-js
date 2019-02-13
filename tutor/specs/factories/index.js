@@ -103,6 +103,16 @@ Factories.scores = ({ course }) => {
   return course.scores;
 };
 
+Factories.notesPageMap = ({ course, chapter, section, count = 4 }) => {
+  const page = course.notes.forChapterSection(chapter, section);
+  range(count).forEach(() => {
+    const n = FactoryBot.create('Note', { chapter, section })
+    const note = new Note(n, page)
+    page.set(note.id, note);
+  })
+  return page;
+}
+
 Factories.exercisesMap = ({ book, pageIds = [], count = 4 } = {}) => {
   const map = new ExercisesMap();
   if (!book) { return map; }

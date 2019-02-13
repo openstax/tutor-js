@@ -107,7 +107,7 @@ const BookPage = createReactClass({
     if (ux.allowsAnnotating) {
       content = (
         <NotesWidget
-          courseId={ux.course.id}
+          course={ux.course}
           chapter={page.chapter_section.chapter}
           section={page.chapter_section.section}
           title={title}

@@ -7,7 +7,7 @@ import { filter, last, sortBy, debounce } from 'lodash';
 import SummaryPage from './notes/summary-page';
 import dom from '../helpers/dom';
 import imagesComplete from '../helpers/images-complete';
-import Courses from '../models/courses-map';
+import Course from '../models/course';
 import EditBox from './notes/edit-box';
 import SidebarButtons from './notes/sidebar-buttons';
 import InlineControls from './notes/inline-controls';
@@ -22,8 +22,8 @@ export default
 class NotesWidget extends React.Component {
 
   static propTypes = {
-    courseId: PropTypes.string.isRequired,
-    documentId: PropTypes.string,
+    course: PropTypes.instanceOf(Course).isRequired,
+//    documentId: PropTypes.string,
     children: PropTypes.node.isRequired,
     windowImpl: PropTypes.shape({
       open: PropTypes.func,
@@ -31,7 +31,7 @@ class NotesWidget extends React.Component {
     title: PropTypes.string,
     chapter: PropTypes.number.isRequired,
     section: PropTypes.number.isRequired,
-//    notes: PropTypes.instanceOf(NotesMap),
+    //    notes: PropTypes.instanceOf(NotesMap),
   };
 
   static defaultProps = {
@@ -50,7 +50,7 @@ class NotesWidget extends React.Component {
   @observable pendingHighlight;
 
   componentDidMount() {
-    if (!this.course.canAnnotate) { return; }
+    if (!this.props.course.canAnnotate) { return; }
 
     const { highlight } = Router.currentQuery();
 
@@ -70,12 +70,8 @@ class NotesWidget extends React.Component {
     }
   }
 
-  @computed get course() {
-    return this.props.course || Courses.get(this.props.courseId);
-  }
-
   @computed get notes() {
-    return this.course.notes.forChapterSection(
+    return this.props.course.notes.forChapterSection(
       this.props.chapter, this.props.section,
     );
   }
@@ -243,8 +239,8 @@ class NotesWidget extends React.Component {
     // courseId: this.props.courseId,
     // chapter: this.props.chapter,
     // section: this.props.section,
-    //      research_identifier: this.course.primaryRole.research_identifier,
-    // userRole: this.course.primaryRole.type,
+    //      research_identifier: this.props.course.primaryRole.research_identifier,
+    // userRole: this.props.course.primaryRole.type,
 
     return this.notes.create({
       anchor: `#${referenceElement.id}`,
@@ -369,7 +365,7 @@ class NotesWidget extends React.Component {
   }
 
   render() {
-    if (!this.course.canAnnotate) { return this.props.children; }
+    if (!this.props.course.canAnnotate) { return this.props.children; }
 
     return (
       <div className="annotater">
