@@ -24,7 +24,7 @@ import moment from 'moment-timezone';
 import StudentTasks from './student-tasks';
 import TeacherTaskPlans from './course/task-plans';
 import PastTaskPlans from './course/past-task-plans';
-
+import Notes from './notes';
 import ReferenceBook from './reference-book';
 
 const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
@@ -125,6 +125,7 @@ class Course extends BaseModel {
   @lazyGetter lms = new LMS({ course: this });
   @lazyGetter roster = new Roster({ course: this });
   @lazyGetter scores = new Scores({ course: this });
+  @lazyGetter notes = new Notes({ course: this });
   @lazyGetter referenceBook = new ReferenceBook({ id: this.ecosystem_id });
   @lazyGetter taskPlans = new TeacherTaskPlans({ course: this });
   @lazyGetter pastTaskPlans = new PastTaskPlans({ course: this });

@@ -6,7 +6,7 @@ import { action, observable, computed } from 'mobx';
 import cn from 'classnames';
 import { get, map, filter } from 'lodash';
 import { Icon } from 'shared';
-import Note from '../../models/notes/note';
+import { Note, PageNotes } from '../../models/notes';
 import getRangeRect from './getRangeRect';
 
 @observer
@@ -62,9 +62,7 @@ export default
 @observer
 class SidebarButtons extends React.Component {
   static propTypes = {
-    notes: PropTypes.arrayOf(
-      PropTypes.instanceOf(Note)
-    ).isRequired,
+    notes: PropTypes.instanceOf(PageNotes).isRequired,
     parentRect: PropTypes.shape({
       top: PropTypes.number,
     }),

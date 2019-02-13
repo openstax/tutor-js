@@ -12,9 +12,9 @@ import EditBox from './notes/edit-box';
 import SidebarButtons from './notes/sidebar-buttons';
 import InlineControls from './notes/inline-controls';
 import ScrollTo from '../helpers/scroll-to';
-import Highlighter from '@openstax/highlighter';
+import Highlighter, { SerializedHighlight } from '@openstax/highlighter';
 import Router from '../helpers/router';
-import NotesMap from '../models/notes';
+//import NotesMap from '../models/notes';
 import Overlay from './obscured-page/overlay';
 
 export default
@@ -31,11 +31,11 @@ class NotesWidget extends React.Component {
     title: PropTypes.string,
     chapter: PropTypes.number.isRequired,
     section: PropTypes.number.isRequired,
-    notes: PropTypes.instanceOf(NotesMap),
+//    notes: PropTypes.instanceOf(NotesMap),
   };
 
   static defaultProps = {
-    notes: User.notes,
+//    notes: User.notes,
     windowImpl: window,
   };
 
@@ -59,7 +59,7 @@ class NotesWidget extends React.Component {
     }
 
     when(
-      () => !this.props.notes.api.isPending,
+      () => !this.notes.api.isPending,
       this.initializePage,
     );
   }
@@ -71,20 +71,28 @@ class NotesWidget extends React.Component {
   }
 
   @computed get course() {
-    return Courses.get(this.props.courseId);
+    return this.props.course || Courses.get(this.props.courseId);
   }
 
-  @computed get notesForThisPage() {
-    return this.allNotesForThisBook.filter(item =>
-      (item.chapter === this.props.chapter) &&
-      (item.section === this.props.section) &&
-      this.highlighter &&
-      item.highlight.isLoadable(this.highlighter)
+  @computed get notes() {
+    return this.course.notes.forChapterSection(
+      this.props.chapter, this.props.section,
     );
   }
 
+  @computed get notesForThisPage() {
+
+    // return this.allNotesForThisBook.filter(item =>
+    //   (item.chapter === this.props.chapter) &&
+    //   (item.section === this.props.section) &&
+    //   this.highlighter &&
+    //   item.highlight.isLoadable(this.highlighter)
+    // );
+  }
+
   @computed get allNotesForThisBook() {
-    return filter(this.props.notes.array, { courseId: this.props.courseId });
+    return [];
+    // return filter(this.props.notes.array, { courseId: this.props.courseId });
   }
 
   setupPendingHighlightScroll(highlightId) {
@@ -101,55 +109,58 @@ class NotesWidget extends React.Component {
     };
   }
 
-  waitForPageReady() {
-    return new Promise(resolve => {
-      const win = this.props.windowImpl;
-      const unprocessedMath = this.documentRoot.querySelector('*:not(.MJX_Assistive_MathML) > math');
-      const runImagesComplete = () => imagesComplete({
-        body: this.documentRoot,
-      }).then(resolve).catch(resolve);
-      if (unprocessedMath && win.MathJax && win.MathJax.Hub) {
-        win.MathJax.Hub.Register.MessageHook('End Process', runImagesComplete);
-      } else {
-        runImagesComplete();
-      }
+  async waitForPageReady() {
+    await imagesComplete({ body: this.documentRoot });
+    return new Promise(r => {
+      when(
+        () => !this.notes.api.isPending,
+        r()
+      );
     });
   }
 
-  initializePage = debounce(() => {
+  initializeHighlighter() {
+    if (this.highlighter) {
+      this.highlighter.unmount();
+    }
+
+    // create a new highlighter
+    this.highlighter = new Highlighter(this.documentRoot, {
+      snapTableRows: true,
+      snapMathJax: true,
+      snapWords: true,
+      className: 'tutor-highlight',
+      onClick: this.onHighlightClick,
+      onSelect: this.onHighlightSelect,
+    });
+
+    this.notes.forEach(
+      note => this.highlighter.highlight(note.highlight),
+    );
+  }
+
+  initializePage = debounce(async () => {
     this.ux.statusMessage.show({
       type: 'info',
       message: 'Waiting for page to finish loading…',
     });
 
-    const initialize = action(() => {
-      if (this.highlighter) {
-        this.highlighter.unmount();
-      }
-      // create a new highlighter
-      this.highlighter = new Highlighter(this.documentRoot, {
-        snapTableRows: true,
-        snapMathJax: true,
-        snapWords: true,
-        className: 'tutor-highlight',
-        onClick: this.onHighlightClick,
-        onSelect: this.onHighlightSelect,
-      });
-      // attach notes to highlghter
-      this.notesForThisPage.forEach(note => this.highlighter.highlight(note.highlight));
-      // scroll if needed
-      if (this.scrollToPendingNote) {
-        this.scrollToPendingNote();
-      }
-      // and we're done
-      this.ux.statusMessage.hide();
-    });
+    await this.waitForPageReady();
 
-    this.waitForPageReady().then(initialize);
+    // create and attach notes to highlghter
+    this.initializeHighlighter();
+
+    // scroll if needed
+    if (this.scrollToPendingNote) {
+      this.scrollToPendingNote();
+    }
+
+    // and we're done
+    this.ux.statusMessage.hide();
   }, 100)
 
   @action.bound onHighlightClick(highlight) {
-    const note = highlight ? this.props.notes.get(highlight.id) : null;
+    const note = highlight ? this.notes.get(highlight.id) : null;
     this.pendingHighlight = null;
     this.activeNote = note;
 
@@ -228,14 +239,17 @@ class NotesWidget extends React.Component {
 
     const serializedHighlight = highlight.serialize(referenceElement);
 
-    return this.props.notes.create({
-      research_identifier: this.course.primaryRole.research_identifier,
-      userRole: this.course.primaryRole.type,
-      documentId: this.props.documentId,
-      courseId: this.props.courseId,
-      chapter: this.props.chapter,
-      section: this.props.section,
+    // documentId: this.props.documentId,
+    // courseId: this.props.courseId,
+    // chapter: this.props.chapter,
+    // section: this.props.section,
+    //      research_identifier: this.course.primaryRole.research_identifier,
+    // userRole: this.course.primaryRole.type,
+
+    return this.notes.create({
+      anchor: `#${referenceElement.id}`,
       title: this.props.title,
+      chapter_section: [this.props.chapter, this.props.section],
       rect: dom(highlight.range).boundingClientRect,
       ...serializedHighlight.data,
     });
@@ -243,7 +257,7 @@ class NotesWidget extends React.Component {
 
   @computed get sortedNotesForPage() {
     return sortBy(
-      this.notesForThisPage,
+      this.notes,
       ['selection.bounds.top', 'selection.start']
     );
   }
@@ -267,7 +281,7 @@ class NotesWidget extends React.Component {
 
     const targetNoteId = highlights[targetIndex].id;
 
-    return this.props.notes.get(targetNoteId);
+    return this.notes.get(targetNoteId);
   }
 
   get nextNote() {
@@ -314,7 +328,7 @@ class NotesWidget extends React.Component {
     };
   }
 
-  @computed get ux() { return this.props.notes.ux; }
+  @computed get ux() { return User.notesUX; }
 
   @action.bound seeAll() {
     this.ux.isSummaryVisible = true;
@@ -371,7 +385,7 @@ class NotesWidget extends React.Component {
         <SidebarButtons
           windowImpl={this.props.windowImpl}
           highlighter={this.highlighter}
-          notes={this.notesForThisPage}
+          notes={this.notes}
           parentRect={this.parentRect}
           onClick={this.editNote}
           activeNote={this.activeNote}
@@ -393,7 +407,7 @@ class NotesWidget extends React.Component {
             renderer={() =>
               <SummaryPage
                 courseId={this.props.courseId}
-                notes={this.props.notes}
+                notes={this.notes}
                 onDelete={this.onNoteDelete}
                 currentChapter={this.props.chapter}
                 currentSection={this.props.section}

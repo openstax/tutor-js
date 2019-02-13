@@ -8,7 +8,7 @@ export default
 @identifiedBy('chapter-section')
 class ChapterSection extends BaseModel {
 
-  constructor([chapter, section]) {
+  constructor([chapter, section] = []) {
     super();
     this.chapter = chapter;
     this.section = section;

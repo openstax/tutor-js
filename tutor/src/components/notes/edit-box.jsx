@@ -28,28 +28,29 @@ class EditBox extends React.Component {
     });
   }
 
-  @observable text = this.props.note ? this.props.note.text : '';
+  @observable annotation = this.props.note ? this.props.note.annotation : '';
 
   componentWillReceiveProps(nextProps) {
+    debugger
     if (nextProps.note !== this.props.note) {
-      this.text = nextProps.note ? nextProps.note.text : '';
+      this.annotation = nextProps.note ? nextProps.note.annotation : '';
       defer(() => this.input.focus());
     }
   }
 
   componentWillUnmount() {
-    if (this.text !== this.props.note.text) {
-      this.props.note.text = this.text;
+    if (this.annotation !== this.props.note.annotation) {
+      this.props.note.annotation = this.annotation;
       this.props.note.save();
     }
   }
 
   @action.bound onUpdate(ev) {
-    this.text = ev.target.value;
+    this.annotation = ev.target.value;
   }
 
   @action.bound onSave() {
-    this.props.note.text = this.text;
+    this.props.note.annotation = this.annotation;
     this.props.note.save().then(
       this.props.onHide
     );
@@ -64,14 +65,14 @@ class EditBox extends React.Component {
   }
 
   renderWarning() {
-    if (this.text.length > Note.MAX_TEXT_LENGTH) {
+    if (this.annotation.length > Note.MAX_TEXT_LENGTH) {
       return <Form.Label variant="danger">Text cannot be longer than {Note.MAX_TEXT_LENGTH} characters</Form.Label>;
     }
     return null;
   }
 
   render() {
-    const { text, props: {
+    const { annotation, props: {
       note, previous, next, seeAll,
     } } = this;
 
@@ -80,7 +81,7 @@ class EditBox extends React.Component {
         <textarea
           autoFocus
           ref={i => this.input = i}
-          value={text}
+          value={annotation}
           onChange={this.onUpdate}
         />
         {this.renderWarning()}

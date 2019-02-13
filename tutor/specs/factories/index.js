@@ -12,6 +12,7 @@ import { EcosystemsMap, Ecosystem } from '../../src/models/ecosystems';
 import { ExercisesMap } from '../../src/models/exercises';
 import { ResearchSurvey } from '../../src/models/research-surveys/survey';
 import StudentDashboardTask from '../../src/models/student/task';
+import Note from '../../src/models/notes/note';
 
 import './research_survey';
 import './dashboard';
@@ -23,17 +24,19 @@ import './exercise';
 import './scores';
 import './offering';
 import './course-roster';
+import './note';
 
 const Factories = {};
 
 each({
-  Course,
-  TutorExercise,
+  Note,
   Book,
+  Course,
+  Offering,
   Ecosystem,
   TaskPlanStat,
+  TutorExercise,
   ResearchSurvey,
-  Offering,
   StudentDashboardTask,
 }, (Model, name) => {
   Factories[camelCase(name)] = (attrs = {}) => {

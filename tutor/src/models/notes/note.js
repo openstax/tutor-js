@@ -1,32 +1,44 @@
-import { isString } from 'lodash';
-import { computed, action, intercept } from 'mobx';
+import { isString, last, pick, extend } from 'lodash';
+import { computed, action, get, toJS, intercept } from 'mobx';
+import ChapterSection from '../chapter-section';
 import { SerializedHighlight } from '@openstax/highlighter';
 import {
-  BaseModel, identifiedBy, field, identifier,
+  BaseModel, identifiedBy, field, identifier, session,
 } from 'shared/model';
 
 
+export default
 @identifiedBy('notes/note')
-export default class Note extends BaseModel {
+class Note extends BaseModel {
 
   static MAX_TEXT_LENGTH = 500;
   @identifier id;
-  @field chapter;
-  @field content;
-  @field courseId;
-  @field section;
-  @field title;
-  @field text;
-  @field type;
-  @field({ type: 'object' }) rect;
-  highlight;
-  listing;
+  // @field chapter;
+  // @field section;
+  // @field courseId;
+  // @field title;
+  // @field({ type: 'object' }) rect;
 
-  constructor(attrs) {
+  @field annotation = '';
+
+  @field anchor;
+
+  @field({ type: 'object' }) contents = {};
+  @session({ model: ChapterSection }) chapter_section;
+  @session({ type: 'date' }) created_at;
+  @session({ type: 'date' }) updated_at;
+
+  constructor(attrs = {}, page) {
     super(attrs);
-    this.highlight = new SerializedHighlight(attrs);
-    this.listing = attrs.listing;
-    intercept(this, 'text', this.validateTextLength);
+    this.page = page;
+    intercept(this, 'annotation', this.validateTextLength);
+  }
+
+
+  @computed get highlight() {
+    return new SerializedHighlight(
+      extend(toJS(this.contents), pick(this, 'id')),
+    );
   }
 
   validateTextLength(change) {
@@ -36,21 +48,31 @@ export default class Note extends BaseModel {
     return change;
   }
 
-  @computed get chapter_section() {
-    return [ this.chapter, this.section ];
-  }
-
-  @computed get formattedChapterSection() {
-    let cs = `${this.chapter}`;
-    if (this.section) { cs += `.${this.section}`; }
-    return cs;
-  }
-
   @action save() {
-    return this.listing.update(this);
+    return extend(this.urlParams, {
+      data: pick(this, 'id', 'anchor', 'contents', 'annotation'),
+    });
   }
 
   @action destroy() {
-    return this.listing.destroy(this);
+    return this.urlParams;
   }
-}
+
+  onUpdated({ data }) {
+    this.update(data);
+    this.page.set(this.id, this);
+  }
+
+  onDeleted() {
+    this.page.delete(this.id);
+  }
+
+  @computed get urlParams() {
+    return {
+      id: this.id,
+      chapterSection: this.chapter_section.format({ skipZeros: false }),
+      courseId: this.page.notes.course.id,
+    };
+  }
+
+};

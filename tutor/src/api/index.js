@@ -50,7 +50,11 @@ import TaskResult from '../models/course/scores/task-result';
 import CourseTeacher from '../models/course/teacher';
 import TeacherTaskPlan from '../models/task-plan/teacher';
 import TaskPlanStats from '../models/task-plan/stats';
+<<<<<<< HEAD
 import { ResponseValidation } from '../models/response_validation';
+=======
+import { PageNotes, Note } from '../models/notes';
+>>>>>>> Read and store notes in tutor
 
 const { connectModify, connectCreate, connectRead, connectUpdate, connectDelete, connectModelCreate, connectModelRead, connectModelUpdate, connectModelDelete } = adapters;
 
@@ -169,6 +173,19 @@ const startAPI = function() {
     { pattern: 'user/tours/{id}' }
   );
 
+  connectModelUpdate(Note, 'save', {
+    onSuccess: 'onUpdated',
+    method() { return this.isNew ? 'POST' : 'PATCH'; },
+    pattern() { return 'courses/{courseId}/notes/{chapterSection}' + (this.isNew ? '' : '/{id}'); },
+  });
+  connectModelDelete(Note, 'destroy', {
+    onSuccess: 'onDeleted',
+    pattern: 'courses/{courseId}/notes/{chapterSection}/{id}',
+  });
+  connectModelRead(PageNotes, 'fetch', {
+    onSuccess: 'onLoaded',
+    pattern: 'courses/{courseId}/notes/{chapterSection}',
+  });
 
   connectModelRead(Course, 'fetch', { pattern: 'courses/{id}' });
 
