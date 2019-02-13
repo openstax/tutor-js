@@ -150,14 +150,14 @@ const connectModelAction = function(action, apiHandler, klass, method, options) 
   const handler = function(originalMethod, ...reqArgs) {
     const firstArg = first(reqArgs);
     const requestConfig = mapValues(
-      pick(options, 'url', 'query', 'method', 'data', 'params', 'handledErrors'), val => {
+      pick(options, 'pattern', 'url', 'query', 'method', 'data', 'params', 'handledErrors'), (val) => {
         if (isFunction(val)) { return val.call(this, ...Array.from(reqArgs)); } else { return val; }
       });
     const updatedConfig = originalMethod.call(this, ...Array.from(reqArgs), requestConfig);
     if (updatedConfig === 'ABORT') { return null; }
     merge(requestConfig, updatedConfig);
-    if (options.pattern) {
-      if (requestConfig.url == null) { requestConfig.url = interpolate(options.pattern, defaults({}, firstArg, requestConfig, this)); }
+    if (requestConfig.pattern) {
+      if (requestConfig.url == null) { requestConfig.url = interpolate(requestConfig.pattern, defaults({}, firstArg, requestConfig, this)); }
     }
     let { query } = requestConfig;
     if (query) {
