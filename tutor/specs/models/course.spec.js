@@ -158,13 +158,6 @@ describe('Course Model', () => {
     expect(course.isBeforeTerm(course.term, course.year)).toBe(false);
   });
 
-  it('calculates when it can be annotated', () => {
-    const course = Courses.get(1);
-    expect(course.canAnnotate).toBe(false);
-    FeatureFlags.is_highlighting_allowed = true;
-    expect(course.canAnnotate).toBe(true);
-  });
-
   it('returns bounds', () => {
     const course = Courses.get(1);
     expect(

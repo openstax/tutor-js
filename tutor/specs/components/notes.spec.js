@@ -11,7 +11,6 @@ jest.mock('../../src/models/user', () => ({
     isSummaryVisible: true,
   },
 }));
-jest.mock('../../src/models/feature_flags', () => ({ is_highlighting_allowed: true }));
 jest.mock('../../src/helpers/router');
 jest.mock('../../../shared/src/components/html', () => ({ html }) =>
   html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null

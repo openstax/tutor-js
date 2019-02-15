@@ -50,11 +50,8 @@ import TaskResult from '../models/course/scores/task-result';
 import CourseTeacher from '../models/course/teacher';
 import TeacherTaskPlan from '../models/task-plan/teacher';
 import TaskPlanStats from '../models/task-plan/stats';
-<<<<<<< HEAD
 import { ResponseValidation } from '../models/response_validation';
-=======
 import { PageNotes, Note } from '../models/notes';
->>>>>>> Read and store notes in tutor
 
 const { connectModify, connectCreate, connectRead, connectUpdate, connectDelete, connectModelCreate, connectModelRead, connectModelUpdate, connectModelDelete } = adapters;
 
@@ -246,6 +243,7 @@ const startAPI = function() {
       },
     },
   );
+
   connectModelRead(ResponseValidation, 'validate', { pattern: 'validate', onSuccess: 'onValidationComplete' });
 
   connectModelUpdate(Student, 'saveOwnStudentId', { pattern: 'user/courses/{course.id}/student', onSuccess: 'onApiRequestComplete' });

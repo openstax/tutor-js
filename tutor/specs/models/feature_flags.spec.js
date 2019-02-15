@@ -9,13 +9,11 @@ describe('Feature Flags', () => {
   });
 
   it('has defaults', () => {
-    expect(FeatureFlags.is_highlighting_allowed).toBe(false);
     expect(FeatureFlags.is_payments_enabled).toBe(true);
   });
 
   it('bootstraping resets defaults', () => {
-    FeatureFlagsApi.bootstrap({ is_highlighting_allowed: true, is_payments_enabled: false });
-    expect(FeatureFlags.is_highlighting_allowed).toBe(true);
+    FeatureFlagsApi.bootstrap({ is_payments_enabled: false });
     expect(FeatureFlags.is_payments_enabled).toBe(false);
   });
 
@@ -27,15 +25,15 @@ describe('Feature Flags', () => {
 
   it('does not allow changing flags', () => {
     expect(() => {
-      FeatureFlags.is_highlighting_allowed = true;
+      FeatureFlags.is_payments_enabled = true;
     }).toThrow(TypeError);
   });
 
   it('is observable and fires when bootstrapped', () => {
     const changeSpy = jest.fn();
-    autorun(() => changeSpy(FeatureFlags.is_highlighting_allowed));
+    autorun(() => changeSpy(FeatureFlags.is_payments_enabled));
     expect(changeSpy).toHaveBeenCalledTimes(1);
-    FeatureFlagsApi.bootstrap({ is_highlighting_allowed: true });
+    FeatureFlagsApi.bootstrap({ is_payments_enabled: true });
     expect(changeSpy).toHaveBeenCalledTimes(2);
   });
 

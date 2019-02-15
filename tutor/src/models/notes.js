@@ -16,9 +16,6 @@ class PageNotes extends Map {
     super();
     this.notes = notes;
     this.chapterSection = chapterSection;
-    if (FeatureFlags.is_highlighting_allowed) {
-      this.fetch();
-    }
   }
 
   fetch() {
