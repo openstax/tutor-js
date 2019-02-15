@@ -33,7 +33,7 @@ describe('Feature Flags', () => {
     const changeSpy = jest.fn();
     autorun(() => changeSpy(FeatureFlags.is_payments_enabled));
     expect(changeSpy).toHaveBeenCalledTimes(1);
-    FeatureFlagsApi.bootstrap({ is_payments_enabled: true });
+    FeatureFlagsApi.bootstrap({ is_payments_enabled: false });
     expect(changeSpy).toHaveBeenCalledTimes(2);
   });
 
