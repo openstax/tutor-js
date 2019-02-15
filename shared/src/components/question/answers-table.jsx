@@ -12,12 +12,12 @@ import Instructions  from './instructions';
 
 
 const KEYS =
-  { 'multiple-choice-numbers': range(0, 10) }; // 0 - 9
+  { 'multiple-choice-numbers': range(1, 10) }; // 1 - 9
 
 // a - i
 KEYS['multiple-choice-alpha'] = map(
   KEYS['multiple-choice-numbers'],
-  (k) => keysHelper.getCharFromNumKey(k, null)
+  (k) => keysHelper.getCharFromNumKey(k, 1)
 );
 
 KEYS['multiple-choice'] = zip(KEYS['multiple-choice-numbers'], KEYS['multiple-choice-alpha']);
