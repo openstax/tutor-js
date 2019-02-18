@@ -3,9 +3,8 @@ import {
 } from 'shared/model';
 
 const ResponseValidationConfig = {
-  url: '',
+  url: null,
 };
-
 
 @identifiedBy('response_validation')
 class ResponseValidation extends BaseModel {
@@ -28,10 +27,13 @@ class ResponseValidation extends BaseModel {
   @field tag_numeric;
   @field valid;
 
-  validate({ response }) {
+  validate({ response, uid = '' }) {
+    if (!ResponseValidationConfig.url) { return 'ABORT'; }
+
     return {
       url: ResponseValidationConfig.url,
       query: {
+        uid,
         response,
         spelling_correction: 'True',
         remove_stopwords: 'True',
@@ -41,12 +43,9 @@ class ResponseValidation extends BaseModel {
   }
 
   @action onValidationComplete({ data }) {
-    debugger
+    this.update(data);
   }
 
-  @computed get isValid() {
-    return 'True' === this.valid;
-  }
 }
 
 export { ResponseValidation };

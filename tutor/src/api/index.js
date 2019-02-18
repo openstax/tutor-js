@@ -50,7 +50,6 @@ import TaskResult from '../models/course/scores/task-result';
 import CourseTeacher from '../models/course/teacher';
 import TeacherTaskPlan from '../models/task-plan/teacher';
 import TaskPlanStats from '../models/task-plan/stats';
-import { PageNotes, Note } from '../models/notes';
 import { ResponseValidation } from '../models/response_validation';
 
 const { connectModify, connectCreate, connectRead, connectUpdate, connectDelete, connectModelCreate, connectModelRead, connectModelUpdate, connectModelDelete } = adapters;
@@ -126,17 +125,18 @@ const startAPI = function() {
     {
       data(id) {
         const step = TaskStepStore.get(id);
-        return pick(step, ['free_response', 'answer_id']);
+        return pick(step, 'free_response', 'answer_id', 'garbage_estimate');
       },
     },
   );
 
   connectUpdate(
     TaskStepActions,
-    { pattern: 'steps/{id}', trigger: 'setFreeResponseAnswer' },
+    { pattern: 'steps/{id}', trigger: 'saveFreeResponseAnswer' },
     {
-      data(id, freeResponse) {
-        return { free_response: freeResponse };
+      data(id) {
+        const step = TaskStepStore.get(id);
+        return pick(step, 'free_response', 'garbage_estimate');
       },
     },
   );
@@ -169,19 +169,6 @@ const startAPI = function() {
     { pattern: 'user/tours/{id}' }
   );
 
-  connectModelUpdate(Note, 'save', {
-    onSuccess: 'onUpdated',
-    method() { return this.isNew ? 'POST' : 'PATCH'; },
-    pattern() { return 'courses/{courseId}/notes/{chapterSection}' + (this.isNew ? '' : '/{id}'); },
-  });
-  connectModelDelete(Note, 'destroy', {
-    onSuccess: 'onDeleted',
-    pattern: 'courses/{courseId}/notes/{chapterSection}/{id}',
-  });
-  connectModelRead(PageNotes, 'fetch', {
-    onSuccess: 'onLoaded',
-    pattern: 'courses/{courseId}/notes/{chapterSection}',
-  });
 
   connectModelRead(Course, 'fetch', { pattern: 'courses/{id}' });
 

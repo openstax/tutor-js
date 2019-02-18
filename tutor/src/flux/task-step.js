@@ -1,13 +1,11 @@
-import { find, each, partial, extend, last } from 'lodash';
-import flux from 'flux-react';
+import { find, each, partial, extend, last, get } from 'lodash';
 import Durations from '../helpers/durations';
 import { StepTitleActions } from './step-title';
-
+import { ResponseValidation } from '../models/response_validation';
+import { CrudConfig, makeSimpleStore, extendConfig, STATES } from './helpers';
 
 let TaskActions;
 const RECOVERY = 'recovery';
-
-import { CrudConfig, makeSimpleStore, extendConfig, STATES } from './helpers';
 const crudConfig = new CrudConfig();
 
 const isMissingExercises = response => (response.errors != null) && findWhere(response.errors, { code: 'no_exercises' });
@@ -102,10 +100,17 @@ const TaskStepConfig = {
     return this._save(id);
   },
 
-  setFreeResponseAnswer(id, free_response) {
+  async setFreeResponseAnswer(id, free_response) {
     this._change(id, { free_response });
-    return this._save(id);
+    const { spy, content: { uid } } = this._local[id];
+    const validation = new ResponseValidation();
+    await validation.validate({ uid, response: free_response });
+    const garbage_estimate = spy.garbage_estimate = validation.serialize();
+    this._change(id, { spy, garbage_estimate });
+    return actions.saveFreeResponseAnswer(id);
   },
+  // called once setFreeResponseAnswer completes above.  will trigger saving the flux store
+  saveFreeResponseAnswer() {},
 
   updateTempFreeResponse(id, cachedFreeResponse) {
     return this._change(id, { cachedFreeResponse });
