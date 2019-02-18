@@ -28,7 +28,8 @@ class ExContinueButton extends React.Component {
         isWaiting={!!waitingText}
         waitingText={waitingText}
         aria-controls="paged-content"
-        isFailed={isContinueFailed}>
+        isFailed={isContinueFailed}
+      >
         {buttonText}
       </AsyncButton>
     );

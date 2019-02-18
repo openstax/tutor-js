@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import _ from 'underscore';
+import { extend, isEmpty, pick, map, omit } from 'lodash';
 
 import ArbitraryHtmlAndMath from '../html';
 import Question from '../question';
@@ -12,7 +12,7 @@ const RESPONSE_CHAR_LIMIT = 10000;
 
 import { propTypes, props } from './props';
 const modeType = propTypes.ExerciseStepCard.panel;
-const modeProps = _.extend({}, propTypes.ExFreeResponse, propTypes.ExMulitpleChoice, propTypes.ExReview, { mode: modeType });
+const modeProps = extend({}, propTypes.ExFreeResponse, propTypes.ExMulitpleChoice, propTypes.ExReview, { mode: modeType });
 modeProps.focusParent = PropTypes.object;
 
 class ExMode extends React.Component {
@@ -49,25 +49,27 @@ class ExMode extends React.Component {
     return (typeof this.props.onAnswerChanged === 'function' ? this.props.onAnswerChanged(answer) : undefined);
   };
 
-  onFreeResponseChange = () => {
-    const freeResponse = __guard__(ReactDOM.findDOMNode(this.refs.freeResponse), x => x.value);
+  onFreeResponseChange = (ev) => {
+    const freeResponse = ev.target.value;
     if (freeResponse.length <= RESPONSE_CHAR_LIMIT) {
       this.setState({ freeResponse });
       return (typeof this.props.onFreeResponseChange === 'function' ? this.props.onFreeResponseChange(freeResponse) : undefined);
     }
   };
+  setFreeResponseRef = (textArea) => {
+    this.freeResponseEl = textArea;
+  }
 
   getFreeResponse = () => {
     const { mode, free_response, disabled } = this.props;
     const { freeResponse } = this.state;
-
 
     if (mode === 'free-response') {
       return (
         <textarea
           aria-label="question response text box"
           disabled={disabled}
-          ref="freeResponse"
+          ref={this.setFreeResponseRef}
           placeholder="Enter your response"
           value={freeResponse}
           onChange={this.onFreeResponseChange} />
@@ -83,7 +85,7 @@ class ExMode extends React.Component {
     if (this.props.mode === mode) { return; }
 
     if (this.props.mode === 'free-response') {
-      focusEl = ReactDOM.findDOMNode(this.refs.freeResponse);
+      focusEl = this.freeResponseEl;
     } else {
       focusEl = ReactDOM.findDOMNode(this.props.focusParent);
     }
@@ -106,7 +108,7 @@ class ExMode extends React.Component {
     if (this.state.freeResponse !== freeResponse) { nextAnswers.freeResponse = freeResponse; }
     if (this.state.answerId !== answer_id) { nextAnswers.answerId = answer_id; }
 
-    if (!_.isEmpty(nextAnswers)) { return this.setState(nextAnswers); }
+    if (!isEmpty(nextAnswers)) { return this.setState(nextAnswers); }
   }
 
   render() {
@@ -129,7 +131,7 @@ class ExMode extends React.Component {
       'focus',
     ];
 
-    const questionProps = _.pick(this.props, questionProperties);
+    const questionProps = pick(this.props, questionProperties);
     if (mode === 'multiple-choice') {
       changeProps =
         { onChange: this.onAnswerChanged };
@@ -138,7 +140,7 @@ class ExMode extends React.Component {
         { onChangeAttempt: onChangeAnswerAttempt };
     }
 
-    const htmlAndMathProps = _.pick(this.props, 'processHtmlAndMath');
+    const htmlAndMathProps = pick(this.props, 'processHtmlAndMath');
 
     const { stimulus_html } = content;
     if ((stimulus_html != null ? stimulus_html.length : undefined) > 0) { stimulus = <ArbitraryHtmlAndMath
@@ -147,8 +149,8 @@ class ExMode extends React.Component {
       block={true}
       html={stimulus_html} />; }
 
-    const questions = _.map(content.questions, question => {
-      if (mode === 'free-response') { question = _.omit(question, 'answers'); }
+    const questions = map(content.questions, question => {
+      if (mode === 'free-response') { question = omit(question, 'answers'); }
       question = new QuestionModel(question);
       return (
         <Question
@@ -157,7 +159,8 @@ class ExMode extends React.Component {
           key={`step-question-${question.id}`}
           question={question}
           answer_id={answerId}
-          keySet={answerKeySet}>
+          keySet={answerKeySet}
+        >
           {this.getFreeResponse()}
         </Question>
       );
@@ -174,7 +177,3 @@ class ExMode extends React.Component {
 
 
 export { ExMode };
-
-function __guard__(value, transform) {
-  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
-}
