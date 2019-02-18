@@ -6,6 +6,7 @@
     }
     .visible-when-debugging {
       display: block;
+      word-break: break-all;
 
       &:not(.unstyled) {
         border: 1px solid;
