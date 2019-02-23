@@ -7,41 +7,65 @@ import { observable, action, computed } from 'mobx';
 import SectionsFilter from './sections-filter';
 import NoteCard from './note-card';
 import SummaryPopup from './summary-popup';
-import NotesMap from '../../models/notes';
+import { Notes } from '../../models/notes';
+import Page from '../../models/reference-book/page';
+import ChapterSection from '../../models/chapter-section';
+
+const NotesForSection = observer(({ onDelete, notes, chapterSection }) => {
+  const sel = notes.find(chapterSection);
+  if (!sel.section) { return null; }
+
+  return (
+    <div className="section">
+      <h2>{sel.section.chapter_section.asString} {sel.section.title}</h2>
+      {sel.notes.array.map((note) => (
+        <NoteCard
+          key={note.id}
+          note={note}
+          onDelete={onDelete}
+        />
+      ))}
+    </div>
+  );
+});
+
 
 export default
 @observer
 class NoteSummaryPage extends React.Component {
 
   static propTypes = {
-    notes: PropTypes.instanceOf(NotesMap).isRequired,
+    page: PropTypes.instanceOf(Page).isRequired,
+    notes: PropTypes.instanceOf(Notes).isRequired,
     onDelete: PropTypes.func.isRequired,
-    currentChapter: PropTypes.number.isRequired,
-    currentSection: PropTypes.number.isRequired,
-    courseId: PropTypes.string.isRequired,
+    // currentChapter: PropTypes.number.isRequired,
+    // currentSection: PropTypes.number.isRequired,
   };
 
-  @readonly selectedSections = observable.map();
+  @readonly selectedSections = observable.array();
 
-  resetToSection(chapter, section) {
+  resetCurrentChapterSection() {
     this.selectedSections.clear();
-    this.selectedSections.set(`${chapter}.${section}`, true);
+    if (this.props.notes.find(this.currentChapterSection.key)) {
+      this.selectedSections.push(this.currentChapterSection.key);
+    }
   }
 
   componentWillMount() {
-    this.resetToSection(this.props.currentChapter, this.props.currentSection);
+    this.resetCurrentChapterSection();
+  }
+
+  @computed get currentChapterSection() {
+    return this.props.page.chapter_section;
   }
 
   componentDidMount() {
     this.prepareFocus();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (
-      nextProps.currentSection !== this.props.currentSection ||
-        nextProps.currentChapter !== this.props.currentChapter
-    ) {
-      this.resetToSection(nextProps.currentChapter, nextProps.currentSection);
+  componentDidUpdate(prevProps) {
+    if (this.props.page !== prevProps.page) {
+      this.resetCurrentChapterSection();
     }
   }
 
@@ -60,13 +84,16 @@ class NoteSummaryPage extends React.Component {
     this.prepareFocus();
   }
 
-  @computed get notesBySection() {
-    return this.props.notes.byCourseAndPage[this.props.courseId];
-  }
-
-  @computed get selectedNotes() {
-    return pickBy(this.notesBySection, (notes, cs) => this.selectedSections.get(cs));
-  }
+  // @computed get sectionsWithNotes() {
+  //   const sections = [];
+  //   this.selectedSections.forEach((cs) => {
+  //     const section = notes.find(chapterSection);
+  //
+  //   })
+  //  //   sections.push(
+  //    //   return this.props.notes.sections;
+  //   //    return this.props.notes.byCourseAndPage[this.props.courseId];
+  // }
 
   renderEmpty() {
     return (
@@ -83,8 +110,14 @@ class NoteSummaryPage extends React.Component {
     );
   }
 
+
   renderEmptyMessage() {
-    if (isEmpty(this.selectedNotes)) {
+    const { notes, page } = this.props;
+
+    if (
+      !this.selectedSections.length &&
+        !notes.sections.find(s => s.chapter_section.matches(page.chapter_section))
+    ) {
       return (
         <div className="notes">
           <h3>This page has no notes</h3>
@@ -97,9 +130,11 @@ class NoteSummaryPage extends React.Component {
   }
 
   render() {
-    if (!keys(this.notesBySection).length) {
+    if (isEmpty(this.props.notes.sections)) {
       return this.renderEmpty();
     }
+
+    const { notes } = this.props;
 
     return (
       <div className="summary-page" ref={ref => this.containerRef = ref}>
@@ -108,25 +143,23 @@ class NoteSummaryPage extends React.Component {
         </h1>
         <div className="filter-area">
           <SectionsFilter
-            sections={this.notesBySection}
+            notes={notes}
             selected={this.selectedSections}
           />
-          <SummaryPopup notes={this.selectedNotes} courseId={this.props.courseId} />
+          <SummaryPopup
+            notes={notes}
+            selected={this.selectedSections}
+          />
         </div>
         {this.renderEmptyMessage()}
         <div className="notes">
-          {map(this.selectedNotes, (notes, ch) =>
-            <div key={ch} className="section">
-              <h2>{notes[0].formattedChapterSection} {notes[0].title}</h2>
-              {map(notes, (note) => (
-                <NoteCard
-                  key={note.id}
-                  note={note}
-                  onDelete={this.onDelete}
-                />
-              ))}
-            </div>
-          )}
+          {this.selectedSections.slice().sort().map((cs, i) =>
+            <NotesForSection
+              key={i}
+              notes={notes}
+              chapterSection={cs}
+              onDelete={this.onDelete}
+            />)}
         </div>
       </div>
     );

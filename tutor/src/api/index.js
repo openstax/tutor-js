@@ -51,7 +51,7 @@ import CourseTeacher from '../models/course/teacher';
 import TeacherTaskPlan from '../models/task-plan/teacher';
 import TaskPlanStats from '../models/task-plan/stats';
 import { ResponseValidation } from '../models/response_validation';
-import { PageNotes, Note } from '../models/notes';
+import { Notes, PageNotes, Note } from '../models/notes';
 
 const { connectModify, connectCreate, connectRead, connectUpdate, connectDelete, connectModelCreate, connectModelRead, connectModelUpdate, connectModelDelete } = adapters;
 
@@ -182,6 +182,10 @@ const startAPI = function() {
   connectModelRead(PageNotes, 'fetch', {
     onSuccess: 'onLoaded',
     pattern: 'courses/{courseId}/notes/{chapterSection}',
+  });
+  connectModelRead(Notes, 'fetchHighlightedSections', {
+    onSuccess: 'onHighlightedSectionsLoaded',
+    pattern: 'courses/{courseId}/highlighted_sections',
   });
 
   connectModelRead(Course, 'fetch', { pattern: 'courses/{id}' });

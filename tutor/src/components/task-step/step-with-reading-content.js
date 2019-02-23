@@ -6,6 +6,7 @@ import { AsyncButton, ArbitraryHtmlAndMath, ChapterSectionMixin } from 'shared';
 import { get } from 'lodash';
 import CourseData from '../../helpers/course-data';
 import Courses from '../../models/courses-map';
+import Page from '../../models/reference-book/page';
 import ChapterSection from '../../models/chapter-section';
 import { BookContentMixin, LinkContentMixin } from '../book-content-mixin';
 import RelatedContent from '../related-content';
@@ -59,10 +60,9 @@ const ReadingStepContent = createReactClass({
         variant="primary"
         isWaiting={this.state.isContinuing}
         waitingText="Loading…"
-        onClick={this.onContinue}>
-        {'\
-    Continue\
-         '}
+        onClick={this.onContinue}
+      >
+        Continue
       </AsyncButton>
     );
   },
@@ -71,8 +71,16 @@ const ReadingStepContent = createReactClass({
 
   getContentChapterSection() {
     const { chapter_section, related_content } = TaskStepStore.get(this.props.id);
-    console.log(related_content, chapter_section)
     return new ChapterSection(get(related_content, '[0].chapter_section', chapter_section));
+  },
+  pages: {},
+
+  getPageForContent() {
+    const { related_content } = TaskStepStore.get(this.props.id);
+    const cs = this.getContentChapterSection().asString;
+    return this.pages[cs] || (
+      this.pages[cs] = new Page(related_content[0])
+    );
   },
 
   getContentChapter() {
@@ -105,21 +113,22 @@ const ReadingStepContent = createReactClass({
             chapter_section={this.getContentChapterSection()}
             title={this.getContentTitle()} />
           <NoteWidget
+            page={this.getPageForContent()}
             course={course}
             chapter={this.getContentChapter()}
             section={this.getContentSection()}
             title={this.getContentTitle()}
             documentId={this.getCnxId()}
             pageType={stepType}
-          >
+            >
             <ArbitraryHtmlAndMath
-              className="book-content"
-              shouldExcludeFrame={this.shouldExcludeFrame}
-              html={content_html} />
-          </NoteWidget>
-          {this.renderNextStepLink()}
-        </div>
-      </div>
+            className="book-content"
+            shouldExcludeFrame={this.shouldExcludeFrame}
+            html={content_html} />
+            </NoteWidget>
+            {this.renderNextStepLink()}
+            </div>
+            </div>
     );
   },
 });

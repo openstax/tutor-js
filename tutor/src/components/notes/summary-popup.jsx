@@ -18,8 +18,6 @@ class SummaryPopup extends React.Component {
     windowImpl: PropTypes.shape({
       open: PropTypes.func,
     }),
-
-    courseId: PropTypes.string.isRequired,
     notes: PropTypes.object.isRequired,
   };
 
@@ -49,10 +47,13 @@ class SummaryPopup extends React.Component {
   }
 
   render() {
-    const { courseId, notes } = this.props;
-    if (isEmpty(notes)) { return null; }
+    return null;
 
-    const course = Courses.get(courseId);
+    const { notes } = this.props;
+    if (!notes) { return null; }
+
+    const { course } = notes;
+
     return (
       <div>
         <Button

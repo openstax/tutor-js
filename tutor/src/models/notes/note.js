@@ -34,7 +34,6 @@ class Note extends BaseModel {
     intercept(this, 'annotation', this.validateTextLength);
   }
 
-
   @computed get highlight() {
     return new SerializedHighlight(
       extend(toJS(this.contents), pick(this, 'id')),
@@ -46,6 +45,10 @@ class Note extends BaseModel {
       change.newValue = change.newValue.slice(0, Note.MAX_TEXT_LEN);
     }
     return change;
+  }
+
+  @computed get content() {
+    return this.contents.content;
   }
 
   @action save() {

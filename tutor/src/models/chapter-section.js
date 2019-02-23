@@ -18,7 +18,12 @@ class ChapterSection extends BaseModel {
     if (skipZeros && !this.section) {
       return `${this.chapter}`;
     }
-    return `${this.chapter}${sectionSeparator}${this.section}`;
+    return `${this.chapter}${sectionSeparator}${this.section || 0}`;
+  }
+
+  matches(chapterSection) {
+    const [c,s] = String(chapterSection).split('.');
+    return this.chapter == c && (!s || this.section == s);
   }
 
   @computed get isEmpty() {
@@ -27,6 +32,10 @@ class ChapterSection extends BaseModel {
 
   @computed get asString() {
     return this.format();
+  }
+
+  @computed get key() {
+    return this.format({ skipZeros: false });
   }
 
   toString() {

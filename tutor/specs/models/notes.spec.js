@@ -1,7 +1,7 @@
 import { Factory } from '../helpers';
 import DATA from '../../api/notes.json';
 import { keys } from 'lodash';
-import Notes, { PageNotes, Note } from '../../src/models/notes';
+import { Notes, PageNotes, Note } from '../../src/models/notes';
 
 describe('Notes Model', () => {
   let notes;
@@ -10,20 +10,22 @@ describe('Notes Model', () => {
     notes = new Notes({ course: Factory.course() });
   });
 
-  //   it('maps notes by section', () => {
-  //     const page = Factory.notesPageMap({
-  //       course: notes.course, chapter: 2, section: 1,
-  //     });
-  //     // Factory.notesPageMap({
-  //     //   course: notes.course, chapter: 1, section: 1,
-  //     // });
-  //     expect(keys(page.notesBySection)).toEqual(['1.1', '2.1']);
-  //   });
-  //
-  it('sorts in model', () => {
-    // expect(Object.keys(notes.byCourseAndPage)).toEqual(['1']);
-    // expect(Object.keys(notes.byCourseAndPage[1])).toEqual(['2.1']);
-    // expect(Object.keys(notes.byCourseAndPage[1]['2.1'])).toHaveLength(2);
+  it('calls save and adds to sections', () => {
+    const notesPage = Factory.notesPageMap({
+      course: notes.course, chapter: 2, section: 1,
+    });
+    const spy = jest.spyOn(Note.prototype, 'save').mockImplementation(() => Promise.resolve());
+    const page = Factory.page();
+    return notesPage.create({
+      page,
+      anchor: '1234',
+      contents: { foo: '123' },
+    }).then(() => {
+      expect(spy).toHaveBeenCalled();
+      expect(
+        notesPage.notes.sections[0].chapter_section.key
+      ).toEqual(page.chapter_section.key);
+    });
   });
 
 });

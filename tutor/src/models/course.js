@@ -24,7 +24,7 @@ import moment from 'moment-timezone';
 import StudentTasks from './student-tasks';
 import TeacherTaskPlans from './course/task-plans';
 import PastTaskPlans from './course/past-task-plans';
-import Notes from './notes';
+import { Notes } from './notes';
 import ReferenceBook from './reference-book';
 
 const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];

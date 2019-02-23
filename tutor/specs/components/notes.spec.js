@@ -55,11 +55,9 @@ describe('Notes', () => {
       collapse: jest.fn(),
     }));
     props = {
+      page,
       notes,
       course,
-      chapter,
-      section,
-      title: page.title,
       windowImpl: window,
     };
   });

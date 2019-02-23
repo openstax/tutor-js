@@ -1,12 +1,12 @@
-import { action, computed, observable } from 'mobx';
-import { sortBy, groupBy, mapValues } from 'lodash';
+import { action, observable } from 'mobx';
+import { includes } from 'lodash';
+import {
+  BaseModel, identifiedBy, hasMany, session, identifier,
+} from 'shared/model';
+import ChapterSection from './chapter-section';
 import Map from 'shared/model/map';
 import Note from './notes/note';
-import FeatureFlags from './feature_flags';
 
-export { Note };
-
-export
 class PageNotes extends Map {
   keyType = Number
 
@@ -16,6 +16,7 @@ class PageNotes extends Map {
     super();
     this.notes = notes;
     this.chapterSection = chapterSection;
+    this.fetch();
   }
 
   fetch() {
@@ -29,28 +30,46 @@ class PageNotes extends Map {
     this.mergeModelData(notes);
   }
 
-  create({ anchor, chapter_section, ...attrs }) {
+  create({ anchor, page, ...attrs }) {
     const note = new Note({
       anchor,
-      chapter_section,
+      chapter_section: page.chapter_section,
       contents: attrs,
     }, this);
-    return note.save().then(() => note);
+
+    return note.save().then(() => {
+      if (!includes(this.notes.sections, page.chapter_section.key)) {
+        this.notes.sections.push(page);
+      }
+      return note;
+    });
   }
 
 }
 
-export default
-class Notes {
+@identifiedBy('notes/highlighted-section')
+class HighlightedSection extends BaseModel {
+
+  @identifier id;
+  @session title;
+  @session({ model: ChapterSection }) chapter_section;
+
+}
+
+@identifiedBy('notes')
+class Notes extends BaseModel {
 
   pages = observable.map();
 
+  @hasMany({ model: HighlightedSection }) sections;
+
   constructor({ course }) {
+    super();
     this.course = course;
+    this.fetchHighlightedSections();
   }
 
-  forChapterSection(chapter, section) {
-    const chapterSection = `${chapter}.${section}`;
+  @action forChapterSection(chapterSection) {
     let pages = this.pages.get(chapterSection);
     if (!pages) {
       pages = new PageNotes({ chapterSection, notes: this });
@@ -59,18 +78,26 @@ class Notes {
     return pages;
   }
 
-  // TODO once BE supports getting all possible chapter.sections
-  //   @computed get array() {
-  //     this.pages.
-  //   }
-  // @computed get notesBySection() {
-  //   return mapValues(
-  //     groupBy(Array.from(this.pages.keys()), 'chapter_section.asString'),
-  //     (notes) => sortBy(
-  //       notes,
-  //       ['contents.selection.rect.top', 'contents.selection.start']
-  //     )
-  //   );
-  // }
-  //
+  fetchHighlightedSections() {
+    return { courseId: this.course.id };
+  }
+
+  onHighlightedSectionsLoaded({ data: { pages } }) {
+    this.sections = pages;
+  }
+
+  find(chapterSection) {
+    const section = this.sections.find(s =>
+      s.chapter_section.matches(chapterSection)
+    );
+    if (section) {
+      return {
+        section,
+        notes: this.forChapterSection(chapterSection),
+      };
+    }
+    return null;
+  }
 }
+
+export { Note, Notes, PageNotes };

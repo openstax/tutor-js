@@ -9,7 +9,6 @@ import classnames from 'classnames';
 import { BookContentMixin } from './book-content-mixin';
 import { ReferenceBookExerciseShell } from './book-page/exercise';
 import RelatedContent from './related-content';
-
 import NotesWidget from './notes';
 import { ReferenceBookExerciseActions, ReferenceBookExerciseStore } from '../flux/reference-book-exercise';
 
@@ -108,9 +107,7 @@ const BookPage = createReactClass({
       content = (
         <NotesWidget
           course={ux.course}
-          chapter={page.chapter_section.chapter}
-          section={page.chapter_section.section}
-          title={title}
+          page={page}
           documentId={page.cnx_id}
         >{content}</NotesWidget>
       );

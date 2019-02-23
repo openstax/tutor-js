@@ -161,7 +161,6 @@ class RefundStages extends React.Component {
 
   render() {
     const props = { onContinue: this.onContinue, ...this.props };
-    console.log("rend", this.stage)
     if (this.stage == 0) return <AreYouSure {...props} />;
     if (this.stage == 1) return <Survey {...props} />;
     if (this.stage == 2) return <ProcessRefund {...props} />;

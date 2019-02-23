@@ -13,6 +13,7 @@ import { ExercisesMap } from '../../src/models/exercises';
 import { ResearchSurvey } from '../../src/models/research-surveys/survey';
 import StudentDashboardTask from '../../src/models/student/task';
 import Note from '../../src/models/notes/note';
+import Page from '../../src/models/reference-book/page';
 
 import './research_survey';
 import './dashboard';
@@ -31,6 +32,7 @@ const Factories = {};
 each({
   Note,
   Book,
+  Page,
   Course,
   Offering,
   Ecosystem,

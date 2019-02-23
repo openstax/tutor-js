@@ -17,25 +17,58 @@ import Router from '../helpers/router';
 //import NotesMap from '../models/notes';
 import Overlay from './obscured-page/overlay';
 
+import Page from '../models/reference-book/page';
+
 export default
+class NotesWidgetWrapper extends React.Component {
+
+  static propTypes = {
+    course: PropTypes.instanceOf(Course).isRequired,
+    children: PropTypes.node.isRequired,
+    windowImpl: PropTypes.shape({
+      open: PropTypes.func,
+    }),
+    page: PropTypes.instanceOf(Page).isRequired,
+    // title: PropTypes.string,
+    // chapter: PropTypes.number.isRequired,
+    // section: PropTypes.number.isRequired,
+  };
+
+  render() {
+    const { course, page } = this.props;
+
+    if (!course.canAnnotate) { return this.props.children; }
+
+    return (
+      <NotesWidget
+        key={`${course.id}.${page.id}`}
+        notes={course.notes.forChapterSection(page.chapter_section)}
+        {...this.props}
+      />
+    );
+  }
+
+}
+
 @observer
 class NotesWidget extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
-//    documentId: PropTypes.string,
+    //    documentId: PropTypes.string,
     children: PropTypes.node.isRequired,
     windowImpl: PropTypes.shape({
       open: PropTypes.func,
     }),
-    title: PropTypes.string,
-    chapter: PropTypes.number.isRequired,
-    section: PropTypes.number.isRequired,
+    page: PropTypes.instanceOf(Page).isRequired,
+    // title: PropTypes.string,
+    // chapter: PropTypes.number.isRequired,
+    // section: PropTypes.number.isRequired,
     //    notes: PropTypes.instanceOf(NotesMap),
   };
 
   static defaultProps = {
-//    notes: User.notes,
+    //    notes: User.notes,
     windowImpl: window,
   };
 
@@ -59,7 +92,7 @@ class NotesWidget extends React.Component {
     }
 
     when(
-      () => !this.notes.api.isPending,
+      () => !this.props.notes.api.isPending,
       this.initializePage,
     );
   }
@@ -68,22 +101,6 @@ class NotesWidget extends React.Component {
     if (this.highlighter) {
       this.highlighter.unmount();
     }
-  }
-
-  @computed get notes() {
-    return this.props.course.notes.forChapterSection(
-      this.props.chapter, this.props.section,
-    );
-  }
-
-  @computed get notesForThisPage() {
-
-    // return this.allNotesForThisBook.filter(item =>
-    //   (item.chapter === this.props.chapter) &&
-    //   (item.section === this.props.section) &&
-    //   this.highlighter &&
-    //   item.highlight.isLoadable(this.highlighter)
-    // );
   }
 
   @computed get allNotesForThisBook() {
@@ -109,7 +126,7 @@ class NotesWidget extends React.Component {
     await imagesComplete({ body: this.documentRoot });
     return new Promise(r => {
       when(
-        () => !this.notes.api.isPending,
+        () => !this.props.notes.api.isPending,
         r()
       );
     });
@@ -130,7 +147,7 @@ class NotesWidget extends React.Component {
       onSelect: this.onHighlightSelect,
     });
 
-    this.notes.forEach(
+    this.props.notes.forEach(
       note => this.highlighter.highlight(note.highlight),
     );
   }
@@ -156,7 +173,7 @@ class NotesWidget extends React.Component {
   }, 100)
 
   @action.bound onHighlightClick(highlight) {
-    const note = highlight ? this.notes.get(highlight.id) : null;
+    const note = highlight ? this.props.notes.get(highlight.id) : null;
     this.pendingHighlight = null;
     this.activeNote = note;
 
@@ -231,21 +248,16 @@ class NotesWidget extends React.Component {
     const highlight = this.pendingHighlight;
 
     const referenceElement = this.referenceElements
-      .find(re => dom(re).isParent(highlight.range.commonAncestorContainer));
+      .find(re => dom(re).isParent(
+        highlight.range.commonAncestorContainer)
+      );
 
     const serializedHighlight = highlight.serialize(referenceElement);
 
-    // documentId: this.props.documentId,
-    // courseId: this.props.courseId,
-    // chapter: this.props.chapter,
-    // section: this.props.section,
-    //      research_identifier: this.props.course.primaryRole.research_identifier,
-    // userRole: this.props.course.primaryRole.type,
-
-    return this.notes.create({
+    return this.props.notes.create({
       anchor: `#${referenceElement.id}`,
-      title: this.props.title,
-      chapter_section: [this.props.chapter, this.props.section],
+      title: this.props.page.title,
+      page: this.props.page,
       rect: dom(highlight.range).boundingClientRect,
       ...serializedHighlight.data,
     });
@@ -253,7 +265,7 @@ class NotesWidget extends React.Component {
 
   @computed get sortedNotesForPage() {
     return sortBy(
-      this.notes,
+      this.props.notes,
       ['selection.bounds.top', 'selection.start']
     );
   }
@@ -277,7 +289,7 @@ class NotesWidget extends React.Component {
 
     const targetNoteId = highlights[targetIndex].id;
 
-    return this.notes.get(targetNoteId);
+    return this.props.notes.get(targetNoteId);
   }
 
   get nextNote() {
@@ -364,8 +376,17 @@ class NotesWidget extends React.Component {
     );
   }
 
+  renderSummaryPage = () => {
+    return (
+      <SummaryPage
+        notes={this.props.course.notes}
+        onDelete={this.onNoteDelete}
+        page={this.props.page}
+      />
+    );
+  }
+
   render() {
-    if (!this.props.course.canAnnotate) { return this.props.children; }
 
     return (
       <div className="annotater">
@@ -381,7 +402,7 @@ class NotesWidget extends React.Component {
         <SidebarButtons
           windowImpl={this.props.windowImpl}
           highlighter={this.highlighter}
-          notes={this.notes}
+          notes={this.props.notes}
           parentRect={this.parentRect}
           onClick={this.editNote}
           activeNote={this.activeNote}
@@ -400,14 +421,7 @@ class NotesWidget extends React.Component {
             id="notes-summary"
             visible={this.ux.isSummaryVisible}
             onHide={this.ux.hideSummary}
-            renderer={() =>
-              <SummaryPage
-                courseId={this.props.courseId}
-                notes={this.notes}
-                onDelete={this.onNoteDelete}
-                currentChapter={this.props.chapter}
-                currentSection={this.props.section}
-              />}
+            renderer={this.renderSummaryPage}
           />
           {this.props.children}
         </div>
