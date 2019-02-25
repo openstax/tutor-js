@@ -5,7 +5,7 @@ import {
 
 import Teacher from './teacher';
 import Student from './student';
-import { extendHasMany } from '../../helpers/computed-property';
+import { getters } from '../../helpers/computed-property';
 
 export default
 @identifiedBy('course/roster')
@@ -15,12 +15,12 @@ class CourseRoster extends BaseModel {
 
   @belongsTo({ model: 'course' }) course;
 
-  @hasMany({ model: Teacher, inverseOf: 'roster', extend: extendHasMany({
+  @hasMany({ model: Teacher, inverseOf: 'roster', extend: getters({
     active() { return filter(this, t => t.is_active); },
     dropped(){ return filter(this, t => !t.is_active); },
   }) }) teachers;
 
-  @hasMany({ model: Student, inverseOf: 'roster', extend: extendHasMany({
+  @hasMany({ model: Student, inverseOf: 'roster', extend: getters({
     active() { return filter(this, t => t.is_active); },
     activeByPeriod() { return groupBy(filter(this, t => t.is_active), 'period_id'); },
     dropped(){ return filter(this, t => !t.is_active); },

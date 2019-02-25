@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { readonly } from 'core-decorators';
-import { map, keys, pickBy, isEmpty } from 'lodash';
+import { isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
 import { observable, action, computed } from 'mobx';
 import SectionsFilter from './sections-filter';
@@ -9,16 +9,19 @@ import NoteCard from './note-card';
 import SummaryPopup from './summary-popup';
 import { Notes } from '../../models/notes';
 import Page from '../../models/reference-book/page';
-import ChapterSection from '../../models/chapter-section';
 
-const NotesForSection = observer(({ onDelete, notes, chapterSection }) => {
-  const sel = notes.find(chapterSection);
-  if (!sel.section) { return null; }
+const NotesForSection = observer(({
+  onDelete, notes, section, selectedSections,
+}) => {
+  if (!selectedSections.includes(section.chapter_section.key)) {
+    return null;
+  }
+  const page = notes.forChapterSection(section.chapter_section);
 
   return (
     <div className="section">
-      <h2>{sel.section.chapter_section.asString} {sel.section.title}</h2>
-      {sel.notes.array.map((note) => (
+      <h2>{section.chapter_section.asString} {section.title}</h2>
+      {page.array.map((note) => (
         <NoteCard
           key={note.id}
           note={note}
@@ -38,8 +41,6 @@ class NoteSummaryPage extends React.Component {
     page: PropTypes.instanceOf(Page).isRequired,
     notes: PropTypes.instanceOf(Notes).isRequired,
     onDelete: PropTypes.func.isRequired,
-    // currentChapter: PropTypes.number.isRequired,
-    // currentSection: PropTypes.number.isRequired,
   };
 
   @readonly selectedSections = observable.array();
@@ -79,21 +80,10 @@ class NoteSummaryPage extends React.Component {
     focusAnchor.addEventListener('blur', () => containerRef.removeChild(focusAnchor), false);
   }
 
-  @action.bound onDelete(...args) {
-    this.props.onDelete(...args);
+  @action.bound onDelete(note) {
+    this.props.onDelete(note);
     this.prepareFocus();
   }
-
-  // @computed get sectionsWithNotes() {
-  //   const sections = [];
-  //   this.selectedSections.forEach((cs) => {
-  //     const section = notes.find(chapterSection);
-  //
-  //   })
-  //  //   sections.push(
-  //    //   return this.props.notes.sections;
-  //   //    return this.props.notes.byCourseAndPage[this.props.courseId];
-  // }
 
   renderEmpty() {
     return (
@@ -153,11 +143,12 @@ class NoteSummaryPage extends React.Component {
         </div>
         {this.renderEmptyMessage()}
         <div className="notes">
-          {this.selectedSections.slice().sort().map((cs, i) =>
+          {notes.sections.sorted().map((s, i) =>
             <NotesForSection
               key={i}
               notes={notes}
-              chapterSection={cs}
+              selectedSections={this.selectedSections}
+              section={s}
               onDelete={this.onDelete}
             />)}
         </div>

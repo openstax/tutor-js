@@ -15,6 +15,7 @@ class SectionsFilter extends React.Component {
   };
 
   @action.bound onSelect({ id: key, selected } = {}) {
+
     if (selected) {
       this.props.selected.remove(key);
     } else {
@@ -23,7 +24,7 @@ class SectionsFilter extends React.Component {
   }
 
   @computed get choices() {
-    return this.props.notes.sections.map((s) => (
+    return this.props.notes.sections.sorted().map((s) => (
       {
         id: s.chapter_section.key,
         title: (

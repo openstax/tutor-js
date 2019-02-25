@@ -3,18 +3,18 @@ import { observable, action, computed, when } from 'mobx';
 import { autobind } from 'core-decorators';
 import { Icon, Logging } from 'shared';
 import User from '../models/user';
-import { filter, last, sortBy, debounce } from 'lodash';
+import { last, sortBy, debounce } from 'lodash';
 import SummaryPage from './notes/summary-page';
 import dom from '../helpers/dom';
 import imagesComplete from '../helpers/images-complete';
 import Course from '../models/course';
+import { PageNotes } from '../models/notes';
 import EditBox from './notes/edit-box';
 import SidebarButtons from './notes/sidebar-buttons';
 import InlineControls from './notes/inline-controls';
 import ScrollTo from '../helpers/scroll-to';
-import Highlighter, { SerializedHighlight } from '@openstax/highlighter';
+import Highlighter from '@openstax/highlighter';
 import Router from '../helpers/router';
-//import NotesMap from '../models/notes';
 import Overlay from './obscured-page/overlay';
 
 import Page from '../models/reference-book/page';
@@ -29,9 +29,6 @@ class NotesWidgetWrapper extends React.Component {
       open: PropTypes.func,
     }),
     page: PropTypes.instanceOf(Page).isRequired,
-    // title: PropTypes.string,
-    // chapter: PropTypes.number.isRequired,
-    // section: PropTypes.number.isRequired,
   };
 
   render() {
@@ -55,20 +52,15 @@ class NotesWidget extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
-    //    documentId: PropTypes.string,
+    notes: PropTypes.instanceOf(PageNotes).isRequired,
     children: PropTypes.node.isRequired,
     windowImpl: PropTypes.shape({
       open: PropTypes.func,
     }),
     page: PropTypes.instanceOf(Page).isRequired,
-    // title: PropTypes.string,
-    // chapter: PropTypes.number.isRequired,
-    // section: PropTypes.number.isRequired,
-    //    notes: PropTypes.instanceOf(NotesMap),
   };
 
   static defaultProps = {
-    //    notes: User.notes,
     windowImpl: window,
   };
 
@@ -101,11 +93,6 @@ class NotesWidget extends React.Component {
     if (this.highlighter) {
       this.highlighter.unmount();
     }
-  }
-
-  @computed get allNotesForThisBook() {
-    return [];
-    // return filter(this.props.notes.array, { courseId: this.props.courseId });
   }
 
   setupPendingHighlightScroll(highlightId) {
@@ -147,9 +134,13 @@ class NotesWidget extends React.Component {
       onSelect: this.onHighlightSelect,
     });
 
-    this.props.notes.forEach(
-      note => this.highlighter.highlight(note.highlight),
-    );
+    this.props.notes.forEach(note => {
+      try {
+        this.highlighter.highlight(note.highlight);
+      } catch(error) {
+        console.warn(error);
+      }
+    });
   }
 
   initializePage = debounce(async () => {

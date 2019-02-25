@@ -31,19 +31,17 @@ class NoteButton extends React.Component {
     return top;
   }
 
-  highlightTop = this.calculateTop()
-
   @action.bound onClick() {
     this.props.onClick(this.props.note);
   }
 
   render() {
-    const { highlightTop } = this;
-    const { note, isActive, containerTop } = this.props;
 
+    const { note, isActive, containerTop } = this.props;
+    const highlightTop = this.calculateTop();
     if (highlightTop == null) { return null; }
 
-    const top = this.highlightTop - containerTop;
+    const top = highlightTop - containerTop;
 
     return (
       <Icon
@@ -79,14 +77,16 @@ class SidebarButtons extends React.Component {
   }
 
   renderNotes() {
-    return filter(this.props.notes, 'text').map(note =>
-      <NoteButton
-        key={note.id}
-        isActive={this.props.activeNote === note}
-        containerTop={this.containerTop}
-        {...this.props}
-        note={note}
-      />
+    return this.props.notes.array.map(note =>
+      note.annotation && (
+        <NoteButton
+          key={note.id}
+          isActive={this.props.activeNote === note}
+          containerTop={this.containerTop}
+          {...this.props}
+          note={note}
+        />
+      )
     );
   }
 

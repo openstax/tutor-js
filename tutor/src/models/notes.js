@@ -1,5 +1,5 @@
 import { action, observable } from 'mobx';
-import { includes } from 'lodash';
+import { includes, sortBy, values } from 'lodash';
 import {
   BaseModel, identifiedBy, hasMany, session, identifier,
 } from 'shared/model';
@@ -30,6 +30,11 @@ class PageNotes extends Map {
     this.mergeModelData(notes);
   }
 
+  @action onNoteDeleted(note) {
+    this.delete(note.id);
+    this.notes.onNoteDeleted(note, this);
+  }
+
   create({ anchor, page, ...attrs }) {
     const note = new Note({
       anchor,
@@ -38,7 +43,7 @@ class PageNotes extends Map {
     }, this);
 
     return note.save().then(() => {
-      if (!includes(this.notes.sections, page.chapter_section.key)) {
+      if (!this.notes.sections.forChapterSection(page.chapter_section.key)) {
         this.notes.sections.push(page);
       }
       return note;
@@ -61,7 +66,12 @@ class Notes extends BaseModel {
 
   pages = observable.map();
 
-  @hasMany({ model: HighlightedSection }) sections;
+  @hasMany({ model: HighlightedSection, extend: {
+    sorted() { return sortBy(this, 'chapter_section.key'); },
+    forChapterSection(cs) {
+      return this.find(s => s.chapter_section.matches(cs));
+    },
+  } }) sections = [];
 
   constructor({ course }) {
     super();
@@ -70,6 +80,7 @@ class Notes extends BaseModel {
   }
 
   @action forChapterSection(chapterSection) {
+    chapterSection = String(chapterSection);
     let pages = this.pages.get(chapterSection);
     if (!pages) {
       pages = new PageNotes({ chapterSection, notes: this });
@@ -83,13 +94,27 @@ class Notes extends BaseModel {
   }
 
   onHighlightedSectionsLoaded({ data: { pages } }) {
-    this.sections = pages;
+    const sections = {};
+    pages.forEach(pg => {
+      const key = pg.chapter_section.join('.');
+      if (!sections[key]) { sections[key] = pg; }
+    });
+    this.sections = values(sections);
+  }
+
+  @action onNoteDeleted(note, page) {
+    if (page.isEmpty) {
+      const section = this.sections.forChapterSection(note.chapter_section);
+      if (section) {
+        this.sections.remove(section);
+      }
+    }
+
   }
 
   find(chapterSection) {
-    const section = this.sections.find(s =>
-      s.chapter_section.matches(chapterSection)
-    );
+    chapterSection = String(chapterSection);
+    const section = this.sections.forChapterSection(chapterSection);
     if (section) {
       return {
         section,

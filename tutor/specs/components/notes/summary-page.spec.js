@@ -1,9 +1,6 @@
 import SummaryPage from '../../../src/components/notes/summary-page';
 import { Factory } from '../../helpers';
 
-// import Notes from
-
-
 describe('Notes Summary Page', () => {
   let pages;
   let props;

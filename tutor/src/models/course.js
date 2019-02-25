@@ -17,9 +17,8 @@ import Scores from './course/scores';
 import LMS from './course/lms';
 import PH from '../helpers/period';
 import TimeHelper from '../helpers/time';
-import FeatureFlags from './feature_flags';
 import Time from './time';
-import { extendHasMany } from '../helpers/computed-property';
+import { getters } from '../helpers/computed-property';
 import moment from 'moment-timezone';
 import StudentTasks from './student-tasks';
 import TeacherTaskPlans from './course/task-plans';
@@ -77,7 +76,7 @@ class Course extends BaseModel {
   @field reading_progress_weight;
   @field just_created = false;
 
-  @hasMany({ model: Period, inverseOf: 'course', extend: extendHasMany({
+  @hasMany({ model: Period, inverseOf: 'course', extend: getters({
     sorted() { return PH.sort(this.active);                        },
     archived() { return filter(this, period => !period.is_archived); },
     active() { return filter(this, period => !period.is_archived); },

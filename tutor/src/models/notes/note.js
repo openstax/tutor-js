@@ -6,23 +6,14 @@ import {
   BaseModel, identifiedBy, field, identifier, session,
 } from 'shared/model';
 
-
 export default
 @identifiedBy('notes/note')
 class Note extends BaseModel {
 
   static MAX_TEXT_LENGTH = 500;
   @identifier id;
-  // @field chapter;
-  // @field section;
-  // @field courseId;
-  // @field title;
-  // @field({ type: 'object' }) rect;
-
   @field annotation = '';
-
   @field anchor;
-
   @field({ type: 'object' }) contents = {};
   @session({ model: ChapterSection }) chapter_section;
   @session({ type: 'date' }) created_at;
@@ -67,7 +58,7 @@ class Note extends BaseModel {
   }
 
   onDeleted() {
-    this.page.delete(this.id);
+    this.page.onNoteDeleted(this);
   }
 
   @computed get urlParams() {

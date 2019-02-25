@@ -83,7 +83,7 @@ class NoteCard extends React.Component {
 
   @action.bound doDelete() {
     this.props.note.destroy().then(
-      this.props.onDelete
+      () => this.props.onDelete(this.props.note)
     );
   }
 

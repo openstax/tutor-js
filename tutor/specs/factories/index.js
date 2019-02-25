@@ -108,8 +108,7 @@ Factories.scores = ({ course }) => {
 Factories.notesPageMap = ({ course, chapter, section, count = 4 }) => {
   const page = course.notes.forChapterSection(chapter, section);
   range(count).forEach(() => {
-    const n = FactoryBot.create('Note', { chapter, section })
-    const note = new Note(n, page)
+    const note = new Note(FactoryBot.create('Note', { chapter, section }), page)
     page.set(note.id, note);
   })
   return page;

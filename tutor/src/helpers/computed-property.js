@@ -17,7 +17,7 @@ export function addComputedProperty(obj, name, fn) {
 
 }
 
-export function extendHasMany(properties) {
+export function getters(properties) {
   return (collection) => {
     forIn(properties, (fn, prop) => {
       addComputedProperty(collection, prop, fn);
