@@ -39,7 +39,7 @@ class ChapterSection extends BaseModel {
   }
 
   toString() {
-    return this.format();
+    return this.key;
   }
 
   @computed get asArray() {
