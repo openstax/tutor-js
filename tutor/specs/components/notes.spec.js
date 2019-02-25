@@ -33,9 +33,7 @@ describe('Notes', () => {
       course, chapter, section,
     });
     body.innerHTML = '<div id="mount"><div class="book-content">' +
-      page.content_html
-        .replace(/^[\s\S]*<body[\s\S]*?>/, '')
-        .replace(/<\/body>[\s\S]*$/, '') + '</div></div>';
+      page.contents;
     window.getSelection = jest.fn(() => ({
       removeAllRanges: jest.fn(),
       addRange: jest.fn(),
