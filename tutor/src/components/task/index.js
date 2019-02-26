@@ -4,7 +4,7 @@ import createReactClass from 'create-react-class';
 import ReactDOM from 'react-dom';
 import { isEmpty, debounce, clone, defaults } from 'lodash';
 import classnames from 'classnames';
-
+import { EventTask } from './event';
 import { TaskActions, TaskStore } from '../../flux/task';
 import { TaskStepActions, TaskStepStore } from '../../flux/task-step';
 import { TaskPanelActions, TaskPanelStore } from '../../flux/task-panel';
@@ -13,7 +13,9 @@ import Courses from '../../models/courses-map';
 import Scroller from '../../helpers/scroll-to';
 import StepFooterMixin from '../task-step/step-footer-mixin';
 import Router from '../../helpers/router';
+
 import TaskStep from '../task-step';
+
 import Ends from '../task-step/ends';
 import Breadcrumbs from './breadcrumbs';
 
@@ -331,17 +333,25 @@ const Task = createReactClass({
   // add render methods for different panel types as needed here
 
   render() {
-    let header, panel;
     const { id } = this.props;
 
-    const { milestonesEntered } = this.state;
-    const { courseId } = Router.currentParams();
-    const showMilestones = (Router.currentParams().milestones != null);
     const task = TaskStore.get(id);
     if (task == null) { return null; }
+    const { courseId } = Router.currentParams();
 
+    // note: currently the only type of task without steps is events
+    // if more types are added, a lookup table should be used
+    if ('event' === task.type) {
+      return <EventTask courseId={courseId} task={task} />;
+    }
+
+    let header, panel;
+    const { milestonesEntered } = this.state;
+
+    const showMilestones = (Router.currentParams().milestones != null);
     // get the crumb that matches the current state
     const step = this.getStep(this.state.currentStep);
+
     const panelType = StepCard.getCard(this.state.currentStep);
 
     if (step.id) {
@@ -385,12 +395,12 @@ const Task = createReactClass({
       );
 
       panel = <ProgressCard
-        taskId={id}
-        stepId={step != null ? step.id : undefined}
-        goToStep={this.goToStep}
-        isSpacer={(step.id == null) && (step.type !== 'end')}
-        stepKey={this.state.currentStep}
-        enableKeys={!showMilestones}>
+                taskId={id}
+                stepId={step != null ? step.id : undefined}
+                goToStep={this.goToStep}
+                isSpacer={(step.id == null) && (step.type !== 'end')}
+                stepKey={this.state.currentStep}
+                enableKeys={!showMilestones}>
         {milestones}
         {panel}
       </ProgressCard>;
