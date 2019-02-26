@@ -8,10 +8,8 @@ describe('Notes Summary Page', () => {
   beforeEach(() => {
     const course = Factory.course();
     const note = Factory.note();
-    course.notes.forChapterSection(
-      note.chapter_section.chapter,
-      note.chapter_section.section,
-    ).onLoaded({ data: [note] });
+    course.notes.forChapterSection(note.chapter_section)
+      .onLoaded({ data: [note] });
     pages = [Factory.page()];
     course.notes.onHighlightedSectionsLoaded({
       data: {
