@@ -1,17 +1,18 @@
-import {
-  BaseModel, identifiedBy,
-} from 'shared/model';
-
+import { BaseModel, identifiedBy } from 'shared/model';
+import { isArray } from 'lodash';
 import { computed } from 'mobx';
 
 export default
 @identifiedBy('chapter-section')
 class ChapterSection extends BaseModel {
 
-  constructor([chapter, section] = []) {
+  constructor(arg = []) {
     super();
-    this.chapter = chapter;
-    this.section = section;
+    if (isArray(arg)) {
+      [this.chapter, this.section] = arg
+    } else {
+      [this.chapter, this.section] = arg.split('.')
+    }
   }
 
   format({ sectionSeparator = '.', skipZeros = true } = {}) {
@@ -24,6 +25,14 @@ class ChapterSection extends BaseModel {
   matches(chapterSection) {
     const [c,s] = String(chapterSection).split('.');
     return this.chapter == c && (!s || this.section == s);
+  }
+
+  split() {
+    return [this.chapter, this.section];
+  }
+
+  join(sectionSeparator = '.') {
+    return this.format({ sectionSeparator, skipZeros: false });
   }
 
   @computed get isEmpty() {
