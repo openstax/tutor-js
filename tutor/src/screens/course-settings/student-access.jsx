@@ -180,7 +180,7 @@ class StudentAccess extends React.Component {
           Choose how students access OpenStax Tutor.
           Access settings cannot be changed after students begin to enroll.
         </p>
-        <a href="https://openstax.secure.force.com/help/articles/FAQ/What-is-the-difference-between-using-a-direct-link-and-using-LMS-integration-to-give-your-students-access-to-OpenStax-Tutor" target="_blank">
+        <a href="https://openstax.secure.force.com/help/articles/FAQ/Student-Access-with-Enrollment-Link-versus-LMS-sign-in-for-OpenStax-Tutor-Beta-LMS-Pilots" target="_blank">
           <Icon type="info-circle" /> Which option is right for my course?
         </a>
         <div
