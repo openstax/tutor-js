@@ -18,6 +18,20 @@ describe('scores store task results', () => {
     });
   });
 
+  describe('dropped students', () => {
+    it('does not include them', () => {
+      const task = scores.getTask('2882');
+      expect(task.student.isActive).toBe(false);
+      expect(
+        task.reportHeading.averageForType('score').toFixed(2),
+      ).toEqual('0.11');
+      task.score = 1.0;
+      expect(
+        task.reportHeading.averageForType('score').toFixed(2),
+      ).toEqual('0.11');
+    });
+  });
+
 
   describe('with n/a values', () => {
     let task;

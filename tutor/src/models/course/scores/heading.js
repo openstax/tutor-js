@@ -1,4 +1,4 @@
-import { reduce, map, isEmpty, findIndex } from 'lodash';
+import { reduce, map, filter, isEmpty, findIndex } from 'lodash';
 import { computed, action } from 'mobx';
 import Big from 'big.js';
 import moment from 'moment';
@@ -36,11 +36,13 @@ class Heading extends BaseModel {
   }
 
   averageForType(attr) {
-    if (isEmpty(this.tasks)) { return null; }
-    return reduce(this.tasks,
+    const tasks = filter(this.tasks, 'student.isActive');
+    if (isEmpty(tasks)) { return null; }
+
+    return reduce(tasks,
       (acc, s) => acc.plus(s[attr] || 0),
       new Big(0)
-    ).div(this.tasks.length);
+    ).div(tasks.length);
   }
 
 };

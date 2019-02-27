@@ -1,5 +1,5 @@
 import { reduce, isEmpty } from 'lodash';
-import { action } from 'mobx';
+import { action, computed } from 'mobx';
 import Big from 'big.js';
 import {
   BaseModel, identifiedBy, identifier, field, hasMany, belongsTo,
@@ -24,6 +24,10 @@ class Student extends BaseModel {
   @field({ type: 'bignum' }) homework_progress;
   @field({ type: 'bignum' }) reading_score;
   @field({ type: 'bignum' }) reading_progress;
+
+  @computed get isActive() {
+    return true !== this.is_dropped;
+  }
 
   @action adjustScores(triggeringTask) {
     this[`${triggeringTask.type}_progress`] = this.averageTasksOfType(
