@@ -15,6 +15,7 @@ class Exercise extends SharedExercise {
   }
 
   @computed get readOnlyReason() {
+    if (this.isNew) { return null; } // new records can always be edited
     if (!find(this.authors, { user_id: CurrentUser.id })) {
       return `Author: ${this.authors.names().join(',')}`;
     }
