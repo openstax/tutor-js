@@ -1,5 +1,5 @@
 const ACTIVE = [];
-import _ from 'underscore';
+import { find, flatten, map } from 'lodash';
 import moment from 'moment';
 import React from 'react';
 import TutorDialog from './tutor-dialog';
@@ -17,8 +17,8 @@ const UnsavedStateMixin = {
 };
 
 const TransitionAssistant = {
-  canTransition() { return !_.any(ACTIVE, c => c._cannotTransition()) || (AppStore.getError() != null); },
-  unsavedMessages() { return _.flatten( _.invoke(ACTIVE, '_unsavedMessages'), 1); },
+  canTransition() { return !find(ACTIVE, c => c._cannotTransition()) || (AppStore.getError() != null); },
+  unsavedMessages() { return flatten( map(ACTIVE, '_unsavedMessages'), 1); },
 
   checkTransitionStateTo(destination) {
 
@@ -40,8 +40,7 @@ const TransitionAssistant = {
         }).then( () => {
           this.lastCancel = moment();
           return onOk();
-        }
-        , onCancel );
+        }, onCancel );
       }
     });
   },
@@ -57,6 +56,7 @@ const TransitionAssistant = {
       if (!this.canTransition() && !this.wasJustApproved()) {
         return this.unsavedMessages().join('\n');
       }
+      return [];
     };
   },
 };

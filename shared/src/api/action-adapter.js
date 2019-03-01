@@ -35,6 +35,7 @@ const makeRequestHandlers = function(Actions, options) {
       const isErrorHandled = options.handleError(response, ...Array.from(args));
 
       if (!isErrorHandled) { return Promise.reject(error); }
+      return null;
     };
   }
 
@@ -47,12 +48,14 @@ const makeRequestHandlers = function(Actions, options) {
         if (options.errorHandlers[error.code] != null) {
           return (typeof Actions[options.errorHandlers[error.code]] === 'function' ? Actions[options.errorHandlers[error.code]](...Array.from(args), error) : undefined);
         }
+        return null;
       });
 
       if (!isEmpty(unhandledErrors)) {
         error.response.data.errors = unhandledErrors;
         return Promise.reject(error);
       }
+      return null;
     };
   }
 
@@ -141,10 +144,9 @@ const connectAction = function(action, apiHandler, Actions, ...allOptions) {
   return connectHandler(apiHandler, Actions, actionOptions, ...Array.from(allOptions));
 };
 
-const emptyFn = config => ({});
+const emptyFn = () => ({});
 
 const connectModelAction = function(action, apiHandler, klass, method, options) {
-  const actionOptions = defaults(options, { method: METHODS[action] });
   const handler = function(originalMethod, ...reqArgs) {
     const firstArg = first(reqArgs);
     const requestConfig = mapValues(
@@ -152,7 +154,7 @@ const connectModelAction = function(action, apiHandler, klass, method, options) 
         if (isFunction(val)) { return val.call(this, ...Array.from(reqArgs)); } else { return val; }
       });
     const updatedConfig = originalMethod.call(this, ...Array.from(reqArgs), requestConfig);
-    if (updatedConfig === 'ABORT') { return; }
+    if (updatedConfig === 'ABORT') { return null; }
     merge(requestConfig, updatedConfig);
     if (options.pattern) {
       if (requestConfig.url == null) { requestConfig.url = interpolate(options.pattern, defaults({}, firstArg, requestConfig, this)); }
@@ -182,14 +184,14 @@ const connectModelAction = function(action, apiHandler, klass, method, options) 
         this.api.requestCounts[action] += 1;
         this.api.requestsInProgress.delete(action);
       }
-    }
+    };
     return apiHandler.send(requestConfig, perRequestOptions, firstArg).then(reply => {
       onComplete();
       return reply;
     }).catch(e => {
       onComplete();
-      console.warn(e);
-      perRequestOptions.onFail({ config: requestConfig, options: perRequestOptionsm, error: e });
+      console.warn(e); // eslint-disable-line no-console
+      perRequestOptions.onFail({ config: requestConfig, options: perRequestOptions, error: e });
       return Promise.reject(e);
     });
   };

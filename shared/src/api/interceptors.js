@@ -1,15 +1,9 @@
 import minimatch from 'minimatch';
-import partial from 'lodash/partial';
-import merge from 'lodash/merge';
-import extend from 'lodash/extend';
-import includes from 'lodash/includes';
-import some from 'lodash/some';
-import set from 'lodash/set';
-import every from 'lodash/every';
-import isError from 'lodash/isError';
-import isEmpty from 'lodash/isEmpty';
-import propertyOf from 'lodash/propertyOf';
-import isObjectLike from 'lodash/isObjectLike';
+
+import {
+  partial, merge, extend, includes, some,
+  set, every, isError, isEmpty, propertyOf, isObjectLike,
+} from 'lodash';
 
 const makeLocalRequest = function(requestConfig) {
   let { url } = requestConfig;
@@ -123,9 +117,6 @@ class Interceptors {
   handleLocalErrors(error) {
     const { response, config } = error;
     const { status, statusText } = response;
-    const { method, mockMethod } = config;
-
-    const mockMethods = ['PUT', 'PATCH'];
 
     // Hack for local testing, fake successful PUT and PATCH
     if (status === 404) {
@@ -143,9 +134,14 @@ This error only happens locally.`;
   }
 
   handleMalformedRequest(error) {
-    if ((error.response.status === 400) && (this._hooks.handleMalformedRequest != null)) { error = this._hooks.handleMalformedRequest(error); }
+    if ((error.response.status === 400) &&
+      (this._hooks.handleMalformedRequest != null)) {
+
+      error = this._hooks.handleMalformedRequest(error);
+    }
 
     if (isError(error)) { return Promise.reject(error); }
+    return null;
   }
 
   handleNotFound(error) {
@@ -155,16 +151,18 @@ This error only happens locally.`;
     }
 
     if (isError(error)) { return Promise.reject(error); }
+    return null;
   }
 
   handleErrorMessage(error) {
-    let data, e, msg, statusText;
-    if (isObjectLike(error.response)) { (((({ statusText, data } = error.response)))); }
+    let data, msg, statusText;
+    if (isObjectLike(error.response)) {
+      ({ statusText, data } = error.response);
+    }
 
     try {
       msg = JSON.parse(statusText);
     } catch (error1) {
-      e = error1;
       msg = statusText;
     }
 
@@ -173,7 +171,7 @@ This error only happens locally.`;
     if (!isObjectLike(data)) {
       try {
         error.response.data = JSON.parse(data);
-      } catch (error2) { e = error2; }
+      } catch (error2) { console.warn(error2); } // eslint-disable-line no-console
     }
 
     return Promise.reject(error);

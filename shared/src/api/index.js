@@ -1,29 +1,14 @@
 import axios from 'axios';
 import {
-  isEmpty, partial, pick, omit, merge, delay, spread, each, defaultsDeep,
+  isEmpty, pick, omit, merge, delay, spread, each, defaultsDeep,
 } from 'lodash';
 import interpolate from 'interpolate';
-//import partial from 'lodash/partial';
-//
-// import pick from 'lodash/pick';
-// import omit from 'lodash/omit';
-// import merge from 'lodash/merge';
-// import delay from 'lodash/delay';
-// import assign from 'lodash/assign';
-// import spread from 'lodash/spread';
-// import forEach from 'lodash/forEach';
-//
-// import defaultsDeep from 'lodash/defaultsDeep';
 
-// this is pretty terrible.
-import 'extract-values';
-
+import extractValues from 'extract-values';
 import EventEmitter2 from 'eventemitter2';
 import Networking from '../model/networking';
-import { Routes, XHRRecords, utils, METHODS_TO_ACTIONS } from './collections';
+import { Routes, XHRRecords, METHODS_TO_ACTIONS } from './collections';
 import { Interceptors } from './interceptors';
-
-const { hashWithArrays, makeHashWith } = utils;
 
 const API_DEFAULTS = {
   request: {
@@ -48,11 +33,11 @@ const API_DEFAULTS = {
   events: [],
 
   handlers: {
-    onSuccess(response, ...args) {
+    onSuccess(response) {
       return response;
     },
 
-    onFail(response, ...args) {
+    onFail(response) {
       return Promise.reject(response);
     },
   },
@@ -125,7 +110,7 @@ const ALL_EVENTS = {
 
 
 class APIHandlerBase {
-  constructor(options, channel) {
+  constructor(options) {
     this.destroy = this.destroy.bind(this);
     this.initializeRecords = this.initializeRecords.bind(this);
     this.initializeXHR = this.initializeXHR.bind(this);
@@ -218,9 +203,7 @@ class APIHandlerBase {
           .then(onSuccessHandler(onSuccess, args), onFailHandler(onFail, args))
           .then(onSuccessHandler(handlers.onSuccess, args), onFailHandler(handlers.onFail, args))
           .then(resolve, reject);
-      }
-
-        , requestDelay);
+      }, requestDelay);
     });
   }
 }
@@ -263,7 +246,7 @@ class APIHandler extends APIHandlerBase {
   sendRequest(requestInfo, routeData, requestData, ...args) {
     const routeOptions = this.routes.get(requestInfo);
     // TODO throw error somewheres.
-    if (routeOptions == null) { return; }
+    if (routeOptions == null) { return null; }
 
     const requestConfig = makeRequestConfig(routeOptions, routeData, requestData);
     requestConfig.topic = requestInfo.topic;

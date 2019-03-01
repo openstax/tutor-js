@@ -4,28 +4,28 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import ReactDOM from 'react-dom';
-import { flow, omit, extend, clone } from 'lodash';
-
-const DialogProperties = {
-  title:         PropTypes.string.isRequired,
-  onOk:          PropTypes.func.isRequired,
-  onCancel:      PropTypes.func.isRequired,
-  body:          PropTypes.any.isRequired,
-  show:          PropTypes.bool,
-  buttons:       PropTypes.arrayOf( PropTypes.element ),
-  okBtnText:     PropTypes.string,
-  cancelBtnText: PropTypes.string,
-  className:     PropTypes.string,
-};
+import { flow, extend, clone } from 'lodash';
 
 // This is the "real" dialog component. It's rendered to a div under document.body
 class DetachedTutorDialog extends React.Component {
   static displayName = 'DetachedTutorDialog';
-  static propTypes = DialogProperties;
+
+  static propTypes = {
+    title:         PropTypes.string.isRequired,
+    onOk:          PropTypes.func.isRequired,
+    onCancel:      PropTypes.func.isRequired,
+    body:          PropTypes.any.isRequired,
+    show:          PropTypes.bool,
+    buttons:       PropTypes.arrayOf( PropTypes.element ),
+    okBtnText:     PropTypes.string,
+    cancelBtnText: PropTypes.string,
+    className:     PropTypes.string,
+  }
+
   state = { show: true };
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.show != null) { return this.setState({ show: nextProps.show }); }
+    if (nextProps.show != null) { this.setState({ show: nextProps.show }); }
   }
 
   _hide = () => {
@@ -77,7 +77,18 @@ class DetachedTutorDialog extends React.Component {
 
 export default (TutorDialog = createReactClass({
   displayName: 'TutorDialog',
-  propTypes: omit(DialogProperties, 'body'),
+
+  propTypes: {
+    title:         PropTypes.string.isRequired,
+    onOk:          PropTypes.func.isRequired,
+    onCancel:      PropTypes.func.isRequired,
+    children:      PropTypes.node.isRequired,
+    show:          PropTypes.bool,
+    buttons:       PropTypes.arrayOf( PropTypes.element ),
+    okBtnText:     PropTypes.string,
+    cancelBtnText: PropTypes.string,
+    className:     PropTypes.string,
+  },
 
   componentDidMount() {
     // While unlikely, the onOk and onCancel properties could have been updated while the dialog was visible
