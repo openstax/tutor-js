@@ -1,4 +1,3 @@
-import { Promise } from 'es6-promise';
 import axios from 'axios';
 import {
   isEmpty, partial, pick, omit, merge, delay, spread, each, defaultsDeep,

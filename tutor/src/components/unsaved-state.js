@@ -1,6 +1,5 @@
 const ACTIVE = [];
 import _ from 'underscore';
-import { Promise } from 'es6-promise';
 import moment from 'moment';
 import React from 'react';
 import TutorDialog from './tutor-dialog';

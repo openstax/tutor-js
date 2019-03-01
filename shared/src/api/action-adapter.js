@@ -1,4 +1,3 @@
-import { Promise } from 'es6-promise';
 import interpolate from 'interpolate';
 import { METHODS_TO_ACTIONS } from './collections';
 import qs from 'qs';

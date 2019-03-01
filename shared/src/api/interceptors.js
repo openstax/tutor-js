@@ -1,6 +1,4 @@
 import minimatch from 'minimatch';
-import { Promise } from 'es6-promise';
-
 import partial from 'lodash/partial';
 import merge from 'lodash/merge';
 import extend from 'lodash/extend';

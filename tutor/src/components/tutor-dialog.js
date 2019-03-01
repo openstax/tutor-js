@@ -5,8 +5,6 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import ReactDOM from 'react-dom';
 import { flow, omit, extend, clone } from 'lodash';
-import { Promise } from 'es6-promise';
-
 
 const DialogProperties = {
   title:         PropTypes.string.isRequired,
