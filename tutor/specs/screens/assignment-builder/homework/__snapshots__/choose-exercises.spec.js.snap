@@ -130,6 +130,7 @@ exports[`choose exercises component can select exercises 1`] = `
                       color="#999999"
                       data-icon="square"
                       data-prefix="far"
+                      focusable="false"
                       role="img"
                       style={
                         Object {
@@ -294,6 +295,7 @@ exports[`choose exercises component can select exercises 1`] = `
                       color="#999999"
                       data-icon="square"
                       data-prefix="far"
+                      focusable="false"
                       role="img"
                       style={
                         Object {
@@ -458,6 +460,7 @@ exports[`choose exercises component can select exercises 1`] = `
                       color="#999999"
                       data-icon="square"
                       data-prefix="far"
+                      focusable="false"
                       role="img"
                       style={
                         Object {
@@ -749,6 +752,7 @@ exports[`choose exercises component renders selections 1`] = `
                       color="#999999"
                       data-icon="square"
                       data-prefix="far"
+                      focusable="false"
                       role="img"
                       style={
                         Object {
@@ -913,6 +917,7 @@ exports[`choose exercises component renders selections 1`] = `
                       color="#999999"
                       data-icon="square"
                       data-prefix="far"
+                      focusable="false"
                       role="img"
                       style={
                         Object {
@@ -1077,6 +1082,7 @@ exports[`choose exercises component renders selections 1`] = `
                       color="#999999"
                       data-icon="square"
                       data-prefix="far"
+                      focusable="false"
                       role="img"
                       style={
                         Object {

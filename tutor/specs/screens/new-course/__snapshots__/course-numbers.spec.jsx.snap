@@ -32,6 +32,7 @@ exports[`CreateCourse: entering details matches snapshot 1`] = `
         className="svg-inline--fa fa-thumbs-up fa-w-16 ox-icon thumbs-up c1"
         data-icon="thumbs-up"
         data-prefix="fas"
+        focusable="false"
         role="img"
         style={Object {}}
         viewBox="0 0 512 512"

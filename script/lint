@@ -1,0 +1,15 @@
+#!/bin/bash
+
+[ -z "$OX_PROJECT" ] && echo "need OX_PROJECT environment var" && exit 1;
+
+HEAD=head
+
+if [ "$TRAVIS" == "true" ]; then
+    HEAD=$TRAVIS_BRANCH
+fi
+
+if [ "$1" == "compare-master" ]; then
+    git diff-tree -r --no-commit-id --name-only $HEAD origin/master ${OX_PROJECT}/ | xargs $(npm bin)/eslint
+else
+    git status --short --porcelain ${OX_PROJECT}/ | awk '{ print $2 }' | xargs $(npm bin)/eslint
+fi

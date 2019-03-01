@@ -127,6 +127,7 @@ exports[`Select Topics matches snapshot 1`] = `
                     color="#999999"
                     data-icon="square"
                     data-prefix="far"
+                    focusable="false"
                     role="img"
                     style={
                       Object {
@@ -291,6 +292,7 @@ exports[`Select Topics matches snapshot 1`] = `
                     color="#999999"
                     data-icon="square"
                     data-prefix="far"
+                    focusable="false"
                     role="img"
                     style={
                       Object {
@@ -455,6 +457,7 @@ exports[`Select Topics matches snapshot 1`] = `
                     color="#999999"
                     data-icon="square"
                     data-prefix="far"
+                    focusable="false"
                     role="img"
                     style={
                       Object {

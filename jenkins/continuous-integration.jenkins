@@ -2,6 +2,7 @@ pipeline {
   agent { label 'docker' }
   stages {
     stage('Accessibility Report') {
+      when { branch 'a11y' }
       stages {
         stage('Build Environment') {
           steps {

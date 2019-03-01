@@ -45,6 +45,7 @@ exports[`Invalid Page renders and matches snapshot 1`] = `
       className="svg-inline--fa fa-caret-right fa-w-6 ox-icon caret-right c0"
       data-icon="caret-right"
       data-prefix="fas"
+      focusable="false"
       role="img"
       style={Object {}}
       viewBox="0 0 192 512"

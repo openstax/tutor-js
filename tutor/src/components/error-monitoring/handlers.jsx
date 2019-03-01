@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { partial, isString, isObject } from 'lodash';
+import { partial, isEmpty, isObject } from 'lodash';
 
 import Dialog from '../tutor-dialog';
 import TutorRouter from '../../helpers/router';

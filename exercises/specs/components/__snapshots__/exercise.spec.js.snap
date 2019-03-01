@@ -245,6 +245,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 className="svg-inline--fa fa-plus-square fa-w-14 ox-icon plus-square c0"
                 data-icon="plus-square"
                 data-prefix="fas"
+                focusable="false"
                 role="img"
                 style={Object {}}
                 viewBox="0 0 448 512"
@@ -281,6 +282,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       color="lightGray"
                       data-icon="check-circle"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 512 512"
@@ -304,6 +306,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       className="svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon arrow-circle-down c0"
                       data-icon="arrow-circle-down"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 512 512"
@@ -327,6 +330,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       className="svg-inline--fa fa-ban fa-w-16 ox-icon ban c0"
                       data-icon="ban"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 512 512"
@@ -378,6 +382,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       color="lightGray"
                       data-icon="check-circle"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 512 512"
@@ -401,6 +406,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       className="svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon arrow-circle-down c0"
                       data-icon="arrow-circle-down"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 512 512"
@@ -424,6 +430,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       className="svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon arrow-circle-up c0"
                       data-icon="arrow-circle-up"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 512 512"
@@ -447,6 +454,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       className="svg-inline--fa fa-ban fa-w-16 ox-icon ban c0"
                       data-icon="ban"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 512 512"
@@ -498,6 +506,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       color="lightGray"
                       data-icon="check-circle"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 512 512"
@@ -521,6 +530,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       className="svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon arrow-circle-down c0"
                       data-icon="arrow-circle-down"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 512 512"
@@ -544,6 +554,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       className="svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon arrow-circle-up c0"
                       data-icon="arrow-circle-up"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 512 512"
@@ -567,6 +578,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       className="svg-inline--fa fa-ban fa-w-16 ox-icon ban c0"
                       data-icon="ban"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 512 512"
@@ -618,6 +630,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       color="lightGray"
                       data-icon="check-circle"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 512 512"
@@ -641,6 +654,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       className="svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon arrow-circle-down c0"
                       data-icon="arrow-circle-down"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 512 512"
@@ -664,6 +678,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       className="svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon arrow-circle-up c0"
                       data-icon="arrow-circle-up"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 512 512"
@@ -687,6 +702,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       className="svg-inline--fa fa-ban fa-w-16 ox-icon ban c0"
                       data-icon="ban"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 512 512"
@@ -738,6 +754,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       color="lightGray"
                       data-icon="check-circle"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 512 512"
@@ -761,6 +778,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       className="svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon arrow-circle-up c0"
                       data-icon="arrow-circle-up"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 512 512"
@@ -784,6 +802,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       className="svg-inline--fa fa-ban fa-w-16 ox-icon ban c0"
                       data-icon="ban"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 512 512"
@@ -865,6 +884,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       className="svg-inline--fa fa-plus-circle fa-w-16 ox-icon plus-circle c0"
                       data-icon="plus-circle"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 512 512"
@@ -957,13 +977,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       className="svg-inline--fa fa-trash-alt fa-w-14 ox-icon trash c0"
                       data-icon="trash-alt"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 448 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm416 56v324c0 26.5-21.5 48-48 48H80c-26.5 0-48-21.5-48-48V140c0-6.6 5.4-12 12-12h360c6.6 0 12 5.4 12 12zm-272 68c0-8.8-7.2-16-16-16s-16 7.2-16 16v224c0 8.8 7.2 16 16 16s16-7.2 16-16V208zm96 0c0-8.8-7.2-16-16-16s-16 7.2-16 16v224c0 8.8 7.2 16 16 16s16-7.2 16-16V208zm96 0c0-8.8-7.2-16-16-16s-16 7.2-16 16v224c0 8.8 7.2 16 16 16s16-7.2 16-16V208z"
+                        d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"
                         fill="currentColor"
                         style={Object {}}
                       />
@@ -997,6 +1018,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       className="svg-inline--fa fa-plus-circle fa-w-16 ox-icon plus-circle c0"
                       data-icon="plus-circle"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 512 512"
@@ -1047,13 +1069,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       className="svg-inline--fa fa-trash-alt fa-w-14 ox-icon trash c0"
                       data-icon="trash-alt"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 448 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm416 56v324c0 26.5-21.5 48-48 48H80c-26.5 0-48-21.5-48-48V140c0-6.6 5.4-12 12-12h360c6.6 0 12 5.4 12 12zm-272 68c0-8.8-7.2-16-16-16s-16 7.2-16 16v224c0 8.8 7.2 16 16 16s16-7.2 16-16V208zm96 0c0-8.8-7.2-16-16-16s-16 7.2-16 16v224c0 8.8 7.2 16 16 16s16-7.2 16-16V208zm96 0c0-8.8-7.2-16-16-16s-16 7.2-16 16v224c0 8.8 7.2 16 16 16s16-7.2 16-16V208z"
+                        d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"
                         fill="currentColor"
                         style={Object {}}
                       />
@@ -1268,6 +1291,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       className="svg-inline--fa fa-plus-circle fa-w-16 ox-icon plus-circle c0"
                       data-icon="plus-circle"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 512 512"
@@ -1307,13 +1331,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       className="svg-inline--fa fa-trash-alt fa-w-14 ox-icon trash c0"
                       data-icon="trash-alt"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 448 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm416 56v324c0 26.5-21.5 48-48 48H80c-26.5 0-48-21.5-48-48V140c0-6.6 5.4-12 12-12h360c6.6 0 12 5.4 12 12zm-272 68c0-8.8-7.2-16-16-16s-16 7.2-16 16v224c0 8.8 7.2 16 16 16s16-7.2 16-16V208zm96 0c0-8.8-7.2-16-16-16s-16 7.2-16 16v224c0 8.8 7.2 16 16 16s16-7.2 16-16V208zm96 0c0-8.8-7.2-16-16-16s-16 7.2-16 16v224c0 8.8 7.2 16 16 16s16-7.2 16-16V208z"
+                        d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"
                         fill="currentColor"
                         style={Object {}}
                       />
@@ -1347,6 +1372,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       className="svg-inline--fa fa-plus-circle fa-w-16 ox-icon plus-circle c0"
                       data-icon="plus-circle"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 512 512"
@@ -1386,13 +1412,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                       className="svg-inline--fa fa-trash-alt fa-w-14 ox-icon trash c0"
                       data-icon="trash-alt"
                       data-prefix="fas"
+                      focusable="false"
                       role="img"
                       style={Object {}}
                       viewBox="0 0 448 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm416 56v324c0 26.5-21.5 48-48 48H80c-26.5 0-48-21.5-48-48V140c0-6.6 5.4-12 12-12h360c6.6 0 12 5.4 12 12zm-272 68c0-8.8-7.2-16-16-16s-16 7.2-16 16v224c0 8.8 7.2 16 16 16s16-7.2 16-16V208zm96 0c0-8.8-7.2-16-16-16s-16 7.2-16 16v224c0 8.8 7.2 16 16 16s16-7.2 16-16V208zm96 0c0-8.8-7.2-16-16-16s-16 7.2-16 16v224c0 8.8 7.2 16 16 16s16-7.2 16-16V208z"
+                        d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"
                         fill="currentColor"
                         style={Object {}}
                       />
@@ -2160,7 +2187,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                       <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon plus-square\\" icon={{...}}>
                                                         <StyledComponent data-variant={[undefined]} className=\\"ox-icon plus-square\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
                                                           <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon plus-square icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                            <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"plus-square\\" className=\\"svg-inline--fa fa-plus-square fa-w-14 ox-icon plus-square icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
+                                                            <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-square\\" className=\\"svg-inline--fa fa-plus-square fa-w-14 ox-icon plus-square icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
                                                               <path fill=\\"currentColor\\" d=\\"M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-32 252c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92H92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z\\" style={{...}} />
                                                             </svg>
                                                           </FontAwesomeIcon>
@@ -2193,7 +2220,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                           <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon check-circle is-correct\\" icon={{...}} color=\\"lightGray\\">
                                                             <StyledComponent data-variant={[undefined]} className=\\"ox-icon check-circle is-correct\\" icon={{...}} color=\\"lightGray\\" forwardedComponent={{...}} forwardedRef={{...}}>
                                                               <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon check-circle is-correct icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} color=\\"lightGray\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon check-circle is-correct icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon check-circle is-correct icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
                                                                   <path fill=\\"currentColor\\" d=\\"M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2210,7 +2237,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                           <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon arrow-circle-down\\" icon={{...}}>
                                                             <StyledComponent data-variant={[undefined]} className=\\"ox-icon arrow-circle-down\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
                                                               <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon arrow-circle-down icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon arrow-circle-down icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon arrow-circle-down icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-143.6-28.9L288 302.6V120c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v182.6l-72.4-75.5c-9.3-9.7-24.8-9.9-34.3-.4l-10.9 11c-9.4 9.4-9.4 24.6 0 33.9L239 404.3c9.4 9.4 24.6 9.4 33.9 0l132.7-132.7c9.4-9.4 9.4-24.6 0-33.9l-10.9-11c-9.5-9.5-25-9.3-34.3.4z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2227,7 +2254,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                           <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon ban\\" icon={{...}}>
                                                             <StyledComponent data-variant={[undefined]} className=\\"ox-icon ban\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
                                                               <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ban icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ban icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ban icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2258,7 +2285,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                           <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon check-circle is-correct\\" icon={{...}} color=\\"lightGray\\">
                                                             <StyledComponent data-variant={[undefined]} className=\\"ox-icon check-circle is-correct\\" icon={{...}} color=\\"lightGray\\" forwardedComponent={{...}} forwardedRef={{...}}>
                                                               <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon check-circle is-correct icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} color=\\"lightGray\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon check-circle is-correct icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon check-circle is-correct icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
                                                                   <path fill=\\"currentColor\\" d=\\"M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2275,7 +2302,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                           <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon arrow-circle-down\\" icon={{...}}>
                                                             <StyledComponent data-variant={[undefined]} className=\\"ox-icon arrow-circle-down\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
                                                               <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon arrow-circle-down icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon arrow-circle-down icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon arrow-circle-down icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-143.6-28.9L288 302.6V120c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v182.6l-72.4-75.5c-9.3-9.7-24.8-9.9-34.3-.4l-10.9 11c-9.4 9.4-9.4 24.6 0 33.9L239 404.3c9.4 9.4 24.6 9.4 33.9 0l132.7-132.7c9.4-9.4 9.4-24.6 0-33.9l-10.9-11c-9.5-9.5-25-9.3-34.3.4z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2292,7 +2319,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                           <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon arrow-circle-up\\" icon={{...}}>
                                                             <StyledComponent data-variant={[undefined]} className=\\"ox-icon arrow-circle-up\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
                                                               <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon arrow-circle-up icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon arrow-circle-up icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon arrow-circle-up icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm143.6 28.9l72.4-75.5V392c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V209.4l72.4 75.5c9.3 9.7 24.8 9.9 34.3.4l10.9-11c9.4-9.4 9.4-24.6 0-33.9L273 107.7c-9.4-9.4-24.6-9.4-33.9 0L106.3 240.4c-9.4 9.4-9.4 24.6 0 33.9l10.9 11c9.6 9.5 25.1 9.3 34.4-.4z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2309,7 +2336,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                           <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon ban\\" icon={{...}}>
                                                             <StyledComponent data-variant={[undefined]} className=\\"ox-icon ban\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
                                                               <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ban icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ban icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ban icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2340,7 +2367,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                           <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon check-circle is-correct\\" icon={{...}} color=\\"lightGray\\">
                                                             <StyledComponent data-variant={[undefined]} className=\\"ox-icon check-circle is-correct\\" icon={{...}} color=\\"lightGray\\" forwardedComponent={{...}} forwardedRef={{...}}>
                                                               <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon check-circle is-correct icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} color=\\"lightGray\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon check-circle is-correct icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon check-circle is-correct icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
                                                                   <path fill=\\"currentColor\\" d=\\"M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2357,7 +2384,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                           <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon arrow-circle-down\\" icon={{...}}>
                                                             <StyledComponent data-variant={[undefined]} className=\\"ox-icon arrow-circle-down\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
                                                               <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon arrow-circle-down icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon arrow-circle-down icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon arrow-circle-down icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-143.6-28.9L288 302.6V120c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v182.6l-72.4-75.5c-9.3-9.7-24.8-9.9-34.3-.4l-10.9 11c-9.4 9.4-9.4 24.6 0 33.9L239 404.3c9.4 9.4 24.6 9.4 33.9 0l132.7-132.7c9.4-9.4 9.4-24.6 0-33.9l-10.9-11c-9.5-9.5-25-9.3-34.3.4z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2374,7 +2401,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                           <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon arrow-circle-up\\" icon={{...}}>
                                                             <StyledComponent data-variant={[undefined]} className=\\"ox-icon arrow-circle-up\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
                                                               <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon arrow-circle-up icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon arrow-circle-up icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon arrow-circle-up icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm143.6 28.9l72.4-75.5V392c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V209.4l72.4 75.5c9.3 9.7 24.8 9.9 34.3.4l10.9-11c9.4-9.4 9.4-24.6 0-33.9L273 107.7c-9.4-9.4-24.6-9.4-33.9 0L106.3 240.4c-9.4 9.4-9.4 24.6 0 33.9l10.9 11c9.6 9.5 25.1 9.3 34.4-.4z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2391,7 +2418,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                           <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon ban\\" icon={{...}}>
                                                             <StyledComponent data-variant={[undefined]} className=\\"ox-icon ban\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
                                                               <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ban icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ban icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ban icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2422,7 +2449,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                           <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon check-circle is-correct\\" icon={{...}} color=\\"lightGray\\">
                                                             <StyledComponent data-variant={[undefined]} className=\\"ox-icon check-circle is-correct\\" icon={{...}} color=\\"lightGray\\" forwardedComponent={{...}} forwardedRef={{...}}>
                                                               <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon check-circle is-correct icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} color=\\"lightGray\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon check-circle is-correct icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon check-circle is-correct icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
                                                                   <path fill=\\"currentColor\\" d=\\"M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2439,7 +2466,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                           <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon arrow-circle-down\\" icon={{...}}>
                                                             <StyledComponent data-variant={[undefined]} className=\\"ox-icon arrow-circle-down\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
                                                               <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon arrow-circle-down icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon arrow-circle-down icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon arrow-circle-down icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-143.6-28.9L288 302.6V120c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v182.6l-72.4-75.5c-9.3-9.7-24.8-9.9-34.3-.4l-10.9 11c-9.4 9.4-9.4 24.6 0 33.9L239 404.3c9.4 9.4 24.6 9.4 33.9 0l132.7-132.7c9.4-9.4 9.4-24.6 0-33.9l-10.9-11c-9.5-9.5-25-9.3-34.3.4z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2456,7 +2483,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                           <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon arrow-circle-up\\" icon={{...}}>
                                                             <StyledComponent data-variant={[undefined]} className=\\"ox-icon arrow-circle-up\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
                                                               <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon arrow-circle-up icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon arrow-circle-up icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon arrow-circle-up icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm143.6 28.9l72.4-75.5V392c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V209.4l72.4 75.5c9.3 9.7 24.8 9.9 34.3.4l10.9-11c9.4-9.4 9.4-24.6 0-33.9L273 107.7c-9.4-9.4-24.6-9.4-33.9 0L106.3 240.4c-9.4 9.4-9.4 24.6 0 33.9l10.9 11c9.6 9.5 25.1 9.3 34.4-.4z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2473,7 +2500,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                           <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon ban\\" icon={{...}}>
                                                             <StyledComponent data-variant={[undefined]} className=\\"ox-icon ban\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
                                                               <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ban icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ban icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ban icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2504,7 +2531,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                           <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon check-circle is-correct\\" icon={{...}} color=\\"lightGray\\">
                                                             <StyledComponent data-variant={[undefined]} className=\\"ox-icon check-circle is-correct\\" icon={{...}} color=\\"lightGray\\" forwardedComponent={{...}} forwardedRef={{...}}>
                                                               <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon check-circle is-correct icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} color=\\"lightGray\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon check-circle is-correct icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon check-circle is-correct icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
                                                                   <path fill=\\"currentColor\\" d=\\"M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2521,7 +2548,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                           <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon arrow-circle-up\\" icon={{...}}>
                                                             <StyledComponent data-variant={[undefined]} className=\\"ox-icon arrow-circle-up\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
                                                               <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon arrow-circle-up icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon arrow-circle-up icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon arrow-circle-up icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm143.6 28.9l72.4-75.5V392c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V209.4l72.4 75.5c9.3 9.7 24.8 9.9 34.3.4l10.9-11c9.4-9.4 9.4-24.6 0-33.9L273 107.7c-9.4-9.4-24.6-9.4-33.9 0L106.3 240.4c-9.4 9.4-9.4 24.6 0 33.9l10.9 11c9.6 9.5 25.1 9.3 34.4-.4z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2538,7 +2565,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                           <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon ban\\" icon={{...}}>
                                                             <StyledComponent data-variant={[undefined]} className=\\"ox-icon ban\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
                                                               <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ban icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ban icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ban icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2596,7 +2623,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                             <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon plus-circle\\" icon={{...}}>
                                                               <StyledComponent data-variant={[undefined]} className=\\"ox-icon plus-circle\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
                                                                 <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon plus-circle icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                  <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 ox-icon plus-circle icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                                  <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 ox-icon plus-circle icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                     <path fill=\\"currentColor\\" d=\\"M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z\\" style={{...}} />
                                                                   </svg>
                                                                 </FontAwesomeIcon>
@@ -2655,8 +2682,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                               <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon trash\\" icon={{...}}>
                                                                 <StyledComponent data-variant={[undefined]} className=\\"ox-icon trash\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
                                                                   <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon trash icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                    <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 ox-icon trash icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
-                                                                      <path fill=\\"currentColor\\" d=\\"M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm416 56v324c0 26.5-21.5 48-48 48H80c-26.5 0-48-21.5-48-48V140c0-6.6 5.4-12 12-12h360c6.6 0 12 5.4 12 12zm-272 68c0-8.8-7.2-16-16-16s-16 7.2-16 16v224c0 8.8 7.2 16 16 16s16-7.2 16-16V208zm96 0c0-8.8-7.2-16-16-16s-16 7.2-16 16v224c0 8.8 7.2 16 16 16s16-7.2 16-16V208zm96 0c0-8.8-7.2-16-16-16s-16 7.2-16 16v224c0 8.8 7.2 16 16 16s16-7.2 16-16V208z\\" style={{...}} />
+                                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 ox-icon trash icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
+                                                                      <path fill=\\"currentColor\\" d=\\"M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z\\" style={{...}} />
                                                                     </svg>
                                                                   </FontAwesomeIcon>
                                                                 </StyledComponent>
@@ -2686,7 +2713,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                             <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon plus-circle\\" icon={{...}}>
                                                               <StyledComponent data-variant={[undefined]} className=\\"ox-icon plus-circle\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
                                                                 <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon plus-circle icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                  <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 ox-icon plus-circle icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                                  <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 ox-icon plus-circle icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                     <path fill=\\"currentColor\\" d=\\"M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z\\" style={{...}} />
                                                                   </svg>
                                                                 </FontAwesomeIcon>
@@ -2717,8 +2744,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                               <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon trash\\" icon={{...}}>
                                                                 <StyledComponent data-variant={[undefined]} className=\\"ox-icon trash\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
                                                                   <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon trash icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                    <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 ox-icon trash icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
-                                                                      <path fill=\\"currentColor\\" d=\\"M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm416 56v324c0 26.5-21.5 48-48 48H80c-26.5 0-48-21.5-48-48V140c0-6.6 5.4-12 12-12h360c6.6 0 12 5.4 12 12zm-272 68c0-8.8-7.2-16-16-16s-16 7.2-16 16v224c0 8.8 7.2 16 16 16s16-7.2 16-16V208zm96 0c0-8.8-7.2-16-16-16s-16 7.2-16 16v224c0 8.8 7.2 16 16 16s16-7.2 16-16V208zm96 0c0-8.8-7.2-16-16-16s-16 7.2-16 16v224c0 8.8 7.2 16 16 16s16-7.2 16-16V208z\\" style={{...}} />
+                                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 ox-icon trash icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
+                                                                      <path fill=\\"currentColor\\" d=\\"M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z\\" style={{...}} />
                                                                     </svg>
                                                                   </FontAwesomeIcon>
                                                                 </StyledComponent>
@@ -2853,7 +2880,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                               <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon plus-circle\\" icon={{...}}>
                                                                 <StyledComponent data-variant={[undefined]} className=\\"ox-icon plus-circle\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
                                                                   <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon plus-circle icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                    <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 ox-icon plus-circle icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 ox-icon plus-circle icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                       <path fill=\\"currentColor\\" d=\\"M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z\\" style={{...}} />
                                                                     </svg>
                                                                   </FontAwesomeIcon>
@@ -2877,8 +2904,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                                 <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon trash\\" icon={{...}}>
                                                                   <StyledComponent data-variant={[undefined]} className=\\"ox-icon trash\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
                                                                     <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon trash icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                      <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 ox-icon trash icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
-                                                                        <path fill=\\"currentColor\\" d=\\"M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm416 56v324c0 26.5-21.5 48-48 48H80c-26.5 0-48-21.5-48-48V140c0-6.6 5.4-12 12-12h360c6.6 0 12 5.4 12 12zm-272 68c0-8.8-7.2-16-16-16s-16 7.2-16 16v224c0 8.8 7.2 16 16 16s16-7.2 16-16V208zm96 0c0-8.8-7.2-16-16-16s-16 7.2-16 16v224c0 8.8 7.2 16 16 16s16-7.2 16-16V208zm96 0c0-8.8-7.2-16-16-16s-16 7.2-16 16v224c0 8.8 7.2 16 16 16s16-7.2 16-16V208z\\" style={{...}} />
+                                                                      <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 ox-icon trash icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
+                                                                        <path fill=\\"currentColor\\" d=\\"M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z\\" style={{...}} />
                                                                       </svg>
                                                                     </FontAwesomeIcon>
                                                                   </StyledComponent>
@@ -2910,7 +2937,7 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                               <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon plus-circle\\" icon={{...}}>
                                                                 <StyledComponent data-variant={[undefined]} className=\\"ox-icon plus-circle\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
                                                                   <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon plus-circle icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                    <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 ox-icon plus-circle icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 ox-icon plus-circle icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                       <path fill=\\"currentColor\\" d=\\"M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z\\" style={{...}} />
                                                                     </svg>
                                                                   </FontAwesomeIcon>
@@ -2934,8 +2961,8 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                                 <icon__IconWrapper data-variant={[undefined]} className=\\"ox-icon trash\\" icon={{...}}>
                                                                   <StyledComponent data-variant={[undefined]} className=\\"ox-icon trash\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
                                                                     <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon trash icon__IconWrapper-ra27cp-0 ldGbNz\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                      <svg aria-hidden=\\"true\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 ox-icon trash icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
-                                                                        <path fill=\\"currentColor\\" d=\\"M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm416 56v324c0 26.5-21.5 48-48 48H80c-26.5 0-48-21.5-48-48V140c0-6.6 5.4-12 12-12h360c6.6 0 12 5.4 12 12zm-272 68c0-8.8-7.2-16-16-16s-16 7.2-16 16v224c0 8.8 7.2 16 16 16s16-7.2 16-16V208zm96 0c0-8.8-7.2-16-16-16s-16 7.2-16 16v224c0 8.8 7.2 16 16 16s16-7.2 16-16V208zm96 0c0-8.8-7.2-16-16-16s-16 7.2-16 16v224c0 8.8 7.2 16 16 16s16-7.2 16-16V208z\\" style={{...}} />
+                                                                      <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 ox-icon trash icon__IconWrapper-ra27cp-0 ldGbNz\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
+                                                                        <path fill=\\"currentColor\\" d=\\"M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z\\" style={{...}} />
                                                                       </svg>
                                                                     </FontAwesomeIcon>
                                                                   </StyledComponent>

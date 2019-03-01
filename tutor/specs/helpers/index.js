@@ -11,7 +11,7 @@ import Actions from './actions';
 import { EnzymeContext, C, wrapInDnDTestContext } from './context';
 
 export function getPortalNode(modal) {
-  return modal.find('Portal').first().getDOMNode()
+  return modal.find('Portal').first().getDOMNode();
 }
 
 const deferred = (fn) =>
