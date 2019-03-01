@@ -138,6 +138,7 @@ exports[`Homework Row renders with completed count 1`] = `
           color="#c2002f"
           data-icon="clock"
           data-prefix="far"
+          focusable="false"
           role="img"
           style={Object {}}
           viewBox="0 0 512 512"

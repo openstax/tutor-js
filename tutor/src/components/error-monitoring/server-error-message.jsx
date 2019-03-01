@@ -21,7 +21,7 @@ const ServerErrorMessage = observer((props) => {
   );
 
   if (config.data) {
-    dataMessage = <span>with <pre>{config.data}</pre></span>;
+    dataMessage = <span>with <pre>{JSON.stringify(config.data)}</pre></span>;
   }
 
   if (debug) {

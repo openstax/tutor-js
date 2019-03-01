@@ -40,6 +40,7 @@ exports[`Creating a course matches snapshot 1`] = `
           color="#5e5e5e"
           data-icon="circle"
           data-prefix="far"
+          focusable="false"
           role="img"
           style={Object {}}
           viewBox="0 0 512 512"

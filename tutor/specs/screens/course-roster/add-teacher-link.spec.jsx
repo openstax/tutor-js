@@ -1,4 +1,3 @@
-import { ld } from '../../helpers';
 import Clipboard from '../../../src/helpers/clipboard';
 import { courseRosterBootstrap } from './bootstrap-data';
 import AddTeacher from '../../../src/screens/course-roster/add-teacher-link';
@@ -10,8 +9,8 @@ jest.mock('../../../src/helpers/clipboard');
 const displayPopover = props =>
   new Promise( function(resolve) {
     const wrapper = mount(<AddTeacher {...props} />);
-    wrapper.simulate('click');
-    resolve(ld.last(document.querySelectorAll('.settings-add-instructor-modal')));
+    wrapper.find('Button').simulate('click');
+    return resolve(wrapper.find('Modal').first());
   })
 ;
 
@@ -25,8 +24,8 @@ describe('Course Settings, undrop student', function() {
   });
 
   it('displays teacher join url when clicked', () => {
-    return displayPopover(props).then(function(dom) {
-      expect(dom.querySelector('input').value).toEqual(
+    return displayPopover(props).then((modal) => {
+      expect(modal.find('input').props().value).toEqual(
         props.course.roster.teach_url
       );
     });

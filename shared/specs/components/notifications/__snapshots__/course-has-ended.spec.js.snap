@@ -17,6 +17,7 @@ exports[`Notifications MissingStudentId notice renders and matches snapshot 1`] 
       className="svg-inline--fa fa-info-circle fa-w-16 ox-icon info-circle c0"
       data-icon="info-circle"
       data-prefix="fas"
+      focusable="false"
       role="img"
       style={Object {}}
       viewBox="0 0 512 512"

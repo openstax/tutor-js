@@ -9,21 +9,6 @@ const WrappedComponent = (props) => (
   </SuretyGuard>
 );
 
-jest.mock('popper.js', () => {
-  const PopperJS = jest.requireActual('popper.js');
-
-  return class {
-    static placements = PopperJS.placements;
-
-    constructor() {
-      return {
-        destroy: () => {},
-        scheduleUpdate: () => {},
-      };
-    }
-  };
-});
-
 describe('SuretyGuard', function() {
   let props = null;
 

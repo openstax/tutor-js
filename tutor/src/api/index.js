@@ -190,6 +190,7 @@ const startAPI = function() {
     User.constructor,
     'logEvent',
     {
+      method: 'POST',
       pattern: 'log/event/{category}/{code}',
       data({ data }) { return { data }; },
     },

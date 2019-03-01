@@ -23,6 +23,7 @@ exports[`CourseCalendar Sidebar Toggle matches snapshot 1`] = `
     className="svg-inline--fa fa-bars fa-w-14 ox-icon bars c0"
     data-icon="bars"
     data-prefix="fas"
+    focusable="false"
     role="img"
     style={Object {}}
     viewBox="0 0 448 512"
