@@ -1,0 +1,9 @@
+#!/bin/bash
+
+[ -z "$OX_PROJECT" ] && echo "need OX_PROJECT environment var" && exit 1;
+
+if [ "$1" == "compare-master" ]; then
+    git diff-tree -r --no-commit-id --name-only head origin/master ${OX_PROJECT}/ | xargs $(npm bin)/eslint
+else
+    git status --short --porcelain ${OX_PROJECT}/ | awk '{ print $2 }' | xargs $(npm bin)/eslint
+fi
