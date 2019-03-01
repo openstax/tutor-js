@@ -2,6 +2,7 @@ pipeline {
   agent { label 'docker' }
   stages {
     stage('Parallel') {
+      when { branch 'a11y' }
       parallel {
         stage('Accessibility Report') {
           stages {
