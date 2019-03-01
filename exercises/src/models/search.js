@@ -4,7 +4,7 @@ import {
   BaseModel, identifiedBy, belongsTo, identifier, field, hasMany, observable, computed, action,
 } from 'shared/model';
 
-import Exercise from 'shared/model/exercise';
+import Exercise from './exercises/exercise';
 
 
 @identifiedBy('search/clause')
