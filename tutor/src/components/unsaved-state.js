@@ -18,7 +18,6 @@ const UnsavedStateMixin = {
 
 const TransitionAssistant = {
   canTransition() {
-    debugger
     return !find(ACTIVE, c => c._cannotTransition()) || (AppStore.getError() != null); },
   unsavedMessages() { return flatten( map(ACTIVE, '_unsavedMessages'), 1); },
 
@@ -53,14 +52,13 @@ const TransitionAssistant = {
   },
 
   startMonitoring() {
-    return
     delete this.startMonitoring; // remove the function so it can't be called twice
-    return window.onbeforeunload = () => {
-      if (!this.canTransition() && !this.wasJustApproved()) {
-        return this.unsavedMessages().join('\n');
-      }
-      return [];
-    };
+    // window.onbeforeunload = () => {
+    //   if (!this.canTransition() && !this.wasJustApproved()) {
+    //     return this.unsavedMessages().join('\n');
+    //   }
+    //   return [];
+    // };
   },
 };
 
