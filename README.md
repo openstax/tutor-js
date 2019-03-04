@@ -16,7 +16,7 @@ The Front-end code for Openstax Tutor related projects
   - If you don’t have `git` installed you can install homebrew and then `brew install git`
 1. `cd tutor-js` move into the checked out directory
 1. `yarn install`
-1. `yarn run serve <project>` *(where <project is one of tutor|coach|exercises)*
+1. `yarn run serve <project>` *(where <project is one of tutor|exercises)*
 
  - Run the Tutor server as shown below
 
@@ -46,7 +46,13 @@ Using the sample API data only allows acting as a student and can't save data.  
   - Once you click login, the server will present a dev console that allows you to select a user
 1. And will then render the FE just as it appears in production
 
+### Exercises
 
+`tutor-js` is also the front-end for [Exercises](https://github.com/openstax/exercises) and is ran similarly to the Tutor Server.
+
+1. Install OpenStax Exercises as shown in its README file
+1. Run `npm run serve exercises` in `tutor-js` directory
+1. Load <http://localhost:3000> in your browser
 
 [travis-image]: https://img.shields.io/travis/openstax/tutor-js.svg?style=flat-square
 [travis-url]: https://travis-ci.org/openstax/tutor-js
