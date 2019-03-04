@@ -17,6 +17,8 @@ const BookPage = createReactClass({
 
   propTypes: {
     ux: PropTypes.object.isRequired,
+    className: PropTypes.string,
+    children: PropTypes.node,
   },
 
   mixins: [BookContentMixin, GetPositionMixin],

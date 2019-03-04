@@ -4,7 +4,6 @@ import Courses from '../../src/models/courses-map';
 import Course from '../../src/models/course';
 import Payments from '../../src/models/payments';
 import PH from '../../src/helpers/period';
-import FeatureFlags from '../../src/models/feature_flags';
 import { autorun } from 'mobx';
 import { bootstrapCoursesList } from '../courses-test-data';
 

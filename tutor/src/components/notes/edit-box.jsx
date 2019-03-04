@@ -72,7 +72,7 @@ class EditBox extends React.Component {
 
   render() {
     const { annotation, props: {
-      note, previous, next, seeAll,
+      previous, next, seeAll,
     } } = this;
 
     return (
@@ -124,3 +124,7 @@ export default function EditBoxWrapper(props) {
     </div>
   );
 }
+
+EditBoxWrapper.propTypes = {
+  note: PropTypes.instanceOf(Note),
+};

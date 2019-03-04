@@ -19,6 +19,7 @@ const ReadingStepContent = createReactClass({
 
   propTypes: {
     id: PropTypes.string.isRequired,
+    onContinue: PropTypes.func,
     courseId: PropTypes.string.isRequired,
     stepType: PropTypes.string.isRequired,
   },
@@ -47,8 +48,10 @@ const ReadingStepContent = createReactClass({
 
   onContinue() {
     this.setState({ isContinuing: true });
-    return this.props.onContinue().then(() => {
-      if (this.isMounted) { return this.setState({ isContinuing: false }); }
+    this.props.onContinue().then(() => {
+      if (this.isMounted) {
+        this.setState({ isContinuing: false });
+      }
     });
   },
 
@@ -120,15 +123,15 @@ const ReadingStepContent = createReactClass({
             title={this.getContentTitle()}
             documentId={this.getCnxId()}
             pageType={stepType}
-            >
+          >
             <ArbitraryHtmlAndMath
-            className="book-content"
-            shouldExcludeFrame={this.shouldExcludeFrame}
-            html={content_html} />
-            </NoteWidget>
-            {this.renderNextStepLink()}
-            </div>
-            </div>
+              className="book-content"
+              shouldExcludeFrame={this.shouldExcludeFrame}
+              html={content_html} />
+          </NoteWidget>
+          {this.renderNextStepLink()}
+        </div>
+      </div>
     );
   },
 });

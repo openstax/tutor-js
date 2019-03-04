@@ -27,4 +27,4 @@ setTimeout(function() {
 
 `;
 
-console.log(styleTags, html);
+console.log(styleTags, html); // eslint-disable-line no-console

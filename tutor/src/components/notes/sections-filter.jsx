@@ -3,7 +3,6 @@ import React from 'react';
 import Multiselect from '../multi-select';
 import { observer } from 'mobx-react';
 import { action, computed } from 'mobx';
-import { filter, map } from 'lodash';
 
 export default
 @observer
@@ -12,6 +11,7 @@ class SectionsFilter extends React.Component {
   static propTypes = {
     notes: PropTypes.object.isRequired,
     selected: PropTypes.array.isRequired,
+    windowImpl: PropTypes.object,
   };
 
   @action.bound onSelect({ id: key, selected } = {}) {

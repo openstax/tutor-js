@@ -1,5 +1,5 @@
 import { action, observable } from 'mobx';
-import { includes, sortBy, values } from 'lodash';
+import { sortBy, values } from 'lodash';
 import {
   BaseModel, identifiedBy, hasMany, session, identifier,
 } from 'shared/model';

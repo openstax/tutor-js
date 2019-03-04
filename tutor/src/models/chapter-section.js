@@ -9,9 +9,9 @@ class ChapterSection extends BaseModel {
   constructor(arg = []) {
     super();
     if (isArray(arg)) {
-      [this.chapter, this.section] = arg
+      [this.chapter, this.section] = arg;
     } else {
-      [this.chapter, this.section] = arg.split('.')
+      [this.chapter, this.section] = arg.split('.');
     }
   }
 

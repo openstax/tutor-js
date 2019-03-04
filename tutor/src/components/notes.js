@@ -27,6 +27,7 @@ class NotesWidgetWrapper extends React.Component {
     children: PropTypes.node.isRequired,
     windowImpl: PropTypes.shape({
       open: PropTypes.func,
+      document: PropTypes.func,
     }),
     page: PropTypes.instanceOf(Page).isRequired,
   };
@@ -56,6 +57,10 @@ class NotesWidget extends React.Component {
     children: PropTypes.node.isRequired,
     windowImpl: PropTypes.shape({
       open: PropTypes.func,
+      document: PropTypes.object,
+      getSelection: PropTypes.func,
+      pageXOffset: PropTypes.number,
+      pageYOffset: PropTypes.number,
     }),
     page: PropTypes.instanceOf(Page).isRequired,
   };
@@ -138,7 +143,7 @@ class NotesWidget extends React.Component {
       try {
         this.highlighter.highlight(note.highlight);
       } catch(error) {
-        console.warn(error);
+        console.warn(error); // eslint-disable-line no-console
       }
     });
   }
@@ -209,7 +214,6 @@ class NotesWidget extends React.Component {
   get documentRoot() {
     const doc = this.props.windowImpl.document;
     return doc.querySelector('[data-type="composite-page"]') || doc.querySelector('.book-content') || doc;
-
   }
 
   get referenceElements() {
@@ -421,4 +425,4 @@ class NotesWidget extends React.Component {
     );
   }
 
-};
+}

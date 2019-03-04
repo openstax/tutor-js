@@ -1,5 +1,5 @@
-import { isString, last, pick, extend } from 'lodash';
-import { computed, action, get, toJS, intercept } from 'mobx';
+import { isString, pick, extend } from 'lodash';
+import { computed, action, toJS, intercept } from 'mobx';
 import ChapterSection from '../chapter-section';
 import { SerializedHighlight } from '@openstax/highlighter';
 import {

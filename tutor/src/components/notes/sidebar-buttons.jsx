@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { autobind } from 'core-decorators';
 import { observer } from 'mobx-react';
-import { action, observable, computed } from 'mobx';
+import { action, observable } from 'mobx';
 import cn from 'classnames';
-import { get, map, filter } from 'lodash';
 import { Icon } from 'shared';
 import { Note, PageNotes } from '../../models/notes';
 import getRangeRect from './getRangeRect';
@@ -19,6 +17,7 @@ class NoteButton extends React.Component {
     onClick: PropTypes.func.isRequired,
     activeNote: PropTypes.instanceOf(Note),
     containerTop: PropTypes.number.isRequired,
+    windowImpl: PropTypes.object,
   }
 
   calculateTop() {
@@ -67,13 +66,14 @@ class SidebarButtons extends React.Component {
     highlighter: PropTypes.object,
     onClick: PropTypes.func.isRequired,
     activeNote: PropTypes.instanceOf(Note),
+    windowImpl: PropTypes.object,
   }
 
 
   @observable containerTop = null;
 
   @action.bound setContainerRef(el) {
-    this.containerTop = el ? getRangeRect(this.props.windowImpl, el).top : null
+    this.containerTop = el ? getRangeRect(this.props.windowImpl, el).top : null;
   }
 
   renderNotes() {

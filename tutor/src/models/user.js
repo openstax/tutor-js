@@ -10,7 +10,6 @@ import NotesUX from './notes/ux';
 import lazyGetter from 'shared/helpers/lazy-getter';
 import ViewedTourStat from './user/viewed-tour-stat';
 import { read_csrf } from '../helpers/dom';
-import Offerings from './course/offerings';
 
 @identifiedBy('user')
 class User extends BaseModel {

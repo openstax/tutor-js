@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { isEmpty, map } from 'lodash';
-import { action, observable, computed } from 'mobx';
+import { map } from 'lodash';
+import { action, observable } from 'mobx';
 import { Button } from 'react-bootstrap';
 import { Icon } from 'shared';
-import Courses from '../../models/courses-map';
 import PopoutWindow from 'shared/components/popout-window';
 import { ArbitraryHtmlAndMath } from 'shared';
 import Analytics from '../../helpers/analytics';
@@ -47,9 +46,8 @@ class SummaryPopup extends React.Component {
   }
 
   render() {
-    return null;
-
     const { notes } = this.props;
+
     if (!notes) { return null; }
 
     const { course } = notes;

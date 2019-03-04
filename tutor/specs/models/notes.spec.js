@@ -1,7 +1,5 @@
 import { Factory } from '../helpers';
-import DATA from '../../api/notes.json';
-import { keys } from 'lodash';
-import { Notes, PageNotes, Note } from '../../src/models/notes';
+import { Notes, Note } from '../../src/models/notes';
 
 describe('Notes Model', () => {
   let notes;
