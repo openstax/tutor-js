@@ -26,7 +26,7 @@ class BackButton extends React.Component {
     let { fallbackLink, className } = this.props;
     className = classnames('btn', 'btn-default', className);
 
-    const backText = (historyInfo != null ? historyInfo.name : undefined) ? `Back to ${historyInfo.name}` : fallbackLink.text;
+    const backText = (historyInfo != null ? historyInfo.name : undefined) ? `Back to ${historyInfo.name}` : (fallbackLink.text || 'Back');
 
     const to =  (historyInfo != null ? historyInfo.path : undefined) || Router.makePathname(
       this.props.fallbackLink.to, this.props.fallbackLink.params
