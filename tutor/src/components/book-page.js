@@ -9,7 +9,6 @@ import classnames from 'classnames';
 import { BookContentMixin } from './book-content-mixin';
 import { ReferenceBookExerciseShell } from './book-page/exercise';
 import RelatedContent from './related-content';
-
 import NotesWidget from './notes';
 import { ReferenceBookExerciseActions, ReferenceBookExerciseStore } from '../flux/reference-book-exercise';
 
@@ -18,6 +17,8 @@ const BookPage = createReactClass({
 
   propTypes: {
     ux: PropTypes.object.isRequired,
+    className: PropTypes.string,
+    children: PropTypes.node,
   },
 
   mixins: [BookContentMixin, GetPositionMixin],
@@ -107,10 +108,8 @@ const BookPage = createReactClass({
     if (ux.allowsAnnotating) {
       content = (
         <NotesWidget
-          courseId={ux.course.id}
-          chapter={page.chapter_section.chapter}
-          section={page.chapter_section.section}
-          title={title}
+          course={ux.course}
+          page={page}
           documentId={page.cnx_id}
         >{content}</NotesWidget>
       );

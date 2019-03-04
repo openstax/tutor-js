@@ -1,14 +1,56 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { isEmpty, map } from 'lodash';
-import { action, observable, computed } from 'mobx';
+import { map } from 'lodash';
+import { action, observable } from 'mobx';
 import { Button } from 'react-bootstrap';
 import { Icon } from 'shared';
-import Courses from '../../models/courses-map';
 import PopoutWindow from 'shared/components/popout-window';
 import { ArbitraryHtmlAndMath } from 'shared';
 import Analytics from '../../helpers/analytics';
+
+const NotesForSection = observer(({
+  notes, section, selectedSections,
+}) => {
+
+  if (!selectedSections.includes(section.chapter_section.key)) {
+    return null;
+  }
+  const page = notes.forChapterSection(section.chapter_section);
+
+  return (
+    <div className="section">
+      <h2>{section.chapter_section.asString} {section.title}</h2>
+      {map(page.array, (note) => (
+        <div
+          key={note.id}
+          style={{
+            marginBottom: '2rem',
+          }}
+        >
+          <blockquote
+            style={{
+              fontStyle: 'italic',
+              margin: '0 0 1rem 0.5rem',
+              borderLeft: '2px solid lightgrey',
+              paddingLeft: '0.5rem',
+            }}
+          >
+            <ArbitraryHtmlAndMath html={note.content} />
+          </blockquote>
+          <p
+            style={{
+              marginLeft: '0.5rem',
+            }}
+          >
+            {note.text}
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+});
+
 
 export default
 @observer
@@ -18,8 +60,7 @@ class SummaryPopup extends React.Component {
     windowImpl: PropTypes.shape({
       open: PropTypes.func,
     }),
-
-    courseId: PropTypes.string.isRequired,
+    selected: PropTypes.array.isRequired,
     notes: PropTypes.object.isRequired,
   };
 
@@ -49,10 +90,12 @@ class SummaryPopup extends React.Component {
   }
 
   render() {
-    const { courseId, notes } = this.props;
-    if (isEmpty(notes)) { return null; }
+    const { notes, selected } = this.props;
 
-    const course = Courses.get(courseId);
+    if (!notes) { return null; }
+
+    const { course } = notes;
+
     return (
       <div>
         <Button
@@ -75,38 +118,13 @@ class SummaryPopup extends React.Component {
         >
           <div className="summary-preview summary-popup">
             <div className="notes">
-              {map(notes, (notes, ch) =>
-                <div key={ch}>
-                  <h2>{notes[0].formattedChapterSection} {notes[0].title}</h2>
-                  {map(notes, (note) => (
-                    <div
-                      key={note.id}
-                      style={{
-                        marginBottom: '2rem',
-                      }}
-                    >
-                      <blockquote
-                        style={{
-                          fontStyle: 'italic',
-                          margin: '0 0 1rem 0.5rem',
-                          borderLeft: '2px solid lightgrey',
-                          paddingLeft: '0.5rem',
-                        }}
-
-                      >
-                        <ArbitraryHtmlAndMath html={note.content} />
-                      </blockquote>
-                      <p
-                        style={{
-                          marginLeft: '0.5rem',
-                        }}
-                      >
-                        {note.text}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              )}
+              {notes.sections.sorted().map((s, i) =>
+                <NotesForSection
+                  key={i}
+                  notes={notes}
+                  selectedSections={selected}
+                  section={s}
+                />)}
             </div>
           </div>
         </PopoutWindow>

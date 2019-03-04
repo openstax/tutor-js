@@ -48,8 +48,10 @@ class NoteSummaryToggle extends React.Component {
       >
         <TourAnchor id="student-highlighting-button">
           <button
-            onClick={User.notes.ux.toggleSummary}
-            className={cn('note-summary-toggle', { active: User.notes.ux.isSummaryVisible })}
+            onClick={User.notesUX.toggleSummary}
+            className={cn('note-summary-toggle', {
+              active: User.notesUX.isSummaryVisible,
+            })}
           >
             <HighlightIcon />
           </button>

@@ -77,13 +77,13 @@ class NoteCard extends React.Component {
 
   @action.bound
   saveNote(newText) {
-    this.props.note.text = newText;
+    this.props.note.annotation = newText;
     this.props.note.save();
   }
 
   @action.bound doDelete() {
     this.props.note.destroy().then(
-      this.props.onDelete
+      () => this.props.onDelete(this.props.note)
     );
   }
 
@@ -113,13 +113,13 @@ class NoteCard extends React.Component {
             </blockquote>
             {this.editing ? (
               <EditBox
-                text={note.text}
+                text={note.annotation}
                 dismiss={this.stopEditing}
                 save={this.saveNote}
               />
             ) : (
               <div className="plain-text">
-                {note.text}
+                {note.annotation}
               </div>
             )}
           </div>

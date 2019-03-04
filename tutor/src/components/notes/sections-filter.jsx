@@ -3,32 +3,37 @@ import React from 'react';
 import Multiselect from '../multi-select';
 import { observer } from 'mobx-react';
 import { action, computed } from 'mobx';
-import { filter, map } from 'lodash';
 
 export default
 @observer
 class SectionsFilter extends React.Component {
 
   static propTypes = {
-    sections: PropTypes.object.isRequired,
-    selected: PropTypes.object.isRequired,
+    notes: PropTypes.object.isRequired,
+    selected: PropTypes.array.isRequired,
+    windowImpl: PropTypes.object,
   };
 
-  @action.bound onSelect({ id, selected }) {
-    this.props.selected.set(id, !selected);
+  @action.bound onSelect({ id: key, selected } = {}) {
+
+    if (selected) {
+      this.props.selected.remove(key);
+    } else {
+      this.props.selected.push(key);
+    }
   }
 
   @computed get choices() {
-    return map(this.props.sections, (notes, id) => (
+    return this.props.notes.sections.sorted().map((s) => (
       {
-        id,
+        id: s.chapter_section.key,
         title: (
           <span>
-            <span className="section">{notes[0].formattedChapterSection}</span>
-            <span>{notes[0].title}</span>
+            <span className="section">{s.chapter_section.asString}</span>
+            <span>{s.title}</span>
           </span>
         ),
-        selected: this.props.selected.get(id),
+        selected: this.props.selected.includes(s.chapter_section.key),
       }
     ));
   }

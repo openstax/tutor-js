@@ -12,6 +12,8 @@ import { EcosystemsMap, Ecosystem } from '../../src/models/ecosystems';
 import { ExercisesMap } from '../../src/models/exercises';
 import { ResearchSurvey } from '../../src/models/research-surveys/survey';
 import StudentDashboardTask from '../../src/models/student/task';
+import Note from '../../src/models/notes/note';
+import Page from '../../src/models/reference-book/page';
 
 import './research_survey';
 import './dashboard';
@@ -23,17 +25,20 @@ import './exercise';
 import './scores';
 import './offering';
 import './course-roster';
+import './note';
 
 const Factories = {};
 
 each({
-  Course,
-  TutorExercise,
+  Note,
   Book,
+  Page,
+  Course,
+  Offering,
   Ecosystem,
   TaskPlanStat,
+  TutorExercise,
   ResearchSurvey,
-  Offering,
   StudentDashboardTask,
 }, (Model, name) => {
   Factories[camelCase(name)] = (attrs = {}) => {
@@ -99,6 +104,15 @@ Factories.scores = ({ course }) => {
   });
   return course.scores;
 };
+
+Factories.notesPageMap = ({ course, chapter, section, count = 4 }) => {
+  const page = course.notes.forChapterSection(chapter, section);
+  range(count).forEach(() => {
+    const note = new Note(FactoryBot.create('Note', { chapter, section }), page)
+    page.set(note.id, note);
+  })
+  return page;
+}
 
 Factories.exercisesMap = ({ book, pageIds = [], count = 4 } = {}) => {
   const map = new ExercisesMap();

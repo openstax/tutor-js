@@ -6,7 +6,7 @@ import {
 import Tag from './tag';
 import ExerciseContent from 'shared/model/exercise';
 import Page from '../reference-book/page';
-import { extendHasMany } from '../../helpers/computed-property';
+import { getters } from '../../helpers/computed-property';
 
 export default
 @identifiedBy('exercises/exercise')
@@ -27,7 +27,7 @@ class TutorExercise extends BaseModel {
   @field context;
   @field preview;
 
-  @hasMany({ model: Tag, inverseOf: 'exercise', extend: extendHasMany({
+  @hasMany({ model: Tag, inverseOf: 'exercise', extend: getters({
     importantInfo() {
       return reduce(filter(this, 'isImportant'),
         (o, t) => t.recordInfo(o),

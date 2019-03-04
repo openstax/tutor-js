@@ -1,28 +1,29 @@
-import DATA from '../../api/notes.json';
-import { keys } from 'lodash';
-import Notes from '../../src/models/notes';
-import FeatureFlags from '../../src/models/feature_flags';
-import Hypothesis from '../../src/models/notes/hypothesis';
-jest.mock('../../src/models/feature_flags');
-jest.mock('../../src/models/notes/hypothesis');
+import { Factory } from '../helpers';
+import { Notes, Note } from '../../src/models/notes';
 
 describe('Notes Model', () => {
+  let notes;
 
   beforeEach(() => {
-    FeatureFlags.is_highlighting_allowed = false;
+    notes = new Notes({ course: Factory.course() });
   });
 
-  it('does not request info when feature flag is off', () => {
-    const notes = new Notes();
-    expect(notes.api.isPending).toBe(false);
-    expect(Hypothesis.fetchUserInfo).not.toHaveBeenCalled();
-  });
-
-  it('sets notes', () => {
-    const notes = new Notes();
-    notes.updateNotes(DATA.rows);
-    expect(notes.byCourseAndPage).toHaveProperty('1');
-    expect(keys(notes.byCourseAndPage['1'])).toEqual(['2.1']);
+  it('calls save and adds to sections', () => {
+    const notesPage = Factory.notesPageMap({
+      course: notes.course, chapter: 2, section: 1,
+    });
+    const spy = jest.spyOn(Note.prototype, 'save').mockImplementation(() => Promise.resolve());
+    const page = Factory.page();
+    return notesPage.create({
+      page,
+      anchor: '1234',
+      contents: { foo: '123' },
+    }).then(() => {
+      expect(spy).toHaveBeenCalled();
+      expect(
+        notesPage.notes.sections[0].chapter_section.key
+      ).toEqual(page.chapter_section.key);
+    });
   });
 
 });

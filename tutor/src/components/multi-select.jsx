@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
-import { find } from 'lodash';
 import classnames from 'classnames';
 import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
@@ -14,11 +13,12 @@ class MultiSelect extends React.Component {
     title:      PropTypes.string.isRequired,
     className:  PropTypes.string,
     closeAfterSelect: PropTypes.bool,
-
     selections: PropTypes.arrayOf(
       PropTypes.shape({
-        id:       PropTypes.string,
-        title:    PropTypes.oneOfType([
+        id:       PropTypes.oneOfType([
+          PropTypes.string, PropTypes.number,
+        ]),
+        title: PropTypes.oneOfType([
           PropTypes.string, PropTypes.element,
         ]),
         selected: PropTypes.bool,
@@ -46,7 +46,7 @@ class MultiSelect extends React.Component {
   @action.bound onSelect(selection) {
     if (this.props.onSelect) {
       this.props.onSelect(
-        find(this.props.selections, { id: selection })
+        this.props.selections.find(s => s.id == selection)
       );
     }
   }

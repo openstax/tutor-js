@@ -31,8 +31,9 @@
       .rw-widget { width: 100%; }
       .section {
         display: inline-block;
-        margin-left: 0.5rem;
-        min-width: 2.8rem;
+        margin: 0 0.5rem;
+        min-width: 3rem;
+        text-align: right;
         font-weight: bold;
       }
     }

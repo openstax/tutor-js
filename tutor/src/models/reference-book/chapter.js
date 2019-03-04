@@ -5,7 +5,7 @@ import {
 } from 'shared/model';
 import Page from './page';
 import ChapterSection from '../chapter-section';
-import { extendHasMany } from '../../helpers/computed-property';
+import { getters } from '../../helpers/computed-property';
 
 export default
 @identifiedBy('reference-book/chapter')
@@ -16,7 +16,7 @@ class ReferenceBookChapter extends BaseModel {
   @field({ model: ChapterSection }) chapter_section;
   @field({ model: ChapterSection }) baked_chapter_section;
   @session book;
-  @hasMany({ model: Page, inverseOf: 'chapter', extend: extendHasMany({
+  @hasMany({ model: Page, inverseOf: 'chapter', extend: getters({
     assignable() { return filter(this, 'isAssignable'); },
   }) }) children;
   @readonly depth = 1;

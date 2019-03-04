@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { autobind } from 'core-decorators';
 import { observer } from 'mobx-react';
-import { action, observable, computed } from 'mobx';
+import { action, observable } from 'mobx';
 import cn from 'classnames';
-import { get, map, filter } from 'lodash';
 import { Icon } from 'shared';
-import Note from '../../models/notes/note';
+import { Note, PageNotes } from '../../models/notes';
 import getRangeRect from './getRangeRect';
 
 @observer
@@ -19,6 +17,7 @@ class NoteButton extends React.Component {
     onClick: PropTypes.func.isRequired,
     activeNote: PropTypes.instanceOf(Note),
     containerTop: PropTypes.number.isRequired,
+    windowImpl: PropTypes.object,
   }
 
   calculateTop() {
@@ -31,19 +30,17 @@ class NoteButton extends React.Component {
     return top;
   }
 
-  highlightTop = this.calculateTop()
-
   @action.bound onClick() {
     this.props.onClick(this.props.note);
   }
 
   render() {
-    const { highlightTop } = this;
-    const { note, isActive, containerTop } = this.props;
 
+    const { note, isActive, containerTop } = this.props;
+    const highlightTop = this.calculateTop();
     if (highlightTop == null) { return null; }
 
-    const top = this.highlightTop - containerTop;
+    const top = highlightTop - containerTop;
 
     return (
       <Icon
@@ -62,33 +59,34 @@ export default
 @observer
 class SidebarButtons extends React.Component {
   static propTypes = {
-    notes: PropTypes.arrayOf(
-      PropTypes.instanceOf(Note)
-    ).isRequired,
+    notes: PropTypes.instanceOf(PageNotes).isRequired,
     parentRect: PropTypes.shape({
       top: PropTypes.number,
     }),
     highlighter: PropTypes.object,
     onClick: PropTypes.func.isRequired,
     activeNote: PropTypes.instanceOf(Note),
+    windowImpl: PropTypes.object,
   }
 
 
   @observable containerTop = null;
 
   @action.bound setContainerRef(el) {
-    this.containerTop = el ? getRangeRect(this.props.windowImpl, el).top : null
+    this.containerTop = el ? getRangeRect(this.props.windowImpl, el).top : null;
   }
 
   renderNotes() {
-    return filter(this.props.notes, 'text').map(note =>
-      <NoteButton
-        key={note.id}
-        isActive={this.props.activeNote === note}
-        containerTop={this.containerTop}
-        {...this.props}
-        note={note}
-      />
+    return this.props.notes.array.map(note =>
+      note.annotation && (
+        <NoteButton
+          key={note.id}
+          isActive={this.props.activeNote === note}
+          containerTop={this.containerTop}
+          {...this.props}
+          note={note}
+        />
+      )
     );
   }
 

@@ -1,102 +1,128 @@
-import { action, computed } from 'mobx';
-import { get, sortBy, groupBy, mapValues, isArray } from 'lodash';
+import { action, observable } from 'mobx';
+import { sortBy, values } from 'lodash';
+import {
+  BaseModel, identifiedBy, hasMany, session, identifier,
+} from 'shared/model';
+import ChapterSection from './chapter-section';
 import Map from 'shared/model/map';
-import lazyGetter from 'shared/helpers/lazy-getter';
-import { chapterSectionToNumber } from '../helpers/content';
-import Hypothesis from './notes/hypothesis';
 import Note from './notes/note';
-import FeatureFlags from './feature_flags';
-import NotesUX from './notes/ux';
 
-export default class Notes extends Map {
+class PageNotes extends Map {
+  keyType = Number
 
-  keyType = String
+  static Model = Note
 
-  constructor() {
+  constructor({ notes, chapterSection }) {
     super();
-    if (FeatureFlags.is_highlighting_allowed) {
-      this.api.requestsInProgress.set('fetch', true);
-      Hypothesis.fetchUserInfo().then(this.updateNotes);
-    }
+    this.notes = notes;
+    this.chapterSection = chapterSection;
+    this.fetch();
   }
 
-  @lazyGetter ux = new NotesUX();
-
-  @computed get byCourseAndPage() {
-    return mapValues(
-      groupBy(this.array, 'courseId'),
-      (cpgs) => mapValues(
-        groupBy(
-          sortBy(cpgs, c=>chapterSectionToNumber(c.chapter_section)),
-          a => a.chapter_section.join('.')
-        ),
-        (notes) => sortBy(notes, ['rect.top', 'selection.rect.top', 'selection.start'])
-      )
-    );
+  fetch() {
+    return {
+      chapterSection: this.chapterSection,
+      courseId: this.notes.course.id,
+    };
   }
 
-  @action.bound updateNotes(notes) {
-    this.api.requestsInProgress.delete('fetch');
-    this.api.requestCounts.read += 1;
-    if (isArray(notes)) {
-      notes.forEach(document => {
-        const note = this.get(document.id);
-        const data = document.target[0].selector[0];
-        data.id = document.id;
-        data.text = document.text;
-        data.listing = this;
-        note ? note.update(data) : this.set(data.id, new Note(data));
-      });
-    }
+  @action onLoaded({ data: notes }) {
+    this.mergeModelData(notes);
   }
 
-  update(note) {
-    this.api.requestsInProgress.set('update', true);
-    return Hypothesis.request({
-      method: 'PATCH',
-      service: `annotations/${note.id}`,
-      data: { text: note.text },
-    }).then(() => {
-      this.api.requestsInProgress.delete('update');
-      this.api.requestCounts.update += 1;
-      return note;
-    });
+  @action onNoteDeleted(note) {
+    this.delete(note.id);
+    this.notes.onNoteDeleted(note, this);
   }
 
-  create(options) {
-    this.api.requestsInProgress.set('create', true);
-    return Hypothesis.create(
-      options.documentId,
-      options.selection, '', options
-    ).then(document => {
-      const data = get(document, 'target.0.selector.0');
-      if (!data || !document.id) {
-        throw new Error('server returned malformed response from create');
+  create({ anchor, page, ...attrs }) {
+    const note = new Note({
+      anchor,
+      chapter_section: page.chapter_section,
+      contents: attrs,
+    }, this);
+
+    return note.save().then(() => {
+      if (!this.notes.sections.forChapterSection(page.chapter_section.key)) {
+        this.notes.sections.push(page);
       }
-      this.api.requestsInProgress.delete('create');
-      this.api.requestCounts.create += 1;
-
-      data.id = document.id;
-      data.text = document.text;
-      data.listing = this;
-      const note = new Note(data);
-      this.set(note.id, note);
-      return note;
-    });
-  }
-
-  destroy(note) {
-    this.api.requestsInProgress.set('delete', true);
-    return Hypothesis.request({
-      method: 'DELETE',
-      service: `annotations/${note.id}`,
-    }).then(() => {
-      note.isDeleted = true;
-      this.api.requestsInProgress.delete('delete');
-      this.api.requestCounts.delete += 1;
-      this.delete(note.id);
       return note;
     });
   }
 
 }
+
+@identifiedBy('notes/highlighted-section')
+class HighlightedSection extends BaseModel {
+
+  @identifier id;
+  @session title;
+  @session({ model: ChapterSection }) chapter_section;
+
+}
+
+@identifiedBy('notes')
+class Notes extends BaseModel {
+
+  pages = observable.map();
+
+  @hasMany({ model: HighlightedSection, extend: {
+    sorted() { return sortBy(this, 'chapter_section.key'); },
+    forChapterSection(cs) {
+      return this.find(s => s.chapter_section.matches(cs));
+    },
+  } }) sections = [];
+
+  constructor({ course }) {
+    super();
+    this.course = course;
+    this.fetchHighlightedSections();
+  }
+
+  @action forChapterSection(chapterSection) {
+    chapterSection = String(chapterSection);
+    let pages = this.pages.get(chapterSection);
+    if (!pages) {
+      pages = new PageNotes({ chapterSection, notes: this });
+    }
+    this.pages.set(chapterSection, pages);
+    return pages;
+  }
+
+  fetchHighlightedSections() {
+    return { courseId: this.course.id };
+  }
+
+  onHighlightedSectionsLoaded({ data: { pages } }) {
+    const sections = {};
+    pages.forEach(pg => {
+      const key = pg.chapter_section.join('.');
+      if (!sections[key]) { sections[key] = pg; }
+    });
+    this.sections = values(sections);
+  }
+
+  @action onNoteDeleted(note, page) {
+    if (page.isEmpty) {
+      const section = this.sections.forChapterSection(note.chapter_section);
+      if (section) {
+        this.sections.remove(section);
+      }
+    }
+
+  }
+
+  find(chapterSection) {
+    chapterSection = String(chapterSection);
+    const section = this.sections.forChapterSection(chapterSection);
+    if (section) {
+      return {
+        section,
+        notes: this.forChapterSection(chapterSection),
+      };
+    }
+    return null;
+  }
+}
+
+export { Note, Notes, PageNotes };

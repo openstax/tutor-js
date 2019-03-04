@@ -17,14 +17,13 @@ import Scores from './course/scores';
 import LMS from './course/lms';
 import PH from '../helpers/period';
 import TimeHelper from '../helpers/time';
-import FeatureFlags from './feature_flags';
 import Time from './time';
-import { extendHasMany } from '../helpers/computed-property';
+import { getters } from '../helpers/computed-property';
 import moment from 'moment-timezone';
 import StudentTasks from './student-tasks';
 import TeacherTaskPlans from './course/task-plans';
 import PastTaskPlans from './course/past-task-plans';
-
+import { Notes } from './notes';
 import ReferenceBook from './reference-book';
 
 const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
@@ -77,7 +76,7 @@ class Course extends BaseModel {
   @field reading_progress_weight;
   @field just_created = false;
 
-  @hasMany({ model: Period, inverseOf: 'course', extend: extendHasMany({
+  @hasMany({ model: Period, inverseOf: 'course', extend: getters({
     sorted() { return PH.sort(this.active);                        },
     archived() { return filter(this, period => !period.is_archived); },
     active() { return filter(this, period => !period.is_archived); },
@@ -125,6 +124,7 @@ class Course extends BaseModel {
   @lazyGetter lms = new LMS({ course: this });
   @lazyGetter roster = new Roster({ course: this });
   @lazyGetter scores = new Scores({ course: this });
+  @lazyGetter notes = new Notes({ course: this });
   @lazyGetter referenceBook = new ReferenceBook({ id: this.ecosystem_id });
   @lazyGetter taskPlans = new TeacherTaskPlans({ course: this });
   @lazyGetter pastTaskPlans = new PastTaskPlans({ course: this });
@@ -200,7 +200,7 @@ class Course extends BaseModel {
   }
 
   @computed get canAnnotate() {
-    return Boolean(FeatureFlags.is_highlighting_allowed && this.isActive);
+    return this.isActive;
   }
 
   @computed get needsPayment() {

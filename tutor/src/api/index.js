@@ -51,6 +51,7 @@ import CourseTeacher from '../models/course/teacher';
 import TeacherTaskPlan from '../models/task-plan/teacher';
 import TaskPlanStats from '../models/task-plan/stats';
 import { ResponseValidation } from '../models/response_validation';
+import { Notes, PageNotes, Note } from '../models/notes';
 
 const { connectModify, connectCreate, connectRead, connectUpdate, connectDelete, connectModelCreate, connectModelRead, connectModelUpdate, connectModelDelete } = adapters;
 
@@ -169,6 +170,23 @@ const startAPI = function() {
     { pattern: 'user/tours/{id}' }
   );
 
+  connectModelUpdate(Note, 'save', {
+    onSuccess: 'onUpdated',
+    method() { return this.isNew ? 'POST' : 'PATCH'; },
+    pattern() { return 'courses/{courseId}/notes/{chapterSection}' + (this.isNew ? '' : '/{id}'); },
+  });
+  connectModelDelete(Note, 'destroy', {
+    onSuccess: 'onDeleted',
+    pattern: 'courses/{courseId}/notes/{chapterSection}/{id}',
+  });
+  connectModelRead(PageNotes, 'fetch', {
+    onSuccess: 'onLoaded',
+    pattern: 'courses/{courseId}/notes/{chapterSection}',
+  });
+  connectModelRead(Notes, 'fetchHighlightedSections', {
+    onSuccess: 'onHighlightedSectionsLoaded',
+    pattern: 'courses/{courseId}/highlighted_sections',
+  });
 
   connectModelRead(Course, 'fetch', { pattern: 'courses/{id}' });
 
@@ -229,6 +247,7 @@ const startAPI = function() {
       },
     },
   );
+
   connectModelRead(ResponseValidation, 'validate', { pattern: 'validate', onSuccess: 'onValidationComplete' });
 
   connectModelUpdate(Student, 'saveOwnStudentId', { pattern: 'user/courses/{course.id}/student', onSuccess: 'onApiRequestComplete' });

@@ -1,7 +1,6 @@
 import { observable } from 'mobx';
 
 export const defaultValues = {
-  is_highlighting_allowed: false,
   is_payments_enabled: true,
 };
 

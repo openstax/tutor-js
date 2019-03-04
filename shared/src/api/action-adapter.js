@@ -1,22 +1,11 @@
 import interpolate from 'interpolate';
 import { METHODS_TO_ACTIONS } from './collections';
 import qs from 'qs';
-import partial from 'lodash/partial';
-import map from 'lodash/map';
-import mapValues from 'lodash/mapValues';
-import reject from 'lodash/reject';
-import pick from 'lodash/pick';
-import merge from 'lodash/merge';
-import wrap from 'lodash/wrap';
-import invert from 'lodash/invert';
-import partition from 'lodash/partition';
-import defaults from 'lodash/defaults';
-import isEmpty from 'lodash/isEmpty';
-import first from 'lodash/first';
-import bind from 'lodash/bind';
-import clone from 'lodash/clone';
-import isFunction from 'lodash/isFunction';
-import isObjectLike from 'lodash/isObjectLike';
+import {
+  partial, map, mapValues, reject, pick, merge, first,
+  wrap, invert, partition, defaults, isEmpty,
+  bind, clone, isFunction, isObjectLike,
+} from 'lodash';
 
 const makeRequestHandlers = function(Actions, options) {
   let { onSuccess, onFail } = options;
@@ -150,14 +139,14 @@ const connectModelAction = function(action, apiHandler, klass, method, options) 
   const handler = function(originalMethod, ...reqArgs) {
     const firstArg = first(reqArgs);
     const requestConfig = mapValues(
-      pick(options, 'url', 'query', 'method', 'data', 'params', 'handledErrors'), val => {
+      pick(options, 'pattern', 'url', 'query', 'method', 'data', 'params', 'handledErrors'), (val) => {
         if (isFunction(val)) { return val.call(this, ...Array.from(reqArgs)); } else { return val; }
       });
     const updatedConfig = originalMethod.call(this, ...Array.from(reqArgs), requestConfig);
     if (updatedConfig === 'ABORT') { return null; }
     merge(requestConfig, updatedConfig);
-    if (options.pattern) {
-      if (requestConfig.url == null) { requestConfig.url = interpolate(options.pattern, defaults({}, firstArg, requestConfig, this)); }
+    if (requestConfig.pattern) {
+      if (requestConfig.url == null) { requestConfig.url = interpolate(requestConfig.pattern, defaults({}, firstArg, requestConfig, this)); }
     }
     let { query } = requestConfig;
     if (query) {

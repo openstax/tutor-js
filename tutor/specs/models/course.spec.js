@@ -4,7 +4,6 @@ import Courses from '../../src/models/courses-map';
 import Course from '../../src/models/course';
 import Payments from '../../src/models/payments';
 import PH from '../../src/helpers/period';
-import FeatureFlags from '../../src/models/feature_flags';
 import { autorun } from 'mobx';
 import { bootstrapCoursesList } from '../courses-test-data';
 
@@ -156,13 +155,6 @@ describe('Course Model', () => {
     expect(course.isBeforeTerm('spring', 2013)).toBe(false);
     expect(course.isBeforeTerm('spring', (new Date()).getFullYear()+1)).toBe(true);
     expect(course.isBeforeTerm(course.term, course.year)).toBe(false);
-  });
-
-  it('calculates when it can be annotated', () => {
-    const course = Courses.get(1);
-    expect(course.canAnnotate).toBe(false);
-    FeatureFlags.is_highlighting_allowed = true;
-    expect(course.canAnnotate).toBe(true);
   });
 
   it('returns bounds', () => {

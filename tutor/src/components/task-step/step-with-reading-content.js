@@ -5,6 +5,8 @@ import { TaskStepStore } from '../../flux/task-step';
 import { AsyncButton, ArbitraryHtmlAndMath, ChapterSectionMixin } from 'shared';
 import { get } from 'lodash';
 import CourseData from '../../helpers/course-data';
+import Courses from '../../models/courses-map';
+import Page from '../../models/reference-book/page';
 import ChapterSection from '../../models/chapter-section';
 import { BookContentMixin, LinkContentMixin } from '../book-content-mixin';
 import RelatedContent from '../related-content';
@@ -17,6 +19,7 @@ const ReadingStepContent = createReactClass({
 
   propTypes: {
     id: PropTypes.string.isRequired,
+    onContinue: PropTypes.func,
     courseId: PropTypes.string.isRequired,
     stepType: PropTypes.string.isRequired,
   },
@@ -45,8 +48,10 @@ const ReadingStepContent = createReactClass({
 
   onContinue() {
     this.setState({ isContinuing: true });
-    return this.props.onContinue().then(() => {
-      if (this.isMounted) { return this.setState({ isContinuing: false }); }
+    this.props.onContinue().then(() => {
+      if (this.isMounted) {
+        this.setState({ isContinuing: false });
+      }
     });
   },
 
@@ -58,10 +63,9 @@ const ReadingStepContent = createReactClass({
         variant="primary"
         isWaiting={this.state.isContinuing}
         waitingText="Loading…"
-        onClick={this.onContinue}>
-        {'\
-    Continue\
-    '}
+        onClick={this.onContinue}
+      >
+        Continue
       </AsyncButton>
     );
   },
@@ -71,6 +75,15 @@ const ReadingStepContent = createReactClass({
   getContentChapterSection() {
     const { chapter_section, related_content } = TaskStepStore.get(this.props.id);
     return new ChapterSection(get(related_content, '[0].chapter_section', chapter_section));
+  },
+  pages: {},
+
+  getPageForContent() {
+    const { related_content } = TaskStepStore.get(this.props.id);
+    const cs = this.getContentChapterSection().asString;
+    return this.pages[cs] || (
+      this.pages[cs] = new Page(related_content[0])
+    );
   },
 
   getContentChapter() {
@@ -91,6 +104,7 @@ const ReadingStepContent = createReactClass({
 
     const { content_html } = TaskStepStore.get(id);
     const { courseId } = Router.currentParams();
+    const course = Courses.get(courseId);
 
     return (
       <div className={`${stepType}-step`}>
@@ -102,7 +116,8 @@ const ReadingStepContent = createReactClass({
             chapter_section={this.getContentChapterSection()}
             title={this.getContentTitle()} />
           <NoteWidget
-            courseId={courseId}
+            page={this.getPageForContent()}
+            course={course}
             chapter={this.getContentChapter()}
             section={this.getContentSection()}
             title={this.getContentTitle()}

@@ -3,39 +3,69 @@ import { observable, action, computed, when } from 'mobx';
 import { autobind } from 'core-decorators';
 import { Icon, Logging } from 'shared';
 import User from '../models/user';
-import { filter, last, sortBy, debounce } from 'lodash';
+import { last, sortBy, debounce } from 'lodash';
 import SummaryPage from './notes/summary-page';
 import dom from '../helpers/dom';
 import imagesComplete from '../helpers/images-complete';
-import Courses from '../models/courses-map';
+import Course from '../models/course';
+import { PageNotes } from '../models/notes';
 import EditBox from './notes/edit-box';
 import SidebarButtons from './notes/sidebar-buttons';
 import InlineControls from './notes/inline-controls';
 import ScrollTo from '../helpers/scroll-to';
 import Highlighter from '@openstax/highlighter';
 import Router from '../helpers/router';
-import NotesMap from '../models/notes';
 import Overlay from './obscured-page/overlay';
 
+import Page from '../models/reference-book/page';
+
 export default
+class NotesWidgetWrapper extends React.Component {
+
+  static propTypes = {
+    course: PropTypes.instanceOf(Course).isRequired,
+    children: PropTypes.node.isRequired,
+    windowImpl: PropTypes.shape({
+      open: PropTypes.func,
+      document: PropTypes.object,
+    }),
+    page: PropTypes.instanceOf(Page).isRequired,
+  };
+
+  render() {
+    const { course, page } = this.props;
+
+    if (!course.canAnnotate) { return this.props.children; }
+
+    return (
+      <NotesWidget
+        key={`${course.id}.${page.id}`}
+        notes={course.notes.forChapterSection(page.chapter_section)}
+        {...this.props}
+      />
+    );
+  }
+
+}
+
 @observer
 class NotesWidget extends React.Component {
 
   static propTypes = {
-    courseId: PropTypes.string.isRequired,
-    documentId: PropTypes.string,
+    course: PropTypes.instanceOf(Course).isRequired,
+    notes: PropTypes.instanceOf(PageNotes).isRequired,
     children: PropTypes.node.isRequired,
     windowImpl: PropTypes.shape({
       open: PropTypes.func,
+      document: PropTypes.object,
+      getSelection: PropTypes.func,
+      pageXOffset: PropTypes.number,
+      pageYOffset: PropTypes.number,
     }),
-    title: PropTypes.string,
-    chapter: PropTypes.number.isRequired,
-    section: PropTypes.number.isRequired,
-    notes: PropTypes.instanceOf(NotesMap),
+    page: PropTypes.instanceOf(Page).isRequired,
   };
 
   static defaultProps = {
-    notes: User.notes,
     windowImpl: window,
   };
 
@@ -50,7 +80,7 @@ class NotesWidget extends React.Component {
   @observable pendingHighlight;
 
   componentDidMount() {
-    if (!this.course.canAnnotate) { return; }
+    if (!this.props.course.canAnnotate) { return; }
 
     const { highlight } = Router.currentQuery();
 
@@ -70,23 +100,6 @@ class NotesWidget extends React.Component {
     }
   }
 
-  @computed get course() {
-    return Courses.get(this.props.courseId);
-  }
-
-  @computed get notesForThisPage() {
-    return this.allNotesForThisBook.filter(item =>
-      (item.chapter === this.props.chapter) &&
-      (item.section === this.props.section) &&
-      this.highlighter &&
-      item.highlight.isLoadable(this.highlighter)
-    );
-  }
-
-  @computed get allNotesForThisBook() {
-    return filter(this.props.notes.array, { courseId: this.props.courseId });
-  }
-
   setupPendingHighlightScroll(highlightId) {
     this.scrollToPendingNote = () => {
       const highlight = this.highlighter.getHighlight(highlightId);
@@ -101,51 +114,58 @@ class NotesWidget extends React.Component {
     };
   }
 
-  waitForPageReady() {
-    return new Promise(resolve => {
-      const win = this.props.windowImpl;
-      const unprocessedMath = this.documentRoot.querySelector('*:not(.MJX_Assistive_MathML) > math');
-      const runImagesComplete = () => imagesComplete({
-        body: this.documentRoot,
-      }).then(resolve).catch(resolve);
-      if (unprocessedMath && win.MathJax && win.MathJax.Hub) {
-        win.MathJax.Hub.Register.MessageHook('End Process', runImagesComplete);
-      } else {
-        runImagesComplete();
+  async waitForPageReady() {
+    await imagesComplete({ body: this.documentRoot });
+    return new Promise(r => {
+      when(
+        () => !this.props.notes.api.isPending,
+        r()
+      );
+    });
+  }
+
+  initializeHighlighter() {
+    if (this.highlighter) {
+      this.highlighter.unmount();
+    }
+
+    // create a new highlighter
+    this.highlighter = new Highlighter(this.documentRoot, {
+      snapTableRows: true,
+      snapMathJax: true,
+      snapWords: true,
+      className: 'tutor-highlight',
+      onClick: this.onHighlightClick,
+      onSelect: this.onHighlightSelect,
+    });
+
+    this.props.notes.forEach(note => {
+      try {
+        this.highlighter.highlight(note.highlight);
+      } catch(error) {
+        console.warn(error); // eslint-disable-line no-console
       }
     });
   }
 
-  initializePage = debounce(() => {
+  initializePage = debounce(async () => {
     this.ux.statusMessage.show({
       type: 'info',
       message: 'Waiting for page to finish loading…',
     });
 
-    const initialize = action(() => {
-      if (this.highlighter) {
-        this.highlighter.unmount();
-      }
-      // create a new highlighter
-      this.highlighter = new Highlighter(this.documentRoot, {
-        snapTableRows: true,
-        snapMathJax: true,
-        snapWords: true,
-        className: 'tutor-highlight',
-        onClick: this.onHighlightClick,
-        onSelect: this.onHighlightSelect,
-      });
-      // attach notes to highlghter
-      this.notesForThisPage.forEach(note => this.highlighter.highlight(note.highlight));
-      // scroll if needed
-      if (this.scrollToPendingNote) {
-        this.scrollToPendingNote();
-      }
-      // and we're done
-      this.ux.statusMessage.hide();
-    });
+    await this.waitForPageReady();
 
-    this.waitForPageReady().then(initialize);
+    // create and attach notes to highlghter
+    this.initializeHighlighter();
+
+    // scroll if needed
+    if (this.scrollToPendingNote) {
+      this.scrollToPendingNote();
+    }
+
+    // and we're done
+    this.ux.statusMessage.hide();
   }, 100)
 
   @action.bound onHighlightClick(highlight) {
@@ -194,7 +214,6 @@ class NotesWidget extends React.Component {
   get documentRoot() {
     const doc = this.props.windowImpl.document;
     return doc.querySelector('[data-type="composite-page"]') || doc.querySelector('.book-content') || doc;
-
   }
 
   get referenceElements() {
@@ -224,18 +243,16 @@ class NotesWidget extends React.Component {
     const highlight = this.pendingHighlight;
 
     const referenceElement = this.referenceElements
-      .find(re => dom(re).isParent(highlight.range.commonAncestorContainer));
+      .find(re => dom(re).isParent(
+        highlight.range.commonAncestorContainer)
+      );
 
     const serializedHighlight = highlight.serialize(referenceElement);
 
     return this.props.notes.create({
-      research_identifier: this.course.primaryRole.research_identifier,
-      userRole: this.course.primaryRole.type,
-      documentId: this.props.documentId,
-      courseId: this.props.courseId,
-      chapter: this.props.chapter,
-      section: this.props.section,
-      title: this.props.title,
+      anchor: `#${referenceElement.id}`,
+      title: this.props.page.title,
+      page: this.props.page,
       rect: dom(highlight.range).boundingClientRect,
       ...serializedHighlight.data,
     });
@@ -243,7 +260,7 @@ class NotesWidget extends React.Component {
 
   @computed get sortedNotesForPage() {
     return sortBy(
-      this.notesForThisPage,
+      this.props.notes,
       ['selection.bounds.top', 'selection.start']
     );
   }
@@ -314,7 +331,7 @@ class NotesWidget extends React.Component {
     };
   }
 
-  @computed get ux() { return this.props.notes.ux; }
+  @computed get ux() { return User.notesUX; }
 
   @action.bound seeAll() {
     this.ux.isSummaryVisible = true;
@@ -354,8 +371,17 @@ class NotesWidget extends React.Component {
     );
   }
 
+  renderSummaryPage = () => {
+    return (
+      <SummaryPage
+        notes={this.props.course.notes}
+        onDelete={this.onNoteDelete}
+        page={this.props.page}
+      />
+    );
+  }
+
   render() {
-    if (!this.course.canAnnotate) { return this.props.children; }
 
     return (
       <div className="annotater">
@@ -371,7 +397,7 @@ class NotesWidget extends React.Component {
         <SidebarButtons
           windowImpl={this.props.windowImpl}
           highlighter={this.highlighter}
-          notes={this.notesForThisPage}
+          notes={this.props.notes}
           parentRect={this.parentRect}
           onClick={this.editNote}
           activeNote={this.activeNote}
@@ -390,14 +416,7 @@ class NotesWidget extends React.Component {
             id="notes-summary"
             visible={this.ux.isSummaryVisible}
             onHide={this.ux.hideSummary}
-            renderer={() =>
-              <SummaryPage
-                courseId={this.props.courseId}
-                notes={this.props.notes}
-                onDelete={this.onNoteDelete}
-                currentChapter={this.props.chapter}
-                currentSection={this.props.section}
-              />}
+            renderer={this.renderSummaryPage}
           />
           {this.props.children}
         </div>
@@ -406,4 +425,4 @@ class NotesWidget extends React.Component {
     );
   }
 
-};
+}

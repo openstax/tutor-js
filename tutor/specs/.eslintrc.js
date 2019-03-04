@@ -17,4 +17,7 @@ module.exports = {
     "jest":       false,
     "axe":        false,
   },
+  "rules": {
+    "react/prop-types": 0,
+  },
 };

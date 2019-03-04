@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import User from '../../models/user';
 
 function SlideOutMenuToggle({ ux, width, height }) {
-  const invisible = (User.canAnnotate && User.notes.ux.isSummaryVisible);
+  const invisible = (User.canAnnotate && User.notesUX.isSummaryVisible);
 
   // The css also sets the transistion,
   // but it must also be specified in the SVG because IE doesn't support animations
