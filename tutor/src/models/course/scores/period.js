@@ -1,4 +1,4 @@
-import { find, reduce, isEmpty } from 'lodash';
+import { find, reduce, isEmpty, filter } from 'lodash';
 import { computed, action } from 'mobx';
 import Big from 'big.js';
 import {
@@ -18,7 +18,9 @@ class CourseScoresPeriod extends BaseModel {
   @field({ type: 'bignum' }) overall_homework_progress;
   @field period_id;
   @hasMany({ model: Heading, inverseOf: 'period' }) data_headings;
-  @hasMany({ model: Student, inverseOf: 'period' }) students;
+  @hasMany({ model: Student, inverseOf: 'period', extend: {
+    active() { return filter(this, 'isActive'); },
+  } }) students;
 
   constructor(attrs, course) {
     super(attrs);
@@ -69,12 +71,13 @@ class CourseScoresPeriod extends BaseModel {
   }
 
   averageForType(attr) {
-    if (isEmpty(this.students)) { return null; }
+    const students = this.students.active();
+    if (isEmpty(students)) { return null; }
 
-    return reduce(this.students,
+    return reduce(students,
       (acc, s) => acc.plus(s[attr] || 0),
       new Big(0)
-    ).div(this.students.length);
+    ).div(students.length);
   }
 
 };

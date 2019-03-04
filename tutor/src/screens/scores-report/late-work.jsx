@@ -76,7 +76,7 @@ class HomeworkContent extends LateWorkMessages {
   title() {
     return {
       additional: 'Additional late work',
-      accepted:   'You accepted this student\'s late score.',
+      accepted:   'You accepted this student’s late score.',
       pending:    `${this.lateExerciseCount()} questions worked after the due date`,
     };
   }
@@ -112,7 +112,7 @@ class ReadingContent extends LateWorkMessages {
     return (
       {
         additional: 'Additional late work',
-        accepted:   'You accepted this student\'s late reading progress.',
+        accepted:   'You accepted this student’s late reading progress.',
         pending:    'Reading progress after the due date',
       }
     );
