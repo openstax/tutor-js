@@ -73,6 +73,10 @@ const Content = styled.div`
 
   ${props => Positions[props.position]}
   ${props => Colors[props.color]}
+  > div {
+   font-size: 13px;
+   white-space: nowrap;
+  }
 `;
 
 

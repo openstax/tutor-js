@@ -8,7 +8,8 @@ const {
 } = require('./helpers');
 
 Factory.define('ExerciseUser')
-  .user_id(sequence);
+  .user_id(sequence)
+  .name(fake.name.firstName);
 
 Factory.define('ExerciseAnswer')
   .id(sequence)
