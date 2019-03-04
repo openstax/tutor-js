@@ -18,6 +18,7 @@ import Notices from '../helpers/notifications';
 import Chat from './chat';
 import Toasts from './toasts';
 import Tutor from '../components/root';
+import { ResponseValidation } from './response_validation';
 
 const BOOTSTRAPED_MODELS = {
   user:     User,
@@ -25,6 +26,7 @@ const BOOTSTRAPED_MODELS = {
   payments: Payments,
   hypothesis: Hypothesis,
   feature_flags: FeatureFlagsApi,
+  response_validation: ResponseValidation,
 };
 
 export default class TutorApp {
@@ -76,6 +78,10 @@ export default class TutorApp {
     startMathJax();
     TransitionAssistant.startMonitoring();
     Raven.setUser(User);
+
+    const v = new ResponseValidation()
+    v.validate({ response: 'This is the time for all good men to drink!' })
+
     return Promise.resolve(this);
   }
 

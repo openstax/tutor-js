@@ -36,7 +36,6 @@ import PastTaskPlans from '../models/course/past-task-plans';
 import Student from '../models/course/student';
 import CourseEnroll from '../models/course/enroll';
 import Payments from '../models/payments';
-import Hypothesis from '../models/notes/hypothesis';
 import Purchases from '../models/purchases';
 import Purchase from '../models/purchases/purchase';
 import { CourseStudentTasks } from '../models/student-tasks';
@@ -51,6 +50,7 @@ import TaskResult from '../models/course/scores/task-result';
 import CourseTeacher from '../models/course/teacher';
 import TeacherTaskPlan from '../models/task-plan/teacher';
 import TaskPlanStats from '../models/task-plan/stats';
+import { ResponseValidation } from '../models/response_validation';
 
 const { connectModify, connectCreate, connectRead, connectUpdate, connectDelete, connectModelCreate, connectModelRead, connectModelUpdate, connectModelDelete } = adapters;
 
@@ -125,17 +125,18 @@ const startAPI = function() {
     {
       data(id) {
         const step = TaskStepStore.get(id);
-        return pick(step, ['free_response', 'answer_id']);
+        return pick(step, 'free_response', 'answer_id', 'garbage_estimate');
       },
     },
   );
 
   connectUpdate(
     TaskStepActions,
-    { pattern: 'steps/{id}', trigger: 'setFreeResponseAnswer' },
+    { pattern: 'steps/{id}', trigger: 'saveFreeResponseAnswer' },
     {
-      data(id, freeResponse) {
-        return { free_response: freeResponse };
+      data(id) {
+        const step = TaskStepStore.get(id);
+        return pick(step, 'free_response', 'garbage_estimate');
       },
     },
   );
@@ -167,6 +168,7 @@ const startAPI = function() {
   connectModelUpdate(User.constructor, 'saveTourView',
     { pattern: 'user/tours/{id}' }
   );
+
 
   connectModelRead(Course, 'fetch', { pattern: 'courses/{id}' });
 
@@ -227,13 +229,7 @@ const startAPI = function() {
       },
     },
   );
-
-  // connectRead(PastTaskPlansActions, (courseId) ->
-  //   url: "courses/#{courseId}/plans"
-  //   params:
-  //     clone_status: 'unused_source'
-  // )
-
+  connectModelRead(ResponseValidation, 'validate', { pattern: 'validate', onSuccess: 'onValidationComplete' });
 
   connectModelUpdate(Student, 'saveOwnStudentId', { pattern: 'user/courses/{course.id}/student', onSuccess: 'onApiRequestComplete' });
   connectModelUpdate(Student, 'saveStudentId', { pattern: 'students/{id}', onSuccess: 'onApiRequestComplete' });
@@ -301,7 +297,6 @@ const BOOTSTRAPED_MODELS = {
   user:     User,
   courses:  Courses,
   payments: Payments,
-  hypothesis: Hypothesis,
   feature_flags: FeatureFlags,
 };
 
