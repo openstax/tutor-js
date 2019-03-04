@@ -1,4 +1,4 @@
-import { find, each, partial, extend, last, get } from 'lodash';
+import { find, each, extend, last } from 'lodash';
 import Durations from '../helpers/durations';
 import { StepTitleActions } from './step-title';
 import { ResponseValidation } from '../models/response_validation';
@@ -8,7 +8,7 @@ let TaskActions;
 const RECOVERY = 'recovery';
 const crudConfig = new CrudConfig();
 
-const isMissingExercises = response => (response.errors != null) && findWhere(response.errors, { code: 'no_exercises' });
+const isMissingExercises = response => (response.errors != null) && find(response.errors, { code: 'no_exercises' });
 
 const TaskStepConfig = {
   _asyncStatus: {},
@@ -87,7 +87,7 @@ const TaskStepConfig = {
   complete(id) {
     if (this.exports.isCompleting.call(this, id)) { return; }
     this._change(id, { is_completed: true });
-    return this._save(id);
+    this._save(id);
   },
 
   completed(obj, id) {
@@ -134,7 +134,7 @@ const TaskStepConfig = {
       this.emit('change', recoveredFor);
       this.clearChanged(recoveredFor);
       delete this._asyncStatus[recoveredFor];
-      return delete this._recoveryTarget[recoveredFor];
+      delete this._recoveryTarget[recoveredFor];
     }
   },
 
@@ -187,7 +187,10 @@ const TaskStepConfig = {
     getCnxId(id) {
       const step = this._get(id);
       const parts = __guard__(step != null ? step.content_url : undefined, x => x.split('contents/'));
-      if (parts.length > 1) { return last(parts); } else { return undefined; }
+      if (parts.length > 1) {
+        return last(parts);
+      }
+      return null;
     },
 
     getFreeResponse(id) {
