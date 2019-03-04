@@ -248,6 +248,8 @@ const startAPI = function() {
     },
   );
 
+  connectModelRead(ResponseValidation, 'validate', { pattern: 'validate', onSuccess: 'onValidationComplete' });
+
   connectModelUpdate(Student, 'saveOwnStudentId', { pattern: 'user/courses/{course.id}/student', onSuccess: 'onApiRequestComplete' });
   connectModelUpdate(Student, 'saveStudentId', { pattern: 'students/{id}', onSuccess: 'onApiRequestComplete' });
   connectModelUpdate(Student, 'savePeriod', { pattern: 'students/{id}', onSuccess: 'onApiRequestComplete' });
