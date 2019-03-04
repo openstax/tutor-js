@@ -9,6 +9,49 @@ import PopoutWindow from 'shared/components/popout-window';
 import { ArbitraryHtmlAndMath } from 'shared';
 import Analytics from '../../helpers/analytics';
 
+const NotesForSection = observer(({
+  notes, section, selectedSections,
+}) => {
+
+  if (!selectedSections.includes(section.chapter_section.key)) {
+    return null;
+  }
+  const page = notes.forChapterSection(section.chapter_section);
+
+  return (
+    <div className="section">
+      <h2>{section.chapter_section.asString} {section.title}</h2>
+      {map(page.array, (note) => (
+        <div
+          key={note.id}
+          style={{
+            marginBottom: '2rem',
+          }}
+        >
+          <blockquote
+            style={{
+              fontStyle: 'italic',
+              margin: '0 0 1rem 0.5rem',
+              borderLeft: '2px solid lightgrey',
+              paddingLeft: '0.5rem',
+            }}
+          >
+            <ArbitraryHtmlAndMath html={note.content} />
+          </blockquote>
+          <p
+            style={{
+              marginLeft: '0.5rem',
+            }}
+          >
+            {note.text}
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+});
+
+
 export default
 @observer
 class SummaryPopup extends React.Component {
@@ -17,6 +60,7 @@ class SummaryPopup extends React.Component {
     windowImpl: PropTypes.shape({
       open: PropTypes.func,
     }),
+    selected: PropTypes.array.isRequired,
     notes: PropTypes.object.isRequired,
   };
 
@@ -46,7 +90,7 @@ class SummaryPopup extends React.Component {
   }
 
   render() {
-    const { notes } = this.props;
+    const { notes, selected } = this.props;
 
     if (!notes) { return null; }
 
@@ -74,38 +118,13 @@ class SummaryPopup extends React.Component {
         >
           <div className="summary-preview summary-popup">
             <div className="notes">
-              {map(notes, (notes, ch) =>
-                <div key={ch}>
-                  <h2>{notes[0].formattedChapterSection} {notes[0].title}</h2>
-                  {map(notes, (note) => (
-                    <div
-                      key={note.id}
-                      style={{
-                        marginBottom: '2rem',
-                      }}
-                    >
-                      <blockquote
-                        style={{
-                          fontStyle: 'italic',
-                          margin: '0 0 1rem 0.5rem',
-                          borderLeft: '2px solid lightgrey',
-                          paddingLeft: '0.5rem',
-                        }}
-
-                      >
-                        <ArbitraryHtmlAndMath html={note.content} />
-                      </blockquote>
-                      <p
-                        style={{
-                          marginLeft: '0.5rem',
-                        }}
-                      >
-                        {note.text}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              )}
+              {notes.sections.sorted().map((s, i) =>
+                <NotesForSection
+                  key={i}
+                  notes={notes}
+                  selectedSections={selected}
+                  section={s}
+                />)}
             </div>
           </div>
         </PopoutWindow>

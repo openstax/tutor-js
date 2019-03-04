@@ -27,7 +27,7 @@ class NotesWidgetWrapper extends React.Component {
     children: PropTypes.node.isRequired,
     windowImpl: PropTypes.shape({
       open: PropTypes.func,
-      document: PropTypes.func,
+      document: PropTypes.object,
     }),
     page: PropTypes.instanceOf(Page).isRequired,
   };

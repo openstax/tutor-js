@@ -1,7 +1,7 @@
-import SummaryPage from '../../../src/components/notes/summary-page';
+import SummaryPopup from '../../../src/components/notes/summary-popup';
 import { Factory } from '../../helpers';
 
-describe('Notes Summary Page', () => {
+describe('Notes Summary Popup', () => {
   let pages;
   let props;
 
@@ -19,18 +19,14 @@ describe('Notes Summary Page', () => {
     props = {
       page: pages[0],
       notes: course.notes,
-      onDelete: jest.fn(),
+      selected: [note.chapter_section],
     };
   });
 
   it('renders summary', () => {
     const sp = mount(
-      <SummaryPage {...props} />
+      <SummaryPopup {...props} />
     );
-    expect(sp).toHaveRendered('DropdownToggle');
-    sp.find('DropdownToggle Button').simulate('click');
-    const dropDownSelector = `DropdownItem[eventKey="${pages[0].chapter_section.key}"]`;
-    expect(sp).toHaveRendered(dropDownSelector);
-    sp.find(dropDownSelector).simulate('click');
+    expect(sp).toHaveRendered('PopoutWindow');
   });
 });
