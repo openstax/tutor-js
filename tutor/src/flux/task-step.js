@@ -105,7 +105,10 @@ const TaskStepConfig = {
     const { spy, content: { uid } } = this._local[id];
     const validation = new ResponseValidation();
     await validation.validate({ uid, response: free_response });
-    const garbage_estimate = spy.garbage_estimate = validation.serialize();
+    const garbage_estimate = validation.serialize();
+    if (spy) {
+      spy.garbage_estimate = garbage_estimate;
+    }
     this._change(id, { spy, garbage_estimate });
     return actions.saveFreeResponseAnswer(id);
   },
