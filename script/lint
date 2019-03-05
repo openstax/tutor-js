@@ -1,11 +1,8 @@
 #!/bin/bash
 
-[ -z "$OX_PROJECT" ] && echo "need OX_PROJECT environment var" && exit 1;
-
-HEAD=head
+PROJECT=${OX_PROJECT:=tutor}
 
 if [ "$TRAVIS" == "true" ]; then
-    HEAD=$TRAVIS_BRANCH
     echo "running under travis, fetching master"
     # fetch master so it can be compared
     git remote set-branches --add origin master
@@ -13,9 +10,10 @@ if [ "$TRAVIS" == "true" ]; then
 fi
 
 if [ "$1" == "branch" ]; then
-    cmd="git diff-tree -r --diff-filter=ACMR --no-commit-id --name-only origin/master $HEAD ${OX_PROJECT}/src ${OX_PROJECT}/specs"
+    cmd="git diff-tree -r --diff-filter=ACMR --no-commit-id --name-only origin/master head ${PROJECT}/src ${PROJECT}/specs"
     echo $cmd
+    echo `${cmd}`
     ${cmd} | grep -v __snapshots__ | xargs $(npm bin)/eslint $2
 else
-    git status --short --porcelain ${OX_PROJECT}/ | awk '{ print $2 }' | xargs $(npm bin)/eslint
+    git status --short --porcelain ${PROJECT}/src ${PROJECT}/specs | awk '{ print $2 }' | xargs $(npm bin)/eslint
 fi

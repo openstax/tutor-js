@@ -11,11 +11,10 @@ The Front-end code for Openstax Tutor related projects
 1. install [nvm](https://github.com/creationix/nvm)
   - run `nvm install` in this directory to install and use the correct version of node
   - _Alternatively:_ manually install the right version of node in [./.nvmrc](./.nvmrc)
-1. install [yarn](https://yarnpkg.com/en/docs/install)
 1. Git Clone this repository to the directory of your choice
   - If you don’t have `git` installed you can install homebrew and then `brew install git`
 1. `cd tutor-js` move into the checked out directory
-1. `yarn install`
+1. `npm install`
 1. `yarn run serve <project>` *(where <project is one of tutor|exercises)*
 
  - Run the Tutor server as shown below
