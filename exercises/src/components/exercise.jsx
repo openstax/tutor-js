@@ -142,7 +142,7 @@ class Exercise extends React.Component {
     return (
       <div className="exercise-editor">
         <div className="editing-controls">
-          {exercise.error && <Alert variant="danger">{String(exercise.error)}</Alert>}
+          {exercise.error && <Alert variant="danger">{exercise.errorMessage}</Alert>}
           {isMultiPart && this.renderMPQ()}
 
           <Tabs
