@@ -22,4 +22,18 @@ describe('Exercises model', () => {
     expect(ex.canEdit).toBe(false);
     expect(ex.readOnlyReason).toEqual('Vocabulary');
   });
+
+  it('returns a string error message', () => {
+    const ex = new Exercise();
+    expect(ex.errorMessage).toEqual('');
+    ex.error = {
+      warning: 'maybe stop it?',
+      error: 'please make it stop',
+    };
+    expect(ex.errorMessage).toEqual(
+      'warning: maybe stop it?; error: please make it stop'
+    );
+    ex.error = 'BAD BUGS1';
+    expect(ex.errorMessage).toEqual('BAD BUGS1');
+  });
 });
