@@ -14,7 +14,6 @@ import SidebarButtons from './notes/sidebar-buttons';
 import InlineControls from './notes/inline-controls';
 import ScrollTo from '../helpers/scroll-to';
 import Highlighter from '@openstax/highlighter';
-import Router from '../helpers/router';
 import Overlay from './obscured-page/overlay';
 
 import Page from '../models/reference-book/page';
@@ -82,12 +81,6 @@ class NotesWidget extends React.Component {
   componentDidMount() {
     if (!this.props.course.canAnnotate) { return; }
 
-    const { highlight } = Router.currentQuery();
-
-    if (highlight) {
-      this.setupPendingHighlightScroll(highlight);
-    }
-
     when(
       () => !this.props.notes.api.isPending,
       this.initializePage,
@@ -146,6 +139,12 @@ class NotesWidget extends React.Component {
         console.warn(error); // eslint-disable-line no-console
       }
     });
+
+    // scroll if needed
+    if (this.scrollToPendingNote && !this.props.notes.isEmpty) {
+      this.scrollToPendingNote();
+    }
+
   }
 
   initializePage = debounce(async () => {
@@ -159,13 +158,8 @@ class NotesWidget extends React.Component {
     // create and attach notes to highlghter
     this.initializeHighlighter();
 
-    // scroll if needed
-    if (this.scrollToPendingNote) {
-      this.scrollToPendingNote();
-    }
-
-    // and we're done
     this.ux.statusMessage.hide();
+
   }, 100)
 
   @action.bound onHighlightClick(highlight) {

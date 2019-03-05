@@ -42,8 +42,13 @@
       @include tutor-main-title-font();
       border-top-width: 0;
     }
+
     h2 {
       @include tutor-main-subtitle-font();
+      margin: 1rem 0;
+      span {
+        margin-left: 0.5rem;
+      }
     }
 
     .note-card {
@@ -68,7 +73,7 @@
         display: flex;
       }
 
-      button {
+      a, button {
         background-color: $tutor-white;
         border: thin solid $tutor-neutral-light;
         border-radius: 2px;

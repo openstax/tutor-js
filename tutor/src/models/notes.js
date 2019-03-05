@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, observable, computed } from 'mobx';
 import { sortBy, values } from 'lodash';
 import {
   BaseModel, identifiedBy, hasMany, session, identifier,
@@ -17,6 +17,10 @@ class PageNotes extends Map {
     this.notes = notes;
     this.chapterSection = chapterSection;
     this.fetch();
+  }
+
+  @computed get notesByPagePosition() {
+    return sortBy(this.array, 'pageTopPosition');
   }
 
   fetch() {

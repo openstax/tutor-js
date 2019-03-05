@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { map } from 'lodash';
 import { action, observable } from 'mobx';
 import { Button } from 'react-bootstrap';
 import { Icon } from 'shared';
@@ -20,8 +19,11 @@ const NotesForSection = observer(({
 
   return (
     <div className="section">
-      <h2>{section.chapter_section.asString} {section.title}</h2>
-      {map(page.array, (note) => (
+      <h2>
+        {section.chapter_section.asString}
+        <span dangerouslySetInnerHTML={{ __html: section.title }} />
+      </h2>
+      {page.notesByPagePosition.map((note) => (
         <div
           key={note.id}
           style={{

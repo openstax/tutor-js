@@ -41,9 +41,9 @@ each({
   ResearchSurvey,
   StudentDashboardTask,
 }, (Model, name) => {
-  Factories[camelCase(name)] = (attrs = {}) => {
+  Factories[camelCase(name)] = (attrs = {}, modelArgs) => {
     const o = FactoryBot.create(name, attrs);
-    return new Model(o);
+    return new Model(o, modelArgs);
   };
 });
 
