@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { observable, action, computed } from 'mobx';
+import { observable, action } from 'mobx';
 import { Form } from 'react-bootstrap';
 import { autobind } from 'core-decorators';
 import { ArbitraryHtmlAndMath } from 'shared';
-import Courses from '../../models/courses-map';
 import Note from '../../models/notes/note';
 import { Icon } from 'shared';
 import SuretyGuard from 'shared/components/surety-guard';
@@ -87,21 +86,6 @@ class NoteCard extends React.Component {
     );
   }
 
-  @computed get course() {
-    return Courses.get(this.props.note.courseId);
-  }
-
-  @autobind
-  openPage() {
-    const { id, chapter, section } = this.props.note;
-    let url = `/book/${this.course.ecosystem_id}/section/${chapter}`;
-    if (section) {
-      url += `.${section}`;
-    }
-    url += `?highlight=${id}`;
-    window.open(url, '_blank');
-  }
-
   render() {
     const { note } = this.props;
     return (
@@ -111,22 +95,29 @@ class NoteCard extends React.Component {
             <blockquote className="selected-text">
               <ArbitraryHtmlAndMath html={this.props.note.content} />
             </blockquote>
-            {this.editing ? (
+            {this.editing ?
               <EditBox
                 text={note.annotation}
                 dismiss={this.stopEditing}
                 save={this.saveNote}
-              />
-            ) : (
-              <div className="plain-text">
+              /> : <div className="plain-text">
                 {note.annotation}
               </div>
-            )}
+            }
           </div>
           <div className="controls">
-            {!this.editing && <button title="Edit" onClick={this.startEditing}><Icon type="edit" /></button>}
-
-            <button title="View in book" onClick={this.openPage}><Icon type="external-link-alt" /></button>
+            {!this.editing &&
+              <button title="Edit" onClick={this.startEditing}>
+                <Icon type="edit" />
+              </button>}
+            <a
+              href={`/book/${note.course.ecosystem_id}/section/${note.chapter_section.asString}?highlight=${note.id}`}
+              target="_blank"
+              className="view-in-book"
+              title="View in book"
+            >
+              <Icon type="external-link-alt" />
+            </a>
             <SuretyGuard
               title="Are you sure you want to delete this note?"
               message="If you delete this note, your work cannot be recovered."

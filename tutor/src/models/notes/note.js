@@ -1,4 +1,4 @@
-import { isString, pick, extend } from 'lodash';
+import { isString, get, pick, extend } from 'lodash';
 import { computed, action, toJS, intercept } from 'mobx';
 import ChapterSection from '../chapter-section';
 import { SerializedHighlight } from '@openstax/highlighter';
@@ -29,6 +29,14 @@ class Note extends BaseModel {
     return new SerializedHighlight(
       extend(toJS(this.contents), pick(this, 'id')),
     );
+  }
+
+  get course() {
+    return this.page.notes.course;
+  }
+
+  get pageTopPosition() {
+    return get(this, 'contents.rect.top', 0);
   }
 
   validateTextLength(change) {
