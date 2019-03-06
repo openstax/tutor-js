@@ -1,13 +1,8 @@
 // coffeelint: disable=no_empty_functions
-
 import React from 'react';
-import { Promise } from 'es6-promise';
-
 import actions from './actions';
 import checks from './checks';
-
-import { TaskActions, TaskStore } from '../../../../src/flux/task';
-import { TaskStepActions, TaskStepStore } from '../../../../src/flux/task-step';
+import { TaskStore } from '../../../../src/flux/task';
 import TaskStep from '../../../../src/components/task-step';
 
 import { routerStub, componentStub, commonActions } from '../utilities';

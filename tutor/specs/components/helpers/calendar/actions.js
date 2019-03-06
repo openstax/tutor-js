@@ -3,7 +3,6 @@ import moment from 'moment';
 
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
-import { Promise } from 'es6-promise';
 
 import { TeacherTaskPlanStore, TeacherTaskPlanActions } from '../../../../src/flux/teacher-task-plan';
 import { TaskPlanStatsStore, TaskPlanStatsActions } from '../../../../src/flux/task-plan-stats';

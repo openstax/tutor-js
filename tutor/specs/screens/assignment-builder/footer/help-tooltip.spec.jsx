@@ -1,14 +1,13 @@
 import { React, ld } from '../../../helpers';
-import Promise from 'es6-promise';
 import HelpTooltip from '../../../../src/screens/assignment-builder/footer/help-tooltip';
 
 const displayPopover = props =>
-  new Promise( function(resolve, reject) {
+  new Promise( function(resolve) {
     const wrapper = mount(<HelpTooltip {...props} />);
     wrapper.simulate('mouseOver');
     setTimeout(() => {
       resolve(ld.last(document.querySelectorAll('#plan-footer-popover')));
-    }, 10)
+    }, 10);
   });
 
 

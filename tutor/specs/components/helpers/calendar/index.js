@@ -1,5 +1,4 @@
 import React from 'react';
-import { Promise } from 'es6-promise';
 
 import actions from './actions';
 import checks from './checks';
