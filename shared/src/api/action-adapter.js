@@ -179,8 +179,6 @@ const connectModelAction = function(action, apiHandler, klass, method, options) 
       return reply;
     }).catch(e => {
       onComplete();
-      console.warn(e); // eslint-disable-line no-console
-      perRequestOptions.onFail({ config: requestConfig, options: perRequestOptions, error: e });
       return Promise.reject(e);
     });
   };

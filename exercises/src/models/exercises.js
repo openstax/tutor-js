@@ -82,7 +82,7 @@ export class ExercisesMap extends Map {
   }
 
   onError(error, [exercise]) {
-    exercise.error = get(error, 'response.data.errors[0].message', error);
+    exercise.onError(get(error, 'response.data.errors[0].message', error.message))
   }
 
 }
