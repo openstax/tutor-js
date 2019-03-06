@@ -112,7 +112,7 @@ class NotesWidget extends React.Component {
     return new Promise(r => {
       when(
         () => !this.props.notes.api.isPending,
-        r()
+        r,
       );
     });
   }
