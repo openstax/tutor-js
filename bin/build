@@ -18,11 +18,8 @@ if [ "$(version "$npm_version")" -lt "$(version "$required_version")" ]; then
     exit 1
 fi
 
-# perform a clean install of all dependencies
-npm ci
-
 [ -d $OX_PROJECT/dist ] && rm -r $OX_PROJECT/dist
-node --max_old_space_size=4096 $(npm bin)/webpack --progress --config webpack.config.js
+node --max_old_space_size=4096 $(npm bin)/webpack --config webpack.config.js
 
 SHA=`git rev-parse HEAD`
 
