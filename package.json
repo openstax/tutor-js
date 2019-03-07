@@ -121,7 +121,6 @@
     "underscore": "1.9.1",
     "validator": "10.11.0",
     "weak-map": "^1.0.5",
-    "webpack-cli": "^3.2.3",
     "when-dom-ready": "^1.2.12",
     "youtube-player": "https://github.com/nathanstitt/youtube-player.git#iframe-or-window"
   },
@@ -170,9 +169,10 @@
     "style-loader": "0.23.1",
     "tmp": "^0.0.33",
     "url-loader": "1.1.2",
-    "webpack": "^4.29.6",
+    "webpack": "4.28.2",
+    "webpack-cli": "3.1.2",
     "webpack-bundle-analyzer": "^3.0.4",
-    "webpack-dev-server": "^3.2.1",
+    "webpack-dev-server": "3.1.14",
     "yargs": "^13.2.1"
   },
   "config": {
