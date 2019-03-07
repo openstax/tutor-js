@@ -21,7 +21,7 @@ const NotesForSection = observer(({
     <div className="section">
       <h2>
         {section.chapter_section.asString}
-        <span dangerouslySetInnerHTML={{ __html: section.title }} />
+        {section.title}
       </h2>
       {page.notesByPagePosition.map((note) => (
         <div

@@ -136,6 +136,7 @@ const connectAction = function(action, apiHandler, Actions, ...allOptions) {
 const emptyFn = () => ({});
 
 const connectModelAction = function(action, apiHandler, klass, method, options) {
+  defaults(options, { method: METHODS[action] });
   const handler = function(originalMethod, ...reqArgs) {
     const firstArg = first(reqArgs);
     const requestConfig = mapValues(
