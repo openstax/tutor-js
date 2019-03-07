@@ -30,10 +30,11 @@ class EcosystemSelector extends React.Component {
         </Dropdown.Toggle>
         <Dropdown.Menu alignRight>
           {ux.ecosystemsMap.array.map(ec => (
-            <Dropdown.Item key={ec.id} eventKey={ec.id}>
-              {ec.book.titleWithVersion}
-            </Dropdown.Item>
-          ))}
+            ec.book && (
+              <Dropdown.Item key={ec.id} eventKey={ec.id}>
+                {ec.book.id}: {ec.book.titleWithVersion}
+              </Dropdown.Item>
+            )))}
         </Dropdown.Menu>
       </Dropdown>
     );
