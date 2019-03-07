@@ -1,5 +1,5 @@
 import { BaseModel, identifiedBy } from 'shared/model';
-import { isArray } from 'lodash';
+import { isArray, reduceRight } from 'lodash';
 import { computed } from 'mobx';
 
 export default
@@ -35,20 +35,26 @@ class ChapterSection extends BaseModel {
     return this.format({ sectionSeparator, skipZeros: false });
   }
 
-  @computed get isEmpty() {
-    return !this.chapter && !this.section;
+  toString() {
+    return this.key;
   }
 
-  @computed get asString() {
-    return this.format();
+  @computed get isEmpty() {
+    return !this.chapter && !this.section;
   }
 
   @computed get key() {
     return this.format({ skipZeros: false });
   }
 
-  toString() {
-    return this.key;
+  @computed get asString() {
+    return this.format();
+  }
+
+  @computed get asNumber() {
+    return reduceRight(this.asArray,
+      (memo, num, index) => memo + (num * Math.pow(100, index + 1))
+    );
   }
 
   @computed get asArray() {
