@@ -12,4 +12,13 @@ describe('ChapterSection Model', () => {
     const cs2 = new ChapterSection(cs1);
     expect(cs2.asString).toEqual('1.23');
   });
+
+  it('can convert to a number for sorting', () => {
+    const cs = new ChapterSection([0,23]);
+    expect(cs.asNumber).toEqual(23); // 0 + 23
+    cs.chapter = 2;
+    expect(cs.asNumber).toEqual(223); // 200 + 23
+    cs.section = 0;
+    expect(cs.asNumber).toEqual(200); // 200 + 0
+  });
 });
