@@ -20,5 +20,8 @@ describe('ChapterSection Model', () => {
     expect(cs.asNumber).toEqual(223); // 200 + 23
     cs.section = 0;
     expect(cs.asNumber).toEqual(200); // 200 + 0
+    cs.section = 110;
+    cs.chapter = 1000; // a MASSIVE book
+    expect(cs.asNumber).toEqual(100110); // 100000 + 110
   });
 });
