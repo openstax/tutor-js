@@ -3,7 +3,7 @@ import { observable, action, computed, when } from 'mobx';
 import { autobind } from 'core-decorators';
 import { Icon, Logging } from 'shared';
 import User from '../models/user';
-import { last, sortBy, debounce } from 'lodash';
+import { last, debounce } from 'lodash';
 import SummaryPage from './notes/summary-page';
 import dom from '../helpers/dom';
 import imagesComplete from '../helpers/images-complete';
@@ -15,7 +15,6 @@ import InlineControls from './notes/inline-controls';
 import ScrollTo from '../helpers/scroll-to';
 import Highlighter from '@openstax/highlighter';
 import Overlay from './obscured-page/overlay';
-
 import Page from '../models/reference-book/page';
 
 export default
@@ -250,13 +249,6 @@ class NotesWidget extends React.Component {
       rect: dom(highlight.range).boundingClientRect,
       ...serializedHighlight.data,
     });
-  }
-
-  @computed get sortedNotesForPage() {
-    return sortBy(
-      this.props.notes,
-      ['selection.bounds.top', 'selection.start']
-    );
   }
 
   getNoteByOffset(offset) {

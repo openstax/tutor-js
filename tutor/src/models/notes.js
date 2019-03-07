@@ -5,6 +5,7 @@ import {
 } from 'shared/model';
 import ChapterSection from './chapter-section';
 import Map from 'shared/model/map';
+import { chapterSectionToNumber } from '../helpers/content';
 import Note from './notes/note';
 
 class PageNotes extends Map {
@@ -71,7 +72,7 @@ class Notes extends BaseModel {
   pages = observable.map();
 
   @hasMany({ model: HighlightedSection, extend: {
-    sorted() { return sortBy(this, 'chapter_section.key'); },
+    sorted() { return sortBy(this, 'chapter_section.asNumber'); },
     forChapterSection(cs) {
       return this.find(s => s.chapter_section.matches(cs));
     },
@@ -113,7 +114,6 @@ class Notes extends BaseModel {
         this.sections.remove(section);
       }
     }
-
   }
 
   find(chapterSection) {
