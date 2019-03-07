@@ -20,7 +20,7 @@ const NotesForSection = observer(({
 
   return (
     <div className="section">
-      <h2>
+      <h2 className="section-title">
         {section.chapter_section.asString}
         {section.title }
       </h2>

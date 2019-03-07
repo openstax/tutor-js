@@ -38,6 +38,10 @@
       }
     }
 
+    .section-title {
+      margin: 1rem 0;
+    }
+
     h1 {
       @include tutor-main-title-font();
       border-top-width: 0;
@@ -45,10 +49,6 @@
 
     h2 {
       @include tutor-main-subtitle-font();
-      margin: 1rem 0;
-      span {
-        margin-left: 0.5rem;
-      }
     }
 
     .note-card {
