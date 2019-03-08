@@ -1,7 +1,8 @@
-import { EnzymeContext, C  } from '../helpers';
+import { C } from '../helpers';
 import { times } from 'lodash';
 import Factory, { FactoryBot } from '../factories';
 import QA from '../../src/screens/qa-view/view';
+import EcosystemSelector from '../../src/screens/qa-view/ecosystem-selector';
 import Book from '../../src/models/reference-book';
 import QaUX from '../../src/screens/qa-view/ux';
 
@@ -10,8 +11,7 @@ jest.mock('../../../shared/src/components/html', () => ({ html }) =>
 );
 
 describe('QA Screen', function() {
-  let props, ux, currentSection, book;
-
+  let props, ux, book;
 
   beforeEach(function() {
     const router = {
@@ -51,6 +51,17 @@ describe('QA Screen', function() {
 
   it('matches snapshot', () => {
     expect.snapshot(<C><QA {...props} /></C>).toMatchSnapshot();
+  });
+
+  it('has working ecosystem selector', () => {
+    jest.spyOn(props.ux, 'onEcosystemSelect');
+    const es = mount(<C><EcosystemSelector {...props} /></C>);
+    es.find('DropdownToggle Button').simulate('click');
+    const id = ux.ecosystemsMap.array[0].id;
+    const itemSelector = `DropdownItem[eventKey=${id}]`;
+    expect(es).toHaveRendered(itemSelector);
+    es.find(itemSelector).simulate('click');
+    expect(props.ux.onEcosystemSelect).toHaveBeenCalledWith(`${id}`, expect.anything());
   });
 
   it('loads exercises', () => {
