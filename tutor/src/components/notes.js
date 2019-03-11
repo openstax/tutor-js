@@ -6,6 +6,7 @@ import User from '../models/user';
 import { last, debounce } from 'lodash';
 import SummaryPage from './notes/summary-page';
 import dom from '../helpers/dom';
+import Router from '../helpers/router';
 import imagesComplete from '../helpers/images-complete';
 import Course from '../models/course';
 import { PageNotes } from '../models/notes';
@@ -55,6 +56,7 @@ class NotesWidget extends React.Component {
     children: PropTypes.node.isRequired,
     windowImpl: PropTypes.shape({
       open: PropTypes.func,
+      MutationObserver: PropTypes.func,
       document: PropTypes.object,
       getSelection: PropTypes.func,
       pageXOffset: PropTypes.number,
@@ -79,7 +81,6 @@ class NotesWidget extends React.Component {
 
   componentDidMount() {
     if (!this.props.course.canAnnotate) { return; }
-
     when(
       () => !this.props.notes.api.isPending,
       this.initializePage,
@@ -95,7 +96,6 @@ class NotesWidget extends React.Component {
   setupPendingHighlightScroll(highlightId) {
     this.scrollToPendingNote = () => {
       const highlight = this.highlighter.getHighlight(highlightId);
-
       this.highlighter.clearFocus();
       if (highlight) {
         highlight.focus().scrollTo(this.highlightScrollHandler);
@@ -138,7 +138,6 @@ class NotesWidget extends React.Component {
         console.warn(error); // eslint-disable-line no-console
       }
     });
-
     // scroll if needed
     if (this.scrollToPendingNote && !this.props.notes.isEmpty) {
       this.scrollToPendingNote();
@@ -151,6 +150,11 @@ class NotesWidget extends React.Component {
       type: 'info',
       message: 'Waiting for page to finish loading…',
     });
+
+    const { highlight } = Router.currentQuery();
+    if (highlight && !this.scrollToPendingNote ) {
+      this.setupPendingHighlightScroll(highlight);
+    }
 
     await this.waitForPageReady();
 
@@ -297,7 +301,7 @@ class NotesWidget extends React.Component {
     }
     this.element = el;
     if (this.element) {
-      this.contentObserver = new MutationObserver(this.onMutations);
+      this.contentObserver = new this.props.windowImpl.MutationObserver(this.onMutations);
       this.contentObserver.observe(el, { childList: true, subtree: true });
     }
   }

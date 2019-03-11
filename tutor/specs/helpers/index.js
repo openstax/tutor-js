@@ -14,13 +14,13 @@ export function getPortalNode(modal) {
   return modal.find('Portal').first().getDOMNode();
 }
 
-const deferred = (fn) =>
+const deferred = (fn, timeout = 3) =>
   new Promise(done => {
     jest.useRealTimers();
     setTimeout(() => {
       fn();
       done();
-    }, 3);
+    }, timeout);
   });
 
 
