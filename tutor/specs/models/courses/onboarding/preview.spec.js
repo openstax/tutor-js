@@ -20,15 +20,15 @@ jest.mock('../../../../src/models/courses-map', () => ({
 import { TimeStore } from '../../../../src/flux/time';
 
 jest.mock('../../../../src/models/course');
-jest.mock('../../../../src/models/course/task-plans');
+jest.mock('../../../../src/models/task-plans/teacher');
 
 describe('Course Preview Onboarding', () => {
   let ux;
 
   beforeEach(() => {
     const course = new Course(TEACHER_COURSE_TWO_MODEL);
-    course.taskPlans = { active: mockActiveCoursePlans };
-    course.taskPlans.api = {};
+    course.teacherTaskPlans = { active: mockActiveCoursePlans, api: {} };
+//    course.teacherTaskPlans.api = {};
     ux = new CoursePreviewUX(course, { tour: null });
     ux._setTaskPlanPublish(false);
   });

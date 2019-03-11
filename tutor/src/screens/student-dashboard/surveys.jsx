@@ -18,7 +18,7 @@ class Surveys extends React.Component {
   }
 
   @computed get survey() {
-    const surveys = this.props.course.studentTasks.researchSurveys;
+    const surveys = this.props.course.studentTaskPlans.researchSurveys;
     return surveys ? surveys.array[0] : null;
 
   }

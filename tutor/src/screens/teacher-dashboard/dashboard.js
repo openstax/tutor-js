@@ -118,7 +118,7 @@ class TeacherDashboard extends React.Component {
       planId: this.cloningPlan.id, courseId: course.id,
       due_at: TimeHelper.toISO(this.cloningPlan.due_at),
     });
-    course.taskPlans.addClone(TaskPlanStore.get(taskPlanId));
+    course.teacherTaskPlans.addClone(TaskPlanStore.get(taskPlanId));
 
     defer(action(() => { // give flux store time to update
       Object.assign(this, {
@@ -200,13 +200,13 @@ class TeacherDashboard extends React.Component {
         </div>
 
         {this.editingPlan && (
-          <TaskPlanMiniEditor
-            planId={this.editingPlan.id}
-            position={this.editingPosition}
-            course={course}
-            onHide={this.onEditorHide}
-            findPopOverTarget={this.getEditingPlanEl}
-          />)}
+           <TaskPlanMiniEditor
+             planId={this.editingPlan.id}
+             position={this.editingPosition}
+             course={course}
+             onHide={this.onEditorHide}
+             findPopOverTarget={this.getEditingPlanEl}
+           />)}
       </TourRegion>
     );
   }

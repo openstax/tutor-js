@@ -5,7 +5,7 @@ import { map, partial } from 'lodash';
 import { ProgressBar } from 'react-bootstrap';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
-import { Page } from '../../models/task-plan/stats';
+import { Page } from '../../models/task-plans/teacher/stats';
 
 export default
 @observer

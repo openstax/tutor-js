@@ -3,12 +3,11 @@ import React from 'react';
 import { map } from 'lodash';
 import { idType } from 'shared';
 import { observer } from 'mobx-react';
-import { computed, observable, action } from 'mobx';
+import { computed, action } from 'mobx';
 import { BreadcrumbStatic } from '../breadcrumb';
-
 import BackButton from '../buttons/back-button';
-import { Stats } from '../../models/task-plan/stats';
-import TeacherTaskPlan from '../../models/task-plan/teacher';
+import { Stats } from '../../models/task-plans/teacher/stats';
+import TeacherTaskPlan from '../../models/task-plans/teacher/plan';
 
 export default
 @observer

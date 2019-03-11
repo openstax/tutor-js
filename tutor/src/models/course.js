@@ -20,9 +20,9 @@ import TimeHelper from '../helpers/time';
 import Time from './time';
 import { getters } from '../helpers/computed-property';
 import moment from 'moment-timezone';
-import StudentTasks from './student-tasks';
-import TeacherTaskPlans from './course/task-plans';
-import PastTaskPlans from './course/past-task-plans';
+import { StudentTaskPlans } from './task-plans/student';
+import { TeacherTaskPlans } from './task-plans/teacher';
+import { PastTaskPlans } from './task-plans/teacher/past';
 import { Notes } from './notes';
 import ReferenceBook from './reference-book';
 
@@ -117,16 +117,13 @@ class Course extends BaseModel {
     );
   }
 
-  @computed get studentTasks() {
-    return StudentTasks.forCourse(this);
-  }
-
   @lazyGetter lms = new LMS({ course: this });
   @lazyGetter roster = new Roster({ course: this });
   @lazyGetter scores = new Scores({ course: this });
   @lazyGetter notes = new Notes({ course: this });
   @lazyGetter referenceBook = new ReferenceBook({ id: this.ecosystem_id });
-  @lazyGetter taskPlans = new TeacherTaskPlans({ course: this });
+  @lazyGetter studentTaskPlans = new StudentTaskPlans({ course: this });
+  @lazyGetter teacherTaskPlans = new TeacherTaskPlans({ course: this });
   @lazyGetter pastTaskPlans = new PastTaskPlans({ course: this });
 
   @computed get nameCleaned() {
@@ -220,10 +217,10 @@ class Course extends BaseModel {
     if (this.isTeacher) {
       tags.push(this.is_preview ? 'teacher-preview' : 'teacher');
       if (!this.is_preview) {
-        if (this.taskPlans.reading.hasPublishing) {
+        if (this.teacherTaskPlans.reading.hasPublishing) {
           tags.push('teacher-reading-published');
         }
-        if (this.taskPlans.homework.hasPublishing) {
+        if (this.teacherTaskPlans.homework.hasPublishing) {
           tags.push('teacher-homework-published');
         }
         if (this.shouldRemindNewEnrollmentLink) {

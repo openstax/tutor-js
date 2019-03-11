@@ -1,10 +1,9 @@
-import StudentTasks from '../../src/models/student-tasks';
-import COURSE_1_DATA from '../../api/courses/1/dashboard.json';
-import COURSE_2_DATA from '../../api/courses/2/dashboard.json';
-import { keys, times } from 'lodash';
+import COURSE_1_DATA from '../../../api/courses/1/dashboard.json';
+import COURSE_2_DATA from '../../../api/courses/2/dashboard.json';
+import { keys } from 'lodash';
 import chronokinesis from 'chronokinesis';
 import moment from 'moment-timezone';
-import Factory from '../factories';
+import Factory from '../../factories';
 
 jest.useFakeTimers();
 
@@ -15,15 +14,15 @@ describe('Student Tasks Model', () => {
 
   beforeEach(() => {
     course = Factory.course();
-    Factory.studentTasks({ course, count: 8 });
-    tasks = course.studentTasks;
+    Factory.studentTaskPlans({ course, count: 8 });
+    tasks = course.studentTaskPlans;
 
     moment.tz.setDefault('America/Chicago');
     moment.locale('en');
     chronokinesis.travel(mockedNow);
     mockedNow = moment('2017-10-14T12:00:00.000Z');
 
-    jest.mock('../../src/flux/time', () => ({
+    jest.mock('../../../src/flux/time', () => ({
       TimeStore: {
         getNow: jest.fn(() => mockedNow),
       },

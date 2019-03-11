@@ -1,4 +1,4 @@
-import TaskPlan from '../../src/models/task-plan/teacher';
+import TaskPlan from '../../src/models/task-plans/teacher/plan';
 import LmsInfo from '../../src/components/lms-info-card';
 import { bootstrapCoursesList } from '../courses-test-data';
 

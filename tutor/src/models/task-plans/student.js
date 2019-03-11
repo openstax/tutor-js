@@ -3,9 +3,9 @@ import moment from 'moment-timezone';
 import { readonly } from 'core-decorators';
 import { computed, action, observable } from 'mobx';
 import { filter, groupBy, sortBy, pickBy } from 'lodash';
-import Task from './student/task';
-import ResearchSurveys from './research-surveys';
-import Time from './time';
+import StudentTask from './student/task';
+import ResearchSurveys from '../research-surveys';
+import Time from '../time';
 
 const MAX_POLLING_ATTEMPTS = 10;
 const POLL_SECONDS = 30;
@@ -13,15 +13,16 @@ const WEEK_FORMAT = 'GGGGWW';
 const FETCH_INITIAL_TASKS_INTERVAL = 1000 * 60; // every minute;
 const REFRESH_TASKS_INTERVAL = 1000 * 60 * 60 * 4; // every 4 hours
 
-export class CourseStudentTasks extends Map {
-  @readonly static Model = Task;
+export
+class StudentTaskPlans extends Map {
+  @readonly static Model = StudentTask;
 
   @observable researchSurveys;
   @observable expecting_assignments_count = 0;
   @observable all_tasks_are_ready = false;
   @observable refreshTimer;
 
-  constructor(course) {
+  constructor({ course } = {}) {
     super();
     this.course = course;
   }
@@ -102,19 +103,3 @@ export class CourseStudentTasks extends Map {
   }
 
 }
-
-class StudentTasks extends Map {
-
-  forCourse(course) {
-    let tasks = this.get(course.id);
-    if (!tasks) {
-      tasks = new CourseStudentTasks(course);
-      this.set(course.id, tasks);
-    }
-    return tasks;
-  }
-
-}
-
-const studentTasks = new StudentTasks;
-export default studentTasks;

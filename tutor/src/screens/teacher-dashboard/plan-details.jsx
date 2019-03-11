@@ -12,7 +12,7 @@ import Stats from '../../components/plan-stats';
 import Event from '../../components/plan-stats/event';
 import LmsInfo from '../../components/lms-info-card';
 import TutorLink from '../../components/link';
-import TeacherTaskPlan from '../../models/task-plan/teacher';
+import TeacherTaskPlan from '../../models/task-plans/teacher/plan';
 import SupportEmailLink from '../../components/support-email-link';
 
 export default

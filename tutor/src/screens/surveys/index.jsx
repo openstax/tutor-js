@@ -43,8 +43,8 @@ class Surveys extends React.Component {
   }
 
   componentWillMount() {
-    if (!this.studentTasks.api.isFetchedOrFetching) {
-      this.studentTasks.fetch();
+    if (!this.studentTaskPlans.api.isFetchedOrFetching) {
+      this.studentTaskPlans.fetch();
     }
   }
 
@@ -52,13 +52,13 @@ class Surveys extends React.Component {
     return this.props.course || Courses.get(this.props.params.courseId);
   }
 
-  @computed get studentTasks() {
-    return this.course.studentTasks;
+  @computed get studentTaskPlans() {
+    return this.course.studentTaskPlans;
   }
 
   @computed get survey() {
-    return this.studentTasks.researchSurveys ?
-      this.studentTasks.researchSurveys.get(this.props.params.surveyId) : null;
+    return this.studentTaskPlans.researchSurveys ?
+      this.studentTaskPlans.researchSurveys.get(this.props.params.surveyId) : null;
   }
 
   @computed get model() {
@@ -73,7 +73,7 @@ class Surveys extends React.Component {
   render() {
     const { course, model, survey } = this;
     if (!survey) {
-      return this.studentTasks.api.isPending ?
+      return this.studentTaskPlans.api.isPending ?
         <LoadingScreen /> : <NotFound />;
     }
     if (survey.api.isPending) {

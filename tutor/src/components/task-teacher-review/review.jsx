@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Alert } from 'react-bootstrap';
-import { isEmpty, map, compact, flatMap, extend, isNil } from 'lodash';
+import { isEmpty, map, compact, flatMap } from 'lodash';
 import ReviewExercise from './exercise';
 import TourRegion from '../tours/region';
-
-import { Stats } from '../../models/task-plan/stats';
+import { Stats } from '../../models/task-plans/teacher/stats';
 
 function ReviewHeading(props) {
   const { sectionLabel, title } = props;

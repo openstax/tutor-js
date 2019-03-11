@@ -25,9 +25,14 @@ describe('Student Course Onboarding', () => {
       new Course({ id: 1 }),
       { tour: null },
     );
-    ux.course.id = 1;
-    ux.course.primaryRole = { joinedAgo: jest.fn(() => 18120) };
-    ux.course.studentTasks = { startFetching: jest.fn(() => Promise.resolve()), stopFetching: jest.fn() };
+    Object.assign(ux.course, {
+      id: 1,
+      primaryRole: { joinedAgo: jest.fn(() => 18120) },
+      studentTaskPlans: {
+        startFetching: jest.fn(() => Promise.resolve()),
+        stopFetching: jest.fn(),
+      },
+    });
   });
 
   afterEach(() => {
@@ -63,7 +68,7 @@ describe('Student Course Onboarding', () => {
       markPaid: jest.fn(),
     };
     ux.onPaymentComplete();
-    expect(ux.course.studentTasks.startFetching).toHaveBeenCalled();
+    expect(ux.course.studentTaskPlans.startFetching).toHaveBeenCalled();
     expect(ux.course.userStudentRecord.markPaid).toHaveBeenCalled();
   });
 
@@ -83,10 +88,10 @@ describe('Student Course Onboarding', () => {
     ux.course.userStudentRecord = {
       mustPayImmediately: false, markPaid: jest.fn(),
     };
-    expect(ux.course.studentTasks.startFetching).not.toHaveBeenCalled();
+    expect(ux.course.studentTaskPlans.startFetching).not.toHaveBeenCalled();
     expect(ux.paymentIsPastDue).toBe(false);
     ux.mount();
-    expect(ux.course.studentTasks.startFetching).toHaveBeenCalledTimes(1);
+    expect(ux.course.studentTaskPlans.startFetching).toHaveBeenCalledTimes(1);
   });
 
   it('reloads page when paid after being locked out', () => {

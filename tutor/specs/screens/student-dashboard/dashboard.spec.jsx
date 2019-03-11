@@ -11,8 +11,8 @@ describe('Student Dashboard', () => {
   beforeEach(() => {
     const course = Factory.course();
     bootstrapCoursesList();
-    Factory.studentTasks({ course, attributes: { now: new Date('2015-10-21T12:00:00.000Z') } });
-    course.studentTasks.fetch = jest.fn();
+    Factory.studentTaskPlans({ course, attributes: { now: new Date('2015-10-21T12:00:00.000Z') } });
+    course.studentTaskPlans.fetch = jest.fn();
     props = {
       course,
       params: {},
@@ -20,13 +20,13 @@ describe('Student Dashboard', () => {
   });
 
   it('matches snapshot', function() {
-    props.course.studentTasks.all_tasks_are_ready = false;
+    props.course.studentTaskPlans.all_tasks_are_ready = false;
     props.course.primaryRole.joined_at = new Date('2015-09-14T12:00:00.000Z');
     expect.snapshot(<Router><Dashboard {...props} /></Router>).toMatchSnapshot();
   });
 
   it('displays as loading', () => {
-    props.course.studentTasks.all_tasks_are_ready = false;
+    props.course.studentTaskPlans.all_tasks_are_ready = false;
     props.course.primaryRole.joined_at = new Date('2015-10-14T12:00:00.000Z');
     const dash = mount(<Router><Dashboard {...props} /></Router>);
     expect(dash).toHaveRendered('ThisWeekCard Card[className="empty pending"]');
@@ -35,7 +35,7 @@ describe('Student Dashboard', () => {
 
   it('fetches on mount', () => {
     const dash = mount(<Router><Dashboard {...props} /></Router>);
-    expect(props.course.studentTasks.fetch).toHaveBeenCalled();
+    expect(props.course.studentTaskPlans.fetch).toHaveBeenCalled();
     dash.unmount();
   });
 

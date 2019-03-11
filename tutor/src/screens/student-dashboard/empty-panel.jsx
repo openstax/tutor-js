@@ -10,9 +10,9 @@ const EmptyCard = observer(({
   title,
   className,
 }) => {
-  const { studentTasks } = course;
+  const { studentTaskPlans } = course;
 
-  if (studentTasks.isPendingTaskLoading) {
+  if (studentTaskPlans.isPendingTaskLoading) {
     return (
       <Card className={cn('empty', 'pending', className)} header={title}>
         <Icon type="spinner" spin /> Preparing assignments for your course.  This
@@ -20,7 +20,7 @@ const EmptyCard = observer(({
       </Card>
     );
   }
-  if (studentTasks.api.isPendingInitialFetch) {
+  if (studentTaskPlans.api.isPendingInitialFetch) {
     return (
       <Card className={cn('empty', 'pending', className)} header={title}>
         <Icon type="spinner" spin /> Fetching assignments for your course.

@@ -1,15 +1,16 @@
 import { computed, observable, action } from 'mobx';
 import { find } from 'lodash';
 import Map from 'shared/model/map';
-import TaskPlan from '../task-plans/teacher';
+import TaskPlan from './teacher/plan';
 
-export default class CourseTaskPlans extends Map {
+export
+class TeacherTaskPlans extends Map {
 
   @observable course;
 
-  constructor(attrs) {
+  constructor({ course } = {}) {
     super();
-    this.course = attrs.course;
+    this.course = course;
   }
 
   get chainedValues() {

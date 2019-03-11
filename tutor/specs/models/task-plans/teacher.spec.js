@@ -1,9 +1,6 @@
 import Courses from '../../../src/models/courses-map';
-import TeacherTaskPlans from '../../../src/models/course/task-plans';
 import { autorun } from 'mobx';
 import { map } from 'lodash';
-import { TaskPlanStore } from '../../../src/flux/task-plan';
-
 
 const COURSE_ID = '123';
 
@@ -16,20 +13,20 @@ describe('Teacher Task Plans', function() {
   });
   afterEach(() => {
     Courses.clear();
-    course.taskPlans.clear();
+    course.teacherTaskPlans.clear();
   });
 
   it('has api', () => {
-    expect(course.taskPlans.api).not.toBeUndefined();
+    expect(course.teacherTaskPlans.api).not.toBeUndefined();
   });
 
   it('should load tasks and notify', () => {
     const changeSpy = jest.fn();
     autorun(() => {
-      changeSpy(map(course.taskPlans.array, 'id'));
+      changeSpy(map(course.teacherTaskPlans.array, 'id'));
     });
     expect(changeSpy).toHaveBeenCalledWith([]);
-    course.taskPlans.onLoaded({
+    course.teacherTaskPlans.onLoaded({
       data: {
         plans: [
           { id: '1', hello: 'world', steps: [] },
@@ -40,7 +37,7 @@ describe('Teacher Task Plans', function() {
   });
 
   it('filters out deleting plans', () => {
-    course.taskPlans.onLoaded({
+    course.teacherTaskPlans.onLoaded({
       data: {
         plans: [
           { id: '1', hello: 'world', steps: [] },
@@ -49,8 +46,8 @@ describe('Teacher Task Plans', function() {
       },
     }, [ { courseId: COURSE_ID } ]);
 
-    course.taskPlans.get(1).is_deleting = true;
-    expect(course.taskPlans.active.array).toHaveLength(1);
+    course.teacherTaskPlans.get(1).is_deleting = true;
+    expect(course.teacherTaskPlans.active.array).toHaveLength(1);
   });
 
   it('can store a cloned plan', () => {
@@ -80,7 +77,7 @@ describe('Teacher Task Plans', function() {
         'due_at': '2017-06-20',
       }],
     };
-    const plans = course.taskPlans;
+    const plans = course.teacherTaskPlans;
     plans.addClone(plan);
     const model = plans.get(plan.id);
     expect(model.tasking_plans).toHaveLength(2);

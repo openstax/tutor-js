@@ -1,19 +1,21 @@
+import { extendObservable as mockExtendObservable } from 'mobx';
 import EmptyPanel from '../../../src/screens/student-dashboard/empty-panel';
-import { observable as mockObservable } from 'mobx';
-import { Testing, ld, React } from '../../helpers';
 import Factory from '../../factories';
 
-jest.mock('../../../src/models/student-tasks', () => ({
-  forCourse() {
-    return mockObservable({
-      isPendingTaskLoading: false,
-      api: {
-        isPendingInitialFetch: false,
-      },
-    });
-  },
-}));
-
+jest.mock('../../../src/models/task-plans/student', function() {
+  return {
+    __esModule: true, // this property makes it work
+    default: 'mockedDefaultExport',
+    StudentTaskPlans: function StudentTaskPlans() {
+      mockExtendObservable(this, {
+        isPendingTaskLoading: false,
+        api: {
+          isPendingInitialFetch: false,
+        },
+      });
+    },
+  };
+});
 
 describe('Empty Panel', () => {
 
@@ -33,10 +35,10 @@ describe('Empty Panel', () => {
   it('shows the various states', () => {
     const panel = mount(<EmptyPanel {...props} />);
     expect(panel.text()).toContain('I be empty');
-    props.course.studentTasks.api.isPendingInitialFetch = true;
+    props.course.studentTaskPlans.api.isPendingInitialFetch = true;
     expect(panel.text()).toContain('Fetching assignments for your course');
     expect(panel.text()).not.toContain('This can take up to 10 minutes');
-    props.course.studentTasks.isPendingTaskLoading = true;
+    props.course.studentTaskPlans.isPendingTaskLoading = true;
     expect(panel.text()).toContain('This can take up to 10 minutes');
   });
 

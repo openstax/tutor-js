@@ -38,9 +38,9 @@ class Month extends React.Component {
   }
 
   @computed get events() {
-    const { course: { taskPlans } } = this.props;
+    const { course: { teacherTaskPlans } } = this.props;
 
-    const plans = taskPlans.active.array.map(plan => ({
+    const plans = teacherTaskPlans.active.array.map(plan => ({
       plan,
       range: plan.dueRange,
       className: `type-${plan.type}`,

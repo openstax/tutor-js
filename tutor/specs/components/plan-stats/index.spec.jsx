@@ -6,10 +6,10 @@ describe('TaskPlan stats progress bar', function() {
   let course;
   beforeEach(() => {
     course = Factory.course({ is_teacher: true });
-    Factory.taskPlans({ course });
+    Factory.teacherTaskPlans({ course });
     props = {
       course: course,
-      plan: course.taskPlans.array[0],
+      plan: course.teacherTaskPlans.array[0],
       handlePeriodSelect: jest.fn(),
     };
     // simulate has been loaded

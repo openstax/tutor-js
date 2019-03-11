@@ -1,4 +1,4 @@
-import Factory, { FactoryBot } from '../../factories';
+import Factory from '../../../factories';
 
 describe('Task Plan Stats', () => {
 

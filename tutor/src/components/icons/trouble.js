@@ -1,6 +1,5 @@
 import { React, PropTypes } from '../../helpers/react';
 import { Icon } from 'shared';
-import TaskPlan from '../../models/task-plan/teacher';
 import Theme from '../../theme';
 
 export default
@@ -19,5 +18,7 @@ function TroubleIcon({ plan, ...iconProps }) {
 }
 
 TroubleIcon.propTypes = {
-  plan: PropTypes.instanceOf(TaskPlan).isRequired,
+  plan: PropTypes.shape({
+    is_trouble: PropTypes.bool,
+  }).isRequired,
 };

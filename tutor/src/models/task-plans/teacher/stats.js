@@ -6,8 +6,8 @@ import {
 } from 'lodash';
 import { computed } from 'mobx';
 import { lazyInitialize } from 'core-decorators';
-import ChapterSection from '../chapter-section';
-import Exercise from '../exercises/exercise';
+import ChapterSection from '../../chapter-section';
+import Exercise from '../../exercises/exercise';
 import { ReviewQuestion } from 'shared/model/exercise/question';
 
 @identifiedBy('task-plan/stats/answer-stat')
@@ -77,8 +77,6 @@ class QuestionStats extends BaseModel {
   }
 }
 
-export { QuestionStats, Page, Stats };
-
 @identifiedBy('task-plan/stats/page')
 class Page extends BaseModel {
 
@@ -134,9 +132,11 @@ class TaskPlanStats extends BaseModel {
 
   @hasMany({ model: Stats, inverseOf: 'plan' }) stats;
 
-  @belongsTo({ model: 'task-plan/teacher' }) taskPlan;
+  @belongsTo({ model: 'task-plans/teacher/plan' }) taskPlan;
 
   fetch() { return { id: this.taskPlan.id }; }
   fetchReview() { return { id: this.taskPlan.id }; }
 
 };
+
+export { QuestionStats, Page, Stats };

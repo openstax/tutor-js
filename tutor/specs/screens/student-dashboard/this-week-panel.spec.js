@@ -24,7 +24,7 @@ describe('This Week Events', () => {
 
     // add task that's due next week
     event.due_at = moment(now).endOf('isoweek').add(1, 'day').toDate();
-    props.course.studentTasks.set(event.id, event);
+    props.course.studentTaskPlans.set(event.id, event);
     expect(panel.text()).not.toContain(event.title);
 
 

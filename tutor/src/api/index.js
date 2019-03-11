@@ -31,15 +31,15 @@ import Period from '../models/course/period';
 import Courses from '../models/courses-map';
 import Offerings from '../models/course/offerings';
 import CourseCreate from '../models/course/create';
-import TeacherTaskPlans from '../models/course/task-plans';
-import PastTaskPlans from '../models/course/past-task-plans';
+import { StudentTaskPlans } from '../models/task-plans/student';
+import { TeacherTaskPlans } from '../models/task-plans/teacher';
+import { PastTaskPlans } from '../models/task-plans/teacher/past';
+import StudentTask from '../models/task-plans/student/task';
 import Student from '../models/course/student';
 import CourseEnroll from '../models/course/enroll';
 import Payments from '../models/payments';
 import Purchases from '../models/purchases';
 import Purchase from '../models/purchases/purchase';
-import { CourseStudentTasks } from '../models/student-tasks';
-import StudentTask from '../models/student/task';
 import CourseRoster from '../models/course/roster';
 import CourseLMS from '../models/course/lms';
 import CoursePairLMS from '../models/course/pair-to-lms';
@@ -48,8 +48,8 @@ import ScoresExport from '../models/jobs/scores-export';
 import LmsPushScores from '../models/jobs/lms-score-push';
 import TaskResult from '../models/course/scores/task-result';
 import CourseTeacher from '../models/course/teacher';
-import TeacherTaskPlan from '../models/task-plan/teacher';
-import TaskPlanStats from '../models/task-plan/stats';
+import TeacherTaskPlan from '../models/task-plans/teacher/plan';
+import TaskPlanStats from '../models/task-plans/teacher/stats';
 import { ResponseValidation } from '../models/response_validation';
 import { Notes, PageNotes, Note } from '../models/notes';
 
@@ -269,7 +269,7 @@ const startAPI = function() {
     },
   );
 
-  connectModelRead(CourseStudentTasks, 'fetch', { onSuccess: 'onLoaded', pattern: 'courses/{course.id}/dashboard' });
+  connectModelRead(StudentTaskPlans, 'fetch', { onSuccess: 'onLoaded', pattern: 'courses/{course.id}/dashboard' });
   connectModelDelete(StudentTask, 'hide', { onSuccess: 'onHidden', pattern: 'tasks/{id}' });
 
   connectModelUpdate(Course, 'save', { pattern: 'courses/{id}', onSuccess: 'onApiRequestComplete' });

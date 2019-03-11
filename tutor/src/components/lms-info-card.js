@@ -9,7 +9,7 @@ import TaskPlanHelper from '../helpers/task-plan';
 import CopyOnFocusInput from './copy-on-focus-input';
 import { Icon } from 'shared';
 import Courses from '../models/courses-map';
-import TeacherTaskPlan from '../models/task-plan/teacher';
+import TeacherTaskPlan from '../models/task-plans/teacher/plan';
 import styled from 'styled-components';
 
 const DUE_FORMAT = 'M/D/YYYY [at] h:mma';

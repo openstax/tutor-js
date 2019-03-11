@@ -1,12 +1,12 @@
-import PastTaskPlans from '../../../src/models/course/past-task-plans';
-import Factory from '../../factories';
+import { PastTaskPlans } from '../../../../src/models/task-plans/teacher/past';
+import Factory from '../../../factories';
 
 describe(PastTaskPlans, () => {
   let course;
 
   beforeEach(() => {
     course = Factory.course({ is_teacher: true });
-    Factory.taskPlans({ course, type: 'pastTaskPlans' });
+    Factory.pastTaskPlans({ course, type: 'pastTaskPlans' });
   });
 
   it('fetches using past course id', () => {

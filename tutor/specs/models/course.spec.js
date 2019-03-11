@@ -61,8 +61,8 @@ describe('Course Model', () => {
     expect(course.tourAudienceTags).toEqual(['teacher', 'student']);
     course.is_preview = false;
     expect(course.isTeacher).toEqual(true);
-    course.taskPlans.set('1', { id: 1, type: 'reading', is_publishing: true, isPublishing: true });
-    expect(course.taskPlans.reading.hasPublishing).toEqual(true);
+    course.teacherTaskPlans.set('1', { id: 1, type: 'reading', is_publishing: true, isPublishing: true });
+    expect(course.teacherTaskPlans.reading.hasPublishing).toEqual(true);
     expect(course.tourAudienceTags).toEqual(['teacher', 'teacher-reading-published', 'student' ]);
 
   });

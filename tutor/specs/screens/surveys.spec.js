@@ -8,13 +8,13 @@ describe('Surveys Screen', () => {
 
   beforeEach(() => {
     course = Factory.course();
-    course.studentTasks.fetch = jest.fn();
-    course.studentTasks.onLoaded({
+    course.studentTaskPlans.fetch = jest.fn();
+    course.studentTaskPlans.onLoaded({
       data: { tasks: [],
         research_surveys: [Factory.data('ResearchSurvey')],
       },
     });
-    surveyRecord = course.studentTasks.researchSurveys.values()[0];
+    surveyRecord = course.studentTaskPlans.researchSurveys.values()[0];
     props = {
       course,
       params: {

@@ -113,6 +113,7 @@ const Task = createReactClass({
     return TaskStore.on('loaded', this.updateTask);
   },
 
+
   componentWillUnmount() {
     TaskStepStore.off('step.recovered', this.prepareToRecover);
     TaskStore.off('step.completed', this.updateSteps);

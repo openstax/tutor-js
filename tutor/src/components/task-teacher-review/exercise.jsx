@@ -6,7 +6,7 @@ import { isEmpty, map, pick, find } from 'lodash';
 import { Card } from 'react-bootstrap';
 import classnames from 'classnames';
 import Exercise from '../../models/exercises/exercise';
-import { QuestionStats } from '../../models/task-plan/stats';
+import { QuestionStats } from '../../models/task-plans/teacher/stats';
 
 import { Icon } from 'shared';
 import {
