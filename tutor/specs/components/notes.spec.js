@@ -1,10 +1,14 @@
 import NotesWidget from '../../src/components/notes';
-import { Factory, FactoryBot } from '../helpers';
+import { Factory, FactoryBot, deferred } from '../helpers';
 import Router from '../../src/helpers/router';
+import loglevel from 'loglevel';
 
+jest.mock('loglevel');
 jest.mock('../../src/models/user', () => ({
   notesUX: {
     statusMessage: {
+      show: jest.fn(),
+      hide: jest.fn(),
       display: false,
     },
     hideSummary: jest.fn(),
@@ -34,6 +38,10 @@ describe('Notes', () => {
     });
     body.innerHTML = '<div id="mount"><div class="book-content">' +
       page.contents;
+    window.MutationObserver = class {
+      disconnect = jest.fn()
+      observe = jest.fn()
+    };
     window.getSelection = jest.fn(() => ({
       removeAllRanges: jest.fn(),
       addRange: jest.fn(),
@@ -74,4 +82,15 @@ describe('Notes', () => {
     ).toMatchSnapshot();
   });
 
+  it('scrolls to pending highlights', () => {
+    const noteId = props.notes.array[0].id;
+    Router.currentQuery.mockReturnValue({ highlight: noteId });
+    const notes = mount(<NotesWidget {...props}><p>hello</p></NotesWidget>);
+    return deferred(() => {
+      notes.unmount();
+      expect(loglevel.error).toHaveBeenCalledWith(
+        expect.stringContaining(`attempted to scroll to note id '${noteId}'`)
+      );
+    }, 150);
+  });
 });
