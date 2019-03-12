@@ -57,7 +57,7 @@
 
         @include tutor-book-note-style();
         @include book-content-interactives(
-          $narrow-horizontal-margin: $tutor-card-body-padding-horizontal
+          $narrow-horizontal-margin: $tutor-card-body-padding-horizontal, $inExercise: true
         );
 
       }
