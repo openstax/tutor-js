@@ -1,9 +1,12 @@
 //import UX from '../../../src/screens/task/ux';
 import Reading from '../../../../src/screens/task/step/reading';
-import { Factory, FactoryBot } from '../../../helpers';
+import { Factory, FactoryBot, FakeWindow } from '../../../helpers';
 import UX from '../../../../src/screens/task/ux';
 
 jest.mock('../../../../src/screens/task/ux');
+jest.mock('../../../../../shared/src/components/html', () => ({ html }) =>
+  html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
+);
 
 describe('Reading Tasks Screen', () => {
   let props;
@@ -18,15 +21,19 @@ describe('Reading Tasks Screen', () => {
     const ux = new UX();
     ux.course = Factory.course();
     ux.currentStep = step;
-    props = { ux };
+    props = {
+      ux,
+      windowImpl: new FakeWindow,
+    };
   });
 
-  it('render', () => {
-    // console.log(props.step.content.page)
-    // return
-    const r = mount(<Reading {...props} />);
-    console.log(r.debug());
-    r.unmount();
+  it('matches snapshot', () => {
+    expect.snapshot(<Reading {...props} />).toMatchSnapshot();
   });
+
+  // const r = mount(<Reading {...props} />);
+  // // console.log(r.debug());
+  // r.unmount();
+  //});
 
 });

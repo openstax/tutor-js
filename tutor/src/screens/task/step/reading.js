@@ -15,6 +15,7 @@ class ReadingTaskStep extends React.Component {
 
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
+    windowImpl: PropTypes.object,
   }
 
   // componentDidMount() {
@@ -34,8 +35,6 @@ class ReadingTaskStep extends React.Component {
     //   debugger
     // }
 
-    console.log(content)
-
     return (
       <StepWrapper className="reading-step">
 
@@ -45,8 +44,9 @@ class ReadingTaskStep extends React.Component {
           title={content.title}
         />
         <Notes
-          page={content.page}
           course={course}
+          page={content.page}
+          windowImpl={this.props.windowImpl}
         >
           <ArbitraryHtmlAndMath
             className="book-content"
@@ -60,7 +60,7 @@ class ReadingTaskStep extends React.Component {
             isWaiting={this.state.isContinuing}
             waitingText="Loading…"
             onClick={this.onContinue}
-          >
+            >
             Continue
           </AsyncButton>}
       </StepWrapper>
