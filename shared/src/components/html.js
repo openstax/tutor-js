@@ -7,13 +7,13 @@ import classnames from 'classnames';
 import { typesetMath } from '../helpers/mathjax';
 import { wrapFrames } from '../helpers/html-videos';
 
-export default class extends React.Component {
+export default
+class ArbitraryHtmlAndMath extends React.Component {
+
   static defaultProps = {
     block: false,
     shouldExcludeFrame(frame) { return false; },
   };
-
-  static displayName = 'ArbitraryHtmlAndMath';
 
   static propTypes = {
     className: PropTypes.string,
