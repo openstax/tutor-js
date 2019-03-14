@@ -24,18 +24,18 @@ class ExerciseTable extends React.Component {
 
     let content = document.createElement('span');
     content.innerHTML = exercise.content.questions[0].stem_html;
-    each(content.getElementsByTagName('img'), function(img) {
+    const images = Array.from(content.getElementsByTagName('img'))
+    images.forEach((img) => {
       if (img.nextSibling) {
         img.remove();
       } else {
         if (img.parentElement) img.parentElement.remove();
       }
     });
-
     content = content.innerHTML;
 
     return (
-      <tr key={`exercise-row-${index}`}>
+      <tr key={`exercise-row-${index}`} data-ex-id={exercise.id}>
         <td className="exercise-number">
           {index + 1}
         </td>

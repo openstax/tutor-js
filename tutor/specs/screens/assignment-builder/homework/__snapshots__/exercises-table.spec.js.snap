@@ -217,3 +217,13 @@ exports[`review exercises table renders selections 1`] = `
   </tbody>
 </table>
 `;
+
+exports[`review exercises table strips images 1`] = `
+"
+      <div>
+
+
+        this is a test exercise
+      </div>
+    "
+`;

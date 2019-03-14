@@ -53,4 +53,22 @@ describe('review exercises table', function() {
     expect.snapshot(<ReviewExercisesTable {...props} />).toMatchSnapshot();
   });
 
+  it('strips images', () => {
+    const [ex] = props.exercises;
+    ex.content.questions[0].stem_html = `
+      <div>
+<p>hi image here: <img title="one"/></p>
+<img title="two" />
+        this is a test exercise
+      </div>
+    `;
+    props.exercises = [ex];
+    const et = mount(<ReviewExercisesTable {...props} />);
+    const html = et.find(`tr[data-ex-id=${ex.id}] div[dangerouslySetInnerHTML]`).props().dangerouslySetInnerHTML.__html;
+    expect(html).toContain('this is a test exercise');
+    expect(html).not.toContain('img');
+    expect(html).toMatchSnapshot();
+    et.unmount();
+  });
+
 });
