@@ -6,6 +6,7 @@ import Course from '../../src/models/course';
 import TutorExercise from '../../src/models/exercises/exercise';
 import Book from '../../src/models/reference-book';
 import TaskPlanStat from '../../src/models/task-plans/teacher/stats';
+import StudentTask, { StudentTaskStep } from '../../src/models/student-tasks/task';
 import { OfferingsMap, Offering } from '../../src/models/course/offerings';
 import { CoursesMap } from '../../src/models/courses-map';
 import { EcosystemsMap, Ecosystem } from '../../src/models/ecosystems';
@@ -25,6 +26,7 @@ import './exercise';
 import './scores';
 import './offering';
 import './course-roster';
+import './student-tasks';
 import './note';
 
 const Factories = {
@@ -38,9 +40,11 @@ each({
   Course,
   Offering,
   Ecosystem,
+  StudentTask,
   TaskPlanStat,
   TutorExercise,
   ResearchSurvey,
+  StudentTaskStep,
   StudentDashboardTask,
 }, (Model, name) => {
   Factories[camelCase(name)] = (attrs = {}, modelArgs) => {
@@ -93,6 +97,16 @@ Factories.studentTaskPlans = ({ course, count = 4, attributes = {} }) => {
     },
   });
 };
+
+Factories.studentTasks = ({ course = Factories.course(), count = 4, attributes = {} } = {}) => {
+  range(count).forEach(() => {
+    const task = Factories.studentTask(attributes);
+    task.tasksMap = course.studentTasks;
+    course.studentTasks.set(task.id, task)
+  })
+  return course.studentTasks;
+};
+
 
 Factories.courseRoster = ({ course }) => {
   course.roster.onApiRequestComplete({

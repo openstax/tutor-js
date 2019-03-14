@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Reading Progress Component matches snapshot 1`] = `
+<ProgressCard
+  ux={
+    TaskUX {
+      "task": StudentTask {
+        "complete": undefined,
+        "id": 1,
+        "steps": Array [
+          StudentTaskStep {
+            "id": 1,
+            "is_completed": "b",
+            "preview": "Electric Hazards and the Human Body",
+            "type": "reading",
+          },
+          StudentTaskStep {
+            "id": 2,
+            "is_completed": "b",
+            "preview": "Electric Hazards and the Human Body",
+            "type": "reading",
+          },
+        ],
+        "title": "optimizing",
+        "type": "reading",
+      },
+    }
+  }
+>
+  <p>
+    hi
+  </p>
+</ProgressCard>
+`;

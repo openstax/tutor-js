@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Reading Milestones Component renders 1`] = `
+<Milestones
+  goToStep={[MockFunction]}
+  ux={
+    TaskUX {
+      "task": StudentTask {
+        "complete": undefined,
+        "id": 1,
+        "steps": Array [
+          StudentTaskStep {
+            "id": 1,
+            "is_completed": "b",
+            "preview": "Electric Hazards and the Human Body",
+            "type": "reading",
+          },
+          StudentTaskStep {
+            "id": 1,
+            "is_completed": "b",
+            "preview": "impactful: Organizing Life on Earth",
+            "type": "exercise",
+          },
+        ],
+        "title": "optimizing",
+        "type": "reading",
+      },
+    }
+  }
+/>
+`;

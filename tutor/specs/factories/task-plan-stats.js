@@ -1,6 +1,5 @@
 const {
-  Factory, sequence, uuid, reference, fake,
-  TITLES,
+  Factory, sequence, reference, fake, TITLES,
 } = require('./helpers');
 const { times, capitalize } = require('lodash');
 

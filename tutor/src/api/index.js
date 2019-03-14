@@ -34,7 +34,8 @@ import CourseCreate from '../models/course/create';
 import { StudentTaskPlans } from '../models/task-plans/student';
 import { TeacherTaskPlans } from '../models/task-plans/teacher';
 import { PastTaskPlans } from '../models/task-plans/teacher/past';
-import StudentTask from '../models/task-plans/student/task';
+import StudentTask, { StudentTaskStep } from '../models/student-tasks/task';
+import StudentTaskPlan from '../models/task-plans/student/task';
 import Student from '../models/course/student';
 import CourseEnroll from '../models/course/enroll';
 import Payments from '../models/payments';
@@ -274,8 +275,14 @@ const startAPI = function() {
     },
   );
 
+  connectModelRead(StudentTask, 'fetch', { onSuccess: 'onApiRequestComplete', pattern: '/metatasks/{id}' });
+
+  connectModelRead(StudentTaskStep, 'fetch', {
+    onSuccess: 'onLoaded', pattern: 'steps/{id}',
+  });
+
   connectModelRead(StudentTaskPlans, 'fetch', { onSuccess: 'onLoaded', pattern: 'courses/{course.id}/dashboard' });
-  connectModelDelete(StudentTask, 'hide', { onSuccess: 'onHidden', pattern: 'tasks/{id}' });
+  connectModelDelete(StudentTaskPlan, 'hide', { onSuccess: 'onHidden', pattern: 'tasks/{id}' });
 
   connectModelUpdate(Course, 'save', { pattern: 'courses/{id}', onSuccess: 'onApiRequestComplete' });
   connectModelUpdate(Course,

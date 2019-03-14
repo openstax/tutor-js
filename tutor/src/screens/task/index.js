@@ -1,60 +1,73 @@
-import { React, PropTypes, observer, computed } from '../../helpers/react';
+import { React, PropTypes, observer, computed, idType } from '../../helpers/react';
 import Courses, { Course } from '../../models/courses-map';
-import WarningModal from '../../components/warning-modal';
+import StudentTask from '../../models/student-tasks/task';
+import { CourseNotFoundWarning } from '../../components/course-not-found-warning';
+import LoadingScreen from 'shared/components/loading-animation';
+import UX from './ux';
+import reading from './reading';
 
-@observer
-class Task extends React.Component {
-  static propTypes = {
-    course: PropTypes.instanceOf(Course).isRequired,
+const TASK_TYPES = {
+  reading,
+};
 
-  }
-
-  render() {
-    return <p>{this.props.course.name}</p>;
-  }
-}
+const UnknownTaskType = ({ task }) => (
+  <h1>Unknown task type "{task.type || 'null'}"</h1>
+);
 
 @observer
 class TaskLoader extends React.Component {
+  static propTypes = {
+    course: PropTypes.instanceOf(Course).isRequired,
+    task: PropTypes.instanceOf(StudentTask).isRequired,
+  }
+
+  ux = new UX({ task: this.props.task })
+
+  render() {
+    const { task } = this.props;
+    if (task.api.isPendingInitialFetch) {
+      return <LoadingScreen message="Loading Assignment…" />;
+    }
+
+    const Task = TASK_TYPES[task.type] || UnknownTaskType;
+
+    return <Task ux={this.ux} />;
+  }
+
+}
+
+export default
+@observer
+class TaskGetter extends React.Component {
 
   static propTypes = {
     params: PropTypes.shape({
-      courseId: PropTypes.string.isRequired,
-      taskId: PropTypes.string.isRequired,
+      courseId: idType.isRequired,
+      id: idType.isRequired,
     }).isRequired,
+    course: PropTypes.instanceOf(Course),
   }
 
   @computed get course() {
-    return Courses.get(this.props.params.courseId);
+    return this.props.course || Courses.get(this.props.params.courseId);
   }
 
-  componentDidMount() {
-    if (this.course) {
-      const student = this.course.userStudentRecord;
-      if (student && !student.mustPayImmediately) {
-        this.course.studentTaskPlans.fetch();
-      }
+  @computed get task() {
+    return this.course && this.course.studentTasks.get(this.props.params.id);
+  }
+
+  render() {
+    if (!this.course || this.task.api.hasErrors) {
+      return <CourseNotFoundWarning area="assignment" />;
     }
-  }
 
-  renderNotAStudent() {
-    let onDismiss;
-    if (Courses.size) { onDismiss = this.goToMyCourses; }
     return (
-      <WarningModal
-        onDismiss={onDismiss}
-        title="Sorry, you can’t access this assignment"
-        message="Either it does not exist or you do not have permission to access it."
+      <TaskLoader
+        key={this.task}
+        course={this.course}
+        task={this.task}
       />
     );
   }
 
-  render() {
-    if (!this.course) { return this.renderNotAStudent(); }
-
-    return <Task course={this.course} task={this.course.studentTaskPlans} />;
-  }
-
-}
-
-export { Task, TaskLoader };
+};

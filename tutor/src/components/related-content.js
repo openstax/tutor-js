@@ -6,9 +6,8 @@ import ChapterSection from '../models/chapter-section';
 
 class RelatedContent extends React.Component {
   static propTypes = {
-    contentId: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    hasLearningObjectives: PropTypes.bool,
+    hasLearningObjectives: PropTypes.bool.isRequired,
     isChapterSectionHidden: PropTypes.bool,
     chapter_section: PropTypes.instanceOf(ChapterSection).isRequired,
   };
@@ -22,16 +21,12 @@ class RelatedContent extends React.Component {
   };
 
   render() {
-    let hasLearningObjectives;
+
     const {
-      contentId, title, chapter_section, isChapterSectionHidden,
+      title, chapter_section, isChapterSectionHidden, hasLearningObjectives,
     } = this.props;
 
     if (isEmpty(title) || this.isIntro()) { return null; }
-
-    if (hasLearningObjectives == null) {
-      hasLearningObjectives = StepTitleStore.hasLearningObjectives(contentId);
-    }
 
     return (
       <h4

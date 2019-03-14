@@ -20,7 +20,7 @@ export default class ModelApi {
   }
 
   @computed get isPendingInitialFetch() {
-    this.isPending && !this.hasBeenFetched;
+    return this.isPending && !this.hasBeenFetched;
   }
 
   @computed get hasBeenFetched() {
@@ -31,5 +31,9 @@ export default class ModelApi {
 
   @computed get isFetchedOrFetching() {
     return Boolean(this.isPending || this.hasBeenFetched);
+  }
+
+  @computed get hasErrors() {
+    return Boolean(Object.keys(this.errors).length);
   }
 }

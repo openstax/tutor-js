@@ -48,7 +48,7 @@ const getRoutes = (router) => {
           path: 'metrics/:id', name: 'reviewTask',
           renderer: r(() => import('./components/task-teacher-review')) },
         { path: 'task/:id', name: 'viewTask',
-          renderer: r(() => import('./components/task')),
+          renderer: r(() => import('./screens/task')),
           routes: [
             {
               path: 'step/:stepIndex', name: 'viewTaskStep',

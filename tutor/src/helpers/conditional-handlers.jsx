@@ -3,7 +3,7 @@ import invariant from 'invariant';
 import { extend, last, first } from 'lodash';
 import { Redirect, Link } from 'react-router-dom';
 import { asyncComponent } from './async-component';
-import WarningModal from '../components/warning-modal';
+import { CourseNotFoundWarning } from '../components/course-not-found-warning';
 import Courses from '../models/courses-map';
 import { OXMatchByRouter } from 'shared';
 
@@ -21,11 +21,7 @@ const getConditionalHandlers = (Router) => {
     const course = Courses.get(courseId);
 
     if (!course) {
-      return (
-        <WarningModal title="Sorry, you can’t access this course">
-          You are no longer a student in this course. Please contact your instructor if you are still enrolled in this course and need to be re-added.
-        </WarningModal>
-      );
+      return <CourseNotFoundWarning />;
     }
 
     if (!props.match.isExact) {
