@@ -12,7 +12,6 @@ import TourRegion from '../../../components/tours/region';
 
 @observer
 class ExerciseTable extends React.Component {
-  //  mixins: [LoadingExercises]
   static propTypes = {
     course:     PropTypes.instanceOf(Course).isRequired,
     exercises:  ArrayOrMobxType.isRequired,

@@ -21,7 +21,9 @@ exports[`review exercises table renders selections 1`] = `
     </tr>
   </thead>
   <tbody>
-    <tr>
+    <tr
+      data-ex-id={1}
+    >
       <td
         className="exercise-number"
       >
@@ -55,7 +57,9 @@ exports[`review exercises table renders selections 1`] = `
         blooms:3 / dok:3
       </td>
     </tr>
-    <tr>
+    <tr
+      data-ex-id={2}
+    >
       <td
         className="exercise-number"
       >
@@ -89,7 +93,9 @@ exports[`review exercises table renders selections 1`] = `
         blooms:3 / dok:3
       </td>
     </tr>
-    <tr>
+    <tr
+      data-ex-id={3}
+    >
       <td
         className="exercise-number"
       >
@@ -123,7 +129,9 @@ exports[`review exercises table renders selections 1`] = `
         blooms:3 / dok:3
       </td>
     </tr>
-    <tr>
+    <tr
+      data-ex-id={4}
+    >
       <td
         className="exercise-number"
       >
