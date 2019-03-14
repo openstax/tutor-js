@@ -27,9 +27,6 @@ class Exercise extends SharedExercise {
     if (!find(this.authors, { user_id: CurrentUser.id })) {
       return `Author: ${this.authors.names().join(',')}`;
     }
-    if (this.is_vocab) {
-      return 'Vocabulary';
-    }
     return null;
   }
 

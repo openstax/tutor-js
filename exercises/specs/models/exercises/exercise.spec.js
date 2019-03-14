@@ -19,8 +19,7 @@ describe('Exercises model', () => {
     User.id = 1;
     expect(ex.canEdit).toBe(true);
     ex.is_vocab = true;
-    expect(ex.canEdit).toBe(false);
-    expect(ex.readOnlyReason).toEqual('Vocabulary');
+    expect(ex.canEdit).toBe(true);
   });
 
   it('returns a string error message', () => {
