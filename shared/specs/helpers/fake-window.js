@@ -34,6 +34,13 @@ const defaults = {
   innerWidth:  768,
 };
 
+class FakeMutationObserver {
+
+  disconnect = jest.fn()
+  observe = jest.fn()
+
+}
+
 class FakeWindow {
 
   constructor(attrs = {}) {
@@ -50,6 +57,11 @@ class FakeWindow {
       setItem: jest.fn(() => null),
     };
     this.document.body = global.document.body;
+    this.document.createRange = jest.fn(() => ({
+      setStart: jest.fn(),
+      setEnd: jest.fn(),
+      collapse: jest.fn(),
+    }));
     this.history =
       { pushState: jest.fn() };
     this.open = jest.fn( () => {
@@ -65,6 +77,25 @@ class FakeWindow {
     this.location.href = 'http://localhost:3001/dashboard';
     this.location.reload = jest.fn();
   }
+
+  get MutationObserver() {
+    return FakeMutationObserver;
+  }
+
+  getSelection = jest.fn(() => ({
+    removeAllRanges: jest.fn(),
+    addRange: jest.fn(),
+    getRangeAt: jest.fn(() => ({
+      cloneRange: jest.fn(),
+      getBoundingClientRect: jest.fn(() => ({
+        bottom: 150,
+        top: 100,
+        left: 100,
+        right: 150,
+      })),
+    })),
+  }));
+
 }
 
 
