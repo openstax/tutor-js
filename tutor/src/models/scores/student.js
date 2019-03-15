@@ -34,8 +34,14 @@ class Student extends BaseModel {
   }
 
   isValid(type) {
-    return this.course[`${type}_score_weight`] && !isNil(this[`${type}_score`]) &&
-      this.course[`${type}_progress_weight`] && !isNil(this[`${type}_progress`]);
+    // if the course has a weight set then there must be a score as well
+    if (this.course[`${type}_score_weight`] && isNil(this[`${type}_score`])) {
+      return false;
+    }
+    if (this.course[`${type}_progress_weight`] && isNil(this[`${type}_progress`])) {
+      return false;
+    }
+    return true;
   }
 
   @action adjustScores(triggeringTask) {
