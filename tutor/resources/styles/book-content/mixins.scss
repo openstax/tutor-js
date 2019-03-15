@@ -72,7 +72,7 @@
 }
 
 @mixin book-content-interactives(
-  $narrow-horizontal-margin: $book-content-narrow-horizontal-padding, $inExercise: false
+  $narrow-horizontal-margin: $book-content-narrow-horizontal-padding
 ) {
   iframe.interactive {
     width: 100%;
@@ -80,13 +80,9 @@
 
     margin: 20px auto;
     border: none;
-
+    @include book-content-full-width();
     width: $tutor-interactive-iframe-width;
     margin-left: calc(50% - #{($tutor-interactive-iframe-width / 2)});
-
-    @if ($inExercise: true) {
-      padding: 0px 136px;
-    }
     @media screen and ( max-width: $book-content-collapse-breakpoint ){
       margin-left: -$narrow-horizontal-margin;
       margin-right: $narrow-horizontal-margin;
