@@ -27,7 +27,9 @@ import './offering';
 import './course-roster';
 import './note';
 
-const Factories = {};
+const Factories = {
+  bot: FactoryBot,
+};
 
 each({
   Note,

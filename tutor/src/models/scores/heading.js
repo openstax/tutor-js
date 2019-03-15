@@ -5,10 +5,10 @@ import moment from 'moment';
 import {
   BaseModel, identifiedBy, field, belongsTo,
 } from 'shared/model';
-import Time from '../../time';
+import Time from '../time';
 
 export default
-@identifiedBy('course/scores/heading')
+@identifiedBy('scores/heading')
 class Heading extends BaseModel {
   @field({ type: 'bignum' }) average_score;
   @field({ type: 'bignum' }) average_progress;
@@ -16,7 +16,7 @@ class Heading extends BaseModel {
   @field plan_id;
   @field title;
   @field type;
-  @belongsTo({ model: 'course/scores/period' }) period;
+  @belongsTo({ model: 'scores/period' }) period;
 
   @computed get columnIndex() {
     return findIndex(this.period.data_headings, this);

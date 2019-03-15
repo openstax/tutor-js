@@ -7,7 +7,7 @@ import { observable, action } from 'mobx';
 import { LateWork } from './late-work';
 import PieProgress from './pie-progress';
 import Correctness from './correctness-value';
-import TaskResult from '../../models/course/scores/task-result';
+import TaskResult from '../../models/scores/task-result';
 import UX from './ux';
 
 export default

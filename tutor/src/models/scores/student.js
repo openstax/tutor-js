@@ -1,4 +1,4 @@
-import { reduce, isEmpty } from 'lodash';
+import { reduce, isEmpty, isNil } from 'lodash';
 import { action, computed } from 'mobx';
 import Big from 'big.js';
 import {
@@ -8,7 +8,7 @@ import {
 import TaskResult from './task-result';
 
 export default
-@identifiedBy('course/scores/student')
+@identifiedBy('scores/student')
 class Student extends BaseModel {
   @hasMany({ model: TaskResult, inverseOf: 'student' }) data;
   @field first_name;
@@ -17,7 +17,7 @@ class Student extends BaseModel {
   @field name;
   @identifier role;
   @field student_identifier;
-  @belongsTo({ model: 'course/scores/period' }) period;
+  @belongsTo({ model: 'scores/period' }) period;
 
   @field({ type: 'bignum' }) course_average;
   @field({ type: 'bignum' }) homework_score;
@@ -29,6 +29,15 @@ class Student extends BaseModel {
     return true !== this.is_dropped;
   }
 
+  get course() {
+    return this.period.course;
+  }
+
+  isValid(type) {
+    return this.course[`${type}_score_weight`] && !this[`${type}_score`] &&
+      this.course[`${type}_progress_weight`] && !this[`${type}_progress`];
+  }
+
   @action adjustScores(triggeringTask) {
     this[`${triggeringTask.type}_progress`] = this.averageTasksOfType(
       triggeringTask.type, 'progress'
@@ -38,25 +47,21 @@ class Student extends BaseModel {
       triggeringTask.type, 'score'
     );
 
-    const { course } = this.period;
+    const { course } = this;
 
     if (
-      !((course.homework_score_weight && !this.homework_score) ||
-        (course.homework_progress_weight && !this.homework_progress) ||
-        (course.reading_score_weight && !this.reading_score) ||
-        (course.reading_progress_weight && !this.reading_progress)
-      )
+      this.isValid('homework') && this.isValid('reading')
     ) {
       this.course_average =
-        Big(course.homework_score_weight).times(this.homework_score || 0)
+        Big(course.homework_score_weight).times(this.homework_score)
           .plus(
-            Big(course.homework_progress_weight).times(this.homework_progress || 0)
+            Big(course.homework_progress_weight).times(this.homework_progress)
           )
           .plus(
-            Big(course.reading_score_weight).times(this.reading_score || 0)
+            Big(course.reading_score_weight).times(this.reading_score)
           )
           .plus(
-            Big(course.reading_progress_weight).times(this.reading_progress || 0)
+            Big(course.reading_progress_weight).times(this.reading_progress)
           );
     }
   }

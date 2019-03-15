@@ -13,7 +13,7 @@ import AssignmentCell from './assignment-cell';
 import AssignmentHeader from './assignment-header';
 import NameCell from './name-cell';
 import OverallHeader from './overall-header';
-import { CourseScoresPeriod } from '../../models/course/scores';
+import { CourseScoresPeriod } from '../../models/scores';
 import CGL from '../../components/course-grouping-label';
 import OverallCell from './overall-cell';
 

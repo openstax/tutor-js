@@ -13,7 +13,7 @@ import Role    from './course/role';
 import Student from './course/student';
 import CourseInformation from './course/information';
 import Roster from './course/roster';
-import Scores from './course/scores';
+import Scores from './scores';
 import LMS from './course/lms';
 import PH from '../helpers/period';
 import TimeHelper from '../helpers/time';
