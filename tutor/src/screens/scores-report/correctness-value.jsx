@@ -3,7 +3,7 @@ import React from 'react';
 import { isNil } from 'lodash';
 import { observer } from 'mobx-react';
 import S from '../../helpers/string';
-import TaskResult from '../../models/course/scores/task-result';
+import TaskResult from '../../models/scores/task-result';
 import TutorLink from '../../components/link';
 import UX from './ux';
 
@@ -21,6 +21,11 @@ const ReviewLink = ({ task, children }) => {
       {children}
     </TutorLink>
   );
+};
+
+ReviewLink.propTypes = {
+  task: PropTypes.instanceOf(TaskResult).isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 const Progress = observer(({ task }) => {
@@ -56,4 +61,4 @@ class CorrectnessValue extends React.Component {
       return <div className="correct unstarted">---</div>;
     }
   }
-};
+}

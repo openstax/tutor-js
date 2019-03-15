@@ -8,7 +8,7 @@ import Heading from './heading';
 import Student from './student';
 
 export default
-@identifiedBy('course/scores/period')
+@identifiedBy('scores/period')
 class CourseScoresPeriod extends BaseModel {
 
   @field({ type: 'bignum' }) overall_course_average;
@@ -80,4 +80,4 @@ class CourseScoresPeriod extends BaseModel {
     ).div(students.length);
   }
 
-};
+}

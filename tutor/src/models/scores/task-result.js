@@ -5,10 +5,10 @@ import {
 } from 'shared/model';
 import Big from 'big.js';
 import moment from 'moment';
-import Time from '../../time';
+import Time from '../time';
 
 export default
-@identifiedBy('course/scores/task-result')
+@identifiedBy('scores/task-result')
 class TaskResult extends BaseModel {
   @identifier id;
   @field type;
@@ -34,7 +34,7 @@ class TaskResult extends BaseModel {
   @field is_late_work_accepted;
   @field recovered_exercise_count;
 
-  @belongsTo({ model: 'course/scores/student' }) student;
+  @belongsTo({ model: 'scores/student' }) student;
   @computed get period() { return this.student.period; }
 
   @computed get columnIndex() {
@@ -190,4 +190,4 @@ class TaskResult extends BaseModel {
   }
 
 
-};
+}

@@ -1,5 +1,5 @@
 import { filter } from 'lodash';
-import Factory from '../../../factories';
+import Factory from '../../factories';
 
 describe('scores store task results', () => {
   let scores;

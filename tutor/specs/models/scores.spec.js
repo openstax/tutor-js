@@ -1,12 +1,10 @@
-import { bootstrapCoursesList } from '../../courses-test-data';
-import { isObject, find, map } from 'lodash';
-import DATA from '../../../api/courses/1/performance.json';
-import Courses from '../../../src/models/courses-map';
+import { bootstrapCoursesList } from '../courses-test-data';
+import { isObject } from 'lodash';
+import DATA from '../../api/courses/1/performance.json';
+import Courses from '../../src/models/courses-map';
 const COURSE_ID = 2;
-//
+
 // helpers to make specs more concise
-
-
 const gT = id => {
   return Courses.get(COURSE_ID).scores.getTask(id);
 };
@@ -16,7 +14,6 @@ const acceptTask = (id) => {
   task.onLateWorkAccepted();
   return task;
 };
-
 
 const testChangedScoreBy = (taskId, scoreDiff) => {
   const task = gT(taskId);
@@ -49,13 +46,11 @@ const UNWORKED_TASK_ID = 10;
 describe('scores store', function() {
   let scores;
   let course;
-  let period;
 
   beforeEach(() => {
     course = bootstrapCoursesList().get(COURSE_ID);
     scores = course.scores;
     scores.onFetchComplete({ data: DATA });
-    period = course.scores.periods.get('1');
   });
 
   it('marks late work as accepted', function() {

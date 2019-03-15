@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Popover, Overlay, Button } from 'react-bootstrap';
+import { Popover, Overlay } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { observable, action, computed } from 'mobx';
 import Time from '../../components/time';
 import classnames from 'classnames';
-import ReactDOM from 'react-dom';
 import omit from 'lodash/omit';
 import { AsyncButton } from 'shared';
-import TaskResult from '../../models/course/scores/task-result';
+import TaskResult from '../../models/scores/task-result';
 
 class LateWorkMessages {
 
