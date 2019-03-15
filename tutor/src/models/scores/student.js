@@ -34,8 +34,8 @@ class Student extends BaseModel {
   }
 
   isValid(type) {
-    return this.course[`${type}_score_weight`] && !this[`${type}_score`] &&
-      this.course[`${type}_progress_weight`] && !this[`${type}_progress`];
+    return this.course[`${type}_score_weight`] && !isNil(this[`${type}_score`]) &&
+      this.course[`${type}_progress_weight`] && !isNil(this[`${type}_progress`]);
   }
 
   @action adjustScores(triggeringTask) {
