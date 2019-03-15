@@ -2,23 +2,24 @@
 
 set -e
 
-PROJECT=${OX_PROJECT:=tutor}
-
-HEAD=head
-
 if [ "$TRAVIS" == "true" ]; then
     echo "running under travis, fetching master"
-    # fetch master so it can be compared
-    git remote set-branches --add origin master
+    TARGET_BRANCH=$TRAVIS_BRANCH
+    git remote set-branches --add origin $TARGET_BRANCH
     git fetch
-    HEAD=$TRAVIS_COMMIT
+else
+    TARGET_BRANCH=master
 fi
 
 if [ "$1" == "branch" ]; then
-    cmd="git diff-tree -r --diff-filter=ACMR --no-commit-id --name-only origin/master $HEAD ${PROJECT}/src ${PROJECT}/specs"
-    echo $cmd
-    echo `${cmd}`
-    ${cmd} | grep -E '.jsx$|.js$' | xargs $(npm bin)/eslint $2
+    head=$(git merge-base HEAD $TARGET_BRANCH)
+    cmd="git diff --name-status $head $BRANCH */{src,specs}"
 else
-    git status --short --porcelain ${PROJECT}/src ${PROJECT}/specs | awk '{ print $2 }' | grep -E '.jsx$|.js$' | xargs $(npm bin)/eslint
+    cmd="git status --short */{src,specs}"
+fi
+
+files=`eval $cmd | grep -E '^[^D]*[.jsx|js]$' | awk '{ print $2 }'`
+
+if [ ! -z "$files" ]; then
+    $(npm bin)/eslint $2 $files
 fi
