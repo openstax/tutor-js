@@ -13,4 +13,4 @@ class ExerciseAttachment extends BaseModel {
 
   @field({ type: 'object' }) asset;
 
-};
+}

@@ -92,4 +92,4 @@ class Exercise extends BaseModel {
   @computed get isPublishable() {
     return Boolean(!this.isNew && this.validity.valid && !this.published_at);
   }
-};
+}
