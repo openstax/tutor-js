@@ -80,7 +80,7 @@
 
     margin: 20px auto;
     border: none;
-
+    @include book-content-full-width();
     width: $tutor-interactive-iframe-width;
     margin-left: calc(50% - #{($tutor-interactive-iframe-width / 2)});
     @media screen and ( max-width: $book-content-collapse-breakpoint ){
