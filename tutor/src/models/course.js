@@ -278,4 +278,4 @@ class Course extends BaseModel {
     exercise.update(exerciseAttrs);
   }
 
-};
+}

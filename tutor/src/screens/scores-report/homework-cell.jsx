@@ -105,4 +105,4 @@ class HomeworkCell extends React.Component {
     );
   }
 
-};
+}

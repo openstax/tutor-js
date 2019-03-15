@@ -2,18 +2,16 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { range, isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
-import { Table, Column, ColumnGroup, Cell } from 'fixed-data-table-2';
+import { Table, Column, ColumnGroup } from 'fixed-data-table-2';
 import { autobind } from 'core-decorators';
 import classnames from 'classnames';
 import TutorLink from '../../components/link';
 
 import SortingHeader from './sorting-header';
-import AverageInfo from './average-info';
 import AssignmentCell from './assignment-cell';
 import AssignmentHeader from './assignment-header';
 import NameCell from './name-cell';
 import OverallHeader from './overall-header';
-import { CourseScoresPeriod } from '../../models/scores';
 import CGL from '../../components/course-grouping-label';
 import OverallCell from './overall-cell';
 
@@ -88,7 +86,7 @@ class ScoresTable extends React.Component {
   }
 
   renderLeftColumnGroup() {
-    const { props: { ux, ux: { students, COLUMN_WIDTH, course } }, courseId } = this;
+    const { ux, ux: { students, COLUMN_WIDTH, course } } = this.props;
 
     if (!course.isTeacher) {
       return (
@@ -171,4 +169,4 @@ class ScoresTable extends React.Component {
       </Table>
     );
   }
-};
+}

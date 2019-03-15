@@ -190,4 +190,4 @@ class TaskResult extends BaseModel {
   }
 
 
-};
+}

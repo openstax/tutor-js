@@ -45,4 +45,4 @@ class Heading extends BaseModel {
     ).div(tasks.length);
   }
 
-};
+}

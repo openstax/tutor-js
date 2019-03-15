@@ -76,4 +76,4 @@ class Student extends BaseModel {
     ).div(tasks.length);
   }
 
-};
+}

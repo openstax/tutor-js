@@ -183,4 +183,4 @@ class PieProgress extends React.Component {
     return pieCircle;
 
   }
-};
+}

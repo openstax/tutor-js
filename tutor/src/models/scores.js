@@ -37,4 +37,4 @@ class Scores extends BaseModel {
     return null;
   }
 
-};
+}

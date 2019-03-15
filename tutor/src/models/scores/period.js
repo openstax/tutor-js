@@ -80,4 +80,4 @@ class CourseScoresPeriod extends BaseModel {
     ).div(students.length);
   }
 
-};
+}

@@ -61,4 +61,4 @@ class CorrectnessValue extends React.Component {
       return <div className="correct unstarted">---</div>;
     }
   }
-};
+}
