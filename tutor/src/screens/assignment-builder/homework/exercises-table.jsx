@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { each, every, map, times } from 'lodash';
+import { map, times } from 'lodash';
 import { TaskPlanStore } from '../../../flux/task-plan';
 import Course from '../../../models/course';
-import fluxToMobx from '../../../helpers/flux-to-mobx';
 import { observer } from 'mobx-react';
 import { ArrayOrMobxType } from 'shared/helpers/react';
 import { ArbitraryHtmlAndMath } from 'shared';
@@ -23,7 +22,7 @@ class ExerciseTable extends React.Component {
 
     let content = document.createElement('span');
     content.innerHTML = exercise.content.questions[0].stem_html;
-    const images = Array.from(content.getElementsByTagName('img'))
+    const images = Array.from(content.getElementsByTagName('img'));
     images.forEach((img) => {
       if (img.nextSibling) {
         img.remove();

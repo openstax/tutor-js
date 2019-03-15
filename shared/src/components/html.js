@@ -12,7 +12,7 @@ class ArbitraryHtmlAndMath extends React.Component {
 
   static defaultProps = {
     block: false,
-    shouldExcludeFrame(frame) { return false; },
+    shouldExcludeFrame() { return false; },
   };
 
   static propTypes = {
@@ -20,6 +20,7 @@ class ArbitraryHtmlAndMath extends React.Component {
     html: PropTypes.string,
     block: PropTypes.bool.isRequired,
     processHtmlAndMath: PropTypes.func,
+    shouldExcludeFrame: PropTypes.func,
   };
 
   componentDidMount() { return this.updateDOMNode(); }
@@ -27,7 +28,7 @@ class ArbitraryHtmlAndMath extends React.Component {
   // rendering uses dangerouslySetInnerHTML and then runs MathJax,
   // Both of which React can't optimize like it's normal render operations
   // Accordingly, only update if any of our props have actually changed
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     for (let propName in nextProps) {
       const value = nextProps[propName];
       if (this.props[propName] !== value) { return true; }
@@ -42,6 +43,7 @@ class ArbitraryHtmlAndMath extends React.Component {
     if (html) {
       return { __html: html };
     }
+    return null;
   };
 
   // Perform manipulation on HTML contained inside the components node.

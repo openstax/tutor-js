@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../../../helpers';
+import { React } from '../../../helpers';
 import ReviewExercisesTable from '../../../../src/screens/assignment-builder/homework/exercises-table';
 import Factory, { FactoryBot } from '../../../factories';
 import { ExtendBasePlan } from '../task-plan-helper';
