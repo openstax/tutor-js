@@ -51,6 +51,7 @@
     "@fortawesome/react-fontawesome": "^0.1.4",
     "@openstax/highlighter": "1.1.9",
     "axios": "0.18.0",
+    "babel-eslint": "^10.0.1",
     "babel7-jest": "^1.0.1",
     "big.js": "^5.2.2",
     "bootstrap": "^4.3.1",

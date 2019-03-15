@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { each, every, map, times } from 'lodash';
+import { map, times } from 'lodash';
 import { TaskPlanStore } from '../../../flux/task-plan';
 import Course from '../../../models/course';
-import fluxToMobx from '../../../helpers/flux-to-mobx';
 import { observer } from 'mobx-react';
 import { ArrayOrMobxType } from 'shared/helpers/react';
 import { ArbitraryHtmlAndMath } from 'shared';
@@ -12,7 +11,6 @@ import TourRegion from '../../../components/tours/region';
 
 @observer
 class ExerciseTable extends React.Component {
-  //  mixins: [LoadingExercises]
   static propTypes = {
     course:     PropTypes.instanceOf(Course).isRequired,
     exercises:  ArrayOrMobxType.isRequired,
@@ -24,18 +22,18 @@ class ExerciseTable extends React.Component {
 
     let content = document.createElement('span');
     content.innerHTML = exercise.content.questions[0].stem_html;
-    each(content.getElementsByTagName('img'), function(img) {
+    const images = Array.from(content.getElementsByTagName('img'));
+    images.forEach((img) => {
       if (img.nextSibling) {
         img.remove();
       } else {
         if (img.parentElement) img.parentElement.remove();
       }
     });
-
     content = content.innerHTML;
 
     return (
-      <tr key={`exercise-row-${index}`}>
+      <tr key={`exercise-row-${index}`} data-ex-id={exercise.id}>
         <td className="exercise-number">
           {index + 1}
         </td>

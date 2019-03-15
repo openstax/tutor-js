@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../../../helpers';
+import { React } from '../../../helpers';
 import ReviewExercisesTable from '../../../../src/screens/assignment-builder/homework/exercises-table';
 import Factory, { FactoryBot } from '../../../factories';
 import { ExtendBasePlan } from '../task-plan-helper';
@@ -51,6 +51,24 @@ describe('review exercises table', function() {
 
   it('renders selections', () => {
     expect.snapshot(<ReviewExercisesTable {...props} />).toMatchSnapshot();
+  });
+
+  it('strips images', () => {
+    const [ex] = props.exercises;
+    ex.content.questions[0].stem_html = `
+      <div>
+<p>hi image here: <img title="one"/></p>
+<img title="two" />
+        this is a test exercise
+      </div>
+    `;
+    props.exercises = [ex];
+    const et = mount(<ReviewExercisesTable {...props} />);
+    const html = et.find(`tr[data-ex-id=${ex.id}] div[dangerouslySetInnerHTML]`).props().dangerouslySetInnerHTML.__html;
+    expect(html).toContain('this is a test exercise');
+    expect(html).not.toContain('img');
+    expect(html).toMatchSnapshot();
+    et.unmount();
   });
 
 });
