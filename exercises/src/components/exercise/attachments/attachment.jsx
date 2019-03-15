@@ -1,15 +1,21 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import styled from 'styled-components';
 import { observer } from 'mobx-react';
-import { observable, action } from 'mobx';
-import classnames from 'classnames';
-import Exercise from '../../../models/exercises/exercise';
+import { action } from 'mobx';
+import { Icon } from 'shared';
+
+const Btn = styled(Icon)`
+
+`;
 
 @observer
 class Attachment extends React.Component {
   static propTypes = {
     attachment: PropTypes.shape({
+      exercise: PropTypes.shape({
+        attachments: PropTypes.array,
+      }).isRequired,
       asset: PropTypes.shape({
         filename: PropTypes.string.isRequired,
         url: PropTypes.string.isRequired,
@@ -19,6 +25,11 @@ class Attachment extends React.Component {
       }).isRequired,
     }).isRequired,
   };
+
+  @action.bound onDelete() {
+    this.props.attachment.exercise.attachments.remove(this.props.attachment);
+  }
+
 
   render() {
     const { attachment } = this.props;
@@ -31,6 +42,7 @@ class Attachment extends React.Component {
     const copypaste = `<img src="${url}" alt="">`;
     return (
       <div className="attachment with-image">
+        <Btn type="trash" onClick={this.onDelete} />
         <img className="preview" src={attachment.asset.url} />
         <textarea value={copypaste} readOnly={true} className="copypaste" />
       </div>

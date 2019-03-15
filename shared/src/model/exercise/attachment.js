@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, identifier, field, hasMany,
+  BaseModel, identifiedBy, identifier, field, belongsTo,
 } from '../../model';
 
 
@@ -9,6 +9,8 @@ class ExerciseAttachment extends BaseModel {
 
   @identifier id;
 
+  @belongsTo({ type: 'exercise' }) exercise;
+
   @field({ type: 'object' }) asset;
 
-};
+}

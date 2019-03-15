@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, identifier, session, field, hasMany, computed, action,
 } from '../model';
-import { reduce, map, filter, find, inRange, merge } from 'lodash';
+import { reduce, map, filter, inRange, merge } from 'lodash';
 import TagAssociation from './exercise/tag-association';
 import invariant from 'invariant';
 import Attachment from './exercise/attachment';
@@ -37,7 +37,7 @@ class Exercise extends BaseModel {
   @session published_at;
   @session wrapper;
 
-  @hasMany({ model: Attachment }) attachments;
+  @hasMany({ model: Attachment, inverseOf: 'exercise' }) attachments;
   @hasMany({ model: Author, extend: {
     names() {
       return map(this, 'name');
@@ -92,4 +92,4 @@ class Exercise extends BaseModel {
   @computed get isPublishable() {
     return Boolean(!this.isNew && this.validity.valid && !this.published_at);
   }
-};
+}
