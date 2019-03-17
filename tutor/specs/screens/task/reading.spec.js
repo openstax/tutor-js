@@ -10,6 +10,7 @@ describe('Reading Tasks Screen', () => {
       count: 1,
       attributes: { type: 'reading' },
     }).array[0];
+
     props = {
       ux: new UX({ task }),
     };
@@ -21,5 +22,15 @@ describe('Reading Tasks Screen', () => {
     expect(r).toHaveRendered('ContentLoader');
     r.unmount();
   });
+
+  fit('renders content', () => {
+    props.ux.currentStep.onLoaded({
+      Factory.bot.create('StudentTaskReadingStepContent'),
+    })
+    props.ux.currentStep.isFetched = true;
+    const r = mount(<Reading {...props} />);
+    expect(r).toHaveRendered('ContentLoader');
+    r.unmount();
+  })
 
 });

@@ -29,7 +29,7 @@ class ReadingTask extends React.Component {
       step = <PendingLoad />;
     } else {
       const Step = STEP_TYPES[currentStep.type] || UnknownStepType
-      step = <Step step={currentStep} />;
+      step = <Step ux={ux} />;
     }
 
     return (

@@ -18,10 +18,6 @@ class ReadingTaskStep extends React.Component {
     windowImpl: PropTypes.object,
   }
 
-  // componentDidMount() {
-  //   if (!step.isFetched) { step.fetch() }
-  // }
-
   render() {
     const {
       ux, ux: {
@@ -30,11 +26,7 @@ class ReadingTaskStep extends React.Component {
         currentStep: { content }
       },
     } = this.props;
-    //    step = this.props.ux.currentStep;
-    // if (!step.isFetched) {
-    //   debugger
-    // }
-
+console.log("STEP", step)
     return (
       <StepWrapper className="reading-step">
 
