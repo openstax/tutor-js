@@ -17,12 +17,14 @@ import Notices from '../helpers/notifications';
 import Chat from './chat';
 import Toasts from './toasts';
 import Tutor from '../components/root';
+import { ResponseValidation } from './response_validation';
 
 const BOOTSTRAPED_MODELS = {
   user:     User,
   courses:  Courses,
   payments: Payments,
   feature_flags: FeatureFlagsApi,
+  response_validation: ResponseValidation,
 };
 
 export default class TutorApp {
