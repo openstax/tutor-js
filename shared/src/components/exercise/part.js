@@ -29,7 +29,7 @@ class ExercisePart extends React.Component {
 
   static propTypes = {
     id: PropTypes.string.isRequired,
-    taskId: PropTypes.string.isRequired,
+//    taskId: PropTypes.string.isRequired,
     onStepCompleted: PropTypes.func.isRequired,
     onNextStep: PropTypes.func.isRequired,
     getCurrentCard: PropTypes.func.isRequired,

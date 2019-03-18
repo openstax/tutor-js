@@ -1,4 +1,4 @@
-import Reading from '../../../../src/screens/task/step/reading';
+import Exercise from '../../../../src/screens/task/step/exercise';
 import { Factory, FactoryBot, FakeWindow } from '../../../helpers';
 import UX from '../../../../src/screens/task/ux';
 
@@ -7,15 +7,16 @@ jest.mock('../../../../../shared/src/components/html', () => ({ html }) =>
   html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
 );
 
-describe('Reading Tasks Screen', () => {
-  let props;
 
+describe('Exercise Tasks Screen', () => {
+  let props;
+  let step;
   beforeEach(() => {
-    const step = Factory.studentTaskStep({
-      type: 'reading',
+    step = Factory.studentTaskStep({
+      type: 'exercise',
     });
     step.onLoaded({
-      data: FactoryBot.create('StudentTaskReadingStepContent'),
+      data: FactoryBot.create('StudentTaskExerciseStepContent'),
     });
     const ux = new UX();
     ux.course = Factory.course();
@@ -27,7 +28,12 @@ describe('Reading Tasks Screen', () => {
   });
 
   it('matches snapshot', () => {
-    expect.snapshot(<Reading {...props} />).toMatchSnapshot();
+    console.log(
+      step.content.questions
+    )
+    const ex = mount(<Exercise {...props} />)
+    console.log(ex.debug())
+    //    expect.snapshot(<Exercise {...props} />).toMatchSnapshot();
   });
 
   // const r = mount(<Reading {...props} />);

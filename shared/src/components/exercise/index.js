@@ -43,7 +43,7 @@ const ExerciseMixin = {
         {...partProps}
         step={part}
         id={part.id}
-        taskId={part.task_id} />
+      />
     );
   },
 

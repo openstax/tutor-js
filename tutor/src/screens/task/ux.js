@@ -15,8 +15,32 @@ export default class TaskUX {
     );
   }
 
+  @action.bound setFreeResponse() {
+
+  }
+
   @computed get steps() {
     return this.task.steps;
+  }
+
+  @computed get controlButtons() {
+    return [];
+  }
+
+  @computed get canReviewCurrentStep() {
+
+  }
+
+  @action.bound onStepCompleted(step) {
+
+  }
+
+  @action.bound setAnswerId() {
+
+  }
+
+  @action.bound canContinueStep(id) {
+
   }
 
   @action.bound goBackward() {
@@ -59,6 +83,10 @@ export default class TaskUX {
 
   @computed get canGoBackward() {
     return this._stepIndex > 0;
+  }
+
+  @computed get currentStepIndex() {
+    return this._stepIndex;
   }
 
   @computed get currentStep() {

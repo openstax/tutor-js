@@ -20,16 +20,13 @@ class ReadingTaskStep extends React.Component {
 
   render() {
     const {
-      ux, ux: {
-        course,
-        currentStep: step,
-        currentStep: { content }
-      },
-    } = this.props;
-console.log("STEP", step)
+      course, canGoForward, currentStep: step,
+    } = this.props.ux;
+
+    const { content } = step;
+
     return (
       <StepWrapper className="reading-step">
-
         <RelatedContent
           hasLearningObjectives={content.has_learning_objectives}
           chapter_section={content.chapterSection}
@@ -46,18 +43,17 @@ console.log("STEP", step)
             html={content.content_html}
           />
         </Notes>
-        {ux.canGoForward &&
+        {canGoForward &&
           <AsyncButton
             variant="primary"
-            isWaiting={this.state.isContinuing}
             waitingText="Loading…"
             onClick={this.onContinue}
-            >
+            isWaiting={step.api.isPending}
+          >
             Continue
           </AsyncButton>}
       </StepWrapper>
-
     );
   }
 
-};
+}

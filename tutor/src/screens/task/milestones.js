@@ -63,7 +63,7 @@ class Milestone extends React.Component {
       </Col>
     );
   }
-};
+}
 
 class Milestones extends React.Component {
 
@@ -74,7 +74,7 @@ class Milestones extends React.Component {
 
 
   @action.bound goToStep(step) {
-    this.props.goToStep(step)
+    this.props.goToStep(step);
   }
 
   render() {

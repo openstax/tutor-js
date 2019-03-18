@@ -63,7 +63,6 @@ Factories.coursesMap = ({ count = 2, ...attrs } = {}) => {
   return map;
 };
 
-
 Factories.ecosystemsMap = ({ count = 4 } = {}) => {
   const map = new EcosystemsMap();
   map.onLoaded({ data: range(count).map(() => FactoryBot.create('Ecosystem')) });

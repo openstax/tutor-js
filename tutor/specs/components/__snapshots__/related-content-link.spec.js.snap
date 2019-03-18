@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Related Content Link renders and matches snapshot 1`] = `
+<div
+  className="related-content-link"
+>
+  <span
+    className="preamble"
+  >
+    Comes from 
+  </span>
+  <a
+    aria-label="Browse course reference book"
+    className="browse-the-book"
+    href="/book/1/section/1"
+    onClick={[Function]}
+    tabIndex={-1}
+    target="_blank"
+  >
+    <span
+      className="part"
+    >
+      <span
+        className="section"
+      >
+         
+      </span>
+      <span
+        className="title"
+      >
+        Intro
+      </span>
+    </span>
+  </a>
+  <a
+    aria-label="Browse course reference book"
+    className="browse-the-book"
+    href="/book/1/section/1.1"
+    onClick={[Function]}
+    tabIndex={-1}
+    target="_blank"
+  >
+    <span
+      className="part"
+    >
+      <span
+        className="section"
+      >
+         
+      </span>
+      <span
+        className="title"
+      >
+        First
+      </span>
+    </span>
+  </a>
+</div>
+`;

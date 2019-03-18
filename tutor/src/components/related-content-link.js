@@ -1,65 +1,43 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { isEmpty } from 'lodash';
 import createReactClass from 'create-react-class';
-import _ from 'underscore';
-import Courses from '../models/courses-map';
-import { ChapterSectionMixin } from 'shared';
+import Course from '../models/course';
+import ChapterSection from './chapter-section';
+import RelatedContent from '../models/related-content';
 import { Icon } from 'shared';
 import BrowseTheBook from './buttons/browse-the-book';
 
+const RelatedContentLink = ({ course, content }) => {
 
-const RelatedContentLink = createReactClass({
-  displayName: 'RelatedContentLink',
+  if (isEmpty(content)) { return null; }
 
-  propTypes: {
-    courseId: PropTypes.string.isRequired,
+  return (
+    <div className="related-content-link">
+      <span className="preamble">
+        {'Comes from '}
+      </span>
+      {content.map((rl, i) => (
+        <BrowseTheBook
+          key={i}
+          unstyled={true}
+          chapterSection={rl.chapter_section.asString}
+          course={course}
+          tabIndex={-1}
+        >
+          <span className="part">
+            <ChapterSection chapterSection={rl.chapter_section} />
+          </span>
+        </BrowseTheBook>))}
+    </div>
+  );
+};
 
-    content: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        chapter_section: PropTypes.array.isRequired,
-      }).isRequired
-    ).isRequired,
-  },
-
-  mixins: [ChapterSectionMixin],
-
-  render() {
-    let content;
-    if (_.isEmpty(this.props.content)) { return null; }
-
-    return (
-      <div className="related-content-link">
-        <span className="preamble">
-          {'Comes from '}
-        </span>
-        {(() => {
-          const result = [];
-          for (let i = 0; i < this.props.content.length; i++) {
-            content = this.props.content[i];
-            const section = this.sectionFormat(content.chapter_section);
-            result.push(<BrowseTheBook
-              key={i}
-              unstyled={true}
-              chapterSection={section}
-              course={Courses.get(this.props.courseId)}
-              tabIndex={-1}>
-              <span className="part">
-                <span className="section">
-                  {section}
-                  {' '}
-                </span>
-                <span className="title">
-                  {content.title}
-                </span>
-              </span>
-            </BrowseTheBook>);
-          }
-          return result;
-        })()}
-      </div>
-    );
-  },
-});
+RelatedContentLink.propTypes = {
+  course: PropTypes.instanceOf(Course).isRequired,
+  content: PropTypes.arrayOf(
+    PropTypes.instanceOf(RelatedContent).isRequired,
+  ).isRequired,
+};
 
 export default RelatedContentLink;

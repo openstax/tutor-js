@@ -5,13 +5,15 @@ import { CourseNotFoundWarning } from '../../components/course-not-found-warning
 import LoadingScreen from 'shared/components/loading-animation';
 import UX from './ux';
 import reading from './reading';
+import homework from './homework';
 
 const TASK_TYPES = {
   reading,
+  homework,
 };
 
-const UnknownTaskType = ({ task }) => (
-  <h1>Unknown task type "{task.type || 'null'}"</h1>
+const UnknownTaskType = ({ ux }) => (
+  <h1>Unknown task type "{ux.task.type || 'null'}"</h1>
 );
 
 @observer
@@ -70,4 +72,4 @@ class TaskGetter extends React.Component {
     );
   }
 
-};
+}
