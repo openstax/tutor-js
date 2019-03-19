@@ -1,9 +1,9 @@
 import {
-  BaseModel, identifiedBy, action, computed, field, identifier, hasMany,
+  BaseModel, identifiedBy, action, field,
 } from 'shared/model';
 
 const ResponseValidationConfig = {
-  url: null,
+  url: '',
 };
 
 @identifiedBy('response_validation')
@@ -40,6 +40,12 @@ class ResponseValidation extends BaseModel {
         remove_nonwords: 'True',
       },
     };
+  }
+
+  onFailure(error) {
+    console.warn(error); // eslint-disable-line no-console
+    // signal not to display error modal
+    error.isRecorded = true;
   }
 
   @action onValidationComplete({ data }) {
