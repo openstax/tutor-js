@@ -59,15 +59,15 @@ class Student extends BaseModel {
       this.isValid('homework') && this.isValid('reading')
     ) {
       this.course_average =
-        Big(course.homework_score_weight).times(this.homework_score)
+        Big(course.homework_score_weight).times(this.homework_score || 0)
           .plus(
-            Big(course.homework_progress_weight).times(this.homework_progress)
+            Big(course.homework_progress_weight).times(this.homework_progress || 0)
           )
           .plus(
-            Big(course.reading_score_weight).times(this.reading_score)
+            Big(course.reading_score_weight).times(this.reading_score || 0)
           )
           .plus(
-            Big(course.reading_progress_weight).times(this.reading_progress)
+            Big(course.reading_progress_weight).times(this.reading_progress || 0)
           );
     }
   }
