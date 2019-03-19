@@ -40,7 +40,7 @@ describe('scores student model', () => {
     expect(student.course_average.toString()).toEqual('0.48');
   });
 
-  fit('adjusts even if one is undefined', () => {
+  it('adjusts even if one is undefined', () => {
     student.data.push({
       is_included_in_averages: true,
       type: 'homework',
