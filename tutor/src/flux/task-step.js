@@ -104,12 +104,16 @@ const TaskStepConfig = {
     this._change(id, { free_response });
     const { spy, content: { uid } } = this._local[id];
     const validation = new ResponseValidation();
-    await validation.validate({ uid, response: free_response });
-    const garbage_estimate = validation.serialize();
-    if (spy) {
-      spy.garbage_estimate = garbage_estimate;
+    try {
+      await validation.validate({ uid, response: free_response });
+      const garbage_estimate = validation.serialize();
+      if (spy) {
+        spy.garbage_estimate = garbage_estimate;
+      }
+      this._change(id, { spy, garbage_estimate });
+    } catch(e) {
+      console.warn(e); // eslint-disable-line no-console
     }
-    this._change(id, { spy, garbage_estimate });
     return actions.saveFreeResponseAnswer(id);
   },
   // called once setFreeResponseAnswer completes above.  will trigger saving the flux store
