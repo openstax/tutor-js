@@ -6,8 +6,9 @@ export default class TaskUX {
   // privateish
   @observable _stepIndex = 0;
 
-  constructor({ task }) {
+  constructor({ task, stepIndex = 0 }) {
     this.task = task;
+    this._stepIndex = stepIndex;
     this.task.fetch();
     when(
       () => !this.task.api.isPendingInitialFetch,

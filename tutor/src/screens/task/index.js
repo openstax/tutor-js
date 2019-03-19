@@ -21,9 +21,13 @@ class TaskLoader extends React.Component {
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
     task: PropTypes.instanceOf(StudentTask).isRequired,
+    stepIndex: idType,
   }
 
-  ux = new UX({ task: this.props.task })
+  ux = new UX({
+    task: this.props.task,
+    stepIndex: this.props.stepIndex,
+  })
 
   render() {
     const { task } = this.props;
@@ -46,6 +50,7 @@ class TaskGetter extends React.Component {
     params: PropTypes.shape({
       courseId: idType.isRequired,
       id: idType.isRequired,
+      stepIndex: idType,
     }).isRequired,
     course: PropTypes.instanceOf(Course),
   }

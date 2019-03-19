@@ -15,8 +15,7 @@ class ExerciseQuestions extends BaseModel {
 }
 
 class TaskStepContent extends BaseModel {
-  constructor(data) {
-    super(data)
+  update(data) {
     Object.assign(this, data);
   }
 }
