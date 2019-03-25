@@ -38,7 +38,7 @@ class ExerciseTable extends React.Component {
           {index + 1}
         </td>
         <td>
-          <ChapterSection section={section} />
+          <ChapterSection chapterSection={section} />
         </td>
         <td>
           <ArbitraryHtmlAndMath block={false} html={content} />

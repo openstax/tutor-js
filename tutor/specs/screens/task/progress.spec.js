@@ -1,7 +1,6 @@
 import UX from '../../../src/screens/task/ux';
 import Progress from '../../../src/screens/task/progress';
-
-import { Factory } from '../../helpers';
+import { Factory, TestRouter } from '../../helpers';
 
 describe('Reading Progress Component', () => {
   let props;
@@ -12,7 +11,7 @@ describe('Reading Progress Component', () => {
       attributes: { type: 'reading', stepCount: 2 },
     }).array[0];
     props = {
-      ux: new UX({ task }),
+      ux: new UX({ task, router: new TestRouter() }),
     };
   });
 
@@ -25,9 +24,10 @@ describe('Reading Progress Component', () => {
     expect(pr).toHaveRendered('a.paging-control.prev[disabled=true]');
     expect(pr).toHaveRendered('a.paging-control.next[disabled=false]');
     pr.find('a.paging-control.next').simulate('click');
+    pr.find('a.paging-control.next').simulate('click');
     expect(pr).toHaveRendered('a.paging-control.next[disabled=true]');
     expect(pr).toHaveRendered('a.paging-control.prev[disabled=false]');
-    expect(props.ux.stepIndex).toEqual(1);
+    expect(props.ux.currentStepIndex).toEqual(2);
     pr.unmount();
   });
 

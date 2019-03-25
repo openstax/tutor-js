@@ -1,7 +1,6 @@
 import UX from '../../../src/screens/task/ux';
 import { Milestones } from '../../../src/screens/task/milestones';
-
-import { Factory } from '../../helpers';
+import { Factory, TestRouter } from '../../helpers';
 
 describe('Reading Milestones Component', () => {
   let props;
@@ -13,7 +12,7 @@ describe('Reading Milestones Component', () => {
     }).array[0];
     props = {
       goToStep: jest.fn(),
-      ux: new UX({ task }),
+      ux: new UX({ task, router: new TestRouter() }),
     };
   });
 
@@ -23,7 +22,7 @@ describe('Reading Milestones Component', () => {
 
   it('goes to step', () => {
     const ms = mount(<Milestones {...props} />);
-    ms.find('BreadcrumbStatic[stepIndex=1]').simulate('click');
+    ms.find('Breadcrumb[stepIndex=1]').simulate('click');
     expect(props.goToStep).toHaveBeenCalledWith(props.ux.steps[1]);
     ms.unmount();
   });

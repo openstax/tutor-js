@@ -10,7 +10,7 @@ import { TaskStore } from '../../flux/task';
 import _ from 'underscore';
 
 import { ResizeListenerMixin } from 'shared';
-import { BreadcrumbTaskDynamic } from '../breadcrumb';
+import Breadcrumbs from '../breadcrumb';
 
 export default createReactClass({
   displayName: 'Breadcrumbs',
@@ -176,7 +176,7 @@ export default createReactClass({
       if (zIndex) { crumbStyle.zIndex = zIndex; }
 
       return (
-        <BreadcrumbTaskDynamic
+        <Breadcrumbs
           onMouseEnter={this.updateHoverCrumb.bind(this, crumbIndex)}
           onMouseLeave={this.updateHoverCrumb.bind(this, this.props.currentStep)}
           onMount={this.crumbMounted}

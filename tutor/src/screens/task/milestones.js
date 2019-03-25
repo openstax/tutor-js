@@ -1,15 +1,7 @@
 import { React, PropTypes, observer, action, cn } from '../../helpers/react';
-import { invoke } from 'lodash';
-// import createReactClass from 'create-react-class';
-// import ReactDOM from 'react-dom';
-import { partial, map } from 'underscore';
 import { Col } from 'react-bootstrap';
-import classnames from 'classnames';
 import { ArbitraryHtmlAndMath } from 'shared';
-import { BreadcrumbStatic } from '../../components/breadcrumb';
-// import { StepTitleStore } from '../../../flux/step-title';
-// import { TaskProgressStore } from '../../../flux/task-progress';
-// import { TaskPanelStore } from '../../../flux/task-panel';
+import Breadcrumb from '../../components/breadcrumb';
 import UX from './ux';
 
 @observer
@@ -31,10 +23,8 @@ class Milestone extends React.Component {
 
   render() {
     const { step, currentStep, stepIndex } = this.props;
-
-    const classes = cn('milestone', `milestone-${step.type}`, {
-      'active': stepIndex === currentStep,
-    });
+    const active = stepIndex === currentStep;
+    const classes = cn('milestone', `milestone-${step.type}`, { active });
 
     const preview = (step.type === 'exercise') ?
       <ArbitraryHtmlAndMath block={true}
@@ -50,12 +40,13 @@ class Milestone extends React.Component {
           aria-label={preview}
           onClick={this.goToStep}
         >
-          <BreadcrumbStatic
-            crumb={step}
-            data-label={step.label}
-            currentStep={currentStep}
-            goToStep={this.goToStep}
+          <Breadcrumb
+            step={step}
             stepIndex={stepIndex}
+            data-label={step.label}
+            goToStep={this.goToStep}
+            currentStep={currentStep}
+            isCurrent={active}
             key={`breadstep-${step.type}-${stepIndex}`}
           />
           {preview}
@@ -89,7 +80,7 @@ class Milestones extends React.Component {
               step={step}
               goToStep={this.goToStep}
               stepIndex={stepIndex}
-              currentStep={ux.stepIndex}
+              currentStep={ux.currentStepIndex}
             />)}
         </div>
       </div>

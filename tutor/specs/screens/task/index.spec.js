@@ -30,7 +30,7 @@ describe('Tasks Screen', () => {
   it('renders and fetches', () => {
     const t = mount(<Task {...props} />);
     expect(task.fetch).toHaveBeenCalled();
-    expect(t).toHaveRendered('LoadingAnimation');
+    expect(t).toHaveRendered('ContentLoader');
     t.unmount();
   });
 

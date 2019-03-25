@@ -1,31 +1,36 @@
-import { React, PropTypes, observer, computed } from '../../helpers/react';
-import { BulletList as PendingLoad } from 'react-content-loader';
+import {
+  React, PropTypes, styled, observer,
+} from '../../helpers/react';
 import UX from './ux';
-import Card from './step/card';
+import { Breadcrumbs } from './breadcrumbs';
+import TaskStep from './step';
 
-import { exercise as Exercise } from './step';
+const HomeworkWrapper = styled.div`
+
+`;
 
 export default
 @observer
 class ExerciseTask extends React.Component {
 
-  render() {
-    const { ux, windowImpl, ux: { currentStep } } = this.props;
-    let step;
-
-    if (!currentStep.isFetched) {
-      step = <PendingLoad />;
-    } else {
-      step = <Exercise ux={ux} windowImpl={windowImpl} />;
-    }
-
-
-    return (
-      <Card>
-        {step}
-      </Card>
-    );
+  static propTypes = {
+    ux: PropTypes.instanceOf(UX).isRequired,
+    windowImpl: PropTypes.object,
   }
 
+  render() {
+    const { ux, windowImpl, ux: { currentStep } } = this.props;
+
+    return (
+      <HomeworkWrapper>
+        <Breadcrumbs ux={ux} />
+        <TaskStep
+          ux={ux}
+          step={currentStep}
+          windowImpl={windowImpl}
+        />
+      </HomeworkWrapper>
+    );
+  }
 
 }

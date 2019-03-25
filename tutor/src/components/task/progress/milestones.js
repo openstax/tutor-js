@@ -7,7 +7,7 @@ import { partial, map } from 'underscore';
 import { Col } from 'react-bootstrap';
 import classnames from 'classnames';
 import { ArbitraryHtmlAndMath } from 'shared';
-import { BreadcrumbStatic } from '../../breadcrumb';
+import Breadcrumb from '../../breadcrumb';
 import { StepTitleStore } from '../../../flux/step-title';
 import { TaskProgressStore } from '../../../flux/task-progress';
 import { TaskPanelStore } from '../../../flux/task-panel';
@@ -49,7 +49,7 @@ class Milestone extends React.Component {
           aria-label={previewText}
           onClick={goToStepForCrumb}
         >
-          <BreadcrumbStatic
+          <Breadcrumb
             crumb={crumb}
             data-label={crumb.label}
             currentStep={currentStep}

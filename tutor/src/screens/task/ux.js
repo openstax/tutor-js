@@ -1,47 +1,88 @@
 import { observable, computed, action, observe, when } from 'mobx';
-import { get } from 'lodash';
+import { reduce, get, groupBy, map } from 'lodash';
+import lazyGetter from 'shared/helpers/lazy-getter';
+import Router from '../../../src/helpers/router';
+import * as manipulations from './ux-task-manipulations';
+import StepGroup from '../../models/student-tasks/step-group';
+import ScrollTo from '../../helpers/scroll-to';
+import PageContentUX from './page-content-ux';
 
 export default class TaskUX {
 
   // privateish
   @observable _stepIndex = 0;
 
-  constructor({ task, stepIndex = 0 }) {
-    this.task = task;
-    this._stepIndex = stepIndex;
-    this.task.fetch();
+  constructor({ task, stepIndex = 0, router, windowImpl, course }) {
+    this.router = router;
+    this._task = task;
+    this._task.fetch();
+    this.window = windowImpl || window;
+    this.course = course || task.tasksMap.course;
+
     when(
       () => !this.task.api.isPendingInitialFetch,
-      () => this.goToStep(0)
+      () => this.goToStep(stepIndex)
     );
   }
 
-  @action.bound setFreeResponse() {
+  @lazyGetter scroller = new ScrollTo({ windowImpl: this.window });
+  @lazyGetter pageContentUX = new PageContentUX({ main: this });
 
+  @computed get manipulated() {
+    return reduce(
+      manipulations,
+      (result, func) => func(result),
+      { task: this._task, steps: this._task.steps },
+    );
   }
 
   @computed get steps() {
-    return this.task.steps;
+    const { steps } = this.manipulated;
+    if (this.task.isHomework) {
+      return map(
+        groupBy(steps, 'uid'),
+        (steps, uid) => steps.length > 1 ?
+          new StepGroup({ steps, uid }) : steps[0]
+      );
+    }
+    return steps;
+  }
+
+  @computed get task() {
+    return this.manipulated.task;
   }
 
   @computed get controlButtons() {
     return [];
   }
 
-  @computed get canReviewCurrentStep() {
+  // @action onAnswerChange(step, answer) {
+  //   step.answer_id = answer.id;
+  // }
 
+  @action async onAnswerSave(step, answer) {
+    step.answer_id = answer.id;
+    await step.saveAnswer();
+    return this.onAnswerContinue(step);
   }
 
-  @action.bound onStepCompleted(step) {
+  @action onAnswerContinue(step) {
+    // do nothing if there's feedback so the user can view it
+    if (step.isFeedbackAvailable) {
+      return;
+    }
+    // scroll if it's a MPQ but not the last one
+    if (step.multiPartGroup) {
+      const nextStep = step.multiPartGroup.getStepAfter(step);
+      if (nextStep) {
+        return this.scroller.scrollToSelector(`[data-task-step-id="${nextStep.id}"]`);
+        return;
+      }
+    }
 
-  }
-
-  @action.bound setAnswerId() {
-
-  }
-
-  @action.bound canContinueStep(id) {
-
+    if (this.canGoForward) {
+      this.goForward();
+    }
   }
 
   @action.bound goBackward() {
@@ -52,34 +93,24 @@ export default class TaskUX {
     this.goToStep(this._stepIndex + 1);
   }
 
-  @computed get hasProgress() {
-    return Boolean(
-      'reading' === this.task.type && this.task.steps.length
-    );
-  }
+  @action.bound goToStep(index, recordInHistory = true) {
+    this._stepIndex = Number(index);
 
-  @computed get course() {
-    return this.task.tasksMap.course;
-  }
+    this.currentStep.fetchIfNeeded();
 
-  @computed get courseAppearanceDataProps() {
-    return {
-      'data-title': this.course.name,
-      'data-book-title': this.course.bookName || '',
-      'data-appearance': this.course.appearance_code,
-    };
-
-  }
-
-  @action goToStep(index) {
-    this._stepIndex = index;
-    if (this.currentStep.needsFetched) {
-      this.currentStep.fetch();
+    if (recordInHistory) {
+      this.router.history.push(
+        Router.makePathname('viewTaskStep', {
+          id: this.task.id,
+          courseId: this.course.id,
+          stepIndex: this.currentStepIndex + 1,
+        }),
+      );
     }
   }
 
   @computed get canGoForward() {
-    return this._stepIndex < this.task.steps.length - 1;
+    return this._stepIndex < this.steps.length - 1;
   }
 
   @computed get canGoBackward() {

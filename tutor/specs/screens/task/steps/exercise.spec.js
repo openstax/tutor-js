@@ -1,6 +1,7 @@
 import Exercise from '../../../../src/screens/task/step/exercise';
-import { Factory, FactoryBot, FakeWindow } from '../../../helpers';
+import { Factory, FakeWindow } from '../../../helpers';
 import UX from '../../../../src/screens/task/ux';
+import { setFreeResponse } from '../helpers';
 
 jest.mock('../../../../src/screens/task/ux');
 jest.mock('../../../../../shared/src/components/html', () => ({ html }) =>
@@ -12,33 +13,28 @@ describe('Exercise Tasks Screen', () => {
   let props;
   let step;
   beforeEach(() => {
-    step = Factory.studentTaskStep({
-      type: 'exercise',
-    });
-    step.onLoaded({
-      data: FactoryBot.create('StudentTaskExerciseStepContent'),
-    });
+    step = Factory.studentTask({ type: 'homework', stepCount: 1 }).steps[0];
     const ux = new UX();
-    ux.course = Factory.course();
-    ux.currentStep = step;
-    props = {
-      ux,
-      windowImpl: new FakeWindow,
-    };
+    Object.assign(ux, {
+      course: Factory.course(),
+      onAnswerChange: jest.fn(),
+      currentStep: step,
+    });
+    props = { ux, windowImpl: new FakeWindow };
   });
 
   it('matches snapshot', () => {
-    console.log(
-      step.content.questions
-    )
-    const ex = mount(<Exercise {...props} />)
-    console.log(ex.debug())
-    //    expect.snapshot(<Exercise {...props} />).toMatchSnapshot();
+    expect(<Exercise {...props} />).toMatchSnapshot();
   });
 
-  // const r = mount(<Reading {...props} />);
-  // // console.log(r.debug());
-  // r.unmount();
-  //});
+  it('can answer', () => {
+    const ex = mount(<Exercise {...props} />);
+    setFreeResponse(ex, { value: 'test' });
+    ex.find('Answer button').first().simulate('click');
+    expect(props.ux.onAnswerChange).toHaveBeenCalledWith(
+      step.content.questions[0].answers[0],
+    );
+    ex.unmount();
+  });
 
 });

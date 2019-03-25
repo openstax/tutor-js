@@ -7,6 +7,7 @@ import Tag from './tag';
 import ExerciseContent from 'shared/model/exercise';
 import Page from '../reference-book/page';
 import { getters } from '../../helpers/computed-property';
+import ChapterSection from '../chapter-section';
 
 export default
 @identifiedBy('exercises/exercise')
@@ -32,6 +33,9 @@ class TutorExercise extends BaseModel {
       return reduce(filter(this, 'isImportant'),
         (o, t) => t.recordInfo(o),
         { lo: '', section: '', tagString: [] });
+    },
+    chapterSection() {
+      return new ChapterSection(this.importantInfo.section);
     },
   }) }) tags;
 

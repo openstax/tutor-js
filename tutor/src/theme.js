@@ -22,7 +22,8 @@ const TutorTheme = {
     secondary:     '#63a524', // green
     tertiary:      '#233066', // dark blue
     quaternary:    '#f4d019', // yellow
-    blue_control:  '#337eb5', // 337eb5
+    blue_control:  '#337eb5',
+    blue_info:     '#007da4',
     black:         'black',
     white:         'white',
     warning:       '#f4d019', // yellow

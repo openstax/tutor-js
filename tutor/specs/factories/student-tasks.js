@@ -1,7 +1,9 @@
 const {
   Factory, sequence, fake, moment, SECTION_NAMES,
 } = require('./helpers');
-const { capitalize, range } = require('lodash');
+const { range } = require('lodash');
+
+import StudentTask from '../../src/models/student-tasks/task';
 
 const TASK_TYPES={
   reading: [
@@ -11,13 +13,20 @@ const TASK_TYPES={
   homework: [
     'exercise',
   ],
-}
+};
 
 Factory.define('StudentTaskStep')
   .id(sequence)
-  .type(fake.random.arrayElement(['reading', 'homework']))
-  .is_completed(fake.random.arrayElement(false, false, false, true))
-  .preview(({ object: { type } }) => type == 'homework' ?
+  .type(({ parent: { type } }) => 'homework' == type ?
+    'exercise' : fake.random.arrayElement(['reading', 'reading', 'reading', 'exercise'])
+  )
+  .is_completed(() => fake.random.arrayElement([false, false, false, true]))
+  .formats(({ object: { type } }) =>
+    'exercise' == type ?
+      [fake.random.arrayElement(['multiple-choice', 'free-response'])] : []
+  )
+  .uid(({ object: { id, type } }) => type == 'exercise' ? `${id}@1` : null)
+  .preview(({ object: { type } }) => type == 'exercise' ?
     fake.company.bsAdjective() + ': ' + fake.random.arrayElement(SECTION_NAMES) :
     fake.random.arrayElement(SECTION_NAMES)
   )
@@ -26,7 +35,7 @@ Factory.define('StudentTask')
   .id(sequence)
   .title(fake.company.catchPhraseDescriptor)
   .type(fake.random.arrayElement(Object.keys(TASK_TYPES)))
-  .due_at(({ now, days_ago = 0 }) => moment(now).add(days_ago + 3, 'days'))
+  .due_at(({ now, days_ago = 0 }) => moment(now || '2019-04-20').add(days_ago + 3, 'days'))
   .steps(({ stepCount, object: { type } }) =>
     range(0, stepCount || fake.random.number({ min: 3, max: 10 })).map(() => {
       return Factory.create('StudentTaskStep', {
@@ -41,7 +50,7 @@ Factory.define('StudentTaskReadingStepContent')
   .chapter_section([1,2])
   .related_content(({ object }) => [
     { title: fake.random.arrayElement(SECTION_NAMES),
-      chapter_section: object.chapter_section }
+      chapter_section: object.chapter_section },
   ])
   .has_learning_objectives(() => fake.random.arrayElement([ false, false, false, true ]))
   .title(fake.random.arrayElement(SECTION_NAMES))
@@ -55,35 +64,66 @@ Factory.define('StudentTaskExerciseStepContent')
   .chapter_section([1,2])
   .related_content(({ object }) => [
     { title: fake.random.arrayElement(SECTION_NAMES),
-      chapter_section: object.chapter_section }
+      chapter_section: object.chapter_section },
   ])
   .context(
     '<div data-type="note" data-has-label="true" id="fs-id2332825" class="sociological-research" a-type="term" id="import-auto-id1169033058271">geriatrics</span>, a medical specialty that focuses on the elderly. He created the word by combining were before Nascher’s ideas gained acceptance?</p> </div></div> </div>',
   )
   .content({
     tags: [
-      "time:short", "dok:2", "blooms:2", "type:practice",
-      "requires-context:true", "book:stax-soc", "lo:stax-soc:13-2-2",
-      "context-cnxmod:d9df5e48-4b72-482e-b616-886926188054",
-      "context-cnxfeature:fs-id2332825"
+      'time:short', 'dok:2', 'blooms:2', 'type:practice',
+      'requires-context:true', 'book:stax-soc', 'lo:stax-soc:13-2-2',
+      'context-cnxmod:d9df5e48-4b72-482e-b616-886926188054',
+      'context-cnxfeature:fs-id2332825',
     ],
-    uuid: "7ddae47d-c4ec-437e-80bd-3f54d8a639a7",
-    uid: "11945@4", number: 11945, version: 4,
+    uuid: '7ddae47d-c4ec-437e-80bd-3f54d8a639a7',
+    uid: '11945@4', number: 11945, version: 4,
     questions: [
       {
-        id: "62902",
+        id: '62902',
         is_answer_order_important: false,
-        stimulus_html: "",
-        stem_html: "In the early 1900s, a New York physician named Dr. Ignatz Nascher developed a medical specialty that focused on the elderly. This field is known broadly as ___.",
+        stimulus_html: '',
+        stem_html: 'In the early 1900s, a New York physician named Dr. Ignatz Nascher developed a medical specialty that focused on the elderly. This field is known broadly as ___.',
         answers: [
-          { id: "259301", content_html: "geriatrics" },
-          { id: "259302", content_html: "gerontology" },
-          { id: "259303", content_html: "secondary aging" },
-          { id: "259304", content_html: "primary aging" },
+          { id: '259301', content_html: 'geriatrics' },
+          { id: '259302', content_html: 'gerontology' },
+          { id: '259303', content_html: 'secondary aging' },
+          { id: '259304', content_html: 'primary aging' },
         ],
         hints: [ ],
-        formats: [ "free-response", "multiple-choice" ],
-        combo_choices: [ ]
-      }
+        formats: [ 'free-response', 'multiple-choice' ],
+        combo_choices: [ ],
+      },
     ],
   })
+
+
+const TaskStepTypes = {
+  reading: 'StudentTaskReadingStepContent',
+  exercise: 'StudentTaskExerciseStepContent',
+};
+
+export
+function studentTask(attrs = {}, modelArgs) {
+  if (attrs.type && !TASK_TYPES[attrs.type]){ throw(`Unknown task type ${attrs.type}`); }
+
+  const st = new StudentTask(this.bot.create('StudentTask', attrs), modelArgs);
+  st.steps.forEach((s) => {
+    s.onLoaded({ data: this.bot.create(TaskStepTypes[s.type]) });
+  })
+  return st;
+}
+
+export
+function studentTasks({
+  course = this.course(),
+  count = 1,
+  attributes = {},
+} = {}) {
+  range(count).forEach(() => {
+    const task = this.studentTask(attributes);
+    task.tasksMap = course.studentTasks;
+    course.studentTasks.set(task.id, task)
+  })
+  return course.studentTasks;
+}

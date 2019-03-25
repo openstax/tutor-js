@@ -53,7 +53,7 @@ class Section extends React.Component {
           <input type="checkbox" readOnly={true} checked={this.isSelected()} />
         </span>
         {!section.isChapterSectionHidden &&
-          <ChapterSection section={section.chapter_section.asString} />}
+          <ChapterSection chapterSection={section.chapter_section} />}
         <span className="section-title"> {section.title}</span>
       </SectionWrapper>
     );
@@ -135,7 +135,7 @@ class ChapterAccordion extends React.Component {
             <TriStateCheckbox type={checkBoxType} onClick={this.toggleSectionSelections} />
           </span>
           <span className="chapter-number">
-            Chapter <ChapterSection section={chapter.chapter_section.asString} /> - </span>
+            Chapter <ChapterSection chapterSection={chapter.chapter_section} /> - </span>
           <span className="chapter-title"> {chapter.title} </span>
           <BrowseTheBook
             unstyled

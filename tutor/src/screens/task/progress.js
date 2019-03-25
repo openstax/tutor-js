@@ -3,20 +3,6 @@ import Overlay from '../../components/obscured-page/overlay';
 import PagingNavigation from '../../components/paging-navigation';
 import { Milestones } from './milestones';
 import UX from './ux';
-//import Overlay from '../obscured-page;
-
-//import classnames from 'classnames';
-// import createReactClass from 'create-react-class';
-// import PureRenderMixin from 'react-addons-pure-render-mixin';
-// import keymaster from 'keymaster';
-
-//import { TaskStore, TaskActions } from '../../../flux/task';
-// import { StepCard } from '../../../helpers/policies';
-// import { TaskStepStore } from '../../../flux/task-step';
-// import { TaskPanelStore } from '../../../flux/task-panel';
-
-// import isEqual from 'lodash/isEqual';
-// import pick from 'lodash/pick';
 
 export default
 @observer

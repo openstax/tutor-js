@@ -48,11 +48,11 @@ const getRoutes = (router) => {
           path: 'metrics/:id', name: 'reviewTask',
           renderer: r(() => import('./components/task-teacher-review')) },
         { path: 'task/:id', name: 'viewTask',
-          renderer: r(() => import('./screens/task')),
+          renderer: r(() => import('./screens/task'), 'Assignment'),
           routes: [
             {
               path: 'step/:stepIndex', name: 'viewTaskStep',
-              renderer: r(() => import('./screens/task')),
+              renderer: r(() => import('./screens/task'), 'Assignment'),
             },
           ],
         }, {

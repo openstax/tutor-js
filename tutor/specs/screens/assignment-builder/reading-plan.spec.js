@@ -24,7 +24,7 @@ describe('Reading Plan', function() {
       courseId: String(course.id),
     });
     course.referenceBook.onApiRequestComplete({
-      data: [Factory.data('Book')],
+      data: [Factory.bot.create('Book')],
     });
     page_ids = ld.slice(Array.from(course.referenceBook.pages.byId.keys()), 2, 5);
 

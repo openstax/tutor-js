@@ -34,7 +34,7 @@ class SectionsExercises extends React.Component {
     return (
       <div className="exercise-sections" data-section={page.chapter_section.asString}>
         <label className="exercises-section-label">
-          <ChapterSection section={page.chapter_section.asString} />
+          <ChapterSection chapterSection={page.chapter_section} />
           {' '}
           {title}
         </label>

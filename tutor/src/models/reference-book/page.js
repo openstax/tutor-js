@@ -69,7 +69,7 @@ class ReferenceBookPage extends BaseModel {
   }
 
   @action ensureLoaded() {
-    if (!this.api.isPending && !this.api.hasBeenFetched) { this.fetchContent(); }
+    if (!this.content_html && !this.api.isPending && !this.api.hasBeenFetched) { this.fetchContent(); }
   }
 
   @computed get contents() {
