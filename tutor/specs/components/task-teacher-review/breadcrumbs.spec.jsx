@@ -14,7 +14,7 @@ describe('Task Teacher Review: Breadcrumbs', function() {
   beforeEach(() => {
     course = Factory.course();
     Courses.set(course.id, course);
-    plan = course.taskPlans.withPlanId(1);
+    plan = course.teacherTaskPlans.withPlanId(1);
     plan.update(FactoryBot.create('TeacherDashboardTask'));
     plan.analytics.onApiRequestComplete({
       data: FactoryBot.create('TaskPlanStat', { course }),

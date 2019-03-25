@@ -35,7 +35,7 @@ class TaskTeacherReview extends React.Component {
 
   // not computed since withPlanId will add a missing plan
   get taskPlan() {
-    return this.course.taskPlans.withPlanId(this.props.params.id);
+    return this.course.teacherTaskPlans.withPlanId(this.props.params.id);
   }
 
   scroller = new ScrollTo({

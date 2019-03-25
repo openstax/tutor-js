@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Course from '../../models/course';
 import CoursePlanLabel from './plan-label';
 import { CoursePlanDisplayEdit, CoursePlanDisplayQuickLook } from './plan-display';
-import TeacherTaskPlan from '../../models/task-plan/teacher';
+import TeacherTaskPlan from '../../models/task-plans/teacher/plan';
 
 export default
 @observer

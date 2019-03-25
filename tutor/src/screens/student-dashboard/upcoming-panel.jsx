@@ -15,11 +15,11 @@ class UpcomingCard extends React.Component {
   }
 
   render() {
-    const { course, course: { studentTasks } } = this.props;
+    const { course, course: { studentTaskPlans } } = this.props;
 
-    const tasks = studentTasks.upcomingTasks;
+    const tasks = studentTaskPlans.upcomingTasks;
 
-    if (studentTasks.isPendingTaskLoading || isEmpty(tasks)) {
+    if (studentTaskPlans.isPendingTaskLoading || isEmpty(tasks)) {
       return <EmptyCard className="upcoming" course={course} message='No upcoming assignments' />;
     }
 

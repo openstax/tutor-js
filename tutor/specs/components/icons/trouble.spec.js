@@ -1,5 +1,5 @@
 import TroubleIcon from '../../../src/components/icons/trouble';
-import Plan from '../../../src/models/task-plan/teacher';
+import Plan from '../../../src/models/task-plans/teacher/plan';
 
 describe('Student Preview Builder', () => {
 

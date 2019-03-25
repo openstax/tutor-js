@@ -16,10 +16,10 @@ class ThisWeekCard extends React.Component {
   }
 
   render() {
-    const { course, course: { studentTasks } } = this.props;
-    const tasks = studentTasks.thisWeeksTasks;
+    const { course, course: { studentTaskPlans } } = this.props;
+    const tasks = studentTaskPlans.thisWeeksTasks;
 
-    if (studentTasks.isPendingTaskLoading || isEmpty(tasks)) {
+    if (studentTaskPlans.isPendingTaskLoading || isEmpty(tasks)) {
       return <EmptyCard course={course} message='No assignments this week' />;
     }
 
@@ -29,8 +29,8 @@ class ThisWeekCard extends React.Component {
           className="-this-week"
           course={course}
           events={tasks}
-          startAt={studentTasks.startOfThisWeek}
-          endAt={studentTasks.endOfThisWeek}
+          startAt={studentTaskPlans.startOfThisWeek}
+          endAt={studentTaskPlans.endOfThisWeek}
         />
         <LateIconLedgend />
       </React.Fragment>

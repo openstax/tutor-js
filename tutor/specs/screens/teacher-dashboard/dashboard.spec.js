@@ -9,9 +9,9 @@ describe('CourseCalendar Month display', () => {
 
   beforeEach(() => {
     course = Factory.course({ is_teacher: true });
-    Factory.taskPlans({ course });
+    Factory.teacherTaskPlans({ course });
     props = {
-      date: course.taskPlans.array[0].duration.end(),
+      date: course.teacherTaskPlans.array[0].duration.end(),
       course: course,
       termEnd: moment().add(2, 'month'),
       termStart: moment().subtract(3, 'month'),
@@ -23,7 +23,7 @@ describe('CourseCalendar Month display', () => {
 
   it('renders plans and hides when deleting', function() {
     const month = mount(<C><Dashboard {...props} /></C>);
-    const plan = course.taskPlans.array[0];
+    const plan = course.teacherTaskPlans.array[0];
     expect(month).toHaveRendered(`[data-plan-id="${plan.id}"]`);
     plan.is_deleting = true;
     expect(month).not.toHaveRendered(`[data-plan-id="${plan.id}"]`);

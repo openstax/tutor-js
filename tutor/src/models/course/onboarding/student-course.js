@@ -80,21 +80,21 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
       this.displayPayment = false;
       this.course.userStudentRecord.markPaid();
       // fetch tasks since they could not be fetched while student was in unpaid status
-      this.course.studentTasks.startFetching();
+      this.course.studentTaskPlans.startFetching();
     }
   }
 
   mount() {
     super.mount();
     if (!this.paymentIsPastDue) {
-      this.course.studentTasks.startFetching();
+      this.course.studentTaskPlans.startFetching();
     }
     this.tourContext.otherModal = this;
   }
 
   close() {
     super.close();
-    this.course.studentTasks.stopFetching();
+    this.course.studentTaskPlans.stopFetching();
     this.tourContext.otherModal = null;
   }
 

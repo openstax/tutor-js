@@ -24,8 +24,8 @@ describe('Plan Details Component', function() {
 
   beforeEach(() => {
     course = Factory.course({ is_teacher: true });
-    Factory.taskPlans({ course });
-    plan = course.taskPlans.array[0];
+    Factory.teacherTaskPlans({ course });
+    plan = course.teacherTaskPlans.array[0];
 
     props = {
       plan,

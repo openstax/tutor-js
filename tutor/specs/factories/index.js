@@ -5,13 +5,13 @@ import faker from 'faker';
 import Course from '../../src/models/course';
 import TutorExercise from '../../src/models/exercises/exercise';
 import Book from '../../src/models/reference-book';
-import TaskPlanStat from '../../src/models/task-plan/stats';
+import TaskPlanStat from '../../src/models/task-plans/teacher/stats';
 import { OfferingsMap, Offering } from '../../src/models/course/offerings';
 import { CoursesMap } from '../../src/models/courses-map';
 import { EcosystemsMap, Ecosystem } from '../../src/models/ecosystems';
 import { ExercisesMap } from '../../src/models/exercises';
 import { ResearchSurvey } from '../../src/models/research-surveys/survey';
-import StudentDashboardTask from '../../src/models/student/task';
+import StudentDashboardTask from '../../src/models/task-plans/student/task';
 import Note from '../../src/models/notes/note';
 import Page from '../../src/models/reference-book/page';
 
@@ -75,17 +75,17 @@ Factories.pastTaskPlans = ({ course, count = 4 }) => {
   return course.pastTaskPlans;
 };
 
-Factories.taskPlans = ({ course, count = 4 }) => {
-  course.taskPlans.onLoaded({
+Factories.teacherTaskPlans = ({ course, count = 4 }) => {
+  course.teacherTaskPlans.onLoaded({
     data: {
       plans: range(count).map(() => FactoryBot.create('TeacherDashboardTask', { course })),
     },
   });
-  return course.taskPlans;
+  return course.teacherTaskPlans;
 };
 
-Factories.studentTasks = ({ course, count = 4, attributes = {} }) => {
-  course.studentTasks.onLoaded({
+Factories.studentTaskPlans = ({ course, count = 4, attributes = {} }) => {
+  course.studentTaskPlans.onLoaded({
     data: {
       tasks: range(count).map(() => FactoryBot.create('StudentDashboardTask',
         Object.assign({ course }, attributes)

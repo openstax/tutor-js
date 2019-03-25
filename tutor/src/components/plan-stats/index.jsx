@@ -10,7 +10,7 @@ import { SmartOverflow } from 'shared';
 import CoursePeriodsNav from '../course-periods-nav';
 import CourseBar from './course-bar';
 import { ChaptersPerformance, PracticesPerformance } from './performances';
-import TeacherTaskPlan from '../../models/task-plan/teacher';
+import TeacherTaskPlan from '../../models/task-plans/teacher/plan';
 import LoadingScreen from 'shared/components/loading-animation';
 import NoStudents from './no-students';
 

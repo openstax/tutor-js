@@ -69,7 +69,7 @@ class TeacherDashboardWrapper extends React.Component {
   }
 
   @observable loader = new ModelLoader({
-    model: this.props.course.taskPlans,
+    model: this.props.course.teacherTaskPlans,
     fetch: true,
   });
 

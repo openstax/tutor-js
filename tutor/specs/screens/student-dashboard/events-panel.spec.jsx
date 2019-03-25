@@ -1,9 +1,7 @@
 import { TimeMock, React } from '../../helpers';
-import { map, invokeMap } from 'lodash';
-import moment from 'moment-timezone';
+import { map } from 'lodash';
 import Factory from '../../factories';
 import EventsPanel from '../../../src/screens/student-dashboard/events-panel';
-import chronokinesis from 'chronokinesis';
 
 describe('EventsPanel', function() {
   let props;
@@ -12,10 +10,10 @@ describe('EventsPanel', function() {
 
   beforeEach(() => {
     const course = Factory.course();
-    Factory.studentTasks({ course, now });
+    Factory.studentTaskPlans({ course, now });
     props = {
       course,
-      events: course.studentTasks.array,
+      events: course.studentTaskPlans.array,
     };
   });
 

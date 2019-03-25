@@ -52,7 +52,7 @@ const TaskPlanMiniEditor = createReactClass({
 
   changeTaskPlan() {
     const { id, course } = this.props;
-    const plan = course.taskPlans.get(id);
+    const plan = course.teacherTaskPlans.get(id);
     const taskings = TaskingStore.getChanged(id);
     plan.taskings = taskings;
     return TaskPlanActions.replaceTaskings(id, taskings);
@@ -102,7 +102,7 @@ const TaskPlanMiniEditor = createReactClass({
   },
 
   afterSave(plan) {
-    this.props.course.taskPlans.onPlanSave(this.props.id, plan);
+    this.props.course.teacherTaskPlans.onPlanSave(this.props.id, plan);
 
     this.setState({ saving: false, publishing: false });
     return this.props.onHide();
@@ -112,7 +112,7 @@ const TaskPlanMiniEditor = createReactClass({
     this.props.onHide();
     if (TaskPlanStore.isNew(this.props.id)) {
       TaskPlanActions.removeUnsavedDraftPlan(this.props.id);
-      this.props.course.taskPlans.delete(this.props.id);
+      this.props.course.teaherTaskPlans.delete(this.props.id);
     }
   },
 

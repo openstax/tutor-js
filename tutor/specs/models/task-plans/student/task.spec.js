@@ -1,10 +1,8 @@
-import Task from '../../../src/models/student/task';
+import { TimeMock, Factory } from '../../../helpers';
+import COURSE_1_DATA from '../../../../api/courses/1/dashboard.json';
 import moment from 'moment';
-import COURSE_1_DATA from '../../../api/courses/1/dashboard.json';
-import { TimeMock, Factory } from '../../helpers';
 
-const TASK = COURSE_1_DATA.tasks[0];
-jest.mock('../../../src/flux/time', () => ({
+jest.mock('../../../../src/flux/time', () => ({
   TimeStore: {
     getNow: jest.fn(() => new Date()),
   },

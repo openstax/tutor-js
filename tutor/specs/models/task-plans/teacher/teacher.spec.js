@@ -1,6 +1,5 @@
-import Factory from '../../factories';
+import { TimeMock, Factory } from '../../../helpers';
 import moment from 'moment';
-import { TimeMock } from '../../helpers';
 
 describe('Task Plan for Teachers', () => {
   let plan;
@@ -10,7 +9,7 @@ describe('Task Plan for Teachers', () => {
 
   beforeEach(() => {
     const course = Factory.course();
-    const plans = Factory.taskPlans({ course });
+    const plans = Factory.teacherTaskPlans({ course });
     plan = plans.array[0];
   });
 

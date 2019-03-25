@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { computed } from 'mobx';
+import { computed, action } from 'mobx';
 import { observer, inject } from 'mobx-react';
 import StudentDashboard from './dashboard';
 import Courses from '../../models/courses-map';
 import WarningModal from '../../components/warning-modal';
+import TutorRouter from '../../helpers/router';
 import './styles.scss';
 
 export default
@@ -19,8 +20,26 @@ class StudentDashboardShell extends React.Component {
     tourContext: PropTypes.object,
   }
 
+  static contextTypes = {
+    router: PropTypes.object,
+  }
+
   @computed get course() {
     return Courses.get(this.props.params.courseId);
+  }
+
+  componentDidMount() {
+    if (this.course) {
+      const student = this.course.userStudentRecord;
+      if (student && !student.mustPayImmediately) {
+        this.course.studentTaskPlans.fetch();
+      }
+    }
+  }
+
+  @action.bound
+  goToMyCourses() {
+    this.context.router.history.push(TutorRouter.makePathname('myCourses'));
   }
 
   renderNotAStudent() {

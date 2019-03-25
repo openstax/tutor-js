@@ -6,15 +6,15 @@ import {
   sortBy, first, last, map, union, find,
 } from 'lodash';
 import { lazyInitialize } from 'core-decorators';
-import TaskingPlan from '../tasking-plan';
-import TaskPlanPublish from '../jobs/task-plan-publish';
-import * as Dates from '../../helpers/dates';
-import Time from '../time';
+import TaskingPlan from './tasking'
+import TaskPlanPublish from '../../jobs/task-plan-publish';
+import * as Dates from '../../../helpers/dates';
+import Time from '../../time';
 import TaskPlanStats from './stats';
-import moment from '../../helpers/moment-range';
+import moment from '../../../helpers/moment-range';
 
 export default
-@identifiedBy('task-plan/teacher')
+@identifiedBy('task-plans/teacher/plan')
 class TeacherTaskPlan extends BaseModel {
 
   @identifier id;

@@ -3,7 +3,7 @@ import {
 } from 'shared/model';
 import { computed } from 'mobx';
 import moment from 'moment';
-import Time from './time';
+import Time from '../../time';
 
 export default
 @identifiedBy('tasking-plan')

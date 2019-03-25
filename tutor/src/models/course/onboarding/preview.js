@@ -27,11 +27,11 @@ export default class PreviewOnboarding extends BaseOnboarding {
 
   @computed get shouldWarnPreviewOnly() {
     if (!HAS_PUBLISHED.get() ||
-        this.hasCreatedRealCourse ||
-        this.course.taskPlans.api.isPending
+      this.hasCreatedRealCourse ||
+      this.course.teacherTaskPlans.api.isPending
     ) { return false; }
 
-    const plans = this.course.taskPlans.active;
+    const plans = this.course.teacherTaskPlans.active;
     const realPlanCount = filter(
       plans, (plan) => !plan.is_preview && includes(NAG_PLAN_TYPES, plan.type)
     ).length;

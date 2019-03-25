@@ -63,7 +63,7 @@ describe('Course Enrollment', function() {
     expect(coursesMap.fetch).toHaveBeenCalled();
     return fetchMock.then(() => {
       expect(enroll.isComplete).toBe(true);
-      expect(enroll.course.studentTasks.expecting_assignments_count).toEqual(42);
+      expect(enroll.course.studentTaskPlans.expecting_assignments_count).toEqual(42);
     });
   });
 

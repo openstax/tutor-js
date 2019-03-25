@@ -3,7 +3,7 @@ import React from 'react';
 import { map } from 'lodash';
 import { Card } from 'react-bootstrap';
 import Course from '../../models/course';
-import TeacherTaskPlan from '../../models/task-plan/teacher';
+import TeacherTaskPlan from '../../models/task-plans/teacher/plan';
 import { Markdown } from 'shared';
 
 export default function Event({ plan, course }) {

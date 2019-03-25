@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { React, ReactDOM, observable, observer, action, styled } from '../../helpers/react';
 import { partial, camelCase } from 'lodash';
-import TaskPlan from '../../models/task-plan/teacher';
+import TaskPlan from '../../models/task-plans/teacher/plan';
 import Course from '../../models/course';
 import TutorLink from '../../components/link';
 import TaskPlanMiniEditor from '../../screens/assignment-builder/mini-editor';

@@ -1,9 +1,9 @@
-import { computed, observable, action } from 'mobx';
-import { find } from 'lodash';
+import { observable } from 'mobx';
 import Map from 'shared/model/map';
-import TaskPlan from '../task-plan/teacher';
+import TaskPlan from './plan';
 
-export default class CoursePastTaskPlans extends Map {
+export
+class PastTaskPlans extends Map {
 
   @observable course;
 

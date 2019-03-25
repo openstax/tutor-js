@@ -32,10 +32,10 @@ class AllEventsByWeek extends React.Component {
   }
 
   render() {
-    const { course, course: { studentTasks } } = this.props;
-    const weeks = studentTasks.pastTasksByWeek;
+    const { course, course: { studentTaskPlans } } = this.props;
+    const weeks = studentTaskPlans.pastTasksByWeek;
 
-    if (studentTasks.isPendingTaskLoading || isEmpty(weeks)) {
+    if (studentTaskPlans.isPendingTaskLoading || isEmpty(weeks)) {
       return <EmptyCard course={course} message="No past assignments" />;
     }
 

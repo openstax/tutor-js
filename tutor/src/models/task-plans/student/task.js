@@ -2,7 +2,7 @@ import { observable } from 'mobx';
 import { computed } from 'mobx';
 import { invoke } from 'lodash';
 import moment from 'moment';
-import Time from '../time';
+import Time from '../../time';
 import {
   BaseModel, identifiedBy, field, identifier,
 } from 'shared/model';

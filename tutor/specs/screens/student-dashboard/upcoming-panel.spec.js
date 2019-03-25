@@ -23,7 +23,7 @@ describe('Upcoming Events', () => {
     const day = moment(now).endOf('week').add(1, 'day');
     expect(day.format('ddd')).toEqual('Sun');
     event.due_at = day.toDate();
-    props.course.studentTasks.set(event.id, event);
+    props.course.studentTaskPlans.set(event.id, event);
 
     expect(panel.text()).toContain(event.title);
 

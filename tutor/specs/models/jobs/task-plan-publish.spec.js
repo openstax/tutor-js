@@ -1,5 +1,5 @@
 import TaskPlanPublish from '../../../src/models/jobs/task-plan-publish';
-import TaskPlan from '../../../src/models/task-plan/teacher';
+import TaskPlan from '../../../src/models/task-plans/teacher/plan';
 import { autorun } from 'mobx';
 jest.useFakeTimers();
 const PLAN_ID = 1;

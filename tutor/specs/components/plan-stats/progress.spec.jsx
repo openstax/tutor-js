@@ -1,6 +1,6 @@
 import Progress from '../../../src/components/plan-stats/progress';
 
-import { Page } from '../../../src/models/task-plan/stats';
+import { Page } from '../../../src/models/task-plans/teacher/stats';
 
 describe('TaskPlan stats progress bar', function() {
   let props;
