@@ -9,6 +9,7 @@ import ChapterSection from '../chapter-section';
 import RelatedContent from '../related-content';
 import Page from '../reference-book/page';
 import lazyGetter from 'shared/helpers/lazy-getter';
+import { extractCnxId } from '../../helpers/content';
 
 class TaskStepContent extends BaseModel {
   update(data) {
@@ -16,34 +17,26 @@ class TaskStepContent extends BaseModel {
   }
 }
 
-class StudentTaskInteractiveStep  extends TaskStepContent {
-
-}
-
+class StudentTaskInteractiveStep extends TaskStepContent { }
+class StudentTaskExternalStep extends TaskStepContent { }
 class StudentTaskReadingStep extends TaskStepContent {
   @lazyGetter chapterSection = new ChapterSection(this.chapter_section);
   @lazyGetter relatedContent = this.related_content.map(rl=>new RelatedContent(rl));
   @lazyGetter page = new Page(
     Object.assign({
-      cnx_id: last(this.content_url.split(':')),
-      content_html: this.content,
+      cnx_id: extractCnxId(this.content_url),
+      content_html: this.html,
       title: this.related_content[0].title,
       chapter_section: this.related_content[0].book_location,
     }),
   );
-
 }
 
 
 export
 class StudentTaskExerciseStep extends Exercise {
-
-  get exercise() {
-    return this.content;
-  }
-
   get questions() {
-    return this.exercise.questions;
+    return this.content.questions;
   }
 }
 
@@ -51,6 +44,7 @@ const ContentClasses = {
   reading: StudentTaskReadingStep,
   exercise: StudentTaskExerciseStep,
   interactive: StudentTaskInteractiveStep,
+  external_url: StudentTaskExternalStep,
 };
 
 
@@ -72,6 +66,7 @@ class StudentTaskStep extends BaseModel {
   @field feedback_html;
   @field correct_answer_id;
 
+  @field external_url;
 
   @field({ type: 'array' }) labels;
   @field({ type: 'array' }) formats;
@@ -125,7 +120,7 @@ class StudentTaskStep extends BaseModel {
   }
 
   @computed get needsFetched() {
-    return (this.isReading || this.isExercise) &&
+    return HAS_ADDITIONAL_CONTENT.includes(this.type) &&
       !this.api.hasBeenFetched;
   }
 
@@ -145,6 +140,10 @@ class StudentTaskStep extends BaseModel {
   // called by API
   saveAnswer() {
     return { data: pick(this, 'answer_id', 'free_response') };
+  }
+  // called by external url
+  markCompleted() {
+    return this.saveAnswer();
   }
 
   fetch() {

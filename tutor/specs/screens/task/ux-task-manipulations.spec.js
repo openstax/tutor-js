@@ -29,4 +29,9 @@ describe('Task Manipulations', () => {
     expect(steps.length).toEqual(11);
   });
 
+  it('inserts end', () => {
+    const t = createTask({ type: 'homework' });
+    const { steps } = M.insertEnd(t);
+    expect(steps[steps.length - 1]).toMatchObject({ type: 'end' });
+  });
 });

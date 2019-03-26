@@ -40,7 +40,7 @@ export default class TaskUX {
     const { steps } = this.manipulated;
     if (this.task.isHomework) {
       return map(
-        groupBy(steps, 'uid'),
+        groupBy(steps, s => `${s.type}.${s.uid}`),
         (steps, uid) => steps.length > 1 ?
           new StepGroup({ steps, uid }) : steps[0]
       );
@@ -56,27 +56,21 @@ export default class TaskUX {
     return [];
   }
 
-  // @action onAnswerChange(step, answer) {
-  //   step.answer_id = answer.id;
-  // }
-
   @action async onAnswerSave(step, answer) {
     step.answer_id = answer.id;
     await step.saveAnswer();
-    return this.onAnswerContinue(step);
+    // don't advance there's feedback so the user can view it
+    if (!step.isFeedbackAvailable) {
+      this.onAnswerContinue(step);
+    }
   }
 
   @action onAnswerContinue(step) {
-    // do nothing if there's feedback so the user can view it
-    if (step.isFeedbackAvailable) {
-      return;
-    }
     // scroll if it's a MPQ but not the last one
     if (step.multiPartGroup) {
       const nextStep = step.multiPartGroup.getStepAfter(step);
       if (nextStep) {
-        return this.scroller.scrollToSelector(`[data-task-step-id="${nextStep.id}"]`);
-        return;
+        this.scroller.scrollToSelector(`[data-task-step-id="${nextStep.id}"]`);
       }
     }
 

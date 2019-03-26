@@ -1,7 +1,4 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import classnames from 'classnames';
-
+import { React, PropTypes, cn } from '../../helpers/react';
 import Router from '../../helpers/router';
 import TutorLink from '../link';
 
@@ -24,7 +21,7 @@ class BackButton extends React.Component {
     // See TransitionStore for more detail.
     const historyInfo = TransitionStore.getPrevious();
     let { fallbackLink, className } = this.props;
-    className = classnames('btn', 'btn-default', className);
+    className = cn('btn', 'btn-default', className);
 
     const backText = (historyInfo != null ? historyInfo.name : undefined) ? `Back to ${historyInfo.name}` : (fallbackLink.text || 'Back');
 

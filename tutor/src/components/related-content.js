@@ -6,19 +6,15 @@ import ChapterSection from '../models/chapter-section';
 
 class RelatedContent extends React.Component {
   static propTypes = {
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     hasLearningObjectives: PropTypes.bool.isRequired,
     isChapterSectionHidden: PropTypes.bool,
     chapter_section: PropTypes.instanceOf(ChapterSection).isRequired,
   };
 
-  isIntro = () => {
-    return (isArray(this.props.chapter_section) &&
-      ((this.props.chapter_section.length === 1) ||
-        (this.props.chapter_section[1] === 0))) ||
-      (isString(this.props.chapter_section) &&
-        (this.props.chapter_section.indexOf('.') === -1));
-  };
+  isIntro() {
+    return 0 === this.props.chapter_section.section;
+  }
 
   render() {
 

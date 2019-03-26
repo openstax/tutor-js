@@ -6,14 +6,10 @@ describe('Reading Tasks Screen', () => {
   let props;
 
   beforeEach(() => {
-    const task = Factory.studentTasks({
-      count: 1,
-      attributes: { type: 'reading' },
-    }).array[0];
-
+    const task = Factory.studentTask({ type: 'reading' });
     props = {
       windowImpl: new FakeWindow(),
-      ux: new UX({ task, router: new TestRouter() }),
+      ux: new UX({ task, router: new TestRouter(), course: Factory.course() }),
     };
   });
 

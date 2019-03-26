@@ -15,7 +15,7 @@ class TutorExercise extends BaseModel {
 
   @identifier id;
   @field ecosystem_id;
-  @field({ type: 'object' }) content;
+
   @belongsTo({ model: ExerciseContent, inverseOf: 'wrapper' }) content;
   @belongsTo({ model: 'book' }) book;
   @belongsTo({ model: 'course' }) course;

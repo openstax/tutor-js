@@ -1,11 +1,11 @@
 import {
-  React, PropTypes, observer, styled,
+  React, PropTypes, observer,
 } from '../../../helpers/react';
 import ContentLoader from 'react-content-loader';
 import UX from '../ux';
 import { StepCard } from './card';
 import { ArbitraryHtmlAndMath } from 'shared';
-
+import ContinueBtn from './continue-btn';
 import Step from '../../../models/student-tasks/step';
 
 const Loader = () => (
@@ -24,15 +24,15 @@ class InteractiveTaskStep extends React.Component {
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
     step: PropTypes.instanceOf(Step).isRequired,
-    windowImpl: PropTypes.object,
   }
 
   render() {
-    const { step } = this.props;
+    const { ux, step } = this.props;
 
     return (
       <StepCard>
-        <ArbitraryHtmlAndMath html={step.content.content} />
+        <ArbitraryHtmlAndMath html={step.content.html} />
+        <ContinueBtn ux={ux} />
       </StepCard>
     );
   }

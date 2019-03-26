@@ -3,7 +3,6 @@ import ProgressCard from './progress';
 import UX from './ux';
 import TaskStep from './step';
 
-
 export default
 @observer
 class ReadingTask extends React.Component {
@@ -17,7 +16,7 @@ class ReadingTask extends React.Component {
     const { ux, windowImpl, ux: { currentStep } } = this.props;
 
     return (
-      <ProgressCard ux={ux}>
+      <ProgressCard ux={ux} className="reading-task">
         <TaskStep
           ux={ux}
           step={currentStep}

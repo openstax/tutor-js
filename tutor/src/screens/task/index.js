@@ -7,13 +7,17 @@ import { BulletList as PendingLoad } from 'react-content-loader';
 import UX from './ux';
 import reading from './reading';
 import homework from './homework';
+import event from './event';
+import external from './external';
 
 import { StepCard } from './step/card';
 import './styles.scss';
 
 const TASK_TYPES = {
+  event,
   reading,
   homework,
+  external,
 };
 
 const UnknownTaskType = ({ ux }) => (

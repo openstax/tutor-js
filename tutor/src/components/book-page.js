@@ -66,8 +66,7 @@ class BookPage extends React.Component {
     children: PropTypes.node,
     query: PropTypes.string,
     cnxId: PropTypes.string,
-    title: PropTypes.string.isRequired,
-    //    chapter_section: PropTypes.instanceOf(ChapterSection).isRequired,
+    title: PropTypes.string,
     hasLearningObjectives: PropTypes.bool,
   }
 

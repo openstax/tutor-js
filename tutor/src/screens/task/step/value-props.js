@@ -1,6 +1,7 @@
 import { React, PropTypes, styled, css, cn } from '../../../helpers/react';
 import Theme from '../../../theme';
 import { StepCard } from './card';
+import ContinueBtn from './continue-btn';
 
 const blueBackground = css`
   color: white;
@@ -14,16 +15,12 @@ h4 {
 }
 `;
 
-
-function ValueProp({ className, blue, step: { type }, title, children, onContinue }) {
+function ValueProp({ className, blue, step: { type }, title, children, ux }) {
   return (
     <CardBody blue={blue} className={cn(`openstax-${type}`, className)}>
       <h1>{title}</h1>
       {children}
-      {onContinue &&
-        <button className="btn continue" onClick={onContinue}>
-          Continue
-        </button>}
+      <ContinueBtn variant="light" ux={ux} />
     </CardBody>
   );
 }
@@ -33,8 +30,13 @@ ValueProp.propTypes = {
   title: PropTypes.string.isRequired,
   className: PropTypes.string,
   children: PropTypes.node.isRequired,
-  onContinue: PropTypes.func,
-  stepType: PropTypes.string,
+  step: PropTypes.shape({
+    type: PropTypes.string.isRequired,
+  }).isRequired,
+  ux: PropTypes.shape({
+    canGoForward: PropTypes.bool.isRequired,
+    goForward: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 

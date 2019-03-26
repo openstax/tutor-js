@@ -153,6 +153,9 @@ exports[`Exercise Free Response matches snapshot 1`] = `
   }
   step={
     StudentTaskStep {
+      "$nonSerializable": Object {
+        "task": true,
+      },
       "answer_id": undefined,
       "content": StudentTaskExerciseStep {
         "_page": undefined,
@@ -303,15 +306,32 @@ exports[`Exercise Free Response matches snapshot 1`] = `
       },
       "correct_answer_id": undefined,
       "feedback_html": undefined,
+      "formats": Array [
+        "free-response",
+      ],
       "free_response": undefined,
-      "group": undefined,
       "id": 1,
       "isFetched": true,
-      "is_completed": "b",
-      "is_two_step": true,
+      "is_completed": false,
       "labels": Array [],
-      "preview": "Regulation of Hormone Production",
+      "multiPartGroup": undefined,
+      "preview": "killer: Environmental Limits to Population Growth",
+      "task": StudentTask {
+        "complete": undefined,
+        "description": undefined,
+        "due_at": 2019-04-23T05:00:00.000Z,
+        "feedback_at": undefined,
+        "id": 1,
+        "steps": Array [
+          [Circular],
+        ],
+        "tasksMap": Object {},
+        "title": "asymmetric",
+        "type": "homework",
+      },
+      "task_association_name": "steps",
       "type": "exercise",
+      "uid": "1@1",
     }
   }
 />

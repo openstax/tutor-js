@@ -35,7 +35,8 @@ describe('Reading Tasks Screen', () => {
     expect.snapshot(<Reading {...props} />).toMatchSnapshot();
   });
 
-  fit('renders media', () => {
+
+  it('renders media', () => {
 //    console.log(props.ux.currentStep.content.page)
 //    console.log(props.step.content.page)
   //  return

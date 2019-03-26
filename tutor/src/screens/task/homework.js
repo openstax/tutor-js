@@ -5,7 +5,7 @@ import UX from './ux';
 import { Breadcrumbs } from './breadcrumbs';
 import TaskStep from './step';
 
-const HomeworkWrapper = styled.div`
+const SyledHomework = styled.div`
 
 `;
 
@@ -22,14 +22,14 @@ class ExerciseTask extends React.Component {
     const { ux, windowImpl, ux: { currentStep } } = this.props;
 
     return (
-      <HomeworkWrapper>
+      <SyledHomework className="homework-task">
         <Breadcrumbs ux={ux} />
         <TaskStep
           ux={ux}
           step={currentStep}
           windowImpl={windowImpl}
         />
-      </HomeworkWrapper>
+      </SyledHomework>
     );
   }
 

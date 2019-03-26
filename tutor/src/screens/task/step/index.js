@@ -4,8 +4,10 @@ import {
   BulletList as HomeworkLoader,
 } from 'react-content-loader';
 import Reading from './reading';
+
 import Exercise from './exercise';
 import Interactive from './interactive';
+import End from './end';
 import UX from '../ux';
 import { StepCard } from './card';
 
@@ -30,9 +32,11 @@ export { Unknown };
 
 
 const STEP_TYPES = {
+  end: End,
   reading: Reading,
   exercise: Exercise,
   interactive: Interactive,
+
   'two-step-intro': TwoStepValueProp,
   'personalized-intro': PersonalizedGroup,
   'spaced-practice-intro': SpacedPractice,

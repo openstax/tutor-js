@@ -1,12 +1,13 @@
-import { findIndex, forEach } from 'lodash';
+import { without, findIndex, forEach } from 'lodash';
 import { insert } from '../../helpers/immutable';
 import UiSettings from 'shared/model/ui-settings';
 import InfoStep from '../../models/student-tasks/info-step';
 
 function insertBeforeMatch(type, steps, match) {
-  const index = findIndex(steps, match);
+  const cleanSteps = without(steps, { type });
+  const index = findIndex(cleanSteps, match);
   if (-1 !== index) {
-    return insert(steps, index, new InfoStep({ type }));
+    return insert(cleanSteps, index, new InfoStep({ type }));
   }
   return steps;
 }
@@ -30,4 +31,16 @@ export function insertValueProp({ steps, ...rest }) {
     }
   });
   return { steps, ...rest };
+}
+
+export function insertEnd({ steps, task, ...rest }) {
+  if (task.isHomework || task.isReading) {
+    steps = without(steps, { type: 'end' });
+    return {
+      task,
+      ...rest,
+      steps: [...steps, new InfoStep({ type: 'end' })],
+    };
+  }
+  return { steps, task, ...rest };
 }

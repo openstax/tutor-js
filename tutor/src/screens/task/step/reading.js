@@ -2,10 +2,12 @@ import { React, PropTypes, observer, styled } from '../../../helpers/react';
 import { AsyncButton } from 'shared';
 import BookPage from '../../../components/book-page';
 import UX from '../ux';
+import { StepCard } from './card';
+import Step from '../../../models/student-tasks/step';
+import ContinueBtn from './continue-btn';
 
-const StyledReading = styled.div`
-  width: 1000px;
-  margin: 0 auto;
+const StyledReading = styled(StepCard)`
+
 `;
 
 export default
@@ -14,18 +16,16 @@ class ReadingTaskStep extends React.Component {
 
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
+    step: PropTypes.instanceOf(Step).isRequired,
     windowImpl: PropTypes.object,
   }
 
   render() {
-    const {
-      canGoForward, currentStep: step,
-    } = this.props.ux;
-
-    const { content } = step;
+    const { content } = this.props.step;
 
     return (
       <StyledReading
+        noPadding
         className="content"
       >
         <BookPage
@@ -35,15 +35,7 @@ class ReadingTaskStep extends React.Component {
           title={content.title}
 
         />
-        {canGoForward &&
-          <AsyncButton
-            variant="primary"
-            waitingText="Loading…"
-            onClick={this.onContinue}
-            isWaiting={step.api.isPending}
-            >
-            Continue
-          </AsyncButton>}
+        <ContinueBtn ux={this.props.ux} />
       </StyledReading>
     );
   }
