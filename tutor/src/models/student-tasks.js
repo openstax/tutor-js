@@ -1,7 +1,8 @@
+import { isEmpty } from 'lodash';
 import Map from 'shared/model/map';
 import StudentTask from './student-tasks/task';
+import StudentTaskStep from './student-tasks/step';
 
-export
 class StudentTasks extends Map {
 
   static Model = StudentTask;
@@ -20,6 +21,16 @@ class StudentTasks extends Map {
     return task;
   }
 
+  practice({ page_ids }, { pattern }) {
+    const req = {
+      courseId: this.course.id,
+      data: { page_ids },
+    };
+    if (isEmpty(page_ids)) {
+      req.pattern = pattern + '/worst';
+    }
+    return req;
+  }
 }
 
-export { StudentTask };
+export { StudentTasks, StudentTask, StudentTaskStep };

@@ -487,6 +487,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
         "type": "exercise",
         "uid": "1@1",
       },
+      "isUnmounting": [MockFunction],
       "onAnswerContinue": [MockFunction],
       "onAnswerSave": [MockFunction],
     }

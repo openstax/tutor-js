@@ -25,6 +25,7 @@ class StudentTask extends BaseModel {
 
   @computed get isReading() { return 'reading' === this.type; }
   @computed get isHomework() { return 'homework' === this.type; }
+  @computed get isPractice() { return this.type && this.type.includes('practice'); }
 
   @computed get isFeedbackAvailable() {
     return Boolean(

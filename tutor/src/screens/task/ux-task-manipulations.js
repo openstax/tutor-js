@@ -34,7 +34,7 @@ export function insertValueProp({ steps, ...rest }) {
 }
 
 export function insertEnd({ steps, task, ...rest }) {
-  if (task.isHomework || task.isReading) {
+  if (task.isPractice || task.isHomework || task.isReading) {
     steps = without(steps, { type: 'end' });
     return {
       task,

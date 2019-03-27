@@ -22,7 +22,7 @@ export default
 class NotesWidgetWrapper extends React.Component {
 
   static propTypes = {
-    course: PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course),
     children: PropTypes.node.isRequired,
     windowImpl: PropTypes.shape({
       open: PropTypes.func,
@@ -34,7 +34,7 @@ class NotesWidgetWrapper extends React.Component {
   render() {
     const { course, page } = this.props;
 
-    if (!course.canAnnotate) { return this.props.children; }
+    if (!course || !course.canAnnotate) { return this.props.children; }
 
     return (
       <NotesWidget

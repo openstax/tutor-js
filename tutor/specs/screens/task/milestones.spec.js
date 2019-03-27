@@ -12,6 +12,7 @@ describe('Reading Milestones Component', () => {
     }).array[0];
     props = {
       goToStep: jest.fn(),
+      onHide: jest.fn(),
       ux: new UX({ task, router: new TestRouter() }),
     };
   });
@@ -23,7 +24,8 @@ describe('Reading Milestones Component', () => {
   it('goes to step', () => {
     const ms = mount(<Milestones {...props} />);
     ms.find('Breadcrumb[stepIndex=1]').simulate('click');
-    expect(props.goToStep).toHaveBeenCalledWith(props.ux.steps[1]);
+    expect(props.ux._stepIndex).toEqual(1);
+    expect(props.onHide).toHaveBeenCalled();
     ms.unmount();
   });
 

@@ -6,7 +6,7 @@ import { Col } from 'react-bootstrap';
 import { get } from 'lodash';
 import Time from '../../components/time';
 import Router from '../../helpers/router';
-import { Instructions } from '../../components/task/details';
+//import { Instructions } from '../../components/task/details';
 import classnames from 'classnames';
 import HideButton from './hide-button';
 import TaskProgressInfo from './task-progress-info';
@@ -71,9 +71,6 @@ class EventRow extends React.Component {
         </Col>
         <Col xs={10} sm={5} className="title">
           {event.title}
-          <Instructions
-            task={this.props.event}
-            popverClassName="student-dashboard-instructions-popover" />
         </Col>
         <Col xs={5} sm={3} className="due-at">
           <EventTime event={event} />

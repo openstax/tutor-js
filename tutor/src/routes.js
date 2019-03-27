@@ -57,7 +57,7 @@ const getRoutes = (router) => {
           ],
         }, {
           path: 'practice/:taskId?', name: 'practiceTopics',
-          renderer: r(() => import('./components/task/practice'), 'Practice'),
+          renderer: r(() => import('./screens/task/practice'), 'Practice'),
         }, {
           path: 'homework/:id', name: 'editHomework',
           renderer: r(() => import('./screens/assignment-builder/homework'), 'Homework') },

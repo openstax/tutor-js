@@ -3,6 +3,7 @@
 exports[`Reading Milestones Component matches snapshot 1`] = `
 <Milestones
   goToStep={[MockFunction]}
+  onHide={[MockFunction]}
   ux={
     TaskUX {
       "_stepIndex": 0,

@@ -1,7 +1,6 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { observer } from 'mobx-react';
-import { computed, observable, action } from 'mobx';
+import {
+  React, PropTypes, observer, computed, observable, action, styled,
+} from '../../helpers/react';
 import { isEmpty, map, pick, find } from 'lodash';
 import { Card } from 'react-bootstrap';
 import classnames from 'classnames';
@@ -10,10 +9,13 @@ import { QuestionStats } from '../../models/task-plans/teacher/stats';
 
 import { Icon } from 'shared';
 import {
-  ArbitraryHtmlAndMath, Question, CardBody, FreeResponse,
-  ExerciseGroup, ExerciseIdentifierLink,
+  ArbitraryHtmlAndMath, Question, CardBody, ExerciseIdentifierLink,
 } from 'shared';
 import TourAnchor from '../tours/anchor';
+
+const FreeResponseReview = styled.div`
+
+`
 
 const TOGGLE_FREE_RESPONSE_LIMIT = 3;
 
@@ -84,7 +86,7 @@ class TaskTeacherReviewQuestion extends React.Component {
 
 
     const freeResponses = map(question.answers.withFreeResponse(), (answer, index) => (
-      <FreeResponse {...answer} key={`free-response-${question.id}-${index}`} />
+      <FreeResponseReview {...answer} key={`free-response-${question.id}-${index}`} />
     ));
 
     return (
@@ -168,6 +170,10 @@ export default class TaskTeacherReviewExercise extends React.Component {
 
   render() {
     const { exercise } = this.props;
+    // <ExerciseGroup
+    //   project="tutor" key="step-exercise-group"
+    //   exercise_uid={exercise.uid}
+    // />
 
     return (
       <div
@@ -175,10 +181,6 @@ export default class TaskTeacherReviewExercise extends React.Component {
         <CardBody pinned={false}>
           {this.stimulusHTML}
           {map(exercise.question_stats, this.renderQuestion)}
-          <ExerciseGroup
-            project="tutor" key="step-exercise-group"
-            exercise_uid={exercise.uid}
-          />
           <TourAnchor id="errata-link">
             <ExerciseIdentifierLink exerciseId={exercise.content.uid} project="tutor" />
           </TourAnchor>

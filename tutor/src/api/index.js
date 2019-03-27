@@ -6,7 +6,7 @@
 // `TaskActions.loaded` or `TaskActions.FAILED`
 import adapters from './adapter';
 import { pick } from 'lodash';
-import { CoursePracticeActions } from '../flux/practice';
+//import { CoursePracticeActions } from '../flux/practice';
 import { CourseGuideActions } from '../flux/guide';
 import * as PerformanceForecast from '../flux/performance-forecast';
 
@@ -34,7 +34,7 @@ import CourseCreate from '../models/course/create';
 import { StudentTaskPlans } from '../models/task-plans/student';
 import { TeacherTaskPlans } from '../models/task-plans/teacher';
 import { PastTaskPlans } from '../models/task-plans/teacher/past';
-import StudentTask, { StudentTaskStep } from '../models/student-tasks/task';
+import { StudentTasks, StudentTask, StudentTaskStep } from '../models/student-tasks';
 import StudentTaskPlan from '../models/task-plans/student/task';
 import Student from '../models/course/student';
 import CourseEnroll from '../models/course/enroll';
@@ -86,19 +86,19 @@ const startAPI = function() {
   connectRead(CourseGuideActions, { pattern: 'courses/{id}/guide' });
 
   connectRead(CCDashboardActions, { pattern: 'courses/{id}/cc/dashboard' });
-  connectRead(CoursePracticeActions, { pattern: 'courses/{id}/practice' });
+  //  connectRead(CoursePracticeActions, { pattern: 'courses/{id}/practice' });
 
-  connectCreate(
-    CoursePracticeActions,
-    {
-      url({ courseId, query }) {
-        const url = `courses/${courseId}/practice`;
-        if ((query != null ? query.worst : undefined)) { return `${url}/worst`; } else { return url; }
-      },
-
-      data({ query }) { return query; },
-    },
-  );
+  // connectCreate(
+  //   CoursePracticeActions,
+  //   {
+  //     url({ courseId, query }) {
+  //       const url = `courses/${courseId}/practice`;
+  //       if ((query != null ? query.worst : undefined)) { return `${url}/worst`; } else { return url; }
+  //     },
+  //
+  //     data({ query }) { return query; },
+  //   },
+  // );
 
   connectRead(PerformanceForecast.Student.actions, { pattern: 'courses/{id}/guide' });
   connectRead(PerformanceForecast.Teacher.actions, { pattern: 'courses/{id}/teacher_guide' });
@@ -274,6 +274,10 @@ const startAPI = function() {
       onFail: 'setApiErrors',
     },
   );
+
+  connectModelCreate(StudentTasks, 'practice', {
+    pattern: 'courses/{courseId}/practice',
+  });
 
   connectModelRead(StudentTask, 'fetch', { onSuccess: 'onApiRequestComplete', pattern: '/tasks/{id}' });
 

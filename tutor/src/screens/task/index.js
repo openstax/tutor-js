@@ -19,6 +19,8 @@ const TASK_TYPES = {
   reading,
   homework,
   external,
+  page_practice: homework,
+  practice_worst_topics: homework,
 };
 
 const UnknownTaskType = ({ ux }) => (
