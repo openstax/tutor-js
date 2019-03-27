@@ -2,9 +2,8 @@ import {
   BaseModel, identifiedBy, field, identifier,
   observable, computed, action, belongsTo,
 } from 'shared/model';
-import { last, pick, includes, isEmpty } from 'lodash';
+import { pick, isEmpty } from 'lodash';
 import Exercise from '../exercises/exercise';
-//import SharedExercise from 'shared/model/exercise';
 import ChapterSection from '../chapter-section';
 import RelatedContent from '../related-content';
 import Page from '../reference-book/page';
@@ -27,7 +26,7 @@ class StudentTaskReadingStep extends TaskStepContent {
       cnx_id: extractCnxId(this.content_url),
       content_html: this.html,
       title: this.related_content[0].title,
-      chapter_section: this.related_content[0].book_location,
+      chapter_section: this.chapterSection,
     }),
   );
 }

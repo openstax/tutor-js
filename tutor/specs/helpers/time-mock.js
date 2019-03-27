@@ -1,12 +1,15 @@
 import Time from '../../src/models/time';
 import chronokinesis from 'chronokinesis';
 import moment from 'moment-timezone';
-import { partial } from 'lodash';
-
+import { partial, isString } from 'lodash';
+import FactoryBot from 'object-factory-bot';
 
 const TimeMock = {
 
   setTo(dateTime) {
+    if (isString(dateTime)) {
+      dateTime = new Date(dateTime);
+    }
     beforeEach(partial(TimeMock.mock, dateTime));
     afterEach(TimeMock.restore);
   },
@@ -14,7 +17,7 @@ const TimeMock = {
   mock(dateTime) {
     const now = new Date(dateTime);
     chronokinesis.travel(now);
-    //setNow(now);
+    FactoryBot.defaults.now = dateTime;
     const spy = jest.spyOn(Time, 'now', 'get');
     spy.mockImplementation(() => now);
     moment.tz.setDefault('America/Chicago');
@@ -22,6 +25,7 @@ const TimeMock = {
   },
 
   restore() {
+    delete FactoryBot.defaults.now;
     chronokinesis.reset();
     moment.tz.setDefault();
   },

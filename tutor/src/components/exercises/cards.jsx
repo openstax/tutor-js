@@ -87,15 +87,6 @@ class ExerciseCards extends React.Component {
     if (this.props.focusedExercise) { el.focus(); }
   }
 
-  getScrollTopOffset = () => {
-    // no idea why scrollspeed makes the difference, sorry :(
-    if (this.props.scrollFast) {
-      return this.props.topScrollOffset;
-    } else {
-      return this.props.topScrollOffset + 40;
-    }
-  };
-
   render() {
     const { pageIds, exercises, ...sectionProps } = this.props;
 
@@ -116,4 +107,4 @@ class ExerciseCards extends React.Component {
       <div className="exercise-cards">{sections}</div>
     );
   }
-};
+}

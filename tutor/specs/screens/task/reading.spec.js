@@ -1,9 +1,10 @@
 import UX from '../../../src/screens/task/ux';
 import Reading from '../../../src/screens/task/reading';
-import { Factory, FakeWindow, TestRouter } from '../../helpers';
+import { Factory, FakeWindow, TestRouter, TimeMock } from '../../helpers';
 
 describe('Reading Tasks Screen', () => {
   let props;
+  TimeMock.setTo('2017-10-14T12:00:00.000Z');
 
   beforeEach(() => {
     const task = Factory.studentTask({ type: 'reading' });
@@ -20,7 +21,6 @@ describe('Reading Tasks Screen', () => {
   it('render as loading', () => {
     props.ux.goToStep(1);
     props.ux.currentStep.isFetched = false;
-    expect(props.ux.currentStep.type).toEqual('exercise');
     expect(props.ux.currentStep.needsFetched).toBeTruthy();
     const r = mount(<Reading {...props} />);
     expect(r).toHaveRendered('ContentLoader');

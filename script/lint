@@ -18,7 +18,7 @@ else
     cmd="git status --short */{src,specs}"
 fi
 
-files=`eval $cmd | grep -E '^[^D]*[.jsx|js]$' | awk '{ print $2 }'`
+files=`eval $cmd | egrep '^[^D].*(jsx?)$' | awk '{ print $2 }'`
 
 if [ ! -z "$files" ]; then
     $(npm bin)/eslint $2 $files

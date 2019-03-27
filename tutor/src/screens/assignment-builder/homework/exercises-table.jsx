@@ -18,8 +18,8 @@ class ExerciseTable extends React.Component {
   };
 
   renderExerciseRow = (exercise, index) => {
-    const { section, lo, tagString } = exercise.tags.importantInfo;
-
+    const { lo, tagString } = exercise.tags.importantInfo;
+    const { chapterSection } = exercise.tags;
     let content = document.createElement('span');
     content.innerHTML = exercise.content.questions[0].stem_html;
     const images = Array.from(content.getElementsByTagName('img'));
@@ -38,7 +38,7 @@ class ExerciseTable extends React.Component {
           {index + 1}
         </td>
         <td>
-          <ChapterSection chapterSection={section} />
+          <ChapterSection chapterSection={chapterSection} />
         </td>
         <td>
           <ArbitraryHtmlAndMath block={false} html={content} />

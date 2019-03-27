@@ -2,12 +2,10 @@ import { React, PropTypes } from '../helpers/react';
 import {
   get, map, forEach, first, last, invoke, defer, compact, uniq,
 } from 'lodash';
-import createReactClass from 'create-react-class';
 import ReactDOM from 'react-dom';
-import { LoadingAnimation, SpyMode, ArbitraryHtmlAndMath, GetPositionMixin } from 'shared';
+import { LoadingAnimation, SpyMode, ArbitraryHtmlAndMath } from 'shared';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
-import { BookContentMixin } from './book-content-mixin';
 import { ReferenceBookExerciseShell } from './book-page/exercise';
 import RelatedContent from './related-content';
 import NotesWidget from './notes';
@@ -16,7 +14,6 @@ import Courses from '../models/courses-map';
 import dom from '../helpers/dom';
 import Router from '../helpers/router';
 import { MediaStore } from '../flux/media';
-import ChapterSection from '../models/chapter-section';
 import MediaPreview from './media-preview';
 
 // According to the tagging legend exercises with a link should have `a.os-embed`
@@ -54,7 +51,7 @@ function processImage() {
   } else {
     figure.classList.add('tutor-ui-vertical-img');
   }
-};
+}
 
 
 @observer

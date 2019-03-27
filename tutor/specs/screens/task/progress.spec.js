@@ -1,9 +1,10 @@
 import UX from '../../../src/screens/task/ux';
 import Progress from '../../../src/screens/task/progress';
-import { Factory, TestRouter } from '../../helpers';
+import { Factory, TimeMock, TestRouter } from '../../helpers';
 
 describe('Reading Progress Component', () => {
   let props;
+  TimeMock.setTo('2017-10-14T12:00:00.000Z');
 
   beforeEach(() => {
     const task = Factory.studentTasks({

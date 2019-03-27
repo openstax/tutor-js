@@ -1,6 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Tasks Ending Screen completed state 1`] = `
+.c1 {
+  margin-top: 3rem;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+}
+
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -19,13 +26,6 @@ exports[`Tasks Ending Screen completed state 1`] = `
   border: 1px solid #e4e4e4;
   border-radius: 0.25rem;
   padding: 50px 140px;
-}
-
-.c1 {
-  margin-top: 3rem;
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
 }
 
 <div
@@ -50,6 +50,13 @@ exports[`Tasks Ending Screen completed state 1`] = `
 `;
 
 exports[`Tasks Ending Screen completed state 2`] = `
+.c1 {
+  margin-top: 3rem;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+}
+
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -68,13 +75,6 @@ exports[`Tasks Ending Screen completed state 2`] = `
   border: 1px solid #e4e4e4;
   border-radius: 0.25rem;
   padding: 50px 140px;
-}
-
-.c1 {
-  margin-top: 3rem;
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
 }
 
 <div
@@ -99,6 +99,13 @@ exports[`Tasks Ending Screen completed state 2`] = `
 `;
 
 exports[`Tasks Ending Screen not started state 1`] = `
+.c1 {
+  margin-top: 3rem;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+}
+
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -117,13 +124,6 @@ exports[`Tasks Ending Screen not started state 1`] = `
   border: 1px solid #e4e4e4;
   border-radius: 0.25rem;
   padding: 50px 140px;
-}
-
-.c1 {
-  margin-top: 3rem;
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
 }
 
 <div
@@ -151,6 +151,13 @@ exports[`Tasks Ending Screen not started state 1`] = `
 `;
 
 exports[`Tasks Ending Screen partial state 1`] = `
+.c1 {
+  margin-top: 3rem;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+}
+
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -169,13 +176,6 @@ exports[`Tasks Ending Screen partial state 1`] = `
   border: 1px solid #e4e4e4;
   border-radius: 0.25rem;
   padding: 50px 140px;
-}
-
-.c1 {
-  margin-top: 3rem;
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
 }
 
 <div

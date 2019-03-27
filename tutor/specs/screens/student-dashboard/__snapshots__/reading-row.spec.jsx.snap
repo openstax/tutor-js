@@ -22,7 +22,7 @@ exports[`Reading Row matches snapshot 1`] = `
 }
 
 <a
-  aria-label="Work on reading: turn-key leverage content"
+  aria-label="Work on reading: revolutionary synthesize models"
   className="task row reading"
   data-event-id={1}
   href="/course/1/task/1"
@@ -40,7 +40,7 @@ exports[`Reading Row matches snapshot 1`] = `
   <div
     className="title col-sm-5 col-10"
   >
-    turn-key leverage content
+    revolutionary synthesize models
   </div>
   <div
     className="due-at col-sm-3 col-5"

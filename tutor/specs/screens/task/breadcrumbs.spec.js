@@ -1,10 +1,10 @@
 import UX from '../../../src/screens/task/ux';
 import { Breadcrumbs } from '../../../src/screens/task/breadcrumbs';
-import { Factory, C, TestRouter } from '../../helpers';
+import { Factory, C, TestRouter, TimeMock } from '../../helpers';
 
 describe('Homework Breadcrumbs Component', () => {
   let props;
-
+  TimeMock.setTo('2017-10-14T12:00:00.000Z');
   beforeEach(() => {
     const task = Factory.studentTasks({
       count: 1,

@@ -120,7 +120,7 @@ class ReferenceBookPage extends BaseModel {
   @computed get isAssignable() {
     return !includes(NON_ASSIGNABLE_TITLES, this.title);
   }
-};
+}
 
 // a mock page for use by entities such as exercises that need to indicate
 // they are not linked to a "real" page

@@ -1,9 +1,10 @@
 import UX from '../../../src/screens/task/ux';
 import Homework from '../../../src/screens/task/homework';
-import { Factory, FakeWindow, TestRouter } from '../../helpers';
+import { Factory, FakeWindow, TestRouter, TimeMock } from '../../helpers';
 
 describe('Reading Tasks Screen', () => {
   let props;
+  TimeMock.setTo('2017-10-14T12:00:00.000Z');
 
   beforeEach(() => {
     const task = Factory.studentTasks({
@@ -19,20 +20,6 @@ describe('Reading Tasks Screen', () => {
 
   it('matches snapshot', () => {
     expect(<Homework {...props} />).toMatchSnapshot();
-  });
-
-  it('render as loading', () => {
-    props.ux.goToStep(1);
-    props.ux.currentStep.isFetched = false;
-    const h = mount(<Homework {...props} />);
-    expect(h).toHaveRendered('ContentLoader');
-    h.unmount();
-  });
-
-  it('renders content', () => {
-    const h = mount(<Homework {...props} />);
-    expect(h).not.toHaveRendered('ContentLoader');
-    h.unmount();
   });
 
   it('renders value props', () => {

@@ -20,15 +20,16 @@ describe('Task UX Model', () => {
   });
 
   it('scrolls to next mpq', async () => {
-    ux.steps[1].uid = ux.steps[0].uid;
-
-    const group = ux.steps[0];
-    expect(group.isMultiPart).toBe(true);
+    const i = 1 + ux.steps.findIndex(s => s.type == 'two-step-intro');
+    ux.steps[i+1].uid = ux.steps[i].uid;
+    const group = ux.steps[i];
+    expect(group.type).toBe('mpq');
     const s = group.steps[0];
     expect(s.multiPartGroup).toBe(group);
 
     s.saveAnswer = jest.fn().mockResolvedValue({});
-    await ux.onAnswerSave(s);
+    await ux.onAnswerSave(s, { id: 1 });
+    expect(s.saveAnswer).toHaveBeenCalled();
     expect(ux.scroller.scrollToSelector).toHaveBeenCalledWith(
       `[data-task-step-id="${group.steps[1].id}"]`
     );

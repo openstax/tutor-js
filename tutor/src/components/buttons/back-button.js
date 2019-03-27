@@ -2,39 +2,37 @@ import { React, PropTypes, cn } from '../../helpers/react';
 import Router from '../../helpers/router';
 import TutorLink from '../link';
 
-import { TransitionActions, TransitionStore } from '../../flux/transition';
+import { TransitionStore } from '../../flux/transition';
 
-class BackButton extends React.Component {
-  static displayName = 'BackButton';
+const BackButton = ({ fallbackLink, className }) => {
+  // Gets route to last path that was not the same as the current one
+  // See TransitionStore for more detail.
+  const historyInfo = TransitionStore.getPrevious();
 
-  static propTypes = {
-    className: PropTypes.string,
-    fallbackLink: PropTypes.shape({
-      to: PropTypes.string,
-      params: PropTypes.object,
-      text: PropTypes.string,
-    }).isRequired,
-  };
+  className = cn('btn', 'btn-default', className);
 
-  render() {
-    // Gets route to last path that was not the same as the current one
-    // See TransitionStore for more detail.
-    const historyInfo = TransitionStore.getPrevious();
-    let { fallbackLink, className } = this.props;
-    className = cn('btn', 'btn-default', className);
+  const backText = (historyInfo != null ? historyInfo.name : undefined) ? `Back to ${historyInfo.name}` : (fallbackLink.text || 'Back');
 
-    const backText = (historyInfo != null ? historyInfo.name : undefined) ? `Back to ${historyInfo.name}` : (fallbackLink.text || 'Back');
+  const to =  (historyInfo != null ? historyInfo.path : undefined) || Router.makePathname(
+    fallbackLink.to, fallbackLink.params
+  );
 
-    const to =  (historyInfo != null ? historyInfo.path : undefined) || Router.makePathname(
-      this.props.fallbackLink.to, this.props.fallbackLink.params
-    );
+  return (
+    <TutorLink className={className} to={to}>
+      {backText}
+    </TutorLink>
+  );
+};
 
-    return (
-      <TutorLink className={className} to={to}>
-        {backText}
-      </TutorLink>
-    );
-  }
-}
+
+BackButton.propTypes = {
+  className: PropTypes.string,
+  fallbackLink: PropTypes.shape({
+    to: PropTypes.string,
+    params: PropTypes.object,
+    text: PropTypes.string,
+  }).isRequired,
+};
+
 
 export default BackButton;

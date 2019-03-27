@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { computed, action } from 'mobx';
+import { computed } from 'mobx';
 import { observer, inject } from 'mobx-react';
 import StudentDashboard from './dashboard';
 import Courses from '../../models/courses-map';
@@ -40,4 +40,4 @@ class StudentDashboardShell extends React.Component {
     );
   }
 
-};
+}

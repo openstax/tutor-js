@@ -1,9 +1,10 @@
 import End from '../../../../src/screens/task/step/end';
-import { Factory, TestRouter, C } from '../../../helpers';
+import { Factory, TestRouter, C, TimeMock } from '../../../helpers';
 import UX from '../../../../src/screens/task/ux';
 
 describe('Tasks Ending Screen', () => {
   let props;
+  TimeMock.setTo('2017-10-14T12:00:00.000Z');
 
   beforeEach(() => {
     const task = Factory.studentTask({ type: 'homework', stepCount: 2 });

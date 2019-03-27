@@ -21,14 +21,10 @@ exports[`Related Content Link renders and matches snapshot 1`] = `
       className="part"
     >
       <span
-        className="section"
+        className="chapter-section"
+        data-chapter-section="1.0"
       >
-         
-      </span>
-      <span
-        className="title"
-      >
-        Intro
+        1
       </span>
     </span>
   </a>
@@ -44,14 +40,10 @@ exports[`Related Content Link renders and matches snapshot 1`] = `
       className="part"
     >
       <span
-        className="section"
+        className="chapter-section"
+        data-chapter-section="1.1"
       >
-         
-      </span>
-      <span
-        className="title"
-      >
-        First
+        1.1
       </span>
     </span>
   </a>

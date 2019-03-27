@@ -8,10 +8,10 @@ describe('Related Content Link', () => {
   it('renders and matches snapshot', () => {
     const content = [
       new RelatedContent({
-        title: 'Intro', chapter_section: new ChapterSection([1,0])
+        title: 'Intro', chapter_section: new ChapterSection([1,0]),
       }),
       new RelatedContent({
-        title: 'First', chapter_section: new ChapterSection([1,1])
+        title: 'First', chapter_section: new ChapterSection([1,1]),
       }),
     ];
     expect.snapshot(

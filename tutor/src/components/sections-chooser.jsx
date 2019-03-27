@@ -3,7 +3,7 @@ import React from 'react';
 import { observable, action, computed } from 'mobx';
 import { observer } from 'mobx-react';
 import { Collapse } from 'react-bootstrap';
-import { filter, isEmpty, extend, forEach, find } from 'lodash';
+import { filter, extend, forEach, find } from 'lodash';
 import styled from 'styled-components';
 import ChapterSection from './chapter-section';
 import BrowseTheBook from './buttons/browse-the-book';
@@ -231,4 +231,4 @@ class SectionsChooser extends React.Component {
       </SectionChooserWrapper>
     );
   }
-};
+}

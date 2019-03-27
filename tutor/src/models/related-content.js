@@ -1,6 +1,5 @@
-import { BaseModel, identifiedBy, observable, belongsTo, field } from 'shared/model';
+import { BaseModel, identifiedBy, belongsTo, field } from 'shared/model';
 import ChapterSection from './chapter-section';
-import { computed } from 'mobx';
 
 export default
 @identifiedBy('related-content')

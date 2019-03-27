@@ -97,7 +97,7 @@ class ExercisePart extends React.Component {
 
   UNSAFE_componentWillMount() {
     const { id } = this.props;
-    if (!this.state.currentCard) { return this.updateCurrentCard(this.props); }
+    if (!this.state.currentCard) { this.updateCurrentCard(this.props); }
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -112,7 +112,7 @@ class ExercisePart extends React.Component {
   updateCurrentCard = (props) => {
     const { id, getCurrentCard } = props || this.props;
     const currentCard = getCurrentCard(id);
-    if ((currentCard != null) && (this.state.currentCard !== currentCard)) { return this.setState({ currentCard }); }
+    if ((currentCard != null) && (this.state.currentCard !== currentCard)) { this.setState({ currentCard }); }
   };
 
   // add get props methods for different panel types as needed here

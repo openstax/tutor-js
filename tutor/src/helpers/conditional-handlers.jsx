@@ -1,7 +1,7 @@
 import React from 'react';
 import invariant from 'invariant';
 import { extend, last, first } from 'lodash';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { asyncComponent } from './async-component';
 import { CourseNotFoundWarning } from '../components/course-not-found-warning';
 import Courses from '../models/courses-map';
@@ -54,7 +54,7 @@ const getConditionalHandlers = (Router) => {
       }
     }
   };
-
+  // eslint-disable-next-line react/prop-types
   const legacyReferenceBookRedirect = ({ params }) => {
     const parts = params.parts.split('/');
     const course = Courses.get(first(parts));

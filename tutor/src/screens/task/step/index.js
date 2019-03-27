@@ -36,7 +36,6 @@ const STEP_TYPES = {
   reading: Reading,
   exercise: Exercise,
   interactive: Interactive,
-
   'two-step-intro': TwoStepValueProp,
   'personalized-intro': PersonalizedGroup,
   'spaced-practice-intro': SpacedPractice,
@@ -50,18 +49,18 @@ const PENDING_TYPES = {
 };
 
 const TaskStep = (props) => {
-  const { ux, step: { isMultiPart, type, needsFetched } } = props;
+  const { ux, step: { type, needsFetched } } = props;
 
   const stepProps = {
     ...props,
     onContinue: ux.canGoForward ? ux.goForward : null,
   };
 
-  if (isMultiPart) {
+  if ('mpq' === type) {
     return (
       <React.Fragment>
-        {props.step.steps.map(s =>
-          <TaskStep key={s.id} {...stepProps} step={s} />)}
+        {props.step.steps.map((s, i) =>
+          <TaskStep key={i} {...stepProps} step={s} />)}
       </React.Fragment>
     );
   }
@@ -81,7 +80,6 @@ const TaskStep = (props) => {
 TaskStep.propTypes = {
   pending: PropTypes.func,
   ux: PropTypes.instanceOf(UX).isRequired,
-  isMultiPart: PropTypes.bool,
   step: PropTypes.shape({
     steps: PropTypes.array,
     type: PropTypes.string.isRequired,

@@ -4,6 +4,7 @@ import Courses, { Course } from '../../models/courses-map';
 import StudentTask from '../../models/student-tasks/task';
 import { CourseNotFoundWarning } from '../../components/course-not-found-warning';
 import { BulletList as PendingLoad } from 'react-content-loader';
+import Warning from '../../components/warning-modal';
 import UX from './ux';
 import reading from './reading';
 import homework from './homework';
@@ -21,8 +22,15 @@ const TASK_TYPES = {
 };
 
 const UnknownTaskType = ({ ux }) => (
-  <h1>Unknown task type "{ux.task.type || 'null'}"</h1>
+  <Warning title="Unknown task type">
+    The task type "{ux.task.type || 'null'}" is unknown.
+  </Warning>
 );
+
+UnknownTaskType.propTypes = {
+  ux: PropTypes.instanceOf(UX).isRequired,
+};
+
 
 @observer
 class TaskLoader extends React.Component {

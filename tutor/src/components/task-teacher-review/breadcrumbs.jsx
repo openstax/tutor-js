@@ -37,7 +37,7 @@ class Breadcrumbs extends React.Component {
 
     const stepButtons = map(this.crumbs, crumb =>
       <TutorBreadcrumb
-        crumb={crumb}
+        step={crumb}
         stepIndex={crumb.key}
         currentStep={currentStep}
         goToStep={this.goToStep}
@@ -61,4 +61,4 @@ class Breadcrumbs extends React.Component {
     );
   }
 
-};
+}

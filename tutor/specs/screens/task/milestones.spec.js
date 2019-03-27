@@ -1,10 +1,10 @@
 import UX from '../../../src/screens/task/ux';
 import { Milestones } from '../../../src/screens/task/milestones';
-import { Factory, TestRouter } from '../../helpers';
+import { Factory, TestRouter, TimeMock } from '../../helpers';
 
 describe('Reading Milestones Component', () => {
   let props;
-
+  TimeMock.setTo('2017-10-14T12:00:00.000Z');
   beforeEach(() => {
     const task = Factory.studentTasks({
       count: 1,

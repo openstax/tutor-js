@@ -1,7 +1,6 @@
 import defer from 'lodash/defer';
 import merge from 'lodash/merge';
 import isFunction from 'lodash/isFunction';
-import cloneDeep from 'lodash/cloneDeep';
 import { JSDOM } from 'jsdom';
 
 const EmptyFn = () => undefined;

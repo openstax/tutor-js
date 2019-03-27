@@ -56,4 +56,4 @@ class ReferenceBook extends React.Component {
       </div>
     );
   }
-};
+}

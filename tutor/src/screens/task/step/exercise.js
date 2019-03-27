@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, observer, styled,
+  React, PropTypes, observer,
 } from '../../../helpers/react';
 import UX from '../ux';
 import { StepCard } from './card';

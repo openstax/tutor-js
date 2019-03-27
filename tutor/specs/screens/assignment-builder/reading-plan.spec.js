@@ -12,8 +12,8 @@ const yesterday = moment(TimeStore.getNow()).subtract(1, 'day').format(TimeHelpe
 const tomorrow = moment(TimeStore.getNow()).add(1, 'day').format(TimeHelper.ISO_DATE_FORMAT);
 
 describe('Reading Plan', function() {
-  let ECO_READING, ECO_READING_ECOSYSTEM_ID, NEW_READING, props, UNPUBLISHED_READING;
-  let VISIBLE_READING = (UNPUBLISHED_READING = (NEW_READING = (ECO_READING = (ECO_READING_ECOSYSTEM_ID = (props = null)))));
+  let ECO_READING, ECO_READING_ECOSYSTEM_ID, NEW_READING, UNPUBLISHED_READING;
+  let VISIBLE_READING = (UNPUBLISHED_READING = (NEW_READING = (ECO_READING = (ECO_READING_ECOSYSTEM_ID = null))));
   let page_ids;
   let helper;
   let course;
@@ -38,7 +38,6 @@ describe('Reading Plan', function() {
 
     Courses.set(course.id, course);
     TaskPlanActions.reset();
-    return props = {};
   });
 
   it('should allow add sections when not visible', () => {
@@ -46,31 +45,4 @@ describe('Reading Plan', function() {
     expect(plan).toHaveRendered('#reading-select');
   });
 
-  xit('should not allow add sections after visible', () =>
-    helper(VISIBLE_READING).then(({ dom }) => expect(dom.querySelector('#reading-select')).toBeNull())
-  );
-
-  xit('should show sections required message when saving and no sections', () =>
-    helper(NEW_READING).then(function({ dom }) {
-      expect(dom.querySelector('.readings-required')).toBeNull();
-      Testing.actions.click(dom.querySelector('.-save'));
-      return expect(dom.querySelector('.readings-required')).to.not.be.null;
-    })
-  );
-
-  xit('can mark form as invalid', () =>
-    helper(NEW_READING).then(function({ dom }) {
-      expect(dom.querySelector('.edit-reading.is-invalid-form')).toBeNull();
-      Testing.actions.click(dom.querySelector('.-save'));
-      return expect(dom.querySelector('.edit-reading.is-invalid-form')).to.not.be.null;
-    })
-  );
-
-  xit('hides form when selecting sections', () =>
-    helper(NEW_READING).then(function({ dom }) {
-      expect(dom.querySelector('.edit-reading.hide')).toBeNull();
-      Testing.actions.click(dom.querySelector('#reading-select'));
-      return expect(dom.querySelector('.edit-reading.hide')).to.not.be.null;
-    })
-  );
 });

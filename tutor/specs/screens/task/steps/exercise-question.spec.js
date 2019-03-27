@@ -1,5 +1,5 @@
 import ExerciseQuestion from '../../../../src/screens/task/step/exercise-question';
-import { Factory, FakeWindow } from '../../../helpers';
+import { Factory } from '../../../helpers';
 import UX from '../../../../src/screens/task/ux';
 import { setFreeResponse } from '../helpers';
 
@@ -38,29 +38,17 @@ describe('Exercise Free Response', () => {
       step, step.content.questions[0].answers[1],
     );
 
-    console.log('befre save')
 
     // emulate pending request
     step.api.requestsInProgress.set('1', {});
-
     expect(step.api.isPending).toBe(true);
-
-    console.log("update");
-
     eq.update();
 
-    //console.log(eq.find('AsyncButton').debug());
+    expect(eq.find('AsyncButton').props().isWaiting).toBe(true);
+    step.api.requestsInProgress.clear();
 
-    // AsyncButton
-
-    // expect(props.step.answer_id).toEqual(
-    //   props.step.content.questions[0].answers[1].id
-    // );
-
-    // [1].id
-    //   expect(props.step.answer_id).toEqual(
-    //     props.step.content.questions[1].id
-    //   );
+    eq.update();
+    expect(eq.find('AsyncButton').props().isWaiting).toBe(false);
   });
 
 });

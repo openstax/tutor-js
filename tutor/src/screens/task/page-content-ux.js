@@ -1,4 +1,4 @@
-import { observable, computed, action, observe } from 'mobx';
+import { computed, action } from 'mobx';
 
 import BookUX from '../../models/reference-book/ux';
 

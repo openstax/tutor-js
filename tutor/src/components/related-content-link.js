@@ -1,11 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { isEmpty } from 'lodash';
-import createReactClass from 'create-react-class';
 import Course from '../models/course';
 import ChapterSection from './chapter-section';
 import RelatedContent from '../models/related-content';
-import { Icon } from 'shared';
 import BrowseTheBook from './buttons/browse-the-book';
 
 const RelatedContentLink = ({ course, content }) => {

@@ -1,9 +1,11 @@
 import UX from '../../../src/screens/task/ux';
 import External from '../../../src/screens/task/external';
-import { Factory, C, TestRouter } from '../../helpers';
+import { Factory, C, TestRouter, TimeMock } from '../../helpers';
 
 describe('Tasks External URL Screen', () => {
   let props;
+
+  TimeMock.setTo('2017-10-14T12:00:00.000Z');
 
   beforeEach(() => {
     const task = Factory.studentTask({ stepCount: 1, type: 'external' });

@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { isArray, isString, isEmpty } from 'lodash';
-import { StepTitleStore } from '../flux/step-title';
+import { isEmpty } from 'lodash';
 import ChapterSection from '../models/chapter-section';
 
 class RelatedContent extends React.Component {
   static propTypes = {
     title: PropTypes.string,
-    hasLearningObjectives: PropTypes.bool.isRequired,
+    hasLearningObjectives: PropTypes.bool,
     isChapterSectionHidden: PropTypes.bool,
     chapter_section: PropTypes.instanceOf(ChapterSection).isRequired,
   };

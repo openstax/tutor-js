@@ -15,28 +15,6 @@ class ProgressCard extends React.Component {
 
   @observable showMilestones = false;
 
-  // silence React return value warning
-  goForward() {
-    const { stepId, taskId } = this.props;
-    if (stepId && !__guard__(TaskStepStore.get(stepId), x => x.is_completed)) {
-      this.setState({ isCompleting: true });
-      TaskStore.once('step.completed', () => {
-        this.props.goToStep(this.props.stepKey + 1);
-        return this.setState({ isCompleting: false });
-      });
-      TaskActions.completeStep(stepId, taskId);
-    } else {
-      this.props.goToStep(this.props.stepKey + 1);
-    }
-    return undefined;
-  }
-
-  // silence React return value warning
-  goBackward() {
-    this.props.goToStep(this.props.stepKey - 1);
-    return undefined;
-  }
-
   @action.bound closeMilestones() {
     this.showMilestones = false;
   }
@@ -55,7 +33,7 @@ class ProgressCard extends React.Component {
   }
 
   render() {
-    const { ux, children, ux: { task } } = this.props;
+    const { ux, children } = this.props;
 
     return (
       <PagingNavigation

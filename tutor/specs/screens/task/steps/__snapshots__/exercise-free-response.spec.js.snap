@@ -305,6 +305,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
         "url": "",
       },
       "correct_answer_id": undefined,
+      "external_url": null,
       "feedback_html": undefined,
       "formats": Array [
         "free-response",
@@ -319,7 +320,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
       "task": StudentTask {
         "complete": undefined,
         "description": undefined,
-        "due_at": 2019-04-23T05:00:00.000Z,
+        "due_at": 2017-10-17T12:00:00.000Z,
         "feedback_at": undefined,
         "id": 1,
         "steps": Array [

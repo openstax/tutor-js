@@ -1,5 +1,4 @@
 import { React, PropTypes, observer, styled } from '../../../helpers/react';
-import { AsyncButton } from 'shared';
 import BookPage from '../../../components/book-page';
 import UX from '../ux';
 import { StepCard } from './card';
@@ -33,7 +32,6 @@ class ReadingTaskStep extends React.Component {
           hasLearningObjectives={content.has_learning_objectives}
           chapter_section={content.chapterSection}
           title={content.title}
-
         />
         <ContinueBtn ux={this.props.ux} />
       </StyledReading>

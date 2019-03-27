@@ -112,4 +112,4 @@ class StudentTask extends BaseModel {
   onHidden() {
     this.hidden = true;
   }
-};
+}

@@ -86,4 +86,4 @@ class TutorExercise extends BaseModel {
     return this.has_video;
   }
 
-};
+}

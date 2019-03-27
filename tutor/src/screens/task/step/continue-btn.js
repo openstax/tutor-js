@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, styled } from '../../../helpers/react';
+import { React, PropTypes, styled } from '../../../helpers/react';
 import { Button } from 'react-bootstrap';
 
 

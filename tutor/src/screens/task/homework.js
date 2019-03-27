@@ -11,7 +11,7 @@ const SyledHomework = styled.div`
 
 export default
 @observer
-class ExerciseTask extends React.Component {
+class HomeworkTask extends React.Component {
 
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,

@@ -37,7 +37,6 @@ class ExerciseQuestion extends React.Component {
     const { ux, step } = this.props;
     await ux.onAnswerSave(step, this.selectedAnswer);
     this.selectedAnswer = null;
-    console.log("done")
   }
 
   @action.bound onNextStep() {

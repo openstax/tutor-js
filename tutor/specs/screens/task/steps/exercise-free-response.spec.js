@@ -1,7 +1,7 @@
 import {
   FreeResponseInput, FreeResponseReview,
 } from '../../../../src/screens/task/step/exercise-free-response';
-import { Factory } from '../../../helpers';
+import { Factory, TimeMock } from '../../../helpers';
 import { setFreeResponse } from '../helpers';
 
 jest.mock('../../../../src/screens/task/ux');
@@ -11,6 +11,7 @@ jest.mock('../../../../../shared/src/components/html', () => ({ html }) =>
 
 describe('Exercise Free Response', () => {
   let props;
+  TimeMock.setTo('2017-10-14T12:00:00.000Z');
 
   beforeEach(() => {
     const step = Factory.studentTask({

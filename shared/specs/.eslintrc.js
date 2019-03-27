@@ -1,5 +1,6 @@
 module.exports = {
   "globals": {
+    "global":     false,
     "React":      false,
     "beforeEach": false,
     "afterEach":  false,

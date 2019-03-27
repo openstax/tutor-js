@@ -18,10 +18,6 @@ class StudentTaskStepGroup extends BaseModel {
     this.steps.forEach((s) => s.multiPartGroup = this);
   }
 
-  @computed get isMultiPart() {
-    return this.steps.length > 1;
-  }
-
   @computed get needsFetched() {
     return Boolean(this.steps.find(s => s.needsFetched));
   }

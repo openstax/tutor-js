@@ -1,4 +1,4 @@
-import { React, PropTypes, styled } from '../../../helpers/react';
+import { styled } from '../../../helpers/react';
 import Theme from '../../../theme';
 
 const StepCard = styled.div`

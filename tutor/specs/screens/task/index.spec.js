@@ -11,8 +11,10 @@ describe('Tasks Screen', () => {
     const course = Factory.course();
     task = course.studentTasks.get(1);
     Object.assign(task, {
+      id: 1,
       type: 'reading',
-      id: 1, api: observable({
+      tasksMap: { course },
+      api: observable({
         hasErrors: false,
         isPendingInitialFetch: true,
       }),
