@@ -367,24 +367,6 @@ class BookPage extends React.Component {
       }
     }
 
-
-    let content = (
-      <ArbitraryHtmlAndMath
-        className="book-content"
-        block={true}
-        html={page.contents} />
-    );
-
-    if (ux.allowsAnnotating) {
-      content = (
-        <NotesWidget
-          course={ux.course}
-          page={page}
-          documentId={page.cnx_id}
-        >{content}</NotesWidget>
-      );
-    }
-
     return (
       <div
         className={classnames('book-page', this.props.className, {
@@ -402,7 +384,17 @@ class BookPage extends React.Component {
             hasLearningObjectives={hasLearningObjectives}
             isChapterSectionHidden={page.isChapterSectionHidden}
           />
-          {content}
+          <NotesWidget
+            course={ux.course}
+            page={page}
+            documentId={page.cnx_id}
+          >
+            <ArbitraryHtmlAndMath
+              className="book-content"
+              block={true}
+              html={page.contents}
+            />
+          </NotesWidget>
         </div>
         <SpyMode.Content className="ecosystem-info">
           Page: {page.cnx_id}, Book: {get(page,'chapter.book.cnx_id')} Ecosystem: {get(page,'chapter.book.uuid')}

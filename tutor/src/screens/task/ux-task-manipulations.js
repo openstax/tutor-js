@@ -3,34 +3,35 @@ import { insert } from '../../helpers/immutable';
 import UiSettings from 'shared/model/ui-settings';
 import InfoStep from '../../models/student-tasks/info-step';
 
-function insertBeforeMatch(type, steps, match) {
+function insertBeforeMatch(type, task, steps, match) {
   const cleanSteps = without(steps, { type });
   const index = findIndex(cleanSteps, match);
   if (-1 !== index) {
-    return insert(cleanSteps, index, new InfoStep({ type }));
+    return insert(cleanSteps, index, new InfoStep({ task, type }));
   }
   return steps;
 }
 
 // spaced practice questions are preceded by a "Spaced Practice" card.
-export function insertIndividiualReview({ steps, ...rest }) {
+export function insertIndividiualReview({ steps, task, ...rest }) {
   return {
     ...rest,
-    steps: insertBeforeMatch('individual-review-intro', steps, { isReview: true }),
+    task,
+    steps: insertBeforeMatch('individual-review-intro', task, steps, { isReview: true }),
   };
 }
 
-export function insertValueProp({ steps, ...rest }) {
+export function insertValueProp({ steps, task, ...rest }) {
   forEach({
     'personalized-intro':    { isPersonalized: true },
     'two-step-intro':        { isTwoStep: true },
     'spaced-practice-intro': { isSpacedPractice: true },
   }, (check, key) => {
     if (!UiSettings.get(`has-viewed-${key}`)) {
-      steps = insertBeforeMatch(key, steps, check);
+      steps = insertBeforeMatch(key, task, steps, check);
     }
   });
-  return { steps, ...rest };
+  return { steps, task, ...rest };
 }
 
 export function insertEnd({ steps, task, ...rest }) {
@@ -39,7 +40,7 @@ export function insertEnd({ steps, task, ...rest }) {
     return {
       task,
       ...rest,
-      steps: [...steps, new InfoStep({ type: 'end' })],
+      steps: [...steps, new InfoStep({ task, type: 'end' })],
     };
   }
   return { steps, task, ...rest };

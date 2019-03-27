@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
 import 'moment-timezone/moment-timezone-utils';
-import { isEmpty, isEqual, pick, map, clone, values, first } from 'lodash';
+import { isEmpty, pick, map, clone, values, first } from 'lodash';
 
 // Map http://www.iana.org/time-zones names to timezone names in Rails
 // https://github.com/openstax/tutor-server/pull/1057#issuecomment-212678167
@@ -28,6 +28,7 @@ moment.tz.add(
   })
 );
 
+// eslint-disable-next-line
 const ISO_DATE_REGEX = /\d{4}[\/\-](0[1-9]|1[012])[\/\-](0[1-9]|[12][0-9]|3[01])/;
 const ISO_TIME_REGEX = /([01][0-9]|2[0-3]):[0-5]\d/;
 
@@ -47,6 +48,10 @@ const TimeHelper = {
 
   toHumanDate(datething) {
     return moment(datething).format(this.HUMAN_DATE_FORMAT);
+  },
+
+  toShortHumanDateTime(datething) {
+    return moment(datething).format('llll');
   },
 
   toISO(datething) {
@@ -94,6 +99,7 @@ const TimeHelper = {
       if (!moment.isMoment(props[propName])) {
         return new Error(`${propName} should be a moment for ${componentName}`);
       }
+      return null;
     },
   },
 
@@ -108,14 +114,14 @@ const TimeHelper = {
   },
 
   syncCourseTimezone(courseTimezone) {
-    if (this.isCourseTimezone(courseTimezone)) { return; }
+    if (this.isCourseTimezone(courseTimezone)) { return null; }
     if (this._local == null) { this._local = this.getLocalTimezone(); }
     const zonedMoment = moment.tz.setDefault(courseTimezone);
     return zonedMoment;
   },
 
   unsyncCourseTimezone() {
-    if (this._local == null) { return; }
+    if (this._local == null) { return null; }
     const unzonedMoment = moment.tz.setDefault(this._local);
     this.unsetLocal();
     return unzonedMoment;

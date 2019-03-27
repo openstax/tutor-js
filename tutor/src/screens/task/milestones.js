@@ -17,7 +17,7 @@ class Milestone extends React.Component {
 
   @action.bound goToStep() {
     this.props.goToStep(
-      this.props.step, this.props.stepIndex
+      this.props.stepIndex, this.props.step
     );
   }
 
@@ -60,12 +60,13 @@ class Milestones extends React.Component {
 
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
-    goToStep: PropTypes.func.isRequired,
+    onHide: PropTypes.func.isRequired,
   }
 
 
-  @action.bound goToStep(step) {
-    this.props.goToStep(step);
+  @action.bound goToStep(index) {
+    this.props.ux.goToStep(index);
+    this.props.onHide();
   }
 
   render() {

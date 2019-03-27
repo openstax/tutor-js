@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, observer, computed, observable, action, styled,
+  React, PropTypes, observer, computed, observable, action,
 } from '../../helpers/react';
 import { isEmpty, map, pick, find } from 'lodash';
 import { Card } from 'react-bootstrap';
@@ -13,9 +13,29 @@ import {
 } from 'shared';
 import TourAnchor from '../tours/anchor';
 
-const FreeResponseReview = styled.div`
+const FreeResponseReview = ({ free_response, student_names }) => {
+  const freeResponseProps = { className: 'free-response' };
 
-`
+  if (student_names != null) {
+    freeResponseProps['data-student-names'] = student_names.join(', ');
+  }
+
+  if (!isEmpty(free_response)) {
+    return(
+      <div {...freeResponseProps}>
+        {free_response}
+      </div>
+    );
+  }
+
+  return null;
+};
+
+FreeResponseReview.propTypes = {
+  free_response: PropTypes.string,
+  student_names: PropTypes.array,
+};
+
 
 const TOGGLE_FREE_RESPONSE_LIMIT = 3;
 
@@ -128,6 +148,10 @@ function TaskTeacherReviewQuestionTracker(props) {
   );
 }
 
+TaskTeacherReviewQuestionTracker.propTypes = {
+  sectionKey: PropTypes.string.isRequired,
+};
+
 TaskTeacherReviewQuestionTracker.displayName = 'TaskTeacherReviewQuestionTracker';
 
 export default class TaskTeacherReviewExercise extends React.Component {
@@ -170,10 +194,6 @@ export default class TaskTeacherReviewExercise extends React.Component {
 
   render() {
     const { exercise } = this.props;
-    // <ExerciseGroup
-    //   project="tutor" key="step-exercise-group"
-    //   exercise_uid={exercise.uid}
-    // />
 
     return (
       <div

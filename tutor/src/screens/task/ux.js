@@ -6,6 +6,7 @@ import * as manipulations from './ux-task-manipulations';
 import StepGroup from '../../models/student-tasks/step-group';
 import ScrollTo from '../../helpers/scroll-to';
 import PageContentUX from './page-content-ux';
+import CenterControls from '../../components/navbar/center-controls';
 
 export default class TaskUX {
 
@@ -27,6 +28,11 @@ export default class TaskUX {
 
   @lazyGetter scroller = new ScrollTo({ windowImpl: this.window });
   @lazyGetter pageContentUX = new PageContentUX({ main: this });
+
+  @action isUnmounting() {
+    // value props
+    CenterControls.currentTaskStep = null;
+  }
 
   @computed get manipulated() {
     return reduce(
@@ -91,6 +97,9 @@ export default class TaskUX {
     this._stepIndex = Number(index);
 
     this.currentStep.fetchIfNeeded();
+
+
+    CenterControls.currentTaskStep = this.currentStep;
 
     if (recordInHistory) {
       this.router.history.push(

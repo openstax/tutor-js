@@ -1,8 +1,9 @@
-import { React, PropTypes, observer, action, observable, cn } from '../../helpers/react';
+import { React, PropTypes, observer, action, cn } from '../../helpers/react';
 import Overlay from '../../components/obscured-page/overlay';
 import PagingNavigation from '../../components/paging-navigation';
 import { Milestones } from './milestones';
 import UX from './ux';
+import MilestonesToggle from '../../components/navbar/milestones-toggle';
 
 export default
 @observer
@@ -13,21 +14,18 @@ class ProgressCard extends React.Component {
     children: PropTypes.node.isRequired,
   }
 
-  @observable showMilestones = false;
-
   @action.bound closeMilestones() {
-    this.showMilestones = false;
+    MilestonesToggle.isActive = false;
   }
 
   @action.bound renderMilestones() {
     const { ux } = this.props;
+
     return (
       <Milestones
+        ux={ux}
         id={ux.task.id}
-        goToStep={ux.goToStep}
-        filterClick={this.filterClickForMilestones}
-        handleTransitions={this.toggleMilestonesEntered}
-        showMilestones={this.showMilestones}
+        onHide={this.closeMilestones}
       />
     );
   }
@@ -47,9 +45,9 @@ class ProgressCard extends React.Component {
       >
         <Overlay
           id="task-milestones"
-          visible={this.showMilestones}
-          onHide={this.closeMilestones}
+          visible={MilestonesToggle.isActive}
           renderer={this.renderMilestones}
+          onHide={this.closeMilestones}
         />
         {children}
       </PagingNavigation>

@@ -1,41 +1,40 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { get } from 'lodash';
-import { computed } from 'mobx';
+import { computed, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
-import User from '../../models/user';
-import Courses from '../../models/courses-map';
-import { TaskPanelStore } from '../../flux/task-panel';
+import Course from '../../models/course';
 import TourRegion from '../tours/region';
 import TourAnchor from '../tours/anchor';
 import HighlightIcon from './highlight-icon';
+import NotesUX from '../../models/notes/ux';
 
 export default
 @observer
 class NoteSummaryToggle extends React.Component {
 
   static propTypes = {
-    courseId: PropTypes.string,
+    course: PropTypes.instanceOf(Course),
     type: PropTypes.oneOf(['reading', 'refbook']),
-    taskId: PropTypes.string,
-    taskStepIndex: PropTypes.any,
+    taskStep: PropTypes.shape({
+      canAnnotate: PropTypes.bool,
+    }),
   }
+
+  @observable static isActive = false;
 
   static contextTypes = {
     router: PropTypes.object,
   }
 
   @computed get isViewable() {
-    if (!this.props.courseId || !get(Courses.get(this.props.courseId), 'canAnnotate')) {
+    const { taskStep } = this.props;
+
+    if (!taskStep) {
       return false;
     }
 
-    if (this.props.type === 'refbook') {
-      return true;
-    }
-    const crumbs = TaskPanelStore.get(this.props.taskId);
-    return 'reading' === get(crumbs, `[${this.props.taskStepIndex-1}].type`);
+    return taskStep.canAnnotate;
   }
 
   render() {
@@ -44,13 +43,13 @@ class NoteSummaryToggle extends React.Component {
     return (
       <TourRegion
         id="student-highlighting-reading"
-        courseId={this.props.courseId}
+        courseId={this.props.course.id}
       >
         <TourAnchor id="student-highlighting-button">
           <button
-            onClick={User.notesUX.toggleSummary}
+            onClick={NotesUX.toggleSummary}
             className={cn('note-summary-toggle', {
-              active: User.notesUX.isSummaryVisible,
+              active: NotesUX.isSummaryVisible,
             })}
           >
             <HighlightIcon />
@@ -60,4 +59,4 @@ class NoteSummaryToggle extends React.Component {
     );
   }
 
-};
+}

@@ -39,7 +39,7 @@ class StatusMessage {
 
 }
 
-export default class AnnotatorUX {
+class AnnotatorUX {
 
   @observable isSummaryVisible = false;
 
@@ -54,3 +54,7 @@ export default class AnnotatorUX {
   @readonly statusMessage = new StatusMessage();
 
 }
+
+const ux = new AnnotatorUX();
+
+export default ux;

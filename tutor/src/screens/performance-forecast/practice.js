@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import _ from 'underscore';
-import classnames from 'classnames';
+import { isEmpty } from 'lodash';
 import Router from '../../helpers/router';
-import { CoursePracticeStore } from '../../flux/practice';
 
 export default class extends React.Component {
   static contextTypes = {
@@ -25,27 +23,14 @@ export default class extends React.Component {
   };
 
   isDisabled = () => {
-    const { page_ids, courseId } = this.props;
-
-    // Used to disable for CoursePracticeStore.isDisabled(courseId, {page_ids}) as well
-    //
-    // CoursePracticeStore.isDisabled(courseId, {page_ids}) is true when practice
-    // endpoint fails to return a practice.
-    return _.isEmpty(page_ids);
-  };
-
-  isErrored = () => {
-    const { page_ids, courseId } = this.props;
-
-    return !this.isDisabled() && CoursePracticeStore.isDisabled(courseId, { page_ids });
+    const { page_ids } = this.props;
+    return isEmpty(page_ids);
   };
 
   render() {
     const isDisabled = this.isDisabled();
-    const className = classnames({
-      'is-errored': this.isErrored(),
-    });
-    const props = { disabled: isDisabled, onClick: this.onClick, className };
+
+    const props = { disabled: isDisabled, onClick: this.onClick };
 
     return React.cloneElement(this.props.children, props);
   }

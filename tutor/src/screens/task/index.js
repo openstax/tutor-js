@@ -60,6 +60,10 @@ class TaskLoader extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.ux.isUnmounting();
+  }
+
   render() {
     const { task } = this.props;
     if (task.api.isPendingInitialFetch) {

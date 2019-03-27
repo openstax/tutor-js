@@ -6,8 +6,6 @@ import { action, computed, observable } from 'mobx';
 import UiSettings from 'shared/model/ui-settings';
 import Courses from './courses-map';
 import { UserTerms } from './user/terms';
-import NotesUX from './notes/ux';
-import lazyGetter from 'shared/helpers/lazy-getter';
 import ViewedTourStat from './user/viewed-tour-stat';
 import { read_csrf } from '../helpers/dom';
 
@@ -39,7 +37,6 @@ class User extends BaseModel {
   @field is_customer_service;
   @field terms_signatures_needed;
 
-  @lazyGetter notesUX = new NotesUX();
   @hasMany({ model: ViewedTourStat }) viewed_tour_stats;
 
   @computed get firstName() {

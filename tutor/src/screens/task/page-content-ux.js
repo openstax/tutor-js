@@ -9,6 +9,10 @@ export default class PageContentUX extends BookUX {
     this.mainUX = main;
   }
 
+  @computed get course() {
+    return this.mainUX.course;
+  }
+
   @computed get page() {
     return this.mainUX.currentStep.isReading ? this.mainUX.currentStep.content.page : null;
   }

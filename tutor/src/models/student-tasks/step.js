@@ -77,9 +77,9 @@ class StudentTaskStep extends BaseModel {
 
   @observable isFetched = false
 
-  // @computed get needsSaved() {
-  //   !this.is_completed || this.answer_id != this.pending_answer_id;
-  // }
+  @computed get canAnnotate() {
+    return this.isReading;
+  }
 
   @computed get isExercise() {
     return 'exercise' === this.type;
