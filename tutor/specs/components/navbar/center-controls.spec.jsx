@@ -29,13 +29,4 @@ describe('Center Controls', function() {
     cntrl.unmount();
   });
 
-  // fit('renders close milestones link when on milestones path', () => {
-  //   Router.currentMatch.mockImplementation(() => ({
-  //     entry: { name: 'viewTaskStepMilestones' },
-  //   }));
-  //   props.params.milestones = true;
-  //   const cntrl = mount(<CenterControls {...props} />, EnzymeContext.build());
-  //   expect(cntrl).toHaveRendered('.milestones-toggle.active');
-  // });
-
 });

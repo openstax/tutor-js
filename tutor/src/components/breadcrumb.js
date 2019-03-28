@@ -81,8 +81,6 @@ class Breadcrumb extends React.Component {
     if (step.labels != null) { crumbClasses = map(step.labels, label => `icon-${label}`); }
     const iconClasses = cn(`icon-${crumbType}`, crumbClasses);
 
-    //    {...propsToPassOn}
-
     return (
       <span
         className={classes}
