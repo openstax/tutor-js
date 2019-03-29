@@ -40,16 +40,6 @@
     }
   }
 
-  .milestones-toggle {
-    &:hover,
-    &.active {
-      .ox-icon {
-        color: $tutor-info;
-      }
-    }
-    // TODO find out about universal focus style.
-    &:focus {}
-  }
   .note-summary-toggle {
     background-color: transparent;
     border: none;

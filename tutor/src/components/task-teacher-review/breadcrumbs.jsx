@@ -4,7 +4,7 @@ import { map } from 'lodash';
 import { idType } from 'shared';
 import { observer } from 'mobx-react';
 import { computed, action } from 'mobx';
-import { BreadcrumbStatic } from '../breadcrumb';
+import TutorBreadcrumb from '../breadcrumb';
 import BackButton from '../buttons/back-button';
 import { Stats } from '../../models/task-plans/teacher/stats';
 import TeacherTaskPlan from '../../models/task-plans/teacher/plan';
@@ -36,8 +36,8 @@ class Breadcrumbs extends React.Component {
     const { currentStep, courseId, taskPlan } = this.props;
 
     const stepButtons = map(this.crumbs, crumb =>
-      <BreadcrumbStatic
-        crumb={crumb}
+      <TutorBreadcrumb
+        step={crumb}
         stepIndex={crumb.key}
         currentStep={currentStep}
         goToStep={this.goToStep}
@@ -61,4 +61,4 @@ class Breadcrumbs extends React.Component {
     );
   }
 
-};
+}

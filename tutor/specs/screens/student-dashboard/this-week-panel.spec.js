@@ -5,7 +5,7 @@ import { Factory, TimeMock, React } from '../../helpers';
 describe('This Week Events', () => {
 
   let props;
-  const now = new Date();
+  const now = new Date('2017-10-14T12:00:00.000Z');
   TimeMock.setTo(now);
 
   beforeEach(() => {

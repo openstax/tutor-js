@@ -113,7 +113,7 @@ exports[`choose exercises component matches snapshot 1`] = `
         <td>
           <span
             className="chapter-section"
-            data-chapter-section=""
+            data-chapter-section=".0"
           >
             
           </span>
@@ -149,7 +149,7 @@ exports[`choose exercises component matches snapshot 1`] = `
         <td>
           <span
             className="chapter-section"
-            data-chapter-section=""
+            data-chapter-section=".0"
           >
             
           </span>
@@ -185,7 +185,7 @@ exports[`choose exercises component matches snapshot 1`] = `
         <td>
           <span
             className="chapter-section"
-            data-chapter-section=""
+            data-chapter-section=".0"
           >
             
           </span>

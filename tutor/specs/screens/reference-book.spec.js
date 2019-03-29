@@ -11,12 +11,13 @@ jest.mock('../../../shared/src/components/html', () => ({ html }) =>
 const COURSE_ID = '1';
 
 describe('Reference Book Component', function() {
-  let props, ux, course, REFERENCE_BOOK, REFERENCE_BOOK_PAGE_DATA, router;
+  let props, ux, REFERENCE_BOOK, REFERENCE_BOOK_PAGE_DATA, router;
 
   beforeEach(function() {
     router = { foo: 1, history: { push: jest.fn() } };
     ux = new ReferenceBookUX(router);
     ux.book = Factory.book();
+    ux._course = Factory.course();
     ux.setChapterSection('2.1');
     props = {
       ux,

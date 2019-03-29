@@ -1,6 +1,4 @@
 import _ from 'underscore';
-
-import { TaskActions, TaskStore } from './task';
 import { CrudConfig, makeSimpleStore, extendConfig } from './helpers';
 import PeriodHelper from '../helpers/period';
 

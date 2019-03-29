@@ -1,37 +1,27 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { isArray, isString, isEmpty } from 'lodash';
-import { StepTitleStore } from '../flux/step-title';
+import { isEmpty } from 'lodash';
 import ChapterSection from '../models/chapter-section';
 
 class RelatedContent extends React.Component {
   static propTypes = {
-    contentId: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     hasLearningObjectives: PropTypes.bool,
     isChapterSectionHidden: PropTypes.bool,
     chapter_section: PropTypes.instanceOf(ChapterSection).isRequired,
   };
 
-  isIntro = () => {
-    return (isArray(this.props.chapter_section) &&
-      ((this.props.chapter_section.length === 1) ||
-        (this.props.chapter_section[1] === 0))) ||
-      (isString(this.props.chapter_section) &&
-        (this.props.chapter_section.indexOf('.') === -1));
-  };
+  isIntro() {
+    return 0 === this.props.chapter_section.section;
+  }
 
   render() {
-    let hasLearningObjectives;
+
     const {
-      contentId, title, chapter_section, isChapterSectionHidden,
+      title, chapter_section, isChapterSectionHidden, hasLearningObjectives,
     } = this.props;
 
     if (isEmpty(title) || this.isIntro()) { return null; }
-
-    if (hasLearningObjectives == null) {
-      hasLearningObjectives = StepTitleStore.hasLearningObjectives(contentId);
-    }
 
     return (
       <h4

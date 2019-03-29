@@ -29,7 +29,7 @@ Array [
       className="tour-anchor"
       data-tour-anchor-id="assignment-progress-status"
     >
-      2/3 answered
+      5/7 answered
     </span>
     <span
       className="tour-anchor"
@@ -66,7 +66,7 @@ Array [
   >
     0
     /
-    3
+    7
      answered on due date
   </div>,
 ]

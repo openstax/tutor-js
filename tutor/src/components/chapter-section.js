@@ -1,22 +1,21 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import { ChapterSectionMixin } from 'shared';
+import PropTypes from 'prop-types';
+import ChapterSectionModel from '../models/chapter-section';
 
-export default function ChapterSection({ section }) {
+export default
+function ChapterSection({ chapterSection }) {
 
   return (
     <span
       className="chapter-section"
-      data-chapter-section={ChapterSectionMixin.sectionFormat(section)}>
-      {ChapterSectionMixin.sectionFormat(section)}
+      data-chapter-section={chapterSection.key}
+    >
+      {chapterSection.asString}
     </span>
   );
 
 }
 
 ChapterSection.propTypes = {
-  section: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.string,
-  ]).isRequired,
+  chapterSection: PropTypes.instanceOf(ChapterSectionModel).isRequired,
 };

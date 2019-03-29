@@ -11,7 +11,7 @@ describe('Surveys Screen', () => {
     course.studentTaskPlans.fetch = jest.fn();
     course.studentTaskPlans.onLoaded({
       data: { tasks: [],
-        research_surveys: [Factory.data('ResearchSurvey')],
+        research_surveys: [Factory.bot.create('ResearchSurvey')],
       },
     });
     surveyRecord = course.studentTaskPlans.researchSurveys.values()[0];

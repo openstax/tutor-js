@@ -32,7 +32,7 @@ exports[`review exercises table renders selections 1`] = `
       <td>
         <span
           className="chapter-section"
-          data-chapter-section=""
+          data-chapter-section=".0"
         >
           
         </span>
@@ -68,7 +68,7 @@ exports[`review exercises table renders selections 1`] = `
       <td>
         <span
           className="chapter-section"
-          data-chapter-section=""
+          data-chapter-section=".0"
         >
           
         </span>
@@ -104,7 +104,7 @@ exports[`review exercises table renders selections 1`] = `
       <td>
         <span
           className="chapter-section"
-          data-chapter-section=""
+          data-chapter-section=".0"
         >
           
         </span>
@@ -140,7 +140,7 @@ exports[`review exercises table renders selections 1`] = `
       <td>
         <span
           className="chapter-section"
-          data-chapter-section=""
+          data-chapter-section=".0"
         >
           
         </span>

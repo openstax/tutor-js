@@ -17,7 +17,7 @@
     // padding-right: 40px;
     // margin-left: -40px;
     // margin-right: -40px;
-    background-color: $tutor-neutral-lighter;
+    //background-color: $tutor-neutral-lighter;
     .center-panel {
       margin: 0 auto;
 
@@ -36,8 +36,6 @@
 
     .page {
       @include tutor-book-content-body();
-
-      border: 1px solid $tutor-neutral-bright;
       background-color: $tutor-white;
 
       > section {

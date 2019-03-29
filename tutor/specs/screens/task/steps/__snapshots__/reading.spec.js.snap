@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Reading Tasks Screen matches snapshot 1`] = `
+.c1 {
+  -webkit-align-self: flex-end;
+  -ms-flex-item-align: end;
+  align-self: flex-end;
+  margin: 4rem;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  min-height: 400px;
+  width: 1000px;
+  border-radius: 0.25rem;
+  margin: 10rem auto;
+  border: 1px solid #e4e4e4;
+  border-radius: 0.25rem;
+}
+
+<div
+  className="content c0"
+>
+  <div />
+  <button
+    className="continue c1 btn btn-primary"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Continue
+  </button>
+</div>
+`;

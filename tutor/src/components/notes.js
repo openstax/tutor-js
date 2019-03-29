@@ -1,8 +1,7 @@
 import { React, PropTypes, observer, cn } from '../helpers/react';
-import { observable, action, computed, when } from 'mobx';
+import { observable, action, when } from 'mobx';
 import { autobind } from 'core-decorators';
 import { Icon, Logging } from 'shared';
-import User from '../models/user';
 import { last, debounce } from 'lodash';
 import SummaryPage from './notes/summary-page';
 import dom from '../helpers/dom';
@@ -11,6 +10,7 @@ import imagesComplete from '../helpers/images-complete';
 import Course from '../models/course';
 import { PageNotes } from '../models/notes';
 import EditBox from './notes/edit-box';
+import NotesUX from '../models/notes/ux';
 import SidebarButtons from './notes/sidebar-buttons';
 import InlineControls from './notes/inline-controls';
 import ScrollTo from '../helpers/scroll-to';
@@ -22,7 +22,7 @@ export default
 class NotesWidgetWrapper extends React.Component {
 
   static propTypes = {
-    course: PropTypes.instanceOf(Course).isRequired,
+    course: PropTypes.instanceOf(Course),
     children: PropTypes.node.isRequired,
     windowImpl: PropTypes.shape({
       open: PropTypes.func,
@@ -34,7 +34,7 @@ class NotesWidgetWrapper extends React.Component {
   render() {
     const { course, page } = this.props;
 
-    if (!course.canAnnotate) { return this.props.children; }
+    if (!course || !course.canAnnotate) { return this.props.children; }
 
     return (
       <NotesWidget
@@ -146,7 +146,7 @@ class NotesWidget extends React.Component {
   }
 
   initializePage = debounce(async () => {
-    this.ux.statusMessage.show({
+    NotesUX.statusMessage.show({
       type: 'info',
       message: 'Waiting for page to finish loading…',
     });
@@ -161,7 +161,7 @@ class NotesWidget extends React.Component {
     // create and attach notes to highlghter
     this.initializeHighlighter();
 
-    this.ux.statusMessage.hide();
+    NotesUX.statusMessage.hide();
 
   }, 100)
 
@@ -201,10 +201,10 @@ class NotesWidget extends React.Component {
 
     if (error) {
       this.pendingHighlight = null;
-      this.ux.statusMessage.show({ message: error, autoHide: true });
+      NotesUX.statusMessage.show({ message: error, autoHide: true });
     } else {
       this.pendingHighlight = highlight;
-      this.ux.statusMessage.hide();
+      NotesUX.statusMessage.hide();
     }
   }
 
@@ -321,10 +321,8 @@ class NotesWidget extends React.Component {
     };
   }
 
-  @computed get ux() { return User.notesUX; }
-
   @action.bound seeAll() {
-    this.ux.isSummaryVisible = true;
+    NotesUX.isSummaryVisible = true;
     this.activeNote = null;
   }
 
@@ -350,13 +348,13 @@ class NotesWidget extends React.Component {
   }
 
   renderStatusMessage() {
-    if (!this.ux.statusMessage.display) { return null; }
+    if (!NotesUX.statusMessage.display) { return null; }
 
     return (
       <div
-        className={cn('status-message-toast', this.ux.statusMessage.type)}
+        className={cn('status-message-toast', NotesUX.statusMessage.type)}
       >
-        <Icon type={this.ux.statusMessage.icon} /> {this.ux.statusMessage.message}
+        <Icon type={NotesUX.statusMessage.icon} /> {NotesUX.statusMessage.message}
       </div>
     );
   }
@@ -404,8 +402,8 @@ class NotesWidget extends React.Component {
         <div className="annotater-content" ref={this.setElement}>
           <Overlay
             id="notes-summary"
-            visible={this.ux.isSummaryVisible}
-            onHide={this.ux.hideSummary}
+            visible={NotesUX.isSummaryVisible}
+            onHide={NotesUX.hideSummary}
             renderer={this.renderSummaryPage}
           />
           {this.props.children}

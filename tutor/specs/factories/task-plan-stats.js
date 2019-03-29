@@ -1,6 +1,5 @@
 const {
-  Factory, sequence, uuid, reference, fake,
-  TITLES,
+  Factory, sequence, reference, fake, TITLES,
 } = require('./helpers');
 const { times, capitalize } = require('lodash');
 
@@ -23,7 +22,7 @@ Factory.define('TaskPlanStatPage')
   .incorrect_count(({ object }) => object.student_count - object.correct_count)
   .chapter_section(({ index }) => [ 1, index + 1 ])
   .exercises(({ parent }) =>
-    times(parent.object.total_count, (i) =>
+    times(parent.object.total_count, () =>
       Factory.create('TutorExercise', {
         question_stats: [
           Factory.create('TaskPlanExerciseStat', {

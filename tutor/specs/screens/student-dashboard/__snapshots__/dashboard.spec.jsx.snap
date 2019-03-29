@@ -351,7 +351,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               </div>
             </div>
             <a
-              aria-label="Work on reading: 24/7 synthesize content"
+              aria-label="Work on reading: transparent extend e-markets"
               className="task row reading"
               data-event-id={1}
               href="/course/1/task/1"
@@ -364,49 +364,6 @@ exports[`Student Dashboard matches snapshot 1`] = `
                 <i
                   aria-label="reading icon"
                   className="icon icon-lg icon-reading"
-                />
-              </div>
-              <div
-                className="title col-sm-5 col-10"
-              >
-                24/7 synthesize content
-              </div>
-              <div
-                className="due-at col-sm-3 col-5"
-              >
-                <time>
-                  Su Oct 18, 7:00am
-                </time>
-              </div>
-              <div
-                className="feedback col-sm-3 col-5"
-              >
-                <div
-                  className="c1"
-                >
-                  <span
-                    className="tour-anchor"
-                    data-tour-anchor-id="assignment-progress-status"
-                  >
-                    Not started
-                  </span>
-                </div>
-              </div>
-            </a>
-            <a
-              aria-label="Work on external: transparent extend e-markets"
-              className="task row external"
-              data-event-id={2}
-              href="/course/1/task/2"
-              onClick={[Function]}
-              tabIndex={-1}
-            >
-              <div
-                className="column-icon col-sm-1 col-2"
-              >
-                <i
-                  aria-label="external icon"
-                  className="icon icon-lg icon-external"
                 />
               </div>
               <div
@@ -437,10 +394,10 @@ exports[`Student Dashboard matches snapshot 1`] = `
               </div>
             </a>
             <a
-              aria-label="Work on event: clicks-and-mortar envisioneer e-services"
-              className="task row event"
-              data-event-id={3}
-              href="/course/1/task/3"
+              aria-label="Work on external: clicks-and-mortar envisioneer e-services"
+              className="task row external"
+              data-event-id={2}
+              href="/course/1/task/2"
               onClick={[Function]}
               tabIndex={-1}
             >
@@ -448,8 +405,8 @@ exports[`Student Dashboard matches snapshot 1`] = `
                 className="column-icon col-sm-1 col-2"
               >
                 <i
-                  aria-label="event icon"
-                  className="icon icon-lg icon-event"
+                  aria-label="external icon"
+                  className="icon icon-lg icon-external"
                 />
               </div>
               <div
@@ -470,12 +427,55 @@ exports[`Student Dashboard matches snapshot 1`] = `
                 <div
                   className="c1"
                 >
+                  <span
+                    className="tour-anchor"
+                    data-tour-anchor-id="assignment-progress-status"
+                  >
+                    Not started
+                  </span>
+                </div>
+              </div>
+            </a>
+            <a
+              aria-label="Work on event: user-centric morph convergence"
+              className="task row event"
+              data-event-id={3}
+              href="/course/1/task/3"
+              onClick={[Function]}
+              tabIndex={-1}
+            >
+              <div
+                className="column-icon col-sm-1 col-2"
+              >
+                <i
+                  aria-label="event icon"
+                  className="icon icon-lg icon-event"
+                />
+              </div>
+              <div
+                className="title col-sm-5 col-10"
+              >
+                user-centric morph convergence
+              </div>
+              <div
+                className="due-at col-sm-3 col-5"
+              >
+                <time>
+                  Su Oct 18, 7:00am
+                </time>
+              </div>
+              <div
+                className="feedback col-sm-3 col-5"
+              >
+                <div
+                  className="c1"
+                >
                   
                 </div>
               </div>
             </a>
             <a
-              aria-label="Work on homework: user-centric morph convergence"
+              aria-label="Work on homework: next-generation benchmark ROI"
               className="task row homework"
               data-event-id={4}
               href="/course/1/task/4"
@@ -493,7 +493,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               <div
                 className="title col-sm-5 col-10"
               >
-                user-centric morph convergence
+                next-generation benchmark ROI
               </div>
               <div
                 className="due-at col-sm-3 col-5"
@@ -520,7 +520,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                 >
                   0
                   /
-                  9
+                  8
                    answered on due date
                 </div>
               </div>

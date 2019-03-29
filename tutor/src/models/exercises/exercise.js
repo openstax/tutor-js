@@ -7,6 +7,7 @@ import Tag from './tag';
 import ExerciseContent from 'shared/model/exercise';
 import Page from '../reference-book/page';
 import { getters } from '../../helpers/computed-property';
+import ChapterSection from '../chapter-section';
 
 export default
 @identifiedBy('exercises/exercise')
@@ -14,7 +15,7 @@ class TutorExercise extends BaseModel {
 
   @identifier id;
   @field ecosystem_id;
-  @field({ type: 'object' }) content;
+
   @belongsTo({ model: ExerciseContent, inverseOf: 'wrapper' }) content;
   @belongsTo({ model: 'book' }) book;
   @belongsTo({ model: 'course' }) course;
@@ -32,6 +33,9 @@ class TutorExercise extends BaseModel {
       return reduce(filter(this, 'isImportant'),
         (o, t) => t.recordInfo(o),
         { lo: '', section: '', tagString: [] });
+    },
+    chapterSection() {
+      return new ChapterSection(this.importantInfo.section);
     },
   }) }) tags;
 
@@ -82,4 +86,4 @@ class TutorExercise extends BaseModel {
     return this.has_video;
   }
 
-};
+}

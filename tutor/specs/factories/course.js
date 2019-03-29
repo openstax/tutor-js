@@ -12,9 +12,9 @@ Factory.define('Period')
     const length = parent.periods ? parent.periods.length : 0;
     return `${ordinal(length + 1)}`;
   })
-  .enrollment_code(`${Math.round(Math.random() * 100000) + 10000}`)
+  .enrollment_code(`${fake.random.number({ min: 10000, max: 99999 })}`)
   .enrollment_url(({ object }) => `http://localhost:3001/enroll/${object.enrollment_code}`)
-  .num_enrolled_students(() => Math.round(Math.random() * 100) + 10)
+  .num_enrolled_students(() => fake.random.number({ min: 5, max: 80 }))
   .default_open_time('00:01')
   .default_due_time('07:00')
   .is_archived(false)

@@ -48,20 +48,16 @@ const getRoutes = (router) => {
           path: 'metrics/:id', name: 'reviewTask',
           renderer: r(() => import('./components/task-teacher-review')) },
         { path: 'task/:id', name: 'viewTask',
-          renderer: r(() => import('./components/task')),
+          renderer: r(() => import('./screens/task'), 'Assignment'),
           routes: [
             {
               path: 'step/:stepIndex', name: 'viewTaskStep',
-              renderer: r(() => import('./components/task')),
-              routes: [{
-                path: ':milestones', name: 'viewTaskStepMilestones',
-                renderer: r(() => import('./components/task')),
-              }],
+              renderer: r(() => import('./screens/task'), 'Assignment'),
             },
           ],
         }, {
           path: 'practice/:taskId?', name: 'practiceTopics',
-          renderer: r(() => import('./components/task/practice'), 'Practice'),
+          renderer: r(() => import('./screens/task/practice'), 'Practice'),
         }, {
           path: 'homework/:id', name: 'editHomework',
           renderer: r(() => import('./screens/assignment-builder/homework'), 'Homework') },

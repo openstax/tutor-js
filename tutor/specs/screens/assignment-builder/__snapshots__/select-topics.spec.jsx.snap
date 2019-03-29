@@ -152,7 +152,7 @@ exports[`Select Topics matches snapshot 1`] = `
               Chapter 
               <span
                 className="chapter-section"
-                data-chapter-section="1"
+                data-chapter-section="1.0"
               >
                 1
               </span>
@@ -317,7 +317,7 @@ exports[`Select Topics matches snapshot 1`] = `
               Chapter 
               <span
                 className="chapter-section"
-                data-chapter-section="2"
+                data-chapter-section="2.0"
               >
                 2
               </span>
@@ -482,7 +482,7 @@ exports[`Select Topics matches snapshot 1`] = `
               Chapter 
               <span
                 className="chapter-section"
-                data-chapter-section="3"
+                data-chapter-section="3.0"
               >
                 3
               </span>

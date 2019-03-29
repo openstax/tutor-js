@@ -1,7 +1,6 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { observer } from 'mobx-react';
-import { computed, observable, action } from 'mobx';
+import {
+  React, PropTypes, observer, computed, observable, action,
+} from '../../helpers/react';
 import { isEmpty, map, pick, find } from 'lodash';
 import { Card } from 'react-bootstrap';
 import classnames from 'classnames';
@@ -10,10 +9,33 @@ import { QuestionStats } from '../../models/task-plans/teacher/stats';
 
 import { Icon } from 'shared';
 import {
-  ArbitraryHtmlAndMath, Question, CardBody, FreeResponse,
-  ExerciseGroup, ExerciseIdentifierLink,
+  ArbitraryHtmlAndMath, Question, CardBody, ExerciseIdentifierLink,
 } from 'shared';
 import TourAnchor from '../tours/anchor';
+
+const FreeResponseReview = ({ free_response, student_names }) => {
+  const freeResponseProps = { className: 'free-response' };
+
+  if (student_names != null) {
+    freeResponseProps['data-student-names'] = student_names.join(', ');
+  }
+
+  if (!isEmpty(free_response)) {
+    return(
+      <div {...freeResponseProps}>
+        {free_response}
+      </div>
+    );
+  }
+
+  return null;
+};
+
+FreeResponseReview.propTypes = {
+  free_response: PropTypes.string,
+  student_names: PropTypes.array,
+};
+
 
 const TOGGLE_FREE_RESPONSE_LIMIT = 3;
 
@@ -84,7 +106,7 @@ class TaskTeacherReviewQuestion extends React.Component {
 
 
     const freeResponses = map(question.answers.withFreeResponse(), (answer, index) => (
-      <FreeResponse {...answer} key={`free-response-${question.id}-${index}`} />
+      <FreeResponseReview {...answer} key={`free-response-${question.id}-${index}`} />
     ));
 
     return (
@@ -125,6 +147,10 @@ function TaskTeacherReviewQuestionTracker(props) {
     </div>
   );
 }
+
+TaskTeacherReviewQuestionTracker.propTypes = {
+  sectionKey: PropTypes.string.isRequired,
+};
 
 TaskTeacherReviewQuestionTracker.displayName = 'TaskTeacherReviewQuestionTracker';
 
@@ -175,10 +201,6 @@ export default class TaskTeacherReviewExercise extends React.Component {
         <CardBody pinned={false}>
           {this.stimulusHTML}
           {map(exercise.question_stats, this.renderQuestion)}
-          <ExerciseGroup
-            project="tutor" key="step-exercise-group"
-            exercise_uid={exercise.uid}
-          />
           <TourAnchor id="errata-link">
             <ExerciseIdentifierLink exerciseId={exercise.content.uid} project="tutor" />
           </TourAnchor>

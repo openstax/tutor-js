@@ -5,8 +5,6 @@ import {
   BaseModel, identifiedBy, identifier, field, session,
 } from 'shared/model';
 import ChapterSection from '../chapter-section';
-import { StepTitleActions } from '../../flux/step-title';
-import { MediaActions } from '../../flux/media';
 
 const NON_ASSIGNABLE_TITLES = [
   'Visual Connection Questions',
@@ -64,12 +62,10 @@ class ReferenceBookPage extends BaseModel {
     return pg;
   }
 
-  //
-  @action fetchExercises() {
-  }
+  @action fetchExercises() {}
 
   @action ensureLoaded() {
-    if (!this.api.isPending && !this.api.hasBeenFetched) { this.fetchContent(); }
+    if (!this.content_html && !this.api.isPending && !this.api.hasBeenFetched) { this.fetchContent(); }
   }
 
   @computed get contents() {
@@ -90,8 +86,6 @@ class ReferenceBookPage extends BaseModel {
 
   @action onContentFetchComplete({ data }) {
     this.update(pick(data, UPDATEABLE_FIELDS));
-    MediaActions.parse(this.content_html);
-    StepTitleActions.parseMetaOnly(this.cnx_id, this.content_html);
   }
 
   @computed get asTopic() {
@@ -122,7 +116,7 @@ class ReferenceBookPage extends BaseModel {
   @computed get isAssignable() {
     return !includes(NON_ASSIGNABLE_TITLES, this.title);
   }
-};
+}
 
 // a mock page for use by entities such as exercises that need to indicate
 // they are not linked to a "real" page

@@ -1,14 +1,12 @@
-import { observable, computed, action, observe } from 'mobx';
+import { observable, computed, action } from 'mobx';
 import Router from '../../helpers/router';
-import { extend, first } from 'lodash';
+import { extend } from 'lodash';
 import User from '../../models/user';
 import MenuToggle from '../../components/book-menu/toggle';
 import SectionTitle from './section-title';
 import NotesSummaryToggle from './note-summary-toggle';
 import TeacherContentToggle from './teacher-content-toggle';
-import WindowSize from '../../models/window-size';
 import BookUX from '../../models/reference-book/ux';
-
 
 const TEACHER_CONTENT_SELECTOR = '.os-teacher';
 

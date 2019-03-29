@@ -25,10 +25,16 @@ import './exercise';
 import './scores';
 import './offering';
 import './course-roster';
+import { studentTasks, studentTask } from './student-tasks';
 import './note';
 
 const Factories = {
+  studentTask,
+  studentTasks,
   bot: FactoryBot,
+  setSeed(seed) {
+    return faker.seed(seed);
+  },
 };
 
 each({
@@ -49,16 +55,12 @@ each({
   };
 });
 
-Factories.setSeed = (seed) => faker.seed(seed);
-
-Factories.data = (...args) => FactoryBot.create(...args);
 
 Factories.coursesMap = ({ count = 2, ...attrs } = {}) => {
   const map = new CoursesMap();
   map.onLoaded({ data: range(count).map(() => FactoryBot.create('Course', attrs)) });
   return map;
 };
-
 
 Factories.ecosystemsMap = ({ count = 4 } = {}) => {
   const map = new EcosystemsMap();
@@ -93,6 +95,7 @@ Factories.studentTaskPlans = ({ course, count = 4, attributes = {} }) => {
     },
   });
 };
+
 
 Factories.courseRoster = ({ course }) => {
   course.roster.onApiRequestComplete({

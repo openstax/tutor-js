@@ -6,18 +6,19 @@ import { Col } from 'react-bootstrap';
 import { get } from 'lodash';
 import Time from '../../components/time';
 import Router from '../../helpers/router';
-import { Instructions } from '../../components/task/details';
 import classnames from 'classnames';
 import HideButton from './hide-button';
 import TaskProgressInfo from './task-progress-info';
 import Course from '../../models/course';
-
 
 const EventTime = ({ event }) => {
   if (event.is_deleted) { return null; }
   return <Time date={event.due_at} format="concise" />;
 };
 
+EventTime.propTypes = {
+  event:     PropTypes.object.isRequired,
+};
 
 export default
 @observer
@@ -71,9 +72,6 @@ class EventRow extends React.Component {
         </Col>
         <Col xs={10} sm={5} className="title">
           {event.title}
-          <Instructions
-            task={this.props.event}
-            popverClassName="student-dashboard-instructions-popover" />
         </Col>
         <Col xs={5} sm={3} className="due-at">
           <EventTime event={event} />
@@ -85,4 +83,4 @@ class EventRow extends React.Component {
       </a>
     );
   }
-};
+}

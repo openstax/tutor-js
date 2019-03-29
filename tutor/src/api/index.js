@@ -5,13 +5,9 @@
 // For example, `TaskActions.load` everntually yields either
 // `TaskActions.loaded` or `TaskActions.FAILED`
 import adapters from './adapter';
-import { pick } from 'lodash';
-import { CoursePracticeActions } from '../flux/practice';
 import { CourseGuideActions } from '../flux/guide';
 import * as PerformanceForecast from '../flux/performance-forecast';
 
-import { TaskActions } from '../flux/task';
-import { TaskStepActions, TaskStepStore } from '../flux/task-step';
 import { TaskPlanActions, TaskPlanStore } from '../flux/task-plan';
 import { CCDashboardActions } from '../flux/cc-dashboard';
 import Exercises from '../models/exercises';
@@ -34,7 +30,8 @@ import CourseCreate from '../models/course/create';
 import { StudentTaskPlans } from '../models/task-plans/student';
 import { TeacherTaskPlans } from '../models/task-plans/teacher';
 import { PastTaskPlans } from '../models/task-plans/teacher/past';
-import StudentTask from '../models/task-plans/student/task';
+import { StudentTasks, StudentTask, StudentTaskStep } from '../models/student-tasks';
+import StudentTaskPlan from '../models/task-plans/student/task';
 import Student from '../models/course/student';
 import CourseEnroll from '../models/course/enroll';
 import Payments from '../models/payments';
@@ -44,8 +41,6 @@ import CourseRoster from '../models/course/roster';
 import CourseLMS from '../models/course/lms';
 import CoursePairLMS from '../models/course/pair-to-lms';
 import CourseScores from '../models/scores';
-
-
 import ScoresExport from '../models/jobs/scores-export';
 import LmsPushScores from '../models/jobs/lms-score-push';
 import TaskResult from '../models/scores/task-result';
@@ -55,11 +50,12 @@ import TaskPlanStats from '../models/task-plans/teacher/stats';
 import { ResponseValidation } from '../models/response_validation';
 import { Notes, PageNotes, Note } from '../models/notes';
 
-const { connectModify, connectCreate, connectRead, connectUpdate, connectDelete, connectModelCreate, connectModelRead, connectModelUpdate, connectModelDelete } = adapters;
+const {
+  connectRead, connectUpdate, connectDelete,
+  connectModelCreate, connectModelRead, connectModelUpdate, connectModelDelete,
+} = adapters;
 
 const startAPI = function() {
-  connectRead(TaskActions, { pattern: 'tasks/{id}' });
-  connectDelete(TaskActions, { pattern: 'tasks/{id}' });
 
   connectRead(TaskPlanActions, { pattern: 'plans/{id}' });
   connectDelete(TaskPlanActions, { pattern: 'plans/{id}' });
@@ -83,21 +79,7 @@ const startAPI = function() {
 
 
   connectRead(CourseGuideActions, { pattern: 'courses/{id}/guide' });
-
   connectRead(CCDashboardActions, { pattern: 'courses/{id}/cc/dashboard' });
-  connectRead(CoursePracticeActions, { pattern: 'courses/{id}/practice' });
-
-  connectCreate(
-    CoursePracticeActions,
-    {
-      url({ courseId, query }) {
-        const url = `courses/${courseId}/practice`;
-        if ((query != null ? query.worst : undefined)) { return `${url}/worst`; } else { return url; }
-      },
-
-      data({ query }) { return query; },
-    },
-  );
 
   connectRead(PerformanceForecast.Student.actions, { pattern: 'courses/{id}/guide' });
   connectRead(PerformanceForecast.Teacher.actions, { pattern: 'courses/{id}/teacher_guide' });
@@ -107,57 +89,8 @@ const startAPI = function() {
     return { url, data };
   });
 
-
-  //  connectRead(EcosystemsActions, url: 'ecosystems')
-
-
-  connectRead(TaskStepActions, { pattern: 'steps/{id}' });
-  connectRead(
-    TaskStepActions,
-    { pattern: 'steps/{id}', trigger: 'loadPersonalized' },
-    {
-      handleError(...args) {
-        TaskStepActions.loadedNoPersonalized(...Array.from(args || []));
-        return true;
-      },
-    },
-  );
-  connectModify(
-    TaskActions,
-    { pattern: 'steps/{id}/completed', trigger: 'completeStep', onSuccess: 'stepCompleted' },
-    {
-      data(id) {
-        const step = TaskStepStore.get(id);
-        return pick(step, 'free_response', 'answer_id', 'garbage_estimate');
-      },
-    },
-  );
-
-  connectUpdate(
-    TaskStepActions,
-    { pattern: 'steps/{id}', trigger: 'saveFreeResponseAnswer' },
-    {
-      data(id) {
-        const step = TaskStepStore.get(id);
-        return pick(step, 'free_response', 'garbage_estimate');
-      },
-    },
-  );
-  connectUpdate(
-    TaskStepActions,
-    { pattern: 'steps/{id}', trigger: 'setAnswerId' },
-    {
-      data(id, answerId) {
-        return { answer_id: answerId };
-      },
-    },
-  );
-
   connectRead(ReferenceBookExerciseActions, { url(url) { return url; } });
-
-
   connectModelRead(Exercises.constructor, 'fetch', { onSuccess: 'onLoaded' });
-
   connectModelRead(Ecosystems.constructor, 'fetch', { onSuccess: 'onLoaded', url: 'ecosystems' });
 
   connectModelRead(ReferenceBook, 'fetch', { pattern: 'ecosystems/{id}/readings', onSuccess: 'onApiRequestComplete' });
@@ -274,8 +207,22 @@ const startAPI = function() {
     },
   );
 
+  connectModelCreate(StudentTasks, 'practice', {
+    pattern: 'courses/{courseId}/practice',
+  });
+
+  connectModelRead(StudentTask, 'fetch', { onSuccess: 'onApiRequestComplete', pattern: '/tasks/{id}' });
+
+  connectModelUpdate(StudentTaskStep, 'saveAnswer', {
+    onSuccess: 'onAnswerSaved', pattern: 'steps/{id}',
+  });
+
+  connectModelRead(StudentTaskStep, 'fetch', {
+    onSuccess: 'onLoaded', pattern: 'steps/{id}',
+  });
+
   connectModelRead(StudentTaskPlans, 'fetch', { onSuccess: 'onLoaded', pattern: 'courses/{course.id}/dashboard' });
-  connectModelDelete(StudentTask, 'hide', { onSuccess: 'onHidden', pattern: 'tasks/{id}' });
+  connectModelDelete(StudentTaskPlan, 'hide', { onSuccess: 'onHidden', pattern: 'tasks/{id}' });
 
   connectModelUpdate(Course, 'save', { pattern: 'courses/{id}', onSuccess: 'onApiRequestComplete' });
   connectModelUpdate(Course,

@@ -30,7 +30,7 @@ describe('Homework Row', function() {
     props.event.complete = true;
     props.event.completed_steps_count = 1;
     const row = mount(<Row {...props} />);
-    expect(row.find('Col[className="feedback"]').text()).toEqual('1/6 correct0/6 answered on due date');
+    expect(row.find('Col[className="feedback"]').text()).toContain('answered on due date');
     row.unmount();
   });
 

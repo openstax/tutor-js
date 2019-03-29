@@ -20,6 +20,7 @@ import TimeHelper from '../helpers/time';
 import Time from './time';
 import { getters } from '../helpers/computed-property';
 import moment from 'moment-timezone';
+import { StudentTasks } from './student-tasks';
 import { StudentTaskPlans } from './task-plans/student';
 import { TeacherTaskPlans } from './task-plans/teacher';
 import { PastTaskPlans } from './task-plans/teacher/past';
@@ -76,6 +77,16 @@ class Course extends BaseModel {
   @field reading_progress_weight;
   @field just_created = false;
 
+  @lazyGetter lms = new LMS({ course: this });
+  @lazyGetter roster = new Roster({ course: this });
+  @lazyGetter scores = new Scores({ course: this });
+  @lazyGetter notes = new Notes({ course: this });
+  @lazyGetter referenceBook = new ReferenceBook({ id: this.ecosystem_id });
+  @lazyGetter studentTaskPlans = new StudentTaskPlans({ course: this });
+  @lazyGetter teacherTaskPlans = new TeacherTaskPlans({ course: this });
+  @lazyGetter pastTaskPlans = new PastTaskPlans({ course: this });
+  @lazyGetter studentTasks = new StudentTasks({ course: this })
+  
   @hasMany({ model: Period, inverseOf: 'course', extend: getters({
     sorted() { return PH.sort(this.active);                        },
     archived() { return filter(this, period => !period.is_archived); },
@@ -116,15 +127,6 @@ class Course extends BaseModel {
       this.is_lms_enabled && !this.is_access_switchable
     );
   }
-
-  @lazyGetter lms = new LMS({ course: this });
-  @lazyGetter roster = new Roster({ course: this });
-  @lazyGetter scores = new Scores({ course: this });
-  @lazyGetter notes = new Notes({ course: this });
-  @lazyGetter referenceBook = new ReferenceBook({ id: this.ecosystem_id });
-  @lazyGetter studentTaskPlans = new StudentTaskPlans({ course: this });
-  @lazyGetter teacherTaskPlans = new TeacherTaskPlans({ course: this });
-  @lazyGetter pastTaskPlans = new PastTaskPlans({ course: this });
 
   @computed get nameCleaned() {
     const previewSuffix = ' Preview';

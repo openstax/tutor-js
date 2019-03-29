@@ -25,7 +25,7 @@ const StudentTaskFeedback = {
 };
 
 export default
-@identifiedBy('student/task')
+@identifiedBy('task-plans/student/task')
 class StudentTask extends BaseModel {
 
   @observable hidden = false;
@@ -112,4 +112,4 @@ class StudentTask extends BaseModel {
   onHidden() {
     this.hidden = true;
   }
-};
+}

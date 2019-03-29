@@ -25,4 +25,4 @@ class CourseRole extends BaseModel {
   joinedAgo(terms = 'days') {
     return moment(Time.now).diff(this.joined_at, terms);
   }
-};
+}
