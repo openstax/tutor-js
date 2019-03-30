@@ -1,7 +1,5 @@
 import { React, PropTypes, styled, observer } from '../../helpers/react';
-import {  autorun } from 'mobx';
 import { NavbarBottomShadow } from '../navbar.js';
-import WindowScroll from '../../models/window-scroll';
 
 const StyledSecondaryToolbar = styled.div`
   top: 0;

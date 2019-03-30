@@ -14,6 +14,7 @@ import PracticeWeakestButton from '../../components/buttons/practice-weakest';
 // Number of sections to display
 const NUM_SECTIONS = 4;
 
+// eslint-disable-next-line react/prefer-stateless-function
 class ProgressGuide extends React.Component {
 
   static propTypes = {

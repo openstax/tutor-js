@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
-import { keys } from 'lodash';
 import { observer } from 'mobx-react';
 
 const Instructions = observer((props) => {

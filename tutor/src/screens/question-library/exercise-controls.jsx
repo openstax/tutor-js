@@ -1,8 +1,7 @@
 import {
-  React, PropTypes, observer,
-  inject, styled, autobind, computed, action, idType, cn
+  React, PropTypes, observer, inject, autobind, cn,
 } from '../../helpers/react';
-import { keys, first } from 'lodash';
+import { keys } from 'lodash';
 import { Button, ButtonGroup } from 'react-bootstrap';
 
 import Course from '../../models/course';
@@ -14,6 +13,7 @@ class ExerciseControls extends React.Component {
   static propTypes = {
     course:      PropTypes.instanceOf(Course).isRequired,
     onSelectSections: PropTypes.func.isRequired,
+    children: PropTypes.node.isRequired,
     exercises: PropTypes.shape({
       all: PropTypes.object,
       homework: PropTypes.object,
@@ -57,9 +57,6 @@ class ExerciseControls extends React.Component {
 
   @autobind renderControls() {
     const { course } = this.props;
-    const sections = this.getSections();
-
-    const selected = this.props.selectedSection || first(sections);
 
     const filters =
       <TourAnchor id="exercise-type-toggle">

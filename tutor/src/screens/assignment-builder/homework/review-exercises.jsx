@@ -4,7 +4,7 @@ import { compact, map, isEmpty } from 'lodash';
 import Loading from 'shared/components/loading-animation';
 import { Icon } from 'shared';
 import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
-import { ExercisePreview, SuretyGuard, PinnedHeaderFooterCard } from 'shared';
+import { ExercisePreview, SuretyGuard } from 'shared';
 import { observer } from 'mobx-react';
 import Course from '../../../models/course';
 import Book from '../../../models/reference-book';
@@ -99,6 +99,9 @@ class ReviewExercises extends React.Component {
     course:     PropTypes.instanceOf(Course).isRequired,
     exercises:  PropTypes.instanceOf(ExercisesMap),
     planId:     PropTypes.string.isRequired,
+    canEdit:    PropTypes.bool,
+    canAdd:     PropTypes.bool,
+    showSectionTopics: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -161,4 +164,4 @@ class ReviewExercises extends React.Component {
     );
   }
 
-};
+}

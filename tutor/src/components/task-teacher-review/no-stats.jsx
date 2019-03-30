@@ -2,7 +2,6 @@ import React from 'react';
 import NoStudents from '../plan-stats/no-students';
 import CGL from '../course-grouping-label';
 import LoadingScreen from 'shared/components/loading-animation';
-import { PinnedHeaderFooterCard } from 'shared';
 
 // eslint-disable-next-line
 const NoStats = ({ taskPlan, header, course, period }) => {

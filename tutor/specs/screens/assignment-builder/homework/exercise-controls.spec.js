@@ -2,15 +2,10 @@ let defaultProps;
 import PropTypes from 'prop-types';
 import React from 'react';
 import ld from 'underscore';
-import { C } from '../../../helpers';
 import { TaskPlanActions  } from '../../../../src/flux/task-plan';
 import ExerciseControls from '../../../../src/screens/assignment-builder/homework/exercise-controls';
 
 import VALID_MODEL from '../../../../api/plans/2.json';
-
-const helper = function(props) {
-  return mount(<ExerciseControls {...props} />);
-};
 
 let props = (defaultProps = {
   planId: VALID_MODEL.id,

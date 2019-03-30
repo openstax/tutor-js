@@ -91,7 +91,7 @@ class TaskTeacherReview extends React.Component {
   }
 
   render() {
-    const { course, period, props: { params: { courseId } } } = this;
+    const { course, period } = this;
 
     return (
       <div

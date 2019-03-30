@@ -26,4 +26,4 @@ Menus.propTypes = {
   course: PropTypes.instanceOf(Course),
 };
 
-export { Menus }
+export { Menus };

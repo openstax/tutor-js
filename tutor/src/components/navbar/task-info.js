@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, styled, observable, computed } from '../../helpers/react';
+import { React, PropTypes, observer, styled } from '../../helpers/react';
 import Task from '../../models/student-tasks/task';
 import { Icon } from 'shared';
 import moment from 'moment-timezone';

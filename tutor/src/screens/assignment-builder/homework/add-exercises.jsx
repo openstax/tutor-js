@@ -22,6 +22,9 @@ class AddExercises extends React.Component {
     planId:     PropTypes.string.isRequired,
     onAddClick: PropTypes.func.isRequired,
     pageIds:    ArrayOrMobxType.isRequired,
+    canEdit:    PropTypes.bool,
+    hide:       PropTypes.func,
+    cancel:     PropTypes.func,
   };
 
   static defaultProps = {
