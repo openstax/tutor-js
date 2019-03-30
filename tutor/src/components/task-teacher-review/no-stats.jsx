@@ -4,6 +4,7 @@ import CGL from '../course-grouping-label';
 import LoadingScreen from 'shared/components/loading-animation';
 import { PinnedHeaderFooterCard } from 'shared';
 
+// eslint-disable-next-line
 const NoStats = ({ taskPlan, header, course, period }) => {
   if (!taskPlan.analytics.api.hasBeenFetched) {
     return <LoadingScreen />;
@@ -18,15 +19,14 @@ const NoStats = ({ taskPlan, header, course, period }) => {
   );
 
   return (
-    <PinnedHeaderFooterCard
+    <div
       className="task-teacher-review no-stats"
-      fixedOffset={0}
-      header={header}
       cardType="task"
     >
+      {header}
       <h1>No activity yet</h1>
       {body}
-    </PinnedHeaderFooterCard>
+    </div>
   );
 };
 

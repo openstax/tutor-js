@@ -132,21 +132,20 @@ class ReviewExercises extends React.Component {
       );
     }
 
-    const controls = (
-      <ExerciseControls
-        canAdd={canAdd}
-        addClicked={showSectionTopics}
-        hideDisplayControls={true}
-        planId={planId}
-      />
-    );
-
-    const exerciseTable =
-      <ExerciseTable exercises={exercises} course={course} planId={planId} />;
-
     return (
-      <PinnedHeaderFooterCard containerBuffer={50} header={controls} cardType="homework-builder">
-        {exerciseTable}
+      <div className="homework-builder-view">
+        <ExerciseControls
+          unDocked
+          canAdd={canAdd}
+          addClicked={showSectionTopics}
+          hideDisplayControls={true}
+          planId={planId}
+        />
+        <ExerciseTable
+          course={course}
+          planId={planId}
+          exercises={exercises}
+        />
         <div className="card-list exercises">
           {map(exercises, (ex, i) =>
             <ReviewExerciseCard
@@ -158,7 +157,7 @@ class ReviewExercises extends React.Component {
               isLast={i === (exercises.length - 1)}
               exercise={ex} />)}
         </div>
-      </PinnedHeaderFooterCard>
+      </div>
     );
   }
 

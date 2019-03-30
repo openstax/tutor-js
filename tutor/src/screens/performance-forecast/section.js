@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
-import { ChapterSectionMixin } from 'shared';
 import ChapterSectionType from './chapter-section-type';
 import ProgressBar from './progress-bar';
 import Statistics from './statistics';
+import ChapterSection from '../../models/chapter-section';
 
 export default createReactClass({
   displayName: 'PerformanceForecastSection',
@@ -16,16 +16,14 @@ export default createReactClass({
     canPractice: PropTypes.bool,
   },
 
-  mixins: [ChapterSectionMixin],
-
   render() {
     const { section } = this.props;
-
+    const cs = new ChapterSection(section.chapter_section);
     return (
       <div className="section">
         <h4 className="heading">
           <span className="number">
-            {this.sectionFormat(section.chapter_section)}
+            {cs.asString}
           </span>
           <span className="title" title={section.title}>
             {section.title}
@@ -33,7 +31,7 @@ export default createReactClass({
         </h4>
         <ProgressBar
           {...this.props}
-          ariaLabel={`${this.sectionFormat(section.chapter_section)} ${section.title}`} />
+          ariaLabel={`cs.asString ${section.title}`} />
         <Statistics
           courseId={this.props.courseId}
           roleId={this.props.roleId}

@@ -1,8 +1,8 @@
-import { ld, Factory } from '../../helpers';
+import { Factory } from '../../helpers';
 import moment from 'moment';
 
-import { TaskPlanActions, TaskPlanStore } from '../../../src/flux/task-plan';
-import { TimeActions, TimeStore } from '../../../src/flux/time';
+import { TaskPlanActions } from '../../../src/flux/task-plan';
+import { TimeStore } from '../../../src/flux/time';
 
 import PlanFooter from '../../../src/screens/assignment-builder/footer';
 import { ExtendBasePlan, PlanRenderHelper } from './task-plan-helper';
@@ -11,6 +11,8 @@ const ISO_DATE_FORMAT = 'YYYY-MM-DD';
 
 jest.mock('../../../src/models/courses-map', () => ({
   get: jest.fn(() => ({ appearance_code: 'college_physics' }) ),
+  teaching: { any: false },
+  active: { isEmpty: false, teaching: { any: false, nonPreview: { any: false } } },
 }));
 
 const twoDaysBefore = moment(TimeStore.getNow()).subtract(2, 'days').format(ISO_DATE_FORMAT);

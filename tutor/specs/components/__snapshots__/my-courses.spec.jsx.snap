@@ -2,190 +2,218 @@
 
 exports[`My Courses Component matches snapshot 1`] = `
 <div
-  className="my-courses"
-  data-tour-region-id="my-courses"
+  className="openstax-debug-content"
 >
   <div
-    className="my-courses-current"
+    data-purpose="tour-conductor-wrapper"
   >
-    <div
-      className="container"
-    >
+    <div>
       <div
-        className="my-courses-title row"
+        className="my-courses"
+        data-tour-region-id="my-courses"
       >
         <div
-          className="col-12"
-        >
-          <h1>
-            Current Courses
-          </h1>
-        </div>
-      </div>
-      <div
-        className="my-courses-section my-courses-current-section row"
-      >
-        <div
-          className="col-lg-3 col-md-4 col-sm-6 col-12"
+          className="my-courses-current"
         >
           <div
-            className="my-courses-item-wrapper"
+            className="container"
           >
             <div
-              className="my-courses-item"
-              data-appearance="testing"
-              data-book-title="Testing"
-              data-course-course-type="tutor"
-              data-course-id="1"
-              data-is-preview={false}
-              data-is-teacher={false}
-              data-term="Spring 2017"
-              data-title="Local Test Course One"
+              className="my-courses-title row"
             >
               <div
-                className="my-courses-item-title"
+                className="col-12"
               >
-                <a
-                  href="/course/1"
-                  onClick={[Function]}
-                >
-                  Local Test Course One
-                </a>
-              </div>
-              <div
-                className="my-courses-item-details"
-                data-has-controls={false}
-              >
-                <a
-                  href="/course/1"
-                  onClick={[Function]}
-                >
-                  <p
-                    className="course-branding my-courses-item-brand"
-                    data-is-beta={true}
-                  >
-                    OpenStax Tutor
-                  </p>
-                  <p
-                    className="my-courses-item-term"
-                  >
-                    spring
-                     
-                    2017
-                  </p>
-                </a>
+                <h1>
+                  Current Courses
+                </h1>
               </div>
             </div>
-          </div>
-        </div>
-        <div
-          className="col-lg-3 col-md-4 col-sm-6 col-12"
-        >
-          <div
-            className="my-courses-item-wrapper"
-          >
             <div
-              className="my-courses-item"
-              data-appearance="testing"
-              data-book-title="Testing"
-              data-course-course-type="tutor"
-              data-course-id="3"
-              data-is-preview={false}
-              data-is-teacher={true}
-              data-term="Spring 2017"
-              data-title="Local Test Course Three"
+              className="my-courses-section my-courses-current-section row"
             >
               <div
-                className="my-courses-item-title"
+                className="col-lg-3 col-md-4 col-sm-6 col-12"
               >
-                <a
-                  href="/course/3"
-                  onClick={[Function]}
+                <div
+                  className="my-courses-item-wrapper"
                 >
-                  Local Test Course Three
-                </a>
+                  <div
+                    className="my-courses-item"
+                    data-appearance="testing"
+                    data-book-title="Testing"
+                    data-course-course-type="tutor"
+                    data-course-id="1"
+                    data-is-preview={false}
+                    data-is-teacher={false}
+                    data-term="Spring 2017"
+                    data-title="Local Test Course One"
+                  >
+                    <div
+                      className="my-courses-item-title"
+                    >
+                      <a
+                        href="/course/1"
+                        onClick={[Function]}
+                      >
+                        Local Test Course One
+                      </a>
+                    </div>
+                    <div
+                      className="my-courses-item-details"
+                      data-has-controls={false}
+                    >
+                      <a
+                        href="/course/1"
+                        onClick={[Function]}
+                      >
+                        <p
+                          className="course-branding my-courses-item-brand"
+                          data-is-beta={true}
+                        >
+                          OpenStax Tutor
+                        </p>
+                        <p
+                          className="my-courses-item-term"
+                        >
+                          spring
+                           
+                          2017
+                        </p>
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div
-                className="my-courses-item-details"
-                data-has-controls={false}
+                className="col-lg-3 col-md-4 col-sm-6 col-12"
               >
-                <a
-                  href="/course/3"
-                  onClick={[Function]}
+                <div
+                  className="my-courses-item-wrapper"
                 >
-                  <p
-                    className="course-branding my-courses-item-brand"
-                    data-is-beta={true}
+                  <div
+                    className="my-courses-item"
+                    data-appearance="testing"
+                    data-book-title="Testing"
+                    data-course-course-type="tutor"
+                    data-course-id="3"
+                    data-is-preview={false}
+                    data-is-teacher={true}
+                    data-term="Spring 2017"
+                    data-title="Local Test Course Three"
                   >
-                    OpenStax Tutor
-                  </p>
-                  <p
-                    className="my-courses-item-term"
-                  >
-                    spring
-                     
-                    2017
-                  </p>
-                </a>
+                    <div
+                      className="my-courses-item-title"
+                    >
+                      <a
+                        href="/course/3"
+                        onClick={[Function]}
+                      >
+                        Local Test Course Three
+                      </a>
+                    </div>
+                    <div
+                      className="my-courses-item-details"
+                      data-has-controls={false}
+                    >
+                      <a
+                        href="/course/3"
+                        onClick={[Function]}
+                      >
+                        <p
+                          className="course-branding my-courses-item-brand"
+                          data-is-beta={true}
+                        >
+                          OpenStax Tutor
+                        </p>
+                        <p
+                          className="my-courses-item-term"
+                        >
+                          spring
+                           
+                          2017
+                        </p>
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="col-lg-3 col-md-4 col-sm-6 col-12"
-        >
-          <div
-            className="my-courses-item-wrapper"
-          >
-            <div
-              className="my-courses-item"
-              data-appearance="testing"
-              data-book-title="Testing"
-              data-course-course-type="tutor"
-              data-course-id="2"
-              data-is-preview={false}
-              data-is-teacher={true}
-              data-term="Spring 2017"
-              data-title="Local Test Course Two"
-            >
               <div
-                className="my-courses-item-title"
+                className="col-lg-3 col-md-4 col-sm-6 col-12"
               >
-                <a
-                  href="/course/2"
-                  onClick={[Function]}
+                <div
+                  className="my-courses-item-wrapper"
                 >
-                  Local Test Course Two
-                </a>
-              </div>
-              <div
-                className="my-courses-item-details"
-                data-has-controls={false}
-              >
-                <a
-                  href="/course/2"
-                  onClick={[Function]}
-                >
-                  <p
-                    className="course-branding my-courses-item-brand"
-                    data-is-beta={true}
+                  <div
+                    className="my-courses-item"
+                    data-appearance="testing"
+                    data-book-title="Testing"
+                    data-course-course-type="tutor"
+                    data-course-id="2"
+                    data-is-preview={false}
+                    data-is-teacher={true}
+                    data-term="Spring 2017"
+                    data-title="Local Test Course Two"
                   >
-                    OpenStax Tutor
-                  </p>
-                  <p
-                    className="my-courses-item-term"
-                  >
-                    spring
-                     
-                    2017
-                  </p>
-                </a>
+                    <div
+                      className="my-courses-item-title"
+                    >
+                      <a
+                        href="/course/2"
+                        onClick={[Function]}
+                      >
+                        Local Test Course Two
+                      </a>
+                    </div>
+                    <div
+                      className="my-courses-item-details"
+                      data-has-controls={false}
+                    >
+                      <a
+                        href="/course/2"
+                        onClick={[Function]}
+                      >
+                        <p
+                          className="course-branding my-courses-item-brand"
+                          data-is-beta={true}
+                        >
+                          OpenStax Tutor
+                        </p>
+                        <p
+                          className="my-courses-item-term"
+                        >
+                          spring
+                           
+                          2017
+                        </p>
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <div
+      className="visible-when-debugging"
+    >
+      <div
+        className="tour-spy-info"
+      >
+        available regions: []; region tour ids: []; audience tags: [teacher,teacher-not-previewed]; tour tags: []; eligible tours: []; TOUR RIDE: &lt;none&gt;
+      </div>
+    </div>
   </div>
+  <a
+    aria-hidden="true"
+    className="debug-toggle-link"
+    href="#spy"
+    onClick={[Function]}
+    tabIndex={-1}
+  >
+    π
+  </a>
 </div>
 `;

@@ -4,16 +4,17 @@ import { map, pick } from 'lodash';
 import createReactClass from 'create-react-class';
 import { Button, Card, Col, Row } from 'react-bootstrap';
 import classnames from 'classnames';
+import ChapterSectionModel from '../../models/chapter-section';
 import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
 import SelectTopics from './select-topics';
 import PlanFooter from './footer';
 import Page from '../../models/reference-book/page';
-import ChapterSection from './chapter-section';
 import PlanMixin from './plan-mixin';
 import TaskPlanBuilder from './builder';
 import NoQuestionsTooltip from './reading/no-questions-tooltip';
 import Fn from '../../helpers/function';
 import { Icon } from 'shared';
+import ChapterSection from '../../components/chapter-section';
 import Courses from '../../models/courses-map';
 import TourRegion from '../../components/tours/region';
 
@@ -61,11 +62,11 @@ class ReviewReading extends React.Component {
   render() {
     const { page } = this.props;
     if (!page) { return null; }
-
+    const cs = new ChapterSectionModel(page.chapter_section);
     const actionButtons = this.getActionButtons();
     return (
       <li className="selected-section">
-        <ChapterSection section={page.chapter_section.asString} />
+        <ChapterSection chapterSection={cs.key} />
         <span className="section-title">
           {page.title}
         </span>

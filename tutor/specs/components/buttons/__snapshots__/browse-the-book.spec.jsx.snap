@@ -1,13 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`_class3 renders and matches snapshot 1`] = `
-<a
-  aria-label="Browse course reference book"
-  className="browse-the-book btn btn-default"
-  href="/book/1/section/1.2"
-  onClick={[Function]}
-  target="_blank"
+<div
+  className="openstax-debug-content"
 >
-  Browse the Book
-</a>
+  <div
+    data-purpose="tour-conductor-wrapper"
+  >
+    <div>
+      <a
+        aria-label="Browse course reference book"
+        className="browse-the-book btn btn-default"
+        href="/book/1/section/1.2"
+        onClick={[Function]}
+        target="_blank"
+      >
+        Browse the Book
+      </a>
+    </div>
+    <div
+      className="visible-when-debugging"
+    >
+      <div
+        className="tour-spy-info"
+      >
+        available regions: []; region tour ids: []; audience tags: []; tour tags: []; eligible tours: []; TOUR RIDE: &lt;none&gt;
+      </div>
+    </div>
+  </div>
+  <a
+    aria-hidden="true"
+    className="debug-toggle-link"
+    href="#spy"
+    onClick={[Function]}
+    tabIndex={-1}
+  >
+    π
+  </a>
+</div>
 `;

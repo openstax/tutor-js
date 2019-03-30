@@ -7,6 +7,7 @@ exports[`Preview Add Course Button renders and matches snapshot 1`] = `
   <div
     data-purpose="tour-conductor-wrapper"
   >
+    <div />
     <div
       className="visible-when-debugging"
     >

@@ -108,9 +108,9 @@ export default class QaScreenUX extends BookUX {
     this.router.history.push(path);
   }
 
-  setNavBar(nav) {
+  @action setNavBar(nav) {
     nav.childProps.set('ux', this);
-    nav.left.merge({
+    nav.left.replace({
       'slide-out-menu-toggle': MenuToggle,
     });
     nav.right.merge({

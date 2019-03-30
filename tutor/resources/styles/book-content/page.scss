@@ -12,15 +12,8 @@
   }
 
   .content {
-    padding-top: 75px;
-    // padding-left: 40px;
-    // padding-right: 40px;
-    // margin-left: -40px;
-    // margin-right: -40px;
-    //background-color: $tutor-neutral-lighter;
     .center-panel {
       margin: 0 auto;
-
       // always wrap around elements by extending bootstrap's clearfix
       @include clearfix;
     }

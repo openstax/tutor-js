@@ -7,7 +7,6 @@ import Router from '../../helpers/router';
 import LoadableItem from '../../components/loadable-item';
 import { isEmpty } from 'lodash';
 import * as PerformanceForecast from '../../flux/performance-forecast';
-import { ChapterSectionMixin } from 'shared';
 import PerformanceForecastColorKey from '../../screens/performance-forecast/color-key';
 import Section from '../../screens/performance-forecast/section';
 import PracticeWeakestButton from '../../components/buttons/practice-weakest';
@@ -62,8 +61,6 @@ const ProgressGuideCards = createReactClass({
     courseId: PropTypes.string.isRequired,
   },
 
-  mixins: [ChapterSectionMixin],
-
   viewPerformanceForecast() {
     return this.context.router.history.push(
       Router.makePathname('viewPerformanceGuide', this.props)
@@ -96,7 +93,7 @@ const ProgressGuideCards = createReactClass({
               </li>
               {sections.map((section) =>
                 <li>
-                  {this.sectionFormat(section.chapter_section)}
+                  {section.chapter_section.asString}
                   {' section.title'}
                 </li>)}
             </ul>

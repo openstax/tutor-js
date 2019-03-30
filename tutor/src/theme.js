@@ -45,6 +45,14 @@ const TutorTheme = {
 
   },
 
+  navbars: {
+    top: {
+      height: '60px',
+    },
+    bottom: {
+      height: '50px',
+    },
+  },
 
   borders: {
     box: `1px solid ${neutral.lighter}`,

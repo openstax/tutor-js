@@ -40,7 +40,7 @@ export default class ReferenceBookUX extends BookUX {
   @action setNavBar(nav) {
     nav.className='reference-book';
     nav.childProps.set('ux', this);
-    nav.left.merge({
+    nav.left.replace({
       'slide-out-menu-toggle': MenuToggle,
       'section-title': SectionTitle,
     });
@@ -48,9 +48,11 @@ export default class ReferenceBookUX extends BookUX {
       'note-toggle': NotesSummaryToggle,
     });
     if (this.course && this.course.isTeacher) {
-      nav.right.merge({
+      nav.right.replace({
         'teacher-content-toggle': TeacherContentToggle,
       });
+    } else {
+      nav.right.clear();
     }
     this.navBar = nav;
   }

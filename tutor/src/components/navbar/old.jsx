@@ -61,7 +61,9 @@ class DefaultNavBar extends React.Component {
           <ServerErrorMonitoring />
           <TermsModal canBeDisplayed={Boolean(courseId)} />
           <Toasts />
-          <CourseNagModal key={this.course || 'no-course'} course={this.course} />
+          <CourseNagModal
+            key={this.course || 'no-course'}
+            course={this.course} />
         </Nav>
       </Navbar>
     );

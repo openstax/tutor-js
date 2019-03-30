@@ -4,7 +4,6 @@ import { Button } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
-import { PinnedHeaderFooterCard } from 'shared';
 import Loading from 'shared/components/loading-animation';
 import { ArrayOrMobxType } from 'shared/helpers/react';
 import { Icon } from 'shared';
@@ -24,6 +23,9 @@ const ExerciseDetailsWrapper = props => (
     <ExerciseDetails {...props} />
   </TourRegion>
 );
+ExerciseDetailsWrapper.propTypes = {
+  course: PropTypes.instanceOf(Course).isRequired,
+};
 
 const ExerciseCardsWrapper = props => (
   <TourRegion
@@ -34,18 +36,21 @@ const ExerciseCardsWrapper = props => (
     <ExerciseCards {...props} />
   </TourRegion>
 );
+ExerciseCardsWrapper.propTypes = {
+  course: PropTypes.instanceOf(Course).isRequired,
+};
 
 @observer
 class ExercisesDisplay extends React.Component {
 
   static propTypes = {
-    course:      PropTypes.instanceOf(Course).isRequired,
-    exercises:   PropTypes.instanceOf(ExercisesMap),
-    pageIds:     ArrayOrMobxType.isRequired,
-    onSelectSections: PropTypes.func.isRequired,
+    course:                 PropTypes.instanceOf(Course).isRequired,
+    pageIds:                ArrayOrMobxType.isRequired,
+    exercises:              PropTypes.instanceOf(ExercisesMap),
+    showingDetails:         PropTypes.bool.isRequired,
+    onSelectSections:       PropTypes.func.isRequired,
+    onShowCardViewClick:    PropTypes.func.isRequired,
     onShowDetailsViewClick: PropTypes.func.isRequired,
-    onShowCardViewClick: PropTypes.func.isRequired,
-    showingDetails: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -61,42 +66,6 @@ class ExercisesDisplay extends React.Component {
     this.filter = filter;
   };
 
-  renderControls = (exercises) => {
-
-    let sectionizerProps;
-
-    if (this.props.showingDetails) {
-      sectionizerProps = {
-        currentSection: this.currentSection,
-        onSectionClick: this.setCurrentSection,
-      };
-    }
-
-    return (
-      <ExerciseControls
-        onSelectSections={this.props.onSelectSections}
-        filter={this.filter}
-        course={this.props.course}
-        showingDetails={this.props.showingDetails}
-        onFilterChange={this.onFilterChange}
-        onSectionSelect={this.scrollToSection}
-        onShowCardViewClick={this.onShowCardViewClick}
-        onShowDetailsViewClick={this.onShowDetailsViewClick}
-        exercises={exercises}
-      >
-        <ScrollSpy dataSelector="data-section">
-          <Sectionizer
-            ref="sectionizer"
-            {...sectionizerProps}
-            nonAvailableWidth={600}
-            onScreenElements={[]}
-            chapter_sections={this.props.course.referenceBook.sectionsForPageIds(this.props.pageIds)}
-          />
-        </ScrollSpy>
-      </ExerciseControls>
-    );
-  };
-
   // called by sectionizer and details view
   setCurrentSection = (currentSection) => {
     this.currentSection = currentSection;
@@ -109,9 +78,6 @@ class ExercisesDisplay extends React.Component {
   }
 
   @action.bound onShowCardViewClick(ev, exercise) {
-    // The pinned header doesn't notice when the elements above it are unhidden
-    // and will never unstick by itself.
-    this.refs.controls.unPin();
     this.fromDetailsExercise = exercise;
     this.props.onShowCardViewClick(ev, this.fromDetailsExercise);
   }
@@ -285,16 +251,40 @@ class ExercisesDisplay extends React.Component {
       return <Loading />;
     }
 
+    let sectionizerProps;
+
+    if (this.props.showingDetails) {
+      sectionizerProps = {
+        currentSection: this.currentSection,
+        onSectionClick: this.setCurrentSection,
+      };
+    }
     return (
       <div className="exercises-display">
-        <PinnedHeaderFooterCard
-          ref="controls"
-          containerBuffer={0}
-          header={this.renderControls(exercises)}
-          cardType="sections-questions"
-        >
+        <div className="sections-questions-view">
+          <ExerciseControls
+            onSelectSections={this.props.onSelectSections}
+            filter={this.filter}
+            course={this.props.course}
+            showingDetails={this.props.showingDetails}
+            onFilterChange={this.onFilterChange}
+            onSectionSelect={this.scrollToSection}
+            onShowCardViewClick={this.onShowCardViewClick}
+            onShowDetailsViewClick={this.onShowDetailsViewClick}
+            exercises={exercises}
+          >
+            <ScrollSpy dataSelector="data-section">
+              <Sectionizer
+                ref="sectionizer"
+                {...sectionizerProps}
+                nonAvailableWidth={600}
+                onScreenElements={[]}
+                chapter_sections={this.props.course.referenceBook.sectionsForPageIds(this.props.pageIds)}
+              />
+            </ScrollSpy>
+          </ExerciseControls>
           {this.renderExercises(this.filter ? exercises[this.filter] : exercises.all)}
-        </PinnedHeaderFooterCard>
+        </div>
       </div>
     );
   }

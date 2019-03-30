@@ -12,7 +12,7 @@ $icon-size-xlg: $icon-size-xs * 6;
   background-size: $size $size;
   background-repeat: no-repeat;
   background-position: center;
-  @include transition("transform .1s ease-in-out, margin .3s ease-in-out");
+  transition: transform .1s ease-in-out, margin .3s ease-in-out;
 }
 
 @mixin x-icon-bg($name) {

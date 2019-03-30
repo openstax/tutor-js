@@ -4,8 +4,10 @@ import { observable, computed } from 'mobx';
 
 class Region extends Map {
 
+  keyType = String
+
   constructor(context) {
-    super({}, { keyType: String });
+    super();
     this.context = context;
   }
 
@@ -15,20 +17,17 @@ class Region extends Map {
 
   @computed get components() {
     return this.keys().map((k) => {
-      return React.createElement('div', {
-        key: k,
-        'data-nav-id': k,
-        className: 'navbar-item',
-      }, React.createElement(
+      return React.createElement(
         this.get(k),
-        Map.toObject(this.context.childProps),
-      ));
+        Object.assign(Map.toObject(this.context.childProps), { key: k })
+      );
     });
   }
 
 }
 
-export default class NavbarContext {
+export
+class NavbarContext {
 
   childProps = observable.map();
   @observable className;
@@ -37,4 +36,9 @@ export default class NavbarContext {
   right = new Region(this);
   center = new Region(this);
 
+  @computed get isEmpty() {
+    return !(
+      [this.left, this.right, this.center].find(c => !c.isEmpty)
+    );
+  }
 }

@@ -98,7 +98,6 @@ export default class TaskUX {
 
     this.currentStep.fetchIfNeeded();
 
-
     CenterControls.currentTaskStep = this.currentStep;
 
     if (recordInHistory) {

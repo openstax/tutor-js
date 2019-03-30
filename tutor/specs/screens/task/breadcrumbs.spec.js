@@ -11,6 +11,7 @@ describe('Homework Breadcrumbs Component', () => {
       attributes: { type: 'homework' },
     }).array[0];
     props = {
+      unDocked: true,
       goToStep: jest.fn(),
       ux: new UX({ task, router: new TestRouter }),
     };
@@ -20,7 +21,7 @@ describe('Homework Breadcrumbs Component', () => {
     expect(<Breadcrumbs {...props} />).toMatchSnapshot();
   });
 
-  fit('goes to step', () => {
+  it('goes to step', () => {
     const { ux } = props;
     jest.spyOn(props.ux, 'goToStep');
     const ms = mount(<C><Breadcrumbs {...props} /></C>);

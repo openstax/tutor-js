@@ -82,7 +82,7 @@ describe('choose exercises component', function() {
     ce.find(`[data-exercise-id="${uid}"] .action.include`).simulate('click');
     expect(exercise.isSelected).toEqual(true);
     expect(TaskPlanActions.addExercise).toHaveBeenCalledWith(PLAN_ID, exercise.id);
-    expect(ce).toHaveRendered('.exercise-controls-bar .review-exercises');
+    expect(ce).toHaveRendered('SectionsExercises');
     expect.snapshot(<C><ChooseExercises {...props} /></C>).toMatchSnapshot();
     ce.unmount();
   });

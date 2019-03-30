@@ -1,5 +1,5 @@
 import Task from '../../../src/screens/task/index';
-import { Factory } from '../../helpers';
+import { C, Factory } from '../../helpers';
 import { observable } from 'mobx';
 jest.mock('../../../src/models/student-tasks/task');
 
@@ -30,7 +30,7 @@ describe('Tasks Screen', () => {
   });
 
   it('renders and fetches', () => {
-    const t = mount(<Task {...props} />);
+    const t = mount(<C><Task {...props} /></C>);
     expect(task.fetch).toHaveBeenCalled();
     expect(t).toHaveRendered('ContentLoader');
     t.unmount();

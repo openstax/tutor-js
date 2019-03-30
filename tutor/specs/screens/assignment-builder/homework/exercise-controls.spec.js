@@ -2,7 +2,8 @@ let defaultProps;
 import PropTypes from 'prop-types';
 import React from 'react';
 import ld from 'underscore';
-import { TaskPlanActions, TaskPlanStore } from '../../../../src/flux/task-plan';
+import { C } from '../../../helpers';
+import { TaskPlanActions  } from '../../../../src/flux/task-plan';
 import ExerciseControls from '../../../../src/screens/assignment-builder/homework/exercise-controls';
 
 import VALID_MODEL from '../../../../api/plans/2.json';
@@ -15,9 +16,10 @@ let props = (defaultProps = {
   planId: VALID_MODEL.id,
   canAdd: true,
   canReview: true,
+  unDocked: true,
   addClicked: PropTypes.func,
   reviewClicked: PropTypes.func,
-
+  setSecondaryTopControls: jest.fn(),
   sectionizerProps: {
     currentSection: '1.2',
     onSectionClick: jest.fn(),
@@ -30,14 +32,11 @@ describe('Homework - Exercise Controls', function() {
   beforeEach(function() {
     TaskPlanActions.loaded(VALID_MODEL, VALID_MODEL.id);
     props = ld.mapObject(defaultProps);
+    props.setSecondaryTopControls = jest.fn();
     return props = ld.extend(defaultProps, {});
   });
 
   afterEach(() => TaskPlanActions.reset());
-
-  xit('matches snapshot', function() {
-    expect.snapshot(<ExerciseControls {...props} />).toMatchSnapshot();
-  });
 
   it('should show add button if prop.canAdd is true', function() {
     props.canAdd = true;

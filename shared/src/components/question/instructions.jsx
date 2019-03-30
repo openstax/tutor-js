@@ -4,21 +4,8 @@ import { Popover, OverlayTrigger } from 'react-bootstrap';
 import { keys } from 'lodash';
 import { observer } from 'mobx-react';
 
-import { TWO_STEP_ALIAS, getHelpText } from '../../helpers/step-helps';
-
-const PROJECT_NAME_AND_FEEDBACK = {
-  'concept-coach': {
-    name: 'Concept Coach',
-    feedbackType: 'immediate feedback',
-  },
-  'tutor': {
-    name: 'Tutor',
-    feedbackType: 'personalized feedback',
-  },
-};
-
 const Instructions = observer((props) => {
-  const { project, projectName, feedbackType, hasFeedback, hasIncorrectAnswer } = props;
+  const { hasFeedback, hasIncorrectAnswer } = props;
 
   if (hasIncorrectAnswer && hasFeedback) {
     return (
@@ -28,10 +15,22 @@ const Instructions = observer((props) => {
     );
   }
 
-  const popover =
+  const popover = (
     <Popover ref="popover" id="instructions-help" className="openstax instructions">
-      {getHelpText[TWO_STEP_ALIAS](project)}
-    </Popover>;
+      <p>
+        <strong>
+          Why do you ask me to answer twice?
+        </strong>
+      </p>
+      <p>
+        Research shows that recalling the answer to a question from memory
+        helps your learning last longer.  So, Tutor asks
+        for your own answer first, then gives multiple-choice options
+        so you can get personalized feedback.
+        Both you and your instructor can review your work later.
+      </p>
+    </Popover>
+  );
 
   return (
     <p className="instructions">
@@ -44,7 +43,6 @@ const Instructions = observer((props) => {
 });
 
 Instructions.propTypes = {
-  project: PropTypes.oneOf(keys(PROJECT_NAME_AND_FEEDBACK)),
   hasIncorrectAnswer: PropTypes.bool,
   hasFeedback: PropTypes.bool,
 };

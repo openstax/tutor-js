@@ -1,11 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { keys, isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
 import { observable, action, computed } from 'mobx';
 import { ArrayOrMobxType } from 'shared/helpers/react';
 import Loading from 'shared/components/loading-animation';
-import { PinnedHeaderFooterCard } from 'shared';
 import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
 import ExerciseHelpers from '../../../helpers/exercise';
 import ExerciseControls from './exercise-controls';
@@ -86,7 +84,7 @@ class AddExercises extends React.Component {
     return actions;
   };
 
-  addDetailsActions = (actions, exercise) => {
+  addDetailsActions = (actions) => {
     if (this.displayFeedback) {
       actions['feedback-off'] = {
         message: 'Hide Feedback',
@@ -106,7 +104,7 @@ class AddExercises extends React.Component {
     );
   };
 
-  addCardActions = (actions, exercise) => {
+  addCardActions = (actions) => {
     return (
       actions.details = {
         message: 'Question details',
@@ -187,31 +185,30 @@ class AddExercises extends React.Component {
       );
     }
 
-    const controls =
-      <ExerciseControls
-        canReview={true}
-        currentView={this.currentView}
-        canAdd={this.props.canEdit}
-        reviewClicked={this.props.hide}
-        onCancel={this.props.cancel}
-        addClicked={this.props.onAddClick}
-        planId={this.props.planId}
-        onShowCardViewClick={this.onShowCardViewClick}
-        onShowDetailsViewClick={this.onShowDetailsViewClick}
-        sectionizerProps={{
-          currentSection: this.currentSection,
-          onSectionClick: this.setCurrentSection,
-          nonAvailableWidth: 600,
-          chapter_sections: course.referenceBook.sectionsForPageIds(pageIds),
-        }} />;
-
 
     return (
-      <PinnedHeaderFooterCard containerBuffer={50} header={controls} cardType="homework-builder">
-        <TourRegion id="add-homework-select-exercises" courseId={course.id}>
-          {body}
-        </TourRegion>
-      </PinnedHeaderFooterCard>
+      <TourRegion id="add-homework-select-exercises"
+        courseId={course.id}
+        className="homework-builder-view"
+      >
+        <ExerciseControls
+          canReview={true}
+          currentView={this.currentView}
+          canAdd={this.props.canEdit}
+          reviewClicked={this.props.hide}
+          onCancel={this.props.cancel}
+          addClicked={this.props.onAddClick}
+          planId={this.props.planId}
+          onShowCardViewClick={this.onShowCardViewClick}
+          onShowDetailsViewClick={this.onShowDetailsViewClick}
+          sectionizerProps={{
+            currentSection: this.currentSection,
+            onSectionClick: this.setCurrentSection,
+            nonAvailableWidth: 600,
+            chapter_sections: course.referenceBook.sectionsForPageIds(pageIds),
+          }} />
+        {body}
+      </TourRegion>
     );
   }
 }

@@ -16,6 +16,7 @@
 
   &:hover,
   &.active {
+    z-index: 2;
     @include openstax-icon-active(1.4, 0.5);
   }
 

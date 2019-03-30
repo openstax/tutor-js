@@ -9,7 +9,7 @@ import { QuestionStats } from '../../models/task-plans/teacher/stats';
 
 import { Icon } from 'shared';
 import {
-  ArbitraryHtmlAndMath, Question, CardBody, ExerciseIdentifierLink,
+  ArbitraryHtmlAndMath, Question, ExerciseIdentifierLink,
 } from 'shared';
 import TourAnchor from '../tours/anchor';
 
@@ -196,15 +196,12 @@ export default class TaskTeacherReviewExercise extends React.Component {
     const { exercise } = this.props;
 
     return (
-      <div
-        className="task-step openstax-exercise openstax-exercise-card">
-        <CardBody pinned={false}>
-          {this.stimulusHTML}
-          {map(exercise.question_stats, this.renderQuestion)}
-          <TourAnchor id="errata-link">
-            <ExerciseIdentifierLink exerciseId={exercise.content.uid} project="tutor" />
-          </TourAnchor>
-        </CardBody>
+      <div className="task-step openstax-exercise openstax-exercise-card">
+        {this.stimulusHTML}
+        {map(exercise.question_stats, this.renderQuestion)}
+        <TourAnchor id="errata-link">
+          <ExerciseIdentifierLink exerciseId={exercise.content.uid} project="tutor" />
+        </TourAnchor>
       </div>
     );
   }

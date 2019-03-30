@@ -8,7 +8,6 @@ import Courses from '../../models/courses-map';
 import Breadcrumbs from './breadcrumbs';
 import Stats from '../plan-stats';
 import Review from './review';
-import { PinnedHeaderFooterCard } from 'shared';
 import ScrollTo from '../../helpers/scroll-to';
 import { idType } from 'shared/helpers/react';
 import NoStats from './no-stats';
@@ -95,12 +94,10 @@ class TaskTeacherReview extends React.Component {
     const { course, period, props: { params: { courseId } } } = this;
 
     return (
-      <PinnedHeaderFooterCard
+      <div
         className={`task-teacher-review task-${this.taskPlan.type}`}
-        fixedOffset={0}
-        header={this.renderBreadcrumbs()}
-        cardType="task"
       >
+        {this.renderBreadcrumbs()}
         <Container fluid={true} className="task-teacher-review">
           <Row>
             <Col sm={8}>
@@ -117,7 +114,7 @@ class TaskTeacherReview extends React.Component {
             </Col>
           </Row>
         </Container>
-      </PinnedHeaderFooterCard>
+      </div>
     );
   }
-};
+}

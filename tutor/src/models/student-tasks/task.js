@@ -17,6 +17,7 @@ class StudentTask extends BaseModel {
   @field description;
   @field type;
   @field complete;
+  @field is_deleted;
   @field({ type: 'date' }) due_at;
   @field({ type: 'date' }) feedback_at;
   @hasMany({ model: StudentTaskStep, inverseOf: 'task' }) steps;
