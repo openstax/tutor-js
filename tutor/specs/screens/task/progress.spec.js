@@ -11,7 +11,7 @@ describe('Reading Progress Component', () => {
       count: 1,
       attributes: { type: 'reading', steps: [
         { type: 'reading' }, { type: 'reading' },
-      ]},
+      ] },
     }).array[0];
     props = {
       ux: new UX({ task, router: new TestRouter() }),

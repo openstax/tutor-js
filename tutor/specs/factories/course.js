@@ -6,7 +6,7 @@ const moment = require('moment');
 const { ordinal } = require('../../src/helpers/number');
 import { BOOK_UID_XREF } from 'shared/helpers/exercise';
 
-  Factory.define('Period')
+Factory.define('Period')
   .id(sequence)
   .name(({ parent }) => {
     const length = parent.periods ? parent.periods.length : 0;

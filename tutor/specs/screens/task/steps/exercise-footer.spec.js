@@ -1,7 +1,5 @@
 import { ExerciseFooter } from '../../../../src/screens/task/step/exercise-footer';
-import { Factory, TimeMock, TestRouter } from '../../../helpers';
-import UX from '../../../../src/screens/task/ux';
-
+import { Factory, TimeMock } from '../../../helpers';
 
 describe('Exercise Free Response', () => {
   let props;
