@@ -50,19 +50,23 @@ describe('Exercise Free Response', () => {
   });
 
   it('only submits validation when ui is disabled', async () => {
+    props.response_validation.validate = jest.fn()
+      .mockResolvedValue({ data: { valid: false } });
+    props.response_validation.isEnabled = true;
     props.response_validation.isUIEnabled = false;
     const fr = mount(<FreeResponseInput {...props} />);
     const value = 'test test test';
     setFreeResponse(fr, { value });
-    expect(props.step.response_validation).toEqual({});
+    await delay();
+    expect(props.step.response_validation.attempts).toHaveLength(1);
+    expect(props.step.response_validation.attempts[0]).toMatchObject({
+      valid: false, response: value,
+    });
     expect(props.step.free_response).toEqual(value);
     expect(props.step.needsFreeResponse).toBe(false);
-
-    await delay();
-
+    expect(fr.instance().ux.isDisplayingNudge).toBe(false);
     expect(fr).toHaveRendered('ExerciseFooter RelatedContentLink');
     expect(fr).not.toHaveRendered('TextArea[isErrored=true]');
-
     fr.unmount();
   });
 
@@ -78,8 +82,6 @@ describe('Exercise Free Response', () => {
 
     setFreeResponse(fr, { value });
 
-    fr.render();
-
     expect(props.response_validation.validate).toHaveBeenCalledWith(
       { response: value, uid: props.step.uid },
     );
@@ -87,8 +89,7 @@ describe('Exercise Free Response', () => {
 
     expect(props.step.response_validation.attempts).toHaveLength(1);
     expect(props.step.response_validation.attempts[0]).toMatchObject({
-      valid: false,
-      response: value,
+      valid: false, response: value,
     });
 
     expect(fr).toHaveRendered('TextArea[isErrored=true]');
@@ -111,11 +112,31 @@ describe('Exercise Free Response', () => {
 
     expect(props.step.response_validation.attempts).toHaveLength(2);
     expect(props.step.response_validation.attempts[1]).toMatchObject({
-      valid: false,
-      response: updatedValue,
+      valid: false, response: updatedValue,
     });
 
     expect(props.step.free_response).toEqual(updatedValue);
+
+    fr.unmount();
+  });
+
+  it('hides nudge ui when free response is valid', async () => {
+    props.response_validation.isEnabled = true;
+    props.response_validation.isUIEnabled = true;
+    props.response_validation.validate = jest.fn()
+      .mockResolvedValue({ data: { valid: true } });
+    const fr = mount(<FreeResponseInput {...props} />);
+    const value = 'test test test';
+    setFreeResponse(fr, { value });
+
+    await delay();
+
+    expect(props.step.free_response).toEqual(value);
+    expect(props.step.needsFreeResponse).toBe(false);
+    expect(props.step.response_validation.attempts).toHaveLength(1);
+    expect(props.step.response_validation.attempts[0]).toMatchObject({
+      valid: true, response: value,
+    });
 
     fr.unmount();
   });

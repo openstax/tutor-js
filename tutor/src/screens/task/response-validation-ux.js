@@ -1,5 +1,5 @@
-import { isEmpty, extend } from 'lodash';
-import { observable, computed, action, when } from 'mobx';
+import { isEmpty, extend, last } from 'lodash';
+import { observable, computed, action } from 'mobx';
 import ResponseValidation from '../../models/response_validation';
 
 export
@@ -26,14 +26,18 @@ class ResponseValidationUX {
 
   @action.bound async onSave() {
     if (!this.validator.isEnabled) {
-      this.step.free_response = this.initialResponse;
+      this.step.beginRecordingAnswer({ free_response: this.initialResponse });
       return;
     }
-
     const result = await this.validate();
+
     if (this.validator.isUIEnabled) {
       this.advanceUI(result);
+    } else {
+      this.step.beginRecordingAnswer({ free_response: result.response });
     }
+    this.results.push(result);
+
     this.step.response_validation = { attempts: this.results };
   }
 
@@ -52,16 +56,15 @@ class ResponseValidationUX {
   }
 
   @action advanceUI(result) {
-    if (this.isDisplayingNudge) {
-      this.step.free_response = this.retriedResponse;
+    if (result.valid || this.isDisplayingNudge) {
+      this.step.beginRecordingAnswer({ free_response: result.response });
     } else {
       this.retriedResponse = this.initialResponse;
     }
-    this.results.push(result);
   }
 
   @action.bound submitOriginalResponse() {
-    this.step.free_response = this.initialResponse;
+    this.step.beginRecordingAnswer({ free_response: this.initialResponse });
   }
 
   @computed get submitBtnLabel() {
@@ -79,7 +82,7 @@ class ResponseValidationUX {
   }
 
   @computed get isDisplayingNudge() {
-    return Boolean(this.results.length);
+    return Boolean(this.validator.isUIEnabled && this.results.length && !last(this.results).valid);
   }
 
 }
