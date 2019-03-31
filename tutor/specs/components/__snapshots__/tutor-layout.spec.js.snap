@@ -12,9 +12,9 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                 <div data-purpose=\\"tour-conductor-wrapper\\">
                   <TutorLayout>
                     <Provider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: res]}>
-                      <tutor-layout__StyledLayout>
+                      <StyledLayout>
                         <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
-                          <div className=\\"tutor-layout__StyledLayout-sc-1t4agiy-0 fpuxCL\\">
+                          <div className=\\"StyledLayout-sc-1t4agiy-0 dEbNMI\\">
                             <Navbar area=\\"header\\" context={{...}} isDocked={false}>
                               <navbar__Nav area=\\"header\\" isDocked={false} isCollapsed={[undefined]} className=\\"tutor-navbar\\">
                                 <StyledComponent area=\\"header\\" isDocked={false} isCollapsed={[undefined]} className=\\"tutor-navbar\\" forwardedComponent={{...}} forwardedRef={{...}}>
@@ -27,9 +27,9 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                               <TutorLink to=\\"myCourses\\" className=\\"brand\\" aria-label=\\"dashboard\\">
                                                 <Link to={{...}} className=\\"brand\\" aria-label=\\"dashboard\\" replace={false}>
                                                   <a className=\\"brand\\" aria-label=\\"dashboard\\" onClick={[Function]} href=\\"/dashboard\\">
-                                                    <logo__TutorLogo viewBox=\\"0 0 264.62 40.7\\">
+                                                    <TutorLogo viewBox=\\"0 0 264.62 40.7\\">
                                                       <StyledComponent viewBox=\\"0 0 264.62 40.7\\" forwardedComponent={{...}} forwardedRef={{...}}>
-                                                        <svg viewBox=\\"0 0 264.62 40.7\\" className=\\"logo__TutorLogo-l4ti3h-0 dsjfAL\\">
+                                                        <svg viewBox=\\"0 0 264.62 40.7\\" className=\\"TutorLogo-l4ti3h-0 bkxmcj\\">
                                                           <defs>
                                                             <style />
                                                           </defs>
@@ -46,7 +46,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                           </g>
                                                         </svg>
                                                       </StyledComponent>
-                                                    </logo__TutorLogo>
+                                                    </TutorLogo>
                                                   </a>
                                                 </Link>
                                               </TutorLink>
@@ -199,19 +199,19 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                             <inject-CourseNagModal course={[undefined]}>
                               <CourseNagModal course={[undefined]} tourContext={{...}} spyMode={{...}} />
                             </inject-CourseNagModal>
-                            <tutor-layout__Content>
+                            <Content>
                               <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
-                                <div className=\\"tutor-layout__Content-sc-1t4agiy-1 fxqJgK\\">
+                                <div className=\\"Content-sc-1t4agiy-1 jjzNgD\\">
                                   <p>
                                     hi i am body
                                   </p>
                                 </div>
                               </StyledComponent>
-                            </tutor-layout__Content>
+                            </Content>
                             <Navbar area=\\"footer\\" context={{...}} />
                           </div>
                         </StyledComponent>
-                      </tutor-layout__StyledLayout>
+                      </StyledLayout>
                     </Provider>
                   </TutorLayout>
                   <SpyModeContent>

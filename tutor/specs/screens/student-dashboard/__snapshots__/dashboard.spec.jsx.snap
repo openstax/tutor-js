@@ -351,7 +351,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               </div>
             </div>
             <a
-              aria-label="Work on reading: transparent extend e-markets"
+              aria-label="Work on reading: killer unleash e-business"
               className="task row reading"
               data-event-id={1}
               href="/course/1/task/1"
@@ -369,7 +369,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               <div
                 className="title col-sm-5 col-10"
               >
-                transparent extend e-markets
+                killer unleash e-business
               </div>
               <div
                 className="due-at col-sm-3 col-5"
@@ -394,7 +394,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               </div>
             </a>
             <a
-              aria-label="Work on external: clicks-and-mortar envisioneer e-services"
+              aria-label="Work on external: web-enabled benchmark interfaces"
               className="task row external"
               data-event-id={2}
               href="/course/1/task/2"
@@ -412,7 +412,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               <div
                 className="title col-sm-5 col-10"
               >
-                clicks-and-mortar envisioneer e-services
+                web-enabled benchmark interfaces
               </div>
               <div
                 className="due-at col-sm-3 col-5"
@@ -431,13 +431,13 @@ exports[`Student Dashboard matches snapshot 1`] = `
                     className="tour-anchor"
                     data-tour-anchor-id="assignment-progress-status"
                   >
-                    Not started
+                    Clicked
                   </span>
                 </div>
               </div>
             </a>
             <a
-              aria-label="Work on event: user-centric morph convergence"
+              aria-label="Work on event: best-of-breed whiteboard metrics"
               className="task row event"
               data-event-id={3}
               href="/course/1/task/3"
@@ -455,7 +455,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               <div
                 className="title col-sm-5 col-10"
               >
-                user-centric morph convergence
+                best-of-breed whiteboard metrics
               </div>
               <div
                 className="due-at col-sm-3 col-5"
@@ -475,7 +475,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               </div>
             </a>
             <a
-              aria-label="Work on homework: next-generation benchmark ROI"
+              aria-label="Work on homework: dot-com recontextualize communities"
               className="task row homework"
               data-event-id={4}
               href="/course/1/task/4"
@@ -493,7 +493,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               <div
                 className="title col-sm-5 col-10"
               >
-                next-generation benchmark ROI
+                dot-com recontextualize communities
               </div>
               <div
                 className="due-at col-sm-3 col-5"
@@ -520,7 +520,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                 >
                   0
                   /
-                  8
+                  7
                    answered on due date
                 </div>
               </div>

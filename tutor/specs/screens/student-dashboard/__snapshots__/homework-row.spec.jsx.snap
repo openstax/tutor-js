@@ -89,7 +89,7 @@ exports[`Homework Row renders with completed count 1`] = `
 }
 
 <a
-  aria-label="Work on homework: clicks-and-mortar envisioneer e-services"
+  aria-label="Work on homework: web-enabled benchmark interfaces"
   className="task row homework"
   data-event-id={2}
   href="/course/2/task/2"
@@ -107,7 +107,7 @@ exports[`Homework Row renders with completed count 1`] = `
   <div
     className="title col-sm-5 col-10"
   >
-    clicks-and-mortar envisioneer e-services
+    web-enabled benchmark interfaces
   </div>
   <div
     className="due-at col-sm-3 col-5"
@@ -157,7 +157,7 @@ exports[`Homework Row renders with completed count 1`] = `
     >
       0
       /
-      9
+      6
        answered on due date
     </div>
   </div>

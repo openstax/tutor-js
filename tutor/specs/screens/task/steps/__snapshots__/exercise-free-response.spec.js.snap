@@ -2,6 +2,125 @@
 
 exports[`Exercise Free Response matches snapshot 1`] = `
 <FreeResponseInput
+  course={
+    Course {
+      "appearance_code": "college_physics",
+      "book_pdf_url": "https://archive.cnx.org/exports/185cbf87-c72e-48f5-b51e-f14f21b5eabd.pdf",
+      "cloned_from_id": null,
+      "default_due_time": "07:00",
+      "default_open_time": "00:32",
+      "does_cost": false,
+      "ecosystem_book_uuid": "185cbf87-c72e-48f5-b51e-f14f21b5eabd",
+      "ecosystem_id": 1,
+      "ends_at": "2017-11-14T13:00:00.000Z",
+      "homework_progress_weight": 0.1,
+      "homework_score_weight": 0.4,
+      "id": 1,
+      "is_access_switchable": true,
+      "is_active": true,
+      "is_college": true,
+      "is_concept_coach": false,
+      "is_lms_enabled": undefined,
+      "is_lms_enabling_allowed": false,
+      "is_preview": false,
+      "just_created": false,
+      "map": undefined,
+      "name": "College Physics",
+      "offering_id": 1,
+      "periods": Array [
+        CoursePeriod {
+          "$nonSerializable": Object {
+            "course": true,
+          },
+          "course": [Circular],
+          "course_association_name": "periods",
+          "default_due_time": "07:00",
+          "default_open_time": "00:01",
+          "enrollment_code": "66861",
+          "enrollment_url": "http://localhost:3001/enroll/66861",
+          "id": 1,
+          "is_archived": false,
+          "name": "1st",
+          "num_enrolled_students": 72,
+          "teacher_student_role_id": 1,
+        },
+        CoursePeriod {
+          "$nonSerializable": Object {
+            "course": true,
+          },
+          "course": [Circular],
+          "course_association_name": "periods",
+          "default_due_time": "07:00",
+          "default_open_time": "00:01",
+          "enrollment_code": "66861",
+          "enrollment_url": "http://localhost:3001/enroll/66861",
+          "id": 2,
+          "is_archived": false,
+          "name": "1st",
+          "num_enrolled_students": 57,
+          "teacher_student_role_id": 2,
+        },
+        CoursePeriod {
+          "$nonSerializable": Object {
+            "course": true,
+          },
+          "course": [Circular],
+          "course_association_name": "periods",
+          "default_due_time": "07:00",
+          "default_open_time": "00:01",
+          "enrollment_code": "66861",
+          "enrollment_url": "http://localhost:3001/enroll/66861",
+          "id": 3,
+          "is_archived": false,
+          "name": "1st",
+          "num_enrolled_students": 76,
+          "teacher_student_role_id": 3,
+        },
+      ],
+      "reading_progress_weight": 0.2,
+      "reading_score_weight": 0.2,
+      "roles": Array [
+        CourseRole {
+          "id": 1,
+          "joined_at": 2017-09-21T12:00:00.000Z,
+          "research_identifier": undefined,
+          "type": "student",
+        },
+      ],
+      "salesforce_book_name": "College Physics",
+      "starts_at": "2017-09-14T12:00:00.000Z",
+      "students": Array [
+        CourseStudent {
+          "$nonSerializable": Object {
+            "course": true,
+          },
+          "course": [Circular],
+          "course_association_name": "students",
+          "first_name": "Johnpaul",
+          "id": 1,
+          "is_active": true,
+          "is_comped": false,
+          "is_paid": false,
+          "is_refund_allowed": undefined,
+          "is_refund_pending": undefined,
+          "last_name": "Kutch",
+          "name": undefined,
+          "payment_due_at": 2017-10-17T12:00:00.000Z,
+          "period_id": undefined,
+          "prompt_student_to_pay": false,
+          "role_id": 1,
+          "roster": undefined,
+          "student_identifier": "",
+          "uuid": undefined,
+        },
+      ],
+      "term": "spring",
+      "time_zone": "Central Time (US & Canada)",
+      "uuid": "d7bb95b6-5a55-4334-bac1-c606272614e6",
+      "webview_url": "https://qa.cnx.org/contents/185cbf87-c72e-48f5-b51e-f14f21b5eabd",
+      "year": 2017,
+    }
+  }
   question={
     ExerciseQuestion {
       "$nonSerializable": Object {
@@ -120,6 +239,15 @@ exports[`Exercise Free Response matches snapshot 1`] = `
           "pool_types": Array [],
           "preview": undefined,
           "question_stats": Array [],
+          "related_content": Array [
+            RelatedContent {
+              "chapter_section": ChapterSection {
+                "chapter": 1,
+                "section": 2,
+              },
+              "title": "Angiosperms",
+            },
+          ],
           "tags": Array [],
           "url": "",
         },
@@ -149,6 +277,18 @@ exports[`Exercise Free Response matches snapshot 1`] = `
       "is_answer_order_important": false,
       "stem_html": "In the early 1900s, a New York physician named Dr. Ignatz Nascher developed a medical specialty that focused on the elderly. This field is known broadly as ___.",
       "stimulus_html": "",
+    }
+  }
+  response_validation={
+    ResponseValidation {
+      "ensureLoaded": [MockFunction],
+      "onApiRequestComplete": [MockFunction],
+      "onFailure": [MockFunction],
+      "onValidationComplete": [MockFunction],
+      "serialize": [MockFunction],
+      "setApiErrors": [MockFunction],
+      "update": [MockFunction],
+      "validate": [MockFunction],
     }
   }
   step={
@@ -301,6 +441,15 @@ exports[`Exercise Free Response matches snapshot 1`] = `
         "pool_types": Array [],
         "preview": undefined,
         "question_stats": Array [],
+        "related_content": Array [
+          RelatedContent {
+            "chapter_section": ChapterSection {
+              "chapter": 1,
+              "section": 2,
+            },
+            "title": "Angiosperms",
+          },
+        ],
         "tags": Array [],
         "url": "",
       },
@@ -317,6 +466,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
       "labels": Array [],
       "multiPartGroup": undefined,
       "preview": "killer: Environmental Limits to Population Growth",
+      "response_validation": Object {},
       "task": StudentTask {
         "complete": undefined,
         "description": undefined,
