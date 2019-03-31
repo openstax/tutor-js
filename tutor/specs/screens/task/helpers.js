@@ -3,6 +3,6 @@ export function setFreeResponse(comp, { value }) {
   if (ta.length) {
     ta.instance().value = value;
     ta.simulate('change', { target: { value: ta.instance().value } });
-    comp.find('Button').simulate('click');
+    comp.find('AnswerButton').simulate('click');
   }
 }

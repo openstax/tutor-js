@@ -2,15 +2,17 @@ import {
   BaseModel, identifiedBy, action, field,
 } from 'shared/model';
 
-const ResponseValidationConfig = {
+const Config = {
   url: '',
+  is_enabled: false,
+  is_ui_enabled: false,
 };
 
 @identifiedBy('response_validation')
 class ResponseValidation extends BaseModel {
 
   static bootstrap(config) {
-    Object.assign(ResponseValidationConfig, config);
+    Object.assign(Config, config);
   }
 
   @field bad_word_count;
@@ -27,11 +29,24 @@ class ResponseValidation extends BaseModel {
   @field tag_numeric;
   @field valid;
 
+  constructor() {
+    super();
+    this.config = Object.assign({}, Config);
+  }
+
+  get isEnabled() {
+    return Boolean(this.config.url && this.config.is_enabled);
+  }
+
+  get isUIEnabled() {
+    return Boolean(this.config.is_ui_enabled);
+  }
+
   validate({ response, uid = '' }) {
-    if (!ResponseValidationConfig.url) { return 'ABORT'; }
+    if (!this.isEnabled) { return 'ABORT'; }
 
     return {
-      url: ResponseValidationConfig.url,
+      url: this.config.url,
       query: {
         uid,
         response,
@@ -54,4 +69,4 @@ class ResponseValidation extends BaseModel {
 
 }
 
-export { ResponseValidation };
+export default ResponseValidation;

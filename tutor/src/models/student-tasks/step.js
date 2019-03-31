@@ -1,6 +1,6 @@
 import {
   BaseModel, identifiedBy, field, identifier,
-  observable, computed, action, belongsTo,
+  observable, computed, action, belongsTo, hasMany,
 } from 'shared/model';
 import { pick, isEmpty } from 'lodash';
 import Exercise from '../exercises/exercise';
@@ -20,7 +20,7 @@ class StudentTaskInteractiveStep extends TaskStepContent { }
 class StudentTaskExternalStep extends TaskStepContent { }
 class StudentTaskReadingStep extends TaskStepContent {
   @lazyGetter chapterSection = new ChapterSection(this.chapter_section);
-  @lazyGetter relatedContent = this.related_content.map(rl=>new RelatedContent(rl));
+  @hasMany({ model: RelatedContent }) related_content;
   @lazyGetter page = new Page(
     Object.assign({
       cnx_id: extractCnxId(this.content_url),
@@ -64,6 +64,7 @@ class StudentTaskStep extends BaseModel {
   @field free_response;
   @field feedback_html;
   @field correct_answer_id;
+  @field({ type: 'object' }) response_validation;
 
   @field external_url;
 
@@ -132,14 +133,11 @@ class StudentTaskStep extends BaseModel {
     }
   }
 
-  // @action setAnswer(answer) {
-  //   this.answer_id = answer.id;
-  // }
-
   // called by API
   saveAnswer() {
     return { data: pick(this, 'answer_id', 'free_response') };
   }
+
   // called by external url
   markCompleted() {
     return this.saveAnswer();

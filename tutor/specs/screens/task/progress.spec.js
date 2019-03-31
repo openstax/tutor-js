@@ -9,7 +9,9 @@ describe('Reading Progress Component', () => {
   beforeEach(() => {
     const task = Factory.studentTasks({
       count: 1,
-      attributes: { type: 'reading', stepCount: 2 },
+      attributes: { type: 'reading', steps: [
+        { type: 'reading' }, { type: 'reading' },
+      ]},
     }).array[0];
     props = {
       ux: new UX({ task, router: new TestRouter() }),
@@ -22,6 +24,7 @@ describe('Reading Progress Component', () => {
 
   it('pages through steps', () => {
     const pr = mount(<Progress {...props}><p>hi</p></Progress>);
+
     expect(pr).toHaveRendered('a.paging-control.prev[disabled=true]');
     expect(pr).toHaveRendered('a.paging-control.next[disabled=false]');
     pr.find('a.paging-control.next').simulate('click');

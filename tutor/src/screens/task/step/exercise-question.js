@@ -71,11 +71,13 @@ class ExerciseQuestion extends React.Component {
   }
 
   render() {
-    const { ux, question, step } = this.props;
+    const { ux, question, step, ux: { course } } = this.props;
 
     if (step.needsFreeResponse) {
       return (
-        <FreeResponseInput key={question.id} step={step} question={question} />
+        <FreeResponseInput
+          key={question.id} course={course}
+          step={step} question={question} />
       );
     }
 
@@ -91,7 +93,7 @@ class ExerciseQuestion extends React.Component {
           hasCorrectAnswer={step.hasCorrectAnswer}
           correct_answer_id={step.is_completed ? step.correct_answer_id : null}
         >
-          <FreeResponseReview step={step} />
+          <FreeResponseReview course={course} step={step} />
         </Question>
         {this.needsSaved ?
           this.renderSaveButton() : this.renderNextButton()}

@@ -57,7 +57,7 @@ Factory.define('StudentTaskReadingStepContent')
   .chapter_section([1,2])
   .related_content(({ object }) => [
     { title: fake.random.arrayElement(SECTION_NAMES),
-      chapter_section: object.chapter_section },
+      book_location: object.chapter_section },
   ])
   .has_learning_objectives(() => fake.random.arrayElement([ false, false, false, true ]))
   .title(fake.random.arrayElement(SECTION_NAMES))
@@ -71,7 +71,7 @@ Factory.define('StudentTaskInteractiveStepContent')
   .chapter_section([1,2])
   .related_content(({ object }) => [
     { title: fake.random.arrayElement(SECTION_NAMES),
-      chapter_section: object.chapter_section },
+      book_location: object.chapter_section },
   ])
   .has_learning_objectives(() => fake.random.arrayElement([ false, false, false, true ]))
   .title(fake.random.arrayElement(SECTION_NAMES))
@@ -85,7 +85,7 @@ Factory.define('StudentTaskExerciseStepContent')
   .chapter_section([1,2])
   .related_content(({ object }) => [
     { title: fake.random.arrayElement(SECTION_NAMES),
-      chapter_section: object.chapter_section },
+      book_location: object.chapter_section },
   ])
   .context(
     '<div data-type="note" data-has-label="true" id="fs-id2332825" class="sociological-research" a-type="term" id="import-auto-id1169033058271">geriatrics</span>, a medical specialty that focuses on the elderly. He created the word by combining were before Nascher’s ideas gained acceptance?</p> </div></div> </div>',
