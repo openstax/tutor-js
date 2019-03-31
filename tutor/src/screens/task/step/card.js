@@ -6,7 +6,7 @@ const StepCard = styled.div`
   flex-direction: column;
   flex: 1 1 auto;
   min-height: 400px;
-  width: 1000px;
+  width: 980px;
   border-radius: 0.25rem;
   margin: 10rem auto;
   border: 1px solid ${Theme.colors.neutral.light};
