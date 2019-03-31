@@ -43,7 +43,7 @@ class Breadcrumbs extends React.Component {
 
     return (
       <BreadcrumbsWrapper
-        className="breadcrumbs-wrapper"
+        className="task-homework breadcrumbs-wrapper"
         role="dialog"
         tabIndex="-1"
       >

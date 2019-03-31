@@ -115,7 +115,7 @@ class StudentTaskStep extends BaseModel {
 
   @computed get needsFreeResponse() {
     return Boolean(
-      this.isTwoStep && isEmpty(this.free_response)
+      !this.answer_id && this.isTwoStep && isEmpty(this.free_response)
     );
   }
 
@@ -136,6 +136,11 @@ class StudentTaskStep extends BaseModel {
   // called by API
   saveAnswer() {
     return { data: pick(this, 'answer_id', 'free_response') };
+  }
+
+  @action beginRecordingAnswer({ free_response }) {
+    this.free_response = free_response;
+    this.answer_id = null;
   }
 
   // called by external url
