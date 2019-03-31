@@ -23,8 +23,10 @@ module.exports = {
         preventFullImport: ('test' === process.env.NODE_ENV) ? false : true,
       },
     }],
+    [ 'babel-plugin-styled-components', {
+      "fileName": false
+    }],
     '@babel/plugin-proposal-export-default-from',
-    '@babel/plugin-syntax-dynamic-import',
-    'babel-plugin-styled-components',
+    '@babel/plugin-syntax-dynamic-import'
   ],
 };
