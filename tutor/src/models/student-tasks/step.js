@@ -135,7 +135,9 @@ class StudentTaskStep extends BaseModel {
 
   // called by API
   saveAnswer() {
-    return { data: pick(this, 'answer_id', 'free_response') };
+    return { data: pick(this,
+      'answer_id', 'free_response', 'response_validation',
+    ) };
   }
 
   @action beginRecordingAnswer({ free_response }) {

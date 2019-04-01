@@ -10,7 +10,8 @@ import reading from './reading';
 import homework from './homework';
 import event from './event';
 import external from './external';
-import { TaskInfo } from '../../components/navbar/task-info';
+import { TaskInfo } from './task-info';
+import { TaskFooterControls } from './task-footer-controls';
 import { StepCard } from './step/card';
 import './styles.scss';
 
@@ -54,6 +55,10 @@ class Task extends React.Component {
         set: PropTypes.func.isRequired,
         delete: PropTypes.func.isRequired,
       }).isRequired,
+      right: PropTypes.shape({
+        set: PropTypes.func.isRequired,
+        delete: PropTypes.func.isRequired,
+      }).isRequired,
     }),
   }
 
@@ -71,6 +76,9 @@ class Task extends React.Component {
     this.props.bottomNavbar.left.set('taskInfo', () =>
       <TaskInfo task={this.props.task} />
     );
+    this.props.bottomNavbar.right.set('taskControls', () =>
+      <TaskFooterControls task={this.props.task} course={this.ux.course} />
+    );
   }
 
   componentDidUpdate() {
@@ -83,6 +91,7 @@ class Task extends React.Component {
   componentWillUnmount() {
     this.ux.isUnmounting();
     this.props.bottomNavbar.left.delete('taskInfo');
+    this.props.bottomNavbar.left.delete('taskControls');
   }
 
   render() {

@@ -40,6 +40,7 @@ exports[`Tasks External URL Screen matches snapshot 1`] = `
               "uid": null,
             },
           ],
+          "student_names": Array [],
           "tasksMap": Object {},
           "title": "asymmetric",
           "type": "external",

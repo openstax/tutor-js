@@ -188,6 +188,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
         "steps": Array [
           [Circular],
         ],
+        "student_names": Array [],
         "tasksMap": Object {},
         "title": "asymmetric",
         "type": "homework",
@@ -501,6 +502,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
           "steps": Array [
             [Circular],
           ],
+          "student_names": Array [],
           "tasksMap": Object {},
           "title": "asymmetric",
           "type": "homework",

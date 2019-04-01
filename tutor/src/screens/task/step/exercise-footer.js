@@ -17,8 +17,8 @@ const StyledExerciseFooter = styled.div`
   border-top: 1px solid ${Theme.colors.neutral.light};
 `;
 
-const ExerciseFooter = observer(({ course, step, hideContentLink }) => {
 
+const ExerciseFooter = observer(({ course, step, hideContentLink }) => {
   return (
     <StyledExerciseFooter>
       <ExerciseIdentifierLink

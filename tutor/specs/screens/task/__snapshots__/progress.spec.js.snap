@@ -98,6 +98,7 @@ exports[`Reading Progress Component matches snapshot 1`] = `
             "uid": undefined,
           },
         ],
+        "student_names": Array [],
         "tasksMap": StudentTasks {
           "_map": Object {
             "1": [Circular],

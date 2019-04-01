@@ -86,7 +86,7 @@ class Course extends BaseModel {
   @lazyGetter teacherTaskPlans = new TeacherTaskPlans({ course: this });
   @lazyGetter pastTaskPlans = new PastTaskPlans({ course: this });
   @lazyGetter studentTasks = new StudentTasks({ course: this })
-  
+
   @hasMany({ model: Period, inverseOf: 'course', extend: getters({
     sorted() { return PH.sort(this.active);                        },
     archived() { return filter(this, period => !period.is_archived); },

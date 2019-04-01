@@ -1636,6 +1636,7 @@ exports[`Homework Breadcrumbs Component matches snapshot 1`] = `
             "uid": "9@1",
           },
         ],
+        "student_names": Array [],
         "tasksMap": StudentTasks {
           "_map": Object {
             "1": [Circular],
