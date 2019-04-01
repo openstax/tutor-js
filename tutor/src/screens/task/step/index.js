@@ -3,8 +3,8 @@ import {
   Facebook as ReadingLoader,
   BulletList as HomeworkLoader,
 } from 'react-content-loader';
+import ScrollTo from '../../../helpers/scroll-to';
 import Reading from './reading';
-
 import Exercise from './exercise';
 import Interactive from './interactive';
 import End from './end';
@@ -49,7 +49,13 @@ const PENDING_TYPES = {
 };
 
 const TaskStep = (props) => {
-  const { ux, step: { type, needsFetched } } = props;
+  const { ux, step, step: { type, needsFetched } } = props;
+
+  const [scroller] = React.useState(new ScrollTo());
+
+  React.useEffect(() => {
+    scroller.scrollToTop({ scrollTopOffset: -60 });
+  }, [step]);
 
   const stepProps = {
     ...props,
