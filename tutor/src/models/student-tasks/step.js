@@ -76,8 +76,6 @@ class StudentTaskStep extends BaseModel {
   @observable task;
   @observable content;
 
-  @observable isFetched = false
-
   @computed get canAnnotate() {
     return this.isReading;
   }
@@ -120,17 +118,13 @@ class StudentTaskStep extends BaseModel {
   }
 
   @computed get needsFetched() {
-    return HAS_ADDITIONAL_CONTENT.includes(this.type) &&
-      !this.api.hasBeenFetched;
+    return Boolean(
+      HAS_ADDITIONAL_CONTENT.includes(this.type) && !this.api.hasBeenFetched
+    );
   }
 
   @action fetchIfNeeded() {
-    if (HAS_ADDITIONAL_CONTENT.includes(this.type) &&
-      !this.api.isPendingInitialFetch &&
-      !this.isFetched
-    ) {
-      this.fetch();
-    }
+    if (this.needsFetched && !this.api.isPending) { this.fetch(); }
   }
 
   // called by API

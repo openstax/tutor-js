@@ -96,7 +96,7 @@ class Task extends React.Component {
 
   render() {
     const { task } = this.props;
-    if (task.api.isPendingInitialFetch) {
+    if (!task.api.hasBeenFetched) {
       return <StepCard><PendingLoad /></StepCard>;
     }
 
