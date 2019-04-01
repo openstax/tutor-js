@@ -31,7 +31,8 @@ class ExerciseTaskStep extends React.Component {
         className="exercise-step"
       >
         {content.questions.map((q, i) =>
-          <ExerciseQuestion key={q.id} step={step} ux={ux} question={q} index={i} />)}
+          <ExerciseQuestion key={q.id}
+            step={step} ux={ux} question={q} index={i} />)}
       </StyledExercise>
     );
   }

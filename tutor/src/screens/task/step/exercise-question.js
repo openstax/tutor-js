@@ -2,6 +2,7 @@ import {
   React, PropTypes, observer, styled, action, observable, computed,
 } from '../../../helpers/react';
 import UX from '../ux';
+import keymaster from 'keymaster';
 import { Button } from 'react-bootstrap';
 import { Question, AsyncButton } from 'shared';
 import Step from '../../../models/student-tasks/step';
@@ -27,6 +28,14 @@ class ExerciseQuestion extends React.Component {
   @computed get needsSaved() {
     return this.selectedAnswer &&
       this.selectedAnswer.id !== this.props.step.answer_id;
+  }
+
+  componentDidMount() {
+    keymaster('enter', 'multiple-choice', this.onNextStep);
+  }
+
+  componentWillUnmount() {
+    keymaster.unbind('enter', 'multiple-choice');
   }
 
   @action.bound onAnswerChange(answer) {
@@ -84,6 +93,7 @@ class ExerciseQuestion extends React.Component {
     return (
       <StyledExerciseQuestion>
         <Question
+          focus={!step.multiPartGroup}
           task={ux.task}
           question={question}
           choicesEnabled={true}
