@@ -1,4 +1,4 @@
-import { Factory, FactoryBot, EnzymeContext } from '../../helpers';
+import { Factory, FactoryBot, C } from '../../helpers';
 import planData from '../../../api/plans/1.json';
 import TaskTeacherReview from '../../../src/components/task-teacher-review';
 import Courses from '../../../src/models/courses-map';
@@ -22,7 +22,6 @@ describe('Task Teacher Review', () => {
       data: FactoryBot.create('TaskPlanStat', { course }),
     });
 
-    //course.periods[0].id = plan.analytics.stats[0].period_id;
     props = {
       params: {
         courseId: course.id,
@@ -32,7 +31,7 @@ describe('Task Teacher Review', () => {
   });
 
   it('renders and matches snapshot', () => {
-    const wrapper = mount(<TaskTeacherReview {...props} />, EnzymeContext.build());
+    const wrapper = mount(<C><TaskTeacherReview {...props} /></C>);
     expect(wrapper).toHaveRendered('Stats');
     expect(wrapper).toHaveRendered('Review');
     expect(wrapper).toHaveRendered('Breadcrumbs');

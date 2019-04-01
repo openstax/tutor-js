@@ -4,7 +4,7 @@ import { compact, map, isEmpty } from 'lodash';
 import Loading from 'shared/components/loading-animation';
 import { Icon } from 'shared';
 import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
-import { ExercisePreview, SuretyGuard, PinnedHeaderFooterCard } from 'shared';
+import { ExercisePreview, SuretyGuard } from 'shared';
 import { observer } from 'mobx-react';
 import Course from '../../../models/course';
 import Book from '../../../models/reference-book';
@@ -99,6 +99,9 @@ class ReviewExercises extends React.Component {
     course:     PropTypes.instanceOf(Course).isRequired,
     exercises:  PropTypes.instanceOf(ExercisesMap),
     planId:     PropTypes.string.isRequired,
+    canEdit:    PropTypes.bool,
+    canAdd:     PropTypes.bool,
+    showSectionTopics: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -132,21 +135,20 @@ class ReviewExercises extends React.Component {
       );
     }
 
-    const controls = (
-      <ExerciseControls
-        canAdd={canAdd}
-        addClicked={showSectionTopics}
-        hideDisplayControls={true}
-        planId={planId}
-      />
-    );
-
-    const exerciseTable =
-      <ExerciseTable exercises={exercises} course={course} planId={planId} />;
-
     return (
-      <PinnedHeaderFooterCard containerBuffer={50} header={controls} cardType="homework-builder">
-        {exerciseTable}
+      <div className="homework-builder-view">
+        <ExerciseControls
+          unDocked
+          canAdd={canAdd}
+          addClicked={showSectionTopics}
+          hideDisplayControls={true}
+          planId={planId}
+        />
+        <ExerciseTable
+          course={course}
+          planId={planId}
+          exercises={exercises}
+        />
         <div className="card-list exercises">
           {map(exercises, (ex, i) =>
             <ReviewExerciseCard
@@ -158,8 +160,8 @@ class ReviewExercises extends React.Component {
               isLast={i === (exercises.length - 1)}
               exercise={ex} />)}
         </div>
-      </PinnedHeaderFooterCard>
+      </div>
     );
   }
 
-};
+}

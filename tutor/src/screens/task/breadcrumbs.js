@@ -1,48 +1,44 @@
-import { React, PropTypes, observer, styled } from '../../helpers/react';
+import { React, PropTypes, observer, styled, inject, autobind } from '../../helpers/react';
 import Breadcrumb from '../../components/breadcrumb';
 import UX from './ux';
-
-// @observer
-// class Breadcrumb extends React.Component {
-//
-//   static propTypes = {
-//     ux: PropTypes.instanceOf(UX).isRequired,
-//     step: PropTypes.object.isRequired,
-//     stepIndex: PropTypes.number.isRequired,
-//     isActive: PropTypes.bool.isRequired,
-//     currentStep: PropTypes.number.isRequired,
-//   };
-//
-//   render() {
-//     const { step, ux, currentStep, stepIndex } = this.props;
-// console.log(step.id, step.is_completed, step.is_correct)
-//     return (
-//       <SharedBreadcrumb
-//         style={{ zIndex: stepIndex }}
-//         crumb={step}
-//         step={step}
-//
-//         data-label={step.label}
-//         goToStep={ux.goToStep}
-//         stepIndex={stepIndex}
-//         currentStep={currentStep}
-//       />
-//     );
-//   }
-// }
 
 const BreadcrumbsWrapper = styled.div`
 
 `;
 
+@inject('setSecondaryTopControls')
 @observer
 class Breadcrumbs extends React.Component {
 
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
+    setSecondaryTopControls: PropTypes.func.isRequired,
+    unDocked: PropTypes.bool,
   }
 
+  constructor(props) {
+    super(props);
+    if (!props.unDocked) {
+      props.setSecondaryTopControls(this.renderBreadcrumbs);
+    }
+  }
+
+  componentWillUnmount() {
+    if (!this.props.unDocked) {
+      this.props.setSecondaryTopControls(null);
+    }
+  }
+
+  // nothing is rendered directly, instead it's set in the secondaryToolbar
   render() {
+    if (this.props.unDocked) {
+      return this.renderBreadcrumbs();
+    }
+    return null;
+  }
+
+  @autobind renderBreadcrumbs() {
+
     const { ux } = this.props;
 
     return (

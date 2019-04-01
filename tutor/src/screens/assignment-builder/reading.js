@@ -1,19 +1,19 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { React, PropTypes, idType } from '../../helpers/react';
 import { map, pick } from 'lodash';
 import createReactClass from 'create-react-class';
 import { Button, Card, Col, Row } from 'react-bootstrap';
 import classnames from 'classnames';
+import ChapterSectionModel from '../../models/chapter-section';
 import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
 import SelectTopics from './select-topics';
 import PlanFooter from './footer';
 import Page from '../../models/reference-book/page';
-import ChapterSection from './chapter-section';
 import PlanMixin from './plan-mixin';
 import TaskPlanBuilder from './builder';
 import NoQuestionsTooltip from './reading/no-questions-tooltip';
 import Fn from '../../helpers/function';
 import { Icon } from 'shared';
+import ChapterSection from '../../components/chapter-section';
 import Courses from '../../models/courses-map';
 import TourRegion from '../../components/tours/region';
 
@@ -44,6 +44,7 @@ class ReviewReading extends React.Component {
         </span>
       );
     }
+    return null;
   };
 
   moveReadingDown = () => {
@@ -61,11 +62,11 @@ class ReviewReading extends React.Component {
   render() {
     const { page } = this.props;
     if (!page) { return null; }
-
+    const cs = new ChapterSectionModel(page.chapter_section);
     const actionButtons = this.getActionButtons();
     return (
       <li className="selected-section">
-        <ChapterSection section={page.chapter_section.asString} />
+        <ChapterSection chapterSection={cs} />
         <span className="section-title">
           {page.title}
         </span>
@@ -129,6 +130,16 @@ class ReviewReadings extends React.Component {
 }
 
 class ChooseReadings extends React.Component {
+
+  static propTypes = {
+    courseId: idType.isRequired,
+    planId: idType.isRequired,
+    hide: PropTypes.func.isRequired,
+    selected: PropTypes.array,
+    ecosystemId: idType.isRequired,
+    cancel: PropTypes.func.isRequired,
+  }
+
   hide = () => {
     const book = Courses.get(this.props.courseId).referenceBook;
     TaskPlanActions.sortTopics(this.props.planId, book.topicInfo);
@@ -169,6 +180,11 @@ const ReadingPlan = createReactClass({
   displayName: 'ReadingPlan',
   mixins: [PlanMixin],
 
+  propTypes: {
+    id: idType.isRequired,
+    courseId: idType.isRequired,
+  },
+
   getInitialState() {
     return { showSectionTopics: false };
   },
@@ -178,8 +194,6 @@ const ReadingPlan = createReactClass({
     const { id, courseId } = this.props;
     const builderProps = pick(this.state, 'isVisibleToStudents', 'isEditable', 'isSwitchable');
     const hasError = this.hasError();
-
-    const plan = TaskPlanStore.get(id);
 
     const ecosystemId = TaskPlanStore.getEcosystemId(id, courseId);
 

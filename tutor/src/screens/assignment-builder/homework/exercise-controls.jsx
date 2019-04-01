@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import {
+  React, PropTypes, observer, inject, autobind,
+} from '../../../helpers/react';
 import { Button } from 'react-bootstrap';
-import { observer } from 'mobx-react';
 import ScrollSpy from '../../../components/scroll-spy';
 import Sectionizer from '../../../components/exercises/sectionizer';
 import { Icon } from 'shared';
@@ -10,25 +10,39 @@ import TourAnchor from '../../../components/tours/anchor';
 import SelectionsTooltip from './selections-tooltip';
 import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
 
-export default
+@inject('setSecondaryTopControls')
 @observer
 class ExerciseControls extends React.Component {
   static propTypes = {
     planId:              PropTypes.string.isRequired,
-    onCancel:            PropTypes.func,
     canAdd:              PropTypes.bool,
     canEdit:             PropTypes.bool,
+    onCancel:            PropTypes.func,
+    unDocked:            PropTypes.bool,
     canReview:           PropTypes.bool,
     addClicked:          PropTypes.func,
     reviewClicked:       PropTypes.func,
     sectionizerProps:    PropTypes.object,
     hideDisplayControls: PropTypes.bool,
+    setSecondaryTopControls: PropTypes.func.isRequired,
   };
 
+  constructor(props) {
+    super(props);
+    if (!props.unDocked) {
+      props.setSecondaryTopControls(this.renderControls);
+    }
+  }
 
   selectedCount = fluxToMobx(
     TaskPlanStore, () => TaskPlanStore.exerciseCount(this.props.planId) || 0,
   )
+
+  componentWillUnmount() {
+    if (!this.props.unDocked) {
+      this.props.setSecondaryTopControls(null);
+    }
+  }
 
   addTutorSelection = () => {
     TaskPlanActions.updateTutorSelection(this.props.planId, 1);
@@ -129,6 +143,13 @@ class ExerciseControls extends React.Component {
   }
 
   render() {
+    if (this.props.unDocked) {
+      return this.renderControls();
+    }
+    return null;
+  }
+
+  @autobind renderControls() {
 
     const numSelected = this.selectedCount.current();
     const numTutor = TaskPlanStore.getTutorSelections(this.props.planId);
@@ -174,4 +195,6 @@ class ExerciseControls extends React.Component {
       </div>
     );
   }
-};
+}
+
+export default ExerciseControls;

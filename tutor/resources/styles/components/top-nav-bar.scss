@@ -1,6 +1,6 @@
 // the $navbar-XX vars are bootstrap defaults
 
-.tutor-top-navbar {
+.tutor-navbar {
 
   @mixin top-nav-action() {
     font-size: 1.6rem;
@@ -10,20 +10,20 @@
     }
   }
 
-  background: $tutor-white;
-  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
-  color: $tutor-gray;
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  min-height: $tutor-navbar-height;
-  padding-right: $navbar-padding-x;
-  padding-left:  $navbar-padding-x;
-  z-index: $zindex-fixed;
+  // background: $tutor-white;
+  // box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
+  // color: $tutor-gray;
+  // position: fixed;
+  // top: 0;
+  // right: 0;
+  // left: 0;
+  // display: flex;
+  // flex-direction: row;
+  // justify-content: center;
+  // min-height: $tutor-navbar-height;
+  // padding-right: $navbar-padding-x;
+  // padding-left:  $navbar-padding-x;
+  // z-index: $zindex-fixed;
 
   @media print {
     display: none;
@@ -39,8 +39,6 @@
     margin: 0 15px;
     width: 1200px;
   }
-
-  @include make-shy-animate();
 
   a {
     color: inherit;

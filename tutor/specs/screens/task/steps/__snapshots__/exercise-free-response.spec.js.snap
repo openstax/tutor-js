@@ -323,6 +323,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
         "due_at": 2017-10-17T12:00:00.000Z,
         "feedback_at": undefined,
         "id": 1,
+        "is_deleted": undefined,
         "steps": Array [
           [Circular],
         ],

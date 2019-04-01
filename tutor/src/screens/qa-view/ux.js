@@ -1,6 +1,6 @@
 import { observable, computed, action, autorun } from 'mobx';
 import { readonly } from 'core-decorators';
-import { pick, assign, extend, uniq, flatMap, first } from 'lodash';
+import { extend, uniq, flatMap } from 'lodash';
 import MenuToggle from '../../components/book-menu/toggle';
 import EcosystemSelector from './ecosystem-selector';
 import Router from '../../helpers/router';
@@ -108,9 +108,9 @@ export default class QaScreenUX extends BookUX {
     this.router.history.push(path);
   }
 
-  setNavBar(nav) {
+  @action setNavBar(nav) {
     nav.childProps.set('ux', this);
-    nav.left.merge({
+    nav.left.replace({
       'slide-out-menu-toggle': MenuToggle,
     });
     nav.right.merge({

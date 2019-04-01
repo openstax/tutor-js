@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { action, observe, observable } from 'mobx';
-import { Modal, ModalDialog } from 'react-bootstrap';
-import { get, pick } from 'lodash';
-import Course from '../../models/course';
-import onboardingForCourse from '../../models/course/onboarding';
-import TourContext from '../../models/tour/context';
-import Onboarding from '../../models/course/onboarding/base';
+import { Modal } from 'react-bootstrap';
+import { pick } from 'lodash';
+import Course from '../models/course';
+import onboardingForCourse from '../models/course/onboarding';
+import TourContext from '../models/tour/context';
+import Onboarding from '../models/course/onboarding/base';
 import { autobind } from 'core-decorators';
 import classnames from 'classnames';
 
@@ -58,7 +58,6 @@ class CourseNagModal extends React.Component {
       return null;
     }
     const className = classnames('onboarding', NagComponent.className);
-
     return (
       <Modal
         dialogClassName={className}
@@ -76,5 +75,4 @@ class CourseNagModal extends React.Component {
     );
   }
 
-
-};
+}

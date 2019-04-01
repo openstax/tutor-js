@@ -3,12 +3,12 @@ import React from 'react';
 import './styles.scss';
 import { inject, observer } from 'mobx-react';
 import UX from './ux';
-import NavbarContext from '../../components/navbar/context';
+import { NavbarContext } from '../../components/navbar/context';
 import Loading from 'shared/components/loading-animation';
 import QAView from './view';
 
 export default
-@inject('navBar')
+@inject('topNavbar')
 @observer
 class QAViewWrapper extends React.Component {
 
@@ -17,7 +17,7 @@ class QAViewWrapper extends React.Component {
       ecosystemId: PropTypes.string,
       chapterSection: PropTypes.string,
     }).isRequired,
-    navBar: PropTypes.instanceOf(NavbarContext).isRequired,
+    topNavbar: PropTypes.instanceOf(NavbarContext).isRequired,
   }
 
   static contextTypes = {
@@ -28,7 +28,7 @@ class QAViewWrapper extends React.Component {
 
   componentWillMount() {
     this.ux.update(this.props.params);
-    this.ux.setNavBar(this.props.navBar);
+    this.ux.setNavBar(this.props.topNavbar);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -49,4 +49,4 @@ class QAViewWrapper extends React.Component {
     );
   }
 
-};
+}

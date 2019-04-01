@@ -1,6 +1,6 @@
 import UX from '../../../src/screens/task/ux';
 import Homework from '../../../src/screens/task/homework';
-import { Factory, FakeWindow, TestRouter, TimeMock } from '../../helpers';
+import { Factory, C, FakeWindow, TestRouter, TimeMock } from '../../helpers';
 
 describe('Reading Tasks Screen', () => {
   let props;
@@ -19,13 +19,13 @@ describe('Reading Tasks Screen', () => {
   });
 
   it('matches snapshot', () => {
-    expect(<Homework {...props} />).toMatchSnapshot();
+    expect(<C><Homework {...props} /></C>).toMatchSnapshot();
   });
 
   it('renders value props', () => {
     props.ux._task.steps.unshift({ type: 'two-step-intro' });
     props.ux._stepIndex = 0;
-    const h = mount(<Homework {...props} />);
+    const h = mount(<C><Homework {...props} /></C>);
     expect(h).toHaveRendered('TwoStepValueProp');
     h.unmount();
   });

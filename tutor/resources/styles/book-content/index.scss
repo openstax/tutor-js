@@ -25,10 +25,7 @@
 
 @mixin tutor-book-content() {
   display: block;
-  padding:  0 $book-content-narrow-horizontal-padding;
-  @media screen and ( max-width: $book-content-collapse-breakpoint ){
-    padding: 0;
-  }
+  padding: 0;
   width: 100%;
 
   @include tutor-book-content-base-styles();

@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, computed, idType } from '../../helpers/react';
+import { React, PropTypes, observer, computed, inject, idType } from '../../helpers/react';
 import { isNil } from 'lodash';
 import Courses, { Course } from '../../models/courses-map';
 import StudentTask from '../../models/student-tasks/task';
@@ -10,7 +10,7 @@ import reading from './reading';
 import homework from './homework';
 import event from './event';
 import external from './external';
-
+import { TaskInfo } from '../../components/navbar/task-info';
 import { StepCard } from './step/card';
 import './styles.scss';
 
@@ -25,7 +25,7 @@ const TASK_TYPES = {
 
 const UnknownTaskType = ({ ux }) => (
   <Warning title="Unknown task type">
-    The task type "{ux.task.type || 'null'}" is unknown.
+    The assignment type "{ux.task.type || 'null'}" is unknown.
   </Warning>
 );
 
@@ -33,14 +33,28 @@ UnknownTaskType.propTypes = {
   ux: PropTypes.instanceOf(UX).isRequired,
 };
 
+const DeletedTask = () => (
+  <Warning title="Unknown task type">
+    This assignment has been removed by your instructor.
+  </Warning>
+);
 
+@inject('bottomNavbar')
 @observer
-class TaskLoader extends React.Component {
+class Task extends React.Component {
+
+  static displayName = 'Task'
 
   static propTypes = {
+    stepIndex: idType,
     course: PropTypes.instanceOf(Course).isRequired,
     task: PropTypes.instanceOf(StudentTask).isRequired,
-    stepIndex: idType,
+    bottomNavbar: PropTypes.shape({
+      left: PropTypes.shape({
+        set: PropTypes.func.isRequired,
+        delete: PropTypes.func.isRequired,
+      }).isRequired,
+    }),
   }
 
   static contextTypes = {
@@ -53,6 +67,12 @@ class TaskLoader extends React.Component {
     stepIndex: this.props.stepIndex,
   });
 
+  componentDidMount() {
+    this.props.bottomNavbar.left.set('taskInfo', () =>
+      <TaskInfo task={this.props.task} />
+    );
+  }
+
   componentDidUpdate() {
     const { stepIndex } = this.props;
     if (!isNil(stepIndex)) {
@@ -62,6 +82,7 @@ class TaskLoader extends React.Component {
 
   componentWillUnmount() {
     this.ux.isUnmounting();
+    this.props.bottomNavbar.left.delete('taskInfo');
   }
 
   render() {
@@ -103,12 +124,16 @@ class TaskGetter extends React.Component {
       return <CourseNotFoundWarning area="assignment" />;
     }
 
+    if (this.task.is_deleted) {
+      return <DeletedTask />;
+    }
+
     const stepIndex = this.props.params.stepIndex ?
       this.props.params.stepIndex - 1 : null;
 
     return (
       <div className="task-screen">
-        <TaskLoader
+        <Task
           key={this.task}
           course={this.course}
           task={this.task}

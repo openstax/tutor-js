@@ -1,4 +1,4 @@
-import { C, EnzymeContext } from '../../helpers';
+import { C } from '../../helpers';
 import Factory, { FactoryBot } from '../../factories';
 import Courses from '../../../src/models/courses-map';
 import Breadcrumbs from '../../../src/components/task-teacher-review/breadcrumbs';
@@ -26,6 +26,7 @@ describe('Task Teacher Review: Breadcrumbs', function() {
       stats: plan.analytics.stats[0],
       title: 'Title',
       courseId: '1',
+      unDocked: true,
     };
   });
 
@@ -36,7 +37,7 @@ describe('Task Teacher Review: Breadcrumbs', function() {
   });
 
   it('attempts to scroll when click', function() {
-    const bc = mount(<Breadcrumbs {...props} />, EnzymeContext.build());
+    const bc = mount(<C><Breadcrumbs {...props} /></C>);
     bc.find('Breadcrumb').first().simulate('click');
     expect(props.scrollToStep).toHaveBeenCalled();
   });

@@ -14,8 +14,7 @@ class Breadcrumb extends React.Component {
     isCurrent: PropTypes.bool,
     canReview: PropTypes.bool,
     currentStep: PropTypes.number,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func,
+
   };
 
   @action.bound goToStep() {

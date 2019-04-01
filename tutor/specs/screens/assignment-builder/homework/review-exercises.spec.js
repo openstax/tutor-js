@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../../../helpers';
+import { React, C } from '../../../helpers';
 import { map } from 'lodash';
 import ReviewExercises from '../../../../src/screens/assignment-builder/homework/review-exercises';
 import Factory, { FactoryBot } from '../../../factories';
@@ -44,7 +44,7 @@ describe('choose exercises component', function() {
   });
 
   it('matches snapshot', () => {
-    expect.snapshot(<ReviewExercises {...props} />).toMatchSnapshot();
+    expect.snapshot(<C><ReviewExercises {...props} /></C>).toMatchSnapshot();
   });
 
 });

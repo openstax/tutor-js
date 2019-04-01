@@ -1,11 +1,11 @@
 import '../../resources/styles/tutor.scss';
 import PropTypes from 'prop-types';
+import { observer } from 'mobx-react';
 import React from 'react';
 import classnames from 'classnames';
-
 import Router from '../helpers/router';
 import Analytics from '../helpers/analytics';
-import Navbar from './navbar';
+
 import MatchForTutor from './match-for-tutor';
 
 import { DragDropContext } from 'react-dnd';
@@ -16,6 +16,7 @@ import Courses from '../models/courses-map';
 import { TransitionActions } from '../flux/transition';
 import TourConductor from './tours/conductor';
 import ErrorBoundary from './error-monitoring/boundary';
+import { TutorLayout } from './tutor-layout';
 
 const RouteChange = function(props) {
   TransitionActions.load(props.pathname);
@@ -26,6 +27,7 @@ RouteChange.propTypes = {
   pathname: PropTypes.string.isRequired,
 };
 
+@observer
 class App extends React.Component {
 
   static propTypes = {
@@ -55,8 +57,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { params } = this.context.router.route.match;
-    const { courseId } = params;
+    const { courseId } = Router.currentParams();
     const course = courseId ? Courses.get(courseId) : null;
     const classNames = classnames('tutor-app', 'openstax-wrapper', {
       'is-college':     course && course.is_college,
@@ -65,16 +66,15 @@ class App extends React.Component {
 
     return (
       <div className={classNames}>
-        <SpyMode.Wrapper>
-          <Navbar.context>
+        <ErrorBoundary app={this.props.app}>
+          <SpyMode.Wrapper>
             <TourConductor>
-              <Navbar.bar />
-              <ErrorBoundary app={this.props.app}>
+              <TutorLayout course={course}>
                 <MatchForTutor routes={Router.getRenderableRoutes()} />
-              </ErrorBoundary>
+              </TutorLayout>
             </TourConductor>
-          </Navbar.context>
-        </SpyMode.Wrapper>
+          </SpyMode.Wrapper>
+        </ErrorBoundary>
       </div>
     );
   }

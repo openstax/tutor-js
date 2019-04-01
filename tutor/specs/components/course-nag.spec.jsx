@@ -1,9 +1,9 @@
-import CourseNag from '../../../src/components/navbar/course-nag';
-import TourContext from '../../../src/models/tour/context';
+import CourseNag from '../../src/components/course-nag';
+import TourContext from '../../src/models/tour/context';
 import { observable } from 'mobx';
-import Onboarding from '../../../src/models/course/onboarding/base';
+import Onboarding from '../../src/models/course/onboarding/base';
 
-jest.mock('../../../src/models/tour/context', () => (
+jest.mock('../../src/models/tour/context', () => (
   class MockContext {
     tour = {}
   }

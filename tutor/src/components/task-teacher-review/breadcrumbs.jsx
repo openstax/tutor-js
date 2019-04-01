@@ -1,15 +1,25 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { React, PropTypes, observer, inject, styled, autobind, computed, action, idType } from '../../helpers/react';
 import { map } from 'lodash';
-import { idType } from 'shared';
-import { observer } from 'mobx-react';
-import { computed, action } from 'mobx';
 import TutorBreadcrumb from '../breadcrumb';
 import BackButton from '../buttons/back-button';
 import { Stats } from '../../models/task-plans/teacher/stats';
 import TeacherTaskPlan from '../../models/task-plans/teacher/plan';
 
-export default
+const StyledBreadcrumbs = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Steps = styled.div`
+  flex: 1;
+`;
+
+const Title = styled.div`
+  font-weight: 600;
+  margin: 0 2rem;
+`;
+
+@inject('setSecondaryTopControls')
 @observer
 class Breadcrumbs extends React.Component {
 
@@ -19,7 +29,22 @@ class Breadcrumbs extends React.Component {
     courseId: idType.isRequired,
     currentStep: PropTypes.number,
     scrollToStep: PropTypes.func.isRequired,
+    setSecondaryTopControls: PropTypes.func.isRequired,
+    unDocked: PropTypes.bool,
   };
+
+  constructor(props) {
+    super(props);
+    if (!props.unDocked) {
+      props.setSecondaryTopControls(this.renderBreadcrumbs);
+    }
+  }
+
+  componentWillUnmount() {
+    if (!this.props.unDocked) {
+      this.props.setSecondaryTopControls(null);
+    }
+  }
 
   @action.bound goToStep(key) {
     this.props.scrollToStep(key);
@@ -32,7 +57,15 @@ class Breadcrumbs extends React.Component {
     }));
   }
 
+  // nothing is rendered directly, instead it's set in the secondaryToolbar
   render() {
+    if (this.props.unDocked) {
+      return this.renderBreadcrumbs();
+    }
+    return null;
+  }
+
+  @autobind renderBreadcrumbs() {
     const { currentStep, courseId, taskPlan } = this.props;
 
     const stepButtons = map(this.crumbs, crumb =>
@@ -51,14 +84,14 @@ class Breadcrumbs extends React.Component {
     };
 
     return (
-      <div className="task-breadcrumbs">
-        {stepButtons}
+      <StyledBreadcrumbs>
+        <Steps>{stepButtons}</Steps>
+        <Title>{taskPlan.title}</Title>
         <BackButton fallbackLink={fallbackLink} />
-        <div className="task-title">
-          {taskPlan.title}
-        </div>
-      </div>
+      </StyledBreadcrumbs>
     );
   }
 
 }
+
+export default Breadcrumbs;

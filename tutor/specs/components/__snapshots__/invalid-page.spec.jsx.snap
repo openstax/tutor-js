@@ -7,56 +7,84 @@ exports[`Invalid Page renders and matches snapshot 1`] = `
 }
 
 <div
-  className="invalid-page"
+  className="openstax-debug-content"
 >
   <div
-    className="ox-colored-stripe"
+    data-purpose="tour-conductor-wrapper"
   >
+    <div>
+      <div
+        className="invalid-page"
+      >
+        <div
+          className="ox-colored-stripe"
+        >
+          <div
+            className="orange"
+          />
+          <div
+            className="blue"
+          />
+          <div
+            className="red"
+          />
+          <div
+            className="yellow"
+          />
+          <div
+            className="teal"
+          />
+        </div>
+        <h1>
+          Uh-oh, no page here
+        </h1>
+        <p>
+          Kudos on your desire to explore! Unfortunately, we don’t have a page to go with that particular location.
+        </p>
+        <a
+          className="home"
+          href="/dashboard"
+          onClick={[Function]}
+        >
+          Return Home
+          <svg
+            aria-hidden="true"
+            className="svg-inline--fa fa-caret-right fa-w-6 ox-icon caret-right c0"
+            data-icon="caret-right"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            style={Object {}}
+            viewBox="0 0 192 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+              fill="currentColor"
+              style={Object {}}
+            />
+          </svg>
+        </a>
+      </div>
+    </div>
     <div
-      className="orange"
-    />
-    <div
-      className="blue"
-    />
-    <div
-      className="red"
-    />
-    <div
-      className="yellow"
-    />
-    <div
-      className="teal"
-    />
-  </div>
-  <h1>
-    Uh-oh, no page here
-  </h1>
-  <p>
-    Kudos on your desire to explore! Unfortunately, we don’t have a page to go with that particular location.
-  </p>
-  <a
-    className="home"
-    href="/dashboard"
-    onClick={[Function]}
-  >
-    Return Home
-    <svg
-      aria-hidden="true"
-      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon caret-right c0"
-      data-icon="caret-right"
-      data-prefix="fas"
-      focusable="false"
-      role="img"
-      style={Object {}}
-      viewBox="0 0 192 512"
-      xmlns="http://www.w3.org/2000/svg"
+      className="visible-when-debugging"
     >
-      <path
-        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-        fill="currentColor"
-        style={Object {}}
-      />
-    </svg>
+      <div
+        className="tour-spy-info"
+      >
+        available regions: []; region tour ids: []; audience tags: []; tour tags: []; eligible tours: []; TOUR RIDE: &lt;none&gt;
+      </div>
+    </div>
+  </div>
+  <a
+    aria-hidden="true"
+    className="debug-toggle-link"
+    href="#spy"
+    onClick={[Function]}
+    tabIndex={-1}
+  >
+    π
   </a>
 </div>
 `;

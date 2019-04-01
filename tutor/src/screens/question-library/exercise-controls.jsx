@@ -1,34 +1,43 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { observable, action } from 'mobx';
-import { observer } from 'mobx-react';
-import { keys, first } from 'lodash';
+import {
+  React, PropTypes, observer, inject, autobind, cn,
+} from '../../helpers/react';
+import { keys } from 'lodash';
 import { Button, ButtonGroup } from 'react-bootstrap';
-import classNames from 'classnames';
+
 import Course from '../../models/course';
 import TourAnchor from '../../components/tours/anchor';
 
-export default
+@inject('setSecondaryTopControls')
 @observer
 class ExerciseControls extends React.Component {
   static propTypes = {
     course:      PropTypes.instanceOf(Course).isRequired,
     onSelectSections: PropTypes.func.isRequired,
+    children: PropTypes.node.isRequired,
     exercises: PropTypes.shape({
       all: PropTypes.object,
       homework: PropTypes.object,
       reading: PropTypes.object,
     }).isRequired,
-
     selectedExercises: PropTypes.array,
     filter: PropTypes.string,
     onFilterChange: PropTypes.func.isRequired,
     sectionizerProps:  PropTypes.object,
     onShowDetailsViewClick: PropTypes.func.isRequired,
     onShowCardViewClick: PropTypes.func.isRequired,
+    setSecondaryTopControls: PropTypes.func.isRequired,
   };
 
   static defaultProps = { sectionizerProps: {} };
+
+  constructor(props) {
+    super(props);
+    props.setSecondaryTopControls(this.renderControls);
+  }
+
+  componentWillUnmount() {
+    this.props.setSecondaryTopControls(null);
+  }
 
   getSections = () => {
     return (
@@ -44,11 +53,10 @@ class ExerciseControls extends React.Component {
     );
   };
 
-  render() {
-    const { course } = this.props;
-    const sections = this.getSections();
+  render() { return null; }
 
-    const selected = this.props.selectedSection || first(sections);
+  @autobind renderControls() {
+    const { course } = this.props;
 
     const filters =
       <TourAnchor id="exercise-type-toggle">
@@ -57,7 +65,7 @@ class ExerciseControls extends React.Component {
             variant="default"
             data-filter="reading"
             onClick={this.onFilterClick}
-            className={classNames('reading', { 'active': this.props.filter === 'reading' })}
+            className={cn('reading', { 'active': this.props.filter === 'reading' })}
           >
             Reading
           </Button>
@@ -65,7 +73,7 @@ class ExerciseControls extends React.Component {
             variant="default"
             data-filter="homework"
             onClick={this.onFilterClick}
-            className={classNames('homework', { 'active': this.props.filter === 'homework' })}
+            className={cn('homework', { 'active': this.props.filter === 'homework' })}
           >
             Homework
           </Button>
@@ -84,4 +92,6 @@ class ExerciseControls extends React.Component {
       </div>
     );
   }
-};
+}
+
+export default ExerciseControls;
