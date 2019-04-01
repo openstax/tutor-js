@@ -132,7 +132,7 @@ class TaskGetter extends React.Component {
       this.props.params.stepIndex - 1 : null;
 
     return (
-      <div className={`task-screeen task-${this.task.type}`}>
+      <div className={`task-screen task-${this.task.type}`}>
         <Task
           key={this.task}
           course={this.course}
