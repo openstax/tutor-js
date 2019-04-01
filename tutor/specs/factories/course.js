@@ -4,7 +4,7 @@ const {
 } = require('./helpers');
 const moment = require('moment');
 const { ordinal } = require('../../src/helpers/number');
-
+import { BOOK_UID_XREF } from 'shared/helpers/exercise';
 
 Factory.define('Period')
   .id(sequence)
@@ -54,7 +54,7 @@ Factory.define('Course')
   .salesforce_book_name(({ object }) => object.name)
   .appearance_code(({ type = 'physics' }) => APPEARANCE_CODES[type])
   .ecosystem_id(1)
-  .ecosystem_book_uuid(uuid)
+  .ecosystem_book_uuid(() => fake.random.arrayElement(Object.keys(BOOK_UID_XREF)))
   .offering_id(1)
   .book_pdf_url('https://archive.cnx.org/exports/185cbf87-c72e-48f5-b51e-f14f21b5eabd.pdf')
   .webview_url('https://qa.cnx.org/contents/185cbf87-c72e-48f5-b51e-f14f21b5eabd')

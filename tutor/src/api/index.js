@@ -47,7 +47,7 @@ import TaskResult from '../models/scores/task-result';
 import CourseTeacher from '../models/course/teacher';
 import TeacherTaskPlan from '../models/task-plans/teacher/plan';
 import TaskPlanStats from '../models/task-plans/teacher/stats';
-import { ResponseValidation } from '../models/response_validation';
+import ResponseValidation from '../models/response_validation';
 import { Notes, PageNotes, Note } from '../models/notes';
 
 const {

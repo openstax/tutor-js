@@ -1,10 +1,15 @@
 import {
-  React, PropTypes, observer,
+  React, PropTypes, observer, styled,
 } from '../../../helpers/react';
 import UX from '../ux';
 import { StepCard } from './card';
 import ExerciseQuestion from './exercise-question';
 import Step from '../../../models/student-tasks/step';
+
+
+const StyledExercise = styled(StepCard)`
+    font-size: 1.8rem;
+`;
 
 export default
 @observer
@@ -21,13 +26,14 @@ class ExerciseTaskStep extends React.Component {
     const { content } = step;
 
     return (
-      <StepCard
+      <StyledExercise
         data-task-step-id={step.id}
         className="exercise-step"
       >
         {content.questions.map((q, i) =>
-          <ExerciseQuestion key={q.id} step={step} ux={ux} question={q} index={i} />)}
-      </StepCard>
+          <ExerciseQuestion key={q.id}
+            step={step} ux={ux} question={q} index={i} />)}
+      </StyledExercise>
     );
   }
 

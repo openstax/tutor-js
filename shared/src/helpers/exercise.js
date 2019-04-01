@@ -20,11 +20,12 @@ const BOOK_UID_XREF = {
   'fbc61a81-d911-4fe5-bcc7-f1746dbbea18': 'APUSH', // title is not yet on errata form
 };
 
+export { BOOK_UID_XREF };
+
 const Exercises = {
 
   troubleUrl({ bookUUID, project, exerciseId, chapter_section, title }) {
     const location = [];
-
     if (exerciseId) { location.push(exerciseId); }
     if (chapter_section) {
       location.push(chapter_section.toString());

@@ -12,7 +12,7 @@ describe('Exercise Identifier Link', function() {
       exerciseId: '123442',
       project: 'tutor',
       related_content: [{
-        chapter_section: [1, 2],
+        chapter_section: { toString() { return '1.2'; } },
         title: 'Introduction to Apples',
       }],
     });
@@ -23,7 +23,7 @@ describe('Exercise Identifier Link', function() {
 
   it('reads the parts from props and sets the url', function() {
     const link = shallow(<ExerciseIdentifierLink {...props} />);
-    expect(link).toHaveRendered(`a[href=\"${Exercise.ERRATA_FORM_URL}?source=tutor&location=123442%201%2C2%20Introduction%20to%20Apples&book=College%20Physics\"]`);
+    expect(link).toHaveRendered(`a[href="${Exercise.ERRATA_FORM_URL}?source=tutor&location=123442%201.2%20Introduction%20to%20Apples&book=College%20Physics"]`);
   });
 
   it('falls back to context if props are missing', function() {
@@ -39,7 +39,7 @@ describe('Exercise Identifier Link', function() {
       },
     );
     expect(link).toHaveRendered(
-      `a[href=\"${Exercise.ERRATA_FORM_URL}?source=TESTING&location=123442%201%2C2%20Introduction%20to%20Apples&book=Principles%20of%20Microeconomics\"]`
+      `a[href="${Exercise.ERRATA_FORM_URL}?source=TESTING&location=123442%201.2%20Introduction%20to%20Apples&book=Principles%20of%20Microeconomics"]`
     );
   });
 

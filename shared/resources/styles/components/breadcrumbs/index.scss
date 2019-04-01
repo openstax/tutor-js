@@ -5,16 +5,16 @@
 .task-concept_coach,
 .task-page_practice,
 .task-practice_worst_topics {
-  .task-breadcrumbs {
-    counter-reset: step;
-  }
-  .openstax-breadcrumbs-step {
 
+  [data-step-index] {
+
+    &.breadcrumb-mpq,
     &.breadcrumb-placeholder,
     &.breadcrumb-exercise {
+      border: 1px solid #8181813b;
       &:before {
         counter-increment: step;
-        content: counter(step);
+        content: attr(data-step-index);
         @include crumb-text();
       }
 

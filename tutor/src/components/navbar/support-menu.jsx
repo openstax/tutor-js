@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { Dropdown } from 'react-bootstrap';
-import { get, delay } from 'lodash';
-import { action, computed, observable } from 'mobx';
+import { get } from 'lodash';
+import { action, computed, observable, when } from 'mobx';
 import { observer, inject } from 'mobx-react';
 import User from '../../models/user';
 import TourAnchor from '../tours/anchor';
@@ -17,7 +17,9 @@ import Router from '../../helpers/router';
 import Course from '../../models/course';
 import Theme from '../../theme';
 
-const StudentPreview = observer(({ course, tourContext, ...props }, { router }) => {
+const StudentPreview = observer(({
+  course, tourContext, ...props // eslint-disable-line no-unused-vars
+}, { router }) => {
   if( !course || !( User.isConfirmedFaculty || User.isUnverifiedInstructor ) ) { return null; }
   return (
     <Dropdown.Item
@@ -31,14 +33,14 @@ const StudentPreview = observer(({ course, tourContext, ...props }, { router }) 
         <span className="control-label" title="See what students see">Student preview videos</span>
       </TourAnchor>
     </Dropdown.Item>
-        );
+  );
 });
 
 StudentPreview.contextTypes = {
   router: PropTypes.object,
 };
 
-const PageTips = observer(({ course, onPlayClick, tourContext, ...props }) => {
+const PageTips = observer(({ onPlayClick, tourContext, ...props }) => {
   if (!get(tourContext, 'hasTriggeredTour', false)){ return null; }
   return (
     <Dropdown.Item
@@ -68,6 +70,9 @@ class SupportMenu extends React.Component {
   static contextTypes = {
     router: PropTypes.object,
   }
+
+  @observable chatEnabled;
+  @observable chatDisabled;
 
   renderChat() {
     if (!Chat.isEnabled) { return null; }
@@ -118,9 +123,13 @@ class SupportMenu extends React.Component {
   }
 
   componentDidMount() {
-    Chat.setElementVisiblity(
-      findDOMNode(this.chatEnabled),
-      findDOMNode(this.chatDisabled));
+    when(
+      () => this.chatEnabled && this.chatDisabled,
+      () => Chat.setElementVisiblity(
+        findDOMNode(this.chatEnabled),
+        findDOMNode(this.chatDisabled)
+      ),
+    );
   }
 
   render() {
@@ -172,4 +181,4 @@ class SupportMenu extends React.Component {
     );
   }
 
-};
+}

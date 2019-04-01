@@ -18,10 +18,7 @@ const NoStats = ({ taskPlan, header, course, period }) => {
   );
 
   return (
-    <div
-      className="task-teacher-review no-stats"
-      cardType="task"
-    >
+    <div className="task-teacher-review no-stats">
       {header}
       <h1>No activity yet</h1>
       {body}

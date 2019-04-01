@@ -17,7 +17,7 @@ import Notices from '../helpers/notifications';
 import Chat from './chat';
 import Toasts from './toasts';
 import Tutor from '../components/root';
-import { ResponseValidation } from './response_validation';
+import ResponseValidation from './response_validation';
 
 const BOOTSTRAPED_MODELS = {
   user:     User,

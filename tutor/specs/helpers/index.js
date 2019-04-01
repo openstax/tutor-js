@@ -14,18 +14,18 @@ export function getPortalNode(modal) {
   return modal.find('Portal').first().getDOMNode();
 }
 
-const deferred = (fn, timeout = 3) =>
+const delay = (timeout = 3) =>
   new Promise(done => {
     jest.useRealTimers();
     setTimeout(() => {
-      fn();
       done();
     }, timeout);
   });
 
+const deferred = (fn, timeout = 3) => delay(timeout).then(fn);
 
 export {
-  Router, TimeMock, TestRouter, TutorRouter,
+  Router, TimeMock, TestRouter, TutorRouter, delay,
   Factory, FactoryBot, Actions, deferred, C, ReactTestUtils,
   wrapInDnDTestContext, EnzymeContext, Theme, PropTypes,
 };

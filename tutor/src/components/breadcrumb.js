@@ -25,7 +25,7 @@ class Breadcrumb extends React.Component {
     let crumbClasses, status, title;
     let isCorrect = false;
     let isIncorrect = false;
-    const { step, canReview, isCurrent, className } = this.props;
+    const { step, canReview, isCurrent, className, stepIndex } = this.props;
     const isCompleted = step != null ? step.is_completed : undefined;
     const { type: crumbType } = step;
     const isEnd = 'end' === crumbType;
@@ -82,10 +82,11 @@ class Breadcrumb extends React.Component {
 
     return (
       <span
-        className={classes}
         title={title}
         aria-label={title}
+        className={classes}
         onClick={this.goToStep}
+        data-step-index={stepIndex + 1}
         data-chapter={step.sectionLabel}
         key={`step-${step.id}`}
       >

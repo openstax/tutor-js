@@ -8,6 +8,7 @@ import ExerciseContent from 'shared/model/exercise';
 import Page from '../reference-book/page';
 import { getters } from '../../helpers/computed-property';
 import ChapterSection from '../chapter-section';
+import RelatedContent from '../related-content';
 
 export default
 @identifiedBy('exercises/exercise')
@@ -27,6 +28,8 @@ class TutorExercise extends BaseModel {
   @field url = '';
   @field context;
   @field preview;
+
+  @hasMany({ model: RelatedContent }) related_content;
 
   @hasMany({ model: Tag, inverseOf: 'exercise', extend: getters({
     importantInfo() {

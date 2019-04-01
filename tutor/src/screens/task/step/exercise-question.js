@@ -2,6 +2,7 @@ import {
   React, PropTypes, observer, styled, action, observable, computed,
 } from '../../../helpers/react';
 import UX from '../ux';
+import keymaster from 'keymaster';
 import { Button } from 'react-bootstrap';
 import { Question, AsyncButton } from 'shared';
 import Step from '../../../models/student-tasks/step';
@@ -27,6 +28,14 @@ class ExerciseQuestion extends React.Component {
   @computed get needsSaved() {
     return this.selectedAnswer &&
       this.selectedAnswer.id !== this.props.step.answer_id;
+  }
+
+  componentDidMount() {
+    keymaster('enter', 'multiple-choice', this.onNextStep);
+  }
+
+  componentWillUnmount() {
+    keymaster.unbind('enter', 'multiple-choice');
   }
 
   @action.bound onAnswerChange(answer) {
@@ -71,17 +80,20 @@ class ExerciseQuestion extends React.Component {
   }
 
   render() {
-    const { ux, question, step } = this.props;
+    const { ux, question, step, ux: { course } } = this.props;
 
     if (step.needsFreeResponse) {
       return (
-        <FreeResponseInput key={question.id} step={step} question={question} />
+        <FreeResponseInput
+          key={question.id} course={course}
+          step={step} question={question} />
       );
     }
 
     return (
       <StyledExerciseQuestion>
         <Question
+          focus={!step.multiPartGroup}
           task={ux.task}
           question={question}
           choicesEnabled={true}
@@ -91,7 +103,7 @@ class ExerciseQuestion extends React.Component {
           hasCorrectAnswer={step.hasCorrectAnswer}
           correct_answer_id={step.is_completed ? step.correct_answer_id : null}
         >
-          <FreeResponseReview step={step} />
+          <FreeResponseReview course={course} step={step} />
         </Question>
         {this.needsSaved ?
           this.renderSaveButton() : this.renderNextButton()}

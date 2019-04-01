@@ -1,10 +1,13 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { React, PropTypes, styled } from '../helpers/react';
 import { isEmpty } from 'lodash';
 import Course from '../models/course';
 import ChapterSection from './chapter-section';
 import RelatedContent from '../models/related-content';
 import BrowseTheBook from './buttons/browse-the-book';
+
+const Title = styled.span`
+  margin-left: 0.5rem;
+`;
 
 const RelatedContentLink = ({ course, content }) => {
 
@@ -25,6 +28,7 @@ const RelatedContentLink = ({ course, content }) => {
         >
           <span className="part">
             <ChapterSection chapterSection={rl.chapter_section} />
+            <Title>{rl.title}</Title>
           </span>
         </BrowseTheBook>))}
     </div>

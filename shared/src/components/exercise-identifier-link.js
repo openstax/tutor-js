@@ -10,13 +10,11 @@ class ExerciseIdentifierLink extends React.Component {
     bookUUID: PropTypes.string,
     exerciseId: PropTypes.string.isRequired,
     project: PropTypes.oneOf(['concept-coach', 'tutor']),
-
     related_content: PropTypes.arrayOf(PropTypes.shape({
-      chapter_section: PropTypes.arrayOf(PropTypes.number),
+      chapter_section: PropTypes.object,
       title: PropTypes.string,
     })),
-
-    chapter_section: PropTypes.arrayOf(PropTypes.number),
+    chapter_section: PropTypes.object,
     title: PropTypes.string,
   }
 
@@ -37,7 +35,7 @@ class ExerciseIdentifierLink extends React.Component {
       this.getLocationInfo(),
       {
         exerciseId: this.props.exerciseId,
-        project:    this.props.project || this.context.oxProject,
+        project:    this.props.project || this.context.oxProject || 'tutor',
         bookUUID:   this.props.bookUUID || this.context.bookUUID,
       },
     ));

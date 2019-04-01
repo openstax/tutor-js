@@ -1,11 +1,8 @@
 @import '../screen-styles';
 @import '../../../resources/styles/book-content/index';
 @import '../../../resources/styles/book-content/page';
+@import './styles/milestones';
 
 .task-screen {
-
-
   @include book-page();
-//  padding: 0;
-
 }

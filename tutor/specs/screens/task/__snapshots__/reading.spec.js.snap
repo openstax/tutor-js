@@ -28,7 +28,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
               "id": 1,
               "related_content": Array [
                 Object {
-                  "chapter_section": Array [
+                  "book_location": Array [
                     1,
                     2,
                   ],
@@ -49,6 +49,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
             "labels": Array [],
             "multiPartGroup": undefined,
             "preview": "Simple Machines",
+            "response_validation": Object {},
             "task": [Circular],
             "task_association_name": "steps",
             "type": "interactive",
@@ -203,6 +204,15 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
               "pool_types": Array [],
               "preview": undefined,
               "question_stats": Array [],
+              "related_content": Array [
+                RelatedContent {
+                  "chapter_section": ChapterSection {
+                    "chapter": 1,
+                    "section": 2,
+                  },
+                  "title": "Simple Machines",
+                },
+              ],
               "tags": Array [],
               "url": "",
             },
@@ -219,6 +229,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
             "labels": Array [],
             "multiPartGroup": undefined,
             "preview": "interactive: Prokaryotic Transcription",
+            "response_validation": Object {},
             "task": [Circular],
             "task_association_name": "steps",
             "type": "exercise",
@@ -239,7 +250,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
               "id": 2,
               "related_content": Array [
                 Object {
-                  "chapter_section": Array [
+                  "book_location": Array [
                     1,
                     2,
                   ],
@@ -260,6 +271,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
             "labels": Array [],
             "multiPartGroup": undefined,
             "preview": "Food Irradiation",
+            "response_validation": Object {},
             "task": [Circular],
             "task_association_name": "steps",
             "type": "interactive",
@@ -280,7 +292,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
               "id": 3,
               "related_content": Array [
                 Object {
-                  "chapter_section": Array [
+                  "book_location": Array [
                     1,
                     2,
                   ],
@@ -301,6 +313,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
             "labels": Array [],
             "multiPartGroup": undefined,
             "preview": "Angiosperms",
+            "response_validation": Object {},
             "task": [Circular],
             "task_association_name": "steps",
             "type": "interactive",
@@ -455,6 +468,15 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
               "pool_types": Array [],
               "preview": undefined,
               "question_stats": Array [],
+              "related_content": Array [
+                RelatedContent {
+                  "chapter_section": ChapterSection {
+                    "chapter": 1,
+                    "section": 2,
+                  },
+                  "title": "The Onset of Turbulence",
+                },
+              ],
               "tags": Array [],
               "url": "",
             },
@@ -471,6 +493,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
             "labels": Array [],
             "multiPartGroup": undefined,
             "preview": "one-to-one: RL Circuits",
+            "response_validation": Object {},
             "task": [Circular],
             "task_association_name": "steps",
             "type": "exercise",
@@ -490,11 +513,11 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
               "html": "<span class=\\"os-text\\">Physics: An Introduction</span> </h2> <div class=\\"os-figure\\"> <figure id=\\"import-auto-id1580373\\"><span data-alt=\\"Two Canada geese flying close to each other in the sky.\\" data-type=\\"media\\" id=\\"import-auto-id1936836\\"><img alt=\\"Two Canada geese flying close to each other in the sky.\\" data-media-type=\\"image/wmf\\" id=\\"90580\\" src=\\"https://cnx.org/resources/18f7913be5bf22af357a34143dd8638511b9ba9a\\" width=\\"325\\"></span> </figure><div class=\\"os-caption-container\\"> <span class=\\"os-title-label\\">Figure </span><span class=\\"os-number\\">1.2</span><span class=\\"os-divider\\"s as food calories, batteries, heat, light, and watch springs. Understanding this law makes it easier to learn about the various forms energy takes and how they relate to one another. Apparently unrelated topics are connected through broadly applicable physical laws, permitting an understanding beyond just the memorization of lists of facts.</p> <p id=\\"import-auto-id2555094\\">The unifying aspect of physical laws and the basic simplicity",
               "id": 1,
               "related_content": Array [
-                Object {
-                  "chapter_section": Array [
-                    1,
-                    2,
-                  ],
+                RelatedContent {
+                  "chapter_section": ChapterSection {
+                    "chapter": 1,
+                    "section": 2,
+                  },
                   "title": "Angiosperms",
                 },
               ],
@@ -512,6 +535,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
             "labels": Array [],
             "multiPartGroup": undefined,
             "preview": "Environmental Limits to Population Growth",
+            "response_validation": Object {},
             "task": [Circular],
             "task_association_name": "steps",
             "type": "reading",
@@ -532,7 +556,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
               "id": 4,
               "related_content": Array [
                 Object {
-                  "chapter_section": Array [
+                  "book_location": Array [
                     1,
                     2,
                   ],
@@ -553,12 +577,14 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
             "labels": Array [],
             "multiPartGroup": undefined,
             "preview": "Breathing",
+            "response_validation": Object {},
             "task": [Circular],
             "task_association_name": "steps",
             "type": "interactive",
             "uid": null,
           },
         ],
+        "student_names": Array [],
         "tasksMap": Object {},
         "title": "asymmetric",
         "type": "reading",
@@ -570,7 +596,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
         "default_due_time": "07:00",
         "default_open_time": "00:32",
         "does_cost": false,
-        "ecosystem_book_uuid": "48650456-bade-4487-a49d-94a8d215ce32",
+        "ecosystem_book_uuid": "bf96bfc5-e723-46c2-9fa2-5a4c9294fa26",
         "ecosystem_id": 1,
         "ends_at": "2017-11-14T13:00:00.000Z",
         "homework_progress_weight": 0.1,
@@ -601,7 +627,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
             "id": 1,
             "is_archived": false,
             "name": "1st",
-            "num_enrolled_students": 19,
+            "num_enrolled_students": 46,
             "teacher_student_role_id": 1,
           },
           CoursePeriod {
@@ -617,7 +643,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
             "id": 2,
             "is_archived": false,
             "name": "1st",
-            "num_enrolled_students": 42,
+            "num_enrolled_students": 37,
             "teacher_student_role_id": 2,
           },
           CoursePeriod {
@@ -633,7 +659,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
             "id": 3,
             "is_archived": false,
             "name": "1st",
-            "num_enrolled_students": 48,
+            "num_enrolled_students": 31,
             "teacher_student_role_id": 3,
           },
         ],
@@ -656,14 +682,14 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
             },
             "course": [Circular],
             "course_association_name": "students",
-            "first_name": "Coy",
+            "first_name": "Adelia",
             "id": 1,
             "is_active": true,
             "is_comped": false,
             "is_paid": false,
             "is_refund_allowed": undefined,
             "is_refund_pending": undefined,
-            "last_name": "Boyer",
+            "last_name": "Gutmann",
             "name": undefined,
             "payment_due_at": 2017-10-17T12:00:00.000Z,
             "period_id": undefined,

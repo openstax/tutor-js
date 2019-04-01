@@ -120,6 +120,15 @@ exports[`Question Stem matches snapshot 1`] = `
           "pool_types": Array [],
           "preview": undefined,
           "question_stats": Array [],
+          "related_content": Array [
+            RelatedContent {
+              "chapter_section": ChapterSection {
+                "chapter": 1,
+                "section": 2,
+              },
+              "title": "Angiosperms",
+            },
+          ],
           "tags": Array [],
           "url": "",
         },
