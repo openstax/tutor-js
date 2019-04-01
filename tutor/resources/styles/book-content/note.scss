@@ -1,5 +1,4 @@
-$has-data-label-selector: '[data-label]:not([data-label=""])';
-$feature-title-is-element: '[data-has-label=true][data-label=""]';
+$feature-title-is-element: '[data-has-label=true][data-label]';
 $tutor-note-title-element: '[data-type=title]:first-child';
 
 $tutor-note-margin-horizontal: 38px;
@@ -71,11 +70,6 @@ $tutor-book-note-selector: '
 ';
 
 @mixin tutor-book-label-style() {
-  &#{$has-data-label-selector} {
-    &::before {
-      @content;
-    }
-  }
 
   &#{$feature-title-is-element},
   &[data-element-type="check-understanding"] {
@@ -90,19 +84,21 @@ $tutor-book-note-selector: '
 
     >[data-type=content],
     &:not([data-tutor-transform]) {
-      background: $tutor-neutral-lightest;
-      margin: 0;
-      clear: both;
-      border-top: solid 8px $tutor-neutral-lighter;
-      border-bottom: solid 8px $tutor-neutral-lighter;
-      padding: $tutor-note-padding;
-      width: 100%;
+      &:not(.ost-assignable ) {
+        background: $tutor-neutral-lightest;
+        margin: 0;
+        clear: both;
+        border-top: solid 8px $tutor-neutral-lighter;
+        border-bottom: solid 8px $tutor-neutral-lighter;
+        padding: $tutor-note-padding;
+        width: 100%;
 
-      .exercise,
-      [data-type=exercise]  {
-        .solution {
-          // undo general hiding of solutions
-          display: block;
+        .exercise,
+        [data-type=exercise]  {
+          .solution {
+            // undo general hiding of solutions
+            display: block;
+          }
         }
       }
     }
@@ -114,10 +110,6 @@ $tutor-book-note-selector: '
       padding: $tutor-note-padding-vertical 0;
       border-top: solid 8px $tutor-secondary;
       border-bottom: none;
-
-      &#{$has-data-label-selector}::before {
-        margin: $book-content-note-without-background-margin;
-      }
     }
 
     .book-content > .example,
@@ -133,42 +125,41 @@ $tutor-book-note-selector: '
         }
       }
     }
-
-    @include tutor-book-label-style() {
-      @include tutor-sans-font(2rem);
-      margin-top: 1rem;
-      margin-bottom: 0;
-      display: inline-flex;
-      align-items: center;
-      font-weight: 900;
-      padding: 0.5rem 4rem;
-    };
-
-    &:not([data-tutor-transform]) {
-      position: relative;
-      top: $tutor-book-ui-top-height + 8px;
-      margin-bottom: $tutor-book-ui-top-height * 2 + 8px;
+    &:not(.ost-assignable ) {
       @include tutor-book-label-style() {
-        position: absolute;
-        top: -1 * $tutor-book-ui-top-height - 8px;
-        height: $tutor-book-ui-top-height;
-        left: 0;
-        right: 0;
+        @include tutor-sans-font(2rem);
+        margin-top: 1rem;
+        margin-bottom: 0;
+        display: inline-flex;
+        align-items: center;
+        font-weight: 900;
+        padding: 0.5rem 4rem;
       };
+
+      &:not([data-tutor-transform]) {
+        position: relative;
+        top: $tutor-book-ui-top-height + 8px;
+        margin-bottom: $tutor-book-ui-top-height * 2 + 8px;
+        @include tutor-book-label-style() {
+          position: absolute;
+          top: -1 * $tutor-book-ui-top-height - 8px;
+          height: $tutor-book-ui-top-height;
+          left: 0;
+          right: 0;
+        };
+      }
     }
 
-    &#{$has-data-label-selector}::before {
-      content: attr(data-label);
-    }
   }
-
 }
 
 @mixin tutor-book-theme-notes($background, $text-color) {
   #{$tutor-book-note-selector} {
-    @include tutor-book-label-style() {
-      color: $text-color;
-      background-color: $background;
+    &:not(.ost-assignable ) {
+      @include tutor-book-label-style() {
+        color: $text-color;
+        background-color: $background;
+      }
     }
   }
 }
