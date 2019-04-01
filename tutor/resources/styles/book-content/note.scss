@@ -151,9 +151,6 @@ $tutor-book-note-selector: '
     }
 
   }
-  [data-type="note"] [data-type="content"] [data-type="note"] {
-    background: none;
-  }
 }
 
 @mixin tutor-book-theme-notes($background, $text-color) {
