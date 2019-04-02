@@ -8,7 +8,6 @@ import UX from './ux';
 class Milestone extends React.Component {
 
   static propTypes = {
-    //ux: PropTypes.instanceOf(UX).isRequired,
     goToStep: PropTypes.func.isRequired,
     step: PropTypes.object.isRequired,
     currentStep: PropTypes.number.isRequired,
@@ -75,7 +74,7 @@ class Milestones extends React.Component {
     return (
       <div className="milestones-wrapper" role="dialog" tabIndex="-1">
         <div className="milestones task-breadsteps" role="document">
-          {ux.steps.map( (step, stepIndex) =>
+          {ux.milestoneSteps.map( (step, stepIndex) =>
             <Milestone
               key={`step-wrapper-${stepIndex}`}
               step={step}
