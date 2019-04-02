@@ -5,10 +5,11 @@ jest.mock('../../../src/models/student-tasks/task');
 
 describe('Tasks Screen', () => {
   let props;
+  let course;
   let task;
 
   beforeEach(() => {
-    const course = Factory.course();
+    course = Factory.course();
     task = course.studentTasks.get(1);
     Object.assign(task, {
       id: 1,
@@ -29,7 +30,14 @@ describe('Tasks Screen', () => {
     };
   });
 
+  it('redirects to first step', () => {
+    const t = mount(<C><Task {...props} /></C>);
+    expect(t).toHaveRendered(`Redirect[push=false][to="/course/${course.id}/task/${task.id}/step/1"]`);
+    t.unmount();
+  });
+
   it('renders and fetches', () => {
+    props.params.stepIndex = 1;
     const t = mount(<C><Task {...props} /></C>);
     expect(task.fetch).toHaveBeenCalled();
     expect(t).toHaveRendered('ContentLoader');
