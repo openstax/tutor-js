@@ -184,8 +184,8 @@ const startAPI = function() {
   );
 
   connectModelRead(ResponseValidation, 'validate',
-    { pattern: 'validate', onSuccess: 'onValidationComplete',
-      onFail: 'onFailure',
+    { pattern: 'validate', onSuccess: 'onValidationComplete', onFail: 'onFailure',
+      timeout: 2000, // wait a max of 2 seconds
     });
 
   connectModelUpdate(Student, 'saveOwnStudentId', { pattern: 'user/courses/{course.id}/student', onSuccess: 'onApiRequestComplete' });
@@ -211,7 +211,9 @@ const startAPI = function() {
     pattern: 'courses/{courseId}/practice',
   });
 
-  connectModelRead(StudentTask, 'fetch', { onSuccess: 'onApiRequestComplete', pattern: '/tasks/{id}' });
+  connectModelRead(StudentTask, 'fetch', {
+    onSuccess: 'onApiRequestComplete', pattern: '/tasks/{id}',
+  });
 
   connectModelUpdate(StudentTaskStep, 'save', {
     onSuccess: 'onAnswerSaved', pattern: 'steps/{id}',

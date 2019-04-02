@@ -1,6 +1,7 @@
 import { isEmpty, extend, last } from 'lodash';
 import { observable, computed, action } from 'mobx';
 import ResponseValidation from '../../models/response_validation';
+import Raven from '../../models/app/raven';
 
 export
 class ResponseValidationUX {
@@ -44,15 +45,24 @@ class ResponseValidationUX {
   @action async validate() {
     const submitted = this.isDisplayingNudge ?
       this.retriedResponse : this.initialResponse;
-    const reply = await this.validator.validate({
-      uid: this.step.uid,
-      response: submitted,
-    });
-
-    return extend({}, reply.data, {
-      response: submitted,
-      nudgeMessage: this.nudgeMessage,
-    });
+    try {
+      const reply = await this.validator.validate({
+        uid: this.step.uid,
+        response: submitted,
+      });
+      return extend({}, reply.data, {
+        response: submitted,
+        nudgeMessage: this.nudgeMessage,
+      });
+    } catch (err) {
+      Raven.captureException(err);
+      return {
+        valid: true,
+        exception: err.toString(),
+        response: submitted,
+        nudgeMessage: this.nudgeMessage,
+      };
+    }
   }
 
   @action advanceUI(result) {
