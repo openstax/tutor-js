@@ -16,8 +16,10 @@ class TaskStepContent extends BaseModel {
   }
 }
 
-class StudentTaskInteractiveStep extends TaskStepContent { }
+class StudentTaskVideoStep extends TaskStepContent { }
 class StudentTaskExternalStep extends TaskStepContent { }
+class StudentTaskInteractiveStep extends TaskStepContent { }
+
 class StudentTaskReadingStep extends TaskStepContent {
   @lazyGetter chapterSection = new ChapterSection(this.chapter_section);
   @hasMany({ model: RelatedContent }) related_content;
@@ -31,7 +33,6 @@ class StudentTaskReadingStep extends TaskStepContent {
   );
 }
 
-
 export
 class StudentTaskExerciseStep extends Exercise {
   get questions() {
@@ -40,15 +41,16 @@ class StudentTaskExerciseStep extends Exercise {
 }
 
 const ContentClasses = {
+  video: StudentTaskVideoStep,
   reading: StudentTaskReadingStep,
   exercise: StudentTaskExerciseStep,
-  interactive: StudentTaskInteractiveStep,
   external_url: StudentTaskExternalStep,
+  interactive: StudentTaskInteractiveStep,
 };
 
 
 const HAS_ADDITIONAL_CONTENT = [
-  'reading', 'exercise', 'interactive',
+  'reading', 'exercise', 'interactive', 'video',
 ];
 
 export default
@@ -127,24 +129,24 @@ class StudentTaskStep extends BaseModel {
     if (this.needsFetched && !this.api.isPending) { this.fetch(); }
   }
 
+  @action markViewed() {
+    if (!this.isExercise && !this.is_completed) {
+      this.is_completed = true;
+      this.save();
+    }
+  }
+
   // called by API
-  saveAnswer() {
+  fetch() { }
+  save() {
     return { data: pick(this,
-      'answer_id', 'free_response', 'response_validation',
+      'is_completed', 'answer_id', 'free_response', 'response_validation',
     ) };
   }
 
   @action beginRecordingAnswer({ free_response }) {
     this.free_response = free_response;
     this.answer_id = null;
-  }
-
-  // called by external url
-  markCompleted() {
-    return this.saveAnswer();
-  }
-
-  fetch() {
   }
 
   @action onAnswerSaved({ data }) {

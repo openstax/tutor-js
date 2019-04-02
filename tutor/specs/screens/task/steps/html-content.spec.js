@@ -1,4 +1,4 @@
-import Interactive from '../../../../src/screens/task/step/interactive';
+import HtmlContent from '../../../../src/screens/task/step/html-content';
 import { Factory, TestRouter, TimeMock } from '../../../helpers';
 import UX from '../../../../src/screens/task/ux';
 
@@ -6,7 +6,7 @@ jest.mock('../../../../../shared/src/components/html', () => ({ html }) =>
   html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
 );
 
-describe('Interactive Tasks Screen', () => {
+describe('Html Content Tasks Screen', () => {
   let props;
   TimeMock.setTo('2017-10-14T12:00:00.000Z');
   beforeEach(() => {
@@ -23,12 +23,12 @@ describe('Interactive Tasks Screen', () => {
   });
 
   it('matches snapshot', () => {
-    expect.snapshot(<Interactive {...props} />).toMatchSnapshot();
+    expect.snapshot(<HtmlContent {...props} />).toMatchSnapshot();
   });
 
   it('renders html', () => {
     props.step.content.html = '<p>testing text</p>';
-    const ia = mount(<Interactive {...props} />);
+    const ia = mount(<HtmlContent {...props} />);
     expect(ia.text()).toContain('testing text');
     ia.unmount();
   });

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Interactive Tasks Screen matches snapshot 1`] = `
+exports[`Html Content Tasks Screen matches snapshot 1`] = `
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -18,7 +18,6 @@ exports[`Interactive Tasks Screen matches snapshot 1`] = `
   margin: 10rem auto;
   border: 1px solid #e4e4e4;
   border-radius: 0.25rem;
-  padding: 50px 140px;
 }
 
 .c1 {
