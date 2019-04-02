@@ -1,3 +1,5 @@
+import { readonly } from 'core-decorators';
+
 export default
 class StudentTaskInfoStep {
 
@@ -5,6 +7,7 @@ class StudentTaskInfoStep {
     Object.assign(this, info);
   }
 
+  @readonly needsFetched = false;
   fetchIfNeeded() { }
   markViewed() {}
 }
