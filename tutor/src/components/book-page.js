@@ -214,7 +214,8 @@ class BookPage extends React.Component {
 
   insertOverlays(root) {
     const { title } = this.props;
-    if (!title) { return null; }
+    if (!title) { return; }
+
     for (let img of root.querySelectorAll('.splash img')) {
       if (img.parentElement.querySelector('.ui-overlay')) { continue; }
       const overlay = document.createElement('div');

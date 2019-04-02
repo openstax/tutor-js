@@ -2,7 +2,6 @@ import {
   React, PropTypes, observer, styled, action, observable, computed,
 } from '../../../helpers/react';
 import UX from '../ux';
-import { get } from 'lodash';
 import keymaster from 'keymaster';
 import { Button } from 'react-bootstrap';
 import { Question, AsyncButton } from 'shared';
