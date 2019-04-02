@@ -26,7 +26,7 @@ class RelatedContent extends React.Component {
     return (
       <h4
         className="related-content"
-        data-has-learning-objectives={hasLearningObjectives}
+        data-has-learning-objectives={!!hasLearningObjectives}
       >
         <span className="part">
           {!isChapterSectionHidden &&

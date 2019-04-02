@@ -30,7 +30,7 @@
     .page {
       @include tutor-book-content-body();
       background-color: $tutor-white;
-
+      border: 1px solid $tutor-neutral-light;
       > section {
         > h1, h2 {
           clear: both;
