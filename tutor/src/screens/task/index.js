@@ -91,7 +91,7 @@ class Task extends React.Component {
   componentWillUnmount() {
     this.ux.isUnmounting();
     this.props.bottomNavbar.left.delete('taskInfo');
-    this.props.bottomNavbar.left.delete('taskControls');
+    this.props.bottomNavbar.right.delete('taskControls');
   }
 
   render() {
