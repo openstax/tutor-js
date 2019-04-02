@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, identifier, hasMany, computed,
+  BaseModel, identifiedBy, identifier, hasMany, computed, action,
 } from 'shared/model';
 import StudentTaskStep from './step';
 import { readonly } from 'core-decorators';
@@ -34,4 +34,7 @@ class StudentTaskStepGroup extends BaseModel {
     return this.steps.map(s => s.fetchIfNeeded());
   }
 
+  @action markViewed() {
+    this.steps.forEach(s => s.markViewed());
+  }
 }
