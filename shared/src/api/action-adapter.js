@@ -140,7 +140,7 @@ const connectModelAction = function(action, apiHandler, klass, method, options) 
   const handler = function(originalMethod, ...reqArgs) {
     const firstArg = first(reqArgs);
     const requestConfig = mapValues(
-      pick(options, 'pattern', 'url', 'query', 'method', 'data', 'params', 'handledErrors'), (val) => {
+      pick(options, 'pattern', 'url', 'query', 'method', 'data', 'params', 'handledErrors', 'timeout'), (val) => {
         if (isFunction(val)) { return val.call(this, ...Array.from(reqArgs)); } else { return val; }
       });
     const updatedConfig = originalMethod.call(this, ...Array.from(reqArgs), requestConfig);
