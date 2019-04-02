@@ -1,10 +1,11 @@
 import interpolate from 'interpolate';
+import { action as mobxAction } from 'mobx';
 import { METHODS_TO_ACTIONS } from './collections';
 import qs from 'qs';
 import {
   partial, map, mapValues, reject, pick, merge, first,
   wrap, invert, partition, defaults, isEmpty,
-  bind, clone, isFunction, isObjectLike,
+  clone, isFunction, isObjectLike,
 } from 'lodash';
 
 const makeRequestHandlers = function(Actions, options) {
@@ -156,32 +157,25 @@ const connectModelAction = function(action, apiHandler, klass, method, options) 
     }
 
     const perRequestOptions = clone(options);
-    if (options.onSuccess) {
-      perRequestOptions.onSuccess = bind(
-        this[options.onSuccess], this, bind.placeholder, reqArgs, requestConfig
-      );
-    }
-    perRequestOptions.onFail = options.onFail ?
-      bind(this[options.onFail] , this, bind.placeholder, reqArgs, requestConfig)
-      :
-      apiHandler.getOptions().handlers.onFail;
 
-    if (this.api != null) {
+    ['onSuccess', 'onFail'].forEach((option) => {
+      perRequestOptions[option] = mobxAction(option, (resp) => {
+        const handler = (options[option] && this[options[option]]) ||
+          apiHandler.getOptions().handlers[option];
+
+        handler.call(this, resp, reqArgs, requestConfig);
+        if (this.api) {
+          this.api.requestCounts[action] += 1;
+          this.api.requestsInProgress.delete(action);
+        }
+      });
+    });
+
+    if (this.api) {
       this.api.requestsInProgress.set(action, requestConfig);
     }
-    const onComplete = () => {
-      if (this.api) {
-        this.api.requestCounts[action] += 1;
-        this.api.requestsInProgress.delete(action);
-      }
-    };
-    return apiHandler.send(requestConfig, perRequestOptions, firstArg).then(reply => {
-      onComplete();
-      return reply;
-    }).catch(e => {
-      onComplete();
-      return Promise.reject(e);
-    });
+
+    return apiHandler.send(requestConfig, perRequestOptions, firstArg);
   };
 
   return klass.prototype[method] = wrap(klass.prototype[method] || emptyFn, handler);
