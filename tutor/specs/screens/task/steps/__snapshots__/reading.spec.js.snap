@@ -28,7 +28,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
 }
 
 <div
-  className="content c0"
+  className="c0"
 >
   <div />
   <button

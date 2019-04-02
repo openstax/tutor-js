@@ -17,7 +17,7 @@ const Loader = () => (
 
 export default
 @observer
-class InteractiveTaskStep extends React.Component {
+class HtmlContentTaskStep extends React.Component {
 
   static Loader = Loader;
 
@@ -30,7 +30,7 @@ class InteractiveTaskStep extends React.Component {
     const { ux, step } = this.props;
 
     return (
-      <StepCard>
+      <StepCard unpadded>
         <ArbitraryHtmlAndMath html={step.content.html} />
         <ContinueBtn ux={ux} />
       </StepCard>

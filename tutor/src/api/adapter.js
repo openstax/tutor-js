@@ -1,12 +1,12 @@
-import merge from 'lodash/merge';
+import { get, merge } from 'lodash';
 import { APIHandler } from 'shared';
 import { APIActionAdapter } from 'shared';
 import { observe } from 'mobx';
 
-
 import { TimeActions } from '../flux/time';
 import { AppActions } from '../flux/app';
 import User from '../models/user';
+
 let tutorAPIHandler = null;
 const baseUrl =
   process.env.BACKEND_SERVER_URL ?
@@ -63,8 +63,10 @@ const OPTIONS = {
 
 tutorAPIHandler = new APIHandler(OPTIONS);
 tutorAPIHandler.channel.on('*.*.*.receive.*', function(response = {}) {
-  const headers = response.headers || response.response.headers;
-  return setNow(headers);
+  const headers = get(response, 'headers') || get(response, 'response.headers');
+  if (headers) {
+    setNow(headers);
+  }
 });
 
 observe(User, 'csrf_token', function(change) {

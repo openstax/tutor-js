@@ -1,4 +1,6 @@
 import { React, PropTypes, observer, computed, inject, idType } from '../../helpers/react';
+import { Redirect } from 'react-router-dom';
+import Router from '../../helpers/router';
 import { isNil } from 'lodash';
 import Courses, { Course } from '../../models/courses-map';
 import StudentTask from '../../models/student-tasks/task';
@@ -91,12 +93,12 @@ class Task extends React.Component {
   componentWillUnmount() {
     this.ux.isUnmounting();
     this.props.bottomNavbar.left.delete('taskInfo');
-    this.props.bottomNavbar.left.delete('taskControls');
+    this.props.bottomNavbar.right.delete('taskControls');
   }
 
   render() {
     const { task } = this.props;
-    if (task.api.isPendingInitialFetch) {
+    if (!task.api.hasBeenFetched) {
       return <StepCard><PendingLoad /></StepCard>;
     }
 
@@ -137,8 +139,13 @@ class TaskGetter extends React.Component {
       return <DeletedTask />;
     }
 
-    const stepIndex = this.props.params.stepIndex ?
-      this.props.params.stepIndex - 1 : null;
+    if (!this.props.params.stepIndex) {
+      return <Redirect push={false} to={Router.makePathname('viewTaskStep', {
+        courseId: this.course.id,
+        id: this.task.id,
+        stepIndex: 1,
+      })} />;
+    }
 
     return (
       <div className={`task-screen task-${this.task.type}`}>
@@ -146,7 +153,7 @@ class TaskGetter extends React.Component {
           key={this.task}
           course={this.course}
           task={this.task}
-          stepIndex={stepIndex}
+          stepIndex={this.props.params.stepIndex - 1}
         />
       </div>
     );

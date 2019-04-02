@@ -78,7 +78,7 @@ export default class ReferenceBookUX extends BookUX {
   }
 
   @computed get pageProps() {
-    return { ux: this };
+    return { ux: this, title: this.page.title };
   }
 
 }

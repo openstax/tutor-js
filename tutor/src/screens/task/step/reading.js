@@ -23,10 +23,7 @@ class ReadingTaskStep extends React.Component {
     const { content } = this.props.step;
 
     return (
-      <StyledReading
-        noPadding
-        className="content"
-      >
+      <StyledReading unpadded>
         <BookPage
           ux={this.props.ux.pageContentUX}
           hasLearningObjectives={content.has_learning_objectives}

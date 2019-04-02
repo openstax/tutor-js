@@ -19,6 +19,7 @@
 }
 
 .annotater {
+  position: relative;
   .annotater-content {
     position: relative;
   }
@@ -26,7 +27,10 @@
     position: absolute;
     height: 100%;
     width: 100px;
-    right: 0;
+    right: -140px;
+    @media screen and ( max-width: $book-content-collapse-breakpoint ){
+      right: 0;
+    }
   }
   .inline-controls {
     background: $tutor-white;

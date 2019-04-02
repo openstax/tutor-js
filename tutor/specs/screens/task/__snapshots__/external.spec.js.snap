@@ -29,7 +29,7 @@ exports[`Tasks External URL Screen matches snapshot 1`] = `
               "free_response": undefined,
               "id": 1,
               "isFetched": true,
-              "is_completed": false,
+              "is_completed": true,
               "labels": Array [],
               "multiPartGroup": undefined,
               "preview": "Regulation of Hormone Production",
@@ -165,19 +165,7 @@ exports[`Tasks External URL Screen matches snapshot 1`] = `
         "router": TestRouter {
           "history": Object {
             "createHref": [MockFunction],
-            "push": [MockFunction] {
-              "calls": Array [
-                Array [
-                  "/course/1/task/1/step/1",
-                ],
-              ],
-              "results": Array [
-                Object {
-                  "type": "return",
-                  "value": undefined,
-                },
-              ],
-            },
+            "push": [MockFunction],
             "replace": [MockFunction],
           },
           "route": Object {

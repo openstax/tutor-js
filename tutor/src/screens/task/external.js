@@ -42,7 +42,7 @@ class ExternalTaskStep extends React.Component {
 
   @action.bound onContinue() {
     const [step] = this.props.ux.steps[0];
-    step.markCompleted();
+    step.save();
   }
 
   render() {

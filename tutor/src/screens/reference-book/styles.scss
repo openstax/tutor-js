@@ -6,6 +6,9 @@
 
 .reference-book {
   @include book-page();
+  .page {
+    margin-top: 10rem;
+  }
   .book-page-wrapper.not-found {
     text-align: center;
     height: calc(100vh - #{$tutor-navbar-height});

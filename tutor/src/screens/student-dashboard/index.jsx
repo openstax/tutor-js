@@ -23,15 +23,6 @@ class StudentDashboardShell extends React.Component {
     return Courses.get(this.props.params.courseId);
   }
 
-  componentDidMount() {
-    if (this.course) {
-      const student = this.course.userStudentRecord;
-      if (student && !student.mustPayImmediately) {
-        this.course.studentTaskPlans.fetch();
-      }
-    }
-  }
-
   render() {
     if (!this.course) { return <CourseNotFoundWarning />; }
 

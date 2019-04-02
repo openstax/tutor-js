@@ -5,4 +5,7 @@
 
 .task-screen {
   @include book-page();
+  .book-page {
+    padding: $tutor-book-padding-vertical $tutor-book-padding-horizontal;
+  }
 }

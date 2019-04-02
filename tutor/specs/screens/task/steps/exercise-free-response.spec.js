@@ -4,7 +4,9 @@ import {
 import { Factory, TimeMock, delay } from '../../../helpers';
 import { setFreeResponse } from '../helpers';
 import ResponseValidation from '../../../../src/models/response_validation';
+import Raven from '../../../../src/models/app/raven';
 
+jest.mock('../../../../src/models/app/raven');
 jest.mock('../../../../src/models/response_validation');
 jest.mock('../../../../../shared/src/components/html', () => ({ html }) =>
   html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
@@ -139,6 +141,23 @@ describe('Exercise Free Response', () => {
     });
 
     fr.unmount();
+  });
+
+  it('hides nudge ui and saves free_response validation has an error', async () => {
+    props.response_validation.isEnabled = true;
+    props.response_validation.isUIEnabled = true;
+    props.response_validation.validate = jest.fn(() => Promise.reject(new Error('timeout')));
+    const fr = mount(<FreeResponseInput {...props} />);
+    const value = 'test test test';
+    setFreeResponse(fr, { value });
+
+    await delay();
+
+    expect(props.step.free_response).toEqual(value);
+    expect(props.step.response_validation.attempts[0]).toMatchObject({
+      valid: true, response: value, exception: 'Error: timeout',
+    });
+    expect(Raven.captureException).toHaveBeenCalled();
   });
 
 });

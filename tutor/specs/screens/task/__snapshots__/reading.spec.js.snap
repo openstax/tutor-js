@@ -45,7 +45,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
             "free_response": undefined,
             "id": 1,
             "isFetched": true,
-            "is_completed": false,
+            "is_completed": true,
             "labels": Array [],
             "multiPartGroup": undefined,
             "preview": "Simple Machines",
@@ -709,19 +709,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
       "router": TestRouter {
         "history": Object {
           "createHref": [MockFunction],
-          "push": [MockFunction] {
-            "calls": Array [
-              Array [
-                "/course/1/task/1/step/1",
-              ],
-            ],
-            "results": Array [
-              Object {
-                "type": "return",
-                "value": undefined,
-              },
-            ],
-          },
+          "push": [MockFunction],
           "replace": [MockFunction],
         },
         "route": Object {

@@ -1,4 +1,4 @@
-import { React, PropTypes } from '../../../helpers/react';
+import { React, PropTypes, observer } from '../../../helpers/react';
 import {
   Facebook as ReadingLoader,
   BulletList as HomeworkLoader,
@@ -6,7 +6,7 @@ import {
 import ScrollTo from '../../../helpers/scroll-to';
 import Reading from './reading';
 import Exercise from './exercise';
-import Interactive from './interactive';
+import HtmlContent from './html-content';
 import End from './end';
 import UX from '../ux';
 import { StepCard } from './card';
@@ -34,8 +34,9 @@ export { Unknown };
 const STEP_TYPES = {
   end: End,
   reading: Reading,
+  video: HtmlContent,
   exercise: Exercise,
-  interactive: Interactive,
+  interactive: HtmlContent,
   'two-step-intro': TwoStepValueProp,
   'personalized-intro': PersonalizedGroup,
   'spaced-practice-intro': SpacedPractice,
@@ -43,54 +44,67 @@ const STEP_TYPES = {
 };
 
 const PENDING_TYPES = {
-  exercise: HomeworkLoader,
   reading: ReadingLoader,
-  interactive: Interactive.Loader,
+  exercise: HomeworkLoader,
+  video: HtmlContent.Loader,
+  interactive: HtmlContent.Loader,
 };
 
-const TaskStep = (props) => {
-  const { ux, step, step: { type, needsFetched } } = props;
+@observer
+class TaskStep extends React.Component {
 
-  const [scroller] = React.useState(new ScrollTo());
-
-  React.useEffect(() => {
-    scroller.scrollToTop({ scrollTopOffset: -60 });
-  }, [step]);
-
-  const stepProps = {
-    ...props,
-    onContinue: ux.canGoForward ? ux.goForward : null,
+  static propTypes = {
+    pending: PropTypes.func,
+    ux: PropTypes.instanceOf(UX).isRequired,
+    step: PropTypes.shape({
+      steps: PropTypes.array,
+      type: PropTypes.string.isRequired,
+      needsFetched: PropTypes.bool,
+      fetchIfNeeded: PropTypes.func.isRequired,
+    }).isRequired,
   };
 
-  if ('mpq' === type) {
+  scroller = new ScrollTo();
+
+  componentDidMount() {
+    this.scroller.scrollToTop({ scrollTopOffset: -60 });
+    this.props.step.fetchIfNeeded();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.step !== this.props.step) {
+      this.props.step.fetchIfNeeded();
+    }
+  }
+
+  render() {
+    const { ux, step, step: { type, needsFetched } } = this.props;
+
+    const stepProps = {
+      ...this.props,
+      onContinue: ux.canGoForward ? ux.goForward : null,
+    };
+
+    if ('mpq' === type) {
+      return (
+        <React.Fragment>
+          {step.steps.map((s, i) =>
+            <TaskStep key={i} {...stepProps} step={s} />)}
+        </React.Fragment>
+      );
+    }
+
+    if (needsFetched) {
+      const Pending = PENDING_TYPES[type] || PENDING_TYPES.reading;
+      return <StepCard><Pending /></StepCard>;
+    }
+
+    const Step = STEP_TYPES[type] || Unknown;
+
     return (
-      <React.Fragment>
-        {props.step.steps.map((s, i) =>
-          <TaskStep key={i} {...stepProps} step={s} />)}
-      </React.Fragment>
+      <Step {...stepProps} />
     );
   }
+}
 
-  if (needsFetched) {
-    const Pending = PENDING_TYPES[type] || PENDING_TYPES.reading;
-    return <StepCard><Pending /></StepCard>;
-  }
-
-  const Step = STEP_TYPES[type] || Unknown;
-
-  return (
-    <Step {...stepProps} />
-  );
-};
-
-TaskStep.propTypes = {
-  pending: PropTypes.func,
-  ux: PropTypes.instanceOf(UX).isRequired,
-  step: PropTypes.shape({
-    steps: PropTypes.array,
-    type: PropTypes.string.isRequired,
-    needsFetched: PropTypes.bool,
-  }).isRequired,
-};
-
-export default TaskStep;
+export { TaskStep };

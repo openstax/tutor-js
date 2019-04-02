@@ -1,4 +1,4 @@
-import TaskStep from '../../../../src/screens/task/step';
+import { TaskStep } from '../../../../src/screens/task/step';
 import { Factory, FakeWindow, ld } from '../../../helpers';
 import UX from '../../../../src/screens/task/ux';
 
@@ -38,8 +38,9 @@ describe('Tasks Steps', () => {
       'spaced-practice-intro': 'SpacedPractice',
       'individual-review-intro': 'IndividualReview',
     }, (component, type) => {
-      props.step = { type };
+      props.step = { type, fetchIfNeeded: jest.fn() };
       const ts = mount(<TaskStep {...props} />);
+      expect(props.step.fetchIfNeeded).toHaveBeenCalled();
       expect(ts).toHaveRendered(component);
       ts.unmount();
     });

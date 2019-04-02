@@ -1,5 +1,5 @@
 import { observable, computed, action, when } from 'mobx';
-import { reduce, get, groupBy, map } from 'lodash';
+import { reduce, get, groupBy, map, filter } from 'lodash';
 import lazyGetter from 'shared/helpers/lazy-getter';
 import Router from '../../../src/helpers/router';
 import * as manipulations from './ux-task-manipulations';
@@ -54,6 +54,10 @@ export default class TaskUX {
     return steps;
   }
 
+  @computed get milestoneSteps() {
+    return filter(this.steps, (s, i) => i === this.currentStepIndex || s.is_completed);
+  }
+
   @computed get task() {
     return this.manipulated.task;
   }
@@ -64,9 +68,9 @@ export default class TaskUX {
 
   @action async onAnswerSave(step, answer) {
     step.answer_id = answer.id;
-    await step.saveAnswer();
+    await step.save();
     // don't advance there's feedback so the user can view it
-    if (!step.isFeedbackAvailable) {
+    if (!this.task.isFeedbackAvailable) {
       this.onAnswerContinue(step);
     }
   }
@@ -94,13 +98,17 @@ export default class TaskUX {
   }
 
   @action.bound goToStep(index, recordInHistory = true) {
-    this._stepIndex = Number(index);
+    // mark current step complete if it's auto
+    if (this.currentStep) {
+      this.currentStep.markViewed();
+    }
 
-    this.currentStep.fetchIfNeeded();
+    const isChanged = this._stepIndex != index;
+    this._stepIndex = Number(index);
 
     CenterControls.currentTaskStep = this.currentStep;
 
-    if (recordInHistory) {
+    if (recordInHistory && isChanged) {
       this.router.history.push(
         Router.makePathname('viewTaskStep', {
           id: this.task.id,
@@ -112,7 +120,13 @@ export default class TaskUX {
   }
 
   @computed get canGoForward() {
-    return this._stepIndex < this.steps.length - 1;
+    if (this._stepIndex < this.steps.length - 1) {
+      if (this.currentStep.isExercise) {
+        return this.currentStep.is_completed;
+      }
+      return true;
+    }
+    return false;
   }
 
   @computed get canGoBackward() {

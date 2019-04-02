@@ -11,7 +11,7 @@ const StepCard = styled.div`
   margin: 10rem auto;
   border: 1px solid ${Theme.colors.neutral.light};
   border-radius: 0.25rem;
-  ${props => !props.noPadding && 'padding: 50px 140px;'}
+  ${props => !props.unpadded && 'padding: 50px 140px;'}
 `;
 
 export { StepCard };
