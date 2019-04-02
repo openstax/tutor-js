@@ -22,7 +22,6 @@ class ReadingTask extends React.Component {
         <ObscuredPage>
           <TaskStep
             ux={ux}
-            key={currentStep}
             step={currentStep}
             windowImpl={windowImpl}
           />

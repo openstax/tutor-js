@@ -103,13 +103,12 @@ export default class TaskUX {
       this.currentStep.markViewed();
     }
 
+    const isChanged = this._stepIndex != index;
     this._stepIndex = Number(index);
-
-    this.currentStep.fetchIfNeeded();
 
     CenterControls.currentTaskStep = this.currentStep;
 
-    if (recordInHistory) {
+    if (recordInHistory && isChanged) {
       this.router.history.push(
         Router.makePathname('viewTaskStep', {
           id: this.task.id,

@@ -25,7 +25,6 @@ class HomeworkTask extends React.Component {
       <SyledHomework className="homework-task">
         <Breadcrumbs ux={ux} />
         <TaskStep
-          key={currentStep}
           ux={ux}
           step={currentStep}
           windowImpl={windowImpl}

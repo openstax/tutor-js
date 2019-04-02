@@ -60,6 +60,7 @@ class TaskStep extends React.Component {
       steps: PropTypes.array,
       type: PropTypes.string.isRequired,
       needsFetched: PropTypes.bool,
+      fetchIfNeeded: PropTypes.func.isRequired,
     }).isRequired,
   };
 
@@ -67,6 +68,13 @@ class TaskStep extends React.Component {
 
   componentDidMount() {
     this.scroller.scrollToTop({ scrollTopOffset: -60 });
+    this.props.step.fetchIfNeeded();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.step !== this.props.step) {
+      this.props.step.fetchIfNeeded();
+    }
   }
 
   render() {

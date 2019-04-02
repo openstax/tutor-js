@@ -345,19 +345,7 @@ exports[`Reading Progress Component matches snapshot 1`] = `
       "router": TestRouter {
         "history": Object {
           "createHref": [MockFunction],
-          "push": [MockFunction] {
-            "calls": Array [
-              Array [
-                "/course/1/task/1/step/1",
-              ],
-            ],
-            "results": Array [
-              Object {
-                "type": "return",
-                "value": undefined,
-              },
-            ],
-          },
+          "push": [MockFunction],
           "replace": [MockFunction],
         },
         "route": Object {

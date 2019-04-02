@@ -38,8 +38,9 @@ describe('Tasks Steps', () => {
       'spaced-practice-intro': 'SpacedPractice',
       'individual-review-intro': 'IndividualReview',
     }, (component, type) => {
-      props.step = { type };
+      props.step = { type, fetchIfNeeded: jest.fn() };
       const ts = mount(<TaskStep {...props} />);
+      expect(props.step.fetchIfNeeded).toHaveBeenCalled();
       expect(ts).toHaveRendered(component);
       ts.unmount();
     });

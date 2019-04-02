@@ -126,7 +126,8 @@ class StudentTaskStep extends BaseModel {
   }
 
   @action fetchIfNeeded() {
-    if (this.needsFetched && !this.api.isPending) { this.fetch(); }
+
+    if (this.needsFetched) { this.fetch(); }
   }
 
   @action markViewed() {
