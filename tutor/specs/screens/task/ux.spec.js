@@ -1,10 +1,12 @@
 import UX from '../../../src/screens/task/ux';
-import { Factory, TestRouter, ld } from '../../helpers';
+import { Factory, TimeMock, TestRouter, ld } from '../../helpers';
 jest.mock('../../../src/helpers/scroll-to');
 
 describe('Task UX Model', () => {
   let ux;
   let task;
+
+  TimeMock.setTo('2017-10-14T12:00:00.000Z');
 
   beforeEach(() => {
     task = Factory.studentTask({ type: 'homework', stepCount: 10 });
@@ -27,9 +29,13 @@ describe('Task UX Model', () => {
     const s = group.steps[0];
     expect(s.multiPartGroup).toBe(group);
 
+    // set feedback in future
+    ux.task.feedback_at = new Date('2017-12-01T12:00:00.000Z');
+
     s.save = jest.fn().mockResolvedValue({});
     await ux.onAnswerSave(s, { id: 1 });
     expect(s.save).toHaveBeenCalled();
+
     expect(ux.scroller.scrollToSelector).toHaveBeenCalledWith(
       `[data-task-step-id="${group.steps[1].id}"]`
     );
