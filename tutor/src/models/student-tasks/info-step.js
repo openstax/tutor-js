@@ -6,5 +6,5 @@ class StudentTaskInfoStep {
   }
 
   fetchIfNeeded() { }
-
+  markViewed() {}
 }

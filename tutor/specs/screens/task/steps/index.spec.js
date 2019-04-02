@@ -1,4 +1,4 @@
-import TaskStep from '../../../../src/screens/task/step';
+import { TaskStep } from '../../../../src/screens/task/step';
 import { Factory, FakeWindow, ld } from '../../../helpers';
 import UX from '../../../../src/screens/task/ux';
 

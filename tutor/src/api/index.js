@@ -213,7 +213,7 @@ const startAPI = function() {
 
   connectModelRead(StudentTask, 'fetch', { onSuccess: 'onApiRequestComplete', pattern: '/tasks/{id}' });
 
-  connectModelUpdate(StudentTaskStep, 'saveAnswer', {
+  connectModelUpdate(StudentTaskStep, 'save', {
     onSuccess: 'onAnswerSaved', pattern: 'steps/{id}',
   });
 

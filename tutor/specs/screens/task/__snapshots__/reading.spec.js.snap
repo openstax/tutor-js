@@ -45,7 +45,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
             "free_response": undefined,
             "id": 1,
             "isFetched": true,
-            "is_completed": false,
+            "is_completed": true,
             "labels": Array [],
             "multiPartGroup": undefined,
             "preview": "Simple Machines",

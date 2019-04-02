@@ -1,7 +1,7 @@
 import { React, PropTypes, observer } from '../../helpers/react';
 import ProgressCard from './progress';
 import UX from './ux';
-import TaskStep from './step';
+import { TaskStep } from './step';
 import ObscuredPage from '../../components/obscured-page';
 
 export default
@@ -22,6 +22,7 @@ class ReadingTask extends React.Component {
         <ObscuredPage>
           <TaskStep
             ux={ux}
+            key={currentStep}
             step={currentStep}
             windowImpl={windowImpl}
           />

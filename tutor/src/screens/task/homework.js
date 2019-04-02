@@ -3,7 +3,7 @@ import {
 } from '../../helpers/react';
 import UX from './ux';
 import { Breadcrumbs } from './breadcrumbs';
-import TaskStep from './step';
+import { TaskStep } from './step';
 
 const SyledHomework = styled.div`
 
@@ -25,6 +25,7 @@ class HomeworkTask extends React.Component {
       <SyledHomework className="homework-task">
         <Breadcrumbs ux={ux} />
         <TaskStep
+          key={currentStep}
           ux={ux}
           step={currentStep}
           windowImpl={windowImpl}

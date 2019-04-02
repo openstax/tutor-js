@@ -2,12 +2,19 @@ import {
   React, PropTypes, observer, styled, action, observable, computed,
 } from '../../../helpers/react';
 import UX from '../ux';
+import { get } from 'lodash';
 import keymaster from 'keymaster';
 import { Button } from 'react-bootstrap';
 import { Question, AsyncButton } from 'shared';
 import Step from '../../../models/student-tasks/step';
 import QuestionModel from 'shared/model/exercise/question';
 import { FreeResponseInput, FreeResponseReview } from './exercise-free-response';
+
+const Controls = styled.div`
+  margin: 2.5rem 0;
+  display: flex;
+  justify-content: flex-end;
+`;
 
 const StyledExerciseQuestion = styled.div`
 
@@ -26,16 +33,25 @@ class ExerciseQuestion extends React.Component {
   @observable selectedAnswer = null;
 
   @computed get needsSaved() {
-    return this.selectedAnswer &&
-      this.selectedAnswer.id !== this.props.step.answer_id;
+    const { step } = this.props;
+    return (
+      !step.is_completed || step.api.isPending ||
+        (this.answerId != step.answer_id)
+    );
+
   }
 
   componentDidMount() {
-    keymaster('enter', 'multiple-choice', this.onNextStep);
+    keymaster('enter', 'multiple-choice', this.onEnter);
   }
 
   componentWillUnmount() {
     keymaster.unbind('enter', 'multiple-choice');
+  }
+
+  @action.bound onEnter() {
+    this.needsSaved && this.answerId ?
+      this.onAnswerSave() : this.onNextStep();
   }
 
   @action.bound onAnswerChange(answer) {
@@ -44,6 +60,7 @@ class ExerciseQuestion extends React.Component {
 
   @action.bound async onAnswerSave() {
     const { ux, step } = this.props;
+
     await ux.onAnswerSave(step, this.selectedAnswer);
     this.selectedAnswer = null;
   }
@@ -73,9 +90,6 @@ class ExerciseQuestion extends React.Component {
   }
 
   renderNextButton() {
-    const { ux } = this.props;
-    if (!ux.canGoForward) { return null; }
-
     return <Button onClick={this.onNextStep}>Continue</Button>;
   }
 
@@ -105,9 +119,10 @@ class ExerciseQuestion extends React.Component {
         >
           <FreeResponseReview course={course} step={step} />
         </Question>
-        {this.needsSaved ?
-          this.renderSaveButton() : this.renderNextButton()}
-
+        <Controls>
+          {this.needsSaved ?
+            this.renderSaveButton() : this.renderNextButton()}
+        </Controls>
       </StyledExerciseQuestion>
     );
   }

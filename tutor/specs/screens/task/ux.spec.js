@@ -27,9 +27,9 @@ describe('Task UX Model', () => {
     const s = group.steps[0];
     expect(s.multiPartGroup).toBe(group);
 
-    s.saveAnswer = jest.fn().mockResolvedValue({});
+    s.save = jest.fn().mockResolvedValue({});
     await ux.onAnswerSave(s, { id: 1 });
-    expect(s.saveAnswer).toHaveBeenCalled();
+    expect(s.save).toHaveBeenCalled();
     expect(ux.scroller.scrollToSelector).toHaveBeenCalledWith(
       `[data-task-step-id="${group.steps[1].id}"]`
     );
