@@ -9,11 +9,14 @@
       word-break: break-all;
 
       &:not(.unstyled) {
-        border: 1px solid;
-        padding: 5px;
+        border: 1px dotted $openstax-neutral-medium;
+        padding: 0.5rem;
         border-radius: 4px;
-        margin: 5px 0;
+        margin: 5px;
       }
+    }
+    ul {
+      font-size: 1.2rem;
     }
   }
 

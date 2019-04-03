@@ -2,12 +2,11 @@ import {
   React, PropTypes, observer, styled,
 } from '../../../helpers/react';
 import UX from '../ux';
-import { StepCard } from './card';
+import { TaskStepCard } from './card';
 import ExerciseQuestion from './exercise-question';
 import Step from '../../../models/student-tasks/step';
 
-
-const StyledExercise = styled(StepCard)`
+const StyledExercise = styled(TaskStepCard)`
     font-size: 1.8rem;
 `;
 
@@ -27,8 +26,7 @@ class ExerciseTaskStep extends React.Component {
 
     return (
       <StyledExercise
-        data-task-step-id={step.id}
-        className="exercise-step"
+        step={step}
       >
         {content.questions.map((q, i) =>
           <ExerciseQuestion key={q.id}

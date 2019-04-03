@@ -67,9 +67,8 @@ class StudentTaskStep extends BaseModel {
   @field feedback_html;
   @field correct_answer_id;
   @field({ type: 'object' }) response_validation;
-
+  @field({ type: 'object' }) spy;
   @field external_url;
-
   @field({ type: 'array' }) labels;
   @field({ type: 'array' }) formats;
 

@@ -50,10 +50,12 @@ class ResponseValidationUX {
         uid: this.step.uid,
         response: submitted,
       });
-      return extend({}, reply.data, {
+      const validation = extend({}, reply.data, {
         response: submitted,
         nudgeMessage: this.nudgeMessage,
       });
+      this.step.spy.response_validation = validation;
+      return validation;
     } catch (err) {
       Raven.captureException(err);
       return {

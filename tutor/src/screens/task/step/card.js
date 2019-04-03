@@ -1,5 +1,7 @@
-import { React, PropTypes, styled } from '../../../helpers/react';
+import { React, PropTypes, cn, observer, styled } from '../../../helpers/react';
 import Theme from '../../../theme';
+import { SpyInfo } from './spy-info';
+import Step from '../../../models/student-tasks/step';
 
 const InnerStepCard = styled.div`
   display: flex;
@@ -30,11 +32,29 @@ const StepCard = ({ unpadded, className, children }) => (
     </InnerStepCard>
   </OuterStepCard>
 );
-
 StepCard.propTypes = {
   unpadded: PropTypes.bool,
   className: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 
-export { StepCard };
+
+const TaskStepCard = observer(({ step, children, className, ...otherProps }) => (
+  <StepCard
+    {...otherProps}
+    data-task-step-id={step.id}
+    className={cn(`${step.type}-step`, className)}
+  >
+    {children}
+    <SpyInfo model={step} />
+  </StepCard>
+));
+TaskStepCard.displayName = 'TaskStepCard';
+TaskStepCard.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.node.isRequired,
+  step: PropTypes.instanceOf(Step).isRequired,
+};
+
+
+export { StepCard, TaskStepCard };

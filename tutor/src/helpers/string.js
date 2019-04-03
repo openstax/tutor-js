@@ -42,7 +42,7 @@ export default {
 
   // originated from http://individed.com/code/to-title-case/
   titleize(string = '') {
-    return string
+    return String(string)
       .replace(/_/g, ' ')
       .replace(/[A-Za-z0-9\u00C0-\u00FF]+[^\s-]*/g, function(match, index, title) {
         if ((index > 0) && ((index + match.length) !== title.length) &&

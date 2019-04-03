@@ -178,6 +178,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
       "multiPartGroup": undefined,
       "preview": "killer: Environmental Limits to Population Growth",
       "response_validation": Object {},
+      "spy": Object {},
       "task": StudentTask {
         "complete": undefined,
         "description": undefined,
@@ -185,6 +186,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
         "feedback_at": undefined,
         "id": 1,
         "is_deleted": undefined,
+        "spy": Object {},
         "steps": Array [
           [Circular],
         ],
@@ -492,6 +494,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
         "multiPartGroup": undefined,
         "preview": "killer: Environmental Limits to Population Growth",
         "response_validation": Object {},
+        "spy": Object {},
         "task": StudentTask {
           "complete": undefined,
           "description": undefined,
@@ -499,6 +502,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
           "feedback_at": undefined,
           "id": 1,
           "is_deleted": undefined,
+          "spy": Object {},
           "steps": Array [
             [Circular],
           ],

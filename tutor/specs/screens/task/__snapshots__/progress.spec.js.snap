@@ -12,6 +12,7 @@ exports[`Reading Progress Component matches snapshot 1`] = `
         "feedback_at": undefined,
         "id": 1,
         "is_deleted": undefined,
+        "spy": Object {},
         "steps": Array [
           StudentTaskStep {
             "$nonSerializable": Object {
@@ -50,6 +51,7 @@ exports[`Reading Progress Component matches snapshot 1`] = `
             "multiPartGroup": undefined,
             "preview": undefined,
             "response_validation": Object {},
+            "spy": Object {},
             "task": [Circular],
             "task_association_name": "steps",
             "type": "reading",
@@ -92,6 +94,7 @@ exports[`Reading Progress Component matches snapshot 1`] = `
             "multiPartGroup": undefined,
             "preview": undefined,
             "response_validation": Object {},
+            "spy": Object {},
             "task": [Circular],
             "task_association_name": "steps",
             "type": "reading",

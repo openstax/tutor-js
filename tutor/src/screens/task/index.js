@@ -15,6 +15,7 @@ import external from './external';
 import { TaskInfo } from './task-info';
 import { TaskFooterControls } from './task-footer-controls';
 import { StepCard } from './step/card';
+import { SpyInfo } from './step/spy-info';
 import './styles.scss';
 
 const TASK_TYPES = {
@@ -102,9 +103,9 @@ class Task extends React.Component {
       return <StepCard><PendingLoad /></StepCard>;
     }
 
-    const Task = TASK_TYPES[task.type] || UnknownTaskType;
+    const TaskComponent = TASK_TYPES[task.type] || UnknownTaskType;
 
-    return <Task ux={this.ux} />;
+    return <TaskComponent ux={this.ux} />;
   }
 
 }
@@ -134,27 +135,29 @@ class TaskGetter extends React.Component {
     if (!this.course || this.task.api.hasErrors) {
       return <CourseNotFoundWarning area="assignment" />;
     }
+    const { task } = this;
 
-    if (this.task.is_deleted) {
+    if (task.is_deleted) {
       return <DeletedTask />;
     }
 
     if (!this.props.params.stepIndex) {
       return <Redirect push={false} to={Router.makePathname('viewTaskStep', {
         courseId: this.course.id,
-        id: this.task.id,
+        id: task.id,
         stepIndex: 1,
       })} />;
     }
 
     return (
-      <div className={`task-screen task-${this.task.type}`}>
+      <div className={`task-screen task-${task.type}`}>
         <Task
-          key={this.task}
+          key={task}
           course={this.course}
-          task={this.task}
+          task={task}
           stepIndex={this.props.params.stepIndex - 1}
         />
+        <SpyInfo model={task} />
       </div>
     );
   }
