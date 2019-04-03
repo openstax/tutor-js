@@ -45,7 +45,7 @@ class CenterControls extends React.Component {
     return (
       <div className="center-control">
         <div className="icons">
-          <MilestonesToggle taskStep={taskStep} />
+          <MilestonesToggle model={taskStep} />
           <NotesSummaryToggle
             course={this.course}
             type="reading"
