@@ -22,14 +22,8 @@ exports[`Question Component renders and matches snapshot 1`] = `
         className="answers-answer disabled"
         role="region"
       >
-        <input
-          checked={false}
-          className="answer-input-box"
-          disabled={true}
-          id="1-option-0"
-          name="1-options"
-          onChange={[Function]}
-          type="radio"
+        <div
+          className="correct-incorrect"
         />
         <label
           className="answer-label"
@@ -40,7 +34,6 @@ exports[`Question Component renders and matches snapshot 1`] = `
             aria-label="Choice a:"
             className="answer-letter"
             disabled={true}
-            onClick={[Function]}
           >
             a
           </button>
@@ -71,14 +64,8 @@ exports[`Question Component renders and matches snapshot 1`] = `
         className="answers-answer disabled"
         role="region"
       >
-        <input
-          checked={false}
-          className="answer-input-box"
-          disabled={true}
-          id="1-option-1"
-          name="1-options"
-          onChange={[Function]}
-          type="radio"
+        <div
+          className="correct-incorrect"
         />
         <label
           className="answer-label"
@@ -89,7 +76,6 @@ exports[`Question Component renders and matches snapshot 1`] = `
             aria-label="Choice b:"
             className="answer-letter"
             disabled={true}
-            onClick={[Function]}
           >
             b
           </button>
@@ -120,14 +106,8 @@ exports[`Question Component renders and matches snapshot 1`] = `
         className="answers-answer disabled"
         role="region"
       >
-        <input
-          checked={false}
-          className="answer-input-box"
-          disabled={true}
-          id="1-option-2"
-          name="1-options"
-          onChange={[Function]}
-          type="radio"
+        <div
+          className="correct-incorrect"
         />
         <label
           className="answer-label"
@@ -138,7 +118,6 @@ exports[`Question Component renders and matches snapshot 1`] = `
             aria-label="Choice c:"
             className="answer-letter"
             disabled={true}
-            onClick={[Function]}
           >
             c
           </button>
@@ -169,14 +148,8 @@ exports[`Question Component renders and matches snapshot 1`] = `
         className="answers-answer disabled"
         role="region"
       >
-        <input
-          checked={false}
-          className="answer-input-box"
-          disabled={true}
-          id="1-option-3"
-          name="1-options"
-          onChange={[Function]}
-          type="radio"
+        <div
+          className="correct-incorrect"
         />
         <label
           className="answer-label"
@@ -187,7 +160,6 @@ exports[`Question Component renders and matches snapshot 1`] = `
             aria-label="Choice d:"
             className="answer-letter"
             disabled={true}
-            onClick={[Function]}
           >
             d
           </button>
@@ -218,14 +190,8 @@ exports[`Question Component renders and matches snapshot 1`] = `
         className="answers-answer disabled"
         role="region"
       >
-        <input
-          checked={false}
-          className="answer-input-box"
-          disabled={true}
-          id="1-option-4"
-          name="1-options"
-          onChange={[Function]}
-          type="radio"
+        <div
+          className="correct-incorrect"
         />
         <label
           className="answer-label"
@@ -236,7 +202,6 @@ exports[`Question Component renders and matches snapshot 1`] = `
             aria-label="Choice e:"
             className="answer-letter"
             disabled={true}
-            onClick={[Function]}
           >
             e
           </button>

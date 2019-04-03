@@ -64,7 +64,7 @@ class Question extends React.Component {
     processHtmlAndMath: PropTypes.bool,
     className: PropTypes.string,
     questionNumber: PropTypes.number,
-    context: PropTypes.object,
+    context: PropTypes.string,
   };
 
   static childContextTypes = {

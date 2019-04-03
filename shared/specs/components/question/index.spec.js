@@ -19,6 +19,7 @@ describe('Question Component', function() {
   });
 
   it('renders and matches snapshot', () => {
+    props.type = 'teacher-preview'; // hack to hide instructions
     expect(Snapshot.create(<Question {...props} />).toJSON()).toMatchSnapshot();
   });
 
