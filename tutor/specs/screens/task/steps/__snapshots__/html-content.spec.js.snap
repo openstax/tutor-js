@@ -19,6 +19,7 @@ exports[`Html Content Tasks Screen matches snapshot 1`] = `
   margin: auto;
   border: 1px solid #e4e4e4;
   border-radius: 0.25rem;
+  background-color: white;
 }
 
 .c0 {

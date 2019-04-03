@@ -1,4 +1,4 @@
-import { React, PropTypes, cn, styled } from '../../../helpers/react';
+import { React, PropTypes, styled } from '../../../helpers/react';
 import Theme from '../../../theme';
 
 const InnerStepCard = styled.div`

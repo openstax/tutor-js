@@ -1,5 +1,5 @@
 import { observable, computed, action, when } from 'mobx';
-import { reduce, get, groupBy, countBy, map, filter } from 'lodash';
+import { reduce, get, groupBy, map } from 'lodash';
 import lazyGetter from 'shared/helpers/lazy-getter';
 import Router from '../../../src/helpers/router';
 import * as manipulations from './ux-task-manipulations';

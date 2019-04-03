@@ -14,7 +14,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                     <Provider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: res]}>
                       <StyledLayout>
                         <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
-                          <div className=\\"StyledLayout-sc-1t4agiy-0 dEbNMI\\">
+                          <div className=\\"StyledLayout-sc-1t4agiy-0 fqvpED\\">
                             <Navbar area=\\"header\\" context={{...}} isDocked={false}>
                               <Nav area=\\"header\\" isDocked={false} isCollapsed={[undefined]} className=\\"tutor-navbar\\">
                                 <StyledComponent area=\\"header\\" isDocked={false} isCollapsed={[undefined]} className=\\"tutor-navbar\\" forwardedComponent={{...}} forwardedRef={{...}}>
@@ -201,7 +201,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                             </inject-CourseNagModal>
                             <Content>
                               <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
-                                <div className=\\"Content-sc-1t4agiy-1 jjzNgD\\">
+                                <div className=\\"Content-sc-1t4agiy-1 kfSAav\\">
                                   <p>
                                     hi i am body
                                   </p>

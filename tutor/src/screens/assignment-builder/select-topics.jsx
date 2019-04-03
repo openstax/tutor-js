@@ -24,6 +24,8 @@ class SelectTopics extends React.Component {
     selected: PropTypes.array,
     header: PropTypes.string.isRequired,
     cancel: PropTypes.func.isRequired,
+    primary: PropTypes.bool,
+    type: PropTypes.string.isRequired,
   };
 
   state = { initialSelected: this.props.selected };

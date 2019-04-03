@@ -72,7 +72,7 @@ exports[`Select Topics matches snapshot 1`] = `
 }
 
 .c0 {
-  margin: 40px;
+  margin: 4rem auto;
 }
 
 <div

@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`main Tutor App renders and matches snapshot 1`] = `
-.c5 {
+.c6 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
 }
 
-.c0 {
+.c1 {
   color: #5e5e5e;
   background: white;
   display: -webkit-box;
@@ -37,7 +37,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
   box-shadow: 0 5px 5px 0 rgba(0,0,0,0.1);
 }
 
-.c1 {
+.c2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -47,7 +47,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
   flex: 1;
 }
 
-.c4 {
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -61,23 +61,27 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
   justify-content: flex-end;
 }
 
-.c3 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-.c2 {
+.c3 {
   display: inline-block;
   margin-top: 5px;
   height: 34px;
   width: 200px;
 }
 
-.c6 {
-  margin-top: 60px;
-  margin-bottom: 50px;
+.c0 {
+  min-height: 100vh;
+}
+
+.c7 {
+  padding-top: 60px;
+  padding-bottom: 50px;
 }
 
 <div
@@ -97,13 +101,13 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
             data-purpose="tour-conductor-wrapper"
           >
             <div
-              className=""
+              className="c0"
             >
               <nav
-                className="tutor-navbar c0"
+                className="tutor-navbar c1"
               >
                 <div
-                  className="left-side-controls c1"
+                  className="left-side-controls c2"
                 >
                   <a
                     aria-label="dashboard"
@@ -112,7 +116,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                     onClick={[Function]}
                   >
                     <svg
-                      className="c2"
+                      className="c3"
                       viewBox="0 0 264.62 40.7"
                     >
                       <defs>
@@ -165,10 +169,10 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                   </a>
                 </div>
                 <div
-                  className="center-control c3"
+                  className="center-control c4"
                 />
                 <div
-                  className="right-side-controls c4"
+                  className="right-side-controls c5"
                 >
                   <div
                     className="support-menu dropdown"
@@ -192,7 +196,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                       >
                         <svg
                           aria-hidden="true"
-                          className="svg-inline--fa fa-question-circle fa-w-16 ox-icon question-circle c5"
+                          className="svg-inline--fa fa-question-circle fa-w-16 ox-icon question-circle c6"
                           data-icon="question-circle"
                           data-prefix="fas"
                           focusable="false"
@@ -215,7 +219,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                         </span>
                         <svg
                           aria-hidden="true"
-                          className="svg-inline--fa fa-angle-down fa-w-10 ox-icon angle-down toggle c5"
+                          className="svg-inline--fa fa-angle-down fa-w-10 ox-icon angle-down toggle c6"
                           data-icon="angle-down"
                           data-prefix="fas"
                           focusable="false"
@@ -249,7 +253,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                     >
                       <svg
                         aria-hidden="true"
-                        className="svg-inline--fa fa-bars fa-w-14 ox-icon bars c5"
+                        className="svg-inline--fa fa-bars fa-w-14 ox-icon bars c6"
                         data-icon="bars"
                         data-prefix="fas"
                         focusable="false"
@@ -272,7 +276,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                       </span>
                       <svg
                         aria-hidden="true"
-                        className="svg-inline--fa fa-angle-down fa-w-10 ox-icon angle-down toggle c5"
+                        className="svg-inline--fa fa-angle-down fa-w-10 ox-icon angle-down toggle c6"
                         data-icon="angle-down"
                         data-prefix="fas"
                         focusable="false"
@@ -311,7 +315,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                 </div>
               </nav>
               <div
-                className="c6"
+                className="c7"
               >
                 <div
                   className="invalid-page"
@@ -349,7 +353,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                     Return Home
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon caret-right c5"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon caret-right c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"

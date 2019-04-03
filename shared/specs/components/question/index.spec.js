@@ -2,6 +2,7 @@ import Factories from '../../factories';
 import Snapshot from 'react-test-renderer';
 import Question from '../../../src/components/question';
 
+// eslint-disable-next-line react/prop-types
 jest.mock('../../../src/components/html', () => ({ className, html }) =>
   html ? <div className={className} dangerouslySetInnerHTML={{ __html: html }} /> : null
 );

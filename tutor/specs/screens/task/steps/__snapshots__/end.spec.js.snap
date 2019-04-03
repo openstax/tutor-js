@@ -26,6 +26,7 @@ exports[`Tasks Ending Screen completed state 1`] = `
   margin: auto;
   border: 1px solid #e4e4e4;
   border-radius: 0.25rem;
+  background-color: white;
   padding: 50px 140px;
 }
 
@@ -112,6 +113,7 @@ exports[`Tasks Ending Screen completed state 2`] = `
   margin: auto;
   border: 1px solid #e4e4e4;
   border-radius: 0.25rem;
+  background-color: white;
   padding: 50px 140px;
 }
 
@@ -198,6 +200,7 @@ exports[`Tasks Ending Screen not started state 1`] = `
   margin: auto;
   border: 1px solid #e4e4e4;
   border-radius: 0.25rem;
+  background-color: white;
   padding: 50px 140px;
 }
 
@@ -287,6 +290,7 @@ exports[`Tasks Ending Screen partial state 1`] = `
   margin: auto;
   border: 1px solid #e4e4e4;
   border-radius: 0.25rem;
+  background-color: white;
   padding: 50px 140px;
 }
 
