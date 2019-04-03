@@ -12,6 +12,7 @@ const InnerStepCard = styled.div`
   margin: auto;
   border: 1px solid ${Theme.colors.neutral.light};
   border-radius: 0.25rem;
+  background-color: white;
   ${props => !props.unpadded && 'padding: 50px 140px;'}
 `;
 

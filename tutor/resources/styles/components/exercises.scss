@@ -164,6 +164,9 @@ $exercise-details-body-height: calc(100vh - 250px);
 }
 
 .exercise-cards {
+  max-width: 1200px;
+  margin: auto;
+
   .exercise-card {
     &:focus {
       @include tab-focus();

@@ -11,7 +11,7 @@ const StyledExerciseFooter = styled.div`
   display: flex;
   margin-top: 3rem;
   padding-top: 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   align-items: center;
   justify-content: space-between;
   border-top: 1px solid ${Theme.colors.neutral.light};

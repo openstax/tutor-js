@@ -10,7 +10,7 @@ import CourseModel from '../../models/course';
 import TourRegion from '../../components/tours/region';
 
 const Wrapper = styled(TourRegion)`
-  margin: 40px;
+  margin: 4rem auto;
 `;
 
 @observer
