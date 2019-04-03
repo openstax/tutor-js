@@ -1,10 +1,11 @@
+import React from 'react';
 import { observable, computed, action } from 'mobx';
 import Router from '../../helpers/router';
 import { extend } from 'lodash';
 import User from '../../models/user';
 import MenuToggle from '../../components/book-menu/toggle';
 import SectionTitle from './section-title';
-import NotesSummaryToggle from './note-summary-toggle';
+import NotesSummaryToggle from '../../components/notes/summary-toggle';
 import TeacherContentToggle from './teacher-content-toggle';
 import BookUX from '../../models/reference-book/ux';
 
@@ -45,7 +46,7 @@ export default class ReferenceBookUX extends BookUX {
       'section-title': SectionTitle,
     });
     nav.center.merge({
-      'note-toggle': NotesSummaryToggle,
+      'note-toggle': () => <NotesSummaryToggle course={this.course} />,
     });
     if (this.course && this.course.isTeacher) {
       nav.right.replace({
@@ -54,6 +55,7 @@ export default class ReferenceBookUX extends BookUX {
     } else {
       nav.right.clear();
     }
+
     this.navBar = nav;
   }
 
