@@ -16,7 +16,8 @@ import { NavbarContext }    from './navbar/context';
 import { SecondaryToolbar } from './navbar/secondary-toolbar';
 
 const StyledLayout = styled.div`
-
+  min-height: 100vh;
+  background-color: ${Theme.colors.body};
 `;
 
 const Content = styled.div`
