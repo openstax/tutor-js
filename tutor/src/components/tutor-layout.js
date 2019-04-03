@@ -17,12 +17,11 @@ import { SecondaryToolbar } from './navbar/secondary-toolbar';
 
 const StyledLayout = styled.div`
   min-height: 100vh;
-  background-color: ${Theme.colors.body};
 `;
 
 const Content = styled.div`
-  margin-top: ${Theme.navbars.top.height};
-  margin-bottom: ${Theme.navbars.bottom.height};
+  padding-top: ${Theme.navbars.top.height};
+  padding-bottom: ${Theme.navbars.bottom.height};
 `;
 
 class CourseContext {
