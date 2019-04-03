@@ -164,6 +164,7 @@ export default class TaskUX {
   }
 
   @computed get relatedStepTitles() {
+    if (!this.currentStep) { return {}; }
     return {
       previous: get(this.previousStep, 'preview'),
       current: this.currentStep.preview,
