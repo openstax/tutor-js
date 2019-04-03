@@ -1345,6 +1345,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
           "search": "",
         },
       },
+      "viewedInfoSteps": Array [],
       "window": [Window],
     }
   }

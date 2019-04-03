@@ -1,6 +1,6 @@
 import UX from '../../../src/screens/task/ux';
 import Reading from '../../../src/screens/task/reading';
-import { Factory, FakeWindow, TestRouter, TimeMock } from '../../helpers';
+import { Factory, FakeWindow, TestRouter, TimeMock, C } from '../../helpers';
 
 describe('Reading Tasks Screen', () => {
   let props;
@@ -15,20 +15,20 @@ describe('Reading Tasks Screen', () => {
   });
 
   it('matches snapshot', () => {
-    expect(<Reading {...props} />).toMatchSnapshot();
+    expect(<C><Reading {...props} /></C>).toMatchSnapshot();
   });
 
   it('render as loading', () => {
     props.ux.goToStep(1);
     props.ux.currentStep.isFetched = false;
     expect(props.ux.currentStep.needsFetched).toBeTruthy();
-    const r = mount(<Reading {...props} />);
+    const r = mount(<C><Reading {...props} /></C>);
     expect(r).toHaveRendered('ContentLoader');
     r.unmount();
   });
 
   it('renders content', () => {
-    const r = mount(<Reading {...props} />);
+    const r = mount(<C><Reading {...props} /></C>);
     expect(r).not.toHaveRendered('ContentLoader');
     r.unmount();
   });
@@ -36,7 +36,7 @@ describe('Reading Tasks Screen', () => {
   it('renders value props', () => {
     props.ux._task.steps.unshift({ type: 'personalized-intro' });
     props.ux._stepIndex = 0;
-    const r = mount(<Reading {...props} />);
+    const r = mount(<C><Reading {...props} /></C>);
     expect(r).toHaveRendered('PersonalizedGroup');
     r.unmount();
   });

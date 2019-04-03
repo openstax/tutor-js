@@ -9,36 +9,45 @@ const blueBackground = css`
 `;
 
 const CardBody = styled(StepCard)`
-${props => props.blue && blueBackground}
-h4 {
-  font-weight: 900;
-}
+  ${props => props.blue && blueBackground}
+  h4 {
+    font-weight: 900;
+  }
 `;
 
-function ValueProp({ className, blue, step: { type }, title, children, ux }) {
-  return (
-    <CardBody blue={blue} className={cn(`openstax-${type}`, className)}>
-      <h1>{title}</h1>
-      {children}
-      <ContinueBtn variant="light" ux={ux} />
-    </CardBody>
-  );
+class ValueProp extends React.Component {
+
+  static propTypes = {
+    blue: PropTypes.bool,
+    title: PropTypes.string.isRequired,
+    className: PropTypes.string,
+    children: PropTypes.node.isRequired,
+    step: PropTypes.shape({
+      type: PropTypes.string.isRequired,
+    }).isRequired,
+    ux: PropTypes.shape({
+      viewedInfoSteps: PropTypes.array.isRequired,
+      canGoForward: PropTypes.bool.isRequired,
+      goForward: PropTypes.func.isRequired,
+    }).isRequired,
+  };
+
+  componentWillUnmount() {
+    this.props.ux.viewedInfoSteps.push(this.props.step.type);
+  }
+
+  render() {
+    const { className, blue, step: { type }, title, children, ux } = this.props;
+
+    return (
+      <CardBody blue={blue} className={cn(`openstax-${type}`, className)}>
+        <h1>{title}</h1>
+        {children}
+        <ContinueBtn variant="light" ux={ux} />
+      </CardBody>
+    );
+  }
 }
-
-ValueProp.propTypes = {
-  blue: PropTypes.bool,
-  title: PropTypes.string.isRequired,
-  className: PropTypes.string,
-  children: PropTypes.node.isRequired,
-  step: PropTypes.shape({
-    type: PropTypes.string.isRequired,
-  }).isRequired,
-  ux: PropTypes.shape({
-    canGoForward: PropTypes.bool.isRequired,
-    goForward: PropTypes.func.isRequired,
-  }).isRequired,
-};
-
 
 export function PersonalizedGroup(props) {
   return (

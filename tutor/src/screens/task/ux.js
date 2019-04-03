@@ -3,6 +3,7 @@ import { reduce, get, groupBy, countBy, map, filter } from 'lodash';
 import lazyGetter from 'shared/helpers/lazy-getter';
 import Router from '../../../src/helpers/router';
 import * as manipulations from './ux-task-manipulations';
+import UiSettings from 'shared/model/ui-settings';
 import StepGroup from '../../models/student-tasks/step-group';
 import ScrollTo from '../../helpers/scroll-to';
 import PageContentUX from './page-content-ux';
@@ -12,6 +13,7 @@ export default class TaskUX {
 
   // privateish
   @observable _stepIndex = 0;
+  @observable viewedInfoSteps = [];
 
   constructor({ task, stepIndex = 0, router, windowImpl, course }) {
     this.router = router;
@@ -32,6 +34,12 @@ export default class TaskUX {
   @action isUnmounting() {
     // value props
     CenterControls.currentTaskStep = null;
+    this.viewedInfoSteps.forEach((type) => {
+      const key = `has-viewed-${type}`;
+      if (!UiSettings.get(key)) {
+        UiSettings.set(key, { taskId: this.task.id });
+      }
+    });
   }
 
   @computed get manipulated() {

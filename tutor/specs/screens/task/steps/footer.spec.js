@@ -1,7 +1,7 @@
-import { ExerciseFooter } from '../../../../src/screens/task/step/exercise-footer';
+import { StepFooter } from '../../../../src/screens/task/step/footer';
 import { Factory, TimeMock } from '../../../helpers';
 
-describe('Exercise Free Response', () => {
+describe('Task Step Footer', () => {
   let props;
   TimeMock.setTo('2017-10-14T12:00:00.000Z');
 
@@ -13,7 +13,7 @@ describe('Exercise Free Response', () => {
   });
 
   it('matches snapshot', () => {
-    const exf = mount(<ExerciseFooter {...props} />);
+    const exf = mount(<StepFooter {...props} />);
     expect(exf.debug()).toMatchSnapshot();
     exf.unmount();
   });

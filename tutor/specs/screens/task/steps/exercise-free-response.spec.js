@@ -51,7 +51,7 @@ describe('Exercise Free Response', () => {
     fr.unmount();
   });
 
-  it('only submits validation when ui is disabled', async () => {
+  fit('only submits validation when ui is disabled', async () => {
     props.response_validation.validate = jest.fn()
       .mockResolvedValue({ data: { valid: false } });
     props.response_validation.isEnabled = true;
@@ -67,7 +67,7 @@ describe('Exercise Free Response', () => {
     expect(props.step.free_response).toEqual(value);
     expect(props.step.needsFreeResponse).toBe(false);
     expect(fr.instance().ux.isDisplayingNudge).toBe(false);
-    expect(fr).toHaveRendered('ExerciseFooter RelatedContentLink');
+    expect(fr).toHaveRendered('StepFooter RelatedContentLink');
     expect(fr).not.toHaveRendered('TextArea[isErrored=true]');
     fr.unmount();
   });
@@ -80,7 +80,7 @@ describe('Exercise Free Response', () => {
     const fr = mount(<FreeResponseInput {...props} />);
 
     const value = 'test test test';
-    expect(fr).toHaveRendered('ExerciseFooter RelatedContentLink');
+    expect(fr).toHaveRendered('StepFooter RelatedContentLink');
 
     setFreeResponse(fr, { value });
 
@@ -95,7 +95,7 @@ describe('Exercise Free Response', () => {
     });
 
     expect(fr).toHaveRendered('TextArea[isErrored=true]');
-    expect(fr).not.toHaveRendered('ExerciseFooter RelatedContentLink');
+    expect(fr).not.toHaveRendered('StepFooter RelatedContentLink');
 
     expect(fr.text()).toContain('Re-answer');
     expect(fr).toHaveRendered('FrNudgeHelp');

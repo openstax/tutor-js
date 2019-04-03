@@ -179,6 +179,7 @@ exports[`Tasks External URL Screen matches snapshot 1`] = `
             "search": "",
           },
         },
+        "viewedInfoSteps": Array [],
         "window": [Window],
       }
     }

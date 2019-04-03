@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Html Content Tasks Screen matches snapshot 1`] = `
-.c0 {
+.c2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -13,37 +13,50 @@ exports[`Html Content Tasks Screen matches snapshot 1`] = `
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   min-height: 400px;
-  width: 980px;
+  max-width: 960px;
+  min-width: 500px;
   border-radius: 0.25rem;
-  margin: 10rem auto;
+  margin: auto;
   border: 1px solid #e4e4e4;
   border-radius: 0.25rem;
 }
 
-.c1 {
+.c0 {
+  padding: 2rem;
+}
+
+.c3 {
   -webkit-align-self: flex-end;
   -ms-flex-item-align: end;
   align-self: flex-end;
   margin: 4rem;
 }
 
+.c1 .phet-explorations-embedded {
+  margin: 40px;
+}
+
 <div
   className="c0"
 >
   <div
-    dangerouslySetInnerHTML={
-      Object {
-        "__html": "<span class=\\"os-text\\">Physics: An Introduction</span> </h2> <div class=\\"os-figure\\"> <figure id=\\"import-auto-id1580373\\"><span data-alt=\\"Two Canada geese flying close to each other in the sky.\\" data-type=\\"media\\" id=\\"import-auto-id1936836\\"><img alt=\\"Two Canada geese flying close to each other in the sky.\\" <div class=\\"os-caption-container\\"> <span class=\\"os-title-label\\">Figure </span><span class=\\"os-number\\">1.15</span><span class=\\"os-divider\\"> </span><span class=\\"os-caption\\"> <a class=\\"os-interactive-link\\" href=\\"https://www.openstaxcollege.org/l/02equation_grapher\\"> Click here for the simulation. </a> </span> </div> </div> </div></div> </div>",
-      }
-    }
-  />
-  <button
-    className="continue c1 btn btn-primary"
-    disabled={false}
-    onClick={[Function]}
-    type="button"
+    className="c1 c2"
   >
-    Continue
-  </button>
+    <div
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<span class=\\"os-text\\">Physics: An Introduction</span> </h2> <div class=\\"os-figure\\"> <figure id=\\"import-auto-id1580373\\"><span data-alt=\\"Two Canada geese flying close to each other in the sky.\\" data-type=\\"media\\" id=\\"import-auto-id1936836\\"><img alt=\\"Two Canada geese flying close to each other in the sky.\\" <div class=\\"os-caption-container\\"> <span class=\\"os-title-label\\">Figure </span><span class=\\"os-number\\">1.15</span><span class=\\"os-divider\\"> </span><span class=\\"os-caption\\"> <a class=\\"os-interactive-link\\" href=\\"https://www.openstaxcollege.org/l/02equation_grapher\\"> Click here for the simulation. </a> </span> </div> </div> </div></div> </div>",
+        }
+      }
+    />
+    <button
+      className="continue c3 btn btn-primary"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Continue
+    </button>
+  </div>
 </div>
 `;

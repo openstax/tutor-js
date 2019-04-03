@@ -1898,6 +1898,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
             "search": "",
           },
         },
+        "viewedInfoSteps": Array [],
         "window": [Window],
       }
     }

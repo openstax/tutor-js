@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Tasks Ending Screen completed state 1`] = `
-.c1 {
+.c2 {
   margin-top: 3rem;
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
 }
 
-.c0 {
+.c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -20,12 +20,17 @@ exports[`Tasks Ending Screen completed state 1`] = `
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   min-height: 400px;
-  width: 980px;
+  max-width: 960px;
+  min-width: 500px;
   border-radius: 0.25rem;
-  margin: 10rem auto;
+  margin: auto;
   border: 1px solid #e4e4e4;
   border-radius: 0.25rem;
   padding: 50px 140px;
+}
+
+.c0 {
+  padding: 2rem;
 }
 
 <div
@@ -36,23 +41,27 @@ exports[`Tasks Ending Screen completed state 1`] = `
   >
     <div>
       <div
-        className="task-steps-end c0"
+        className="c0"
       >
-        <h1>
-          You are done.
-        </h1>
-        <h3>
-          Great job 
-          answering all the questions
-          .
-        </h3>
-        <a
-          className="btn btn-default c1"
-          href="/course/3"
-          onClick={[Function]}
+        <div
+          className="task-steps-end c1"
         >
-          Back to dashboard
-        </a>
+          <h1>
+            You are done.
+          </h1>
+          <h3>
+            Great job 
+            answering all the questions
+            .
+          </h3>
+          <a
+            className="btn btn-default c2"
+            href="/course/3"
+            onClick={[Function]}
+          >
+            Back to dashboard
+          </a>
+        </div>
       </div>
     </div>
     <div
@@ -78,14 +87,14 @@ exports[`Tasks Ending Screen completed state 1`] = `
 `;
 
 exports[`Tasks Ending Screen completed state 2`] = `
-.c1 {
+.c2 {
   margin-top: 3rem;
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
 }
 
-.c0 {
+.c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -97,12 +106,17 @@ exports[`Tasks Ending Screen completed state 2`] = `
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   min-height: 400px;
-  width: 980px;
+  max-width: 960px;
+  min-width: 500px;
   border-radius: 0.25rem;
-  margin: 10rem auto;
+  margin: auto;
   border: 1px solid #e4e4e4;
   border-radius: 0.25rem;
   padding: 50px 140px;
+}
+
+.c0 {
+  padding: 2rem;
 }
 
 <div
@@ -113,23 +127,27 @@ exports[`Tasks Ending Screen completed state 2`] = `
   >
     <div>
       <div
-        className="task-steps-end c0"
+        className="c0"
       >
-        <h1>
-          You are done.
-        </h1>
-        <h3>
-          Great job 
-          completing all the steps
-          .
-        </h3>
-        <a
-          className="btn btn-default c1"
-          href="/course/3"
-          onClick={[Function]}
+        <div
+          className="task-steps-end c1"
         >
-          Back to dashboard
-        </a>
+          <h1>
+            You are done.
+          </h1>
+          <h3>
+            Great job 
+            completing all the steps
+            .
+          </h3>
+          <a
+            className="btn btn-default c2"
+            href="/course/3"
+            onClick={[Function]}
+          >
+            Back to dashboard
+          </a>
+        </div>
       </div>
     </div>
     <div
@@ -155,14 +173,14 @@ exports[`Tasks Ending Screen completed state 2`] = `
 `;
 
 exports[`Tasks Ending Screen not started state 1`] = `
-.c1 {
+.c2 {
   margin-top: 3rem;
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
 }
 
-.c0 {
+.c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -174,12 +192,17 @@ exports[`Tasks Ending Screen not started state 1`] = `
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   min-height: 400px;
-  width: 980px;
+  max-width: 960px;
+  min-width: 500px;
   border-radius: 0.25rem;
-  margin: 10rem auto;
+  margin: auto;
   border: 1px solid #e4e4e4;
   border-radius: 0.25rem;
   padding: 50px 140px;
+}
+
+.c0 {
+  padding: 2rem;
 }
 
 <div
@@ -190,26 +213,30 @@ exports[`Tasks Ending Screen not started state 1`] = `
   >
     <div>
       <div
-        className="task-steps-end c0"
+        className="c0"
       >
-        <h1>
-          No steps have been completed.
-        </h1>
-        <h4>
+        <div
+          className="task-steps-end c1"
+        >
+          <h1>
+            No steps have been completed.
+          </h1>
+          <h4>
+            <a
+              href="/course/1/task/1/step/1"
+              onClick={[Function]}
+            >
+              Begin work on assignment
+            </a>
+          </h4>
           <a
-            href="task"
+            className="btn btn-default c2"
+            href="/course/1"
             onClick={[Function]}
           >
-            Begin work on assignment
+            Back to dashboard
           </a>
-        </h4>
-        <a
-          className="btn btn-default c1"
-          href="/course/1"
-          onClick={[Function]}
-        >
-          Back to dashboard
-        </a>
+        </div>
       </div>
     </div>
     <div
@@ -235,14 +262,14 @@ exports[`Tasks Ending Screen not started state 1`] = `
 `;
 
 exports[`Tasks Ending Screen partial state 1`] = `
-.c1 {
+.c2 {
   margin-top: 3rem;
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
 }
 
-.c0 {
+.c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -254,12 +281,17 @@ exports[`Tasks Ending Screen partial state 1`] = `
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   min-height: 400px;
-  width: 980px;
+  max-width: 960px;
+  min-width: 500px;
   border-radius: 0.25rem;
-  margin: 10rem auto;
+  margin: auto;
   border: 1px solid #e4e4e4;
   border-radius: 0.25rem;
   padding: 50px 140px;
+}
+
+.c0 {
+  padding: 2rem;
 }
 
 <div
@@ -270,25 +302,29 @@ exports[`Tasks Ending Screen partial state 1`] = `
   >
     <div>
       <div
-        className="task-steps-end c0"
+        className="c0"
       >
-        <h1>
-          Assignment is partially complete.
-        </h1>
-        <h3>
-          You've completed 
-          1
-           of 
-          2
-           steps.
-        </h3>
-        <a
-          className="btn btn-default c1"
-          href="/course/2"
-          onClick={[Function]}
+        <div
+          className="task-steps-end c1"
         >
-          Back to dashboard
-        </a>
+          <h1>
+            Assignment is partially complete.
+          </h1>
+          <h3>
+            You've completed 
+            1
+             of 
+            2
+             steps.
+          </h3>
+          <a
+            className="btn btn-default c2"
+            href="/course/2"
+            onClick={[Function]}
+          >
+            Back to dashboard
+          </a>
+        </div>
       </div>
     </div>
     <div

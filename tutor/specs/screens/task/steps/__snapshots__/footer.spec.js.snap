@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Exercise Free Response matches snapshot 1`] = `
-"<ExerciseFooter course={{...}} step={{...}}>
+exports[`Task Step Footer matches snapshot 1`] = `
+"<StepFooter course={{...}} step={{...}}>
   <StyledExerciseFooter>
     <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
-      <div className=\\"StyledExerciseFooter-sc-1ywjfjg-0 kjAoVY\\">
+      <div className=\\"StyledExerciseFooter-sc-7wyi4k-0 gzrui\\">
         <ExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"185cbf87-c72e-48f5-b51e-f14f21b5eabd\\" related_content={{...}}>
           <div className=\\"exercise-identifier-link\\">
             ID# 
@@ -43,5 +43,5 @@ exports[`Exercise Free Response matches snapshot 1`] = `
       </div>
     </StyledComponent>
   </StyledExerciseFooter>
-</ExerciseFooter>"
+</StepFooter>"
 `;

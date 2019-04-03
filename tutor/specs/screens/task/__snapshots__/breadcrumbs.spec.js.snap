@@ -1897,6 +1897,7 @@ exports[`Homework Breadcrumbs Component matches snapshot 1`] = `
           "search": "",
         },
       },
+      "viewedInfoSteps": Array [],
       "window": [Window],
     }
   }

@@ -14,6 +14,7 @@ describe('Tasks Steps', () => {
     const step = Factory.studentTask({ type: 'homework', stepCount: 1 }).steps[0];
     const ux = new UX();
     Object.assign(ux, {
+      viewedInfoSteps: [],
       course: Factory.course(),
       onAnswerChange: jest.fn(),
       canGoForward: true,

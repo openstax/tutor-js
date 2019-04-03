@@ -1,5 +1,11 @@
 import UX from '../../../src/screens/task/ux';
 import { Factory, TimeMock, TestRouter, ld } from '../../helpers';
+import UiSettings from 'shared/model/ui-settings';
+jest.mock('shared/model/ui-settings', () => ({
+  set: jest.fn(),
+  get: jest.fn(() => false),
+}));
+
 jest.mock('../../../src/helpers/scroll-to');
 
 describe('Task UX Model', () => {
@@ -38,6 +44,14 @@ describe('Task UX Model', () => {
 
     expect(ux.scroller.scrollToSelector).toHaveBeenCalledWith(
       `[data-task-step-id="${group.steps[1].id}"]`
+    );
+  });
+
+  it('stores viewed in UiSettings when unmount', () => {
+    ux.viewedInfoSteps.push('two-step-intro');
+    ux.isUnmounting();
+    expect(UiSettings.set).toHaveBeenCalledWith(
+      'has-viewed-two-step-intro', { taskId: ux.task.id },
     );
   });
 
