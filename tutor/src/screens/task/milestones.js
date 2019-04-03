@@ -32,11 +32,10 @@ class Milestone extends React.Component {
       /> : <div className="milestone-preview">{step.preview}</div>;
 
     return (
-      <Col xs={3} lg={2} className="milestone-wrapper">
+      <Col xs={3} lg={2} data-step-index={stepIndex} className="milestone-wrapper">
         <div
           tabIndex="0"
           className={classes}
-          aria-label={preview}
           onClick={this.goToStep}
         >
           <Breadcrumb

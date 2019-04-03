@@ -116,13 +116,10 @@ class AnswersTable extends React.Component {
   }
 
   shouldInstructionsShow = () => {
-    const { type, question, answer_id, correct_answer_id } = this.props;
+    const { type, question, answer_id } = this.props;
     return (
       (question.formats.length > 1) &&
-        !(
-          (answer_id === correct_answer_id) ||
-            ['teacher-preview', 'teacher-review'].includes(type)
-        )
+        !['teacher-preview', 'teacher-review'].includes(type)
     );
   };
 
@@ -192,4 +189,4 @@ class AnswersTable extends React.Component {
       </div>
     );
   }
-};
+}

@@ -17,7 +17,9 @@ export function insertIndividiualReview({ steps, task, ...rest }) {
   return {
     ...rest,
     task,
-    steps: insertBeforeMatch('individual-review-intro', task, steps, { isReview: true }),
+    steps: insertBeforeMatch(
+      'individual-review-intro', task, steps, { isReview: true }
+    ),
   };
 }
 

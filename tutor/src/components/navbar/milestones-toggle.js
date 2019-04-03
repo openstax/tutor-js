@@ -1,8 +1,10 @@
 import { React, observable, styled, action } from '../../helpers/react';
 import { Icon } from 'shared';
 import Theme from '../../theme';
+
 const StyledToggle = styled.button`
   border: 0;
+  background-color: transparent;
   transistion: color 0.2s;
   color: ${Theme.colors.neutral.dark};
   &:hover, &:active {

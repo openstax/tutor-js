@@ -11,7 +11,7 @@ const NavbarBottomShadow = css`
 export { NavbarBottomShadow };
 
 const Docked = css`
-  position: inherit;
+  position: relative;
   border-bottom: 1px solid ${Theme.colors.neutral.lighter};
 `;
 

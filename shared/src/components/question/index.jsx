@@ -55,11 +55,16 @@ class Question extends React.Component {
       PropTypes.instanceOf(QuestionModel),
       PropTypes.instanceOf(ReviewQuestion),
     ]).isRequired,
+    children: PropTypes.node,
     task: PropTypes.object,
     correct_answer_id: PropTypes.string,
     hideAnswers: PropTypes.bool,
     exercise_uid: PropTypes.string,
     displayFormats:  PropTypes.bool,
+    processHtmlAndMath: PropTypes.bool,
+    className: PropTypes.string,
+    questionNumber: PropTypes.number,
+    context: PropTypes.object,
   };
 
   static childContextTypes = {
@@ -139,4 +144,4 @@ class Question extends React.Component {
       </div>
     );
   }
-};
+}

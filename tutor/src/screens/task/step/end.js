@@ -20,15 +20,14 @@ Card.propTypes = {
 };
 
 const TaskEndMessage = ({ ux, ux: { course, task } }) => {
-
   if (!task.progress.complete) {
     return (
       <Card ux={ux}>
         <h1>No steps have been completed.</h1>
         <h4>
           <Link
-            to="task"
-            params={{ courseId: course.id, id: task.id }}
+            to="viewTaskStep"
+            params={{ courseId: course.id, id: task.id, stepIndex: 1 }}
           >
             Begin work on assignment
           </Link>

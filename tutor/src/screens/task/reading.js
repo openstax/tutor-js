@@ -1,8 +1,13 @@
-import { React, PropTypes, observer } from '../../helpers/react';
+import { React, PropTypes, styled, observer } from '../../helpers/react';
 import ProgressCard from './progress';
 import UX from './ux';
 import { TaskStep } from './step';
 import ObscuredPage from '../../components/obscured-page';
+import { ReadingProgress } from './reading-progress';
+
+const StyledReading = styled.div`
+
+`;
 
 export default
 @observer
@@ -17,16 +22,18 @@ class ReadingTask extends React.Component {
     const { ux, windowImpl, ux: { currentStep } } = this.props;
 
     return (
-      <ProgressCard ux={ux} className="reading-task">
-
-        <ObscuredPage>
-          <TaskStep
-            ux={ux}
-            step={currentStep}
-            windowImpl={windowImpl}
-          />
-        </ObscuredPage>
-      </ProgressCard>
+      <StyledReading>
+        <ProgressCard ux={ux} className="reading-task">
+          <ReadingProgress ux={ux} />
+          <ObscuredPage>
+            <TaskStep
+              ux={ux}
+              step={currentStep}
+              windowImpl={windowImpl}
+            />
+          </ObscuredPage>
+        </ProgressCard>
+      </StyledReading>
     );
   }
 

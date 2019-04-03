@@ -1,5 +1,5 @@
 import { observable, computed, action, when } from 'mobx';
-import { reduce, get, groupBy, map, filter } from 'lodash';
+import { reduce, get, groupBy, countBy, map, filter } from 'lodash';
 import lazyGetter from 'shared/helpers/lazy-getter';
 import Router from '../../../src/helpers/router';
 import * as manipulations from './ux-task-manipulations';
@@ -55,7 +55,11 @@ export default class TaskUX {
   }
 
   @computed get milestoneSteps() {
-    return filter(this.steps, (s, i) => i === this.currentStepIndex || s.is_completed);
+    const firstNonCompleteI = this.steps.findIndex(s => !s.is_completed);
+    if (-1 !== firstNonCompleteI) {
+      return this.steps.slice(0, firstNonCompleteI + 1);
+    }
+    return this.steps;
   }
 
   @computed get task() {
@@ -157,6 +161,10 @@ export default class TaskUX {
       current: this.currentStep.preview,
       next: get(this.nextStep, 'preview'),
     };
+  }
+
+  @computed get progressPercent() {
+    return Math.round((this._stepIndex / this.steps.length) * 100);
   }
 
 }

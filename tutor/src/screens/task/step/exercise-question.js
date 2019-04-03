@@ -3,6 +3,7 @@ import {
 } from '../../../helpers/react';
 import UX from '../ux';
 import keymaster from 'keymaster';
+import { StepFooter } from './footer';
 import { Button } from 'react-bootstrap';
 import { Question, AsyncButton } from 'shared';
 import Step from '../../../models/student-tasks/step';
@@ -13,10 +14,12 @@ const Controls = styled.div`
   margin: 2.5rem 0;
   display: flex;
   justify-content: flex-end;
+
 `;
 
 const StyledExerciseQuestion = styled.div`
-
+  font-size: 2rem;
+  line-height: 3.5rem;
 `;
 
 export default
@@ -122,6 +125,7 @@ class ExerciseQuestion extends React.Component {
           {this.needsSaved ?
             this.renderSaveButton() : this.renderNextButton()}
         </Controls>
+        <StepFooter course={course} step={step} />
       </StyledExerciseQuestion>
     );
   }

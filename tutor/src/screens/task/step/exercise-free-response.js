@@ -9,7 +9,7 @@ import Question from 'shared/model/exercise/question';
 import QuestionStem from './question-stem';
 import Theme from '../../../theme';
 import Course from '../../../models/course';
-import { ExerciseFooter } from './exercise-footer';
+import { StepFooter } from './footer';
 import { ResponseValidationUX } from '../response-validation-ux';
 import { FrNudgeHelp } from './fr-nudge-help';
 
@@ -74,6 +74,10 @@ class FreeResponseInput extends React.Component {
 
   textArea = React.createRef();
 
+  componentDidMount() {
+    invoke(this.textArea.current, 'focus');
+  }
+
   @action.bound async onSave() {
     await this.ux.onSave();
     invoke(this.textArea.current, 'focus');
@@ -100,7 +104,8 @@ class FreeResponseInput extends React.Component {
             {ux.submitBtnLabel}
           </AnswerButton>
         </ControlsRow>
-        <ExerciseFooter hideContentLink={ux.isDisplayingNudge}
+        <StepFooter
+          hideContentLink={ux.isDisplayingNudge}
           course={course} step={step} />
       </StyledFreeResponse>
     );

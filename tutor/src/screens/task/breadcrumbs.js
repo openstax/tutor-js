@@ -40,6 +40,7 @@ class Breadcrumbs extends React.Component {
   @autobind renderBreadcrumbs() {
 
     const { ux } = this.props;
+    let breadcrumbIndex = 0;
 
     return (
       <BreadcrumbsWrapper
@@ -54,6 +55,7 @@ class Breadcrumbs extends React.Component {
             ux={ux}
             step={step}
             canReview={ux.task.isFeedbackAvailable}
+            dataStepIndex={step.isInfo ? null : (breadcrumbIndex += 1)}
             stepIndex={stepIndex}
             isCurrent={step === ux.currentStep}
             goToStep={ux.goToStep}

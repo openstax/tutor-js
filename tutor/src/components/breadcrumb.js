@@ -14,7 +14,7 @@ class Breadcrumb extends React.Component {
     isCurrent: PropTypes.bool,
     canReview: PropTypes.bool,
     currentStep: PropTypes.number,
-
+    dataStepIndex: PropTypes.number,
   };
 
   @action.bound goToStep() {
@@ -25,7 +25,9 @@ class Breadcrumb extends React.Component {
     let crumbClasses, status, title;
     let isCorrect = false;
     let isIncorrect = false;
-    const { step, canReview, isCurrent, className, stepIndex } = this.props;
+    const {
+      step, canReview, isCurrent, className, stepIndex, dataStepIndex,
+    } = this.props;
     const isCompleted = step != null ? step.is_completed : undefined;
     const { type: crumbType } = step;
     const isEnd = 'end' === crumbType;
@@ -86,7 +88,7 @@ class Breadcrumb extends React.Component {
         aria-label={title}
         className={classes}
         onClick={this.goToStep}
-        data-step-index={stepIndex + 1}
+        data-step-index={dataStepIndex}
         data-chapter={step.sectionLabel}
         key={`step-${step.id}`}
       >

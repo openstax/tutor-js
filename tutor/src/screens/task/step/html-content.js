@@ -1,12 +1,15 @@
-import {
-  React, PropTypes, observer,
-} from '../../../helpers/react';
+import { React, PropTypes, observer, styled } from '../../../helpers/react';
 import ContentLoader from 'react-content-loader';
 import UX from '../ux';
 import { StepCard } from './card';
 import { ArbitraryHtmlAndMath } from 'shared';
 import ContinueBtn from './continue-btn';
 import Step from '../../../models/student-tasks/step';
+
+const HtmlContent = styled(StepCard)`
+.phet-explorations-embedded { margin: 40px; }
+
+`
 
 const Loader = () => (
   <ContentLoader>
@@ -30,10 +33,10 @@ class HtmlContentTaskStep extends React.Component {
     const { ux, step } = this.props;
 
     return (
-      <StepCard unpadded>
+      <HtmlContent unpadded>
         <ArbitraryHtmlAndMath html={step.content.html} />
         <ContinueBtn ux={ux} />
-      </StepCard>
+      </HtmlContent>
     );
   }
 }

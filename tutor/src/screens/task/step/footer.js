@@ -18,7 +18,7 @@ const StyledExerciseFooter = styled.div`
 `;
 
 
-const ExerciseFooter = observer(({ course, step, hideContentLink }) => {
+const StepFooter = observer(({ course, step, hideContentLink }) => {
   return (
     <StyledExerciseFooter>
       <ExerciseIdentifierLink
@@ -35,11 +35,11 @@ const ExerciseFooter = observer(({ course, step, hideContentLink }) => {
   );
 });
 
-ExerciseFooter.propTypes = {
+StepFooter.propTypes = {
   course: PropTypes.instanceOf(Course).isRequired,
   step: PropTypes.instanceOf(TaskStep).isRequired,
   hideContentLink: PropTypes.bool,
 };
-ExerciseFooter.displayName = 'ExerciseFooter';
+StepFooter.displayName = 'StepFooter';
 
-export { ExerciseFooter };
+export { StepFooter };

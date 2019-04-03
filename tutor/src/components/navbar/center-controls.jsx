@@ -43,16 +43,14 @@ class CenterControls extends React.Component {
     const { taskStep } = this;
 
     return (
-      <div className="navbar-overlay">
-        <div className="center-control">
-          <div className="icons">
-            <MilestonesToggle taskStep={taskStep} />
-            <NotesSummaryToggle
-              course={this.course}
-              type="reading"
-              taskStep={taskStep}
-            />
-          </div>
+      <div className="center-control">
+        <div className="icons">
+          <MilestonesToggle taskStep={taskStep} />
+          <NotesSummaryToggle
+            course={this.course}
+            type="reading"
+            taskStep={taskStep}
+          />
         </div>
       </div>
     );
