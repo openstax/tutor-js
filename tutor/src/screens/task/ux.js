@@ -211,6 +211,10 @@ export default class TaskUX {
       this.steps[this._stepIndex - 1] : null;
   }
 
+  @computed get currentStepIndex() {
+    return this._stepIndex;
+  }
+
   @computed get nextStep() {
     return this.canGoForward ?
       this.steps[this._stepIndex + 1] : null;
