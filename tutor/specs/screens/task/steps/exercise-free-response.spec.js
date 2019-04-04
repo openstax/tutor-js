@@ -21,6 +21,7 @@ describe('Exercise Free Response', () => {
     const step = task.steps[0];
     props = {
       step,
+      questionNumber: 42,
       response_validation: new ResponseValidation(),
       course: Factory.course(),
       question: step.content.questions[0],
@@ -31,12 +32,20 @@ describe('Exercise Free Response', () => {
     expect(<FreeResponseInput {...props} />).toMatchSnapshot();
   });
 
+
   it('reviews text', () => {
     const fr = mount(<FreeResponseReview {...props} />);
     props.step.free_response = null;
     expect(fr.isEmptyRender()).toBeTruthy();
     props.step.free_response = 'test';
     expect(fr.text()).toContain('test');
+    fr.unmount();
+  });
+
+  it('displays question number and stem', () => {
+    props.response_validation.isEnabled = false;
+    const fr = mount(<FreeResponseInput {...props} />);
+    expect(fr).toHaveRendered('QuestionStem div[data-question-number=42]');
     fr.unmount();
   });
 
@@ -51,7 +60,7 @@ describe('Exercise Free Response', () => {
     fr.unmount();
   });
 
-  fit('only submits validation when ui is disabled', async () => {
+  it('only submits validation when ui is disabled', async () => {
     props.response_validation.validate = jest.fn()
       .mockResolvedValue({ data: { valid: false } });
     props.response_validation.isEnabled = true;

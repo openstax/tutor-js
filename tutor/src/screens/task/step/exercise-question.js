@@ -107,24 +107,27 @@ class ExerciseQuestion extends React.Component {
 
   render() {
     const { ux, question, step, ux: { course } } = this.props;
+    const questionNumber = ux.questionNumberForStep(step);
 
     if (step.needsFreeResponse) {
       return (
         <FreeResponseInput
+          step={step} question={question}
+          questionNumber={questionNumber}
           key={question.id} course={course}
-          step={step} question={question} />
+        />
       );
     }
 
     return (
       <StyledExerciseQuestion>
         <Question
-          questionNumber={ux.questionNumberForStep(step)}
-          focus={!step.multiPartGroup}
           task={ux.task}
           question={question}
           choicesEnabled={true}
           answer_id={this.answerId}
+          focus={!step.multiPartGroup}
+          questionNumber={questionNumber}
           onChange={this.onAnswerChange}
           feedback_html={step.feedback_html}
           hasCorrectAnswer={step.hasCorrectAnswer}

@@ -28,6 +28,14 @@ describe('Exercise Free Response', () => {
     expect(eq).toHaveRendered('AnswersTable');
   });
 
+  it('renders exercise questions', () => {
+    props.ux.questionNumberForStep = jest.fn(() => 42);
+    const eq = mount(<ExerciseQuestion {...props} />);
+    setFreeResponse(eq, { value: 'this is real answer' });
+    expect(eq).toHaveRendered('[data-question-number=42]');
+    eq.unmount();
+  });
+
   it('can answer question', () => {
     const { step } = props;
     const eq = mount(<ExerciseQuestion {...props} />);
@@ -37,7 +45,6 @@ describe('Exercise Free Response', () => {
     expect(props.ux.onAnswerSave).toHaveBeenCalledWith(
       step, step.content.questions[0].answers[1],
     );
-
 
     // emulate pending request
     step.api.requestsInProgress.set('1', {});
@@ -49,6 +56,7 @@ describe('Exercise Free Response', () => {
 
     eq.update();
     expect(eq.find('AsyncButton').props().isWaiting).toBe(false);
+    eq.unmount();
   });
 
 });

@@ -61,6 +61,7 @@ class FreeResponseReview extends React.Component {
 class FreeResponseInput extends React.Component {
 
   static propTypes = {
+    questionNumber: PropTypes.number.isRequired,
     course: PropTypes.instanceOf(Course).isRequired,
     step: PropTypes.instanceOf(TaskStep).isRequired,
     question: PropTypes.instanceOf(Question).isRequired,
@@ -84,11 +85,14 @@ class FreeResponseInput extends React.Component {
   }
 
   render() {
-    const { ux, props: { course, step, question } } = this;
+    const { ux, props: { questionNumber, course, step, question } } = this;
 
     return (
       <StyledFreeResponse>
-        <QuestionStem question={question} />
+        <QuestionStem
+          questionNumber={questionNumber}
+          question={question}
+        />
         <TextArea
           ref={this.textArea}
           value={ux.response}
