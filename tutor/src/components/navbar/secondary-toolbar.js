@@ -8,7 +8,7 @@ const Padding = css`
 
 const StyledSecondaryToolbar = styled.div`
   top: 0;
-  z-index: 1031;
+  z-index: 1029;
   position: sticky;
   background: white;
   ${props => !props.renderFn.unpadded && Padding}
