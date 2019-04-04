@@ -14,13 +14,13 @@ function insertBeforeMatch(type, task, steps, match) {
 
 // spaced practice questions are preceded by a "Spaced Practice" card.
 export function insertIndividiualReview({ steps, task, ...rest }) {
-  return {
-    ...rest,
-    task,
-    steps: insertBeforeMatch(
-      'individual-review-intro', task, steps, { isReview: true }
-    ),
-  };
+  steps = insertBeforeMatch(
+    'individual-review-intro', task, steps, { isReview: true }
+  );
+  steps = insertBeforeMatch(
+    'individual-review-intro', task, steps, { type: 'placeholder' }
+  );
+  return { ...rest, task, steps };
 }
 
 export function insertValueProp({ steps, task, ...rest }) {

@@ -6,11 +6,11 @@ import {
 import ScrollTo from '../../../helpers/scroll-to';
 import Reading from './reading';
 import Exercise from './exercise';
+import Placeholder from './placeholder';
 import HtmlContent from './html-content';
 import End from './end';
 import UX from '../ux';
 import { LoadingCard } from './card';
-
 import {
   PersonalizedGroup,
   TwoStepValueProp,
@@ -36,6 +36,7 @@ const STEP_TYPES = {
   reading: Reading,
   video: HtmlContent,
   exercise: Exercise,
+  placeholder: Placeholder,
   interactive: HtmlContent,
   'two-step-intro': TwoStepValueProp,
   'personalized-intro': PersonalizedGroup,

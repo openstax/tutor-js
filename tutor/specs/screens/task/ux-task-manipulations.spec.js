@@ -20,6 +20,14 @@ describe('Task Manipulations', () => {
     expect(steps.length).toEqual(11);
   });
 
+  it('insertIndividiualReview before placeholders', () => {
+    const t = createTask({ type: 'homework' });
+    t.steps[7].type = 'placeholder';
+    const { steps } = M.insertIndividiualReview(t);
+    expect(steps[7]).toMatchObject({ type: 'individual-review-intro' });
+    expect(steps.length).toEqual(11);
+  });
+
   it('value prop card', () => {
     const t = createTask({ type: 'homework' });
     const stepI = ld.findIndex(t.steps, { isTwoStep: true });

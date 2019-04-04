@@ -1,0 +1,45 @@
+import { React, PropTypes, observer, styled } from '../../../helpers/react';
+import ContentLoader from 'react-content-loader';
+import UX from '../ux';
+import { StepCard } from './card';
+import { ArbitraryHtmlAndMath } from 'shared';
+import ContinueBtn from './continue-btn';
+import Step from '../../../models/student-tasks/step';
+
+const HtmlContent = styled(StepCard)`
+.phet-explorations-embedded { margin: 40px; }
+`;
+
+const Loader = () => (
+  <ContentLoader>
+    <rect x="0" y="0" rx="3" ry="3" width="250" height="10" />
+    <rect x="0" y="70" rx="5" ry="5" width="400" height="400" />
+  </ContentLoader>
+);
+
+export default
+@observer
+class PlaceHolderTaskStep extends React.Component {
+
+  static Loader = Loader;
+
+  static propTypes = {
+    ux: PropTypes.instanceOf(UX).isRequired,
+    step: PropTypes.instanceOf(Step).isRequired,
+  }
+
+  render() {
+    const { ux } = this.props;
+
+    return (
+      <StepCard>
+        <h1>This step is unavailable</h1>
+        <h3>
+          Unlock this personalized question by
+          answering more problems for this assignment.
+        </h3>
+        <ContinueBtn ux={ux} />
+      </StepCard>
+    );
+  }
+}
