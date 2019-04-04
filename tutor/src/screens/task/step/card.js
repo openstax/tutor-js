@@ -8,8 +8,7 @@ const InnerStepCard = styled.div`
   flex-direction: column;
   flex: 1 1 auto;
   min-height: 400px;
-  max-width: 960px;
-  min-width: 500px;
+  width: 960px;
   border-radius: 0.25rem;
   margin: auto;
   border: 1px solid ${Theme.colors.neutral.light};
