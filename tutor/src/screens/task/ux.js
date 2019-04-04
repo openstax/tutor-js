@@ -18,7 +18,7 @@ export default class TaskUX {
   constructor({ task, stepIndex = 0, router, windowImpl, course }) {
     this.router = router;
     this._task = task;
-    this._task.fetch();
+
     this.window = windowImpl || window;
     this.course = course || task.tasksMap.course;
 

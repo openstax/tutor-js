@@ -1,7 +1,7 @@
 import { React, PropTypes, observer, computed, inject, idType } from '../../helpers/react';
 import { Redirect } from 'react-router-dom';
 import Router from '../../helpers/router';
-import { isNil } from 'lodash';
+import { isNil, findIndex } from 'lodash';
 import Courses, { Course } from '../../models/courses-map';
 import StudentTask from '../../models/student-tasks/task';
 import { CourseNotFoundWarning } from '../../components/course-not-found-warning';
@@ -99,9 +99,6 @@ class Task extends React.Component {
 
   render() {
     const { task } = this.props;
-    if (!task.api.hasBeenFetched) {
-      return <StepCard><PendingLoad /></StepCard>;
-    }
 
     const TaskComponent = TASK_TYPES[task.type] || UnknownTaskType;
 
@@ -131,21 +128,31 @@ class TaskGetter extends React.Component {
     return this.course && this.course.studentTasks.get(this.props.params.id);
   }
 
+  constructor(props) {
+    super(props);
+    this.task.fetch();
+  }
+
   render() {
     if (!this.course || this.task.api.hasErrors) {
       return <CourseNotFoundWarning area="assignment" />;
     }
     const { task } = this;
 
+    if (!task.api.hasBeenFetched) {
+      return <StepCard><PendingLoad /></StepCard>;
+    }
+
     if (task.is_deleted) {
       return <DeletedTask />;
     }
 
     if (!this.props.params.stepIndex) {
+      const stepIndex = findIndex(task.steps, { is_completed: false });
       return <Redirect push={false} to={Router.makePathname('viewTaskStep', {
-        courseId: this.course.id,
         id: task.id,
-        stepIndex: 1,
+        courseId: this.course.id,
+        stepIndex: stepIndex == -1 ? 1 : stepIndex + 1,
       })} />;
     }
 
