@@ -29,8 +29,8 @@ describe('Task UX Model', () => {
 
   it('scrolls to next mpq', async () => {
     const i = 1 + ux.steps.findIndex(s => s.type == 'two-step-intro');
-    ux.steps[i+1].uid = ux.steps[i].uid;
-    const group = ux.steps[i];
+    ux.steps[i+1].uid = ux.groupedSteps[i].uid;
+    const group = ux.groupedSteps[i];
     expect(group.type).toBe('mpq');
     const s = group.steps[0];
     expect(s.multiPartGroup).toBe(group);
@@ -41,7 +41,6 @@ describe('Task UX Model', () => {
     s.save = jest.fn().mockResolvedValue({});
     await ux.onAnswerSave(s, { id: 1 });
     expect(s.save).toHaveBeenCalled();
-
     expect(ux.scroller.scrollToSelector).toHaveBeenCalledWith(
       `[data-task-step-id="${group.steps[1].id}"]`
     );

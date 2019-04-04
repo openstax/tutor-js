@@ -19,14 +19,14 @@ class HomeworkTask extends React.Component {
   }
 
   render() {
-    const { ux, windowImpl, ux: { currentStep } } = this.props;
+    const { ux, windowImpl } = this.props;
 
     return (
       <SyledHomework className="homework-task">
         <Breadcrumbs ux={ux} />
         <TaskStep
           ux={ux}
-          step={currentStep}
+          step={ux.currentGroupedStep}
           windowImpl={windowImpl}
         />
       </SyledHomework>

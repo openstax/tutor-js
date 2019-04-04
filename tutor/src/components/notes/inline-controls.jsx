@@ -5,7 +5,6 @@ import { Icon } from 'shared';
 import HighlightIcon from './highlight-icon';
 import getRangeRect from './getRangeRect';
 
-const MARGIN = 100; // min amount of space that should be available on right of page
 
 const InlineControls = observer(({ windowImpl, pendingHighlight, annotate, parentRect, highlight }) => {
   if (!pendingHighlight || !pendingHighlight.range) { return null; }
@@ -13,8 +12,8 @@ const InlineControls = observer(({ windowImpl, pendingHighlight, annotate, paren
   const rect = getRangeRect(windowImpl, pendingHighlight.range);
 
   const style = {
-    top: `${(rect.top - parentRect.top) - 20}px`,
-    right: `${Math.max(parentRect.right - rect.right + MARGIN, MARGIN)}px`,
+    top: `${(rect.top - parentRect.top) - 70}px`,
+    right: `${parentRect.right - rect.right - 40}px`,
   };
 
   return (

@@ -20,6 +20,16 @@ const Controls = styled.div`
 const StyledExerciseQuestion = styled.div`
   font-size: 2rem;
   line-height: 3.5rem;
+  .question-stem[data-question-number] {
+    position: relative;
+    &::before {
+      content: attr(data-question-number) ")";
+      position: absolute;
+      z-index: 1;
+      right: 100%;
+      margin-right: 0.5rem;
+    }
+  }
 `;
 
 export default
@@ -109,6 +119,7 @@ class ExerciseQuestion extends React.Component {
     return (
       <StyledExerciseQuestion>
         <Question
+          questionNumber={ux.questionNumberForStep(step)}
           focus={!step.multiPartGroup}
           task={ux.task}
           question={question}

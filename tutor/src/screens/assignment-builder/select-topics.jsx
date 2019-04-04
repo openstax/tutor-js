@@ -24,7 +24,7 @@ class SelectTopics extends React.Component {
     selected: PropTypes.array,
     header: PropTypes.string.isRequired,
     cancel: PropTypes.func.isRequired,
-    primary: PropTypes.bool,
+    primary: PropTypes.object,
     type: PropTypes.string.isRequired,
   };
 

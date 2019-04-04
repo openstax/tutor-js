@@ -8,8 +8,7 @@ const InnerStepCard = styled.div`
   flex-direction: column;
   flex: 1 1 auto;
   min-height: 400px;
-  max-width: 960px;
-  min-width: 500px;
+  width: 960px;
   border-radius: 0.25rem;
   margin: auto;
   border: 1px solid ${Theme.colors.neutral.light};
@@ -22,8 +21,13 @@ const OuterStepCard = styled.div`
   padding: 2rem;
 `;
 
-const StepCard = ({ unpadded, className, children }) => (
-  <OuterStepCard>
+const LoadingCard = styled(InnerStepCard)`
+  min-width: 960px;
+  padding: 2rem;
+`;
+
+const StepCard = ({ unpadded, className, children, ...otherProps }) => (
+  <OuterStepCard {...otherProps}>
     <InnerStepCard
       unpadded={unpadded}
       className={className}
@@ -57,4 +61,4 @@ TaskStepCard.propTypes = {
 };
 
 
-export { StepCard, TaskStepCard };
+export { StepCard, TaskStepCard, LoadingCard };

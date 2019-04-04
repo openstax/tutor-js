@@ -40,7 +40,7 @@ class NoteButton extends React.Component {
     const highlightTop = this.calculateTop();
     if (highlightTop == null) { return null; }
 
-    const top = highlightTop - containerTop;
+    const top = highlightTop - containerTop - 5;
 
     return (
       <Icon
@@ -101,4 +101,4 @@ class SidebarButtons extends React.Component {
 
   }
 
-};
+}

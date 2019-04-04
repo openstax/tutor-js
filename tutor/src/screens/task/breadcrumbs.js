@@ -48,7 +48,6 @@ class Breadcrumbs extends React.Component {
         role="dialog"
         tabIndex="-1"
       >
-
         {ux.steps.map( (step, stepIndex) =>
           <Breadcrumb
             key={`step-wrapper-${stepIndex}`}
@@ -59,7 +58,6 @@ class Breadcrumbs extends React.Component {
             stepIndex={stepIndex}
             isCurrent={step === ux.currentStep}
             goToStep={ux.goToStep}
-            currentStep={ux.currentStepIndex}
           />)}
 
       </BreadcrumbsWrapper>

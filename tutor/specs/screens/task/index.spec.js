@@ -17,7 +17,7 @@ describe('Tasks Screen', () => {
       tasksMap: { course },
       api: observable({
         hasErrors: false,
-        isPendingInitialFetch: true,
+        hasBeenFetched: true,
       }),
     });
 
@@ -37,6 +37,7 @@ describe('Tasks Screen', () => {
   });
 
   it('renders and fetches', () => {
+    task.api.hasBeenFetched = false;
     props.params.stepIndex = 1;
     const t = mount(<C><Task {...props} /></C>);
     expect(task.fetch).toHaveBeenCalled();

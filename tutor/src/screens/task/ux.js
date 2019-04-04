@@ -1,5 +1,5 @@
 import { observable, computed, action, when } from 'mobx';
-import { reduce, get, groupBy, map } from 'lodash';
+import { reduce, filter, get, groupBy, map } from 'lodash';
 import lazyGetter from 'shared/helpers/lazy-getter';
 import Router from '../../../src/helpers/router';
 import * as manipulations from './ux-task-manipulations';
@@ -18,7 +18,7 @@ export default class TaskUX {
   constructor({ task, stepIndex = 0, router, windowImpl, course }) {
     this.router = router;
     this._task = task;
-    this._task.fetch();
+
     this.window = windowImpl || window;
     this.course = course || task.tasksMap.course;
 
@@ -50,7 +50,7 @@ export default class TaskUX {
     );
   }
 
-  @computed get steps() {
+  @computed get groupedSteps() {
     const { steps } = this.manipulated;
     if (this.task.isHomework) {
       return map(
@@ -60,6 +60,14 @@ export default class TaskUX {
       );
     }
     return steps;
+  }
+
+  @computed get steps() {
+    return this.manipulated.steps;
+  }
+
+  calculatedStepIndex(step) {
+    return this.manipulated.steps.indexOf(step);
   }
 
   @computed get milestoneSteps() {
@@ -80,22 +88,22 @@ export default class TaskUX {
 
   @action async onAnswerSave(step, answer) {
     step.answer_id = answer.id;
+    step.is_completed = true;
     await step.save();
-    // don't advance there's feedback so the user can view it
+    // don't advance if there's feedback so the user can view it
     if (!this.task.isFeedbackAvailable) {
       this.onAnswerContinue(step);
+    } else {
+      this.moveToStep(step);
     }
   }
 
-  @action onAnswerContinue(step) {
-    // scroll if it's a MPQ but not the last one
-    if (step.multiPartGroup) {
-      const nextStep = step.multiPartGroup.getStepAfter(step);
-      if (nextStep) {
-        this.scroller.scrollToSelector(`[data-task-step-id="${nextStep.id}"]`);
-      }
-    }
+  @action moveToStep(step) {
+    this._stepIndex = this.steps.indexOf(step);
+  }
 
+  @action onAnswerContinue(step) {
+    this.moveToStep(step);
     if (this.canGoForward) {
       this.goForward();
     }
@@ -110,13 +118,12 @@ export default class TaskUX {
   }
 
   @action.bound goToStep(index, recordInHistory = true) {
-    // mark current step complete if it's auto
     if (this.currentStep) {
       this.currentStep.markViewed();
     }
 
     const isChanged = this._stepIndex != index;
-    this._stepIndex = Number(index);
+    this._stepIndex = index;
 
     CenterControls.currentTaskStep = this.currentStep;
 
@@ -125,9 +132,16 @@ export default class TaskUX {
         Router.makePathname('viewTaskStep', {
           id: this.task.id,
           courseId: this.course.id,
-          stepIndex: this.currentStepIndex + 1,
+          stepIndex: this._stepIndex + 1,
         }),
       );
+      // schedule a scroll
+      const sgi = this.stepGroupInfo;
+      if (sgi.grouped) {
+        this.scroller.scrollToSelector(
+          `[data-task-step-id="${this.currentStep.id}"]`
+        );
+      }
     }
   }
 
@@ -145,17 +159,60 @@ export default class TaskUX {
     return this._stepIndex > 0;
   }
 
-  @computed get currentStepIndex() {
-    return this._stepIndex;
+  @computed get exerciseSteps() {
+    return filter(this._task.steps, { isExercise: true });
+  }
+
+  questionNumberForStep(step) {
+    if (step.isExercise) {
+      const index = this.exerciseSteps.indexOf(step);
+      return -1 === index ? null : index;
+    }
+    return null;
+  }
+
+  getCurrentStep({ grouped = true }) {
+    const step = this.steps[this._stepIndex];
+
+    if (!grouped) {
+      return step;
+    }
+    // translate to how it's grouped internally
+    return this.groupedSteps.find((s) => {
+      if (s === step) { return true; }
+      if (s.isGrouped) { return s.includesStep(step); }
+      return false;
+    });
   }
 
   @computed get currentStep() {
-    return this.steps[this._stepIndex];
+    return this.getCurrentStep({ grouped: false });
+  }
+
+  @computed get currentGroupedStep() {
+    return this.getCurrentStep({ grouped: true });
+  }
+
+  @computed get stepGroupInfo() {
+    const step = this.steps[this._stepIndex];
+    const group = this.groupedSteps.find((s) => {
+      return s.isGrouped && s.includesStep(step);
+    });
+    if (group) {
+      return {
+        grouped: true, index: group.steps.indexOf(step),
+      };
+    }
+    return { grouped: false };
   }
 
   @computed get previousStep() {
     return this.canGoBackward ?
       this.steps[this._stepIndex - 1] : null;
+  }
+
+  @computed get currentStepIndex() {
+    return this._stepIndex;
   }
 
   @computed get nextStep() {

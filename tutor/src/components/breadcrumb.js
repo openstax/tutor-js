@@ -13,7 +13,6 @@ class Breadcrumb extends React.Component {
     goToStep: PropTypes.func.isRequired,
     isCurrent: PropTypes.bool,
     canReview: PropTypes.bool,
-    currentStep: PropTypes.number,
     dataStepIndex: PropTypes.number,
   };
 
@@ -26,7 +25,7 @@ class Breadcrumb extends React.Component {
     let isCorrect = false;
     let isIncorrect = false;
     const {
-      step, canReview, isCurrent, className, stepIndex, dataStepIndex,
+      step, canReview, isCurrent, className, dataStepIndex,
     } = this.props;
     const isCompleted = step != null ? step.is_completed : undefined;
     const { type: crumbType } = step;
