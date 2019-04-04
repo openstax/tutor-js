@@ -32,7 +32,7 @@ class StudentTask extends BaseModel {
 
   @computed get isFeedbackAvailable() {
     return Boolean(
-      !this.isHomework || moment(this.feedback_at).isBefore(Time.now)
+      !this.isHomework || !this.feedback_at || moment(this.feedback_at).isBefore(Time.now)
     );
   }
 
