@@ -14,7 +14,8 @@ export default class PageContentUX extends BookUX {
   }
 
   @computed get page() {
-    return this.mainUX.currentStep.isReading ? this.mainUX.currentStep.content.page : null;
+    const step = this.mainUX.currentStep;
+    return step.isReading ? step.content.page : null;
   }
 
   @computed get courseDataProps() {

@@ -22,8 +22,13 @@ const OuterStepCard = styled.div`
   padding: 2rem;
 `;
 
-const StepCard = ({ unpadded, className, children }) => (
-  <OuterStepCard>
+const LoadingCard = styled(InnerStepCard)`
+  min-width: 960px;
+  padding: 2rem;
+`;
+
+const StepCard = ({ unpadded, className, children, ...otherProps }) => (
+  <OuterStepCard {...otherProps}>
     <InnerStepCard
       unpadded={unpadded}
       className={className}
@@ -57,4 +62,4 @@ TaskStepCard.propTypes = {
 };
 
 
-export { StepCard, TaskStepCard };
+export { StepCard, TaskStepCard, LoadingCard };

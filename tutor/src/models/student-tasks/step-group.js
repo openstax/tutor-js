@@ -11,6 +11,7 @@ class StudentTaskStepGroup extends BaseModel {
   @identifier uid;
   @hasMany({ model: StudentTaskStep }) steps;
 
+  @readonly isGrouped = true;
   @readonly type = 'mpq';
 
   constructor(attrs) {
@@ -36,5 +37,9 @@ class StudentTaskStepGroup extends BaseModel {
 
   @action markViewed() {
     this.steps.forEach(s => s.markViewed());
+  }
+
+  includesStep(step) {
+    return -1 !== this.steps.indexOf(step);
   }
 }

@@ -79,7 +79,7 @@ class Milestones extends React.Component {
               step={step}
               goToStep={this.goToStep}
               stepIndex={stepIndex}
-              currentStep={ux.currentStepIndex}
+              currentStep={ux.currentStep}
             />)}
         </div>
       </div>

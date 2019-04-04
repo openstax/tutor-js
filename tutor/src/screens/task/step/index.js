@@ -9,7 +9,7 @@ import Exercise from './exercise';
 import HtmlContent from './html-content';
 import End from './end';
 import UX from '../ux';
-import { StepCard } from './card';
+import { LoadingCard } from './card';
 
 import {
   PersonalizedGroup,
@@ -96,7 +96,7 @@ class TaskStep extends React.Component {
 
     if (needsFetched) {
       const Pending = PENDING_TYPES[type] || PENDING_TYPES.reading;
-      return <StepCard><Pending /></StepCard>;
+      return <LoadingCard><Pending /></LoadingCard>;
     }
 
     const Step = STEP_TYPES[type] || Unknown;

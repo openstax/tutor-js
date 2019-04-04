@@ -19,7 +19,7 @@ class ReadingTask extends React.Component {
   }
 
   render() {
-    const { ux, windowImpl, ux: { currentStep } } = this.props;
+    const { ux, windowImpl } = this.props;
 
     return (
       <StyledReading>
@@ -28,7 +28,7 @@ class ReadingTask extends React.Component {
           <ObscuredPage>
             <TaskStep
               ux={ux}
-              step={currentStep}
+              step={ux.currentGroupedStep}
               windowImpl={windowImpl}
             />
           </ObscuredPage>
