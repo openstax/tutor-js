@@ -1,7 +1,5 @@
 import { Factory, TestRouter } from '../../helpers';
 import BuilderUX from '../../../src/screens/new-course/ux';
-import { bootstrapCoursesList } from '../../courses-test-data';
-import Offerings from '../../../src/models/course/offerings';
 import User from '../../../src/models/user';
 import Router from '../../../src/helpers/router';
 

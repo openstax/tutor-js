@@ -1,8 +1,7 @@
 import CourseCreate from '../../../src/models/course/create';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import Offerings from '../../../src/models/course/offerings';
-import Router from '../../../src/helpers/router';
-import { extend, defer } from 'lodash';
+
 jest.mock('../../../src/helpers/router');
 jest.mock('../../../src/models/course/offerings', () => ({
   get: jest.fn(() => undefined),

@@ -2,13 +2,12 @@ import {
   BaseModel, identifiedBy,
 } from 'shared/model';
 import {
-  invoke, filter, result, isEmpty, pick, values, every, get, delay, find,
+  invoke, filter, result, isEmpty, pick, values, every, delay, find,
 } from 'lodash';
 import { readonly } from 'core-decorators';
 import { when, observable, computed, action, observe } from 'mobx';
 import Course from '../../models/course';
 import Courses from '../../models/courses-map';
-import TutorRouter from '../../helpers/router';
 import Offerings from '../../models/course/offerings';
 import CreateCourse from '../../models/course/create';
 import Router from '../../helpers/router';
@@ -220,4 +219,5 @@ class CourseBuilderUX extends BaseModel {
   skip_cloned_from_id() {
     return Boolean(this.newCourse.new_or_copy === 'new');
   }
-};
+
+}
