@@ -19,6 +19,7 @@ class TaskStepContent extends BaseModel {
 class StudentTaskVideoStep extends TaskStepContent { }
 class StudentTaskExternalStep extends TaskStepContent { }
 class StudentTaskInteractiveStep extends TaskStepContent { }
+class StudentTaskPlaceHolderStep extends TaskStepContent { }
 
 class StudentTaskReadingStep extends TaskStepContent {
   @lazyGetter chapterSection = new ChapterSection(this.chapter_section);
@@ -45,9 +46,13 @@ const ContentClasses = {
   reading: StudentTaskReadingStep,
   exercise: StudentTaskExerciseStep,
   external_url: StudentTaskExternalStep,
+  placeholder: StudentTaskPlaceHolderStep,
   interactive: StudentTaskInteractiveStep,
 };
 
+const UNSAVEABLE_TYPES = [
+  'placeholder',
+];
 
 const HAS_ADDITIONAL_CONTENT = [
   'reading', 'exercise', 'interactive', 'video',
@@ -139,6 +144,7 @@ class StudentTaskStep extends BaseModel {
   // called by API
   fetch() { }
   save() {
+    if (UNSAVEABLE_TYPES.includes(this.type)) { return 'ABORT'; }
     return { data: pick(this,
       'is_completed', 'answer_id', 'free_response', 'response_validation',
     ) };

@@ -66,10 +66,6 @@ export default class TaskUX {
     return this.manipulated.steps;
   }
 
-  calculatedStepIndex(step) {
-    return this.manipulated.steps.indexOf(step);
-  }
-
   @computed get milestoneSteps() {
     const firstNonCompleteI = this.steps.findIndex(s => !s.is_completed);
     if (-1 !== firstNonCompleteI) {
@@ -166,7 +162,7 @@ export default class TaskUX {
   questionNumberForStep(step) {
     if (step.isExercise) {
       const index = this.exerciseSteps.indexOf(step);
-      return -1 === index ? null : index;
+      return -1 === index ? null : index + 1;
     }
     return null;
   }

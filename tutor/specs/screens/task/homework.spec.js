@@ -7,14 +7,13 @@ describe('Reading Tasks Screen', () => {
   TimeMock.setTo('2017-10-14T12:00:00.000Z');
 
   beforeEach(() => {
-    const task = Factory.studentTasks({
-      count: 1,
-      attributes: { type: 'homework' },
-    }).array[0];
+    const task = Factory.studentTask({
+      type: 'homework', stepCount: 5,
+    });
 
     props = {
       windowImpl: new FakeWindow(),
-      ux: new UX({ task, router: new TestRouter() }),
+      ux: new UX({ task, course: Factory.course(), router: new TestRouter() }),
     };
   });
 
@@ -29,4 +28,14 @@ describe('Reading Tasks Screen', () => {
     expect(h).toHaveRendered('TwoStepValueProp');
     h.unmount();
   });
+
+  it('renders task with placeholders', () => {
+    props.ux.task.steps.forEach(s => s.type = 'placeholder');
+    const h = mount(<C><Homework {...props} /></C>);
+    expect(h).toHaveRendered('IndividualReview');
+    props.ux.goForward();
+    expect(h).toHaveRendered('PlaceHolderTaskStep');
+    h.unmount();
+  });
+
 });

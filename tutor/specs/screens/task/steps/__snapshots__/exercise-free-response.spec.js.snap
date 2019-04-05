@@ -279,6 +279,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
       "stimulus_html": "",
     }
   }
+  questionNumber={42}
   response_validation={
     ResponseValidation {
       "ensureLoaded": [MockFunction],
@@ -467,6 +468,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
       "multiPartGroup": undefined,
       "preview": "killer: Environmental Limits to Population Growth",
       "response_validation": Object {},
+      "spy": Object {},
       "task": StudentTask {
         "complete": undefined,
         "description": undefined,
@@ -474,6 +476,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
         "feedback_at": undefined,
         "id": 1,
         "is_deleted": undefined,
+        "spy": Object {},
         "steps": Array [
           [Circular],
         ],

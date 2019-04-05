@@ -3,7 +3,9 @@ import Breadcrumb from '../../components/breadcrumb';
 import UX from './ux';
 
 const BreadcrumbsWrapper = styled.div`
-
+  display: flex;
+  height: 55px;
+  align-items: center;
 `;
 
 @inject('setSecondaryTopControls')

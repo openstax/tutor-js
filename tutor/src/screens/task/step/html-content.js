@@ -8,8 +8,7 @@ import Step from '../../../models/student-tasks/step';
 
 const HtmlContent = styled(StepCard)`
 .phet-explorations-embedded { margin: 40px; }
-
-`
+`;
 
 const Loader = () => (
   <ContentLoader>

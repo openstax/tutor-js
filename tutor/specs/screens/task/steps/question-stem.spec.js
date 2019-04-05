@@ -8,6 +8,7 @@ describe('Question Stem', () => {
   beforeEach(() => {
     const step = Factory.studentTask({ type: 'homework', stepCount: 1 }).steps[0];
     props = {
+      questionNumber: 911,
       question: step.content.content.questions[0],
     };
   });

@@ -5,7 +5,7 @@ import ChapterSection from '../../components/chapter-section';
 const SectionTitle = observer(({ ux }) => (
   <React.Fragment>
     <span>
-      <ChapterSection section={ux.page.chapter_section} />
+      <ChapterSection chapterSection={ux.page.chapter_section} />
     </span>
     <span className="title">
       {ux.page.title}

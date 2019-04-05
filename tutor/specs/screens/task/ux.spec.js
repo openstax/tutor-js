@@ -46,6 +46,11 @@ describe('Task UX Model', () => {
     );
   });
 
+  it('calculates question numbers', () => {
+    expect(ux.questionNumberForStep(task.steps[0])).toBe(1);
+    expect(ux.questionNumberForStep({})).toBeNull();
+  });
+
   it('stores viewed in UiSettings when unmount', () => {
     ux.viewedInfoSteps.push('two-step-intro');
     ux.isUnmounting();

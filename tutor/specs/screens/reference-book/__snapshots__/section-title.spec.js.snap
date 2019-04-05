@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Section Title Component renders and matches snapshot 1`] = `
+<_class
+  ux={
+    Object {
+      "page": Object {
+        "chapter_section": ChapterSection {
+          "chapter": "1",
+          "section": "2",
+        },
+        "title": "A good chapter section",
+      },
+    }
+  }
+/>
+`;
