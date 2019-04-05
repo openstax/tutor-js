@@ -15,7 +15,7 @@ describe('Exercise Free Response', () => {
     const step = Factory.studentTask({ type: 'homework', stepCount: 1 }).steps[0];
     const ux = new UX();
     ux.course = Factory.course();
-
+    ux.questionNumberForStep = jest.fn(() => 42);
     props = { ux, step, question: step.content.questions[0] };
   });
 

@@ -4,7 +4,7 @@ import SelectTopics from '../../../src/screens/assignment-builder/select-topics'
 import HOMEWORK from '../../../api/plans/2.json';
 
 describe('Select Topics', function() {
-  let props, course;
+  let props;
 
   beforeEach(() => {
     const course = Factory.course();
@@ -14,6 +14,7 @@ describe('Select Topics', function() {
 
     props = {
       course,
+      type: 'homework',
       planId: HOMEWORK.id,
       onSectionChange: jest.fn(),
       hide: jest.fn(),

@@ -83,8 +83,8 @@ exports[`Select Topics matches snapshot 1`] = `
   >
     <div>
       <div
-        className="undefined-plan-select-topics c0"
-        data-tour-region-id="add-undefined-choose-sections"
+        className="homework-plan-select-topics c0"
+        data-tour-region-id="add-homework-choose-sections"
       >
         <div
           className="dialog default-dialog select-topics c1 card"
