@@ -39,20 +39,6 @@ describe('Course Builder UX Model', () => {
     expect(creator.error).toEqual({ attribute: 'sections', value: 10 });
   });
 
-  it('identifies future uses of bio1e', () => {
-    expect(creator.isFutureLegacyBio).toBe(false);
-    Offerings.get.mockImplementation(() => ({ isLegacyBiology: true }));
-    expect(creator.isFutureLegacyBio).toBe(false);
-    Object.assign(creator.term, { term: 'winter', year: 2018 });
-    expect(creator.isFutureLegacyBio).toBe(true);
-    Object.assign(creator.term, { term: 'spring', year: 2018 });
-    expect(creator.isFutureLegacyBio).toBe(false);
-    Object.assign(creator.term, { term: 'spring', year: 2019 });
-    expect(creator.isFutureLegacyBio).toBe(true);
-    Offerings.get.mockImplementation(() => ({ isLegacyBiology: false }));
-    expect(creator.isFutureLegacyBio).toBe(false);
-  });
-
   describe('cloning a course', () => {
     const prepCourseClone = () => {
       const course = bootstrapCoursesList().get('2');

@@ -35,11 +35,4 @@ class Offering extends BaseModel {
     return first(this.validTerms);
   }
 
-  @computed get isLegacyBiology() {
-    return Boolean(
-      this.appearance_code.includes('biology') && this.appearance_code !== 'biology_2e'
-    );
-
-  }
-
-};
+}

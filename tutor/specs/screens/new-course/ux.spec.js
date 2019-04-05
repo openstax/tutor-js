@@ -134,8 +134,6 @@ describe('Course Builder UX Model', () => {
     offering.is_available = false;
     ux.newCourse.offering_id = offering.id;
     expect(ux.stage).toEqual('offering_unavail');
-    offering.appearance_code = 'biology_1e';
-    expect(ux.stage).toEqual('bio1e_unavail');
   });
 
   it('can backup and change offering', () => {

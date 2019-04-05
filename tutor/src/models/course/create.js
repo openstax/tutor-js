@@ -108,17 +108,4 @@ class CourseCreate extends BaseModel {
     this.createdCourse = this.courses.addNew(courseData);
   }
 
-  // used for the bio2e switchover
-  @computed get isFutureLegacyBio() {
-    return Boolean(
-      this.offering &&
-        this.offering.isLegacyBiology && (
-        this.term && (
-          this.term.year !== 2018 ||
-              !['spring', 'summer'].includes(this.term.term)
-        )
-      )
-    );
-  }
-
-};
+}
