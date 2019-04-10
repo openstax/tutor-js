@@ -40,4 +40,13 @@ describe('Exercise Tasks Screen', () => {
     ex.unmount();
   });
 
+  it('renders stimulus before mpq', () => {
+    props.isFirstMPQ = true;
+    const stimulus = '<h1>This is stimulus</h1>';
+    step.content.content.stimulus_html = stimulus;
+    const ex = mount(<Exercise {...props} />);
+    expect(ex).toHaveRendered(`ExerciseStimulus [html="${stimulus}"]`);
+    ex.unmount();
+  });
+
 });

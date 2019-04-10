@@ -90,7 +90,12 @@ class TaskStep extends React.Component {
       return (
         <React.Fragment>
           {step.steps.map((s, i) =>
-            <TaskStep key={i} {...stepProps} step={s} />)}
+            <TaskStep
+              key={i}
+              {...stepProps}
+              isFirstMPQ={0 === i}
+              step={s}
+            />)}
         </React.Fragment>
       );
     }
