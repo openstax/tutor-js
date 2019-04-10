@@ -36,6 +36,7 @@ class StudentTaskReadingStep extends TaskStepContent {
 
 export
 class StudentTaskExerciseStep extends Exercise {
+  get stimulus_html() { return this.content.stimulus_html; }
   get questions() {
     return this.content.questions;
   }
