@@ -6,9 +6,9 @@ describe('Exercise Preview Component', function() {
   beforeEach(function() {
     props = {
       flags: {
-        hasInteractive: false,
-        hasVideo: false,
-        isMultiPart: false,
+        withInteractive: false,
+        withVideo: false,
+        withMultiPart: false,
       },
     };});
 
@@ -19,21 +19,21 @@ describe('Exercise Preview Component', function() {
   });
 
   it('renders interactive', function() {
-    props.flags.hasInteractive = true;
+    props.withInteractive = true;
     const badges = Renderer.create(<Badges {...props} />);
     expect(badges.toJSON()).toMatchSnapshot();
     badges.unmount();
   });
 
   it('renders for video', function() {
-    props.flags.hasVideo = true;
+    props.flags.withVideo = true;
     const badges = Renderer.create(<Badges {...props} />);
     expect(badges.toJSON()).toMatchSnapshot();
     badges.unmount();
   });
 
   return it('renders for MPQs', function() {
-    props.flags.isMultiPart = true;
+    props.flags.withMultiPart = true;
     const badges = Renderer.create(<Badges {...props} />);
     expect(badges.toJSON()).toMatchSnapshot();
     badges.unmount();
