@@ -2,6 +2,8 @@ import '../../resources/styles/tutor.scss';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import React from 'react';
+import { get } from 'lodash';
+import S from '../helpers/string';
 import classnames from 'classnames';
 import Router from '../helpers/router';
 import Analytics from '../helpers/analytics';
@@ -59,10 +61,15 @@ class App extends React.Component {
   render() {
     const { courseId } = Router.currentParams();
     const course = courseId ? Courses.get(courseId) : null;
-    const classNames = classnames('tutor-app', 'openstax-wrapper', {
-      'is-college':     course && course.is_college,
-      'is-high-school': course && !course.is_college,
-    });
+    const routeName = S.dasherize(
+      get(Router.currentMatch(), 'entry.name', '')
+    );
+    const classNames = classnames(
+      'tutor-app', 'openstax-wrapper', routeName, {
+        'is-college':     course && course.is_college,
+        'is-high-school': course && !course.is_college,
+      }
+    );
 
     return (
       <div className={classNames}>
