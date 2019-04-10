@@ -46,9 +46,11 @@ describe('Task UX Model', () => {
     );
   });
 
-  it('calculates question numbers', () => {
+  it('calculates question numbers for homeworks', () => {
     expect(ux.questionNumberForStep(task.steps[0])).toBe(1);
     expect(ux.questionNumberForStep({})).toBeNull();
+    ux.task.type = 'reading';
+    expect(ux.questionNumberForStep(task.steps[0])).toBeNull();
   });
 
   it('stores viewed in UiSettings when unmount', () => {
