@@ -36,10 +36,10 @@ class StudentTaskReadingStep extends TaskStepContent {
 
 export
 class StudentTaskExerciseStep extends Exercise {
+  @field context;
+  get stem_html() { return this.content.stem_html; }
+  get questions() { return this.content.questions; }
   get stimulus_html() { return this.content.stimulus_html; }
-  get questions() {
-    return this.content.questions;
-  }
 }
 
 const ContentClasses = {

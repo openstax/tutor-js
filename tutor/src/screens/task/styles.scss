@@ -8,4 +8,9 @@
   .book-page {
     padding: $tutor-book-padding-vertical $tutor-book-padding-horizontal;
   }
+
+  .exercise-step {
+    @include book-content-interactives();
+  }
+
 }
