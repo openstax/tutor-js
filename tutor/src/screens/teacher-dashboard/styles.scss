@@ -40,6 +40,9 @@ $calendar-sidebar-width: 250px;
 @import './styles/sidebar';
 @import './styles/plan-details';
 
+.tutor-app.calendar-by-date  {
+  background-color: white;
+}
 
 .calendar-container {
   $sidebar-animation-duration: 0.5s;
