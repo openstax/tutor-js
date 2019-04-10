@@ -1,4 +1,6 @@
-import { React, PropTypes, observer } from '../../../helpers/react';
+import {
+  React, PropTypes, observer, styled,
+} from '../../../helpers/react';
 import {
   Facebook as ReadingLoader,
   BulletList as HomeworkLoader,
@@ -51,6 +53,12 @@ const PENDING_TYPES = {
   interactive: HtmlContent.Loader,
 };
 
+// has plenty of space at bottom so last step can
+// be scrolled up and user knows it's last
+const MultipartGroup = styled.div`
+  padding-bottom: 200px;
+`;
+
 @observer
 class TaskStep extends React.Component {
 
@@ -88,7 +96,7 @@ class TaskStep extends React.Component {
 
     if ('mpq' === type) {
       return (
-        <React.Fragment>
+        <MultipartGroup>
           {step.steps.map((s, i) =>
             <TaskStep
               key={i}
@@ -96,7 +104,7 @@ class TaskStep extends React.Component {
               isFirstMPQ={0 === i}
               step={s}
             />)}
-        </React.Fragment>
+        </MultipartGroup>
       );
     }
 
