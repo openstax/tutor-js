@@ -74,12 +74,14 @@ class NotesWidget extends React.Component {
     scrollTopOffset: (window.innerHeight / 2) - 80,
   });
 
+  @observable isMounted = false;
   @observable scrollToPendingNote;
   @observable highlighter;
   @observable activeNote;
   @observable pendingHighlight;
 
   componentDidMount() {
+    this.isMounted = true;
     if (!this.props.course.canAnnotate) { return; }
     when(
       () => !this.props.notes.api.isPending,
@@ -91,6 +93,7 @@ class NotesWidget extends React.Component {
     if (this.highlighter) {
       this.highlighter.unmount();
     }
+    this.isMounted = false;
   }
 
   setupPendingHighlightScroll(highlightId) {
@@ -117,6 +120,12 @@ class NotesWidget extends React.Component {
   }
 
   initializeHighlighter() {
+    // if page changes quickly and then unmounts
+    // a debounced call may be pending
+    if (!this.isMounted) {
+      return;
+    }
+
     if (this.highlighter) {
       this.highlighter.unmount();
     }
@@ -146,6 +155,9 @@ class NotesWidget extends React.Component {
   }
 
   initializePage = debounce(async () => {
+    if (!this.isMounted) {
+      return;
+    }
     NotesUX.statusMessage.show({
       type: 'info',
       message: 'Waiting for page to finish loading…',
