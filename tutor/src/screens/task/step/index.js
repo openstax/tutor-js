@@ -101,7 +101,7 @@ class TaskStep extends React.Component {
             <TaskStep
               key={i}
               {...stepProps}
-              isFirstMPQ={0 === i}
+              isFollowupMPQ={0 !== i}
               step={s}
             />)}
         </MultipartGroup>
