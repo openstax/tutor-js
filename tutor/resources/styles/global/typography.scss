@@ -14,7 +14,6 @@
 // @include tutor-font-face('MerriWeather'; 'MerriWeather-Italic';         'merriweather-v8-latin-regularitalic'; 400; $style: 'italic');
 // @include tutor-font-face('Architects Daughter'; 'Architects Daughter';  'architects-daughter-v6-latin-regular'; 400);
 
-$body-font-color: $tutor-neutral-darker;
 $caption-font-color: #646464;
 $html-font-size: 10px;
 $tutor-default-font-face: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -93,7 +92,6 @@ html {
 
 body {
   @include tutor-sans-font(14px, 16px);
-  color: $body-font-color;
 }
 
 h1 {
