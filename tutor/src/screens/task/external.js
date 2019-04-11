@@ -62,6 +62,7 @@ class ExternalTaskStep extends React.Component {
           {this.url}
         </Link>
         <CenteredBackButton
+          size="lg"
           fallbackLink={{
             text: 'Back to dashboard', to: 'dashboard', params: { courseId: course.id },
           }} />

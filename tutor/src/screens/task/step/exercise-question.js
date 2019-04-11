@@ -91,6 +91,7 @@ class ExerciseQuestion extends React.Component {
     const { step } = this.props;
     return (
       <AsyncButton
+        size="lg"
         waitingText="Saving…"
         disabled={!this.answerId}
         onClick={this.onAnswerSave}
@@ -102,7 +103,7 @@ class ExerciseQuestion extends React.Component {
   }
 
   renderNextButton() {
-    return <Button onClick={this.onNextStep}>Continue</Button>;
+    return <Button size="lg" onClick={this.onNextStep}>Continue</Button>;
   }
 
   render() {

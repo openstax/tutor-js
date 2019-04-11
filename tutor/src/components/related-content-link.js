@@ -5,6 +5,10 @@ import ChapterSection from './chapter-section';
 import RelatedContent from '../models/related-content';
 import BrowseTheBook from './buttons/browse-the-book';
 
+const StyledRelatedContentLink = styled.div`
+  .chapter-section { font-weight: normal; color: inherit; }
+`;
+
 const Title = styled.span`
   margin-left: 0.5rem;
 `;
@@ -14,7 +18,7 @@ const RelatedContentLink = ({ course, content }) => {
   if (isEmpty(content)) { return null; }
 
   return (
-    <div className="related-content-link">
+    <StyledRelatedContentLink>
       <span className="preamble">
         {'Comes from '}
       </span>
@@ -31,7 +35,7 @@ const RelatedContentLink = ({ course, content }) => {
             <Title>{rl.title}</Title>
           </span>
         </BrowseTheBook>))}
-    </div>
+    </StyledRelatedContentLink>
   );
 };
 

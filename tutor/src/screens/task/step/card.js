@@ -10,7 +10,7 @@ const InnerStepCard = styled.div`
   min-height: 400px;
   width: 960px;
   border-radius: 0.25rem;
-  margin: auto;
+  margin: 0 auto 5rem auto;
   border: 1px solid ${Theme.colors.neutral.light};
   border-radius: 0.25rem;
   background-color: white;
