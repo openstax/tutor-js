@@ -4,21 +4,7 @@
 @import '../../../shared/resources/styles/main';
 
 // App Global Styling
-@import './global/scaffold';
-@import './global/typography';
-@import './global/notifications-bar';
-@import './global/forms';
-@import './global/maths';
-@import './global/card';
-@import './global/links';
-@import './global/buttons';
-@import './global/progress-bars';
-@import './global/tutor-booksplash-background';
-@import './global/popover';
-@import './global/tooltip';
-@import './global/menus';
-@import './global/misc';
-@import './global/alerts';
+@import './global';
 
 @import './book-content/index';
 
