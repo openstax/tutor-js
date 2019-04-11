@@ -32,15 +32,15 @@ exports[`Html Content Tasks Screen matches snapshot 1`] = `
   margin: 4rem;
 }
 
-.c1 .phet-explorations-embedded {
-  margin: 40px;
+.c1 iframe {
+  max-width: 100%;
 }
 
 <div
   className="c0"
 >
   <div
-    className="c1 c2"
+    className="interactive-step c1 c2"
   >
     <div
       className="openstax-exercise-badges"

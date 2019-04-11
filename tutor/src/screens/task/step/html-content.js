@@ -8,7 +8,9 @@ import Step from '../../../models/student-tasks/step';
 import Badges from 'shared/components/exercise-badges';
 
 const HtmlContent = styled(StepCard)`
-.phet-explorations-embedded { margin: 40px; }
+iframe {
+  max-width: 100%;
+}
 `;
 
 const Loader = () => (
@@ -33,7 +35,7 @@ class HtmlContentTaskStep extends React.Component {
     const { ux, step } = this.props;
 
     return (
-      <HtmlContent unpadded>
+      <HtmlContent unpadded className={`${step.type}-step`}>
         <Badges
           video={step.isVideo}
           interactive={step.isInteractive}

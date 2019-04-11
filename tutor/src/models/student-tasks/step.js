@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, field, identifier,
   observable, computed, action, belongsTo, hasMany,
 } from 'shared/model';
-import { pick, isEmpty } from 'lodash';
+import { pick, isEmpty, get } from 'lodash';
 import Exercise from '../exercises/exercise';
 import ChapterSection from '../chapter-section';
 import RelatedContent from '../related-content';
@@ -22,6 +22,7 @@ class StudentTaskInteractiveStep extends TaskStepContent { }
 class StudentTaskPlaceHolderStep extends TaskStepContent { }
 
 class StudentTaskReadingStep extends TaskStepContent {
+  @observable title;
   @lazyGetter chapterSection = new ChapterSection(this.chapter_section);
   @hasMany({ model: RelatedContent }) related_content;
   @lazyGetter page = new Page(
@@ -32,6 +33,9 @@ class StudentTaskReadingStep extends TaskStepContent {
       chapter_section: this.chapterSection,
     }),
   );
+  @computed get pageTitle() {
+    return this.title || get(this, 'related_content[0].title');
+  }
 }
 
 export

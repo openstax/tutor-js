@@ -6,7 +6,12 @@ import Step from '../../../models/student-tasks/step';
 import ContinueBtn from './continue-btn';
 
 const StyledReading = styled(TaskStepCard)`
-
+  [data-type="page"] {
+    padding-top: 4rem;
+    & > .os-chapter-outline {
+      margin-top: -4rem;
+    }
+  }
 `;
 
 export default
@@ -28,7 +33,7 @@ class ReadingTaskStep extends React.Component {
           ux={this.props.ux.pageContentUX}
           hasLearningObjectives={content.has_learning_objectives}
           chapter_section={content.chapterSection}
-          title={content.title}
+          title={content.pageTitle}
         />
         <ContinueBtn ux={this.props.ux} />
       </StyledReading>

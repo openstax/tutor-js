@@ -22,8 +22,8 @@ class ReadingTask extends React.Component {
     const { ux, windowImpl } = this.props;
 
     return (
-      <StyledReading>
-        <ProgressCard ux={ux} className="reading-task">
+      <StyledReading className="reading-task">
+        <ProgressCard ux={ux}>
           <ReadingProgress ux={ux} />
           <ObscuredPage>
             <TaskStep
