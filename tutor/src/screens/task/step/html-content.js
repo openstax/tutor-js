@@ -35,8 +35,8 @@ class HtmlContentTaskStep extends React.Component {
     return (
       <HtmlContent unpadded>
         <Badges
-          withVideo={step.isVideo}
-          withInteractive={step.isInteractive}
+          video={step.isVideo}
+          interactive={step.isInteractive}
         />
         <ArbitraryHtmlAndMath html={step.content.html} />
         <ContinueBtn ux={ux} />

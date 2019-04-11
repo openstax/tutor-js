@@ -90,6 +90,7 @@ class ExercisePreview extends React.Component {
   }
 
   render() {
+    const info = this.props.extractedInfo;
     const classes = classnames( 'openstax-exercise-preview', this.props.className, {
       'answers-hidden':   this.props.hideAnswers,
       'has-actions':      !isEmpty(this.props.overlayActions),
@@ -99,7 +100,7 @@ class ExercisePreview extends React.Component {
       'is-vertically-truncated': this.props.isVerticallyTruncated,
       'is-displaying-formats':   this.props.displayFormats,
       'is-displaying-feedback':  this.props.displayFeedback,
-      'has-interactive':  this.props.extractedInfo.hasInteractive,
+      'has-interactive':  info.hasInteractive,
     });
 
     return (
@@ -116,8 +117,8 @@ class ExercisePreview extends React.Component {
             actions={this.props.overlayActions}
             onClick={this.props.onOverlayClick} />
           <div className="exercise-body">
-            <ExerciseBadges flags={this.props.extractedInfo} />
-            {!isEmpty(this.props.extractedInfo.context) && !!this.props.isInteractive ? <ArbitraryHtmlAndMath className="context" block={true} html={this.props.extractedInfo.context} /> : undefined}
+            <ExerciseBadges multiPart={info.isMultiPart} video={info.hasVideo} interactive={info.hasInteractive} />
+            {!isEmpty(info.context) && !!this.props.isInteractive ? <ArbitraryHtmlAndMath className="context" block={true} html={info.context} /> : undefined}
             {this.renderStimulus()}
             {map(this.exercise.questions, (question, index) => (
               <Question
