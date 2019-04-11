@@ -35,7 +35,9 @@ class HtmlContentTaskStep extends React.Component {
     const { ux, step } = this.props;
 
     return (
-      <HtmlContent unpadded className={`${step.type}-step`}>
+      <HtmlContent
+        data-appearance={ux.course.appearance_code}
+        unpadded className={`${step.type}-step`}>
         <Badges
           video={step.isVideo}
           interactive={step.isInteractive}
