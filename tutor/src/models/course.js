@@ -256,14 +256,6 @@ class Course extends BaseModel {
     return first(sortBy(this.roles, r => -1 * ROLE_PRIORITY.indexOf(r.type)));
   }
 
-  @computed get isSunsetting() {
-    return !!(this.is_concept_coach && !(
-      /biology/.test(this.appearance_code) ||
-        /physics/.test(this.appearance_code) ||
-        /sociology/.test(this.appearance_code)
-    ));
-  }
-
   // called by API
   fetch() { }
   save() {

@@ -75,16 +75,6 @@ describe('Course Model', () => {
     expect(Courses.get(1).primaryRole.joinedAgo('days')).toEqual(7);
   });
 
-  it('sunsets cc courses', () => {
-    const course = Courses.get(2);
-    expect(course.isSunsetting).toEqual(false);
-    course.is_concept_coach = true;
-    course.appearance_code = 'physics';
-    expect(course.isSunsetting).toEqual(false);
-    course.appearance_code = 'micro_econ';
-    expect(course.isSunsetting).toEqual(true);
-  });
-
   it('restricts joining to links', () => {
     const course = Courses.get(2);
     expect(course.is_lms_enabling_allowed).toEqual(false);
@@ -148,7 +138,6 @@ describe('Course Model', () => {
       expect(course.periods.active).toHaveLength(2);
     });
   });
-
 
   it('calculates if terms are before', () => {
     const course = Courses.get(2);
