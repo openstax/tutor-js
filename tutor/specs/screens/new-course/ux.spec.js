@@ -1,7 +1,5 @@
 import { Factory, TestRouter } from '../../helpers';
 import BuilderUX from '../../../src/screens/new-course/ux';
-import { bootstrapCoursesList } from '../../courses-test-data';
-import Offerings from '../../../src/models/course/offerings';
 import User from '../../../src/models/user';
 import Router from '../../../src/helpers/router';
 
@@ -134,8 +132,6 @@ describe('Course Builder UX Model', () => {
     offering.is_available = false;
     ux.newCourse.offering_id = offering.id;
     expect(ux.stage).toEqual('offering_unavail');
-    offering.appearance_code = 'biology_1e';
-    expect(ux.stage).toEqual('bio1e_unavail');
   });
 
   it('can backup and change offering', () => {

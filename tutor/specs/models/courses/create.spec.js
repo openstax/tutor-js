@@ -1,8 +1,7 @@
 import CourseCreate from '../../../src/models/course/create';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import Offerings from '../../../src/models/course/offerings';
-import Router from '../../../src/helpers/router';
-import { extend, defer } from 'lodash';
+
 jest.mock('../../../src/helpers/router');
 jest.mock('../../../src/models/course/offerings', () => ({
   get: jest.fn(() => undefined),
@@ -37,20 +36,6 @@ describe('Course Builder UX Model', () => {
     expect(creator.error).toBeNull();
     creator.setValue('num_sections', 20);
     expect(creator.error).toEqual({ attribute: 'sections', value: 10 });
-  });
-
-  it('identifies future uses of bio1e', () => {
-    expect(creator.isFutureLegacyBio).toBe(false);
-    Offerings.get.mockImplementation(() => ({ isLegacyBiology: true }));
-    expect(creator.isFutureLegacyBio).toBe(false);
-    Object.assign(creator.term, { term: 'winter', year: 2018 });
-    expect(creator.isFutureLegacyBio).toBe(true);
-    Object.assign(creator.term, { term: 'spring', year: 2018 });
-    expect(creator.isFutureLegacyBio).toBe(false);
-    Object.assign(creator.term, { term: 'spring', year: 2019 });
-    expect(creator.isFutureLegacyBio).toBe(true);
-    Offerings.get.mockImplementation(() => ({ isLegacyBiology: false }));
-    expect(creator.isFutureLegacyBio).toBe(false);
   });
 
   describe('cloning a course', () => {
