@@ -13,4 +13,8 @@
     @include book-content-interactives();
   }
 
+  .interactive-step {
+    @include tutor-book-notes();
+
+  }
 }
