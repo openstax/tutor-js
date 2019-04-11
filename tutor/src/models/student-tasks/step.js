@@ -93,7 +93,12 @@ class StudentTaskStep extends BaseModel {
   @computed get isReading() {
     return 'reading' === this.type;
   }
-
+  @computed get isInteractive() {
+    return 'interactive' === this.type;
+  }
+  @computed get isVideo() {
+    return 'video' === this.type;
+  }
   @computed get isCorrect() {
     return Boolean(
       this.correct_answer_id && this.answer_id == this.correct_answer_id

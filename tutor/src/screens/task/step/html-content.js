@@ -5,6 +5,7 @@ import { StepCard } from './card';
 import { ArbitraryHtmlAndMath } from 'shared';
 import ContinueBtn from './continue-btn';
 import Step from '../../../models/student-tasks/step';
+import Badges from 'shared/components/exercise-badges';
 
 const HtmlContent = styled(StepCard)`
 .phet-explorations-embedded { margin: 40px; }
@@ -33,6 +34,10 @@ class HtmlContentTaskStep extends React.Component {
 
     return (
       <HtmlContent unpadded>
+        <Badges
+          video={step.isVideo}
+          interactive={step.isInteractive}
+        />
         <ArbitraryHtmlAndMath html={step.content.html} />
         <ContinueBtn ux={ux} />
       </HtmlContent>

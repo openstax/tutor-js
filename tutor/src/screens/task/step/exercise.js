@@ -6,7 +6,7 @@ import { ArbitraryHtmlAndMath as H } from 'shared';
 import { TaskStepCard } from './card';
 import ExerciseQuestion from './exercise-question';
 import Step from '../../../models/student-tasks/step';
-
+import Badges from 'shared/components/exercise-badges';
 
 const StyledExercise = styled(TaskStepCard)`
   font-size: 1.8rem;
@@ -53,17 +53,19 @@ class ExerciseTaskStep extends React.Component {
     ux: PropTypes.instanceOf(UX).isRequired,
     step: PropTypes.instanceOf(Step).isRequired,
     isFollowupMPQ: PropTypes.bool,
+    isMultiPart: PropTypes.bool,
     windowImpl: PropTypes.object,
   }
 
   render() {
-    const { ux, step, isFollowupMPQ } = this.props;
+    const { ux, step, isMultiPart, isFollowupMPQ } = this.props;
     const { content } = step;
 
     return (
       <StyledExercise
         step={step}
       >
+        <Badges multiPart={isMultiPart && !isFollowupMPQ} />
 
         <Preamble
           content={content}

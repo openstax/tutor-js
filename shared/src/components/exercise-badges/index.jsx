@@ -4,64 +4,58 @@ import Interactive from './interactive-icon';
 import MultiPart from './multipart-icon';
 import classnames from 'classnames';
 
-export default class ExerciseBadges extends React.Component {
+export default
+function ExerciseBadges({ multiPart, interactive, video, className }) {
 
-  static propTypes = {
-    isMultiPart:    PropTypes.bool,
-    hasInteractive: PropTypes.bool,
-    hasVideo:       PropTypes.bool,
-    flags:          PropTypes.object,
-    className:      PropTypes.string,
+  const classes = classnames('openstax-exercise-badges', className);
+  const badges = [];
+  if (multiPart) {
+    badges.push(<span key="mpq" className="mpq">
+      <MultiPart />
+      <span>
+        Multi-part question
+      </span>
+    </span>
+    );
   }
 
-  static defaultProps = {
-    isMultipart: false,
-    hasInteractive: false,
-    hasVideo: false,
-    flags: {},
+  if (interactive) {
+    badges.push(<span key="interactive" className="interactive">
+      <Interactive />
+      <span>
+        Interactive
+      </span>
+    </span>
+    );
   }
 
-  render() {
-    const { flags, isMultiPart, hasInteractive, hasVideo } = this.props;
-
-    const classes = classnames('openstax-exercise-badges', this.props.className);
-    const badges = [];
-    if (isMultiPart || flags.isMultiPart) {
-      badges.push(<span key="mpq" className="mpq">
-        <MultiPart />
-        <span>
-          Multi-part question
-        </span>
+  if (video) {
+    badges.push(<span key="video" className="video">
+      <Interactive />
+      <span>
+        Video
       </span>
-      );
-    }
-
-    if (hasInteractive || flags.hasInteractive) {
-      badges.push(<span key="interactive" className="interactive">
-        <Interactive />
-        <span>
-          Interactive
-        </span>
-      </span>
-      );
-    }
-
-    if (hasVideo || flags.hasVideo) {
-      badges.push(<span key="video" className="video">
-        <Interactive />
-        <span>
-          Video
-        </span>
-      </span>
-      );
-    }
-
-    if (badges.length) {
-      return (
-        <div className={classes}>{badges}</div>
-      );
-    }
-    return null;
+    </span>
+    );
   }
 
+  if (badges.length) {
+    return (
+      <div className={classes}>{badges}</div>
+    );
+  }
+  return null;
 }
+
+ExerciseBadges.propTypes = {
+  multiPart:    PropTypes.bool,
+  interactive: PropTypes.bool,
+  video:       PropTypes.bool,
+  className:      PropTypes.string,
+};
+
+ExerciseBadges.defaultProps = {
+  multipart: false,
+  interactive: false,
+  video: false,
+};
