@@ -160,7 +160,7 @@ export default class TaskUX {
   }
 
   questionNumberForStep(step) {
-    if (step.isExercise) {
+    if (this.task.isHomework && step.isExercise) {
       const index = this.exerciseSteps.indexOf(step);
       return -1 === index ? null : index + 1;
     }
