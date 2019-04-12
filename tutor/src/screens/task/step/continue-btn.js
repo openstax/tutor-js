@@ -2,7 +2,7 @@ import { React, PropTypes, styled } from '../../../helpers/react';
 import { Button } from 'react-bootstrap';
 
 
-const StyledBtn = styled(Button)`
+const StyledBtn = styled(Button).attrs({ size: 'lg' })`
   align-self: flex-end;
   margin: 4rem;
 `;

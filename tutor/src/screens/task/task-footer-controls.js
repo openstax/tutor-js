@@ -6,6 +6,7 @@ import { BackButton } from './back-button';
 const StyledFooterControls = styled.div`
   display: flex;
   align-items: center;
+  font-size: 1.6rem;
 `;
 
 const Name = styled.div`

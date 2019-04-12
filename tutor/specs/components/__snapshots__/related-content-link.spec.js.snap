@@ -1,12 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Related Content Link renders and matches snapshot 1`] = `
-.c0 {
+.c0 .chapter-section {
+  font-weight: normal;
+  color: inherit;
+}
+
+.c1 {
   margin-left: 0.5rem;
 }
 
 <div
-  className="related-content-link"
+  className="c0"
 >
   <span
     className="preamble"
@@ -31,7 +36,7 @@ exports[`Related Content Link renders and matches snapshot 1`] = `
         1
       </span>
       <span
-        className="c0"
+        className="c1"
       >
         Intro
       </span>
@@ -55,7 +60,7 @@ exports[`Related Content Link renders and matches snapshot 1`] = `
         1.1
       </span>
       <span
-        className="c0"
+        className="c1"
       >
         First
       </span>

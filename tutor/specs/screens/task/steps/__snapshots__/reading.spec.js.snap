@@ -15,7 +15,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
   min-height: 400px;
   width: 960px;
   border-radius: 0.25rem;
-  margin: auto;
+  margin: 0 auto 5rem auto;
   border: 1px solid #e4e4e4;
   border-radius: 0.25rem;
   background-color: white;
@@ -49,7 +49,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
   >
     <div />
     <button
-      className="continue c3 btn btn-primary"
+      className="continue c3 btn btn-primary btn-lg"
       disabled={false}
       onClick={[Function]}
       type="button"

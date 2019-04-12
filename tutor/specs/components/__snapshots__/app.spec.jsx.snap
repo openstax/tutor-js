@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`main Tutor App renders and matches snapshot 1`] = `
-.c6 {
+.c3 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
 }
@@ -37,38 +37,28 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
   box-shadow: 0 5px 5px 0 rgba(0,0,0,0.1);
 }
 
-.c2 {
+.c1 > * {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+}
+
+.c1 .left-side-controls,
+.c1 .right-side-controls {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
 }
 
-.c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
+.c1 .right-side-controls {
   -webkit-box-pack: end;
   -webkit-justify-content: flex-end;
   -ms-flex-pack: end;
   justify-content: flex-end;
 }
 
-.c4 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.c3 {
+.c2 {
   display: inline-block;
   margin-top: 5px;
   height: 34px;
@@ -79,7 +69,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
   min-height: 100vh;
 }
 
-.c7 {
+.c4 {
   padding-top: 60px;
   padding-bottom: 50px;
 }
@@ -107,7 +97,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                 className="tutor-navbar c1"
               >
                 <div
-                  className="left-side-controls c2"
+                  className="left-side-controls"
                 >
                   <a
                     aria-label="dashboard"
@@ -116,7 +106,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                     onClick={[Function]}
                   >
                     <svg
-                      className="c3"
+                      className="c2"
                       viewBox="0 0 264.62 40.7"
                     >
                       <defs>
@@ -169,10 +159,10 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                   </a>
                 </div>
                 <div
-                  className="center-control c4"
+                  className="center-control"
                 />
                 <div
-                  className="right-side-controls c5"
+                  className="right-side-controls"
                 >
                   <div
                     className="support-menu dropdown"
@@ -196,7 +186,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                       >
                         <svg
                           aria-hidden="true"
-                          className="svg-inline--fa fa-question-circle fa-w-16 ox-icon question-circle c6"
+                          className="svg-inline--fa fa-question-circle fa-w-16 ox-icon question-circle c3"
                           data-icon="question-circle"
                           data-prefix="fas"
                           focusable="false"
@@ -219,7 +209,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                         </span>
                         <svg
                           aria-hidden="true"
-                          className="svg-inline--fa fa-angle-down fa-w-10 ox-icon angle-down toggle c6"
+                          className="svg-inline--fa fa-angle-down fa-w-10 ox-icon angle-down toggle c3"
                           data-icon="angle-down"
                           data-prefix="fas"
                           focusable="false"
@@ -253,7 +243,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                     >
                       <svg
                         aria-hidden="true"
-                        className="svg-inline--fa fa-bars fa-w-14 ox-icon bars c6"
+                        className="svg-inline--fa fa-bars fa-w-14 ox-icon bars c3"
                         data-icon="bars"
                         data-prefix="fas"
                         focusable="false"
@@ -276,7 +266,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                       </span>
                       <svg
                         aria-hidden="true"
-                        className="svg-inline--fa fa-angle-down fa-w-10 ox-icon angle-down toggle c6"
+                        className="svg-inline--fa fa-angle-down fa-w-10 ox-icon angle-down toggle c3"
                         data-icon="angle-down"
                         data-prefix="fas"
                         focusable="false"
@@ -315,7 +305,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                 </div>
               </nav>
               <div
-                className="c7"
+                className="c4"
               >
                 <div
                   className="invalid-page"
@@ -353,7 +343,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                     Return Home
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon caret-right c3"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"

@@ -12,9 +12,8 @@
   .exercise-step {
     @include book-content-interactives();
   }
-
+  .video-step,
   .interactive-step {
     @include tutor-book-notes();
-
   }
 }

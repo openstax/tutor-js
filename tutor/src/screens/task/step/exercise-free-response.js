@@ -104,7 +104,7 @@ class FreeResponseInput extends React.Component {
         <ControlsRow isDisplayingNudge={ux.isDisplayingNudge}>
           {ux.isDisplayingNudge &&
             <FrNudgeHelp course={course} step={step} ux={ux} />}
-          <AnswerButton disabled={ux.isSubmitDisabled} onClick={this.onSave}>
+          <AnswerButton size="lg" disabled={ux.isSubmitDisabled} onClick={this.onSave}>
             {ux.submitBtnLabel}
           </AnswerButton>
         </ControlsRow>
