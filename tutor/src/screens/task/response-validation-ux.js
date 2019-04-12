@@ -1,7 +1,24 @@
-import { isEmpty, extend, last } from 'lodash';
+import { isEmpty, extend, last, sample } from 'lodash';
 import { observable, computed, action } from 'mobx';
 import ResponseValidation from '../../models/response_validation';
 import Raven from '../../models/app/raven';
+
+
+const MESSAGES = [
+  {
+    title: 'Take another chance',
+    message: 'write your answer after reviewing section OR Submit this answer',
+  }, {
+    title: 'Not sure? Here’s a hint',
+    message: 'This question comes from section . Review and rewrite OR Submit this answer',
+  }, {
+    title: 'Try again',
+    message: 'Take your time. Rewrite your answer after reviewing section OR Submit this answer',
+  }, {
+    title: 'Give it another shot',
+    message: 'Answer in your own words to improve your learning. Review section OR Submit this answer',
+  },
+];
 
 export
 class ResponseValidationUX {
@@ -12,7 +29,7 @@ class ResponseValidationUX {
   constructor({ step, validator = new ResponseValidation() }) {
     this.step = step;
     this.validator = validator;
-    this.nudgeMessage = 'Rewrite your answer after reviewing section';
+    this.nudge = sample(MESSAGES);
   }
 
   @observable results = [];
@@ -43,7 +60,7 @@ class ResponseValidationUX {
   }
 
   @action async validate() {
-    const nudgeMessage = this.validator.isUIEnabled ? this.nudgeMessage : null;
+    const nudge = this.validator.isUIEnabled ? this.nudge : null;
     const submitted = this.isDisplayingNudge ?
       this.retriedResponse : this.initialResponse;
     try {
@@ -52,7 +69,7 @@ class ResponseValidationUX {
         response: submitted,
       });
       const validation = extend({}, reply.data, {
-        response: submitted, nudgeMessage,
+        response: submitted, nudge,
       });
       this.step.spy.response_validation = validation;
       return validation;
@@ -62,7 +79,7 @@ class ResponseValidationUX {
         valid: true,
         exception: err.toString(),
         response: submitted,
-        nudgeMessage,
+        nudge,
       };
     }
   }
