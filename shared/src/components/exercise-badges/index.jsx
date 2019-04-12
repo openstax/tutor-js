@@ -68,10 +68,3 @@ ExerciseBadges.propTypes = {
   multiPart:    PropTypes.bool,
   video:        PropTypes.bool,
 };
-
-ExerciseBadges.defaultProps = {
-  personalized: false,
-  multipart:    false,
-  interactive:  false,
-  video:        false,
-};

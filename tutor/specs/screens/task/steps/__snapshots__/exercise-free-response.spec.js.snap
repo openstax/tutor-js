@@ -461,6 +461,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
         "free-response",
       ],
       "free_response": undefined,
+      "group": undefined,
       "id": 1,
       "isFetched": true,
       "is_completed": false,
