@@ -14,4 +14,8 @@ class StudentTaskInfoStep {
   @readonly isInfo = true;
   fetchIfNeeded() { }
   markViewed() {}
+
+  get preview() {
+    'Blah'
+  }
 }

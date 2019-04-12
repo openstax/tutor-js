@@ -61,7 +61,7 @@ class FreeResponseReview extends React.Component {
 class FreeResponseInput extends React.Component {
 
   static propTypes = {
-    questionNumber: PropTypes.number.isRequired,
+    questionNumber: PropTypes.number,
     course: PropTypes.instanceOf(Course).isRequired,
     step: PropTypes.instanceOf(TaskStep).isRequired,
     question: PropTypes.instanceOf(Question).isRequired,

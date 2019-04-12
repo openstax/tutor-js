@@ -8,18 +8,20 @@ const SyledQuestionStem = styled.div`
   font-size: 2rem;
   line-height: 1.68em;
   position: relative;
-  &::before {
-  content: attr(data-question-number) ")";
-  position: absolute;
-  z-index: 1;
-  right: 100%;
-  margin-right: 0.5rem;
+  &[data-question-number]::before {
+    content: attr(data-question-number) ")";
+    position: absolute;
+    z-index: 1;
+    right: 100%;
+    margin-right: 0.5rem;
   }
 `;
 
 const QuestionStem = observer(({ question, questionNumber }) => {
+  const props = {};
+  if (questionNumber) { props['data-question-number'] = questionNumber; }
   return (
-    <SyledQuestionStem data-question-number={questionNumber}>
+    <SyledQuestionStem {...props}>
       {question.stem_html &&
         <ArbitraryHtmlAndMath html={question.stem_html} />}
     </SyledQuestionStem>
@@ -27,7 +29,7 @@ const QuestionStem = observer(({ question, questionNumber }) => {
 });
 QuestionStem.displayName = 'QuestionStem';
 QuestionStem.propTypes = {
-  questionNumber: PropTypes.number.isRequired,
+  questionNumber: PropTypes.number,
   question: PropTypes.instanceOf(Question).isRequired,
 };
 
