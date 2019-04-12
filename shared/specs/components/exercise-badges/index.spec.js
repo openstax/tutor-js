@@ -1,4 +1,3 @@
-import Renderer from 'react-test-renderer';
 import Badges from 'components/exercise-badges';
 
 describe('Exercise Preview Component', function() {

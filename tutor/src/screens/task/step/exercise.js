@@ -65,7 +65,10 @@ class ExerciseTaskStep extends React.Component {
       <StyledExercise
         step={step}
       >
-        <Badges multiPart={isMultiPart && !isFollowupMPQ} />
+        <Badges
+          personalized={!isFollowupMPQ && step.isPersonalized}
+          multiPart={isMultiPart && !isFollowupMPQ}
+        />
 
         <Preamble
           content={content}
