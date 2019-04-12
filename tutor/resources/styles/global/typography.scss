@@ -105,19 +105,33 @@ h2 {
   font-weight: 900;
 }
 
+:placeholder {
+  font-weight: 300;
+  font-size: 1.6rem;
+  color: $tutor-neutral-thin-dark;
+  font-family: $tutor-neutral-light-font-face;
+}
 ::-webkit-input-placeholder {
   font-weight: 300;
-  font-style: italic;
+  font-size: 1.6rem;
+  color: $tutor-neutral-thin-dark;
+  font-family: $tutor-neutral-light-font-face;
 }
 :-moz-placeholder { /* Firefox 18- */
   font-weight: 300;
-  font-style: italic;
+  font-size: 1.6rem;
+  color: $tutor-neutral-thin-dark;
+  font-family: $tutor-neutral-light-font-face;
 }
 ::-moz-placeholder {  /* Firefox 19+ */
   font-weight: 300;
-  font-style: italic;
+  font-size: 1.6rem;
+  color: $tutor-neutral-thin-dark;
+  font-family: $tutor-neutral-light-font-face;
 }
 :-ms-input-placeholder {
   font-weight: 300;
-  font-style: italic;
+  font-size: 1.6rem;
+  color: $tutor-neutral-thin-dark;
+  font-family: $tutor-neutral-light-font-face;
 }
