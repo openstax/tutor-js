@@ -43,6 +43,7 @@ class ResponseValidationUX {
   }
 
   @action async validate() {
+    const nudgeMessage = this.validator.isUIEnabled ? this.nudgeMessage : null;
     const submitted = this.isDisplayingNudge ?
       this.retriedResponse : this.initialResponse;
     try {
@@ -51,8 +52,7 @@ class ResponseValidationUX {
         response: submitted,
       });
       const validation = extend({}, reply.data, {
-        response: submitted,
-        nudgeMessage: this.nudgeMessage,
+        response: submitted, nudgeMessage,
       });
       this.step.spy.response_validation = validation;
       return validation;
@@ -62,7 +62,7 @@ class ResponseValidationUX {
         valid: true,
         exception: err.toString(),
         response: submitted,
-        nudgeMessage: this.nudgeMessage,
+        nudgeMessage,
       };
     }
   }
