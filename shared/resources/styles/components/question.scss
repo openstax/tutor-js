@@ -78,7 +78,12 @@
 
     .answer-answer {
       flex: 1;
+      display: flex;
+      align-items: center;
       margin-left: $openstax-answer-horizontal-spacing;
+      * {
+        margin: 0;
+      }
     }
 
     .answer-letter {
