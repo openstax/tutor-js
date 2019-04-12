@@ -27,7 +27,7 @@ class Breadcrumb extends React.Component {
     const {
       step, canReview, isCurrent, className, dataStepIndex,
     } = this.props;
-    const isCompleted = step != null ? step.is_completed : undefined;
+    const isCompleted = step.isInfo ? null : step.is_completed;
     const { type: crumbType } = step;
     const isEnd = 'end' === crumbType;
 

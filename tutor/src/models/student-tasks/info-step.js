@@ -1,6 +1,13 @@
 import { observable } from 'mobx';
 import { readonly } from 'core-decorators';
 
+const TITLES = {
+  'individual-review-intro':  'Your individual review',
+  'personalized-intro': 'Your individual review',
+  'two-step-intro':    'Two step problems',
+  'spaced-practice-intro': 'About spaced practice',
+};
+
 export default
 class StudentTaskInfoStep {
 
@@ -16,6 +23,6 @@ class StudentTaskInfoStep {
   markViewed() {}
 
   get preview() {
-    'Blah'
+    return 'end' == this.type ? `${this.task.title} Completed` : TITLES[this.type];
   }
 }
