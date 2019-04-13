@@ -30,4 +30,4 @@ class OpenCalendarSidebar extends BaseAction {
     });
   }
 
-};
+}
