@@ -6,11 +6,17 @@ import RelatedContent from '../models/related-content';
 import BrowseTheBook from './buttons/browse-the-book';
 
 const StyledRelatedContentLink = styled.div`
+  display: flex;
   .chapter-section { font-weight: normal; color: inherit; }
+  .part { display: flex; }
 `;
 
 const Title = styled.span`
   margin-left: 0.5rem;
+  max-width: 300px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 const RelatedContentLink = ({ course, content }) => {

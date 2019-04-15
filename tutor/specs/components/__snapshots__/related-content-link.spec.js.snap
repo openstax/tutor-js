@@ -1,13 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Related Content Link renders and matches snapshot 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 .c0 .chapter-section {
   font-weight: normal;
   color: inherit;
 }
 
+.c0 .part {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 .c1 {
   margin-left: 0.5rem;
+  max-width: 300px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 <div
