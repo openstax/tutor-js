@@ -6,6 +6,7 @@ import { setFreeResponse } from '../helpers';
 import ResponseValidation from '../../../../src/models/response_validation';
 import Raven from '../../../../src/models/app/raven';
 
+jest.mock('lodash/sample', () => (a) => a[1]); // lock nudge message
 jest.mock('../../../../src/models/app/raven');
 jest.mock('../../../../src/models/response_validation');
 jest.mock('../../../../../shared/src/components/html', () => ({ html }) =>
@@ -108,6 +109,7 @@ describe('Exercise Free Response', () => {
 
     expect(fr.text()).toContain('Re-answer');
     expect(fr).toHaveRendered('FrNudgeHelp');
+    expect(fr.find('FrNudgeHelp').text()).toContain('Not sure? Here’s a hint');
     expect(fr).toHaveRendered('AnswerButton[disabled=true]');
     expect(fr.find('AnswerButton').text()).toEqual('Re-answer');
     expect(props.step.free_response).toBeUndefined();

@@ -37,8 +37,8 @@ const Actions = styled.div`
 const FrNudgeHelp = observer(({ course, step, ux }) => {
   return (
     <StyledFrNudgeHelp>
-      <Title>Need Help?</Title>
-      <Msg>{ux.nudgeMessage}</Msg>
+      <Title>{ux.nudge.title}</Title>
+      <Msg>{ux.nudge.message}</Msg>
       <Actions>
         <RelatedContentLink
           course={course} content={step.content.related_content}
