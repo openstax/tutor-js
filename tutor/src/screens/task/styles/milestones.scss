@@ -46,10 +46,14 @@ $milestone-icon-size: 60px;
   &.milestone-two-step-intro,
   &.milestone-spaced-practice-intro,
   &.milestone-personalized-intro {
+    text-align: center;
     background-color: $openstax-blue;
     color: $tutor-white;
   }
-
+  &.milestone-individual-review-intro,
+  &.milestone-end {
+    text-align: center;
+  }
   .openstax-breadcrumbs-step {
     display: block;
     margin: auto;

@@ -81,6 +81,7 @@ class StudentTaskStep extends BaseModel {
   @field external_url;
   @field({ type: 'array' }) labels;
   @field({ type: 'array' }) formats;
+  @field group;
 
   @belongsTo({ model: 'student-tasks/step-group' }) multiPartGroup;
 

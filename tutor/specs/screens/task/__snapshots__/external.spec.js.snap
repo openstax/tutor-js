@@ -28,6 +28,7 @@ exports[`Tasks External URL Screen matches snapshot 1`] = `
               "feedback_html": undefined,
               "formats": Array [],
               "free_response": undefined,
+              "group": undefined,
               "id": 1,
               "isFetched": true,
               "is_completed": true,
