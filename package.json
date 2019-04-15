@@ -27,7 +27,7 @@
     "build-exercises": "./bin/build exercises",
     "build-archive": "./bin/build tutor archive",
     "check-dependencies": "node ./bin/check-dependencies",
-    "lint-cjsx": "./bin/lint-cjsx-files.sh",
+    "lint": "./bin/lint",
     "validate": "./bin/validate-console-messages.sh",
     "prestart": "npm run validate",
     "start": "./bin/tdd",

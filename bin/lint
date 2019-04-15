@@ -11,15 +11,22 @@ else
     TARGET_BRANCH=master
 fi
 
+if [ $# -eq 0 ]; then
+    $(npm bin)/eslint {tutor,shared,exercises}
+    exit $?
+fi
+
 if [ "$1" == "branch" ]; then
     head=$(git merge-base HEAD $TARGET_BRANCH)
     cmd="git diff --name-status $head $BRANCH */{src,specs}"
-else
+elif [ "$1" == "staged" ]; then
     cmd="git status --short */{src,specs}"
+else
+    echo "unknown command: switch $1"
+    exit 1
 fi
 
 files=`eval $cmd | egrep '^[^D|^R].*(jsx?)$' | awk '{ print $2 }'`
-
 if [ ! -z "$files" ]; then
     $(npm bin)/eslint $2 $files
 fi
