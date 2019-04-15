@@ -20,7 +20,7 @@ exports[`Related Content Link renders and matches snapshot 1`] = `
   display: flex;
 }
 
-.c1 {
+.c2 {
   margin-left: 0.5rem;
   max-width: 300px;
   text-overflow: ellipsis;
@@ -28,13 +28,17 @@ exports[`Related Content Link renders and matches snapshot 1`] = `
   white-space: nowrap;
 }
 
+.c1 {
+  margin-right: 0.5rem;
+}
+
 <div
   className="c0"
 >
   <span
-    className="preamble"
+    className="c1"
   >
-    Comes from 
+    Comes from
   </span>
   <a
     aria-label="Browse course reference book"
@@ -54,7 +58,7 @@ exports[`Related Content Link renders and matches snapshot 1`] = `
         1
       </span>
       <span
-        className="c1"
+        className="c2"
       >
         Intro
       </span>
@@ -78,7 +82,7 @@ exports[`Related Content Link renders and matches snapshot 1`] = `
         1.1
       </span>
       <span
-        className="c1"
+        className="c2"
       >
         First
       </span>

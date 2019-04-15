@@ -23,9 +23,13 @@ exports[`Task Step Footer matches snapshot 1`] = `
           <StyledRelatedContentLink>
             <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
               <div className=\\"StyledRelatedContentLink-g6utdm-0 fdpgia\\">
-                <span className=\\"preamble\\">
-                  Comes from 
-                </span>
+                <Preamble>
+                  <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
+                    <span className=\\"Preamble-g6utdm-2 iQkOQQ\\">
+                      Comes from
+                    </span>
+                  </StyledComponent>
+                </Preamble>
                 <BrowseTheBook unstyled={true} chapterSection=\\"1.2\\" course={{...}} tabIndex={-1} tag=\\"a\\" windowImpl={{...}}>
                   <a aria-label=\\"Browse course reference book\\" onClick={[Function: res]} tabIndex={-1} href=\\"/book/1/section/1.2\\" target=\\"_blank\\" className=\\"browse-the-book\\">
                     <span className=\\"part\\">

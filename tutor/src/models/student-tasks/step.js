@@ -92,6 +92,11 @@ class StudentTaskStep extends BaseModel {
     return this.isReading;
   }
 
+  @computed get chapterSection() {
+    return this.content.related_content ?
+      this.content.related_content[0].chapter_section : null;
+  }
+
   @computed get isExercise() {
     return 'exercise' === this.type;
   }

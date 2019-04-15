@@ -19,15 +19,17 @@ const Title = styled.span`
   white-space: nowrap;
 `;
 
+const Preamble = styled.span`
+  margin-right: 0.5rem;
+`;
+
 const RelatedContentLink = ({ course, content }) => {
 
   if (isEmpty(content)) { return null; }
 
   return (
     <StyledRelatedContentLink>
-      <span className="preamble">
-        {'Comes from '}
-      </span>
+      <Preamble>Comes from</Preamble>
       {content.map((rl, i) => (
         <BrowseTheBook
           key={i}

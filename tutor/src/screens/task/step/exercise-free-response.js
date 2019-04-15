@@ -11,7 +11,7 @@ import Theme from '../../../theme';
 import Course from '../../../models/course';
 import { StepFooter } from './footer';
 import { ResponseValidationUX } from '../response-validation-ux';
-import { FrNudgeHelp } from './fr-nudge-help';
+import { NudgeMessages, NudgeMessage } from './nudge-message';
 
 const StyledFreeResponse = styled.div`
   display: flex;
@@ -70,6 +70,7 @@ class FreeResponseInput extends React.Component {
 
   ux = new ResponseValidationUX({
     step: this.props.step,
+    messages: NudgeMessages,
     validator: this.props.response_validation,
   });
 
@@ -98,12 +99,12 @@ class FreeResponseInput extends React.Component {
           value={ux.response}
           onChange={ux.setResponse}
           placeholder="Enter your response"
-          isErrored={ux.isTextaAreaErrored}
+          isErrored={ux.displayNudgeError}
           aria-label="question response text box"
         />
         <ControlsRow isDisplayingNudge={ux.isDisplayingNudge}>
           {ux.isDisplayingNudge &&
-            <FrNudgeHelp course={course} step={step} ux={ux} />}
+            <NudgeMessage course={course} step={step} ux={ux} />}
           <AnswerButton size="lg" disabled={ux.isSubmitDisabled} onClick={this.onSave}>
             {ux.submitBtnLabel}
           </AnswerButton>

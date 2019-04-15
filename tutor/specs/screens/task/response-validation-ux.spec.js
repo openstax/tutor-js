@@ -1,12 +1,14 @@
 import { Factory, ld } from '../../helpers';
 import { ResponseValidationUX as UX } from '../../../src/screens/task/response-validation-ux';
-jest.mock('lodash/sample', () => (a) => a[1]);
+jest.mock('lodash/random', () => () => 1);
 
 describe('Task Response Validation', () => {
   let step;
   let ux;
   let validator;
-
+  const messages = [
+    { title: 'one' }, { title: 'two' }, { title: 'three' },
+  ];
   beforeEach(() => {
     step = Factory.studentTask({ type: 'homework', stepCount: 1 }).steps[0];
     validator = {
@@ -17,13 +19,12 @@ describe('Task Response Validation', () => {
         return Promise.resolve(ld.extend(args, this.result));
       },
     };
-    ux = new UX({ step, validator });
+    ux = new UX({ step, validator, messages });
   });
 
   it('picks a random message', () => {
-    ux = new UX({ step, validator });
-    expect(ux.nudge.title).toEqual('Not sure? Here’s a hint');
-    expect(ux.nudge.message).toContain('Review and rewrite');
+    ux = new UX({ step, validator, messages });
+    expect(ux.nudge.title).toEqual('two');
   });
 
   it('does not set message when ui is off', async () => {

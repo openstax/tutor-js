@@ -1,38 +1,27 @@
-import { isEmpty, extend, last, sample } from 'lodash';
+import { isEmpty, extend, last, random } from 'lodash';
 import { observable, computed, action } from 'mobx';
 import ResponseValidation from '../../models/response_validation';
 import Raven from '../../models/app/raven';
-
-
-const MESSAGES = [
-  {
-    title: 'Take another chance',
-    message: 'write your answer after reviewing section OR Submit this answer',
-  }, {
-    title: 'Not sure? Here’s a hint',
-    message: 'This question comes from section . Review and rewrite OR Submit this answer',
-  }, {
-    title: 'Try again',
-    message: 'Take your time. Rewrite your answer after reviewing section OR Submit this answer',
-  }, {
-    title: 'Give it another shot',
-    message: 'Answer in your own words to improve your learning. Review section OR Submit this answer',
-  },
-];
 
 export
 class ResponseValidationUX {
 
   @observable initialResponse;
   @observable retriedResponse;
+  @observable messages;
+  @observable messageIndex;
+  @observable results = [];
 
-  constructor({ step, validator = new ResponseValidation() }) {
+  constructor({ step, messages, validator = new ResponseValidation() }) {
     this.step = step;
     this.validator = validator;
-    this.nudge = sample(MESSAGES);
+    this.messages = messages;
+    this.messageIndex = random(0, messages.length - 1);
   }
 
-  @observable results = [];
+  @computed get nudge() {
+    return this.messages[this.messageIndex];
+  }
 
   @action.bound setResponse({ target: { value } }) {
     if (this.isDisplayingNudge) {
@@ -60,7 +49,7 @@ class ResponseValidationUX {
   }
 
   @action async validate() {
-    const nudge = this.validator.isUIEnabled ? this.nudge : null;
+    const nudge = this.validator.isUIEnabled ? this.nudge.title : null;
     const submitted = this.isDisplayingNudge ?
       this.retriedResponse : this.initialResponse;
     try {
@@ -100,14 +89,14 @@ class ResponseValidationUX {
     return this.isDisplayingNudge ? 'Re-answer' : 'Answer';
   }
 
-  @computed get isTextaAreaErrored() {
+  @computed get displayNudgeError() {
     return Boolean(
       this.isDisplayingNudge && this.initialResponse === this.retriedResponse
     );
   }
 
   @computed get isSubmitDisabled() {
-    return this.isTextaAreaErrored || isEmpty(this.initialResponse);
+    return this.displayNudgeError || isEmpty(this.initialResponse);
   }
 
   @computed get isDisplayingNudge() {
