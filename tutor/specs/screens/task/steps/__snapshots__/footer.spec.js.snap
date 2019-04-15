@@ -22,7 +22,7 @@ exports[`Task Step Footer matches snapshot 1`] = `
         <RelatedContentLink course={{...}} content={{...}}>
           <StyledRelatedContentLink>
             <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
-              <div className=\\"StyledRelatedContentLink-g6utdm-0 giWJxB\\">
+              <div className=\\"StyledRelatedContentLink-g6utdm-0 fdpgia\\">
                 <span className=\\"preamble\\">
                   Comes from 
                 </span>
@@ -36,7 +36,7 @@ exports[`Task Step Footer matches snapshot 1`] = `
                       </ChapterSection>
                       <Title>
                         <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
-                          <span className=\\"Title-g6utdm-1 jdfYbS\\">
+                          <span className=\\"Title-g6utdm-1 ldKDQH\\">
                             Angiosperms
                           </span>
                         </StyledComponent>
