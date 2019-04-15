@@ -50,6 +50,10 @@ $input-btn-padding-y-lg: 1.2rem;
 $input-btn-padding-x-lg: 3rem;
 $input-btn-font-size-lg: 1.6rem;
 
+$theme-colors: (
+  "primary": $tutor-primary,
+);
+
 $btn-default-color:             #333;
 $btn-default-bg:                $tutor-neutral-cool;
 $btn-default-border:            #ccc;
