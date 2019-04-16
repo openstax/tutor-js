@@ -43,6 +43,33 @@ const BADGES = {
         tooltip="Personalized questions are choosen specifically for you by Tutor based on your learning history" />
     </span>
   ),
+  spacedPractice: (
+    <span key="spacedPractice" className="spaced-practice">
+      <i className="icon icon-sm icon-spaced-practice" />
+      <span>
+        Spaced Practice
+      </span>
+      <Icon
+        type="info-circle"
+        tooltip={
+          <div>
+            <h6>What is spaced practice?</h6>
+            <p>
+              Did you know?  Research shows you can strengthen your
+              memory—<b>and spend less time studying</b>—if
+              you revisit material over multiple study sessions.
+            </p>
+            <p>
+              Tutor will include <b>spaced practice</b> questions from prior
+              assignments to give your learning a boost. You may occasionally
+              see questions you’ve seen before.
+            </p>
+          </div>
+        }
+      />
+    </span>
+  ),
+
 };
 
 export default
@@ -62,9 +89,10 @@ function ExerciseBadges({ className, ...badgeProps }) {
 }
 
 ExerciseBadges.propTypes = {
-  className:    PropTypes.string,
-  personalized: PropTypes.bool,
-  interactive:  PropTypes.bool,
-  multiPart:    PropTypes.bool,
-  video:        PropTypes.bool,
+  className:      PropTypes.string,
+  spacedPractice: PropTypes.bool,
+  personalized:   PropTypes.bool,
+  interactive:    PropTypes.bool,
+  multiPart:      PropTypes.bool,
+  video:          PropTypes.bool,
 };

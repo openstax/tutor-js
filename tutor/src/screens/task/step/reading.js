@@ -11,7 +11,9 @@ const StyledReading = styled(TaskStepCard)`
     & > .os-chapter-outline {
       margin-top: -4rem;
     }
+    .splash { margin-top: -4rem; }
   }
+
 `;
 
 export default

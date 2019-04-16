@@ -130,7 +130,7 @@ class StudentTaskStep extends BaseModel {
   }
 
   @computed get isSpacedPractice() {
-    return 'spaced-practice' == this.group ;
+    return 'spaced practice' == this.group ;
   }
 
   @computed get needsFreeResponse() {

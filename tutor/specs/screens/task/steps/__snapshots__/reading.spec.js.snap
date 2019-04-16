@@ -40,6 +40,10 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
   margin-top: -4rem;
 }
 
+.c1 [data-type="page"] .splash {
+  margin-top: -4rem;
+}
+
 <div
   className="c0"
   data-task-step-id={1}

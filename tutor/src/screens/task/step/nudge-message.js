@@ -1,7 +1,6 @@
 import {
   React, PropTypes, observer, styled,
 } from '../../../helpers/react';
-import { Button } from 'react-bootstrap';
 import Theme from '../../../theme';
 import { ResponseValidationUX } from '../response-validation-ux';
 import Course from '../../../models/course';
