@@ -32,7 +32,7 @@ describe('Free Response Nudge Messages', () => {
     ux.submitOriginalResponse = jest.fn();
     ux.nudge = NudgeMessages[0];
     const msg = mount(<NudgeMessage {...props} />);
-    msg.find('Submit button').simulate('click');
+    msg.find('Submit a').simulate('click');
     expect(ux.submitOriginalResponse).toHaveBeenCalled();
     msg.unmount();
   });

@@ -8,7 +8,7 @@ import BrowseTheBook from './buttons/browse-the-book';
 const StyledRelatedContentLink = styled.div`
   display: flex;
   .chapter-section { font-weight: normal; color: inherit; }
-
+  .browse-the-book { display: flex; }
 `;
 
 const Title = styled.span.attrs({ className: 'title' })`
@@ -39,10 +39,9 @@ const RelatedContentLink = ({ className, linkPrefix, course, content, preamble }
           tabIndex={-1}
         >
           {linkPrefix}
-          <span className="part">
-            <ChapterSection chapterSection={rl.chapter_section} />
-            <Title>{rl.title}</Title>
-          </span>
+          <ChapterSection chapterSection={rl.chapter_section} />
+          <Title>{rl.title}</Title>
+
         </BrowseTheBook>))}
     </StyledRelatedContentLink>
   );

@@ -13,6 +13,13 @@ exports[`Related Content Link renders and matches snapshot 1`] = `
   color: inherit;
 }
 
+.c0 .browse-the-book {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 .c2 {
   margin-left: 0.5rem;
   max-width: 300px;
@@ -42,19 +49,15 @@ exports[`Related Content Link renders and matches snapshot 1`] = `
     target="_blank"
   >
     <span
-      className="part"
+      className="chapter-section"
+      data-chapter-section="1.0"
     >
-      <span
-        className="chapter-section"
-        data-chapter-section="1.0"
-      >
-        1
-      </span>
-      <span
-        className="title c2"
-      >
-        Intro
-      </span>
+      1
+    </span>
+    <span
+      className="title c2"
+    >
+      Intro
     </span>
   </a>
 </div>
