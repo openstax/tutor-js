@@ -66,6 +66,7 @@ class ExerciseTaskStep extends React.Component {
         step={step}
       >
         <Badges
+          spacedPractice={step.isSpacedPractice}
           personalized={!isFollowupMPQ && step.isPersonalized}
           multiPart={isMultiPart && !isFollowupMPQ}
         />

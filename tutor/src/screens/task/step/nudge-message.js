@@ -1,7 +1,6 @@
 import {
   React, PropTypes, observer, styled,
 } from '../../../helpers/react';
-import { Button } from 'react-bootstrap';
 import Theme from '../../../theme';
 import { ResponseValidationUX } from '../response-validation-ux';
 import Course from '../../../models/course';
@@ -17,32 +16,17 @@ const StyledNudgeMessage = styled.div`
   line-height: 2.2rem;
   flex-direction: column;
   max-width: 380px;
-  .chapter-section {
-    color: unset;
-    font-weight: normal;
-  }
-  .related-content-link{
-    display: inline;
-    .preamble { color: ${Theme.colors.neutral.lite}; }
-    .title { white-space: normal; }
-  }
-  .btn-link {
-    padding-left: 0;
-    font-size: 1.4rem;
-  }
+  .browse-the-book { display: inline; }
+  .chapter-section { color: unset; font-weight: normal; }
+  .related-content-link{ display: inline; }
+  .preamble { color: ${Theme.colors.neutral.lite}; }
+  .title { white-space: normal; }
 `;
 
 const Message = styled.div`
   color: ${Theme.colors.danger};
-  .related-content-link {
-    display: inline;
-  }
-  .btn-link {
-    margin: 0;
-    padding: 0;
-    display: inline;
-  }
 `;
+
 const Title = styled.h5`
   color: ${Theme.colors.danger};
   font-weight: bolder;
@@ -63,9 +47,9 @@ const Review = ({ step, course, prefix = '' }) => ( // eslint-disable-line react
 );
 
 const Submit = ({ ux }) => ( // eslint-disable-line react/prop-types
-  <Button variant="link" onClick={ux.submitOriginalResponse}>
+  <a href="#" onClick={ux.submitOriginalResponse}>
     submit this answer
-  </Button>
+  </a>
 );
 
 

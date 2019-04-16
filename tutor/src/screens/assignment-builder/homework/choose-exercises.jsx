@@ -40,10 +40,6 @@ class ChooseExercises extends React.Component {
     this.showProblems = true;
   }
 
-  componentDidMount() {
-    this.scroller.scrollToSelector('.select-topics');
-  }
-
   @action.bound onAddClick() {
     this.showProblems = false;
     this.scroller.scrollToSelector('.select-topics');

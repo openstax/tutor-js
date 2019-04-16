@@ -31,6 +31,10 @@ class ResponseValidationUX {
     }
   }
 
+  @computed get response() {
+    return this.isDisplayingNudge ? this.retriedResponse : this.initialResponse;
+  }
+
   @action.bound async onSave() {
     if (!this.validator.isEnabled) {
       this.step.beginRecordingAnswer({ free_response: this.initialResponse });
@@ -50,8 +54,7 @@ class ResponseValidationUX {
 
   @action async validate() {
     const nudge = this.validator.isUIEnabled ? this.nudge.title : null;
-    const submitted = this.isDisplayingNudge ?
-      this.retriedResponse : this.initialResponse;
+    const submitted = this.response;
     try {
       const reply = await this.validator.validate({
         uid: this.step.uid,
@@ -81,7 +84,8 @@ class ResponseValidationUX {
     }
   }
 
-  @action.bound submitOriginalResponse() {
+  @action.bound submitOriginalResponse(ev) {
+    ev && ev.preventDefault();
     this.step.beginRecordingAnswer({ free_response: this.initialResponse });
   }
 
@@ -96,11 +100,16 @@ class ResponseValidationUX {
   }
 
   @computed get isSubmitDisabled() {
-    return this.displayNudgeError || isEmpty(this.initialResponse);
+    return Boolean(
+      this.displayNudgeError || isEmpty(this.response),
+    );
   }
 
   @computed get isDisplayingNudge() {
-    return Boolean(this.validator.isUIEnabled && this.results.length && !last(this.results).valid);
+    return Boolean(
+      this.validator.isUIEnabled &&
+        this.results.length && !last(this.results).valid
+    );
   }
 
 }

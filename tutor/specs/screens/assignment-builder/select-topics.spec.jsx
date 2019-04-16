@@ -1,7 +1,10 @@
-import { C } from '../../helpers';
+import { C, ld } from '../../helpers';
 import Factory, { FactoryBot } from '../../factories';
 import SelectTopics from '../../../src/screens/assignment-builder/select-topics';
 import HOMEWORK from '../../../api/plans/2.json';
+import ScrollTo from '../../../src/helpers/scroll-to';
+
+jest.mock('../../../src/helpers/scroll-to');
 
 describe('Select Topics', function() {
   let props;
@@ -26,6 +29,12 @@ describe('Select Topics', function() {
 
   it('matches snapshot', function() {
     expect.snapshot(<C><SelectTopics {...props} /></C>).toMatchSnapshot();
+  });
+
+  it('scrolls into view on mount', () => {
+    const ce = mount(<C><SelectTopics {...props} /></C>);
+    expect(ld.last(ScrollTo.mock.instances).scrollToSelector).toHaveBeenCalledWith('.select-topics');
+    ce.unmount();
   });
 
 });

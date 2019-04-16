@@ -103,7 +103,7 @@ exports[`Sections Chooser renders and matches snapshot 1`] = `
                   <svg
                     aria-hidden="true"
                     className="svg-inline--fa fa-square fa-w-14 ox-icon square c3"
-                    color="#919191"
+                    color="#929292"
                     data-icon="square"
                     data-prefix="far"
                     focusable="false"
@@ -268,7 +268,7 @@ exports[`Sections Chooser renders and matches snapshot 1`] = `
                   <svg
                     aria-hidden="true"
                     className="svg-inline--fa fa-square fa-w-14 ox-icon square c3"
-                    color="#919191"
+                    color="#929292"
                     data-icon="square"
                     data-prefix="far"
                     focusable="false"
@@ -433,7 +433,7 @@ exports[`Sections Chooser renders and matches snapshot 1`] = `
                   <svg
                     aria-hidden="true"
                     className="svg-inline--fa fa-square fa-w-14 ox-icon square c3"
-                    color="#919191"
+                    color="#929292"
                     data-icon="square"
                     data-prefix="far"
                     focusable="false"

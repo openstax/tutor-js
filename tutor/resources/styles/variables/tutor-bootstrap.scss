@@ -25,6 +25,7 @@ $container-large-desktop:      (1200px + 30px);
 $link-hover-color:      darken($link-color, 5%);
 $link-hover-decoration: none;
 
+$tooltip-max-width:     370px;
 $popover-max-width:     370px;
 
 $tooltip-border-color: $tutor-info;
