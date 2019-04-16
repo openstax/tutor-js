@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import ScrollTo from '../../helpers/scroll-to';
 import { constant, isEqual } from 'underscore';
 import { observer } from 'mobx-react';
 import Dialog from '../../components/dialog';
@@ -26,9 +27,15 @@ class SelectTopics extends React.Component {
     cancel: PropTypes.func.isRequired,
     primary: PropTypes.object,
     type: PropTypes.string.isRequired,
+    windowImpl:  PropTypes.object,
   };
 
   state = { initialSelected: this.props.selected };
+  scroller = new ScrollTo({ windowImpl: this.props.windowImpl });
+
+  componentDidMount() {
+    this.scroller.scrollToSelector('.select-topics');
+  }
 
   hasChanged = () => {
     return (

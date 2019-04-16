@@ -101,7 +101,7 @@ class ReviewExercises extends React.Component {
     planId:     PropTypes.string.isRequired,
     canEdit:    PropTypes.bool,
     canAdd:     PropTypes.bool,
-    showSectionTopics: PropTypes.bool,
+    showSectionTopics: PropTypes.func,
   };
 
   static defaultProps = {

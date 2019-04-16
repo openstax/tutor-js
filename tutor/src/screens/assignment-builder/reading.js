@@ -218,7 +218,7 @@ const ReadingPlan = createReactClass({
       'edit-reading',
       'dialog',
       {
-        'hide': this.state.showSectionTopics,
+
         'is-invalid-form': hasError,
       },
     );
@@ -253,29 +253,29 @@ const ReadingPlan = createReactClass({
           <Card.Header>
             {this.builderHeader('reading')}
           </Card.Header>
-          {!this.state.showSectionTopics && (
-            <Card.Body>
-              <TaskPlanBuilder
-                id={id}
-                courseId={courseId}
-                {...builderProps}
-              />
-              <Row>
-                <Col xs={12} md={12}>
-                  <ReviewReadings
-                    canEdit={!this.state.isVisibleToStudents}
-                    courseId={courseId}
-                    planId={id}
-                    ecosystemId={ecosystemId}
-                    selected={topics}
-                  />
-                  {addReadingsButton}
-                  <NoQuestionsTooltip />
-                  {readingsRequired}
-                </Col>
-              </Row>
-            </Card.Body>
-          )}
+
+          <Card.Body>
+            <TaskPlanBuilder
+              id={id}
+              courseId={courseId}
+              {...builderProps}
+            />
+            <Row>
+              <Col xs={12} md={12}>
+                <ReviewReadings
+                  canEdit={!this.state.isVisibleToStudents}
+                  courseId={courseId}
+                  planId={id}
+                  ecosystemId={ecosystemId}
+                  selected={topics}
+                />
+                {addReadingsButton}
+                <NoQuestionsTooltip />
+                {readingsRequired}
+              </Col>
+            </Row>
+          </Card.Body>
+
           <PlanFooter
             id={id}
             courseId={courseId}
