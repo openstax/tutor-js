@@ -35,4 +35,12 @@ describe('Task Response Validation', () => {
     expect(step.response_validation.attempts[0].nudge).toBeNull();
   });
 
+  it('disables submit btn appropriately', () => {
+    expect(ux.isDisplayingNudge).toBe(false);
+    ux.results.push({});
+    expect(ux.isDisplayingNudge).toBe(true);
+    expect(ux.isSubmitDisabled).toBe(true);
+    ux.setResponse({ target: { value: 'test' } });
+    expect(ux.isSubmitDisabled).toBe(false);
+  });
 });
