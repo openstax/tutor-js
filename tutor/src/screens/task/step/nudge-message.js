@@ -7,20 +7,36 @@ import { ResponseValidationUX } from '../response-validation-ux';
 import Course from '../../../models/course';
 import TaskStep from '../../../models/student-tasks/step';
 import RelatedContentLink from '../../../components/related-content-link';
-import BrowseTheBook from '../../../components/buttons/browse-the-book';
-import ChapterSection from '../../../components/chapter-section';
 
 const StyledNudgeMessage = styled.div`
   flex: 1;
   display: flex;
   justify-content: flex-start;
-  padding-top: 1rem;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
+  line-height: 2.2rem;
   flex-direction: column;
+  max-width: 380px;
+  .chapter-section {
+    color: unset;
+    font-weight: normal;
+  }
+  .related-content-link{
+    display: inline;
+    .preamble {
+      color: ${Theme.colors.neutral.lite};
+    }
+  }
+  .btn-link {
+    padding-left: 0;
+    font-size: 1.5rem;
+  }
 `;
 
-const Message = styled.p`
+const Message = styled.div`
   color: ${Theme.colors.danger};
+  .related-content-link {
+    display: inline;
+  }
   .btn-link {
     margin: 0;
     padding: 0;
@@ -32,33 +48,18 @@ const Title = styled.h5`
   font-weight: bolder;
 `;
 
-const Actions = styled.div`
-  .chapter-section {
-    color: unset;
-    font-weight: normal;
-  }
-  .related-content-link{
-    display: inline;
-  }
-  .btn-link {
-    padding-left: 0;
-    font-size: 1.5rem;
-  }
+const OR = styled.span.attrs(() => ({ children: 'or' }))`
+
 `;
 
-const Review = ({ step, course, children }) => ( // eslint-disable-line react/prop-types
-  <BrowseTheBook
-    unstyled={true}
-    chapterSection={step.chapterSection.asString}
-    course={course}
-    tabIndex={-1}
-  >
-    {children}
-  </BrowseTheBook>
+const Review = ({ step, course }) => ( // eslint-disable-line react/prop-types
+  <RelatedContentLink preamble="" course={course} content={step.content.related_content} />
 );
 
-const Submit = ({ ux, children }) => ( // eslint-disable-line react/prop-types
-  <Button variant="link" onClick={ux.submitOriginalResponse}>{children}</Button>
+const Submit = ({ ux }) => ( // eslint-disable-line react/prop-types
+  <Button variant="link" onClick={ux.submitOriginalResponse}>
+    submit this answer
+  </Button>
 );
 
 
@@ -67,9 +68,8 @@ const NudgeMessages = [
     title: 'Take another chance',
     Message: ({ step, course, ux }) => ( // eslint-disable-line react/prop-types
       <Message>
-        Write your answer after <Review course={course} step={step}>reviewing
-        section</Review> OR <Submit ux={ux}>Submit
-        this answer</Submit>
+        Rewrite your answer after reviewing
+        section <Review course={course} step={step} /> <OR/> <Submit ux={ux}/>
       </Message>
     ),
   }, {
@@ -77,26 +77,24 @@ const NudgeMessages = [
     Message: ({ step, course, ux }) => ( // eslint-disable-line react/prop-types
       <Message>
         This question comes from
-        section <ChapterSection chapterSection={step.chapterSection}
-        />. <Review course={course} step={step}>Review and
-        rewrite</Review> OR <Submit ux={ux}>Submit this answer</Submit>
+        section <Review course={course} step={step} /><br />
+        Review and rewrite <OR/> <Submit ux={ux} />
       </Message>
     ),
   }, {
     title: 'Try again',
     Message: ({ step, course, ux }) => ( // eslint-disable-line react/prop-types
       <Message>
-        Take your time. Rewrite your answer after <Review course={course} step={step}>reviewing
-        section</Review> OR <Submit ux={ux}>Submit this answer</Submit>
+        Take your time. Rewrite your answer after reviewing
+        section <Review course={course} step={step} /> <OR/> <Submit ux={ux} />
       </Message>
     ),
   }, {
     title: 'Give it another shot',
     Message: ({ step, course, ux }) => ( // eslint-disable-line react/prop-types
       <Message>
-        Answer in your own words to improve your
-        learning. <Review course={course} step={step}>Review
-        section</Review> OR <Submit ux={ux}>Submit this answer</Submit>
+        Answer in your own words to improve your learning. <br />
+        Review section <Review course={course} step={step} /> <OR/> <Submit ux={ux} />
       </Message>
     ),
   },
@@ -106,9 +104,9 @@ const NudgeMessage = observer(({ course, step, ux }) => {
   const { displayNudgeError } = ux;
   if (!displayNudgeError) {
     return (
-      <Actions>
+      <StyledNudgeMessage>
         <RelatedContentLink course={course} content={step.content.related_content} />
-      </Actions>
+      </StyledNudgeMessage>
     );
   }
 
@@ -116,10 +114,8 @@ const NudgeMessage = observer(({ course, step, ux }) => {
 
   return (
     <StyledNudgeMessage>
-      <Actions>
-        <Title>{ux.nudge.title}</Title>
-        <Message ux={ux} step={step} course={course} />
-      </Actions>
+      <Title>{ux.nudge.title}</Title>
+      <Message ux={ux} step={step} course={course} />
     </StyledNudgeMessage>
   );
 
