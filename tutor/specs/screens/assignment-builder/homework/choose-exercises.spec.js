@@ -75,6 +75,12 @@ describe('choose exercises component', function() {
     expect.snapshot(<C><ChooseExercises {...props} /></C>).toMatchSnapshot();
   });
 
+  it('scrolls into view on mount', () => {
+    const ce = mount(<C><ChooseExercises {...props} /></C>);
+    expect(last(ScrollTo.mock.instances).scrollToSelector).toHaveBeenCalledWith('.select-topics');
+    ce.unmount();
+  });
+
   it('can select exercises', () => {
     const ce = renderExerciseCards(props);
     const uid = ce.find('[data-exercise-id]').last().prop('data-exercise-id');
