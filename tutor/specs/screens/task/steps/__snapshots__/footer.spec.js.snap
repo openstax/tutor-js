@@ -7,8 +7,8 @@ exports[`Task Step Footer matches snapshot 1`] = `
       <div className=\\"StyledExerciseFooter-sc-7wyi4k-0 jLaQDQ\\">
         <StyledExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"185cbf87-c72e-48f5-b51e-f14f21b5eabd\\" related_content={{...}}>
           <StyledComponent exerciseId=\\"1@1\\" bookUUID=\\"185cbf87-c72e-48f5-b51e-f14f21b5eabd\\" related_content={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-            <ExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"185cbf87-c72e-48f5-b51e-f14f21b5eabd\\" related_content={{...}} className=\\"StyledExerciseIdentifierLink-sc-7wyi4k-1 fCSBlh\\">
-              <div className=\\"exercise-identifier-link StyledExerciseIdentifierLink-sc-7wyi4k-1 fCSBlh\\">
+            <ExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"185cbf87-c72e-48f5-b51e-f14f21b5eabd\\" related_content={{...}} className=\\"StyledExerciseIdentifierLink-sc-7wyi4k-1 jcMshY\\">
+              <div className=\\"exercise-identifier-link StyledExerciseIdentifierLink-sc-7wyi4k-1 jcMshY\\">
                 ID# 
                 1@1
                  | 

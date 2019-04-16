@@ -7,7 +7,7 @@ const neutral = {
   cool:     '#f6f7f8', // cool gray
   lighter:  '#f1f1f1', // light gray
   light:    '#e4e4e4', // light gray
-  lite:     '#919191', // a gray that's darker than "light"
+  lite:     '#929292', // a gray that's darker than "light"
   std:      '#818181', // gray
   thin:     '#6f6f6f',
   gray:     '#5e5e5e',
