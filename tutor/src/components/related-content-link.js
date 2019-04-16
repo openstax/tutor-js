@@ -8,7 +8,7 @@ import BrowseTheBook from './buttons/browse-the-book';
 const StyledRelatedContentLink = styled.div`
   display: flex;
   .chapter-section { font-weight: normal; color: inherit; }
-  .part { display: flex; }
+
 `;
 
 const Title = styled.span`
@@ -19,17 +19,17 @@ const Title = styled.span`
   white-space: nowrap;
 `;
 
-const Preamble = styled.span`
+const Preamble = styled.span.attrs({ className: 'preamble' })`
   margin-right: 0.5rem;
 `;
 
-const RelatedContentLink = ({ course, content }) => {
+const RelatedContentLink = ({ course, content, preamble }) => {
 
   if (isEmpty(content)) { return null; }
 
   return (
-    <StyledRelatedContentLink>
-      <Preamble>Comes from</Preamble>
+    <StyledRelatedContentLink className="related-content-link">
+      {preamble && <Preamble>{preamble}</Preamble>}
       {content.map((rl, i) => (
         <BrowseTheBook
           key={i}
@@ -52,6 +52,12 @@ RelatedContentLink.propTypes = {
   content: PropTypes.arrayOf(
     PropTypes.instanceOf(RelatedContent).isRequired,
   ).isRequired,
+  preamble: PropTypes.string,
 };
+
+RelatedContentLink.defaultProps = {
+  preamble: 'Comes from',
+};
+
 
 export default RelatedContentLink;

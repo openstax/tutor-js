@@ -13,13 +13,6 @@ exports[`Related Content Link renders and matches snapshot 1`] = `
   color: inherit;
 }
 
-.c0 .part {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
 .c2 {
   margin-left: 0.5rem;
   max-width: 300px;
@@ -33,10 +26,10 @@ exports[`Related Content Link renders and matches snapshot 1`] = `
 }
 
 <div
-  className="c0"
+  className="related-content-link c0"
 >
   <span
-    className="c1"
+    className="preamble c1"
   >
     Comes from
   </span>
