@@ -1,4 +1,4 @@
-import { React, PropTypes, styled } from '../helpers/react';
+import { React, PropTypes, styled, cn } from '../helpers/react';
 import { isEmpty } from 'lodash';
 import Course from '../models/course';
 import ChapterSection from './chapter-section';
@@ -11,7 +11,7 @@ const StyledRelatedContentLink = styled.div`
 
 `;
 
-const Title = styled.span`
+const Title = styled.span.attrs({ className: 'title' })`
   margin-left: 0.5rem;
   max-width: 300px;
   text-overflow: ellipsis;
@@ -23,12 +23,12 @@ const Preamble = styled.span.attrs({ className: 'preamble' })`
   margin-right: 0.5rem;
 `;
 
-const RelatedContentLink = ({ course, content, preamble }) => {
+const RelatedContentLink = ({ className, linkPrefix, course, content, preamble }) => {
 
   if (isEmpty(content)) { return null; }
 
   return (
-    <StyledRelatedContentLink className="related-content-link">
+    <StyledRelatedContentLink className={cn('related-content-link', className)}>
       {preamble && <Preamble>{preamble}</Preamble>}
       {content.map((rl, i) => (
         <BrowseTheBook
@@ -38,6 +38,7 @@ const RelatedContentLink = ({ course, content, preamble }) => {
           course={course}
           tabIndex={-1}
         >
+          {linkPrefix}
           <span className="part">
             <ChapterSection chapterSection={rl.chapter_section} />
             <Title>{rl.title}</Title>
@@ -53,6 +54,8 @@ RelatedContentLink.propTypes = {
     PropTypes.instanceOf(RelatedContent).isRequired,
   ).isRequired,
   preamble: PropTypes.string,
+  className: PropTypes.string,
+  linkPrefix: PropTypes.node,
 };
 
 RelatedContentLink.defaultProps = {

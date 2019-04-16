@@ -8,9 +8,6 @@ describe('Related Content Link', () => {
     new RelatedContent({
       title: 'Intro', chapter_section: new ChapterSection([1,0]),
     }),
-    new RelatedContent({
-      title: 'First', chapter_section: new ChapterSection([1,1]),
-    }),
   ];
 
   it('renders and matches snapshot', () => {
@@ -19,11 +16,14 @@ describe('Related Content Link', () => {
     ).toMatchSnapshot();
   });
 
-  it('customizes preamble', () => {
+  it('customizes preamble and link prefix', () => {
     const rcl = mount(
       <RelatedContentLink preamble='A test' course={Factory.course()} content={content} />,
     );
     expect(rcl.text()).toContain('A test');
+    rcl.setProps({ linkPrefix: 'This is linked' });
+    expect(rcl.find('BrowseTheBook a').text()).toContain('This is linked');
+    rcl.unmount();
   });
 
   it('hides preamble', () => {
@@ -31,6 +31,7 @@ describe('Related Content Link', () => {
       <RelatedContentLink preamble='' course={Factory.course()} content={content} />,
     );
     expect(rcl.text()).not.toContain('Comes from');
+    rcl.unmount();
   });
 
 });

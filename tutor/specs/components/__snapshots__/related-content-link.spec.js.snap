@@ -51,33 +51,9 @@ exports[`Related Content Link renders and matches snapshot 1`] = `
         1
       </span>
       <span
-        className="c2"
+        className="title c2"
       >
         Intro
-      </span>
-    </span>
-  </a>
-  <a
-    aria-label="Browse course reference book"
-    className="browse-the-book"
-    href="/book/1/section/1.1"
-    onClick={[Function]}
-    tabIndex={-1}
-    target="_blank"
-  >
-    <span
-      className="part"
-    >
-      <span
-        className="chapter-section"
-        data-chapter-section="1.1"
-      >
-        1.1
-      </span>
-      <span
-        className="c2"
-      >
-        First
       </span>
     </span>
   </a>
