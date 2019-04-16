@@ -8,6 +8,7 @@ import Course from '../../../models/course';
 import TaskStep from '../../../models/student-tasks/step';
 import RelatedContentLink from '../../../components/related-content-link';
 
+
 const StyledNudgeMessage = styled.div`
   flex: 1;
   display: flex;
@@ -22,13 +23,12 @@ const StyledNudgeMessage = styled.div`
   }
   .related-content-link{
     display: inline;
-    .preamble {
-      color: ${Theme.colors.neutral.lite};
-    }
+    .preamble { color: ${Theme.colors.neutral.lite}; }
+    .title { white-space: normal; }
   }
   .btn-link {
     padding-left: 0;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 `;
 
@@ -46,14 +46,20 @@ const Message = styled.div`
 const Title = styled.h5`
   color: ${Theme.colors.danger};
   font-weight: bolder;
+  font-size: 1.4rem;
 `;
 
 const OR = styled.span.attrs(() => ({ children: 'or' }))`
 
 `;
 
-const Review = ({ step, course }) => ( // eslint-disable-line react/prop-types
-  <RelatedContentLink preamble="" course={course} content={step.content.related_content} />
+const Review = ({ step, course, prefix = '' }) => ( // eslint-disable-line react/prop-types
+  <RelatedContentLink
+    preamble=""
+    linkPrefix={prefix}
+    course={course}
+    content={step.content.related_content}
+  />
 );
 
 const Submit = ({ ux }) => ( // eslint-disable-line react/prop-types
@@ -77,8 +83,8 @@ const NudgeMessages = [
     Message: ({ step, course, ux }) => ( // eslint-disable-line react/prop-types
       <Message>
         This question comes from
-        section <Review course={course} step={step} /><br />
-        Review and rewrite <OR/> <Submit ux={ux} />
+        section <Review course={course} step={step} />. Review and
+        rewrite <OR/> <Submit ux={ux} />
       </Message>
     ),
   }, {
@@ -93,7 +99,7 @@ const NudgeMessages = [
     title: 'Give it another shot',
     Message: ({ step, course, ux }) => ( // eslint-disable-line react/prop-types
       <Message>
-        Answer in your own words to improve your learning. <br />
+        Answer in your own words to improve your learning.
         Review section <Review course={course} step={step} /> <OR/> <Submit ux={ux} />
       </Message>
     ),
