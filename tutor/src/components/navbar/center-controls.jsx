@@ -49,7 +49,7 @@ class CenterControls extends React.Component {
           <NotesSummaryToggle
             course={this.course}
             type="reading"
-            taskStep={taskStep}
+            model={taskStep}
           />
         </div>
       </div>
