@@ -29,4 +29,16 @@ describe('Center Controls', function() {
     cntrl.unmount();
   });
 
+  it('hides notes when not annotatable', () => {
+    const step = Factory.studentTask({ type: 'reading', stepCount: 1 }).steps[0];
+    step.type = 'reading';
+    expect(step.canAnnotate).toBe(true);
+    CenterControls.currentTaskStep = step;
+    const cntrl = mount(<CenterControls {...props} />, EnzymeContext.build());
+    expect(cntrl.find('NoteSummaryToggle').html()).not.toBeNull();
+    step.type = 'exercise';
+    expect(cntrl.find('NoteSummaryToggle').html()).toBeNull();
+    cntrl.unmount();
+  });
+
 });
