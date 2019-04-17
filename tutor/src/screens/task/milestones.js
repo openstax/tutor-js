@@ -39,12 +39,13 @@ class Milestone extends React.Component {
           onClick={this.goToStep}
         >
           <Breadcrumb
+            canReview
             step={step}
+            isCurrent={active}
             stepIndex={stepIndex}
             data-label={step.label}
             goToStep={this.goToStep}
             currentStep={currentStep}
-            isCurrent={active}
             key={`breadstep-${step.type}-${stepIndex}`}
           />
           {preview}
