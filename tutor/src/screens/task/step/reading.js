@@ -6,13 +6,6 @@ import Step from '../../../models/student-tasks/step';
 import ContinueBtn from './continue-btn';
 
 const StyledReading = styled(TaskStepCard)`
-  [data-type="page"] {
-    padding-top: 4rem;
-    & > .os-chapter-outline {
-      margin-top: -4rem;
-    }
-    .splash { margin-top: -4rem; }
-  }
 
 `;
 
