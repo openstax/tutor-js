@@ -27,12 +27,23 @@ describe('Task Response Validation', () => {
     expect(ux.nudge.title).toEqual('two');
   });
 
-  it('does not set message when ui is off', async () => {
+  it('does not record nudge when UI is not enabled', async () => {
     validator.isUIEnabled = false;
     ux.setResponse({ target: { value: 'garbage all the way down' } });
     await ux.onSave();
     expect(step.response_validation.attempts).toHaveLength(1);
     expect(step.response_validation.attempts[0].nudge).toBeNull();
+  });
+
+  it('only records nudge when its displayed', async () => {
+    ux.setResponse({ target: { value: 'garbage all the way down' } });
+    await ux.onSave();
+    expect(step.response_validation.attempts).toHaveLength(1);
+    expect(step.response_validation.attempts[0].nudge).toEqual('two');
+    ux.setResponse({ target: { value: 'another attempt' } });
+    await ux.onSave();
+    expect(step.response_validation.attempts).toHaveLength(2);
+    expect(step.response_validation.attempts[1].nudge).toBeNull();
   });
 
   it('disables submit btn appropriately', () => {

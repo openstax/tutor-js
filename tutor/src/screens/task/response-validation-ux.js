@@ -53,7 +53,8 @@ class ResponseValidationUX {
   }
 
   @action async validate() {
-    const nudge = this.validator.isUIEnabled ? this.nudge.title : null;
+    // Nudges are only displayed on the first attempt, only save the message if it was shown.
+    const nudge = this.validator.isUIEnabled && isEmpty(this.results) ? this.nudge.title : null;
     const submitted = this.response;
     try {
       const reply = await this.validator.validate({
