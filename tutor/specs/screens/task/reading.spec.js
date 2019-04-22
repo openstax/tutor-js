@@ -34,10 +34,10 @@ describe('Reading Tasks Screen', () => {
   });
 
   it('renders value props', () => {
-    props.ux._task.steps.unshift({ type: 'personalized-intro' });
-    props.ux._stepIndex = 0;
+    props.ux._stepIndex = props.ux.steps.findIndex(s=>s.type === 'two-step-intro');
     const r = mount(<C><Reading {...props} /></C>);
-    expect(r).toHaveRendered('PersonalizedGroup');
+    expect(props.ux.currentStep.type).toEqual('two-step-intro');
+    expect(r).toHaveRendered('TwoStepValueProp');
     r.unmount();
   });
 

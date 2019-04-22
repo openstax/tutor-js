@@ -21,10 +21,9 @@ describe('Reading Tasks Screen', () => {
     expect(<C><Homework {...props} /></C>).toMatchSnapshot();
   });
 
-  it('renders value props', () => {
-    props.ux._task.steps.unshift({ type: 'two-step-intro' });
-    props.ux._stepIndex = 0;
+  fit('renders value props', () => {
     const h = mount(<C><Homework {...props} /></C>);
+    expect(props.ux.currentStep.type).toEqual('two-step-intro');
     expect(h).toHaveRendered('TwoStepValueProp');
     h.unmount();
   });
@@ -34,6 +33,8 @@ describe('Reading Tasks Screen', () => {
     const h = mount(<C><Homework {...props} /></C>);
     expect(h).toHaveRendered('IndividualReview');
     props.ux.goForward();
+    expect(h).toHaveRendered('LoadingCard');
+    props.ux.currentStep.api.requestCounts.read = 1;
     expect(h).toHaveRendered('PlaceHolderTaskStep');
     h.unmount();
   });
