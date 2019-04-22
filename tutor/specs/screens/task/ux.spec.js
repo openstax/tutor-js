@@ -27,11 +27,26 @@ describe('Task UX Model', () => {
     ).not.toBeUndefined();
   });
 
+  it('groups steps', () => {
+    const i = 1 + ux.steps.findIndex(s => s.type == 'two-step-intro');
+    // steps with null uid do not group
+    ux.steps[i+1].uid = ux.groupedSteps[i].uid = undefined;
+    expect(ux.groupedSteps[i].type).not.toBe('mpq');
+
+    ux.steps[i+1].uid = ux.groupedSteps[i].uid = '123@4';
+    const group = ux.groupedSteps[i];
+    expect(group.type).toBe('mpq');
+    expect(group.steps.map(s=>s.id)).toEqual([
+      ux.steps[i].id,
+      ux.steps[i+1].id,
+    ]);
+
+  });
+
   it('scrolls to next mpq', async () => {
     const i = 1 + ux.steps.findIndex(s => s.type == 'two-step-intro');
     ux.steps[i+1].uid = ux.groupedSteps[i].uid;
     const group = ux.groupedSteps[i];
-    expect(group.type).toBe('mpq');
     const s = group.steps[0];
     expect(s.multiPartGroup).toBe(group);
 
