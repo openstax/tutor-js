@@ -59,8 +59,8 @@ const UNSAVEABLE_TYPES = [
   'placeholder',
 ];
 
-const HAS_ADDITIONAL_CONTENT = [
-  'reading', 'exercise', 'interactive', 'video',
+const NO_ADDITIONAL_CONTENT = [
+  'external_url',
 ];
 
 export default
@@ -141,7 +141,7 @@ class StudentTaskStep extends BaseModel {
 
   @computed get needsFetched() {
     return Boolean(
-      HAS_ADDITIONAL_CONTENT.includes(this.type) && !this.api.hasBeenFetched
+      !NO_ADDITIONAL_CONTENT.includes(this.type) && !this.api.hasBeenFetched
     );
   }
 
