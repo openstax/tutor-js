@@ -30,7 +30,6 @@ class Breadcrumb extends React.Component {
     const isCompleted = step.isInfo ? null : step.is_completed;
     const { type: crumbType } = step;
     const isEnd = 'end' === crumbType;
-
     if (isCompleted) {
       if (canReview && (step.correct_answer_id != null)) {
         if (step.isCorrect) {
@@ -86,10 +85,11 @@ class Breadcrumb extends React.Component {
         title={title}
         aria-label={title}
         className={classes}
+        data-step-id={step.id}
+        key={`step-${step.id}`}
         onClick={this.goToStep}
         data-step-index={dataStepIndex}
         data-chapter={step.sectionLabel}
-        key={`step-${step.id}`}
       >
         <i className={`icon-lg ${iconClasses}`} />
         {status}
