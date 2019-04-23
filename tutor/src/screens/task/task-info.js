@@ -1,6 +1,6 @@
 import { React, PropTypes, observer, styled } from '../../helpers/react';
 import Task from '../../models/student-tasks/task';
-import moment from 'moment-timezone';
+import TimeHelper from '../../helpers/time';
 
 const StyledTaskInfo = styled.div`
   display: flex;
@@ -29,7 +29,7 @@ class TaskInfo extends React.Component {
     return (
       <StyledTaskInfo>
         <Title>{task.title}</Title>
-        <DueDate>due {moment(task.due_at).calendar()}</DueDate>
+        <DueDate>due {TimeHelper.toShortHumanDateTime(task.due_at)}</DueDate>
       </StyledTaskInfo>
     );
   }
