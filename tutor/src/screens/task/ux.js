@@ -54,7 +54,7 @@ export default class TaskUX {
     const { steps } = this.manipulated;
     if (this.task.isHomework) {
       return map(
-        groupBy(steps, s => `${s.type}.${s.uid}`),
+        groupBy(steps, s => `${s.type}.${s.uid || s.id}`),
         (steps, uid) => steps.length > 1 ?
           new StepGroup({ steps, uid }) : steps[0]
       );
