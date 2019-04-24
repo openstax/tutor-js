@@ -9,7 +9,7 @@ describe('auto-updating window size', () => {
 
   beforeEach(() => {
     fakeWindow = new FakeWindow();
-    size = new WindowSize(fakeWindow);
+    size = new WindowSize({ windowImpl: fakeWindow });
   });
 
   it('can be read without observing', () => {
