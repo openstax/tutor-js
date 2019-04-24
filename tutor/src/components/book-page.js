@@ -388,6 +388,7 @@ class BookPage extends React.Component {
           <NotesWidget
             course={ux.course}
             page={page}
+            windowImpl={ux.windowImpl}
             documentId={page.cnx_id}
           >
             <ArbitraryHtmlAndMath

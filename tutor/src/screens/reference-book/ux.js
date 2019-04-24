@@ -28,8 +28,8 @@ export default class ReferenceBookUX extends BookUX {
     this.pendingCheck = null;
   }
 
-  constructor(router, tours) {
-    super();
+  constructor(router, tours, options = {}) {
+    super(options);
     this.tours = tours;
     this.router = router;
   }

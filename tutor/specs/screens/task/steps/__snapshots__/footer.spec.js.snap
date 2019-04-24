@@ -30,7 +30,7 @@ exports[`Task Step Footer matches snapshot 1`] = `
                     </span>
                   </StyledComponent>
                 </Preamble>
-                <BrowseTheBook unstyled={true} chapterSection=\\"1.2\\" course={{...}} tabIndex={-1} tag=\\"a\\" windowImpl={{...}}>
+                <BrowseTheBook unstyled={true} chapterSection={{...}} course={{...}} tabIndex={-1} tag=\\"a\\" windowImpl={{...}}>
                   <a aria-label=\\"Browse course reference book\\" onClick={[Function: res]} tabIndex={-1} href=\\"/book/1/section/1.2\\" target=\\"_blank\\" className=\\"browse-the-book\\">
                     <ChapterSection chapterSection={{...}}>
                       <span className=\\"chapter-section\\" data-chapter-section=\\"1.2\\">

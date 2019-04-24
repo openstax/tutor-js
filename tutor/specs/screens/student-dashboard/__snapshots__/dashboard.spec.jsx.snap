@@ -147,7 +147,7 @@ exports[`Student Dashboard displays as loading 1`] = `
             aria-label="Browse course reference book"
             className="browse-the-book"
             data-appearance="college_physics"
-            href="/book/1"
+            href="/book/2"
             onClick={[Function]}
             target="_blank"
           >

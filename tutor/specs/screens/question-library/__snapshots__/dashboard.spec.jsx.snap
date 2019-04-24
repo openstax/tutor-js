@@ -172,15 +172,6 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                     Kinematics
                      
                   </span>
-                  <a
-                    aria-label="Browse course reference book"
-                    className="browse-the-book"
-                    href="/book/1/section/1"
-                    onClick={[Function]}
-                    target="_blank"
-                  >
-                    Browse this Chapter
-                  </a>
                 </div>
                 <div
                   aria-expanded={null}
@@ -337,15 +328,6 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                     Mechanics
                      
                   </span>
-                  <a
-                    aria-label="Browse course reference book"
-                    className="browse-the-book"
-                    href="/book/1/section/2"
-                    onClick={[Function]}
-                    target="_blank"
-                  >
-                    Browse this Chapter
-                  </a>
                 </div>
                 <div
                   aria-expanded={null}
@@ -502,15 +484,6 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                     Thermodynamics
                      
                   </span>
-                  <a
-                    aria-label="Browse course reference book"
-                    className="browse-the-book"
-                    href="/book/1/section/3"
-                    onClick={[Function]}
-                    target="_blank"
-                  >
-                    Browse this Chapter
-                  </a>
                 </div>
                 <div
                   aria-expanded={null}

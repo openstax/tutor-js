@@ -1,8 +1,8 @@
 import { observable, computed, action, observe } from 'mobx';
 import { first, invoke } from 'lodash';
 import WindowSize from '../window-size';
-import Courses from '../courses-map';
 import Book from '../reference-book';
+import Courses from '../courses-map';
 import Scroller from '../../helpers/scroll-to';
 
 // menu width (300) + page width (1000) + 50 px padding
@@ -17,10 +17,11 @@ export default class BookUX {
   @observable courseId;
   @observable book;
 
-  windowSize = new WindowSize();
-  scroller = new Scroller();
+  windowSize = new WindowSize({ windowImpl: this.windowImpl });
+  scroller = new Scroller({ windowImpl: this.windowImpl });
 
-  constructor() {
+  constructor({ windowImpl } = {}) {
+    this.windowImpl = windowImpl;
     this.disposers = [
       observe(this, 'ecosystemId', this.onEcosystemChange),
       observe(this, 'chapterSection', this.onChapterSectionChange),
@@ -34,7 +35,11 @@ export default class BookUX {
 
   @action.bound onEcosystemChange({ newValue: ecosystemId }) {
     if (this.book && this.book.id == ecosystemId){ return; }
-    this.book = new Book({ id: ecosystemId });
+    if (this.course) {
+      this.book = this.course.referenceBook;
+    } else {
+      this.book =  new Book({ id: ecosystemId });
+    }
     this.book.fetch().then(() => {
       if (!this.chapterSection) {
         this.setChapterSection();  // will default to first section
