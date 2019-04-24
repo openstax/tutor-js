@@ -14,6 +14,7 @@ export default class BookUX {
   @observable isMenuVisible = window.innerWidth > MENU_VISIBLE_BREAKPOINT;
   @observable chapterSection;
   @observable ecosystemId;
+  @observable courseId;
   @observable book;
 
   windowSize = new WindowSize();
@@ -68,7 +69,19 @@ export default class BookUX {
   }
 
   @action.bound update(props) {
-    this.ecosystemId = props.ecosystemId;
+    if (props.ecosystemId) {
+      this.ecosystemId = props.ecosystemId;
+    } else if (props.courseId) {
+      this.courseId = props.courseId;
+      // the finding by ecosystem id fallback is
+      // a hack in case users access from a old bookmark
+      // in that case the id that's present will be the ecosystem
+      const course = Courses.get(this.courseId) ||
+        Courses.forEcosystemId(this.courseId);
+      if (course) {
+        this.ecosystemId = course.ecosystem_id;
+      }
+    }
     this.setChapterSection(props.chapterSection);
   }
 
@@ -88,6 +101,9 @@ export default class BookUX {
   }
 
   @computed get course() {
+    if (this.courseId) {
+      return Courses.get(this.courseId);
+    }
     return this.ecosystemId && Courses.forEcosystemId(this.ecosystemId);
   }
 

@@ -34,7 +34,7 @@ const RelatedContentLink = ({ className, linkPrefix, course, content, preamble }
         <BrowseTheBook
           key={i}
           unstyled={true}
-          chapterSection={rl.chapter_section.asString}
+          chapterSection={rl.chapter_section}
           course={course}
           tabIndex={-1}
         >

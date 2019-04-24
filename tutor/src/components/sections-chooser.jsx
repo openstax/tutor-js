@@ -140,7 +140,7 @@ class ChapterAccordion extends React.Component {
           <BrowseTheBook
             unstyled
             onClick={this.browseBook}
-            chapterSection={chapter.chapter_section.asString}
+            chapterSection={chapter.chapter_section}
             book={this.props.book}
           >
             Browse this Chapter

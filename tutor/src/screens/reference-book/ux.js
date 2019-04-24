@@ -62,7 +62,7 @@ export default class ReferenceBookUX extends BookUX {
   sectionHref(section) {
     if (!section) { return null; }
     return Router.makePathname('viewReferenceBookSection', {
-      ecosystemId: this.book.id,
+      courseId: this.course.id,
       chapterSection: section.chapter_section.asString,
     }, { query: Router.currentQuery() });
   }
