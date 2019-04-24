@@ -70,6 +70,7 @@ class SelectTopics extends React.Component {
         >
           <div key="select-chapters" className="select-chapters">
             <SectionsChooser
+              course={course}
               book={course.referenceBook}
               selectedPageIds={selected}
               onSelectionChange={this.onSectionChange}

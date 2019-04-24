@@ -11,6 +11,7 @@ import TriStateCheckbox from './tri-state-checkbox';
 import cn from 'classnames';
 import Loading from  'shared/components/loading-animation';
 import BookModel from '../models/reference-book';
+import CourseModel from '../models/course';
 import ChapterModel from '../models/reference-book/chapter';
 import PageModel from '../models/reference-book/page';
 
@@ -87,6 +88,7 @@ class ChapterAccordion extends React.Component {
   static propTypes = {
     book: PropTypes.instanceOf(BookModel).isRequired,
     chapter: PropTypes.instanceOf(ChapterModel).isRequired,
+    course: PropTypes.instanceOf(CourseModel),
     onChange: PropTypes.func.isRequired,
     selections: PropTypes.object.isRequired,
   };
@@ -116,7 +118,7 @@ class ChapterAccordion extends React.Component {
   }
 
   render() {
-    const { chapter } = this.props;
+    const { chapter, course } = this.props;
     const selected = filter(chapter.children, this.isSectionSelected);
 
     const checkBoxType = selected.length === chapter.children.assignable.length ? 'checked'
@@ -137,14 +139,15 @@ class ChapterAccordion extends React.Component {
           <span className="chapter-number">
             Chapter <ChapterSection chapterSection={chapter.chapter_section} /> - </span>
           <span className="chapter-title"> {chapter.title} </span>
-          <BrowseTheBook
-            unstyled
-            onClick={this.browseBook}
-            chapterSection={chapter.chapter_section}
-            book={this.props.book}
-          >
-            Browse this Chapter
-          </BrowseTheBook>
+          {course &&
+            <BrowseTheBook
+              unstyled
+              onClick={this.browseBook}
+              chapterSection={chapter.chapter_section}
+              course={course}
+            >
+              Browse this Chapter
+            </BrowseTheBook>}
         </ChapterHeading>
         <Collapse in={this.expanded}>
           <div className="sections">
@@ -168,6 +171,7 @@ class SectionsChooser extends React.Component {
 
   static propTypes = {
     book: PropTypes.instanceOf(BookModel).isRequired,
+    course: PropTypes.instanceOf(CourseModel),
     onSelectionChange: PropTypes.func,
     selectedPageIds: PropTypes.arrayOf(
       PropTypes.string
