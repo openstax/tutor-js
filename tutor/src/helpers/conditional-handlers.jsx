@@ -1,6 +1,5 @@
 import React from 'react';
-import invariant from 'invariant';
-import { extend, last, first } from 'lodash';
+import { extend } from 'lodash';
 import { Redirect } from 'react-router-dom';
 import { asyncComponent } from './async-component';
 import { CourseNotFoundWarning } from '../components/course-not-found-warning';
