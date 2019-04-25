@@ -28,8 +28,8 @@ export default class ReferenceBookUX extends BookUX {
     this.pendingCheck = null;
   }
 
-  constructor(router, tours) {
-    super();
+  constructor(router, tours, options = {}) {
+    super(options);
     this.tours = tours;
     this.router = router;
   }
@@ -62,7 +62,7 @@ export default class ReferenceBookUX extends BookUX {
   sectionHref(section) {
     if (!section) { return null; }
     return Router.makePathname('viewReferenceBookSection', {
-      ecosystemId: this.book.id,
+      courseId: this.course.id,
       chapterSection: section.chapter_section.asString,
     }, { query: Router.currentQuery() });
   }

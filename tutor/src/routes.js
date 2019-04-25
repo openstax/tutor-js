@@ -87,17 +87,13 @@ const getRoutes = (router) => {
     { path: '/payments', name: 'managePayments',
       renderer: r(() => import('./components/payments/manage')) },
     {
-      path: '/book/:ecosystemId', name: 'viewReferenceBook', settings: { navBar: 'Plugable' },
+      path: '/book/:courseId', name: 'viewReferenceBook', settings: { navBar: 'Plugable' },
       renderer: r(() => import('./screens/reference-book/index.jsx')) },
     {
-      path: '/book/:ecosystemId/section/:chapterSection',
+      path: '/book/:courseId/section/:chapterSection',
       name: 'viewReferenceBookSection', settings: { navBar: 'Plugable' },
       renderer: r(() => import('./screens/reference-book/index.jsx')) },
     {
-      path: '/books/:parts*',
-      name: 'legacyReferenceBookRedirect',
-      renderer: ConditionalHandlers.legacyReferenceBookRedirect,
-    }, {
       path: '/surveys/:courseId/:surveyId', name: 'researchSurvey',
       renderer: r(() => import('./screens/surveys/index.jsx')),
     },

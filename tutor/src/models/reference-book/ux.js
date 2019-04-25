@@ -1,8 +1,8 @@
 import { observable, computed, action, observe } from 'mobx';
 import { first, invoke } from 'lodash';
 import WindowSize from '../window-size';
-import Courses from '../courses-map';
 import Book from '../reference-book';
+import Courses from '../courses-map';
 import Scroller from '../../helpers/scroll-to';
 
 // menu width (300) + page width (1000) + 50 px padding
@@ -14,12 +14,14 @@ export default class BookUX {
   @observable isMenuVisible = window.innerWidth > MENU_VISIBLE_BREAKPOINT;
   @observable chapterSection;
   @observable ecosystemId;
+  @observable courseId;
   @observable book;
 
-  windowSize = new WindowSize();
-  scroller = new Scroller();
+  windowSize = new WindowSize({ windowImpl: this.windowImpl });
+  scroller = new Scroller({ windowImpl: this.windowImpl });
 
-  constructor() {
+  constructor({ windowImpl } = {}) {
+    this.windowImpl = windowImpl;
     this.disposers = [
       observe(this, 'ecosystemId', this.onEcosystemChange),
       observe(this, 'chapterSection', this.onChapterSectionChange),
@@ -33,7 +35,11 @@ export default class BookUX {
 
   @action.bound onEcosystemChange({ newValue: ecosystemId }) {
     if (this.book && this.book.id == ecosystemId){ return; }
-    this.book = new Book({ id: ecosystemId });
+    if (this.course) {
+      this.book = this.course.referenceBook;
+    } else {
+      this.book =  new Book({ id: ecosystemId });
+    }
     this.book.fetch().then(() => {
       if (!this.chapterSection) {
         this.setChapterSection();  // will default to first section
@@ -68,7 +74,19 @@ export default class BookUX {
   }
 
   @action.bound update(props) {
-    this.ecosystemId = props.ecosystemId;
+    if (props.ecosystemId) {
+      this.ecosystemId = props.ecosystemId;
+    } else if (props.courseId) {
+      this.courseId = props.courseId;
+      // the finding by ecosystem id fallback is
+      // a hack in case users access from a old bookmark
+      // in that case the id that's present will be the ecosystem
+      const course = Courses.get(this.courseId) ||
+        Courses.forEcosystemId(this.courseId);
+      if (course) {
+        this.ecosystemId = course.ecosystem_id;
+      }
+    }
     this.setChapterSection(props.chapterSection);
   }
 
@@ -88,6 +106,9 @@ export default class BookUX {
   }
 
   @computed get course() {
+    if (this.courseId) {
+      return Courses.get(this.courseId);
+    }
     return this.ecosystemId && Courses.forEcosystemId(this.ecosystemId);
   }
 

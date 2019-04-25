@@ -10,7 +10,7 @@ function mockGa(name = 'tutor') {
   });
   ga.getAll = jest.fn(() => [ ga ]);
 
-  ga.get = (arg) => {
+  ga.get = (arg) => { // eslint-disable-next-line no-console
     if (arg !=='name') { console.warn(`unknown get for ${name}`); }
     return name;
   };
@@ -85,8 +85,8 @@ describe('Analytics', function() {
       [`${c}/homework/new`]:                '/teacher/assignment/create/homework/1',
       [`${c}/external/new`]:                '/teacher/assignment/create/external/1',
       [`${c}/t/month/2011-11-11/plan/66`]:  '/teacher/metrics/quick/1',
-      '/book/991':                           '/reference-view/1',
-      '/book/991/section/2.2':               '/reference-view/1/section/2.2',
+      '/book/1':                            '/reference-view/1',
+      '/book/1/section/2.2':                '/reference-view/1/section/2.2',
     };
     for (let route in tests) {
       const translated = tests[route];

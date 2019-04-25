@@ -27,10 +27,8 @@ const assignmentTypeTranslator = function(assignmentType, { courseId, id }) {
   return `/teacher/assignment/${type}/${assignmentType}/${courseId}`;
 };
 
-function viewReferenceBook({ ecosystemId, chapterSection }) {
-  const course = Courses.forEcosystemId(ecosystemId);
-  if (!course) { return `/reference-view/ecosystem/${ecosystemId}`; }
-  const url = `/reference-view/${course.id}`;
+function viewReferenceBook({ courseId, chapterSection }) {
+  const url = `/reference-view/${courseId}`;
   return chapterSection ? `${url}/section/${chapterSection}` : url;
 }
 

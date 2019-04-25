@@ -4,7 +4,7 @@ import { debounce } from 'lodash';
 
 export default class WindowSize {
 
-  constructor(windowImpl = window) {
+  constructor({ windowImpl = window } = {}) {
     this.size = fromResource(
       (sink) => {
         sink(this.readSize(windowImpl));

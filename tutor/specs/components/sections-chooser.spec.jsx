@@ -8,6 +8,7 @@ describe('Sections Chooser', () => {
     book = Factory.book();
     props = {
       book,
+      course: Factory.course(),
       onSelectionChange: jest.fn(),
       selectedPageIds: [],
     };

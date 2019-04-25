@@ -1,6 +1,5 @@
 import React from 'react';
-import invariant from 'invariant';
-import { extend, last, first } from 'lodash';
+import { extend } from 'lodash';
 import { Redirect } from 'react-router-dom';
 import { asyncComponent } from './async-component';
 import { CourseNotFoundWarning } from '../components/course-not-found-warning';
@@ -54,30 +53,9 @@ const getConditionalHandlers = (Router) => {
       }
     }
   };
-  // eslint-disable-next-line react/prop-types
-  const legacyReferenceBookRedirect = ({ params }) => {
-    const parts = params.parts.split('/');
-    const course = Courses.get(first(parts));
-    invariant(course, `Did not find course for params '${params}'`);
-    const chapterSection = parts.length > 1 ? last(parts) : 0;
-    return (
-      <Redirect
-        to={{
-          pathname: Router.makePathname(
-            chapterSection ? 'viewReferenceBookSection' : 'viewReferenceBook',
-            {
-              ecosystemId: course.ecosystem_id,
-              chapterSection,
-            }),
-          query: Router.currentQuery(),
-        }}
-      />
-    );
-  };
 
   return {
     dashboard() { return renderDashboard; },
-    legacyReferenceBookRedirect() { return legacyReferenceBookRedirect; },
   };
 };
 

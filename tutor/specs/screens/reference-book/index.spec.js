@@ -1,41 +1,43 @@
-import { C, React, Factory, EnzymeContext } from '../../helpers';
+import { React, Factory, EnzymeContext, FakeWindow } from '../../helpers';
 import ReferenceBook from '../../../src/screens/reference-book/reference-book';
 import ReferenceBookUX from '../../../src/screens/reference-book/ux';
 import Router from '../../../src/helpers/router';
+import Courses from '../../../src/models/courses-map';
 
+jest.mock('../../../src/models/courses-map');
 jest.mock('../../../src/helpers/router');
 jest.mock('../../../../shared/src/components/html', () => ({ html }) =>
   html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
 );
 
-const COURSE_ID = '1';
-
 describe('Reference Book Component', function() {
-  let props, ux, REFERENCE_BOOK, REFERENCE_BOOK_PAGE_DATA, router;
+  let props, ux, router;
+  let course;
 
   beforeEach(function() {
     router = { foo: 1, history: { push: jest.fn() } };
-    ux = new ReferenceBookUX(router);
-    ux.book = Factory.book();
-    ux._course = Factory.course();
-    ux.setChapterSection('2.1');
-    props = {
-      ux,
-    };
+    ux = new ReferenceBookUX(router, null,
+      { windowImpl: new FakeWindow() }
+    );
+
+    course = Factory.course();
+    course.referenceBook.update(Factory.bot.create('Book'));
+    course.referenceBook.fetch = jest.fn(() => Promise.resolve());
+
+    Courses.get.mockImplementation(() => course);
+
+    ux.update({ courseId: course.id, chapterSection: '2.1' });
+
     Router.currentParams.mockReturnValue({
-      ecosystemId: ux.book.id,
+      courseId: course.id,
       chapterSection: ux.page.chapter_section.toString,
     });
-
+    props = { ux };
   });
 
   it('renders the section title on the navbar', () => {
     const book = mount(<ReferenceBook {...props} />, EnzymeContext.build());
     expect(book).toHaveRendered('BookPage');
-  });
-
-  xit('renders page html that matches snapshot', function() {
-    expect.snapshot(<C><ReferenceBook {...props} /></C>).toMatchSnapshot();
   });
 
   it('navigates forward and back between pages', function() {

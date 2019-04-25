@@ -12,7 +12,7 @@ class ReferenceBookShell extends React.Component {
 
   static propTypes = {
     params: PropTypes.shape({
-      ecosystemId: PropTypes.string.isRequired,
+      courseId: PropTypes.string.isRequired,
       chapterSection: PropTypes.string,
     }).isRequired,
     ux: PropTypes.object,
