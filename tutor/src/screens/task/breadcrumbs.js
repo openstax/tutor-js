@@ -4,7 +4,8 @@ import UX from './ux';
 
 const BreadcrumbsWrapper = styled.div`
   display: flex;
-  height: 55px;
+  flex-wrap: wrap;
+  min-height: 55px;
   align-items: center;
 `;
 
