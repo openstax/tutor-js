@@ -1,26 +1,19 @@
-import { TaskStep } from '../../../../src/screens/task/step';
 import { Factory, FakeWindow, ld } from '../../../helpers';
-import UX from '../../../../src/screens/task/ux';
-
-jest.mock('../../../../src/screens/task/ux');
-jest.mock('../../../../../shared/src/components/html', () => ({ html }) =>
-  html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
-);
+import { TaskStep } from '../../../../src/screens/task/step';
 
 describe('Tasks Steps', () => {
   let props;
 
   beforeEach(() => {
     const step = Factory.studentTask({ type: 'homework', stepCount: 1 }).steps[0];
-    const ux = new UX();
-    Object.assign(ux, {
+    const ux = {
       viewedInfoSteps: [],
       course: Factory.course(),
       onAnswerChange: jest.fn(),
       canGoForward: true,
       goForward: jest.fn(),
       currentStep: step,
-    });
+    };
     props = { ux, step, windowImpl: new FakeWindow };
   });
 
