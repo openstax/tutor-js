@@ -12,7 +12,6 @@ import Placeholder from './placeholder';
 import HtmlContent from './html-content';
 import Failure from './failure';
 import End from './end';
-import UX from '../ux';
 import { LoadingCard } from './card';
 import {
   PersonalizedGroup,
