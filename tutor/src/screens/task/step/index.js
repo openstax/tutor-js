@@ -10,8 +10,8 @@ import Reading from './reading';
 import Exercise from './exercise';
 import Placeholder from './placeholder';
 import HtmlContent from './html-content';
+import Failure from './failure';
 import End from './end';
-import UX from '../ux';
 import { LoadingCard } from './card';
 import {
   PersonalizedGroup,
@@ -19,18 +19,6 @@ import {
   IndividualReview,
   SpacedPractice,
 } from './value-props';
-
-const Unknown = ({ step }) => (
-  <h1>Unknown step type "{step.type || 'null'}"</h1>
-);
-
-Unknown.propTypes = {
-  step: PropTypes.shape({
-    type: PropTypes.string.isRequired,
-  }).isRequired,
-};
-
-export { Unknown };
 
 
 const STEP_TYPES = {
@@ -64,7 +52,7 @@ class TaskStep extends React.Component {
 
   static propTypes = {
     pending: PropTypes.func,
-    ux: PropTypes.instanceOf(UX).isRequired,
+    ux: PropTypes.object.isRequired,
     step: PropTypes.shape({
       steps: PropTypes.array,
       type: PropTypes.string.isRequired,
@@ -87,8 +75,13 @@ class TaskStep extends React.Component {
   }
 
   render() {
-    const { ux, step, step: { type, needsFetched } } = this.props;
+    const { ux, step } = this.props;
 
+    if (!step || (step.api && step.api.hasErrors)) {
+      return <Failure task={ux.task} step={step} />;
+    }
+
+    const { type, needsFetched } = step;
     const stepProps = {
       ...this.props,
       onContinue: ux.canGoForward ? ux.goForward : null,
@@ -114,7 +107,11 @@ class TaskStep extends React.Component {
       return <LoadingCard><Pending /></LoadingCard>;
     }
 
-    const Step = STEP_TYPES[type] || Unknown;
+    const Step = STEP_TYPES[type];
+
+    if (!Step) {
+      return <Failure task={ux.task} step={step} />;
+    }
 
     return (
       <Step {...stepProps} />

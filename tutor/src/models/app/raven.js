@@ -1,4 +1,4 @@
-import Raven from 'raven-js';
+import * as Sentry from '@sentry/browser';
 import { first } from 'lodash';
 const isProd = (process.env.NODE_ENV === 'production');
 
@@ -10,20 +10,20 @@ const RavenErrorLogging = {
 
   boot() {
     if (!isProd) { return; }
-    Raven.config('https://10044345c10446119e980e2ba2f5fe14@sentry.cnx.org/10', {
-      tags: {
-        environment: first(window.location.host.split('.')),
+    Sentry.init({
+      debug: true,
+      dsn: 'https://10044345c10446119e980e2ba2f5fe14@sentry.cnx.org/10',
+      environment: first(window.location.host.split('.')),
+      beforeBreadcrumb(breadcrumb) {
+        if (isMathjax(breadcrumb)) { return null; }
+        return breadcrumb;
       },
-      breadcrumbCallback(crumb) {
-        if (isMathjax(crumb)) { return false; }
-        return crumb;
-      },
-    }).install();
+    });
   },
 
   setUser(user) {
-    Raven.setUserContext({
-      id: user.account_uuid,
+    Sentry.configureScope(scope => {
+      scope.setUser({ id: user.account_uuid });
     });
   },
 
@@ -31,7 +31,12 @@ const RavenErrorLogging = {
     if (!isProd) {
       console.warn(error); // eslint-disable-line no-console
     }
-    Raven.captureException(error, xtra);
+    Sentry.captureException(error, xtra);
+  },
+
+  log(msg) {
+    if (!isProd) { console.info(msg); } // eslint-disable-line no-console
+    Sentry.captureMessage(msg);
   },
 
 };

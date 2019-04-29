@@ -11,6 +11,7 @@ import UX from './ux';
 import reading from './reading';
 import homework from './homework';
 import event from './event';
+import Failure from './step/failure';
 import external from './external';
 import { TaskInfo } from './task-info';
 import { TaskFooterControls } from './task-footer-controls';
@@ -25,16 +26,6 @@ const TASK_TYPES = {
   external,
   page_practice: homework,
   practice_worst_topics: homework,
-};
-
-const UnknownTaskType = ({ ux }) => (
-  <Warning title="Unknown task type">
-    The assignment type "{ux.task.type || 'null'}" is unknown.
-  </Warning>
-);
-
-UnknownTaskType.propTypes = {
-  ux: PropTypes.instanceOf(UX).isRequired,
 };
 
 const DeletedTask = () => (
@@ -99,9 +90,10 @@ class Task extends React.Component {
 
   render() {
     const { task } = this.props;
-
-    const TaskComponent = TASK_TYPES[task.type] || UnknownTaskType;
-
+    const TaskComponent = TASK_TYPES[task.type];
+    if (!TaskComponent) {
+      return <Failure task={task} />;
+    }
     return <TaskComponent ux={this.ux} />;
   }
 
@@ -138,6 +130,9 @@ class TaskGetter extends React.Component {
       return <CourseNotFoundWarning area="assignment" />;
     }
     const { task } = this;
+    if (!task || (task.api && task.api.hasErrors)) {
+      return <Failure task={task} />;
+    }
 
     if (!task.api.hasBeenFetched) {
       return <StepCard><PendingLoad /></StepCard>;
