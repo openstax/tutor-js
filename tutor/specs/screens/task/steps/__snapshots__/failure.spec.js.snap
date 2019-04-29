@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Task Failure matches snapshot 1`] = `
+<Failure
+  step={
+    Object {
+      "api": Object {
+        "errors": Object {},
+      },
+      "id": 1234,
+    }
+  }
+  task={
+    Object {
+      "api": Object {
+        "errors": Object {},
+      },
+    }
+  }
+/>
+`;
