@@ -120,8 +120,16 @@ describe('String helpers', function() {
     return expect(S.toSentence('foo bar baz')).toEqual('foo, bar and baz');
   });
 
-  return it('matches uuid', function() {
+  it('matches uuid', function() {
     expect(S.isUUID('blah')).toEqual(false);
     return expect(S.isUUID('cc3c6ff9-83d8-4375-94be-8c7ae3024938')).toEqual(true);
+  });
+
+  it('tests isEmpty', function() {
+    expect(S.isEmpty()).toBe(true);
+    expect(S.isEmpty(undefined)).toBe(true);
+    expect(S.isEmpty({})).toBe(true);
+    expect(S.isEmpty(' ')).toBe(true);
+    expect(S.isEmpty('not empty')).toBe(false);
   });
 });

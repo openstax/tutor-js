@@ -1,4 +1,4 @@
-import _ from 'underscore';
+import { isNaN, isString, isEmpty } from 'lodash';
 
 const SMALL_WORDS = /^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\.?|via)$/i;
 const UUID_REGEX = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
@@ -31,7 +31,7 @@ export default {
 
   getNumberAndStringOrder(string) {
     const parsedInt = parseFloat(string);
-    if (_.isNaN(parsedInt)) { return string.toLowerCase(); } else { return parsedInt; }
+    if (isNaN(parsedInt)) { return string.toLowerCase(); } else { return parsedInt; }
   },
 
   dasherize(string) {
@@ -63,12 +63,18 @@ export default {
   },
 
   toSentence(arry, join = 'and') {
-    if (_.isString(arry)) { arry = arry.split(' '); }
+    if (isString(arry)) { arry = arry.split(' '); }
     if (arry.length > 1) {
       return `${arry.slice(0, arry.length - 1).join(', ')} ${join} ${arry.slice(-1)}`;
     } else {
       return arry[0];
     }
+  },
+
+  isEmpty(s) {
+    return Boolean(
+      isEmpty(s) || (isString(s) && !s.match(/\S/))
+    );
   },
 
   isUUID(uuid = '') { return UUID_REGEX.test(uuid); },

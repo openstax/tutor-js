@@ -1,4 +1,5 @@
-import { isEmpty, extend, last, random } from 'lodash';
+import { extend, last, random } from 'lodash';
+import S from '../../helpers/string';
 import { observable, computed, action } from 'mobx';
 import ResponseValidation from '../../models/response_validation';
 import Raven from '../../models/app/raven';
@@ -54,7 +55,7 @@ class ResponseValidationUX {
 
   @action async validate() {
     // Nudges are only displayed on the first attempt, only save the message if it was shown.
-    const nudge = this.validator.isUIEnabled && isEmpty(this.results) ? this.nudge.title : null;
+    const nudge = this.validator.isUIEnabled && S.isEmpty(this.results) ? this.nudge.title : null;
     const submitted = this.response;
     try {
       const reply = await this.validator.validate({
@@ -102,7 +103,7 @@ class ResponseValidationUX {
 
   @computed get isSubmitDisabled() {
     return Boolean(
-      this.displayNudgeError || isEmpty(this.response),
+      this.displayNudgeError || S.isEmpty(this.response),
     );
   }
 

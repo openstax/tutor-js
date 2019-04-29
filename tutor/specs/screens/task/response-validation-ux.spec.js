@@ -51,6 +51,8 @@ describe('Task Response Validation', () => {
     ux.results.push({});
     expect(ux.isDisplayingNudge).toBe(true);
     expect(ux.isSubmitDisabled).toBe(true);
+    ux.setResponse({ target: { value: '  ' } });
+    expect(ux.isSubmitDisabled).toBe(true);
     ux.setResponse({ target: { value: 'test' } });
     expect(ux.isSubmitDisabled).toBe(false);
   });

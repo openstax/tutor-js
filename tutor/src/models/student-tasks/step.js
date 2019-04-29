@@ -2,7 +2,8 @@ import {
   BaseModel, identifiedBy, field, identifier,
   observable, computed, action, belongsTo, hasMany,
 } from 'shared/model';
-import { pick, isEmpty, get } from 'lodash';
+import S from '../../helpers/string';
+import { pick, get } from 'lodash';
 import Exercise from '../exercises/exercise';
 import ChapterSection from '../chapter-section';
 import RelatedContent from '../related-content';
@@ -135,7 +136,7 @@ class StudentTaskStep extends BaseModel {
 
   @computed get needsFreeResponse() {
     return Boolean(
-      !this.answer_id && this.isTwoStep && isEmpty(this.free_response)
+      !this.answer_id && this.isTwoStep && S.isEmpty(this.free_response)
     );
   }
 
