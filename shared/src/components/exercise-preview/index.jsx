@@ -138,7 +138,7 @@ class ExercisePreview extends React.Component {
           <div className="exercise-tags">
             {map(this.tags, (tag, index) => (
               <span key={index} className="exercise-tag">
-                {tag.asString}
+                {tag.title}
               </span>
             ))}
           </div>
