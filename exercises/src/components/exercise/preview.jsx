@@ -52,4 +52,4 @@ class ExerciseEditingPreview extends React.Component {
     );
   }
 
-};
+}

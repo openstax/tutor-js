@@ -3,7 +3,7 @@ import axios from 'axios';
 
 jest.mock('axios', () => jest.fn( () => Promise.resolve()));
 
-describe('Stand-alone Networking', () =>
+describe('Stand-alone Networking', () => {
 
   it('extends itself with set options when calling', function() {
     Networking.setOptions({ xhr: { CSRF_Token: '1234' } });
@@ -20,6 +20,6 @@ describe('Stand-alone Networking', () =>
       'CSRF_Token': '1234',
       'data': { 'foo': 'bar' },
     });
-    return undefined;
-  })
-);
+  });
+
+});

@@ -107,4 +107,4 @@ class ExerciseTag extends BaseModel {
     ).join(':');
   }
 
-};
+}

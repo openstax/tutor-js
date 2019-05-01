@@ -30,13 +30,11 @@ describe('Notifications MissingStudentId notice', function() {
   it('renders and matches snapshot', function() {
     const component = SnapShot.create(<MissingStudentId {...props} />);
     expect(component.toJSON()).toMatchSnapshot();
-    return undefined;
   });
 
-  return it('calls onAdd callback', function() {
+  it('calls onAdd callback', function() {
     const wrapper = shallow(<MissingStudentId {...props} />);
     wrapper.find('a.action').simulate('click');
     expect(props.callbacks.onAdd).toHaveBeenCalled();
-    return undefined;
   });
 });

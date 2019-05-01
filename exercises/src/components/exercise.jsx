@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { withRouter } from 'react-router';
 import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
 import ExercisePreview from './exercise/preview';
@@ -167,4 +166,4 @@ class Exercise extends React.Component {
       </div>
     );
   }
-};
+}

@@ -1,9 +1,9 @@
 import React from 'react';
 import { MessageList } from 'shared';
 
-describe('MessageList Component', () =>
+describe('MessageList Component', () => {
 
-  it('displays error messages from a course', function() {
+  it('displays error messages from a course', () => {
     const messages = [
       'You are already enrolled in this course.  Please verify the enrollment code and try again.',
       'Your enrollment in this course has been processed. Please reload the page.',
@@ -13,6 +13,6 @@ describe('MessageList Component', () =>
       'You are already enrolled in this course.  Please verify the enrollment code and try again.',
       'Your enrollment in this course has been processed. Please reload the page.',
     ]);
-    return undefined;
-  })
-);
+  });
+
+});
