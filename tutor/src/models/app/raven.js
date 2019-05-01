@@ -11,7 +11,7 @@ const RavenErrorLogging = {
   boot() {
     if (!isProd) { return; }
     Sentry.init({
-      debug: true,
+      debug: false,
       dsn: 'https://10044345c10446119e980e2ba2f5fe14@sentry.cnx.org/10',
       environment: first(window.location.host.split('.')),
       beforeBreadcrumb(breadcrumb) {
