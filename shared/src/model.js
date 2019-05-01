@@ -31,6 +31,7 @@ export class BaseModel {
   }
 
   @action onApiRequestComplete({ data }) {
+    this.api.errors = {};
     this.update(data);
   }
 
@@ -41,8 +42,10 @@ export class BaseModel {
       this.api.errors = {};
       errors.forEach(e => this.api.errors[e.code] = e);
       error.isRecorded = true;
+    } else if (error) {
+      this.api.errors = { error: error.toString() };
     } else {
-      this.api.errors = null;
+      this.api.errors = {};
     }
   }
 
