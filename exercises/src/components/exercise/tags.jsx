@@ -11,6 +11,8 @@ import CnxFeature from '../tags/cnx-feature';
 import Dok from '../tags/dok';
 import Blooms from '../tags/blooms';
 import Time from '../tags/time';
+import HistoricalThinking from '../tags/historical-thinking';
+import ReasoningProcess from '../tags/reasoning-process';
 import RequiresContext from '../tags/requires-context';
 import Exercise from '../../models/exercises/exercise';
 
@@ -25,6 +27,8 @@ function ExerciseTags({ exercise }) {
         <Books {...tagProps} />
         <Lo {...tagProps} />
         <QuestionType {...tagProps} />
+        <HistoricalThinking {...tagProps} />
+        <ReasoningProcess {...tagProps} />
         <FilterType {...tagProps} />
         <RequiresContext {...tagProps} />
         <CnxMod {...tagProps} />

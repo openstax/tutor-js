@@ -27,12 +27,12 @@ class ExerciseEditingPreview extends React.Component {
       <Preview>
         <CornerRibbon
           shadow
-          color={exercise.canEdit ? "green" : "navy"}
+          color={exercise.canEdit ? 'green' : 'navy'}
           position="topRight"
           hidden={exercise.canEdit && !exercise.is_vocab}
           label={[
-            <div key="ro">{ exercise.canEdit ? "VOCABULARY" :  "READ ONLY" }</div>,
-              <div key="n">{exercise.readOnlyReason}</div>,
+            <div key="ro">{ exercise.canEdit ? 'VOCABULARY' : 'READ ONLY' }</div>,
+            <div key="n">{exercise.readOnlyReason}</div>,
           ]}
         >
           <ExercisePreview

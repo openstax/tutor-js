@@ -1434,6 +1434,61 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               </div>
             </div>
             <div
+              className="tag-type"
+            >
+              <div
+                className="heading"
+              >
+                <span
+                  className="label"
+                >
+                  Historical Thinking
+                </span>
+                <div
+                  className="controls"
+                />
+              </div>
+              <div
+                className="tag"
+              >
+                <select
+                  multiple={true}
+                  onChange={[Function]}
+                >
+                  <option
+                    selected={false}
+                    value={1}
+                  >
+                    1
+                  </option>
+                  <option
+                    selected={false}
+                    value={2}
+                  >
+                    2
+                  </option>
+                  <option
+                    selected={false}
+                    value={3}
+                  >
+                    3
+                  </option>
+                  <option
+                    selected={false}
+                    value={4}
+                  >
+                    4
+                  </option>
+                  <option
+                    selected={false}
+                    value={5}
+                  >
+                    5
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div
               className="tag-type has-single-tag"
             >
               <div
@@ -3031,6 +3086,37 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               </TagWrapper>
                                             </MultiInput>
                                           </CnxFeature>
+                                          <HistoricalThinkingTag exercise={{...}}>
+                                            <TagWrapper label=\\"Historical Thinking\\">
+                                              <div className=\\"tag-type\\">
+                                                <div className=\\"heading\\">
+                                                  <span className=\\"label\\">
+                                                    Historical Thinking
+                                                  </span>
+                                                  <div className=\\"controls\\" />
+                                                </div>
+                                                <div className=\\"tag\\">
+                                                  <select multiple={true} onChange={[Function: res]}>
+                                                    <option selected={false} value={1}>
+                                                      1
+                                                    </option>
+                                                    <option selected={false} value={2}>
+                                                      2
+                                                    </option>
+                                                    <option selected={false} value={3}>
+                                                      3
+                                                    </option>
+                                                    <option selected={false} value={4}>
+                                                      4
+                                                    </option>
+                                                    <option selected={false} value={5}>
+                                                      5
+                                                    </option>
+                                                  </select>
+                                                </div>
+                                              </div>
+                                            </TagWrapper>
+                                          </HistoricalThinkingTag>
                                           <DokTag exercise={{...}}>
                                             <SingleDropdown exercise={{...}} label=\\"DOK\\" type=\\"dok\\" choices={{...}}>
                                               <TagWrapper label=\\"DOK\\" singleTag={true}>
