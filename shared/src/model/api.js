@@ -34,6 +34,6 @@ export default class ModelApi {
   }
 
   @computed get hasErrors() {
-    return Boolean(Object.keys(this.errors).length);
+    return Boolean(Object.keys(this.errors || {}).length);
   }
 }
