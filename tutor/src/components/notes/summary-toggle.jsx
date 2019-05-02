@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { get } from 'mobx';
+import { get } from 'lodash';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
