@@ -21,7 +21,7 @@ export default class TaskUX {
 
     this.window = windowImpl || window;
     this.course = course || task.tasksMap.course;
-    observe(this, '_stepIndex', this.onStepChange);
+    observe(this, '_stepIndex', this.onStepChange, true);
 
     when(
       () => !this.task.api.isPendingInitialFetch,
