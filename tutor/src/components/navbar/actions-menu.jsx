@@ -13,12 +13,14 @@ import Router from '../../helpers/router';
 import UserMenu from '../../models/user/menu';
 import Course from '../../models/course';
 
+
 const RoutedDropdownItem = (props) => {
-  const { label, name, tourId, className, route } = props;
+  // eslint-disable-next-line react/prop-types
+  const { label, name, tourId, className, route, href } = props;
   const isActive = TutorRouter.isActive(route.name, route.params, route.options);
 
   return (
-    <Route path={props.href} exact>
+    <Route path={href} exact>
       <Dropdown.Item
         className={classnames(name, className, { 'active': isActive })}
         data-name={name}
@@ -32,11 +34,12 @@ const RoutedDropdownItem = (props) => {
   );
 };
 
+// eslint-disable-next-line
 function BrowseBookDropdownItem({ course, className, active, label, ...props }) {
   return (
     <Dropdown.Item
       {...props}
-      href={`/book/${course.ecosystem_id}`}
+      href={`/book/${course.id}`}
       target="_blank"
     >
       <TourAnchor id="menu-option-browse-book">
@@ -140,4 +143,4 @@ class ActionsMenu extends React.Component {
     );
   }
 
-};
+}
