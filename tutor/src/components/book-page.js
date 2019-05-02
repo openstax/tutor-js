@@ -22,6 +22,7 @@ const EXERCISE_LINK_SELECTOR = 'a[href][data-type="exercise"]';
 
 const LEARNING_OBJECTIVE_SELECTORS = '.learning-objectives, [data-type=abstract]';
 const IS_INTRO_SELECTORS = '.splash img, [data-type="cnx.flag.introduction"]';
+const INTER_BOOK_LINKS = 'a[href^=\'/book/\']';
 
 // called with the context set to the image
 function processImage() {
@@ -66,8 +67,6 @@ class BookPage extends React.Component {
     title: PropTypes.string,
     hasLearningObjectives: PropTypes.bool,
   }
-
-  //  mixins: [BookContentMixin, GetPositionMixin],
 
   getCnxId() {
     return this.props.ux.page.cnx_id;
@@ -120,27 +119,12 @@ class BookPage extends React.Component {
   }
 
   buildReferenceBookLink() {
-    let { courseId, ecosystemId } = Router.currentParams();
+    let { courseId } = Router.currentParams();
     const { query } = this.props;
 
-    if (courseId && !ecosystemId) {
-      ecosystemId = Courses.get(courseId).ecosystem_id;
-    }
-
-    // suboptimal but is the best we can as long as the reference book depends on having an ecosystemId in url
-    if (!ecosystemId) { return null; }
-
-    // if (id != null) {
-    //   const related_content = courses.studentTasks.get(id) , x => x.related_content);
-    //
-    //   if (related_content != null) {
-    //     chapterSection = typeof this.sectionFormat === 'function' ? this.sectionFormat((related_content[0] != null ? related_content[0].chapter_section : undefined) || (related_content[0] != null ? related_content[0].book_location : undefined)) : undefined;
-    //   }
-    // }
-    //
     return Router.makePathname(
       'viewReferenceBook',
-      { ecosystemId }, query
+      { courseId }, query
     );
   }
 
@@ -172,7 +156,7 @@ class BookPage extends React.Component {
     const root = ReactDOM.findDOMNode(this);
     const previewNodes = root.getElementsByClassName('media-preview-wrapper');
 
-    return forEach(previewNodes, previewNode => ReactDOM.unmountComponentAtNode(previewNode));
+    forEach(previewNodes, previewNode => ReactDOM.unmountComponentAtNode(previewNode));
   }
 
   insertSplash(root) {
@@ -318,6 +302,14 @@ class BookPage extends React.Component {
           this.renderExercises(exerciseLinks);
         }
       }
+
+      const { courseId } = Router.currentParams();
+      if (courseId) {
+        root.querySelectorAll(INTER_BOOK_LINKS).forEach(link => {
+          link.href = link.href.replace(/\/book\/\d+/, `/book/${courseId}`);
+        });
+      }
+
     });
   }
 

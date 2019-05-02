@@ -60,9 +60,9 @@ export default class ReferenceBookUX extends BookUX {
   }
 
   sectionHref(section) {
-    if (!section) { return null; }
+    if (!section || !this.courseId) { return null; }
     return Router.makePathname('viewReferenceBookSection', {
-      courseId: this.course.id,
+      courseId: this.courseId,
       chapterSection: section.chapter_section.asString,
     }, { query: Router.currentQuery() });
   }
