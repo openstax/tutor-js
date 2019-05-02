@@ -22,6 +22,7 @@ const EXERCISE_LINK_SELECTOR = 'a[href][data-type="exercise"]';
 
 const LEARNING_OBJECTIVE_SELECTORS = '.learning-objectives, [data-type=abstract]';
 const IS_INTRO_SELECTORS = '.splash img, [data-type="cnx.flag.introduction"]';
+const INTER_BOOK_LINKS = 'a[href^=\'/book\/';
 
 // called with the context set to the image
 function processImage() {
@@ -152,10 +153,18 @@ class BookPage extends React.Component {
   }
 
   cleanUpLinks() {
+
     const root = ReactDOM.findDOMNode(this);
     const previewNodes = root.getElementsByClassName('media-preview-wrapper');
 
-    return forEach(previewNodes, previewNode => ReactDOM.unmountComponentAtNode(previewNode));
+    forEach(previewNodes, previewNode => ReactDOM.unmountComponentAtNode(previewNode));
+
+    const { courseId } = Router.currentParams();
+    if (courseId) {
+      root.querySelectorAll(INTER_BOOK_LINKS).forEach(link => {
+        link.href = link.href.replace(/\/book\/\d+/, `/book/${courseId}`);
+      });
+    }
   }
 
   insertSplash(root) {
