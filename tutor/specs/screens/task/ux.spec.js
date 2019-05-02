@@ -1,5 +1,5 @@
 import UX from '../../../src/screens/task/ux';
-import { Factory, TimeMock, TestRouter, ld } from '../../helpers';
+import { Factory, TimeMock, TestRouter, ld, deferred } from '../../helpers';
 import UiSettings from 'shared/model/ui-settings';
 jest.mock('shared/model/ui-settings', () => ({
   set: jest.fn(),
@@ -74,6 +74,31 @@ describe('Task UX Model', () => {
     expect(UiSettings.set).toHaveBeenCalledWith(
       'has-viewed-two-step-intro', { taskId: ux.task.id },
     );
+  });
+
+  it('fetches steps or task when index changes', () => {
+    const step = ux.steps[3];
+    step.fetchIfNeeded = jest.fn();
+    ux.task.fetch = jest.fn(() => Promise.resolve());
+
+    ux.moveToStep(step);
+    expect(step.fetchIfNeeded).toHaveBeenCalledTimes(1);
+    expect(ux.task.fetch).not.toHaveBeenCalled();
+    ux._stepIndex = 0;
+
+    ux.task.fetch.mockImplementation(() => {
+      ux.task.steps = [{ type: 'reading' }];
+      ux.task.steps[0].fetchIfNeeded = jest.fn();
+      return Promise.resolve();
+    });
+    step.type = 'placeholder';
+    ux.moveToStep(step);
+
+    return deferred(() => {
+      expect(ux.task.fetch).toHaveBeenCalled();
+      expect(ux.task.steps).toHaveLength(1);
+      expect(ux.task.steps[0].fetchIfNeeded).toHaveBeenCalled();
+    });
   });
 
 });

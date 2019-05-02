@@ -18,6 +18,7 @@ class StudentTaskInfoStep {
   @observable type;
   @readonly is_completed = true;
   @readonly needsFetched = false;
+  @readonly isPlaceHolder = false;
   @readonly isInfo = true;
   fetchIfNeeded() { }
   markViewed() {}
