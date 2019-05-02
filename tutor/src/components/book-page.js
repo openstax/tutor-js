@@ -153,18 +153,10 @@ class BookPage extends React.Component {
   }
 
   cleanUpLinks() {
-
     const root = ReactDOM.findDOMNode(this);
     const previewNodes = root.getElementsByClassName('media-preview-wrapper');
 
     forEach(previewNodes, previewNode => ReactDOM.unmountComponentAtNode(previewNode));
-
-    const { courseId } = Router.currentParams();
-    if (courseId) {
-      root.querySelectorAll(INTER_BOOK_LINKS).forEach(link => {
-        link.href = link.href.replace(/\/book\/\d+/, `/book/${courseId}`);
-      });
-    }
   }
 
   insertSplash(root) {
@@ -310,6 +302,14 @@ class BookPage extends React.Component {
           this.renderExercises(exerciseLinks);
         }
       }
+
+      const { courseId } = Router.currentParams();
+      if (courseId) {
+        root.querySelectorAll(INTER_BOOK_LINKS).forEach(link => {
+          link.href = link.href.replace(/\/book\/\d+/, `/book/${courseId}`);
+        });
+      }
+
     });
   }
 
