@@ -22,7 +22,7 @@ const EXERCISE_LINK_SELECTOR = 'a[href][data-type="exercise"]';
 
 const LEARNING_OBJECTIVE_SELECTORS = '.learning-objectives, [data-type=abstract]';
 const IS_INTRO_SELECTORS = '.splash img, [data-type="cnx.flag.introduction"]';
-const INTER_BOOK_LINKS = 'a[href^=\'/book/';
+const INTER_BOOK_LINKS = 'a[href^=\'/book/\']';
 
 // called with the context set to the image
 function processImage() {
