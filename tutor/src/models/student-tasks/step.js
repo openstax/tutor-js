@@ -110,6 +110,10 @@ class StudentTaskStep extends BaseModel {
   @computed get isVideo() {
     return 'video' === this.type;
   }
+  @computed get isPlaceHolder() {
+    return 'placeholder' === this.type;
+  }
+
   @computed get isCorrect() {
     return Boolean(
       this.correct_answer_id && this.answer_id == this.correct_answer_id
