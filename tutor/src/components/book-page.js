@@ -123,7 +123,7 @@ class BookPage extends React.Component {
 
     return Router.makePathname(
       'viewReferenceBook',
-      { ecosystemId }, query
+      { courseId }, query
     );
   }
 
