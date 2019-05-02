@@ -83,6 +83,10 @@ export default class BookUX {
       // in that case the id that's present will be the ecosystem
       const course = Courses.get(this.courseId) ||
         Courses.forEcosystemId(this.courseId);
+      if (course.id != this.courseId) {
+        this.courseId = course.id;
+        this.router.history.push(`/book/${this.courseId}`);
+      }
       if (course) {
         this.ecosystemId = course.ecosystem_id;
       }
