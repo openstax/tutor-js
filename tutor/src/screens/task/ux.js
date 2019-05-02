@@ -1,4 +1,4 @@
-import { observable, computed, action, when } from 'mobx';
+import { observable, computed, action, when, observe } from 'mobx';
 import { reduce, filter, get, groupBy, map } from 'lodash';
 import lazyGetter from 'shared/helpers/lazy-getter';
 import Router from '../../../src/helpers/router';
@@ -21,11 +21,13 @@ export default class TaskUX {
 
     this.window = windowImpl || window;
     this.course = course || task.tasksMap.course;
+    observe(this, '_stepIndex', this.onStepChange);
 
     when(
       () => !this.task.api.isPendingInitialFetch,
       () => this.goToStep(stepIndex)
     );
+
   }
 
   @lazyGetter scroller = new ScrollTo({ windowImpl: this.window });
@@ -103,6 +105,28 @@ export default class TaskUX {
     if (this.canGoForward) {
       this.goForward();
     }
+  }
+
+  @action.bound onStepChange(change) {
+    if (change.newValue === change.oldValue) { return; }
+    // re-fetch the entire task if the step is a placeholder
+    // this allows the BE to remove steps if it can't find
+    // appropriate exercises
+    if (this.currentStep.isPlaceHolder) {
+      this.refetchTask();
+    } else {
+      this.currentStep.fetchIfNeeded();
+    }
+  }
+
+  @action.bound async refetchTask() {
+    const stepsLength = this.task.steps.length;
+    await this.task.fetch();
+    if (this.task.steps.length != stepsLength) {
+      const unworkedIndex = this.steps.findIndex(s => !s.is_completed);
+      this._stepIndex = unworkedIndex == -1 ? this.steps.length - 1: unworkedIndex;
+    }
+    this.currentStep.fetchIfNeeded();
   }
 
   @action.bound goBackward() {
