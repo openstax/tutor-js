@@ -144,6 +144,16 @@ class StudentTaskStep extends BaseModel {
     );
   }
 
+  @computed get hasBeenAnswered() {
+    return Boolean(this.answer_id);
+  }
+
+  @computed get canAnswer() {
+    return Boolean(
+      this.isExercise && (!this.hasBeenAnswered || !this.task.isFeedbackAvailable)
+    );
+  }
+
   @computed get needsFetched() {
     return Boolean(
       !NO_ADDITIONAL_CONTENT.includes(this.type) && !this.api.hasBeenFetched
@@ -151,7 +161,6 @@ class StudentTaskStep extends BaseModel {
   }
 
   @action fetchIfNeeded() {
-
     if (this.needsFetched) { this.fetch(); }
   }
 

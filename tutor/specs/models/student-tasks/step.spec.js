@@ -1,7 +1,9 @@
-import { Factory } from '../../helpers';
+import { Factory, TimeMock } from '../../helpers';
 
 
 describe('Student Task Step', () => {
+  const now = new Date('2017-10-14T12:00:00.000Z');
+  TimeMock.setTo(now);
 
   it('sets content', () => {
     const step = Factory.studentTask({ type: 'reading', stepCount: 1 }).steps[0];
@@ -27,6 +29,17 @@ describe('Student Task Step', () => {
     expect(step.needsFreeResponse).toBe(true);
     step.free_response = 'a question with answers';
     expect(step.needsFreeResponse).toBe(false);
+  });
+
+  it('calculates if it can be answered', () => {
+    const step = Factory.studentTask({ type: 'homework', stepCount: 1 }).steps[0];
+    expect(step.canAnswer).toBe(true);
+    step.task.feedback_at = now - 1;
+    expect(step.task.isFeedbackAvailable).toBe(true);
+    expect(step.canAnswer).toBe(true);
+    step.answer_id = 1234;
+    expect(step.hasBeenAnswered).toBe(true);
+    expect(step.canAnswer).toBe(false);
   });
 
 });
