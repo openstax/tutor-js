@@ -125,7 +125,7 @@ class ExerciseQuestion extends React.Component {
         <Question
           task={ux.task}
           question={question}
-          choicesEnabled={true}
+          choicesEnabled={step.canAnswer}
           answer_id={this.answerId}
           focus={!step.multiPartGroup}
           questionNumber={questionNumber}
@@ -137,7 +137,7 @@ class ExerciseQuestion extends React.Component {
           <FreeResponseReview course={course} step={step} />
         </Question>
         <Controls>
-          {this.needsSaved ?
+          {step.canAnswer && this.needsSaved ?
             this.renderSaveButton() : this.renderNextButton()}
         </Controls>
         <StepFooter course={course} step={step} />
