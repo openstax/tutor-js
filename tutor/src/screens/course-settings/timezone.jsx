@@ -3,7 +3,7 @@ import React from 'react';
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import { map, values } from 'lodash';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import { AsyncButton } from 'shared';
 import { TutorRadio } from '../../components/tutor-input';
 import classnames from 'classnames';
@@ -75,7 +75,6 @@ class SetTimezoneField extends React.Component {
     name: PropTypes.string.isRequired,
     defaultValue: timezonePropType,
     onChange: PropTypes.func.isRequired,
-    autofocus: PropTypes.bool,
     validate: PropTypes.func.isRequired,
   }
 
@@ -172,7 +171,7 @@ class SetTimezone extends React.Component {
               defaultValue={this.props.course.time_zone}
               onChange={val => this.course_timezone = val}
               validate={this.validate}
-              autofocus={true} />
+            />
           </Modal.Body>
           <Modal.Footer>
             <AsyncButton
@@ -189,4 +188,4 @@ class SetTimezone extends React.Component {
       </React.Fragment>
     );
   }
-};
+}

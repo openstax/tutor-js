@@ -16,6 +16,10 @@
   }
 }
 
+.tutor-app.course-roster {
+  background-color: white;
+}
+
 .settings-edit-course-modal .modal-body {
 
   .control {
@@ -31,6 +35,20 @@
 }
 
 .course-page.roster  {
+
+
+  .course-settings-title {
+    @include tutor-main-title-font();
+  }
+  .course-settings-subtitle {
+    @include tutor-main-subtitle-font();
+    padding-bottom: 15px;
+  }
+  .body {
+    font-size: 16px;
+    line-height: 24px;
+    padding-top: 40px;
+  }
 
   .course-settings-detail {
     color: $tutor-neutral-lite;
