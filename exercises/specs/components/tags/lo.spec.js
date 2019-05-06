@@ -22,7 +22,7 @@ describe('Lo tags component', () => {
     });
     const input = lo.find('Input input[type="text"]');
     expect(input.props()).toMatchObject({
-      placeholder: '#.[A-Z].#.#',
+      placeholder: '##-##-##',
     });
     input.simulate('change', { target: { value: 'INVALID!' } });
     input.simulate('blur');
@@ -31,7 +31,7 @@ describe('Lo tags component', () => {
       error: expect.stringContaining('Must have book and match LO pattern'),
     });
 
-    input.simulate('change', { target: { value: '1.A.2.3' } });
+    input.simulate('change', { target: { value: '12-11-42' } });
     input.simulate('blur');
     expect(lo.find('TagError').props().error).toBeUndefined();
 

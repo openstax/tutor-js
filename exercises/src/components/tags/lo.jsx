@@ -13,24 +13,6 @@ import Wrapper from './wrapper';
 const TYPE = 'lo';
 import BookSelection from './book-selection';
 
-const VALIDATIONS = {
-  'stax-apbio': {
-    r: /^\d{1}\.\d{1,2}$/,
-    pattern: '#.##',
-    disallowed: /[^0-9.]/g,
-  },
-  'stax-apphys': {
-    r: /^\d\.[A-Z]\.\d\.\d$/,
-    pattern: '#.[A-Z].#.#',
-    disallowed: /[^0-9A-Z.]/g,
-  },
-  default: {
-    r: /^\d{1,2}-\d{1,2}-\d{1,2}$/,
-    pattern: '##-##-##',
-    disallowed: /[^0-9-]/g,
-  },
-};
-
 @observer
 class Input extends React.Component {
   static propTypes = {
@@ -48,27 +30,18 @@ class Input extends React.Component {
     return this.props.tag.value;
   }
 
-  @computed get validation() {
-    return VALIDATIONS[this.book] || VALIDATIONS.default;
-  }
-
   @action.bound onTextChange(ev) {
-    this.value = ev.target.value.replace(this.validation.disallowed, '');
+    this.value = ev.target.value.replace(/[^0-9\-]/g, '');
     this.errorMsg = null;
-  }
-
-  isLoValid(book, lo) {
-    if (!lo) { return true; } // LO is not required
-    return lo.match( this.validation.r );
   }
 
   @action.bound validateAndSave(attrs) {
     if (attrs == null) { attrs = {}; }
-    const { validation, props: { tag } } = this;
+    const { tag } = this.props;
     const { lo, book } = defaults(attrs, { book: this.book, lo: this.lo });
 
-    if (!book || !this.isLoValid(book, lo)) {
-      this.errorMsg = `Must have book and match LO pattern of ${validation.pattern}`;
+    if (!book || (lo != null && !lo.match( /^\d{1,2}-\d{1,2}-\d{1,2}$/ ))) {
+      this.errorMsg = 'Must have book and match LO pattern of dd-dd-dd';
     } else {
       tag.value = lo;
     }
@@ -89,7 +62,7 @@ class Input extends React.Component {
   }
 
   render() {
-    const { validation, props: { exercise } } = this;
+    const { exercise } = this.props;
 
     return (
       <div className={classnames('tag', { 'has-error': this.errorMsg })}>
@@ -103,7 +76,7 @@ class Input extends React.Component {
           onChange={this.onTextChange}
           onBlur={this.onTextBlur}
           value={this.value}
-          placeholder={validation.pattern}
+          placeholder="##-##-##"
         />
         <Error error={this.errorMsg} />
         <span className="controls">
