@@ -913,19 +913,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   value="stax-phys"
                 >
                   <option
-                    value="stax-soc"
+                    value="stax-anp"
                   >
-                    Sociology
+                    Anatomy and Physiology
                   </option>
                   <option
-                    value="stax-phys"
+                    value="stax-apbio"
                   >
-                    College Physics
-                  </option>
-                  <option
-                    value="stax-k12phys"
-                  >
-                    Physics
+                    Biology for AP® Courses
                   </option>
                   <option
                     value="stax-bio"
@@ -933,9 +928,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     Biology
                   </option>
                   <option
-                    value="stax-apbio"
+                    value="stax-apphys"
                   >
-                    Biology for AP® Courses
+                    College Physics for AP® Courses
+                  </option>
+                  <option
+                    value="stax-phys"
+                  >
+                    College Physics
                   </option>
                   <option
                     value="stax-cbio"
@@ -948,11 +948,6 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     Economics
                   </option>
                   <option
-                    value="stax-anp"
-                  >
-                    Anatomy and Physiology
-                  </option>
-                  <option
                     value="stax-macro"
                   >
                     Macro Economics
@@ -961,6 +956,16 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     value="stax-micro"
                   >
                     Micro Economics
+                  </option>
+                  <option
+                    value="stax-k12phys"
+                  >
+                    Physics
+                  </option>
+                  <option
+                    value="stax-soc"
+                  >
+                    Sociology
                   </option>
                   <option
                     value="stax-apush"
@@ -2692,20 +2697,20 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                   <div className=\\"tag\\">
                                                     <BookSelection onChange={[Function: res]} selected=\\"stax-phys\\" limit={{...}}>
                                                       <select className=\\"form-control\\" onChange={[Function: res]} value=\\"stax-phys\\">
-                                                        <option value=\\"stax-soc\\">
-                                                          Sociology
+                                                        <option value=\\"stax-anp\\">
+                                                          Anatomy and Physiology
                                                         </option>
-                                                        <option value=\\"stax-phys\\">
-                                                          College Physics
-                                                        </option>
-                                                        <option value=\\"stax-k12phys\\">
-                                                          Physics
+                                                        <option value=\\"stax-apbio\\">
+                                                          Biology for AP® Courses
                                                         </option>
                                                         <option value=\\"stax-bio\\">
                                                           Biology
                                                         </option>
-                                                        <option value=\\"stax-apbio\\">
-                                                          Biology for AP® Courses
+                                                        <option value=\\"stax-apphys\\">
+                                                          College Physics for AP® Courses
+                                                        </option>
+                                                        <option value=\\"stax-phys\\">
+                                                          College Physics
                                                         </option>
                                                         <option value=\\"stax-cbio\\">
                                                           Concepts of Biology
@@ -2713,14 +2718,17 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                         <option value=\\"stax-econ\\">
                                                           Economics
                                                         </option>
-                                                        <option value=\\"stax-anp\\">
-                                                          Anatomy and Physiology
-                                                        </option>
                                                         <option value=\\"stax-macro\\">
                                                           Macro Economics
                                                         </option>
                                                         <option value=\\"stax-micro\\">
                                                           Micro Economics
+                                                        </option>
+                                                        <option value=\\"stax-k12phys\\">
+                                                          Physics
+                                                        </option>
+                                                        <option value=\\"stax-soc\\">
+                                                          Sociology
                                                         </option>
                                                         <option value=\\"stax-apush\\">
                                                           U.S. History for AP® Courses

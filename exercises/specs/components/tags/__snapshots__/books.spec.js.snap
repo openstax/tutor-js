@@ -55,19 +55,14 @@ exports[`Book tags component renders tags 1`] = `
       value="stax-phys"
     >
       <option
-        value="stax-soc"
+        value="stax-anp"
       >
-        Sociology
+        Anatomy and Physiology
       </option>
       <option
-        value="stax-phys"
+        value="stax-apbio"
       >
-        College Physics
-      </option>
-      <option
-        value="stax-k12phys"
-      >
-        Physics
+        Biology for AP® Courses
       </option>
       <option
         value="stax-bio"
@@ -75,9 +70,14 @@ exports[`Book tags component renders tags 1`] = `
         Biology
       </option>
       <option
-        value="stax-apbio"
+        value="stax-apphys"
       >
-        Biology for AP® Courses
+        College Physics for AP® Courses
+      </option>
+      <option
+        value="stax-phys"
+      >
+        College Physics
       </option>
       <option
         value="stax-cbio"
@@ -90,11 +90,6 @@ exports[`Book tags component renders tags 1`] = `
         Economics
       </option>
       <option
-        value="stax-anp"
-      >
-        Anatomy and Physiology
-      </option>
-      <option
         value="stax-macro"
       >
         Macro Economics
@@ -103,6 +98,16 @@ exports[`Book tags component renders tags 1`] = `
         value="stax-micro"
       >
         Micro Economics
+      </option>
+      <option
+        value="stax-k12phys"
+      >
+        Physics
+      </option>
+      <option
+        value="stax-soc"
+      >
+        Sociology
       </option>
       <option
         value="stax-apush"

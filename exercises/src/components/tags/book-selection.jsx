@@ -1,20 +1,20 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { get, map, isEmpty, pick } from 'lodash';
-import TagModel from 'shared/model/exercise/tag';
+import { map, isEmpty, pick } from 'lodash';
 
 const BOOKS = {
-  'stax-soc': 'Sociology',
-  'stax-phys': 'College Physics',
+  'stax-anp':     'Anatomy and Physiology',
+  'stax-apbio':   'Biology for AP® Courses',
+  'stax-bio':     'Biology',
+  'stax-apphys':  'College Physics for AP® Courses',
+  'stax-phys':    'College Physics',
+  'stax-cbio':    'Concepts of Biology',
+  'stax-econ':    'Economics',
+  'stax-macro':   'Macro Economics',
+  'stax-micro':   'Micro Economics',
   'stax-k12phys': 'Physics',
-  'stax-bio': 'Biology',
-  'stax-apbio': 'Biology for AP® Courses',
-  'stax-cbio': 'Concepts of Biology',
-  'stax-econ': 'Economics',
-  'stax-anp': 'Anatomy and Physiology',
-  'stax-macro': 'Macro Economics',
-  'stax-micro': 'Micro Economics',
-  'stax-apush': 'U.S. History for AP® Courses',
+  'stax-soc':     'Sociology',
+  'stax-apush':   'U.S. History for AP® Courses',
 };
 
 function BookSelection(props) {
