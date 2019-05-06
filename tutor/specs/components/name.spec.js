@@ -15,7 +15,7 @@ describe('Name Component', function() {
     expect(name.text()).toContain('Prince Humperdinck');
   });
 
-  return describe('when missing name', function() {
+  describe('when missing name', function() {
     it('doesn\'t use a undefined name', function() {
       delete props.name;
       const name = mount(<Name {...props} />);
@@ -28,7 +28,7 @@ describe('Name Component', function() {
       expect(name.text()).toContain('Vincent Adultman');
     });
 
-    return it('doesn\'t use an empty name', function() {
+    it('doesn\'t use an empty name', function() {
       props.name = '';
       const name = mount(<Name {...props} />);
       expect(name.text()).toContain('Vincent Adultman');

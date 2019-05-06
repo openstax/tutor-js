@@ -43,7 +43,7 @@ describe('Student Scores Data Sorter', function() {
     expect(last(steps)).toEqual(29);
   });
 
-  return it('sorts external events', function() {
+  it('sorts external events', function() {
     args.sort.key = 2;
     args.sort.asc = false;
     const steps = map(sortBy(students, StudentDataSorter(args)), s => s.data[2].status);

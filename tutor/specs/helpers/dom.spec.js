@@ -43,7 +43,7 @@ describe('DOM Helpers', function() {
     expect( DOM(p).closest( '.wfig' ) ).toBeNull();
   });
 
-  return it('can read bootstrap data', function() {
+  it('can read bootstrap data', function() {
     expect(readBootstrapData(root)).toEqual({ 'user': { 'name': 'Atticus Finch' } });
   });
 });

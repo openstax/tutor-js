@@ -20,7 +20,7 @@ describe('Unsaved State Mixin', function() {
 
     DirtyComponent = createReactClass(ld.extend(Definition,
       { displayName: 'DirtyComponent', hasUnsavedState: checks.dirty }));
-    return CleanComponent = createReactClass(ld.extend(Definition,
+    CleanComponent = createReactClass(ld.extend(Definition,
       { displayName: 'CleanComponent', hasUnsavedState: checks.clean }));
   });
 
@@ -40,19 +40,4 @@ describe('Unsaved State Mixin', function() {
     c.unmount();
   });
 
-  xit('generates an appropriate message', () =>
-    Testing.renderComponent( DirtyComponent, {} ).then(() => expect(TransitionAssistant.unsavedMessages()).to.include('DirtyComponent has unsaved data'))
-  );
-
-  return xit('allows the componet to customize the message', function() {
-    const MyComponent = React.createClass(ld.extend(
-      Definition,
-      {
-        unsavedStateMessages() { return 'Better check the date fool'; },
-        displayName: 'MyComponent',
-        hasUnsavedState: checks.dirty,
-      },
-    ));
-    return Testing.renderComponent( MyComponent, {} ).then(() => expect(TransitionAssistant.unsavedMessages()).to.include('Better check the date fool'));
-  });
 });
