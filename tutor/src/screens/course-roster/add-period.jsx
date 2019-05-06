@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { find } from 'lodash';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
 import { Modal, Button } from 'react-bootstrap';
