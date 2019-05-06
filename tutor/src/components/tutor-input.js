@@ -41,7 +41,7 @@ class TutorInput extends React.Component {
   componentDidMount() {
     const errors = this.props.validate(this.props.default);
     if (!isEmpty(errors)) { this.setState({ errors }); }
-    if (this.props.autofocus) { return this.focus().cursorToEnd(); }
+    if (this.props.autoFocus) { return defer(() => this.focus().cursorToEnd()); }
   }
 
   componentDidUpdate(prevProps, prevState) {
