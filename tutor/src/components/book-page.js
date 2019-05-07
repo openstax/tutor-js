@@ -1,10 +1,9 @@
-import { React, PropTypes } from '../helpers/react';
+import { React, PropTypes, observer } from '../helpers/react';
 import {
   get, map, forEach, first, last, invoke, defer, compact, uniq,
 } from 'lodash';
 import ReactDOM from 'react-dom';
 import { LoadingAnimation, SpyMode, ArbitraryHtmlAndMath } from 'shared';
-import { observer } from 'mobx-react';
 import classnames from 'classnames';
 import { ReferenceBookExerciseShell } from './book-page/exercise';
 import RelatedContent from './related-content';
@@ -90,7 +89,6 @@ class BookPage extends React.Component {
 
     this.insertSplash(root);
     this.insertCanonicalLink(root);
-    this.insertOverlays(root);
     this.detectImgAspectRatio(root);
     this.cleanUpAbstracts(root);
     this.processLinks(root);
@@ -101,7 +99,6 @@ class BookPage extends React.Component {
     this.props.ux.checkForTeacherContent();
     this.insertSplash(root);
     this.updateCanonicalLink(root);
-    this.insertOverlays(root);
     this.detectImgAspectRatio(root);
     this.cleanUpAbstracts(root);
     this.processLinks();
@@ -194,22 +191,6 @@ class BookPage extends React.Component {
 
   removeCanonicalLink() {
     return invoke(this.linkNode, 'remove');
-  }
-
-  insertOverlays(root) {
-    const { title } = this.props;
-    if (!title) { return; }
-
-    for (let img of root.querySelectorAll('.splash img')) {
-      if (img.parentElement.querySelector('.ui-overlay')) { continue; }
-      const overlay = document.createElement('div');
-      // don't apply overlay twice or if cnx content already includes it
-      if (img.parentElement.querySelector('.tutor-ui-overlay')) { continue; }
-      // Prefix the class to distinguish it from a class in the original HTML content
-      overlay.className = 'tutor-ui-overlay';
-      overlay.innerHTML = title;
-      img.parentElement.appendChild(overlay);
-    }
   }
 
   cleanUpAbstracts(root) {
