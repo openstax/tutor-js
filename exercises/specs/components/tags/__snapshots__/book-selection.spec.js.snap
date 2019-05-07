@@ -57,7 +57,7 @@ exports[`Book Selection tags component renders and matches snapshot 1`] = `
   <option
     value="stax-k12phys"
   >
-    Physics
+    K-12 Physics
   </option>
   <option
     value="stax-soc"

@@ -102,7 +102,7 @@ exports[`Book tags component renders tags 1`] = `
       <option
         value="stax-k12phys"
       >
-        Physics
+        K-12 Physics
       </option>
       <option
         value="stax-soc"

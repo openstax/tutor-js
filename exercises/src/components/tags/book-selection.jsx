@@ -12,7 +12,7 @@ const BOOKS = {
   'stax-econ':    'Economics',
   'stax-macro':   'Macro Economics',
   'stax-micro':   'Micro Economics',
-  'stax-k12phys': 'Physics',
+  'stax-k12phys': 'K-12 Physics',
   'stax-soc':     'Sociology',
   'stax-apush':   'U.S. History for AP® Courses',
 };
