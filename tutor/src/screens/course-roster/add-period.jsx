@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { find } from 'lodash';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
 import { Modal, Button } from 'react-bootstrap';
@@ -20,11 +21,6 @@ class AddPeriodField extends React.Component {
     name:  PropTypes.string.isRequired,
     onChange:  PropTypes.func.isRequired,
     validate: PropTypes.func.isRequired,
-    autofocus: PropTypes.bool,
-  }
-
-  componentDidMount() {
-    if (this.props.autofocus) { this.refs.input.focus(); }
   }
 
   render() {
@@ -32,6 +28,7 @@ class AddPeriodField extends React.Component {
       <TutorInput
         ref="input"
         label={this.props.label}
+        autoFocus
         default={''}
         hasValue
         required={true}
@@ -122,4 +119,4 @@ class AddPeriodLink extends React.Component {
     );
   }
 
-};
+}

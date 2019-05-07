@@ -1,3 +1,4 @@
+/* eslint-disable */  // sorry future dev, hopefully you can whip this into shape :(
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -31,7 +32,7 @@ class TutorInput extends React.Component {
     onChange: PropTypes.func,
     validate: PropTypes.func,
     onUpdated: PropTypes.func,
-    autofocus: PropTypes.bool,
+    autoFocus: PropTypes.bool,
     hasValue: PropTypes.bool,
   };
 
@@ -40,7 +41,7 @@ class TutorInput extends React.Component {
   componentDidMount() {
     const errors = this.props.validate(this.props.default);
     if (!isEmpty(errors)) { this.setState({ errors }); }
-    if (this.props.autofocus) { return this.focus().cursorToEnd(); }
+    if (this.props.autoFocus) { return defer(() => this.focus().cursorToEnd()); }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -110,7 +111,7 @@ class TutorInput extends React.Component {
     if (children != null) {
       inputBox = React.cloneElement(children, inputProps);
     } else {
-      props = omit(this.props, 'label', 'className', 'onChange', 'validate', 'default', 'children', 'ref', 'hasValue');
+      props = omit(this.props, 'autoFocus', 'label', 'className', 'onChange', 'validate', 'default', 'children', 'ref', 'hasValue');
       inputProps = extend({}, inputProps, props);
 
       inputBox = <input {...inputProps} />;

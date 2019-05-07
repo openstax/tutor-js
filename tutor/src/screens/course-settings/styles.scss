@@ -1,8 +1,11 @@
 @import "../screen-styles";
 @import "./styles/student-access";
 
+.tutor-app.course-settings {
+  background-color: white;
+}
+
 .course-page {
-  &.roster,
   &.settings {
     .course-settings-title {
       @include tutor-main-title-font();

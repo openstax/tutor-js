@@ -20,19 +20,14 @@ class RenamePeriodField extends React.Component {
     name:  PropTypes.string.isRequired,
     default: PropTypes.string.isRequired,
     onChange:  PropTypes.func.isRequired,
-    autofocus: PropTypes.bool,
     validate: PropTypes.func.isRequired,
-  }
-
-  componentDidMount() {
-    if (this.props.autofocus) { this.refs.input.focus(); }
-    if (this.props.autofocus) { this.refs.input.cursorToEnd(); }
   }
 
   render() {
     return (
       <TutorInput
         ref="input"
+        autoFocus
         label={this.props.label}
         default={this.props.default}
         required={true}
@@ -105,7 +100,6 @@ class RenamePeriod extends React.Component {
             default={this.props.period.name}
             onChange={this.onChange}
             validate={this.validate}
-            autofocus={true}
           />
         </Modal.Body>
         <Modal.Footer>
@@ -134,4 +128,4 @@ class RenamePeriod extends React.Component {
     );
   }
 
-};
+}

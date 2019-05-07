@@ -71,7 +71,7 @@ class RenameCourse extends React.Component {
               onChange={this.onChange}
               default={course.name}
               validate={this.validate}
-              autoFocus={true} />
+              autoFocus />
           </Modal.Body>
           <div className="modal-footer">
             <AsyncButton
@@ -89,4 +89,4 @@ class RenameCourse extends React.Component {
     );
   }
 
-};
+}

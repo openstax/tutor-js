@@ -33,7 +33,7 @@ class CourseName extends React.Component {
       <Form>
         <Form.Group className="course-details-name">
           <Form.Control
-            autoFocus={true}
+            autoFocus
             type="text"
             defaultValue={newCourse.name}
             placeholder="Choose a name for your course"
@@ -58,4 +58,4 @@ class CourseName extends React.Component {
       </Form>
     );
   }
-};
+}
