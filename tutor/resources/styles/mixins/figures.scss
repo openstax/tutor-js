@@ -1,116 +1,85 @@
 @mixin tutor-figure() {
 
-  .os-figure.tutor-ui-vertical-img,
-  .os-figure.tutor-ui-horizontal-img,
-  figure {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-    &.tutor-ui-horizontal-img {
-      max-width: 50%;
-      align-items: center;
-    }
-    &.small-img-width {
-      max-width: 100%;
-    }
-    &.medium-img-width {
-      max-width: 75%;
-    }
-    &.tutor-ui-vertical-img {
-      margin-right: $book-content-vertical-image-margin;
-      width: calc(50% - #{$book-content-vertical-image-margin});
-      &:not(:last-child) {
-        // float: left; //disabled until content that isn't plain txt is styled properly
+  figure,
+  .os-figure {
+      display: flex;
+      flex-direction: column;
+  }
+
+  .os-figure {
+    &:not(.splash):not(.full-width) {
+      width: 50%;
+      margin-bottom: 20px;
+
+      padding: 1rem;
+      float: left;
+
+      &.independent {
+        float: none;
+        margin: auto;
+        width: 60%;
       }
-      & + .tutor-ui-vertical-img {
-        margin-left: $book-content-vertical-image-margin;
-        margin-right: 0;
-      }
-      & + .example-video {
-        // force break
-        &:before {
-          content: ' ';
-          width: 100%;
-          display: table;
-        }
-      }
-      // don't float if there's 3 in a row
-      // there's an example of this in physics section 1.1
-      & + .tutor-ui-vertical-img + .tutor-ui-vertical-img {
+
+      & + .os-figure + .os-figure {
         clear: both;
-        padding-right: 1rem;
-        margin-right: 1rem;
+      }
+      & + .os-figure + .os-figure + .os-figure{
+        clear: none;
+      }
+
+      & + :not(.os-figure) {
+        clear: left;
       }
     }
 
-    > [data-type="media"] { width: 100%; }
     img {
       width: 100%;
       height: auto;
     }
-
-    figcaption {
-      width: 100%;
-      min-width: 100;
-      order: 99; // high enought to always be last
-
-      caption-side: bottom;
-      color: $caption-font-color;
-      padding: 10px 0;
-      font-weight: 300;
-      font-style: italic;
-      line-height: 150%;
-
-      border-bottom: 1px solid;
-      border-color: $border-color;
-      &::before {
-        counter-increment: figure;
-        content: "Figure " counter(figure);
-        font-weight: 800;
-        display: block;
-      }
-    }
-
-    figure {
-      flex: 1;
-    }
-
-    &.with-child-figures {
-      width: 100%;
-    }
-
-    img {
-      max-width: 100%;
-      border: 1px solid $border-color;
-      margin: 10px 0 0 0;
-    }
-  }
-
-  [data-type="note"] figure.tutor-ui-vertical-img {
-    margin-right: 0;
-    max-width: 50%;
-    float: none;
   }
 
   .os-caption-container {
-    display: flex;
-    flex-wrap: wrap;
-    border-bottom: 1px solid $border-color;
-    padding-bottom: 0.5rem;
-    margin-bottom: 0.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      border-bottom: 1px solid $border-color;
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.5rem;
+      color: $caption-font-color;
+      .os-title-label,
+      .os-number {
+        font-style: italic;
+        font-weight: 800;
+      }
+      .os-title-label + .os-number {
+        margin-left: 0.5rem;
+      }
+      .os-divider {
+        flex: 1;
+        min-width: 1rem;
+      }
+  }
+
+  figcaption {
+    width: 100%;
+    min-width: 100%;
+    order: 99; // high enough to always be last
+
+    caption-side: bottom;
     color: $caption-font-color;
-    .os-title-label,
-    .os-number {
-      font-style: italic;
+    padding: 10px 0;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 150%;
+
+    border-bottom: 1px solid;
+    border-color: $border-color;
+    &::before {
+      counter-increment: figure;
+      content: "Figure " counter(figure);
       font-weight: 800;
-    }
-    .os-title-label + .os-number {
-      margin-left: 0.5rem;
-    }
-    .os-divider {
-      flex: 1;
-      min-width: 1rem;
+      display: block;
     }
   }
+
 
 }

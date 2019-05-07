@@ -24,6 +24,17 @@ const LEARNING_OBJECTIVE_SELECTORS = '.learning-objectives, [data-type=abstract]
 const IS_INTRO_SELECTORS = '.splash img, [data-type="cnx.flag.introduction"]';
 const INTER_BOOK_LINKS = 'a[href^=\'/book/\']';
 
+
+function hasSiblingFigure(el) {
+  return Boolean(
+    (el.previousElementSibling &&
+      dom(el.previousElementSibling).matches('.os-figure')
+    ) || (
+      el.nextElementSibling && dom(el.nextElementSibling).matches('.os-figure')
+    )
+  );
+}
+
 // called with the context set to the image
 function processImage() {
   const img = dom(this);
@@ -31,7 +42,15 @@ function processImage() {
     || img.closest('figure')
     || img.closest('[data-type=media]');
   if (!figure) { return; }
+
+  if (figure.querySelector('.splash')) {
+    figure.classList.add('full-width');
+  }
   if (figure.classList.contains('splash')) { return; }
+  // figures that are not in a series
+  if (!hasSiblingFigure(figure)) {
+    figure.classList.add('independent');
+  }
 
   const { parentNode } = figure;
   if (parentNode && parentNode.nodeName === 'FIGURE') {
@@ -42,9 +61,12 @@ function processImage() {
   const aspectRatio = this.naturalWidth / this.naturalHeight;
 
   // let wide, square, and almost square figures be natural.
-  if ((aspectRatio > 0.9) || ((figure.parentNode != null ? figure.parentNode.dataset.orient : undefined) === 'horizontal')) {
+  if (
+    (aspectRatio > 0.9) ||
+      ((figure.parentNode != null ? figure.parentNode.dataset.orient : undefined) === 'horizontal')
+  ) {
     figure.classList.add('tutor-ui-horizontal-img');
-    if (this.naturalWidth < 1200) {
+    if (this.naturalWidth < 350) {
       figure.classList.add('small-img-width');
     } else {
       figure.classList.add('medium-img-width');
@@ -238,7 +260,7 @@ class BookPage extends React.Component {
   }
 
   detectImgAspectRatio(root) {
-    root.querySelectorAll('figure:not(.splash) img').forEach((img) =>
+    root.querySelectorAll('figure img').forEach((img) =>
       img.complete ? processImage.call(img) : (img.onload = processImage));
   }
 
