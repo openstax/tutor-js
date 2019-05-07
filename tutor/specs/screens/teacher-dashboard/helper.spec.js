@@ -22,7 +22,7 @@ describe('CourseCalendar Helper', function() {
     expect(Helper.isSidebarOpen(courseId)).toBe(true);
   });
 
-  return xit('will schedule intro callbacks', function() {
+  xit('will schedule intro callbacks', function() {
     Router.currentQuery.mockReturnValueOnce({ showIntro: 'true' });
     const cbSpy = jest.fn();
     Helper.scheduleIntroEvent(cbSpy, 1, 2, 3);

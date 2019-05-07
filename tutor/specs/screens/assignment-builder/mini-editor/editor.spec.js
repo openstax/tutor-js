@@ -46,7 +46,7 @@ xdescribe('TaskPlan MiniEditor wrapper', function() {
   let options = {};
 
   beforeEach(function() {
-    sandbox = jestsinon.sandbox.create();
+    sandbox = jest.sandbox.create();
     sandbox.stub(TaskPlanActions, 'save');
     sandbox.stub(TaskPlanActions, 'publish');
     sandbox.stub(TaskPlanStore, 'isValid', () => true);
@@ -58,7 +58,7 @@ xdescribe('TaskPlan MiniEditor wrapper', function() {
 
     const term = fakeTerm();
     options = EnzymeContext.build();
-    return props = {
+    props = {
       id: PLAN.id,
       courseId: COURSE_ID,
       onHide: jest.fn(),
@@ -72,20 +72,17 @@ xdescribe('TaskPlan MiniEditor wrapper', function() {
   afterEach(() => sandbox.restore());
 
   it('can update title', function() {
-    sinon.stub(TaskPlanActions, 'updateTitle');
     const wrapper = mount(React.createElement(MiniEditor, Object.assign({}, props )), options);
-    const title = wrapper.find(`input[value=\"${PLAN.title}\"]`);
+    const title = wrapper.find(`input[value="${PLAN.title}"]`);
     expect(title).length.to.be(1);
     title.simulate('change', { target: { value: 'foo' } });
     expect(TaskPlanActions.updateTitle).toHaveBeenCalledWith(props.id, 'foo');
-    return undefined;
   });
 
   it('hides itself when cancel is clicked', function() {
     const wrapper = mount(React.createElement(MiniEditor, Object.assign({}, props )), options);
     wrapper.find('.cancel').simulate('click');
     expect(props.onHide).to.have.been.called;
-    return undefined;
   });
 
   it('publishes and sets button state', function() {
@@ -101,7 +98,6 @@ xdescribe('TaskPlan MiniEditor wrapper', function() {
     expect( publish.prop('disabled') ).toEqual(true);
     expect( save.prop('disabled') ).toEqual(true);
     expect( cancel.prop('disabled') ).toEqual(true);
-    return undefined;
   });
 
   it('saves as draft and sets button state', function() {
@@ -118,7 +114,6 @@ xdescribe('TaskPlan MiniEditor wrapper', function() {
     expect( publish.prop('disabled') ).toEqual(true);
     expect( save.prop('disabled') ).toEqual(true);
     expect( cancel.prop('disabled') ).toEqual(true);
-    return undefined;
   });
 
   it('hides when cancel is clicked', function() {
@@ -126,29 +121,25 @@ xdescribe('TaskPlan MiniEditor wrapper', function() {
     const { cancel } = getButtons(wrapper);
     cancel.simulate('click');
     expect(props.onHide).to.have.been.called;
-    return undefined;
   });
 
   it('calls handleError when server error is thrown', function() {
-    const wrapper = shallow(React.createElement(MiniEditor, Object.assign({}, props )));
+    shallow(React.createElement(MiniEditor, Object.assign({}, props )));
     TaskPlanStore.emit('errored', { status: 404, statusMessage: 'There\'s been an error', config: { method: 'GET' } });
     expect(props.handleError).to.have.been.called;
-    return undefined;
   });
 
   it('renders error when server error is thrown', function() {
     const wrapper = mount(React.createElement(MiniEditor, Object.assign({}, props )), options);
     TaskPlanStore.emit('errored', { status: 404, statusMessage: 'There\'s been an error', config: { method: 'POST' } });
     expect(wrapper.find('ServerErrorMessage')).length.to.be(1);
-    return undefined;
   });
 
-  return it('limits opens date and due date to term dates', function() {
+  it('limits opens date and due date to term dates', function() {
     const wrapper = mount(React.createElement(MiniEditor, Object.assign({}, props )), options);
     const datePickers = wrapper.find('DatePicker');
 
     expect(datePickers.at(0).props().minDate.isSame(props.termStart, 'day')).toEqual(true);
     expect(datePickers.at(1).props().maxDate.isSame(props.termEnd, 'day')).toEqual(true);
-    return undefined;
   });
 });

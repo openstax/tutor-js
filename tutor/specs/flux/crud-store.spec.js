@@ -1,3 +1,4 @@
+/* eslint-disable */  // crud store is being deprecated, don't bother
 import { CrudConfig, makeSimpleStore, extendConfig } from '../../src/flux/helpers';
 
 const TestCrudConfig = CrudConfig();
@@ -32,7 +33,6 @@ describe('CRUD Store', function() {
     expect(CrudStore.isUnknown(id)).toBe(false);
     CrudActions.reset();
     expect(CrudStore.isUnknown(id)).toBe(true);
-    return undefined;
   });
 
   it('should load a task and notify', function(done) {
@@ -43,7 +43,6 @@ describe('CRUD Store', function() {
     });
     CrudActions.loaded({ hello: 'world', steps: [] }, 123);
     expect(CrudStore.get(123).hello).toEqual('world');
-    return undefined;
   });
 
   it('should load a task through the happy path', function() {
@@ -68,7 +67,6 @@ describe('CRUD Store', function() {
     expect(CrudStore.isFailed(id)).toBe(false);
 
     expect(CrudStore.get(id).hello).toEqual('bar');
-    return undefined;
   });
 
   it('should note when a load failed', function() {
@@ -91,7 +89,6 @@ describe('CRUD Store', function() {
     expect(CrudStore.isLoaded(id)).toBe(false);
     expect(CrudStore.isLoading(id)).toBe(false);
     expect(CrudStore.isFailed(id)).toBe(true);
-    return undefined;
   });
 
   it('should store changed attributes locally', function() {
@@ -107,7 +104,6 @@ describe('CRUD Store', function() {
     CrudActions._change(id, { hello: 'bam' });
     expect(CrudStore.get(id)).toEqual({ hello: 'bam', foo: 'baz' });
     expect(CrudStore.getChanged(id)).toEqual({ foo: 'baz', hello: 'bam' });
-    return undefined;
   });
 
   it('should clear changed attributes when saved', function() {
@@ -117,7 +113,6 @@ describe('CRUD Store', function() {
     CrudActions.saved({ afterSave: true }, id);
     expect(CrudStore.isChanged(id)).toBe(false);
     expect(CrudStore.get(id)).toEqual({ afterSave: true });
-    return undefined;
   });
 
   it('should clear changed attributes locally when clearChanged()', function() {
@@ -127,23 +122,20 @@ describe('CRUD Store', function() {
     CrudActions.clearChanged(id);
     expect(CrudStore.get(id)).toEqual({ hello: 'bar' });
     expect(CrudStore.getChanged(id)).toEqual({});
-    return undefined;
   });
 
   it('should be loaded when a new item is created', function() {
     const id = CrudStore.freshLocalId();
     CrudActions.create(id, { hello: 'bar' });
     expect(CrudStore.isLoaded(id)).toBe(true);
-    return undefined;
   });
 
   it('should have additional actions if the config has been extended', function() {
     expect(ExtendedActions._loaded).toBeDefined();
-    return undefined;
   });
 
   it('should additional store functions if the config has been extended', function() {
-    expect(ExtendedStore.testExtendedStore).toBeDefined();    return undefined;
+    expect(ExtendedStore.testExtendedStore).toBeDefined();
   });
 
   it('should not change what is loaded if _loaded function is undefined', function() {
@@ -152,7 +144,6 @@ describe('CRUD Store', function() {
     CrudActions.loaded(storeObj, id);
     expect(CrudActions._loaded).toBeUndefined();
     expect(CrudStore.get(id)).toEqual(storeObj);
-    return undefined;
   });
 
   it('should change what is loaded if _loaded function is defined and returns', function() {
@@ -161,7 +152,6 @@ describe('CRUD Store', function() {
     ExtendedActions.loaded(nestedStore, id);
     expect(ExtendedConfig._loaded(nestedStore, id)).not.toBeUndefined();
     expect(ExtendedStore.get(id).nested).toEqual(nestedStore);
-    return undefined;
   });
 
   it('should not change what is loaded if _loaded function returns falsy', function() {
@@ -170,7 +160,6 @@ describe('CRUD Store', function() {
     ExtendedActions.loaded(storeObj, id);
     expect(ExtendedConfig._loaded(storeObj, id)).toBeUndefined();
     expect(ExtendedStore.get(id)).toEqual(storeObj);
-    return undefined;
   });
 
   it('should not change what is saved if _saved function is undefined', function() {
@@ -179,7 +168,6 @@ describe('CRUD Store', function() {
     CrudActions.saved(storeObj, id);
     expect(CrudActions._saved).toBeUndefined();
     expect(CrudStore.get(id)).toEqual(storeObj);
-    return undefined;
   });
 
   it('should change what is saved if _saved function is defined and returns', function() {
@@ -188,15 +176,13 @@ describe('CRUD Store', function() {
     ExtendedActions.saved(nestedStore, id);
     expect(ExtendedConfig._saved(nestedStore, id)).not.toBeUndefined();
     expect(ExtendedStore.get(id).nested).toEqual(nestedStore);
-    return undefined;
   });
 
-  return it('should not change what is saved if _saved function returns falsy', function() {
+  it('should not change what is saved if _saved function returns falsy', function() {
     const id = 0;
     const storeObj = { hello: 'bar', doNotModify: true };
     ExtendedActions.saved(storeObj, id);
     expect(ExtendedConfig._saved(storeObj, id)).toBeUndefined();
     expect(ExtendedStore.get(id)).toEqual(storeObj);
-    return undefined;
   });
 });

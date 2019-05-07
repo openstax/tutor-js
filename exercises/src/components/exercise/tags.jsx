@@ -13,6 +13,7 @@ import Blooms from '../tags/blooms';
 import Time from '../tags/time';
 import HistoricalThinking from '../tags/historical-thinking';
 import ReasoningProcess from '../tags/reasoning-process';
+import ApLo from '../tags/aplo';
 import RequiresContext from '../tags/requires-context';
 import Exercise from '../../models/exercises/exercise';
 
@@ -26,6 +27,7 @@ function ExerciseTags({ exercise }) {
       <div className="tags">
         <Books {...tagProps} />
         <Lo {...tagProps} />
+        <ApLo {...tagProps} />
         <QuestionType {...tagProps} />
         <HistoricalThinking {...tagProps} />
         <ReasoningProcess {...tagProps} />

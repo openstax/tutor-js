@@ -72,16 +72,16 @@ const sortPeriods = [
 ];
 
 
-describe('Period helpers', () =>
+describe('Period helpers', () => {
 
   it('helps sort strings and numbers', function() {
     each(sortPeriods, function(periods) {
       const randoedPeriods = shuffle(periods);
       const sortedByFunction = PeriodHelper.sort(randoedPeriods);
 
-      return expect(map(sortedByFunction, 'name').join())
+      expect(map(sortedByFunction, 'name').join())
         .toEqual(map(periods, 'name').join());
     });
-    return undefined;
-  })
-);
+  });
+
+});

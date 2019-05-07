@@ -31,7 +31,6 @@ describe('task-plan helper', function() {
         due_at:   '2015-04-05T10:00:00.000Z',
       },
     });
-    return undefined;
   });
 
   it('returns the period id with dates when not the same', function() {
@@ -59,7 +58,7 @@ describe('task-plan helper', function() {
   });
 
 
-  return it('calculates api options depending on plan isNew', function() {
+  it('calculates api options depending on plan isNew', function() {
     expect(TaskPlan.apiEndpointOptions(SINGLE.id, COURSE_ID))
       .toEqual({ url: `plans/${SINGLE.id}` });
 
@@ -75,6 +74,5 @@ describe('task-plan helper', function() {
         params: { ecosystem_id: 42 },
       });
 
-    return undefined;
   });
 });

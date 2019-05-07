@@ -2,7 +2,7 @@ import { Actions } from '../helpers';
 
 import TutorDialog from '../../src/components/tutor-dialog';
 
-describe('TutorDialog', () =>
+describe('TutorDialog', () => {
 
   it('can be shown multiple times', function() {
     const promises = [1, 2, 3].map((i) =>
@@ -18,5 +18,5 @@ describe('TutorDialog', () =>
         Actions.click(document.body.querySelector('.tutor-dialog button.ok'));
       }));
     return Promise.all(promises);
-  })
-);
+  });
+});
