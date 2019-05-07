@@ -24,7 +24,7 @@ describe('Mathjax Helper', function() {
         Queue: (...args) => args.map(arg => arg()),
       },
     };
-    return window.document = dom;
+    window.document = dom;
   });
 
   it('can typeset latex', function() {
@@ -36,7 +36,7 @@ describe('Mathjax Helper', function() {
   });
 
   // virtual dom doesn't seem to match mathjax processor's :not(.math-rendered)
-  return it('typesets document with mathml is present', function() {
+  it('typesets document with mathml is present', function() {
     dom.innerHTML = `\
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">
   <mrow>

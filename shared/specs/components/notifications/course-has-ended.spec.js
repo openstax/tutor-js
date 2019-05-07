@@ -25,13 +25,11 @@ describe('Notifications MissingStudentId notice', function() {
   it('renders and matches snapshot', function() {
     const component = SnapShot.create(<CourseHasEnded {...props} />);
     expect(component.toJSON()).toMatchSnapshot();
-    return undefined;
   });
 
-  return it('calls onCCSecondSemester callback', function() {
+  it('calls onCCSecondSemester callback', function() {
     const wrapper = shallow(<CourseHasEnded {...props} />);
     wrapper.find('a.action').simulate('click');
     expect(props.callbacks.onCCSecondSemester).toHaveBeenCalled();
-    return undefined;
   });
 });

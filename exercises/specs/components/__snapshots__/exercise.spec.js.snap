@@ -6,12 +6,12 @@ exports[`Exercises component renders and matches snapshot 1`] = `
   margin-left: 0.5rem;
 }
 
-.c2 {
+.c3 {
   position: relative;
   overflow: hidden;
 }
 
-.c3 {
+.c4 {
   width: 200px;
   background: #e43;
   position: absolute;
@@ -53,13 +53,20 @@ exports[`Exercises component renders and matches snapshot 1`] = `
   background: #232e66;
 }
 
-.c3 > div {
+.c4 > div {
   font-size: 13px;
   white-space: nowrap;
 }
 
-.c1 {
+.c2 {
   margin-top: 1.5rem;
+}
+
+.c1 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  margin-right: 0.5rem;
 }
 
 <div
@@ -1155,92 +1162,148 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                 className="tag"
               >
                 <div
-                  className="rw-multiselect rw-widget"
-                  onBlur={[Function]}
-                  onFocus={[Function]}
+                  className="css-1pcexqc-container c1"
                   onKeyDown={[Function]}
-                  tabIndex="-1"
                 >
-                  <span
-                    aria-atomic="true"
-                    aria-live="assertive"
-                    aria-relevant="additions removals text"
-                    className="rw-sr"
-                    id="rw_1_notify_area"
-                    role="status"
-                  />
                   <div
-                    className="rw-widget-input rw-widget-picker rw-widget-container"
-                    onClick={[Function]}
-                    onDoubleClick={[Function]}
+                    className="css-bg1rzq-control"
+                    onMouseDown={[Function]}
                     onTouchEnd={[Function]}
                   >
-                    <div>
-                      <ul
-                        aria-label="Selected items"
-                        className="rw-multiselect-taglist"
-                        id="rw_1_taglist"
-                        role="listbox"
-                      >
-                        <li
-                          className="rw-multiselect-tag"
-                          id={null}
-                          role="option"
-                        >
-                          <span>
-                            Test Prep
-                          </span>
-                          <div>
-                            <button
-                              className="rw-multiselect-tag-btn rw-btn rw-btn-select"
-                              onClick={[Function]}
-                              tabIndex="-1"
-                              type="button"
-                            >
-                              <span
-                                aria-hidden="true"
-                              >
-                                ×
-                              </span>
-                            </button>
-                          </div>
-                        </li>
-                      </ul>
-                      <input
-                        aria-activedescendant={null}
-                        aria-busy={false}
-                        aria-disabled={false}
-                        aria-expanded={false}
-                        aria-haspopup={true}
-                        aria-owns="rw_1_listbox rw_1_notify_area rw_1_taglist"
-                        aria-readonly={false}
-                        autoComplete="off"
-                        className="rw-input-reset"
-                        disabled={false}
-                        onChange={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyUp={[Function]}
-                        placeholder=""
-                        readOnly={false}
-                        role="listbox"
-                        size={2}
-                        tabIndex={0}
-                        value=""
-                      />
-                    </div>
-                    <span
-                      className="rw-select"
+                    <div
+                      className="css-1hwfws3"
                     >
-                      <button
-                        aria-disabled={false}
+                      <div
+                        className="css-es53b3-multiValue"
+                      >
+                        <div
+                          className="css-12jo7m5"
+                        >
+                          Test Prep
+                        </div>
+                        <div
+                          className="css-1alnv5e"
+                          onClick={[Function]}
+                          onMouseDown={[Function]}
+                          onTouchEnd={[Function]}
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="css-19bqh2r"
+                            focusable="false"
+                            height={14}
+                            viewBox="0 0 20 20"
+                            width={14}
+                          >
+                            <path
+                              d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                      <div
+                        className="css-1g6gooi"
+                      >
+                        <div
+                          className=""
+                          style={
+                            Object {
+                              "display": "inline-block",
+                            }
+                          }
+                        >
+                          <input
+                            aria-autocomplete="list"
+                            autoCapitalize="none"
+                            autoComplete="off"
+                            autoCorrect="off"
+                            disabled={false}
+                            id="react-select-2-input"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            spellCheck="false"
+                            style={
+                              Object {
+                                "background": 0,
+                                "border": 0,
+                                "boxSizing": "content-box",
+                                "color": "inherit",
+                                "fontSize": "inherit",
+                                "label": "input",
+                                "opacity": 1,
+                                "outline": 0,
+                                "padding": 0,
+                                "width": "1px",
+                              }
+                            }
+                            tabIndex="0"
+                            type="text"
+                            value=""
+                          />
+                          <div
+                            style={
+                              Object {
+                                "height": 0,
+                                "left": 0,
+                                "overflow": "scroll",
+                                "position": "absolute",
+                                "top": 0,
+                                "visibility": "hidden",
+                                "whiteSpace": "pre",
+                              }
+                            }
+                          >
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="css-1wy0on6"
+                    >
+                      <div
                         aria-hidden="true"
-                        className="rw-btn rw-btn-select"
-                        disabled={false}
-                        role="presentational"
-                        tabIndex="-1"
-                        type="button"
+                        className="css-16pqwjk-indicatorContainer"
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="css-19bqh2r"
+                          focusable="false"
+                          height={20}
+                          viewBox="0 0 20 20"
+                          width={20}
+                        >
+                          <path
+                            d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                          />
+                        </svg>
+                      </div>
+                      <span
+                        className="css-bgvzuu-indicatorSeparator"
                       />
-                    </span>
+                      <div
+                        aria-hidden="true"
+                        className="css-16pqwjk-indicatorContainer"
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="css-19bqh2r"
+                          focusable="false"
+                          height={20}
+                          viewBox="0 0 20 20"
+                          width={20}
+                        >
+                          <path
+                            d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1692,13 +1755,13 @@ exports[`Exercises component renders and matches snapshot 1`] = `
     </div>
   </div>
   <div
-    className="c1"
+    className="c2"
   >
     <div
-      className="c2"
+      className="c3"
     >
       <div
-        className="c3"
+        className="c4"
         color="navy"
         hidden={false}
       >
@@ -2843,64 +2906,104 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                               </TagWrapper>
                                             </SingleDropdown>
                                           </QuestionTypeTag>
+                                          <HistoricalThinkingTag exercise={{...}} />
+                                          <ReasoningProcessTag exercise={{...}} />
                                           <FilterTypeTag exercise={{...}}>
-                                            <TagWrapper label=\\"Filter Type\\">
-                                              <div className=\\"tag-type\\">
-                                                <div className=\\"heading\\">
-                                                  <span className=\\"label\\">
-                                                    Filter Type
-                                                  </span>
-                                                  <div className=\\"controls\\" />
-                                                </div>
-                                                <div className=\\"tag\\">
-                                                  <Uncontrolled(Multiselect) valueField=\\"value\\" textField=\\"title\\" data={{...}} value={{...}} onChange={[Function: res]}>
-                                                    <Multiselect valueField=\\"value\\" textField=\\"title\\" data={{...}} value={{...}} onChange={[Function: handleChange]} open={[undefined]} searchTerm=\\"\\" onToggle={[Function: handleChange]} onSearch={[Function: handleChange]} allowCreate=\\"onFilter\\" filter=\\"startsWith\\" selectIcon={{...}} listComponent={[Function: List]} showPlaceholderWithValues={false}>
-                                                      <Widget open={[undefined]} dropUp={[undefined]} focused={[undefined]} disabled={false} readOnly={false} onKeyDown={[Function: bound decoratedMethod]} onBlur={[Function: handleBlur]} onFocus={[Function: handleFocus]} className=\\"rw-multiselect\\">
-                                                        <div onKeyDown={[Function: bound decoratedMethod]} onBlur={[Function: handleBlur]} onFocus={[Function: handleFocus]} tabIndex=\\"-1\\" className=\\"rw-multiselect rw-widget\\">
-                                                          <span id=\\"rw_3_notify_area\\" role=\\"status\\" className=\\"rw-sr\\" aria-live=\\"assertive\\" aria-atomic=\\"true\\" aria-relevant=\\"additions removals text\\" />
-                                                          <WidgetPicker onClick={[Function: bound decoratedMethod]} onTouchEnd={[Function: bound decoratedMethod]} onDoubleClick={[Function: bound decoratedMethod]} className=\\"rw-widget-input\\">
-                                                            <div onClick={[Function: bound decoratedMethod]} onTouchEnd={[Function: bound decoratedMethod]} onDoubleClick={[Function: bound decoratedMethod]} className=\\"rw-widget-input rw-widget-picker rw-widget-container\\">
-                                                              <div>
-                                                                <MultiselectTagList id=\\"rw_3_taglist\\" activeId=\\"rw_3_taglist_active_tag\\" textAccessor={[Function: text]} valueAccessor={[Function: value]} label=\\"Selected items\\" value={{...}} readOnly={[undefined]} disabled={[undefined]} focusedItem={{...}} onDelete={[Function]} valueComponent={[undefined]}>
-                                                                  <ul id=\\"rw_3_taglist\\" role=\\"listbox\\" aria-label=\\"Selected items\\" className=\\"rw-multiselect-taglist\\">
-                                                                    <MultiselectTag id={{...}} value={{...}} focused={false} onClick={[Function]} disabled={false}>
-                                                                      <li id={{...}} role=\\"option\\" className=\\"rw-multiselect-tag\\">
-                                                                        <span>
-                                                                          Test Prep
-                                                                        </span>
-                                                                        <div>
-                                                                          <Button variant=\\"select\\" onClick={[Function: bound decoratedMethod]} className=\\"rw-multiselect-tag-btn\\" disabled={[undefined]} aria-label=\\"Remove item\\">
-                                                                            <button onClick={[Function: bound decoratedMethod]} aria-label={[undefined]} tabIndex=\\"-1\\" title={[undefined]} type=\\"button\\" disabled={[undefined]} aria-disabled={[undefined]} className=\\"rw-multiselect-tag-btn rw-btn rw-btn-select\\">
-                                                                              <span aria-hidden=\\"true\\">
-                                                                                ×
-                                                                              </span>
-                                                                            </button>
-                                                                          </Button>
-                                                                        </div>
-                                                                      </li>
-                                                                    </MultiselectTag>
-                                                                  </ul>
-                                                                </MultiselectTagList>
-                                                                <MultiselectInput autoFocus={[undefined]} tabIndex={0} role=\\"listbox\\" aria-expanded={false} aria-busy={false} aria-owns=\\"rw_3_listbox rw_3_notify_area rw_3_taglist\\" aria-haspopup={true} aria-activedescendant={{...}} value=\\"\\" maxLength={[undefined]} disabled={false} readOnly={false} placeholder=\\"\\" onKeyDown={[Function]} onKeyUp={[Function]} onChange={[Function]}>
-                                                                  <input autoFocus={[undefined]} tabIndex={0} role=\\"listbox\\" aria-expanded={false} aria-busy={false} aria-owns=\\"rw_3_listbox rw_3_notify_area rw_3_taglist\\" aria-haspopup={true} aria-activedescendant={{...}} value=\\"\\" maxLength={[undefined]} placeholder=\\"\\" onKeyDown={[Function]} onKeyUp={[Function]} onChange={[Function]} size={2} className=\\"rw-input-reset\\" autoComplete=\\"off\\" aria-disabled={false} aria-readonly={false} disabled={false} readOnly={false} />
-                                                                </MultiselectInput>
+                                            <MultiSelect exercise={{...}} label=\\"Filter Type\\" tagType=\\"filter-type\\" options={{...}}>
+                                              <TagWrapper label=\\"Filter Type\\">
+                                                <div className=\\"tag-type\\">
+                                                  <div className=\\"heading\\">
+                                                    <span className=\\"label\\">
+                                                      Filter Type
+                                                    </span>
+                                                    <div className=\\"controls\\" />
+                                                  </div>
+                                                  <div className=\\"tag\\">
+                                                    <StyledSelect isMulti={true} options={{...}} defaultValue={{...}} onChange={[Function: res]}>
+                                                      <StyledComponent isMulti={true} options={{...}} defaultValue={{...}} onChange={[Function: res]} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                        <StateManager isMulti={true} options={{...}} defaultValue={{...}} onChange={[Function: res]} className=\\"StyledSelect-sc-1cekfhv-0 kVHcNh\\" defaultInputValue=\\"\\" defaultMenuIsOpen={false}>
+                                                          <Select isMulti={true} options={{...}} onChange={[Function]} className=\\"StyledSelect-sc-1cekfhv-0 kVHcNh\\" inputValue=\\"\\" menuIsOpen={false} onInputChange={[Function]} onMenuClose={[Function]} onMenuOpen={[Function]} value={{...}} backspaceRemovesValue={true} blurInputOnSelect={true} captureMenuScroll={false} closeMenuOnSelect={true} closeMenuOnScroll={false} components={{...}} controlShouldRenderValue={true} escapeClearsValue={false} filterOption={[Function]} formatGroupLabel={[Function: formatGroupLabel]} getOptionLabel={[Function: getOptionLabel]} getOptionValue={[Function: getOptionValue]} isDisabled={false} isLoading={false} isRtl={false} isSearchable={true} isOptionDisabled={[Function: isOptionDisabled]} loadingMessage={[Function: loadingMessage]} maxMenuHeight={300} minMenuHeight={140} menuPlacement=\\"bottom\\" menuPosition=\\"absolute\\" menuShouldBlockScroll={false} menuShouldScrollIntoView={true} noOptionsMessage={[Function: noOptionsMessage]} openMenuOnFocus={false} openMenuOnClick={true} pageSize={5} placeholder=\\"Select...\\" screenReaderStatus={[Function: screenReaderStatus]} styles={{...}} tabIndex=\\"0\\" tabSelectsValue={true}>
+                                                            <SelectContainer cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} className=\\"StyledSelect-sc-1cekfhv-0 kVHcNh\\" innerProps={{...}} isDisabled={false} isFocused={false}>
+                                                              <div className=\\"css-1pcexqc-container StyledSelect-sc-1cekfhv-0 kVHcNh\\" id={[undefined]} onKeyDown={[Function]}>
+                                                                <Control cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} innerRef={[Function]} innerProps={{...}} isDisabled={false} isFocused={false} menuIsOpen={false}>
+                                                                  <div className=\\"css-bg1rzq-control\\" onMouseDown={[Function]} onTouchEnd={[Function]}>
+                                                                    <ValueContainer cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} isDisabled={false}>
+                                                                      <div className=\\"css-1hwfws3\\">
+                                                                        <MultiValue cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} components={{...}} isFocused={false} isDisabled={false} removeProps={{...}} data={{...}} cropWithEllipsis={true}>
+                                                                          <MultiValueGeneric data={{...}} innerProps={{...}} selectProps={{...}}>
+                                                                            <div className=\\"css-es53b3-multiValue\\">
+                                                                              <MultiValueGeneric data={{...}} innerProps={{...}} selectProps={{...}}>
+                                                                                <div className=\\"css-12jo7m5\\">
+                                                                                  Test Prep
+                                                                                </div>
+                                                                              </MultiValueGeneric>
+                                                                              <MultiValueRemove data={{...}} innerProps={{...}} selectProps={{...}}>
+                                                                                <div className=\\"css-1alnv5e\\" onClick={[Function: onClick]} onTouchEnd={[Function: onTouchEnd]} onMouseDown={[Function: onMouseDown]}>
+                                                                                  <CrossIcon size={14}>
+                                                                                    <Svg size={14}>
+                                                                                      <svg height={14} width={14} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" className=\\"css-19bqh2r\\">
+                                                                                        <path d=\\"M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z\\" />
+                                                                                      </svg>
+                                                                                    </Svg>
+                                                                                  </CrossIcon>
+                                                                                </div>
+                                                                              </MultiValueRemove>
+                                                                            </div>
+                                                                          </MultiValueGeneric>
+                                                                        </MultiValue>
+                                                                        <Input autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" cx={[Function: bound classNames]} getStyles={[Function]} id=\\"react-select-4-input\\" innerRef={[Function]} isDisabled={false} isHidden={false} onBlur={[Function]} onChange={[Function]} onFocus={[Function]} selectProps={{...}} spellCheck=\\"false\\" tabIndex=\\"0\\" theme={{...}} type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]}>
+                                                                          <div className=\\"css-1g6gooi\\">
+                                                                            <AutosizeInput className=\\"\\" inputRef={[Function]} inputStyle={{...}} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-4-input\\" onBlur={[Function]} onChange={[Function]} onFocus={[Function]} spellCheck=\\"false\\" tabIndex=\\"0\\" type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} minWidth={1} injectStyles={true}>
+                                                                              <div className=\\"\\" style={{...}}>
+                                                                                <input className={[undefined]} disabled={false} autoCapitalize=\\"none\\" autoComplete=\\"off\\" autoCorrect=\\"off\\" id=\\"react-select-4-input\\" onBlur={[Function]} onChange={[Function]} onFocus={[Function]} spellCheck=\\"false\\" tabIndex=\\"0\\" type=\\"text\\" value=\\"\\" aria-autocomplete=\\"list\\" aria-label={[undefined]} aria-labelledby={[undefined]} style={{...}} />
+                                                                                <div style={{...}} />
+                                                                              </div>
+                                                                            </AutosizeInput>
+                                                                          </div>
+                                                                        </Input>
+                                                                      </div>
+                                                                    </ValueContainer>
+                                                                    <IndicatorsContainer cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} isDisabled={false}>
+                                                                      <div className=\\"css-1wy0on6\\">
+                                                                        <ClearIndicator cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} innerProps={{...}} isFocused={false}>
+                                                                          <div onMouseDown={[Function]} onTouchEnd={[Function]} aria-hidden=\\"true\\" className=\\"css-16pqwjk-indicatorContainer\\">
+                                                                            <CrossIcon>
+                                                                              <Svg size={20}>
+                                                                                <svg height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" className=\\"css-19bqh2r\\">
+                                                                                  <path d=\\"M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z\\" />
+                                                                                </svg>
+                                                                              </Svg>
+                                                                            </CrossIcon>
+                                                                          </div>
+                                                                        </ClearIndicator>
+                                                                        <IndicatorSeparator cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} isDisabled={false} isFocused={false}>
+                                                                          <span className=\\"css-bgvzuu-indicatorSeparator\\" />
+                                                                        </IndicatorSeparator>
+                                                                        <DropdownIndicator cx={[Function: bound classNames]} clearValue={[Function]} getStyles={[Function]} getValue={[Function: getValue]} hasValue={true} isMulti={true} isRtl={false} options={{...}} selectOption={[Function]} setValue={[Function]} selectProps={{...}} theme={{...}} innerProps={{...}} isDisabled={false} isFocused={false}>
+                                                                          <div onMouseDown={[Function]} onTouchEnd={[Function]} aria-hidden=\\"true\\" className=\\"css-16pqwjk-indicatorContainer\\">
+                                                                            <DownChevron>
+                                                                              <Svg size={20}>
+                                                                                <svg height={20} width={20} viewBox=\\"0 0 20 20\\" aria-hidden=\\"true\\" focusable=\\"false\\" className=\\"css-19bqh2r\\">
+                                                                                  <path d=\\"M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z\\" />
+                                                                                </svg>
+                                                                              </Svg>
+                                                                            </DownChevron>
+                                                                          </div>
+                                                                        </DropdownIndicator>
+                                                                      </div>
+                                                                    </IndicatorsContainer>
+                                                                  </div>
+                                                                </Control>
                                                               </div>
-                                                              <Select busy={[undefined]} spinner={[undefined]} icon={{...}} aria-hidden=\\"true\\" role=\\"presentational\\" disabled={false}>
-                                                                <span className=\\"rw-select\\">
-                                                                  <Button busy={[undefined]} spinner={[undefined]} icon={{...}} aria-hidden=\\"true\\" role=\\"presentational\\" disabled={false} variant=\\"select\\">
-                                                                    <button aria-hidden=\\"true\\" role=\\"presentational\\" tabIndex=\\"-1\\" title={[undefined]} type=\\"button\\" disabled={false} aria-disabled={false} aria-label={[undefined]} className=\\"rw-btn rw-btn-select\\" />
-                                                                  </Button>
-                                                                </span>
-                                                              </Select>
-                                                            </div>
-                                                          </WidgetPicker>
-                                                        </div>
-                                                      </Widget>
-                                                    </Multiselect>
-                                                  </Uncontrolled(Multiselect)>
+                                                            </SelectContainer>
+                                                          </Select>
+                                                        </StateManager>
+                                                      </StyledComponent>
+                                                    </StyledSelect>
+                                                  </div>
                                                 </div>
-                                              </div>
-                                            </TagWrapper>
+                                              </TagWrapper>
+                                            </MultiSelect>
                                           </FilterTypeTag>
                                           <RequiresContextTag exercise={{...}}>
                                             <TagWrapper label=\\"Requires Context\\">

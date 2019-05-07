@@ -21,7 +21,7 @@ describe('Notifications Bar', function() {
     Notifications.getActive.mockClear();
     Notifications.on.mockClear();
     setTimeout.mockClear();
-    return Notifications.setCourseRole.mockClear();
+    Notifications.setCourseRole.mockClear();
   });
 
   it('renders and matches snapshot', function() {
@@ -34,7 +34,6 @@ describe('Notifications Bar', function() {
     const component = SnapShot.create(<Bar {...props} />);
     jest.runAllTimers();
     expect(component.toJSON()).toMatchSnapshot();
-    return undefined;
   });
 
 
@@ -43,7 +42,6 @@ describe('Notifications Bar', function() {
     expect(Notifications.on).toHaveBeenLastCalledWith('change', expect.anything());
     wrapper.unmount();
     expect(Notifications.off).toHaveBeenLastCalledWith('change', expect.anything());
-    return undefined;
   });
 
   it('shows itself after a delay if there are notifications', function() {
@@ -54,7 +52,6 @@ describe('Notifications Bar', function() {
     expect(setTimeout.mock.calls[0][1]).toBe(777);
     jest.runAllTimers();
     expect(wrapper.hasClass('viewable')).toEqual(true);
-    return undefined;
   });
 
   it('displays all notifications and can dismiss them', function() {
@@ -88,7 +85,6 @@ describe('Notifications Bar', function() {
     expect(Notifications.acknowledge).toHaveBeenLastCalledWith(secondNotice);
 
     expect(wrapper.hasClass('viewable')).toEqual(false);
-    return undefined;
   });
 
   it('displays when new notices arrive', function() {
@@ -100,11 +96,10 @@ describe('Notifications Bar', function() {
     Notifications.on.mock.calls[0][1]();
     expect(wrapper.hasClass('viewable')).toEqual(true);
     expect(wrapper.find('SystemNotification[noticeId=\'42\']')).toHaveLength(1);
-    return undefined;
   });
 
 
-  return it('notifies the store when course or role changes', function() {
+  it('notifies the store when course or role changes', function() {
     expect(Notifications.setCourseRole).not.toHaveBeenCalled();
     props.course = { id: '1', ends_at: moment().add(1, 'day'), students: [{ role_id: '111' }] };
     props.role = { id: '111', type: 'student', joined_at: '2016-01-30T01:15:43.807Z' };
@@ -122,6 +117,6 @@ describe('Notifications Bar', function() {
     props = cloneDeep(props);
     props.course.id = '42';
     wrapper.setProps(props);
-    return expect(Notifications.setCourseRole).toHaveBeenCalledTimes(3);
+    expect(Notifications.setCourseRole).toHaveBeenCalledTimes(3);
   });
 });

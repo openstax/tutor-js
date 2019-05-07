@@ -12,7 +12,7 @@ describe('User mode', function() {
   beforeEach(function() {
     perform = jest.spyOn(Networking, 'perform');
     URLs.update({ accounts_api_url: 'http://localhost:2999/api' });
-    return user = new User({
+    user = new User({
       contact_infos: [
         { id: 1234, is_verified: false },
       ],
@@ -35,10 +35,9 @@ describe('User mode', function() {
       withCredentials: true,
       data: { send_pin: true },
     });
-    return undefined;
   });
 
-  return it('can send an email confirmation', function() {
+  it('can send an email confirmation', function() {
     const email = ld.first(user.unVerfiedEmails());
     email.sendVerification('1234');
     expect(Networking.perform).toHaveBeenCalledWith({
@@ -48,6 +47,5 @@ describe('User mode', function() {
       withCredentials: true,
       data: { pin: '1234' },
     });
-    return undefined;
   });
 });

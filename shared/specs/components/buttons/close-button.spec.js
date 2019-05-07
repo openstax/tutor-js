@@ -5,7 +5,7 @@ describe('Close Button Component', function() {
 
   beforeEach(() => props = {});
 
-  return it('has proper classes', () => {
+  it('has proper classes', () => {
     expect.snapshot(<Button {...props} />).toMatchSnapshot();
   });
 

@@ -69,6 +69,16 @@ describe('Exercise Model', () => {
     const len = exercise.tags.length;
     exercise.tags.setUniqueValue(secondBook, 'uniq');
     expect(exercise.tags.length).toEqual(len - 1);
-    expect(exercise.tags.includes(secondBook)).toBe(false);
+    expect(exercise.tags.includes({ type: 'book', value: 'uniq' })).toBe(true);
+    expect(exercise.tags.includes({ type: 'book', value: 'new' })).toBe(false);
+  });
+
+  it('can replace all tags', () => {
+    exercise.tags.push({ type: 'book', value: 'first' });
+    exercise.tags.push({ type: 'book', value: 'second' });
+    exercise.tags.replaceType('book', [{ value: 'only' }]);
+    const bookTags = exercise.tags.withType('book', { multiple: true });
+    expect(bookTags).toHaveLength(1);
+    expect(bookTags[0].value).toEqual('only');
   });
 });

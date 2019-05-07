@@ -1,4 +1,4 @@
-import { mapValues, reduce, map, filter, find, inRange, merge } from 'lodash';
+import { filter, find } from 'lodash';
 import { action } from 'mobx';
 
 const TagAssociation = {
@@ -10,6 +10,13 @@ const TagAssociation = {
     return this.withType(type) || this.get(this.push(`${type}:`) - 1);
   }),
 
+  replaceType: action(function(type, tags) {
+    this.withType(type, { multiple: true }).forEach(t => this.remove(t));
+    tags.forEach((tag) => {
+      this.push({ type: type, value: tag.value });
+    });
+  }),
+
   setUniqueValue: action(function(tag, value) {
     const existing = find(this, { type: tag.type, value: value });
     if (existing) {
@@ -17,6 +24,10 @@ const TagAssociation = {
     }
     tag.value = value;
   }),
+
+  includes({ type, value }) {
+    return Boolean(find(this, { type, value }));
+  },
 };
 
 

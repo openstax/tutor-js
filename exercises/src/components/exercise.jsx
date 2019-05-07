@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { withRouter } from 'react-router';
 import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
 import ExercisePreview from './exercise/preview';
@@ -12,6 +11,8 @@ import Attachments from './exercise/attachments';
 import Controls from './exercise/controls';
 import { idType } from 'shared';
 import { Loading, NotFound } from './exercise-state';
+
+const DEFAULT_TAB = 'question-0';
 
 export default
 @observer
@@ -32,7 +33,7 @@ class Exercise extends React.Component {
 
   static Controls = Controls;
 
-  @observable activeTabKey = 'question-0';
+  @observable activeTabKey = DEFAULT_TAB;
 
   @computed get exercise() {
     return this.props.exercises.get(this.props.match.params.uid);
@@ -74,7 +75,7 @@ class Exercise extends React.Component {
   renderSingleQuestionTab() {
     const { exercise } = this;
     return (
-      <Tab key={0} eventKey="question-0" title="Question">
+      <Tab key={0} eventKey={DEFAULT_TAB} title="Question">
         {this.renderNickname()}
         <Question {...this.questionProps} question={exercise.questions[0]} />
       </Tab>
@@ -101,7 +102,7 @@ class Exercise extends React.Component {
         } else {
           exercise.questions.remove(question);
         }
-        this.activeTabKey = 'question-0';
+        this.activeTabKey = DEFAULT_TAB;
       },
       onMove: (question, offset) => {
         exercise.moveQuestion(question, offset);
@@ -149,7 +150,7 @@ class Exercise extends React.Component {
             id="exercise-parts"
             activeKey={this.activeTabKey}
             onSelect={this.selectTab}
-            defaultActiveKey="question-0"
+            defaultActiveKey={DEFAULT_TAB}
           >
             {(hasStimulus || isMultiPart) && this.renderStimulusTab()}
             {isMultiPart ? this.renderMpqTabs() : this.renderSingleQuestionTab()}
@@ -165,4 +166,4 @@ class Exercise extends React.Component {
       </div>
     );
   }
-};
+}
