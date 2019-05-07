@@ -11,12 +11,10 @@ import Analytics from '../../helpers/analytics';
 const NotesForSection = observer(({
   notes, section, selectedSections,
 }) => {
-
   if (!selectedSections.includes(section.chapter_section.key)) {
     return null;
   }
   const page = notes.forChapterSection(section.chapter_section);
-
   return (
     <div className="section">
       <h2>
@@ -45,14 +43,14 @@ const NotesForSection = observer(({
               marginLeft: '0.5rem',
             }}
           >
-            {note.text}
+            {note.annotation}
           </p>
         </div>
       ))}
     </div>
   );
 });
-
+NotesForSection.displayName = 'NotesForSection';
 
 export default
 @observer
@@ -133,4 +131,4 @@ class SummaryPopup extends React.Component {
       </div>
     );
   }
-};
+}
