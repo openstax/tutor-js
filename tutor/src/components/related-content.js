@@ -7,7 +7,7 @@ class RelatedContent extends React.Component {
   static propTypes = {
     title: PropTypes.string,
     hasLearningObjectives: PropTypes.bool,
-    isChapterSectionHidden: PropTypes.bool,
+    isChapterSectionDisplayed: PropTypes.bool,
     chapter_section: PropTypes.instanceOf(ChapterSection).isRequired,
   };
 
@@ -18,7 +18,7 @@ class RelatedContent extends React.Component {
   render() {
 
     const {
-      title, chapter_section, isChapterSectionHidden, hasLearningObjectives,
+      title, chapter_section, isChapterSectionDisplayed, hasLearningObjectives,
     } = this.props;
 
     if (isEmpty(title) || this.isIntro()) { return null; }
@@ -29,7 +29,7 @@ class RelatedContent extends React.Component {
         data-has-learning-objectives={!!hasLearningObjectives}
       >
         <span className="part">
-          {!isChapterSectionHidden &&
+          {isChapterSectionDisplayed &&
             <span className="section">
               {chapter_section.toString()}
               {' '}

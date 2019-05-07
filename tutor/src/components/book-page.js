@@ -373,9 +373,9 @@ class BookPage extends React.Component {
           <RelatedContent
             title={title}
             contentId={page.cnx_id}
-            chapter_section={page.chapter_section}
+            chapter_section={page.displayedChapterSection}
             hasLearningObjectives={hasLearningObjectives}
-            isChapterSectionHidden={page.isChapterSectionHidden}
+            isChapterSectionDisplayed={page.isChapterSectionDisplayed}
           />
           <NotesWidget
             course={ux.course}

@@ -30,11 +30,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    1
-                  </span>
                   <span>
                     The Study of Life
                   </span>
@@ -149,11 +144,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    2
-                  </span>
                   <span>
                     The Chemical Foundation of Life
                   </span>
@@ -300,11 +290,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    3
-                  </span>
                   <span>
                     Biological Macromolecules
                   </span>
@@ -515,11 +500,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    4
-                  </span>
                   <span>
                     Cell Structure
                   </span>
@@ -762,11 +742,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    5
-                  </span>
                   <span>
                     Structure and Function of Plasma Membranes
                   </span>
@@ -945,11 +920,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    6
-                  </span>
                   <span>
                     Metabolism
                   </span>
@@ -1160,11 +1130,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    7
-                  </span>
                   <span>
                     Cellular Respiration
                   </span>
@@ -1439,11 +1404,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    8
-                  </span>
                   <span>
                     Photosynthesis
                   </span>
@@ -1590,11 +1550,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    9
-                  </span>
                   <span>
                     Cell Communication
                   </span>
@@ -1773,11 +1728,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    10
-                  </span>
                   <span>
                     Cell Reproduction
                   </span>
@@ -1988,11 +1938,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    11
-                  </span>
                   <span>
                     Meiosis and Sexual Reproduction
                   </span>
@@ -2107,11 +2052,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    12
-                  </span>
                   <span>
                     Mendel's Experiments and Heredity
                   </span>
@@ -2258,11 +2198,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    13
-                  </span>
                   <span>
                     Modern Understandings of Inheritance
                   </span>
@@ -2377,11 +2312,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    14
-                  </span>
                   <span>
                     DNA Structure and Function
                   </span>
@@ -2624,11 +2554,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    15
-                  </span>
                   <span>
                     Genes and Proteins
                   </span>
@@ -2839,11 +2764,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    16
-                  </span>
                   <span>
                     Gene Expression
                   </span>
@@ -3118,11 +3038,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    17
-                  </span>
                   <span>
                     Biotechnology and Genomics
                   </span>
@@ -3333,11 +3248,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    18
-                  </span>
                   <span>
                     Evolution and the Origin of Species
                   </span>
@@ -3484,11 +3394,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    19
-                  </span>
                   <span>
                     The Evolution of Populations
                   </span>
@@ -3635,11 +3540,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    20
-                  </span>
                   <span>
                     Phylogenies and the History of Life
                   </span>
@@ -3786,11 +3686,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    21
-                  </span>
                   <span>
                     Viruses
                   </span>
@@ -3969,11 +3864,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    22
-                  </span>
                   <span>
                     Prokaryotes: Bacteria and Archaea
                   </span>
@@ -4184,11 +4074,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    23
-                  </span>
                   <span>
                     Protists
                   </span>
@@ -4367,11 +4252,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    24
-                  </span>
                   <span>
                     Fungi
                   </span>
@@ -4582,11 +4462,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    25
-                  </span>
                   <span>
                     Seedless Plants
                   </span>
@@ -4765,11 +4640,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    26
-                  </span>
                   <span>
                     Seed Plants
                   </span>
@@ -4948,11 +4818,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    27
-                  </span>
                   <span>
                     Introduction to Animal Diversity
                   </span>
@@ -5131,11 +4996,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    28
-                  </span>
                   <span>
                     Invertebrates
                   </span>
@@ -5346,11 +5206,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    29
-                  </span>
                   <span>
                     Vertebrates
                   </span>
@@ -5625,11 +5480,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    30
-                  </span>
                   <span>
                     Plant Form and Physiology
                   </span>
@@ -5872,11 +5722,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    31
-                  </span>
                   <span>
                     Soil and Plant Nutrition
                   </span>
@@ -6023,11 +5868,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    32
-                  </span>
                   <span>
                     Plant Reproduction
                   </span>
@@ -6174,11 +6014,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    33
-                  </span>
                   <span>
                     The Animal Body: Basic Form and Function
                   </span>
@@ -6325,11 +6160,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    34
-                  </span>
                   <span>
                     Animal Nutrition and the Digestive System
                   </span>
@@ -6508,11 +6338,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    35
-                  </span>
                   <span>
                     The Nervous System
                   </span>
@@ -6723,11 +6548,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    36
-                  </span>
                   <span>
                     Sensory Systems
                   </span>
@@ -6938,11 +6758,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    37
-                  </span>
                   <span>
                     The Endocrine System
                   </span>
@@ -7153,11 +6968,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    38
-                  </span>
                   <span>
                     The Musculoskeletal System
                   </span>
@@ -7336,11 +7146,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    39
-                  </span>
                   <span>
                     The Respiratory System
                   </span>
@@ -7519,11 +7324,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    40
-                  </span>
                   <span>
                     The Circulatory System
                   </span>
@@ -7702,11 +7502,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    41
-                  </span>
                   <span>
                     Osmotic Regulation and Excretion
                   </span>
@@ -7917,11 +7712,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    42
-                  </span>
                   <span>
                     The Immune System
                   </span>
@@ -8100,11 +7890,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    43
-                  </span>
                   <span>
                     Animal Reproduction and Development
                   </span>
@@ -8379,11 +8164,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    44
-                  </span>
                   <span>
                     Ecology and the Biosphere
                   </span>
@@ -8594,11 +8374,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    45
-                  </span>
                   <span>
                     Population and Community Ecology
                   </span>
@@ -8873,11 +8648,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    46
-                  </span>
                   <span>
                     Ecosystems
                   </span>
@@ -9024,11 +8794,6 @@ exports[`QA Screen matches snapshot 1`] = `
                 <div
                   className="chapter-section-title"
                 >
-                  <span
-                    className="section-number"
-                  >
-                    47
-                  </span>
                   <span>
                     Conservation Biology and Biodiversity
                   </span>

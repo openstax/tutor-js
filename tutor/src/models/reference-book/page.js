@@ -93,24 +93,31 @@ class ReferenceBookPage extends BaseModel {
   }
 
   @computed get bookIsCollated() {
-    return this.book.is_collated;
+    return Boolean(this.book && this.book.is_collated);
   }
 
   onContentFetchFail() {
     this.update(NOT_FOUND_CONTENT);
   }
 
+  @computed get hasBakedChapterSection() {
+    return Boolean(this.baked_chapter_section && !this.baked_chapter_section.isEmpty);
+  }
+
   @computed get displayedChapterSection() {
-    const bcs = this.baked_chapter_section;
-    return !bcs || bcs.isEmpty ? this.chapter_section : bcs;
+    return this.bookIsCollated ?
+      this.baked_chapter_section : this.chapter_section;
   }
 
   @computed get isIntro() {
-    return this.title.startsWith('Intro');
+    return this.chapter_section.section < 2 && this.title.startsWith('Intro');
   }
 
-  @computed get isChapterSectionHidden() {
-    return this.isIntro || includes(SUPPLEMENTARY_CONTENT_TITLES, this.title);
+  @computed get isChapterSectionDisplayed() {
+    if (this.bookIsCollated) {
+      return this.hasBakedChapterSection;
+    }
+    return !this.isIntro && !includes(SUPPLEMENTARY_CONTENT_TITLES, this.title);
   }
 
   @computed get isAssignable() {

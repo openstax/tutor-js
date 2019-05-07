@@ -17,9 +17,10 @@ class BookMenuTocSection extends React.Component {
 
   @computed get title() {
     const { section } = this.props;
+
     return (
       <div className="chapter-section-title">
-        {!section.isChapterSectionHidden &&
+        {section.isChapterSectionDisplayed &&
           <span className="section-number">
             {section.displayedChapterSection.asString}
           </span>}
@@ -89,4 +90,4 @@ class BookMenu extends React.Component {
     );
   }
 
-};
+}
