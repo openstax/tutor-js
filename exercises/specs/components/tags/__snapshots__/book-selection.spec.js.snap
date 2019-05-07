@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Book Selection tags component renders and matches snapshot 1`] = `
+<select
+  className="form-control"
+  onChange={[MockFunction]}
+  value=""
+>
+  <option
+    value=""
+  />
+  <option
+    value="stax-anp"
+  >
+    Anatomy and Physiology
+  </option>
+  <option
+    value="stax-apbio"
+  >
+    Biology for AP® Courses
+  </option>
+  <option
+    value="stax-bio"
+  >
+    Biology
+  </option>
+  <option
+    value="stax-apphys"
+  >
+    College Physics for AP® Courses
+  </option>
+  <option
+    value="stax-phys"
+  >
+    College Physics
+  </option>
+  <option
+    value="stax-cbio"
+  >
+    Concepts of Biology
+  </option>
+  <option
+    value="stax-econ"
+  >
+    Economics
+  </option>
+  <option
+    value="stax-macro"
+  >
+    Macro Economics
+  </option>
+  <option
+    value="stax-micro"
+  >
+    Micro Economics
+  </option>
+  <option
+    value="stax-k12phys"
+  >
+    K-12 Physics
+  </option>
+  <option
+    value="stax-soc"
+  >
+    Sociology
+  </option>
+  <option
+    value="stax-apush"
+  >
+    U.S. History for AP® Courses
+  </option>
+</select>
+`;
