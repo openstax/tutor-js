@@ -162,7 +162,7 @@
     "jsdom": "^15.0.0",
     "json-server": "^0.14.2",
     "lighthouse": "^4.1.0",
-    "node-sass": "4.11.0",
+    "node-sass": "^4.12.0",
     "object-factory-bot": "^0.6.1",
     "pixelmatch": "^4.0.2",
     "pngjs": "^3.3.3",
@@ -173,8 +173,8 @@
     "tmp": "^0.0.33",
     "url-loader": "1.1.2",
     "webpack": "4.28.2",
-    "webpack-cli": "3.1.2",
     "webpack-bundle-analyzer": "^3.0.4",
+    "webpack-cli": "3.1.2",
     "webpack-dev-server": "3.1.14",
     "yargs": "^13.2.1"
   },
