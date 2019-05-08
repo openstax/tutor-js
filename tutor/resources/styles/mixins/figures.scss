@@ -45,9 +45,17 @@
       padding-bottom: 0.5rem;
       margin-bottom: 0.5rem;
       color: $caption-font-color;
-      .os-title-label,
-      .os-number {
-        font-style: italic;
+
+      padding: 10px 0;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 150%;
+
+      border-bottom: 1px solid $border-color;
+
+      &::before {
+        counter-increment: figure;
+        content: "Figure " counter(figure);
         font-weight: 800;
       }
       .os-title-label + .os-number {

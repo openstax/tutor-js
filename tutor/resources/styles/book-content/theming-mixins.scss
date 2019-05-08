@@ -1,20 +1,18 @@
 @mixin tutor-book-theme-learning-objectives($background, $theme-accent, $text-color) {
-  .learning-objectives,
-  [data-type=abstract] {
+
+  .learning-objectives.splash {
     background: $background;
     color: $text-color;
-    ul {
-      border-left-color: fade_out($text-color, 0.6);
+    padding-top: 0;
+    border-bottom: 0;
+    margin-bottom: 0;
+
+    // add top margin to anything that's not itself a splash element
+    & + *:not(.splash) {
+      margin-top: 2rem;
     }
   }
 
-  .related-content[data-has-learning-objectives] + .book-content {
-    .learning-objectives,
-    [data-type=abstract] {
-      background: $theme-accent;
-      color: $text-color;
-    }
-  }
 }
 
 @mixin tutor-book-theme-related-content($background, $text-color) {

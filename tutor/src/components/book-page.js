@@ -183,6 +183,10 @@ class BookPage extends React.Component {
     // abort if it already has a splash element
     if (splashFigure && !splashFigure.querySelector('.splash')) {
       splashFigure.classList.add('splash');
+      const nextEl = splashFigure.nextElementSibling;
+      if (nextEl && dom(nextEl).matches('.os-figure, figure') ){
+        nextEl.classList.add('splash');
+      }
     }
   }
 

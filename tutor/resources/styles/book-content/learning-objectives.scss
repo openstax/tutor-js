@@ -13,19 +13,15 @@
     width: 100%;
     min-height: 100px;
     @include book-content-full-width();
-    display: inline-flex;
-    margin-top: -$tutor-card-body-padding-vertical;
+
     padding: $tutor-book-padding-vertical;
-    border: none;
+    border-bottom: 1px solid $border-color;
 
     &::before {
       @include tutor-sans-font(1.4rem, 1.8em);
+      display: block;
       text-transform: uppercase;
-      text-align: right;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      margin: 0 20px 0 0;
+      margin: 0 0 1rem 1rem;
     }
 
     &[data-is-intro=true]::before {
@@ -33,8 +29,6 @@
     }
 
     &[data-is-intro=false]::before {
-      width: 220px; // keep line length consistent
-      margin-top: -1rem;
       content: 'By the end of this section, you will be able to:';
     }
 
@@ -56,11 +50,9 @@
       flex-direction: column;
       justify-content: center;
       flex: 1;
-      border-left-width: 1px;
-      border-left-style: solid;
 
       li {
-        @include tutor-sans-font(1.5rem, 1.4em);
+        @include tutor-sans-font(1.4rem, 1.3em);
         justify-content: center;
         margin-left: 20px;
         padding-bottom: 5px;
@@ -75,6 +67,5 @@
         }
       }
     }
-    @include printer-safe(inline-flex, inherit, inherit, 10px);
   }
 }
