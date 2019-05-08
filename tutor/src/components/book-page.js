@@ -109,20 +109,20 @@ class BookPage extends React.Component {
 
     const root = ReactDOM.findDOMNode(this);
 
-    this.insertSplash(root);
     this.insertCanonicalLink(root);
     this.detectImgAspectRatio(root);
     this.cleanUpAbstracts(root);
+    this.insertSplash(root);
     this.processLinks(root);
   }
 
   componentDidUpdate() {
     const root = ReactDOM.findDOMNode(this);
     this.props.ux.checkForTeacherContent();
-    this.insertSplash(root);
     this.updateCanonicalLink(root);
     this.detectImgAspectRatio(root);
     this.cleanUpAbstracts(root);
+    this.insertSplash(root);
     this.processLinks();
   }
 
@@ -223,7 +223,7 @@ class BookPage extends React.Component {
     const abstract = root.querySelector(LEARNING_OBJECTIVE_SELECTORS);
     // dont clean up if abstract does not exist or if it has already been cleaned up
     if ((abstract == null) || !abstract.dataset || (abstract.dataset.isIntro != null)) { return; }
-
+    abstract.classList.add('learning-objectives');
     for (let abstractChild of abstract.childNodes) {
       // leave the list alone -- this is the main content
       if ((abstractChild == null) || (abstractChild.tagName === 'UL')) { continue; }
