@@ -8,7 +8,7 @@ $tutor-note-margin-vertical: 48px;
 
 @mixin tutor-book-note-style() {
   @include clearfix();
-
+  margin: 1.5rem 0;
   .openstax-question {
     &::before {
       display: none;
@@ -128,8 +128,7 @@ $tutor-book-note-selector: '
     &:not(.ost-assignable ) {
       @include tutor-book-label-style() {
         @include tutor-sans-font(2rem);
-        margin-top: 1rem;
-        margin-bottom: 0;
+        margin: 0;
         display: inline-flex;
         align-items: center;
         font-weight: 900;
