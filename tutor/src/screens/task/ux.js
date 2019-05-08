@@ -108,7 +108,8 @@ export default class TaskUX {
   }
 
   @action.bound onStepChange(change) {
-    if (change.newValue === change.oldValue) { return; }
+    // events do not have steps
+    if (!this.currentStep || change.newValue === change.oldValue) { return; }
     // re-fetch the entire task if the step is a placeholder
     // this allows the BE to remove steps if it can't find
     // appropriate exercises
@@ -192,6 +193,8 @@ export default class TaskUX {
   }
 
   getCurrentStep({ grouped = true }) {
+    if (!this.steps.length) { return null; }
+
     const step = this.steps[this._stepIndex];
 
     if (!grouped) {
