@@ -180,6 +180,11 @@
           font-weight: 800;
         }
       }
+      td {
+        .MathJax_Display {
+              text-align: left !important;
+        }
+      }
       ul{
         font-family: inherit;
         font-size: inherit;
