@@ -60,6 +60,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                       <Component>
                                         <Menus>
                                           <_class courseContext={{...}}>
+                                            <StudentPayNowBtn course={[undefined]} />
                                             <inject-SupportMenu course={[undefined]}>
                                               <SupportMenu course={[undefined]} tourContext={{...}}>
                                                 <ForwardRef(ContextTransform) className=\\"support-menu\\">
@@ -130,7 +131,6 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                 </ForwardRef(ContextTransform)>
                                               </SupportMenu>
                                             </inject-SupportMenu>
-                                            <StudentPayNowBtn course={[undefined]} />
                                             <ActionsMenu course={[undefined]} />
                                             <inject-PreviewAddCourseBtn course={[undefined]}>
                                               <PreviewAddCourseBtn course={[undefined]} tourContext={{...}} />

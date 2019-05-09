@@ -10,8 +10,8 @@ const Menus = inject('courseContext')(
   observer(
     ({ courseContext: { course } }) => (
       <React.Fragment>
-        <SupportMenu         course={course} />
         <StudentPayNowBtn    course={course} />
+        <SupportMenu         course={course} />
         <ActionsMenu         course={course} />
         <PreviewAddCourseBtn course={course} />
         <UserMenu />
