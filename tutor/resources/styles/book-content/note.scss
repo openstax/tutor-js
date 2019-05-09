@@ -1,68 +1,7 @@
 $feature-title-is-element: '[data-has-label=true][data-label]';
 $tutor-note-title-element: '[data-type=title]:first-child';
-
 $tutor-note-margin-horizontal: 38px;
 $tutor-note-margin-vertical: 48px;
-%tutor-empty-rules { }
-
-
-@mixin tutor-book-note-style() {
-  @include clearfix();
-  margin: 1.5rem 0;
-  .openstax-question {
-    &::before {
-      display: none;
-    }
-  }
-
-  :last-child:not(.embed-responsive) {
-    padding-bottom: 0;
-  }
-
-  .title {
-    @include tutor-sans-font(2.4rem, 3.2rem);
-    font-weight: 900;
-    clear: both;
-  }
-
-  p,
-  ul,
-  li {
-    @include tutor-sans-font(1.8rem, 1.75em);
-    margin: 0 0  1.5rem 0;
-    color: $tutor-neutral-dark;
-  }
-  li {
-    padding: 5px 0;
-  }
-  .problem {
-    clear: both;
-  }
-  .os-problem-container {
-    img { width: 100%; }
-  }
-
-}
-
-
-@mixin tutor-book-step-note() {
-
-}
-
-@mixin tutor-book-step-notes() {
-  // tutor-book-step specific modifications
-
-}
-
-@mixin tutor-book-reading-titles() {
-  section > h1 {
-    clear: both;
-  }
-}
-
-
-%tutor-all-note-rules {
-}
 
 $tutor-book-note-selector: '
   .note:not(.learning-objectives),
@@ -73,17 +12,17 @@ $tutor-book-note-selector: '
 ';
 
 @mixin tutor-book-label-style() {
-
-  &#{$feature-title-is-element},
-  &[data-element-type="check-understanding"] {
-    > #{$tutor-note-title-element} {
+  #{$tutor-note-title-element} {
       @content;
-    }
   }
 }
 
 @mixin tutor-book-notes() {
   #{$tutor-book-note-selector} {
+
+    @include clearfix();
+    margin: 1.5rem 0;
+    word-wrap: break-word;
 
     >[data-type=content],
     &:not([data-tutor-transform]) {
@@ -103,10 +42,37 @@ $tutor-book-note-selector: '
           display: block;
         }
       }
-
     }
 
-    @include tutor-book-note-style();
+    .openstax-question {
+      &::before {
+        display: none;
+      }
+    }
+
+    :last-child:not(.embed-responsive) {
+      padding-bottom: 0;
+    }
+
+    .title {
+      @include tutor-sans-font(2.4rem, 3.2rem);
+      font-weight: 900;
+      clear: both;
+    }
+
+    p,
+    ul,
+    li {
+      @include tutor-sans-font(1.8rem, 1.75em);
+      margin: 0 0  1.5rem 0;
+      color: $tutor-neutral-dark;
+    }
+    li {
+      padding: 5px 0;
+    }
+    .problem {
+      clear: both;
+    }
 
     .grasp-check {
       margin: 0 0 71px 0;

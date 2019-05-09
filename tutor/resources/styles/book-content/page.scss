@@ -47,7 +47,7 @@
   // include selector chain so the specificity matches
   // the hiding rule in book-content/os-teacher.scss
   &.is-teacher .content .page .os-teacher {
-    display: inline-block;
+    display: block;
   }
 
   .book-page-wrapper {
