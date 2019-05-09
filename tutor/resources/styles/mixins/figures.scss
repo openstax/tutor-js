@@ -14,10 +14,13 @@
       padding: 1rem;
       float: left;
 
-      &.independent {
+      &.standalone {
         float: none;
         margin: auto;
         width: 60%;
+        &.tutor-ui-horizontal-img.medium-img-width {
+          width: 80%;
+        }
       }
 
       & + .os-figure + .os-figure {
