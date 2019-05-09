@@ -101,4 +101,11 @@ describe('Task UX Model', () => {
     });
   });
 
+  it('deals with tasks without steps such as events', () => {
+    task = Factory.studentTask({ type: 'event', stepCount: 0 });
+    expect(task.steps).toHaveLength(0);
+    task.tasksMap = { course: Factory.course() };
+    ux = new UX({ task: task, router: new TestRouter() });
+    expect(ux.currentStep).toBeNull();
+  });
 });

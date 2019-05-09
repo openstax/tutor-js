@@ -1,7 +1,7 @@
 const {
   Factory, sequence, fake, moment, SECTION_NAMES,
 } = require('./helpers');
-const { range } = require('lodash');
+const { range, isNil } = require('lodash');
 
 import StudentTask from '../../src/models/student-tasks/task';
 
@@ -44,7 +44,7 @@ Factory.define('StudentTask')
   .type(fake.random.arrayElement(Object.keys(TASK_TYPES)))
   .due_at(({ now, days_ago = 0 }) => moment(now).add(days_ago + 3, 'days'))
   .steps(({ stepCount, object: { type } }) =>
-    range(0, stepCount || fake.random.number({ min: 3, max: 10 })).map(() => {
+    range(0, (isNil(stepCount) ? fake.random.number({ min: 3, max: 10 }) : stepCount)).map(() => {
       return Factory.create('StudentTaskStep', {
         type: fake.random.arrayElement(TASK_TYPES[type]),
       })
