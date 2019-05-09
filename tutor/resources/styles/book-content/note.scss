@@ -8,7 +8,7 @@ $tutor-note-margin-vertical: 48px;
 
 @mixin tutor-book-note-style() {
   @include clearfix();
-
+  margin: 1.5rem 0;
   .openstax-question {
     &::before {
       display: none;
@@ -87,23 +87,23 @@ $tutor-book-note-selector: '
 
     >[data-type=content],
     &:not([data-tutor-transform]) {
-      &:not(.ost-assignable ) {
-        background: $tutor-neutral-lightest;
-        margin: 0;
-        clear: both;
-        border-top: solid 8px $tutor-neutral-lighter;
-        border-bottom: solid 8px $tutor-neutral-lighter;
-        padding: $tutor-note-padding;
-        width: 100%;
 
-        .exercise,
-        [data-type=exercise]  {
-          .solution {
-            // undo general hiding of solutions
-            display: block;
-          }
+      background: $tutor-neutral-lightest;
+      margin: 0;
+      clear: both;
+      border-top: solid 8px $tutor-neutral-lighter;
+      border-bottom: solid 8px $tutor-neutral-lighter;
+      padding: $tutor-note-padding;
+      width: 100%;
+
+      .exercise,
+      [data-type=exercise]  {
+        .solution {
+          // undo general hiding of solutions
+          display: block;
         }
       }
+
     }
 
     @include tutor-book-note-style();
@@ -128,37 +128,35 @@ $tutor-book-note-selector: '
         }
       }
     }
-    &:not(.ost-assignable ) {
-      @include tutor-book-label-style() {
-        @include tutor-sans-font(2rem);
-        margin-top: 1rem;
-        margin-bottom: 0;
-        display: inline-flex;
-        align-items: center;
-        font-weight: 900;
-        padding: 0.5rem 4rem;
-      };
 
-      &:not([data-tutor-transform]) {
-        position: relative;
-        top: $tutor-book-ui-top-height + 8px;
-        margin-bottom: $tutor-book-ui-top-height * 2 + 8px;
-        @include tutor-book-label-style() {
-          position: absolute;
-          top: -1 * $tutor-book-ui-top-height - 8px;
-          height: $tutor-book-ui-top-height;
-          left: 0;
-          right: 0;
-        };
-      }
+    @include tutor-book-label-style() {
+      @include tutor-sans-font(2rem);
+      margin: 0;
+      display: inline-flex;
+      align-items: center;
+      font-weight: 900;
+      padding: 0.5rem 4rem;
+    };
+
+    &:not([data-tutor-transform]) {
+      position: relative;
+      top: $tutor-book-ui-top-height + 8px;
+      margin-bottom: $tutor-book-ui-top-height * 2 + 8px;
+      @include tutor-book-label-style() {
+        position: absolute;
+        top: -1 * $tutor-book-ui-top-height - 8px;
+        height: $tutor-book-ui-top-height;
+        left: 0;
+        right: 0;
+      };
     }
 
   }
 }
 
 @mixin tutor-book-theme-notes($background, $text-color) {
-  #{$tutor-book-note-selector} {
-    &:not(.ost-assignable ) {
+  *:not(.os-note-body) > {
+    #{$tutor-book-note-selector} {
       @include tutor-book-label-style() {
         color: $text-color;
         background-color: $background;
