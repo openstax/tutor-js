@@ -49,7 +49,7 @@ function processImage() {
   if (figure.classList.contains('splash')) { return; }
   // figures that are not in a series
   if (!hasSiblingFigure(figure)) {
-    figure.classList.add('independent');
+    figure.classList.add('standalone');
   }
 
   const { parentNode } = figure;
