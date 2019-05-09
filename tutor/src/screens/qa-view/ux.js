@@ -96,6 +96,22 @@ export default class QaScreenUX extends BookUX {
     });
   }
 
+  bookLinkFor(props) {
+    let { ecosystemId } = Router.currentParams();
+    const { query } = props;
+    return Router.makePathname(
+      'QADashboard', { ecosystemId }, query
+    );
+  }
+
+  rewriteBookLink(link) {
+    const parts = link.pathname.split('/');
+    if (parts.length < 4) { return; }
+    const bookId = parts[2];
+    const section = parts[4];
+    link.href = `/qa/${bookId}/${section}`;
+  }
+
   sectionLinkProps(section) {
     if (!section) { return null; }
     return {

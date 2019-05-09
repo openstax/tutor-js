@@ -54,7 +54,6 @@ function processImage() {
   }
 }
 
-
 @observer
 class BookPage extends React.Component {
 
@@ -118,16 +117,6 @@ class BookPage extends React.Component {
     return last(beforeHash.split('/'));
   }
 
-  buildReferenceBookLink() {
-    let { courseId } = Router.currentParams();
-    const { query } = this.props;
-
-    return Router.makePathname(
-      'viewReferenceBook',
-      { courseId }, query
-    );
-  }
-
   isMediaLink(link) {
     // TODO it's likely that this is no longer needed since the links being
     // passed into this are now much stricter and exclude where `href="#"` and
@@ -176,7 +165,7 @@ class BookPage extends React.Component {
   }
 
   updateCanonicalLink() {
-    const cnxId = this.props.cnxId || (typeof this.getCnxId === 'function' ? this.getCnxId() : undefined) || '';
+    const cnxId = this.props.cnxId || this.getCnxId();
     // leave versioning out of canonical link
     const canonicalCNXId = first(cnxId.split('@'));
 
@@ -251,7 +240,10 @@ class BookPage extends React.Component {
     // media id is invalid.
     if (mediaDOM === false) { return link; }
 
-    const mediaCNXId = this.getCnxIdOfHref(link.getAttribute('href')) || this.props.cnxId || (typeof this.getCnxId === 'function' ? this.getCnxId() : undefined);
+    const mediaCNXId = this.getCnxIdOfHref(link.getAttribute('href')) ||
+      this.props.cnxId ||
+      this.getCnxId();
+
     const previewNode = document.createElement('span');
     previewNode.classList.add('media-preview-wrapper');
     if (link.parentNode != null) {
@@ -261,7 +253,7 @@ class BookPage extends React.Component {
     const mediaProps = {
       mediaId,
       cnxId: mediaCNXId,
-      bookHref: this.buildReferenceBookLink(mediaCNXId),
+      bookHref: this.props.ux.bookLinkFor(this.props),
       mediaDOMOnParent: mediaDOM,
       shouldLinkOut: true,
       originalHref: link.getAttribute('href'),
@@ -303,13 +295,9 @@ class BookPage extends React.Component {
         }
       }
 
-      const { courseId } = Router.currentParams();
-      if (courseId) {
-        root.querySelectorAll(INTER_BOOK_LINKS).forEach(link => {
-          link.href = link.href.replace(/\/book\/\d+/, `/book/${courseId}`);
-        });
-      }
-
+      root.querySelectorAll(INTER_BOOK_LINKS).forEach(link => {
+        this.props.ux.rewriteBookLink(link);
+      });
     });
   }
 

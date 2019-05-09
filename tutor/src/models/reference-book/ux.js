@@ -3,6 +3,7 @@ import { first, invoke } from 'lodash';
 import WindowSize from '../window-size';
 import Book from '../reference-book';
 import Courses from '../courses-map';
+import Router from '../../helpers/router';
 import Scroller from '../../helpers/scroll-to';
 
 // menu width (300) + page width (1000) + 50 px padding
@@ -136,6 +137,20 @@ export default class BookUX {
       'data-book-title': course.bookName || '',
       'data-appearance': course.appearance_code,
     } : {};
+  }
+
+  rewriteBookLink(link) {
+    link.href = link.href.replace(/\/book\/\d+/, `/book/${this.courseId}`);
+  }
+
+  bookLinkFor(props) {
+    let { courseId } = Router.currentParams();
+    const { query } = props;
+
+    return Router.makePathname(
+      'viewReferenceBook',
+      { courseId }, query
+    );
   }
 
   @computed get pagingProps() {

@@ -6,6 +6,10 @@
 
   @include book-page();
 
+  .book-page {
+    margin-top: 50px;
+  }
+
   .exercises {
     width: $book-page-width;
     > .heading {
