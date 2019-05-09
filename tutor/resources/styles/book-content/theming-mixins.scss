@@ -63,58 +63,21 @@
 @mixin tutor-book-theme-tables($table-accent) {
   $table-accent-style: solid 4px $table-accent;
   table {
-    caption {
-      caption-side: top;
-      font-style: italic;
-      font-weight: 400;
-      font-size: inherit;
-    }
     caption + thead {
       tr:first-child {
-        font-style: normal;
-        th {
-          background: $tutor-white;
-          font-weight: 800;
-        }
         border-bottom: $table-accent-style;
       }
     }
     caption + tbody, thead + tbody, tbody:only-child, colgroup + tbody {
       border-top: $table-accent-style;
-      tr {
-        td:first-child{
-          font-weight: 400;
-        }
-      }
     }
     thead {
-      tr:first-child {
-        font-style: italic;
-        th {
-          font-weight: 400;
-          border-bottom: none;
-          background: $tutor-white;
-        }
-      }
       tr:nth-child(2) {
-        th {
-          background: $tutor-white;
-          font-weight: 800;
-        }
         border-bottom: $table-accent-style;
       }
     }
     tbody{
-      border-bottom: none;
-      tr{
-        td:first-child{
-          font-weight: 800;
-        }
-      }
       ul{
-        font-family: inherit;
-        font-size: inherit;
-        padding-left: 10px;
         li::before{
           background: $tutor-neutral-darker;
         }
