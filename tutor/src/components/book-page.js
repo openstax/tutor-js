@@ -294,6 +294,7 @@ class BookPage extends React.Component {
 
       root.querySelectorAll(INTER_BOOK_LINKS).forEach(link => {
         this.props.ux.rewriteBookLink(link);
+        link.target = '_self';
       });
     });
   }
