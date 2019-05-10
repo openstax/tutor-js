@@ -21,14 +21,15 @@
       &.tutor-ui-horizontal-img.medium-img-width {
         width: 80%;
       }
-      &.scaled-down {
+      &.scaled-down,
+      &.scaled-down-60,
+      {
         width: 60%;
       }
       &.scaled-down-30 {
         width: 300%;
       }
     }
-
     img {
       width: 100%;
       height: auto;
@@ -52,11 +53,6 @@
 
       @include tutor-figure-title();
 
-      // &::before {
-      //   counter-increment: figure;
-      //   content: "Figure " counter(figure);
-      //   font-weight: 800;
-      // }
       .os-title-label + .os-number {
         margin-left: 0.5rem;
       }
@@ -83,12 +79,6 @@
 
     @include tutor-figure-title();
 
-    // &::before {
-    //   counter-increment: figure;
-    //   content: "Figure " counter(figure);
-    //   font-weight: 800;
-    //   display: block;
-    // }
   }
 
 

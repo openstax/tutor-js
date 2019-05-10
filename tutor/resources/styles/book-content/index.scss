@@ -20,7 +20,7 @@
   @media screen and ( max-width: $book-content-collapse-breakpoint ){
     padding: 0 $book-content-narrow-horizontal-padding;
   }
-  counter-reset: question figure;
+  counter-reset: question;
 }
 
 @mixin tutor-book-content() {

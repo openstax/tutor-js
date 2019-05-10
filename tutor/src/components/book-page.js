@@ -22,7 +22,9 @@ const EXERCISE_LINK_SELECTOR = 'a[href][data-type="exercise"]';
 const LEARNING_OBJECTIVE_SELECTORS = '.learning-objectives, [data-type=abstract]';
 const IS_INTRO_SELECTORS = '.splash img, [data-type="cnx.flag.introduction"]';
 const INTER_BOOK_LINKS = 'a[href^=\'/book/\']';
-
+const IMAGE_SIZE_CLASSES = [
+  'scaled-down', 'scaled-down-60', 'full-width', 'scaled-down-30',
+];
 
 // called with the context set to the image
 function processImage() {
@@ -35,7 +37,7 @@ function processImage() {
   if (figure.querySelector('.splash')) {
     figure.classList.add('full-width');
   }
-  ['scaled-down', 'scaled-down-30'].forEach(cls => {
+  IMAGE_SIZE_CLASSES.forEach(cls => {
     if (figure.querySelector(`.${cls}`)) {
       figure.classList.add(cls);
     }
