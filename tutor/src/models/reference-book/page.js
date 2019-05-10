@@ -5,6 +5,7 @@ import {
   BaseModel, identifiedBy, identifier, field, session,
 } from 'shared/model';
 import ChapterSection from '../chapter-section';
+import { MediaActions } from '../../flux/media';
 
 const NON_ASSIGNABLE_TITLES = [
   'Visual Connection Questions',
@@ -86,6 +87,7 @@ class ReferenceBookPage extends BaseModel {
 
   @action onContentFetchComplete({ data }) {
     this.update(pick(data, UPDATEABLE_FIELDS));
+    MediaActions.parse(this.content_html);
   }
 
   @computed get asTopic() {

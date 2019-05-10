@@ -11,10 +11,17 @@
     @include tutor-serif-font(1.75rem, 190%);
     margin: 0 0 2.4rem 0;
   }
+  // but not inside tables
+  table {
+    p, ul,ol {
+      @include tutor-sans-font(1.75rem, 190%);
+    }
+  }
 
   section {
     clear: both;
 
+    &:first-of-type:not(.splash),
     &.visual-exercise,
     &.multiple-choice,
     &.critical-thinking,
@@ -115,9 +122,10 @@
   }
 
   .os-chapter-outline {
-    .os-title {
-      display: none;
+    *:not(.splash) & {
+      margin-top: 1rem;
     }
+    .os-title { display: none; }
     .os-chapter-objective {
     > a.os-chapter-objective {
         display: none;
@@ -134,7 +142,12 @@
     }
   }
 
+  .os-table {
+    margin-top: 2rem;
+  }
+
   table {
+
     caption {
       caption-side: top;
       font-style: italic;

@@ -22,17 +22,9 @@ const EXERCISE_LINK_SELECTOR = 'a[href][data-type="exercise"]';
 const LEARNING_OBJECTIVE_SELECTORS = '.learning-objectives, [data-type=abstract]';
 const IS_INTRO_SELECTORS = '.splash img, [data-type="cnx.flag.introduction"]';
 const INTER_BOOK_LINKS = 'a[href^=\'/book/\']';
-
-
-function hasSiblingFigure(el) {
-  return Boolean(
-    (el.previousElementSibling &&
-      dom(el.previousElementSibling).matches('.os-figure')
-    ) || (
-      el.nextElementSibling && dom(el.nextElementSibling).matches('.os-figure')
-    )
-  );
-}
+const IMAGE_SIZE_CLASSES = [
+  'scaled-down', 'scaled-down-60', 'full-width', 'scaled-down-30',
+];
 
 // called with the context set to the image
 function processImage() {
@@ -45,11 +37,13 @@ function processImage() {
   if (figure.querySelector('.splash')) {
     figure.classList.add('full-width');
   }
+  IMAGE_SIZE_CLASSES.forEach(cls => {
+    if (figure.querySelector(`.${cls}`)) {
+      figure.classList.add(cls);
+    }
+  });
   if (figure.classList.contains('splash')) { return; }
   // figures that are not in a series
-  if (!hasSiblingFigure(figure)) {
-    figure.classList.add('standalone');
-  }
 
   const { parentNode } = figure;
   if (parentNode && parentNode.nodeName === 'FIGURE') {
@@ -172,10 +166,6 @@ class BookPage extends React.Component {
     // abort if it already has a splash element
     if (splashFigure && !splashFigure.querySelector('.splash')) {
       splashFigure.classList.add('splash');
-      const nextEl = splashFigure.nextElementSibling;
-      if (nextEl && dom(nextEl).matches('.os-figure, figure') ){
-        nextEl.classList.add('splash');
-      }
     }
   }
 
@@ -304,6 +294,7 @@ class BookPage extends React.Component {
 
       root.querySelectorAll(INTER_BOOK_LINKS).forEach(link => {
         this.props.ux.rewriteBookLink(link);
+        link.target = '_self';
       });
     });
   }

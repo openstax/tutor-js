@@ -4,7 +4,7 @@
   [data-type=abstract] {
 
     // hide the "Section learning Objectives" phrase
-    > div[data-type=title],
+    > [data-type=title],
     &:empty,
     p {
       display: none;
@@ -16,6 +16,7 @@
 
     padding: $tutor-book-padding-vertical;
     border-bottom: 1px solid $border-color;
+    margin-bottom: $tutor-book-padding-vertical;
 
     &::before {
       @include tutor-sans-font(1.4rem, 1.8em);

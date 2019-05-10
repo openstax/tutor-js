@@ -14,6 +14,7 @@
 
 
   [data-type=problem] {
+    position: relative;
     > .os-number,
     > .os-divider {
       position: absolute;
@@ -33,7 +34,7 @@
   .exercise,
   [data-type=exercise] {
     @include tutor-serif-font(1.75rem, 190%);
-    position: relative;
+    padding-left: 40px;
 
     &:not(.unnumbered) {
       > [data-type=problem] {

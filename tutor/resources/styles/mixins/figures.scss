@@ -1,3 +1,10 @@
+@mixin tutor-figure-title() {
+  .os-title-label,
+  .os-number {
+    font-weight: 800;
+  }
+}
+
 @mixin tutor-figure() {
 
   figure,
@@ -8,33 +15,21 @@
 
   .os-figure {
     &:not(.splash):not(.full-width) {
-      width: 50%;
+      width: 60%;
+      margin: auto;
       margin-bottom: 20px;
-
-      padding: 1rem;
-      float: left;
-
-      &.standalone {
-        float: none;
-        margin: auto;
+      &.tutor-ui-horizontal-img.medium-img-width {
+        width: 80%;
+      }
+      &.scaled-down,
+      &.scaled-down-60,
+      {
         width: 60%;
-        &.tutor-ui-horizontal-img.medium-img-width {
-          width: 80%;
-        }
       }
-
-      & + .os-figure + .os-figure {
-        clear: both;
-      }
-      & + .os-figure + .os-figure + .os-figure{
-        clear: none;
-      }
-
-      & + :not(.os-figure) {
-        clear: left;
+      &.scaled-down-30 {
+        width: 300%;
       }
     }
-
     img {
       width: 100%;
       height: auto;
@@ -56,17 +51,14 @@
 
       border-bottom: 1px solid $border-color;
 
-      &::before {
-        counter-increment: figure;
-        content: "Figure " counter(figure);
-        font-weight: 800;
-      }
+      @include tutor-figure-title();
+
       .os-title-label + .os-number {
         margin-left: 0.5rem;
       }
       .os-divider {
         flex: 1;
-        min-width: 1rem;
+        min-width: 100%;
       }
   }
 
@@ -84,12 +76,9 @@
 
     border-bottom: 1px solid;
     border-color: $border-color;
-    &::before {
-      counter-increment: figure;
-      content: "Figure " counter(figure);
-      font-weight: 800;
-      display: block;
-    }
+
+    @include tutor-figure-title();
+
   }
 
 
