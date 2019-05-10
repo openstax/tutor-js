@@ -11,6 +11,12 @@
     @include tutor-serif-font(1.75rem, 190%);
     margin: 0 0 2.4rem 0;
   }
+  // but not inside tables
+  table {
+    p, ul,ol {
+      @include tutor-sans-font(1.75rem, 190%);
+    }
+  }
 
   section {
     clear: both;
