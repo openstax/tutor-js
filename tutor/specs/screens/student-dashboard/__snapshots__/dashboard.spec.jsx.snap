@@ -91,7 +91,7 @@ exports[`Student Dashboard displays as loading 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="svg-inline--fa fa-spinner fa-w-16 fa-spin ox-icon spinner c0"
+              className="svg-inline--fa fa-spinner fa-w-16 fa-spin ox-icon ox-icon-spinner c0"
               data-icon="spinner"
               data-prefix="fas"
               focusable="false"
@@ -113,7 +113,7 @@ exports[`Student Dashboard displays as loading 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="svg-inline--fa fa-spinner fa-w-16 fa-spin ox-icon spinner c0"
+              className="svg-inline--fa fa-spinner fa-w-16 fa-spin ox-icon ox-icon-spinner c0"
               data-icon="spinner"
               data-prefix="fas"
               focusable="false"
@@ -215,7 +215,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="svg-inline--fa fa-info-circle fa-w-16 ox-icon info-circle c0"
+          className="svg-inline--fa fa-info-circle fa-w-16 ox-icon ox-icon-info-circle c0"
           data-icon="info-circle"
           data-prefix="fas"
           focusable="false"
@@ -532,7 +532,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
             <span>
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-exclamation-circle fa-w-16 ox-icon exclamation-circle c0"
+                className="svg-inline--fa fa-exclamation-circle fa-w-16 ox-icon ox-icon-exclamation-circle c0"
                 color="#f4d019"
                 data-icon="exclamation-circle"
                 data-prefix="fas"
@@ -553,7 +553,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
             <span>
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-clock fa-w-16 ox-icon clock c0"
+                className="svg-inline--fa fa-clock fa-w-16 ox-icon ox-icon-clock c0"
                 color="#c2002f"
                 data-icon="clock"
                 data-prefix="far"
@@ -574,7 +574,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
             <span>
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-clock fa-w-16 ox-icon clock c0"
+                className="svg-inline--fa fa-clock fa-w-16 ox-icon ox-icon-clock c0"
                 color="#6f6f6f"
                 data-icon="clock"
                 data-prefix="far"

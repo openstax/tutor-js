@@ -126,14 +126,14 @@ exports[`choose exercises component can select exercises 1`] = `
                         tabIndex={1}
                       >
                         <button
-                          className="square btn btn-plain"
+                          className="ox-icon-square btn btn-plain"
                           disabled={false}
                           onClick={[Function]}
                           type="button"
                         >
                           <svg
                             aria-hidden="true"
-                            className="svg-inline--fa fa-square fa-w-14 ox-icon square c5"
+                            className="svg-inline--fa fa-square fa-w-14 ox-icon ox-icon-square c5"
                             color="#929292"
                             data-icon="square"
                             data-prefix="far"
@@ -291,14 +291,14 @@ exports[`choose exercises component can select exercises 1`] = `
                         tabIndex={1}
                       >
                         <button
-                          className="square btn btn-plain"
+                          className="ox-icon-square btn btn-plain"
                           disabled={false}
                           onClick={[Function]}
                           type="button"
                         >
                           <svg
                             aria-hidden="true"
-                            className="svg-inline--fa fa-square fa-w-14 ox-icon square c5"
+                            className="svg-inline--fa fa-square fa-w-14 ox-icon ox-icon-square c5"
                             color="#929292"
                             data-icon="square"
                             data-prefix="far"
@@ -456,14 +456,14 @@ exports[`choose exercises component can select exercises 1`] = `
                         tabIndex={1}
                       >
                         <button
-                          className="square btn btn-plain"
+                          className="ox-icon-square btn btn-plain"
                           disabled={false}
                           onClick={[Function]}
                           type="button"
                         >
                           <svg
                             aria-hidden="true"
-                            className="svg-inline--fa fa-square fa-w-14 ox-icon square c5"
+                            className="svg-inline--fa fa-square fa-w-14 ox-icon ox-icon-square c5"
                             color="#929292"
                             data-icon="square"
                             data-prefix="far"
@@ -776,14 +776,14 @@ exports[`choose exercises component renders selections 1`] = `
                         tabIndex={1}
                       >
                         <button
-                          className="square btn btn-plain"
+                          className="ox-icon-square btn btn-plain"
                           disabled={false}
                           onClick={[Function]}
                           type="button"
                         >
                           <svg
                             aria-hidden="true"
-                            className="svg-inline--fa fa-square fa-w-14 ox-icon square c5"
+                            className="svg-inline--fa fa-square fa-w-14 ox-icon ox-icon-square c5"
                             color="#929292"
                             data-icon="square"
                             data-prefix="far"
@@ -941,14 +941,14 @@ exports[`choose exercises component renders selections 1`] = `
                         tabIndex={1}
                       >
                         <button
-                          className="square btn btn-plain"
+                          className="ox-icon-square btn btn-plain"
                           disabled={false}
                           onClick={[Function]}
                           type="button"
                         >
                           <svg
                             aria-hidden="true"
-                            className="svg-inline--fa fa-square fa-w-14 ox-icon square c5"
+                            className="svg-inline--fa fa-square fa-w-14 ox-icon ox-icon-square c5"
                             color="#929292"
                             data-icon="square"
                             data-prefix="far"
@@ -1106,14 +1106,14 @@ exports[`choose exercises component renders selections 1`] = `
                         tabIndex={1}
                       >
                         <button
-                          className="square btn btn-plain"
+                          className="ox-icon-square btn btn-plain"
                           disabled={false}
                           onClick={[Function]}
                           type="button"
                         >
                           <svg
                             aria-hidden="true"
-                            className="svg-inline--fa fa-square fa-w-14 ox-icon square c5"
+                            className="svg-inline--fa fa-square fa-w-14 ox-icon ox-icon-square c5"
                             color="#929292"
                             data-icon="square"
                             data-prefix="far"

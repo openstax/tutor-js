@@ -138,7 +138,7 @@ class Icon extends React.Component {
     let icon = (
       <IconWrapper
         data-variant={variant}
-        className={cn('ox-icon', type, className)}
+        className={cn('ox-icon', `ox-icon-${type}`, className)}
         icon={Icons[type]}
         {...props}
       />
@@ -148,7 +148,7 @@ class Icon extends React.Component {
       icon = (
         <Button
           variant={btnVariant || 'plain'}
-          className={cn(type, className)}
+          className={cn(`ox-icon-${type}`, className)}
           onClick={onClick}
           {...buttonProps}
         >{icon}</Button>
