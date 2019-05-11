@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { React, PropTypes, styled } from '../../../helpers/react';
 import { compact, map, isEmpty } from 'lodash';
 import Loading from 'shared/components/loading-animation';
 import { Icon } from 'shared';
@@ -11,6 +10,17 @@ import Book from '../../../models/reference-book';
 import sharedExercises, { ExercisesMap, Exercise } from '../../../models/exercises';
 import ExerciseControls from './exercise-controls';
 import ExerciseTable from './exercises-table';
+
+const Header = styled.div`
+  display: flex;
+  width: 100%;
+
+`;
+
+const Controls = styled.div`
+  flex: 1;
+  text-align: right;
+`;
 
 @observer
 class ReviewExerciseCard extends React.Component {
@@ -38,16 +48,22 @@ class ReviewExerciseCard extends React.Component {
 
   getActionButtons() {
     if (!this.props.canEdit) { return null; }
+    const { isFirst, isLast } = this.props;
 
     return (
-      <span className="pull-right card-actions">
-        {!this.props.isFirst ? <Icon onClick={this.moveExerciseUp} className="-move-exercise-up circle" size="xs" type="arrow-up" /> : undefined}
-        {this.props.isLast &&
-          <Icon type="arrow-down"
-            size="xs"
-            onClick={this.moveExerciseDown}
-            className="-move-exercise-down circle"
-          />}
+      <Controls className="pull-right card-actions">
+        {!isFirst && <Icon
+          size="xs"
+          type="arrow-up"
+          onClick={this.moveExerciseUp}
+          className="-move-exercise-up circle"
+        />}
+        {!isLast && <Icon
+          size="xs"
+          type="arrow-down"
+          onClick={this.moveExerciseDown}
+          className="-move-exercise-down circle"
+        />}
         <SuretyGuard
           title={false}
           onConfirm={this.removeExercise}
@@ -57,19 +73,19 @@ class ReviewExerciseCard extends React.Component {
         >
           <Icon size="xs" className="-remove-exercise circle" type="close" />
         </SuretyGuard>
-      </span>
+      </Controls>
     );
   }
 
   renderHeader() {
     const actionButtons = this.getActionButtons();
     return (
-      <span className="-exercise-header">
+      <Header className="-exercise-header">
         <span className="exercise-number">
           {this.props.index + 1}
         </span>
         {actionButtons}
-      </span>
+      </Header>
     );
   }
 
@@ -101,7 +117,7 @@ class ReviewExercises extends React.Component {
     planId:     PropTypes.string.isRequired,
     canEdit:    PropTypes.bool,
     canAdd:     PropTypes.bool,
-    showSectionTopics: PropTypes.func,
+    showSectionTopics: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
