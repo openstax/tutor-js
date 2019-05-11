@@ -26,7 +26,12 @@ class ResponseValidation extends BaseModel {
   @field remove_stopwords;
   @field response;
   @field spelling_correction;
+  @field spelling_correction_used;
+  @field num_spelling_correction;
   @field tag_numeric;
+  @field tag_numeric_input;
+  @field uid_found;
+  @field uid_used;
   @field valid;
 
   constructor() {
@@ -50,9 +55,6 @@ class ResponseValidation extends BaseModel {
       query: {
         uid,
         response,
-        spelling_correction: 'True',
-        remove_stopwords: 'True',
-        remove_nonwords: 'True',
       },
     };
   }
