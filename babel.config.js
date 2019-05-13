@@ -3,7 +3,7 @@ module.exports = {
     [
       '@babel/preset-env', {
         useBuiltIns: 'usage',
-        corejs: 3,
+        corejs: 2,
         debug: false,
         // https://browserl.ist/?q=%3E1%25%2C+last+2+versions%2C+not+op_mini+all%2C+not+ie+%3E+0%2C+not+dead%2C+safari+%3E%3D+10%2C+iOS+%3E+8
         targets: ['>1%', 'last 2 versions', 'not op_mini all', 'not ie > 0', 'safari >= 10', 'iOS > 8', 'not dead'],

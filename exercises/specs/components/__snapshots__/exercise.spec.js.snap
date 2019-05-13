@@ -243,7 +243,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
               Answers
             </label>
             <button
-              className="plus-square btn btn-plain"
+              className="ox-icon-plus-square btn btn-plain"
               disabled={false}
               onBlur={[Function]}
               onClick={[Function]}
@@ -254,7 +254,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
             >
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-plus-square fa-w-14 ox-icon plus-square c0"
+                className="svg-inline--fa fa-plus-square fa-w-14 ox-icon ox-icon-plus-square c0"
                 data-icon="plus-square"
                 data-prefix="fas"
                 focusable="false"
@@ -283,14 +283,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     Distractor
                   </label>
                   <button
-                    className="check-circle is-correct btn btn-plain"
+                    className="ox-icon-check-circle is-correct btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-check-circle fa-w-16 ox-icon check-circle is-correct c0"
+                      className="svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct c0"
                       color="lightGray"
                       data-icon="check-circle"
                       data-prefix="fas"
@@ -308,14 +308,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     </svg>
                   </button>
                   <button
-                    className="arrow-circle-down btn btn-plain"
+                    className="ox-icon-arrow-circle-down btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon arrow-circle-down c0"
+                      className="svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon ox-icon-arrow-circle-down c0"
                       data-icon="arrow-circle-down"
                       data-prefix="fas"
                       focusable="false"
@@ -332,14 +332,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     </svg>
                   </button>
                   <button
-                    className="ban btn btn-plain"
+                    className="ox-icon-ban btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-ban fa-w-16 ox-icon ban c0"
+                      className="svg-inline--fa fa-ban fa-w-16 ox-icon ox-icon-ban c0"
                       data-icon="ban"
                       data-prefix="fas"
                       focusable="false"
@@ -383,14 +383,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     Distractor
                   </label>
                   <button
-                    className="check-circle is-correct btn btn-plain"
+                    className="ox-icon-check-circle is-correct btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-check-circle fa-w-16 ox-icon check-circle is-correct c0"
+                      className="svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct c0"
                       color="lightGray"
                       data-icon="check-circle"
                       data-prefix="fas"
@@ -408,14 +408,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     </svg>
                   </button>
                   <button
-                    className="arrow-circle-down btn btn-plain"
+                    className="ox-icon-arrow-circle-down btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon arrow-circle-down c0"
+                      className="svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon ox-icon-arrow-circle-down c0"
                       data-icon="arrow-circle-down"
                       data-prefix="fas"
                       focusable="false"
@@ -432,14 +432,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     </svg>
                   </button>
                   <button
-                    className="arrow-circle-up btn btn-plain"
+                    className="ox-icon-arrow-circle-up btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon arrow-circle-up c0"
+                      className="svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon ox-icon-arrow-circle-up c0"
                       data-icon="arrow-circle-up"
                       data-prefix="fas"
                       focusable="false"
@@ -456,14 +456,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     </svg>
                   </button>
                   <button
-                    className="ban btn btn-plain"
+                    className="ox-icon-ban btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-ban fa-w-16 ox-icon ban c0"
+                      className="svg-inline--fa fa-ban fa-w-16 ox-icon ox-icon-ban c0"
                       data-icon="ban"
                       data-prefix="fas"
                       focusable="false"
@@ -507,14 +507,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     Distractor
                   </label>
                   <button
-                    className="check-circle is-correct btn btn-plain"
+                    className="ox-icon-check-circle is-correct btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-check-circle fa-w-16 ox-icon check-circle is-correct c0"
+                      className="svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct c0"
                       color="lightGray"
                       data-icon="check-circle"
                       data-prefix="fas"
@@ -532,14 +532,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     </svg>
                   </button>
                   <button
-                    className="arrow-circle-down btn btn-plain"
+                    className="ox-icon-arrow-circle-down btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon arrow-circle-down c0"
+                      className="svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon ox-icon-arrow-circle-down c0"
                       data-icon="arrow-circle-down"
                       data-prefix="fas"
                       focusable="false"
@@ -556,14 +556,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     </svg>
                   </button>
                   <button
-                    className="arrow-circle-up btn btn-plain"
+                    className="ox-icon-arrow-circle-up btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon arrow-circle-up c0"
+                      className="svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon ox-icon-arrow-circle-up c0"
                       data-icon="arrow-circle-up"
                       data-prefix="fas"
                       focusable="false"
@@ -580,14 +580,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     </svg>
                   </button>
                   <button
-                    className="ban btn btn-plain"
+                    className="ox-icon-ban btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-ban fa-w-16 ox-icon ban c0"
+                      className="svg-inline--fa fa-ban fa-w-16 ox-icon ox-icon-ban c0"
                       data-icon="ban"
                       data-prefix="fas"
                       focusable="false"
@@ -631,14 +631,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     Distractor
                   </label>
                   <button
-                    className="check-circle is-correct btn btn-plain"
+                    className="ox-icon-check-circle is-correct btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-check-circle fa-w-16 ox-icon check-circle is-correct c0"
+                      className="svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct c0"
                       color="lightGray"
                       data-icon="check-circle"
                       data-prefix="fas"
@@ -656,14 +656,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     </svg>
                   </button>
                   <button
-                    className="arrow-circle-down btn btn-plain"
+                    className="ox-icon-arrow-circle-down btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon arrow-circle-down c0"
+                      className="svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon ox-icon-arrow-circle-down c0"
                       data-icon="arrow-circle-down"
                       data-prefix="fas"
                       focusable="false"
@@ -680,14 +680,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     </svg>
                   </button>
                   <button
-                    className="arrow-circle-up btn btn-plain"
+                    className="ox-icon-arrow-circle-up btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon arrow-circle-up c0"
+                      className="svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon ox-icon-arrow-circle-up c0"
                       data-icon="arrow-circle-up"
                       data-prefix="fas"
                       focusable="false"
@@ -704,14 +704,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     </svg>
                   </button>
                   <button
-                    className="ban btn btn-plain"
+                    className="ox-icon-ban btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-ban fa-w-16 ox-icon ban c0"
+                      className="svg-inline--fa fa-ban fa-w-16 ox-icon ox-icon-ban c0"
                       data-icon="ban"
                       data-prefix="fas"
                       focusable="false"
@@ -755,14 +755,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     Distractor
                   </label>
                   <button
-                    className="check-circle is-correct btn btn-plain"
+                    className="ox-icon-check-circle is-correct btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-check-circle fa-w-16 ox-icon check-circle is-correct c0"
+                      className="svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct c0"
                       color="lightGray"
                       data-icon="check-circle"
                       data-prefix="fas"
@@ -780,14 +780,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     </svg>
                   </button>
                   <button
-                    className="arrow-circle-up btn btn-plain"
+                    className="ox-icon-arrow-circle-up btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon arrow-circle-up c0"
+                      className="svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon ox-icon-arrow-circle-up c0"
                       data-icon="arrow-circle-up"
                       data-prefix="fas"
                       focusable="false"
@@ -804,14 +804,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                     </svg>
                   </button>
                   <button
-                    className="ban btn btn-plain"
+                    className="ox-icon-ban btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-ban fa-w-16 ox-icon ban c0"
+                      className="svg-inline--fa fa-ban fa-w-16 ox-icon ox-icon-ban c0"
                       data-icon="ban"
                       data-prefix="fas"
                       focusable="false"
@@ -886,14 +886,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   className="controls"
                 >
                   <button
-                    className="plus-circle btn btn-plain"
+                    className="ox-icon-plus-circle btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-plus-circle fa-w-16 ox-icon plus-circle c0"
+                      className="svg-inline--fa fa-plus-circle fa-w-16 ox-icon ox-icon-plus-circle c0"
                       data-icon="plus-circle"
                       data-prefix="fas"
                       focusable="false"
@@ -984,14 +984,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   className="controls"
                 >
                   <button
-                    className="trash btn btn-plain"
+                    className="ox-icon-trash btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-trash-alt fa-w-14 ox-icon trash c0"
+                      className="svg-inline--fa fa-trash-alt fa-w-14 ox-icon ox-icon-trash c0"
                       data-icon="trash-alt"
                       data-prefix="fas"
                       focusable="false"
@@ -1025,14 +1025,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   className="controls"
                 >
                   <button
-                    className="plus-circle btn btn-plain"
+                    className="ox-icon-plus-circle btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-plus-circle fa-w-16 ox-icon plus-circle c0"
+                      className="svg-inline--fa fa-plus-circle fa-w-16 ox-icon ox-icon-plus-circle c0"
                       data-icon="plus-circle"
                       data-prefix="fas"
                       focusable="false"
@@ -1076,14 +1076,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   className="controls"
                 >
                   <button
-                    className="trash btn btn-plain"
+                    className="ox-icon-trash btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-trash-alt fa-w-14 ox-icon trash c0"
+                      className="svg-inline--fa fa-trash-alt fa-w-14 ox-icon ox-icon-trash c0"
                       data-icon="trash-alt"
                       data-prefix="fas"
                       focusable="false"
@@ -1354,14 +1354,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   className="controls"
                 >
                   <button
-                    className="plus-circle btn btn-plain"
+                    className="ox-icon-plus-circle btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-plus-circle fa-w-16 ox-icon plus-circle c0"
+                      className="svg-inline--fa fa-plus-circle fa-w-16 ox-icon ox-icon-plus-circle c0"
                       data-icon="plus-circle"
                       data-prefix="fas"
                       focusable="false"
@@ -1394,14 +1394,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   className="controls"
                 >
                   <button
-                    className="trash btn btn-plain"
+                    className="ox-icon-trash btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-trash-alt fa-w-14 ox-icon trash c0"
+                      className="svg-inline--fa fa-trash-alt fa-w-14 ox-icon ox-icon-trash c0"
                       data-icon="trash-alt"
                       data-prefix="fas"
                       focusable="false"
@@ -1435,14 +1435,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   className="controls"
                 >
                   <button
-                    className="plus-circle btn btn-plain"
+                    className="ox-icon-plus-circle btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-plus-circle fa-w-16 ox-icon plus-circle c0"
+                      className="svg-inline--fa fa-plus-circle fa-w-16 ox-icon ox-icon-plus-circle c0"
                       data-icon="plus-circle"
                       data-prefix="fas"
                       focusable="false"
@@ -1475,14 +1475,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
                   className="controls"
                 >
                   <button
-                    className="trash btn btn-plain"
+                    className="ox-icon-trash btn btn-plain"
                     disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-trash-alt fa-w-14 ox-icon trash c0"
+                      className="svg-inline--fa fa-trash-alt fa-w-14 ox-icon ox-icon-trash c0"
                       data-icon="trash-alt"
                       data-prefix="fas"
                       focusable="false"
@@ -1666,14 +1666,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
             className="attachment with-image"
           >
             <button
-              className="trash btn btn-plain"
+              className="ox-icon-trash btn btn-plain"
               disabled={false}
               onClick={[Function]}
               type="button"
             >
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-trash-alt fa-w-14 ox-icon trash c0"
+                className="svg-inline--fa fa-trash-alt fa-w-14 ox-icon ox-icon-trash c0"
                 data-icon="trash-alt"
                 data-prefix="fas"
                 focusable="false"
@@ -1703,14 +1703,14 @@ exports[`Exercises component renders and matches snapshot 1`] = `
             className="attachment with-image"
           >
             <button
-              className="trash btn btn-plain"
+              className="ox-icon-trash btn btn-plain"
               disabled={false}
               onClick={[Function]}
               type="button"
             >
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-trash-alt fa-w-14 ox-icon trash c0"
+                className="svg-inline--fa fa-trash-alt fa-w-14 ox-icon ox-icon-trash c0"
                 data-icon="trash-alt"
                 data-prefix="fas"
                 focusable="false"
@@ -2302,13 +2302,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                           <Icon tooltip=\\"Add New\\" type=\\"plus-square\\" onClick={[Function: res]} buttonProps={{...}} tooltipProps={{...}}>
                                             <OverlayTrigger placement=\\"auto\\" trigger={{...}} overlay={{...}} defaultOverlayShown={false}>
                                               <RefHolder>
-                                                <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"plus-square\\" onClick={[Function: res]} onFocus={[Function]} onBlur={[Function]} onMouseOver={[Function]} onMouseOut={[Function]}>
-                                                  <Button variant=\\"plain\\" className=\\"plus-square\\" onClick={[Function: res]} onFocus={[Function]} onBlur={[Function]} onMouseOver={[Function]} onMouseOut={[Function]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                    <button onClick={[Function: res]} onFocus={[Function]} onBlur={[Function]} onMouseOver={[Function]} onMouseOut={[Function]} disabled={false} type=\\"button\\" className=\\"plus-square btn btn-plain\\">
-                                                      <IconWrapper data-variant={[undefined]} className=\\"ox-icon plus-square\\" icon={{...}}>
-                                                        <StyledComponent data-variant={[undefined]} className=\\"ox-icon plus-square\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                          <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon plus-square IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                            <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-square\\" className=\\"svg-inline--fa fa-plus-square fa-w-14 ox-icon plus-square IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
+                                                <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-plus-square\\" onClick={[Function: res]} onFocus={[Function]} onBlur={[Function]} onMouseOver={[Function]} onMouseOut={[Function]}>
+                                                  <Button variant=\\"plain\\" className=\\"ox-icon-plus-square\\" onClick={[Function: res]} onFocus={[Function]} onBlur={[Function]} onMouseOver={[Function]} onMouseOut={[Function]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                    <button onClick={[Function: res]} onFocus={[Function]} onBlur={[Function]} onMouseOver={[Function]} onMouseOut={[Function]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-square btn btn-plain\\">
+                                                      <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-square\\" icon={{...}}>
+                                                        <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-square\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                          <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-square IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                            <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-square\\" className=\\"svg-inline--fa fa-plus-square fa-w-14 ox-icon ox-icon-plus-square IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
                                                               <path fill=\\"currentColor\\" d=\\"M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-32 252c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92H92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z\\" style={{...}} />
                                                             </svg>
                                                           </FontAwesomeIcon>
@@ -2335,13 +2335,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     Distractor
                                                   </label>
                                                   <Icon type=\\"check-circle\\" className=\\"is-correct\\" color=\\"lightGray\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"check-circle is-correct\\" onClick={[Function: wrapper]}>
-                                                      <Button variant=\\"plain\\" className=\\"check-circle is-correct\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"check-circle is-correct btn btn-plain\\">
-                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon check-circle is-correct\\" icon={{...}} color=\\"lightGray\\">
-                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon check-circle is-correct\\" icon={{...}} color=\\"lightGray\\" forwardedComponent={{...}} forwardedRef={{...}}>
-                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} color=\\"lightGray\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
+                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]}>
+                                                      <Button variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-check-circle is-correct btn btn-plain\\">
+                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\">
+                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\" forwardedComponent={{...}} forwardedRef={{...}}>
+                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} color=\\"lightGray\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
                                                                   <path fill=\\"currentColor\\" d=\\"M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2352,13 +2352,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     </ForwardRef(Bootstrap(Button))>
                                                   </Icon>
                                                   <Icon onClick={[Function: wrapper]} type=\\"arrow-circle-down\\" buttonProps={{...}} tooltipProps={{...}}>
-                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"arrow-circle-down\\" onClick={[Function: wrapper]}>
-                                                      <Button variant=\\"plain\\" className=\\"arrow-circle-down\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"arrow-circle-down btn btn-plain\\">
-                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon arrow-circle-down\\" icon={{...}}>
-                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon arrow-circle-down\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-arrow-circle-down\\" onClick={[Function: wrapper]}>
+                                                      <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-down\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-down btn btn-plain\\">
+                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down\\" icon={{...}}>
+                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon ox-icon-arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-143.6-28.9L288 302.6V120c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v182.6l-72.4-75.5c-9.3-9.7-24.8-9.9-34.3-.4l-10.9 11c-9.4 9.4-9.4 24.6 0 33.9L239 404.3c9.4 9.4 24.6 9.4 33.9 0l132.7-132.7c9.4-9.4 9.4-24.6 0-33.9l-10.9-11c-9.5-9.5-25-9.3-34.3.4z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2369,13 +2369,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     </ForwardRef(Bootstrap(Button))>
                                                   </Icon>
                                                   <Icon type=\\"ban\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ban\\" onClick={[Function: wrapper]}>
-                                                      <Button variant=\\"plain\\" className=\\"ban\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ban btn btn-plain\\">
-                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ban\\" icon={{...}}>
-                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon ban\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ban IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ban IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]}>
+                                                      <Button variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-ban btn btn-plain\\">
+                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}}>
+                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-ban IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ox-icon-ban IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2400,13 +2400,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     Distractor
                                                   </label>
                                                   <Icon type=\\"check-circle\\" className=\\"is-correct\\" color=\\"lightGray\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"check-circle is-correct\\" onClick={[Function: wrapper]}>
-                                                      <Button variant=\\"plain\\" className=\\"check-circle is-correct\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"check-circle is-correct btn btn-plain\\">
-                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon check-circle is-correct\\" icon={{...}} color=\\"lightGray\\">
-                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon check-circle is-correct\\" icon={{...}} color=\\"lightGray\\" forwardedComponent={{...}} forwardedRef={{...}}>
-                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} color=\\"lightGray\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
+                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]}>
+                                                      <Button variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-check-circle is-correct btn btn-plain\\">
+                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\">
+                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\" forwardedComponent={{...}} forwardedRef={{...}}>
+                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} color=\\"lightGray\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
                                                                   <path fill=\\"currentColor\\" d=\\"M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2417,13 +2417,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     </ForwardRef(Bootstrap(Button))>
                                                   </Icon>
                                                   <Icon onClick={[Function: wrapper]} type=\\"arrow-circle-down\\" buttonProps={{...}} tooltipProps={{...}}>
-                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"arrow-circle-down\\" onClick={[Function: wrapper]}>
-                                                      <Button variant=\\"plain\\" className=\\"arrow-circle-down\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"arrow-circle-down btn btn-plain\\">
-                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon arrow-circle-down\\" icon={{...}}>
-                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon arrow-circle-down\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-arrow-circle-down\\" onClick={[Function: wrapper]}>
+                                                      <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-down\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-down btn btn-plain\\">
+                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down\\" icon={{...}}>
+                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon ox-icon-arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-143.6-28.9L288 302.6V120c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v182.6l-72.4-75.5c-9.3-9.7-24.8-9.9-34.3-.4l-10.9 11c-9.4 9.4-9.4 24.6 0 33.9L239 404.3c9.4 9.4 24.6 9.4 33.9 0l132.7-132.7c9.4-9.4 9.4-24.6 0-33.9l-10.9-11c-9.5-9.5-25-9.3-34.3.4z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2434,13 +2434,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     </ForwardRef(Bootstrap(Button))>
                                                   </Icon>
                                                   <Icon type=\\"arrow-circle-up\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"arrow-circle-up\\" onClick={[Function: wrapper]}>
-                                                      <Button variant=\\"plain\\" className=\\"arrow-circle-up\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"arrow-circle-up btn btn-plain\\">
-                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon arrow-circle-up\\" icon={{...}}>
-                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon arrow-circle-up\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-arrow-circle-up\\" onClick={[Function: wrapper]}>
+                                                      <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-up\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-up btn btn-plain\\">
+                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up\\" icon={{...}}>
+                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon ox-icon-arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm143.6 28.9l72.4-75.5V392c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V209.4l72.4 75.5c9.3 9.7 24.8 9.9 34.3.4l10.9-11c9.4-9.4 9.4-24.6 0-33.9L273 107.7c-9.4-9.4-24.6-9.4-33.9 0L106.3 240.4c-9.4 9.4-9.4 24.6 0 33.9l10.9 11c9.6 9.5 25.1 9.3 34.4-.4z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2451,13 +2451,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     </ForwardRef(Bootstrap(Button))>
                                                   </Icon>
                                                   <Icon type=\\"ban\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ban\\" onClick={[Function: wrapper]}>
-                                                      <Button variant=\\"plain\\" className=\\"ban\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ban btn btn-plain\\">
-                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ban\\" icon={{...}}>
-                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon ban\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ban IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ban IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]}>
+                                                      <Button variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-ban btn btn-plain\\">
+                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}}>
+                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-ban IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ox-icon-ban IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2482,13 +2482,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     Distractor
                                                   </label>
                                                   <Icon type=\\"check-circle\\" className=\\"is-correct\\" color=\\"lightGray\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"check-circle is-correct\\" onClick={[Function: wrapper]}>
-                                                      <Button variant=\\"plain\\" className=\\"check-circle is-correct\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"check-circle is-correct btn btn-plain\\">
-                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon check-circle is-correct\\" icon={{...}} color=\\"lightGray\\">
-                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon check-circle is-correct\\" icon={{...}} color=\\"lightGray\\" forwardedComponent={{...}} forwardedRef={{...}}>
-                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} color=\\"lightGray\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
+                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]}>
+                                                      <Button variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-check-circle is-correct btn btn-plain\\">
+                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\">
+                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\" forwardedComponent={{...}} forwardedRef={{...}}>
+                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} color=\\"lightGray\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
                                                                   <path fill=\\"currentColor\\" d=\\"M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2499,13 +2499,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     </ForwardRef(Bootstrap(Button))>
                                                   </Icon>
                                                   <Icon onClick={[Function: wrapper]} type=\\"arrow-circle-down\\" buttonProps={{...}} tooltipProps={{...}}>
-                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"arrow-circle-down\\" onClick={[Function: wrapper]}>
-                                                      <Button variant=\\"plain\\" className=\\"arrow-circle-down\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"arrow-circle-down btn btn-plain\\">
-                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon arrow-circle-down\\" icon={{...}}>
-                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon arrow-circle-down\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-arrow-circle-down\\" onClick={[Function: wrapper]}>
+                                                      <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-down\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-down btn btn-plain\\">
+                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down\\" icon={{...}}>
+                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon ox-icon-arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-143.6-28.9L288 302.6V120c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v182.6l-72.4-75.5c-9.3-9.7-24.8-9.9-34.3-.4l-10.9 11c-9.4 9.4-9.4 24.6 0 33.9L239 404.3c9.4 9.4 24.6 9.4 33.9 0l132.7-132.7c9.4-9.4 9.4-24.6 0-33.9l-10.9-11c-9.5-9.5-25-9.3-34.3.4z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2516,13 +2516,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     </ForwardRef(Bootstrap(Button))>
                                                   </Icon>
                                                   <Icon type=\\"arrow-circle-up\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"arrow-circle-up\\" onClick={[Function: wrapper]}>
-                                                      <Button variant=\\"plain\\" className=\\"arrow-circle-up\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"arrow-circle-up btn btn-plain\\">
-                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon arrow-circle-up\\" icon={{...}}>
-                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon arrow-circle-up\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-arrow-circle-up\\" onClick={[Function: wrapper]}>
+                                                      <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-up\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-up btn btn-plain\\">
+                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up\\" icon={{...}}>
+                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon ox-icon-arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm143.6 28.9l72.4-75.5V392c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V209.4l72.4 75.5c9.3 9.7 24.8 9.9 34.3.4l10.9-11c9.4-9.4 9.4-24.6 0-33.9L273 107.7c-9.4-9.4-24.6-9.4-33.9 0L106.3 240.4c-9.4 9.4-9.4 24.6 0 33.9l10.9 11c9.6 9.5 25.1 9.3 34.4-.4z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2533,13 +2533,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     </ForwardRef(Bootstrap(Button))>
                                                   </Icon>
                                                   <Icon type=\\"ban\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ban\\" onClick={[Function: wrapper]}>
-                                                      <Button variant=\\"plain\\" className=\\"ban\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ban btn btn-plain\\">
-                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ban\\" icon={{...}}>
-                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon ban\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ban IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ban IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]}>
+                                                      <Button variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-ban btn btn-plain\\">
+                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}}>
+                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-ban IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ox-icon-ban IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2564,13 +2564,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     Distractor
                                                   </label>
                                                   <Icon type=\\"check-circle\\" className=\\"is-correct\\" color=\\"lightGray\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"check-circle is-correct\\" onClick={[Function: wrapper]}>
-                                                      <Button variant=\\"plain\\" className=\\"check-circle is-correct\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"check-circle is-correct btn btn-plain\\">
-                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon check-circle is-correct\\" icon={{...}} color=\\"lightGray\\">
-                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon check-circle is-correct\\" icon={{...}} color=\\"lightGray\\" forwardedComponent={{...}} forwardedRef={{...}}>
-                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} color=\\"lightGray\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
+                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]}>
+                                                      <Button variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-check-circle is-correct btn btn-plain\\">
+                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\">
+                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\" forwardedComponent={{...}} forwardedRef={{...}}>
+                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} color=\\"lightGray\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
                                                                   <path fill=\\"currentColor\\" d=\\"M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2581,13 +2581,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     </ForwardRef(Bootstrap(Button))>
                                                   </Icon>
                                                   <Icon onClick={[Function: wrapper]} type=\\"arrow-circle-down\\" buttonProps={{...}} tooltipProps={{...}}>
-                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"arrow-circle-down\\" onClick={[Function: wrapper]}>
-                                                      <Button variant=\\"plain\\" className=\\"arrow-circle-down\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"arrow-circle-down btn btn-plain\\">
-                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon arrow-circle-down\\" icon={{...}}>
-                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon arrow-circle-down\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-arrow-circle-down\\" onClick={[Function: wrapper]}>
+                                                      <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-down\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-down btn btn-plain\\">
+                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down\\" icon={{...}}>
+                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-down\\" className=\\"svg-inline--fa fa-arrow-circle-down fa-w-16 ox-icon ox-icon-arrow-circle-down IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-143.6-28.9L288 302.6V120c0-13.3-10.7-24-24-24h-16c-13.3 0-24 10.7-24 24v182.6l-72.4-75.5c-9.3-9.7-24.8-9.9-34.3-.4l-10.9 11c-9.4 9.4-9.4 24.6 0 33.9L239 404.3c9.4 9.4 24.6 9.4 33.9 0l132.7-132.7c9.4-9.4 9.4-24.6 0-33.9l-10.9-11c-9.5-9.5-25-9.3-34.3.4z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2598,13 +2598,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     </ForwardRef(Bootstrap(Button))>
                                                   </Icon>
                                                   <Icon type=\\"arrow-circle-up\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"arrow-circle-up\\" onClick={[Function: wrapper]}>
-                                                      <Button variant=\\"plain\\" className=\\"arrow-circle-up\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"arrow-circle-up btn btn-plain\\">
-                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon arrow-circle-up\\" icon={{...}}>
-                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon arrow-circle-up\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-arrow-circle-up\\" onClick={[Function: wrapper]}>
+                                                      <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-up\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-up btn btn-plain\\">
+                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up\\" icon={{...}}>
+                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon ox-icon-arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm143.6 28.9l72.4-75.5V392c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V209.4l72.4 75.5c9.3 9.7 24.8 9.9 34.3.4l10.9-11c9.4-9.4 9.4-24.6 0-33.9L273 107.7c-9.4-9.4-24.6-9.4-33.9 0L106.3 240.4c-9.4 9.4-9.4 24.6 0 33.9l10.9 11c9.6 9.5 25.1 9.3 34.4-.4z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2615,13 +2615,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     </ForwardRef(Bootstrap(Button))>
                                                   </Icon>
                                                   <Icon type=\\"ban\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ban\\" onClick={[Function: wrapper]}>
-                                                      <Button variant=\\"plain\\" className=\\"ban\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ban btn btn-plain\\">
-                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ban\\" icon={{...}}>
-                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon ban\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ban IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ban IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]}>
+                                                      <Button variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-ban btn btn-plain\\">
+                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}}>
+                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-ban IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ox-icon-ban IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2646,13 +2646,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     Distractor
                                                   </label>
                                                   <Icon type=\\"check-circle\\" className=\\"is-correct\\" color=\\"lightGray\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"check-circle is-correct\\" onClick={[Function: wrapper]}>
-                                                      <Button variant=\\"plain\\" className=\\"check-circle is-correct\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"check-circle is-correct btn btn-plain\\">
-                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon check-circle is-correct\\" icon={{...}} color=\\"lightGray\\">
-                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon check-circle is-correct\\" icon={{...}} color=\\"lightGray\\" forwardedComponent={{...}} forwardedRef={{...}}>
-                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} color=\\"lightGray\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
+                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]}>
+                                                      <Button variant=\\"plain\\" className=\\"ox-icon-check-circle is-correct\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-check-circle is-correct btn btn-plain\\">
+                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\">
+                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct\\" icon={{...}} color=\\"lightGray\\" forwardedComponent={{...}} forwardedRef={{...}}>
+                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} color=\\"lightGray\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"check-circle\\" className=\\"svg-inline--fa fa-check-circle fa-w-16 ox-icon ox-icon-check-circle is-correct IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]} color=\\"lightGray\\">
                                                                   <path fill=\\"currentColor\\" d=\\"M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2663,13 +2663,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     </ForwardRef(Bootstrap(Button))>
                                                   </Icon>
                                                   <Icon type=\\"arrow-circle-up\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"arrow-circle-up\\" onClick={[Function: wrapper]}>
-                                                      <Button variant=\\"plain\\" className=\\"arrow-circle-up\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"arrow-circle-up btn btn-plain\\">
-                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon arrow-circle-up\\" icon={{...}}>
-                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon arrow-circle-up\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-arrow-circle-up\\" onClick={[Function: wrapper]}>
+                                                      <Button variant=\\"plain\\" className=\\"ox-icon-arrow-circle-up\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-arrow-circle-up btn btn-plain\\">
+                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up\\" icon={{...}}>
+                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"arrow-circle-up\\" className=\\"svg-inline--fa fa-arrow-circle-up fa-w-16 ox-icon ox-icon-arrow-circle-up IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm143.6 28.9l72.4-75.5V392c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V209.4l72.4 75.5c9.3 9.7 24.8 9.9 34.3.4l10.9-11c9.4-9.4 9.4-24.6 0-33.9L273 107.7c-9.4-9.4-24.6-9.4-33.9 0L106.3 240.4c-9.4 9.4-9.4 24.6 0 33.9l10.9 11c9.6 9.5 25.1 9.3 34.4-.4z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2680,13 +2680,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     </ForwardRef(Bootstrap(Button))>
                                                   </Icon>
                                                   <Icon type=\\"ban\\" onClick={[Function: wrapper]} buttonProps={{...}} tooltipProps={{...}}>
-                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ban\\" onClick={[Function: wrapper]}>
-                                                      <Button variant=\\"plain\\" className=\\"ban\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ban btn btn-plain\\">
-                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ban\\" icon={{...}}>
-                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon ban\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ban IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ban IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                    <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]}>
+                                                      <Button variant=\\"plain\\" className=\\"ox-icon-ban\\" onClick={[Function: wrapper]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                        <button onClick={[Function: wrapper]} disabled={false} type=\\"button\\" className=\\"ox-icon-ban btn btn-plain\\">
+                                                          <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}}>
+                                                            <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-ban\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                              <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-ban IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"ban\\" className=\\"svg-inline--fa fa-ban fa-w-16 ox-icon ox-icon-ban IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                   <path fill=\\"currentColor\\" d=\\"M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z\\" style={{...}} />
                                                                 </svg>
                                                               </FontAwesomeIcon>
@@ -2738,13 +2738,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                   </span>
                                                   <div className=\\"controls\\">
                                                     <Icon onClick={[Function: res]} type=\\"plus-circle\\" buttonProps={{...}} tooltipProps={{...}}>
-                                                      <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"plus-circle\\" onClick={[Function: res]}>
-                                                        <Button variant=\\"plain\\" className=\\"plus-circle\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                          <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"plus-circle btn btn-plain\\">
-                                                            <IconWrapper data-variant={[undefined]} className=\\"ox-icon plus-circle\\" icon={{...}}>
-                                                              <StyledComponent data-variant={[undefined]} className=\\"ox-icon plus-circle\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                                <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon plus-circle IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                  <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 ox-icon plus-circle IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                      <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: res]}>
+                                                        <Button variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                          <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-circle btn btn-plain\\">
+                                                            <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle\\" icon={{...}}>
+                                                              <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                                <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                  <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 ox-icon ox-icon-plus-circle IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                     <path fill=\\"currentColor\\" d=\\"M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z\\" style={{...}} />
                                                                   </svg>
                                                                 </FontAwesomeIcon>
@@ -2800,13 +2800,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     </BookSelection>
                                                     <span className=\\"controls\\">
                                                       <Icon onClick={[Function: res]} type=\\"trash\\" buttonProps={{...}} tooltipProps={{...}}>
-                                                        <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"trash\\" onClick={[Function: res]}>
-                                                          <Button variant=\\"plain\\" className=\\"trash\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                            <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"trash btn btn-plain\\">
-                                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon trash\\" icon={{...}}>
-                                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon trash\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon trash IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 ox-icon trash IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
+                                                        <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: res]}>
+                                                          <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                            <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash btn btn-plain\\">
+                                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}}>
+                                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-trash IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 ox-icon ox-icon-trash IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
                                                                       <path fill=\\"currentColor\\" d=\\"M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z\\" style={{...}} />
                                                                     </svg>
                                                                   </FontAwesomeIcon>
@@ -2831,13 +2831,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                   </span>
                                                   <div className=\\"controls\\">
                                                     <Icon onClick={[Function: res]} type=\\"plus-circle\\" buttonProps={{...}} tooltipProps={{...}}>
-                                                      <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"plus-circle\\" onClick={[Function: res]}>
-                                                        <Button variant=\\"plain\\" className=\\"plus-circle\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                          <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"plus-circle btn btn-plain\\">
-                                                            <IconWrapper data-variant={[undefined]} className=\\"ox-icon plus-circle\\" icon={{...}}>
-                                                              <StyledComponent data-variant={[undefined]} className=\\"ox-icon plus-circle\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                                <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon plus-circle IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                  <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 ox-icon plus-circle IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                      <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: res]}>
+                                                        <Button variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                          <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-circle btn btn-plain\\">
+                                                            <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle\\" icon={{...}}>
+                                                              <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                                <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                  <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 ox-icon ox-icon-plus-circle IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                     <path fill=\\"currentColor\\" d=\\"M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z\\" style={{...}} />
                                                                   </svg>
                                                                 </FontAwesomeIcon>
@@ -2862,13 +2862,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     <TagError error={[undefined]} />
                                                     <span className=\\"controls\\">
                                                       <Icon type=\\"trash\\" onClick={[Function: res]} buttonProps={{...}} tooltipProps={{...}}>
-                                                        <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"trash\\" onClick={[Function: res]}>
-                                                          <Button variant=\\"plain\\" className=\\"trash\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                            <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"trash btn btn-plain\\">
-                                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon trash\\" icon={{...}}>
-                                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon trash\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon trash IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 ox-icon trash IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
+                                                        <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: res]}>
+                                                          <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                            <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash btn btn-plain\\">
+                                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}}>
+                                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-trash IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 ox-icon ox-icon-trash IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
                                                                       <path fill=\\"currentColor\\" d=\\"M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z\\" style={{...}} />
                                                                     </svg>
                                                                   </FontAwesomeIcon>
@@ -3039,13 +3039,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     </span>
                                                     <div className=\\"controls\\">
                                                       <Icon onClick={[Function: res]} type=\\"plus-circle\\" buttonProps={{...}} tooltipProps={{...}}>
-                                                        <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"plus-circle\\" onClick={[Function: res]}>
-                                                          <Button variant=\\"plain\\" className=\\"plus-circle\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                            <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"plus-circle btn btn-plain\\">
-                                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon plus-circle\\" icon={{...}}>
-                                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon plus-circle\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon plus-circle IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 ox-icon plus-circle IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                        <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: res]}>
+                                                          <Button variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                            <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-circle btn btn-plain\\">
+                                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle\\" icon={{...}}>
+                                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 ox-icon ox-icon-plus-circle IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                       <path fill=\\"currentColor\\" d=\\"M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z\\" style={{...}} />
                                                                     </svg>
                                                                   </FontAwesomeIcon>
@@ -3063,13 +3063,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                       <TagError error=\\"\\" />
                                                       <span className=\\"controls\\">
                                                         <Icon onClick={[Function: res]} type=\\"trash\\" buttonProps={{...}} tooltipProps={{...}}>
-                                                          <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"trash\\" onClick={[Function: res]}>
-                                                            <Button variant=\\"plain\\" className=\\"trash\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                              <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"trash btn btn-plain\\">
-                                                                <IconWrapper data-variant={[undefined]} className=\\"ox-icon trash\\" icon={{...}}>
-                                                                  <StyledComponent data-variant={[undefined]} className=\\"ox-icon trash\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                                    <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon trash IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                      <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 ox-icon trash IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
+                                                          <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: res]}>
+                                                            <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                              <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash btn btn-plain\\">
+                                                                <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}}>
+                                                                  <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                                    <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-trash IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                      <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 ox-icon ox-icon-trash IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
                                                                         <path fill=\\"currentColor\\" d=\\"M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z\\" style={{...}} />
                                                                       </svg>
                                                                     </FontAwesomeIcon>
@@ -3096,13 +3096,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                     </span>
                                                     <div className=\\"controls\\">
                                                       <Icon onClick={[Function: res]} type=\\"plus-circle\\" buttonProps={{...}} tooltipProps={{...}}>
-                                                        <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"plus-circle\\" onClick={[Function: res]}>
-                                                          <Button variant=\\"plain\\" className=\\"plus-circle\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                            <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"plus-circle btn btn-plain\\">
-                                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon plus-circle\\" icon={{...}}>
-                                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon plus-circle\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon plus-circle IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 ox-icon plus-circle IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
+                                                        <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: res]}>
+                                                          <Button variant=\\"plain\\" className=\\"ox-icon-plus-circle\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                            <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-plus-circle btn btn-plain\\">
+                                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle\\" icon={{...}}>
+                                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-plus-circle IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"plus-circle\\" className=\\"svg-inline--fa fa-plus-circle fa-w-16 ox-icon ox-icon-plus-circle IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 512 512\\" style={{...}} data-variant={[undefined]}>
                                                                       <path fill=\\"currentColor\\" d=\\"M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z\\" style={{...}} />
                                                                     </svg>
                                                                   </FontAwesomeIcon>
@@ -3120,13 +3120,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                                       <TagError error=\\"\\" />
                                                       <span className=\\"controls\\">
                                                         <Icon onClick={[Function: res]} type=\\"trash\\" buttonProps={{...}} tooltipProps={{...}}>
-                                                          <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"trash\\" onClick={[Function: res]}>
-                                                            <Button variant=\\"plain\\" className=\\"trash\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                              <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"trash btn btn-plain\\">
-                                                                <IconWrapper data-variant={[undefined]} className=\\"ox-icon trash\\" icon={{...}}>
-                                                                  <StyledComponent data-variant={[undefined]} className=\\"ox-icon trash\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                                    <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon trash IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                      <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 ox-icon trash IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
+                                                          <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: res]}>
+                                                            <Button variant=\\"plain\\" className=\\"ox-icon-trash\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                              <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash btn btn-plain\\">
+                                                                <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}}>
+                                                                  <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-trash\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                                    <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-trash IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                      <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 ox-icon ox-icon-trash IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
                                                                         <path fill=\\"currentColor\\" d=\\"M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z\\" style={{...}} />
                                                                       </svg>
                                                                     </FontAwesomeIcon>
@@ -3261,13 +3261,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                             <Btn type=\\"trash\\" onClick={[Function: res]}>
                                               <StyledComponent type=\\"trash\\" onClick={[Function: res]} forwardedComponent={{...}} forwardedRef={{...}}>
                                                 <Icon type=\\"trash\\" onClick={[Function: res]} className=\\"Btn-c6kehb-0 fWrksH\\" buttonProps={{...}} tooltipProps={{...}}>
-                                                  <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"trash Btn-c6kehb-0 fWrksH\\" onClick={[Function: res]}>
-                                                    <Button variant=\\"plain\\" className=\\"trash Btn-c6kehb-0 fWrksH\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                      <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"trash Btn-c6kehb-0 fWrksH btn btn-plain\\">
-                                                        <IconWrapper data-variant={[undefined]} className=\\"ox-icon trash Btn-c6kehb-0 fWrksH\\" icon={{...}}>
-                                                          <StyledComponent data-variant={[undefined]} className=\\"ox-icon trash Btn-c6kehb-0 fWrksH\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                            <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon trash Btn-c6kehb-0 fWrksH IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                              <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 ox-icon trash Btn-c6kehb-0 fWrksH IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
+                                                  <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-trash Btn-c6kehb-0 fWrksH\\" onClick={[Function: res]}>
+                                                    <Button variant=\\"plain\\" className=\\"ox-icon-trash Btn-c6kehb-0 fWrksH\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                      <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash Btn-c6kehb-0 fWrksH btn btn-plain\\">
+                                                        <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-trash Btn-c6kehb-0 fWrksH\\" icon={{...}}>
+                                                          <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-trash Btn-c6kehb-0 fWrksH\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                            <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-trash Btn-c6kehb-0 fWrksH IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                              <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 ox-icon ox-icon-trash Btn-c6kehb-0 fWrksH IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
                                                                 <path fill=\\"currentColor\\" d=\\"M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z\\" style={{...}} />
                                                               </svg>
                                                             </FontAwesomeIcon>
@@ -3288,13 +3288,13 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                             <Btn type=\\"trash\\" onClick={[Function: res]}>
                                               <StyledComponent type=\\"trash\\" onClick={[Function: res]} forwardedComponent={{...}} forwardedRef={{...}}>
                                                 <Icon type=\\"trash\\" onClick={[Function: res]} className=\\"Btn-c6kehb-0 fWrksH\\" buttonProps={{...}} tooltipProps={{...}}>
-                                                  <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"trash Btn-c6kehb-0 fWrksH\\" onClick={[Function: res]}>
-                                                    <Button variant=\\"plain\\" className=\\"trash Btn-c6kehb-0 fWrksH\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                      <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"trash Btn-c6kehb-0 fWrksH btn btn-plain\\">
-                                                        <IconWrapper data-variant={[undefined]} className=\\"ox-icon trash Btn-c6kehb-0 fWrksH\\" icon={{...}}>
-                                                          <StyledComponent data-variant={[undefined]} className=\\"ox-icon trash Btn-c6kehb-0 fWrksH\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                            <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon trash Btn-c6kehb-0 fWrksH IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                              <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 ox-icon trash Btn-c6kehb-0 fWrksH IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
+                                                  <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-trash Btn-c6kehb-0 fWrksH\\" onClick={[Function: res]}>
+                                                    <Button variant=\\"plain\\" className=\\"ox-icon-trash Btn-c6kehb-0 fWrksH\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                      <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-trash Btn-c6kehb-0 fWrksH btn btn-plain\\">
+                                                        <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-trash Btn-c6kehb-0 fWrksH\\" icon={{...}}>
+                                                          <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-trash Btn-c6kehb-0 fWrksH\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                                                            <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-trash Btn-c6kehb-0 fWrksH IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                              <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"trash-alt\\" className=\\"svg-inline--fa fa-trash-alt fa-w-14 ox-icon ox-icon-trash Btn-c6kehb-0 fWrksH IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
                                                                 <path fill=\\"currentColor\\" d=\\"M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z\\" style={{...}} />
                                                               </svg>
                                                             </FontAwesomeIcon>

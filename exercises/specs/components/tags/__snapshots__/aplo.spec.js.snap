@@ -21,14 +21,14 @@ exports[`ApLo tags component renders and matches snapshot 1`] = `
       className="controls"
     >
       <button
-        className="plus-circle btn btn-plain"
+        className="ox-icon-plus-circle btn btn-plain"
         disabled={false}
         onClick={[Function]}
         type="button"
       >
         <svg
           aria-hidden="true"
-          className="svg-inline--fa fa-plus-circle fa-w-16 ox-icon plus-circle c0"
+          className="svg-inline--fa fa-plus-circle fa-w-16 ox-icon ox-icon-plus-circle c0"
           data-icon="plus-circle"
           data-prefix="fas"
           focusable="false"

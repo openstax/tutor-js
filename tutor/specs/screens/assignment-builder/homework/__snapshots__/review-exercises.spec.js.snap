@@ -1,6 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`choose exercises component matches snapshot 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+}
+
 <div
   className="openstax-debug-content"
 >
@@ -224,15 +232,15 @@ exports[`choose exercises component matches snapshot 1`] = `
               <div
                 className="card-header"
               >
-                <span
-                  className="-exercise-header"
+                <div
+                  className="-exercise-header c0"
                 >
                   <span
                     className="exercise-number"
                   >
                     1
                   </span>
-                </span>
+                </div>
               </div>
               <div
                 className="card-body"
@@ -520,15 +528,15 @@ exports[`choose exercises component matches snapshot 1`] = `
               <div
                 className="card-header"
               >
-                <span
-                  className="-exercise-header"
+                <div
+                  className="-exercise-header c0"
                 >
                   <span
                     className="exercise-number"
                   >
                     2
                   </span>
-                </span>
+                </div>
               </div>
               <div
                 className="card-body"
@@ -791,15 +799,15 @@ exports[`choose exercises component matches snapshot 1`] = `
               <div
                 className="card-header"
               >
-                <span
-                  className="-exercise-header"
+                <div
+                  className="-exercise-header c0"
                 >
                   <span
                     className="exercise-number"
                   >
                     3
                   </span>
-                </span>
+                </div>
               </div>
               <div
                 className="card-body"
