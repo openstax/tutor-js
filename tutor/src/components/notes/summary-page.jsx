@@ -156,4 +156,4 @@ class NoteSummaryPage extends React.Component {
     );
   }
 
-};
+}

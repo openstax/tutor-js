@@ -372,7 +372,6 @@ class NotesWidget extends React.Component {
   }
 
   renderSummaryPage = () => {
-    console.log("RENDER")
     return (
       <SummaryPage
         notes={this.props.course.notes}
