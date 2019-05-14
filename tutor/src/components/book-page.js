@@ -162,10 +162,20 @@ class BookPage extends React.Component {
   }
 
   insertSplash(root) {
-    const splashFigure = root.querySelector(`${LEARNING_OBJECTIVE_SELECTORS} + figure, [data-type="document-title"] + .os-figure`);
+    let splashFigure = root.querySelector(`${LEARNING_OBJECTIVE_SELECTORS} + figure, [data-type="document-title"] + .os-figure`);
+    if (!splashFigure) { return; }
+
     // abort if it already has a splash element
-    if (splashFigure && !splashFigure.querySelector('.splash')) {
+    if (!splashFigure.querySelector('.splash')) {
       splashFigure.classList.add('splash');
+    }
+
+    while (
+      (splashFigure = splashFigure.nextSibling) &&
+        (!splashFigure.matches || splashFigure.matches('.os-figure'))
+    ) {
+      // text nodes will not have classList
+      if (splashFigure.classList) { splashFigure.classList.add('splash'); }
     }
   }
 

@@ -1,5 +1,15 @@
 @mixin tutor-book-content-learning-objectives() {
 
+  .os-chapter-objective:not(:last-of-type) {
+    & + & {
+      .learning-objective {
+        [data-type=abstract] {
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
+
   .learning-objectives,
   [data-type=abstract] {
 
@@ -9,12 +19,9 @@
     p {
       display: none;
     }
-
-    width: 100%;
-    min-height: 100px;
     @include book-content-full-width();
 
-    padding: $tutor-book-padding-vertical;
+    padding-left: $tutor-book-padding-vertical;
     border-bottom: 1px solid $border-color;
     margin-bottom: $tutor-book-padding-vertical;
 

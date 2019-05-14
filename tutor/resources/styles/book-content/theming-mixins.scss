@@ -1,5 +1,6 @@
 @mixin tutor-book-theme-learning-objectives($background, $theme-accent, $text-color) {
 
+  [data-type="abstract"],
   .learning-objectives.splash {
     background: $background;
     color: $text-color;
@@ -11,6 +12,7 @@
     & + *:not(.splash) {
       margin-top: 2rem;
     }
+//    & +
   }
 
 }

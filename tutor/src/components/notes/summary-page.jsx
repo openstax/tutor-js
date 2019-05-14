@@ -55,15 +55,12 @@ class NoteSummaryPage extends React.Component {
     }
   }
 
-  componentWillMount() {
-    this.resetCurrentChapterSection();
-  }
-
   @computed get currentChapterSection() {
     return this.props.page.chapter_section;
   }
 
   componentDidMount() {
+    this.resetCurrentChapterSection();
     this.prepareFocus();
   }
 

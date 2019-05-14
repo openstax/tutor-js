@@ -68,7 +68,8 @@
   }
 
   section:not(.references) h1 + p:first-of-type,
-  div[data-type="document-title"] ~ p:first-of-type {
+  [data-type="document-title"] ~ p:first-of-type {
+    margin-top: 2rem;
     @include tutor-reading-first-letter();
   }
 
@@ -122,22 +123,21 @@
   }
 
   .os-chapter-outline {
-    *:not(.splash) & {
-      margin-top: 1rem;
-    }
     .os-title { display: none; }
     .os-chapter-objective {
-    > a.os-chapter-objective {
+      > a.os-chapter-objective {
         display: none;
       }
       & + .os-chapter-objective {
         .learning-objective {
           [data-type="abstract"] {
             min-height: inherit;
-            padding: 0;
+            padding: 0 0 0 20px;
           }
-
         }
+      }
+      &:last-of-type .learning-objective [data-type="abstract"] {
+        padding-bottom: 20px;
       }
     }
   }
