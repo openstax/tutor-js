@@ -147,27 +147,36 @@
   }
 
   table {
-
     caption {
       caption-side: top;
       font-style: italic;
       font-weight: 400;
       font-size: inherit;
-    }
-    caption + thead {
-      tr:first-child {
-        font-style: normal;
-        th {
-          background: $tutor-white;
-          font-weight: 800;
+      & + thead {
+        tr:first-child {
+          font-style: normal;
+          th {
+            background: $tutor-white;
+            font-weight: 800;
+          }
         }
       }
     }
-    caption + tbody, thead + tbody, tbody:only-child, colgroup + tbody {
+    caption + tbody,
+    thead + tbody,
+    tbody:only-child,
+    colgroup + tbody {
       tr {
         td:first-child{
           font-weight: 400;
         }
+      }
+    }
+    td,
+    th {
+      .MathJax_Display {
+        display: inline!important;
+        text-align: left!important;
       }
     }
     thead {
@@ -191,11 +200,6 @@
       tr{
         td:first-child{
           font-weight: 800;
-        }
-      }
-      td {
-        .MathJax_Display {
-              text-align: left !important;
         }
       }
       ul{
