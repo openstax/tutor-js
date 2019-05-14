@@ -6,7 +6,10 @@
 .task-screen {
   @include book-page();
   .book-page {
-    padding: $tutor-book-padding-vertical $tutor-book-padding-horizontal;
+    padding: 0 $tutor-book-padding-horizontal;
+    .os-chapter-outline {
+      display: none;
+    }
   }
 
   .exercise-step {
