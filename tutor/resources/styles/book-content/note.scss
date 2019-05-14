@@ -121,11 +121,17 @@ $tutor-book-note-selector: '
 }
 
 @mixin tutor-book-theme-notes($background, $text-color) {
-  *:not(.os-note-body) > {
+  #{$tutor-book-note-selector} {
+    @include tutor-book-label-style() {
+      color: $text-color;
+      background-color: $background;
+    }
+  }
+  .os-note-body {
     #{$tutor-book-note-selector} {
       @include tutor-book-label-style() {
-        color: $text-color;
-        background-color: $background;
+        color: $caption-font-color;
+        background: $tutor-neutral-lightest;
       }
     }
   }
