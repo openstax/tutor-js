@@ -1,5 +1,5 @@
 import { find, pick } from 'lodash';
-import { computed } from 'mobx';
+import { computed, action } from 'mobx';
 import {
   BaseModel, identifiedBy, field, identifier, belongsTo,
 } from 'shared/model';
@@ -51,10 +51,15 @@ class CoursePeriod extends BaseModel {
   unarchive() {
     return { id: this.id, data: { is_archived: false } };
   }
-  afterCreate({ data }) {
+  @action afterCreate({ data }) {
     this.update(data);
     this.course.periods.push(this);
   }
+  becomeStudent() {
+    return { courseId: this.course.id, id: this.id };
+  }
+  @action onBecomeStudent({ data }) {
+    this.course.roles.push(data);
+  }
 
-
-};
+}

@@ -15,7 +15,7 @@ import ReferenceBook from '../models/reference-book';
 import ReferenceBookPage from '../models/reference-book/page';
 import Ecosystems from '../models/ecosystems';
 import { ReferenceBookExerciseActions } from '../flux/reference-book-exercise';
-
+import Role from '../models/course/role';
 import TaskPlanHelpers from '../helpers/task-plan';
 import { FeatureFlagsApi as FeatureFlags } from '../models/feature_flags';
 import Survey from '../models/research-surveys/survey';
@@ -241,7 +241,14 @@ const startAPI = function() {
 
   connectModelDelete(CourseTeacher, 'drop', { pattern: 'teachers/{id}', onSuccess: 'onDropped' });
 
+
+
   connectModelCreate(Period, 'create', { pattern: 'courses/{courseId}/periods', onSuccess: 'afterCreate' });
+
+  connectModelUpdate(Period, 'becomeStudent', { method: 'PUT', pattern: 'periods/{id}/teacher_student', onSuccess: 'onBecomeStudent' });
+
+  connectModelUpdate(Role, 'become', { method: 'PUT', pattern: 'roles/{id}/become', onSuccess: 'onBecomeSuccess' });
+
   connectModelUpdate(Period, 'save', { pattern: 'periods/{id}', onSuccess: 'onApiRequestComplete' });
   connectModelDelete(Period, 'archive', { pattern: 'periods/{id}', onSuccess: 'onApiRequestComplete' });
   connectModelUpdate(Period, 'unarchive', { pattern: 'periods/{id}', onSuccess: 'onApiRequestComplete' });
