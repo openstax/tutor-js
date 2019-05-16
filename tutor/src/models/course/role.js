@@ -18,6 +18,10 @@ class CourseRole extends BaseModel {
     return this.type == 'student';
   }
 
+  @computed get isTeacherStudent() {
+    return this.type == 'teacher_student';
+  }
+
   @computed get isTeacher() {
     return this.type == 'teacher';
   }
@@ -31,6 +35,6 @@ class CourseRole extends BaseModel {
   }
 
   @action onBecomeSuccess({ data }) {
-    this.update(data)
+    this.update(data);
   }
 }
