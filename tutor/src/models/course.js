@@ -198,8 +198,10 @@ class Course extends BaseModel {
     );
   }
 
+  // at one time we only allowed annotating current courses
+  // this provides a spot where we can restrict it in the future if needed
   @computed get canAnnotate() {
-    return this.isActive;
+    return true;
   }
 
   @computed get needsPayment() {
