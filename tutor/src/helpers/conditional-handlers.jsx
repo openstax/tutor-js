@@ -10,6 +10,10 @@ const StudentDashboard = asyncComponent(
   () => import('../screens/student-dashboard')
 );
 
+const TeacherDashboard = asyncComponent(
+  () => import('../screens/teacher-dashboard')
+);
+
 const getConditionalHandlers = (Router) => {
   const MatchForTutor = OXMatchByRouter(Router, null, 'TutorRouterMatch');
 
@@ -29,28 +33,10 @@ const getConditionalHandlers = (Router) => {
       );
     }
 
-    if (course.isTeacher) {
-      if (course.is_concept_coach) {
-        return (
-          <CCDashboard courseId={courseId} {...props} />
-        );
-      } else {
-        return (
-          <Redirect
-            to={{
-              pathname: Router.makePathname('viewTeacherDashboard', props.params),
-              query: Router.currentQuery(),
-            }} />
-        );
-      }
+    if (course.roles.student || course.roles.teacherStudent) {
+      return <StudentDashboard {...props} />;
     } else {
-      if (course.is_concept_coach) {
-        return (
-          <CCStudentRedirect courseId={courseId} />
-        );
-      } else {
-        return <StudentDashboard {...props} />;
-      }
+      return <TeacherDashboard {...props} />;
     }
   };
 
