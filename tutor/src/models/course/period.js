@@ -60,6 +60,18 @@ class CoursePeriod extends BaseModel {
   }
   @action onBecomeStudent({ data }) {
     this.course.roles.push(data);
+    // create a fake student
+    this.course.students.push({
+      id: -1,
+      role_id: data.id,
+      student_identifier: '',
+      first_name: 'Review',
+      last_name: 'Student1',
+      name: 'Teacher Review Student',
+      payment_due_at: (new Date).toString(),
+      period_id: this.id,
+      prompt_student_to_pay: false,
+    });
   }
 
 }
