@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, field, identifier,
+  BaseModel, identifiedBy, field, identifier, belongsTo,
 } from 'shared/model';
 import { computed, action } from 'mobx';
 import moment from 'moment';
@@ -13,6 +13,7 @@ class CourseRole extends BaseModel {
   @field({ type: 'date' }) joined_at;
   @field type;
   @field research_identifier;
+  @belongsTo({ model: 'course' }) course;
 
   @computed get isStudent() {
     return this.type == 'student';

@@ -93,7 +93,7 @@ class Course extends BaseModel {
     active() { return filter(this, period => !period.is_archived); },
   }) }) periods = [];
 
-  @hasMany({ model: Role, extend: getters({
+  @hasMany({ model: Role, inverseOf: 'course', extend: getters({
     student() { return find(this, { isStudent: true }); },
     teacher() { return find(this, { isTeacher: true }); },
     teacherStudent() { return find(this, { isTeacherStudent: true }); },
@@ -114,7 +114,7 @@ class Course extends BaseModel {
   }
 
   @computed get userStudentRecord() {
-    const role = find(this.roles, 'isStudent');
+    const role = this.roles.student || this.roles.teacherStudent;
     return role ? find(this.students, { role_id: role.id }) : null;
   }
 
