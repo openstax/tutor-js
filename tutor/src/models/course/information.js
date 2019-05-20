@@ -79,8 +79,8 @@ export default {
   },
 
   gettingStartedGuide: {
-    teacher: 'https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_instructor_getting_started_guide.pdf',
-    student: 'https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_student_getting_started_guide.pdf',
+    teacher: 'https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_getting_started_guide_instructor.pdf',
+    student: 'https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_getting_started_guide_student.pdf',
   },
 
 };
