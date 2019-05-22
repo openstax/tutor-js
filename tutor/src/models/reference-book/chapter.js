@@ -18,6 +18,7 @@ class ReferenceBookChapter extends BaseModel {
   @session book;
   @hasMany({ model: Page, inverseOf: 'chapter', extend: getters({
     assignable() { return filter(this, 'isAssignable'); },
+    first() { return this.length ? this[0] : null; },
   }) }) children;
   @readonly depth = 1;
   @readonly isAssignable = true;
@@ -34,4 +35,5 @@ class ReferenceBookChapter extends BaseModel {
     const bcs = this.baked_chapter_section;
     return !bcs || bcs.isEmpty ? this.chapter_section : bcs;
   }
-};
+
+}

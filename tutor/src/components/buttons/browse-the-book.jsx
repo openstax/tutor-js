@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
-import { React, observer, action, computed, cn } from '../../helpers/react';
+import { React, observer, action, computed, idType, cn } from '../../helpers/react';
 import Course from '../../models/course';
-import ChapterSection from '../../models/chapter-section';
 import Router from '../../helpers/router';
 
 export default
@@ -15,7 +14,9 @@ class extends React.Component {
 
   static propTypes = {
     course:         PropTypes.instanceOf(Course).isRequired,
-    chapterSection: PropTypes.instanceOf(ChapterSection),
+    page:           PropTypes.shape({
+      id: idType,
+    }),
     unstyled:       PropTypes.bool,
     tag:            PropTypes.string,
     tabIndex:       PropTypes.number,
@@ -32,12 +33,12 @@ class extends React.Component {
   }
 
   @computed get href() {
-    const { course, chapterSection } = this.props;
+    const { course, page } = this.props;
     return Router.makePathname(
-      chapterSection ? 'viewReferenceBookSection' : 'viewReferenceBook',
+      page ? 'viewReferenceBookSection' : 'viewReferenceBook',
       {
         courseId: course.id,
-        chapterSection: chapterSection ? chapterSection.asString : null,
+        pageId: page ? page.id : null,
       }
     );
   }
@@ -51,7 +52,7 @@ class extends React.Component {
 
   render() {
     const { tag: Tag, children, className, unstyled,
-      windowImpl, course, chapterSection, onClick, // eslint-disable-line no-unused-vars
+      windowImpl, course, onClick, // eslint-disable-line no-unused-vars
       ...tagProps
     } = this.props;
 

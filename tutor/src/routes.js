@@ -21,7 +21,7 @@ const getRoutes = (router) => {
       renderer: r(() => import('./screens/new-course'), 'Copy Course') },
     {
       name: 'QADashboard',
-      path: '/qa/:ecosystemId?/:chapterSection?',
+      path: '/qa/:ecosystemId?/:pageId?',
       settings: { navBar: 'Plugable' },
       renderer: r(() => import('./screens/qa-view'), 'QA View') },
     {
@@ -90,7 +90,7 @@ const getRoutes = (router) => {
       path: '/book/:courseId', name: 'viewReferenceBook', settings: { navBar: 'Plugable' },
       renderer: r(() => import('./screens/reference-book/index.jsx')) },
     {
-      path: '/book/:courseId/section/:chapterSection',
+      path: '/book/:courseId/pg/:pageId',
       name: 'viewReferenceBookSection', settings: { navBar: 'Plugable' },
       renderer: r(() => import('./screens/reference-book/index.jsx')) },
     {

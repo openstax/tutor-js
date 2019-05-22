@@ -38,10 +38,9 @@ describe(UX, () => {
   });
 
   it('ensures pages are loaded when updated', () => {
-    ux.update({ ecosystemId: 42, chapterSection: '1.2' });
+    ux.update({ ecosystemId: 42, pageId: '557' });
     return when(() => ux.page).then(() => {
       expect(ux.book.id).toEqual(42);
-      expect(ux.page.chapter_section.asString).toEqual('1.2');
       expect(ux.page.ensureLoaded).toHaveBeenCalled();
     });
   });
