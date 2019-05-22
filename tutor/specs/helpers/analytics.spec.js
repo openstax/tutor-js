@@ -77,7 +77,7 @@ describe('Analytics', function() {
     book.children[0].children.push(
       new Page({ id: 1234, chapter_section: '2.2' })
     );
-    Analytics.onNavigation('/book/1/pg/1234');
+    Analytics.onNavigation('/book/1/page/1234');
     expect(ga).toHaveBeenCalledWith('tutor.set', 'page',
       '/reference-view/1/section/2.2',
     );

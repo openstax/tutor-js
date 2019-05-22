@@ -25,7 +25,7 @@ describe(BTB, () => {
     const btb = mount(<BTB {...props} />, context);
     btb.find('div.browse-the-book').simulate('click');
     expect(props.windowImpl.open).toHaveBeenCalledWith(
-      `/book/${course.id}/pg/${props.page.id}`
+      `/book/${course.id}/page/${props.page.id}`
     );
   });
 });

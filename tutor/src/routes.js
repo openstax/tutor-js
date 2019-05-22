@@ -90,7 +90,7 @@ const getRoutes = (router) => {
       path: '/book/:courseId', name: 'viewReferenceBook', settings: { navBar: 'Plugable' },
       renderer: r(() => import('./screens/reference-book/index.jsx')) },
     {
-      path: '/book/:courseId/pg/:pageId',
+      path: '/book/:courseId/page/:pageId',
       name: 'viewReferenceBookSection', settings: { navBar: 'Plugable' },
       renderer: r(() => import('./screens/reference-book/index.jsx')) },
     {

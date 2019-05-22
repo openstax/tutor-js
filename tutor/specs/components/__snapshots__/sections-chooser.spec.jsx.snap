@@ -147,7 +147,7 @@ exports[`Sections Chooser renders and matches snapshot 1`] = `
             <a
               aria-label="Browse course reference book"
               className="browse-the-book"
-              href="/book/1/pg/234"
+              href="/book/1/page/234"
               onClick={[Function]}
               page={
                 ReferenceBookPage {
@@ -605,7 +605,7 @@ exports[`Sections Chooser renders and matches snapshot 1`] = `
             <a
               aria-label="Browse course reference book"
               className="browse-the-book"
-              href="/book/1/pg/237"
+              href="/book/1/page/237"
               onClick={[Function]}
               page={
                 ReferenceBookPage {
@@ -1063,7 +1063,7 @@ exports[`Sections Chooser renders and matches snapshot 1`] = `
             <a
               aria-label="Browse course reference book"
               className="browse-the-book"
-              href="/book/1/pg/240"
+              href="/book/1/page/240"
               onClick={[Function]}
               page={
                 ReferenceBookPage {
