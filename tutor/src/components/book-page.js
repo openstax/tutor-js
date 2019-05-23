@@ -37,13 +37,18 @@ function processImage() {
   if (figure.querySelector('.splash')) {
     figure.classList.add('full-width');
   }
+  let isScaled = false;
   IMAGE_SIZE_CLASSES.forEach(cls => {
     if (figure.querySelector(`.${cls}`)) {
       figure.classList.add(cls);
+      isScaled = true;
     }
   });
-  if (figure.classList.contains('splash')) { return; }
-  // figures that are not in a series
+
+  // don't autosize splash or manually scaled images
+  if (isScaled || figure.classList.contains('splash')) {
+    return;
+  }
 
   const { parentNode } = figure;
   if (parentNode && parentNode.nodeName === 'FIGURE') {
@@ -58,6 +63,7 @@ function processImage() {
     (aspectRatio > 0.9) ||
       ((figure.parentNode != null ? figure.parentNode.dataset.orient : undefined) === 'horizontal')
   ) {
+
     figure.classList.add('tutor-ui-horizontal-img');
     if (this.naturalWidth < 350) {
       figure.classList.add('small-img-width');
