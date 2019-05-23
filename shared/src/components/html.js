@@ -21,6 +21,7 @@ class ArbitraryHtmlAndMath extends React.Component {
     block: PropTypes.bool.isRequired,
     processHtmlAndMath: PropTypes.func,
     shouldExcludeFrame: PropTypes.func,
+    windowImpl: PropTypes.object,
   };
 
   componentDidMount() { return this.updateDOMNode(); }
@@ -54,7 +55,7 @@ class ArbitraryHtmlAndMath extends React.Component {
     for (let link of links) {
       if (__guard__(link.getAttribute('href'), x => x[0]) !== '#') { link.setAttribute('target', '_blank'); }
     }
-    (typeof this.props.processHtmlAndMath === 'function' ? this.props.processHtmlAndMath(root) : undefined) || typesetMath(root);
+    (typeof this.props.processHtmlAndMath === 'function' ? this.props.processHtmlAndMath(root) : undefined) || typesetMath(this.props.windowImpl);
     return wrapFrames(root, this.props.shouldExcludeFrame);
   };
 

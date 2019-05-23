@@ -4,7 +4,7 @@ import { delay } from 'lodash';
 
 const callTypeset = (dom, window) =>
   new Promise( function( res ) {
-    typesetMath(dom, window);
+    typesetMath(window);
     return delay(() => res(dom)
       , 190);
   })

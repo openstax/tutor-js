@@ -1,5 +1,4 @@
-import { get, isEmpty, memoize, debounce, toArray } from 'lodash';
-import WeakMap from 'weak-map';
+import { get, isEmpty, debounce, toArray } from 'lodash';
 
 const MATH_MARKER_BLOCK  = '\u200c\u200c\u200c'; // zero-width non-joiner
 const MATH_MARKER_INLINE = '\u200b\u200b\u200b'; // zero-width space
@@ -9,10 +8,14 @@ const MATH_DATA_SELECTOR = `[data-math]:not(.${MATH_RENDERED_CLASS})`;
 const MATH_ML_SELECTOR   = `math:not(.${MATH_RENDERED_CLASS})`;
 const COMBINED_MATH_SELECTOR = `${MATH_DATA_SELECTOR}, ${MATH_ML_SELECTOR}`;
 
-// Search document for math and [data-math] elements and then typeset them
-const typesetDocument = function(root, windowImpl) {
+const typesetMath = debounce((windowImpl = window) => {
+  // Search document for math and [data-math] elements and then typeset them
+  const { document } = windowImpl;
+  const Hub = windowImpl.MathJax && windowImpl.MathJax.Hub;
+  if (!Hub) { return; }
+
   const latexNodes = [];
-  for (const node of root.querySelectorAll(MATH_DATA_SELECTOR)) {
+  for (const node of document.querySelectorAll(MATH_DATA_SELECTOR)) {
     const formula = node.getAttribute('data-math');
     // divs should be rendered as a block, others inline
     if (node.tagName.toLowerCase() === 'div') {
@@ -23,23 +26,21 @@ const typesetDocument = function(root, windowImpl) {
     latexNodes.push(node);
   }
 
-  windowImpl.MathJax.Hub.Queue(
+  Hub.Queue(
     () => {
       if (isEmpty(latexNodes)) {
         return;
       }
-
-      windowImpl.MathJax.Hub.Typeset(latexNodes);
+      Hub.Typeset(latexNodes);
     },
     () => {
-      const mathMLNodes = toArray(root.querySelectorAll(MATH_ML_SELECTOR));
+      const mathMLNodes = toArray(document.querySelectorAll(MATH_ML_SELECTOR));
 
       if (isEmpty(mathMLNodes)) {
         return;
       }
-
       // style the entire document because mathjax is unable to style individual math elements
-      windowImpl.MathJax.Hub.Typeset( root );
+      Hub.Typeset( document );
     },
     () => {
       // Queue a call to mark the found nodes as rendered so are ignored if typesetting is called repeatedly
@@ -50,25 +51,19 @@ const typesetDocument = function(root, windowImpl) {
       }
     }
   );
-};
+}, 100);
 
 // memoize'd getter for typeset document function so that each node's
 // typeset has its own debounce
-const getTypesetDocument = memoize((root, windowImpl) => {
-  // Install a debounce around typesetting function so that it will only run once
-  // every Xms even if called multiple times in that period
-  return debounce(typesetDocument, 100).bind(null, root, windowImpl);
-});
-getTypesetDocument.cache = new WeakMap();
+// const getTypesetDocument = memoize((root, windowImpl) => {
+//   // Install a debounce around typesetting function so that it will only run once
+//   // every Xms even if called multiple times in that period
+//   return typesetDocument, 100).bind(null, root, windowImpl);
+// });
+// getTypesetDocument.cache = new WeakMap();
 
 // typesetMath is the main exported function.
 // It's called by components like HTML after they're rendered
-const typesetMath = (root, windowImpl = window) => {
-  // schedule a Mathjax pass if there is at least one [data-math] or <math> element present
-  if (get(windowImpl, 'MathJax.Hub.Queue') && root.querySelector(COMBINED_MATH_SELECTOR)) {
-    getTypesetDocument(root, windowImpl)();
-  }
-};
 
 
 // The following should be called once and configures MathJax.
