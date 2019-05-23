@@ -29,7 +29,7 @@ class FreeTrialEnded extends React.Component {
   }
 
   renderBackLink() {
-    if (Courses.active.size <= 1) { return null; }
+    if (Courses.size <= 1) { return null; }
 
     return (
       <Button variant="link" onClick={this.goToMyCourses}>
@@ -63,4 +63,4 @@ class FreeTrialEnded extends React.Component {
 
   }
 
-};
+}
