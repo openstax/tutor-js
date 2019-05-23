@@ -14,25 +14,25 @@ The Front-end code for Openstax Tutor related projects
 1. Git Clone this repository to the directory of your choice
   - If you don’t have `git` installed you can install homebrew and then `brew install git`
 1. `cd tutor-js` move into the checked out directory
-1. `npm install`
+1. `yarn install`
 1. `yarn run serve <project>` *(where <project is one of tutor|exercises)*
 
  - Run the Tutor server as shown below
 
 ## Development
 
-- `npm run serve <project>` starts up a local development webserver which rebuilds files when changed
-- `npm test <project>` runs unit tests for all projects
-- `npm run coverage` generates a code coverage report
-- `npm run build <project> archive` builds minified files for production
+- `yarn run serve <project>` starts up a local development webserver which rebuilds files when changed
+- `yarn test <project>` runs unit tests for all projects
+- `yarn run coverage` generates a code coverage report
+- `yarn run build <project> archive` builds minified files for production
 
-Use `PORT=8000 npm start` to change the default webserver port.
+Use `PORT=8000 yarn start` to change the default webserver port.
 
 After local updates are made:
 
-1. stop `npm start`
-1. `npm install`
-1. restart `npm start`
+1. stop `yarn start`
+1. `yarn install`
+1. restart `yarn start`
 
 
 ### Tutor Server
@@ -40,7 +40,7 @@ After local updates are made:
 Using the sample API data only allows acting as a student and can't save data.  For a more realistic development experience you'll also need to run the [Tutor server](https://github.com/openstax/tutor-server)
 
 1. Install Tutor Server as shown in its README file
-1. Start both the tutor-server Rails application and run `npm run serve tutor` in this project's directory
+1. Start both the tutor-server Rails application and run `yarn run serve tutor` in this project's directory
 1. Load <http://localhost:3001> in your browser
   - Once you click login, the server will present a dev console that allows you to select a user
 1. And will then render the FE just as it appears in production
@@ -50,7 +50,7 @@ Using the sample API data only allows acting as a student and can't save data.  
 `tutor-js` is also the front-end for [Exercises](https://github.com/openstax/exercises) and is ran similarly to the Tutor Server.
 
 1. Install OpenStax Exercises as shown in its README file
-1. Run `npm run serve exercises` in `tutor-js` directory
+1. Run `yarn run serve exercises` in `tutor-js` directory
 1. Load <http://localhost:3000> in your browser
 
 [travis-image]: https://img.shields.io/travis/openstax/tutor-js.svg?style=flat-square
