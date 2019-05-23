@@ -10,10 +10,7 @@
   .splash {
     @include book-content-full-width();
     margin-bottom: 2rem;
-
-//    &:last-of-type {
-      padding-bottom: 2rem;
-//    }
+    padding-bottom: 2rem;
 
     img {
       border: 0;
