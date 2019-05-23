@@ -21,7 +21,7 @@ export default class TaskUX {
 
     this.window = windowImpl || window;
     this.course = course || task.tasksMap.course;
-    observe(this, '_stepIndex', this.onStepChange, true);
+    observe(this, 'currentStep', this.onStepChange, true);
 
     when(
       () => !this.task.api.isPendingInitialFetch,
@@ -107,12 +107,10 @@ export default class TaskUX {
     }
   }
 
-  @action.bound onStepChange(change) {
+  @action.bound onStepChange() {
     // events do not have steps
-    if (!this.currentStep || change.newValue === change.oldValue) { return; }
-    // re-fetch the entire task if the step is a placeholder
-    // this allows the BE to remove steps if it can't find
-    // appropriate exercises
+    if (!this.currentStep) { return; }
+
     if (this.currentStep.isPlaceHolder) {
       this.refetchTask();
     } else {
