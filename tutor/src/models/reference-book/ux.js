@@ -13,7 +13,7 @@ const MENU_VISIBLE_BREAKPOINT = 1350;
 export default class BookUX {
 
   @observable isMenuVisible = window.innerWidth > MENU_VISIBLE_BREAKPOINT;
-  @observable chapterSection;
+  @observable pageId;
   @observable ecosystemId;
   @observable courseId;
   @observable book;
@@ -25,7 +25,7 @@ export default class BookUX {
     this.windowImpl = windowImpl;
     this.disposers = [
       observe(this, 'ecosystemId', this.onEcosystemChange),
-      observe(this, 'chapterSection', this.onChapterSectionChange),
+      observe(this, 'pageId', this.onPageChange),
     ];
   }
 
@@ -42,8 +42,8 @@ export default class BookUX {
       this.book =  new Book({ id: ecosystemId });
     }
     this.book.fetch().then(() => {
-      if (!this.chapterSection) {
-        this.setChapterSection();  // will default to first section
+      if (!this.pageId) {
+        this.setCurrentPage();  // will default to first section
       }
     });
   }
@@ -55,12 +55,12 @@ export default class BookUX {
   }
 
   @action.bound onMenuSelection(section) {
-    this.setChapterSection(section);
+    this.setCurrentPage(section);
     if (this.isMenuOnTop) { this.isMenuVisible = false; }
     this.scroller.scrollToTop({ deferred: true });
   }
 
-  @action.bound onChapterSectionChange({ newValue: section }) {
+  @action.bound onPageChange({ newValue: section }) {
     if (section && this.page) {
       this.page.ensureLoaded();
     }
@@ -86,25 +86,25 @@ export default class BookUX {
         Courses.forEcosystemId(this.courseId);
       if (course.id != this.courseId) {
         this.courseId = course.id;
-        const cs = props.chapterSection ? `/section/${props.chapterSection}` : '';
-        this.router.history.push(`/book/${this.courseId}${cs}`);
+        const pageURL = props.pageId ? `/${props.pageId}` : '';
+        this.router.history.push(`/book/${this.courseId}${pageURL}`);
       }
       if (course) {
         this.ecosystemId = course.ecosystem_id;
       }
     }
-    this.setChapterSection(props.chapterSection);
+    this.setCurrentPage(props.pageId);
   }
 
-  @action setChapterSection(cs) {
-    if (this.book && !cs) {
-      cs = first(Array.from(this.book.pages.byChapterSection.keys()));
+  @action setCurrentPage(pageId) {
+    if (this.book && !pageId) {
+      pageId = first(Array.from(this.book.pages.byId.keys()));
     }
     if (this.tours && this.tours.tourRide) {
       // wait for React to re-render, mathjax to run, and the page to reflow
       setTimeout(() => invoke(this, 'tours.tourRide.joyrideRef.calcPlacement'), 10);
     }
-    this.chapterSection = cs;
+    this.pageId = pageId;
   }
 
   @computed get pages() {
@@ -119,7 +119,7 @@ export default class BookUX {
   }
 
   @computed get page() {
-    return this.book && this.chapterSection && this.book.pages.byChapterSection.get(this.chapterSection);
+    return this.book && this.pageId && this.book.pages.byId.get(this.pageId);
   }
 
   @computed get toc() {

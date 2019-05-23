@@ -2,6 +2,9 @@ import { isFunction } from 'lodash';
 import Analytics from '../../src/helpers/analytics';
 import Courses from '../../src/models/courses-map';
 import COURSE from '../../api/user/courses/1.json';
+import Chapter from '../../src/models/reference-book/chapter';
+import Page from '../../src/models/reference-book/page';
+
 const COURSE_ID = '1';
 
 function mockGa(name = 'tutor') {
@@ -68,6 +71,17 @@ describe('Analytics', function() {
     expect(ga).toHaveBeenCalledWith('tutor.set', 'dimension1', COURSE.appearance_code);
   });
 
+  it('translates reference-view sections', () => {
+    const book = Courses.get(COURSE.id).referenceBook;
+    book.children.push(new Chapter({ id: 1, chapter_section: '2' }));
+    book.children[0].children.push(
+      new Page({ id: 1234, chapter_section: '2.2' })
+    );
+    Analytics.onNavigation('/book/1/page/1234');
+    expect(ga).toHaveBeenCalledWith('tutor.set', 'page',
+      '/reference-view/1/section/2.2',
+    );
+  });
 
   it('translates known urls when sending', function() {
     const c = '/course/1';
@@ -86,7 +100,6 @@ describe('Analytics', function() {
       [`${c}/external/new`]:                '/teacher/assignment/create/external/1',
       [`${c}/t/month/2011-11-11/plan/66`]:  '/teacher/metrics/quick/1',
       '/book/1':                            '/reference-view/1',
-      '/book/1/section/2.2':                '/reference-view/1/section/2.2',
     };
     for (let route in tests) {
       const translated = tests[route];

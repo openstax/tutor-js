@@ -42,8 +42,14 @@ exports[`Related Content Link renders and matches snapshot 1`] = `
   </span>
   <a
     aria-label="Browse course reference book"
+    chapterSection={
+      ChapterSection {
+        "chapter": 1,
+        "section": 0,
+      }
+    }
     className="browse-the-book"
-    href="/book/1/section/1"
+    href="/book/1"
     onClick={[Function]}
     tabIndex={-1}
     target="_blank"

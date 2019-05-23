@@ -1,7 +1,6 @@
 import { C, EnzymeContext } from '../../helpers';
 import BTB from '../../../src/components/buttons/browse-the-book';
 import Factory from '../../factories';
-import ChapterSection from '../../../src/models/chapter-section';
 import FakeWindow from 'shared/specs/helpers/fake-window';
 
 describe(BTB, () => {
@@ -11,7 +10,7 @@ describe(BTB, () => {
     course = Factory.course();
     props = {
       windowImpl: new FakeWindow(),
-      chapterSection: new ChapterSection('1.2'),
+      page: { id: 42 },
       course,
     };
   });
@@ -26,7 +25,7 @@ describe(BTB, () => {
     const btb = mount(<BTB {...props} />, context);
     btb.find('div.browse-the-book').simulate('click');
     expect(props.windowImpl.open).toHaveBeenCalledWith(
-      `/book/${course.id}/section/${props.chapterSection.asString}`
+      `/book/${course.id}/page/${props.page.id}`
     );
   });
 });

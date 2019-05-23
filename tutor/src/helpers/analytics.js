@@ -27,9 +27,14 @@ const assignmentTypeTranslator = function(assignmentType, { courseId, id }) {
   return `/teacher/assignment/${type}/${assignmentType}/${courseId}`;
 };
 
-function viewReferenceBook({ courseId, chapterSection }) {
+function viewReferenceBook({ courseId, pageId }) {
   const url = `/reference-view/${courseId}`;
-  return chapterSection ? `${url}/section/${chapterSection}` : url;
+  if (!pageId) {
+    return url;
+  }
+  const course = Courses.get(courseId);
+  const page = course.referenceBook.pages.byId.get(pageId);
+  return page ? `${url}/section/${page.chapter_section.key}` : url;
 }
 
 // Translators convert a url like '/foo/bar/123/baz/1' into a simplified one like just '/foo/bar'

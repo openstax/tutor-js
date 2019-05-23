@@ -25,12 +25,12 @@ describe('Reference Book Component', function() {
     course.referenceBook.fetch = jest.fn(() => Promise.resolve());
 
     Courses.get.mockImplementation(() => course);
-
-    ux.update({ courseId: course.id, chapterSection: '2.1' });
+    const page = course.referenceBook.pages.byId.keys()[0];
+    ux.update({ courseId: course.id, pageId: page.id });
 
     Router.currentParams.mockReturnValue({
       courseId: course.id,
-      chapterSection: ux.page.chapter_section.toString,
+      pageId: page.id,
     });
     props = { ux };
   });
@@ -41,7 +41,6 @@ describe('Reference Book Component', function() {
   });
 
   it('navigates forward and back between pages', function() {
-    expect(ux.page.chapter_section.asString).toEqual('2.1');
     Router.makePathname.mockReturnValue('/test/route/3');
     const book = mount(<ReferenceBook {...props} />, EnzymeContext.build());
     book.find('.paging-control.next').simulate('click');
@@ -55,11 +54,11 @@ describe('Reference Book Component', function() {
   });
 
   it('displays a not found message when needed', () => {
-    ux.chapterSection = '99.99';
+    ux.pageId = '9999';
     expect(ux.isFetching).toBe(false);
     const book = mount(<ReferenceBook {...props} />, EnzymeContext.build());
     expect(book).toHaveRendered('.not-found');
-    expect(book.text()).toContain('Section 99.99 was not found');
+    expect(book.text()).toContain('not found');
   });
 
 });

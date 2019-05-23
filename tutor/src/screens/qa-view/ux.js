@@ -92,15 +92,15 @@ export default class QaScreenUX extends BookUX {
     if (!section) { return null; }
     return Router.makePathname('QADashboard', {
       ecosystemId: this.ecosystemId,
-      chapterSection: section.chapter_section.asString,
+      pageId: section.id,
     });
   }
 
   bookLinkFor(props) {
-    let { ecosystemId } = Router.currentParams();
+    let { ecosystemId, pageId } = Router.currentParams();
     const { query } = props;
     return Router.makePathname(
-      'QADashboard', { ecosystemId }, query
+      'QADashboard', { ecosystemId, pageId }, query
     );
   }
 
@@ -108,15 +108,15 @@ export default class QaScreenUX extends BookUX {
     const parts = link.pathname.split('/');
     if (parts.length < 4) { return; }
     const bookId = parts[2];
-    const section = parts[4];
-    link.href = `/qa/${bookId}/${section}`;
+    const pageId = parts[3];
+    link.href = `/qa/${bookId}/${pageId}`;
   }
 
   sectionLinkProps(section) {
     if (!section) { return null; }
     return {
       to: 'QADashboard',
-      params: extend(Router.currentParams(), { chapterSection: section.chapter_section.asString }),
+      params: extend(Router.currentParams(), { pageId: section.id }),
     };
   }
 
