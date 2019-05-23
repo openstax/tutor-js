@@ -10,4 +10,4 @@ fi
 ./bin/lint branch || exit 112
 
 # shellcheck disable=SC2068
-try npm run-script ci -- $@
+try yarn run ci -- $@

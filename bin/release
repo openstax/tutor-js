@@ -41,7 +41,7 @@ echo "${PURPLE}Merging in latest updates from $current_branch.${NO_COLOR}"
 git merge $current_branch -m "merge $current_branch in prep for release"
 
 echo "${PURPLE}Updating and building.${NO_COLOR}"
-npm install
+yarn install
 bin/build "$@"
 
 if [[ `git status --porcelain` ]]; then
@@ -58,4 +58,3 @@ echo "${PURPLE}Done with build, $project_release_branch is up to date.${NO_COLOR
 echo "${PURPLE}Please draft a release off of $project_release_branch on GitHub to complete release.${NO_COLOR}"
 
 git checkout $current_branch
-
