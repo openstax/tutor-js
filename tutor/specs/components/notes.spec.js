@@ -1,6 +1,7 @@
 import NotesWidget from '../../src/components/notes';
 import { Factory, FactoryBot, deferred } from '../helpers';
 import Router from '../../src/helpers/router';
+import mockedCreateRange from '../../../shared/specs/helpers/mocked-create-range';
 import loglevel from 'loglevel';
 
 jest.mock('loglevel');
@@ -55,11 +56,7 @@ describe('Notes', () => {
         })),
       })),
     }));
-    window.document.createRange = jest.fn(() => ({
-      setStart: jest.fn(),
-      setEnd: jest.fn(),
-      collapse: jest.fn(),
-    }));
+    window.document.createRange = mockedCreateRange();
     props = {
       page,
       notes,
