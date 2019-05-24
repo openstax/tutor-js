@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { React, observer, action, computed, idType, cn } from '../../helpers/react';
 import Course from '../../models/course';
 import Router from '../../helpers/router';
+import ChapterSection from '../../models/chapter-section';
 
 export default
 @observer
@@ -14,6 +15,7 @@ class extends React.Component {
 
   static propTypes = {
     course:         PropTypes.instanceOf(Course).isRequired,
+    chapterSection: PropTypes.instanceOf(ChapterSection),
     page:           PropTypes.shape({
       id: idType,
     }),
@@ -32,14 +34,24 @@ class extends React.Component {
     children: 'Browse the Book',
   }
 
+  @computed get routeName() {
+    const { props } = this;
+    if (props.chapterSection) {
+      return 'viewReferenceBookSection';
+    }
+    if (props.page) {
+      return 'viewReferenceBookPage';
+    }
+    return 'viewReferenceBook';
+  }
+
   @computed get href() {
-    const { course, page } = this.props;
-    return Router.makePathname(
-      page ? 'viewReferenceBookSection' : 'viewReferenceBook',
-      {
-        courseId: course.id,
-        pageId: page ? page.id : null,
-      }
+    const { course, page, chapterSection } = this.props;
+    return Router.makePathname(this.routeName, {
+      courseId: course.id,
+      pageId: page ? page.id : null,
+      chapterSection: chapterSection ? chapterSection.key : null,
+    }
     );
   }
 
@@ -52,7 +64,7 @@ class extends React.Component {
 
   render() {
     const { tag: Tag, children, className, unstyled,
-      windowImpl, course, onClick, // eslint-disable-line no-unused-vars
+      chapterSection, page, windowImpl, course, onClick, // eslint-disable-line no-unused-vars
       ...tagProps
     } = this.props;
 

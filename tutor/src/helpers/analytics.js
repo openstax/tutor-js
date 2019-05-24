@@ -60,6 +60,7 @@ const Translators = {
   calendarViewPlanStats({ courseId }) { return `/teacher/metrics/quick/${courseId}`; },
   reviewTask({ courseId }) { return `/teacher/metrics/review/${courseId}`; },
   viewReferenceBookSection: viewReferenceBook,
+  viewReferenceBookPage: viewReferenceBook,
   viewReferenceBook,
 
   // Task steps are viewed by both teacher and student with no difference in params
