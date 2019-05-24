@@ -1,8 +1,9 @@
+/* eslint-disable  no-undef */
 import Adapter from 'enzyme-adapter-react-16';
 import enzyme from 'enzyme';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import faker from 'faker';
-import React from 'react';
+import React from 'react'; // eslint-disable-line no-unused-vars
 import 'jest-styled-components';
 
 faker.seed(123);
@@ -17,6 +18,15 @@ global.mount   = enzyme.mount;
 // Include the jest-axe .toHaveNoViolations()
 global.expect.extend(toHaveNoViolations);
 global.axe = axe;
+global.document.createRange = jest.fn(() => ({
+  setStart: () => {},
+  setEnd: () => {},
+  collapse: jest.fn(),
+  commonAncestorContainer: {
+    nodeName: 'BODY',
+    ownerDocument: document,
+  },
+}));
 
 require('./matchers');
 require('./mocks');
