@@ -1,6 +1,5 @@
 import { ld, React } from 'shared/specs/helpers';
 import SuretyGuard from 'components/surety-guard';
-import mockedCreateRange from '../helpers/mocked-create-range';
 
 const WrappedComponent = (props) => (
   <SuretyGuard {...props}>
@@ -14,7 +13,6 @@ describe('SuretyGuard', function() {
   let props = null;
 
   beforeEach(() => {
-    document.createRange = mockedCreateRange();
     props = {
       onConfirm: jest.fn(),
       message: 'Yo!, you sure?',

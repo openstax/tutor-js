@@ -91,6 +91,10 @@ const getRoutes = (router) => {
       renderer: r(() => import('./screens/reference-book/index.jsx')) },
     {
       path: '/book/:courseId/page/:pageId',
+      name: 'viewReferenceBookPage', settings: { navBar: 'Plugable' },
+      renderer: r(() => import('./screens/reference-book/index.jsx')) },
+    {
+      path: '/book/:courseId/section/:chapterSection',
       name: 'viewReferenceBookSection', settings: { navBar: 'Plugable' },
       renderer: r(() => import('./screens/reference-book/index.jsx')) },
     {

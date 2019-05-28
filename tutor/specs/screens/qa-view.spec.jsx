@@ -30,9 +30,9 @@ describe('QA Screen', function() {
     });
     ux = new QaUX({ router, exercises, ecosystems });
     const ecosystem = ux.ecosystemsMap.array[0];
+
     ux.update({
       ecosystemId: ecosystem.id,
-      chapterSection: '1.1',
     });
 
     const page = ux.page;

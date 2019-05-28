@@ -1,7 +1,6 @@
 import defer from 'lodash/defer';
 import merge from 'lodash/merge';
 import isFunction from 'lodash/isFunction';
-import mockedCreateRange from '../helpers/mocked-create-range';
 import { JSDOM } from 'jsdom';
 
 const EmptyFn = () => undefined;
@@ -57,7 +56,6 @@ class FakeWindow {
       setItem: jest.fn(() => null),
     };
     this.document.body = global.document.body;
-    this.document.createRange = mockedCreateRange();
     this.history =
       { pushState: jest.fn() };
     this.open = jest.fn( () => {

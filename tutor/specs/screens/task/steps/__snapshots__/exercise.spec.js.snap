@@ -531,7 +531,6 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
       "clearInterval": [MockFunction],
       "document": Object {
         "body": <body />,
-        "createRange": [MockFunction],
         "hidden": false,
       },
       "getSelection": [MockFunction],

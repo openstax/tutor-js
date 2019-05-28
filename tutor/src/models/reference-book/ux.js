@@ -1,4 +1,4 @@
-import { observable, computed, action, observe } from 'mobx';
+import { observable, computed, action, observe, when } from 'mobx';
 import { first, invoke } from 'lodash';
 import WindowSize from '../window-size';
 import Book from '../reference-book';
@@ -86,13 +86,24 @@ export default class BookUX {
         Courses.forEcosystemId(this.courseId);
       if (course.id != this.courseId) {
         this.courseId = course.id;
-        const pageURL = props.pageId ? `/${props.pageId}` : '';
+        const pageURL = props.pageId ? `/page/${props.pageId}` : '';
         this.router.history.push(`/book/${this.courseId}${pageURL}`);
       }
       if (course) {
         this.ecosystemId = course.ecosystem_id;
       }
     }
+    if (props.chapterSection) {
+      if (this.book) {
+        when(() => this.book.pages.byChapterSection.get(props.chapterSection))
+          .then(() => {
+            const pageId = this.book.pages.byChapterSection.get(props.chapterSection).id;
+            this.router.history.push(`/book/${this.courseId}/page/${pageId}`);
+          });
+      }
+      return;
+    }
+
     this.setCurrentPage(props.pageId);
   }
 
