@@ -33,7 +33,6 @@
 
   > .card {
     max-width: $tutor-max-panel-width;
-    margin: 8rem auto;
     @include tutor-shadow(subtle);
 
     > .card-body {

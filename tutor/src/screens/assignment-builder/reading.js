@@ -1,8 +1,7 @@
-import { React, PropTypes, idType } from '../../helpers/react';
+import { React, PropTypes, idType, cn } from '../../helpers/react';
 import { map, pick } from 'lodash';
 import createReactClass from 'create-react-class';
-import { Button, Card, Col, Row } from 'react-bootstrap';
-import classnames from 'classnames';
+import { Card, Button, Col, Row } from 'react-bootstrap';
 import ChapterSectionModel from '../../models/chapter-section';
 import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
 import SelectTopics from './select-topics';
@@ -16,6 +15,7 @@ import { Icon } from 'shared';
 import ChapterSection from '../../components/chapter-section';
 import Courses from '../../models/courses-map';
 import TourRegion from '../../components/tours/region';
+import Wrapper from './wrapper';
 
 class ReviewReading extends React.Component {
 
@@ -157,7 +157,7 @@ class ChooseReadings extends React.Component {
         disabled={(this.props.selected != null ? this.props.selected.length : undefined) === 0}
         onClick={this.hide}>
         {'Add Readings\
-  '}
+        '}
       </Button>;
 
     return (
@@ -214,20 +214,17 @@ const ReadingPlan = createReactClass({
       );
     }
 
-    const formClasses = classnames(
+    const formClasses = cn(
       'edit-reading',
       'dialog',
-      {
-
-        'is-invalid-form': hasError,
-      },
+      { 'is-invalid-form': hasError },
     );
 
     if (!this.state.isVisibleToStudents) {
       addReadingsButton = (
         <Button
           id="reading-select"
-          className={classnames('-select-sections-btn', {
+          className={cn('-select-sections-btn', {
             'invalid': hasError && !(topics != null ? topics.length : undefined),
           })}
           onClick={this.showSectionTopics}
@@ -248,7 +245,7 @@ const ReadingPlan = createReactClass({
     }
 
     return (
-      <div className="reading-plan task-plan" data-assignment-type="reading">
+      <Wrapper planType="reading" cardClassName={formClasses}>
         <Card className={formClasses}>
           <Card.Header>
             {this.builderHeader('reading')}
@@ -289,7 +286,7 @@ const ReadingPlan = createReactClass({
           />
         </Card>
         {selectReadings}
-      </div>
+      </Wrapper>
     );
   },
 });

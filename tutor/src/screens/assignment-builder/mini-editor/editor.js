@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { React, PropTypes, styled } from '../../../helpers/react';
 import createReactClass from 'create-react-class';
 import { Container, Col, Alert, Button } from 'react-bootstrap';
 import isEmpty from 'lodash/isEmpty';
@@ -18,6 +17,13 @@ import DraftButton from '../footer/save-as-draft';
 import PlanMixin from '../plan-mixin';
 import ServerErrorHandlers from '../../../components/error-monitoring/handlers';
 import Course from '../../../models/course';
+import NudgeIsAvailableMessage from '../nudge-is-available-message';
+
+const StyledNudgeIsAvailableMessage = styled(NudgeIsAvailableMessage)`
+  font-size: 14px;
+  line-height: 20px;
+  padding-left: 1.5rem;
+`;
 
 const TaskPlanMiniEditor = createReactClass({
   displayName: 'TaskPlanMiniEditor',
@@ -130,6 +136,7 @@ const TaskPlanMiniEditor = createReactClass({
 
     return (
       <div className={classes}>
+        <StyledNudgeIsAvailableMessage planType={plan.type} />
         <Container>
           <div className="row">
             <Col xs={12}>

@@ -11,6 +11,7 @@ import { TaskingStore } from '../../flux/tasking';
 import PlanFooter from './footer';
 import PlanMixin from './plan-mixin';
 import TaskPlanBuilder from './builder';
+import Wrapper from './wrapper';
 
 const ExternalPlan = createReactClass({
   displayName: 'ExternalPlan',
@@ -53,9 +54,9 @@ const ExternalPlan = createReactClass({
         'is-invalid-form': hasError,
       },
     );
-  //.task-plan[data-assignment-type='reading'] .dialog > .card-header
+    //.task-plan[data-assignment-type='reading'] .dialog > .card-header
     return (
-      <div className="external-plan task-plan" data-assignment-type="external">
+      <Wrapper planType="external">
         <Card className={formClasses}>
           <Card.Header>
             {this.builderHeader('external')}
@@ -88,7 +89,7 @@ const ExternalPlan = createReactClass({
             goBackToCalendar={this.goBackToCalendar}
           />
         </Card>
-      </div>
+      </Wrapper>
     );
   },
 });

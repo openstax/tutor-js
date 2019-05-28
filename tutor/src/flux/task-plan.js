@@ -398,6 +398,10 @@ const TaskPlanConfig = {
       return plan.type === PLAN_TYPES.HOMEWORK;
     },
 
+    getType(id) {
+      return (this._getPlan(id) || {}).type;
+    },
+
     isValid(id) {
       const plan = this._getPlan(id);
       if (plan.type === 'reading') {
