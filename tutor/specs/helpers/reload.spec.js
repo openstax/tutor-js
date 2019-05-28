@@ -7,7 +7,7 @@ describe('Reloading window', () => {
 
   it('detects if page is reloaded', () => {
     expect(isReloaded({ windowImpl })).toEqual(false);
-    windowImpl.location.search = '?foo&reloaded';
+    windowImpl.location.href = 'http://foo.test.com?foo&reloaded';
     expect(isReloaded({ windowImpl } )).toEqual(true);
   });
 

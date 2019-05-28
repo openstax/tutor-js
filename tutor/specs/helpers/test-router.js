@@ -12,6 +12,7 @@ class TestRouter {
 
     this.history = {
       createHref: jest.fn(),
+      listen: jest.fn(),
       push: jest.fn(),
       replace: jest.fn(),
     };

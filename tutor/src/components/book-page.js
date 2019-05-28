@@ -122,8 +122,9 @@ class BookPage extends React.Component {
     this.cleanUpAbstracts(root);
     this.insertSplash(root);
     this.processLinks(root);
-
-    this.removeHistoryChangeListener = this.props.history.listen(this.scrollToSelector);
+    if (this.props.history) {
+      this.removeHistoryChangeListener = this.props.history.listen(this.scrollToSelector);
+    }
     this.scrollToSelector(window.location);
   }
 
@@ -141,7 +142,7 @@ class BookPage extends React.Component {
   componentWillUnmount() {
     this._linkContentIsMounted = false;
     this.cleanUpLinks();
-    this.removeHistoryChangeListener();
+    invoke(this, 'removeHistoryChangeListener');
     return this.removeCanonicalLink();
   }
 
