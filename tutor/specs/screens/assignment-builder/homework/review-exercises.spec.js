@@ -35,7 +35,7 @@ describe('choose exercises component', function() {
       pageIds,
       onAddClick: jest.fn(),
       windowImpl: new FakeWindow,
-
+      showSectionTopics: jest.fn(),
       canEdit: false,
       planId: PLAN_ID,
       cancel: jest.fn(),

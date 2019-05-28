@@ -1,6 +1,6 @@
 import {
   sortBy, extend, keys, pick, isObject, isString, clone,
-  omit, isEqual, negate, cloneDeep, each, isEmpty,
+  omit, isEqual, negate, cloneDeep, isEmpty,
 } from 'lodash';
 import { CrudConfig, makeSimpleStore, extendConfig } from './helpers';
 import Publishing from '../models/jobs/task-plan-publish';
@@ -120,7 +120,7 @@ const TaskPlanConfig = {
     return this.emit('deleting', id);
   },
 
-  _deleted(result, id, ...args) {
+  _deleted(result, id) {
     return this.emit('deleted', id, result);
   },
 
@@ -142,10 +142,10 @@ const TaskPlanConfig = {
 
   replaceTaskings(id, taskings) {
     if (taskings != null) {
-      return this._change(id, { tasking_plans: taskings });
+      this._change(id, { tasking_plans: taskings });
     } else if ((this._changed[id] != null ? this._changed[id].tasking_plans : undefined) != null) {
       delete this._changed[id].tasking_plans;
-      return this.emitChange();
+      this.emitChange();
     }
   },
 
@@ -164,7 +164,6 @@ const TaskPlanConfig = {
   },
 
   updateDescription(id, description) {
-    const plan = this._getPlan(id);
     return this._change(id, { description });
   },
 
@@ -192,7 +191,7 @@ const TaskPlanConfig = {
   },
 
   removeTopic(id, topicId) {
-    const { page_ids, type, exercise_ids } = this._getClonedSettings(id, 'page_ids', 'exercise_ids');
+    const { page_ids, exercise_ids } = this._getClonedSettings(id, 'page_ids', 'exercise_ids');
     const index = page_ids != null ? page_ids.indexOf(topicId) : undefined;
     if (page_ids != null) {
       page_ids.splice(index, 1);
@@ -282,7 +281,7 @@ const TaskPlanConfig = {
     return this._change(id, { is_publish_requested: true });
   },
 
-  saveSilent(id, obj) {
+  saveSilent(id) {
     this._save(id);
     return this.emitChange();
   },
@@ -291,7 +290,7 @@ const TaskPlanConfig = {
     return this.emit(`saved.${id}`, obj);
   },
 
-  erroredSilent(obj, id, courseId) {
+  erroredSilent(obj) {
     return this.emit('errored', obj);
   },
 
@@ -304,7 +303,7 @@ const TaskPlanConfig = {
     if (!this.exports.isNew.call(this, id)) { return; }
     delete this._local[id];
     this.clearChanged(id);
-    return this.emitChange();
+    this.emitChange();
   },
 
   _isDeleteRequested(id) {
@@ -396,6 +395,10 @@ const TaskPlanConfig = {
     isHomework(id) {
       const plan = this._getPlan(id);
       return plan.type === PLAN_TYPES.HOMEWORK;
+    },
+
+    getType(id) {
+      return (this._getPlan(id) || {}).type;
     },
 
     isValid(id) {

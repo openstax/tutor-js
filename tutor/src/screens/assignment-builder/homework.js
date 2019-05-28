@@ -1,9 +1,8 @@
-import React from 'react';
+import { React, idType, cn } from '../../helpers/react';
 import createReactClass from 'create-react-class';
 import { pick, isEmpty } from 'lodash';
-import { idType } from 'shared';
 import { Card, Row, Col, Button } from 'react-bootstrap';
-import classnames from 'classnames';
+
 import PlanMixin from './plan-mixin';
 import TaskPlanBuilder from './builder';
 import ChooseExercises from './homework/choose-exercises';
@@ -11,6 +10,7 @@ import ReviewExercises from './homework/review-exercises';
 import FeedbackSetting from './feedback';
 import PlanFooter from './footer';
 import { TaskPlanStore } from '../../flux/task-plan';
+import Wrapper from './wrapper';
 
 const HomeworkPlan = createReactClass({
   displayName: 'HomeworkPlan',
@@ -32,7 +32,7 @@ const HomeworkPlan = createReactClass({
     const topics = TaskPlanStore.getTopics(id);
     const hasExercises = !isEmpty(TaskPlanStore.getExercises(id));
 
-    const formClasses = classnames(
+    const formClasses = cn(
       'edit-homework dialog',
       {
         hide: this.state.showSectionTopics,
@@ -41,11 +41,13 @@ const HomeworkPlan = createReactClass({
     );
 
     return (
-      <div className="homework-plan task-plan" data-assignment-type="homework">
+      <Wrapper planType={TaskPlanStore.getType(id)}>
         <Card className={formClasses}>
+
           <Card.Header>
             {this.builderHeader('homework')}
           </Card.Header>
+
           <Card.Body>
             <TaskPlanBuilder courseId={courseId} id={id} {...builderProps} />
             <Row>
@@ -58,13 +60,13 @@ const HomeworkPlan = createReactClass({
                 {!this.state.isVisibleToStudents && (
                   <Button
                     id="problems-select"
-                    className={classnames('-select-sections-btn', { 'invalid': hasError && !hasExercises })}
+                    className={cn('-select-sections-btn', { 'invalid': hasError && !hasExercises })}
                     onClick={this.showSectionTopics}
                     variant="default"
                   >+ Select Problems</Button>)}
                 {hasError && !hasExercises && (
                   <span className="problems-required">
-                     Please select problems for this assignment.
+                    Please select problems for this assignment.
                   </span>)}
               </Col>
             </Row>
@@ -100,7 +102,7 @@ const HomeworkPlan = createReactClass({
             ecosystemId={ecosystemId}
             planId={id}
           />)}
-      </div>
+      </Wrapper>
     );
   },
 });

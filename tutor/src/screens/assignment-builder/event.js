@@ -7,6 +7,7 @@ import classnames from 'classnames';
 import PlanFooter from './footer';
 import PlanMixin from './plan-mixin';
 import TaskPlanBuilder from './builder';
+import Wrapper from './wrapper';
 
 const EventPlan = createReactClass({
   displayName: 'EventPlan',
@@ -26,7 +27,7 @@ const EventPlan = createReactClass({
       { 'is-invalid-form': hasError });
 
     return (
-      <div className="event-plan task-plan" data-assignment-type="event">
+      <Wrapper planType="event">
         <Card className={formClasses}>
           <Card.Header>
             {this.builderHeader('event')}
@@ -50,7 +51,7 @@ const EventPlan = createReactClass({
             goBackToCalendar={this.goBackToCalendar}
           />
         </Card>
-      </div>
+      </Wrapper>
     );
   },
 });
