@@ -15,21 +15,33 @@ const neutral = {
   darker:   '#424242', // very dark gray
 };
 
+const colorDefinitions = {
+  primary:       '#f47641', // orange
+  secondary:     '#63a524', // green
+  tertiary:      '#233066', // dark blue
+  quaternary:    '#f4d019', // yellow
+  blue_control:  '#337eb5',
+  blue_info:     '#007da4',
+  black:         'black',
+  white:         'white',
+  warning:       '#f4d019', // yellow
+  danger:        '#c2002f', // dark red
+};
+
+const tasks = {
+  reading:  colorDefinitions.quaternary,
+  homework: '#00c1de',
+  external: '#d3d6e0',
+  event:    colorDefinitions.secondary,
+  failure:  colorDefinitions.danger,
+};
+
 const TutorTheme = {
 
   colors: {
-    primary:       '#f47641', // orange
-    secondary:     '#63a524', // green
-    tertiary:      '#233066', // dark blue
-    quaternary:    '#f4d019', // yellow
-    blue_control:  '#337eb5',
-    blue_info:     '#007da4',
-    black:         'black',
-    white:         'white',
-    warning:       '#f4d019', // yellow
-    danger:        '#c2002f', // dark red
+    ...colorDefinitions,
     neutral,
-
+    tasks,
     states: {
       active:   neutral.dark,
       disabled: neutral.std,
