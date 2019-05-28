@@ -727,6 +727,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
         "router": TestRouter {
           "history": Object {
             "createHref": [MockFunction],
+            "listen": [MockFunction],
             "push": [MockFunction],
             "replace": [MockFunction],
           },

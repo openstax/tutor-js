@@ -32,7 +32,12 @@ describe('Reference Book Component', function() {
       courseId: course.id,
       pageId: page.id,
     });
-    props = { ux };
+    props = {
+      ux,
+      history: {
+        listen: jest.fn(),
+      },
+    };
   });
 
   it('renders the section title on the navbar', () => {

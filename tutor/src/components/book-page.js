@@ -1,8 +1,9 @@
-import { React, PropTypes, observer } from '../helpers/react';
+import { React, PropTypes, observer, action } from '../helpers/react';
 import {
   get, map, forEach, first, last, invoke, defer, compact, uniq,
 } from 'lodash';
 import ReactDOM from 'react-dom';
+import { withRouter } from 'react-router';
 import { LoadingAnimation, SpyMode, ArbitraryHtmlAndMath } from 'shared';
 import classnames from 'classnames';
 import { ReferenceBookExerciseShell } from './book-page/exercise';
@@ -14,6 +15,8 @@ import dom from '../helpers/dom';
 import Router from '../helpers/router';
 import { MediaStore } from '../flux/media';
 import MediaPreview from './media-preview';
+import ScrollTo from '../helpers/scroll-to';
+import imagesComplete from '../helpers/images-complete';
 
 // According to the tagging legend exercises with a link should have `a.os-embed`
 // but in the content they are just a vanilla link.
@@ -76,7 +79,10 @@ function processImage() {
 }
 
 @observer
+@withRouter
 class BookPage extends React.Component {
+
+  static displayName = 'BookPage';
 
   static propTypes = {
     ux: PropTypes.object.isRequired,
@@ -85,8 +91,11 @@ class BookPage extends React.Component {
     query: PropTypes.string,
     cnxId: PropTypes.string,
     title: PropTypes.string,
+    history: PropTypes.object,
     hasLearningObjectives: PropTypes.bool,
   }
+
+  scoller = new ScrollTo();
 
   getCnxId() {
     return this.props.ux.page.cnx_id;
@@ -106,17 +115,22 @@ class BookPage extends React.Component {
     this.props.ux.checkForTeacherContent();
     this._linkContentIsMounted = true;
 
-    const root = ReactDOM.findDOMNode(this);
+    const { root } = this;
 
     this.insertCanonicalLink(root);
     this.detectImgAspectRatio(root);
     this.cleanUpAbstracts(root);
     this.insertSplash(root);
     this.processLinks(root);
+    if (this.props.history) {
+      this.removeHistoryChangeListener = this.props.history.listen(this.scrollToSelector);
+    }
+    this.scrollToSelector(window.location);
   }
 
+
   componentDidUpdate() {
-    const root = ReactDOM.findDOMNode(this);
+    const { root } = this;
     this.props.ux.checkForTeacherContent();
     this.updateCanonicalLink(root);
     this.detectImgAspectRatio(root);
@@ -128,6 +142,7 @@ class BookPage extends React.Component {
   componentWillUnmount() {
     this._linkContentIsMounted = false;
     this.cleanUpLinks();
+    invoke(this, 'removeHistoryChangeListener');
     return this.removeCanonicalLink();
   }
 
@@ -149,7 +164,7 @@ class BookPage extends React.Component {
   }
 
   getMedia(mediaId) {
-    const root = ReactDOM.findDOMNode(this);
+    const { root } = this;
     try {
       return root.querySelector(`#${mediaId}`);
     } catch (error) {
@@ -161,7 +176,7 @@ class BookPage extends React.Component {
   }
 
   cleanUpLinks() {
-    const root = ReactDOM.findDOMNode(this);
+    const { root } = this;
     const previewNodes = root.getElementsByClassName('media-preview-wrapper');
 
     forEach(previewNodes, previewNode => ReactDOM.unmountComponentAtNode(previewNode));
@@ -293,7 +308,7 @@ class BookPage extends React.Component {
   processLinks() {
     defer(() => {
       if (!this._linkContentIsMounted) { return; }
-      const root = ReactDOM.findDOMNode(this);
+      const { root } = this;
       const mediaLinks = root.querySelectorAll(MediaStore.getSelector());
       const exerciseLinks = root.querySelectorAll(EXERCISE_LINK_SELECTOR);
 
@@ -315,21 +330,18 @@ class BookPage extends React.Component {
     });
   }
 
-  waitToScrollToSelector(hash) {
-    const images = ReactDOM.findDOMNode(this).querySelectorAll('img');
-    let imagesToLoad = images.length;
-    const onImageLoad = () => {
-      imagesToLoad -= 1;
-      if (imagesToLoad === 0) {
-        // final scroll to
-        this.scrollToSelector(hash);
-      }
-    };
-    for (let image of images) {
-      image.addEventListener('load', onImageLoad);
-    }
+  get root() {
+    return ReactDOM.findDOMNode(this);
+  }
 
-    return images.length > 0;
+  @action.bound scrollToSelector(location) {
+    if (!location.hash) { return; }
+    imagesComplete(this.root)
+      .then(() => {
+        this.scoller.scrollToSelector(location.hash, {
+          scrollTopOffset: 100,
+        });
+      });
   }
 
   renderExercises(exerciseLinks) {

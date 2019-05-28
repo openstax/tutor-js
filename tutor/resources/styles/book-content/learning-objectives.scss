@@ -19,10 +19,11 @@
       display: none;
     }
     @include book-content-full-width();
-
     padding-left: $tutor-book-padding-vertical;
+
     border-bottom: 1px solid $border-color;
-    margin-bottom: $tutor-book-padding-vertical;
+    margin-bottom: $tutor-book-padding-vertical * 2;
+    padding-bottom: $tutor-book-padding-vertical * 2;
 
     p,
     &::before {
