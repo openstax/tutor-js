@@ -35,8 +35,13 @@ class Input extends React.Component {
 
   @observable errorMsg;
   @observable value = this.props.tag.value;
+
   @computed get book() {
-    return this.props.tag.specifier;
+    const { specifier } =  this.props.tag;
+    if (specifier && this.availableBooks.includes(specifier)) {
+      return specifier;
+    }
+    return null;
   }
 
   @computed get lo() {
@@ -44,7 +49,7 @@ class Input extends React.Component {
   }
 
   @computed get validation() {
-    return BOOKS[this.book];
+    return this.book && BOOKS[this.book];
   }
 
   @action.bound onTextChange(ev) {
@@ -120,7 +125,7 @@ class Input extends React.Component {
 }
 
 @observer
-class LoTags extends React.Component {
+class ApLoTags extends React.Component {
   static propTypes = {
     exercise: PropTypes.instanceOf(Exercise).isRequired,
   };
@@ -140,11 +145,11 @@ class LoTags extends React.Component {
 
     return (
       <Wrapper label="AP LO" onAdd={this.onAdd}>
-        {tags.map((tag) =>
-          <Input key={tag.asString} {...this.props} tag={tag} />)}
+        {tags.map((tag, i) =>
+          <Input key={i} {...this.props} tag={tag} />)}
       </Wrapper>
     );
   }
 }
 
-export default LoTags;
+export default ApLoTags;

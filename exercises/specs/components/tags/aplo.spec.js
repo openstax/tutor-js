@@ -37,7 +37,7 @@ describe('ApLo tags component', () => {
 
     input.simulate('change', { target: { value: '1.42' } });
     input.simulate('blur');
-    expect(lo.find('TagError').props().error).toBeUndefined();
+    expect(lo.find('TagError').props().error).toBeNull();
 
     lo.find('BookSelection select').simulate('change', {
       target: { value: 'stax-apphys' },
