@@ -93,7 +93,7 @@ const TaskPlanMiniEditor = createReactClass({
     if ((this.props.id !== nextProps.id) ||
       (this.props.course !== nextProps.course)) {
       this.initializePlan(nextProps);
-      return TaskingActions.updateTaskingsIsAll(this.props.id, true);
+      TaskingActions.updateTaskingsIsAll(this.props.id, true);
     }
   },
 

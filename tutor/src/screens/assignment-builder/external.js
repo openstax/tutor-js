@@ -30,6 +30,7 @@ const ExternalPlan = createReactClass({
   validate(inputValue) {
     if ((inputValue == null) || (inputValue.length <= 0)) { return ['required']; }
     if (!validator.isURL(inputValue)) { return ['url']; }
+    return null;
   },
 
   render() {

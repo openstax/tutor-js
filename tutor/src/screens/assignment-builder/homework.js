@@ -1,4 +1,4 @@
-import { React, PropTypes, idType, cn } from '../../helpers/react';
+import { React, idType, cn } from '../../helpers/react';
 import createReactClass from 'create-react-class';
 import { pick, isEmpty } from 'lodash';
 import { Card, Row, Col, Button } from 'react-bootstrap';

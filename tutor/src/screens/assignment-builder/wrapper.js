@@ -1,6 +1,5 @@
 import { React, PropTypes, styled } from '../../helpers/react';
 import NudgeAvailableMessage from './nudge-is-available-message';
-import { Card } from 'react-bootstrap';
 
 const StyledNudgeMessage = styled(NudgeAvailableMessage)`
   margin-bottom: 4rem;
