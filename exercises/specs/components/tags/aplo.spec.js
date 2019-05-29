@@ -32,7 +32,7 @@ describe('ApLo tags component', () => {
     expect(lo).toHaveRendered('TagError');
 
     expect(lo.find('TagError').props()).toMatchObject({
-      error: expect.stringContaining('Must have book and match LO pattern'),
+      error: expect.stringContaining('Must have book and match APLO pattern'),
     });
 
     input.simulate('change', { target: { value: '1.42' } });

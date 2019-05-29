@@ -68,7 +68,10 @@ class Input extends React.Component {
     const { lo, book } = defaults(attrs, { book: this.book, lo: this.lo });
 
     if (!book || !this.isLoValid(book, lo)) {
-      this.errorMsg = `Must have book and match LO pattern of ${validation.pattern}`;
+      this.errorMsg = 'Must have book';
+      if (book) {
+        this.errorMsg += ` and match APLO pattern of ${validation.pattern}`;
+      }
     } else {
       tag.value = lo;
     }
@@ -81,6 +84,7 @@ class Input extends React.Component {
   }
 
   @action.bound updateBook(ev) {
+    this.errorMsg = this.value = '';
     this.validateAndSave({ book: ev.target.value });
   }
 
