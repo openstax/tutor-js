@@ -78,8 +78,8 @@ function processImage() {
   }
 }
 
-@observer
 @withRouter
+@observer
 class BookPage extends React.Component {
 
   static displayName = 'BookPage';
