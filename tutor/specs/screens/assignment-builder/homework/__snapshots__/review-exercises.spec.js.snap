@@ -491,12 +491,12 @@ exports[`choose exercises component matches snapshot 1`] = `
                   <span
                     className="exercise-tag"
                   >
-                    blooms:3
+                    lo:stax-phys:1-2-1
                   </span>
                   <span
                     className="exercise-tag"
                   >
-                    time:long
+                    blooms:3
                   </span>
                   <span
                     className="exercise-tag"
@@ -506,7 +506,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                   <span
                     className="exercise-tag"
                   >
-                    lo:stax-phys:1-2-1
+                    time:long
                   </span>
                   <span
                     className="exercise-tag"
@@ -762,12 +762,12 @@ exports[`choose exercises component matches snapshot 1`] = `
                   <span
                     className="exercise-tag"
                   >
-                    blooms:3
+                    lo:stax-phys:1-2-1
                   </span>
                   <span
                     className="exercise-tag"
                   >
-                    time:long
+                    blooms:3
                   </span>
                   <span
                     className="exercise-tag"
@@ -777,7 +777,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                   <span
                     className="exercise-tag"
                   >
-                    lo:stax-phys:1-2-1
+                    time:long
                   </span>
                   <span
                     className="exercise-tag"
@@ -1040,12 +1040,12 @@ exports[`choose exercises component matches snapshot 1`] = `
                   <span
                     className="exercise-tag"
                   >
-                    blooms:3
+                    lo:stax-phys:1-2-1
                   </span>
                   <span
                     className="exercise-tag"
                   >
-                    time:long
+                    blooms:3
                   </span>
                   <span
                     className="exercise-tag"
@@ -1055,7 +1055,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                   <span
                     className="exercise-tag"
                   >
-                    lo:stax-phys:1-2-1
+                    time:long
                   </span>
                   <span
                     className="exercise-tag"
