@@ -81,7 +81,7 @@ class ExercisePreview extends React.Component {
     const { displayAllTags, displayNickname, exercise } = this.props;
     let tags = exercise.tags.slice();
     if (!displayAllTags) { tags = filter(tags, 'isImportant'); }
-    tags = sortBy(tags, tag => tag.isLO);
+    tags = sortBy(tags, 'sortValue', 'title');
     if (displayNickname && exercise.nickname) {
       tags.push(new Tag(`Nickname:${exercise.nickname}`));
     }
