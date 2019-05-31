@@ -58,7 +58,7 @@ class Input extends React.Component {
   }
 
   isLoValid(book, lo) {
-    if (!lo) { return true; } // LO is not required
+    if (!lo || !this.validation) { return true; } // LO is not required
     return lo.match( this.validation.r );
   }
 
