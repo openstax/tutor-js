@@ -7,4 +7,7 @@ a,
   &.external-icon {
 //    &[target=_blank] { @include tutor-external-link-indicator(); }
   }
+  &:not(.disabled) {
+    cursor: pointer;
+  }
 }
