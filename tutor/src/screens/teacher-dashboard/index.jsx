@@ -1,10 +1,8 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { React, PropTypes, styled, observer, inject } from '../../helpers/react';
 import { extend, pick, isEmpty } from 'lodash';
 import moment from '../../helpers/moment-range';
 import Router from '../../helpers/router';
 import { observable, computed, action, observe } from 'mobx';
-import { observer, inject } from 'mobx-react';
 import { Redirect } from 'react-router-dom';
 import { NotificationsBar } from 'shared';
 import CoursePage from '../../components/course-page';
@@ -13,10 +11,20 @@ import Courses, { Course } from '../../models/courses-map';
 import Time from '../../models/time';
 import TimeHelper from '../../helpers/time';
 import NotificationHelpers from '../../helpers/notifications';
+import TeacherBecomesStudent from '../../components/buttons/teacher-become-student';
 import TermsModal from '../../components/terms-modal';
 import Dashboard from './dashboard';
 import CourseCalendarHeader from './header';
+
 import './styles.scss';
+
+
+const Title = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  h1 { margin: 0; }
+`;
 
 @inject((allStores, props) => ({
   tourContext: ( props.tourContext || allStores.tourContext ),
@@ -115,7 +123,12 @@ class TeacherDashboardWrapper extends React.Component {
     return (
       <CoursePage
         className="list-task-plans"
-        title={course.name}
+        title={(
+          <Title>
+            <h1>{course.name}</h1>
+            <TeacherBecomesStudent course={course} />
+          </Title>
+        )}
         subtitle={course.termFull}
         course={course}
         controls={

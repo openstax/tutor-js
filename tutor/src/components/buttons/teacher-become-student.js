@@ -1,8 +1,9 @@
 import {
   React, PropTypes, observer, action, observable,
-} from '../helpers/react';
-import Course from '../models/course';
-import { AsyncButton } from 'shared';
+} from '../../helpers/react';
+import Course from '../../models/course';
+import { Button } from 'react-bootstrap';
+import { Icon } from 'shared';
 
 export default
 @observer
@@ -21,9 +22,13 @@ class MyCourses extends React.Component {
   @action.bound async onBecomeStudentClick() {
     const { course } = this.props;
     this.isCreating = true;
-    await course.periods[0].becomeStudent();
+
+    const period = course.periods.find(period => !period.is_archived);
+    await period.becomeStudent();
+
     const role = course.roles.teacherStudent;
     await role.become();
+
     this.context.router.history.push(`/course/${course.id}`);
   }
 
@@ -32,13 +37,23 @@ class MyCourses extends React.Component {
 
     if (!course || !course.isTeacher) { return null; }
 
+    if (this.isCreating) {
+      return (
+        <Button variant="link" disabled>
+          <Icon type="spinner" spin />
+          Creating student record…
+        </Button>
+      );
+    }
+
     return (
-      <AsyncButton
-        isJob={true}
+      <Button
+        variant="link"
         onClick={this.onBecomeStudentClick}
-        waitingText="Creating student records…"
-        isWaiting={this.isCreating}
-      >Become Student</AsyncButton>
+      >
+        <Icon type="glasses" />
+        View as student
+      </Button>
     );
   }
 }

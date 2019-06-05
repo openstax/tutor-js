@@ -7,9 +7,8 @@ import S from '../helpers/string';
 import classnames from 'classnames';
 import Router from '../helpers/router';
 import Analytics from '../helpers/analytics';
-
 import MatchForTutor from './match-for-tutor';
-
+import TeacherAsStudentFrame from '../components/teacher-as-student-frame';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import User from '../models/user';
@@ -74,13 +73,15 @@ class App extends React.Component {
     return (
       <div className={classNames}>
         <ErrorBoundary app={this.props.app}>
-          <SpyMode.Wrapper>
-            <TourConductor>
-              <TutorLayout course={course}>
-                <MatchForTutor routes={Router.getRenderableRoutes()} />
-              </TutorLayout>
-            </TourConductor>
-          </SpyMode.Wrapper>
+          <TeacherAsStudentFrame course={course}>
+            <SpyMode.Wrapper>
+              <TourConductor>
+                <TutorLayout course={course}>
+                  <MatchForTutor routes={Router.getRenderableRoutes()} />
+                </TutorLayout>
+              </TourConductor>
+            </SpyMode.Wrapper>
+          </TeacherAsStudentFrame>
         </ErrorBoundary>
       </div>
     );

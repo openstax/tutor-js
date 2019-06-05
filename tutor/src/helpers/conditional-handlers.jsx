@@ -33,10 +33,10 @@ const getConditionalHandlers = (Router) => {
       );
     }
 
-    if (course.roles.student || course.roles.teacherStudent) {
-      return <StudentDashboard {...props} />;
-    } else {
+    if (course.currentRole.isTeacher) {
       return <TeacherDashboard {...props} />;
+    } else {
+      return <StudentDashboard {...props} />;
     }
   };
 

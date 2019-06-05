@@ -1,12 +1,10 @@
-import PropTypes from 'prop-types';
-import { React, observer } from '../../helpers/react';
+import { React, PropTypes, observer } from '../../helpers/react';
 import Course from '../../models/course';
 import TourAnchor from '../../components/tours/anchor';
 import TutorLink from '../../components/link';
 import BrowseTheBook from '../../components/buttons/browse-the-book';
 import NoPeriods from '../../components/no-periods';
 import SidebarToggle from './sidebar-toggle';
-import TeacherBecomesStudent from '../../components/teacher-become-student';
 
 const CourseCalendarHeader = observer((props) => {
   const { course, hasPeriods, defaultOpen } = props;
@@ -18,7 +16,6 @@ const CourseCalendarHeader = observer((props) => {
         defaultOpen={defaultOpen}
         onToggle={props.onSidebarToggle} />
       <div className="calendar-header-actions-buttons">
-        <TeacherBecomesStudent course={course} />
         <BrowseTheBook course={course} />
         <TourAnchor id="question-library-button">
           <TutorLink className="btn btn-default" to="viewQuestionsLibrary" params={{ courseId: course.id }}>

@@ -9,7 +9,7 @@
       min-height: 100px;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
+      align-items: baseline;
       display: flex;
       > * {
         @include course-page-wrapper-child();
@@ -66,6 +66,13 @@
     &[data-appearance=#{$book}] .title-wrapper {
       color: openstax-book-color($book, primary);
       background-color: openstax-book-color($book, secondary);
+
+      .btn-link {
+        color: openstax-book-color($book, control);
+        &:hover {
+          color: darken(openstax-book-color($book, control), 20%);
+        }
+      }
     }
   }
 }

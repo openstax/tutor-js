@@ -62,7 +62,7 @@ class Course extends BaseModel {
   @field is_lms_enabling_allowed = false;
   @field is_access_switchable = true;
   @field salesforce_book_name;
-
+  @field current_role_id;
   @field starts_at;
   @field ends_at;
 
@@ -116,6 +116,10 @@ class Course extends BaseModel {
   @computed get userStudentRecord() {
     const role = this.roles.student || this.roles.teacherStudent;
     return role ? find(this.students, { role_id: role.id }) : null;
+  }
+
+  @computed get currentRole() {
+    return this.roles.find(r => r.id === this.current_role_id);
   }
 
   @computed get canOnlyUseEnrollmentLinks() {
