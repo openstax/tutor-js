@@ -26,6 +26,7 @@ const colorDefinitions = {
   white:         'white',
   warning:       '#f4d019', // yellow
   danger:        '#c2002f', // dark red
+  teal:          '#0C9372',
 };
 
 const tasks = {
@@ -70,6 +71,10 @@ const TutorTheme = {
     box: `1px solid ${neutral.lighter}`,
   },
 
+  zIndex: {
+    navbar: 1030,
+    footer: 5,
+  },
 };
 
 export default TutorTheme;

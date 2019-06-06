@@ -1,9 +1,17 @@
 import {
-  React, PropTypes, observer, action, observable,
+  React, PropTypes, observer, action, observable, styled,
 } from '../../helpers/react';
 import Course from '../../models/course';
 import { Button } from 'react-bootstrap';
 import { Icon } from 'shared';
+
+
+const BecomeButton = styled(Button).attrs({
+  className: 'd-inline-flex align-items-center',
+  variant: 'link',
+})`
+
+`;
 
 export default
 @observer
@@ -22,13 +30,13 @@ class MyCourses extends React.Component {
   @action.bound async onBecomeStudentClick() {
     const { course } = this.props;
     this.isCreating = true;
-
-    const period = course.periods.find(period => !period.is_archived);
-    await period.becomeStudent();
-
     const role = course.roles.teacherStudent;
-    await role.become();
-
+    if (role) {
+      await role.become();
+    } else {
+      const period = course.periods.find(period => !period.is_archived);
+      await period.becomeStudent();
+    }
     this.context.router.history.push(`/course/${course.id}`);
   }
 
@@ -39,21 +47,18 @@ class MyCourses extends React.Component {
 
     if (this.isCreating) {
       return (
-        <Button variant="link" disabled>
-          <Icon type="spinner" spin />
+        <BecomeButton disabled>
+          <Icon type="spinner" spin size="2x" />
           Creating student record…
-        </Button>
+        </BecomeButton>
       );
     }
 
     return (
-      <Button
-        variant="link"
-        onClick={this.onBecomeStudentClick}
-      >
-        <Icon type="glasses" />
+      <BecomeButton onClick={this.onBecomeStudentClick}>
+        <Icon size="2x" type="glasses" />
         View as student
-      </Button>
+      </BecomeButton>
     );
   }
 }

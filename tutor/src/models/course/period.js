@@ -72,6 +72,7 @@ class CoursePeriod extends BaseModel {
       period_id: this.id,
       prompt_student_to_pay: false,
     });
+
   }
 
 }
