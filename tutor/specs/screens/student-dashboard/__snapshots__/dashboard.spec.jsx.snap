@@ -18,7 +18,7 @@ exports[`Student Dashboard displays as loading 1`] = `
     data-book-title="Testing"
     data-is-preview={false}
     data-term="Spring 2017"
-    data-title="Local Test Course Two"
+    data-title="Local Test Course One"
   >
     <div
       className="book-title"
@@ -26,7 +26,7 @@ exports[`Student Dashboard displays as loading 1`] = `
       <h1
         className="book-title-text"
       >
-        Local Test Course Two
+        Local Test Course One
       </h1>
     </div>
     <div
@@ -146,8 +146,8 @@ exports[`Student Dashboard displays as loading 1`] = `
           <a
             aria-label="Browse course reference book"
             className="browse-the-book"
-            data-appearance="college_physics"
-            href="/book/2"
+            data-appearance="testing"
+            href="/book/1"
             onClick={[Function]}
             target="_blank"
           >
@@ -163,12 +163,12 @@ exports[`Student Dashboard displays as loading 1`] = `
 `;
 
 exports[`Student Dashboard matches snapshot 1`] = `
-.c0 {
+.c3 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
 }
 
-.c1 {
+.c0 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -183,13 +183,13 @@ exports[`Student Dashboard matches snapshot 1`] = `
   align-items: center;
 }
 
-.c2 {
+.c1 {
   font-size: 1.2rem;
   margin-top: 5px;
   color: #6f6f6f;
 }
 
-.c3 {
+.c2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -197,7 +197,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
   margin: 1rem 0;
 }
 
-.c3 span + span {
+.c2 span + span {
   margin-left: 2rem;
 }
 
@@ -205,43 +205,8 @@ exports[`Student Dashboard matches snapshot 1`] = `
   className="student-dashboard"
 >
   <div
-    className="openstax-notifications-bar viewable"
-  >
-    <div
-      className="notification missing-student-id"
-    >
-      <span
-        className="body"
-      >
-        <svg
-          aria-hidden="true"
-          className="svg-inline--fa fa-info-circle fa-w-16 ox-icon ox-icon-info-circle c0"
-          data-icon="info-circle"
-          data-prefix="fas"
-          focusable="false"
-          role="img"
-          style={Object {}}
-          viewBox="0 0 512 512"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"
-            fill="currentColor"
-            style={Object {}}
-          />
-        </svg>
-        <span>
-          To get credit for your work, add your student ID.
-        </span>
-        <a
-          className="action"
-          onClick={[Function]}
-        >
-          Add Student ID
-        </a>
-      </span>
-    </div>
-  </div>
+    className="openstax-notifications-bar"
+  />
   <div
     className="course-title-banner"
     data-appearance="testing"
@@ -351,7 +316,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               </div>
             </div>
             <a
-              aria-label="Work on reading: killer unleash e-business"
+              aria-label="Work on reading: revolutionary synthesize models"
               className="task row reading"
               data-event-id={1}
               href="/course/1/task/1"
@@ -369,7 +334,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               <div
                 className="title col-sm-5 col-10"
               >
-                killer unleash e-business
+                revolutionary synthesize models
               </div>
               <div
                 className="due-at col-sm-3 col-5"
@@ -382,7 +347,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                 className="feedback col-sm-3 col-5"
               >
                 <div
-                  className="c1"
+                  className="c0"
                 >
                   <span
                     className="tour-anchor"
@@ -394,7 +359,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               </div>
             </a>
             <a
-              aria-label="Work on external: web-enabled benchmark interfaces"
+              aria-label="Work on external: cutting-edge target models"
               className="task row external"
               data-event-id={2}
               href="/course/1/task/2"
@@ -412,7 +377,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               <div
                 className="title col-sm-5 col-10"
               >
-                web-enabled benchmark interfaces
+                cutting-edge target models
               </div>
               <div
                 className="due-at col-sm-3 col-5"
@@ -425,19 +390,19 @@ exports[`Student Dashboard matches snapshot 1`] = `
                 className="feedback col-sm-3 col-5"
               >
                 <div
-                  className="c1"
+                  className="c0"
                 >
                   <span
                     className="tour-anchor"
                     data-tour-anchor-id="assignment-progress-status"
                   >
-                    Clicked
+                    Not started
                   </span>
                 </div>
               </div>
             </a>
             <a
-              aria-label="Work on event: best-of-breed whiteboard metrics"
+              aria-label="Work on event: killer monetize systems"
               className="task row event"
               data-event-id={3}
               href="/course/1/task/3"
@@ -455,7 +420,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               <div
                 className="title col-sm-5 col-10"
               >
-                best-of-breed whiteboard metrics
+                killer monetize systems
               </div>
               <div
                 className="due-at col-sm-3 col-5"
@@ -468,14 +433,14 @@ exports[`Student Dashboard matches snapshot 1`] = `
                 className="feedback col-sm-3 col-5"
               >
                 <div
-                  className="c1"
+                  className="c0"
                 >
                   
                 </div>
               </div>
             </a>
             <a
-              aria-label="Work on homework: dot-com recontextualize communities"
+              aria-label="Work on homework: B2C recontextualize e-commerce"
               className="task row homework"
               data-event-id={4}
               href="/course/1/task/4"
@@ -493,7 +458,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
               <div
                 className="title col-sm-5 col-10"
               >
-                dot-com recontextualize communities
+                B2C recontextualize e-commerce
               </div>
               <div
                 className="due-at col-sm-3 col-5"
@@ -506,7 +471,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                 className="feedback col-sm-3 col-5"
               >
                 <div
-                  className="c1"
+                  className="c0"
                 >
                   <span
                     className="tour-anchor"
@@ -516,23 +481,23 @@ exports[`Student Dashboard matches snapshot 1`] = `
                   </span>
                 </div>
                 <div
-                  className="c2"
+                  className="c1"
                 >
                   0
                   /
-                  7
+                  3
                    answered on due date
                 </div>
               </div>
             </a>
           </div>
           <div
-            className="c3"
+            className="c2"
           >
             <span>
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-exclamation-circle fa-w-16 ox-icon ox-icon-exclamation-circle c0"
+                className="svg-inline--fa fa-exclamation-circle fa-w-16 ox-icon ox-icon-exclamation-circle c3"
                 color="#f4d019"
                 data-icon="exclamation-circle"
                 data-prefix="fas"
@@ -553,7 +518,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
             <span>
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-clock fa-w-16 ox-icon ox-icon-clock c0"
+                className="svg-inline--fa fa-clock fa-w-16 ox-icon ox-icon-clock c3"
                 color="#c2002f"
                 data-icon="clock"
                 data-prefix="far"
@@ -574,7 +539,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
             <span>
               <svg
                 aria-hidden="true"
-                className="svg-inline--fa fa-clock fa-w-16 ox-icon ox-icon-clock c0"
+                className="svg-inline--fa fa-clock fa-w-16 ox-icon ox-icon-clock c3"
                 color="#6f6f6f"
                 data-icon="clock"
                 data-prefix="far"
@@ -614,7 +579,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
           <a
             aria-label="Browse course reference book"
             className="browse-the-book"
-            data-appearance="college_physics"
+            data-appearance="testing"
             href="/book/1"
             onClick={[Function]}
             target="_blank"

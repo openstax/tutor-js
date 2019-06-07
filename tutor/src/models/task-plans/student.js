@@ -83,6 +83,13 @@ class StudentTaskPlans extends Map {
     );
   }
 
+  @computed get taskReadinessTimedOut() {
+    return Boolean(
+      (false === this.all_tasks_are_ready) &&
+        this.course.primaryRole.joinedAgo('minutes') > 30
+    );
+  }
+
   @action.bound fetchTaskPeriodically() {
     return this.fetch().then(() => {
       const interval = this.isPendingTaskLoading ?

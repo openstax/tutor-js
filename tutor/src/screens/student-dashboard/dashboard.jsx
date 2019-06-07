@@ -3,7 +3,7 @@ import React from 'react';
 import { Row, Col, Card } from 'react-bootstrap';
 import { action, observable } from 'mobx';
 import { includes } from 'lodash';
-
+import Raven from '../../models/app/raven';
 import UpcomingCard from './upcoming-panel';
 import AllEventsByWeek from './all-events-by-week';
 import ThisWeekCard from './this-week-panel';
@@ -42,9 +42,14 @@ export default class StudentDashboard extends React.Component {
   }
 
   componentDidMount() {
-    const student = this.props.course.userStudentRecord;
+    const { course } = this.props;
+    const student = course.userStudentRecord;
     if (student && !student.mustPayImmediately) {
       this.props.course.studentTaskPlans.fetch();
+    }
+    const plans = course.studentTaskPlans;
+    if (plans.taskReadinessTimedOut && plans.api.requestCounts.read > 1) {
+      Raven.log('dashboard task timed out waiting on BL');
     }
   }
 
