@@ -44,7 +44,9 @@ describe('Student Dashboard', () => {
   it('logs when BL times out', () => {
     props.course.studentTaskPlans.all_tasks_are_ready = false;
     props.course.primaryRole.joined_at = new Date('2015-10-11T12:00:00.000Z');
-    expect(props.course.studentTaskPlans.taskReadinessTimedOut).toBe(true);
+    const tp = props.course.studentTaskPlans;
+    tp.api.requestCounts.read = 2;
+    expect(tp.taskReadinessTimedOut).toBe(true);
     const dash = mount(<Router><Dashboard {...props} /></Router>);
     expect(Raven.log).toHaveBeenCalled();
     dash.unmount();

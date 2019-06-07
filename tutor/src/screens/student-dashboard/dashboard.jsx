@@ -47,7 +47,8 @@ export default class StudentDashboard extends React.Component {
     if (student && !student.mustPayImmediately) {
       this.props.course.studentTaskPlans.fetch();
     }
-    if (course.studentTaskPlans.taskReadinessTimedOut) {
+    const plans = course.studentTaskPlans;
+    if (plans.taskReadinessTimedOut && plans.api.requestCounts.read > 1) {
       Raven.log('dashboard task timed out waiting on BL');
     }
   }
