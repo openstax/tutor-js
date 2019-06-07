@@ -1,10 +1,11 @@
-import { C, EnzymeContext } from '../../helpers';
 import TBS from '../../../src/components/buttons/teacher-become-student';
 import Factory from '../../factories';
-import FakeWindow from 'shared/specs/helpers/fake-window';
+import FeatureFlags from '../../../src/models/feature_flags';
+
+jest.mock('../../../src/models/feature_flags');
 
 describe(TBS, () => {
-  let props
+  let props;
 
   beforeEach(() => {
     props = {
@@ -12,10 +13,13 @@ describe(TBS, () => {
     };
   });
 
-  it('displays for periods', () => {
+  it('only renders when it should', () => {
+    FeatureFlags.teacher_student_enabled = true;
     const tbs = mount(<TBS {...props} />);
-
-    console.log(tbs);
+    expect(tbs).toBeEmptyRender();
+    props.course.roles[0].type = 'teacher';
+    tbs.update();
+    expect(tbs).not.toBeEmptyRender();
     tbs.unmount();
   });
 });

@@ -2,6 +2,7 @@ import { observable } from 'mobx';
 
 export const defaultValues = {
   is_payments_enabled: true,
+  teacher_student_enabled: false,
 };
 
 const FeatureFlagValues = observable.map(defaultValues);

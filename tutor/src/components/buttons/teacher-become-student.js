@@ -4,7 +4,7 @@ import {
 import Course from '../../models/course';
 import { Button } from 'react-bootstrap';
 import { Icon } from 'shared';
-
+import FeatureFlags from '../../models/feature_flags';
 
 const BecomeButton = styled(Button).attrs({
   className: 'd-inline-flex align-items-center',
@@ -15,7 +15,7 @@ const BecomeButton = styled(Button).attrs({
 
 export default
 @observer
-class MyCourses extends React.Component {
+class TeacherBecomesStudent extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course),
@@ -43,7 +43,10 @@ class MyCourses extends React.Component {
   render() {
     const { course } = this.props;
 
-    if (!course || !course.isTeacher) { return null; }
+    if (!FeatureFlags.teacher_student_enabled ||
+      !course ||
+      !course.isTeacher
+    ) { return null; }
 
     if (this.isCreating) {
       return (

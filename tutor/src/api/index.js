@@ -241,8 +241,6 @@ const startAPI = function() {
 
   connectModelDelete(CourseTeacher, 'drop', { pattern: 'teachers/{id}', onSuccess: 'onDropped' });
 
-
-
   connectModelCreate(Period, 'create', { pattern: 'courses/{courseId}/periods', onSuccess: 'afterCreate' });
 
   connectModelUpdate(Period, 'becomeStudent', { method: 'PUT', pattern: 'periods/{id}/teacher_student', onSuccess: 'onBecomeStudent' });

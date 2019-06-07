@@ -5,7 +5,7 @@ import { axe, toHaveNoViolations } from 'jest-axe';
 import faker from 'faker';
 import React from 'react'; // eslint-disable-line no-unused-vars
 import 'jest-styled-components';
-
+// import 'jest-enzyme';
 faker.seed(123);
 
 enzyme.configure({ adapter: new Adapter() });
