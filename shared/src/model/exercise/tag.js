@@ -6,31 +6,31 @@ import { isObject, first, last, filter, extend, values, pick, isNil } from 'loda
 const TYPES = {
   IMPORTANT: ['lo', 'aplo', 'blooms', 'dok', 'length', 'time'],
 };
-
-const TITLES = {
-  'hts:1': 'HTS-1 Developments and Processes',
-  'hts:2': 'HTS-2 Sourcing and Situation',
-  'hts:3': 'HTS-3 Source Claims and Evidence',
-  'hts:4': 'HTS-4 Contextualization',
-  'hts:5': 'HTS-5 Making Connections',
-  'hts:6': 'HTS-6 Argumentation',
-  'rp:1':  'RP-1 Comparison',
-  'rp:2':  'RP-2 Causation',
-  'rp:3':  'RP-3 Continuity and Change',
-};
+const TITLE_SUBSTITUTIONS = [
+  ['hts:1', 'HTS-1 Developments and Processes'],
+  ['hts:2', 'HTS-2 Sourcing and Situation'],
+  ['hts:3', 'HTS-3 Source Claims and Evidence'],
+  ['hts:4', 'HTS-4 Contextualization'],
+  ['hts:5', 'HTS-5 Making Connections'],
+  ['hts:6', 'HTS-6 Argumentation'],
+  ['rp:1', 'RP-1 Comparison'],
+  ['rp:2', 'RP-2 Causation'],
+  ['rp:3', 'RP-3 Continuity and Change'],
+  [/aplo:.*:(.*)$/, 'aplo:$1'],
+];
 
 export default
 @identifiedBy('exercise/tag')
 class ExerciseTag extends BaseModel {
 
-  @observable _tag;
+  @observable raw;
 
   constructor(tag) {
     super();
     if (isObject(tag)) {
       this.setParts(tag);
     } else {
-      this._tag = tag;
+      this.raw = tag;
     }
   }
 
@@ -54,12 +54,26 @@ class ExerciseTag extends BaseModel {
     return this.asString;
   }
 
+  @computed get sortValue() {
+    // APLO should always appear first
+    if ('aplo' === this.type) { return 'A'; }
+    // and the LO
+    if ('lo' === this.type) { return 'AA'; }
+    return this.title.toLowerCase();
+  }
+
   @computed get title() {
-    return TITLES[this.asString] || this.asString;
+    const [match, replacement] = TITLE_SUBSTITUTIONS.find(
+      ([m]) => this.asString.match(m),
+    ) || [];
+    if (match) {
+      return this.asString.replace(match, replacement);
+    }
+    return this.asString;
   }
 
   @computed get asString() {
-    return this._tag || '';
+    return this.raw || '';
   }
 
   @computed get asObject() {
@@ -100,7 +114,7 @@ class ExerciseTag extends BaseModel {
 
 
   @action setParts(parts) {
-    this._tag = filter(
+    this.raw = filter(
       values(extend(this.asObject,
         pick(parts, 'type', 'specifier', 'value')
       )), v => !isNil(v)

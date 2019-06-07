@@ -2091,17 +2091,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
             <span
               className="exercise-tag"
             >
-              type:conceptual
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              requires-context:true
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              filter-type:test-prep
+              lo:stax-phys:1-2-1
             </span>
             <span
               className="exercise-tag"
@@ -2111,22 +2101,7 @@ exports[`Exercises component renders and matches snapshot 1`] = `
             <span
               className="exercise-tag"
             >
-              time:long
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              dok:3
-            </span>
-            <span
-              className="exercise-tag"
-            >
               book:stax-phys
-            </span>
-            <span
-              className="exercise-tag"
-            >
-              context-cnxmod:
             </span>
             <span
               className="exercise-tag"
@@ -2136,7 +2111,32 @@ exports[`Exercises component renders and matches snapshot 1`] = `
             <span
               className="exercise-tag"
             >
-              lo:stax-phys:1-2-1
+              context-cnxmod:
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              dok:3
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              filter-type:test-prep
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              requires-context:true
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              time:long
+            </span>
+            <span
+              className="exercise-tag"
+            >
+              type:conceptual
             </span>
             <span
               className="exercise-tag"
@@ -3530,34 +3530,34 @@ exports[`Exercises component resets fields when model is new 1`] = `
                                       </div>
                                       <div className=\\"exercise-tags\\">
                                         <span className=\\"exercise-tag\\">
-                                          type:conceptual
-                                        </span>
-                                        <span className=\\"exercise-tag\\">
-                                          requires-context:true
-                                        </span>
-                                        <span className=\\"exercise-tag\\">
-                                          filter-type:test-prep
+                                          lo:stax-phys:1-2-1
                                         </span>
                                         <span className=\\"exercise-tag\\">
                                           blooms:3
                                         </span>
                                         <span className=\\"exercise-tag\\">
-                                          time:long
-                                        </span>
-                                        <span className=\\"exercise-tag\\">
-                                          dok:3
-                                        </span>
-                                        <span className=\\"exercise-tag\\">
                                           book:stax-phys
-                                        </span>
-                                        <span className=\\"exercise-tag\\">
-                                          context-cnxmod:
                                         </span>
                                         <span className=\\"exercise-tag\\">
                                           context-cnxfeature:one-1
                                         </span>
                                         <span className=\\"exercise-tag\\">
-                                          lo:stax-phys:1-2-1
+                                          context-cnxmod:
+                                        </span>
+                                        <span className=\\"exercise-tag\\">
+                                          dok:3
+                                        </span>
+                                        <span className=\\"exercise-tag\\">
+                                          filter-type:test-prep
+                                        </span>
+                                        <span className=\\"exercise-tag\\">
+                                          requires-context:true
+                                        </span>
+                                        <span className=\\"exercise-tag\\">
+                                          time:long
+                                        </span>
+                                        <span className=\\"exercise-tag\\">
+                                          type:conceptual
                                         </span>
                                         <span className=\\"exercise-tag\\">
                                           Nickname:burley
