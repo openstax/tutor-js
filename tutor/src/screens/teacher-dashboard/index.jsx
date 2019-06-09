@@ -126,8 +126,10 @@ class TeacherDashboardWrapper extends React.Component {
         title={(
           <Title>
             <h1>{course.name}</h1>
-            <TeacherBecomesStudent course={course} />
           </Title>
+        )}
+        titleControls={(
+          <TeacherBecomesStudent course={course} />
         )}
         subtitle={course.termFull}
         course={course}

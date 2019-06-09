@@ -10,7 +10,7 @@ const BecomeButton = styled(Button).attrs({
   className: 'd-inline-flex align-items-center',
   variant: 'link',
 })`
-
+  &.btn { padding-right: 0; }
 `;
 
 export default

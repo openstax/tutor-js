@@ -1,16 +1,59 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import cn from 'classnames';
+import { React, PropTypes, cn, css, computed, styled } from '../helpers/react';
 import { isNil } from 'lodash';
-import { computed } from 'mobx';
 import Course from '../models/course';
 import CourseUX from '../models/course/ux';
+
+const TitleChild = css`
+
+`;
+
+const TitleWrapper = styled.div.attrs({ className: 'title-wrapper' })`
+  display: flex;
+  align-items: stretch;
+  padding: 10px 40px;
+  min-height: 100px;
+`;
+
+const TitleInner = styled.div`
+  display: flex;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+`;
+
+const LeftSideWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const RightSideWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Title = styled.h1`
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 45px;
+  margin: 0;
+`;
+
+const Subtitle = styled.h3`
+  font-weight: 200;
+  line-height: 1em;
+  font-size: 1.6rem;
+  margin: 0;
+`;
 
 export default class CoursePage extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
     children: PropTypes.node.isRequired,
+    titleControls: PropTypes.node,
     controls: PropTypes.node,
     title: PropTypes.node,
     notices: PropTypes.node,
@@ -23,13 +66,19 @@ export default class CoursePage extends React.Component {
   }
 
   renderTitle() {
-    if (isNil(this.props.title)) { return null; }
-    const subtitle = this.props.subtitle ? <div className="subtitle">{this.props.subtitle}</div> : null;
+    const { title, subtitle, titleControls } = this.props;
+    if (isNil(title)) { return null; }
+
     return (
-      <div className="title-wrapper">
-        <div className="title">{this.props.title}</div>
-        {subtitle}
-      </div>
+      <TitleWrapper>
+        <TitleInner>
+          <LeftSideWrapper>
+            <Title>{this.props.title}</Title>
+            {subtitle && <Subtitle>{subtitle}</Subtitle>}
+          </LeftSideWrapper>
+          {titleControls && <RightSideWrapper>{titleControls}</RightSideWrapper>}
+        </TitleInner>
+      </TitleWrapper>
     );
   }
 
