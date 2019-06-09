@@ -71,6 +71,7 @@ const ROUTES = {
   },
   changeId: {
     label: 'Change Student ID',
+    locked(course) { return get(course, 'currentRole.isTeacherStudent'); },
     roles: {
       student: 'changeStudentId',
     },
@@ -112,7 +113,7 @@ const ROUTES = {
   },
   managePayments: {
     label: 'Manage payments',
-    locked(course) { console.log(course); return get(course, 'currentRole.isTeacherStudent'); },
+    locked(course) { return get(course, 'currentRole.isTeacherStudent'); },
     isAllowed(course) { return this.locked(course) || Payments.config.is_enabled && Courses.costing.student.any; },
   },
   qaHome: {
@@ -165,7 +166,8 @@ const UserMenu = observable({
 
     if (course) {
       courseId = course.id;
-      ({ isTeacher, primaryRole: { type: menuRole } } = course);
+      isTeacher = course.currentRole;
+      menuRole = course.currentRole.isTeacher ? 'teacher' : 'student';
     }
     const options = { courseId: courseId, menuRole };
     const validRoutes = pickBy(

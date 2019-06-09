@@ -1,11 +1,7 @@
-import { React, PropTypes, cn, css, computed, styled } from '../helpers/react';
+import { React, PropTypes, cn, computed, styled } from '../helpers/react';
 import { isNil } from 'lodash';
 import Course from '../models/course';
 import CourseUX from '../models/course/ux';
-
-const TitleChild = css`
-
-`;
 
 const TitleWrapper = styled.div.attrs({ className: 'title-wrapper' })`
   display: flex;
@@ -59,6 +55,7 @@ export default class CoursePage extends React.Component {
     notices: PropTypes.node,
     subtitle: PropTypes.node,
     className: PropTypes.string,
+    fullWidthChildren: PropTypes.node,
   }
 
   @computed get ux () {

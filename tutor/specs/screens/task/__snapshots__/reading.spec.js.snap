@@ -693,6 +693,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
               "course_association_name": "roles",
               "id": 1,
               "joined_at": 2017-09-21T12:00:00.000Z,
+              "period_id": undefined,
               "research_identifier": undefined,
               "type": "student",
             },
