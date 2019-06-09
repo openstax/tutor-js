@@ -9,6 +9,7 @@ const ROUTES = {
 
   myCourses: {
     label: 'My Courses',
+    locked(course) { return get(course, 'currentRole.isTeacherStudent'); },
     isAllowed(course) { return !!course; },
     params: () => undefined,
     options: {
@@ -111,7 +112,8 @@ const ROUTES = {
   },
   managePayments: {
     label: 'Manage payments',
-    isAllowed() { return Payments.config.is_enabled && Courses.costing.student.any; },
+    locked(course) { console.log(course); return get(course, 'currentRole.isTeacherStudent'); },
+    isAllowed(course) { return this.locked(course) || Payments.config.is_enabled && Courses.costing.student.any; },
   },
   qaHome: {
     label: 'Content Analyst',
@@ -178,6 +180,7 @@ const UserMenu = observable({
       const name = getRouteByRole(routeName, menuRole);
       const route = { name };
       if (routeRules.href){ route.href = routeRules.href; }
+      addRouteProperty(route, 'locked', routeRules, course);
       addRouteProperty(route, 'options', routeRules, options);
       addRouteProperty(route, 'params', routeRules, options, course ? { courseId } : null);
       addRouteProperty(route, 'label', routeRules, options);

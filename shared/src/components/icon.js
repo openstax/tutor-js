@@ -59,6 +59,7 @@ const Icons = {
   'ghost':                require('@fortawesome/free-solid-svg-icons/faGhost'),
   'hand-paper':           require('@fortawesome/free-solid-svg-icons/faHandPaper'),
   'info-circle':          require('@fortawesome/free-solid-svg-icons/faInfoCircle'),
+  'lock':                 require('@fortawesome/free-solid-svg-icons/faLock'),
   'paper-plane':          require('@fortawesome/free-solid-svg-icons/faPaperPlane'),
   'pencil-alt':           require('@fortawesome/free-solid-svg-icons/faPencilAlt'),
   'plus-circle':          require('@fortawesome/free-solid-svg-icons/faPlusCircle'),

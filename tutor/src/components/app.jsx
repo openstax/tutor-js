@@ -73,7 +73,7 @@ class App extends React.Component {
     return (
       <div className={classNames}>
         <ErrorBoundary app={this.props.app}>
-          <TeacherAsStudentFrame course={course}>
+          <TeacherAsStudentFrame course={course} routeName={routeName}>
             <SpyMode.Wrapper>
               <TourConductor>
                 <TutorLayout course={course}>

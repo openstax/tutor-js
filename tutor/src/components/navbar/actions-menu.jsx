@@ -13,18 +13,29 @@ import Router from '../../helpers/router';
 import UserMenu from '../../models/user/menu';
 import Course from '../../models/course';
 
-
 const RoutedDropdownItem = (props) => {
   // eslint-disable-next-line react/prop-types
-  const { label, name, tourId, className, route, href } = props;
+  let { label } = props;
+  // eslint-disable-next-line react/prop-types
+  const { name, tourId, className, route, locked, href } = props;
   const isActive = TutorRouter.isActive(route.name, route.params, route.options);
+
+  if (locked) {
+    label = (
+      <React.Fragment>
+        {label}
+        <Icon type="lock" />
+      </React.Fragment>
+    );
+  }
 
   return (
     <Route path={href} exact>
       <Dropdown.Item
-        className={classnames(name, className, { 'active': isActive })}
+        disabled={locked}
+        className={classnames(name, className, { 'active': isActive, locked })}
         data-name={name}
-        {...omit(props, ['label', 'name', 'tourId', 'className', 'route'])}
+        {...omit(props, ['label', 'options', 'locked', 'name', 'tourId', 'className', 'route'])}
       >
         <TourAnchor id={tourId}>
           {label}
@@ -93,11 +104,10 @@ class ActionsMenu extends React.Component {
     const item = (
       <RoutedDropdownItem
         {...props}
+        {...menuOption}
         route={menuOption}
         key={key}
         tourId={key}
-        label={menuOption.label}
-        name={menuOption.name}
       />
     );
 

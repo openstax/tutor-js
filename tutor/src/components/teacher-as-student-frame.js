@@ -52,9 +52,15 @@ const returnToTeacherRole = (course, history) => {
   };
 };
 
+const IGNORED_ROUTES = [
+  'view-reference-book',
+];
 
-const TeacherAsStudentFrame = withRouter(({ course, children, history }) => {
-  if (!course || !course.currentRole.isTeacherStudent) { return children; }
+const TeacherAsStudentFrame = withRouter(({ course, routeName, children, history }) => {
+  if (
+    IGNORED_ROUTES.includes(routeName) ||
+      !course || !course.currentRole.isTeacherStudent
+  ) { return children; }
 
   const onClick = returnToTeacherRole(course, history);
 
@@ -77,6 +83,7 @@ const TeacherAsStudentFrame = withRouter(({ course, children, history }) => {
 TeacherAsStudentFrame.displayName = 'TeacherAsStudentFrame';
 TeacherAsStudentFrame.propTypes = {
   course: PropTypes.instanceOf(Course),
+  routeName: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
