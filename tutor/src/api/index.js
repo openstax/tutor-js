@@ -243,7 +243,7 @@ const startAPI = function() {
 
   connectModelCreate(Period, 'create', { pattern: 'courses/{courseId}/periods', onSuccess: 'afterCreate' });
 
-  connectModelUpdate(Period, 'becomeStudent', { method: 'PUT', pattern: 'periods/{id}/teacher_student', onSuccess: 'onBecomeStudent' });
+  connectModelUpdate(Period, 'createTeacherStudent', { method: 'PUT', pattern: 'periods/{id}/teacher_student', onSuccess: 'onCreateTeacherStudent' });
 
   connectModelUpdate(Role, 'become', { method: 'PUT', pattern: 'roles/{id}/become', onSuccess: 'onBecomeSuccess' });
 

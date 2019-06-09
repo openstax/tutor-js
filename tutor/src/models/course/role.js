@@ -12,6 +12,7 @@ class CourseRole extends BaseModel {
   @identifier id;
   @field({ type: 'date' }) joined_at;
   @field type;
+  @field period_id;
   @field research_identifier;
   @belongsTo({ model: 'course' }) course;
 

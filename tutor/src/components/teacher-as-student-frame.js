@@ -30,16 +30,19 @@ const ExitButton = styled.button`
   left: calc(50% - 140px);
   width: 280px;
   height: 24px;
+  font-size: 1.2rem;
 `;
 
 const BottomButton = styled(ExitButton)`
   bottom: 0;
   border-radius: 2px 2px 0 0;
+  .ox-icon { width: 2.4rem; height: 2.4rem; }
 `;
 
 const TopButton = styled(ExitButton)`
   top: 0;
   border-radius: 0 0 2px 2px;
+  .ox-icon { width: 1rem; height: 1rem; }
 `;
 
 const returnToTeacherRole = (course, history) => {
@@ -58,9 +61,12 @@ const TeacherAsStudentFrame = withRouter(({ course, children, history }) => {
   return (
     <React.Fragment>
       <StyledTeacherAsStudentFrame>
-        <TopButton onClick={onClick}>Exit student view</TopButton>
+        <TopButton onClick={onClick}>
+          Exit student view
+          <Icon type="close" />
+        </TopButton>
         <BottomButton onClick={onClick}>
-          <Icon type="glasses" size="2x" />
+          <Icon type="glasses" />
           You’re viewing Tutor as a student
         </BottomButton>
       </StyledTeacherAsStudentFrame>

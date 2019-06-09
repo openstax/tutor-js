@@ -55,11 +55,25 @@ class CoursePeriod extends BaseModel {
     this.update(data);
     this.course.periods.push(this);
   }
-  becomeStudent() {
+
+  @action async becomeStudent() {
+    let role = this.course.roles.find((r) => (
+      r.isTeacherStudent && r.period_id == this.id
+    ));
+    if (!role) {
+      const { data } = await this.createTeacherStudent();
+      role = this.course.roles.find(r => r.id == data.id );
+    }
+    await role.become();
+  }
+
+  createTeacherStudent() {
     return { courseId: this.course.id, id: this.id };
   }
-  @action onBecomeStudent({ data }) {
+
+  @action onCreateTeacherStudent({ data }) {
     this.course.roles.push(data);
+    this.course.current_role_id = data.id;
     // create a fake student
     this.course.students.push({
       id: -1,

@@ -2,15 +2,59 @@ import {
   React, PropTypes, observer, action, observable, styled,
 } from '../../helpers/react';
 import Course from '../../models/course';
-import { Button } from 'react-bootstrap';
+import { Button, Dropdown } from 'react-bootstrap';
 import { Icon } from 'shared';
+import Theme from '../../theme';
 import FeatureFlags from '../../models/feature_flags';
 
 const BecomeButton = styled(Button).attrs({
   className: 'd-inline-flex align-items-center',
   variant: 'link',
 })`
-  &.btn { padding-right: 0; }
+  &.btn {
+    padding: 0;
+    border-bottom: 1px solid white;
+  }
+`;
+
+const Waiting = styled.div`
+  color: ${Theme.colors.neutral.bright};
+  display: flex;
+  align-items: center;
+  .ox-icon { width: 2.4rem; }
+`;
+
+const PeriodSelector = styled(Dropdown)`
+.dropdown-toggle {
+  display: flex;
+  align-items: center;
+  color: white;
+  padding: 0;
+  border-bottom: 1px solid white;
+  &::after {
+    display: none;
+  }
+  &:hover {
+    color: ${Theme.colors.neutral.bright};
+  }
+  .ox-icon { width: 2.4rem; }
+  .menu-toggle-icon { margin: 0; }
+}
+&.show .dropdown-toggle {
+  border-bottom-color: transparent;
+}
+.dropdown-menu {
+  width: 100%;
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
+}
+.dropdown-item {
+  word-wrap: break-word;
+  white-space: normal;
+  color: ${Theme.colors.neutral.gray};
+}
+.dropdown-divider:last-of-type {
+  display: none;
+}
 `;
 
 export default
@@ -25,19 +69,30 @@ class TeacherBecomesStudent extends React.Component {
     router: PropTypes.object,
   }
 
-  @observable isCreating = false
+  @observable isCreating = false;
+  @observable periodMenuIsOpen = false;
 
-  @action.bound async onBecomeStudentClick() {
+  @action.bound onBecomeStudentPeriodSelect(periodId) {
+    this.becomeStudentInPeriod(
+      this.props.course.periods.find(p => p.id == periodId)
+    );
+  }
+
+  @action.bound onBecomeStudentClick() {
+    this.becomeStudentInPeriod(
+      this.props.course.periods.find(period => !period.is_archived)
+    );
+  }
+
+  @action async becomeStudentInPeriod(period) {
     const { course } = this.props;
     this.isCreating = true;
-    const role = course.roles.teacherStudent;
-    if (role) {
-      await role.become();
-    } else {
-      const period = course.periods.find(period => !period.is_archived);
-      await period.becomeStudent();
-    }
+    await period.becomeStudent();
     this.context.router.history.push(`/course/${course.id}`);
+  }
+
+  @action.bound onPeriodMenuToggle(isOpen) {
+    this.periodMenuIsOpen = isOpen;
   }
 
   render() {
@@ -50,18 +105,44 @@ class TeacherBecomesStudent extends React.Component {
 
     if (this.isCreating) {
       return (
-        <BecomeButton disabled>
+        <Waiting>
           <Icon type="spinner" spin size="2x" />
           Creating student record…
+        </Waiting>
+      );
+    }
+
+    if (1 === course.periods.length) {
+      return (
+        <BecomeButton onClick={this.onBecomeStudentClick}>
+          <Icon size="2x" type="glasses" />
+          View as student
         </BecomeButton>
       );
     }
 
     return (
-      <BecomeButton onClick={this.onBecomeStudentClick}>
-        <Icon size="2x" type="glasses" />
-        View as student
-      </BecomeButton>
+      <PeriodSelector
+        onToggle={this.onPeriodMenuToggle}
+        onSelect={this.onBecomeStudentPeriodSelect}
+      >
+        <Dropdown.Toggle variant="ox" id="teacher-become-student">
+          <Icon size="2x" type="glasses" />
+          View as student
+          <Icon
+            className="menu-toggle-icon"
+            type={this.periodMenuIsOpen ? 'close' : 'angle-down'}
+          />
+        </Dropdown.Toggle>
+        <Dropdown.Menu >
+          {course.periods.active.map((period) => (
+            <React.Fragment key={period.id}>
+              <Dropdown.Item eventKey={period.id}>{period.name}</Dropdown.Item>
+              <Dropdown.Divider />
+            </React.Fragment>
+          ))}
+        </Dropdown.Menu>
+      </PeriodSelector>
     );
   }
 }
