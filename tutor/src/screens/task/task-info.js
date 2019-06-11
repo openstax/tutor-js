@@ -18,7 +18,7 @@ const DueDate = styled.div`
 
 @observer
 class TaskInfo extends React.Component {
-
+  static displayName = 'TaskInfo'
   static propTypes = {
     task: PropTypes.instanceOf(Task).isRequired,
   }
@@ -29,7 +29,8 @@ class TaskInfo extends React.Component {
     return (
       <StyledTaskInfo>
         <Title>{task.title}</Title>
-        <DueDate>due {TimeHelper.toShortHumanDateTime(task.due_at)}</DueDate>
+        {task.due_at &&
+          <DueDate>due {TimeHelper.toShortHumanDateTime(task.due_at)}</DueDate>}
       </StyledTaskInfo>
     );
   }
