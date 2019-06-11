@@ -40,13 +40,14 @@ describe('Task UX Model', () => {
       ux.steps[i].id,
       ux.steps[i+1].id,
     ]);
-
   });
 
-  it('scrolls to next mpq', async () => {
+  it('loads and scrolls to next mpq', async () => {
     const i = 1 + ux.steps.findIndex(s => s.type == 'two-step-intro');
     ux.steps[i+1].uid = ux.groupedSteps[i].uid;
     const group = ux.groupedSteps[i];
+    group.steps.forEach(s => s.fetchIfNeeded = jest.fn());
+
     const s = group.steps[0];
     expect(s.multiPartGroup).toBe(group);
 
@@ -59,6 +60,9 @@ describe('Task UX Model', () => {
     expect(ux.scroller.scrollToSelector).toHaveBeenCalledWith(
       `[data-task-step-id="${group.steps[1].id}"]`
     );
+    group.steps.forEach(s => {
+      expect(s.fetchIfNeeded).toHaveBeenCalled();
+    });
   });
 
   it('calculates question numbers for homeworks', () => {

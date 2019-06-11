@@ -108,13 +108,19 @@ export default class TaskUX {
   }
 
   @action.bound onStepChange() {
-    // events do not have steps
-    if (!this.currentStep) { return; }
+    const step = this.currentStep;
 
-    if (this.currentStep.isPlaceHolder) {
+    // events do not have steps
+    if (!step) { return; }
+
+    if (step.isPlaceHolder) {
       this.refetchTask();
     } else {
-      this.currentStep.fetchIfNeeded();
+      if (step.multiPartGroup) {
+        step.multiPartGroup.steps.forEach((s) => s.fetchIfNeeded());
+      } else {
+        step.fetchIfNeeded();
+      }
     }
   }
 
