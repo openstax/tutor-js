@@ -115,31 +115,31 @@ exports[`Tasks Info matches snapshot 1`] = `
               "stimulus_html": undefined,
               "tags": Array [
                 ExerciseTag {
-                  "_tag": "time:short",
+                  "raw": "time:short",
                 },
                 ExerciseTag {
-                  "_tag": "dok:2",
+                  "raw": "dok:2",
                 },
                 ExerciseTag {
-                  "_tag": "blooms:2",
+                  "raw": "blooms:2",
                 },
                 ExerciseTag {
-                  "_tag": "type:practice",
+                  "raw": "type:practice",
                 },
                 ExerciseTag {
-                  "_tag": "requires-context:true",
+                  "raw": "requires-context:true",
                 },
                 ExerciseTag {
-                  "_tag": "book:stax-soc",
+                  "raw": "book:stax-soc",
                 },
                 ExerciseTag {
-                  "_tag": "lo:stax-soc:13-2-2",
+                  "raw": "lo:stax-soc:13-2-2",
                 },
                 ExerciseTag {
-                  "_tag": "context-cnxmod:d9df5e48-4b72-482e-b616-886926188054",
+                  "raw": "context-cnxmod:d9df5e48-4b72-482e-b616-886926188054",
                 },
                 ExerciseTag {
-                  "_tag": "context-cnxfeature:fs-id2332825",
+                  "raw": "context-cnxfeature:fs-id2332825",
                 },
               ],
               "uid": "11945@4",
