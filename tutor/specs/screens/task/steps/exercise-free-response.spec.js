@@ -33,12 +33,11 @@ describe('Exercise Free Response', () => {
     expect(<FreeResponseInput {...props} />).toMatchSnapshot();
   });
 
-  fit('reviews text', () => {
+  it('reviews text', () => {
     const fr = mount(<FreeResponseReview {...props} />);
     props.step.free_response = null;
     expect(fr.isEmptyRender()).toBeTruthy();
     props.step.free_response = 'test';
-    //fr.update()
     expect(fr.text()).toContain('test');
     fr.unmount();
   });
