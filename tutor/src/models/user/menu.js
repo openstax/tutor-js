@@ -166,7 +166,6 @@ const UserMenu = observable({
 
     if (course) {
       courseId = course.id;
-      isTeacher = course.currentRole;
       menuRole = course.currentRole.isTeacher ? 'teacher' : 'student';
     }
     const options = { courseId: courseId, menuRole };
