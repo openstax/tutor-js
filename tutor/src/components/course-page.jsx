@@ -70,7 +70,7 @@ export default class CoursePage extends React.Component {
       <TitleWrapper>
         <TitleInner>
           <LeftSideWrapper>
-            <Title>{this.props.title}</Title>
+            <Title>{title}</Title>
             {subtitle && <Subtitle>{subtitle}</Subtitle>}
           </LeftSideWrapper>
           {titleControls && <RightSideWrapper>{titleControls}</RightSideWrapper>}
