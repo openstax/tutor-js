@@ -73,7 +73,6 @@ class CoursePeriod extends BaseModel {
 
   @action onCreateTeacherStudent({ data }) {
     this.course.roles.push(data);
-    this.course.current_role_id = data.id;
     // create a fake student
     this.course.students.push({
       id: -1,
