@@ -18,6 +18,7 @@ class Email extends EventEmitter2 {
 
   sendVerification(pin, successCallBack) {
     return this.makeRequest('confirm_by_pin', { pin }).then(resp => {
+      if (!resp) return;
       if (resp.status === 204) {
         delete this.error;
         this.is_verified = true;
@@ -29,15 +30,16 @@ class Email extends EventEmitter2 {
           this.verificationFailed = true;
         }
       }
-      return this.emit('change');
+      this.emit('change');
     });
   }
 
 
   sendConfirmation() {
     return this.makeRequest('resend_confirmation', { send_pin: true }).then(resp => {
+      if (!resp) return;
       this.verifyInProgress = (resp.status === 204);
-      return this.emit('change');
+      this.emit('change');
     });
   }
 
