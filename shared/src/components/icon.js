@@ -59,6 +59,7 @@ const Icons = {
   'ghost':                require('@fortawesome/free-solid-svg-icons/faGhost'),
   'hand-paper':           require('@fortawesome/free-solid-svg-icons/faHandPaper'),
   'info-circle':          require('@fortawesome/free-solid-svg-icons/faInfoCircle'),
+  'lock':                 require('@fortawesome/free-solid-svg-icons/faLock'),
   'paper-plane':          require('@fortawesome/free-solid-svg-icons/faPaperPlane'),
   'pencil-alt':           require('@fortawesome/free-solid-svg-icons/faPencilAlt'),
   'plus-circle':          require('@fortawesome/free-solid-svg-icons/faPlusCircle'),
@@ -71,9 +72,13 @@ const Icons = {
   'spinner':              require('@fortawesome/free-solid-svg-icons/faSpinner'),
   'th':                   require('@fortawesome/free-solid-svg-icons/faTh'),
   'thumbs-up':            require('@fortawesome/free-solid-svg-icons/faThumbsUp'),
-  'trash':                 require('@fortawesome/free-solid-svg-icons/faTrashAlt'),
+  'trash':                require('@fortawesome/free-solid-svg-icons/faTrashAlt'),
   'user-plus':            require('@fortawesome/free-solid-svg-icons/faUserPlus'),
   'video':                require('@fortawesome/free-solid-svg-icons/faVideo'),
+
+  // custom definitions
+  'glasses':              require('./icons/glasses'),
+
 };
 
 Object.keys(Icons).forEach(k => {

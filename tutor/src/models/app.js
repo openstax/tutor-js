@@ -12,7 +12,7 @@ import User from './user';
 import Raven from './app/raven';
 import Courses from './courses-map';
 import Payments from './payments';
-import { FeatureFlagsApi } from './feature_flags';
+import FeatureFlags, { FeatureFlagsApi } from './feature_flags';
 import Notices from '../helpers/notifications';
 import Chat from './chat';
 import Toasts from './toasts';
@@ -66,6 +66,7 @@ export default class TutorApp {
       if (data) { model.bootstrap(data); }
       window._MODELS[storeId] = model;
     });
+    window._MODELS.feature_flags = FeatureFlags;
     BootstrapURLs.update(this.data);
     UiSettings.initialize(this.data.ui_settings || {});
     Notifications.on('tutor-update', this.onNotice);

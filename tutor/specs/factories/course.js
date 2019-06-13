@@ -81,3 +81,4 @@ Factory.define('Course')
       role_id: is_teacher ? 1 : object.roles[0].id,
     }),
   ])
+  .current_role_id(({ object }) => object.roles[0].id)

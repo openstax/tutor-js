@@ -1,6 +1,62 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Surveys Screen renders and matches snapshot 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  padding: 10px 40px;
+  min-height: 100px;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c3 {
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 45px;
+  margin: 0;
+}
+
+.c4 {
+  font-weight: 200;
+  line-height: 1em;
+  font-size: 1.6rem;
+  margin: 0;
+}
+
 <div
   className="course-page research-surveys"
   data-appearance="college_physics"
@@ -11,17 +67,25 @@ exports[`Surveys Screen renders and matches snapshot 1`] = `
 >
   <header>
     <div
-      className="title-wrapper"
+      className="title-wrapper c0"
     >
       <div
-        className="title"
+        className="c1"
       >
-        College Physics
-      </div>
-      <div
-        className="subtitle"
-      >
-        Spring 2017
+        <div
+          className="c2"
+        >
+          <h1
+            className="c3"
+          >
+            College Physics
+          </h1>
+          <h3
+            className="c4"
+          >
+            Spring 2017
+          </h3>
+        </div>
       </div>
     </div>
   </header>

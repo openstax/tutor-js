@@ -7,6 +7,7 @@ exports[`Free Response Nudge Messages matches snapshot 1`] = `
       "appearance_code": "college_physics",
       "book_pdf_url": "https://archive.cnx.org/exports/185cbf87-c72e-48f5-b51e-f14f21b5eabd.pdf",
       "cloned_from_id": null,
+      "current_role_id": 1,
       "default_due_time": "07:00",
       "default_open_time": "00:32",
       "does_cost": false,
@@ -81,8 +82,14 @@ exports[`Free Response Nudge Messages matches snapshot 1`] = `
       "reading_score_weight": 0.2,
       "roles": Array [
         CourseRole {
+          "$nonSerializable": Object {
+            "course": true,
+          },
+          "course": [Circular],
+          "course_association_name": "roles",
           "id": 1,
           "joined_at": 2017-09-21T12:00:00.000Z,
+          "period_id": undefined,
           "research_identifier": undefined,
           "type": "student",
         },
@@ -337,6 +344,7 @@ exports[`Free Response Nudge Messages matches snapshot 2`] = `
       "appearance_code": "college_physics",
       "book_pdf_url": "https://archive.cnx.org/exports/185cbf87-c72e-48f5-b51e-f14f21b5eabd.pdf",
       "cloned_from_id": null,
+      "current_role_id": 1,
       "default_due_time": "07:00",
       "default_open_time": "00:32",
       "does_cost": false,
@@ -411,8 +419,14 @@ exports[`Free Response Nudge Messages matches snapshot 2`] = `
       "reading_score_weight": 0.2,
       "roles": Array [
         CourseRole {
+          "$nonSerializable": Object {
+            "course": true,
+          },
+          "course": [Circular],
+          "course_association_name": "roles",
           "id": 1,
           "joined_at": 2017-09-21T12:00:00.000Z,
+          "period_id": undefined,
           "research_identifier": undefined,
           "type": "student",
         },
@@ -671,6 +685,7 @@ exports[`Free Response Nudge Messages matches snapshot 3`] = `
       "appearance_code": "college_physics",
       "book_pdf_url": "https://archive.cnx.org/exports/185cbf87-c72e-48f5-b51e-f14f21b5eabd.pdf",
       "cloned_from_id": null,
+      "current_role_id": 1,
       "default_due_time": "07:00",
       "default_open_time": "00:32",
       "does_cost": false,
@@ -745,8 +760,14 @@ exports[`Free Response Nudge Messages matches snapshot 3`] = `
       "reading_score_weight": 0.2,
       "roles": Array [
         CourseRole {
+          "$nonSerializable": Object {
+            "course": true,
+          },
+          "course": [Circular],
+          "course_association_name": "roles",
           "id": 1,
           "joined_at": 2017-09-21T12:00:00.000Z,
+          "period_id": undefined,
           "research_identifier": undefined,
           "type": "student",
         },
@@ -1005,6 +1026,7 @@ exports[`Free Response Nudge Messages matches snapshot 4`] = `
       "appearance_code": "college_physics",
       "book_pdf_url": "https://archive.cnx.org/exports/185cbf87-c72e-48f5-b51e-f14f21b5eabd.pdf",
       "cloned_from_id": null,
+      "current_role_id": 1,
       "default_due_time": "07:00",
       "default_open_time": "00:32",
       "does_cost": false,
@@ -1079,8 +1101,14 @@ exports[`Free Response Nudge Messages matches snapshot 4`] = `
       "reading_score_weight": 0.2,
       "roles": Array [
         CourseRole {
+          "$nonSerializable": Object {
+            "course": true,
+          },
+          "course": [Circular],
+          "course_association_name": "roles",
           "id": 1,
           "joined_at": 2017-09-21T12:00:00.000Z,
+          "period_id": undefined,
           "research_identifier": undefined,
           "type": "student",
         },
@@ -1339,6 +1367,7 @@ exports[`Free Response Nudge Messages matches snapshot 5`] = `
       "appearance_code": "college_physics",
       "book_pdf_url": "https://archive.cnx.org/exports/185cbf87-c72e-48f5-b51e-f14f21b5eabd.pdf",
       "cloned_from_id": null,
+      "current_role_id": 1,
       "default_due_time": "07:00",
       "default_open_time": "00:32",
       "does_cost": false,
@@ -1413,8 +1442,14 @@ exports[`Free Response Nudge Messages matches snapshot 5`] = `
       "reading_score_weight": 0.2,
       "roles": Array [
         CourseRole {
+          "$nonSerializable": Object {
+            "course": true,
+          },
+          "course": [Circular],
+          "course_association_name": "roles",
           "id": 1,
           "joined_at": 2017-09-21T12:00:00.000Z,
+          "period_id": undefined,
           "research_identifier": undefined,
           "type": "student",
         },

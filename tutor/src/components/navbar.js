@@ -15,7 +15,7 @@ const Docked = css`
 
 const Header = css`
    top: 0;
-   z-index: 1030;
+   z-index: ${Theme.zIndex.navbar};
    height: ${Theme.navbars.top.height};
    ${props => props.isDocked && Docked}
    ${props => !props.isDocked && NavbarBottomShadow}
@@ -24,7 +24,7 @@ const Header = css`
 const Footer = css`
    bottom: 0;
    box-shadow: 0 -2px 5px 0 rgba(0, 0, 0, 0.1);
-   z-index: 5;
+   z-index: ${Theme.zIndex.footer};
    height: ${Theme.navbars.bottom.height};
 `;
 

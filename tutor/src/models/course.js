@@ -62,7 +62,7 @@ class Course extends BaseModel {
   @field is_lms_enabling_allowed = false;
   @field is_access_switchable = true;
   @field salesforce_book_name;
-
+  @field current_role_id;
   @field starts_at;
   @field ends_at;
 
@@ -93,7 +93,11 @@ class Course extends BaseModel {
     active() { return filter(this, period => !period.is_archived); },
   }) }) periods = [];
 
-  @hasMany({ model: Role }) roles;
+  @hasMany({ model: Role, inverseOf: 'course', extend: getters({
+    student() { return find(this, { isStudent: true }); },
+    teacher() { return find(this, { isTeacher: true }); },
+    teacherStudent() { return find(this, { isTeacherStudent: true }); },
+  }) }) roles;
   @hasMany({ model: Student, inverseOf: 'course' }) students;
 
   constructor(attrs, map) {
@@ -110,8 +114,12 @@ class Course extends BaseModel {
   }
 
   @computed get userStudentRecord() {
-    const role = find(this.roles, 'isStudent');
+    const role = this.roles.student || this.roles.teacherStudent;
     return role ? find(this.students, { role_id: role.id }) : null;
+  }
+
+  @computed get currentRole() {
+    return this.roles.find(r => r.id === this.current_role_id);
   }
 
   @computed get canOnlyUseEnrollmentLinks() {

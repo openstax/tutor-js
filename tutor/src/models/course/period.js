@@ -1,5 +1,5 @@
 import { find, pick } from 'lodash';
-import { computed } from 'mobx';
+import { computed, action } from 'mobx';
 import {
   BaseModel, identifiedBy, field, identifier, belongsTo,
 } from 'shared/model';
@@ -51,10 +51,41 @@ class CoursePeriod extends BaseModel {
   unarchive() {
     return { id: this.id, data: { is_archived: false } };
   }
-  afterCreate({ data }) {
+  @action afterCreate({ data }) {
     this.update(data);
     this.course.periods.push(this);
   }
 
+  @action async becomeStudent() {
+    let role = this.course.roles.find((r) => (
+      r.isTeacherStudent && r.period_id == this.id
+    ));
+    if (!role) {
+      const { data } = await this.createTeacherStudent();
+      role = this.course.roles.find(r => r.id == data.id );
+    }
+    await role.become();
+  }
 
-};
+  createTeacherStudent() {
+    return { courseId: this.course.id, id: this.id };
+  }
+
+  @action onCreateTeacherStudent({ data }) {
+    this.course.roles.push(data);
+    // create a fake student
+    this.course.students.push({
+      id: -1,
+      role_id: data.id,
+      student_identifier: '',
+      first_name: 'Review',
+      last_name: 'Student1',
+      name: 'Teacher Review Student',
+      payment_due_at: (new Date).toString(),
+      period_id: this.id,
+      prompt_student_to_pay: false,
+    });
+
+  }
+
+}

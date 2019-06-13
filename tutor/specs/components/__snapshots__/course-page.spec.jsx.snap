@@ -25,6 +25,62 @@ exports[`Course Page renders and matches snapshot 1`] = `
 `;
 
 exports[`Course Page renders and matches snapshot 2`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  padding: 10px 40px;
+  min-height: 100px;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c3 {
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 45px;
+  margin: 0;
+}
+
+.c4 {
+  font-weight: 200;
+  line-height: 1em;
+  font-size: 1.6rem;
+  margin: 0;
+}
+
 <div
   className="course-page test-page"
   data-appearance="college_physics"
@@ -35,19 +91,27 @@ exports[`Course Page renders and matches snapshot 2`] = `
 >
   <header>
     <div
-      className="title-wrapper"
+      className="title-wrapper c0"
     >
       <div
-        className="title"
+        className="c1"
       >
-        <h1>
-          A Big Bad Page
-        </h1>
-      </div>
-      <div
-        className="subtitle"
-      >
-        This is a subtitle
+        <div
+          className="c2"
+        >
+          <h1
+            className="c3"
+          >
+            <h1>
+              A Big Bad Page
+            </h1>
+          </h1>
+          <h3
+            className="c4"
+          >
+            This is a subtitle
+          </h3>
+        </div>
       </div>
     </div>
     <h1>

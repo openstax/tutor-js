@@ -36,11 +36,15 @@ $calendar-header-padding: 2rem;
       flex: auto;
       justify-content: flex-end;
       .btn {
-        margin-left: 0.5rem;
+        border-radius: 0;
+        border-left-width: 0;
         height: 100%;
         align-items: center;
         display: flex;
         padding: 0 1.5rem;
+        &:first-of-type {
+          border-left-width: 1px;
+        }
       }
     }
 

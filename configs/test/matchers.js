@@ -79,6 +79,14 @@ expect.extend({
       };
     }
   },
+
+  toBeEmptyRender(enzymeWrapper) {
+    return {
+      pass: enzymeWrapper.isEmptyRender(),
+      message() { return `Found ${enzymeWrapper.html().substr(0, 100)} …`; },
+    };
+  },
+
 });
 
 

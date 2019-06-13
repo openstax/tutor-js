@@ -1,6 +1,5 @@
 import React from 'react';
 import { extend } from 'lodash';
-import { Redirect } from 'react-router-dom';
 import { asyncComponent } from './async-component';
 import { CourseNotFoundWarning } from '../components/course-not-found-warning';
 import Courses from '../models/courses-map';
@@ -8,6 +7,10 @@ import { OXMatchByRouter } from 'shared';
 
 const StudentDashboard = asyncComponent(
   () => import('../screens/student-dashboard')
+);
+
+const TeacherDashboard = asyncComponent(
+  () => import('../screens/teacher-dashboard')
 );
 
 const getConditionalHandlers = (Router) => {
@@ -29,28 +32,10 @@ const getConditionalHandlers = (Router) => {
       );
     }
 
-    if (course.isTeacher) {
-      if (course.is_concept_coach) {
-        return (
-          <CCDashboard courseId={courseId} {...props} />
-        );
-      } else {
-        return (
-          <Redirect
-            to={{
-              pathname: Router.makePathname('viewTeacherDashboard', props.params),
-              query: Router.currentQuery(),
-            }} />
-        );
-      }
+    if (course.currentRole.isTeacher) {
+      return <TeacherDashboard {...props} />;
     } else {
-      if (course.is_concept_coach) {
-        return (
-          <CCStudentRedirect courseId={courseId} />
-        );
-      } else {
-        return <StudentDashboard {...props} />;
-      }
+      return <StudentDashboard {...props} />;
     }
   };
 
