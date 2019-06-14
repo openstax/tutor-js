@@ -31,4 +31,4 @@ class BestPracticesGuide extends React.Component {
     );
   }
 
-};
+}
