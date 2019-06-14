@@ -20,7 +20,11 @@ import Theme from '../../theme';
 const StudentPreview = observer(({
   course, tourContext, ...props // eslint-disable-line no-unused-vars
 }, { router }) => {
-  if( !course || !( User.isConfirmedFaculty || User.isUnverifiedInstructor ) ) { return null; }
+  if(
+    !course ||
+      !( User.isConfirmedFaculty || User.isUnverifiedInstructor ) ||
+      (course && course.currentRole.isTeacherStudent)
+  ) { return null; }
   return (
     <Dropdown.Item
       {...props}

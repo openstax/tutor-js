@@ -13,7 +13,8 @@ const BecomeButton = styled(Button).attrs({
 })`
   &.btn {
     padding: 0;
-    border-bottom: 1px solid white;
+    border: 0;
+    border-bottom-width: 1px;
   }
 `;
 
@@ -30,7 +31,8 @@ const PeriodSelector = styled(Dropdown)`
   align-items: center;
   color: white;
   padding: 0;
-  border-bottom: 1px solid white;
+  border: 0;
+  border-bottom-width: 1px;
   &::after {
     display: none;
   }
@@ -105,7 +107,7 @@ class TeacherBecomesStudent extends React.Component {
 
     if (this.isCreating) {
       return (
-        <Waiting>
+        <Waiting className="control">
           <Icon type="spinner" spin size="2x" />
           Creating student record…
         </Waiting>

@@ -109,6 +109,7 @@ const STUDENT_ARCHIVED_COURSE = {
   offering_id: '1',
   is_active: false,
   is_concept_coach: false,
+  current_role_id: '1',
   year: 2016,
   term: 'spring',
   starts_at: moment().subtract(1, 'month').format(),
@@ -137,7 +138,7 @@ const TEACHER_PAST_COURSE = {
   ends_at: moment().subtract(1, 'month').format(),
   webview_url: 'http://cnx.org/',
   salesforce_book_name: 'a book title',
-
+  current_role_id: '1',
   roles: [{
     id: '1',
     type: 'teacher',
@@ -159,7 +160,7 @@ const STUDENT_PAST_COURSE = {
   ends_at: moment().subtract(1, 'month').format(),
   webview_url: 'http://cnx.org/',
   salesforce_book_name: 'a book title',
-
+  current_role_id: '1',
   roles: [{
     id: '1',
     type: 'student',
