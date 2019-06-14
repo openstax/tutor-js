@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { get } from 'lodash';
 import { Row, Col, Card } from 'react-bootstrap';
 import { action, observable } from 'mobx';
 import { includes } from 'lodash';
@@ -43,10 +44,11 @@ export default class StudentDashboard extends React.Component {
 
   componentDidMount() {
     const { course } = this.props;
-    const student = course.userStudentRecord;
-    if (student && !student.mustPayImmediately) {
+    const role = course.currentRole;
+    if (role.isStudentLike && !get(course.userStudentRecord, 'mustPayImmediately')) {
       this.props.course.studentTaskPlans.fetch();
     }
+
     const plans = course.studentTaskPlans;
     if (plans.taskReadinessTimedOut && plans.api.requestCounts.read > 1) {
       Raven.log('dashboard task timed out waiting on BL');

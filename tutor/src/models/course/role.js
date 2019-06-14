@@ -16,6 +16,10 @@ class CourseRole extends BaseModel {
   @field research_identifier;
   @belongsTo({ model: 'course' }) course;
 
+  @computed get isStudentLike() {
+    return Boolean(this.isStudent || this.isTeacherStudent);
+  }
+
   @computed get isStudent() {
     return this.type == 'student';
   }
