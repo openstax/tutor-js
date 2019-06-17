@@ -7,7 +7,7 @@ let ROLE = 'teacher';
 
 let payload = {
   total_count: 5,
-  items: times(5, (i) => Factory.create('TeacherDashboardTask',
+  items: times(5, (i) => Factory.create('TeacherTaskPlan',
     { now, days_ago: 100 + (i*5) }
   )),
 };

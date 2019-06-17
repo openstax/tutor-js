@@ -1,8 +1,9 @@
-import { React, idType, cn } from '../../helpers/react';
-import createReactClass from 'create-react-class';
+import { React, PropTypes, observable, idType, observer, cn } from '../../helpers/react';
 import { pick, isEmpty } from 'lodash';
 import { Card, Row, Col, Button } from 'react-bootstrap';
-
+import Course from '../../models/course';
+import Plan from '../../models/task-plans/teacher/plan';
+import Header from './header';
 import PlanMixin from './plan-mixin';
 import TaskPlanBuilder from './builder';
 import ChooseExercises from './homework/choose-exercises';
@@ -12,55 +13,60 @@ import PlanFooter from './footer';
 import { TaskPlanStore } from '../../flux/task-plan';
 import Wrapper from './wrapper';
 
-const HomeworkPlan = createReactClass({
-  displayName: 'HomeworkPlan',
-  mixins: [PlanMixin],
+@observer
+class HomeworkPlan extends React.Component {
 
-  propTypes: {
-    id: idType.isRequired,
-    courseId: idType.isRequired,
-  },
+  static propTypes = {
+    plan: PropTypes.instanceOf(Plan).isRequired,
+  }
+
+  @observable isShowingSectionTopics = false;
 
   render() {
-    const { id, courseId } = this.props;
-    const builderProps = pick(this.state, 'isVisibleToStudents', 'isEditable', 'isSwitchable');
-    const hasError = this.hasError();
-    const course = this.getCourse();
+    const { hasError, hasExercises } = this;
+    const { plan, course } = this.props;
 
-    const ecosystemId = TaskPlanStore.getEcosystemId(id, courseId);
+    // const builderProps = pick(this.state, 'isVisibleToStudents', 'isEditable', 'isSwitchable');
+    // const hasError = this.hasError();
+    // const course = this.getCourse();
+    //
+    // const ecosystemId = TaskPlanStore.getEcosystemId(id, courseId);
+    //
+    // const topics = TaskPlanStore.getTopics(id);
+    // const hasExercises = !isEmpty(TaskPlanStore.getExercises(id));
 
-    const topics = TaskPlanStore.getTopics(id);
-    const hasExercises = !isEmpty(TaskPlanStore.getExercises(id));
-
-    const formClasses = cn(
-      'edit-homework dialog',
-      {
-        hide: this.state.showSectionTopics,
-        'is-invalid-form': hasError,
-      },
-    );
+    // const formClasses = cn(
+    //   'edit-homework dialog',
+    //   {
+    //     hide: this.state.showSectionTopics,
+    //     'is-invalid-form': hasError,
+    //   },
+    // );
 
     return (
-      <Wrapper planType={TaskPlanStore.getType(id)}>
-        <Card className={formClasses}>
+      <Wrapper planType={plan.type}>
+        <Card className={cn('edit-homework', 'dialog', {
+          'is-invalid-form': plan.hasError,
+          hide: this.isShowingSectionTopics,
+        })}>
 
-          <Card.Header>
-            {this.builderHeader('homework')}
-          </Card.Header>
+          <Header plan={plan} />
 
           <Card.Body>
-            <TaskPlanBuilder courseId={courseId} id={id} {...builderProps} />
+            <TaskPlanBuilder plan={plan} course={course} />
             <Row>
               <Col xs={8}>
-                <FeedbackSetting id={id} showPopup={this.state.isVisibleToStudents} />
+                <FeedbackSetting plan={plan} />
               </Col>
             </Row>
             <Row>
               <Col xs={12} md={12}>
-                {!this.state.isVisibleToStudents && (
+                {!plan.isVisibleToStudents && (
                   <Button
                     id="problems-select"
-                    className={cn('-select-sections-btn', { 'invalid': hasError && !hasExercises })}
+                    className={cn('-select-sections-btn', {
+                      'invalid': hasError && !hasExercises,
+                    })}
                     onClick={this.showSectionTopics}
                     variant="default"
                   >+ Select Problems</Button>)}
@@ -72,13 +78,13 @@ const HomeworkPlan = createReactClass({
             </Row>
           </Card.Body>
           <PlanFooter
-            id={id}
-            courseId={courseId}
+            plan={plan}
+            course={course}
             onPublish={this.publish}
             onSave={this.save}
             onCancel={this.cancel}
             hasError={hasError}
-            isVisibleToStudents={this.state.isVisibleToStudents}
+
             getBackToCalendarParams={this.getBackToCalendarParams}
             goBackToCalendar={this.goBackToCalendar}
           />
@@ -86,26 +92,23 @@ const HomeworkPlan = createReactClass({
         {this.state.showSectionTopics && (
           <ChooseExercises
             course={course}
-            planId={id}
+            plan={plan}
             cancel={this.cancelSelection}
             hide={this.hideSectionTopics}
-            canEdit={!this.state.isVisibleToStudents}
+
           />)}
         {hasExercises && !this.state.showSectionTopics && (
           <ReviewExercises
+            plan={plan}
             course={course}
-            canAdd={!this.state.isVisibleToStudents}
-            canEdit={!this.state.isVisibleToStudents}
             showSectionTopics={this.showSectionTopics}
-            courseId={courseId}
-            sectionIds={topics}
-            ecosystemId={ecosystemId}
-            planId={id}
+            course={course}
+            sectionIds={plan.settings.page_ids}
           />)}
       </Wrapper>
     );
-  },
-});
+  }
+}
 
 export { HomeworkPlan };
 const HomeworkShell = PlanMixin.makePlanRenderer('homework', HomeworkPlan);

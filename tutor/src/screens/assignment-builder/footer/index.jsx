@@ -14,14 +14,14 @@ import DeleteLink from './delete-link';
 import PreviewButton from './preview-button';
 import Courses from '../../../models/courses-map';
 import TourAnchor from '../../../components/tours/anchor';
+import Plan from '../../../models/task-plans/teacher/plan';
 
 export default
 @observer
 class PlanFooter extends React.Component {
 
   static propTypes = {
-    id:               idType.isRequired,
-    courseId:         idType.isRequired,
+    plan:             PropTypes.instanceOf(Plan).isRequired,
     hasError:         PropTypes.bool.isRequired,
     onSave:           PropTypes.func.isRequired,
     onPublish:        PropTypes.func.isRequired,
@@ -34,13 +34,13 @@ class PlanFooter extends React.Component {
     isVisibleToStudents: false,
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      isEditable: TaskPlanStore.isEditable(this.props.id),
-      saving: TaskPlanStore.isSaving(this.props.id),
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     isEditable: TaskPlanStore.isEditable(this.props.id),
+  //     saving: TaskPlanStore.isSaving(this.props.id),
+  //   };
+  // }
 
   @action.bound
   onDelete() {
@@ -50,17 +50,16 @@ class PlanFooter extends React.Component {
     this.props.goBackToCalendar();
   }
 
-  @action.bound
-  onSave() {
-    const saving = this.props.onSave();
-    this.setState({ saving });
-  }
+  // @action.bound
+  // onSave() {
+  //   this.props.onSave();
+  // }
 
-  @action.bound
-  onPublish() {
-    this.props.onPublish();
-    this.setState({ saving: false, isEditable: TaskPlanStore.isEditable(this.props.id) });
-  }
+  // @action.bound
+  // onPublish() {
+  //   this.props.onPublish();
+  //   this.setState({ saving: false, isEditable: TaskPlanStore.isEditable(this.props.id) });
+  // }
 
   render() {
     const { id, hasError } = this.props;
@@ -76,8 +75,8 @@ class PlanFooter extends React.Component {
             onSave={this.onSave}
             onPublish={this.onPublish}
             isWaiting={isWaiting}
-            isSaving={this.state.saving}
-            isEditable={this.state.isEditable}
+            isSaving={this.isSaving}
+            isEditable={!this.isSaving}
             isPublishing={publishing}
             isPublished={isPublished}
             isFailed={isFailed}

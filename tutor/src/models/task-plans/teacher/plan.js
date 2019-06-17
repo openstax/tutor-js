@@ -3,7 +3,7 @@ import {
 } from 'shared/model';
 import { action, computed, observable, createAtom } from 'mobx';
 import {
-  sortBy, first, last, map, union, find,
+  sortBy, first, last, map, union, find, get,
 } from 'lodash';
 import { lazyInitialize } from 'core-decorators';
 import TaskingPlan from './tasking'
@@ -38,14 +38,22 @@ class TeacherTaskPlan extends BaseModel {
   @field({ type: 'object' }) settings;
   @hasMany({ model: TaskingPlan }) tasking_plans;
 
+  @observable unmodified_plans = [];
+
   @computed get isClone() {
     return !!this.cloned_from_id;
   }
 
+  // only set when publishing
+  @field is_feedback_immediate;
+  @field is_publish_requested;
+
   @observable publishingUpdates;
+
 
   constructor(attrs) {
     super(attrs);
+    this.unmodified_plans = attrs.tasking_plans;
     this.publishing = createAtom(
       'TaskPlanUpdates',
       () => { TaskPlanPublish.forPlan(this).startListening(); },
@@ -106,6 +114,7 @@ class TeacherTaskPlan extends BaseModel {
   @computed get isEditable() { return this.durationRange.start().isAfter(Time.now); }
   @computed get isFailed() { return Boolean(this.failed_at || this.killed_at); }
   @computed get isPastDue() { return this.durationRange.end().isBefore(Time.now); }
+  @computed get isVisibleToStudents() { return this.isPublishing && this.isOpen; }
 
   @computed get isPollable() {
     return Boolean(
@@ -127,4 +136,22 @@ class TeacherTaskPlan extends BaseModel {
     return 'unknown';
   }
 
-};
+  @computed get hasTaskingDatesChanged() {
+    return Boolean(
+      get(this.unmodified_plans, 'length', 0) != get(this.tasking_plans, 'length', 0) ||
+        find(this.unmodified_plans, (a, i) => {
+          const b = this.tasking_plans[i];
+          return !moment(a.opens_at).isSame(b.opens_at) ||
+            !moment(a.due_at).isSame(b.due_at);
+        })
+    );
+  }
+
+  // called from api
+  onApiRequestComplete({ data }) {
+    this.api.errors = {};
+    this.update(data);
+    this.unmodified_plans = data.tasking_plans;
+  }
+
+}

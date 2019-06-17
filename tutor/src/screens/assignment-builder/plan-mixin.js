@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { React, PropTypes } from '../../helpers/react';
+import { BulletList as PendingLoad } from 'react-content-loader';
 import moment from 'moment';
-import { memoize, extend } from 'lodash';
+import { extend } from 'lodash';
+import Loader from './loader';
 import Courses from '../../models/courses-map';
 import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
 import { TaskingStore, TaskingActions } from '../../flux/tasking';
-import LoadableItem from '../../components/loadable-item';
 import TourRegion from '../../components/tours/region';
 import { TimeStore } from '../../flux/time';
 import { CloseButton } from 'shared';
@@ -217,36 +217,42 @@ const PlanMixin = {
 
   makePlanRenderer(type, Type) {
 
-    const getInitialState = () => {
-      let { id, courseId } = Router.currentParams();
-      if (!id || (id === 'new')) {
-        id = TaskPlanStore.freshLocalId();
-        TaskPlanActions.create(id, { type });
-      }
-      return { id, courseId };
-    };
-
     return class extends React.Component {
       static displayName = `${type}Renderer`
 
-      state = getInitialState()
+      constructor(props) {
+        super(props);
+
+        // eslint-disable-next-line
+        let { id, courseId } = props.params;
+
+        // eslint-disable-next-line
+        const course = props.course || Courses.get(courseId);
+        const plan = course.teacherTaskPlans.withPlanId(id || 'new');
+
+        if (plan.isNew) {
+          plan.reset();
+        } else {
+          plan.fetch();
+        }
+        this.state = { id, plan, course };
+      }
 
       render() {
-        const { id, courseId } = this.state;
+        const { id, course, plan } = this.state;
+// console.log('render'
+        if (plan.api.isPending) {
+          return <Loader />;
+        }
+
         return (
-          <LoadableItem
-            id={id}
-            store={TaskPlanStore}
-            actions={TaskPlanActions}
-            renderItem={() =>
-              <TourRegion
-                id={`${type}-assignment-editor`}
-                otherTours={[`${type}-assignment-editor-super`]}
-                courseId={courseId}
-              >
-                <Type id={id} courseId={courseId} />
-              </TourRegion>}
-          />
+          <TourRegion
+            id={`${plan.type}-assignment-editor`}
+            otherTours={[`${type}-assignment-editor-super`]}
+            courseId={course.id}
+          >
+            <Type id={id} plan={plan} course={course} />
+          </TourRegion>
         );
       }
     };

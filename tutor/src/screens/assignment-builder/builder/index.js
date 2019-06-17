@@ -1,7 +1,6 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import createReactClass from 'create-react-class';
+import { React, PropTypes, observer, observable, computed } from '../../../helpers/react';
 import { Row, Col } from 'react-bootstrap';
+import Plan from '../../../models/task-plans/teacher/plan';
 import { UnsavedStateMixin } from '../../../components/unsaved-state';
 import CourseGroupingLabel from '../../../components/course-grouping-label';
 import BindStoresMixin from '../../../components/bind-stores-mixin';
@@ -14,82 +13,82 @@ import { TutorInput, TutorTextArea } from '../../../components/tutor-input';
 import Courses from '../../../models/courses-map';
 import Tasking from './tasking';
 
-const TaskPlanBuilder = createReactClass({
-  displayName: 'TaskPlanBuilder',
+@observer
+class TaskPlanBuilder extends React.Component {
 
-  getBindEvents() {
-    const { id } = this.props;
+  // getBindEvents() {
+  //   const { id } = this.props;
+  //
+  //   return {
+  //     taskingChanged: {
+  //       store: TaskingStore,
+  //       listenTo: `taskings.${id}.*.changed`,
+  //       callback: this.changeTaskPlan,
+  //     },
+  //   };
+  // },
+  //
+  // mixins: [BindStoresMixin, UnsavedStateMixin],
 
-    return {
-      taskingChanged: {
-        store: TaskingStore,
-        listenTo: `taskings.${id}.*.changed`,
-        callback: this.changeTaskPlan,
-      },
-    };
-  },
+  static propTypes = {
+    plan: PropTypes.instanceOf(Plan).isRequired,
+    // courseId: PropTypes.string.isRequired,
+    //
+    // isVisibleToStudents: PropTypes.bool.isRequired,
+    // isEditable: PropTypes.bool.isRequired,
+    // isSwitchable: PropTypes.bool.isRequired,
+  }
 
-  mixins: [BindStoresMixin, UnsavedStateMixin],
-
-  propTypes: {
-    id: PropTypes.string.isRequired,
-    courseId: PropTypes.string.isRequired,
-    label: PropTypes.string,
-    isVisibleToStudents: PropTypes.bool.isRequired,
-    isEditable: PropTypes.bool.isRequired,
-    isSwitchable: PropTypes.bool.isRequired,
-  },
-
-  getInitialState() {
-    const { id, courseId } = this.props;
-    const course = Courses.get(courseId);
-    return {
-      term: course.bounds,
-      showingPeriods: !TaskingStore.getTaskingsIsAll(id),
-      currentLocale: TimeHelper.getCurrentLocales(),
-    };
-  },
-
-  getDefaultProps() {
-    return { label: 'Assignment' };
-  },
-
+  // getInitialState() {
+  //   const { id, courseId } = this.props;
+  //   const course = Courses.get(courseId);
+  //   return {
+  //     term: course.bounds,
+  //     showingPeriods: !TaskingStore.getTaskingsIsAll(id),
+  //     currentLocale: TimeHelper.getCurrentLocales(),
+  //   };
+  // },
+  //
+  // getDefaultProps() {
+  //   return { label: 'Assignment' };
+  // },
+  //
   // Called by the UnsavedStateMixin to detect if anything needs to be persisted
   // This logic could be improved, all it checks is if a title is set on a new task plan
-  hasUnsavedState() { return TaskPlanStore.hasChanged(this.props.id); },
+  // hasUnsavedState() { return TaskPlanStore.hasChanged(this.props.id); },
+  // unsavedStateMessages() { return 'The assignment has unsaved changes'; },
 
-  unsavedStateMessages() { return 'The assignment has unsaved changes'; },
-
-  UNSAFE_componentWillMount() {
-    const { id, courseId } = this.props;
-    const { term } = this.state;
-
-    // better to have `syncCourseTimezone` out here to make the symmetry
-    // of the unsync in the unmount obvious.
-    const course = Courses.get(courseId);
-    const courseTimezone = course.time_zone;
-    TimeHelper.syncCourseTimezone(courseTimezone);
-    const nextState = taskPlanEditingInitialize(id, course, term);
-    return this.setState(nextState);
-  },
-
-  componentWillUnmount() {
-    return TimeHelper.unsyncCourseTimezone();
-  },
+  // componentWillMount() {
+  //   const { course } = this.props;
+  //
+  //   // const { term } = this.state;
+  //   //
+  //   // // better to have `syncCourseTimezone` out here to make the symmetry
+  //   // // of the unsync in the unmount obvious.
+  //   // const course = Courses.get(courseId);
+  //   // const courseTimezone = course.time_zone;
+  //   TimeHelper.syncCourseTimezone(courseTimezone);
+  //   const nextState = taskPlanEditingInitialize(id, course, term);
+  //   return this.setState(nextState);
+  // }
+  //
+  // componentWillUnmount() {
+  //   return TimeHelper.unsyncCourseTimezone();
+  // }
 
   changeTaskPlan() {
     const { id } = this.props;
 
     const taskings = TaskingStore.getChanged(id);
     return TaskPlanActions.replaceTaskings(id, taskings);
-  },
+  }
 
   setAllPeriods() {
     const { id } = this.props;
     TaskingActions.updateTaskingsIsAll(id, true);
 
     return this.setState({ showingPeriods: false });
-  },
+  }
 
   setIndividualPeriods() {
     const { id } = this.props;
@@ -97,34 +96,43 @@ const TaskPlanBuilder = createReactClass({
 
     //clear saved taskings
     return this.setState({ showingPeriods: true });
-  },
+  }
 
   setTitle(title) {
     const { id } = this.props;
     return TaskPlanActions.updateTitle(id, title);
-  },
+  }
 
   setDescription(desc, descNode) {
     const { id } = this.props;
     return TaskPlanActions.updateDescription(id, desc);
-  },
+  }
+
+  @observable showingPeriods = false;
+
+  @computed get isSwitchable() {
+    this.props.plan.isVisibleToStudents
+  }
 
   render() {
-    let invalidPeriodsAlert;
-    const plan = TaskPlanStore.get(this.props.id);
-    const taskings = TaskingStore.get(this.props.id);
+    const { plan } = this.props;
+    const taskings = plan.tasking_plans;
 
-    if (this.state.showingPeriods && !taskings.length) {
+    let invalidPeriodsAlert;
+    //    const plan = TaskPlanStore.get(this.props.id);
+    //    const taskings = TaskingStore.get(this.props.id);
+
+    if (this.showingPeriods && !taskings.length) {
       invalidPeriodsAlert = <Row>
         <Col className="periods-invalid" sm={12}>
-          Please select at least one <CourseGroupingLabel lowercase={true} courseId={this.props.courseId} />
+          Please select at least one <CourseGroupingLabel lowercase={true} courseId={course.id} />
         </Col>
       </Row>;
     }
 
     const assignmentNameLabel = [
       <span key="assignment-label">
-        {`${this.props.label} name`}
+        Assignment name
       </span>,
       <span key="assignment-label-instructions" className="instructions">
         {' (Students will see this on their dashboard.)'}
@@ -141,7 +149,7 @@ const TaskPlanBuilder = createReactClass({
               id="reading-title"
               default={plan.title}
               required={true}
-              disabled={!this.props.isEditable}
+              disabled={!plan.isEditable}
               onChange={this.setTitle} />
           </Col>
         </Row>
@@ -151,53 +159,51 @@ const TaskPlanBuilder = createReactClass({
               label="Description or special instructions"
               className="assignment-description"
               id="assignment-description"
-              default={TaskPlanStore.getDescription(this.props.id)}
-              disabled={!this.props.isEditable}
+              default={plan.description}
+              disabled={!plan.isEditable}
               onChange={this.setDescription} />
           </Col>
         </Row>
         <Row>
           <Col sm={12} className="assign-to-label">
-            {'\
-    Assign to\
-    '}
+            Assign to
           </Col>
         </Row>
         <Row>
           <Col sm={12}>
             <div className="instructions">
               <p>
-                {`\
-    Set date and time to now to open
-    immediately. Course time
-    zone: `}
-                <TimeZoneSettings courseId={this.props.courseId} />
+                Set date and time to now to open
+                immediately. Course time zone: <TimeZoneSettings courseId={course.id} />
               </p>
-              {this.props.isVisibleToStudents ? <p>
-                {'\
-      Open times cannot be edited after assignment is visible to students.\
-      '}
-              </p> : undefined}
+              {plan.isVisibleToStudents && (
+                <p>
+                  Open times cannot be edited after assignment is visible to students.
+                </p>)}
             </div>
           </Col>
         </Row>
-        {!!this.props.isSwitchable || !this.state.showingPeriods ? this.renderCommonChoice() : undefined}
-        {!!this.props.isSwitchable || !!this.state.showingPeriods ? this.renderPeriodsChoice() : undefined}
+        {this.showingPeriods ? this.renderCommonChoice() : this.renderPeriodsChoice()}
         {invalidPeriodsAlert}
       </div>
     );
-  },
+  }
 
   renderCommonChoice() {
     let radio;
-    if (this.props.isSwitchable) { radio = <input
-      id="hide-periods-radio"
-      name="toggle-periods-radio"
-      ref="allPeriodsRadio"
-      type="radio"
-      disabled={!this.props.isSwitchable}
-      onChange={this.setAllPeriods}
-      checked={!this.state.showingPeriods} />; }
+    if (this.isSwitchable) {
+      radio = (
+        <input
+          id="hide-periods-radio"
+          name="toggle-periods-radio"
+          ref="allPeriodsRadio"
+          type="radio"
+          disabled={!this.isSwitchable}
+          onChange={this.setAllPeriods}
+          checked={!this.state.showingPeriods}
+        />
+      );
+    }
 
     return (
       <Row className="common tutor-date-input">
@@ -212,7 +218,7 @@ const TaskPlanBuilder = createReactClass({
         {this.renderTaskPlanRow()}
       </Row>
     );
-  },
+  }
 
   renderPeriodsChoice() {
     let periodsChoice, radio;
@@ -239,7 +245,7 @@ const TaskPlanBuilder = createReactClass({
     if (periodsChoice == null) { periodsChoice = []; }
     periodsChoice.unshift(choiceLabel);
     return periodsChoice;
-  },
+  }
 
   renderTaskPlanRow(period) {
     const { id, courseId, isVisibleToStudents, isEditable, isSwitchable } = this.props;
@@ -262,7 +268,7 @@ const TaskPlanBuilder = createReactClass({
         isEditable={isEditable}
         currentLocale={currentLocale} />
     );
-  },
-});
+  }
+}
 
 export default TaskPlanBuilder;

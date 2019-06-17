@@ -1,36 +1,28 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { React, PropTypes, computed, observer, action } from '../../helpers/react';
 import { Popover } from 'react-bootstrap';
-import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
+import Plan from '../../models/task-plans/teacher/plan';
 
-export default
+@observer
 class FeedbackSetting extends React.Component {
 
   static propTypes = {
-    id:        PropTypes.string.isRequired,
-    showPopup: PropTypes.bool,
+    plan: PropTypes.instanceOf(Plan).isRequired,
   }
 
-  setImmediateFeedback = (ev) => {
-    return TaskPlanActions.setImmediateFeedback( this.props.id, ev.target.value === 'immediate' );
-  };
+  @action.bound setImmediateFeedback(ev) {
+    this.props.plan.is_feedback_immediate = ev.target.value === 'immediate';
+  }
+
+  @computed get shouldShowWarning() {
+    const { plan } = this.props;
+
+    return plan.isVisibleToStudents &&
+      plan.hasTaskingDatesChanged &&
+      plan.is_feedback_immediate;
+  }
 
   render() {
-    let popover;
-    const { id, showPopup } = this.props;
-    if (showPopup && TaskPlanStore.isChangingToDueAt(id) && !TaskPlanStore.isFeedbackImmediate(id)) {
-      popover = (
-        <Popover
-          className="feedback-tip"
-          placement="bottom"
-          ref="popover"
-          id="feedback-tip-popover"
-        >
-          Some students may have already seen feedback and answers
-          to questions in this assignment.
-        </Popover>
-      );
-    }
+    const { plan } = this.props;
 
     return (
       <div className="form-group">
@@ -39,7 +31,7 @@ class FeedbackSetting extends React.Component {
         </label>
         <select
           onChange={this.setImmediateFeedback}
-          value={TaskPlanStore.isFeedbackImmediate(id) ? 'immediate' : 'due_at'}
+          value={plan.is_feedback_immediate ? 'immediate' : 'due_at'}
           id="feedback-select"
           className="form-control"
         >
@@ -50,8 +42,20 @@ class FeedbackSetting extends React.Component {
             only after due date/time passes
           </option>
         </select>
-        {popover}
+        {this.shouldShowWarning && (
+          <Popover
+            className="feedback-tip"
+            placement="bottom"
+            ref="popover"
+            id="feedback-tip-popover"
+          >
+            Some students may have already seen feedback and answers
+            to questions in this assignment.
+          </Popover>
+        )}
       </div>
     );
   }
 }
+
+export default FeedbackSetting;

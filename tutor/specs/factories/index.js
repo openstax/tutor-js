@@ -14,9 +14,11 @@ import { ResearchSurvey } from '../../src/models/research-surveys/survey';
 import StudentDashboardTask from '../../src/models/task-plans/student/task';
 import Note from '../../src/models/notes/note';
 import Page from '../../src/models/reference-book/page';
+import TeacherTaskPlan from '../../src/models/task-plans/teacher/plan';
 
 import './research_survey';
-import './dashboard';
+import './teacher-task-plan';
+import './student-task';
 import './course';
 import './book';
 import './task-plan-stats';
@@ -47,6 +49,7 @@ each({
   TaskPlanStat,
   TutorExercise,
   ResearchSurvey,
+  TeacherTaskPlan,
   StudentDashboardTask,
 }, (Model, name) => {
   Factories[camelCase(name)] = (attrs = {}, modelArgs) => {
@@ -71,7 +74,7 @@ Factories.ecosystemsMap = ({ count = 4 } = {}) => {
 Factories.pastTaskPlans = ({ course, count = 4 }) => {
   course.pastTaskPlans.onLoaded({
     data: {
-      items: range(count).map(() => FactoryBot.create('TeacherDashboardTask', { course })),
+      items: range(count).map(() => FactoryBot.create('TeacherTaskPlan', { course })),
     },
   });
   return course.pastTaskPlans;
@@ -80,7 +83,7 @@ Factories.pastTaskPlans = ({ course, count = 4 }) => {
 Factories.teacherTaskPlans = ({ course, count = 4 }) => {
   course.teacherTaskPlans.onLoaded({
     data: {
-      plans: range(count).map(() => FactoryBot.create('TeacherDashboardTask', { course })),
+      plans: range(count).map(() => FactoryBot.create('TeacherTaskPlan', { course })),
     },
   });
   return course.teacherTaskPlans;

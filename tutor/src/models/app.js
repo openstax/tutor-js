@@ -1,4 +1,4 @@
-import { isEmpty, forIn, isNil } from 'lodash';
+import { isEmpty, forIn, isNil, invoke } from 'lodash';
 import { observable, action } from 'mobx';
 import { BootstrapURLs, ExerciseHelpers } from 'shared';
 import UiSettings from 'shared/model/ui-settings';
@@ -38,7 +38,6 @@ export default class TutorApp {
   static boot() {
     const app = new TutorApp();
     [Raven, PulseInsights, Api].forEach(lib => lib.boot());
-
     app.data = readBootstrapData();
     if (isEmpty(app.data)) {
       return app.fetch().then(app.initializeApp);
