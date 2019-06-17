@@ -128,7 +128,7 @@ class TeacherBecomesStudent extends React.Component {
         onToggle={this.onPeriodMenuToggle}
         onSelect={this.onBecomeStudentPeriodSelect}
       >
-        <Dropdown.Toggle variant="ox" id="teacher-become-student">
+        <Dropdown.Toggle variant="link" id="teacher-become-student">
           <Icon size="2x" type="glasses" />
           View as student
           <Icon
