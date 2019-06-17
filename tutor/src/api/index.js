@@ -17,7 +17,6 @@ import Ecosystems from '../models/ecosystems';
 import { ReferenceBookExerciseActions } from '../flux/reference-book-exercise';
 import Role from '../models/course/role';
 import TaskPlanHelpers from '../helpers/task-plan';
-import { FeatureFlagsApi as FeatureFlags } from '../models/feature_flags';
 import Survey from '../models/research-surveys/survey';
 import Job from '../models/job';
 import User from '../models/user';
@@ -34,7 +33,6 @@ import { StudentTasks, StudentTask, StudentTaskStep } from '../models/student-ta
 import StudentTaskPlan from '../models/task-plans/student/task';
 import Student from '../models/course/student';
 import CourseEnroll from '../models/course/enroll';
-import Payments from '../models/payments';
 import Purchases from '../models/purchases';
 import Purchase from '../models/purchases/purchase';
 import CourseRoster from '../models/course/roster';
@@ -271,26 +269,6 @@ const startAPI = function() {
 };
 
 
-const BOOTSTRAPED_MODELS = {
-  user:     User,
-  courses:  Courses,
-  payments: Payments,
-  feature_flags: FeatureFlags,
+export default {
+  boot: startAPI,
 };
-
-const bootstrap = function(bootstrapData) {
-  window._MODELS.bootstrapData = bootstrapData;
-  for (let storeId in BOOTSTRAPED_MODELS) {
-    const model = BOOTSTRAPED_MODELS[storeId];
-    const data = bootstrapData[storeId];
-    if (data) { model.bootstrap(data); }
-  }
-  return startAPI();
-};
-
-const start = function(bootstrapData) {
-  return bootstrapData ? bootstrap(bootstrapData) : {};
-};
-
-
-export { startAPI, start };

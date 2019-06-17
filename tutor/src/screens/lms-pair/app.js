@@ -2,7 +2,7 @@ import { readBootstrapData } from '../../../src/helpers/dom';
 import User from '../../models/user';
 import Courses from '../../models/courses-map';
 import Raven from '../../models/app/raven';
-import { startAPI } from '../../api';
+import Api from '../../api';
 import UX from './ux';
 
 const App = {
@@ -10,7 +10,7 @@ const App = {
   bootstrap() {
     const data = readBootstrapData();
     Raven.boot();
-    startAPI();
+    Api.boot();
     User.bootstrap(data.user);
     Courses.bootstrap(data.courses);
     this.ux = new UX();

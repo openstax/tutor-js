@@ -1,4 +1,4 @@
-import { isEmpty, forIn, isNil, invoke } from 'lodash';
+import { isEmpty, forIn, isNil } from 'lodash';
 import { observable, action } from 'mobx';
 import { BootstrapURLs, ExerciseHelpers } from 'shared';
 import UiSettings from 'shared/model/ui-settings';
@@ -7,7 +7,7 @@ import Notifications from 'shared/model/notifications';
 import adapters from '../api/adapter';
 import { TransitionAssistant } from '../components/unsaved-state';
 import { readBootstrapData } from '../helpers/dom';
-import { startAPI } from '../api';
+import Api from '../api';
 import User from './user';
 import Raven from './app/raven';
 import Courses from './courses-map';
@@ -37,9 +37,8 @@ export default class TutorApp {
 
   static boot() {
     const app = new TutorApp();
+    [Raven, PulseInsights, Api].forEach(lib => lib.boot());
 
-    [Raven, PulseInsights].forEach(lib => lib.boot());
-    startAPI();
     app.data = readBootstrapData();
     if (isEmpty(app.data)) {
       return app.fetch().then(app.initializeApp);
