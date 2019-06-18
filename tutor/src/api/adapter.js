@@ -2,10 +2,10 @@ import { get, merge } from 'lodash';
 import { APIHandler } from 'shared';
 import { APIActionAdapter } from 'shared';
 import { observe } from 'mobx';
-
 import { TimeActions } from '../flux/time';
 import { AppActions } from '../flux/app';
 import User from '../models/user';
+import Courses from '../models/courses-map';
 
 let tutorAPIHandler = null;
 const baseUrl =
@@ -75,4 +75,33 @@ observe(User, 'csrf_token', function(change) {
   }
 });
 
-export default merge({ handler: tutorAPIHandler }, APIActionAdapter(tutorAPIHandler));
+const setRole = (config) => {
+  if (config.courseId) {
+    const course = Courses.get(config.courseId);
+    if (course && course.current_role_id) {
+      config.query = (config.query || {});
+      config.query.roleId = course.current_role_id;
+    }
+  }
+  return config;
+};
+
+const addInterceptors = (name, fn) => {
+  return (klass, method, options = {}) => {
+    options.interceptors = (options.interceptors || []);
+    options.interceptors.push(setRole);
+    return fn(klass, method, options);
+  };
+};
+
+const adapters = APIActionAdapter(tutorAPIHandler);
+[
+  'connectModelCreate',
+  'connectModelDelete',
+  'connectModelRead',
+  'connectModelUpdate',
+].forEach((handler) => {
+  adapters[handler] = addInterceptors(handler, adapters[handler]);
+});
+
+export default merge({ handler: tutorAPIHandler }, adapters);

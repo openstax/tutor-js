@@ -158,7 +158,7 @@ const startAPI = function() {
     TeacherTaskPlans,
     'fetch',
     {
-      pattern: 'courses/{course.id}/dashboard',
+      pattern: 'courses/{courseId}/dashboard',
       onSuccess: 'onLoaded',
 
       params({ startAt, endAt }) {
