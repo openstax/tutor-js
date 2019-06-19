@@ -9,7 +9,7 @@ import Theme from '../theme';
 const StyledTeacherAsStudentFrame = styled.div`
   width: 10px;
   position: fixed;
-  border: 2px solid ${Theme.colors.teal};
+  border: 4px solid ${Theme.colors.teal};
   width: 100vw;
   height: 100vh;
   z-index: ${Theme.zIndex.navbar + 1};
@@ -29,20 +29,20 @@ const ExitButton = styled.button`
   border: 0;
   left: calc(50% - 140px);
   width: 280px;
-  height: 24px;
+  height: 22px;
   font-size: 1.2rem;
-`;
-
-const BottomButton = styled(ExitButton)`
-  bottom: 0;
-  border-radius: 2px 2px 0 0;
-  .ox-icon { width: 2.4rem; height: 2.4rem; }
 `;
 
 const TopButton = styled(ExitButton)`
   top: 0;
   border-radius: 0 0 2px 2px;
   .ox-icon { width: 1rem; height: 1rem; }
+`;
+
+const BottomNote = styled(ExitButton)`
+  bottom: 0;
+  border-radius: 2px 2px 0 0;
+  .ox-icon { width: 2.4rem; height: 2.4rem; }
 `;
 
 const returnToTeacherRole = (course, history) => {
@@ -71,10 +71,10 @@ const TeacherAsStudentFrame = withRouter(({ course, routeName, children, history
           Exit student view
           <Icon type="close" />
         </TopButton>
-        <BottomButton onClick={onClick}>
+        <BottomNote as="div">
           <Icon type="glasses" />
           You’re viewing Tutor as a student
-        </BottomButton>
+        </BottomNote>
       </StyledTeacherAsStudentFrame>
       {children}
     </React.Fragment>
