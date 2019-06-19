@@ -37,11 +37,6 @@ class CourseRole extends BaseModel {
   }
 
   become() {
-    return { id: this.id };
-  }
-
-  @action onBecomeSuccess({ data }) {
-    this.update(data);
     this.course.current_role_id = this.id;
   }
 }
