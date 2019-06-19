@@ -109,4 +109,9 @@ class StudentTaskPlans extends Map {
     }
   }
 
+  // called from API
+  fetch() {
+    return { courseId: this.course.id };
+  }
+
 }

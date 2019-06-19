@@ -5,7 +5,7 @@ import qs from 'qs';
 import {
   partial, map, mapValues, reject, pick, merge, first,
   wrap, invert, partition, defaults, isEmpty,
-  clone, isFunction, isObjectLike,
+  clone, isFunction, isObjectLike, reduce,
 } from 'lodash';
 
 const makeRequestHandlers = function(Actions, options) {
@@ -140,13 +140,24 @@ const connectModelAction = function(action, apiHandler, klass, method, options) 
   defaults(options, { method: METHODS[action] });
   const handler = function(originalMethod, ...reqArgs) {
     const firstArg = first(reqArgs);
-    const requestConfig = mapValues(
-      pick(options, 'pattern', 'url', 'query', 'method', 'data', 'params', 'handledErrors', 'timeout'), (val) => {
-        if (isFunction(val)) { return val.call(this, ...Array.from(reqArgs)); } else { return val; }
+    let requestConfig = mapValues(
+      pick(options,
+        'interceptors', 'pattern', 'url', 'query',
+        'method', 'data', 'params', 'handledErrors', 'timeout'
+      ), (val) => {
+        return isFunction(val) ? val.call(this, ...Array.from(reqArgs)) : val;
       });
     const updatedConfig = originalMethod.call(this, ...Array.from(reqArgs), requestConfig);
+
     if (updatedConfig === 'ABORT') { return null; }
     merge(requestConfig, updatedConfig);
+    if (options.interceptors) {
+      requestConfig = reduce(
+        options.interceptors,
+        (config, interceptor) => interceptor.call(this, config),
+        requestConfig,
+      );
+    }
     if (requestConfig.pattern) {
       if (requestConfig.url == null) { requestConfig.url = interpolate(requestConfig.pattern, defaults({}, firstArg, requestConfig, this)); }
     }

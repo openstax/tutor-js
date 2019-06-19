@@ -158,7 +158,7 @@ const startAPI = function() {
     TeacherTaskPlans,
     'fetch',
     {
-      pattern: 'courses/{course.id}/dashboard',
+      pattern: 'courses/{courseId}/dashboard',
       onSuccess: 'onLoaded',
 
       params({ startAt, endAt }) {
@@ -223,7 +223,7 @@ const startAPI = function() {
     onSuccess: 'onLoaded', onFail: 'setApiErrors', pattern: 'steps/{id}',
   });
 
-  connectModelRead(StudentTaskPlans, 'fetch', { onSuccess: 'onLoaded', pattern: 'courses/{course.id}/dashboard' });
+  connectModelRead(StudentTaskPlans, 'fetch', { onSuccess: 'onLoaded', pattern: 'courses/{courseId}/dashboard' });
   connectModelDelete(StudentTaskPlan, 'hide', { onSuccess: 'onHidden', pattern: 'tasks/{id}' });
 
   connectModelUpdate(Course, 'save', { pattern: 'courses/{id}', onSuccess: 'onApiRequestComplete' });
