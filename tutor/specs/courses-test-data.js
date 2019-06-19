@@ -19,7 +19,7 @@ const STUDENT_COURSE_ONE_MODEL = {
   ends_at: moment().add(1, 'month').format(),
   webview_url: 'http://cnx.org/',
   salesforce_book_name: 'a book title',
-
+  current_role_id: '1',
   roles: [{
     id: '1',
     type: 'student',
@@ -52,7 +52,7 @@ const TEACHER_COURSE_TWO_MODEL = {
   ends_at: moment().add(1, 'month').format(),
   webview_url: 'http://cnx.org/',
   salesforce_book_name: 'a book title',
-
+  current_role_id: '1',
   periods: [{
     id: '1',
     name: '1st',
@@ -84,7 +84,7 @@ const TEACHER_AND_STUDENT_COURSE_THREE_MODEL = {
   ecosystem_id: '13',
   starts_at: moment().subtract(1, 'month').format(),
   ends_at: moment().add(1, 'month').format(),
-
+  current_role_id: '2',
   roles: [{
     id: '1',
     type: 'student',
@@ -115,7 +115,7 @@ const STUDENT_ARCHIVED_COURSE = {
   ends_at: moment().add(1, 'month').format(),
   webview_url: 'http://cnx.org/',
   salesforce_book_name: 'a book title',
-
+  current_role_id: '1',
   roles: [{
     id: '1',
     type: 'student',
@@ -137,7 +137,7 @@ const TEACHER_PAST_COURSE = {
   ends_at: moment().subtract(1, 'month').format(),
   webview_url: 'http://cnx.org/',
   salesforce_book_name: 'a book title',
-
+  current_role_id: '1',
   roles: [{
     id: '1',
     type: 'teacher',
@@ -159,7 +159,7 @@ const STUDENT_PAST_COURSE = {
   ends_at: moment().subtract(1, 'month').format(),
   webview_url: 'http://cnx.org/',
   salesforce_book_name: 'a book title',
-
+  current_role_id: '1',
   roles: [{
     id: '1',
     type: 'student',

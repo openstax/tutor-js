@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { observer } from 'mobx-react';
-import TourAnchor from '../tours/anchor';
 import Course from '../../models/course';
 
 export default
@@ -15,7 +14,7 @@ class BestPracticesGuide extends React.Component {
 
   render() {
     const { course } = this.props;
-    if (!course || !course.isTeacher) {
+    if (!course || !course.isTeacher || course.currentRole.isTeacherStudent) {
       return null;
     }
     const url = course.bestPracticesDocumentURL;
@@ -32,4 +31,4 @@ class BestPracticesGuide extends React.Component {
     );
   }
 
-};
+}

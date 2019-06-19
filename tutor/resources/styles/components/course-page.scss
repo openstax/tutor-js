@@ -37,15 +37,23 @@
     }
   }
 
+  .btn-link {
+    border-style: solid;
+    border-bottom-width: 1px;
+  }
+
   @each $book in map-keys($openstax-books) {
     &[data-appearance=#{$book}] .title-wrapper {
       color: openstax-book-color($book, primary);
       background-color: openstax-book-color($book, secondary);
 
-      .btn-link {
+      .btn-link,
+      .control {
         color: openstax-book-color($book, control);
+        border-color: openstax-book-color($book, control);
         &:hover {
           color: darken(openstax-book-color($book, control), 20%);
+          border-color: darken(openstax-book-color($book, control), 20%);
         }
       }
     }

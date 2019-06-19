@@ -1,6 +1,5 @@
-import React from 'react';
+import { React, PropTypes, observer } from '../../helpers/react';
 import { Dropdown } from 'react-bootstrap';
-import { observer } from 'mobx-react';
 import TourAnchor from '../tours/anchor';
 import Course from '../../models/course';
 import User from '../../models/user';
@@ -10,10 +9,23 @@ export default
 @observer
 class SupportDocumentLink extends React.Component {
 
+  static propTypes = {
+    course: PropTypes.instanceOf(Course),
+  }
+
+  get role() {
+    const { course } = this.props;
+    if (course) {
+      if (course.currentRole.isTeacherStudent) {
+        return 'student';
+      }
+      return course.currentRole.type;
+    }
+    return User.isProbablyTeacher ? 'teacher' : 'student';
+  }
+
   render() {
-    const url = CourseInformation.gettingStartedGuide[
-      User.isProbablyTeacher ? 'teacher' : 'student'
-    ];
+    const url = CourseInformation.gettingStartedGuide[this.role];
 
     return (
       <Dropdown.Item
@@ -28,4 +40,4 @@ class SupportDocumentLink extends React.Component {
     );
   }
 
-};
+}
