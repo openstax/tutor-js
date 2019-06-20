@@ -120,7 +120,7 @@ class Course extends BaseModel {
 
   @computed get currentRole() {
     if (this.current_role_id) {
-      return this.roles.find(r => r.id === this.current_role_id);
+      return find(this.roles, { id: this.current_role_id });
     }
     return this.primaryRole;
   }
