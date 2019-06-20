@@ -14,9 +14,6 @@ import S from '../../helpers/string';
 import Router from '../../helpers/router';
 import './styles.scss';
 
-// we should gather things somewhere nice.
-const CALENDAR_DATE_FORMAT = 'YYYY-MM-DD';
-
 const PlanMixin = {
   contextTypes: {
     router: PropTypes.object,

@@ -25,7 +25,6 @@ class PlanFooter extends React.Component {
     hasError:         PropTypes.bool.isRequired,
     onSave:           PropTypes.func.isRequired,
     onPublish:        PropTypes.func.isRequired,
-    goBackToCalendar: PropTypes.func.isRequired,
     isVisibleToStudents: PropTypes.bool,
     getBackToCalendarParams: PropTypes.func,
   }
@@ -33,6 +32,7 @@ class PlanFooter extends React.Component {
   static defaultProps = {
     isVisibleToStudents: false,
   }
+
 
   // constructor(props) {
   //   super(props);
@@ -43,11 +43,10 @@ class PlanFooter extends React.Component {
   // }
 
   @action.bound
-  onDelete() {
-    const { courseId, id } = this.props;
-    Courses.get(courseId).teacherTaskPlans.get(id).is_deleting = true;
-    TaskPlanActions.delete(id);
-    this.props.goBackToCalendar();
+  async onDelete() {
+    const { plan } = this.props;
+    await plan.delete();
+    this.props.onSave();
   }
 
   // @action.bound
@@ -62,31 +61,32 @@ class PlanFooter extends React.Component {
   // }
 
   render() {
-    const { id, hasError } = this.props;
-    const publishing  = PlanPublishing.isPublishing({ id });
-    const isWaiting   = TaskPlanStore.isSaving(id) || TaskPlanStore.isPublishing(id) || TaskPlanStore.isDeleteRequested(id);
-    const isFailed    = TaskPlanStore.isFailed(id);
-    const isPublished = TaskPlanStore.isPublished(id);
+    const { plan, course, hasError, onSave, onPublish, onCancel } = this.props;
+    const isSaving = false;
+    const isPublishing  = false; // plan.api.PlanPublishing.isPublishing({ id });
+    const isWaiting   = false; // TaskPlanStore.isSaving(id) || TaskPlanStore.isPublishing(id) || TaskPlanStore.isDeleteRequested(id);
+    const isFailed    = false; // TaskPlanStore.isFailed(id);
+    const isPublished = false; // TaskPlanStore.isPublished(id);
 
     return (
       <div className="builder-footer-controls">
         <TourAnchor id="builder-save-button">
           <SaveButton
-            onSave={this.onSave}
-            onPublish={this.onPublish}
+            onSave={onSave}
+            onPublish={onPublish}
             isWaiting={isWaiting}
-            isSaving={this.isSaving}
-            isEditable={!this.isSaving}
-            isPublishing={publishing}
+            isSaving={isSaving}
+            isEditable={!isSaving}
+            isPublishing={isPublishing}
             isPublished={isPublished}
             isFailed={isFailed}
             hasError={hasError} />
         </TourAnchor>
         <TourAnchor id="builder-draft-button">
           <DraftButton
-            onClick={this.onSave}
-            isWaiting={isWaiting && this.state.saving}
-            isPublishing={publishing}
+            onClick={onSave}
+            isWaiting={isWaiting && !isPublishing}
+            isPublishing={isPublishing}
             isFailed={isFailed}
             hasError={hasError}
             isPublished={isPublished} />
@@ -94,21 +94,19 @@ class PlanFooter extends React.Component {
         <TourAnchor id="builder-cancel-button">
           <CancelButton
             isWaiting={isWaiting}
-            onClick={this.props.onCancel}
-            isEditable={this.state.isEditable} />
+            onClick={onCancel}
+            isEditable={plan.isEditable} />
         </TourAnchor>
         <TourAnchor id="builder-back-button">
-          <BackButton
-            isEditable={this.state.isEditable}
-            getBackToCalendarParams={this.props.getBackToCalendarParams} />
+          <BackButton isEditable={plan.isEditable} course={course} />
         </TourAnchor>
         <TourAnchor id="builder-delete-button">
           <DeleteLink
-            isNew={TaskPlanStore.isNew(id)}
-            onClick={this.onDelete}
+            plan={plan}
+            onClick={onSave}
             isFailed={isFailed}
-            isVisibleToStudents={this.props.isVisibleToStudents}
-            isWaiting={TaskPlanStore.isDeleting(id)}
+            isVisibleToStudents={plan.isVisibleToStudents}
+            isWaiting={isWaiting}
             isPublished={isPublished} />
         </TourAnchor>
 
@@ -117,12 +115,12 @@ class PlanFooter extends React.Component {
         <div className="spacer" />
 
         <PreviewButton
-          planType={TaskPlanStore.get(id).type}
+          planType={plan.type}
           isWaiting={isWaiting}
-          isNew={TaskPlanStore.isNew(id)}
-          courseId={this.props.courseId}
+          isNew={plan.isNew}
+          courseId={course.id}
         />
       </div>
     );
   }
-};
+}

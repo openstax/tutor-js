@@ -40,9 +40,7 @@ class DeleteTaskButton extends React.Component {
   static propTypes = {
     onClick:     PropTypes.func.isRequired,
     isWaiting:   PropTypes.bool.isRequired,
-    isFailed:    PropTypes.bool.isRequired,
-    isNew:       PropTypes.bool.isRequired,
-    isVisibleToStudents: PropTypes.bool.isRequired,
+    plan: PropTypes.object.isRequired,
   }
 
   @observable showModal = false;
@@ -56,11 +54,13 @@ class DeleteTaskButton extends React.Component {
   }
 
   render() {
-    if (this.props.isNew && !this.props.isWaiting) { return null; }
+    const { plan, isWaiting } = this.props;
+
+    if (plan.isNew && !isWaiting) { return null; }
 
     let message = 'Are you sure you want to delete this assignment?';
 
-    if (this.props.isVisibleToStudents) {
+    if (plan.isVisibleToStudents) {
       message = `Some students may have started work on this assignment. ${message}`;
     }
 

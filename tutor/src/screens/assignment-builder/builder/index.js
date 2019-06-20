@@ -10,7 +10,7 @@ import TimeHelper from '../../../helpers/time';
 import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
 import { TaskingStore, TaskingActions } from '../../../flux/tasking';
 import { TutorInput, TutorTextArea } from '../../../components/tutor-input';
-import Courses from '../../../models/courses-map';
+import Course from '../../../models/course';
 import Tasking from './tasking';
 
 @observer
@@ -31,6 +31,7 @@ class TaskPlanBuilder extends React.Component {
   // mixins: [BindStoresMixin, UnsavedStateMixin],
 
   static propTypes = {
+    course: PropTypes.instanceOf(Course).isRequired,
     plan: PropTypes.instanceOf(Plan).isRequired,
     // courseId: PropTypes.string.isRequired,
     //
@@ -39,6 +40,7 @@ class TaskPlanBuilder extends React.Component {
     // isSwitchable: PropTypes.bool.isRequired,
   }
 
+  @observable isShowingPeriods = false;
   // getInitialState() {
   //   const { id, courseId } = this.props;
   //   const course = Courses.get(courseId);
@@ -77,7 +79,7 @@ class TaskPlanBuilder extends React.Component {
   // }
 
   changeTaskPlan() {
-    const { id } = this.props;
+    const { course, plan } = this.props;
 
     const taskings = TaskingStore.getChanged(id);
     return TaskPlanActions.replaceTaskings(id, taskings);
@@ -115,7 +117,7 @@ class TaskPlanBuilder extends React.Component {
   }
 
   render() {
-    const { plan } = this.props;
+    const { course, plan } = this.props;
     const taskings = plan.tasking_plans;
 
     let invalidPeriodsAlert;
@@ -174,7 +176,7 @@ class TaskPlanBuilder extends React.Component {
             <div className="instructions">
               <p>
                 Set date and time to now to open
-                immediately. Course time zone: <TimeZoneSettings courseId={course.id} />
+                immediately. Course time zone: <TimeZoneSettings course={course} />
               </p>
               {plan.isVisibleToStudents && (
                 <p>
@@ -200,7 +202,7 @@ class TaskPlanBuilder extends React.Component {
           type="radio"
           disabled={!this.isSwitchable}
           onChange={this.setAllPeriods}
-          checked={!this.state.showingPeriods}
+          checked={!this.isShowingPeriods}
         />
       );
     }
@@ -210,9 +212,7 @@ class TaskPlanBuilder extends React.Component {
         <Col sm={4} md={3}>
           {radio}
           <label className="period" htmlFor="hide-periods-radio">
-            {'\
-    All '}
-            <CourseGroupingLabel courseId={this.props.courseId} plural={true} />
+            All <CourseGroupingLabel courseId={this.props.course.id} plural={true} />
           </label>
         </Col>
         {this.renderTaskPlanRow()}
@@ -228,20 +228,20 @@ class TaskPlanBuilder extends React.Component {
       type="radio"
       disabled={!this.props.isSwitchable}
       onChange={this.setIndividualPeriods}
-      checked={this.state.showingPeriods} />; }
+      checked={this.isShowingPeriods} />; }
 
     const choiceLabel = <Row key="tasking-individual-choice">
       <Col md={12}>
         {radio}
         <label className="period" htmlFor="show-periods-radio">
-          {'\
-  Individual '}
-          <CourseGroupingLabel courseId={this.props.courseId} plural={true} />
+          Individual <CourseGroupingLabel courseId={this.props.course.id} plural={true} />
         </label>
       </Col>
     </Row>;
 
-    if (this.state.showingPeriods) { periodsChoice = Courses.get(this.props.courseId).periods.sorted.map(this.renderTaskPlanRow); }
+    if (this.isShowingPeriods) {
+      periodsChoice = Courses.get(this.props.courseId).periods.sorted.map(this.renderTaskPlanRow);
+    }
     if (periodsChoice == null) { periodsChoice = []; }
     periodsChoice.unshift(choiceLabel);
     return periodsChoice;

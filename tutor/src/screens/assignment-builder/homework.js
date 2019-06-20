@@ -1,4 +1,4 @@
-import { React, PropTypes, observable, idType, observer, cn } from '../../helpers/react';
+import { React, PropTypes, observable, action, computed, observer, cn } from '../../helpers/react';
 import { pick, isEmpty } from 'lodash';
 import { Card, Row, Col, Button } from 'react-bootstrap';
 import Course from '../../models/course';
@@ -12,15 +12,17 @@ import FeedbackSetting from './feedback';
 import PlanFooter from './footer';
 import { TaskPlanStore } from '../../flux/task-plan';
 import Wrapper from './wrapper';
+import UX from './ux';
 
 @observer
-class HomeworkPlan extends React.Component {
+class Homework extends React.Component {
 
   static propTypes = {
-    plan: PropTypes.instanceOf(Plan).isRequired,
+    ux: PropTypes.instanceOf(UX).isRequired,
   }
 
   @observable isShowingSectionTopics = false;
+
 
   render() {
     const { hasError, hasExercises } = this;
@@ -50,7 +52,7 @@ class HomeworkPlan extends React.Component {
           hide: this.isShowingSectionTopics,
         })}>
 
-          <Header plan={plan} />
+          <Header plan={plan} onCancel={this.onCancel} />
 
           <Card.Body>
             <TaskPlanBuilder plan={plan} course={course} />
@@ -67,7 +69,7 @@ class HomeworkPlan extends React.Component {
                     className={cn('-select-sections-btn', {
                       'invalid': hasError && !hasExercises,
                     })}
-                    onClick={this.showSectionTopics}
+                    onClick={this.onShowSectionTopics}
                     variant="default"
                   >+ Select Problems</Button>)}
                 {hasError && !hasExercises && (
@@ -80,16 +82,16 @@ class HomeworkPlan extends React.Component {
           <PlanFooter
             plan={plan}
             course={course}
-            onPublish={this.publish}
-            onSave={this.save}
-            onCancel={this.cancel}
+            onPublish={this.onPublish}
+            onSave={this.onSave}
+            onCancel={this.onCancel}
             hasError={hasError}
 
             getBackToCalendarParams={this.getBackToCalendarParams}
             goBackToCalendar={this.goBackToCalendar}
           />
         </Card>
-        {this.state.showSectionTopics && (
+        {this.isShowingSectionTopics && (
           <ChooseExercises
             course={course}
             plan={plan}
@@ -97,11 +99,11 @@ class HomeworkPlan extends React.Component {
             hide={this.hideSectionTopics}
 
           />)}
-        {hasExercises && !this.state.showSectionTopics && (
+        {hasExercises && !this.isShowingSectionTopics && (
           <ReviewExercises
             plan={plan}
             course={course}
-            showSectionTopics={this.showSectionTopics}
+            showSectionTopics={this.isShowingSectionTopics}
             course={course}
             sectionIds={plan.settings.page_ids}
           />)}
@@ -110,6 +112,4 @@ class HomeworkPlan extends React.Component {
   }
 }
 
-export { HomeworkPlan };
-const HomeworkShell = PlanMixin.makePlanRenderer('homework', HomeworkPlan);
-export default HomeworkShell;
+export default Homework;

@@ -10,25 +10,25 @@ class TimeZoneSettingsLink extends React.Component {
   };
 
   static propTypes = {
-    courseId: PropTypes.string.isRequired,
+    course: PropTypes.object.isRequired,
   };
 
   render() {
+    const { course } = this.props;
+
     const tooltip =
       <Tooltip id="change-course-time">
-        {'\
-  Click to change course time zone\
-  '}
+        Click to change course time zone
       </Tooltip>;
     return (
       <TutorLink
         className="course-time-zone"
         to="courseSettings"
         query={{ tab: 1 }}
-        params={{ courseId: this.props.courseId }}>
+        params={{ courseId: course.id }}>
         <OverlayTrigger placement="top" overlay={tooltip}>
           <span>
-            {Courses.get(this.props.courseId).time_zone}
+            {course.time_zone}
           </span>
         </OverlayTrigger>
       </TutorLink>

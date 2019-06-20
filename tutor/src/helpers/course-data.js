@@ -1,7 +1,9 @@
 import Courses from '../models/courses-map';
 import Router from '../helpers/router';
+import moment from 'moment';
 
 export default {
+
   getCourseDataProps(courseId = Router.currentParams()) {
     const course = Courses.get(courseId);
     return {

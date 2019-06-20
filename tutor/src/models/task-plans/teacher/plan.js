@@ -18,7 +18,8 @@ export default
 class TeacherTaskPlan extends BaseModel {
 
   @identifier id;
-  @field title;
+  @field title = '';
+  @field description = '';
   @field type;
 
   @field ecosystem_id;
@@ -40,10 +41,6 @@ class TeacherTaskPlan extends BaseModel {
 
   @observable unmodified_plans = [];
 
-  @computed get isClone() {
-    return !!this.cloned_from_id;
-  }
-
   // only set when publishing
   @field is_feedback_immediate;
   @field is_publish_requested;
@@ -63,6 +60,15 @@ class TeacherTaskPlan extends BaseModel {
   }
 
   @lazyInitialize analytics = new TaskPlanStats({ taskPlan: this });
+
+
+  @computed get isClone() {
+    return !!this.cloned_from_id;
+  }
+
+  @computed get isNew() {
+    return Boolean(!this.id || 'new' === this.id);
+  }
 
   @computed get isEvent() { return 'event' === this.type; }
 
@@ -127,6 +133,11 @@ class TeacherTaskPlan extends BaseModel {
 
   isPastDueWithPeriodId() {
     return find(this.tasking_plans, 'isPastDue');
+  }
+
+  @action reset() {
+    this.title = this.description = '';
+    this.tasking_plans = [];
   }
 
   @computed get publishedStatus() {
