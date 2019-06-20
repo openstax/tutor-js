@@ -47,6 +47,15 @@ describe('Course Model', () => {
     expect(Courses.get(2).userStudentRecord).toBeNull();
   });
 
+  it('#currentRole', () => {
+    const c = Courses.get(1);
+    expect(c.currentRole).toBe(c.primaryRole);
+    const newRoleAttrs = { id: 92, type: 'unknown' };
+    c.roles.push(newRoleAttrs);
+    c.current_role_id = newRoleAttrs.id;
+    expect(c.currentRole.id).toEqual(newRoleAttrs.id);
+  });
+
   it('calculates audience tags', () => {
     expect(Courses.get(1).tourAudienceTags).toEqual(['student']);
     const teacher = Courses.get(2);
