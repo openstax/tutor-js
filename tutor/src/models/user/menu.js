@@ -38,6 +38,11 @@ const ROUTES = {
       teacher: 'viewPerformanceGuide',
     },
   },
+  analytics: {
+    label: 'Research analytics',
+    isAllowed(course) { return get(course, 'isAP'); },
+    href: 'https://analytics.openstax.org/',
+  },
   questions: {
     label: 'Question Library',
     roles: {
