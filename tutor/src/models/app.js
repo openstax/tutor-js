@@ -7,7 +7,7 @@ import Notifications from 'shared/model/notifications';
 import adapters from '../api/adapter';
 import { TransitionAssistant } from '../components/unsaved-state';
 import { readBootstrapData } from '../helpers/dom';
-import { startAPI } from '../api';
+import Api from '../api';
 import User from './user';
 import Raven from './app/raven';
 import Courses from './courses-map';
@@ -15,6 +15,7 @@ import Payments from './payments';
 import FeatureFlags, { FeatureFlagsApi } from './feature_flags';
 import Notices from '../helpers/notifications';
 import Chat from './chat';
+import PulseInsights from './app/pulse-insights';
 import Toasts from './toasts';
 import Tutor from '../components/root';
 import ResponseValidation from './response_validation';
@@ -36,8 +37,8 @@ export default class TutorApp {
 
   static boot() {
     const app = new TutorApp();
-    Raven.boot();
-    startAPI();
+    [Raven, PulseInsights, Api].forEach(lib => lib.boot());
+
     app.data = readBootstrapData();
     if (isEmpty(app.data)) {
       return app.fetch().then(app.initializeApp);
