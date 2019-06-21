@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
+import { isEmpty } from 'lodash';
 import { Modal, Button } from 'react-bootstrap';
 import { AsyncButton } from 'shared';
 import { Icon } from 'shared';
@@ -10,6 +11,7 @@ import CourseGroupingLabel from '../../components/course-grouping-label';
 
 const EMPTY_WARNING = 'EMPTY';
 
+// eslint-disable-next-line react/prop-types
 const DeletePeriodModal = ({ section, show, onClose, period, isBusy, onDelete }) => (
   <Modal
     show={show}
@@ -72,7 +74,12 @@ class DeletePeriodLink extends React.Component {
   }
 
   render() {
-    const section = <CourseGroupingLabel courseId={this.props.period.course.id} />;
+    const { period } = this.props;
+    const students = period.course.roster.students.activeByPeriod[period.id];
+    if (!isEmpty(students)) { return null; }
+
+    const section = <CourseGroupingLabel courseId={period.course.id} />;
+
     return (
       <React.Fragment>
         <Button
@@ -84,13 +91,13 @@ class DeletePeriodLink extends React.Component {
         </Button>
         <DeletePeriodModal
           show={this.showModal}
-          period={this.props.period}
+          period={period}
           onClose={this.close}
           section={section}
-          isBusy={this.props.period.api.isPending}
+          isBusy={period.api.isPending}
           onDelete={this.performDelete}
         />
       </React.Fragment>
     );
   }
-};
+}

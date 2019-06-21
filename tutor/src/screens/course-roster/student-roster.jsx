@@ -95,4 +95,4 @@ class StudentsRoster extends React.Component {
       </Table>
     );
   }
-};
+}
