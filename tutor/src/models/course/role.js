@@ -36,12 +36,7 @@ class CourseRole extends BaseModel {
     return moment(Time.now).diff(this.joined_at, terms);
   }
 
-  become() {
-    return { id: this.id };
-  }
-
-  @action onBecomeSuccess({ data }) {
-    this.update(data);
+  @action become() {
     this.course.current_role_id = this.id;
   }
 }

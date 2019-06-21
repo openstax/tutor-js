@@ -80,7 +80,7 @@ const setRole = (config) => {
     const course = Courses.get(config.courseId);
     if (course && course.current_role_id) {
       config.query = (config.query || {});
-      config.query.roleId = course.current_role_id;
+      config.query.role_id = course.current_role_id;
     }
   }
   return config;
