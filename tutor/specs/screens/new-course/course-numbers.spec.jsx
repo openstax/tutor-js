@@ -31,6 +31,24 @@ describe('CreateCourse: entering details', function() {
     wrapper.unmount();
   });
 
+  it('shows errors', () => {
+    const wrapper = mount(<C><CourseNumbers ux={ux} /></C>);
+    wrapper.find('FormControl[id="number-students"] input')
+      .simulate('change', { target: { value: 3000 } });
+    expect(wrapper.text()).toContain(
+      'More than 1500 students is not supported'
+    );
+    expect(wrapper.text()).toContain('Need more');
+
+    wrapper.find('FormControl[id="number-students"] input')
+      .simulate('change', { target: { value: 0 } });
+    expect(wrapper.text()).toContain(
+      'Less than 1 student is not supported'
+    );
+    expect(wrapper.text()).not.toContain('Need more');
+    wrapper.unmount();
+  });
+
   it('updates values when edited', function() {
     const wrapper = mount(<C><CourseNumbers ux={ux} /></C>);
     wrapper.find('FormControl[id="number-students"] input')

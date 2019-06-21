@@ -1,7 +1,8 @@
 import { React, action, observer } from '../../helpers/react';
-import { isEmpty } from 'lodash';
+import pluralize from 'pluralize';
+import S from '../../helpers/string';
 import PropTypes from 'prop-types';
-import { Alert, FormControl, FormGroup, InputGroup, Form } from 'react-bootstrap';
+import { Alert, FormControl, InputGroup, Form } from 'react-bootstrap';
 import UserMenu from '../../models/user/menu';
 import BuilderUX from './ux';
 import BestPracticesTip from '../../components/best-practices-tip';
@@ -28,12 +29,21 @@ class CourseNumbers extends React.Component {
   renderErrors() {
     const { error } = this.props.ux.newCourse;
     if (!error) { return null; }
+    let contact = '';
+    if (error.direction == 'more') {
+      contact = (
+        <span>
+          Need more? <a href={`mailto:${UserMenu.supportEmail}`}>Contact
+          Support</a> for help
+        </span>
+      );
+
+    }
     return (
       <Alert variant="danger">
         <p>
-          More than {error.value} {error.attribute} is not supported. Need
-          more? <a href={`mailto:${UserMenu.supportEmail}`}>Contact
-          Support</a> for help.
+          {S.capitalize(error.direction)} than {pluralize(error.attribute, error.value, true)} is
+          not supported. {contact}
         </p>
       </Alert>
     );
@@ -48,42 +58,42 @@ class CourseNumbers extends React.Component {
           If you teach multiple sections of the same course, include all sections below.
           You can add or remove sections later.
         </BestPracticesTip>
-          <Form.Group className="course-details-sections">
-            <Form.Label htmlFor="number-sections">
-              <InputGroup>
-                <InputGroup.Prepend>
-                  Number of sections
-                  in this course
-                </InputGroup.Prepend>
-                <FormControl
-                  id="number-sections"
-                  type="number"
-                  min="1"
-                  defaultValue={newCourse.num_sections}
-                  onChange={this.updateSectionCount} />
-              </InputGroup>
-            </Form.Label>
-          </Form.Group>
+        <Form.Group className="course-details-sections">
+          <Form.Label htmlFor="number-sections">
+            <InputGroup>
+              <InputGroup.Prepend>
+                Number of sections
+                in this course
+              </InputGroup.Prepend>
+              <FormControl
+                id="number-sections"
+                type="number"
+                min="1"
+                defaultValue={newCourse.num_sections}
+                onChange={this.updateSectionCount} />
+            </InputGroup>
+          </Form.Label>
+        </Form.Group>
 
-          <Form.Group className="course-details-numbers">
-            <Form.Label htmlFor="number-students">
-              <InputGroup>
-                <InputGroup.Prepend>
-                  Estimated number of students
-                  in this course.
-                </InputGroup.Prepend>
-                <FormControl
-                  id="number-students"
-                  type="number"
-                  min="1"
-                  defaultValue={newCourse.estimated_student_count || ''}
-                  onChange={this.updateStudentCount} />
-              </InputGroup>
-            </Form.Label>
-          </Form.Group>
+        <Form.Group className="course-details-numbers">
+          <Form.Label htmlFor="number-students">
+            <InputGroup>
+              <InputGroup.Prepend>
+                Estimated number of students
+                in this course.
+              </InputGroup.Prepend>
+              <FormControl
+                id="number-students"
+                type="number"
+                min="1"
+                defaultValue={newCourse.estimated_student_count || ''}
+                onChange={this.updateStudentCount} />
+            </InputGroup>
+          </Form.Label>
+        </Form.Group>
 
-          {this.renderErrors()}
+        {this.renderErrors()}
       </Form>
     );
   }
-};
+}
