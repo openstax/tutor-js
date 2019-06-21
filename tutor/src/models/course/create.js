@@ -51,7 +51,11 @@ class CourseCreate extends BaseModel {
       this[attr] = count;
       this.errors.delete(attr);
     } else {
-      this.errors.set(attr, { attribute: this.validations[attr].name, value: range[1] });
+      this.errors.set(attr, {
+        direction: count < range[0] ? 'less' : 'more',
+        attribute: this.validations[attr].name,
+        value: count < range[0] ? range[0] : range[1],
+      });
     }
   }
 

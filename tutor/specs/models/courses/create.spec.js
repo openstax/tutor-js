@@ -31,11 +31,11 @@ describe('Course Builder UX Model', () => {
   it('validates ranges', () => {
     expect(creator.error).toBeNull();
     creator.setValue('estimated_student_count', 2000);
-    expect(creator.error).toEqual({ attribute: 'students', value: 1500 });
+    expect(creator.error).toEqual({ attribute: 'students', direction: 'more', value: 1500 });
     creator.setValue('estimated_student_count', 20);
     expect(creator.error).toBeNull();
     creator.setValue('num_sections', 20);
-    expect(creator.error).toEqual({ attribute: 'sections', value: 10 });
+    expect(creator.error).toEqual({ attribute: 'sections', direction: 'more', value: 10 });
   });
 
   describe('cloning a course', () => {
