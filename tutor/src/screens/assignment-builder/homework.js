@@ -26,7 +26,7 @@ class Homework extends React.Component {
 
   render() {
     const { hasError, hasExercises } = this;
-    const { plan, course } = this.props;
+    const { ux, ux: { plan, course } } = this.props;
 
     // const builderProps = pick(this.state, 'isVisibleToStudents', 'isEditable', 'isSwitchable');
     // const hasError = this.hasError();
@@ -52,10 +52,10 @@ class Homework extends React.Component {
           hide: this.isShowingSectionTopics,
         })}>
 
-          <Header plan={plan} onCancel={this.onCancel} />
+          <Header plan={plan} onCancel={ux.onCancel} />
 
           <Card.Body>
-            <TaskPlanBuilder plan={plan} course={course} />
+            <TaskPlanBuilder ux={ux} />
             <Row>
               <Col xs={8}>
                 <FeedbackSetting plan={plan} />
@@ -80,6 +80,7 @@ class Homework extends React.Component {
             </Row>
           </Card.Body>
           <PlanFooter
+            ux={ux}
             plan={plan}
             course={course}
             onPublish={this.onPublish}

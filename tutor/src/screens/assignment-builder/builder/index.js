@@ -12,6 +12,7 @@ import { TaskingStore, TaskingActions } from '../../../flux/tasking';
 import { TutorInput, TutorTextArea } from '../../../components/tutor-input';
 import Course from '../../../models/course';
 import Tasking from './tasking';
+import UX from '../ux';
 
 @observer
 class TaskPlanBuilder extends React.Component {
@@ -31,8 +32,8 @@ class TaskPlanBuilder extends React.Component {
   // mixins: [BindStoresMixin, UnsavedStateMixin],
 
   static propTypes = {
-    course: PropTypes.instanceOf(Course).isRequired,
-    plan: PropTypes.instanceOf(Plan).isRequired,
+    ux: PropTypes.instanceOf(UX).isRequired,
+
     // courseId: PropTypes.string.isRequired,
     //
     // isVisibleToStudents: PropTypes.bool.isRequired,
@@ -78,24 +79,21 @@ class TaskPlanBuilder extends React.Component {
   //   return TimeHelper.unsyncCourseTimezone();
   // }
 
-  changeTaskPlan() {
-    const { course, plan } = this.props;
-
-    const taskings = TaskingStore.getChanged(id);
-    return TaskPlanActions.replaceTaskings(id, taskings);
-  }
+  // changeTaskPlan() {
+  //   const { ux: { course, plan } } = this.props;
+  //   const taskings = TaskingStore.getChanged(id);
+  //   return TaskPlanActions.replaceTaskings(id, taskings);
+  // }
 
   setAllPeriods() {
     const { id } = this.props;
     TaskingActions.updateTaskingsIsAll(id, true);
-
     return this.setState({ showingPeriods: false });
   }
 
   setIndividualPeriods() {
     const { id } = this.props;
     TaskingActions.updateTaskingsIsAll(id, false);
-
     //clear saved taskings
     return this.setState({ showingPeriods: true });
   }
@@ -113,14 +111,15 @@ class TaskPlanBuilder extends React.Component {
   @observable showingPeriods = false;
 
   @computed get isSwitchable() {
-    this.props.plan.isVisibleToStudents
+    this.props.ux.plan.isVisibleToStudents
   }
 
   render() {
-    const { course, plan } = this.props;
+    const { ux: { course, plan } } = this.props;
     const taskings = plan.tasking_plans;
 
     let invalidPeriodsAlert;
+
     //    const plan = TaskPlanStore.get(this.props.id);
     //    const taskings = TaskingStore.get(this.props.id);
 
@@ -192,6 +191,8 @@ class TaskPlanBuilder extends React.Component {
   }
 
   renderCommonChoice() {
+    const { course } = this.props.ux;
+
     let radio;
     if (this.isSwitchable) {
       radio = (
@@ -212,7 +213,7 @@ class TaskPlanBuilder extends React.Component {
         <Col sm={4} md={3}>
           {radio}
           <label className="period" htmlFor="hide-periods-radio">
-            All <CourseGroupingLabel courseId={this.props.course.id} plural={true} />
+            All <CourseGroupingLabel courseId={course.id} plural={true} />
           </label>
         </Col>
         {this.renderTaskPlanRow()}
@@ -221,26 +222,31 @@ class TaskPlanBuilder extends React.Component {
   }
 
   renderPeriodsChoice() {
+    const { course } = this.props.ux;
     let periodsChoice, radio;
-    if (this.props.isSwitchable) { radio = <input
-      id="show-periods-radio"
-      name="toggle-periods-radio"
-      type="radio"
-      disabled={!this.props.isSwitchable}
-      onChange={this.setIndividualPeriods}
-      checked={this.isShowingPeriods} />; }
+    if (this.props.isSwitchable) {
+      radio = (
+        <input
+          id="show-periods-radio"
+          name="toggle-periods-radio"
+          type="radio"
+          disabled={!this.props.isSwitchable}
+          onChange={this.setIndividualPeriods}
+          checked={this.isShowingPeriods} />
+      );
+    }
 
     const choiceLabel = <Row key="tasking-individual-choice">
       <Col md={12}>
         {radio}
         <label className="period" htmlFor="show-periods-radio">
-          Individual <CourseGroupingLabel courseId={this.props.course.id} plural={true} />
+          Individual <CourseGroupingLabel courseId={course.id} plural={true} />
         </label>
       </Col>
     </Row>;
 
     if (this.isShowingPeriods) {
-      periodsChoice = Courses.get(this.props.courseId).periods.sorted.map(this.renderTaskPlanRow);
+      periodsChoice = course.periods.sorted.map(this.renderTaskPlanRow);
     }
     if (periodsChoice == null) { periodsChoice = []; }
     periodsChoice.unshift(choiceLabel);

@@ -12,15 +12,26 @@ class AssignmentBuilderUX {
   }
 
   @action.bound onSave() {
-
+    this.plan.save();
   }
 
-  @action.bound onPublish() {
-
-  }
+  // @action.bound onPublish() {
+  //   this.plan.publish();
+  // }
 
   @computed get hasError() {
     return false;
+  }
+
+  @computed get isWaiting() {
+    return false;
+  }
+
+  @computed get isSaving() {
+    console.log(
+      Array.from(this.plan.api.requestsInProgress.keys()),
+    )
+    return this.plan.api.isPending;
   }
 
   @action.bound onShowSectionTopics() {

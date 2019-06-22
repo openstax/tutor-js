@@ -158,6 +158,24 @@ class TeacherTaskPlan extends BaseModel {
     );
   }
 
+  @computed get course() {
+    return this.map.course;
+  }
+
+  // called from api
+  save() {
+    const options = this.isNew ? {
+      url: `courses/${this.course.id}/plans`,
+      method: 'POST',
+    } : {
+      url: `plans/${this.id}`,
+    };
+    if (this.ecosystem_id) {
+      options.params = { ecosystem_id: this.ecosystem_id };
+    }
+    return options;
+  }
+
   // called from api
   onApiRequestComplete({ data }) {
     this.api.errors = {};

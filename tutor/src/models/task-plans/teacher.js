@@ -20,27 +20,27 @@ class TeacherTaskPlans extends Map {
   withPlanId(planId) {
     let plan = this.get(planId);
     if (!plan) {
-      plan = new TaskPlan({ id: planId });
+      plan = new TaskPlan({ id: planId, map: this });
       this.set(planId, plan);
     }
     return plan;
   }
 
-  @action onPlanSave(oldId, planAttrs) {
-    let tp = this.get(oldId);
-    if (tp) {
-      tp.update(planAttrs);
-    } else {
-      tp = new TaskPlan(planAttrs);
-    }
-    this.set(planAttrs.id, tp);
-    if (oldId != tp.id) {
-      this.delete(oldId);
-    }
-  }
+  // @action onPlanSave(oldId, planAttrs) {
+  //   let tp = this.get(oldId);
+  //   if (tp) {
+  //     tp.update(planAttrs);
+  //   } else {
+  //     tp = new TaskPlan({ ...planAttrs, map: this });
+  //   }
+  //   this.set(planAttrs.id, tp);
+  //   if (oldId != tp.id) {
+  //     this.delete(oldId);
+  //   }
+  // }
 
   addClone(planAttrs) {
-    this.set(planAttrs.id, new TaskPlan(planAttrs));
+    this.set(planAttrs.id, new TaskPlan({ ...planAttrs, map: this }));
   }
 
   @computed get active() {
@@ -86,7 +86,7 @@ class TeacherTaskPlans extends Map {
   @action onLoaded({ data: { plans } }) {
     plans.forEach(plan => {
       const tp = this.get(plan.id);
-      tp ? tp.update(plan) : this.set(plan.id, new TaskPlan(plan));
+      tp ? tp.update(plan) : this.set(plan.id, new TaskPlan({ ...plan, map: this }));
     });
   }
 
