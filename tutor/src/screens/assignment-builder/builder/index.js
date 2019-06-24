@@ -111,11 +111,11 @@ class TaskPlanBuilder extends React.Component {
   @observable showingPeriods = false;
 
   @computed get isSwitchable() {
-    this.props.ux.plan.isVisibleToStudents
+    return this.props.ux.plan.isVisibleToStudents;
   }
 
   render() {
-    const { ux: { course, plan } } = this.props;
+    const { ux, ux: { course, plan } } = this.props;
     const taskings = plan.tasking_plans;
 
     let invalidPeriodsAlert;
@@ -131,27 +131,25 @@ class TaskPlanBuilder extends React.Component {
       </Row>;
     }
 
-    const assignmentNameLabel = [
-      <span key="assignment-label">
-        Assignment name
-      </span>,
-      <span key="assignment-label-instructions" className="instructions">
-        {' (Students will see this on their dashboard.)'}
-      </span>,
-    ];
-
     return (
       <div className="assignment">
         <Row>
           <Col xs={12}>
             <TutorInput
-              label={assignmentNameLabel}
+              label={[
+                <span key="assignment-label">
+                  Assignment name
+                </span>,
+                <span key="assignment-label-instructions" className="instructions">
+                  {' (Students will see this on their dashboard.)'}
+                </span>,
+              ]}
               className="assignment-name"
               id="reading-title"
-              default={plan.title}
+              value={plan.title}
               required={true}
               disabled={!plan.isEditable}
-              onChange={this.setTitle} />
+              onChange={ux.setTitle} />
           </Col>
         </Row>
         <Row>
@@ -160,9 +158,9 @@ class TaskPlanBuilder extends React.Component {
               label="Description or special instructions"
               className="assignment-description"
               id="assignment-description"
-              default={plan.description}
+              value={plan.description}
               disabled={!plan.isEditable}
-              onChange={this.setDescription} />
+              onChange={ux.setDescription} />
           </Col>
         </Row>
         <Row>
@@ -184,97 +182,104 @@ class TaskPlanBuilder extends React.Component {
             </div>
           </Col>
         </Row>
-        {this.showingPeriods ? this.renderCommonChoice() : this.renderPeriodsChoice()}
+
+        <Row className="common tutor-date-input">
+          <Col sm={4} md={3}>
+            <input
+              id="hide-periods-radio"
+              name="toggle-periods-radio"
+              type="radio"
+              value="all"
+              disabled={!plan.isEditable}
+              onChange={ux.togglePeriodTaskingsEnabled}
+              checked={!ux.isShowingPeriodTaskings}
+            />
+            <label className="period" htmlFor="hide-periods-radio">
+              All <CourseGroupingLabel courseId={course.id} plural={true} />
+            </label>
+          </Col>
+          <Col sm={8} md={9}>
+            {!ux.isShowingPeriodTaskings && <Tasking ux={this.props.ux} />}
+          </Col>
+        </Row>
+        <Row key="tasking-individual-choice">
+          <Col sm={4} md={3}>
+            <input
+              id="show-periods-radio"
+              name="toggle-periods-radio"
+              type="radio"
+              value="periods"
+              disabled={!plan.isEditable}
+              onChange={ux.togglePeriodTaskingsEnabled}
+              checked={ux.isShowingPeriodTaskings}
+            />
+            <label className="period" htmlFor="show-periods-radio">
+              Individual <CourseGroupingLabel courseId={course.id} plural={true} />
+            </label>
+          </Col>
+        </Row>
+
+        {ux.isShowingPeriodTaskings &&
+          course.periods.sorted.map(period => (
+            <Tasking key={period.id} ux={ux} period={period} />
+          ))}
+
         {invalidPeriodsAlert}
       </div>
     );
   }
 
-  renderCommonChoice() {
-    const { course } = this.props.ux;
-
-    let radio;
-    if (this.isSwitchable) {
-      radio = (
-        <input
-          id="hide-periods-radio"
-          name="toggle-periods-radio"
-          ref="allPeriodsRadio"
-          type="radio"
-          disabled={!this.isSwitchable}
-          onChange={this.setAllPeriods}
-          checked={!this.isShowingPeriods}
-        />
-      );
-    }
-
-    return (
-      <Row className="common tutor-date-input">
-        <Col sm={4} md={3}>
-          {radio}
-          <label className="period" htmlFor="hide-periods-radio">
-            All <CourseGroupingLabel courseId={course.id} plural={true} />
-          </label>
-        </Col>
-        {this.renderTaskPlanRow()}
-      </Row>
-    );
-  }
 
   renderPeriodsChoice() {
-    const { course } = this.props.ux;
-    let periodsChoice, radio;
-    if (this.props.isSwitchable) {
-      radio = (
-        <input
-          id="show-periods-radio"
-          name="toggle-periods-radio"
-          type="radio"
-          disabled={!this.props.isSwitchable}
-          onChange={this.setIndividualPeriods}
-          checked={this.isShowingPeriods} />
-      );
-    }
+    const { ux, ux: { course, plan } } = this.props;
 
-    const choiceLabel = <Row key="tasking-individual-choice">
-      <Col md={12}>
-        {radio}
-        <label className="period" htmlFor="show-periods-radio">
-          Individual <CourseGroupingLabel courseId={course.id} plural={true} />
-        </label>
-      </Col>
-    </Row>;
-
-    if (this.isShowingPeriods) {
-      periodsChoice = course.periods.sorted.map(this.renderTaskPlanRow);
-    }
-    if (periodsChoice == null) { periodsChoice = []; }
-    periodsChoice.unshift(choiceLabel);
-    return periodsChoice;
-  }
-
-  renderTaskPlanRow(period) {
-    const { id, courseId, isVisibleToStudents, isEditable, isSwitchable } = this.props;
-    const { showingPeriods, currentLocale, term } = this.state;
-
-    const taskingIdentifier = TaskingStore.getTaskingIndex(period);
-    let isEnabled = TaskingStore.isTaskingEnabled(id, period);
-    if (showingPeriods && (period == null)) { isEnabled = false; }
-
-    return (
-      <Tasking
-        key={(period != null ? period.id : undefined) || 'all'}
-        {...this.props}
-        termStart={term.start}
-        termEnd={term.end}
-        isEnabled={isEnabled}
-        ref={`tasking-${taskingIdentifier}`}
-        period={period}
-        isVisibleToStudents={isVisibleToStudents}
-        isEditable={isEditable}
-        currentLocale={currentLocale} />
+    return [
+      ,
+    ].concat(
+      course.periods.sorted.map(period => (
+        <Tasking key={period.id} ux={ux} period={period} />
+      ))
     );
+
+
+    // termStart={term.start}
+    // termEnd={term.end}
+    // isEnabled={isEnabled}
+    // ref={`tasking-${taskingIdentifier}`}
+    // isVisibleToStudents={isVisibleToStudents}
+    // isEditable={isEditable}
+    // currentLocale={currentLocale}
+    //
+    //     if (this.isShowingPeriods) {
+    //       periodsChoice = .map(this.);
+    //     }
+    //     if (periodsChoice == null) { periodsChoice = []; }
+    //     periodsChoice.unshift(choiceLabel);
+    //     return periodsChoice;
   }
+
+  // renderTaskPlanRow(period) {
+  //   const { id, courseId, isVisibleToStudents, isEditable, isSwitchable } = this.props;
+  //   const { showingPeriods, currentLocale, term } = this.state;
+  //
+  //   const taskingIdentifier = TaskingStore.getTaskingIndex(period);
+  //   let isEnabled = TaskingStore.isTaskingEnabled(id, period);
+  //   if (showingPeriods && (period == null)) { isEnabled = false; }
+  //
+  //   return (
+  //     <Tasking
+  //       key={(period != null ? period.id : undefined) || 'all'}
+  //       {...this.props}
+  //       termStart={term.start}
+  //       termEnd={term.end}
+  //       isEnabled={isEnabled}
+  //       ref={`tasking-${taskingIdentifier}`}
+  //       period={period}
+  //       isVisibleToStudents={isVisibleToStudents}
+  //       isEditable={isEditable}
+  //       currentLocale={currentLocale} />
+  //   );
+  // }
 }
 
 export default TaskPlanBuilder;

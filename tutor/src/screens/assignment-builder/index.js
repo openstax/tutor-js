@@ -42,18 +42,18 @@ class AssignmentBuilder extends React.Component {
   }
 
   render() {
-    const { course, type, plan } = this.state;
+    const { ux, ux: { plan, course } } = this;
 
-    if (plan.api.isPending) {
+    if (ux.plan.api.isPendingInitialFetch) {
       return <Loader />;
     }
 
-    const Builder = BUILDERS[type] || UnknownType;
+    const Builder = BUILDERS[plan.type] || UnknownType;
 
     return (
       <TourRegion
         id={`${plan.type}-assignment-editor`}
-        otherTours={[`${type}-assignment-editor-super`]}
+        otherTours={[`${plan.type}-assignment-editor-super`]}
         courseId={course.id}
       >
         <Builder ux={this.ux} />

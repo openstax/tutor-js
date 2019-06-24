@@ -1,7 +1,4 @@
-import { idType } from 'shared';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { includes } from 'lodash';
+import { React, PropTypes } from '../../../helpers/react';
 import { observer } from 'mobx-react';
 import BuilderPopup from './builder-popup';
 
@@ -12,19 +9,20 @@ export default
 class PreviewButton extends React.Component {
 
   static propTypes = {
-    courseId:   idType.isRequired,
-    planType:   PropTypes.string.isRequired,
-    isWaiting:  PropTypes.bool.isRequired,
-    isNew:      PropTypes.bool.isRequired,
+    ux: PropTypes.object.isRequired,
+    // courseId:   idType.isRequired,
+    // planType:   PropTypes.string.isRequired,
+    // isWaiting:  PropTypes.bool.isRequired,
+    // isNew:      PropTypes.bool.isRequired,
   }
 
   render() {
-    const { planType } = this.props;
+    const { ux } = this.props;
 
-    if (!includes(VALID_PLAN_TYPES, planType)) { return null; }
+    if (!VALID_PLAN_TYPES.includes(ux.plan.type)) { return null; }
 
     return (
-      <BuilderPopup courseId={this.props.courseId} planType={planType} />
+      <BuilderPopup course={ux.course} planType={ux.plan.type} />
     );
   }
-};
+}

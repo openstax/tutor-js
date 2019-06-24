@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
 import { action, observable } from 'mobx';
-import { autobind } from 'core-decorators';
 import YouTube from '../../../components/youtube';
 import { Button } from 'react-bootstrap';
 import { Icon } from 'shared';
-import Courses from '../../../models/courses-map';
 import PopoutWindow from 'shared/components/popout-window';
 import StudentPreviewUX from '../../../models/course/student-preview-ux';
 
@@ -16,7 +14,7 @@ export default
 class BuilderPopup extends React.Component {
 
   static propTypes = {
-    courseId:   idType.isRequired,
+    course:     PropTypes.object.isRequired,
     planType:   PropTypes.string.isRequired,
     windowImpl: PropTypes.shape({
       open: PropTypes.func,
@@ -39,11 +37,12 @@ class BuilderPopup extends React.Component {
   }
 
   ux = new StudentPreviewUX(
-    Courses.get(this.props.courseId), this.props.planType
+    this.props.course, this.props.planType
   )
 
   render() {
     const { builderVideoId } = this.ux;
+
     if (!builderVideoId) { return null; }
 
     return (
@@ -87,4 +86,4 @@ class BuilderPopup extends React.Component {
       </Button>
     );
   }
-};
+}

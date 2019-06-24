@@ -2,8 +2,6 @@ import UX from '../../../src/screens/assignment-builder/ux';
 import Footer from '../../../src/screens/assignment-builder/footer';
 import { Factory, C } from '../../helpers';
 
-
-
 describe('Task Plan Footer', function() {
   let props, plan;
 
@@ -20,18 +18,13 @@ describe('Task Plan Footer', function() {
       'SaveButton AsyncButton[isWaiting=false]'
     );
     plan.save = jest.fn();
-    footer.find('SaveButton AsyncButton[isWaiting=false]').simulate('click');
+    footer.find('SaveButton AsyncButton').simulate('click');
     expect(plan.save).toHaveBeenCalled();
-//    plan.api.requestsInProgress
-//    console.log(footer.debug())
-    footer.unmount();
 
-    // const reading = helper(NEW_READING);
-    // //    console.log(reading.debug())
-    // expect(reading).not.toHaveRendered('DeleteTaskButton Button');
-    // expect(reading).toHaveRendered('SaveTaskButton');
-    // expect(reading.find('SaveTaskButton').text()).toEqual('Publish');
-    // expect(reading).toHaveRendered('HelpTooltip');
+    footer.find('SaveAsDraftButton AsyncButton').simulate('click');
+    expect(plan.save).toHaveBeenCalledTimes(2);
+
+    footer.unmount();
   });
 
 });

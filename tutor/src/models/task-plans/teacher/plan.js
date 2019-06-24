@@ -8,10 +8,11 @@ import {
 import { lazyInitialize } from 'core-decorators';
 import TaskingPlan from './tasking'
 import TaskPlanPublish from '../../jobs/task-plan-publish';
-import * as Dates from '../../../helpers/dates';
+import { getDurationFromMoments } from '../../../helpers/dates';
 import Time from '../../time';
 import TaskPlanStats from './stats';
 import moment from '../../../helpers/moment-range';
+
 
 export default
 @identifiedBy('task-plans/teacher/plan')
@@ -37,7 +38,7 @@ class TeacherTaskPlan extends BaseModel {
   @field is_deleting;
   @session publish_job_url;
   @field({ type: 'object' }) settings;
-  @hasMany({ model: TaskingPlan }) tasking_plans;
+  @hasMany({ model: TaskingPlan, inverseOf: 'plan' }) tasking_plans;
 
   @observable unmodified_plans = [];
 
@@ -46,7 +47,7 @@ class TeacherTaskPlan extends BaseModel {
   @field is_publish_requested;
 
   @observable publishingUpdates;
-
+  @session({ type: 'object' }) map;
 
   constructor(attrs) {
     super(attrs);
@@ -61,6 +62,16 @@ class TeacherTaskPlan extends BaseModel {
 
   @lazyInitialize analytics = new TaskPlanStats({ taskPlan: this });
 
+  findOrCreateTaskingForPeriod(period) {
+    const tp = find(this.tasking_plans, {
+      target_id: period.id, target_type: 'period',
+    });
+    if (tp) { return tp; }
+    this.tasking_plans.push({
+      target_id: period.id, target_type: 'period',
+    });
+    return this.tasking_plans[this.tasking_plans.length - 1];
+  }
 
   @computed get isClone() {
     return !!this.cloned_from_id;
@@ -86,14 +97,34 @@ class TeacherTaskPlan extends BaseModel {
   }
 
   @computed get duration() {
-    return Dates.getDurationFromMoments(
+    return getDurationFromMoments(
       map(this.tasking_plans, 'due_at'),
     );
   }
 
-  @computed get dueRange() {
-    const due_times = sortBy(map(this.tasking_plans, tp => moment(tp.due_at)), m => m.toDate());
-    return moment.range(first(due_times), last(due_times));
+  rangeFor(attr) {
+    const dates = map(
+      this.tasking_plans, tp => moment(tp[attr]).toDate()
+    );
+    dates.sort();
+    return moment.range(first(dates), last(dates));
+  }
+
+  @computed get dateRanges() {
+    return {
+      opens: this.rangeFor('opens_at'),
+      due: this.rangeFor('due_at'),
+    };
+  }
+
+  @computed get areTaskingDatesSame() {
+    return Boolean(
+      this.dateRanges.opens.start.isSame(
+        this.dateRanges.opens.end
+      ) && this.dateRanges.due.start.isSame(
+        this.dateRanges.due.end
+      )
+    );
   }
 
   @action onPublishComplete() {
@@ -102,9 +133,8 @@ class TeacherTaskPlan extends BaseModel {
     this.publish_job_url = null;
   }
 
-
   @computed get durationRange() {
-    return Dates.getDurationFromMoments(
+    return getDurationFromMoments(
       union(
         map(this.tasking_plans, 'opens_at'),
         map(this.tasking_plans, 'due_at'),
@@ -117,7 +147,9 @@ class TeacherTaskPlan extends BaseModel {
   @computed get isPublishing() { return this.is_publishing; }
   @computed get isTrouble() { return this.is_trouble; }
   @computed get isOpen() { return this.durationRange.start().isBefore(Time.now); }
-  @computed get isEditable() { return this.durationRange.start().isAfter(Time.now); }
+  @computed get isEditable() {
+    return true ; // this.isNew || this.durationRange.start().isAfter(Time.now);
+  }
   @computed get isFailed() { return Boolean(this.failed_at || this.killed_at); }
   @computed get isPastDue() { return this.durationRange.end().isBefore(Time.now); }
   @computed get isVisibleToStudents() { return this.isPublishing && this.isOpen; }
@@ -137,7 +169,9 @@ class TeacherTaskPlan extends BaseModel {
 
   @action reset() {
     this.title = this.description = '';
-    this.tasking_plans = [];
+    this.tasking_plans = this.course.periods.map(period => ({
+      target_id: period.id, target_type: 'period',
+    }));
   }
 
   @computed get publishedStatus() {

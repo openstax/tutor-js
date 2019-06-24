@@ -12,6 +12,7 @@ const TimeMock = {
     }
     beforeEach(partial(TimeMock.mock, dateTime));
     afterEach(TimeMock.restore);
+    return dateTime;
   },
 
   mock(dateTime) {

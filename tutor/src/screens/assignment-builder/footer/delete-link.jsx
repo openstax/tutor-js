@@ -1,7 +1,7 @@
-import { React, observer, observable, action } from '../../../helpers/react';
+import { React, PropTypes, observer, observable, action } from '../../../helpers/react';
 import { AsyncButton } from 'shared';
 import { Icon } from 'shared';
-import PropTypes from 'prop-types';
+import TourAnchor from '../../../components/tours/anchor';
 import { Modal, Button } from 'react-bootstrap';
 
 const DeleteModal = ({ message, show, onClose, isBusy, onDelete }) => (
@@ -38,9 +38,10 @@ export default
 class DeleteTaskButton extends React.Component {
 
   static propTypes = {
-    onClick:     PropTypes.func.isRequired,
-    isWaiting:   PropTypes.bool.isRequired,
-    plan: PropTypes.object.isRequired,
+    ux: PropTypes.object.isRequired,
+    //     onClick:     PropTypes.func.isRequired,
+    //     isWaiting:   PropTypes.bool.isRequired,
+    //     plan: PropTypes.object.isRequired,
   }
 
   @observable showModal = false;
@@ -54,7 +55,7 @@ class DeleteTaskButton extends React.Component {
   }
 
   render() {
-    const { plan, isWaiting } = this.props;
+    const { ux: { plan, onDelete, isWaiting } } = this.props;
 
     if (plan.isNew && !isWaiting) { return null; }
 
@@ -65,21 +66,23 @@ class DeleteTaskButton extends React.Component {
     }
 
     return (
-      <Button
-        onClick={this.open}
-        variant="default"
-        className="control delete-assignment"
-      >
-        <DeleteModal
-          message={message}
-          show={this.showModal}
-          onClose={this.close}
-          isBusy={this.props.isWaiting}
-          onDelete={this.props.onClick}
-        />
-        <Icon type="trash" />Delete
-      </Button>
+      <TourAnchor id="builder-delete-button">
+        <Button
+          onClick={this.open}
+          variant="default"
+          className="control delete-assignment"
+        >
+          <DeleteModal
+            message={message}
+            show={this.showModal}
+            onClose={this.close}
+            isBusy={isWaiting}
+            onDelete={onDelete}
+          />
+          <Icon type="trash" />Delete
+        </Button>
+      </TourAnchor>
     );
   }
 
-};
+}

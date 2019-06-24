@@ -350,9 +350,11 @@ class TutorTimeInput extends React.Component {
 
     if (this.isValidTime(timeValue)) {
       timeValue = this.timeOut(timeValue);
+      if (typeof this.props.onChange === 'function') {
+        this.props.onChange(timeValue)
+      }
     }
 
-    return (typeof this.props.onChange === 'function' ? this.props.onChange(timeValue) : undefined);
   };
 
   getInput = () => {

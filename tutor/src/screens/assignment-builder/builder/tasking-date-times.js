@@ -14,15 +14,17 @@ class TaskingDateTimes extends React.Component {
   static defaultProps = { sizes: { sm: 8, md: 9 } };
 
   static propTypes = {
-    id:                  PropTypes.string.isRequired,
-    courseId:            PropTypes.string.isRequired,
-    termStart:           TimeHelper.PropTypes.moment,
-    termEnd:             TimeHelper.PropTypes.moment,
-    isEditable:          PropTypes.bool.isRequired,
-    isVisibleToStudents: PropTypes.bool,
-    taskingIdentifier:   PropTypes.string.isRequired,
-    period:              PropTypes.object,
-    sizes:             PropTypes.object,
+    ux: PropTypes.object.isRequired,
+    period: PropTypes.object,
+//    id: PropTypes.string.isRequired,
+    // courseId:            PropTypes.string.isRequired,
+    // termStart:           TimeHelper.PropTypes.moment,
+    // termEnd:             TimeHelper.PropTypes.moment,
+    // isEditable:          PropTypes.bool.isRequired,
+    // isVisibleToStudents: PropTypes.bool,
+    // taskingIdentifier:   PropTypes.string.isRequired,
+    // period:              PropTypes.object,
+    // sizes:             PropTypes.object,
   };
 
   getError = () => {
@@ -61,39 +63,43 @@ class TaskingDateTimes extends React.Component {
   };
 
   render() {
-    let extraError;
-    let { isVisibleToStudents, isEditable, period, courseId, id, termStart, termEnd } = this.props;
-    if (period) { period = period.serialize(); }
-    const commonDateTimesProps = pick(this.props, 'required', 'currentLocale', 'taskingIdentifier');
-
-    const model = period ? period : Courses.get(courseId);
-    const { default_open_time, default_due_time } = model;
-
-    const defaults = TaskingStore.getDefaultsForTasking(id, period);
-    const { open_time, open_date, due_time, due_date } = TaskingStore._getTaskingFor(id, period);
-
-    const now = TimeHelper.getMomentPreserveDate(TimeStore.getNow());
-    const nowString = now.format(TimeHelper.ISO_DATE_FORMAT);
-
-    const termStartString = termStart.format(TimeHelper.ISO_DATE_FORMAT);
-    const termEndString   = termEnd.format(TimeHelper.ISO_DATE_FORMAT);
-
-    const minOpensAt = termStart.isAfter(now) ? termStartString : nowString;
-    const maxOpensAt = due_date || termEndString;
-
-    const openDate = open_date || minOpensAt;
-
-    const minDueAt = TaskingStore.isTaskOpened(id) ? minOpensAt : openDate;
-    const maxDueAt = termEndString;
+    const { ux, period, ux: { plan } } = this.props;
+    // let extraError;
+    // let { isVisibleToStudents, isEditable, period, courseId, id, termStart, termEnd } = this.props;
+    // if (period) { period = period.serialize(); }
+    // const commonDateTimesProps = pick(this.props, 'required', 'currentLocale', 'taskingIdentifier');
+    //
+    // const model = period ? period : Courses.get(courseId);
+    // const { default_open_time, default_due_time } = model;
+    //
+    // const defaults = TaskingStore.getDefaultsForTasking(id, period);
+    // const { open_time, open_date, due_time, due_date } = TaskingStore._getTaskingFor(id, period);
+    //
+    // const now = TimeHelper.getMomentPreserveDate(TimeStore.getNow());
+    // const nowString = now.format(TimeHelper.ISO_DATE_FORMAT);
+    //
+    // const termStartString = termStart.format(TimeHelper.ISO_DATE_FORMAT);
+    // const termEndString   = termEnd.format(TimeHelper.ISO_DATE_FORMAT);
+    //    // const minOpensAt = termStart.isAfter(now) ? termStartString : nowString;
+    // const maxOpensAt = due_date || termEndString;
+    //
+    // const openDate = open_date || minOpensAt;
+    //
+    // const minDueAt = TaskingStore.isTaskOpened(id) ? minOpensAt : openDate;
+    // const maxDueAt = termEndString;
 
     const error = this.getError();
 
-    if (error) { extraError = <Col xs={12} md={{ span: 6, offset: 6 }}>
-      <p className="due-before-open">
-        {error}
-        <Icon type="exclamation-circle" />
-      </p>
-    </Col>; }
+    if (error) {
+      extraError = (
+        <Col xs={12} md={{ span: 6, offset: 6 }}>
+          <p className="due-before-open">
+            {error}
+            <Icon type="exclamation-circle" />
+          </p>
+        </Col>
+      );
+    }
 
 
     return (

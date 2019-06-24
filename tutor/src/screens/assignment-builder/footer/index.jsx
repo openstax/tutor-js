@@ -1,15 +1,43 @@
-import { React, PropTypes, observer } from '../../../helpers/react';
+import {
+  React, PropTypes, styled, observer,
+} from '../../../helpers/react';
 import UX from '../ux';
-import SaveButton from './save-button';
+import SaveButton    from './save-button';
+import DraftButton   from './save-as-draft';
+import CancelButton  from './cancel-button';
+import BackButton    from './back-button';
+import DeleteLink    from './delete-link';
+import HelpTooltip   from './help-tooltip';
+import PreviewButton from './preview-button';
+
+const Spacer = styled.div`
+  flex: 1;
+`;
+
+const StyledFooter = styled.div`
+  display: flex;
+  width: 100%;
+  padding: 10px 15px;
+  background-color: whitesmoke;
+  border-top: 1px solid #f9f9f9;
+  align-items: center;
+  > * { margin-left: 0.5rem; }
+
+`;
 
 const PlanFooter = observer(({ ux }) => {
 
   return (
-    <div className="builder-footer-controls">
-      <SaveButton ux={ux} />
-
-
-    </div>
+    <StyledFooter>
+      <SaveButton    ux={ux} />
+      <DraftButton   ux={ux} />
+      <CancelButton  ux={ux} />
+      <BackButton    ux={ux} />
+      <DeleteLink    ux={ux} />
+      <HelpTooltip   ux={ux} />
+      <Spacer />
+      <PreviewButton ux={ux} />
+    </StyledFooter>
   );
 });
 

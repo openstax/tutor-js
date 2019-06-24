@@ -35,7 +35,7 @@ export default {
     let date;
     const dueAtRange = course
       .teacherTaskPlans.array
-      .map(plan => plan.dueRange.start)
+      .map(plan => plan.dateRanges.due.start)
       .sort();
 
     if (dueAtRange.length) {
