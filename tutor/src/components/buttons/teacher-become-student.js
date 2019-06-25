@@ -109,7 +109,7 @@ class TeacherBecomesStudent extends React.Component {
       return (
         <Waiting className="control">
           <Icon type="spinner" spin size="2x" />
-          Creating student record…
+          Generating student view…
         </Waiting>
       );
     }
