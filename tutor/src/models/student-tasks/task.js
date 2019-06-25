@@ -58,5 +58,8 @@ class StudentTask extends BaseModel {
         this.steps.push(stepData);
       }
     });
+    if (steps.length < this.steps.length) {
+      this.steps.splice(steps.length, this.steps.length - steps.length);
+    }
   }
 }
