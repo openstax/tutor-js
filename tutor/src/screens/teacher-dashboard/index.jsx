@@ -89,9 +89,10 @@ class TeacherDashboardWrapper extends React.Component {
   @observable showingSideBar = false;
 
   componentDidMount() {
-    const courseTimezone = this.props.course.time_zone;
+    const { course } = this.props;
+    const courseTimezone = course.time_zone;
     TimeHelper.syncCourseTimezone(courseTimezone);
-    this.props.course.trackDashboardView();
+    course.trackDashboardView();
   }
 
   componentWillUnmount() {
@@ -169,6 +170,16 @@ class TeacherDashboardDateWrapper extends React.Component {
 
   @computed get course() {
     return Courses.get(this.props.params.courseId);
+  }
+
+  constructor(props) {
+    super(props);
+    const { course } = this;
+    // if the teacher is impersonating a student and hit the back button
+    // the currentRole will be a TeacherStudent.  We need to reset it
+    if (course.currentRole.isTeacherStudent && course.roles.teacher) {
+      course.current_role_id = null;
+    }
   }
 
   render() {

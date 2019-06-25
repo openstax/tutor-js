@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, styled,
+  React, PropTypes, styled, observer,
 } from '../helpers/react';
 import { withRouter } from 'react-router';
 import { Icon } from 'shared';
@@ -56,38 +56,46 @@ const IGNORED_ROUTES = [
   'view-reference-book',
 ];
 
-const TeacherAsStudentFrame = withRouter(({ course, routeName, children, history }) => {
-  if (
-    IGNORED_ROUTES.includes(routeName) ||
-      !course || !course.currentRole.isTeacherStudent
-  ) { return children; }
+@withRouter
+@observer
+class TeacherAsStudentFrame extends React.Component {
+  static displayName = 'TeacherAsStudentFrame';
 
-  const onClick = returnToTeacherRole(course, history);
+  static propTypes = {
+    course: PropTypes.instanceOf(Course),
+    routeName: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func,
+    }),
+  }
 
-  return (
-    <React.Fragment>
-      <StyledTeacherAsStudentFrame>
-        <TopButton onClick={onClick}>
-          Exit student view
-          <Icon type="close" />
-        </TopButton>
-        <BottomNote as="div">
-          <Icon type="glasses" />
-          You’re viewing Tutor as a student
-        </BottomNote>
-      </StyledTeacherAsStudentFrame>
-      {children}
-    </React.Fragment>
-  );
-});
-TeacherAsStudentFrame.displayName = 'TeacherAsStudentFrame';
-TeacherAsStudentFrame.propTypes = {
-  course: PropTypes.instanceOf(Course),
-  routeName: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }),
-};
+  render() {
+    const { course, routeName, children, history } = this.props;
+
+    if (
+      IGNORED_ROUTES.includes(routeName) ||
+        !course || !course.currentRole.isTeacherStudent
+    ) { return children; }
+
+    const onClick = returnToTeacherRole(course, history);
+
+    return (
+      <React.Fragment>
+        <StyledTeacherAsStudentFrame>
+          <TopButton onClick={onClick}>
+            Exit student view
+            <Icon type="close" />
+          </TopButton>
+          <BottomNote as="div">
+            <Icon type="glasses" />
+            You’re viewing Tutor as a student
+          </BottomNote>
+        </StyledTeacherAsStudentFrame>
+        {children}
+      </React.Fragment>
+    );
+  }
+}
 
 export default TeacherAsStudentFrame;
