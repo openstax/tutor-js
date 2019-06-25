@@ -209,7 +209,7 @@ const startAPI = function() {
   });
 
   connectModelRead(StudentTask, 'fetch', {
-    onSuccess: 'onApiRequestComplete', onFail: 'setApiErrors', pattern: '/tasks/{id}',
+    onSuccess: 'onFetchComplete', onFail: 'setApiErrors', pattern: '/tasks/{id}',
   });
 
   connectModelUpdate(StudentTaskStep, 'save', {

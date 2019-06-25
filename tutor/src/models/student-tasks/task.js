@@ -47,5 +47,19 @@ class StudentTask extends BaseModel {
 
   // called by API
   fetch() { }
-
+  onFetchComplete({ data }) {
+    const { steps, ...task } = data;
+    this.api.errors = {};
+    this.update(task);
+    steps.forEach((stepData, i) => {
+      if (this.steps.length > i) {
+        this.steps[i].update(stepData);
+      } else {
+        this.steps.push(stepData);
+      }
+    });
+    if (steps.length < this.steps.length) {
+      this.steps.splice(steps.length, this.steps.length - steps.length);
+    }
+  }
 }
