@@ -157,7 +157,7 @@ class Course extends BaseModel {
   }
 
   @computed get subject() {
-    return get(CourseInformation.forAppearanceCode(this.appearance_code), 'subject', '');
+    return CourseInformation.forAppearanceCode(this.appearance_code);
   }
 
   @computed get bookName() {
