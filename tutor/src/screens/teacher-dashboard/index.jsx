@@ -1,5 +1,5 @@
 import { React, PropTypes, styled, observer, inject } from '../../helpers/react';
-import { extend, isEmpty, isEqual } from 'lodash';
+import { extend, isEmpty } from 'lodash';
 import moment from '../../helpers/moment-range';
 import Router from '../../helpers/router';
 import { observable, computed, action, observe } from 'mobx';
