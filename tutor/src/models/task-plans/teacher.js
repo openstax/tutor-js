@@ -81,7 +81,7 @@ class TeacherTaskPlans extends Map {
 
   // called from api
   fetch() {
-    return { courseId: this.course.id };
+    return this;
   }
   @action onLoaded({ data: { plans } }) {
     plans.forEach(plan => {

@@ -78,7 +78,14 @@ const startAPI = function() {
   connectRead(CourseGuideActions, { pattern: 'courses/{id}/guide' });
   connectRead(CCDashboardActions, { pattern: 'courses/{id}/cc/dashboard' });
 
-  connectRead(PerformanceForecast.Student.actions, { pattern: 'courses/{id}/guide' });
+  connectRead(PerformanceForecast.Student.actions, function(id) {
+    const course = Courses.get(id);
+    const params = {};
+    if (course && course.current_role_id) {
+      params.role_id = course.current_role_id;
+    }
+    return { url: `courses/${id}/guide`, params };
+  });
   connectRead(PerformanceForecast.Teacher.actions, { pattern: 'courses/{id}/teacher_guide' });
   connectRead(PerformanceForecast.TeacherStudent.actions, function(id, { roleId }) {
     const url = `courses/${id}/guide/role/${roleId}`;
@@ -155,7 +162,7 @@ const startAPI = function() {
     TeacherTaskPlans,
     'fetch',
     {
-      pattern: 'courses/{courseId}/dashboard',
+      pattern: 'courses/{course.id}/dashboard',
       onSuccess: 'onLoaded',
 
       params({ startAt, endAt }) {

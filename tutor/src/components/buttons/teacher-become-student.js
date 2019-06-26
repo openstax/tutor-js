@@ -89,8 +89,8 @@ class TeacherBecomesStudent extends React.Component {
   @action async becomeStudentInPeriod(period) {
     const { course } = this.props;
     this.isCreating = true;
-    period.becomeStudent();
     this.context.router.history.push(`/course/${course.id}`);
+    await period.becomeStudent();
   }
 
   @action.bound onPeriodMenuToggle(isOpen) {
