@@ -199,10 +199,6 @@ class Course extends BaseModel {
     return !!find(this.roles, 'isTeacher');
   }
 
-  @computed get isAP() {
-    return 0 == this.appearance_code.indexOf('ap_');
-  }
-
   @computed get shouldRemindNewEnrollmentLink() {
     return Boolean(
       !this.is_preview &&

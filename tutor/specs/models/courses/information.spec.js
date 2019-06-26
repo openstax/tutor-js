@@ -7,6 +7,7 @@ describe('Course Information lookup', function() {
       title: 'College Biology',
       subject: 'Biology',
       bp_doc: 'biology',
+      code: 'college_biology',
     });
     return undefined;
   });
@@ -15,6 +16,7 @@ describe('Course Information lookup', function() {
     expect(CourseInfo.forAppearanceCode('yo_yo_yo')).toEqual({
       title: 'Yo Yo Yo',
       subject: '',
+      code: 'yo_yo_yo',
     });
     return undefined;
   });
