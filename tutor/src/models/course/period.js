@@ -64,7 +64,7 @@ class CoursePeriod extends BaseModel {
       const { data } = await this.createTeacherStudent();
       role = this.course.roles.find(r => r.id == data.id );
     }
-    role.become();
+    await role.become();
   }
 
   createTeacherStudent() {

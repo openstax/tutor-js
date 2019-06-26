@@ -48,14 +48,6 @@ class TeacherDashboardWrapper extends React.Component {
     router: PropTypes.object,
   }
 
-  constructor(props) {
-    super(props);
-
-    this.disposePlanObserver = observe(this, 'fetchParams', ({ newValue: newFetchParams }) => {
-      this.loader.fetch(newFetchParams);
-    });
-  }
-
   @computed get date() {
     return TimeHelper.getMomentPreserveDate(this.props.date, this.props.dateFormat);
   }
@@ -85,6 +77,7 @@ class TeacherDashboardWrapper extends React.Component {
     this.loader.fetch(fetchParam);
   });
 
+
   @observable displayAs = 'month';
   @observable showingSideBar = false;
 
@@ -93,11 +86,17 @@ class TeacherDashboardWrapper extends React.Component {
     const courseTimezone = course.time_zone;
     TimeHelper.syncCourseTimezone(courseTimezone);
     course.trackDashboardView();
+    // if the teacher is impersonating a student and hit the back button
+    // the currentRole will be a TeacherStudent.  We need to reset it
+    if (course.currentRole.isTeacherStudent && course.roles.teacher) {
+      course.current_role_id = null;
+    }
   }
 
   componentWillUnmount() {
     TimeHelper.unsyncCourseTimezone();
     this.disposePlanObserver();
+
   }
 
   @action.bound onSidebarToggle(isOpen) {
@@ -170,16 +169,6 @@ class TeacherDashboardDateWrapper extends React.Component {
 
   @computed get course() {
     return Courses.get(this.props.params.courseId);
-  }
-
-  constructor(props) {
-    super(props);
-    const { course } = this;
-    // if the teacher is impersonating a student and hit the back button
-    // the currentRole will be a TeacherStudent.  We need to reset it
-    if (course.currentRole.isTeacherStudent && course.roles.teacher) {
-      course.current_role_id = null;
-    }
   }
 
   render() {
