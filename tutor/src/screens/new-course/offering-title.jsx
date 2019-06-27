@@ -5,7 +5,6 @@ import { observer } from 'mobx-react';
 
 import Offering from '../../models/course/offerings/offering';
 import CourseInformation from '../../models/course/information';
-import { ReactHelpers } from 'shared';
 
 export default
 @observer
@@ -19,7 +18,7 @@ class CourseOfferingTitle extends React.Component {
   render() {
     const { offering: { appearance_code }, children, className } = this.props;
     const baseName = 'course-offering-title';
-    const { title } = CourseInformation.forAppearanceCode(appearance_code);
+    const { title } = CourseInformation.information(appearance_code);
     return (
       <div
         className={classnames(baseName, className)}
@@ -35,4 +34,4 @@ class CourseOfferingTitle extends React.Component {
       </div>
     );
   }
-};
+}

@@ -40,4 +40,9 @@ describe('Current User Store', function() {
     expect(options).not.toContain('cloneCourse');
   });
 
+  it('returns research link for ap courses', () => {
+    const course = Factory.course({ is_teacher: true, appearance_code: 'ap_biology' });
+    const menuOptions = ld.map(UserMenu.getRoutes(course), 'name');
+    expect(menuOptions).toContain('analytics');
+  });
 });
