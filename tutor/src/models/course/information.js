@@ -84,7 +84,7 @@ export default {
       `https://s3-us-west-2.amazonaws.com/openstax-assets/oscms-prodcms/media/documents/oxt-${this[code].bp_doc}-best-practices.pdf` : '';
   },
 
-  forAppearanceCode(code) {
+  information(code) {
     return this[code] || { title: String.titleize(code), subject: '', code };
   },
 

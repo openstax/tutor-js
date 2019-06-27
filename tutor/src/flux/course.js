@@ -38,7 +38,7 @@
       getBookName: function(courseId) {
         let appearance_code, ref2;
         appearance_code = this._local[courseId].appearance_code;
-        return ((ref2 = CourseInformation.forAppearanceCode(appearance_code)) != null ? ref2.title : void 0) || '';
+        return ((ref2 = CourseInformation.information(appearance_code)) != null ? ref2.title : void 0) || '';
       },
 
       getBookUUID: function(courseId) {
@@ -49,7 +49,7 @@
       getSubject: function(courseId) {
         let appearance_code, ref2;
         appearance_code = this._local[courseId].appearance_code;
-        return ((ref2 = CourseInformation.forAppearanceCode(appearance_code)) != null ? ref2.subject : void 0) || '';
+        return ((ref2 = CourseInformation.information(appearance_code)) != null ? ref2.subject : void 0) || '';
       },
 
       isConceptCoach: function(courseId) {

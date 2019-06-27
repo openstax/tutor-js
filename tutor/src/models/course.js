@@ -157,11 +157,11 @@ class Course extends BaseModel {
   }
 
   @computed get subject() {
-    return CourseInformation.forAppearanceCode(this.appearance_code);
+    return CourseInformation.information(this.appearance_code);
   }
 
   @computed get bookName() {
-    return get(CourseInformation.forAppearanceCode(this.appearance_code), 'title', '');
+    return get(CourseInformation.information(this.appearance_code), 'title', '');
   }
 
   @computed get bestPracticesDocumentURL() {
