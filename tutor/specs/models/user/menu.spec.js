@@ -41,8 +41,14 @@ describe('Current User Store', function() {
   });
 
   it('returns research link for ap courses', () => {
+    // the no course available case
+    expect(ld.map(UserMenu.getRoutes(null), 'name')).not.toContain('analytics');
+
     const course = Factory.course({ is_teacher: true, appearance_code: 'ap_biology' });
-    const menuOptions = ld.map(UserMenu.getRoutes(course), 'name');
-    expect(menuOptions).toContain('analytics');
+    expect(ld.map(UserMenu.getRoutes(course), 'name')).toContain('analytics');
+
+    // a non ap course
+    course.appearance_code = 'biology_2e';
+    expect(ld.map(UserMenu.getRoutes(course), 'name')).not.toContain('analytics');
   });
 });

@@ -40,7 +40,9 @@ const ROUTES = {
   },
   analytics: {
     label: 'Research analytics',
-    isAllowed(course) { return course && course.isTeacher && ['ap_biology', 'ap_physics'].includes(course.subject.code); },
+    isAllowed(course) { return Boolean(
+      course && course.isTeacher && ['ap_biology', 'ap_physics'].includes(course.subject.code)
+    ); },
     href: 'https://analytics.openstax.org/',
   },
   questions: {
