@@ -13,6 +13,10 @@ describe('Student Task', () => {
     task.onFetchComplete({ data: Factory.bot.create('StudentTask', { now, stepCount: 10 }) });
     expect(task.steps).toHaveLength(10);
     expect(task.steps[3]).toBe(step); // toBe tests object equality
+    task.steps.forEach(s => {
+      expect(s.task).toBe(task);
+    });
+
     // test that steps are truncated
     task.onFetchComplete({ data: Factory.bot.create('StudentTask', { now, stepCount: 4 }) });
     expect(task.steps).toHaveLength(4);
