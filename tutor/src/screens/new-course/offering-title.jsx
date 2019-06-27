@@ -5,7 +5,6 @@ import { observer } from 'mobx-react';
 
 import Offering from '../../models/course/offerings/offering';
 import CourseInformation from '../../models/course/information';
-import { ReactHelpers } from 'shared';
 
 export default
 @observer
@@ -35,4 +34,4 @@ class CourseOfferingTitle extends React.Component {
       </div>
     );
   }
-};
+}
