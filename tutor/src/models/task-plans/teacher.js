@@ -20,7 +20,7 @@ class TeacherTaskPlans extends Map {
   withPlanId(planId) {
     let plan = this.get(planId);
     if (!plan) {
-      plan = new TaskPlan({ id: planId, map: this });
+      plan = new TaskPlan({ id: planId, course: this.course });
       this.set(planId, plan);
     }
     return plan;
@@ -40,7 +40,7 @@ class TeacherTaskPlans extends Map {
   // }
 
   addClone(planAttrs) {
-    this.set(planAttrs.id, new TaskPlan({ ...planAttrs, map: this }));
+    this.set(planAttrs.id, new TaskPlan({ ...planAttrs, course: this.course }));
   }
 
   @computed get active() {
@@ -86,7 +86,7 @@ class TeacherTaskPlans extends Map {
   @action onLoaded({ data: { plans } }) {
     plans.forEach(plan => {
       const tp = this.get(plan.id);
-      tp ? tp.update(plan) : this.set(plan.id, new TaskPlan({ ...plan, map: this }));
+      tp ? tp.update(plan) : this.set(plan.id, new TaskPlan({ ...plan, course: this.course }));
     });
   }
 

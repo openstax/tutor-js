@@ -1,23 +1,29 @@
 import {
-  React, PropTypes, computed, action, observer,
+  React, PropTypes, styled, computed, action, observer,
 } from '../../../helpers/react';
 import moment from 'moment';
 import { max } from 'lodash';
-import { findEarliest, findLatest } from '../../../helpers/dates';
+import { findEarliest } from '../../../helpers/dates';
 import Time from '../../../models/time';
 import { Row, Col } from 'react-bootstrap';
 import { TutorDateInput, TutorTimeInput } from '../../../components/tutor-input';
+
+
+const StyledTasking = styled(Row)`
+.tutor-input.form-control-wrapper.tutor-input input[disabled] {
+  border-bottom: 0;
+}
+.react-datepicker-wrapper {
+  height: 100%;
+}
+`;
 
 @observer
 class Tasking extends React.Component {
   static propTypes = {
     period: PropTypes.object,
     ux: PropTypes.object,
-    // isEditable:          PropTypes.bool.isRequired,
-    // isEnabled:           PropTypes.bool.isRequired,
-    // isVisibleToStudents: PropTypes.bool.isRequired,
   };
-
 
   setAsDefaultOption() {
     return null;
@@ -39,13 +45,13 @@ class Tasking extends React.Component {
 
   @computed get minOpensAt() {
     const { start } = this.course.bounds;
-    return start.isAfter(Time.now) ? start : moment(Time.now);
+    return start.isBefore(Time.now) ? start : moment(Time.now);
   }
+
   @computed get maxOpensAt() {
     const { end } = this.course.bounds;
     return this.plan.due_date || end;
   }
-
 
   @computed get minDueAt() {
     const { start } = this.course.bounds;
@@ -96,22 +102,26 @@ class Tasking extends React.Component {
   }
 
   render() {
-    const { ux, period, ux: { plan } } = this.props;
+    const { period, ux: { course, form } } = this.props;
     const tasking = this.taskings[0];
-
     const mainSizes = period ? { sm: 8, md: 9 } : { sm: 12 };
-
+    // console.log(
+    //   this.minDueAt.toISOString(),
+    //   this.maxDueAt.toISOString(),
+    // )
+    // console.log(
+    //   form.select('tasking_plans')
+    // )
     return (
-      <Row className="tasking-plan tutor-date-input">
+      <StyledTasking>
         {this.renderSelectionCheckbox()}
-
         <Col
           {...mainSizes}
           className="tasking-date-times"
           data-period-id={period ? period.id : 'all'}
         >
           <Row>
-            <Col xs={12} md={6} className="tasking-date">
+            <Col xs={12} md={6} className="opens-at">
               <Row>
                 <Col md={7} xs={8}>
                   <TutorDateInput
@@ -128,19 +138,19 @@ class Tasking extends React.Component {
                     label="Open Time"
                     value={tasking.opens_at}
                     onChange={this.onOpensTimeChange}
-                    ref="time"
+                    defaultValue={course.default_open_time}
                   />
                 </Col>
               </Row>
             </Col>
-            <Col xs={12} md={6} className="tasking-date">
+            <Col xs={12} md={6} className="due-at">
               <Row>
                 <Col md={7} xs={8}>
                   <TutorDateInput
                     label="Due Date"
-                    value={tasking.due_at}
                     min={this.minDueAt}
                     max={this.maxDueAt}
+                    value={tasking.due_at}
                     onChange={this.onDueDateChange}
                   />
                 </Col>
@@ -150,7 +160,8 @@ class Tasking extends React.Component {
                     value={tasking.due_at}
                     min={this.minOpensAtDate}
                     max={this.maxOpensAtDate}
-                    onChange={this.onDueDateChange}
+                    onChange={this.onDueTimeChange}
+                    defaultValue={course.default_due_time}
                   />
                   {this.setAsDefaultOption()}
                 </Col>
@@ -158,35 +169,8 @@ class Tasking extends React.Component {
             </Col>
           </Row>
         </Col>
-      </Row>
+      </StyledTasking>
     );
-
-    // } else {
-    //       return <TaskingDateTimes {...this.props} {...taskingDateTimesProps} />;
-    //     }
-    //   } else {
-    //     if (period) {
-    //       // if isVisibleToStudents, we cannot re-enable this task for the period.
-    //       return (
-    //         <Row
-    //           key={`tasking-disabled-${taskingIdentifier}`}
-    //           className="tasking-plan disabled">
-    //           <Col sm={12}>
-    //             <input
-    //               id={`period-toggle-${taskingIdentifier}`}
-    //               type="checkbox"
-    //               disabled={!plan.isEditable}
-    //               onChange={this.togglePeriodEnabled}
-    //               checked={false} />
-    //             <label className="period" htmlFor={`period-toggle-${taskingIdentifier}`}>
-    //               {period.name}
-    //             </label>
-    //           </Col>
-    //         </Row>
-    //       );
-    //     } else {
-    //       return null;
-    //     }
   }
 }
 

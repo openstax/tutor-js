@@ -122,13 +122,21 @@ Factories.notesPageMap = ({ course, chapter, section, count = 4 }) => {
   return page;
 }
 
-Factories.exercisesMap = ({ book, pageIds = [], count = 4 } = {}) => {
+Factories.exercisesMap = ({ now, book, pageIds = [], count = 4 } = {}) => {
   const map = new ExercisesMap();
   if (!book) { return map; }
+  if (book.children.length == 0) {
+    book.onApiRequestComplete({ data: [FactoryBot.create('Book')] });
+  }
+  if (pageIds.length == 0) {
+    pageIds = book.children[1].children.map(pg => pg.id);
+  }
   pageIds.forEach(pgId => {
     map.onLoaded({
       data: {
         items: range(count).map(() => FactoryBot.create('TutorExercise', {
+          now,
+
           page_uuid: book.pages.byId.get(pgId).uuid,
         })),
       },

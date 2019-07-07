@@ -1,10 +1,19 @@
 import {
   BaseModel, identifiedBy, field, action, session,
 } from 'shared/model';
+import { pick } from 'lodash';
 import { computed } from 'mobx';
 import moment from 'moment';
 import Time from '../../time';
 import { dateWithUnchangedTime, timeWithUnchangedDate } from '../../../helpers/dates';
+
+
+function defaultOpensAt(tasking) {
+  console.log({ c: tasking.plan.course });
+
+  return null; // Time.now
+}
+
 
 export default
 @identifiedBy('tasking-plan')
@@ -12,7 +21,6 @@ class TaskingPlan extends BaseModel {
 
   @field target_id;
   @field target_type;
-
   @session({ type: 'object' }) plan;
 
   // Note: These are deliberatly NOT set to {type: 'date'}
@@ -31,6 +39,7 @@ class TaskingPlan extends BaseModel {
       this.opens_at = moment(Time.now).add(1, 'day')
         .hour(hour).minute(minute).toISOString();
     }
+
   }
 
   @computed get opensAtDay() {
@@ -43,21 +52,36 @@ class TaskingPlan extends BaseModel {
     return moment(this.due_at).isBefore(Time.now);
   }
 
-
   @action setOpensDate(date) {
     this.opens_at = dateWithUnchangedTime(date, this.opens_at).toISOString();
   }
+
+  @computed get isValid() {
+    return Boolean(
+      this.target_id && this.target_type && this.opens_at && this.due_at
+    );
+  }
+
   @action setOpensTime(time) {
     const [hour, minute] = time.split(':');
     this.opens_at = moment(this.opens_at)
-      .hour(hour).minute(minute).seconds(0).millisecond(0);
+      .hour(hour).minute(minute).seconds(0).millisecond(0)
+      .toISOString();
+  }
+
+  @computed get dataForSave() {
+    return pick(this, 'target_id', 'target_type', 'opens_at', 'due_at');
   }
 
   @action setDueDate(date) {
     this.due_at = dateWithUnchangedTime(date, this.due_at).toISOString();
   }
+
   @action setDueTime(time) {
-    this.due_at = dateWithUnchangedTime(time, this.due_at).toISOString();
+    const [hour, minute] = time.split(':');
+    this.due_at = moment(this.due_at)
+      .hour(hour).minute(minute).seconds(0).millisecond(0)
+      .toISOString();
   }
 
 }

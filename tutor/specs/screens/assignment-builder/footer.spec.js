@@ -13,16 +13,17 @@ describe('Task Plan Footer', function() {
   });
 
   it('publishes', () => {
-    const footer = mount(<Footer {...props} />);
-    expect(footer).toHaveRendered(
-      'SaveButton AsyncButton[isWaiting=false]'
-    );
-    plan.save = jest.fn();
+    props.ux.form = {
+      changed: true,
+      isValid: true,
+      get: () => ({}),
+      onSubmit: jest.fn(),
+    };
+    const footer = mount(<C><Footer {...props} /></C>);
+    expect(props.ux.canSave).toBe(true);
     footer.find('SaveButton AsyncButton').simulate('click');
-    expect(plan.save).toHaveBeenCalled();
-
-    footer.find('SaveAsDraftButton AsyncButton').simulate('click');
-    expect(plan.save).toHaveBeenCalledTimes(2);
+    expect(props.ux.form.onSubmit).toHaveBeenCalled();
+    expect(props.ux.plan.is_publish_requested).toBe(true);
 
     footer.unmount();
   });

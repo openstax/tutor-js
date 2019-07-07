@@ -3,7 +3,7 @@ import {
 } from 'shared/model';
 import { action, computed, observable, createAtom } from 'mobx';
 import {
-  sortBy, first, last, map, union, find, get,
+  sortBy, first, last, map, union, find, get, pick, extend, without,
 } from 'lodash';
 import { lazyInitialize } from 'core-decorators';
 import TaskingPlan from './tasking'
@@ -12,6 +12,12 @@ import { getDurationFromMoments } from '../../../helpers/dates';
 import Time from '../../time';
 import TaskPlanStats from './stats';
 import moment from '../../../helpers/moment-range';
+
+const TUTOR_SELECTIONS = {
+  default: 3,
+  max: 4,
+  min: 0,
+};
 
 
 export default
@@ -43,11 +49,11 @@ class TeacherTaskPlan extends BaseModel {
   @observable unmodified_plans = [];
 
   // only set when publishing
-  @field is_feedback_immediate;
-  @field is_publish_requested;
+  @field is_feedback_immediate = false;
+  @field is_publish_requested = false;
 
   @observable publishingUpdates;
-  @session({ type: 'object' }) map;
+  @session({ type: 'object' }) course;
 
   constructor(attrs) {
     super(attrs);
@@ -57,7 +63,6 @@ class TeacherTaskPlan extends BaseModel {
       () => { TaskPlanPublish.forPlan(this).startListening(); },
       () => { TaskPlanPublish.stopPollingForPlan(this); },
     );
-
   }
 
   @lazyInitialize analytics = new TaskPlanStats({ taskPlan: this });
@@ -81,8 +86,6 @@ class TeacherTaskPlan extends BaseModel {
     return Boolean(!this.id || 'new' === this.id);
   }
 
-  @computed get isEvent() { return 'event' === this.type; }
-
   @computed get durationLength() {
     return this.duration.length('days');
   }
@@ -100,6 +103,11 @@ class TeacherTaskPlan extends BaseModel {
     return getDurationFromMoments(
       map(this.tasking_plans, 'due_at'),
     );
+  }
+
+  @computed get dueRange() {
+    const due_times = sortBy(map(this.tasking_plans, tp => moment(tp.due_at)), m => m.toDate());
+    return moment.range(first(due_times), last(due_times));
   }
 
   rangeFor(attr) {
@@ -142,6 +150,11 @@ class TeacherTaskPlan extends BaseModel {
     );
   }
 
+  @computed get isEvent() { return 'event' === this.type; }
+  @computed get isReading() { return 'reading' === this.type; }
+  @computed get isHomework() { return 'homework' === this.type; }
+  @computed get isExternal() { return 'external' === this.type; }
+
   // camelcase versions to match existing API
   @computed get isPublished() { return this.is_published; }
   @computed get isPublishing() { return this.is_publishing; }
@@ -169,7 +182,7 @@ class TeacherTaskPlan extends BaseModel {
 
   @action reset() {
     this.title = this.description = '';
-    this.tasking_plans = this.course.periods.map(period => ({
+    this.tasking_plans = this.course.periods.active.map(period => ({
       target_id: period.id, target_type: 'period',
     }));
   }
@@ -192,8 +205,51 @@ class TeacherTaskPlan extends BaseModel {
     );
   }
 
-  @computed get course() {
-    return this.map.course;
+  @computed get canEdit() {
+    return !this.isVisibleToStudents;
+  }
+
+  @computed get numTutorSelections() {
+    return get(this, 'settings.exercises_count_dynamic', 0);
+  }
+
+  @computed get numExercises() {
+    return this.exerciseIds.length;
+  }
+
+  @computed get exerciseIds() {
+    return get(this, 'settings.exercise_ids', []);
+  }
+
+  @action removeExercise(ex) {
+    this.settings.exercise_ids = without(this.exerciseIds, ex.id);
+  }
+
+  @action addExercise(ex) {
+    this.settings.exercise_ids = union(this.exerciseIds, [ex.id]);
+  }
+
+  @computed get canIncreaseTutorExercises() {
+    return this.numTutorSelections < TUTOR_SELECTIONS.max;
+  }
+
+  @computed get canDecreaseTutorExercises() {
+    return this.numTutorSelections > TUTOR_SELECTIONS.min;
+  }
+
+  includesExercise(exercise) {
+    return Boolean(
+      this.isHomework && this.exerciseIds.includes(exercise.id)
+    );
+  }
+
+  @computed get dataForSave() {
+    return extend(pick(this,
+      'title', 'description', 'settings',
+      'is_publish_requested',
+    ), {
+      tasking_plans: map(this.tasking_plans, 'dataForSave'),
+    });
   }
 
   // called from api
@@ -207,6 +263,7 @@ class TeacherTaskPlan extends BaseModel {
     if (this.ecosystem_id) {
       options.params = { ecosystem_id: this.ecosystem_id };
     }
+    options.data = this.dataForSave;
     return options;
   }
 
@@ -216,5 +273,7 @@ class TeacherTaskPlan extends BaseModel {
     this.update(data);
     this.unmodified_plans = data.tasking_plans;
   }
+
+  fetch() { return this; }
 
 }

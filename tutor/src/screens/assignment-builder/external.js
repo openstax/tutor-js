@@ -1,10 +1,10 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
+import {
+  React, PropTypes, observable, action, observer, cn,
+} from '../../helpers/react';
 import { pick, get } from 'lodash';
 import { Card, Row, Col } from 'react-bootstrap';
 import { idType } from 'shared';
-import validator from 'validator';
-import classnames from 'classnames';
+import Header from './header';
 import { TutorInput } from '../../components/tutor-input';
 import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
 import { TaskingStore } from '../../flux/tasking';
@@ -12,89 +12,41 @@ import PlanFooter from './footer';
 import PlanMixin from './plan-mixin';
 import TaskPlanBuilder from './builder';
 import Wrapper from './wrapper';
+import UX from './ux';
 
-const ExternalPlan = createReactClass({
-  displayName: 'ExternalPlan',
-  mixins: [PlanMixin],
+@observer
+class External extends React.Component {
 
-  propTypes: {
-    id: idType.isRequired,
-    courseId: idType.isRequired,
-  },
-
-  setUrl(url) {
-    const { id } = this.props;
-    return TaskPlanActions.updateUrl(id, url);
-  },
-
-  validate(inputValue) {
-    if ((inputValue == null) || (inputValue.length <= 0)) { return ['required']; }
-    if (!validator.isURL(inputValue)) { return ['url']; }
-    return null;
-  },
+  static propTypes = {
+    ux: PropTypes.instanceOf(UX).isRequired,
+  }
 
   render() {
-    const { id, courseId } = this.props;
-    const builderProps = pick(this.state, 'isVisibleToStudents', 'isEditable', 'isSwitchable');
-    const hasError = this.hasError();
+    const { ux, ux: { plan } } = this.props;
 
-    const plan = TaskPlanStore.get(id);
-    const externalUrl = get(plan, 'settings.external_url');
-
-    let formClasses = ['edit-external', 'dialog'];
-
-    let label = 'Assignment URL';
-
-    const isURLLocked = TaskingStore.isTaskOpened(id) && TaskPlanStore.isPublished(id);
-    if (isURLLocked) { label = `${label} (Cannot be changed once assignment is opened and published)`; }
-
-    formClasses = classnames(
-      'edit-external',
-      'dialog',
-      {
-        'is-invalid-form': hasError,
-      },
-    );
-    //.task-plan[data-assignment-type='reading'] .dialog > .card-header
     return (
       <Wrapper planType="external">
-        <Card className={formClasses}>
-          <Card.Header>
-            {this.builderHeader('external')}
-          </Card.Header>
+        <Card
+          className={cn('edit-external', 'dialog', { 'is-invalid-form': ux.hasError })}
+        >
+          <Header plan={plan} onCancel={ux.onCancel} />
           <Card.Body>
-            <TaskPlanBuilder courseId={courseId} id={id} {...builderProps} />
+            <TaskPlanBuilder ux={ux} />
             <Row>
               <Col xs={12} md={12}>
                 <TutorInput
-                  disabled={isURLLocked}
-                  label={label}
-                  className="external-url"
-                  id="external-url"
-                  default={externalUrl}
-                  required={true}
-                  validate={this.validate}
-                  onChange={this.setUrl} />
+                  disabled={!plan.canEdit}
+                  label="Assignment URL"
+                  {...ux.form.$('externalUrl').bind()}
+                />
               </Col>
             </Row>
           </Card.Body>
-          <PlanFooter
-            id={id}
-            courseId={courseId}
-            onPublish={this.publish}
-            onSave={this.save}
-            onCancel={this.cancel}
-            hasError={hasError}
-            isVisibleToStudents={this.state.isVisibleToStudents}
-            getBackToCalendarParams={this.getBackToCalendarParams}
-            goBackToCalendar={this.goBackToCalendar}
-          />
+          <PlanFooter ux={ux} />
         </Card>
       </Wrapper>
     );
-  },
-});
+  }
+}
 
-export { ExternalPlan };
-const ExternalShell = PlanMixin.makePlanRenderer('external', ExternalPlan);
-export default ExternalShell;
+export default External;

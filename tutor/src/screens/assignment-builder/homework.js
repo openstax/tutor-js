@@ -1,55 +1,37 @@
-import { React, PropTypes, observable, action, computed, observer, cn } from '../../helpers/react';
-import { pick, isEmpty } from 'lodash';
+import {
+  React, PropTypes, observable, action, observer, cn,
+} from '../../helpers/react';
 import { Card, Row, Col, Button } from 'react-bootstrap';
-import Course from '../../models/course';
-import Plan from '../../models/task-plans/teacher/plan';
 import Header from './header';
-import PlanMixin from './plan-mixin';
 import TaskPlanBuilder from './builder';
 import ChooseExercises from './homework/choose-exercises';
 import ReviewExercises from './homework/review-exercises';
 import FeedbackSetting from './feedback';
 import PlanFooter from './footer';
-import { TaskPlanStore } from '../../flux/task-plan';
 import Wrapper from './wrapper';
 import UX from './ux';
+import sharedExercises, { ExercisesMap } from '../../models/exercises';
 
 @observer
 class Homework extends React.Component {
 
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
+    exercises:  PropTypes.instanceOf(ExercisesMap),
   }
 
-  @observable isShowingSectionTopics = false;
-
+  static defaultProps = {
+    exercises: sharedExercises,
+  };
 
   render() {
-    const { hasError, hasExercises } = this;
     const { ux, ux: { plan, course } } = this.props;
-
-    // const builderProps = pick(this.state, 'isVisibleToStudents', 'isEditable', 'isSwitchable');
-    // const hasError = this.hasError();
-    // const course = this.getCourse();
-    //
-    // const ecosystemId = TaskPlanStore.getEcosystemId(id, courseId);
-    //
-    // const topics = TaskPlanStore.getTopics(id);
-    // const hasExercises = !isEmpty(TaskPlanStore.getExercises(id));
-
-    // const formClasses = cn(
-    //   'edit-homework dialog',
-    //   {
-    //     hide: this.state.showSectionTopics,
-    //     'is-invalid-form': hasError,
-    //   },
-    // );
 
     return (
       <Wrapper planType={plan.type}>
         <Card className={cn('edit-homework', 'dialog', {
-          'is-invalid-form': plan.hasError,
-          hide: this.isShowingSectionTopics,
+          'is-invalid-form': ux.hasError,
+          hide: ux.isShowingSectionSelection,
         })}>
 
           <Header plan={plan} onCancel={ux.onCancel} />
@@ -65,14 +47,14 @@ class Homework extends React.Component {
               <Col xs={12} md={12}>
                 {!plan.isVisibleToStudents && (
                   <Button
-                    id="problems-select"
-                    className={cn('-select-sections-btn', {
-                      'invalid': hasError && !hasExercises,
+                    id="select-sections"
+                    className={cn({
+                      invalid: ux.hasError && !plan.hasExercises,
                     })}
-                    onClick={this.onShowSectionTopics}
+                    onClick={ux.onShowSectionSelection}
                     variant="default"
                   >+ Select Problems</Button>)}
-                {hasError && !hasExercises && (
+                {ux.hasError && !ux.hasExercises && (
                   <span className="problems-required">
                     Please select problems for this assignment.
                   </span>)}
@@ -81,33 +63,24 @@ class Homework extends React.Component {
           </Card.Body>
           <PlanFooter
             ux={ux}
-            plan={plan}
-            course={course}
             onPublish={this.onPublish}
             onSave={this.onSave}
             onCancel={this.onCancel}
-            hasError={hasError}
+            hasError={ux.hasError}
 
             getBackToCalendarParams={this.getBackToCalendarParams}
             goBackToCalendar={this.goBackToCalendar}
           />
         </Card>
-        {this.isShowingSectionTopics && (
+        {ux.isShowingSectionSelection && (
           <ChooseExercises
-            course={course}
-            plan={plan}
+            ux={ux}
+            exercises={this.props.exercises}
             cancel={this.cancelSelection}
             hide={this.hideSectionTopics}
-
           />)}
-        {hasExercises && !this.isShowingSectionTopics && (
-          <ReviewExercises
-            plan={plan}
-            course={course}
-            showSectionTopics={this.isShowingSectionTopics}
-            course={course}
-            sectionIds={plan.settings.page_ids}
-          />)}
+        {ux.isShowingExerciseReview && (
+          <ReviewExercises ux={ux} />)}
       </Wrapper>
     );
   }

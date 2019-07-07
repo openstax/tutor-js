@@ -25,7 +25,7 @@ const StyledFooter = styled.div`
 
 `;
 
-const PlanFooter = observer(({ ux }) => {
+const Footer = observer(({ ux }) => {
 
   return (
     <StyledFooter>
@@ -41,12 +41,12 @@ const PlanFooter = observer(({ ux }) => {
   );
 });
 
-PlanFooter.displayName = 'PlanFooter';
-PlanFooter.propTypes = {
+Footer.displayName = 'Footer';
+Footer.propTypes = {
   ux: PropTypes.instanceOf(UX).isRequired,
 };
 
-export default PlanFooter;
+export default Footer;
 
 // <TourAnchor id="builder-draft-button">
 // <DraftButton

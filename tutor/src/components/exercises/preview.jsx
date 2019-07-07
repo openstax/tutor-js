@@ -23,6 +23,7 @@ const ExercisePreviewWrapper = observer((props) => {
   );
 });
 
+ExercisePreviewWrapper.displayName = 'ExercisePreviewWrapper';
 ExercisePreviewWrapper.propTypes = {
   exercise:               PropTypes.object.isRequired,
   onShowDetailsViewClick: PropTypes.func.isRequired,

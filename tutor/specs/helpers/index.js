@@ -1,6 +1,7 @@
 export * from 'shared/specs/helpers';
 import { MemoryRouter as Router } from 'react-router-dom';
 import ReactTestUtils from 'react-dom/test-utils';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import TestRouter from './test-router';
 import TutorRouter from '../../src/helpers/router';
@@ -25,7 +26,7 @@ const delay = (timeout = 3) =>
 const deferred = (fn, timeout = 3) => delay(timeout).then(fn);
 
 export {
-  Router, TimeMock, TestRouter, TutorRouter, delay,
+  Router, TimeMock, TestRouter, TutorRouter, delay, moment,
   Factory, FactoryBot, Actions, deferred, C, ReactTestUtils,
   wrapInDnDTestContext, EnzymeContext, Theme, PropTypes,
 };

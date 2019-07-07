@@ -2,12 +2,18 @@ import { React, PropTypes, observable, action, computed, observer, cn } from '..
 import TourRegion from '../../components/tours/region';
 import Courses from '../../models/courses-map';
 import Loader from './loader';
-import Homework from './homework';
+import homework from './homework';
+import reading from './reading';
+import event from './reading';
+import external from './external';
 import Warning from '../../components/warning-modal';
 import UX from './ux';
 
 const BUILDERS = {
-  homework: Homework,
+  homework,
+  reading,
+  external,
+  event,
 };
 
 
@@ -29,16 +35,8 @@ class AssignmentBuilder extends React.Component {
     // eslint-disable-next-line
     const course = props.course || Courses.get(courseId);
     const plan = course.teacherTaskPlans.withPlanId(id || 'new');
-
-    if (plan.isNew) {
-      plan.reset();
-      plan.type = type;
-    } else {
-      plan.fetch();
-    }
-
+    plan.type = type;
     this.ux = new UX({ course, plan });
-//    this.state = { id, plan, type, course };
   }
 
   render() {

@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { observable, action, computed } from 'mobx';
 import { ArrayOrMobxType } from 'shared/helpers/react';
 import Loading from 'shared/components/loading-animation';
-import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
+// import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
 import ExerciseHelpers from '../../../helpers/exercise';
 import ExerciseControls from './exercise-controls';
 import ExerciseDetails from '../../../components/exercises/details';
@@ -13,34 +13,38 @@ import TourRegion from '../../../components/tours/region';
 import Course from '../../../models/course';
 import ScrollTo from '../../../helpers/scroll-to';
 import sharedExercises, { ExercisesMap } from '../../../models/exercises';
+import UX from '../ux';
 
 @observer
 class AddExercises extends React.Component {
   static propTypes = {
-    course:     PropTypes.instanceOf(Course).isRequired,
-    exercises:  PropTypes.instanceOf(ExercisesMap),
-    planId:     PropTypes.string.isRequired,
-    onAddClick: PropTypes.func.isRequired,
-    pageIds:    ArrayOrMobxType.isRequired,
-    canEdit:    PropTypes.bool,
-    hide:       PropTypes.func,
-    cancel:     PropTypes.func,
+    ux: PropTypes.instanceOf(UX).isRequired,
+//    exercises:   PropTypes.instanceOf(ExercisesMap),
+
+    //     course:     PropTypes.instanceOf(Course).isRequired,
+    //     exercises:  PropTypes.instanceOf(ExercisesMap),
+    //     planId:     PropTypes.string.isRequired,
+    //     onAddClick: PropTypes.func.isRequired,
+    //     pageIds:    ArrayOrMobxType.isRequired,
+    //     canEdit:    PropTypes.bool,
+    //     hide:       PropTypes.func,
+    //     cancel:     PropTypes.func,
   };
 
-  static defaultProps = {
-    exercises: sharedExercises,
-  };
+  // static defaultProps = {
+  //   exercises: sharedExercises,
+  // };
 
-  componentWillMount() {
+  // componentWillMount() {
+  //   this.props.pageIds.forEach(pg => {
+  //     this.props.exercises.forPageId(pg).forEach(
+  //       e => e.isSelected = TaskPlanStore.hasExercise(this.props.planId, e.id),
+  //     );
+  //   });
+  // }
 
-    this.props.pageIds.forEach(pg => {
-      this.props.exercises.forPageId(pg).forEach(
-        e => e.isSelected = TaskPlanStore.hasExercise(this.props.planId, e.id),
-      );
-    });
-  }
+  // scroller = new ScrollTo();
 
-  scroller = new ScrollTo();
   @observable currentView = 'cards';
   @observable currentSection;
   @observable displayFeedback;
@@ -55,28 +59,30 @@ class AddExercises extends React.Component {
     this.focusedExercise = exercise;
   }
 
-  @action.bound onExerciseToggle(ev, exercise) {
-    const ex = exercise.wrapper;
-    ex.isSelected = !ex.isSelected;
-    if (ex.isSelected) {
-      TaskPlanActions.addExercise(this.props.planId, ex.id);
-    } else {
-      TaskPlanActions.removeExercise(this.props.planId, ex.id);
-    }
-
-  }
+  // @action.bound onExerciseToggle(ev, exercise) {
+  //   const ex = exercise.wrapper;
+  //   ex.isSelected = !ex.isSelected;
+  //   if (ex.isSelected) {
+  //     TaskPlanActions.addExercise(this.props.planId, ex.id);
+  //   } else {
+  //     TaskPlanActions.removeExercise(this.props.planId, ex.id);
+  //   }
+  //
+  // }
 
   getExerciseActions = (exercise) => {
+    const { ux } = this.props;
+
     const actions = {};
     if (exercise.isSelected) {
       actions.exclude = {
         message: 'Remove question',
-        handler: this.onExerciseToggle,
+        handler: ux.onExerciseToggle,
       };
     } else {
       actions.include = {
         message: 'Add question',
-        handler: this.onExerciseToggle,
+        handler: ux.onExerciseToggle,
       };
     }
     if (this.currentView === 'details') {
@@ -138,32 +144,36 @@ class AddExercises extends React.Component {
     this.currentSection = currentSection;
   }
 
-  @computed get displayedExercises() {
-    const selected = TaskPlanStore.getExercises(this.props.planId);
-    // we display all the exercises that were previously selected
-    // or that are assignable homeworks for the given pages
-    return this.props.exercises.where(e => (
-      selected.includes(e.id) || (
-        e.isHomework && e.isAssignable &&
-          e.page && this.props.pageIds.includes(e.page.id)
-      )
-    ));
-  }
+  // @computed get displayedExercises() {
+  //   return this.props.ux.displayedExercises(this.props.exercises);
+  //
+  //   // const { ux } = this.props;
+  //   //
+  //   // // const selected = TaskPlanStore.getExercises(this.props.planId);
+  //   // // we display all the exercises that were previously selected
+  //   // // or that are assignable homeworks for the given pages
+  //   // return this.props.exercises.where(e => (
+  //   //   e.isSelected || (
+  //   //     e.isHomework && e.isAssignable &&
+  //   //       e.page && ux.selectedPageIds.includes(e.page.id)
+  //   //   )
+  //   // ));
+  // }
 
   render() {
-    const { pageIds, exercises, course } = this.props;
+    const { ux, ux: { exercises } } = this.props;
 
-    if (exercises.isFetching({ pageIds })){
+    if (exercises.isFetching({ pageIds: ux.selectedPageIds })){
       return <Loading />;
     }
 
     const sharedProps = {
-      exercises: this.displayedExercises,
-      book: course.referenceBook,
-      onExerciseToggle: this.onExerciseToggle,
+      exercises: ux.displayedExercises,
+      book: ux.course.referenceBook,
+      onExerciseToggle: ux.onExerciseToggle,
       getExerciseActions: this.getExerciseActions,
       getExerciseIsSelected: this.getExerciseIsSelected,
-      pageIds,
+      pageIds: ux.selectedPageIds,
     };
 
     let body;
@@ -191,24 +201,16 @@ class AddExercises extends React.Component {
 
     return (
       <TourRegion id="add-homework-select-exercises"
-        courseId={course.id}
+        courseId={ux.course.id}
         className="homework-builder-view"
       >
         <ExerciseControls
-          canReview={true}
-          currentView={this.currentView}
-          canAdd={this.props.canEdit}
-          reviewClicked={this.props.hide}
-          onCancel={this.props.cancel}
-          addClicked={this.props.onAddClick}
-          planId={this.props.planId}
-          onShowCardViewClick={this.onShowCardViewClick}
-          onShowDetailsViewClick={this.onShowDetailsViewClick}
+          ux={ux}
           sectionizerProps={{
             currentSection: this.currentSection,
             onSectionClick: this.setCurrentSection,
             nonAvailableWidth: 600,
-            chapter_sections: course.referenceBook.sectionsForPageIds(pageIds),
+            chapter_sections: ux.sections,
           }} />
         {body}
       </TourRegion>

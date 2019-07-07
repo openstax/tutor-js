@@ -1,8 +1,9 @@
 import UX from '../../../src/screens/assignment-builder/ux';
-import { Factory, C } from '../../helpers';
+import { Factory, TimeMock } from '../../helpers';
 
 describe('Homework Builder', function() {
   let ux, plan;
+  const now = TimeMock.setTo('2015-10-14T12:00:00.000Z');
 
   beforeEach(() => {
     const course = Factory.course();
@@ -10,11 +11,13 @@ describe('Homework Builder', function() {
     ux = new UX({ course, plan });
   });
 
-  // it('calculates min/max dates', () => {
-  //   expect(ux.dueAt).toEqual({
-  //     min: ux.course.term.start,
-  //     max:  '2',
-  //   })
-  // });
+  it('#selectedExercises', () => {
+    expect(ux.selectedExercises).toHaveLength(0);
+    ux.exercises = Factory.exercisesMap({
+      now, book: ux.referenceBook,
+    });
+    ux.plan.settings.exercise_ids = [ux.exercises.array[0].id ];
+    expect(ux.selectedExercises).toHaveLength(1);
+  });
 
 });

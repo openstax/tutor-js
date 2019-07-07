@@ -1,49 +1,41 @@
-let defaultProps;
-import PropTypes from 'prop-types';
-import React from 'react';
-import ld from 'underscore';
-import { TaskPlanActions  } from '../../../../src/flux/task-plan';
+import { React, TimeMock, FakeWindow } from '../../../helpers';
 import ExerciseControls from '../../../../src/screens/assignment-builder/homework/exercise-controls';
+import UX from '../../../../src/screens/assignment-builder/ux';
+import Factory from '../../../factories';
 
-import VALID_MODEL from '../../../../api/plans/2.json';
+describe('choose exercises component', () => {
+  let exercises, props, plan, ux, course, page_ids;
 
-let props = (defaultProps = {
-  planId: VALID_MODEL.id,
-  canAdd: true,
-  canReview: true,
-  unDocked: true,
-  addClicked: PropTypes.func,
-  reviewClicked: PropTypes.func,
-  setSecondaryTopControls: jest.fn(),
-  sectionizerProps: {
-    currentSection: '1.2',
-    onSectionClick: jest.fn(),
-    chapter_sections: ['1.1', '1.2', '3.1'],
-  },
-});
+  const now = TimeMock.setTo('2015-10-14T12:00:00.000Z');
 
-
-describe('Homework - Exercise Controls', function() {
   beforeEach(function() {
-    TaskPlanActions.loaded(VALID_MODEL, VALID_MODEL.id);
-    props = ld.mapObject(defaultProps);
-    props.setSecondaryTopControls = jest.fn();
-    return props = ld.extend(defaultProps, {});
+    course = Factory.course({ now });
+    plan = Factory.teacherTaskPlan({ course, now });
+
+    ux = new UX({ course, plan, windowImpl: new FakeWindow });
+    exercises = Factory.exercisesMap({ now, book: ux.referenceBook });
+
+    props = {
+      ux,
+      exercises,
+      unDocked: true,
+      setSecondaryTopControls: jest.fn(),
+      sectionizerProps: {
+        currentSection: '1.2',
+        onSectionClick: jest.fn(),
+        chapter_sections: ['1.1', '1.2', '3.1'],
+      },
+    };
   });
 
-  afterEach(() => TaskPlanActions.reset());
-
-  it('should show add button if prop.canAdd is true', function() {
-    props.canAdd = true;
-    props.canReview = false;
+  it('should show add button if plan can be edited', function() {
     const c = mount(<ExerciseControls {...props} />);
     expect(c).toHaveRendered('Button[className="add-sections"]');
   });
 
-  it('should show review button if prop.canReview is true', function() {
-    props.canAdd = false;
-    props.canReview = true;
+  it('should show review button once exercises are selected', function() {
     const c = mount(<ExerciseControls {...props} />);
+    props.ux.plan.settings.exercise_ids = [ 1,2,3 ];
     expect(c).toHaveRendered('Button[className="cancel-add"]');
   });
 });

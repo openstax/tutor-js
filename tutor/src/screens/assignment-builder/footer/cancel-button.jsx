@@ -16,7 +16,7 @@ const CancelButton = observer(({ ux }) => {
     </TourAnchor>
   );
 });
-CancelButton.displayName = 'SaveButton';
+CancelButton.displayName = 'CancelButton';
 CancelButton.propTypes = {
   ux: PropTypes.object.isRequired,
 };
