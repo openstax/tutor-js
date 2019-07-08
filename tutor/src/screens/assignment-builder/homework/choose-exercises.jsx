@@ -53,7 +53,7 @@ class ChooseExercises extends React.Component {
     const { ux } = this.props;
 
     return (
-      <div className="homework-plan-exercise-select-topics">
+      <div className="homework-plan-exercise-select-sections">
         <SelectSections
           ux={ux}
           primary={

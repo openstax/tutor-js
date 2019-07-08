@@ -56,8 +56,8 @@ class AssignmentForm extends Form {
     this.update(plan.serialize());
   }
 
-  async onSaveRequested(e) {
-    this.onSubmit(e);
+  async onSaveRequested() {
+    this.onSubmit({ preventDefault: () => {} });
 
     if (!this.isValid) {
       return;

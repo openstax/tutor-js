@@ -21,7 +21,7 @@ describe('Reading Tasks Screen', () => {
     expect(<C><Homework {...props} /></C>).toMatchSnapshot();
   });
 
-  fit('renders value props', () => {
+  it('renders value props', () => {
     const h = mount(<C><Homework {...props} /></C>);
     expect(props.ux.currentStep.type).toEqual('two-step-intro');
     expect(h).toHaveRendered('TwoStepValueProp');

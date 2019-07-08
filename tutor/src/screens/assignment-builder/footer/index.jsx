@@ -6,7 +6,7 @@ import SaveButton    from './save-button';
 import DraftButton   from './save-as-draft';
 import CancelButton  from './cancel-button';
 import BackButton    from './back-button';
-import DeleteLink    from './delete-link';
+import DeleteButton  from './delete-button';
 import HelpTooltip   from './help-tooltip';
 import PreviewButton from './preview-button';
 
@@ -33,7 +33,7 @@ const Footer = observer(({ ux }) => {
       <DraftButton   ux={ux} />
       <CancelButton  ux={ux} />
       <BackButton    ux={ux} />
-      <DeleteLink    ux={ux} />
+      <DeleteButton  ux={ux} />
       <HelpTooltip   ux={ux} />
       <Spacer />
       <PreviewButton ux={ux} />

@@ -2,7 +2,7 @@ import {
   React, PropTypes, styled, computed, action, observer,
 } from '../../../helpers/react';
 import moment from 'moment';
-import { max } from 'lodash';
+import { max, compact } from 'lodash';
 import { findEarliest } from '../../../helpers/dates';
 import Time from '../../../models/time';
 import { Row, Col } from 'react-bootstrap';
@@ -32,14 +32,14 @@ class Tasking extends React.Component {
   @computed get plan() { return this.props.ux.plan; }
   @computed get course() { return this.props.ux.course; }
 
-  get taskings() {
+  @computed get taskings() {
     if (this.props.period) {
-      return [
-        this.plan.findOrCreateTaskingForPeriod(this.props.period),
-      ];
+      return compact([
+        this.plan.tasking_plans.forPeriod(this.props.period),
+      ]);
     }
-    return this.course.periods.active.map((period) =>
-      this.plan.findOrCreateTaskingForPeriod(period),
+    return compact(
+      this.course.periods.active.map((period) => this.plan.tasking_plans.forPeriod(period) ),
     );
   }
 
@@ -102,8 +102,12 @@ class Tasking extends React.Component {
   }
 
   render() {
+    if (!this.taskings.length) { return null; }
+
     const { period, ux: { course, form } } = this.props;
+
     const tasking = this.taskings[0];
+
     const mainSizes = period ? { sm: 8, md: 9 } : { sm: 12 };
     // console.log(
     //   this.minDueAt.toISOString(),

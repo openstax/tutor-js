@@ -1,9 +1,10 @@
 import { Factory, FakeWindow, moment } from '../../helpers';
 import UX from '../../../src/screens/assignment-builder/ux';
 import { COMPLETE } from '../../../src/models/exercises';
+import Time from '../../../src/helpers/time';
 export * from '../../helpers';
 
-export function createUX({ now, type }) {
+export function createUX({ now = Time.now, type = 'homework'} = {}) {
   const course = Factory.course();
   const plan = Factory.teacherTaskPlan({ now, course, type });
   const exercises = Factory.exercisesMap({ book: course.referenceBook });
@@ -12,6 +13,7 @@ export function createUX({ now, type }) {
     course,
     exercises,
     windowImpl: new FakeWindow,
+    history: { push: jest.fn() },
   });
   ux.exercises.fetch = jest.fn(function({ page_ids }) {
     page_ids.forEach(pgId => this.fetched.set(pgId, COMPLETE));

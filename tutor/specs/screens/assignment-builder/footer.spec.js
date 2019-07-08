@@ -1,14 +1,11 @@
-import UX from '../../../src/screens/assignment-builder/ux';
 import Footer from '../../../src/screens/assignment-builder/footer';
-import { Factory, C } from '../../helpers';
+import { C, createUX } from './helpers';
 
 describe('Task Plan Footer', function() {
-  let props, plan;
+  let props;
 
   beforeEach(() => {
-    const course = Factory.course();
-    plan = Factory.teacherTaskPlan({ course });
-    const ux = new UX({ course, plan });
+    const ux = createUX();
     props = { ux };
   });
 
@@ -17,14 +14,15 @@ describe('Task Plan Footer', function() {
       changed: true,
       isValid: true,
       get: () => ({}),
-      onSubmit: jest.fn(),
+      canSave: true,
+      onSaveRequested: jest.fn(),
     };
     const footer = mount(<C><Footer {...props} /></C>);
     expect(props.ux.canSave).toBe(true);
+    props.ux.plan.is_published = false;
     footer.find('SaveButton AsyncButton').simulate('click');
-    expect(props.ux.form.onSubmit).toHaveBeenCalled();
+    expect(props.ux.form.onSaveRequested).toHaveBeenCalled();
     expect(props.ux.plan.is_publish_requested).toBe(true);
-
     footer.unmount();
   });
 

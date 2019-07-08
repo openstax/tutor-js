@@ -83,7 +83,7 @@ exports[`choose exercises component renders selections 1`] = `
   >
     <div>
       <div
-        className="homework-plan-exercise-select-topics"
+        className="homework-plan-exercise-select-sections"
       >
         <div
           className="homework-plan-select-sections c0"

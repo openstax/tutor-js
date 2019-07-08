@@ -6,9 +6,9 @@ const SaveAsDraftButton = observer(({ ux, ux: { plan } }) => {
   if (plan.isPublished) { return null; }
 
   return (
-    <TourAnchor id="builder-save-button">
+    <TourAnchor id="builder-draft-button">
       <AsyncButton
-        variant="primary"
+        variant="secondary"
         className="publish"
         isWaiting={ux.isSaving}
         onClick={ux.onSaveAsDraft}

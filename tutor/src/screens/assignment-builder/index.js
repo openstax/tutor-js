@@ -7,6 +7,7 @@ import reading from './reading';
 import event from './reading';
 import external from './external';
 import Warning from '../../components/warning-modal';
+import { withRouter } from 'react-router';
 import UX from './ux';
 
 const BUILDERS = {
@@ -23,8 +24,11 @@ const UnknownType = () => (
   </Warning>
 );
 
+@withRouter
 @observer
 class AssignmentBuilder extends React.Component {
+
+  static displayName = 'AssignmentBuilder';
 
   constructor(props) {
     super(props);
@@ -34,9 +38,9 @@ class AssignmentBuilder extends React.Component {
 
     // eslint-disable-next-line
     const course = props.course || Courses.get(courseId);
-    const plan = course.teacherTaskPlans.withPlanId(id || 'new');
-    plan.type = type;
-    this.ux = new UX({ course, plan });
+
+    this.ux = new UX({ ...props.params, course, history: props.history });
+
   }
 
   render() {

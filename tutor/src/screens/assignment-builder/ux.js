@@ -1,8 +1,11 @@
 import { action, computed, observable } from 'mobx';
 import moment from 'moment';
-import { map, compact, isEmpty, get } from 'lodash';
+import { map, compact, isEmpty } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
 import Exercises from '../../models/exercises';
+import Router from '../../helpers/router';
+import TaskPlanHelper from '../../helpers/task-plan';
+import TaskPlan from '../../models/task-plans/teacher/plan';
 import ReferenceBook from '../../models/reference-book';
 import Form from './form';
 
@@ -14,18 +17,35 @@ class AssignmentBuilderUX {
   @observable isShowingPeriodTaskings;
   @observable exercises;
 
-  constructor({ plan, course, exercises = Exercises, windowImpl = window }) {
+  constructor({
+    id, type, plan, course, history,
+    exercises = Exercises,
+    windowImpl = window,
+  }) {
+
+    if (plan) {
+      this.plan = plan;
+    } else {
+      this.plan = new TaskPlan({ course, type });
+      if (id != 'new') {
+        this.plan.update( course.teacherTaskPlans.withPlanId(id).serialize() );
+      }
+    }
+    if (type) {
+      this.plan.type = type;
+    }
+    this.history = history;
     this.course = course;
     this.exercises = exercises;
     this.windowImpl = windowImpl;
-    this.isShowingPeriodTaskings = !plan.areTaskingDatesSame;
+    this.isShowingPeriodTaskings = !this.plan.areTaskingDatesSame;
     this.scroller = new ScrollTo({ windowImpl });
-    this.plan = plan;
+
     this.form = new Form(this);
   }
 
   @computed get selectedPageIds() {
-    return get(this.plan, 'settings.page_ids', []);
+    return this.plan.pageIds;
   }
 
   @action.bound async onExercisesShow() {
@@ -85,6 +105,7 @@ class AssignmentBuilderUX {
 
   @action onSelectSectionsMount(el) {
     // scroll again, maybe above scroll isn't needed?
+
     this.scroller.scrollToElement(el);
   }
 
@@ -95,8 +116,12 @@ class AssignmentBuilderUX {
     return this.course.referenceBook;
   }
 
-  @computed get sections() {
-    return this.referenceBook.sectionsForPageIds(this.selectedPageIds);
+  // @computed get sections() {
+  //   return this.referenceBook.sectionsForPageIds(this.selectedPageIds);
+  // }
+
+  @computed get selectedPages() {
+    return this.selectedPageIds.map(pgId => this.referenceBook.pages.byId.get(pgId));
   }
 
   @action.bound onSectionIdsChange(ids) {
@@ -117,14 +142,6 @@ class AssignmentBuilderUX {
     return this.form.canSave;
   }
 
-  @action.bound onSelectSectionsCancel() {
-
-  }
-
-  @action.bound onSelectSectionsHide() {
-
-  }
-
   @action.bound onSelectSectionConfirm() {
     this.isShowingSectionSelection = false;
   }
@@ -135,7 +152,11 @@ class AssignmentBuilderUX {
     this.isShowingExerciseReview = true;
   }
 
-  @action.bound onExercisesCancel() {
+  @action.bound onSectExercisesCancel() {
+    this.isShowingSectionSelection = false;
+    this.isShowingExercises = false;
+    this.isShowingExerciseReview = false;
+    this.scroller.scrollToTop();
   }
 
   @action.bound onExercisesHide() {
@@ -147,25 +168,31 @@ class AssignmentBuilderUX {
   }
 
   @action.bound onCancel() {
+    const route = TaskPlanHelper.calendarParams(this.course);
+    this.history.push(Router.makePathname(route.to, route.params));
+  }
 
+  @action async saveAndCopyPlan() {
+    await this.form.onSaveRequested();
+    const destPlan = this.course.teacherTaskPlans.withPlanId(this.plan.id);
+    destPlan.update(this.plan.serialize());
+    this.onCancel();
   }
 
   @action.bound async onDelete() {
 
   }
 
-  @action.bound async onPublish(e) {
+  @action.bound onPublish() {
     if (!this.plan.is_published) {
       this.plan.is_publish_requested = true;
     }
-    await this.form.onSaveRequested(e);
-    this.onCancel();
+    this.saveAndCopyPlan();
   }
 
-  @action.bound async onSaveAsDraft(e) {
+  @action.bound onSaveAsDraft() {
     this.plan.is_draft = true;
-    await this.form.onSaveRequested(e);
-    this.onCancel();
+    this.saveAndCopyPlan();
   }
 
   @computed get hasError() {

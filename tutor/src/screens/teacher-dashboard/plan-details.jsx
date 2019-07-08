@@ -1,9 +1,7 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { observer, inject } from 'mobx-react';
-import { computed, observable, action } from 'mobx';
-import camelCase from 'lodash/camelCase';
-import classnames from 'classnames';
+import {
+  React, PropTypes, observer, inject,
+  computed, observable, action, cn,
+} from '../../helpers/react';
 import Course from '../../models/course';
 import { Modal, Button } from 'react-bootstrap';
 import TourContext from '../../models/tour/context';
@@ -139,7 +137,7 @@ class CoursePlanDetails extends React.Component {
         show={true}
         enforceFocus={false}
         data-assignment-type={type}
-        className={classnames('plan-modal', className)}
+        className={cn('plan-modal', className)}
       >
         <TourRegion
           id="analytics-modal"
@@ -158,4 +156,4 @@ class CoursePlanDetails extends React.Component {
       </Modal>
     );
   }
-};
+}

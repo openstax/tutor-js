@@ -17,10 +17,10 @@ class TeacherTaskPlans extends Map {
     return { course: this.course };
   }
 
-  withPlanId(planId) {
+  withPlanId(planId, attributes = {}) {
     let plan = this.get(planId);
     if (!plan) {
-      plan = new TaskPlan({ id: planId, course: this.course });
+      plan = new TaskPlan({ id: planId, course: this.course, ...attributes });
       this.set(planId, plan);
     }
     return plan;

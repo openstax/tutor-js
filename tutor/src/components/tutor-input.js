@@ -154,13 +154,6 @@ class TutorDateInput extends React.Component {
 
   state = { expandCalendar: false };
 
-  // For some reason, react-datepicker chooses to GLOBALLY override moment's locale.
-  // This tends to do nasty things to the dashboard calendar.
-  // Therefore, grab the current locale settings, and restore them when unmounting.
-  // TODO: debug react-datepicker and submit a PR so that it will no longer thrash moment's global.
-  componentWillUnmount() {
-    return this.restoreLocales();
-  }
 
   onBlur = () => {
     return this.setState({ hasFocus: false });
@@ -196,13 +189,6 @@ class TutorDateInput extends React.Component {
     if (this.props.min && value.isBefore(this.props.min, 'day')) { valid = false; }
     if (this.props.max && value.isAfter(this.props.max, 'day')) { valid = false; }
     return valid;
-  };
-
-  restoreLocales = () => {
-    const { abbr } = this.props.currentLocale;
-
-    const localeOptions = omit(this.props.currentLocale, 'abbr');
-    return moment.locale(abbr, localeOptions);
   };
 
   render() {

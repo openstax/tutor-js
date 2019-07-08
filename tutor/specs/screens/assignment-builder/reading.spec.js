@@ -35,9 +35,10 @@ describe('Reading Builder', function() {
     expect(props.ux.plan.save).toHaveBeenCalled();
 
     expect(props.ux.plan.dataForSave).toEqual({
+      type: 'reading',
       title: 'a reading',
-      is_publish_requested: true,
       description: 'a reading description',
+      is_publish_requested: !ux.plan.is_published,
       tasking_plans: props.ux.course.periods.map(p => ({
         target_id: p.id,
         target_type: 'period',

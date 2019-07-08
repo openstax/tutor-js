@@ -3,10 +3,11 @@ import {
 } from 'shared/model';
 import { action, computed, observable, createAtom } from 'mobx';
 import {
-  sortBy, first, last, map, union, find, get, pick, extend, without,
+  sortBy, first, last, map, union, find, remove,
+  get, pick, extend, without, every, isEmpty,
 } from 'lodash';
 import { lazyInitialize } from 'core-decorators';
-import TaskingPlan from './tasking'
+import TaskingPlan from './tasking';
 import TaskPlanPublish from '../../jobs/task-plan-publish';
 import { getDurationFromMoments } from '../../../helpers/dates';
 import Time from '../../time';
@@ -43,8 +44,10 @@ class TeacherTaskPlan extends BaseModel {
   @field cloned_from_id;
   @field is_deleting;
   @session publish_job_url;
-  @field({ type: 'object' }) settings;
-  @hasMany({ model: TaskingPlan, inverseOf: 'plan' }) tasking_plans;
+  @field({ type: 'object' }) settings = {};
+  @hasMany({ model: TaskingPlan, inverseOf: 'plan', extend: {
+    forPeriod(period) { return find(this, { target_id: period.id, target_type: 'period' }); },
+  } }) tasking_plans;
 
   @observable unmodified_plans = [];
 
@@ -63,14 +66,17 @@ class TeacherTaskPlan extends BaseModel {
       () => { TaskPlanPublish.forPlan(this).startListening(); },
       () => { TaskPlanPublish.stopPollingForPlan(this); },
     );
+    if (this.isNew) {
+      if (this.isHomework) {
+        this.settings.exercises_count_dynamic = TUTOR_SELECTIONS.default;
+      }
+    }
   }
 
   @lazyInitialize analytics = new TaskPlanStats({ taskPlan: this });
 
   findOrCreateTaskingForPeriod(period) {
-    const tp = find(this.tasking_plans, {
-      target_id: period.id, target_type: 'period',
-    });
+    const tp = this.tasking_plans.forPeriod(period);
     if (tp) { return tp; }
     this.tasking_plans.push({
       target_id: period.id, target_type: 'period',
@@ -150,6 +156,28 @@ class TeacherTaskPlan extends BaseModel {
     );
   }
 
+  @action.bound removePage(page) {
+    const indx = this.settings.page_ids.indexOf(page.id);
+    if (-1 !== indx) {
+      this.settings.page_ids.splice(indx, 1);
+    }
+  }
+
+  @action movePage(page, step) {
+    const pageId = String(page.id);
+    const curIndex = this.settings.page_ids.indexOf(pageId);
+    if (-1 === curIndex){ return; }
+    let newIndex = curIndex + step;
+    if (newIndex < 0) {
+      newIndex = 0;
+    }
+    if (!(newIndex < this.settings.page_ids.length)) {
+      newIndex = this.settings.page_ids.length - 1;
+    }
+    this.settings.page_ids[curIndex] = this.settings.page_ids[newIndex];
+    this.settings.page_ids[newIndex] = pageId;
+  }
+
   @computed get isEvent() { return 'event' === this.type; }
   @computed get isReading() { return 'reading' === this.type; }
   @computed get isHomework() { return 'homework' === this.type; }
@@ -217,6 +245,10 @@ class TeacherTaskPlan extends BaseModel {
     return this.exerciseIds.length;
   }
 
+  @computed get pageIds() {
+    return get(this, 'settings.page_ids', []);
+  }
+
   @computed get exerciseIds() {
     return get(this, 'settings.exercise_ids', []);
   }
@@ -246,10 +278,19 @@ class TeacherTaskPlan extends BaseModel {
   @computed get dataForSave() {
     return extend(pick(this,
       'title', 'description', 'settings',
-      'is_publish_requested',
+      'is_publish_requested', 'type',
     ), {
       tasking_plans: map(this.tasking_plans, 'dataForSave'),
     });
+  }
+
+  @computed get isValid() {
+    return Boolean(
+      String(this.title).match(/\w/) &&
+        every(this.tasking_plans.isValid) &&
+        (!this.isReading || !isEmpty(this.pageIds)) &&
+        (!this.isHomework || !isEmpty(this.exerciseIds))
+    );
   }
 
   // called from api

@@ -52,8 +52,9 @@ describe('Homework Builder', function() {
     hw.find('SaveButton AsyncButton').simulate('click');
     expect(props.ux.plan.save).toHaveBeenCalled();
     expect(props.ux.plan.dataForSave).toEqual({
+      type: 'homework',
       title: 'a homework',
-      is_publish_requested: true,
+      is_publish_requested: !ux.plan.is_published,
       description: 'a homework description',
       tasking_plans: props.ux.course.periods.map(p => ({
         target_id: p.id,

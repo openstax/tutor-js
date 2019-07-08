@@ -1,64 +1,53 @@
-import { React, PropTypes, observer } from '../../../helpers/react';
+import { React, PropTypes, observer, action } from '../../../helpers/react';
 import { map } from 'lodash';
+import { Icon } from 'shared';
 import UX from '../ux';
 import TourRegion from '../../../components/tours/region';
-
+import ChapterSection from '../../../components/chapter-section';
 
 @observer
-class Section extends React.Component {
+class ReadingSection extends React.Component {
 
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
+    page: PropTypes.object.isRequired,
+    index: PropTypes.number.isRequired,
   }
 
-  // static propTypes = {
-  //   page: PropTypes.instanceOf(Page).isRequired,
-  //   index: PropTypes.number.isRequired,
-  //   planId: PropTypes.string.isRequired,
-  //   topicId: PropTypes.string.isRequired,
-  //   canEdit: PropTypes.bool,
-  // };
-
   getActionButtons = () => {
-    let moveUpButton;
-    if (this.props.index) {
-      moveUpButton = (
-        <Icon onClick={this.moveReadingUp} size="xs" type="arrow-up" />
-      );
-    }
+    const { ux, index } = this.props;
+    if (!ux.canEdit) { return null; }
 
-    if (this.props.canEdit) {
-      return (
-        <span className="section-buttons">
-          {moveUpButton}
-          <Icon onClick={this.moveReadingDown} size="xs" type="arrow-down" />
-          <Icon onClick={this.removeTopic} type="close" />
-        </span>
-      );
-    }
-    return null;
+    return (
+      <span className="section-buttons">
+        {index !== 0 &&
+          <Icon onClick={this.moveUp} size="xs" type="arrow-up" />}
+        {index+1 !== ux.selectedPages.length &&
+          <Icon onClick={this.moveDown} size="xs" type="arrow-down" />}
+        <Icon onClick={this.remove} type="close" />
+      </span>
+    );
   };
 
-  moveReadingDown = () => {
-    return TaskPlanActions.moveReading(this.props.planId, this.props.topicId, 1);
-  };
+  @action.bound moveDown() {
+    this.props.ux.plan.movePage(this.props.page, 1);
+  }
 
-  moveReadingUp = () => {
-    return TaskPlanActions.moveReading(this.props.planId, this.props.topicId, -1);
-  };
+  @action.bound moveUp() {
+    this.props.ux.plan.movePage(this.props.page, -1);
+  }
 
-  removeTopic = () => {
-    return TaskPlanActions.removeTopic(this.props.planId, this.props.topicId);
-  };
+  @action.bound remove() {
+    this.props.ux.plan.removePage(this.props.page);
+  }
 
   render() {
     const { page } = this.props;
-    if (!page) { return null; }
-    const cs = new ChapterSectionModel(page.chapter_section);
+
     const actionButtons = this.getActionButtons();
     return (
       <li className="selected-section">
-        <ChapterSection chapterSection={cs} />
+        <ChapterSection chapterSection={page.chapter_section} />
         <span className="section-title">
           {page.title}
         </span>
@@ -75,31 +64,11 @@ class ReviewSelection extends React.Component {
 
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
-    // courseId: PropTypes.string.isRequired,
-    // planId: PropTypes.string.isRequired,
-    // selected: PropTypes.array,
-    // canEdit: PropTypes.bool,
   };
 
   static defaultProps = {
     selected: [],
   }
-
-  // UNSAFE_componentWillMount() {
-  //   this.book = Courses.get(this.props.courseId).referenceBook;
-  //   return this.book.ensureLoaded();
-  // }
-
-  renderSection = (pageId, index) => {
-    return (
-      <Section
-        ux={this.props.ux}
-        pageId={pageId}
-        index={index}
-        key={`review-reading-${index}`}
-      />
-    );
-  };
 
   render() {
     const { ux } = this.props;
@@ -118,7 +87,13 @@ class ReviewSelection extends React.Component {
           <li>
             Currently selected
           </li>
-          {map(ux.selectedPageIds, this.renderSection)}
+          {ux.selectedPages.map((page, index) =>
+            <ReadingSection
+              ux={this.props.ux}
+              page={page}
+              index={index}
+              key={page.id}
+            />)}
         </TourRegion>
       );
     } else {
