@@ -34,14 +34,6 @@
       margin: 0 0 1rem 1rem;
     }
 
-    &[data-is-intro=true]::before {
-      content: 'In this chapter you will learn about:';
-    }
-
-    &[data-is-intro=false]::before {
-      content: 'By the end of this section, you will be able to:';
-    }
-
     &[data-preamble]::before {
       content: attr(data-preamble);
     }
