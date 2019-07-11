@@ -21,9 +21,9 @@ describe('Teacher tasking plan tasking', () => {
     );
 
     const n = moment(now).hour(2).minute(18).second(23);
-    tasking.setOpensTime(n);
+    tasking.setOpensTime(n.toISOString());
     expect(tasking.opens_at).toEqual(
-      '2016-10-14T07:18:23.000Z'
+      '2016-10-14T12:18:00.000Z'
     );
   });
 });

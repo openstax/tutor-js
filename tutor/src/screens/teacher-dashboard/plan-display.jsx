@@ -1,5 +1,6 @@
+/* eslint-disable react/prefer-stateless-function */
 import PropTypes from 'prop-types';
-import { React, ReactDOM, observable, observer, action, styled } from '../../helpers/react';
+import { React, observer, styled } from '../../helpers/react';
 import { partial, camelCase } from 'lodash';
 import TaskPlan from '../../models/task-plans/teacher/plan';
 import Course from '../../models/course';
@@ -9,6 +10,7 @@ const Ribbon = styled.div`
   display: flex;
   align-items: center;
 `;
+
 
 class CoursePlanDisplay extends React.Component {
 

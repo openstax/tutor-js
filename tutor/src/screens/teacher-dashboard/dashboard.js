@@ -1,14 +1,12 @@
-import { React, ReactDOM, observable, observer, action, cn } from '../../helpers/react';
+import { React, observable, observer, action, cn } from '../../helpers/react';
 import moment from 'moment';
-import { isEmpty, find, defer, get, invoke } from 'lodash';
+import { get, invoke } from 'lodash';
 import 'moment-timezone';
 import PropTypes from 'prop-types';
 import qs from 'qs';
 import Month from './month';
-import extend from 'lodash/extend';
 import TourRegion from '../../components/tours/region';
 import Course from '../../models/course';
-import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
 import Time from '../../models/time';
 import TimeHelper from '../../helpers/time';
 import TutorRouter from '../../helpers/router';
@@ -80,8 +78,8 @@ class TeacherDashboard extends React.Component {
     return invoke(this.props.date, 'format', 'MMMM');
   };
 
-  @action.bound onDrop(item, offset) {
-    const { course, course: { bounds: { start, end } } } = this.props;
+  @action.bound onDrop(item) {
+    const { course: { bounds: { start, end } } } = this.props;
 
     if (!this.hoveredDay ||
       !this.hoveredDay.isBetween(start, end, 'day', '[]') ||
@@ -94,32 +92,8 @@ class TeacherDashboard extends React.Component {
     } else { // is a task plan to clone
 
       this.editingPlan = { ...item, date: this.hoveredDay };
-      // course
-      //   .pastTaskPlans.get(item.id)
-      //   .createClone({ course, dueAt: this.hoveredDay });
     }
   }
-
-  // @action.bound onCloneLoaded() {
-  //   const { course } = this.props;
-  //   TaskPlanStore.off(`loaded.${this.cloningPlan.id}`, this.onCloneLoaded);
-
-  //   const taskPlanId = TaskPlanStore.freshLocalId();
-  //   TaskPlanActions.createClonedPlan(taskPlanId, {
-  //     planId: this.cloningPlan.id, courseId: course.id,
-  //     due_at: TimeHelper.toISO(this.cloningPlan.due_at),
-  //   });
-  //   course.teacherTaskPlans.addClone(TaskPlanStore.get(taskPlanId));
-
-  //   defer(action(() => { // give flux store time to update
-  //     Object.assign(this, {
-  //       editingPlan: {
-  //         id: taskPlanId, fromClone: this.cloningPlan,
-  //       },
-  //       cloningPlan: undefined,
-  //     });
-  //   }));
-  // }
 
   getEditingPlanEl = () => {
     if (!this.editingPlan) { return null; }
@@ -169,7 +143,7 @@ class TeacherDashboard extends React.Component {
             course={this.props.course}
             hasPeriods={hasPeriods}
             cloningPlanId={
-            this.cloningPlanId || (this.cloningPlan ? this.cloningPlan.id : undefined)
+              this.cloningPlanId || (this.cloningPlan ? this.cloningPlan.id : undefined)
             }
           />
           <div className="month-body" data-duration-name={this.getFullMonthName()}>
@@ -202,4 +176,4 @@ class TeacherDashboard extends React.Component {
     );
   }
 
-};
+}

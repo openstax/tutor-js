@@ -6,7 +6,7 @@ import TaskPlanHelper from '../../helpers/task-plan';
 import Loader from './loader';
 import homework from './homework';
 import reading from './reading';
-import event from './reading';
+import event from './event';
 import external from './external';
 import Warning from '../../components/warning-modal';
 import { withRouter } from 'react-router';

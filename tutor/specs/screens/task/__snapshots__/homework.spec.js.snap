@@ -120,31 +120,31 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
                   "stimulus_html": undefined,
                   "tags": Array [
                     ExerciseTag {
-                      "_tag": "time:short",
+                      "raw": "time:short",
                     },
                     ExerciseTag {
-                      "_tag": "dok:2",
+                      "raw": "dok:2",
                     },
                     ExerciseTag {
-                      "_tag": "blooms:2",
+                      "raw": "blooms:2",
                     },
                     ExerciseTag {
-                      "_tag": "type:practice",
+                      "raw": "type:practice",
                     },
                     ExerciseTag {
-                      "_tag": "requires-context:true",
+                      "raw": "requires-context:true",
                     },
                     ExerciseTag {
-                      "_tag": "book:stax-soc",
+                      "raw": "book:stax-soc",
                     },
                     ExerciseTag {
-                      "_tag": "lo:stax-soc:13-2-2",
+                      "raw": "lo:stax-soc:13-2-2",
                     },
                     ExerciseTag {
-                      "_tag": "context-cnxmod:d9df5e48-4b72-482e-b616-886926188054",
+                      "raw": "context-cnxmod:d9df5e48-4b72-482e-b616-886926188054",
                     },
                     ExerciseTag {
-                      "_tag": "context-cnxfeature:fs-id2332825",
+                      "raw": "context-cnxfeature:fs-id2332825",
                     },
                   ],
                   "uid": "11945@4",
@@ -302,31 +302,31 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
                   "stimulus_html": undefined,
                   "tags": Array [
                     ExerciseTag {
-                      "_tag": "time:short",
+                      "raw": "time:short",
                     },
                     ExerciseTag {
-                      "_tag": "dok:2",
+                      "raw": "dok:2",
                     },
                     ExerciseTag {
-                      "_tag": "blooms:2",
+                      "raw": "blooms:2",
                     },
                     ExerciseTag {
-                      "_tag": "type:practice",
+                      "raw": "type:practice",
                     },
                     ExerciseTag {
-                      "_tag": "requires-context:true",
+                      "raw": "requires-context:true",
                     },
                     ExerciseTag {
-                      "_tag": "book:stax-soc",
+                      "raw": "book:stax-soc",
                     },
                     ExerciseTag {
-                      "_tag": "lo:stax-soc:13-2-2",
+                      "raw": "lo:stax-soc:13-2-2",
                     },
                     ExerciseTag {
-                      "_tag": "context-cnxmod:d9df5e48-4b72-482e-b616-886926188054",
+                      "raw": "context-cnxmod:d9df5e48-4b72-482e-b616-886926188054",
                     },
                     ExerciseTag {
-                      "_tag": "context-cnxfeature:fs-id2332825",
+                      "raw": "context-cnxfeature:fs-id2332825",
                     },
                   ],
                   "uid": "11945@4",
@@ -484,31 +484,31 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
                   "stimulus_html": undefined,
                   "tags": Array [
                     ExerciseTag {
-                      "_tag": "time:short",
+                      "raw": "time:short",
                     },
                     ExerciseTag {
-                      "_tag": "dok:2",
+                      "raw": "dok:2",
                     },
                     ExerciseTag {
-                      "_tag": "blooms:2",
+                      "raw": "blooms:2",
                     },
                     ExerciseTag {
-                      "_tag": "type:practice",
+                      "raw": "type:practice",
                     },
                     ExerciseTag {
-                      "_tag": "requires-context:true",
+                      "raw": "requires-context:true",
                     },
                     ExerciseTag {
-                      "_tag": "book:stax-soc",
+                      "raw": "book:stax-soc",
                     },
                     ExerciseTag {
-                      "_tag": "lo:stax-soc:13-2-2",
+                      "raw": "lo:stax-soc:13-2-2",
                     },
                     ExerciseTag {
-                      "_tag": "context-cnxmod:d9df5e48-4b72-482e-b616-886926188054",
+                      "raw": "context-cnxmod:d9df5e48-4b72-482e-b616-886926188054",
                     },
                     ExerciseTag {
-                      "_tag": "context-cnxfeature:fs-id2332825",
+                      "raw": "context-cnxfeature:fs-id2332825",
                     },
                   ],
                   "uid": "11945@4",
@@ -666,31 +666,31 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
                   "stimulus_html": undefined,
                   "tags": Array [
                     ExerciseTag {
-                      "_tag": "time:short",
+                      "raw": "time:short",
                     },
                     ExerciseTag {
-                      "_tag": "dok:2",
+                      "raw": "dok:2",
                     },
                     ExerciseTag {
-                      "_tag": "blooms:2",
+                      "raw": "blooms:2",
                     },
                     ExerciseTag {
-                      "_tag": "type:practice",
+                      "raw": "type:practice",
                     },
                     ExerciseTag {
-                      "_tag": "requires-context:true",
+                      "raw": "requires-context:true",
                     },
                     ExerciseTag {
-                      "_tag": "book:stax-soc",
+                      "raw": "book:stax-soc",
                     },
                     ExerciseTag {
-                      "_tag": "lo:stax-soc:13-2-2",
+                      "raw": "lo:stax-soc:13-2-2",
                     },
                     ExerciseTag {
-                      "_tag": "context-cnxmod:d9df5e48-4b72-482e-b616-886926188054",
+                      "raw": "context-cnxmod:d9df5e48-4b72-482e-b616-886926188054",
                     },
                     ExerciseTag {
-                      "_tag": "context-cnxfeature:fs-id2332825",
+                      "raw": "context-cnxfeature:fs-id2332825",
                     },
                   ],
                   "uid": "11945@4",
@@ -848,31 +848,31 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
                   "stimulus_html": undefined,
                   "tags": Array [
                     ExerciseTag {
-                      "_tag": "time:short",
+                      "raw": "time:short",
                     },
                     ExerciseTag {
-                      "_tag": "dok:2",
+                      "raw": "dok:2",
                     },
                     ExerciseTag {
-                      "_tag": "blooms:2",
+                      "raw": "blooms:2",
                     },
                     ExerciseTag {
-                      "_tag": "type:practice",
+                      "raw": "type:practice",
                     },
                     ExerciseTag {
-                      "_tag": "requires-context:true",
+                      "raw": "requires-context:true",
                     },
                     ExerciseTag {
-                      "_tag": "book:stax-soc",
+                      "raw": "book:stax-soc",
                     },
                     ExerciseTag {
-                      "_tag": "lo:stax-soc:13-2-2",
+                      "raw": "lo:stax-soc:13-2-2",
                     },
                     ExerciseTag {
-                      "_tag": "context-cnxmod:d9df5e48-4b72-482e-b616-886926188054",
+                      "raw": "context-cnxmod:d9df5e48-4b72-482e-b616-886926188054",
                     },
                     ExerciseTag {
-                      "_tag": "context-cnxfeature:fs-id2332825",
+                      "raw": "context-cnxfeature:fs-id2332825",
                     },
                   ],
                   "uid": "11945@4",
@@ -937,6 +937,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
           "appearance_code": "college_physics",
           "book_pdf_url": "https://archive.cnx.org/exports/185cbf87-c72e-48f5-b51e-f14f21b5eabd.pdf",
           "cloned_from_id": null,
+          "current_role_id": 1,
           "default_due_time": "07:00",
           "default_open_time": "00:32",
           "does_cost": false,
@@ -1011,8 +1012,14 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
           "reading_score_weight": 0.2,
           "roles": Array [
             CourseRole {
+              "$nonSerializable": Object {
+                "course": true,
+              },
+              "course": [Circular],
+              "course_association_name": "roles",
               "id": 1,
               "joined_at": 2017-09-21T12:00:00.000Z,
+              "period_id": undefined,
               "research_identifier": undefined,
               "type": "student",
             },
@@ -1053,6 +1060,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
         "router": TestRouter {
           "history": Object {
             "createHref": [MockFunction],
+            "listen": [MockFunction],
             "push": [MockFunction],
             "replace": [MockFunction],
           },
@@ -1077,7 +1085,6 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
         "clearInterval": [MockFunction],
         "document": Object {
           "body": <body />,
-          "createRange": [MockFunction],
           "hidden": false,
         },
         "getSelection": [MockFunction],

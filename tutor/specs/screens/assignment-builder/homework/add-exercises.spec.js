@@ -1,6 +1,5 @@
 import { React, C, TimeMock, ld, createUX } from '../helpers';
 import AddExercises from '../../../../src/screens/assignment-builder/homework/add-exercises';
-import UX from '../../../../src/screens/assignment-builder/ux';
 import Factory from '../../../factories';
 
 jest.mock('../../../../../shared/src/components/html', () => ({ html }) =>
@@ -8,7 +7,7 @@ jest.mock('../../../../../shared/src/components/html', () => ({ html }) =>
 );
 
 describe('choose exercises component', () => {
-  let props, plan, ux;
+  let props, ux;
 
   const now = TimeMock.setTo('2015-01-12T10:00:00.000Z');
 

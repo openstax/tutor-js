@@ -89,7 +89,6 @@
     "mobx": "^5.9.0",
     "mobx-decorated-models": "^1.1.0",
     "mobx-react": "^5.4.3",
-    "mobx-react-form": "^2.0.3",
     "mobx-utils": "5.1.0",
     "moment": "2.24.0",
     "moment-range": "^4.0.2",
@@ -124,7 +123,6 @@
     "twix": "1.2.1",
     "ultimate-pagination": "1.0.0",
     "underscore": "1.9.1",
-    "validatorjs": "^3.15.1",
     "weak-map": "^1.0.5",
     "when-dom-ready": "^1.2.12",
     "youtube-player": "https://github.com/nathanstitt/youtube-player.git#iframe-or-window"

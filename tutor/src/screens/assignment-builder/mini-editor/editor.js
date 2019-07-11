@@ -1,25 +1,16 @@
-import { React, PropTypes, styled, observer } from '../../../helpers/react';
+import { React, PropTypes, styled, observer, idType } from '../../../helpers/react';
 import UX from '../ux';
-import Theme from '../../../theme'
-import createReactClass from 'create-react-class';
 import { Container, Col, Alert, Button } from 'react-bootstrap';
-import isEmpty from 'lodash/isEmpty';
 import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
-import classnames from 'classnames';
 import { camelCase } from 'lodash';
 import TutorLink from '../../../components/link';
 import Tasking from '../builder/tasking';
-import BindStoresMixin from '../../../components/bind-stores-mixin';
 import { TutorInput } from '../../../components/tutor-input';
-import { TaskingStore, TaskingActions } from '../../../flux/tasking';
-import TimeHelper from '../../../helpers/time';
-import taskPlanEditingInitialize from '../initialize-editing';
 import PublishButton from '../footer/save-button';
 import DraftButton from '../footer/save-as-draft';
-//import PlanMixin from '../plan-mixin';
-import ServerErrorHandlers from '../../../components/error-monitoring/handlers';
-import Course from '../../../models/course';
 import NudgeIsAvailableMessage from '../nudge-is-available-message';
+import Course from '../../../models/course';
+import Theme from '../../../theme';
 
 const StyledNudgeIsAvailableMessage = styled(NudgeIsAvailableMessage)`
   font-size: 14px;
@@ -51,6 +42,9 @@ class TaskPlanMiniEditor extends React.Component {
 
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
+    course: PropTypes.instanceOf(Course).isRequired,
+    id: idType.isRequired,
+    onHide: PropTypes.func.isRequired,
   }
 
   onSave() {
@@ -81,15 +75,6 @@ class TaskPlanMiniEditor extends React.Component {
   render() {
     let errorAttrs;
     const { ux, ux: { form, sourcePlanId, plan, course } } = this.props; // id, course, termStart, termEnd } = this.props;
-
-    // const courseId = course.id;
-    // const hasError = this.hasError();
-    // const classes = classnames('task-plan-mini-editor',
-    //   { 'is-invalid-form': hasError }
-    // );
-    // if (this.state.error) { errorAttrs = ServerErrorHandlers.forError(this.state.error); }
-    // const plan = TaskPlanStore.get(id);
-    // const isPublished = TaskPlanStore.isPublished(id);
 
     return (
       <StyledEditor>

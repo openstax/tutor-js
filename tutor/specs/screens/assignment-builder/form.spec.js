@@ -3,7 +3,8 @@ import { Factory, TimeMock } from '../../helpers';
 
 describe('Assignment Form', function() {
   let form, plan, course;
-  const now = TimeMock.setTo('2015-10-14T12:00:00.000Z');
+
+  TimeMock.setTo('2015-10-14T12:00:00.000Z');
 
   beforeEach(() => {
     course = Factory.course();

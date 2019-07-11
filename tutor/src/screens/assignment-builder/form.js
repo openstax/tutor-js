@@ -1,8 +1,5 @@
-import { action, computed, observable } from 'mobx';
-
-// import validatorjs from 'validatorjs';
-// import { Form } from 'mobx-react-form';
-import { get, set, mapValues, every } from 'lodash';
+import { computed, observable } from 'mobx';
+import { get, set } from 'lodash';
 
 class AssignmentForm {
 
@@ -35,7 +32,6 @@ class AssignmentForm {
       };
 
     }
-
   }
 
   setter(field) {
@@ -53,17 +49,6 @@ class AssignmentForm {
     return Boolean(this.isDirty && this.isValid);
   }
 
-  // async fetchOrReset() {
-  //   const { plan } = this;
-  //   if (plan.isNew) {
-  //     await plan.reset();
-  //   } else {
-  //     await plan.fetch();
-  //   }
-
-  //   this.update(plan.serialize());
-  // }
-
   async onSaveRequested() {
     if (!this.isValid) { return; }
 
@@ -73,8 +58,6 @@ class AssignmentForm {
       await plan.save();
       this.isDirty = false;
     } catch (e) {
-      console.log("CatCh", e)
-
       this.errors = [e];
     }
   }

@@ -23,8 +23,8 @@ const getRole = function(courseId) {
 };
 
 const assignmentTypeTranslator = function(assignmentType, { courseId, id }) {
-  const type = id === 'new' ? 'create' : 'edit';
-  return `/teacher/assignment/${type}/${assignmentType}/${courseId}`;
+  const newOrEdit = id === 'new' ? 'create' : 'edit';
+  return `/teacher/assignment/${newOrEdit}/${assignmentType}/${courseId}`;
 };
 
 function viewReferenceBook({ courseId, pageId }) {
@@ -49,14 +49,7 @@ const Translators = {
   calendarByDate({ courseId }) { return `/teacher/calendar/${courseId}`; },
   viewScores({ courseId }) { return `/teacher/student-scores/${courseId}`; },
   courseSettings({ courseId }) { return `/teacher/roster/${courseId}`; },
-  editReading:    partial(assignmentTypeTranslator, 'reading'),
-  editHomework:   partial(assignmentTypeTranslator, 'homework'),
-  editExternal:   partial(assignmentTypeTranslator, 'external'),
-  editEvent:      partial(assignmentTypeTranslator, 'event'),
-  createReading:  partial(assignmentTypeTranslator, 'reading'),
-  createHomework: partial(assignmentTypeTranslator, 'homework'),
-  createExternal: partial(assignmentTypeTranslator, 'external'),
-  createEvent:    partial(assignmentTypeTranslator, 'event'),
+  editAssignment: partial(assignmentTypeTranslator, 'assignment'),
   calendarViewPlanStats({ courseId }) { return `/teacher/metrics/quick/${courseId}`; },
   reviewTask({ courseId }) { return `/teacher/metrics/review/${courseId}`; },
   viewReferenceBookSection: viewReferenceBook,
@@ -125,6 +118,7 @@ var Analytics = {
     if (courseId) { this.recordCourseDimension(courseId); }
     const translatedPath = Translators[route.entry.name] ?
       Translators[route.entry.name]( route.params ) : route.pathname;
+
     this.ga('set', 'page', translatedPath);
     // if we're also going to send custom events then we set the page
     if (Events[route.entry.name]) {

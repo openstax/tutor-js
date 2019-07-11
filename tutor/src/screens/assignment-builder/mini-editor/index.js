@@ -1,15 +1,13 @@
-import { React, PropTypes, styled, action, cn } from '../../../helpers/react';
+import { React, PropTypes, styled, action } from '../../../helpers/react';
 import { Overlay, Popover } from 'react-bootstrap';
 import Loading from 'shared/components/loading-animation';
 import Editor from './editor';
 import Course from '../../../models/course';
-import Plan from '../../../models/task-plans/teacher/plan';
 import UX from '../ux';
 
 const StyledEditorPlacement = styled.div`
   padding: 0;
 `;
-
 
 const StyledPopover = styled(Popover)`
   min-width: 450px;
@@ -18,7 +16,6 @@ const StyledPopover = styled(Popover)`
     padding: 0;
   }
 `;
-
 
 class TaskPlanMiniEditorShell extends React.Component {
   static propTypes = {
@@ -62,11 +59,6 @@ class TaskPlanMiniEditorShell extends React.Component {
   }
 
   render() {
-    const { plan } = this.props;
-    const popoverClasses = cn('mini-task-editor-popover',
-      { 'is-errored': this.state.error }
-    );
-
     const body = this.ux.isInitializing ?
       <Loading message="Loading assignment…" /> : <Editor ux={this.ux} />;
 
@@ -86,6 +78,5 @@ class TaskPlanMiniEditorShell extends React.Component {
     );
   }
 }
-
 
 export default TaskPlanMiniEditorShell;

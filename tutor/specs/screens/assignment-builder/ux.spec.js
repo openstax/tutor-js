@@ -37,9 +37,6 @@ describe('Assignment Builder UX', function() {
     expect(ux.sourcePlanId).toEqual(plan.id);
     expect(ux.plan.isNew).toBe(true);
     expect(ux.plan.title).toEqual(plan.title);
-
-//    expect(course.pastTaskPlans.fetch).toHaveBeenCalled();
-
-  })
+  });
 
 });

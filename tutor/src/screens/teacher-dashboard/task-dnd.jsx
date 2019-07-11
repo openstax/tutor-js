@@ -1,8 +1,5 @@
-import { React, cn, observable, observer, action } from '../../helpers/react';
-import { toJS } from 'mobx';
-import { partial } from 'lodash';
+import { React, cn } from '../../helpers/react';
 import { DragSource } from 'react-dnd';
-// import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
 
 import GrabbyDots from '../../components/grabby-dots';
 

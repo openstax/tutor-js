@@ -1,6 +1,5 @@
-import { React, C, Factory, TimeMock, ld, createUX, moment } from '../helpers';
+import { React, C, TimeMock, createUX, moment } from '../helpers';
 import Editor from '../../../../src/screens/assignment-builder/mini-editor/editor';
-
 
 describe('TaskPlan MiniEditor wrapper', function() {
   let props;
