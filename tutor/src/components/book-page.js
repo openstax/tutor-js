@@ -94,6 +94,8 @@ class BookPage extends React.Component {
     history: PropTypes.object,
   }
 
+  @observable needsLearningObjectivesPreamble = false;
+  @observable linkContentIsMounted = false;
 
   scoller = new ScrollTo();
 
@@ -249,6 +251,7 @@ class BookPage extends React.Component {
     }
 
     abstract.dataset.isIntro = (root.querySelector(IS_INTRO_SELECTORS) != null);
+    this.needsLearningObjectivesPreamble = !abstract.dataset.isIntro && !abstract.dataset.preamble && !abstract.querySelector('p');
   }
 
   detectImgAspectRatio(root) {
@@ -385,7 +388,7 @@ class BookPage extends React.Component {
             title={title}
             contentId={page.cnx_id}
             chapter_section={page.displayedChapterSection}
-            hasLearningObjectives={hasLearningObjectives}
+            showObjectivesPreamble={this.needsLearningObjectivesPreamble}
             isChapterSectionDisplayed={page.isChapterSectionDisplayed}
           />
           <NotesWidget
