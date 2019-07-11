@@ -1,7 +1,6 @@
 import { React, PropTypes, styled, observer, idType } from '../../../helpers/react';
 import UX from '../ux';
 import { Container, Col, Alert, Button } from 'react-bootstrap';
-import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
 import { camelCase } from 'lodash';
 import TutorLink from '../../../components/link';
 import Tasking from '../builder/tasking';
@@ -57,19 +56,8 @@ class TaskPlanMiniEditor extends React.Component {
     return this.setState({ saving: false, publishing });
   }
 
-  afterSave(plan) {
-    this.props.course.teacherTaskPlans.onPlanSave(this.props.id, plan);
-
-    this.setState({ saving: false, publishing: false });
-    return this.props.onHide();
-  }
-
   onCancel() {
     this.props.onHide();
-    if (TaskPlanStore.isNew(this.props.id)) {
-      TaskPlanActions.removeUnsavedDraftPlan(this.props.id);
-      this.props.course.teaherTaskPlans.delete(this.props.id);
-    }
   }
 
   render() {

@@ -50,6 +50,7 @@
           font-weight: 300;
           top: -15px;
         }
+
       }
 
       &:not(.empty) ~ .floating-label {
@@ -66,7 +67,7 @@
       width: 100%;
       height: 28px;
       display: flex;
-      align-items: center;
+	    align-items: center;
       .datepicker__input-container {
         z-index: 2;
       }
@@ -122,9 +123,7 @@
 
 .tutor-date-input {
   .form-control-wrapper .floating-label,
-  .tasking-time input {
-    font-size: 1.6rem;
-  }
+  .tasking-time input { font-size: 1.6rem; }
 }
 
 .tutor-radio {

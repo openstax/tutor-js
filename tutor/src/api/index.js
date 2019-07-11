@@ -7,15 +7,11 @@
 import adapters from './adapter';
 import { CourseGuideActions } from '../flux/guide';
 import * as PerformanceForecast from '../flux/performance-forecast';
-
-import { TaskPlanActions, TaskPlanStore } from '../flux/task-plan';
-import { CCDashboardActions } from '../flux/cc-dashboard';
 import Exercises from '../models/exercises';
 import ReferenceBook from '../models/reference-book';
 import ReferenceBookPage from '../models/reference-book/page';
 import Ecosystems from '../models/ecosystems';
 import { ReferenceBookExerciseActions } from '../flux/reference-book-exercise';
-import TaskPlanHelpers from '../helpers/task-plan';
 import Survey from '../models/research-surveys/survey';
 import Job from '../models/job';
 import User from '../models/user';
@@ -48,35 +44,33 @@ import ResponseValidation from '../models/response_validation';
 import { Notes, PageNotes, Note } from '../models/notes';
 
 const {
-  connectRead, connectUpdate, connectDelete,
-  connectModelCreate, connectModelRead, connectModelUpdate, connectModelDelete,
+  connectRead, connectModelCreate, connectModelRead, connectModelUpdate, connectModelDelete,
 } = adapters;
 
 const startAPI = function() {
 
-  connectRead(TaskPlanActions, { pattern: 'plans/{id}' });
-  connectDelete(TaskPlanActions, { pattern: 'plans/{id}' });
+  // connectRead(TaskPlanActions, { pattern: 'plans/{id}' });
+  // connectDelete(TaskPlanActions, { pattern: 'plans/{id}' });
+  // connectUpdate(TaskPlanActions, { data: TaskPlanStore.getChanged }, TaskPlanHelpers.apiEndpointOptions)
 
-  connectUpdate(TaskPlanActions, { data: TaskPlanStore.getChanged }, TaskPlanHelpers.apiEndpointOptions);
 
-  connectUpdate(
-    TaskPlanActions,
-    {
-      trigger: 'saveSilent',
+  // connectUpdate(
+  //   TaskPlanActions,
+  //   {
+  //     trigger: 'saveSilent',
 
-      handleError(...args) {
-        TaskPlanActions.erroredSilent(...Array.from(args || []));
-        return true;
-      },
+  //     handleError(...args) {
+  //       TaskPlanActions.erroredSilent(...Array.from(args || []));
+  //       return true;
+  //     },
 
-      data: TaskPlanStore.getChanged,
-    },
-    TaskPlanHelpers.apiEndpointOptions,
-  );
+  //     data: TaskPlanStore.getChanged,
+  //   },
+  //   TaskPlanHelpers.apiEndpointOptions,
+  // );
 
 
   connectRead(CourseGuideActions, { pattern: 'courses/{id}/guide' });
-  connectRead(CCDashboardActions, { pattern: 'courses/{id}/cc/dashboard' });
 
   connectRead(PerformanceForecast.Student.actions, function(id) {
     const course = Courses.get(id);
@@ -158,21 +152,18 @@ const startAPI = function() {
 
   connectModelCreate(CourseCreate, 'save', { onSuccess: 'onCreated' });
 
-  connectModelRead(
-    TeacherTaskPlans,
-    'fetch',
-    {
-      pattern: 'courses/{course.id}/dashboard',
-      onSuccess: 'onLoaded',
+  connectModelDelete(TeacherTaskPlans, 'delete');
 
-      params({ startAt, endAt }) {
-        return {
-          start_at: startAt,
-          end_at: endAt,
-        };
-      },
+  connectModelRead(TeacherTaskPlans, 'fetch', {
+    pattern: 'courses/{courseId}/dashboard',
+    onSuccess: 'onLoaded',
+    params({ startAt, endAt }) {
+      return {
+        start_at: startAt,
+        end_at: endAt,
+      };
     },
-  );
+  });
 
   connectModelRead(
     PastTaskPlans,

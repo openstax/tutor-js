@@ -7,7 +7,6 @@ import Sectionizer from '../../../components/exercises/sectionizer';
 import { Icon } from 'shared';
 import TourAnchor from '../../../components/tours/anchor';
 import SelectionsTooltip from './selections-tooltip';
-//import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
 import UX from '../ux';
 
 @inject('setSecondaryTopControls')
