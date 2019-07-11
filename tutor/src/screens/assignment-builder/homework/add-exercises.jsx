@@ -1,49 +1,17 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { observer } from 'mobx-react';
-import { observable, action, computed } from 'mobx';
-import { ArrayOrMobxType } from 'shared/helpers/react';
+import { React, PropTypes, observer, observable, action } from '../../../helpers/react';
 import Loading from 'shared/components/loading-animation';
-// import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
 import ExerciseHelpers from '../../../helpers/exercise';
 import ExerciseControls from './exercise-controls';
 import ExerciseDetails from '../../../components/exercises/details';
 import ExerciseCards from '../../../components/exercises/cards';
 import TourRegion from '../../../components/tours/region';
-import Course from '../../../models/course';
-import ScrollTo from '../../../helpers/scroll-to';
-import sharedExercises, { ExercisesMap } from '../../../models/exercises';
 import UX from '../ux';
 
 @observer
 class AddExercises extends React.Component {
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
-//    exercises:   PropTypes.instanceOf(ExercisesMap),
-
-    //     course:     PropTypes.instanceOf(Course).isRequired,
-    //     exercises:  PropTypes.instanceOf(ExercisesMap),
-    //     planId:     PropTypes.string.isRequired,
-    //     onAddClick: PropTypes.func.isRequired,
-    //     pageIds:    ArrayOrMobxType.isRequired,
-    //     canEdit:    PropTypes.bool,
-    //     hide:       PropTypes.func,
-    //     cancel:     PropTypes.func,
   };
-
-  // static defaultProps = {
-  //   exercises: sharedExercises,
-  // };
-
-  // componentWillMount() {
-  //   this.props.pageIds.forEach(pg => {
-  //     this.props.exercises.forPageId(pg).forEach(
-  //       e => e.isSelected = TaskPlanStore.hasExercise(this.props.planId, e.id),
-  //     );
-  //   });
-  // }
-
-  // scroller = new ScrollTo();
 
   @observable currentView = 'cards';
   @observable currentSection;
@@ -58,17 +26,6 @@ class AddExercises extends React.Component {
     this.currentView = 'cards';
     this.focusedExercise = exercise;
   }
-
-  // @action.bound onExerciseToggle(ev, exercise) {
-  //   const ex = exercise.wrapper;
-  //   ex.isSelected = !ex.isSelected;
-  //   if (ex.isSelected) {
-  //     TaskPlanActions.addExercise(this.props.planId, ex.id);
-  //   } else {
-  //     TaskPlanActions.removeExercise(this.props.planId, ex.id);
-  //   }
-  //
-  // }
 
   getExerciseActions = (exercise) => {
     const { ux } = this.props;
@@ -123,7 +80,7 @@ class AddExercises extends React.Component {
   };
 
   @action.bound reportError(ev, exercise) {
-    ExerciseHelpers.openReportErrorPage(exercise.wrapper, this.props.course);
+    ExerciseHelpers.openReportErrorPage(exercise.wrapper, this.props.ux.course);
   }
 
   @action.bound toggleFeedback() {
@@ -143,22 +100,6 @@ class AddExercises extends React.Component {
     this.scroller.scrollToSelector(`[data-section='${currentSection}']`);
     this.currentSection = currentSection;
   }
-
-  // @computed get displayedExercises() {
-  //   return this.props.ux.displayedExercises(this.props.exercises);
-  //
-  //   // const { ux } = this.props;
-  //   //
-  //   // // const selected = TaskPlanStore.getExercises(this.props.planId);
-  //   // // we display all the exercises that were previously selected
-  //   // // or that are assignable homeworks for the given pages
-  //   // return this.props.exercises.where(e => (
-  //   //   e.isSelected || (
-  //   //     e.isHomework && e.isAssignable &&
-  //   //       e.page && ux.selectedPageIds.includes(e.page.id)
-  //   //   )
-  //   // ));
-  // }
 
   render() {
     const { ux, ux: { exercises } } = this.props;

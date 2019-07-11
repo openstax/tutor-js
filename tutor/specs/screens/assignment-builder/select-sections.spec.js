@@ -1,4 +1,4 @@
-import { C, ld, FakeWindow } from '../../helpers';
+import { C, FakeWindow } from '../../helpers';
 import Factory, { FactoryBot } from '../../factories';
 import SelectSections from '../../../src/screens/assignment-builder/select-sections';
 import UX from '../../../src/screens/assignment-builder/ux';

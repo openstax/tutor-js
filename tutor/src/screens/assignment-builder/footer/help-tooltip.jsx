@@ -58,20 +58,15 @@ buildTooltip.propTypes = {
 };
 
 
-export default class HelpTooltip extends React.Component {
+const HelpTooltip = ({ ux }) => (
+  <InfoIcon
+    tooltipProps={{ placement: 'top' }}
+    tooltip={buildTooltip({ isPublished: ux.plan.isPublished })}
+  />
+);
 
-  static propTypes = {
-    ux: PropTypes.object.isRequired,
-  }
+HelpTooltip.propTypes = {
+  ux: PropTypes.object.isRequired,
+};
 
-  render() {
-    const { ux } = this.props;
-
-    return (
-      <InfoIcon
-        tooltipProps={{ placement: 'top' }}
-        tooltip={buildTooltip({ isPublished: ux.plan.isPublished })}
-      />
-    );
-  }
-}
+export default HelpTooltip;

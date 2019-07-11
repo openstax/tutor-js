@@ -1,4 +1,4 @@
-import { React, C, createUX, TimeMock } from '../helpers';
+import { React, createUX, TimeMock } from '../helpers';
 import Review from '../../../../src/screens/assignment-builder/reading/review-selection';
 
 describe('review reading selection', () => {

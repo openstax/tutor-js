@@ -3,10 +3,9 @@ import moment from 'moment';
 import { map, compact, isEmpty } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
 import Exercises from '../../models/exercises';
-import Router from '../../helpers/router';
-import TaskPlanHelper from '../../helpers/task-plan';
 import TaskPlan from '../../models/task-plans/teacher/plan';
 import ReferenceBook from '../../models/reference-book';
+import Time from '../../models/time';
 import Form from './form';
 
 class AssignmentBuilderUX {
@@ -16,32 +15,52 @@ class AssignmentBuilderUX {
   @observable isShowingExerciseReview = false;
   @observable isShowingPeriodTaskings;
   @observable exercises;
+  @observable isReady = false;
+  @observable sourcePlanId;
 
-  constructor({
-    id, type, plan, course, history,
+  constructor(attrs = null) {
+    if (attrs) { this.initialize(attrs); }
+  }
+
+  @action async initialize({
+    id, type, plan, course, onComplete,
+    defaultDueAt = moment(Time.now).add(1, 'day') ,
     exercises = Exercises,
     windowImpl = window,
   }) {
 
-    if (plan) {
-      this.plan = plan;
+    if ('clone' === type) {
+      if (!course.pastTaskPlans.api.hasBeenFetched) {
+        await course.pastTaskPlans.fetch();
+      }
+      this.sourcePlanId = id;
+      this.plan = course.pastTaskPlans.get(id).createClone({ course, dueAt: defaultDueAt });
+
     } else {
-      this.plan = new TaskPlan({ course, type });
-      if (id != 'new') {
-        this.plan.update( course.teacherTaskPlans.withPlanId(id).serialize() );
+      if (plan) {
+        this.plan = plan;
+      } else {
+        this.plan = new TaskPlan({ course, type });
+        if (id && id != 'new') {
+          this.plan.update( course.teacherTaskPlans.withPlanId(id).serialize() );
+        }
+      }
+      if (type) {
+        this.plan.type = type;
       }
     }
-    if (type) {
-      this.plan.type = type;
-    }
-    this.history = history;
+    this.onComplete = onComplete;
     this.course = course;
     this.exercises = exercises;
     this.windowImpl = windowImpl;
     this.isShowingPeriodTaskings = !this.plan.areTaskingDatesSame;
     this.scroller = new ScrollTo({ windowImpl });
-
     this.form = new Form(this);
+    this.isReady = true;
+  }
+
+  @computed get isInitializing() {
+    return !this.isReady || !this.plan || this.plan.api.isPendingInitialFetch;
   }
 
   @computed get selectedPageIds() {
@@ -68,6 +87,11 @@ class AssignmentBuilderUX {
 
   @action.bound onShowSectionSelection() {
     this.isShowingSectionSelection = true;
+  }
+
+  @action copyFrom({ plan }) {
+    this.plan.update(plan.clonedAttributes);
+    this.plan.cloned_from_id = plan.id;
   }
 
   @action async onExercisesReview() {
@@ -120,9 +144,26 @@ class AssignmentBuilderUX {
   //   return this.referenceBook.sectionsForPageIds(this.selectedPageIds);
   // }
 
+  // @action.bound setTitle(title) {
+  //   this.plan.title = title;
+  // }
+
   @computed get selectedPages() {
     return this.selectedPageIds.map(pgId => this.referenceBook.pages.byId.get(pgId));
   }
+
+  @action.bound increaseTutorSelection() {
+    if (this.plan.canIncreaseTutorExercises) {
+      this.plan.settings.exercises_count_dynamic = this.plan.numTutorSelections + 1;
+    }
+  }
+
+  @action.bound decreaseTutorSelection() {
+    if (this.plan.canDecreaseTutorExercises) {
+      this.plan.settings.exercises_count_dynamic = this.plan.numTutorSelections - 1;
+    }
+  }
+
 
   @action.bound onSectionIdsChange(ids) {
     this.plan.settings.page_ids = ids;
@@ -168,15 +209,14 @@ class AssignmentBuilderUX {
   }
 
   @action.bound onCancel() {
-    const route = TaskPlanHelper.calendarParams(this.course);
-    this.history.push(Router.makePathname(route.to, route.params));
+    this.onComplete();
   }
 
   @action async saveAndCopyPlan() {
     await this.form.onSaveRequested();
     const destPlan = this.course.teacherTaskPlans.withPlanId(this.plan.id);
     destPlan.update(this.plan.serialize());
-    this.onCancel();
+    this.onComplete();
   }
 
   @action.bound async onDelete() {
@@ -197,10 +237,6 @@ class AssignmentBuilderUX {
 
   @computed get hasError() {
     return (this.form.submitted || this.form.touched) && this.form.hasError;
-  }
-
-  @computed get isWaiting() {
-    return false;
   }
 
   @computed get isSaving() {

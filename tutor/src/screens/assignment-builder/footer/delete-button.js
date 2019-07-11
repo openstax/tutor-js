@@ -4,6 +4,7 @@ import { Icon } from 'shared';
 import TourAnchor from '../../../components/tours/anchor';
 import { Modal, Button } from 'react-bootstrap';
 
+// eslint-disable-next-line
 const DeleteModal = ({ message, show, onClose, isBusy, onDelete }) => (
   <Modal
     show={show}
@@ -23,7 +24,8 @@ const DeleteModal = ({ message, show, onClose, isBusy, onDelete }) => (
         variant="danger"
         onClick={onDelete}
         waitingText="Deleting…"
-        isWaiting={isBusy}>
+        isWaiting={isBusy}
+      >
         Delete
       </AsyncButton>
       <Button disabled={isBusy} onClick={onClose}>
@@ -39,9 +41,6 @@ class DeleteButton extends React.Component {
 
   static propTypes = {
     ux: PropTypes.object.isRequired,
-    //     onClick:     PropTypes.func.isRequired,
-    //     isWaiting:   PropTypes.bool.isRequired,
-    //     plan: PropTypes.object.isRequired,
   }
 
   @observable showModal = false;
@@ -55,12 +54,9 @@ class DeleteButton extends React.Component {
   }
 
   render() {
-    const { ux: { plan, onDelete, isWaiting } } = this.props;
-
-    if (plan.isNew && !isWaiting) { return null; }
-
+    const { ux: { plan, onDelete, isSaving } } = this.props;
+    if (plan.isNew && !isSaving) { return null; }
     let message = 'Are you sure you want to delete this assignment?';
-
     if (plan.isVisibleToStudents) {
       message = `Some students may have started work on this assignment. ${message}`;
     }
@@ -76,7 +72,7 @@ class DeleteButton extends React.Component {
             message={message}
             show={this.showModal}
             onClose={this.close}
-            isBusy={isWaiting}
+            isBusy={isSaving}
             onDelete={onDelete}
           />
           <Icon type="trash" />Delete

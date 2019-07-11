@@ -104,18 +104,12 @@ class Tasking extends React.Component {
   render() {
     if (!this.taskings.length) { return null; }
 
-    const { period, ux: { course, form } } = this.props;
+    const { period, ux: { course } } = this.props;
 
     const tasking = this.taskings[0];
 
     const mainSizes = period ? { sm: 8, md: 9 } : { sm: 12 };
-    // console.log(
-    //   this.minDueAt.toISOString(),
-    //   this.maxDueAt.toISOString(),
-    // )
-    // console.log(
-    //   form.select('tasking_plans')
-    // )
+
     return (
       <StyledTasking>
         {this.renderSelectionCheckbox()}

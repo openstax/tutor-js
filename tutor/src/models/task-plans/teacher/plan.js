@@ -3,8 +3,8 @@ import {
 } from 'shared/model';
 import { action, computed, observable, createAtom } from 'mobx';
 import {
-  sortBy, first, last, map, union, find, remove,
-  get, pick, extend, without, every, isEmpty,
+  sortBy, first, last, map, union, find,
+  get, pick, extend, every, isEmpty,
 } from 'lodash';
 import { lazyInitialize } from 'core-decorators';
 import TaskingPlan from './tasking';
@@ -156,27 +156,45 @@ class TeacherTaskPlan extends BaseModel {
     );
   }
 
-  @action.bound removePage(page) {
-    const indx = this.settings.page_ids.indexOf(page.id);
-    if (-1 !== indx) {
-      this.settings.page_ids.splice(indx, 1);
-    }
-  }
+  @action _moveSettings(type, id, step) {
+    id = String(id);
+    const curIndex = this.settings[type].indexOf(id);
 
-  @action movePage(page, step) {
-    const pageId = String(page.id);
-    const curIndex = this.settings.page_ids.indexOf(pageId);
     if (-1 === curIndex){ return; }
     let newIndex = curIndex + step;
     if (newIndex < 0) {
       newIndex = 0;
     }
-    if (!(newIndex < this.settings.page_ids.length)) {
-      newIndex = this.settings.page_ids.length - 1;
+    if (!(newIndex < this.settings[type].length)) {
+      newIndex = this.settings[type].length - 1;
     }
-    this.settings.page_ids[curIndex] = this.settings.page_ids[newIndex];
-    this.settings.page_ids[newIndex] = pageId;
+    this.settings[type][curIndex] = this.settings[type][newIndex];
+    this.settings[type][newIndex] = id;
   }
+
+  @action _removeSettings(type, id) {
+    const indx = this.settings[type].indexOf(String(id));
+    if (-1 !== indx) {
+      this.settings[type].splice(indx, 1);
+    }
+  }
+
+  @action.bound removePage(page) {
+    this._removeSettings('page_ids', page.id);
+  }
+
+  @action.bound movePage(page, step) {
+    this._moveSettings('page_ids', page.id, step);
+  }
+
+  @action.bound removeExercise(ex) {
+    this._removeSettings('exercise_ids', ex.id);
+  }
+
+  @action moveExercise(ex, step) {
+    this._moveSettings('exercise_ids', ex.id, step);
+  }
+
 
   @computed get isEvent() { return 'event' === this.type; }
   @computed get isReading() { return 'reading' === this.type; }
@@ -253,10 +271,6 @@ class TeacherTaskPlan extends BaseModel {
     return get(this, 'settings.exercise_ids', []);
   }
 
-  @action removeExercise(ex) {
-    this.settings.exercise_ids = without(this.exerciseIds, ex.id);
-  }
-
   @action addExercise(ex) {
     this.settings.exercise_ids = union(this.exerciseIds, [ex.id]);
   }
@@ -275,22 +289,43 @@ class TeacherTaskPlan extends BaseModel {
     );
   }
 
-  @computed get dataForSave() {
-    return extend(pick(this,
-      'title', 'description', 'settings',
-      'is_publish_requested', 'type',
+  @computed get clonedAttributes() {
+    return extend(pick(
+      this,
+      'title', 'description', 'settings', 'type',
     ), {
       tasking_plans: map(this.tasking_plans, 'dataForSave'),
     });
   }
 
+  @action createClone({ course, dueAt }) {
+    return new TeacherTaskPlan({
+      ...this.clonedAttributes,
+      tasking_plans: course.periods.active.map(period => ({
+        opens_at: course.starts_at,
+        target_id: period.id,
+        target_type: 'period',
+        due_at: dueAt.toISOString(),
+      })),
+      course,
+    });
+  }
+
+  @computed get dataForSave() {
+    return extend(this.clonedAttributes, pick(this, 'is_publish_requested' ));
+  }
+
+  @computed get invalidParts() {
+    const parts = [];
+    if (!String(this.title).match(/\w/)) { parts.push('title'); }
+    if (!every(this.tasking_plans, 'isValid')) { parts.push('taskings'); }
+    if (this.isReading && isEmpty(this.pageIds)) { parts.push('readings'); }
+    if (this.isHomework && isEmpty(this.exerciseIds)) { parts.push('homworks'); }
+    return parts;
+  }
+
   @computed get isValid() {
-    return Boolean(
-      String(this.title).match(/\w/) &&
-        every(this.tasking_plans.isValid) &&
-        (!this.isReading || !isEmpty(this.pageIds)) &&
-        (!this.isHomework || !isEmpty(this.exerciseIds))
-    );
+    return 0 === this.invalidParts.length;
   }
 
   // called from api

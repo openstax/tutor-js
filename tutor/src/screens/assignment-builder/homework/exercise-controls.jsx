@@ -5,7 +5,6 @@ import { Button } from 'react-bootstrap';
 import ScrollSpy from '../../../components/scroll-spy';
 import Sectionizer from '../../../components/exercises/sectionizer';
 import { Icon } from 'shared';
-//import fluxToMobx from '../../../helpers/flux-to-mobx';
 import TourAnchor from '../../../components/tours/anchor';
 import SelectionsTooltip from './selections-tooltip';
 //import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
@@ -16,13 +15,6 @@ import UX from '../ux';
 class ExerciseControls extends React.Component {
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
-//    planId:              PropTypes.string.isRequired,
-    // canAdd:              PropTypes.bool,
-    // canEdit:             PropTypes.bool,
-    // onCancel:            PropTypes.func,
-    // canReview:           PropTypes.bool,
-    // addClicked:          PropTypes.func,
-    // reviewClicked:       PropTypes.func,
     unDocked:            PropTypes.bool,
     sectionizerProps:    PropTypes.object,
     hideDisplayControls: PropTypes.bool,
@@ -36,23 +28,20 @@ class ExerciseControls extends React.Component {
     }
   }
 
-  // selectedCount = fluxToMobx(
-  //   TaskPlanStore, () => TaskPlanStore.exerciseCount(this.props.planId) || 0,
-  // )
-
   componentWillUnmount() {
     if (!this.props.unDocked) {
       this.props.setSecondaryTopControls(null);
     }
   }
 
-  addTutorSelection = () => {
-    TaskPlanActions.updateTutorSelection(this.props.planId, 1);
-  };
+  // addTutorSelection = () => {
 
-  removeTutorSelection = () => {
-    TaskPlanActions.updateTutorSelection(this.props.planId, -1);
-  };
+  //   TaskPlanActions.updateTutorSelection(this.props.planId, 1);
+  // };
+
+  // removeTutorSelection = () => {
+  //   TaskPlanActions.updateTutorSelection(this.props.planId, -1);
+  // };
 
   renderDisplayControls() {
     if (this.props.hideDisplayControls) {
@@ -110,12 +99,12 @@ class ExerciseControls extends React.Component {
           </Button>,
         ]
       );
-    } else if (this.canAdd) {
+    } else if (ux.canEdit) {
       return (
         <Button
           variant="default"
           className="add-sections"
-          onClick={this.props.addClicked}
+          onClick={ux.onShowSectionSelection}
         >
           + Add More Sections
         </Button>
@@ -131,9 +120,11 @@ class ExerciseControls extends React.Component {
 
   renderIncreaseButton() {
     const { ux } = this.props;
-    if (ux.canChangeTutorExerciseQty && ux.plan.canIncreaseTutorExercises) {
+    if (ux.canEdit && ux.plan.canIncreaseTutorExercises) {
       return (
-        <Icon onClick={ux.addTutorSelection} size="xs" className="hover-circle" type="chevron-up" />
+        <Icon
+          type="chevron-up" onClick={ux.increaseTutorSelection}
+          className="hover-circle" size="xs" />
       );
     } else {
       return <span className="circle-btn-placeholder" />;
@@ -142,9 +133,11 @@ class ExerciseControls extends React.Component {
 
   renderDecreaseButton() {
     const { ux } = this.props;
-    if (ux.canChangeTutorExerciseQty && ux.plan.canDecreaseTutorExercises) {
+    if (ux.canEdit && ux.plan.canDecreaseTutorExercises) {
       return (
-        <Icon type="chevron-down" size="xs" onClick={this.removeTutorSelection} className="hover-circle" />
+        <Icon
+          type="chevron-down" onClick={ux.decreaseTutorSelection}
+          className="hover-circle" size="xs" />
       );
     } else {
       return <span className="circle-btn-placeholder" />;

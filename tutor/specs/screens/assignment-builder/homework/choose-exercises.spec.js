@@ -1,9 +1,6 @@
 import { React, C, createUX, TimeMock } from '../helpers';
-import { last, map } from 'lodash';
 import ChooseExercises from '../../../../src/screens/assignment-builder/homework/choose-exercises';
-import Factory, { FactoryBot } from '../../../factories';
-import UX from '../../../../src/screens/assignment-builder/ux';
-import ScrollTo from '../../../../src/helpers/scroll-to';
+import { FactoryBot } from '../../../factories';
 
 jest.mock('../../../../../shared/src/components/html', () => ({ html }) =>
   html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null

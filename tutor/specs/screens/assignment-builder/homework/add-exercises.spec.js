@@ -1,4 +1,4 @@
-import { React, C, FakeWindow, ld } from '../../../helpers';
+import { React, C, TimeMock, ld, createUX } from '../helpers';
 import AddExercises from '../../../../src/screens/assignment-builder/homework/add-exercises';
 import UX from '../../../../src/screens/assignment-builder/ux';
 import Factory from '../../../factories';
@@ -8,15 +8,15 @@ jest.mock('../../../../../shared/src/components/html', () => ({ html }) =>
 );
 
 describe('choose exercises component', () => {
-  let exercises, props, plan, ux;
+  let props, plan, ux;
+
+  const now = TimeMock.setTo('2015-01-12T10:00:00.000Z');
 
   beforeEach(function() {
-    const course = Factory.course();
-    plan = Factory.teacherTaskPlan({ course });
-    ux = new UX({ course, plan, windowImpl: new FakeWindow });
+    ux = createUX({ now });
     ux.exercises = Factory.exercisesMap({ book: ux.referenceBook });
     ux.plan.settings.page_ids = Object.keys(ux.exercises.byPageId);
-    props = { ux, exercises };
+    props = { ux };
   });
 
   it('selects exercises', () => {
@@ -26,7 +26,7 @@ describe('choose exercises component', () => {
     add.find(
       `[data-exercise-id="${exercise.content.uid}"] .action.include`
     ).simulate('click');
-    expect(plan.settings.exercise_ids).toContain(exercise.id);
+    expect(ux.plan.settings.exercise_ids).toContain(exercise.id);
     add.unmount();
   });
 

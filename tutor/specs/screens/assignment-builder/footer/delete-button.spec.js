@@ -8,6 +8,7 @@ describe('Task Plan Builder: Delete button', () => {
     props = {
       ux: {
         plan: { isNew: false },
+        isSaving: false,
         course: Factory.course({
           appearance_code: 'college_biology',
         }),
@@ -15,7 +16,7 @@ describe('Task Plan Builder: Delete button', () => {
     };
   });
 
-  fit('renders when plan is not new', () => {
+  it('renders when plan is not new', () => {
     props.ux.plan.isNew = true;
     const btn = shallow(<DeleteBtn {...props} />);
     expect(btn.html()).toBeNull();
@@ -24,7 +25,7 @@ describe('Task Plan Builder: Delete button', () => {
   });
 
   it('matches snapshot', function() {
-//    expect.snapshot(<Preview {...props} />).toMatchSnapshot();
+    expect.snapshot(<DeleteBtn {...props} />).toMatchSnapshot();
   });
 
 });

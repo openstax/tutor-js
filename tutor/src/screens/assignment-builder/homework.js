@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, observable, action, observer, cn,
+  React, PropTypes, observer, cn,
 } from '../../helpers/react';
 import { Card, Row, Col, Button } from 'react-bootstrap';
 import Header from './header';
@@ -25,7 +25,7 @@ class Homework extends React.Component {
   };
 
   render() {
-    const { ux, ux: { plan, course } } = this.props;
+    const { ux, ux: { plan } } = this.props;
 
     return (
       <Wrapper planType={plan.type}>

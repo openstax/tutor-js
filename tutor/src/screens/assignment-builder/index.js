@@ -1,6 +1,8 @@
-import { React, PropTypes, observable, action, computed, observer, cn } from '../../helpers/react';
+import { React, PropTypes, observer, action } from '../../helpers/react';
 import TourRegion from '../../components/tours/region';
 import Courses from '../../models/courses-map';
+import Router from '../../helpers/router';
+import TaskPlanHelper from '../../helpers/task-plan';
 import Loader from './loader';
 import homework from './homework';
 import reading from './reading';
@@ -30,6 +32,15 @@ class AssignmentBuilder extends React.Component {
 
   static displayName = 'AssignmentBuilder';
 
+  static propTypes = {
+    params: PropTypes.shape({
+      id: PropTypes.string,
+      courseId: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+    }),
+    history: PropTypes.object.isRequired,
+  }
+
   constructor(props) {
     super(props);
 
@@ -39,16 +50,24 @@ class AssignmentBuilder extends React.Component {
     // eslint-disable-next-line
     const course = props.course || Courses.get(courseId);
 
-    this.ux = new UX({ ...props.params, course, history: props.history });
+    this.ux = new UX();
+
+    this.ux.initialize({
+      ...props.params, course,
+      onComplete: this.onComplete,
+    });
 
   }
 
-  render() {
-    const { ux, ux: { plan, course } } = this;
+  @action.bound onComplete() {
+    const route = TaskPlanHelper.calendarParams(this.ux.course);
+    this.props.history.push(Router.makePathname(route.to, route.params));
+  }
 
-    if (ux.plan.api.isPendingInitialFetch) {
-      return <Loader />;
-    }
+  render() {
+    const { ux: { isInitializing, plan, course } } = this;
+
+    if (isInitializing) { return <Loader />; }
 
     const Builder = BUILDERS[plan.type] || UnknownType;
 
@@ -62,6 +81,6 @@ class AssignmentBuilder extends React.Component {
       </TourRegion>
     );
   }
-};
+}
 
 export default AssignmentBuilder;

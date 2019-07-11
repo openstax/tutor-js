@@ -1,4 +1,3 @@
-import UX from '../../../src/screens/assignment-builder/ux';
 import Builder from '../../../src/screens/assignment-builder/builder';
 import { C, TimeMock, createUX } from './helpers';
 

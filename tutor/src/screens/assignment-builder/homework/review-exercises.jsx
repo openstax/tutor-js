@@ -1,13 +1,9 @@
-import { React, PropTypes, styled } from '../../../helpers/react';
-import { compact, map, isEmpty } from 'lodash';
+import { React, PropTypes, styled, action } from '../../../helpers/react';
+import { map, isEmpty } from 'lodash';
 import Loading from 'shared/components/loading-animation';
 import { Icon } from 'shared';
-//import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
 import { ExercisePreview, SuretyGuard } from 'shared';
 import { observer } from 'mobx-react';
-import Course from '../../../models/course';
-import Book from '../../../models/reference-book';
-import sharedExercises, { ExercisesMap, Exercise } from '../../../models/exercises';
 import ExerciseControls from './exercise-controls';
 import ExerciseTable from './exercises-table';
 import UX from '../ux';
@@ -29,25 +25,22 @@ class ReviewExerciseCard extends React.Component {
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
     exercise: PropTypes.object.isRequired,
-    // planId:   PropTypes.string.isRequired,
-//    exercise: PropTypes.instanceOf(Exercise).isRequired,
-    // canEdit:  PropTypes.bool.isRequired,
     isFirst:  PropTypes.bool.isRequired,
     isLast:   PropTypes.bool.isRequired,
     index:    PropTypes.number.isRequired,
   };
 
-  moveExerciseUp = () => {
-//    TaskPlanActions.moveExercise(this.props.planId, this.props.exercise.id, -1);
-  };
+  @action.bound moveExerciseUp() {
+    this.props.ux.plan.moveExercise(this.props.exercise, -1);
+  }
 
-  moveExerciseDown = () => {
-//    TaskPlanActions.moveExercise(this.props.planId, this.props.exercise.id, 1);
-  };
+  @action.bound moveExerciseDown() {
+    this.props.ux.plan.moveExercise(this.props.exercise, 1);
+  }
 
-  removeExercise = () => {
-//    TaskPlanActions.removeExercise(this.props.planId, this.props.exercise.id);
-  };
+  @action.bound removeExercise() {
+    this.props.ux.plan.removeExercise(this.props.exercise);
+  }
 
   getActionButtons() {
     const { ux } = this.props;
@@ -128,14 +121,9 @@ class ReviewExercises extends React.Component {
   }
 
   render() {
-    const { ux, ux: { course } } = this.props;
+    const { ux } = this.props;
 
     if (ux.exercises.api.isPending) { return <Loading />; }
-
-    // const exercises = compact(map(
-    //   TaskPlanStore.getExercises(planId),
-    //   (exId) => this.props.exercises.get(exId),
-    // ));
 
     if (isEmpty(ux.selectedExercises)) {
       return (

@@ -1,4 +1,4 @@
-import { isEmpty, forIn, isNil, invoke } from 'lodash';
+import { isEmpty, forIn, isNil } from 'lodash';
 import { observable, action } from 'mobx';
 import { BootstrapURLs, ExerciseHelpers } from 'shared';
 import UiSettings from 'shared/model/ui-settings';

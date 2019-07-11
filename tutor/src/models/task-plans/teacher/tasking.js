@@ -5,15 +5,7 @@ import { pick } from 'lodash';
 import { computed } from 'mobx';
 import moment from 'moment';
 import Time from '../../time';
-import { dateWithUnchangedTime, timeWithUnchangedDate } from '../../../helpers/dates';
-
-
-function defaultOpensAt(tasking) {
-  console.log({ c: tasking.plan.course });
-
-  return null; // Time.now
-}
-
+import { dateWithUnchangedTime } from '../../../helpers/dates';
 
 export default
 @identifiedBy('tasking-plan')

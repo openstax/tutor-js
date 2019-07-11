@@ -10,10 +10,6 @@ class PreviewButton extends React.Component {
 
   static propTypes = {
     ux: PropTypes.object.isRequired,
-    // courseId:   idType.isRequired,
-    // planType:   PropTypes.string.isRequired,
-    // isWaiting:  PropTypes.bool.isRequired,
-    // isNew:      PropTypes.bool.isRequired,
   }
 
   render() {

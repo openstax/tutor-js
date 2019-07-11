@@ -1,10 +1,10 @@
-import { React, PropTypes, observable, idType, observer, cn } from '../../helpers/react';
+import { React, PropTypes } from '../../helpers/react';
 import S from '../../helpers/string';
 import Plan from '../../models/task-plans/teacher/plan';
 import { Card } from 'react-bootstrap';
 import { CloseButton } from 'shared';
 
-const Header = ({ plan, onCancel, label = 'Assignment'}) => {
+const Header = ({ plan, onCancel, label = 'Assignment' }) => {
   let headerText;
 
   if (label) { label = ` ${label}`; }

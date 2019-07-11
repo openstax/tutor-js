@@ -1,84 +1,84 @@
-import dvr from 'mobx-react-form/lib/validators/DVR';
-import { computed } from 'mobx';
-import validatorjs from 'validatorjs';
-import { Form, Field } from 'mobx-react-form';
-import { mapValues, every } from 'lodash';
+import { action, computed, observable } from 'mobx';
 
-class AssignmentForm extends Form {
+// import validatorjs from 'validatorjs';
+// import { Form } from 'mobx-react-form';
+import { get, set, mapValues, every } from 'lodash';
 
-  constructor(ux) {
-    const { plan, course } = ux;
+class AssignmentForm {
 
-    const fields = [
-      { name: 'title', rules: 'required|string', value: plan.title },
-      { name: 'description', value: plan.description },
-    ];
-    if (plan.isExternal) {
-      fields.push({
-        name: 'externalUrl', rules: 'required|url', value: plan.settings.external_url,
-      });
-    }
+  @observable isDirty = false;
 
-    // fields.push({
-    //   name: 'tasking_plans',
-    //   fields: flatMap(course.periods, (period) => {
-    //     const tasking = plan.findOrCreateTaskingForPeriod(period);
-    //     return [
-    //       { name: `${period.id}-opens`, value: tasking.opens_at, rules: 'date' },
-    //       { name: `${period.id}-due`, value: tasking.due_at, rules: 'date' },
-    //     ];
-    //   }),
-    // });
-
-    // console.log(fields[2]);
-
-    super({ fields }, {
-      options: {
-        validateOnInit: false,
-        validateOnChange: false,
-        validateOnChangeAfterSubmit: true,
-      },
-      plugins: { dvr: dvr(validatorjs) },
-    });
-    // console.log(this.values());
+  constructor({ plan }) {
     this.plan = plan;
-    this.fetchOrReset();
+
+    this.title = {
+      onChange: this.setter('title'),
+      get value() { return plan.title; },
+      disabled: !plan.canEdit,
+      validate(text) {
+        if (!text || !text.match(/\w/)) { return ['required']; }
+        return null;
+      },
+    };
+
+    this.description = {
+      onChange: this.setter('description'),
+      disabled: !plan.canEdit,
+      get value() { return plan.description; },
+    };
+
+    if ('external' == plan.type) {
+      this.externalUrl = {
+        onChange: this.setter('settings.external_url'),
+        disabled: !plan.canEdit,
+        get value() { return get(plan, 'settings.external_url', ''); },
+      };
+
+    }
+
   }
 
-  async fetchOrReset() {
-    const { plan } = this;
-    if (plan.isNew) {
-      await plan.reset();
-    } else {
-      await plan.fetch();
-    }
-
-    this.update(plan.serialize());
+  setter(field) {
+    this.isDirty = true;
+    return (value) => {
+      set(this.plan, field, value);
+    };
   }
 
-  async onSaveRequested() {
-    this.onSubmit({ preventDefault: () => {} });
-
-    if (!this.isValid) {
-      return;
-    }
-
-    const { plan } = this;
-
-    const values = mapValues(this.get(), 'value');
-    plan.update(values);
-    if (values.externalUrl) {
-      plan.settings.external_url = values.externalUrl;
-    }
-    await plan.save();
-    this.update(plan.serialize());
+  @computed get isValid() {
+    return this.plan.isValid;
   }
 
   @computed get canSave() {
-    return Boolean(
-      this.changed && this.isValid && every(this.plan.tasking_plans, 'isValid'),
-    );
+    return Boolean(this.isDirty && this.isValid);
   }
+
+  // async fetchOrReset() {
+  //   const { plan } = this;
+  //   if (plan.isNew) {
+  //     await plan.reset();
+  //   } else {
+  //     await plan.fetch();
+  //   }
+
+  //   this.update(plan.serialize());
+  // }
+
+  async onSaveRequested() {
+    if (!this.isValid) { return; }
+
+    const { plan } = this;
+
+    try {
+      await plan.save();
+      this.isDirty = false;
+    } catch (e) {
+      console.log("CatCh", e)
+
+      this.errors = [e];
+    }
+  }
+
 }
 
 export default AssignmentForm;

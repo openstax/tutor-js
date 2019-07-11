@@ -1,15 +1,10 @@
 import {
-  React, PropTypes, observable, action, observer, cn,
+  React, PropTypes, observer, cn,
 } from '../../helpers/react';
-import { pick, get } from 'lodash';
 import { Card, Row, Col } from 'react-bootstrap';
-import { idType } from 'shared';
 import Header from './header';
 import { TutorInput } from '../../components/tutor-input';
-import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
-import { TaskingStore } from '../../flux/tasking';
 import PlanFooter from './footer';
-import PlanMixin from './plan-mixin';
 import TaskPlanBuilder from './builder';
 import Wrapper from './wrapper';
 import UX from './ux';
@@ -35,9 +30,9 @@ class External extends React.Component {
             <Row>
               <Col xs={12} md={12}>
                 <TutorInput
-                  disabled={!plan.canEdit}
                   label="Assignment URL"
-                  {...ux.form.$('externalUrl').bind()}
+                  name="externalUrl"
+                  {...ux.form.externalUrl}
                 />
               </Col>
             </Row>

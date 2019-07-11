@@ -67,4 +67,4 @@ class CoursePlan extends React.Component {
       </div>
     );
   }
-};
+}

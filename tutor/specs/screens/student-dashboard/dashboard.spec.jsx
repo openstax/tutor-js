@@ -9,6 +9,8 @@ jest.mock('../../../src/models/app/raven');
 describe('Student Dashboard', () => {
   let props;
 
+  TimeMock.setTo('2015-10-14T12:00:00.000Z');
+
   beforeEach(() => {
     const course = bootstrapCoursesList().get(1);
     Factory.studentTaskPlans({ course, attributes: { now: new Date('2015-10-21T12:00:00.000Z') } });

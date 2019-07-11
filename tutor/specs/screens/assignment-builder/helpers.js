@@ -4,7 +4,7 @@ import { COMPLETE } from '../../../src/models/exercises';
 import Time from '../../../src/helpers/time';
 export * from '../../helpers';
 
-export function createUX({ now = Time.now, type = 'homework'} = {}) {
+export function createUX({ now = Time.now, type = 'homework' } = {}) {
   const course = Factory.course();
   const plan = Factory.teacherTaskPlan({ now, course, type });
   const exercises = Factory.exercisesMap({ book: course.referenceBook });
@@ -12,6 +12,7 @@ export function createUX({ now = Time.now, type = 'homework'} = {}) {
     plan,
     course,
     exercises,
+    onComplete: jest.fn(),
     windowImpl: new FakeWindow,
     history: { push: jest.fn() },
   });

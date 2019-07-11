@@ -1,4 +1,3 @@
-import Plan from '../../../../src/models/task-plans/teacher/plan';
 import { Factory } from '../../../helpers';
 
 describe('CourseCalendar Header', function() {
@@ -23,20 +22,26 @@ describe('CourseCalendar Header', function() {
   });
 
   it('moves pages', () => {
-    plan.settings.page_ids = [1,2,3,4];
+    plan.settings.page_ids = [1,2,3,4].map(String);
     plan.movePage({ id: 42 }, 3);
-    expect(plan.settings.page_ids).toEqual([1,2,3,4]);
-
-    plan.movePage({ id: '3' }, 1);
-    expect(plan.settings.page_ids).toEqual([1,2,4,3]);
-
-    plan.movePage({ id: 2 }, -1);
-    expect(plan.settings.page_ids).toEqual([2,1,4,3]);
-
-    plan.movePage({ id: 2 }, -1);
-    expect(plan.settings.page_ids).toEqual([2,1,4,3]);
+    expect(plan.settings.page_ids).toEqual([1,2,3,4].map(String));
 
     plan.movePage({ id: 3 }, 1);
-    expect(plan.settings.page_ids).toEqual([2,1,4,3]);
+
+    expect(plan.settings.page_ids).toEqual([1,2,4,3].map(String));
+
+    plan.movePage({ id: 2 }, -1);
+    expect(plan.settings.page_ids).toEqual([2,1,4,3].map(String));
+
+    plan.movePage({ id: 2 }, -1);
+    expect(plan.settings.page_ids).toEqual([2,1,4,3].map(String));
+
+    plan.movePage({ id: 3 }, 1);
+    expect(plan.settings.page_ids).toEqual([2,1,4,3].map(String));
+
+    plan.removePage({ id: 3 });
+    expect(plan.settings.page_ids).toEqual([2,1,4].map(String));
   });
+
+
 });

@@ -1,10 +1,9 @@
-import { React, PropTypes, observable, action, idType, observer, cn } from '../../../helpers/react';
+import { React, PropTypes, observer } from '../../../helpers/react';
 import { isEmpty } from 'lodash';
 import { Button } from 'react-bootstrap';
 import AddExercises from './add-exercises';
 import Loading from 'shared/components/loading-animation';
 import SelectSections from '../select-sections';
-import Exercises, { ExercisesMap } from '../../../models/exercises';
 import UX from '../ux';
 
 @observer
@@ -12,25 +11,7 @@ class ChooseExercises extends React.Component {
 
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
-//    exercises:   PropTypes.instanceOf(ExercisesMap),
-    // planId:      PropTypes.string.isRequired,
-    // hide:        PropTypes.func.isRequired,
-    // cancel:      PropTypes.func.isRequired,
-    // canEdit:     PropTypes.bool,
-    // windowImpl:  PropTypes.object,
   };
-
-  // static defaultProps = {
-  //   exercises: Exercises,
-  // }
-
-//  @observable showProblems = false;
-  // @observable selectedPageIds = TaskPlanStore.getSections(this.props.planId);
-
-  // @action.bound selectProblems() {
-  //   const { ux } = this.props;
-  //   ux.onExercisesShow();
-  // }
 
   renderExercises() {
     const { ux, ux: { exercises } } = this.props;

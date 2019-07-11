@@ -1,10 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { map, times } from 'lodash';
-//import { TaskPlanStore } from '../../../flux/task-plan';
-import Course from '../../../models/course';
 import { observer } from 'mobx-react';
-import { ArrayOrMobxType } from 'shared/helpers/react';
 import { ArbitraryHtmlAndMath } from 'shared';
 import ChapterSection from '../../../components/chapter-section';
 import TourRegion from '../../../components/tours/region';
@@ -14,10 +11,6 @@ import UX from '../ux';
 class ExerciseTable extends React.Component {
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
-    //
-    // course:     PropTypes.instanceOf(Course).isRequired,
-    // exercises:  ArrayOrMobxType.isRequired,
-
   };
 
   renderExerciseRow = (exercise, index) => {
@@ -79,7 +72,7 @@ class ExerciseTable extends React.Component {
   }
 
   render() {
-    const { ux, ux: { selectedExercises, course, plan } } = this.props;
+    const { ux: { selectedExercises, course, plan } } = this.props;
     return (
       <TourRegion
         tag="table"

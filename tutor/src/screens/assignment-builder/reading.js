@@ -1,14 +1,11 @@
 import {
-  React, PropTypes, observable, action, observer, cn,
+  React, PropTypes, observer, cn,
 } from '../../helpers/react';
 import { Card, Row, Col, Button } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
 import Header from './header';
 import ReviewSelections from './reading/review-selection';
 import TaskPlanBuilder from './builder';
-import ChooseExercises from './homework/choose-exercises';
-import ReviewExercises from './homework/review-exercises';
-import FeedbackSetting from './feedback';
 import PlanFooter from './footer';
 import Wrapper from './wrapper';
 import UX from './ux';
@@ -25,15 +22,7 @@ class Reading extends React.Component {
   render() {
     const { ux, ux: { plan } } = this.props;
 
-    let addReadingsButton, readingsRequired, selectReadings;
-    //    const { id, courseId } = this.props;
-    //    const builderProps = pick(this.state, 'isVisibleToStudents', 'isEditable', 'isSwitchable');
-    //    const hasError = this.hasError();
-
-    //     const ecosystemId = TaskPlanStore.getEcosystemId(id, courseId);
-    //     const topics = TaskPlanStore.getTopics(id);
-
-    //    const addReadingText = (topics != null ? topics.length : undefined) ? 'Add More Readings' : 'Add Readings';
+    let readingsRequired;
 
     const formClasses = cn('edit-reading', 'dialog', {
       'is-invalid-form': ux.hasError,
@@ -100,7 +89,3 @@ class Reading extends React.Component {
 }
 
 export default Reading;
-
-// export { ReadingPlan };
-// const ReadingShell = PlanMixin.makePlanRenderer('reading', ReadingPlan);
-// export default ReadingShell;

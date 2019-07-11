@@ -33,7 +33,8 @@ class TaskPlanBuilder extends React.Component {
           <Col xs={12}>
             <TutorInput
               className="assignment-name"
-              {...ux.form.$('title').bind()}
+              name="title"
+              {...ux.form.title}
               label={[
                 <span key="assignment-label">
                   Assignment name
@@ -42,7 +43,6 @@ class TaskPlanBuilder extends React.Component {
                   {' (Students will see this on their dashboard.)'}
                 </span>,
               ]}
-              disabled={!plan.isEditable}
             />
           </Col>
         </Row>
@@ -50,9 +50,9 @@ class TaskPlanBuilder extends React.Component {
           <Col xs={12}>
             <TutorTextArea
               className="assignment-description"
-              {...ux.form.$('description').bind()}
+              name="description"
+              {...ux.form.description}
               label="Description or special instructions"
-              disabled={!plan.isEditable}
             />
           </Col>
         </Row>

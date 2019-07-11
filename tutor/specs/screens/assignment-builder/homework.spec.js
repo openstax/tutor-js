@@ -13,7 +13,6 @@ describe('Homework Builder', function() {
   beforeEach(() => {
     ux = createUX({ now, type: 'homework' });
     props = { ux };
-    props = { ux, exercises: ux.exercises };
   });
 
   it('works on happy path', function() {

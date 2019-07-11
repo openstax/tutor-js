@@ -1,5 +1,4 @@
 import { React, PropTypes, observer, action } from '../../../helpers/react';
-import { map } from 'lodash';
 import { Icon } from 'shared';
 import UX from '../ux';
 import TourRegion from '../../../components/tours/region';

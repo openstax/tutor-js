@@ -9,7 +9,7 @@ import extend from 'lodash/extend';
 import TourRegion from '../../components/tours/region';
 import Course from '../../models/course';
 import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
-import { TimeStore } from '../../flux/time';
+import Time from '../../models/time';
 import TimeHelper from '../../helpers/time';
 import TutorRouter from '../../helpers/router';
 import TaskPlanMiniEditor from '../../screens/assignment-builder/mini-editor';
@@ -36,9 +36,10 @@ class TeacherDashboard extends React.Component {
   };
 
   static defaultProps = {
-    date: moment(TimeStore.getNow()),
+    date: moment(Time.now),
     params: {},
   };
+
   @observable activeAddAssignment;
   @observable hoveredDay;
   @observable cloningPlan;
@@ -80,59 +81,49 @@ class TeacherDashboard extends React.Component {
   };
 
   @action.bound onDrop(item, offset) {
-    const { start, end } = this.props.course.bounds;
+    const { course, course: { bounds: { start, end } } } = this.props;
 
     if (!this.hoveredDay ||
       !this.hoveredDay.isBetween(start, end, 'day', '[]') ||
-      !this.hoveredDay.isSameOrAfter(TimeStore.getNow(), 'day')) { return; }
+      !this.hoveredDay.isSameOrAfter(Time.now, 'day')) { return; }
     if (item.pathname) { // is a link to create an assignment
       const url = item.pathname + '?' + qs.stringify({
         due_at: this.hoveredDay.format(this.props.dateFormat),
       });
       this.context.router.history.push(url);
     } else { // is a task plan to clone
-      this.cloningPlan = extend(
-        {},
-        item,
-        {
-          onLoad: this.onCloneLoaded,
-          due_at: this.hoveredDay,
-          position: offset,
-        },
-      );
-      if (TaskPlanStore.isLoaded(item.id)) {
-        this.onCloneLoaded();
-      } else {
-        TaskPlanStore.on(`loaded.${item.id}`, this.onCloneLoaded);
-      }
 
+      this.editingPlan = { ...item, date: this.hoveredDay };
+      // course
+      //   .pastTaskPlans.get(item.id)
+      //   .createClone({ course, dueAt: this.hoveredDay });
     }
   }
 
-  @action.bound onCloneLoaded() {
-    const { course } = this.props;
-    TaskPlanStore.off(`loaded.${this.cloningPlan.id}`, this.onCloneLoaded);
+  // @action.bound onCloneLoaded() {
+  //   const { course } = this.props;
+  //   TaskPlanStore.off(`loaded.${this.cloningPlan.id}`, this.onCloneLoaded);
 
-    const taskPlanId = TaskPlanStore.freshLocalId();
-    TaskPlanActions.createClonedPlan(taskPlanId, {
-      planId: this.cloningPlan.id, courseId: course.id,
-      due_at: TimeHelper.toISO(this.cloningPlan.due_at),
-    });
-    course.teacherTaskPlans.addClone(TaskPlanStore.get(taskPlanId));
+  //   const taskPlanId = TaskPlanStore.freshLocalId();
+  //   TaskPlanActions.createClonedPlan(taskPlanId, {
+  //     planId: this.cloningPlan.id, courseId: course.id,
+  //     due_at: TimeHelper.toISO(this.cloningPlan.due_at),
+  //   });
+  //   course.teacherTaskPlans.addClone(TaskPlanStore.get(taskPlanId));
 
-    defer(action(() => { // give flux store time to update
-      Object.assign(this, {
-        editingPlan: {
-          id: taskPlanId, fromClone: this.cloningPlan,
-        },
-        cloningPlan: undefined,
-      });
-    }));
-  }
+  //   defer(action(() => { // give flux store time to update
+  //     Object.assign(this, {
+  //       editingPlan: {
+  //         id: taskPlanId, fromClone: this.cloningPlan,
+  //       },
+  //       cloningPlan: undefined,
+  //     });
+  //   }));
+  // }
 
   getEditingPlanEl = () => {
     if (!this.editingPlan) { return null; }
-    const date = this.editingPlan.fromClone.due_at.format('YYYYMMDD');
+    const date = this.editingPlan.date.format('YYYYMMDD');
     return document.querySelector(`.day[data-date="${date}"]`);
   };
 
@@ -200,13 +191,13 @@ class TeacherDashboard extends React.Component {
         </div>
 
         {this.editingPlan && (
-           <TaskPlanMiniEditor
-             planId={this.editingPlan.id}
-             position={this.editingPosition}
-             course={course}
-             onHide={this.onEditorHide}
-             findPopOverTarget={this.getEditingPlanEl}
-           />)}
+          <TaskPlanMiniEditor
+            course={course}
+            onHide={this.onEditorHide}
+            sourcePlan={this.editingPlan}
+            position={this.editingPosition}
+            findPopOverTarget={this.getEditingPlanEl}
+          />)}
       </TourRegion>
     );
   }
