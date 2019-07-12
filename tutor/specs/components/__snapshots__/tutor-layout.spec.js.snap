@@ -131,68 +131,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                 </ForwardRef(ContextTransform)>
                                               </SupportMenu>
                                             </inject-SupportMenu>
-                                            <ActionsMenu course={[undefined]}>
-                                              <ForwardRef(ContextTransform) className=\\"actions-menu\\">
-                                                <ForwardRef(Bootstrap(undefined)) className=\\"actions-menu\\" onSelect={{...}}>
-                                                  <ForwardRef className=\\"actions-menu\\" onSelect={{...}} innerRef={{...}} bsPrefix=\\"dropdown\\">
-                                                    <Uncontrolled(Dropdown) className=\\"actions-menu\\" onSelect={{...}} innerRef={{...}} bsPrefix=\\"dropdown\\">
-                                                      <Dropdown className=\\"actions-menu\\" onSelect={{...}} bsPrefix=\\"dropdown\\" show={[undefined]} onToggle={[Function: handleChange]} as=\\"div\\" navbar={false}>
-                                                        <ReactOverlaysDropdown drop={[undefined]} show={[undefined]} alignEnd={[undefined]} onToggle={[Function]} itemSelector=\\".dropdown-item:not(.disabled):not(:disabled)\\">
-                                                          <Manager>
-                                                            <div onKeyDown={[Function]} className=\\"actions-menu dropdown\\">
-                                                              <ForwardRef(Bootstrap(DropdownToggle)) id=\\"actions-menu\\" aria-label=\\"Menu and settings\\" variant=\\"ox\\">
-                                                                <DropdownToggle id=\\"actions-menu\\" aria-label=\\"Menu and settings\\" variant=\\"ox\\" bsPrefix=\\"dropdown-toggle\\" as={{...}}>
-                                                                  <ReactOverlaysDropdownToggle>
-                                                                    <ForwardRef(Bootstrap(Button)) onClick={[Function]} bsPrefix={[undefined]} className=\\"dropdown-toggle\\" aria-haspopup={true} aria-expanded={false} id=\\"actions-menu\\" aria-label=\\"Menu and settings\\" variant=\\"ox\\">
-                                                                      <Button onClick={[Function]} bsPrefix=\\"btn\\" className=\\"dropdown-toggle\\" aria-haspopup={true} aria-expanded={false} id=\\"actions-menu\\" aria-label=\\"Menu and settings\\" variant=\\"ox\\" innerRef={[Function]} active={false} disabled={false} type=\\"button\\">
-                                                                        <button onClick={[Function]} aria-haspopup={true} aria-expanded={false} id=\\"actions-menu\\" aria-label=\\"Menu and settings\\" disabled={false} type=\\"button\\" className=\\"dropdown-toggle btn btn-ox\\">
-                                                                          <Icon type=\\"bars\\" buttonProps={{...}} tooltipProps={{...}}>
-                                                                            <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-bars\\" icon={{...}}>
-                                                                              <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-bars\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                                                <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-bars IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                                  <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"bars\\" className=\\"svg-inline--fa fa-bars fa-w-14 ox-icon ox-icon-bars IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
-                                                                                    <path fill=\\"currentColor\\" d=\\"M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z\\" style={{...}} />
-                                                                                  </svg>
-                                                                                </FontAwesomeIcon>
-                                                                              </StyledComponent>
-                                                                            </IconWrapper>
-                                                                          </Icon>
-                                                                          <span className=\\"control-label\\" title=\\"Menu and settings\\">
-                                                                            Menu
-                                                                          </span>
-                                                                          <Icon type=\\"angle-down\\" className=\\"toggle\\" buttonProps={{...}} tooltipProps={{...}}>
-                                                                            <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-angle-down toggle\\" icon={{...}}>
-                                                                              <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-angle-down toggle\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                                                                                <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-angle-down toggle IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                                  <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"angle-down\\" className=\\"svg-inline--fa fa-angle-down fa-w-10 ox-icon ox-icon-angle-down toggle IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 320 512\\" style={{...}} data-variant={[undefined]}>
-                                                                                    <path fill=\\"currentColor\\" d=\\"M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z\\" style={{...}} />
-                                                                                  </svg>
-                                                                                </FontAwesomeIcon>
-                                                                              </StyledComponent>
-                                                                            </IconWrapper>
-                                                                          </Icon>
-                                                                        </button>
-                                                                      </Button>
-                                                                    </ForwardRef(Bootstrap(Button))>
-                                                                  </ReactOverlaysDropdownToggle>
-                                                                </DropdownToggle>
-                                                              </ForwardRef(Bootstrap(DropdownToggle))>
-                                                              <ForwardRef(Bootstrap(DropdownMenu))>
-                                                                <DropdownMenu bsPrefix=\\"dropdown-menu\\" alignRight={false} as=\\"div\\" flip={true}>
-                                                                  <ForwardRef(ContextTransform(DropdownMenu)) flip={true} show={[undefined]} alignEnd={false} usePopper={true} popperConfig={[undefined]} rootCloseEvent={[undefined]}>
-                                                                    <ReactOverlaysDropdownMenu flip={true} show={[undefined]} alignEnd={false} usePopper={true} popperConfig={[undefined]} rootCloseEvent={[undefined]} drop={[undefined]} menuRef={[Function: menuRef]} toggleNode={{...}} onToggle={[Function]} />
-                                                                  </ForwardRef(ContextTransform(DropdownMenu))>
-                                                                </DropdownMenu>
-                                                              </ForwardRef(Bootstrap(DropdownMenu))>
-                                                            </div>
-                                                          </Manager>
-                                                        </ReactOverlaysDropdown>
-                                                      </Dropdown>
-                                                    </Uncontrolled(Dropdown)>
-                                                  </ForwardRef>
-                                                </ForwardRef(Bootstrap(undefined))>
-                                              </ForwardRef(ContextTransform)>
-                                            </ActionsMenu>
+                                            <ActionsMenu course={[undefined]} />
                                             <inject-PreviewAddCourseBtn course={[undefined]}>
                                               <PreviewAddCourseBtn course={[undefined]} tourContext={{...}} />
                                             </inject-PreviewAddCourseBtn>

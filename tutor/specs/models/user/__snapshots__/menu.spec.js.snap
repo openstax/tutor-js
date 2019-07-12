@@ -142,11 +142,6 @@ Array [
 exports[`Current User Store should return expected menu routes when course is missing 1`] = `
 Array [
   Object {
-    "href": "https://analytics.openstax.org/",
-    "label": "Research analytics",
-    "name": "analytics",
-  },
-  Object {
     "label": "Create a Course",
     "name": "createNewCourse",
     "options": Object {

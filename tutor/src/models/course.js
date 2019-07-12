@@ -157,11 +157,11 @@ class Course extends BaseModel {
   }
 
   @computed get subject() {
-    return get(CourseInformation.forAppearanceCode(this.appearance_code), 'subject', '');
+    return CourseInformation.information(this.appearance_code);
   }
 
   @computed get bookName() {
-    return get(CourseInformation.forAppearanceCode(this.appearance_code), 'title', '');
+    return get(CourseInformation.information(this.appearance_code), 'title', '');
   }
 
   @computed get bestPracticesDocumentURL() {
@@ -197,10 +197,6 @@ class Course extends BaseModel {
 
   @computed get isTeacher() {
     return !!find(this.roles, 'isTeacher');
-  }
-
-  @computed get isAP() {
-    return 0 == this.appearance_code.indexOf('ap_');
   }
 
   @computed get shouldRemindNewEnrollmentLink() {

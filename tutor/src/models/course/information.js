@@ -1,4 +1,5 @@
 import String from '../../helpers/string';
+import { each } from 'lodash';
 
 const SUBJECTS = {
   PHYSICS:    'Physics',
@@ -10,11 +11,7 @@ const SUBJECTS = {
   ANATOMY_PHYSIOLOGY: 'Anatomy & Physiology',
 };
 
-
-// NOTE:
-//  * The 'biology' and 'physics' codes are deprecated, but are retained for older courses that may have them
-//  * These codes must be kept in sync with the styles in variables/book-content.less
-export default {
+const BOOKS = {
   physics: {
     title:      'Physics',
     subject:    SUBJECTS.PHYSICS,
@@ -37,6 +34,10 @@ export default {
   ap_biology: {
     title:      'Biology for AP® Courses',
     subject:    SUBJECTS.BIOLOGY,
+  },
+  ap_physics: {
+    title:      'College Physics for AP® Courses',
+    subject:    SUBJECTS.PHYSICS,
   },
   concepts_biology: {
     title:      'Concepts of Biology',
@@ -68,14 +69,23 @@ export default {
     title:      'Anatomy & Physiology',
     subject:    SUBJECTS.ANATOMY_PHYSIOLOGY,
   },
+};
+
+each(BOOKS, (properties, code) => properties.code = code);
+
+// NOTE:
+//  * The 'biology' and 'physics' codes are deprecated, but are retained for older courses that may have them
+//  * These codes must be kept in sync with the styles in variables/book-content.less
+export default {
+  ...BOOKS,
 
   bestPracticesDocumentURLFor(code) {
     return this[code] && this[code].bp_doc ?
       `https://s3-us-west-2.amazonaws.com/openstax-assets/oscms-prodcms/media/documents/oxt-${this[code].bp_doc}-best-practices.pdf` : '';
   },
 
-  forAppearanceCode(code) {
-    return this[code] || { title: String.titleize(code), subject: '' };
+  information(code) {
+    return this[code] || { title: String.titleize(code), subject: '', code };
   },
 
   gettingStartedGuide: {

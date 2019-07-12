@@ -1,4 +1,4 @@
-import { pickBy, invoke, each, isFunction, get } from 'lodash';
+import { pickBy, each, isFunction, get } from 'lodash';
 import { observable } from 'mobx';
 
 import User from '../user';
@@ -40,7 +40,9 @@ const ROUTES = {
   },
   analytics: {
     label: 'Research analytics',
-    isAllowed(course) { return get(course, 'isAP'); },
+    isAllowed(course) { return Boolean(
+      course && course.isTeacher && ['ap_biology', 'ap_physics'].includes(course.subject.code)
+    ); },
     href: 'https://analytics.openstax.org/',
   },
   questions: {
@@ -84,7 +86,9 @@ const ROUTES = {
   createNewCourse: {
     label: 'Create a Course',
     isAllowed(course) {
-      return User.isCollegeTeacher && (!course || !course.currentRole.isTeacherStudent);
+      return Boolean(
+        User.isCollegeTeacher && (!course || !course.currentRole.isTeacherStudent)
+      );
     },
     options({ course }) {
       return course ? { separator: 'before' } : { separator: 'both' };
@@ -121,7 +125,9 @@ const ROUTES = {
   managePayments: {
     label: 'Manage payments',
     locked(course) { return get(course, 'currentRole.isTeacherStudent'); },
-    isAllowed(course) { return this.locked(course) || Payments.config.is_enabled && Courses.costing.student.any; },
+    isAllowed(course) { return Boolean(
+      this.locked(course) || Payments.config.is_enabled && Courses.costing.student.any
+    ); },
   },
   qaHome: {
     label: 'Content Analyst',
@@ -178,7 +184,7 @@ const UserMenu = observable({
     const options = { courseId: courseId, menuRole };
     const validRoutes = pickBy(
       ROUTES, (route, routeName) =>
-        (invoke(route, 'isAllowed', course) !== false) &&
+        (!route.isAllowed || route.isAllowed(course)) &&
         (!route.isTeacher || isTeacher) &&
         getRouteByRole(routeName, menuRole)
     );
