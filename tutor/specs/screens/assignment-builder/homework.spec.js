@@ -1,5 +1,5 @@
 import Homework from '../../../src/screens/assignment-builder/homework';
-import { C, TimeMock, moment, createUX, setTaskDates } from './helpers';
+import { C, TimeMock, createUX, setTaskDates } from './helpers';
 
 jest.mock('../../../../shared/src/components/html', () => ({ html }) =>
   html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null

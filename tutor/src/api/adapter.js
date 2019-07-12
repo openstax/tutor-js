@@ -2,7 +2,7 @@ import { get, merge } from 'lodash';
 import { APIHandler } from 'shared';
 import { APIActionAdapter } from 'shared';
 import { observe } from 'mobx';
-import { TimeActions } from '../flux/time';
+import { setNow } from '../models/time';
 import { AppActions } from '../flux/app';
 import User from '../models/user';
 import Courses from '../models/courses-map';
@@ -16,10 +16,10 @@ const baseUrl =
       :
       `${window.location.origin}/api`;
 
-const setNow = function(headers) {
+const storeAppDateHeader = function(headers) {
   // axios will lower case headers https://github.com/axios/axios/issues/413
   const date = headers['x-app-date'] || headers['date'];
-  return TimeActions.setFromString(date);
+  return setNow(date);
 };
 
 const updateHeadersWithToken = token =>
@@ -65,7 +65,7 @@ tutorAPIHandler = new APIHandler(OPTIONS);
 tutorAPIHandler.channel.on('*.*.*.receive.*', function(response = {}) {
   const headers = get(response, 'headers') || get(response, 'response.headers');
   if (headers) {
-    setNow(headers);
+    storeAppDateHeader(headers);
   }
 });
 

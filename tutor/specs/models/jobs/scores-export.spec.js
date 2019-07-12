@@ -2,12 +2,9 @@ import UiSettings from 'shared/model/ui-settings';
 import Export from '../../../src/models/jobs/scores-export';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import Toasts from '../../../src/models/toasts';
+import { TimeMock } from '../../helpers';
 
-const mockNowDate = new Date();
 jest.useFakeTimers();
-jest.mock('../../../src/flux/time', () => ({
-  TimeStore: { getNow: jest.fn(() => mockNowDate) },
-}));
 
 jest.mock('shared/model/ui-settings', () => ({
   set: jest.fn(),
@@ -18,6 +15,8 @@ describe('Scores export job', () => {
 
   let course;
   let job;
+
+  const now = TimeMock.setTo('2019-01-14T12:00:00.000Z');
 
   beforeEach(() => {
     course = bootstrapCoursesList().get(2);
@@ -30,7 +29,7 @@ describe('Scores export job', () => {
     UiSettings.get = jest.fn(() => undefined);
     expect(job.lastExportedAt).toBeNull();
     expect(UiSettings.get).toHaveBeenCalledWith('sce', '2');
-    UiSettings.get = jest.fn(() => mockNowDate);
+    UiSettings.get = jest.fn(() => now.toISOString());
     expect(job.lastExportedAt).toEqual(expect.stringMatching(/\d+\/\d+\/\d+/));
   });
 
@@ -40,7 +39,7 @@ describe('Scores export job', () => {
     };
     job.onJobUpdate({ data });
     expect(UiSettings.set).toHaveBeenCalledWith(
-      'sce', '2', mockNowDate.toISOString()
+      'sce', '2', now.toISOString()
     );
     expect(Toasts.length).toBe(1);
     const q = Toasts[0];

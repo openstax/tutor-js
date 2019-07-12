@@ -1,6 +1,5 @@
 import { React, PropTypes, styled } from '../../helpers/react';
 import NudgeAvailableMessage from './nudge-is-available-message';
-import TimeHelper from '../../helpers/time';
 import UX from './ux';
 
 const StyledNudgeMessage = styled(NudgeAvailableMessage)`

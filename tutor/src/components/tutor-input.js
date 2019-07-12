@@ -8,12 +8,12 @@ import classnames from 'classnames';
 import MaskedInput from 'react-maskedinput';
 import DatePicker from 'react-datepicker';
 import * as TutorErrors from './tutor-errors';
-import { TimeStore } from '../flux/time';
+import Time from '../models/time';
 import TimeHelper from '../helpers/time';
 import { Icon } from 'shared';
 import S from '../helpers/string';
 
-const TutorDateFormat = TimeStore.getFormat();
+const TutorDateFormat = Time.DATE_FORMAT;
 
 class TutorInput extends React.Component {
   static defaultProps = {
@@ -211,7 +211,7 @@ class TutorDateInput extends React.Component {
       },
     );
 
-    const now = TimeStore.getNow();
+    const now = Time.now;
     let { value } = this.props;
 
     value = value ?

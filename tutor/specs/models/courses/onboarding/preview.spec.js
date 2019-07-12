@@ -2,6 +2,7 @@ import { observable } from 'mobx';
 import { TEACHER_COURSE_TWO_MODEL } from '../../../courses-test-data';
 import Course from '../../../../src/models/course';
 import CoursePreviewUX from '../../../../src/models/course/onboarding/preview';
+import Time from '../../../../src/models/time';
 
 let mockCourses = observable.array();
 Object.defineProperties(mockCourses, {
@@ -17,7 +18,6 @@ let mockActiveCoursePlans = observable.array();
 jest.mock('../../../../src/models/courses-map', () => ({
   tutor: { currentAndFuture: { get nonPreview() { return mockCourses; } } },
 }));
-import { TimeStore } from '../../../../src/flux/time';
 
 jest.mock('../../../../src/models/course');
 jest.mock('../../../../src/models/task-plans/teacher');
@@ -28,7 +28,6 @@ describe('Course Preview Onboarding', () => {
   beforeEach(() => {
     const course = new Course(TEACHER_COURSE_TWO_MODEL);
     course.teacherTaskPlans = { active: mockActiveCoursePlans, api: {} };
-//    course.teacherTaskPlans.api = {};
     ux = new CoursePreviewUX(course, { tour: null });
     ux._setTaskPlanPublish(false);
   });
@@ -56,7 +55,7 @@ describe('Course Preview Onboarding', () => {
   it('#nagComponent', () => {
     mockCourses.clear();
     expect(ux.nagComponent).toBeNull();
-    ux.course.ends_at = TimeStore.getNow() - 100;
+    ux.course.ends_at = Time.now - 100;
     ux.course.hasEnded = true;
     mockActiveCoursePlans.clear();
     expect(ux.nagComponent).not.toBeNull();

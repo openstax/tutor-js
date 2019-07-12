@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, observer, idType } from '../../../helpers/react';
+import { React, PropTypes, styled, observer } from '../../../helpers/react';
 import UX from '../ux';
 import { Container, Col, Alert, Button } from 'react-bootstrap';
 import { camelCase } from 'lodash';
@@ -8,7 +8,6 @@ import { TutorInput } from '../../../components/tutor-input';
 import PublishButton from '../footer/save-button';
 import DraftButton from '../footer/save-as-draft';
 import NudgeIsAvailableMessage from '../nudge-is-available-message';
-import Course from '../../../models/course';
 import Theme from '../../../theme';
 
 const StyledNudgeIsAvailableMessage = styled(NudgeIsAvailableMessage)`

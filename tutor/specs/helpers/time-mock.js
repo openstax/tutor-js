@@ -17,7 +17,7 @@ const TimeMock = {
 
   mock(dateTime) {
     const now = new Date(dateTime);
-    MockDate.set(now, -360); // CST offset
+    MockDate.set(now, -360);
     FactoryBot.defaults.now = dateTime;
     const spy = jest.spyOn(Time, 'now', 'get');
     spy.mockImplementation(() => now);

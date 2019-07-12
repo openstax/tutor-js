@@ -6,7 +6,7 @@ import moment from 'moment';
 import Map from 'shared/model/map';
 import UiSettings from 'shared/model/ui-settings';
 import { observable, computed, action } from 'mobx';
-import { TimeStore } from '../../flux/time';
+import Time from '../../models/time';
 import Toasts from '../toasts';
 
 import Job from '../job';
@@ -41,7 +41,7 @@ class LmsScorePush extends Job {
   }
 
   onPollComplete(info) {
-    UiSettings.set(LAST_PUSH, this.course.id, TimeStore.getNow().toISOString());
+    UiSettings.set(LAST_PUSH, this.course.id, Time.now.toISOString());
     const succeeded = Boolean(
       !this.hasFailed &&
         info.data.num_callbacks &&
@@ -65,4 +65,4 @@ class LmsScorePush extends Job {
     this.startPolling(data.job);
   }
 
-};
+}

@@ -1,20 +1,15 @@
-import { Factory } from '../../helpers';
+import { Factory, TimeMock } from '../../helpers';
 import GetAccess from '../../../src/components/navbar/student-pay-now-btn';
-
-import { bootstrapCoursesList } from '../../courses-test-data';
 import Payments from '../../../src/models/payments';
 
 jest.mock('../../../src/models/payments');
 jest.mock('../../../src/models/course');
 
-jest.mock('../../../src/flux/time', () => ({
-  TimeStore: {
-    getNow: () => new Date('2017-07-01'),
-  },
-}));
-
 describe('Student get access button', function() {
   let props;
+
+  TimeMock.setTo('2017-07-01');
+
   beforeEach(() => {
     props = {
       course: Factory.course(),

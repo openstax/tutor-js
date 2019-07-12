@@ -45,7 +45,7 @@ class TaskingPlan extends BaseModel {
   }
 
   @action setOpensDate(date) {
-    this.opens_at = dateWithUnchangedTime(date, this.opens_at);
+    this.opens_at = dateWithUnchangedTime(date, this.opens_at).toISOString();
   }
 
   @computed get isValid() {
@@ -56,8 +56,7 @@ class TaskingPlan extends BaseModel {
 
   @action setOpensTime(time) {
     const [hour, minute] = time.split(':');
-
-    this.opens_at = moment(this.opens_at) // .tz(this.plan.course.time_zone)
+    this.opens_at = moment(this.opens_at)
       .hour(hour).minute(minute).seconds(0).millisecond(0)
       .toISOString();
   }
@@ -67,7 +66,7 @@ class TaskingPlan extends BaseModel {
   }
 
   @action setDueDate(date) {
-    this.due_at = dateWithUnchangedTime(date, this.due_at);
+    this.due_at = dateWithUnchangedTime(date, this.due_at).toISOString();
   }
 
   @action setDueTime(time) {
