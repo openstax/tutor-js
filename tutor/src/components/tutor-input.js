@@ -163,6 +163,10 @@ class TutorDateInput extends React.Component {
     return this.props.value || this.state.value;
   };
 
+  get tzOffset() {
+    return new Date().getTimezoneOffset()
+  }
+
   dateSelected = (value) => {
     let errors;
     const valid = this.isValid(value);
@@ -172,8 +176,7 @@ class TutorDateInput extends React.Component {
       errors = ['Invalid date'];
     }
 
-
-    value = TimeHelper.getMomentPreserveDate(value);
+    value = moment(value).utcOffset(this.tzOffset * -1).startOf('date');
 
     this.props.onChange(value);
     return this.setState({ expandCalendar: false, valid, value, errors });
@@ -221,6 +224,7 @@ class TutorDateInput extends React.Component {
     if (!this.props.disabled) {
       dateElem = (
         <DatePicker
+          utcOffset={this.tzOffset}
           minDate={min.toDate()}
           maxDate={max.toDate()}
           onFocus={this.expandCalendar}
