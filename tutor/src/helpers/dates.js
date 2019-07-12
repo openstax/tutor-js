@@ -2,6 +2,7 @@ import moment from 'moment';
 import 'twix';
 import 'moment-timezone';
 import { compact, reduce, min, max, map } from 'lodash';
+import TimeHelper from './time';
 
 export function getDay(oneMoment) {
   return moment(oneMoment)
@@ -31,7 +32,8 @@ export function findLatest(dateThings) {
 
 
 export function dateWithUnchangedTime(date, t) {
-  const time = moment(t);
-  return moment(date)
-    .hour(time.hour()).minute(time.minute()).seconds(time.seconds()).millisecond(0);
+  if (moment.isMoment(date)) {
+    date = date.format(TimeHelper.ISO_DATE_FORMAT);
+  }
+  return TimeHelper.getDateOnly(date);
 }

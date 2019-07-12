@@ -45,7 +45,7 @@ class TaskingPlan extends BaseModel {
   }
 
   @action setOpensDate(date) {
-    this.opens_at = dateWithUnchangedTime(date, this.opens_at).toISOString();
+    this.opens_at = dateWithUnchangedTime(date, this.opens_at);
   }
 
   @computed get isValid() {
@@ -66,7 +66,7 @@ class TaskingPlan extends BaseModel {
   }
 
   @action setDueDate(date) {
-    this.due_at = dateWithUnchangedTime(date, this.due_at).toISOString();
+    this.due_at = dateWithUnchangedTime(date, this.due_at);
   }
 
   @action setDueTime(time) {
