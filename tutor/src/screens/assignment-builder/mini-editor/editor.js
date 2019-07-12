@@ -41,8 +41,6 @@ class TaskPlanMiniEditor extends React.Component {
 
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
-    course: PropTypes.instanceOf(Course).isRequired,
-    id: idType.isRequired,
     onHide: PropTypes.func.isRequired,
   }
 

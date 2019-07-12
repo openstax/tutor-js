@@ -37,7 +37,7 @@ class Reading extends React.Component {
     }
 
     return (
-      <Wrapper planType="reading" cardClassName={formClasses}>
+      <Wrapper ux={ux}>
         <Card className={formClasses}>
           <Header plan={plan} onCancel={ux.onCancel} />
           <Card.Body>

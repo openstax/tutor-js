@@ -20,7 +20,7 @@ class External extends React.Component {
     const { ux, ux: { plan } } = this.props;
 
     return (
-      <Wrapper planType="external">
+      <Wrapper ux={ux}>
         <Card
           className={cn('edit-external', 'dialog', { 'is-invalid-form': ux.hasError })}
         >

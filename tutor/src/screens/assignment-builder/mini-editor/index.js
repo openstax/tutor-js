@@ -43,7 +43,6 @@ class TaskPlanMiniEditorShell extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.ux = new UX();
     this.ux.initialize({
       type: 'clone',
@@ -59,8 +58,10 @@ class TaskPlanMiniEditorShell extends React.Component {
   }
 
   render() {
+    const { onHide } = this.props;
+
     const body = this.ux.isInitializing ?
-      <Loading message="Loading assignment…" /> : <Editor ux={this.ux} />;
+      <Loading message="Loading assignment…" /> : <Editor onHide={onHide} ux={this.ux} />;
 
     return (
       <StyledEditorPlacement>

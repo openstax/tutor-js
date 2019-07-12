@@ -1,5 +1,5 @@
 import Homework from '../../../src/screens/assignment-builder/homework';
-import { C, TimeMock, moment, createUX } from './helpers';
+import { C, TimeMock, moment, createUX, setTaskDates } from './helpers';
 
 jest.mock('../../../../shared/src/components/html', () => ({ html }) =>
   html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
@@ -24,16 +24,8 @@ describe('Homework Builder', function() {
     hw.find('.assignment-description textarea').simulate('change', {
       target: { value: 'a homework description' },
     });
-    const opens_at = moment(now).add(1, 'day');
-    const due_at = moment(now).add(3, 'day');
-    hw.find('Tasking .opens-at TutorDateInput input[onChange]')
-      .simulate('change', { target: { value: opens_at.format('MM/DD/YYYY') } });
-    hw.find('Tasking .opens-at TutorTimeInput input[onChange]')
-      .simulate('change', { target: { value: opens_at.format('h:mma') } });
-    hw.find('Tasking .due-at TutorDateInput input[onChange]')
-      .simulate('change', { target: { value: due_at.format('MM/DD/YYYY') } });
-    hw.find('Tasking .due-at TutorTimeInput input[onChange]')
-      .simulate('change', { target: { value: due_at.format('h:mma') } });
+    const { opens_at, due_at } = setTaskDates({ form: hw, now });
+
     hw.find('button#select-sections').simulate('click');
     expect(hw).toHaveRendered('SelectSections ChapterAccordion');
     hw.find('.chapter-checkbox button').at(1).simulate('click');

@@ -7,6 +7,7 @@ export * from '../../helpers';
 export function createUX({ now = Time.now, type = 'homework' } = {}) {
   const course = Factory.course();
   const plan = Factory.teacherTaskPlan({ now, course, type });
+
   const exercises = Factory.exercisesMap({ book: course.referenceBook });
   const ux = new UX({
     plan,
@@ -23,17 +24,17 @@ export function createUX({ now = Time.now, type = 'homework' } = {}) {
   return ux;
 }
 
-export function setTaskDates({ plan, now }) {
-
+export function setTaskDates({ form, now }) {
   const opens_at = moment(now).add(1, 'day');
   const due_at = moment(now).add(3, 'day');
-  plan.find('Tasking .opens-at TutorDateInput input[onChange]')
+
+  form.find('Tasking .opens-at TutorDateInput input[onChange]')
     .simulate('change', { target: { value: opens_at.format('MM/DD/YYYY') } });
-  plan.find('Tasking .opens-at TutorTimeInput input[onChange]')
+  form.find('Tasking .opens-at TutorTimeInput input[onChange]')
     .simulate('change', { target: { value: opens_at.format('h:mma') } });
-  plan.find('Tasking .due-at TutorDateInput input[onChange]')
+  form.find('Tasking .due-at TutorDateInput input[onChange]')
     .simulate('change', { target: { value: due_at.format('MM/DD/YYYY') } });
-  plan.find('Tasking .due-at TutorTimeInput input[onChange]')
+  form.find('Tasking .due-at TutorTimeInput input[onChange]')
     .simulate('change', { target: { value: due_at.format('h:mma') } });
 
   return { due_at, opens_at };

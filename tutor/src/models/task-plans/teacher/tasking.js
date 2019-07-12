@@ -56,7 +56,8 @@ class TaskingPlan extends BaseModel {
 
   @action setOpensTime(time) {
     const [hour, minute] = time.split(':');
-    this.opens_at = moment(this.opens_at)
+
+    this.opens_at = moment(this.opens_at) // .tz(this.plan.course.time_zone)
       .hour(hour).minute(minute).seconds(0).millisecond(0)
       .toISOString();
   }

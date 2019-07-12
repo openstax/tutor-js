@@ -21,7 +21,7 @@ describe('Event Plan', function() {
       target: { value: 'This is more info about the thing' },
     });
 
-    setTaskDates({ plan, now });
+    setTaskDates({ form: plan, now });
 
     plan.find('SaveButton AsyncButton').simulate('click');
 

@@ -10,7 +10,7 @@ describe('TaskPlan MiniEditor wrapper', function() {
     const ux = createUX({ now, type: 'homework', onCancel: jest.fn() });
     ux.plan.settings.exercise_ids = [ux.exercises.array[0].id];
     ux.sourcePlanId = '99';
-    props = { ux };
+    props = { ux, onHide: jest.fn() };
   });
 
   it('saves on happy path', () => {

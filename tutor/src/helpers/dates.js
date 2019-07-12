@@ -31,7 +31,7 @@ export function findLatest(dateThings) {
 }
 
 
-export function dateWithUnchangedTime(date, t) {
+export function dateWithUnchangedTime(date) {
   if (moment.isMoment(date)) {
     date = date.format(TimeHelper.ISO_DATE_FORMAT);
   }

@@ -28,7 +28,7 @@ describe('Reading Builder', function() {
     read.find('.chapter-checkbox button').at(1).simulate('click');
     read.find('.card-footer button#add-section-to-reading').simulate('click');
 
-    const { due_at, opens_at } = setTaskDates({ plan: read, now });
+    const { due_at, opens_at } = setTaskDates({ form: read, now });
 
     jest.spyOn(props.ux.plan, 'save');
     read.find('SaveButton AsyncButton').simulate('click');

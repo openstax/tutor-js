@@ -28,7 +28,7 @@ class Homework extends React.Component {
     const { ux, ux: { plan } } = this.props;
 
     return (
-      <Wrapper planType={plan.type}>
+      <Wrapper ux={ux}>
         <Card className={cn('edit-homework', 'dialog', {
           'is-invalid-form': ux.hasError,
           hide: ux.isShowingSectionSelection,

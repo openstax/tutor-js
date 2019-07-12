@@ -9,8 +9,7 @@ import Wrapper from './wrapper';
 import UX from './ux';
 
 const Event = observer(({ ux, ux: { plan } }) => (
-
-  <Wrapper planType="event">
+  <Wrapper ux={ux}>
     <Card
       className={cn('edit-event', 'dialog', { 'is-invalid-form': ux.hasError })}
     >
