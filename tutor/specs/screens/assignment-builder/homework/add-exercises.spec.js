@@ -11,8 +11,8 @@ describe('choose exercises component', () => {
 
   const now = TimeMock.setTo('2015-01-12T10:00:00.000Z');
 
-  beforeEach(function() {
-    ux = createUX({ now });
+  beforeEach(async () => {
+    ux = await createUX({ now });
     ux.exercises = Factory.exercisesMap({ book: ux.referenceBook });
     ux.plan.settings.page_ids = Object.keys(ux.exercises.byPageId);
     props = { ux };

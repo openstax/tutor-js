@@ -4,8 +4,8 @@ import { C, createUX } from './helpers';
 describe('Task Plan Footer', function() {
   let props;
 
-  beforeEach(() => {
-    const ux = createUX();
+  beforeEach(async () => {
+    const ux = await createUX();
     props = { ux };
   });
 

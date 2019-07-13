@@ -20,7 +20,6 @@ class TutorInput extends React.Component {
     validate(inputValue) {
       if (isEmpty(inputValue)) { return ['required']; }
     },
-
     type: 'text',
   };
 
@@ -70,6 +69,7 @@ class TutorInput extends React.Component {
   // We help it out here by manually focusing when then label is clicked
   // (which should only happen on IE 10)
   forwardLabelClick = () => { return this.focus(); };
+
 
   validate = (inputValue) => {
     let errors = this.props.validate(inputValue);
@@ -156,6 +156,7 @@ class TutorDateInput extends React.Component {
 
 
   onBlur = () => {
+    if (this.props.onBlur) { this.props.onBlur(); }
     return this.setState({ hasFocus: false });
   };
 

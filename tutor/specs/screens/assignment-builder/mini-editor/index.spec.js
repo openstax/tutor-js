@@ -27,8 +27,9 @@ describe('TaskPlan MiniEditor wrapper', function() {
     };
   });
 
-  it('renders editor', function() {
+  it('renders editor', () => {
     const wrapper = shallow(<Editor {...props} />);
-    expect(wrapper.find('TaskPlanMiniEditor')).toHaveLength(1);
+    expect(wrapper).toHaveRendered('LoadingAnimation');
+    wrapper.unmount();
   });
 });

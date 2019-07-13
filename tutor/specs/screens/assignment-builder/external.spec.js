@@ -6,8 +6,8 @@ describe('External Plan', function() {
 
   const now = TimeMock.setTo('2015-10-14T12:00:00.000Z');
 
-  beforeEach(() => {
-    const ux = createUX({ now, type: 'external' });
+  beforeEach(async () => {
+    const ux = await createUX({ now, type: 'external' });
     props = { ux };
   });
 

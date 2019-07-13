@@ -1,8 +1,10 @@
-import { computed, observable } from 'mobx';
+import { computed, action, observable } from 'mobx';
 import { get, set } from 'lodash';
+
 
 class AssignmentForm {
 
+  @observable isTouched = false;
   @observable isDirty = false;
 
   constructor({ plan }) {
@@ -10,8 +12,10 @@ class AssignmentForm {
 
     this.title = {
       onChange: this.setter('title'),
+      onBlur: this.onBlur,
       get value() { return plan.title; },
       disabled: !plan.canEdit,
+
       validate(text) {
         if (!text || !text.match(/\w/)) { return ['required']; }
         return null;
@@ -20,6 +24,7 @@ class AssignmentForm {
 
     this.description = {
       onChange: this.setter('description'),
+      onBlur: this.onBlur,
       disabled: !plan.canEdit,
       get value() { return plan.description; },
     };
@@ -27,12 +32,15 @@ class AssignmentForm {
     if ('external' == plan.type) {
       this.externalUrl = {
         onChange: this.setter('settings.external_url'),
+        onBlur: this.onBlur,
         disabled: !plan.canEdit,
         get value() { return get(plan, 'settings.external_url', ''); },
       };
 
     }
   }
+
+  @action.bound onBlur() { this.isTouched = true; }
 
   setter(field) {
     this.isDirty = true;
@@ -47,6 +55,10 @@ class AssignmentForm {
 
   @computed get canSave() {
     return Boolean(this.isDirty && this.isValid);
+  }
+
+  @computed get hasError() {
+    return Boolean(this.isDirty && !this.isValid);
   }
 
   async onSaveRequested() {

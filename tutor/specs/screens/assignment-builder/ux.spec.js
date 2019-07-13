@@ -20,7 +20,7 @@ describe('Assignment Builder UX', function() {
     expect(ux.selectedExercises).toHaveLength(1);
   });
 
-  fit('initializes a cloned plan', async () => {
+  it('initializes a cloned plan', async () => {
     ux = new UX();
     jest.spyOn(course, 'pastTaskPlans', 'get').mockImplementation(() => ({
       get() { return plan; },

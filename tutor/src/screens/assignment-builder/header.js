@@ -1,8 +1,19 @@
-import { React, PropTypes } from '../../helpers/react';
+import { React, PropTypes, styled } from '../../helpers/react';
 import S from '../../helpers/string';
 import Plan from '../../models/task-plans/teacher/plan';
 import { Card } from 'react-bootstrap';
 import { CloseButton } from 'shared';
+
+const HeaderWrapper = styled(Card.Header)`
+    border-bottom: none;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 2.4rem;
+    font-weight: 700;
+`;
+
 
 const Header = ({ plan, onCancel, label = 'Assignment' }) => {
   let headerText;
@@ -18,12 +29,15 @@ const Header = ({ plan, onCancel, label = 'Assignment' }) => {
   }
 
   return (
-    <Card.Header>
+    <HeaderWrapper
+      className="data-assignment-header"
+      data-assignment-type={plan.type}
+    >
       <span key="header-text">
         {headerText}
       </span>
       <CloseButton key="close-button" className="pull-right" onClick={onCancel} />
-    </Card.Header>
+    </HeaderWrapper>
   );
 };
 

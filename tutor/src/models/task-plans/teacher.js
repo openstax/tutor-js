@@ -26,19 +26,6 @@ class TeacherTaskPlans extends Map {
     return plan;
   }
 
-  // @action onPlanSave(oldId, planAttrs) {
-  //   let tp = this.get(oldId);
-  //   if (tp) {
-  //     tp.update(planAttrs);
-  //   } else {
-  //     tp = new TaskPlan({ ...planAttrs, map: this });
-  //   }
-  //   this.set(planAttrs.id, tp);
-  //   if (oldId != tp.id) {
-  //     this.delete(oldId);
-  //   }
-  // }
-
   addClone(planAttrs) {
     this.set(planAttrs.id, new TaskPlan({ ...planAttrs, course: this.course }));
   }

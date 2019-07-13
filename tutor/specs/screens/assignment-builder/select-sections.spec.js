@@ -8,10 +8,11 @@ jest.mock('../../../src/helpers/scroll-to');
 describe('Select Topics', function() {
   let props;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     const course = Factory.course();
     const plan = Factory.teacherTaskPlan({ course });
-    const ux = new UX({ course, plan, windowImpl: new FakeWindow });
+    const ux = new UX();
+    await ux.initialize({ course, plan, windowImpl: new FakeWindow });
     ux.referenceBook.onApiRequestComplete({ data: [FactoryBot.create('Book')] });
 
     props = {

@@ -29,6 +29,7 @@ class Homework extends React.Component {
 
     return (
       <Wrapper ux={ux}>
+
         <Card className={cn('edit-homework', 'dialog', {
           'is-invalid-form': ux.hasError,
           hide: ux.isShowingSectionSelection,
@@ -37,7 +38,9 @@ class Homework extends React.Component {
           <Header plan={plan} onCancel={ux.onCancel} />
 
           <Card.Body>
+
             <TaskPlanBuilder ux={ux} />
+
             <Row>
               <Col xs={8}>
                 <FeedbackSetting plan={plan} />

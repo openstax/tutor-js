@@ -13,7 +13,7 @@ const Event = observer(({ ux, ux: { plan } }) => (
     <Card
       className={cn('edit-event', 'dialog', { 'is-invalid-form': ux.hasError })}
     >
-      <Header plan={plan} onCancel={ux.onCancel} />
+      <Header plan={plan} onCancel={ux.onCancel} label="" />
       <Card.Body>
         <TaskPlanBuilder ux={ux} />
       </Card.Body>

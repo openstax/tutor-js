@@ -6,8 +6,9 @@ describe('Task Plan Builder', function() {
 
   const now = TimeMock.setTo('2015-10-14T12:00:00.000Z');
 
-  beforeEach(() => {
-    props = { ux: createUX({ now }) };
+  beforeEach(async () => {
+    const ux = await createUX({ now });
+    props = { ux };
   });
 
   it('sets name & description', () => {

@@ -22,8 +22,8 @@ describe('choose exercises component', function() {
     return ce.update();
   }
 
-  beforeEach(function() {
-    ux = createUX({ now, type: 'homework' });
+  beforeEach(async () => {
+    ux = await createUX({ now, type: 'homework' });
     props = { ux };
     page_ids = ux.referenceBook.children[1].children.map(pg => pg.id);
     availableExercises = page_ids.map(page_id =>

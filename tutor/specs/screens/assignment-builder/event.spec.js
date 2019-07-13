@@ -6,8 +6,8 @@ describe('Event Plan', function() {
 
   const now = TimeMock.setTo('2015-10-14T12:00:00.000Z');
 
-  beforeEach(() => {
-    const ux = createUX({ now, type: 'event' });
+  beforeEach(async () => {
+    const ux = await createUX({ now, type: 'event' });
     props = { ux };
   });
 

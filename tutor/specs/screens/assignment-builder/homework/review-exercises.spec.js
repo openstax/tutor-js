@@ -10,8 +10,8 @@ describe('choose exercises component', function() {
   let props;
   const now = TimeMock.setTo('2015-10-14T12:00:00.000Z');
 
-  beforeEach(function() {
-    const ux = createUX({ now });
+  beforeEach(async () => {
+    const ux = await createUX({ now });
     ux.plan.settings.exercise_ids = [ ux.exercises.array[0].id ];
     props = { ux };
   });

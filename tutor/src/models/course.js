@@ -90,7 +90,7 @@ class Course extends BaseModel {
   @hasMany({ model: Period, inverseOf: 'course', extend: getters({
     sorted() { return PH.sort(this.active);                        },
     archived() { return filter(this, period => !period.is_archived); },
-    active() { return filter(this, period => !period.is_archived); },
+    active() { return filter(this, 'isActive'); },
   }) }) periods = [];
 
   @hasMany({ model: Role, inverseOf: 'course', extend: getters({

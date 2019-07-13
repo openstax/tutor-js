@@ -5,8 +5,9 @@ describe('review reading selection', () => {
   let props;
   const now = TimeMock.setTo('2015-10-14T12:00:00.000Z');
 
-  beforeEach(function() {
-    props = { ux: createUX({ now, type: 'reading' }) };
+  beforeEach(async () => {
+    const ux = await createUX({ now, type: 'reading' });
+    props = { ux };
   });
 
   it('can review selections', () => {

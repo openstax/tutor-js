@@ -6,8 +6,8 @@ describe('TaskPlan MiniEditor wrapper', function() {
 
   const now = TimeMock.setTo('2015-10-14T12:00:00.000Z');
 
-  beforeEach(function() {
-    const ux = createUX({ now, type: 'homework', onCancel: jest.fn() });
+  beforeEach(async () => {
+    const ux = await createUX({ now, type: 'homework', onCancel: jest.fn() });
     ux.plan.settings.exercise_ids = [ux.exercises.array[0].id];
     ux.sourcePlanId = '99';
     props = { ux, onHide: jest.fn() };

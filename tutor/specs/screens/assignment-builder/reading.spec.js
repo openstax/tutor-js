@@ -6,8 +6,8 @@ describe('Reading Builder', function() {
 
   const now = TimeMock.setTo('2015-10-14T12:00:00.000Z');
 
-  beforeEach(() => {
-    ux = createUX({ now, type: 'reading' });
+  beforeEach(async () => {
+    ux = await createUX({ now, type: 'reading' });
     props = { ux };
   });
 

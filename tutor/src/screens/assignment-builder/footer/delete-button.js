@@ -63,18 +63,18 @@ class DeleteButton extends React.Component {
 
     return (
       <TourAnchor id="builder-delete-button">
+        <DeleteModal
+          message={message}
+          show={this.showModal}
+          onClose={this.close}
+          isBusy={isSaving}
+          onDelete={onDelete}
+        />
         <Button
           onClick={this.open}
           variant="default"
           className="control delete-assignment"
         >
-          <DeleteModal
-            message={message}
-            show={this.showModal}
-            onClose={this.close}
-            isBusy={isSaving}
-            onDelete={onDelete}
-          />
           <Icon type="trash" />Delete
         </Button>
       </TourAnchor>

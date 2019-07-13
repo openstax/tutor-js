@@ -1,6 +1,6 @@
 import { action, computed, observable } from 'mobx';
 import moment from 'moment';
-import { map, compact, isEmpty } from 'lodash';
+import { map, compact, isEmpty, filter } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
 import Exercises from '../../models/exercises';
 import TaskPlan from '../../models/task-plans/teacher/plan';
@@ -49,10 +49,17 @@ class AssignmentBuilderUX {
         this.plan.type = type;
       }
     }
+    if (!this.plan.isNew && !this.plan.api.hasBeenFetched) {
+      await this.plan.fetch();
+    }
     this.onComplete = onComplete;
     this.course = course;
     this.exercises = exercises;
+    await this.referenceBook.ensureLoaded();
     this.windowImpl = windowImpl;
+    this.periods.map((period) =>
+      this.plan.findOrCreateTaskingForPeriod(period),
+    );
     this.isShowingPeriodTaskings = !this.plan.areTaskingDatesSame;
     this.scroller = new ScrollTo({ windowImpl });
     this.form = new Form(this);
@@ -60,11 +67,16 @@ class AssignmentBuilderUX {
   }
 
   @computed get isInitializing() {
+
     return !this.isReady || !this.plan || this.plan.api.isPendingInitialFetch;
   }
 
   @computed get selectedPageIds() {
     return this.plan.pageIds;
+  }
+
+  @computed get periods() {
+    return filter(this.course.periods.sorted, 'isActive');
   }
 
   @action.bound async onExercisesShow() {
@@ -127,9 +139,11 @@ class AssignmentBuilderUX {
     this.scroller.scrollToElement(el);
   }
 
-  @action onSelectSectionsMount(el) {
-    // scroll again, maybe above scroll isn't needed?
-
+  @action async onSelectSectionsMount(el) {
+    if (this.referenceBook.api.isPendingInitialFetch) {
+      this.scroller.scrollToElement(el);
+      await this.referenceBook.ensureLoaded();
+    }
     this.scroller.scrollToElement(el);
   }
 
@@ -139,14 +153,6 @@ class AssignmentBuilderUX {
     }
     return this.course.referenceBook;
   }
-
-  // @computed get sections() {
-  //   return this.referenceBook.sectionsForPageIds(this.selectedPageIds);
-  // }
-
-  // @action.bound setTitle(title) {
-  //   this.plan.title = title;
-  // }
 
   @computed get selectedPages() {
     return this.selectedPageIds.map(pgId => this.referenceBook.pages.byId.get(pgId));
@@ -220,7 +226,8 @@ class AssignmentBuilderUX {
   }
 
   @action.bound async onDelete() {
-
+    await this.plan.destroy();
+    this.onComplete();
   }
 
   @action.bound onPublish() {
@@ -236,7 +243,7 @@ class AssignmentBuilderUX {
   }
 
   @computed get hasError() {
-    return (this.form.submitted || this.form.touched) && this.form.hasError;
+    return this.form.hasError;
   }
 
   @computed get isSaving() {
@@ -260,7 +267,7 @@ class AssignmentBuilderUX {
   @action.bound togglePeriodTaskingsEnabled(ev) {
     this.isShowingPeriodTaskings = ev.target.value == 'periods';
     this.plan.tasking_plans = [];
-    this.course.periods.active.map((period) =>
+    this.periods.map((period) =>
       this.plan.findOrCreateTaskingForPeriod(period),
     );
   }

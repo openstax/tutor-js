@@ -10,9 +10,10 @@ describe('Homework Builder', function() {
 
   const now = TimeMock.setTo('2015-01-12T10:00:00.000Z');
 
-  beforeEach(() => {
-    ux = createUX({ now, type: 'homework' });
+  beforeEach(async (done) => {
+    ux = await createUX({ now, type: 'homework' });
     props = { ux };
+    done();
   });
 
   it('works on happy path', function() {

@@ -4,12 +4,13 @@ import { COMPLETE } from '../../../src/models/exercises';
 import Time from '../../../src/helpers/time';
 export * from '../../helpers';
 
-export function createUX({ now = Time.now, type = 'homework' } = {}) {
+export async function createUX({ now = Time.now, type = 'homework' } = {}) {
   const course = Factory.course();
   const plan = Factory.teacherTaskPlan({ now, course, type });
-
+  plan.fetch = jest.fn();
   const exercises = Factory.exercisesMap({ book: course.referenceBook });
-  const ux = new UX({
+  const ux = new UX();
+  await ux.initialize({
     plan,
     course,
     exercises,
@@ -20,6 +21,7 @@ export function createUX({ now = Time.now, type = 'homework' } = {}) {
   ux.exercises.fetch = jest.fn(function({ page_ids }) {
     page_ids.forEach(pgId => this.fetched.set(pgId, COMPLETE));
   });
+
   ux.plan.settings.page_ids = Object.keys(ux.exercises.byPageId);
   return ux;
 }

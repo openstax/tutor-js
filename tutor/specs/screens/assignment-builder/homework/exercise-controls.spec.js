@@ -8,11 +8,12 @@ describe('choose exercises component', () => {
 
   const now = TimeMock.setTo('2015-10-14T12:00:00.000Z');
 
-  beforeEach(function() {
+  beforeEach(async () => {
     course = Factory.course({ now });
     plan = Factory.teacherTaskPlan({ course, now, type: 'homework' });
 
-    ux = new UX({ course, plan, windowImpl: new FakeWindow });
+    ux = new UX();
+    await ux.initialize({ course, plan, windowImpl: new FakeWindow });
     exercises = Factory.exercisesMap({ now, book: ux.referenceBook });
 
     props = {

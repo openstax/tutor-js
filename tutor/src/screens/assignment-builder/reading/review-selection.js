@@ -72,31 +72,29 @@ class ReviewSelection extends React.Component {
   render() {
     const { ux } = this.props;
 
-    if (ux.referenceBook.api.isPending) { return null; } // no loading indicator
-
-    if (ux.selectedPageIds.length) {
-      return (
-        <TourRegion
-          tag="ul"
-          delay={4000}
-          className="selected-reading-list"
-          id="add-reading-review-sections"
-          courseId={ux.course.id}
-        >
-          <li>
-            Currently selected
-          </li>
-          {ux.selectedPages.map((page, index) =>
-            <ReadingSection
-              ux={this.props.ux}
-              page={page}
-              index={index}
-              key={page.id}
-            />)}
-        </TourRegion>
-      );
-    } else {
+    if (!ux.selectedPages.length) {
       return <div className="-selected-reading-list-none" />;
     }
+
+    return (
+      <TourRegion
+        tag="ul"
+        delay={4000}
+        className="selected-reading-list"
+        id="add-reading-review-sections"
+        courseId={ux.course.id}
+      >
+        <li>
+          Currently selected
+        </li>
+        {ux.selectedPages.map((page, index) =>
+          <ReadingSection
+            ux={this.props.ux}
+            page={page}
+            index={index}
+            key={page.id}
+          />)}
+      </TourRegion>
+    );
   }
 }

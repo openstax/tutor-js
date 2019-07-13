@@ -3,7 +3,7 @@ import TourRegion from '../../components/tours/region';
 import Courses from '../../models/courses-map';
 import Router from '../../helpers/router';
 import TaskPlanHelper from '../../helpers/task-plan';
-import Loader from './loader';
+import LoadingScreen from 'shared/components/loading-animation';
 import homework from './homework';
 import reading from './reading';
 import event from './event';
@@ -11,6 +11,8 @@ import external from './external';
 import Warning from '../../components/warning-modal';
 import { withRouter } from 'react-router';
 import UX from './ux';
+
+import './styles.scss';
 
 const BUILDERS = {
   homework,
@@ -67,7 +69,9 @@ class AssignmentBuilder extends React.Component {
   render() {
     const { ux: { isInitializing, plan, course } } = this;
 
-    if (isInitializing) { return <Loader />; }
+    if (isInitializing) {
+      return <LoadingScreen className="course-scores-report" message="Loading Assignment…" />;
+    }
 
     const Builder = BUILDERS[plan.type] || UnknownType;
 

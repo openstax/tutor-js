@@ -66,6 +66,7 @@ class Reading extends React.Component {
           <PlanFooter ux={ux} />
 
         </Card>
+
         {ux.isShowingSectionSelection && (
           <SelectSections
             ux={ux}
