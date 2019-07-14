@@ -4,6 +4,7 @@ import DeleteBtn from '../../../../src/screens/assignment-builder/footer/delete-
 describe('Task Plan Builder: Delete button', () => {
 
   let props;
+
   beforeEach(() => {
     props = {
       ux: {

@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, observer, cn,
+  React, PropTypes, observer,
 } from '../../helpers/react';
 import { Card } from 'react-bootstrap';
 import Header from './header';
@@ -10,9 +10,7 @@ import UX from './ux';
 
 const Event = observer(({ ux, ux: { plan } }) => (
   <Wrapper ux={ux}>
-    <Card
-      className={cn('edit-event', 'dialog', { 'is-invalid-form': ux.hasError })}
-    >
+    <Card>
       <Header plan={plan} onCancel={ux.onCancel} label="" />
       <Card.Body>
         <TaskPlanBuilder ux={ux} />

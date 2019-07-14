@@ -55,7 +55,9 @@ class AssignmentBuilder extends React.Component {
     this.ux = new UX();
 
     this.ux.initialize({
-      ...props.params, course,
+      ...Router.currentQuery(),
+      ...props.params,
+      course,
       onComplete: this.onComplete,
     });
 

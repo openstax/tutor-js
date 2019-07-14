@@ -121,16 +121,17 @@ class Tasking extends React.Component {
               <Row>
                 <Col md={7} xs={8}>
                   <TutorDateInput
+                    required={true}
+                    label="Open Date"
                     value={tasking.opens_at}
                     min={this.minOpensAt}
                     max={this.maxOpensAt}
                     onChange={this.onOpensDateChange}
-                    label="Open Date"
-                    ref="date"
                   />
                 </Col>
                 <Col md={5} xs={4}>
                   <TutorTimeInput
+                    required={true}
                     label="Open Time"
                     value={tasking.opens_at}
                     onChange={this.onOpensTimeChange}
@@ -143,6 +144,7 @@ class Tasking extends React.Component {
               <Row>
                 <Col md={7} xs={8}>
                   <TutorDateInput
+                    required={true}
                     label="Due Date"
                     min={this.minDueAt}
                     max={this.maxDueAt}
@@ -153,6 +155,7 @@ class Tasking extends React.Component {
                 <Col md={5} xs={4}>
                   <TutorTimeInput
                     label="Due Time"
+                    required={true}
                     value={tasking.due_at}
                     min={this.minOpensAtDate}
                     max={this.maxOpensAtDate}

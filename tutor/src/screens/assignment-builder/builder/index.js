@@ -14,7 +14,7 @@ class TaskPlanBuilder extends React.Component {
   }
 
   render() {
-    const { ux, ux: { course, plan } } = this.props;
+    const { ux, ux: { form, course, plan } } = this.props;
     const taskings = plan.tasking_plans;
 
     let invalidPeriodsAlert;
@@ -28,7 +28,7 @@ class TaskPlanBuilder extends React.Component {
     }
 
     return (
-      <div className={cn('assignment', { 'is-invalid-form': ux.hasError })}>
+      <div className={cn('assignment', { 'is-invalid-form': form.showErrors })}>
         <Row>
           <Col xs={12}>
             <TutorInput

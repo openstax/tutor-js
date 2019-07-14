@@ -20,25 +20,11 @@ class Reading extends React.Component {
   }
 
   render() {
-    const { ux, ux: { plan } } = this.props;
-
-    let readingsRequired;
-
-    const formClasses = cn('edit-reading', 'dialog', {
-      'is-invalid-form': ux.hasError,
-    });
-
-    if (ux.hasError && isEmpty(ux.selectedPageIds)) {
-      readingsRequired = (
-        <span className="readings-required">
-          Please add readings to this assignment.
-        </span>
-      );
-    }
+    const { ux, ux: { form, plan } } = this.props;
 
     return (
       <Wrapper ux={ux}>
-        <Card className={formClasses}>
+        <Card>
           <Header plan={plan} onCancel={ux.onCancel} />
           <Card.Body>
             <TaskPlanBuilder ux={ux} />
@@ -49,7 +35,7 @@ class Reading extends React.Component {
                   <Button
                     id="select-sections"
                     className={cn('select-sections-btn', {
-                      'invalid': ux.hasError || isEmpty(ux.selectedPageIds),
+                      'invalid': ux.showErrors || isEmpty(ux.selectedPageIds),
                     })}
                     onClick={ux.onShowSectionSelection}
                     variant="default"
@@ -58,7 +44,10 @@ class Reading extends React.Component {
                     {isEmpty(ux.selectedPageIds) ? 'Add Readings' : 'Add More Readings'}
                   </Button>)}
                 <NoQuestionsTooltip />
-                {readingsRequired}
+                {form.showErrors && isEmpty(ux.selectedPageIds) && (
+                  <span className="readings-required">
+                    Please add readings to this assignment.
+                  </span>)}
               </Col>
             </Row>
           </Card.Body>

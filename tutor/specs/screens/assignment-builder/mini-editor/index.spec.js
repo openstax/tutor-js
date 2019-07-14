@@ -29,7 +29,7 @@ describe('TaskPlan MiniEditor wrapper', function() {
 
   it('renders editor', () => {
     const wrapper = shallow(<Editor {...props} />);
-    expect(wrapper).toHaveRendered('LoadingAnimation');
+    expect(wrapper).toHaveRendered('TaskPlanMiniEditor');
     wrapper.unmount();
   });
 });

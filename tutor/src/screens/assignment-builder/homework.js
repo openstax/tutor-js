@@ -1,6 +1,7 @@
 import {
   React, PropTypes, observer, cn,
 } from '../../helpers/react';
+import { isEmpty } from 'lodash';
 import { Card, Row, Col, Button } from 'react-bootstrap';
 import Header from './header';
 import TaskPlanBuilder from './builder';
@@ -25,15 +26,12 @@ class Homework extends React.Component {
   };
 
   render() {
-    const { ux, ux: { plan } } = this.props;
+    const { ux, ux: { plan, form } } = this.props;
 
     return (
       <Wrapper ux={ux}>
 
-        <Card className={cn('edit-homework', 'dialog', {
-          'is-invalid-form': ux.hasError,
-          hide: ux.isShowingSectionSelection,
-        })}>
+        <Card>
 
           <Header plan={plan} onCancel={ux.onCancel} />
 
@@ -52,28 +50,19 @@ class Homework extends React.Component {
                   <Button
                     id="select-sections"
                     className={cn({
-                      invalid: ux.hasError && !plan.hasExercises,
+                      invalid: ux.showErrors && !plan.hasExercises,
                     })}
                     onClick={ux.onShowSectionSelection}
                     variant="default"
                   >+ Select Problems</Button>)}
-                {ux.hasError && !ux.hasExercises && (
+                {form.showErrors && isEmpty(ux.selectedExercises) && (
                   <span className="problems-required">
                     Please select problems for this assignment.
                   </span>)}
               </Col>
             </Row>
           </Card.Body>
-          <PlanFooter
-            ux={ux}
-            onPublish={this.onPublish}
-            onSave={this.onSave}
-            onCancel={this.onCancel}
-            hasError={ux.hasError}
-
-            getBackToCalendarParams={this.getBackToCalendarParams}
-            goBackToCalendar={this.goBackToCalendar}
-          />
+          <PlanFooter ux={ux} />
         </Card>
         {ux.isShowingSectionSelection && (
           <ChooseExercises

@@ -298,14 +298,13 @@ class TeacherTaskPlan extends BaseModel {
     });
   }
 
-  @action createClone({ course, dueAt }) {
+  @action createClone({ course }) {
     return new TeacherTaskPlan({
       ...this.clonedAttributes,
       tasking_plans: course.periods.active.map(period => ({
         opens_at: course.starts_at,
         target_id: period.id,
         target_type: 'period',
-        due_at: dueAt.toISOString(),
       })),
       course,
     });

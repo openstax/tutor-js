@@ -49,7 +49,7 @@ class TaskPlanMiniEditorShell extends React.Component {
       id: props.sourcePlan.id,
       course: this.props.course,
       onComplete: this.onComplete,
-      defaultDueAt: props.sourcePlan.date,
+      due_at: props.sourcePlan.date,
     });
   }
 

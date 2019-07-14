@@ -42,14 +42,12 @@
 }
 
 @mixin tutor-plan-modal($plan-type) {
-//  $plan-color: task-plan-color($plan-type);
-  .data-assignment-header {
-    @include tutor-plan-header($plan-type);
+  $plan-color: task-plan-color($plan-type);
+  .modal-content {
+    .modal-header {
+      @include tutor-plan-header($plan-type);
+    }
   }
-  // .modal-content {
-  //   .modal-header {
-  //   }
-  // }
 }
 
 @mixin tutor-plan-sidebar-type($plan-type) {

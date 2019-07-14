@@ -154,6 +154,10 @@ class TutorDateInput extends React.Component {
 
   state = { expandCalendar: false };
 
+  constructor(props) {
+    super(props);
+    this.tzOffset = new Date().getTimezoneOffset();
+  }
 
   onBlur = () => {
     if (this.props.onBlur) { this.props.onBlur(); }
@@ -163,10 +167,6 @@ class TutorDateInput extends React.Component {
   getValue = () => {
     return this.props.value || this.state.value;
   };
-
-  get tzOffset() {
-    return new Date().getTimezoneOffset()
-  }
 
   dateSelected = (value) => {
     let errors;

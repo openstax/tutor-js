@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, observer, cn,
+  React, PropTypes, observer,
 } from '../../helpers/react';
 import { Card, Row, Col } from 'react-bootstrap';
 import Header from './header';
@@ -21,9 +21,7 @@ class External extends React.Component {
 
     return (
       <Wrapper ux={ux}>
-        <Card
-          className={cn('edit-external', 'dialog', { 'is-invalid-form': ux.hasError })}
-        >
+        <Card>
           <Header plan={plan} onCancel={ux.onCancel} />
           <Card.Body>
             <TaskPlanBuilder ux={ux} />

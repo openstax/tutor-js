@@ -5,7 +5,6 @@ import ScrollTo from '../../helpers/scroll-to';
 import Exercises from '../../models/exercises';
 import TaskPlan from '../../models/task-plans/teacher/plan';
 import ReferenceBook from '../../models/reference-book';
-import Time from '../../models/time';
 import Form from './form';
 
 class AssignmentBuilderUX {
@@ -23,8 +22,7 @@ class AssignmentBuilderUX {
   }
 
   @action async initialize({
-    id, type, plan, course, onComplete,
-    defaultDueAt = moment(Time.now).add(1, 'day') ,
+    id, type, plan, course, onComplete, due_at,
     exercises = Exercises,
     windowImpl = window,
   }) {
@@ -34,7 +32,7 @@ class AssignmentBuilderUX {
         await course.pastTaskPlans.fetch();
       }
       this.sourcePlanId = id;
-      this.plan = course.pastTaskPlans.get(id).createClone({ course, dueAt: defaultDueAt });
+      this.plan = course.pastTaskPlans.get(id).createClone({ course });
 
     } else {
       if (plan) {
@@ -49,17 +47,22 @@ class AssignmentBuilderUX {
         this.plan.type = type;
       }
     }
-    if (!this.plan.isNew && !this.plan.api.hasBeenFetched) {
-      await this.plan.fetch();
+    if (!this.plan.isNew) {
+      await this.plan.ensureLoaded();
     }
     this.onComplete = onComplete;
     this.course = course;
     this.exercises = exercises;
-    await this.referenceBook.ensureLoaded();
+    if (this.plan.isReading) {
+      await this.referenceBook.ensureLoaded();
+    }
     this.windowImpl = windowImpl;
     this.periods.map((period) =>
       this.plan.findOrCreateTaskingForPeriod(period),
     );
+    if (due_at) {
+      this.plan.tasking_plans.forEach(tp => tp.due_at = moment(due_at).toISOString());
+    }
     this.isShowingPeriodTaskings = !this.plan.areTaskingDatesSame;
     this.scroller = new ScrollTo({ windowImpl });
     this.form = new Form(this);
@@ -185,10 +188,6 @@ class AssignmentBuilderUX {
     return this.plan.canEdit;
   }
 
-  @computed get canSave() {
-    return this.form.canSave;
-  }
-
   @action.bound onSelectSectionConfirm() {
     this.isShowingSectionSelection = false;
   }
@@ -219,7 +218,10 @@ class AssignmentBuilderUX {
   }
 
   @action async saveAndCopyPlan() {
-    await this.form.onSaveRequested();
+    const success = await this.form.onSaveRequested();
+    if (! success) {
+      return;
+    }
     const destPlan = this.course.teacherTaskPlans.withPlanId(this.plan.id);
     destPlan.update(this.plan.serialize());
     this.onComplete();
@@ -240,10 +242,6 @@ class AssignmentBuilderUX {
   @action.bound onSaveAsDraft() {
     this.plan.is_draft = true;
     this.saveAndCopyPlan();
-  }
-
-  @computed get hasError() {
-    return this.form.hasError;
   }
 
   @computed get isSaving() {

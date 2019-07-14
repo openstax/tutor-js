@@ -5,14 +5,14 @@ import { get, set } from 'lodash';
 class AssignmentForm {
 
   @observable isTouched = false;
-  @observable isDirty = false;
+  @observable hasSubmitted = false;
 
   constructor({ plan }) {
     this.plan = plan;
 
     this.title = {
       onChange: this.setter('title'),
-      onBlur: this.onBlur,
+      onFocus: this.onFocus,
       get value() { return plan.title; },
       disabled: !plan.canEdit,
 
@@ -24,7 +24,7 @@ class AssignmentForm {
 
     this.description = {
       onChange: this.setter('description'),
-      onBlur: this.onBlur,
+      onFocus: this.onFocus,
       disabled: !plan.canEdit,
       get value() { return plan.description; },
     };
@@ -32,7 +32,7 @@ class AssignmentForm {
     if ('external' == plan.type) {
       this.externalUrl = {
         onChange: this.setter('settings.external_url'),
-        onBlur: this.onBlur,
+        onFocus: this.onFocus,
         disabled: !plan.canEdit,
         get value() { return get(plan, 'settings.external_url', ''); },
       };
@@ -40,10 +40,12 @@ class AssignmentForm {
     }
   }
 
-  @action.bound onBlur() { this.isTouched = true; }
+  @action.bound onFocus() {
+    this.isTouched = true;
+    this.hasSubmitted = false;
+  }
 
   setter(field) {
-    this.isDirty = true;
     return (value) => {
       set(this.plan, field, value);
     };
@@ -54,23 +56,26 @@ class AssignmentForm {
   }
 
   @computed get canSave() {
-    return Boolean(this.isDirty && this.isValid);
+    return Boolean(this.hasSubmitted && this.isTouched && this.isValid);
   }
 
-  @computed get hasError() {
-    return Boolean(this.isDirty && !this.isValid);
+  @computed get showErrors() {
+    return Boolean(this.hasSubmitted && !this.isValid);
   }
 
   async onSaveRequested() {
-    if (!this.isValid) { return; }
+    this.hasSubmitted = true;
+    if (!this.isValid) { return false; }
 
     const { plan } = this;
 
     try {
       await plan.save();
-      this.isDirty = false;
+      this.hasSubmitted = false;
+      return true;
     } catch (e) {
       this.errors = [e];
+      return false;
     }
   }
 
