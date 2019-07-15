@@ -80,7 +80,7 @@
     "jest-cli": "24.7.1",
     "keymaster": "1.6.2",
     "loadjs": "3.5.5",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.14",
     "loglevel": "1.6.1",
     "markdown-it": "8.4.2",
     "markdown-it-regexp": "0.4.0",

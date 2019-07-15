@@ -5,7 +5,7 @@
 @import './base';
 @import './typography';
 @import './learning-objectives';
-@import './related-content';
+@import './page-title';
 @import './splash-image';
 @import './target';
 @import './os-teacher';
@@ -30,7 +30,7 @@
   @include tutor-book-content-base-styles();
   @include tutor-book-content-typography();
   @include tutor-book-content-learning-objectives();
-  @include tutor-book-content-related-content();
+  @include tutor-book-content-page-title();
   @include tutor-book-content-splash-image();
   @include tutor-book-content-target();
   @include tutor-book-content-teacher();

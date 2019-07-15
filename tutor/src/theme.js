@@ -1,5 +1,6 @@
-// Shared with scss in styles/variables
+import { css } from 'styled-components';
 
+// Shared with scss in styles/variables
 
 const neutral = {
   lightest: '#f9f9f9', // nearly white
@@ -74,6 +75,18 @@ const TutorTheme = {
   zIndex: {
     navbar: 1030,
     footer: 5,
+  },
+
+  fonts: {
+    sans(size, lineHeight) {
+      return css`
+        font-family: 'Lato', Helvetica, sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        font-size: ${size};
+        line-height: ${lineHeight || size};
+      `;
+    },
   },
 };
 

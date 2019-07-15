@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, action } from '../helpers/react';
+import { React, PropTypes, observer, action, observable } from '../helpers/react';
 import {
   get, map, forEach, first, last, invoke, defer, compact, uniq,
 } from 'lodash';
@@ -7,7 +7,7 @@ import { withRouter } from 'react-router';
 import { LoadingAnimation, SpyMode, ArbitraryHtmlAndMath } from 'shared';
 import classnames from 'classnames';
 import { ReferenceBookExerciseShell } from './book-page/exercise';
-import RelatedContent from './related-content';
+import PageTitle from './page-title';
 import NotesWidget from './notes';
 import { ReferenceBookExerciseActions, ReferenceBookExerciseStore } from '../flux/reference-book-exercise';
 import Courses from '../models/courses-map';
@@ -92,8 +92,10 @@ class BookPage extends React.Component {
     cnxId: PropTypes.string,
     title: PropTypes.string,
     history: PropTypes.object,
-    hasLearningObjectives: PropTypes.bool,
   }
+
+  @observable needsLearningObjectivesPreamble = false;
+  @observable linkContentIsMounted = false;
 
   scoller = new ScrollTo();
 
@@ -101,19 +103,15 @@ class BookPage extends React.Component {
     return this.props.ux.page.cnx_id;
   }
 
-  UNSAFE_componentWillMount() {
-    this.props.ux.page.ensureLoaded();
-    this._linkContentIsMounted = false;
-    this.removeCanonicalLink();
-  }
+  constructor(props) {
+    super(props);
 
-  UNSAFE_componentWillReceiveProps() {
-    return this.props.ux.page.ensureLoaded();
+    this.props.ux.page.ensureLoaded();
   }
 
   componentDidMount() {
     this.props.ux.checkForTeacherContent();
-    this._linkContentIsMounted = true;
+    this.linkContentIsMounted = true;
 
     const { root } = this;
 
@@ -131,6 +129,7 @@ class BookPage extends React.Component {
 
   componentDidUpdate() {
     const { root } = this;
+    this.props.ux.page.ensureLoaded();
     this.props.ux.checkForTeacherContent();
     this.updateCanonicalLink(root);
     this.detectImgAspectRatio(root);
@@ -140,7 +139,7 @@ class BookPage extends React.Component {
   }
 
   componentWillUnmount() {
-    this._linkContentIsMounted = false;
+    this.linkContentIsMounted = false;
     this.cleanUpLinks();
     invoke(this, 'removeHistoryChangeListener');
     return this.removeCanonicalLink();
@@ -252,6 +251,7 @@ class BookPage extends React.Component {
     }
 
     abstract.dataset.isIntro = (root.querySelector(IS_INTRO_SELECTORS) != null);
+    this.needsLearningObjectivesPreamble = !abstract.dataset.isIntro && !abstract.dataset.preamble && !abstract.querySelector('p');
   }
 
   detectImgAspectRatio(root) {
@@ -307,7 +307,7 @@ class BookPage extends React.Component {
 
   processLinks() {
     defer(() => {
-      if (!this._linkContentIsMounted) { return; }
+      if (!this.linkContentIsMounted) { return; }
       const { root } = this;
       const mediaLinks = root.querySelectorAll(MediaStore.getSelector());
       const exerciseLinks = root.querySelectorAll(EXERCISE_LINK_SELECTOR);
@@ -363,7 +363,7 @@ class BookPage extends React.Component {
 
   render() {
     let isLoading;
-    let { hasLearningObjectives, title, ux, ux: { page } } = this.props;
+    let { title, ux, ux: { page } } = this.props;
 
     if (!page || page.api.isPending) {
       if (ux.lastSection) {
@@ -384,11 +384,11 @@ class BookPage extends React.Component {
       >
         {this.props.children}
         <div className="page center-panel">
-          <RelatedContent
+          <PageTitle
             title={title}
             contentId={page.cnx_id}
             chapter_section={page.displayedChapterSection}
-            hasLearningObjectives={hasLearningObjectives}
+            showObjectivesPreamble={this.needsLearningObjectivesPreamble}
             isChapterSectionDisplayed={page.isChapterSectionDisplayed}
           />
           <NotesWidget
