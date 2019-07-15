@@ -38,6 +38,7 @@ export default class TutorApp {
   static boot() {
     const app = new TutorApp();
     [Raven, PulseInsights, Api].forEach(lib => lib.boot());
+
     app.data = readBootstrapData();
     if (isEmpty(app.data)) {
       return app.fetch().then(app.initializeApp);

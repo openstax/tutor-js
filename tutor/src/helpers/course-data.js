@@ -2,7 +2,6 @@ import Courses from '../models/courses-map';
 import Router from '../helpers/router';
 
 export default {
-
   getCourseDataProps(courseId = Router.currentParams()) {
     const course = Courses.get(courseId);
     return {

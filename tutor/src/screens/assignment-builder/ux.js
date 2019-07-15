@@ -1,4 +1,4 @@
-import { action, computed, observable } from 'mobx';
+import { action, computed, observable, runInAction } from 'mobx';
 import moment from 'moment';
 import { map, compact, isEmpty, filter } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
@@ -222,9 +222,11 @@ class AssignmentBuilderUX {
     if (! success) {
       return;
     }
-    const destPlan = this.course.teacherTaskPlans.withPlanId(this.plan.id);
-    destPlan.update(this.plan.serialize());
-    this.onComplete();
+    runInAction(() => {
+      const destPlan = this.course.teacherTaskPlans.withPlanId(this.plan.id);
+      destPlan.update(this.plan.serialize());
+      this.onComplete();
+    });
   }
 
   @action.bound async onDelete() {

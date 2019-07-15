@@ -49,27 +49,6 @@ const {
 
 const startAPI = function() {
 
-  // connectRead(TaskPlanActions, { pattern: 'plans/{id}' });
-  // connectDelete(TaskPlanActions, { pattern: 'plans/{id}' });
-  // connectUpdate(TaskPlanActions, { data: TaskPlanStore.getChanged }, TaskPlanHelpers.apiEndpointOptions)
-
-
-  // connectUpdate(
-  //   TaskPlanActions,
-  //   {
-  //     trigger: 'saveSilent',
-
-  //     handleError(...args) {
-  //       TaskPlanActions.erroredSilent(...Array.from(args || []));
-  //       return true;
-  //     },
-
-  //     data: TaskPlanStore.getChanged,
-  //   },
-  //   TaskPlanHelpers.apiEndpointOptions,
-  // );
-
-
   connectRead(CourseGuideActions, { pattern: 'courses/{id}/guide' });
 
   connectRead(PerformanceForecast.Student.actions, function(id) {

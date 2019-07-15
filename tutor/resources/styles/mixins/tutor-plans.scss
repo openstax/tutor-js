@@ -43,6 +43,7 @@
 
 @mixin tutor-plan-modal($plan-type) {
   $plan-color: task-plan-color($plan-type);
+
   .modal-content {
     .modal-header {
       @include tutor-plan-header($plan-type);

@@ -1,4 +1,6 @@
-import { React, PropTypes, styled, action } from '../../../helpers/react';
+import {
+  React, PropTypes, styled, action, observer, observable,
+} from '../../../helpers/react';
 import { Overlay, Popover } from 'react-bootstrap';
 import Loading from 'shared/components/loading-animation';
 import Editor from './editor';
@@ -17,6 +19,7 @@ const StyledPopover = styled(Popover)`
   }
 `;
 
+@observer
 class TaskPlanMiniEditorShell extends React.Component {
   static propTypes = {
     course:   PropTypes.instanceOf(Course).isRequired,
@@ -28,18 +31,7 @@ class TaskPlanMiniEditorShell extends React.Component {
     findPopOverTarget: PropTypes.func.isRequired,
   };
 
-  state = { isVisible: true };
-
-  calculatePlacement = () => {
-    // currently we use fixed positioning.
-    // May adjust based on "position" prop at some point
-    return 'top';
-  };
-
-  handleError = (error) => {
-    return this.setState({ error });
-  };
-
+  @observable isVisible = true;
 
   constructor(props) {
     super(props);
@@ -54,6 +46,7 @@ class TaskPlanMiniEditorShell extends React.Component {
   }
 
   @action.bound onComplete() {
+    this.isVisible = false;
     this.props.onHide();
   }
 
@@ -66,7 +59,7 @@ class TaskPlanMiniEditorShell extends React.Component {
     return (
       <StyledEditorPlacement>
         <Overlay
-          show={this.state.isVisible}
+          show={this.isVisible}
           onHide={this.props.onHide}
           placement="auto"
           target={this.props.findPopOverTarget}
