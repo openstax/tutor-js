@@ -26,7 +26,6 @@ class ReadingTaskStep extends React.Component {
       <StyledReading unpadded step={this.props.step}>
         <BookPage
           ux={this.props.ux.pageContentUX}
-          hasLearningObjectives={content.has_learning_objectives}
           chapter_section={content.chapterSection}
           title={content.pageTitle}
         />
