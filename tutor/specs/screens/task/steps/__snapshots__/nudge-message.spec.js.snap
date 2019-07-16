@@ -317,7 +317,7 @@ exports[`Free Response Nudge Messages matches snapshot 1`] = `
         "steps": Array [
           [Circular],
         ],
-        "student_names": Array [],
+        "students": Array [],
         "tasksMap": Object {},
         "title": "asymmetric",
         "type": "homework",
@@ -654,7 +654,7 @@ exports[`Free Response Nudge Messages matches snapshot 2`] = `
         "steps": Array [
           [Circular],
         ],
-        "student_names": Array [],
+        "students": Array [],
         "tasksMap": Object {},
         "title": "asymmetric",
         "type": "homework",
@@ -995,7 +995,7 @@ exports[`Free Response Nudge Messages matches snapshot 3`] = `
         "steps": Array [
           [Circular],
         ],
-        "student_names": Array [],
+        "students": Array [],
         "tasksMap": Object {},
         "title": "asymmetric",
         "type": "homework",
@@ -1336,7 +1336,7 @@ exports[`Free Response Nudge Messages matches snapshot 4`] = `
         "steps": Array [
           [Circular],
         ],
-        "student_names": Array [],
+        "students": Array [],
         "tasksMap": Object {},
         "title": "asymmetric",
         "type": "homework",
@@ -1677,7 +1677,7 @@ exports[`Free Response Nudge Messages matches snapshot 5`] = `
         "steps": Array [
           [Circular],
         ],
-        "student_names": Array [],
+        "students": Array [],
         "tasksMap": Object {},
         "title": "asymmetric",
         "type": "homework",

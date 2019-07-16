@@ -103,7 +103,7 @@ exports[`Reading Progress Component matches snapshot 1`] = `
             "uid": undefined,
           },
         ],
-        "student_names": Array [],
+        "students": Array [],
         "tasksMap": StudentTasks {
           "_map": Object {
             "1": [Circular],

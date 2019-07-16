@@ -195,7 +195,7 @@ exports[`Tasks Info matches snapshot 1`] = `
           "uid": "1@1",
         },
       ],
-      "student_names": Array [],
+      "students": Array [],
       "tasksMap": Object {},
       "title": "asymmetric",
       "type": "reading",
