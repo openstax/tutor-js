@@ -23,7 +23,7 @@ export default class ExternalCell extends React.Component {
   }
 
   renderLateIcon() {
-    if (this.props.ux.course.isTeacher) {
+    if (this.props.ux.course.currentRole.isTeacher) {
       return <LateIcon {...this.props} />;
     }
     return null;

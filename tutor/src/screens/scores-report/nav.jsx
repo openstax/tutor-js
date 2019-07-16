@@ -14,7 +14,7 @@ export default class ScoresReportNav extends React.Component {
   }
 
   render() {
-    if (!this.props.course.isTeacher) {
+    if (!this.props.course.currentRole.isTeacher) {
       return null;
     }
 

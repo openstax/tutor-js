@@ -11,7 +11,9 @@ export default class ScoresReportExportControls extends React.Component {
   }
 
   render() {
-    if (!this.props.course.isTeacher) {
+    const { course } = this.props;
+
+    if (!course.currentRole.isTeacher) {
       return null;
     }
 

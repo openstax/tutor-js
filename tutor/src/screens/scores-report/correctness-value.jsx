@@ -9,7 +9,7 @@ import UX from './ux';
 
 const ReviewLink = ({ task, children }) => {
   const { course } = task.student.period;
-  if (!course.isTeacher) {
+  if (!course.currentRole.isTeacher) {
     return children;
   }
   return (

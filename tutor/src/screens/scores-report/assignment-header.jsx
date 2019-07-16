@@ -112,7 +112,7 @@ const AssignmentSortingHeader = observer((props) => {
 const TeacherAssignmentHeaderRow = observer((props) => {
   const { ux, heading } = props;
 
-  if (!ux.course.isTeacher) {
+  if (!ux.course.currentRole.isTeacher) {
     return null;
   }
 

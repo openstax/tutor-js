@@ -79,7 +79,7 @@ class HomeworkCell extends React.Component {
   renderLateWork() {
     const { ux, task, columnIndex } = this.props;
 
-    if (!ux.course.isTeacher) {
+    if (!ux.course.currentRole.isTeacher) {
       return null;
     }
 

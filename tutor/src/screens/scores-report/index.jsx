@@ -34,7 +34,7 @@ class StudentScores extends React.Component {
   ux = this.props.ux || new UX(this.course);
 
   @computed get title() {
-    return (this.course.isTeacher && 'Student Scores') || 'Scores';
+    return (this.course.currentRole.isTeacher && 'Student Scores') || 'Scores';
   }
 
   componentWillMount() {

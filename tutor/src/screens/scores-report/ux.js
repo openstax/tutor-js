@@ -226,16 +226,20 @@ export default class ScoresReportUX {
     });
   }
 
+  @computed get isTeacher() {
+    return this.course.currentRole.isTeacher;
+  }
+
   @computed get headerHeight() {
-    return (this.course.isTeacher && 180) || 140;
+    return (this.isTeacher && 180) || 140;
   }
 
   @computed get windowHeightPadding() {
-    return (this.course.isTeacher && (WINDOW_HEIGHT_PADDING + 95)) || WINDOW_HEIGHT_PADDING;
+    return (this.isTeacher && (WINDOW_HEIGHT_PADDING + 95)) || WINDOW_HEIGHT_PADDING;
   }
 
   @computed get tableWidth() {
-    const extraCol = this.course.isTeacher ? 1 : 0;
+    const extraCol = this.isTeacher ? 1 : 0;
     const desiredWidth = this.averagesWidth +
       (this.COLUMN_WIDTH * (this.period.numAssignments + extraCol));
 

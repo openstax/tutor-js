@@ -88,7 +88,7 @@ class ScoresTable extends React.Component {
   renderLeftColumnGroup() {
     const { ux, ux: { students, COLUMN_WIDTH, course } } = this.props;
 
-    if (!course.isTeacher) {
+    if (!course.currentRole.isTeacher) {
       return (
         <ColumnGroup fixed={true}>
           <Column
