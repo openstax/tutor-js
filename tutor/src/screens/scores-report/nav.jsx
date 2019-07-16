@@ -2,27 +2,25 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import CoursePeriodsNav from '../../components/course-periods-nav';
 import Course from '../../models/course';
-
 import { keys, pick } from 'lodash';
 
 const COURSE_PERIODS_NAV_PROPS = keys(CoursePeriodsNav.propTypes);
 
-export default class ScoresReportNav extends React.Component {
-
-  static propTypes = {
-    course: PropTypes.instanceOf(Course).isRequired,
+const ScoresReportNav = (props) => {
+  if (!props.course.currentRole.isTeacher) {
+    return null;
   }
 
-  render() {
-    if (!this.props.course.currentRole.isTeacher) {
-      return null;
-    }
+  return (
+    <CoursePeriodsNav
+      {...pick(props, COURSE_PERIODS_NAV_PROPS)}
+      courseId={props.course.id}
+    />
+  );
+};
 
-    return (
-      <CoursePeriodsNav
-        {...pick(this.props, COURSE_PERIODS_NAV_PROPS)}
-        courseId={this.props.course.id}
-      />
-    );
-  }
-}
+ScoresReportNav.propTypes = {
+  course: PropTypes.instanceOf(Course).isRequired,
+};
+
+export default ScoresReportNav;

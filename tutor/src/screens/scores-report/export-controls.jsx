@@ -4,24 +4,22 @@ import Export from './export';
 import LmsPush from './lms-push';
 import Course from '../../models/course';
 
-export default class ScoresReportExportControls extends React.Component {
-
-  static propTypes = {
-    course: PropTypes.instanceOf(Course).isRequired,
+const ScoresReportExportControls = ({ course }) => {
+  if (!course.currentRole.isTeacher) {
+    return null;
   }
 
-  render() {
-    const { course } = this.props;
+  return (
+    <div className="export-controls">
+      <LmsPush course={course} />
+      <Export course={course} />
+    </div>
+  );
+};
 
-    if (!course.currentRole.isTeacher) {
-      return null;
-    }
 
-    return (
-      <div className="export-controls">
-        <LmsPush course={this.props.course} />
-        <Export course={this.props.course} />
-      </div>
-    );
-  }
-}
+ScoresReportExportControls.propTypes = {
+  course: PropTypes.instanceOf(Course).isRequired,
+};
+
+export default ScoresReportExportControls;

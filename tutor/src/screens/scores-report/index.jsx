@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { computed, observable, action } from 'mobx';
+import { computed, action } from 'mobx';
 import { isEmpty, get } from 'lodash';
 import CoursePage from '../../components/course-page';
 import ScoresTable from './table';
@@ -25,6 +25,7 @@ class StudentScores extends React.Component {
     params: PropTypes.shape({
       courseId: PropTypes.string.isRequired,
     }).isRequired,
+    ux: PropTypes.instanceOf(UX),
   }
 
   @computed get course() {
@@ -103,4 +104,4 @@ class StudentScores extends React.Component {
       </CoursePage>
     );
   }
-};
+}

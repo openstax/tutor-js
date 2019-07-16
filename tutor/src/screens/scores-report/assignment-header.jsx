@@ -65,7 +65,7 @@ const AverageLabel = observer(({ heading }) => {
 });
 
 const AssignmentSortingHeader = observer((props) => {
-  const { heading, ux, dataType, columnIndex } = props;
+  const { heading, ux, columnIndex } = props;
   if (heading.type === 'external') {
     return (
       <div className="scores-cell">

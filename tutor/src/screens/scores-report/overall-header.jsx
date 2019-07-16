@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import cn from 'classnames';
@@ -41,7 +40,7 @@ const WeightsLink = observer(({ ux }) => {
 });
 
 const OverallHeader = observer(({ ux }) => {
-  const { period, periodAverages } = ux;
+  const { periodAverages } = ux;
   let overviewHeaderRow = null;
   let weightsModal = <ViewWeights ux={ux} />;
 
