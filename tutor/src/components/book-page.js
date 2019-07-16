@@ -245,8 +245,8 @@ class BookPage extends React.Component {
       }
 
       // remove all non-lists children to prevent extra text in preamble
-      if (typeof abstractChild.remove === 'function') {
-        abstractChild.remove();
+      if (true !== invoke(abstractChild, 'matches', '[data-type="title"]')) {
+        invoke(abstractChild, 'remove');
       }
     }
 

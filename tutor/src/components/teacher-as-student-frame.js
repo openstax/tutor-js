@@ -89,7 +89,7 @@ class TeacherAsStudentFrame extends React.Component {
           </TopButton>
           <BottomNote as="div">
             <Icon type="glasses" />
-            You’re viewing Tutor as a student
+            You’re viewing OpenStax Tutor as a student
           </BottomNote>
         </StyledTeacherAsStudentFrame>
         {children}
