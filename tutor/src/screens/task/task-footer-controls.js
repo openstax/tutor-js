@@ -15,10 +15,10 @@ const Name = styled.div`
 `;
 
 const TeacherReviewInfo = observer(({ task }) => {
-  const name = first(task.student_names);
-  if (!name) { return null; }
+  const student = first(task.students);
+  if (!student) { return null; }
 
-  return <Name>Reviewing {name}</Name>;
+  return <Name>Reviewing {student.name}</Name>;
 });
 
 const TaskFooterControls = observer(({ task, course }) => {

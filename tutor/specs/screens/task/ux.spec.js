@@ -112,4 +112,15 @@ describe('Task UX Model', () => {
     ux = new UX({ task: task, router: new TestRouter() });
     expect(ux.currentStep).toBeNull();
   });
+
+  it('calls becomes on student role when it matches', () => {
+    ux.course.roles[0].type = 'teacher';
+    ux.course.roles.push({ id: 99, type: 'teacher_student' });
+    expect(ux.course.roles.teacher).toBeTruthy();
+    expect(ux.course.roles.teacherStudent).toBeTruthy();
+    ux._task.students.push({ role_id: 99 });
+    expect(ux.course.current_role_id).toEqual(ux.course.roles[0].id);
+    ux.becomeStudentIfNeeded();
+    expect(ux.course.current_role_id).toEqual(99);
+  });
 });
