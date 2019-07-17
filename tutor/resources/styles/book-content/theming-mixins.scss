@@ -17,8 +17,8 @@
 
 }
 
-@mixin tutor-book-theme-related-content($background, $text-color) {
-  .related-content[data-has-learning-objectives] {
+@mixin tutor-book-theme-page-title($background, $text-color) {
+  .page-title {
     background: $background;
     color: $text-color;
   }
@@ -102,7 +102,7 @@
     $text-color: $text,
     $theme-accent: $accent
   );
-  @include tutor-book-theme-related-content(
+  @include tutor-book-theme-page-title(
     $background: $secondary,
     $text-color: $text
   );

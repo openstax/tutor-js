@@ -20,13 +20,14 @@
 
   section {
     clear: both;
-
-    &:first-of-type:not(.splash),
-    &.visual-exercise,
-    &.multiple-choice,
-    &.critical-thinking,
-    &.summary {
-      margin-top: 2rem;
+    &:not(.learning-objectives) {
+      &:first-of-type:not(.splash),
+      &.visual-exercise,
+      &.multiple-choice,
+      &.critical-thinking,
+      &.summary {
+        margin-top: 2rem;
+      }
     }
   }
 

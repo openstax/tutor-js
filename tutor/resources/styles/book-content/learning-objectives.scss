@@ -18,6 +18,7 @@
     &:empty {
       display: none;
     }
+
     @include book-content-full-width();
     padding-left: $tutor-book-padding-vertical;
 
@@ -32,14 +33,6 @@
       font-weight: 400;
       text-transform: uppercase;
       margin: 0 0 1rem 1rem;
-    }
-
-    &[data-is-intro=true]::before {
-      content: 'In this chapter you will learn about:';
-    }
-
-    &[data-is-intro=false]::before {
-      content: 'By the end of this section, you will be able to:';
     }
 
     &[data-preamble]::before {
@@ -76,6 +69,19 @@
           margin-left: 2rem;
         }
       }
+    }
+  }
+
+  .splash + .learning-objectives {
+    margin-top: -3rem;
+
+    [data-type="title"] {
+      display: block;
+      @include tutor-sans-font(1.4rem, 1.8em);
+      font-weight: 400;
+      text-transform: uppercase;
+      margin: 0 3rem 1rem 1rem;
+      border-bottom: 1px solid $border-color;
     }
   }
 }

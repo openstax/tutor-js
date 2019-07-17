@@ -1,10 +1,12 @@
 @mixin tutor-book-content-typography() {
   h1 {
-    border-top-width: 8px;
-    border-top-style: solid;
+    &:not(.page-title-heading) {
+      border-top-width: 8px;
+      border-top-style: solid;
+      margin-bottom: 20px;
+      padding-top: 20px;
+    }
     font-weight: 900;
-    margin-bottom: 20px;
-    padding-top: 20px;
   }
 
   .section-opener + section,

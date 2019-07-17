@@ -7,10 +7,11 @@ import invariant from 'invariant';
 import styled, { css } from 'styled-components';
 import { autobind } from 'core-decorators';
 import { idType } from 'shared';
+import Theme from '../theme';
 
 export {
   React, cn, ReactDOM, mobxPropTypes, PropTypes,
-  invariant, styled, css, idType, autobind,
+  invariant, styled, css, idType, autobind, Theme,
 };
 export { observable, action, computed } from 'mobx';
 export { observer, inject, Provider } from 'mobx-react';
