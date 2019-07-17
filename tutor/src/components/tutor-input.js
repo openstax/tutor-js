@@ -8,19 +8,18 @@ import classnames from 'classnames';
 import MaskedInput from 'react-maskedinput';
 import DatePicker from 'react-datepicker';
 import * as TutorErrors from './tutor-errors';
-import { TimeStore } from '../flux/time';
+import Time from '../models/time';
 import TimeHelper from '../helpers/time';
 import { Icon } from 'shared';
 import S from '../helpers/string';
 
-const TutorDateFormat = TimeStore.getFormat();
+const TutorDateFormat = Time.DATE_FORMAT;
 
 class TutorInput extends React.Component {
   static defaultProps = {
     validate(inputValue) {
       if (isEmpty(inputValue)) { return ['required']; }
     },
-
     type: 'text',
   };
 
@@ -70,6 +69,7 @@ class TutorInput extends React.Component {
   // We help it out here by manually focusing when then label is clicked
   // (which should only happen on IE 10)
   forwardLabelClick = () => { return this.focus(); };
+
 
   validate = (inputValue) => {
     let errors = this.props.validate(inputValue);
@@ -154,15 +154,13 @@ class TutorDateInput extends React.Component {
 
   state = { expandCalendar: false };
 
-  // For some reason, react-datepicker chooses to GLOBALLY override moment's locale.
-  // This tends to do nasty things to the dashboard calendar.
-  // Therefore, grab the current locale settings, and restore them when unmounting.
-  // TODO: debug react-datepicker and submit a PR so that it will no longer thrash moment's global.
-  componentWillUnmount() {
-    return this.restoreLocales();
+  constructor(props) {
+    super(props);
+    this.tzOffset = new Date().getTimezoneOffset();
   }
 
   onBlur = () => {
+    if (this.props.onBlur) { this.props.onBlur(); }
     return this.setState({ hasFocus: false });
   };
 
@@ -179,8 +177,7 @@ class TutorDateInput extends React.Component {
       errors = ['Invalid date'];
     }
 
-
-    value = TimeHelper.getMomentPreserveDate(value);
+    value = moment(value).utcOffset(this.tzOffset * -1).startOf('date');
 
     this.props.onChange(value);
     return this.setState({ expandCalendar: false, valid, value, errors });
@@ -196,13 +193,6 @@ class TutorDateInput extends React.Component {
     if (this.props.min && value.isBefore(this.props.min, 'day')) { valid = false; }
     if (this.props.max && value.isAfter(this.props.max, 'day')) { valid = false; }
     return valid;
-  };
-
-  restoreLocales = () => {
-    const { abbr } = this.props.currentLocale;
-
-    const localeOptions = omit(this.props.currentLocale, 'abbr');
-    return moment.locale(abbr, localeOptions);
   };
 
   render() {
@@ -222,7 +212,7 @@ class TutorDateInput extends React.Component {
       },
     );
 
-    const now = TimeStore.getNow();
+    const now = Time.now;
     let { value } = this.props;
 
     value = value ?
@@ -235,6 +225,7 @@ class TutorDateInput extends React.Component {
     if (!this.props.disabled) {
       dateElem = (
         <DatePicker
+          utcOffset={this.tzOffset}
           minDate={min.toDate()}
           maxDate={max.toDate()}
           onFocus={this.expandCalendar}
@@ -350,9 +341,11 @@ class TutorTimeInput extends React.Component {
 
     if (this.isValidTime(timeValue)) {
       timeValue = this.timeOut(timeValue);
+      if (typeof this.props.onChange === 'function') {
+        this.props.onChange(timeValue)
+      }
     }
 
-    return (typeof this.props.onChange === 'function' ? this.props.onChange(timeValue) : undefined);
   };
 
   getInput = () => {

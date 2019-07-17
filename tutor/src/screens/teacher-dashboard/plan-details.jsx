@@ -1,9 +1,7 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { observer, inject } from 'mobx-react';
-import { computed, observable, action } from 'mobx';
-import camelCase from 'lodash/camelCase';
-import classnames from 'classnames';
+import {
+  React, PropTypes, observer, inject,
+  computed, observable, action, cn,
+} from '../../helpers/react';
 import Course from '../../models/course';
 import { Modal, Button } from 'react-bootstrap';
 import TourContext from '../../models/tour/context';
@@ -27,12 +25,12 @@ class CoursePlanDetails extends React.Component {
   }
 
   static propTypes = {
-    plan: PropTypes.instanceOf(TeacherTaskPlan).isRequired,
-    course: PropTypes.instanceOf(Course).isRequired,
-    onHide: PropTypes.func.isRequired,
     hasReview: PropTypes.bool,
     className: PropTypes.string,
+    onHide: PropTypes.func.isRequired,
     tourContext: PropTypes.instanceOf(TourContext),
+    course: PropTypes.instanceOf(Course).isRequired,
+    plan: PropTypes.instanceOf(TeacherTaskPlan).isRequired,
   }
 
   componentWillMount() {
@@ -46,7 +44,8 @@ class CoursePlanDetails extends React.Component {
   @observable showAssignmentLinks = false;
 
   @computed get linkParams() {
-    return { courseId: this.props.course.id, id: this.props.plan.id };
+    const { course, plan } = this.props;
+    return { courseId: course.id, id: plan.id, type: plan.type };
   }
 
   @action.bound onShowAssignmentLinks() {
@@ -70,8 +69,6 @@ class CoursePlanDetails extends React.Component {
     const { plan } = this.props;
     if (this.showAssignmentLinks || !plan.isPublished) { return null; }
 
-    const editLinkName = camelCase(`edit-${this.props.plan.type}`);
-
     return (
       <div className="modal-footer">
 
@@ -79,13 +76,14 @@ class CoursePlanDetails extends React.Component {
           disabled={!plan.isPublished}
           className="btn btn-default"
           to={plan.isExternal ? 'viewScores' : 'reviewTask'}
-          params={this.linkParams}>
+          params={this.linkParams}
+        >
           {plan.isExternal ? 'View Scores' : 'Review Metrics'}
         </TutorLink>
 
         <TutorLink
           className="btn btn-default"
-          to={editLinkName}
+          to="editAssignment"
           params={this.linkParams}
         >
           {plan.isEditable ? 'Edit' : 'View'}
@@ -139,7 +137,7 @@ class CoursePlanDetails extends React.Component {
         show={true}
         enforceFocus={false}
         data-assignment-type={type}
-        className={classnames('plan-modal', className)}
+        className={cn('plan-modal', className)}
       >
         <TourRegion
           id="analytics-modal"
@@ -158,4 +156,4 @@ class CoursePlanDetails extends React.Component {
       </Modal>
     );
   }
-};
+}

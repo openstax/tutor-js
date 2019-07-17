@@ -1,78 +1,76 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import {
+  React, PropTypes, styled, action, observer, observable,
+} from '../../../helpers/react';
 import { Overlay, Popover } from 'react-bootstrap';
-import classnames from 'classnames';
-import LoadableItem from '../../../components/loadable-item';
-import Course from '../../../models/course';
-import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
+import Loading from 'shared/components/loading-animation';
 import Editor from './editor';
+import Course from '../../../models/course';
+import UX from '../ux';
 
+const StyledEditorPlacement = styled.div`
+  padding: 0;
+`;
+
+const StyledPopover = styled(Popover)`
+  min-width: 450px;
+  max-width: 450px;
+  .popover-body {
+    padding: 0;
+  }
+`;
+
+@observer
 class TaskPlanMiniEditorShell extends React.Component {
   static propTypes = {
     course:   PropTypes.instanceOf(Course).isRequired,
-    planId:   PropTypes.string.isRequired,
     onHide:   PropTypes.func.isRequired,
+    sourcePlan: PropTypes.shape({
+      id:   PropTypes.string.isRequired,
+      date: PropTypes.object.isRequired,
+    }).isRequired,
     findPopOverTarget: PropTypes.func.isRequired,
-
-    position: PropTypes.shape({
-      x: PropTypes.number,
-      y: PropTypes.number,
-    }),
   };
 
-  state = { isVisible: true };
+  @observable isVisible = true;
 
-  calculatePlacement = () => {
-    // currently we use fixed positioning.
-    // May adjust based on "position" prop at some point
-    return 'top';
-  };
+  constructor(props) {
+    super(props);
+    this.ux = new UX();
+    this.ux.initialize({
+      type: 'clone',
+      id: props.sourcePlan.id,
+      course: this.props.course,
+      onComplete: this.onComplete,
+      due_at: props.sourcePlan.date,
+    });
+  }
 
-  handleError = (error) => {
-    return this.setState({ error });
-  };
-
-  renderEditor = () => {
-    return (
-      <Editor
-        id={this.props.planId}
-        onHide={this.props.onHide}
-        course={this.props.course}
-        termStart={this.props.course.bounds.start}
-        termEnd={this.props.course.bounds.end}
-        save={TaskPlanActions.saveSilent}
-        handleError={this.handleError} />
-    );
-  };
+  @action.bound onComplete() {
+    this.isVisible = false;
+    this.props.onHide();
+  }
 
   render() {
-    const { planId, courseId } = this.props;
-    const popoverClasses = classnames('mini-task-editor-popover',
-      { 'is-errored': this.state.error }
-    );
+    const { onHide } = this.props;
+
+    const body = this.ux.isInitializing ?
+      <Loading message="Loading assignment…" /> : <Editor onHide={onHide} ux={this.ux} />;
 
     return (
-      <div className="task-plan-mini-editor">
+      <StyledEditorPlacement>
         <Overlay
-          show={this.state.isVisible}
+          show={this.isVisible}
           onHide={this.props.onHide}
           placement="auto"
           target={this.props.findPopOverTarget}
         >
-          <Popover id="mini-task-editor-popover" className={popoverClasses}>
-
-            <LoadableItem
-              id={planId}
-              store={TaskPlanStore}
-              actions={TaskPlanActions}
-              renderItem={this.renderEditor} />
-
-          </Popover>
+          <StyledPopover id="mini-task-editor-popover">
+            {body}
+          </StyledPopover>
         </Overlay>
-      </div>
+      </StyledEditorPlacement>
     );
   }
 }
-
 
 export default TaskPlanMiniEditorShell;

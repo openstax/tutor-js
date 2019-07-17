@@ -14,9 +14,11 @@ import { ResearchSurvey } from '../../src/models/research-surveys/survey';
 import StudentDashboardTask from '../../src/models/task-plans/student/task';
 import Note from '../../src/models/notes/note';
 import Page from '../../src/models/reference-book/page';
+import TeacherTaskPlan from '../../src/models/task-plans/teacher/plan';
 
 import './research_survey';
-import './dashboard';
+import './teacher-task-plan';
+import './student-task';
 import './course';
 import './book';
 import './task-plan-stats';
@@ -47,6 +49,7 @@ each({
   TaskPlanStat,
   TutorExercise,
   ResearchSurvey,
+  TeacherTaskPlan,
   StudentDashboardTask,
 }, (Model, name) => {
   Factories[camelCase(name)] = (attrs = {}, modelArgs) => {
@@ -71,7 +74,7 @@ Factories.ecosystemsMap = ({ count = 4 } = {}) => {
 Factories.pastTaskPlans = ({ course, count = 4 }) => {
   course.pastTaskPlans.onLoaded({
     data: {
-      items: range(count).map(() => FactoryBot.create('TeacherDashboardTask', { course })),
+      items: range(count).map(() => FactoryBot.create('TeacherTaskPlan', { course })),
     },
   });
   return course.pastTaskPlans;
@@ -80,7 +83,7 @@ Factories.pastTaskPlans = ({ course, count = 4 }) => {
 Factories.teacherTaskPlans = ({ course, count = 4 }) => {
   course.teacherTaskPlans.onLoaded({
     data: {
-      plans: range(count).map(() => FactoryBot.create('TeacherDashboardTask', { course })),
+      plans: range(count).map(() => FactoryBot.create('TeacherTaskPlan', { course })),
     },
   });
   return course.teacherTaskPlans;
@@ -119,13 +122,21 @@ Factories.notesPageMap = ({ course, chapter, section, count = 4 }) => {
   return page;
 }
 
-Factories.exercisesMap = ({ book, pageIds = [], count = 4 } = {}) => {
+Factories.exercisesMap = ({ now, book, pageIds = [], count = 4 } = {}) => {
   const map = new ExercisesMap();
   if (!book) { return map; }
+  if (book.children.length == 0) {
+    book.onApiRequestComplete({ data: [FactoryBot.create('Book')] });
+  }
+  if (pageIds.length == 0) {
+    pageIds = book.children[1].children.map(pg => pg.id);
+  }
   pageIds.forEach(pgId => {
     map.onLoaded({
       data: {
         items: range(count).map(() => FactoryBot.create('TutorExercise', {
+          now,
+
           page_uuid: book.pages.byId.get(pgId).uuid,
         })),
       },

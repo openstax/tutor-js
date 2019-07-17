@@ -1,20 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { map, times } from 'lodash';
-import { TaskPlanStore } from '../../../flux/task-plan';
-import Course from '../../../models/course';
 import { observer } from 'mobx-react';
-import { ArrayOrMobxType } from 'shared/helpers/react';
 import { ArbitraryHtmlAndMath } from 'shared';
 import ChapterSection from '../../../components/chapter-section';
 import TourRegion from '../../../components/tours/region';
+import UX from '../ux';
 
 @observer
 class ExerciseTable extends React.Component {
   static propTypes = {
-    course:     PropTypes.instanceOf(Course).isRequired,
-    exercises:  ArrayOrMobxType.isRequired,
-    planId:     PropTypes.string.isRequired,
+    ux: PropTypes.instanceOf(UX).isRequired,
   };
 
   renderExerciseRow = (exercise, index) => {
@@ -76,10 +72,7 @@ class ExerciseTable extends React.Component {
   }
 
   render() {
-
-    const { course, exercises } = this.props;
-    const tutorSelection = TaskPlanStore.getTutorSelections(this.props.planId);
-
+    const { ux: { selectedExercises, course, plan } } = this.props;
     return (
       <TourRegion
         tag="table"
@@ -104,8 +97,10 @@ class ExerciseTable extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {map(exercises, (exercise, index) => this.renderExerciseRow(exercise, index))}
-          {times(tutorSelection, index => this.renderTutorRow(exercises, index))}
+          {map(selectedExercises, (exercise, index) =>
+            this.renderExerciseRow(exercise, index))}
+          {times(plan.numTutorSelections, index =>
+            this.renderTutorRow(selectedExercises, index))}
         </tbody>
       </TourRegion>
     );

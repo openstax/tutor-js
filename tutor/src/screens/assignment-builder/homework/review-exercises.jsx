@@ -1,15 +1,12 @@
-import { React, PropTypes, styled } from '../../../helpers/react';
-import { compact, map, isEmpty } from 'lodash';
+import { React, PropTypes, styled, action } from '../../../helpers/react';
+import { map, isEmpty } from 'lodash';
 import Loading from 'shared/components/loading-animation';
 import { Icon } from 'shared';
-import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
 import { ExercisePreview, SuretyGuard } from 'shared';
 import { observer } from 'mobx-react';
-import Course from '../../../models/course';
-import Book from '../../../models/reference-book';
-import sharedExercises, { ExercisesMap, Exercise } from '../../../models/exercises';
 import ExerciseControls from './exercise-controls';
 import ExerciseTable from './exercises-table';
+import UX from '../ux';
 
 const Header = styled.div`
   display: flex;
@@ -26,28 +23,29 @@ const Controls = styled.div`
 class ReviewExerciseCard extends React.Component {
 
   static propTypes = {
-    planId:   PropTypes.string.isRequired,
-    exercise: PropTypes.instanceOf(Exercise).isRequired,
-    canEdit:  PropTypes.bool.isRequired,
+    ux: PropTypes.instanceOf(UX).isRequired,
+    exercise: PropTypes.object.isRequired,
     isFirst:  PropTypes.bool.isRequired,
     isLast:   PropTypes.bool.isRequired,
     index:    PropTypes.number.isRequired,
   };
 
-  moveExerciseUp = () => {
-    TaskPlanActions.moveExercise(this.props.planId, this.props.exercise.id, -1);
-  };
+  @action.bound moveExerciseUp() {
+    this.props.ux.plan.moveExercise(this.props.exercise, -1);
+  }
 
-  moveExerciseDown = () => {
-    TaskPlanActions.moveExercise(this.props.planId, this.props.exercise.id, 1);
-  };
+  @action.bound moveExerciseDown() {
+    this.props.ux.plan.moveExercise(this.props.exercise, 1);
+  }
 
-  removeExercise = () => {
-    TaskPlanActions.removeExercise(this.props.planId, this.props.exercise.id);
-  };
+  @action.bound removeExercise() {
+    this.props.ux.plan.removeExercise(this.props.exercise);
+  }
 
   getActionButtons() {
-    if (!this.props.canEdit) { return null; }
+    const { ux } = this.props;
+
+    if (!ux.canEdit) { return null; }
     const { isFirst, isLast } = this.props;
 
     return (
@@ -101,7 +99,8 @@ class ReviewExerciseCard extends React.Component {
           isVerticallyTruncated={true}
           isSelected={false}
           header={this.renderHeader()}
-          panelStyle="default" />
+          panelStyle="default"
+        />
       </div>
     );
   }
@@ -112,38 +111,21 @@ export default
 class ReviewExercises extends React.Component {
 
   static propTypes = {
-    course:     PropTypes.instanceOf(Course).isRequired,
-    exercises:  PropTypes.instanceOf(ExercisesMap),
-    planId:     PropTypes.string.isRequired,
-    canEdit:    PropTypes.bool,
-    canAdd:     PropTypes.bool,
-    showSectionTopics: PropTypes.func.isRequired,
+    ux: PropTypes.instanceOf(UX).isRequired,
   };
 
-  static defaultProps = {
-    exercises: sharedExercises,
-  };
+  wrapper = React.createRef();
 
-  componentWillMount() {
-    const ecosystem_id = TaskPlanStore.getEcosystemId(this.props.planId);
-    const exercise_ids = TaskPlanStore.getExercises(this.props.planId);
-    const { course } = this.props;
-    const book = course.ecosystem_id == ecosystem_id ?
-      course.referenceBook : new Book({ id: ecosystem_id });
-    this.props.exercises.ensureExercisesLoaded({ course, book, exercise_ids });
+  componentDidMount() {
+    this.props.ux.onExercisesReviewMount(this.wrapper.current);
   }
 
   render() {
-    const { canEdit, canAdd, showSectionTopics, course, planId } = this.props;
+    const { ux } = this.props;
 
-    if (this.props.exercises.api.isPending) { return <Loading />; }
+    if (ux.exercises.api.isPending) { return <Loading />; }
 
-    const exercises = compact(map(
-      TaskPlanStore.getExercises(planId),
-      (exId) => this.props.exercises.get(exId),
-    ));
-
-    if (isEmpty(exercises)) {
+    if (isEmpty(ux.selectedExercises)) {
       return (
         <div className="panel alert alert-danger">
           Unable to display exercises for this assignment. Students can still view the assignment.
@@ -152,29 +134,24 @@ class ReviewExercises extends React.Component {
     }
 
     return (
-      <div className="homework-builder-view">
+      <div className="homework-builder-view" ref={this.wrapper}>
         <ExerciseControls
+          ux={ux}
           unDocked
-          canAdd={canAdd}
-          addClicked={showSectionTopics}
           hideDisplayControls={true}
-          planId={planId}
         />
-        <ExerciseTable
-          course={course}
-          planId={planId}
-          exercises={exercises}
-        />
+        <ExerciseTable ux={ux} />
         <div className="card-list exercises">
-          {map(exercises, (ex, i) =>
+          {map(ux.selectedExercises, (ex, i) =>
             <ReviewExerciseCard
-              key={ex.id}
+              ux={ux}
               index={i}
-              planId={planId}
-              canEdit={canEdit}
+              key={ex.id}
+              exercise={ex}
               isFirst={i === 0}
-              isLast={i === (exercises.length - 1)}
-              exercise={ex} />)}
+              canEdit={ux.canEdit}
+              isLast={i === (ux.selectedExercises.length - 1)}
+            />)}
         </div>
       </div>
     );

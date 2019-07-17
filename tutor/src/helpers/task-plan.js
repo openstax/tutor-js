@@ -1,5 +1,6 @@
-import { TaskPlanStore } from '../flux/task-plan';
 import { isEmpty, get, pick, first, every, reduce, map } from 'lodash';
+import moment from 'moment';
+import Time from '../models/time';
 
 export default {
 
@@ -29,25 +30,30 @@ export default {
     }
   },
 
+  calendarParams(course) {
+    let date;
+    const dueAtRange = course
+      .teacherTaskPlans.array
+      .map(plan => plan.dateRanges.due.start)
+      .sort();
+
+    if (dueAtRange.length) {
+      date = dueAtRange[0];
+    } else {
+      date = Time.now;
+    }
+    return {
+      to: 'calendarByDate',
+      params: {
+        courseId: course.id,
+        date: moment(date).format('YYYY-MM-DD'),
+      },
+    };
+  },
 
   earliestDueDate(plan) {
     const dates = map(get(plan, 'tasking_plans'), 'due_at');
     return first(dates.sort()) || '';
-  },
-
-
-  apiEndpointOptions(id, courseId) {
-    const task = TaskPlanStore.get(id);
-    const options = TaskPlanStore.isNew(id) ? {
-      url: `courses/${courseId}/plans`,
-      method: 'POST',
-    } : {
-      url: `plans/${id}`,
-    };
-    if (get(task, 'ecosystem_id')) {
-      options.params = { ecosystem_id: task.ecosystem_id };
-    }
-    return options;
   },
 
 };

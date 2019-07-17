@@ -1,6 +1,5 @@
 import moment from 'moment';
-import _ from 'underscore';
-import { TimeStore } from '../flux/time';
+import Time from '../models/time';
 
 export default {
   create(startTime, endTime) {
@@ -8,6 +7,6 @@ export default {
   },
 
   isPastDue({ due_at }) {
-    return moment(TimeStore.getNow()).isAfter(due_at);
+    return moment(Time.now).isAfter(due_at);
   },
 };

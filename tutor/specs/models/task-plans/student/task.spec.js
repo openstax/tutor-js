@@ -2,17 +2,10 @@ import { TimeMock, Factory } from '../../../helpers';
 import COURSE_1_DATA from '../../../../api/courses/1/dashboard.json';
 import moment from 'moment';
 
-jest.mock('../../../../src/flux/time', () => ({
-  TimeStore: {
-    getNow: jest.fn(() => new Date()),
-  },
-}));
-
 describe('Student Task Model', () => {
 
   let task;
-  const now = new Date('2017-10-14T12:00:00.000Z');
-  TimeMock.setTo(now);
+  const now = TimeMock.setTo('2017-10-14T12:00:00.000Z');
 
   beforeEach(() => {
     task = Factory.studentDashboardTask();

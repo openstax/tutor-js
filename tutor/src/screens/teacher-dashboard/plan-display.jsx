@@ -1,15 +1,16 @@
+/* eslint-disable react/prefer-stateless-function */
 import PropTypes from 'prop-types';
-import { React, ReactDOM, observable, observer, action, styled } from '../../helpers/react';
+import { React, observer, styled } from '../../helpers/react';
 import { partial, camelCase } from 'lodash';
 import TaskPlan from '../../models/task-plans/teacher/plan';
 import Course from '../../models/course';
 import TutorLink from '../../components/link';
-import TaskPlanMiniEditor from '../../screens/assignment-builder/mini-editor';
 
 const Ribbon = styled.div`
   display: flex;
   align-items: center;
 `;
+
 
 class CoursePlanDisplay extends React.Component {
 
@@ -33,7 +34,6 @@ class CoursePlanDisplay extends React.Component {
     rangeLength: 7,
     defaultPlansCount: 3,
   };
-
 
 }
 
@@ -64,55 +64,6 @@ class CoursePlanDisplayEdit extends CoursePlanDisplay {
 
 
 @observer
-class CoursePlanDisplayMiniEditor extends CoursePlanDisplay {
-
-  @observable isShowingEditor = false;
-
-  getElement() {
-    return (
-      ReactDOM.findDOMNode(this)
-    );
-  }
-
-  @action.bound showEditor() {
-    this.isShowingEditor = true;
-  }
-
-  @action.bound onEditorHide() {
-    this.isShowingEditor = false;
-  }
-
-  render() {
-    const { course, plan, className, label } = this.props;
-
-    const linkTo = camelCase(`edit-${plan.type}`);
-    const params = { id: plan.id, courseId: course.id };
-
-    return (
-      <Ribbon
-        className={className}
-        data-plan-id={`${plan.id}`}
-        data-assignment-type={plan.type}
-        ref="plan"
-      >
-        {this.isShowingEditor &&
-          <TaskPlanMiniEditor
-            planId={plan.id}
-            courseId={course.id}
-            onHide={this.onEditorHide}
-            findPopOverTarget={this.getElement}
-          />}
-        <div onClick={this.showEditor}>
-          {label}
-        </div>
-      </Ribbon>
-    );
-  }
-
-}
-
-
-@observer
 class CoursePlanDisplayQuickLook extends CoursePlanDisplay {
 
   render() {
@@ -133,4 +84,4 @@ class CoursePlanDisplayQuickLook extends CoursePlanDisplay {
   }
 }
 
-export { CoursePlanDisplayQuickLook, CoursePlanDisplayMiniEditor, CoursePlanDisplayEdit };
+export { CoursePlanDisplayQuickLook, CoursePlanDisplayEdit };

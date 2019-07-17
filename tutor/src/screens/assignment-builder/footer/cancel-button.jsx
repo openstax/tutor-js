@@ -1,26 +1,24 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { React, PropTypes, observer } from '../../../helpers/react';
+import TourAnchor from '../../../components/tours/anchor';
 import { Button } from 'react-bootstrap';
 
-export default class CancelButton extends React.Component {
+const CancelButton = observer(({ ux }) => {
 
-  static propTypes = {
-    onClick:    PropTypes.func.isRequired,
-    isWaiting:  PropTypes.bool.isRequired,
-    isEditable: PropTypes.bool.isRequired,
-  }
-
-  render() {
-    if (!this.props.isEditable) { return null; }
-
-    return (
+  return (
+    <TourAnchor id="builder-cancel-button">
       <Button
         variant="default"
-        disabled={this.props.isWaiting}
-        onClick={this.props.onClick}
+        disabled={ux.isSaving}
+        onClick={ux.onCancel}
       >
         Cancel
       </Button>
-    );
-  }
-}
+    </TourAnchor>
+  );
+});
+CancelButton.displayName = 'CancelButton';
+CancelButton.propTypes = {
+  ux: PropTypes.object.isRequired,
+};
+
+export default CancelButton;

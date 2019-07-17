@@ -29,6 +29,10 @@ class CoursePeriod extends BaseModel {
     return this.num_enrolled_students > 0;
   }
 
+  @computed get isActive() {
+    return !this.is_archived;
+  }
+
   @computed get enrollment_url_with_details() {
     const details = `${this.course.name}-${this.course.termFull}`.replace(/ /g, '-');
     return `${this.enrollment_url}/${details}`;

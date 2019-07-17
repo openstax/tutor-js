@@ -1,5 +1,5 @@
 import {
-  React, observer, cn, action, observable, computed,
+  React, observer, cn, computed,
 } from '../../helpers/react';
 import PropTypes from 'prop-types';
 import Course from '../../models/course';
@@ -67,4 +67,4 @@ class CoursePlan extends React.Component {
       </div>
     );
   }
-};
+}

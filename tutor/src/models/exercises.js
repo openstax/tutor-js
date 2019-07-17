@@ -8,6 +8,8 @@ const MIN_EXCLUDED_COUNT = 5;
 const COMPLETE = Symbol('COMPLETE');
 const PENDING = Symbol('PENDING');
 
+export { COMPLETE, PENDING };
+
 export class ExercisesMap extends Map {
 
   @readonly fetched = new Map();

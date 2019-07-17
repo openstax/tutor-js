@@ -1,27 +1,20 @@
 import {
-  React, PropTypes, observer, inject, autobind,
+  React, PropTypes, observer, inject, autobind, computed,
 } from '../../../helpers/react';
 import { Button } from 'react-bootstrap';
 import ScrollSpy from '../../../components/scroll-spy';
 import Sectionizer from '../../../components/exercises/sectionizer';
 import { Icon } from 'shared';
-import fluxToMobx from '../../../helpers/flux-to-mobx';
 import TourAnchor from '../../../components/tours/anchor';
 import SelectionsTooltip from './selections-tooltip';
-import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
+import UX from '../ux';
 
 @inject('setSecondaryTopControls')
 @observer
 class ExerciseControls extends React.Component {
   static propTypes = {
-    planId:              PropTypes.string.isRequired,
-    canAdd:              PropTypes.bool,
-    canEdit:             PropTypes.bool,
-    onCancel:            PropTypes.func,
+    ux: PropTypes.instanceOf(UX).isRequired,
     unDocked:            PropTypes.bool,
-    canReview:           PropTypes.bool,
-    addClicked:          PropTypes.func,
-    reviewClicked:       PropTypes.func,
     sectionizerProps:    PropTypes.object,
     hideDisplayControls: PropTypes.bool,
     setSecondaryTopControls: PropTypes.func.isRequired,
@@ -34,23 +27,20 @@ class ExerciseControls extends React.Component {
     }
   }
 
-  selectedCount = fluxToMobx(
-    TaskPlanStore, () => TaskPlanStore.exerciseCount(this.props.planId) || 0,
-  )
-
   componentWillUnmount() {
     if (!this.props.unDocked) {
       this.props.setSecondaryTopControls(null);
     }
   }
 
-  addTutorSelection = () => {
-    TaskPlanActions.updateTutorSelection(this.props.planId, 1);
-  };
+  // addTutorSelection = () => {
 
-  removeTutorSelection = () => {
-    TaskPlanActions.updateTutorSelection(this.props.planId, -1);
-  };
+  //   TaskPlanActions.updateTutorSelection(this.props.planId, 1);
+  // };
+
+  // removeTutorSelection = () => {
+  //   TaskPlanActions.updateTutorSelection(this.props.planId, -1);
+  // };
 
   renderDisplayControls() {
     if (this.props.hideDisplayControls) {
@@ -70,8 +60,12 @@ class ExerciseControls extends React.Component {
     }
   }
 
+  @computed get canAdd() {
+    return this.props.ux.plan.canEdit;
+  }
+
   renderExplanation() {
-    if (this.props.canAdd) { return null; }
+    if (this.canAdd) { return null; }
     return (
       <div className="tutor-added-later">
         <span>
@@ -82,14 +76,15 @@ class ExerciseControls extends React.Component {
   }
 
   renderActionButtons() {
-    if (this.props.canReview && this.selectedCount.current()) {
+    const { ux } = this.props;
+    if (ux.plan.numExercises) {
       return (
         [
           <Button
             key="next"
             variant="primary"
             className="review-exercises"
-            onClick={this.props.reviewClicked}
+            onClick={ux.onExercisesReviewClicked}
           >
             Next
           </Button>,
@@ -97,18 +92,18 @@ class ExerciseControls extends React.Component {
             key="cancel"
             variant="default"
             className="cancel-add"
-            onClick={this.props.onCancel}
+            onClick={ux.onSectExercisesCancel}
           >
             Cancel
           </Button>,
         ]
       );
-    } else if (this.props.canAdd) {
+    } else if (ux.canEdit) {
       return (
         <Button
           variant="default"
           className="add-sections"
-          onClick={this.props.addClicked}
+          onClick={ux.onShowSectionSelection}
         >
           + Add More Sections
         </Button>
@@ -118,14 +113,17 @@ class ExerciseControls extends React.Component {
     }
   }
 
-  canChangeTutorQty() {
-    return Boolean(this.props.canEdit || this.props.canAdd);
-  }
+  // canChangeTutorQty() {
+  //   return Boolean(this.props.canEdit || this.props.canAdd);
+  // }
 
   renderIncreaseButton() {
-    if (this.canChangeTutorQty() && TaskPlanStore.canIncreaseTutorExercises(this.props.planId)) {
+    const { ux } = this.props;
+    if (ux.canEdit && ux.plan.canIncreaseTutorExercises) {
       return (
-        <Icon onClick={this.addTutorSelection} size="xs" className="hover-circle" type="chevron-up" />
+        <Icon
+          type="chevron-up" onClick={ux.increaseTutorSelection}
+          className="hover-circle" size="xs" />
       );
     } else {
       return <span className="circle-btn-placeholder" />;
@@ -133,9 +131,12 @@ class ExerciseControls extends React.Component {
   }
 
   renderDecreaseButton() {
-    if (this.canChangeTutorQty() && TaskPlanStore.canDecreaseTutorExercises(this.props.planId)) {
+    const { ux } = this.props;
+    if (ux.canEdit && ux.plan.canDecreaseTutorExercises) {
       return (
-        <Icon type="chevron-down" size="xs" onClick={this.removeTutorSelection} className="hover-circle" />
+        <Icon
+          type="chevron-down" onClick={ux.decreaseTutorSelection}
+          className="hover-circle" size="xs" />
       );
     } else {
       return <span className="circle-btn-placeholder" />;
@@ -150,9 +151,7 @@ class ExerciseControls extends React.Component {
   }
 
   @autobind renderControls() {
-
-    const numSelected = this.selectedCount.current();
-    const numTutor = TaskPlanStore.getTutorSelections(this.props.planId);
+    const { ux: { plan } } = this.props;
 
     return (
       <div className="exercise-controls-bar">
@@ -160,7 +159,7 @@ class ExerciseControls extends React.Component {
         <div className="indicators">
           <div className="num total">
             <h2>
-              {numSelected + numTutor}
+              {plan.numExercises + plan.numTutorSelections}
             </h2>
             <span>
               Total Problems
@@ -168,7 +167,7 @@ class ExerciseControls extends React.Component {
           </div>
           <div className="num mine">
             <h2>
-              {numSelected}
+              {plan.numExercises}
             </h2>
             <span>
               My Selections
@@ -178,7 +177,7 @@ class ExerciseControls extends React.Component {
             <div className="tutor-selections">
               {this.renderDecreaseButton()}
               <h2>
-                {numTutor}
+                {plan.numTutorSelections}
               </h2>
               {this.renderIncreaseButton()}
             </div>

@@ -1,13 +1,12 @@
 import {
   identifiedBy, session,
 } from 'shared/model';
-
 import moment from 'moment';
 import { observable, computed } from 'mobx';
 import Job from '../job';
 import Map from 'shared/model/map';
 import UiSettings from 'shared/model/ui-settings';
-import { TimeStore } from '../../flux/time';
+import Time from '../../models/time';
 import Toasts from '../toasts';
 
 const CURRENT = new Map();
@@ -40,7 +39,7 @@ class ScoresExport extends Job {
   }
 
   onPollComplete(info) {
-    UiSettings.set(LAST_EXPORT, this.course.id, TimeStore.getNow().toISOString());
+    UiSettings.set(LAST_EXPORT, this.course.id, Time.now.toISOString());
     Toasts.push({
       info,
       type: 'scores',
@@ -58,4 +57,4 @@ class ScoresExport extends Job {
     this.startPolling(data.job);
   }
 
-};
+}

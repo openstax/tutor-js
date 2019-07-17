@@ -1,20 +1,35 @@
-import { React, Factory } from '../../../helpers';
+import { React, Factory, TimeMock } from '../helpers';
 
-import MiniEditor from '../../../../src/screens/assignment-builder/mini-editor';
+import Editor from '../../../../src/screens/assignment-builder/mini-editor';
 
 describe('TaskPlan MiniEditor wrapper', function() {
   let props = {};
-  beforeEach(() =>
+
+  const now = TimeMock.setTo('2015-10-14T12:00:00.000Z');
+
+  beforeEach(() => {
+    const course = Factory.course();
+    const sourcePlan = Factory.teacherTaskPlan({ now, course, type: 'homework', description: 'do this hw' });
+    jest.spyOn(course, 'pastTaskPlans', 'get').mockImplementation(() => ({
+      get() { return sourcePlan; },
+      api: { hasBeenFetched: true },
+    }));
+
     props = {
-      course: Factory.course(),
-      planId:   '42',
+      course,
+      sourcePlan: {
+        id: String(sourcePlan.id),
+        date: now,
+      },
       findPopOverTarget: jest.fn(),
       onHide: jest.fn(),
       position: { x: 100, y: 100 },
-    });
+    };
+  });
 
-  it('renders with loadable', function() {
-    const wrapper = shallow(React.createElement(MiniEditor, Object.assign({}, props )));
-    expect(wrapper.find('LoadableItem[id="42"]')).toHaveLength(1);
+  it('renders editor', () => {
+    const wrapper = shallow(<Editor {...props} />);
+    expect(wrapper).toHaveRendered('TaskPlanMiniEditor');
+    wrapper.unmount();
   });
 });

@@ -1,9 +1,25 @@
 import moment from 'moment';
-import { TimeStore } from '../flux/time';
+import Time from '../models/time';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default class extends React.Component {
+export default class TimeDifference extends React.Component {
+
+  static propTypes = {
+    date: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date),
+    ]).isRequired,
+    customSuffix: PropTypes.string,
+    compareWith: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date),
+    ]),
+    compare: PropTypes.oneOf(['from', 'to']),
+    toleranceMS: PropTypes.number,
+    defaultText: PropTypes.string,
+  };
+
   static defaultProps = {
     compare: 'from',
     customSuffix: undefined,
@@ -11,27 +27,9 @@ export default class extends React.Component {
     defaultText: 'just now',
   };
 
-  static displayName = 'TimeDifference';
-
-  static propTypes = {
-    date: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.instanceOf(Date),
-    ]).isRequired,
-
-    compareWith: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.instanceOf(Date),
-    ]),
-
-    compare: PropTypes.oneOf(['from', 'to']),
-    toleranceMS: PropTypes.number,
-    defaultText: PropTypes.string,
-  };
-
   shouldRenderDifference = () => {
     let { date, compareWith, toleranceMS } = this.props;
-    if (!compareWith) { compareWith = TimeStore.getNow(); }
+    if (!compareWith) { compareWith = Time.now; }
     return Math.abs(moment(date).diff(compareWith)) > toleranceMS;
   };
 

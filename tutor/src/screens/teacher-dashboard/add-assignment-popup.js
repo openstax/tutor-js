@@ -1,10 +1,7 @@
-import { React, observer, cn, action } from '../../helpers/react';
+import { React, observer, cn } from '../../helpers/react';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'react-bootstrap';
-import moment from 'moment';
 import Course from '../../models/course';
-import { TimeStore } from '../../flux/time';
-import TimeHelper from '../../helpers/time';
 import Time from '../../models/time';
 
 import AddMenu from './add-menu';
@@ -74,4 +71,4 @@ class AddAssignmentPopUp extends React.Component {
       </Dropdown.Menu>
     );
   }
-};
+}

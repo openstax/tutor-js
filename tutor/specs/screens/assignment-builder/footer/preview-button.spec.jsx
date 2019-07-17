@@ -1,3 +1,4 @@
+import { Factory } from '../../../helpers';
 import Preview from '../../../../src/screens/assignment-builder/footer/preview-button';
 
 describe('Task Plan Builder: Preview button', () => {
@@ -5,20 +6,21 @@ describe('Task Plan Builder: Preview button', () => {
   let props;
   beforeEach(() => {
     props = {
-      planType: 'reading',
-      isWaiting: false,
-      isNew: true,
-      courseId: '1',
+      ux: {
+        plan: { type: 'reading' },
+        course: Factory.course({
+          appearance_code: 'college_biology',
+        }),
+      },
     };
   });
 
   it('renders when plan hw or reading', () => {
     const btn = shallow(<Preview {...props} />);
     expect(btn.html()).not.toBeNull();
-    btn.setProps({ planType: 'external' });
+    props.ux.plan.type = 'external';
+    btn.setProps({ ux: { ...props.ux } });
     expect(btn.html()).toBeNull();
-    btn.setProps({ planType: 'homework' });
-    expect(btn.html()).not.toBeNull();
     btn.unmount();
   });
 

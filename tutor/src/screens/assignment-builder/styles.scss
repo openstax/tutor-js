@@ -43,14 +43,14 @@
     }
   }
 
-  .select-topics {
+  .select-sections {
     > .panel-body {
       overflow: auto;
       max-height: calc(100vh - 200px);
     }
   }
 
-  @include tutor-plan-set(header, '.dialog > .card-header');
+  @include tutor-plan-set(header, '.card-header');
 
   > .dialog {
     @include tutor-pad-panel();

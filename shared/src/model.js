@@ -27,7 +27,10 @@ export class BaseModel {
   }
 
   @action ensureLoaded() {
-    if (!this.api.isPending && !this.api.hasBeenFetched) { this.fetch(); }
+    if (!this.api.isPending && !this.api.hasBeenFetched) {
+      return this.fetch();
+    }
+    return Promise.resolve();
   }
 
   @action onApiRequestComplete({ data }) {

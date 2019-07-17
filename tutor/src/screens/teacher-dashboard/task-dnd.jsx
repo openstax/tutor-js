@@ -1,8 +1,5 @@
-import { React, cn, observable, observer, action } from '../../helpers/react';
-import { toJS } from 'mobx';
-import { partial } from 'lodash';
+import { React, cn } from '../../helpers/react';
 import { DragSource } from 'react-dnd';
-import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
 
 import GrabbyDots from '../../components/grabby-dots';
 
@@ -33,8 +30,9 @@ const CloneTaskDrag = {
     // start loading task plan details as soon as it starts to drag
     // hopefully the load will have completed by the time it's dropped
     offHover();
-    if (!TaskPlanStore.isLoaded(plan.id) && !TaskPlanStore.isLoading(plan.id)) {
-      TaskPlanActions.loaded(plan, plan.id);
+
+    if (!plan.api.isFetchedOrFetching) {
+      plan.fetch();
     }
     return { id: plan.id, type: plan.type };
   },

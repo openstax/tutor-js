@@ -43,6 +43,8 @@ ExerciseCardsWrapper.propTypes = {
 @observer
 class ExercisesDisplay extends React.Component {
 
+  static displayName = 'ExercisesDisplay';
+
   static propTypes = {
     course:                 PropTypes.instanceOf(Course).isRequired,
     pageIds:                ArrayOrMobxType.isRequired,

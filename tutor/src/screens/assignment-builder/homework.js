@@ -1,112 +1,81 @@
-import { React, idType, cn } from '../../helpers/react';
-import createReactClass from 'create-react-class';
-import { pick, isEmpty } from 'lodash';
+import {
+  React, PropTypes, observer, cn,
+} from '../../helpers/react';
+import { isEmpty } from 'lodash';
 import { Card, Row, Col, Button } from 'react-bootstrap';
-
-import PlanMixin from './plan-mixin';
+import Header from './header';
 import TaskPlanBuilder from './builder';
 import ChooseExercises from './homework/choose-exercises';
 import ReviewExercises from './homework/review-exercises';
 import FeedbackSetting from './feedback';
 import PlanFooter from './footer';
-import { TaskPlanStore } from '../../flux/task-plan';
 import Wrapper from './wrapper';
+import UX from './ux';
+import sharedExercises, { ExercisesMap } from '../../models/exercises';
 
-const HomeworkPlan = createReactClass({
-  displayName: 'HomeworkPlan',
-  mixins: [PlanMixin],
+@observer
+class Homework extends React.Component {
 
-  propTypes: {
-    id: idType.isRequired,
-    courseId: idType.isRequired,
-  },
+  static propTypes = {
+    ux: PropTypes.instanceOf(UX).isRequired,
+    exercises:  PropTypes.instanceOf(ExercisesMap),
+  }
+
+  static defaultProps = {
+    exercises: sharedExercises,
+  };
 
   render() {
-    const { id, courseId } = this.props;
-    const builderProps = pick(this.state, 'isVisibleToStudents', 'isEditable', 'isSwitchable');
-    const hasError = this.hasError();
-    const course = this.getCourse();
-
-    const ecosystemId = TaskPlanStore.getEcosystemId(id, courseId);
-
-    const topics = TaskPlanStore.getTopics(id);
-    const hasExercises = !isEmpty(TaskPlanStore.getExercises(id));
-
-    const formClasses = cn(
-      'edit-homework dialog',
-      {
-        hide: this.state.showSectionTopics,
-        'is-invalid-form': hasError,
-      },
-    );
+    const { ux, ux: { plan, form } } = this.props;
 
     return (
-      <Wrapper planType={TaskPlanStore.getType(id)}>
-        <Card className={formClasses}>
+      <Wrapper ux={ux}>
 
-          <Card.Header>
-            {this.builderHeader('homework')}
-          </Card.Header>
+        <Card>
+
+          <Header plan={plan} onCancel={ux.onCancel} />
 
           <Card.Body>
-            <TaskPlanBuilder courseId={courseId} id={id} {...builderProps} />
+
+            <TaskPlanBuilder ux={ux} />
+
             <Row>
               <Col xs={8}>
-                <FeedbackSetting id={id} showPopup={this.state.isVisibleToStudents} />
+                <FeedbackSetting plan={plan} />
               </Col>
             </Row>
             <Row>
               <Col xs={12} md={12}>
-                {!this.state.isVisibleToStudents && (
+                {!plan.isVisibleToStudents && (
                   <Button
-                    id="problems-select"
-                    className={cn('-select-sections-btn', { 'invalid': hasError && !hasExercises })}
-                    onClick={this.showSectionTopics}
+                    id="select-sections"
+                    className={cn({
+                      invalid: ux.showErrors && !plan.hasExercises,
+                    })}
+                    onClick={ux.onShowSectionSelection}
                     variant="default"
                   >+ Select Problems</Button>)}
-                {hasError && !hasExercises && (
+                {form.showErrors && isEmpty(ux.selectedExercises) && (
                   <span className="problems-required">
                     Please select problems for this assignment.
                   </span>)}
               </Col>
             </Row>
           </Card.Body>
-          <PlanFooter
-            id={id}
-            courseId={courseId}
-            onPublish={this.publish}
-            onSave={this.save}
-            onCancel={this.cancel}
-            hasError={hasError}
-            isVisibleToStudents={this.state.isVisibleToStudents}
-            getBackToCalendarParams={this.getBackToCalendarParams}
-            goBackToCalendar={this.goBackToCalendar}
-          />
+          <PlanFooter ux={ux} />
         </Card>
-        {this.state.showSectionTopics && (
+        {ux.isShowingSectionSelection && (
           <ChooseExercises
-            course={course}
-            planId={id}
+            ux={ux}
+            exercises={this.props.exercises}
             cancel={this.cancelSelection}
             hide={this.hideSectionTopics}
-            canEdit={!this.state.isVisibleToStudents}
           />)}
-        {hasExercises && !this.state.showSectionTopics && (
-          <ReviewExercises
-            course={course}
-            canAdd={!this.state.isVisibleToStudents}
-            canEdit={!this.state.isVisibleToStudents}
-            showSectionTopics={this.showSectionTopics}
-            courseId={courseId}
-            sectionIds={topics}
-            ecosystemId={ecosystemId}
-            planId={id}
-          />)}
+        {ux.isShowingExerciseReview && (
+          <ReviewExercises ux={ux} />)}
       </Wrapper>
     );
-  },
-});
+  }
+}
 
-export { HomeworkPlan };
-const HomeworkShell = PlanMixin.makePlanRenderer('homework', HomeworkPlan);
-export default HomeworkShell;
+export default Homework;

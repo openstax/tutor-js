@@ -1,12 +1,5 @@
-import Courses from '../../../src/models/courses-map';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import Purchase from '../../../src/models/purchases/purchase';
-
-jest.mock('../../../src/flux/time', () => ({
-  TimeStore: {
-    getNow: jest.fn(() => new Date('2000-01-01')),
-  },
-}));
 
 describe('Purchase Model', () => {
   let course, purchase;

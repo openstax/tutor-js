@@ -1,5 +1,5 @@
 import { TEACHER_COURSE_TWO_MODEL } from '../../../courses-test-data';
-import { Factory, TimeMock } from '../../../helpers';
+import { TimeMock } from '../../../helpers';
 import CourseUX from '../../../../src/models/course/onboarding/full-course';
 import UiSettings from 'shared/model/ui-settings';
 import User from '../../../../src/models/user';
@@ -11,12 +11,6 @@ jest.mock('shared/model/ui-settings', () => ({
   set: jest.fn(),
   get: jest.fn(),
 }));
-
-// jest.mock('../../../../src/flux/time', () => ({
-//   TimeStore: {
-//     getNow: jest.fn(() => new Date('Thu Aug 31 2017 16:53:12 GMT-0500 (CDT)')),
-//   },
-// }));
 
 jest.mock('../../../../src/models/user', ()=> ({
   logEvent: jest.fn(),

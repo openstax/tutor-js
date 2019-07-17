@@ -1,4 +1,4 @@
-import { React, observer, cn, action } from '../../helpers/react';
+import { React } from '../../helpers/react';
 import { Dropdown } from 'react-bootstrap';
 import { map, partial } from 'lodash';
 import { autobind } from 'core-decorators';
@@ -24,26 +24,26 @@ export default class CourseAddMenu {
       links = [
         {
           text: 'Add Reading',
-          to: 'editReading',
-          params: { courseId: course.id, id: 'new' },
+          to: 'editAssignment',
+          params: { type: 'reading', courseId: course.id, id: 'new' },
           type: 'reading',
           query: { due_at },
         }, {
           text: 'Add Homework',
-          to: 'editHomework',
-          params: { courseId: course.id, id: 'new' },
+          to: 'editAssignment',
+          params: { type: 'homework', courseId: course.id, id: 'new' },
           type: 'homework',
           query: { due_at },
         }, {
           text: 'Add External Assignment',
-          to: 'editExternal',
-          params: { courseId: course.id, id: 'new' },
+          to: 'editAssignment',
+          params: { type: 'external', courseId: course.id, id: 'new' },
           type: 'external',
           query: { due_at },
         }, {
           text: 'Add Event',
-          to: 'editEvent',
-          params: { courseId: course.id, id: 'new' },
+          to: 'editAssignment',
+          params: { type: 'event', courseId: course.id, id: 'new' },
           type: 'event',
           query: { due_at },
         },

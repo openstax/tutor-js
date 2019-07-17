@@ -8,7 +8,7 @@ const { now } = require('../time-now');
 let survey = Factory.create('ResearchSurvey');
 
 const tasks = {
-  teacher: times(25, (i) => Factory.create('TeacherDashboardTask',
+  teacher: times(25, (i) => Factory.create('TeacherTaskPlan',
     { now, days_ago: i-10 }
   )),
   student: times(25, (i) => Factory.create('StudentDashboardTask',
@@ -38,7 +38,7 @@ module.exports = {
       data.plans = tasks.teacher;
       data.plans.forEach(plan => {
         plan.tasking_plans = course.periods.map(period =>
-          Factory.create('TeacherDashboardTaskPlan', { now, period, days_ago: (days+=1) }),
+          Factory.create('TeacherTaskPlan', { now, period, days_ago: (days+=1) }),
         );
       });
       data.tasks = [];

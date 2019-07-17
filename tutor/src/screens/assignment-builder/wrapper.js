@@ -1,5 +1,6 @@
 import { React, PropTypes, styled } from '../../helpers/react';
 import NudgeAvailableMessage from './nudge-is-available-message';
+import UX from './ux';
 
 const StyledNudgeMessage = styled(NudgeAvailableMessage)`
   margin-bottom: 4rem;
@@ -16,20 +17,21 @@ const Wrapper = styled.div`
   padding: 2rem;
 `;
 
-const BuilderWrapper = ({ children, planType }) => (
-  <Wrapper
-    className={`${planType}-plan task-plan`}
-    data-assignment-type={planType}
-  >
-    <StyledNudgeMessage planType={planType} />
-    {children}
-  </Wrapper>
-);
+const AssignmentBuilderWrapper = ({ ux: { plan: { type } }, children }) => {
+  return (
+    <Wrapper
+      className={`${type}-plan task-plan`}
+      data-assignment-type={type}
+    >
+      <StyledNudgeMessage planType={type} />
+      {children}
+    </Wrapper>
+  );
+};
 
-BuilderWrapper.propTypes = {
-  planType: PropTypes.string.isRequired,
+AssignmentBuilderWrapper.propTypes = {
+  ux: PropTypes.instanceOf(UX).isRequired,
   children: PropTypes.node.isRequired,
 };
 
-
-export default BuilderWrapper;
+export default AssignmentBuilderWrapper;

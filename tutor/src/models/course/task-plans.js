@@ -16,10 +16,10 @@ export default class CourseTaskPlans extends Map {
     return { course: this.course };
   }
 
-  withPlanId(planId) {
+  withPlanId(planId, attributes = {}) {
     let plan = this.get(planId);
     if (!plan) {
-      plan = new TaskPlan({ id: planId });
+      plan = new TaskPlan({ id: planId, ...attributes });
       this.set(planId, plan);
     }
     return plan;

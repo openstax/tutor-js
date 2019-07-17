@@ -1,229 +1,98 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`review exercises table renders selections 1`] = `
-<table
-  className="exercise-table"
-  data-tour-region-id="add-homework-review-sections"
->
-  <thead>
-    <tr>
-      <td />
-      <td />
-      <td>
-        Problem Question
-      </td>
-      <td>
-        Learning Objective
-      </td>
-      <td>
-        Details
-      </td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr
-      data-ex-id={1}
-    >
-      <td
-        className="exercise-number"
-      >
-        1
-      </td>
-      <td>
-        <span
-          className="chapter-section"
-          data-chapter-section=".0"
-        >
-          
-        </span>
-      </td>
-      <td>
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?",
-            }
-          }
-        />
-      </td>
-      <td
-        className="ellipses"
-      >
-        lo:stax-phys:1-2-1
-      </td>
-      <td
-        className="ellipses"
-      >
-        blooms:3 / dok:3
-      </td>
-    </tr>
-    <tr
-      data-ex-id={2}
-    >
-      <td
-        className="exercise-number"
-      >
-        2
-      </td>
-      <td>
-        <span
-          className="chapter-section"
-          data-chapter-section=".0"
-        >
-          
-        </span>
-      </td>
-      <td>
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "How could physics be useful in weather prediction?",
-            }
-          }
-        />
-      </td>
-      <td
-        className="ellipses"
-      >
-        lo:stax-phys:1-2-1
-      </td>
-      <td
-        className="ellipses"
-      >
-        blooms:3 / dok:3
-      </td>
-    </tr>
-    <tr
-      data-ex-id={3}
-    >
-      <td
-        className="exercise-number"
-      >
-        3
-      </td>
-      <td>
-        <span
-          className="chapter-section"
-          data-chapter-section=".0"
-        >
-          
-        </span>
-      </td>
-      <td>
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "In what sense does Einstein’s theory of relativity illustrate that physics describes fundamental aspects of our universe?",
-            }
-          }
-        />
-      </td>
-      <td
-        className="ellipses"
-      >
-        lo:stax-phys:1-2-1
-      </td>
-      <td
-        className="ellipses"
-      >
-        blooms:3 / dok:3
-      </td>
-    </tr>
-    <tr
-      data-ex-id={4}
-    >
-      <td
-        className="exercise-number"
-      >
-        4
-      </td>
-      <td>
-        <span
-          className="chapter-section"
-          data-chapter-section=".0"
-        >
-          
-        </span>
-      </td>
-      <td>
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "Can classical physics be used to accurately describe a satellite moving at a speed of? Explain why or why not.",
-            }
-          }
-        />
-      </td>
-      <td
-        className="ellipses"
-      >
-        lo:stax-phys:1-2-1
-      </td>
-      <td
-        className="ellipses"
-      >
-        blooms:3 / dok:3
-      </td>
-    </tr>
-    <tr>
-      <td
-        className="exercise-number"
-      >
-        5
-      </td>
-      <td>
-        -
-      </td>
-      <td>
-        Tutor Selection
-      </td>
-      <td>
-        -
-      </td>
-      <td>
-        -
-      </td>
-    </tr>
-    <tr>
-      <td
-        className="exercise-number"
-      >
-        6
-      </td>
-      <td>
-        -
-      </td>
-      <td>
-        Tutor Selection
-      </td>
-      <td>
-        -
-      </td>
-      <td>
-        -
-      </td>
-    </tr>
-    <tr>
-      <td
-        className="exercise-number"
-      >
-        7
-      </td>
-      <td>
-        -
-      </td>
-      <td>
-        Tutor Selection
-      </td>
-      <td>
-        -
-      </td>
-      <td>
-        -
-      </td>
-    </tr>
-  </tbody>
-</table>
+exports[`review exercises table matches snapshot 1`] = `
+"<C path=\\"/\\">
+  <ThemeProvider theme={{...}}>
+    <MemoryRouter initialIndex={0} initialEntries={{...}}>
+      <Router history={{...}}>
+        <DragDropContext(Component)>
+          <Component>
+            <Component>
+              <SpyModeWrapper>
+                <Provider spyMode={{...}}>
+                  <div className=\\"openstax-debug-content\\">
+                    <inject-TourConductor-with-spyMode tourContext={[undefined]}>
+                      <TourConductor tourContext={[undefined]} spyMode={{...}}>
+                        <Provider tourContext={{...}}>
+                          <div data-purpose=\\"tour-conductor-wrapper\\">
+                            <TutorSpecLayout>
+                              <Provider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: res]}>
+                                <div>
+                                  <Navbar area=\\"header\\" context={{...}} isDocked={false} />
+                                  <ExerciseTable ux={{...}}>
+                                    <inject-TourRegion tag=\\"table\\" delay={4000} className=\\"exercise-table\\" id=\\"add-homework-review-sections\\" courseId={1}>
+                                      <TourRegion tag=\\"table\\" delay={4000} className=\\"exercise-table\\" id=\\"add-homework-review-sections\\" courseId={1} tourContext={{...}}>
+                                        <table className=\\"exercise-table\\" data-tour-region-id=\\"add-homework-review-sections\\">
+                                          <thead>
+                                            <tr>
+                                              <td />
+                                              <td />
+                                              <td>
+                                                Problem Question
+                                              </td>
+                                              <td>
+                                                Learning Objective
+                                              </td>
+                                              <td>
+                                                Details
+                                              </td>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            <tr data-ex-id={1}>
+                                              <td className=\\"exercise-number\\">
+                                                1
+                                              </td>
+                                              <td>
+                                                <ChapterSection chapterSection={{...}}>
+                                                  <span className=\\"chapter-section\\" data-chapter-section=\\".0\\" />
+                                                </ChapterSection>
+                                              </td>
+                                              <td>
+                                                <Component block={false} html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\">
+                                                  <div dangerouslySetInnerHTML={{...}} />
+                                                </Component>
+                                              </td>
+                                              <td className=\\"ellipses\\">
+                                                lo:stax-phys:1-2-1
+                                              </td>
+                                              <td className=\\"ellipses\\">
+                                                blooms:3 / dok:3
+                                              </td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </TourRegion>
+                                    </inject-TourRegion>
+                                  </ExerciseTable>
+                                  <Navbar area=\\"footer\\" context={{...}} />
+                                </div>
+                              </Provider>
+                            </TutorSpecLayout>
+                            <SpyModeContent>
+                              <div className=\\"visible-when-debugging\\">
+                                <div className=\\"tour-spy-info\\">
+                                  available regions: []; region tour ids: []; audience tags: []; tour tags: []; eligible tours: []; TOUR RIDE: &lt;none&gt;
+                                </div>
+                              </div>
+                            </SpyModeContent>
+                          </div>
+                        </Provider>
+                      </TourConductor>
+                    </inject-TourConductor-with-spyMode>
+                    <a href=\\"#spy\\" tabIndex={-1} onClick={[Function: res]} className=\\"debug-toggle-link\\" aria-hidden=\\"true\\">
+                      π
+                    </a>
+                  </div>
+                </Provider>
+              </SpyModeWrapper>
+            </Component>
+          </Component>
+        </DragDropContext(Component)>
+      </Router>
+    </MemoryRouter>
+  </ThemeProvider>
+</C>"
 `;
 
 exports[`review exercises table strips images 1`] = `

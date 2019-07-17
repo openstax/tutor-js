@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { React, observer, action  } from '../../helpers/react';
 import moment from 'moment';
 import { Icon } from 'shared';
-import { TimeStore } from '../../flux/time';
+import Time from '../../models/time';
 import TimeHelper from '../../helpers/time';
 
 @observer
@@ -21,7 +21,7 @@ class CourseCalendarTitleNav extends React.Component {
     format: 'MMMM YYYY',
   };
 
-  state = { date: this.props.date || moment(TimeStore.getNow()) };
+  state = { date: this.props.date || moment(Time.now) };
 
   componentWillReceiveProps(nextProps) {
     if (!moment(nextProps.date).isSame(this.state.date, 'month')) {
