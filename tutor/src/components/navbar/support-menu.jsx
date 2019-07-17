@@ -17,32 +17,6 @@ import Router from '../../helpers/router';
 import Course from '../../models/course';
 import Theme from '../../theme';
 
-const StudentPreview = observer(({
-  course, tourContext, ...props // eslint-disable-line no-unused-vars
-}, { router }) => {
-  if(
-    !course ||
-      !( User.isConfirmedFaculty || User.isUnverifiedInstructor ) ||
-      (course && course.currentRole.isTeacherStudent)
-  ) { return null; }
-  return (
-    <Dropdown.Item
-      {...props}
-      id="student-preview-videos"
-      onClick={() => {
-        router.history.push(Router.makePathname('studentPreview', { courseId: course.id }));
-      }}
-    >
-      <TourAnchor id="student-preview-link">
-        <span className="control-label" title="See what students see">Student preview videos</span>
-      </TourAnchor>
-    </Dropdown.Item>
-  );
-});
-
-StudentPreview.contextTypes = {
-  router: PropTypes.object,
-};
 
 const PageTips = observer(({ onPlayClick, tourContext, ...props }) => {
   if (!get(tourContext, 'hasTriggeredTour', false)){ return null; }
@@ -167,7 +141,6 @@ class SupportMenu extends React.Component {
           >
             <span>Help Articles</span>
           </Dropdown.Item>
-          <StudentPreview course={course} {...this.props} />
           <SupportDocument course={course} />
           <BestPracticesGuide course={course} />
           <Dropdown.Item

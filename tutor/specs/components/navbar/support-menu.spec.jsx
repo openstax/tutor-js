@@ -61,17 +61,4 @@ describe('Support Menu', () => {
     expect.snapshot(<C><SupportMenu {...props} /></C>).toMatchSnapshot();
   });
 
-  it('links to student preview with course', () => {
-    props.course.appearance_code = 'college_biology';
-    User.isConfirmedFaculty = true;
-    const menu = mount(<C><SupportMenu {...props} /></C>);
-    menu.find('button.dropdown-toggle').simulate('click');
-    const selector = '[data-tour-anchor-id="student-preview-link"]';
-    expect(menu).toHaveRendered(selector);
-    menu.find(selector).simulate('click');
-    expect(menu.ref('router').history.location.pathname)
-      .toEqual(`/student-preview/${props.course.id}`);
-    menu.unmount();
-  });
-
 });
