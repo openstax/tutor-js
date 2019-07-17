@@ -19,10 +19,6 @@
         @if $table-header {
           background: $table-header;
         }
-
-      }
-      tr:first-of-type:not(:last-child) th {
-        padding-left: 0;
       }
     }
     tr:nth-child(odd) {
