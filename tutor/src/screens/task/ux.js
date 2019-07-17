@@ -38,6 +38,7 @@ export default class TaskUX {
     // if the teacher has reloaded while working student tasks
     // we need to restore it so the frame appears
     const teacherAsStudentRole = this.course.roles.find(r => {
+      // use of == is deliberate so that it'll match both string and number ids
       return this._task.students.find(s => s.role_id == r.id);
     });
     if (teacherAsStudentRole) {
