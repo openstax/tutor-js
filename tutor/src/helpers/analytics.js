@@ -58,7 +58,8 @@ const Translators = {
 
   // Task steps are viewed by both teacher and student with no difference in params
   viewTaskStep({ courseId }) {
-    const role = Courses.get(courseId).primaryRole.type;
+    const course = Courses.get(courseId);
+    const role = course ? course.primaryRole.type : 'unknown';
     return `/${role}/task-step/${courseId}`;
   },
 };
