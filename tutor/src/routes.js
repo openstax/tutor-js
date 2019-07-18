@@ -75,9 +75,7 @@ const getRoutes = (router) => {
     }, {
       path: '/accessibility-statement/:courseId?', name: 'accessibilityStatement',
       renderer: r(() => import('./components/accessibility-statement')),
-    }, {
-      path: '/student-preview/:courseId?', name: 'studentPreview',
-      renderer: r(() => import('./components/student-preview')) },
+    },
     { path: '/payments', name: 'managePayments',
       renderer: r(() => import('./components/payments/manage')) },
     {
