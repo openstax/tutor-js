@@ -302,7 +302,6 @@ class TeacherTaskPlan extends BaseModel {
     return new TeacherTaskPlan({
       ...this.clonedAttributes,
       tasking_plans: course.periods.active.map(period => ({
-        opens_at: course.starts_at,
         target_id: period.id,
         target_type: 'period',
       })),

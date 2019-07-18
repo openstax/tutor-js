@@ -29,7 +29,7 @@ class TaskingPlan extends BaseModel {
     if (this.plan && this.plan.course) {
       const [ hour, minute ] = this.plan.course.default_open_time.split(':');
       this.opens_at = moment(Time.now).add(1, 'day')
-        .hour(hour).minute(minute).toISOString();
+        .hour(hour).minute(minute).startOf('minute').toISOString();
     }
 
   }

@@ -33,7 +33,6 @@ class AssignmentBuilderUX {
       }
       this.sourcePlanId = id;
       this.plan = course.pastTaskPlans.get(id).createClone({ course });
-
     } else {
       if (plan) {
         this.plan = plan;
@@ -47,6 +46,7 @@ class AssignmentBuilderUX {
         this.plan.type = type;
       }
     }
+
     if (!this.plan.isNew) {
       await this.plan.ensureLoaded();
     }
@@ -61,7 +61,7 @@ class AssignmentBuilderUX {
       this.plan.findOrCreateTaskingForPeriod(period),
     );
     if (due_at) {
-      this.plan.tasking_plans.forEach(tp => tp.due_at = moment(due_at).toISOString());
+      this.plan.tasking_plans.forEach(tp => tp.due_at = moment(due_at).startOf('minute').toISOString());
     }
     this.isShowingPeriodTaskings = !this.plan.areTaskingDatesSame;
     this.scroller = new ScrollTo({ windowImpl });
