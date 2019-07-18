@@ -6,7 +6,7 @@ export default function onboardingForCourse(course, context) {
   let Klass;
   if (!course) { return {}; }
 
-  if (course.isStudent) {
+  if (course.currentRole.isStudentLike) {
     Klass = StudentCourse;
   } else {
     Klass = course.is_preview ? Preview : FullCourse;
