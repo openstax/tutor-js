@@ -8,17 +8,19 @@ import classnames from 'classnames';
 import Pagination from 'ultimate-pagination';
 import WindowSize from '../../models/window-size';
 import ScrollTo from '../../helpers/scroll-to';
-
+import ChapterSection from '../../models/chapter-section';
 
 @observer
 class Sectionizer extends React.Component {
 
   static propTypes = {
-    chapter_sections:  PropTypes.array.isRequired,
+    chapter_sections:  PropTypes.arrayOf(
+      PropTypes.instanceOf(ChapterSection)
+    ).isRequired,
     onScreenElements:  PropTypes.array.isRequired,
     nonAvailableWidth: PropTypes.number.isRequired,
     onSectionClick:    PropTypes.func,
-    currentSection:    PropTypes.string,
+    currentSection:    PropTypes.instanceOf(ChapterSection),
     windowImpl:        PropTypes.object,
     initialScrollTarget: PropTypes.string,
   }
