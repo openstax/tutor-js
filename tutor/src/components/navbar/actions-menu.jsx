@@ -95,7 +95,7 @@ class ActionsMenu extends React.Component {
 
     let props;
     if (menuOption.href) {
-      props = { href: menuOption.href };
+      props = { href: menuOption.href, target: menuOption.target };
     } else {
       const href = Router.makePathname(menuOption.name, menuOption.params, menuOption.options);
       props = { href, onSelect: partial(this.transitionToDropdownItem, href) };

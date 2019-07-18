@@ -1,6 +1,5 @@
-import { pickBy, each, isFunction, get } from 'lodash';
+import { pickBy, extend, pick, each, isFunction, get } from 'lodash';
 import { observable } from 'mobx';
-
 import User from '../user';
 import Courses from '../courses-map';
 import Payments from '../payments';
@@ -39,11 +38,12 @@ const ROUTES = {
     },
   },
   analytics: {
-    label: 'Research analytics',
+    label: 'Research Analytics',
     isAllowed(course) { return Boolean(
       course && course.isTeacher && ['ap_biology', 'ap_physics'].includes(course.subject.code)
     ); },
     href: 'https://analytics.openstax.org/',
+    target: '_blank',
   },
   questions: {
     label: 'Question Library',
@@ -123,7 +123,7 @@ const ROUTES = {
     isAllowed() { return !!User.is_content_analyst; },
   },
   managePayments: {
-    label: 'Manage payments',
+    label: 'Manage Payments',
     locked(course) { return get(course, 'currentRole.isTeacherStudent'); },
     isAllowed(course) { return Boolean(
       this.locked(course) || Payments.config.is_enabled && Courses.costing.student.any
@@ -193,7 +193,7 @@ const UserMenu = observable({
     each(validRoutes, (routeRules, routeName) => {
       const name = getRouteByRole(routeName, menuRole);
       const route = { name };
-      if (routeRules.href){ route.href = routeRules.href; }
+      extend(route, pick(routeRules, 'href', 'target'));
       addRouteProperty(route, 'locked', routeRules, course);
       addRouteProperty(route, 'options', routeRules, options);
       addRouteProperty(route, 'params', routeRules, options, course ? { courseId } : null);
