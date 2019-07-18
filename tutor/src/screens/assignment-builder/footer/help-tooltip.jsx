@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Popover } from 'react-bootstrap';
 import InfoIcon from '../../../components/icons/info';
-
 
 const publishedSaveMessage = () => (
   <div>

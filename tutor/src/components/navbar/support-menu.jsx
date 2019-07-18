@@ -5,7 +5,6 @@ import { Dropdown } from 'react-bootstrap';
 import { get } from 'lodash';
 import { action, computed, observable, when } from 'mobx';
 import { observer, inject } from 'mobx-react';
-import User from '../../models/user';
 import TourAnchor from '../tours/anchor';
 import Chat from '../../models/chat';
 import UserMenu from '../../models/user/menu';
@@ -13,7 +12,6 @@ import { Icon } from 'shared';
 import SupportDocument from './support-document-link';
 import BestPracticesGuide from './best-practices-guide';
 import TourContext from '../../models/tour/context';
-import Router from '../../helpers/router';
 import Course from '../../models/course';
 import Theme from '../../theme';
 

@@ -1,11 +1,9 @@
-import { C, Factory, deferred } from '../../helpers';
+import { C, Factory } from '../../helpers';
 import SupportMenu from '../../../src/components/navbar/support-menu';
-
-
 import TourRegion from '../../../src/models/tour/region';
 import TourContext from '../../../src/models/tour/context';
 import Chat from '../../../src/models/chat';
-import User from '../../../src/models/user';
+
 jest.mock('../../../src/models/chat');
 jest.mock('../../../src/models/user', () => ({
   tourAudienceTags: ['teacher'],
