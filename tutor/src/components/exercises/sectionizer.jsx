@@ -2,13 +2,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { computed, observable, action } from 'mobx';
 import { observer } from 'mobx-react';
-import { first, partial, findIndex, isEmpty, sortBy } from 'lodash';
+import { first, partial, find, findIndex, isEmpty, sortBy } from 'lodash';
 import cn from 'classnames';
 import classnames from 'classnames';
 import Pagination from 'ultimate-pagination';
 import WindowSize from '../../models/window-size';
 import ScrollTo from '../../helpers/scroll-to';
-import { chapterSectionToNumber } from '../../helpers/content';
+
 
 @observer
 class Sectionizer extends React.Component {
@@ -51,12 +51,16 @@ class Sectionizer extends React.Component {
     }
   }
 
-  @computed get currentSection() {
+  @computed get onScreenSectionString() {
     return isEmpty(this.props.onScreenElements) ? this.props.currentSection : first(this.props.onScreenElements);
   }
 
+  @computed get currentSection() {
+    return find(this.sortedSections, { asString: this.onScreenSectionString });
+  }
+
   @computed get scrollIndex() {
-    return this.props.chapter_sections.indexOf(this.currentSection);
+    return findIndex(this.sortedSections, { asString: this.onScreenSectionString });
   }
 
   @action.bound goBack() {
@@ -78,8 +82,9 @@ class Sectionizer extends React.Component {
       <div
         key={cs}
         onClick={partial(this.selectSection, cs)}
-        className={classnames('section', { active })}>
-        {cs}
+        className={classnames('section', { active })}
+      >
+        {cs.asString}
       </div>
     );
   }
@@ -94,9 +99,13 @@ class Sectionizer extends React.Component {
     );
   }
 
+  @computed get sortedSections() {
+    return sortBy(this.props.chapter_sections, 'asNumber');
+  }
+
   renderCurrentLinks() {
     let i;
-    const sections = sortBy(this.props.chapter_sections, chapterSectionToNumber);
+    const sections = this.sortedSections;
     const active = this.currentSection;
     const currentPage = findIndex(sections, section => section === active);
     const links = [];
@@ -106,6 +115,7 @@ class Sectionizer extends React.Component {
         const page = pages[i];
         if (page.type === Pagination.ITEM_TYPES.PAGE) {
           links.push( this.renderLink( sections[page.value - 1], page.isActive ) );
+
         } else if (page.type === Pagination.ITEM_TYPES.ELLIPSIS) {
           links.push( this.renderEllipsis( sections[page.value - 1] ) );
         }

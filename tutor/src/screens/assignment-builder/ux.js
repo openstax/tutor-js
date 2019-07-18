@@ -78,6 +78,14 @@ class AssignmentBuilderUX {
     return this.plan.pageIds;
   }
 
+  @computed get selectedChapterSections() {
+    return map(this.selectedPages, 'displayedChapterSection');
+  }
+
+  @computed get selectedPages() {
+    return this.selectedPageIds.map(pgId => this.referenceBook.pages.byId.get(pgId));
+  }
+
   @computed get periods() {
     return filter(this.course.periods.sorted, 'isActive');
   }
@@ -155,10 +163,6 @@ class AssignmentBuilderUX {
       return new ReferenceBook({ id: this.plan.ecosystem_id });
     }
     return this.course.referenceBook;
-  }
-
-  @computed get selectedPages() {
-    return this.selectedPageIds.map(pgId => this.referenceBook.pages.byId.get(pgId));
   }
 
   @action.bound increaseTutorSelection() {

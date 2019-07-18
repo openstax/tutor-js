@@ -71,8 +71,8 @@ class ReferenceBook extends BaseModel {
   sectionsForPageIds(pageIds) {
     return uniq(compact(map(pageIds, (pageId) => {
       const pg = this.pages.byId.get(pageId);
-      return pg ? pg.chapter_section.asString : null;
+      return pg ? pg.chapter_section : null;
     })));
   }
 
-};
+}
