@@ -40,6 +40,7 @@ Factory.define('StudentTaskStep')
 
 Factory.define('StudentTask')
   .id(sequence)
+  .students(() => [])
   .title(fake.company.catchPhraseDescriptor)
   .type(fake.random.arrayElement(Object.keys(TASK_TYPES)))
   .due_at(({ now, days_ago = 0 }) => moment(now).add(days_ago + 3, 'days'))

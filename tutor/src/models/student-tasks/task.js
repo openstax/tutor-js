@@ -5,7 +5,7 @@ import { defaults, countBy } from 'lodash';
 import moment from 'moment';
 import Time from '../time';
 import StudentTaskStep from './step';
-
+import Student from './student';
 export { StudentTaskStep };
 
 export default
@@ -19,7 +19,7 @@ class StudentTask extends BaseModel {
   @field complete;
   @field is_deleted;
   @field({ type: 'object' }) spy;
-  @field({ type: 'array' }) student_names;
+  @hasMany({ model: Student }) students;
   @field({ type: 'date' }) due_at;
   @field({ type: 'date' }) feedback_at;
   @hasMany({ model: StudentTaskStep, inverseOf: 'task' }) steps;

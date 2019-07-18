@@ -21,8 +21,8 @@ export default class TaskUX {
 
     this.window = windowImpl || window;
     this.course = course || task.tasksMap.course;
+    this.becomeStudentIfNeeded();
     observe(this, 'currentStep', this.onStepChange, true);
-
     when(
       () => !this.task.api.isPendingInitialFetch,
       () => this.goToStep(stepIndex)
@@ -32,6 +32,19 @@ export default class TaskUX {
 
   @lazyGetter scroller = new ScrollTo({ windowImpl: this.window });
   @lazyGetter pageContentUX = new PageContentUX({ main: this });
+
+  @action becomeStudentIfNeeded() {
+    if (!this.course.roles.teacher) { return; }
+    // if the teacher has reloaded while working student tasks
+    // we need to restore it so the frame appears
+    const teacherAsStudentRole = this.course.roles.find(r => {
+      // use of == is deliberate so that it'll match both string and number ids
+      return this._task.students.find(s => s.role_id == r.id);
+    });
+    if (teacherAsStudentRole) {
+      teacherAsStudentRole.become();
+    }
+  }
 
   @action isUnmounting() {
     // value props

@@ -86,7 +86,7 @@ class StudentTaskStep extends BaseModel {
 
   @belongsTo({ model: 'student-tasks/step-group' }) multiPartGroup;
 
-  @observable task;
+  @field({ type: 'object' }) task;
   @observable content;
 
   @computed get canAnnotate() {
