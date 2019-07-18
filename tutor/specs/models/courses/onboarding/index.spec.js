@@ -1,5 +1,4 @@
 import onboardingForCourse from '../../../../src/models/course/onboarding';
-
 import FullCourseOnboarding from '../../../../src/models/course/onboarding/full-course';
 import PreviewOnboarding from '../../../../src/models/course/onboarding/preview';
 

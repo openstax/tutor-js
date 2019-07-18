@@ -64,7 +64,7 @@ class ScoresTable extends React.Component {
   }
 
   renderNoAssignments() {
-    const message = this.props.ux.course.isTeacher ? (
+    const message = this.props.ux.course.currentRole.isTeacher ? (
       <p>
         Students have enrolled in this <CGL lowercase courseId={this.courseId} />, but there are no assignments to score.  Add an assignment from your <TutorLink to="dashboard" params={{ courseId: this.courseId }}>dashboard</TutorLink>.
       </p>

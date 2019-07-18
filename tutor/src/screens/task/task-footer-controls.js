@@ -25,7 +25,7 @@ const TaskFooterControls = observer(({ task, course }) => {
 
   return (
     <StyledFooterControls>
-      {course.primaryRole.isTeacher && <TeacherReviewInfo task={task} />}
+      {course.currentRole.isTeacher && <TeacherReviewInfo task={task} />}
       <BackButton
         fallbackLink={{
           text: 'Back to dashboard', to: 'dashboard', params: { courseId: course.id },

@@ -62,7 +62,7 @@ describe('My Courses Component', function() {
     const wrapper = mount(<C><CourseListing /></C>);
     for (let i = 0; i < MASTER_COURSES_LIST.length; i++) {
       const course = MASTER_COURSES_LIST[i];
-      if (Courses.get(course.id).isTeacher) {
+      if (Courses.get(course.id).currentRole.isTeacher) {
         expect(wrapper).toHaveRendered(`[data-course-id='${course.id}'] .my-courses-item-controls`);
       }
     }
@@ -74,7 +74,7 @@ describe('My Courses Component', function() {
     const wrapper = mount(<C><CourseListing /></C>);
     for (let i = 0; i < MASTER_COURSES_LIST.length; i++) {
       const course = MASTER_COURSES_LIST[i];
-      if (!Courses.get(course.id).isTeacher) {
+      if (!Courses.get(course.id).currentRole.isTeacher) {
         expect(wrapper).not.toHaveRendered(`[data-course-id='${course.id}'] .my-courses-item-controls`);
       }
     }

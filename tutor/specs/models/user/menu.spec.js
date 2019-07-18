@@ -21,14 +21,14 @@ describe('Current User Store', function() {
   it('should return expected menu routes for a teacher', () => {
     User.isConfirmedFaculty = true;
     const course = Factory.course({ is_teacher: true });
-    expect(course.isTeacher).toBe(true);
+    expect(course.currentRole.isTeacher).toBe(true);
     expect.snapshot(UserMenu.getRoutes(course)).toMatchSnapshot();
   });
 
   it('should return expected menu routes for a student', () => {
     User.isConfirmedFaculty = false;
     const course = Factory.course({ is_teacher: false });
-    expect(course.isTeacher).toBe(false);
+    expect(course.currentRole.isTeacher).toBe(false);
     expect.snapshot(UserMenu.getRoutes(course)).toMatchSnapshot();
   });
 

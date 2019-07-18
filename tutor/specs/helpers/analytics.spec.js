@@ -1,11 +1,10 @@
 import { isFunction } from 'lodash';
 import Analytics from '../../src/helpers/analytics';
 import Courses from '../../src/models/courses-map';
-import COURSE from '../../api/user/courses/1.json';
+import { bootstrapCoursesList } from '../courses-test-data';
 import Chapter from '../../src/models/reference-book/chapter';
 import Page from '../../src/models/reference-book/page';
 
-const COURSE_ID = '1';
 
 function mockGa(name = 'tutor') {
   const ga = jest.fn( (a) => {
@@ -22,12 +21,13 @@ function mockGa(name = 'tutor') {
 
 describe('Analytics', function() {
   let ga;
+  let COURSE;
 
   beforeEach(function() {
     ga = mockGa();
     Analytics.setGa(ga);
-    Courses.bootstrap([ COURSE ]);
-    Courses.get(COURSE.id).ecosystem_id = 991;
+    COURSE = bootstrapCoursesList().get(1);
+    COURSE.ecosystem_id = 991;
     ga.mockReset();
   });
 
