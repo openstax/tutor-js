@@ -74,7 +74,9 @@
 @mixin book-content-interactives(
   $narrow-horizontal-margin: $book-content-narrow-horizontal-padding
 ) {
-  iframe.interactive {
+  .frame-wrapper,
+  iframe.interactive
+  {
     width: 100%;
     height: $tutor-interactive-iframe-height;
 
