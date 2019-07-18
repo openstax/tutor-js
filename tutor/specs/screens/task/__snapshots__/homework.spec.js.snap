@@ -928,7 +928,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
               "uid": "5@1",
             },
           ],
-          "student_names": Array [],
+          "students": Array [],
           "tasksMap": Object {},
           "title": "asymmetric",
           "type": "homework",
