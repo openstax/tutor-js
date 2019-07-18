@@ -22,7 +22,6 @@
     "debug": "./bin/debug",
     "build": "./bin/build",
     "release": "./bin/release",
-    "release-coach": "./bin/release coach",
     "build-tutor": "./bin/build tutor",
     "build-exercises": "./bin/build exercises",
     "build-archive": "./bin/build tutor archive",
