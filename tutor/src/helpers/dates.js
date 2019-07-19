@@ -1,7 +1,7 @@
 import moment from 'moment';
 import 'twix';
 import 'moment-timezone';
-import { compact, reduce, min, max, map } from 'lodash';
+import { isNaN, compact, isDate, reduce, flatten, min, max, map } from 'lodash';
 
 export function getDay(oneMoment) {
   return moment(oneMoment)
@@ -17,16 +17,20 @@ export function getDurationFromMoments(listOfMoments) {
   );
 }
 
-export function findEarliest(dateThings) {
-  return min(compact(map(dateThings, d =>
-    moment.isMoment(d) ? d ? d.toDate() : new Date(Date.parse(d)) : null,
-  )));
+export function toDate(dateThing) {
+  if (isDate(dateThing) && !isNaN(dateThing.getTime())){
+    return dateThing;
+  }
+  const m = moment(dateThing);
+  return m.isValid() ? m : null;
 }
 
-export function findLatest(dateThings) {
-  return max(compact(map(dateThings, d =>
-    moment.isMoment(d) ? d ? d.toDate() : new Date(Date.parse(d)) : null,
-  )));
+export function findEarliest(...dateThings) {
+  return min(compact(map(flatten(dateThings), toDate)));
+}
+
+export function findLatest(...dateThings) {
+  return max(compact(map(flatten(dateThings), toDate)));
 }
 
 

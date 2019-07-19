@@ -9,9 +9,10 @@ import {
 import { lazyInitialize } from 'core-decorators';
 import TaskingPlan from './tasking';
 import TaskPlanPublish from '../../jobs/task-plan-publish';
-import { getDurationFromMoments } from '../../../helpers/dates';
+import { findEarliest, findLatest, getDurationFromMoments } from '../../../helpers/dates';
 import Time from '../../time';
 import TaskPlanStats from './stats';
+
 import moment from '../../../helpers/moment-range';
 
 const TUTOR_SELECTIONS = {
@@ -47,6 +48,9 @@ class TeacherTaskPlan extends BaseModel {
   @field({ type: 'object' }) settings = {};
   @hasMany({ model: TaskingPlan, inverseOf: 'plan', extend: {
     forPeriod(period) { return find(this, { target_id: period.id, target_type: 'period' }); },
+    defaults(tasking, plan) {
+      return { opens_at: plan.defaultOpensAt };
+    },
   } }) tasking_plans;
 
   @observable unmodified_plans = [];
@@ -71,6 +75,19 @@ class TeacherTaskPlan extends BaseModel {
         this.settings.exercises_count_dynamic = TUTOR_SELECTIONS.default;
       }
     }
+  }
+
+  defaultOpensAt() {
+    const [ hour, minute ] = this.course.default_open_time.split(':');
+    return moment(
+      findLatest(
+        findEarliest([
+          this.course.bounds.ends,
+          moment(Time.now).add(1, 'day'),
+        ]),
+        this.course.bounds.start,
+      ),
+    ).hour(hour).minute(minute).startOf('minute').toISOString();
   }
 
   @lazyInitialize analytics = new TaskPlanStats({ taskPlan: this });
