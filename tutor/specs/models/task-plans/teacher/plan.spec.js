@@ -43,5 +43,14 @@ describe('CourseCalendar Header', function() {
     expect(plan.settings.page_ids).toEqual([2,1,4].map(String));
   });
 
+  it('removes itself from course when deleted', () => {
+    plan.course = Factory.course();
+    const onDelete = jest.fn();
+    jest.spyOn(plan.course, 'teacherTaskPlans', 'get').mockImplementation(() => ({
+      delete: onDelete,
+    }));
+    plan.onDeleteComplete();
+    expect(onDelete).toHaveBeenCalledWith(plan.id);
+  });
 
 });

@@ -131,8 +131,6 @@ const startAPI = function() {
 
   connectModelCreate(CourseCreate, 'save', { onSuccess: 'onCreated' });
 
-  connectModelDelete(TeacherTaskPlans, 'delete');
-
   connectModelRead(TeacherTaskPlans, 'fetch', {
     pattern: 'courses/{course.id}/dashboard',
     onSuccess: 'onLoaded',

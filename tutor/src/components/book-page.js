@@ -21,7 +21,7 @@ import imagesComplete from '../helpers/images-complete';
 // According to the tagging legend exercises with a link should have `a.os-embed`
 // but in the content they are just a vanilla link.
 const EXERCISE_LINK_SELECTOR = 'a[href][data-type="exercise"]';
-const SPLASH_IMAGE_MIN_WIDTH = 400;
+
 const LEARNING_OBJECTIVE_SELECTORS = '.learning-objectives, [data-type=abstract]';
 const IS_INTRO_SELECTORS = '.splash img, [data-type="cnx.flag.introduction"]';
 const INTER_BOOK_LINKS = 'a[href^=\'/book/\']';
@@ -75,14 +75,6 @@ function processImage() {
     }
   } else {
     figure.classList.add('tutor-ui-vertical-img');
-  }
-}
-
-async function scheduleSplashImageDetection(wrapper) {
-  await imagesComplete(wrapper);
-  const img = wrapper.querySelector('img');
-  if (img.naturalWidth > SPLASH_IMAGE_MIN_WIDTH) {
-    wrapper.classList.add('splash');
   }
 }
 
