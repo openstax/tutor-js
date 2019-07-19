@@ -84,15 +84,6 @@
         "id": "open-actions-menu"
       }
     }, {
-      "title": "Student preview videos",
-      "body": "View the student experience here.",
-      "anchor_id": "student-preview-link",
-      "position": "bottom-center",
-      "is_fixed": true,
-      "action": {
-        "id": "open-support-menu"
-      }
-    }, {
       "title": "Remember, this is a preview course",
       "body": "You're in a preview course with pre-populated data. When you're done exploring the preview course, here's where you can create a real course.",
       "anchor_id": "preview-add-course-nav-button",
@@ -108,5 +99,5 @@
         "id": "open-support-menu"
       }
     }
-  ]
+   ]
 }]

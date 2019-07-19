@@ -1,11 +1,9 @@
-import { C, Factory, deferred } from '../../helpers';
+import { C, Factory } from '../../helpers';
 import SupportMenu from '../../../src/components/navbar/support-menu';
-
-
 import TourRegion from '../../../src/models/tour/region';
 import TourContext from '../../../src/models/tour/context';
 import Chat from '../../../src/models/chat';
-import User from '../../../src/models/user';
+
 jest.mock('../../../src/models/chat');
 jest.mock('../../../src/models/user', () => ({
   tourAudienceTags: ['teacher'],
@@ -59,19 +57,6 @@ describe('Support Menu', () => {
   it('renders and matches snapshot', () => {
     tourContext.openRegion(region);
     expect.snapshot(<C><SupportMenu {...props} /></C>).toMatchSnapshot();
-  });
-
-  it('links to student preview with course', () => {
-    props.course.appearance_code = 'college_biology';
-    User.isConfirmedFaculty = true;
-    const menu = mount(<C><SupportMenu {...props} /></C>);
-    menu.find('button.dropdown-toggle').simulate('click');
-    const selector = '[data-tour-anchor-id="student-preview-link"]';
-    expect(menu).toHaveRendered(selector);
-    menu.find(selector).simulate('click');
-    expect(menu.ref('router').history.location.pathname)
-      .toEqual(`/student-preview/${props.course.id}`);
-    menu.unmount();
   });
 
 });

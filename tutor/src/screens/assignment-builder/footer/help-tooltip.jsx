@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Popover } from 'react-bootstrap';
 import InfoIcon from '../../../components/icons/info';
-
 
 const publishedSaveMessage = () => (
   <div>
@@ -36,7 +34,7 @@ function buildTooltip({ isPublished }) {
   const saveMessage = isPublished ? publishedSaveMessage() : unpublishedSaveMessage();
 
   return (
-    <Popover id="plan-footer-popover">
+    <div id="plan-footer-popover">
       {saveMessage}
       <p>
         <strong>
@@ -50,7 +48,7 @@ function buildTooltip({ isPublished }) {
         </strong>
         will remove the assignment from students dashboards.  Students who have worked the assignment will still be able to review their work.
       </p> : undefined}
-    </Popover>
+    </div>
   );
 }
 buildTooltip.propTypes = {
@@ -60,7 +58,6 @@ buildTooltip.propTypes = {
 
 const HelpTooltip = ({ ux }) => (
   <InfoIcon
-    tooltipProps={{ placement: 'top' }}
     tooltip={buildTooltip({ isPublished: ux.plan.isPublished })}
   />
 );

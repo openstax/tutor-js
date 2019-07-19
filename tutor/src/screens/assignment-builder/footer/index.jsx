@@ -7,7 +7,6 @@ import DraftButton   from './save-as-draft';
 import CancelButton  from './cancel-button';
 import DeleteButton  from './delete-button';
 import HelpTooltip   from './help-tooltip';
-import PreviewButton from './preview-button';
 
 const Spacer = styled.div`
   flex: 1;
@@ -32,9 +31,8 @@ const Footer = observer(({ ux }) => {
       <DraftButton   ux={ux} />
       <CancelButton  ux={ux} />
       <DeleteButton  ux={ux} />
-      <HelpTooltip   ux={ux} />
       <Spacer />
-      <PreviewButton ux={ux} />
+      <HelpTooltip   ux={ux} />
     </StyledFooter>
   );
 });
@@ -45,29 +43,3 @@ Footer.propTypes = {
 };
 
 export default Footer;
-
-// <TourAnchor id="builder-draft-button">
-// <DraftButton
-// onClick={ux.onSaveDraft}
-// isBusy={ux.isSaving}
-// isDisabled={ux.isSaving}
-// />
-// </TourAnchor>
-// <TourAnchor id="builder-cancel-button">
-// <CancelButton
-// onClick={ux.onCancel}
-// isDisabled={ux.isSaving}
-// />
-// </TourAnchor>
-// <TourAnchor id="builder-back-button">
-// <BackButton onClick={ux.onCancel} />
-// </TourAnchor>
-// <TourAnchor id="builder-delete-button">
-// <DeleteLink ux={ux} />
-// </TourAnchor>
-//
-// <HelpTooltip isPublished={isPublished} />
-//
-// <div className="spacer" />
-//
-// <PreviewButton ux={ux} />
