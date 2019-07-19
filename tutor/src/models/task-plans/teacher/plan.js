@@ -9,7 +9,7 @@ import {
 import { lazyInitialize } from 'core-decorators';
 import TaskingPlan from './tasking';
 import TaskPlanPublish from '../../jobs/task-plan-publish';
-import { findEarliest, findLatest, getDurationFromMoments } from '../../../helpers/dates';
+import { getDurationFromMoments } from '../../../helpers/dates';
 import Time from '../../time';
 import TaskPlanStats from './stats';
 
@@ -75,19 +75,6 @@ class TeacherTaskPlan extends BaseModel {
         this.settings.exercises_count_dynamic = TUTOR_SELECTIONS.default;
       }
     }
-  }
-
-  defaultOpensAt() {
-    const [ hour, minute ] = this.course.default_open_time.split(':');
-    return moment(
-      findLatest(
-        findEarliest([
-          this.course.bounds.ends,
-          moment(Time.now).add(1, 'day'),
-        ]),
-        this.course.bounds.start,
-      ),
-    ).hour(hour).minute(minute).startOf('minute').toISOString();
   }
 
   @lazyInitialize analytics = new TaskPlanStats({ taskPlan: this });
