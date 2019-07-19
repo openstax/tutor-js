@@ -202,9 +202,7 @@ class BookPage extends React.Component {
       (splashFigure = splashFigure.nextSibling) &&
         (!splashFigure.matches || splashFigure.matches('.os-figure'))
     ) {
-      // text nodes will not have classList
-      const img = invoke(splashFigure, 'querySelector', 'img');
-      if (img) {
+      if (splashFigure.hasChildNodes() && splashFigure.querySelector) {
         scheduleSplashImageDetection(splashFigure);
       }
     }
