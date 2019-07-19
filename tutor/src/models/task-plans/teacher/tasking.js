@@ -44,7 +44,7 @@ class TaskingPlan extends BaseModel {
           course.bounds.end,
           defaultOpensAt,
         ),
-        course.bounds.start,
+        course.bounds.start.add(1, 'minute'),
       ),
     ).hour(hour).minute(minute).startOf('minute').toISOString();
   }
