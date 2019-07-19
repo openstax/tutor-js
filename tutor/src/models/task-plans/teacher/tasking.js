@@ -31,7 +31,7 @@ class TaskingPlan extends BaseModel {
   }
 
   defaultOpensAt() {
-    const defaultOpensAt = moment(Time.now).add(1, 'day');
+    const defaultOpensAt = moment(Time.now).add(1, 'day').startOf('minute');
     const course = get(this.plan, 'course');
     if (!course) {
       return defaultOpensAt.toISOString();
