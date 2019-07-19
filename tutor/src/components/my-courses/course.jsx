@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
@@ -124,7 +125,7 @@ class Course extends React.Component {
       <div className="my-courses-item-wrapper">
         <div
           {...this.ux.dataProps}
-          data-is-teacher={this.ux.course.isTeacher}
+          data-is-teacher={this.ux.course.currentRole.isTeacher}
           data-course-id={this.ux.courseId}
           data-course-course-type={this.ux.courseType}
           className={classnames('my-courses-item', this.props.className)}

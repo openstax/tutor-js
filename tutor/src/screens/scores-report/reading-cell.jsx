@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TutorLink from '../../components/link';
 import { Overlay, Popover } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
@@ -40,7 +39,7 @@ class ReadingCell extends React.Component {
   }
 
   renderPopover() {
-    const { task, ux } = this.props;
+    const { task } = this.props;
     if (!task.isStarted) { return null; }
 
     return (
@@ -75,7 +74,7 @@ class ReadingCell extends React.Component {
   renderLateWork() {
     const { ux, task, columnIndex } = this.props;
 
-    if (!ux.course.isTeacher) {
+    if (!ux.course.currentRole.isTeacher) {
       return null;
     }
 
@@ -102,4 +101,4 @@ class ReadingCell extends React.Component {
       </div>
     );
   }
-};
+}

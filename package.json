@@ -79,7 +79,7 @@
     "jest-cli": "24.7.1",
     "keymaster": "1.6.2",
     "loadjs": "3.5.5",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.15",
     "loglevel": "1.6.1",
     "markdown-it": "8.4.2",
     "markdown-it-regexp": "0.4.0",
@@ -159,7 +159,7 @@
     "jsdom": "^15.0.0",
     "json-server": "^0.14.2",
     "lighthouse": "^4.1.0",
-    "node-sass": "4.11.0",
+    "node-sass": "4.12.0",
     "object-factory-bot": "^0.6.1",
     "pixelmatch": "^4.0.2",
     "pngjs": "^3.3.3",
@@ -174,6 +174,9 @@
     "webpack-cli": "3.1.2",
     "webpack-dev-server": "3.1.14",
     "yargs": "^13.2.1"
+  },
+  "resolutions": {
+    "jest-axe/lodash.merge": "4.6.2"
   },
   "config": {
     "blanket": {

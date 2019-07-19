@@ -8,6 +8,7 @@ import TeacherStudentComponent from './teacher-student';
 import Courses from '../../models/courses-map';
 import './styles.scss';
 
+//eslint-disable-next-line react/prefer-stateless-function
 class Student extends React.Component {
   static displayName = 'PerformanceForecastStudentShell';
 
@@ -26,6 +27,7 @@ class Student extends React.Component {
 
 // The teacher student store depends on both the
 // scores report store as well as the teacher student learning guide
+//eslint-disable-next-line react/prefer-stateless-function
 class TeacherStudent extends React.Component {
   static displayName = 'PerformanceForecastTeacherStudentShell';
 
@@ -35,6 +37,7 @@ class TeacherStudent extends React.Component {
   }
 }
 
+//eslint-disable-next-line react/prefer-stateless-function
 class Teacher extends React.Component {
   static displayName = 'PerformanceForecastTeacherShell';
 
@@ -50,12 +53,13 @@ class Teacher extends React.Component {
   }
 }
 
+//eslint-disable-next-line react/prefer-stateless-function
 class Guide extends React.Component {
   static displayName = 'PerformanceForecastGuide';
 
   render() {
     const { courseId, roleId } = Router.currentParams();
-    const { isTeacher } = Courses.get(courseId);
+    const { isTeacher } = Courses.get(courseId).currentRole;
     if ((roleId != null) && isTeacher) {
       return <TeacherStudent />;
     } else if (isTeacher) {

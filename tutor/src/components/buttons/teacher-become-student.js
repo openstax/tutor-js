@@ -102,7 +102,7 @@ class TeacherBecomesStudent extends React.Component {
 
     if (!FeatureFlags.teacher_student_enabled ||
       !course ||
-      !course.isTeacher
+        !course.currentRole.isTeacher
     ) { return null; }
 
     if (this.isCreating) {

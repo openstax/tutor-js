@@ -29,18 +29,6 @@ describe('Course Model', () => {
     expect(Courses.size).toEqual(3);
   });
 
-  it('#isStudent', () => {
-    expect(Courses.get(1).isStudent).toBe(true);
-    expect(Courses.get(2).isStudent).toBe(false);
-    expect(Courses.get(3).isStudent).toBe(true);
-  });
-
-  it('#isTeacher', () => {
-    expect(Courses.get(1).isTeacher).toBe(false);
-    expect(Courses.get(2).isTeacher).toBe(true);
-    expect(Courses.get(3).isTeacher).toBe(true);
-  });
-
   it('#userStudentRecord', () => {
     expect(Courses.get(1).userStudentRecord).not.toBeNull();
     expect(Courses.get(1).userStudentRecord.student_identifier).toEqual('1234');
@@ -67,13 +55,15 @@ describe('Course Model', () => {
     teacher.is_preview = true;
     expect(teacher.tourAudienceTags).toEqual(['teacher-preview']);
     const course = Courses.get(3);
-    expect(course.tourAudienceTags).toEqual(['teacher', 'student']);
+    expect(course.tourAudienceTags).toEqual(['teacher']);
+    course.roles.student.become();
+    expect(course.tourAudienceTags).toEqual(['student']);
+    course.roles.teacher.become();
     course.is_preview = false;
-    expect(course.isTeacher).toEqual(true);
+    expect(course.currentRole.isTeacher).toEqual(true);
     course.teacherTaskPlans.set('1', { id: 1, type: 'reading', is_publishing: true, isPublishing: true });
     expect(course.teacherTaskPlans.reading.hasPublishing).toEqual(true);
-    expect(course.tourAudienceTags).toEqual(['teacher', 'teacher-reading-published', 'student' ]);
-
+    expect(course.tourAudienceTags).toEqual(['teacher', 'teacher-reading-published' ]);
   });
 
 

@@ -64,7 +64,7 @@ class ScoresTable extends React.Component {
   }
 
   renderNoAssignments() {
-    const message = this.props.ux.course.isTeacher ? (
+    const message = this.props.ux.course.currentRole.isTeacher ? (
       <p>
         Students have enrolled in this <CGL lowercase courseId={this.courseId} />, but there are no assignments to score.  Add an assignment from your <TutorLink to="dashboard" params={{ courseId: this.courseId }}>dashboard</TutorLink>.
       </p>
@@ -88,7 +88,7 @@ class ScoresTable extends React.Component {
   renderLeftColumnGroup() {
     const { ux, ux: { students, COLUMN_WIDTH, course } } = this.props;
 
-    if (!course.isTeacher) {
+    if (!course.currentRole.isTeacher) {
       return (
         <ColumnGroup fixed={true}>
           <Column

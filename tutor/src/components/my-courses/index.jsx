@@ -28,7 +28,7 @@ class MyCourses extends React.Component {
       return false;
     }
     return (
-      this.firstCourse.isStudent && this.firstCourse.isActive
+      this.firstCourse.currentRole.isStudent && this.firstCourse.isActive
     );
   }
 
@@ -67,4 +67,4 @@ class MyCourses extends React.Component {
     );
   }
 
-};
+}

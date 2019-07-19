@@ -14,7 +14,7 @@ class BestPracticesGuide extends React.Component {
 
   render() {
     const { course } = this.props;
-    if (!course || !course.isTeacher || course.currentRole.isTeacherStudent) {
+    if (!course || !course.currentRole.isTeacher || course.currentRole.isTeacherStudent) {
       return null;
     }
     const url = course.bestPracticesDocumentURL;

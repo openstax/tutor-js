@@ -23,7 +23,7 @@ export class CoursesMap extends Map {
   }
 
   @computed get student() {
-    return this.where(c => c.isStudent);
+    return this.where(c => c.currentRole.isStudent);
   }
 
   @computed get withoutStudents() {
@@ -31,7 +31,7 @@ export class CoursesMap extends Map {
   }
 
   @computed get teaching() {
-    return this.where(c => c.isTeacher);
+    return this.where(c => c.currentRole.isTeacher);
   }
 
   @computed get completed() {

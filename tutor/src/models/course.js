@@ -191,14 +191,6 @@ class Course extends BaseModel {
     return !(this.hasEnded || this.isFuture);
   }
 
-  @computed get isStudent() {
-    return !!find(this.roles, 'isStudent');
-  }
-
-  @computed get isTeacher() {
-    return !!find(this.roles, 'isTeacher');
-  }
-
   @computed get shouldRemindNewEnrollmentLink() {
     return Boolean(
       !this.is_preview &&
@@ -229,7 +221,7 @@ class Course extends BaseModel {
 
   @computed get tourAudienceTags() {
     let tags = [];
-    if (this.isTeacher) {
+    if (this.currentRole.isTeacher) {
       tags.push(this.is_preview ? 'teacher-preview' : 'teacher');
       if (!this.is_preview) {
         if (this.teacherTaskPlans.reading.hasPublishing) {
@@ -244,7 +236,7 @@ class Course extends BaseModel {
       }
     }
 
-    if (this.isStudent) { tags.push('student'); }
+    if (this.currentRole.isStudentLike) { tags.push('student'); }
     return tags;
   }
 

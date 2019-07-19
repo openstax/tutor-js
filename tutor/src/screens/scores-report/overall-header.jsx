@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import cn from 'classnames';
@@ -19,7 +18,7 @@ const AveragesToggle = observer(({ ux }) => (
 
 
 const WeightsLink = observer(({ ux }) => {
-  if (ux.period.course.isTeacher) {
+  if (ux.isTeacher) {
     return (
       <Button variant="link" className="set-weights" onClick={ux.weights.onSetClick}>
         Set weights
@@ -41,11 +40,11 @@ const WeightsLink = observer(({ ux }) => {
 });
 
 const OverallHeader = observer(({ ux }) => {
-  const { period, periodAverages } = ux;
+  const { periodAverages } = ux;
   let overviewHeaderRow = null;
   let weightsModal = <ViewWeights ux={ux} />;
 
-  if (period.course.isTeacher) {
+  if (ux.isTeacher) {
     overviewHeaderRow = (
       <div className="header-row values overview-row">
         <div>{periodAverages.overall_course_average}</div>

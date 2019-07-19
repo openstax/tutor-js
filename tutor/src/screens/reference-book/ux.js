@@ -48,7 +48,7 @@ export default class ReferenceBookUX extends BookUX {
     nav.center.merge({
       'note-toggle': () => <NotesSummaryToggle course={this.course} />,
     });
-    if (this.course && this.course.isTeacher) {
+    if (this.course && this.course.currentRole.isTeacher) {
       nav.right.replace({
         'teacher-content-toggle': TeacherContentToggle,
       });
