@@ -351,9 +351,13 @@ class TeacherTaskPlan extends BaseModel {
 
   fetch() { return this; }
 
-  destroy() { return this; }
+  destroy() {
+    this.is_deleting = true;
+    return this;
+  }
 
   @action onDeleteComplete() {
+    this.is_deleting = false;
     this.course.teacherTaskPlans.delete(this.id);
   }
 }

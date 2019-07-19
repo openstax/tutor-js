@@ -28,7 +28,7 @@ const DeleteModal = ({ message, show, onClose, isBusy, onDelete }) => (
       >
         Delete
       </AsyncButton>
-      <Button disabled={isBusy} onClick={onClose}>
+      <Button variant="default" disabled={isBusy} onClick={onClose}>
         Cancel
       </Button>
     </Modal.Footer>

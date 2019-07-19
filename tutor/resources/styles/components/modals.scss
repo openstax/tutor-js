@@ -2,7 +2,7 @@
 .modal {
   $header-padding: 30px;
   .modal-header {
-    padding: $header-padding $modal-padding;
+    padding: $header-padding/2 $modal-padding;
     font-size: 16px;
     background-color: $tutor-neutral-bright;
     border-bottom: 1px solid $tutor-neutral-light;
