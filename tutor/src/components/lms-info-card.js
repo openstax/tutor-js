@@ -5,9 +5,9 @@ import { action, computed } from 'mobx';
 import { Button } from 'react-bootstrap';
 import moment from 'moment';
 import { autobind } from 'core-decorators';
-import TaskPlanHelper from '../helpers/task-plan';
 import CopyOnFocusInput from './copy-on-focus-input';
 import { Icon } from 'shared';
+import { compact } from 'lodash';
 import Courses from '../models/courses-map';
 import TeacherTaskPlan from '../models/task-plans/teacher/plan';
 import styled from 'styled-components';
@@ -50,24 +50,23 @@ class LmsInfoCard extends React.Component {
   @autobind
   renderDueDates() {
     const { plan } = this.props;
-
-    const taskPlanDates = TaskPlanHelper.dates( plan, { only: 'due_at' } );
-    if (taskPlanDates.all != null) {
+    if (plan.areTaskingDatesSame) {
       return (
         <CopyOnFocusInput
           label="Due date"
-          value={moment(taskPlanDates.all.due_at).format(DUE_FORMAT)}
+          value={moment(plan.dateRanges.due.start).format(DUE_FORMAT)}
         />
       );
     }
     const course = Courses.get(this.props.courseId);
-    const periodDates = course.periods.map(period => (
-      <CopyOnFocusInput
-        label={period.name}
-        value={moment(taskPlanDates[period.id].due_at).format(DUE_FORMAT)}
-      />
-    ));
-
+    const periodDates = compact(course.periods.map(period => {
+      const tp = plan.tasking_plans.forPeriod(period);
+      return tp && (
+        <CopyOnFocusInput
+          label={period.name}
+          value={moment(tp.due_at).format(DUE_FORMAT)}
+        />);
+    }));
     return (
       <div>
         <p>Due dates:</p>
@@ -137,4 +136,4 @@ class LmsInfoCard extends React.Component {
       </div>
     );
   }
-};
+}

@@ -1,11 +1,11 @@
 import {
   BaseModel, identifiedBy, field, action, session,
 } from 'shared/model';
-import { pick } from 'lodash';
+import { pick, get } from 'lodash';
 import { computed } from 'mobx';
 import moment from 'moment';
 import Time from '../../time';
-import { dateWithUnchangedTime } from '../../../helpers/dates';
+import { findEarliest, findLatest, dateWithUnchangedTime } from '../../../helpers/dates';
 
 export default
 @identifiedBy('tasking-plan')
@@ -25,13 +25,28 @@ class TaskingPlan extends BaseModel {
 
   constructor(attrs) {
     super(attrs);
-
-    if (this.plan && this.plan.course) {
-      const [ hour, minute ] = this.plan.course.default_open_time.split(':');
-      this.opens_at = moment(Time.now).add(1, 'day')
-        .hour(hour).minute(minute).toISOString();
+    if (!this.opens_at) {
+      this.opens_at = this.defaultOpensAt();
     }
+  }
 
+  defaultOpensAt() {
+    const defaultOpensAt = moment(Time.now).add(1, 'day').startOf('minute');
+    const course = get(this.plan, 'course');
+    if (!course) {
+      return defaultOpensAt.toISOString();
+    }
+    const [ hour, minute ] = course.default_open_time.split(':');
+
+    return moment(
+      findLatest(
+        findEarliest(
+          course.bounds.end,
+          defaultOpensAt,
+        ),
+        course.bounds.start.add(1, 'minute'),
+      ),
+    ).hour(hour).minute(minute).startOf('minute').toISOString();
   }
 
   @computed get opensAtDay() {

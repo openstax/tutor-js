@@ -33,7 +33,6 @@ class AssignmentBuilderUX {
       }
       this.sourcePlanId = id;
       this.plan = course.pastTaskPlans.get(id).createClone({ course });
-
     } else {
       if (plan) {
         this.plan = plan;
@@ -47,6 +46,7 @@ class AssignmentBuilderUX {
         this.plan.type = type;
       }
     }
+
     if (!this.plan.isNew) {
       await this.plan.ensureLoaded();
     }
@@ -61,7 +61,7 @@ class AssignmentBuilderUX {
       this.plan.findOrCreateTaskingForPeriod(period),
     );
     if (due_at) {
-      this.plan.tasking_plans.forEach(tp => tp.due_at = moment(due_at).toISOString());
+      this.plan.tasking_plans.forEach(tp => tp.due_at = moment(due_at).startOf('minute').toISOString());
     }
     this.isShowingPeriodTaskings = !this.plan.areTaskingDatesSame;
     this.scroller = new ScrollTo({ windowImpl });
@@ -76,6 +76,14 @@ class AssignmentBuilderUX {
 
   @computed get selectedPageIds() {
     return this.plan.pageIds;
+  }
+
+  @computed get selectedChapterSections() {
+    return map(this.selectedPages, 'displayedChapterSection');
+  }
+
+  @computed get selectedPages() {
+    return this.selectedPageIds.map(pgId => this.referenceBook.pages.byId.get(pgId));
   }
 
   @computed get periods() {
@@ -155,10 +163,6 @@ class AssignmentBuilderUX {
       return new ReferenceBook({ id: this.plan.ecosystem_id });
     }
     return this.course.referenceBook;
-  }
-
-  @computed get selectedPages() {
-    return this.selectedPageIds.map(pgId => this.referenceBook.pages.byId.get(pgId));
   }
 
   @action.bound increaseTutorSelection() {

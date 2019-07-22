@@ -151,7 +151,7 @@ class AddExercises extends React.Component {
             currentSection: this.currentSection,
             onSectionClick: this.setCurrentSection,
             nonAvailableWidth: 600,
-            chapter_sections: ux.sections,
+            chapter_sections: ux.selectedChapterSections,
           }} />
         {body}
       </TourRegion>

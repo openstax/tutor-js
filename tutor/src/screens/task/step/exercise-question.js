@@ -14,12 +14,12 @@ const Controls = styled.div`
   margin: 2.5rem 0;
   display: flex;
   justify-content: flex-end;
-
 `;
 
 const StyledExerciseQuestion = styled.div`
   font-size: 2rem;
   line-height: 3.5rem;
+  margin-left: 2rem;
   .question-stem[data-question-number] {
     position: relative;
     &::before {

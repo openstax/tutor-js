@@ -11,10 +11,6 @@ import Badges from 'shared/components/exercise-badges';
 const StyledExercise = styled(TaskStepCard)`
   font-size: 1.8rem;
   line-height: 3rem;
-  .exercise-stimulus {
-    font-size: 2.2rem;
-    margin-left: -2rem;
-  }
 `;
 
 const Preamble = ({ isHidden, content }) => {

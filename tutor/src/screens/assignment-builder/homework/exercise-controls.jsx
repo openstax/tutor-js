@@ -33,15 +33,6 @@ class ExerciseControls extends React.Component {
     }
   }
 
-  // addTutorSelection = () => {
-
-  //   TaskPlanActions.updateTutorSelection(this.props.planId, 1);
-  // };
-
-  // removeTutorSelection = () => {
-  //   TaskPlanActions.updateTutorSelection(this.props.planId, -1);
-  // };
-
   renderDisplayControls() {
     if (this.props.hideDisplayControls) {
       return <div className="controls" />;
@@ -112,10 +103,6 @@ class ExerciseControls extends React.Component {
       return null;
     }
   }
-
-  // canChangeTutorQty() {
-  //   return Boolean(this.props.canEdit || this.props.canAdd);
-  // }
 
   renderIncreaseButton() {
     const { ux } = this.props;

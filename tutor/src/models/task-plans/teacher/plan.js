@@ -12,6 +12,7 @@ import TaskPlanPublish from '../../jobs/task-plan-publish';
 import { getDurationFromMoments } from '../../../helpers/dates';
 import Time from '../../time';
 import TaskPlanStats from './stats';
+
 import moment from '../../../helpers/moment-range';
 
 const TUTOR_SELECTIONS = {
@@ -47,6 +48,9 @@ class TeacherTaskPlan extends BaseModel {
   @field({ type: 'object' }) settings = {};
   @hasMany({ model: TaskingPlan, inverseOf: 'plan', extend: {
     forPeriod(period) { return find(this, { target_id: period.id, target_type: 'period' }); },
+    defaults(tasking, plan) {
+      return { opens_at: plan.defaultOpensAt };
+    },
   } }) tasking_plans;
 
   @observable unmodified_plans = [];
@@ -302,7 +306,6 @@ class TeacherTaskPlan extends BaseModel {
     return new TeacherTaskPlan({
       ...this.clonedAttributes,
       tasking_plans: course.periods.active.map(period => ({
-        opens_at: course.starts_at,
         target_id: period.id,
         target_type: 'period',
       })),
