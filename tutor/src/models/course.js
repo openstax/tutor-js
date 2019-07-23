@@ -216,7 +216,7 @@ class Course extends BaseModel {
   }
 
   momentInZone(date) {
-    return moment(date).tz(this.time_zone);
+    return moment.tz(date, this.time_zone);
   }
 
   @computed get tourAudienceTags() {
