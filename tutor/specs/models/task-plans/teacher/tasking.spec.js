@@ -19,20 +19,20 @@ describe('Teacher tasking plan tasking', () => {
 
     tasking.due_at = '2016-10-14T12:00:00.000Z';
     tasking.setOpensDate('2016-10-20T12:00:00.000Z');
-    expect(tasking.opens_at).toEqual('2016-10-14T12:00:00.000Z');
+    expect(tasking.opens_at).toEqual('2016-10-14T11:59:00.000Z');
 
     tasking.setOpensTime('2016-10-20T19:42:00.000Z');
-    expect(tasking.opens_at).toEqual('2016-10-14T12:00:00.000Z');
+    expect(tasking.opens_at).toEqual('2016-10-14T11:42:00.000Z');
 
     tasking.setOpensDate('2016-10-10T18:18:00.000Z');
 
-    expect(tasking.opens_at).toEqual('2016-10-10T12:00:00.000Z');
+    expect(tasking.opens_at).toEqual('2016-10-10T11:42:00.000Z');
 
     tasking.setDueDate('2016-01-20T12:00:00.000Z');
-    expect(tasking.due_at).toEqual('2016-10-10T12:00:00.000Z');
+    expect(tasking.due_at).toEqual('2016-10-10T11:43:00.000Z');
 
     tasking.setDueTime('2016-10-10T22:42:00.000Z');
-    expect(tasking.due_at).toEqual('2016-10-10T12:42:00.000Z');
+    expect(tasking.due_at).toEqual('2016-10-10T11:43:00.000Z');
   });
 
   it('#defaultOpensAt', () => {

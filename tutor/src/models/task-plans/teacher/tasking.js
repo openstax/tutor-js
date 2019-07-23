@@ -1,8 +1,7 @@
 import {
-  BaseModel, identifiedBy, field, action, session,
+  BaseModel, identifiedBy, field, action, session, computed,
 } from 'shared/model';
-import { pick, get } from 'lodash';
-import { computed } from 'mobx';
+import { pick, get, extend } from 'lodash';
 import moment from 'moment';
 import Time from '../../time';
 import {
@@ -32,9 +31,13 @@ class TaskingPlan extends BaseModel {
     }
   }
 
+  get course() {
+    return get(this.plan, 'course');
+  }
+
   defaultOpensAt() {
     const defaultOpensAt = moment(Time.now).add(1, 'day').startOf('minute');
-    const course = get(this.plan, 'course');
+    const { course } = this;
     if (!course) {
       return defaultOpensAt.toISOString();
     }
@@ -68,12 +71,15 @@ class TaskingPlan extends BaseModel {
   }
 
   @computed get dataForSave() {
-    return pick(this, 'target_id', 'target_type', 'opens_at', 'due_at');
+    return extend(pick(this, 'target_id', 'target_type'), {
+      opens_at: this.course.momentInZone(this.opens_at).format('YYYY-MM-DD HH:mm'),
+      due_at: this.course.momentInZone(this.due_at).format('YYYY-MM-DD HH:mm'),
+    });
   }
 
   @action setOpensDate(date) {
     this.opens_at = findEarliest(
-      this.due_at,
+      moment(this.due_at).subtract(1, 'minute'),
       dateWithUnchangedTime(date, this.opens_at),
     ).toISOString();
   }
@@ -81,15 +87,14 @@ class TaskingPlan extends BaseModel {
   @action setOpensTime(time) {
     const [hour, minute] = time.split(':');
     this.opens_at = findEarliest(
-      this.due_at,
-      moment(this.opens_at)
-        .hour(hour).minute(minute).seconds(0).millisecond(0),
+      moment(this.due_at).subtract(1, 'minute'),
+      this.course.momentInZone(this.opens_at).hour(hour).minute(minute).startOf('minute'),
     ).toISOString();
   }
 
   @action setDueDate(date) {
     this.due_at = findLatest(
-      this.opens_at,
+      moment(this.opens_at).add(1, 'minute'),
       dateWithUnchangedTime(date, this.due_at),
     ).toISOString();
   }
@@ -97,10 +102,17 @@ class TaskingPlan extends BaseModel {
   @action setDueTime(time) {
     const [hour, minute] = time.split(':');
     this.due_at = findLatest(
-      this.opens_at,
-      moment(this.due_at)
-        .hour(hour).minute(minute).seconds(0).millisecond(0),
+      moment(this.opens_at).add(1, 'minute'),
+      this.course.momentInZone(this.due_at).hour(hour).minute(minute).startOf('minute'),
     ).toISOString();
+  }
+
+  @computed get opensAtTime() {
+    return this.opens_at ? this.course.momentInZone(this.opens_at).format('HHmm') : '';
+  }
+
+  @computed get dueAtTime() {
+    return this.due_at ? this.course.momentInZone(this.due_at).format('HHmm') : '';
   }
 
 }

@@ -1,5 +1,6 @@
 import { React, TimeMock, FakeWindow } from '../../../helpers';
 import ExerciseControls from '../../../../src/screens/assignment-builder/homework/exercise-controls';
+import ChapterSection from '../../../../src/models/chapter-section';
 import UX from '../../../../src/screens/assignment-builder/ux';
 import Factory from '../../../factories';
 
@@ -22,9 +23,9 @@ describe('choose exercises component', () => {
       unDocked: true,
       setSecondaryTopControls: jest.fn(),
       sectionizerProps: {
-        currentSection: '1.2',
+        currentSection: new ChapterSection('1.2'),
         onSectionClick: jest.fn(),
-        chapter_sections: ['1.1', '1.2', '3.1'],
+        chapter_sections: ['1.1', '1.2', '3.1'].map(cs => new ChapterSection(cs)),
       },
     };
   });

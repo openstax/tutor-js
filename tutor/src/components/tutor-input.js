@@ -314,6 +314,7 @@ class TutorTimeInput extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+
     if (this.state.timeValue !== prevState.timeValue) { __guard__(this.getMask(), x => x.setValue(this.state.timeValue)); }
     if ((this.state.selection != null) && !isEqual(__guard__(this.getMask(), x1 => x1.selection), this.state.selection)) {
       // update cursor to expected time, doesnt quite work for some reason for expanding mask
@@ -369,7 +370,6 @@ class TutorTimeInput extends React.Component {
     } else {
       pattern = 'hi:Mm P';
     }
-
     return pattern;
   };
 

@@ -215,8 +215,8 @@ class Course extends BaseModel {
     return Boolean(this.does_cost && this.userStudentRecord && !this.userStudentRecord.isUnPaid);
   }
 
-  @computed get defaultTimes() {
-    return pick(this, 'default_due_time', 'default_open_time');
+  momentInZone(date) {
+    return moment(date).tz(this.time_zone);
   }
 
   @computed get tourAudienceTags() {

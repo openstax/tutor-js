@@ -5,11 +5,11 @@ import { Factory, TimeMock, moment } from '../../../helpers';
 
 describe('Tasking Builder', () => {
 
-  let props, plan;
+  let props, plan, course;
   const now = TimeMock.setTo('2015-10-14T12:00:00.000Z');
 
   beforeEach(() => {
-    const course = Factory.course();
+    course = Factory.course();
     plan = Factory.teacherTaskPlan({ course });
     const ux = new UX({ course, plan });
     props = { ux };
@@ -24,12 +24,12 @@ describe('Tasking Builder', () => {
     tasking.find('.opens-at TutorDateInput input[onChange]')
       .simulate('change', { target: { value: opens_at.format('MM/DD/YYYY') } });
     tasking.find('.opens-at TutorTimeInput input').simulate('change', {
-      target: { value: '1222pm' },
+      target: { value: '8:22 pm' },
     });
 
     expect(
       tasking.find('.due-at TutorDateInput').props().min.toISOString()
-    ).toEqual(opens_at.clone().hour(12).minute(22).toISOString());
+    ).toEqual('2015-10-16T01:22:00.000Z');
 
     tasking.find('.due-at TutorDateInput input[onChange]')
       .simulate('change', { target: { value: due_at.format('MM/DD/YYYY') } });
