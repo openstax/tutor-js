@@ -14,17 +14,25 @@ describe('Teacher tasking plan tasking', () => {
     tasking.opens_at = now.toISOString();
   });
 
-  it('sets open/due', () => {
+  it('sets open/due but not past the opposing open/due', () => {
     tasking.setOpensDate(moment(now).year(2016));
-    expect(tasking.opens_at).toEqual(
-      '2016-10-14T12:00:00.000Z'
-    );
 
-    const n = moment(now).hour(2).minute(18).second(23);
-    tasking.setOpensTime(n.toISOString());
-    expect(tasking.opens_at).toEqual(
-      '2016-10-14T12:18:00.000Z'
-    );
+    tasking.due_at = '2016-10-14T12:00:00.000Z';
+    tasking.setOpensDate('2016-10-20T12:00:00.000Z');
+    expect(tasking.opens_at).toEqual('2016-10-14T12:00:00.000Z');
+
+    tasking.setOpensTime('2016-10-20T19:42:00.000Z');
+    expect(tasking.opens_at).toEqual('2016-10-14T12:00:00.000Z');
+
+    tasking.setOpensDate('2016-10-10T18:18:00.000Z');
+
+    expect(tasking.opens_at).toEqual('2016-10-10T12:00:00.000Z');
+
+    tasking.setDueDate('2016-01-20T12:00:00.000Z');
+    expect(tasking.due_at).toEqual('2016-10-10T12:00:00.000Z');
+
+    tasking.setDueTime('2016-10-10T22:42:00.000Z');
+    expect(tasking.due_at).toEqual('2016-10-10T12:42:00.000Z');
   });
 
   it('#defaultOpensAt', () => {
