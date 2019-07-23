@@ -23,17 +23,24 @@ describe('Tasking Builder', () => {
 
     tasking.find('.opens-at TutorDateInput input[onChange]')
       .simulate('change', { target: { value: opens_at.format('MM/DD/YYYY') } });
-
     tasking.find('.opens-at TutorTimeInput input').simulate('change', {
       target: { value: '1222pm' },
     });
 
+    expect(
+      tasking.find('.due-at TutorDateInput').props().min.toISOString()
+    ).toEqual(opens_at.clone().hour(12).minute(22).toISOString());
+
     tasking.find('.due-at TutorDateInput input[onChange]')
-      .simulate('change', { target: { value: due_at.add(4, 'day').format('MM/DD/YYYY') } });
+      .simulate('change', { target: { value: due_at.format('MM/DD/YYYY') } });
+
     tasking.find('.due-at TutorTimeInput input').simulate('change', {
-      target: { value: '1022am' },
+      target: { value: '945am' },
     });
 
+    expect(
+      tasking.find('.opens-at TutorDateInput').props().max.toISOString()
+    ).toEqual(due_at.clone().hour(9).minute(45).toISOString());
 
     tasking.unmount();
   });
