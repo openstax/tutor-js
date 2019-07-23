@@ -78,9 +78,6 @@ class Tasking extends React.Component {
 
   @action.bound onDueDateChange(date) {
     this.taskings.forEach(t => t.setDueDate(date));
-    // if (moment(date).isBefore(this.taskings[0].opens_at)) {
-
-    // }
   }
   @action.bound onDueTimeChange(time) {
     this.taskings.forEach(t => t.setDueTime(time));
