@@ -359,17 +359,18 @@ class TutorTimeInput extends React.Component {
   getPatternFromValue = (value, changeEvent) => {
     let pattern;
     if (/^([2-9])/.test(value) || /^(_+[1-9])/.test(value)) {
-      let patten;
-      return patten = 'h:Mm P';
+      pattern = 'h:Mm P';
     } else if (/^1:/.test(value)) {
       if ((changeEvent != null) && !this.shouldShrinkMask(changeEvent)) {
-        return pattern = 'hh:Mm P';
+        pattern = 'hh:Mm P';
       } else {
-        return pattern = 'h:Mm P';
+        pattern = 'h:Mm P';
       }
     } else {
-      return pattern = 'hi:Mm P';
+      pattern = 'hi:Mm P';
     }
+
+    return pattern;
   };
 
   getRawValue = () => {
@@ -454,14 +455,16 @@ class TutorTimeInput extends React.Component {
         onChange={this.onChange}
         validate={this.validate}
         hasValue={!!timeValue}
-        ref="timeInput">
+        ref="timeInput"
+      >
         <MaskedInput
           {...inputProps}
           value={timeValue}
           name="time"
           size="8"
           mask={timePattern}
-          formatCharacters={formatCharacters} />
+          formatCharacters={formatCharacters}
+        />
       </TutorInput>
     );
   }
