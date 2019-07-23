@@ -37,9 +37,12 @@ class AssignmentBuilderUX {
       if (plan) {
         this.plan = plan;
       } else {
-        this.plan = new TaskPlan({ course, type });
+        this.plan = new TaskPlan({ id, course, type });
         if (id && id != 'new') {
-          this.plan.update( course.teacherTaskPlans.withPlanId(id).serialize() );
+          const existing = course.teacherTaskPlans.get(id);
+          if (existing) {
+            this.plan.update( existing.serialize() );
+          }
         }
       }
       if (type) {

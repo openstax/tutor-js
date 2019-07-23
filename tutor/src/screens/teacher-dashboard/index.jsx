@@ -175,10 +175,11 @@ class TeacherDashboardDateWrapper extends React.Component {
     if (!this.course) {
       return <Redirect to={Router.makePathname('myCourses')} />;
     }
+    let { date } = this.props.params;
 
-    if (!this.props.params.date) {
+    if (!date || !moment(date, TimeHelper.ISO_DATE_FORMAT, true).isValid()) {
       const { bounds } = this.course;
-      let date = Time.now;
+      date = Time.now;
       if (bounds.start.isAfter(date)) {
         date = bounds.start;
       }
@@ -193,7 +194,7 @@ class TeacherDashboardDateWrapper extends React.Component {
 
     return (
       <TeacherDashboardWrapper
-        date={this.props.params.date}
+        date={date}
         course={this.course}
       />
     );

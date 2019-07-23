@@ -1,7 +1,7 @@
 /* eslint-disable react/prefer-stateless-function */
 import PropTypes from 'prop-types';
 import { React, observer, styled } from '../../helpers/react';
-import { partial, camelCase } from 'lodash';
+import { partial } from 'lodash';
 import TaskPlan from '../../models/task-plans/teacher/plan';
 import Course from '../../models/course';
 import TutorLink from '../../components/link';
@@ -43,9 +43,6 @@ class CoursePlanDisplayEdit extends CoursePlanDisplay {
   render() {
     const { course, plan, className, label } = this.props;
 
-    const linkTo = camelCase(`edit-${plan.type}`);
-    const params = { id: plan.id, courseId: course.id };
-
     return (
       <Ribbon
         className={className}
@@ -53,7 +50,10 @@ class CoursePlanDisplayEdit extends CoursePlanDisplay {
         data-assignment-type={plan.type}
         ref="plan"
       >
-        <TutorLink to={linkTo} params={params}>
+        <TutorLink
+          to="editAssignment"
+          params={{ type: plan.type, id: plan.id, courseId: course.id }}
+        >
           {label}
         </TutorLink>
       </Ribbon>
