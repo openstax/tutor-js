@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { extend } from 'lodash';
 import { asyncComponent } from './async-component';
 import { CourseNotFoundWarning } from '../components/course-not-found-warning';
@@ -21,7 +22,6 @@ const getConditionalHandlers = (Router) => {
 
     extend(props, { courseId });
     const course = Courses.get(courseId);
-
     if (!course) {
       return <CourseNotFoundWarning />;
     }
@@ -39,8 +39,27 @@ const getConditionalHandlers = (Router) => {
     }
   };
 
+
+  // eslint-disable-next-line react/prop-types
+  const renderBecomeRole = ({ params: { courseId, roleId } }) => {
+    const course = Courses.get(courseId);
+    const role = course.roles.find(r => r.isTeacherStudent && r.id == roleId);
+    if (!course || !course.roles.teacher || !role) {
+      return <CourseNotFoundWarning />;
+    }
+
+    if (course.currentRole.isTeacherStudent) {
+      course.current_role_id = null;
+    } else {
+      course.current_role_id = roleId;
+    }
+
+    return <Redirect push to={`/course/${courseId}`} />;
+  };
+
   return {
     dashboard() { return renderDashboard; },
+    becomeRole() { return renderBecomeRole; },
   };
 };
 

@@ -60,7 +60,7 @@ class CoursePeriod extends BaseModel {
     this.course.periods.push(this);
   }
 
-  @action async becomeStudent() {
+  @action async findOrCreateTeacherStudentRole() {
     let role = this.course.roles.find((r) => (
       r.isTeacherStudent && r.period_id == this.id
     ));
@@ -68,7 +68,7 @@ class CoursePeriod extends BaseModel {
       const { data } = await this.createTeacherStudent();
       role = this.course.roles.find(r => r.id == data.id );
     }
-    await role.become();
+    return role;
   }
 
   createTeacherStudent() {
