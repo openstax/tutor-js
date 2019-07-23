@@ -2,8 +2,8 @@ import {
   React, PropTypes, styled, computed, action, observer,
 } from '../../../helpers/react';
 import moment from 'moment';
-import { max, compact } from 'lodash';
-import { findEarliest } from '../../../helpers/dates';
+import { map, compact } from 'lodash';
+import { findEarliest, findLatest } from '../../../helpers/dates';
 import Time from '../../../models/time';
 import { Row, Col } from 'react-bootstrap';
 import { TutorDateInput, TutorTimeInput } from '../../../components/tutor-input';
@@ -49,16 +49,18 @@ class Tasking extends React.Component {
   }
 
   @computed get maxOpensAt() {
-    const { end } = this.course.bounds;
-    return this.plan.due_date || end;
+    return findEarliest(
+      findLatest(map(this.taskings, 'due_at')),
+      this.course.bounds.end,
+    );
   }
 
   @computed get minDueAt() {
-    const { start } = this.course.bounds;
-    return max([
-      findEarliest([Time.now, start, this.maxOpensAt])
-      ,Time.now,
-    ]);
+    return findLatest(
+      Time.now,
+      findLatest(map(this.taskings, 'opens_at')),
+      this.course.bounds.start,
+    );
   }
 
   @computed get maxDueAt() {
@@ -154,11 +156,9 @@ class Tasking extends React.Component {
                 </Col>
                 <Col md={5} xs={4}>
                   <TutorTimeInput
-                    label="Due Time"
                     required={true}
+                    label="Due Time"
                     value={tasking.due_at}
-                    min={this.minOpensAtDate}
-                    max={this.maxOpensAtDate}
                     onChange={this.onDueTimeChange}
                     defaultValue={course.default_due_time}
                   />

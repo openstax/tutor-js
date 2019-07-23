@@ -5,7 +5,9 @@ import { pick, get } from 'lodash';
 import { computed } from 'mobx';
 import moment from 'moment';
 import Time from '../../time';
-import { findEarliest, findLatest, dateWithUnchangedTime } from '../../../helpers/dates';
+import {
+  findEarliest, findLatest, dateWithUnchangedTime,
+} from '../../../helpers/dates';
 
 export default
 @identifiedBy('tasking-plan')
@@ -59,36 +61,46 @@ class TaskingPlan extends BaseModel {
     return moment(this.due_at).isBefore(Time.now);
   }
 
-  @action setOpensDate(date) {
-    this.opens_at = dateWithUnchangedTime(date, this.opens_at).toISOString();
-  }
-
   @computed get isValid() {
     return Boolean(
       this.target_id && this.target_type && this.opens_at && this.due_at
     );
   }
 
-  @action setOpensTime(time) {
-    const [hour, minute] = time.split(':');
-    this.opens_at = moment(this.opens_at)
-      .hour(hour).minute(minute).seconds(0).millisecond(0)
-      .toISOString();
-  }
-
   @computed get dataForSave() {
     return pick(this, 'target_id', 'target_type', 'opens_at', 'due_at');
   }
 
+  @action setOpensDate(date) {
+    this.opens_at = findEarliest(
+      this.due_at,
+      dateWithUnchangedTime(date, this.opens_at),
+    ).toISOString();
+  }
+
+  @action setOpensTime(time) {
+    const [hour, minute] = time.split(':');
+    this.opens_at = findEarliest(
+      this.due_at,
+      moment(this.opens_at)
+        .hour(hour).minute(minute).seconds(0).millisecond(0),
+    ).toISOString();
+  }
+
   @action setDueDate(date) {
-    this.due_at = dateWithUnchangedTime(date, this.due_at).toISOString();
+    this.due_at = findLatest(
+      this.opens_at,
+      dateWithUnchangedTime(date, this.due_at),
+    ).toISOString();
   }
 
   @action setDueTime(time) {
     const [hour, minute] = time.split(':');
-    this.due_at = moment(this.due_at)
-      .hour(hour).minute(minute).seconds(0).millisecond(0)
-      .toISOString();
+    this.due_at = findLatest(
+      this.opens_at,
+      moment(this.due_at)
+        .hour(hour).minute(minute).seconds(0).millisecond(0),
+    ).toISOString();
   }
 
 }
