@@ -77,6 +77,30 @@ class TaskingPlan extends BaseModel {
     });
   }
 
+  // resets the due at time to course default
+  // and sets opens at date to match the give due at
+  initializeWithDueAt(dueAt) {
+    dueAt = this.course.momentInZone(dueAt);
+    if(!dueAt.isValid()) { return; }
+
+    let [ hour, minute ] = this.course.default_due_time.split(':');
+    dueAt = dueAt.hour(hour).minute(minute).startOf('minute');
+    this.due_at = dueAt.toISOString();
+
+    // is requested due at before opens?
+    if (dueAt.isBefore(this.opens_at)) {
+      [ hour, minute ] = this.course.default_open_time.split(':');
+      const opens_at = this.course.momentInZone(Time.now).hour(hour).minute(minute).startOf('minute');
+
+      if (dueAt.isBefore(opens_at)) {
+        // set opens_at to just before due
+        this.opens_at = dueAt.clone().subtract(1, 'minute').toISOString();
+      } else {
+        this.opens_at = opens_at.toISOString();
+      }
+    }
+  }
+
   @action setOpensDate(date) {
     this.opens_at = findEarliest(
       moment(this.due_at).subtract(1, 'minute'),

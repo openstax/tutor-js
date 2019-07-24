@@ -26,7 +26,6 @@ class AssignmentBuilderUX {
     exercises = Exercises,
     windowImpl = window,
   }) {
-
     if ('clone' === type) {
       if (!course.pastTaskPlans.api.hasBeenFetched) {
         await course.pastTaskPlans.fetch();
@@ -64,7 +63,7 @@ class AssignmentBuilderUX {
       this.plan.findOrCreateTaskingForPeriod(period),
     );
     if (due_at) {
-      this.plan.tasking_plans.forEach(tp => tp.due_at = moment(due_at).startOf('minute').toISOString());
+      this.plan.tasking_plans.forEach(tp => tp.initializeWithDueAt(due_at));
     }
     this.isShowingPeriodTaskings = !this.plan.areTaskingDatesSame;
     this.scroller = new ScrollTo({ windowImpl });
@@ -126,7 +125,6 @@ class AssignmentBuilderUX {
       book: this.referenceBook,
       exercise_ids: this.plan.settings.exercise_ids,
     });
-
   }
 
   @computed get selectedExercises() {
