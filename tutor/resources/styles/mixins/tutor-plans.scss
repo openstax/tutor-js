@@ -104,9 +104,9 @@
   background: fade_out($plan-color, 0.8);
 
   a {
-    color: $tutor-neutral-darker;
+    flex: 1;
     text-decoration: none;
-
+    color: $tutor-neutral-darker;
     &:hover {
       text-decoration: none;
     }

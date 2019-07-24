@@ -2,7 +2,7 @@ import {
   React, PropTypes, styled, computed, action, observer,
 } from '../../../helpers/react';
 import moment from 'moment';
-import { map, compact } from 'lodash';
+import { compact } from 'lodash';
 import { findEarliest, findLatest } from '../../../helpers/dates';
 import Time from '../../../models/time';
 import { Row, Col } from 'react-bootstrap';
@@ -50,7 +50,7 @@ class Tasking extends React.Component {
 
   @computed get maxOpensAt() {
     return findEarliest(
-      findLatest(map(this.taskings, 'due_at')),
+      this.taskings[0].due_at,
       this.course.bounds.end,
     );
   }
@@ -58,7 +58,7 @@ class Tasking extends React.Component {
   @computed get minDueAt() {
     return findLatest(
       Time.now,
-      findLatest(map(this.taskings, 'opens_at')),
+      this.taskings[0].opens_at,
       this.course.bounds.start,
     );
   }
@@ -133,11 +133,12 @@ class Tasking extends React.Component {
                 </Col>
                 <Col md={5} xs={4}>
                   <TutorTimeInput
+                    key={tasking.opensAtTime || 'opens_at_time'}
                     required={true}
                     label="Open Time"
                     value={tasking.opens_at}
                     onChange={this.onOpensTimeChange}
-                    defaultValue={course.default_open_time}
+                    defaultValue={tasking.opensAtTime || course.default_open_time}
                   />
                 </Col>
               </Row>
@@ -156,11 +157,11 @@ class Tasking extends React.Component {
                 </Col>
                 <Col md={5} xs={4}>
                   <TutorTimeInput
+                    key={tasking.dueAtTime || 'due_at_time'}
                     required={true}
                     label="Due Time"
-                    value={tasking.due_at}
                     onChange={this.onDueTimeChange}
-                    defaultValue={course.default_due_time}
+                    defaultValue={tasking.dueAtTime || course.default_open_time}
                   />
                   {this.setAsDefaultOption()}
                 </Col>

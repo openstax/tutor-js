@@ -33,6 +33,9 @@ const getRoutes = (router) => {
           renderer: r(() => import('./screens/scores-report/index.jsx')) },
         { path: 'guide/:roleId?', name: 'viewPerformanceGuide',
           renderer: r(() => import('./screens/performance-forecast')) },
+        {
+          path: 'become/:roleId', name: 'becomeRole',
+          renderer:  ConditionalHandlers.becomeRole },
         { path: 't', name: 'viewTeacherDashboard',
           renderer: r(() => import('./screens/teacher-dashboard'), 'Course'),
           routes: [

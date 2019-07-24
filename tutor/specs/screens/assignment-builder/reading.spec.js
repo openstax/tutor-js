@@ -42,8 +42,8 @@ describe('Reading Builder', function() {
       tasking_plans: props.ux.course.periods.map(p => ({
         target_id: p.id,
         target_type: 'period',
-        due_at: due_at.toISOString(),
-        opens_at: opens_at.toISOString(),
+        opens_at: ux.course.momentInZone(opens_at).format('YYYY-MM-DD HH:mm'),
+        due_at: ux.course.momentInZone(due_at).format('YYYY-MM-DD HH:mm'),
       })),
       settings: {
         page_ids: props.ux.referenceBook.children[1].children.map(p => p.id),

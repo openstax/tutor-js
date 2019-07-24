@@ -2,7 +2,6 @@ import { React, PropTypes, observer, action } from '../../helpers/react';
 import TourRegion from '../../components/tours/region';
 import Courses from '../../models/courses-map';
 import Router from '../../helpers/router';
-import TaskPlanHelper from '../../helpers/task-plan';
 import LoadingScreen from 'shared/components/loading-animation';
 import homework from './homework';
 import reading from './reading';
@@ -64,8 +63,13 @@ class AssignmentBuilder extends React.Component {
   }
 
   @action.bound onComplete() {
-    const route = TaskPlanHelper.calendarParams(this.ux.course);
-    this.props.history.push(Router.makePathname(route.to, route.params));
+    const { ux } = this;
+    this.props.history.push(
+      Router.makePathname('calendarByDate', {
+        courseId: ux.course.id,
+        date: ux.plan.dateRanges.opens.start.format('YYYY-MM-DD'),
+      }),
+    );
   }
 
   render() {

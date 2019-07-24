@@ -14,25 +14,44 @@ describe('Teacher tasking plan tasking', () => {
     tasking.opens_at = now.toISOString();
   });
 
+  it('converts to course time for save', () => {
+    expect(course.time_zone).toEqual('Central Time (US & Canada)');
+    expect(tasking.dataForSave).toEqual({
+      target_type: 'period',
+      target_id: course.periods[0].id,
+      due_at: '2015-10-14 07:00',  // 12am - 5 hours
+      opens_at: '2015-10-14 07:00',
+    });
+  });
+
   it('sets open/due but not past the opposing open/due', () => {
     tasking.setOpensDate(moment(now).year(2016));
 
     tasking.due_at = '2016-10-14T12:00:00.000Z';
     tasking.setOpensDate('2016-10-20T12:00:00.000Z');
-    expect(tasking.opens_at).toEqual('2016-10-14T12:00:00.000Z');
+    expect(tasking.opens_at).toEqual('2016-10-14T11:59:00.000Z');
 
-    tasking.setOpensTime('2016-10-20T19:42:00.000Z');
-    expect(tasking.opens_at).toEqual('2016-10-14T12:00:00.000Z');
+    tasking.setOpensTime('1:42');
+    expect(tasking.opens_at).toEqual('2016-10-14T06:42:00.000Z');
 
-    tasking.setOpensDate('2016-10-10T18:18:00.000Z');
+    tasking.setOpensTime('15:00'); // past due date, clips to that
+    expect(tasking.opens_at).toEqual('2016-10-14T11:59:00.000Z');
 
-    expect(tasking.opens_at).toEqual('2016-10-10T12:00:00.000Z');
+    tasking.setOpensDate('2016-10-11T21:18:00.000Z');
+    // only day changes, not time
+    expect(tasking.opens_at).toEqual('2016-10-11T11:59:00.000Z');
 
+    // test setting due date to before opens at
     tasking.setDueDate('2016-01-20T12:00:00.000Z');
-    expect(tasking.due_at).toEqual('2016-10-10T12:00:00.000Z');
 
-    tasking.setDueTime('2016-10-10T22:42:00.000Z');
-    expect(tasking.due_at).toEqual('2016-10-10T12:42:00.000Z');
+    // clips to one minute after opens at
+    expect(tasking.due_at).toEqual('2016-10-11T12:00:00.000Z');
+
+    tasking.setDueTime('01:35'); // before the opens date, no change
+    expect(tasking.due_at).toEqual('2016-10-11T12:00:00.000Z');
+
+    tasking.setDueTime('22:15'); // converts to course time
+    expect(tasking.due_at).toEqual('2016-10-12T03:15:00.000Z');
   });
 
   it('#defaultOpensAt', () => {
