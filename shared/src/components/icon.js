@@ -142,13 +142,14 @@ class Icon extends React.Component {
   uniqueId = uniqueId('icon-tooltip-')
 
   render() {
-    const providedProps = this.props;
-    if (providedProps.variant) {
-      defaults(providedProps, Variants[providedProps.variant]);
+    let { variant, ...providedProps } = this.props;
+    if (variant) {
+      defaults(providedProps, Variants[variant]);
     }
+
     const {
       onClick, buttonProps, tooltipProps, btnVariant,
-      type, className, tooltip, onNavbar, variant,
+      type, className, tooltip, onNavbar,
       ...props
     } = providedProps;
 
