@@ -12,6 +12,8 @@ export default
 class CourseStudent extends BaseModel {
   @identifier id;
 
+  static TEACHER_AS_STUDENT_ID = -9;
+
   @field name;
   @field uuid;
   @field first_name = '';
@@ -94,5 +96,4 @@ class CourseStudent extends BaseModel {
   saveOwnStudentId() {
     return { id: this.id, data: pick(this, 'student_identifier') };
   }
-
-};
+}

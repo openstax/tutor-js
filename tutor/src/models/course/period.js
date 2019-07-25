@@ -1,5 +1,6 @@
 import { find, pick, last } from 'lodash';
 import { computed, action, runInAction } from 'mobx';
+import Student from './student';
 import {
   BaseModel, identifiedBy, field, identifier, belongsTo,
 } from 'shared/model';
@@ -70,13 +71,12 @@ class CoursePeriod extends BaseModel {
     }
     runInAction(() => {
       role.joined_at = new Date(); // adjust the date so it always appears new
-      let student = find(this.course.students, { id: -1 });
+      let student = find(this.course.students, { id: Student.TEACHER_AS_STUDENT_ID });
       if (!student) {
-        this.course.students.push({ id: -1 });
+        this.course.students.push({ id: Student.TEACHER_AS_STUDENT_ID });
         student = last(this.course.students);
       }
       student.update({
-        id: -1,
         role_id: role.id,
         student_identifier: '',
         first_name: 'Review',

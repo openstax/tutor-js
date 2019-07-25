@@ -3,7 +3,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import { get } from 'lodash';
 import { observer } from 'mobx-react';
-import { computed, action, observable } from 'mobx';
+import { action, observable } from 'mobx';
 import PaymentsModal from '../payments/modal';
 import Payments from '../../models/payments';
 import Course from '../../models/course';
@@ -55,8 +55,12 @@ class StudentPayNowBtn extends React.Component {
   }
 
   render() {
+    const student = get(this.props.course, 'userStudentRecord');
+    if (!student) { return null; }
+
     // if the student is locked out then the pay now modal is already being displayed
-    if (get(this.props.course, 'userStudentRecord.mustPayImmediately')) { return null; }
+    // if they're comped don't even mention payments
+    if (student.mustPayImmediately || student.is_comped) { return null; }
 
     if (!Payments.config.is_enabled && this.props.course && this.props.course.isInTrialPeriod) {
       return (
@@ -78,4 +82,4 @@ class StudentPayNowBtn extends React.Component {
       </span>
     );
   }
-};
+}
