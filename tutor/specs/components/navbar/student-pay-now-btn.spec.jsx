@@ -14,10 +14,17 @@ describe('Student get access button', function() {
     props = {
       course: Factory.course(),
     };
+    props.course.userStudentRecord = {};
   });
 
   it('does not render if course if free', () => {
     props.course.does_cost = false;
+    const btn = shallow(<GetAccess {...props} />);
+    expect(btn.html()).toBeNull();
+  });
+
+  it('does not render if student is comped', () => {
+    props.course.userStudentRecord.is_comped = true;
     const btn = shallow(<GetAccess {...props} />);
     expect(btn.html()).toBeNull();
   });

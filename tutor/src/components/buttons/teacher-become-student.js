@@ -89,7 +89,7 @@ class TeacherBecomesStudent extends React.Component {
   async becomeStudentInPeriod(period) {
     const { course } = this.props;
     this.isCreating = true;
-    const role = await period.findOrCreateTeacherStudentRole();
+    const role = await period.getTeacherStudentRole();
     this.context.router.history.push(`/course/${course.id}/become/${role.id}`);
   }
 

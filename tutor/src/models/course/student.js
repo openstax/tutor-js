@@ -1,4 +1,5 @@
 import { computed, action } from 'mobx';
+import { readonly } from 'core-decorators';
 import {
   BaseModel, identifiedBy, field, identifier, belongsTo,
 } from 'shared/model';
@@ -11,6 +12,8 @@ export default
 @identifiedBy('course/student')
 class CourseStudent extends BaseModel {
   @identifier id;
+
+  @readonly static TEACHER_AS_STUDENT_ID = -9;
 
   @field name;
   @field uuid;
@@ -94,5 +97,4 @@ class CourseStudent extends BaseModel {
   saveOwnStudentId() {
     return { id: this.id, data: pick(this, 'student_identifier') };
   }
-
-};
+}

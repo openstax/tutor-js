@@ -1,5 +1,6 @@
-import { find, pick } from 'lodash';
-import { computed, action } from 'mobx';
+import { find, pick, last } from 'lodash';
+import { computed, action, runInAction } from 'mobx';
+import Student from './student';
 import {
   BaseModel, identifiedBy, field, identifier, belongsTo,
 } from 'shared/model';
@@ -60,7 +61,7 @@ class CoursePeriod extends BaseModel {
     this.course.periods.push(this);
   }
 
-  @action async findOrCreateTeacherStudentRole() {
+  @action async getTeacherStudentRole() {
     let role = this.course.roles.find((r) => (
       r.isTeacherStudent && r.period_id == this.id
     ));
@@ -68,6 +69,24 @@ class CoursePeriod extends BaseModel {
       const { data } = await this.createTeacherStudent();
       role = this.course.roles.find(r => r.id == data.id );
     }
+    runInAction(() => {
+      role.joined_at = new Date(); // adjust the date so it always appears new
+      let student = find(this.course.students, { id: Student.TEACHER_AS_STUDENT_ID });
+      if (!student) {
+        this.course.students.push({ id: Student.TEACHER_AS_STUDENT_ID });
+        student = last(this.course.students);
+      }
+      student.update({
+        role_id: role.id,
+        student_identifier: '',
+        first_name: 'Instructor',
+        is_comped: true,
+        last_name: 'Review',
+        name: 'Instructor Review',
+        period_id: this.id,
+        prompt_student_to_pay: false,
+      });
+    });
     return role;
   }
 
@@ -77,19 +96,5 @@ class CoursePeriod extends BaseModel {
 
   @action onCreateTeacherStudent({ data }) {
     this.course.roles.push(data);
-    // create a fake student
-    this.course.students.push({
-      id: -1,
-      role_id: data.id,
-      student_identifier: '',
-      first_name: 'Review',
-      last_name: 'Student1',
-      name: 'Teacher Review Student',
-      payment_due_at: (new Date).toString(),
-      period_id: this.id,
-      prompt_student_to_pay: false,
-    });
-
   }
-
 }

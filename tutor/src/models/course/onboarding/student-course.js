@@ -18,6 +18,8 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
 
   @computed get nagComponent() {
     if (this.needsTermsSigned) { return null; }
+    const student = this.course.userStudentRecord;
+    if (student.is_comped) { return null; }
 
     if (this.displayPayment) { return Nags.makePayment; }
     if (!Payments.config.is_enabled && this.course.does_cost){
@@ -25,7 +27,7 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
         return Nags.payDisabled;
       }
     } else if (this.course.needsPayment) {
-      if (this.course.userStudentRecord.mustPayImmediately) {
+      if (student.mustPayImmediately) {
         return Nags.freeTrialEnded;
       } else if (this.displayTrialActive) {
         return Nags.freeTrialActivated;

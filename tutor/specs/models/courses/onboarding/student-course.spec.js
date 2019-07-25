@@ -28,6 +28,7 @@ describe('Student Course Onboarding', () => {
     Object.assign(ux.course, {
       id: 1,
       primaryRole: { joinedAgo: jest.fn(() => 18120) },
+      userStudentRecord: { is_comped: false },
       studentTaskPlans: {
         startFetching: jest.fn(() => Promise.resolve()),
         stopFetching: jest.fn(),

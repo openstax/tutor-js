@@ -142,10 +142,9 @@ class TaskingPlan extends BaseModel {
 
   @action setOpensTime(time) {
     const [hour, minute] = time.split(':');
-    const opens = this.course.momentInZone(this.opens_at).hour(hour).minute(minute);
     this.opens_at = findEarliest(
       moment(this.due_at).subtract(1, 'minute'),
-      opens.startOf('minute')
+      this.course.momentInZone(this.opens_at).hour(hour).minute(minute).startOf('minute')
     ).toISOString();
   }
 
