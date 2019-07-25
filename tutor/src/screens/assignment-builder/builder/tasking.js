@@ -2,12 +2,13 @@ import {
   React, PropTypes, styled, computed, action, observer,
 } from '../../../helpers/react';
 import moment from 'moment';
+import { Row, Col } from 'react-bootstrap';
+import { Icon } from 'shared';
 import { compact } from 'lodash';
 import { findEarliest, findLatest } from '../../../helpers/dates';
 import Time from '../../../models/time';
-import { Row, Col } from 'react-bootstrap';
 import { TutorDateInput, TutorTimeInput } from '../../../components/tutor-input';
-
+import SetTimeAsDefault from './set-time-as-default';
 
 const StyledTasking = styled(Row)`
 .tutor-input.form-control-wrapper.tutor-input input[disabled] {
@@ -83,6 +84,28 @@ class Tasking extends React.Component {
     this.taskings.forEach(t => t.setDueTime(time));
   }
 
+  renderDueAtError() {
+    const tasking = this.taskings[0];
+    if (tasking.isValid || !tasking.due_at) { return null; }
+
+    let msg = null;
+    const due = moment(tasking.due_at);
+    if (due.isBefore(Time.now)) {
+      msg = 'Due time has already passed';
+    } else if (due.isBefore(tasking.opens_at)) {
+      msg = 'Due time cannot come before task opens';
+    }
+    if (!msg) { return null; }
+    return (
+      <Row>
+        <Col className="due-before-open">
+          <Icon variant="errorInfo" />
+          {msg}
+        </Col>
+      </Row>
+    );
+  }
+
   renderSelectionCheckbox() {
     const { ux, period, ux: { plan } } = this.props;
     if (!period) { return null; }
@@ -106,7 +129,7 @@ class Tasking extends React.Component {
   render() {
     if (!this.taskings.length) { return null; }
 
-    const { period, ux: { course } } = this.props;
+    const { period } = this.props;
     const tasking = this.taskings[0];
     const mainSizes = period ? { sm: 8, md: 9 } : { sm: 12 };
 
@@ -138,8 +161,9 @@ class Tasking extends React.Component {
                     label="Open Time"
                     value={tasking.opens_at}
                     onChange={this.onOpensTimeChange}
-                    defaultValue={tasking.opensAtTime || course.default_open_time}
+                    value={tasking.opensAtTime}
                   />
+                  <SetTimeAsDefault type="opens" tasking={tasking} />
                 </Col>
               </Row>
             </Col>
@@ -161,11 +185,12 @@ class Tasking extends React.Component {
                     required={true}
                     label="Due Time"
                     onChange={this.onDueTimeChange}
-                    defaultValue={tasking.dueAtTime || course.default_open_time}
+                    value={tasking.dueAtTime}
                   />
-                  {this.setAsDefaultOption()}
+                  <SetTimeAsDefault type="due" tasking={tasking} />
                 </Col>
               </Row>
+              {this.renderDueAtError()}
             </Col>
           </Row>
         </Col>

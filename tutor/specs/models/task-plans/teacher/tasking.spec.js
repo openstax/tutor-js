@@ -89,8 +89,7 @@ describe('Teacher tasking plan tasking', () => {
 
     // set to before the now
     tasking.initializeWithDueAt('2015-10-01T12:00:00.000Z');
-    expect(tasking.due_at).toEqual('2015-10-01T20:40:00.000Z'); // same date but -5hours tz
-    expect(tasking.opens_at).toEqual('2015-10-01T20:39:00.000Z'); // set to one minute before due_at
-
+    expect(tasking.due_at).toEqual(moment(now).add(30, 'minutes').toISOString());
+    expect(tasking.opens_at).toEqual(moment(now).add(29, 'minutes').toISOString());
   });
 });
