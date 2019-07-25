@@ -30,8 +30,11 @@ class External extends React.Component {
                 <TutorInput
                   label="Assignment URL"
                   name="externalUrl"
+                  className="external-url"
                   {...ux.form.externalUrl}
                 />
+                {!plan.isExternalUrlValid && (
+                  <div className="hint required-hint valid-external-url-required">A valid URL is required</div>)}
               </Col>
             </Row>
           </Card.Body>

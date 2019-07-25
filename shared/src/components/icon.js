@@ -107,19 +107,27 @@ const IconWrapper = styled(FontAwesomeIcon)`
   margin-left: 0.5rem;
 `;
 
+
+const Variants = {
+  errorInfo: {
+    color: '#c2002f',
+    type: 'exclamation-circle',
+  },
+};
+
 export default
 class Icon extends React.Component {
 
   static propTypes = {
-    type: PropTypes.oneOf(Object.keys(Icons)).isRequired,
+    type: PropTypes.oneOf(Object.keys(Icons)),
     spin: PropTypes.bool,
     className: PropTypes.string,
     onClick: PropTypes.func,
     onNavbar: PropTypes.bool,
     tooltipProps: PropTypes.object,
     buttonProps: PropTypes.object,
-    variant: PropTypes.string,
     btnVariant: PropTypes.string,
+    variant: PropTypes.oneOf(Object.keys(Variants)),
     tooltip: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.element,
@@ -134,11 +142,15 @@ class Icon extends React.Component {
   uniqueId = uniqueId('icon-tooltip-')
 
   render() {
+    const providedProps = this.props;
+    if (providedProps.variant) {
+      defaults(providedProps, Variants[providedProps.variant]);
+    }
     const {
       onClick, buttonProps, tooltipProps, btnVariant,
       type, className, tooltip, onNavbar, variant,
       ...props
-    } = this.props;
+    } = providedProps;
 
     let icon = (
       <IconWrapper
