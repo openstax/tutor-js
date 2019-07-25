@@ -339,7 +339,7 @@ class TutorTimeInput extends React.Component {
     if (!isEqual(this.getMask().selection, selection)) { nextState.selection = selection; }
 
     this.setState(nextState);
-
+    // console.log("CHANGE:", timeValue, this.isValidTime(timeValue))
     if (this.isValidTime(timeValue)) {
       timeValue = this.timeOut(timeValue);
       if (typeof this.props.onChange === 'function') {
@@ -370,6 +370,7 @@ class TutorTimeInput extends React.Component {
     } else {
       pattern = 'hi:Mm P';
     }
+//    console.log({ value, pattern });
     return pattern;
   };
 
@@ -446,20 +447,21 @@ class TutorTimeInput extends React.Component {
   render() {
     const maskedProps = omit(this.props, 'defaultValue', 'onChange', 'formatCharacters');
     const inputProps = pick(this.props, 'disabled');
-
     const { formatCharacters } = this.props;
-    const { timePattern, timeValue } = this.state;
+    const { value } = this.props;
+    const timePattern = this.getPatternFromValue(value);
+
     return (
       <TutorInput
         {...maskedProps}
         onChange={this.onChange}
         validate={this.validate}
-        hasValue={!!timeValue}
+        hasValue={!!value}
         ref="timeInput"
       >
         <MaskedInput
           {...inputProps}
-          value={timeValue}
+          value={value}
           name="time"
           size="8"
           mask={timePattern}
