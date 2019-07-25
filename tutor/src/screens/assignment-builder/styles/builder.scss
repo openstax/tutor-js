@@ -40,35 +40,25 @@
 
 }
 
-.tasking-time {
-  padding: 0;
-
-  .tutor-input.form-control-wrapper {
-    margin-bottom: 0;
+.tasking-time-default {
+  font-size: 1.2rem;
+  line-height: 1em;
+  font-weight: 400;
+  display: block;
+  &.tasking-time-default-set {
+    color: $tutor-success;
   }
 
-  .tasking-time-default {
-    font-size: 1.2rem;
-    line-height: 1em;
-    font-weight: 400;
-    display: block;
+  &.btn {
+    color: $tutor-info;
+    text-transform: none;
+    padding: 0;
+    margin-top: -20px;
+    border-radius: 0;
 
-    &.tasking-time-default-set {
-      color: $tutor-success;
+    &.is-waiting {
+      color: $tutor-neutral;
     }
-
-    &.btn {
-      color: $tutor-info;
-      text-transform: none;
-      padding: 0;
-      margin: 0.1rem 0 0 0;
-      border-radius: 0;
-
-      &.is-waiting {
-        color: $tutor-neutral;
-      }
-    }
-
   }
 }
 
@@ -79,10 +69,20 @@
         border: thin solid $form-error-color;
     }
 }
-
+.is-invalid-form {
+  .form-control-wrapper.tutor-input.external-url.has-error {
+    .hint.required-hint {
+      display: none;
+    }
+  }
+  .required-hint.hint.valid-external-url-required {
+    display: block;
+    margin-top: -20px;
+  }
+}
 .due-before-open {
   line-height: 1.2rem;
-  margin: -10px 0 30px;
+  margin: -20px 0 20px;
 }
 
 .due-before-open,

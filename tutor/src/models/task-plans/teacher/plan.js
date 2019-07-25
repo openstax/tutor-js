@@ -6,13 +6,13 @@ import {
   sortBy, first, last, map, union, find,
   get, pick, extend, every, isEmpty,
 } from 'lodash';
+import isUrl from 'validator/lib/isURL';
 import { lazyInitialize } from 'core-decorators';
 import TaskingPlan from './tasking';
 import TaskPlanPublish from '../../jobs/task-plan-publish';
 import { getDurationFromMoments } from '../../../helpers/dates';
 import Time from '../../time';
 import TaskPlanStats from './stats';
-
 import moment from '../../../helpers/moment-range';
 
 const TUTOR_SELECTIONS = {
@@ -317,12 +317,22 @@ class TeacherTaskPlan extends BaseModel {
     return extend(this.clonedAttributes, pick(this, 'is_publish_requested' ));
   }
 
+  @computed get isExternalUrlValid() {
+    return Boolean(
+      !this.isExternal ||
+        (!isEmpty(this.settings.external_url) &&
+         isUrl(this.settings.external_url))
+    );
+  }
+
   @computed get invalidParts() {
     const parts = [];
     if (!String(this.title).match(/\w/)) { parts.push('title'); }
     if (!every(this.tasking_plans, 'isValid')) { parts.push('taskings'); }
     if (this.isReading && isEmpty(this.pageIds)) { parts.push('readings'); }
-    if (this.isHomework && isEmpty(this.exerciseIds)) { parts.push('homworks'); }
+    if (this.isHomework && isEmpty(this.exerciseIds)) { parts.push('homeworks'); }
+    if (!this.isExternalUrlValid){ parts.push('external_url'); }
+
     return parts;
   }
 

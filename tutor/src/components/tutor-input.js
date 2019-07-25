@@ -329,24 +329,12 @@ class TutorTimeInput extends React.Component {
 
   onChange = (value, input, changeEvent) => {
     const timePattern = this.getPatternFromValue(value, changeEvent);
-    const time = this.getValue();
+    const time = moment(value, timePattern);
+    // console.log({ value, timePattern, time })
 
-    let { timeValue, selection } = this.getUpdates(timePattern, time);
-    const nextState =
-      { selection: undefined };
-    if (timePattern !== this.state.timePattern) { nextState.timePattern = timePattern; }
-    if (timeValue !== this.state.timeValue) { nextState.timeValue = timeValue; }
-    if (!isEqual(this.getMask().selection, selection)) { nextState.selection = selection; }
-
-    this.setState(nextState);
-
-    if (this.isValidTime(timeValue)) {
-      timeValue = this.timeOut(timeValue);
-      if (typeof this.props.onChange === 'function') {
-        this.props.onChange(timeValue)
-      }
+    if (time.isValid()) {
+      this.props.onChange(time.format('HH:mm'));
     }
-
   };
 
   getInput = () => {
@@ -360,16 +348,17 @@ class TutorTimeInput extends React.Component {
   getPatternFromValue = (value, changeEvent) => {
     let pattern;
     if (/^([2-9])/.test(value) || /^(_+[1-9])/.test(value)) {
-      pattern = 'h:Mm P';
+      pattern = 'h:mm P';
     } else if (/^1:/.test(value)) {
       if ((changeEvent != null) && !this.shouldShrinkMask(changeEvent)) {
-        pattern = 'hh:Mm P';
+        pattern = 'hh:mm P';
       } else {
-        pattern = 'h:Mm P';
+        pattern = 'h:mm P';
       }
     } else {
-      pattern = 'hi:Mm P';
+      pattern = 'hi:mm P';
     }
+//    console.log({ value, pattern });
     return pattern;
   };
 
@@ -446,20 +435,21 @@ class TutorTimeInput extends React.Component {
   render() {
     const maskedProps = omit(this.props, 'defaultValue', 'onChange', 'formatCharacters');
     const inputProps = pick(this.props, 'disabled');
-
     const { formatCharacters } = this.props;
-    const { timePattern, timeValue } = this.state;
+    const { value } = this.props;
+    const timePattern = this.getPatternFromValue(value);
+
     return (
       <TutorInput
         {...maskedProps}
         onChange={this.onChange}
         validate={this.validate}
-        hasValue={!!timeValue}
+        hasValue={!!value}
         ref="timeInput"
       >
         <MaskedInput
           {...inputProps}
-          value={timeValue}
+          value={value}
           name="time"
           size="8"
           mask={timePattern}

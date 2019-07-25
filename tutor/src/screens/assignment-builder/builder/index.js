@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, cn } from '../../../helpers/react';
+import { React, PropTypes, observer } from '../../../helpers/react';
 import { Row, Col } from 'react-bootstrap';
 import CourseGroupingLabel from '../../../components/course-grouping-label';
 import TimeZoneSettings from './time-zone-settings-link';
@@ -14,7 +14,7 @@ class TaskPlanBuilder extends React.Component {
   }
 
   render() {
-    const { ux, ux: { form, course, plan } } = this.props;
+    const { ux, ux: { course, plan } } = this.props;
     const taskings = plan.tasking_plans;
 
     let invalidPeriodsAlert;
@@ -28,7 +28,7 @@ class TaskPlanBuilder extends React.Component {
     }
 
     return (
-      <div className={cn('assignment', { 'is-invalid-form': form.showErrors })}>
+      <div className="assignment">
         <Row>
           <Col xs={12}>
             <TutorInput

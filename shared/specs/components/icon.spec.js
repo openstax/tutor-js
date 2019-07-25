@@ -45,4 +45,10 @@ describe('Icon Component', function() {
     icon.unmount();
   });
 
+  it('adds props from variants', () => {
+    props = { variant: 'errorInfo' };
+    const icon = mount(<Icon {...props} />);
+    expect(icon).toHaveRendered('svg[data-icon="exclamation-circle"]');
+    icon.unmount();
+  });
 });

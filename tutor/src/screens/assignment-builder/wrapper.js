@@ -1,4 +1,4 @@
-import { React, PropTypes, styled } from '../../helpers/react';
+import { React, PropTypes, cn, observer, styled } from '../../helpers/react';
 import NudgeAvailableMessage from './nudge-is-available-message';
 import UX from './ux';
 
@@ -17,17 +17,21 @@ const Wrapper = styled.div`
   padding: 2rem;
 `;
 
-const AssignmentBuilderWrapper = ({ ux: { plan: { type } }, children }) => {
+const AssignmentBuilderWrapper = observer(({ ux: { form, plan: { type } }, children }) => {
   return (
     <Wrapper
-      className={`${type}-plan task-plan`}
+      className={cn(`${type}-plan`, 'task-plan', {
+        'is-invalid-form': form.showErrors,
+      })}
       data-assignment-type={type}
     >
       <StyledNudgeMessage planType={type} />
       {children}
     </Wrapper>
   );
-};
+});
+
+AssignmentBuilderWrapper.displayName = 'AssignmentBuilder';
 
 AssignmentBuilderWrapper.propTypes = {
   ux: PropTypes.instanceOf(UX).isRequired,
