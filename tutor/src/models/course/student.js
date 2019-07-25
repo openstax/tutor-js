@@ -1,4 +1,5 @@
 import { computed, action } from 'mobx';
+import { readonly } from 'core-decorators';
 import {
   BaseModel, identifiedBy, field, identifier, belongsTo,
 } from 'shared/model';
@@ -12,7 +13,7 @@ export default
 class CourseStudent extends BaseModel {
   @identifier id;
 
-  static TEACHER_AS_STUDENT_ID = -9;
+  @readonly static TEACHER_AS_STUDENT_ID = -9;
 
   @field name;
   @field uuid;

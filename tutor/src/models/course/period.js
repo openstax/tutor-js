@@ -79,10 +79,10 @@ class CoursePeriod extends BaseModel {
       student.update({
         role_id: role.id,
         student_identifier: '',
-        first_name: 'Review',
+        first_name: 'Instructor',
         is_comped: true,
-        last_name: 'Student',
-        name: 'Teacher Review Student',
+        last_name: 'Review',
+        name: 'Instructor Review',
         period_id: this.id,
         prompt_student_to_pay: false,
       });
