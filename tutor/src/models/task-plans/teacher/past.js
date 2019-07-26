@@ -20,7 +20,7 @@ class PastTaskPlans extends Map {
   onLoaded({ data: { items } }) {
     items.forEach(plan => {
       const tp = this.get(plan.id);
-      tp ? tp.update(plan) : this.set(plan.id, new TaskPlan(plan));
+      tp ? tp.update(plan) : this.set(plan.id, new TaskPlan({ ...plan, course: this.course }));
     });
   }
 
