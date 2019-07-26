@@ -44,7 +44,7 @@ class TeacherTaskPlan extends BaseModel {
   @field is_trouble;
   @field cloned_from_id;
   @field is_deleting;
-  @session publish_job_url;
+  @field publish_job_url;
   @field({ type: 'object' }) settings = {};
   @hasMany({ model: TaskingPlan, inverseOf: 'plan', extend: {
     forPeriod(period) { return find(this, { target_id: period.id, target_type: 'period' }); },

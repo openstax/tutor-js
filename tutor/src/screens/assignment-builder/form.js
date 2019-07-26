@@ -11,6 +11,7 @@ class AssignmentForm {
     this.plan = plan;
 
     this.title = {
+      id: 'title',
       onChange: this.setter('title'),
       onFocus: this.onFocus,
       get value() { return plan.title; },
@@ -23,6 +24,7 @@ class AssignmentForm {
     };
 
     this.description = {
+      id: 'description',
       onChange: this.setter('description'),
       onFocus: this.onFocus,
       disabled: !plan.canEdit,
@@ -31,6 +33,7 @@ class AssignmentForm {
 
     if ('external' == plan.type) {
       this.externalUrl = {
+        id: 'external-url',
         onChange: this.setter('settings.external_url'),
         onFocus: this.onFocus,
         disabled: !plan.canEdit,
