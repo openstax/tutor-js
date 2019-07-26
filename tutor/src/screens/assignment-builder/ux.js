@@ -159,11 +159,16 @@ class AssignmentBuilderUX {
     this.scroller.scrollToElement(el);
   }
 
-  @computed get referenceBook() {
-    if (this.plan.ecosystem_id && this.plan.ecosystem_id != this.course.ecosystem_id) {
-      return new ReferenceBook({ id: this.plan.ecosystem_id });
+  get referenceBook() {
+    if (this._referenceBook) {
+      return this._referenceBook;
     }
-    return this.course.referenceBook;
+    if (this.plan.ecosystem_id && this.plan.ecosystem_id != this.course.ecosystem_id) {
+      this._referenceBook = new ReferenceBook({ id: this.plan.ecosystem_id });
+    } else {
+      this._referenceBook = this.course.referenceBook;
+    }
+    return this._referenceBook;
   }
 
   @action.bound increaseTutorSelection() {
