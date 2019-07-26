@@ -1,5 +1,6 @@
-import { React, observer, action, observable, cn  } from '../../helpers/react';
+import { React, observer, action, observable, styled, cn  } from '../../helpers/react';
 import { partial } from 'lodash';
+import { Icon } from 'shared';
 import PropTypes from 'prop-types';
 import { Overlay, Popover } from 'react-bootstrap';
 import Course from '../../models/course';
@@ -7,13 +8,23 @@ import { CloneAssignmentLink } from './task-dnd';
 import TaskPlanHelper from '../../helpers/task-plan';
 import TimeHelper from '../../helpers/time';
 
+const Loading = styled.div`
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+`;
+
 const PastAssignmentsLoading = ({ className }) => (
   <div className={cn('past-assignments', className)}>
-    <div className="no-plans is-loading">
-      Loading copied assignments…
-    </div>
+    <Loading>
+      <Icon variant="activity" /> Loading copied assignments…
+    </Loading>
   </div>
 );
+
+PastAssignmentsLoading.propTypes = {
+  className: PropTypes.string,
+};
 
 export default
 @observer
@@ -21,6 +32,7 @@ class PastAssignments extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
+    className: PropTypes.string,
     cloningPlanId: PropTypes.string,
   }
 
@@ -74,4 +86,4 @@ class PastAssignments extends React.Component {
       </div>
     );
   }
-};
+}
