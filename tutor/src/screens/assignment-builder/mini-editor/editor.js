@@ -23,6 +23,9 @@ const StyledEditor = styled.div`
   .ox-icon-calendar  {
     display: none;
   }
+  .tasking-time-default {
+    display: none;
+  }
 `;
 
 const Footer = styled.div`

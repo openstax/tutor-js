@@ -225,6 +225,7 @@ class TutorDateInput extends React.Component {
     if (!this.props.disabled) {
       dateElem = (
         <DatePicker
+          id={this.props.id}
           utcOffset={this.tzOffset}
           minDate={min.toDate()}
           maxDate={max.toDate()}
@@ -434,7 +435,7 @@ class TutorTimeInput extends React.Component {
 
   render() {
     const maskedProps = omit(this.props, 'defaultValue', 'onChange', 'formatCharacters');
-    const inputProps = pick(this.props, 'disabled');
+    const inputProps = pick(this.props, 'disabled', 'id');
     const { formatCharacters } = this.props;
     const { value } = this.props;
     const timePattern = this.getPatternFromValue(value);

@@ -128,8 +128,8 @@ class Tasking extends React.Component {
 
   render() {
     if (!this.taskings.length) { return null; }
-
     const { period } = this.props;
+    const type = period ? `period-${period.id}` : 'combined';
     const tasking = this.taskings[0];
     const mainSizes = period ? { sm: 8, md: 9 } : { sm: 12 };
 
@@ -139,6 +139,7 @@ class Tasking extends React.Component {
         <Col
           {...mainSizes}
           className="tasking-date-times"
+          data-tasking-type={type}
           data-period-id={period ? period.id : 'all'}
         >
           <Row>
@@ -148,6 +149,7 @@ class Tasking extends React.Component {
                   <TutorDateInput
                     required={true}
                     label="Open Date"
+                    id={`${type}-open-date`}
                     value={tasking.opens_at}
                     min={this.minOpensAt}
                     max={this.maxOpensAt}
@@ -159,6 +161,7 @@ class Tasking extends React.Component {
                     key={tasking.opensAtTime || 'opens_at_time'}
                     required={true}
                     label="Open Time"
+                    id={`${type}-open-time`}
                     value={tasking.opens_at}
                     onChange={this.onOpensTimeChange}
                     value={tasking.opensAtTime}
@@ -173,6 +176,7 @@ class Tasking extends React.Component {
                   <TutorDateInput
                     required={true}
                     label="Due Date"
+                    id={`${type}-due-date`}
                     min={this.minDueAt}
                     max={this.maxDueAt}
                     value={tasking.due_at}
@@ -184,6 +188,7 @@ class Tasking extends React.Component {
                     key={tasking.dueAtTime || 'due_at_time'}
                     required={true}
                     label="Due Time"
+                    id={`${type}-due-time`}
                     onChange={this.onDueTimeChange}
                     value={tasking.dueAtTime}
                   />
