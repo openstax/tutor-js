@@ -215,7 +215,7 @@ class TeacherTaskPlan extends BaseModel {
   }
   @computed get isFailed() { return Boolean(this.failed_at || this.killed_at); }
   @computed get isPastDue() { return this.durationRange.end().isBefore(Time.now); }
-  @computed get isVisibleToStudents() { return this.isPublishing && this.isOpen; }
+  @computed get isVisibleToStudents() { return this.isPublished && this.isOpen; }
 
   @computed get isPollable() {
     return Boolean(

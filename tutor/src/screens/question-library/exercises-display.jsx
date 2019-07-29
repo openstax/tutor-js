@@ -75,7 +75,7 @@ class ExercisesDisplay extends React.Component {
 
   @action.bound onShowDetailsViewClick(ev, exercise) {
     this.selectedExercise = exercise.wrapper;
-    this.currentSection = this.selectedExercise.page.chapter_section.asString;
+    this.currentSection = this.selectedExercise.page.chapter_section;
     this.props.onShowDetailsViewClick(ev, this.selectedExercise);
   }
 

@@ -82,7 +82,7 @@ class Sectionizer extends React.Component {
   renderLink(cs, active) {
     return (
       <div
-        key={cs}
+        key={cs.asString}
         onClick={partial(this.selectSection, cs)}
         className={classnames('section', { active })}
       >

@@ -9,6 +9,7 @@ import { ExercisePreview } from 'shared';
 import PagingNavigation from '../paging-navigation';
 import NoExercisesFound from './no-exercises-found';
 import { Icon } from 'shared';
+import ChapterSection from '../../models/chapter-section';
 import { ExercisesMap } from '../../models/exercises';
 import Book from '../../models/reference-book';
 
@@ -24,7 +25,7 @@ class ExerciseDetails extends React.Component {
     onShowCardViewClick:   PropTypes.func.isRequired,
     getExerciseActions:    PropTypes.func.isRequired,
     getExerciseIsSelected: PropTypes.func.isRequired,
-    selectedSection:       PropTypes.string,
+    selectedSection:       PropTypes.instanceOf(ChapterSection).isRequired,
     displayFeedback:       PropTypes.bool,
     onSectionChange:       PropTypes.func,
     topScrollOffset:       PropTypes.number,

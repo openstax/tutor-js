@@ -19,7 +19,7 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
   @computed get nagComponent() {
     if (this.needsTermsSigned) { return null; }
     const student = this.course.userStudentRecord;
-    if (student.is_comped) { return null; }
+    if (!student || student.is_comped) { return null; }
 
     if (this.displayPayment) { return Nags.makePayment; }
     if (!Payments.config.is_enabled && this.course.does_cost){

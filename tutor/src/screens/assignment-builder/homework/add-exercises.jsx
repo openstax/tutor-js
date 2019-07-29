@@ -97,7 +97,7 @@ class AddExercises extends React.Component {
   };
 
   @action.bound setCurrentSection(currentSection) {
-    this.scroller.scrollToSelector(`[data-section='${currentSection}']`);
+    this.props.ux.scroller.scrollToSelector(`[data-section='${currentSection}']`);
     this.currentSection = currentSection;
   }
 

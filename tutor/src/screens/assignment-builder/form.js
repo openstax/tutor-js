@@ -15,8 +15,6 @@ class AssignmentForm {
       onChange: this.setter('title'),
       onFocus: this.onFocus,
       get value() { return plan.title; },
-      disabled: !plan.canEdit,
-
       validate(text) {
         if (!text || !text.match(/\w/)) { return ['required']; }
         return null;
@@ -27,7 +25,6 @@ class AssignmentForm {
       id: 'description',
       onChange: this.setter('description'),
       onFocus: this.onFocus,
-      disabled: !plan.canEdit,
       get value() { return plan.description; },
     };
 

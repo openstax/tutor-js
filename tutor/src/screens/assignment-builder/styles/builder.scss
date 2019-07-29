@@ -45,6 +45,7 @@
   line-height: 1em;
   font-weight: 400;
   display: block;
+  white-space: nowrap;
   &.tasking-time-default-set {
     color: $tutor-success;
   }

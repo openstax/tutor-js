@@ -28,7 +28,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                                             <div className=\\"indicators\\">
                                               <div className=\\"num total\\">
                                                 <h2>
-                                                  1
+                                                  4
                                                 </h2>
                                                 <span>
                                                   Total Problems
@@ -46,9 +46,25 @@ exports[`choose exercises component matches snapshot 1`] = `
                                                 <TourAnchor id=\\"tutor-selections\\" className=\\"num tutor\\" tourContext={{...}} tag=\\"div\\">
                                                   <div className=\\"tour-anchor num tutor\\" data-tour-anchor-id=\\"tutor-selections\\">
                                                     <div className=\\"tutor-selections\\">
-                                                      <span className=\\"circle-btn-placeholder\\" />
+                                                      <Icon type=\\"chevron-down\\" onClick={[Function: res]} className=\\"hover-circle\\" size=\\"xs\\" buttonProps={{...}} tooltipProps={{...}}>
+                                                        <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-chevron-down hover-circle\\" onClick={[Function: res]}>
+                                                          <Button variant=\\"plain\\" className=\\"ox-icon-chevron-down hover-circle\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                            <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-chevron-down hover-circle btn btn-plain\\">
+                                                              <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-chevron-down hover-circle\\" icon={{...}} size=\\"xs\\">
+                                                                <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-chevron-down hover-circle\\" icon={{...}} size=\\"xs\\" forwardedComponent={{...}} forwardedRef={{...}}>
+                                                                  <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-chevron-down hover-circle IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} size=\\"xs\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                    <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"chevron-down\\" className=\\"svg-inline--fa fa-chevron-down fa-w-14 fa-xs ox-icon ox-icon-chevron-down hover-circle IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
+                                                                      <path fill=\\"currentColor\\" d=\\"M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z\\" style={{...}} />
+                                                                    </svg>
+                                                                  </FontAwesomeIcon>
+                                                                </StyledComponent>
+                                                              </IconWrapper>
+                                                            </button>
+                                                          </Button>
+                                                        </ForwardRef(Bootstrap(Button))>
+                                                      </Icon>
                                                       <h2>
-                                                        0
+                                                        3
                                                       </h2>
                                                       <Icon type=\\"chevron-up\\" onClick={[Function: res]} className=\\"hover-circle\\" size=\\"xs\\" buttonProps={{...}} tooltipProps={{...}}>
                                                         <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-chevron-up hover-circle\\" onClick={[Function: res]}>
@@ -153,6 +169,57 @@ exports[`choose exercises component matches snapshot 1`] = `
                                                   </td>
                                                   <td className=\\"ellipses\\">
                                                     blooms:3 / dok:3
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td className=\\"exercise-number\\">
+                                                    2
+                                                  </td>
+                                                  <td>
+                                                    -
+                                                  </td>
+                                                  <td>
+                                                    Tutor Selection
+                                                  </td>
+                                                  <td>
+                                                    -
+                                                  </td>
+                                                  <td>
+                                                    -
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td className=\\"exercise-number\\">
+                                                    3
+                                                  </td>
+                                                  <td>
+                                                    -
+                                                  </td>
+                                                  <td>
+                                                    Tutor Selection
+                                                  </td>
+                                                  <td>
+                                                    -
+                                                  </td>
+                                                  <td>
+                                                    -
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td className=\\"exercise-number\\">
+                                                    4
+                                                  </td>
+                                                  <td>
+                                                    -
+                                                  </td>
+                                                  <td>
+                                                    Tutor Selection
+                                                  </td>
+                                                  <td>
+                                                    -
+                                                  </td>
+                                                  <td>
+                                                    -
                                                   </td>
                                                 </tr>
                                               </tbody>

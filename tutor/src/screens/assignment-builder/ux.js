@@ -81,7 +81,7 @@ class AssignmentBuilderUX {
   }
 
   @computed get selectedChapterSections() {
-    return map(this.selectedPages, 'displayedChapterSection');
+    return filter(map(this.selectedPages, 'displayedChapterSection'), 'isPresent');
   }
 
   @computed get selectedPages() {
