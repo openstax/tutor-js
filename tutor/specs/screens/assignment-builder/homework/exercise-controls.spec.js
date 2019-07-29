@@ -11,7 +11,7 @@ describe('choose exercises component', () => {
 
   beforeEach(async () => {
     course = Factory.course({ now });
-    plan = Factory.teacherTaskPlan({ course, now, type: 'homework' });
+    plan = Factory.teacherTaskPlan({ course, now, is_published: false, type: 'homework' });
 
     ux = new UX();
     await ux.initialize({ course, plan, windowImpl: new FakeWindow });

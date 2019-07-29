@@ -151,7 +151,7 @@ class TaskingPlan extends BaseModel {
   @action setDueDate(date) {
     this.due_at = findLatest(
       moment(this.opens_at).add(1, 'minute'),
-      dateWithUnchangedTime(date, this.due_at),
+      dateWithUnchangedTime(date, this.due_at || this.defaultDueTime),
     ).toISOString();
   }
 
@@ -166,13 +166,16 @@ class TaskingPlan extends BaseModel {
   @computed get opensAtTime() {
     const { course } = this;
     const m = this.opens_at ? course.momentInZone(this.opens_at) : moment(course.default_open_time, 'HH:mm');
-    return m.format('hmma');
+    return m.format('h:mm a');
+  }
+
+  @computed get defaultDueTime() {
+    return moment(this.course.default_due_time, 'HH:mm');
   }
 
   @computed get dueAtTime() {
-    const { course } = this;
-    const m = this.due_at ? course.momentInZone(this.due_at) : moment(course.default_due_time, 'HH:mm');
-    return m.format('hmma');
+    const m = this.due_at ? this.course.momentInZone(this.due_at) : this.defaultDueTime;
+    return m.format('h:mm a');
   }
 
 }

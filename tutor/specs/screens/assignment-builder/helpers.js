@@ -6,7 +6,7 @@ export * from '../../helpers';
 
 export async function createUX({ now = Time.now, type = 'homework' } = {}) {
   const course = Factory.course();
-  const plan = Factory.teacherTaskPlan({ now, course, type });
+  const plan = Factory.teacherTaskPlan({ now, course, id: null, is_published: false, type });
   plan.fetch = jest.fn();
   const exercises = Factory.exercisesMap({ book: course.referenceBook });
   const ux = new UX();

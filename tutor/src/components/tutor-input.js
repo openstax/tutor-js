@@ -295,43 +295,21 @@ class TutorTimeInput extends React.Component {
         validate(char) { return /[0-9]/.test(char); },
       },
 
-      P: {
+      a: {
         validate(char) { return /(A|P|a|p)/.test(char); },
         transform(char) { return `${char}m`.toLowerCase(); },
       },
     },
   };
 
-  constructor(props, context) {
-    super(props, context);
-    const { defaultValue } = props;
-    const timeValue = this.timeIn(defaultValue);
-
-    this.state = {
-      timeValue,
-      initialTimeValue: timeValue,
-      timePattern: this.getPatternFromValue(timeValue),
-    };
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-
-    if (this.state.timeValue !== prevState.timeValue) { __guard__(this.getMask(), x => x.setValue(this.state.timeValue)); }
-    if ((this.state.selection != null) && !isEqual(__guard__(this.getMask(), x1 => x1.selection), this.state.selection)) {
-      // update cursor to expected time, doesnt quite work for some reason for expanding mask
-      defer(() => {
-        __guard__(this.getMask(), x2 => x2.setSelection(this.state.selection));
-        return __guard__(this.getInput(), x3 => x3._updateInputSelection());
-      });
-    }
-
-    return this.refs.timeInput.validate(this.state.timeValue);
-  }
 
   onChange = (value, input, changeEvent) => {
+    value = value.replace('_', '');
     const timePattern = this.getPatternFromValue(value, changeEvent);
+
     const time = moment(value, timePattern);
-    // console.log({ value, timePattern, time })
+
+//    console.log({ value, timePattern, valid: time.isValid() })
 
     if (time.isValid()) {
       this.props.onChange(time.format('HH:mm'));
@@ -349,17 +327,17 @@ class TutorTimeInput extends React.Component {
   getPatternFromValue = (value, changeEvent) => {
     let pattern;
     if (/^([2-9])/.test(value) || /^(_+[1-9])/.test(value)) {
-      pattern = 'h:mm P';
+      pattern = 'h:mm a';
     } else if (/^1:/.test(value)) {
       if ((changeEvent != null) && !this.shouldShrinkMask(changeEvent)) {
-        pattern = 'hh:mm P';
+        pattern = 'hh:mm a';
       } else {
-        pattern = 'h:mm P';
+        pattern = 'h:mm a';
       }
     } else {
-      pattern = 'hi:mm P';
+      pattern = 'hi:mm a';
     }
-//    console.log({ value, pattern });
+    // console.log({ value, pattern });
     return pattern;
   };
 
@@ -439,7 +417,7 @@ class TutorTimeInput extends React.Component {
     const { formatCharacters } = this.props;
     const { value } = this.props;
     const timePattern = this.getPatternFromValue(value);
-
+    // console.log({ value, timePattern })
     return (
       <TutorInput
         {...maskedProps}

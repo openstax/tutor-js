@@ -23,12 +23,15 @@ describe('Reading Builder', function() {
       target: { value: 'a reading description' },
     });
 
+    expect(props.ux.plan.isPublished).toBe(false);
+    expect(props.ux.canEdit).toBe(true);
+
+    const { due_at, opens_at } = setTaskDates({ form: read, now });
+
     read.find('button#select-sections').simulate('click');
     expect(read).toHaveRendered('SelectSections');
     read.find('.chapter-checkbox button').at(1).simulate('click');
     read.find('.card-footer button#add-section-to-reading').simulate('click');
-
-    const { due_at, opens_at } = setTaskDates({ form: read, now });
 
     jest.spyOn(props.ux.plan, 'save');
     read.find('SaveButton AsyncButton').simulate('click');

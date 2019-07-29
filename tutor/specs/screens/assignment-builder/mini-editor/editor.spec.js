@@ -46,6 +46,7 @@ describe('TaskPlan MiniEditor wrapper', function() {
         due_at: props.ux.course.momentInZone(due_at).format('YYYY-MM-DD HH:mm'),
       })),
       settings: {
+        exercises_count_dynamic: 3,
         exercise_ids: props.ux.plan.settings.exercise_ids,
         page_ids: props.ux.plan.settings.page_ids,
       },

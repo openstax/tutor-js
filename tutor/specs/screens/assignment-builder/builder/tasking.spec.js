@@ -24,12 +24,12 @@ describe('Tasking Builder', () => {
     tasking.find('.opens-at TutorDateInput input[onChange]')
       .simulate('change', { target: { value: opens_at.format('MM/DD/YYYY') } });
     tasking.find('.opens-at TutorTimeInput input').simulate('change', {
-      target: { value: '822pm' },
+      target: { value: '8:22 pm' },
     });
 
     expect(
       tasking.find('.due-at TutorDateInput').props().min.toISOString()
-    ).toEqual('2015-10-15T13:22:00.000Z');
+    ).toEqual('2015-10-16T01:22:00.000Z');
 
     tasking.find('.due-at TutorDateInput input[onChange]')
       .simulate('change', { target: { value: due_at.format('MM/DD/YYYY') } });
