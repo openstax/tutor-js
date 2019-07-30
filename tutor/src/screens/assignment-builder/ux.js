@@ -49,22 +49,26 @@ class AssignmentBuilderUX {
       }
     }
 
-    if (!this.plan.isNew) {
+    this.course = course;
+
+    if (this.plan.isNew) {
+      this.periods.map((period) =>
+        this.plan.findOrCreateTaskingForPeriod(period),
+      );
+      if (due_at) {
+        this.plan.tasking_plans.forEach(tp => tp.initializeWithDueAt(due_at));
+      }
+    } else {
       await this.plan.ensureLoaded();
     }
+
     this.onComplete = onComplete;
-    this.course = course;
     this.exercises = exercises;
     if (this.plan.isReading) {
       await this.referenceBook.ensureLoaded();
     }
     this.windowImpl = windowImpl;
-    this.periods.map((period) =>
-      this.plan.findOrCreateTaskingForPeriod(period),
-    );
-    if (due_at) {
-      this.plan.tasking_plans.forEach(tp => tp.initializeWithDueAt(due_at));
-    }
+
     this.isShowingPeriodTaskings = !this.plan.areTaskingDatesSame;
     this.scroller = new ScrollTo({ windowImpl });
     this.form = new Form(this);
@@ -280,6 +284,18 @@ class AssignmentBuilderUX {
     this.periods.map((period) =>
       this.plan.findOrCreateTaskingForPeriod(period),
     );
+  }
+
+  @action.bound togglePeriodTasking({ target: input }) {
+    const period = this.plan.course.periods.find(p => p.id == input.dataset.periodId);
+    if (!period) { return; }
+
+    const tasking = this.plan.tasking_plans.forPeriod(period);
+    if (input.checked && !tasking) {
+      this.plan.findOrCreateTaskingForPeriod(period);
+    } else if (!input.checked && tasking) {
+      this.plan.tasking_plans.remove(tasking);
+    }
   }
 
   @computed get maxDueAt() {

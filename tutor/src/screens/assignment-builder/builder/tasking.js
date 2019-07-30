@@ -11,6 +11,7 @@ import { TutorDateInput, TutorTimeInput } from '../../../components/tutor-input'
 import SetTimeAsDefault from './set-time-as-default';
 
 const StyledTasking = styled(Row)`
+min-height: 7rem;
 .tutor-input.form-control-wrapper.tutor-input input[disabled] {
   border-bottom: 0;
 }
@@ -116,8 +117,9 @@ class Tasking extends React.Component {
           id={`period-toggle-${period.id}`}
           disabled={!plan.isEditable}
           type="checkbox"
-          onChange={ux.togglePeriodTaskingsEnabled}
-          checked={ux.isShowingPeriodTaskings}
+          data-period-id={period.id}
+          onChange={ux.togglePeriodTasking}
+          checked={!!plan.tasking_plans.forPeriod(period)}
         />
         <label className="period" htmlFor={`period-toggle-${period.id}`}>
           {period.name}
@@ -127,79 +129,84 @@ class Tasking extends React.Component {
   }
 
   render() {
-    if (!this.taskings.length) { return null; }
+    const tasking = this.taskings.length ? this.taskings[0] : null;
     const { period } = this.props;
-    const type = period ? `period-${period.id}` : 'combined';
-    const tasking = this.taskings[0];
     const mainSizes = period ? { sm: 8, md: 9 } : { sm: 12 };
+    const type = period ? `period-${period.id}` : 'combined';
 
     return (
-      <StyledTasking>
+      <StyledTasking className="tasking">
         {this.renderSelectionCheckbox()}
         <Col
           {...mainSizes}
-          className="tasking-date-times"
+
           data-tasking-type={type}
           data-period-id={period ? period.id : 'all'}
         >
+          {tasking && this.renderDateTimeInputs(tasking, type)}
+        </Col>
+      </StyledTasking>
+    );
+  }
+
+  renderDateTimeInputs(tasking, type) {
+    return (
+      <Row className="tasking-date-time">
+        <Col xs={12} md={6} className="opens-at">
           <Row>
-            <Col xs={12} md={6} className="opens-at">
-              <Row>
-                <Col md={7} xs={8}>
-                  <TutorDateInput
-                    required={true}
-                    label="Open Date"
-                    id={`${type}-open-date`}
-                    value={tasking.opens_at}
-                    min={this.minOpensAt}
-                    max={this.maxOpensAt}
-                    onChange={this.onOpensDateChange}
-                  />
-                </Col>
-                <Col md={5} xs={4}>
-                  <TutorTimeInput
-                    key={tasking.opensAtTime || 'opens_at_time'}
-                    required={true}
-                    label="Open Time"
-                    id={`${type}-open-time`}
-                    value={tasking.opens_at}
-                    onChange={this.onOpensTimeChange}
-                    value={tasking.opensAtTime}
-                  />
-                  <SetTimeAsDefault type="opens" tasking={tasking} />
-                </Col>
-              </Row>
+            <Col md={7} xs={8}>
+              <TutorDateInput
+                required={true}
+                label="Open Date"
+                id={`${type}-open-date`}
+                value={tasking.opens_at}
+                min={this.minOpensAt}
+                max={this.maxOpensAt}
+                onChange={this.onOpensDateChange}
+              />
             </Col>
-            <Col xs={12} md={6} className="due-at">
-              <Row>
-                <Col md={7} xs={8}>
-                  <TutorDateInput
-                    required={true}
-                    label="Due Date"
-                    id={`${type}-due-date`}
-                    min={this.minDueAt}
-                    max={this.maxDueAt}
-                    value={tasking.due_at}
-                    onChange={this.onDueDateChange}
-                  />
-                </Col>
-                <Col md={5} xs={4}>
-                  <TutorTimeInput
-                    key={tasking.dueAtTime || 'due_at_time'}
-                    required={true}
-                    label="Due Time"
-                    id={`${type}-due-time`}
-                    onChange={this.onDueTimeChange}
-                    value={tasking.dueAtTime}
-                  />
-                  <SetTimeAsDefault type="due" tasking={tasking} />
-                </Col>
-              </Row>
-              {this.renderDueAtError()}
+            <Col md={5} xs={4}>
+              <TutorTimeInput
+                key={tasking.opensAtTime || 'opens_at_time'}
+                required={true}
+                label="Open Time"
+                id={`${type}-open-time`}
+                value={tasking.opens_at}
+                onChange={this.onOpensTimeChange}
+                value={tasking.opensAtTime}
+              />
+              <SetTimeAsDefault type="opens" tasking={tasking} />
             </Col>
           </Row>
         </Col>
-      </StyledTasking>
+        <Col xs={12} md={6} className="due-at">
+          <Row>
+            <Col md={7} xs={8}>
+              <TutorDateInput
+                required={true}
+                label="Due Date"
+                id={`${type}-due-date`}
+                min={this.minDueAt}
+                max={this.maxDueAt}
+                value={tasking.due_at}
+                onChange={this.onDueDateChange}
+              />
+            </Col>
+            <Col md={5} xs={4}>
+              <TutorTimeInput
+                key={tasking.dueAtTime || 'due_at_time'}
+                required={true}
+                label="Due Time"
+                id={`${type}-due-time`}
+                onChange={this.onDueTimeChange}
+                value={tasking.dueAtTime}
+              />
+              <SetTimeAsDefault type="due" tasking={tasking} />
+            </Col>
+          </Row>
+          {this.renderDueAtError()}
+        </Col>
+      </Row>
     );
   }
 }
