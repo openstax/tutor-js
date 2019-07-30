@@ -51,7 +51,7 @@ const getConditionalHandlers = (Router) => {
     if (course.currentRole.isTeacherStudent) {
       course.current_role_id = null;
     } else {
-      course.current_role_id = roleId;
+      role.become();
     }
 
     return <Redirect push to={`/course/${courseId}`} />;

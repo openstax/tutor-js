@@ -45,4 +45,24 @@ describe('Tasking Builder', () => {
     tasking.unmount();
   });
 
+  it('toggles a period inclusion', () => {
+    const [ period ] = course.periods;
+    props.period = period;
+    const tasking = mount(<Tasking {...props} />);
+
+    tasking.find('input[type="checkbox"]').simulate('change', {
+      target: { dataset: { periodId: period.id }, checked: false },
+    });
+    expect(plan.tasking_plans.forPeriod(period)).toBeUndefined();
+    expect(tasking).not.toHaveRendered('.tasking-date-time');
+
+    tasking.find('input[type="checkbox"]').simulate('change', {
+      target: { dataset: { periodId: period.id }, checked: true },
+    });
+    expect(tasking).toHaveRendered('.tasking-date-time');
+    expect(plan.tasking_plans.forPeriod(period)).toBeTruthy();
+
+    tasking.unmount();
+  });
+
 });

@@ -37,6 +37,9 @@ class CourseRole extends BaseModel {
   }
 
   @action async become() {
+    if (this.isStudentLike) {
+      this.course.clearCachedStudentData();
+    }
     this.course.current_role_id = this.id;
   }
 }
