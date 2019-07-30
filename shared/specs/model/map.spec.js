@@ -14,4 +14,13 @@ describe('Map base class', () => {
     expect(m.get('1')).toEqual({ foo: 'bar' });
   });
 
+  it('resets self and api when reset', () => {
+    const m = new Map();
+    m.set('1', 'bar');
+    m.api.requestCounts.read = 1;
+    m.reset();
+    expect(m.get('1')).toBeUndefined();
+    expect(m.api.requestCounts.read).toEqual(0);
+  });
+
 });

@@ -1,4 +1,4 @@
-import { observable, computed } from 'mobx';
+import { observable, computed, action } from 'mobx';
 import { readonly } from 'core-decorators';
 
 export default class ModelApi {
@@ -35,5 +35,9 @@ export default class ModelApi {
 
   @computed get hasErrors() {
     return Boolean(Object.keys(this.errors || {}).length);
+  }
+
+  @action reset() {
+    Object.keys(this.requestCounts).forEach(k => this.requestCounts[k] = 0);
   }
 }

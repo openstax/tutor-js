@@ -36,8 +36,8 @@ class CourseRole extends BaseModel {
     return moment(Time.now).diff(this.joined_at, terms);
   }
 
-  @action async become() {
-    if (this.isStudentLike) {
+  @action async become({ reset = true } = {}) {
+    if (this.isStudentLike && reset) {
       this.course.clearCachedStudentData();
     }
     this.course.current_role_id = this.id;

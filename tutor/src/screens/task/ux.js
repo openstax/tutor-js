@@ -42,7 +42,7 @@ export default class TaskUX {
       return this._task.students.find(s => s.role_id == r.id);
     });
     if (teacherAsStudentRole) {
-      teacherAsStudentRole.become();
+      teacherAsStudentRole.become({ reset: false });
     }
   }
 
