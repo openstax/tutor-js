@@ -113,6 +113,12 @@ class Course extends BaseModel {
     return sumBy(this.periods, 'num_enrolled_students');
   }
 
+  @action clearCachedStudentData() {
+    this.studentTaskPlans.clear();
+    this.scores.periods.clear();
+    this.studentTasks.clear();
+  }
+
   @computed get userStudentRecord() {
     const role = this.roles.student || this.roles.teacherStudent;
     return role ? find(this.students, { role_id: role.id }) : null;
