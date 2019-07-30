@@ -1,4 +1,4 @@
-import { observable, computed, action, toJS } from 'mobx';
+import { observable, computed, action } from 'mobx';
 import { isArray, isObject } from 'lodash';
 import ModelApi from './api';
 import lazyGetter from '../helpers/lazy-getter.js';
@@ -83,7 +83,7 @@ export default class Map {
   }
 
   @action merge(obj) {
-    return this._map.merge(obj)
+    return this._map.merge(obj);
   }
 
   @lazyGetter api = new ModelApi();
@@ -93,6 +93,11 @@ export default class Map {
       const model = this.get(modelData.id);
       model ? model.update(modelData) : this.set(modelData.id, new this.constructor.Model(modelData, this));
     });
+  }
+
+  @action reset() {
+    this.clear();
+    this.api.reset();
   }
 }
 
