@@ -47,8 +47,8 @@ const BottomNote = styled(ExitButton)`
 
 const returnToTeacherRole = (course, history) => {
   return async () => {
-    await course.roles.teacher.become();
-    history.push(`/course/${course.id}`);
+    const role = course.roles.teacher;
+    history.replace(`/course/${course.id}/become/${role.id}`);
   };
 };
 
