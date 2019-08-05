@@ -2,6 +2,7 @@ import { observable } from 'mobx';
 
 export const defaultValues = {
   is_payments_enabled: true,
+  pulse_insights: false,
   teacher_student_enabled: false,
 };
 
