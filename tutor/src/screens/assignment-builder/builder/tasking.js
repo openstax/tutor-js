@@ -167,11 +167,10 @@ class Tasking extends React.Component {
             </Col>
             <Col md={5} xs={4}>
               <TutorTimeInput
-                key={tasking.opensAtTime || 'opens_at_time'}
+                key={'opens-at-time'}
                 required={true}
                 label="Open Time"
                 id={`${type}-open-time`}
-                value={tasking.opens_at}
                 onChange={this.onOpensTimeChange}
                 value={tasking.opensAtTime}
               />
@@ -194,7 +193,7 @@ class Tasking extends React.Component {
             </Col>
             <Col md={5} xs={4}>
               <TutorTimeInput
-                key={tasking.dueAtTime || 'due_at_time'}
+                key={'due-at-time'}
                 required={true}
                 label="Due Time"
                 id={`${type}-due-time`}

@@ -106,7 +106,17 @@ class TutorInput extends React.Component {
       onChange: this.onChange,
     };
 
-    if (this.props.default != null) { if (inputProps.defaultValue == null) { inputProps.defaultValue = this.props.default; } }
+    // Please do not set value={@props.value} on input.
+    //
+    // Because we are updating the store in some cases on change, and
+    // the store is providing the @props.value being passed in here,
+    // the cursor for typing in this input could be forced to move to the
+    // right when the input re-renders since the props have changed.
+    //
+    // Instead, use @props.default to set an initial default value.
+    if (this.props.default != null) {
+      inputProps.defaultValue = this.props.default;
+    }
 
     if (children != null) {
       inputBox = React.cloneElement(children, inputProps);
@@ -117,15 +127,6 @@ class TutorInput extends React.Component {
       inputBox = <input {...inputProps} />;
     }
 
-
-    // Please do not set value={@props.value} on input.
-    //
-    // Because we are updating the store in some cases on change, and
-    // the store is providing the @props.value being passed in here,
-    // the cursor for typing in this input could be forced to move to the
-    // right when the input re-renders since the props have changed.
-    //
-    // Instead, use @props.default to set an intial defaul value.
     return (
       <div className={wrapperClasses}>
         {inputBox}
@@ -412,22 +413,22 @@ class TutorTimeInput extends React.Component {
   };
 
   render() {
-    const maskedProps = omit(this.props, 'defaultValue', 'onChange', 'formatCharacters');
-    const inputProps = pick(this.props, 'disabled', 'id');
+    const inputProps = omit(this.props, 'defaultValue', 'onChange', 'value', 'formatCharacters');
+    const maskedProps = pick(this.props, 'disabled', 'id');
     const { formatCharacters } = this.props;
     const { value } = this.props;
     const timePattern = this.getPatternFromValue(value);
     // console.log({ value, timePattern })
     return (
       <TutorInput
-        {...maskedProps}
+        {...inputProps}
         onChange={this.onChange}
         validate={this.validate}
         hasValue={!!value}
         ref="timeInput"
       >
         <MaskedInput
-          {...inputProps}
+          {...maskedProps}
           value={value}
           name="time"
           size="8"
