@@ -166,7 +166,7 @@ class TaskingPlan extends BaseModel {
   @computed get opensAtTime() {
     const { course } = this;
     const m = this.opens_at ? course.momentInZone(this.opens_at) : moment(course.default_open_time, 'HH:mm');
-    return m.format('h:mm a');
+    return m.format('HH:mm');
   }
 
   @computed get defaultDueTime() {
@@ -175,7 +175,7 @@ class TaskingPlan extends BaseModel {
 
   @computed get dueAtTime() {
     const m = this.due_at ? this.course.momentInZone(this.due_at) : this.defaultDueTime;
-    return m.format('h:mm a');
+    return m.format('HH:mm');
   }
 
 }
