@@ -1,4 +1,3 @@
-import { Factory } from '../helpers';
 import TermsModal from '../../src/components/terms-modal';
 import User from '../../src/models/user';
 import { Term, UserTerms } from '../../src/models/user/terms';
@@ -31,14 +30,14 @@ describe('Terms agreement modal', () => {
         User.terms.terms = [
           {
             id: 42,
-            name: "general_terms_of_use",
-            title: "Terms of Use",
-            content: "bunch of HTML",
+            name: 'general_terms_of_use',
+            title: 'Terms of Use',
+            content: 'bunch of HTML',
             version: 2,
             is_signed: true,
             has_signed_before: true,
-            is_proxy_signed: true
-          }
+            is_proxy_signed: true,
+          },
         ];
         User.unsignedTerms = User.terms.unsigned;
       });
@@ -54,14 +53,14 @@ describe('Terms agreement modal', () => {
         User.terms.terms = [
           {
             id: 42,
-            name: "general_terms_of_use",
-            title: "Terms of Use",
-            content: "bunch of HTML",
+            name: 'general_terms_of_use',
+            title: 'Terms of Use',
+            content: 'bunch of HTML',
             version: 2,
             is_signed: false,
             has_signed_before: true,
-            is_proxy_signed: false
-          }
+            is_proxy_signed: false,
+          },
         ];
         User.unsignedTerms = User.terms.unsigned;
       });

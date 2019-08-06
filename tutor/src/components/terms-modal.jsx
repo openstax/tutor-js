@@ -6,7 +6,6 @@ import { Modal, Button } from 'react-bootstrap';
 import classnames from 'classnames';
 import Branding from './branding/course';
 import User from '../models/user';
-import Course from '../models/course';
 import { isEmpty, map } from 'lodash';
 import String from '../helpers/string';
 
@@ -57,4 +56,4 @@ class TermsModal extends React.Component {
       </Modal>
     );
   }
-};
+}
