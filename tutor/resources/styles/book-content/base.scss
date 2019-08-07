@@ -123,10 +123,6 @@
     margin-bottom: 1rem;
   }
 
-  .os-caption-container {
-    @include tutor-serif-font(1.4rem, 2rem);
-  }
-
   .os-chapter-outline {
     .os-title { display: none; }
     .os-chapter-objective {
