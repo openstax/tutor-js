@@ -8,15 +8,17 @@ import ChapterSection from '../chapter-section';
 import { MediaActions } from '../../flux/media';
 
 const NON_ASSIGNABLE_TITLES = [
-  'Visual Connection Questions',
-  'Review Questions',
-  'Critical Thinking Questions',
-  'Conceptual Questions',
-  'Problems & Exercises',
+  'Glossary',
   'Key Terms',
   'Chapter Summary',
-  'Glossary',
   'Section Summary',
+  'Review Questions',
+  'Conceptual Questions',
+  'Problems & Exercises',
+  'Test Prep for AP® Courses',
+  'Test Prep for AP® Courses',
+  'Visual Connection Questions',
+  'Critical Thinking Questions',
 ];
 
 // currently the two are the same, but were different in past
