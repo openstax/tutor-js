@@ -120,6 +120,7 @@
     "styled-components": "^4.2.0",
     "survey-react": "^1.0.72",
     "svg-url-loader": "2.3.2",
+    "time-input-polyfill": "^1.0.6",
     "twix": "1.2.1",
     "ultimate-pagination": "1.0.0",
     "underscore": "1.9.1",

@@ -9954,6 +9954,11 @@ thunky@^1.0.2:
   resolved "https://registry.yarnpkg.com/thunky/-/thunky-1.0.3.tgz#f5df732453407b09191dae73e2a8cc73f381a826"
   integrity sha512-YwT8pjmNcAXBZqrubu22P4FYsh2D4dxRmnWBOL8Jk8bUcRUtc5326kx32tuTmFDAZtLOGEVNl8POAR8j896Iow==
 
+time-input-polyfill@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/time-input-polyfill/-/time-input-polyfill-1.0.6.tgz#6427a7eb59f59c64ca5ae8d47715d1bd50e4571e"
+  integrity sha512-RsaB3eXCSITFuEUiXdkGYYYbfQ4N6OcXrXd9LT0Oh1QLcPNBSeQD5+2iJGIPo/9empjqbi1uJhPgTWkDxTVDoQ==
+
 timed-out@4.0.1, timed-out@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/timed-out/-/timed-out-4.0.1.tgz#f32eacac5a175bea25d7fab565ab3ed8741ef56f"

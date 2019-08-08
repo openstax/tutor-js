@@ -7,12 +7,13 @@ import { isEmpty, isEqual, map, omit, extend, defer, clone, pick, keys } from 'l
 import classnames from 'classnames';
 import MaskedInput from 'react-maskedinput';
 import DatePicker from 'react-datepicker';
+import supportsTime from 'time-input-polyfill/supportsTime';
+import TimePolyfill from 'time-input-polyfill';
 import * as TutorErrors from './tutor-errors';
 import Time from '../models/time';
 import TimeHelper from '../helpers/time';
 import { Icon } from 'shared';
 import S from '../helpers/string';
-
 const TutorDateFormat = Time.DATE_FORMAT;
 
 class TutorInput extends React.Component {
@@ -128,13 +129,13 @@ class TutorInput extends React.Component {
     }
 
     return (
-      <div className={wrapperClasses}>
+      <label className={wrapperClasses}>
         {inputBox}
         <div className="floating-label" onClick={this.forwardLabelClick}>
           {this.props.label}
         </div>
         {errors}
-      </div>
+      </label>
     );
   }
 }
@@ -271,22 +272,69 @@ class TutorDateInput extends React.Component {
 }
 
 class TutorTimeInput extends React.Component {
-  onChange = (value, input, changeEvent) => {
-    const time = moment(value, 'HH:mm');
 
+  input = React.createRef();
+
+  shouldComponentUpdate(nextProps) {
+    return !supportsTime &&
+      nextProps.value != this.props.value &&
+      this.editedValue != nextProps.value;
+  }
+  get inputEl() {
+    return this.input.current.refs.input;
+  }
+
+  onPolyfillChange = ({ target: { value } }) => {
+    this.onChange(
+      moment(value, 'hh:mm A').format('HH:mm')
+    );
+  }
+
+  updatePolyfillValue() {
+    this.inputEl.polyfill.update();
+  }
+
+  componentDidMount() {
+    if (!supportsTime) {
+      new TimePolyfill(this.inputEl);
+      this.inputEl.addEventListener('change', this.onPolyfillChange);
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!supportsTime && prevProps.value != this.props.value) {
+        this.updatePolyfillValue();
+    }
+  }
+
+  componentWillUnmount() {
+    if (!supportsTime) {
+      this.inputEl.removeEventListener('change', this.onPolyfillChange);
+    }
+  }
+
+  onChange = (value) => {
+    const time = moment(value, 'HH:mm');
     if (time.isValid()) {
-      this.props.onChange(time.format('HH:mm'));
+      this.editedValue = time.format('HH:mm');
+      this.props.onChange(this.editedValue);
     }
   };
 
   render() {
-    const inputProps = omit(this.props, 'defaultValue', 'onChange', 'formatCharacters');
+    const inputProps = omit(this.props, 'defaultValue', 'onChange', 'formatCharacters', 'value');
+
+    let { value } = this.props;
+    if (!supportsTime) {
+      value = moment(value, 'HH:mm').format('hh:mm A');
+    }
 
     return (
       <TutorInput
         {...inputProps}
+        value={value}
+        ref={this.input}
         onChange={this.onChange}
-        ref="timeInput"
         type="time"
       />
     );
@@ -321,8 +369,9 @@ class TutorTextArea extends React.Component {
   };
 
   render() {
+
     const classes = classnames('form-control', this.props.inputClass,
-      { empty: !this.props.default });
+      { empty: !this.props.value && !this.props.default });
 
     const wrapperClasses = classnames('form-control-wrapper', 'tutor-input', this.props.className,
       { 'is-required': this.props.required });
@@ -336,6 +385,7 @@ class TutorTextArea extends React.Component {
           onKeyUp={this.resize}
           onPaste={this.resize}
           className={classes}
+          value={this.props.value}
           defaultValue={this.props.default}
           disabled={this.props.disabled}
           onChange={this.onChange} />
