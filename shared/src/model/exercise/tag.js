@@ -9,7 +9,7 @@ const TYPES = {
 const TITLE_SUBSTITUTIONS = [
   ['hts:1', 'HTS-1 Developments and Processes'],
   ['hts:2', 'HTS-2 Sourcing and Situation'],
-  ['hts:3', 'HTS-3 Source Claims and Evidence'],
+  ['hts:3', 'HTS-3 Claims and Evidence in Sources'],
   ['hts:4', 'HTS-4 Contextualization'],
   ['hts:5', 'HTS-5 Making Connections'],
   ['hts:6', 'HTS-6 Argumentation'],
