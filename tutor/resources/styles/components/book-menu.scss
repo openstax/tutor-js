@@ -30,23 +30,14 @@
 
           .chapter-section-title {
             color: $tutor-neutral-darker;
-            display: block;
+            display: flex;
             text-indent:  0;
             padding: 10px 0;
             position: relative;
 
-            @include tutor-sans-font( (2.0 - ($depth / 3)) + rem);
-
+            @include tutor-sans-font( (2.0 - ($depth / 3)) + rem, 2.25rem);
             padding-left: (1 * ($depth )) + rem;
             padding-right: 1rem;
-            line-height: 2.25rem;
-            .section-number {
-              // by setting the height just a bit heigher than the line-height above
-              // the second line of text will stay indented around the section
-              height: 3rem;
-              float: left;
-              display: block;
-            }
           }
         }
       }
