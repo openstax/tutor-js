@@ -260,6 +260,10 @@ class AssignmentBuilderUX {
     this.saveAndCopyPlan();
   }
 
+  @computed get isPublishing() {
+    return this.plan.api.isPending && this.plan.is_publish_requested;
+  }
+
   @computed get isSaving() {
     return this.plan.api.isPending;
   }
