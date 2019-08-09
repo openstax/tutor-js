@@ -3,16 +3,17 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment-timezone';
-import { isEmpty, isEqual, map, omit, extend, defer, clone, pick, keys, isUndefined } from 'lodash';
+import { isEmpty, isEqual, map, omit, extend, defer, clone, pick, keys } from 'lodash';
 import classnames from 'classnames';
 import MaskedInput from 'react-maskedinput';
 import DatePicker from 'react-datepicker';
+import supportsTime from 'time-input-polyfill/supportsTime';
+import TimePolyfill from 'time-input-polyfill';
 import * as TutorErrors from './tutor-errors';
 import Time from '../models/time';
 import TimeHelper from '../helpers/time';
 import { Icon } from 'shared';
 import S from '../helpers/string';
-
 const TutorDateFormat = Time.DATE_FORMAT;
 
 class TutorInput extends React.Component {
@@ -106,7 +107,17 @@ class TutorInput extends React.Component {
       onChange: this.onChange,
     };
 
-    if (this.props.default != null) { if (inputProps.defaultValue == null) { inputProps.defaultValue = this.props.default; } }
+    // Please do not set value={@props.value} on input.
+    //
+    // Because we are updating the store in some cases on change, and
+    // the store is providing the @props.value being passed in here,
+    // the cursor for typing in this input could be forced to move to the
+    // right when the input re-renders since the props have changed.
+    //
+    // Instead, use @props.default to set an initial default value.
+    if (this.props.default != null) {
+      inputProps.defaultValue = this.props.default;
+    }
 
     if (children != null) {
       inputBox = React.cloneElement(children, inputProps);
@@ -117,23 +128,14 @@ class TutorInput extends React.Component {
       inputBox = <input {...inputProps} />;
     }
 
-
-    // Please do not set value={@props.value} on input.
-    //
-    // Because we are updating the store in some cases on change, and
-    // the store is providing the @props.value being passed in here,
-    // the cursor for typing in this input could be forced to move to the
-    // right when the input re-renders since the props have changed.
-    //
-    // Instead, use @props.default to set an intial defaul value.
     return (
-      <div className={wrapperClasses}>
+      <label className={wrapperClasses}>
         {inputBox}
         <div className="floating-label" onClick={this.forwardLabelClick}>
           {this.props.label}
         </div>
         {errors}
-      </div>
+      </label>
     );
   }
 }
@@ -270,171 +272,71 @@ class TutorDateInput extends React.Component {
 }
 
 class TutorTimeInput extends React.Component {
-  static defaultProps = {
-    fromMomentFormat: TimeHelper.ISO_TIME_FORMAT,
-    toMomentFormat: TimeHelper.HUMAN_TIME_FORMAT,
 
-    formatCharacters: {
-      i: {
-        validate(char) { return /([0-2]|:)/.test(char); },
-      },
+  input = React.createRef();
 
-      h: {
-        validate(char) { return /[0-9]/.test(char); },
-      },
+  shouldComponentUpdate(nextProps) {
+    return !supportsTime &&
+      nextProps.value != this.props.value &&
+      this.editedValue != nextProps.value;
+  }
+  get inputEl() {
+    return this.input.current.refs.input;
+  }
 
-      H: {
-        validate(char) { return /[0-1]/.test(char); },
-      },
+  onPolyfillChange = ({ target: { value } }) => {
+    this.onChange(
+      moment(value, 'hh:mm A').format('HH:mm')
+    );
+  }
 
-      M: {
-        validate(char) { return /[0-5]/.test(char); },
-      },
+  updatePolyfillValue() {
+    this.inputEl.polyfill.update();
+  }
 
-      m: {
-        validate(char) { return /[0-9]/.test(char); },
-      },
+  componentDidMount() {
+    if (!supportsTime) {
+      new TimePolyfill(this.inputEl);
+      this.inputEl.addEventListener('change', this.onPolyfillChange);
+    }
+  }
 
-      a: {
-        validate(char) { return /(A|P|a|p)/.test(char); },
-        transform(char) { return `${char}m`.toLowerCase(); },
-      },
-    },
-  };
+  componentDidUpdate(prevProps, prevState) {
+    if (!supportsTime && prevProps.value != this.props.value) {
+        this.updatePolyfillValue();
+    }
+  }
 
+  componentWillUnmount() {
+    if (!supportsTime) {
+      this.inputEl.removeEventListener('change', this.onPolyfillChange);
+    }
+  }
 
-  onChange = (value, input, changeEvent) => {
-    value = value.replace('_', '');
-    const timePattern = this.getPatternFromValue(value, changeEvent);
-
-    const time = moment(value, timePattern);
-
-//    console.log({ value, timePattern, valid: time.isValid() })
-
+  onChange = (value) => {
+    const time = moment(value, 'HH:mm');
     if (time.isValid()) {
-      this.props.onChange(time.format('HH:mm'));
-    }
-  };
-
-  getInput = () => {
-    return (this.refs.timeInput != null ? this.refs.timeInput.refs.input : undefined);
-  };
-
-  getMask = () => {
-    return __guard__(this.getInput(), x => x.mask);
-  };
-
-  getPatternFromValue = (value, changeEvent) => {
-    let pattern;
-    if (/^([2-9])/.test(value) || /^(_+[1-9])/.test(value)) {
-      pattern = 'h:mm a';
-    } else if (/^1:/.test(value)) {
-      if ((changeEvent != null) && !this.shouldShrinkMask(changeEvent)) {
-        pattern = 'hh:mm a';
-      } else {
-        pattern = 'h:mm a';
-      }
-    } else {
-      pattern = 'hi:mm a';
-    }
-    // console.log({ value, pattern });
-    return pattern;
-  };
-
-  getRawValue = () => {
-    return __guard__(this.getMask(), x => x.getRawValue());
-  };
-
-  getUpdates = (timePattern, timeValue) => {
-    const cursorChange =  timePattern.length - this.state.timePattern.length;
-    let { selection } = this.getMask();
-    selection = clone(selection);
-
-    if (/^(_+[1-9])/.test(timeValue)) {
-      timeValue = S.removeAt(timeValue, 0);
-      selection.start = 2;
-      selection.end = 2;
-
-    } else if (cursorChange > 0) {
-      timeValue = S.insertAt(timeValue, 1, __guard__(this.getMask(), x => x.placeholderChar));
-      selection.start = 1;
-      selection.end = 1;
-
-    } else if (cursorChange < 0) {
-      timeValue = S.removeAt(timeValue, 1);
-      selection.start = 2;
-      selection.end = 2;
-    }
-
-    return { timeValue, selection };
-  };
-
-  getValue = () => {
-    return __guard__(this.getMask(), x => x.getValue());
-  };
-
-  isColon = (changeEvent) => {
-    const KEY_CODE = {
-      shiftKey: true,
-      charCode: 58,
-    };
-
-    return isEqual(pick(changeEvent, keys(KEY_CODE)), KEY_CODE);
-  };
-
-  isCursor = () => {
-    const { selection } = this.getMask();
-    return (selection.end - selection.start) === 0;
-  };
-
-  isValidTime = (value) => {
-    return !/_/.test(value);
-  };
-
-  shouldShrinkMask = (changeEvent) => {
-    return this.isColon(changeEvent);
-  };
-
-  timeIn = (value) => {
-    const { fromMomentFormat, toMomentFormat } = this.props;
-    return moment(value, fromMomentFormat).format(toMomentFormat);
-  };
-
-  timeOut = (value) => {
-    const { fromMomentFormat, toMomentFormat } = this.props;
-    return moment(value, toMomentFormat).format(fromMomentFormat);
-  };
-
-  validate = (inputValue) => {
-    if (!isUndefined(inputValue)) {
-      if (inputValue.indexOf(__guard__(this.getMask(), x => x.placeholderChar)) > -1) { return ['incorrectTime']; }
+      this.editedValue = time.format('HH:mm');
+      this.props.onChange(this.editedValue);
     }
   };
 
   render() {
-    const maskedProps = omit(this.props, 'defaultValue', 'onChange', 'formatCharacters');
-    const inputProps = pick(this.props, 'disabled', 'id');
-    const { formatCharacters } = this.props;
-    const { value } = this.props;
-    const timePattern = this.getPatternFromValue(value);
-    // console.log({ value, timePattern })
+    const inputProps = omit(this.props, 'defaultValue', 'onChange', 'formatCharacters', 'value');
+
+    let { value } = this.props;
+    if (!supportsTime) {
+      value = moment(value, 'HH:mm').format('hh:mm A');
+    }
+
     return (
       <TutorInput
-        {...maskedProps}
+        {...inputProps}
+        value={value}
+        ref={this.input}
         onChange={this.onChange}
-        validate={this.validate}
-        hasValue={!!value}
-        ref="timeInput"
-      >
-        <MaskedInput
-          {...inputProps}
-          value={value}
-          name="time"
-          size="8"
-          mask={timePattern}
-          formatCharacters={formatCharacters}
-        />
-      </TutorInput>
+        type="time"
+      />
     );
   }
 }
@@ -467,8 +369,9 @@ class TutorTextArea extends React.Component {
   };
 
   render() {
+
     const classes = classnames('form-control', this.props.inputClass,
-      { empty: !this.props.default });
+      { empty: !this.props.value && !this.props.default });
 
     const wrapperClasses = classnames('form-control-wrapper', 'tutor-input', this.props.className,
       { 'is-required': this.props.required });
@@ -482,6 +385,7 @@ class TutorTextArea extends React.Component {
           onKeyUp={this.resize}
           onPaste={this.resize}
           className={classes}
+          value={this.props.value}
           defaultValue={this.props.default}
           disabled={this.props.disabled}
           onChange={this.onChange} />
