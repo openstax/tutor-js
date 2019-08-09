@@ -135,7 +135,7 @@ class TourContext extends BaseModel {
   @computed get eligibleTours() {
     return this.allTours.filter(tour => (
       !isEmpty(intersection(tour.audience_tags, this.audienceTags)) &&
-      tour.steps.find(step => (!step.anchor_id || document.getElementById(step.anchor_id)))
+      new TourRide({tour, context: this}).hasValidSteps
     ));
   }
 

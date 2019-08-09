@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { Dropdown } from 'react-bootstrap';
-import { get } from 'lodash';
+import { delay, get } from 'lodash';
 import { action, computed, observable, when } from 'mobx';
 import { observer, inject } from 'mobx-react';
 import TourAnchor from '../tours/anchor';
@@ -49,6 +49,10 @@ class SupportMenu extends React.Component {
 
   @observable chatEnabled;
   @observable chatDisabled;
+
+  // trick react-bootstrap into adding the menu to the DOM but really hide it
+  @observable show = true;
+  @observable hide = true;
 
   renderChat() {
     if (!Chat.isEnabled) { return null; }
@@ -98,7 +102,19 @@ class SupportMenu extends React.Component {
     return `/accessibility-statement/${(this.props.course && this.props.course.id) || ''}`;
   }
 
+  @action.bound
+  onToggle(show) {
+    this.show = show;
+  }
+
   componentDidMount() {
+    // the delay is necessary for the menu to actually be placed in the DOM
+    delay(() => {
+      // now that the menu is in the DOM, close it but allow it to be shown in the future
+      this.onToggle(false);
+      this.hide = false;
+    }, 0);
+
     when(
       () => this.chatEnabled && this.chatDisabled,
       () => Chat.setElementVisiblity(
@@ -111,7 +127,7 @@ class SupportMenu extends React.Component {
   render() {
     const { course } = this.props;
     return (
-      <Dropdown className="support-menu">
+      <Dropdown show={this.show} onToggle={this.onToggle}>
         <Dropdown.Toggle
           id="support-menu"
           ref={m => (this.dropdownToggle = m)}
@@ -128,7 +144,7 @@ class SupportMenu extends React.Component {
             <Icon type="angle-down" className="toggle" />
           </TourAnchor>
         </Dropdown.Toggle>
-        <Dropdown.Menu>
+        <Dropdown.Menu className={this.hide ? ' hide' : null}>
           <PageTips onPlayClick={this.onPlayTourClick} {...this.props} />
           <Dropdown.Item
             key="nav-help-link"
