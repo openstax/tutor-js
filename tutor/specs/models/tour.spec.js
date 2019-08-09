@@ -26,13 +26,6 @@ describe('Tour Model', () => {
     expect(tour).toBeInstanceOf(Tour);
   });
 
-  it('can find by audience_tags', () => {
-    expect(Tour.forAudienceTags(['foo', 'bar'])).toEqual([]);
-    const tours = Tour.forAudienceTags(['teacher', 'foo']);
-    expect(tours.length).toBeGreaterThan(0);
-    expect(map(tours, 'id')).toContain('teacher-calendar');
-  });
-
   it('finds all', () => {
     expect(Tour.all.length).toBeGreaterThan(10);
   });
