@@ -6,8 +6,7 @@ import { Modal, Button } from 'react-bootstrap';
 import classnames from 'classnames';
 import Branding from './branding/course';
 import User from '../models/user';
-import Course from '../models/course';
-import { map } from 'lodash';
+import { isEmpty, map } from 'lodash';
 import String from '../helpers/string';
 
 export default
@@ -28,7 +27,9 @@ class TermsModal extends React.Component {
 
   render() {
     // for terms to be displayed the user must need them signed and be in a course
-    if (!User.terms_signatures_needed || !this.props.canBeDisplayed) { return null; }
+    if (
+      !User.terms_signatures_needed || !this.props.canBeDisplayed || isEmpty(User.unsignedTerms)
+    ) { return null; }
 
     const className = classnames('user-terms', { 'is-loading': User.terms.api.isPending });
 
@@ -55,4 +56,4 @@ class TermsModal extends React.Component {
       </Modal>
     );
   }
-};
+}
