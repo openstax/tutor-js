@@ -12,6 +12,7 @@ export default class BasicCourseOnboarding {
 
   @observable course;
   @observable tourContext;
+  @observable isDismissed;
 
   static set spyMode(v) {
     SPY_MODE.set(v);
@@ -20,11 +21,15 @@ export default class BasicCourseOnboarding {
   constructor(course, tourContext) {
     this.course = course;
     this.tourContext = tourContext;
+    this.isDismissed = false;
   }
 
-  // don't display while either User terms or a Tour is being shown
-  @computed get otherModalsAreDisplaying() {
-    return !!(User.terms_signatures_needed || this.tourContext.tour);
+  // overridden by subclasses
+  @computed get nagComponent() { return null; }
+
+  // terms are allowed to interrupt nags
+  @computed get ready() {
+    return !this.isDismissed && !User.terms_signatures_needed && this.nagComponent;
   }
 
   @computed get courseIsNaggable() {

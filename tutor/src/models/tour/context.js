@@ -88,14 +88,17 @@ class TourContext extends BaseModel {
   }
 
   @computed get activeRegion() {
-    if (!this.tour){ return null; }
+    if (!this.tour) { return null; }
     return this.regions.find(region => region.tour_ids.find(tid => tid === this.tour.id));
+  }
+
+  // terms agreements are allowed to interrupt tours
+  @computed get ready() {
+    return (isEmpty(this.courses) || !User.terms_signatures_needed) && !!this.tour;
   }
 
   // The tour that should be shown
   @computed get tour() {
-    // do not interfere with terms agreement
-    if (!isEmpty(this.courses) && User.terms_signatures_needed) { return null; }
     return find(this.eligibleTours, 'isViewable') || null;
   }
 
@@ -128,8 +131,12 @@ class TourContext extends BaseModel {
     ));
   }
 
+  // eligible if tags match and some step is visible
   @computed get eligibleTours() {
-    return filter(this.allTours, (tour) => (!isEmpty(intersection(tour.audience_tags, this.audienceTags))));
+    return this.allTours.filter(tour => (
+      !isEmpty(intersection(tour.audience_tags, this.audienceTags)) &&
+      tour.steps.find(step => (!step.anchor_id || document.getElementById(step.anchor_id)))
+    ));
   }
 
   @computed get needsPageTipsReminders() {

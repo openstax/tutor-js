@@ -15,6 +15,7 @@ import User from '../models/user';
 import { SpyMode } from 'shared';
 import Courses from '../models/courses-map';
 import { TransitionActions } from '../flux/transition';
+import ModalManager from './modal-manager';
 import TourConductor from './tours/conductor';
 import ErrorBoundary from './error-monitoring/boundary';
 import { TutorLayout } from './tutor-layout';
@@ -75,11 +76,13 @@ class App extends React.Component {
         <ErrorBoundary app={this.props.app}>
           <TeacherAsStudentFrame course={course} routeName={routeName}>
             <SpyMode.Wrapper>
-              <TourConductor>
-                <TutorLayout course={course}>
-                  <MatchForTutor routes={Router.getRenderableRoutes()} />
-                </TutorLayout>
-              </TourConductor>
+              <ModalManager>
+                <TourConductor>
+                  <TutorLayout course={course}>
+                    <MatchForTutor routes={Router.getRenderableRoutes()} />
+                  </TutorLayout>
+                </TourConductor>
+              </ModalManager>
             </SpyMode.Wrapper>
           </TeacherAsStudentFrame>
         </ErrorBoundary>

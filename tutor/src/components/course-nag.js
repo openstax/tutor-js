@@ -1,23 +1,25 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { action, observe, observable } from 'mobx';
+import { action, computed, observe, observable } from 'mobx';
 import { Modal } from 'react-bootstrap';
 import { pick } from 'lodash';
 import Course from '../models/course';
 import onboardingForCourse from '../models/course/onboarding';
+import ModalManager from './modal-manager';
 import TourContext from '../models/tour/context';
 import Onboarding from '../models/course/onboarding/base';
 import { autobind } from 'core-decorators';
 import classnames from 'classnames';
 
 export default
-@inject((context) => pick(context, 'tourContext', 'spyMode'))
+@inject('modalManager', 'tourContext', 'spyMode')
 @observer
 class CourseNagModal extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course),
+    modalManager: PropTypes.instanceOf(ModalManager).isRequired,
     tourContext: PropTypes.instanceOf(TourContext).isRequired,
     spyMode: PropTypes.object,
   }
@@ -41,10 +43,16 @@ class CourseNagModal extends React.Component {
     if (course) {
       this.ux = onboardingForCourse(course, this.props.tourContext);
       this.ux.mount();
+      this.priority = 20;
+      this.props.modalManager.queue(this);
     }
     if (this.props.spyMode) {
       this.spyModeObserverDispose = observe(this.props.spyMode, 'isEnabled', this.onSpyModelChange);
     }
+  }
+
+  @computed get ready() {
+    return !this.isDismissed && this.ux && this.ux.ready;
   }
 
   @autobind
@@ -53,10 +61,9 @@ class CourseNagModal extends React.Component {
   }
 
   render() {
-    const NagComponent = this.ux && this.ux.nagComponent;
-    if (this.props.tourContext.tour || this.isDismissed || !NagComponent) {
-      return null;
-    }
+    if (!this.props.modalManager.canDisplay(this) || !this.ready) { return null; }
+
+    const NagComponent = this.ux.nagComponent;
     const className = classnames('onboarding', NagComponent.className);
     return (
       <Modal

@@ -10,6 +10,7 @@ import { DragDropContext } from 'react-dnd';
 import TutorTheme from '../../src/theme';
 import { Navbar } from '../../src/components/navbar';
 import { NavbarContext } from '../../src/components/navbar/context';
+import ModalManager from '../../src/components/modal-manager';
 import TourConductor from '../../src/components/tours/conductor';
 import { SpyMode } from 'shared';
 import { observable, action } from 'mobx';
@@ -87,11 +88,13 @@ export class C extends React.Component {
         <Router {...routerProps} ref="router">
           <C.DnDContext>
             <SpyMode.Wrapper>
-              <TourConductor tourContext={withTours}>
-                <TutorSpecLayout>
-                  {child}
-                </TutorSpecLayout>
-              </TourConductor>
+              <ModalManager>
+                <TourConductor tourContext={withTours}>
+                  <TutorSpecLayout>
+                    {child}
+                  </TutorSpecLayout>
+                </TourConductor>
+              </ModalManager>
             </SpyMode.Wrapper>
           </C.DnDContext>
         </Router>

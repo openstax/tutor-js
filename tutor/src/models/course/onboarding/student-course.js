@@ -39,8 +39,11 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
     return null;
   }
 
-  @computed get needsTermsSigned() {
-    return Boolean(User.terms_signatures_needed && !this.paymentIsPastDue);
+  // terms are NOT allowed to interrupt this nag if payment is past-due
+  @computed get ready() {
+    return !this.isDismissed &&
+           (!User.terms_signatures_needed || this.paymentIsPastDue) &&
+           this.nagComponent;
   }
 
   @computed get isDisplaying() {

@@ -122,6 +122,7 @@ class Tour extends BaseModel {
 
   @action
   markViewed({ exitedEarly }){
+    debugger;
     this.justViewed = true;
     this.isEnabled = false;
     User.viewedTour(this, { exitedEarly });

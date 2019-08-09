@@ -1,35 +1,44 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { observer } from 'mobx-react';
 import { action, computed } from 'mobx';
+import { observer, inject } from 'mobx-react';
 import { Modal, Button } from 'react-bootstrap';
 import classnames from 'classnames';
 import Branding from './branding/course';
 import User from '../models/user';
 import { isEmpty, map } from 'lodash';
 import String from '../helpers/string';
+import ModalManager from './modal-manager';
 
 export default
+@inject('modalManager')
 @observer
 class TermsModal extends React.Component {
 
   static propTypes = {
     canBeDisplayed: PropTypes.bool,
+    modalManager: PropTypes.instanceOf(ModalManager).isRequired,
   }
 
   @computed get title() {
     return String.toSentence(map(User.unsignedTerms, 'title'));
   }
 
-  @action.bound onAgreement() {
-    User.terms.sign();
+  @action.bound onAgreement() { User.terms.sign(); }
+
+  constructor(props) {
+    super(props);
+    this.priority = 0;
+    this.props.modalManager.queue(this);
+  }
+
+  // for terms to be displayed the user must be in a course and need them signed
+  @computed get ready() {
+    return this.props.canBeDisplayed && User.terms_signatures_needed && !isEmpty(User.unsignedTerms)
   }
 
   render() {
-    // for terms to be displayed the user must need them signed and be in a course
-    if (
-      !User.terms_signatures_needed || !this.props.canBeDisplayed || isEmpty(User.unsignedTerms)
-    ) { return null; }
+    if (!this.props.modalManager.canDisplay(this) || !this.ready) { return null; }
 
     const className = classnames('user-terms', { 'is-loading': User.terms.api.isPending });
 

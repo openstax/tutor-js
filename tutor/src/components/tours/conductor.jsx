@@ -1,15 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { observable, observe } from 'mobx';
+import { computed, observable, observe } from 'mobx';
 import { Provider, observer, inject } from 'mobx-react';
 import { autobind } from 'core-decorators';
 import Joyride from 'react-joyride';
 import TourContext from '../../models/tour/context';
 import User from '../../models/user';
 import { SpyModeContext, SpyModeContent } from 'shared/components/spy-mode';
+import ModalManager from '../modal-manager';
 
 export default
-@inject('spyMode')
+@inject('modalManager', 'spyMode')
 @observer
 class TourConductor extends React.Component {
 
@@ -17,12 +18,15 @@ class TourConductor extends React.Component {
 
   static propTypes = {
     children: PropTypes.node.isRequired,
+    modalManager: PropTypes.instanceOf(ModalManager).isRequired,
     spyMode: PropTypes.instanceOf(SpyModeContext).isRequired,
   }
 
   constructor(props) {
     super(props);
     this.tourContext = props.tourContext || new TourContext();
+    this.priority = 10;
+    this.props.modalManager.queue(this);
   }
 
   componentWillUnmount() {
@@ -40,7 +44,13 @@ class TourConductor extends React.Component {
     }
   }
 
+  @computed get ready() {
+    return this.tourContext.ready;
+  }
+
   renderTour() {
+    if (!this.props.modalManager.canDisplay(this) || !this.ready) { return null; }
+
     return this.tourContext.tourRide ?
       <Joyride {...this.tourContext.tourRide.joyrideProps} /> : null;
   }
