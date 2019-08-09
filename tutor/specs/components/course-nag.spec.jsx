@@ -1,4 +1,5 @@
 import CourseNag from '../../src/components/course-nag';
+import ModalManager from '../../src/components/modal-manager';
 import TourContext from '../../src/models/tour/context';
 import { observable } from 'mobx';
 import Onboarding from '../../src/models/course/onboarding/base';
@@ -13,7 +14,7 @@ function SomethingToDo() { return <span>Hi!</span>; }
 
 describe('Second Session Warning', () => {
 
-  let ux, tourContext, props, spyMode;
+  let ux, modalManager, tourContext, props, spyMode;
 
   beforeEach(() => {
     ux = observable.object({
@@ -24,10 +25,12 @@ describe('Second Session Warning', () => {
       },
     });
     spyMode = observable.object({ isEnabled: false });
+    modalManager = new ModalManager();
     tourContext = new TourContext();
     props = {
       spyMode,
       tourContext,
+      modalManager,
     };
   });
 

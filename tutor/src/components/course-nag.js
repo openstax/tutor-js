@@ -42,8 +42,13 @@ class CourseNagModal extends React.Component {
     const { course } = this.props;
     if (course) {
       this.ux = onboardingForCourse(course, this.props.tourContext);
-      this.ux.mount();
-      this.priority = this.ux.priority;
+      if (this.ux) {
+        this.ux.mount();
+        this.priority = this.ux.priority;
+      }
+      else {
+        this.priority = 100;
+      }
       this.props.modalManager.queue(this);
       // the last component to queue itself should start the modalManager
       this.props.modalManager.start();
