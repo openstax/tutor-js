@@ -22,19 +22,20 @@ class TourConductor extends React.Component {
     spyMode: PropTypes.instanceOf(SpyModeContext).isRequired,
   }
 
+  priority = 20;
+
   constructor(props) {
     super(props);
     this.tourContext = props.tourContext || new TourContext();
-    this.priority = 20;
+  }
+
+  componentWillMount() {
     this.props.modalManager.queue(this);
+    this.spyModeObserverDispose = observe(this.props.spyMode, 'isEnabled', this.onSpyModelChange);
   }
 
   componentWillUnmount() {
     this.spyModeObserverDispose();
-  }
-
-  componentWillMount() {
-    this.spyModeObserverDispose = observe(this.props.spyMode, 'isEnabled', this.onSpyModelChange);
   }
 
   @autobind
@@ -44,12 +45,12 @@ class TourConductor extends React.Component {
     }
   }
 
-  @computed get ready() {
-    return this.tourContext.ready;
+  @computed get isReady() {
+    return this.tourContext.isReady;
   }
 
   renderTour() {
-    if (!this.props.modalManager.canDisplay(this) || !this.ready) { return null; }
+    if (!this.props.modalManager.canDisplay(this) || !this.isReady) { return null; }
 
     return this.tourContext.tourRide ?
       <Joyride {...this.tourContext.tourRide.joyrideProps} /> : null;

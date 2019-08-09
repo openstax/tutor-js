@@ -13,7 +13,7 @@ import { autobind } from 'core-decorators';
 import classnames from 'classnames';
 
 export default
-@inject('modalManager', 'tourContext', 'spyMode')
+@inject((context) => pick(context, 'modalManager', 'tourContext', 'spyMode'))
 @observer
 class CourseNagModal extends React.Component {
 
@@ -44,10 +44,6 @@ class CourseNagModal extends React.Component {
       this.ux = onboardingForCourse(course, this.props.tourContext);
       if (this.ux) {
         this.ux.mount();
-        this.priority = this.ux.priority;
-      }
-      else {
-        this.priority = 100;
       }
       this.props.modalManager.queue(this);
       // the last component to queue itself should start the modalManager
@@ -58,8 +54,12 @@ class CourseNagModal extends React.Component {
     }
   }
 
-  @computed get ready() {
-    return !this.isDismissed && this.ux && this.ux.ready;
+  @computed get priority() {
+    return this.ux ? this.ux.priority : 100;
+  }
+
+  @computed get isReady() {
+    return !this.isDismissed && this.ux && this.ux.isReady;
   }
 
   @autobind
@@ -68,7 +68,7 @@ class CourseNagModal extends React.Component {
   }
 
   render() {
-    if (!this.props.modalManager.canDisplay(this) || !this.ready) { return null; }
+    if (!this.props.modalManager.canDisplay(this) || !this.isReady) { return null; }
 
     const NagComponent = this.ux.nagComponent;
     const className = classnames('onboarding', NagComponent.className);

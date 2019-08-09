@@ -93,8 +93,8 @@ class TourContext extends BaseModel {
   }
 
   // terms agreements are allowed to interrupt tours
-  @computed get ready() {
-    return (isEmpty(this.courses) || !User.terms_signatures_needed) && !!this.tour;
+  @computed get isReady() {
+    return !!((isEmpty(this.courses) || !User.terms_signatures_needed) && this.tour);
   }
 
   // The tour that should be shown

@@ -26,19 +26,19 @@ class TermsModal extends React.Component {
 
   @action.bound onAgreement() { User.terms.sign(); }
 
-  constructor(props) {
-    super(props);
-    this.priority = 10;
+  priority = 10;
+
+  componentWillMount() {
     this.props.modalManager.queue(this);
   }
 
   // for terms to be displayed the user must be in a course and need them signed
-  @computed get ready() {
+  @computed get isReady() {
     return this.props.canBeDisplayed && User.terms_signatures_needed && !isEmpty(User.unsignedTerms)
   }
 
   render() {
-    if (!this.props.modalManager.canDisplay(this) || !this.ready) { return null; }
+    if (!this.props.modalManager.canDisplay(this) || !this.isReady) { return null; }
 
     const className = classnames('user-terms', { 'is-loading': User.terms.api.isPending });
 

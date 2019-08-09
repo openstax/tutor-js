@@ -29,9 +29,10 @@ class ModalManager extends React.Component {
     const requeue = [];
     while (this.priorityQueue.length > 0) {
       const peek = this.priorityQueue.peek();
-      if (peek.ready) {
+      if (peek.isReady) {
         this.active = peek;
-        this.observerDisposes.push(observe(peek, 'ready', this.next));
+        // wait for the current modal to stop being ready
+        this.observerDisposes.push(observe(peek, 'isReady', this.next));
         break;
       }
       requeue.push(this.priorityQueue.dequeue());
@@ -40,23 +41,20 @@ class ModalManager extends React.Component {
     for (const model of requeue) {
       this.priorityQueue.queue(model);
       if (!this.active) {
-        this.observerDisposes.push(observe(model, 'ready', this.next));
+        // no modal is currently active, so wait for any modal to be ready
+        this.observerDisposes.push(observe(model, 'isReady', this.next));
       }
     }
-
-    return !!this.active;
   }
 
   @action.bound queue(model) {
     this.priorityQueue.queue(model);
-    return true;
   }
 
   @action.bound start() {
     if (!this.active) {
       this.next();
     }
-    return true;
   }
 
   render() {

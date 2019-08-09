@@ -20,12 +20,15 @@ class Tour extends BaseModel {
 
   static forIdentifier(id, options) {
     const tourSettings = TourData[id];
+
     if (!tourSettings) {
       return undefined;
     }
 
     const { courseId } = options;
+    let tourId = id;
     let tourData;
+    let tour;
 
     if (courseId) {
       if (tourSettings.perCourse) {
@@ -40,8 +43,7 @@ class Tour extends BaseModel {
       tourData = tourSettings;
     }
 
-    let tourId = id;
-    let tour = TourInstances.get(tourId);
+    tour = TourInstances.get(tourId);
     if (!tour){
       tour = new Tour(tourData);
       TourInstances.set(tourId, tour);

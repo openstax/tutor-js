@@ -27,7 +27,7 @@ export default class BasicCourseOnboarding {
   // overridden by subclasses
   @computed get nagComponent() { return null; }
 
-  @computed get ready() {
+  @computed get isReady() {
     return !this.isDismissed && this.nagComponent;
   }
 
