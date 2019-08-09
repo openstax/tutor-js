@@ -15,7 +15,7 @@ class ModalManager extends React.Component {
 
   @observable active = null;
   observerDisposes = [];
-  priorityQueue = new PriorityQueue({ comparator: (a, b) => { return b.priority - a.priority } });
+  priorityQueue = new PriorityQueue({ comparator: (a, b) => { return a.priority - b.priority } });
 
   canDisplay = createTransformer(model => this.active == model);
 
@@ -49,12 +49,14 @@ class ModalManager extends React.Component {
 
   @action.bound queue(model) {
     this.priorityQueue.queue(model);
+    return true;
+  }
 
+  @action.bound start() {
     if (!this.active) {
       this.next();
     }
-
-    return this.canDisplay(model);
+    return true;
   }
 
   render() {

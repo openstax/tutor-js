@@ -28,7 +28,7 @@ class TermsModal extends React.Component {
 
   constructor(props) {
     super(props);
-    this.priority = 0;
+    this.priority = 10;
     this.props.modalManager.queue(this);
   }
 

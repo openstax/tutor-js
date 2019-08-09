@@ -25,7 +25,7 @@ class TourConductor extends React.Component {
   constructor(props) {
     super(props);
     this.tourContext = props.tourContext || new TourContext();
-    this.priority = 10;
+    this.priority = 20;
     this.props.modalManager.queue(this);
   }
 

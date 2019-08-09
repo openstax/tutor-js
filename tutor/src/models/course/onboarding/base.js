@@ -27,9 +27,12 @@ export default class BasicCourseOnboarding {
   // overridden by subclasses
   @computed get nagComponent() { return null; }
 
-  // terms are allowed to interrupt nags
   @computed get ready() {
-    return !this.isDismissed && !User.terms_signatures_needed && this.nagComponent;
+    return !this.isDismissed && this.nagComponent;
+  }
+
+  @computed get priority() {
+    return 30;
   }
 
   @computed get courseIsNaggable() {

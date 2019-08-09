@@ -39,19 +39,16 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
     return null;
   }
 
-  // terms are NOT allowed to interrupt this nag if payment is past-due
-  @computed get ready() {
-    return !this.isDismissed &&
-           (!User.terms_signatures_needed || this.paymentIsPastDue) &&
-           this.nagComponent;
-  }
-
   @computed get isDisplaying() {
     return Boolean(this.nagComponent);
   }
 
   @computed get paymentIsPastDue() {
     return get(this.course, 'userStudentRecord.mustPayImmediately', false);
+  }
+
+  @computed get priority() {
+    return this.paymentIsPastDue ? 0 : 30;
   }
 
   @action.bound
