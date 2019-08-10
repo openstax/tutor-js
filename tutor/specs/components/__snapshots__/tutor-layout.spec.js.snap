@@ -67,20 +67,20 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                 <StudentPayNowBtn course={[undefined]} />
                                                 <inject-SupportMenu course={[undefined]}>
                                                   <SupportMenu course={[undefined]} tourContext={{...}}>
-                                                    <ForwardRef(ContextTransform) className=\\"support-menu\\">
-                                                      <ForwardRef(Bootstrap(undefined)) className=\\"support-menu\\" onSelect={{...}}>
-                                                        <ForwardRef className=\\"support-menu\\" onSelect={{...}} innerRef={{...}} bsPrefix=\\"dropdown\\">
-                                                          <Uncontrolled(Dropdown) className=\\"support-menu\\" onSelect={{...}} innerRef={{...}} bsPrefix=\\"dropdown\\">
-                                                            <Dropdown className=\\"support-menu\\" onSelect={{...}} bsPrefix=\\"dropdown\\" show={[undefined]} onToggle={[Function: handleChange]} as=\\"div\\" navbar={false}>
-                                                              <ReactOverlaysDropdown drop={[undefined]} show={[undefined]} alignEnd={[undefined]} onToggle={[Function]} itemSelector=\\".dropdown-item:not(.disabled):not(:disabled)\\">
+                                                    <ForwardRef(ContextTransform) show={true} onToggle={[Function: res]}>
+                                                      <ForwardRef(Bootstrap(undefined)) show={true} onToggle={[Function: res]} onSelect={{...}}>
+                                                        <ForwardRef show={true} onToggle={[Function: res]} onSelect={{...}} innerRef={{...}} bsPrefix=\\"dropdown\\">
+                                                          <Uncontrolled(Dropdown) show={true} onToggle={[Function: res]} onSelect={{...}} innerRef={{...}} bsPrefix=\\"dropdown\\">
+                                                            <Dropdown show={true} onToggle={[Function: handleChange]} onSelect={{...}} bsPrefix=\\"dropdown\\" as=\\"div\\" navbar={false}>
+                                                              <ReactOverlaysDropdown drop={[undefined]} show={true} alignEnd={[undefined]} onToggle={[Function]} itemSelector=\\".dropdown-item:not(.disabled):not(:disabled)\\">
                                                                 <Manager>
-                                                                  <div onKeyDown={[Function]} className=\\"support-menu dropdown\\">
+                                                                  <div onKeyDown={[Function]} className=\\"show dropdown\\">
                                                                     <ForwardRef(Bootstrap(DropdownToggle)) id=\\"support-menu\\" aria-label=\\"Page tips and support\\" variant=\\"ox\\">
                                                                       <DropdownToggle id=\\"support-menu\\" aria-label=\\"Page tips and support\\" variant=\\"ox\\" bsPrefix=\\"dropdown-toggle\\" as={{...}}>
                                                                         <ReactOverlaysDropdownToggle>
-                                                                          <ForwardRef(Bootstrap(Button)) onClick={[Function]} bsPrefix={[undefined]} className=\\"dropdown-toggle\\" aria-haspopup={true} aria-expanded={false} id=\\"support-menu\\" aria-label=\\"Page tips and support\\" variant=\\"ox\\">
-                                                                            <Button onClick={[Function]} bsPrefix=\\"btn\\" className=\\"dropdown-toggle\\" aria-haspopup={true} aria-expanded={false} id=\\"support-menu\\" aria-label=\\"Page tips and support\\" variant=\\"ox\\" innerRef={[Function]} active={false} disabled={false} type=\\"button\\">
-                                                                              <button onClick={[Function]} aria-haspopup={true} aria-expanded={false} id=\\"support-menu\\" aria-label=\\"Page tips and support\\" disabled={false} type=\\"button\\" className=\\"dropdown-toggle btn btn-ox\\">
+                                                                          <ForwardRef(Bootstrap(Button)) onClick={[Function]} bsPrefix={[undefined]} className=\\"dropdown-toggle\\" aria-haspopup={true} aria-expanded={true} id=\\"support-menu\\" aria-label=\\"Page tips and support\\" variant=\\"ox\\">
+                                                                            <Button onClick={[Function]} bsPrefix=\\"btn\\" className=\\"dropdown-toggle\\" aria-haspopup={true} aria-expanded={true} id=\\"support-menu\\" aria-label=\\"Page tips and support\\" variant=\\"ox\\" innerRef={[Function]} active={false} disabled={false} type=\\"button\\">
+                                                                              <button onClick={[Function]} aria-haspopup={true} aria-expanded={true} id=\\"support-menu\\" aria-label=\\"Page tips and support\\" disabled={false} type=\\"button\\" className=\\"dropdown-toggle btn btn-ox\\">
                                                                                 <inject-TourAnchor id=\\"support-menu-button\\" aria-labelledby=\\"support-menu\\" onSelect={[Function: res]}>
                                                                                   <TourAnchor id=\\"support-menu-button\\" aria-labelledby=\\"support-menu\\" onSelect={[Function: res]} tourContext={{...}} tag=\\"div\\" className=\\"\\">
                                                                                     <div className=\\"tour-anchor\\" data-tour-anchor-id=\\"support-menu-button\\" aria-labelledby=\\"support-menu\\" onSelect={[Function: res]}>
@@ -118,10 +118,66 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                                         </ReactOverlaysDropdownToggle>
                                                                       </DropdownToggle>
                                                                     </ForwardRef(Bootstrap(DropdownToggle))>
-                                                                    <ForwardRef(Bootstrap(DropdownMenu))>
-                                                                      <DropdownMenu bsPrefix=\\"dropdown-menu\\" alignRight={false} as=\\"div\\" flip={true}>
+                                                                    <ForwardRef(Bootstrap(DropdownMenu)) className=\\" hide\\">
+                                                                      <DropdownMenu className=\\" hide\\" bsPrefix=\\"dropdown-menu\\" alignRight={false} as=\\"div\\" flip={true}>
                                                                         <ForwardRef(ContextTransform(DropdownMenu)) flip={true} show={[undefined]} alignEnd={false} usePopper={true} popperConfig={[undefined]} rootCloseEvent={[undefined]}>
-                                                                          <ReactOverlaysDropdownMenu flip={true} show={[undefined]} alignEnd={false} usePopper={true} popperConfig={[undefined]} rootCloseEvent={[undefined]} drop={[undefined]} menuRef={[Function: menuRef]} toggleNode={{...}} onToggle={[Function]} />
+                                                                          <ReactOverlaysDropdownMenu flip={true} show={true} alignEnd={false} usePopper={true} popperConfig={[undefined]} rootCloseEvent={[undefined]} drop={[undefined]} menuRef={[Function: menuRef]} toggleNode={{...}} onToggle={[Function]}>
+                                                                            <RootCloseWrapper disabled={false} event=\\"click\\" onRootClose={[Function]}>
+                                                                              <Popper referenceElement={{...}} innerRef={[Function: menuRef]} placement=\\"bottom-start\\" eventsEnabled={true} modifiers={{...}}>
+                                                                                <InnerPopper referenceElement={{...}} innerRef={[Function: menuRef]} placement=\\"bottom-start\\" eventsEnabled={true} modifiers={{...}} positionFixed={false}>
+                                                                                  <div aria-labelledby=\\"support-menu\\" style={[undefined]} className=\\" hide dropdown-menu show\\">
+                                                                                    <_class onPlayClick={[Function: res]} course={[undefined]} tourContext={{...}} />
+                                                                                    <ForwardRef(ContextTransform) className=\\"-help-link\\" target=\\"_blank\\" onSelect={[Function: res]} href=\\"https://openstax.secure.force.com/help\\">
+                                                                                      <ForwardRef(Bootstrap(DropdownItem)) className=\\"-help-link\\" target=\\"_blank\\" onSelect={[Function: chainedFunction]} href=\\"https://openstax.secure.force.com/help\\" active={false}>
+                                                                                        <DropdownItem className=\\"-help-link\\" target=\\"_blank\\" onSelect={[Function: chainedFunction]} href=\\"https://openstax.secure.force.com/help\\" active={false} bsPrefix=\\"dropdown-item\\" as={[Function: SafeAnchor]} disabled={false}>
+                                                                                          <SafeAnchor target=\\"_blank\\" href=\\"https://openstax.secure.force.com/help\\" disabled={false} className=\\"-help-link dropdown-item\\" onClick={[Function]} as=\\"a\\">
+                                                                                            <a target=\\"_blank\\" href=\\"https://openstax.secure.force.com/help\\" className=\\"-help-link dropdown-item\\" onClick={[Function: bound handleClick]} onKeyDown={[Function: bound handleKeyDown]}>
+                                                                                              <span>
+                                                                                                Help Articles
+                                                                                              </span>
+                                                                                            </a>
+                                                                                          </SafeAnchor>
+                                                                                        </DropdownItem>
+                                                                                      </ForwardRef(Bootstrap(DropdownItem))>
+                                                                                    </ForwardRef(ContextTransform)>
+                                                                                    <SupportDocumentLink course={[undefined]}>
+                                                                                      <ForwardRef(ContextTransform) className=\\"support-document-link\\" target=\\"_blank\\" href=\\"https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_getting_started_guide_student.pdf\\">
+                                                                                        <ForwardRef(Bootstrap(DropdownItem)) className=\\"support-document-link\\" target=\\"_blank\\" href=\\"https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_getting_started_guide_student.pdf\\" onSelect={[Function]} active={false}>
+                                                                                          <DropdownItem className=\\"support-document-link\\" target=\\"_blank\\" href=\\"https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_getting_started_guide_student.pdf\\" onSelect={[Function]} active={false} bsPrefix=\\"dropdown-item\\" as={[Function: SafeAnchor]} disabled={false}>
+                                                                                            <SafeAnchor target=\\"_blank\\" href=\\"https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_getting_started_guide_student.pdf\\" disabled={false} className=\\"support-document-link dropdown-item\\" onClick={[Function]} as=\\"a\\">
+                                                                                              <a target=\\"_blank\\" href=\\"https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_getting_started_guide_student.pdf\\" className=\\"support-document-link dropdown-item\\" onClick={[Function: bound handleClick]} onKeyDown={[Function: bound handleKeyDown]}>
+                                                                                                <inject-TourAnchor id=\\"menu-support-document\\">
+                                                                                                  <TourAnchor id=\\"menu-support-document\\" tourContext={{...}} tag=\\"div\\" className=\\"\\">
+                                                                                                    <div className=\\"tour-anchor\\" data-tour-anchor-id=\\"menu-support-document\\">
+                                                                                                      Getting Started Guide
+                                                                                                    </div>
+                                                                                                  </TourAnchor>
+                                                                                                </inject-TourAnchor>
+                                                                                              </a>
+                                                                                            </SafeAnchor>
+                                                                                          </DropdownItem>
+                                                                                        </ForwardRef(Bootstrap(DropdownItem))>
+                                                                                      </ForwardRef(ContextTransform)>
+                                                                                    </SupportDocumentLink>
+                                                                                    <BestPracticesGuide course={[undefined]} />
+                                                                                    <ForwardRef(ContextTransform) className=\\"-help-link\\" onSelect={[Function: res]} href=\\"/accessibility-statement/\\" onClick={[Function: res]}>
+                                                                                      <ForwardRef(Bootstrap(DropdownItem)) className=\\"-help-link\\" onSelect={[Function: chainedFunction]} href=\\"/accessibility-statement/\\" onClick={[Function: res]} active={false}>
+                                                                                        <DropdownItem className=\\"-help-link\\" onSelect={[Function: chainedFunction]} href=\\"/accessibility-statement/\\" onClick={[Function: res]} active={false} bsPrefix=\\"dropdown-item\\" as={[Function: SafeAnchor]} disabled={false}>
+                                                                                          <SafeAnchor href=\\"/accessibility-statement/\\" onClick={[Function]} disabled={false} className=\\"-help-link dropdown-item\\" as=\\"a\\">
+                                                                                            <a href=\\"/accessibility-statement/\\" onClick={[Function: bound handleClick]} className=\\"-help-link dropdown-item\\" onKeyDown={[Function: bound handleKeyDown]}>
+                                                                                              <span>
+                                                                                                Accessibility Statement
+                                                                                              </span>
+                                                                                            </a>
+                                                                                          </SafeAnchor>
+                                                                                        </DropdownItem>
+                                                                                      </ForwardRef(Bootstrap(DropdownItem))>
+                                                                                    </ForwardRef(ContextTransform)>
+                                                                                  </div>
+                                                                                </InnerPopper>
+                                                                              </Popper>
+                                                                            </RootCloseWrapper>
+                                                                          </ReactOverlaysDropdownMenu>
                                                                         </ForwardRef(ContextTransform(DropdownMenu))>
                                                                       </DropdownMenu>
                                                                     </ForwardRef(Bootstrap(DropdownMenu))>
@@ -190,9 +246,9 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                   <TermsModal canBeDisplayed={false} modalManager={{...}} />
                                 </inject-TermsModal-with-modalManager>
                                 <Toasts toasts={{...}} />
-                                <inject-CourseNagModal-with-modalManager-tourContext-spyMode course={[undefined]}>
+                                <inject-CourseNagModal course={[undefined]}>
                                   <CourseNagModal course={[undefined]} modalManager={{...}} tourContext={{...}} spyMode={{...}} />
-                                </inject-CourseNagModal-with-modalManager-tourContext-spyMode>
+                                </inject-CourseNagModal>
                                 <Content>
                                   <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
                                     <div className=\\"Content-sc-1t4agiy-1 kfSAav\\">

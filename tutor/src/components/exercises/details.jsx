@@ -25,7 +25,7 @@ class ExerciseDetails extends React.Component {
     onShowCardViewClick:   PropTypes.func.isRequired,
     getExerciseActions:    PropTypes.func.isRequired,
     getExerciseIsSelected: PropTypes.func.isRequired,
-    selectedSection:       PropTypes.instanceOf(ChapterSection).isRequired,
+    selectedSection:       PropTypes.instanceOf(ChapterSection),
     displayFeedback:       PropTypes.bool,
     onSectionChange:       PropTypes.func,
     topScrollOffset:       PropTypes.number,

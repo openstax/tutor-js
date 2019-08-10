@@ -18,7 +18,7 @@ export default
 @identifiedBy('tour')
 class Tour extends BaseModel {
 
-  static forIdentifier(id, options) {
+  static forIdentifier(id, options = {}) {
     const tourSettings = TourData[id];
 
     if (!tourSettings) {
@@ -52,7 +52,7 @@ class Tour extends BaseModel {
   }
 
   @computed static get all() {
-    return map(TourData, (_, id) => this.forIdentifier(id, { courseId: this.courseId }));
+    return compact(map(TourData, (_, id) => this.forIdentifier(id, { courseId: this.courseId })));
   }
 
   @identifier id;

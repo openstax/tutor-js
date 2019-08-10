@@ -165,11 +165,11 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                   className="right-side-controls"
                 >
                   <div
-                    className="support-menu dropdown"
+                    className="show dropdown"
                     onKeyDown={[Function]}
                   >
                     <button
-                      aria-expanded={false}
+                      aria-expanded={true}
                       aria-haspopup={true}
                       aria-label="Page tips and support"
                       className="dropdown-toggle btn btn-ox"
@@ -226,6 +226,46 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                         </svg>
                       </div>
                     </button>
+                    <div
+                      aria-labelledby={null}
+                      className=" hide dropdown-menu show"
+                    >
+                      <a
+                        className="-help-link dropdown-item"
+                        href="https://openstax.secure.force.com/help"
+                        onClick={[Function]}
+                        onKeyDown={[Function]}
+                        target="_blank"
+                      >
+                        <span>
+                          Help Articles
+                        </span>
+                      </a>
+                      <a
+                        className="support-document-link dropdown-item"
+                        href="https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_getting_started_guide_student.pdf"
+                        onClick={[Function]}
+                        onKeyDown={[Function]}
+                        target="_blank"
+                      >
+                        <div
+                          className="tour-anchor"
+                          data-tour-anchor-id="menu-support-document"
+                        >
+                          Getting Started Guide
+                        </div>
+                      </a>
+                      <a
+                        className="-help-link dropdown-item"
+                        href="/accessibility-statement/"
+                        onClick={[Function]}
+                        onKeyDown={[Function]}
+                      >
+                        <span>
+                          Accessibility Statement
+                        </span>
+                      </a>
+                    </div>
                   </div>
                   <div
                     className="actions-menu dropdown"
