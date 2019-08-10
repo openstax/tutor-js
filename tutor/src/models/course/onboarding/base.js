@@ -14,6 +14,8 @@ export default class BasicCourseOnboarding {
   @observable tourContext;
   @observable isDismissed;
 
+  priority = 3;
+
   static set spyMode(v) {
     SPY_MODE.set(v);
   }
@@ -29,10 +31,6 @@ export default class BasicCourseOnboarding {
 
   @computed get isReady() {
     return !this.isDismissed && this.nagComponent;
-  }
-
-  @computed get priority() {
-    return 30;
   }
 
   @computed get courseIsNaggable() {

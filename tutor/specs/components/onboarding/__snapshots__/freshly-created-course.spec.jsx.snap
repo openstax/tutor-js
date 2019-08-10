@@ -10,6 +10,7 @@ exports[`Freshly Created Course prompt preview renders and matches snapshot 1`] 
         "course": Object {},
         "dismissNag": [MockFunction],
         "isDismissed": false,
+        "priority": 3,
         "tourContext": Object {},
       }
     }
@@ -29,6 +30,7 @@ exports[`Freshly Created Course prompt student renders and matches snapshot 1`] 
         "displayPayment": false,
         "displayTrialActive": false,
         "isDismissed": false,
+        "priority": 3,
         "tourContext": Object {},
       }
     }

@@ -47,10 +47,6 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
     return get(this.course, 'userStudentRecord.mustPayImmediately', false);
   }
 
-  @computed get priority() {
-    return this.paymentIsPastDue ? 0 : 30;
-  }
-
   @action.bound
   acknowledgeTrial() {
     UiSettings.set(TRIAL_ACKNOWLEDGED, this.course.id, true);
@@ -88,7 +84,9 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
 
   mount() {
     super.mount();
-    if (!this.paymentIsPastDue) {
+    if (this.paymentIsPastDue) {
+      this.priority = 0;
+    } else {
       this.course.studentTaskPlans.startFetching();
     }
     this.tourContext.otherModal = this;

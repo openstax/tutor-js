@@ -26,10 +26,8 @@ class TermsModal extends React.Component {
 
   @action.bound onAgreement() { User.terms.sign(); }
 
-  priority = 10;
-
   componentWillMount() {
-    this.props.modalManager.queue(this);
+    this.props.modalManager.queue(this, 1);
   }
 
   // for terms to be displayed the user must be in a course and need them signed

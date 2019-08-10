@@ -43,19 +43,17 @@ class CourseNagModal extends React.Component {
     if (course) {
       this.ux = onboardingForCourse(course, this.props.tourContext);
       if (this.ux) {
+        // always call ux.mount() before checking ux.priority
         this.ux.mount();
+        this.props.modalManager.queue(this, this.ux.priority);
       }
-      this.props.modalManager.queue(this);
       // the last component to queue itself should start the modalManager
+      // call this even if the component did not queue itself so it still works for other components
       this.props.modalManager.start();
     }
     if (this.props.spyMode) {
       this.spyModeObserverDispose = observe(this.props.spyMode, 'isEnabled', this.onSpyModelChange);
     }
-  }
-
-  @computed get priority() {
-    return this.ux ? this.ux.priority : 100;
   }
 
   @computed get isReady() {

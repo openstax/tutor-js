@@ -3,7 +3,6 @@ import React from 'react';
 import { action, observable, observe } from 'mobx';
 import { Provider, observer } from 'mobx-react';
 import { createTransformer } from 'mobx-utils';
-import PriorityQueue from 'js-priority-queue';
 
 export default
 @observer
@@ -15,9 +14,9 @@ class ModalManager extends React.Component {
 
   @observable active = null;
   observerDisposes = [];
-  priorityQueue = new PriorityQueue({ comparator: (a, b) => { return a.priority - b.priority } });
+  priorityQueue = [];
 
-  canDisplay = createTransformer(model => this.active == model);
+  canDisplay = createTransformer(modal => this.active == modal);
 
   @action.bound next() {
     while (this.observerDisposes.length > 0) {
@@ -26,29 +25,29 @@ class ModalManager extends React.Component {
 
     this.active = null;
 
-    const requeue = [];
-    while (this.priorityQueue.length > 0) {
-      const peek = this.priorityQueue.peek();
-      if (peek.isReady) {
-        this.active = peek;
+    for (const modal of priorityQueue) {
+      if (modal && modal.isReady) {
+        this.active = modal;
         // wait for the current modal to stop being ready
-        this.observerDisposes.push(observe(peek, 'isReady', this.next));
+        this.observerDisposes.push(observe(modal, 'isReady', this.next));
         break;
       }
-      requeue.push(this.priorityQueue.dequeue());
     }
 
-    for (const model of requeue) {
-      this.priorityQueue.queue(model);
-      if (!this.active) {
-        // no modal is currently active, so wait for any modal to be ready
-        this.observerDisposes.push(observe(model, 'isReady', this.next));
+    if (!this.active) {
+      // no modal is currently ready, so wait for any modal to become ready
+      for (const modal of priorityQueue) {
+        if (modal) {
+          this.observerDisposes.push(observe(modal, 'isReady', this.next));
+        }
       }
     }
   }
 
-  @action.bound queue(model) {
-    this.priorityQueue.queue(model);
+  // we do not support multiple modals with the same priority,
+  // so make sure the priorities are all different when calling this method
+  @action.bound queue(model, priority) {
+    this.priorityQueue[priority] = model;
   }
 
   @action.bound start() {

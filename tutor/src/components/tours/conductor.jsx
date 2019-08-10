@@ -22,15 +22,13 @@ class TourConductor extends React.Component {
     spyMode: PropTypes.instanceOf(SpyModeContext).isRequired,
   }
 
-  priority = 20;
-
   constructor(props) {
     super(props);
     this.tourContext = props.tourContext || new TourContext();
   }
 
   componentWillMount() {
-    this.props.modalManager.queue(this);
+    this.props.modalManager.queue(this, 2);
     this.spyModeObserverDispose = observe(this.props.spyMode, 'isEnabled', this.onSpyModelChange);
   }
 
