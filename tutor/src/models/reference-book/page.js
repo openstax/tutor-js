@@ -16,9 +16,9 @@ const NON_ASSIGNABLE_TITLES = [
   'Conceptual Questions',
   'Problems & Exercises',
   'Test Prep for AP® Courses',
-  'Test Prep for AP® Courses',
   'Visual Connection Questions',
   'Critical Thinking Questions',
+  'Science Practice Challenge Questions',
 ];
 
 // currently the two are the same, but were different in past
