@@ -296,7 +296,7 @@ class TeacherTaskPlan extends BaseModel {
   @computed get clonedAttributes() {
     return extend(pick(
       this,
-      'title', 'description', 'settings', 'type',
+      'title', 'description', 'settings', 'type', 'ecosystem_id',
     ), {
       tasking_plans: map(this.tasking_plans, 'dataForSave'),
     });
@@ -314,7 +314,7 @@ class TeacherTaskPlan extends BaseModel {
   }
 
   @computed get dataForSave() {
-    return extend(this.clonedAttributes, pick(this, 'is_publish_requested' ));
+    return extend(this.clonedAttributes, pick(this, 'is_publish_requested'));
   }
 
   @computed get isExternalUrlValid() {
@@ -348,9 +348,6 @@ class TeacherTaskPlan extends BaseModel {
     } : {
       url: `plans/${this.id}`,
     };
-    if (this.ecosystem_id) {
-      options.params = { ecosystem_id: this.ecosystem_id };
-    }
     options.data = this.dataForSave;
     return options;
   }
