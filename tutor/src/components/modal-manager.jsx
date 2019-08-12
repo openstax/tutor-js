@@ -25,7 +25,7 @@ class ModalManager extends React.Component {
 
     this.active = null;
 
-    for (const modal of priorityQueue) {
+    for (const modal of this.priorityQueue) {
       if (modal && modal.isReady) {
         this.active = modal;
         // wait for the current modal to stop being ready
@@ -36,7 +36,7 @@ class ModalManager extends React.Component {
 
     if (!this.active) {
       // no modal is currently ready, so wait for any modal to become ready
-      for (const modal of priorityQueue) {
+      for (const modal of this.priorityQueue) {
         if (modal) {
           this.observerDisposes.push(observe(modal, 'isReady', this.next));
         }

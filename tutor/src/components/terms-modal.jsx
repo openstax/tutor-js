@@ -32,7 +32,9 @@ class TermsModal extends React.Component {
 
   // for terms to be displayed the user must be in a course and need them signed
   @computed get isReady() {
-    return this.props.canBeDisplayed && User.terms_signatures_needed && !isEmpty(User.unsignedTerms)
+    return !!(
+      this.props.canBeDisplayed && User.terms_signatures_needed && !isEmpty(User.unsignedTerms)
+    )
   }
 
   render() {
