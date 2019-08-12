@@ -37,6 +37,7 @@ describe('TaskPlan MiniEditor wrapper', function() {
     expect(props.ux.plan.dataForSave).toEqual({
       type: 'homework',
       title: 'a homework',
+      ecosystem_id: 1,
       description: props.ux.plan.description,
       is_publish_requested: !props.ux.plan.is_published,
       tasking_plans: props.ux.course.periods.map(p => ({

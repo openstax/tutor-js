@@ -1,10 +1,11 @@
-import { Factory } from '../../../helpers';
+import { Factory, ld } from '../../../helpers';
 
 describe('CourseCalendar Header', function() {
   let plan;
 
   beforeEach(() => {
     plan = Factory.teacherTaskPlan();
+    plan.course = Factory.course();
   });
 
   it('tasking plan changed', () => {
@@ -53,4 +54,9 @@ describe('CourseCalendar Header', function() {
     expect(onDelete).toHaveBeenCalledWith(plan.id);
   });
 
+  it('clones with attributes', () => {
+    expect(plan.clonedAttributes).toMatchObject({
+      ...ld.pick(plan, 'title', 'description', 'settings', 'type', 'ecosystem_id'),
+    });
+  });
 });
