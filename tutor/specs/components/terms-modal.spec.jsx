@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-=======
-import { Factory } from '../helpers';
 import ModalManager from '../../src/components/modal-manager';
->>>>>>> Fix failing specs
 import TermsModal from '../../src/components/terms-modal';
 import User from '../../src/models/user';
 import { Term, UserTerms } from '../../src/models/user/terms';
