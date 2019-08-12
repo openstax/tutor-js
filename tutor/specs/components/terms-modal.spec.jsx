@@ -1,3 +1,4 @@
+import ModalManager from '../../src/components/modal-manager';
 import TermsModal from '../../src/components/terms-modal';
 import User from '../../src/models/user';
 import { Term, UserTerms } from '../../src/models/user/terms';
@@ -11,9 +12,17 @@ jest.mock('../../src/models/user', () => ({
 }));
 
 describe('Terms agreement modal', () => {
+
+  let modalManager;
+
+  beforeEach(() => {
+    modalManager = new ModalManager();
+    modalManager.canDisplay = () => true;
+  });
+
   describe('when there are no courses and no terms', () => {
     it('does not render', () => {
-      const modal = shallow(<TermsModal />);
+      const modal = shallow(<TermsModal modalManager={modalManager} />).dive();
       expect(modal.is('Modal')).toBe(false);
       expect(modal.text()).toBe('');
     });
@@ -43,7 +52,7 @@ describe('Terms agreement modal', () => {
       });
 
       it('does not render', () => {
-        const modal = shallow(<TermsModal canBeDisplayed />);
+        const modal = shallow(<TermsModal canBeDisplayed modalManager={modalManager} />).dive();
         expect(modal.text()).toBe('');
       });
     });
@@ -66,7 +75,7 @@ describe('Terms agreement modal', () => {
       });
 
       it('renders', () => {
-        const modal = shallow(<TermsModal canBeDisplayed />);
+        const modal = shallow(<TermsModal canBeDisplayed modalManager={modalManager} />).dive();
         expect(modal.text()).toContain('I agree');
       });
     });
@@ -80,7 +89,7 @@ describe('Terms agreement modal', () => {
     User.terms.sign = jest.fn();
     User.terms_signatures_needed = true;
     User.unsignedTerms = [ term ];
-    const modal = mount(<TermsModal canBeDisplayed />);
+    const modal = mount(<TermsModal canBeDisplayed modalManager={modalManager} />);
     modal.find('Button').simulate('click');
     expect(User.terms.sign).toHaveBeenCalled();
   });

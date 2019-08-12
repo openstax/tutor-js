@@ -6,7 +6,6 @@ import UiSettings from 'shared/model/ui-settings';
 import BaseOnboarding from './base';
 import Nags from '../../../components/onboarding/nags';
 import Payments from '../../payments';
-import User from '../../user';
 
 const PAY_LATER_CHOICE  = 'PL';
 const TRIAL_ACKNOWLEDGED = 'FTA';
@@ -37,10 +36,6 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
     }
 
     return null;
-  }
-
-  @computed get needsTermsSigned() {
-    return Boolean(User.terms_signatures_needed && !this.paymentIsPastDue);
   }
 
   @computed get isDisplaying() {
@@ -88,7 +83,9 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
 
   mount() {
     super.mount();
-    if (!this.paymentIsPastDue) {
+    if (this.paymentIsPastDue) {
+      this.priority = 0;
+    } else {
       this.course.studentTaskPlans.startFetching();
     }
     this.tourContext.otherModal = this;

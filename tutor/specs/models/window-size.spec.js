@@ -1,6 +1,10 @@
 import { autorun } from 'mobx';
 import FakeWindow from 'shared/specs/helpers/fake-window';
 import WindowSize from '../../src/models/window-size';
+
+// https://github.com/facebook/jest/issues/3465#issuecomment-351186130
+jest.mock('lodash/debounce', () => jest.fn(fn => fn));
+
 jest.useFakeTimers();
 
 describe('auto-updating window size', () => {
@@ -17,7 +21,7 @@ describe('auto-updating window size', () => {
     expect(fakeWindow.addEventListener).not.toHaveBeenCalled();
   });
 
-  it('updates it‘s values when listened', () => {
+  it('updates its values when listened', () => {
     const spy = jest.fn();
     const release = autorun(() => spy(size.current));
     expect(fakeWindow.addEventListener).toHaveBeenCalledTimes(1);

@@ -1,15 +1,9 @@
-import FullCourse from './full-course';
 import StudentCourse from './student-course';
 import Preview from './preview';
 
 export default function onboardingForCourse(course, context) {
-  let Klass;
-  if (!course) { return {}; }
+  if (!course || (!course.currentRole.isStudentLike && !course.is_preview)) { return null; }
 
-  if (course.currentRole.isStudentLike) {
-    Klass = StudentCourse;
-  } else {
-    Klass = course.is_preview ? Preview : FullCourse;
-  }
+  const Klass = course.currentRole.isStudentLike ? StudentCourse : Preview;
   return new Klass(course, context);
 }

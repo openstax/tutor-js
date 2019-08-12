@@ -1,18 +1,32 @@
 import { C } from '../../helpers';
 import FreshlyCreatedCourse from '../../../src/components/onboarding/freshly-created-course';
-import OnboardingUX from '../../../src/models/course/onboarding/full-course';
+import StudentUX from '../../../src/models/course/onboarding/student-course';
+import PreviewUX from '../../../src/models/course/onboarding/preview';
 
 describe('Freshly Created Course prompt', () => {
 
   let ux;
 
-  beforeEach(() => {
-    ux = new OnboardingUX({}, {});
-    ux.dismissNag = jest.fn();
+  describe('student', () => {
+    beforeEach(() => {
+      ux = new StudentUX({}, {});
+      ux.dismissNag = jest.fn();
+    });
+
+    it('renders and matches snapshot', () => {
+      expect(<C><FreshlyCreatedCourse ux={ux} /></C>).toMatchSnapshot();
+    });
   });
 
-  it('renders and matches snapshot', () => {
-    expect(<C><FreshlyCreatedCourse ux={ux} /></C>).toMatchSnapshot();
+  describe('preview', () => {
+    beforeEach(() => {
+      ux = new PreviewUX({}, {});
+      ux.dismissNag = jest.fn();
+    });
+
+    it('renders and matches snapshot', () => {
+      expect(<C><FreshlyCreatedCourse ux={ux} /></C>).toMatchSnapshot();
+    });
   });
 
 });

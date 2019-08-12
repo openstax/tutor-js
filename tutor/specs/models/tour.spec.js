@@ -1,6 +1,5 @@
 import Tour from '../../src/models/tour';
 import { range, map } from 'lodash';
-import TourData from '../../src/tours';
 import User from '../../src/models/user';
 jest.mock('../../src/models/user', () => ({
   replayTour: jest.fn(),
@@ -24,13 +23,6 @@ describe('Tour Model', () => {
   it('initializes from JSON', () => {
     const tour = Tour.forIdentifier('teacher-calendar');
     expect(tour).toBeInstanceOf(Tour);
-  });
-
-  it('can find by audience_tags', () => {
-    expect(Tour.forAudienceTags(['foo', 'bar'])).toEqual([]);
-    const tours = Tour.forAudienceTags(['teacher', 'foo']);
-    expect(tours.length).toBeGreaterThan(0);
-    expect(map(tours, 'id')).toContain('teacher-calendar');
   });
 
   it('finds all', () => {

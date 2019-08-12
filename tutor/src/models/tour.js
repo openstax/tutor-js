@@ -1,8 +1,7 @@
 import {
   BaseModel, identifiedBy, identifier, hasMany, field,
 } from 'shared/model';
-import { partial, some, each, compact, map, filter, max, defaults } from 'lodash';
-import includes from 'lodash/includes'; // babel-traverse blows up with includes is in list above?
+import { compact, map, filter, max, defaults } from 'lodash';
 import TourStep from './tour/step';
 import { computed, action } from 'mobx';
 // compiles and exports the data for tours from the JSON files
@@ -14,46 +13,45 @@ import User from './user';
 
 const TourInstances = new Map();
 
-function getTour(id, options = {}) {
-  const tourSettings = TourData[id];
-  const { courseId } = options;
-  let tourData = tourSettings;
-  let tourId = id;
-
-  if (courseId) {
-    if (tourSettings.perCourse) {
-      tourId = `${id}-${courseId}`;
-    }
-    tourData = defaults({ courseId }, tourSettings);
-  }
-
-  let tour = TourInstances.get(tourId);
-  if (!tour){
-    tour = new Tour(tourData);
-    TourInstances.set(tourId, tour);
-  }
-  return tour;
-}
-
 export default
 @identifiedBy('tour')
 class Tour extends BaseModel {
 
-  static forIdentifier(id, options) {
-    return TourData[id] ? getTour(id, options) : undefined;
+  static forIdentifier(id, options = {}) {
+    const tourSettings = TourData[id];
+
+    if (!tourSettings) {
+      return null;
+    }
+
+    const { courseId } = options;
+    let tourId = id;
+    let tourData;
+    let tour;
+
+    if (courseId) {
+      if (tourSettings.perCourse) {
+        tourId = `${id}-${courseId}`;
+      }
+      tourData = defaults({ courseId }, tourSettings);
+    }
+    else {
+      if (tourSettings.perCourse) {
+        return null;
+      }
+      tourData = tourSettings;
+    }
+
+    tour = TourInstances.get(tourId);
+    if (!tour){
+      tour = new Tour(tourData);
+      TourInstances.set(tourId, tour);
+    }
+    return tour;
   }
 
   @computed static get all() {
-    return map(TourData, (_, id) => this.forIdentifier(id, { courseId: this.courseId }));
-  }
-
-  static forAudienceTags(tags) {
-    const tours = [];
-    const doesIncludeTag = partial(includes, tags);
-    each(TourData, (data, id) => {
-      if (some(data.audience_tags, doesIncludeTag)) { tours.push(getTour(id)); }
-    });
-    return compact(tours);
+    return compact(map(TourData, (_, id) => this.forIdentifier(id, { courseId: this.courseId })));
   }
 
   @identifier id;
@@ -129,4 +127,4 @@ class Tour extends BaseModel {
       this.othersInGroup.forEach(tour => tour.isEnabled = false);
     }
   }
-};
+}

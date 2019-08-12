@@ -1,15 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Freshly Created Course prompt renders and matches snapshot 1`] = `
+exports[`Freshly Created Course prompt preview renders and matches snapshot 1`] = `
 <C
   path="/"
 >
   <FreshlyCreatedCourse
     ux={
-      FullCourseOnboarding {
+      PreviewOnboarding {
         "course": Object {},
         "dismissNag": [MockFunction],
-        "response": false,
+        "isDismissed": false,
+        "priority": 3,
+        "tourContext": Object {},
+      }
+    }
+  />
+</C>
+`;
+
+exports[`Freshly Created Course prompt student renders and matches snapshot 1`] = `
+<C
+  path="/"
+>
+  <FreshlyCreatedCourse
+    ux={
+      StudentCourseOnboarding {
+        "course": Object {},
+        "dismissNag": [MockFunction],
+        "displayPayment": false,
+        "displayTrialActive": false,
+        "isDismissed": false,
+        "priority": 3,
         "tourContext": Object {},
       }
     }

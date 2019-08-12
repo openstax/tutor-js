@@ -1,15 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { observable, observe } from 'mobx';
+import { computed, observable, observe } from 'mobx';
 import { Provider, observer, inject } from 'mobx-react';
 import { autobind } from 'core-decorators';
 import Joyride from 'react-joyride';
 import TourContext from '../../models/tour/context';
 import User from '../../models/user';
 import { SpyModeContext, SpyModeContent } from 'shared/components/spy-mode';
+import ModalManager from '../modal-manager';
 
 export default
-@inject('spyMode')
+@inject('modalManager', 'spyMode')
 @observer
 class TourConductor extends React.Component {
 
@@ -17,7 +18,9 @@ class TourConductor extends React.Component {
 
   static propTypes = {
     children: PropTypes.node.isRequired,
+    modalManager: PropTypes.instanceOf(ModalManager).isRequired,
     spyMode: PropTypes.instanceOf(SpyModeContext).isRequired,
+    tourContext: PropTypes.instanceOf(TourContext),
   }
 
   constructor(props) {
@@ -25,12 +28,13 @@ class TourConductor extends React.Component {
     this.tourContext = props.tourContext || new TourContext();
   }
 
-  componentWillUnmount() {
-    this.spyModeObserverDispose();
+  componentWillMount() {
+    this.props.modalManager.queue(this, 2);
+    this.spyModeObserverDispose = observe(this.props.spyMode, 'isEnabled', this.onSpyModelChange);
   }
 
-  componentWillMount() {
-    this.spyModeObserverDispose = observe(this.props.spyMode, 'isEnabled', this.onSpyModelChange);
+  componentWillUnmount() {
+    this.spyModeObserverDispose();
   }
 
   @autobind
@@ -40,7 +44,13 @@ class TourConductor extends React.Component {
     }
   }
 
+  @computed get isReady() {
+    return this.tourContext.isReady;
+  }
+
   renderTour() {
+    if (!this.props.modalManager.canDisplay(this) || !this.isReady) { return null; }
+
     return this.tourContext.tourRide ?
       <Joyride {...this.tourContext.tourRide.joyrideProps} /> : null;
   }
@@ -66,4 +76,4 @@ class TourConductor extends React.Component {
   }
 
 
-};
+}

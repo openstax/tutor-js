@@ -3,6 +3,7 @@ import {
 } from 'shared/model';
 import { defaults, compact } from 'lodash';
 import { action, observable } from 'mobx';
+import { createTransformer } from 'mobx-utils';
 import { filter, extend, isEmpty } from 'lodash';
 import CustomComponents from '../../components/tours/custom';
 
@@ -49,18 +50,13 @@ class TourRide extends BaseModel {
     }, DEFAULT_JOYRIDE_CONFIG);
   }
 
+  // stepForRide checks if the steps are valid and returns null for the invalid ones
   @computed get tourSteps() {
     return compact(this.tour.steps.map(step => this.stepForRide(step)));
   }
 
   @computed get validSteps() {
-    return filter(
-      this.tourSteps, (step) => {
-        return !!(step &&
-          (!step.anchor_id ||
-          this.context.anchors.has(step.anchor_id))
-        );
-      });
+    return filter(this.tourSteps, step => !!step);
   }
 
   @computed get replaySteps() {
@@ -114,7 +110,7 @@ class TourRide extends BaseModel {
     return this.windowStub || window;
   }
 
-  stepForRide(step) {
+  stepForRide = createTransformer(step => {
     if (step.anchor_id && !this.context.anchors.has(step.anchor_id)) {
       return null;
     }
@@ -130,7 +126,7 @@ class TourRide extends BaseModel {
       step,
       selector: (step.anchor_id ? this.context.anchors.get(step.anchor_id) : this.region.domSelector),
     });
-  }
+  });
 
   dispose() {
     if (this.joyrideRef) {
@@ -138,4 +134,4 @@ class TourRide extends BaseModel {
     }
   }
 
-};
+}

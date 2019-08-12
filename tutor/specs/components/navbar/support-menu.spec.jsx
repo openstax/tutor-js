@@ -56,7 +56,8 @@ describe('Support Menu', () => {
 
   it('renders and matches snapshot', () => {
     tourContext.openRegion(region);
-    expect.snapshot(<C><SupportMenu {...props} /></C>).toMatchSnapshot();
+    // including the course here causes the snapshot to contain course dates and future runs to fail
+    expect.snapshot(<C><SupportMenu tourContext={tourContext} /></C>).toMatchSnapshot();
   });
 
 });

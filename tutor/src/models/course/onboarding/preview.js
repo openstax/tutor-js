@@ -9,7 +9,6 @@ import Courses from '../../courses-map';
 
 import Nags from '../../../components/onboarding/nags';
 
-const IS_DISMISSED = observable.box(false);
 const HAS_PUBLISHED = observable.box(false);
 
 const NAG_PLAN_TYPES = [ 'homework', 'reading' ];
@@ -18,11 +17,11 @@ export default class PreviewOnboarding extends BaseOnboarding {
 
   hasViewedPublishWarning() {
     HAS_PUBLISHED.set(false);
-    IS_DISMISSED.set(true);
+    this.dismissNag();
   }
 
   dismissNag() {
-    IS_DISMISSED.set(true);
+    this.isDismissed = true;
   }
 
   @computed get shouldWarnPreviewOnly() {
@@ -44,7 +43,7 @@ export default class PreviewOnboarding extends BaseOnboarding {
     // we warn about creating assigments in a preview regardless of previous dismissals
     if (this.shouldWarnPreviewOnly)  { return Nags.previewOnlyWarning;  }
 
-    if (IS_DISMISSED.get() || this.hasCreatedRealCourse) { return null; }
+    if (this.isDismissed || this.hasCreatedRealCourse) { return null; }
 
     if (this.course.hasEnded)       { return Nags.expiredPreviewWarning; }
 

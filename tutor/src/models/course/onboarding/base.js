@@ -3,7 +3,6 @@ import {
   computed,
 } from 'mobx';
 import moment from 'moment';
-import User from '../../user';
 import Time from '../../time';
 
 const SPY_MODE = observable.box(false);
@@ -12,6 +11,9 @@ export default class BasicCourseOnboarding {
 
   @observable course;
   @observable tourContext;
+  @observable isDismissed;
+
+  priority = 3;
 
   static set spyMode(v) {
     SPY_MODE.set(v);
@@ -20,11 +22,14 @@ export default class BasicCourseOnboarding {
   constructor(course, tourContext) {
     this.course = course;
     this.tourContext = tourContext;
+    this.isDismissed = false;
   }
 
-  // don't display while either User terms or a Tour is being shown
-  @computed get otherModalsAreDisplaying() {
-    return !!(User.terms_signatures_needed || this.tourContext.tour);
+  // overridden by subclasses
+  @computed get nagComponent() { return null; }
+
+  @computed get isReady() {
+    return !this.isDismissed && this.nagComponent;
   }
 
   @computed get courseIsNaggable() {
