@@ -1,8 +1,7 @@
 import {
   BaseModel, identifiedBy, identifier, hasMany, field,
 } from 'shared/model';
-import { partial, some, each, compact, map, filter, max, defaults } from 'lodash';
-import includes from 'lodash/includes'; // babel-traverse blows up with includes is in list above?
+import { compact, map, filter, max, defaults } from 'lodash';
 import TourStep from './tour/step';
 import { computed, action } from 'mobx';
 // compiles and exports the data for tours from the JSON files
@@ -22,7 +21,7 @@ class Tour extends BaseModel {
     const tourSettings = TourData[id];
 
     if (!tourSettings) {
-      return undefined;
+      return null;
     }
 
     const { courseId } = options;
@@ -38,7 +37,7 @@ class Tour extends BaseModel {
     }
     else {
       if (tourSettings.perCourse) {
-        return undefined;
+        return null;
       }
       tourData = tourSettings;
     }
@@ -128,4 +127,4 @@ class Tour extends BaseModel {
       this.othersInGroup.forEach(tour => tour.isEnabled = false);
     }
   }
-};
+}

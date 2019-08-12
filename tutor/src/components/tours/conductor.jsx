@@ -20,6 +20,7 @@ class TourConductor extends React.Component {
     children: PropTypes.node.isRequired,
     modalManager: PropTypes.instanceOf(ModalManager).isRequired,
     spyMode: PropTypes.instanceOf(SpyModeContext).isRequired,
+    tourContext: PropTypes.instanceOf(TourContext),
   }
 
   constructor(props) {
@@ -75,4 +76,4 @@ class TourConductor extends React.Component {
   }
 
 
-};
+}

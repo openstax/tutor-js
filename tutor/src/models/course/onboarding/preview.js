@@ -17,7 +17,7 @@ export default class PreviewOnboarding extends BaseOnboarding {
 
   hasViewedPublishWarning() {
     HAS_PUBLISHED.set(false);
-    dismissNag();
+    this.dismissNag();
   }
 
   dismissNag() {

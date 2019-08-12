@@ -6,7 +6,6 @@ import UiSettings from 'shared/model/ui-settings';
 import BaseOnboarding from './base';
 import Nags from '../../../components/onboarding/nags';
 import Payments from '../../payments';
-import User from '../../user';
 
 const PAY_LATER_CHOICE  = 'PL';
 const TRIAL_ACKNOWLEDGED = 'FTA';

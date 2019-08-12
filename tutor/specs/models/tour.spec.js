@@ -1,6 +1,5 @@
 import Tour from '../../src/models/tour';
 import { range, map } from 'lodash';
-import TourData from '../../src/tours';
 import User from '../../src/models/user';
 jest.mock('../../src/models/user', () => ({
   replayTour: jest.fn(),

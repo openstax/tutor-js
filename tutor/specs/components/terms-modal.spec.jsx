@@ -15,9 +15,9 @@ describe('Terms agreement modal', () => {
 
   let modalManager;
 
-  beforeAll(() => {
+  beforeEach(() => {
     modalManager = new ModalManager();
-    modalManager.canDisplay = (modal) => true;
+    modalManager.canDisplay = () => true;
   });
 
   describe('when there are no courses and no terms', () => {

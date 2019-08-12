@@ -134,4 +134,4 @@ class TourRide extends BaseModel {
     }
   }
 
-};
+}

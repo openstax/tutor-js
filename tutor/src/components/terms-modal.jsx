@@ -34,7 +34,7 @@ class TermsModal extends React.Component {
   @computed get isReady() {
     return !!(
       this.props.canBeDisplayed && User.terms_signatures_needed && !isEmpty(User.unsignedTerms)
-    )
+    );
   }
 
   render() {

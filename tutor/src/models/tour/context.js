@@ -2,8 +2,7 @@ import {
   BaseModel, identifiedBy, computed, observable, field,
 } from 'shared/model';
 import {
-  find, isEmpty, intersection, compact, uniq, flatMap, map, get,
-  filter, delay, forEach, flatten, first,
+  find, isEmpty, intersection, compact, uniq, flatMap, map, get, delay, forEach, flatten, first,
 } from 'lodash';
 import { observe, action } from 'mobx';
 
@@ -135,7 +134,7 @@ class TourContext extends BaseModel {
   @computed get eligibleTours() {
     return this.allTours.filter(tour => (
       !isEmpty(intersection(tour.audience_tags, this.audienceTags)) &&
-      new TourRide({tour, context: this}).hasValidSteps
+      new TourRide({ tour, context: this }).hasValidSteps
     ));
   }
 
@@ -165,4 +164,4 @@ class TourContext extends BaseModel {
     if (oldRide) { oldRide.dispose(); }
   }
 
-};
+}

@@ -3,7 +3,6 @@ import {
   computed,
 } from 'mobx';
 import moment from 'moment';
-import User from '../../user';
 import Time from '../../time';
 
 const SPY_MODE = observable.box(false);

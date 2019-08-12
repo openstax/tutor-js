@@ -64,4 +64,4 @@ class ModalManager extends React.Component {
     );
   }
 
-};
+}
