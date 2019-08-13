@@ -138,10 +138,14 @@ class ScoresTable extends React.Component {
   }
 
   render() {
-    const { ux, ux: { students, COLUMN_WIDTH, ROW_HEIGHT, period } }  = this.props;
+    const { ux, ux: { course, students, COLUMN_WIDTH, ROW_HEIGHT, period } }  = this.props;
 
-    if (!period.coursePeriod.num_enrolled_students) { return this.renderNoStudents(); }
-    if (isEmpty(students)) { return this.renderNoAssignments(); }
+    if (course.currentRole.isTeacher && !period.coursePeriod.num_enrolled_students) {
+      return this.renderNoStudents();
+    }
+    if (isEmpty(students)) {
+      return this.renderNoAssignments();
+    }
 
     return (
       <Table
