@@ -13,19 +13,14 @@ describe('User Model', () => {
     User.viewed_tour_stats.clear();
   });
 
-  it('has terms', () => {
-    User.terms_signatures_needed = false;
-    expect(User.terms).toBeNull();
-    User.terms_signatures_needed = true;
-    expect(User.terms).toBeInstanceOf(UserTerms);
-  });
-
   it('can be bootstrapped', () => {
     const spy = jest.fn();
     autorun(() => spy(User.name));
     expect(spy).toHaveBeenCalledWith(undefined);
+    expect(User.terms).toBeUndefined();
     User.bootstrap(USER_DATA);
     expect(spy).toHaveBeenCalledWith(USER_DATA.name);
+    expect(User.terms).toBeInstanceOf(UserTerms);
   });
 
   it('calculates audience tags', () => {
