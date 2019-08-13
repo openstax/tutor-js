@@ -115,6 +115,7 @@ class Course extends BaseModel {
 
   @action clearCachedStudentData() {
     this.studentTaskPlans.reset();
+    this.scores.api.reset();
     this.scores.periods.reset();
     this.studentTasks.reset();
   }
