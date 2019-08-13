@@ -276,8 +276,9 @@ class TutorTimeInput extends React.Component {
   input = React.createRef();
 
   shouldComponentUpdate(nextProps) {
-    return !supportsTime &&
-      nextProps.value != this.props.value &&
+    if (supportsTime) { return true; }
+
+    return nextProps.value != this.props.value &&
       this.editedValue != nextProps.value;
   }
   get inputEl() {
