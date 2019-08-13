@@ -157,6 +157,11 @@ class TaskingPlan extends BaseModel {
 
   @action setDueTime(time) {
     const [hour, minute] = time.split(':');
+    if (!this.due_at) {
+      // this will be overwritten, but needs to be set
+      // so the time doesn't default to today
+      this.due_at = moment(Time.now).add(1, 'day');
+    }
     this.due_at = findLatest(
       moment(this.opens_at).add(1, 'minute'),
       this.course.momentInZone(this.due_at).hour(hour).minute(minute).startOf('minute'),
