@@ -114,7 +114,7 @@ class TeacherBecomesStudent extends React.Component {
       );
     }
 
-    if (1 === course.periods.length) {
+    if (1 === course.periods.active.length) {
       return (
         <BecomeButton onClick={this.onBecomeStudentClick}>
           <Icon size="2x" type="glasses" />
@@ -136,7 +136,7 @@ class TeacherBecomesStudent extends React.Component {
             type={this.periodMenuIsOpen ? 'close' : 'angle-down'}
           />
         </Dropdown.Toggle>
-        <Dropdown.Menu >
+        <Dropdown.Menu>
           {course.periods.active.map((period) => (
             <React.Fragment key={period.id}>
               <Dropdown.Item eventKey={period.id}>{period.name}</Dropdown.Item>

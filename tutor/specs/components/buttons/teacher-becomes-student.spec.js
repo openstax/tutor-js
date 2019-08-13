@@ -22,4 +22,15 @@ describe(TBS, () => {
     expect(tbs).not.toBeEmptyRender();
     tbs.unmount();
   });
+
+  it('renders as button when single ACTIVE period', () => {
+    props.course.roles[0].type = 'teacher';
+    const tbs = mount(<TBS {...props} />);
+    expect(tbs).toHaveRendered('Dropdown');
+    expect(tbs).not.toHaveRendered('BecomeButton');
+    props.course.periods.forEach((p, i) => p.is_archived = i !== 0);
+    expect(tbs).not.toHaveRendered('Dropdown');
+    expect(tbs).toHaveRendered('BecomeButton');
+    tbs.unmount();
+  });
 });
