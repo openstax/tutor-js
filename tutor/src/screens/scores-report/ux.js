@@ -76,9 +76,9 @@ export default class ScoresReportUX {
   }
 
   @computed get period() {
-    return this.course.scores.periods.get(
-      this.course.periods.active[this.periodIndex].id
-    );
+    const role = this.course.currentRole;
+    const periodId = role.period_id || this.course.periods.active[this.periodIndex].id;
+    return this.course.scores.periods.get(periodId);
   }
 
   @computed get periodTasksByType() {
