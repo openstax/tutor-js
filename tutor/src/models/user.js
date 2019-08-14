@@ -16,9 +16,11 @@ class User extends BaseModel {
   bootstrap(data) {
     this.update(data);
     this.csrf_token = read_csrf();
+    this.terms = new UserTerms({ user: this });
   }
 
   @observable csrf_token;
+  @observable terms;
 
   @field account_uuid;
 
@@ -90,12 +92,8 @@ class User extends BaseModel {
     return Boolean(this.isConfirmedFaculty || this.self_reported_role === 'instructor' || Courses.teaching.any);
   }
 
-  @computed get terms() {
-    return this.terms_signatures_needed ? new UserTerms({ user: this }) : null;
-  }
-
   @computed get unsignedTerms() {
-    return this.terms ? this.terms.unsigned : [];
+    return this.terms.unsigned;
   }
 
   @computed get tourAudienceTags() {

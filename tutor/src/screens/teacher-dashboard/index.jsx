@@ -12,7 +12,6 @@ import Time from '../../models/time';
 import TimeHelper from '../../helpers/time';
 import NotificationHelpers from '../../helpers/notifications';
 import TeacherBecomesStudent from '../../components/buttons/teacher-become-student';
-import TermsModal from '../../components/terms-modal';
 import Dashboard from './dashboard';
 import CourseCalendarHeader from './header';
 
@@ -148,7 +147,6 @@ class TeacherDashboardWrapper extends React.Component {
           />
         }
       >
-        <TermsModal />
         <Dashboard {...dashboardProps} />
       </CoursePage>
     );

@@ -4,6 +4,8 @@ import { computed } from 'mobx';
 import { observer, inject } from 'mobx-react';
 import StudentDashboard from './dashboard';
 import Courses from '../../models/courses-map';
+import User from '../../models/user';
+import LoadingScreen from 'shared/components/loading-animation';
 import { CourseNotFoundWarning } from '../../components/course-not-found-warning';
 import './styles.scss';
 
@@ -24,6 +26,12 @@ class StudentDashboardShell extends React.Component {
   }
 
   render() {
+    // keep rendering loading screen if the user needs to agree to terms
+    // this way the screen stays the same without a flash of other content
+    if (User.terms_signatures_needed) {
+      return <LoadingScreen />;
+    }
+
     if (!this.course) { return <CourseNotFoundWarning />; }
 
     return (
