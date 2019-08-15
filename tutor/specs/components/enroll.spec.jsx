@@ -3,6 +3,9 @@ import Enroll from '../../src/components/enroll';
 import EnrollModel from '../../src/models/course/enroll';
 
 jest.mock('../../src/helpers/router');
+jest.mock('../../src/models/user', () => ({
+  terms: { fetch: jest.fn() },
+}));
 
 describe('Student Enrollment', () => {
   let params, context, enrollment;

@@ -1,5 +1,10 @@
 import CourseEnroll from '../../../src/models/course/enroll';
 import Factory from '../../factories';
+import User from '../../../src/models/user';
+
+jest.mock('../../../src/models/user', () => ({
+  terms: { fetch: jest.fn() },
+}));
 
 describe('Course Enrollment', function() {
   let enroll;
@@ -63,6 +68,7 @@ describe('Course Enrollment', function() {
     expect(coursesMap.fetch).toHaveBeenCalled();
     return fetchMock.then(() => {
       expect(enroll.isComplete).toBe(true);
+      expect(User.terms.fetch).toHaveBeenCalled();
       expect(enroll.course.studentTaskPlans.expecting_assignments_count).toEqual(42);
     });
   });
