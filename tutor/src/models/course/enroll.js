@@ -10,6 +10,7 @@ import S from '../../helpers/string';
 import Router from '../../../src/helpers/router';
 import Activity from 'shared/components/staxly-animation';
 import Enroll from '../../../src/components/enroll';
+import User from '../user';
 
 export default
 @identifiedBy('course/student')
@@ -170,6 +171,8 @@ class CourseEnrollment extends BaseModel {
       }
       this.isLoadingCourses = false;
       this.isComplete = true;
+      // enrolling in a course may trigger new terms
+      User.terms.fetch();
     });
   }
 
@@ -199,5 +202,4 @@ class CourseEnrollment extends BaseModel {
   confirm() {
     return { data: pick(this, 'student_identifier') };
   }
-
-};
+}
