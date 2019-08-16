@@ -28,7 +28,7 @@ class StudentDashboardShell extends React.Component {
   render() {
     // keep rendering loading screen if the user needs to agree to terms
     // this way the screen stays the same without a flash of other content
-    if (User.unsignedTerms.length) {
+    if (User.shouldSignTerms) {
       return <LoadingScreen />;
     }
 

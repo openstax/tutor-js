@@ -3,7 +3,7 @@ import {
 } from 'shared/model';
 
 import { computed } from 'mobx';
-import { filter } from 'lodash';
+import { filter, isEmpty } from 'lodash';
 
 @identifiedBy('user/term')
 class Term extends BaseModel {
@@ -30,7 +30,7 @@ class UserTerms extends BaseModel {
 
   onLoaded({ data }) {
     this.terms = data;
-    this.user.terms_signatures_needed = this.terms.unsigned > 0;
+    this.user.terms_signatures_needed = !isEmpty(this.unsigned);
   }
 
   @computed get unsigned() {

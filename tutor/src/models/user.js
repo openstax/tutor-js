@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, field, hasMany,
 } from 'shared/model';
-import { find, startsWith } from 'lodash';
+import { find, isEmpty, startsWith } from 'lodash';
 import { action, computed, observable } from 'mobx';
 import UiSettings from 'shared/model/ui-settings';
 import Courses from './courses-map';
@@ -94,6 +94,10 @@ class User extends BaseModel {
 
   @computed get unsignedTerms() {
     return (this.terms && this.terms.unsigned) || [];
+  }
+
+  @computed get shouldSignTerms() {
+    return this.terms_signatures_needed && !isEmpty(this.unsignedTerms);
   }
 
   @computed get tourAudienceTags() {
