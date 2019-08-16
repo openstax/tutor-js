@@ -6,7 +6,7 @@ import { Modal, Button } from 'react-bootstrap';
 import classnames from 'classnames';
 import Branding from './branding/course';
 import User from '../models/user';
-import { isEmpty, map } from 'lodash';
+import { map } from 'lodash';
 import String from '../helpers/string';
 import ModalManager from './modal-manager';
 
@@ -32,9 +32,7 @@ class TermsModal extends React.Component {
 
   // for terms to be displayed the user must be in a course and need them signed
   @computed get isReady() {
-    return !!(
-      this.props.canBeDisplayed && User.terms_signatures_needed && !isEmpty(User.unsignedTerms)
-    );
+    return Boolean(!User.terms.api.isPending && this.props.canBeDisplayed && User.shouldSignTerms);
   }
 
   render() {
