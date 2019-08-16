@@ -93,7 +93,7 @@ class User extends BaseModel {
   }
 
   @computed get unsignedTerms() {
-    return this.terms.unsigned;
+    return (this.terms && this.terms.unsigned) || [];
   }
 
   @computed get tourAudienceTags() {

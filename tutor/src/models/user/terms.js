@@ -30,7 +30,7 @@ class UserTerms extends BaseModel {
 
   onLoaded({ data }) {
     this.terms = data;
-    this.user.terms_signatures_needed = this.terms.length > 0;
+    this.user.terms_signatures_needed = this.terms.unsigned > 0;
   }
 
   @computed get unsigned() {
