@@ -82,11 +82,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        1.1
-                      </span>
                       <span>
                         The Science of Biology
                       </span>
@@ -114,11 +109,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        1.2
-                      </span>
                       <span>
                         Themes and Concepts of Biology
                       </span>
@@ -196,11 +186,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        2.1
-                      </span>
                       <span>
                         Atoms, Isotopes, Ions, and Molecules: The Building Blocks
                       </span>
@@ -228,11 +213,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        2.2
-                      </span>
                       <span>
                         Water
                       </span>
@@ -260,11 +240,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        2.3
-                      </span>
                       <span>
                         Carbon
                       </span>
@@ -342,11 +317,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        3.1
-                      </span>
                       <span>
                         Synthesis of Biological Macromolecules
                       </span>
@@ -374,11 +344,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        3.2
-                      </span>
                       <span>
                         Carbohydrates
                       </span>
@@ -406,11 +371,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        3.3
-                      </span>
                       <span>
                         Lipids
                       </span>
@@ -438,11 +398,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        3.4
-                      </span>
                       <span>
                         Proteins
                       </span>
@@ -470,11 +425,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        3.5
-                      </span>
                       <span>
                         Nucleic Acids
                       </span>
@@ -552,11 +502,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        4.1
-                      </span>
                       <span>
                         Studying Cells
                       </span>
@@ -584,11 +529,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        4.2
-                      </span>
                       <span>
                         Prokaryotic Cells
                       </span>
@@ -616,11 +556,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        4.3
-                      </span>
                       <span>
                         Eukaryotic Cells
                       </span>
@@ -648,11 +583,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        4.4
-                      </span>
                       <span>
                         The Endomembrane System and Proteins
                       </span>
@@ -680,11 +610,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        4.5
-                      </span>
                       <span>
                         The Cytoskeleton
                       </span>
@@ -712,11 +637,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        4.6
-                      </span>
                       <span>
                         Connections between Cells and Cellular Activities
                       </span>
@@ -794,11 +714,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        5.1
-                      </span>
                       <span>
                         Components and Structure
                       </span>
@@ -826,11 +741,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        5.2
-                      </span>
                       <span>
                         Passive Transport
                       </span>
@@ -858,11 +768,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        5.3
-                      </span>
                       <span>
                         Active Transport
                       </span>
@@ -890,11 +795,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        5.4
-                      </span>
                       <span>
                         Bulk Transport
                       </span>
@@ -972,11 +872,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        6.1
-                      </span>
                       <span>
                         Energy and Metabolism
                       </span>
@@ -1004,11 +899,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        6.2
-                      </span>
                       <span>
                         Potential, Kinetic, Free, and Activation Energy
                       </span>
@@ -1036,11 +926,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        6.3
-                      </span>
                       <span>
                         The Laws of Thermodynamics
                       </span>
@@ -1068,11 +953,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        6.4
-                      </span>
                       <span>
                         ATP: Adenosine Triphosphate
                       </span>
@@ -1100,11 +980,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        6.5
-                      </span>
                       <span>
                         Enzymes
                       </span>
@@ -1182,11 +1057,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        7.1
-                      </span>
                       <span>
                         Energy in Living Systems
                       </span>
@@ -1214,11 +1084,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        7.2
-                      </span>
                       <span>
                         Glycolysis
                       </span>
@@ -1246,11 +1111,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        7.3
-                      </span>
                       <span>
                         Oxidation of Pyruvate and the Citric Acid Cycle
                       </span>
@@ -1278,11 +1138,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        7.4
-                      </span>
                       <span>
                         Oxidative Phosphorylation
                       </span>
@@ -1310,11 +1165,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        7.5
-                      </span>
                       <span>
                         Metabolism without Oxygen
                       </span>
@@ -1342,11 +1192,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        7.6
-                      </span>
                       <span>
                         Connections of Carbohydrate, Protein, and Lipid Metabolic Pathways
                       </span>
@@ -1374,11 +1219,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        7.7
-                      </span>
                       <span>
                         Regulation of Cellular Respiration
                       </span>
@@ -1456,11 +1296,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        8.1
-                      </span>
                       <span>
                         Overview of Photosynthesis
                       </span>
@@ -1488,11 +1323,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        8.2
-                      </span>
                       <span>
                         The Light-Dependent Reactions of Photosynthesis
                       </span>
@@ -1520,11 +1350,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        8.3
-                      </span>
                       <span>
                         Using Light Energy to Make Organic Molecules
                       </span>
@@ -1602,11 +1427,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        9.1
-                      </span>
                       <span>
                         Signaling Molecules and Cellular Receptors
                       </span>
@@ -1634,11 +1454,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        9.2
-                      </span>
                       <span>
                         Propagation of the Signal
                       </span>
@@ -1666,11 +1481,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        9.3
-                      </span>
                       <span>
                         Response to the Signal
                       </span>
@@ -1698,11 +1508,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        9.4
-                      </span>
                       <span>
                         Signaling in Single-Celled Organisms
                       </span>
@@ -1780,11 +1585,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        10.1
-                      </span>
                       <span>
                         Cell Division
                       </span>
@@ -1812,11 +1612,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        10.2
-                      </span>
                       <span>
                         The Cell Cycle
                       </span>
@@ -1844,11 +1639,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        10.3
-                      </span>
                       <span>
                         Control of the Cell Cycle
                       </span>
@@ -1876,11 +1666,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        10.4
-                      </span>
                       <span>
                         Cancer and the Cell Cycle
                       </span>
@@ -1908,11 +1693,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        10.5
-                      </span>
                       <span>
                         Prokaryotic Cell Division
                       </span>
@@ -1990,11 +1770,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        11.1
-                      </span>
                       <span>
                         The Process of Meiosis
                       </span>
@@ -2022,11 +1797,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        11.2
-                      </span>
                       <span>
                         Sexual Reproduction
                       </span>
@@ -2104,11 +1874,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        12.1
-                      </span>
                       <span>
                         Mendel’s Experiments and the Laws of Probability
                       </span>
@@ -2136,11 +1901,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        12.2
-                      </span>
                       <span>
                         Characteristics and Traits
                       </span>
@@ -2168,11 +1928,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        12.3
-                      </span>
                       <span>
                         Laws of Inheritance
                       </span>
@@ -2250,11 +2005,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        13.1
-                      </span>
                       <span>
                         Chromosomal Theory and Genetic Linkage
                       </span>
@@ -2282,11 +2032,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        13.2
-                      </span>
                       <span>
                         Chromosomal Basis of Inherited Disorders
                       </span>
@@ -2364,11 +2109,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        14.1
-                      </span>
                       <span>
                         Historical Basis of Modern Understanding
                       </span>
@@ -2396,11 +2136,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        14.2
-                      </span>
                       <span>
                         DNA Structure and Sequencing
                       </span>
@@ -2428,11 +2163,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        14.3
-                      </span>
                       <span>
                         Basics of DNA Replication
                       </span>
@@ -2460,11 +2190,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        14.4
-                      </span>
                       <span>
                         DNA Replication in Prokaryotes
                       </span>
@@ -2492,11 +2217,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        14.5
-                      </span>
                       <span>
                         DNA Replication in Eukaryotes
                       </span>
@@ -2524,11 +2244,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        14.6
-                      </span>
                       <span>
                         DNA Repair
                       </span>
@@ -2606,11 +2321,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        15.1
-                      </span>
                       <span>
                         The Genetic Code
                       </span>
@@ -2638,11 +2348,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        15.2
-                      </span>
                       <span>
                         Prokaryotic Transcription
                       </span>
@@ -2670,11 +2375,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        15.3
-                      </span>
                       <span>
                         Eukaryotic Transcription
                       </span>
@@ -2702,11 +2402,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        15.4
-                      </span>
                       <span>
                         RNA Processing in Eukaryotes
                       </span>
@@ -2734,11 +2429,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        15.5
-                      </span>
                       <span>
                         Ribosomes and Protein Synthesis
                       </span>
@@ -2816,11 +2506,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        16.1
-                      </span>
                       <span>
                         Regulation of Gene Expression
                       </span>
@@ -2848,11 +2533,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        16.2
-                      </span>
                       <span>
                         Prokaryotic Gene Regulation
                       </span>
@@ -2880,11 +2560,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        16.3
-                      </span>
                       <span>
                         Eukaryotic Epigenetic Gene Regulation
                       </span>
@@ -2912,11 +2587,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        16.4
-                      </span>
                       <span>
                         Eukaryotic Transcription Gene Regulation
                       </span>
@@ -2944,11 +2614,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        16.5
-                      </span>
                       <span>
                         Eukaryotic Post-transcriptional Gene Regulation
                       </span>
@@ -2976,11 +2641,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        16.6
-                      </span>
                       <span>
                         Eukaryotic Translational and Post-translational Gene Regulation
                       </span>
@@ -3008,11 +2668,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        16.7
-                      </span>
                       <span>
                         Cancer and Gene Regulation
                       </span>
@@ -3090,11 +2745,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        17.1
-                      </span>
                       <span>
                         Biotechnology
                       </span>
@@ -3122,11 +2772,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        17.2
-                      </span>
                       <span>
                         Mapping Genomes
                       </span>
@@ -3154,11 +2799,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        17.3
-                      </span>
                       <span>
                         Whole-Genome Sequencing
                       </span>
@@ -3186,11 +2826,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        17.4
-                      </span>
                       <span>
                         Applying Genomics
                       </span>
@@ -3218,11 +2853,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        17.5
-                      </span>
                       <span>
                         Genomics and Proteomics
                       </span>
@@ -3300,11 +2930,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        18.1
-                      </span>
                       <span>
                         Understanding Evolution
                       </span>
@@ -3332,11 +2957,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        18.2
-                      </span>
                       <span>
                         Formation of New Species
                       </span>
@@ -3364,11 +2984,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        18.3
-                      </span>
                       <span>
                         Reconnection and Rates of Speciation
                       </span>
@@ -3446,11 +3061,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        19.1
-                      </span>
                       <span>
                         Population Evolution
                       </span>
@@ -3478,11 +3088,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        19.2
-                      </span>
                       <span>
                         Population Genetics
                       </span>
@@ -3510,11 +3115,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        19.3
-                      </span>
                       <span>
                         Adaptive Evolution
                       </span>
@@ -3592,11 +3192,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        20.1
-                      </span>
                       <span>
                         Organizing Life on Earth
                       </span>
@@ -3624,11 +3219,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        20.2
-                      </span>
                       <span>
                         Determining Evolutionary Relationships
                       </span>
@@ -3656,11 +3246,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        20.3
-                      </span>
                       <span>
                         Perspectives on the Phylogenetic Tree
                       </span>
@@ -3738,11 +3323,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        21.1
-                      </span>
                       <span>
                         Viral Evolution, Morphology, and Classification
                       </span>
@@ -3770,11 +3350,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        21.2
-                      </span>
                       <span>
                         Virus Infections and Hosts
                       </span>
@@ -3802,11 +3377,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        21.3
-                      </span>
                       <span>
                         Prevention and Treatment of Viral Infections
                       </span>
@@ -3834,11 +3404,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        21.4
-                      </span>
                       <span>
                         Other Acellular Entities: Prions and Viroids
                       </span>
@@ -3916,11 +3481,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        22.1
-                      </span>
                       <span>
                         Prokaryotic Diversity
                       </span>
@@ -3948,11 +3508,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        22.2
-                      </span>
                       <span>
                         Structure of Prokaryotes
                       </span>
@@ -3980,11 +3535,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        22.3
-                      </span>
                       <span>
                         Prokaryotic Metabolism
                       </span>
@@ -4012,11 +3562,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        22.4
-                      </span>
                       <span>
                         Bacterial Diseases in Humans
                       </span>
@@ -4044,11 +3589,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        22.5
-                      </span>
                       <span>
                         Beneficial Prokaryotes
                       </span>
@@ -4126,11 +3666,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        23.1
-                      </span>
                       <span>
                         Eukaryotic Origins
                       </span>
@@ -4158,11 +3693,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        23.2
-                      </span>
                       <span>
                         Characteristics of Protists
                       </span>
@@ -4190,11 +3720,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        23.3
-                      </span>
                       <span>
                         Groups of Protists
                       </span>
@@ -4222,11 +3747,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        23.4
-                      </span>
                       <span>
                         Ecology of Protists
                       </span>
@@ -4304,11 +3824,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        24.1
-                      </span>
                       <span>
                         Characteristics of Fungi
                       </span>
@@ -4336,11 +3851,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        24.2
-                      </span>
                       <span>
                         Classifications of Fungi
                       </span>
@@ -4368,11 +3878,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        24.3
-                      </span>
                       <span>
                         Ecology of Fungi
                       </span>
@@ -4400,11 +3905,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        24.4
-                      </span>
                       <span>
                         Fungal Parasites and Pathogens
                       </span>
@@ -4432,11 +3932,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        24.5
-                      </span>
                       <span>
                         Importance of Fungi in Human Life
                       </span>
@@ -4514,11 +4009,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        25.1
-                      </span>
                       <span>
                         Early Plant Life
                       </span>
@@ -4546,11 +4036,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        25.2
-                      </span>
                       <span>
                         Green Algae: Precursors of Land Plants
                       </span>
@@ -4578,11 +4063,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        25.3
-                      </span>
                       <span>
                         Bryophytes
                       </span>
@@ -4610,11 +4090,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        25.4
-                      </span>
                       <span>
                         Seedless Vascular Plants
                       </span>
@@ -4692,11 +4167,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        26.1
-                      </span>
                       <span>
                         Evolution of Seed Plants
                       </span>
@@ -4724,11 +4194,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        26.2
-                      </span>
                       <span>
                         Gymnosperms
                       </span>
@@ -4756,11 +4221,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        26.3
-                      </span>
                       <span>
                         Angiosperms
                       </span>
@@ -4788,11 +4248,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        26.4
-                      </span>
                       <span>
                         The Role of Seed Plants
                       </span>
@@ -4870,11 +4325,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        27.1
-                      </span>
                       <span>
                         Features of the Animal Kingdom
                       </span>
@@ -4902,11 +4352,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        27.2
-                      </span>
                       <span>
                         Features Used to Classify Animals
                       </span>
@@ -4934,11 +4379,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        27.3
-                      </span>
                       <span>
                         Animal Phylogeny
                       </span>
@@ -4966,11 +4406,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        27.4
-                      </span>
                       <span>
                         The Evolutionary History of the Animal Kingdom
                       </span>
@@ -5048,11 +4483,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        28.1
-                      </span>
                       <span>
                         Phylum Porifera
                       </span>
@@ -5080,11 +4510,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        28.2
-                      </span>
                       <span>
                         Phylum Cnidaria
                       </span>
@@ -5112,11 +4537,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        28.3
-                      </span>
                       <span>
                         Superphylum Lophotrochozoa
                       </span>
@@ -5144,11 +4564,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        28.4
-                      </span>
                       <span>
                         Superphylum Ecdysozoa
                       </span>
@@ -5176,11 +4591,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        28.5
-                      </span>
                       <span>
                         Superphylum Deuterostomia
                       </span>
@@ -5258,11 +4668,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        29.1
-                      </span>
                       <span>
                         Chordates
                       </span>
@@ -5290,11 +4695,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        29.2
-                      </span>
                       <span>
                         Fishes
                       </span>
@@ -5322,11 +4722,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        29.3
-                      </span>
                       <span>
                         Amphibians
                       </span>
@@ -5354,11 +4749,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        29.4
-                      </span>
                       <span>
                         Reptiles
                       </span>
@@ -5386,11 +4776,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        29.5
-                      </span>
                       <span>
                         Birds
                       </span>
@@ -5418,11 +4803,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        29.6
-                      </span>
                       <span>
                         Mammals
                       </span>
@@ -5450,11 +4830,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        29.7
-                      </span>
                       <span>
                         The Evolution of Primates
                       </span>
@@ -5532,11 +4907,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        30.1
-                      </span>
                       <span>
                         The Plant Body
                       </span>
@@ -5564,11 +4934,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        30.2
-                      </span>
                       <span>
                         Stems
                       </span>
@@ -5596,11 +4961,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        30.3
-                      </span>
                       <span>
                         Roots
                       </span>
@@ -5628,11 +4988,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        30.4
-                      </span>
                       <span>
                         Leaves
                       </span>
@@ -5660,11 +5015,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        30.5
-                      </span>
                       <span>
                         Transport of Water and Solutes in Plants
                       </span>
@@ -5692,11 +5042,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        30.6
-                      </span>
                       <span>
                         Plant Sensory Systems and Responses
                       </span>
@@ -5774,11 +5119,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        31.1
-                      </span>
                       <span>
                         Nutritional Requirements of Plants
                       </span>
@@ -5806,11 +5146,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        31.2
-                      </span>
                       <span>
                         The Soil
                       </span>
@@ -5838,11 +5173,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        31.3
-                      </span>
                       <span>
                         Nutritional Adaptations of Plants
                       </span>
@@ -5920,11 +5250,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        32.1
-                      </span>
                       <span>
                         Reproductive Development and Structure
                       </span>
@@ -5952,11 +5277,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        32.2
-                      </span>
                       <span>
                         Pollination and Fertilization
                       </span>
@@ -5984,11 +5304,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        32.3
-                      </span>
                       <span>
                         Asexual Reproduction
                       </span>
@@ -6066,11 +5381,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        33.1
-                      </span>
                       <span>
                         Animal Form and Function
                       </span>
@@ -6098,11 +5408,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        33.2
-                      </span>
                       <span>
                         Animal Primary Tissues
                       </span>
@@ -6130,11 +5435,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        33.3
-                      </span>
                       <span>
                         Homeostasis
                       </span>
@@ -6212,11 +5512,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        34.1
-                      </span>
                       <span>
                         Digestive Systems
                       </span>
@@ -6244,11 +5539,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        34.2
-                      </span>
                       <span>
                         Nutrition and Energy Production
                       </span>
@@ -6276,11 +5566,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        34.3
-                      </span>
                       <span>
                         Digestive System Processes
                       </span>
@@ -6308,11 +5593,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        34.4
-                      </span>
                       <span>
                         Digestive System Regulation
                       </span>
@@ -6390,11 +5670,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        35.1
-                      </span>
                       <span>
                         Neurons and Glial Cells
                       </span>
@@ -6422,11 +5697,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        35.2
-                      </span>
                       <span>
                         How Neurons Communicate
                       </span>
@@ -6454,11 +5724,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        35.3
-                      </span>
                       <span>
                         The Central Nervous System
                       </span>
@@ -6486,11 +5751,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        35.4
-                      </span>
                       <span>
                         The Peripheral Nervous System
                       </span>
@@ -6518,11 +5778,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        35.5
-                      </span>
                       <span>
                         Nervous System Disorders
                       </span>
@@ -6600,11 +5855,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        36.1
-                      </span>
                       <span>
                         Sensory Processes
                       </span>
@@ -6632,11 +5882,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        36.2
-                      </span>
                       <span>
                         Somatosensation
                       </span>
@@ -6664,11 +5909,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        36.3
-                      </span>
                       <span>
                         Taste and Smell
                       </span>
@@ -6696,11 +5936,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        36.4
-                      </span>
                       <span>
                         Hearing and Vestibular Sensation
                       </span>
@@ -6728,11 +5963,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        36.5
-                      </span>
                       <span>
                         Vision
                       </span>
@@ -6810,11 +6040,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        37.1
-                      </span>
                       <span>
                         Types of Hormones
                       </span>
@@ -6842,11 +6067,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        37.2
-                      </span>
                       <span>
                         How Hormones Work
                       </span>
@@ -6874,11 +6094,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        37.3
-                      </span>
                       <span>
                         Regulation of Body Processes
                       </span>
@@ -6906,11 +6121,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        37.4
-                      </span>
                       <span>
                         Regulation of Hormone Production
                       </span>
@@ -6938,11 +6148,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        37.5
-                      </span>
                       <span>
                         Endocrine Glands
                       </span>
@@ -7020,11 +6225,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        38.1
-                      </span>
                       <span>
                         Types of Skeletal Systems
                       </span>
@@ -7052,11 +6252,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        38.2
-                      </span>
                       <span>
                         Bone
                       </span>
@@ -7084,11 +6279,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        38.3
-                      </span>
                       <span>
                         Joints and Skeletal Movement
                       </span>
@@ -7116,11 +6306,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        38.4
-                      </span>
                       <span>
                         Muscle Contraction and Locomotion
                       </span>
@@ -7198,11 +6383,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        39.1
-                      </span>
                       <span>
                         Systems of Gas Exchange
                       </span>
@@ -7230,11 +6410,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        39.2
-                      </span>
                       <span>
                         Gas Exchange across Respiratory Surfaces
                       </span>
@@ -7262,11 +6437,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        39.3
-                      </span>
                       <span>
                         Breathing
                       </span>
@@ -7294,11 +6464,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        39.4
-                      </span>
                       <span>
                         Transport of Gases in Human Bodily Fluids
                       </span>
@@ -7376,11 +6541,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        40.1
-                      </span>
                       <span>
                         Overview of the Circulatory System
                       </span>
@@ -7408,11 +6568,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        40.2
-                      </span>
                       <span>
                         Components of the Blood
                       </span>
@@ -7440,11 +6595,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        40.3
-                      </span>
                       <span>
                         Mammalian Heart and Blood Vessels
                       </span>
@@ -7472,11 +6622,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        40.4
-                      </span>
                       <span>
                         Blood Flow and Blood Pressure Regulation
                       </span>
@@ -7554,11 +6699,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        41.1
-                      </span>
                       <span>
                         Osmoregulation and Osmotic Balance
                       </span>
@@ -7586,11 +6726,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        41.2
-                      </span>
                       <span>
                         The Kidneys and Osmoregulatory Organs
                       </span>
@@ -7618,11 +6753,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        41.3
-                      </span>
                       <span>
                         Excretion Systems
                       </span>
@@ -7650,11 +6780,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        41.4
-                      </span>
                       <span>
                         Nitrogenous Wastes
                       </span>
@@ -7682,11 +6807,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        41.5
-                      </span>
                       <span>
                         Hormonal Control of Osmoregulatory Functions
                       </span>
@@ -7764,11 +6884,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        42.1
-                      </span>
                       <span>
                         Innate Immune Response
                       </span>
@@ -7796,11 +6911,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        42.2
-                      </span>
                       <span>
                         Adaptive Immune Response
                       </span>
@@ -7828,11 +6938,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        42.3
-                      </span>
                       <span>
                         Antibodies
                       </span>
@@ -7860,11 +6965,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        42.4
-                      </span>
                       <span>
                         Disruptions in the Immune System
                       </span>
@@ -7942,11 +7042,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        43.1
-                      </span>
                       <span>
                         Reproduction Methods
                       </span>
@@ -7974,11 +7069,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        43.2
-                      </span>
                       <span>
                         Fertilization
                       </span>
@@ -8006,11 +7096,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        43.3
-                      </span>
                       <span>
                         Human Reproductive Anatomy and Gametogenesis
                       </span>
@@ -8038,11 +7123,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        43.4
-                      </span>
                       <span>
                         Hormonal Control of Human Reproduction
                       </span>
@@ -8070,11 +7150,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        43.5
-                      </span>
                       <span>
                         Human Pregnancy and Birth
                       </span>
@@ -8102,11 +7177,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        43.6
-                      </span>
                       <span>
                         Fertilization and Early Embryonic Development
                       </span>
@@ -8134,11 +7204,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        43.7
-                      </span>
                       <span>
                         Organogenesis and Vertebrate Formation
                       </span>
@@ -8216,11 +7281,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        44.1
-                      </span>
                       <span>
                         The Scope of Ecology
                       </span>
@@ -8248,11 +7308,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        44.2
-                      </span>
                       <span>
                         Biogeography
                       </span>
@@ -8280,11 +7335,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        44.3
-                      </span>
                       <span>
                         Terrestrial Biomes
                       </span>
@@ -8312,11 +7362,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        44.4
-                      </span>
                       <span>
                         Aquatic Biomes
                       </span>
@@ -8344,11 +7389,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        44.5
-                      </span>
                       <span>
                         Climate and the Effects of Global Climate Change
                       </span>
@@ -8426,11 +7466,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        45.1
-                      </span>
                       <span>
                         Population Demography
                       </span>
@@ -8458,11 +7493,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        45.2
-                      </span>
                       <span>
                         Life Histories and Natural Selection
                       </span>
@@ -8490,11 +7520,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        45.3
-                      </span>
                       <span>
                         Environmental Limits to Population Growth
                       </span>
@@ -8522,11 +7547,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        45.4
-                      </span>
                       <span>
                         Population Dynamics and Regulation
                       </span>
@@ -8554,11 +7574,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        45.5
-                      </span>
                       <span>
                         Human Population Growth
                       </span>
@@ -8586,11 +7601,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        45.6
-                      </span>
                       <span>
                         Community Ecology
                       </span>
@@ -8618,11 +7628,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        45.7
-                      </span>
                       <span>
                         Behavioral Biology: Proximate and Ultimate Causes of Behavior
                       </span>
@@ -8700,11 +7705,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        46.1
-                      </span>
                       <span>
                         Ecology of Ecosystems
                       </span>
@@ -8732,11 +7732,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        46.2
-                      </span>
                       <span>
                         Energy Flow through Ecosystems
                       </span>
@@ -8764,11 +7759,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        46.3
-                      </span>
                       <span>
                         Biogeochemical Cycles
                       </span>
@@ -8846,11 +7836,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        47.1
-                      </span>
                       <span>
                         The Biodiversity Crisis
                       </span>
@@ -8878,11 +7863,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        47.2
-                      </span>
                       <span>
                         The Importance of Biodiversity to Human Life
                       </span>
@@ -8910,11 +7890,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        47.3
-                      </span>
                       <span>
                         Threats to Biodiversity
                       </span>
@@ -8942,11 +7917,6 @@ exports[`QA Screen matches snapshot 1`] = `
                     <div
                       className="chapter-section-title"
                     >
-                      <span
-                        className="section-number"
-                      >
-                        47.4
-                      </span>
                       <span>
                         Preserving Biodiversity
                       </span>
