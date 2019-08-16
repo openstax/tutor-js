@@ -5,10 +5,9 @@ import { Term, UserTerms } from '../../src/models/user/terms';
 
 jest.mock('../../src/models/user', () => ({
   terms_signatures_needed: false,
-  unsignedTerms: [],
-  terms: {
-    api: { isPending: false },
-  },
+
+  get unsignedTerms() { return this.terms.unsigned; },
+  get shouldSignTerms() { return this.terms_signatures_needed && this.unsignedTerms.length > 0; },
 }));
 
 describe('Terms agreement modal', () => {
@@ -16,6 +15,7 @@ describe('Terms agreement modal', () => {
   let modalManager;
 
   beforeEach(() => {
+    User.terms = new UserTerms({ user: User });
     modalManager = new ModalManager();
     modalManager.canDisplay = () => true;
   });
@@ -31,7 +31,6 @@ describe('Terms agreement modal', () => {
   describe('when there are courses and', () => {
     beforeEach(() => {
       User.terms_signatures_needed = true;
-      User.terms = new UserTerms({ user: User });
     });
 
     describe('only signed terms', () => {
@@ -48,7 +47,6 @@ describe('Terms agreement modal', () => {
             is_proxy_signed: true,
           },
         ];
-        User.unsignedTerms = User.terms.unsigned;
       });
 
       it('does not render', () => {
@@ -71,7 +69,6 @@ describe('Terms agreement modal', () => {
             is_proxy_signed: false,
           },
         ];
-        User.unsignedTerms = User.terms.unsigned;
       });
 
       it('renders', () => {
@@ -86,9 +83,9 @@ describe('Terms agreement modal', () => {
       id: 1, is_signed: false, content: 'TERMS TESTING CONTENT', title: 'SIGN ME',
     });
     term.sign = jest.fn();
+    User.terms.terms = [ term ];
     User.terms.sign = jest.fn();
     User.terms_signatures_needed = true;
-    User.unsignedTerms = [ term ];
     const modal = mount(<TermsModal canBeDisplayed modalManager={modalManager} />);
     modal.find('Button').simulate('click');
     expect(User.terms.sign).toHaveBeenCalled();
