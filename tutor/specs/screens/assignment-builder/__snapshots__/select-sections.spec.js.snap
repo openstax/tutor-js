@@ -201,6 +201,12 @@ exports[`Select Topics matches snapshot 1`] = `
                       />
                     </span>
                     <span
+                      className="chapter-section"
+                      data-chapter-section="1.1"
+                    >
+                      1.1
+                    </span>
+                    <span
                       className="section-title"
                     >
                        
@@ -222,6 +228,12 @@ exports[`Select Topics matches snapshot 1`] = `
                       />
                     </span>
                     <span
+                      className="chapter-section"
+                      data-chapter-section="1.2"
+                    >
+                      1.2
+                    </span>
+                    <span
                       className="section-title"
                     >
                        
@@ -241,6 +253,12 @@ exports[`Select Topics matches snapshot 1`] = `
                         readOnly={true}
                         type="checkbox"
                       />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="1.3"
+                    >
+                      1.3
                     </span>
                     <span
                       className="section-title"
@@ -348,6 +366,12 @@ exports[`Select Topics matches snapshot 1`] = `
                       />
                     </span>
                     <span
+                      className="chapter-section"
+                      data-chapter-section="2.1"
+                    >
+                      2.1
+                    </span>
+                    <span
                       className="section-title"
                     >
                        
@@ -369,6 +393,12 @@ exports[`Select Topics matches snapshot 1`] = `
                       />
                     </span>
                     <span
+                      className="chapter-section"
+                      data-chapter-section="2.2"
+                    >
+                      2.2
+                    </span>
+                    <span
                       className="section-title"
                     >
                        
@@ -388,6 +418,12 @@ exports[`Select Topics matches snapshot 1`] = `
                         readOnly={true}
                         type="checkbox"
                       />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="2.3"
+                    >
+                      2.3
                     </span>
                     <span
                       className="section-title"
@@ -495,6 +531,12 @@ exports[`Select Topics matches snapshot 1`] = `
                       />
                     </span>
                     <span
+                      className="chapter-section"
+                      data-chapter-section="3.1"
+                    >
+                      3.1
+                    </span>
+                    <span
                       className="section-title"
                     >
                        
@@ -516,6 +558,12 @@ exports[`Select Topics matches snapshot 1`] = `
                       />
                     </span>
                     <span
+                      className="chapter-section"
+                      data-chapter-section="3.2"
+                    >
+                      3.2
+                    </span>
+                    <span
                       className="section-title"
                     >
                        
@@ -535,6 +583,12 @@ exports[`Select Topics matches snapshot 1`] = `
                         readOnly={true}
                         type="checkbox"
                       />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="3.2"
+                    >
+                      3.2
                     </span>
                     <span
                       className="section-title"
