@@ -73,9 +73,6 @@ describe('Student Tasks Model', () => {
   });
 
   it('tests if the last published plan is present', () => {
-    course.primaryRole.type = 'student';
-    expect(tasks.isLatestPresent).toBe(false);
-    course.primaryRole.type = 'teacher';
     course.teacherTaskPlans.reset();
     expect(tasks.isLatestPresent).toBe(true);
     course.teacherTaskPlans.set(1, { id: '1', last_published_at: '2017-01-02T00:00:00.000Z' });

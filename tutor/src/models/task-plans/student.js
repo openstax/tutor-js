@@ -116,8 +116,6 @@ class StudentTaskPlans extends Map {
   }
 
   @computed get isLatestPresent() {
-    if (this.course.primaryRole.isStudent) { return false; }
-
     const latest = this.course.teacherTaskPlans.lastPublished;
     return Boolean(!latest || !!find(this.array, { task_plan_id: latest.id }));
   }
