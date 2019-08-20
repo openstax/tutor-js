@@ -1,5 +1,5 @@
 import { readonly } from 'core-decorators';
-import { merge, get, pick, includes } from 'lodash';
+import { merge, get, pick } from 'lodash';
 import { action, computed } from 'mobx';
 import {
   BaseModel, identifiedBy, identifier, field, session,
@@ -10,20 +10,11 @@ import { MediaActions } from '../../flux/media';
 const NON_ASSIGNABLE_TITLES = [
   'Glossary',
   'Key Terms',
-  'Chapter Summary',
-  'Section Summary',
-  'Review Questions',
-  'Conceptual Questions',
   'Problems & Exercises',
-  'Test Prep for AP® Courses',
-  'Visual Connection Questions',
-  'Critical Thinking Questions',
-  'Science Practice Challenge Questions',
+  /\w+ Summary$/,
+  /Test Prep/,
+  /\w+ Questions$/,
 ];
-
-// currently the two are the same, but were different in past
-// and may differ in the future
-const SUPPLEMENTARY_CONTENT_TITLES = NON_ASSIGNABLE_TITLES;
 
 const UPDATEABLE_FIELDS = ['content_html', 'spy'];
 const NOT_FOUND_CONTENT = {
@@ -118,15 +109,13 @@ class ReferenceBookPage extends BaseModel {
   }
 
   @computed get isChapterSectionDisplayed() {
-    if (this.bookIsCollated) {
-      return this.hasBakedChapterSection;
-    }
-    return !this.isIntro && !includes(SUPPLEMENTARY_CONTENT_TITLES, this.title);
+    return Boolean(!this.isIntro && this.isAssignable);
   }
 
   @computed get isAssignable() {
-    return !includes(NON_ASSIGNABLE_TITLES, this.title);
+    return !NON_ASSIGNABLE_TITLES.find(m => this.title.match(m));
   }
+
 }
 
 // a mock page for use by entities such as exercises that need to indicate
