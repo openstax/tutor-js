@@ -45,4 +45,10 @@ describe('choose exercises component', () => {
     // it still renders because it's part of the task plan
     expect(add).toHaveRendered(`[data-exercise-id="${exercise.content.uid}"]`);
   });
+
+  it('display exercises from proper ecosystem', () => {
+    const add = mount(<C><AddExercises {...props} /></C>);
+    expect(add.find('ExerciseCards').props().book).toBe(ux._referenceBook);
+    add.unmount();
+  });
 });

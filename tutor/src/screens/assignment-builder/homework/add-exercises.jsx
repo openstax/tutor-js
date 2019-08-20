@@ -110,7 +110,7 @@ class AddExercises extends React.Component {
 
     const sharedProps = {
       exercises: ux.displayedExercises,
-      book: ux.course.referenceBook,
+      book: ux.referenceBook,
       onExerciseToggle: ux.onExerciseToggle,
       getExerciseActions: this.getExerciseActions,
       getExerciseIsSelected: this.getExerciseIsSelected,
