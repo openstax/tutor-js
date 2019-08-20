@@ -27,15 +27,26 @@ describe('This Week Events', () => {
     props.course.studentTaskPlans.set(event.id, event);
     expect(panel.text()).not.toContain(event.title);
 
-
     // subtract a day so it's due this week
     event.due_at = moment(event.due_at).subtract(1, 'day').toDate();
+    panel.update();
     expect(panel.text()).toContain(event.title);
 
     // subtract an entire week so it's last week day so it's due this week
     event.due_at = moment(now).subtract(1, 'week').toDate();
+    panel.update();
     expect(panel.text()).not.toContain(event.title);
+    panel.unmount();
+  });
 
+  it('displays teacher pending notice', () => {
+    const { course } = props;
+    course.primaryRole.type = 'teacher_student';
+    course.teacherTaskPlans.set(1, { id: '1', last_published_at: '2017-01-02T00:00:00.000Z' });
+    const panel = mount(<ThisWeek {...props} />);
+    expect(panel).toHaveRendered('TeacherPendingLoad');
+    expect(panel.text()).toContain('Building assignment');
+    panel.unmount();
   });
 
 });

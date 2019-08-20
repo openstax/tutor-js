@@ -2,7 +2,7 @@ import Map from 'shared/model/map';
 import moment from 'moment-timezone';
 import { readonly } from 'core-decorators';
 import { computed, action, observable } from 'mobx';
-import { filter, groupBy, sortBy, pickBy } from 'lodash';
+import { filter, groupBy, sortBy, pickBy, find } from 'lodash';
 import StudentTask from './student/task';
 import ResearchSurveys from '../research-surveys';
 import Time from '../time';
@@ -92,7 +92,7 @@ class StudentTaskPlans extends Map {
 
   @action.bound fetchTaskPeriodically() {
     return this.fetch().then(() => {
-      const interval = this.isPendingTaskLoading ?
+      const interval = this.isPendingTaskLoading || this.isTeacherWaitingForLatest ?
         FETCH_INITIAL_TASKS_INTERVAL : REFRESH_TASKS_INTERVAL;
       this.refreshTimer = setTimeout(this.fetchTaskPeriodically, interval);
     });
@@ -107,6 +107,19 @@ class StudentTaskPlans extends Map {
       clearInterval(this.refreshTimer);
       this.refreshTimer = null;
     }
+  }
+
+  @computed get isTeacherWaitingForLatest() {
+    return Boolean(
+      this.course.primaryRole.isTeacherStudent && !this.isLatestPresent
+    );
+  }
+
+  @computed get isLatestPresent() {
+    if (this.course.primaryRole.isStudent) { return false; }
+
+    const latest = this.course.teacherTaskPlans.lastPublished;
+    return Boolean(!latest || !!find(this.array, { task_plan_id: latest.id }));
   }
 
   // called from API

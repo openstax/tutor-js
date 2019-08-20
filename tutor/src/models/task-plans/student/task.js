@@ -41,7 +41,7 @@ class StudentTask extends BaseModel {
   @field exercise_count = 0;
   @field completed_accepted_late_exercise_count = 0;
   @field completed_on_time_exercise_count = 0;
-
+  @field task_plan_id;
   @field steps_count = 0;
   @field completed_steps_count = 0;
   @field completed_on_time_steps_count = 0;

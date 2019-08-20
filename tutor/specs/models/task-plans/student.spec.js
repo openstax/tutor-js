@@ -72,4 +72,18 @@ describe('Student Tasks Model', () => {
     expect(setTimeout).toHaveBeenCalledWith(tasks.fetchTaskPeriodically, 60000);
   });
 
+  it('tests if the last published plan is present', () => {
+    course.primaryRole.type = 'student';
+    expect(tasks.isLatestPresent).toBe(false);
+    course.primaryRole.type = 'teacher';
+    course.teacherTaskPlans.reset();
+    expect(tasks.isLatestPresent).toBe(true);
+    course.teacherTaskPlans.set(1, { id: '1', last_published_at: '2017-01-02T00:00:00.000Z' });
+    course.teacherTaskPlans.set(1, { id: '2', last_published_at: '2017-01-03T00:00:00.000Z' });
+    expect(tasks.isLatestPresent).toBe(false);
+    tasks.set(1, { task_plan_id: '1' });
+    expect(tasks.isLatestPresent).toBe(false);
+    tasks.set(1, { task_plan_id: '2' });
+    expect(tasks.isLatestPresent).toBe(true);
+  });
 });

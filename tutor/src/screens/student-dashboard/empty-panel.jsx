@@ -15,7 +15,7 @@ const EmptyCard = observer(({
   if (studentTaskPlans.isPendingTaskLoading) {
     return (
       <Card className={cn('empty', 'pending', className)} header={title}>
-        <Icon type="spinner" spin /> Preparing assignments for your course.  This
+        <Icon variant="activity" /> Preparing assignments for your course.  This
         can take up to 10 minutes.
       </Card>
     );
@@ -23,7 +23,7 @@ const EmptyCard = observer(({
   if (studentTaskPlans.api.isPendingInitialFetch) {
     return (
       <Card className={cn('empty', 'pending', className)} header={title}>
-        <Icon type="spinner" spin /> Fetching assignments for your course.
+        <Icon variant="activity" /> Fetching assignments for your course.
       </Card>
     );
   }

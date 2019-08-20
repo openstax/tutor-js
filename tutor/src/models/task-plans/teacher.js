@@ -1,5 +1,5 @@
 import { computed, observable, action } from 'mobx';
-import { find } from 'lodash';
+import { find, last, sortBy, filter } from 'lodash';
 import Map from 'shared/model/map';
 import TaskPlan from './teacher/plan';
 
@@ -56,6 +56,10 @@ class TeacherTaskPlans extends Map {
 
   @computed get open() {
     return this.where(plan => plan.isOpen);
+  }
+
+  @computed get lastPublished() {
+    return last(sortBy(filter(this.array, tp => tp.last_published_at), 'last_published_at'));
   }
 
   withPeriodId(periodId) {

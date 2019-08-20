@@ -15,6 +15,8 @@ class ResponseValidationUX {
 
   constructor({ step, messages, validator = new ResponseValidation() }) {
     this.step = step;
+    this.step.spy.response_validation = {};
+    this.step.response_validation = {};
     this.validator = validator;
     this.messages = messages;
     this.messageIndex = random(0, messages.length - 1);
