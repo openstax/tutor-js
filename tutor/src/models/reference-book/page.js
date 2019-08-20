@@ -109,10 +109,7 @@ class ReferenceBookPage extends BaseModel {
   }
 
   @computed get isChapterSectionDisplayed() {
-    if (this.bookIsCollated) {
-      return this.hasBakedChapterSection;
-    }
-    return !this.isIntro && !this.isAssignable;
+    return Boolean(!this.isIntro && this.isAssignable);
   }
 
   @computed get isAssignable() {

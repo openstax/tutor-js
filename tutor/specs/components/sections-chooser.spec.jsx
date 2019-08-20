@@ -14,7 +14,7 @@ describe('Sections Chooser', () => {
     };
   });
 
-  it('renders and matches snapshot', () => {
+  fit('renders and matches snapshot', () => {
     expect.snapshot(<C><Chooser {...props} /></C>).toMatchSnapshot();
   });
 
