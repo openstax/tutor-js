@@ -87,4 +87,18 @@ describe('Teacher Task Plans', function() {
       expect(tp.due_at).toEqual(plan.tasking_plans[i].due_at);
     });
   });
+
+  it('lastPublished', () => {
+    course.teacherTaskPlans.onLoaded({
+      data: {
+        plans: [
+          { id: '1', last_published_at: '2017-01-02T00:00:00.000Z' },
+          { id: '2', last_published_at: '2017-01-01T00:00:00.000Z' },
+          { id: '3', last_published_at: '2017-01-04T00:00:00.000Z' },
+          { id: '4', last_published_at: '2016-01-01T00:00:00.000Z' },
+        ],
+      },
+    }, [ { courseId: COURSE_ID } ]);
+    expect(course.teacherTaskPlans.lastPublished.id).toEqual('3');
+  });
 });

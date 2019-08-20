@@ -5,6 +5,7 @@ import Course from '../../models/course';
 import { observer } from 'mobx-react';
 import Events from './events-panel';
 import EmptyCard from './empty-panel';
+import TeacherPendingLoad from './teacher-pending-load';
 import LateIconLedgend from './late-icon-ledgend';
 
 export default
@@ -20,7 +21,13 @@ class ThisWeekCard extends React.Component {
     const tasks = studentTaskPlans.thisWeeksTasks;
 
     if (studentTaskPlans.isPendingTaskLoading || isEmpty(tasks)) {
-      return <EmptyCard course={course} message='No assignments this week' />;
+      return (
+        <React.Fragment>
+          <EmptyCard course={course} message='No assignments this week' />
+          <TeacherPendingLoad course={course} />
+        </React.Fragment>
+      );
+
     }
 
     return (
@@ -33,7 +40,8 @@ class ThisWeekCard extends React.Component {
           endAt={studentTaskPlans.endOfThisWeek}
         />
         <LateIconLedgend />
+        <TeacherPendingLoad course={course} />
       </React.Fragment>
     );
   }
-};
+}
