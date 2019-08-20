@@ -1,6 +1,9 @@
 .media-preview {
-  max-width: 300px;
-
+  max-width: 400px;
+  width: 400px;
+  .popover-body {
+    width: 100%;
+  }
   &.popover {
     z-index: 3;
   }
@@ -15,7 +18,20 @@
 
   @include tutor-figure();
   @include tutor-tables($tutor-neutral-light, $tutor-neutral-light);
-
+  .os-figure:not(.splash):not(.full-width) {
+    width: 100%;
+  }
+  .os-figure {
+    figure {
+      align-items: center;
+      margin: 2rem;
+      img {
+        max-height: 300px;
+        max-width: 100%;
+        width: auto;
+      }
+    }
+  }
   table {
     text-align: left;
 
@@ -44,8 +60,4 @@
       }
     }
   }
-}
-
-.media-preview-link {
-  display: inline-block;
 }
