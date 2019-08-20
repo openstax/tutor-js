@@ -154,7 +154,7 @@ class Tasking extends React.Component {
       <Row className="tasking-date-time">
         <Col xs={12} md={6} className="opens-at">
           <Row>
-            <Col md={7} xs={8}>
+            <Col xs={6}>
               <TutorDateInput
                 required={true}
                 label="Open Date"
@@ -165,7 +165,7 @@ class Tasking extends React.Component {
                 onChange={this.onOpensDateChange}
               />
             </Col>
-            <Col md={5} xs={4}>
+            <Col xs={6}>
               <TutorTimeInput
                 required={true}
                 label="Open Time"
@@ -179,7 +179,7 @@ class Tasking extends React.Component {
         </Col>
         <Col xs={12} md={6} className="due-at">
           <Row>
-            <Col md={7} xs={8}>
+            <Col xs={6}>
               <TutorDateInput
                 required={true}
                 label="Due Date"
@@ -190,7 +190,7 @@ class Tasking extends React.Component {
                 onChange={this.onDueDateChange}
               />
             </Col>
-            <Col md={5} xs={4}>
+            <Col xs={6}>
               <TutorTimeInput
                 required={true}
                 label="Due Time"
