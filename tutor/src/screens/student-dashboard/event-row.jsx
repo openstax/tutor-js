@@ -1,15 +1,37 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { observer } from 'mobx-react';
-import { computed, action } from 'mobx';
+import { React, PropTypes, observer, computed, action, cn, styled } from '../../helpers/react';
 import { Col } from 'react-bootstrap';
+import moment from 'moment';
 import { get } from 'lodash';
 import Time from '../../components/time';
 import Router from '../../helpers/router';
-import classnames from 'classnames';
+import { Icon } from 'shared';
 import HideButton from './hide-button';
 import TaskProgressInfo from './task-progress-info';
 import Course from '../../models/course';
+import Theme from '../../theme';
+
+const NotOpenNoticeWrapper=styled.div`
+  display: flex;
+  min-height: 3rem;
+  align-items: center;
+  padding-left: 1rem;
+  background: ${Theme.colors.neutral.lighter}
+`;
+
+const NotOpenNotice = ({ task }) => {
+  if (!task.isTeacherStudent || task.isOpen) {
+    return null;
+  }
+  return (
+    <NotOpenNoticeWrapper>
+      <Icon type="eye" /> This assignment is only visible to instructors.
+      Open date for students is {moment(task.opens_at).format('MMM Do, h:m a')}
+    </NotOpenNoticeWrapper>
+  );
+};
+NotOpenNotice.propTypes = {
+  task: PropTypes.object.isRequired,
+};
 
 const EventTime = ({ event }) => {
   if (event.is_deleted) { return null; }
@@ -50,37 +72,38 @@ class EventRow extends React.Component {
     const { event, course } = this.props;
     if (event.hidden) { return null; }
 
-    const classes = classnames(`task row ${event.type}`, {
-      workable: this.isWorkable,
-      deleted: event.is_deleted,
-    });
-
     return (
-      <a
-        className={classes}
-        href={Router.makePathname('viewTask', { courseId: course.id, id: event.id })}
-        aria-label={`Work on ${event.type}: ${this.props.event.title}`}
-        tabIndex={this.isWorkable ? 0 : -1}
-        onClick={this.onClick}
-        onKeyDown={this.isWorkable ? this.onKey : undefined}
-        data-event-id={this.props.event.id}
-      >
-        <Col xs={2} sm={1} className="column-icon">
-          <i
-            aria-label={`${event.type} icon`}
-            className={`icon icon-lg icon-${event.type}`} />
-        </Col>
-        <Col xs={10} sm={5} className="title">
-          {event.title}
-        </Col>
-        <Col xs={5} sm={3} className="due-at">
-          <EventTime event={event} />
-          <HideButton event={event} />
-        </Col>
-        <Col xs={5} sm={3} className="feedback">
-          <TaskProgressInfo event={event} course={course} />
-        </Col>
-      </a>
+      <React.Fragment>
+        <NotOpenNotice task={event} />
+        <a
+          className={cn(`task row ${event.type}`, {
+            workable: this.isWorkable,
+            deleted: event.is_deleted,
+          })}
+          href={Router.makePathname('viewTask', { courseId: course.id, id: event.id })}
+          aria-label={`Work on ${event.type}: ${this.props.event.title}`}
+          tabIndex={this.isWorkable ? 0 : -1}
+          onClick={this.onClick}
+          onKeyDown={this.isWorkable ? this.onKey : undefined}
+          data-event-id={this.props.event.id}
+        >
+          <Col xs={2} sm={1} className="column-icon">
+            <i
+              aria-label={`${event.type} icon`}
+              className={`icon icon-lg icon-${event.type}`} />
+          </Col>
+          <Col xs={10} sm={5} className="title">
+            {event.title}
+          </Col>
+          <Col xs={5} sm={3} className="due-at">
+            <EventTime event={event} />
+            <HideButton event={event} />
+          </Col>
+          <Col xs={5} sm={3} className="feedback">
+            <TaskProgressInfo event={event} course={course} />
+          </Col>
+        </a>
+      </React.Fragment>
     );
   }
 }

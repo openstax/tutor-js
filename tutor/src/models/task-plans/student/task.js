@@ -1,6 +1,6 @@
 import { observable } from 'mobx';
 import { computed } from 'mobx';
-import { invoke } from 'lodash';
+import { invoke, get } from 'lodash';
 import moment from 'moment';
 import Time from '../../time';
 import {
@@ -52,6 +52,11 @@ class StudentTask extends BaseModel {
   @field({ type: 'date' }) opens_at;
   @field({ type: 'date' }) accepted_late_at;
 
+  constructor(attrs, studentTasks) {
+    super(attrs);
+    this.tasks = studentTasks;
+  }
+
   @computed get workedLate() {
     return Boolean(
       this.last_worked_at && moment(this.last_worked_at).isAfter(this.due_at)
@@ -93,12 +98,22 @@ class StudentTask extends BaseModel {
     return this.completed_steps_count > 0;
   }
 
+  @computed get isTeacherStudent() {
+    return true === get(this, 'tasks.course.currentRole.isTeacherStudent');
+  }
+
+  @computed get isOpen() {
+    return this.opens_at < Time.now;
+  }
+
   @computed get canWork() {
     //students cannot work or view a task if it has been deleted and they haven't started it
     return Boolean(
-      this.opens_at < Time.now && !(
-        this.is_deleted &&
-          this.complete_exercise_count === 0
+      this.isTeacherStudent || (
+        this.isOpen && !(
+          this.is_deleted &&
+            this.complete_exercise_count === 0
+        )
       )
     );
   }
