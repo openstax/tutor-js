@@ -34,7 +34,7 @@ class TeacherPendingLoad extends React.Component {
 
     return (
       <Notice>
-        <Icon variant="activity" /> Building assignment.  It may take a few mninutes.
+        <Icon variant="activity" /> Building assignment.  This may take a few minutes.
       </Notice>
     );
   }
