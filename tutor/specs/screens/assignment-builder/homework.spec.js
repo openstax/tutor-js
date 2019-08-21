@@ -47,6 +47,7 @@ describe('Homework Builder', function() {
       type: 'homework',
       title: 'a homework',
       ecosystem_id: 1,
+      is_feedback_immediate: false,
       is_publish_requested: !ux.plan.is_published,
       description: 'a homework description',
       tasking_plans: props.ux.course.periods.map(p => ({

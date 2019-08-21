@@ -26,6 +26,14 @@ const StyledEditor = styled.div`
   .tasking-time-default {
     display: none;
   }
+  .col-6 {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .tasking {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 `;
 
 const Footer = styled.div`

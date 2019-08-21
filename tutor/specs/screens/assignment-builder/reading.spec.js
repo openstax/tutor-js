@@ -41,6 +41,7 @@ describe('Reading Builder', function() {
       type: 'reading',
       title: 'a reading',
       ecosystem_id: 1,
+      is_feedback_immediate: false,
       description: 'a reading description',
       is_publish_requested: !ux.plan.is_published,
       tasking_plans: props.ux.course.periods.map(p => ({
