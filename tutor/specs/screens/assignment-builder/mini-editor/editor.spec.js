@@ -38,6 +38,7 @@ describe('TaskPlan MiniEditor wrapper', function() {
       type: 'homework',
       title: 'a homework',
       ecosystem_id: 1,
+      is_feedback_immediate: false,
       description: props.ux.plan.description,
       is_publish_requested: !props.ux.plan.is_published,
       tasking_plans: props.ux.course.periods.map(p => ({
