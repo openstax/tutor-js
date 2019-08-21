@@ -27,7 +27,7 @@
       display: flex;
       align-items: center;
     }
-    &.deleted:not(.workable) {
+    &.deleted:not(.viewable) {
       cursor: default;
       background-color: $tutor-neutral-lightest;
     }
@@ -60,8 +60,8 @@
       }
     }
 
-    // A task that is workable can be clicked
-    &.workable {
+    // A task that is viewable can be clicked
+    &.viewable {
       cursor: pointer;
       &:hover {
         background-color: $tutor-neutral-lightest;

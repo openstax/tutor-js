@@ -57,15 +57,15 @@ class EventRow extends React.Component {
 
   @action.bound onClick(ev) {
     ev.preventDefault();
-    if (this.isWorkable) {
+    if (this.isViewable) {
       this.context.router.history.push(
         ev.currentTarget.getAttribute('href')
       );
     }
   }
 
-  @computed get isWorkable() {
-    return get(this.props, 'workable', this.props.event.canWork);
+  @computed get isViewable() {
+    return get(this.props, 'viewable', this.props.event.isViewable);
   }
 
   render() {
@@ -77,14 +77,14 @@ class EventRow extends React.Component {
         <NotOpenNotice task={event} />
         <a
           className={cn(`task row ${event.type}`, {
-            workable: this.isWorkable,
+            viewable: this.isViewable,
             deleted: event.is_deleted,
           })}
           href={Router.makePathname('viewTask', { courseId: course.id, id: event.id })}
           aria-label={`Work on ${event.type}: ${this.props.event.title}`}
-          tabIndex={this.isWorkable ? 0 : -1}
+          tabIndex={this.isViewable ? 0 : -1}
           onClick={this.onClick}
-          onKeyDown={this.isWorkable ? this.onKey : undefined}
+          onKeyDown={this.isViewable ? this.onKey : undefined}
           data-event-id={this.props.event.id}
         >
           <Col xs={2} sm={1} className="column-icon">

@@ -11,16 +11,16 @@ describe('Student Task Model', () => {
     task = Factory.studentDashboardTask();
   });
 
-  it('#canWork', () => {
+  it('#isViewable', () => {
     task.opens_at = moment(now).add(1, 'day');
-    expect(task.canWork).toBe(false);
+    expect(task.isViewable).toBe(false);
     task.opens_at = moment(now).subtract(1, 'day');
-    expect(task.canWork).toBe(true);
+    expect(task.isViewable).toBe(true);
     task.is_deleted = true;
     task.complete_exercise_count = 0;
-    expect(task.canWork).toBe(false);
+    expect(task.isViewable).toBe(false);
     task.complete_exercise_count = 1;
-    expect(task.canWork).toBe(true);
+    expect(task.isViewable).toBe(true);
   });
 
   it('#lateWorkIsAccepted', () => {

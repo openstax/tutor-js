@@ -106,7 +106,7 @@ class StudentTask extends BaseModel {
     return this.opens_at < Time.now;
   }
 
-  @computed get canWork() {
+  @computed get isViewable() {
     //students cannot work or view a task if it has been deleted and they haven't started it
     return Boolean(
       this.isTeacherStudent || (
