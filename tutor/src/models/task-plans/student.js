@@ -92,7 +92,7 @@ class StudentTaskPlans extends Map {
 
   @action.bound fetchTaskPeriodically() {
     return this.fetch().then(() => {
-      const interval = this.isPendingTaskLoading || this.isTeacherWaitingForLatest ?
+      const interval = (this.isPendingTaskLoading || this.isTeacherWaitingForLatest) ?
         FETCH_INITIAL_TASKS_INTERVAL : REFRESH_TASKS_INTERVAL;
       this.refreshTimer = setTimeout(this.fetchTaskPeriodically, interval);
     });
@@ -111,7 +111,7 @@ class StudentTaskPlans extends Map {
 
   @computed get isTeacherWaitingForLatest() {
     return Boolean(
-      this.course.primaryRole.isTeacherStudent && !this.isLatestPresent
+      this.course.currentRole.isTeacherStudent && !this.isLatestPresent
     );
   }
 
