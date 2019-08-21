@@ -1,53 +1,13 @@
 import EventRow from '../../../src/screens/student-dashboard/event-row';
-import { React } from '../../helpers';
+import { React, moment } from '../../helpers';
 import Factory from '../../factories';
-
-const EVENT = {
-  'id': '118',
-  'title': 'Read Chapter 1',
-  'opens_at': (new Date(Date.now() - (1000 * 3600 * 24))).toString(),
-  'due_at': '2016-05-19T12:00:00.000Z',
-  'last_worked_at': '2016-05-19T11:59:00.000Z',
-  'type': 'reading',
-  'complete': true,
-  'is_deleted': false,
-  'exercise_count': 3,
-  'complete_exercise_count': 3,
-};
-
-const DELETED_EVENT = {
-  'id': '118',
-  'title': 'Read Chapter 1',
-  'opens_at': '2016-05-16T05:01:00.000Z',
-  'due_at': '2016-05-19T12:00:00.000Z',
-  'last_worked_at': '2016-05-19T11:59:00.000Z',
-  'type': 'reading',
-  'complete': true,
-  'is_deleted': true,
-  'exercise_count': 3,
-  'complete_exercise_count': 3,
-  'hide': jest.fn(),
-};
-
-const DELETED_NOT_STARTED_EVENT = {
-  'id': '118',
-  'title': 'Read Chapter 1',
-  'opens_at': '2016-05-16T05:01:00.000Z',
-  'due_at': '2016-05-19T12:00:00.000Z',
-  'last_worked_at': '2016-05-19T11:59:00.000Z',
-  'type': 'reading',
-  'complete': true,
-  'is_deleted': true,
-  'exercise_count': 3,
-  'complete_exercise_count': 0,
-};
-
-let regularRow = null;
-let deletedRow = null;
-let deletedNotStartedRow = null;
 
 describe('Event Row', function() {
   const course = Factory.course();
+  let regularRow = null;
+  let deletedRow = null;
+  let deletedNotStartedRow = null;
+
   beforeEach(function() {
     const regular = (
       <EventRow
@@ -99,5 +59,16 @@ describe('Event Row', function() {
 
   it('disallows onclick for event row if deleted and not started', function() {
     expect(deletedNotStartedRow.props.onClick).toBeFalsy();
+  });
+
+  it('shows only visible to instructors message', () => {
+    const task = Factory.studentDashboardTask();
+    task.opens_at = moment().add(1, 'day').toDate();
+    expect(task.isOpen).toBe(false);
+    task.tasks = { course: { currentRole: { isTeacherStudent: true } } };
+    expect(task.isTeacherStudent).toBe(true);
+    const row = mount(<EventRow event={task} course={course} />);
+    expect(row.find('NotOpenNotice').text()).toContain('only visible to instructors');
+    row.unmount();
   });
 });
