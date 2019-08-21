@@ -25,7 +25,7 @@ const NotOpenNotice = ({ task }) => {
   return (
     <NotOpenNoticeWrapper>
       <Icon type="eye" /> This assignment is only visible to instructors.
-      Open date for students is {moment(task.opens_at).format('MMM Do, h:m a')}
+      Open date for students is {moment(task.opens_at).format('MMM Do, h:mm a')}
     </NotOpenNoticeWrapper>
   );
 };
