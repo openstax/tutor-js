@@ -109,7 +109,12 @@ class ReferenceBookPage extends BaseModel {
   }
 
   @computed get isChapterSectionDisplayed() {
-    return Boolean(!this.isIntro && this.isAssignable);
+    return Boolean(
+      this.displayedChapterSection &&
+        this.displayedChapterSection.isPresent &&
+        !this.isIntro &&
+        this.isAssignable
+    );
   }
 
   @computed get isAssignable() {
