@@ -35,7 +35,7 @@ const calculateDefaultOpensAt = ({ course }) => {
         course.bounds.end,
         defaultOpensAt,
       ),
-      course.bounds.start.add(1, 'minute'),
+      moment(course.bounds.start).add(1, 'day'),
     ),
   ).hour(hour).minute(minute).startOf('minute').toISOString();
 };
