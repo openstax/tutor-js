@@ -53,11 +53,11 @@ Using the sample API data only allows acting as a student and can't save data.  
 1. Run `yarn run serve exercises` in `tutor-js` directory
 1. Load <http://localhost:3000> in your browser
 
-[travis-image]: https://img.shields.io/travis/openstax/tutor-js.svg?style=flat-square
+[travis-image]: https://img.shields.io/travis/openstax/tutor-js/master.svg?style=flat-square
 [travis-url]: https://travis-ci.org/openstax/tutor-js
 [dependency-image]: https://img.shields.io/david/openstax/tutor-js.svg?style=flat-square
 [dependency-url]: https://david-dm.org/openstax/tutor-js
 [dev-dependency-image]: https://img.shields.io/david/dev/openstax/tutor-js.svg?style=flat-square
 [dev-dependency-url]: https://david-dm.org/openstax/tutor-js#info=devDependencies
-[codecov-image]: https://img.shields.io/codecov/c/github/openstax/tutor-js.svg
+[codecov-image]: https://img.shields.io/codecov/c/github/openstax/tutor-js.svg?style=flat-square
 [codecov-url]: https://codecov.io/gh/openstax/tutor-js
