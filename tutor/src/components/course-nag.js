@@ -47,9 +47,6 @@ class CourseNagModal extends React.Component {
         this.ux.mount();
         this.props.modalManager.queue(this, this.ux.priority);
       }
-      // the last component to queue itself should start the modalManager
-      // call this even if the component did not queue itself so it still works for other components
-      this.props.modalManager.start();
     }
     if (this.props.spyMode) {
       this.spyModeObserverDispose = observe(this.props.spyMode, 'isEnabled', this.onSpyModelChange);

@@ -12,13 +12,6 @@ describe('ModalManager component', () => {
     modalManager.queue(modal2, 1);
     modalManager.queue(modal1, 0);
 
-    // only one modal can be set for a priority
-    expect(() => {
-      modalManager.queue(modal1, 0);
-    }).toThrow(Error);
-
-    modalManager.start();
-
     // Highest priority isReady modal is displayed
     expect(modalManager.canDisplay(modal1)).toBe(false);
     expect(modalManager.canDisplay(modal2)).toBe(true);
@@ -59,6 +52,18 @@ describe('ModalManager component', () => {
     modal2.isReady = true;
     expect(modalManager.canDisplay(modal1)).toBe(false);
     expect(modalManager.canDisplay(modal2)).toBe(true);
+    expect(modalManager.canDisplay(modal3)).toBe(false);
+
+    // Does not interrupt current modal if a higher priority modal becomes isReady
+    modal1.isReady = true;
+    expect(modalManager.canDisplay(modal1)).toBe(false);
+    expect(modalManager.canDisplay(modal2)).toBe(true);
+    expect(modalManager.canDisplay(modal3)).toBe(false);
+
+    // (Re-)queuing can interrupt the current modal
+    expect(() => { modalManager.queue(modal1, 0); }).not.toThrow();
+    expect(modalManager.canDisplay(modal1)).toBe(true);
+    expect(modalManager.canDisplay(modal2)).toBe(false);
     expect(modalManager.canDisplay(modal3)).toBe(false);
   });
 

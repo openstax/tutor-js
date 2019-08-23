@@ -13,8 +13,8 @@ class ModalManager extends React.Component {
   }
 
   @observable active = null;
-  observerDisposes = [];
   priorityQueue = [];
+  observerDisposes = [];
 
   canDisplay = createTransformer(modal => this.active == modal);
 
@@ -44,19 +44,12 @@ class ModalManager extends React.Component {
     }
   }
 
-  // we do not support multiple modals with the same priority,
-  // so make sure the priorities are all different when calling this method
-  @action.bound queue(model, priority) {
-    if (this.priorityQueue[priority]) {
-      throw new Error(`attempted to set modal with priority ${priority} but was already set`);
-    }
-    this.priorityQueue[priority] = model;
-  }
+  @action.bound queue(modal, priority) {
+    // modals with the same priority will overwrite whichever modal was previously in the queue
+    this.priorityQueue[priority] = modal;
 
-  @action.bound start() {
-    if (!this.active) {
-      this.next();
-    }
+    // calling this method may interrupt running modals
+    this.next();
   }
 
   render() {
