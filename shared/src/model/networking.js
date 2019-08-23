@@ -5,7 +5,7 @@ import defaultsDeep from 'lodash/defaultsDeep';
 let OPTIONS = {};
 
 const emitError = function({ response }) {
-  __guardMethod__(OPTIONS.handlers, 'onFail', o => o.onFail({ response }));
+  OPTIONS.handlers.onFail && OPTIONS.handlers.onFail({ response });
   return response;
 };
 
@@ -19,19 +19,13 @@ const Networking = {
   },
 
   perform(opts) {
-    return axios(extend({}, OPTIONS != null ? OPTIONS.xhr : undefined, opts)).catch(function(err) {
-      if (!opts.silenceErrors) { emitError(err); }
-      return err.response;
-    });
+    return axios(extend({}, OPTIONS != null ? OPTIONS.xhr : undefined, opts))
+      .catch(function(err) {
+        if (!opts.silenceErrors) { emitError(err); }
+        if (opts.onError) { opts.onError(err); }
+        return err.response;
+      });
   },
 };
 
 export default Networking;
-
-function __guardMethod__(obj, methodName, transform) {
-  if (typeof obj !== 'undefined' && obj !== null && typeof obj[methodName] === 'function') {
-    return transform(obj, methodName);
-  } else {
-    return undefined;
-  }
-}

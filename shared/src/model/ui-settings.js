@@ -1,4 +1,4 @@
-import { debounce, isNil, isObject } from 'lodash';
+import { debounce, isNil, get, isObject } from 'lodash';
 import { toJS, observable } from 'mobx';
 import Map from './map';
 import URLs from './urls';
@@ -7,17 +7,22 @@ import Networking from './networking';
 const SETTINGS = observable.map();
 
 const saveSettingsDefaultImpl = debounce( () =>
-
   Networking.perform({
     method: 'PUT',
     url: URLs.construct('tutor_api', 'user', 'ui_settings'),
     withCredentials: true,
-
+    silenceErrors: true,
+    onError: (err) => {
+      const code = get(err, 'response.data.errors[0].code');
+      if (code === 'ui_settings_is_too_long') {
+        SETTINGS.clear();
+      }
+    },
     data: {
       ui_settings: Map.toObject(SETTINGS),
     },
-  })
-  , 500);
+  }), 500,
+);
 
 let saveSettings = saveSettingsDefaultImpl;
 
