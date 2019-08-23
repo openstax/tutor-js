@@ -212,7 +212,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
         "default_due_time": "07:00",
         "default_open_time": "00:32",
         "does_cost": false,
-        "ecosystem_book_uuid": "185cbf87-c72e-48f5-b51e-f14f21b5eabd",
+        "ecosystem_book_uuid": "405335a3-7cff-4df2-a9ad-29062a4af261",
         "ecosystem_id": 1,
         "ends_at": "2017-11-14T13:00:00.000Z",
         "homework_progress_weight": 0.1,

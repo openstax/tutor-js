@@ -5,14 +5,14 @@ exports[`Task Step Footer matches snapshot 1`] = `
   <StyledExerciseFooter>
     <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
       <div className=\\"StyledExerciseFooter-sc-7wyi4k-0 jLaQDQ\\">
-        <StyledExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"185cbf87-c72e-48f5-b51e-f14f21b5eabd\\" related_content={{...}}>
-          <StyledComponent exerciseId=\\"1@1\\" bookUUID=\\"185cbf87-c72e-48f5-b51e-f14f21b5eabd\\" related_content={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-            <ExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"185cbf87-c72e-48f5-b51e-f14f21b5eabd\\" related_content={{...}} className=\\"StyledExerciseIdentifierLink-sc-7wyi4k-1 jcMshY\\">
+        <StyledExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"405335a3-7cff-4df2-a9ad-29062a4af261\\" related_content={{...}}>
+          <StyledComponent exerciseId=\\"1@1\\" bookUUID=\\"405335a3-7cff-4df2-a9ad-29062a4af261\\" related_content={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+            <ExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"405335a3-7cff-4df2-a9ad-29062a4af261\\" related_content={{...}} className=\\"StyledExerciseIdentifierLink-sc-7wyi4k-1 jcMshY\\">
               <div className=\\"exercise-identifier-link StyledExerciseIdentifierLink-sc-7wyi4k-1 jcMshY\\">
                 ID# 
                 1@1
                  | 
-                <a target=\\"_blank\\" tabIndex={-1} href=\\"https://openstax.org/errata/form?source=tutor&location=1%401%201.2%20Angiosperms&book=Biology%202e\\">
+                <a target=\\"_blank\\" tabIndex={-1} href=\\"https://openstax.org/errata/form?source=tutor&location=1%401%201.2%20Angiosperms&book=College%20Physics\\">
                   Suggest a correction
                 </a>
               </div>
