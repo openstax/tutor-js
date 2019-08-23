@@ -3,10 +3,12 @@ import React from 'react';
 import { Alert } from 'react-bootstrap';
 import { isEmpty, map, compact, flatMap } from 'lodash';
 import ReviewExercise from './exercise';
-import TourRegion from '../tours/region';
+import TourRegion from '../../components/tours/region';
 import { Stats } from '../../models/task-plans/teacher/stats';
+import NoStats from './no-stats';
 
 function ReviewHeading(props) {
+  // eslint-disable-next-line
   const { sectionLabel, title } = props;
 
   return (
@@ -23,8 +25,14 @@ const NotFound = () => <Alert variant="info">This assignment does‘t have any a
 
 ReviewHeading.displayName = 'ReviewHeadingTracker';
 
-export default function Review(props) {
-  const { stats } = props;
+export default function Review({ stats, course, period }) {
+
+  if (!stats || isEmpty(stats.exercisesBySection)) {
+    return (
+      <NoStats course={course} period={period} />
+    );
+  }
+
   const stepsList = flatMap(stats.exercisesBySection, (exercises, section) => {
     const steps = [
       <ReviewHeading
@@ -52,5 +60,7 @@ Review.displayName = 'Review';
 
 Review.propTypes = {
   currentStep: PropTypes.number,
+  course: PropTypes.object.isRequired,
+  period: PropTypes.object.isRequired,
   stats: PropTypes.instanceOf(Stats).isRequired,
 };

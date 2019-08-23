@@ -3,18 +3,20 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
-import { first, find, isEmpty } from 'lodash';
+import { first, find } from 'lodash';
 import Courses from '../../models/courses-map';
 import Breadcrumbs from './breadcrumbs';
-import Stats from '../plan-stats';
+import Stats from '../../components/plan-stats';
 import Review from './review';
 import ScrollTo from '../../helpers/scroll-to';
 import { idType } from 'shared/helpers/react';
-import NoStats from './no-stats';
+import LoadingScreen from 'shared/components/loading-animation';
+
+import './styles.scss';
 
 export default
 @observer
-class TaskTeacherReview extends React.Component {
+class TeacherReviewMetrics extends React.Component {
   static propTypes = {
     id: PropTypes.string,
     params: PropTypes.shape({
@@ -77,14 +79,10 @@ class TaskTeacherReview extends React.Component {
   }
 
   renderReviewCard() {
-    if (!this.stats || isEmpty(this.stats.exercisesBySection)) {
-      return (
-        <NoStats taskPlan={this.taskPlan} header={this.renderBreadcrumbs()} course={this.course} period={this.period} />
-      );
-    }
     return (
       <Review
         goToStep={this.goToStep}
+        course={this.course}
         stats={this.stats}
         period={this.period} />
     );
@@ -92,6 +90,10 @@ class TaskTeacherReview extends React.Component {
 
   render() {
     const { course, period } = this;
+
+    if (!this.taskPlan.analytics.api.hasBeenFetched) {
+      return <LoadingScreen />;
+    }
 
     return (
       <div
@@ -107,7 +109,7 @@ class TaskTeacherReview extends React.Component {
               <Stats
                 plan={this.taskPlan}
                 course={course}
-                initialActivePeriodInfo={period}
+                period={period}
                 shouldOverflowData={true}
                 handlePeriodSelect={this.setPeriod}
               />

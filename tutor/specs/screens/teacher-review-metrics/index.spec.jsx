@@ -1,6 +1,6 @@
 import { Factory, FactoryBot, C } from '../../helpers';
 import planData from '../../../api/plans/1.json';
-import TaskTeacherReview from '../../../src/components/task-teacher-review';
+import TaskTeacherReview from '../../../src/screens/teacher-review-metrics';
 import Courses from '../../../src/models/courses-map';
 
 describe('Task Teacher Review', () => {
@@ -17,7 +17,7 @@ describe('Task Teacher Review', () => {
     plan.fetch = jest.fn(() => Promise.resolve());
     plan.onApiRequestComplete({ data: planData });
     plan.analytics.fetch = jest.fn();
-
+    plan.analytics.api.requestCounts.read = 1;
     plan.analytics.onApiRequestComplete({
       data: FactoryBot.create('TaskPlanStat', { course }),
     });

@@ -1,4 +1,9 @@
+@import '../screen-styles';
+
 .task-teacher-review {
+  max-width: 1000px;
+  margin: auto;
+
   .col-sm-4 {
     margin: 0;
   }
@@ -7,6 +12,7 @@
     @include make-shy-animate();
   }
   .task-step {
+    background: white;
     margin-bottom: 4rem;
   }
   .card-body {
@@ -29,8 +35,8 @@
     margin: 2rem;
   }
 
-  @import './question';
-  @import './breadcrumbs';
+  @import './styles/question';
+  @import './styles/breadcrumbs';
   // match errata link styles so the tour pointer matches it's position
   .tour-anchor#errata-link {
     position: relative;
