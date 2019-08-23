@@ -10,7 +10,7 @@ import isUrl from 'validator/lib/isURL';
 import { lazyInitialize } from 'core-decorators';
 import TaskingPlan from './tasking';
 import TaskPlanPublish from '../../jobs/task-plan-publish';
-import { getDurationFromMoments } from '../../../helpers/dates';
+import { findEarliest, findLatest, getDurationFromMoments } from '../../../helpers/dates';
 import Time from '../../time';
 import TaskPlanStats from './stats';
 import moment from '../../../helpers/moment-range';
@@ -21,6 +21,25 @@ const TUTOR_SELECTIONS = {
   min: 0,
 };
 
+
+const calculateDefaultOpensAt = ({ course }) => {
+  const defaultOpensAt = moment(Time.now).add(1, 'day').startOf('minute');
+  if (!course) {
+    return defaultOpensAt.toISOString();
+  }
+  const [ hour, minute ] = course.default_open_time.split(':');
+
+  return moment(
+    findLatest(
+      findEarliest(
+        course.bounds.end,
+        defaultOpensAt,
+      ),
+      course.bounds.start.add(1, 'minute'),
+    ),
+  ).hour(hour).minute(minute).startOf('minute').toISOString();
+};
+export { calculateDefaultOpensAt };
 
 export default
 @identifiedBy('task-plans/teacher/plan')
@@ -79,10 +98,11 @@ class TeacherTaskPlan extends BaseModel {
 
   @lazyInitialize analytics = new TaskPlanStats({ taskPlan: this });
 
-  findOrCreateTaskingForPeriod(period) {
+  findOrCreateTaskingForPeriod(period, defaultAttrs = {}) {
     const tp = this.tasking_plans.forPeriod(period);
     if (tp) { return tp; }
     this.tasking_plans.push({
+      ...defaultAttrs,
       target_id: period.id, target_type: 'period',
     });
     return this.tasking_plans[this.tasking_plans.length - 1];

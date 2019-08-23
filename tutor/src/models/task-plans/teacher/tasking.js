@@ -24,13 +24,6 @@ class TaskingPlan extends BaseModel {
   @field opens_at;
   @field due_at;
 
-  constructor(attrs) {
-    super(attrs);
-    if (!this.opens_at) {
-      this.opens_at = this.defaultOpensAt();
-    }
-  }
-
   get course() {
     return get(this.plan, 'course');
   }

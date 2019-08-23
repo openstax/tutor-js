@@ -1,9 +1,9 @@
 import { action, computed, observable, runInAction } from 'mobx';
 import moment from 'moment';
-import { map, compact, isEmpty, filter } from 'lodash';
+import { map, compact, isEmpty, filter, first } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
 import Exercises from '../../models/exercises';
-import TaskPlan from '../../models/task-plans/teacher/plan';
+import TaskPlan, { calculateDefaultOpensAt } from '../../models/task-plans/teacher/plan';
 import ReferenceBook from '../../models/reference-book';
 import Form from './form';
 
@@ -52,8 +52,9 @@ class AssignmentBuilderUX {
     this.course = course;
 
     if (this.plan.isNew) {
+      const opens_at = calculateDefaultOpensAt({ course: this.course });
       this.periods.map((period) =>
-        this.plan.findOrCreateTaskingForPeriod(period),
+        this.plan.findOrCreateTaskingForPeriod(period, { opens_at }),
       );
       if (due_at) {
         this.plan.tasking_plans.forEach(tp => tp.initializeWithDueAt(due_at));
@@ -285,8 +286,9 @@ class AssignmentBuilderUX {
   @action.bound togglePeriodTaskingsEnabled(ev) {
     this.isShowingPeriodTaskings = ev.target.value == 'periods';
     this.plan.tasking_plans = [];
+    const opens_at = calculateDefaultOpensAt({ course: this.course });
     this.periods.map((period) =>
-      this.plan.findOrCreateTaskingForPeriod(period),
+      this.plan.findOrCreateTaskingForPeriod(period, { opens_at }),
     );
   }
 
@@ -295,8 +297,11 @@ class AssignmentBuilderUX {
     if (!period) { return; }
 
     const tasking = this.plan.tasking_plans.forPeriod(period);
+
     if (input.checked && !tasking) {
-      this.plan.findOrCreateTaskingForPeriod(period);
+      const firstTp = first(this.plan.tasking_plans);
+      const opens_at = (firstTp && firstTp.opens_at) || calculateDefaultOpensAt({ course: this.course });
+      this.plan.findOrCreateTaskingForPeriod(period, { opens_at });
     } else if (!input.checked && tasking) {
       this.plan.tasking_plans.remove(tasking);
     }
