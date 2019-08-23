@@ -34,6 +34,8 @@ class TutorInput extends React.Component {
     onUpdated: PropTypes.func,
     autoFocus: PropTypes.bool,
     hasValue: PropTypes.bool,
+    defaultValue: PropTypes.string,
+    default: PropTypes.string,
   };
 
   state = { errors: [] };
