@@ -17,7 +17,7 @@ const BOOK_UID_XREF = {
   '185cbf87-c72e-48f5-b51e-f14f21b5eabd': 'Biology 2e', // non baked
   '8d50a0af-948b-4204-a71d-4826cba765b8': 'Biology 2e', // baked
   '405335a3-7cff-4df2-a9ad-29062a4af261': 'College Physics',
-  '8d04a686-d5e8-4798-a27d-c608e4d0e187': 'College Physics',
+  '8d04a686-d5e8-4798-a27d-c608e4d0e187': 'The AP Physics Collection', // AP Physiucs
   '6c322e32-9fb0-4c4d-a1d7-20c95c5c7af2': 'Biology for AP® Courses',
   'fbc61a81-d911-4fe5-bcc7-f1746dbbea18': 'APUSH', // title is not yet on errata form
 };
