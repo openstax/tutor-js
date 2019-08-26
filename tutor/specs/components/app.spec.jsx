@@ -9,6 +9,11 @@ jest.mock('../../src/models/user', () => ({
   },
   isCollegeTeacher: true,
   isConfirmedFaculty: true,
+  terms: {
+    api: {
+      isPending: false,
+    },
+  },
 }));
 
 jest.mock('../../src/models/chat');
