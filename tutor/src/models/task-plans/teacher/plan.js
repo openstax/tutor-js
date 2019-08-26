@@ -32,7 +32,7 @@ const calculateDefaultOpensAt = ({ course }) => {
   return moment(
     findLatest(
       findEarliest(
-        course.bounds.end,
+        moment(course.bounds.end).subtract(1, 'day'),
         defaultOpensAt,
       ),
       moment(course.bounds.start).add(1, 'day'),
