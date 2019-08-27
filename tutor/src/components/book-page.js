@@ -41,12 +41,13 @@ function processImage() {
     figure.classList.add('full-width');
   }
   let isScaled = false;
-  IMAGE_SIZE_CLASSES.forEach(cls => {
+  for (let i = 0; i < IMAGE_SIZE_CLASSES.length; i++) {
+    const cls = IMAGE_SIZE_CLASSES[i];
     if (figure.querySelector(`.${cls}`)) {
       figure.classList.add(cls);
       isScaled = true;
     }
-  });
+  }
 
   // don't autosize splash or manually scaled images
   if (isScaled || figure.classList.contains('splash')) {
@@ -264,7 +265,7 @@ class BookPage extends React.Component {
   }
 
   detectImgAspectRatio(root) {
-    root.querySelectorAll('figure img').forEach((img) =>
+    forEach(root.querySelectorAll('figure img'), (img) =>
       img.complete ? processImage.call(img) : (img.onload = processImage));
   }
 
@@ -332,7 +333,7 @@ class BookPage extends React.Component {
         }
       }
 
-      root.querySelectorAll(INTER_BOOK_LINKS).forEach(link => {
+      forEach(root.querySelectorAll(INTER_BOOK_LINKS), link => {
         this.props.ux.rewriteBookLink(link);
         link.target = '_self';
       });
