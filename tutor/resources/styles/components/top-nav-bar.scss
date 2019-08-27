@@ -90,6 +90,8 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap-reverse;
+    min-width: 250px;
+    white-space: nowrap;
     .btn { margin-left: 10px; }
   }
 
