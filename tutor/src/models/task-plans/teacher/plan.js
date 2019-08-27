@@ -3,14 +3,13 @@ import {
 } from 'shared/model';
 import { action, computed, observable, createAtom } from 'mobx';
 import {
-  sortBy, first, last, map, union, find,
-  get, pick, extend, every, isEmpty,
+  first, last, map, union, find, get, pick, extend, every, isEmpty,
 } from 'lodash';
 import isUrl from 'validator/lib/isURL';
 import { lazyInitialize } from 'core-decorators';
 import TaskingPlan from './tasking';
 import TaskPlanPublish from '../../jobs/task-plan-publish';
-import { findEarliest, findLatest, getDurationFromMoments } from '../../../helpers/dates';
+import { findEarliest, findLatest } from '../../../helpers/dates';
 import Time from '../../time';
 import TaskPlanStats from './stats';
 import moment from '../../../helpers/moment-range';
@@ -116,33 +115,29 @@ class TeacherTaskPlan extends BaseModel {
     return Boolean(!this.id || 'new' === this.id);
   }
 
-  @computed get durationLength() {
-    return this.duration.length('days');
-  }
+  @computed get opensAtString() {
+    const opens = this.duration.start;
 
-  @computed get opensAtDay() {
-    const tp = first(sortBy(this.tasking_plans, 'opens_at'));
-    return tp ? tp.opensAtDay : null;
-  }
-
-  @computed get opensAt() {
-    return this.opensAtDay.start().format('M/D');
+    // it's open
+    if (opens.isBefore(Time.now)) {
+      return null;
+    }
+    if (opens.isSame(Time.now, 'day')) {
+      return opens.format('h:mm a');
+    }
+    return opens.format('M/D');
   }
 
   @computed get duration() {
-    return getDurationFromMoments(
-      map(this.tasking_plans, 'due_at'),
+    return moment.range(
+      this.dateRanges.opens.start,
+      this.dateRanges.due.end,
     );
-  }
-
-  @computed get dueRange() {
-    const due_times = sortBy(map(this.tasking_plans, tp => moment(tp.due_at)), m => m.toDate());
-    return moment.range(first(due_times), last(due_times));
   }
 
   rangeFor(attr) {
     const dates = map(
-      this.tasking_plans, tp => moment(tp[attr]).toDate()
+      this.tasking_plans, tp => moment(tp[attr]).valueOf()
     );
     dates.sort();
     return moment.range(first(dates), last(dates));
@@ -169,15 +164,6 @@ class TeacherTaskPlan extends BaseModel {
     this.is_published = true;
     this.is_publishing = false;
     this.publish_job_url = null;
-  }
-
-  @computed get durationRange() {
-    return getDurationFromMoments(
-      union(
-        map(this.tasking_plans, 'opens_at'),
-        map(this.tasking_plans, 'due_at'),
-      )
-    );
   }
 
   @action _moveSettings(type, id, step) {
@@ -229,12 +215,14 @@ class TeacherTaskPlan extends BaseModel {
   @computed get isPublished() { return this.is_published; }
   @computed get isPublishing() { return this.is_publishing; }
   @computed get isTrouble() { return this.is_trouble; }
-  @computed get isOpen() { return this.durationRange.start().isBefore(Time.now); }
+  @computed get isOpen() { return this.duration.start.isBefore(Time.now); }
   @computed get isEditable() {
-    return true ; // this.isNew || this.durationRange.start().isAfter(Time.now);
+    // at one time this had date logic, but now
+    // teachers are allowed to edit at any time
+    return true ;
   }
   @computed get isFailed() { return Boolean(this.failed_at || this.killed_at); }
-  @computed get isPastDue() { return this.durationRange.end().isBefore(Time.now); }
+  @computed get isPastDue() { return this.duration.end.isBefore(Time.now); }
   @computed get isVisibleToStudents() { return this.isPublished && this.isOpen; }
 
   @computed get isPollable() {
@@ -318,7 +306,7 @@ class TeacherTaskPlan extends BaseModel {
       this,
       'title', 'description', 'settings', 'type', 'ecosystem_id', 'is_feedback_immediate',
     ), {
-      tasking_plans: map(this.tasking_plans, 'dataForSave'),
+      tasking_plans: map(this.tasking_plans, 'clonedAttributes'),
     });
   }
 
@@ -334,7 +322,11 @@ class TeacherTaskPlan extends BaseModel {
   }
 
   @computed get dataForSave() {
-    return extend(this.clonedAttributes, pick(this, 'is_publish_requested'));
+    return extend(
+      this.clonedAttributes,
+      pick(this, 'is_publish_requested'),
+      { tasking_plans: map(this.tasking_plans, 'dataForSave') },
+    );
   }
 
   @computed get isExternalUrlValid() {

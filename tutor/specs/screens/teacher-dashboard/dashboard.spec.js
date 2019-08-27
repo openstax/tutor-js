@@ -11,7 +11,7 @@ describe('CourseCalendar Month display', () => {
     course = Factory.course({ is_teacher: true });
     Factory.teacherTaskPlans({ course });
     props = {
-      date: course.teacherTaskPlans.array[0].duration.end(),
+      date: course.teacherTaskPlans.array[0].duration.end,
       course: course,
       termEnd: moment().add(2, 'month'),
       termStart: moment().subtract(3, 'month'),

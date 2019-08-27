@@ -1,7 +1,6 @@
 import {
   React, cn, observable, computed, observer, action,
 } from '../../helpers/react';
-import moment from '../../helpers/moment-range';
 import TimeHelper from '../../helpers/time';
 import { partial } from 'lodash';
 import 'moment-timezone';
@@ -42,7 +41,7 @@ class Month extends React.Component {
 
     const plans = teacherTaskPlans.active.array.map(plan => ({
       plan,
-      range: plan.dueRange,
+      range: plan.dateRanges.due,
       className: `type-${plan.type}`,
       render: ({ event }) => (
         <Plan

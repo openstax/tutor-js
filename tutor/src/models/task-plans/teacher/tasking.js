@@ -47,12 +47,6 @@ class TaskingPlan extends BaseModel {
     ).hour(hour).minute(minute).startOf('minute').toISOString();
   }
 
-  @computed get opensAtDay() {
-    return moment(this.opens_at)
-      .startOf('day')
-      .twix(moment(this.opens_at).endOf('day'), { allDay: true });
-  }
-
   @computed get isPastDue() {
     return moment(this.due_at).isBefore(Time.now);
   }
@@ -69,32 +63,36 @@ class TaskingPlan extends BaseModel {
 
   @computed get isUsingDefaultOpensAt() {
     const [ hour, minute ] = this.course.default_open_time.split(':');
-    const opensAt = this.course.momentInZone(this.opens_at);
+    const opensAt = this.opensAtMoment;
     return Boolean(opensAt.hour() == hour && opensAt.minute() == minute);
   }
 
   @computed get isUsingDefaultDueAt() {
     const [ hour, minute ] = this.course.default_due_time.split(':');
     if (!this.due_at) { return true; }
-    const dueAt = this.course.momentInZone(this.due_at);
+    const dueAt = this.dueAtMoment;
     return Boolean(dueAt.hour() == hour && dueAt.minute() == minute);
   }
 
   @action async persistTime(type) {
     const { course } = this;
     if (type == 'opens') {
-      course.default_open_time = course.momentInZone(this.opens_at).format('HH:mm');
+      course.default_open_time = this.opensAtMoment.format('HH:mm');
     }
     if (type == 'due') {
-      course.default_due_time = course.momentInZone(this.due_at).format('HH:mm');
+      course.default_due_time = this.dueAtMoment.format('HH:mm');
     }
     await course.save();
   }
 
+  @computed get clonedAttributes() {
+    return pick(this, 'target_id', 'target_type', 'opens_at', 'due_at');
+  }
+
   @computed get dataForSave() {
     return extend(pick(this, 'target_id', 'target_type'), {
-      opens_at: this.course.momentInZone(this.opens_at).format('YYYY-MM-DD HH:mm'),
-      due_at: this.course.momentInZone(this.due_at).format('YYYY-MM-DD HH:mm'),
+      opens_at: this.opensAtMoment.format('YYYY-MM-DD HH:mm'),
+      due_at: this.dueAtMoment.format('YYYY-MM-DD HH:mm'),
     });
   }
 
@@ -137,7 +135,7 @@ class TaskingPlan extends BaseModel {
     const [hour, minute] = time.split(':');
     this.opens_at = findEarliest(
       moment(this.due_at).subtract(1, 'minute'),
-      this.course.momentInZone(this.opens_at).hour(hour).minute(minute).startOf('minute')
+      this.opensAtMoment.hour(hour).minute(minute).startOf('minute')
     ).toISOString();
   }
 
@@ -157,13 +155,13 @@ class TaskingPlan extends BaseModel {
     }
     this.due_at = findLatest(
       moment(this.opens_at).add(1, 'minute'),
-      this.course.momentInZone(this.due_at).hour(hour).minute(minute).startOf('minute'),
+      this.dueAtMoment.hour(hour).minute(minute).startOf('minute'),
     ).toISOString();
   }
 
   @computed get opensAtTime() {
     const { course } = this;
-    const m = this.opens_at ? course.momentInZone(this.opens_at) : moment(course.default_open_time, 'HH:mm');
+    const m = this.opens_at ? this.opensAtMoment : moment(course.default_open_time, 'HH:mm');
     return m.format('HH:mm');
   }
 
@@ -172,8 +170,17 @@ class TaskingPlan extends BaseModel {
   }
 
   @computed get dueAtTime() {
-    const m = this.due_at ? this.course.momentInZone(this.due_at) : this.defaultDueTime;
+    const m = this.due_at ? this.dueAtMoment : this.defaultDueTime;
     return m.format('HH:mm');
+  }
+
+  // note: these are not @computed so that a new moment is
+  // returned on each access and can be mutated
+  get opensAtMoment() {
+    return this.course.momentInZone(this.opens_at);
+  }
+  get dueAtMoment() {
+    return this.course.momentInZone(this.due_at);
   }
 
 }

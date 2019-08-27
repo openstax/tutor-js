@@ -1,4 +1,4 @@
-import { React, observable, observer, styled } from '../../helpers/react';
+import { React, observer, styled } from '../../helpers/react';
 import PropTypes from 'prop-types';
 import TourAnchor from '../../components/tours/anchor';
 import TroubleIcon from '../../components/icons/trouble';
@@ -24,7 +24,7 @@ class CoursePlanLabel extends React.Component {
     return (
       <TourAnchor id="calendar-task-plan">
         <Label
-          data-opens-at={plan.opensAt}
+          data-opens-at={plan.opensAtString}
           data-title={plan.title}
         >
           <TroubleIcon plan={plan} />
