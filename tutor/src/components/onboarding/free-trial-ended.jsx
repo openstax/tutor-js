@@ -38,9 +38,25 @@ class FreeTrialEnded extends React.Component {
     );
   }
 
+  // if a course has eneded without being paid
+  // we do not allow paying or accessing it
+  renderCourseEnded(course) {
+    return (
+      <OnboardingNag className="free-trial-ended">
+        <Heading>
+          {course.name} has ended.
+        </Heading>
+        <Body />
+        <Footer>
+          {this.renderBackLink()}
+        </Footer>
+      </OnboardingNag>
+    );
+  }
+
   render() {
     const { ux } = this.props;
-
+    if (ux.course.hasEnded) { return this.renderCourseEnded(ux.course); }
     return (
       <OnboardingNag className="free-trial-ended">
         <Heading>
