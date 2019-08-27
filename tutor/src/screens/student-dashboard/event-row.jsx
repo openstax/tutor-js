@@ -11,6 +11,8 @@ import Course from '../../models/course';
 import Theme from '../../theme';
 
 const NotOpenNoticeWrapper=styled.div`
+  margin: 1rem 1rem 0 1rem;
+  font-size: 12px;
   display: flex;
   min-height: 3rem;
   align-items: center;
