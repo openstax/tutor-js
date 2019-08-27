@@ -104,6 +104,9 @@ class StudentTaskStep extends BaseModel {
   @computed get isReading() {
     return 'reading' === this.type;
   }
+  @computed get isExternalUrl() {
+    return 'external_url' === this.type;
+  }
   @computed get isInteractive() {
     return 'interactive' === this.type;
   }
@@ -165,7 +168,7 @@ class StudentTaskStep extends BaseModel {
   }
 
   @action markViewed() {
-    if (!this.isExercise && !this.is_completed) {
+    if (!this.isExercise && !this.isExternalUrl && !this.is_completed) {
       this.is_completed = true;
       this.save();
     }
