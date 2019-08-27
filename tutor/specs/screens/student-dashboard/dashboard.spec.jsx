@@ -15,6 +15,9 @@ describe('Student Dashboard', () => {
     const course = bootstrapCoursesList().get(1);
     Factory.studentTaskPlans({ course, attributes: { now: new Date('2015-10-21T12:00:00.000Z') } });
     course.studentTaskPlans.fetch = jest.fn();
+    course.studentTaskPlans.fetch.mockReturnValue(new Promise(done => {
+      done();
+    }));
     props = {
       course,
       params: {},
@@ -45,11 +48,11 @@ describe('Student Dashboard', () => {
     props.course.studentTaskPlans.all_tasks_are_ready = false;
     props.course.primaryRole.joined_at = new Date('2015-10-11T12:00:00.000Z');
     const tp = props.course.studentTaskPlans;
-    tp.api.requestCounts.read = 2;
+    tp.api.requestCounts.read = 10;
     expect(tp.taskReadinessTimedOut).toBe(true);
-    const dash = mount(<Router><Dashboard {...props} /></Router>);
+    tp.startFetching();
+    tp.stopFetching();
     expect(Raven.log).toHaveBeenCalled();
-    dash.unmount();
   });
 
 });

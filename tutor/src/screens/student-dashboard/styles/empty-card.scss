@@ -1,18 +1,17 @@
 .student-dashboard {
   .card.empty {
+    margin-top: 0;
+    border-right: none;
+    border-bottom: none;
+    border-left: none;
+    border-radius: 0;
     padding: 20px;
     text-align: center;
     flex-direction: row;
     justify-content: center;
+
     .spinner {
       margin-right: 1rem;
-    }
-
-    &.pending {
-      margin-top: 5rem;
-      &.upcoming {
-        display: none;
-      }
     }
   }
 }

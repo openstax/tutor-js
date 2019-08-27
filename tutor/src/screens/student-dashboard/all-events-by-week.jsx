@@ -6,7 +6,7 @@ import { autobind } from 'core-decorators';
 import Course from '../../models/course';
 import EmptyCard from './empty-panel';
 import EventsCard from './events-panel';
-import { map, isEmpty } from 'lodash';
+import { map } from 'lodash';
 import LateIconLedgend from './late-icon-ledgend';
 
 export default
@@ -35,15 +35,12 @@ class AllEventsByWeek extends React.Component {
     const { course, course: { studentTaskPlans } } = this.props;
     const weeks = studentTaskPlans.pastTasksByWeek;
 
-    if (studentTaskPlans.isPendingTaskLoading || isEmpty(weeks)) {
-      return <EmptyCard course={course} message="No past assignments" />;
-    }
-
     return (
       <div>
+        <EmptyCard course={course} message="No past assignments" tasks={weeks} />
         {map(weeks, this.renderWeek)}
-        <LateIconLedgend />
+        <LateIconLedgend tasks={weeks} />
       </div>
     );
   }
-};
+}

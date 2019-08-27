@@ -28,6 +28,7 @@ describe('Empty Panel', () => {
       title: 'upcoming',
       className: 'updog',
       course: Factory.course(),
+      spinner: true,
     };
   });
 

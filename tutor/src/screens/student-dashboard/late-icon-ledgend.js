@@ -1,4 +1,6 @@
 import { React, styled } from '../../helpers/react';
+import { isEmpty } from 'lodash';
+import PropTypes from 'prop-types';
 import { Icon } from 'shared';
 import Theme from '../../theme';
 
@@ -10,7 +12,11 @@ const Wrapper = styled.div`
   }
 `;
 
-const LateIconLedgend = () => {
+const LateIconLedgend = props => {
+  if (isEmpty(props.tasks)) {
+    return null;
+  }
+
   return (
     <Wrapper>
       <span>
@@ -24,6 +30,10 @@ const LateIconLedgend = () => {
       </span>
     </Wrapper>
   );
+};
+
+LateIconLedgend.propTypes = {
+  tasks: PropTypes.array.isRequired,
 };
 
 export default LateIconLedgend;

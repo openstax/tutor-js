@@ -16,8 +16,10 @@ describe('This Week Events', () => {
 
   it('shows anything due this week', () => {
     const panel = mount(<ThisWeek {...props} />);
+    expect(panel.text()).toContain('Preparing assignments for your course.');
 
     // no tasks
+    props.course.studentTaskPlans.all_tasks_are_ready = true;
     expect(panel.text()).toContain('No assignments this week');
 
     const event = Factory.studentDashboardTask();
