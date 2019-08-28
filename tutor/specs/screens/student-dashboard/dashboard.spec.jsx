@@ -44,9 +44,8 @@ describe('Student Dashboard', () => {
     dash.unmount();
   });
 
-  it('logs when BL times out', () => {
+  it('logs when Biglearn times out', () => {
     props.course.studentTaskPlans.all_tasks_are_ready = false;
-    props.course.primaryRole.joined_at = new Date('2015-10-11T12:00:00.000Z');
     const tp = props.course.studentTaskPlans;
     tp.api.requestCounts.read = 10;
     expect(tp.taskReadinessTimedOut).toBe(true);

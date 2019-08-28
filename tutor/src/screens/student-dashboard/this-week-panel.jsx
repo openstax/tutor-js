@@ -26,7 +26,7 @@ class ThisWeekCard extends React.Component {
           startAt={studentTaskPlans.startOfThisWeek}
           endAt={studentTaskPlans.endOfThisWeek}
           emptyMessage='No assignments this week'
-          spinner={true}
+          spinner
         />
         <LateIconLedgend tasks={tasks}/>
       </React.Fragment>
