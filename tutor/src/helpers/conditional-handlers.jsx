@@ -43,17 +43,14 @@ const getConditionalHandlers = (Router) => {
   // eslint-disable-next-line react/prop-types
   const renderBecomeRole = ({ params: { courseId, roleId } }) => {
     const course = Courses.get(courseId);
-    const role = course.roles.find(r => r.id == roleId);
+    if (!course) { return <CourseNotFoundWarning />; }
 
-    if (!course || !course.roles.teacher || !role) {
+    const role = course.roles.find(r => r.id == roleId);
+    // only teachers can switch their role
+    if (!role || !course.roles.teacher) {
       return <CourseNotFoundWarning />;
     }
-
-    if (course.currentRole.isTeacherStudent) {
-      course.current_role_id = null;
-    } else {
-      role.become();
-    }
+    role.become();
 
     return <Redirect push to={`/course/${courseId}`} />;
   };
