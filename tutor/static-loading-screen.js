@@ -4,14 +4,12 @@ import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import Loading from '../shared/src/components/loading-animation';
 
 const sheet = new ServerStyleSheet();
-const styleTags = sheet.getStyleTags();
-
 const html = renderToString(
-  <StyleSheetManager sheet={sheet.instance}>
+  sheet.collectStyles(
     <Loading className="boot-splash-screen" />
-  </StyleSheetManager>
+  )
 ) + `
-
+<script>
 setTimeout(function() {
   var loading = document.querySelector('.boot-splash-screen');
   if (!loading) { return; }
@@ -19,12 +17,14 @@ setTimeout(function() {
   var container = loading.parentNode;
   var error = document.createElement('h1');
   error.style.textAlign = 'center'
-  error.innerHTML = 'Unable to load OpenStax Tutor, please retry';
+  error.innerHTML = 'Unable to load OpenStax Tutor';
+
   container.appendChild(error);
   container.removeChild(loading);
 
-}, 30000); // 30 seconds
-
+}, 30000);
+</script>
 `;
+const styleTags = sheet.getStyleTags();
 
 console.log(styleTags, html); // eslint-disable-line no-console
