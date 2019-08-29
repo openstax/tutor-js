@@ -31,7 +31,7 @@ exports[`Tasks External URL Screen matches snapshot 1`] = `
               "group": undefined,
               "id": 1,
               "isFetched": true,
-              "is_completed": true,
+              "is_completed": false,
               "labels": Array [],
               "multiPartGroup": undefined,
               "preview": "Regulation of Hormone Production",
