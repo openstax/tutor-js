@@ -6,6 +6,7 @@ import { filter, groupBy, sortBy, pickBy, find } from 'lodash';
 import StudentTask from './student/task';
 import ResearchSurveys from '../research-surveys';
 import Time from '../time';
+import Raven from '../app/raven';
 
 const MAX_POLLING_ATTEMPTS = 10;
 const POLL_SECONDS = 30;
@@ -77,20 +78,26 @@ class StudentTaskPlans extends Map {
   }
 
   @computed get isPendingTaskLoading() {
-    return Boolean(
-      (false === this.all_tasks_are_ready) &&
-        this.course.primaryRole.joinedAgo('minutes') < 30
-    );
+    return Boolean(false === this.all_tasks_are_ready);
   }
 
   @computed get taskReadinessTimedOut() {
-    return Boolean(
-      (false === this.all_tasks_are_ready) &&
-        this.course.primaryRole.joinedAgo('minutes') > 30
-    );
+    return Boolean(this.api.requestCounts.read >= 10); // 10 minutes
   }
 
   @action.bound fetchTaskPeriodically() {
+    if (
+      this.isPendingTaskLoading &&
+      this.taskReadinessTimedOut &&
+      this.api.requestCounts.read % 10 == 0
+    ) {
+      Raven.log(`Dashboard loading timed out waiting on Biglearn after ${
+        this.api.requestCounts.read} attempts.`);
+    }
+    else if (!this.isPendingTaskLoading) {
+      this.api.reset();
+    }
+
     return this.fetch().then(() => {
       const interval = (this.isPendingTaskLoading || this.isTeacherWaitingForLatest) ?
         FETCH_INITIAL_TASKS_INTERVAL : REFRESH_TASKS_INTERVAL;

@@ -4,7 +4,6 @@ import { get } from 'lodash';
 import { Row, Col, Card } from 'react-bootstrap';
 import { action, observable } from 'mobx';
 import { includes } from 'lodash';
-import Raven from '../../models/app/raven';
 import UpcomingCard from './upcoming-panel';
 import AllEventsByWeek from './all-events-by-week';
 import ThisWeekCard from './this-week-panel';
@@ -47,11 +46,6 @@ export default class StudentDashboard extends React.Component {
     const role = course.currentRole;
     if (role.isStudentLike && !get(course.userStudentRecord, 'mustPayImmediately')) {
       this.props.course.studentTaskPlans.fetch();
-    }
-
-    const plans = course.studentTaskPlans;
-    if (plans.taskReadinessTimedOut && plans.api.requestCounts.read > 1) {
-      Raven.log('dashboard task timed out waiting on BL');
     }
   }
 

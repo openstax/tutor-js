@@ -7,19 +7,24 @@ import { autobind } from 'core-decorators';
 import Time from '../../components/time';
 import moment from 'moment';
 import Course from '../../models/course';
+import EmptyCard from './empty-panel';
 import EventRow from './event-row';
+import TeacherPendingLoad from './teacher-pending-load';
 
 export default
 @observer
 class EventsCard extends React.Component {
   static propTypes = {
-    events:     PropTypes.array.isRequired,
-    course:     PropTypes.instanceOf(Course).isRequired,
-    startAt:    PropTypes.object,
-    endAt:      PropTypes.object,
-    limit:      PropTypes.number,
-    title:      PropTypes.string,
-    className:  PropTypes.string,
+    events:         PropTypes.array.isRequired,
+    course:         PropTypes.instanceOf(Course).isRequired,
+    emptyClassName: PropTypes.string,
+    emptyMessage:   PropTypes.string,
+    spinner:        PropTypes.bool,
+    startAt:        PropTypes.object,
+    endAt:          PropTypes.object,
+    limit:          PropTypes.number,
+    title:          PropTypes.string,
+    className:      PropTypes.string,
   }
 
   renderTitle() {
@@ -65,7 +70,14 @@ class EventsCard extends React.Component {
           </Col>
         </div>
         {map(this.props.events, this.renderEvent)}
+        <EmptyCard
+          className={this.props.emptyClassName}
+          course={this.props.course}
+          message={this.props.emptyMessage}
+          spinner={this.props.spinner}
+          tasks={this.props.events} />
+        <TeacherPendingLoad course={this.props.course} />
       </Card>
     );
   }
-};
+}
