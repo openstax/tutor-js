@@ -29,7 +29,7 @@ const TASK_TYPES = {
 };
 
 const DeletedTask = () => (
-  <Warning title="Unknown task type">
+  <Warning title="Assignment cannot be viewed">
     This assignment has been removed by your instructor.
   </Warning>
 );
