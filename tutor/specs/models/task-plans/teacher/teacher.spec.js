@@ -18,11 +18,11 @@ describe('Task Plan for Teachers', () => {
       tp.due_at = moment(now).add(i, 'day').toDate();
     });
     expect(
-      moment(now).isSame(plan.dueRange.start),
+      moment(now).isSame(plan.duration.start),
     ).toBe(true);
     expect(
       moment(now).add(plan.tasking_plans.length-1, 'day').isSame(
-        plan.dueRange.end
+        plan.duration.end
       ),
     ).toBe(true);
   });

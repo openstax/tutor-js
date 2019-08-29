@@ -70,7 +70,7 @@ describe('Teacher tasking plan tasking', () => {
     expect(tasking.defaultOpensAt()).toEqual(inCourseTime(plan.course.starts_at));
   });
 
-  it('#initializeWithDueAt', () => {
+  fit('#initializeWithDueAt', () => {
     expect(course.time_zone).toEqual('Central Time (US & Canada)');
 
     plan.course.default_open_time = '10:20';

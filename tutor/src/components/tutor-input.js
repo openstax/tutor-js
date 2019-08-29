@@ -34,12 +34,14 @@ class TutorInput extends React.Component {
     onUpdated: PropTypes.func,
     autoFocus: PropTypes.bool,
     hasValue: PropTypes.bool,
+    defaultValue: PropTypes.string,
+    default: PropTypes.string,
   };
 
   state = { errors: [] };
 
   componentDidMount() {
-    const errors = this.props.validate(this.props.default);
+    const errors = this.props.validate(this.props.value || this.props.default);
     if (!isEmpty(errors)) { this.setState({ errors }); }
     if (this.props.autoFocus) { return defer(() => this.focus().cursorToEnd()); }
   }
@@ -227,6 +229,7 @@ class TutorDateInput extends React.Component {
     if (!this.props.disabled) {
       dateElem = (
         <DatePicker
+          autoComplete="off"
           id={this.props.id}
           utcOffset={this.tzOffset}
           minDate={min.toDate()}
@@ -323,7 +326,7 @@ class TutorTimeInput extends React.Component {
   };
 
   render() {
-    const inputProps = omit(this.props, 'defaultValue', 'onChange', 'formatCharacters', 'value');
+    const inputProps = omit(this.props, 'default', 'onChange', 'formatCharacters', 'value');
 
     let { value } = this.props;
     if (!supportsTime) {
@@ -332,6 +335,7 @@ class TutorTimeInput extends React.Component {
 
     return (
       <TutorInput
+        autoComplete="off"
         {...inputProps}
         value={value}
         ref={this.input}

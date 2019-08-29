@@ -12,7 +12,7 @@ describe('CourseCalendar Month display', () => {
     course = Factory.course({ is_teacher: true });
     Factory.teacherTaskPlans({ course });
     props = {
-      date: course.teacherTaskPlans.array[0].duration.end(),
+      date: course.teacherTaskPlans.array[0].duration.end,
       course: course,
       onDrop: jest.fn(),
       onDrag: jest.fn(),
