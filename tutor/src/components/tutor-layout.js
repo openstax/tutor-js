@@ -79,7 +79,7 @@ class TutorLayout extends React.Component {
               controls={this.secondaryTopControls}
             />}
           <ErrorMonitoring />
-          <TermsModal canBeDisplayed={Boolean(course)} />
+          <TermsModal />
           <Toasts />
           <CourseNagModal
             key={course || 'no-course'}

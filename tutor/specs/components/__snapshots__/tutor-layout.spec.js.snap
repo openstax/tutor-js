@@ -242,8 +242,8 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                   </Nav>
                                 </Navbar>
                                 <ServerErrorMonitoring />
-                                <inject-TermsModal-with-modalManager canBeDisplayed={false}>
-                                  <TermsModal canBeDisplayed={false} modalManager={{...}} />
+                                <inject-TermsModal-with-modalManager>
+                                  <TermsModal modalManager={{...}} />
                                 </inject-TermsModal-with-modalManager>
                                 <Toasts toasts={{...}} />
                                 <inject-CourseNagModal course={[undefined]}>

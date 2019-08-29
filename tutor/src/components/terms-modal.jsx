@@ -16,7 +16,6 @@ export default
 class TermsModal extends React.Component {
 
   static propTypes = {
-    canBeDisplayed: PropTypes.bool,
     modalManager: PropTypes.instanceOf(ModalManager).isRequired,
   }
 
@@ -32,7 +31,7 @@ class TermsModal extends React.Component {
 
   // for terms to be displayed the user must be in a course and need them signed
   @computed get isReady() {
-    return Boolean(!User.terms.api.isPending && this.props.canBeDisplayed && User.shouldSignTerms);
+    return Boolean(!User.terms.api.isPending && User.shouldSignTerms);
   }
 
   render() {
