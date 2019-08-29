@@ -1,5 +1,5 @@
 import { Factory } from '../../helpers';
-import Exercise from '../../../src/components/task-teacher-review/exercise';
+import Exercise from '../../../src/screens/teacher-review-metrics/exercise';
 
 
 describe('Task Teacher Review', () => {

@@ -11,7 +11,7 @@ import { Icon } from 'shared';
 import {
   ArbitraryHtmlAndMath, Question, ExerciseIdentifierLink,
 } from 'shared';
-import TourAnchor from '../tours/anchor';
+import TourAnchor from '../../components/tours/anchor';
 
 const FreeResponseReview = ({ free_response, student_names }) => {
   const freeResponseProps = { className: 'free-response' };

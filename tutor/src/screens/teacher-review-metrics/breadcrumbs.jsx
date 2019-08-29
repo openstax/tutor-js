@@ -1,13 +1,14 @@
 import { React, PropTypes, observer, inject, styled, autobind, computed, action, idType } from '../../helpers/react';
 import { map } from 'lodash';
-import TutorBreadcrumb from '../breadcrumb';
-import BackButton from '../buttons/back-button';
+import TutorBreadcrumb from '../../components/breadcrumb';
+import BackButton from '../../components/buttons/back-button';
 import { Stats } from '../../models/task-plans/teacher/stats';
 import TeacherTaskPlan from '../../models/task-plans/teacher/plan';
 
 const StyledBreadcrumbs = styled.div`
   display: flex;
   align-items: center;
+  padding: 0.5rem 2rem;
 `;
 
 const Steps = styled.div`

@@ -1,7 +1,7 @@
 import { C } from '../../helpers';
 import Factory, { FactoryBot } from '../../factories';
 import Courses from '../../../src/models/courses-map';
-import Breadcrumbs from '../../../src/components/task-teacher-review/breadcrumbs';
+import Breadcrumbs from '../../../src/screens/teacher-review-metrics/breadcrumbs';
 import Router from '../../../src/helpers/router';
 
 jest.mock('../../../src/helpers/router');

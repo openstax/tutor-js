@@ -10,6 +10,7 @@ exports[`Task Teacher Review: Breadcrumbs renders and matches snapshot 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  padding: 0.5rem 2rem;
 }
 
 .c1 {

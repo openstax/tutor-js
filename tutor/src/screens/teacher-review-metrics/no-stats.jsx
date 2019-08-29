@@ -1,13 +1,9 @@
 import React from 'react';
-import NoStudents from '../plan-stats/no-students';
-import CGL from '../course-grouping-label';
-import LoadingScreen from 'shared/components/loading-animation';
+import NoStudents from '../../components/plan-stats/no-students';
+import CGL from '../../components/course-grouping-label';
 
 // eslint-disable-next-line
-const NoStats = ({ taskPlan, header, course, period }) => {
-  if (!taskPlan.analytics.api.hasBeenFetched) {
-    return <LoadingScreen />;
-  }
+const NoStats = ({ header, course, period }) => {
 
   const body = period.hasEnrollments ? (
     <p>
