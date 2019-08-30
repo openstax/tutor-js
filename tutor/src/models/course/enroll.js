@@ -41,6 +41,10 @@ class CourseEnrollment extends BaseModel {
   }
 
   @computed get bodyContents() {
+    if (User.shouldSignTerms) {
+      return  null;
+    }
+
     if (this.isLoading) {
       return <Activity isLoading={true} />;
     } else if (this.isFromLms && false === this.courseIsLmsEnabled) {

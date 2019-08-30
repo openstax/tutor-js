@@ -49,6 +49,9 @@ class CourseEnroll extends React.Component {
 
   render() {
     const { enrollment } = this;
+    if (!enrollment.bodyContents) {
+      return null;
+    }
 
     return (
       <Modal.Dialog
@@ -58,4 +61,4 @@ class CourseEnroll extends React.Component {
       </Modal.Dialog>
     );
   }
-};
+}
