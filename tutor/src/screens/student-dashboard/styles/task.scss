@@ -2,7 +2,6 @@
 
   .task {
     background: $tutor-white;
-    border-top: thin dotted $tutor-neutral-light;
     position: relative;
     display: flex;
     width: 100%;
@@ -13,6 +12,8 @@
     height: $student-dashboard-row-height;
     min-height: $student-dashboard-row-height;
     max-height: $student-dashboard-row-height;
+    border-top: thin dotted $tutor-neutral-light;
+
     > * {
       display: flex;
       flex-direction: column;
@@ -75,6 +76,12 @@
     }
     transition: all 0.1s ease-in;
 
+  }
+  .not-open-notice {
+    border-top: thin dotted $tutor-neutral-light;
+  }
+  .not-open-notice + .task {
+    border-top: 0;
   }
 }
 
