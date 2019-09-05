@@ -1,6 +1,7 @@
 import { action, computed } from 'mobx';
 import { find, isEmpty, isObject, map } from 'lodash';
-import { identifiedBy, session } from 'shared/model';
+import { hasMany, identifiedBy, session } from 'shared/model';
+import Delegation from './delegation';
 import SharedExercise from 'shared/model/exercise';
 import CurrentUser from '../user';
 
@@ -9,6 +10,8 @@ export default
 class Exercise extends SharedExercise {
 
   @session error;
+
+  @hasMany({ model: Delegation }) delegations;
 
   @action onError(message) {
     this.error = message;
@@ -24,7 +27,9 @@ class Exercise extends SharedExercise {
 
   @computed get readOnlyReason() {
     if (this.isNew) { return null; } // new records can always be edited
-    if (!find(this.authors, { user_id: CurrentUser.id })) {
+    const userId = CurrentUser.id;
+    if (!find(this.authors.concat(this.copyright_holders), { user_id: userId }) &&
+        !find(this.delegations, { delegate_id: userId, delegate_type: 'User', can_update: true })) {
       return `Author: ${this.authors.names().join(',')}`;
     }
     return null;
@@ -33,4 +38,4 @@ class Exercise extends SharedExercise {
   @computed get canEdit() {
     return !this.readOnlyReason;
   }
-};
+}
