@@ -4,6 +4,7 @@ import Course from '../../models/course';
 import { observer } from 'mobx-react';
 import EventsCard from './events-panel';
 import LateIconLedgend from './late-icon-ledgend';
+import TeacherPendingLoad from './teacher-pending-load';
 
 export default
 @observer
@@ -28,7 +29,8 @@ class ThisWeekCard extends React.Component {
           emptyMessage='No assignments this week'
           spinner
         />
-        <LateIconLedgend tasks={tasks}/>
+        <TeacherPendingLoad course={this.props.course} />
+        <LateIconLedgend tasks={tasks} />
       </React.Fragment>
     );
   }

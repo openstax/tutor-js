@@ -9,7 +9,6 @@ import moment from 'moment';
 import Course from '../../models/course';
 import EmptyCard from './empty-panel';
 import EventRow from './event-row';
-import TeacherPendingLoad from './teacher-pending-load';
 
 export default
 @observer
@@ -76,7 +75,6 @@ class EventsCard extends React.Component {
           message={this.props.emptyMessage}
           spinner={this.props.spinner}
           tasks={this.props.events} />
-        <TeacherPendingLoad course={this.props.course} />
       </Card>
     );
   }
