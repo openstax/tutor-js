@@ -20,7 +20,7 @@ class TermsModal extends React.Component {
   }
 
   @computed get title() {
-    return String.toSentence(map(User.unsignedTerms, 'title'));
+    return String.toSentence(map(User.terms.unsigned, 'title'));
   }
 
   @action.bound onAgreement() { User.terms.sign(); }
@@ -31,7 +31,7 @@ class TermsModal extends React.Component {
 
   // for terms to be displayed the user must be in a course and need them signed
   @computed get isReady() {
-    return Boolean(!User.terms.api.isPending && User.shouldSignTerms);
+    return User.shouldSignTerms;
   }
 
   render() {
@@ -50,7 +50,7 @@ class TermsModal extends React.Component {
           <Branding isBeta={true} /> {this.title}
         </Modal.Header>
         <Modal.Body>
-          {map(User.unsignedTerms, (t) =>
+          {map(User.terms.unsigned, (t) =>
             <div key={t.id}>
               <h1 className="title">{t.title}</h1>
               <div dangerouslySetInnerHTML={{ __html: t.content }} />

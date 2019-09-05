@@ -1,8 +1,7 @@
 import {
   BaseModel, identifiedBy, identifier, field, belongsTo, hasMany,
 } from 'shared/model';
-
-import { computed } from 'mobx';
+import { computed, action, observe } from 'mobx';
 import { filter, isEmpty } from 'lodash';
 
 @identifiedBy('user/term')
@@ -25,7 +24,7 @@ class UserTerms extends BaseModel {
 
   constructor(attrs) {
     super(attrs);
-    if (this.user.terms_signatures_needed) { this.fetch(); }
+    observe(this.user, 'terms_signatures_needed', this.fetchIfNeeded);
   }
 
   onLoaded({ data }) {
@@ -37,8 +36,12 @@ class UserTerms extends BaseModel {
     return filter(this.terms, t => !t.is_signed);
   }
 
+  @action.bound fetchIfNeeded() {
+    if (this.user.terms_signatures_needed) { this.fetch(); }
+  }
+
   // will be overwritten by api
-  fetch() {}
+  fetch() { }
 
   onSigned() {
     this.user.terms_signatures_needed = false;
