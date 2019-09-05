@@ -285,8 +285,13 @@ class AssignmentBuilderUX {
 
   @action.bound togglePeriodTaskingsEnabled(ev) {
     this.isShowingPeriodTaskings = ev.target.value == 'periods';
+    if (this.isShowingPeriodTaskings) {
+      return;
+    }
+    const firstTasking = first(this.plan.tasking_plans);
     this.plan.tasking_plans = [];
-    const opens_at = calculateDefaultOpensAt({ course: this.course });
+    const opens_at = (firstTasking && firstTasking.opens_at) ||
+          calculateDefaultOpensAt({ course: this.course });
     this.periods.map((period) =>
       this.plan.findOrCreateTaskingForPeriod(period, { opens_at }),
     );

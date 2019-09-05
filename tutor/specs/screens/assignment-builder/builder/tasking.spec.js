@@ -10,7 +10,7 @@ describe('Tasking Builder', () => {
 
   beforeEach(() => {
     course = Factory.course();
-    plan = Factory.teacherTaskPlan({ course });
+    plan = Factory.teacherTaskPlan({ course, is_published: false });
     const ux = new UX({ course, plan });
     props = { ux };
   });
