@@ -92,6 +92,11 @@
     cursor: not-allowed;
     font-size: 1.3rem;
   }
+  &.is-disabled {
+    input {
+      cursor: not-allowed;
+    }
+  }
 }
 
 .is-invalid-form {
