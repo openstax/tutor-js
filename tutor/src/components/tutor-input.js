@@ -93,6 +93,7 @@ class TutorInput extends React.Component {
       this.props.className,
       {
         'is-required': this.props.required,
+        'is-disabled': this.props.disabled,
         'has-error': (this.state.errors != null ? this.state.errors.length : undefined),
       },
     );
@@ -213,6 +214,7 @@ class TutorDateInput extends React.Component {
         'is-required': this.props.required,
         'has-error': (this.state.errors != null ? this.state.errors.length : undefined),
         'disabled-datepicker':  isDatePickerDisabled,
+        'is-disabled': this.props.disabled,
       },
     );
 
@@ -267,7 +269,7 @@ class TutorDateInput extends React.Component {
         </div>
         <div className="date-wrapper">
           {dateElem}
-          <Icon type="calendar" />
+          {!this.props.disabled && <Icon type="calendar" />}
         </div>
       </div>
     );

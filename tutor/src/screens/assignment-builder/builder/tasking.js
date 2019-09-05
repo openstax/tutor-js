@@ -12,13 +12,22 @@ import SetTimeAsDefault from './set-time-as-default';
 
 const StyledTasking = styled(Row)`
 min-height: 7rem;
-.tutor-input.form-control-wrapper.tutor-input input[disabled] {
-  border-bottom: 0;
-}
 .react-datepicker-wrapper {
   height: 100%;
 }
 `;
+
+const StyledCantEditExplanation = styled(Col)`
+  margin-top: -25px;
+  font-size: 1.2rem;
+`;
+const CantEditExplanation = () => (
+  <Row>
+    <StyledCantEditExplanation xs={12}>
+       Cannot be edited after assignment is visible
+    </StyledCantEditExplanation>
+  </Row>
+);
 
 @observer
 class Tasking extends React.Component {
@@ -162,6 +171,7 @@ class Tasking extends React.Component {
                 value={tasking.opens_at}
                 min={this.minOpensAt}
                 max={this.maxOpensAt}
+                disabled={!tasking.canEditOpensAt}
                 onChange={this.onOpensDateChange}
               />
             </Col>
@@ -170,12 +180,14 @@ class Tasking extends React.Component {
                 required={true}
                 label="Open Time"
                 id={`${type}-open-time`}
+                disabled={!tasking.canEditOpensAt}
                 onChange={this.onOpensTimeChange}
                 value={tasking.opensAtTime}
               />
               <SetTimeAsDefault type="opens" tasking={tasking} />
             </Col>
           </Row>
+          {!tasking.canEditOpensAt && <CantEditExplanation />}
         </Col>
         <Col xs={12} md={6} className="due-at">
           <Row>

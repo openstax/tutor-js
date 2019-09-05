@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, field, action, session, computed,
 } from 'shared/model';
-import { pick, get, extend } from 'lodash';
+import { pick, get, extend, find } from 'lodash';
 import moment from 'moment';
 import Time from '../../time';
 import {
@@ -94,6 +94,20 @@ class TaskingPlan extends BaseModel {
       opens_at: this.opensAtMoment.format('YYYY-MM-DD HH:mm'),
       due_at: this.dueAtMoment.format('YYYY-MM-DD HH:mm'),
     });
+  }
+
+  @computed get unmodified() {
+    return find(this.plan.unmodified_plans, {
+      target_type: this.target_type, target_id: this.target_id,
+    });
+  }
+
+  @computed get canEditOpensAt() {
+    return Boolean(
+      !this.plan.isPublished ||
+        !this.unmodified ||
+        moment(this.unmodified.opens_at).isAfter(Time.now),
+    );
   }
 
   // resets the due at time to course default

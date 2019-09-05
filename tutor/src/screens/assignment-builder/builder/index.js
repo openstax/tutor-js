@@ -68,10 +68,6 @@ class TaskPlanBuilder extends React.Component {
                 Set date and time to now to open
                 immediately. Course time zone: <TimeZoneSettings course={course} />
               </p>
-              {plan.isVisibleToStudents && (
-                <p>
-                  Open times cannot be edited after assignment is visible to students.
-                </p>)}
             </div>
           </Col>
         </Row>

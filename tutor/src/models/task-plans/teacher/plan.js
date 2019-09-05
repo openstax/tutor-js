@@ -152,11 +152,8 @@ class TeacherTaskPlan extends BaseModel {
 
   @computed get areTaskingDatesSame() {
     return Boolean(
-      this.dateRanges.opens.start.isSame(
-        this.dateRanges.opens.end
-      ) && this.dateRanges.due.start.isSame(
-        this.dateRanges.due.end
-      )
+      0 === this.dateRanges.opens.start.diff(this.dateRanges.opens.end, 'minute') &&
+        0 === this.dateRanges.due.start.diff(this.dateRanges.due.end, 'minute')
     );
   }
 

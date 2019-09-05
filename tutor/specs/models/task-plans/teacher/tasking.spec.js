@@ -24,6 +24,21 @@ describe('Teacher tasking plan tasking', () => {
     });
   });
 
+  it('finds unmodified version', () => {
+    const attrs = { target_id: '123', target_type: 'test' };
+    plan.unmodified_plans.push(attrs);
+    tasking.update(attrs);
+    expect(tasking.unmodified).toEqual(attrs);
+  });
+
+  it('calculates if the opens_at can be edited', () => {
+    plan.is_published = false;
+    expect(tasking.canEditOpensAt).toBe(true);
+    plan.is_published = true;
+    tasking.unmodified.opens_at = '2015-10-10T12:00:00.000Z';
+    expect(tasking.canEditOpensAt).toBe(false);
+  });
+
   it('sets open/due but not past the opposing open/due', () => {
     tasking.setOpensDate(moment(now).year(2016));
 
@@ -70,7 +85,7 @@ describe('Teacher tasking plan tasking', () => {
     expect(tasking.defaultOpensAt()).toEqual(inCourseTime(plan.course.starts_at));
   });
 
-  fit('#initializeWithDueAt', () => {
+  it('#initializeWithDueAt', () => {
     expect(course.time_zone).toEqual('Central Time (US & Canada)');
 
     plan.course.default_open_time = '10:20';

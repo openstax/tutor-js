@@ -54,7 +54,7 @@
     color: $tutor-info;
     text-transform: none;
     padding: 0;
-    margin-top: -20px;
+    margin-top: -25px;
     border-radius: 0;
 
     &.is-waiting {
@@ -78,12 +78,12 @@
   }
   .required-hint.hint.valid-external-url-required {
     display: block;
-    margin-top: -20px;
+    margin-top: -25px;
   }
 }
 .due-before-open {
   line-height: 1.2rem;
-  margin: -20px 0 20px;
+  margin: -25px -15px;
 }
 
 .due-before-open,
