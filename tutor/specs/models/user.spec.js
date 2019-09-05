@@ -17,7 +17,6 @@ describe('User Model', () => {
     const spy = jest.fn();
     autorun(() => spy(User.name));
     expect(spy).toHaveBeenCalledWith(undefined);
-    expect(User.terms).toBeUndefined();
     User.bootstrap(USER_DATA);
     expect(spy).toHaveBeenCalledWith(USER_DATA.name);
     expect(User.terms).toBeInstanceOf(UserTerms);

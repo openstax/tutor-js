@@ -5,9 +5,8 @@ import { Term, UserTerms } from '../../src/models/user/terms';
 
 jest.mock('../../src/models/user', () => ({
   terms_signatures_needed: false,
-
-  get unsignedTerms() { return this.terms.unsigned; },
-  get shouldSignTerms() { return this.terms_signatures_needed && this.unsignedTerms.length > 0; },
+  terms: { unsigned: [] },
+  get shouldSignTerms() { return this.terms_signatures_needed && this.terms.unsigned.length > 0; },
 }));
 
 describe('Terms agreement modal', () => {
