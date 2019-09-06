@@ -123,15 +123,6 @@ describe('My Courses Component', function() {
     wrapper.unmount();
   });
 
-  it('displays popover help for verified instructor without courses', () => {
-    Courses.clear();
-    loadTeacherUser();
-    loadOfferings();
-    const wrapper = mount(<C><CourseListing /></C>);
-    expect(wrapper).toHaveRendered('[data-tour-anchor-id="explore-a-preview-zone"]');
-    wrapper.unmount();
-  });
-
   describe('non college instructors', () => {
     it('locks them out and displays message when they hve no courses', () => {
       loadTeacherUser();

@@ -217,7 +217,6 @@ class MyCoursesPreview extends React.Component {
       <MyCoursesBasic
         courses={take(courses, courses.length - 1)}
         baseName={'my-courses-preview'}
-        after={<ExploreAPreview course={last(courses)} />}
         title="Preview Courses"
       />
     );
