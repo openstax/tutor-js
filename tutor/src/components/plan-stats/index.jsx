@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
 import { observer } from 'mobx-react';
 import { observable, computed, action } from 'mobx';
 import { isEmpty, find } from 'lodash';
@@ -51,7 +50,9 @@ class Stats extends React.Component {
   }
 
   componentWillMount() {
-    this.analytics.fetch();
+    if (!this.analytics.api.hasBeenFetched) {
+      this.analytics.fetch();
+    }
   }
 
   @action.bound handlePeriodSelect(period, index) {
@@ -138,4 +139,4 @@ class Stats extends React.Component {
       </Card>
     );
   }
-};
+}
