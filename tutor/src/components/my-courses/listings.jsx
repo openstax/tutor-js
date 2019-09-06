@@ -3,7 +3,7 @@ import React from 'react';
 
 import { observer } from 'mobx-react';
 import { computed, observable } from 'mobx';
-import { isEmpty, merge, map, reject, last, take } from 'lodash';
+import { isEmpty, merge, map, take } from 'lodash';
 import { Col, Row, Container } from 'react-bootstrap';
 import classnames from 'classnames';
 
@@ -132,6 +132,8 @@ class MyCoursesBasic extends React.Component {
     title:    PropTypes.string.isRequired,
     baseName: PropTypes.string.isRequired,
     courses:  PropTypes.arrayOf( PropTypes.instanceOf(CourseModel) ).isRequired,
+    before:   PropTypes.element,
+    after:    PropTypes.element,
   }
 
   render() {
@@ -184,6 +186,7 @@ class MyCoursesFuture extends React.Component {
   }
 }
 
+// eslint-disable-next-line
 function ExploreAPreview({ course }) {
   return (
     <Col key={`my-courses-item-wrapper-${course.id}`} lg={3} md={4} sm={6} xs={12}>
