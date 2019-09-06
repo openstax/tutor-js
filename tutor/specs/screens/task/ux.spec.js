@@ -42,23 +42,25 @@ describe('Task UX Model', () => {
     ]);
   });
 
-  it('loads and scrolls to next mpq', async () => {
+  it('loads feedback and fixes scrolling if past that mpq', async () => {
     const i = 1 + ux.steps.findIndex(s => s.type == 'two-step-intro');
     ux.steps[i+1].uid = ux.groupedSteps[i].uid;
     const group = ux.groupedSteps[i];
     group.steps.forEach(s => s.fetchIfNeeded = jest.fn());
 
     const s = group.steps[0];
+    const nextS = group.steps[1];
     expect(s.multiPartGroup).toBe(group);
 
-    // set feedback in future
-    ux.task.feedback_at = new Date('2017-12-01T12:00:00.000Z');
+    // set feedback in past
+    ux.task.feedback_at = new Date('2017-10-13T12:00:00.000Z');
 
     s.save = jest.fn().mockResolvedValue({});
+    ux.moveToStep(nextS);
     await ux.onAnswerSave(s, { id: 1 });
     expect(s.save).toHaveBeenCalled();
     expect(ux.scroller.scrollToSelector).toHaveBeenCalledWith(
-      `[data-task-step-id="${group.steps[1].id}"]`
+      `[data-task-step-id="${nextS.id}"]`, { immediate: true }
     );
     group.steps.forEach(s => {
       expect(s.fetchIfNeeded).toHaveBeenCalled();

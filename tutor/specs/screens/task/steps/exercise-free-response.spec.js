@@ -1,7 +1,8 @@
 import {
   FreeResponseInput, FreeResponseReview,
 } from '../../../../src/screens/task/step/exercise-free-response';
-import { Factory, TimeMock, delay } from '../../../helpers';
+import TaskUX from '../../../../src/screens/task/ux';
+import { Factory, TestRouter, TimeMock, delay } from '../../../helpers';
 import { setFreeResponse } from '../helpers';
 import ResponseValidation from '../../../../src/models/response_validation';
 import Raven from '../../../../src/models/app/raven';
@@ -26,6 +27,7 @@ describe('Exercise Free Response', () => {
       response_validation: new ResponseValidation(),
       course: Factory.course(),
       question: step.content.questions[0],
+      taskUX: new TaskUX({ task, router: new TestRouter, course: Factory.course() }),
     };
   });
 
