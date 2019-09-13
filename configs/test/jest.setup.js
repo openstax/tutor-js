@@ -5,6 +5,10 @@ import { axe, toHaveNoViolations } from 'jest-axe';
 import faker from 'faker';
 import React from 'react'; // eslint-disable-line no-unused-vars
 import 'jest-styled-components';
+import { __DO_NOT_USE_OR_YOU_WILL_BE_HAUNTED_BY_SPOOKY_GHOSTS } from 'styled-components';
+
+// per https://github.com/styled-components/styled-components/issues/1613#issuecomment-529992291 the ghosts are both spooky & friendly
+__DO_NOT_USE_OR_YOU_WILL_BE_HAUNTED_BY_SPOOKY_GHOSTS.StyleSheet.reset(true);
 
 faker.seed(123);
 
