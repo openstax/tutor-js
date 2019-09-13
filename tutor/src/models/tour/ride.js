@@ -1,24 +1,8 @@
 import {
   BaseModel, identifiedBy, computed, session,
 } from 'shared/model';
-import { defaults, compact } from 'lodash';
 import { action, observable } from 'mobx';
-import { createTransformer } from 'mobx-utils';
-import { filter, extend, isEmpty } from 'lodash';
-import CustomComponents from '../../components/tours/custom';
-
-const DEFAULT_JOYRIDE_CONFIG = {
-  run: true,
-  type: 'continuous',
-  autoStart: true,
-  scrollToSteps: true,
-  scrollToFirstStep: true,
-  scrollOffset: 120, // below top navbar
-  disableOverlay: true, // poorly named: still shows overlay, but disables canceling tours when it's clicked
-  resizeDebounce: true,
-  resizeDebounceDelay: 200,
-  holePadding: 5,
-};
+import { find, filter } from 'lodash';
 
 export default
 @identifiedBy('tour/ride')
@@ -28,110 +12,97 @@ class TourRide extends BaseModel {
   @session({ type: 'object' }) context;
   @session({ type: 'object' }) region;
 
-  @observable currentStep = 0;
+  @observable _stepIndex = 0;
+  @observable _isReady = false;
   @observable joyrideRef;
 
-  @computed get joyrideProps() {
-    const { tour } = this;
-    if (!tour) { return {}; }
-    return defaults({
-      callback: this.joyrideCallback,
-      debug: this.context.emitDebugInfo,
-      tourId: tour.id,
-      ref: ref => {
-        if (ref) { this.joyrideRef = ref; }
-      },
-      locale: this.labels,
-      showStepsProgress: this.showStepsProgress,
-      scrollToSteps: tour.scrollToSteps,
-      showOverlay: tour.showOverlay,
-      steps: this.stepsToPlay,
-      className: tour.className,
-    }, DEFAULT_JOYRIDE_CONFIG);
+  constructor(attrs) {
+    super(attrs);
+    if (this.currentStep) {
+      this.currentStep.prepare().then(() => {
+        this._isReady = true;
+      });
+    } else {
+      this._isReady = true;
+    }
   }
 
-  // stepForRide checks if the steps are valid and returns null for the invalid ones
-  @computed get tourSteps() {
-    return compact(this.tour.steps.map(step => this.stepForRide(step)));
+  @computed get isReady() {
+    return Boolean(this._isReady && this.currentStep);
   }
 
-  @computed get validSteps() {
-    return filter(this.tourSteps, step => !!step);
+  @action.bound onCancel() {
+    this._stepIndex = this.validSteps.length;
+    this.markComplete(true);
   }
 
-  @computed get replaySteps() {
-    return filter(
-      this.tourSteps, (step, stepIndex) => !!(this.tour.steps[stepIndex].shouldReplay)
-    );
+  @action markComplete(exitedEarly = false) {
+    this.context.onTourComplete({ exitedEarly });
   }
 
-  @computed get hasValidSteps() {
-    return !isEmpty(this.validSteps);
-  }
-
-  @computed get stepsToPlay() {
-    return this.hasValidSteps? this.validSteps : this.replaySteps;
-  }
-
-  @computed get labels() {
+  @computed get props() {
     return {
-      back: 'Back',
-      close: 'Close',
-      last: 'Got It',
-      next: 'Next',
-      skip: 'Skip',
+      ride: this,
+      step: this.currentStep,
     };
   }
 
-  @computed get showStepsProgress() {
-    return this.stepsToPlay.length > 1;
+  @computed get currentStep() {
+    return (this.validSteps.length && this.validSteps[this._stepIndex]) || null;
   }
 
-  @action.bound
-  joyrideCallback({ index, type, action, step: joyRideStep }) {
-    if (type === 'finished' || (action === 'close' && type === 'beacon:before')) {
-      this.tour.markViewed({ exitedEarly: type !== 'finished' });
-    }
-    if (type === 'step:before'){ this.currentStep = index; }
-    if (!joyRideStep){ return; } // is of a type we don't care about
+  @computed get canGoBackward() {
+    return this._stepIndex > 0;
+  }
 
-    const { step } = joyRideStep;
-    if (type === 'step:before' && step.actionClass) {
-      joyRideStep.action = new step.actionClass(extend({
-        step, ride: this, selector: joyRideStep.selector,
-      }, step.action));
-      joyRideStep.action.beforeStep();
-    } else if (type === 'step:after' && joyRideStep.action) {
-      joyRideStep.action.afterStep();
+  @computed get canGoForward() {
+    return (this._stepIndex < this.validSteps.length - 1);
+  }
+
+  @computed get nextStep() {
+    return this.canGoForward ?
+      this.validSteps[this._stepIndex + 1] : null;
+  }
+
+  @action.bound async onPrevStep() {
+    if (this.canGoBackward) {
+      this._stepIndex -= 1;
     }
+  }
+
+  @action.bound async onNextStep() {
+    const { nextStep } = this;
+    await this.currentStep.complete();
+    if (!nextStep) {
+      this.context.onTourComplete();
+      return Promise.resolve();
+    }
+    await nextStep.prepare();
+    this._stepIndex += 1;
+    return Promise.resolve();
+  }
+
+  @computed get validSteps() {
+    return filter(this.tour.steps, 'isViewable');
+  }
+
+  @computed get hasValidSteps() {
+    return !!find(this.tour.steps, 'isViewable');
+  }
+
+  @computed get nextLabel() {
+    if (!this.canGoForward || !this.showStepsProgress) { // last step
+      return 'Close';
+    }
+    return `Next ${this._stepIndex + 1}/${this.validSteps.length}`;
+  }
+
+  @computed get showStepsProgress() {
+    return this.validSteps.length > 1;
   }
 
   get window() {
     return this.windowStub || window;
-  }
-
-  stepForRide = createTransformer(step => {
-    if (step.anchor_id && !this.context.anchors.has(step.anchor_id)) {
-      return null;
-    }
-    const props = step.joyrideStepProperties;
-
-    if (step.customComponent && CustomComponents[step.customComponent]) {
-      props.StepComponent = CustomComponents[step.customComponent];
-      props.joyrideRef = this.joyrideRef;
-      props.region = this.region;
-    }
-
-    return extend(props, {
-      step,
-      selector: (step.anchor_id ? this.context.anchors.get(step.anchor_id) : this.region.domSelector),
-    });
-  });
-
-  dispose() {
-    if (this.joyrideRef) {
-      this.joyrideRef.reset(true);
-    }
   }
 
 }

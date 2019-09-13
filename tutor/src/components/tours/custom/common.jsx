@@ -1,13 +1,23 @@
-import React        from 'react';
-
-import classnames   from 'classnames';
-import { forEach }  from 'lodash';
-
+/* eslint-disable react/prop-types */
+import { React, styled, cn } from '../../../helpers/react';
+import { Primary }  from './buttons';
 import CourseUX from '../../../models/course/ux';
 import CourseBranding from '../../branding/course';
 
-function ValueProp({ className, children }) {
-  return <div className={classnames('value-prop', className)}>{children}</div>;
+const Footer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+function ValueProp({ className, children, ride }) {
+  return (
+    <div className={cn('value-prop', className)}>
+      {children}
+      <Footer>
+        <Primary onClick={ride.onNextStep}>Continue</Primary>
+      </Footer>
+    </div>
+  );
 }
 
 function ColumnContent({ children }) {
@@ -15,40 +25,7 @@ function ColumnContent({ children }) {
 }
 
 function Column({ className, children }) {
-  return <div className={classnames('column', className)}>{children}</div>;
-}
-
-function getClickTarget(clickEvent) {
-  return clickEvent.currentTarget.className.includes('joyride-') && [
-    'A',
-    'BUTTON',
-  ].includes(clickEvent.currentTarget.tagName) ? clickEvent.currentTarget : clickEvent.target;
-}
-
-function bindClickHandler(handlers) {
-
-  return ((clickEvent) => {
-    const el = getClickTarget(clickEvent);
-    const dataType = el.dataset.type;
-
-    let handled = false;
-
-    if (el.className.indexOf('joyride-') === 0) {
-      forEach(handlers, (handler, name) => {
-        if (dataType === name) {
-          clickEvent.preventDefault();
-          clickEvent.stopPropagation();
-
-          handled = handler(clickEvent) || handled;
-        }
-      });
-    }
-
-    if (!handled) {
-      this.props.step.joyrideRef.onClickTooltip(clickEvent);
-    }
-
-  });
+  return <div className={cn('column', className)}>{children}</div>;
 }
 
 function TutorValueColumns({ withoutCost }) {
@@ -80,46 +57,22 @@ function TutorValueColumns({ withoutCost }) {
   );
 }
 
-function TutorCoachSunset(props) {
-  return (
-    <ValueProp className="cc-sunset">
-      <h1 className="heading">Looking for your Concept Coach courses?</h1>
-      <ColumnContent>
-        <Column className="thanks">
-          <p>Thanks for participating in the<br/>
-            Concept Coach pilot! Read our<br/>
-            <a
-              target="_blank"
-              href="https://openstax.org/blog/concept-coach-ending-greater-tools-are-coming"
-            >blog post</a> to find out what we learned and how we’re moving forward.</p>
-        </Column>
-        <Column className="export-by">
-          <p>The last day to export your<br/>
-            Concept Coach scores reports is October 1.</p>
-        </Column>
-        {props.children}
-      </ColumnContent>
-    </ValueProp>
-  );
-}
 
 function WelcomeToTutorMessage(props) {
-
+  const { className, children } = props;
   return (
-    <ValueProp className="welcome-to-tutor">
+    <ValueProp {...props} className={cn('welcome-to-tutor', className)}>
       <h1 className="heading">Welcome to <CourseBranding />!</h1>
-      {props.children}
+      {children}
       <TutorValueColumns {...props} />
     </ValueProp>
   );
 }
 
 export {
+  Column,
   ValueProp,
   ColumnContent,
-  Column,
   TutorValueColumns,
-  TutorCoachSunset,
   WelcomeToTutorMessage,
-  bindClickHandler,
 };

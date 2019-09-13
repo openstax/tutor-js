@@ -1,13 +1,12 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { computed, observable, observe } from 'mobx';
+import { React, PropTypes } from '../../helpers/react';
+import { observe, computed, observable } from 'mobx';
 import { Provider, observer, inject } from 'mobx-react';
 import { autobind } from 'core-decorators';
-import Joyride from 'react-joyride';
 import TourContext from '../../models/tour/context';
 import User from '../../models/user';
 import { SpyModeContext, SpyModeContent } from 'shared/components/spy-mode';
 import ModalManager from '../modal-manager';
+import Step from './step';
 
 export default
 @inject('modalManager', 'spyMode')
@@ -15,6 +14,7 @@ export default
 class TourConductor extends React.Component {
 
   @observable tourContext;
+  @observable menuOpen = false;
 
   static propTypes = {
     children: PropTypes.node.isRequired,
@@ -26,9 +26,7 @@ class TourConductor extends React.Component {
   constructor(props) {
     super(props);
     this.tourContext = props.tourContext || new TourContext();
-  }
 
-  componentWillMount() {
     this.props.modalManager.queue(this, 2);
     this.spyModeObserverDispose = observe(this.props.spyMode, 'isEnabled', this.onSpyModelChange);
   }
@@ -49,10 +47,33 @@ class TourConductor extends React.Component {
   }
 
   renderTour() {
-    if (!this.props.modalManager.canDisplay(this) || !this.isReady) { return null; }
+    const { tourRide } = this.tourContext;
 
-    return this.tourContext.tourRide ?
-      <Joyride {...this.tourContext.tourRide.joyrideProps} /> : null;
+    if (!tourRide || !tourRide.isReady) {
+      return null;
+    }
+
+    //   // = props.tourContext || new TourContext();
+    // if (!this.menuOpen) { return null; }
+
+    return (
+      <Step {...tourRide.props} />
+    );
+    //         );
+    // return (
+    //   <Floater
+    //     autoOpen={true}
+    //     placement="left"
+    //     target=".support-document-link.dropdown-item"
+    //     content="This is the Floater content"
+    //   >
+    //     <span>click me</span>
+    //   </Floater>
+    // );
+    // // if (!this.props.modalManager.canDisplay(this) || !this.isReady) { return null; }
+
+    // // return this.tourContext.tourRide ?
+    // //   <Joyride {...this.tourContext.tourRide.joyrideProps} /> : null;
   }
 
   renderSpyModeInfo() {

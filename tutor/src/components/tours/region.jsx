@@ -31,6 +31,7 @@ class TourRegion extends React.Component {
     ]),
     children: PropTypes.node.isRequired,
     tourContext: PropTypes.instanceOf(TourContext),
+    tours: PropTypes.array,
     tag: PropTypes.string,
     delay: PropTypes.number,
     className: PropTypes.string,
@@ -48,8 +49,10 @@ class TourRegion extends React.Component {
   }
 
   // not really sure this is needed, but we may update the courseId somwhere
-  componentWillReceiveProps({ id, tours, courseId }) {
-    invariant(id === this.props.id,
+  componentDidUpdate(prevProps) {
+    const { id, tours, courseId } = this.props;
+
+    invariant(id === prevProps.id,
       `Cannot update region id, was ${this.props.id} attempted to set ${id}`);
     if (tours) { this.region.tour_ids = tours; }
     this.region.courseId = courseId;
@@ -70,4 +73,4 @@ class TourRegion extends React.Component {
     }, this.props.children);
   }
 
-};
+}

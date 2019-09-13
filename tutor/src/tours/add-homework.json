@@ -94,7 +94,8 @@
     {
       "title": "Congratulations!",
       "body": "You just published your first homework assignment. Now, find the homework on your calendar and:\n\n* Get a direct link for your learning management system\n* Edit or delete the assignment\n* View student completion and performance metrics, once students complete it.",
-      "customComponent": "CenteredNoHoleWheel"
+      "shouldShowSpotlight": false,
+      "displayAs": "splash"
     }
   ]
 }]

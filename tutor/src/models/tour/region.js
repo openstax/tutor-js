@@ -21,8 +21,13 @@ class TourRegion extends BaseModel {
     return this.otherTours.slice().reverse().concat( [this.id] ).reverse();
   }
 
-  @computed get domSelector() {
+  @computed get target() {
     return `[data-tour-region-id="${this.id}"]`;
   }
 
-};
+  get element() {
+    return document.querySelector(this.target);
+  }
+
+
+}

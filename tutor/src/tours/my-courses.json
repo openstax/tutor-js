@@ -28,7 +28,7 @@
       "position": "right",
       "title": "Create a course anytime!",
       "body":  "Click here to create a real course.",
-      "customComponent": "NoCloseAndFooter"
+      "customComponent": "NoClose"
     }
   ]
 }, {
@@ -44,10 +44,10 @@
   "steps": [
     {
       "anchor_id": "explore-a-preview-zone",
-      "position": "top-left",
+      "position": "top-start",
       "title": "Explore a preview!",
       "body":  "See all features in action with a preview course first.  When you're ready, create a real course above.",
-      "customComponent": "NoCloseAndFooter"
+      "customComponent": "NoClose"
     }
   ]
 }

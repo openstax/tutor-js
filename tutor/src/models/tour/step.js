@@ -3,7 +3,7 @@ import {
 } from 'shared/model';
 
 import {
-  computed,
+  computed, action,
 } from 'mobx';
 
 import Markdown from 'markdown-it';
@@ -30,17 +30,64 @@ class TourStep extends BaseModel {
   @field title;
   @field body;
   @field position;
+  @field isCancelable = true;
   @field is_fixed;
   @field anchor_id;
   @field customComponent;
+  @field spotlight = true;
+  @field displayAs = 'standard';
+  @field spotLightPadding = 5;
   @field requiredViewsCount = 1;
+  @field displayWithButtons = true;
   @field({ type: 'object' }) action;
   @field className;
+
+  @computed get target() {
+    return this.anchor_id ? `[data-tour-anchor-id="${this.anchor_id}"]` : null;
+  }
+
+  get element() {
+    return this.target ? document.querySelector(this.target) : null;
+  }
+
+  @computed get placement() {
+    if (!this.element) { return 'center'; }
+    return (this.anchor_id && this.position) ? this.position : 'auto';
+  }
+
+  @computed get isCentered() {
+    return this.position == 'center';
+  }
+
   @computed get actionClass() {
     if (!this.action) { return null; }
     return Actions.forIdentifier(this.action.id);
+  }
 
+  @computed get actionInstance() {
+    return this.actionClass && new this.actionClass({
+      step: this,
+      ...this.action,
+    });
+  }
 
+  @computed get shouldShowSpotlight() {
+    return Boolean((this.anchor_id || this.isCentered) && this.spotlight);
+  }
+
+  @action complete() {
+    return (this.actionInstance && this.actionInstance.afterStep()) || Promise.resolve();
+    //      this.actionClass && this.actionClass
+    // joyRideStep.action.afterStep();
+
+  }
+
+  @action prepare() {
+    return (this.actionInstance && this.actionInstance.beforeStep()) || Promise.resolve();
+  }
+
+  get isViewable() {
+    return Boolean(!this.target || this.element);
   }
 
   @computed get HTML() {
@@ -51,14 +98,14 @@ class TourStep extends BaseModel {
     return this.requiredViewsCount > this.tour.viewCounts;
   }
 
-  @computed get joyrideStepProperties() {
-    return {
-      title: this.title,
-      text:  this.HTML,
-      isFixed: !!this.is_fixed,
-      className: this.className,
-      style: this.supersize ? { width: 1000, padding: 0 } : {},
-      position: this.position || ( this.anchor_id ? 'top' : 'center' ),
-    };
-  }
-};
+  // @computed get joyrideStepProperties() {
+  //   return {
+  //     title: this.title,
+  //     text:  this.HTML,
+  //     isFixed: !!this.is_fixed,
+  //     className: this.className,
+  //     style: this.supersize ? { width: 1000, padding: 0 } : {},
+  //     position: this.position || ( this.anchor_id ? 'top' : 'center' ),
+  //   };
+  // }
+}
