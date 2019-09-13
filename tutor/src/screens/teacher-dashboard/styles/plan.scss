@@ -70,7 +70,9 @@ $calendar-inactive-background: $tutor-neutral;
         display: none,
       }
     }
-
+    .tour-anchor {
+      width: 100%;
+    }
     &.is-published,
     &.is-publishing {
       @include tutor-plan-set(display);

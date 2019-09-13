@@ -98,14 +98,4 @@ class TourStep extends BaseModel {
     return this.requiredViewsCount > this.tour.viewCounts;
   }
 
-  // @computed get joyrideStepProperties() {
-  //   return {
-  //     title: this.title,
-  //     text:  this.HTML,
-  //     isFixed: !!this.is_fixed,
-  //     className: this.className,
-  //     style: this.supersize ? { width: 1000, padding: 0 } : {},
-  //     position: this.position || ( this.anchor_id ? 'top' : 'center' ),
-  //   };
-  // }
 }

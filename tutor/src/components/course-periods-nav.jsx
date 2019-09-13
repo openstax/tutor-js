@@ -8,7 +8,6 @@ import { isNil, map } from 'lodash';
 import classnames from 'classnames';
 import Course from '../models/course';
 import Courses from '../models/courses-map';
-import PeriodHelper from '../helpers/period';
 import Tabs from './tabs';
 
 export default
@@ -72,7 +71,6 @@ class CoursePeriodsNav extends React.Component {
   render() {
     return (
       <Tabs
-        ref="tabs"
         tabs={map(this.sortedPeriods, this.renderPeriod)}
         onSelect={this.onTabSelection}
       >
@@ -80,4 +78,4 @@ class CoursePeriodsNav extends React.Component {
       </Tabs>
     );
   }
-};
+}

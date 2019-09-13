@@ -1,5 +1,4 @@
 import { LMSErrors } from '../../../src/components/toasts/lms';
-import { EnzymeContext } from '../../helpers';
 import { getPortalNode as PC } from '../../helpers';
 
 import { Toast } from 'shared/model/toasts';
@@ -29,14 +28,14 @@ describe('LMS Background job toasts', () => {
   });
 
   it('pluralizes error count', () => {
-    let toast = mount(<LMSErrors {...props} />, EnzymeContext.build());
+    let toast = mount(<LMSErrors {...props} />);
     expect(PC(toast).textContent).toContain(
       'Course averages for 1 student could not be sent'
     );
     toast.props().toast.info.errors.push({
       student_identifier: '4321', student_name: 'Jane', score: 0.923,
     });
-    toast = mount(<LMSErrors {...props} />, EnzymeContext.build());
+    toast = mount(<LMSErrors {...props} />);
     expect(PC(toast).textContent).toContain(
       'Course averages for 2 students could not be sent'
     );
@@ -44,7 +43,7 @@ describe('LMS Background job toasts', () => {
   });
 
   it('toggles error list', () => {
-    toast = mount(<LMSErrors {...props} />, EnzymeContext.build());
+    toast = mount(<LMSErrors {...props} />);
     expect(
       PC(toast).textContent
     ).toContain('There may be an issue');

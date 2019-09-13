@@ -15,10 +15,9 @@ export default class TaskUX {
   @observable _stepIndex = 0;
   @observable viewedInfoSteps = [];
 
-  constructor({ task, stepIndex = 0, router, windowImpl, course }) {
-    this.router = router;
+  constructor({ task, stepIndex = 0, history, windowImpl, course }) {
+    this.history = history;
     this._task = task;
-
     this.window = windowImpl || window;
     this.course = course || task.tasksMap.course;
     this.becomeStudentIfNeeded();
@@ -182,7 +181,7 @@ export default class TaskUX {
     CenterControls.currentTaskStep = this.currentStep;
 
     if (recordInHistory && isChanged) {
-      this.router.history.push(
+      this.history.push(
         Router.makePathname('viewTaskStep', {
           id: this.task.id,
           courseId: this.course.id,

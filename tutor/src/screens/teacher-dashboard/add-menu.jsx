@@ -12,7 +12,7 @@ export default class CourseAddMenu {
   }
 
   @autobind goToBuilder(link, key, ev) {
-    this.options.router.history.push(link);
+    this.options.history.push(link);
     ev.preventDefault();
   }
 

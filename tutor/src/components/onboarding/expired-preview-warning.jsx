@@ -1,14 +1,28 @@
-import React from 'react';
+import { React, PropTypes, withRouter, observer }  from '../../helpers/react';
 import { Button } from 'react-bootstrap';
-import { observer } from 'mobx-react';
 
 import { OnboardingNag, GotItOnboardingNag, Heading, Body, Footer } from './onboarding-nag';
 
 export default
+@withRouter
 @observer
-class ExpiredPreviewWarning extends GotItOnboardingNag {
+class ExpiredPreviewWarning extends React.Component {
 
-  renderPrompt() {
+  static propTypes = {
+    ux: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+  }
+
+  render() {
+    return (
+      <GotItOnboardingNag
+        {...this.props}
+        promptRenderer={this.renderPrompt}
+      />
+    );
+  }
+
+  renderPrompt(onAddCourse, onContinue) {
     return (
       <OnboardingNag className="only-preview">
         <Heading>
@@ -18,11 +32,12 @@ class ExpiredPreviewWarning extends GotItOnboardingNag {
           Want to create a real course that students can access? Click “Create a course” on the top right of your dashboard.
         </Body>
         <Footer>
-          <Button variant="primary" onClick={this.onAddCourse}>Create a course</Button>
-          <Button variant="default" onClick={this.onContinue}>Stay in Preview course</Button>
+          <Button variant="primary" onClick={onAddCourse}>Create a course</Button>
+          <Button variant="default" onClick={onContinue}>Stay in Preview course</Button>
         </Footer>
       </OnboardingNag>
     );
   }
 
-};
+
+}

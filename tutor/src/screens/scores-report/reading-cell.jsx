@@ -17,11 +17,7 @@ class ReadingCell extends React.Component {
     ux: PropTypes.instanceOf(UX).isRequired,
     className: PropTypes.string,
     columnIndex: PropTypes.number.isRequired,
-    task: PropTypes.shape({
-      id: PropTypes.number,
-      type: PropTypes.string,
-      status: PropTypes.string,
-    }).isRequired,
+    task: PropTypes.object.isRequired,
   }
 
   @observable isShowingPopover = false;
@@ -47,25 +43,28 @@ class ReadingCell extends React.Component {
         target={this.getPieChartTarget}
         show={this.isShowingPopover}
         onHide={this.hide}
-        placement="left">
+        placement="left"
+      >
         <Popover
           onMouseOver={this.show}
           onMouseLeave={this.hide}
           id={`scores-cell-info-popover-${task.id}`}
-          className="scores-scores-tooltip-completed-info">
-          <div className="info">
-            <div className="row">
-              <div>
-                Completed {task.humanCompletedPercent}
+          className="scores-scores-tooltip-completed-info"
+        >
+          <Popover.Content>
+            <div className="info">
+              <div className="row">
+                <div>
+                  Completed {task.humanCompletedPercent}
+                </div>
+              </div>
+              <div className="row">
+                <div>
+                  {task.humanProgress}
+                </div>
               </div>
             </div>
-            <div className="row">
-              <div>
-                {task.humanProgress}
-              </div>
-            </div>
-          </div>
-
+          </Popover.Content>
         </Popover>
       </Overlay>
     );

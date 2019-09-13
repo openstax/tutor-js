@@ -5,7 +5,7 @@ import { isNil, extend, partial, map, get } from 'lodash';
 import Router from '../helpers/router';
 import PropTypes from 'prop-types';
 import qs from 'qs';
-
+import { __RouterContext } from 'react-router-dom';
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 
@@ -26,8 +26,11 @@ FakeEvent.initClass();
 const getTab = (props) => Router.currentQuery(props.windowImpl).tab;
 
 export default
+
 @observer
-class CourseSettings extends React.Component {
+class Tabs extends React.Component {
+
+  static contextType = __RouterContext;
 
   static propTypes = {
     onSelect: PropTypes.func.isRequired,
@@ -39,6 +42,7 @@ class CourseSettings extends React.Component {
       PropTypes.oneOfType([ PropTypes.string, PropTypes.element ])
     ).isRequired,
     windowImpl: PropTypes.object,
+    children: PropTypes.node,
   }
 
   static defaultProps = {
@@ -46,13 +50,9 @@ class CourseSettings extends React.Component {
     initialActive: 0,
   }
 
-  static contextTypes = {
-    router: PropTypes.object,
-  }
-
   @observable activeIndex = isNil(getTab(this.props)) ? this.props.initialActive : parseInt(getTab(this.props));
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     // the router tab query param specified a different value than initialActive
     if (this.activeIndex !== this.props.initialActive) {
       const ev = new FakeEvent;
@@ -64,7 +64,7 @@ class CourseSettings extends React.Component {
   }
 
   // called when the router has transistioned, validate the new tabindex
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const tab = get(nextProps, 'params.tab');
     if (isNil(tab)) { return; }
 
@@ -74,9 +74,9 @@ class CourseSettings extends React.Component {
     const ev = new FakeEvent;
     this.props.onSelect(activeIndex, ev);
     if (ev.isDefaultPrevented()) {
-      if (this.context.router) {
-        this.context.router.history.push(
-          this.context.router.getCurrentPathname(), {}, { tab: this.activeIndex },
+      if (this.context) {
+        this.context.history.push(
+          this.context.location.pathname, {}, { tab: this.activeIndex },
         );
       }
     } else {
@@ -87,8 +87,8 @@ class CourseSettings extends React.Component {
   // callable from the parent component via a ref
   @action.bound selectTabIndex(activeIndex) {
     const query = extend(Router.currentQuery(this.props.windowImpl), { tab: activeIndex });
-    if (this.context.router != null) {
-      this.context.router.history.push(
+    if (this.context.history) {
+      this.context.history.push(
         this.props.windowImpl.location.pathname + '?' + qs.stringify(query)
       );
     }
@@ -134,4 +134,4 @@ class CourseSettings extends React.Component {
       </nav>
     );
   }
-};
+}

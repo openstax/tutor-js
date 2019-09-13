@@ -1,4 +1,4 @@
-import { React, Factory, EnzymeContext, FakeWindow } from '../../helpers';
+import { React, Factory, R, FakeWindow } from '../../helpers';
 import ReferenceBook from '../../../src/screens/reference-book/reference-book';
 import ReferenceBookUX from '../../../src/screens/reference-book/ux';
 import Router from '../../../src/helpers/router';
@@ -11,12 +11,12 @@ jest.mock('../../../../shared/src/components/html', () => ({ html }) =>
 );
 
 describe('Reference Book Component', function() {
-  let props, ux, router;
+  let props, ux, history;
   let course;
 
   beforeEach(function() {
-    router = { foo: 1, history: { push: jest.fn() } };
-    ux = new ReferenceBookUX(router, null,
+    history = { push: jest.fn() };
+    ux = new ReferenceBookUX(history, null,
       { windowImpl: new FakeWindow() }
     );
 
@@ -41,27 +41,27 @@ describe('Reference Book Component', function() {
   });
 
   it('renders the section title on the navbar', () => {
-    const book = mount(<ReferenceBook {...props} />, EnzymeContext.build());
+    const book = mount(<R><ReferenceBook {...props} /></R>);
     expect(book).toHaveRendered('BookPage');
   });
 
   it('navigates forward and back between pages', function() {
     Router.makePathname.mockReturnValue('/test/route/3');
-    const book = mount(<ReferenceBook {...props} />, EnzymeContext.build());
+    const book = mount(<R><ReferenceBook {...props} /></R>);
     book.find('.paging-control.next').simulate('click');
-    expect(router.history.push).toHaveBeenCalledWith('/test/route/3');
+    expect(history.push).toHaveBeenCalledWith('/test/route/3');
   });
 
 
   it('sets the menu item to be active based on the current page', function() {
-    const book = mount(<ReferenceBook {...props} />, EnzymeContext.build());
+    const book = mount(<R><ReferenceBook {...props} /></R>);
     expect(book).toHaveRendered(`.book-menu li[data-section='${ux.page.chapter_section.asString}'] .active`);
   });
 
   it('displays a not found message when needed', () => {
     ux.pageId = '9999';
     expect(ux.isFetching).toBe(false);
-    const book = mount(<ReferenceBook {...props} />, EnzymeContext.build());
+    const book = mount(<R><ReferenceBook {...props} /></R>);
     expect(book).toHaveRendered('.not-found');
     expect(book.text()).toContain('not found');
   });

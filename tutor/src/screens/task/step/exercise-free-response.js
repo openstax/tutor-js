@@ -38,11 +38,14 @@ const TextArea = styled.textarea`
   border: 1px solid ${Theme.colors.neutral.std};
   ${props => props.isErrored && TextAreaErrorStyle}
 `;
+TextArea.displayName = 'TextArea';
 
 const AnswerButton = styled(Button)`
   align-self: flex-start;
   margin: 0;
 `;
+AnswerButton.displayName = 'AnswerButton';
+
 
 @observer
 class FreeResponseReview extends React.Component {

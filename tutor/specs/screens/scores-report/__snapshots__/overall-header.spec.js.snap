@@ -1,53 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Student Scores Overall Cell renders and matches snapshot 1`] = `
-"<_class ux={{...}} rowIndex={2}>
+"<Memo(wrappedComponent) ux={{...}} rowIndex={2}>
   <div className=\\"header-cell-wrapper overall-average is-expanded\\">
     <SetWeightsModal ux={{...}} />
     <div className=\\"overall-header-cell\\">
-      <_class ux={{...}}>
+      <Memo(wrappedComponent) ux={{...}}>
         <Icon className=\\"averages-toggle\\" type=\\"chevron-left\\" onClick={[Function: res]} tooltip=\\"Hide assignment averages\\" buttonProps={{...}} tooltipProps={{...}}>
           <OverlayTrigger placement=\\"auto\\" trigger={{...}} overlay={{...}} defaultOverlayShown={false}>
             <RefHolder>
-              <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-chevron-left averages-toggle\\" onClick={[Function: res]} onFocus={[Function]} onBlur={[Function]} onMouseOver={[Function]} onMouseOut={[Function]}>
-                <Button variant=\\"plain\\" className=\\"ox-icon-chevron-left averages-toggle\\" onClick={[Function: res]} onFocus={[Function]} onBlur={[Function]} onMouseOver={[Function]} onMouseOut={[Function]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                  <button onClick={[Function: res]} onFocus={[Function]} onBlur={[Function]} onMouseOver={[Function]} onMouseOut={[Function]} disabled={false} type=\\"button\\" className=\\"ox-icon-chevron-left averages-toggle btn btn-plain\\">
-                    <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-chevron-left averages-toggle\\" icon={{...}}>
-                      <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-chevron-left averages-toggle\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-                        <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-chevron-left averages-toggle IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                          <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"chevron-left\\" className=\\"svg-inline--fa fa-chevron-left fa-w-10 ox-icon ox-icon-chevron-left averages-toggle IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 320 512\\" style={{...}} data-variant={[undefined]}>
-                            <path fill=\\"currentColor\\" d=\\"M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z\\" style={{...}} />
-                          </svg>
-                        </FontAwesomeIcon>
-                      </StyledComponent>
-                    </IconWrapper>
-                  </button>
-                </Button>
-              </ForwardRef(Bootstrap(Button))>
+              <Button variant=\\"plain\\" className=\\"ox-icon-chevron-left averages-toggle\\" onClick={[Function: res]} active={false} disabled={false} type=\\"button\\" onFocus={[Function]} onBlur={[Function]} onMouseOver={[Function]} onMouseOut={[Function]}>
+                <button onClick={[Function: res]} disabled={false} onFocus={[Function]} onBlur={[Function]} onMouseOver={[Function]} onMouseOut={[Function]} type=\\"button\\" className=\\"ox-icon-chevron-left averages-toggle btn btn-plain\\">
+                  <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-chevron-left averages-toggle\\" icon={{...}}>
+                    <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-chevron-left averages-toggle\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
+                      <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-chevron-left averages-toggle IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                        <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"chevron-left\\" className=\\"svg-inline--fa fa-chevron-left fa-w-10 ox-icon ox-icon-chevron-left averages-toggle IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 320 512\\" style={{...}} data-variant={[undefined]}>
+                          <path fill=\\"currentColor\\" d=\\"M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z\\" style={{...}} />
+                        </svg>
+                      </FontAwesomeIcon>
+                    </StyledComponent>
+                  </IconWrapper>
+                </button>
+              </Button>
             </RefHolder>
-            <Overlay placement=\\"auto\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={[Function: Fade]} rootClose={false}>
-              <ForwardRef(withContainer(Overlay)) placement=\\"auto\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} rootClose={false} transition={[Function: Fade]}>
+            <Overlay placement=\\"auto\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}} rootClose={false}>
+              <ForwardRef(withContainer(Overlay)) placement=\\"auto\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} rootClose={false} transition={{...}}>
                 <WaitForContainer container={[undefined]}>
-                  <Overlay placement=\\"auto\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} rootClose={false} transition={[Function: Fade]} container={{...}} />
+                  <Overlay placement=\\"auto\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} rootClose={false} transition={{...}} container={{...}} />
                 </WaitForContainer>
               </ForwardRef(withContainer(Overlay))>
             </Overlay>
           </OverlayTrigger>
         </Icon>
-      </_class>
+      </Memo(wrappedComponent)>
       <div className=\\"avg\\">
         <b>
           Averages
         </b>
-        <_class ux={{...}}>
-          <ForwardRef(Bootstrap(Button)) variant=\\"link\\" className=\\"set-weights\\" onClick={[Function: res]}>
-            <Button variant=\\"link\\" className=\\"set-weights\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-              <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"set-weights btn btn-link\\">
-                Set weights
-              </button>
-            </Button>
-          </ForwardRef(Bootstrap(Button))>
-        </_class>
+        <Memo(wrappedComponent) ux={{...}}>
+          <Button variant=\\"link\\" className=\\"set-weights\\" onClick={[Function: res]} active={false} disabled={false} type=\\"button\\">
+            <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"set-weights btn btn-link\\">
+              Set weights
+            </button>
+          </Button>
+        </Memo(wrappedComponent)>
       </div>
     </div>
     <div className=\\"header-row labels\\">
@@ -102,5 +98,5 @@ exports[`Student Scores Overall Cell renders and matches snapshot 1`] = `
       </div>
     </div>
   </div>
-</_class>"
+</Memo(wrappedComponent)>"
 `;

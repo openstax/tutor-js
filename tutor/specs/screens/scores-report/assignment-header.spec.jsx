@@ -1,4 +1,4 @@
-import { React, Router as R } from '../../helpers';
+import { React } from '../../helpers';
 import bootstrapScores from '../../helpers/scores-data.js';
 import UX from '../../../src/screens/scores-report/ux';
 import Header from '../../../src/screens/scores-report/assignment-header';
@@ -25,9 +25,6 @@ describe('Scores Report: assignment column header', function() {
     const wrapper = shallow(<Header {...props} />);
     expect(wrapper.find('.header-cell.title').render().text()).toEqual(heading.title);
     expect(wrapper).toHaveRendered('Time');
-    // expect.snapshot(
-    //   <R><Header {...props} /></R>
-    // ).toMatchSnapshot();
   });
 
   it('renders properly when average is undefined for an external assignment', () => {

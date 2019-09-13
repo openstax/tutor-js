@@ -38,7 +38,7 @@ class StudentScores extends React.Component {
     return (this.course.currentRole.isTeacher && 'Student Scores') || 'Scores';
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.course.scores.fetch();
   }
 

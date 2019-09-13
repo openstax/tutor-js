@@ -1,4 +1,4 @@
-import { React, Factory } from '../../helpers';
+import { React, Factory, R } from '../../helpers';
 import BuilderUX from '../../../src/screens/new-course/ux';
 import BuildCourse from '../../../src/screens/new-course/build-course';
 
@@ -13,6 +13,6 @@ describe('CreateCourse: saving new course', function() {
   });
 
   it('matches snapshot', function() {
-    expect.snapshot(<BuildCourse ux={ux} />).toMatchSnapshot();
+    expect.snapshot(<R><BuildCourse ux={ux} /></R>).toMatchSnapshot();
   });
 });

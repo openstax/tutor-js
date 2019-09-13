@@ -25,6 +25,7 @@ const LoadingCard = styled(InnerStepCard)`
   min-width: 960px;
   padding: 2rem;
 `;
+LoadingCard.displayName = 'LoadingCard';
 
 const StepCard = ({ unpadded, className, children, ...otherProps }) => (
   <OuterStepCard {...otherProps}>

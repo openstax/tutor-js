@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { Dropdown } from 'react-bootstrap';
 import Course from '../../models/course';
 import Time from '../../models/time';
-
+import { withRouter } from 'react-router-dom';
 import AddMenu from './add-menu';
 
 export default
 @observer
+@withRouter
 class AddAssignmentPopUp extends React.Component {
 
   static propTypes = {
@@ -15,13 +16,10 @@ class AddAssignmentPopUp extends React.Component {
     x: PropTypes.number,
     y: PropTypes.number,
     date: PropTypes.object,
+    history: PropTypes.object.isRequired,
   }
 
-  static contextTypes = {
-    router: PropTypes.object.isRequired,
-  }
-
-  addMenu = new AddMenu({ router: this.context.router });
+  addMenu = new AddMenu({ history: this.props.history });
 
   get dateType() {
     const { date } = this.props;

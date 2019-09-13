@@ -34,10 +34,15 @@ class DropStudentLink extends React.Component {
 
   confirmPopOver() {
     return (
-      <Popover id="drop-student" title={this.popOverTitle()}>
-        <Button className="-drop-student" onClick={this.performDeletion} variant="danger">
-          <Icon type="ban" /> Drop
-        </Button>
+      <Popover id="drop-student">
+        <Popover.Title>
+          this.popOverTitle()}
+        </Popover.Title>
+        <Popover.Content>
+          <Button className="-drop-student" onClick={this.performDeletion} variant="danger">
+            <Icon type="ban" /> Drop
+          </Button>
+        </Popover.Content>
       </Popover>
     );
   }
@@ -56,4 +61,4 @@ class DropStudentLink extends React.Component {
       </OverlayTrigger>
     );
   }
-};
+}

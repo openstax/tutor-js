@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import { observer } from 'mobx-react';
 import { omit } from 'lodash';
 import { computed, action } from 'mobx';
+import { withRouter } from 'react-router-dom';
 import Router from '../../helpers/router';
 import TutorLink from '../link';
 import { Icon } from 'shared';
@@ -24,16 +25,14 @@ const CoursePropType = PropTypes.shape({
 });
 
 
+@withRouter
 @observer
 class CoursePreview extends React.Component {
-
-  static contextTypes = {
-    router: PropTypes.object,
-  }
 
   static propTypes = {
     course: PropTypes.instanceOf(CourseModel).isRequired,
     className: PropTypes.string,
+    history: PropTypes.object.isRequired,
   }
 
   @computed get ux () {
@@ -43,7 +42,7 @@ class CoursePreview extends React.Component {
   @action.bound redirectToCourse() {
     const { props: { course: { previewCourse } } } = this;
     if ( !previewCourse ) { return; }
-    this.context.router.history.push(Router.makePathname(
+    this.props.history.push(Router.makePathname(
       'dashboard', { courseId: previewCourse.id },
     ));
   }

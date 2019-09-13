@@ -14,7 +14,7 @@ import CoursePage from '../../components/course-page';
 import BackButton from '../../components/buttons/back-button';
 import './styles.scss';
 
-const ThankYou = ({ survey }) => {
+const ThankYou = () => {
   const params = Router.currentParams();
   const backLink = params.courseId ? { to: 'dashboard', text: 'Back to Dashboard', params } :
     { to: 'myCourses', text: 'Back to My Courses' };
@@ -42,7 +42,7 @@ class Surveys extends React.Component {
     }).isRequired,
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (!this.studentTaskPlans.api.isFetchedOrFetching) {
       this.studentTaskPlans.fetch();
     }
@@ -97,4 +97,4 @@ class Surveys extends React.Component {
   }
 
 
-};
+}

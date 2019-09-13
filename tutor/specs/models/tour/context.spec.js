@@ -123,13 +123,11 @@ describe('Tour Context Model', () => {
     expect(context.tour).toBe(Tour.forIdentifier('homework-assignment-editor'));
   });
 
-  it('calls dispose on old ride it changes', () => {
+  it('closes ride when it changes', () => {
     context.openRegion(region);
     context.playTriggeredTours();
-    const ride = context.tourRide;
-    ride.dispose = jest.fn();
     context.closeRegion(region);
+    expect(context.tour).toBeNull();
     expect(context.tourRide).toBeNull();
-    expect(ride.dispose).toHaveBeenCalled();
   });
 });

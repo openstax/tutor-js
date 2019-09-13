@@ -1,8 +1,6 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { React, PropTypes, action, observable, observer, withRouter } from '../../helpers/react';
 import { get } from 'lodash';
 import { Row, Col, Card } from 'react-bootstrap';
-import { action, observable } from 'mobx';
 import { includes } from 'lodash';
 import UpcomingCard from './upcoming-panel';
 import AllEventsByWeek from './all-events-by-week';
@@ -18,16 +16,16 @@ import NotificationHelpers from '../../helpers/notifications';
 import TourRegion from '../../components/tours/region';
 import Surveys from './surveys';
 
-export default class StudentDashboard extends React.Component {
+export default
+@withRouter
+@observer
+class StudentDashboard extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
     params: PropTypes.object.isRequired,
-  }
-
-  // router context is needed for Navbar helpers
-  static contextTypes = {
-    router: PropTypes.object,
+    // router's history is needed for Navbar helpers
+    history: PropTypes.object.isRequired,
   }
 
   @observable tabIndex = 0;

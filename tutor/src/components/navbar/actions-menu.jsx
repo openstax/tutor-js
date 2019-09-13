@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
 import TutorRouter from '../../helpers/router';
+import { withRouter } from 'react-router-dom';
 import { Route } from 'react-router';
 import { partial, flatMap, isEmpty, omit } from 'lodash';
 import classnames from 'classnames';
@@ -45,6 +46,11 @@ const RoutedDropdownItem = (props) => {
   );
 };
 
+RoutedDropdownItem.propTypes = {
+  route: PropTypes.object.isRequired,
+};
+
+
 // eslint-disable-next-line
 function BrowseBookDropdownItem({ course, className, active, label, ...props }) {
   return (
@@ -59,27 +65,27 @@ function BrowseBookDropdownItem({ course, className, active, label, ...props }) 
     </Dropdown.Item>
   );
 }
-
+BrowseBookDropdownItem.propTypes = {
+  course: PropTypes.instanceOf(Course).isRequired,
+};
 const CustomComponents = {
   browseBook: BrowseBookDropdownItem,
 };
 
 export default
+@withRouter
 @observer
 class ActionsMenu extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course),
-  }
-
-  static contextTypes = {
-    router: PropTypes.object,
+    history: PropTypes.object.isRequired,
   }
 
   @autobind
   transitionToDropdownItem(href, evKey, clickEvent) {
     clickEvent.preventDefault();
-    this.context.router.history.push(href);
+    this.props.history.push(href);
   }
 
   @autobind

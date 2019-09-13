@@ -1,5 +1,5 @@
-import { React, EnzymeContext } from '../../helpers';
-import { each, pick } from 'lodash';
+import { React, R } from '../../helpers';
+import { each } from 'lodash';
 import bootstrapScores from '../../helpers/scores-data.js';
 import UX from '../../../src/screens/scores-report/ux';
 import SetWeightsModal from '../../../src/screens/scores-report/set-weights-modal';
@@ -18,7 +18,7 @@ xdescribe('Scores Report: set weights modal', () => {
     props = { ux };
     props.ux.weights.onSetClick();
     modal = wrapModalContents(
-      mount(<SetWeightsModal {...props} />, EnzymeContext.build()),
+      mount(<R><SetWeightsModal {...props} /></R>),
     );
   });
 

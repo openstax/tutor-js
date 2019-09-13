@@ -1,15 +1,14 @@
-import { React, observer, cn, observable } from '../../helpers/react';
-import PropTypes from 'prop-types';
+import { React, PropTypes, observer, cn, observable } from '../../helpers/react';
 import { Button, Card } from 'react-bootstrap';
-import { isFunction } from 'lodash';
+import { pick, isFunction } from 'lodash';
+import { withRouter } from 'react-router-dom';
 import BackButton from './back-button';
 import CourseOfferingTitle from './offering-title';
 import OXFancyLoader from 'shared/components/staxly-animation';
-
-import * as Steps from './steps';
-const componentFor = key => Steps[ key ];
-
 import BuilderUX from './ux';
+import * as Steps from './steps';
+
+const componentFor = key => Steps[ key ];
 
 const Footer = observer(({ ux }) => {
   const Component = componentFor(ux.stage);
@@ -39,6 +38,10 @@ const Footer = observer(({ ux }) => {
   );
 });
 
+Footer.propTypes = {
+  ux: PropTypes.object,
+};
+
 const Title = observer(({ ux }) => {
   let { title } = componentFor(ux.stage);
   if (isFunction(title)) { title = title(ux); }
@@ -54,16 +57,23 @@ const Title = observer(({ ux }) => {
   );
 });
 
+Title.propTypes = {
+  ux: PropTypes.object,
+};
+
 
 export default
+@withRouter
 @observer
 class NewCourseWizard extends React.Component {
 
-  @observable ux = this.props.ux || new BuilderUX({ router: this.context.router });
-
-  static contextTypes = {
-    router: PropTypes.object,
+  static propTypes = {
+    ux: PropTypes.object,
   }
+
+  @observable ux = this.props.ux || new BuilderUX({
+    router: pick(this.props, 'history', 'route'),
+  });
 
   render() {
     const wizardClasses = cn('new-course-wizard', this.ux.stage, {
@@ -92,4 +102,4 @@ class NewCourseWizard extends React.Component {
       </Card>
     );
   }
-};
+}

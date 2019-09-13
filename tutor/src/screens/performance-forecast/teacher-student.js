@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import createReactClass from 'create-react-class';
 import { Dropdown, Container } from 'react-bootstrap';
 import BackButton from '../../components/buttons/back-button';
@@ -14,18 +15,16 @@ import Guide from './guide';
 import InfoLink from './info-link';
 import ColorKey from './color-key';
 
-export default createReactClass({
-  displayName: 'PerformanceForecastTeacherStudentDisplay',
 
-  contextTypes: {
-    router: PropTypes.object,
-  },
+const Display = createReactClass({
+  displayName: 'PerformanceForecastTeacherStudentDisplay',
 
   mixins: [BindStoreMixin],
 
   propTypes: {
     courseId: PropTypes.string.isRequired,
     roleId:   PropTypes.string.isRequired,
+    history:  PropTypes.object.isRequired,
   },
 
   getInitialState() {
@@ -39,11 +38,11 @@ export default createReactClass({
 
   bindStore: PerformanceForecast.TeacherStudent.store,
 
-  onSelectStudent(roleId, ev) {
+  onSelectStudent(roleId) {
     const { courseId } = this.props;
     PerformanceForecast.TeacherStudent.actions.load(courseId, { roleId });
     this.setState({ roleId });
-    return this.context.router.history.push(
+    return this.props.history.push(
       Router.makePathname('viewPerformanceGuide', { courseId, roleId })
     );
   },
@@ -138,3 +137,5 @@ export default createReactClass({
     );
   },
 });
+
+export default withRouter(Display);

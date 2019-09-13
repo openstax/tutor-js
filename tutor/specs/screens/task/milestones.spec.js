@@ -10,7 +10,7 @@ describe('Reading Milestones Component', () => {
     props = {
       goToStep: jest.fn(),
       onHide: jest.fn(),
-      ux: new UX({ task, course: Factory.course(), router: new TestRouter() }),
+      ux: new UX({ task, course: Factory.course(), history: new TestRouter().history }),
     };
   });
 

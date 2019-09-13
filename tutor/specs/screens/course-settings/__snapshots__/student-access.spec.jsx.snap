@@ -315,7 +315,6 @@ exports[`Course Settings, student access can switch to lms 1`] = `
             <label
               className="btn active btn-default"
               disabled={false}
-              type={null}
             >
               <input
                 autoComplete="off"
@@ -333,7 +332,6 @@ exports[`Course Settings, student access can switch to lms 1`] = `
             <label
               className="btn btn-default"
               disabled={false}
-              type={null}
             >
               <input
                 autoComplete="off"
@@ -351,7 +349,6 @@ exports[`Course Settings, student access can switch to lms 1`] = `
             <label
               className="btn btn-default"
               disabled={false}
-              type={null}
             >
               <input
                 autoComplete="off"
@@ -369,7 +366,6 @@ exports[`Course Settings, student access can switch to lms 1`] = `
             <label
               className="btn btn-default"
               disabled={false}
-              type={null}
             >
               <input
                 autoComplete="off"
@@ -387,7 +383,6 @@ exports[`Course Settings, student access can switch to lms 1`] = `
             <label
               className="btn btn-default"
               disabled={false}
-              type={null}
             >
               <input
                 autoComplete="off"

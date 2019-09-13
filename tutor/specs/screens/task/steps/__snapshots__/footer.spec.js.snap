@@ -2,13 +2,13 @@
 
 exports[`Task Step Footer matches snapshot 1`] = `
 "<StepFooter course={{...}} step={{...}}>
-  <StyledExerciseFooter>
+  <styled.div>
     <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
-      <div className=\\"StyledExerciseFooter-sc-7wyi4k-0 jLaQDQ\\">
-        <StyledExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"405335a3-7cff-4df2-a9ad-29062a4af261\\" related_content={{...}}>
+      <div className=\\"sc-bxivhb cEQTPP\\">
+        <Styled(ExerciseIdentifierLink) exerciseId=\\"1@1\\" bookUUID=\\"405335a3-7cff-4df2-a9ad-29062a4af261\\" related_content={{...}}>
           <StyledComponent exerciseId=\\"1@1\\" bookUUID=\\"405335a3-7cff-4df2-a9ad-29062a4af261\\" related_content={{...}} forwardedComponent={{...}} forwardedRef={{...}}>
-            <ExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"405335a3-7cff-4df2-a9ad-29062a4af261\\" related_content={{...}} className=\\"StyledExerciseIdentifierLink-sc-7wyi4k-1 jcMshY\\">
-              <div className=\\"exercise-identifier-link StyledExerciseIdentifierLink-sc-7wyi4k-1 jcMshY\\">
+            <ExerciseIdentifierLink exerciseId=\\"1@1\\" bookUUID=\\"405335a3-7cff-4df2-a9ad-29062a4af261\\" related_content={{...}} className=\\"sc-ifAKCX crbrIy\\">
+              <div className=\\"exercise-identifier-link sc-ifAKCX crbrIy\\">
                 ID# 
                 1@1
                  | 
@@ -18,18 +18,18 @@ exports[`Task Step Footer matches snapshot 1`] = `
               </div>
             </ExerciseIdentifierLink>
           </StyledComponent>
-        </StyledExerciseIdentifierLink>
+        </Styled(ExerciseIdentifierLink)>
         <RelatedContentLink course={{...}} content={{...}} preamble=\\"Comes from\\">
-          <StyledRelatedContentLink className=\\"related-content-link\\">
+          <styled.div className=\\"related-content-link\\">
             <StyledComponent className=\\"related-content-link\\" forwardedComponent={{...}} forwardedRef={{...}}>
-              <div className=\\"related-content-link StyledRelatedContentLink-g6utdm-0 fjvkMq\\">
-                <Preamble>
+              <div className=\\"related-content-link sc-bdVaJa dQAnX\\">
+                <styled.span>
                   <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
-                    <span className=\\"Preamble-g6utdm-2 preamble iQkOQQ\\">
+                    <span className=\\"sc-htpNat preamble cCqyCc\\">
                       Comes from
                     </span>
                   </StyledComponent>
-                </Preamble>
+                </styled.span>
                 <BrowseTheBook unstyled={true} chapterSection={{...}} course={{...}} tabIndex={-1} tag=\\"a\\" windowImpl={{...}}>
                   <a aria-label=\\"Browse course reference book\\" onClick={[Function: res]} tabIndex={-1} href=\\"/book/1/section/1.2\\" target=\\"_blank\\" className=\\"browse-the-book\\">
                     <ChapterSection chapterSection={{...}}>
@@ -37,21 +37,21 @@ exports[`Task Step Footer matches snapshot 1`] = `
                         1.2
                       </span>
                     </ChapterSection>
-                    <Title>
+                    <styled.span>
                       <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
-                        <span className=\\"Title-g6utdm-1 title ldKDQH\\">
+                        <span className=\\"sc-bwzfXH title gBxlbc\\">
                           Angiosperms
                         </span>
                       </StyledComponent>
-                    </Title>
+                    </styled.span>
                   </a>
                 </BrowseTheBook>
               </div>
             </StyledComponent>
-          </StyledRelatedContentLink>
+          </styled.div>
         </RelatedContentLink>
       </div>
     </StyledComponent>
-  </StyledExerciseFooter>
+  </styled.div>
 </StepFooter>"
 `;

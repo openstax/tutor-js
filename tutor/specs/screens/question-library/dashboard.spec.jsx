@@ -1,7 +1,6 @@
-import { EnzymeContext, C } from '../../helpers';
+import { C } from '../../helpers';
 import Factory, { FactoryBot } from '../../factories';
 import { slice, last } from 'lodash';
-import { SnapShot, Wrapper } from '../../helpers';
 import Dashboard from '../../../src/screens/question-library/dashboard';
 import ExerciseHelpers from '../../../src/helpers/exercise';
 import ScrollTo from '../../../src/helpers/scroll-to';

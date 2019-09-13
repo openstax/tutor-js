@@ -14,7 +14,7 @@ export default
 @inject('modalManager')
 @observer
 class TermsModal extends React.Component {
-
+    
   static propTypes = {
     modalManager: PropTypes.instanceOf(ModalManager).isRequired,
   }
@@ -25,7 +25,7 @@ class TermsModal extends React.Component {
 
   @action.bound onAgreement() { User.terms.sign(); }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.modalManager.queue(this, 1);
   }
 

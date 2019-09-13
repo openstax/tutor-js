@@ -26,10 +26,6 @@ class TeacherReviewMetrics extends React.Component {
     windowImpl: PropTypes.object,
   };
 
-  static contextTypes = {
-    router: PropTypes.object,
-  };
-
   @computed get course() {
     return Courses.get(this.props.params.courseId);
   }
@@ -53,7 +49,7 @@ class TeacherReviewMetrics extends React.Component {
     return find(this.taskPlan.analytics.stats, { period_id: this.period.id });
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.taskPlan.fetch().then(() =>
       this.taskPlan.analytics.fetchReview(),
     );

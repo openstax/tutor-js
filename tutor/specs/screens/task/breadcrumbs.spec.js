@@ -13,7 +13,7 @@ describe('Homework Breadcrumbs Component', () => {
     props = {
       unDocked: true,
       goToStep: jest.fn(),
-      ux: new UX({ task, router: new TestRouter }),
+      ux: new UX({ task, history: new TestRouter().history }),
     };
   });
 

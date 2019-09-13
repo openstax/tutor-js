@@ -23,13 +23,11 @@ class CourseCalendarTitleNav extends React.Component {
 
   state = { date: this.props.date || moment(Time.now) };
 
-  componentWillReceiveProps(nextProps) {
-    if (!moment(nextProps.date).isSame(this.state.date, 'month')) {
-      this.setState({ date: nextProps.date });
+  componentDidUpdate(prevProps) {
+    if (!moment(prevProps.date).isSame(this.state.date, 'month')) {
+      this.setState({ date: prevProps.date });
     }
-  }
 
-  componentDidUpdate() {
     const { setDate } = this.props;
     return (
       (typeof setDate === 'function' ? setDate(this.state.date) : undefined)

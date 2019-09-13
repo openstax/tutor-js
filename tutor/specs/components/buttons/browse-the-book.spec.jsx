@@ -1,4 +1,4 @@
-import { C, EnzymeContext } from '../../helpers';
+import { C } from '../../helpers';
 import BTB from '../../../src/components/buttons/browse-the-book';
 import Factory from '../../factories';
 import FakeWindow from 'shared/specs/helpers/fake-window';
@@ -20,9 +20,8 @@ describe(BTB, () => {
   });
 
   it('can use custom tag', () => {
-    const context = EnzymeContext.build();
     props.tag = 'div';
-    const btb = mount(<BTB {...props} />, context);
+    const btb = mount(<C><BTB {...props} /></C>);
     btb.find('div.browse-the-book').simulate('click');
     expect(props.windowImpl.open).toHaveBeenCalledWith(
       `/book/${course.id}/page/${props.page.id}`

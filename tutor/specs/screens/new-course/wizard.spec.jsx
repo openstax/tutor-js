@@ -1,5 +1,4 @@
-import { Factory, React, SnapShot } from '../../helpers';
-
+import { R, React } from '../../helpers';
 import Router from '../../../src/helpers/router';
 import BuilderUX from '../../../src/screens/new-course/ux';
 import Wizard from '../../../src/screens/new-course/wizard';
@@ -30,7 +29,7 @@ describe('Creating a course', function() {
   });
 
   it('displays as loading and then sets stage when done', async function() {
-    const wrapper = shallow(<Wizard {...props} />);
+    const wrapper = mount(<R><Wizard {...props} /></R>);
     expect(await axe(wrapper.html())).toHaveNoViolations();
     expect(props.ux.isBusy).toBe(true);
     expect(wrapper).toHaveRendered('StaxlyAnimation[isLoading=true]');
@@ -39,10 +38,10 @@ describe('Creating a course', function() {
   });
 
   it('advances and can go back', async function() {
-    const wrapper = mount(<Wizard {...props} />);
+    const wrapper = mount(<R><Wizard {...props} /></R>);
 
     expect(await axe(wrapper.html())).toHaveNoViolations();
-    expect(wrapper.instance().ux.currentStageIndex).toEqual(0);
+    expect(props.ux.currentStageIndex).toEqual(0);
     props.ux.offerings.api.requestsInProgress.clear();
     expect(props.ux.isBusy).toBe(false);
 
@@ -54,12 +53,12 @@ describe('Creating a course', function() {
     expect(props.ux.currentStageIndex).toEqual(1);
     expect(wrapper).toHaveRendered('SelectDates');
     wrapper.find('.btn.back').simulate('click');
-    expect(wrapper.instance().ux.currentStageIndex).toEqual(0);
+    expect(props.ux.currentStageIndex).toEqual(0);
     expect(wrapper).toHaveRendered('SelectCourse');
   });
 
   it('matches snapshot', function() {
     props.ux.offerings.api.requestsInProgress.clear();
-    expect.snapshot(<Wizard {...props} />).toMatchSnapshot();
+    expect.snapshot(<R><Wizard {...props} /></R>).toMatchSnapshot();
   });
 });

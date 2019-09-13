@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NewCourse wrapper renders and matches snapshot 1`] = `
-<C
-  path="/"
->
+<C>
   <NewCourse />
 </C>
 `;

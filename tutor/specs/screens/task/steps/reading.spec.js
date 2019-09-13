@@ -18,7 +18,7 @@ describe('Reading Tasks Screen', () => {
     const ux = new UX({
       task,
       course: Factory.course(),
-      router: new TestRouter(),
+      history: new TestRouter(),
     });
     props = {
       ux,
@@ -26,6 +26,7 @@ describe('Reading Tasks Screen', () => {
       windowImpl: new FakeWindow,
     };
   });
+
 
   it('matches snapshot', () => {
     expect.snapshot(<Reading {...props} />).toMatchSnapshot();

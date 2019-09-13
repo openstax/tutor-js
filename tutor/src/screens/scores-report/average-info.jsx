@@ -5,12 +5,17 @@ import { Icon } from 'shared';
 export default function AverageInfo() {
   const popover = (
     <Popover
-      title="Class performance"
+      title=""
       id="scores-average-info-popover"
       className="scores-average-info-popover"
     >
-      Class performance reflects class-wide averages of assignment scores and
-      assignment progress. This metric includes scores and work completed by the due date.
+      <Popover.Title>
+        Class performance
+      </Popover.Title>
+      <Popover.Content>
+        Class performance reflects class-wide averages of assignment scores and
+        assignment progress. This metric includes scores and work completed by the due date.
+      </Popover.Content>
     </Popover>
   );
 

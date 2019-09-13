@@ -50,25 +50,28 @@ class HomeworkCell extends React.Component {
           target={this.getPieChartTarget}
           show={this.isShowingPopover}
           onHide={this.hide}
-          placement="left">
+          placement="left"
+        >
           <Popover
             onMouseOver={this.show}
             onMouseLeave={this.hide}
             id={`scores-cell-info-popover-${task.id}`}
             className="scores-scores-tooltip-completed-info"
           >
-            <div className="info">
-              <div className="row">
-                <div>
-                  Completed {task.humanCompletedPercent}
+            <Popover.Content>
+              <div className="info">
+                <div className="row">
+                  <div>
+                    Completed {task.humanCompletedPercent}
+                  </div>
+                </div>
+                <div className="row">
+                  <div>
+                    {task.humanProgress} questions
+                  </div>
                 </div>
               </div>
-              <div className="row">
-                <div>
-                  {task.humanProgress} questions
-                </div>
-              </div>
-            </div>
+            </Popover.Content>
           </Popover>
         </Overlay>
         {progress}

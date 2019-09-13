@@ -14,10 +14,8 @@ describe('QA Screen', function() {
   let props, ux, book;
 
   beforeEach(function() {
-    const router = {
-      history: {
-        push: jest.fn(),
-      },
+    const history = {
+      push: jest.fn(),
     };
     const exercises = Factory.exercisesMap();
     const ecosystems = Factory.ecosystemsMap();
@@ -28,7 +26,7 @@ describe('QA Screen', function() {
       });
       return Promise.resolve();
     });
-    ux = new QaUX({ router, exercises, ecosystems });
+    ux = new QaUX({ history, exercises, ecosystems });
     const ecosystem = ux.ecosystemsMap.array[0];
 
     ux.update({

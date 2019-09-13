@@ -20,10 +20,6 @@ function NewTabLink(props) {
 
 NewTabLink.displayName = 'NewTabLink';
 
-NewTabLink.contextTypes = {
-  router: PropTypes.object,
-};
-
 NewTabLink.defaultProps = {
   target: '_blank',
   hideIcon: false,

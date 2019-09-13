@@ -1,13 +1,13 @@
-import React from 'react';
+import { React, observer, PropTypes } from '../../helpers/react';
 import Switch from 'react-bootstrap-switch';
-import { observer, propTypes as mobxPropTypes } from 'mobx-react';
+
 
 export default
 @observer
 class ViewToggle extends React.Component {
 
   static propTypes = {
-    ux: mobxPropTypes.observableObject.isRequired,
+    ux: PropTypes.object.isRequired,
   }
 
   render() {
@@ -25,4 +25,4 @@ class ViewToggle extends React.Component {
     );
   }
 
-};
+}

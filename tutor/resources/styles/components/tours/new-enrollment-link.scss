@@ -1,78 +1,53 @@
-.new-enrollment-link-wheel {
+.tour-step.new-enrollment-link {
   color: $openstax-neutral;
+  width: 540px;
+  padding: 0;
+  font-size: 1.6rem;
 
-  &.joyride-tooltip {
+  .header {
     color: inherit;
-    width: 540px;
-    font-size: 1.6rem;
-
-    @media only screen and (max-width:1050px) {
-      width: 540px;
-    }
-    @media only screen and (max-width:850px) {
-      width: 540px;
-    }
-    padding: 0;
-    border-radius: 0;
-
+    font-size: inherit;
+    font-weight: 800;
+    line-height: 3.6rem;
+    border: none;
+    background: rgba($openstax-quaternary, 0.4);
+    display: flex;
+    padding: 2rem 3rem;
+    color: black;
   }
 
-  .joyride-tooltip__{
-    &header {
-      color: inherit;
-      font-size: inherit;
-      font-weight: 800;
-      line-height: 3.6rem;
-      border: none;
-      background: rgba($openstax-quaternary, 0.4);
-      display: flex;
-      padding: 2rem 3rem;
-    }
+  .body {
+    line-height: 1.8em;
+    font-size: inherit;
+    color: black;
+    padding: 2rem 3rem;
+  }
 
-    &main {
-      line-height: 1.8em;
-      font-size: inherit;
-    }
+  .footer {
+    padding: 2rem 3rem;
 
-    &header~.joyride-tooltip__main {
-      padding: 3rem 3rem 1rem 3rem;
-    }
-
-    &footer {
-      text-align: left;
-      padding: 1rem 3rem 3rem 3rem;
-    }
-
-    &button--skip,
-    &button--primary {
+    button {
       padding: 1.7rem 3rem;
       border-radius: 2px;
-    }
 
-    &button--primary {
-      background-color: $tutor-white;
-      color: $openstax-neutral-dark;
-      border: thin solid $tutor-neutral-light;
-
-      &:hover {
+      &:first-child {
+        font-weight: bold;
+        background-color: $tutor-primary;
+        color: $tutor-white;
+        &:hover {
+          background-color: darken($tutor-primary, 5);
+        }
+      }
+      &:last-child {
+        background-color: $tutor-white;
         color: $openstax-neutral-dark;
-        background-color: $openstax-neutral-lightest;
+        border: thin solid $tutor-neutral-light;
+        &:hover {
+          color: $openstax-neutral-dark;
+          background-color: $openstax-neutral-lightest;
+        }
       }
-    }
-
-    &button--skip {
-      font-weight: bold;
-      background-color: $tutor-primary;
-      color: $tutor-white;
-
-      &:hover {
-        background-color: darken($tutor-primary, 5);
-      }
-    }
-
-    &close--header {
-      top: 3rem;
-      right: 3rem;
     }
   }
+
 }

@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Reading Tasks Screen matches snapshot 1`] = `
-<C
-  path="/"
->
+<C>
   <HomeworkTask
     ux={
       TaskUX {
@@ -1057,23 +1055,11 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
           "webview_url": "https://qa.cnx.org/contents/185cbf87-c72e-48f5-b51e-f14f21b5eabd",
           "year": 2017,
         },
-        "router": TestRouter {
-          "history": Object {
-            "createHref": [MockFunction],
-            "listen": [MockFunction],
-            "push": [MockFunction],
-            "replace": [MockFunction],
-          },
-          "route": Object {
-            "hash": "",
-            "location": Object {
-              "pathname": "/",
-            },
-            "match": Object {
-              "params": Object {},
-            },
-            "search": "",
-          },
+        "history": Object {
+          "createHref": [MockFunction],
+          "listen": [MockFunction],
+          "push": [MockFunction],
+          "replace": [MockFunction],
         },
         "viewedInfoSteps": Array [],
         "window": [Window],

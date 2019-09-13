@@ -56,10 +56,10 @@ exports[`Notes Summary Page matches snapshot 1`] = `
                 </Icon>
               </button>
             </RefHolder>
-            <Overlay onClick={[Function]} placement=\\"top\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={[Function: Fade]}>
-              <ForwardRef(withContainer(Overlay)) onClick={[Function]} placement=\\"top\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={[Function: Fade]}>
+            <Overlay onClick={[Function]} placement=\\"top\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}}>
+              <ForwardRef(withContainer(Overlay)) onClick={[Function]} placement=\\"top\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}}>
                 <WaitForContainer container={[undefined]}>
-                  <Overlay onClick={[Function]} placement=\\"top\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={[Function: Fade]} container={{...}} />
+                  <Overlay onClick={[Function]} placement=\\"top\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}} container={{...}} />
                 </WaitForContainer>
               </ForwardRef(withContainer(Overlay))>
             </Overlay>

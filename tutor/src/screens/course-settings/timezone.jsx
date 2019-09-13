@@ -32,7 +32,7 @@ class TimezonePreview extends React.Component {
   @observable time = moment();
   @observable timeout;
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.update();
   }
 

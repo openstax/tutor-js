@@ -1,4 +1,4 @@
-import { React, TimeMock } from '../../helpers';
+import { React, TimeMock, R } from '../../helpers';
 import Factory from '../../factories';
 import Row from '../../../src/screens/student-dashboard/event-row';
 import Theme from '../../../src/theme';
@@ -16,13 +16,13 @@ describe('Reading Row', function() {
   });
 
   it('matches snapshot', () => {
-    expect.snapshot(<Row {...props} />).toMatchSnapshot();
+    expect.snapshot(<R><Row {...props} /></R>).toMatchSnapshot();
   });
 
   it('renders unstarted', function() {
     props.event.completed_steps_count = 0;
     props.event.complete = false;
-    const row = mount(<Row {...props} />);
+    const row = mount(<R><Row {...props} /></R>);
     expect(row.find('Col[className="feedback"]').text()).toEqual('Not started');
     expect(row).toHaveRendered('Icon[type="clock"]');
     row.unmount();
@@ -32,7 +32,7 @@ describe('Reading Row', function() {
     props.event.last_worked_at = new Date();
     props.event.completed_steps_count = 1;
     props.event.complete = false;
-    const row = mount(<Row {...props} />);
+    const row = mount(<R><Row {...props} /></R>);
     expect(row.find('Col[className="feedback"]').text()).toEqual('In progress');
     expect(row).toHaveRendered('Icon[type="clock"]');
     row.unmount();
@@ -41,7 +41,7 @@ describe('Reading Row', function() {
   it('renders complete', function() {
     props.event.complete = true;
     props.event.completed_steps_count = 1;
-    const row = mount(<Row {...props} />);
+    const row = mount(<R><Row {...props} /></R>);
     expect(row.find('Col[className="feedback"]').text()).toEqual('Complete');
     row.unmount();
   });
@@ -50,7 +50,7 @@ describe('Reading Row', function() {
     props.event.completed_steps_count = 1;
     props.event.due_at = new Date(now.getTime() + ( 18*60*60*1000 ));
     props.event.complete = false;
-    const row = mount(<Row {...props} />);
+    const row = mount(<R><Row {...props} /></R>);
 
     expect(row.find('Col[className="feedback"]').text()).toEqual('In progress');
     expect(row).toHaveRendered('Icon[type="exclamation-circle"]');

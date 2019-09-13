@@ -1,3 +1,4 @@
+import { R } from '../../helpers';
 import { Roster, courseRosterBootstrap } from './bootstrap-data';
 
 describe('Course Settings', function() {
@@ -9,7 +10,7 @@ describe('Course Settings', function() {
   });
 
   it('renders period panels', () => {
-    const wrapper = mount(<Roster {...props} />);
+    const wrapper = mount(<R><Roster {...props} /></R>);
     const iterable = ['1st', '2nd', '3rd', '5th', '6th', '10th'];
     for (let i = 0; i < iterable.length; i++) {
       const period = iterable[i];
@@ -20,7 +21,7 @@ describe('Course Settings', function() {
   });
 
   it('renders students in the panels', function() {
-    const wrapper = mount(<Roster {...props} />);
+    const wrapper = mount(<R><Roster {...props} /></R>);
     const iterable = ['Angstrom', 'Glass', 'Hackett', 'Jaskolski', 'Lowe', 'Tromp'];
     for (let i = 0; i < iterable.length; i++) {
       const name = iterable[i];
@@ -32,7 +33,7 @@ describe('Course Settings', function() {
   });
 
   it('switches roster when tab is clicked', function() {
-    const wrapper = mount(<Roster {...props} />);
+    const wrapper = mount(<R><Roster {...props} /></R>);
     const tab = wrapper.find('.periods .nav-tabs li').at(1).find('h2');
     tab.simulate('click');
     expect(wrapper.find('.roster tbody tr').at(0).find('td').at(1).text())

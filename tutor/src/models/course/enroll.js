@@ -24,7 +24,7 @@ class CourseEnrollment extends BaseModel {
   @session originalEnrollmentCode;
   @session({ type: 'object' }) to = {};
   @session status;
-  @session({ type: 'object' }) router;
+  @session({ type: 'object' }) history;
   @observable isComplete = false;
   @observable courseToJoin;
   @observable isLoadingCourses;
@@ -106,7 +106,7 @@ class CourseEnrollment extends BaseModel {
 
   @action.bound
   onCancel() {
-    this.router.history.push(Router.makePathname('myCourses'));
+    this.history.push(Router.makePathname('myCourses'));
   }
 
   @action.bound

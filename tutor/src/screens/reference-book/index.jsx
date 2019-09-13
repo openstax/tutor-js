@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
-import { React, observable, action, inject, observer, cn } from '../../helpers/react';
+import { React, observable, withRouter, action, inject, observer, cn } from '../../helpers/react';
 import ReferenceBook from './reference-book';
 import UX from './ux';
 import { NavbarContext } from '../../components/navbar/context';
 import './styles.scss';
 
 export default
+@withRouter
 @inject('topNavbar', 'tourContext')
 @observer
 class ReferenceBookShell extends React.Component {
@@ -18,16 +19,13 @@ class ReferenceBookShell extends React.Component {
     ux: PropTypes.object,
     topNavbar: PropTypes.instanceOf(NavbarContext).isRequired,
     tourContext: PropTypes.object.isRequired,
-  }
-
-  static contextTypes = {
-    router: PropTypes.object,
+    history: PropTypes.object.isRequired,
   }
 
   @observable ux;
 
   @action componentDidMount() {
-    this.ux = this.props.ux || new UX(this.context.router, this.props.tourContext);
+    this.ux = this.props.ux || new UX(this.props.history, this.props.tourContext);
     this.ux.update(this.props.params);
     this.ux.setNavBar(this.props.topNavbar);
   }
@@ -36,7 +34,7 @@ class ReferenceBookShell extends React.Component {
     this.ux.unmount();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.ux.update(nextProps.params);
   }
 

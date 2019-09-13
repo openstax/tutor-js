@@ -1,4 +1,4 @@
-import { React, EnzymeContext } from '../../helpers';
+import { React, R } from '../../helpers';
 import bootstrapScores from '../../helpers/scores-data.js';
 import Cell from '../../../src/screens/scores-report/assignment-cell';
 import ScoresUX from '../../../src/screens/scores-report/ux';
@@ -29,7 +29,7 @@ describe('Student Scores Assignment Cell', function() {
     props.task.type = undefined;
     const student = props.ux.students[props.rowIndex];
     student.data[props.columnIndex].type = 'unknown';
-    const cell = mount(<Cell {...props} />, EnzymeContext.build());
+    const cell = mount(<R><Cell {...props} /></R>);
     expect(cell).toHaveRendered('AbsentCell');
     expect.snapshot(
       <Cell {...props} />

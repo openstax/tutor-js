@@ -1,4 +1,6 @@
-import { React, PropTypes, observer, computed, inject, idType } from '../../helpers/react';
+import {
+  React, PropTypes, withRouter, observer, computed, inject, idType,
+} from '../../helpers/react';
 import { Redirect } from 'react-router-dom';
 import Router from '../../helpers/router';
 import { isNil, findIndex } from 'lodash';
@@ -34,6 +36,7 @@ const DeletedTask = () => (
   </Warning>
 );
 
+@withRouter
 @inject('bottomNavbar')
 @observer
 class Task extends React.Component {
@@ -54,15 +57,12 @@ class Task extends React.Component {
         delete: PropTypes.func.isRequired,
       }).isRequired,
     }),
-  }
-
-  static contextTypes = {
-    router: PropTypes.object,
+    history: PropTypes.object.isRequired,
   }
 
   ux = new UX({
     task: this.props.task,
-    router: this.context.router,
+    history: this.props.history,
     stepIndex: this.props.stepIndex,
   });
 

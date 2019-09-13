@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import createReactClass from 'create-react-class';
+import { withRouter } from 'react-router-dom';
 import { Button, Card } from 'react-bootstrap';
 import { SpyMode } from 'shared';
 import Router from '../../helpers/router';
@@ -50,23 +50,19 @@ class ProgressGuide extends React.Component {
   }
 }
 
+@withRouter
+class ProgressGuideCards extends React.Component {
 
-const ProgressGuideCards = createReactClass({
-  displayName: 'ProgressGuideCards',
-
-  contextTypes: {
-    router: PropTypes.object,
-  },
-
-  propTypes: {
+  static propTypes = {
     courseId: PropTypes.string.isRequired,
-  },
+    history: PropTypes.object.isRequired,
+  }
 
   viewPerformanceForecast() {
-    return this.context.router.history.push(
+    return this.props.history.push(
       Router.makePathname('viewPerformanceGuide', this.props)
     );
-  },
+  }
 
   renderEmpty(sections) {
     return (
@@ -102,7 +98,7 @@ const ProgressGuideCards = createReactClass({
         </div>
       </Card>
     );
-  },
+  }
 
   render() {
     const sections = PerformanceForecast.Student.store.getAllSections(this.props.courseId);
@@ -123,11 +119,11 @@ const ProgressGuideCards = createReactClass({
         </div>
       </Card>
     );
-  },
-});
+  }
+}
 
-export default class extends React.Component {
-  static displayName = 'ProgressGuideShell';
+export default
+class ProgressGuideShell extends React.Component {
 
   static propTypes = {
     courseId: PropTypes.oneOfType([

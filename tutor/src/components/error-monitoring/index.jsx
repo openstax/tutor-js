@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { React, action, observer } from '../../helpers/react';
 import ErrorHandlers from './handlers';
 import { isReloaded } from '../../helpers/reload';
@@ -8,10 +7,6 @@ import Dialog from '../tutor-dialog';
 export default
 @observer
 class ServerErrorMonitoring extends React.Component {
-
-  static contextTypes = {
-    router: PropTypes.object,
-  }
 
   componentDidMount() {
     AppStore.on('server-error', this.onErrorChange);
@@ -35,4 +30,4 @@ class ServerErrorMonitoring extends React.Component {
     // We don't actually render anything
     return null;
   }
-};
+}

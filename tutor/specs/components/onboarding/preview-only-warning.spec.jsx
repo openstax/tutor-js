@@ -1,4 +1,4 @@
-import { EnzymeContext, C } from '../../helpers';
+import { R, C } from '../../helpers';
 import PreviewOnlyWarning from '../../../src/components/onboarding/preview-only-warning';
 import CoursePreviewUX from '../../../src/models/course/onboarding/preview';
 
@@ -20,18 +20,17 @@ describe('Preview Only Warning', () => {
   });
 
   it('dismisses on continue', async () => {
-    const wrapper = mount(<PreviewOnlyWarning ux={ux} />);
+    const wrapper = mount(<R><PreviewOnlyWarning ux={ux} /></R>);
     expect(await axe(wrapper.html())).toHaveNoViolations();
     wrapper.find('button.continue').simulate('click');
     expect(ux.hasViewedPublishWarning).toHaveBeenCalled();
   });
 
   it('navigates on add', async () => {
-    const context =  EnzymeContext.build();
-    const wrapper = mount(<PreviewOnlyWarning ux={ux} />, context);
+    const wrapper = mount(<C><PreviewOnlyWarning ux={ux} /></C>);
     expect(await axe(wrapper.html())).toHaveNoViolations();
     wrapper.find('button.create').simulate('click');
-    expect(context.context.router.history.push).toHaveBeenCalledWith('/dashboard');
+    expect(wrapper.instance().pathname).toEqual('/dashboard');
   });
 
 });

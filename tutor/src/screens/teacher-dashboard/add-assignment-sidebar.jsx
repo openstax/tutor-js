@@ -1,5 +1,6 @@
 import { React, observable, observer, action, cn } from '../../helpers/react';
 import { partial } from 'lodash';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Overlay, Popover, Button } from 'react-bootstrap';
 import UiSettings from 'shared/model/ui-settings';
@@ -13,34 +14,35 @@ import CalendarHelper from './helper';
 const IS_INTRO_VIEWED = 'viewed-plan-dnd-intro';
 const USE_SETTINGS = false;
 
-const IntroPopover = props => (
+// eslint-disable-next-line
+const IntroPopover = ({ show, onClose }) => (
   <Overlay
-    show={props.show}
+    show={show}
     placement="right"
     container={document.querySelector('.new-assignments')}>
     <Popover id="drag-intro">
-      <p>
-        Click to add, or just drag to calendar.
-      </p>
-      <Button size="small" onClick={props.onClose}>
-        Got it
-      </Button>
+      <Popover.Content>
+        <p>
+          Click to add, or just drag to calendar.
+        </p>
+        <Button size="small" onClick={onClose}>
+          Got it
+        </Button>
+      </Popover.Content>
     </Popover>
   </Overlay>
 );
 
 export default
 @observer
+@withRouter
 class AddAssignmentSidebar extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
     isOpen: PropTypes.bool.isRequired,
     cloningPlanId: PropTypes.string,
-  }
-
-  static contextTypes = {
-    router: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
   }
 
   @observable shouldshowIntro = false;
@@ -51,12 +53,12 @@ class AddAssignmentSidebar extends React.Component {
   )
 
   addMenu = new AddMenu({
-    router: this.context.router, renderMenuLink: this.renderMenuLink
+    history: this.props.history, renderMenuLink: this.renderMenuLink,
   });
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(oldProps) {
     // kickoff intro if we're opening after being closed
-    if (this.willShowIntro && nextProps.isOpen && !this.props.isOpen) {
+    if (this.willShowIntro && !oldProps.isOpen && this.props.isOpen) {
       this.pendingIntroTimeout = CalendarHelper.scheduleIntroEvent(this.showIntro);
     }
   }
@@ -117,4 +119,4 @@ class AddAssignmentSidebar extends React.Component {
       </div>
     );
   }
-};
+}

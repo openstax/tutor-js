@@ -78,9 +78,12 @@ class PastAssignments extends React.Component {
         <Overlay
           show={!!this.tooltipTarget}
           target={this.tooltipTarget}
-          placement="right">
+          placement="right"
+        >
           <Popover id="task-original-due-date">
-            Orig. due date {TimeHelper.toHumanDate(TaskPlanHelper.earliestDueDate(this.hoveredPlan))}
+            <Popover.Content>
+              Orig. due date {TimeHelper.toHumanDate(TaskPlanHelper.earliestDueDate(this.hoveredPlan))}
+            </Popover.Content>
           </Popover>
         </Overlay>
       </div>

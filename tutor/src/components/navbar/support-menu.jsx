@@ -4,6 +4,7 @@ import { findDOMNode } from 'react-dom';
 import { Dropdown } from 'react-bootstrap';
 import { delay, get } from 'lodash';
 import { action, computed, observable, when } from 'mobx';
+import { withRouter } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import TourAnchor from '../tours/anchor';
 import Chat from '../../models/chat';
@@ -33,6 +34,7 @@ const PageTips = observer(({ onPlayClick, tourContext, ...props }) => {
 
 
 export default
+@withRouter
 @inject((allStores, props) => ({ tourContext: ( props.tourContext || allStores.tourContext ) }))
 @observer
 class SupportMenu extends React.Component {
@@ -41,10 +43,7 @@ class SupportMenu extends React.Component {
     tourContext: PropTypes.instanceOf(TourContext),
     course: PropTypes.instanceOf(Course),
     onClose:  PropTypes.func,
-  }
-
-  static contextTypes = {
-    router: PropTypes.object,
+    history: PropTypes.object.isRequired,
   }
 
   @observable chatEnabled;
@@ -94,7 +93,7 @@ class SupportMenu extends React.Component {
   @action.bound
   goToAccessibility(ev) {
     ev.preventDefault();
-    this.context.router.history.push(this.accessibilityLink);
+    this.props.history.push(this.accessibilityLink);
   }
 
   @computed

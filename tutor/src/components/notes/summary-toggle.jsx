@@ -22,10 +22,6 @@ class NoteSummaryToggle extends React.Component {
     }),
   }
 
-  static contextTypes = {
-    router: PropTypes.object,
-  }
-
   @computed get isViewable() {
     const { course, model } = this.props;
     return get(model || course, 'canAnnotate', false);

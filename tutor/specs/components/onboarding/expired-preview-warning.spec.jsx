@@ -18,20 +18,24 @@ describe('Expired Preview Warning', () => {
 
   it('dislays got it and dismisses on continue', async () => {
     const wrapper = mount(<C path="/preview"><ExpiredPreviewWarning ux={ux} /></C>);
-    expect(wrapper.ref('router').history.location.pathname).toEqual('/preview');
+    expect(wrapper.instance().pathname).toEqual('/preview');
     expect(await axe(wrapper.html())).toHaveNoViolations();
+
     wrapper.find('Button[variant="default"]').simulate('click');
     expect(wrapper.find('Body').render().text()).toContain('ready to create a real course');
+
     wrapper.find('Button[variant="primary"]').simulate('click');
     expect(ux.dismissNag).toHaveBeenCalled();
-    expect(wrapper.ref('router').history.location.pathname).toEqual('/preview');
+    expect(wrapper.instance().router.history.location.pathname).toEqual('/preview');
   });
 
   it('navigates on add', async () => {
     const wrapper = mount(<C><ExpiredPreviewWarning ux={ux} /></C>);
     expect(await axe(wrapper.html())).toHaveNoViolations();
     wrapper.find('Button[variant="primary"]').simulate('click');
-    expect(wrapper.ref('router').history.location.pathname).toEqual('/dashboard');
+
+    expect(wrapper.instance().pathname).toEqual('/dashboard');
+
   });
 
 });

@@ -10,7 +10,11 @@ describe('Reading Tasks Screen', () => {
     const task = Factory.studentTask({ type: 'reading' });
     props = {
       windowImpl: new FakeWindow(),
-      ux: new UX({ task, router: new TestRouter(), course: Factory.course() }),
+      ux: new UX({
+        task,
+        history: new TestRouter().history,
+        course: Factory.course(),
+      }),
     };
   });
 

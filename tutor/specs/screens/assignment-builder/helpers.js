@@ -33,11 +33,11 @@ export function setTaskDates({ form, now }) {
   form.find('Tasking .opens-at TutorDateInput input[onChange]')
     .simulate('change', { target: { value: opens_at.format('MM/DD/YYYY') } });
   form.find('Tasking .opens-at TutorTimeInput input[onChange]')
-    .simulate('change', { target: { value: opens_at.format('hmma') } });
+    .simulate('change', { target: { value: opens_at.format('HH:mm') } });
   form.find('Tasking .due-at TutorDateInput input[onChange]')
     .simulate('change', { target: { value: due_at.format('MM/DD/YYYY') } });
   form.find('Tasking .due-at TutorTimeInput input[onChange]')
-    .simulate('change', { target: { value: due_at.format('hmma') } });
+    .simulate('change', { target: { value: due_at.format('HH:mm') } });
 
   return { due_at, opens_at };
 }

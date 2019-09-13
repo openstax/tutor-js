@@ -13,7 +13,7 @@ describe('Reading Tasks Screen', () => {
 
     props = {
       windowImpl: new FakeWindow(),
-      ux: new UX({ task, course: Factory.course(), router: new TestRouter() }),
+      ux: new UX({ task, course: Factory.course(), history: new TestRouter().history }),
     };
   });
 

@@ -163,6 +163,7 @@ exports[`Surveys Screen renders and matches snapshot 1`] = `
                     >
                       <input
                         aria-label="Please enter your name: *"
+                        aria-required={true}
                         className="sv_q_text_root"
                         disabled={false}
                         id="sq_100i"
@@ -223,6 +224,7 @@ exports[`Surveys Screen renders and matches snapshot 1`] = `
                     >
                       <input
                         aria-label="Your e-mail:"
+                        aria-required={false}
                         className="sv_q_text_root"
                         disabled={false}
                         id="sq_101i"
@@ -295,6 +297,7 @@ exports[`Surveys Screen renders and matches snapshot 1`] = `
                           >
                             <input
                               aria-label="No"
+                              aria-required={true}
                               checked={false}
                               className="sv_q_radiogroup_control_item"
                               disabled={false}
@@ -335,6 +338,7 @@ exports[`Surveys Screen renders and matches snapshot 1`] = `
                           >
                             <input
                               aria-label="Yes, they're great!"
+                              aria-required={true}
                               checked={false}
                               className="sv_q_radiogroup_control_item"
                               disabled={false}
@@ -489,6 +493,7 @@ exports[`Surveys Screen renders and matches snapshot 1`] = `
                           >
                             <input
                               aria-label="Apples"
+                              aria-required={false}
                               checked={false}
                               className="sv_q_checkbox_control_item"
                               disabled={false}
@@ -528,6 +533,7 @@ exports[`Surveys Screen renders and matches snapshot 1`] = `
                           >
                             <input
                               aria-label="Mango"
+                              aria-required={false}
                               checked={false}
                               className="sv_q_checkbox_control_item"
                               disabled={false}
@@ -567,6 +573,7 @@ exports[`Surveys Screen renders and matches snapshot 1`] = `
                           >
                             <input
                               aria-label="STEAK!"
+                              aria-required={false}
                               checked={false}
                               className="sv_q_checkbox_control_item"
                               disabled={false}

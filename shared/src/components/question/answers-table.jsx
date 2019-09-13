@@ -72,7 +72,7 @@ class AnswersTable extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const originalKeyScope = this.getOriginalKeyScope(nextProps);
     if (originalKeyScope != null) { this.setState({ originalKeyScope }); }
     if (nextProps.answer_id !== this.state.answer_id) { this.setState({ answer_id: null }); }

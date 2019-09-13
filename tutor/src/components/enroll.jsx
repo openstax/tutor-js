@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { Modal } from 'react-bootstrap';
 import Enroll from '../models/course/enroll';
 import Router from '../helpers/router';
-
+import { withRouter } from 'react-router-dom';
 import studentIDForm from './enroll/student-id';
 import invalidCode from './enroll/invalid-code';
 import invalidLinks from './enroll/invalid-links-use';
@@ -16,15 +16,13 @@ import courseEnded from './enroll/course-ended';
 import unknownError from './enroll/unknown-error';
 
 export default
+@withRouter
 @observer
 class CourseEnroll extends React.Component {
 
   static propTypes = {
     enrollment: PropTypes.object,
-  }
-
-  static contextTypes = {
-    router: PropTypes.object,
+    history: PropTypes.object.isRequired,
   }
 
   static Components = {
@@ -41,9 +39,9 @@ class CourseEnroll extends React.Component {
 
   enrollmentCode = Router.currentParams().enrollmentCode;
   enrollment = this.props.enrollment ||
-    new Enroll({ enrollment_code: this.enrollmentCode, router: this.context.router });
+    new Enroll({ enrollment_code: this.enrollmentCode, history: this.props.history });
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.enrollment.create();
   }
 

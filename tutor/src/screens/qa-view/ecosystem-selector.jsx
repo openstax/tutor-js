@@ -1,5 +1,4 @@
-import React from 'react';
-import { inject, observer, propTypes as mobxPropTypes } from 'mobx-react';
+import { React, PropTypes, observer } from '../../helpers/react';
 import { Dropdown } from 'react-bootstrap';
 
 export default
@@ -7,7 +6,7 @@ export default
 class EcosystemSelector extends React.Component {
 
   static propTypes = {
-    ux: mobxPropTypes.observableObject.isRequired,
+    ux: PropTypes.object.isRequired,
   }
 
   componentDidMount() {
@@ -41,4 +40,4 @@ class EcosystemSelector extends React.Component {
   }
 
 
-};
+}

@@ -2,6 +2,7 @@ import { React, observable, observer, action, cn } from '../../helpers/react';
 import moment from 'moment';
 import { get, invoke } from 'lodash';
 import 'moment-timezone';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import qs from 'qs';
 import Month from './month';
@@ -17,11 +18,8 @@ import AddAssignmentPopup from './add-assignment-popup';
 
 export default
 @observer
+@withRouter
 class TeacherDashboard extends React.Component {
-
-  static contextTypes = {
-    router: PropTypes.object,
-  };
 
   static propTypes = {
     date:       TimeHelper.PropTypes.moment,
@@ -30,6 +28,7 @@ class TeacherDashboard extends React.Component {
     dateFormat: PropTypes.string.isRequired,
     course:     PropTypes.instanceOf(Course).isRequired,
     showingSideBar: PropTypes.bool.isRequired,
+    history: PropTypes.object.isRequired,
     params: PropTypes.object,
   };
 
@@ -53,7 +52,7 @@ class TeacherDashboard extends React.Component {
       courseId: course.id,
       date: date.format(this.props.dateFormat),
     };
-    this.context.router.history.push(
+    this.props.history.push(
       TutorRouter.makePathname('calendarByDate', newParams)
     );
   }
@@ -88,7 +87,7 @@ class TeacherDashboard extends React.Component {
       const url = item.pathname + '?' + qs.stringify({
         due_at: this.hoveredDay.format(this.props.dateFormat),
       });
-      this.context.router.history.push(url);
+      this.props.history.push(url);
     } else { // is a task plan to clone
 
       this.editingPlan = { ...item, date: this.hoveredDay };
@@ -132,7 +131,6 @@ class TeacherDashboard extends React.Component {
         ]}
         courseId={course.id}>
         <AddAssignmentPopup
-          ref="addAssignmentPopup"
           hasPeriods={hasPeriods}
           course={course}
           {...this.activeAddAssignment}
