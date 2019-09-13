@@ -24,7 +24,9 @@ class StudentTaskPlaceHolderStep extends TaskStepContent { }
 
 class StudentTaskReadingStep extends TaskStepContent {
   @observable title;
-  @lazyGetter chapterSection = new ChapterSection(this.chapter_section);
+  @lazyGetter chapterSection = new ChapterSection(
+    this.baked_chapter_section || this.chapter_section
+  );
   @hasMany({ model: RelatedContent }) related_content;
   @lazyGetter page = new Page(
     Object.assign({
@@ -164,7 +166,7 @@ class StudentTaskStep extends BaseModel {
   }
 
   @action fetchIfNeeded() {
-    if (this.needsFetched) { this.fetch(); }
+    if (this.needsFetched && !this.api.isPending) { this.fetch(); }
   }
 
   @action markViewed() {
