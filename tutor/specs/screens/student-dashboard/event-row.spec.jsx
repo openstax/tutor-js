@@ -18,7 +18,7 @@ describe('Event Row', function() {
     const deleted = (
       <R><EventRow
         className=""
-        event={Factory.studentDashboardTask({ is_deleted: true })}
+        event={Factory.studentDashboardTask({ completed_steps_count: 10, is_deleted: true })}
         course={course} /></R>
     );
     const deletedNotStarted = (
@@ -57,8 +57,8 @@ describe('Event Row', function() {
     expect(regularRow.find('a').prop('onClick')).toBeTruthy();
   });
 
-  it('disallows onclick for event row if deleted and not started', function() {
-    expect(deletedNotStartedRow.props.onClick).toBeFalsy();
+  it('does not render deleted and unstarted task', () => {
+    expect(deletedNotStartedRow.find('.task').exists()).toBeFalsy();
   });
 
   it('shows only visible to instructors message', () => {

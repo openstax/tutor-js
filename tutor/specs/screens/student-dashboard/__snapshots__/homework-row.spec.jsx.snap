@@ -126,7 +126,7 @@ exports[`Homework Row renders with completed count 1`] = `
         className="tour-anchor"
         data-tour-anchor-id="assignment-progress-status"
       >
-        Not started
+        null/6 correct
       </span>
       <span
         className="tour-anchor"

@@ -98,6 +98,10 @@ class StudentTask extends BaseModel {
     return this.completed_steps_count > 0;
   }
 
+  @computed get isHidden() {
+    return Boolean(this.hidden || (this.is_deleted && !this.isStarted));
+  }
+
   @computed get isTeacherStudent() {
     return true === get(this, 'tasks.course.currentRole.isTeacherStudent');
   }
