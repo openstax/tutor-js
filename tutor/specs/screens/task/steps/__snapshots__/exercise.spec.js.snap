@@ -531,6 +531,7 @@ exports[`Exercise Tasks Screen matches snapshot 1`] = `
       "onAnswerContinue": [MockFunction],
       "onAnswerSave": [MockFunction],
       "questionNumberForStep": [MockFunction],
+      "setCurrentMultiPartStep": [MockFunction],
     }
   }
   windowImpl={

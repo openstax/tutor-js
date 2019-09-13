@@ -6,6 +6,7 @@ import { Button } from 'react-bootstrap';
 import TaskStep from '../../../models/student-tasks/step';
 import ResponseValidation from '../../../models/response_validation';
 import Question from 'shared/model/exercise/question';
+import TaskUX from '../ux';
 import QuestionStem from './question-stem';
 import Theme from '../../../theme';
 import Course from '../../../models/course';
@@ -65,6 +66,7 @@ class FreeResponseInput extends React.Component {
     course: PropTypes.instanceOf(Course).isRequired,
     step: PropTypes.instanceOf(TaskStep).isRequired,
     question: PropTypes.instanceOf(Question).isRequired,
+    taskUX: PropTypes.instanceOf(TaskUX).isRequired,
     response_validation: PropTypes.instanceOf(ResponseValidation),
   };
 
@@ -81,6 +83,9 @@ class FreeResponseInput extends React.Component {
   }
 
   @action.bound async onSave() {
+    const { taskUX, step } = this.props;
+
+    taskUX.setCurrentMultiPartStep(step);
     await this.ux.onSave();
     invoke(this.textArea.current, 'focus');
   }

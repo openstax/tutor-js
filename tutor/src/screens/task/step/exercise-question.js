@@ -67,12 +67,16 @@ class ExerciseQuestion extends React.Component {
   }
 
   @action.bound onAnswerChange(answer) {
+    const { ux, step } = this.props;
+
+    ux.setCurrentMultiPartStep(step);
     this.selectedAnswer = answer;
   }
 
   @action.bound async onAnswerSave() {
     const { ux, step } = this.props;
 
+    ux.setCurrentMultiPartStep(step);
     await ux.onAnswerSave(step, this.selectedAnswer);
     this.selectedAnswer = null;
   }
@@ -115,6 +119,7 @@ class ExerciseQuestion extends React.Component {
         <FreeResponseInput
           step={step} question={question}
           questionNumber={questionNumber}
+          taskUX={ux}
           key={question.id} course={course}
         />
       );

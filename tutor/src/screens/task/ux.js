@@ -104,11 +104,16 @@ export default class TaskUX {
     step.answer_id = answer.id;
     step.is_completed = true;
     await step.save();
-    // don't advance if there's feedback so the user can view it
-    if (!this.task.isFeedbackAvailable) {
-      this.onAnswerContinue(step);
-    } else {
-      this.moveToStep(step);
+
+    if (
+      step.multiPartGroup &&
+      this.task.isFeedbackAvailable &&
+      this._stepIndex > this.steps.indexOf(step)
+    ) {
+      // fixes the scroll position in case loading the feedback pushes the steps around
+      this.scroller.scrollToSelector(
+        `[data-task-step-id="${this.currentStep.id}"]`, { immediate: true }
+      );
     }
   }
 
@@ -120,6 +125,14 @@ export default class TaskUX {
     this.moveToStep(step);
     if (this.canGoForward) {
       this.goForward();
+    }
+  }
+
+  @action setCurrentMultiPartStep(step) {
+    if (step.multiPartGroup) {
+      // sets the current step to the step being answered and fixes the multipart breadcrumb
+      // useful in case the user loads a multipart step and scrolls to a different step
+      this.moveToStep(step);
     }
   }
 
