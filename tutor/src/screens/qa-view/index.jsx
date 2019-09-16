@@ -23,7 +23,7 @@ class QAViewWrapper extends React.Component {
     history: PropTypes.object.isRequired,
   }
 
-  ux = new UX({ router: this.props.history });
+  ux = new UX({ history: this.props.history });
 
   UNSAFE_componentWillMount() {
     this.ux.update(this.props.params);

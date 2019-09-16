@@ -7,6 +7,9 @@ export default class OpenDowndownMenu extends BaseAction {
   // therefore it'll aways be closed when the action starts, no need to check isOpen
   beforeStep() {
     window.scroll(0,0);
+    if (this.isOpen) {
+      return Promise.resolve();
+    }
     return this.clickMenu();
   }
 

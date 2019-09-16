@@ -29,10 +29,10 @@ describe('Tour Ride Model', () => {
   it ('calculates if steps should show progress', () => {
     ride.tour.steps.forEach((s) => s.anchor_id = null);
     expect(ride.validSteps).toHaveLength(ride.tour.steps.length);
-    expect(ride.showStepsProgress).toBe(true);
+    expect(ride.hasMultipleSteps).toBe(true);
     ride.tour.steps.forEach((s) => s.anchor_id = '1234');
     jest.spyOn(document, 'querySelector').mockImplementation(() => false);
-    expect(ride.showStepsProgress).toBe(false);
+    expect(ride.hasMultipleSteps).toBe(false);
   });
 
 });

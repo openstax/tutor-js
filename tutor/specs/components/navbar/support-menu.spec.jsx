@@ -43,4 +43,11 @@ describe('Support Menu', () => {
     menu.unmount();
   });
 
+  it('renders support links when in a course for teacher', () => {
+    props.course.appearance_code = 'college_biology';
+    const menu = mount(<C><SupportMenu {...props} /></C>);
+    expect(menu).toHaveRendered('#menu-support-document');
+    menu.unmount();
+  });
+
 });

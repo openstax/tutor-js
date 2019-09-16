@@ -91,13 +91,13 @@ class TourRide extends BaseModel {
   }
 
   @computed get nextLabel() {
-    if (!this.canGoForward || !this.showStepsProgress) { // last step
+    if (!this.canGoForward || !this.hasMultipleSteps) { // last step
       return 'Close';
     }
     return `Next ${this._stepIndex + 1}/${this.validSteps.length}`;
   }
 
-  @computed get showStepsProgress() {
+  @computed get hasMultipleSteps() {
     return this.validSteps.length > 1;
   }
 

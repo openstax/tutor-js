@@ -15,7 +15,7 @@ describe('Tasking Builder', () => {
     props = { ux };
   });
 
-  fit('sets times', function() {
+  it('sets times', function() {
     const tasking = mount(<Tasking {...props} />);
 
     const opens_at = moment(now).add(1, 'day');
