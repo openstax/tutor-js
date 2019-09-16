@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AsyncLoadErrors Component renders and matches snapshot if page is reloaded 1`] = `
+exports[`AsyncLoadErrors Component renders and matches snapshot when there is an error 1`] = `
 <div
   className="invalid-page"
 >
@@ -27,7 +27,7 @@ exports[`AsyncLoadErrors Component renders and matches snapshot if page is reloa
     Uh-oh, the page failed to load
   </h1>
   <p>
-    Error: SOMETHING FAILED!
+    Error: hi, im an error
   </p>
   <button
     className="btn btn-primary"
@@ -38,4 +38,10 @@ exports[`AsyncLoadErrors Component renders and matches snapshot if page is reloa
     Retry
   </button>
 </div>
+`;
+
+exports[`AsyncLoadErrors Component renders and matches snapshot when there is no error 1`] = `
+<p>
+  I should be shown
+</p>
 `;
