@@ -7,6 +7,7 @@ import { TaskStepCard } from './card';
 import ExerciseQuestion from './exercise-question';
 import Step from '../../../models/student-tasks/step';
 import Badges from 'shared/components/exercise-badges';
+import Raven from '../../../models/app/raven';
 
 const StyledExercise = styled(TaskStepCard)`
   font-size: 1.8rem;
@@ -53,6 +54,23 @@ class ExerciseTaskStep extends React.Component {
     windowImpl: PropTypes.object,
   }
 
+  constructor(props) {
+    super(props);
+    const { step } = props;
+    if (!step.content || !step.content.questions) {
+      this.logAndRetryFetch();
+    }
+  }
+
+  logAndRetryFetch() {
+    const { step } = this.props;
+    step.fetch().then(() => {
+      Raven.log(
+        `No questions found on step id ${step.id} of type ${step.type}.  After re-fetch, questions found: ${!!(step.content && step.content.questions)}`,
+      );
+    });
+  }
+
   render() {
     const { ux, step, isMultiPart, isFollowupMPQ } = this.props;
     const { content } = step;
@@ -71,7 +89,7 @@ class ExerciseTaskStep extends React.Component {
           content={content}
           isHidden={isFollowupMPQ} />
 
-        {content.questions.map((q, i) =>
+        {(content.questions || []).map((q, i) =>
           <ExerciseQuestion
             ux={ux}
             index={i}
