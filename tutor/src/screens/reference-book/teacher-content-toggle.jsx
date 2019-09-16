@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
-import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 
@@ -17,7 +15,9 @@ class TeacherContentToggle extends React.Component {
   renderNoContentTooltip = () => {
     return (
       <Popover id="no-content">
-        No teacher edition content is available for this page.
+        <Popover.Content>
+          No teacher edition content is available for this page.
+        </Popover.Content>
       </Popover>
     );
   };

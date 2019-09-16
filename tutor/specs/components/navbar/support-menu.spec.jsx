@@ -36,28 +36,18 @@ describe('Support Menu', () => {
 
   it('calls chat when clicked', () => {
     Chat.isEnabled = true;
-    const menu = mount(<SupportMenu {...props} />);
+    const menu = mount(<C><SupportMenu {...props} /></C>);
     menu.find('button.dropdown-toggle').simulate('click');
     menu.find('.chat.enabled a').simulate('click');
     expect(Chat.start).toHaveBeenCalled();
     menu.unmount();
   });
 
-  it('renders support links when in a course for student', () => {
-    expect.snapshot(
-      <C><SupportMenu {...props} /></C>
-    ).toMatchSnapshot();
-  });
-
   it('renders support links when in a course for teacher', () => {
     props.course.appearance_code = 'college_biology';
-    expect.snapshot(<C><SupportMenu {...props} /></C>).toMatchSnapshot();
-  });
-
-  it('renders and matches snapshot', () => {
-    tourContext.openRegion(region);
-    // including the course here causes the snapshot to contain course dates and future runs to fail
-    expect.snapshot(<C><SupportMenu tourContext={tourContext} /></C>).toMatchSnapshot();
+    const menu = mount(<C><SupportMenu {...props} /></C>);
+    expect(menu).toHaveRendered('#menu-support-document');
+    menu.unmount();
   });
 
 });

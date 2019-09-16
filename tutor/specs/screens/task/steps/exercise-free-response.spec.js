@@ -2,7 +2,7 @@ import {
   FreeResponseInput, FreeResponseReview,
 } from '../../../../src/screens/task/step/exercise-free-response';
 import TaskUX from '../../../../src/screens/task/ux';
-import { Factory, TestRouter, TimeMock, delay } from '../../../helpers';
+import { Factory, TestRouter, TimeMock, R, delay } from '../../../helpers';
 import { setFreeResponse } from '../helpers';
 import ResponseValidation from '../../../../src/models/response_validation';
 import Raven from '../../../../src/models/app/raven';
@@ -27,12 +27,16 @@ describe('Exercise Free Response', () => {
       response_validation: new ResponseValidation(),
       course: Factory.course(),
       question: step.content.questions[0],
-      taskUX: new TaskUX({ task, router: new TestRouter, course: Factory.course() }),
+      taskUX: new TaskUX({
+        task,
+        history: new TestRouter().history,
+        course: Factory.course(),
+      }),
     };
   });
 
   it('matches snapshot', () => {
-    expect(<FreeResponseInput {...props} />).toMatchSnapshot();
+    expect(<R><FreeResponseInput {...props} /></R>).toMatchSnapshot();
   });
 
   it('reviews text', () => {
@@ -40,6 +44,7 @@ describe('Exercise Free Response', () => {
     props.step.free_response = null;
     expect(fr.isEmptyRender()).toBeTruthy();
     props.step.free_response = 'test';
+    fr.update();
     expect(fr.text()).toContain('test');
     fr.unmount();
   });

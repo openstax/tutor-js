@@ -18,10 +18,6 @@ class CoursePlan extends React.Component {
     plan: PropTypes.instanceOf(TeacherTaskPlan).isRequired,
   };
 
-  static contextTypes = {
-    router: PropTypes.object.isRequired,
-  };
-
   static defaultProps = { activeHeight: 35 };
 
   @computed get className() {

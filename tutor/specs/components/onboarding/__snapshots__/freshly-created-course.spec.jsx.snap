@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Freshly Created Course prompt preview renders and matches snapshot 1`] = `
-<C
-  path="/"
->
+<C>
   <FreshlyCreatedCourse
     ux={
       PreviewOnboarding {
@@ -19,9 +17,7 @@ exports[`Freshly Created Course prompt preview renders and matches snapshot 1`] 
 `;
 
 exports[`Freshly Created Course prompt student renders and matches snapshot 1`] = `
-<C
-  path="/"
->
+<C>
   <FreshlyCreatedCourse
     ux={
       StudentCourseOnboarding {

@@ -28,10 +28,10 @@ export default class ReferenceBookUX extends BookUX {
     this.pendingCheck = null;
   }
 
-  constructor(router, tours, options = {}) {
+  constructor(history, tours, options = {}) {
     super(options);
     this.tours = tours;
-    this.router = router;
+    this.history = history;
   }
 
   @computed get allowsAnnotating() {
@@ -76,7 +76,7 @@ export default class ReferenceBookUX extends BookUX {
   }
 
   @action.bound onNavSetSection(path) {
-    this.router.history.push(path);
+    this.history.push(path);
   }
 
   @computed get pageProps() {

@@ -66,11 +66,15 @@ class UnDropStudentLink extends React.Component {
   confirmPopOver() {
     return (
       <Popover
-        title={this.popOverTitle()}
         className="undrop-student"
         id={`drop-student-popover-${this.props.student.id}`}
       >
-        {this.popOverBody()}
+        <Popover.Title>
+          {this.popOverTitle()}
+        </Popover.Title>
+        <Popover.Content>
+          {this.popOverBody()}
+        </Popover.Content>
       </Popover>
     );
   }
@@ -89,4 +93,4 @@ class UnDropStudentLink extends React.Component {
       </OverlayTrigger>
     );
   }
-};
+}

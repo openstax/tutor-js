@@ -1,20 +1,19 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { observable, computed, action, observe } from 'mobx';
-import { observer, inject } from 'mobx-react';
+import { computed, action } from 'mobx';
+import { observer } from 'mobx-react';
 import { Button } from 'react-bootstrap';
 import Router from '../../helpers/router';
+import { withRouter } from 'react-router-dom';
 
 export default
+@withRouter
 @observer
 class Surveys extends React.Component {
 
   static propTypes = {
     course: PropTypes.object.isRequired,
-  }
-
-  static contextTypes = {
-    router: PropTypes.object,
+    history: PropTypes.object.isRequired,
   }
 
   @computed get survey() {
@@ -24,7 +23,7 @@ class Surveys extends React.Component {
   }
 
   @action.bound onClick() {
-    this.context.router.history.push(
+    this.props.history.push(
       Router.makePathname('researchSurvey',
         { courseId: this.props.course.id, surveyId: this.survey.id })
     );
@@ -57,4 +56,4 @@ class Surveys extends React.Component {
     );
   }
 
-};
+}

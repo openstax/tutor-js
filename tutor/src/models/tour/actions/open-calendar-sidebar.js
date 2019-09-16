@@ -1,5 +1,5 @@
 import { BaseAction, identifiedBy } from './base';
-import { defer } from 'lodash';
+import { delay } from 'lodash';
 import { action, computed } from 'mobx';
 
 export default
@@ -9,14 +9,17 @@ class OpenCalendarSidebar extends BaseAction {
   beforeStep() {
     this.wasOpen = this.toggle.classList.contains('open');
     if (!this.wasOpen) {
-      this.toggleSidebar();
+      return this.toggleSidebar();
       // sidebar animates for 500ms + a bit longer
-      this.repositionAfter(550);
     }
+    return Promise.resolve();
   }
 
   afterStep() {
-    if (!this.wasOpen) { this.toggleSidebar(); }
+    if (!this.wasOpen) {
+      return this.toggleSidebar();
+    }
+    return Promise.resolve();
   }
 
   @computed get toggle() {
@@ -25,8 +28,9 @@ class OpenCalendarSidebar extends BaseAction {
 
   @action.bound
   toggleSidebar() {
-    defer(() => {
-      this.toggle.click();
+    return new Promise((resolve) => {
+      delay(() => this.toggle.click(), 5);
+      delay(() => resolve(), 500);
     });
   }
 

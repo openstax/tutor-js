@@ -26,12 +26,12 @@ export default class QaScreenUX extends BookUX {
   @observable ignoredExerciseTypes = [];
 
   constructor({
-    router,
+    history,
     exercises = DefaultExercises,
     ecosystems = DefaultEcosystems,
   }) {
     super();
-    this.router = router;
+    this.history = history;
     this.exercisesMap = exercises;
     this.ecosystemsMap = ecosystems;
 
@@ -73,7 +73,7 @@ export default class QaScreenUX extends BookUX {
   isTypeIgnored() { return false; }
 
   @action.bound onEcosystemSelect(ecosystemId) {
-    this.router.history.push(
+    this.history.push(
       Router.makePathname('QADashboard', { ecosystemId }),
     );
   }
@@ -121,7 +121,7 @@ export default class QaScreenUX extends BookUX {
   }
 
   @action.bound onNavSetSection(path) {
-    this.router.history.push(path);
+    this.history.push(path);
   }
 
   @action setNavBar(nav) {

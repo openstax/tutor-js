@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { computed, observable, action } from 'mobx';
+import { computed } from 'mobx';
 import Exercises, { ExercisesMap } from '../models/exercises';
 import { idType } from 'shared';
 import { Loading, NotFound } from './exercise-state';
@@ -31,7 +31,7 @@ class Preview extends React.Component {
 
   static Controls = Controls;
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { uid } = this.props.match.params;
     this.props.exercises.ensureLoaded(uid);
   }
@@ -57,4 +57,4 @@ class Preview extends React.Component {
       </div>
     );
   }
-};
+}

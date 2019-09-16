@@ -15,10 +15,10 @@ exports[`Student Preview Builder matches snapshot 1`] = `
           </StyledComponent>
         </IconWrapper>
       </RefHolder>
-      <Overlay placement=\\"auto\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={[Function: Fade]} rootClose={false}>
-        <ForwardRef(withContainer(Overlay)) placement=\\"auto\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} rootClose={false} transition={[Function: Fade]}>
+      <Overlay placement=\\"auto\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}} rootClose={false}>
+        <ForwardRef(withContainer(Overlay)) placement=\\"auto\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} rootClose={false} transition={{...}}>
           <WaitForContainer container={[undefined]}>
-            <Overlay placement=\\"auto\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} rootClose={false} transition={[Function: Fade]} container={{...}} />
+            <Overlay placement=\\"auto\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} rootClose={false} transition={{...}} container={{...}} />
           </WaitForContainer>
         </ForwardRef(withContainer(Overlay))>
       </Overlay>

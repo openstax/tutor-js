@@ -180,7 +180,7 @@ class SectionsChooser extends React.Component {
 
   @observable selections = {};
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.book.ensureLoaded();
 
     this.copySelectionStateFrom(
@@ -188,7 +188,7 @@ class SectionsChooser extends React.Component {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.selectedPageIds) {
       this.copySelectionStateFrom(nextProps.selectedPageIds);
     }

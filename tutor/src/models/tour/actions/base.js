@@ -1,7 +1,7 @@
 export {
   identifiedBy, identifier, belongsTo, field, computed,
 } from 'shared/model';
-import { delay, extend, pick } from 'lodash';
+import { extend, pick } from 'lodash';
 import { BaseModel, computed } from 'shared/model';
 
 export class BaseAction extends BaseModel {
@@ -12,12 +12,8 @@ export class BaseAction extends BaseModel {
     extend(this, pick(this.options, 'step', 'ride', 'selector'));
   }
 
-  repositionAfter(ms) {
-    delay(() => this.ride.joyrideRef.calcPlacement(), ms);
-  }
-
   get document() {
-    return this.ride.window.document;
+    return window.document;
   }
 
   @computed get el() {
@@ -29,11 +25,11 @@ export class BaseAction extends BaseModel {
   }
 
   beforeStep() {
-
+    return Promise.resolve();
   }
 
   afterStep() {
-
+    return Promise.resolve();
   }
 
 }

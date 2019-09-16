@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
-import { compact, map, partial, extend, clone } from 'underscore';
+import { compact, clone } from 'underscore';
 
 class TutorPopover extends React.Component {
   static defaultProps = {
@@ -11,18 +10,17 @@ class TutorPopover extends React.Component {
     windowImpl: window,
   };
 
-  static displayName = 'TutorPopover';
-
-  static propTypes() {
-    return {
-      content: PropTypes.node.isRequired,
-      popoverProps: PropTypes.object,
-      contentProps: PropTypes.object,
-      overlayProps: PropTypes.object,
-      windowImpl: PropTypes.object,
-      maxHeightMultiplier: PropTypes.number,
-      maxWidthMultiplier: PropTypes.number,
-    };
+  static propTypes = {
+    id: PropTypes.any,
+    children: PropTypes.node,
+    title: PropTypes.string,
+    content: PropTypes.node.isRequired,
+    popoverProps: PropTypes.object,
+    contentProps: PropTypes.object,
+    overlayProps: PropTypes.object,
+    windowImpl: PropTypes.object,
+    maxHeightMultiplier: PropTypes.number,
+    maxWidthMultiplier: PropTypes.number,
   }
 
   state = {
@@ -64,8 +62,10 @@ class TutorPopover extends React.Component {
 
   render() {
     let contentClassName;
-    let { children, content, popoverProps, overlayProps, id } = this.props;
-    const { scrollable, placement, delayShow } = this.state;
+    let {
+      children, content, popoverProps, overlayProps, id, title,
+    } = this.props;
+    const { scrollable, placement } = this.state;
 
     if (scrollable) {
       popoverProps = clone(popoverProps || {});
@@ -81,7 +81,12 @@ class TutorPopover extends React.Component {
     const popoverId = `tutor-popover-${id || 'unknown'}`;
 
     const popover = (
-      <Popover {...popoverProps} id={popoverId} ref={this.setPopoverRef}>
+      <Popover
+        {...popoverProps}
+        id={popoverId}
+        ref={this.setPopoverRef}
+      >
+        {title && <Popover.Title>{title}</Popover.Title>}
         <div ref="popcontent">
           {content}
         </div>

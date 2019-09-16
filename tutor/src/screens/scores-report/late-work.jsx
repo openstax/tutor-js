@@ -161,31 +161,33 @@ class LateWorkPopover extends React.Component {
     return (
       <Popover
         {...popoverProps}
-        title={content.get('title')}
         id={`late-work-info-popover-${content.task.id}`}
         className={content.className()}
       >
-        <div className="late-status">
-          {content.get('body')}
-          <div className="description">
-            <span className="title">
-              {content.reportingOn} on {content.lateDueDate()}:
-            </span>
-            <span className="status">
-              {status}
-            </span>
+        <Popover.Title>{content.get('title')}</Popover.Title>
+        <Popover.Content>
+          <div className="late-status">
+            {content.get('body')}
+            <div className="description">
+              <span className="title">
+                {content.reportingOn} on {content.lateDueDate()}:
+              </span>
+              <span className="status">
+                {status}
+              </span>
+            </div>
+            <AsyncButton
+              className="late-button"
+              size="sm"
+              variant="default"
+              onClick={this.onButtonClick}
+              isWaiting={this.props.task.api.isPending}
+              waitingText="Saving…"
+            >
+              {content.get('button')}
+            </AsyncButton>
           </div>
-          <AsyncButton
-            className="late-button"
-            size="sm"
-            variant="default"
-            onClick={this.onButtonClick}
-            isWaiting={this.props.task.api.isPending}
-            waitingText="Saving…"
-          >
-            {content.get('button')}
-          </AsyncButton>
-        </div>
+        </Popover.Content>
       </Popover>
     );
   }

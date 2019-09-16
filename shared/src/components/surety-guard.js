@@ -62,18 +62,23 @@ class SuretyGuard extends React.Component {
       <Popover
         id="confirmation-alert"
         className="openstax-surety-guard"
-        title={this.props.title}>
-        <span className="message">
-          {this.props.message}
-        </span>
-        <Controls>
-          <Button variant="default" ref="popoverButton" onClick={this.onCancel}>
-            {this.props.cancelButtonLabel}
-          </Button>
-          <Button onClick={this.onConfirm} variant="primary">
-            {this.props.okButtonLabel}
-          </Button>
-        </Controls>
+      >
+        <Popover.Title>
+          {this.props.title}
+        </Popover.Title>
+        <Popover.Content>
+          <span className="message">
+            {this.props.message}
+          </span>
+          <Controls>
+            <Button variant="default" ref="popoverButton" onClick={this.onCancel}>
+              {this.props.cancelButtonLabel}
+            </Button>
+            <Button onClick={this.onConfirm} variant="primary">
+              {this.props.okButtonLabel}
+            </Button>
+          </Controls>
+        </Popover.Content>
       </Popover>
     );
   };

@@ -30,7 +30,7 @@ class EditBox extends React.Component {
 
   @observable annotation = this.props.note ? this.props.note.annotation : '';
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.note !== this.props.note) {
       this.annotation = nextProps.note ? nextProps.note.annotation : '';
       defer(() => this.input.focus());

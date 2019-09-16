@@ -49,8 +49,10 @@ class FeedbackSetting extends React.Component {
             ref="popover"
             id="feedback-tip-popover"
           >
-            Some students may have already seen feedback and answers
-            to questions in this assignment.
+            <Popover.Content>
+              Some students may have already seen feedback and answers
+              to questions in this assignment.
+            </Popover.Content>
           </Popover>
         )}
       </div>

@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import cn from 'classnames';
-import { propTypes as mobxPropTypes } from 'mobx-react';
+import { PropTypes as mobxPropTypes } from 'mobx-react';
 import PropTypes from 'prop-types';
 import invariant from 'invariant';
+import { withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { autobind } from 'core-decorators';
 import { idType } from 'shared';
 import Theme from '../theme';
 
 export {
+  withRouter,
   React, cn, ReactDOM, mobxPropTypes, PropTypes,
   invariant, styled, css, idType, autobind, Theme,
 };

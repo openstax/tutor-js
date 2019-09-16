@@ -14,7 +14,7 @@ describe('Reading Progress Component', () => {
       ] },
     }).array[0];
     props = {
-      ux: new UX({ task, router: new TestRouter() }),
+      ux: new UX({ task, history: new TestRouter().history }),
     };
   });
 

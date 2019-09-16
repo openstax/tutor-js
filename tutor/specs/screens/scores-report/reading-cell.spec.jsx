@@ -1,4 +1,4 @@
-import { EnzymeContext, React } from '../../helpers';
+import { R, React } from '../../helpers';
 import ScoresUX from '../../../src/screens/scores-report/ux';
 import bootstrapScores from '../../helpers/scores-data.js';
 import Cell from '../../../src/screens/scores-report/reading-cell';
@@ -30,7 +30,7 @@ describe('Student Scores Report Reading Cell', function() {
     props.task.completed_step_count = 0;
     props.task.completed_on_time_step_count = 0;
     expect(props.task.completedPercent).toEqual(0);
-    const cell = mount(<Cell {...props} />, EnzymeContext.build());
+    const cell = mount(<R><Cell {...props} /></R>);
     expect(cell).not.toHaveRendered('.worked .not-started');
     expect(cell.text()).toEqual('17%');
     ux.displayValuesAs = 'number';
@@ -49,7 +49,7 @@ describe('Student Scores Report Reading Cell', function() {
     props.task.completed_step_count = 2;
     props.task.is_late_work_accepted = true;
     expect(props.task.isLate).toBe(true);
-    const cell = mount(<Cell {...props} />, EnzymeContext.build());
+    const cell = mount(<R><Cell {...props} /></R>);
     expect(cell).toHaveRendered('LateWork');
     expect(cell).toHaveRendered('.late-caret.accepted');
   });
@@ -58,7 +58,7 @@ describe('Student Scores Report Reading Cell', function() {
     props.task.completed_on_time_step_count = 1;
     props.task.completed_step_count = 2;
     props.task.is_late_work_accepted = true;
-    const cell = mount(<Cell {...props} />, EnzymeContext.build());
+    const cell = mount(<R><Cell {...props} /></R>);
     expect(cell).toHaveRendered('.late-caret');
     props.task.student.period.course.roles[0].type = 'student';
     expect(cell.update()).not.toHaveRendered('.late-caret');

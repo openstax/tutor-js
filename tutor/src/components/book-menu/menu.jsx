@@ -1,9 +1,5 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { observer, propTypes as mobxPropTypes } from 'mobx-react';
-import { computed } from 'mobx';
+import { React, cn, PropTypes, observer, computed } from '../../helpers/react';
 import { map, partial } from 'lodash';
-import cn from 'classnames';
 import TutorLink from '../link';
 
 
@@ -11,7 +7,7 @@ import TutorLink from '../link';
 class BookMenuTocSection extends React.Component {
 
   static propTypes = {
-    ux: mobxPropTypes.observableObject.isRequired,
+    ux: PropTypes.object.isRequired,
     section: PropTypes.object,
   };
 
@@ -71,7 +67,7 @@ export default
 class BookMenu extends React.Component {
 
   static propTypes = {
-    ux: mobxPropTypes.observableObject.isRequired,
+    ux: PropTypes.object.isRequired,
   }
 
   render() {

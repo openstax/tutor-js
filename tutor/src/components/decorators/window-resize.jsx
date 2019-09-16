@@ -23,7 +23,7 @@ export default class WinderResizeListener extends React.Component {
     });
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     // need to define @resizeListener so that we can throttle resize effect
     // and have access to @state.resizeThrottle or @props.resizeThrottle
     this.resizeListener = throttle(this.resizeEffect, this.state.resizeThrottle || this.props.resizeThrottle);
@@ -41,7 +41,7 @@ export default class WinderResizeListener extends React.Component {
   }
 
 
-  resizeEffect(resizeEvent) {
+  resizeEffect() {
     const windowEl = this._getWindowSize();
     const componentEl = this._getComponentSize();
     const sizes = { windowEl, componentEl };
@@ -69,8 +69,6 @@ export default class WinderResizeListener extends React.Component {
 
   setInitialSize() {
     if (!this._isMounted) { return; }
-
-    const sizesInitial = { windowEl, componentEl };
 
     this.setState({
       sizes: {

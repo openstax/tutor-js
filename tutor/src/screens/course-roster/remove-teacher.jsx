@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { action, computed } from 'mobx';
+import { action } from 'mobx';
 import { observer } from 'mobx-react';
+import { withRouter } from 'react-router-dom';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 import Router from '../../helpers/router';
 import { Icon } from 'shared';
@@ -14,20 +15,18 @@ import Course from '../../models/course';
 import Teacher from '../../models/course/teacher';
 
 export default
+@withRouter
 @observer
 class RemoveTeacherLink extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
     teacher: PropTypes.instanceOf(Teacher).isRequired,
-  }
-
-  static contextTypes = {
-    router: PropTypes.object,
+    history: PropTypes.object.isRequired,
   }
 
   @action.bound goToDashboard() {
-    this.context.router.history.push(Router.makePathname('myCourses'));
+    this.props.history.push(Router.makePathname('myCourses'));
   }
 
   @action.bound performDeletion() {
@@ -44,20 +43,25 @@ class RemoveTeacherLink extends React.Component {
       <Popover
         id={`settings-remove-popover-${teacher.id}`}
         className="settings-remove-teacher"
-        title={<span>Remove <Name {...teacher} />?</span>}
       >
-        <AsyncButton
-          variant="danger"
-          onClick={this.performDeletion}
-          isWaiting={teacher.api.isPending}
-          waitingText="Removing..."
-        >
-          <Icon type="ban" /> Remove
-        </AsyncButton>
+        <Popover.Title>
+          <span>Remove <Name {...teacher} />?</span>
+        </Popover.Title>
+        <Popover.Content>
 
-        <div className="warning">
-          {teacher.isTeacherOfCourse ? WARN_REMOVE_CURRENT : undefined}
-        </div>
+          <AsyncButton
+            variant="danger"
+            onClick={this.performDeletion}
+            isWaiting={teacher.api.isPending}
+            waitingText="Removing..."
+          >
+            <Icon type="ban" /> Remove
+          </AsyncButton>
+
+          <div className="warning">
+            {teacher.isTeacherOfCourse ? WARN_REMOVE_CURRENT : undefined}
+          </div>
+        </Popover.Content>
       </Popover>
     );
   }
@@ -77,4 +81,4 @@ class RemoveTeacherLink extends React.Component {
     );
   }
 
-};
+}

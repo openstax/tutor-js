@@ -1,25 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import WarningModal from './warning-modal';
 import TutorRouter from '../helpers/router';
 
-export
+@withRouter
 class CourseNotFoundWarning extends React.Component {
 
   static propTypes = {
     areaName: PropTypes.string.isRequired,
+    history: PropTypes.object.isRequired,
   }
 
   static defaultProps = {
     areaName: 'course',
   }
 
-  static contextTypes = {
-    router: PropTypes.object,
-  }
-
   goToMyCourses() {
-    this.context.router.history.push(TutorRouter.makePathname('myCourses'));
+    this.props.history.push(TutorRouter.makePathname('myCourses'));
   }
 
 
@@ -36,3 +34,5 @@ class CourseNotFoundWarning extends React.Component {
     );
   }
 }
+
+export { CourseNotFoundWarning };

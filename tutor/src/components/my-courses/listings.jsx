@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
 import { observer } from 'mobx-react';
 import { computed, observable } from 'mobx';
-import { isEmpty, merge, map, take } from 'lodash';
+import { isEmpty, merge, map, take, last } from 'lodash';
 import { Col, Row, Container } from 'react-bootstrap';
 import classnames from 'classnames';
-
 import PreviewCourseOffering from '../../models/course/offerings/previews';
 import Courses from '../../models/courses-map';
 import User from '../../models/user';
@@ -186,7 +184,6 @@ class MyCoursesFuture extends React.Component {
   }
 }
 
-// eslint-disable-next-line
 function ExploreAPreview({ course }) {
   return (
     <Col key={`my-courses-item-wrapper-${course.id}`} lg={3} md={4} sm={6} xs={12}>
@@ -199,13 +196,16 @@ function ExploreAPreview({ course }) {
   );
 }
 
+ExploreAPreview.propTypes = {
+  course: PropTypes.object,
+};
 
 @observer
 class MyCoursesPreview extends React.Component {
 
   @observable previews;
 
-  componentWillMount() {
+  componentDidMount() {
     if (User.canViewPreviewCourses) {
       PreviewCourseOffering.fetch();
     }
@@ -221,6 +221,7 @@ class MyCoursesPreview extends React.Component {
         courses={take(courses, courses.length - 1)}
         baseName={'my-courses-preview'}
         title="Preview Courses"
+        after={<ExploreAPreview course={last(courses)} />}
       />
     );
   }

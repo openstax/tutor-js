@@ -14,7 +14,7 @@ describe('Html Content Tasks Screen', () => {
     const ux = new UX({
       task,
       course: Factory.course(),
-      router: new TestRouter(),
+      history: new TestRouter().history,
     });
     props = {
       ux,

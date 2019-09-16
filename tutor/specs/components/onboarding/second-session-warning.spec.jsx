@@ -1,4 +1,4 @@
-import { C, EnzymeContext } from '../../helpers';
+import { C } from '../../helpers';
 import SecondSessionWarning from '../../../src/components/onboarding/second-session-warning';
 import CoursePreviewUX from '../../../src/models/course/onboarding/preview';
 import User from '../../../src/models/user';
@@ -30,12 +30,11 @@ describe('Second Session Warning', () => {
   });
 
   it('navigates and logs on add', async () => {
-    const context =  EnzymeContext.build();
-    const wrapper = mount(<SecondSessionWarning ux={ux} />, context);
+    const wrapper = mount(<C><SecondSessionWarning ux={ux} /></C>);
     expect(await axe(wrapper.html())).toHaveNoViolations();
     wrapper.find('button.create').simulate('click');
     expect(User.logEvent).toHaveBeenCalledWith({ category: 'onboarding', code: 'like_preview_yes' });
-    expect(context.context.router.history.push).toHaveBeenCalledWith('/dashboard');
+    expect(wrapper.instance().pathname).toEqual('/dashboard');
   });
 
 });

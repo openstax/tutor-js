@@ -1,12 +1,13 @@
-import { C, EnzymeContext } from '../helpers';
+import { C } from '../helpers';
 import CourseListing from '../../src/components/my-courses';
 import { flatten } from 'lodash';
 import Courses from '../../src/models/courses-map';
 import User from '../../src/models/user';
 import moment from 'moment';
-jest.mock('../../src/models/chat');
-
 import { bootstrapCoursesList, STUDENT_COURSE_ONE_MODEL, TEACHER_COURSE_TWO_MODEL, TEACHER_AND_STUDENT_COURSE_THREE_MODEL, MASTER_COURSES_LIST, TUTOR_HELP, CONCEPT_COACH_HELP, STUDENT_ARCHIVED_COURSE, TEACHER_PAST_COURSE, STUDENT_PAST_COURSE } from '../courses-test-data';
+
+jest.mock('../../src/models/chat');
+jest.mock('react-floater', () => () => null);
 
 const loadTeacherUser = () => User.faculty_status = 'confirmed_faculty';
 
@@ -37,7 +38,7 @@ describe('My Courses Component', function() {
 
   it('renders the listing without archived courses', function() {
     Courses.bootstrap(flatten([MASTER_COURSES_LIST, STUDENT_ARCHIVED_COURSE]), { clear: true });
-    const wrapper = shallow(<CourseListing />, EnzymeContext.withDnD());
+    const wrapper = mount(<C><CourseListing /></C>);
     expect(wrapper).not.toHaveRendered(`CourseLink[courseId='${STUDENT_ARCHIVED_COURSE.id}']`);
     wrapper.unmount();
   });
@@ -85,7 +86,7 @@ describe('My Courses Component', function() {
 
   it('renders empty courses if course list is empty', function() {
     Courses.clear();
-    const wrapper = shallow(<CourseListing />, EnzymeContext.withDnD());
+    const wrapper = mount(<C><CourseListing /></C>);
     expect(wrapper).toHaveRendered('EmptyCourses');
   });
 
@@ -105,14 +106,14 @@ describe('My Courses Component', function() {
     const c = Courses.get(STUDENT_COURSE_ONE_MODEL.id);
     c.ends_at = moment().add(1, 'week');
     c.starts_at = moment().subtract(1, 'week');
-    const wrapper = shallow(<CourseListing />, EnzymeContext.withDnD());
+    const wrapper = mount(<C><CourseListing /></C>);
     expect(wrapper).toHaveRendered('Redirect[to="/course/1"]');
   });
 
   it('displays pending screen', () => {
     Courses.clear();
     User.self_reported_role = 'instructor';
-    const wrapper = shallow(<CourseListing />, EnzymeContext.withDnD());
+    const wrapper = mount(<C><CourseListing /></C>);
     expect(wrapper).toHaveRendered('PendingVerification');
     wrapper.unmount();
   });
@@ -122,7 +123,7 @@ describe('My Courses Component', function() {
       loadTeacherUser();
       Courses.clear();
       User.school_type = 'unknown_school_type';
-      const wrapper = shallow(<CourseListing />, EnzymeContext.withDnD());
+      const wrapper = mount(<C><CourseListing /></C>);
       expect(wrapper).toHaveRendered('NoHSTeachers');
       wrapper.unmount();
     });

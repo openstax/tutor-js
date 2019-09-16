@@ -1,4 +1,5 @@
-import { openPage, snapshotPage, setRole } from './helpers';
+/* eslint-disable no-undef */
+import { openPage, snapshotPage } from './helpers';
 
 describe('My Courses', () => {
   let page;

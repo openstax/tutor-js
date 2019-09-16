@@ -10,7 +10,7 @@ export default class AsyncLoadError extends React.Component {
     error: PropTypes.object.isRequired,
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     reloadOnce();
   }
 

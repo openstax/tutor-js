@@ -1,4 +1,4 @@
-import { Factory, EnzymeContext } from '../helpers';
+import { Factory, R } from '../helpers';
 import Survey from '../../src/screens/surveys';
 
 
@@ -29,7 +29,7 @@ describe('Surveys Screen', () => {
   });
 
   it('submits survey when answered', async () => {
-    const survey = mount(<Survey {...props} />, EnzymeContext.build());
+    const survey = mount(<R><Survey {...props} /></R>);
 
     survey.find('input[placeholder="Jon Snow"]').first().simulate('blur',
       { target: { value: 'Bob' } }

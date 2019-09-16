@@ -1,4 +1,3 @@
-import { Testing } from '../../helpers';
 import bootstrapScores from '../../helpers/scores-data.js';
 
 import { LateWorkPopover } from '../../../src/screens/scores-report/late-work';
@@ -33,6 +32,6 @@ describe('Student Scores Latework Popover', function() {
     props.task.completed_accepted_late_step_count = 4;
     const lw = mount(<LateWorkPopover {...props} />);
     expect(lw.text()).toContain('student worked 3 questions');
-    expect(lw.find('.popover-header').first().text()).toEqual('Additional late work');
+    expect(lw.find('.popover-header').text()).toEqual('Additional late work');
   });
 });

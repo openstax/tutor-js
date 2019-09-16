@@ -39,7 +39,7 @@ class Exercise extends React.Component {
     return this.props.exercises.get(this.props.match.params.uid);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { uid } = this.props.match.params;
     this.props.exercises.ensureLoaded(uid);
   }

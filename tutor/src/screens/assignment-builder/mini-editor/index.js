@@ -65,7 +65,9 @@ class TaskPlanMiniEditorShell extends React.Component {
           target={this.props.findPopOverTarget}
         >
           <StyledPopover id="mini-task-editor-popover">
-            {body}
+            <Popover.Content>
+              {body}
+            </Popover.Content>
           </StyledPopover>
         </Overlay>
       </StyledEditorPlacement>

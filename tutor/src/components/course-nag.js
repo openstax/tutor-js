@@ -38,7 +38,8 @@ class CourseNagModal extends React.Component {
     if (this.spyModeObserverDispose) { this.spyModeObserverDispose(); }
   }
 
-  componentWillMount() {
+  componentDidMount() {
+
     const { course } = this.props;
     if (course) {
       this.ux = onboardingForCourse(course, this.props.tourContext);

@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, computed, action, cn, styled } from '../../helpers/react';
+import { React, PropTypes, withRouter, observer, computed, action, cn, styled } from '../../helpers/react';
 import { Col } from 'react-bootstrap';
 import moment from 'moment';
 import { get } from 'lodash';
@@ -45,22 +45,20 @@ EventTime.propTypes = {
 };
 
 export default
+@withRouter
 @observer
 class EventRow extends React.Component {
 
   static propTypes = {
-    event:     PropTypes.object.isRequired,
-    course:    PropTypes.instanceOf(Course).isRequired,
-  }
-
-  static contextTypes = {
-    router: PropTypes.object,
+    event:   PropTypes.object.isRequired,
+    course:  PropTypes.instanceOf(Course).isRequired,
+    history: PropTypes.object.isRequired,
   }
 
   @action.bound onClick(ev) {
     ev.preventDefault();
     if (this.isViewable) {
-      this.context.router.history.push(
+      this.props.history.push(
         ev.currentTarget.getAttribute('href')
       );
     }

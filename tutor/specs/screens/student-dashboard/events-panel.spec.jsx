@@ -1,4 +1,4 @@
-import { TimeMock, React } from '../../helpers';
+import { TimeMock, React, R } from '../../helpers';
 import { map } from 'lodash';
 import Factory from '../../factories';
 import EventsPanel from '../../../src/screens/student-dashboard/events-panel';
@@ -19,7 +19,7 @@ describe('EventsPanel', function() {
 
 
   it('renders with events as named', function() {
-    const wrapper = mount(<EventsPanel {...props} />);
+    const wrapper = mount(<R><EventsPanel {...props} /></R>);
     const renderedTitles = wrapper.find('Col[className="title"]').map(t => t.text());
     const mockTitles = map(props.events, 'title');
     expect(renderedTitles).toEqual(mockTitles);

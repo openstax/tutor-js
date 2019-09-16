@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import './styles.scss';
 import { inject, observer } from 'mobx-react';
 import UX from './ux';
@@ -8,6 +9,7 @@ import Loading from 'shared/components/loading-animation';
 import QAView from './view';
 
 export default
+@withRouter
 @inject('topNavbar')
 @observer
 class QAViewWrapper extends React.Component {
@@ -18,20 +20,17 @@ class QAViewWrapper extends React.Component {
       chapterSection: PropTypes.string,
     }).isRequired,
     topNavbar: PropTypes.instanceOf(NavbarContext).isRequired,
+    history: PropTypes.object.isRequired,
   }
 
-  static contextTypes = {
-    router: PropTypes.object,
-  }
+  ux = new UX({ history: this.props.history });
 
-  ux = new UX({ router: this.context.router });
-
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.ux.update(this.props.params);
     this.ux.setNavBar(this.props.topNavbar);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.ux.update(nextProps.params);
   }
 

@@ -2,24 +2,23 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { isEmpty } from 'lodash';
 import Router from '../../helpers/router';
+import { withRouter } from 'react-router-dom';
 
-export default class extends React.Component {
-  static contextTypes = {
-    router: PropTypes.object,
-  };
-
-  static displayName = 'PracticeButton';
+export default
+@withRouter
+class PracticeButton extends React.Component {
 
   static propTypes = {
     courseId: PropTypes.string.isRequired,
     page_ids: PropTypes.array.isRequired,
     children: PropTypes.element.isRequired,
+    history:  PropTypes.object.isRequired,
   };
 
   onClick = () => {
     const { courseId, page_ids } = this.props;
     const route = Router.makePathname('practiceTopics', { courseId }, { query: { page_ids } });
-    return this.context.router.history.push( route );
+    return this.props.history.push( route );
   };
 
   isDisabled = () => {

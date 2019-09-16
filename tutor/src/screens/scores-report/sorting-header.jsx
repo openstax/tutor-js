@@ -7,13 +7,13 @@ import Theme from '../../../src/theme';
 import { Icon } from 'shared';
 import UX from './ux';
 
+export default
 @observer
-export default class SortingHeader extends React.Component {
+class SortingHeader extends React.Component {
 
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
     sortKey: PropTypes.any.isRequired,
-    dataType: PropTypes.any.isRequired,
     className: PropTypes.string,
     dataType: PropTypes.string,
     type: PropTypes.string,

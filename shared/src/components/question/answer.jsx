@@ -67,7 +67,7 @@ class Answer extends React.Component {
     processHtmlAndMath: PropTypes.func,
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.shouldKey()) { this.setUpKeys(); }
   }
 
@@ -223,4 +223,4 @@ class Answer extends React.Component {
       </div>
     );
   }
-};
+}

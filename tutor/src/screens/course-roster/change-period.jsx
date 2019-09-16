@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { computed, action } from 'mobx';
 import { without, find } from 'lodash';
 import { autobind } from 'core-decorators';
-import { Nav, NavItem, Popover, OverlayTrigger } from 'react-bootstrap';
+import { Nav, Popover, OverlayTrigger } from 'react-bootstrap';
 import { Icon } from 'shared';
 import CGL from '../../components/course-grouping-label';
 import Student from '../../models/course/student';
@@ -58,9 +58,11 @@ class ChangePeriodLink extends React.Component {
   selectNewPeriod() {
     return (
       <Popover id="change-period" className="change-period" title={this.popOverTitle()}>
-        <Nav stacked={true} className="flex-column" onSelect={this.updatePeriod}>
-          {this.otherPeriods.map(this.renderPeriod)}
-        </Nav>
+        <Popover.Content>
+          <Nav stacked={true} className="flex-column" onSelect={this.updatePeriod}>
+            {this.otherPeriods.map(this.renderPeriod)}
+          </Nav>
+        </Popover.Content>
       </Popover>
     );
   }
@@ -82,4 +84,4 @@ class ChangePeriodLink extends React.Component {
       </OverlayTrigger>
     );
   }
-};
+}

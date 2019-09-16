@@ -15,7 +15,7 @@ export default
 @observer
 class MyCourses extends React.Component {
 
-  componentWillMount() {
+  componentDidMount() {
     User.logEvent({ category: 'onboarding', code: 'arrived_my_courses' });
   }
 

@@ -9,7 +9,7 @@ import Router from '../helpers/router';
 import Analytics from '../helpers/analytics';
 import MatchForTutor from './match-for-tutor';
 import TeacherAsStudentFrame from '../components/teacher-as-student-frame';
-import { DragDropContext } from 'react-dnd';
+import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import User from '../models/user';
 import { SpyMode } from 'shared';
@@ -29,6 +29,7 @@ RouteChange.propTypes = {
   pathname: PropTypes.string.isRequired,
 };
 
+export default
 @observer
 class App extends React.Component {
 
@@ -37,10 +38,6 @@ class App extends React.Component {
     location: PropTypes.shape({
       pathname: PropTypes.string,
     }).isRequired,
-  }
-
-  static contextTypes = {
-    router: PropTypes.object,
   }
 
   componentDidMount() {
@@ -73,24 +70,23 @@ class App extends React.Component {
 
     return (
       <div className={classNames}>
-        <ErrorBoundary app={this.props.app}>
-          <TeacherAsStudentFrame course={course} routeName={routeName}>
-            <SpyMode.Wrapper>
-              <ModalManager>
-                <TourConductor>
-                  <TutorLayout course={course}>
-                    <MatchForTutor routes={Router.getRenderableRoutes()} />
-                  </TutorLayout>
-                </TourConductor>
-              </ModalManager>
-            </SpyMode.Wrapper>
-          </TeacherAsStudentFrame>
-        </ErrorBoundary>
+        <DndProvider backend={HTML5Backend}>
+          <ErrorBoundary app={this.props.app}>
+            <TeacherAsStudentFrame course={course} routeName={routeName}>
+              <SpyMode.Wrapper>
+                <ModalManager>
+                  <TourConductor>
+                    <TutorLayout course={course}>
+                      <MatchForTutor routes={Router.getRenderableRoutes()} />
+                    </TutorLayout>
+                  </TourConductor>
+                </ModalManager>
+              </SpyMode.Wrapper>
+            </TeacherAsStudentFrame>
+          </ErrorBoundary>
+        </DndProvider>
       </div>
     );
   }
 
 }
-
-
-export default DragDropContext(HTML5Backend)(App);

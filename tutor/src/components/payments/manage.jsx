@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { observable, action, computed } from 'mobx';
+import { observable, action } from 'mobx';
 import { Container, Table, Button } from 'react-bootstrap';
 import moment from 'moment';
 import { map, extend, isFunction } from 'lodash';
@@ -56,7 +56,7 @@ class ManagePayments extends React.Component {
       { to: 'myCourses', text: 'Back to My Courses' };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     Purchases.fetch();
   }
 
@@ -185,4 +185,4 @@ class ManagePayments extends React.Component {
     );
   }
 
-};
+}

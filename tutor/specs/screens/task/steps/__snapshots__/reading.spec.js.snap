@@ -37,7 +37,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
   data-task-step-id={1}
 >
   <div
-    className="reading-step c1"
+    className="reading-step sc-EHOje c1"
   >
     <div />
     <button

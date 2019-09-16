@@ -16,14 +16,14 @@ export default {
   },
 
   buildCallbackHandlers(comp) {
-    const { router } = comp.context;
-    if (!router) {
-      throw new Error('Component\'s context must have router present');
+    const { history } = comp.props;
+    if (!history) {
+      throw new Error('Component\'s props must have history present');
     }
     return {
       missing_student_id: {
         onAdd({ course }) {
-          return router.history.push(
+          return history.push(
             Router.makePathname('changeStudentId', { courseId: course.id })
           );
         },

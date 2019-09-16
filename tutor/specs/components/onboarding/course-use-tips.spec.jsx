@@ -1,4 +1,4 @@
-import { C, EnzymeContext } from '../../helpers';
+import { C, R } from '../../helpers';
 import Course from '../../../src/models/course';
 import CourseUseTips from '../../../src/components/onboarding/course-use-tips';
 
@@ -25,14 +25,14 @@ describe('Course Use Tips', () => {
   });
 
   it('has link to help', async () => {
-    const wrapper = mount(<CourseUseTips {...props} />, EnzymeContext.build());
+    const wrapper = mount(<R><CourseUseTips {...props} /></R>);
     expect(wrapper).toHaveRendered('a.best-practices');
     course.appearance_code = 'gibberish';
     expect(wrapper).not.toHaveRendered('a.best-practices');
   });
 
   it('dismisses on btn click', () => {
-    const tips = mount(<CourseUseTips {...props} />, EnzymeContext.build());
+    const tips = mount(<R><CourseUseTips {...props} /></R>);
     tips.find('Footer Button').simulate('click');
     expect(props.onDismiss).toHaveBeenCalled();
   });

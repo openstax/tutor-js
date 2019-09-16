@@ -1,5 +1,5 @@
 import { Success, Failure } from '../../../src/components/toasts/scores';
-import { EnzymeContext, getPortalNode as PC } from '../../helpers';
+import { C } from '../../helpers';
 
 import { Toast } from 'shared/model/toasts';
 jest.useFakeTimers();
@@ -20,12 +20,12 @@ describe('Scores Background job toasts', () => {
   });
 
   it('renders success', () => {
-    let toast = shallow(<Success {...props} />, EnzymeContext.build());
+    let toast = mount(<C><Success {...props} /></C>);
     expect(toast.text()).toContain('successfully exported');
   });
 
   it('renders failure', ()=> {
-    let toast = shallow(<Failure {...props} />, EnzymeContext.build());
+    let toast = mount(<C><Failure {...props} /></C>);
     expect(toast.text()).toContain('not exported');
   });
 

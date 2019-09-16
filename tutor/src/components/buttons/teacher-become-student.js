@@ -2,6 +2,7 @@ import {
   React, PropTypes, observer, action, observable, styled,
 } from '../../helpers/react';
 import Course from '../../models/course';
+import { withRouter } from 'react-router-dom';
 import { Button, Dropdown } from 'react-bootstrap';
 import { Icon } from 'shared';
 import Theme from '../../theme';
@@ -17,6 +18,7 @@ const BecomeButton = styled(Button).attrs({
     border-bottom-width: 1px;
   }
 `;
+BecomeButton.displayName = 'BecomeButton';
 
 const Waiting = styled.div`
   color: ${Theme.colors.neutral.bright};
@@ -60,15 +62,13 @@ const PeriodSelector = styled(Dropdown)`
 `;
 
 export default
+@withRouter
 @observer
 class TeacherBecomesStudent extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course),
-  }
-
-  static contextTypes = {
-    router: PropTypes.object,
+    history: PropTypes.object.isRequired,
   }
 
   @observable isCreating = false;
@@ -90,7 +90,7 @@ class TeacherBecomesStudent extends React.Component {
     const { course } = this.props;
     this.isCreating = true;
     const role = await period.getTeacherStudentRole();
-    this.context.router.history.push(`/course/${course.id}/become/${role.id}`);
+    this.props.history.push(`/course/${course.id}/become/${role.id}`);
   }
 
   @action.bound onPeriodMenuToggle(isOpen) {

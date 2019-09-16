@@ -4,7 +4,7 @@ import {
 import {
   find, isEmpty, intersection, compact, uniq, flatMap, map, get, delay, forEach, flatten, first,
 } from 'lodash';
-import { observe, action } from 'mobx';
+import { action } from 'mobx';
 
 import Courses   from '../courses-map';
 import User      from '../user';
@@ -31,10 +31,11 @@ class TourContext extends BaseModel {
   @observable forcePastToursIndication;
 
   @observable otherModal;
+  @observable tourRide;
 
   constructor(attrs) {
     super(attrs);
-    observe(this, 'tourRide', this._onTourRideChange.bind(this));
+    this.pickTourRide();
   }
 
   @computed get tourIds() {
@@ -55,10 +56,12 @@ class TourContext extends BaseModel {
 
   addAnchor(id, domEl) {
     this.anchors.set(id, domEl);
+    this.pickTourRide();
   }
 
   removeAnchor(id) {
     this.anchors.delete(id);
+    this.pickTourRide();
   }
 
   openRegion(region) {
@@ -67,6 +70,7 @@ class TourContext extends BaseModel {
       this.regions.push(region);
       this.checkReminders(region);
     }
+    this.pickTourRide();
   }
 
   closeRegion(region) {
@@ -74,6 +78,7 @@ class TourContext extends BaseModel {
       tour.justViewed = false;
     });
     this.regions.remove(region);
+    this.pickTourRide();
   }
 
   checkReminders(region) {
@@ -101,12 +106,10 @@ class TourContext extends BaseModel {
     return find(this.eligibleTours, 'isViewable') || null;
   }
 
-  @computed get tourRide() {
+  @action pickTourRide() {
     const { tour } = this;
-    if ( tour ) {
-      return new TourRide({ tour, context: this, region: this.activeRegion });
-    }
-    return null;
+    if (this.tourRide && this.tourRide.tour === tour) { return; }
+    this.tourRide = tour ? new TourRide({ tour, context: this, region: this.activeRegion }) : null;
   }
 
   @computed get audienceTags() {
@@ -131,10 +134,11 @@ class TourContext extends BaseModel {
   }
 
   // eligible if tags match and some step is visible
-  @computed get eligibleTours() {
+  // deliberatly not @computed so dom changes affect
+  get eligibleTours() {
     return this.allTours.filter(tour => (
       !isEmpty(intersection(tour.audience_tags, this.audienceTags)) &&
-      new TourRide({ tour, context: this }).hasValidSteps
+        find(tour.steps, 'isViewable')
     ));
   }
 
@@ -156,12 +160,12 @@ class TourContext extends BaseModel {
     this.eligibleTours.forEach((tour) => {
       if (!tour.autoplay){ tour.play(); }
     });
+    this.pickTourRide();
   }
 
-  _onTourRideChange({ type, oldValue: oldRide }) {
-    this.checkReminders();
-    if (type !== 'update') { return; }
-    if (oldRide) { oldRide.dispose(); }
+  @action onTourComplete({ exitedEarly = false } = {}) {
+    this.tourRide.tour.markViewed({ exitedEarly });
+    this.pickTourRide();
   }
 
 }

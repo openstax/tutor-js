@@ -3,7 +3,7 @@ import { extend, isEmpty } from 'lodash';
 import moment from '../../helpers/moment-range';
 import Router from '../../helpers/router';
 import { observable, computed, action, observe } from 'mobx';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import { NotificationsBar } from 'shared';
 import CoursePage from '../../components/course-page';
 import ModelLoader from '../../models/loader';
@@ -25,6 +25,7 @@ const Title = styled.div`
   h1 { margin: 0; }
 `;
 
+@withRouter
 @inject((allStores, props) => ({
   tourContext: ( props.tourContext || allStores.tourContext ),
 }))
@@ -36,16 +37,14 @@ class TeacherDashboardWrapper extends React.Component {
     date: PropTypes.string.isRequired,
     course: PropTypes.instanceOf(Course).isRequired,
     tourContext: PropTypes.object,
+    // router's history is needed for Navbar helpers
+    history: PropTypes.object.isRequired,
   }
 
   static defaultProps = {
     dateFormat: TimeHelper.ISO_DATE_FORMAT,
   }
 
-  // router context is needed for Navbar helpers
-  static contextTypes = {
-    router: PropTypes.object,
-  }
 
   @computed get date() {
     return TimeHelper.getMomentPreserveDate(this.props.date, this.props.dateFormat);
@@ -95,7 +94,6 @@ class TeacherDashboardWrapper extends React.Component {
   componentWillUnmount() {
     TimeHelper.unsyncCourseTimezone();
     this.disposePlanObserver();
-
   }
 
   @action.bound onSidebarToggle(isOpen) {

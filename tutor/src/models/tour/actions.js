@@ -3,7 +3,7 @@ import { findModel } from 'mobx-decorated-models';
 import './actions/open-actions-menu';
 import './actions/open-calendar-sidebar';
 import './actions/open-support-menu';
-import './actions/reposition';
+
 import './actions/hover-exercise';
 
 // TourActions

@@ -24,7 +24,7 @@ class CalendarSidebarToggle extends React.Component {
   @observable iconType = this.isOpen ? OPEN_ICON : CLOSED_ICON;
   @observable pendingIntroTimeout;
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.isOpen) {
       this.props.onToggle(this.isOpen);
     } else {
@@ -62,4 +62,4 @@ class CalendarSidebarToggle extends React.Component {
       </Button>
     );
   }
-};
+}

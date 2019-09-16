@@ -11,7 +11,7 @@ describe('Homework Breadcrumbs Component', () => {
     task = Factory.studentTask({ stepCount: 10, type: 'reading' });
     props = {
       unDocked: true,
-      ux: new UX({ task, router: new TestRouter, course: Factory.course() }),
+      ux: new UX({ task, history: new TestRouter().history, course: Factory.course() }),
     };
   });
 

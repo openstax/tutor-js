@@ -4,31 +4,26 @@ import { Button } from 'react-bootstrap';
 import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import Router from '../../helpers/router';
-
 import { OnboardingNag, Heading, Body, Footer } from './nag-components';
-
 export { GotItOnboardingNag, OnboardingNag, Heading, Body, Footer };
 
 @observer
 class GotItOnboardingNag extends React.Component {
   static propTypes = {
     ux: PropTypes.object.isRequired,
-  }
-  static contextTypes = {
-    router: PropTypes.object,
+    history: PropTypes.object.isRequired,
+    promptRenderer: PropTypes.func.isRequired,
   }
 
   @observable noProblemo = false;
 
-  @action.bound
-  onAddCourse() {
-    this.context.router.history.push(
+  @action.bound onAddCourse() {
+    this.props.history.push(
       Router.makePathname('myCourses')
     );
   }
 
-  @action.bound
-  onContinue() {
+  @action.bound onContinue() {
     if (this.noProblemo) {
       this.props.ux.dismissNag();
     } else {
@@ -50,6 +45,7 @@ class GotItOnboardingNag extends React.Component {
   }
 
   render() {
-    return this.noProblemo ? this.renderNoProblem() : this.renderPrompt();
+    return this.noProblemo ?
+      this.renderNoProblem() : this.props.promptRenderer(this.onAddCourse, this.onContinue);
   }
 }

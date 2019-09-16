@@ -13,6 +13,7 @@
       "customComponent": "TipsNowOrLater",
       "is_fixed": true,
       "body": "Learn more about the dashboard with our \"Page tips.\"",
+      "spotLightPadding": 10,
       "anchor_id": "menu-option-page-tips",
       "action": {
         "id": "open-support-menu"
@@ -30,7 +31,8 @@
     {
       "title": "Welcome to your dashboard!",
       "body": "Think of your dashboard as base camp -- you can create and manage assignments, see student progress, and review the book.",
-      "customComponent": "CenteredWheel"
+      "position": "center",
+      "displayAs": "splash"
     }, {
       "title": "Here's where you add your assignments",
       "body": "Create an assignment by clicking it or dragging to the calendar.",
@@ -50,12 +52,12 @@
       "title": "Here's where you see section analytics",
       "body": "The Performance Forecast is the compass in your pocket: it helps you measure how your class is understanding concepts so you can target your teaching!",
       "anchor_id": "performance-forecast-button",
-      "position": "bottom-left"
+      "position": "bottom-end"
     }, {
       "title": "View student scores",
       "body": "View individual student performance and completion, and export student scores for your learning management system.",
       "anchor_id": "student-scores-button",
-      "position": "bottom-right"
+      "position": "bottom-end"
     }, {
       "title": "Manage your Question Library",
       "body": "View all OpenStax Tutor questions here.",
@@ -93,7 +95,7 @@
       "title": "Get help",
       "body": "Get help with a page tour, support articles, or live chat.",
       "anchor_id": "support-menu-button",
-      "position": "left",
+      "position": "left-end",
       "is_fixed": true,
       "action": {
         "id": "open-support-menu"

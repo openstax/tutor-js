@@ -17,7 +17,7 @@ describe('Task UX Model', () => {
   beforeEach(() => {
     task = Factory.studentTask({ type: 'homework', stepCount: 10 });
     task.tasksMap = { course: Factory.course() };
-    ux = new UX({ task: task, router: new TestRouter() });
+    ux = new UX({ task: task, history: new TestRouter().history });
   });
 
   it('calculates tasks/steps', () => {
@@ -111,7 +111,7 @@ describe('Task UX Model', () => {
     task = Factory.studentTask({ type: 'event', stepCount: 0 });
     expect(task.steps).toHaveLength(0);
     task.tasksMap = { course: Factory.course() };
-    ux = new UX({ task: task, router: new TestRouter() });
+    ux = new UX({ task: task, history: new TestRouter().history });
     expect(ux.currentStep).toBeNull();
   });
 

@@ -49,7 +49,7 @@ class Stats extends React.Component {
     return find(this.analytics.stats, { period_id: this.period.id }) || {};
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (!this.analytics.api.hasBeenFetched) {
       this.analytics.fetch();
     }

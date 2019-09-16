@@ -3,29 +3,28 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import { action } from 'mobx';
 import { observer } from 'mobx-react';
+import { withRouter } from 'react-router-dom';
 import { OnboardingNag, Heading, Body, Footer } from './onboarding-nag';
 import CourseUX from '../../models/course/ux';
 import Courses from '../../models/courses-map';
 import TutorRouter from '../../helpers/router';
 
 export default
+@withRouter
 @observer
 class FreeTrialEnded extends React.Component {
 
   static propTypes = {
     ux: PropTypes.object.isRequired,
     onDismiss: PropTypes.func.isRequired,
-  }
-
-  static contextTypes = {
-    router: PropTypes.object,
+    history: PropTypes.object.isRequired,
   }
 
   static className = 'free-trial-ended'
 
   @action.bound
   goToMyCourses() {
-    this.context.router.history.push(TutorRouter.makePathname('myCourses'));
+    this.props.history.push(TutorRouter.makePathname('myCourses'));
   }
 
   renderBackLink() {

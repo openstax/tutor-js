@@ -1,5 +1,5 @@
 import EventRow from '../../../src/screens/student-dashboard/event-row';
-import { React, moment } from '../../helpers';
+import { React, R, moment } from '../../helpers';
 import Factory from '../../factories';
 
 describe('Event Row', function() {
@@ -10,23 +10,23 @@ describe('Event Row', function() {
 
   beforeEach(function() {
     const regular = (
-      <EventRow
+      <R><EventRow
         className="testing"
         event={Factory.studentDashboardTask()}
-        course={course} />
+        course={course} /></R>
     );
     const deleted = (
-      <EventRow
+      <R><EventRow
         className=""
         event={Factory.studentDashboardTask({ is_deleted: true })}
-        course={course} />
+        course={course} /></R>
     );
     const deletedNotStarted = (
-      <EventRow
+      <R><EventRow
         className=""
         event={Factory.studentDashboardTask({ is_deleted: true })}
         isCollege={false}
-        course={course} />
+        course={course} /></R>
     );
     regularRow = mount(regular);
     deletedRow = mount(deleted);
@@ -67,7 +67,7 @@ describe('Event Row', function() {
     expect(task.isOpen).toBe(false);
     task.tasks = { course: { currentRole: { isTeacherStudent: true } } };
     expect(task.isTeacherStudent).toBe(true);
-    const row = mount(<EventRow event={task} course={course} />);
+    const row = mount(<R><EventRow event={task} course={course} /></R>);
     expect(row.find('NotOpenNotice').text()).toContain('only visible to instructors');
     row.unmount();
   });

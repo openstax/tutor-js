@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { action, observable } from 'mobx';
 import { isEmpty } from 'lodash';
@@ -10,17 +11,14 @@ import Router from '../helpers/router';
 import BackButton from './buttons/back-button';
 
 export default
+@withRouter
 @observer
 class ChangeStudentId extends React.Component {
 
   static propTypes = {
     courseId: PropTypes.string,
+    history: PropTypes.object.isRequired,
   }
-
-  static contextTypes = {
-    router: PropTypes.object,
-  }
-
   courseId = Router.currentParams().courseId;
   student = Courses.get(this.courseId).userStudentRecord;
 
@@ -45,7 +43,7 @@ class ChangeStudentId extends React.Component {
 
   @action.bound
   goToDashboard() {
-    this.context.router.history.push(Router.makePathname('dashboard', { courseId: this.courseId }));
+    this.props.history.push(Router.makePathname('dashboard', { courseId: this.courseId }));
   }
 
   @action.bound
@@ -118,4 +116,4 @@ class ChangeStudentId extends React.Component {
       </Modal.Dialog>
     );
   }
-};
+}

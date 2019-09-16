@@ -52,7 +52,7 @@ class ExerciseDetails extends React.Component {
     // this.scroller.scrollToSelector('.exercise-controls-bar');
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { selectedExercise } = this.props;
     if (selectedExercise) {
       this.currentIndex = findIndex(this.exercises, selectedExercise);

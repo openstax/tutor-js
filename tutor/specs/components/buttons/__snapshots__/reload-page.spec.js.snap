@@ -3,13 +3,11 @@
 exports[`Reload Button reloads when clicked 1`] = `
 "<ReloadPageButton windowImpl={{...}}>
   <AsyncButton className=\\"reload-page\\" isWaiting={false} variant=\\"primary\\" size=\\"small\\" waitingText=\\"Reloading…\\" onClick={[Function: res]} isDone={false} isFailed={false} failedState={[Function: _default]} failedProps={{...}} doneText=\\"\\" isJob={false}>
-    <ForwardRef(Bootstrap(Button)) size=\\"small\\" variant=\\"primary\\" onClick={[Function: res]} className={{...}} active={[undefined]} disabled={[undefined]}>
-      <Button size=\\"small\\" variant=\\"primary\\" onClick={[Function: res]} className={{...}} active={false} disabled={false} innerRef={{...}} bsPrefix=\\"btn\\" type=\\"button\\">
-        <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"async-button reload-page btn btn-primary btn-small\\">
-          Reload Page
-        </button>
-      </Button>
-    </ForwardRef(Bootstrap(Button))>
+    <Button size=\\"small\\" variant=\\"primary\\" onClick={[Function: res]} className={{...}} active={false} disabled={false} type=\\"button\\">
+      <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"async-button reload-page btn btn-primary btn-small\\">
+        Reload Page
+      </button>
+    </Button>
   </AsyncButton>
 </ReloadPageButton>"
 `;

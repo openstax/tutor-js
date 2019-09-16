@@ -5,6 +5,7 @@ import { observer, inject } from 'mobx-react';
 import { computed, action } from 'mobx';
 import { get } from 'lodash';
 import { Icon } from 'shared';
+import { withRouter } from 'react-router-dom';
 import TourAnchor from '../tours/anchor';
 import TourContext from '../../models/tour/context';
 import Router from '../../helpers/router';
@@ -13,6 +14,7 @@ import Course from '../../models/course.js';
 import onboardingForCourse from '../../models/course/onboarding';
 
 export default
+@withRouter
 @inject((allStores, props) => ({
   tourContext: ( props.tourContext || allStores.tourContext ),
 }))
@@ -20,12 +22,9 @@ export default
 class PreviewAddCourseBtn extends React.Component {
 
   static propTypes = {
+    history: PropTypes.object.isRequired,
     course: PropTypes.instanceOf(Course),
     tourContext: PropTypes.instanceOf(TourContext),
-  }
-
-  static contextTypes = {
-    router: PropTypes.object,
   }
 
   @computed get ux() {
@@ -38,7 +37,7 @@ class PreviewAddCourseBtn extends React.Component {
 
   @action.bound
   onAddCourse() {
-    this.context.router.history.push(
+    this.props.history.push(
       Router.makePathname('myCourses')
     );
   }
@@ -58,4 +57,4 @@ class PreviewAddCourseBtn extends React.Component {
       </TourAnchor>
     );
   }
-};
+}

@@ -1,4 +1,4 @@
-import { React, EnzymeContext } from '../../helpers';
+import { React, R } from '../../helpers';
 import { last } from 'lodash';
 import Factory from '../../factories';
 import { Provider } from 'mobx-react';
@@ -7,10 +7,10 @@ import TourContext from '../../../src/models/tour/context';
 
 const renderModal = props =>
   new Promise( function(resolve) {
-    const planDetails = <Provider tourContext={new TourContext()}>
+    const planDetails = <R><Provider tourContext={new TourContext()}>
       <PlanDetails {...props} />
-    </Provider>;
-    const wrapper = mount(planDetails, EnzymeContext.build());
+    </Provider></R>;
+    const wrapper = mount(planDetails);
     resolve(last(document.querySelectorAll('.modal')));
     wrapper.unmount();
   })

@@ -1,17 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
+import { withRouter } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 import Router from '../../helpers/router';
-
 import { wrapCourseDropComponent } from './course-dnd';
 import TutorLink from '../link';
 import IconAdd from '../icons/add';
-import Courses from '../../models/courses-map';
 import TourAnchor from '../tours/anchor';
 
 export default
+@withRouter
 @wrapCourseDropComponent
 @observer
 class CreateACourse extends React.Component {
@@ -19,15 +18,12 @@ class CreateACourse extends React.Component {
   static propTypes = {
     isHovering: PropTypes.bool,
     connectDropTarget: PropTypes.func.isRequired,
-  }
-
-  static contextTypes = {
-    router: PropTypes.object,
+    history: PropTypes.object.isRequired,
   }
 
   onDrop(course) {
     const url = Router.makePathname('createNewCourse', { sourceId: course.id });
-    this.context.router.history.push(url);
+    this.props.history.push(url);
   }
 
   renderAddZone() {
@@ -55,4 +51,4 @@ class CreateACourse extends React.Component {
         {this.renderAddZone()}
       </TourAnchor>);
   }
-};
+}

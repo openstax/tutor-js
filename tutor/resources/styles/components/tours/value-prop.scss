@@ -13,133 +13,127 @@
   padding-top: 116px;
 }
 
-.joyride-tooltip {
+.value-prop {
+
+  $spacing: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $spacing;
+  color: $openstax-black;
+  min-width: 900px;
+
   &.has-forest-background {
     @include tutor-background-image("value-prop/tutor-background.svg");
     background-size: cover;
     background-position: bottom center;
-
-    .joyride-tooltip__footer {
-      padding-bottom: 60px;
-    }
-
-    .value-prop {
-      padding: 40px 40px 0 40px;
-    }
+    padding: 4rem;
   }
 
-  .value-prop {
-    $spacing: 40px;
+  > * {
+    width: 100%;
+  }
+
+  .heading {
+    margin: 0 0 $spacing*0.25 0;
+    padding: 0;
+    text-align: center;
+    font-size: 48px;
+    color: $openstax-tertiary;
+  }
+  .sub-heading {
+    font-size: 18px;
+    margin: 0 0 $spacing*0.5 0;
+    padding: 0;
+    text-align: center;
+    font-weight: normal;
+  }
+  .column-content {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: $spacing;
-    color: $openstax-black;
-
-    > * {
-      width: 100%;
-    }
-
-    .heading {
-      margin: 0 0 $spacing*0.25 0;
-      padding: 0;
+    flex-direction: row;
+    padding: $spacing 0;
+    width: 100%;
+    .column {
+      background-repeat: no-repeat;
+      padding-top: $spacing*2.5;
+      background-size: auto 75px;
+      background-position: center top;
       text-align: center;
-      font-size: 48px;
-      color: $openstax-tertiary;
-    }
-    .sub-heading {
-      font-size: 18px;
-      margin: 0 0 $spacing*0.5 0;
-      padding: 0;
-      text-align: center;
-      font-weight: normal;
-    }
-    .column-content {
-      display: flex;
-      flex-direction: row;
-      padding: $spacing 0;
-      width: 100%;
-      .column {
-        background-repeat: no-repeat;
-        padding-top: $spacing*2.5;
-        background-size: auto 75px;
-        background-position: center top;
-        text-align: center;
-        flex: 1;
+      flex: 1;
 
-        + .column {
-          margin-left: $spacing;
-        }
-
-        h3 {
-          font-size: 16px;
-          margin: 0 0 $spacing*0.25 0;
-          font-weight: 700;
-        }
-
-        p {
-          line-height: 1.4em;
-        }
-      }
-    }
-    .btn {
-      color: $tutor-neutral-lightest;
-      background-color: $tutor-tertiary-neutral-light;
-      border-radius: 5px;
-      padding: $spacing*0.25 $spacing;
-    }
-
-    &.build-reading {
-      .column-content {
-        padding: $spacing 90px;
+      + .column {
+        margin-left: $spacing;
       }
 
-      .column + .column {
-        margin-left: 60px;
+      h3 {
+        font-size: 16px;
+        margin: 0 0 $spacing*0.25 0;
+        font-weight: 700;
       }
-    }
 
-    &.cc-to-tutor,
-    &.welcome-to-tutor {
-      .column {
-        &.spaced       { @include tutor-background-image("value-prop/spaced-practice.svg"); }
-        &.personalized { @include tutor-background-image("value-prop/personalized.svg");    }
-        &.low-cost     {
-          @include tutor-background-image("value-prop/low-cost.svg");
-          background-size: 100px auto;
-          background-position: center 15px;
-        }
-        &.two-step     { @include tutor-background-image("value-prop/two-step.svg");        }
-      }
-    }
-    &.cc-sunset {
-      .column {
-        @include column-icons-embiggen();
-        &.thanks           { @include tutor-background-image("cc-sunset/thanks.svg");             }
-        &.view-analytics   { @include tutor-background-image("cc-sunset/view-analytics.svg");     }
-        &.export-by        { @include tutor-background-image("cc-sunset/export-by.svg");          }
-        &.not-launched-yet { @include tutor-background-image("cc-sunset/under-construction.svg"); }
-      }
-    }
-    &.course-preview {
-      .column {
-        @include column-icons-embiggen();
-
-        &.all-features              { @include tutor-background-image("course-preview/all-features.svg");             }
-        &.view-analytics            { @include tutor-background-image("course-preview/view-analytics.svg");           }
-        &.cant-save-work            { @include tutor-background-image("course-preview/cant-save-work.svg");           }
-        &.view-textbook-questions   { @include tutor-background-image("course-preview/view-textbook-questions.svg");  }
-      }
-    }
-    &.question-library,
-    &.build-reading {
-      .column {
-        @include column-icons-embiggen();
-
-        &.exclude-question  { @include tutor-background-image("question-library/exclude-question.svg"); }
-        &.machine-learning  { @include tutor-background-image("question-library/machine-learning.svg"); }
-        &.question-details  { @include tutor-background-image("question-library/question-details.svg"); }
+      p {
+        line-height: 1.4em;
       }
     }
   }
+  .btn {
+    color: $tutor-neutral-lightest;
+    background-color: $tutor-tertiary-neutral-light;
+    border-radius: 5px;
+    padding: $spacing*0.25 $spacing;
+  }
+
+  &.build-reading {
+    .column-content {
+      padding: $spacing 90px;
+    }
+
+    .column + .column {
+      margin-left: 60px;
+    }
+  }
+
+  &.cc-to-tutor,
+  &.welcome-to-tutor {
+    .column {
+      &.spaced       { @include tutor-background-image("value-prop/spaced-practice.svg"); }
+      &.personalized { @include tutor-background-image("value-prop/personalized.svg");    }
+      &.low-cost     {
+        @include tutor-background-image("value-prop/low-cost.svg");
+        background-size: 100px auto;
+        background-position: center 15px;
+      }
+      &.two-step     { @include tutor-background-image("value-prop/two-step.svg");        }
+    }
+  }
+  &.cc-sunset {
+    .column {
+      @include column-icons-embiggen();
+      &.thanks           { @include tutor-background-image("cc-sunset/thanks.svg");             }
+      &.view-analytics   { @include tutor-background-image("cc-sunset/view-analytics.svg");     }
+      &.export-by        { @include tutor-background-image("cc-sunset/export-by.svg");          }
+      &.not-launched-yet { @include tutor-background-image("cc-sunset/under-construction.svg"); }
+    }
+  }
+  &.course-preview {
+    .column {
+      @include column-icons-embiggen();
+
+      &.all-features              { @include tutor-background-image("course-preview/all-features.svg");             }
+      &.view-analytics            { @include tutor-background-image("course-preview/view-analytics.svg");           }
+      &.cant-save-work            { @include tutor-background-image("course-preview/cant-save-work.svg");           }
+      &.view-textbook-questions   { @include tutor-background-image("course-preview/view-textbook-questions.svg");  }
+    }
+  }
+  &.question-library,
+  &.build-reading {
+    .column {
+      @include column-icons-embiggen();
+
+      &.exclude-question  { @include tutor-background-image("question-library/exclude-question.svg"); }
+      &.machine-learning  { @include tutor-background-image("question-library/machine-learning.svg"); }
+      &.question-details  { @include tutor-background-image("question-library/question-details.svg"); }
+    }
+  }
+
 }

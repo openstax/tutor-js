@@ -1,465 +1,453 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`choose exercises component matches snapshot 1`] = `
-"<C path=\\"/\\">
+"<C>
   <ThemeProvider theme={{...}}>
-    <MemoryRouter initialIndex={0} initialEntries={{...}}>
-      <Router history={{...}}>
-        <DragDropContext(Component)>
-          <Component>
-            <Component>
-              <SpyModeWrapper>
-                <Provider spyMode={{...}}>
-                  <div className=\\"openstax-debug-content\\">
-                    <ModalManager>
-                      <Provider modalManager={{...}}>
-                        <inject-TourConductor-with-modalManager-spyMode tourContext={[undefined]}>
-                          <TourConductor tourContext={[undefined]} modalManager={{...}} spyMode={{...}}>
-                            <Provider tourContext={{...}}>
-                              <div data-purpose=\\"tour-conductor-wrapper\\">
-                                <TutorSpecLayout>
-                                  <Provider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: res]}>
-                                    <div>
-                                      <Navbar area=\\"header\\" context={{...}} isDocked={false} />
-                                      <ReviewExercises ux={{...}}>
-                                        <div className=\\"homework-builder-view\\">
-                                          <inject-ExerciseControls-with-setSecondaryTopControls ux={{...}} unDocked={true} hideDisplayControls={true}>
-                                            <ExerciseControls ux={{...}} unDocked={true} hideDisplayControls={true} setSecondaryTopControls={[Function: res]}>
-                                              <div className=\\"exercise-controls-bar\\">
-                                                <div className=\\"controls\\" />
-                                                <div className=\\"indicators\\">
-                                                  <div className=\\"num total\\">
-                                                    <h2>
-                                                      4
-                                                    </h2>
-                                                    <span>
-                                                      Total Problems
-                                                    </span>
-                                                  </div>
-                                                  <div className=\\"num mine\\">
-                                                    <h2>
-                                                      1
-                                                    </h2>
-                                                    <span>
-                                                      My Selections
-                                                    </span>
-                                                  </div>
-                                                  <inject-TourAnchor id=\\"tutor-selections\\" className=\\"num tutor\\">
-                                                    <TourAnchor id=\\"tutor-selections\\" className=\\"num tutor\\" tourContext={{...}} tag=\\"div\\">
-                                                      <div className=\\"tour-anchor num tutor\\" data-tour-anchor-id=\\"tutor-selections\\">
-                                                        <div className=\\"tutor-selections\\">
-                                                          <Icon type=\\"chevron-down\\" onClick={[Function: res]} className=\\"hover-circle\\" size=\\"xs\\" buttonProps={{...}} tooltipProps={{...}}>
-                                                            <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-chevron-down hover-circle\\" onClick={[Function: res]}>
-                                                              <Button variant=\\"plain\\" className=\\"ox-icon-chevron-down hover-circle\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                                <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-chevron-down hover-circle btn btn-plain\\">
-                                                                  <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-chevron-down hover-circle\\" icon={{...}} size=\\"xs\\">
-                                                                    <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-chevron-down hover-circle\\" icon={{...}} size=\\"xs\\" forwardedComponent={{...}} forwardedRef={{...}}>
-                                                                      <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-chevron-down hover-circle IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} size=\\"xs\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                        <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"chevron-down\\" className=\\"svg-inline--fa fa-chevron-down fa-w-14 fa-xs ox-icon ox-icon-chevron-down hover-circle IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
-                                                                          <path fill=\\"currentColor\\" d=\\"M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z\\" style={{...}} />
-                                                                        </svg>
-                                                                      </FontAwesomeIcon>
-                                                                    </StyledComponent>
-                                                                  </IconWrapper>
-                                                                </button>
-                                                              </Button>
-                                                            </ForwardRef(Bootstrap(Button))>
-                                                          </Icon>
-                                                          <h2>
-                                                            3
-                                                          </h2>
-                                                          <Icon type=\\"chevron-up\\" onClick={[Function: res]} className=\\"hover-circle\\" size=\\"xs\\" buttonProps={{...}} tooltipProps={{...}}>
-                                                            <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-chevron-up hover-circle\\" onClick={[Function: res]}>
-                                                              <Button variant=\\"plain\\" className=\\"ox-icon-chevron-up hover-circle\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                                <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-chevron-up hover-circle btn btn-plain\\">
-                                                                  <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-chevron-up hover-circle\\" icon={{...}} size=\\"xs\\">
-                                                                    <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-chevron-up hover-circle\\" icon={{...}} size=\\"xs\\" forwardedComponent={{...}} forwardedRef={{...}}>
-                                                                      <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-chevron-up hover-circle IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} size=\\"xs\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                        <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"chevron-up\\" className=\\"svg-inline--fa fa-chevron-up fa-w-14 fa-xs ox-icon ox-icon-chevron-up hover-circle IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
-                                                                          <path fill=\\"currentColor\\" d=\\"M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z\\" style={{...}} />
-                                                                        </svg>
-                                                                      </FontAwesomeIcon>
-                                                                    </StyledComponent>
-                                                                  </IconWrapper>
-                                                                </button>
-                                                              </Button>
-                                                            </ForwardRef(Bootstrap(Button))>
-                                                          </Icon>
-                                                        </div>
-                                                        <span>
-                                                          OpenStax Tutor Selections
-                                                        </span>
-                                                        <SelectionsTooltip>
-                                                          <OverlayTrigger trigger=\\"click\\" placement=\\"bottom\\" overlay={{...}} rootClose={true} defaultOverlayShown={false}>
-                                                            <RefHolder>
-                                                              <ForwardRef(Bootstrap(Button)) variant=\\"link\\" id=\\"homework-selections-trigger\\" onClick={[Function]}>
-                                                                <Button variant=\\"link\\" id=\\"homework-selections-trigger\\" onClick={[Function]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                                  <button id=\\"homework-selections-trigger\\" onClick={[Function]} disabled={false} type=\\"button\\" className=\\"btn btn-link\\">
-                                                                    What are these?
+    <ForwardRef noRef={[undefined]} path=\\"/\\" withRef={false}>
+      <MemoryRouter initialIndex={0} initialEntries={{...}}>
+        <Router history={{...}}>
+          <TestContextWrapper>
+            <Memo() backend={[Function: createBackend]}>
+              <Component>
+                <SpyModeWrapper>
+                  <MobXProvider spyMode={{...}}>
+                    <div className=\\"openstax-debug-content\\">
+                      <ModalManager>
+                        <MobXProvider modalManager={{...}}>
+                          <inject-with-modalManager-spyMode(TourConductor) tourContext={[undefined]}>
+                            <TourConductor tourContext={[undefined]} modalManager={{...}} spyMode={{...}}>
+                              <MobXProvider tourContext={{...}}>
+                                <div data-purpose=\\"tour-conductor-wrapper\\">
+                                  <TutorSpecLayout>
+                                    <MobXProvider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: res]}>
+                                      <div>
+                                        <Navbar area=\\"header\\" context={{...}} isDocked={false} />
+                                        <ReviewExercises ux={{...}}>
+                                          <div className=\\"homework-builder-view\\">
+                                            <inject-with-setSecondaryTopControls(ExerciseControls) ux={{...}} unDocked={true} hideDisplayControls={true}>
+                                              <ExerciseControls ux={{...}} unDocked={true} hideDisplayControls={true} setSecondaryTopControls={[Function: res]}>
+                                                <div className=\\"exercise-controls-bar\\">
+                                                  <div className=\\"controls\\" />
+                                                  <div className=\\"indicators\\">
+                                                    <div className=\\"num total\\">
+                                                      <h2>
+                                                        4
+                                                      </h2>
+                                                      <span>
+                                                        Total Problems
+                                                      </span>
+                                                    </div>
+                                                    <div className=\\"num mine\\">
+                                                      <h2>
+                                                        1
+                                                      </h2>
+                                                      <span>
+                                                        My Selections
+                                                      </span>
+                                                    </div>
+                                                    <inject(TourAnchor) id=\\"tutor-selections\\" className=\\"num tutor\\">
+                                                      <Observer>
+                                                        <TourAnchor id=\\"tutor-selections\\" className=\\"num tutor\\" tourContext={{...}} tag=\\"div\\">
+                                                          <div className=\\"tour-anchor num tutor\\" data-tour-anchor-id=\\"tutor-selections\\">
+                                                            <div className=\\"tutor-selections\\">
+                                                              <Icon type=\\"chevron-down\\" onClick={[Function: res]} className=\\"hover-circle\\" size=\\"xs\\" buttonProps={{...}} tooltipProps={{...}}>
+                                                                <Button variant=\\"plain\\" className=\\"ox-icon-chevron-down hover-circle\\" onClick={[Function: res]} active={false} disabled={false} type=\\"button\\">
+                                                                  <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-chevron-down hover-circle btn btn-plain\\">
+                                                                    <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-chevron-down hover-circle\\" icon={{...}} size=\\"xs\\">
+                                                                      <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-chevron-down hover-circle\\" icon={{...}} size=\\"xs\\" forwardedComponent={{...}} forwardedRef={{...}}>
+                                                                        <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-chevron-down hover-circle IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} size=\\"xs\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                          <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"chevron-down\\" className=\\"svg-inline--fa fa-chevron-down fa-w-14 fa-xs ox-icon ox-icon-chevron-down hover-circle IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
+                                                                            <path fill=\\"currentColor\\" d=\\"M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z\\" style={{...}} />
+                                                                          </svg>
+                                                                        </FontAwesomeIcon>
+                                                                      </StyledComponent>
+                                                                    </IconWrapper>
                                                                   </button>
                                                                 </Button>
-                                                              </ForwardRef(Bootstrap(Button))>
-                                                            </RefHolder>
-                                                            <Overlay placement=\\"bottom\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={[Function: Fade]}>
-                                                              <ForwardRef(withContainer(Overlay)) placement=\\"bottom\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={[Function: Fade]}>
-                                                                <WaitForContainer container={[undefined]}>
-                                                                  <Overlay placement=\\"bottom\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={[Function: Fade]} container={{...}} />
-                                                                </WaitForContainer>
-                                                              </ForwardRef(withContainer(Overlay))>
-                                                            </Overlay>
-                                                          </OverlayTrigger>
-                                                        </SelectionsTooltip>
-                                                      </div>
-                                                    </TourAnchor>
-                                                  </inject-TourAnchor>
-                                                </div>
-                                                <div className=\\"actions\\">
-                                                  <ForwardRef(Bootstrap(Button)) variant=\\"primary\\" className=\\"review-exercises\\" onClick={[Function: res]}>
-                                                    <Button variant=\\"primary\\" className=\\"review-exercises\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                              </Icon>
+                                                              <h2>
+                                                                3
+                                                              </h2>
+                                                              <Icon type=\\"chevron-up\\" onClick={[Function: res]} className=\\"hover-circle\\" size=\\"xs\\" buttonProps={{...}} tooltipProps={{...}}>
+                                                                <Button variant=\\"plain\\" className=\\"ox-icon-chevron-up hover-circle\\" onClick={[Function: res]} active={false} disabled={false} type=\\"button\\">
+                                                                  <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"ox-icon-chevron-up hover-circle btn btn-plain\\">
+                                                                    <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-chevron-up hover-circle\\" icon={{...}} size=\\"xs\\">
+                                                                      <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-chevron-up hover-circle\\" icon={{...}} size=\\"xs\\" forwardedComponent={{...}} forwardedRef={{...}}>
+                                                                        <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-chevron-up hover-circle IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} size=\\"xs\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                          <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"chevron-up\\" className=\\"svg-inline--fa fa-chevron-up fa-w-14 fa-xs ox-icon ox-icon-chevron-up hover-circle IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 448 512\\" style={{...}} data-variant={[undefined]}>
+                                                                            <path fill=\\"currentColor\\" d=\\"M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z\\" style={{...}} />
+                                                                          </svg>
+                                                                        </FontAwesomeIcon>
+                                                                      </StyledComponent>
+                                                                    </IconWrapper>
+                                                                  </button>
+                                                                </Button>
+                                                              </Icon>
+                                                            </div>
+                                                            <span>
+                                                              OpenStax Tutor Selections
+                                                            </span>
+                                                            <SelectionsTooltip>
+                                                              <OverlayTrigger trigger=\\"click\\" placement=\\"bottom\\" overlay={{...}} rootClose={true} defaultOverlayShown={false}>
+                                                                <RefHolder>
+                                                                  <Button variant=\\"link\\" id=\\"homework-selections-trigger\\" active={false} disabled={false} type=\\"button\\" onClick={[Function]}>
+                                                                    <button id=\\"homework-selections-trigger\\" disabled={false} onClick={[Function]} type=\\"button\\" className=\\"btn btn-link\\">
+                                                                      What are these?
+                                                                    </button>
+                                                                  </Button>
+                                                                </RefHolder>
+                                                                <Overlay placement=\\"bottom\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}}>
+                                                                  <ForwardRef(withContainer(Overlay)) placement=\\"bottom\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}}>
+                                                                    <WaitForContainer container={[undefined]}>
+                                                                      <Overlay placement=\\"bottom\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}} container={{...}} />
+                                                                    </WaitForContainer>
+                                                                  </ForwardRef(withContainer(Overlay))>
+                                                                </Overlay>
+                                                              </OverlayTrigger>
+                                                            </SelectionsTooltip>
+                                                          </div>
+                                                        </TourAnchor>
+                                                      </Observer>
+                                                    </inject(TourAnchor)>
+                                                  </div>
+                                                  <div className=\\"actions\\">
+                                                    <Button variant=\\"primary\\" className=\\"review-exercises\\" onClick={[Function: res]} active={false} disabled={false} type=\\"button\\">
                                                       <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"review-exercises btn btn-primary\\">
                                                         Next
                                                       </button>
                                                     </Button>
-                                                  </ForwardRef(Bootstrap(Button))>
-                                                  <ForwardRef(Bootstrap(Button)) variant=\\"default\\" className=\\"cancel-add\\" onClick={[Function: res]}>
-                                                    <Button variant=\\"default\\" className=\\"cancel-add\\" onClick={[Function: res]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
+                                                    <Button variant=\\"default\\" className=\\"cancel-add\\" onClick={[Function: res]} active={false} disabled={false} type=\\"button\\">
                                                       <button onClick={[Function: res]} disabled={false} type=\\"button\\" className=\\"cancel-add btn btn-default\\">
                                                         Cancel
                                                       </button>
                                                     </Button>
-                                                  </ForwardRef(Bootstrap(Button))>
+                                                  </div>
                                                 </div>
-                                              </div>
-                                            </ExerciseControls>
-                                          </inject-ExerciseControls-with-setSecondaryTopControls>
-                                          <ExerciseTable ux={{...}}>
-                                            <inject-TourRegion tag=\\"table\\" delay={4000} className=\\"exercise-table\\" id=\\"add-homework-review-sections\\" courseId={1}>
-                                              <TourRegion tag=\\"table\\" delay={4000} className=\\"exercise-table\\" id=\\"add-homework-review-sections\\" courseId={1} tourContext={{...}}>
-                                                <table className=\\"exercise-table\\" data-tour-region-id=\\"add-homework-review-sections\\">
-                                                  <thead>
-                                                    <tr>
-                                                      <td />
-                                                      <td />
-                                                      <td>
-                                                        Problem Question
-                                                      </td>
-                                                      <td>
-                                                        Learning Objective
-                                                      </td>
-                                                      <td>
-                                                        Details
-                                                      </td>
-                                                    </tr>
-                                                  </thead>
-                                                  <tbody>
-                                                    <tr data-ex-id={1}>
-                                                      <td className=\\"exercise-number\\">
-                                                        1
-                                                      </td>
-                                                      <td>
-                                                        <ChapterSection chapterSection={{...}}>
-                                                          <span className=\\"chapter-section\\" data-chapter-section=\\".0\\" />
-                                                        </ChapterSection>
-                                                      </td>
-                                                      <td>
-                                                        <Component block={false} html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\">
-                                                          <div dangerouslySetInnerHTML={{...}} />
-                                                        </Component>
-                                                      </td>
-                                                      <td className=\\"ellipses\\">
-                                                        lo:stax-phys:1-2-1
-                                                      </td>
-                                                      <td className=\\"ellipses\\">
-                                                        blooms:3 / dok:3
-                                                      </td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td className=\\"exercise-number\\">
-                                                        2
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                      <td>
-                                                        Tutor Selection
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td className=\\"exercise-number\\">
-                                                        3
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                      <td>
-                                                        Tutor Selection
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td className=\\"exercise-number\\">
-                                                        4
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                      <td>
-                                                        Tutor Selection
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                    </tr>
-                                                  </tbody>
-                                                </table>
-                                              </TourRegion>
-                                            </inject-TourRegion>
-                                          </ExerciseTable>
-                                          <div className=\\"card-list exercises\\">
-                                            <ReviewExerciseCard ux={{...}} index={0} exercise={{...}} isFirst={true} canEdit={true} isLast={true}>
-                                              <div className=\\"openstax exercise-wrapper\\">
-                                                <ExercisePreview exercise={{...}} className=\\"exercise-card\\" isInteractive={false} isVerticallyTruncated={true} isSelected={false} header={{...}} panelStyle=\\"default\\" overlayActions={{...}} extractedInfo={{...}}>
-                                                  <ForwardRef(Bootstrap(Card)) className=\\"openstax-exercise-preview exercise-card non-interactive is-vertically-truncated\\" data-exercise-id=\\"1@1\\" tabIndex={-1}>
-                                                    <Card className=\\"openstax-exercise-preview exercise-card non-interactive is-vertically-truncated\\" data-exercise-id=\\"1@1\\" tabIndex={-1} bsPrefix=\\"card\\" as=\\"div\\" body={false}>
-                                                      <div className=\\"openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card\\" data-exercise-id=\\"1@1\\" tabIndex={-1}>
-                                                        <ForwardRef(Bootstrap(CardHeader))>
-                                                          <CardHeader bsPrefix=\\"card-header\\">
-                                                            <div className=\\"card-header\\">
-                                                              <Header className=\\"-exercise-header\\">
-                                                                <StyledComponent className=\\"-exercise-header\\" forwardedComponent={{...}} forwardedRef={{...}}>
-                                                                  <div className=\\"-exercise-header Header-sc-1piyc03-0 kLKFGf\\">
-                                                                    <span className=\\"exercise-number\\">
-                                                                      1
-                                                                    </span>
-                                                                    <Controls className=\\"pull-right card-actions\\">
-                                                                      <StyledComponent className=\\"pull-right card-actions\\" forwardedComponent={{...}} forwardedRef={{...}}>
-                                                                        <div className=\\"pull-right card-actions Controls-sc-1piyc03-1 fKxeKE\\">
-                                                                          <SuretyGuard title={false} onConfirm={[Function: res]} okButtonLabel=\\"Remove\\" placement=\\"left\\" message=\\"Are you sure you want to remove this exercise?\\" cancelButtonLabel=\\"Cancel\\">
-                                                                            <OverlayTrigger trigger=\\"click\\" onClick={[Function]} placement=\\"left\\" rootClose={true} overlay={{...}} defaultOverlayShown={false}>
-                                                                              <RefHolder>
-                                                                                <Icon size=\\"xs\\" className=\\"-remove-exercise circle\\" type=\\"close\\" buttonProps={{...}} tooltipProps={{...}} onClick={[Function]}>
-                                                                                  <ForwardRef(Bootstrap(Button)) variant=\\"plain\\" className=\\"ox-icon-close -remove-exercise circle\\" onClick={[Function]}>
-                                                                                    <Button variant=\\"plain\\" className=\\"ox-icon-close -remove-exercise circle\\" onClick={[Function]} innerRef={{...}} bsPrefix=\\"btn\\" active={false} disabled={false} type=\\"button\\">
-                                                                                      <button onClick={[Function]} disabled={false} type=\\"button\\" className=\\"ox-icon-close -remove-exercise circle btn btn-plain\\">
-                                                                                        <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-close -remove-exercise circle\\" icon={{...}} size=\\"xs\\">
-                                                                                          <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-close -remove-exercise circle\\" icon={{...}} size=\\"xs\\" forwardedComponent={{...}} forwardedRef={{...}}>
-                                                                                            <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-close -remove-exercise circle IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} size=\\"xs\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
-                                                                                              <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"times\\" className=\\"svg-inline--fa fa-times fa-w-11 fa-xs ox-icon ox-icon-close -remove-exercise circle IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 352 512\\" style={{...}} data-variant={[undefined]}>
-                                                                                                <path fill=\\"currentColor\\" d=\\"M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z\\" style={{...}} />
-                                                                                              </svg>
-                                                                                            </FontAwesomeIcon>
-                                                                                          </StyledComponent>
-                                                                                        </IconWrapper>
-                                                                                      </button>
-                                                                                    </Button>
-                                                                                  </ForwardRef(Bootstrap(Button))>
-                                                                                </Icon>
-                                                                              </RefHolder>
-                                                                              <Overlay onClick={[Function]} placement=\\"left\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={[Function: Fade]}>
-                                                                                <ForwardRef(withContainer(Overlay)) onClick={[Function]} placement=\\"left\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={[Function: Fade]}>
-                                                                                  <WaitForContainer container={[undefined]}>
-                                                                                    <Overlay onClick={[Function]} placement=\\"left\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={[Function: Fade]} container={{...}} />
-                                                                                  </WaitForContainer>
-                                                                                </ForwardRef(withContainer(Overlay))>
-                                                                              </Overlay>
-                                                                            </OverlayTrigger>
-                                                                          </SuretyGuard>
+                                              </ExerciseControls>
+                                            </inject-with-setSecondaryTopControls(ExerciseControls)>
+                                            <ExerciseTable ux={{...}}>
+                                              <inject(TourRegion) tag=\\"table\\" delay={4000} className=\\"exercise-table\\" id=\\"add-homework-review-sections\\" courseId={1}>
+                                                <Observer>
+                                                  <TourRegion tag=\\"table\\" delay={4000} className=\\"exercise-table\\" id=\\"add-homework-review-sections\\" courseId={1} tourContext={{...}}>
+                                                    <table className=\\"exercise-table\\" data-tour-region-id=\\"add-homework-review-sections\\">
+                                                      <thead>
+                                                        <tr>
+                                                          <td />
+                                                          <td />
+                                                          <td>
+                                                            Problem Question
+                                                          </td>
+                                                          <td>
+                                                            Learning Objective
+                                                          </td>
+                                                          <td>
+                                                            Details
+                                                          </td>
+                                                        </tr>
+                                                      </thead>
+                                                      <tbody>
+                                                        <tr data-ex-id={1}>
+                                                          <td className=\\"exercise-number\\">
+                                                            1
+                                                          </td>
+                                                          <td>
+                                                            <ChapterSection chapterSection={{...}}>
+                                                              <span className=\\"chapter-section\\" data-chapter-section=\\".0\\" />
+                                                            </ChapterSection>
+                                                          </td>
+                                                          <td>
+                                                            <Component block={false} html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\">
+                                                              <div dangerouslySetInnerHTML={{...}} />
+                                                            </Component>
+                                                          </td>
+                                                          <td className=\\"ellipses\\">
+                                                            lo:stax-phys:1-2-1
+                                                          </td>
+                                                          <td className=\\"ellipses\\">
+                                                            blooms:3 / dok:3
+                                                          </td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td className=\\"exercise-number\\">
+                                                            2
+                                                          </td>
+                                                          <td>
+                                                            -
+                                                          </td>
+                                                          <td>
+                                                            Tutor Selection
+                                                          </td>
+                                                          <td>
+                                                            -
+                                                          </td>
+                                                          <td>
+                                                            -
+                                                          </td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td className=\\"exercise-number\\">
+                                                            3
+                                                          </td>
+                                                          <td>
+                                                            -
+                                                          </td>
+                                                          <td>
+                                                            Tutor Selection
+                                                          </td>
+                                                          <td>
+                                                            -
+                                                          </td>
+                                                          <td>
+                                                            -
+                                                          </td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td className=\\"exercise-number\\">
+                                                            4
+                                                          </td>
+                                                          <td>
+                                                            -
+                                                          </td>
+                                                          <td>
+                                                            Tutor Selection
+                                                          </td>
+                                                          <td>
+                                                            -
+                                                          </td>
+                                                          <td>
+                                                            -
+                                                          </td>
+                                                        </tr>
+                                                      </tbody>
+                                                    </table>
+                                                  </TourRegion>
+                                                </Observer>
+                                              </inject(TourRegion)>
+                                            </ExerciseTable>
+                                            <div className=\\"card-list exercises\\">
+                                              <ReviewExerciseCard ux={{...}} index={0} exercise={{...}} isFirst={true} canEdit={true} isLast={true}>
+                                                <div className=\\"openstax exercise-wrapper\\">
+                                                  <ExercisePreview exercise={{...}} className=\\"exercise-card\\" isInteractive={false} isVerticallyTruncated={true} isSelected={false} header={{...}} panelStyle=\\"default\\" overlayActions={{...}} extractedInfo={{...}}>
+                                                    <Card className=\\"openstax-exercise-preview exercise-card non-interactive is-vertically-truncated\\" data-exercise-id=\\"1@1\\" tabIndex={-1} body={false}>
+                                                      <div data-exercise-id=\\"1@1\\" tabIndex={-1} className=\\"openstax-exercise-preview exercise-card non-interactive is-vertically-truncated card\\">
+                                                        <CardHeader>
+                                                          <div className=\\"card-header\\">
+                                                            <styled.div className=\\"-exercise-header\\">
+                                                              <StyledComponent className=\\"-exercise-header\\" forwardedComponent={{...}} forwardedRef={{...}}>
+                                                                <div className=\\"-exercise-header sc-gZMcBi laHebT\\">
+                                                                  <span className=\\"exercise-number\\">
+                                                                    1
+                                                                  </span>
+                                                                  <styled.div className=\\"pull-right card-actions\\">
+                                                                    <StyledComponent className=\\"pull-right card-actions\\" forwardedComponent={{...}} forwardedRef={{...}}>
+                                                                      <div className=\\"pull-right card-actions sc-gqjmRU kjnQlL\\">
+                                                                        <SuretyGuard title={false} onConfirm={[Function: res]} okButtonLabel=\\"Remove\\" placement=\\"left\\" message=\\"Are you sure you want to remove this exercise?\\" cancelButtonLabel=\\"Cancel\\">
+                                                                          <OverlayTrigger trigger=\\"click\\" onClick={[Function]} placement=\\"left\\" rootClose={true} overlay={{...}} defaultOverlayShown={false}>
+                                                                            <RefHolder>
+                                                                              <Icon size=\\"xs\\" className=\\"-remove-exercise circle\\" type=\\"close\\" buttonProps={{...}} tooltipProps={{...}} onClick={[Function]}>
+                                                                                <Button variant=\\"plain\\" className=\\"ox-icon-close -remove-exercise circle\\" onClick={[Function]} active={false} disabled={false} type=\\"button\\">
+                                                                                  <button onClick={[Function]} disabled={false} type=\\"button\\" className=\\"ox-icon-close -remove-exercise circle btn btn-plain\\">
+                                                                                    <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-close -remove-exercise circle\\" icon={{...}} size=\\"xs\\">
+                                                                                      <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-close -remove-exercise circle\\" icon={{...}} size=\\"xs\\" forwardedComponent={{...}} forwardedRef={{...}}>
+                                                                                        <FontAwesomeIcon data-variant={[undefined]} className=\\"ox-icon ox-icon-close -remove-exercise circle IconWrapper-ra27cp-0 jEgngX\\" icon={{...}} size=\\"xs\\" border={false} mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}}>
+                                                                                          <svg aria-hidden=\\"true\\" focusable=\\"false\\" data-prefix=\\"fas\\" data-icon=\\"times\\" className=\\"svg-inline--fa fa-times fa-w-11 fa-xs ox-icon ox-icon-close -remove-exercise circle IconWrapper-ra27cp-0 jEgngX\\" role=\\"img\\" xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 352 512\\" style={{...}} data-variant={[undefined]}>
+                                                                                            <path fill=\\"currentColor\\" d=\\"M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z\\" style={{...}} />
+                                                                                          </svg>
+                                                                                        </FontAwesomeIcon>
+                                                                                      </StyledComponent>
+                                                                                    </IconWrapper>
+                                                                                  </button>
+                                                                                </Button>
+                                                                              </Icon>
+                                                                            </RefHolder>
+                                                                            <Overlay onClick={[Function]} placement=\\"left\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}}>
+                                                                              <ForwardRef(withContainer(Overlay)) onClick={[Function]} placement=\\"left\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}}>
+                                                                                <WaitForContainer container={[undefined]}>
+                                                                                  <Overlay onClick={[Function]} placement=\\"left\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}} container={{...}} />
+                                                                                </WaitForContainer>
+                                                                              </ForwardRef(withContainer(Overlay))>
+                                                                            </Overlay>
+                                                                          </OverlayTrigger>
+                                                                        </SuretyGuard>
+                                                                      </div>
+                                                                    </StyledComponent>
+                                                                  </styled.div>
+                                                                </div>
+                                                              </StyledComponent>
+                                                            </styled.div>
+                                                          </div>
+                                                        </CardHeader>
+                                                        <CardBody>
+                                                          <div className=\\"card-body\\">
+                                                            <ControlsOverlay exercise={{...}} actions={{...}} onClick={[undefined]} />
+                                                            <div className=\\"exercise-body\\">
+                                                              <ExerciseBadges multiPart={[undefined]} video={[undefined]} interactive={[undefined]} />
+                                                              <Component className=\\"stimulus\\" block={true} html={[undefined]} />
+                                                              <Question hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={[undefined]} show_all_feedback={[undefined]} type=\\"teacher-preview\\">
+                                                                <div className=\\"openstax-question openstax-question-preview\\" data-question-number={[undefined]}>
+                                                                  <QuestionHtml type=\\"context\\" html=\\"\\" />
+                                                                  <QuestionHtml type=\\"stimulus\\" html=\\"\\" />
+                                                                  <QuestionHtml type=\\"stem\\" html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\" questionNumber={[undefined]}>
+                                                                    <Component processHtmlAndMath={[undefined]} className=\\"question-stem\\" block={true} html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\" data-question-number={[undefined]}>
+                                                                      <div dangerouslySetInnerHTML={{...}} />
+                                                                    </Component>
+                                                                  </QuestionHtml>
+                                                                  <AnswersTable hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={[undefined]} show_all_feedback={false} type=\\"teacher-preview\\" hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
+                                                                    <div className=\\"answers-table\\">
+                                                                      <Answer answer={{...}} iter={0} qid={1} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
+                                                                        <div className=\\"openstax-answer\\">
+                                                                          <section role=\\"region\\" className=\\"answers-answer disabled\\">
+                                                                            <div className=\\"correct-incorrect\\" />
+                                                                            <label onKeyPress={[Function]} htmlFor=\\"1-option-0\\" className=\\"answer-label\\">
+                                                                              <button onClick={[undefined]} aria-label=\\"Choice a:\\" className=\\"answer-letter\\" disabled={true}>
+                                                                                a
+                                                                              </button>
+                                                                              <div className=\\"answer-answer\\">
+                                                                                <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are too small to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of only a weak gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                                                  <div dangerouslySetInnerHTML={{...}} />
+                                                                                </Component>
+                                                                              </div>
+                                                                            </label>
+                                                                          </section>
                                                                         </div>
-                                                                      </StyledComponent>
-                                                                    </Controls>
-                                                                  </div>
-                                                                </StyledComponent>
-                                                              </Header>
-                                                            </div>
-                                                          </CardHeader>
-                                                        </ForwardRef(Bootstrap(CardHeader))>
-                                                        <ForwardRef(Bootstrap(CardBody))>
-                                                          <CardBody bsPrefix=\\"card-body\\">
-                                                            <div className=\\"card-body\\">
-                                                              <ControlsOverlay exercise={{...}} actions={{...}} onClick={[undefined]} />
-                                                              <div className=\\"exercise-body\\">
-                                                                <ExerciseBadges multiPart={[undefined]} video={[undefined]} interactive={[undefined]} />
-                                                                <Component className=\\"stimulus\\" block={true} html={[undefined]} />
-                                                                <Question hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={[undefined]} show_all_feedback={[undefined]} type=\\"teacher-preview\\">
-                                                                  <div className=\\"openstax-question openstax-question-preview\\" data-question-number={[undefined]}>
-                                                                    <QuestionHtml type=\\"context\\" html=\\"\\" />
-                                                                    <QuestionHtml type=\\"stimulus\\" html=\\"\\" />
-                                                                    <QuestionHtml type=\\"stem\\" html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\" questionNumber={[undefined]}>
-                                                                      <Component processHtmlAndMath={[undefined]} className=\\"question-stem\\" block={true} html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\" data-question-number={[undefined]}>
-                                                                        <div dangerouslySetInnerHTML={{...}} />
-                                                                      </Component>
-                                                                    </QuestionHtml>
-                                                                    <AnswersTable hideAnswers={[undefined]} className=\\"openstax-question-preview\\" question={{...}} choicesEnabled={false} displayFormats={[undefined]} show_all_feedback={false} type=\\"teacher-preview\\" hasCorrectAnswer={false} keySet=\\"multiple-choice\\">
-                                                                      <div className=\\"answers-table\\">
-                                                                        <Answer answer={{...}} iter={0} qid={1} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
-                                                                          <div className=\\"openstax-answer\\">
-                                                                            <section role=\\"region\\" className=\\"answers-answer disabled\\">
-                                                                              <div className=\\"correct-incorrect\\" />
-                                                                              <label onKeyPress={[Function]} htmlFor=\\"1-option-0\\" className=\\"answer-label\\">
-                                                                                <button onClick={[undefined]} aria-label=\\"Choice a:\\" className=\\"answer-letter\\" disabled={true}>
-                                                                                  a
-                                                                                </button>
-                                                                                <div className=\\"answer-answer\\">
-                                                                                  <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are too small to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of only a weak gravitational field</li>\\\\n</ol>\\\\n\\">
-                                                                                    <div dangerouslySetInnerHTML={{...}} />
-                                                                                  </Component>
-                                                                                </div>
-                                                                              </label>
-                                                                            </section>
-                                                                          </div>
-                                                                        </Answer>
-                                                                        <Answer answer={{...}} iter={1} qid={1} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
-                                                                          <div className=\\"openstax-answer\\">
-                                                                            <section role=\\"region\\" className=\\"answers-answer disabled\\">
-                                                                              <div className=\\"correct-incorrect\\" />
-                                                                              <label onKeyPress={[Function]} htmlFor=\\"1-option-1\\" className=\\"answer-label\\">
-                                                                                <button onClick={[undefined]} aria-label=\\"Choice b:\\" className=\\"answer-letter\\" disabled={true}>
-                                                                                  b
-                                                                                </button>
-                                                                                <div className=\\"answer-answer\\">
-                                                                                  <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\">
-                                                                                    <div dangerouslySetInnerHTML={{...}} />
-                                                                                  </Component>
-                                                                                </div>
-                                                                              </label>
-                                                                            </section>
-                                                                          </div>
-                                                                        </Answer>
-                                                                        <Answer answer={{...}} iter={2} qid={1} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
-                                                                          <div className=\\"openstax-answer\\">
-                                                                            <section role=\\"region\\" className=\\"answers-answer disabled\\">
-                                                                              <div className=\\"correct-incorrect\\" />
-                                                                              <label onKeyPress={[Function]} htmlFor=\\"1-option-2\\" className=\\"answer-label\\">
-                                                                                <button onClick={[undefined]} aria-label=\\"Choice c:\\" className=\\"answer-letter\\" disabled={true}>
-                                                                                  c
-                                                                                </button>
-                                                                                <div className=\\"answer-answer\\">
-                                                                                  <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\">
-                                                                                    <div dangerouslySetInnerHTML={{...}} />
-                                                                                  </Component>
-                                                                                </div>
-                                                                              </label>
-                                                                            </section>
-                                                                          </div>
-                                                                        </Answer>
-                                                                        <Answer answer={{...}} iter={3} qid={1} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
-                                                                          <div className=\\"openstax-answer\\">
-                                                                            <section role=\\"region\\" className=\\"answers-answer disabled\\">
-                                                                              <div className=\\"correct-incorrect\\" />
-                                                                              <label onKeyPress={[Function]} htmlFor=\\"1-option-3\\" className=\\"answer-label\\">
-                                                                                <button onClick={[undefined]} aria-label=\\"Choice d:\\" className=\\"answer-letter\\" disabled={true}>
-                                                                                  d
-                                                                                </button>
-                                                                                <div className=\\"answer-answer\\">
-                                                                                  <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a weak gravitational field</li>\\\\n</ol>\\\\n\\">
-                                                                                    <div dangerouslySetInnerHTML={{...}} />
-                                                                                  </Component>
-                                                                                </div>
-                                                                              </label>
-                                                                            </section>
-                                                                          </div>
-                                                                        </Answer>
-                                                                        <Answer answer={{...}} iter={4} qid={1} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
-                                                                          <div className=\\"openstax-answer\\">
-                                                                            <section role=\\"region\\" className=\\"answers-answer disabled\\">
-                                                                              <div className=\\"correct-incorrect\\" />
-                                                                              <label onKeyPress={[Function]} htmlFor=\\"1-option-4\\" className=\\"answer-label\\">
-                                                                                <button onClick={[undefined]} aria-label=\\"Choice e:\\" className=\\"answer-letter\\" disabled={true}>
-                                                                                  e
-                                                                                </button>
-                                                                                <div className=\\"answer-answer\\">
-                                                                                  <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are too small to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of only a weak gravitational field</li>\\\\n</ol>\\\\n\\">
-                                                                                    <div dangerouslySetInnerHTML={{...}} />
-                                                                                  </Component>
-                                                                                </div>
-                                                                              </label>
-                                                                            </section>
-                                                                          </div>
-                                                                        </Answer>
-                                                                      </div>
-                                                                    </AnswersTable>
-                                                                    <div className=\\"detailed-solution\\">
-                                                                      <div className=\\"header\\">
-                                                                        Detailed solution
-                                                                      </div>
-                                                                      <Component className=\\"solution\\" block={true} html=\\"four\\">
-                                                                        <div dangerouslySetInnerHTML={{...}} />
-                                                                      </Component>
+                                                                      </Answer>
+                                                                      <Answer answer={{...}} iter={1} qid={1} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
+                                                                        <div className=\\"openstax-answer\\">
+                                                                          <section role=\\"region\\" className=\\"answers-answer disabled\\">
+                                                                            <div className=\\"correct-incorrect\\" />
+                                                                            <label onKeyPress={[Function]} htmlFor=\\"1-option-1\\" className=\\"answer-label\\">
+                                                                              <button onClick={[undefined]} aria-label=\\"Choice b:\\" className=\\"answer-letter\\" disabled={true}>
+                                                                                b
+                                                                              </button>
+                                                                              <div className=\\"answer-answer\\">
+                                                                                <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds greater than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                                                  <div dangerouslySetInnerHTML={{...}} />
+                                                                                </Component>
+                                                                              </div>
+                                                                            </label>
+                                                                          </section>
+                                                                        </div>
+                                                                      </Answer>
+                                                                      <Answer answer={{...}} iter={2} qid={1} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
+                                                                        <div className=\\"openstax-answer\\">
+                                                                          <section role=\\"region\\" className=\\"answers-answer disabled\\">
+                                                                            <div className=\\"correct-incorrect\\" />
+                                                                            <label onKeyPress={[Function]} htmlFor=\\"1-option-2\\" className=\\"answer-label\\">
+                                                                              <button onClick={[undefined]} aria-label=\\"Choice c:\\" className=\\"answer-letter\\" disabled={true}>
+                                                                                c
+                                                                              </button>
+                                                                              <div className=\\"answer-answer\\">
+                                                                                <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a strong gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                                                  <div dangerouslySetInnerHTML={{...}} />
+                                                                                </Component>
+                                                                              </div>
+                                                                            </label>
+                                                                          </section>
+                                                                        </div>
+                                                                      </Answer>
+                                                                      <Answer answer={{...}} iter={3} qid={1} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
+                                                                        <div className=\\"openstax-answer\\">
+                                                                          <section role=\\"region\\" className=\\"answers-answer disabled\\">
+                                                                            <div className=\\"correct-incorrect\\" />
+                                                                            <label onKeyPress={[Function]} htmlFor=\\"1-option-3\\" className=\\"answer-label\\">
+                                                                              <button onClick={[undefined]} aria-label=\\"Choice d:\\" className=\\"answer-letter\\" disabled={true}>
+                                                                                d
+                                                                              </button>
+                                                                              <div className=\\"answer-answer\\">
+                                                                                <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are large enough to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of a weak gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                                                  <div dangerouslySetInnerHTML={{...}} />
+                                                                                </Component>
+                                                                              </div>
+                                                                            </label>
+                                                                          </section>
+                                                                        </div>
+                                                                      </Answer>
+                                                                      <Answer answer={{...}} iter={4} qid={1} correctAnswerId={[undefined]} hasCorrectAnswer={false} chosenAnswer={{...}} onChangeAnswer={[Function: res]} type=\\"teacher-preview\\" answered_count={[undefined]} disabled={true} show_all_feedback={false}>
+                                                                        <div className=\\"openstax-answer\\">
+                                                                          <section role=\\"region\\" className=\\"answers-answer disabled\\">
+                                                                            <div className=\\"correct-incorrect\\" />
+                                                                            <label onKeyPress={[Function]} htmlFor=\\"1-option-4\\" className=\\"answer-label\\">
+                                                                              <button onClick={[undefined]} aria-label=\\"Choice e:\\" className=\\"answer-letter\\" disabled={true}>
+                                                                                e
+                                                                              </button>
+                                                                              <div className=\\"answer-answer\\">
+                                                                                <Component processHtmlAndMath={[undefined]} className=\\"answer-content\\" html=\\"<ol>\\\\n  <li>matter is moving at speeds of less than roughly 1% the speed of light,</li>\\\\n  <li>objects are too small to be seen with the naked eye, and</li>\\\\n  <li>there is the involvement of only a weak gravitational field</li>\\\\n</ol>\\\\n\\">
+                                                                                  <div dangerouslySetInnerHTML={{...}} />
+                                                                                </Component>
+                                                                              </div>
+                                                                            </label>
+                                                                          </section>
+                                                                        </div>
+                                                                      </Answer>
                                                                     </div>
+                                                                  </AnswersTable>
+                                                                  <div className=\\"detailed-solution\\">
+                                                                    <div className=\\"header\\">
+                                                                      Detailed solution
+                                                                    </div>
+                                                                    <Component className=\\"solution\\" block={true} html=\\"four\\">
+                                                                      <div dangerouslySetInnerHTML={{...}} />
+                                                                    </Component>
                                                                   </div>
-                                                                </Question>
-                                                              </div>
-                                                              <div className=\\"exercise-tags\\">
-                                                                <span className=\\"exercise-tag\\">
-                                                                  lo:stax-phys:1-2-1
-                                                                </span>
-                                                                <span className=\\"exercise-tag\\">
-                                                                  blooms:3
-                                                                </span>
-                                                                <span className=\\"exercise-tag\\">
-                                                                  dok:3
-                                                                </span>
-                                                                <span className=\\"exercise-tag\\">
-                                                                  time:long
-                                                                </span>
-                                                                <span className=\\"exercise-tag\\">
-                                                                  ID:1@1
-                                                                </span>
-                                                              </div>
+                                                                </div>
+                                                              </Question>
                                                             </div>
-                                                          </CardBody>
-                                                        </ForwardRef(Bootstrap(CardBody))>
+                                                            <div className=\\"exercise-tags\\">
+                                                              <span className=\\"exercise-tag\\">
+                                                                lo:stax-phys:1-2-1
+                                                              </span>
+                                                              <span className=\\"exercise-tag\\">
+                                                                blooms:3
+                                                              </span>
+                                                              <span className=\\"exercise-tag\\">
+                                                                dok:3
+                                                              </span>
+                                                              <span className=\\"exercise-tag\\">
+                                                                time:long
+                                                              </span>
+                                                              <span className=\\"exercise-tag\\">
+                                                                ID:1@1
+                                                              </span>
+                                                            </div>
+                                                          </div>
+                                                        </CardBody>
                                                       </div>
                                                     </Card>
-                                                  </ForwardRef(Bootstrap(Card))>
-                                                </ExercisePreview>
-                                              </div>
-                                            </ReviewExerciseCard>
+                                                  </ExercisePreview>
+                                                </div>
+                                              </ReviewExerciseCard>
+                                            </div>
                                           </div>
-                                        </div>
-                                      </ReviewExercises>
-                                      <Navbar area=\\"footer\\" context={{...}} />
+                                        </ReviewExercises>
+                                        <Navbar area=\\"footer\\" context={{...}} />
+                                      </div>
+                                    </MobXProvider>
+                                  </TutorSpecLayout>
+                                  <SpyModeContent>
+                                    <div className=\\"visible-when-debugging\\">
+                                      <div className=\\"tour-spy-info\\">
+                                        available regions: []; region tour ids: []; audience tags: []; tour tags: []; eligible tours: []; TOUR RIDE: &lt;none&gt;
+                                      </div>
                                     </div>
-                                  </Provider>
-                                </TutorSpecLayout>
-                                <SpyModeContent>
-                                  <div className=\\"visible-when-debugging\\">
-                                    <div className=\\"tour-spy-info\\">
-                                      available regions: []; region tour ids: []; audience tags: []; tour tags: []; eligible tours: []; TOUR RIDE: &lt;none&gt;
-                                    </div>
-                                  </div>
-                                </SpyModeContent>
-                              </div>
-                            </Provider>
-                          </TourConductor>
-                        </inject-TourConductor-with-modalManager-spyMode>
-                      </Provider>
-                    </ModalManager>
-                    <a href=\\"#spy\\" tabIndex={-1} onClick={[Function: res]} className=\\"debug-toggle-link\\" aria-hidden=\\"true\\">
-                      π
-                    </a>
-                  </div>
-                </Provider>
-              </SpyModeWrapper>
-            </Component>
-          </Component>
-        </DragDropContext(Component)>
-      </Router>
-    </MemoryRouter>
+                                  </SpyModeContent>
+                                </div>
+                              </MobXProvider>
+                            </TourConductor>
+                          </inject-with-modalManager-spyMode(TourConductor)>
+                        </MobXProvider>
+                      </ModalManager>
+                      <a href=\\"#spy\\" tabIndex={-1} onClick={[Function: res]} className=\\"debug-toggle-link\\" aria-hidden=\\"true\\">
+                        π
+                      </a>
+                    </div>
+                  </MobXProvider>
+                </SpyModeWrapper>
+              </Component>
+            </Memo()>
+          </TestContextWrapper>
+        </Router>
+      </MemoryRouter>
+    </ForwardRef>
   </ThemeProvider>
 </C>"
 `;

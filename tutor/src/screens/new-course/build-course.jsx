@@ -1,23 +1,25 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-
+import { withRouter } from 'react-router-dom';
 import Router from '../../helpers/router';
 
 export default
+@withRouter
 @observer
 class BuildCourse extends React.Component {
 
   static title = 'Creating your new course';
 
-  static contextTypes = {
-    router: PropTypes.object,
+  static propTypes = {
+    history: PropTypes.object.isRequired,
   }
+
 
   redirectToCourse(course) {
     const to = course.is_concept_coach ? 'ccDashboardHelp' : 'dashboard';
     return (
-      this.context.router.history.push(Router.makePathname(
+      this.props.history.push(Router.makePathname(
         to, { courseId: course.id }, { query: { showIntro: 'true' } }
       ))
     );
@@ -31,4 +33,4 @@ class BuildCourse extends React.Component {
       </div>
     );
   }
-};
+}

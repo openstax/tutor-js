@@ -9,7 +9,7 @@ import TimeMock from './time-mock';
 import Factory, { FactoryBot } from '../factories';
 import Theme from '../../src/theme';
 import Actions from './actions';
-import { EnzymeContext, C, wrapInDnDTestContext } from './context';
+import { R, C, wrapInDnDTestContext } from './context';
 
 export function getPortalNode(modal) {
   return modal.find('Portal').first().getDOMNode();
@@ -27,6 +27,6 @@ const deferred = (fn, timeout = 3) => delay(timeout).then(fn);
 
 export {
   Router, TimeMock, TestRouter, TutorRouter, delay, moment,
-  Factory, FactoryBot, Actions, deferred, C, ReactTestUtils,
-  wrapInDnDTestContext, EnzymeContext, Theme, PropTypes,
+  Factory, FactoryBot, Actions, deferred, C, R, ReactTestUtils,
+  wrapInDnDTestContext, Theme, PropTypes,
 };

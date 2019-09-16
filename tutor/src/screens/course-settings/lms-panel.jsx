@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Modal, ToggleButtonGroup, ToggleButton, Button } from 'react-bootstrap';
@@ -8,7 +9,6 @@ import LoadingScreen from 'shared/components/loading-animation';
 import Course from '../../models/course';
 import CopyOnFocusInput from '../../components/copy-on-focus-input';
 import { Icon } from 'shared';
-
 
 const blackboard = ({ lms }) => (
   <div className="blackboard">
@@ -75,7 +75,7 @@ class LMSAccessCard extends React.Component {
     course: PropTypes.instanceOf(Course).isRequired,
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (!this.props.course.canOnlyUseEnrollmentLinks) {
       this.props.course.lms.fetch();
     }
@@ -162,4 +162,4 @@ class LMSAccessCard extends React.Component {
   }
 
 
-};
+}

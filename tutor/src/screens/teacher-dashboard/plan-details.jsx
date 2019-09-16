@@ -33,7 +33,7 @@ class CoursePlanDetails extends React.Component {
     plan: PropTypes.instanceOf(TeacherTaskPlan).isRequired,
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.tourContext.otherModal = this;
   }
 

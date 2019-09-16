@@ -1,4 +1,4 @@
-import { C, EnzymeContext } from '../../helpers';
+import { R } from '../../helpers';
 import { map, sortBy } from 'lodash';
 import bootstrapScores from '../../helpers/scores-data';
 import Scores from '../../../src/screens/scores-report/index';
@@ -35,7 +35,7 @@ describe('Scores Report', function() {
   });
 
   it('sorts', function() {
-    const wrapper = mount(<Scores {...props} />, EnzymeContext.build());
+    const wrapper = mount(<R><Scores {...props} /></R>);
 
     wrapper.find('.header-cell.sortable').at(1).simulate('click');
     const sorter = Sorter({ sort: { key: 0, dataType: 'score' }, displayAs: 'percentage' });
@@ -52,14 +52,14 @@ describe('Scores Report', function() {
   // });
 
   it('renders', function() {
-    const wrapper = mount(<Scores {...props} />, EnzymeContext.build());
+    const wrapper = mount(<R><Scores {...props} /></R>);
     expect(getStudentNames(wrapper)).toEqual(map(period.students, 'name'));
     wrapper.unmount();
   });
 
   it('displays empty', () => {
     course.scores.periods.get(course.scores.periods.keys()[0]).students.clear();
-    const wrapper = mount(<Scores {...props} />, EnzymeContext.build());
+    const wrapper = mount(<R><Scores {...props} /></R>);
     expect(wrapper.text())
       .toContain('there are no assignments to score');
     course.roles[0].type = 'student';

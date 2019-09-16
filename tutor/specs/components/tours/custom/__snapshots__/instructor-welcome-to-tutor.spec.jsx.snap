@@ -1,8 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Welcome to Tutor matches snapshot for welcome to tutor 1`] = `
+.c1 {
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 4px;
+  background-color: #00c1de;
+  -webkit-transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.c1:hover {
+  background-color: #00dcfd;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
 <div
-  className="value-prop welcome-to-tutor"
+  className="value-prop welcome-to-tutor has-forest-background"
 >
   <h1
     className="heading"
@@ -67,6 +91,15 @@ exports[`Welcome to Tutor matches snapshot for welcome to tutor 1`] = `
          per course saves students money
       </p>
     </div>
+  </div>
+  <div
+    className="c0"
+  >
+    <button
+      className="c1"
+    >
+      Continue
+    </button>
   </div>
 </div>
 `;

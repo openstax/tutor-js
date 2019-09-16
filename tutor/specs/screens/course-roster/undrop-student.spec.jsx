@@ -1,4 +1,5 @@
 import Student from '../../../src/models/course/student';
+import { getPortalNode as PC } from '../../helpers';
 import UndropStudent from '../../../src/screens/course-roster/undrop-student';
 import { courseRosterBootstrap } from './bootstrap-data';
 
@@ -16,7 +17,7 @@ describe('Course Settings, undrop student', function() {
     const wrapper = mount(<UndropStudent {...props} />);
     wrapper.simulate('click');
     expect(
-      wrapper.find('.popover-header').text()
+      PC(wrapper).textContent
     ).toContain(`Restore ${props.student.first_name}`);
   });
 
@@ -24,10 +25,10 @@ describe('Course Settings, undrop student', function() {
     const wrapper = mount(<UndropStudent {...props} />);
     wrapper.simulate('click');
     expect(
-      wrapper.find('.popover-header').text()
+      PC(wrapper).textContent
     ).toContain(`Restore ${props.student.first_name}`);
     wrapper.find('button.undrop-student').simulate('click');
-    expect(props.student.unDrop).toHaveBeenCalled()
+    expect(props.student.unDrop).toHaveBeenCalled();
   });
 
 });

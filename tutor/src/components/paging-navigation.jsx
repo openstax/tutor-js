@@ -49,12 +49,12 @@ class PagingNavigation extends React.Component {
   @observable pendingTimeOut;
   scrollTo = new ScrollTo();
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.props.enableKeys) { this.enableKeys(); }
     if (this.props.titles.current) { this.props.documentImpl.title = this.props.titles.current; }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.enableKeys && !this.props.enableKeys) {
       this.enableKeys();
     } else if (!nextProps.enableKeys && this.props.enableKeys) {
@@ -182,4 +182,4 @@ class PagingNavigation extends React.Component {
       </div>
     );
   }
-};
+}

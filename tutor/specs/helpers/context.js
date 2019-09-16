@@ -1,13 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import merge from 'lodash/merge';
-import TestBackend from 'react-dnd-test-backend';
-import TestRouter from './test-router';
+import { wrapInTestContext } from 'react-dnd-test-utils';
 import { MemoryRouter as Router } from 'react-router-dom';
 import Theme from '../../src/theme';
 import { ThemeProvider } from 'styled-components';
-import { DragDropContext } from 'react-dnd';
-import TutorTheme from '../../src/theme';
 import { Navbar } from '../../src/components/navbar';
 import { NavbarContext } from '../../src/components/navbar/context';
 import ModalManager from '../../src/components/modal-manager';
@@ -17,11 +13,9 @@ import { observable, action } from 'mobx';
 import { observer, Provider } from 'mobx-react';
 
 function wrapInDnDTestContext(DecoratedComponent) {
-  return DragDropContext(TestBackend)(
-    (props) => <DecoratedComponent {...props} />
-  );
+  return wrapInTestContext(DecoratedComponent);
 }
-export { wrapInDnDTestContext };
+export { wrapInTestContext as wrapInDnDTestContext };
 
 class CourseContext {
   @observable course;
@@ -64,28 +58,53 @@ class TutorSpecLayout extends React.Component {
 
 }
 
+const R = React.forwardRef(({ children, path }, ref) => (
+  <Router initialIndex={0} initialEntries={[path]} ref={ref}>
+    {children}
+  </Router>
+));
+
+R.defaultProps = {
+  withRef: false,
+  path: '/',
+};
+
+export { R };
+
 // eslint-disable-next-line react/prefer-stateless-function
 export class C extends React.Component {
   static DnDContext = wrapInDnDTestContext(({ children }) => children);
   static propTypes = {
     path: PropTypes.string,
-    noRef: PropTypes.bool,
+    withRef: PropTypes.bool,
     withTours: PropTypes.object,
     children: PropTypes.element.isRequired,
   }
-  static defaultProps = {
-    path: '/',
+
+  routerRef = React.createRef();
+  componentRef = React.createRef();
+
+  get router() {
+    return this.routerRef.current;
   }
+
+  get pathname() {
+    return this.routerRef.current.history.location.pathname;
+  }
+
+  get component() {
+    return this.componentRef.current;
+  }
+
   render() {
-    const { children, noRef, withTours } = this.props;
-    const child = noRef ? children : React.cloneElement(children, { ref: 'instance' });
-    const routerProps = {
-      initialIndex: 0,
-      initialEntries: [this.props.path],
-    };
+    const { children, withRef, path, noRef, withTours } = this.props;
+
+    const child = withRef ?
+      React.cloneElement(children, { ref: this.componentRef }) : children;
+
     return (
       <ThemeProvider theme={Theme}>
-        <Router {...routerProps} ref="router">
+        <R ref={this.routerRef} noRef={noRef} path={path}>
           <C.DnDContext>
             <SpyMode.Wrapper>
               <ModalManager>
@@ -97,43 +116,8 @@ export class C extends React.Component {
               </ModalManager>
             </SpyMode.Wrapper>
           </C.DnDContext>
-        </Router>
+        </R>
       </ThemeProvider>
     );
   }
 }
-
-const EnzymeContext = {
-  withDnD(options = {}) {
-    const context = this.build(options);
-    return merge(
-      context,
-      {
-        context: {
-          dragDropManager: {},
-        },
-        childContextTypes: {
-          dragDropManager: PropTypes.object,
-        },
-      },
-    );
-  },
-
-  build(options = {}) {
-    return merge({}, {
-      context: {
-        theme: TutorTheme,
-        router: new TestRouter(options.pathname || '/'),
-        broadcasts: { location(cb) { return cb({ pathname: (options.pathname || '/') }); } },
-      },
-
-      childContextTypes: {
-        theme: PropTypes.object,
-        broadcasts: PropTypes.object,
-        router: PropTypes.object,
-      },
-    }, options);
-  },
-};
-
-export { EnzymeContext };

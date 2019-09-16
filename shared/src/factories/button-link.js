@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+
 import { concat } from 'lodash';
 import { Button } from 'react-bootstrap';
 import { filterProps as reactFilterProps } from '../helpers/react';
@@ -24,7 +25,7 @@ const filterProps = function(props, options = {}) {
   return reactFilterProps(props, options);
 };
 
-const make = function(router, name = 'OpenStax') {
+const make = (router, name = 'OpenStax') => {
   return class extends React.Component {
     static displayName = `${name}ButtonLink`;
 
@@ -32,10 +33,6 @@ const make = function(router, name = 'OpenStax') {
       to:     PropTypes.string.isRequired,
       params: PropTypes.object,
       query:  PropTypes.object,
-    };
-
-    static contextTypes = {
-      router: PropTypes.object,
     };
 
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -50,7 +47,7 @@ const make = function(router, name = 'OpenStax') {
 
     goToPathname = (clickEvent) => {
       clickEvent.preventDefault();
-      return this.context.router.transitionTo(this.state.fullPathname);
+      return router.transitionTo(this.state.fullPathname);
     };
 
     state = { fullPathname: this.makeFullPathname() };
