@@ -59,7 +59,7 @@ exports[`Reading Row matches snapshot 1`] = `
         className="tour-anchor"
         data-tour-anchor-id="assignment-progress-status"
       >
-        Not started
+        In progress
       </span>
       <span
         className="tour-anchor"

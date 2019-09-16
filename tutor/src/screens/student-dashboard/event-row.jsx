@@ -70,7 +70,7 @@ class EventRow extends React.Component {
 
   render() {
     const { event, course } = this.props;
-    if (event.hidden) { return null; }
+    if (event.isHidden) { return null; }
 
     return (
       <React.Fragment>

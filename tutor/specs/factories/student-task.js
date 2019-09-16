@@ -18,7 +18,7 @@ Factory.define('StudentDashboardTask')
   .complete_exercise_count(({ object }) =>
     fake.random.number({ min: 0, max: object.exercise_count })
   )
-  .completed_step_count(({ object }) => object.complete_exercise_count)
+  .completed_steps_count(({ object }) => object.complete_exercise_count)
   .correct_exercise_count(({ object }) =>
     fake.random.number({ min: 0, max: object.complete_exercise_count })
   )
