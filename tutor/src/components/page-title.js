@@ -22,7 +22,7 @@ const Preamble = styled.div`
   ${Theme.fonts.sans('1.4rem')};
 `;
 
-class RelatedContent extends React.Component {
+class PageTitle extends React.Component {
   static propTypes = {
     title: PropTypes.string,
     showObjectivesPreamble: PropTypes.bool,
@@ -75,4 +75,4 @@ class RelatedContent extends React.Component {
   }
 }
 
-export default RelatedContent;
+export default PageTitle;

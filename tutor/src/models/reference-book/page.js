@@ -100,8 +100,11 @@ class ReferenceBookPage extends BaseModel {
   }
 
   @computed get displayedChapterSection() {
-    return this.bookIsCollated ?
-      this.baked_chapter_section : this.chapter_section;
+    if (this.bookIsCollated) { return this.baked_chapter_section; }
+    if (this.baked_chapter_section && !this.baked_chapter_section.isEmpty) {
+      return this.baked_chapter_section;
+    }
+    return this.chapter_section;
   }
 
   @computed get isIntro() {
