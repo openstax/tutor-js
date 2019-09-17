@@ -21,7 +21,11 @@ function ReviewHeading(props) {
 
 }
 
-const NotFound = () => <Alert variant="info">This assignment does‘t have any activity to display</Alert>
+const NotFound = () => (
+  <Alert variant="info">
+    This assignment does‘t have any activity to display
+  </Alert>
+);
 
 ReviewHeading.displayName = 'ReviewHeadingTracker';
 
@@ -44,7 +48,11 @@ export default function Review({ stats, course, period }) {
     return steps.concat(compact(map(exercises, (exercise, i) => {
       if (!exercise.content) { return null; }
       return (
-        <ReviewExercise key={`${section}-${i}`} exercise={exercise} />
+        <ReviewExercise
+          course={course}
+          key={`${section}-${i}`}
+          exercise={exercise}
+        />
       );
     })));
   });

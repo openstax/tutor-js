@@ -10,7 +10,7 @@ describe('Task Teacher Review', () => {
     course = Factory.course();
     stat = Factory.taskPlanStat({ course });
     const exercise = stat.stats[0].current_pages[0].exercises[0];
-    props = { exercise };
+    props = { exercise, course };
   });
 
   it('renders exercise', async () => {

@@ -5,8 +5,8 @@ import { isEmpty, map, pick, find } from 'lodash';
 import { Card } from 'react-bootstrap';
 import classnames from 'classnames';
 import Exercise from '../../models/exercises/exercise';
+import Course from '../../models/course';
 import { QuestionStats } from '../../models/task-plans/teacher/stats';
-
 import { Icon } from 'shared';
 import {
   ArbitraryHtmlAndMath, Question, ExerciseIdentifierLink,
@@ -154,10 +154,12 @@ TaskTeacherReviewQuestionTracker.propTypes = {
 
 TaskTeacherReviewQuestionTracker.displayName = 'TaskTeacherReviewQuestionTracker';
 
-export default class TaskTeacherReviewExercise extends React.Component {
+export default
+class TaskTeacherReviewExercise extends React.Component {
   static displayName = 'TaskTeacherReviewExercise';
 
   static propTypes = {
+    course: PropTypes.instanceOf(Course).isRequired,
     exercise: PropTypes.instanceOf(Exercise).isRequired,
     question_stats: PropTypes.object,
     sectionKey: PropTypes.string,
@@ -193,14 +195,18 @@ export default class TaskTeacherReviewExercise extends React.Component {
   }
 
   render() {
-    const { exercise } = this.props;
+    const { course, exercise } = this.props;
 
     return (
       <div className="task-step openstax-exercise openstax-exercise-card">
         {this.stimulusHTML}
         {map(exercise.question_stats, this.renderQuestion)}
         <TourAnchor id="errata-link">
-          <ExerciseIdentifierLink exerciseId={exercise.content.uid} project="tutor" />
+          <ExerciseIdentifierLink
+            bookUUID={course.ecosystem_book_uuid}
+            exerciseId={exercise.content.uid}
+            project="tutor"
+          />
         </TourAnchor>
       </div>
     );
