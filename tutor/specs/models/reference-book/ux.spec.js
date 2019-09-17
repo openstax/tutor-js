@@ -1,6 +1,6 @@
 import { when } from 'mobx';
 import UX from '../../../src/models/reference-book/ux';
-import { FactoryBot } from '../../factories';
+import { FactoryBot, deferred } from '../../helpers';
 
 import Book from '../../../src/models/reference-book';
 import Page from '../../../src/models/reference-book/page';
@@ -61,4 +61,16 @@ describe(UX, () => {
     ux.unmount();
   });
 
+  it('redirects to page id', () => {
+    ux.history = { push: jest.fn() };
+    ux.courseId = 81;
+    ux.book = { pages: { byChapterSection: {
+      get: jest.fn(() => ({ id: 1234 })),
+    } } };
+    ux.update({ chapterSection: '8.23' });
+    expect(ux.book.pages.byChapterSection.get).toHaveBeenCalledWith('8.23');
+    return deferred(() => {
+      expect(ux.history.push).toHaveBeenCalledWith('/book/81/page/1234');
+    });
+  });
 });

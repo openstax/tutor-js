@@ -87,7 +87,7 @@ export default class BookUX {
       if (course.id != this.courseId) {
         this.courseId = course.id;
         const pageURL = props.pageId ? `/page/${props.pageId}` : '';
-        this.router.history.push(`/book/${this.courseId}${pageURL}`);
+        this.history.push(`/book/${this.courseId}${pageURL}`);
       }
       if (course) {
         this.ecosystemId = course.ecosystem_id;
@@ -98,7 +98,7 @@ export default class BookUX {
         when(() => this.book.pages.byChapterSection.get(props.chapterSection))
           .then(() => {
             const pageId = this.book.pages.byChapterSection.get(props.chapterSection).id;
-            this.router.history.push(`/book/${this.courseId}/page/${pageId}`);
+            this.history.push(`/book/${this.courseId}/page/${pageId}`);
           });
       }
       return;
