@@ -41,6 +41,9 @@ const Footer = styled.div`
   padding: 1.5rem;
   background-color: ${Theme.colors.neutral.bright};
   margin-top: 1rem;
+  bottom: 0;
+  width: 100%;
+  position: absolute;
   > * {
     margin-right: 1rem;
   }

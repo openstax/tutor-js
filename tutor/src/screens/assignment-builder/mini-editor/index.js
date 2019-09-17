@@ -14,6 +14,8 @@ const StyledEditorPlacement = styled.div`
 const StyledPopover = styled(Popover)`
   min-width: 450px;
   max-width: 450px;
+  max-height: 320px;
+  height: 320px;
   .popover-body {
     padding: 0;
   }
