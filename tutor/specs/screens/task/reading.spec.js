@@ -1,20 +1,21 @@
 import UX from '../../../src/screens/task/ux';
 import Reading from '../../../src/screens/task/reading';
-import { Factory, FakeWindow, TestRouter, TimeMock, C } from '../../helpers';
+import { Factory, FakeWindow, ld, TimeMock, C } from '../../helpers';
 
 describe('Reading Tasks Screen', () => {
-  let props;
+  let props, history;
   TimeMock.setTo('2017-10-14T12:00:00.000Z');
 
   beforeEach(() => {
     const task = Factory.studentTask({ type: 'reading' });
     props = {
       windowImpl: new FakeWindow(),
-      ux: new UX({
-        task,
-        history: new TestRouter().history,
-        course: Factory.course(),
-      }),
+      ux: new UX({ task, history, course: Factory.course() }),
+    };
+    history = {
+      push: (url) => {
+        props.ux.goToStep(ld.last(url.split('/')), false);
+      },
     };
   });
 

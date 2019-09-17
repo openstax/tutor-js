@@ -13,7 +13,7 @@ describe('CreateCourse: Selecting course dates', function() {
 
   beforeEach(() => {
     ux = new BuilderUX({
-      router: { route: { match: { params: {} } } },
+      router: { match: { params: {} } },
       courses: Factory.coursesMap({ count: 1 }),
       offerings: Factory.offeringsMap({ count: 4 }),
     });

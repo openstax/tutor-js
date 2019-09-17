@@ -1,9 +1,10 @@
 import UX from '../../../src/screens/task/ux';
 import Progress from '../../../src/screens/task/progress';
-import { Factory, TimeMock, TestRouter } from '../../helpers';
+import { Factory, TimeMock, ld } from '../../helpers';
 
 describe('Reading Progress Component', () => {
   let props;
+  let history;
   TimeMock.setTo('2017-10-14T12:00:00.000Z');
 
   beforeEach(() => {
@@ -14,7 +15,12 @@ describe('Reading Progress Component', () => {
       ] },
     }).array[0];
     props = {
-      ux: new UX({ task, history: new TestRouter().history }),
+      ux: new UX({ task, history }),
+    };
+    history = {
+      push: (url) => {
+        props.ux.goToStep(ld.last(url.split('/')), false);
+      },
     };
   });
 

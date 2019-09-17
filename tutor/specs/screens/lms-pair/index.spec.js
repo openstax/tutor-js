@@ -1,4 +1,4 @@
-import { Factory, C, TestRouter } from '../../helpers';
+import { Factory, C } from '../../helpers';
 import LmsPair from '../../../src/screens/lms-pair';
 import UX from '../../../src/screens/lms-pair/ux';
 
@@ -7,7 +7,6 @@ jest.mock('../../../src/helpers/dom', () => ({
 
   })),
 }));
-const testRouter = new TestRouter();
 
 describe('pairing a course', () => {
 
@@ -18,6 +17,7 @@ describe('pairing a course', () => {
     courses = Factory.coursesMap({ is_teacher: true });
     props = {
       ux: new UX({
+        router: { match: { params: {} } },
         courses,
       }),
     };

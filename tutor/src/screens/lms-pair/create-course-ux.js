@@ -1,6 +1,6 @@
 import CreateCourseUX from '../new-course/ux';
 import Router from './router';
-import { when, observable, computed, action, observe } from 'mobx';
+import { computed, action } from 'mobx';
 
 export default
 class PairingCreateCourseUX extends CreateCourseUX {

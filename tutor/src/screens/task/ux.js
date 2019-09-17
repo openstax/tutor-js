@@ -122,9 +122,8 @@ export default class TaskUX {
 
   @computed get isForwardEnabled() {
     return Boolean(
-      this.currentStep &&
-        this.canGoForward &&
-        !this.currentStep.api.isPending
+      this.canGoForward &&
+        !get(this.currentStep, 'api.isPending', false)
     );
   }
 

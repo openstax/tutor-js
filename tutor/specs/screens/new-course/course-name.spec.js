@@ -12,7 +12,7 @@ describe('CreateCourse: entering name', function() {
 
   beforeEach(() => {
     ux = new BuilderUX({
-      router: { route: { match: { params: {} } } },
+      router: { match: { params: {} } },
       courses: Factory.coursesMap({ count: 1 }),
       offerings: Factory.offeringsMap({ count: 4 }),
     });

@@ -12,7 +12,7 @@ describe('CreateCourse: Selecting course subject', function() {
   let ux;
   beforeEach(() => {
     ux = new BuilderUX({
-      router: { route: { match: { params: {} } } },
+      router: { match: { params: {} } },
       offerings: Factory.offeringsMap({ count: 4 }),
     });
   });

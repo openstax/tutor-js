@@ -1,14 +1,9 @@
 class TestRouter {
 
   constructor({ pathname = '/', params = {} } = {}) {
-    this.route = {
-      hash: '',
-      search: '',
-      location: { pathname },
-      match: {
-        params,
-      },
-    };
+    this.match = { params };
+
+    this.location = { pathname };
 
     this.history = {
       createHref: jest.fn(),
