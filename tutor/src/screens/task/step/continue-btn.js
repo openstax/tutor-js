@@ -8,16 +8,15 @@ const StyledBtn = styled(Button).attrs({ size: 'lg' })`
 `;
 
 export default function ContinueBtn({ ux: {
-  canGoForward, isForwardEnabled, goForward,
+  canGoForward, goForward,
 }, ...props }) {
-  if (!canGoForward) { return null; }
 
   return (
     <StyledBtn
       variant="primary"
       {...props}
       className="continue"
-      disabled={!isForwardEnabled}
+      disabled={!canGoForward}
       onClick={goForward}
     >
       Continue
@@ -28,7 +27,6 @@ export default function ContinueBtn({ ux: {
 
 ContinueBtn.propTypes = {
   ux: PropTypes.shape({
-    isForwardEnabled: PropTypes.bool.isRequired,
     canGoForward: PropTypes.bool.isRequired,
     goForward: PropTypes.func.isRequired,
   }).isRequired,
