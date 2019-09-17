@@ -120,13 +120,6 @@ export default class TaskUX {
     this._stepIndex = this.steps.indexOf(step);
   }
 
-  @computed get isForwardEnabled() {
-    return Boolean(
-      this.canGoForward &&
-        !get(this.currentStep, 'api.isPending', false)
-    );
-  }
-
   @action onAnswerContinue(step) {
     this.moveToStep(step);
     if (this.canGoForward) {
@@ -174,9 +167,7 @@ export default class TaskUX {
   }
 
   @action.bound goForward() {
-    if (this.isForwardEnabled) {
-      this.goToStep(this._stepIndex + 1);
-    }
+    this.goToStep(this._stepIndex + 1);
   }
 
   @action.bound goToStep(index, recordInHistory = true) {
@@ -208,7 +199,13 @@ export default class TaskUX {
     }
   }
 
+  @computed get isApiPending() {
+    return get(this.currentStep, 'api.isPending', false);
+  }
+
   @computed get canGoForward() {
+    if (this.isApiPending) { return false; }
+
     if (this._stepIndex < this.steps.length - 1) {
       if (this.currentStep.isExercise) {
         return this.currentStep.is_completed;
@@ -219,6 +216,8 @@ export default class TaskUX {
   }
 
   @computed get canGoBackward() {
+    if (this.isApiPending) { return false; }
+
     return this._stepIndex > 0;
   }
 
