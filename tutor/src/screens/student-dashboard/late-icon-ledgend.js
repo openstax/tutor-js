@@ -33,7 +33,9 @@ const LateIconLedgend = props => {
 };
 
 LateIconLedgend.propTypes = {
-  tasks: PropTypes.array.isRequired,
+  tasks: PropTypes.oneOfType([
+    PropTypes.object, PropTypes.array,
+  ]).isRequired,
 };
 
 export default LateIconLedgend;
