@@ -1,6 +1,4 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { React, PropTypes, action, withRouter } from '../../helpers/react';
 import { Button, Card } from 'react-bootstrap';
 import { SpyMode } from 'shared';
 import Router from '../../helpers/router';
@@ -58,7 +56,7 @@ class ProgressGuideCards extends React.Component {
     history: PropTypes.object.isRequired,
   }
 
-  viewPerformanceForecast() {
+  @action.bound viewPerformanceForecast() {
     return this.props.history.push(
       Router.makePathname('viewPerformanceGuide', this.props)
     );
