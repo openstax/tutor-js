@@ -1,9 +1,9 @@
 import React from 'react';
 import { WelcomeToTutorMessage } from './common';
 
-const StudentWelcomeToTutor = () => {
+const StudentWelcomeToTutor = (props) => {
   return (
-    <WelcomeToTutorMessage withoutCost>
+    <WelcomeToTutorMessage {...props} withoutCost>
       <p className="sub-heading">
         We use research-based technology to change the way you learn. Here's what to look out for:
       </p>

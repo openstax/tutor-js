@@ -48,7 +48,7 @@ describe('Course Builder UX Model', () => {
 
   it('sets cloned course when sourceId is present', () => {
     const course = courses.array[0];
-    testRouter.route.match.params = { sourceId: course.id };
+    testRouter.match.params = { sourceId: course.id };
     course.name = 'CLONE ME';
     ux = createTestUX();
     expect(ux.source).not.toBeUndefined();
@@ -103,7 +103,7 @@ describe('Course Builder UX Model', () => {
 
   it('can advance through steps for cloned course', () => {
     const course = ux.courses.array[0];
-    testRouter.route.match.params = { sourceId: course.id };
+    testRouter.match.params = { sourceId: course.id };
     ux = createTestUX();
     expect(ux.stage).toEqual('term');
     expect(ux.canGoForward).toBe(false);
@@ -159,7 +159,7 @@ describe('Course Builder UX Model', () => {
   describe('after course is created', function() {
     beforeEach(() => {
       ux.router = {
-        route: { match: { params: {} } },
+        match: { params: {} },
         history: { push: jest.fn() },
       };
       ux.newCourseMock = { id: 42 };

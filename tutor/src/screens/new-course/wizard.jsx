@@ -72,7 +72,7 @@ class NewCourseWizard extends React.Component {
   }
 
   @observable ux = this.props.ux || new BuilderUX({
-    router: pick(this.props, 'history', 'route'),
+    router: pick(this.props, 'history', 'match'),
   });
 
   render() {

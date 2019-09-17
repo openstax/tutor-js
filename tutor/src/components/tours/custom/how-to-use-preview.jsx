@@ -5,10 +5,9 @@ import {
   Column,
 } from './common';
 
-const HowToUsePreview = () => {
-
+const HowToUsePreview = (props) => {
   return (
-    <ValueProp className="course-preview">
+    <ValueProp {...props} className="course-preview">
       <h1 className="heading">
         What can you do in a preview course?
       </h1>

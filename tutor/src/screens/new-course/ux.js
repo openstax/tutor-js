@@ -43,7 +43,6 @@ class CourseBuilderUX extends BaseModel {
     this.offerings = offerings;
     this.courses = courses;
     this.newCourse = new CreateCourse({ courses, offerings });
-
     if (!User.isCollegeTeacher) {
       delay(() => // use delay in case we're called from a React constructor
         router.history.replace(
@@ -72,11 +71,15 @@ class CourseBuilderUX extends BaseModel {
         this.newCourse.save().then(this.afterCreate);
       }
     });
-    const { sourceId } = this.router.route.match.params;
+    const { sourceId } = this.params;
     if (sourceId) {
       this.source = this.courses.get(sourceId);
     }
     this.currentStageIndex = this.firstStageIndex;
+  }
+
+  @computed get params() {
+    return this.router.match.params || {};
   }
 
   @action.bound onOfferingsAvailable() {
@@ -155,7 +158,7 @@ class CourseBuilderUX extends BaseModel {
   }
 
   @computed get preselectedAppearanceCode() {
-    return this.router.route.match.params.appearanceCode;
+    return this.params.appearanceCode;
   }
 
   @computed get canSkipOffering() {

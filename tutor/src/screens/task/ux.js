@@ -176,16 +176,14 @@ export default class TaskUX {
     }
 
     const isChanged = this._stepIndex != index;
-    this._stepIndex = index;
+    if (!isChanged) { return; }
 
-    CenterControls.currentTaskStep = this.currentStep;
-
-    if (recordInHistory && isChanged) {
+    if (recordInHistory) {
       this.history.push(
         Router.makePathname('viewTaskStep', {
           id: this.task.id,
           courseId: this.course.id,
-          stepIndex: this._stepIndex + 1,
+          stepIndex: index + 1, // router uses 1 based index
         }),
       );
       // schedule a scroll
@@ -195,10 +193,19 @@ export default class TaskUX {
           `[data-task-step-id="${this.currentStep.id}"]`
         );
       }
+    } else {
+      this._stepIndex = index;
+      CenterControls.currentTaskStep = this.currentStep;
     }
   }
 
+  @computed get isApiPending() {
+    return get(this.currentStep, 'api.isPending', false);
+  }
+
   @computed get canGoForward() {
+    if (this.isApiPending) { return false; }
+
     if (this._stepIndex < this.steps.length - 1) {
       if (this.currentStep.isExercise) {
         return this.currentStep.is_completed;
@@ -209,6 +216,8 @@ export default class TaskUX {
   }
 
   @computed get canGoBackward() {
+    if (this.isApiPending) { return false; }
+
     return this._stepIndex > 0;
   }
 

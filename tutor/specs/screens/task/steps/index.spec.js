@@ -7,6 +7,7 @@ describe('Tasks Steps', () => {
   beforeEach(() => {
     const step = Factory.studentTask({ type: 'homework', stepCount: 1 }).steps[0];
     const ux = {
+      isForwardEnabled: true,
       viewedInfoSteps: [],
       course: Factory.course(),
       onAnswerChange: jest.fn(),

@@ -1056,10 +1056,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
           "year": 2017,
         },
         "history": Object {
-          "createHref": [MockFunction],
-          "listen": [MockFunction],
-          "push": [MockFunction],
-          "replace": [MockFunction],
+          "push": [Function],
         },
         "viewedInfoSteps": Array [],
         "window": [Window],

@@ -22,7 +22,7 @@ describe('Creating a course', function() {
     });
     props = {
       ux: new BuilderUX({
-        router: { route: { match: { params: {} } } },
+        router: { match: { params: {} } },
         offerings,
       }),
     };

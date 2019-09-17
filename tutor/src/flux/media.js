@@ -1,6 +1,9 @@
 import { get, map, union, partial, reduce } from 'lodash';
-import htmlparser from 'htmlparser2';
 import { makeSimpleStore } from './helpers';
+
+// this appears to be built in some non-standard way that
+// does not work with 'import'
+const htmlparser = require('htmlparser2');
 
 const LINKS_BEGIN = ['#'];
 const LINKS_CONTAIN = ['cnx.org/contents/'];
@@ -42,7 +45,7 @@ const MediaConfig = {
           html: htmlparser.DomUtils.getOuterHTML(outerEl),
         };
 
-        return actions.loaded(id, mediaDOM);
+        actions.loaded(id, mediaDOM);
       }
     }
   },

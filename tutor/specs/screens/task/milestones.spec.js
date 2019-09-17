@@ -1,16 +1,21 @@
 import UX from '../../../src/screens/task/ux';
 import { Milestones } from '../../../src/screens/task/milestones';
-import { Factory, TestRouter, TimeMock } from '../../helpers';
+import { Factory, ld, TimeMock } from '../../helpers';
 
 describe('Reading Milestones Component', () => {
-  let props;
+  let props, history;
   TimeMock.setTo('2017-10-14T12:00:00.000Z');
   beforeEach(() => {
     const task = Factory.studentTask({ type: 'reading' });
     props = {
       goToStep: jest.fn(),
       onHide: jest.fn(),
-      ux: new UX({ task, course: Factory.course(), history: new TestRouter().history }),
+      ux: new UX({ task, course: Factory.course(), history }),
+    };
+    history = {
+      push: (url) => {
+        props.ux.goToStep(ld.last(url.split('/')), false);
+      },
     };
   });
 
@@ -21,7 +26,7 @@ describe('Reading Milestones Component', () => {
   it('goes to step', () => {
     const ms = mount(<Milestones {...props} />);
     ms.find('Breadcrumb[stepIndex=1]').simulate('click');
-    expect(props.ux._stepIndex).toEqual(1);
+    expect(props.ux._stepIndex).toEqual('2');
     expect(props.onHide).toHaveBeenCalled();
     ms.unmount();
   });

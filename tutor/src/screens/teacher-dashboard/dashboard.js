@@ -17,8 +17,8 @@ import MonthTitleNav from './month-title-nav';
 import AddAssignmentPopup from './add-assignment-popup';
 
 export default
-@observer
 @withRouter
+@observer
 class TeacherDashboard extends React.Component {
 
   static propTypes = {
