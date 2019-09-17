@@ -120,6 +120,14 @@ export default class TaskUX {
     this._stepIndex = this.steps.indexOf(step);
   }
 
+  @computed get isForwardEnabled() {
+    return Boolean(
+      this.currentStep &&
+        this.canGoForward &&
+        !this.currentStep.api.isPending
+    );
+  }
+
   @action onAnswerContinue(step) {
     this.moveToStep(step);
     if (this.canGoForward) {
@@ -167,7 +175,9 @@ export default class TaskUX {
   }
 
   @action.bound goForward() {
-    this.goToStep(this._stepIndex + 1);
+    if (this.isForwardEnabled) {
+      this.goToStep(this._stepIndex + 1);
+    }
   }
 
   @action.bound goToStep(index, recordInHistory = true) {
@@ -176,16 +186,14 @@ export default class TaskUX {
     }
 
     const isChanged = this._stepIndex != index;
-    this._stepIndex = index;
+    if (!isChanged) { return; }
 
-    CenterControls.currentTaskStep = this.currentStep;
-
-    if (recordInHistory && isChanged) {
+    if (recordInHistory) {
       this.history.push(
         Router.makePathname('viewTaskStep', {
           id: this.task.id,
           courseId: this.course.id,
-          stepIndex: this._stepIndex + 1,
+          stepIndex: index + 1, // router uses 1 based index
         }),
       );
       // schedule a scroll
@@ -195,6 +203,9 @@ export default class TaskUX {
           `[data-task-step-id="${this.currentStep.id}"]`
         );
       }
+    } else {
+      this._stepIndex = index;
+      CenterControls.currentTaskStep = this.currentStep;
     }
   }
 
