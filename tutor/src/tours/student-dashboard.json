@@ -11,8 +11,7 @@
       "customComponent": "StudentWelcomeToTutor"
     }, {
       "title": "Welcome to your dashboard!",
-      "body": "Think of your dashboard as base camp – you can see which assignments are due this week, review your past work, and answer practice questions in topics where you need extra review.",
-      "customComponent": "NoHoleWheel"
+      "body": "Think of your dashboard as base camp – you can see which assignments are due this week, review your past work, and answer practice questions in topics where you need extra review."
     }, {
       "title": "Here’s where you see personal analytics",
       "body": "The Performance Forecast is the compass in your pocket: it helps you measure how you’re are doing on each topic, and it gives you an opportunity to get extra practice.",
@@ -54,8 +53,7 @@
     {
       "title": "The red clock means your assignment is past due",
       "body": "If an assignment is late, a red clock will appear on the dashboard. Your instructor decides whether or not to accept late work.",
-      "anchor_id": "about-late-icon",
-      "customComponent": "NoClose"
+      "anchor_id": "about-late-icon"
     }
   ]
 },
@@ -70,8 +68,7 @@
     {
       "title": "Here’s where you see your progress and correctness",
       "body": "Feedback on your completed homework questions will become available when your instructor says it will — either immediately or after the due date passes.",
-      "anchor_id": "assignment-progress-status",
-      "customComponent": "NoClose"
+      "anchor_id": "assignment-progress-status"
     }
   ]
 }

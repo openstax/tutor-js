@@ -6,10 +6,10 @@ import {
 } from './common';
 import CourseBranding from '../../branding/course';
 
-export default function HowToUseQL() {
+export default function HowToUseQL(props) {
 
   return (
-    <ValueProp className="question-library">
+    <ValueProp {...props} className="question-library">
       <h1 className="heading">
         How to use the Question Library
       </h1>

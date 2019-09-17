@@ -112,7 +112,7 @@ exports[`Html Content Tasks Screen matches snapshot 1`] = `
     />
     <button
       className="continue c3 btn btn-primary btn-lg"
-      disabled={false}
+      disabled={true}
       onClick={[Function]}
       type="button"
     >

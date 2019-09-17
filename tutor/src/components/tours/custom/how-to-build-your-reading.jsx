@@ -8,12 +8,12 @@ import CourseBranding from '../../branding/course';
 import TutorLink from '../../link';
 
 
-const HowToBuildYourReading = ({ ride }) => {
+const HowToBuildYourReading = ({ ride, ...props }) => {
 
   const { courseId } = ride.tour;
 
   return (
-    <ValueProp className="build-reading">
+    <ValueProp ride={ride} {...props} className="build-reading">
       <h1 className="heading">
         How to build a reading assignment
       </h1>

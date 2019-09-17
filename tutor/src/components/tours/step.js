@@ -35,8 +35,7 @@ class TourStep extends React.Component {
     const tip = (
       <Floater
         open={true}
-
-        debug={true || ride.context.emitDebugInfo}
+        debug={ride.context.emitDebugInfo}
         autoOpen={true}
         key={step.anchor_id}
         target={step.target}

@@ -42,7 +42,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
     <div />
     <button
       className="continue c2 btn btn-primary btn-lg"
-      disabled={false}
+      disabled={true}
       onClick={[Function]}
       type="button"
     >
