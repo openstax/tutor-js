@@ -75,15 +75,16 @@ class TourStep extends BaseModel {
     return Boolean((this.anchor_id || this.isCentered) && this.spotlight);
   }
 
-  @action complete() {
-    return (this.actionInstance && this.actionInstance.afterStep()) || Promise.resolve();
-    //      this.actionClass && this.actionClass
-    // joyRideStep.action.afterStep();
-
+  @action preValidate() {
+    this.actionInstance && this.actionInstance.preValidate();
   }
 
-  @action prepare() {
-    return (this.actionInstance && this.actionInstance.beforeStep()) || Promise.resolve();
+  @action prepare(options) {
+    return (this.actionInstance && this.actionInstance.beforeStep(options)) || Promise.resolve();
+  }
+
+  @action complete(options) {
+    return (this.actionInstance && this.actionInstance.afterStep(options) ) || Promise.resolve();
   }
 
   get isViewable() {

@@ -32,4 +32,6 @@ export class BaseAction extends BaseModel {
     return Promise.resolve();
   }
 
+  // the default implementation does nothing
+  preValidate() {}
 }
