@@ -6,7 +6,7 @@ export default class OpenDowndownMenu extends BaseAction {
 
   preValidate() {
     // click menu twice to force it to render
-    if (this.menu && !this.isOpen) {
+    if (this.menu && !this.isRendered) {
       this.menu.click();
       delay(() => this.menu.click(), 1);
     }
@@ -14,6 +14,9 @@ export default class OpenDowndownMenu extends BaseAction {
 
   beforeStep() {
     window.scroll(0,0);
+    if (this.isOpen) {
+      return Promise.resolve();
+    }
     return this.clickMenu();
   }
 
@@ -35,6 +38,13 @@ export default class OpenDowndownMenu extends BaseAction {
   get isOpen() {
     return Boolean(
       this.menu && this.menu.parentElement.classList.contains('show')
+    );
+  }
+
+  get isRendered() {
+    return Boolean(
+      this.menu &&
+        this.menu.parentElement.querySelector('.dropdown-item')
     );
   }
 
