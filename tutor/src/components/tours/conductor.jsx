@@ -43,25 +43,18 @@ class TourConductor extends React.Component {
   }
 
   @computed get isReady() {
-    return this.tourContext.isReady;
-  }
-
-  @computed get canRenderStep() {
-    const { tourRide } = this.tourContext;
     return Boolean(
-      this.props.modalManager.canDisplay(this) &&
-        this.isReady &&
-        tourRide && tourRide.isReady
+      this.tourContext.isReady &&
+        this.tourContext.tourRide &&
+        this.tourContext.tourRide.isReady
     );
   }
 
   renderTour() {
-    const { tourRide } = this.tourContext;
-
-    if (this.canRenderStep) {
+    if (this.props.modalManager.canDisplay(this)) {
+      const { tourRide } = this.tourContext;
       return <Step {...tourRide.props} />;
     }
-
     return null;
   }
 
