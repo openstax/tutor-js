@@ -46,34 +46,23 @@ class TourConductor extends React.Component {
     return this.tourContext.isReady;
   }
 
+  @computed get canRenderStep() {
+    const { tourRide } = this.tourContext;
+    return Boolean(
+      this.props.modalManager.canDisplay(this) &&
+        this.isReady &&
+        tourRide && tourRide.isReady
+    );
+  }
+
   renderTour() {
     const { tourRide } = this.tourContext;
 
-    if (!tourRide || !tourRide.isReady) {
-      return null;
+    if (this.canRenderStep) {
+      return <Step {...tourRide.props} />;
     }
 
-    //   // = props.tourContext || new TourContext();
-    // if (!this.menuOpen) { return null; }
-
-    return (
-      <Step {...tourRide.props} />
-    );
-    //         );
-    // return (
-    //   <Floater
-    //     autoOpen={true}
-    //     placement="left"
-    //     target=".support-document-link.dropdown-item"
-    //     content="This is the Floater content"
-    //   >
-    //     <span>click me</span>
-    //   </Floater>
-    // );
-    // // if (!this.props.modalManager.canDisplay(this) || !this.isReady) { return null; }
-
-    // // return this.tourContext.tourRide ?
-    // //   <Joyride {...this.tourContext.tourRide.joyrideProps} /> : null;
+    return null;
   }
 
   renderSpyModeInfo() {
