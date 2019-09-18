@@ -47,6 +47,8 @@
       "position": "top-start",
       "title": "Explore a preview!",
       "body":  "See all features in action with a preview course first.  When you're ready, create a real course above.",
+      "spotlight": false,
+      "displayWithButtons": false,
       "isCancelable": false
     }
   ]

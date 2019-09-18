@@ -89,7 +89,7 @@
       "title": "Remember, this is a preview course",
       "body": "You're in a preview course with pre-populated data. When you're done exploring the preview course, here's where you can create a real course.",
       "anchor_id": "preview-add-course-nav-button",
-      "position": "bottom-center",
+      "position": "bottom-start",
       "is_fixed": true
     }, {
       "title": "Get help",
