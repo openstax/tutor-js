@@ -16,8 +16,8 @@ import TourContext from '../../models/tour/context';
 import Course from '../../models/course';
 import Theme from '../../theme';
 
-
-const PageTips = observer(({ onPlayClick, tourContext, ...props }) => {
+// eslint-disable-next-line no-unused-vars
+const PageTips = observer(({ onPlayClick, tourContext, staticContext, ...props }) => {
   if (!get(tourContext, 'hasTriggeredTour', false)){ return null; }
   return (
     <Dropdown.Item

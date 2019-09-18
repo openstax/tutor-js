@@ -73,11 +73,17 @@ class TourSpotlight extends React.Component {
     });
   }
 
+  onClick(ev) {
+    // react-bootstrap menu's use native browser events
+    // so we need to access and cancel it
+    ev.nativeEvent.stopImmediatePropagation();
+  }
+
   render() {
     const { position } = this.state;
 
     return (
-      <Wrapper>
+      <Wrapper onClick={this.onClick}>
         <Hole style={position} />
         {this.props.children}
       </Wrapper>

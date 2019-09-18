@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, computed, session,
 } from 'shared/model';
 import { action, observable } from 'mobx';
-import { find, filter } from 'lodash';
+import { find, filter, each } from 'lodash';
 
 export default
 @identifiedBy('tour/ride')
@@ -18,8 +18,9 @@ class TourRide extends BaseModel {
 
   constructor(attrs) {
     super(attrs);
+    each(this.tour.steps, s => s.preValidate());
     if (this.currentStep) {
-      this.currentStep.prepare().then(() => {
+      this.currentStep.prepare({ prevStep: null }).then(() => {
         this._isReady = true;
       });
     } else {
@@ -32,6 +33,7 @@ class TourRide extends BaseModel {
   }
 
   @action.bound onCancel() {
+    this.currentStep.complete({ prevStep: this.prevStep });
     this._stepIndex = this.validSteps.length;
     this.markComplete(true);
   }
@@ -59,25 +61,35 @@ class TourRide extends BaseModel {
     return (this._stepIndex < this.validSteps.length - 1);
   }
 
+  @computed get prevStep() {
+    return this.canGoBackward ?
+      this.validSteps[this._stepIndex - 1] : null;
+  }
+
   @computed get nextStep() {
     return this.canGoForward ?
       this.validSteps[this._stepIndex + 1] : null;
   }
 
   @action.bound async onPrevStep() {
-    if (this.canGoBackward) {
-      this._stepIndex -= 1;
+    const { prevStep } = this;
+    await this.currentStep.complete({ nextStep: prevStep });
+    if (!prevStep) {
+      return Promise.resolve();
     }
+    await prevStep.prepare({ prevStep: this.currentStep });
+    this._stepIndex -= 1;
+    return Promise.resolve();
   }
 
   @action.bound async onNextStep() {
     const { nextStep } = this;
-    await this.currentStep.complete();
+    await this.currentStep.complete({ nextStep });
     if (!nextStep) {
       this.context.onTourComplete();
       return Promise.resolve();
     }
-    await nextStep.prepare();
+    await nextStep.prepare({ prevStep: this.currentStep });
     this._stepIndex += 1;
     return Promise.resolve();
   }
