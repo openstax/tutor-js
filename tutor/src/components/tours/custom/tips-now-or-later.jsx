@@ -18,7 +18,10 @@ class TipsNowOrLater extends React.Component {
   }
 
   @action.bound onViewNowClick() {
-    this.props.ride.context.playTriggeredTours();
+    this.props.ride.markComplete();
+    this.props.ride.context.playTriggeredTours({
+      except: this.props.ride.tour.id,
+    });
   }
 
   @action.bound onViewLaterClick() {
