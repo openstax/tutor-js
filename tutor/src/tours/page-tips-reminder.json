@@ -15,8 +15,7 @@
       "action": {
         "id": "open-support-menu"
       },
-      "position": "left",
-      "requiredViewsCount": 2
+      "position": "left"
     }
   ]
 }]

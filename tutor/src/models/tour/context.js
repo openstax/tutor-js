@@ -4,7 +4,7 @@ import {
 import {
   find, isEmpty, intersection, compact, uniq, flatMap, map, get, delay, forEach, flatten, first,
 } from 'lodash';
-import { action } from 'mobx';
+import { action, observe } from 'mobx';
 
 import Courses   from '../courses-map';
 import User      from '../user';
@@ -36,6 +36,7 @@ class TourContext extends BaseModel {
   constructor(attrs) {
     super(attrs);
     this.pickTourRide();
+    observe(this, 'tour', this.pickTourRide);
   }
 
   @computed get tourIds() {
@@ -106,7 +107,7 @@ class TourContext extends BaseModel {
     return find(this.eligibleTours, 'isViewable') || null;
   }
 
-  @action pickTourRide() {
+  @action.bound pickTourRide() {
     const { tour } = this;
     if (this.tourRide && this.tourRide.tour === tour) { return; }
     this.tourRide = tour ? new TourRide({ tour, context: this, region: this.activeRegion }) : null;
