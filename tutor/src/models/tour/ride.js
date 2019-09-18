@@ -34,11 +34,11 @@ class TourRide extends BaseModel {
 
   @action.bound onCancel() {
     this.currentStep.complete({ prevStep: this.prevStep });
-    this._stepIndex = this.validSteps.length;
     this.markComplete(true);
   }
 
   @action markComplete(exitedEarly = false) {
+    this._stepIndex = this.validSteps.length;
     this.context.onTourComplete({ exitedEarly });
   }
 
@@ -86,7 +86,7 @@ class TourRide extends BaseModel {
     const { nextStep } = this;
     await this.currentStep.complete({ nextStep });
     if (!nextStep) {
-      this.context.onTourComplete();
+      this.markComplete();
       return Promise.resolve();
     }
     await nextStep.prepare({ prevStep: this.currentStep });
