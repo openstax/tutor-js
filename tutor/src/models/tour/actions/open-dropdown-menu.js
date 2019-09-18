@@ -6,7 +6,7 @@ export default class OpenDowndownMenu extends BaseAction {
 
   preValidate() {
     // click menu twice to force it to render
-    if (!this.isOpen) {
+    if (this.menu && !this.isOpen) {
       this.menu.click();
       delay(() => this.menu.click(), 1);
     }
@@ -20,7 +20,8 @@ export default class OpenDowndownMenu extends BaseAction {
   afterStep({ nextStep } = {}) {
     // don't close if the next step's action is targeting
     // the same menu; doing so causes the menu to flicker
-    if (nextStep &&
+    if (this.menu &&
+        nextStep &&
         nextStep.actionInstance &&
         nextStep.actionInstance instanceof this.constructor) {
       return Promise.resolve();
@@ -32,10 +33,13 @@ export default class OpenDowndownMenu extends BaseAction {
   }
 
   get isOpen() {
-    return this.menu.parentElement.classList.contains('show');
+    return Boolean(
+      this.menu && this.menu.parentElement.classList.contains('show')
+    );
   }
 
   @action.bound clickMenu() {
+    if (!this.menu) { return Promise.resolve(); }
     return new Promise((resolve) => {
       delay(() => this.menu.click(), 5);
       delay(() => resolve(), 50);
