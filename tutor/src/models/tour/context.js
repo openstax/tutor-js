@@ -157,9 +157,11 @@ class TourContext extends BaseModel {
     return `available regions: [${map(this.regions, 'id')}]; region tour ids: [${this.tourIds}]; audience tags: [${this.audienceTags}]; tour tags: [${this.toursTags}]; eligible tours: [${map(this.eligibleTours,'id')}]; TOUR RIDE: ${this.tourRide ? this.tourRide.tour.id : '<none>'}`;
   }
 
-  @action playTriggeredTours() {
+  @action playTriggeredTours(options = {}) {
     this.eligibleTours.forEach((tour) => {
-      if (!tour.autoplay){ tour.play(); }
+      if (!tour.autoplay && tour.id != options.except) {
+        tour.play();
+      }
     });
     this.pickTourRide();
   }
