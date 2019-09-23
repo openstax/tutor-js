@@ -20,10 +20,6 @@ Factory.define('Page')
     chapter || fake.random.number({ min: 1, max: 10 }),
     section || fake.random.number({ min: 1, max: 5 }),
   ])
-  .baked_chapter_section(({ chapter, section }) => [
-    chapter || fake.random.number({ min: 1, max: 10 }),
-    section || fake.random.number({ min: 1, max: 5 }),
-  ])
   .content_html(fake.lorem.paragraphs)
 
 

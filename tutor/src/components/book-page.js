@@ -397,7 +397,7 @@ class BookPage extends React.Component {
           <PageTitle
             title={title}
             contentId={page.cnx_id}
-            chapter_section={page.displayedChapterSection}
+            chapter_section={page.chapter_section}
             showObjectivesPreamble={this.needsLearningObjectivesPreamble}
             isChapterSectionDisplayed={page.isChapterSectionDisplayed}
           />
