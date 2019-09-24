@@ -186,16 +186,16 @@ export default class TaskUX {
           stepIndex: index + 1, // router uses 1 based index
         }),
       );
-      // schedule a scroll
-      const sgi = this.stepGroupInfo;
-      if (sgi.grouped) {
-        this.scroller.scrollToSelector(
-          `[data-task-step-id="${this.currentStep.id}"]`
-        );
-      }
     } else {
       this._stepIndex = index;
       CenterControls.currentTaskStep = this.currentStep;
+      const sgi = this.stepGroupInfo;
+      if (sgi.grouped) {
+        this.scroller.scrollToSelector(
+          `[data-task-step-id="${this.currentStep.id}"]`,
+          { deferred: true }
+        );
+      }
     }
   }
 
