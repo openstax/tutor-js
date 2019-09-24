@@ -117,15 +117,15 @@ const TeacherStudent = makeSimpleStore(extendConfig({
 
 const Helpers = {
   recentSections(sections, limit = 4) {
-    return take(orderBy(filter(
-      sections, s => s.last_worked_at && s.clue.is_real
-    ), 'last_worked_at', 'desc'), limit);
+    return take(orderBy(
+      sections, s => [this.canDisplayForecast(s.clue), s.last_worked_at], ['desc', 'desc']
+    ), limit);
   },
 
   canDisplayForecast(clue) { return clue.is_real; },
 
   filterForecastedSections(sections) {
-    return filter(sections, s => Helpers.canDisplayForecast(s.clue));
+    return filter(sections, s => this.canDisplayForecast(s.clue));
   },
 
   weakestSections(sections, displayCount = 4) {

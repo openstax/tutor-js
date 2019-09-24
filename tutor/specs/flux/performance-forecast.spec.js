@@ -53,9 +53,11 @@ describe('Learning Guide Store', function() {
 
   it('returns recent', function() {
     const sections = makeSections(10, 3);
-    expect( LGH.recentSections(sections) ).toEqual(ld.take(ld.orderBy(ld.filter(
-      sections, s => s.last_worked_at && s.clue.is_real
-    ), 'last_worked_at', 'desc'), 4));
+    expect( LGH.recentSections(sections) ).toEqual(
+      ld.take(ld.orderBy(
+        sections, s => [LGH.canDisplayForecast(s.clue), s.last_worked_at], ['desc', 'desc']
+      ), 4)
+    );
   });
 
   it('finds sections with a valid forecast', function() {
