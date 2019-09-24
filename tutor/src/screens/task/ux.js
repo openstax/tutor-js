@@ -136,7 +136,7 @@ export default class TaskUX {
   }
 
   @action.bound onStepChange() {
-    const step = this.currentStep;
+    const step = this.currentGroupedStep;
 
     // events do not have steps
     if (!step) { return; }
@@ -144,11 +144,7 @@ export default class TaskUX {
     if (step.isPlaceHolder) {
       this.refetchTask();
     } else {
-      if (step.multiPartGroup) {
-        step.multiPartGroup.steps.forEach((s) => s.fetchIfNeeded());
-      } else {
-        step.fetchIfNeeded();
-      }
+      step.fetchIfNeeded();
     }
   }
 
