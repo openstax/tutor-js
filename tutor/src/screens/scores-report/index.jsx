@@ -1,8 +1,6 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { observer } from 'mobx-react';
-import { computed, action } from 'mobx';
+import { React, PropTypes, observer, computed, action } from '../../helpers/react';
 import { isEmpty, get } from 'lodash';
+import { ScrollToTop } from 'shared';
 import CoursePage from '../../components/course-page';
 import ScoresTable from './table';
 import TableFilters from './table-filters';
@@ -69,39 +67,46 @@ class StudentScores extends React.Component {
   render() {
 
     const courseId = this.course.id;
+    let pending = null;
 
     if (!this.course.scores.api.hasBeenFetched) {
-      return <LoadingScreen className="course-scores-report" message="Loading Scores…" />;
+      pending = (
+        <LoadingScreen
+          className="course-scores-report"
+          message="Loading Scores…" />
+      );
     }
 
     if (isEmpty(this.course.periods.active)) {
-      return <NoPeriods courseId={courseId} />;
+      pending = <NoPeriods courseId={courseId} />;
     }
 
-    return (
-      <CoursePage
-        course={this.course}
-        title={this.title}
-        className="course-scores-report"
-        controls={this.renderControls()}
-        fullWidthChildren={
-          <TourRegion
-            id="scores"
-            className="scores-table"
-            courseId={courseId}
-            otherTours={['preview-scores']}
-          >
-            <ScoresTable ux={this.ux} />
-            <DroppedStudentsCaption ux={this.ux} />
-          </TourRegion>
-        }
-      >
-        <ScoresReportNav
+    return pending || (
+      <ScrollToTop>
+        <CoursePage
           course={this.course}
-          handleSelect={this.selectPeriod}
-          afterTabsItem={this.renderAfterTabsItem()}
-        />
-      </CoursePage>
+          title={this.title}
+          className="course-scores-report"
+          controls={this.renderControls()}
+          fullWidthChildren={
+            <TourRegion
+              id="scores"
+              className="scores-table"
+              courseId={courseId}
+              otherTours={['preview-scores']}
+            >
+              <ScoresTable ux={this.ux} />
+              <DroppedStudentsCaption ux={this.ux} />
+            </TourRegion>
+          }
+        >
+          <ScoresReportNav
+            course={this.course}
+            handleSelect={this.selectPeriod}
+            afterTabsItem={this.renderAfterTabsItem()}
+          />
+        </CoursePage>
+      </ScrollToTop>
     );
   }
 }

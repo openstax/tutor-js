@@ -25,7 +25,7 @@ describe('Surveys Screen', () => {
   });
 
   it('renders and matches snapshot', () => {
-    expect.snapshot(<Survey {...props} />).toMatchSnapshot();
+    expect.snapshot(<R><Survey {...props} /></R>).toMatchSnapshot();
   });
 
   it('submits survey when answered', async () => {

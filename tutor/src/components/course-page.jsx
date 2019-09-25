@@ -1,4 +1,5 @@
 import { React, PropTypes, cn, computed, styled } from '../helpers/react';
+import { ScrollToTop } from 'shared';
 import { isNil } from 'lodash';
 import Course from '../models/course';
 import CourseUX from '../models/course/ux';
@@ -85,22 +86,24 @@ export default class CoursePage extends React.Component {
 
   render() {
     return (
-      <div
-        className={cn('course-page', this.props.className)}
-        {...this.ux.dataProps}
-      >
-        <header>
-          {this.renderTitle()}
-          {this.props.notices}
-          {this.renderControls()}
-        </header>
-        <div className="body-wrapper">
-          <div className="body">
-            {this.props.children}
+      <ScrollToTop>
+        <div
+          className={cn('course-page', this.props.className)}
+          {...this.ux.dataProps}
+        >
+          <header>
+            {this.renderTitle()}
+            {this.props.notices}
+            {this.renderControls()}
+          </header>
+          <div className="body-wrapper">
+            <div className="body">
+              {this.props.children}
+            </div>
+            {this.props.fullWidthChildren}
           </div>
-          {this.props.fullWidthChildren}
         </div>
-      </div>
+      </ScrollToTop>
     );
   }
 }

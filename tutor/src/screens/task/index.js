@@ -2,6 +2,7 @@ import {
   React, PropTypes, withRouter, observer, computed, inject, idType,
 } from '../../helpers/react';
 import { Redirect } from 'react-router-dom';
+import { ScrollToTop } from 'shared';
 import Router from '../../helpers/router';
 import { isNil, findIndex } from 'lodash';
 import Courses, { Course } from '../../models/courses-map';
@@ -152,15 +153,17 @@ class TaskGetter extends React.Component {
     }
 
     return (
-      <div className={`task-screen task-${task.type}`}>
-        <Task
-          key={task}
-          course={this.course}
-          task={task}
-          stepIndex={this.props.params.stepIndex - 1}
-        />
-        <SpyInfo model={task} />
-      </div>
+      <ScrollToTop>
+        <div className={`task-screen task-${task.type}`}>
+          <Task
+            key={task}
+            course={this.course}
+            task={task}
+            stepIndex={this.props.params.stepIndex - 1}
+          />
+          <SpyInfo model={task} />
+        </div>
+      </ScrollToTop>
     );
   }
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { ScrollToTop } from 'shared';
 import Router from '../../helpers/router';
 import * as PerformanceForecast from '../../flux/performance-forecast';
 import LoadableItem from '../../components/loadable-item';
@@ -60,13 +61,18 @@ class Guide extends React.Component {
   render() {
     const { courseId, roleId } = Router.currentParams();
     const { isTeacher } = Courses.get(courseId).currentRole;
+
+    let body;
     if ((roleId != null) && isTeacher) {
-      return <TeacherStudent />;
+      body = <TeacherStudent />;
     } else if (isTeacher) {
-      return <Teacher />;
+      body = <Teacher />;
     } else {
-      return <Student />;
+      body = <Student />;
     }
+    return (
+      <ScrollToTop>{body}</ScrollToTop>
+    );
   }
 }
 

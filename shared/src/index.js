@@ -6,6 +6,7 @@ export {
 export LoadingAnimation from './components/loading-animation';
 export SuretyGuard from './components/surety-guard';
 export OXRouter from './helpers/router';
+export ScrollToTop from './components/scroll-to-top';
 import * as OXLink from './factories/link';
 export { OXLink };
 

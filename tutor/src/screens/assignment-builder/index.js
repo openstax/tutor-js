@@ -1,4 +1,5 @@
 import { React, PropTypes, observer, action } from '../../helpers/react';
+import { ScrollToTop } from 'shared';
 import TourRegion from '../../components/tours/region';
 import Courses from '../../models/courses-map';
 import Router from '../../helpers/router';
@@ -82,13 +83,15 @@ class AssignmentBuilder extends React.Component {
     const Builder = BUILDERS[plan.type] || UnknownType;
 
     return (
-      <TourRegion
-        id={`${plan.type}-assignment-editor`}
-        otherTours={[`${plan.type}-assignment-editor-super`]}
-        courseId={course.id}
-      >
-        <Builder ux={this.ux} />
-      </TourRegion>
+      <ScrollToTop>
+        <TourRegion
+          id={`${plan.type}-assignment-editor`}
+          otherTours={[`${plan.type}-assignment-editor-super`]}
+          courseId={course.id}
+        >
+          <Builder ux={this.ux} />
+        </TourRegion>
+      </ScrollToTop>
     );
   }
 }
