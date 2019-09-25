@@ -1,9 +1,10 @@
-import {
-  React, PropTypes, idType, styled,
-} from '../../../helpers/react';
+import { React, PropTypes, styled } from '../../../helpers/react';
 import { StepCard } from './card';
+import { get } from 'lodash';
 import { titleize } from '../../../helpers/object';
 import Raven from '../../../models/app/raven';
+import Step from '../../../models/student-tasks/step';
+import Task from '../../../models/student-tasks/task';
 import SupportEmailLink from '../../../components/support-email-link';
 import ReloadPageButton from '../../../components/buttons/reload-page';
 
@@ -17,45 +18,53 @@ const StyledFailure = styled(StepCard)`
 class Failure extends React.Component {
 
   static propTypes = {
-    task: PropTypes.shape({
-      id: idType,
-    }),
-    step: PropTypes.shape({
-      id: idType,
-    }),
+    task: PropTypes.instanceOf(Task).isRequired,
+    step: PropTypes.instanceOf(Step).isRequired,
   }
 
   componentDidMount() {
-    const { task } = this.props;
+    const { task, step } = this.props;
+    let errMsg = [];
     if (!task) {
-      return Raven.log('Failed to load assignment task');
+      errMsg.push('Failed to load assignment task');
     }
     if (task.api.hasErrors) {
-      return Raven.log(`Failed to load assignment, errors: ${titleize(task.api.errors)}`);
+      const { last: _, ...errors } = task.api.errors;
+      errMsg.push(`Failed to load assignment, errors: ${titleize(errors)}`);
+    }
+    if (!step) {
+      errMsg.push(`Failed to ${this.requestAction} assignment step`);
     }
 
-    const { step } = this.props;
-    if (!step) {
-      return Raven.log('Failed to load assignment step');
+    const { last: _, ...errors } = step.api.errors;
+    errMsg.push(`Failed to ${this.requestAction} assignment step id: ${step.id}, error: ${titleize(errors)}`);
+    if (errMsg.length) {
+      Raven.log(errMsg.join('\n'));
     }
-    Raven.log(`Failed to load assignment step id: ${step.id}, error: ${titleize(step.api.errors)}`);
-    return null;
+  }
+
+  get requestAction() {
+    return 'get' === get(this.props.step, 'api.errors.last.config.method') ? 'load' : 'save';
   }
 
   render() {
     return (
       <StyledFailure>
         <h3>
-          We’re sorry! An error occurred when loading this step.
+          We’re sorry! An error occurred
+          when {this.requestAction}ing this step.
         </h3>
         <h4>
-          Please reload this page and try again.
+          Please either go back and retry or
+          reload this page and try again.
         </h4>
         <p>
-          We’ve received an automated notification that this error occurred and we’ll look into it.
+          We’ve received an automated notification
+          that this error occurred and we’ll look into it.
         </p>
         <p>
-          Please <SupportEmailLink label="contact support" /> if you continue to get this error.
+          Please <SupportEmailLink label="contact support" /> if
+          you continue to get this error.
         </p>
         <ReloadPageButton />
       </StyledFailure>

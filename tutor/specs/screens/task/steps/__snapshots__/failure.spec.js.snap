@@ -3,19 +3,27 @@
 exports[`Task Failure matches snapshot 1`] = `
 <Failure
   step={
-    Object {
-      "api": Object {
-        "errors": Object {},
-      },
+    StudentTaskStep {
+      "answer_id": undefined,
+      "content": undefined,
+      "correct_answer_id": undefined,
+      "external_url": undefined,
+      "feedback_html": undefined,
+      "formats": Array [],
+      "free_response": undefined,
+      "group": undefined,
       "id": 1234,
+      "is_completed": undefined,
+      "labels": Array [],
+      "multiPartGroup": undefined,
+      "preview": undefined,
+      "response_validation": Object {},
+      "spy": Object {},
+      "task": Object {},
+      "type": undefined,
+      "uid": undefined,
     }
   }
-  task={
-    Object {
-      "api": Object {
-        "errors": Object {},
-      },
-    }
-  }
+  task={StudentTask {}}
 />
 `;
