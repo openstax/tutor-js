@@ -1,5 +1,6 @@
 import { React, PropTypes, observer, cn } from '../helpers/react';
 import { observable, action, when } from 'mobx';
+import Raven from '../models/app/raven';
 import { autobind } from 'core-decorators';
 import { Icon, Logging } from 'shared';
 import { last, debounce } from 'lodash';
@@ -167,14 +168,19 @@ class NotesWidget extends React.Component {
     if (highlight && !this.scrollToPendingNote ) {
       this.setupPendingHighlightScroll(highlight);
     }
+    try {
+      await this.waitForPageReady();
 
-    await this.waitForPageReady();
+      // create and attach notes to highlghter
+      this.initializeHighlighter();
 
-    // create and attach notes to highlghter
-    this.initializeHighlighter();
-
-    NotesUX.statusMessage.hide();
-
+      NotesUX.statusMessage.hide();
+    } catch(err) {
+      // ignore errors that happened due to unmount
+      if (this.isMounted) {
+        Raven.captureException(err);
+      }
+    }
   }, 100)
 
   @action.bound onHighlightClick(highlight) {
