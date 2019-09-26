@@ -1,10 +1,27 @@
 import * as Sentry from '@sentry/browser';
-import { first } from 'lodash';
+import { first, isEmpty, isObject, each } from 'lodash';
 const isProd = (process.env.NODE_ENV === 'production');
 
 const isMathJaxUrl = /mathjax/;
 
 const isMathjax = (crumb) => ('xhr' === crumb.category && isMathJaxUrl.test(crumb.data.url));
+
+const sendWithXtras = (method, arg, xtra) => {
+  if (isEmpty(xtra)) {
+    Sentry[method](arg);
+  } else {
+    Sentry.withScope((scope) => {
+      if (isObject(xtra)) {
+        each(xtra, (value, key) => {
+          scope.setExtra(key, value);
+        });
+      } else {
+        scope.setExtra('info', xtra);
+      }
+      Sentry[method](arg);
+    });
+  }
+};
 
 const RavenErrorLogging = {
 
@@ -31,12 +48,11 @@ const RavenErrorLogging = {
     if (!isProd) {
       console.warn(error); // eslint-disable-line no-console
     }
-    Sentry.captureException(error, xtra);
+    sendWithXtras('captureException', error, xtra);
   },
 
-  log(msg) {
-    if (!isProd) { console.info(msg); } // eslint-disable-line no-console
-    Sentry.captureMessage(msg);
+  log(msg, xtra) {
+    sendWithXtras('captureMessage', msg, xtra);
   },
 
 };
