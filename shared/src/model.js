@@ -45,12 +45,15 @@ export class BaseModel {
     if (errors) {
       this.api.errors = {};
       errors.forEach(e => this.api.errors[e.code] = e);
+      this.api.errors.last = error;
     } else if (error) {
-      this.api.errors = { error: error.toString() };
+      this.api.errors = {
+        error: error.toString(),
+        last: error,
+      };
     } else {
       this.api.errors = {};
     }
-    this.api.errors.last = error;
   }
 
 }
