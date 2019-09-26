@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { ScrollToTop } from 'shared';
 import { withRouter } from 'react-router-dom';
 import './styles.scss';
 import { inject, observer } from 'mobx-react';
@@ -40,11 +41,19 @@ class QAViewWrapper extends React.Component {
 
   render() {
     const { ecosystemId, ecosystem } = this.ux;
-    if (!ecosystemId) { return <h3>Choose ecosystem to display from top selector</h3>; }
-    if (!ecosystem) { return <Loading message="Fetching Book…" />; }
+    let pending = null;
+
+    if (!ecosystemId) {
+      pending = <h3>Choose ecosystem to display from top selector</h3>;
+    }
+    if (!ecosystem) {
+      pending = <Loading message="Fetching Book…" />;
+    }
 
     return (
-      <QAView ux={this.ux} />
+      <ScrollToTop>
+        {pending || <QAView ux={this.ux} />}
+      </ScrollToTop>
     );
   }
 

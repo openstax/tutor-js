@@ -1,15 +1,14 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import {
+  React, PropTypes, observer, observable, computed, action, idType,
+} from '../../helpers/react';
+import { ScrollToTop } from 'shared';
 import { Container, Row, Col } from 'react-bootstrap';
-import { observer } from 'mobx-react';
-import { computed, observable, action } from 'mobx';
 import { first, find } from 'lodash';
 import Courses from '../../models/courses-map';
 import Breadcrumbs from './breadcrumbs';
 import Stats from '../../components/plan-stats';
 import Review from './review';
 import ScrollTo from '../../helpers/scroll-to';
-import { idType } from 'shared/helpers/react';
 import LoadingScreen from 'shared/components/loading-animation';
 
 import './styles.scss';
@@ -92,27 +91,29 @@ class TeacherReviewMetrics extends React.Component {
     }
 
     return (
-      <div
-        className={`task-teacher-review task-${this.taskPlan.type}`}
-      >
-        {this.renderBreadcrumbs()}
-        <Container fluid={true} className="task-teacher-review">
-          <Row>
-            <Col sm={8}>
-              {this.renderReviewCard()}
-            </Col>
-            <Col sm={4}>
-              <Stats
-                plan={this.taskPlan}
-                course={course}
-                period={period}
-                shouldOverflowData={true}
-                handlePeriodSelect={this.setPeriod}
-              />
-            </Col>
-          </Row>
-        </Container>
-      </div>
+      <ScrollToTop>
+        <div
+          className={`task-teacher-review task-${this.taskPlan.type}`}
+        >
+          {this.renderBreadcrumbs()}
+          <Container fluid={true} className="task-teacher-review">
+            <Row>
+              <Col sm={8}>
+                {this.renderReviewCard()}
+              </Col>
+              <Col sm={4}>
+                <Stats
+                  plan={this.taskPlan}
+                  course={course}
+                  period={period}
+                  shouldOverflowData={true}
+                  handlePeriodSelect={this.setPeriod}
+                />
+              </Col>
+            </Row>
+          </Container>
+        </div>
+      </ScrollToTop>
     );
   }
 }

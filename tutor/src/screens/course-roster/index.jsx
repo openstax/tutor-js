@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Card } from 'react-bootstrap';
 import { computed, observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import { map } from 'lodash';
@@ -115,4 +114,4 @@ class CourseRoster extends React.Component {
       </CoursePage>
     );
   }
-};
+}

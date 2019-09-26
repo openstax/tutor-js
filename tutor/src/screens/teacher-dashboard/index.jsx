@@ -4,7 +4,7 @@ import moment from '../../helpers/moment-range';
 import Router from '../../helpers/router';
 import { observable, computed, action, observe } from 'mobx';
 import { Redirect, withRouter } from 'react-router-dom';
-import { NotificationsBar } from 'shared';
+import { NotificationsBar, ScrollToTop } from 'shared';
 import CoursePage from '../../components/course-page';
 import ModelLoader from '../../models/loader';
 import Courses, { Course } from '../../models/courses-map';
@@ -189,10 +189,12 @@ class TeacherDashboardDateWrapper extends React.Component {
     }
 
     return (
-      <TeacherDashboardWrapper
-        date={date}
-        course={this.course}
-      />
+      <ScrollToTop>
+        <TeacherDashboardWrapper
+          date={date}
+          course={this.course}
+        />
+      </ScrollToTop>
     );
   }
 

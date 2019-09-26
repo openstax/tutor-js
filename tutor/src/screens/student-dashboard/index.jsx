@@ -1,7 +1,5 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { computed } from 'mobx';
-import { observer, inject } from 'mobx-react';
+import { React, PropTypes, computed, observer, inject } from '../../helpers/react';
+import { ScrollToTop } from 'shared';
 import StudentDashboard from './dashboard';
 import Courses from '../../models/courses-map';
 import User from '../../models/user';
@@ -35,7 +33,9 @@ class StudentDashboardShell extends React.Component {
     if (!this.course) { return <CourseNotFoundWarning />; }
 
     return (
-      <StudentDashboard params={this.props.params} course={this.course} />
+      <ScrollToTop>
+        <StudentDashboard params={this.props.params} course={this.course} />
+      </ScrollToTop>
     );
   }
 

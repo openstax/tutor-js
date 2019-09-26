@@ -1,4 +1,4 @@
-import { Factory } from '../helpers';
+import { Factory, R } from '../helpers';
 import CoursePage from '../../src/components/course-page';
 
 describe('Course Page', () => {
@@ -16,20 +16,24 @@ describe('Course Page', () => {
 
   it('renders and matches snapshot', () => {
     expect.snapshot(
-      <CoursePage {...props}>
-        <h3>Hello, this is the body</h3>
-      </CoursePage>
+      <R>
+        <CoursePage {...props}>
+          <h3>Hello, this is the body</h3>
+        </CoursePage>
+      </R>
     ).toMatchSnapshot();
     expect.snapshot(
-      <CoursePage
-        {...props}
-        title={<Title />}
-        notices={<h1>This is a test notice</h1>}
-        subtitle="This is a subtitle"
-        controls={<button>Click Me</button>}
-      >
-        <h3>Hello, this is the body</h3>
-      </CoursePage>
+      <R>
+        <CoursePage
+          {...props}
+          title={<Title />}
+          notices={<h1>This is a test notice</h1>}
+          subtitle="This is a subtitle"
+          controls={<button>Click Me</button>}
+        >
+          <h3>Hello, this is the body</h3>
+        </CoursePage>
+      </R>
     ).toMatchSnapshot();
   });
 });
