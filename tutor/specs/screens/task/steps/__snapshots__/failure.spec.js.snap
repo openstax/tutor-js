@@ -24,6 +24,21 @@ exports[`Task Failure matches snapshot 1`] = `
       "uid": undefined,
     }
   }
-  task={StudentTask {}}
+  task={
+    StudentTask {
+      "complete": undefined,
+      "description": undefined,
+      "due_at": undefined,
+      "feedback_at": undefined,
+      "id": 4321,
+      "is_deleted": undefined,
+      "spy": Object {},
+      "steps": Array [],
+      "students": Array [],
+      "tasksMap": Object {},
+      "title": undefined,
+      "type": undefined,
+    }
+  }
 />
 `;

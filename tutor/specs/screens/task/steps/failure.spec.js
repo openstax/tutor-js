@@ -10,7 +10,7 @@ describe('Task Failure', () => {
 
   beforeEach(() => {
     props = {
-      task: new Task(),
+      task: new Task({ id: 4321 }),
       step: new Step({ id: 1234 }),
     };
   });
@@ -22,17 +22,25 @@ describe('Task Failure', () => {
   it('logs step message', () => {
     const fail = mount(<Failure {...props} />);
     expect(Raven.log).toHaveBeenCalledWith(
-      expect.stringContaining('Failed to save assignment step id: 1234')
+      expect.stringContaining('Failed to save assignment step'),
+      { stepId: 1234, taskId: 4321 },
     );
     fail.unmount();
   });
 
   it('logs task message', () => {
-    props.task.api.errors = { foo: 'bar', last: { config: { method: 'get' } } };
+    props.task.api.errors = {
+      foo: 'bar', last: { config: { method: 'get' } },
+    };
+    props.step.api.errors = {
+      test: 'nope', last: { config: { method: 'get' } },
+    };
+
     const fail = mount(<Failure {...props} />);
 
     expect(Raven.log).toHaveBeenCalledWith(
-      expect.stringContaining('Failed to load assignment, errors: Foo bar')
+      expect.stringContaining('Failed to load assignment'),
+      { stepId: 1234, taskId: 4321 },
     );
     fail.unmount();
   });

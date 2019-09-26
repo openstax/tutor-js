@@ -19,27 +19,27 @@ class Failure extends React.Component {
 
   static propTypes = {
     task: PropTypes.instanceOf(Task).isRequired,
-    step: PropTypes.instanceOf(Step).isRequired,
+    step: PropTypes.instanceOf(Step),
   }
 
   componentDidMount() {
     const { task, step } = this.props;
+
     let errMsg = [];
-    if (!task) {
-      errMsg.push('Failed to load assignment task');
-    }
     if (task.api.hasErrors) {
       const { last: _, ...errors } = task.api.errors;
       errMsg.push(`Failed to load assignment, errors: ${titleize(errors)}`);
     }
-    if (!step) {
-      errMsg.push(`Failed to ${this.requestAction} assignment step`);
-    }
+    // step may not be present if the task had errors
+    if (!step) { return; }
 
     const { last: _, ...errors } = step.api.errors;
-    errMsg.push(`Failed to ${this.requestAction} assignment step id: ${step.id}, error: ${titleize(errors)}`);
+    errMsg.push(`Failed to ${this.requestAction} assignment step, errors: ${titleize(errors)}`);
     if (errMsg.length) {
-      Raven.log(errMsg.join('\n'));
+      Raven.log(errMsg.join('\n'), {
+        taskId: task.id,
+        stepId: step.id,
+      });
     }
   }
 
