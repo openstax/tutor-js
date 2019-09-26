@@ -75,7 +75,12 @@
 
   // prevent larger images from pushing out past their container.
   // Most images are inside a <figure> and will be handled by the rules below
-  img { max-width: 100%, }
+  img {
+    max-width: 100%;
+  }
+  a {
+    word-break: break-all;
+  }
 
   @include tutor-figure();
 
