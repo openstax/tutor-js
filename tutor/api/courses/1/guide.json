@@ -25,6 +25,8 @@
         "2",
         "3"
       ],
+      "first_worked_at": "2016-05-29T16:41:24.750Z",
+      "last_worked_at": "2016-05-29T16:41:24.750Z",
       "children": [
         {
           "title": "Acceleration",
@@ -39,7 +41,9 @@
           "practice_count": 0,
           "page_ids": [
             "2"
-          ]
+          ],
+          "first_worked_at": "2016-05-29T16:41:46.457Z",
+          "last_worked_at": "2016-05-29T16:41:46.457Z"
         },
         {
           "title": "Representing Acceleration with Equations and Graphs",
@@ -54,7 +58,9 @@
           "practice_count": 0,
           "page_ids": [
             "3"
-          ]
+          ],
+          "first_worked_at": "2016-05-29T16:41:32.750Z",
+          "last_worked_at": "2016-05-29T16:41:46.457Z"
         }
       ]
     },
@@ -62,7 +68,7 @@
       "title": "Force and Newton's Laws of Motion",
       "chapter_section": [ 4 ],
       "questions_answered_count": 3,
-      "clue":{
+      "clue": {
         "minimum": 0.13278347571119187,
         "most_likely": 0.5331585527121938,
         "maximum": 0.7331585527121938,
@@ -70,6 +76,8 @@
       },
       "practice_count": 0,
       "page_ids": [ "5", "6" ],
+      "first_worked_at": "2016-06-01T16:21:52.101Z",
+      "last_worked_at": "2016-06-01T16:52:16.508Z",
       "children": [
         {
           "title": "Force",
@@ -85,7 +93,9 @@
             "is_real": true
           },
           "practice_count": 0,
-          "page_ids": [ "5" ]
+          "page_ids": [ "5" ],
+          "first_worked_at": "2016-06-01T16:21:52.101Z",
+          "last_worked_at": "2016-06-01T16:21:52.101Z"
         },
         {
           "title": "Newton's First Law of Motion: Inertia",
@@ -98,7 +108,9 @@
             "is_real": true
           },
           "practice_count": 0,
-          "page_ids": [ "6" ]
+          "page_ids": [ "6" ],
+          "first_worked_at": "2016-06-01T16:51:52.101Z",
+          "last_worked_at": "2016-06-01T16:52:16.508Z"
         }
       ]
     }

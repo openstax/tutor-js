@@ -1,9 +1,10 @@
-import ld from 'underscore';
+import ld from 'lodash';
+import moment from 'moment';
 import * as PerformanceForecast from '../../src/flux/performance-forecast';
 const LGH = PerformanceForecast.Helpers;
 
 const makeSections = function(valid, invalid) {
-  const sections = ld.times(valid, function(i) {
+  const sections = ld.times(valid, function() {
     // Sort the values to guarantee that minimum <= most_likely <= maximum
     const values = ld.sortBy([Math.random(), Math.random(), Math.random()], n => n);
 
@@ -14,9 +15,11 @@ const makeSections = function(valid, invalid) {
         maximum: values[2],
         is_real: true,
       },
+      first_worked_at: moment().format(),
+      last_worked_at: moment().format(),
     };
   }).concat(
-    ld.times(invalid, function(i) {
+    ld.times(invalid, function() {
       const values = ld.sortBy([Math.random(), Math.random(), Math.random()], n => n);
 
       return {
@@ -26,6 +29,8 @@ const makeSections = function(valid, invalid) {
           maximum: values[2],
           is_real: false,
         },
+        first_worked_at: null,
+        last_worked_at: null,
       };
     })
   );
@@ -48,14 +53,22 @@ describe('Learning Guide Store', function() {
 
   it('returns recent', function() {
     const sections = makeSections(10, 3);
-    expect( LGH.recentSections(sections) ).toEqual( ld.last(sections, 4) );
+    expect( LGH.recentSections(sections) ).toEqual(
+      ld.take(
+        ld.orderBy(
+          ld.filter(
+            sections, s => s.last_worked_at
+          ), s => [LGH.canDisplayForecast(s.clue), s.last_worked_at], ['desc', 'desc']
+        ), 4
+      )
+    );
   });
 
   it('finds sections with a valid forecast', function() {
     const sections = makeSections(8, 33);
     const valid = LGH.filterForecastedSections(sections);
     expect( valid.length ).toEqual(8);
-    expect( ld.findWhere(valid, { is_real: false }) ).toBeUndefined();
+    expect( ld.find(valid, { is_real: false }) ).toBeUndefined();
   });
 
   it('finds the weakest sections', function() {

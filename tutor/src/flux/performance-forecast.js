@@ -1,5 +1,5 @@
 import { CrudConfig, makeSimpleStore, extendConfig } from './helpers';
-import { find, sortBy, take, takeRight, filter, map, flatten, uniq } from 'lodash';
+import { find, orderBy, sortBy, take, filter, map, flatten, uniq } from 'lodash';
 
 // Unlike other stores defined in TutorJS, this contains three separate stores that have very similar capabilities.
 // They're combined in one file because they're pretty lightweight and share helper methods.
@@ -9,7 +9,7 @@ import { find, sortBy, take, takeRight, filter, map, flatten, uniq } from 'lodas
 const findAllSections = function(section) {
   if (!section) { return []; }
   const sections = [];
-  if ((section.chapter_section != null ? section.chapter_section.length : undefined) > 1) {
+  if (section.chapter_section != null && section.chapter_section.length > 1) {
     sections.push(section);
   }
   if (section.children) {
@@ -116,16 +116,20 @@ const TeacherStudent = makeSimpleStore(extendConfig({
 );
 
 const Helpers = {
-  // Since the learning guide doesn't currently include worked dates
-  // the best we can do is return from the end of the list
   recentSections(sections, limit = 4) {
-    return takeRight(sections, limit);
+    return take(
+      orderBy(
+        filter(
+          sections, s => s.last_worked_at
+        ), s => [this.canDisplayForecast(s.clue), s.last_worked_at], ['desc', 'desc']
+      ), limit
+    );
   },
 
   canDisplayForecast(clue) { return clue.is_real; },
 
   filterForecastedSections(sections) {
-    return filter(sections, s => Helpers.canDisplayForecast(s.clue));
+    return filter(sections, s => this.canDisplayForecast(s.clue));
   },
 
   weakestSections(sections, displayCount = 4) {
