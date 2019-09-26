@@ -136,7 +136,7 @@ export default class TaskUX {
   }
 
   @action.bound onStepChange() {
-    const step = this.currentStep;
+    const step = this.currentGroupedStep;
 
     // events do not have steps
     if (!step) { return; }
@@ -144,11 +144,7 @@ export default class TaskUX {
     if (step.isPlaceHolder) {
       this.refetchTask();
     } else {
-      if (step.multiPartGroup) {
-        step.multiPartGroup.steps.forEach((s) => s.fetchIfNeeded());
-      } else {
-        step.fetchIfNeeded();
-      }
+      step.fetchIfNeeded();
     }
   }
 
@@ -186,16 +182,16 @@ export default class TaskUX {
           stepIndex: index + 1, // router uses 1 based index
         }),
       );
-      // schedule a scroll
-      const sgi = this.stepGroupInfo;
-      if (sgi.grouped) {
-        this.scroller.scrollToSelector(
-          `[data-task-step-id="${this.currentStep.id}"]`
-        );
-      }
     } else {
       this._stepIndex = index;
       CenterControls.currentTaskStep = this.currentStep;
+      const sgi = this.stepGroupInfo;
+      if (sgi.grouped) {
+        this.scroller.scrollToSelector(
+          `[data-task-step-id="${this.currentStep.id}"]`,
+          { deferred: true }
+        );
+      }
     }
   }
 

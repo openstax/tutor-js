@@ -125,4 +125,23 @@ describe('Task UX Model', () => {
     ux.becomeStudentIfNeeded();
     expect(ux.course.current_role_id).toEqual(99);
   });
+
+  it('records in history when going to step', () => {
+    ux.goToStep(1);
+    expect(ux.history.push).toHaveBeenCalledWith(`/course/${ux.course.id}/task/${ux.task.id}/step/2`);
+    ux.goToStep(2, false);
+    expect(ux.history.push).toHaveBeenCalledTimes(1);
+
+    const i = 1 + ux.steps.findIndex(s => s.type == 'two-step-intro');
+    ux.steps[i+1].uid = ux.groupedSteps[i].uid = '123@4';
+    const group = ux.groupedSteps[i];
+    expect(group.type).toBe('mpq');
+
+    ux.goToStep(i + 1, false);
+    expect(ux.history.push).toHaveBeenCalledTimes(1);
+    expect(ux.scroller.scrollToSelector).toHaveBeenCalledWith(
+      `[data-task-step-id="${ux.currentStep.id}"]`,
+      { deferred: true }
+    );
+  });
 });

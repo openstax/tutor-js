@@ -40,6 +40,16 @@ export default class ScrollTo {
       updateHistory: true, unlessInView: false,
     }, options);
 
+    if (options.deferred) {
+      return new Promise(resolve => {
+        delay(() => {
+          this
+            .scrollToSelector(selector, omit(options, 'deferred'))
+            .then(resolve);
+        }, 10);
+      });
+    }
+
     const el = this.getElement(selector);
     if (el && (!options.unlessInView || !this.isElementInView(el))) {
       return this.scrollToElement(el, options);
@@ -109,7 +119,6 @@ export default class ScrollTo {
 
   scrollToTop(options) {
     const root = this.windowImpl.document.body.querySelector('#ox-react-root-container');
-
     if (root) {
       return this.scrollToElement(root, extend({}, options, { updateHistory: false }));
     }
