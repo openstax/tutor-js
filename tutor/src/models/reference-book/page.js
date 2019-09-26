@@ -39,7 +39,6 @@ class ReferenceBookPage extends BaseModel {
   @field short_id;
   @field uuid;
   @field({ model: ChapterSection }) chapter_section;
-  @field({ model: ChapterSection }) baked_chapter_section;
   @session chapter;
   @readonly depth = 2;
   @field content_html = '';
@@ -95,29 +94,12 @@ class ReferenceBookPage extends BaseModel {
     this.update(NOT_FOUND_CONTENT);
   }
 
-  @computed get hasBakedChapterSection() {
-    return Boolean(this.baked_chapter_section && !this.baked_chapter_section.isEmpty);
-  }
-
-  @computed get displayedChapterSection() {
-    if (this.bookIsCollated) { return this.baked_chapter_section; }
-    if (this.baked_chapter_section && !this.baked_chapter_section.isEmpty) {
-      return this.baked_chapter_section;
-    }
-    return this.chapter_section;
-  }
-
   @computed get isIntro() {
     return this.chapter_section.section < 2 && this.title.startsWith('Intro');
   }
 
   @computed get isChapterSectionDisplayed() {
-    return Boolean(
-      this.displayedChapterSection &&
-        this.displayedChapterSection.isPresent &&
-        !this.isIntro &&
-        this.isAssignable
-    );
+    return Boolean(!this.isIntro && this.isAssignable);
   }
 
   @computed get isAssignable() {

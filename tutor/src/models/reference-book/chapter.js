@@ -14,7 +14,7 @@ class ReferenceBookChapter extends BaseModel {
   @field title;
   @field type;
   @field({ model: ChapterSection }) chapter_section;
-  @field({ model: ChapterSection }) baked_chapter_section;
+
   @session book;
   @hasMany({ model: Page, inverseOf: 'chapter', extend: getters({
     assignable() { return filter(this, 'isAssignable'); },
@@ -29,11 +29,6 @@ class ReferenceBookChapter extends BaseModel {
   // collated books do not have content for the chapter
   @computed get hasContent() {
     return !this.bookIsCollated;
-  }
-
-  @computed get displayedChapterSection() {
-    const bcs = this.baked_chapter_section;
-    return !bcs || bcs.isEmpty ? this.chapter_section : bcs;
   }
 
 }

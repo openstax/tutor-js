@@ -3,7 +3,7 @@ import {
   observable, computed, action, belongsTo, hasMany,
 } from 'shared/model';
 import S from '../../helpers/string';
-import { pick, get, isEmpty } from 'lodash';
+import { pick, get } from 'lodash';
 import Exercise from '../exercises/exercise';
 import ChapterSection from '../chapter-section';
 import RelatedContent from '../related-content';
@@ -24,10 +24,7 @@ class StudentTaskPlaceHolderStep extends TaskStepContent { }
 
 class StudentTaskReadingStep extends TaskStepContent {
   @observable title;
-  @lazyGetter chapterSection = new ChapterSection(
-    isEmpty(this.baked_chapter_section) ?
-      this.chapter_section : this.baked_chapter_section,
-  );
+  @lazyGetter chapterSection = new ChapterSection(this.chapter_section);
   @hasMany({ model: RelatedContent }) related_content;
   @lazyGetter page = new Page(
     Object.assign({

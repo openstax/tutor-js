@@ -18,7 +18,7 @@ class BookMenuTocSection extends React.Component {
       <div className="chapter-section-title">
         {section.isChapterSectionDisplayed &&
           <span className="section-number">
-            {section.displayedChapterSection.asString}
+            {section.chapter_section.asString}
           </span>}
         <span key="title">{section.title}</span>
       </div>
