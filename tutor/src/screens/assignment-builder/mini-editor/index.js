@@ -15,6 +15,9 @@ const StyledPopover = styled(Popover)`
   min-width: 450px;
   max-width: 450px;
   max-height: 320px;
+  .loading-animation svg {
+    max-height: 200px;
+  }
   height: 320px;
   .popover-body {
     padding: 0;
