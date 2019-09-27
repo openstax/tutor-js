@@ -113,6 +113,10 @@ const Variants = {
     color: '#c2002f',
     type: 'exclamation-circle',
   },
+  info: {
+    color: '#007da4',
+    type: 'exclamation-circle',
+  },
   activity: {
     type: 'spinner',
     spin: true,

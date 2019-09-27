@@ -87,8 +87,8 @@ class ProgressGuideCards extends React.Component {
                 by the performance forecast
               </li>
               {sections.map((section) =>
-                <li>
-                  {section.chapter_section.asString}
+                <li key={section.chapter_section.join('.')}>
+                  {section.chapter_section.join('.')}
                   {' section.title'}
                 </li>)}
             </ul>

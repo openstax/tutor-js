@@ -1,4 +1,5 @@
 import { React, PropTypes, styled, observer } from 'vendor';
+import { Icon } from 'shared';
 import EventInfoIcon from './event-info-icon';
 import TourAnchor from '../../components/tours/anchor';
 import Theme from '../../theme';
@@ -8,7 +9,6 @@ const Feedback = styled.div`
   justify-content: flex-start;
   align-items: center;
 `;
-
 
 const LateCaption = styled.div`
   font-size: 1.2rem;
@@ -26,6 +26,13 @@ const LateInfo = observer(({ event }) => {
 });
 
 
+const DescriptionPopoverIcon = observer(({ event }) => {
+  if (!event.description) { return null; }
+  return (
+    <Icon variant="info" tooltip={event.description} />
+  );
+});
+
 const TaskProgressInfo = observer(({ event, course }) => {
   if (event.is_deleted) { return null; }
 
@@ -40,6 +47,7 @@ const TaskProgressInfo = observer(({ event, course }) => {
           event={event}
           isCollege={course.is_college}
         />
+        <DescriptionPopoverIcon event={event} />
       </Feedback>
       <LateInfo event={event} />
     </React.Fragment>
