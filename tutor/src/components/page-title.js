@@ -7,11 +7,16 @@ const PageTitleWrapper = styled.div.attrs({ className: 'page-title' })`
   padding: 2rem 0 1.5rem 0;
 `;
 
-const Title = styled.h1.attrs({ className: 'page-title-heading' })`
+const Heading = styled.h1.attrs({ className: 'page-title-heading' })`
   font-size: 2.4rem;
-  line-height: 2.4rem;
+  line-height: 3rem;
   margin: 0;
+  display: flex;
   padding: 2rem 3rem 1rem 3rem;
+`;
+
+const Title = styled.div`
+  margin-left: 0.5rem;
 `;
 
 const Preamble = styled.div`
@@ -54,18 +59,16 @@ class PageTitle extends React.Component {
 
     return (
       <PageTitleWrapper>
-        <Title>
-          <span className="part">
-            {isChapterSectionDisplayed && (
-              <span className="section">
-                {chapter_section.toString()}
-                {' '}
-              </span>)}
-            <span className="title">
-              {title}
-            </span>
-          </span>
-        </Title>
+        <Heading>
+          {isChapterSectionDisplayed && (
+            <div className="section">
+              {chapter_section.toString()}
+              {' '}
+            </div>)}
+          <Title>
+            {title}
+          </Title>
+        </Heading>
         {showObjectivesPreamble && (
           <Preamble>
             {this.preambleMessage}
