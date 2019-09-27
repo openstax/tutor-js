@@ -40,13 +40,17 @@ export class BaseModel {
 
   @action
   setApiErrors(error) {
+    error.isRecorded = true;
     const errors = get(error, 'response.data.errors');
     if (errors) {
       this.api.errors = {};
       errors.forEach(e => this.api.errors[e.code] = e);
-      error.isRecorded = true;
+      this.api.errors.last = error;
     } else if (error) {
-      this.api.errors = { error: error.toString() };
+      this.api.errors = {
+        error: error.toString(),
+        last: error,
+      };
     } else {
       this.api.errors = {};
     }
