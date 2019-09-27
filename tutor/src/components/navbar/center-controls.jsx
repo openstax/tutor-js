@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, observable, computed } from '../../helpers/react';
+import { React, PropTypes, observer, observable, computed } from 'vendor';
 import { get } from 'lodash';
 import NotesSummaryToggle from '../notes/summary-toggle';
 import Course from '../../models/course';

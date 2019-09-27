@@ -1,6 +1,6 @@
 import {
   React, PropTypes, withRouter, action,
-} from '../../../helpers/react';
+} from 'vendor';
 import StepPanel from './standard';
 import Router from '../../../helpers/router';
 

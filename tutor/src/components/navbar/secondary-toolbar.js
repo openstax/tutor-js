@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, css, observer } from '../../helpers/react';
+import { React, PropTypes, styled, css, observer } from 'vendor';
 import { NavbarBottomShadow } from '../navbar.js';
 
 const Padding = css`

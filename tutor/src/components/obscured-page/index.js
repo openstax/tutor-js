@@ -1,6 +1,6 @@
-import { React, action, observer, cn } from '../../helpers/react';
-import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
+import {
+  React, action, observer, PropTypes, styled, css,
+} from 'vendor';
 import keymaster from 'keymaster';
 import { DefaultRegistry, OverlayRegistry } from './overlay-registry';
 
@@ -73,4 +73,4 @@ class ObscuredPage extends React.Component {
     );
   }
 
-};
+}

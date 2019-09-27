@@ -1,4 +1,4 @@
-import { React, observer } from '../../helpers/react';
+import { React, observer } from 'vendor';
 import PropTypes from 'prop-types';
 import { Button, Card } from 'react-bootstrap';
 import { partial } from 'lodash';
@@ -47,7 +47,7 @@ class ExistingCourse extends React.Component {
                 data-appearance={course.appearance_code}
                 active={(course === ux.pairedCourse)}
                 onClick={partial(ux.pairCourse, course)}
-                >
+              >
                 {course.name}
               </Choice>
             ))}
@@ -57,4 +57,4 @@ class ExistingCourse extends React.Component {
       </Card>
     );
   }
-};
+}

@@ -1,4 +1,4 @@
-import { React, action, observer } from '../../helpers/react';
+import { React, action, observer } from 'vendor';
 import ErrorHandlers from './handlers';
 import { isReloaded } from '../../helpers/reload';
 import { AppStore } from '../../flux/app';

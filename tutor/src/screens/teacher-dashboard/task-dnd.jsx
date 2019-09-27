@@ -1,4 +1,4 @@
-import { React, cn } from '../../helpers/react';
+import { React, cn } from 'vendor';
 import { DragSource } from 'react-dnd';
 
 import GrabbyDots from '../../components/grabby-dots';

@@ -1,4 +1,4 @@
-import { React, PropTypes } from '../../../helpers/react';
+import { React, PropTypes } from 'vendor';
 import {
   ValueProp,
   ColumnContent,

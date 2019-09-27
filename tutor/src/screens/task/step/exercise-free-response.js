@@ -1,6 +1,6 @@
 import {
   React, PropTypes, observer, styled, action, css,
-} from '../../../helpers/react';
+} from 'vendor';
 import { invoke } from 'lodash';
 import { Button } from 'react-bootstrap';
 import TaskStep from '../../../models/student-tasks/step';

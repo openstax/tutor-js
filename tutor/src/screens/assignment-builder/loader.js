@@ -1,4 +1,4 @@
-import { React } from '../../helpers/react';
+import { React } from 'vendor';
 import ContentLoader from 'react-content-loader';
 
 const TaskPlanLoader = () => (

@@ -1,6 +1,6 @@
 import {
   React, PropTypes, observer, observable, computed, idType,
-} from '../../helpers/react';
+} from 'vendor';
 import { Redirect } from 'react-router-dom';
 import Router from '../../helpers/router';
 import Courses, { Course } from '../../models/courses-map';

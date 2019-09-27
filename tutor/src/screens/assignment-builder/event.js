@@ -1,6 +1,6 @@
 import {
   React, PropTypes, observer,
-} from '../../helpers/react';
+} from 'vendor';
 import { Card } from 'react-bootstrap';
 import Header from './header';
 import PlanFooter from './footer';

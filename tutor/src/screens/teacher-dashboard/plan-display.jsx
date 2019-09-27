@@ -1,6 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import PropTypes from 'prop-types';
-import { React, observer, styled } from '../../helpers/react';
+import { React, observer, styled } from 'vendor';
 import { partial } from 'lodash';
 import TaskPlan from '../../models/task-plans/teacher/plan';
 import Course from '../../models/course';

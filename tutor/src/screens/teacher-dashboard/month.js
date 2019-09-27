@@ -1,6 +1,6 @@
 import {
   React, cn, observable, computed, observer, action,
-} from '../../helpers/react';
+} from 'vendor';
 import TimeHelper from '../../helpers/time';
 import { partial } from 'lodash';
 import 'moment-timezone';

@@ -1,4 +1,4 @@
-import { React, observable, styled, action } from '../../helpers/react';
+import { React, observable, styled, action } from 'vendor';
 import { Icon } from 'shared';
 import Theme from '../../theme';
 

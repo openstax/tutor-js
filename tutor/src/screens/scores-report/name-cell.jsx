@@ -1,4 +1,4 @@
-import { React, PropTypes, cn, observer } from '../../helpers/react';
+import { React, PropTypes, cn, observer } from 'vendor';
 import Name from '../../components/name';
 import UX from './ux';
 import TutorLink from '../../components/link';
@@ -63,4 +63,4 @@ class NameCell extends React.Component {
       </div>
     );
   }
-};
+}

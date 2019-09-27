@@ -1,4 +1,4 @@
-import { React, PropTypes, observer } from '../../../helpers/react';
+import { React, PropTypes, observer } from 'vendor';
 import UX from '../ux';
 import { StepCard } from './card';
 import ContinueBtn from './continue-btn';

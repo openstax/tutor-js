@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, cn } from '../helpers/react';
+import { React, PropTypes, observer, cn } from 'vendor';
 import { observable, action, when } from 'mobx';
 import Raven from '../models/app/raven';
 import { autobind } from 'core-decorators';

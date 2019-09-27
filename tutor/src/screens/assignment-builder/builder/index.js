@@ -1,4 +1,4 @@
-import { React, PropTypes, observer } from '../../../helpers/react';
+import { React, PropTypes, observer } from 'vendor';
 import { Row, Col } from 'react-bootstrap';
 import CourseGroupingLabel from '../../../components/course-grouping-label';
 import TimeZoneSettings from './time-zone-settings-link';

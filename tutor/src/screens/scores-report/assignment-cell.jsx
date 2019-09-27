@@ -1,4 +1,4 @@
-import { React, PropTypes, cn, observer } from '../../helpers/react';
+import { React, PropTypes, cn, observer } from 'vendor';
 import { extend } from 'lodash';
 
 import ReadingCell from './reading-cell';
@@ -42,4 +42,4 @@ class AssignmentCell extends React.Component {
       </div>
     );
   }
-};
+}

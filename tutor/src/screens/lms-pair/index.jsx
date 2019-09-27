@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { React, observer } from '../../helpers/react';
+import { React, observer } from 'vendor';
 import './styles.scss';
 import UX from './ux';
 

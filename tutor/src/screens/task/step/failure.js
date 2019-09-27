@@ -1,4 +1,6 @@
-import { React, PropTypes, styled } from '../../../helpers/react';
+import {
+  React, PropTypes, styled,
+} from 'vendor';
 import { StepCard } from './card';
 import { get } from 'lodash';
 import { titleize } from '../../../helpers/object';

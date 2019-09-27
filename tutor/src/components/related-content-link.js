@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, cn } from '../helpers/react';
+import { React, PropTypes, styled, cn } from 'vendor';
 import { isEmpty } from 'lodash';
 import Course from '../models/course';
 import ChapterSection from './chapter-section';

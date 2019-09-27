@@ -1,4 +1,4 @@
-import { React, PropTypes, observer } from '../../helpers/react';
+import { React, PropTypes, observer } from 'vendor';
 import Course from '../../models/course';
 import TourAnchor from '../../components/tours/anchor';
 import TutorLink from '../../components/link';

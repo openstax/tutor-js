@@ -1,4 +1,4 @@
-import { React, observer, action, mobxPropTypes } from '../../helpers/react';
+import { React, observer, action, mobxPropTypes } from 'vendor';
 import { partial } from 'lodash';
 import { Listing, Choice } from '../../components/choices-listing';
 
@@ -34,4 +34,4 @@ class SelectCourse extends React.Component {
       </Listing>
     );
   }
-};
+}

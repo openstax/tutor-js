@@ -1,6 +1,4 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { inject, observer } from 'mobx-react';
+import { React, PropTypes, inject, observer } from 'vendor';
 import { extend } from 'lodash';
 import TourContext from '../../models/tour/context';
 import cn from 'classnames';
@@ -49,4 +47,4 @@ class TourAnchor extends React.Component {
     }, ReactHelpers.filterProps(otherProps)), this.props.children);
   }
 
-};
+}

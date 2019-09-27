@@ -1,4 +1,4 @@
-import { React, PropTypes } from '../../helpers/react';
+import { React, PropTypes } from 'vendor';
 import { observe, computed, observable } from 'mobx';
 import { Provider, observer, inject } from 'mobx-react';
 import { autobind } from 'core-decorators';

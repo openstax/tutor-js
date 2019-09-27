@@ -1,6 +1,6 @@
 import {
   React, PropTypes, observer, styled,
-} from '../../../helpers/react';
+} from 'vendor';
 import { ArbitraryHtmlAndMath } from 'shared';
 import Question from 'shared/model/exercise/question';
 

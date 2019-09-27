@@ -1,4 +1,4 @@
-import { styled } from '../../../helpers/react';
+import { styled } from 'vendor';
 
 const Primary = styled.button`
   color: #fff;

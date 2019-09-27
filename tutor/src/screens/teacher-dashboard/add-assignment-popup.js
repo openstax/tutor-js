@@ -1,4 +1,4 @@
-import { React, observer, cn } from '../../helpers/react';
+import { React, observer, cn } from 'vendor';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'react-bootstrap';
 import Course from '../../models/course';

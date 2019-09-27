@@ -1,4 +1,4 @@
-import { React, observer } from '../../helpers/react';
+import { React, observer } from 'vendor';
 import PropTypes from 'prop-types';
 import { Button, Card } from 'react-bootstrap';
 import { Listing, Choice } from '../../components/choices-listing';
@@ -59,4 +59,4 @@ class NewOrExisting extends React.Component {
       </Card>
     );
   }
-};
+}

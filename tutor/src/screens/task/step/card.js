@@ -1,4 +1,4 @@
-import { React, PropTypes, cn, observer, styled } from '../../../helpers/react';
+import { React, PropTypes, cn, observer, styled } from 'vendor';
 import Theme from '../../../theme';
 import { SpyInfo } from './spy-info';
 import Step from '../../../models/student-tasks/step';

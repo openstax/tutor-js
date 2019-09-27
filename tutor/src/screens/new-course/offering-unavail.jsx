@@ -1,5 +1,4 @@
-import { React, observer } from '../../helpers/react';
-import { Listing, Choice } from '../../components/choices-listing';
+import { React, observer } from 'vendor';
 import SupportEmailLink from '../../components/support-email-link';
 
 export default
@@ -20,4 +19,4 @@ class OfferingUnavailable extends React.Component {
       </div>
     );
   }
-};
+}

@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, action, cn } from '../helpers/react';
+import { React, PropTypes, observer, action, cn } from 'vendor';
 import { map } from 'lodash';
 
 @observer

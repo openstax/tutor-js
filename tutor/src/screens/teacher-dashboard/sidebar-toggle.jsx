@@ -1,4 +1,4 @@
-import { React, observable, observer, action, cn } from '../../helpers/react';
+import { React, observable, observer, action, cn } from 'vendor';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import Course from '../../models/course';

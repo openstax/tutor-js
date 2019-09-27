@@ -1,5 +1,5 @@
-import { React, observer, cn, observable } from '../../helpers/react';
-import { Button, Card } from 'react-bootstrap';
+import { React, observer } from 'vendor';
+import { Button } from 'react-bootstrap';
 
 const BackButton = observer(({ ux }) => {
   if (!ux.canGoBackward) { return null; }

@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, observable, action } from '../../../helpers/react';
+import { React, PropTypes, observer, observable, action } from 'vendor';
 import { AsyncButton } from 'shared';
 import { Icon } from 'shared';
 import TourAnchor from '../../../components/tours/anchor';

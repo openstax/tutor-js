@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, Theme } from '../helpers/react';
+import { React, PropTypes, styled, Theme } from 'vendor';
 import { isEmpty } from 'lodash';
 import ChapterSection from '../models/chapter-section';
 

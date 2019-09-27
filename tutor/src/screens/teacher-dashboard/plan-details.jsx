@@ -1,7 +1,7 @@
 import {
   React, PropTypes, observer, inject,
   computed, observable, action, cn,
-} from '../../helpers/react';
+} from 'vendor';
 import Course from '../../models/course';
 import { Modal, Button } from 'react-bootstrap';
 import TourContext from '../../models/tour/context';

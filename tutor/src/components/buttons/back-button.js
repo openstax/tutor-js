@@ -1,4 +1,4 @@
-import { React, PropTypes, cn } from '../../helpers/react';
+import { React, PropTypes, cn } from 'vendor';
 import Router from '../../helpers/router';
 import TutorLink from '../link';
 

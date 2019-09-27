@@ -1,4 +1,4 @@
-import { React, PropTypes, withRouter, action, observer }  from '../../helpers/react';
+import { React, PropTypes, withRouter, action, observer }  from 'vendor';
 import { Button } from 'react-bootstrap';
 import { OnboardingNag, GotItOnboardingNag, Heading, Body, Footer } from './onboarding-nag';
 import CourseUX from '../../models/course/ux';

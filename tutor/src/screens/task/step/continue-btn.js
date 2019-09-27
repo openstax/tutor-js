@@ -1,4 +1,4 @@
-import { React, PropTypes, styled } from '../../../helpers/react';
+import { React, PropTypes, styled } from 'vendor';
 import { Button } from 'react-bootstrap';
 
 

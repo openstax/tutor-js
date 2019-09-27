@@ -1,6 +1,6 @@
 import {
   React, PropTypes, styled, observer,
-} from '../../helpers/react';
+} from 'vendor';
 import UX from './ux';
 import { Breadcrumbs } from './breadcrumbs';
 import { TaskStep } from './step';

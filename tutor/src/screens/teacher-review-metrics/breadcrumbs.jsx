@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, inject, styled, autobind, computed, action, idType } from '../../helpers/react';
+import { React, PropTypes, observer, inject, styled, autobind, computed, action, idType } from 'vendor';
 import { map } from 'lodash';
 import TutorBreadcrumb from '../../components/breadcrumb';
 import BackButton from '../../components/buttons/back-button';

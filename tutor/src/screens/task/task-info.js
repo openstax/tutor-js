@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, styled } from '../../helpers/react';
+import { React, PropTypes, observer, styled } from 'vendor';
 import Task from '../../models/student-tasks/task';
 import TimeHelper from '../../helpers/time';
 

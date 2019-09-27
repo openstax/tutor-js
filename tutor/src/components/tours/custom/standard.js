@@ -1,4 +1,4 @@
-import { React, styled, PropTypes, cn } from '../../../helpers/react';
+import { React, styled, PropTypes, cn } from 'vendor';
 import { Icon } from 'shared';
 import { TextAction, Primary } from './buttons';
 

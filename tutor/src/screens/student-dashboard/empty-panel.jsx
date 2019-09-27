@@ -1,4 +1,4 @@
-import { React, cn, observer } from '../../helpers/react';
+import { React, cn, observer } from 'vendor';
 import Course from '../../models/course';
 import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';

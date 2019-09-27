@@ -1,4 +1,4 @@
-import { React, action, observer } from '../../helpers/react';
+import { React, action, observer } from 'vendor';
 import PropTypes from 'prop-types';
 import { Form, InputGroup } from 'react-bootstrap';
 import { map } from 'lodash';

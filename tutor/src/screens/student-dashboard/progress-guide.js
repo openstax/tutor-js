@@ -1,4 +1,4 @@
-import { React, PropTypes, action, withRouter } from '../../helpers/react';
+import { React, PropTypes, action, withRouter } from 'vendor';
 import { Button, Card } from 'react-bootstrap';
 import { SpyMode } from 'shared';
 import Router from '../../helpers/router';

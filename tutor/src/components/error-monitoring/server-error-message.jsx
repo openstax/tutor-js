@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import { React, observer } from '../../helpers/react';
-import { map, get, isObject } from 'lodash';
+import { React, observer } from 'vendor';
+import { map, get } from 'lodash';
 import { makeContactURL } from '../../helpers/contact';
 const SUPPORT_LINK_PARAMS = '&cu=1&fs=ContactUs&q=';
 

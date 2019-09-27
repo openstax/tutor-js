@@ -1,7 +1,7 @@
 import {
   React, Provider,
   PropTypes, observer, observable, styled, action,
-} from '../helpers/react';
+} from 'vendor';
 import Theme                from '../theme';
 import Toasts               from 'shared/components/toasts';
 import Course               from '../models/course';

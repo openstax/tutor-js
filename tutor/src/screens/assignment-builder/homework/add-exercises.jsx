@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, observable, action } from '../../../helpers/react';
+import { React, PropTypes, observer, observable, action } from 'vendor';
 import Loading from 'shared/components/loading-animation';
 import ExerciseHelpers from '../../../helpers/exercise';
 import ExerciseControls from './exercise-controls';

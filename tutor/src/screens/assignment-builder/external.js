@@ -1,6 +1,6 @@
 import {
   React, PropTypes, observer,
-} from '../../helpers/react';
+} from 'vendor';
 import { Card, Row, Col } from 'react-bootstrap';
 import Header from './header';
 import { TutorInput } from '../../components/tutor-input';

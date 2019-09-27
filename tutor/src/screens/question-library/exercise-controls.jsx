@@ -1,6 +1,6 @@
 import {
   React, PropTypes, observer, inject, autobind, cn,
-} from '../../helpers/react';
+} from 'vendor';
 import { keys } from 'lodash';
 import { Button, ButtonGroup } from 'react-bootstrap';
 

@@ -1,4 +1,4 @@
-import { React, observer, PropTypes } from '../../helpers/react';
+import { React, observer, PropTypes } from 'vendor';
 import Switch from 'react-bootstrap-switch';
 
 

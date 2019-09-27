@@ -1,6 +1,6 @@
 import {
   React, PropTypes, styled, observer, action,
-} from '../../../src/helpers/react';
+} from 'vendor';
 import UiSettings from 'shared/model/ui-settings';
 import { Icon } from 'shared';
 import Theme from '../../theme';

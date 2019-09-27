@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, styled } from '../../../helpers/react';
+import { React, PropTypes, observer, styled } from 'vendor';
 import ContentLoader from 'react-content-loader';
 import UX from '../ux';
 import { StepCard } from './card';

@@ -1,4 +1,4 @@
-import { React, PropTypes, cn, observer, action, observable } from '../../helpers/react';
+import { React, PropTypes, cn, observer, action, observable } from 'vendor';
 import { forceReload } from '../../helpers/reload';
 import { AsyncButton } from 'shared';
 

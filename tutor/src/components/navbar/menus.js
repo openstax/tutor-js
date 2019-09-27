@@ -1,4 +1,4 @@
-import { React, PropTypes, inject, observer } from '../../helpers/react';
+import { React, PropTypes, inject, observer } from 'vendor';
 import Course              from '../../models/course';
 import SupportMenu         from './support-menu';
 import StudentPayNowBtn    from './student-pay-now-btn';

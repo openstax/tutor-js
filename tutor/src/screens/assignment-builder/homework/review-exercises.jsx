@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, action } from '../../../helpers/react';
+import { React, PropTypes, styled, action } from 'vendor';
 import { map, isEmpty } from 'lodash';
 import Loading from 'shared/components/loading-animation';
 import { Icon } from 'shared';

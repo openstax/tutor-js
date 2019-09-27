@@ -1,4 +1,4 @@
-import { PropTypes, React } from '../helpers/react';
+import { PropTypes, React } from 'vendor';
 import { isEqual } from 'lodash';
 import youTubePlayer from 'youtube-player';
 

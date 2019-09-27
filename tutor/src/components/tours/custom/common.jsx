@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { React, styled, cn } from '../../../helpers/react';
+import { React, styled, cn } from 'vendor';
 import { Primary }  from './buttons';
 import CourseUX from '../../../models/course/ux';
 import CourseBranding from '../../branding/course';

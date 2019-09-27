@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { React, observable, withRouter, action, inject, observer, cn } from '../../helpers/react';
+import { React, observable, withRouter, action, inject, observer, cn } from 'vendor';
 import ReferenceBook from './reference-book';
 import UX from './ux';
 import { NavbarContext } from '../../components/navbar/context';

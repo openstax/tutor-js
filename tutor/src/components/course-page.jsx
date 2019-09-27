@@ -1,4 +1,4 @@
-import { React, PropTypes, cn, computed, styled } from '../helpers/react';
+import { React, PropTypes, cn, computed, styled } from 'vendor';
 import { ScrollToTop } from 'shared';
 import { isNil } from 'lodash';
 import Course from '../models/course';

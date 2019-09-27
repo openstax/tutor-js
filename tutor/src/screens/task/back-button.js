@@ -1,4 +1,4 @@
-import { styled } from '../../helpers/react';
+import { styled } from 'vendor';
 import BackButton from '../../components/buttons/back-button';
 
 const CenteredBackButton = styled(BackButton)`

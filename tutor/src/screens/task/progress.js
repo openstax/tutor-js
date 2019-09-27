@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, action, cn } from '../../helpers/react';
+import { React, PropTypes, observer, action, cn } from 'vendor';
 import Overlay from '../../components/obscured-page/overlay';
 import PagingNavigation from '../../components/paging-navigation';
 import { Milestones } from './milestones';

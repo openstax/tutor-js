@@ -1,4 +1,4 @@
-import { React, observable, observer, action, cn } from '../../helpers/react';
+import { React, observable, observer, action, cn } from 'vendor';
 import { partial } from 'lodash';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';

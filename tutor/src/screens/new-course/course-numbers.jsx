@@ -1,4 +1,4 @@
-import { React, action, observer } from '../../helpers/react';
+import { React, action, observer } from 'vendor';
 import pluralize from 'pluralize';
 import S from '../../helpers/string';
 import PropTypes from 'prop-types';

@@ -1,4 +1,4 @@
-import { React, PropTypes, action, observable, observer, withRouter } from '../../helpers/react';
+import { React, PropTypes, action, observable, observer, withRouter } from 'vendor';
 import { get } from 'lodash';
 import { Row, Col, Card } from 'react-bootstrap';
 import { includes } from 'lodash';
