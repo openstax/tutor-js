@@ -21,4 +21,10 @@ describe('Task Progress Info', function() {
     expect.snapshot(<Info {...props} />).toMatchSnapshot();
   });
 
+  it('displays description in a info popover', () => {
+    props.event.description = 'this is some description';
+    const info = mount(<Info {...props} />);
+    expect(info).toHaveRendered(`Icon[variant="info"][tooltip="${props.event.description}"]`);
+    info.unmount();
+  });
 });
