@@ -2,10 +2,8 @@ import { React, observer, action, observable, styled, cn  } from '../../helpers/
 import { partial } from 'lodash';
 import { Icon } from 'shared';
 import PropTypes from 'prop-types';
-import { Overlay, Popover } from 'react-bootstrap';
 import Course from '../../models/course';
 import { CloneAssignmentLink } from './task-dnd';
-import TaskPlanHelper from '../../helpers/task-plan';
 import TimeHelper from '../../helpers/time';
 
 const Loading = styled.div`
@@ -36,15 +34,13 @@ class PastAssignments extends React.Component {
     cloningPlanId: PropTypes.string,
   }
 
-  @observable tooltipTarget;
   @observable hoveredPlan;
 
   @action.bound offTaskHover() {
-    this.hoveredPlan = this.tooltipTarget = null;
+    this.hoveredPlan = null;
   }
 
-  @action.bound onTaskHover(plan, ev) {
-    this.tooltipTarget = ev.currentTarget;
+  @action.bound onTaskHover(plan) {
     this.hoveredPlan = plan;
   }
 
@@ -69,23 +65,16 @@ class PastAssignments extends React.Component {
         <div className="plans">
           {plans.array.map((plan) =>
             <CloneAssignmentLink
-              onHover={partial(this.onTaskHover, plan)}
-              offHover={this.offTaskHover}
-              key={plan.id}
               plan={plan}
-              isEditing={plan.id === this.props.cloningPlanId} />)}
+              toolTip={
+                `Orig. due date ${TimeHelper.toHumanDate(plan.dateRanges.due.start)}`
+              }
+              key={plan.id}
+              offHover={this.offTaskHover}
+              onHover={partial(this.onTaskHover, plan)}
+              isEditing={plan.id === this.props.cloningPlanId}
+            />)}
         </div>
-        <Overlay
-          show={!!this.tooltipTarget}
-          target={this.tooltipTarget}
-          placement="right"
-        >
-          <Popover id="task-original-due-date">
-            <Popover.Content>
-              Orig. due date {TimeHelper.toHumanDate(TaskPlanHelper.earliestDueDate(this.hoveredPlan))}
-            </Popover.Content>
-          </Popover>
-        </Overlay>
       </div>
     );
   }

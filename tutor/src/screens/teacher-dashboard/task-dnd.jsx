@@ -95,8 +95,9 @@ const CloneAssignmentLink = DragSource(ItemTypes.CloneTask, CloneTaskDrag, DragI
       className={cn('task-plan', {
         'is-dragging': props.isDragging,
         'is-editing': props.isEditing,
-      }
-      )}>
+      })}
+      title={props.toolTip}
+    >
       <GrabbyDots />
       <div>
         {props.plan.title}
