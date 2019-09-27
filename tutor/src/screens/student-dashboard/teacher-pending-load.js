@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, observer } from '../../helpers/react';
+import { React, PropTypes, styled, observer } from 'vendor';
 import Course from '../../models/course';
 import { Icon } from 'shared';
 import Theme from '../../theme';

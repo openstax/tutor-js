@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, observer } from '../../helpers/react';
+import { React, PropTypes, styled, observer } from 'vendor';
 import ProgressCard from './progress';
 import UX from './ux';
 import { TaskStep } from './step';

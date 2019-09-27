@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { React, observer } from '../../helpers/react';
+import { React, observer } from 'vendor';
 import { pick } from 'lodash';
 import { DefaultRegistry, OverlayRegistry } from './overlay-registry';
 
@@ -30,4 +30,4 @@ class Overlay extends React.Component {
     return null;
   }
 
-};
+}

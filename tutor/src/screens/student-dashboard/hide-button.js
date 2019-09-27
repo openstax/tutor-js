@@ -1,4 +1,4 @@
-import { React, PropTypes, observer } from '../../helpers/react';
+import { React, PropTypes, observer } from 'vendor';
 import { Icon, SuretyGuard } from 'shared';
 
 const killEvent = (event) => {

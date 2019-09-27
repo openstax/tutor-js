@@ -1,4 +1,4 @@
-import { React, PropTypes } from '../../../helpers/react';
+import { React, PropTypes } from 'vendor';
 import { CenteredBackButton } from '../back-button';
 import UX from '../ux';
 import Link from '../../../components/link';

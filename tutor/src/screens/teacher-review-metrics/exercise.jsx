@@ -1,6 +1,6 @@
 import {
   React, PropTypes, observer, computed, observable, action,
-} from '../../helpers/react';
+} from 'vendor';
 import { isEmpty, map, pick, find } from 'lodash';
 import { Card } from 'react-bootstrap';
 import classnames from 'classnames';

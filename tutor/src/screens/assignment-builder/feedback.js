@@ -1,4 +1,4 @@
-import { React, PropTypes, computed, observer, action } from '../../helpers/react';
+import { React, PropTypes, computed, observer, action } from 'vendor';
 import { Popover } from 'react-bootstrap';
 import Plan from '../../models/task-plans/teacher/plan';
 

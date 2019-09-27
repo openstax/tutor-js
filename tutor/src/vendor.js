@@ -7,11 +7,11 @@ import invariant from 'invariant';
 import { withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { autobind } from 'core-decorators';
-import { idType } from 'shared';
-import Theme from '../theme';
+import { idType, ArrayOrMobxType } from 'shared/helpers/react';
+import Theme from './theme';
 
 export {
-  withRouter,
+  withRouter, ArrayOrMobxType,
   React, cn, ReactDOM, mobxPropTypes, PropTypes,
   invariant, styled, css, idType, autobind, Theme,
 };

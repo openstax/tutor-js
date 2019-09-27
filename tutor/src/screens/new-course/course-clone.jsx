@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { React, action, observer } from '../../helpers/react';
+import { React, action, observer } from 'vendor';
 import { partial } from 'lodash';
 import { Listing, Choice } from '../../components/choices-listing';
 import BuilderUX from './ux';
@@ -44,4 +44,4 @@ class CourseClone extends React.Component {
       </Listing>
     );
   }
-};
+}

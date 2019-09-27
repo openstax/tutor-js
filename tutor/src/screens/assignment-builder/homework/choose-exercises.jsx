@@ -1,4 +1,4 @@
-import { React, PropTypes, observer } from '../../../helpers/react';
+import { React, PropTypes, observer } from 'vendor';
 import { isEmpty } from 'lodash';
 import { Button } from 'react-bootstrap';
 import AddExercises from './add-exercises';

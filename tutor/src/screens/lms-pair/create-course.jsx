@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { React, observer } from '../../helpers/react';
+import { React, observer } from 'vendor';
 import Wizard from '../new-course/wizard';
 
 export default
@@ -18,4 +18,4 @@ class CreateNewCourse extends React.Component {
     );
 
   }
-};
+}

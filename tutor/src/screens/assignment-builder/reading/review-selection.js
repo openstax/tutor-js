@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, action } from '../../../helpers/react';
+import { React, PropTypes, observer, action } from 'vendor';
 import { Icon } from 'shared';
 import UX from '../ux';
 import TourRegion from '../../../components/tours/region';

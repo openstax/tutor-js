@@ -1,6 +1,6 @@
 import {
   React, PropTypes, observable, action, observer,
-} from '../../../helpers/react';
+} from 'vendor';
 import { AsyncButton } from 'shared';
 import InfoIcon from '../../../components/icons/info';
 

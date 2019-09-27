@@ -1,4 +1,4 @@
-import { React, PropTypes, withRouter, observer }  from '../../helpers/react';
+import { React, PropTypes, withRouter, observer }  from 'vendor';
 import { Button } from 'react-bootstrap';
 
 import { OnboardingNag, GotItOnboardingNag, Heading, Body, Footer } from './onboarding-nag';

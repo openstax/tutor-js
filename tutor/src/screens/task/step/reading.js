@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, styled } from '../../../helpers/react';
+import { React, PropTypes, observer, styled } from 'vendor';
 import BookPage from '../../../components/book-page';
 import UX from '../ux';
 import { TaskStepCard } from './card';

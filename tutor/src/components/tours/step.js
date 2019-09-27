@@ -1,6 +1,6 @@
 import {
   React, PropTypes, observer,
-} from '../../helpers/react';
+} from 'vendor';
 import Spotlight from './spotlight';
 import Floater from 'react-floater';
 import STEPS from './custom';

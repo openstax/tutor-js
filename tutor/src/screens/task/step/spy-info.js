@@ -1,4 +1,4 @@
-import { React, PropTypes, observer } from '../../../helpers/react';
+import { React, PropTypes, observer } from 'vendor';
 import { SpyMode } from 'shared';
 import { toList } from '../../../helpers/object';
 

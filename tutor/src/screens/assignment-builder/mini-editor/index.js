@@ -1,6 +1,6 @@
 import {
   React, PropTypes, styled, action, observer, observable,
-} from '../../../helpers/react';
+} from 'vendor';
 import { Overlay, Popover } from 'react-bootstrap';
 import Loading from 'shared/components/loading-animation';
 import Editor from './editor';

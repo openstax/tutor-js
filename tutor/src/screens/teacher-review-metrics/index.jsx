@@ -1,6 +1,6 @@
 import {
   React, PropTypes, observer, observable, computed, action, idType,
-} from '../../helpers/react';
+} from 'vendor';
 import { ScrollToTop } from 'shared';
 import { Container, Row, Col } from 'react-bootstrap';
 import { first, find } from 'lodash';

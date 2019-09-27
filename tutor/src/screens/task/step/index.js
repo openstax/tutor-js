@@ -1,6 +1,6 @@
 import {
   React, PropTypes, observer, styled,
-} from '../../../helpers/react';
+} from 'vendor';
 import {
   Facebook as ReadingLoader,
   BulletList as HomeworkLoader,
@@ -57,6 +57,9 @@ class TaskStep extends React.Component {
       steps: PropTypes.array,
       type: PropTypes.string.isRequired,
       needsFetched: PropTypes.bool,
+      api: PropTypes.shape({
+        hasErrors: PropTypes.bool,
+      }),
     }).isRequired,
   };
 

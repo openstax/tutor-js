@@ -1,6 +1,6 @@
 import {
   React, PropTypes, styled, computed, action, observer,
-} from '../../../helpers/react';
+} from 'vendor';
 import moment from 'moment';
 import { Row, Col } from 'react-bootstrap';
 import { Icon } from 'shared';

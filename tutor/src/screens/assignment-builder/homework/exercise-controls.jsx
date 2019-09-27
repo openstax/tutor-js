@@ -1,6 +1,6 @@
 import {
   React, PropTypes, observer, inject, autobind, computed,
-} from '../../../helpers/react';
+} from 'vendor';
 import { Button } from 'react-bootstrap';
 import ScrollSpy from '../../../components/scroll-spy';
 import Sectionizer from '../../../components/exercises/sectionizer';

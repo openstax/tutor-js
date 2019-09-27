@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, css, cn } from '../../../helpers/react';
+import { React, PropTypes, styled, css, cn } from 'vendor';
 import Theme from '../../../theme';
 import { StepCard } from './card';
 import ContinueBtn from './continue-btn';

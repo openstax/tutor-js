@@ -1,4 +1,4 @@
-import { React, PropTypes, observer } from '../../helpers/react';
+import { React, PropTypes, observer } from 'vendor';
 import { Dropdown } from 'react-bootstrap';
 import TourAnchor from '../tours/anchor';
 import Course from '../../models/course';

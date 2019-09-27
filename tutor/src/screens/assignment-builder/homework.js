@@ -1,6 +1,6 @@
 import {
   React, PropTypes, observer, cn,
-} from '../../helpers/react';
+} from 'vendor';
 import { isEmpty } from 'lodash';
 import { Card, Row, Col, Button } from 'react-bootstrap';
 import Header from './header';

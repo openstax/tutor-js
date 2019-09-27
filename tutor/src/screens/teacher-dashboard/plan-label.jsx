@@ -1,4 +1,4 @@
-import { React, observer, styled } from '../../helpers/react';
+import { React, observer, styled } from 'vendor';
 import PropTypes from 'prop-types';
 import TourAnchor from '../../components/tours/anchor';
 import TroubleIcon from '../../components/icons/trouble';
@@ -14,6 +14,7 @@ class CoursePlanLabel extends React.Component {
     plan: PropTypes.shape({
       title: PropTypes.string.isRequired,
       opensAt: PropTypes.string,
+      opensAtString: PropTypes.string,
     }).isRequired,
   };
 

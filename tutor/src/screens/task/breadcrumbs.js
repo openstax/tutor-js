@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, styled, inject, autobind } from '../../helpers/react';
+import { React, PropTypes, observer, styled, inject, autobind } from 'vendor';
 import Breadcrumb from '../../components/breadcrumb';
 import UX from './ux';
 

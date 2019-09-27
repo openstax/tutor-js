@@ -1,6 +1,6 @@
 import {
   React, PropTypes, styled, observer,
-} from '../helpers/react';
+} from 'vendor';
 import { withRouter } from 'react-router';
 import { Icon } from 'shared';
 import Course from '../models/course';

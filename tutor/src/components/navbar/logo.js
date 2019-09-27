@@ -1,6 +1,6 @@
 import {
   React, PropTypes, inject, observer, styled,
-} from '../../helpers/react';
+} from 'vendor';
 import TutorLink from '../link';
 import Course from '../../models/course';
 

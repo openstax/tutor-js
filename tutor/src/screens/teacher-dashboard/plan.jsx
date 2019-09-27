@@ -1,6 +1,6 @@
 import {
   React, observer, cn, computed,
-} from '../../helpers/react';
+} from 'vendor';
 import PropTypes from 'prop-types';
 import Course from '../../models/course';
 import CoursePlanLabel from './plan-label';

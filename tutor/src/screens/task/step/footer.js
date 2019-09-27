@@ -1,6 +1,6 @@
 import {
   React, PropTypes, observer, styled,
-} from '../../../helpers/react';
+} from 'vendor';
 import Theme from '../../../theme';
 import Course from '../../../models/course';
 import TaskStep from '../../../models/student-tasks/step';

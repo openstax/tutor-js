@@ -1,6 +1,6 @@
 import {
   React, PropTypes, observer, styled,
-} from '../../../helpers/react';
+} from 'vendor';
 import UX from '../ux';
 import { ArbitraryHtmlAndMath as H } from 'shared';
 import { TaskStepCard } from './card';

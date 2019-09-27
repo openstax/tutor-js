@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, computed, action } from '../../helpers/react';
+import { React, PropTypes, observer, computed, action } from 'vendor';
 import { isEmpty, get } from 'lodash';
 import { ScrollToTop } from 'shared';
 import CoursePage from '../../components/course-page';

@@ -1,11 +1,9 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import {
+  React, PropTypes, observable, action, observer, ArrayOrMobxType,
+} from 'vendor';
 import { Button } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
-import { observable, action } from 'mobx';
-import { observer } from 'mobx-react';
 import Loading from 'shared/components/loading-animation';
-import { ArrayOrMobxType } from 'shared/helpers/react';
 import { Icon } from 'shared';
 import ExerciseControls from './exercise-controls';
 import ExerciseDetails from '../../components/exercises/details';

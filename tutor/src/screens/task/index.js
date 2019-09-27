@@ -1,6 +1,6 @@
 import {
   React, PropTypes, withRouter, observer, computed, inject, idType,
-} from '../../helpers/react';
+} from 'vendor';
 import { Redirect } from 'react-router-dom';
 import { ScrollToTop } from 'shared';
 import Router from '../../helpers/router';

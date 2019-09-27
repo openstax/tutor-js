@@ -1,4 +1,4 @@
-import { React, cn, PropTypes, observer, computed } from '../../helpers/react';
+import { React, cn, PropTypes, observer, computed } from 'vendor';
 import { map, partial } from 'lodash';
 import TutorLink from '../link';
 

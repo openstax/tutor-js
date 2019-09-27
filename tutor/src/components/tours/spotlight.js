@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, observer } from '../../helpers/react';
+import { React, PropTypes, styled, observer } from 'vendor';
 
 const Wrapper = styled.div`
   cursor: default;

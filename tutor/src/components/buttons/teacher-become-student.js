@@ -1,6 +1,6 @@
 import {
   React, PropTypes, observer, action, observable, styled,
-} from '../../helpers/react';
+} from 'vendor';
 import Course from '../../models/course';
 import { withRouter } from 'react-router-dom';
 import { Button, Dropdown } from 'react-bootstrap';

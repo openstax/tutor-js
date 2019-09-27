@@ -1,6 +1,6 @@
 import {
   React, PropTypes, action, observer, inject,
-} from '../../../helpers/react';
+} from 'vendor';
 import Standard from './standard';
 import { Primary, TextAction } from './buttons';
 

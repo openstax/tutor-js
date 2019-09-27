@@ -1,4 +1,4 @@
-import { React, PropTypes, cn, observer, styled } from '../../helpers/react';
+import { React, PropTypes, cn, observer, styled } from 'vendor';
 import NudgeAvailableMessage from './nudge-is-available-message';
 import UX from './ux';
 

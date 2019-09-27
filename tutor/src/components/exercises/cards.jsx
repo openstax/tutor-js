@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { observer } from 'mobx-react';
+import {
+  React, PropTypes, observer, ArrayOrMobxType,
+} from 'vendor';
 import { map, isEmpty } from 'lodash';
 import ChapterSection from '../chapter-section';
 import ExercisePreview from './preview';
@@ -8,7 +8,6 @@ import ScrollTo from '../../helpers/scroll-to';
 import { ExercisesMap } from '../../models/exercises';
 import Exercise from '../../models/exercises/exercise';
 import Book from '../../models/reference-book';
-import { ArrayOrMobxType } from 'shared/helpers/react';
 import NoExercisesFound from './no-exercises-found';
 
 @observer

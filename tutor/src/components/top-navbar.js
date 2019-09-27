@@ -1,6 +1,5 @@
-import { React, PropTypes, observer, styled, action, cn } from '../../helpers/react';
-
-
+import { React, PropTypes, observer, cn } from 'vendor';
+import { NavbarContext } from './navbar/context';
 
 export default
 @observer
@@ -26,4 +25,4 @@ class TopNavbar extends React.Component {
       </nav>
     );
   }
-};
+}

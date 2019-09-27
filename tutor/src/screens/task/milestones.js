@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, action, cn } from '../../helpers/react';
+import { React, PropTypes, observer, action, cn } from 'vendor';
 import { Col } from 'react-bootstrap';
 import { ArbitraryHtmlAndMath } from 'shared';
 import Breadcrumb from '../../components/breadcrumb';

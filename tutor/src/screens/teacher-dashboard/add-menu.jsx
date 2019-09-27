@@ -1,4 +1,4 @@
-import { React } from '../../helpers/react';
+import { React } from 'vendor';
 import { Dropdown } from 'react-bootstrap';
 import { map, partial } from 'lodash';
 import { autobind } from 'core-decorators';

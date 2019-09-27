@@ -1,4 +1,4 @@
-import { React } from '../../helpers/react';
+import { React } from 'vendor';
 import { ScrollToTop } from 'shared';
 import Wizard from './wizard';
 import './styles.scss';

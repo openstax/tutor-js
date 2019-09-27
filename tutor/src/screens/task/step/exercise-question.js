@@ -1,6 +1,6 @@
 import {
   React, PropTypes, observer, styled, action, observable, computed,
-} from '../../../helpers/react';
+} from 'vendor';
 import UX from '../ux';
 import keymaster from 'keymaster';
 import { StepFooter } from './footer';

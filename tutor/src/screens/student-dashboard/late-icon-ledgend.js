@@ -1,4 +1,4 @@
-import { React, styled } from '../../helpers/react';
+import { React, styled } from 'vendor';
 import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
 import { Icon } from 'shared';

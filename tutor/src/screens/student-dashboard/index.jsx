@@ -1,4 +1,4 @@
-import { React, PropTypes, computed, observer, inject } from '../../helpers/react';
+import { React, PropTypes, computed, observer, inject } from 'vendor';
 import { ScrollToTop } from 'shared';
 import StudentDashboard from './dashboard';
 import Courses from '../../models/courses-map';

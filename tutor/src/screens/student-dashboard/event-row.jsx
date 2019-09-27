@@ -1,4 +1,4 @@
-import { React, PropTypes, withRouter, observer, computed, action, cn, styled } from '../../helpers/react';
+import { React, PropTypes, withRouter, observer, computed, action, cn, styled } from 'vendor';
 import { Col } from 'react-bootstrap';
 import moment from 'moment';
 import { get } from 'lodash';

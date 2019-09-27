@@ -1,4 +1,4 @@
-import { React, observable, observer, action, cn } from '../../helpers/react';
+import { React, observable, observer, action, cn } from 'vendor';
 import moment from 'moment';
 import { get, invoke } from 'lodash';
 import 'moment-timezone';

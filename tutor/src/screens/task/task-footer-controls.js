@@ -1,4 +1,4 @@
-import { React, PropTypes, observer, styled } from '../../helpers/react';
+import { React, PropTypes, observer, styled } from 'vendor';
 import { first } from 'lodash';
 import Course from '../../models/course';
 import { BackButton } from './back-button';

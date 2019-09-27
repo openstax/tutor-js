@@ -1,6 +1,6 @@
 import {
   React, PropTypes, observer, computed, action, styled,
-} from '../../helpers/react';
+} from 'vendor';
 import ContentLoader from 'react-content-loader';
 import UX from './ux';
 import { StepCard } from './step/card';

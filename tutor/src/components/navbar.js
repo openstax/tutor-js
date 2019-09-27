@@ -1,6 +1,6 @@
 import {
   React, PropTypes, observer, styled, css, cn,
-} from '../helpers/react';
+} from 'vendor';
 import Theme from '../theme';
 import { NavbarContext } from './navbar/context';
 

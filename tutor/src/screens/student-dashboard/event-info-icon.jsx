@@ -1,5 +1,4 @@
-import { React, PropTypes, observer } from '../../helpers/react';
-import S from '../../helpers/string';
+import { React, PropTypes, observer } from 'vendor';
 import { Icon } from 'shared';
 import Theme from '../../theme';
 import TourAnchor from '../../components/tours/anchor';
@@ -51,4 +50,4 @@ class EventInfoIcon extends React.Component {
 
     return icon;
   }
-};
+}

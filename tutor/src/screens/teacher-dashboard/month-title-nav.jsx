@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { React, observer, action  } from '../../helpers/react';
+import { React, observer, action  } from 'vendor';
 import moment from 'moment';
 import { Icon } from 'shared';
 import Time from '../../models/time';
