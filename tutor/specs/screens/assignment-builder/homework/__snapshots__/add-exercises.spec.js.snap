@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`choose exercises component matches snapshot 1`] = `
+.c0 {
+  font-size: 2.8rem;
+  font-weight: bold;
+  line-height: 3.5rem;
+}
+
 <div
   className="openstax-debug-content"
 >
@@ -20,7 +26,7 @@ exports[`choose exercises component matches snapshot 1`] = `
             data-section="2.2"
           >
             <label
-              className="exercises-section-label"
+              className="c0"
             >
               <span
                 className="chapter-section"
@@ -385,7 +391,7 @@ exports[`choose exercises component matches snapshot 1`] = `
             data-section="2.3"
           >
             <label
-              className="exercises-section-label"
+              className="c0"
             >
               <span
                 className="chapter-section"

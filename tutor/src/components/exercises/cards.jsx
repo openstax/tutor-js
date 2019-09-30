@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, observer, ArrayOrMobxType,
+  React, PropTypes, observer, ArrayOrMobxType, styled,
 } from 'vendor';
 import { map, isEmpty } from 'lodash';
 import ChapterSection from '../chapter-section';
@@ -9,6 +9,13 @@ import { ExercisesMap } from '../../models/exercises';
 import Exercise from '../../models/exercises/exercise';
 import Book from '../../models/reference-book';
 import NoExercisesFound from './no-exercises-found';
+
+
+const SectionLabel = styled.label`
+  font-size: 2.8rem;
+  font-weight: bold;
+  line-height: 3.5rem;
+`;
 
 @observer
 class SectionsExercises extends React.Component {
@@ -32,11 +39,11 @@ class SectionsExercises extends React.Component {
     // IMPORTANT: the 'data-section' attribute is used as a scroll-to target and must be present
     return (
       <div className="exercise-sections" data-section={page.chapter_section.asString}>
-        <label className="exercises-section-label">
+        <SectionLabel>
           <ChapterSection chapterSection={page.chapter_section} />
           {' '}
           {title}
-        </label>
+        </SectionLabel>
         <div className="exercises">
           {map(sectionExercises, (exercise) =>
             <ExercisePreview key={exercise.id} {...previewProps} exercise={exercise} />)}
