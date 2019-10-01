@@ -372,7 +372,7 @@ class TutorTextArea extends React.Component {
   forwardLabelClick = () => { return this.focus(); };
 
   resize = (event) => {
-    return this.refs.textarea.style.height = `${this.refs.textarea.scrollHeight}px`;
+    return this.refs.textarea.style.height = `${Math.max(this.refs.textarea.scrollHeight, 45)}px`;
   };
 
   render() {
@@ -383,6 +383,8 @@ class TutorTextArea extends React.Component {
     const wrapperClasses = classnames('form-control-wrapper', 'tutor-input', this.props.className,
       { 'is-required': this.props.required });
 
+    const textAreaProps = pick(this.props, 'value', 'disabled', 'maxLength');
+
     return (
       <div className={wrapperClasses}>
         <textarea
@@ -392,17 +394,15 @@ class TutorTextArea extends React.Component {
           onKeyUp={this.resize}
           onPaste={this.resize}
           className={classes}
-          value={this.props.value}
           defaultValue={this.props.default}
-          disabled={this.props.disabled}
-          onChange={this.onChange} />
+          onChange={this.onChange}
+          {...textAreaProps}
+        />
         <div className="floating-label" onClick={this.forwardLabelClick}>
           {this.props.label}
         </div>
         <div className="hint required-hint">
-          {'\
-    Required field\
-    '}
+          Required field
         </div>
       </div>
     );
