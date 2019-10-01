@@ -1,4 +1,4 @@
-import { uniq, compact, map, first, last, fromPairs, omit } from 'lodash';
+import { first, last, fromPairs, omit } from 'lodash';
 import { action, observable, computed } from 'mobx';
 import Map from 'shared/model/map';
 import {
@@ -66,13 +66,6 @@ class ReferenceBook extends BaseModel {
 
   @computed get isBaked() {
     return Boolean(this.baked_at);
-  }
-
-  sectionsForPageIds(pageIds) {
-    return uniq(compact(map(pageIds, (pageId) => {
-      const pg = this.pages.byId.get(pageId);
-      return pg ? pg.chapter_section : null;
-    })));
   }
 
 }
