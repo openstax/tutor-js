@@ -1,5 +1,5 @@
 import { observable, computed, action, when, observe } from 'mobx';
-import { reduce, filter, get, groupBy, map } from 'lodash';
+import { reduce, filter, get, groupBy, map, find } from 'lodash';
 import lazyGetter from 'shared/helpers/lazy-getter';
 import Router from '../../../src/helpers/router';
 import * as manipulations from './ux-task-manipulations';
@@ -110,9 +110,7 @@ export default class TaskUX {
       this._stepIndex > this.steps.indexOf(step)
     ) {
       // fixes the scroll position in case loading the feedback pushes the steps around
-      this.scroller.scrollToSelector(
-        `[data-task-step-id="${this.currentStep.id}"]`, { immediate: true }
-      );
+      this.scrollToCurrentStep(true);
     }
   }
 
@@ -170,8 +168,8 @@ export default class TaskUX {
     if (this.currentStep) {
       this.currentStep.markViewed();
     }
-
     const isChanged = this._stepIndex != index;
+
     if (!isChanged) { return; }
 
     if (recordInHistory) {
@@ -187,12 +185,19 @@ export default class TaskUX {
       CenterControls.currentTaskStep = this.currentStep;
       const sgi = this.stepGroupInfo;
       if (sgi.grouped) {
-        this.scroller.scrollToSelector(
-          `[data-task-step-id="${this.currentStep.id}"]`,
-          { deferred: true }
+        when(
+          () => !find(sgi.group.steps, 'needsFetched'),
+          () => this.scrollToCurrentStep(false),
         );
       }
     }
+  }
+
+  scrollToCurrentStep(immediate) {
+    this.scroller.scrollToSelector(
+      `[data-task-step-id="${this.currentStep.id}"]`,
+      { immediate, deferred: !immediate }
+    );
   }
 
   @computed get isApiPending() {
@@ -260,7 +265,7 @@ export default class TaskUX {
     });
     if (group) {
       return {
-        grouped: true, index: group.steps.indexOf(step),
+        grouped: true, group, index: group.steps.indexOf(step),
       };
     }
     return { grouped: false };
