@@ -1,4 +1,5 @@
 import { get } from 'lodash';
+import Raven from '../models/app/raven';
 
 /**
  * Utility functions to make DOM manipulation easier.
@@ -298,8 +299,14 @@ export function read_csrf() {
 export function readBootstrapData(root = document) {
   const el = root.querySelector('#tutor-boostrap-data');
   if (el) {
-    el.parentNode.removeChild(el);
-    return JSON.parse(el.textContent);
+    try {
+      return JSON.parse(el.textContent);
+    } catch(e) {
+      // eslint-disable-next-line no-console
+      console.warn('Failed to parse JSON:', e, el.textContent);
+      Raven.captureException(e, { json: el.textContent });
+      return {};
+    }
   } else {
     return {};
   }
