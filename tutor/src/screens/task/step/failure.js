@@ -36,7 +36,7 @@ class Failure extends React.Component {
     if (!step) { return; }
 
     const { last: _, ...errors } = step.api.errors;
-    errMsg.push(`Failed to ${this.requestAction} assignment step, errors: ${titleize(errors)}`);
+    errMsg.push(`Failed to ${this.isLoading ? 'load' : 'save'} assignment step, errors: ${titleize(errors)}`);
     if (errMsg.length) {
       Raven.log(errMsg.join('\n'), {
         taskId: task.id,
@@ -45,8 +45,8 @@ class Failure extends React.Component {
     }
   }
 
-  get requestAction() {
-    return 'get' === get(this.props.step, 'api.errors.last.config.method') ? 'load' : 'save';
+  get isLoading() {
+    return 'get' === get(this.props.step, 'api.errors.last.config.method');
   }
 
   render() {
@@ -54,7 +54,7 @@ class Failure extends React.Component {
       <StyledFailure>
         <h3>
           We’re sorry! An error occurred
-          when {this.requestAction}ing this step.
+          when {this.isLoading ? 'loading' : 'saving'} this step.
         </h3>
         <h4>
           Please either go back and retry or
