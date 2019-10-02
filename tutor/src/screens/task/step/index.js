@@ -5,7 +5,6 @@ import {
   Facebook as ReadingLoader,
   BulletList as HomeworkLoader,
 } from 'react-content-loader';
-import ScrollTo from '../../../helpers/scroll-to';
 import Reading from './reading';
 import Exercise from './exercise';
 import Placeholder from './placeholder';
@@ -62,12 +61,6 @@ class TaskStep extends React.Component {
       }),
     }).isRequired,
   };
-
-  scroller = new ScrollTo();
-
-  componentDidMount() {
-    this.scroller.scrollToTop({ scrollTopOffset: -60 });
-  }
 
   render() {
     const { ux, step } = this.props;
