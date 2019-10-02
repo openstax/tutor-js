@@ -1,7 +1,6 @@
 import {
   React, PropTypes, observer, styled, action, css,
 } from 'vendor';
-import { invoke } from 'lodash';
 import { Button } from 'react-bootstrap';
 import TaskStep from '../../../models/student-tasks/step';
 import ResponseValidation from '../../../models/response_validation';
@@ -81,16 +80,11 @@ class FreeResponseInput extends React.Component {
 
   textArea = React.createRef();
 
-  componentDidMount() {
-    invoke(this.textArea.current, 'focus');
-  }
-
-  @action.bound async onSave() {
+  @action.bound onSave() {
     const { taskUX, step } = this.props;
 
     taskUX.setCurrentMultiPartStep(step);
-    await this.ux.onSave();
-    invoke(this.textArea.current, 'focus');
+    this.ux.onSave();
   }
 
   render() {

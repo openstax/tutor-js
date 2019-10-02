@@ -1,5 +1,5 @@
 import { observable, computed, action, when, observe } from 'mobx';
-import { reduce, filter, get, groupBy, map, find } from 'lodash';
+import { reduce, filter, get, groupBy, map, find, invoke } from 'lodash';
 import lazyGetter from 'shared/helpers/lazy-getter';
 import Router from '../../../src/helpers/router';
 import * as manipulations from './ux-task-manipulations';
@@ -193,11 +193,10 @@ export default class TaskUX {
     }
   }
 
-  scrollToCurrentStep(immediate) {
-    this.scroller.scrollToSelector(
-      `[data-task-step-id="${this.currentStep.id}"]`,
-      { immediate, deferred: !immediate }
-    );
+  async scrollToCurrentStep(immediate) {
+    const stepSelector = `[data-task-step-id="${this.currentStep.id}"]`;
+    await this.scroller.scrollToSelector(stepSelector, { immediate, deferred: !immediate });
+    invoke(document.querySelector(`${stepSelector} textarea`), 'focus');
   }
 
   @computed get isApiPending() {
