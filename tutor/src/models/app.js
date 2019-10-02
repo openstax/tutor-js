@@ -6,7 +6,7 @@ import { startMathJax } from 'shared/helpers/mathjax';
 import Notifications from 'shared/model/notifications';
 import adapters from '../api/adapter';
 import { TransitionAssistant } from '../components/unsaved-state';
-import { readBootstrapData } from '../helpers/dom';
+import { documentReady, readBootstrapData } from '../helpers/dom';
 import Api from '../api';
 import User from './user';
 import Raven from './app/raven';
@@ -35,7 +35,9 @@ export default class TutorApp {
 
   static rootComponent = Tutor;
 
-  static boot() {
+  static async boot() {
+    await documentReady();
+
     const app = new TutorApp();
     [Raven, PulseInsights, Api].forEach(lib => lib.boot());
 

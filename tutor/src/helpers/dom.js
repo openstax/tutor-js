@@ -311,3 +311,13 @@ export function readBootstrapData(root = document) {
     return {};
   }
 }
+
+export function documentReady() {
+  if (document.readyState != 'loading'){
+    return Promise.resolve();
+  } else {
+    return new Promise((resolve) => {
+      document.addEventListener('DOMContentLoaded', resolve);
+    });
+  }
+}
