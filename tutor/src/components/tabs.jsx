@@ -52,13 +52,13 @@ class Tabs extends React.Component {
 
   @observable activeIndex = isNil(getTab(this.props)) ? this.props.initialActive : parseInt(getTab(this.props));
 
-  UNSAFE_componentWillMount() {
-    // the router tab query param specified a different value than initialActive
-    if (this.activeIndex !== this.props.initialActive) {
+  constructor(props) {
+    super(props);
+    if (this.activeIndex != this.props.initialActive) {
       const ev = new FakeEvent;
       this.props.onSelect(this.activeIndex, ev);
       if (ev.isDefaultPrevented()) {
-        this.selectTabIndex(this.props.initialActive);
+        this.selectTabIndex(this.activeIndex);
       }
     }
   }
