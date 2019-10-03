@@ -1,8 +1,5 @@
-import PropTypes from 'prop-types';
-import { React, observer, action  } from 'vendor';
-import moment from 'moment';
+import { React, PropTypes, observer, action  } from 'vendor';
 import { Icon } from 'shared';
-import Time from '../../models/time';
 import TimeHelper from '../../helpers/time';
 
 @observer
@@ -10,7 +7,7 @@ class CourseCalendarTitleNav extends React.Component {
   static displayName = 'CourseCalendarTitleNav';
 
   static propTypes = {
-    setDate: PropTypes.func,
+    setDate: PropTypes.func.isRequired,
     date: TimeHelper.PropTypes.moment,
     format: PropTypes.string.isRequired,
     duration: PropTypes.string.isRequired,
@@ -21,26 +18,11 @@ class CourseCalendarTitleNav extends React.Component {
     format: 'MMMM YYYY',
   };
 
-  state = { date: this.props.date || moment(Time.now) };
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (!moment(nextProps.date).isSame(this.state.date, 'month')) {
-      this.setState({ date: nextProps.date });
-    }
-  }
-
-  componentDidUpdate() {
-    const { setDate } = this.props;
-    return (
-      (typeof setDate === 'function' ? setDate(this.state.date) : undefined)
-    );
-  }
-
   handleNavigate = (subtractOrAdd, clickEvent) => {
     const { duration } = this.props;
-    const date = this.state.date.clone()[subtractOrAdd](1, duration);
+    const date = this.props.date.clone()[subtractOrAdd](1, duration);
     clickEvent.preventDefault();
-    this.setState({ date });
+    this.props.setDate(date);
   };
 
   @action.bound handleNext(clickEvent) {
@@ -61,7 +43,7 @@ class CourseCalendarTitleNav extends React.Component {
             onClick={this.handlePrevious}>
             <Icon type="caret-left" />
           </a>
-          {this.state.date.format(this.props.format)}
+          {this.props.date.format(this.props.format)}
           <a
             href="#"
             className="calendar-header-control next"

@@ -29,4 +29,14 @@ describe('CourseCalendar Month display', () => {
     expect(month).not.toHaveRendered(`[data-plan-id="${plan.id}"]`);
   });
 
+  it('navigates forward and back', function() {
+    const m = mount(<C><Dashboard {...props} /></C>);
+    m.find('a.calendar-header-control.next').simulate('click');
+    m.find('a.calendar-header-control.next').simulate('click');
+    expect(m.find('Month').props().date).toEqual(props.date.add(2, 'month'));
+    m.find('a.calendar-header-control.previous').simulate('click');
+    expect(m.find('Month').props().date).toEqual(props.date.add(1, 'month'));
+    m.unmount();
+  });
+
 });
