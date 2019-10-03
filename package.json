@@ -114,7 +114,7 @@
     "react-floater": "^0.6.5",
     "react-maskedinput": "4.0.1",
     "react-overlays": "^1.2.0",
-    "react-router-dom": "5.0.1",
+    "react-router-dom": "5.1.2",
     "react-select": "^3.0.4",
     "serializr": "^1.5.1",
     "styled-components": "^4.3.2",
