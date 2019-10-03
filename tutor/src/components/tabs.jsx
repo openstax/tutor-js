@@ -1,13 +1,8 @@
-import React from 'react';
-import classnames from 'classnames';
-import { autobind } from 'core-decorators';
-import { isNil, extend, partial, map, get } from 'lodash';
+import { React, cn, useState, useHistory, useEffect } from 'vendor';
+import { isNil, extend, partial } from 'lodash';
 import Router from '../helpers/router';
 import PropTypes from 'prop-types';
 import qs from 'qs';
-import { __RouterContext } from 'react-router-dom';
-import { observable, action } from 'mobx';
-import { observer } from 'mobx-react';
 
 // Used to cancel router transitions the same way an onClick event is
 class FakeEvent {
@@ -19,119 +14,91 @@ class FakeEvent {
 }
 FakeEvent.initClass();
 
-// Renders ONLY the list of tabs (not tab body), with @props.chilren inline with the tabs
+// Renders ONLY the list of tabs with chilren inline with the tabs
 // Usefull for rendering controls beside the Tabs
 
+const getTab = (window) => Router.currentQuery({ window }).tab;
 
-const getTab = (props) => Router.currentQuery(props.windowImpl).tab;
+const Tabs = ({
+  tabs,
+  children, className, onSelect,
+  initialActive = 0,
+  windowImpl = window,
+}) => {
+  const history = useHistory();
 
-export default
+  const [activeIndex, setActiveIndex] = useState(
+    isNil(getTab(windowImpl)) ? initialActive : parseInt(getTab(windowImpl))
+  );
 
-@observer
-class Tabs extends React.Component {
+  const selectTabIndex = (tab) => {
+    tab = Number(tab);
+    const query = extend(Router.currentQuery(windowImpl), { tab });
+    history.push(
+      windowImpl.location.pathname + '?' + qs.stringify(query)
+    );
+    setActiveIndex(tab);
+  };
 
-  static contextType = __RouterContext;
-
-  static propTypes = {
-    onSelect: PropTypes.func.isRequired,
-    tabIndex: PropTypes.number,
-    initialActive: PropTypes.number,
-    params: PropTypes.object,
-    className: PropTypes.string,
-    tabs: PropTypes.arrayOf(
-      PropTypes.oneOfType([ PropTypes.string, PropTypes.element ])
-    ).isRequired,
-    windowImpl: PropTypes.object,
-    children: PropTypes.node,
-  }
-
-  static defaultProps = {
-    windowImpl: window,
-    initialActive: 0,
-  }
-
-  @observable activeIndex = isNil(getTab(this.props)) ? this.props.initialActive : parseInt(getTab(this.props));
-
-  constructor(props) {
-    super(props);
-    if (this.activeIndex != this.props.initialActive) {
+  useEffect(() => {
+    if (activeIndex != initialActive) {
       const ev = new FakeEvent;
-      this.props.onSelect(this.activeIndex, ev);
+      onSelect(activeIndex, ev);
       if (ev.isDefaultPrevented()) {
-        this.selectTabIndex(this.activeIndex);
+        selectTabIndex(this.activeIndex);
       }
     }
-  }
+  }, [initialActive]);
 
-  // called when the router has transistioned, validate the new tabindex
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const tab = get(nextProps, 'params.tab');
-    if (isNil(tab)) { return; }
-
-    const activeIndex = parseInt(tab, 10);
-    if (activeIndex === this.activeIndex) { return; }
-
-    const ev = new FakeEvent;
-    this.props.onSelect(activeIndex, ev);
-    if (ev.isDefaultPrevented()) {
-      if (this.context) {
-        this.context.history.push(
-          this.context.location.pathname, {}, { tab: this.activeIndex },
-        );
-      }
-    } else {
-      this.activeIndex = activeIndex;
-    }
-  }
-
-  // callable from the parent component via a ref
-  @action.bound selectTabIndex(activeIndex) {
-    const query = extend(Router.currentQuery(this.props.windowImpl), { tab: activeIndex });
-    if (this.context.history) {
-      this.context.history.push(
-        this.props.windowImpl.location.pathname + '?' + qs.stringify(query)
-      );
-    }
-    this.activeIndex = activeIndex;
-  }
-
-  @action.bound onTabClick(activeIndex, ev) {
-    this.props.onSelect(activeIndex, ev);
+  const onTabClick = (activeIndex, ev) => {
+    onSelect(activeIndex, ev);
     if (!ev.isDefaultPrevented()) {
-      this.selectTabIndex(activeIndex);
+      selectTabIndex(activeIndex);
     }
-    return (
-      ev.preventDefault()
-    );
-  }
+    ev.preventDefault();
+  };
 
-  @autobind renderTab(tab, index) {
-    const isSelected = index === this.activeIndex;
+  return (
+    <nav className={cn('tutor-tabs', className)}>
+      <ul className="nav nav-tabs" role="tablist">
+        {tabs.map((tab, index) => {
+          const active = index === activeIndex;
+          return (
+            <li
+              key={index}
+              className={cn({ active })}
+              aria-selected={active}
+              role="tab"
+            >
+              <a
+                href="#"
+                onClick={partial(onTabClick, index)}
+              >
+                <h2>
+                  {tab}
+                </h2>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+      {children}
+    </nav>
+  );
 
-    return (
-      <li key={index} className={classnames({ active: isSelected })}
-        aria-selected={isSelected != null ? isSelected : { 'true': 'false' }}
-        role="tab"
-      >
-        <a
-          href="#"
-          onClick={partial(this.onTabClick, index)}>
-          <h2>
-            {tab}
-          </h2>
-        </a>
-      </li>
-    );
-  }
+};
 
-  render() {
-    return (
-      <nav className={classnames('tutor-tabs', this.props.className)}>
-        <ul className="nav nav-tabs" role="tablist">
-          {map(this.props.tabs, this.renderTab)}
-        </ul>
-        {this.props.children}
-      </nav>
-    );
-  }
-}
+Tabs.propTypes = {
+  onSelect: PropTypes.func.isRequired,
+  tabIndex: PropTypes.number,
+  initialActive: PropTypes.number,
+  params: PropTypes.object,
+  className: PropTypes.string,
+  tabs: PropTypes.arrayOf(
+    PropTypes.oneOfType([ PropTypes.string, PropTypes.element ])
+  ).isRequired,
+  windowImpl: PropTypes.object,
+  children: PropTypes.node,
+};
+
+export default Tabs;
