@@ -27,7 +27,7 @@
 
 @mixin tutor-book-theme-quote($border-color) {
   blockquote {
-    border-left: 0.5rem solid $border-color;
+    border-left-color: $border-color;
   }
 }
 
