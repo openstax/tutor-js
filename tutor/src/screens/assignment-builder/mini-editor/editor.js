@@ -1,4 +1,4 @@
-import { React, PropTypes, styled, observer } from 'vendor';
+import { React, PropTypes, styled, observer, cn } from 'vendor';
 import UX from '../ux';
 import { Container, Col, Alert, Button } from 'react-bootstrap';
 import { camelCase } from 'lodash';
@@ -76,7 +76,11 @@ class TaskPlanMiniEditor extends React.Component {
     const { ux, ux: { form, sourcePlanId, plan, course } } = this.props; // id, course, termStart, termEnd } = this.props;
 
     return (
-      <StyledEditor>
+      <StyledEditor
+        className={cn(`${plan.type}-plan`, 'task-plan', {
+          'is-invalid-form': form.showErrors,
+        })}
+      >
         <StyledNudgeIsAvailableMessage planType={plan.type} />
         <Container>
           <div className="row">
