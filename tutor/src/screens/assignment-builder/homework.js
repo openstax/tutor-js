@@ -1,7 +1,6 @@
 import {
   React, PropTypes, observer, cn,
 } from 'vendor';
-import { isEmpty } from 'lodash';
 import { Card, Row, Col, Button } from 'react-bootstrap';
 import Header from './header';
 import TaskPlanBuilder from './builder';
@@ -55,7 +54,7 @@ class Homework extends React.Component {
                     onClick={ux.onShowSectionSelection}
                     variant="default"
                   >+ Select Problems</Button>)}
-                {form.showErrors && isEmpty(ux.selectedExercises) && (
+                {form.showNeedsExercisesErrorMessage && (
                   <span className="problems-required">
                     Please select problems for this assignment.
                   </span>)}

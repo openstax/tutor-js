@@ -1,5 +1,5 @@
 import { computed, action, observable } from 'mobx';
-import { get, set } from 'lodash';
+import { get, set, isEmpty } from 'lodash';
 
 
 class AssignmentForm {
@@ -61,6 +61,13 @@ class AssignmentForm {
 
   @computed get showErrors() {
     return Boolean(this.hasSubmitted && !this.isValid);
+  }
+
+  @computed get showNeedsExercisesErrorMessage() {
+    const { plan } = this;
+    return Boolean(
+      this.showErrors && plan.isHomework && isEmpty(plan.settings.exercise_ids)
+    );
   }
 
   async onSaveRequested() {
