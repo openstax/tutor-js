@@ -1,8 +1,8 @@
 import {
-  React, PropTypes, observable, action, observer, ArrayOrMobxType,
+  React, PropTypes, observable, action, observer, computed, ArrayOrMobxType,
 } from 'vendor';
 import { Button } from 'react-bootstrap';
-import { isEmpty } from 'lodash';
+import { isEmpty, uniq, compact, map } from 'lodash';
 import Loading from 'shared/components/loading-animation';
 import { Icon } from 'shared';
 import ExerciseControls from './exercise-controls';
@@ -157,12 +157,7 @@ class ExercisesDisplay extends React.Component {
     } else {
       this.addCardActions(actions, exercise);
     }
-
-    return (
-
-      actions
-
-    );
+    return actions;
   };
 
   addDetailsActions = (actions) => {
@@ -200,6 +195,14 @@ class ExercisesDisplay extends React.Component {
 
   @action.bound toggleFeedback() {
     this.displayFeedback = !this.displayFeedback;
+  }
+
+  @computed get displayedChapterSections() {
+    return uniq(compact(map(this.props.pageIds, (pageId) => {
+      if (!this.props.exercises.forPageId(pageId).length) { return null; }
+      const page = this.props.course.referenceBook.pages.byId.get(pageId);
+      return (page && page.chapter_section.isPresent) ? page.chapter_section : null;
+    })));
   }
 
   getExerciseIsSelected = (exercise) => {
@@ -279,7 +282,7 @@ class ExercisesDisplay extends React.Component {
                 {...sectionizerProps}
                 nonAvailableWidth={600}
                 onScreenElements={[]}
-                chapter_sections={this.props.course.referenceBook.sectionsForPageIds(this.props.pageIds)}
+                chapter_sections={this.displayedChapterSections}
               />
             </ScrollSpy>
           </ExerciseControls>
