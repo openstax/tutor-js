@@ -58,7 +58,8 @@ class Sectionizer extends React.Component {
   }
 
   @computed get currentSection() {
-    return find(this.sortedSections, { asString: this.onScreenSectionString });
+    return this.props.currentSection ||
+      find(this.sortedSections, { asString: this.onScreenSectionString });
   }
 
   @computed get scrollIndex() {

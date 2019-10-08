@@ -6,9 +6,7 @@ import { isEmpty } from 'lodash';
 import { Button } from 'react-bootstrap';
 import Course from '../../models/course';
 import { ExercisesMap } from '../../models/exercises';
-
 import TourRegion from '../../components/tours/region';
-import TourAnchor from '../../components/tours/anchor';
 import BackButton from '../../components/buttons/back-button';
 import Chooser from '../../components/sections-chooser';
 
@@ -19,11 +17,12 @@ class QLSectionsChooser extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
+    pageIds: PropTypes.array.isRequired,
     exercises: PropTypes.instanceOf(ExercisesMap).isRequired,
     onSelectionsChange: PropTypes.func.isRequired,
   };
 
-  @observable pageIds = [];
+  @observable pageIds = this.props.pageIds;
 
   @action.bound showQuestions() {
     this.props.exercises.fetch({
@@ -90,4 +89,4 @@ class QLSectionsChooser extends React.Component {
     );
   }
 
-};
+}

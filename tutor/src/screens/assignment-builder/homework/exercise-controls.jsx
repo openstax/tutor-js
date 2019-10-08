@@ -141,7 +141,7 @@ class ExerciseControls extends React.Component {
     const { ux: { plan } } = this.props;
 
     return (
-      <div className="exercise-controls-bar">
+      <div className="assignment exercise-controls-bar">
         {this.renderDisplayControls()}
         <div className="indicators">
           <div className="num total">
