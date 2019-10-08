@@ -43,7 +43,7 @@
   @include tutor-tables($tutor-neutral-light, $tutor-neutral-light);
   table + .os-caption-container{
     margin-bottom: 3rem;
-    margin-top: -1rem; // move closer to bottom of table
+    margin-top: -3rem; // move closer to bottom of table
   }
 
   div[data-type="document-title"],
@@ -146,13 +146,11 @@
     }
   }
 
-  .os-table {
-    margin-top: 2rem;
-  }
+  .os-table { margin-top: 2rem; }
 
   table {
     caption {
-      caption-side: top;
+      caption-side: bottom;
       font-style: italic;
       font-weight: 400;
       font-size: inherit;
