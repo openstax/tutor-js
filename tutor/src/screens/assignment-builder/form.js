@@ -1,7 +1,6 @@
 import { computed, action, observable } from 'mobx';
 import { get, set } from 'lodash';
 
-
 class AssignmentForm {
 
   @observable isTouched = false;
@@ -25,6 +24,7 @@ class AssignmentForm {
       id: 'description',
       onChange: this.setter('description'),
       onFocus: this.onFocus,
+      maxLength: 250,
       get value() { return plan.description; },
     };
 
