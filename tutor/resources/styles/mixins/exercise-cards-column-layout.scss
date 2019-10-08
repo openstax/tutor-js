@@ -1,6 +1,6 @@
 @mixin exercise-cards-column-layout($column-width: 450px) {
-  .exercise-sections {
-    padding-top: $tutor-panel-padding-vertical * 2;
+  .exercise-sections:not(:first-child) {
+    padding-top: $tutor-panel-padding-vertical;
   }
 
   .exercises {
