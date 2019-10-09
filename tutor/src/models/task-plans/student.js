@@ -11,8 +11,8 @@ import Raven from '../app/raven';
 const MAX_POLLING_ATTEMPTS = 10;
 const POLL_SECONDS = 30;
 const WEEK_FORMAT = 'GGGGWW';
-const FETCH_INITIAL_TASKS_INTERVAL = 1000 * 60; // every minute;
-const REFRESH_TASKS_INTERVAL = 1000 * 60 * 60 * 4; // every 4 hours
+const FETCH_INITIAL_TASKS_INTERVAL = 1000 * 10; // every 10 seconds
+const REFRESH_TASKS_INTERVAL = 1000 * 60 * 60; // every hour
 
 export
 class StudentTaskPlans extends Map {

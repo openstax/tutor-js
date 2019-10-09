@@ -55,7 +55,7 @@ describe('Student Tasks Model', () => {
     expect(tasks.fetch).toHaveBeenCalledTimes(1);
     jest.runOnlyPendingTimers();
     expect(tasks.fetch).toHaveBeenCalledTimes(2);
-    expect(setTimeout).toHaveBeenCalledWith(tasks.fetchTaskPeriodically, 1000 * 60 * 60 * 4);
+    expect(setTimeout).toHaveBeenCalledWith(tasks.fetchTaskPeriodically, 1000 * 60 * 60);
     jest.runOnlyPendingTimers();
     expect(tasks.fetch).toHaveBeenCalledTimes(3);
     tasks.stopFetching();
@@ -69,7 +69,7 @@ describe('Student Tasks Model', () => {
     tasks.all_tasks_are_ready = false;
     tasks.startFetching();
     expect(tasks.isPendingTaskLoading).toEqual(true);
-    expect(setTimeout).toHaveBeenCalledWith(tasks.fetchTaskPeriodically, 60000);
+    expect(setTimeout).toHaveBeenCalledWith(tasks.fetchTaskPeriodically, 10000);
   });
 
   it('tests if the last published plan is present', () => {
