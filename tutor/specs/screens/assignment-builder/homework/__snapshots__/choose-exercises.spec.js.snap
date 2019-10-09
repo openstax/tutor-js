@@ -608,7 +608,7 @@ exports[`choose exercises component renders selections 1`] = `
               className="card-footer"
             >
               <button
-                className="btn btn-primary"
+                className="async-button btn btn-primary"
                 disabled={false}
                 id="add-sections-to-homework"
                 onClick={[Function]}

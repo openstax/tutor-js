@@ -151,9 +151,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                                                             1
                                                           </td>
                                                           <td>
-                                                            <ChapterSection chapterSection={{...}}>
-                                                              <span className=\\"chapter-section\\" data-chapter-section=\\".0\\" />
-                                                            </ChapterSection>
+                                                            <ChapterSection chapterSection={{...}} />
                                                           </td>
                                                           <td>
                                                             <Component block={false} html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\">
