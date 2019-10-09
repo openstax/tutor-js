@@ -43,10 +43,11 @@ describe('choose exercises component', () => {
     c.unmount();
   });
 
-  it('increases/decreases counts', () => {
+  fit('increases/decreases counts', () => {
     const c = mount(<ExerciseControls {...props} />);
     expect(c.find('.tutor-selections').text()).toEqual('0');
     c.find('Icon[type="chevron-up"]').simulate('click');
+    c.update()
     expect(c.find('.tutor-selections').text()).toEqual('1');
     c.find('Icon[type="chevron-down"]').simulate('click');
     expect(c.find('.tutor-selections').text()).toEqual('0');

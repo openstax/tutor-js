@@ -64,57 +64,6 @@ exports[`review exercises table matches snapshot 1`] = `
                                                         blooms:3 / dok:3
                                                       </td>
                                                     </tr>
-                                                    <tr>
-                                                      <td className=\\"exercise-number\\">
-                                                        2
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                      <td>
-                                                        Tutor Selection
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td className=\\"exercise-number\\">
-                                                        3
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                      <td>
-                                                        Tutor Selection
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td className=\\"exercise-number\\">
-                                                        4
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                      <td>
-                                                        Tutor Selection
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                    </tr>
                                                   </tbody>
                                                 </table>
                                               </TourRegion>

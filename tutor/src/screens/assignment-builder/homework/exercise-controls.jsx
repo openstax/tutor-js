@@ -52,7 +52,7 @@ class ExerciseControls extends React.Component {
   }
 
   @computed get canAdd() {
-    return this.props.ux.plan.canEdit;
+    return this.props.ux.canEdit;
   }
 
   renderExplanation() {
@@ -68,7 +68,7 @@ class ExerciseControls extends React.Component {
 
   renderActionButtons() {
     const { ux } = this.props;
-    if (ux.plan.numExercises) {
+    if (ux.numExerciseSteps) {
       return (
         [
           <Button
@@ -106,7 +106,7 @@ class ExerciseControls extends React.Component {
 
   renderIncreaseButton() {
     const { ux } = this.props;
-    if (ux.canEdit && ux.plan.canIncreaseTutorExercises) {
+    if (ux.canIncreaseTutorExercises) {
       return (
         <Icon
           type="chevron-up" onClick={ux.increaseTutorSelection}
@@ -119,7 +119,7 @@ class ExerciseControls extends React.Component {
 
   renderDecreaseButton() {
     const { ux } = this.props;
-    if (ux.canEdit && ux.plan.canDecreaseTutorExercises) {
+    if (ux.canDecreaseTutorExercises) {
       return (
         <Icon
           type="chevron-down" onClick={ux.decreaseTutorSelection}
@@ -138,7 +138,7 @@ class ExerciseControls extends React.Component {
   }
 
   @autobind renderControls() {
-    const { ux: { plan } } = this.props;
+    const { ux: { numExerciseSteps, numTutorSelections } } = this.props;
 
     return (
       <div className="assignment exercise-controls-bar">
@@ -146,7 +146,7 @@ class ExerciseControls extends React.Component {
         <div className="indicators">
           <div className="num total">
             <h2>
-              {plan.numExercises + plan.numTutorSelections}
+              {numExerciseSteps + numTutorSelections}
             </h2>
             <span>
               Total Problems
@@ -154,7 +154,7 @@ class ExerciseControls extends React.Component {
           </div>
           <div className="num mine">
             <h2>
-              {plan.numExercises}
+              {numExerciseSteps}
             </h2>
             <span>
               My Selections
@@ -164,7 +164,7 @@ class ExerciseControls extends React.Component {
             <div className="tutor-selections">
               {this.renderDecreaseButton()}
               <h2>
-                {plan.numTutorSelections}
+                {numTutorSelections}
               </h2>
               {this.renderIncreaseButton()}
             </div>

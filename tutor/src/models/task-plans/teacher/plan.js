@@ -13,13 +13,13 @@ import { findEarliest, findLatest } from '../../../helpers/dates';
 import Time from '../../time';
 import TaskPlanStats from './stats';
 import moment from '../../../helpers/moment-range';
-
-const TUTOR_SELECTIONS = {
+const SELECTION_COUNTS = {
   default: 3,
   max: 4,
   min: 0,
 };
 
+export { SELECTION_COUNTS };
 
 const calculateDefaultOpensAt = ({ course }) => {
   const defaultOpensAt = moment(Time.now).add(1, 'day').startOf('minute');
@@ -90,7 +90,7 @@ class TeacherTaskPlan extends BaseModel {
     );
     if (this.isNew) {
       if (this.isHomework) {
-        this.settings.exercises_count_dynamic = TUTOR_SELECTIONS.default;
+        this.settings.exercises_count_dynamic = SELECTION_COUNTS.default;
       }
     }
   }
@@ -264,14 +264,6 @@ class TeacherTaskPlan extends BaseModel {
     return !this.isVisibleToStudents;
   }
 
-  @computed get numTutorSelections() {
-    return get(this, 'settings.exercises_count_dynamic', 0);
-  }
-
-  @computed get numExercises() {
-    return this.exerciseIds.length;
-  }
-
   @computed get pageIds() {
     return get(this, 'settings.page_ids', []);
   }
@@ -282,14 +274,6 @@ class TeacherTaskPlan extends BaseModel {
 
   @action addExercise(ex) {
     this.settings.exercise_ids = union(this.exerciseIds, [ex.id]);
-  }
-
-  @computed get canIncreaseTutorExercises() {
-    return this.numTutorSelections < TUTOR_SELECTIONS.max;
-  }
-
-  @computed get canDecreaseTutorExercises() {
-    return this.numTutorSelections > TUTOR_SELECTIONS.min;
   }
 
   includesExercise(exercise) {
