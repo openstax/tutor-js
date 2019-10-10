@@ -1,5 +1,4 @@
 import { React, PropTypes, action, observable, observer, withRouter } from 'vendor';
-import { get } from 'lodash';
 import { Row, Col, Card } from 'react-bootstrap';
 import { includes } from 'lodash';
 import UpcomingCard from './upcoming-panel';
@@ -8,7 +7,6 @@ import ThisWeekCard from './this-week-panel';
 import ProgressGuideShell from './progress-guide';
 import BrowseTheBook from '../../components/buttons/browse-the-book';
 import CourseTitleBanner from '../../components/course-title-banner';
-
 import Course from '../../models/course';
 import Tabs from '../../components/tabs';
 import { NotificationsBar } from 'shared';
@@ -36,14 +34,6 @@ class StudentDashboard extends React.Component {
       this.tabIndex = tabIndex;
     } else {
       ev.preventDefault();
-    }
-  }
-
-  componentDidMount() {
-    const { course } = this.props;
-    const role = course.currentRole;
-    if (role.isStudentLike && !get(course.userStudentRecord, 'mustPayImmediately')) {
-      this.props.course.studentTaskPlans.fetch();
     }
   }
 

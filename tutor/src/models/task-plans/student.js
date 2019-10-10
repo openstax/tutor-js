@@ -89,13 +89,13 @@ class StudentTaskPlans extends Map {
     if (
       this.isPendingTaskLoading &&
       this.taskReadinessTimedOut &&
-      this.api.requestCounts.read % 10 == 0
+      this.api.requestCounts.read % MAX_POLLING_ATTEMPTS == 0
     ) {
       Raven.log(`Dashboard loading timed out waiting on Biglearn after ${
         this.api.requestCounts.read} attempts.`);
-    }
-    else if (!this.isPendingTaskLoading) {
-      this.api.reset();
+    } else if (!this.isPendingTaskLoading) {
+      // reset our read count so it's ready to poll again if needed
+      this.api.requestCounts.read = 1;
     }
 
     return this.fetch().then(() => {
