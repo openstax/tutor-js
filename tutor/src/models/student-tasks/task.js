@@ -53,7 +53,7 @@ class StudentTask extends BaseModel {
     this.update(task);
     steps.forEach((stepData, i) => {
       if (this.steps.length > i) {
-        this.steps[i].update(stepData);
+        this.steps[i].setFromTaskFetch(stepData);
       } else {
         this.steps.push(stepData);
       }

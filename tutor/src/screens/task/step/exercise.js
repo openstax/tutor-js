@@ -62,12 +62,16 @@ class ExerciseTaskStep extends React.Component {
     }
   }
 
+  // TODO: remove this code when we no longer see it's messages logged
   logAndRetryFetch() {
     const { step } = this.props;
+
     step.fetch().then(() => {
-      Raven.log(
-        `No questions found on step id ${step.id} of type ${step.type}.  After re-fetch, questions found: ${!!(step.content && step.content.questions)}`,
-      );
+      Raven.log('No questions found on step', {
+        stepId: step.id,
+        type: step.type,
+        foundAfterReFetch: !!(step.content && step.content.questions),
+      });
     });
   }
 

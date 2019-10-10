@@ -43,5 +43,4 @@ describe('Reading Tasks Screen', () => {
     expect(h).toHaveRendered('PlaceHolderTaskStep');
     h.unmount();
   });
-
 });
