@@ -8,7 +8,7 @@ import ResearchSurveys from '../research-surveys';
 import Time from '../time';
 import Raven from '../app/raven';
 
-const MAX_POLLING_ATTEMPTS = 10;
+const MAX_POLLING_ATTEMPTS = 30;
 const POLL_SECONDS = 30;
 const WEEK_FORMAT = 'GGGGWW';
 const FETCH_INITIAL_TASKS_INTERVAL = 1000 * 10; // every 10 seconds
