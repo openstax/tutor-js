@@ -4,18 +4,12 @@
 // References should not get drop-cap styling
 @mixin tutor-book-content-base-styles() {
 
-  // Default font for text content
+  @include tutor-serif-font(1.6rem, 180%);
+
   p,
   ul,
   ol {
-    @include tutor-serif-font(1.75rem, 190%);
     margin: 0 0 2.4rem 0;
-  }
-  // but not inside tables
-  table {
-    p, ul,ol {
-      @include tutor-sans-font(1.75rem, 190%);
-    }
   }
 
   blockquote {
