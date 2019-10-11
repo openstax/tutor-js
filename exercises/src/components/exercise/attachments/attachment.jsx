@@ -1,13 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import styled from 'styled-components';
 import { observer } from 'mobx-react';
-import { action } from 'mobx';
-import { Icon } from 'shared';
-
-const Btn = styled(Icon)`
-
-`;
 
 @observer
 class Attachment extends React.Component {
@@ -26,11 +19,6 @@ class Attachment extends React.Component {
     }).isRequired,
   };
 
-  @action.bound onDelete() {
-    this.props.attachment.exercise.attachments.remove(this.props.attachment);
-  }
-
-
   render() {
     const { attachment } = this.props;
     // large.url will be null on non-image assets (like PDF)
@@ -42,7 +30,6 @@ class Attachment extends React.Component {
     const copypaste = `<img src="${url}" alt="">`;
     return (
       <div className="attachment with-image">
-        <Btn type="trash" onClick={this.onDelete} />
         <img className="preview" src={attachment.asset.url} />
         <textarea value={copypaste} readOnly={true} className="copypaste" />
       </div>
