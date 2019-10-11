@@ -38,16 +38,10 @@ describe('Student Dashboard', () => {
     expect.snapshot(<Router><Dashboard {...props} /></Router>).toMatchSnapshot();
   });
 
-  it('fetches on mount', () => {
-    const dash = mount(<Router><Dashboard {...props} /></Router>);
-    expect(props.course.studentTaskPlans.fetch).toHaveBeenCalled();
-    dash.unmount();
-  });
-
   it('logs when Biglearn times out', () => {
     props.course.studentTaskPlans.all_tasks_are_ready = false;
     const tp = props.course.studentTaskPlans;
-    tp.api.requestCounts.read = 10;
+    tp.api.requestCounts.read = 30;
     expect(tp.taskReadinessTimedOut).toBe(true);
     tp.startFetching();
     tp.stopFetching();
