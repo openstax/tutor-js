@@ -8,6 +8,11 @@ describe('Reading Tasks Screen', () => {
 
   beforeEach(() => {
     const task = Factory.studentTask({ type: 'reading' });
+    history = {
+      push: (url) => {
+        props.ux.goToStep(Number(ld.last(url.split('/'))) - 1, false);
+      },
+    };
     props = {
       windowImpl: new FakeWindow(),
       ux: new UX({ task, history, course: Factory.course() }),
@@ -44,6 +49,45 @@ describe('Reading Tasks Screen', () => {
     expect(props.ux.currentStep.type).toEqual('two-step-intro');
     expect(r).toHaveRendered('TwoStepValueProp');
     r.unmount();
+  });
+
+
+  it('switches steps as needed when task reloads', () => {
+    props.ux.task.steps = [
+      Factory.bot.create('StudentTaskStep', { type: 'reading' }),
+      Factory.bot.create('StudentTaskStep', { type: 'placeholder' }),
+    ];
+
+    const h = mount(<C><Reading {...props} /></C>);
+    expect(props.ux.canGoForward).toBe(true);
+    props.ux.goForward();
+    expect(h).toHaveRendered('IndividualReview');
+
+    props.ux.goForward();
+
+    expect(h).toHaveRendered('LoadingCard');
+
+    props.ux.currentStep.api.requestCounts.read = 1;
+
+    expect(h).toHaveRendered('PlaceHolderTaskStep');
+
+    props.ux.task.onFetchComplete({
+      data: {
+        steps: [
+          Factory.bot.create('StudentTaskStep', { type: 'reading' }),
+          Factory.bot.create('StudentTaskStep', { type: 'exercise' }),
+        ],
+      },
+    });
+
+    // the new step won't have been loaded
+    expect(h).toHaveRendered('LoadingCard');
+    props.ux.currentStep.onLoaded({
+      data: Factory.bot.create('StudentTaskExerciseStepContent'),
+    });
+    props.ux.currentStep.api.requestCounts.read = 1;
+    expect(h).toHaveRendered('ExerciseTaskStep');
+    h.unmount();
   });
 
 });

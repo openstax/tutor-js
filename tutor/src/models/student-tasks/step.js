@@ -174,6 +174,17 @@ class StudentTaskStep extends BaseModel {
     }
   }
 
+  // called when the task is reloaded and each step is reset
+  @action setFromTaskFetch(data) {
+    // the step is being re-used and it's type changed
+    if (data.id != this.id || data.type != this.type) {
+      this.content = null;
+      this.isFetched = false;
+    }
+    this.api.reset();
+    this.update(data);
+  }
+
   // called by API
   fetch() { }
   save() {
