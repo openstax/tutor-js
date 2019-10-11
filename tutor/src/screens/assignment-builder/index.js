@@ -85,6 +85,7 @@ class AssignmentBuilder extends React.Component {
     return (
       <ScrollToTop>
         <TourRegion
+          className="assignment-builder"
           id={`${plan.type}-assignment-editor`}
           otherTours={[`${plan.type}-assignment-editor-super`]}
           courseId={course.id}

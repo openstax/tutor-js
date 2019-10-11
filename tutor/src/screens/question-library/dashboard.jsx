@@ -48,7 +48,11 @@ class QuestionsDashboard extends React.Component {
     return (
       <div className={classes}>
         {!this.isShowingExercises && (
-          <SectionsChooser {...this.props} onSelectionsChange={this.onSelectionsChange} />
+          <SectionsChooser
+            {...this.props}
+            pageIds={this.pageIds}
+            onSelectionsChange={this.onSelectionsChange}
+          />
         )}
         {this.isShowingExercises && (
           <ExercisesDisplay

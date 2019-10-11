@@ -3,8 +3,6 @@ import React from 'react';
 import { first, partial, findIndex } from 'lodash';
 import { observer } from 'mobx-react';
 import { observable, computed, action } from 'mobx';
-import ScrollTo from '../../helpers/scroll-to';
-
 import { ExercisePreview } from 'shared';
 import PagingNavigation from '../paging-navigation';
 import NoExercisesFound from './no-exercises-found';
@@ -28,18 +26,8 @@ class ExerciseDetails extends React.Component {
     selectedSection:       PropTypes.instanceOf(ChapterSection),
     displayFeedback:       PropTypes.bool,
     onSectionChange:       PropTypes.func,
-    topScrollOffset:       PropTypes.number,
     windowImpl:            PropTypes.object,
   };
-
-  static defaultProps = {
-    topScrollOffset: 40,
-  };
-
-  scroller = new ScrollTo({
-    windowImpl: this.props.windowImpl,
-    onAfterScroll: this.onAfterScroll,
-  });
 
   @observable currentIndex;
   @observable currentSection;
@@ -48,16 +36,23 @@ class ExerciseDetails extends React.Component {
     return this.props.exercises.array;
   }
 
-  componentDidMount() {
-    // this.scroller.scrollToSelector('.exercise-controls-bar');
-  }
-
   UNSAFE_componentWillMount() {
     const { selectedExercise } = this.props;
     if (selectedExercise) {
       this.currentIndex = findIndex(this.exercises, selectedExercise);
       if (-1 == this.currentIndex) this.currentIndex = 0;
-      this.currentSection = selectedExercise.page.chapter_section.asString;
+      this.currentSection = selectedExercise.page.chapter_section;
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!this.props.selectedSection.eq(prevProps.selectedSection)) {
+      const index = this.exercises.findIndex(
+        ex => ex.page.chapter_section.eq(this.props.selectedSection)
+      );
+      if (index != -1) {
+        this.currentIndex = index;
+      }
     }
   }
 
@@ -67,7 +62,7 @@ class ExerciseDetails extends React.Component {
   @action.bound moveTo(index) {
     this.currentIndex = index;
     const exercise = this.exercises[index];
-    const section = exercise.page.chapter_section.asString;
+    const section = exercise.page.chapter_section;
     if (this.currentSection !== section) {
       this.currentSection = section;
       if (this.props.onSectionChange) {

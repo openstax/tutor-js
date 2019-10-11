@@ -65,4 +65,11 @@ class ChapterSection extends BaseModel {
     return [this.chapter, this.section];
   }
 
+  eq(other) {
+    return Boolean(
+      this.chapter == other.chapter &&
+        this.section == other.section
+    );
+  }
+
 }

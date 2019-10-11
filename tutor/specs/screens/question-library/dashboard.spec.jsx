@@ -75,6 +75,20 @@ describe('Questions Dashboard Component', function() {
     dash.unmount();
   });
 
+  it('retains selected sections', () => {
+    const dash = mount(<C><Dashboard {...props} /></C>);
+    expect(dash).toHaveRendered('SectionsChooser');
+    const input = `[data-section-id="${page_ids[1]}"] input`;
+    expect(dash.find(input).props().checked).toBe(false);
+    dash.find(input).simulate('click');
+    dash.find('.section-controls .btn-primary').simulate('click');
+    expect(dash).toHaveRendered('ExercisesDisplay');
+    dash.find('ExercisesDisplay').props().onSelectSections();
+    expect(dash).toHaveRendered('SectionsChooser');
+    expect(dash.find(input).props().checked).toBe(true);
+    dash.unmount();
+  });
+
   it('can exclude exercises', () => {
     const dash = displayExercises();
     expect(dash).not.toHaveRendered('.no-exercises');
@@ -105,6 +119,7 @@ describe('Questions Dashboard Component', function() {
     expect(dash.find('.section.selected')).toHaveLength(9);
     dash.find('button.cancel').simulate('click');
     expect(dash.find('.section.selected')).toHaveLength(0);
+    dash.unmount();
   });
 
 });

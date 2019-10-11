@@ -6,14 +6,7 @@ $exercise-details-body-height: calc(100vh - 250px);
   display: flex;
   flex-direction: column;
 
-  // .content {
-  //   flex: 1;
-  //   display: flex;
-  //   align-items: flex-start;
-  // }
-
   .paged-content {
-
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -22,14 +15,15 @@ $exercise-details-body-height: calc(100vh - 250px);
 
   .tutor-paging-navigation {
     flex: 1;
-
   }
+
   .controls {
     position: absolute;
     top: 20px;
     left: 50%;
-    margin-left: 450px;
-    z-index: 1; // above details forward/back nav when scrolling up
+    z-index: 1;
+    text-align: right;
+    width: calc(50% - 60px);
 
     .pinned-shy & {
       top: 130px;
@@ -55,7 +49,6 @@ $exercise-details-body-height: calc(100vh - 250px);
 
     .controls-overlay {
       transition: none;
-//      height: 100vh;
     }
     &.has-interactive {
       .controls-overlay {
@@ -83,6 +76,7 @@ $exercise-details-body-height: calc(100vh - 250px);
   justify-content: space-between;
   align-items: center;
   padding: 0 $padding-horizontal;
+  min-height: 5.5rem;
 
   .sectionizer {
     $size: 40px;

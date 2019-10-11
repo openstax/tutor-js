@@ -26,7 +26,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                                           <div className=\\"homework-builder-view\\">
                                             <inject-with-setSecondaryTopControls(ExerciseControls) ux={{...}} unDocked={true} hideDisplayControls={true}>
                                               <ExerciseControls ux={{...}} unDocked={true} hideDisplayControls={true} setSecondaryTopControls={[Function: res]}>
-                                                <div className=\\"exercise-controls-bar\\">
+                                                <div className=\\"assignment exercise-controls-bar\\">
                                                   <div className=\\"controls\\" />
                                                   <div className=\\"indicators\\">
                                                     <div className=\\"num total\\">
