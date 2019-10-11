@@ -4,7 +4,7 @@ import ChapterSectionModel from '../models/chapter-section';
 
 export default
 function ChapterSection({ chapterSection }) {
-
+  if (!chapterSection || chapterSection.isEmpty) { return null; }
   return (
     <span
       className="chapter-section"

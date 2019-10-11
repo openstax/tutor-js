@@ -44,7 +44,7 @@ class ChapterSection extends BaseModel {
   }
 
   @computed get isPresent() {
-    return Boolean(this.chapter && this.section);
+    return Boolean(this.chapter || this.section);
   }
 
   @computed get key() {

@@ -37,7 +37,7 @@ describe('Homework Builder', function() {
     const { exercise } = preview.props();
     preview.find('ControlsOverlay .include').simulate('click');
     expect(ux.plan.settings.exercise_ids).toContain(exercise.wrapper.id);
-    expect(ux.plan.numExercises).toEqual(1);
+    expect(ux.numExerciseSteps).toEqual(1);
     ux.onExercisesReviewClicked();
     expect(hw).toHaveRendered('ReviewExercises');
     jest.spyOn(props.ux.plan, 'save');

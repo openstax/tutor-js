@@ -48,9 +48,7 @@ exports[`review exercises table matches snapshot 1`] = `
                                                         1
                                                       </td>
                                                       <td>
-                                                        <ChapterSection chapterSection={{...}}>
-                                                          <span className=\\"chapter-section\\" data-chapter-section=\\".0\\" />
-                                                        </ChapterSection>
+                                                        <ChapterSection chapterSection={{...}} />
                                                       </td>
                                                       <td>
                                                         <Component block={false} html=\\"What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?\\">
@@ -62,57 +60,6 @@ exports[`review exercises table matches snapshot 1`] = `
                                                       </td>
                                                       <td className=\\"ellipses\\">
                                                         blooms:3 / dok:3
-                                                      </td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td className=\\"exercise-number\\">
-                                                        2
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                      <td>
-                                                        Tutor Selection
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td className=\\"exercise-number\\">
-                                                        3
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                      <td>
-                                                        Tutor Selection
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td className=\\"exercise-number\\">
-                                                        4
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                      <td>
-                                                        Tutor Selection
-                                                      </td>
-                                                      <td>
-                                                        -
-                                                      </td>
-                                                      <td>
-                                                        -
                                                       </td>
                                                     </tr>
                                                   </tbody>

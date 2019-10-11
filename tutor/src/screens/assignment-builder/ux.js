@@ -1,11 +1,12 @@
 import { action, computed, observable, runInAction } from 'mobx';
 import moment from 'moment';
-import { map, compact, isEmpty, filter, first } from 'lodash';
+import { map, get, compact, isEmpty, filter, first } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
 import Exercises from '../../models/exercises';
-import TaskPlan, { calculateDefaultOpensAt } from '../../models/task-plans/teacher/plan';
+import TaskPlan, { SELECTION_COUNTS, calculateDefaultOpensAt } from '../../models/task-plans/teacher/plan';
 import ReferenceBook from '../../models/reference-book';
 import Form from './form';
+
 
 class AssignmentBuilderUX {
 
@@ -139,6 +140,27 @@ class AssignmentBuilderUX {
     )));
   }
 
+  @computed get numTutorSelections() {
+    return get(this.plan, 'settings.exercises_count_dynamic', 0);
+  }
+
+  @computed get canIncreaseTutorExercises() {
+    return this.canEdit && this.numTutorSelections < SELECTION_COUNTS.max;
+  }
+
+  @computed get canDecreaseTutorExercises() {
+    return this.canEdit && this.numTutorSelections > SELECTION_COUNTS.min;
+  }
+
+  @computed get numExerciseSteps() {
+    return Math.max(
+      this.selectedExercises.reduce(
+        (count, ex) => count + get(ex, 'content.questions.length', 0), 0,
+      ),
+      get(this.plan.settings, 'exercise_ids.length', 0),
+    );
+  }
+
   isExerciseSelected(ex) {
     return this.selectedExercises.includes(ex);
   }
@@ -177,14 +199,14 @@ class AssignmentBuilderUX {
   }
 
   @action.bound increaseTutorSelection() {
-    if (this.plan.canIncreaseTutorExercises) {
-      this.plan.settings.exercises_count_dynamic = this.plan.numTutorSelections + 1;
+    if (this.canIncreaseTutorExercises) {
+      this.plan.settings.exercises_count_dynamic = this.numTutorSelections + 1;
     }
   }
 
   @action.bound decreaseTutorSelection() {
-    if (this.plan.canDecreaseTutorExercises) {
-      this.plan.settings.exercises_count_dynamic = this.plan.numTutorSelections - 1;
+    if (this.canDecreaseTutorExercises) {
+      this.plan.settings.exercises_count_dynamic = this.numTutorSelections - 1;
     }
   }
 

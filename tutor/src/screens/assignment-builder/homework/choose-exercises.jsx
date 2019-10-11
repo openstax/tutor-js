@@ -1,6 +1,6 @@
-import { React, PropTypes, observer } from 'vendor';
+import { React, PropTypes, observer, computed } from 'vendor';
 import { isEmpty } from 'lodash';
-import { Button } from 'react-bootstrap';
+import { AsyncButton } from 'shared';
 import AddExercises from './add-exercises';
 import Loading from 'shared/components/loading-animation';
 import SelectSections from '../select-sections';
@@ -13,10 +13,15 @@ class ChooseExercises extends React.Component {
     ux: PropTypes.instanceOf(UX).isRequired,
   };
 
+  @computed get isFetchingExercises() {
+    const { ux } = this.props;
+    return ux.exercises.isFetching({ pageIds: ux.selectedPageIds });
+  }
+
   renderExercises() {
     const { ux, ux: { exercises } } = this.props;
     if (!ux.isShowingExercises) { return null; }
-    if (exercises.isFetching({ pageIds: ux.selectedPageIds })) {
+    if (this.isFetchingExercises) {
       return <Loading />;
     }
 
@@ -38,15 +43,17 @@ class ChooseExercises extends React.Component {
         <SelectSections
           ux={ux}
           primary={
-            <Button
+            <AsyncButton
               id="add-sections-to-homework"
               variant="primary"
+              waitingText="Loading…"
+              isWaiting={this.isFetchingExercises}
               disabled={isEmpty(ux.selectedPageIds)}
               onClick={ux.onExercisesShow}
               key="show-problems" // need key because button is passed in and rendered in array
             >
               Show Problems
-            </Button>
+            </AsyncButton>
           }
           header="Add Questions"
         />
