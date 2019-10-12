@@ -1,30 +1,27 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { readonly } from 'core-decorators';
+import { React, PropTypes, readonly, observer, observable, action } from 'vendor';
 import { isEmpty } from 'lodash';
-import { observer } from 'mobx-react';
-import { observable, action, computed } from 'mobx';
+import ChapterSection from '../chapter-section';
 import SectionsFilter from './sections-filter';
 import NoteCard from './note-card';
 import SummaryPopup from './summary-popup';
 import { Notes } from '../../models/notes';
 import Page from '../../models/reference-book/page';
 
-const NotesForSection = observer(({
-  onDelete, notes, section, selectedSections,
+const NotesForPage = observer(({
+  onDelete, notes, page, selectedPages,
 }) => {
-  if (!selectedSections.includes(section.chapter_section.key)) {
+  if (!selectedPages.find(pg => pg.id == page.id)) {
     return null;
   }
-  const page = notes.forChapterSection(section.chapter_section);
+  const pageNotes = notes.forPage(page);
 
   return (
     <div className="section">
       <h2 className="section-title">
-        {section.chapter_section.asString}
-        {section.title }
+        <ChapterSection chapterSection={page.chapter_section} />
+        {page.title }
       </h2>
-      {page.notesByPagePosition.map((note) => (
+      {pageNotes.byPagePosition.map((note) => (
         <NoteCard
           key={note.id}
           note={note}
@@ -46,27 +43,23 @@ class NoteSummaryPage extends React.Component {
     onDelete: PropTypes.func.isRequired,
   };
 
-  @readonly selectedSections = observable.array();
+  @readonly selectedPages = observable.array();
 
-  resetCurrentChapterSection() {
-    this.selectedSections.clear();
-    if (this.props.notes.find(this.currentChapterSection.key)) {
-      this.selectedSections.push(this.currentChapterSection.key);
+  resetCurrentPage() {
+    this.selectedPages.clear();
+    if (this.props.notes.forPage(this.props.page)) {
+      this.selectedPages.push(this.props.page);
     }
   }
 
-  @computed get currentChapterSection() {
-    return this.props.page.chapter_section;
-  }
-
   componentDidMount() {
-    this.resetCurrentChapterSection();
+    this.resetCurrentPage();
     this.prepareFocus();
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.page !== prevProps.page) {
-      this.resetCurrentChapterSection();
+      this.resetCurrentPage();
     }
   }
 
@@ -100,13 +93,12 @@ class NoteSummaryPage extends React.Component {
     );
   }
 
-
   renderEmptyMessage() {
     const { notes, page } = this.props;
 
     if (
-      !this.selectedSections.length &&
-        !notes.sections.find(s => s.chapter_section.matches(page.chapter_section))
+      !this.selectedPages.length &&
+        !notes.summary.find(s => s.id == page.id)
     ) {
       return (
         <div className="notes">
@@ -120,7 +112,7 @@ class NoteSummaryPage extends React.Component {
   }
 
   render() {
-    if (isEmpty(this.props.notes.sections)) {
+    if (isEmpty(this.props.notes.summary)) {
       return this.renderEmpty();
     }
 
@@ -134,21 +126,21 @@ class NoteSummaryPage extends React.Component {
         <div className="filter-area">
           <SectionsFilter
             notes={notes}
-            selected={this.selectedSections}
+            selected={this.selectedPages}
           />
           <SummaryPopup
             notes={notes}
-            selected={this.selectedSections}
+            selected={this.selectedPages}
           />
         </div>
         {this.renderEmptyMessage()}
         <div className="notes">
-          {notes.sections.sorted().map((s, i) =>
-            <NotesForSection
+          {notes.summary.sorted().map((p, i) =>
+            <NotesForPage
               key={i}
               notes={notes}
-              selectedSections={this.selectedSections}
-              section={s}
+              selectedPages={this.selectedPages}
+              page={p}
               onDelete={this.onDelete}
             />)}
         </div>

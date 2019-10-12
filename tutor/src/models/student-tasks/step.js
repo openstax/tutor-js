@@ -26,14 +26,14 @@ class StudentTaskReadingStep extends TaskStepContent {
   @observable title;
   @lazyGetter chapterSection = new ChapterSection(this.chapter_section);
   @hasMany({ model: RelatedContent }) related_content;
-  @lazyGetter page = new Page(
-    Object.assign({
-      cnx_id: extractCnxId(this.content_url),
-      content_html: this.html,
-      title: this.related_content[0].title,
-      chapter_section: this.chapterSection,
-    }),
-  );
+  @lazyGetter page = new Page({
+    uuid: this.related_content[0].uuid,
+    id: this.related_content[0].page_id,
+    cnx_id: extractCnxId(this.content_url),
+    content_html: this.html,
+    title: this.related_content[0].title,
+    chapter_section: this.chapterSection,
+  });
   @computed get pageTitle() {
     return this.title || get(this, 'related_content[0].title');
   }

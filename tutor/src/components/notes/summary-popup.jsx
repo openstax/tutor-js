@@ -7,21 +7,23 @@ import { Icon } from 'shared';
 import PopoutWindow from 'shared/components/popout-window';
 import { ArbitraryHtmlAndMath } from 'shared';
 import Analytics from '../../helpers/analytics';
+import ChapterSection from '../chapter-section';
 
-const NotesForSection = observer(({
-  notes, section, selectedSections,
+const NotesForPage = observer(({
+  notes, page, selectedPages,
 }) => {
-  if (!selectedSections.includes(section.chapter_section.key)) {
+  if (!selectedPages.find(pg => pg.id == page.id)) {
     return null;
   }
-  const page = notes.forChapterSection(section.chapter_section);
+  const pageNotes = notes.forPage(page);
+
   return (
     <div className="section">
       <h2>
-        {section.chapter_section.asString}
-        {section.title}
+        <ChapterSection chapterSection={page.chapter_section}
+        /> {page.title}
       </h2>
-      {page.notesByPagePosition.map((note) => (
+      {pageNotes.byPagePosition.map((note) => (
         <div
           key={note.id}
           style={{
@@ -50,7 +52,7 @@ const NotesForSection = observer(({
     </div>
   );
 });
-NotesForSection.displayName = 'NotesForSection';
+NotesForPage.displayName = 'NotesForPage';
 
 export default
 @observer
@@ -118,12 +120,12 @@ class SummaryPopup extends React.Component {
         >
           <div className="summary-preview summary-popup">
             <div className="notes">
-              {notes.sections.sorted().map((s, i) =>
-                <NotesForSection
+              {notes.summary.sorted().map((pg, i) =>
+                <NotesForPage
                   key={i}
                   notes={notes}
-                  selectedSections={selected}
-                  section={s}
+                  selectedPages={selected}
+                  page={pg}
                 />)}
             </div>
           </div>

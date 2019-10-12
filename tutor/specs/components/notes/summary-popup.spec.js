@@ -25,10 +25,10 @@ describe('Notes Summary Popup', () => {
     const course = Factory.course();
     const note = Factory.note();
     note.annotation = 'This is a comment added by user';
-    const pageNotes = course.notes.forChapterSection(note.chapter_section);
+    const pageNotes = course.notes.forPage({ id: note.page_id });
     pageNotes.onLoaded({ data: [note] });
-    pages = [Factory.page({ chapter_section: note.chapter_section.asString } )];
-    course.notes.onHighlightedSectionsLoaded({
+    pages = [Factory.page()];
+    course.notes.onHighlightedPagesLoaded({
       data: {
         pages,
       },
@@ -36,7 +36,7 @@ describe('Notes Summary Popup', () => {
     props = {
       page: pages[0],
       notes: course.notes,
-      selected: [note.chapter_section.key],
+      selected: pages,
     };
   });
 
@@ -46,7 +46,8 @@ describe('Notes Summary Popup', () => {
 
   it('renders summary and annotations', () => {
     const sp = mount(<SummaryPopup {...props} />);
-    expect(sp).toHaveRendered('MockPopout NotesForSection');
-    expect(sp.find('MockPopout NotesForSection').text()).toContain('added by user');
+    expect(sp).toHaveRendered('MockPopout NotesForPage');
+    expect(sp.find('MockPopout NotesForPage').text()).toContain('added by user');
+    sp.unmount();
   });
 });

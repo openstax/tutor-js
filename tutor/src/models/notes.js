@@ -5,7 +5,6 @@ import {
 } from 'shared/model';
 import ChapterSection from './chapter-section';
 import Map from 'shared/model/map';
-import { chapterSectionToNumber } from '../helpers/content';
 import Note from './notes/note';
 
 class PageNotes extends Map {
@@ -13,22 +12,23 @@ class PageNotes extends Map {
 
   static Model = Note
 
-  constructor({ notes, chapterSection }) {
+  constructor({ page, notes }) {
     super();
     this.notes = notes;
-    this.chapterSection = chapterSection;
+    this.page = page;
     this.fetch();
   }
 
-  @computed get notesByPagePosition() {
+  @computed get uuid() {
+    return this.page.uuid;
+  }
+
+  @computed get byPagePosition() {
     return sortBy(this.array, 'pageTopPosition');
   }
 
   fetch() {
-    return {
-      chapterSection: this.chapterSection,
-      courseId: this.notes.course.id,
-    };
+    return { pageUuid: this.page.uuid };
   }
 
   @action onLoaded({ data: notes }) {
@@ -40,19 +40,18 @@ class PageNotes extends Map {
     this.notes.onNoteDeleted(note, this);
   }
 
-  create({ anchor, page, ...attrs }) {
+  async create({ anchor, page, ...attrs }) {
     const note = new Note({
       anchor,
       chapter_section: page.chapter_section,
+      page_id: page.id,
       contents: attrs,
     }, this);
-
-    return note.save().then(() => {
-      if (!this.notes.sections.forChapterSection(page.chapter_section.key)) {
-        this.notes.sections.push(page);
-      }
-      return note;
-    });
+    await note.save();
+    if (!this.notes.summary.forPage(page)) {
+      this.notes.summary.push(page);
+    }
+    return note;
   }
 
 }
@@ -61,6 +60,7 @@ class PageNotes extends Map {
 class HighlightedSection extends BaseModel {
 
   @identifier id;
+  @session uuid;
   @session title;
   @session({ model: ChapterSection }) chapter_section;
 
@@ -73,60 +73,49 @@ class Notes extends BaseModel {
 
   @hasMany({ model: HighlightedSection, extend: {
     sorted() { return sortBy(this, 'chapter_section.asNumber'); },
-    forChapterSection(cs) {
-      return this.find(s => s.chapter_section.matches(cs));
+    forPage(page) {
+      return this.find(s => s.uuid == page.uuid);
     },
-  } }) sections = [];
+  } }) summary;
+
 
   constructor({ course }) {
     super();
     this.course = course;
-    this.fetchHighlightedSections();
+    this.fetchHighlightedPages();
   }
 
-  @action forChapterSection(chapterSection) {
-    chapterSection = String(chapterSection);
-    let pages = this.pages.get(chapterSection);
-    if (!pages) {
-      pages = new PageNotes({ chapterSection, notes: this });
+  @action forPage(page) {
+    let notes = this.pages.get(String(page.id));
+    if (!notes) {
+      notes = new PageNotes({ page, notes: this });
+      this.pages.set(String(page.id), notes);
     }
-    this.pages.set(chapterSection, pages);
-    return pages;
+    return notes;
   }
 
-  fetchHighlightedSections() {
-    return { courseId: this.course.id };
+  fetchHighlightedPages() {
+    return { bookUuid: this.course.ecosystem_book_uuid };
   }
 
-  onHighlightedSectionsLoaded({ data: { pages } }) {
-    const sections = {};
+  onHighlightedPagesLoaded({ data: { pages } }) {
+    const summary = {};
     pages.forEach(pg => {
-      const key = pg.chapter_section.join('.');
-      if (!sections[key]) { sections[key] = pg; }
+      const key = pg.id;
+      if (!summary[key]) { summary[key] = pg; }
     });
-    this.sections = values(sections);
+    this.summary = values(summary);
   }
 
   @action onNoteDeleted(note, page) {
     if (page.isEmpty) {
-      const section = this.sections.forChapterSection(note.chapter_section);
+      const section = this.pages.get(page.uuid);
       if (section) {
-        this.sections.remove(section);
+        this.pages.remove(section);
       }
     }
   }
 
-  find(chapterSection) {
-    chapterSection = String(chapterSection);
-    const section = this.sections.forChapterSection(chapterSection);
-    if (section) {
-      return {
-        section,
-        notes: this.forChapterSection(chapterSection),
-      };
-    }
-    return null;
-  }
 }
 
 export { Note, Notes, PageNotes };

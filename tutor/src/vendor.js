@@ -8,12 +8,12 @@ import {
   withRouter, useHistory, useLocation, useParams,
 } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import { autobind } from 'core-decorators';
+import { autobind, readonly } from 'core-decorators';
 import { idType, ArrayOrMobxType } from 'shared/helpers/react';
 import Theme from './theme';
 
 export {
-  withRouter, ArrayOrMobxType,
+  withRouter, ArrayOrMobxType, readonly,
   React, cn, ReactDOM, mobxPropTypes, PropTypes,
   invariant, styled, css, idType, autobind, Theme,
   useState, useHistory, useLocation, useParams, useEffect,

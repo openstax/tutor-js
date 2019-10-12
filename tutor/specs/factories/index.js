@@ -113,13 +113,13 @@ Factories.scores = ({ course }) => {
   return course.scores;
 };
 
-Factories.notesPageMap = ({ course, chapter, section, count = 4 }) => {
-  const page = course.notes.forChapterSection(chapter, section);
+Factories.notesPageMap = ({ course, page, count = 4 }) => {
+  const notes = course.notes.forPage(page);
   range(count).forEach(() => {
-    const note = new Note(FactoryBot.create('Note', { chapter, section }), page)
-    page.set(note.id, note);
+    const note = new Note(FactoryBot.create('Note', { page }), page)
+    notes.set(note.id, note);
   })
-  return page;
+  return notes;
 }
 
 Factories.exercisesMap = ({ now, book, pageIds = [], count = 4 } = {}) => {

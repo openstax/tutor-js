@@ -82,23 +82,27 @@ const startAPI = function() {
     { pattern: 'user/tours/{id}' }
   );
 
+  // notes
   connectModelUpdate(Note, 'save', {
     onSuccess: 'onUpdated',
     method() { return this.isNew ? 'POST' : 'PATCH'; },
-    pattern() { return 'courses/{courseId}/notes/{chapterSection}' + (this.isNew ? '' : '/{id}'); },
+    pattern() {
+      return this.isNew ? 'pages/{pageUuid}/notes' : 'notes/{id}';
+    },
   });
   connectModelDelete(Note, 'destroy', {
     onSuccess: 'onDeleted',
-    pattern: 'courses/{courseId}/notes/{chapterSection}/{id}',
+    pattern: 'notes/{id}',
   });
   connectModelRead(PageNotes, 'fetch', {
     onSuccess: 'onLoaded',
-    pattern: 'courses/{courseId}/notes/{chapterSection}',
+    pattern: 'pages/{pageUuid}/notes',
   });
-  connectModelRead(Notes, 'fetchHighlightedSections', {
-    onSuccess: 'onHighlightedSectionsLoaded',
-    pattern: 'courses/{courseId}/highlighted_sections',
+  connectModelRead(Notes, 'fetchHighlightedPages', {
+    onSuccess: 'onHighlightedPagesLoaded',
+    pattern: 'books/{bookUuid}/highlighted_sections',
   });
+
 
   connectModelRead(Course, 'fetch', { pattern: 'courses/{id}' });
 

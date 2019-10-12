@@ -58,7 +58,7 @@
   @include toc-indented-levels(4);
   max-height: 100%;
   overflow-y: scroll;
-  .section-number {
+  .chapter-section {
     color: $tutor-chapter-sections-color;
     font-weight: bold;
     margin-right: 0.4rem;

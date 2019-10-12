@@ -8,10 +8,10 @@ describe('Notes Summary Page', () => {
   beforeEach(() => {
     const course = Factory.course();
     const note = Factory.note();
-    course.notes.forChapterSection(note.chapter_section)
-      .onLoaded({ data: [note] });
     pages = [Factory.page()];
-    course.notes.onHighlightedSectionsLoaded({
+
+    course.notes.forPage(pages[0]).onLoaded({ data: [note] });
+    course.notes.onHighlightedPagesLoaded({
       data: {
         pages,
       },
@@ -32,5 +32,7 @@ describe('Notes Summary Page', () => {
     const dropDownSelector = `DropdownItem[eventKey="${pages[0].chapter_section.key}"]`;
     expect(sp).toHaveRendered(dropDownSelector);
     sp.find(dropDownSelector).simulate('click');
+    expect(sp).toHaveRendered('NoteCard');
+    sp.unmount();
   });
 });

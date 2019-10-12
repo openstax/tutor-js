@@ -26,16 +26,13 @@ describe('Notes', () => {
 
   beforeEach(function() {
     const course = Factory.course();
-    const chapter = 1;
-    const section = 1;
+
     course.referenceBook.update(FactoryBot.create('Book'));
-    const page = course.referenceBook.pages.byChapterSection.get(`${chapter}.${section}`);
+    const page = course.referenceBook.pages.byChapterSection.get('1.1');
 
     Router.currentQuery.mockReturnValue({});
     const body = window.document.body;
-    const notes = Factory.notesPageMap({
-      course, chapter, section,
-    });
+    const notes = Factory.notesPageMap({ course, page });
     body.innerHTML = '<div id="mount"><div class="book-content">' +
       page.contents;
     window.MutationObserver = class {

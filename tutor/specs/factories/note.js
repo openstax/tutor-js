@@ -1,16 +1,13 @@
 const {
-  Factory, sequence,
-  fake, APPEARANCE_CODES,
+  Factory, sequence, APPEARANCE_CODES,
 } = require('./helpers');
 
 Factory.define('Note')
   .id(sequence)
   .page_id(sequence)
   .anchor('p-1234')
-  .chapter_section(({ chapter, section }) => [
-    chapter || fake.random.number({ min: 1, max: 10 }),
-    section || fake.random.number({ min: 1, max: 5 }),
-  ])
+  .pageId(({ page }) => page ? page.id : null)
+  .chapter_section(({ page }) => page ? page.chapter_section : [])
   .contents({
     content: '“physics”? Did you imagine ',
     endContainer: './*[name()=\'p\'][1]/text()[1]',
