@@ -21,6 +21,7 @@ export default class TaskUX {
     this.window = windowImpl || window;
     this.course = course || task.tasksMap.course;
     this.becomeStudentIfNeeded();
+    CenterControls.currentTaskStep = this.currentStep;
     observe(this, 'currentStep', this.onStepChange, true);
     when(
       () => !this.task.api.isPendingInitialFetch,
