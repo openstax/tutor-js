@@ -1,10 +1,8 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import { React, PropTypes, cn, withRouter } from 'vendor';
 import { Dropdown } from 'react-bootstrap';
 import TutorRouter from '../../helpers/router';
-import { withRouter } from 'react-router-dom';
-import { Route } from 'react-router';
-import { partial, flatMap, isEmpty, omit } from 'lodash';
+import { Link } from 'react-router-dom';
+import { partial, flatMap, isEmpty } from 'lodash';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
 import { autobind } from 'core-decorators';
@@ -19,7 +17,7 @@ const RoutedDropdownItem = (props) => {
   let { label } = props;
   // eslint-disable-next-line react/prop-types
   const { name, tourId, className, route, locked, href } = props;
-  const isActive = TutorRouter.isActive(route.name, route.params, route.options);
+  const active = TutorRouter.isActive(route.name, route.params, route.options);
 
   if (locked) {
     label = (
@@ -31,18 +29,16 @@ const RoutedDropdownItem = (props) => {
   }
 
   return (
-    <Route path={href} exact>
-      <Dropdown.Item
-        disabled={locked}
-        className={classnames(name, className, { 'active': isActive, locked })}
-        data-name={name}
-        {...omit(props, ['label', 'options', 'locked', 'name', 'tourId', 'className', 'route'])}
-      >
-        <TourAnchor id={tourId}>
-          {label}
-        </TourAnchor>
-      </Dropdown.Item>
-    </Route>
+    <Link
+      to={href}
+      data-name={name}
+      className={cn('dropdown-item', className, { active })}
+    >
+      <TourAnchor id={tourId}>
+        {label}
+      </TourAnchor>
+    </Link>
+
   );
 };
 
@@ -134,7 +130,6 @@ class ActionsMenu extends React.Component {
 
   render() {
     const menuRoutes = UserMenu.getRoutes(this.props.course);
-
     if (isEmpty(menuRoutes)) {
       return null;
     }
