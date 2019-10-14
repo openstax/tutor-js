@@ -1,6 +1,7 @@
 import { React, PropTypes, styled, Theme } from 'vendor';
 import { isEmpty } from 'lodash';
-import ChapterSection from '../models/chapter-section';
+import ChapterSection from './chapter-section';
+import ChapterSectionModel from '../models/chapter-section';
 
 const PageTitleWrapper = styled.div.attrs({ className: 'page-title' })`
   margin-top: 3rem;
@@ -32,7 +33,7 @@ class PageTitle extends React.Component {
     title: PropTypes.string,
     showObjectivesPreamble: PropTypes.bool,
     isChapterSectionDisplayed: PropTypes.bool,
-    chapter_section: PropTypes.instanceOf(ChapterSection).isRequired,
+    chapter_section: PropTypes.instanceOf(ChapterSectionModel).isRequired,
   };
 
   static defaultProps = {
@@ -61,10 +62,7 @@ class PageTitle extends React.Component {
       <PageTitleWrapper>
         <Heading>
           {isChapterSectionDisplayed && (
-            <div className="section">
-              {chapter_section.toString()}
-              {' '}
-            </div>)}
+            <ChapterSection chapterSection={chapter_section} />)}
           <Title>
             {title}
           </Title>

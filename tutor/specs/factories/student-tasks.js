@@ -1,5 +1,5 @@
 const {
-  Factory, sequence, fake, moment, SECTION_NAMES,
+  Factory, sequence, fake, moment, uuid, SECTION_NAMES,
 } = require('./helpers');
 const { range, isNil } = require('lodash');
 
@@ -19,6 +19,15 @@ const TASK_TYPES={
   ],
   event: [], // has no steps
 };
+
+Factory.define('RelatedContent')
+  .uuid(uuid)
+  .id(sequence)
+  .title(() => fake.random.arrayElement(SECTION_NAMES))
+  .chapter_section(() => [
+    fake.random.number({ min: 1, max: 10 }),
+    fake.random.number({ min: 1, max: 10 }),
+  ])
 
 Factory.define('StudentTaskStep')
   .id(sequence)

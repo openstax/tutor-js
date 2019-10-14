@@ -3,7 +3,9 @@
   .page-title {
 
     @include printer-safe(inline-flex, inherit, inherit, 10px);
-
+    .chapter-section {
+      color: unset;
+    }
     @include book-content-full-width();
     margin-top: -$tutor-card-body-padding-vertical;
 

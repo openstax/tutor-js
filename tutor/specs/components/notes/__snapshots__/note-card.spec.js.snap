@@ -26,7 +26,7 @@ exports[`Notes Summary Page matches snapshot 1`] = `
             </IconWrapper>
           </Icon>
         </button>
-        <a href=\\"/book/1/section/5.4?highlight=1\\" target=\\"_blank\\" className=\\"view-in-book\\" title=\\"View in book\\">
+        <a href=\\"/book/1/section/undefined?highlight=1\\" target=\\"_blank\\" className=\\"view-in-book\\" title=\\"View in book\\">
           <Icon type=\\"external-link-alt\\" buttonProps={{...}} tooltipProps={{...}}>
             <IconWrapper data-variant={[undefined]} className=\\"ox-icon ox-icon-external-link-alt\\" icon={{...}}>
               <StyledComponent data-variant={[undefined]} className=\\"ox-icon ox-icon-external-link-alt\\" icon={{...}} forwardedComponent={{...}} forwardedRef={{...}}>

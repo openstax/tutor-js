@@ -40,7 +40,7 @@ class NotesWidgetWrapper extends React.Component {
     return (
       <NotesWidget
         key={`${course.id}.${page.id}`}
-        notes={course.notes.forChapterSection(page.chapter_section)}
+        notes={course.notes.forPage(page)}
         {...this.props}
       />
     );

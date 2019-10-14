@@ -24,7 +24,7 @@ class SectionsFilter extends React.Component {
   }
 
   @computed get choices() {
-    return this.props.notes.sections.sorted().map((s) => (
+    return this.props.notes.summary.sorted().map((s) => (
       {
         id: s.chapter_section.key,
         title: (
@@ -51,4 +51,4 @@ class SectionsFilter extends React.Component {
     );
   }
 
-};
+}

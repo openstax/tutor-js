@@ -1,7 +1,7 @@
 import { React, cn, PropTypes, observer, computed } from 'vendor';
 import { map, partial } from 'lodash';
 import TutorLink from '../link';
-
+import ChapterSection from '../chapter-section';
 
 @observer
 class BookMenuTocSection extends React.Component {
@@ -17,9 +17,7 @@ class BookMenuTocSection extends React.Component {
     return (
       <div className="chapter-section-title">
         {section.isChapterSectionDisplayed &&
-          <span className="section-number">
-            {section.chapter_section.asString}
-          </span>}
+          <ChapterSection chapterSection={section.chapter_section} />}
         <span key="title">{section.title}</span>
       </div>
     );

@@ -45,8 +45,14 @@ exports[`Notes Summary Popup matches snapshot 1`] = `
           className="section"
         >
           <h2>
-            5.4
-            directional
+            <span
+              className="chapter-section"
+              data-chapter-section="2.1"
+            >
+              2.1
+            </span>
+             
+            responsive
           </h2>
           <div
             style={

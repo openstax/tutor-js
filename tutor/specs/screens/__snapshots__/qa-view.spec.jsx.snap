@@ -83,7 +83,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="1.1"
                       >
                         1.1
                       </span>
@@ -115,7 +116,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="1.2"
                       >
                         1.2
                       </span>
@@ -197,7 +199,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="2.1"
                       >
                         2.1
                       </span>
@@ -229,7 +232,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="2.2"
                       >
                         2.2
                       </span>
@@ -261,7 +265,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="2.3"
                       >
                         2.3
                       </span>
@@ -343,7 +348,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="3.1"
                       >
                         3.1
                       </span>
@@ -375,7 +381,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="3.2"
                       >
                         3.2
                       </span>
@@ -407,7 +414,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="3.3"
                       >
                         3.3
                       </span>
@@ -439,7 +447,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="3.4"
                       >
                         3.4
                       </span>
@@ -471,7 +480,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="3.5"
                       >
                         3.5
                       </span>
@@ -553,7 +563,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="4.1"
                       >
                         4.1
                       </span>
@@ -585,7 +596,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="4.2"
                       >
                         4.2
                       </span>
@@ -617,7 +629,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="4.3"
                       >
                         4.3
                       </span>
@@ -649,7 +662,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="4.4"
                       >
                         4.4
                       </span>
@@ -681,7 +695,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="4.5"
                       >
                         4.5
                       </span>
@@ -713,7 +728,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="4.6"
                       >
                         4.6
                       </span>
@@ -795,7 +811,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="5.1"
                       >
                         5.1
                       </span>
@@ -827,7 +844,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="5.2"
                       >
                         5.2
                       </span>
@@ -859,7 +877,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="5.3"
                       >
                         5.3
                       </span>
@@ -891,7 +910,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="5.4"
                       >
                         5.4
                       </span>
@@ -973,7 +993,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="6.1"
                       >
                         6.1
                       </span>
@@ -1005,7 +1026,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="6.2"
                       >
                         6.2
                       </span>
@@ -1037,7 +1059,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="6.3"
                       >
                         6.3
                       </span>
@@ -1069,7 +1092,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="6.4"
                       >
                         6.4
                       </span>
@@ -1101,7 +1125,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="6.5"
                       >
                         6.5
                       </span>
@@ -1183,7 +1208,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="7.1"
                       >
                         7.1
                       </span>
@@ -1215,7 +1241,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="7.2"
                       >
                         7.2
                       </span>
@@ -1247,7 +1274,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="7.3"
                       >
                         7.3
                       </span>
@@ -1279,7 +1307,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="7.4"
                       >
                         7.4
                       </span>
@@ -1311,7 +1340,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="7.5"
                       >
                         7.5
                       </span>
@@ -1343,7 +1373,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="7.6"
                       >
                         7.6
                       </span>
@@ -1375,7 +1406,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="7.7"
                       >
                         7.7
                       </span>
@@ -1457,7 +1489,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="8.1"
                       >
                         8.1
                       </span>
@@ -1489,7 +1522,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="8.2"
                       >
                         8.2
                       </span>
@@ -1521,7 +1555,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="8.3"
                       >
                         8.3
                       </span>
@@ -1603,7 +1638,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="9.1"
                       >
                         9.1
                       </span>
@@ -1635,7 +1671,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="9.2"
                       >
                         9.2
                       </span>
@@ -1667,7 +1704,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="9.3"
                       >
                         9.3
                       </span>
@@ -1699,7 +1737,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="9.4"
                       >
                         9.4
                       </span>
@@ -1781,7 +1820,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="10.1"
                       >
                         10.1
                       </span>
@@ -1813,7 +1853,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="10.2"
                       >
                         10.2
                       </span>
@@ -1845,7 +1886,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="10.3"
                       >
                         10.3
                       </span>
@@ -1877,7 +1919,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="10.4"
                       >
                         10.4
                       </span>
@@ -1909,7 +1952,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="10.5"
                       >
                         10.5
                       </span>
@@ -1991,7 +2035,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="11.1"
                       >
                         11.1
                       </span>
@@ -2023,7 +2068,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="11.2"
                       >
                         11.2
                       </span>
@@ -2105,7 +2151,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="12.1"
                       >
                         12.1
                       </span>
@@ -2137,7 +2184,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="12.2"
                       >
                         12.2
                       </span>
@@ -2169,7 +2217,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="12.3"
                       >
                         12.3
                       </span>
@@ -2251,7 +2300,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="13.1"
                       >
                         13.1
                       </span>
@@ -2283,7 +2333,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="13.2"
                       >
                         13.2
                       </span>
@@ -2365,7 +2416,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="14.1"
                       >
                         14.1
                       </span>
@@ -2397,7 +2449,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="14.2"
                       >
                         14.2
                       </span>
@@ -2429,7 +2482,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="14.3"
                       >
                         14.3
                       </span>
@@ -2461,7 +2515,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="14.4"
                       >
                         14.4
                       </span>
@@ -2493,7 +2548,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="14.5"
                       >
                         14.5
                       </span>
@@ -2525,7 +2581,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="14.6"
                       >
                         14.6
                       </span>
@@ -2607,7 +2664,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="15.1"
                       >
                         15.1
                       </span>
@@ -2639,7 +2697,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="15.2"
                       >
                         15.2
                       </span>
@@ -2671,7 +2730,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="15.3"
                       >
                         15.3
                       </span>
@@ -2703,7 +2763,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="15.4"
                       >
                         15.4
                       </span>
@@ -2735,7 +2796,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="15.5"
                       >
                         15.5
                       </span>
@@ -2817,7 +2879,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="16.1"
                       >
                         16.1
                       </span>
@@ -2849,7 +2912,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="16.2"
                       >
                         16.2
                       </span>
@@ -2881,7 +2945,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="16.3"
                       >
                         16.3
                       </span>
@@ -2913,7 +2978,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="16.4"
                       >
                         16.4
                       </span>
@@ -2945,7 +3011,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="16.5"
                       >
                         16.5
                       </span>
@@ -2977,7 +3044,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="16.6"
                       >
                         16.6
                       </span>
@@ -3009,7 +3077,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="16.7"
                       >
                         16.7
                       </span>
@@ -3091,7 +3160,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="17.1"
                       >
                         17.1
                       </span>
@@ -3123,7 +3193,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="17.2"
                       >
                         17.2
                       </span>
@@ -3155,7 +3226,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="17.3"
                       >
                         17.3
                       </span>
@@ -3187,7 +3259,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="17.4"
                       >
                         17.4
                       </span>
@@ -3219,7 +3292,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="17.5"
                       >
                         17.5
                       </span>
@@ -3301,7 +3375,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="18.1"
                       >
                         18.1
                       </span>
@@ -3333,7 +3408,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="18.2"
                       >
                         18.2
                       </span>
@@ -3365,7 +3441,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="18.3"
                       >
                         18.3
                       </span>
@@ -3447,7 +3524,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="19.1"
                       >
                         19.1
                       </span>
@@ -3479,7 +3557,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="19.2"
                       >
                         19.2
                       </span>
@@ -3511,7 +3590,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="19.3"
                       >
                         19.3
                       </span>
@@ -3593,7 +3673,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="20.1"
                       >
                         20.1
                       </span>
@@ -3625,7 +3706,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="20.2"
                       >
                         20.2
                       </span>
@@ -3657,7 +3739,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="20.3"
                       >
                         20.3
                       </span>
@@ -3739,7 +3822,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="21.1"
                       >
                         21.1
                       </span>
@@ -3771,7 +3855,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="21.2"
                       >
                         21.2
                       </span>
@@ -3803,7 +3888,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="21.3"
                       >
                         21.3
                       </span>
@@ -3835,7 +3921,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="21.4"
                       >
                         21.4
                       </span>
@@ -3917,7 +4004,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="22.1"
                       >
                         22.1
                       </span>
@@ -3949,7 +4037,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="22.2"
                       >
                         22.2
                       </span>
@@ -3981,7 +4070,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="22.3"
                       >
                         22.3
                       </span>
@@ -4013,7 +4103,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="22.4"
                       >
                         22.4
                       </span>
@@ -4045,7 +4136,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="22.5"
                       >
                         22.5
                       </span>
@@ -4127,7 +4219,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="23.1"
                       >
                         23.1
                       </span>
@@ -4159,7 +4252,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="23.2"
                       >
                         23.2
                       </span>
@@ -4191,7 +4285,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="23.3"
                       >
                         23.3
                       </span>
@@ -4223,7 +4318,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="23.4"
                       >
                         23.4
                       </span>
@@ -4305,7 +4401,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="24.1"
                       >
                         24.1
                       </span>
@@ -4337,7 +4434,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="24.2"
                       >
                         24.2
                       </span>
@@ -4369,7 +4467,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="24.3"
                       >
                         24.3
                       </span>
@@ -4401,7 +4500,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="24.4"
                       >
                         24.4
                       </span>
@@ -4433,7 +4533,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="24.5"
                       >
                         24.5
                       </span>
@@ -4515,7 +4616,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="25.1"
                       >
                         25.1
                       </span>
@@ -4547,7 +4649,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="25.2"
                       >
                         25.2
                       </span>
@@ -4579,7 +4682,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="25.3"
                       >
                         25.3
                       </span>
@@ -4611,7 +4715,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="25.4"
                       >
                         25.4
                       </span>
@@ -4693,7 +4798,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="26.1"
                       >
                         26.1
                       </span>
@@ -4725,7 +4831,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="26.2"
                       >
                         26.2
                       </span>
@@ -4757,7 +4864,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="26.3"
                       >
                         26.3
                       </span>
@@ -4789,7 +4897,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="26.4"
                       >
                         26.4
                       </span>
@@ -4871,7 +4980,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="27.1"
                       >
                         27.1
                       </span>
@@ -4903,7 +5013,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="27.2"
                       >
                         27.2
                       </span>
@@ -4935,7 +5046,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="27.3"
                       >
                         27.3
                       </span>
@@ -4967,7 +5079,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="27.4"
                       >
                         27.4
                       </span>
@@ -5049,7 +5162,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="28.1"
                       >
                         28.1
                       </span>
@@ -5081,7 +5195,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="28.2"
                       >
                         28.2
                       </span>
@@ -5113,7 +5228,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="28.3"
                       >
                         28.3
                       </span>
@@ -5145,7 +5261,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="28.4"
                       >
                         28.4
                       </span>
@@ -5177,7 +5294,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="28.5"
                       >
                         28.5
                       </span>
@@ -5259,7 +5377,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="29.1"
                       >
                         29.1
                       </span>
@@ -5291,7 +5410,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="29.2"
                       >
                         29.2
                       </span>
@@ -5323,7 +5443,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="29.3"
                       >
                         29.3
                       </span>
@@ -5355,7 +5476,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="29.4"
                       >
                         29.4
                       </span>
@@ -5387,7 +5509,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="29.5"
                       >
                         29.5
                       </span>
@@ -5419,7 +5542,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="29.6"
                       >
                         29.6
                       </span>
@@ -5451,7 +5575,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="29.7"
                       >
                         29.7
                       </span>
@@ -5533,7 +5658,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="30.1"
                       >
                         30.1
                       </span>
@@ -5565,7 +5691,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="30.2"
                       >
                         30.2
                       </span>
@@ -5597,7 +5724,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="30.3"
                       >
                         30.3
                       </span>
@@ -5629,7 +5757,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="30.4"
                       >
                         30.4
                       </span>
@@ -5661,7 +5790,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="30.5"
                       >
                         30.5
                       </span>
@@ -5693,7 +5823,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="30.6"
                       >
                         30.6
                       </span>
@@ -5775,7 +5906,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="31.1"
                       >
                         31.1
                       </span>
@@ -5807,7 +5939,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="31.2"
                       >
                         31.2
                       </span>
@@ -5839,7 +5972,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="31.3"
                       >
                         31.3
                       </span>
@@ -5921,7 +6055,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="32.1"
                       >
                         32.1
                       </span>
@@ -5953,7 +6088,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="32.2"
                       >
                         32.2
                       </span>
@@ -5985,7 +6121,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="32.3"
                       >
                         32.3
                       </span>
@@ -6067,7 +6204,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="33.1"
                       >
                         33.1
                       </span>
@@ -6099,7 +6237,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="33.2"
                       >
                         33.2
                       </span>
@@ -6131,7 +6270,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="33.3"
                       >
                         33.3
                       </span>
@@ -6213,7 +6353,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="34.1"
                       >
                         34.1
                       </span>
@@ -6245,7 +6386,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="34.2"
                       >
                         34.2
                       </span>
@@ -6277,7 +6419,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="34.3"
                       >
                         34.3
                       </span>
@@ -6309,7 +6452,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="34.4"
                       >
                         34.4
                       </span>
@@ -6391,7 +6535,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="35.1"
                       >
                         35.1
                       </span>
@@ -6423,7 +6568,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="35.2"
                       >
                         35.2
                       </span>
@@ -6455,7 +6601,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="35.3"
                       >
                         35.3
                       </span>
@@ -6487,7 +6634,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="35.4"
                       >
                         35.4
                       </span>
@@ -6519,7 +6667,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="35.5"
                       >
                         35.5
                       </span>
@@ -6601,7 +6750,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="36.1"
                       >
                         36.1
                       </span>
@@ -6633,7 +6783,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="36.2"
                       >
                         36.2
                       </span>
@@ -6665,7 +6816,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="36.3"
                       >
                         36.3
                       </span>
@@ -6697,7 +6849,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="36.4"
                       >
                         36.4
                       </span>
@@ -6729,7 +6882,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="36.5"
                       >
                         36.5
                       </span>
@@ -6811,7 +6965,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="37.1"
                       >
                         37.1
                       </span>
@@ -6843,7 +6998,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="37.2"
                       >
                         37.2
                       </span>
@@ -6875,7 +7031,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="37.3"
                       >
                         37.3
                       </span>
@@ -6907,7 +7064,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="37.4"
                       >
                         37.4
                       </span>
@@ -6939,7 +7097,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="37.5"
                       >
                         37.5
                       </span>
@@ -7021,7 +7180,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="38.1"
                       >
                         38.1
                       </span>
@@ -7053,7 +7213,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="38.2"
                       >
                         38.2
                       </span>
@@ -7085,7 +7246,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="38.3"
                       >
                         38.3
                       </span>
@@ -7117,7 +7279,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="38.4"
                       >
                         38.4
                       </span>
@@ -7199,7 +7362,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="39.1"
                       >
                         39.1
                       </span>
@@ -7231,7 +7395,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="39.2"
                       >
                         39.2
                       </span>
@@ -7263,7 +7428,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="39.3"
                       >
                         39.3
                       </span>
@@ -7295,7 +7461,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="39.4"
                       >
                         39.4
                       </span>
@@ -7377,7 +7544,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="40.1"
                       >
                         40.1
                       </span>
@@ -7409,7 +7577,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="40.2"
                       >
                         40.2
                       </span>
@@ -7441,7 +7610,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="40.3"
                       >
                         40.3
                       </span>
@@ -7473,7 +7643,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="40.4"
                       >
                         40.4
                       </span>
@@ -7555,7 +7726,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="41.1"
                       >
                         41.1
                       </span>
@@ -7587,7 +7759,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="41.2"
                       >
                         41.2
                       </span>
@@ -7619,7 +7792,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="41.3"
                       >
                         41.3
                       </span>
@@ -7651,7 +7825,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="41.4"
                       >
                         41.4
                       </span>
@@ -7683,7 +7858,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="41.5"
                       >
                         41.5
                       </span>
@@ -7765,7 +7941,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="42.1"
                       >
                         42.1
                       </span>
@@ -7797,7 +7974,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="42.2"
                       >
                         42.2
                       </span>
@@ -7829,7 +8007,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="42.3"
                       >
                         42.3
                       </span>
@@ -7861,7 +8040,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="42.4"
                       >
                         42.4
                       </span>
@@ -7943,7 +8123,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="43.1"
                       >
                         43.1
                       </span>
@@ -7975,7 +8156,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="43.2"
                       >
                         43.2
                       </span>
@@ -8007,7 +8189,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="43.3"
                       >
                         43.3
                       </span>
@@ -8039,7 +8222,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="43.4"
                       >
                         43.4
                       </span>
@@ -8071,7 +8255,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="43.5"
                       >
                         43.5
                       </span>
@@ -8103,7 +8288,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="43.6"
                       >
                         43.6
                       </span>
@@ -8135,7 +8321,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="43.7"
                       >
                         43.7
                       </span>
@@ -8217,7 +8404,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="44.1"
                       >
                         44.1
                       </span>
@@ -8249,7 +8437,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="44.2"
                       >
                         44.2
                       </span>
@@ -8281,7 +8470,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="44.3"
                       >
                         44.3
                       </span>
@@ -8313,7 +8503,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="44.4"
                       >
                         44.4
                       </span>
@@ -8345,7 +8536,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="44.5"
                       >
                         44.5
                       </span>
@@ -8427,7 +8619,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="45.1"
                       >
                         45.1
                       </span>
@@ -8459,7 +8652,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="45.2"
                       >
                         45.2
                       </span>
@@ -8491,7 +8685,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="45.3"
                       >
                         45.3
                       </span>
@@ -8523,7 +8718,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="45.4"
                       >
                         45.4
                       </span>
@@ -8555,7 +8751,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="45.5"
                       >
                         45.5
                       </span>
@@ -8587,7 +8784,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="45.6"
                       >
                         45.6
                       </span>
@@ -8619,7 +8817,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="45.7"
                       >
                         45.7
                       </span>
@@ -8701,7 +8900,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="46.1"
                       >
                         46.1
                       </span>
@@ -8733,7 +8933,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="46.2"
                       >
                         46.2
                       </span>
@@ -8765,7 +8966,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="46.3"
                       >
                         46.3
                       </span>
@@ -8847,7 +9049,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="47.1"
                       >
                         47.1
                       </span>
@@ -8879,7 +9082,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="47.2"
                       >
                         47.2
                       </span>
@@ -8911,7 +9115,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="47.3"
                       >
                         47.3
                       </span>
@@ -8943,7 +9148,8 @@ exports[`QA Screen matches snapshot 1`] = `
                       className="chapter-section-title"
                     >
                       <span
-                        className="section-number"
+                        className="chapter-section"
+                        data-chapter-section="47.4"
                       >
                         47.4
                       </span>

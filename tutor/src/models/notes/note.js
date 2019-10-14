@@ -14,7 +14,9 @@ class Note extends BaseModel {
   @identifier id;
   @field annotation = '';
   @field anchor;
+  @field course_id;
   @field({ type: 'object' }) contents = {};
+  @field page_id;
   @session({ model: ChapterSection }) chapter_section;
   @session({ type: 'date' }) created_at;
   @session({ type: 'date' }) updated_at;
@@ -35,6 +37,10 @@ class Note extends BaseModel {
     return this.page.notes.course;
   }
 
+  get siblings() {
+    return this.page.notes.forPageId(this.page_id);
+  }
+
   get pageTopPosition() {
     return get(this, 'contents.rect.top', 0);
   }
@@ -52,7 +58,10 @@ class Note extends BaseModel {
 
   @action save() {
     return extend(this.urlParams, {
-      data: pick(this, 'id', 'anchor', 'contents', 'annotation'),
+      data: {
+        course_id: this.course.id,
+        ...pick(this, 'id', 'anchor', 'contents', 'annotation'),
+      },
     });
   }
 
@@ -71,10 +80,8 @@ class Note extends BaseModel {
 
   @computed get urlParams() {
     return {
-      id: this.id,
-      chapterSection: this.chapter_section.format({ skipZeros: false }),
-      courseId: this.page.notes.course.id,
+      pageUuid: this.page.uuid,
     };
   }
 
-};
+}
