@@ -177,9 +177,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                     </Observer>
                                                   </inject(SupportMenu)>
                                                 </withRouter(inject(SupportMenu))>
-                                                <withRouter(ActionsMenu) course={[undefined]}>
-                                                  <ActionsMenu course={[undefined]} history={{...}} location={{...}} match={{...}} staticContext={[undefined]} />
-                                                </withRouter(ActionsMenu)>
+                                                <ActionsMenu course={[undefined]} />
                                                 <withRouter(inject(PreviewAddCourseBtn)) course={[undefined]}>
                                                   <inject(PreviewAddCourseBtn) course={[undefined]} history={{...}} location={{...}} match={{...}} staticContext={[undefined]}>
                                                     <Observer>

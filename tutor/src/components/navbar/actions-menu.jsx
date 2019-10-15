@@ -1,11 +1,7 @@
-import { React, PropTypes, cn, withRouter } from 'vendor';
+import { React, PropTypes, cn, observer, autobind, useHistory } from 'vendor';
 import { Dropdown } from 'react-bootstrap';
 import TutorRouter from '../../helpers/router';
-import { Link } from 'react-router-dom';
-import { partial, flatMap, isEmpty } from 'lodash';
-import classnames from 'classnames';
-import { observer } from 'mobx-react';
-import { autobind } from 'core-decorators';
+import { flatMap, isEmpty } from 'lodash';
 import { Icon } from 'shared';
 import TourAnchor from '../tours/anchor';
 import Router from '../../helpers/router';
@@ -18,6 +14,12 @@ const RoutedDropdownItem = (props) => {
   // eslint-disable-next-line react/prop-types
   const { name, tourId, className, route, locked, href } = props;
   const active = TutorRouter.isActive(route.name, route.params, route.options);
+  const history = useHistory();
+
+  const onClick = (ev) => {
+    ev.preventDefault();
+    history.push(href);
+  };
 
   if (locked) {
     label = (
@@ -29,15 +31,16 @@ const RoutedDropdownItem = (props) => {
   }
 
   return (
-    <Link
-      to={href}
+    <Dropdown.Item
+      onClick={onClick}
+      disabled={locked}
+      className={cn(className, { locked, active })}
       data-name={name}
-      className={cn('dropdown-item', className, { active })}
     >
       <TourAnchor id={tourId}>
         {label}
       </TourAnchor>
-    </Link>
+    </Dropdown.Item>
 
   );
 };
@@ -69,19 +72,11 @@ const CustomComponents = {
 };
 
 export default
-@withRouter
 @observer
 class ActionsMenu extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course),
-    history: PropTypes.object.isRequired,
-  }
-
-  @autobind
-  transitionToDropdownItem(href, evKey, clickEvent) {
-    clickEvent.preventDefault();
-    this.props.history.push(href);
   }
 
   @autobind
@@ -100,7 +95,7 @@ class ActionsMenu extends React.Component {
       props = { href: menuOption.href, target: menuOption.target };
     } else {
       const href = Router.makePathname(menuOption.name, menuOption.params, menuOption.options);
-      props = { href, onSelect: partial(this.transitionToDropdownItem, href) };
+      props = { href };
     }
 
     const item = (
@@ -135,9 +130,7 @@ class ActionsMenu extends React.Component {
     }
 
     return (
-      <Dropdown
-        className={classnames('actions-menu')}
-      >
+      <Dropdown className="actions-menu">
         <Dropdown.Toggle
           id="actions-menu"
           aria-label="Menu and settings"
