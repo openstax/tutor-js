@@ -111,15 +111,18 @@ const ROUTES = {
   customer_service: {
     label: 'Customer Service',
     href: '/customer_service',
+    options: { redirect: true },
     isAllowed() { return !!User.is_customer_service; },
   },
   admin: {
     label: 'Admin',
     href: '/admin',
+    options: { redirect: true },
     isAllowed() { return !!User.is_admin; },
   },
   QADashboard: {
     label: 'QA Dashboard',
+    options: { redirect: true },
     isAllowed() { return !!User.is_content_analyst; },
   },
   managePayments: {
@@ -195,7 +198,7 @@ const UserMenu = observable({
       const route = { name };
       extend(route, pick(routeRules, 'href', 'target'));
       addRouteProperty(route, 'locked', routeRules, course);
-      addRouteProperty(route, 'options', routeRules, options);
+      addRouteProperty(route, 'options', routeRules, options, {});
       addRouteProperty(route, 'params', routeRules, options, course ? { courseId } : null);
       addRouteProperty(route, 'label', routeRules, options);
       routes.push(route);
