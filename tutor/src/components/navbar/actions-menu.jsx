@@ -11,14 +11,20 @@ import Course from '../../models/course';
 const RoutedDropdownItem = (props) => {
   // eslint-disable-next-line react/prop-types
   let { label } = props;
-  // eslint-disable-next-line react/prop-types
-  const { name, tourId, className, route, locked, href } = props;
+  const {
+    // eslint-disable-next-line react/prop-types
+    name, tourId, className, route, locked, href, options: { redirect },
+  } = props;
   const active = TutorRouter.isActive(route.name, route.params, route.options);
   const history = useHistory();
 
   const onClick = (ev) => {
     ev.preventDefault();
-    history.push(href);
+    if (redirect) {
+      window.location = href;
+    } else {
+      history.push(href);
+    }
   };
 
   if (locked) {
