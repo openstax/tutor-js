@@ -121,9 +121,7 @@ export default class TaskUX {
 
   @action onAnswerContinue(step) {
     this.moveToStep(step);
-    if (this.canGoForward) {
-      this.goForward();
-    }
+    this.goForward();
   }
 
   @action setCurrentMultiPartStep(step) {
@@ -158,11 +156,15 @@ export default class TaskUX {
   }
 
   @action.bound goBackward() {
-    this.goToStep(this._stepIndex - 1);
+    if (this.canGoBackward) {
+      this.goToStep(this._stepIndex - 1);
+    }
   }
 
   @action.bound goForward() {
-    this.goToStep(this._stepIndex + 1);
+    if (this.canGoForward) {
+      this.goToStep(this._stepIndex + 1);
+    }
   }
 
   @action.bound goToStep(index, recordInHistory = true) {
