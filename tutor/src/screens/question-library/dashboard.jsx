@@ -40,6 +40,7 @@ class QuestionsDashboard extends React.Component {
   }
 
   @action.bound onSelectSections() {
+    this.showingDetails = false;
     this.isShowingExercises = false;
   }
 

@@ -75,7 +75,7 @@ describe('Questions Dashboard Component', function() {
     dash.unmount();
   });
 
-  it('retains selected sections', () => {
+  it('renders details, then select more sections, then display', () => {
     const dash = mount(<C><Dashboard {...props} /></C>);
     expect(dash).toHaveRendered('SectionsChooser');
     const input = `[data-section-id="${page_ids[1]}"] input`;
@@ -83,9 +83,14 @@ describe('Questions Dashboard Component', function() {
     dash.find(input).simulate('click');
     dash.find('.section-controls .btn-primary').simulate('click');
     expect(dash).toHaveRendered('ExercisesDisplay');
+    dash.find('.action.details').at(0).simulate('click');
+    expect(dash).toHaveRendered('ExerciseDetails');
     dash.find('ExercisesDisplay').props().onSelectSections();
     expect(dash).toHaveRendered('SectionsChooser');
     expect(dash.find(input).props().checked).toBe(true);
+    dash.find('.section-controls .btn-primary').simulate('click');
+    expect(dash).toHaveRendered('ExercisesDisplay');
+    expect(dash).not.toHaveRendered('ExerciseDetails');
     dash.unmount();
   });
 
