@@ -29,10 +29,9 @@ describe('Notes Summary Page', () => {
     );
     expect(sp).toHaveRendered('DropdownToggle');
     sp.find('DropdownToggle Button').simulate('click');
-    const dropDownSelector = `DropdownItem[eventKey="${pages[0].chapter_section.key}"]`;
+    const dropDownSelector = `DropdownItem[eventKey=${pages[0].id}]`;
     expect(sp).toHaveRendered(dropDownSelector);
     sp.find(dropDownSelector).simulate('click');
-    expect(sp).toHaveRendered('NoteCard');
     sp.unmount();
   });
 });
