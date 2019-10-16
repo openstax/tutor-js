@@ -85,6 +85,10 @@ class Notes extends BaseModel {
     this.fetchHighlightedPages();
   }
 
+  hasNotesForPage(page) {
+    return Boolean(this.pages.get(String(page.id)));
+  }
+
   @action forPage(page) {
     let notes = this.pages.get(String(page.id));
     if (!notes) {
