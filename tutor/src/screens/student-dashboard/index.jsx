@@ -23,6 +23,22 @@ class StudentDashboardShell extends React.Component {
     return Courses.get(this.props.params.courseId);
   }
 
+
+  componentDidMount() {
+    if (this.course) {
+      const student = this.course.userStudentRecord;
+      if (student && !student.mustPayImmediately) {
+        this.course.studentTaskPlans.startFetching();
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.course) {
+      this.course.studentTaskPlans.stopFetching();
+    }
+  }
+
   render() {
     // keep rendering loading screen if the user needs to agree to terms
     // this way the screen stays the same without a flash of other content

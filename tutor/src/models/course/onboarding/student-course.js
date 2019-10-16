@@ -76,7 +76,7 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
     } else {
       this.displayPayment = false;
       this.course.userStudentRecord.markPaid();
-      // fetch tasks since they could not be fetched while student was in unpaid status
+      // start fetch tasks since they could not be fetched while student was in unpaid status
       this.course.studentTaskPlans.startFetching();
     }
   }
@@ -86,14 +86,14 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
     if (this.paymentIsPastDue) {
       this.priority = 0;
     } else {
-      this.course.studentTaskPlans.startFetching();
+      // make sure tasks list is up-to-date
+      this.course.studentTaskPlans.refreshTasks();
     }
     this.tourContext.otherModal = this;
   }
 
   close() {
     super.close();
-    this.course.studentTaskPlans.stopFetching();
     this.tourContext.otherModal = null;
   }
 
