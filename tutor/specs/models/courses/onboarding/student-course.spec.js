@@ -30,8 +30,8 @@ describe('Student Course Onboarding', () => {
       primaryRole: { joinedAgo: jest.fn(() => 18120) },
       userStudentRecord: { is_comped: false },
       studentTaskPlans: {
-        startFetching: jest.fn(() => Promise.resolve()),
-        stopFetching: jest.fn(),
+        startFetching: jest.fn(),
+        refreshTasks: jest.fn(),
       },
     });
   });
@@ -89,10 +89,10 @@ describe('Student Course Onboarding', () => {
     ux.course.userStudentRecord = {
       mustPayImmediately: false, markPaid: jest.fn(),
     };
-    expect(ux.course.studentTaskPlans.startFetching).not.toHaveBeenCalled();
+    expect(ux.course.studentTaskPlans.refreshTasks).not.toHaveBeenCalled();
     expect(ux.paymentIsPastDue).toBe(false);
     ux.mount();
-    expect(ux.course.studentTaskPlans.startFetching).toHaveBeenCalledTimes(1);
+    expect(ux.course.studentTaskPlans.refreshTasks).toHaveBeenCalledTimes(1);
   });
 
   it('reloads page when paid after being locked out', () => {
