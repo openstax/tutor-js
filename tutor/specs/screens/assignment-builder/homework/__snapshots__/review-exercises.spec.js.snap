@@ -172,7 +172,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                                               </inject(TourRegion)>
                                             </ExerciseTable>
                                             <div className=\\"card-list exercises\\">
-                                              <ReviewExerciseCard ux={{...}} index={0} exercise={{...}} isFirst={true} canEdit={true} isLast={true}>
+                                              <ReviewExerciseCard ux={{...}} range=\\"1\\" exercise={{...}} isFirst={true} canEdit={true} isLast={true}>
                                                 <div className=\\"openstax exercise-wrapper\\">
                                                   <ExercisePreview exercise={{...}} className=\\"exercise-card\\" isInteractive={false} isVerticallyTruncated={true} isSelected={false} header={{...}} panelStyle=\\"default\\" overlayActions={{...}} extractedInfo={{...}}>
                                                     <Card className=\\"openstax-exercise-preview exercise-card non-interactive is-vertically-truncated\\" data-exercise-id=\\"1@1\\" tabIndex={-1} body={false}>

@@ -1,5 +1,5 @@
 import { React, PropTypes, styled, action } from 'vendor';
-import { map, isEmpty } from 'lodash';
+import { isEmpty } from 'lodash';
 import Loading from 'shared/components/loading-animation';
 import { Icon } from 'shared';
 import { ExercisePreview, SuretyGuard } from 'shared';
@@ -27,7 +27,7 @@ class ReviewExerciseCard extends React.Component {
     exercise: PropTypes.object.isRequired,
     isFirst:  PropTypes.bool.isRequired,
     isLast:   PropTypes.bool.isRequired,
-    index:    PropTypes.number.isRequired,
+    range:    PropTypes.string.isRequired,
   };
 
   @action.bound moveExerciseUp() {
@@ -80,7 +80,7 @@ class ReviewExerciseCard extends React.Component {
     return (
       <Header className="-exercise-header">
         <span className="exercise-number">
-          {this.props.index + 1}
+          {this.props.range}
         </span>
         {actionButtons}
       </Header>
@@ -120,6 +120,31 @@ class ReviewExercises extends React.Component {
     this.props.ux.onExercisesReviewMount(this.wrapper.current);
   }
 
+  renderPreviews() {
+    const { ux } = this.props;
+    let count = 1;
+
+    return ux.selectedExercises.map((ex, i) => {
+      let range = `${count}`;
+      if (ex.content.questions.length > 1) {
+        range = `${range} - ${count + ex.content.questions.length - 1}`;
+      }
+      count += ex.content.questions.length;
+
+      return (
+        <ReviewExerciseCard
+          ux={ux}
+          range={range}
+          key={ex.id}
+          exercise={ex}
+          isFirst={i === 0}
+          canEdit={ux.canEdit}
+          isLast={i === (ux.selectedExercises.length - 1)}
+        />
+      );
+    });
+  }
+
   render() {
     const { ux } = this.props;
 
@@ -142,16 +167,7 @@ class ReviewExercises extends React.Component {
         />
         <ExerciseTable ux={ux} />
         <div className="card-list exercises">
-          {map(ux.selectedExercises, (ex, i) =>
-            <ReviewExerciseCard
-              ux={ux}
-              index={i}
-              key={ex.id}
-              exercise={ex}
-              isFirst={i === 0}
-              canEdit={ux.canEdit}
-              isLast={i === (ux.selectedExercises.length - 1)}
-            />)}
+          {this.renderPreviews()}
         </div>
       </div>
     );

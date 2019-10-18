@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { map, times } from 'lodash';
+import { times } from 'lodash';
 import { observer } from 'mobx-react';
 import { ArbitraryHtmlAndMath } from 'shared';
 import ChapterSection from '../../../components/chapter-section';
@@ -13,11 +13,19 @@ class ExerciseTable extends React.Component {
     ux: PropTypes.instanceOf(UX).isRequired,
   };
 
-  renderExerciseRow = (exercise, index) => {
+  renderExercise = (rows, exercise) => {
+    return rows.concat(
+      exercise.content.questions.map((question, qIndex) => {
+        return this.renderExerciseQuestion({ exercise, question, index: rows.length + qIndex });
+      })
+    );
+  }
+
+  renderExerciseQuestion = ({ exercise, index, question }) => {
     const { lo, tagString } = exercise.tags.importantInfo;
     const { chapterSection } = exercise.tags;
     let content = document.createElement('span');
-    content.innerHTML = exercise.content.questions[0].stem_html;
+    content.innerHTML = question.stem_html;
     const images = Array.from(content.getElementsByTagName('img'));
     images.forEach((img) => {
       if (img.nextSibling) {
@@ -97,8 +105,7 @@ class ExerciseTable extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {map(selectedExercises, (exercise, index) =>
-            this.renderExerciseRow(exercise, index))}
+          {selectedExercises.reduce(this.renderExercise, [])}
           {times(plan.numTutorSelections, index =>
             this.renderTutorRow(selectedExercises, index))}
         </tbody>
