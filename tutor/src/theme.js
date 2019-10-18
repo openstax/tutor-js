@@ -68,6 +68,10 @@ const TutorTheme = {
     },
   },
 
+  sizes: {
+    bookTocWidth: '300px',
+  },
+
   borders: {
     box: `1px solid ${neutral.lighter}`,
   },

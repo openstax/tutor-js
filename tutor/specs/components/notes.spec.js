@@ -28,7 +28,7 @@ describe('Notes', () => {
     const course = Factory.course();
 
     course.referenceBook.update(FactoryBot.create('Book'));
-    const page = course.referenceBook.pages.byChapterSection.get('1.1');
+    const page = course.referenceBook.pages.all[0]; //byChapterSection.get('1.1');
 
     Router.currentQuery.mockReturnValue({});
     const body = window.document.body;

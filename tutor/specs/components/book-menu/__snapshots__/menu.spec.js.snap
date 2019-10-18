@@ -1,0 +1,496 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Book Menu renders and matches snapshot 1`] = `
+.c6 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  line-height: 2.3rem;
+  color: #5f6163;
+}
+
+.c5 {
+  margin-top: 4px;
+  -webkit-align-self: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+  -webkit-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: -webkit-transform 0.2s;
+  -webkit-transition: transform 0.2s;
+  transition: transform 0.2s;
+}
+
+.c5.expanded {
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.c1 {
+  list-style-type: none;
+}
+
+.c2 {
+  list-style-type: none;
+  margin: 1rem 0.5rem 0 0;
+}
+
+.c2.active {
+  font-weight: bolder;
+}
+
+.c3 ol {
+  margin-left: 2rem;
+  padding-left: 0;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  list-style: none;
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+}
+
+.c4::before {
+  display: none;
+}
+
+.c4::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c4::-webkit-details-marker {
+  display: none;
+}
+
+.c0 {
+  width: 3.3rem;
+}
+
+<div
+  className="book-menu c0"
+>
+  <ol
+    className="section c1"
+    data-depth={1}
+  >
+    <li
+      className="c2"
+    >
+      <details
+        className="c3"
+        data-node-id="123"
+        onClick={[Function]}
+        open={true}
+      >
+        <summary
+          className="c4"
+        >
+          <svg
+            aria-hidden="true"
+            className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right expanded c5 c6"
+            data-icon="caret-right"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            style={Object {}}
+            viewBox="0 0 192 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+              fill="currentColor"
+              style={Object {}}
+            />
+          </svg>
+          <span
+            className="chapter-section"
+            data-chapter-section="1.0"
+          >
+            1
+          </span>
+          <a
+            className="node"
+            href="/book/1/page/1234"
+            onClick={[Function]}
+            tabIndex={12}
+          >
+            <div
+              className="c7"
+            >
+              <span>
+                Kinematics
+              </span>
+            </div>
+          </a>
+        </summary>
+        <ol
+          className="c1"
+        >
+          <li
+            className="active c2"
+            data-node-id="234"
+          >
+            <a
+              className="node"
+              href="/book/1/page/1234"
+              onClick={[Function]}
+              tabIndex={12}
+            >
+              <div
+                className="c7"
+              >
+                <span
+                  className="chapter-section"
+                  data-chapter-section="1.1"
+                >
+                  1.1
+                </span>
+                <span>
+                  Kinematics in 1 dim
+                </span>
+              </div>
+            </a>
+          </li>
+          <li
+            className="c2"
+            data-node-id="235"
+          >
+            <a
+              className="node"
+              href="/book/1/page/1234"
+              onClick={[Function]}
+              tabIndex={12}
+            >
+              <div
+                className="c7"
+              >
+                <span
+                  className="chapter-section"
+                  data-chapter-section="1.2"
+                >
+                  1.2
+                </span>
+                <span>
+                  Kinematics in 2 dim
+                </span>
+              </div>
+            </a>
+          </li>
+          <li
+            className="c2"
+            data-node-id="236"
+          >
+            <a
+              className="node"
+              href="/book/1/page/1234"
+              onClick={[Function]}
+              tabIndex={12}
+            >
+              <div
+                className="c7"
+              >
+                <span
+                  className="chapter-section"
+                  data-chapter-section="1.3"
+                >
+                  1.3
+                </span>
+                <span>
+                  Kinematics in 3 dim
+                </span>
+              </div>
+            </a>
+          </li>
+        </ol>
+      </details>
+    </li>
+  </ol>
+  <ol
+    className="section c1"
+    data-depth={1}
+  >
+    <li
+      className="c2"
+    >
+      <details
+        className="c3"
+        data-node-id="124"
+        onClick={[Function]}
+        open={false}
+      >
+        <summary
+          className="c4"
+        >
+          <svg
+            aria-hidden="true"
+            className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+            data-icon="caret-right"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            style={Object {}}
+            viewBox="0 0 192 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+              fill="currentColor"
+              style={Object {}}
+            />
+          </svg>
+          <span
+            className="chapter-section"
+            data-chapter-section="2.0"
+          >
+            2
+          </span>
+          <a
+            className="node"
+            href="/book/1/page/1234"
+            onClick={[Function]}
+            tabIndex={12}
+          >
+            <div
+              className="c7"
+            >
+              <span>
+                Mechanics
+              </span>
+            </div>
+          </a>
+        </summary>
+        <ol
+          className="c1"
+        >
+          <li
+            className="c2"
+            data-node-id="237"
+          >
+            <a
+              className="node"
+              href="/book/1/page/1234"
+              onClick={[Function]}
+              tabIndex={12}
+            >
+              <div
+                className="c7"
+              >
+                <span
+                  className="chapter-section"
+                  data-chapter-section="2.1"
+                >
+                  2.1
+                </span>
+                <span>
+                  Mechanics in 1 dim
+                </span>
+              </div>
+            </a>
+          </li>
+          <li
+            className="c2"
+            data-node-id="238"
+          >
+            <a
+              className="node"
+              href="/book/1/page/1234"
+              onClick={[Function]}
+              tabIndex={12}
+            >
+              <div
+                className="c7"
+              >
+                <span
+                  className="chapter-section"
+                  data-chapter-section="2.2"
+                >
+                  2.2
+                </span>
+                <span>
+                  Mechanics in 2 dim
+                </span>
+              </div>
+            </a>
+          </li>
+          <li
+            className="c2"
+            data-node-id="239"
+          >
+            <a
+              className="node"
+              href="/book/1/page/1234"
+              onClick={[Function]}
+              tabIndex={12}
+            >
+              <div
+                className="c7"
+              >
+                <span
+                  className="chapter-section"
+                  data-chapter-section="2.3"
+                >
+                  2.3
+                </span>
+                <span>
+                  Mechanics in 3 dim
+                </span>
+              </div>
+            </a>
+          </li>
+        </ol>
+      </details>
+    </li>
+  </ol>
+  <ol
+    className="section c1"
+    data-depth={1}
+  >
+    <li
+      className="c2"
+    >
+      <details
+        className="c3"
+        data-node-id="125"
+        onClick={[Function]}
+        open={false}
+      >
+        <summary
+          className="c4"
+        >
+          <svg
+            aria-hidden="true"
+            className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+            data-icon="caret-right"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            style={Object {}}
+            viewBox="0 0 192 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+              fill="currentColor"
+              style={Object {}}
+            />
+          </svg>
+          <span
+            className="chapter-section"
+            data-chapter-section="3.0"
+          >
+            3
+          </span>
+          <a
+            className="node"
+            href="/book/1/page/1234"
+            onClick={[Function]}
+            tabIndex={12}
+          >
+            <div
+              className="c7"
+            >
+              <span>
+                Thermodynamics
+              </span>
+            </div>
+          </a>
+        </summary>
+        <ol
+          className="c1"
+        >
+          <li
+            className="c2"
+            data-node-id="240"
+          >
+            <a
+              className="node"
+              href="/book/1/page/1234"
+              onClick={[Function]}
+              tabIndex={12}
+            >
+              <div
+                className="c7"
+              >
+                <span
+                  className="chapter-section"
+                  data-chapter-section="3.1"
+                >
+                  3.1
+                </span>
+                <span>
+                  Thermodynamics in 1 dim
+                </span>
+              </div>
+            </a>
+          </li>
+          <li
+            className="c2"
+            data-node-id="241"
+          >
+            <a
+              className="node"
+              href="/book/1/page/1234"
+              onClick={[Function]}
+              tabIndex={12}
+            >
+              <div
+                className="c7"
+              >
+                <span
+                  className="chapter-section"
+                  data-chapter-section="3.2"
+                >
+                  3.2
+                </span>
+                <span>
+                  Thermodynamics in 2 dim
+                </span>
+              </div>
+            </a>
+          </li>
+          <li
+            className="c2"
+            data-node-id="242"
+          >
+            <a
+              className="node"
+              href="/book/1/page/1234"
+              onClick={[Function]}
+              tabIndex={12}
+            >
+              <div
+                className="c7"
+              >
+                <span
+                  className="chapter-section"
+                  data-chapter-section="3.2"
+                >
+                  3.2
+                </span>
+                <span>
+                  Thermodynamics in 3 dim
+                </span>
+              </div>
+            </a>
+          </li>
+        </ol>
+      </details>
+    </li>
+  </ol>
+</div>
+`;

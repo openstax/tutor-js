@@ -106,6 +106,10 @@ class ReferenceBookPage extends BaseModel {
     return !NON_ASSIGNABLE_TITLES.find(m => this.title.match(m));
   }
 
+  get parent() {
+    return this.chapter;
+  }
+
 }
 
 // a mock page for use by entities such as exercises that need to indicate

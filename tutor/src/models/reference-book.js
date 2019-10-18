@@ -11,6 +11,7 @@ function mapPages(page, pages) {
   if (page.isPage) {
     const lastPage = last(Array.from(pages.byId.values()));
     if (lastPage) { lastPage.linkNextPage(page); }
+    pages.all.push(page);
     pages.byId.set(page.id, page);
     pages.byUUID.set(page.uuid, page);
     pages.byChapterSection.set(page.chapter_section.asString, page);
@@ -33,6 +34,7 @@ class ReferenceBook extends BaseModel {
 
   @computed get pages() {
     return mapPages(this, {
+      all: observable.array(),
       byId: new Map({}, { keyType: String }),
       byUUID: observable.map(),
       byChapterSection: observable.map(),

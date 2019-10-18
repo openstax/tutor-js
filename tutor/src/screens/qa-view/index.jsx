@@ -44,9 +44,12 @@ class QAViewWrapper extends React.Component {
     let pending = null;
 
     if (!ecosystemId) {
-      pending = <h3>Choose ecosystem to display from top selector</h3>;
-    }
-    if (!ecosystem) {
+      pending = (
+        <h3 style={{ textAlign: 'center', marginTop: '8rem' }}>
+          Choose ecosystem to display from top selector
+        </h3>
+      );
+    } else if (!ecosystem) {
       pending = <Loading message="Fetching Book…" />;
     }
 
