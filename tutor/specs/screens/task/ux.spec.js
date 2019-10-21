@@ -123,7 +123,10 @@ describe('Task UX Model', () => {
     ux._task.students.push({ role_id: 99 });
     expect(ux.course.current_role_id).toEqual(ux.course.roles[0].id);
     ux.becomeStudentIfNeeded();
-    expect(ux.course.current_role_id).toEqual(99);
+    expect(ux.history.push).toHaveBeenCalledWith({
+      pathname: `/course/${ux.course.id}/become/99`,
+      state: { returnTo: '/' },
+    });
   });
 
   it('records in history when going to step', () => {

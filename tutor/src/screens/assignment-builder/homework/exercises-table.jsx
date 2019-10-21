@@ -26,7 +26,8 @@ class ExerciseTable extends React.Component {
     const { chapterSection } = exercise.tags;
     let content = document.createElement('span');
     content.innerHTML = question.stem_html;
-    Array.from(content.getElementsByTagName('img, iframe')).forEach((el) => {
+
+    Array.from(content.querySelectorAll('img,iframe')).forEach((el) => {
       if (el.nextSibling) {
         el.remove();
       } else {

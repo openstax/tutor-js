@@ -41,11 +41,15 @@ export default class TaskUX {
       // use of == is deliberate so that it'll match both string and number ids
       return this._task.students.find(s => s.role_id == r.id);
     });
-    if (teacherAsStudentRole) {
+
+    if (teacherAsStudentRole && this.course.currentRole !== teacherAsStudentRole) {
       // become the role, but do not reset the data so we
       // can re-use whatever is present.  Task is per-user,
       // so the data will be for this user
-      teacherAsStudentRole.become({ reset: false });
+      this.history.push({
+        pathname: `/course/${this.course.id}/become/${teacherAsStudentRole.id}`,
+        state: { returnTo: this.window.location.pathname },
+      });
     }
   }
 
