@@ -26,12 +26,11 @@ class ExerciseTable extends React.Component {
     const { chapterSection } = exercise.tags;
     let content = document.createElement('span');
     content.innerHTML = question.stem_html;
-    const images = Array.from(content.getElementsByTagName('img'));
-    images.forEach((img) => {
-      if (img.nextSibling) {
-        img.remove();
+    Array.from(content.getElementsByTagName('img, iframe')).forEach((el) => {
+      if (el.nextSibling) {
+        el.remove();
       } else {
-        if (img.parentElement) img.parentElement.remove();
+        if (el.parentElement) el.parentElement.remove();
       }
     });
     content = content.innerHTML;
