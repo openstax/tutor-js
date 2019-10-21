@@ -2,11 +2,16 @@ import { without, findIndex, forEach } from 'lodash';
 import { insert } from '../../helpers/immutable';
 import UiSettings from 'shared/model/ui-settings';
 import InfoStep from '../../models/student-tasks/info-step';
+import StepGroup from '../../models/student-tasks/step-group';
 
 function insertBeforeMatch(type, task, steps, match) {
   const cleanSteps = without(steps, { type });
-  const index = findIndex(cleanSteps, match);
+  let index = findIndex(cleanSteps, match);
   if (-1 !== index) {
+    const key = StepGroup.key(cleanSteps[index]);
+    while(key && index > 0 && StepGroup.key(cleanSteps[index - 1]) === key) {
+      index--;
+    }
     return insert(cleanSteps, index, new InfoStep({ task, type }));
   }
   return steps;

@@ -14,6 +14,10 @@ class StudentTaskStepGroup extends BaseModel {
   @readonly isGrouped = true;
   @readonly type = 'mpq';
 
+  static key(s) {
+    return `${s.type}.${s.uid || s.id}`;
+  }
+
   constructor(attrs) {
     super(attrs);
     this.steps.forEach((s) => s.multiPartGroup = this);

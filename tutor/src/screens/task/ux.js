@@ -70,9 +70,10 @@ export default class TaskUX {
 
   @computed get groupedSteps() {
     const { steps } = this.manipulated;
+
     if (this.task.isHomework) {
       return map(
-        groupBy(steps, s => `${s.type}.${s.uid || s.id}`),
+        groupBy(steps, StepGroup.key),
         (steps, uid) => steps.length > 1 ?
           new StepGroup({ steps, uid }) : steps[0]
       );
