@@ -39,9 +39,9 @@ const RoutedDropdownItem = (props) => {
   return (
     <Dropdown.Item
       onClick={onClick}
+      data-item={name}
       disabled={locked}
       className={cn(className, { locked, active })}
-      data-name={name}
     >
       <TourAnchor id={tourId}>
         {label}

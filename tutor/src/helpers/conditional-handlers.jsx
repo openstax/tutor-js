@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useLocation } from 'react-router-dom';
 import { extend } from 'lodash';
 import { asyncComponent } from './async-component';
 import { CourseNotFoundWarning } from '../components/course-not-found-warning';
@@ -44,6 +44,7 @@ const getConditionalHandlers = (Router) => {
 
   // eslint-disable-next-line react/prop-types
   const renderBecomeRole = ({ params: { courseId, roleId } }) => {
+    const location = useLocation();
     const course = Courses.get(courseId);
     if (!course) { return <CourseNotFoundWarning />; }
 
@@ -53,8 +54,9 @@ const getConditionalHandlers = (Router) => {
       return <CourseNotFoundWarning />;
     }
     role.become();
-
-    return <Redirect push to={`/course/${courseId}`} />;
+    const { state } = location;
+    const returnTo = (state && state.returnTo) || `/course/${courseId}`;
+    return <Redirect push to={returnTo} />;
   };
 
   return {

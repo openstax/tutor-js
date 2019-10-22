@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import ChapterSection from '../chapter-section';
 import Multiselect from '../multi-select';
 import { observer } from 'mobx-react';
 import { action, computed } from 'mobx';
@@ -31,7 +32,7 @@ class SectionsFilter extends React.Component {
         id: s.id,
         title: (
           <span>
-            <span className="section">{s.chapter_section.asString}</span>
+            <ChapterSection chapterSection={s.chapter_section} />
             <span>{s.title}</span>
           </span>
         ),
