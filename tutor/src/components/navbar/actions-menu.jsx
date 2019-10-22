@@ -13,14 +13,14 @@ const RoutedDropdownItem = (props) => {
   let { label } = props;
   const {
     // eslint-disable-next-line react/prop-types
-    name, tourId, className, route, locked, href, options: { redirect },
+    name, tourId, className, route, locked, href, options = {},
   } = props;
   const active = TutorRouter.isActive(route.name, route.params, route.options);
   const history = useHistory();
 
   const onClick = (ev) => {
     ev.preventDefault();
-    if (redirect) {
+    if (options.redirect) {
       window.location = href;
     } else {
       history.push(href);
@@ -39,7 +39,7 @@ const RoutedDropdownItem = (props) => {
   return (
     <Dropdown.Item
       onClick={onClick}
-      data-item={name}
+      data-item={options.key || name}
       disabled={locked}
       className={cn(className, { locked, active })}
     >
@@ -53,6 +53,7 @@ const RoutedDropdownItem = (props) => {
 
 RoutedDropdownItem.propTypes = {
   route: PropTypes.object.isRequired,
+  options: PropTypes.object.isRequired,
 };
 
 
