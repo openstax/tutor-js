@@ -437,8 +437,9 @@ class TutorRadio extends React.Component {
     const inputProps = pick(this.props, 'value', 'id', 'name', 'checked', 'disabled');
 
     if (label == null) { label = value; }
-    const classes = classnames('tutor-radio', className,
-      { active: checked });
+    const classes = classnames('tutor-radio', className, {
+      active: checked, disabled: this.props.disabled
+    });
 
     return (
       <div className={classes}>
