@@ -36,6 +36,7 @@ exports[`QA Screen matches snapshot 1`] = `
 
 .c1 {
   list-style-type: none;
+  padding: 0 1rem;
 }
 
 .c2 {
@@ -78,7 +79,30 @@ exports[`QA Screen matches snapshot 1`] = `
 }
 
 .c0 {
-  width: 3.3rem;
+  width: 300px;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  background: white;
+  margin-left: -300px;
+  bottom: 0;
+  z-index: 3;
+  max-height: 100%;
+  overflow-y: scroll;
+}
+
+.c0.open {
+  margin-left: 0;
+  box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.c0.open.ontop {
+  z-index: 1130;
+  box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2);
+}
+
+.c0 .chapter-section {
+  margin-right: 0.4rem;
 }
 
 <div
