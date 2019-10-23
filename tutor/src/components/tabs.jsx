@@ -1,4 +1,4 @@
-import { React, cn, useState, useHistory, useEffect } from 'vendor';
+import { React, cn, useState, useHistory, useEffect, useRef } from 'vendor';
 import { isNil, extend, partial } from 'lodash';
 import Router from '../helpers/router';
 import PropTypes from 'prop-types';
@@ -22,13 +22,16 @@ const getTab = (window) => Router.currentQuery({ window }).tab;
 const Tabs = ({
   tabs,
   children, className, onSelect,
-  initialActive = 0,
+  selectedIndex = 0,
   windowImpl = window,
 }) => {
   const history = useHistory();
 
   const [activeIndex, setActiveIndex] = useState(
-    isNil(getTab(windowImpl)) ? initialActive : parseInt(getTab(windowImpl))
+    Math.min(
+      isNil(getTab(windowImpl)) ? selectedIndex : parseInt(getTab(windowImpl)),
+      tabs.length - 1,
+    )
   );
 
   const selectTabIndex = (tab) => {
@@ -40,15 +43,26 @@ const Tabs = ({
     setActiveIndex(tab);
   };
 
+  const prevSelectedIndexRef = useRef();
+
   useEffect(() => {
-    if (activeIndex != initialActive) {
+    if (!isNil(prevSelectedIndex) && // an index was previously set
+        selectedIndex != prevSelectedIndex && // the current prop doesn't match previous
+        selectedIndex != activeIndex) { // the current differs from state
+      selectTabIndex(selectedIndex);
+    } else if (
+      isNil(prevSelectedIndex) // not previously called
+    ) {
       const ev = new FakeEvent;
       onSelect(activeIndex, ev);
       if (ev.isDefaultPrevented()) {
-        selectTabIndex(this.activeIndex);
+        selectTabIndex(activeIndex);
       }
     }
-  }, [initialActive]);
+    prevSelectedIndexRef.current = selectedIndex;
+  }, [selectedIndex]);
+
+  const prevSelectedIndex = prevSelectedIndexRef.current;
 
   const onTabClick = (activeIndex, ev) => {
     onSelect(activeIndex, ev);
@@ -91,7 +105,7 @@ const Tabs = ({
 Tabs.propTypes = {
   onSelect: PropTypes.func.isRequired,
   tabIndex: PropTypes.number,
-  initialActive: PropTypes.number,
+  selectedIndex: PropTypes.number,
   params: PropTypes.object,
   className: PropTypes.string,
   tabs: PropTypes.arrayOf(
