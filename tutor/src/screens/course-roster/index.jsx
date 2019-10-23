@@ -56,7 +56,6 @@ class CourseRoster extends React.Component {
       periodIndex = 0;
     }
     this.periodIndex = periodIndex;
-    this.refs.tabs.selectTabIndex(periodIndex);
   }
 
   renderEmpty() {
@@ -91,7 +90,11 @@ class CourseRoster extends React.Component {
 
         <div className="roster">
           <div className="settings-section periods">
-            <Tabs ref="tabs" tabs={map(periods, 'name')} onSelect={this.onTabSelection}>
+            <Tabs
+              tabs={map(periods, 'name')}
+              selectedIndex={this.periodIndex}
+              onSelect={this.onTabSelection}
+            >
               <AddPeriodLink course={course} />
               <ViewArchivedPeriods course={course} onComplete={this.selectPreviousPeriod} />
             </Tabs>

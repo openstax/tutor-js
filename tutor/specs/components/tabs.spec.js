@@ -9,7 +9,7 @@ describe('Change Student ID', () => {
   beforeEach(() => {
     props = {
       onSelect: jest.fn(),
-      initialActive: 1,
+      selectedIndex: 1,
       tabs: [ '1', '2', '3' ],
       windowImpl: new FakeWindow,
     };
@@ -18,7 +18,7 @@ describe('Change Student ID', () => {
   it('renders', () => {
     const tabs = mount(<R><Tabs {...props}><Body /></Tabs></R>);
     expect(
-      tabs.find('[role="tab"]').at(props.initialActive).hasClass('active')
+      tabs.find('[role="tab"]').at(props.selectedIndex).hasClass('active')
     ).toBeTruthy();
     tabs.unmount();
   });
