@@ -18,7 +18,7 @@ class Exercise extends BaseModel {
   static build(attrs) {
     return new this(merge(attrs, {
       questions: [{
-        formats: ['free-response'],
+        formats: [],
       }],
     }));
   }
