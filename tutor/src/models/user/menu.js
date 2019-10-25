@@ -140,7 +140,7 @@ const ROUTES = {
 
 };
 
-const TUTOR_HELP = 'https://openstax.secure.force.com/help';
+const TUTOR_HELP = 'https://openstax.secure.force.com/help?search=tutor';
 const TUTOR_CONTACT = 'https://openstax.org/contact';
 const SUPPORT_EMAIL = 'support@openstax.org';
 
