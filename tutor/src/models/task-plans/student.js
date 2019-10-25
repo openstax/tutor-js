@@ -22,6 +22,7 @@ class StudentTaskPlans extends Map {
   @observable expecting_assignments_count = 0;
   @observable all_tasks_are_ready = false;
   @observable refreshTimer;
+  @observable isPeriodicallyFetching;
 
   constructor({ course } = {}) {
     super();
@@ -97,19 +98,32 @@ class StudentTaskPlans extends Map {
       // reset our read count so it's ready to poll again if needed
       this.api.requestCounts.read = 1;
     }
-
     return this.fetch().then(() => {
-      const interval = (this.isPendingTaskLoading || this.isTeacherWaitingForLatest) ?
+      const interval = this.useFastPolling ?
         FETCH_INITIAL_TASKS_INTERVAL : REFRESH_TASKS_INTERVAL;
       this.refreshTimer = setTimeout(this.fetchTaskPeriodically, interval);
     });
   }
 
+  @computed get useFastPolling() {
+    return Boolean(this.isPendingTaskLoading || this.isTeacherWaitingForLatest);
+  }
+
+  @action refreshTasks() {
+    // if we're fast polling, it'll fetch again in a few seconds
+    if (!this.api.isPending || !this.isPeriodicallyFetching || !this.useFastPolling) {
+      this.fetch();
+    }
+  }
+
   @action startFetching() {
-    return this.refreshTimer ? Promise.resolve() : this.fetchTaskPeriodically();
+    if (this.isPeriodicallyFetching) { return; }
+    this.isPeriodicallyFetching = true;
+    this.fetchTaskPeriodically();
   }
 
   @action stopFetching() {
+    this.isPeriodicallyFetching = false;
     if (this.refreshTimer) {
       clearInterval(this.refreshTimer);
       this.refreshTimer = null;

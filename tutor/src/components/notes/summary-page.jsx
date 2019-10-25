@@ -10,6 +10,7 @@ import Page from '../../models/reference-book/page';
 const NotesForPage = observer(({
   onDelete, notes, page, selectedPages,
 }) => {
+
   if (!selectedPages.find(pg => pg.id == page.id)) {
     return null;
   }
@@ -47,7 +48,7 @@ class NoteSummaryPage extends React.Component {
 
   resetCurrentPage() {
     this.selectedPages.clear();
-    if (this.props.notes.forPage(this.props.page)) {
+    if (this.props.notes.hasNotesForPage(this.props.page)) {
       this.selectedPages.push(this.props.page);
     }
   }

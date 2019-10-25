@@ -118,6 +118,9 @@ class ExerciseQuestion extends BaseModel {
   }
 
   @computed get validity() {
+    if (isEmpty(this.formats)) {
+      return { valid: false, part: 'Question Format' };
+    }
     if (isEmpty(this.stem_html)){
       return { valid: false, part: 'Question Stem' };
     }
@@ -141,4 +144,4 @@ class ExerciseQuestion extends BaseModel {
     this.answers.splice(index+offset, 0, this.answers.splice(index, 1)[0]);
   }
 
-};
+}

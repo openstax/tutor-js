@@ -126,9 +126,9 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                                           <InnerPopper referenceElement={{...}} innerRef={[Function: menuRef]} placement=\\"bottom-start\\" eventsEnabled={true} modifiers={{...}} positionFixed={false}>
                                                                             <div aria-labelledby=\\"support-menu\\" style={[undefined]} className=\\" hide dropdown-menu show\\">
                                                                               <Memo(wrappedComponent) onPlayClick={[Function: res]} course={[undefined]} history={{...}} location={{...}} match={{...}} staticContext={[undefined]} tourContext={{...}} />
-                                                                              <DropdownItem className=\\"-help-link\\" target=\\"_blank\\" onSelect={[Function: res]} href=\\"https://openstax.secure.force.com/help\\" as={{...}} disabled={false}>
-                                                                                <SafeAnchor target=\\"_blank\\" href=\\"https://openstax.secure.force.com/help\\" disabled={false} className=\\"-help-link dropdown-item\\" onClick={[Function]}>
-                                                                                  <a target=\\"_blank\\" href=\\"https://openstax.secure.force.com/help\\" className=\\"-help-link dropdown-item\\" onClick={[Function: handleClick]} onKeyDown={[Function: handleKeyDown]}>
+                                                                              <DropdownItem className=\\"-help-link\\" target=\\"_blank\\" onSelect={[Function: res]} href=\\"https://openstax.secure.force.com/help?search=tutor\\" as={{...}} disabled={false}>
+                                                                                <SafeAnchor target=\\"_blank\\" href=\\"https://openstax.secure.force.com/help?search=tutor\\" disabled={false} className=\\"-help-link dropdown-item\\" onClick={[Function]}>
+                                                                                  <a target=\\"_blank\\" href=\\"https://openstax.secure.force.com/help?search=tutor\\" className=\\"-help-link dropdown-item\\" onClick={[Function: handleClick]} onKeyDown={[Function: handleKeyDown]}>
                                                                                     <span>
                                                                                       Help Articles
                                                                                     </span>
@@ -177,9 +177,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                                     </Observer>
                                                   </inject(SupportMenu)>
                                                 </withRouter(inject(SupportMenu))>
-                                                <withRouter(ActionsMenu) course={[undefined]}>
-                                                  <ActionsMenu course={[undefined]} history={{...}} location={{...}} match={{...}} staticContext={[undefined]} />
-                                                </withRouter(ActionsMenu)>
+                                                <ActionsMenu course={[undefined]} />
                                                 <withRouter(inject(PreviewAddCourseBtn)) course={[undefined]}>
                                                   <inject(PreviewAddCourseBtn) course={[undefined]} history={{...}} location={{...}} match={{...}} staticContext={[undefined]}>
                                                     <Observer>

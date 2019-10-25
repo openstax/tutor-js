@@ -123,7 +123,10 @@ describe('Task UX Model', () => {
     ux._task.students.push({ role_id: 99 });
     expect(ux.course.current_role_id).toEqual(ux.course.roles[0].id);
     ux.becomeStudentIfNeeded();
-    expect(ux.course.current_role_id).toEqual(99);
+    expect(ux.history.push).toHaveBeenCalledWith({
+      pathname: `/course/${ux.course.id}/become/99`,
+      state: { returnTo: '/' },
+    });
   });
 
   it('records in history when going to step', () => {
@@ -147,6 +150,18 @@ describe('Task UX Model', () => {
         { deferred: true, immediate: false },
       );
     });
+  });
 
+  it('locks going forward repeatedly', () => {
+    jest.useFakeTimers();
+    expect(ux.nextStep.is_completed).toBe(false);
+    ux.currentStep.is_completed = true;
+    expect(ux.isLocked).toBe(false);
+    ux.goForward();
+    expect(ux.isLocked).toBeTruthy();
+    expect(ux.canGoForward).toBe(false);
+    jest.runAllTimers();
+    expect(ux.isLocked).toBe(false);
+    expect(ux.canGoForward).toBe(true);
   });
 });

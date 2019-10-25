@@ -22,4 +22,18 @@ describe('choose exercises component', function() {
     revex.unmount();
   });
 
+  it('renders MPQ individually', () => {
+    props.ux.selectedExercises[0].content.questions = [
+      props.ux.selectedExercises[0].content.questions[0],
+      props.ux.selectedExercises[0].content.questions[0],
+    ];
+    expect(
+      props.ux.selectedExercises[0].content.questions
+    ).toHaveLength(2);
+    const revex = mount(<C><ReviewExercises {...props} /></C>);
+    expect(revex.find('.exercise-table .exercise-number')).toHaveLength(2);
+    expect(revex.find('CardHeader .exercise-number').text()).toEqual('1 - 2');
+    revex.unmount();
+  });
+
 });

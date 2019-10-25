@@ -12,6 +12,7 @@ Array [
   Object {
     "label": "Dashboard",
     "name": "dashboard",
+    "options": Object {},
     "params": Object {
       "courseId": 2,
     },
@@ -19,6 +20,7 @@ Array [
   Object {
     "label": "Browse the Book",
     "name": "browseBook",
+    "options": Object {},
     "params": Object {
       "courseId": 2,
     },
@@ -26,6 +28,7 @@ Array [
   Object {
     "label": "Scores",
     "name": "viewScores",
+    "options": Object {},
     "params": Object {
       "courseId": 2,
     },
@@ -33,6 +36,7 @@ Array [
   Object {
     "label": "Performance Forecast",
     "name": "viewPerformanceGuide",
+    "options": Object {},
     "params": Object {
       "courseId": 2,
     },
@@ -40,6 +44,7 @@ Array [
   Object {
     "label": "Change Student ID",
     "name": "changeStudentId",
+    "options": Object {},
     "params": Object {
       "courseId": 2,
     },
@@ -69,6 +74,7 @@ Array [
   Object {
     "label": "Dashboard",
     "name": "dashboard",
+    "options": Object {},
     "params": Object {
       "courseId": 1,
     },
@@ -76,6 +82,7 @@ Array [
   Object {
     "label": "Browse the Book",
     "name": "browseBook",
+    "options": Object {},
     "params": Object {
       "courseId": 1,
     },
@@ -83,6 +90,7 @@ Array [
   Object {
     "label": "Performance Forecast",
     "name": "viewPerformanceGuide",
+    "options": Object {},
     "params": Object {
       "courseId": 1,
     },
@@ -90,6 +98,7 @@ Array [
   Object {
     "label": "Question Library",
     "name": "viewQuestionsLibrary",
+    "options": Object {},
     "params": Object {
       "courseId": 1,
     },
@@ -97,6 +106,7 @@ Array [
   Object {
     "label": "Student Scores",
     "name": "viewScores",
+    "options": Object {},
     "params": Object {
       "courseId": 1,
     },
@@ -104,6 +114,7 @@ Array [
   Object {
     "label": "Course Settings",
     "name": "courseSettings",
+    "options": Object {},
     "params": Object {
       "courseId": 1,
     },
@@ -111,6 +122,7 @@ Array [
   Object {
     "label": "Course Roster",
     "name": "courseRoster",
+    "options": Object {},
     "params": Object {
       "courseId": 1,
     },
@@ -129,7 +141,7 @@ Array [
     "label": "Copy this Course",
     "name": "createNewCourse",
     "options": Object {
-      "key": "clone-course",
+      "key": "cloneCourse",
       "separator": "after",
     },
     "params": Object {

@@ -29,12 +29,8 @@
       flex-direction: column;
       width: 40rem;
       .rw-widget { width: 100%; }
-      .section {
-        display: inline-block;
-        margin: 0 0.5rem;
-        min-width: 3rem;
-        text-align: right;
-        font-weight: bold;
+      .chapter-section {
+        margin-right: 0.5rem;
       }
     }
 

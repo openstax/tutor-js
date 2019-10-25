@@ -14,6 +14,7 @@ export default class TaskUX {
   // privateish
   @observable _stepIndex = 0;
   @observable viewedInfoSteps = [];
+  @observable isLocked = false;
 
   constructor({ task, stepIndex = 0, history, windowImpl, course }) {
     this.history = history;
@@ -41,11 +42,15 @@ export default class TaskUX {
       // use of == is deliberate so that it'll match both string and number ids
       return this._task.students.find(s => s.role_id == r.id);
     });
-    if (teacherAsStudentRole) {
+
+    if (teacherAsStudentRole && this.course.currentRole !== teacherAsStudentRole) {
       // become the role, but do not reset the data so we
       // can re-use whatever is present.  Task is per-user,
       // so the data will be for this user
-      teacherAsStudentRole.become({ reset: false });
+      this.history.push({
+        pathname: `/course/${this.course.id}/become/${teacherAsStudentRole.id}`,
+        state: { returnTo: this.window.location.pathname },
+      });
     }
   }
 
@@ -58,6 +63,7 @@ export default class TaskUX {
         UiSettings.set(key, { taskId: this.task.id });
       }
     });
+    if (this.isLocked) { clearTimeout(this.isLocked); }
   }
 
   @computed get manipulated() {
@@ -70,9 +76,10 @@ export default class TaskUX {
 
   @computed get groupedSteps() {
     const { steps } = this.manipulated;
+
     if (this.task.isHomework) {
       return map(
-        groupBy(steps, s => `${s.type}.${s.uid || s.id}`),
+        groupBy(steps, StepGroup.key),
         (steps, uid) => steps.length > 1 ?
           new StepGroup({ steps, uid }) : steps[0]
       );
@@ -163,8 +170,15 @@ export default class TaskUX {
 
   @action.bound goForward() {
     if (this.canGoForward) {
+      if (!this.nextStep.is_completed) {
+        this.isLocked = setTimeout(this.unLock, 1500);
+      }
       this.goToStep(this._stepIndex + 1);
     }
+  }
+
+  @action.bound unLock() {
+    this.isLocked = false;
   }
 
   @action.bound goToStep(index, recordInHistory = true) {
@@ -207,7 +221,7 @@ export default class TaskUX {
   }
 
   @computed get canGoForward() {
-    if (this.isApiPending) { return false; }
+    if (this.isApiPending || this.isLocked) { return false; }
 
     if (this._stepIndex < this.steps.length - 1) {
       if (this.currentStep.isExercise) {
@@ -274,8 +288,7 @@ export default class TaskUX {
   }
 
   @computed get previousStep() {
-    return this.canGoBackward ?
-      this.steps[this._stepIndex - 1] : null;
+    return this.steps[this._stepIndex - 1];
   }
 
   @computed get currentStepIndex() {
@@ -283,8 +296,7 @@ export default class TaskUX {
   }
 
   @computed get nextStep() {
-    return this.canGoForward ?
-      this.steps[this._stepIndex + 1] : null;
+    return this.steps[this._stepIndex + 1];
   }
 
   @computed get relatedStepTitles() {

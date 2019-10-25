@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import ChapterSection from '../chapter-section';
 import Multiselect from '../multi-select';
 import { observer } from 'mobx-react';
 import { action, computed } from 'mobx';
@@ -14,26 +15,29 @@ class SectionsFilter extends React.Component {
     windowImpl: PropTypes.object,
   };
 
-  @action.bound onSelect({ id: key, selected } = {}) {
-
+  @action.bound onSelect({ summary, selected } = {}) {
+    const rec = this.props.selected.find(pg => pg.id == summary.id);
     if (selected) {
-      this.props.selected.remove(key);
+      this.props.selected.remove(rec);
     } else {
-      this.props.selected.push(key);
+      if (!rec) {
+        this.props.selected.push(summary);
+      }
     }
   }
 
   @computed get choices() {
     return this.props.notes.summary.sorted().map((s) => (
       {
-        id: s.chapter_section.key,
+        id: s.id,
         title: (
           <span>
-            <span className="section">{s.chapter_section.asString}</span>
+            <ChapterSection chapterSection={s.chapter_section} />
             <span>{s.title}</span>
           </span>
         ),
-        selected: this.props.selected.includes(s.chapter_section.key),
+        summary: s,
+        selected: !!this.props.selected.find(se => se.id == s.id),
       }
     ));
   }

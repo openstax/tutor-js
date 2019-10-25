@@ -18,16 +18,16 @@ class CoursePeriodsNav extends React.Component {
     courseId: idType,
     course: PropTypes.instanceOf(Course),
     handleSelect: PropTypes.func,
-    initialActive: PropTypes.number.isRequired,
+    selectedIndex: PropTypes.number.isRequired,
     afterTabsItem: PropTypes.element,
   }
 
   static defaultProps = {
-    initialActive: 0,
+    selectedIndex: 0,
     sortedPeriods: [],
   }
 
-  @observable tabIndex = this.props.initialActive;
+  @observable tabIndex = this.props.selectedIndex;
 
   @computed get course() {
     return this.props.course || Courses.get(this.props.courseId);
