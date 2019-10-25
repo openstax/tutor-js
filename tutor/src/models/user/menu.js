@@ -103,7 +103,7 @@ const ROUTES = {
       teacher: 'createNewCourse',
     },
     options: {
-      key: 'clone-course', separator: 'after',
+      key: 'cloneCourse', separator: 'after',
     },
     isAllowed(course) {
       return !!(course && !course.is_preview && !course.is_concept_coach && User.isCollegeTeacher); },

@@ -141,7 +141,7 @@ Array [
     "label": "Copy this Course",
     "name": "createNewCourse",
     "options": Object {
-      "key": "clone-course",
+      "key": "cloneCourse",
       "separator": "after",
     },
     "params": Object {
