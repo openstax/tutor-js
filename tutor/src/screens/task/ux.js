@@ -14,6 +14,7 @@ export default class TaskUX {
   // privateish
   @observable _stepIndex = 0;
   @observable viewedInfoSteps = [];
+  @observable isLocked = false;
 
   constructor({ task, stepIndex = 0, history, windowImpl, course }) {
     this.history = history;
@@ -62,6 +63,7 @@ export default class TaskUX {
         UiSettings.set(key, { taskId: this.task.id });
       }
     });
+    if (this.isLocked) { clearTimeout(this.isLocked); }
   }
 
   @computed get manipulated() {
@@ -167,8 +169,15 @@ export default class TaskUX {
 
   @action.bound goForward() {
     if (this.canGoForward) {
+      if (!this.nextStep.is_completed) {
+        this.isLocked = setTimeout(this.unLock, 1500);
+      }
       this.goToStep(this._stepIndex + 1);
     }
+  }
+
+  @action.bound unLock() {
+    this.isLocked = false;
   }
 
   @action.bound goToStep(index, recordInHistory = true) {
@@ -211,7 +220,7 @@ export default class TaskUX {
   }
 
   @computed get canGoForward() {
-    if (this.isApiPending) { return false; }
+    if (this.isApiPending || this.isLocked) { return false; }
 
     if (this._stepIndex < this.steps.length - 1) {
       if (this.currentStep.isExercise) {
@@ -278,8 +287,7 @@ export default class TaskUX {
   }
 
   @computed get previousStep() {
-    return this.canGoBackward ?
-      this.steps[this._stepIndex - 1] : null;
+    return this.steps[this._stepIndex - 1];
   }
 
   @computed get currentStepIndex() {
@@ -287,8 +295,7 @@ export default class TaskUX {
   }
 
   @computed get nextStep() {
-    return this.canGoForward ?
-      this.steps[this._stepIndex + 1] : null;
+    return this.steps[this._stepIndex + 1];
   }
 
   @computed get relatedStepTitles() {
