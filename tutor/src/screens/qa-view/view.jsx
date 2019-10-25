@@ -31,7 +31,7 @@ class QAView extends React.Component {
 
     return (
       <div className={className}>
-        <BookMenu ux={ux} />
+        <BookMenu {...ux.bookMenuProps} />
         <div className="content">
           <PagingNavigation
             className="book-page-wrapper"
@@ -44,4 +44,4 @@ class QAView extends React.Component {
     );
   }
 
-};
+}

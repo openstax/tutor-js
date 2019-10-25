@@ -31,4 +31,7 @@ class ReferenceBookChapter extends BaseModel {
     return !this.bookIsCollated;
   }
 
+  get parent() {
+    return this.book;
+  }
 }

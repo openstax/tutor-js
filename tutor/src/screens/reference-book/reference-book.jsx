@@ -48,7 +48,7 @@ class ReferenceBook extends React.Component {
         <SpyMode.Wrapper>
           <ObscuredPage>
             <div className="content">
-              <Menu ux={ux} />
+              <Menu {...ux.bookMenuProps} />
               <Content ux={ux} />
             </div>
           </ObscuredPage>

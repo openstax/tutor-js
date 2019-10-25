@@ -88,12 +88,20 @@ export default class QaScreenUX extends BookUX {
     this.isDisplayingExercises = checked;
   }
 
-  sectionHref(section) {
-    if (!section) { return null; }
+  sectionHref(page) {
+    if (!page) { return null; }
     return Router.makePathname('QADashboard', {
       ecosystemId: this.ecosystemId,
-      pageId: section.id,
+      pageId: page.id,
     });
+  }
+
+  propsForPage = (page) => {
+    return {
+      tabIndex: this.isMenuVisible ? 0 : -1,
+      to: 'QADashboard',
+      params: { ecosystemId: this.ecosystemId, pageId: page.id },
+    };
   }
 
   bookLinkFor(props) {

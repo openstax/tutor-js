@@ -1,86 +1,220 @@
-import { React, cn, PropTypes, observer, computed } from 'vendor';
-import { map, partial } from 'lodash';
+import { React, cn, PropTypes, styled, observer, useObserver } from 'vendor';
+import { Icon } from 'shared';
+import { map, isEmpty } from 'lodash';
 import TutorLink from '../link';
 import ChapterSection from '../chapter-section';
+import ReferenceBook from '../../models/reference-book';
+import Page from '../../models/reference-book/page';
+import MenuUX from './ux';
+import Theme from '../../theme';
 
-@observer
-class BookMenuTocSection extends React.Component {
+const StyledTitle = styled.div`
+  display: flex;
+  line-height: 2.3rem;
+  color: ${Theme.colors.neutral.dark};
+`;
 
-  static propTypes = {
-    ux: PropTypes.object.isRequired,
-    section: PropTypes.object,
-  };
-
-  @computed get title() {
-    const { section } = this.props;
-
-    return (
-      <div className="chapter-section-title">
-        {section.isChapterSectionDisplayed &&
-          <ChapterSection chapterSection={section.chapter_section} />}
-        <span key="title">{section.title}</span>
-      </div>
+const Title = ({ node, pageLinkProps }) => {
+  return useObserver(() => {
+    const title =  (
+      <StyledTitle>
+        {node.isChapterSectionDisplayed && (
+          <ChapterSection chapterSection={node.chapter_section} />)}
+        <span key="title">{node.title}</span>
+      </StyledTitle>
     );
-  }
 
-  @computed get linkedTitle() {
-    const { ux, section } = this.props;
+    if (!node.hasContent) { return title; }
+
     return (
       <TutorLink
-        {...ux.sectionLinkProps(section)}
-        tabIndex={ux.isMenuVisible ? 0 : -1}
-        className={section === ux.page ? 'active' : ''}
-        onClick={partial(ux.onMenuSelection, section.chapter_section.asString)}
+        {...pageLinkProps(node)}
       >
-        {this.title}
+        {title}
       </TutorLink>
     );
+  });
+};
+
+Title.propTypes = {
+  pageLinkProps: PropTypes.func.isRequired,
+  node: PropTypes.object.isRequired,
+};
+
+
+const BranchIcon = styled(Icon)`
+  margin-top: 4px;
+  align-self: flex-start;
+  transform: rotate(0deg);
+  transition: transform 0.2s;
+  &.expanded {
+    transform: rotate(90deg);
   }
+`;
 
+const Ol = styled.ol`
+  list-style-type: none;
+  padding: 0 1rem;
+`;
 
-  render() {
-    const { ux, section } = this.props;
+const Li = styled.li`
+  list-style-type: none;
+  margin: 1rem 0.5rem 0 0;
+  &.active {
+    font-weight: bolder;
+  }
+`;
 
+const Details = styled.details`
+  ol {
+    margin-left: 2rem;
+    padding-left: 0;
+  }
+`;
+
+const Summary = styled.summary`
+  display: flex;
+  cursor: pointer;
+  list-style: none;
+  align-items: baseline;
+  ::before {
+    display: none;
+  }
+  ::-moz-list-bullet {
+    list-style-type: none;
+  }
+  ::-webkit-details-marker {
+    display:none;
+  }
+`;
+
+const Branch = ({ node, ux, ...props }) => {
+  return useObserver(() => {
+    const isExpanded = ux.isExpanded(node);
     return (
-      <ul
+      <Ol
         className="section"
-        data-depth={section.depth}
+        data-depth={node.depth}
       >
-        <li data-section={section.chapter_section.asString}>
-          {section.hasContent ? this.linkedTitle : this.title}
-        </li>
-        {map(this.props.section.children, child => (
-          <li key={child.id} data-section={child.chapter_section.asString}>
-            <BookMenuTocSection ux={ux} section={child} />
-          </li>
-        ))}
-      </ul>
+        <Li>
+          <Details
+            open={isExpanded}
+            data-node-id={node.id}
+            onClick={(ev) => ux.toggleExpansion(node, ev)}
+          >
+            <Summary>
+              <BranchIcon type="caret-right" className={cn({ expanded: isExpanded })} />
+              <ChapterSection chapterSection={node.chapter_section} />
+              <Title {...props} node={node} />
+            </Summary>
+            <Ol>
+              {map(node.children, child => (
+                <Node key={child.id} {...props} ux={ux} node={child} />
+              ))}
+            </Ol>
+          </Details>
+        </Li>
+      </Ol>
     );
-  }
-}
+  });
+};
+Branch.propTypes = {
+  ux: PropTypes.instanceOf(MenuUX).isRequired,
+  pageLinkProps: PropTypes.func.isRequired,
+  node: PropTypes.object,
+};
 
+
+const Leaf = ({ node, ux, ...props }) => {
+  return useObserver(() => (
+    <Li data-node-id={node.id} className={cn({ active: ux.currentPage == node })}>
+      <Title {...props} node={node} />
+    </Li>
+  ));
+};
+
+Leaf.propTypes = {
+  pageLinkProps: PropTypes.func.isRequired,
+  node: PropTypes.object.isRequired,
+  ux: PropTypes.instanceOf(MenuUX).isRequired,
+};
+
+
+const Node = ({ node, ...props }) => {
+  const Component = isEmpty(node.children) ? Leaf : Branch;
+  return <Component {...props} node={node} />;
+};
+
+Node.propTypes = {
+  node: PropTypes.object,
+};
+
+
+const StyledMenu = styled.div`
+  width: ${Theme.sizes.bookTocWidth};
+  position: fixed;
+  top: 60px;
+  left: 0;
+  background: white;
+  margin-left: -${Theme.sizes.bookTocWidth};
+  bottom: 0;
+  z-index: 3;  // on top of book elements (booksplash, forward/prev controls)
+  max-height: 100%;
+  overflow-y: scroll;
+  &.open {
+
+    margin-left: 0;
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+
+    &.ontop {
+      z-index: 1130;
+      box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+    }
+  }
+  .chapter-section {
+    margin-right: 0.4rem;
+  }
+`;
 
 export default
 @observer
 class BookMenu extends React.Component {
 
   static propTypes = {
-    ux: PropTypes.object.isRequired,
+    ux: PropTypes.instanceOf(MenuUX),
+    className: PropTypes.string,
+    currentPage: PropTypes.instanceOf(Page),
+    pageLinkProps: PropTypes.func.isRequired,
+    book: PropTypes.instanceOf(ReferenceBook).isRequired,
+  }
+
+  ux = this.props.ux || new MenuUX(this.props)
+
+  menuWrapper = React.createRef()
+
+  componentDidMount() {
+    this.ux.wrapper = this.menuWrapper.current;
+  }
+
+  componentDidUpdate() {
+    this.ux.currentPage = this.props.currentPage;
   }
 
   render() {
-    const { ux } = this.props;
+    const { book, className, pageLinkProps } = this.props;
 
     return (
-      <div className={cn('book-menu', { open: ux.isMenuVisible, ontop: ux.isMenuOnTop })}>
-        {map(ux.toc, child => (
-          <BookMenuTocSection
-            ux={ux}
+      <StyledMenu ref={this.menuWrapper} className={cn('book-menu', className )}>
+        {map(book.children, child => (
+          <Node
+            ux={this.ux}
+            node={child}
             key={child.id}
-            section={child}
+            pageLinkProps={pageLinkProps}
           />
         ))}
-      </div>
+      </StyledMenu>
     );
   }
 

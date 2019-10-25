@@ -141,6 +141,24 @@ export default class BookUX {
     return this.book && this.book.is_collated;
   }
 
+  @computed get bookMenuProps() {
+    return {
+      book: this.book,
+      currentPage: this.page,
+      pageLinkProps: this.propsForPage,
+      className: this.isMenuVisible ? 'open' : '',
+    };
+  }
+
+  propsForPage = (page) => {
+    return {
+      tabIndex: this.isMenuVisible ? 0 : -1,
+      to: 'viewReferenceBookPage',
+      params: { pageId: page.id, courseId: this.course.id },
+      onClick: this.onMenuSelection, // node.chapter_section.asString)}
+    };
+  }
+
   @computed get courseDataProps() {
     const { course } = this;
     return course ? {
@@ -148,10 +166,6 @@ export default class BookUX {
       'data-book-title': course.bookName || '',
       'data-appearance': course.appearance_code,
     } : {};
-  }
-
-  rewriteBookLink(link) {
-    link.href = link.href.replace(/\/book\/\d+/, `/book/${this.courseId}`);
   }
 
   bookLinkFor(props) {
@@ -162,6 +176,10 @@ export default class BookUX {
       'viewReferenceBook',
       { courseId }, query
     );
+  }
+
+  rewriteBookLink(link) {
+    link.href = link.href.replace(/\/book\/\d+/, `/book/${this.courseId}`);
   }
 
   @computed get pagingProps() {

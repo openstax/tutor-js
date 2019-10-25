@@ -116,6 +116,7 @@
     "react-overlays": "^1.2.0",
     "react-router-dom": "5.1.2",
     "react-select": "^3.0.4",
+    "scroll-into-view": "^1.11.0",
     "serializr": "^1.5.1",
     "styled-components": "^4.3.2",
     "survey-react": "^1.1.7",
