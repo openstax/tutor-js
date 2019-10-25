@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import cn from 'classnames';
 import { PropTypes as mobxPropTypes } from 'mobx-react';
@@ -16,7 +16,7 @@ export {
   withRouter, ArrayOrMobxType, readonly,
   React, cn, ReactDOM, mobxPropTypes, PropTypes,
   invariant, styled, css, idType, autobind, Theme,
-  useState, useHistory, useLocation, useParams, useEffect,
+  useState, useHistory, useLocation, useParams, useEffect, useRef,
 };
 export { observable, action, computed } from 'mobx';
 export { observer, inject, Provider } from 'mobx-react';
