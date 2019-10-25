@@ -78,10 +78,14 @@ class AssignmentBuilderUX {
   }
 
   @computed get isInitializing() {
-
     return !this.isReady || !this.plan || this.plan.api.isPendingInitialFetch;
   }
 
+  @computed get canSelectAllSections() {
+    return Boolean(
+      this.plan.isEditable && this.plan.tasking_plans.length == this.course.periods.length
+    );
+  }
   @computed get selectedPageIds() {
     return this.plan.pageIds;
   }
@@ -312,10 +316,12 @@ class AssignmentBuilderUX {
     }
     const firstTasking = first(this.plan.tasking_plans);
     this.plan.tasking_plans = [];
+
     const opens_at = (firstTasking && firstTasking.opens_at) ||
           calculateDefaultOpensAt({ course: this.course });
+    const due_at = (firstTasking && firstTasking.due_at);
     this.periods.map((period) =>
-      this.plan.findOrCreateTaskingForPeriod(period, { opens_at }),
+      this.plan.findOrCreateTaskingForPeriod(period, { opens_at, due_at }),
     );
   }
 
@@ -328,7 +334,8 @@ class AssignmentBuilderUX {
     if (input.checked && !tasking) {
       const firstTp = first(this.plan.tasking_plans);
       const opens_at = (firstTp && firstTp.opens_at) || calculateDefaultOpensAt({ course: this.course });
-      this.plan.findOrCreateTaskingForPeriod(period, { opens_at });
+      const due_at = firstTp && firstTp.due_at;
+      this.plan.findOrCreateTaskingForPeriod(period, { opens_at, due_at });
     } else if (!input.checked && tasking) {
       this.plan.tasking_plans.remove(tasking);
     }

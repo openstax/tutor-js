@@ -1,4 +1,4 @@
-import { React, PropTypes, observer } from 'vendor';
+import { React, PropTypes, observer, cn } from 'vendor';
 import { Row, Col } from 'react-bootstrap';
 import CourseGroupingLabel from '../../../components/course-grouping-label';
 import TimeZoneSettings from './time-zone-settings-link';
@@ -71,14 +71,18 @@ class TaskPlanBuilder extends React.Component {
             </div>
           </Col>
         </Row>
-        <Row className="common tutor-date-input">
+        <Row
+          className={cn('common', 'tutor-input', {
+            'is-disabled': !ux.canSelectAllSections,
+          })}
+        >
           <Col sm={4} md={3}>
             <input
               id="hide-periods-radio"
               name="toggle-periods-radio"
               type="radio"
               value="all"
-              disabled={!plan.isEditable}
+              disabled={!ux.canSelectAllSections}
               onChange={ux.togglePeriodTaskingsEnabled}
               checked={!ux.isShowingPeriodTaskings}
             />
