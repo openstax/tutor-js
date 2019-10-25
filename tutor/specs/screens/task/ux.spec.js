@@ -150,6 +150,18 @@ describe('Task UX Model', () => {
         { deferred: true, immediate: false },
       );
     });
+  });
 
+  it('locks going forward repeatedly', () => {
+    jest.useFakeTimers();
+    expect(ux.nextStep.is_completed).toBe(false);
+    ux.currentStep.is_completed = true;
+    expect(ux.isLocked).toBe(false);
+    ux.goForward();
+    expect(ux.isLocked).toBeTruthy();
+    expect(ux.canGoForward).toBe(false);
+    jest.runAllTimers();
+    expect(ux.isLocked).toBe(false);
+    expect(ux.canGoForward).toBe(true);
   });
 });

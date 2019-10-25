@@ -176,6 +176,7 @@ exports[`Tasks External URL Screen matches snapshot 1`] = `
           "push": [MockFunction],
           "replace": [MockFunction],
         },
+        "isLocked": false,
         "viewedInfoSteps": Array [],
         "window": [Window],
       }

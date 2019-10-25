@@ -738,6 +738,7 @@ exports[`Reading Tasks Screen matches snapshot 1`] = `
         "history": Object {
           "push": [Function],
         },
+        "isLocked": false,
         "viewedInfoSteps": Array [],
         "window": [Window],
       }

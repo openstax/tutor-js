@@ -737,6 +737,7 @@ exports[`Reading Milestones Component matches snapshot 1`] = `
         "year": 2017,
       },
       "history": undefined,
+      "isLocked": false,
       "viewedInfoSteps": Array [],
       "window": [Window],
     }

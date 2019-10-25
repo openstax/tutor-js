@@ -838,6 +838,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
           "push": [MockFunction],
           "replace": [MockFunction],
         },
+        "isLocked": false,
         "viewedInfoSteps": Array [],
         "window": [Window],
       }
