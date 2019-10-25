@@ -121,7 +121,16 @@
   }
 
   .os-chapter-outline {
-    .os-title { display: none; }
+    .os-title {
+      @include book-content-full-width();
+      @include tutor-sans-font(2rem, 2rem);
+      margin-top: -2rem;
+      margin-bottom: 0;
+      padding: 1rem;
+      padding-left: 3.5rem;
+      display: block;
+    }
+
     .os-chapter-objective {
       > a.os-chapter-objective {
         display: none;
