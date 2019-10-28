@@ -100,9 +100,8 @@ const Branch = ({ node, ux, ...props }) => {
           <Details
             open={isExpanded}
             data-node-id={node.id}
-            onClick={(ev) => ux.toggleExpansion(node, ev)}
           >
-            <Summary>
+            <Summary onClick={(ev) => ux.toggleExpansion(node, ev)}>
               <BranchIcon type="caret-right" className={cn({ expanded: isExpanded })} />
               <ChapterSection chapterSection={node.chapter_section} />
               <Title {...props} node={node} />

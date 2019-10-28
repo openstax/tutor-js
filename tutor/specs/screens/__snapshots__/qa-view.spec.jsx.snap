@@ -128,11 +128,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="69"
-                onClick={[Function]}
                 open={true}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -254,11 +254,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="70"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -404,11 +404,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="71"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -602,11 +602,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="72"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -824,11 +824,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="73"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -998,11 +998,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="74"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -1196,11 +1196,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="75"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -1442,11 +1442,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="76"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -1592,11 +1592,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="77"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -1766,11 +1766,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="78"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -1964,11 +1964,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="79"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -2090,11 +2090,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="80"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -2240,11 +2240,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="81"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -2366,11 +2366,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="82"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -2588,11 +2588,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="83"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -2786,11 +2786,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="84"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -3032,11 +3032,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="85"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -3230,11 +3230,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="86"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -3380,11 +3380,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="87"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -3530,11 +3530,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="88"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -3680,11 +3680,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="89"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -3854,11 +3854,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="90"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -4052,11 +4052,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="91"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -4226,11 +4226,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="92"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -4424,11 +4424,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="93"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -4598,11 +4598,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="94"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -4772,11 +4772,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="95"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -4946,11 +4946,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="96"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -5144,11 +5144,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="97"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -5390,11 +5390,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="98"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -5612,11 +5612,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="99"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -5762,11 +5762,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="100"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -5912,11 +5912,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="101"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -6062,11 +6062,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="102"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -6236,11 +6236,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="103"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -6434,11 +6434,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="104"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -6632,11 +6632,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="105"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -6830,11 +6830,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="106"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -7004,11 +7004,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="107"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -7178,11 +7178,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="108"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -7352,11 +7352,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="109"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -7550,11 +7550,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="110"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -7724,11 +7724,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="111"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -7970,11 +7970,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="112"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -8168,11 +8168,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="113"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -8414,11 +8414,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="114"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"
@@ -8564,11 +8564,11 @@ exports[`QA Screen matches snapshot 1`] = `
               <details
                 className="c3"
                 data-node-id="115"
-                onClick={[Function]}
                 open={false}
               >
                 <summary
                   className="c4"
+                  onClick={[Function]}
                 >
                   <svg
                     aria-hidden="true"

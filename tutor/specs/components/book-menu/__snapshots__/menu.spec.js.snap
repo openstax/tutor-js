@@ -118,11 +118,11 @@ exports[`Book Menu renders and matches snapshot 1`] = `
       <details
         className="c3"
         data-node-id="123"
-        onClick={[Function]}
         open={true}
       >
         <summary
           className="c4"
+          onClick={[Function]}
         >
           <svg
             aria-hidden="true"
@@ -254,11 +254,11 @@ exports[`Book Menu renders and matches snapshot 1`] = `
       <details
         className="c3"
         data-node-id="124"
-        onClick={[Function]}
         open={false}
       >
         <summary
           className="c4"
+          onClick={[Function]}
         >
           <svg
             aria-hidden="true"
@@ -390,11 +390,11 @@ exports[`Book Menu renders and matches snapshot 1`] = `
       <details
         className="c3"
         data-node-id="125"
-        onClick={[Function]}
         open={false}
       >
         <summary
           className="c4"
+          onClick={[Function]}
         >
           <svg
             aria-hidden="true"
