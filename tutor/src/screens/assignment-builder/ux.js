@@ -1,6 +1,6 @@
 import { action, computed, observable, runInAction } from 'mobx';
 import moment from 'moment';
-import { map, get, compact, isEmpty, filter, first } from 'lodash';
+import { difference, map, get, compact, isEmpty, filter, first } from 'lodash';
 import ScrollTo from '../../helpers/scroll-to';
 import Exercises from '../../models/exercises';
 import TaskPlan, { SELECTION_COUNTS, calculateDefaultOpensAt } from '../../models/task-plans/teacher/plan';
@@ -83,7 +83,10 @@ class AssignmentBuilderUX {
 
   @computed get canSelectAllSections() {
     return Boolean(
-      this.plan.isEditable && this.plan.tasking_plans.length == this.course.periods.length
+      this.plan.isEditable && isEmpty(difference(
+        map(this.course.periods.active, 'id'),
+        map(this.plan.tasking_plans, 'target_id'),
+      ))
     );
   }
   @computed get selectedPageIds() {
