@@ -12,42 +12,53 @@ import CourseGroupingLabel from '../../components/course-grouping-label';
 const EMPTY_WARNING = 'EMPTY';
 
 // eslint-disable-next-line react/prop-types
-const DeletePeriodModal = ({ section, show, onClose, period, isBusy, onDelete }) => (
-  <Modal
-    show={show}
-    onHide={onClose}
-    className="settings-delete-period-modal">
-    <Modal.Header closeButton={true}>
-      <Modal.Title>
-        Delete {period.name}
-      </Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
-      <p>
-        If you delete
-        this {section} you
-        will no longer have access to work
-        done in that section and those students will be removed from the course.
-      </p>
-      <p>
-        Are you sure you want to delete this section?
-      </p>
-    </Modal.Body>
-    <Modal.Footer>
-      <AsyncButton
-        className="delete"
-        variant="danger"
-        onClick={onDelete}
-        waitingText="Deleting…"
-        isWaiting={isBusy}>
-        Delete
-      </AsyncButton>
-      <Button disabled={isBusy} onClick={onClose} variant="default">
-        Cancel
-      </Button>
-    </Modal.Footer>
-  </Modal>
-);
+const DeletePeriodModal = ({ onClose, period, isBusy, onDelete }) => {
+  if (!period) {
+    return null;
+  }
+  return (
+    <Modal
+      show={true}
+      onHide={onClose}
+      className="settings-delete-period-modal">
+      <Modal.Header closeButton={true}>
+        <Modal.Title>
+          Delete {period.name}
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <p>
+          If you delete
+          this <CourseGroupingLabel courseId={period.course.id} /> you
+          will no longer have access to work
+          done in that <CourseGroupingLabel courseId={period.course.id} /> and
+          those students will be removed from the course.
+        </p>
+        <p>
+          Are you sure you want to delete
+          this <CourseGroupingLabel courseId={period.course.id} />?
+        </p>
+      </Modal.Body>
+      <Modal.Footer>
+        <AsyncButton
+          className="delete"
+          variant="danger"
+          onClick={onDelete}
+          waitingText="Deleting…"
+          isWaiting={isBusy}>
+          Delete
+        </AsyncButton>
+        <Button disabled={isBusy} onClick={onClose} variant="default">
+          Cancel
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+};
+
+DeletePeriodModal.propTypes = {
+  period: PropTypes.instanceOf(Period),
+};
 
 export default
 @observer
@@ -58,14 +69,14 @@ class DeletePeriodLink extends React.Component {
     onDelete: PropTypes.func.isRequired,
   }
 
-  @observable showModal = false;
+  @observable showModalForPeriod = false;
 
   @action.bound close() {
-    this.showModal = false;
+    this.showModalForPeriod = false;
   }
 
   @action.bound open() {
-    this.showModal = true;
+    this.showModalForPeriod = this.props.period;
   }
 
   @action.bound performDelete() {
@@ -78,8 +89,6 @@ class DeletePeriodLink extends React.Component {
     const students = period.course.roster.students.activeByPeriod[period.id];
     if (!isEmpty(students)) { return null; }
 
-    const section = <CourseGroupingLabel courseId={period.course.id} />;
-
     return (
       <React.Fragment>
         <Button
@@ -87,15 +96,13 @@ class DeletePeriodLink extends React.Component {
           variant="link"
           className="control delete-period"
         >
-          <Icon type="trash" />Delete {section}
+          <Icon type="trash" />Delete <CourseGroupingLabel courseId={period.course.id} />
         </Button>
         <DeletePeriodModal
-          show={this.showModal}
-          period={period}
           onClose={this.close}
-          section={section}
-          isBusy={period.api.isPending}
+          isBusy={this.showModalForPeriod && this.showModalForPeriod.api.isPending}
           onDelete={this.performDelete}
+          period={this.showModalForPeriod}
         />
       </React.Fragment>
     );
