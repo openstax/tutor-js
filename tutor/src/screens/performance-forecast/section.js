@@ -20,7 +20,7 @@ const PerformanceForecastSection = (props) => {
       </h4>
       <ProgressBar
         {...props}
-        ariaLabel={`cs.asString ${section.title}`} />
+        ariaLabel={`${cs.asString} ${section.title}`} />
       <Statistics
         courseId={courseId}
         roleId={roleId}
