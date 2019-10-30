@@ -40,4 +40,17 @@ describe('Assignment Builder UX', function() {
     expect(ux.referenceBook.id).toEqual(plan.ecosystem_id);
   });
 
+  it('#canSelectAllSections', () => {
+    expect(ux.canSelectAllSections).toBe(true);
+    plan.tasking_plans.shift();
+    expect(ux.canSelectAllSections).toBe(false);
+
+    plan.tasking_plans = [];
+    course.periods.forEach(p => plan.findOrCreateTaskingForPeriod(p));
+    expect(ux.canSelectAllSections).toBe(true);
+
+    // don't reject plan that targets a deleted period
+    course.periods[0].is_archived = true;
+    expect(ux.canSelectAllSections).toBe(true);
+  });
 });
