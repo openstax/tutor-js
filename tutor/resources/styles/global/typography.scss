@@ -17,11 +17,12 @@
 $caption-font-color: #646464;
 $html-font-size: 10px;
 $tutor-default-font-face: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$tutor-sans-font-face: $tutor-default-font-face;
 $tutor-neutral-light-font-face: "HelveticaNeue-Light", "Helvetica Neue Light", $tutor-default-font-face;
 
 
 @mixin tutor-sans-font($size: 1.5rem, $line-height: 2.25rem) {
-  font-family: $tutor-default-font-face;
+  font-family: $tutor-sans-font-face;
   font-weight: 400;
   font-style: normal;
   font-size: $size;
