@@ -115,6 +115,11 @@
     display: none;
   }
 
+  [data-type="title"] {
+    font-family: $tutor-sans-font-face;
+  }
+
+
   .os-glossary-container {
     margin-top: 2rem;
     margin-bottom: 1rem;
