@@ -9,6 +9,9 @@ import ScrollTo from '../../helpers/scroll-to';
 import PageContentUX from './page-content-ux';
 import CenterControls from '../../components/navbar/center-controls';
 
+// pause for 1 second before allowing advancement to next step
+const PAUSE_BEFORE_ADVANCEMENT_TIMEOUT = 1000;
+
 export default class TaskUX {
 
   // privateish
@@ -170,8 +173,8 @@ export default class TaskUX {
 
   @action.bound goForward() {
     if (this.canGoForward) {
-      if (!this.nextStep.is_completed) {
-        this.isLocked = setTimeout(this.unLock, 1500);
+      if (this.nextStep.isInfo || !this.nextStep.is_completed) {
+        this.isLocked = setTimeout(this.unLock, PAUSE_BEFORE_ADVANCEMENT_TIMEOUT);
       }
       this.goToStep(this._stepIndex + 1);
     }

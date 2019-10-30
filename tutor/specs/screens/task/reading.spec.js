@@ -53,23 +53,28 @@ describe('Reading Tasks Screen', () => {
 
 
   it('switches steps as needed when task reloads', () => {
+    jest.useFakeTimers();
     props.ux.task.steps = [
       Factory.bot.create('StudentTaskStep', { type: 'reading' }),
       Factory.bot.create('StudentTaskStep', { type: 'placeholder' }),
     ];
 
-    const h = mount(<C><Reading {...props} /></C>);
+    const r = mount(<C><Reading {...props} /></C>);
     expect(props.ux.canGoForward).toBe(true);
     props.ux.goForward();
-    expect(h).toHaveRendered('IndividualReview');
+    expect(r).toHaveRendered('IndividualReview');
+
+    expect(r).toHaveRendered('ContinueBtn button[disabled=true]');
+    jest.runAllTimers();
+    expect(r).toHaveRendered('ContinueBtn button[disabled=false]');
 
     props.ux.goForward();
 
-    expect(h).toHaveRendered('LoadingCard');
+    expect(r).toHaveRendered('LoadingCard');
 
     props.ux.currentStep.api.requestCounts.read = 1;
 
-    expect(h).toHaveRendered('PlaceHolderTaskStep');
+    expect(r).toHaveRendered('PlaceHolderTaskStep');
 
     props.ux.task.onFetchComplete({
       data: {
@@ -81,13 +86,13 @@ describe('Reading Tasks Screen', () => {
     });
 
     // the new step won't have been loaded
-    expect(h).toHaveRendered('LoadingCard');
+    expect(r).toHaveRendered('LoadingCard');
     props.ux.currentStep.onLoaded({
       data: Factory.bot.create('StudentTaskExerciseStepContent'),
     });
     props.ux.currentStep.api.requestCounts.read = 1;
-    expect(h).toHaveRendered('ExerciseTaskStep');
-    h.unmount();
+    expect(r).toHaveRendered('ExerciseTaskStep');
+    r.unmount();
   });
 
 });
