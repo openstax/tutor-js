@@ -18,7 +18,6 @@
 }
 
 @mixin tutor-book-theme-page-title($background, $text-color) {
-  .os-chapter-outline .os-title,
   .page-title {
     background: $background;
     color: $text-color;
