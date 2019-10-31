@@ -20,7 +20,9 @@ const RoutedDropdownItem = (props) => {
 
   const onClick = (ev) => {
     ev.preventDefault();
-    if (options.redirect) {
+    if (options.newWindow) {
+      window.open(href);
+    } else if (options.redirect) {
       window.location = href;
     } else {
       history.push(href);
