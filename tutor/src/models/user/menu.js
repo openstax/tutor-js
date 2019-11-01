@@ -135,6 +135,7 @@ const ROUTES = {
   qaHome: {
     label: 'Content Analyst',
     href: '/content_analyst',
+    options: { redirect: true },
     isAllowed() { return !!User.is_content_analyst; },
   },
 
