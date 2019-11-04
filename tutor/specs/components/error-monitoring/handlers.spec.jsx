@@ -1,7 +1,5 @@
-import { C, TestRouter } from '../../helpers';
+import { Factory } from '../../helpers';
 import TutorRouter from '../../../src/helpers/router';
-import Courses from '../../../src/models/courses-map';
-import COURSE from '../../../api/user/courses/1.json';
 import Handlers from '../../../src/components/error-monitoring/handlers';
 
 jest.mock('../../../src/helpers/router');
@@ -20,12 +18,11 @@ describe('Error monitoring: handlers', () => {
   let course;
 
   beforeEach(() => {
-    Courses.bootstrap([COURSE], { clear: true });
-    course = Courses.get(COURSE_ID);
-    TutorRouter.currentParams.mockReturnValue({ courseId: COURSE_ID });
+    course = Factory.course();
     TutorRouter.makePathname.mockReturnValue('/go/to/dash');
     context = {
-      router: new TestRouter,
+      course,
+      history: { push: jest.fn() },
     };
   });
 
@@ -46,8 +43,8 @@ describe('Error monitoring: handlers', () => {
     const wrapper = shallow(<Wrapper body={attrs.body} />);
     expect(wrapper.text()).toContain('not yet started');
     attrs.onOk();
-    expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', { courseId: COURSE_ID });
-    expect(context.router.history.push).toHaveBeenCalledWith('/go/to/dash');
+    expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', { courseId: course.id });
+    expect(context.history.push).toHaveBeenCalledWith('/go/to/dash');
   });
 
   it('renders course ended message', function() {
@@ -56,8 +53,8 @@ describe('Error monitoring: handlers', () => {
     const wrapper = shallow(<Wrapper body={attrs.body} />);
     expect(wrapper.text()).toContain('course ended');
     attrs.onOk();
-    expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', { courseId: COURSE_ID });
-    expect(context.router.history.push).toHaveBeenCalledWith('/go/to/dash');
+    expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', { courseId: course.id });
+    expect(context.history.push).toHaveBeenCalledWith('/go/to/dash');
   });
 
   it('renders exercises not found', function() {
@@ -66,8 +63,8 @@ describe('Error monitoring: handlers', () => {
     const wrapper = shallow(<Wrapper body={attrs.body} />);
     expect(wrapper.text()).toContain('no problems to show');
     attrs.onOk();
-    expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', { courseId: COURSE_ID });
-    expect(context.router.history.push).toHaveBeenCalledWith('/go/to/dash');
+    expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', { courseId: course.id });
+    expect(context.history.push).toHaveBeenCalledWith('/go/to/dash');
   });
 
   it('renders nothing for payment_overdue', function() {

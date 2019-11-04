@@ -219,7 +219,11 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                     </StyledComponent>
                                   </styled.nav>
                                 </Navbar>
-                                <ServerErrorMonitoring />
+                                <withRouter(inject-with-courseContext(ServerErrorMonitoring))>
+                                  <inject-with-courseContext(ServerErrorMonitoring) history={{...}} location={{...}} match={{...}} staticContext={[undefined]}>
+                                    <ServerErrorMonitoring history={{...}} location={{...}} match={{...}} staticContext={[undefined]} courseContext={{...}} />
+                                  </inject-with-courseContext(ServerErrorMonitoring)>
+                                </withRouter(inject-with-courseContext(ServerErrorMonitoring))>
                                 <inject-with-modalManager(TermsModal)>
                                   <TermsModal modalManager={{...}} />
                                 </inject-with-modalManager(TermsModal)>
