@@ -1,19 +1,11 @@
 /* eslint-disable react/prop-types */
-import PropTypes from 'prop-types';
-import React from 'react';
-import classnames from 'classnames';
-import { observer } from 'mobx-react';
-import { omit } from 'lodash';
-import { computed, action } from 'mobx';
-import { withRouter } from 'react-router-dom';
+import { React, PropTypes, cn, observer, computed, action, withRouter } from 'vendor';
 import Router from '../../helpers/router';
 import TutorLink from '../link';
 import { Icon } from 'shared';
 import CourseModel from '../../models/course';
 import CourseUX from '../../models/course/ux';
 import OXFancyLoader from 'shared/components/staxly-animation';
-
-import { wrapCourseDragComponent } from './course-dnd';
 import CourseBranding from '../branding/course';
 
 const CoursePropType = PropTypes.shape({
@@ -68,7 +60,7 @@ class CoursePreview extends React.Component {
 
   render() {
     const { course, className } = this.props;
-    const itemClasses = classnames('my-courses-item', 'preview', className, {
+    const itemClasses = cn('my-courses-item', 'preview', className, {
       'is-building': course.isBuilding,
     });
     return (
@@ -127,7 +119,7 @@ class Course extends React.Component {
           data-is-teacher={this.ux.course.currentRole.isTeacher}
           data-course-id={this.ux.courseId}
           data-course-course-type={this.ux.courseType}
-          className={classnames('my-courses-item', this.props.className)}
+          className={cn('my-courses-item', this.props.className)}
         >
           <div className="my-courses-item-title">
             <TutorLink to="dashboard" params={{ courseId: this.ux.courseId }}>
@@ -158,31 +150,22 @@ class Course extends React.Component {
 }
 
 
-@wrapCourseDragComponent
-class CourseTeacher extends React.Component {
+const CourseTeacher = ({ course, ...props }) => (
+  <div className="course-teacher">
+    <Course
+      course={course}
+      {...props}
+      controls={
+        <TutorLink
+          to="createNewCourse"
+          params={{ sourceId: course.id }}
+          className="btn btn-default btn-sm"
+        >
+          Copy this course
+        </TutorLink>}
+    />
+  </div>
+);
 
-  static propTypes = omit(Course.propTypes, 'controls');
-
-  render() {
-    const { course } = this.props;
-    const link =
-      <TutorLink
-        to="createNewCourse"
-        params={{ sourceId: course.id }}
-        className="btn btn-default btn-sm"
-      >
-        Copy this course
-      </TutorLink>;
-
-    return (
-      this.props.connectDragSource(
-        <div
-          className={classnames('course-teacher', { 'is-dragging': this.props.isDragging })}>
-          <Course {...this.props} controls={link} />
-        </div>
-      )
-    );
-  }
-}
 
 export { CoursePropType, CoursePreview, Course, CourseTeacher };
