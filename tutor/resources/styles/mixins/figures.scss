@@ -1,6 +1,7 @@
 @mixin tutor-figure-title() {
   .os-title-label,
   .os-number {
+    @include tutor-sans-font();
     font-weight: 800;
   }
 }
