@@ -22,7 +22,7 @@ $tutor-neutral-light-font-face: "HelveticaNeue-Light", "Helvetica Neue Light", $
 
 
 @mixin tutor-sans-font($size: 1.5rem, $line-height: 2.25rem) {
-  font-family: $tutor-default-font-face;
+  font-family: $tutor-sans-font-face;
   font-weight: 400;
   font-style: normal;
   font-size: $size;
