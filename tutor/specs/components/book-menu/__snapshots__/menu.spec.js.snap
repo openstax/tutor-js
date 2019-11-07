@@ -54,16 +54,8 @@ exports[`Book Menu renders and matches snapshot 1`] = `
 }
 
 .c4 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   cursor: pointer;
   list-style: none;
-  -webkit-align-items: baseline;
-  -webkit-box-align: baseline;
-  -ms-flex-align: baseline;
-  align-items: baseline;
 }
 
 .c4::before {
@@ -76,6 +68,17 @@ exports[`Book Menu renders and matches snapshot 1`] = `
 
 .c4::-webkit-details-marker {
   display: none;
+}
+
+.c4 > div {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
 }
 
 .c0 {
@@ -124,35 +127,44 @@ exports[`Book Menu renders and matches snapshot 1`] = `
           className="c4"
           onClick={[Function]}
         >
-          <svg
-            aria-hidden="true"
-            className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right expanded c5 c6"
-            data-icon="caret-right"
-            data-prefix="fas"
-            focusable="false"
-            role="img"
-            style={Object {}}
-            viewBox="0 0 192 512"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-              fill="currentColor"
+          <div>
+            <svg
+              aria-hidden="true"
+              className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right expanded c5 c6"
+              data-icon="caret-right"
+              data-prefix="fas"
+              focusable="false"
+              role="img"
               style={Object {}}
-            />
-          </svg>
-          <span
-            className="chapter-section"
-            data-chapter-section="1.0"
-          >
-            1
-          </span>
-          <div
-            className="c7"
-          >
-            <span>
-              Kinematics
+              viewBox="0 0 192 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                fill="currentColor"
+                style={Object {}}
+              />
+            </svg>
+            <span
+              className="chapter-section"
+              data-chapter-section="1.0"
+            >
+              1
             </span>
+            <a
+              className="node"
+              href="/book/1/page/1234"
+              onClick={[Function]}
+              tabIndex={12}
+            >
+              <div
+                className="c7"
+              >
+                <span>
+                  Kinematics
+                </span>
+              </div>
+            </a>
           </div>
         </summary>
         <ol
@@ -253,35 +265,44 @@ exports[`Book Menu renders and matches snapshot 1`] = `
           className="c4"
           onClick={[Function]}
         >
-          <svg
-            aria-hidden="true"
-            className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-            data-icon="caret-right"
-            data-prefix="fas"
-            focusable="false"
-            role="img"
-            style={Object {}}
-            viewBox="0 0 192 512"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-              fill="currentColor"
+          <div>
+            <svg
+              aria-hidden="true"
+              className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+              data-icon="caret-right"
+              data-prefix="fas"
+              focusable="false"
+              role="img"
               style={Object {}}
-            />
-          </svg>
-          <span
-            className="chapter-section"
-            data-chapter-section="2.0"
-          >
-            2
-          </span>
-          <div
-            className="c7"
-          >
-            <span>
-              Mechanics
+              viewBox="0 0 192 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                fill="currentColor"
+                style={Object {}}
+              />
+            </svg>
+            <span
+              className="chapter-section"
+              data-chapter-section="2.0"
+            >
+              2
             </span>
+            <a
+              className="node"
+              href="/book/1/page/1234"
+              onClick={[Function]}
+              tabIndex={12}
+            >
+              <div
+                className="c7"
+              >
+                <span>
+                  Mechanics
+                </span>
+              </div>
+            </a>
           </div>
         </summary>
         <ol
@@ -382,35 +403,44 @@ exports[`Book Menu renders and matches snapshot 1`] = `
           className="c4"
           onClick={[Function]}
         >
-          <svg
-            aria-hidden="true"
-            className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-            data-icon="caret-right"
-            data-prefix="fas"
-            focusable="false"
-            role="img"
-            style={Object {}}
-            viewBox="0 0 192 512"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-              fill="currentColor"
+          <div>
+            <svg
+              aria-hidden="true"
+              className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+              data-icon="caret-right"
+              data-prefix="fas"
+              focusable="false"
+              role="img"
               style={Object {}}
-            />
-          </svg>
-          <span
-            className="chapter-section"
-            data-chapter-section="3.0"
-          >
-            3
-          </span>
-          <div
-            className="c7"
-          >
-            <span>
-              Thermodynamics
+              viewBox="0 0 192 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                fill="currentColor"
+                style={Object {}}
+              />
+            </svg>
+            <span
+              className="chapter-section"
+              data-chapter-section="3.0"
+            >
+              3
             </span>
+            <a
+              className="node"
+              href="/book/1/page/1234"
+              onClick={[Function]}
+              tabIndex={12}
+            >
+              <div
+                className="c7"
+              >
+                <span>
+                  Thermodynamics
+                </span>
+              </div>
+            </a>
           </div>
         </summary>
         <ol

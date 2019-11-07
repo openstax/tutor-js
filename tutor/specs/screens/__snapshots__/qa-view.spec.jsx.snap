@@ -54,16 +54,8 @@ exports[`QA Screen matches snapshot 1`] = `
 }
 
 .c4 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   cursor: pointer;
   list-style: none;
-  -webkit-align-items: baseline;
-  -webkit-box-align: baseline;
-  -ms-flex-align: baseline;
-  align-items: baseline;
 }
 
 .c4::before {
@@ -76,6 +68,17 @@ exports[`QA Screen matches snapshot 1`] = `
 
 .c4::-webkit-details-marker {
   display: none;
+}
+
+.c4 > div {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
 }
 
 .c0 {
@@ -134,35 +137,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right expanded c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right expanded c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="1.0"
-                  >
-                    1
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      The Study of Life
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="1.0"
+                    >
+                      1
                     </span>
+                    <a
+                      href="/qa/1/69"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          The Study of Life
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -254,35 +265,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="2.0"
-                  >
-                    2
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      The Chemical Foundation of Life
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="2.0"
+                    >
+                      2
                     </span>
+                    <a
+                      href="/qa/1/70"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          The Chemical Foundation of Life
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -398,35 +417,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="3.0"
-                  >
-                    3
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Biological Macromolecules
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="3.0"
+                    >
+                      3
                     </span>
+                    <a
+                      href="/qa/1/71"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Biological Macromolecules
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -590,35 +617,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="4.0"
-                  >
-                    4
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Cell Structure
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="4.0"
+                    >
+                      4
                     </span>
+                    <a
+                      href="/qa/1/72"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Cell Structure
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -806,35 +841,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="5.0"
-                  >
-                    5
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Structure and Function of Plasma Membranes
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="5.0"
+                    >
+                      5
                     </span>
+                    <a
+                      href="/qa/1/73"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Structure and Function of Plasma Membranes
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -974,35 +1017,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="6.0"
-                  >
-                    6
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Metabolism
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="6.0"
+                    >
+                      6
                     </span>
+                    <a
+                      href="/qa/1/74"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Metabolism
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -1166,35 +1217,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="7.0"
-                  >
-                    7
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Cellular Respiration
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="7.0"
+                    >
+                      7
                     </span>
+                    <a
+                      href="/qa/1/75"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Cellular Respiration
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -1406,35 +1465,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="8.0"
-                  >
-                    8
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Photosynthesis
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="8.0"
+                    >
+                      8
                     </span>
+                    <a
+                      href="/qa/1/76"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Photosynthesis
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -1550,35 +1617,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="9.0"
-                  >
-                    9
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Cell Communication
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="9.0"
+                    >
+                      9
                     </span>
+                    <a
+                      href="/qa/1/77"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Cell Communication
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -1718,35 +1793,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="10.0"
-                  >
-                    10
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Cell Reproduction
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="10.0"
+                    >
+                      10
                     </span>
+                    <a
+                      href="/qa/1/78"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Cell Reproduction
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -1910,35 +1993,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="11.0"
-                  >
-                    11
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Meiosis and Sexual Reproduction
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="11.0"
+                    >
+                      11
                     </span>
+                    <a
+                      href="/qa/1/79"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Meiosis and Sexual Reproduction
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -2030,35 +2121,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="12.0"
-                  >
-                    12
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Mendel's Experiments and Heredity
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="12.0"
+                    >
+                      12
                     </span>
+                    <a
+                      href="/qa/1/80"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Mendel's Experiments and Heredity
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -2174,35 +2273,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="13.0"
-                  >
-                    13
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Modern Understandings of Inheritance
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="13.0"
+                    >
+                      13
                     </span>
+                    <a
+                      href="/qa/1/81"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Modern Understandings of Inheritance
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -2294,35 +2401,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="14.0"
-                  >
-                    14
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      DNA Structure and Function
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="14.0"
+                    >
+                      14
                     </span>
+                    <a
+                      href="/qa/1/82"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          DNA Structure and Function
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -2510,35 +2625,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="15.0"
-                  >
-                    15
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Genes and Proteins
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="15.0"
+                    >
+                      15
                     </span>
+                    <a
+                      href="/qa/1/83"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Genes and Proteins
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -2702,35 +2825,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="16.0"
-                  >
-                    16
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Gene Expression
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="16.0"
+                    >
+                      16
                     </span>
+                    <a
+                      href="/qa/1/84"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Gene Expression
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -2942,35 +3073,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="17.0"
-                  >
-                    17
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Biotechnology and Genomics
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="17.0"
+                    >
+                      17
                     </span>
+                    <a
+                      href="/qa/1/85"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Biotechnology and Genomics
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -3134,35 +3273,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="18.0"
-                  >
-                    18
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Evolution and the Origin of Species
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="18.0"
+                    >
+                      18
                     </span>
+                    <a
+                      href="/qa/1/86"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Evolution and the Origin of Species
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -3278,35 +3425,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="19.0"
-                  >
-                    19
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      The Evolution of Populations
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="19.0"
+                    >
+                      19
                     </span>
+                    <a
+                      href="/qa/1/87"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          The Evolution of Populations
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -3422,35 +3577,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="20.0"
-                  >
-                    20
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Phylogenies and the History of Life
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="20.0"
+                    >
+                      20
                     </span>
+                    <a
+                      href="/qa/1/88"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Phylogenies and the History of Life
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -3566,35 +3729,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="21.0"
-                  >
-                    21
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Viruses
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="21.0"
+                    >
+                      21
                     </span>
+                    <a
+                      href="/qa/1/89"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Viruses
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -3734,35 +3905,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="22.0"
-                  >
-                    22
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Prokaryotes: Bacteria and Archaea
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="22.0"
+                    >
+                      22
                     </span>
+                    <a
+                      href="/qa/1/90"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Prokaryotes: Bacteria and Archaea
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -3926,35 +4105,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="23.0"
-                  >
-                    23
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Protists
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="23.0"
+                    >
+                      23
                     </span>
+                    <a
+                      href="/qa/1/91"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Protists
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -4094,35 +4281,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="24.0"
-                  >
-                    24
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Fungi
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="24.0"
+                    >
+                      24
                     </span>
+                    <a
+                      href="/qa/1/92"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Fungi
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -4286,35 +4481,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="25.0"
-                  >
-                    25
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Seedless Plants
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="25.0"
+                    >
+                      25
                     </span>
+                    <a
+                      href="/qa/1/93"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Seedless Plants
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -4454,35 +4657,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="26.0"
-                  >
-                    26
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Seed Plants
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="26.0"
+                    >
+                      26
                     </span>
+                    <a
+                      href="/qa/1/94"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Seed Plants
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -4622,35 +4833,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="27.0"
-                  >
-                    27
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Introduction to Animal Diversity
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="27.0"
+                    >
+                      27
                     </span>
+                    <a
+                      href="/qa/1/95"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Introduction to Animal Diversity
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -4790,35 +5009,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="28.0"
-                  >
-                    28
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Invertebrates
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="28.0"
+                    >
+                      28
                     </span>
+                    <a
+                      href="/qa/1/96"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Invertebrates
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -4982,35 +5209,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="29.0"
-                  >
-                    29
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Vertebrates
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="29.0"
+                    >
+                      29
                     </span>
+                    <a
+                      href="/qa/1/97"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Vertebrates
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -5222,35 +5457,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="30.0"
-                  >
-                    30
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Plant Form and Physiology
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="30.0"
+                    >
+                      30
                     </span>
+                    <a
+                      href="/qa/1/98"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Plant Form and Physiology
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -5438,35 +5681,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="31.0"
-                  >
-                    31
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Soil and Plant Nutrition
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="31.0"
+                    >
+                      31
                     </span>
+                    <a
+                      href="/qa/1/99"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Soil and Plant Nutrition
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -5582,35 +5833,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="32.0"
-                  >
-                    32
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Plant Reproduction
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="32.0"
+                    >
+                      32
                     </span>
+                    <a
+                      href="/qa/1/100"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Plant Reproduction
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -5726,35 +5985,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="33.0"
-                  >
-                    33
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      The Animal Body: Basic Form and Function
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="33.0"
+                    >
+                      33
                     </span>
+                    <a
+                      href="/qa/1/101"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          The Animal Body: Basic Form and Function
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -5870,35 +6137,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="34.0"
-                  >
-                    34
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Animal Nutrition and the Digestive System
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="34.0"
+                    >
+                      34
                     </span>
+                    <a
+                      href="/qa/1/102"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Animal Nutrition and the Digestive System
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -6038,35 +6313,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="35.0"
-                  >
-                    35
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      The Nervous System
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="35.0"
+                    >
+                      35
                     </span>
+                    <a
+                      href="/qa/1/103"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          The Nervous System
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -6230,35 +6513,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="36.0"
-                  >
-                    36
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Sensory Systems
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="36.0"
+                    >
+                      36
                     </span>
+                    <a
+                      href="/qa/1/104"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Sensory Systems
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -6422,35 +6713,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="37.0"
-                  >
-                    37
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      The Endocrine System
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="37.0"
+                    >
+                      37
                     </span>
+                    <a
+                      href="/qa/1/105"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          The Endocrine System
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -6614,35 +6913,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="38.0"
-                  >
-                    38
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      The Musculoskeletal System
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="38.0"
+                    >
+                      38
                     </span>
+                    <a
+                      href="/qa/1/106"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          The Musculoskeletal System
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -6782,35 +7089,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="39.0"
-                  >
-                    39
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      The Respiratory System
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="39.0"
+                    >
+                      39
                     </span>
+                    <a
+                      href="/qa/1/107"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          The Respiratory System
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -6950,35 +7265,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="40.0"
-                  >
-                    40
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      The Circulatory System
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="40.0"
+                    >
+                      40
                     </span>
+                    <a
+                      href="/qa/1/108"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          The Circulatory System
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -7118,35 +7441,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="41.0"
-                  >
-                    41
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Osmotic Regulation and Excretion
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="41.0"
+                    >
+                      41
                     </span>
+                    <a
+                      href="/qa/1/109"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Osmotic Regulation and Excretion
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -7310,35 +7641,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="42.0"
-                  >
-                    42
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      The Immune System
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="42.0"
+                    >
+                      42
                     </span>
+                    <a
+                      href="/qa/1/110"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          The Immune System
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -7478,35 +7817,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="43.0"
-                  >
-                    43
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Animal Reproduction and Development
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="43.0"
+                    >
+                      43
                     </span>
+                    <a
+                      href="/qa/1/111"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Animal Reproduction and Development
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -7718,35 +8065,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="44.0"
-                  >
-                    44
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Ecology and the Biosphere
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="44.0"
+                    >
+                      44
                     </span>
+                    <a
+                      href="/qa/1/112"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Ecology and the Biosphere
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -7910,35 +8265,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="45.0"
-                  >
-                    45
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Population and Community Ecology
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="45.0"
+                    >
+                      45
                     </span>
+                    <a
+                      href="/qa/1/113"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Population and Community Ecology
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -8150,35 +8513,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="46.0"
-                  >
-                    46
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Ecosystems
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="46.0"
+                    >
+                      46
                     </span>
+                    <a
+                      href="/qa/1/114"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Ecosystems
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
@@ -8294,35 +8665,43 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c4"
                   onClick={[Function]}
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
-                    data-icon="caret-right"
-                    data-prefix="fas"
-                    focusable="false"
-                    role="img"
-                    style={Object {}}
-                    viewBox="0 0 192 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                      fill="currentColor"
+                  <div>
+                    <svg
+                      aria-hidden="true"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
+                      data-icon="caret-right"
+                      data-prefix="fas"
+                      focusable="false"
+                      role="img"
                       style={Object {}}
-                    />
-                  </svg>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="47.0"
-                  >
-                    47
-                  </span>
-                  <div
-                    className="c7"
-                  >
-                    <span>
-                      Conservation Biology and Biodiversity
+                      viewBox="0 0 192 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                        style={Object {}}
+                      />
+                    </svg>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="47.0"
+                    >
+                      47
                     </span>
+                    <a
+                      href="/qa/1/115"
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <div
+                        className="c7"
+                      >
+                        <span>
+                          Conservation Biology and Biodiversity
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </summary>
                 <ol
