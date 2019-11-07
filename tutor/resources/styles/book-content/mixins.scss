@@ -21,26 +21,6 @@
   text-transform: capitalize;
 }
 
-@mixin tutor-reading-first-letter($letter-color: $tutor-book-secondary) {
-  &::first-letter {
-    color: $openstax-book-drop-cap-color;
-    float: left;
-    @include tutor-sans-font(10.8rem, .7em); //setting line-height in em to scale on browser zoom
-    font-weight: 600;
-    margin: .1em .08em 0 -.06em; //best combination on line-height and margin to look good in chrome and ff
-  }
-
-  // use clearfix hack to ensure the paragraph's first-leter does not flow into the following block
-  &:after {
-    content: " ";
-    display: table;
-  }
-  &:after {
-    clear: both;
-  }
-
-}
-
 @mixin book-content-subtitle($subtitle-color: $tutor-book-secondary) {
   color: $subtitle-color;
   font-weight: 400;
