@@ -96,6 +96,10 @@ const getRoutes = (router) => {
       path: '/surveys/:courseId/:surveyId', name: 'researchSurvey',
       renderer: r(() => import('./screens/surveys/index.jsx')),
     },
+    {
+      path: '/stats', name: 'Stats',
+      renderer: r(() => import('./screens/stats/index.jsx')),
+    },
   ];
 };
 

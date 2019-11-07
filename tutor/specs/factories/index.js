@@ -13,6 +13,7 @@ import { ExercisesMap } from '../../src/models/exercises';
 import { ResearchSurvey } from '../../src/models/research-surveys/survey';
 import StudentDashboardTask from '../../src/models/task-plans/student/task';
 import Note from '../../src/models/notes/note';
+import Stat from '../../src/models/stats';
 import Page from '../../src/models/reference-book/page';
 import TeacherTaskPlan from '../../src/models/task-plans/teacher/plan';
 
@@ -26,6 +27,7 @@ import './ecosystem';
 import './exercise';
 import './scores';
 import './offering';
+import './stats';
 import './course-roster';
 import { studentTasks, studentTask } from './student-tasks';
 import './note';
@@ -41,6 +43,7 @@ const Factories = {
 
 each({
   Note,
+  Stat,
   Book,
   Page,
   Course,
