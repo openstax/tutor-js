@@ -40,14 +40,16 @@ describe('Task Plan Builder', function() {
 
   it('selects All Sections when appropriate', () => {
     const builder = mount(<C><Builder {...props} /></C>);
-    expect(builder.find('#hide-periods-radio').props()).toHaveProperty('checked', true);
-    expect(builder.find('#show-periods-radio').props()).toHaveProperty('checked', false);
+    expect(builder).toHaveRendered('#hide-periods-radio[checked=true]');
+    expect(builder).toHaveRendered('#show-periods-radio[checked=false]');
+    builder.unmount();
   });
 
   it('selects Individual Sections when appropriate', () => {
     props.ux.isShowingPeriodTaskings = true;
     const builder = mount(<C><Builder {...props} /></C>);
-    expect(builder.find('#hide-periods-radio').props()).toHaveProperty('checked', false);
-    expect(builder.find('#show-periods-radio').props()).toHaveProperty('checked', true);
+    expect(builder).toHaveRendered('#hide-periods-radio[checked=false]');
+    expect(builder).toHaveRendered('#show-periods-radio[checked=true]');
+    builder.unmount();
   });
 });
