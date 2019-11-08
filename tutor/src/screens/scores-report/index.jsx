@@ -65,7 +65,6 @@ class StudentScores extends React.Component {
   }
 
   render() {
-
     const courseId = this.course.id;
     let pending = null;
 

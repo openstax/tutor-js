@@ -42,6 +42,7 @@ import TeacherTaskPlan from '../models/task-plans/teacher/plan';
 import TaskPlanStats from '../models/task-plans/teacher/stats';
 import ResponseValidation from '../models/response_validation';
 import { Notes, PageNotes, Note } from '../models/notes';
+import Stats from '../models/stats';
 
 const {
   connectRead, connectModelCreate, connectModelRead, connectModelUpdate, connectModelDelete,
@@ -81,6 +82,11 @@ const startAPI = function() {
   connectModelUpdate(User.constructor, 'saveTourView',
     { pattern: 'user/tours/{id}' }
   );
+
+  // notes
+  connectModelRead(Stats, 'fetch', {
+    url: '/stats', onSuccess: 'onLoaded',
+  });
 
   // notes
   connectModelUpdate(Note, 'save', {
