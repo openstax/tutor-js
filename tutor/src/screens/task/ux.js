@@ -220,7 +220,7 @@ export default class TaskUX {
   }
 
   @computed get isApiPending() {
-    return get(this.currentStep, 'api.isPending', false);
+    return this.task.api.isPending || get(this.currentStep, 'api.isPending', false);
   }
 
   @computed get canGoForward() {
