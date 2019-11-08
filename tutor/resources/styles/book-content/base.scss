@@ -63,7 +63,6 @@
   section:not(.references) h1 + p:first-of-type,
   [data-type="document-title"] ~ p:first-of-type {
     margin-top: 2rem;
-    @include tutor-reading-first-letter();
   }
 
   // prevent larger images from pushing out past their container.
