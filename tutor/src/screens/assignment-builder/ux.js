@@ -71,7 +71,8 @@ class AssignmentBuilderUX {
     }
     this.windowImpl = windowImpl;
 
-    this.isShowingPeriodTaskings = !this.plan.areTaskingDatesSame;
+    this.isShowingPeriodTaskings = !(this.canSelectAllSections && this.plan.areTaskingDatesSame);
+
     this.scroller = new ScrollTo({ windowImpl });
     this.form = new Form(this);
     this.isReady = true;

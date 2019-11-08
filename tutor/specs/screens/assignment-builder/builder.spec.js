@@ -37,4 +37,19 @@ describe('Task Plan Builder', function() {
     expect(builder.find('Tasking')).toHaveLength(props.ux.course.periods.length);
     builder.unmount();
   });
+
+  it('selects All Sections when appropriate', () => {
+    const builder = mount(<C><Builder {...props} /></C>);
+    expect(builder).toHaveRendered('#hide-periods-radio[checked=true]');
+    expect(builder).toHaveRendered('#show-periods-radio[checked=false]');
+    builder.unmount();
+  });
+
+  it('selects Individual Sections when appropriate', () => {
+    props.ux.isShowingPeriodTaskings = true;
+    const builder = mount(<C><Builder {...props} /></C>);
+    expect(builder).toHaveRendered('#hide-periods-radio[checked=false]');
+    expect(builder).toHaveRendered('#show-periods-radio[checked=true]');
+    builder.unmount();
+  });
 });
