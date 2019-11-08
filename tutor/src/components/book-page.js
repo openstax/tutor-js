@@ -298,9 +298,7 @@ class BookPage extends React.Component {
     };
 
     const mediaPreview = (
-      <MediaPreview {...mediaProps}>
-        {link.innerText}
-      </MediaPreview>
+      <MediaPreview {...mediaProps} html={link.innerHTML} />
     );
 
     ReactDOM.render(mediaPreview, previewNode);

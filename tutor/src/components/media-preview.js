@@ -36,6 +36,7 @@ class MediaPreview extends React.Component {
     buffer: PropTypes.number,
     shouldLinkOut: PropTypes.bool,
     originalHref: PropTypes.string,
+    html: PropTypes.string,
   };
 
   state = {
@@ -172,7 +173,7 @@ class MediaPreview extends React.Component {
   };
 
   render() {
-    const { mediaId, children, bookHref, windowImpl } = this.props;
+    const { html, windowImpl } = this.props;
     const { media } = this.state;
 
     const overlayProps = this.getOverlayProps();
@@ -193,22 +194,18 @@ class MediaPreview extends React.Component {
       const content = <ArbitraryHtmlAndMath {...contentProps} html={contentHtml} />;
       const allProps = { content, overlayProps, popoverProps, windowImpl };
 
-      if (children !== '[link]') { linkText = children; }
+      if (html !== '[link]') { linkText = html; }
       if (linkText == null) { linkText = `See ${S.capitalize(media.name)}`; }
 
       return (
         <TutorPopover {...allProps} ref="overlay">
-          <a {...linkProps}>
-            {linkText}
-          </a>
+          <a {...linkProps} dangerouslySetInnerHTML={{ __html: linkText }} />
         </TutorPopover>
       );
     } else {
       linkProps = _.omit(linkProps, 'onMouseEnter', 'onMouseLeave');
       return (
-        <a {...linkProps}>
-          {children}
-        </a>
+        <a {...linkProps} dangerouslySetInnerHTML={{ __html: html }} />
       );
     }
   }
