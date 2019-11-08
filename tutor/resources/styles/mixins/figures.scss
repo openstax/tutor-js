@@ -51,6 +51,7 @@
       border-bottom: 1px solid $border-color;
 
       @include tutor-figure-title();
+      @include tutor-sans-font();
 
       .os-title-label + .os-number {
         margin-left: 0.5rem;
