@@ -56,7 +56,7 @@ class MediaPreview extends React.Component {
 
   onMouseLeave = (mouseEvent) => {
     mouseEvent.preventDefault();
-    if (this.isMouseExited(mouseEvent)) { return this.hideMedia(); }
+    if (this.isMouseExited(mouseEvent)) { this.hideMedia(); }
   };
 
   getLinkProps = (otherProps) => {
@@ -99,9 +99,9 @@ class MediaPreview extends React.Component {
   };
 
   UNSAFE_componentWillMount() {
-    const { mediaId, cnxId } = this.props;
+    const { mediaId } = this.props;
     const media = MediaStore.get(mediaId);
-    if (media != null) { return this.updateMedia(media); }
+    if (media != null) { this.updateMedia(media); }
   }
 
   checkShouldPop = () => {
@@ -113,10 +113,10 @@ class MediaPreview extends React.Component {
     if (this.state.popped) {
       if (!this.state.stick) {
         this.setState({ popped: false });
-        return this.refs.overlay.hide();
+        this.refs.overlay.hide();
       }
     } else {
-      return this.unhighlightMedia();
+      this.unhighlightMedia();
     }
   };
 
@@ -147,10 +147,10 @@ class MediaPreview extends React.Component {
     if (shouldPop) {
       if (!this.state.popped) {
         this.setState({ popped: true });
-        return this.refs.overlay.show();
+        this.refs.overlay.show();
       }
     } else {
-      return this.highlightMedia();
+      this.highlightMedia();
     }
   };
 
@@ -158,7 +158,7 @@ class MediaPreview extends React.Component {
     this.setState({ stick: true });
     if (!this.state.popped) {
       this.setState({ popped: true });
-      return this.refs.overlay.show();
+      this.refs.overlay.show();
     }
   };
 
