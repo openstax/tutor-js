@@ -46,6 +46,9 @@ class ExerciseDetails extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    if (!this.props.selectedSection) {
+      return;
+    }
     if (!this.props.selectedSection.eq(prevProps.selectedSection)) {
       const index = this.exercises.findIndex(
         ex => ex.page.chapter_section.eq(this.props.selectedSection)
