@@ -72,7 +72,7 @@
     max-width: 100%;
   }
   a {
-    word-break: break-all;
+    overflow-wrap: break-word;
   }
 
   @include tutor-figure();
