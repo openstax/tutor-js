@@ -36,6 +36,7 @@ class MediaPreview extends React.Component {
     buffer: PropTypes.number,
     shouldLinkOut: PropTypes.bool,
     originalHref: PropTypes.string,
+    html: PropTypes.string,
   };
 
   state = {
@@ -56,7 +57,7 @@ class MediaPreview extends React.Component {
 
   onMouseLeave = (mouseEvent) => {
     mouseEvent.preventDefault();
-    if (this.isMouseExited(mouseEvent)) { return this.hideMedia(); }
+    if (this.isMouseExited(mouseEvent)) { this.hideMedia(); }
   };
 
   getLinkProps = (otherProps) => {
@@ -99,9 +100,9 @@ class MediaPreview extends React.Component {
   };
 
   UNSAFE_componentWillMount() {
-    const { mediaId, cnxId } = this.props;
+    const { mediaId } = this.props;
     const media = MediaStore.get(mediaId);
-    if (media != null) { return this.updateMedia(media); }
+    if (media != null) { this.updateMedia(media); }
   }
 
   checkShouldPop = () => {
@@ -113,10 +114,10 @@ class MediaPreview extends React.Component {
     if (this.state.popped) {
       if (!this.state.stick) {
         this.setState({ popped: false });
-        return this.refs.overlay.hide();
+        this.refs.overlay.hide();
       }
     } else {
-      return this.unhighlightMedia();
+      this.unhighlightMedia();
     }
   };
 
@@ -147,10 +148,10 @@ class MediaPreview extends React.Component {
     if (shouldPop) {
       if (!this.state.popped) {
         this.setState({ popped: true });
-        return this.refs.overlay.show();
+        this.refs.overlay.show();
       }
     } else {
-      return this.highlightMedia();
+      this.highlightMedia();
     }
   };
 
@@ -158,7 +159,7 @@ class MediaPreview extends React.Component {
     this.setState({ stick: true });
     if (!this.state.popped) {
       this.setState({ popped: true });
-      return this.refs.overlay.show();
+      this.refs.overlay.show();
     }
   };
 
@@ -172,7 +173,7 @@ class MediaPreview extends React.Component {
   };
 
   render() {
-    const { mediaId, children, bookHref, windowImpl } = this.props;
+    const { html, windowImpl } = this.props;
     const { media } = this.state;
 
     const overlayProps = this.getOverlayProps();
@@ -193,22 +194,18 @@ class MediaPreview extends React.Component {
       const content = <ArbitraryHtmlAndMath {...contentProps} html={contentHtml} />;
       const allProps = { content, overlayProps, popoverProps, windowImpl };
 
-      if (children !== '[link]') { linkText = children; }
+      if (html !== '[link]') { linkText = html; }
       if (linkText == null) { linkText = `See ${S.capitalize(media.name)}`; }
 
       return (
         <TutorPopover {...allProps} ref="overlay">
-          <a {...linkProps}>
-            {linkText}
-          </a>
+          <a {...linkProps} dangerouslySetInnerHTML={{ __html: linkText }} />
         </TutorPopover>
       );
     } else {
       linkProps = _.omit(linkProps, 'onMouseEnter', 'onMouseLeave');
       return (
-        <a {...linkProps}>
-          {children}
-        </a>
+        <a {...linkProps} dangerouslySetInnerHTML={{ __html: html }} />
       );
     }
   }
