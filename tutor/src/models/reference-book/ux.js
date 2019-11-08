@@ -155,7 +155,7 @@ export default class BookUX {
       tabIndex: this.isMenuVisible ? 0 : -1,
       to: 'viewReferenceBookPage',
       params: { pageId: page.id, courseId: this.course.id },
-      onClick: this.onMenuSelection, // node.chapter_section.asString)}
+      onClick: this.onMenuSelection,
     };
   }
 
