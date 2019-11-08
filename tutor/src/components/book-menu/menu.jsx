@@ -73,10 +73,8 @@ const Details = styled.details`
 `;
 
 const Summary = styled.summary`
-  display: flex;
   cursor: pointer;
   list-style: none;
-  align-items: baseline;
   ::before {
     display: none;
   }
@@ -85,6 +83,10 @@ const Summary = styled.summary`
   }
   ::-webkit-details-marker {
     display:none;
+  }
+  > div {
+    display: flex;
+    align-items: baseline;
   }
 `;
 
@@ -102,9 +104,11 @@ const Branch = ({ node, ux, ...props }) => {
             data-node-id={node.id}
           >
             <Summary onClick={(ev) => ux.toggleExpansion(node, ev)}>
-              <BranchIcon type="caret-right" className={cn({ expanded: isExpanded })} />
-              <ChapterSection chapterSection={node.chapter_section} />
-              <Title {...props} node={node} />
+              <div>
+                <BranchIcon type="caret-right" className={cn({ expanded: isExpanded })} />
+                <ChapterSection chapterSection={node.chapter_section} />
+                <Title {...props} node={node} />
+              </div>
             </Summary>
             <Ol>
               {map(node.children, child => (
