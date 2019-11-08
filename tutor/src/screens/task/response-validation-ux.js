@@ -65,6 +65,7 @@ class ResponseValidationUX {
         response: submitted,
       });
       const validation = extend({}, reply.data, {
+        timestamp: (new Date()).toISOString(),
         response: submitted, nudge,
       });
       this.step.spy.response_validation = validation;
@@ -75,6 +76,7 @@ class ResponseValidationUX {
         valid: true,
         exception: err.toString(),
         response: submitted,
+        timestamp: (new Date()).toISOString(),
         nudge,
       };
     }
