@@ -161,19 +161,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       1
                     </span>
-                    <a
-                      href="/qa/1/69"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          The Study of Life
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        The Study of Life
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -289,19 +283,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       2
                     </span>
-                    <a
-                      href="/qa/1/70"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          The Chemical Foundation of Life
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        The Chemical Foundation of Life
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -441,19 +429,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       3
                     </span>
-                    <a
-                      href="/qa/1/71"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Biological Macromolecules
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Biological Macromolecules
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -641,19 +623,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       4
                     </span>
-                    <a
-                      href="/qa/1/72"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Cell Structure
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Cell Structure
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -865,19 +841,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       5
                     </span>
-                    <a
-                      href="/qa/1/73"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Structure and Function of Plasma Membranes
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Structure and Function of Plasma Membranes
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -1041,19 +1011,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       6
                     </span>
-                    <a
-                      href="/qa/1/74"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Metabolism
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Metabolism
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -1241,19 +1205,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       7
                     </span>
-                    <a
-                      href="/qa/1/75"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Cellular Respiration
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Cellular Respiration
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -1489,19 +1447,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       8
                     </span>
-                    <a
-                      href="/qa/1/76"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Photosynthesis
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Photosynthesis
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -1641,19 +1593,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       9
                     </span>
-                    <a
-                      href="/qa/1/77"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Cell Communication
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Cell Communication
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -1817,19 +1763,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       10
                     </span>
-                    <a
-                      href="/qa/1/78"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Cell Reproduction
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Cell Reproduction
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -2017,19 +1957,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       11
                     </span>
-                    <a
-                      href="/qa/1/79"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Meiosis and Sexual Reproduction
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Meiosis and Sexual Reproduction
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -2145,19 +2079,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       12
                     </span>
-                    <a
-                      href="/qa/1/80"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Mendel's Experiments and Heredity
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Mendel's Experiments and Heredity
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -2297,19 +2225,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       13
                     </span>
-                    <a
-                      href="/qa/1/81"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Modern Understandings of Inheritance
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Modern Understandings of Inheritance
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -2425,19 +2347,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       14
                     </span>
-                    <a
-                      href="/qa/1/82"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          DNA Structure and Function
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        DNA Structure and Function
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -2649,19 +2565,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       15
                     </span>
-                    <a
-                      href="/qa/1/83"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Genes and Proteins
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Genes and Proteins
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -2849,19 +2759,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       16
                     </span>
-                    <a
-                      href="/qa/1/84"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Gene Expression
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Gene Expression
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -3097,19 +3001,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       17
                     </span>
-                    <a
-                      href="/qa/1/85"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Biotechnology and Genomics
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Biotechnology and Genomics
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -3297,19 +3195,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       18
                     </span>
-                    <a
-                      href="/qa/1/86"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Evolution and the Origin of Species
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Evolution and the Origin of Species
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -3449,19 +3341,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       19
                     </span>
-                    <a
-                      href="/qa/1/87"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          The Evolution of Populations
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        The Evolution of Populations
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -3601,19 +3487,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       20
                     </span>
-                    <a
-                      href="/qa/1/88"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Phylogenies and the History of Life
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Phylogenies and the History of Life
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -3753,19 +3633,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       21
                     </span>
-                    <a
-                      href="/qa/1/89"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Viruses
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Viruses
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -3929,19 +3803,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       22
                     </span>
-                    <a
-                      href="/qa/1/90"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Prokaryotes: Bacteria and Archaea
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Prokaryotes: Bacteria and Archaea
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -4129,19 +3997,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       23
                     </span>
-                    <a
-                      href="/qa/1/91"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Protists
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Protists
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -4305,19 +4167,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       24
                     </span>
-                    <a
-                      href="/qa/1/92"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Fungi
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Fungi
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -4505,19 +4361,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       25
                     </span>
-                    <a
-                      href="/qa/1/93"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Seedless Plants
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Seedless Plants
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -4681,19 +4531,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       26
                     </span>
-                    <a
-                      href="/qa/1/94"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Seed Plants
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Seed Plants
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -4857,19 +4701,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       27
                     </span>
-                    <a
-                      href="/qa/1/95"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Introduction to Animal Diversity
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Introduction to Animal Diversity
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -5033,19 +4871,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       28
                     </span>
-                    <a
-                      href="/qa/1/96"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Invertebrates
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Invertebrates
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -5233,19 +5065,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       29
                     </span>
-                    <a
-                      href="/qa/1/97"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Vertebrates
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Vertebrates
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -5481,19 +5307,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       30
                     </span>
-                    <a
-                      href="/qa/1/98"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Plant Form and Physiology
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Plant Form and Physiology
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -5705,19 +5525,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       31
                     </span>
-                    <a
-                      href="/qa/1/99"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Soil and Plant Nutrition
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Soil and Plant Nutrition
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -5857,19 +5671,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       32
                     </span>
-                    <a
-                      href="/qa/1/100"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Plant Reproduction
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Plant Reproduction
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -6009,19 +5817,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       33
                     </span>
-                    <a
-                      href="/qa/1/101"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          The Animal Body: Basic Form and Function
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        The Animal Body: Basic Form and Function
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -6161,19 +5963,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       34
                     </span>
-                    <a
-                      href="/qa/1/102"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Animal Nutrition and the Digestive System
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Animal Nutrition and the Digestive System
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -6337,19 +6133,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       35
                     </span>
-                    <a
-                      href="/qa/1/103"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          The Nervous System
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        The Nervous System
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -6537,19 +6327,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       36
                     </span>
-                    <a
-                      href="/qa/1/104"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Sensory Systems
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Sensory Systems
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -6737,19 +6521,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       37
                     </span>
-                    <a
-                      href="/qa/1/105"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          The Endocrine System
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        The Endocrine System
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -6937,19 +6715,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       38
                     </span>
-                    <a
-                      href="/qa/1/106"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          The Musculoskeletal System
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        The Musculoskeletal System
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -7113,19 +6885,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       39
                     </span>
-                    <a
-                      href="/qa/1/107"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          The Respiratory System
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        The Respiratory System
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -7289,19 +7055,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       40
                     </span>
-                    <a
-                      href="/qa/1/108"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          The Circulatory System
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        The Circulatory System
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -7465,19 +7225,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       41
                     </span>
-                    <a
-                      href="/qa/1/109"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Osmotic Regulation and Excretion
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Osmotic Regulation and Excretion
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -7665,19 +7419,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       42
                     </span>
-                    <a
-                      href="/qa/1/110"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          The Immune System
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        The Immune System
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -7841,19 +7589,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       43
                     </span>
-                    <a
-                      href="/qa/1/111"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Animal Reproduction and Development
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Animal Reproduction and Development
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -8089,19 +7831,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       44
                     </span>
-                    <a
-                      href="/qa/1/112"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Ecology and the Biosphere
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Ecology and the Biosphere
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -8289,19 +8025,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       45
                     </span>
-                    <a
-                      href="/qa/1/113"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Population and Community Ecology
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Population and Community Ecology
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -8537,19 +8267,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       46
                     </span>
-                    <a
-                      href="/qa/1/114"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Ecosystems
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Ecosystems
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol
@@ -8689,19 +8413,13 @@ exports[`QA Screen matches snapshot 1`] = `
                     >
                       47
                     </span>
-                    <a
-                      href="/qa/1/115"
-                      onClick={[Function]}
-                      tabIndex={-1}
+                    <div
+                      className="c7"
                     >
-                      <div
-                        className="c7"
-                      >
-                        <span>
-                          Conservation Biology and Biodiversity
-                        </span>
-                      </div>
-                    </a>
+                      <span>
+                        Conservation Biology and Biodiversity
+                      </span>
+                    </div>
                   </div>
                 </summary>
                 <ol

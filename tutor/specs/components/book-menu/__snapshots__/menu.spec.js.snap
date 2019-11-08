@@ -151,20 +151,13 @@ exports[`Book Menu renders and matches snapshot 1`] = `
             >
               1
             </span>
-            <a
-              className="node"
-              href="/book/1/page/1234"
-              onClick={[Function]}
-              tabIndex={12}
+            <div
+              className="c7"
             >
-              <div
-                className="c7"
-              >
-                <span>
-                  Kinematics
-                </span>
-              </div>
-            </a>
+              <span>
+                Kinematics
+              </span>
+            </div>
           </div>
         </summary>
         <ol
@@ -289,20 +282,13 @@ exports[`Book Menu renders and matches snapshot 1`] = `
             >
               2
             </span>
-            <a
-              className="node"
-              href="/book/1/page/1234"
-              onClick={[Function]}
-              tabIndex={12}
+            <div
+              className="c7"
             >
-              <div
-                className="c7"
-              >
-                <span>
-                  Mechanics
-                </span>
-              </div>
-            </a>
+              <span>
+                Mechanics
+              </span>
+            </div>
           </div>
         </summary>
         <ol
@@ -427,20 +413,13 @@ exports[`Book Menu renders and matches snapshot 1`] = `
             >
               3
             </span>
-            <a
-              className="node"
-              href="/book/1/page/1234"
-              onClick={[Function]}
-              tabIndex={12}
+            <div
+              className="c7"
             >
-              <div
-                className="c7"
-              >
-                <span>
-                  Thermodynamics
-                </span>
-              </div>
-            </a>
+              <span>
+                Thermodynamics
+              </span>
+            </div>
           </div>
         </summary>
         <ol
