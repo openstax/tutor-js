@@ -1,64 +1,51 @@
 ---
-name: Template Bug
-about: Bug issue template
+name: ISSUE_TEMPLATE
+about: Default issue template
 
 ---
 
-**SCENARIO** _Briefly describe the issue._
+### Description 
+Briefly describe the issue and user impact.
+
 
 ----------------
-**Steps to Reproduce the issue:** _Who, Where and How?_
+**Expected behavior**
 
 
-- **Product:**
-- [ ] Accounts 
-- [ ] BigLearn
-- [ ] Exercises 
-- [ ] CNX
-- [ ] Tutor
-- [ ] Payments
-- [ ] Highlight 
-- [ ] Web
 
-- **User Type:**
-- [ ] Admin  
-- [ ] Content/QA
-- [ ] Student  
-- [ ] Teacher
-- [ ] N/A
-- **Username:** 
-- **URL:**  
-- **Course number:**  
-- **Course type:**  
+**Steps to Reproduce the issue:** 
 
-- **Steps**
+
+----------------
+### Acceptance Tests
+Additional acceptance tests that are required by this bug fix.
+
+
+### Tests that will be added or changed 
+Written explanations of the tests that will have to be added or modified to test this bug. 
+
+
+----------------
+
+- **Product:** - 
+- **User Type:** - 
+- **Username:** -
+- **URL:** -
+- **Course number:** -
+- **Course type:** -
 
 ----------------
 **Environment:**
 
-- **Instance:**
-- [ ] production 
-- [ ] qa 
-- [ ] staging
-- [ ] dev 
-- [ ] content 
-- [ ] demo
-- **OS:**
-- [ ] Mac OSX 
-- [ ] Windows
-- [ ] Android 
-- [ ] iOS
-- **Browser:**
-- [ ] Chrome 
-- [ ] Firefox 
-- [ ] Safari
-- [ ] Opera 
-- [ ] IE 
-- [ ] Edge
-- **Browser Version:**  
-
-----------------
-**Possible impact on a User:**
+- **Instance:** -
+- **OS:** -
+- **Browser:** -
+- **Browser Version:** -
 
 ----------------
 **Images or Screenshots** (_attach below_)
+
+
+
+
+
