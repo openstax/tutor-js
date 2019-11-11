@@ -74,7 +74,8 @@ class Stats extends React.Component {
               data={this.stats.data}
               title="Assignments"
               series={[
-                { property: 'task_plans' },
+                { label: 'Reading', property: 'reading_task_plans' },
+                { label: 'Homework', property: 'homework_task_plans' },
               ]}
             />
             <Chart
@@ -85,6 +86,16 @@ class Stats extends React.Component {
                 { label: 'Notes', property: 'notes' },
               ]}
             />
+            <Chart
+              data={this.stats.data}
+              title="Free Response Nudges"
+              series={[
+                { label: 'Submissions', property: 'nudge_calculated' },
+                { label: 'Invalid', property: 'nudge_initially_invalid' },
+                { label: 'Corrected', property: 'nudge_retry_correct' },
+              ]}
+            />
+
           </Container>
         </Wrapper>
       </ScrollToTop>
