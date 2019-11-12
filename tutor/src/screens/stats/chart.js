@@ -43,6 +43,13 @@ class Chart extends React.Component {
         curve: 'smooth',
       },
     },
+    tooltip: {
+      y: {
+        formatter(value) {
+          return parseInt(value);
+        },
+      },
+    },
     dataLabels: {
       enabled: false,
     },
@@ -70,7 +77,7 @@ class Chart extends React.Component {
       name: s.label || this.props.title,
       data: this.props.data.map(row => [
         row.ends_at,
-        row.stats[s.property],
+        parseInt(row.stats[s.property] || 0),
       ]),
     }));
   }
