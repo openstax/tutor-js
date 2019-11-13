@@ -12,6 +12,10 @@ exports[`choose exercises component renders selections 1`] = `
 }
 
 .c6 {
+  display: inline-block;
+}
+
+.c7 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -27,11 +31,11 @@ exports[`choose exercises component renders selections 1`] = `
   border-bottom: 1px solid #f1f1f1;
 }
 
-.c6 > * {
+.c7 > * {
   margin-left: 1rem;
 }
 
-.c6 input {
+.c7 input {
   font-size: 1.7rem;
   margin-left: 1.2rem;
 }
@@ -168,13 +172,14 @@ exports[`choose exercises component renders selections 1`] = `
                       </span>
                        - 
                     </span>
-                    <span
-                      className="chapter-title"
-                    >
-                       
-                      Kinematics
-                       
-                    </span>
+                    <div
+                      className="chapter-title c6"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Kinematics",
+                        }
+                      }
+                    />
                     <a
                       aria-label="Browse course reference book"
                       className="browse-the-book"
@@ -190,7 +195,7 @@ exports[`choose exercises component renders selections 1`] = `
                     className="sections collapse show"
                   >
                     <div
-                      className="section c6"
+                      className="section c7"
                       data-section-id="234"
                       onClick={[Function]}
                     >
@@ -209,15 +214,17 @@ exports[`choose exercises component renders selections 1`] = `
                       >
                         1.1
                       </span>
-                      <span
-                        className="section-title"
-                      >
-                         
-                        Kinematics in 1 dim
-                      </span>
+                      <div
+                        className="section-title c6"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Kinematics in 1 dim",
+                          }
+                        }
+                      />
                     </div>
                     <div
-                      className="section c6"
+                      className="section c7"
                       data-section-id="235"
                       onClick={[Function]}
                     >
@@ -236,15 +243,17 @@ exports[`choose exercises component renders selections 1`] = `
                       >
                         1.2
                       </span>
-                      <span
-                        className="section-title"
-                      >
-                         
-                        Kinematics in 2 dim
-                      </span>
+                      <div
+                        className="section-title c6"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Kinematics in 2 dim",
+                          }
+                        }
+                      />
                     </div>
                     <div
-                      className="section c6"
+                      className="section c7"
                       data-section-id="236"
                       onClick={[Function]}
                     >
@@ -263,12 +272,14 @@ exports[`choose exercises component renders selections 1`] = `
                       >
                         1.3
                       </span>
-                      <span
-                        className="section-title"
-                      >
-                         
-                        Kinematics in 3 dim
-                      </span>
+                      <div
+                        className="section-title c6"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Kinematics in 3 dim",
+                          }
+                        }
+                      />
                     </div>
                   </div>
                 </div>
@@ -333,13 +344,14 @@ exports[`choose exercises component renders selections 1`] = `
                       </span>
                        - 
                     </span>
-                    <span
-                      className="chapter-title"
-                    >
-                       
-                      Mechanics
-                       
-                    </span>
+                    <div
+                      className="chapter-title c6"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Mechanics",
+                        }
+                      }
+                    />
                     <a
                       aria-label="Browse course reference book"
                       className="browse-the-book"
@@ -355,7 +367,7 @@ exports[`choose exercises component renders selections 1`] = `
                     className="sections collapse show"
                   >
                     <div
-                      className="section selected c6"
+                      className="section selected c7"
                       data-section-id="237"
                       onClick={[Function]}
                     >
@@ -374,15 +386,17 @@ exports[`choose exercises component renders selections 1`] = `
                       >
                         2.1
                       </span>
-                      <span
-                        className="section-title"
-                      >
-                         
-                        Mechanics in 1 dim
-                      </span>
+                      <div
+                        className="section-title c6"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Mechanics in 1 dim",
+                          }
+                        }
+                      />
                     </div>
                     <div
-                      className="section selected c6"
+                      className="section selected c7"
                       data-section-id="238"
                       onClick={[Function]}
                     >
@@ -401,15 +415,17 @@ exports[`choose exercises component renders selections 1`] = `
                       >
                         2.2
                       </span>
-                      <span
-                        className="section-title"
-                      >
-                         
-                        Mechanics in 2 dim
-                      </span>
+                      <div
+                        className="section-title c6"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Mechanics in 2 dim",
+                          }
+                        }
+                      />
                     </div>
                     <div
-                      className="section selected c6"
+                      className="section selected c7"
                       data-section-id="239"
                       onClick={[Function]}
                     >
@@ -428,12 +444,14 @@ exports[`choose exercises component renders selections 1`] = `
                       >
                         2.3
                       </span>
-                      <span
-                        className="section-title"
-                      >
-                         
-                        Mechanics in 3 dim
-                      </span>
+                      <div
+                        className="section-title c6"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Mechanics in 3 dim",
+                          }
+                        }
+                      />
                     </div>
                   </div>
                 </div>
@@ -498,13 +516,14 @@ exports[`choose exercises component renders selections 1`] = `
                       </span>
                        - 
                     </span>
-                    <span
-                      className="chapter-title"
-                    >
-                       
-                      Thermodynamics
-                       
-                    </span>
+                    <div
+                      className="chapter-title c6"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Thermodynamics",
+                        }
+                      }
+                    />
                     <a
                       aria-label="Browse course reference book"
                       className="browse-the-book"
@@ -520,7 +539,7 @@ exports[`choose exercises component renders selections 1`] = `
                     className="sections collapse"
                   >
                     <div
-                      className="section c6"
+                      className="section c7"
                       data-section-id="240"
                       onClick={[Function]}
                     >
@@ -539,15 +558,17 @@ exports[`choose exercises component renders selections 1`] = `
                       >
                         3.1
                       </span>
-                      <span
-                        className="section-title"
-                      >
-                         
-                        Thermodynamics in 1 dim
-                      </span>
+                      <div
+                        className="section-title c6"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Thermodynamics in 1 dim",
+                          }
+                        }
+                      />
                     </div>
                     <div
-                      className="section c6"
+                      className="section c7"
                       data-section-id="241"
                       onClick={[Function]}
                     >
@@ -566,15 +587,17 @@ exports[`choose exercises component renders selections 1`] = `
                       >
                         3.2
                       </span>
-                      <span
-                        className="section-title"
-                      >
-                         
-                        Thermodynamics in 2 dim
-                      </span>
+                      <div
+                        className="section-title c6"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Thermodynamics in 2 dim",
+                          }
+                        }
+                      />
                     </div>
                     <div
-                      className="section c6"
+                      className="section c7"
                       data-section-id="242"
                       onClick={[Function]}
                     >
@@ -593,12 +616,14 @@ exports[`choose exercises component renders selections 1`] = `
                       >
                         3.2
                       </span>
-                      <span
-                        className="section-title"
-                      >
-                         
-                        Thermodynamics in 3 dim
-                      </span>
+                      <div
+                        className="section-title c6"
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Thermodynamics in 3 dim",
+                          }
+                        }
+                      />
                     </div>
                   </div>
                 </div>

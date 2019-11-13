@@ -7,6 +7,7 @@ import ReferenceBook from '../../models/reference-book';
 import Page from '../../models/reference-book/page';
 import MenuUX from './ux';
 import Theme from '../../theme';
+import BookPartTitle from '../book-part-title';
 
 const StyledTitle = styled.div`
   display: flex;
@@ -18,9 +19,8 @@ const Title = ({ node, pageLinkProps }) => {
   return useObserver(() => {
     const title =  (
       <StyledTitle>
-        {node.isChapterSectionDisplayed && (
-          <ChapterSection chapterSection={node.chapter_section} />)}
-        <span key="title">{node.title}</span>
+        {node.isChapterSectionDisplayed && <ChapterSection chapterSection={node.chapter_section} />}
+        <BookPartTitle title={node.title} />
       </StyledTitle>
     );
 

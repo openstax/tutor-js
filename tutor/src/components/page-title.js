@@ -2,6 +2,7 @@ import { React, PropTypes, styled, Theme } from 'vendor';
 import { isEmpty } from 'lodash';
 import ChapterSection from './chapter-section';
 import ChapterSectionModel from '../models/chapter-section';
+import BookPartTitle from './book-part-title';
 
 const PageTitleWrapper = styled.div.attrs({ className: 'page-title' })`
   margin-top: 3rem;
@@ -16,7 +17,7 @@ const Heading = styled.h1.attrs({ className: 'page-title-heading' })`
   padding: 2rem 3rem 1rem 3rem;
 `;
 
-const Title = styled.div`
+const Title = styled(BookPartTitle)`
   margin-left: 0.5rem;
 `;
 
@@ -61,11 +62,8 @@ class PageTitle extends React.Component {
     return (
       <PageTitleWrapper>
         <Heading>
-          {isChapterSectionDisplayed && (
-            <ChapterSection chapterSection={chapter_section} />)}
-          <Title>
-            {title}
-          </Title>
+          {isChapterSectionDisplayed && <ChapterSection chapterSection={chapter_section} />}
+          <Title title={title} />
         </Heading>
         {showObjectivesPreamble && (
           <Preamble>

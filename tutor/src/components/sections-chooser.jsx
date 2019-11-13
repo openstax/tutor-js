@@ -14,6 +14,7 @@ import BookModel from '../models/reference-book';
 import CourseModel from '../models/course';
 import ChapterModel from '../models/reference-book/chapter';
 import PageModel from '../models/reference-book/page';
+import BookPartTitle from './book-part-title';
 
 const SectionWrapper = styled.div`
   display: flex;
@@ -53,9 +54,8 @@ class Section extends React.Component {
         <span className="section-checkbox">
           <input type="checkbox" readOnly={true} checked={this.isSelected()} />
         </span>
-        {section.isChapterSectionDisplayed &&
-          <ChapterSection chapterSection={section.chapter_section} />}
-        <span className="section-title"> {section.title}</span>
+        {section.isChapterSectionDisplayed && <ChapterSection chapterSection={section.chapter_section} />}
+        <BookPartTitle className="section-title" title={section.title} />
       </SectionWrapper>
     );
   }
@@ -72,7 +72,7 @@ const ChapterHeading = styled.div`
   margin-left: 1rem;
   }
   .chapter-title {
-  flex: 1;
+    flex: 1;
   }
 `;
 
@@ -136,9 +136,8 @@ class ChapterAccordion extends React.Component {
           <span className="chapter-checkbox">
             <TriStateCheckbox type={checkBoxType} onClick={this.toggleSectionSelections} />
           </span>
-          <span className="chapter-number">
-            Chapter <ChapterSection chapterSection={chapter.chapter_section} /> - </span>
-          <span className="chapter-title"> {chapter.title} </span>
+          <span className="chapter-number">Chapter <ChapterSection chapterSection={chapter.chapter_section} /> - </span>
+          <BookPartTitle className="chapter-title" title={chapter.title} />
           {course &&
             <BrowseTheBook
               unstyled
