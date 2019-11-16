@@ -126,9 +126,10 @@ class TaskGetter extends React.Component {
   }
 
   render() {
-    if (!this.course || this.task.api.hasErrors) {
+    if (!this.course) {
       return <CourseNotFoundWarning area="assignment" />;
     }
+
     const { task } = this;
     if (!task || (task.api && task.api.hasErrors)) {
       return <Failure task={task} />;
