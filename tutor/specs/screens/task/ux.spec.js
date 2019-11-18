@@ -134,6 +134,10 @@ describe('Task UX Model', () => {
     expect(ux.history.push).toHaveBeenCalledWith(`/course/${ux.course.id}/task/${ux.task.id}/step/2`);
     ux.goToStep(2, false);
     expect(ux.history.push).toHaveBeenCalledTimes(1);
+
+    ux.goToStep(2, true); //even though we said to record, it will not since it's unchanged
+    expect(ux.history.push).toHaveBeenCalledTimes(1);
+
     const i = 1 + ux.steps.findIndex(s => s.type == 'two-step-intro');
     ux.steps[i+1].uid = ux.groupedSteps[i].uid = '123@4';
     const group = ux.groupedSteps[i];
