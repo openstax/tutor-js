@@ -1,6 +1,6 @@
 import UX from '../../../src/screens/task/ux';
 import Homework from '../../../src/screens/task/homework';
-import { TestRouter, Factory, C, FakeWindow, ld, TimeMock } from '../../helpers';
+import { Factory, C, FakeWindow, ld, TimeMock } from '../../helpers';
 
 describe('Reading Tasks Screen', () => {
   let props, history;
@@ -10,11 +10,11 @@ describe('Reading Tasks Screen', () => {
     const task = Factory.studentTask({
       type: 'homework', stepCount: 5,
     });
-    history = new TestRouter({
+    history = {
       push: (url) => {
         props.ux.goToStep(Number(ld.last(url.split('/'))) - 1, false);
       },
-    }).history;
+    };
     props = {
       windowImpl: new FakeWindow(),
       ux: new UX({ task, course: Factory.course(), history }),

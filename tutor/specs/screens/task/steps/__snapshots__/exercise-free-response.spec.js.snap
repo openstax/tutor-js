@@ -835,9 +835,6 @@ exports[`Exercise Free Response matches snapshot 1`] = `
         "history": Object {
           "createHref": [MockFunction],
           "listen": [MockFunction],
-          "location": Object {
-            "pathname": "/",
-          },
           "push": [MockFunction],
           "replace": [MockFunction],
         },

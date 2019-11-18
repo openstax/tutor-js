@@ -1,6 +1,6 @@
 import UX from '../../../src/screens/task/ux';
 import Reading from '../../../src/screens/task/reading';
-import { TestRouter, Factory, FakeWindow, ld, TimeMock, C } from '../../helpers';
+import { Factory, FakeWindow, ld, TimeMock, C } from '../../helpers';
 
 describe('Reading Tasks Screen', () => {
   let props, history;
@@ -8,20 +8,20 @@ describe('Reading Tasks Screen', () => {
 
   beforeEach(() => {
     const task = Factory.studentTask({ type: 'reading' });
-    history = new TestRouter({
+    history = {
       push: (url) => {
         props.ux.goToStep(Number(ld.last(url.split('/'))) - 1, false);
       },
-    }).history;
+    };
     props = {
       windowImpl: new FakeWindow(),
       ux: new UX({ task, history, course: Factory.course() }),
     };
-    history = new TestRouter({
+    history = {
       push: (url) => {
         props.ux.goToStep(ld.last(url.split('/')), false);
       },
-    }).history;
+    };
   });
 
   it('matches snapshot', () => {

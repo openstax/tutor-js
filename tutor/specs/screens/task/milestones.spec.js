@@ -1,6 +1,6 @@
 import UX from '../../../src/screens/task/ux';
 import { Milestones } from '../../../src/screens/task/milestones';
-import { Factory, ld, TestRouter, TimeMock } from '../../helpers';
+import { Factory, ld, TimeMock } from '../../helpers';
 
 describe('Reading Milestones Component', () => {
   let props, history;
@@ -12,11 +12,11 @@ describe('Reading Milestones Component', () => {
       onHide: jest.fn(),
       ux: new UX({ task, course: Factory.course(), history }),
     };
-    history = new TestRouter({
+    history = {
       push: (url) => {
         props.ux.goToStep(ld.last(url.split('/')), false);
       },
-    }).history;
+    };
   });
 
   it('matches snapshot', () => {

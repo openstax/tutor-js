@@ -1,6 +1,6 @@
 class TestRouter {
 
-  constructor({ push, pathname = '/', params = {} } = {}) {
+  constructor({ pathname = '/', params = {} } = {}) {
     this.match = { params };
 
     this.location = { pathname };
@@ -8,11 +8,8 @@ class TestRouter {
     this.history = {
       createHref: jest.fn(),
       listen: jest.fn(),
-      push: push || jest.fn(),
+      push: jest.fn(),
       replace: jest.fn(),
-      location: {
-        pathname,
-      },
     };
   }
 }
