@@ -18,7 +18,7 @@ describe('Reading Tasks Screen', () => {
     const ux = new UX({
       task,
       course: Factory.course(),
-      history: new TestRouter(),
+      history: new TestRouter().history,
     });
     props = {
       ux,

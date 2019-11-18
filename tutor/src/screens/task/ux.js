@@ -192,14 +192,14 @@ export default class TaskUX {
 
     if (!isChanged) { return; }
 
-    if (recordInHistory) {
-      this.history.push(
-        Router.makePathname('viewTaskStep', {
-          id: this.task.id,
-          courseId: this.course.id,
-          stepIndex: index + 1, // router uses 1 based index
-        }),
-      );
+    const pathname = Router.makePathname('viewTaskStep', {
+      id: this.task.id,
+      courseId: this.course.id,
+      stepIndex: index + 1, // router uses 1 based index
+    });
+
+    if (recordInHistory && this.history.location.pathname != pathname) {
+      this.history.push(pathname);
     } else {
       this._stepIndex = index;
       CenterControls.currentTaskStep = this.currentStep;

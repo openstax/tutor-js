@@ -1,6 +1,6 @@
 import UX from '../../../src/screens/task/ux';
 import { ReadingProgress } from '../../../src/screens/task/reading-progress';
-import { Factory, C, ld, TimeMock } from '../../helpers';
+import { TestRouter, Factory, C, ld, TimeMock } from '../../helpers';
 
 describe('Homework Breadcrumbs Component', () => {
   let props;
@@ -10,11 +10,12 @@ describe('Homework Breadcrumbs Component', () => {
   TimeMock.setTo('2017-10-14T12:00:00.000Z');
   beforeEach(() => {
     task = Factory.studentTask({ stepCount: 10, type: 'reading' });
-    history = {
+    history = new TestRouter({
       push: (url) => {
         props.ux.goToStep(Number(ld.last(url.split('/'))) - 1, false);
       },
-    };
+      location: { pathname: '' },
+    }).history;
     props = {
       unDocked: true,
       ux: new UX({ task, history, course: Factory.course() }),
