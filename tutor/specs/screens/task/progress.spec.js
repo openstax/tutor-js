@@ -1,6 +1,6 @@
 import UX from '../../../src/screens/task/ux';
 import Progress from '../../../src/screens/task/progress';
-import { Factory, TimeMock, ld } from '../../helpers';
+import { TestRouter, Factory, TimeMock, ld } from '../../helpers';
 
 describe('Reading Progress Component', () => {
   let props;
@@ -17,11 +17,11 @@ describe('Reading Progress Component', () => {
     props = {
       ux: new UX({ task, history }),
     };
-    history = {
+    history = new TestRouter({
       push: (url) => {
         props.ux.goToStep(ld.last(url.split('/')), false);
       },
-    };
+    }).history;
   });
 
   it('matches snapshot', () => {
