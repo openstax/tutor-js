@@ -6,6 +6,7 @@ import NoteCard from './note-card';
 import SummaryPopup from './summary-popup';
 import { Notes } from '../../models/notes';
 import Page from '../../models/reference-book/page';
+import LoadingAnimation from 'shared/components/loading-animation';
 
 const NotesForPage = observer(({
   onDelete, notes, page, selectedPages,
@@ -32,7 +33,6 @@ const NotesForPage = observer(({
     </div>
   );
 });
-
 
 export default
 @observer
@@ -115,6 +115,10 @@ class NoteSummaryPage extends React.Component {
   render() {
     if (isEmpty(this.props.notes.summary)) {
       return this.renderEmpty();
+    }
+
+    if (this.props.notes.isAnyPagePending) {
+      return <LoadingAnimation />;
     }
 
     const { notes } = this.props;
