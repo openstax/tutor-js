@@ -89,6 +89,10 @@ class Notes extends BaseModel {
     return Boolean(this.pages.get(String(page.id)));
   }
 
+  @computed get isAnyPagePending() {
+    return Boolean(find(this.pages, pg => pg.api.isPending));
+  }
+
   @action forPage(page) {
     let notes = this.pages.get(String(page.id));
     if (!notes) {
