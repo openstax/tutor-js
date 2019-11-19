@@ -14,8 +14,6 @@ exports[`MultiSelect component renders selections 1`] = `
     disabled={false}
     id="multi-select"
     onClick={[Function]}
-    onToggle={[Function]}
-    open={false}
     tabIndex={0}
     type="button"
   >

@@ -26,13 +26,25 @@ class SectionsFilter extends React.Component {
     }
   }
 
+  @action.bound onSelectAll() {
+    this.props.selected.clear();
+    this.choices.map(c => {
+      this.props.selected.push(c);
+    });
+  }
+
+  @action.bound onSelectNone() {
+    this.props.selected.clear();
+  }
+
   @computed get choices() {
     return this.props.notes.summary.sorted().map((s) => (
       {
         id: s.id,
         title: (
           <span>
-            <ChapterSection chapterSection={s.chapter_section} />
+            <ChapterSection chapterSection={s.chapter_section} hideClassName={true} />
+            &nbsp;
             <span>{s.title}</span>
           </span>
         ),
@@ -42,13 +54,21 @@ class SectionsFilter extends React.Component {
     ));
   }
 
+  @computed get useColumns() {
+    return this.choices.length > 20;
+  }
+
   render() {
     return (
       <div className="filter-widget">
         <Multiselect
           closeAfterSelect={false}
+          showHelperControls={true}
+          useColumns={this.useColumns}
           title="Display sections"
           onSelect={this.onSelect}
+          onSelectAll={this.onSelectAll}
+          onSelectNone={this.onSelectNone}
           selections={this.choices}
         />
       </div>
