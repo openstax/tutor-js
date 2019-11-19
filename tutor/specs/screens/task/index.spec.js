@@ -37,6 +37,8 @@ describe('Tasks Screen', () => {
   });
 
   it('renders and fetches', () => {
+    task.api.isFetchedOrFetching = false;
+    task.api.isPending = true;
     task.api.hasBeenFetched = false;
     props.params.stepIndex = 1;
     const t = mount(<C><Task {...props} /></C>);

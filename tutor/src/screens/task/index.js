@@ -122,7 +122,9 @@ class TaskGetter extends React.Component {
 
   constructor(props) {
     super(props);
-    this.task.fetch();
+    if (!this.task.api.isFetchedOrFetching) {
+      this.task.fetch();
+    }
   }
 
   render() {
