@@ -33,7 +33,7 @@ class SelectDates extends React.Component {
         {offering.validTerms.map((term, index) =>
           <Choice
             key={index}
-            active={ux.newCourse.term === term}
+            active={term.isEqual(ux.newCourse.term)}
             onClick={partial(this.onSelect, term)}
           >
             <span className="term">
@@ -46,4 +46,4 @@ class SelectDates extends React.Component {
       </Listing>
     );
   }
-};
+}
