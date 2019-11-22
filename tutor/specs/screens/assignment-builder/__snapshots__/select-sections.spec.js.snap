@@ -12,10 +12,15 @@ exports[`Select Topics matches snapshot 1`] = `
 }
 
 .c6 {
-  display: inline-block;
+  font-weight: 700;
+  color: #424242;
 }
 
 .c7 {
+  display: inline-block;
+}
+
+.c8 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -31,11 +36,11 @@ exports[`Select Topics matches snapshot 1`] = `
   border-bottom: 1px solid #f1f1f1;
 }
 
-.c7 > * {
+.c8 > * {
   margin-left: 1rem;
 }
 
-.c7 input {
+.c8 input {
   font-size: 1.7rem;
   margin-left: 1.2rem;
 }
@@ -162,7 +167,7 @@ exports[`Select Topics matches snapshot 1`] = `
                   >
                     Chapter 
                     <span
-                      className="chapter-section"
+                      className="chapter-section c6"
                       data-chapter-section="1.0"
                     >
                       1
@@ -170,7 +175,7 @@ exports[`Select Topics matches snapshot 1`] = `
                      - 
                   </span>
                   <div
-                    className="chapter-title c6"
+                    className="chapter-title c7"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "Kinematics",
@@ -192,7 +197,7 @@ exports[`Select Topics matches snapshot 1`] = `
                   className="sections collapse show"
                 >
                   <div
-                    className="section c7"
+                    className="section c8"
                     data-section-id="234"
                     onClick={[Function]}
                   >
@@ -206,13 +211,13 @@ exports[`Select Topics matches snapshot 1`] = `
                       />
                     </span>
                     <span
-                      className="chapter-section"
+                      className="chapter-section c6"
                       data-chapter-section="1.1"
                     >
                       1.1
                     </span>
                     <div
-                      className="section-title c6"
+                      className="section-title c7"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "Kinematics in 1 dim",
@@ -221,7 +226,7 @@ exports[`Select Topics matches snapshot 1`] = `
                     />
                   </div>
                   <div
-                    className="section c7"
+                    className="section c8"
                     data-section-id="235"
                     onClick={[Function]}
                   >
@@ -235,13 +240,13 @@ exports[`Select Topics matches snapshot 1`] = `
                       />
                     </span>
                     <span
-                      className="chapter-section"
+                      className="chapter-section c6"
                       data-chapter-section="1.2"
                     >
                       1.2
                     </span>
                     <div
-                      className="section-title c6"
+                      className="section-title c7"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "Kinematics in 2 dim",
@@ -250,7 +255,7 @@ exports[`Select Topics matches snapshot 1`] = `
                     />
                   </div>
                   <div
-                    className="section c7"
+                    className="section c8"
                     data-section-id="236"
                     onClick={[Function]}
                   >
@@ -264,13 +269,13 @@ exports[`Select Topics matches snapshot 1`] = `
                       />
                     </span>
                     <span
-                      className="chapter-section"
+                      className="chapter-section c6"
                       data-chapter-section="1.3"
                     >
                       1.3
                     </span>
                     <div
-                      className="section-title c6"
+                      className="section-title c7"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "Kinematics in 3 dim",
@@ -334,7 +339,7 @@ exports[`Select Topics matches snapshot 1`] = `
                   >
                     Chapter 
                     <span
-                      className="chapter-section"
+                      className="chapter-section c6"
                       data-chapter-section="2.0"
                     >
                       2
@@ -342,7 +347,7 @@ exports[`Select Topics matches snapshot 1`] = `
                      - 
                   </span>
                   <div
-                    className="chapter-title c6"
+                    className="chapter-title c7"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "Mechanics",
@@ -364,7 +369,7 @@ exports[`Select Topics matches snapshot 1`] = `
                   className="sections collapse"
                 >
                   <div
-                    className="section c7"
+                    className="section c8"
                     data-section-id="237"
                     onClick={[Function]}
                   >
@@ -378,13 +383,13 @@ exports[`Select Topics matches snapshot 1`] = `
                       />
                     </span>
                     <span
-                      className="chapter-section"
+                      className="chapter-section c6"
                       data-chapter-section="2.1"
                     >
                       2.1
                     </span>
                     <div
-                      className="section-title c6"
+                      className="section-title c7"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "Mechanics in 1 dim",
@@ -393,7 +398,7 @@ exports[`Select Topics matches snapshot 1`] = `
                     />
                   </div>
                   <div
-                    className="section c7"
+                    className="section c8"
                     data-section-id="238"
                     onClick={[Function]}
                   >
@@ -407,13 +412,13 @@ exports[`Select Topics matches snapshot 1`] = `
                       />
                     </span>
                     <span
-                      className="chapter-section"
+                      className="chapter-section c6"
                       data-chapter-section="2.2"
                     >
                       2.2
                     </span>
                     <div
-                      className="section-title c6"
+                      className="section-title c7"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "Mechanics in 2 dim",
@@ -422,7 +427,7 @@ exports[`Select Topics matches snapshot 1`] = `
                     />
                   </div>
                   <div
-                    className="section c7"
+                    className="section c8"
                     data-section-id="239"
                     onClick={[Function]}
                   >
@@ -436,13 +441,13 @@ exports[`Select Topics matches snapshot 1`] = `
                       />
                     </span>
                     <span
-                      className="chapter-section"
+                      className="chapter-section c6"
                       data-chapter-section="2.3"
                     >
                       2.3
                     </span>
                     <div
-                      className="section-title c6"
+                      className="section-title c7"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "Mechanics in 3 dim",
@@ -506,7 +511,7 @@ exports[`Select Topics matches snapshot 1`] = `
                   >
                     Chapter 
                     <span
-                      className="chapter-section"
+                      className="chapter-section c6"
                       data-chapter-section="3.0"
                     >
                       3
@@ -514,7 +519,7 @@ exports[`Select Topics matches snapshot 1`] = `
                      - 
                   </span>
                   <div
-                    className="chapter-title c6"
+                    className="chapter-title c7"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "Thermodynamics",
@@ -536,7 +541,7 @@ exports[`Select Topics matches snapshot 1`] = `
                   className="sections collapse"
                 >
                   <div
-                    className="section c7"
+                    className="section c8"
                     data-section-id="240"
                     onClick={[Function]}
                   >
@@ -550,13 +555,13 @@ exports[`Select Topics matches snapshot 1`] = `
                       />
                     </span>
                     <span
-                      className="chapter-section"
+                      className="chapter-section c6"
                       data-chapter-section="3.1"
                     >
                       3.1
                     </span>
                     <div
-                      className="section-title c6"
+                      className="section-title c7"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "Thermodynamics in 1 dim",
@@ -565,7 +570,7 @@ exports[`Select Topics matches snapshot 1`] = `
                     />
                   </div>
                   <div
-                    className="section c7"
+                    className="section c8"
                     data-section-id="241"
                     onClick={[Function]}
                   >
@@ -579,13 +584,13 @@ exports[`Select Topics matches snapshot 1`] = `
                       />
                     </span>
                     <span
-                      className="chapter-section"
+                      className="chapter-section c6"
                       data-chapter-section="3.2"
                     >
                       3.2
                     </span>
                     <div
-                      className="section-title c6"
+                      className="section-title c7"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "Thermodynamics in 2 dim",
@@ -594,7 +599,7 @@ exports[`Select Topics matches snapshot 1`] = `
                     />
                   </div>
                   <div
-                    className="section c7"
+                    className="section c8"
                     data-section-id="242"
                     onClick={[Function]}
                   >
@@ -608,13 +613,13 @@ exports[`Select Topics matches snapshot 1`] = `
                       />
                     </span>
                     <span
-                      className="chapter-section"
+                      className="chapter-section c6"
                       data-chapter-section="3.2"
                     >
                       3.2
                     </span>
                     <div
-                      className="section-title c6"
+                      className="section-title c7"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "Thermodynamics in 3 dim",

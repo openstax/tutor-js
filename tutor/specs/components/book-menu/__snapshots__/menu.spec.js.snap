@@ -6,11 +6,16 @@ exports[`Book Menu renders and matches snapshot 1`] = `
   margin-left: 0.5rem;
 }
 
-.c8 {
+.c7 {
+  font-weight: 700;
+  color: #424242;
+}
+
+.c9 {
   display: inline-block;
 }
 
-.c7 {
+.c8 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -150,16 +155,16 @@ exports[`Book Menu renders and matches snapshot 1`] = `
               />
             </svg>
             <span
-              className="chapter-section"
+              className="chapter-section c7"
               data-chapter-section="1.0"
             >
               1
             </span>
             <div
-              className="c7"
+              className="c8"
             >
               <div
-                className="c8"
+                className="c9"
                 dangerouslySetInnerHTML={
                   Object {
                     "__html": "Kinematics",
@@ -183,16 +188,16 @@ exports[`Book Menu renders and matches snapshot 1`] = `
               tabIndex={12}
             >
               <div
-                className="c7"
+                className="c8"
               >
                 <span
-                  className="chapter-section"
+                  className="chapter-section c7"
                   data-chapter-section="1.1"
                 >
                   1.1
                 </span>
                 <div
-                  className="c8"
+                  className="c9"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "Kinematics in 1 dim",
@@ -213,16 +218,16 @@ exports[`Book Menu renders and matches snapshot 1`] = `
               tabIndex={12}
             >
               <div
-                className="c7"
+                className="c8"
               >
                 <span
-                  className="chapter-section"
+                  className="chapter-section c7"
                   data-chapter-section="1.2"
                 >
                   1.2
                 </span>
                 <div
-                  className="c8"
+                  className="c9"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "Kinematics in 2 dim",
@@ -243,16 +248,16 @@ exports[`Book Menu renders and matches snapshot 1`] = `
               tabIndex={12}
             >
               <div
-                className="c7"
+                className="c8"
               >
                 <span
-                  className="chapter-section"
+                  className="chapter-section c7"
                   data-chapter-section="1.3"
                 >
                   1.3
                 </span>
                 <div
-                  className="c8"
+                  className="c9"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "Kinematics in 3 dim",
@@ -301,16 +306,16 @@ exports[`Book Menu renders and matches snapshot 1`] = `
               />
             </svg>
             <span
-              className="chapter-section"
+              className="chapter-section c7"
               data-chapter-section="2.0"
             >
               2
             </span>
             <div
-              className="c7"
+              className="c8"
             >
               <div
-                className="c8"
+                className="c9"
                 dangerouslySetInnerHTML={
                   Object {
                     "__html": "Mechanics",
@@ -334,16 +339,16 @@ exports[`Book Menu renders and matches snapshot 1`] = `
               tabIndex={12}
             >
               <div
-                className="c7"
+                className="c8"
               >
                 <span
-                  className="chapter-section"
+                  className="chapter-section c7"
                   data-chapter-section="2.1"
                 >
                   2.1
                 </span>
                 <div
-                  className="c8"
+                  className="c9"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "Mechanics in 1 dim",
@@ -364,16 +369,16 @@ exports[`Book Menu renders and matches snapshot 1`] = `
               tabIndex={12}
             >
               <div
-                className="c7"
+                className="c8"
               >
                 <span
-                  className="chapter-section"
+                  className="chapter-section c7"
                   data-chapter-section="2.2"
                 >
                   2.2
                 </span>
                 <div
-                  className="c8"
+                  className="c9"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "Mechanics in 2 dim",
@@ -394,16 +399,16 @@ exports[`Book Menu renders and matches snapshot 1`] = `
               tabIndex={12}
             >
               <div
-                className="c7"
+                className="c8"
               >
                 <span
-                  className="chapter-section"
+                  className="chapter-section c7"
                   data-chapter-section="2.3"
                 >
                   2.3
                 </span>
                 <div
-                  className="c8"
+                  className="c9"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "Mechanics in 3 dim",
@@ -452,16 +457,16 @@ exports[`Book Menu renders and matches snapshot 1`] = `
               />
             </svg>
             <span
-              className="chapter-section"
+              className="chapter-section c7"
               data-chapter-section="3.0"
             >
               3
             </span>
             <div
-              className="c7"
+              className="c8"
             >
               <div
-                className="c8"
+                className="c9"
                 dangerouslySetInnerHTML={
                   Object {
                     "__html": "Thermodynamics",
@@ -485,16 +490,16 @@ exports[`Book Menu renders and matches snapshot 1`] = `
               tabIndex={12}
             >
               <div
-                className="c7"
+                className="c8"
               >
                 <span
-                  className="chapter-section"
+                  className="chapter-section c7"
                   data-chapter-section="3.1"
                 >
                   3.1
                 </span>
                 <div
-                  className="c8"
+                  className="c9"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "Thermodynamics in 1 dim",
@@ -515,16 +520,16 @@ exports[`Book Menu renders and matches snapshot 1`] = `
               tabIndex={12}
             >
               <div
-                className="c7"
+                className="c8"
               >
                 <span
-                  className="chapter-section"
+                  className="chapter-section c7"
                   data-chapter-section="3.2"
                 >
                   3.2
                 </span>
                 <div
-                  className="c8"
+                  className="c9"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "Thermodynamics in 2 dim",
@@ -545,16 +550,16 @@ exports[`Book Menu renders and matches snapshot 1`] = `
               tabIndex={12}
             >
               <div
-                className="c7"
+                className="c8"
               >
                 <span
-                  className="chapter-section"
+                  className="chapter-section c7"
                   data-chapter-section="3.2"
                 >
                   3.2
                 </span>
                 <div
-                  className="c8"
+                  className="c9"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "Thermodynamics in 3 dim",
