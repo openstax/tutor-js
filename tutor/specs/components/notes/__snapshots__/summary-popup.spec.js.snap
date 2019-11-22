@@ -6,6 +6,11 @@ exports[`Notes Summary Popup matches snapshot 1`] = `
   margin-left: 0.5rem;
 }
 
+.c1 {
+  font-weight: 700;
+  color: #424242;
+}
+
 <div>
   <button
     className="print-btn btn btn-default"
@@ -46,7 +51,7 @@ exports[`Notes Summary Popup matches snapshot 1`] = `
         >
           <h2>
             <span
-              className="chapter-section"
+              className="chapter-section c1"
               data-chapter-section="2.1"
             >
               2.1

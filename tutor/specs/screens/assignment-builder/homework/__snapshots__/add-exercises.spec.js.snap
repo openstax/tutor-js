@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`choose exercises component matches snapshot 1`] = `
+.c1 {
+  font-weight: 700;
+  color: #424242;
+}
+
 .c0 {
   font-size: 2.8rem;
   font-weight: bold;
@@ -29,7 +34,7 @@ exports[`choose exercises component matches snapshot 1`] = `
               className="c0"
             >
               <span
-                className="chapter-section"
+                className="chapter-section c1"
                 data-chapter-section="2.2"
               >
                 2.2
@@ -394,7 +399,7 @@ exports[`choose exercises component matches snapshot 1`] = `
               className="c0"
             >
               <span
-                className="chapter-section"
+                className="chapter-section c1"
                 data-chapter-section="2.3"
               >
                 2.3

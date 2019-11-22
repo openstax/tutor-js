@@ -7,10 +7,15 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
 }
 
 .c4 {
-  display: inline-block;
+  font-weight: 700;
+  color: #424242;
 }
 
 .c5 {
+  display: inline-block;
+}
+
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -26,11 +31,11 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
   border-bottom: 1px solid #f1f1f1;
 }
 
-.c5 > * {
+.c6 > * {
   margin-left: 1rem;
 }
 
-.c5 input {
+.c6 input {
   font-size: 1.7rem;
   margin-left: 1.2rem;
 }
@@ -162,7 +167,7 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                   >
                     Chapter 
                     <span
-                      className="chapter-section"
+                      className="chapter-section c4"
                       data-chapter-section="1.0"
                     >
                       1
@@ -170,7 +175,7 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                      - 
                   </span>
                   <div
-                    className="chapter-title c4"
+                    className="chapter-title c5"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "Kinematics",
@@ -183,7 +188,7 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                   className="sections collapse show"
                 >
                   <div
-                    className="section c5"
+                    className="section c6"
                     data-section-id="234"
                     onClick={[Function]}
                   >
@@ -197,13 +202,13 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                       />
                     </span>
                     <span
-                      className="chapter-section"
+                      className="chapter-section c4"
                       data-chapter-section="1.1"
                     >
                       1.1
                     </span>
                     <div
-                      className="section-title c4"
+                      className="section-title c5"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "Kinematics in 1 dim",
@@ -212,7 +217,7 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                     />
                   </div>
                   <div
-                    className="section c5"
+                    className="section c6"
                     data-section-id="235"
                     onClick={[Function]}
                   >
@@ -226,13 +231,13 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                       />
                     </span>
                     <span
-                      className="chapter-section"
+                      className="chapter-section c4"
                       data-chapter-section="1.2"
                     >
                       1.2
                     </span>
                     <div
-                      className="section-title c4"
+                      className="section-title c5"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "Kinematics in 2 dim",
@@ -241,7 +246,7 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                     />
                   </div>
                   <div
-                    className="section c5"
+                    className="section c6"
                     data-section-id="236"
                     onClick={[Function]}
                   >
@@ -255,13 +260,13 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                       />
                     </span>
                     <span
-                      className="chapter-section"
+                      className="chapter-section c4"
                       data-chapter-section="1.3"
                     >
                       1.3
                     </span>
                     <div
-                      className="section-title c4"
+                      className="section-title c5"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "Kinematics in 3 dim",
@@ -325,7 +330,7 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                   >
                     Chapter 
                     <span
-                      className="chapter-section"
+                      className="chapter-section c4"
                       data-chapter-section="2.0"
                     >
                       2
@@ -333,7 +338,7 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                      - 
                   </span>
                   <div
-                    className="chapter-title c4"
+                    className="chapter-title c5"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "Mechanics",
@@ -346,7 +351,7 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                   className="sections collapse"
                 >
                   <div
-                    className="section c5"
+                    className="section c6"
                     data-section-id="237"
                     onClick={[Function]}
                   >
@@ -360,13 +365,13 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                       />
                     </span>
                     <span
-                      className="chapter-section"
+                      className="chapter-section c4"
                       data-chapter-section="2.1"
                     >
                       2.1
                     </span>
                     <div
-                      className="section-title c4"
+                      className="section-title c5"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "Mechanics in 1 dim",
@@ -375,7 +380,7 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                     />
                   </div>
                   <div
-                    className="section c5"
+                    className="section c6"
                     data-section-id="238"
                     onClick={[Function]}
                   >
@@ -389,13 +394,13 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                       />
                     </span>
                     <span
-                      className="chapter-section"
+                      className="chapter-section c4"
                       data-chapter-section="2.2"
                     >
                       2.2
                     </span>
                     <div
-                      className="section-title c4"
+                      className="section-title c5"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "Mechanics in 2 dim",
@@ -404,7 +409,7 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                     />
                   </div>
                   <div
-                    className="section c5"
+                    className="section c6"
                     data-section-id="239"
                     onClick={[Function]}
                   >
@@ -418,13 +423,13 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                       />
                     </span>
                     <span
-                      className="chapter-section"
+                      className="chapter-section c4"
                       data-chapter-section="2.3"
                     >
                       2.3
                     </span>
                     <div
-                      className="section-title c4"
+                      className="section-title c5"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "Mechanics in 3 dim",
@@ -488,7 +493,7 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                   >
                     Chapter 
                     <span
-                      className="chapter-section"
+                      className="chapter-section c4"
                       data-chapter-section="3.0"
                     >
                       3
@@ -496,7 +501,7 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                      - 
                   </span>
                   <div
-                    className="chapter-title c4"
+                    className="chapter-title c5"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "Thermodynamics",
@@ -509,7 +514,7 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                   className="sections collapse"
                 >
                   <div
-                    className="section c5"
+                    className="section c6"
                     data-section-id="240"
                     onClick={[Function]}
                   >
@@ -523,13 +528,13 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                       />
                     </span>
                     <span
-                      className="chapter-section"
+                      className="chapter-section c4"
                       data-chapter-section="3.1"
                     >
                       3.1
                     </span>
                     <div
-                      className="section-title c4"
+                      className="section-title c5"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "Thermodynamics in 1 dim",
@@ -538,7 +543,7 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                     />
                   </div>
                   <div
-                    className="section c5"
+                    className="section c6"
                     data-section-id="241"
                     onClick={[Function]}
                   >
@@ -552,13 +557,13 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                       />
                     </span>
                     <span
-                      className="chapter-section"
+                      className="chapter-section c4"
                       data-chapter-section="3.2"
                     >
                       3.2
                     </span>
                     <div
-                      className="section-title c4"
+                      className="section-title c5"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "Thermodynamics in 2 dim",
@@ -567,7 +572,7 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                     />
                   </div>
                   <div
-                    className="section c5"
+                    className="section c6"
                     data-section-id="242"
                     onClick={[Function]}
                   >
@@ -581,13 +586,13 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
                       />
                     </span>
                     <span
-                      className="chapter-section"
+                      className="chapter-section c4"
                       data-chapter-section="3.2"
                     >
                       3.2
                     </span>
                     <div
-                      className="section-title c4"
+                      className="section-title c5"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "Thermodynamics in 3 dim",

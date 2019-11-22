@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Related Content Link renders and matches snapshot 1`] = `
+.c2 {
+  font-weight: 700;
+  color: #424242;
+}
+
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -20,7 +25,7 @@ exports[`Related Content Link renders and matches snapshot 1`] = `
   display: flex;
 }
 
-.c2 {
+.c3 {
   margin-left: 0.5rem;
   max-width: 300px;
   text-overflow: ellipsis;
@@ -49,13 +54,13 @@ exports[`Related Content Link renders and matches snapshot 1`] = `
     target="_blank"
   >
     <span
-      className="chapter-section"
+      className="chapter-section c2"
       data-chapter-section="1.0"
     >
       1
     </span>
     <span
-      className="title c2"
+      className="title c3"
     >
       Intro
     </span>

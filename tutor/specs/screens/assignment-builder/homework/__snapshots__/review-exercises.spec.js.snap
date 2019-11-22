@@ -181,13 +181,13 @@ exports[`choose exercises component matches snapshot 1`] = `
                                                           <div className=\\"card-header\\">
                                                             <styled.div className=\\"-exercise-header\\">
                                                               <StyledComponent className=\\"-exercise-header\\" forwardedComponent={{...}} forwardedRef={{...}}>
-                                                                <div className=\\"-exercise-header sc-gZMcBi laHebT\\">
+                                                                <div className=\\"-exercise-header sc-gqjmRU kzGOTU\\">
                                                                   <span className=\\"exercise-number\\">
                                                                     1
                                                                   </span>
                                                                   <styled.div className=\\"pull-right card-actions\\">
                                                                     <StyledComponent className=\\"pull-right card-actions\\" forwardedComponent={{...}} forwardedRef={{...}}>
-                                                                      <div className=\\"pull-right card-actions sc-gqjmRU kjnQlL\\">
+                                                                      <div className=\\"pull-right card-actions sc-VigVT kVfYYI\\">
                                                                         <SuretyGuard title={false} onConfirm={[Function: res]} okButtonLabel=\\"Remove\\" placement=\\"left\\" message=\\"Are you sure you want to remove this exercise?\\" cancelButtonLabel=\\"Cancel\\">
                                                                           <OverlayTrigger trigger=\\"click\\" onClick={[Function]} placement=\\"left\\" rootClose={true} overlay={{...}} defaultOverlayShown={false}>
                                                                             <RefHolder>
