@@ -4,6 +4,11 @@ import ChapterSection from '../chapter-section';
 import Multiselect from '../multi-select';
 import { observer } from 'mobx-react';
 import { action, computed } from 'mobx';
+import styled from 'styled-components';
+
+const WrappedChapterSection = styled(ChapterSection)`
+  margin-right: 1rem;
+`;
 
 export default
 @observer
@@ -43,9 +48,8 @@ class SectionsFilter extends React.Component {
         id: s.id,
         title: (
           <span>
-            <ChapterSection chapterSection={s.chapter_section} hideClassName={true} />
-            &nbsp;
-            <span>{s.title}</span>
+            <WrappedChapterSection chapterSection={s.chapter_section} />
+            {s.title}
           </span>
         ),
         summary: s,
