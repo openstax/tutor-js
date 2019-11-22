@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { Icon } from 'shared';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 const MultiSelectWrapper = styled.div`
   padding: ${props => props.useColumns ? '10px' : '0' };
@@ -13,7 +13,7 @@ const MultiSelectWrapper = styled.div`
   overflow-y: scroll;
   max-height: 640px;
   max-width: 976px;
-`
+`;
 
 const MultiSelectItems = styled.div`
   column-count: ${props => props.useColumns ? '2' : 'inherit' };
@@ -22,7 +22,7 @@ const MultiSelectItems = styled.div`
   @media only screen and (max-width: 979px) {
     column-count: inherit;
   }
-`
+`;
 
 @observer
 class MultiSelect extends React.Component {
@@ -45,6 +45,8 @@ class MultiSelect extends React.Component {
 
     onOnlySelection: PropTypes.func,
     onSelect: PropTypes.func,
+    onSelectAll: PropTypes.func,
+    onSelectNone: PropTypes.func,
     tabIndex: PropTypes.number,
     showHelperControls: PropTypes.bool,
     useColumns: PropTypes.bool,
@@ -114,7 +116,7 @@ class MultiSelect extends React.Component {
   };
 
   renderHelperControls = () => {
-    if (!this.props.showHelperControls) { return; }
+    if (!this.props.showHelperControls) { return null; }
 
     return (
       <div className="multi-select-helpers">
@@ -122,7 +124,7 @@ class MultiSelect extends React.Component {
         <span className="divider">|</span>
         <a href="#" className="select-none" onClick={this.onSelectNone}>None</a>
       </div>
-    )
+    );
   }
 
   render() {

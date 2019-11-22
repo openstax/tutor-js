@@ -125,12 +125,12 @@ const Variants = {
   },
   checkedSquare: {
     type: 'check-square-solid',
-    color: '#F36B32'
+    color: '#F36B32',
   },
   checkSquare: {
     type: 'square',
-    color: '#5E6062'
-  }
+    color: '#5E6062',
+  },
 };
 
 export default

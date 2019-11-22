@@ -1,4 +1,3 @@
-import renderer from 'react-test-renderer';
 import MultiSelect from '../../src/components/multi-select';
 
 const SELECTIONS = [
