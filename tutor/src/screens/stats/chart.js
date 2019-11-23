@@ -15,6 +15,7 @@ export default
 class Chart extends React.Component {
 
   static propTypes = {
+    id: PropTypes.string.isRequired,
     data: PropTypes.array,
     series: PropTypes.array,
     fullWidth: PropTypes.bool,
@@ -23,19 +24,19 @@ class Chart extends React.Component {
     ]),
     label: PropTypes.string,
     title: PropTypes.string.isRequired,
+    onZoom: PropTypes.func,
   };
-
 
   options = {
     chart: {
+      id: this.props.id,
+      group: 'stats',
       stacked: false,
-      zoom: {
-        type: 'x',
-        enabled: true,
-        autoScaleYaxis: true,
-      },
       toolbar: {
         autoSelected: 'zoom',
+      },
+      events: {
+        zoomed: this.props.onZoom,
       },
     },
     plotOptions: {
@@ -44,6 +45,15 @@ class Chart extends React.Component {
       },
     },
     tooltip: {
+      x: {
+        format: 'MMM d, yyyy',
+      },
+      // z: {
+      //   formatter(value, a, b) {
+      //     console.log(a,b)
+      //     return moment.unix(value).format('MMM Do, ’YY');
+      //   },
+      // },
       y: {
         formatter(value) {
           return parseInt(value);
@@ -69,6 +79,9 @@ class Chart extends React.Component {
     },
     xaxis: {
       type: 'datetime',
+    },
+    yaxis: {
+      labels: { minWidth: 6 },
     },
   }
 

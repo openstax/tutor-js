@@ -1,8 +1,12 @@
-import { React, PropTypes, observer, styled } from 'vendor';
+import {
+  React, PropTypes, observer, action, observable, computed, styled,
+} from 'vendor';
+import { last } from 'lodash';
 import StatsModel from '../../models/stats';
 import { ScrollToTop } from 'shared';
 import LoadingScreen from 'shared/components/loading-animation';
 import Chart from './chart';
+import Table from './table';
 import './styles.scss';
 
 const Wrapper = styled.div`
@@ -30,6 +34,22 @@ class Stats extends React.Component {
 
   stats = this.props.stats || new StatsModel();
 
+  @observable zoomTS;
+
+  @action.bound onZoom(context, zoom) {
+    this.zoomTS = zoom.xaxis.max;
+  }
+
+  @computed get tableRow() {
+    if (this.zoomTS) {
+      const row = this.stats.data.find((r) => r.starts_at > this.zoomTS);
+      if (row) {
+        return row;
+      }
+    }
+    return last(this.stats.data);
+  }
+
   constructor(props) {
     super(props);
     this.stats.fetch();
@@ -41,52 +61,68 @@ class Stats extends React.Component {
         <LoadingScreen message="Loading Stats…" />
       );
     }
+    const chartProps = {
+      onZoom: this.onZoom,
+    };
 
     return (
       <ScrollToTop>
         <Wrapper>
+          <Table row={this.tableRow} />
+          <Info>All values are for <b>Active</b> courses that have at least 3 students</Info>
           <Container>
             <Chart
+              id="courses"
               data={this.stats.data}
               title="Active Courses"
               series={[
                 { property: 'active_courses' },
               ]}
+              {...chartProps}
             />
             <Chart
+              id="users"
               data={this.stats.data}
-              title="Active Users"
+              title="Users"
               series={[
                 { label: 'Students', property: 'active_students' },
                 { label: 'Instructors', property: 'active_instructors' },
               ]}
+              {...chartProps}
             />
-            <Info>“<b>Active</b>” is a course with at least 3 members</Info>
             <Chart
+              id="steps"
               data={this.stats.data}
               title="Steps Completed"
               series={[
                 { label: 'Reading', property: 'reading_steps' },
                 { label: 'Homework', property: 'exercise_steps' },
+                { label: 'Practice', property: 'practice_steps' },
               ]}
+              {...chartProps}
             />
             <Chart
+              id="assignments"
               data={this.stats.data}
               title="Assignments"
               series={[
                 { label: 'Reading', property: 'reading_task_plans' },
                 { label: 'Homework', property: 'homework_task_plans' },
               ]}
+              {...chartProps}
             />
             <Chart
+              id="highlights"
               data={this.stats.data}
               title="Highlighting"
               series={[
-                { label: 'Highlights', property: 'highlights' },
-                { label: 'Notes', property: 'notes' },
+                { label: 'Highlights', property: 'new_highlights' },
+                { label: 'Notes', property: 'new_notes' },
               ]}
+              {...chartProps}
             />
             <Chart
+              id="nudge"
               data={this.stats.data}
               title="Free Response Nudges"
               series={[
@@ -94,8 +130,8 @@ class Stats extends React.Component {
                 { label: 'Invalid', property: 'nudge_initially_invalid' },
                 { label: 'Corrected', property: 'nudge_retry_correct' },
               ]}
+              {...chartProps}
             />
-
           </Container>
         </Wrapper>
       </ScrollToTop>

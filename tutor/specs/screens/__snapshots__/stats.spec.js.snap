@@ -10,9 +10,9 @@ exports[`Stats Screen renders and matches snapshot 1`] = `
       Stats {
         "data": Array [
           Object {
-            "ends_at": "2019-10-23T07:00:00-05:00",
+            "ends_at": 1571832000000,
             "id": 1,
-            "starts_at": "2019-10-16T07:00:00-05:00",
+            "starts_at": 1571227200000,
             "stats": Object {
               "active_courses": 42786,
               "active_populated_courses": 72445,
@@ -27,9 +27,9 @@ exports[`Stats Screen renders and matches snapshot 1`] = `
             },
           },
           Object {
-            "ends_at": "2019-10-23T07:00:00-05:00",
+            "ends_at": 1571832000000,
             "id": 2,
-            "starts_at": "2019-10-16T07:00:00-05:00",
+            "starts_at": 1571227200000,
             "stats": Object {
               "active_courses": 41720,
               "active_populated_courses": 22826,
@@ -44,9 +44,9 @@ exports[`Stats Screen renders and matches snapshot 1`] = `
             },
           },
           Object {
-            "ends_at": "2019-10-23T07:00:00-05:00",
+            "ends_at": 1571832000000,
             "id": 3,
-            "starts_at": "2019-10-16T07:00:00-05:00",
+            "starts_at": 1571227200000,
             "stats": Object {
               "active_courses": 76599,
               "active_populated_courses": 43086,
@@ -61,9 +61,9 @@ exports[`Stats Screen renders and matches snapshot 1`] = `
             },
           },
           Object {
-            "ends_at": "2019-10-23T07:00:00-05:00",
+            "ends_at": 1571832000000,
             "id": 4,
-            "starts_at": "2019-10-16T07:00:00-05:00",
+            "starts_at": 1571227200000,
             "stats": Object {
               "active_courses": 7708,
               "active_populated_courses": 89338,
@@ -78,9 +78,9 @@ exports[`Stats Screen renders and matches snapshot 1`] = `
             },
           },
           Object {
-            "ends_at": "2019-10-23T07:00:00-05:00",
+            "ends_at": 1571832000000,
             "id": 5,
-            "starts_at": "2019-10-16T07:00:00-05:00",
+            "starts_at": 1571227200000,
             "stats": Object {
               "active_courses": 46426,
               "active_populated_courses": 31728,
@@ -95,9 +95,9 @@ exports[`Stats Screen renders and matches snapshot 1`] = `
             },
           },
           Object {
-            "ends_at": "2019-10-23T07:00:00-05:00",
+            "ends_at": 1571832000000,
             "id": 6,
-            "starts_at": "2019-10-16T07:00:00-05:00",
+            "starts_at": 1571227200000,
             "stats": Object {
               "active_courses": 91669,
               "active_populated_courses": 98555,
@@ -112,9 +112,9 @@ exports[`Stats Screen renders and matches snapshot 1`] = `
             },
           },
           Object {
-            "ends_at": "2019-10-23T07:00:00-05:00",
+            "ends_at": 1571832000000,
             "id": 7,
-            "starts_at": "2019-10-16T07:00:00-05:00",
+            "starts_at": 1571227200000,
             "stats": Object {
               "active_courses": 75154,
               "active_populated_courses": 60306,
@@ -129,9 +129,9 @@ exports[`Stats Screen renders and matches snapshot 1`] = `
             },
           },
           Object {
-            "ends_at": "2019-10-23T07:00:00-05:00",
+            "ends_at": 1571832000000,
             "id": 8,
-            "starts_at": "2019-10-16T07:00:00-05:00",
+            "starts_at": 1571227200000,
             "stats": Object {
               "active_courses": 975,
               "active_populated_courses": 68130,
@@ -146,9 +146,9 @@ exports[`Stats Screen renders and matches snapshot 1`] = `
             },
           },
           Object {
-            "ends_at": "2019-10-23T07:00:00-05:00",
+            "ends_at": 1571832000000,
             "id": 9,
-            "starts_at": "2019-10-16T07:00:00-05:00",
+            "starts_at": 1571227200000,
             "stats": Object {
               "active_courses": 45674,
               "active_populated_courses": 62490,
@@ -163,9 +163,9 @@ exports[`Stats Screen renders and matches snapshot 1`] = `
             },
           },
           Object {
-            "ends_at": "2019-10-23T07:00:00-05:00",
+            "ends_at": 1571832000000,
             "id": 10,
-            "starts_at": "2019-10-16T07:00:00-05:00",
+            "starts_at": 1571227200000,
             "stats": Object {
               "active_courses": 17537,
               "active_populated_courses": 24366,
@@ -180,9 +180,9 @@ exports[`Stats Screen renders and matches snapshot 1`] = `
             },
           },
           Object {
-            "ends_at": "2019-10-23T07:00:00-05:00",
+            "ends_at": 1571832000000,
             "id": 11,
-            "starts_at": "2019-10-16T07:00:00-05:00",
+            "starts_at": 1571227200000,
             "stats": Object {
               "active_courses": 21229,
               "active_populated_courses": 62724,
@@ -197,9 +197,9 @@ exports[`Stats Screen renders and matches snapshot 1`] = `
             },
           },
           Object {
-            "ends_at": "2019-10-23T07:00:00-05:00",
+            "ends_at": 1571832000000,
             "id": 12,
-            "starts_at": "2019-10-16T07:00:00-05:00",
+            "starts_at": 1571227200000,
             "stats": Object {
               "active_courses": 47704,
               "active_populated_courses": 15895,
@@ -214,9 +214,9 @@ exports[`Stats Screen renders and matches snapshot 1`] = `
             },
           },
           Object {
-            "ends_at": "2019-10-23T07:00:00-05:00",
+            "ends_at": 1571832000000,
             "id": 13,
-            "starts_at": "2019-10-16T07:00:00-05:00",
+            "starts_at": 1571227200000,
             "stats": Object {
               "active_courses": 10854,
               "active_populated_courses": 55438,
@@ -231,9 +231,9 @@ exports[`Stats Screen renders and matches snapshot 1`] = `
             },
           },
           Object {
-            "ends_at": "2019-10-23T07:00:00-05:00",
+            "ends_at": 1571832000000,
             "id": 14,
-            "starts_at": "2019-10-16T07:00:00-05:00",
+            "starts_at": 1571227200000,
             "stats": Object {
               "active_courses": 85497,
               "active_populated_courses": 4359,
@@ -248,9 +248,9 @@ exports[`Stats Screen renders and matches snapshot 1`] = `
             },
           },
           Object {
-            "ends_at": "2019-10-23T07:00:00-05:00",
+            "ends_at": 1571832000000,
             "id": 15,
-            "starts_at": "2019-10-16T07:00:00-05:00",
+            "starts_at": 1571227200000,
             "stats": Object {
               "active_courses": 54916,
               "active_populated_courses": 35591,
@@ -265,9 +265,9 @@ exports[`Stats Screen renders and matches snapshot 1`] = `
             },
           },
           Object {
-            "ends_at": "2019-10-23T07:00:00-05:00",
+            "ends_at": 1571832000000,
             "id": 16,
-            "starts_at": "2019-10-16T07:00:00-05:00",
+            "starts_at": 1571227200000,
             "stats": Object {
               "active_courses": 4302,
               "active_populated_courses": 39887,
@@ -282,9 +282,9 @@ exports[`Stats Screen renders and matches snapshot 1`] = `
             },
           },
           Object {
-            "ends_at": "2019-10-23T07:00:00-05:00",
+            "ends_at": 1571832000000,
             "id": 17,
-            "starts_at": "2019-10-16T07:00:00-05:00",
+            "starts_at": 1571227200000,
             "stats": Object {
               "active_courses": 87350,
               "active_populated_courses": 10590,
@@ -299,9 +299,9 @@ exports[`Stats Screen renders and matches snapshot 1`] = `
             },
           },
           Object {
-            "ends_at": "2019-10-23T07:00:00-05:00",
+            "ends_at": 1571832000000,
             "id": 18,
-            "starts_at": "2019-10-16T07:00:00-05:00",
+            "starts_at": 1571227200000,
             "stats": Object {
               "active_courses": 46023,
               "active_populated_courses": 55325,
@@ -316,9 +316,9 @@ exports[`Stats Screen renders and matches snapshot 1`] = `
             },
           },
           Object {
-            "ends_at": "2019-10-23T07:00:00-05:00",
+            "ends_at": 1571832000000,
             "id": 19,
-            "starts_at": "2019-10-16T07:00:00-05:00",
+            "starts_at": 1571227200000,
             "stats": Object {
               "active_courses": 67792,
               "active_populated_courses": 17108,
@@ -333,9 +333,9 @@ exports[`Stats Screen renders and matches snapshot 1`] = `
             },
           },
           Object {
-            "ends_at": "2019-10-23T07:00:00-05:00",
+            "ends_at": 1571832000000,
             "id": 20,
-            "starts_at": "2019-10-16T07:00:00-05:00",
+            "starts_at": 1571227200000,
             "stats": Object {
               "active_courses": 47845,
               "active_populated_courses": 52153,
