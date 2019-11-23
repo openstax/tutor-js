@@ -1251,10 +1251,10 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@openstax/highlighter@1.1.9":
-  version "1.1.9"
-  resolved "https://registry.yarnpkg.com/@openstax/highlighter/-/highlighter-1.1.9.tgz#03cd0379ae84e30df72ce4a8b193e4c16ef43d59"
-  integrity sha512-ZqACYRivEsS5aXb56awWUW5cCrWEBA6swAMvVjD0GgniX/i+zJMRRt7sGScyU6qi9niXxYpYG1JMrIa+NVCVNg==
+"@openstax/highlighter@^1.3.2":
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/@openstax/highlighter/-/highlighter-1.3.2.tgz#4b5e621bb96cbf1c6bec1792a3d9a623e0e1645d"
+  integrity sha512-azYV5LqWJCJBw32K0olZ4CToVuuVWcfpDD10BdX6XiklkJDymB3Wi69WjvZJK86ycIw3asqE5mCiJd66M9bbcA==
   dependencies:
     serialize-selection "^1.1.1"
 

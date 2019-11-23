@@ -19,6 +19,8 @@ import Highlighter from '@openstax/highlighter';
 import Overlay from './obscured-page/overlay';
 import Page from '../models/reference-book/page';
 
+const ignoreMutation = (m) => m.target.matches('.tutor-highlight,.MathJax,.MathJax_Preview,.media-preview-wrapper');
+
 export default
 class NotesWidgetWrapper extends React.Component {
 
@@ -128,6 +130,7 @@ class NotesWidget extends React.Component {
     }
 
     if (this.highlighter) {
+      this.highlighter.eraseAll();
       this.highlighter.unmount();
     }
 
@@ -305,9 +308,7 @@ class NotesWidget extends React.Component {
 
   @action.bound onMutations(mutationsList) {
     // ignore muatations caused by highlights or mathjax
-    if (!mutationsList.find(m =>
-      m.target.matches('.tutor-highlight,.MathJax_Preview'),
-    )) {
+    if (!mutationsList.find(ignoreMutation)) {
       this.initializePage();
     }
   }
