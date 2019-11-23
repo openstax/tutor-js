@@ -123,6 +123,14 @@ const Variants = {
     type: 'spinner',
     spin: true,
   },
+  checkedSquare: {
+    type: 'check-square-solid',
+    color: '#F36B32',
+  },
+  checkSquare: {
+    type: 'square',
+    color: '#5E6062',
+  },
 };
 
 export default

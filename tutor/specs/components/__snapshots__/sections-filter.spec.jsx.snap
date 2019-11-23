@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SectionsFilter component renders 1`] = `
+<div
+  className="filter-widget"
+>
+  <div
+    className="multi-select dropdown"
+    onKeyDown={[Function]}
+    variant="default"
+  >
+    <button
+      aria-expanded={false}
+      aria-haspopup={true}
+      aria-label="Display sections"
+      className="dropdown-toggle btn btn-default"
+      disabled={false}
+      id="multi-select"
+      onClick={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      Display sections
+    </button>
+  </div>
+</div>
+`;

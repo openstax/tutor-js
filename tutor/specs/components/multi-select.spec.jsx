@@ -1,4 +1,3 @@
-import renderer from 'react-test-renderer';
 import MultiSelect from '../../src/components/multi-select';
 
 const SELECTIONS = [
@@ -35,18 +34,26 @@ describe('MultiSelect component', () => {
     wrapper.find('a.multi-selection-option').at(2).simulate('click');
     expect(props.onSelect).toHaveBeenCalledWith(SELECTIONS[2]);
     expect(wrapper).not.toHaveRendered('.dropdown.open');
+    wrapper.unmount();
   });
 
-  // no longer used
-  // fit('remains open after selection if closeAfterSelect=false', function() {
-  //   props.closeAfterSelect = false;
-  //   const menu = mount(<MultiSelect {...props} />);
-  //   expect(menu).not.toHaveRendered('.dropdown.open');
-  //   menu.find('button.dropdown-toggle').simulate('click');
-  //   expect(menu).toHaveRendered('div.multi-select.dropdown.show');
-  //   menu.find('a.multi-selection-option').at(3).simulate('click');
-  //   expect(props.onSelect).toHaveBeenCalledWith(SELECTIONS[3]);
-  //   expect(menu).toHaveRendered('.dropdown.open');
-  // });
+  it('remains open after selection if closeAfterSelect=false', function() {
+    props.closeAfterSelect = false;
+    const menu = mount(<MultiSelect {...props} />);
+    expect(menu).not.toHaveRendered('.dropdown.open');
+    menu.find('button.dropdown-toggle').simulate('click');
+    expect(menu).toHaveRendered('div.multi-select.dropdown.show');
+    menu.find('a.multi-selection-option').at(3).simulate('click');
+    expect(props.onSelect).toHaveBeenCalledWith(SELECTIONS[3]);
+    expect(menu).toHaveRendered('.dropdown.show');
+    menu.unmount();
+  });
 
+  it('renders helper controls if showHelperControls=true', function() {
+    props.showHelperControls = true;
+    const menu = mount(<MultiSelect {...props} />);
+    menu.find('button.dropdown-toggle').simulate('click');
+    expect(menu).toHaveRendered('div.multi-select-helpers');
+    menu.unmount();
+  });
 });
