@@ -147,6 +147,7 @@
   .os-table { margin-top: 2rem; }
 
   table {
+    font-family: $tutor-sans-font-face;
     caption {
       caption-side: bottom;
       font-style: italic;
@@ -209,9 +210,6 @@
         li::before{
           background: $tutor-neutral-darker;
         }
-      }
-      td {
-        font-family: $tutor-sans-font-face;
       }
     }
   }
