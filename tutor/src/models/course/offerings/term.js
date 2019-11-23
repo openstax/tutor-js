@@ -12,4 +12,8 @@ class Term extends BaseModel {
   is(term, year) {
     return this.term == term && this.year === year;
   }
-};
+
+  isEqual(other) {
+    return Boolean(other && this.is(other.term, other.year));
+  }
+}
