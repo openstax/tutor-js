@@ -26,12 +26,13 @@ export default class TaskUX {
     this.course = course || task.tasksMap.course;
     this.becomeStudentIfNeeded();
     CenterControls.currentTaskStep = this.currentStep;
-    observe(this, 'currentStep', this.onStepChange, true);
     when(
-      () => !this.task.api.isPendingInitialFetch,
-      () => this.goToStep(stepIndex)
+      () => !this.task.api.isPending,
+      () => {
+        observe(this, 'currentStep', this.onStepChange, true);
+        this.goToStep(stepIndex);
+      }
     );
-
   }
 
   @lazyGetter scroller = new ScrollTo({ windowImpl: this.window });
