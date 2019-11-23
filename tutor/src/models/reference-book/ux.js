@@ -84,12 +84,12 @@ export default class BookUX {
       // in that case the id that's present will be the ecosystem
       const course = Courses.get(this.courseId) ||
         Courses.forEcosystemId(this.courseId);
-      if (course.id != this.courseId) {
-        this.courseId = course.id;
-        const pageURL = props.pageId ? `/page/${props.pageId}` : '';
-        this.history.push(`/book/${this.courseId}${pageURL}`);
-      }
       if (course) {
+        if (course.id != this.courseId) {
+          this.courseId = course.id;
+          const pageURL = props.pageId ? `/page/${props.pageId}` : '';
+          this.history.push(`/book/${this.courseId}${pageURL}`);
+        }
         this.ecosystemId = course.ecosystem_id;
       }
     }

@@ -7,6 +7,9 @@ export default class PageContentUX extends BookUX {
   constructor({ main }) {
     super();
     this.mainUX = main;
+    this.update({
+      courseId: this.mainUX.course.id,
+    });
   }
 
   @computed get course() {
@@ -27,7 +30,6 @@ export default class PageContentUX extends BookUX {
     };
 
   }
-
 
   @action checkForTeacherContent() { }
 
