@@ -4,3 +4,8 @@
 }
 
 a:not(.disabled) { cursor: pointer; }
+
+blockquote {
+  padding-left: 2rem;
+  border-left: 0.5rem solid $tutor-neutral;
+}
