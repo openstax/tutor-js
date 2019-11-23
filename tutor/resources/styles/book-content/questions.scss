@@ -33,7 +33,6 @@
 
   .exercise,
   [data-type=exercise] {
-    @include tutor-serif-font(1.75rem, 190%);
     padding-left: 40px;
 
     &:not(.unnumbered) {
