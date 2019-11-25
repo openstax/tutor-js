@@ -117,7 +117,7 @@ Factories.scores = ({ course }) => {
 };
 
 Factories.notesPageMap = ({ course, page, count = 4 }) => {
-  const notes = course.notes.forPage(page);
+  const notes = course.notes.ensurePageExists(page);
   range(count).forEach(() => {
     const note = new Note(FactoryBot.create('Note', { page }), page)
     notes.set(note.id, note);

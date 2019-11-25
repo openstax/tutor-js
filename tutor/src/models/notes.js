@@ -59,8 +59,7 @@ class PageNotes extends Map {
 @identifiedBy('notes/highlighted-section')
 class HighlightedSection extends BaseModel {
 
-  @identifier id;
-  @session uuid;
+  @identifier uuid;
   @session title;
   @session({ model: ChapterSection }) chapter_section;
 
@@ -86,7 +85,7 @@ class Notes extends BaseModel {
   }
 
   hasNotesForPage(page) {
-    return Boolean(this.pages.get(String(page.id)));
+    return Boolean(this.pages.get(page.uuid));
   }
 
   @computed get isAnyPagePending() {
@@ -94,12 +93,15 @@ class Notes extends BaseModel {
   }
 
   @action forPage(page) {
-    let notes = this.pages.get(String(page.id));
-    if (!notes) {
-      notes = new PageNotes({ page, notes: this });
-      this.pages.set(String(page.id), notes);
+    return this.pages.get(page.uuid);
+  }
+
+  @action ensurePageExists(page) {
+    if (!this.hasNotesForPage(page)) {
+      const notes = new PageNotes({ page, notes: this });
+      this.pages.set(page.uuid, notes);
     }
-    return notes;
+    return this.forPage(page);
   }
 
   fetchHighlightedPages() {
@@ -109,7 +111,7 @@ class Notes extends BaseModel {
   onHighlightedPagesLoaded({ data: { pages } }) {
     const summary = {};
     pages.forEach(pg => {
-      const key = pg.id;
+      const key = pg.uuid;
       if (!summary[key]) { summary[key] = pg; }
     });
     this.summary = values(summary);

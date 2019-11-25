@@ -10,7 +10,7 @@ describe('Notes Summary Page', () => {
     const note = Factory.note();
     pages = [Factory.page()];
 
-    course.notes.forPage(pages[0]).onLoaded({ data: [note] });
+    course.notes.ensurePageExists(pages[0]).onLoaded({ data: [note] });
     course.notes.onHighlightedPagesLoaded({
       data: {
         pages,
@@ -29,7 +29,7 @@ describe('Notes Summary Page', () => {
     );
     expect(sp).toHaveRendered('DropdownToggle');
     sp.find('DropdownToggle Button').simulate('click');
-    const dropDownSelector = `DropdownItem[eventKey=${pages[0].id}]`;
+    const dropDownSelector = `DropdownItem[eventKey="${pages[0].uuid}"]`;
     expect(sp).toHaveRendered(dropDownSelector);
     sp.find(dropDownSelector).simulate('click');
     sp.unmount();
