@@ -12,7 +12,7 @@ import ChapterSection from '../chapter-section';
 const NotesForPage = observer(({
   notes, page, selectedPages,
 }) => {
-  if (!selectedPages.find(pg => pg.id == page.id)) {
+  if (!selectedPages.find(pg => pg.uuid == page.uuid)) {
     return null;
   }
   const pageNotes = notes.forPage(page);

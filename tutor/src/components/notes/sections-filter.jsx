@@ -21,12 +21,13 @@ class SectionsFilter extends React.Component {
   };
 
   @action.bound onSelect({ summary, selected } = {}) {
-    const rec = this.props.selected.find(pg => pg.id == summary.id);
+    const rec = this.props.selected.find(pg => pg.uuid == summary.uuid);
     if (selected) {
       this.props.selected.remove(rec);
     } else {
       if (!rec) {
         this.props.selected.push(summary);
+        this.props.notes.ensurePageExists(summary);
       }
     }
   }
@@ -45,7 +46,8 @@ class SectionsFilter extends React.Component {
   @computed get choices() {
     return this.props.notes.summary.sorted().map((s) => (
       {
-        id: s.id,
+        id: s.uuid,
+        uuid: s.uuid,
         title: (
           <span>
             <WrappedChapterSection chapterSection={s.chapter_section} />
@@ -53,7 +55,7 @@ class SectionsFilter extends React.Component {
           </span>
         ),
         summary: s,
-        selected: !!this.props.selected.find(se => se.id == s.id),
+        selected: !!this.props.selected.find(se => se.uuid == s.uuid),
       }
     ));
   }

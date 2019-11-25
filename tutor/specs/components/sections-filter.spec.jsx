@@ -8,10 +8,10 @@ describe('SectionsFilter component', () => {
   beforeEach(() => {
     const course = Factory.course();
     const note = Factory.note();
-    const pageNotes = course.notes.forPage({ id: note.page_id });
-
+    const page = Factory.page();
+    const pageNotes = course.notes.ensurePageExists({ uuid: page.uuid });
     pageNotes.onLoaded({ data: [note] });
-    const pages = observable([Factory.page(), Factory.page(), Factory.page()]);
+    const pages = observable([page, Factory.page(), Factory.page()]);
 
     course.notes.onHighlightedPagesLoaded({
       data: {

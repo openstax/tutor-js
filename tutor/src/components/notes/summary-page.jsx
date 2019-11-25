@@ -11,11 +11,11 @@ import LoadingAnimation from 'shared/components/loading-animation';
 const NotesForPage = observer(({
   onDelete, notes, page, selectedPages,
 }) => {
-
-  if (!selectedPages.find(pg => pg.id == page.id)) {
+  const pg = selectedPages.find(pg => pg.uuid == page.uuid);
+  if (!pg) {
     return null;
   }
-  const pageNotes = notes.forPage(page);
+  const pageNotes = notes.forPage(pg);
 
   return (
     <div className="section">
@@ -34,6 +34,8 @@ const NotesForPage = observer(({
   );
 });
 
+NotesForPage.displayName = 'NotesForPage';
+
 export default
 @observer
 class NoteSummaryPage extends React.Component {
@@ -48,8 +50,10 @@ class NoteSummaryPage extends React.Component {
 
   resetCurrentPage() {
     this.selectedPages.clear();
-    if (this.props.notes.hasNotesForPage(this.props.page)) {
-      this.selectedPages.push(this.props.page);
+    this.props.notes.ensurePageExists(this.props.page);
+    const summary = this.props.notes.summary.forPage(this.props.page);
+    if (summary) {
+      this.selectedPages.push(summary);
     }
   }
 
@@ -79,49 +83,39 @@ class NoteSummaryPage extends React.Component {
     this.prepareFocus();
   }
 
-  renderEmpty() {
-    return (
-      <div className="summary-page" ref={ref => this.containerRef = ref}>
-        <div className="notes">
-          <h1>
-            Highlights and notes
-          </h1>
-          <h4>
-            Here’s where you will see a summary of your highlights and notes.
-          </h4>
-        </div>
-      </div>
-    );
-  }
+  render() {
+    const { notes } = this.props;
 
-  renderEmptyMessage() {
-    const { notes, page } = this.props;
+    let notesBody;
 
-    if (
-      !this.selectedPages.length &&
-        !notes.summary.find(s => s.id == page.id)
-    ) {
-      return (
+    if (notes.isAnyPagePending) {
+      notesBody = <LoadingAnimation />;
+    } else if (isEmpty(notes.summary)) {
+      notesBody = (
+        <h4>
+          Here’s where you will see a summary of your highlights and notes.
+        </h4>
+      );
+    } else if (!this.selectedPages.length) {
+
+      notesBody = (
         <div className="notes">
           <h3>This page has no notes</h3>
           <p>Select a section from the picker above to display it’s notes</p>
         </div>
       );
+
     } else {
-      return null;
+      notesBody = notes.summary.sorted().map((p, i) =>
+        <NotesForPage
+          key={i}
+          notes={notes}
+          selectedPages={this.selectedPages}
+          page={p}
+          onDelete={this.onDelete}
+        />
+      );
     }
-  }
-
-  render() {
-    if (isEmpty(this.props.notes.summary)) {
-      return this.renderEmpty();
-    }
-
-    if (this.props.notes.isAnyPagePending) {
-      return <LoadingAnimation />;
-    }
-
-    const { notes } = this.props;
 
     return (
       <div className="summary-page" ref={ref => this.containerRef = ref}>
@@ -138,16 +132,8 @@ class NoteSummaryPage extends React.Component {
             selected={this.selectedPages}
           />
         </div>
-        {this.renderEmptyMessage()}
         <div className="notes">
-          {notes.summary.sorted().map((p, i) =>
-            <NotesForPage
-              key={i}
-              notes={notes}
-              selectedPages={this.selectedPages}
-              page={p}
-              onDelete={this.onDelete}
-            />)}
+          {notesBody}
         </div>
       </div>
     );
