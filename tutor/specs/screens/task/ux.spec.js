@@ -156,11 +156,18 @@ describe('Task UX Model', () => {
     });
   });
 
+  it('marks steps as viewed', () => {
+    const step = ux.currentStep;
+    step.markViewed = jest.fn();
+    ux.goToStep(3);
+    expect(step.markViewed).toHaveBeenCalled();
+  });
+
   it('locks going forward repeatedly', () => {
     jest.useFakeTimers();
-    expect(ux.nextStep.is_completed).toBe(false);
-    ux.currentStep.is_completed = true;
+    ux.nextStep.isInfo = true;
     expect(ux.isLocked).toBe(false);
+    expect(ux.canGoForward).toBeTruthy();
     ux.goForward();
     expect(ux.isLocked).toBeTruthy();
     expect(ux.canGoForward).toBe(false);

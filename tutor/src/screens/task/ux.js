@@ -186,12 +186,12 @@ export default class TaskUX {
   }
 
   @action.bound goToStep(index, recordInHistory = true) {
+    // do nothing if the stepIndex hasn't changed
+    if (this._stepIndex == index) { return; }
+
     if (this.currentStep) {
       this.currentStep.markViewed();
     }
-    const isChanged = this._stepIndex != index;
-
-    if (!isChanged) { return; }
 
     const pathname = Router.makePathname('viewTaskStep', {
       id: this.task.id,
