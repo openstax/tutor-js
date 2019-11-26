@@ -23,6 +23,10 @@ export default class ModelApi {
     return this.isPending && !this.hasBeenFetched;
   }
 
+  @computed get isFetchInProgress() {
+    return Boolean(this.requestsInProgress.get('read'));
+  }
+
   @computed get hasBeenFetched() {
     return Boolean(
       this.requestCounts.read > 0
@@ -30,7 +34,7 @@ export default class ModelApi {
   }
 
   @computed get isFetchedOrFetching() {
-    return Boolean(this.isPending || this.hasBeenFetched);
+    return Boolean(this.isFetchInProgress || this.hasBeenFetched);
   }
 
   @computed get hasErrors() {

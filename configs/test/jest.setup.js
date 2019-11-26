@@ -22,15 +22,19 @@ global.mount   = enzyme.mount;
 // Include the jest-axe .toHaveNoViolations()
 global.expect.extend(toHaveNoViolations);
 global.axe = axe;
-global.document.createRange = jest.fn(() => ({
-  setStart: () => {},
-  setEnd: () => {},
-  collapse: jest.fn(),
-  commonAncestorContainer: {
-    nodeName: 'BODY',
-    ownerDocument: document,
-  },
-}));
-
+if (!global.document.createRange) {
+  global.document.createRange = jest.fn(() => ({
+    setStart: () => {},
+    setEnd: () => {},
+    collapse: jest.fn(),
+    commonAncestorContainer: {
+      nodeName: 'BODY',
+      ownerDocument: document,
+    },
+  }));
+}
+if (!global.scrollTo) {
+  global.scrollTo = jest.fn();
+}
 require('./matchers');
 require('./mocks');
