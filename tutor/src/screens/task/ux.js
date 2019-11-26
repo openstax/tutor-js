@@ -61,6 +61,9 @@ export default class TaskUX {
   @action isUnmounting() {
     // value props
     CenterControls.currentTaskStep = null;
+    if (this.currentStep) {
+      this.currentStep.markViewed();
+    }
     this.viewedInfoSteps.forEach((type) => {
       const key = `has-viewed-${type}`;
       if (!UiSettings.get(key)) {
