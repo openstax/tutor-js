@@ -92,19 +92,28 @@ class NoteSummaryPage extends React.Component {
       notesBody = <LoadingAnimation />;
     } else if (isEmpty(notes.summary)) {
       notesBody = (
-        <h4>
-          Here’s where you will see a summary of your highlights and notes.
-        </h4>
-      );
-    } else if (!this.selectedPages.length) {
-
-      notesBody = (
-        <div className="notes">
-          <h3>This page has no notes</h3>
-          <p>Select a section from the picker above to display it’s notes</p>
+        <div>
+          <p>You have no highlights in this section.</p>
+          <div className="blank-slate-wrapper">
+            <h4 className="blank-slate-title">To make a highlight and add a note</h4>
+            <div className="blank-slate-instructions">
+              <div className="items">
+                <div className="item">Click and drag to select the text you want to highlight.</div>
+                <div className="item">A panel will pop up.</div>
+                <div className="item">Click on the ‘Highlighter’ icon to make a highlight.</div>
+                <div className="item" className="divider">OR</div>
+                <div className="item">Click on the ‘Notes’ icon to add a note with your highlight.</div>
+              </div>
+            </div>
+          </div>
         </div>
       );
-
+    } else if (!this.selectedPages.length) {
+      notesBody = (
+        <div className="blank-slate-wrapper">
+          <p>Please select filters to view your highlights</p>
+        </div>
+      );
     } else {
       notesBody = notes.summary.sorted().map((p, i) =>
         <NotesForPage
@@ -119,9 +128,6 @@ class NoteSummaryPage extends React.Component {
 
     return (
       <div className="summary-page" ref={ref => this.containerRef = ref}>
-        <h1>
-          Highlights and notes
-        </h1>
         <div className="filter-area">
           <SectionsFilter
             notes={notes}

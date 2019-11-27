@@ -71,7 +71,7 @@ class SectionsFilter extends React.Component {
           closeAfterSelect={false}
           showHelperControls={true}
           useColumns={this.useColumns}
-          title="Display sections"
+          title="Sections"
           onSelect={this.onSelect}
           onSelectAll={this.onSelectAll}
           onSelectNone={this.onSelectNone}

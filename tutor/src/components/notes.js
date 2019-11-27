@@ -18,6 +18,7 @@ import ScrollTo from '../helpers/scroll-to';
 import Highlighter from '@openstax/highlighter';
 import Overlay from './obscured-page/overlay';
 import Page from '../models/reference-book/page';
+import { Modal } from 'react-bootstrap';
 
 const ignoreMutation = (m) => m.target.matches('.tutor-highlight,.MathJax,.MathJax_Preview,.media-preview-wrapper');
 
@@ -383,16 +384,6 @@ class NotesWidget extends React.Component {
     );
   }
 
-  renderSummaryPage = () => {
-    return (
-      <SummaryPage
-        notes={this.props.course.notes}
-        onDelete={this.onNoteDelete}
-        page={this.props.page}
-      />
-    );
-  }
-
   render() {
 
     return (
@@ -424,12 +415,26 @@ class NotesWidget extends React.Component {
         />
 
         <div className="annotater-content" ref={this.setElement}>
-          <Overlay
-            id="notes-summary"
-            visible={NotesUX.isSummaryVisible}
+          <Modal
+            show={NotesUX.isSummaryVisible}
             onHide={NotesUX.hideSummary}
-            renderer={this.renderSummaryPage}
-          />
+            dialogClassName="notes-modal"
+            scrollable={true}
+          >
+            <Modal.Header
+              closeButton={true}
+              closeLabel={'Close'}
+            >
+              <Modal.Title>My Highlights and Notes</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <SummaryPage
+                notes={this.props.course.notes}
+                onDelete={this.onNoteDelete}
+                page={this.props.page}
+              />
+            </Modal.Body>
+          </Modal>
           {this.props.children}
         </div>
         {this.renderStatusMessage()}

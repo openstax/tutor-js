@@ -102,10 +102,10 @@ class SummaryPopup extends React.Component {
       <div>
         <Button
           className="print-btn"
-          variant="default"
+          variant="link"
           onClick={this.openSummaryWindow}
         >
-          <Icon type="print"/> Print this page
+          <Icon type="print"/> Print
         </Button>
         <PopoutWindow
           title={`${course.name} highlights and notes`}

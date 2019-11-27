@@ -1,6 +1,33 @@
-.overlay.notes-summary {
-  background-color: $tutor-neutral-light;
+.modal-dialog.notes-modal {
+  margin-top: 4rem;
+  height: 90vh;
+  width: 97vw;
+  max-width: $tutor-max-panel-width;
   justify-content: center;
+
+  .modal-header {
+    background-color: $tutor-dark-blue;
+
+    &, .close {
+      color: $tutor-white;
+    }
+
+    .close {
+      opacity: 1;
+      text-shadow: none;
+      font-size: 2.75rem;
+    }
+  }
+
+  .modal-content {
+    // Fix white background showing behind rounded header corners
+    background: transparent;
+  }
+
+  .modal-body {
+    padding: 0;
+    background-color: $tutor-neutral-light;
+  }
 
   @media print {
     flex-basis: calc(100% - 8rem);
@@ -13,17 +40,17 @@
     position: static;
   }
 
-
   .summary-page {
-    padding: 50px;
     flex-basis: 100%;
-    max-width: $tutor-max-panel-width;
-    margin-top: $openstax-navbar-height;
 
     .filter-area {
       display: flex;
       justify-content: space-between;
+      background: $tutor-white;
+      border-bottom: 1px solid $dropdown-divider-bg;
+      padding: 15px 2.25rem;
     }
+
     .filter-widget {
       display: flex;
       flex-direction: column;
@@ -31,6 +58,43 @@
       .rw-widget { width: 100%; }
       .chapter-section {
         margin-right: 0.5rem;
+      }
+    }
+
+    .btn-link {
+      color: $tutor-neutral-dark;
+      font-size: 1.75rem;
+      letter-spacing: -0.4px;
+      font-weight: bold;
+    }
+
+    .notes {
+      padding: 15px 3rem;
+    }
+
+    .blank-slate-wrapper {
+      text-align: center;
+      margin: 4.25em;
+      font-size: 1.8rem;
+    }
+
+    .blank-slate-title {
+      font-weight: bold;
+    }
+
+    .blank-slate-instructions {
+      background-color: $tutor-white;
+
+      ol {
+        counter-reset: instructions-counter;
+
+        li {
+          counter-increment: instructions-counter;
+
+          &.divider {
+            counter-increment: none;
+          }
+        }
       }
     }
 

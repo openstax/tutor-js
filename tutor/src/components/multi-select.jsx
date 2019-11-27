@@ -137,7 +137,7 @@ class MultiSelect extends React.Component {
       >
         <Dropdown.Toggle
           id="multi-select"
-          variant="default"
+          variant="link"
           aria-label={this.props.title}
           tabIndex={this.props.tabIndex}
         >
