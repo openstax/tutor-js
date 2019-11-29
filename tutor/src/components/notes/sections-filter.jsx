@@ -34,8 +34,9 @@ class SectionsFilter extends React.Component {
 
   @action.bound onSelectAll() {
     this.props.selected.clear();
-    this.choices.map(c => {
-      this.props.selected.push(c);
+    this.choices.forEach(c => {
+      this.props.selected.push(c.summary);
+      this.props.notes.ensurePageExists(c.summary);
     });
   }
 
