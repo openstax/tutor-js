@@ -16,7 +16,6 @@ import SidebarButtons from './notes/sidebar-buttons';
 import InlineControls from './notes/inline-controls';
 import ScrollTo from '../helpers/scroll-to';
 import Highlighter from '@openstax/highlighter';
-import Overlay from './obscured-page/overlay';
 import Page from '../models/reference-book/page';
 import { Modal } from 'react-bootstrap';
 
@@ -372,6 +371,15 @@ class NotesWidget extends React.Component {
     }
   }
 
+  @action.bound setupModalScrollTop() {
+    let modalBody = window.document.body.querySelector('.modal-body');
+    this.modalScrollHelper = new ScrollTo({ windowImpl: modalBody, root: modalBody });
+  }
+
+  @action.bound onModalScollTop() {
+    this.modalScrollHelper.scrollToSelector('.filter-area', { updateHistory: false });
+  }
+
   renderStatusMessage() {
     if (!NotesUX.statusMessage.display) { return null; }
 
@@ -418,6 +426,7 @@ class NotesWidget extends React.Component {
           <Modal
             show={NotesUX.isSummaryVisible}
             onHide={NotesUX.hideSummary}
+            onShow={this.setupModalScrollTop}
             dialogClassName="notes-modal"
             scrollable={true}
           >
@@ -433,6 +442,12 @@ class NotesWidget extends React.Component {
                 onDelete={this.onNoteDelete}
                 page={this.props.page}
               />
+              <a href="#"
+                 className="modal-scroll-top"
+                 onClick={this.onModalScollTop}
+              >
+                <Icon type="angle-up" color="#fff" />
+              </a>
             </Modal.Body>
           </Modal>
           {this.props.children}

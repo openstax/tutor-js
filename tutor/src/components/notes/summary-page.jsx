@@ -93,16 +93,24 @@ class NoteSummaryPage extends React.Component {
     } else if (isEmpty(notes.summary)) {
       notesBody = (
         <div>
-          <p>You have no highlights in this section.</p>
+          <p className="no-highlights">You have no highlights in this section.</p>
           <div className="blank-slate-wrapper">
             <h4 className="blank-slate-title">To make a highlight and add a note</h4>
-            <div className="blank-slate-instructions">
-              <div className="items">
-                <div className="item">Click and drag to select the text you want to highlight.</div>
-                <div className="item">A panel will pop up.</div>
-                <div className="item">Click on the ‘Highlighter’ icon to make a highlight.</div>
-                <div className="item" className="divider">OR</div>
-                <div className="item">Click on the ‘Notes’ icon to add a note with your highlight.</div>
+            <div className="blank-slate-inner">
+              <div className="blank-slate-step">
+                <span><strong>1.</strong> Click and drag to select the text you want to highlight.</span>
+              </div>
+              <div className="blank-slate-step">
+                <span><strong>2.</strong> A panel <span className="panel-icon"></span> will pop up.</span>
+              </div>
+              <div className="blank-slate-step">
+                <span><strong>3.</strong> Click on the ‘Highlighter’ icon <span className="highlighter-icon"></span> to make a highlight.</span>
+              </div>
+              <div className="blank-slate-step blank-slate-step-skip">
+                OR
+              </div>
+              <div className="blank-slate-step">
+                <span><strong>4.</strong> Click on the ‘Notes’ icon <span className="notes-icon"></span> to add a note with your highlight.</span>
               </div>
             </div>
           </div>

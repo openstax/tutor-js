@@ -1,10 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { action, observable } from 'mobx';
+import { action } from 'mobx';
 import { observer } from 'mobx-react';
 import { Icon } from 'shared';
 import Theme from '../theme';
+import isEmpty from 'lodash/isEmpty';
+
+const TagListWrapper = styled.div`
+  > * {
+    margin: 1.5rem 0 0 0.5rem;
+  }
+`
 
 const TagListItem = styled.div`
   display: inline-block;
@@ -21,6 +28,12 @@ const IconWrapper = styled.span`
   font-size: 0.85em;
 `;
 
+const ClearAllButton = styled.a`
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 32px;
+`;
+
 @observer
 class TagList extends React.Component {
 
@@ -30,6 +43,7 @@ class TagList extends React.Component {
         id: PropTypes.oneOfType([
           PropTypes.string, PropTypes.number,
         ]),
+        uuid: PropTypes.string,
         title: PropTypes.oneOfType([
           PropTypes.string, PropTypes.element,
         ]),
@@ -37,6 +51,7 @@ class TagList extends React.Component {
     ).isRequired,
 
     onRemove: PropTypes.func,
+    onClearAll: PropTypes.func,
   };
 
   @action.bound onRemove(item) {
@@ -45,10 +60,16 @@ class TagList extends React.Component {
     }
   }
 
+  @action.bound onClearAll() {
+    if (this.props.onClearAll) {
+      this.props.onClearAll();
+    }
+  }
+
   renderItem = (item) => {
     return (
       <TagListItem
-        key={`tag-list-item-${item.uuid}`}
+        key={item.uuid}
         eventKey={item.uuid}
       >
         <IconWrapper
@@ -61,14 +82,23 @@ class TagList extends React.Component {
     );
   };
 
+  renderClearAllButton = () => {
+    if (isEmpty(this.props.items)) { return null; }
+
+    return (
+      <ClearAllButton href="#" onClick={this.onClearAll}>Clear All</ClearAllButton>
+    );
+  }
+
   render() {
     if (!this.props.items) { return null; }
 
     return (
-      <div>
+      <TagListWrapper>
         {Array.from(this.props.items).map((item) => this.renderItem(item))}
-      </div>
-    )
+        {this.renderClearAllButton()}
+      </TagListWrapper>
+    );
   }
 }
 

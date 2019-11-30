@@ -9,11 +9,8 @@ import styled from 'styled-components';
 
 const WrappedChapterSection = styled(ChapterSection)`
   margin-right: 1rem;
+  font-weight: normal;
 `;
-
-const TagListWrapper = styled.div`
-  padding: 1.5rem 0.5rem 0;
-`
 
 export default
 @observer
@@ -70,6 +67,10 @@ class SectionsFilter extends React.Component {
     ));
   }
 
+  @computed get selectedChoices() {
+    return this.choices.filter(c => c.selected);
+  }
+
   @computed get useColumns() {
     return this.choices.length > 20;
   }
@@ -87,13 +88,11 @@ class SectionsFilter extends React.Component {
           onSelectNone={this.onSelectNone}
           selections={this.choices}
         />
-        <TagListWrapper>
-          <TagList
-            onRemove={this.onRemove}
-            items={this.props.selected}
-            wrapper={TagListWrapper}
-          />
-        </TagListWrapper>
+        <TagList
+          onRemove={this.onRemove}
+          onClearAll={this.onSelectNone}
+          items={this.selectedChoices}
+        />
       </div>
     );
   }
