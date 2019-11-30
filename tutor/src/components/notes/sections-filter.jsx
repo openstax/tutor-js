@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ChapterSection from '../chapter-section';
 import Multiselect from '../multi-select';
+import TagList from '../tag-list';
 import { observer } from 'mobx-react';
 import { action, computed } from 'mobx';
 import styled from 'styled-components';
@@ -9,6 +10,10 @@ import styled from 'styled-components';
 const WrappedChapterSection = styled(ChapterSection)`
   margin-right: 1rem;
 `;
+
+const TagListWrapper = styled.div`
+  padding: 1.5rem 0.5rem 0;
+`
 
 export default
 @observer
@@ -42,6 +47,10 @@ class SectionsFilter extends React.Component {
 
   @action.bound onSelectNone() {
     this.props.selected.clear();
+  }
+
+  @action.bound onRemove(item) {
+    this.onSelect({ summary: item, selected: true });
   }
 
   @computed get choices() {
@@ -78,6 +87,13 @@ class SectionsFilter extends React.Component {
           onSelectNone={this.onSelectNone}
           selections={this.choices}
         />
+        <TagListWrapper>
+          <TagList
+            onRemove={this.onRemove}
+            items={this.props.selected}
+            wrapper={TagListWrapper}
+          />
+        </TagListWrapper>
       </div>
     );
   }

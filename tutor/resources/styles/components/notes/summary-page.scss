@@ -1,7 +1,7 @@
 .modal-dialog.notes-modal {
   margin-top: 4rem;
   height: 90vh;
-  width: 97vw;
+  width: calc(100% - 48px);
   max-width: $tutor-max-panel-width;
   justify-content: center;
 
@@ -48,13 +48,13 @@
       justify-content: space-between;
       background: $tutor-white;
       border-bottom: 1px solid $dropdown-divider-bg;
-      padding: 15px 2.25rem;
+      padding: 15px 2.2rem;
     }
 
     .filter-widget {
       display: flex;
       flex-direction: column;
-      width: 40rem;
+      width: 80%;
       .rw-widget { width: 100%; }
       .chapter-section {
         margin-right: 0.5rem;
