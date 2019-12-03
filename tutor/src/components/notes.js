@@ -443,8 +443,8 @@ class NotesWidget extends React.Component {
                 page={this.props.page}
               />
               <a href="#"
-                 className="modal-scroll-top"
-                 onClick={this.onModalScollTop}
+                className="modal-scroll-top"
+                onClick={this.onModalScollTop}
               >
                 <Icon type="angle-up" color="#fff" />
               </a>

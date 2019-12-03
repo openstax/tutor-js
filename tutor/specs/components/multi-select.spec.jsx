@@ -58,9 +58,9 @@ describe('MultiSelect component', () => {
   });
 
   it('does not render if there are no selections', function() {
-      props.selections = [];
-      const menu = mount(<MultiSelect {...props} />);
-      expect(menu).not.toHaveRendered('div.multi-select');
-      menu.unmount();
-    });
+    props.selections = [];
+    const menu = mount(<MultiSelect {...props} />);
+    expect(menu).not.toHaveRendered('div.multi-select');
+    menu.unmount();
+  });
 });

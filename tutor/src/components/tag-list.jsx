@@ -11,7 +11,7 @@ const TagListWrapper = styled.div`
   > * {
     margin: 1.5rem 0 0 0.5rem;
   }
-`
+`;
 
 const TagListItem = styled.div`
   display: inline-block;
@@ -69,11 +69,11 @@ class TagList extends React.Component {
   renderItem = (item) => {
     return (
       <TagListItem
-        key={item.uuid}
-        eventKey={item.uuid}
+        key={item.id}
       >
         <IconWrapper
           onClick={() => this.onRemove(item)}
+          className="remove-tag"
         >
           <Icon type="close" />
         </IconWrapper>
