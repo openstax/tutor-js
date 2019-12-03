@@ -95,7 +95,7 @@ class NoteSummaryPage extends React.Component {
         <div>
           <p className="no-highlights">You have no highlights in this section.</p>
           <div className="blank-slate-wrapper">
-            <h4 className="blank-slate-title">To make a highlight and add a note</h4>
+            <h3 className="blank-slate-title">To make a highlight and add a note</h3>
             <div className="blank-slate-inner">
               <div className="blank-slate-step">
                 <span><strong>1.</strong> Click and drag to select the text you want to highlight.</span>

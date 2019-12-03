@@ -94,7 +94,7 @@
     }
 
     .notes {
-      padding: 15px 3rem;
+      padding: 22px 3rem;
     }
 
     .no-highlights {
@@ -102,9 +102,11 @@
     }
 
     .blank-slate-wrapper {
-      margin: 50px;
+      margin: 40px;
       font-size: 1.8rem;
       text-align: center;
+
+      p { padding: 1.75rem 0 0; }
     }
 
     .blank-slate-title {
