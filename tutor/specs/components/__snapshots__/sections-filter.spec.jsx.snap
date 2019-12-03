@@ -70,7 +70,8 @@ exports[`SectionsFilter component renders 1`] = `
       className="c1"
     >
       <span
-        className="c2"
+        aria-label="Remove"
+        className="remove-tag c2"
         onClick={[Function]}
       >
         <svg
@@ -105,7 +106,8 @@ exports[`SectionsFilter component renders 1`] = `
       className="c1"
     >
       <span
-        className="c2"
+        aria-label="Remove"
+        className="remove-tag c2"
         onClick={[Function]}
       >
         <svg
@@ -140,7 +142,8 @@ exports[`SectionsFilter component renders 1`] = `
       className="c1"
     >
       <span
-        className="c2"
+        aria-label="Remove"
+        className="remove-tag c2"
         onClick={[Function]}
       >
         <svg
