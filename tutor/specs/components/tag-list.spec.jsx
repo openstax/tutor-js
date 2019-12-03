@@ -20,7 +20,7 @@ describe('TagList component', () => {
     expect.snapshot(<TagList {...props} />).toMatchSnapshot();
   });
 
-  it('fires callback when removed ', () => {
+  it('fires callback when removed', () => {
     const list = mount(<TagList {...props} />);
     list.find('.remove-tag').at(3).simulate('click');
     expect(props.onRemove).toHaveBeenCalledWith(ITEMS[1]);
