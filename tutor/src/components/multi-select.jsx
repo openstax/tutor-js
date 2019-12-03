@@ -6,6 +6,7 @@ import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { Icon } from 'shared';
 import styled from 'styled-components';
+import { isEmpty } from 'lodash';
 
 const MultiSelectWrapper = styled.div`
   padding: ${props => props.useColumns ? '10px' : '0' };
@@ -128,6 +129,8 @@ class MultiSelect extends React.Component {
   }
 
   render() {
+    if (isEmpty(this.props.selections)) { return null; }
+
     return (
       <Dropdown
         variant="default"
