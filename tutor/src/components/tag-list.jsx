@@ -74,6 +74,7 @@ class TagList extends React.Component {
         <IconWrapper
           onClick={() => this.onRemove(item)}
           className="remove-tag"
+          aria-label="Remove"
         >
           <Icon type="close" />
         </IconWrapper>
