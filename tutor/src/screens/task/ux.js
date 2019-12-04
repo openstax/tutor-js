@@ -7,7 +7,7 @@ import UiSettings from 'shared/model/ui-settings';
 import StepGroup from '../../models/student-tasks/step-group';
 import ScrollTo from '../../helpers/scroll-to';
 import PageContentUX from './page-content-ux';
-import CenterControls from '../../components/navbar/center-controls';
+
 
 // pause for 1 second before allowing advancement to next step
 const PAUSE_BEFORE_ADVANCEMENT_TIMEOUT = 1000;
@@ -25,7 +25,7 @@ export default class TaskUX {
     this.window = windowImpl || window;
     this.course = course || task.tasksMap.course;
     this.becomeStudentIfNeeded();
-    CenterControls.currentTaskStep = this.currentStep;
+
     when(
       () => !this.task.api.isPending,
       () => {
@@ -60,7 +60,7 @@ export default class TaskUX {
 
   @action isUnmounting() {
     // value props
-    CenterControls.currentTaskStep = null;
+
     if (this.currentStep) {
       this.currentStep.markViewed();
     }
@@ -206,7 +206,7 @@ export default class TaskUX {
       this.history.push(pathname);
     } else {
       this._stepIndex = index;
-      CenterControls.currentTaskStep = this.currentStep;
+
       const sgi = this.stepGroupInfo;
       if (sgi.grouped) {
         when(

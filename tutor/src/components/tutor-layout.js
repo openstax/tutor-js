@@ -10,7 +10,6 @@ import { Menus }            from './navbar/menus';
 import TermsModal           from './terms-modal';
 import { Navbar }           from './navbar.js';
 import CourseNagModal       from './course-nag';
-import CenterControls       from './navbar/center-controls';
 import ErrorMonitoring      from './error-monitoring';
 import { NavbarContext }    from './navbar/context';
 import { SecondaryToolbar } from './navbar/secondary-toolbar';
@@ -46,7 +45,6 @@ class TutorLayout extends React.Component {
   constructor(props) {
     super(props);
     this.topNavbarContext.left.set('logo', () => <Logo />);
-    this.topNavbarContext.center.set('controls', () => <CenterControls />);
     this.topNavbarContext.right.set('menu', () => <Menus />);
   }
 

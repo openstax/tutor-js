@@ -3,7 +3,7 @@ import Overlay from '../../components/obscured-page/overlay';
 import PagingNavigation from '../../components/paging-navigation';
 import { Milestones } from './milestones';
 import UX from './ux';
-import MilestonesToggle from '../../components/navbar/milestones-toggle';
+import MilestonesToggle from './reading-milestones-toggle';
 
 export default
 @observer

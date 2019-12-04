@@ -3,13 +3,13 @@ import ProgressCard from './progress';
 import UX from './ux';
 import { TaskStep } from './step';
 import ObscuredPage from '../../components/obscured-page';
-import { ReadingProgress } from './reading-progress';
+import ReadingNavbar from './reading-navbar';
+
 
 const StyledReading = styled.div`
 
 `;
 
-export default
 @observer
 class ReadingTask extends React.Component {
 
@@ -24,7 +24,7 @@ class ReadingTask extends React.Component {
     return (
       <StyledReading className="reading-task">
         <ProgressCard ux={ux}>
-          <ReadingProgress ux={ux} />
+          <ReadingNavbar ux={ux} />
           <ObscuredPage>
             <TaskStep
               ux={ux}
@@ -38,3 +38,5 @@ class ReadingTask extends React.Component {
   }
 
 }
+
+export default ReadingTask;

@@ -17,20 +17,7 @@ class CenterControls extends React.Component {
   @computed get course() {
     if (this.props.course) { return this.props.course; }
 
-    const step = CenterControls.currentTaskStep;
-    if (step) {
-      return get(step, 'task.tasksMap.course');
-    }
-
     return null;
-  }
-
-  @computed get taskStep() {
-    return CenterControls.currentTaskStep;
-  }
-
-  @computed get task() {
-    return get(this.taskStep, 'task');
   }
 
   @computed get shouldRender() {

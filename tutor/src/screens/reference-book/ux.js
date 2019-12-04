@@ -45,17 +45,15 @@ export default class ReferenceBookUX extends BookUX {
       'slide-out-menu-toggle': MenuToggle,
       'section-title': SectionTitle,
     });
-    nav.center.merge({
+    nav.right.clear();
+    nav.right.merge({
       'note-toggle': () => <NotesSummaryToggle course={this.course} />,
     });
     if (this.course && this.course.currentRole.isTeacher) {
-      nav.right.replace({
+      nav.right.merge({
         'teacher-content-toggle': TeacherContentToggle,
       });
-    } else {
-      nav.right.clear();
     }
-
     this.navBar = nav;
   }
 
