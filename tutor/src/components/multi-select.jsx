@@ -152,7 +152,7 @@ class MultiSelect extends React.Component {
             modifiers: {
               preventOverflow: { enabled: false },
               hide: { enabled: false },
-            }
+            },
           }}
         >
           <MultiSelectWrapper
