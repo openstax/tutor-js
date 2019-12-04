@@ -1,9 +1,7 @@
 import { map } from 'lodash';
-import lazyGetter from 'shared/helpers/lazy-getter';
 import {
-  BaseModel, identifiedBy, belongsTo, identifier, field, hasMany, observable, computed, action,
+  BaseModel, identifiedBy, belongsTo, hasMany, observable, computed, action,
 } from 'shared/model';
-
 import Exercise from './exercises/exercise';
 
 
@@ -43,7 +41,9 @@ class Search extends BaseModel {
 
   @hasMany({ model: Clause, inverseOf: 'search' }) clauses;
   @hasMany({ model: Exercise }) exercises;
-  @observable total_count;
+  @observable total_count = 0;
+  @observable perPageSize = 25;
+  @observable currentPage = 1;
 
   constructor() {
     super();
@@ -54,14 +54,44 @@ class Search extends BaseModel {
     this.perform();
   }
 
+  @action.bound setPerPageSize(size) {
+    this.perPageSize = Number(size);
+    this.perform();
+  }
+
+
+  @action.bound onPageChange(pg) {
+    this.currentPage = pg;
+    this.perform();
+  }
+
   onComplete({ data: { total_count, items } }) {
     this.total_count = total_count;
     this.exercises = items;
   }
 
-  //called by api
-  perform() {
-    return { query: { q: map(this.clauses, 'asQuery').join(' ') } };
+  @computed get pagination() {
+    if (!this.total_count) {
+      return null;
+    }
+
+    return {
+      currentPage: this.currentPage ,
+      totalPages: Math.floor(this.total_count / this.perPageSize) + 1,
+      onChange: this.onPageChange,
+    };
   }
 
-};
+
+  //called by api
+  perform() {
+    return {
+      query: {
+        q: map(this.clauses, 'asQuery').join(' '),
+        per_page: this.perPageSize,
+        page: this.currentPage,
+      },
+    };
+  }
+
+}

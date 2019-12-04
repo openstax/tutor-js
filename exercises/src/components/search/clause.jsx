@@ -19,6 +19,7 @@ class Clause extends React.Component {
     this.props.clause.filter = key;
   }
 
+
   render() {
     const { clause } = this.props;
 
@@ -48,7 +49,19 @@ class Clause extends React.Component {
               onChange={clause.setValue}
               value={clause.value}
             />
+            <DropdownButton
+              as={InputGroup.Append}
+              variant="outline-secondary"
+              title={`${clause.search.perPageSize} per page`}
+              onSelect={clause.search.setPerPageSize}
+            >
+              <Dropdown.Item eventKey="25">25</Dropdown.Item>
+              <Dropdown.Item eventKey="50">50</Dropdown.Item>
+              <Dropdown.Item eventKey="75">75</Dropdown.Item>
+              <Dropdown.Item eventKey="100">100</Dropdown.Item>
+            </DropdownButton>
             <InputGroup.Append>
+
               <AsyncButton
                 isWaiting={clause.search.api.isPending}
                 waitingText="Searching…"
@@ -56,6 +69,7 @@ class Clause extends React.Component {
               >
                 Go
               </AsyncButton>
+
             </InputGroup.Append>
           </InputGroup>
 
@@ -65,4 +79,4 @@ class Clause extends React.Component {
 
   }
 
-};
+}
