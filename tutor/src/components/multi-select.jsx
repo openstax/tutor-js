@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Dropdown } from 'react-bootstrap';
+import { Button, Dropdown } from 'react-bootstrap';
 import classnames from 'classnames';
 import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
@@ -121,9 +121,9 @@ class MultiSelect extends React.Component {
 
     return (
       <div className="multi-select-helpers">
-        <a href="#" className="select-all" onClick={this.onSelectAll}>All</a>
+        <Button variant="link" className="select-all" onClick={this.onSelectAll}>All</Button>
         <span className="divider">|</span>
-        <a href="#" className="select-none" onClick={this.onSelectNone}>None</a>
+        <Button variant="link" className="select-none" onClick={this.onSelectNone}>None</Button>
       </div>
     );
   }
@@ -141,6 +141,7 @@ class MultiSelect extends React.Component {
         <Dropdown.Toggle
           id="multi-select"
           variant="link"
+          className="modal-action"
           aria-label={this.props.title}
           tabIndex={this.props.tabIndex}
         >

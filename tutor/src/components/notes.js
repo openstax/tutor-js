@@ -437,12 +437,13 @@ class NotesWidget extends React.Component {
                 onDelete={this.onNoteDelete}
                 page={this.props.page}
               />
-              <a href="#"
-                className="modal-scroll-top"
+              <Icon
+                type="angle-up"
+                buttonProps={{ bsPrefix: "modal-scroll-btn" }}
+                color="#fff"
+                aria-label="Scroll to top"
                 onClick={this.onModalScollTop}
-              >
-                <Icon type="angle-up" color="#fff" />
-              </a>
+              />
             </Modal.Body>
           </Modal>
           {this.props.children}

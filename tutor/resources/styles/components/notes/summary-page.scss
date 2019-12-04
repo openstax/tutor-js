@@ -36,13 +36,15 @@
     background-color: $tutor-neutral-light;
   }
 
-  .modal-scroll-top {
+  .modal-scroll-btn {
     position: fixed;
     bottom: 44px;
     right: 44px;
     padding: 4px;
     text-align: center;
     font-size: 1.6rem;
+    background: transparent;
+    border: 0;
 
     svg {
       height: 32px;
@@ -86,7 +88,7 @@
       }
     }
 
-    .btn-link {
+    .modal-action {
       color: $tutor-neutral-dark;
       font-size: 1.75rem;
       letter-spacing: -0.4px;
