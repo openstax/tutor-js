@@ -145,7 +145,12 @@ class MultiSelect extends React.Component {
         </Dropdown.Toggle>
         <Dropdown.Menu
           flip={false}
-          popperConfig={{ modifiers: { preventOverflow: { enabled: false } } }}
+          popperConfig={{
+            modifiers: {
+              preventOverflow: { enabled: false },
+              hide: { enabled: false },
+            }
+          }}
         >
           <MultiSelectWrapper
             useColumns={this.props.useColumns}
