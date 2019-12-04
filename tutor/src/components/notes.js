@@ -444,7 +444,7 @@ class NotesWidget extends React.Component {
               />
               <Icon
                 type="angle-up"
-                buttonProps={{ bsPrefix: "modal-scroll-btn" }}
+                buttonProps={{ bsPrefix: 'modal-scroll-btn' }}
                 color="#fff"
                 aria-label="Scroll to top"
                 onClick={this.onModalScollTop}
