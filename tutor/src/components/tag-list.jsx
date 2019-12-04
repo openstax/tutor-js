@@ -10,6 +10,7 @@ import isEmpty from 'lodash/isEmpty';
 const TagListWrapper = styled.div`
   > * {
     margin: 1.5rem 0 0 0.5rem;
+    user-select: none;
   }
 `;
 
