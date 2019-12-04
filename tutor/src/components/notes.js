@@ -373,7 +373,12 @@ class NotesWidget extends React.Component {
   }
 
   @action.bound onModalScollTop() {
-    scrollIntoView(document.querySelector('.modal-body .filter-area'), { time: 300 });
+    scrollIntoView(document.querySelector('.modal-body .filter-area'), {
+      time: 300,
+      validTarget: (target) => {
+        return target !== window && target.matches('.modal-body');
+      },
+    });
   }
 
   renderStatusMessage() {
