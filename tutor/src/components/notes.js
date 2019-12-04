@@ -18,6 +18,7 @@ import ScrollTo from '../helpers/scroll-to';
 import Highlighter from '@openstax/highlighter';
 import Page from '../models/reference-book/page';
 import { Modal } from 'react-bootstrap';
+import scrollIntoView from 'scroll-into-view';
 
 const ignoreMutation = (m) => m.target.matches('.tutor-highlight,.MathJax,.MathJax_Preview,.media-preview-wrapper');
 
@@ -371,13 +372,8 @@ class NotesWidget extends React.Component {
     }
   }
 
-  @action.bound setupModalScrollTop() {
-    let modalBody = window.document.body.querySelector('.modal-body');
-    this.modalScrollHelper = new ScrollTo({ windowImpl: modalBody, root: modalBody });
-  }
-
   @action.bound onModalScollTop() {
-    this.modalScrollHelper.scrollToSelector('.filter-area', { updateHistory: false });
+    scrollIntoView(document.querySelector('.modal-body .filter-area'), { time: 300 });
   }
 
   renderStatusMessage() {
@@ -426,7 +422,6 @@ class NotesWidget extends React.Component {
           <Modal
             show={NotesUX.isSummaryVisible}
             onHide={NotesUX.hideSummary}
-            onShow={this.setupModalScrollTop}
             dialogClassName="notes-modal"
             scrollable={true}
           >
