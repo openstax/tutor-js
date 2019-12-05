@@ -1,14 +1,21 @@
 import { React, observable, styled, action } from 'vendor';
 import { Icon } from 'shared';
 import Theme from '../../theme';
+import { Button } from 'react-bootstrap';
 
-const StyledToggle = styled.button`
-  border: 0;
+const StyledButton = styled(Button)`
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem;
+  color: ${Theme.colors.navbars.control};
   background-color: transparent;
-  transistion: color 0.2s;
-  color: ${Theme.colors.neutral.dark};
-  &:hover, &:active {
-    color: ${Theme.colors.blue_info};
+  border: none;
+  white-space: nowrap;
+  margin-right: 2.4rem;
+
+  svg {
+    height: 1.8rem;
+    margin-right: 0.8rem;
   }
 `;
 
@@ -27,7 +34,14 @@ class MilestonesToggle extends React.Component {
 
   render() {
     return (
-      <StyledToggle onClick={this.onToggle}><Icon type="th" /></StyledToggle>
+      <StyledButton
+        variant="plain"
+        onClick={this.onToggle}
+        bsPrefix="milestones-toggle"
+      >
+        <Icon type="th" />
+        Overview
+      </StyledButton>
     );
   }
 }

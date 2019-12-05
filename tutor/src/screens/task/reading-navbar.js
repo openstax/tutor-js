@@ -3,25 +3,30 @@ import { ProgressBar } from 'react-bootstrap';
 import UX from './ux';
 import MilestonesToggle from './reading-milestones-toggle';
 import NotesSummaryToggle from '../../components/notes/summary-toggle';
+import { Icon } from 'shared';
+import TimeHelper from '../../helpers/time';
+import TutorLink from '../../components/link';
+import Theme from '../../theme';
 
 const StyledNavbar = styled.div`
-  min-height: 50px;
+  min-height: 60px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
 `;
 
 const Top = styled.div`
-    display: flex;
-    flex: 1;
-    justify-content: space-between;
-
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
 `;
 
 const Left = styled.div`
   margin-left: 1rem;
   display: flex;
   align-items: center;
+  font-size: 1.6rem;
+  line-height: 2rem;
 `;
 
 const Right = styled.div`
@@ -33,6 +38,28 @@ const Right = styled.div`
 
 const StyledProgressBar = styled(ProgressBar)`
    && { border-radius: 0; }
+`;
+
+const Divider = styled.span`
+  color: ${Theme.colors.navbars.divider};
+  margin: 0 0.8rem;
+`;
+
+const AngleDivider = styled(Divider)`
+  margin-top: 2px;
+  svg { margin: 0; }
+`;
+
+const TaskTitle = styled.div`
+  font-weight: bold;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+const StyledTutorLink = styled(TutorLink)`
+  margin-left: 0.5rem;
 `;
 
 @inject('setSecondaryTopControls')
@@ -74,7 +101,15 @@ class ReadingNavbar extends React.Component {
       <StyledNavbar>
         <Top>
           <Left>
-            {ux.course.name} | {ux.task.title}
+            <StyledTutorLink to="dashboard" params={{ courseId: ux.course.id }}>
+              {ux.course.name}
+            </StyledTutorLink>
+            <AngleDivider>
+              <Icon type="angle-right" />
+            </AngleDivider>
+            <TaskTitle>{ux.task.title}</TaskTitle>
+            <Divider>|</Divider>
+            Due {TimeHelper.toShortHumanDateTime(ux.task.due_at)}
           </Left>
           <Right>
             <MilestonesToggle model={ux.currentStep} />
@@ -83,7 +118,6 @@ class ReadingNavbar extends React.Component {
               type="reading"
               model={ux.currentStep}
             />
-
           </Right>
         </Top>
         <StyledProgressBar now={ux.progressPercent} variant="success" />

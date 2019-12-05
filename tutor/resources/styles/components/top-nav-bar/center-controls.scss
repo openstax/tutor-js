@@ -25,35 +25,5 @@
         margin: 0 1rem;
       }
     }
-    // .due-date {
-    //   display: flex;
-    //   align-items: center;
-    //   .ox-icon {
-    //     margin: 0;
-    //   }
-    //   .calendar-text {
-    //     display: flex;
-    //     justify-content: center;
-    //     align-items: center;
-    //     margin-top: 5px;
-    //   }
-    // }
-  }
-
-  .note-summary-toggle {
-    background-color: transparent;
-    border: none;
-    .i {
-      fill: $icon-color;
-    }
-    &:hover,
-    &.active {
-      .i {
-        fill: $tutor-info;
-      }
-    }
-    svg {
-      height: 26px;
-    }
   }
 }
