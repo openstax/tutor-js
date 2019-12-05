@@ -3,6 +3,7 @@ import { Icon } from 'shared';
 import UX from '../ux';
 import TourRegion from '../../../components/tours/region';
 import ChapterSection from '../../../components/chapter-section';
+import BookPartTitle from '../../../components/book-part-title';
 
 @observer
 class ReadingSection extends React.Component {
@@ -47,9 +48,7 @@ class ReadingSection extends React.Component {
     return (
       <li className="selected-section">
         <ChapterSection chapterSection={page.chapter_section} />
-        <span className="section-title">
-          {page.title}
-        </span>
+        <BookPartTitle className="section-title" title={page.title} />
         {actionButtons}
       </li>
     );
