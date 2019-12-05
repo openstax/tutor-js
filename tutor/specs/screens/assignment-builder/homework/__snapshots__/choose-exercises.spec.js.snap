@@ -11,13 +11,13 @@ exports[`choose exercises component renders selections 1`] = `
   color: #424242;
 }
 
+.c7 {
+  display: inline-block;
+}
+
 .c1 {
   max-width: 1200px;
   margin: auto;
-}
-
-.c7 {
-  display: inline-block;
 }
 
 .c8 {
