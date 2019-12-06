@@ -24,10 +24,10 @@ describe('Notes Summary Popup', () => {
   beforeEach(() => {
     const course = Factory.course();
     const note = Factory.note();
-    note.annotation = 'This is a comment added by user';
-    const pageNotes = course.notes.forPage({ id: note.page_id });
-    pageNotes.onLoaded({ data: [note] });
     pages = [Factory.page()];
+    note.annotation = 'This is a comment added by user';
+    const pageNotes = course.notes.ensurePageExists(pages[0]);
+    pageNotes.onLoaded({ data: [note] });
     course.notes.onHighlightedPagesLoaded({
       data: {
         pages,

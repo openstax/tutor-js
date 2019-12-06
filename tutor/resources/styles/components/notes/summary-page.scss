@@ -1,6 +1,60 @@
-.overlay.notes-summary {
-  background-color: $tutor-neutral-light;
+.modal.show .modal-dialog.notes-modal {
+  // Force fixed modal-scroll-top button to attach to modal
+  // by using a no-effect transform.
+  transform: rotate(0);
+}
+
+.modal-dialog.notes-modal {
+  margin: 40px auto 24px;
+  height: calc(100% - 64px);
+  width: calc(100% - 48px);
+  max-width: $tutor-max-panel-width;
   justify-content: center;
+
+  .modal-header {
+    background-color: $tutor-dark-blue;
+
+    &, .close {
+      color: $tutor-white;
+    }
+
+    .close {
+      opacity: 1;
+      text-shadow: none;
+      font-size: 2.75rem;
+      margin-top: -1.75rem;
+    }
+  }
+
+  .modal-content {
+    // Fix white background showing behind rounded header corners
+    background: transparent;
+  }
+
+  .modal-body {
+    padding: 0;
+    background-color: $tutor-neutral-light;
+  }
+
+  .modal-scroll-btn {
+    position: fixed;
+    bottom: 44px;
+    right: 44px;
+    padding: 4px;
+    text-align: center;
+    font-size: 1.6rem;
+    background: transparent;
+    border: 0;
+
+    svg {
+      height: 32px;
+      width: 32px;
+      padding: 4px;
+      margin: 0;
+      background: #959595;
+      border-radius: 100%;
+    }
+  }
 
   @media print {
     flex-basis: calc(100% - 8rem);
@@ -13,24 +67,93 @@
     position: static;
   }
 
-
   .summary-page {
-    padding: 50px;
     flex-basis: 100%;
-    max-width: $tutor-max-panel-width;
-    margin-top: $openstax-navbar-height;
 
     .filter-area {
       display: flex;
       justify-content: space-between;
+      background: $tutor-white;
+      border-bottom: 1px solid $dropdown-divider-bg;
+      padding: 15px 2.2rem;
     }
+
     .filter-widget {
       display: flex;
       flex-direction: column;
-      width: 40rem;
+      width: 85%;
       .rw-widget { width: 100%; }
       .chapter-section {
         margin-right: 0.5rem;
+      }
+    }
+
+    .modal-action {
+      color: $tutor-neutral-dark;
+      font-size: 1.75rem;
+      letter-spacing: -0.4px;
+      font-weight: bold;
+    }
+
+    .notes {
+      padding: 22px 3rem;
+    }
+
+    .no-highlights {
+      font-size: 1.6rem;
+    }
+
+    .blank-slate-wrapper {
+      margin: 40px;
+      font-size: 1.8rem;
+      text-align: center;
+
+      p { padding: 1.75rem 0 0; }
+    }
+
+    .blank-slate-title {
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .blank-slate-inner {
+      background-color: $tutor-white;
+      margin: 24px auto;
+      padding: 32px 40px;
+      max-width: 728px;
+      text-align: left;
+
+      .blank-slate-step {
+        margin: 1.75rem 0;
+
+        span {
+          vertical-align: middle;
+        }
+
+        .panel-icon {
+          display: inline-block;
+          width: 48px;
+          height: 28px;
+          @include tutor-background-image("highlighter/instructions-panel-icon.svg");
+        }
+
+        .highlighter-icon {
+          display: inline-block;
+          width: 24px;
+          height: 24px;
+          @include tutor-background-image("highlighter/instructions-highlighter-icon.svg");
+        }
+
+        .notes-icon {
+          display: inline-block;
+          width: 24px;
+          height: 24px;
+          @include tutor-background-image("highlighter/instructions-notes-icon.svg");
+        }
+      }
+
+      .blank-slate-step-skip {
+        margin-left: 2rem;
       }
     }
 

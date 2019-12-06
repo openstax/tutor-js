@@ -12,7 +12,7 @@ import ChapterSection from '../chapter-section';
 const NotesForPage = observer(({
   notes, page, selectedPages,
 }) => {
-  if (!selectedPages.find(pg => pg.id == page.id)) {
+  if (!selectedPages.find(pg => pg.uuid == page.uuid)) {
     return null;
   }
   const pageNotes = notes.forPage(page);
@@ -102,10 +102,11 @@ class SummaryPopup extends React.Component {
       <div>
         <Button
           className="print-btn"
-          variant="default"
+          variant="link"
+          className="modal-action"
           onClick={this.openSummaryWindow}
         >
-          <Icon type="print"/> Print this page
+          <Icon type="print"/> Print
         </Button>
         <PopoutWindow
           title={`${course.name} highlights and notes`}

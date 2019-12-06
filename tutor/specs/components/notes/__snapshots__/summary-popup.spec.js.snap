@@ -13,7 +13,7 @@ exports[`Notes Summary Popup matches snapshot 1`] = `
 
 <div>
   <button
-    className="print-btn btn btn-default"
+    className="modal-action btn btn-link"
     disabled={false}
     onClick={[Function]}
     type="button"
@@ -35,7 +35,7 @@ exports[`Notes Summary Popup matches snapshot 1`] = `
         style={Object {}}
       />
     </svg>
-     Print this page
+     Print
   </button>
   <div
     data-mocked-popout={true}

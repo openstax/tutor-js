@@ -1,6 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SectionsFilter component renders 1`] = `
+.c3 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.c5 {
+  font-weight: 700;
+  color: #424242;
+}
+
+.c0 > * {
+  margin: 1.5rem 0 0 0.5rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c1 {
+  display: inline-block;
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #5f6163;
+  vertical-align: middle;
+}
+
+.c2 {
+  cursor: pointer;
+  font-size: 0.85em;
+}
+
+.c6 {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 32px;
+}
+
+.c4 {
+  margin-right: 1rem;
+  font-weight: normal;
+}
+
 <div
   className="filter-widget"
 >
@@ -12,16 +56,135 @@ exports[`SectionsFilter component renders 1`] = `
     <button
       aria-expanded={false}
       aria-haspopup={true}
-      aria-label="Display sections"
-      className="dropdown-toggle btn btn-default"
+      aria-label="Sections"
+      className="modal-action dropdown-toggle btn btn-link"
       disabled={false}
       id="multi-select"
       onClick={[Function]}
       tabIndex={0}
       type="button"
     >
-      Display sections
+      Sections
     </button>
+  </div>
+  <div
+    className="c0"
+  >
+    <div
+      className="c1"
+    >
+      <span
+        aria-label="Remove"
+        className="remove-tag c2"
+        onClick={[Function]}
+      >
+        <svg
+          aria-hidden="true"
+          className="svg-inline--fa fa-times fa-w-11 ox-icon ox-icon-close c3"
+          data-icon="times"
+          data-prefix="fas"
+          focusable="false"
+          role="img"
+          style={Object {}}
+          viewBox="0 0 352 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+            fill="currentColor"
+            style={Object {}}
+          />
+        </svg>
+      </span>
+      <span>
+        <span
+          className="chapter-section c4 c5"
+          data-chapter-section="2.1"
+        >
+          2.1
+        </span>
+        responsive
+      </span>
+    </div>
+    <div
+      className="c1"
+    >
+      <span
+        aria-label="Remove"
+        className="remove-tag c2"
+        onClick={[Function]}
+      >
+        <svg
+          aria-hidden="true"
+          className="svg-inline--fa fa-times fa-w-11 ox-icon ox-icon-close c3"
+          data-icon="times"
+          data-prefix="fas"
+          focusable="false"
+          role="img"
+          style={Object {}}
+          viewBox="0 0 352 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+            fill="currentColor"
+            style={Object {}}
+          />
+        </svg>
+      </span>
+      <span>
+        <span
+          className="chapter-section c4 c5"
+          data-chapter-section="6.1"
+        >
+          6.1
+        </span>
+        upward-trending
+      </span>
+    </div>
+    <div
+      className="c1"
+    >
+      <span
+        aria-label="Remove"
+        className="remove-tag c2"
+        onClick={[Function]}
+      >
+        <svg
+          aria-hidden="true"
+          className="svg-inline--fa fa-times fa-w-11 ox-icon ox-icon-close c3"
+          data-icon="times"
+          data-prefix="fas"
+          focusable="false"
+          role="img"
+          style={Object {}}
+          viewBox="0 0 352 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+            fill="currentColor"
+            style={Object {}}
+          />
+        </svg>
+      </span>
+      <span>
+        <span
+          className="chapter-section c4 c5"
+          data-chapter-section="10.5"
+        >
+          10.5
+        </span>
+        logistical
+      </span>
+    </div>
+    <a
+      className="c6"
+      href="#"
+      onClick={[Function]}
+    >
+      Clear All
+    </a>
   </div>
 </div>
 `;
