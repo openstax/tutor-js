@@ -1,22 +1,9 @@
 import { React, observable, styled, action } from 'vendor';
 import { Icon } from 'shared';
-import Theme from '../../theme';
-import { Button } from 'react-bootstrap';
+import SecondaryToolbarButton from '../../components/navbar/secondary-toolbar-button';
 
-const StyledButton = styled(Button)`
-  display: flex;
-  align-items: center;
-  font-size: 1.6rem;
-  color: ${Theme.colors.navbars.control};
-  background-color: transparent;
-  border: none;
-  white-space: nowrap;
-  margin-right: 2.4rem;
-
-  svg {
-    height: 1.8rem;
-    margin-right: 0.8rem;
-  }
+const StyledButton = styled(SecondaryToolbarButton)`
+  margin-right: 2rem;
 `;
 
 export default
