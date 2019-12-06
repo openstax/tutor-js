@@ -13,7 +13,7 @@ exports[`Notes Summary Popup matches snapshot 1`] = `
 
 <div>
   <button
-    className="print-btn btn btn-link"
+    className="modal-action btn btn-link"
     disabled={false}
     onClick={[Function]}
     type="button"

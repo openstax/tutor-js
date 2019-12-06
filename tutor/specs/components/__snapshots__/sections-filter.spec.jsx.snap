@@ -13,6 +13,10 @@ exports[`SectionsFilter component renders 1`] = `
 
 .c0 > * {
   margin: 1.5rem 0 0 0.5rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .c1 {
@@ -53,7 +57,7 @@ exports[`SectionsFilter component renders 1`] = `
       aria-expanded={false}
       aria-haspopup={true}
       aria-label="Sections"
-      className="dropdown-toggle btn btn-link"
+      className="modal-action dropdown-toggle btn btn-link"
       disabled={false}
       id="multi-select"
       onClick={[Function]}

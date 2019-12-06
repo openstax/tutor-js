@@ -8,6 +8,10 @@ exports[`TagList component renders items 1`] = `
 
 .c0 > * {
   margin: 1.5rem 0 0 0.5rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .c1 {
