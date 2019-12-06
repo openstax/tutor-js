@@ -25,12 +25,6 @@ class Milestone extends React.Component {
     const active = stepIndex === currentStep;
     const classes = cn('milestone', `milestone-${step.type}`, { active });
 
-    const preview = (step.type === 'exercise') ?
-      <ArbitraryHtmlAndMath block={true}
-        className="milestone-preview"
-        html={step.preview}
-      /> : <div className="milestone-preview">{step.preview}</div>;
-
     return (
       <Col xs={3} lg={2} data-step-index={stepIndex} className="milestone-wrapper">
         <div
@@ -48,7 +42,11 @@ class Milestone extends React.Component {
             currentStep={currentStep}
             key={`breadstep-${step.type}-${stepIndex}`}
           />
-          {preview}
+          <ArbitraryHtmlAndMath
+            block={true}
+            className="milestone-preview"
+            html={step.preview}
+          />
         </div>
       </Col>
     );
