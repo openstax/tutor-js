@@ -6,6 +6,10 @@ exports[`choose exercises component matches snapshot 1`] = `
   color: #424242;
 }
 
+.c2 {
+  display: inline-block;
+}
+
 .c0 {
   font-size: 2.8rem;
   font-weight: bold;
@@ -40,7 +44,14 @@ exports[`choose exercises component matches snapshot 1`] = `
                 2.2
               </span>
                
-              Mechanics in 2 dim
+              <div
+                className="c2"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Mechanics in 2 dim",
+                  }
+                }
+              />
             </label>
             <div
               className="exercises"
@@ -405,7 +416,14 @@ exports[`choose exercises component matches snapshot 1`] = `
                 2.3
               </span>
                
-              Mechanics in 3 dim
+              <div
+                className="c2"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Mechanics in 3 dim",
+                  }
+                }
+              />
             </label>
             <div
               className="exercises"

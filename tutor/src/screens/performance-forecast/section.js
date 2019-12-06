@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import BookPartTitle from '../../components/book-part-title';
 import ChapterSectionType from './chapter-section-type';
 import ProgressBar from './progress-bar';
 import Statistics from './statistics';
@@ -15,7 +16,7 @@ const PerformanceForecastSection = (props) => {
           {cs.asString}
         </span>
         <span className="title" title={section.title}>
-          {section.title}
+          <BookPartTitle title={section.title} />
         </span>
       </h4>
       <ProgressBar

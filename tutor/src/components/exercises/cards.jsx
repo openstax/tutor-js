@@ -4,6 +4,7 @@ import {
 import { map, isEmpty } from 'lodash';
 import ChapterSection from '../chapter-section';
 import ExercisePreview from './preview';
+import BookPartTitle from '../book-part-title';
 import ScrollTo from '../../helpers/scroll-to';
 import { ExercisesMap } from '../../models/exercises';
 import Exercise from '../../models/exercises/exercise';
@@ -32,8 +33,8 @@ class SectionsExercises extends React.Component {
   render() {
     const { pageId, book, exercises, ...previewProps } = this.props;
     const page = book.pages.byId.get(pageId);
-    const title = page.title;
     const sectionExercises = exercises.byPageId[pageId];
+
     if (isEmpty(sectionExercises)) { return null; }
 
     // IMPORTANT: the 'data-section' attribute is used as a scroll-to target and must be present
@@ -42,7 +43,7 @@ class SectionsExercises extends React.Component {
         <SectionLabel>
           <ChapterSection chapterSection={page.chapter_section} />
           {' '}
-          {title}
+          <BookPartTitle title={page.title} />
         </SectionLabel>
         <div className="exercises">
           {map(sectionExercises, (exercise) =>
