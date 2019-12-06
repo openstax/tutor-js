@@ -33,8 +33,7 @@
     }
   }
   .inline-controls {
-    background: $tutor-white;
-    border: thin solid $tutor-neutral-light;
+    background: $tutor-gray;
     font-size: 2rem;
     padding: 0;
     position: absolute;
@@ -44,59 +43,33 @@
     display: flex;
     align-items: center;
     > * {
-      width: 50px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: white;
+      background-color: $tutor-gray;
     }
-    .highlight {
+    .highlight, .annotate {
       svg {
-        width: 30px;
-        height: 30px;
+        width: 48px;
+        height: 48px;
         path {
-          fill: $tutor-neutral-darker;
+          opacity: 0.9;
         }
       }
       .outline { display: none; }
       border: 0;
       &:hover {
-        svg path { fill: $tutor-black; }
+        svg path { opacity: 1; }
       }
     }
-    .btn.annotate {
-      border-right: thin solid $tutor-neutral-light;
-      color: $tutor-neutral-darker;
-      &:hover {
-        color: $tutor-black;
-      }
-    }
-
-    &::before {
-      @include triangle(
-        bottom,
-        $color: $tutor-neutral-light,
-        $height: 16px,
-        $width: 22px
-      );
-      content: " ";
-      left: calc(50% - 11px);
-      bottom: -16px;
-      position: absolute;
-    }
-
 
     &::after {
       @include triangle(
         bottom,
-        $color: white,
-        $height: 14px,
-        $width: 18px
+        $color: $tutor-gray,
+        $height: 8px,
+        $width: 14px
       );
       content: " ";
-      left: calc(50% - 9px);
-      bottom: -14px;
+      left: calc(50% - 7px);
+      bottom: -8px;
       position: absolute;
     }
   }

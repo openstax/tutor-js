@@ -11,6 +11,7 @@ const neutral = {
   lite:     '#929292', // a gray that's darker than "light"
   std:      '#818181', // gray
   thin:     '#6f6f6f',
+  grayblue: '#5e6062',
   gray:     '#5e5e5e',
   dark:     '#5f6163', // dark gray
   darker:   '#424242', // very dark gray
@@ -60,7 +61,6 @@ const TutorTheme = {
     navbars: {
       border: '#d5d5d5',
       divider: '#cdcdcd',
-      control: '#5e6062',
     },
   },
 
