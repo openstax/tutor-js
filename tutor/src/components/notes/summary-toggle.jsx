@@ -9,7 +9,6 @@ import TourAnchor from '../tours/anchor';
 import HighlightIcon from './highlight-icon';
 import NotesUX from '../../models/notes/ux';
 import SecondaryToolbarButton from '../navbar/secondary-toolbar-button';
-import { styled } from 'vendor';
 
 export default
 @observer

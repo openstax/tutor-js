@@ -1,5 +1,4 @@
-import { React, styled } from 'vendor';
-import { Icon } from 'shared';
+import { styled } from 'vendor';
 import Theme from '../../theme';
 import { Button } from 'react-bootstrap';
 
