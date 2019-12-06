@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { Icon } from 'shared';
 import HighlightIcon from './highlight-icon';
 import AnnotateIcon from './annotate-icon';
 import getRangeRect from './getRangeRect';
