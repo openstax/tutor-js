@@ -6,7 +6,7 @@ import { observer } from 'mobx-react';
 import Course from '../../models/course';
 import TourRegion from '../tours/region';
 import TourAnchor from '../tours/anchor';
-import HighlightIcon from './highlight-icon';
+import MyHighlightsIcon from './my-highlights-icon';
 import NotesUX from '../../models/notes/ux';
 import SecondaryToolbarButton from '../navbar/secondary-toolbar-button';
 
@@ -41,7 +41,7 @@ class NoteSummaryToggle extends React.Component {
             bsPrefix="summary-toggle"
             onClick={NotesUX.toggleSummary}
           >
-            <HighlightIcon />
+            <MyHighlightsIcon />
             My Highlights
           </SecondaryToolbarButton>
         </TourAnchor>

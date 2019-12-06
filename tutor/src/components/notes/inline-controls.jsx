@@ -3,6 +3,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { Icon } from 'shared';
 import HighlightIcon from './highlight-icon';
+import AnnotateIcon from './annotate-icon';
 import getRangeRect from './getRangeRect';
 
 
@@ -12,15 +13,17 @@ const InlineControls = observer(({ windowImpl, pendingHighlight, annotate, paren
   const rect = getRangeRect(windowImpl, pendingHighlight.range);
 
   const style = {
-    top: `${(rect.top - parentRect.top) - 70}px`,
+    top: `${(rect.top - parentRect.top) - 48}px`,
     right: `${parentRect.right - rect.right - 40}px`,
   };
 
   return (
     <div className="inline-controls" style={style}>
-      <Icon className="annotate" size="lg" type="comment" alt="annotate" onClick={annotate} />
       <button className="highlight" onClick={highlight}>
         <HighlightIcon role="button" alt="highlight" />
+      </button>
+      <button className="annotate" onClick={annotate}>
+        <AnnotateIcon role="button" alt="annotate" />
       </button>
     </div>
   );
