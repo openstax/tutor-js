@@ -14,4 +14,13 @@ describe('review reading selection', () => {
     expect(<Review {...props} />).toMatchSnapshot();
   });
 
+  it('renders html', () => {
+    props.ux.selectedPages[0].title = '<i>I am in italics</i>';
+    const rv = mount(<Review {...props} />);
+    expect(rv.text()).not.toContain('<i>');
+    expect(rv.text()).toContain('I am in italics');
+    rv.unmount();
+  });
+
+
 });
