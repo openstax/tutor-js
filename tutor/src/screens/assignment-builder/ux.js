@@ -351,6 +351,12 @@ class AssignmentBuilderUX {
       time: this.course.default_due_time,
     };
   }
+
+  @computed get canSave() {
+    return Boolean(
+      this.form.isValid && !this.isSaving,
+    );
+  }
 }
 
 export default AssignmentBuilderUX;

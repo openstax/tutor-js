@@ -21,7 +21,7 @@ const SaveButton = observer(({ ux, ux: { plan } }) => {
       <AsyncButton
         variant="primary"
         className="publish"
-        disabled={ux.isSaving}
+        disabled={!ux.canSave}
         onClick={ux.onPublish}
         isWaiting={ux.isPublishing}
         waitingText={text.waiting}

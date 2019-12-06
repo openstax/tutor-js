@@ -13,7 +13,7 @@ const SaveAsDraftButton = observer(({ ux, ux: { plan } }) => {
         isWaiting={ux.isSaving}
         onClick={ux.onSaveAsDraft}
         waitingText="Saving…"
-        disabled={ux.isSaving}
+        disabled={!ux.canSave}
       >
         Save as Draft
       </AsyncButton>
