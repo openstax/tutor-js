@@ -10,7 +10,7 @@ const NavbarBottomShadow = css`
 
 const Docked = css`
    position: relative;
-   border-bottom: 1px solid ${Theme.colors.neutral.lighter};
+   border-bottom: 1px solid ${Theme.colors.navbars.border};
 `;
 
 const Header = css`

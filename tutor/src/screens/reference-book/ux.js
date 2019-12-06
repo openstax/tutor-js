@@ -4,6 +4,7 @@ import Router from '../../helpers/router';
 import { extend } from 'lodash';
 import User from '../../models/user';
 import MenuToggle from '../../components/book-menu/toggle';
+import BookTitle from './book-title';
 import SectionTitle from './section-title';
 import NotesSummaryToggle from '../../components/notes/summary-toggle';
 import TeacherContentToggle from './teacher-content-toggle';
@@ -43,19 +44,18 @@ export default class ReferenceBookUX extends BookUX {
     nav.childProps.set('ux', this);
     nav.left.replace({
       'slide-out-menu-toggle': MenuToggle,
+      'book-title': BookTitle,
       'section-title': SectionTitle,
     });
-    nav.center.merge({
+    nav.right.clear();
+    nav.right.merge({
       'note-toggle': () => <NotesSummaryToggle course={this.course} />,
     });
     if (this.course && this.course.currentRole.isTeacher) {
-      nav.right.replace({
+      nav.right.merge({
         'teacher-content-toggle': TeacherContentToggle,
       });
-    } else {
-      nav.right.clear();
     }
-
     this.navBar = nav;
   }
 

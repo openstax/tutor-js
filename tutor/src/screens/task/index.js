@@ -1,5 +1,5 @@
 import {
-  React, PropTypes, withRouter, observer, computed, inject, idType,
+  React, PropTypes, withRouter, observer, computed, idType,
 } from 'vendor';
 import { Redirect } from 'react-router-dom';
 import Router from '../../helpers/router';
@@ -15,8 +15,6 @@ import homework from './homework';
 import event from './event';
 import Failure from './step/failure';
 import external from './external';
-import { TaskInfo } from './task-info';
-import { TaskFooterControls } from './task-footer-controls';
 import { StepCard } from './step/card';
 import { SpyInfo } from './step/spy-info';
 import './styles.scss';
@@ -37,7 +35,6 @@ const DeletedTask = () => (
 );
 
 @withRouter
-@inject('bottomNavbar')
 @observer
 class Task extends React.Component {
 
@@ -47,16 +44,6 @@ class Task extends React.Component {
     stepIndex: idType,
     course: PropTypes.instanceOf(Course).isRequired,
     task: PropTypes.instanceOf(StudentTask).isRequired,
-    bottomNavbar: PropTypes.shape({
-      left: PropTypes.shape({
-        set: PropTypes.func.isRequired,
-        delete: PropTypes.func.isRequired,
-      }).isRequired,
-      right: PropTypes.shape({
-        set: PropTypes.func.isRequired,
-        delete: PropTypes.func.isRequired,
-      }).isRequired,
-    }),
     history: PropTypes.object.isRequired,
   }
 
@@ -65,15 +52,6 @@ class Task extends React.Component {
     history: this.props.history,
     stepIndex: this.props.stepIndex,
   });
-
-  componentDidMount() {
-    this.props.bottomNavbar.left.set('taskInfo', () =>
-      <TaskInfo task={this.props.task} />
-    );
-    this.props.bottomNavbar.right.set('taskControls', () =>
-      <TaskFooterControls task={this.props.task} course={this.ux.course} />
-    );
-  }
 
   componentDidUpdate() {
     const { stepIndex } = this.props;
@@ -84,8 +62,6 @@ class Task extends React.Component {
 
   componentWillUnmount() {
     this.ux.isUnmounting();
-    this.props.bottomNavbar.left.delete('taskInfo');
-    this.props.bottomNavbar.right.delete('taskControls');
   }
 
   render() {

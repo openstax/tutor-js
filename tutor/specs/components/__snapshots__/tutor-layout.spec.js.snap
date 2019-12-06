@@ -16,7 +16,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                         <MobXProvider topNavbar={{...}} courseContext={{...}} bottomNavbar={{...}} setSecondaryTopControls={[Function: res]}>
                           <styled.div>
                             <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
-                              <div className=\\"sc-jTzLTM jpMHPc\\">
+                              <div className=\\"sc-VigVT exyFYy\\">
                                 <Navbar area=\\"header\\" context={{...}} isDocked={false}>
                                   <styled.nav area=\\"header\\" isDocked={false} className=\\"tutor-navbar\\">
                                     <StyledComponent area=\\"header\\" isDocked={false} className=\\"tutor-navbar\\" forwardedComponent={{...}} forwardedRef={{...}}>
@@ -57,11 +57,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                             </Logo>
                                           </Component>
                                         </div>
-                                        <div className=\\"center-control\\">
-                                          <Component>
-                                            <CenterControls />
-                                          </Component>
-                                        </div>
+                                        <div className=\\"center-control\\" />
                                         <div className=\\"right-side-controls\\">
                                           <Component>
                                             <Menus>
@@ -235,7 +231,7 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                 </inject(CourseNagModal)>
                                 <styled.div>
                                   <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
-                                    <div className=\\"sc-fjdhpX fpVDQP\\">
+                                    <div className=\\"sc-jTzLTM bZIAmh\\">
                                       <p>
                                         hi i am body
                                       </p>

@@ -4,12 +4,12 @@ import {
 import UX from './ux';
 import { Breadcrumbs } from './breadcrumbs';
 import { TaskStep } from './step';
+import withFooter from './with-footer';
 
 const SyledHomework = styled.div`
 
 `;
 
-export default
 @observer
 class HomeworkTask extends React.Component {
 
@@ -34,3 +34,5 @@ class HomeworkTask extends React.Component {
   }
 
 }
+
+export default withFooter(HomeworkTask);

@@ -13,12 +13,32 @@
     }
   }
 
-  .section-title {
+  .book-title, .section-title {
     font-size: 1.8rem;
     line-height: 2.8rem;
-    margin: 0 0 0 2rem;
     display: flex;
+    align-items: center;
+  }
+
+  .book-title {
+    margin: 0 0 0 2.4rem;
+    white-space: nowrap;
+
+    span {
+      max-width: 30rem;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    svg {
+      margin: 2px 0.8rem 0;
+    }
+  }
+
+  .section-title {
+    font-weight: bold;
     max-width: calc(100vw - 550px);
+
     .chapter-section {
       margin-right: 0.5rem;
       text-align: center;

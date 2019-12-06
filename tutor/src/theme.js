@@ -57,6 +57,11 @@ const TutorTheme = {
       notice:   '#eba927',
     },
 
+    navbars: {
+      border: '#d5d5d5',
+      divider: '#cdcdcd',
+      control: '#5e6062',
+    },
   },
 
   navbars: {

@@ -2,7 +2,7 @@ import { React, PropTypes, observer, observable, computed } from 'vendor';
 import { get } from 'lodash';
 import NotesSummaryToggle from '../notes/summary-toggle';
 import Course from '../../models/course';
-import MilestonesToggle from './milestones-toggle';
+import MilestonesToggle from '../../screens/task/reading-milestones-toggle';
 
 export default
 @observer
@@ -17,20 +17,7 @@ class CenterControls extends React.Component {
   @computed get course() {
     if (this.props.course) { return this.props.course; }
 
-    const step = CenterControls.currentTaskStep;
-    if (step) {
-      return get(step, 'task.tasksMap.course');
-    }
-
     return null;
-  }
-
-  @computed get taskStep() {
-    return CenterControls.currentTaskStep;
-  }
-
-  @computed get task() {
-    return get(this.taskStep, 'task');
   }
 
   @computed get shouldRender() {

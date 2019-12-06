@@ -2,7 +2,7 @@
 
 exports[`Tasks External URL Screen matches snapshot 1`] = `
 <C>
-  <ExternalTaskStep
+  <WithFooterWrapper
     ux={
       TaskUX {
         "_stepIndex": 0,

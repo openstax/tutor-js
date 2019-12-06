@@ -5,6 +5,7 @@ import ContentLoader from 'react-content-loader';
 import UX from './ux';
 import { StepCard } from './step/card';
 import { CenteredBackButton } from './back-button';
+import withFooter from './with-footer';
 
 const Link = styled.a`
   margin-top: 2rem;
@@ -17,7 +18,6 @@ const Loader = () => (
   </ContentLoader>
 );
 
-export default
 @observer
 class ExternalTaskStep extends React.Component {
 
@@ -71,3 +71,5 @@ class ExternalTaskStep extends React.Component {
     );
   }
 }
+
+export default withFooter(ExternalTaskStep);

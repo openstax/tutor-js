@@ -1,15 +1,9 @@
 import { React, observable, styled, action } from 'vendor';
 import { Icon } from 'shared';
-import Theme from '../../theme';
+import SecondaryToolbarButton from '../../components/navbar/secondary-toolbar-button';
 
-const StyledToggle = styled.button`
-  border: 0;
-  background-color: transparent;
-  transistion: color 0.2s;
-  color: ${Theme.colors.neutral.dark};
-  &:hover, &:active {
-    color: ${Theme.colors.blue_info};
-  }
+const StyledButton = styled(SecondaryToolbarButton)`
+  margin-right: 2rem;
 `;
 
 export default
@@ -27,7 +21,14 @@ class MilestonesToggle extends React.Component {
 
   render() {
     return (
-      <StyledToggle onClick={this.onToggle}><Icon type="th" /></StyledToggle>
+      <StyledButton
+        variant="plain"
+        onClick={this.onToggle}
+        bsPrefix="milestones-toggle"
+      >
+        <Icon type="th" />
+        Overview
+      </StyledButton>
     );
   }
 }

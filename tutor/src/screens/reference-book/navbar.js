@@ -1,14 +1,10 @@
 import { React, PropTypes, observer, styled, inject, autobind } from 'vendor';
-import { ProgressBar } from 'react-bootstrap';
+import Theme from '../../../theme';
 import UX from './ux';
-
-const StyledProgressBar = styled(ProgressBar)`
-   && { border-radius: 0; }
-`;
 
 @inject('setSecondaryTopControls')
 @observer
-class ReadingProgress extends React.Component {
+class Navbar extends React.Component {
 
   static propTypes = {
     ux: PropTypes.instanceOf(UX).isRequired,
@@ -19,9 +15,9 @@ class ReadingProgress extends React.Component {
   constructor(props) {
     super(props);
     if (!props.unDocked) {
-      props.setSecondaryTopControls(this.renderProgress);
+      props.setSecondaryTopControls(this.renderNavbar);
     }
-    this.renderProgress.unpadded = true;
+    this.renderNavbar.unpadded = true;
   }
 
   componentWillUnmount() {
@@ -33,19 +29,19 @@ class ReadingProgress extends React.Component {
   // nothing is rendered directly, instead it's set in the secondaryToolbar
   render() {
     if (this.props.unDocked) {
-      return this.renderProgress();
+      return this.renderNavbar();
     }
     return null;
   }
 
-  @autobind renderProgress() {
+  @autobind renderNavbar() {
     const { ux } = this.props;
 
     return (
-      <StyledProgressBar now={ux.progressPercent} variant="success" />
+      <p>hi</p>
     );
   }
 
 }
 
-export { ReadingProgress };
+export default Navbar

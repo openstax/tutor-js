@@ -1,5 +1,5 @@
 import UX from '../../../src/screens/task/ux';
-import { ReadingProgress } from '../../../src/screens/task/reading-progress';
+import ReadingNavbar from '../../../src/screens/task/reading-navbar';
 import { TestRouter, Factory, C, ld, TimeMock } from '../../helpers';
 
 describe('Homework Breadcrumbs Component', () => {
@@ -23,7 +23,7 @@ describe('Homework Breadcrumbs Component', () => {
   });
 
   it('displays progress', () => {
-    const rp = mount(<C><ReadingProgress {...props} /></C>);
+    const rp = mount(<C><ReadingNavbar {...props} /></C>);
     expect(props.ux.steps).toHaveLength(12);
     rp.update();
     expect(rp).toHaveRendered('ProgressBar[now=0]');

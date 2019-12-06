@@ -2,8 +2,8 @@ import { React, PropTypes, observer } from 'vendor';
 import { CenteredBackButton } from './back-button';
 import UX from './ux';
 import { StepCard } from './step/card';
+import withFooter from './with-footer';
 
-export default
 @observer
 class EventTask extends React.Component {
 
@@ -27,3 +27,5 @@ class EventTask extends React.Component {
   }
 
 }
+
+export default withFooter(EventTask);
