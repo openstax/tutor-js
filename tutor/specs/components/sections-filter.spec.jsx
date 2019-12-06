@@ -32,7 +32,7 @@ describe('SectionsFilter component', () => {
   it('selects all when using the helper control', function() {
     const menu = mount(<SectionsFilter {...props} />);
     menu.find('button.dropdown-toggle').simulate('click');
-    menu.find('a.select-all').simulate('click');
+    menu.find('button.select-all').simulate('click');
     expect(menu.find('[variant="checkedSquare"]')).toHaveLength(3);
     expect(menu.find('[variant="checkSquare"]')).toHaveLength(0);
     menu.unmount();
@@ -41,7 +41,7 @@ describe('SectionsFilter component', () => {
   it('deselects all when using the helper control', function() {
     const menu = mount(<SectionsFilter {...props} />);
     menu.find('button.dropdown-toggle').simulate('click');
-    menu.find('a.select-none').simulate('click');
+    menu.find('button.select-none').simulate('click');
     expect(menu.find('[variant="checkSquare"]')).toHaveLength(3);
     expect(menu.find('[variant="checkedSquare"]')).toHaveLength(0);
     menu.unmount();
