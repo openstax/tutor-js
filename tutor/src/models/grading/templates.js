@@ -4,12 +4,11 @@ import {
 } from 'shared/model';
 
 
-export default
 @identifiedBy('grading/template')
 class GradingTemplate extends BaseModel {
 
   @identifier id;
-
+  @field type;
   @field name;
 
   constructor(attrs, map) {
@@ -20,15 +19,25 @@ class GradingTemplate extends BaseModel {
 }
 
 
-export class GradingTemplates extends Map {
+class GradingTemplates extends Map {
 
   static Model = GradingTemplate;
 
   // called by API
-  fetch() { }
+  fetch() {
+    // TODO remove once api is setup
+    this.onLoaded({
+      data: [
+        { id: 1, name: 'Reading',  type: 'reading' },
+        { id: 2, name: 'Homework', type: 'homework' },
+      ],
+    });
+  }
 
   @action onLoaded({ data }) {
     this.mergeModelData(data);
   }
 
 }
+
+export { GradingTemplate, GradingTemplates };
