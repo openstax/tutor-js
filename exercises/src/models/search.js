@@ -55,10 +55,10 @@ class Search extends BaseModel {
   }
 
   @action.bound setPerPageSize(size) {
-    const firstExercise = this.perPageSize * this.currentPage;
+    const firstVisibleExercise = (this.perPageSize * (this.currentPage - 1)) + 1;
     this.perPageSize = Number(size);
     // keep cursor showing roughly the same exercise
-    this.currentPage = Math.floor(firstExercise / this.perPageSize);
+    this.currentPage = Math.floor(firstVisibleExercise / this.perPageSize) + 1;
     this.perform();
   }
 
