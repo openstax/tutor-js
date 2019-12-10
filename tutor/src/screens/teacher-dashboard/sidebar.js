@@ -9,6 +9,7 @@ import PastAssignments from './past-assignments';
 import TourAnchor from '../../components/tours/anchor';
 import Course from '../../models/course';
 import AddMenu from './add-menu';
+import GradingTemplateLink from './templates/link';
 import CalendarHelper from './helper';
 
 const IS_INTRO_VIEWED = 'viewed-plan-dnd-intro';
@@ -98,6 +99,9 @@ class AddAssignmentSidebar extends React.Component {
         className={cn('add-assignment-sidebar', { 'is-open': this.props.isOpen })}
       >
         <TourAnchor id="sidebar-add-tasks" className="sidebar-section">
+
+          <GradingTemplateLink />
+
           <div className="section-label">
             New
           </div>

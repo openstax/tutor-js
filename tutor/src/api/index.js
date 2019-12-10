@@ -43,6 +43,7 @@ import TaskPlanStats from '../models/task-plans/teacher/stats';
 import ResponseValidation from '../models/response_validation';
 import { Notes, PageNotes, Note } from '../models/notes';
 import Stats from '../models/stats';
+import { GradingTemplates } from '../models/grading/templates';
 
 const {
   connectRead, connectModelCreate, connectModelRead, connectModelUpdate, connectModelDelete,
@@ -249,7 +250,10 @@ const startAPI = function() {
 
   connectModelRead(TaskPlanStats, 'fetchReview', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}/review' });
 
-  return connectModelRead(Courses.constructor, 'fetch', { onSuccess: 'onLoaded', url: 'user/courses' });
+  connectModelRead(Courses.constructor, 'fetch', { onSuccess: 'onLoaded', url: 'user/courses' });
+
+  connectModelRead(GradingTemplates, 'fetch', { onSuccess: 'onLoaded', url: 'courses/grading' });
+
 };
 
 

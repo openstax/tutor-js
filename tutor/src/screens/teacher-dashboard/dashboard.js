@@ -12,7 +12,7 @@ import Time from '../../models/time';
 import TimeHelper from '../../helpers/time';
 import TutorRouter from '../../helpers/router';
 import TaskPlanMiniEditor from '../../screens/assignment-builder/mini-editor';
-import AddAssignmentSidebar from './add-assignment-sidebar';
+import Sidebar from './sidebar';
 import MonthTitleNav from './month-title-nav';
 import AddAssignmentPopup from './add-assignment-popup';
 
@@ -136,7 +136,7 @@ class TeacherDashboard extends React.Component {
           {...this.activeAddAssignment}
         />
         <div className="calendar-body">
-          <AddAssignmentSidebar
+          <Sidebar
             isOpen={this.props.showingSideBar}
             course={this.props.course}
             hasPeriods={hasPeriods}

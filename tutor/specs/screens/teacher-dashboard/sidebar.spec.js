@@ -1,5 +1,5 @@
 import { Factory, C } from '../../helpers';
-import Sidebar from '../../../src/screens/teacher-dashboard/add-assignment-sidebar';
+import Sidebar from '../../../src/screens/teacher-dashboard/sidebar';
 
 jest.mock('../../../src/screens/teacher-dashboard/helper');
 
