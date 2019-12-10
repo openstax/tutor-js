@@ -77,8 +77,6 @@ class SidebarButtons extends React.Component {
   }
 
   renderNotes() {
-    if (!this.props.notes) { return null; }
-
     return this.props.notes.array.map(note =>
       note.annotation && (
         <NoteButton
