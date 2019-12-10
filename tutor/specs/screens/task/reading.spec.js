@@ -95,4 +95,15 @@ describe('Reading Tasks Screen', () => {
     r.unmount();
   });
 
+  it('pages through steps', () => {
+    const pr = mount(<C><Reading {...props} /></C>);
+    expect(pr).toHaveRendered('a.paging-control.prev[disabled=true]');
+    expect(pr).toHaveRendered('a.paging-control.next[disabled=false]');
+    pr.find('a.paging-control.next').simulate('click');
+    pr.find('a.paging-control.next').simulate('click');
+    expect(pr).toHaveRendered('a.paging-control.next[disabled=true]');
+    expect(pr).toHaveRendered('a.paging-control.prev[disabled=false]');
+    pr.unmount();
+  });
+
 });

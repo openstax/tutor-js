@@ -15,16 +15,12 @@ $milestone-icon-size: 60px;
   }
 }
 
-.overlay.task-milestones {
-  padding-top: $openstax-navbar-height;
-  background: $tutor-neutral-light;
-  .milestones-wrapper {
-    margin: 110px 50px 50px;
-    width: 100%;
-    .milestones {
-      display: flex;
-      flex-wrap: wrap;
-    }
+.modal-dialog.task-milestones {
+  @include tutor-modal-v2;
+
+  .milestones {
+    display: flex;
+    flex-wrap: wrap;
   }
 }
 
