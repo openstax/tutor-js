@@ -23,12 +23,14 @@ class EditBox extends React.Component {
 
   @action.bound onDelete() {
     this.props.note.destroy().then(() => {
+      this.isDeleted = true;
       this.props.onHide();
       this.props.onDelete(this.props.note);
     });
   }
 
   @observable annotation = this.props.note ? this.props.note.annotation : '';
+  isDeleted = false;
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.note !== this.props.note) {
@@ -38,7 +40,7 @@ class EditBox extends React.Component {
   }
 
   componentWillUnmount() {
-    if (this.annotation !== this.props.note.annotation) {
+    if (!this.isDeleted && (this.annotation !== this.props.note.annotation)) {
       this.props.note.annotation = this.annotation;
       this.props.note.save();
     }
