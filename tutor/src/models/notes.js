@@ -119,7 +119,6 @@ class Notes extends BaseModel {
 
   @action onNoteDeleted(note, page) {
     if (page.isEmpty) {
-      this.pages.delete(page.uuid);
       this.summary.remove(this.summary.find(s => s.uuid == page.uuid));
     }
   }
