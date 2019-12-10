@@ -40,7 +40,7 @@ class ProgressCard extends React.Component {
           closeButton={true}
           closeLabel={'Close'}
         >
-          <Modal.Title>Overview</Modal.Title>
+          <Modal.Title>Assignment Overview</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {this.renderMilestones()}
