@@ -321,7 +321,9 @@ class TeacherTaskPlan extends BaseModel {
   @computed get invalidParts() {
     const parts = [];
     if (!String(this.title).match(/\w/)) { parts.push('title'); }
-    if (!every(this.tasking_plans, 'isValid')) { parts.push('taskings'); }
+    if (isEmpty(this.tasking_plans) || !every(this.tasking_plans, 'isValid')) {
+      parts.push('taskings');
+    }
     if (this.isReading && isEmpty(this.pageIds)) { parts.push('readings'); }
     if (this.isHomework && isEmpty(this.exerciseIds)) { parts.push('homeworks'); }
     if (!this.isExternalUrlValid){ parts.push('external_url'); }
