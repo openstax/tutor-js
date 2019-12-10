@@ -80,6 +80,11 @@ class NoteSummaryPage extends React.Component {
 
   @action.bound onDelete(note) {
     this.props.onDelete(note);
+    if (note.page.isEmpty) {
+      this.selectedPages.remove(
+        this.selectedPages.find(s => s.uuid == note.page.uuid)
+      );
+    }
     this.prepareFocus();
   }
 
