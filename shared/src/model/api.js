@@ -19,6 +19,10 @@ export default class ModelApi {
     return this.requestsInProgress.size > 0;
   }
 
+  @computed get isDeleted() {
+    return this.requestCounts.delete > 0;
+  }
+
   @computed get isPendingInitialFetch() {
     return this.isPending && !this.hasBeenFetched;
   }

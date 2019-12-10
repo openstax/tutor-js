@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { defer } from 'lodash';
 import { observer } from 'mobx-react';
-import { action, observable } from 'mobx';
+import { action, observable, computed } from 'mobx';
 import cn from 'classnames';
 import { Icon } from 'shared';
 import { Form } from 'react-bootstrap';
@@ -38,7 +38,7 @@ class EditBox extends React.Component {
   }
 
   componentWillUnmount() {
-    if (this.annotation !== this.props.note.annotation) {
+    if (!this.isDeleted && (this.annotation !== this.props.note.annotation)) {
       this.props.note.annotation = this.annotation;
       this.props.note.save();
     }
@@ -61,6 +61,10 @@ class EditBox extends React.Component {
 
   @action.bound goNext() {
     this.props.goToNote(this.props.next);
+  }
+
+  @computed get isDeleted() {
+    return this.props.note.api.isDeleted;
   }
 
   renderWarning() {
