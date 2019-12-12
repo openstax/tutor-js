@@ -1,10 +1,8 @@
 import {
   React, action, PropTypes, observable, observer, styled, computed,
 } from 'vendor';
-import { Button } from 'react-bootstrap';
 import Courses, { Course } from '../../models/courses-map';
 import Loading from 'shared/components/loading-animation';
-import { AsyncButton } from 'shared';
 import { GradingTemplates } from '../../models/grading/templates';
 import TemplateCard from './card';
 import { ScrollToTop } from 'shared';
@@ -15,10 +13,6 @@ const CardsBody = styled.div`
   display: flex;
 `;
 
-const Footer = styled.div`
-
-`;
-
 export default
 @observer
 class GradingTemplatesScreen extends React.Component {
@@ -26,9 +20,7 @@ class GradingTemplatesScreen extends React.Component {
   static propTypes = {
     course: PropTypes.instanceOf(Course),
     params: PropTypes.shape({
-      params: PropTypes.shape({
-        courseId: PropTypes.string
-      })
+      courseId: PropTypes.string.isRequired,
     }).isRequired,
   }
 
