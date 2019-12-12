@@ -74,6 +74,9 @@ const getRoutes = (router) => {
         { path: 'change-student-id', name: 'changeStudentId',
           renderer: r(() => import('./components/change-student-id')),
         },
+        { path: 'grading-templates', name: 'gradingTemplates',
+          renderer: r(() => import('./screens/grading-templates')),
+        },
       ],
     }, {
       path: '/accessibility-statement/:courseId?', name: 'accessibilityStatement',

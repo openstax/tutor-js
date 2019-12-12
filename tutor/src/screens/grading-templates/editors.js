@@ -1,5 +1,5 @@
 import { React, PropTypes, observer } from 'vendor';
-import { GradingTemplate } from '../../../models/grading/templates';
+import { GradingTemplate } from '../../models/grading/templates';
 
 const propTypes = {
   template: PropTypes.instanceOf(GradingTemplate).isRequired,

@@ -1,0 +1,93 @@
+import {
+  React, action, PropTypes, observable, observer, styled, computed,
+} from 'vendor';
+import { Button } from 'react-bootstrap';
+import Courses, { Course } from '../../models/courses-map';
+import Loading from 'shared/components/loading-animation';
+import { AsyncButton } from 'shared';
+import { GradingTemplates } from '../../models/grading/templates';
+import TemplateCard from './card';
+import { ScrollToTop } from 'shared';
+import CoursePage from '../../components/course-page';
+import * as EDIT_TYPES from './editors';
+
+const CardsBody = styled.div`
+  display: flex;
+`;
+
+const Footer = styled.div`
+
+`;
+
+export default
+@observer
+class GradingTemplatesScreen extends React.Component {
+
+  static propTypes = {
+    course: PropTypes.instanceOf(Course),
+    params: PropTypes.shape({
+      params: PropTypes.shape({
+        courseId: PropTypes.string
+      })
+    }).isRequired,
+  }
+
+  store = new GradingTemplates()
+  @observable editing = null;
+
+  @computed get course() {
+    return this.props.course || Courses.get(this.props.params.courseId);
+  }
+
+  @action.bound onModalClose() {
+    this.modalIsOpen = false;
+  }
+
+  @action.bound onEditTemplate(template) {
+    this.editing = template;
+  }
+
+  constructor(props) {
+    super(props);
+    this.store.fetch();
+  }
+
+  body() {
+    if (this.store.api.isPending) {
+      return <Loading message="Fetching templates…" />;
+    }
+
+    if (this.editing) {
+      const Edit = EDIT_TYPES[this.editing.type];
+      if (Edit) {
+        return <Edit template={this.editing} />;
+      }
+    }
+
+    return (
+      <CardsBody>
+        {this.store.array.map(tmpl =>
+          <TemplateCard
+            key={tmpl.id}
+            onEdit={this.onEditTemplate}
+            template={tmpl}
+            store={this.store} />)}
+      </CardsBody>
+    );
+
+  }
+
+  render() {
+    return (
+      <ScrollToTop>
+        <CoursePage
+          course={this.course}
+          title="Grading Templates"
+        >
+          {this.body()}
+        </CoursePage>
+      </ScrollToTop>
+    );
+  }
+
+}

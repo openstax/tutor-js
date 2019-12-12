@@ -1,5 +1,5 @@
 import { React, styled, PropTypes, observer } from 'vendor';
-import { GradingTemplate } from '../../../models/grading/templates';
+import { GradingTemplate } from '../../models/grading/templates';
 import { Card, Button } from 'react-bootstrap';
 
 const StyledCard = styled(Card)`
