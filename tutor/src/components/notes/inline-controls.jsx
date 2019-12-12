@@ -14,7 +14,7 @@ const InlineControls = observer(({ windowImpl, pendingHighlight, annotate, paren
 
   const style = {
     top: `${(rect.top - parentRect.top) - 55}px`,
-    left: `${((firstLineRect.left + firstLineRect.right) / 2) - parentRect.left - 64}px`,
+    left: `${((firstLineRect.left + firstLineRect.right) / 2) - parentRect.left - 48}px`,
   };
 
   return (
