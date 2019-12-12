@@ -10,10 +10,11 @@ const InlineControls = observer(({ windowImpl, pendingHighlight, annotate, paren
   if (!pendingHighlight || !pendingHighlight.range) { return null; }
 
   const rect = getRangeRect(windowImpl, pendingHighlight.range);
+  const firstLineRect = pendingHighlight.range.getClientRects()[0];
 
   const style = {
-    top: `${(rect.top - parentRect.top) - 48}px`,
-    right: `${parentRect.right - rect.right - 40}px`,
+    top: `${(rect.top - parentRect.top) - 55}px`,
+    left: `${((firstLineRect.left + firstLineRect.right) / 2) - parentRect.left - 64}px`,
   };
 
   return (
