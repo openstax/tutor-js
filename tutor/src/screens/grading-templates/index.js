@@ -31,8 +31,8 @@ class GradingTemplatesScreen extends React.Component {
     return this.props.course || Courses.get(this.props.params.courseId);
   }
 
-  @action.bound onModalClose() {
-    this.modalIsOpen = false;
+  @action.bound onEditComplete() {
+    this.editing = null;
   }
 
   @action.bound onEditTemplate(template) {
@@ -52,7 +52,12 @@ class GradingTemplatesScreen extends React.Component {
     if (this.editing) {
       const Edit = EDIT_TYPES[this.editing.type];
       if (Edit) {
-        return <Edit template={this.editing} />;
+        return (
+          <Edit
+            template={this.editing}
+            onComplete={this.onEditComplete}
+          />
+        );
       }
     }
 

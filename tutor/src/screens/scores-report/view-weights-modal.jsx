@@ -3,6 +3,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 import { Modal, Button } from 'react-bootstrap';
+import { AsyncButton } from 'shared';
 
 export default
 @observer

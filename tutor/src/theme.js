@@ -39,30 +39,35 @@ const tasks = {
   failure:  colorDefinitions.danger,
 };
 
+export const colors = {
+  ...colorDefinitions,
+  neutral,
+  tasks,
+  line: neutral.thin,
+
+  states: {
+    active:   neutral.dark,
+    disabled: neutral.std,
+    correct:  '#009c10',
+  },
+
+  controls: {
+    selected: '#63a524',
+    active:   '#337eb5',
+    muted:    neutral.lite,
+    notice:   '#eba927',
+  },
+
+  navbars: {
+    border: '#d5d5d5',
+    divider: '#cdcdcd',
+  },
+
+};
+
 const TutorTheme = {
 
-  colors: {
-    ...colorDefinitions,
-    neutral,
-    tasks,
-    states: {
-      active:   neutral.dark,
-      disabled: neutral.std,
-      correct:  '#009c10',
-    },
-
-    controls: {
-      selected: '#63a524',
-      active:   '#337eb5',
-      muted:    neutral.lite,
-      notice:   '#eba927',
-    },
-
-    navbars: {
-      border: '#d5d5d5',
-      divider: '#cdcdcd',
-    },
-  },
+  colors,
 
   navbars: {
     top: {
