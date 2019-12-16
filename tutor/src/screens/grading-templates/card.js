@@ -22,5 +22,4 @@ TemplateCard.propTypes = {
   template: PropTypes.instanceOf(GradingTemplate).isRequired,
 };
 
-
 export default TemplateCard;

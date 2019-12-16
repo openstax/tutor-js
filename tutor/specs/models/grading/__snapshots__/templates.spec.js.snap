@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Grading Templates creates a store with models 1`] = `
+Object {
+  "auto_grading_feedback_on": true,
+  "completion_weight": 0.75,
+  "correctness_weight": 0.9,
+  "default_close_date_offset_days": 1,
+  "default_due_date_offset_days": 1,
+  "default_due_time": "17:00",
+  "default_open_time": "07:00",
+  "id": 1,
+  "late_work_immediate_penalty": true,
+  "late_work_per_day_penalty": true,
+  "manual_grading_feedback_on": true,
+  "name": "Default Reading",
+  "task_plan_type": "reading",
+  "type": undefined,
+}
+`;

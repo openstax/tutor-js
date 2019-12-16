@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Number Input renders and matches snapshot 1`] = `
+.c1 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.c0 {
+  margin: 0;
+  padding: 0;
+  height: 26px;
+  font-size: 12px;
+  height: 26px;
+  border: 1px solid #D9D9D9;
+  border-radius: 4px;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row-reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+  vertical-align: middle;
+}
+
+.c0 input {
+  border: 0;
+  width: 100%;
+  height: 100%;
+  text-align: right;
+  padding-right: 0.8rem;
+}
+
+.c0 .rc-input-number-input-wrap {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c0 .rc-input-number-handler-down-disabled,
+.c0 .rc-input-number-handler-up-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.c0 .rc-input-number-handler-wrap {
+  border-left: 1px solid #D9D9D9;
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+<div
+  className="rc-input-number c0"
+  style={Object {}}
+>
+  <div
+    className="rc-input-number-handler-wrap"
+  >
+    <span
+      aria-disabled={false}
+      aria-label="Increase Value"
+      className="rc-input-number-handler rc-input-number-handler-up "
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      role="button"
+      unselectable="unselectable"
+    >
+      <svg
+        aria-hidden="true"
+        className="svg-inline--fa fa-angle-up fa-w-10 ox-icon ox-icon-angle-up c1"
+        data-icon="angle-up"
+        data-prefix="fas"
+        focusable="false"
+        role="img"
+        style={Object {}}
+        viewBox="0 0 320 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </span>
+    <span
+      aria-disabled={false}
+      aria-label="Decrease Value"
+      className="rc-input-number-handler rc-input-number-handler-down "
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchCancel={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      role="button"
+      unselectable="unselectable"
+    >
+      <svg
+        aria-hidden="true"
+        className="svg-inline--fa fa-angle-down fa-w-10 ox-icon ox-icon-angle-down c1"
+        data-icon="angle-down"
+        data-prefix="fas"
+        focusable="false"
+        role="img"
+        style={Object {}}
+        viewBox="0 0 320 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </span>
+  </div>
+  <div
+    className="rc-input-number-input-wrap"
+  >
+    <input
+      aria-valuemin={-9007199254740991}
+      autoComplete="off"
+      className="rc-input-number-input"
+      min={-9007199254740991}
+      name="numberz"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseUp={[Function]}
+      required={false}
+      role="spinbutton"
+      step={1}
+      value=""
+    />
+  </div>
+</div>
+`;
