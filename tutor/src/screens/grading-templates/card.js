@@ -51,7 +51,7 @@ const SettingText = styled.div`
 
 const TemplateCard = observer(({ template, onEdit }) => {
   return (
-    <CardWrapper templateColors={Theme.colors.templates[template.type]}>
+    <CardWrapper templateColors={Theme.colors.templates[template.task_plan_type]}>
       <Card>
         <Card.Header>
           {template.name}
