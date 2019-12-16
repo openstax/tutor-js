@@ -15,8 +15,8 @@ const CardWrapper = styled.div`
   }
   .card-header {
     border: 0;
-    border-left: 8px solid ${props => props.theme.border};
-    background: ${props => props.theme.background};
+    border-left: 8px solid ${props => props.templateColors.border};
+    background: ${props => props.templateColors.background};
     font-size: 1.6rem;
     font-weight: bold;
     display: flex;
@@ -51,7 +51,7 @@ const SettingText = styled.div`
 
 const TemplateCard = observer(({ template, onEdit }) => {
   return (
-    <CardWrapper theme={Theme.colors.templates[template.type]}>
+    <CardWrapper templateColors={Theme.colors.templates[template.type]}>
       <Card>
         <Card.Header>
           {template.name}
