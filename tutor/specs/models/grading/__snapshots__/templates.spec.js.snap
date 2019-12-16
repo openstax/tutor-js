@@ -15,6 +15,5 @@ Object {
   "manual_grading_feedback_on": true,
   "name": "Default Reading",
   "task_plan_type": "reading",
-  "type": undefined,
 }
 `;

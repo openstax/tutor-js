@@ -83,19 +83,19 @@ class GradingTemplates extends Map {
 
   // called by API
   fetch() {
-    return { courseId: this.course.id };
     // TODO remove once api is setup
-    // this.onLoaded({
-    //   data: [
-    //     { id: 1, name: 'Reading',  type: 'reading' },
-    //     { id: 2, name: 'Homework', type: 'homework' },
-    //   ],
-    // });
+    this.onLoaded({
+      data: [
+        { id: 1, name: 'Reading',  task_plan_type: 'reading' },
+        { id: 2, name: 'Homework', task_plan_type: 'homework' },
+      ],
+    });
+
+    return { courseId: this.course.id };
   }
 
   @action onLoaded({ data }) {
-
-    this.mergeModelData(data);
+    this.mergeModelData(Object.values(data));
   }
 
 

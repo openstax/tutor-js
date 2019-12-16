@@ -14,7 +14,7 @@ import { ResearchSurvey } from '../../src/models/research-surveys/survey';
 import StudentDashboardTask from '../../src/models/task-plans/student/task';
 import Note from '../../src/models/notes/note';
 import Stat from '../../src/models/stats';
-import { GradingTemplates, GradingTemplate } from '../../src/models/grading/templates';
+import { GradingTemplate } from '../../src/models/grading/templates';
 
 import Page from '../../src/models/reference-book/page';
 import TeacherTaskPlan from '../../src/models/task-plans/teacher/plan';
@@ -163,7 +163,7 @@ Factories.offeringsMap = ({ count = 4 } = {}) => {
 };
 
 Factories.gradingTemplates = ({ course, count = 2 } = {}) => {
-  const map = new GradingTemplates();
+  const map = course.gradingTemplates;
   map.onLoaded({
     data: range(count).map(() =>
       FactoryBot.create('GradingTemplate', { course })
