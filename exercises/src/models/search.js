@@ -16,6 +16,11 @@ class Clause extends BaseModel {
     return `Search by ${this.filter}`;
   }
 
+  @action.bound setFilter(filter) {
+    this.filter = filter;
+    this.search.currentPage = 1;
+  }
+
   @action.bound onKey(e) {
     if(e.keyCode == 13 && e.shiftKey == false) {
       this.search.perform();
