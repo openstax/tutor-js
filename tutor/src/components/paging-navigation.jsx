@@ -8,6 +8,8 @@ import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import ScrollTo from '../helpers/scroll-to';
 
+// strip html tags out of page title so it's suitable for
+// setting on the document
 const cleanTitle = (title) => title.replace(/<[^>]*>/g, '');
 
 export default
