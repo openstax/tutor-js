@@ -1,5 +1,5 @@
 import {
-  React, action, PropTypes, observable, observer, styled, computed,
+  React, action, PropTypes, observable, observer, computed,
 } from 'vendor';
 import Courses, { Course } from '../../models/courses-map';
 import Loading from 'shared/components/loading-animation';
@@ -57,11 +57,12 @@ class GradingTemplatesScreen extends React.Component {
     if (this.store.api.isPending) {
       return <Loading message="Fetching templates…" />;
     }
+    let modal;
 
     if (this.editing) {
       const Edit = EDIT_TYPES[this.editing.task_plan_type];
       if (Edit) {
-        return (
+        modal = (
           <Edit
             template={this.editing}
             onComplete={this.onEditComplete}
@@ -73,6 +74,7 @@ class GradingTemplatesScreen extends React.Component {
 
     return (
       <Container fluid={true}>
+        {modal}
         <button onClick={this.onAdd}>add new</button>
         <Row>
           <Col>
