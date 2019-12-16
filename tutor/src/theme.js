@@ -63,6 +63,16 @@ export const colors = {
     divider: '#cdcdcd',
   },
 
+  templates: {
+    reading: {
+      background: '#fcf6d8',
+      border: '#f4d018',
+    },
+    homework: {
+      background: '#daf3f8',
+      border: '#34bdd7',
+    },
+  },
 };
 
 const TutorTheme = {
