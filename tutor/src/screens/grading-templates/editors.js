@@ -2,7 +2,6 @@ import { React, PropTypes, action, observer, styled } from 'vendor';
 import { Button, Modal } from 'react-bootstrap';
 import { GradingTemplate } from '../../models/grading/templates';
 import { colors } from '../../theme';
-import { AsyncButton } from 'shared';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import NumberInput from '../../components/number-input';
 
@@ -21,7 +20,7 @@ const SplitRow = styled.div`
   }
 `;
 
-const Footer = styled(Modal.Footer)`
+const Controls = styled.div`
   margin-top: 1rem;
   padding-top: 1rem;
   border-top: 1px solid ${colors.line};
@@ -51,7 +50,8 @@ class TemplateForm extends React.Component {
     ...propTypes,
   }
 
-  @action.bound async onSubmit() {
+  @action.bound async onSubmit(values) {
+    this.props.template.update(values);
     await this.props.template.save();
     this.props.onComplete();
   }
@@ -71,6 +71,17 @@ class TemplateForm extends React.Component {
         <Line />
         {this.props.children}
         <ErrorMessage name="common" />
+        <Controls>
+          <Button
+            type="submit"
+
+          >
+            Save
+          </Button>
+          <Button variant="default" onClick={this.props.onComplete}>
+            Cancel
+          </Button>
+        </Controls>
       </Form>
     );
   }
@@ -85,10 +96,11 @@ class TemplateForm extends React.Component {
         onHide={onComplete}
       >
         <Modal.Header closeButton>
-          {template.isNew ? 'Add' : 'Edit'} {template.type} grading template
+          {template.isNew ? 'Add' : 'Edit'} {template.task_plan_type} grading template
         </Modal.Header>
         <Modal.Body>
           <Formik
+
             initialValues={template}
             validate={GradingTemplate.validate}
             onSubmit={this.onSubmit}
@@ -96,18 +108,7 @@ class TemplateForm extends React.Component {
             {this.renderForm}
           </Formik>
         </Modal.Body>
-        <Footer>
-          <AsyncButton
-            onClick={this.onSubmit}
-            isWaiting={template.api.isPending}
-            waitingText="Saving…"
-          >
-            Save
-          </AsyncButton>
-          <Button variant="default" onClick={onComplete}>
-            Cancel
-          </Button>
-        </Footer>
+
       </Modal>
     );
   }
@@ -166,4 +167,31 @@ homework.displayName = 'HomeworkTemplateEditForm';
 homework.propTypes = propTypes;
 
 
-export { reading, homework };
+const create = observer((props) => {
+  const { onComplete, onCreateTypeSelection: onSelection } = props;
+
+  return (
+    <Modal
+      show={true}
+      backdrop="static"
+      onHide={onComplete}
+    >
+      <Modal.Header closeButton>
+        Type of template:
+      </Modal.Header>
+      <Modal.Body>
+        <Button variant="default" onClick={() => onSelection('homework')}>
+          Homework
+        </Button>
+        <Button variant="default" onClick={() => onSelection('reading')}>
+          Reading
+        </Button>
+      </Modal.Body>
+    </Modal>
+  );
+
+});
+homework.displayName = 'HomeworkTemplateCreate';
+homework.propTypes = propTypes;
+
+export { reading, homework, create };

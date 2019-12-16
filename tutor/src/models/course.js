@@ -25,6 +25,7 @@ import { StudentTaskPlans } from './task-plans/student';
 import { TeacherTaskPlans } from './task-plans/teacher';
 import { PastTaskPlans } from './task-plans/teacher/past';
 import { Notes } from './notes';
+import { GradingTemplates } from './grading/templates';
 import ReferenceBook from './reference-book';
 
 const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
@@ -86,6 +87,7 @@ class Course extends BaseModel {
   @lazyGetter teacherTaskPlans = new TeacherTaskPlans({ course: this });
   @lazyGetter pastTaskPlans = new PastTaskPlans({ course: this });
   @lazyGetter studentTasks = new StudentTasks({ course: this });
+  @lazyGetter gradingTemplates = new GradingTemplates({ course: this });
 
   @hasMany({ model: Period, inverseOf: 'course', extend: getters({
     sorted() { return PH.sort(this.active);                        },

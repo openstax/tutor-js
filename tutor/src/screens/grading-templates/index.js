@@ -16,16 +16,25 @@ class GradingTemplatesScreen extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course),
+    gradingTemplates: PropTypes.instanceOf(GradingTemplates),
     params: PropTypes.shape({
       courseId: PropTypes.string.isRequired,
     }).isRequired,
   }
 
-  store = new GradingTemplates()
   @observable editing = null;
+
+  constructor(props) {
+    super(props);
+    this.store.fetch();
+  }
 
   @computed get course() {
     return this.props.course || Courses.get(this.props.params.courseId);
+  }
+
+  @computed get store() {
+    return this.props.gradingTemplates || this.course.gradingTemplates;
   }
 
   @action.bound onEditComplete() {
@@ -36,9 +45,12 @@ class GradingTemplatesScreen extends React.Component {
     this.editing = template;
   }
 
-  constructor(props) {
-    super(props);
-    this.store.fetch();
+  @action.bound onAdd() {
+    this.editing = { task_plan_type: 'create' };
+  }
+
+  @action.bound onCreateTypeSelection(task_plan_type) {
+    this.editing = this.store.newTemplate({ task_plan_type });
   }
 
   body() {
@@ -47,12 +59,13 @@ class GradingTemplatesScreen extends React.Component {
     }
 
     if (this.editing) {
-      const Edit = EDIT_TYPES[this.editing.type];
+      const Edit = EDIT_TYPES[this.editing.task_plan_type];
       if (Edit) {
         return (
           <Edit
             template={this.editing}
             onComplete={this.onEditComplete}
+            onCreateTypeSelection={this.onCreateTypeSelection}
           />
         );
       }
@@ -60,6 +73,7 @@ class GradingTemplatesScreen extends React.Component {
 
     return (
       <Container fluid={true}>
+        <button onClick={this.onAdd}>add new</button>
         <Row>
           <Col>
             <p>Manage pre-set submission and grading policy templates here. These templates can be applied to multiple assignments.</p>

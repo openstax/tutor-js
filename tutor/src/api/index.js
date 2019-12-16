@@ -252,9 +252,25 @@ const startAPI = function() {
 
   connectModelRead(Courses.constructor, 'fetch', { onSuccess: 'onLoaded', url: 'user/courses' });
 
-  // TODO implement once api is setup
-  // connectModelRead(GradingTemplates, 'fetch', { onSuccess: 'onLoaded', url: 'courses/grading' });
-  connectModelRead(GradingTemplate, 'save', { onSuccess: 'onSaved', url: 'courses/grading' });
+  connectModelRead(GradingTemplates, 'fetch', {
+    onSuccess: 'onLoaded',
+    pattern: 'courses/{courseId}/grading_templates',
+  });
+
+
+  connectModelRead(GradingTemplate, 'save', {
+    onSuccess: 'onSaved',
+    method() { return this.isNew ? 'POST' : 'PATCH'; },
+    pattern() {
+      return this.isNew ?
+        'courses/{courseId}/grading_templates' : 'grading_templates/{id}';
+    },
+  });
+
+  connectModelDelete(GradingTemplates, 'remove', {
+    pattern: 'grading_templates/{id}',
+    onSuccess: 'onRempved',
+  });
 
 };
 
