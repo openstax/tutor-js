@@ -8,10 +8,7 @@ import TemplateCard from './card';
 import { ScrollToTop } from 'shared';
 import CoursePage from '../../components/course-page';
 import * as EDIT_TYPES from './editors';
-
-const CardsBody = styled.div`
-  display: flex;
-`;
+import { Col, Row, Container } from 'react-bootstrap';
 
 export default
 @observer
@@ -62,16 +59,24 @@ class GradingTemplatesScreen extends React.Component {
     }
 
     return (
-      <CardsBody>
-        {this.store.array.map(tmpl =>
-          <TemplateCard
-            key={tmpl.id}
-            onEdit={this.onEditTemplate}
-            template={tmpl}
-            store={this.store} />)}
-      </CardsBody>
+      <Container fluid={true}>
+        <Row>
+          <Col>
+            <p>Manage pre-set submission and grading policy templates here. These templates can be applied to multiple assignments.</p>
+          </Col>
+        </Row>
+        <Row>
+          {this.store.array.map(tmpl =>
+            <Col key={tmpl.id} lg={4} md={6} sm={12} xs={12}>
+              <TemplateCard
+                onEdit={this.onEditTemplate}
+                template={tmpl}
+                store={this.store} />
+            </Col>
+          )}
+        </Row>
+      </Container>
     );
-
   }
 
   render() {
