@@ -1,14 +1,23 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 if [ "$TRAVIS" == "true" ]; then
-    echo "running under travis, fetching master"
-    TARGET_BRANCH=$TRAVIS_BRANCH
-    git remote set-branches --add origin $TARGET_BRANCH
-    git fetch
+  TARGET_BRANCH=$TRAVIS_BRANCH
+  echo running under travis, fetching $TARGET_BRANCH
+  git fetch
+  git branch -vv
+  git remote show origin
+
+  git fetch origin $TARGET_BRANCH
+#  git branch --set-upstream-to=origin/$TARGET_BRANCH $TARGET_BRANCH
+#  git branch --track $TARGET_BRANCH origin/$TARGET_BRANCH
+#  git branch --set-upstream-to master origin/master
+#  git branch --set-upstream $TARGET_BRANCH origin/$TARGET_BRANCH
+  git fetch origin
+  git checkout --track origin/$TARGET_BRANCH
 else
-    TARGET_BRANCH=master
+  TARGET_BRANCH=master
 fi
 
 if [ $# -eq 0 ]; then
@@ -18,7 +27,7 @@ fi
 
 if [ "$1" == "branch" ]; then
     head=$(git merge-base HEAD $TARGET_BRANCH)
-    cmd="git diff --name-status $head $BRANCH */{src,specs}"
+    cmd="git diff --name-status $head */{src,specs}"
 elif [ "$1" == "staged" ]; then
     cmd="git status --short */{src,specs}"
 else
