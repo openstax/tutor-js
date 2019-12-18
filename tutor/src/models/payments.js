@@ -90,7 +90,7 @@ class Payments extends BaseModel {
   }
 
   @action.bound
-  onChat({ } = {}) { // we're ignoring the error, not sure how to prefill chat
+  onChat() { // we're ignoring the error, not sure how to prefill chat
     const chatLink = document.querySelector('.chat.enabled a');
     if (chatLink) { chatLink.click(); }
   }
@@ -140,7 +140,7 @@ class Payments extends BaseModel {
     });
   }
 
-};
+}
 
 NotificationActions.on('tutor-update', ({ payments }) => {
   // eslint-disable-next-line

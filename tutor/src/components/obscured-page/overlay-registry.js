@@ -1,4 +1,4 @@
-import { invoke, defer, get, pick } from 'lodash';
+import { invoke, defer, pick } from 'lodash';
 import { observable, action, computed } from 'mobx';
 import cn from 'classnames';
 import Analytics from '../../helpers/analytics';

@@ -14,6 +14,7 @@ export default {
   getClasses(props, state) {
     return compact(map(this._getClasses(props, state), function(value, key) {
       if (value) { return key; }
+      return null;
     }));
   },
 

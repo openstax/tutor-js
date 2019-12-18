@@ -22,7 +22,10 @@ class PracticeButton extends React.Component {
   id = uniqueId('practice-button-tooltip-');
 
   getTip = (props) => {
-    if (props.isDisabled) { return 'No problems are available for practicing'; }
+    if (props.isDisabled) {
+      return 'No problems are available for practicing';
+    }
+    return '';
   };
 
   render() {

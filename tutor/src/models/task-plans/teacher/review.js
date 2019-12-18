@@ -11,4 +11,4 @@ class TaskPlanReview extends BaseModel {
   fetch() {
     return { id: this.taskPlan.id };
   }
-};
+}

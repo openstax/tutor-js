@@ -1,14 +1,5 @@
 import React from 'react';
-import { delay } from 'lodash';
 import Button from 'components/buttons/async-button';
-
-class Failed extends React.Component {
-  render() { return (
-    <span>
-      {this.props.beforeText}
-    </span>
-  ); }
-}
 
 describe('Async Button Component', function() {
   let props = null;

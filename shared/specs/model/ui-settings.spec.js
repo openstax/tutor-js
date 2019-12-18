@@ -1,4 +1,3 @@
-import { ld } from 'shared/specs/helpers';
 import { autorun } from 'mobx';
 import UiSettings from 'model/ui-settings';
 

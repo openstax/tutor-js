@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../../helpers';
+import { React } from '../../helpers';
 import bootstrapScores from '../../helpers/scores-data.js';
 import OverallHeader from '../../../src/screens/scores-report/overall-header';
 import ScoresUX from '../../../src/screens/scores-report/ux';

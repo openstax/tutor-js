@@ -34,10 +34,10 @@ export default function(exercise, { ecosystemId } ) {
   exercise.tags = _.select(exercise.tags, function(tag) {
     const [prefix, value] = Array.from(tag.id.split(':'));
     switch (prefix) {
-    case 'lo': return value === bookCode;
-    case 'context-cnxmod': return value === bookUuid;
-    default:
-      return true;
+      case 'lo': return value === bookCode;
+      case 'context-cnxmod': return value === bookUuid;
+      default:
+        return true;
     }
   }); // allow all other tags
 

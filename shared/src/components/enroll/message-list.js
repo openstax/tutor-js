@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import _ from 'underscore';
-
+import { isEmpty } from 'lodash';
 import classnames from 'classnames';
 
 class MessageList extends React.Component {
@@ -16,6 +15,7 @@ class MessageList extends React.Component {
     alertType: PropTypes.string,
     messagesType: PropTypes.string,
     forceBullets: PropTypes.bool,
+    liClassName: PropTypes.string,
   };
 
   getUlClassName = () => {
@@ -25,7 +25,7 @@ class MessageList extends React.Component {
   };
 
   render() {
-    if (_.isEmpty(this.props.messages)) { return null; }
+    if (isEmpty(this.props.messages)) { return null; }
 
     return (
       <div className={`alert alert-${this.props.alertType}`}>

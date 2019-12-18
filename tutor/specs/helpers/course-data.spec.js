@@ -1,10 +1,7 @@
 import CD from '../../src/helpers/course-data';
-
-import mapValues from 'lodash/mapValues';
-import TimeHelper from '../../src/helpers/time';
 import Courses from '../../src/models/courses-map';
-
 import COURSE from '../../api/courses/1.json';
+
 const COURSE_ID = '1';
 
 describe('Course Data helpers', function() {

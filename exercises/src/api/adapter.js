@@ -15,7 +15,7 @@ const OPTIONS = {
     },
   },
   handlers: {
-    onFail(error, ...args) {
+    onFail(error) {
       const { response } = error;
       const { status, data, config } = response;
       const opts = config;

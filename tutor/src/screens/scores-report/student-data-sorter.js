@@ -29,10 +29,10 @@ const getSortValue = function(student, index, dataType, displayAs) {
           return task.completedPercent;
       }
       break;
-    default: // default to using task status for external and other type of events
-      return task.status;
   }
 
+  // default to using task status for external and other type of events
+  return task.status;
 };
 
 

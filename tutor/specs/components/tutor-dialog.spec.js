@@ -1,5 +1,3 @@
-import { Actions } from '../helpers';
-
 import TutorDialog from '../../src/components/tutor-dialog';
 
 describe('TutorDialog', () => {
@@ -15,7 +13,7 @@ describe('TutorDialog', () => {
         const el = document.body.querySelector('.tutor-dialog');
         expect(el.querySelector('.modal-title').textContent).toEqual(title);
         expect(el.querySelector('.modal-body').textContent).toEqual(body);
-        Actions.click(document.body.querySelector('.tutor-dialog button.ok'));
+        document.body.querySelector('.tutor-dialog button.ok').click();
       }));
     return Promise.all(promises);
   });

@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default class extends React.Component {
+// eslint-disable-next-line
+export default class RefreshButton extends React.Component {
   static defaultProps = {
     beforeText: 'There was a problem loading. ',
     buttonText: 'Refresh',

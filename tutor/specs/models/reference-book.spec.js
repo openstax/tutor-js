@@ -1,7 +1,6 @@
 import { autorun } from 'mobx';
-import Book from '../../src/models/reference-book';
-import Factory, { FactoryBot } from '../factories';
-import { sample, keys, forEach } from 'lodash';
+import Factory from '../factories';
+import { sample } from 'lodash';
 
 describe('Reference Book', () => {
   let book;

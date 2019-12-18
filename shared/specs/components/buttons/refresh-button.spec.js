@@ -13,7 +13,7 @@ describe('Refresh Button Component', function() {
 
   it('can use custom text', () => {
     const btn = mount(<Button {...props} />);
-    expect(btn.text()).toMatch('before Refresh after')
+    expect(btn.text()).toMatch('before Refresh after');
     btn.unmount();
   });
 

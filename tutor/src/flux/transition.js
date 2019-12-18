@@ -30,7 +30,7 @@ const TransitionStore = flux.createStore({
     const history = this._get();
     if (history.length) { last = history[history.length - 1]; }
     if ((path !== last) && DestinationHelper.shouldRememberRoute(path)) {
-      return this._local.push(path);
+      this._local.push(path);
     }
   },
 
@@ -53,6 +53,7 @@ const TransitionStore = flux.createStore({
           return { path, name: DestinationHelper.destinationFromPath(path) };
         }
       }
+      return null;
     },
   },
 });

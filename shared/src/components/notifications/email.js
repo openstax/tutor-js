@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Icon from '../icon';
 import classnames from 'classnames';
 import { delay, defer } from 'lodash';
@@ -12,8 +11,18 @@ class EmailNotification extends React.Component {
     onDismiss: PropTypes.func.isRequired,
 
     notice: PropTypes.shape({
+      is_verified: PropTypes.bool,
+      requestInProgress: PropTypes.bool,
+      verifyInProgress: PropTypes.bool,
+      verificationFailed: PropTypes.bool,
       id: PropTypes.number.isRequired,
       value: PropTypes.string.isRequired,
+      error: PropTypes.string,
+      acknowledged: PropTypes.bool,
+      on: PropTypes.func.isRequired,
+      off: PropTypes.func.isRequired,
+      sendConfirmation: PropTypes.func.isRequired,
+      sendVerification: PropTypes.func.isRequired,
     }).isRequired,
   };
 
@@ -42,7 +51,7 @@ class EmailNotification extends React.Component {
 
   onVerifyKey = (ev) => {
     if (ev.key === 'Enter') {
-      return this.onPinCheck();
+      this.onPinCheck();
     }
   };
 
@@ -54,7 +63,7 @@ class EmailNotification extends React.Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.notice && (nextProps.notice !== this.props.notice)) {
       this.props.notice.off('change', this.onChange);
-      return nextProps.notice.on('change', this.onChange);
+      nextProps.notice.on('change', this.onChange);
     }
   }
 
@@ -145,14 +154,14 @@ class EmailNotification extends React.Component {
     const body = this.props.notice.is_verified ?
       this.renderSuccess()
       : this.props.notice.requestInProgress ?
-      this.renderSpinner()
-      : this.props.notice.verifyInProgress ?
-      this.props.notice.verificationFailed ?
-      this.renderFailure()
-      :
-      this.renderPin()
-      :
-      this.renderStart();
+        this.renderSpinner()
+        : this.props.notice.verifyInProgress ?
+          this.props.notice.verificationFailed ?
+            this.renderFailure()
+            :
+            this.renderPin()
+          :
+          this.renderStart();
 
     if (this.props.notice.error) {
       error =

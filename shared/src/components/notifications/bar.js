@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import isEmpty from 'lodash/isEmpty';
-import partial from 'lodash/partial';
-import without from 'lodash/without';
+import { isEmpty, partial } from 'lodash';
 import classnames from 'classnames';
 import Notifications from '../../model/notifications';
 
@@ -19,6 +17,8 @@ class NotificationBar extends React.Component {
   static propTypes = {
     callbacks: PropTypes.object.isRequired,
     displayAfter: PropTypes.number,
+    role: PropTypes.any,
+    course: PropTypes.any,
     className: PropTypes.string,
   };
 
@@ -26,7 +26,7 @@ class NotificationBar extends React.Component {
 
   componentWillUnmount() {
     Notifications.off('change', this.onChange);
-    if (this.state.displayTimer) { return clearTimeout(this.state.displayTimer); }
+    if (this.state.displayTimer) { clearTimeout(this.state.displayTimer); }
   }
 
   onChange = () => {
@@ -40,7 +40,7 @@ class NotificationBar extends React.Component {
       Notifications.acknowledge(notice);
       return this.setState({ notices: Notifications.getActive() });
     }
-      , this.props.displayAfter);
+    , this.props.displayAfter);
 
     return this.setState({ displayTimer });
   };
@@ -55,14 +55,14 @@ class NotificationBar extends React.Component {
       // get a fresh list of active notifications after timeout in case some have
       // been acknowledged during the timeout.
       const displayTimer = setTimeout( (() => this.setState({ notices: Notifications.getActive() })), this.props.displayAfter);
-      return this.setState({ displayTimer });
+      this.setState({ displayTimer });
     }
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     // Trigger a notification if role or course has changed
     if (((this.props.role != null ? this.props.role.id : undefined) !== (nextProps.role != null ? nextProps.role.id : undefined)) || ((this.props.course != null ? this.props.course.id : undefined) !== (nextProps.course != null ? nextProps.course.id : undefined))) {
-      return Notifications.setCourseRole(nextProps.course, nextProps.role);
+      Notifications.setCourseRole(nextProps.course, nextProps.role);
     }
   }
 

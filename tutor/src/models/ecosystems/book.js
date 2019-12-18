@@ -16,4 +16,4 @@ class EcosystemBook extends BaseModel {
   @computed get titleWithVersion() {
     return `${this.title} ${this.version}`;
   }
-};
+}

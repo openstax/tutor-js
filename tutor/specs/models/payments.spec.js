@@ -1,5 +1,3 @@
-import { assign } from 'lodash';
-import Student from '../../src/models/course/student';
 import { bootstrapCoursesList } from '../courses-test-data';
 import Payments from '../../src/models/payments';
 

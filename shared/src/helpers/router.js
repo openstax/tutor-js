@@ -1,13 +1,9 @@
 import qs from 'qs';
-
 import {
-  map, last, omit, pick, partial, isFunction, remove,
+  map, last, omit, pick, partial, remove, invoke, get,
   extend, memoize, compact, isEmpty, forEach, mapValues, cloneDeep,
 } from 'lodash';
-
 import  pathToRegexp from 'path-to-regexp';
-
-
 import { matchPath } from 'react-router-dom';
 
 
@@ -40,10 +36,9 @@ class OXRouter {
   }
 
   currentParams(options = {}) {
-    const params = __guard__(this.currentMatch( (options.window || window).location.pathname), x => x.params) || {};
-    return mapValues(params, function(value) { if (value === 'undefined') { return undefined; } else { return value; }  });
+    const params = get(this.currentMatch((options.window || window).location.pathname), 'params', {});
+    return mapValues(params, (value) => value === 'undefined' ? undefined : value);
   }
-
 
   currentState(options = {}) {
     return {
@@ -53,7 +48,7 @@ class OXRouter {
   }
 
   makePathname(name, params, options = {}) {
-    const route = __guardMethod__(this.getRoutesMap()[name], 'toPath', o => o.toPath(params));
+    const route = invoke(this.getRoutesMap()[name], 'toPath', params);
 
     if (!isEmpty(options.query)) {
       return `${route}?${qs.stringify(options.query)}`;
@@ -102,7 +97,7 @@ var traverseRoutes = function(routes, transformRoute) {
   const modifiedRoutes = compact(map(routes, function(route) {
     if (route.routes != null) {
       route = transformRoute(route);
-      if (!route) { return; }
+      if (!route) { return null; }
 
       const nestedRoutes = traverseRoutes(route.routes, transformRoute);
       if (!isEmpty(nestedRoutes)) { route.routes = nestedRoutes; }
@@ -120,7 +115,7 @@ var mapRoutes = function(routes, paths = {}, parentPath = {}) {
 
   forEach(routes, function(route) {
     paths[route.name] = buildPathMemoed(route, parentPath);
-    if (route.routes != null) { return mapRoutes(route.routes, paths, paths[route.name]); }
+    if (route.routes != null) { mapRoutes(route.routes, paths, paths[route.name]); }
   });
 
   return paths;
@@ -168,14 +163,3 @@ const findRoutePath = function(pathname, mappedPaths) {
 var findRoutePathMemoed = memoize(findRoutePath);
 
 export default OXRouter;
-
-function __guard__(value, transform) {
-  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
-}
-function __guardMethod__(obj, methodName, transform) {
-  if (typeof obj !== 'undefined' && obj !== null && typeof obj[methodName] === 'function') {
-    return transform(obj, methodName);
-  } else {
-    return undefined;
-  }
-}

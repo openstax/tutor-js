@@ -22,4 +22,4 @@ class CoursePair extends BaseModel {
   onPaired({ data: { success } }) {
     this.success = success;
   }
-};
+}

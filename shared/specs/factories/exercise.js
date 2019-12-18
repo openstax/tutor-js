@@ -1,4 +1,3 @@
-const { range } = require('lodash');
 const {
   Factory,
   fake,

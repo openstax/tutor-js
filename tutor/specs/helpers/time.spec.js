@@ -1,6 +1,4 @@
-import ld from 'underscore';
 import moment from 'moment-timezone';
-
 import TimeHelper from '../../src/helpers/time';
 import Courses from '../../src/models/courses-map';
 

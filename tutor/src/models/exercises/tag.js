@@ -49,4 +49,4 @@ class ExerciseTag extends BaseModel {
     return tag;
   }
 
-};
+}

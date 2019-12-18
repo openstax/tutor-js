@@ -1,16 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { makeContactURL } from '../../helpers/contact';
 import Warning from '../warning-modal';
 
 export default
 class ErrorBoundary extends React.Component {
 
-  state = { hasError: false };
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    app: PropTypes.object,
+  }
 
   static getDerivedStateFromError(error) {
     // Update state so the next render will show the fallback UI.
     return { hasError: error };
   }
+
+  state = { hasError: false };
 
   componentDidCatch(error, info) {
     // You can also log the error to an error reporting service
@@ -19,7 +25,7 @@ class ErrorBoundary extends React.Component {
 
   render() {
     if (this.state.hasError) {
-      const error = this.state.hasError.toString()
+      const error = this.state.hasError.toString();
       const mailTo = makeContactURL({
         config: { data: { error } },
       });

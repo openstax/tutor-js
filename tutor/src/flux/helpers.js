@@ -1,3 +1,4 @@
+/* eslint-disable */
 import _ from 'underscore';
 import flux from 'flux-react';
 

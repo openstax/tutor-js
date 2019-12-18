@@ -2,31 +2,21 @@
 
 set -e
 
-if [ "$TRAVIS" == "true" ]; then
-    echo "running under travis, fetching master"
-    TARGET_BRANCH=$TRAVIS_BRANCH
-    git remote set-branches --add origin $TARGET_BRANCH
-    git fetch
-else
-    TARGET_BRANCH=master
+if [ $# -ne 0 ]; then
+  if [ "$1" == "staged" ]; then
+    files=`git status --short */{src,specs} | egrep '^[^D|^R].*(jsx?)$' | awk '{ print $2 }'`
+    if [ ! -z "$files" ]; then
+      $(npm bin)/eslint $2 $files
+    fi
+  else
+    $(npm bin)/eslint --fix $1/{src,specs}
+  fi
+  exit $?
 fi
 
-if [ $# -eq 0 ]; then
-    $(npm bin)/eslint {tutor,shared,exercises}
-    exit $?
+if [[ ! -z "${OX_PROJECT}" ]]; then
+   $(npm bin)/eslint --fix $OX_PROJECT/{src,specs}
+   exit $?
 fi
 
-if [ "$1" == "branch" ]; then
-    head=$(git merge-base HEAD $TARGET_BRANCH)
-    cmd="git diff --name-status $head $BRANCH */{src,specs}"
-elif [ "$1" == "staged" ]; then
-    cmd="git status --short */{src,specs}"
-else
-    echo "unknown command: switch $1"
-    exit 1
-fi
-
-files=`eval $cmd | egrep '^[^D|^R].*(jsx?)$' | awk '{ print $2 }'`
-if [ ! -z "$files" ]; then
-    $(npm bin)/eslint $2 $files
-fi
+$(npm bin)/eslint --fix {tutor,shared,exercises}/{src,specs}
