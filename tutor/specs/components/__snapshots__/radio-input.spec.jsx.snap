@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RadioInput matches snapshot 1`] = `
+.c0 {
+  position: relative;
+}
+
+.c1 {
+  opacity: 0;
+}
+
+.c1 + label {
+  margin-left: 1.4rem;
+}
+
+.c1 + label::before {
+  border: 0.1rem solid #5E6062;
+  content: "";
+  left: 0;
+  top: 0;
+  position: absolute;
+  height: 1.6rem;
+  width: 1.6rem;
+  border-radius: 50%;
+}
+
+.c1 + label::after {
+  content: "";
+  opacity: 0;
+  border: 0.5rem solid #f47641;
+  border-radius: 50%;
+  position: absolute;
+  left: 0.3rem;
+  top: 0.3rem;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.c1:checked + label::before {
+  border-color: #f47641;
+}
+
+.c1:checked + label::after {
+  opacity: 1;
+}
+
+.c1:focus + label::before {
+  border-color: #0dc0dc;
+  box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
+}
+
+<span
+  className="c0"
+>
+  <input
+    className="c1"
+    label="Input 1"
+    name="input_1"
+    type="radio"
+  />
+  <label>
+    Input 1
+  </label>
+</span>
+`;
