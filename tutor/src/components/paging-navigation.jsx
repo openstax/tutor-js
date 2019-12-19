@@ -8,6 +8,10 @@ import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import ScrollTo from '../helpers/scroll-to';
 
+// strip html tags out of page title so it's suitable for
+// setting on the document
+const cleanTitle = (title) => title.replace(/<[^>]*>/g, '');
+
 export default
 @observer
 class PagingNavigation extends React.Component {
@@ -51,7 +55,9 @@ class PagingNavigation extends React.Component {
 
   UNSAFE_componentWillMount() {
     if (this.props.enableKeys) { this.enableKeys(); }
-    if (this.props.titles.current) { this.props.documentImpl.title = this.props.titles.current; }
+    if (this.props.titles.current) {
+      this.props.documentImpl.title = cleanTitle(this.props.titles.current);
+    }
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -61,7 +67,7 @@ class PagingNavigation extends React.Component {
       this.disableKeys();
     }
     if (nextProps.titles.current) {
-      this.props.documentImpl.title = nextProps.titles.current;
+      this.props.documentImpl.title = cleanTitle(nextProps.titles.current);
     } else {
       this.setDefaultTitle();
     }

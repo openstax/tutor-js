@@ -7,6 +7,8 @@ import SummaryPopup from './summary-popup';
 import { Notes } from '../../models/notes';
 import Page from '../../models/reference-book/page';
 import LoadingAnimation from 'shared/components/loading-animation';
+import BookPartTitle from '../book-part-title';
+
 
 const NotesForPage = observer(({
   onDelete, notes, page, selectedPages,
@@ -21,7 +23,7 @@ const NotesForPage = observer(({
     <div className="section">
       <h2 className="section-title">
         <ChapterSection chapterSection={page.chapter_section} />
-        {page.title }
+        <BookPartTitle title={page.title} />
       </h2>
       {pageNotes.byPagePosition.map((note) => (
         <NoteCard
@@ -80,6 +82,11 @@ class NoteSummaryPage extends React.Component {
 
   @action.bound onDelete(note) {
     this.props.onDelete(note);
+    if (note.page.isEmpty) {
+      this.selectedPages.remove(
+        this.selectedPages.find(s => s.uuid == note.page.uuid)
+      );
+    }
     this.prepareFocus();
   }
 

@@ -28,15 +28,4 @@ describe('Reading Progress Component', () => {
     expect(<Progress {...props}><p>hi</p></Progress>).toMatchSnapshot();
   });
 
-  it('pages through steps', () => {
-    const pr = mount(<Progress {...props}><p>hi</p></Progress>);
-    expect(pr).toHaveRendered('a.paging-control.prev[disabled=true]');
-    expect(pr).toHaveRendered('a.paging-control.next[disabled=false]');
-    pr.find('a.paging-control.next').simulate('click');
-    pr.find('a.paging-control.next').simulate('click');
-    expect(pr).toHaveRendered('a.paging-control.next[disabled=true]');
-    expect(pr).toHaveRendered('a.paging-control.prev[disabled=false]');
-    pr.unmount();
-  });
-
 });

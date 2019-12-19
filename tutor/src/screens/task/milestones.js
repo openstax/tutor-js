@@ -53,6 +53,7 @@ class Milestone extends React.Component {
   }
 }
 
+@observer
 class Milestones extends React.Component {
 
   static propTypes = {

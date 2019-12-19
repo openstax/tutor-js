@@ -1,10 +1,9 @@
-import { React, PropTypes, styled, observer } from 'vendor';
+import { React, PropTypes, styled, observer, cn } from 'vendor';
 import ProgressCard from './progress';
 import UX from './ux';
 import { TaskStep } from './step';
-import ObscuredPage from '../../components/obscured-page';
 import ReadingNavbar from './reading-navbar';
-
+import PagingNavigation from '../../components/paging-navigation';
 
 const StyledReading = styled.div`
 
@@ -23,16 +22,23 @@ class ReadingTask extends React.Component {
 
     return (
       <StyledReading className="reading-task">
-        <ProgressCard ux={ux}>
-          <ReadingNavbar ux={ux} />
-          <ObscuredPage>
-            <TaskStep
-              ux={ux}
-              step={ux.currentGroupedStep}
-              windowImpl={windowImpl}
-            />
-          </ObscuredPage>
-        </ProgressCard>
+        <ReadingNavbar ux={ux} />
+        <PagingNavigation
+          className={cn('progress-panel')}
+          enableKeys={true}
+          isForwardEnabled={ux.canGoForward}
+          isBackwardEnabled={ux.canGoBackward}
+          onForwardNavigation={ux.goForward}
+          onBackwardNavigation={ux.goBackward}
+          titles={ux.relatedStepTitles}
+        >
+          <ProgressCard ux={ux} />
+          <TaskStep
+            ux={ux}
+            step={ux.currentGroupedStep}
+            windowImpl={windowImpl}
+          />
+        </PagingNavigation>
       </StyledReading>
     );
   }

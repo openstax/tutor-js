@@ -16,6 +16,11 @@ class Clause extends BaseModel {
     return `Search by ${this.filter}`;
   }
 
+  @action.bound setFilter(filter) {
+    this.filter = filter;
+    this.search.currentPage = 1;
+  }
+
   @action.bound onKey(e) {
     if(e.keyCode == 13 && e.shiftKey == false) {
       this.search.perform();
@@ -55,7 +60,10 @@ class Search extends BaseModel {
   }
 
   @action.bound setPerPageSize(size) {
+    const firstVisibleExercise = (this.perPageSize * (this.currentPage - 1)) + 1;
     this.perPageSize = Number(size);
+    // keep cursor showing roughly the same exercise
+    this.currentPage = Math.floor(firstVisibleExercise / this.perPageSize) + 1;
     this.perform();
   }
 
