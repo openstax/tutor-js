@@ -1,5 +1,6 @@
 import { React, PropTypes, action, observer, styled } from 'vendor';
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Modal, Alert } from 'react-bootstrap';
+import { isEmpty, map } from 'lodash';
 import { GradingTemplate } from '../../models/grading/templates';
 import { colors } from '../../theme';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -30,16 +31,42 @@ const Label = styled.span`
   font-weight: bold;
 `;
 
-const TextInput = styled(Field).attrs({
+const StyledTextInput = styled(Field).attrs({
   type: 'text',
 })`
 
 
 `;
+const TextInputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const TextInputError = styled.div`
+ color: red;
+`;
+
+const TextInput = (props) => (
+  <TextInputWrapper>
+    <StyledTextInput {...props} />
+    <ErrorMessage name={props.name} render={msg => <TextInputError>{msg}</TextInputError>} />
+  </TextInputWrapper>
+);
+TextInput.propTypes = {
+  name: PropTypes.string.isRequired,
+};
 
 const Line = styled.div`
   border-top: 1px solid ${colors.line};
 `;
+
+const Error = styled(Alert).attrs({
+  variant: 'danger',
+})`
+
+`;
+
+const isRequred = (value) => isEmpty(value) && 'Cannot be blank';
 
 @observer
 class TemplateForm extends React.Component {
@@ -65,17 +92,16 @@ class TemplateForm extends React.Component {
           <Label>Template name</Label>
           <TextInput
             name="name"
+            validate={isRequred}
             placeholder="Pre-class reading, Reading-Thursday, etc."
           />
         </SplitRow>
         <Line />
         {this.props.children}
-        <ErrorMessage name="common" />
+        {map(form.errors.common, (value, key) =>
+          <Error key={key}>{value}</Error>)}
         <Controls>
-          <Button
-            type="submit"
-
-          >
+          <Button type="submit">
             Save
           </Button>
           <Button variant="default" onClick={this.props.onComplete}>
@@ -100,7 +126,6 @@ class TemplateForm extends React.Component {
         </Modal.Header>
         <Modal.Body>
           <Formik
-
             initialValues={template}
             validate={GradingTemplate.validate}
             onSubmit={this.onSubmit}

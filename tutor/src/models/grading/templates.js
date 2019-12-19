@@ -2,6 +2,7 @@ import Map from 'shared/model/map';
 import {
   BaseModel, identifiedBy, action, field, identifier, computed,
 } from 'shared/model';
+import { set } from 'lodash';
 
 @identifiedBy('grading/template')
 class GradingTemplate extends BaseModel {
@@ -12,7 +13,7 @@ class GradingTemplate extends BaseModel {
     const errors = {};
     if (tmpl.isReading) {
       if (tmpl.completion_weight + tmpl.correctness_weight != 100) {
-        errors.common = 'Weights must add to 100%';
+        set(errors, 'common.weights', 'Weights must add to 100%');
       }
     }
     return errors;
@@ -35,10 +36,17 @@ class GradingTemplate extends BaseModel {
   constructor(attrs, map) {
     super(attrs);
     this.map = map;
+    ['completion_weight', 'correctness_weight'].forEach(k => {
+      if (this[k] < 1) { this[k] = this[k] * 100; }
+    });
   }
 
   @computed get isReading() {
-    return 'reading' === this.type;
+    return 'reading' === this.task_plan_type;
+  }
+
+  @computed get isHomework() {
+    return 'homework' === this.task_plan_type;
   }
 
   // called from api
@@ -83,19 +91,11 @@ class GradingTemplates extends Map {
 
   // called by API
   fetch() {
-    // TODO remove once api is setup
-    this.onLoaded({
-      data: [
-        { id: 1, name: 'Reading',  task_plan_type: 'reading' },
-        { id: 2, name: 'Homework', task_plan_type: 'homework' },
-      ],
-    });
-
     return { courseId: this.course.id };
   }
 
   @action onLoaded({ data }) {
-    this.mergeModelData(Object.values(data));
+    this.mergeModelData(data.items);
   }
 
 
