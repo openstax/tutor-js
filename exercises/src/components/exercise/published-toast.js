@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { action, observable } from 'mobx';
 import { Button } from 'react-bootstrap';
 
 @observer

@@ -30,4 +30,4 @@ class CourseRoster extends BaseModel {
     return { courseId: this.course.id };
   }
 
-};
+}

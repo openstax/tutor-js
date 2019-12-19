@@ -1,10 +1,5 @@
 import loglevel from 'loglevel';
-
-import defaults from 'lodash/defaults';
-import last from 'lodash/last';
-import isObject from 'lodash/isObject';
-import debounce from 'lodash/debounce';
-
+import { defaults, last, isObject, debounce } from 'lodash';
 import Networking from '../model/networking';
 import URLs from '../model/urls';
 
@@ -36,9 +31,9 @@ const transmitPending = debounce(function() {
     url: URLs.construct(LOG_TO, 'log', 'entry'),
     data: { entries: PENDING },
   });
-  return PENDING = [];
+  PENDING = [];
 }
-  , 300);
+, 300);
 
 const loggerFactory = level =>
   function(msg, ...args) {

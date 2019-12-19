@@ -48,4 +48,4 @@ class SelectPeriod extends React.Component {
       </div>
     );
   }
-};
+}

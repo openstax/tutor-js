@@ -1,6 +1,5 @@
 const {
-  Factory, sequence, uuid, reference,
-  fake, TITLES, APPEARANCE_CODES,
+  Factory, sequence, fake, APPEARANCE_CODES,
 } = require('./helpers');
 
 Factory.define('ResearchSurvey')

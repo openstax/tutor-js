@@ -13,6 +13,8 @@ const SmartOverflow = createReactClass({
   propTypes: {
     heightBuffer: PropTypes.number,
     marginBottom: PropTypes.number,
+    className: PropTypes.string,
+    children: PropTypes.node,
   },
 
   getInitialState() {
@@ -33,9 +35,8 @@ const SmartOverflow = createReactClass({
   mixins: [ResizeListenerMixin],
 
   getOffset() {
-    let topOffset;
     const componentNode = ReactDOM.findDOMNode(this);
-    return topOffset = componentNode.getBoundingClientRect().top;
+    return componentNode.getBoundingClientRect().top;
   },
 
   getTriggerHeight() {
@@ -53,7 +54,7 @@ const SmartOverflow = createReactClass({
 
       // pass in trigger height as well for initial styles
       const sizes = _.defaults({}, this.state.sizesInitial, triggerHeightState);
-      return this._resizeListener(sizes);
+      this._resizeListener(sizes);
     }
   },
 

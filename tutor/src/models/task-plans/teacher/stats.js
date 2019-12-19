@@ -137,6 +137,6 @@ class TaskPlanStats extends BaseModel {
   fetch() { return { id: this.taskPlan.id }; }
   fetchReview() { return { id: this.taskPlan.id }; }
 
-};
+}
 
 export { QuestionStats, Page, Stats };

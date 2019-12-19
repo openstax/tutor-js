@@ -77,4 +77,4 @@ class TaskPlanPublish extends Job {
   }
 
 
-};
+}

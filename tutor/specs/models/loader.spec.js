@@ -1,5 +1,4 @@
 import Loader from '../../src/models/loader';
-import { delay } from 'lodash';
 import { deferred } from '../helpers';
 
 jest.useFakeTimers();

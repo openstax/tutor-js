@@ -51,7 +51,6 @@ describe('Notifications', function() {
 
   it('adds missing student id when course role is set', function() {
     const changeListener = jest.fn();
-    const notice = { message: 'hello world', icon: 'globe' };
     Notifications.once('change', changeListener);
     const course = { id: '1', ends_at: moment().add(1, 'day'), students: [{ role_id: '111' }] };
     const role = { id: '111', type: 'student', joined_at: '2016-01-30T01:15:43.807Z', latest_enrollment_at: '2016-01-30T01:15:43.807Z' };
@@ -80,7 +79,6 @@ describe('Notifications', function() {
 
   it('adds course has ended when course role is set', function() {
     const changeListener = jest.fn();
-    const notice = { message: 'hello world', icon: 'globe' };
     Notifications.once('change', changeListener);
     const course = { id: '1', students: [{ role_id: '111' }], ends_at: '2011-11-11T01:15:43.807Z' };
     Notifications.setCourseRole(course, { id: '111' });

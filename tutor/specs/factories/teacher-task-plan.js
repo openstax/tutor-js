@@ -1,7 +1,7 @@
 const moment = require('moment');
 const {
   Factory, sequence, uuid, reference,
-  fake, TITLES, APPEARANCE_CODES, PLAN_TYPES,
+  fake, APPEARANCE_CODES, PLAN_TYPES,
 } = require('./helpers');
 
 Factory.define('TeacherTaskPlanTasking')

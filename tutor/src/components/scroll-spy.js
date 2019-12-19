@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
-import _ from 'underscore';
+import { map, debounce, sortBy } from 'lodash';
 
 import ScrollListenerMixin from 'shared/mixins/ScrollListener';
 
@@ -27,13 +27,15 @@ const ScrollSpy = createReactClass({
 
   propTypes: {
     dataSelector: PropTypes.string.isRequired,
+    windowImpl: PropTypes.object,
+    children: PropTypes.node,
   },
 
   UNSAFE_componentWillMount() {
     return this.calculateScroll();
   },
 
-  onPageScroll: _.debounce( function() {
+  onPageScroll: debounce( function() {
     return this.calculateScroll();
   }
   , 100),
@@ -60,7 +62,7 @@ const ScrollSpy = createReactClass({
     }
 
     return this.setState({
-      onScreen: _.pluck( _.sortBy(onScreen, '1').reverse(), '0' ),
+      onScreen: map( sortBy(onScreen, '1').reverse(), '0' ),
     });
   },
 

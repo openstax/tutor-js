@@ -55,7 +55,7 @@ const Notifications = {
       'accounts', URLs.construct('accounts_api', 'user')
     ); }
 
-    if (URLs.get('tutor_api')) { return this._startPolling(
+    if (URLs.get('tutor_api')) { this._startPolling(
       'tutor', URLs.construct('tutor_api', 'updates')
     ); }
   },
@@ -126,9 +126,9 @@ const Notifications = {
     }
     if (moment(course.ends_at).isBefore(moment(), 'day')) {
       id = this.POLLING_TYPES.COURSE_HAS_ENDED;
-      return this.display({ id, type: id, course, role });
+      this.display({ id, type: id, course, role });
     } else {
-      return this.removeType(this.POLLING_TYPES.COURSE_HAS_ENDED);
+      this.removeType(this.POLLING_TYPES.COURSE_HAS_ENDED);
     }
   },
 };

@@ -21,4 +21,4 @@ class Ecosystem extends BaseModel {
 
   @lazyGetter referenceBook = new ReferenceBook({ id: this.id });
 
-};
+}

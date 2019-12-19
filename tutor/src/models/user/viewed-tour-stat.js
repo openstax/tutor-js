@@ -9,4 +9,4 @@ class ViewedTourStat extends BaseModel {
   @identifier id;
   @field view_count = 1;
 
-};
+}

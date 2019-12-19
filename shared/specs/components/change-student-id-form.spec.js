@@ -10,7 +10,7 @@ describe('ChangeStudentIdForm Component', function() {
       label: 'a test label',
       saveButtonLabel: 'this is save btn',
       title: 'this is title',
-    }
+    };
   });
 
   it('renders values from props', () => {

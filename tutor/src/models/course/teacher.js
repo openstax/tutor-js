@@ -31,4 +31,4 @@ class CourseTeacher extends BaseModel {
       User.removeCourse(this.roster.course);
     }
   }
-};
+}

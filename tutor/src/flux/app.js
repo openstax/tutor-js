@@ -1,8 +1,6 @@
 // Store for api requests and responses
-import _ from 'underscore';
-
+// NS: not sure if this is used
 import { makeSimpleStore } from './helpers';
-
 
 const AppConfig = {
   resetServerErrors() {
@@ -20,12 +18,10 @@ const AppConfig = {
 
     errorNavigation() {
       if (!this._currentServerError) { return {}; }
-      const { status, request } = this._currentServerError;
+      const { status } = this._currentServerError;
       if (status === 403) {
         return { href: '/' };
       } else {
-        const isGET404 = (status === 404) && (request.method === 'GET');
-        const isInRange = 400 <= status && status < 600;
         return { shouldReload: false };
       }
     },

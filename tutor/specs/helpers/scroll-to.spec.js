@@ -1,4 +1,3 @@
-import { JSDOM } from 'jsdom';
 import { deferred } from './index';
 import Scroller from '../../src/helpers/scroll-to';
 
@@ -24,7 +23,7 @@ describe('DOM Helpers', function() {
   let root;
   beforeEach(function() {
     document.body.innerHTML = HTML;
-    root = document.body.querySelector('#ox-react-root-container')
+    root = document.body.querySelector('#ox-react-root-container');
     scroller = new Scroller({ windowImpl: window });
     window.scroll = jest.fn();
   });

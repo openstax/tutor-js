@@ -1,25 +1,10 @@
 import hash from 'object-hash';
 import moment from 'moment';
-
-import partial from 'lodash/partial';
-import every from 'lodash/every';
-import pick from 'lodash/pick';
-import trim from 'lodash/trim';
-
-import omitBy from 'lodash/omitBy';
-import merge from 'lodash/merge';
-import some from 'lodash/some';
-import has from 'lodash/has';
-import flow from 'lodash/flow';
-import last from 'lodash/last';
-import size from 'lodash/size';
-import keys from 'lodash/keys';
-import memoize from 'lodash/memoize';
-import forEach from 'lodash/forEach';
-import isEmpty from 'lodash/isEmpty';
-import cloneDeep from 'lodash/cloneDeep';
-import isString from 'lodash/isString';
-import isUndefined from 'lodash/isUndefined';
+import {
+  partial, every, pick, trim, omitBy, merge, some, has,
+  flow, last, size, keys, memoize, forEach, isEmpty,
+  cloneDeep, isString, isUndefined,
+} from 'lodash';
 
 const validateOptions = (...requiredProperties) =>
   options => every(requiredProperties, partial(has, options))
@@ -167,7 +152,7 @@ const simplifyRequestConfig = function(requestConfig) {
   if (isString(simpleRequest.data)) {
     try {
       simpleRequest.data = JSON.parse(simpleRequest.data);
-    } catch (e) {}
+    } catch (e) {} // eslint-disable-line no-empty
   }
 
   if (isEmpty(simpleRequest.data)) {

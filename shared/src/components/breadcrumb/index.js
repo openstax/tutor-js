@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { map, omit, partial } from 'lodash';
 import classnames from 'classnames';
-import propHelpers from '../../helpers/props'
 
 class Breadcrumb extends React.Component {
   static defaultProps = {
@@ -13,12 +12,12 @@ class Breadcrumb extends React.Component {
   static displayName = 'Breadcrumb';
 
   static propTypes = {
+    className: PropTypes.string,
     crumb: PropTypes.object.isRequired,
-
+    children: PropTypes.node,
     stepIndex: PropTypes.oneOfType([
       PropTypes.number, PropTypes.string,
     ]).isRequired,
-
     goToStep: PropTypes.func.isRequired,
     step: PropTypes.object.isRequired,
     canReview: PropTypes.bool,

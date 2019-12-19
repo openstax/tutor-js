@@ -1,8 +1,9 @@
 import Snapshot from 'react-test-renderer';
-import { filter, map } from 'lodash';
+import { filter } from 'lodash';
 import ExercisePreview from '../../../src/components/exercise-preview';
 import Factories from '../../factories';
 
+// eslint-disable-next-line react/prop-types
 jest.mock('../../../src/components/html', () => ({ html }) =>
   html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
 );
@@ -27,7 +28,7 @@ describe('Exercise Preview Component', function() {
   it('sets the className when displaying feedback', () => {
     props.displayFeedback = true;
     const preview = mount(<ExercisePreview {...props} />);
-//    console.log(preview.debug())
+    //    console.log(preview.debug())
     expect(preview).toHaveRendered('.card.openstax-exercise-preview.is-displaying-feedback');
     expect(Snapshot.create(<ExercisePreview {...props} />).toJSON()).toMatchSnapshot();
     preview.unmount();

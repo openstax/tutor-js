@@ -8,7 +8,6 @@ import TutorRouter from '../../src/helpers/router';
 import TimeMock from './time-mock';
 import Factory, { FactoryBot } from '../factories';
 import Theme from '../../src/theme';
-import Actions from './actions';
 import { R, C, wrapInDnDTestContext } from './context';
 
 export function getPortalNode(modal) {
@@ -27,6 +26,6 @@ const deferred = (fn, timeout = 3) => delay(timeout).then(fn);
 
 export {
   Router, TimeMock, TestRouter, TutorRouter, delay, moment,
-  Factory, FactoryBot, Actions, deferred, C, R, ReactTestUtils,
+  Factory, FactoryBot, deferred, C, R, ReactTestUtils,
   wrapInDnDTestContext, Theme, PropTypes,
 };

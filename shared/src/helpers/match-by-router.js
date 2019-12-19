@@ -1,7 +1,6 @@
 import React from 'react';
-import defaults from 'lodash/defaults';
-import omit from 'lodash/omit';
-import extend from 'lodash/extend';
+import PropTypes from 'prop-types';
+import { omit, extend } from 'lodash';
 import { Switch, Route } from 'react-router-dom';
 
 const matchProps = function(Router, props, parent) {
@@ -40,6 +39,9 @@ const matchByRouter = function(Router, InvalidPage, displayName = 'RouterMatch')
     );
   };
   match.displayName = displayName;
+  match.propTypes = {
+    routes: PropTypes.array,
+  };
   return match;
 };
 

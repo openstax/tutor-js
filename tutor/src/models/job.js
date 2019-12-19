@@ -87,4 +87,4 @@ class Job extends BaseModel {
       this.pollingId = setTimeout(this.checkForUpdate, this.interval * 1000);
     }
   }
-};
+}

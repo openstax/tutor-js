@@ -23,14 +23,15 @@ class Statistics extends React.Component {
     const count = this.props.section.student_count;
     const total = this.props.section.questions_answered_count;
     switch (role) {
-    case 'teacher':
-      return `${pluralize(' students', count, true)} \
+      case 'teacher':
+        return `${pluralize(' students', count, true)} \
 ${pluralize(' has', count)} worked ${pluralize(' problems', total, true)}`;
-    case 'student':
-      return `${pluralize(' problems', total, true)} worked in this ${this.props.displaying}`;
-    case 'teacher-student':
-      return `${pluralize(' problems', total, true)} worked`;
+      case 'student':
+        return `${pluralize(' problems', total, true)} worked in this ${this.props.displaying}`;
+      case 'teacher-student':
+        return `${pluralize(' problems', total, true)} worked`;
     }
+    return '';
   };
 
   render() {

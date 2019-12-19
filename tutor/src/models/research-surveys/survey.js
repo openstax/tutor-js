@@ -27,4 +27,4 @@ class ResearchSurvey extends BaseModel {
     return { id: this.id, data: pick(this, 'response') };
   }
 
-};
+}

@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, identifier, field, hasMany, observable, computed,
+  BaseModel, identifiedBy, observable, computed,
 } from '../../model';
 
 
@@ -30,4 +30,4 @@ class ExerciseFormat extends BaseModel {
     this._format = v;
   }
 
-};
+}
