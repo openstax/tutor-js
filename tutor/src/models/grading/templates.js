@@ -4,6 +4,12 @@ import {
 } from 'shared/model';
 import { set } from 'lodash';
 
+const DECIMAL_CONVERSION_FIELDS = [
+  'late_work_per_day_penalty',
+  'completion_weight',
+  'correctness_weight',
+];
+
 @identifiedBy('grading/template')
 class GradingTemplate extends BaseModel {
 
@@ -27,7 +33,7 @@ class GradingTemplate extends BaseModel {
   @field auto_grading_feedback_on = 'answer';
   @field manual_grading_feedback_on = 'grade';
   @field late_work_immediate_penalty = false;
-  @field late_work_per_day_penalty = true;
+  @field late_work_per_day_penalty = 10;
   @field default_open_time = '00:01';
   @field default_due_time = '07:00';
   @field default_due_date_offset_days = 1;
@@ -36,9 +42,13 @@ class GradingTemplate extends BaseModel {
   constructor(attrs, map) {
     super(attrs);
     this.map = map;
-    ['completion_weight', 'correctness_weight'].forEach(k => {
-      if (this[k] < 1) { this[k] = this[k] * 100; }
-    });
+    this.decimalsToWhole();
+  }
+
+  @action decimalsToWhole() {
+    DECIMAL_CONVERSION_FIELDS.forEach(
+      f => (this[f] < 1) && (this[f] = this[f] * 100),
+    );
   }
 
   @computed get isReading() {
@@ -49,21 +59,29 @@ class GradingTemplate extends BaseModel {
     return 'homework' === this.task_plan_type;
   }
 
+  get dataForSave() {
+    const data = this.serialize();
+    DECIMAL_CONVERSION_FIELDS.forEach(
+      f => (data[f] = data[f] / 100).toFixed(2)
+    );
+    return data;
+  }
+
   // called from api
   save() {
     return {
       id: this.id,
       courseId: this.map.course.id,
-      data: {
-        ...this.serialize(),
-        completion_weight: this.completion_weight / 100,
-        correctness_weight: this.correctness_weight / 100,
-      },
+      data: this.dataForSave,
     };
   }
 
-  onSaved() {
-
+  @action onSaved({ data }) {
+    this.update(data);
+    this.decimalsToWhole();
+    if (!this.map.get(this.id)) {
+      this.map.set(this.id, this);
+    }
   }
 
   remove() {
