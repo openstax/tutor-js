@@ -42,10 +42,26 @@
     @include tutor-shadow(subtle);
     display: flex;
     align-items: center;
+    border-radius: 2px;
     > * {
       background-color: $tutor-gray;
     }
+    .highlight {
+      border-radius: 2px 0 0 2px;
+
+      &::after {
+        content: " ";
+        border-right: 1px solid #404345;
+        position: absolute;
+        top: 8px;
+        bottom: 8px;
+      }
+    }
+    .annotate {
+      border-radius: 0 2px 2px 0;
+    }
     .highlight, .annotate {
+      padding: 0;
       svg {
         width: 48px;
         height: 48px;
