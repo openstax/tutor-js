@@ -57,11 +57,7 @@ exports[`Notes Summary Page matches snapshot 1`] = `
               </button>
             </RefHolder>
             <Overlay onClick={[Function]} placement=\\"top\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}}>
-              <ForwardRef(withContainer(Overlay)) onClick={[Function]} placement=\\"top\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}}>
-                <WaitForContainer container={[undefined]}>
-                  <Overlay onClick={[Function]} placement=\\"top\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}} container={{...}} />
-                </WaitForContainer>
-              </ForwardRef(withContainer(Overlay))>
+              <Overlay onClick={[Function]} placement=\\"top\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}} containerPadding={5} />
             </Overlay>
           </OverlayTrigger>
         </SuretyGuard>

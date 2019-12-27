@@ -229,6 +229,16 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                     <div
                       aria-labelledby={null}
                       className=" hide dropdown-menu show"
+                      style={
+                        Object {
+                          "left": "0",
+                          "opacity": "0",
+                          "pointerEvents": "none",
+                          "position": "absolute",
+                          "top": "0",
+                        }
+                      }
+                      x-placement="bottom-start"
                     >
                       <a
                         className="-help-link dropdown-item"
