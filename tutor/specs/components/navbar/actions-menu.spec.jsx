@@ -21,13 +21,13 @@ const testWithRole = is_teacher =>
 
     it('should have link to browse the book', () => {
       const menu = mount(<R><UserActionsMenu  {...props} /></R>);
-      menu.find('ReactOverlaysDropdownToggle').simulate('click');
+      menu.find('DropdownToggle').simulate('click');
       expect(menu).toHaveRendered('BrowseBookDropdownItem');
     });
 
     it('should have performance forecast menu', () => {
       const menu = mount(<R><UserActionsMenu  {...props} /></R>);
-      menu.find('ReactOverlaysDropdownToggle').simulate('click');
+      menu.find('DropdownToggle').simulate('click');
       expect(menu).toHaveRendered('[name="viewPerformanceGuide"]');
     });
   };

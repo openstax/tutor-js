@@ -97,11 +97,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                                                                   </Button>
                                                                 </RefHolder>
                                                                 <Overlay placement=\\"bottom\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}}>
-                                                                  <ForwardRef(withContainer(Overlay)) placement=\\"bottom\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}}>
-                                                                    <WaitForContainer container={[undefined]}>
-                                                                      <Overlay placement=\\"bottom\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}} container={{...}} />
-                                                                    </WaitForContainer>
-                                                                  </ForwardRef(withContainer(Overlay))>
+                                                                  <Overlay placement=\\"bottom\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}} containerPadding={5} />
                                                                 </Overlay>
                                                               </OverlayTrigger>
                                                             </SelectionsTooltip>
@@ -208,11 +204,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                                                                               </Icon>
                                                                             </RefHolder>
                                                                             <Overlay onClick={[Function]} placement=\\"left\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}}>
-                                                                              <ForwardRef(withContainer(Overlay)) onClick={[Function]} placement=\\"left\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}}>
-                                                                                <WaitForContainer container={[undefined]}>
-                                                                                  <Overlay onClick={[Function]} placement=\\"left\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}} container={{...}} />
-                                                                                </WaitForContainer>
-                                                                              </ForwardRef(withContainer(Overlay))>
+                                                                              <Overlay onClick={[Function]} placement=\\"left\\" rootClose={true} defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}} containerPadding={5} />
                                                                             </Overlay>
                                                                           </OverlayTrigger>
                                                                         </SuretyGuard>
