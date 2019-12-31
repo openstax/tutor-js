@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+
+NPM=$(npm bin)
+
+cmd=${2:-run}
+args=${@:3}
+url=http://localhost:8110
+
+echo $cmd
+echo $args
+
+echo waiting on $url
+$NPM/wait-on $url
+echo available
+
+$NPM/cypress $cmd --config-file configs/test/cypress-$1.json $args

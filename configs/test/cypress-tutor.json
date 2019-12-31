@@ -1,0 +1,7 @@
+{
+  "baseUrl": "http://localhost:8110",
+  "integrationFolder": "tutor/specs/integration",
+  "screenshotsFolder": "screenshots/tutor",
+  "videosFolder": "screenshots/tutor",
+  "video": false
+}

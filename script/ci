@@ -1,4 +1,5 @@
 #!/bin/bash
+
 cd "$(dirname "$0")/.." || exit 111
 source ./script/bootstrap || exit 111
 
@@ -9,5 +10,4 @@ fi
 
 ./bin/lint || exit 112
 
-# shellcheck disable=SC2068
-try yarn run ci -- $@
+./bin/test $OX_PROJECT

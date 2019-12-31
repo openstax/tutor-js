@@ -28,6 +28,7 @@ server.use(middlewares);
 const HANDLERS = {
   bootstrap: require('./backend/bootstrap'),
   offerings: require('./backend/offerings'),
+  'courses/:courseId/grading_templates': require('./backend/grading-templates'),
   'courses/:courseId/dashboard': require('./backend/dashboard'),
   'courses/:courseId/plans*': require('./backend/previous-plans'),
   'courses/:courseId/guide': require('./backend/performance-forecast'),

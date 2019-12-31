@@ -4,6 +4,7 @@ language: node_js
 git:
   lfs_skip_smudge: true
 env:
+  - OX_PROJECT=integration
   - OX_PROJECT=tutor
   - OX_PROJECT=exercises
   - OX_PROJECT=shared
