@@ -67,6 +67,7 @@ class CoursePreview extends React.Component {
       <div className="my-courses-item-wrapper preview">
         <div
           {...this.ux.dataProps}
+          data-test-id="course-card"
           data-is-teacher={true}
           data-course-id={course.id}
           data-course-course-type={'tutor'}
@@ -116,6 +117,7 @@ class Course extends React.Component {
       <div className="my-courses-item-wrapper">
         <div
           {...this.ux.dataProps}
+          data-test-id="course-card"
           data-is-teacher={this.ux.course.currentRole.isTeacher}
           data-course-id={this.ux.courseId}
           data-course-course-type={this.ux.courseType}

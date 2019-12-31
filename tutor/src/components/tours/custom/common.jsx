@@ -11,7 +11,7 @@ const Footer = styled.div`
 
 function ValueProp({ className, children, ride }) {
   return (
-    <div className={cn('value-prop', className)}>
+    <div data-test-id="value-prop" className={cn('value-prop', className)}>
       {children}
       <Footer>
         <Primary onClick={ride.onNextStep}>Continue</Primary>
