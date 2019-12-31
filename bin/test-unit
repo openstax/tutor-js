@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 args=${@:2}
 if [[ ! $args ]]; then

@@ -4,7 +4,7 @@ language: node_js
 git:
   lfs_skip_smudge: true
 env:
-  - OX_PROJECT=integration
+  - TEST=integration
   - OX_PROJECT=tutor
   - OX_PROJECT=exercises
   - OX_PROJECT=shared
@@ -23,7 +23,7 @@ env:
 cache:
   yarn: true
   directories:
-    - node_modules
+    - ~/.cache
 script: ./script/ci
 after_failure:
   - npm list
