@@ -33,8 +33,9 @@ if (!global.document.createRange) {
     },
   }));
 }
-if (!global.scrollTo) {
-  global.scrollTo = jest.fn();
-}
+
+
+Object.defineProperty(window, 'scrollTo', { value: jest.fn(), writable: true });
+
 require('./matchers');
 require('./mocks');
