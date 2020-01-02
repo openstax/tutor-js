@@ -207,7 +207,7 @@ const FieldsetRow = observer((props) => {
         </div>
       </SplitRow>
     </fieldset>
-  )
+  );
 });
 
 FieldsetRow.propTypes = {
@@ -447,7 +447,7 @@ reading.displayName = 'ReadingTemplateEditForm';
 reading.propTypes = propTypes;
 
 const homework = observer((props) => {
-  const { template } = props;
+  //const { template } = props;
 
   return (
     <TemplateForm
