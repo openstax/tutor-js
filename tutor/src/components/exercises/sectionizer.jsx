@@ -114,10 +114,8 @@ class Sectionizer extends React.Component {
     const links = [];
     if (sections.length > this.renderCount) {
       const pages = Pagination.getPaginationModel({ currentPage: currentPage + 1, totalPages: sections.length });
-      console.log(pages); // eslint-disable-line
       for (i = 0; i < pages.length; i++) {
         const page = pages[i];
-        console.log(sections[page.value - 1]) // eslint-disable-line
         if (page.type === Pagination.ITEM_TYPES.PAGE) {
           links.push( this.renderLink( sections[page.value - 1], page.isActive ) );
 

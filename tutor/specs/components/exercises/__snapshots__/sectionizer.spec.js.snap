@@ -14,6 +14,24 @@ exports[`Exercise Sectionizer Component renders and matches snapshot 1`] = `
     className="section"
     onClick={[Function]}
   >
+    1
+  </div>
+  <div
+    className="section"
+    onClick={[Function]}
+  >
+    2
+  </div>
+  <div
+    className="section"
+    onClick={[Function]}
+  >
+    3
+  </div>
+  <div
+    className="section"
+    onClick={[Function]}
+  >
     1.1
   </div>
   <div
@@ -21,24 +39,6 @@ exports[`Exercise Sectionizer Component renders and matches snapshot 1`] = `
     onClick={[Function]}
   >
     2.1
-  </div>
-  <div
-    className="section"
-    onClick={[Function]}
-  >
-    3.1
-  </div>
-  <div
-    className="section"
-    onClick={[Function]}
-  >
-    1.2
-  </div>
-  <div
-    className="section"
-    onClick={[Function]}
-  >
-    2.2
   </div>
   <div
     className="section ellipsis"
@@ -50,7 +50,7 @@ exports[`Exercise Sectionizer Component renders and matches snapshot 1`] = `
     className="section"
     onClick={[Function]}
   >
-    3
+    2.3
   </div>
   <div
     className="next"
