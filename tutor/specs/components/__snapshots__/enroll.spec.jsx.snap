@@ -87,7 +87,7 @@ exports[`Student Enrollment displays generic error message 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="svg-inline--fa fa-exclamation-triangle fa-w-18 ox-icon ox-icon-exclamation-triangle c0"
+          className="svg-inline--fa fa-exclamation-triangle fa-w-18 c0 ox-icon ox-icon-exclamation-triangle"
           data-icon="exclamation-triangle"
           data-prefix="fas"
           focusable="false"
@@ -202,7 +202,7 @@ exports[`Student Enrollment loads when mounted 1`] = `
         className="overlay"
       />
       <div
-        className="inner c0"
+        className="c0 inner"
       >
         <svg
           className="c1"
@@ -215,23 +215,23 @@ exports[`Student Enrollment loads when mounted 1`] = `
           y="0px"
         >
           <path
-            className="blue c2"
+            className="c2 blue"
             d="M38.4,22c0,0.4-0.3,0.7-0.7,0.7H13.5c-0.4,0-0.7-0.3-0.7-0.7v-1.4c0-0.4,0.3-0.7,0.7-0.7h24.2     c0.4,0,0.7,0.3,0.7,0.7V22z"
           />
           <path
-            className="yellow c3"
+            className="c3 yellow"
             d="M41.8,17.8c0,0.4-0.3,0.7-0.7,0.7l-25.4,0.8c-0.4,0-0.7-0.3-0.7-0.7l-0.1-2.1     c0-0.4,0.3-0.7,0.7-0.7L41,15c0.4,0,0.7,0.3,0.7,0.7L41.8,17.8z"
           />
           <path
-            className="gray c4"
+            className="c4 gray"
             d="M34.8,14c0,0.4-0.3,0.7-0.7,0.7H11.6c-0.4,0-0.7-0.3-0.7-0.7v-3.5c0-0.4,0.3-0.7,0.7-0.7h22.5     c0.4,0,0.7,0.3,0.7,0.7V14z"
           />
           <path
-            className="orange c5"
+            className="c5 orange"
             d="M39,8.1c0,0.3-0.4,0.5-1,0.5H8.6c-0.5,0-1-0.2-1-0.5V6.9c0-0.3,0.4-0.5,1-0.5H38     c0.5,0,1,0.2,1,0.5V8.1z"
           />
           <path
-            className="green c6"
+            className="c6 green"
             d="M43.9,5c0,0.7-0.6,1.2-1.2,1.1L15,4.8c-0.7,0-1.2-0.6-1.1-1.2L14,1.1c0-0.7,0.6-1.2,1.2-1.1     l27.7,1.3c0.7,0,1.2,0.6,1.1,1.2L43.9,5z"
           />
           <path
@@ -297,7 +297,7 @@ exports[`Student Enrollment select periods matches snapshot 1`] = `
             </div>
             <svg
               aria-hidden="true"
-              className="svg-inline--fa fa-circle fa-w-16 ox-icon ox-icon-circle c0"
+              className="svg-inline--fa fa-circle fa-w-16 c0 ox-icon ox-icon-circle"
               color="#5e5e5e"
               data-icon="circle"
               data-prefix="far"
@@ -327,7 +327,7 @@ exports[`Student Enrollment select periods matches snapshot 1`] = `
             </div>
             <svg
               aria-hidden="true"
-              className="svg-inline--fa fa-circle fa-w-16 ox-icon ox-icon-circle c0"
+              className="svg-inline--fa fa-circle fa-w-16 c0 ox-icon ox-icon-circle"
               color="#5e5e5e"
               data-icon="circle"
               data-prefix="far"

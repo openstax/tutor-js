@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Html Content Tasks Screen matches snapshot 1`] = `
-.c2 {
+.c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -32,7 +32,7 @@ exports[`Html Content Tasks Screen matches snapshot 1`] = `
   margin: 4rem;
 }
 
-.c1 iframe {
+.c2 iframe {
   max-width: 100%;
 }
 
@@ -41,7 +41,7 @@ exports[`Html Content Tasks Screen matches snapshot 1`] = `
   data-appearance="college_physics"
 >
   <div
-    className="interactive-step c1 c2"
+    className="c1 c2 interactive-step"
   >
     <div
       className="openstax-exercise-badges"
@@ -111,7 +111,7 @@ exports[`Html Content Tasks Screen matches snapshot 1`] = `
       }
     />
     <button
-      className="continue c3 btn btn-primary btn-lg"
+      className="c3 continue btn btn-primary btn-lg"
       disabled={false}
       onClick={[Function]}
       type="button"

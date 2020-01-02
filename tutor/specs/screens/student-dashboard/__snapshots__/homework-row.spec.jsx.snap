@@ -134,7 +134,7 @@ exports[`Homework Row renders with completed count 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="svg-inline--fa fa-clock fa-w-16 ox-icon ox-icon-clock c1"
+          className="svg-inline--fa fa-clock fa-w-16 c1 ox-icon ox-icon-clock"
           color="#c2002f"
           data-icon="clock"
           data-prefix="far"

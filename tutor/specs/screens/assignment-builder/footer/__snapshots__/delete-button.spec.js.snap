@@ -18,7 +18,7 @@ exports[`Task Plan Builder: Delete button matches snapshot 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-trash-alt fa-w-14 ox-icon ox-icon-trash c0"
+      className="svg-inline--fa fa-trash-alt fa-w-14 c0 ox-icon ox-icon-trash"
       data-icon="trash-alt"
       data-prefix="fas"
       focusable="false"

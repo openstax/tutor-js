@@ -24,10 +24,6 @@ describe('Surveys Screen', () => {
     };
   });
 
-  it('renders and matches snapshot', () => {
-    expect.snapshot(<R><Survey {...props} /></R>).toMatchSnapshot();
-  });
-
   it('submits survey when answered', async () => {
     const survey = mount(<R><Survey {...props} /></R>);
 

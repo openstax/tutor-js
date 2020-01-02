@@ -8,7 +8,7 @@ exports[`Icon Component renders 1`] = `
 
 <svg
   aria-hidden="true"
-  className="svg-inline--fa fa-ghost fa-w-12 ox-icon ox-icon-ghost c0"
+  className="svg-inline--fa fa-ghost fa-w-12 c0 ox-icon ox-icon-ghost"
   data-icon="ghost"
   data-prefix="fas"
   focusable="false"

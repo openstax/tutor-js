@@ -49,7 +49,7 @@ exports[`Invalid Page renders and matches snapshot 1`] = `
           Return Home
           <svg
             aria-hidden="true"
-            className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c0"
+            className="svg-inline--fa fa-caret-right fa-w-6 c0 ox-icon ox-icon-caret-right"
             data-icon="caret-right"
             data-prefix="fas"
             focusable="false"

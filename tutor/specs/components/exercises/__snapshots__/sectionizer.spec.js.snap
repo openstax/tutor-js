@@ -50,7 +50,7 @@ exports[`Exercise Sectionizer Component renders and matches snapshot 1`] = `
     className="section"
     onClick={[Function]}
   >
-    2
+    3
   </div>
   <div
     className="next"

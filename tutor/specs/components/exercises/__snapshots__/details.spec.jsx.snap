@@ -18,7 +18,7 @@ exports[`Exercise Details Component renders and matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="svg-inline--fa fa-th fa-w-16 fa-lg ox-icon ox-icon-th c0"
+        className="svg-inline--fa fa-th fa-w-16 fa-lg c0 ox-icon ox-icon-th"
         data-icon="th"
         data-prefix="fas"
         focusable="false"

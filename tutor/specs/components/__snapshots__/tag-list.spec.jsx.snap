@@ -43,12 +43,12 @@ exports[`TagList component renders items 1`] = `
   >
     <span
       aria-label="Remove"
-      className="remove-tag c2"
+      className="c2 remove-tag"
       onClick={[Function]}
     >
       <svg
         aria-hidden="true"
-        className="svg-inline--fa fa-times fa-w-11 ox-icon ox-icon-close c3"
+        className="svg-inline--fa fa-times fa-w-11 c3 ox-icon ox-icon-close"
         data-icon="times"
         data-prefix="fas"
         focusable="false"
@@ -71,12 +71,12 @@ exports[`TagList component renders items 1`] = `
   >
     <span
       aria-label="Remove"
-      className="remove-tag c2"
+      className="c2 remove-tag"
       onClick={[Function]}
     >
       <svg
         aria-hidden="true"
-        className="svg-inline--fa fa-times fa-w-11 ox-icon ox-icon-close c3"
+        className="svg-inline--fa fa-times fa-w-11 c3 ox-icon ox-icon-close"
         data-icon="times"
         data-prefix="fas"
         focusable="false"
@@ -99,12 +99,12 @@ exports[`TagList component renders items 1`] = `
   >
     <span
       aria-label="Remove"
-      className="remove-tag c2"
+      className="c2 remove-tag"
       onClick={[Function]}
     >
       <svg
         aria-hidden="true"
-        className="svg-inline--fa fa-times fa-w-11 ox-icon ox-icon-close c3"
+        className="svg-inline--fa fa-times fa-w-11 c3 ox-icon ox-icon-close"
         data-icon="times"
         data-prefix="fas"
         focusable="false"

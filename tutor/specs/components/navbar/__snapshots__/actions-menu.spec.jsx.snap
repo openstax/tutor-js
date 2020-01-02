@@ -22,7 +22,7 @@ exports[`Student Navbar Component has actions menu that matches snapshot 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-bars fa-w-14 ox-icon ox-icon-bars c0"
+      className="svg-inline--fa fa-bars fa-w-14 c0 ox-icon ox-icon-bars"
       data-icon="bars"
       data-prefix="fas"
       focusable="false"
@@ -45,7 +45,7 @@ exports[`Student Navbar Component has actions menu that matches snapshot 1`] = `
     </span>
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-angle-down fa-w-10 ox-icon ox-icon-angle-down toggle c0"
+      className="svg-inline--fa fa-angle-down fa-w-10 c0 ox-icon ox-icon-angle-down toggle"
       data-icon="angle-down"
       data-prefix="fas"
       focusable="false"
@@ -86,7 +86,7 @@ exports[`Teacher Navbar Component has actions menu that matches snapshot 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-bars fa-w-14 ox-icon ox-icon-bars c0"
+      className="svg-inline--fa fa-bars fa-w-14 c0 ox-icon ox-icon-bars"
       data-icon="bars"
       data-prefix="fas"
       focusable="false"
@@ -109,7 +109,7 @@ exports[`Teacher Navbar Component has actions menu that matches snapshot 1`] = `
     </span>
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-angle-down fa-w-10 ox-icon ox-icon-angle-down toggle c0"
+      className="svg-inline--fa fa-angle-down fa-w-10 c0 ox-icon ox-icon-angle-down toggle"
       data-icon="angle-down"
       data-prefix="fas"
       focusable="false"

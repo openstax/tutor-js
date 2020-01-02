@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Book Title Component renders and matches snapshot 1`] = `
-<Memo(wrappedComponent)
+<UNDEFINED
   ux={
     Object {
       "book": Object {

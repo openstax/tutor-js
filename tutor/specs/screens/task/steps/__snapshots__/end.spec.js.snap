@@ -44,7 +44,7 @@ exports[`Tasks Ending Screen completed state 1`] = `
         className="c0"
       >
         <div
-          className="task-steps-end c1"
+          className="c1 task-steps-end"
         >
           <h1>
             You are done.
@@ -130,7 +130,7 @@ exports[`Tasks Ending Screen completed state 2`] = `
         className="c0"
       >
         <div
-          className="task-steps-end c1"
+          className="c1 task-steps-end"
         >
           <h1>
             You are done.
@@ -216,7 +216,7 @@ exports[`Tasks Ending Screen not started state 1`] = `
         className="c0"
       >
         <div
-          className="task-steps-end c1"
+          className="c1 task-steps-end"
         >
           <h1>
             No steps have been completed.
@@ -305,7 +305,7 @@ exports[`Tasks Ending Screen partial state 1`] = `
         className="c0"
       >
         <div
-          className="task-steps-end c1"
+          className="c1 task-steps-end"
         >
           <h1>
             Assignment is partially complete.
