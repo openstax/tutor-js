@@ -35,15 +35,21 @@ class NotesWidgetWrapper extends React.Component {
     page: PropTypes.instanceOf(Page).isRequired,
   };
 
+  get canAnnotate() {
+    return Boolean(this.props.course && this.props.course.canAnnotate);
+  }
+
   constructor(props) {
     super(props);
-    props.course.notes.ensurePageExists(props.page);
+    if (this.canAnnotate) {
+      props.course.notes.ensurePageExists(props.page);
+    }
   }
 
   render() {
     const { course, page } = this.props;
 
-    if (!course || !course.canAnnotate) { return this.props.children; }
+    if (!this.canAnnotate) { return this.props.children; }
 
     return (
       <NotesWidget
