@@ -196,7 +196,7 @@ const isRequired = (value) => isEmpty(value) && 'Cannot be blank';
 const FieldsetRow = observer((props) => {
   return (
     <fieldset>
-      <legend class="sr-only">{props.legend} {props.hint}</legend>
+      <legend className="sr-only">{props.legend} {props.hint}</legend>
       <SplitRow>
         <Legend aria-hidden="true" role="presentation">
           {props.legend}
