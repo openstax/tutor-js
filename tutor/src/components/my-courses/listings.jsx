@@ -15,7 +15,7 @@ import TourAnchor from '../tours/anchor';
 
 function wrapCourseItem(Item, course = {}) {
   return (
-    <Col key={`my-courses-item-wrapper-${course.id}`} lg={3} md={4} sm={6} xs={12}>
+    <Col key={course.id} lg={3} md={4} sm={6} xs={12}>
       <Item
         course={course}
       />

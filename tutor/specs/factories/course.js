@@ -4,7 +4,7 @@ const {
 } = require('./helpers');
 const moment = require('moment');
 const { ordinal } = require('../../src/helpers/number');
-import { BOOK_UID_XREF } from 'shared/helpers/exercise';
+const { BOOK_UID_XREF } = require('../../../shared/src/helpers/book-uuid-xrefs');
 
 Factory.define('Period')
   .id(sequence)

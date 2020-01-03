@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+args=${@:2}
+if [[ ! $args ]]; then
+   args='--watch'
+fi
+
+$(npm bin)/jest --verbose false --config ./configs/test/jest.$1.js $args

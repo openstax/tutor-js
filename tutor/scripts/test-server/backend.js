@@ -33,6 +33,8 @@ const HANDLERS = {
   'courses/:courseId/guide': require('./backend/performance-forecast'),
 };
 
+//  'courses/:courseId/grading_templates': require('./backend/grading-templates'),
+
 // routes that have custom logic
 for (let route in HANDLERS) {
   server.get(`/api/${route}`, HANDLERS[route].handler);

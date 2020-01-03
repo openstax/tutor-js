@@ -62,7 +62,7 @@ class ChapterSection extends BaseModel {
   }
 
   @computed get asArray() {
-    return [this.chapter, this.section];
+    return [this.chapter || 0, this.section || 0];
   }
 
   eq(other) {
