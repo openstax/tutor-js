@@ -54,11 +54,15 @@ exports[`RadioInput matches snapshot 1`] = `
 >
   <input
     className="c1"
+    id="input_1"
     label="Input 1"
     name="input_1"
     type="radio"
   />
-  <label>
+  <label
+    htmlFor="input_1"
+    id="input_1_label"
+  >
     Input 1
   </label>
 </span>

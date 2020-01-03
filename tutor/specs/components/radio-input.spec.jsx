@@ -7,6 +7,7 @@ describe('RadioInput', () => {
     props = {
       name: 'input_1',
       label: 'Input 1',
+      id: 'input_1',
     };
   });
 
