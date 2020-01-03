@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`QA Screen matches snapshot 1`] = `
-.c5 {
+.c6 {
   margin-right: 0.5rem;
   margin-left: 0.5rem;
 }
@@ -24,7 +24,7 @@ exports[`QA Screen matches snapshot 1`] = `
   color: #5f6163;
 }
 
-.c6 {
+.c5 {
   margin-top: 4px;
   -webkit-align-self: flex-start;
   -ms-flex-item-align: start;
@@ -37,7 +37,7 @@ exports[`QA Screen matches snapshot 1`] = `
   transition: transform 0.2s;
 }
 
-.c6.expanded {
+.c5.expanded {
   -webkit-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
@@ -128,10 +128,10 @@ exports[`QA Screen matches snapshot 1`] = `
         className="qa-view menu-on-top"
       >
         <div
-          className="c0 book-menu"
+          className="book-menu c0"
         >
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -149,7 +149,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6 expanded"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right expanded c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -165,7 +165,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="1.0"
                     >
                       1
@@ -188,7 +188,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   className="c1"
                 >
                   <li
-                    className="c2 active"
+                    className="active c2"
                     data-node-id="557"
                   >
                     <a
@@ -223,7 +223,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="1.1"
                         >
                           1.1
@@ -252,7 +252,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="1.2"
                         >
                           1.2
@@ -273,7 +273,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -291,7 +291,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -307,7 +307,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="2.0"
                     >
                       2
@@ -365,7 +365,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="2.1"
                         >
                           2.1
@@ -394,7 +394,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="2.2"
                         >
                           2.2
@@ -423,7 +423,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="2.3"
                         >
                           2.3
@@ -444,7 +444,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -462,7 +462,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -478,7 +478,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="3.0"
                     >
                       3
@@ -536,7 +536,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="3.1"
                         >
                           3.1
@@ -565,7 +565,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="3.2"
                         >
                           3.2
@@ -594,7 +594,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="3.3"
                         >
                           3.3
@@ -623,7 +623,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="3.4"
                         >
                           3.4
@@ -652,7 +652,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="3.5"
                         >
                           3.5
@@ -673,7 +673,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -691,7 +691,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -707,7 +707,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="4.0"
                     >
                       4
@@ -765,7 +765,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="4.1"
                         >
                           4.1
@@ -794,7 +794,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="4.2"
                         >
                           4.2
@@ -823,7 +823,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="4.3"
                         >
                           4.3
@@ -852,7 +852,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="4.4"
                         >
                           4.4
@@ -881,7 +881,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="4.5"
                         >
                           4.5
@@ -910,7 +910,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="4.6"
                         >
                           4.6
@@ -931,7 +931,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -949,7 +949,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -965,7 +965,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="5.0"
                     >
                       5
@@ -1023,7 +1023,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="5.1"
                         >
                           5.1
@@ -1052,7 +1052,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="5.2"
                         >
                           5.2
@@ -1081,7 +1081,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="5.3"
                         >
                           5.3
@@ -1110,7 +1110,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="5.4"
                         >
                           5.4
@@ -1131,7 +1131,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -1149,7 +1149,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -1165,7 +1165,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="6.0"
                     >
                       6
@@ -1223,7 +1223,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="6.1"
                         >
                           6.1
@@ -1252,7 +1252,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="6.2"
                         >
                           6.2
@@ -1281,7 +1281,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="6.3"
                         >
                           6.3
@@ -1310,7 +1310,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="6.4"
                         >
                           6.4
@@ -1339,7 +1339,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="6.5"
                         >
                           6.5
@@ -1360,7 +1360,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -1378,7 +1378,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -1394,7 +1394,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="7.0"
                     >
                       7
@@ -1452,7 +1452,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="7.1"
                         >
                           7.1
@@ -1481,7 +1481,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="7.2"
                         >
                           7.2
@@ -1510,7 +1510,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="7.3"
                         >
                           7.3
@@ -1539,7 +1539,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="7.4"
                         >
                           7.4
@@ -1568,7 +1568,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="7.5"
                         >
                           7.5
@@ -1597,7 +1597,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="7.6"
                         >
                           7.6
@@ -1626,7 +1626,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="7.7"
                         >
                           7.7
@@ -1647,7 +1647,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -1665,7 +1665,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -1681,7 +1681,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="8.0"
                     >
                       8
@@ -1739,7 +1739,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="8.1"
                         >
                           8.1
@@ -1768,7 +1768,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="8.2"
                         >
                           8.2
@@ -1797,7 +1797,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="8.3"
                         >
                           8.3
@@ -1818,7 +1818,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -1836,7 +1836,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -1852,7 +1852,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="9.0"
                     >
                       9
@@ -1910,7 +1910,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="9.1"
                         >
                           9.1
@@ -1939,7 +1939,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="9.2"
                         >
                           9.2
@@ -1968,7 +1968,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="9.3"
                         >
                           9.3
@@ -1997,7 +1997,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="9.4"
                         >
                           9.4
@@ -2018,7 +2018,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -2036,7 +2036,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -2052,7 +2052,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="10.0"
                     >
                       10
@@ -2110,7 +2110,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="10.1"
                         >
                           10.1
@@ -2139,7 +2139,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="10.2"
                         >
                           10.2
@@ -2168,7 +2168,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="10.3"
                         >
                           10.3
@@ -2197,7 +2197,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="10.4"
                         >
                           10.4
@@ -2226,7 +2226,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="10.5"
                         >
                           10.5
@@ -2247,7 +2247,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -2265,7 +2265,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -2281,7 +2281,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="11.0"
                     >
                       11
@@ -2339,7 +2339,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="11.1"
                         >
                           11.1
@@ -2368,7 +2368,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="11.2"
                         >
                           11.2
@@ -2389,7 +2389,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -2407,7 +2407,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -2423,7 +2423,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="12.0"
                     >
                       12
@@ -2481,7 +2481,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="12.1"
                         >
                           12.1
@@ -2510,7 +2510,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="12.2"
                         >
                           12.2
@@ -2539,7 +2539,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="12.3"
                         >
                           12.3
@@ -2560,7 +2560,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -2578,7 +2578,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -2594,7 +2594,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="13.0"
                     >
                       13
@@ -2652,7 +2652,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="13.1"
                         >
                           13.1
@@ -2681,7 +2681,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="13.2"
                         >
                           13.2
@@ -2702,7 +2702,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -2720,7 +2720,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -2736,7 +2736,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="14.0"
                     >
                       14
@@ -2794,7 +2794,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="14.1"
                         >
                           14.1
@@ -2823,7 +2823,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="14.2"
                         >
                           14.2
@@ -2852,7 +2852,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="14.3"
                         >
                           14.3
@@ -2881,7 +2881,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="14.4"
                         >
                           14.4
@@ -2910,7 +2910,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="14.5"
                         >
                           14.5
@@ -2939,7 +2939,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="14.6"
                         >
                           14.6
@@ -2960,7 +2960,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -2978,7 +2978,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -2994,7 +2994,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="15.0"
                     >
                       15
@@ -3052,7 +3052,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="15.1"
                         >
                           15.1
@@ -3081,7 +3081,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="15.2"
                         >
                           15.2
@@ -3110,7 +3110,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="15.3"
                         >
                           15.3
@@ -3139,7 +3139,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="15.4"
                         >
                           15.4
@@ -3168,7 +3168,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="15.5"
                         >
                           15.5
@@ -3189,7 +3189,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -3207,7 +3207,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -3223,7 +3223,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="16.0"
                     >
                       16
@@ -3281,7 +3281,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="16.1"
                         >
                           16.1
@@ -3310,7 +3310,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="16.2"
                         >
                           16.2
@@ -3339,7 +3339,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="16.3"
                         >
                           16.3
@@ -3368,7 +3368,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="16.4"
                         >
                           16.4
@@ -3397,7 +3397,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="16.5"
                         >
                           16.5
@@ -3426,7 +3426,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="16.6"
                         >
                           16.6
@@ -3455,7 +3455,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="16.7"
                         >
                           16.7
@@ -3476,7 +3476,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -3494,7 +3494,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -3510,7 +3510,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="17.0"
                     >
                       17
@@ -3568,7 +3568,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="17.1"
                         >
                           17.1
@@ -3597,7 +3597,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="17.2"
                         >
                           17.2
@@ -3626,7 +3626,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="17.3"
                         >
                           17.3
@@ -3655,7 +3655,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="17.4"
                         >
                           17.4
@@ -3684,7 +3684,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="17.5"
                         >
                           17.5
@@ -3705,7 +3705,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -3723,7 +3723,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -3739,7 +3739,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="18.0"
                     >
                       18
@@ -3797,7 +3797,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="18.1"
                         >
                           18.1
@@ -3826,7 +3826,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="18.2"
                         >
                           18.2
@@ -3855,7 +3855,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="18.3"
                         >
                           18.3
@@ -3876,7 +3876,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -3894,7 +3894,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -3910,7 +3910,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="19.0"
                     >
                       19
@@ -3968,7 +3968,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="19.1"
                         >
                           19.1
@@ -3997,7 +3997,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="19.2"
                         >
                           19.2
@@ -4026,7 +4026,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="19.3"
                         >
                           19.3
@@ -4047,7 +4047,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -4065,7 +4065,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -4081,7 +4081,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="20.0"
                     >
                       20
@@ -4139,7 +4139,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="20.1"
                         >
                           20.1
@@ -4168,7 +4168,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="20.2"
                         >
                           20.2
@@ -4197,7 +4197,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="20.3"
                         >
                           20.3
@@ -4218,7 +4218,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -4236,7 +4236,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -4252,7 +4252,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="21.0"
                     >
                       21
@@ -4310,7 +4310,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="21.1"
                         >
                           21.1
@@ -4339,7 +4339,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="21.2"
                         >
                           21.2
@@ -4368,7 +4368,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="21.3"
                         >
                           21.3
@@ -4397,7 +4397,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="21.4"
                         >
                           21.4
@@ -4418,7 +4418,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -4436,7 +4436,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -4452,7 +4452,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="22.0"
                     >
                       22
@@ -4510,7 +4510,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="22.1"
                         >
                           22.1
@@ -4539,7 +4539,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="22.2"
                         >
                           22.2
@@ -4568,7 +4568,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="22.3"
                         >
                           22.3
@@ -4597,7 +4597,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="22.4"
                         >
                           22.4
@@ -4626,7 +4626,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="22.5"
                         >
                           22.5
@@ -4647,7 +4647,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -4665,7 +4665,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -4681,7 +4681,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="23.0"
                     >
                       23
@@ -4739,7 +4739,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="23.1"
                         >
                           23.1
@@ -4768,7 +4768,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="23.2"
                         >
                           23.2
@@ -4797,7 +4797,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="23.3"
                         >
                           23.3
@@ -4826,7 +4826,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="23.4"
                         >
                           23.4
@@ -4847,7 +4847,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -4865,7 +4865,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -4881,7 +4881,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="24.0"
                     >
                       24
@@ -4939,7 +4939,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="24.1"
                         >
                           24.1
@@ -4968,7 +4968,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="24.2"
                         >
                           24.2
@@ -4997,7 +4997,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="24.3"
                         >
                           24.3
@@ -5026,7 +5026,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="24.4"
                         >
                           24.4
@@ -5055,7 +5055,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="24.5"
                         >
                           24.5
@@ -5076,7 +5076,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -5094,7 +5094,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -5110,7 +5110,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="25.0"
                     >
                       25
@@ -5168,7 +5168,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="25.1"
                         >
                           25.1
@@ -5197,7 +5197,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="25.2"
                         >
                           25.2
@@ -5226,7 +5226,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="25.3"
                         >
                           25.3
@@ -5255,7 +5255,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="25.4"
                         >
                           25.4
@@ -5276,7 +5276,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -5294,7 +5294,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -5310,7 +5310,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="26.0"
                     >
                       26
@@ -5368,7 +5368,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="26.1"
                         >
                           26.1
@@ -5397,7 +5397,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="26.2"
                         >
                           26.2
@@ -5426,7 +5426,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="26.3"
                         >
                           26.3
@@ -5455,7 +5455,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="26.4"
                         >
                           26.4
@@ -5476,7 +5476,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -5494,7 +5494,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -5510,7 +5510,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="27.0"
                     >
                       27
@@ -5568,7 +5568,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="27.1"
                         >
                           27.1
@@ -5597,7 +5597,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="27.2"
                         >
                           27.2
@@ -5626,7 +5626,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="27.3"
                         >
                           27.3
@@ -5655,7 +5655,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="27.4"
                         >
                           27.4
@@ -5676,7 +5676,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -5694,7 +5694,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -5710,7 +5710,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="28.0"
                     >
                       28
@@ -5768,7 +5768,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="28.1"
                         >
                           28.1
@@ -5797,7 +5797,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="28.2"
                         >
                           28.2
@@ -5826,7 +5826,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="28.3"
                         >
                           28.3
@@ -5855,7 +5855,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="28.4"
                         >
                           28.4
@@ -5884,7 +5884,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="28.5"
                         >
                           28.5
@@ -5905,7 +5905,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -5923,7 +5923,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -5939,7 +5939,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="29.0"
                     >
                       29
@@ -5997,7 +5997,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="29.1"
                         >
                           29.1
@@ -6026,7 +6026,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="29.2"
                         >
                           29.2
@@ -6055,7 +6055,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="29.3"
                         >
                           29.3
@@ -6084,7 +6084,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="29.4"
                         >
                           29.4
@@ -6113,7 +6113,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="29.5"
                         >
                           29.5
@@ -6142,7 +6142,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="29.6"
                         >
                           29.6
@@ -6171,7 +6171,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="29.7"
                         >
                           29.7
@@ -6192,7 +6192,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -6210,7 +6210,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -6226,7 +6226,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="30.0"
                     >
                       30
@@ -6284,7 +6284,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="30.1"
                         >
                           30.1
@@ -6313,7 +6313,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="30.2"
                         >
                           30.2
@@ -6342,7 +6342,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="30.3"
                         >
                           30.3
@@ -6371,7 +6371,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="30.4"
                         >
                           30.4
@@ -6400,7 +6400,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="30.5"
                         >
                           30.5
@@ -6429,7 +6429,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="30.6"
                         >
                           30.6
@@ -6450,7 +6450,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -6468,7 +6468,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -6484,7 +6484,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="31.0"
                     >
                       31
@@ -6542,7 +6542,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="31.1"
                         >
                           31.1
@@ -6571,7 +6571,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="31.2"
                         >
                           31.2
@@ -6600,7 +6600,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="31.3"
                         >
                           31.3
@@ -6621,7 +6621,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -6639,7 +6639,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -6655,7 +6655,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="32.0"
                     >
                       32
@@ -6713,7 +6713,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="32.1"
                         >
                           32.1
@@ -6742,7 +6742,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="32.2"
                         >
                           32.2
@@ -6771,7 +6771,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="32.3"
                         >
                           32.3
@@ -6792,7 +6792,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -6810,7 +6810,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -6826,7 +6826,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="33.0"
                     >
                       33
@@ -6884,7 +6884,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="33.1"
                         >
                           33.1
@@ -6913,7 +6913,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="33.2"
                         >
                           33.2
@@ -6942,7 +6942,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="33.3"
                         >
                           33.3
@@ -6963,7 +6963,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -6981,7 +6981,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -6997,7 +6997,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="34.0"
                     >
                       34
@@ -7055,7 +7055,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="34.1"
                         >
                           34.1
@@ -7084,7 +7084,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="34.2"
                         >
                           34.2
@@ -7113,7 +7113,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="34.3"
                         >
                           34.3
@@ -7142,7 +7142,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="34.4"
                         >
                           34.4
@@ -7163,7 +7163,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -7181,7 +7181,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -7197,7 +7197,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="35.0"
                     >
                       35
@@ -7255,7 +7255,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="35.1"
                         >
                           35.1
@@ -7284,7 +7284,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="35.2"
                         >
                           35.2
@@ -7313,7 +7313,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="35.3"
                         >
                           35.3
@@ -7342,7 +7342,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="35.4"
                         >
                           35.4
@@ -7371,7 +7371,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="35.5"
                         >
                           35.5
@@ -7392,7 +7392,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -7410,7 +7410,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -7426,7 +7426,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="36.0"
                     >
                       36
@@ -7484,7 +7484,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="36.1"
                         >
                           36.1
@@ -7513,7 +7513,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="36.2"
                         >
                           36.2
@@ -7542,7 +7542,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="36.3"
                         >
                           36.3
@@ -7571,7 +7571,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="36.4"
                         >
                           36.4
@@ -7600,7 +7600,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="36.5"
                         >
                           36.5
@@ -7621,7 +7621,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -7639,7 +7639,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -7655,7 +7655,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="37.0"
                     >
                       37
@@ -7713,7 +7713,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="37.1"
                         >
                           37.1
@@ -7742,7 +7742,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="37.2"
                         >
                           37.2
@@ -7771,7 +7771,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="37.3"
                         >
                           37.3
@@ -7800,7 +7800,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="37.4"
                         >
                           37.4
@@ -7829,7 +7829,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="37.5"
                         >
                           37.5
@@ -7850,7 +7850,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -7868,7 +7868,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -7884,7 +7884,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="38.0"
                     >
                       38
@@ -7942,7 +7942,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="38.1"
                         >
                           38.1
@@ -7971,7 +7971,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="38.2"
                         >
                           38.2
@@ -8000,7 +8000,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="38.3"
                         >
                           38.3
@@ -8029,7 +8029,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="38.4"
                         >
                           38.4
@@ -8050,7 +8050,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -8068,7 +8068,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -8084,7 +8084,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="39.0"
                     >
                       39
@@ -8142,7 +8142,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="39.1"
                         >
                           39.1
@@ -8171,7 +8171,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="39.2"
                         >
                           39.2
@@ -8200,7 +8200,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="39.3"
                         >
                           39.3
@@ -8229,7 +8229,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="39.4"
                         >
                           39.4
@@ -8250,7 +8250,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -8268,7 +8268,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -8284,7 +8284,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="40.0"
                     >
                       40
@@ -8342,7 +8342,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="40.1"
                         >
                           40.1
@@ -8371,7 +8371,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="40.2"
                         >
                           40.2
@@ -8400,7 +8400,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="40.3"
                         >
                           40.3
@@ -8429,7 +8429,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="40.4"
                         >
                           40.4
@@ -8450,7 +8450,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -8468,7 +8468,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -8484,7 +8484,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="41.0"
                     >
                       41
@@ -8542,7 +8542,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="41.1"
                         >
                           41.1
@@ -8571,7 +8571,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="41.2"
                         >
                           41.2
@@ -8600,7 +8600,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="41.3"
                         >
                           41.3
@@ -8629,7 +8629,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="41.4"
                         >
                           41.4
@@ -8658,7 +8658,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="41.5"
                         >
                           41.5
@@ -8679,7 +8679,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -8697,7 +8697,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -8713,7 +8713,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="42.0"
                     >
                       42
@@ -8771,7 +8771,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="42.1"
                         >
                           42.1
@@ -8800,7 +8800,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="42.2"
                         >
                           42.2
@@ -8829,7 +8829,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="42.3"
                         >
                           42.3
@@ -8858,7 +8858,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="42.4"
                         >
                           42.4
@@ -8879,7 +8879,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -8897,7 +8897,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -8913,7 +8913,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="43.0"
                     >
                       43
@@ -8971,7 +8971,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="43.1"
                         >
                           43.1
@@ -9000,7 +9000,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="43.2"
                         >
                           43.2
@@ -9029,7 +9029,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="43.3"
                         >
                           43.3
@@ -9058,7 +9058,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="43.4"
                         >
                           43.4
@@ -9087,7 +9087,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="43.5"
                         >
                           43.5
@@ -9116,7 +9116,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="43.6"
                         >
                           43.6
@@ -9145,7 +9145,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="43.7"
                         >
                           43.7
@@ -9166,7 +9166,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -9184,7 +9184,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -9200,7 +9200,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="44.0"
                     >
                       44
@@ -9258,7 +9258,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="44.1"
                         >
                           44.1
@@ -9287,7 +9287,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="44.2"
                         >
                           44.2
@@ -9316,7 +9316,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="44.3"
                         >
                           44.3
@@ -9345,7 +9345,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="44.4"
                         >
                           44.4
@@ -9374,7 +9374,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="44.5"
                         >
                           44.5
@@ -9395,7 +9395,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -9413,7 +9413,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -9429,7 +9429,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="45.0"
                     >
                       45
@@ -9487,7 +9487,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="45.1"
                         >
                           45.1
@@ -9516,7 +9516,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="45.2"
                         >
                           45.2
@@ -9545,7 +9545,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="45.3"
                         >
                           45.3
@@ -9574,7 +9574,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="45.4"
                         >
                           45.4
@@ -9603,7 +9603,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="45.5"
                         >
                           45.5
@@ -9632,7 +9632,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="45.6"
                         >
                           45.6
@@ -9661,7 +9661,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="45.7"
                         >
                           45.7
@@ -9682,7 +9682,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -9700,7 +9700,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -9716,7 +9716,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="46.0"
                     >
                       46
@@ -9774,7 +9774,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="46.1"
                         >
                           46.1
@@ -9803,7 +9803,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="46.2"
                         >
                           46.2
@@ -9832,7 +9832,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="46.3"
                         >
                           46.3
@@ -9853,7 +9853,7 @@ exports[`QA Screen matches snapshot 1`] = `
             </li>
           </ol>
           <ol
-            className="c1 section"
+            className="section c1"
             data-depth={1}
           >
             <li
@@ -9871,7 +9871,7 @@ exports[`QA Screen matches snapshot 1`] = `
                   <div>
                     <svg
                       aria-hidden="true"
-                      className="svg-inline--fa fa-caret-right fa-w-6 c5 ox-icon ox-icon-caret-right c6"
+                      className="svg-inline--fa fa-caret-right fa-w-6 ox-icon ox-icon-caret-right c5 c6"
                       data-icon="caret-right"
                       data-prefix="fas"
                       focusable="false"
@@ -9887,7 +9887,7 @@ exports[`QA Screen matches snapshot 1`] = `
                       />
                     </svg>
                     <span
-                      className="c7 chapter-section"
+                      className="chapter-section c7"
                       data-chapter-section="47.0"
                     >
                       47
@@ -9945,7 +9945,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="47.1"
                         >
                           47.1
@@ -9974,7 +9974,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="47.2"
                         >
                           47.2
@@ -10003,7 +10003,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="47.3"
                         >
                           47.3
@@ -10032,7 +10032,7 @@ exports[`QA Screen matches snapshot 1`] = `
                         className="c8"
                       >
                         <span
-                          className="c7 chapter-section"
+                          className="chapter-section c7"
                           data-chapter-section="47.4"
                         >
                           47.4

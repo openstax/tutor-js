@@ -6,7 +6,7 @@ exports[`SectionsFilter component renders 1`] = `
   margin-left: 0.5rem;
 }
 
-.c4 {
+.c5 {
   font-weight: 700;
   color: #424242;
 }
@@ -40,7 +40,7 @@ exports[`SectionsFilter component renders 1`] = `
   margin-left: 32px;
 }
 
-.c5 {
+.c4 {
   margin-right: 1rem;
   font-weight: normal;
 }
@@ -75,12 +75,12 @@ exports[`SectionsFilter component renders 1`] = `
     >
       <span
         aria-label="Remove"
-        className="c2 remove-tag"
+        className="remove-tag c2"
         onClick={[Function]}
       >
         <svg
           aria-hidden="true"
-          className="svg-inline--fa fa-times fa-w-11 c3 ox-icon ox-icon-close"
+          className="svg-inline--fa fa-times fa-w-11 ox-icon ox-icon-close c3"
           data-icon="times"
           data-prefix="fas"
           focusable="false"
@@ -98,7 +98,7 @@ exports[`SectionsFilter component renders 1`] = `
       </span>
       <span>
         <span
-          className="c4 chapter-section c5"
+          className="chapter-section c4 c5"
           data-chapter-section="2.1"
         >
           2.1
@@ -111,12 +111,12 @@ exports[`SectionsFilter component renders 1`] = `
     >
       <span
         aria-label="Remove"
-        className="c2 remove-tag"
+        className="remove-tag c2"
         onClick={[Function]}
       >
         <svg
           aria-hidden="true"
-          className="svg-inline--fa fa-times fa-w-11 c3 ox-icon ox-icon-close"
+          className="svg-inline--fa fa-times fa-w-11 ox-icon ox-icon-close c3"
           data-icon="times"
           data-prefix="fas"
           focusable="false"
@@ -134,7 +134,7 @@ exports[`SectionsFilter component renders 1`] = `
       </span>
       <span>
         <span
-          className="c4 chapter-section c5"
+          className="chapter-section c4 c5"
           data-chapter-section="6.1"
         >
           6.1
@@ -147,12 +147,12 @@ exports[`SectionsFilter component renders 1`] = `
     >
       <span
         aria-label="Remove"
-        className="c2 remove-tag"
+        className="remove-tag c2"
         onClick={[Function]}
       >
         <svg
           aria-hidden="true"
-          className="svg-inline--fa fa-times fa-w-11 c3 ox-icon ox-icon-close"
+          className="svg-inline--fa fa-times fa-w-11 ox-icon ox-icon-close c3"
           data-icon="times"
           data-prefix="fas"
           focusable="false"
@@ -170,7 +170,7 @@ exports[`SectionsFilter component renders 1`] = `
       </span>
       <span>
         <span
-          className="c4 chapter-section c5"
+          className="chapter-section c4 c5"
           data-chapter-section="10.5"
         >
           10.5

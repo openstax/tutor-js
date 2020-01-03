@@ -91,7 +91,7 @@ exports[`Course Page renders and matches snapshot 2`] = `
 >
   <header>
     <div
-      className="c0 title-wrapper"
+      className="title-wrapper c0"
     >
       <div
         className="c1"

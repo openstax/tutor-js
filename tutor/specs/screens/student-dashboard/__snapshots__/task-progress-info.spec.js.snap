@@ -37,7 +37,7 @@ Array [
     >
       <svg
         aria-hidden="true"
-        className="svg-inline--fa fa-clock fa-w-16 c1 ox-icon ox-icon-clock"
+        className="svg-inline--fa fa-clock fa-w-16 ox-icon ox-icon-clock c1"
         color="#c2002f"
         data-icon="clock"
         data-prefix="far"

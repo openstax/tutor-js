@@ -22,10 +22,10 @@ exports[`Task Step Footer matches snapshot 1`] = `
         <RelatedContentLink course={{...}} content={{...}} preamble=\\"Comes from\\">
           <styled.div className=\\"related-content-link\\">
             <StyledComponent className=\\"related-content-link\\" forwardedComponent={{...}} forwardedRef={{...}}>
-              <div className=\\"sc-bwzfXH fVSdij related-content-link\\">
+              <div className=\\"related-content-link sc-bwzfXH fVSdij\\">
                 <styled.span>
                   <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
-                    <span className=\\"sc-bxivhb eSqMCu preamble\\">
+                    <span className=\\"sc-bxivhb preamble eSqMCu\\">
                       Comes from
                     </span>
                   </StyledComponent>
@@ -35,7 +35,7 @@ exports[`Task Step Footer matches snapshot 1`] = `
                     <ChapterSection chapterSection={{...}}>
                       <styled.span className=\\"chapter-section\\" data-chapter-section=\\"1.2\\">
                         <StyledComponent className=\\"chapter-section\\" data-chapter-section=\\"1.2\\" forwardedComponent={{...}} forwardedRef={{...}}>
-                          <span className=\\"sc-bdVaJa hKLgvF chapter-section\\" data-chapter-section=\\"1.2\\">
+                          <span className=\\"chapter-section sc-bdVaJa hKLgvF\\" data-chapter-section=\\"1.2\\">
                             1.2
                           </span>
                         </StyledComponent>
@@ -43,7 +43,7 @@ exports[`Task Step Footer matches snapshot 1`] = `
                     </ChapterSection>
                     <styled.span>
                       <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
-                        <span className=\\"sc-htpNat bNgkkP title\\">
+                        <span className=\\"sc-htpNat title bNgkkP\\">
                           Angiosperms
                         </span>
                       </StyledComponent>

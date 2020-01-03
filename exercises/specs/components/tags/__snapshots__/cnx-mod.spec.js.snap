@@ -28,7 +28,7 @@ exports[`CNX mod tags component renders mod tags 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="svg-inline--fa fa-plus-circle fa-w-16 c0 ox-icon ox-icon-plus-circle"
+          className="svg-inline--fa fa-plus-circle fa-w-16 ox-icon ox-icon-plus-circle c0"
           data-icon="plus-circle"
           data-prefix="fas"
           focusable="false"
@@ -68,7 +68,7 @@ exports[`CNX mod tags component renders mod tags 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="svg-inline--fa fa-trash-alt fa-w-14 c0 ox-icon ox-icon-trash"
+          className="svg-inline--fa fa-trash-alt fa-w-14 ox-icon ox-icon-trash c0"
           data-icon="trash-alt"
           data-prefix="fas"
           focusable="false"
@@ -108,7 +108,7 @@ exports[`CNX mod tags component renders mod tags 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="svg-inline--fa fa-trash-alt fa-w-14 c0 ox-icon ox-icon-trash"
+          className="svg-inline--fa fa-trash-alt fa-w-14 ox-icon ox-icon-trash c0"
           data-icon="trash-alt"
           data-prefix="fas"
           focusable="false"

@@ -28,7 +28,7 @@ exports[`Lo tags component renders and matches snapshot 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="svg-inline--fa fa-plus-circle fa-w-16 c0 ox-icon ox-icon-plus-circle"
+          className="svg-inline--fa fa-plus-circle fa-w-16 ox-icon ox-icon-plus-circle c0"
           data-icon="plus-circle"
           data-prefix="fas"
           focusable="false"

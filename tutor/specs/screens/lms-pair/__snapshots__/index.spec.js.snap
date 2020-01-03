@@ -133,7 +133,7 @@ exports[`pairing a course displays find or create when existing courses 1`] = `
                 </div>
                 <svg
                   aria-hidden="true"
-                  className="svg-inline--fa fa-circle fa-w-16 c0 ox-icon ox-icon-circle"
+                  className="svg-inline--fa fa-circle fa-w-16 ox-icon ox-icon-circle c0"
                   color="#5e5e5e"
                   data-icon="circle"
                   data-prefix="far"
@@ -163,7 +163,7 @@ exports[`pairing a course displays find or create when existing courses 1`] = `
                 </div>
                 <svg
                   aria-hidden="true"
-                  className="svg-inline--fa fa-circle fa-w-16 c0 ox-icon ox-icon-circle"
+                  className="svg-inline--fa fa-circle fa-w-16 ox-icon ox-icon-circle c0"
                   color="#5e5e5e"
                   data-icon="circle"
                   data-prefix="far"
@@ -265,7 +265,7 @@ exports[`pairing a course displays only create when no courses 1`] = `
                 </div>
                 <svg
                   aria-hidden="true"
-                  className="svg-inline--fa fa-circle fa-w-16 c0 ox-icon ox-icon-circle"
+                  className="svg-inline--fa fa-circle fa-w-16 ox-icon ox-icon-circle c0"
                   color="#5e5e5e"
                   data-icon="circle"
                   data-prefix="far"
@@ -295,7 +295,7 @@ exports[`pairing a course displays only create when no courses 1`] = `
                 </div>
                 <svg
                   aria-hidden="true"
-                  className="svg-inline--fa fa-circle fa-w-16 c0 ox-icon ox-icon-circle"
+                  className="svg-inline--fa fa-circle fa-w-16 ox-icon ox-icon-circle c0"
                   color="#5e5e5e"
                   data-icon="circle"
                   data-prefix="far"

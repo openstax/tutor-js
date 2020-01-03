@@ -33,7 +33,7 @@ exports[`Course Page renders and matches snapshot 1`] = `
         >
           <svg
             aria-hidden="true"
-            className="svg-inline--fa fa-thumbs-up fa-w-16 c1 ox-icon ox-icon-thumbs-up"
+            className="svg-inline--fa fa-thumbs-up fa-w-16 ox-icon ox-icon-thumbs-up c1"
             data-icon="thumbs-up"
             data-prefix="fas"
             focusable="false"

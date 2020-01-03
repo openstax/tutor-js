@@ -23,7 +23,7 @@ exports[`LmsInfo Component matches snapshot 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="svg-inline--fa fa-chevron-left fa-w-10 c1 ox-icon ox-icon-chevron-left"
+      className="svg-inline--fa fa-chevron-left fa-w-10 ox-icon ox-icon-chevron-left c1"
       data-icon="chevron-left"
       data-prefix="fas"
       focusable="false"

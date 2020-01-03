@@ -38,7 +38,7 @@ exports[`choose exercises component matches snapshot 1`] = `
               className="c0"
             >
               <span
-                className="c1 chapter-section"
+                className="chapter-section c1"
                 data-chapter-section="2.2"
               >
                 2.2
@@ -410,7 +410,7 @@ exports[`choose exercises component matches snapshot 1`] = `
               className="c0"
             >
               <span
-                className="c1 chapter-section"
+                className="chapter-section c1"
                 data-chapter-section="2.3"
               >
                 2.3
