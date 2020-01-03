@@ -1,5 +1,5 @@
 import {
-  React, action, PropTypes, observable, observer, computed,
+  React, action, PropTypes, observable, observer, computed, styled,
 } from 'vendor';
 import Courses, { Course } from '../../models/courses-map';
 import Loading from 'shared/components/loading-animation';
@@ -8,7 +8,11 @@ import TemplateCard from './card';
 import { ScrollToTop } from 'shared';
 import CoursePage from '../../components/course-page';
 import * as EDIT_TYPES from './editors';
-import { Col, Row, Container } from 'react-bootstrap';
+import { Col, Row, Container, Button } from 'react-bootstrap';
+
+const Instructions = styled.p`
+  font-size: 1.8rem;
+`;
 
 export default
 @observer
@@ -75,10 +79,9 @@ class GradingTemplatesScreen extends React.Component {
     return (
       <Container fluid={true}>
         {modal}
-        <button onClick={this.onAdd}>add new</button>
         <Row>
           <Col>
-            <p>Manage pre-set submission and grading policy templates here. These templates can be applied to multiple assignments.</p>
+            <Instructions>Manage pre-set submission and grading policy templates here. These templates can be applied to multiple assignments.</Instructions>
           </Col>
         </Row>
         <Row>
@@ -95,12 +98,17 @@ class GradingTemplatesScreen extends React.Component {
     );
   }
 
+  titleControls() {
+    return <Button onClick={this.onAdd}>Add new template</Button>;
+  }
+
   render() {
     return (
       <ScrollToTop>
         <CoursePage
           course={this.course}
           title="Grading Templates"
+          titleControls={this.titleControls()}
         >
           {this.body()}
         </CoursePage>

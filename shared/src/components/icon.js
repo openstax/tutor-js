@@ -36,6 +36,7 @@ const Icons = {
   'bars':                 require('@fortawesome/free-solid-svg-icons/faBars'),
   'bookmark':             require('@fortawesome/free-solid-svg-icons/faBookmark'),
   'bullhorn':             require('@fortawesome/free-solid-svg-icons/faBullhorn'),
+  'caret-up':             require('@fortawesome/free-solid-svg-icons/faCaretUp'),
   'caret-down':           require('@fortawesome/free-solid-svg-icons/faCaretDown'),
   'caret-left':           require('@fortawesome/free-solid-svg-icons/faCaretLeft'),
   'caret-right':          require('@fortawesome/free-solid-svg-icons/faCaretRight'),

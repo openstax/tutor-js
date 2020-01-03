@@ -32,7 +32,7 @@ class GradingTemplate extends BaseModel {
   @field correctness_weight = 10;
   @field auto_grading_feedback_on = 'answer';
   @field manual_grading_feedback_on = 'grade';
-  @field late_work_immediate_penalty = false;
+  @field late_work_immediate_penalty = 10;
   @field late_work_per_day_penalty = 10;
   @field default_open_time = '00:01';
   @field default_due_time = '07:00';

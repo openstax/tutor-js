@@ -8,6 +8,7 @@ const neutral = {
   cool:     '#f6f7f8', // cool gray
   lighter:  '#f1f1f1', // light gray
   light:    '#e4e4e4', // light gray
+  pale:     '#d5d5d5',
   lite:     '#929292', // a gray that's darker than "light"
   std:      '#818181', // gray
   thin:     '#6f6f6f',
@@ -59,8 +60,16 @@ export const colors = {
   },
 
   navbars: {
-    border: '#d5d5d5',
+    border: neutral.pale,
     divider: '#cdcdcd',
+  },
+
+  forms: {
+    borders: {
+      light: neutral.pale,
+      focus: '#0dc0dc',
+      focusShadow: 'rgba(13,192,220,0.5)',
+    },
   },
 
   templates: {
@@ -72,12 +81,37 @@ export const colors = {
       background: '#daf3f8',
       border: '#34bdd7',
     },
+    neutral: {
+      background: neutral.pale,
+      border: neutral.dark,
+    },
+  },
+};
+
+export const fonts = {
+  faces: {
+    light() {
+      return css`
+        font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', Helvetica, sans-serif;
+        font-weight: 300;
+      `;
+    },
+  },
+  sans(size, lineHeight) {
+    return css`
+      font-family: 'Lato', Helvetica, sans-serif;
+      font-weight: 400;
+      font-style: normal;
+      font-size: ${size};
+      line-height: ${lineHeight || size};
+    `;
   },
 };
 
 const TutorTheme = {
 
   colors,
+  fonts,
 
   navbars: {
     top: {
@@ -99,18 +133,6 @@ const TutorTheme = {
   zIndex: {
     navbar: 1030,
     footer: 5,
-  },
-
-  fonts: {
-    sans(size, lineHeight) {
-      return css`
-        font-family: 'Lato', Helvetica, sans-serif;
-        font-weight: 400;
-        font-style: normal;
-        font-size: ${size};
-        line-height: ${lineHeight || size};
-      `;
-    },
   },
 };
 
