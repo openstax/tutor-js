@@ -47,6 +47,7 @@ exports[`My Courses Component matches snapshot 1`] = `
                     data-is-preview={false}
                     data-is-teacher={false}
                     data-term="Spring 2017"
+                    data-test-id="course-card"
                     data-title="Local Test Course One"
                   >
                     <div
@@ -100,6 +101,7 @@ exports[`My Courses Component matches snapshot 1`] = `
                     data-is-preview={false}
                     data-is-teacher={true}
                     data-term="Spring 2017"
+                    data-test-id="course-card"
                     data-title="Local Test Course Three"
                   >
                     <div
@@ -153,6 +155,7 @@ exports[`My Courses Component matches snapshot 1`] = `
                     data-is-preview={false}
                     data-is-teacher={true}
                     data-term="Spring 2017"
+                    data-test-id="course-card"
                     data-title="Local Test Course Two"
                   >
                     <div

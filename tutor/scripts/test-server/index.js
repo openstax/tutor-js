@@ -17,9 +17,11 @@ class Server {
   }
 
   boot() {
+    // eslint-disable-next-line no-console
     console.log(chalk.green(
       `\nStarting servers on port FE: ${this.ports.frontend}; BE: ${this.ports.backend}`
     ));
+    // eslint-disable-next-line no-console
     console.log(chalk.green(`Role: ${this.role}`));
 
     return this._booting = Promise.all(SERVERS.map((server) =>

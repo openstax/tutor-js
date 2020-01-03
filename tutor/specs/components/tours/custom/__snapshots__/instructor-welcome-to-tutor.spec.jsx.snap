@@ -27,6 +27,7 @@ exports[`Welcome to Tutor matches snapshot for welcome to tutor 1`] = `
 
 <div
   className="value-prop welcome-to-tutor has-forest-background"
+  data-test-id="value-prop"
 >
   <h1
     className="heading"

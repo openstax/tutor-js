@@ -59,7 +59,7 @@ function StandardTourStep({ step, ride, buttons }) {
       );
     }
     buttons.push(
-      <Primary key="p" onClick={ride.onNextStep}>
+      <Primary key="p" data-test-id="primary-button" onClick={ride.onNextStep}>
         {ride.nextLabel}
       </Primary>
     );
@@ -67,7 +67,10 @@ function StandardTourStep({ step, ride, buttons }) {
   }
 
   return (
-    <Wrapper className={cn('tour-step', step.id)}>
+    <Wrapper
+      data-test-id="tour-step"
+      className={cn('tour-step', step.id)}
+    >
       {step.isCancelable && <CancelButton ride={ride} />}
       {step.title && (
         <Header>

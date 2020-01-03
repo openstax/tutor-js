@@ -5,7 +5,7 @@
   "collectCoverageFrom": ["**/*.{jsx,js,coffee,cjsx}", "!**/node_modules/**"],
   "coverageDirectory": "../coverage/",
   "coverageReporters": ["json", "lcov", "text-summary"],
-  "testRegex": "specs\/.*\\.spec\\.(coffee|js|jsx|cjsx|json)$",
+  "testRegex": "specs\/((?!integration).)*\/.*\\.spec\\.(coffee|js|jsx|cjsx|json)$",
   "transform": {
     "^.+\\.jsx?$": "babel7-jest"
   },

@@ -1,6 +1,7 @@
 node_modules
 bower_components
 dist
+/cypress/integration
 .DS_Store
 /.tmp
 *.orig

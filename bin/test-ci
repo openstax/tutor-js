@@ -1,8 +1,0 @@
-#!/bin/bash
-
-set -ev
-
-# travis should be setting the OX_PROJECT variable
-# export OX_PROJECT='tutor'
-
-$(npm bin)/jest --maxWorkers=2 --verbose --config ./configs/test/jest.$OX_PROJECT.js
