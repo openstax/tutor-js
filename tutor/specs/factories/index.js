@@ -165,9 +165,11 @@ Factories.offeringsMap = ({ count = 4 } = {}) => {
 Factories.gradingTemplates = ({ course, count = 2 } = {}) => {
   const map = course.gradingTemplates;
   map.onLoaded({
-    data: range(count).map(() =>
-      FactoryBot.create('GradingTemplate', { course })
-    ),
+    data: {
+      items: range(count).map(() =>
+        FactoryBot.create('GradingTemplate', { course })
+      ),
+    },
   });
   return map;
 };
