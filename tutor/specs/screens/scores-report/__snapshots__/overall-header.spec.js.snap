@@ -24,11 +24,7 @@ exports[`Student Scores Overall Cell renders and matches snapshot 1`] = `
               </Button>
             </RefHolder>
             <Overlay placement=\\"auto\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} transition={{...}} rootClose={false}>
-              <ForwardRef(withContainer(Overlay)) placement=\\"auto\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} rootClose={false} transition={{...}}>
-                <WaitForContainer container={[undefined]}>
-                  <Overlay placement=\\"auto\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} rootClose={false} transition={{...}} container={{...}} />
-                </WaitForContainer>
-              </ForwardRef(withContainer(Overlay))>
+              <Overlay placement=\\"auto\\" defaultOverlayShown={false} popperConfig={{...}} show={false} onHide={[Function]} target={[Function]} rootClose={false} transition={{...}} containerPadding={5} />
             </Overlay>
           </OverlayTrigger>
         </Icon>

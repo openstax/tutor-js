@@ -10,11 +10,10 @@ const PATHS = {
 
 // created as plain class without this binding and never updates
 class Arrow extends React.Component {
-  static initClass() {
-  
-    this.propTypes =
-      { direction: PropTypes.oneOf(['left', 'right', 'up', 'down']) };
-  }
+
+  static propTypes = {
+    direction: PropTypes.oneOf(['left', 'right', 'up', 'down']),
+  };
 
   shouldComponentUpdate(nextProps) { return nextProps.direction !== this.props.direction; }
 
@@ -33,7 +32,6 @@ class Arrow extends React.Component {
     );
   }
 }
-Arrow.initClass();
 
 
 export default Arrow;

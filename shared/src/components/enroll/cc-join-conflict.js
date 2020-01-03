@@ -22,7 +22,7 @@ class CcJoinConflict extends React.Component {
   };
 
   onKeyPress = (ev) => {
-    if (ev.key === ENTER) { return this.onSubmit(); }
+    if (ev.key === ENTER) { this.onSubmit(); }
   };
 
   onSubmit = () => {

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { CrudConfig, makeSimpleStore, extendConfig } from './helpers';
 import _ from 'underscore';
 

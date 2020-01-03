@@ -39,7 +39,6 @@ export KeysHelper from './helpers/keys';
 export NotificationActions from './model/notifications';
 export NotificationsBar from './components/notifications/bar';
 export Question from './components/question';
-export RefreshButton from './components/buttons/refresh-button';
 export ResizeListenerMixin from './components/resize-listener-mixin';
 export SmartOverflow from './components/smart-overflow';
 export { default as SpyMode } from './components/spy-mode';

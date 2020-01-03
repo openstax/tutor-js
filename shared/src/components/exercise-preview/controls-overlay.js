@@ -8,6 +8,7 @@ class ControlsOverlay extends React.Component {
     onClick:  PropTypes.func,
     actions:  PropTypes.object,
     exercise: PropTypes.object.isRequired,
+    isSelected: PropTypes.bool,
   };
 
   onActionClick = (ev, handler) => {
@@ -28,21 +29,21 @@ class ControlsOverlay extends React.Component {
         className={classnames('controls-overlay', { active: this.props.isSelected })}>
         <div className="message">
           {(() => {
-             const result = [];
-             for (let type in this.props.actions) {
-               const action = this.props.actions[type];
-               result.push(
-                 <div
-                   key={type}
-                   className={`action ${type}`}
-                   onClick={partial(this.onActionClick, partial.placeholder, action.handler)}
-                   >
-                 <span>
-                   {action.message}
-                 </span>
-               </div>);
-             }
-             return result;
+            const result = [];
+            for (let type in this.props.actions) {
+              const action = this.props.actions[type];
+              result.push(
+                <div
+                  key={type}
+                  className={`action ${type}`}
+                  onClick={partial(this.onActionClick, partial.placeholder, action.handler)}
+                >
+                  <span>
+                    {action.message}
+                  </span>
+                </div>);
+            }
+            return result;
           })()}
         </div>
       </div>

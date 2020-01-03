@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'underscore';
 
@@ -95,12 +94,12 @@ const ScrollTrackerParentMixin = {
 
   componentDidMount() {
     this.setScrollTopBuffer();
-    if (this.props.currentStep != null) { return this.scrollToKey(this.props.currentStep); }
+    if (this.props.currentStep != null) { this.scrollToKey(this.props.currentStep); }
   },
 
   UNSAFE_componentWillUpdate(nextProps, nextState) {
     const willScrollStateKeyChange = !(nextState.scrollState.key === this.state.scrollState.key);
-    if (willScrollStateKeyChange) { return this.props.goToStep(nextState.scrollState.key); }
+    if (willScrollStateKeyChange) { this.props.goToStep(nextState.scrollState.key); }
   },
 
   componentDidUpdate(prevProps, prevState) {
@@ -108,9 +107,9 @@ const ScrollTrackerParentMixin = {
     const didCurrentStepChange = !(this.props.currentStep === (prevState.scrollState != null ? prevState.scrollState.key : undefined));
 
     if (!doesScrollStateMatch) {
-      return this.setScrollState();
+      this.setScrollState();
     } else if (didCurrentStepChange) {
-      return this.scrollToKey(this.props.currentStep);
+      this.scrollToKey(this.props.currentStep);
     }
   },
 

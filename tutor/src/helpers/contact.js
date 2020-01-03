@@ -10,7 +10,7 @@ const makeContactMessage = function(
   let msg = `Hello!
 
   I ran into a problem at ${location} while using browser
-  ${userAgent}.\n`
+  ${userAgent}.\n`;
 
   if (!isNil(status)) {
     reqDetails = `${config.method} on ${config.url} returned status "${status}" with message "${statusMessage}"\n\n`;

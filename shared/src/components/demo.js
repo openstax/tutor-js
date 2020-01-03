@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import createReactClass from 'create-react-class';
 import { Container, Row, Col, Button } from 'react-bootstrap';

@@ -1,10 +1,6 @@
 import Renderer from 'react-test-renderer';
-import { find, map } from 'lodash';
-import { MemoryRouter } from 'react-router-dom';
-import TagModel from 'shared/model/exercise/tag';
+import { find } from 'lodash';
 import Factory from '../../factories';
-
-import ExerciseControls from '../../../src/components/exercise/controls';
 import Books from '../../../src/components/tags/books';
 
 

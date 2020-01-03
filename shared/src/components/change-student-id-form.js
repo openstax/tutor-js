@@ -15,11 +15,17 @@ const BlankWarning = props =>
   </div>
 ;
 
+BlankWarning.propTypes = {
+  value: PropTypes.string,
+};
+
 class ChangeStudentIdForm extends React.Component {
   static propTypes = {
     onCancel: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
-
+    studentId: PropTypes.string,
+    children: PropTypes.node,
+    isBusy: PropTypes.bool,
     label: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.element,
@@ -37,7 +43,7 @@ class ChangeStudentIdForm extends React.Component {
   };
 
   onKeyPress = (ev) => {
-    if (ev.key === ENTER) { return this.onSubmit(); }
+    if (ev.key === ENTER) { this.onSubmit(); }
   };
 
   onSubmit = () => {

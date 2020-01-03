@@ -4,8 +4,8 @@ import * as PerformanceForecast from '../../flux/performance-forecast';
 import WeakerSections from './weaker-sections';
 import PracticeWeakestButton from '../../components/buttons/practice-weakest';
 
-export default
-class WeakerPanel extends React.Component {
+// eslint-disable-next-line react/prefer-stateless-function
+export default class WeakerPanel extends React.Component {
   static propTypes = {
     courseId:            PropTypes.string.isRequired,
     sections:            PropTypes.array.isRequired,

@@ -35,6 +35,8 @@ class Dialog extends React.Component {
     cancel: PropTypes.any,
     primary: PropTypes.node,
     onPrimary: PropTypes.func,
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string,
   };
 
   onCancel = () => {

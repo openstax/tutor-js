@@ -131,7 +131,7 @@ const commonActions = {
   },
 
   _clickComponentOfType(targetComponent, ...args) {
-    const { div, component } = args[0];
+    const { component } = args[0];
     const target = ReactTestUtils.findRenderedComponentWithType(component, targetComponent);
     return commonActions._clickComponent(target);
   },

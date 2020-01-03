@@ -1,7 +1,4 @@
 import { Factory } from '../../helpers';
-import { autorun } from 'mobx';
-import Roster from '../../../src/models/course/roster';
-
 
 describe('Roster Model', function() {
   let course;

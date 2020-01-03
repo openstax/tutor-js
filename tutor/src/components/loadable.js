@@ -2,9 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import LoadingScreen from 'shared/components/loading-animation';
-
 import BindStoreMixin from './bind-store-mixin';
-import { RefreshButton } from 'shared';
 
 // This component is useful for viewing something that needs to be loaded.
 //
@@ -24,6 +22,8 @@ export default createReactClass({
     renderLoading: PropTypes.func,
     renderError: PropTypes.func.isRequired,
     loadingMessage: PropTypes.string,
+    refreshButton: PropTypes.any,
+    update: PropTypes.any,
   },
 
   getDefaultProps() {

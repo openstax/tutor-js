@@ -1,4 +1,4 @@
-const { Factory, sequence, uuid, reference } = require('./helpers');
+const { Factory, uuid } = require('./helpers');
 
 Factory.define('User')
   .name(({ is_teacher }) => is_teacher ? 'Charles Morris' : 'Atticus Finch')

@@ -18,6 +18,9 @@ export default class PerformanceForecast extends React.Component {
     canPractice:  PropTypes.bool,
     weakerTitle: PropTypes.string.isRequired,
     weakerExplanation: PropTypes.element,
+    isLoading: PropTypes.bool,
+    loadingMessage: PropTypes.string,
+    emptyMessage: PropTypes.string,
   };
 
   renderBody = () => {

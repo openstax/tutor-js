@@ -1,4 +1,4 @@
-import { openPage, snapshotPage, setRole } from './helpers';
+import { openPage, snapshotPage } from './helpers';
 
 const DASHBOARDS = {
   student: '.progress-guide',

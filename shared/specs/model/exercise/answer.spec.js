@@ -1,4 +1,3 @@
-import { map } from 'lodash';
 import Factories from '../../factories';
 
 describe('Exercise Question', () => {

@@ -12,4 +12,4 @@ class Reposition extends BaseAction {
     this.$('.panel-body').classList.remove('on-demo-hover');
   }
 
-};
+}

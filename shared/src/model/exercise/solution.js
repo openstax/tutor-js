@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, identifier, field, hasMany, belongsTo,
+  BaseModel, identifiedBy, field, hasMany, belongsTo,
 } from '../../model';
 
 export default
@@ -12,4 +12,4 @@ class ExerciseSolution extends BaseModel {
 
   // set via inverseOf
   @belongsTo({ model: 'exercise/question' }) question;
-};
+}

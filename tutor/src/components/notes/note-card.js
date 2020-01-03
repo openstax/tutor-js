@@ -131,4 +131,4 @@ class NoteCard extends React.Component {
       </div>
     );
   }
-};
+}

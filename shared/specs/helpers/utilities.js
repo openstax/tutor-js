@@ -5,27 +5,6 @@ import { Promise } from 'es6-promise';
 import _ from 'underscore';
 
 
-const routerStub = {
-  container: document.createElement('div'),
-
-  unmount() {
-    React.unmountComponentAtNode(this.container);
-    return this.container = document.createElement('div');
-  },
-
-  forceUpdate(component, ...args) {
-    const promise = new Promise(function(resolve, reject) {
-      try {
-        return component.forceUpdate( () => resolve(...Array.from(args || [])));
-      } catch (error) {
-        return reject(error);
-      }
-    });
-
-    return promise;
-  },
-};
-
 const componentStub = {
   container: document.createElement('div'),
 
@@ -104,7 +83,7 @@ const commonActions = {
   },
 
   _clickComponentOfType(targetComponent, ...args) {
-    const { div, component } = args[0];
+    const { component } = args[0];
     const target = ReactTestUtils.findRenderedComponentWithType(component, targetComponent);
     return commonActions._clickComponent(target);
   },

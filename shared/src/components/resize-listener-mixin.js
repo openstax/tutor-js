@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
-import React from 'react';
 import ReactDOM from 'react-dom';
-import _ from 'underscore';
+import { throttle, defer } from 'lodash';
 
 export default {
   propTypes: {
@@ -23,12 +22,12 @@ export default {
   UNSAFE_componentWillMount() {
     // need to define @resizeListener so that we can throttle resize effect
     // and have access to @state.resizeThrottle or @props.resizeThrottle
-    return this.resizeListener = _.throttle(this.resizeEffect, this.state.resizeThrottle || this.props.resizeThrottle);
+    return this.resizeListener = throttle(this.resizeEffect, this.state.resizeThrottle || this.props.resizeThrottle);
   },
 
   componentDidMount() {
     this._isMounted = true;
-    _.defer(this.setInitialSize);
+    defer(this.setInitialSize);
     return window.addEventListener('resize', this.resizeListener);
   },
 
@@ -69,6 +68,6 @@ export default {
 
     const sizesInitial = { windowEl, componentEl };
 
-    return this.setState({ sizesInitial, windowEl, componentEl });
+    this.setState({ sizesInitial, windowEl, componentEl });
   },
 };

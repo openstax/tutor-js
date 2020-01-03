@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { delay } from 'lodash';
-import { filterProps } from '../../factories/link';
 import RefreshButton from './refresh-button';
 import Icon from '../icon';
 
@@ -37,6 +36,8 @@ export default class extends React.Component {
     variant: PropTypes.string,
     size: PropTypes.string,
     timeoutLength: PropTypes.number,
+    className: PropTypes.string,
+    children: PropTypes.node,
   };
 
   state = {
@@ -51,7 +52,7 @@ export default class extends React.Component {
     if (!delayTimeout && isWaiting && !isTimedout) {
       const timeout = this.props.timeoutLength || (isJob ? 600000 : 30000);
       delayTimeout = delay(this.checkForTimeout, timeout);
-      return this.setState({ delayTimeout });
+      this.setState({ delayTimeout });
     }
   }
 
@@ -62,24 +63,24 @@ export default class extends React.Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.isWaiting !== nextProps.isWaiting) {
       if (!nextProps.isWaiting) { this.clearDelay(); }
-      return this.setState({ delayTimeout: null });
+      this.setState({ delayTimeout: null });
     }
   }
 
   checkForTimeout = () => {
     const { isWaiting } = this.props;
-    if (isWaiting) { return this.setState({ isTimedout: true, delayTimeout: null }); }
+    if (isWaiting) { this.setState({ isTimedout: true, delayTimeout: null }); }
   };
 
   clearDelay = () => {
     const { delayTimeout } = this.state;
-    if (delayTimeout) { return clearTimeout(delayTimeout); }
+    if (delayTimeout) { clearTimeout(delayTimeout); }
   };
 
   render() {
     let spinner, stateClass, text;
     let {
-      className, isDisabled, isJob, failedState,
+      className, isDisabled, isJob, failedState, // eslint-disable-line
       isWaiting, isDone, isFailed, children, waitingText,
       failedProps, doneText, ...buttonProps
     } = this.props;

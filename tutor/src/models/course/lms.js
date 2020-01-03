@@ -36,4 +36,4 @@ class CourseLMS extends BaseModel {
   pushScores() {}
   fetch() { }
 
-};
+}

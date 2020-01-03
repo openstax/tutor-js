@@ -9,10 +9,7 @@ jest.mock('lodash/debounce', () =>
     fn => () => fn())
 );
 
-const debounce = require('lodash/debounce');
 const ConsoleLogger = require('loglevel');
-
-
 
 jest.useFakeTimers();
 

@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, identifier, field, hasMany,
+  BaseModel, identifiedBy, identifier, field,
 } from '../../model';
 
 
@@ -9,4 +9,4 @@ class ExerciseAuthor extends BaseModel {
 
   @identifier user_id;
   @field name;
-};
+}

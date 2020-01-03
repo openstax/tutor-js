@@ -1,5 +1,4 @@
 import SystemNotifications from '../../../src/components/notifications/system';
-import Notifications from 'model/notifications';
 
 describe('System Notifications', function() {
   let props = null;

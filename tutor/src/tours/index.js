@@ -1,5 +1,4 @@
 /* global require:true */
-import { extend, each } from 'lodash';
 
 const TOURS = {};
 

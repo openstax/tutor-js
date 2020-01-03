@@ -4,8 +4,8 @@ import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import S from '../helpers/string';
 import TaskHelper from '../helpers/task';
 
-export default
-class LateIcon extends React.Component {
+// eslint-disable-next-line react/prefer-stateless-function
+export default class LateIcon extends React.Component {
 
   static defaultProps = {
     buildLateMessage(task, status) {
@@ -15,16 +15,16 @@ class LateIcon extends React.Component {
 
   static propTypes = {
     task: PropTypes.shape({
+      id: PropTypes.any,
       due_at:          PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.instanceOf(Date),
       ]),
-
       last_worked_at:  PropTypes.date,
       type:            PropTypes.string,
       status:          PropTypes.string,
     }).isRequired,
-
+    className:        PropTypes.string,
     buildLateMessage: PropTypes.func,
   };
 

@@ -1,5 +1,7 @@
+/* eslint-disable no-console */
 import ErrorBoundary from '../../../src/components/error-monitoring/boundary';
 
+// eslint-disable-next-line no-undef
 const BadBoi = () => popGoesTheWeasle();
 
 describe('Error monitoring: client-side errors', () => {

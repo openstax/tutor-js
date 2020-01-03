@@ -1,4 +1,4 @@
-import { isEmpty, get } from 'lodash';
+import { isEmpty } from 'lodash';
 import {
   BaseModel, identifiedBy, identifier, field, computed, belongsTo,
 } from '../../model';
@@ -25,4 +25,4 @@ class ExerciseAnswer extends BaseModel {
   @computed get isCorrect() {
     return this.correctness === '1.0';
   }
-};
+}

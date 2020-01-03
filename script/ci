@@ -7,7 +7,7 @@ if [[ ! ${OX_PROJECT} ]]; then
   _say "Running tutor tests because OX_PROJECT environment variable was not specified"
 fi
 
-./bin/lint branch || exit 112
+./bin/lint || exit 112
 
 # shellcheck disable=SC2068
 try yarn run ci -- $@

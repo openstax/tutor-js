@@ -2,6 +2,7 @@ import { Router, React, Factory } from '../helpers';
 import Exercise from '../../src/components/exercise';
 import ExerciseModel from '../../src/models/exercises/exercise';
 
+// eslint-disable-next-line react/prop-types
 jest.mock('../../../shared/src/components/html', () => ({ html }) =>
   html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null
 );

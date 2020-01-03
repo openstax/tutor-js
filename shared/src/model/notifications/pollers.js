@@ -1,14 +1,8 @@
-import extend from 'lodash/extend';
-import bindAll from 'lodash/bindAll';
-import difference from 'lodash/difference';
-import without from 'lodash/without';
-import keys from 'lodash/keys';
-import isEmpty from 'lodash/isEmpty';
-import values from 'lodash/values';
-
+import {
+  extend, bindAll, difference, without, keys, isEmpty, values,
+} from 'lodash';
 import moment from 'moment';
 import axios from 'axios';
-
 import User from '../user';
 import UiSettings from '../ui-settings';
 
@@ -30,7 +24,7 @@ class Poller {
 
   setUrl(url) {
     this.url = url;
-    if (!this.polling) { return this.startPolling(); }
+    if (!this.polling) { this.startPolling(); }
   }
 
   destroy() {
@@ -44,16 +38,18 @@ class Poller {
   }
 
   poll() {
-    if (this.notices.windowImpl.document.hidden === true) { return; }
+    if (this.notices.windowImpl.document.hidden === true) { return Promise.resolve(); }
     return axios.get(this.url, { withCredentials: true }).then(this.onReply).catch(this.onError);
   }
 
-  onReply({ data }) {
-    return console.warn('base onReply method called unnecessarily');
+  onReply() {
+    // eslint-disable-next-line no-console
+    console.warn('base onReply method called unnecessarily');
   }
 
   onError(resp) {
-    return console.warn(resp);
+    // eslint-disable-next-line no-console
+    console.warn(resp);
   }
 
   getActiveNotifications() {
@@ -84,7 +80,7 @@ class Poller {
     // Prune the list of observed notice ids so it doesn't continue to fill up with old notices
     const outdatedIds = difference(observedIds, without(currentIds, ...Array.from(keys(newActiveNotices))));
     if (!isEmpty(outdatedIds)) {
-      return this._setObservedNoticeIds( without(observedIds, ...Array.from(outdatedIds)) );
+      this._setObservedNoticeIds( without(observedIds, ...Array.from(outdatedIds)) );
     }
   }
 }

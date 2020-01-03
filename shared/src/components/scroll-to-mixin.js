@@ -1,10 +1,5 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
-
-import extend from 'lodash/extend';
-import isEmpty from 'lodash/isEmpty';
-import delay from 'lodash/delay';
-import result from 'lodash/result';
+import { extend, isEmpty, delay, result, invoke } from 'lodash';
 
 
 // Note that the GetPositionMixin methods are called directly rather than mixing it in
@@ -45,7 +40,11 @@ const ScrollToMixin = {
     const el = this.getElement(selector);
     if (!el) { return false; }
 
-    if (!options.unlessInView || !this.isElementInView(el)) { return this.scrollToElement(el, options); }
+    if (!options.unlessInView || !this.isElementInView(el)) {
+      return this.scrollToElement(el, options);
+    }
+
+    return false;
   },
 
   isSelectorInView(selector) {
@@ -63,7 +62,7 @@ const ScrollToMixin = {
   },
 
   getElement(selector) {
-    if (isEmpty(selector)) { return; }
+    if (isEmpty(selector)) { return null; }
     return this._scrollingTargetDOM().querySelector(selector);
   },
 
@@ -73,7 +72,7 @@ const ScrollToMixin = {
   },
 
   _onAfterScroll(el, options) {
-    if (__guard__(el != null ? el.classList : undefined, x => x.contains('target-scroll'))) {
+    if (invoke(el, 'classList.contains', 'target-scroll')) {
       delay(el.classList.remove.bind(el.classList, 'target-scroll'), 150);
     }
     if (options.updateHistory) { this.props.windowImpl.history.pushState(null, null, `#${el.id}`); }
@@ -99,7 +98,10 @@ const ScrollToMixin = {
 
   scrollToTop() {
     const root = this.props.windowImpl.document.body.querySelector('#ox-react-root-container');
-    if (root) { return this.scrollToElement(root, { updateHistory: false }); }
+    if (root) {
+      return this.scrollToElement(root, { updateHistory: false });
+    }
+    return Promise.resolve();
   },
 
   scrollToElement(el, options = {} ) {
@@ -121,18 +123,17 @@ const ScrollToMixin = {
     const step = () => {
       const elapsed = Date.now() - startTime;
       win.scroll(0, POSITION(startPos, endPos, elapsed, duration) );
-      if (elapsed < duration) { return requestAnimationFrame(step);
-      } else { return this._onScrollStep(el, options); }
+      if (elapsed < duration) {
+        requestAnimationFrame(step);
+      } else {
+        this._onScrollStep(el, options);
+      }
     };
 
     this._onBeforeScroll(el);
-    return step();
+    step();
   },
 };
 
 
 export default ScrollToMixin;
-
-function __guard__(value, transform) {
-  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
-}
