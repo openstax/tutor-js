@@ -14,6 +14,7 @@ const GradingTemplateLink = ({ course, history }) => {
   return (
     <Link
       href={href}
+      data-test-id="grading-template-link"
       variant="link"
       onClick={() => history.push(href)}
     >
