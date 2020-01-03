@@ -296,14 +296,14 @@ class TemplateForm extends React.Component {
           </Setting>
           <Setting>
             <RadioInput
-              name="late_work_immediate_penalty"
+              name="late_work_penalty"
               label="Deduct"
               id="late_work_penalty_assignment"
               defaultChecked={true}
               aria-labelledby="late_work_penalty_assignment_label late_assignment_deduction_label"
             />
             <AdjacentNumberInput
-              name="late_assignment_deduction"
+              name="late_work_immediate_penalty"
               id="late_assignment_deduction"
               min={0} max={100}
             />
@@ -324,7 +324,7 @@ class TemplateForm extends React.Component {
           <Setting>
             <Select name="due_date_count" id="due_date_count">
               {Array.from(Array(7), (v, i) =>
-                <option>{i + 1}</option>
+                <option key={'duedate' + i}>{i + 1}</option>
               )}
             </Select>
             <SettingLabel htmlFor="due_date_count">days after open date</SettingLabel>
@@ -334,13 +334,13 @@ class TemplateForm extends React.Component {
           <Setting>
             <Select name="due_time_hour">
               {Array.from(Array(12), (v, i) =>
-                <option>{(i + 1).toString().padStart(2, '0')}</option>
+                <option key={'hour' + i}>{(i + 1).toString().padStart(2, '0')}</option>
               )}
             </Select>
             <TimeSeparator>:</TimeSeparator>
             <Select name="due_time_minute">
               {Array.from(Array(60), (v, i) =>
-                <option>{i.toString().padStart(2, '0')}</option>
+                <option key={'min' + i}>{i.toString().padStart(2, '0')}</option>
               )}
             </Select>
             <StyledToggleButtonGroup type="radio" name="due_time_ampm" defaultValue={2}>
@@ -353,7 +353,7 @@ class TemplateForm extends React.Component {
           <Setting>
             <Select name="close_date_count" id="close_date_count">
               {Array.from(Array(7), (v, i) =>
-                <option>{i + 1}</option>
+                <option key={'closedate' + i}>{i + 1}</option>
               )}
             </Select>
             <SettingLabel htmlFor="close_date_count">days after due date</SettingLabel>
