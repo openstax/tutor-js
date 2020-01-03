@@ -200,7 +200,7 @@ const FieldsetRow = observer((props) => {
       <SplitRow>
         <Legend aria-hidden="true" role="presentation">
           {props.legend}
-          { props.legendHint && <HintText>{props.legendHint}</HintText> }
+          {props.legendHint && <HintText>{props.legendHint}</HintText>}
         </Legend>
         <div>
           {props.children}
@@ -212,6 +212,7 @@ const FieldsetRow = observer((props) => {
 
 FieldsetRow.propTypes = {
   legend: PropTypes.string.isRequired,
+  legendHint: PropTypes.string,
 };
 
 @observer
@@ -282,7 +283,7 @@ class TemplateForm extends React.Component {
               aria-labelledby="late_work_penalty_day_label late_day_deduction_label"
             />
             <AdjacentNumberInput
-              name="late_day_deduction"
+              name="late_work_per_day_penalty"
               id="late_day_deduction"
               min={0} max={100}
             />
@@ -295,7 +296,7 @@ class TemplateForm extends React.Component {
           </Setting>
           <Setting>
             <RadioInput
-              name="late_work_penalty"
+              name="late_work_immediate_penalty"
               label="Deduct"
               id="late_work_penalty_assignment"
               defaultChecked={true}
