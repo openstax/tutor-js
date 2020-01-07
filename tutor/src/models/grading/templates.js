@@ -5,6 +5,7 @@ import {
 import { set } from 'lodash';
 
 const DECIMAL_CONVERSION_FIELDS = [
+  'late_work_immediate_penalty',
   'late_work_per_day_penalty',
   'completion_weight',
   'correctness_weight',
@@ -57,6 +58,10 @@ class GradingTemplate extends BaseModel {
 
   @computed get isHomework() {
     return 'homework' === this.task_plan_type;
+  }
+
+  @computed get isLateWorkAccepted() {
+    return this.late_work_immediate_penalty < 100;
   }
 
   get dataForSave() {
