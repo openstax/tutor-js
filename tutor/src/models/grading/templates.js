@@ -64,6 +64,11 @@ class GradingTemplate extends BaseModel {
     return this.late_work_immediate_penalty < 100;
   }
 
+  @computed get canRemove() {
+    // a template can be removed as if there is at least one other with the same type
+    return Boolean(this.map && this.map.array.find(t => t !== this && t.task_plan_type === this.task_plan_type));
+  }
+
   get dataForSave() {
     const data = this.serialize();
     DECIMAL_CONVERSION_FIELDS.forEach(

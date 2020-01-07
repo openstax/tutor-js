@@ -87,7 +87,7 @@ const CardInfo = observer(({ template, children, onEdit, onDelete }) => {
           {template.name}
           <div>
             <Icon type="edit" onClick={() => onEdit(template)}  />
-            <Icon type="trash" onClick={() => onDelete(template)}  />
+            {template.canRemove && <Icon type="trash" onClick={() => onDelete(template)}  />}
           </div>
         </Card.Header>
         <Card.Body>
