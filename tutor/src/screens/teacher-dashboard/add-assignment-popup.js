@@ -22,7 +22,7 @@ const CustomMenu = React.forwardRef(
 
 CustomMenu.propTypes = {
   'aria-labelledby': PropTypes.string,
-  children: PropTypes.arrayOf(PropTypes.element),
+  children: PropTypes.node,
   className: PropTypes.string,
 };
 
