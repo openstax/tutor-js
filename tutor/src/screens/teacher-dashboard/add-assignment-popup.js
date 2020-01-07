@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import AddMenu from './add-menu';
 
 const CustomMenu = React.forwardRef(
-  ({ show, children, style, className, 'aria-labelledby': labeledBy }, ref) => {
+  ({ children, className, 'aria-labelledby': labeledBy }, ref) => {
     return (
       <div
         ref={ref}
@@ -19,6 +19,12 @@ const CustomMenu = React.forwardRef(
     );
   },
 );
+
+CustomMenu.propTypes = {
+  'aria-labelledby': PropTypes.string,
+  children: PropTypes.arrayOf(PropTypes.element),
+  className: PropTypes.string,
+};
 
 export default
 @observer
