@@ -1,6 +1,6 @@
 import Map from 'shared/model/map';
 import {
-  BaseModel, identifiedBy, action, field, identifier, computed,
+  BaseModel, identifiedBy, action, field, identifier, computed, observable,
 } from 'shared/model';
 import { set } from 'lodash';
 
@@ -39,6 +39,7 @@ class GradingTemplate extends BaseModel {
   @field default_due_time = '07:00';
   @field default_due_date_offset_days = 1;
   @field default_close_date_offset_days = 1;
+  @observable map;
 
   constructor(attrs, map) {
     super(attrs);

@@ -23,9 +23,17 @@ describe('Grading Templates Card', function() {
 
   it('deletes and edits', () => {
     const card = mount(<Card {...props} />);
-    card.find('button.ox-icon-edit').simulate('click');
-    expect(props.onEdit).toHaveBeenCalledWith(props.template);
+    // cant delete unless there is a matching template
+    expect(card.find('button.ox-icon-trash')).toHaveLength(0);
+    props.template.map = {
+      array: { find() { return props.template; } },
+    };
+    expect(props.template.canRemove).toBe(true);
+    card.update();
     card.find('button.ox-icon-trash').simulate('click');
     expect(props.onDelete).toHaveBeenCalledWith(props.template);
+
+    card.find('button.ox-icon-edit').simulate('click');
+    expect(props.onEdit).toHaveBeenCalledWith(props.template);
   });
 });
