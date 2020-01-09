@@ -1,14 +1,14 @@
 import {
   React, action, PropTypes, observable, observer, computed, styled,
 } from 'vendor';
+import { Col, Row, Container, Button } from 'react-bootstrap';
 import Courses, { Course } from '../../models/courses-map';
 import Loading from 'shared/components/loading-animation';
 import { GradingTemplates } from '../../models/grading/templates';
-import TemplateCard from './card';
+import Card from './card';
 import { ScrollToTop } from 'shared';
 import CoursePage from '../../components/course-page';
 import * as EDIT_TYPES from './editors';
-import { Col, Row, Container, Button } from 'react-bootstrap';
 import CourseBreadcrumb from '../../components/course-breadcrumb';
 
 const Instructions = styled.p`
@@ -58,6 +58,10 @@ class GradingTemplatesScreen extends React.Component {
     this.editing = template;
   }
 
+  @action.bound onDeleteTemplate(template) {
+    template.remove();
+  }
+
   @action.bound onAdd() {
     this.editing = { task_plan_type: 'create' };
   }
@@ -94,14 +98,13 @@ class GradingTemplatesScreen extends React.Component {
           </Col>
         </Row>
         <Row>
-          {this.store.array.map(tmpl =>
-            <Col key={tmpl.id} lg={4} md={6} sm={12} xs={12}>
-              <TemplateCard
-                onEdit={this.onEditTemplate}
-                template={tmpl}
-                store={this.store} />
-            </Col>
-          )}
+          {this.store.array.map(template => (
+            <Card
+              key={template.id}
+              template={template}
+              onEdit={this.onEditTemplate}
+              onDelete={this.onDeleteTemplate}
+            />))}
         </Row>
       </Container>
     );
