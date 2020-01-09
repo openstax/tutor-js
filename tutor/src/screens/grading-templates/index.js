@@ -9,6 +9,7 @@ import { ScrollToTop } from 'shared';
 import CoursePage from '../../components/course-page';
 import * as EDIT_TYPES from './editors';
 import { Col, Row, Container, Button } from 'react-bootstrap';
+import CourseBreadcrumb from '../../components/course-breadcrumb'
 
 const Instructions = styled.p`
   font-size: 1.8rem;
@@ -31,6 +32,14 @@ class GradingTemplatesScreen extends React.Component {
   constructor(props) {
     super(props);
     this.store.fetch();
+  }
+
+  componentDidMount() {
+    document.body.classList.add('light');
+  }
+
+  componentWillUnmount() {
+    document.body.classList.remove('light');
   }
 
   @computed get course() {
@@ -99,7 +108,11 @@ class GradingTemplatesScreen extends React.Component {
   }
 
   titleControls() {
-    return <Button onClick={this.onAdd}>Add new template</Button>;
+    return <Button onClick={this.onAdd} size="lg">Add new template</Button>;
+  }
+
+  titleBreadcrumbs() {
+    return <CourseBreadcrumb course={this.course} currentTitle="Grading Templates" />;
   }
 
   render() {
@@ -109,6 +122,8 @@ class GradingTemplatesScreen extends React.Component {
           course={this.course}
           title="Grading Templates"
           titleControls={this.titleControls()}
+          titleBreadcrumbs={this.titleBreadcrumbs()}
+          titleAppearance="light"
         >
           {this.body()}
         </CoursePage>

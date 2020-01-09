@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Course Breadcrumb renders and matches snapshot 1`] = `
+.c2 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  margin: 2rem 0;
+  max-width: 1200px;
+}
+
+.c1 {
+  color: #cdcdcd;
+  margin: 0 0.8rem;
+  margin-top: 2px;
+}
+
+.c1 svg {
+  margin: 0;
+}
+
+.c3 {
+  color: #5e6062;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+<div
+  className="c0"
+>
+  <a
+    href="/course/1"
+    onClick={[Function]}
+  >
+    College Physics
+  </a>
+  <span
+    className="sc-gqjmRU c1"
+  >
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-angle-right fa-w-8 ox-icon ox-icon-angle-right c2"
+      data-icon="angle-right"
+      data-prefix="fas"
+      focusable="false"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 256 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+  </span>
+  <div
+    className="c3"
+  />
+</div>
+`;
