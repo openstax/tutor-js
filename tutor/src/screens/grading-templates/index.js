@@ -2,6 +2,7 @@ import {
   React, action, PropTypes, observable, observer, computed, styled,
 } from 'vendor';
 import Courses, { Course } from '../../models/courses-map';
+import Theme from '../../theme';
 import Loading from 'shared/components/loading-animation';
 import { GradingTemplates } from '../../models/grading/templates';
 import TemplateCard from './card';
@@ -13,6 +14,11 @@ import CourseBreadcrumb from '../../components/course-breadcrumb';
 
 const Instructions = styled.p`
   font-size: 1.8rem;
+`;
+
+const Templates = styled(CoursePage)`
+  min-height: calc(100vh - ${Theme.navbars.top.height});
+  background-color: wheat;
 `;
 
 export default
@@ -118,7 +124,7 @@ class GradingTemplatesScreen extends React.Component {
   render() {
     return (
       <ScrollToTop>
-        <CoursePage
+        <Templates
           course={this.course}
           title="Grading Templates"
           titleControls={this.titleControls()}
@@ -126,7 +132,7 @@ class GradingTemplatesScreen extends React.Component {
           titleAppearance="light"
         >
           {this.body()}
-        </CoursePage>
+        </Templates>
       </ScrollToTop>
     );
   }
