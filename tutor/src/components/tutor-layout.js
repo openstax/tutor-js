@@ -20,7 +20,7 @@ const StyledLayout = styled.div`
 
 const Content = styled.div`
   padding-top: ${Theme.navbars.top.height};
-  padding-bottom: ${Theme.navbars.bottom.height};
+  padding-bottom: ${props => props.hasFooter ? Theme.navbars.bottom.height : 0};
 `;
 
 class CourseContext {
@@ -83,7 +83,9 @@ class TutorLayout extends React.Component {
             key={course || 'no-course'}
             course={course}
           />
-          <Content>{this.props.children}</Content>
+          <Content hasFooter={!this.bottomNavbarContext.isEmpty}>
+            {this.props.children}
+          </Content>
           <Navbar
             area="footer"
             context={this.bottomNavbarContext}
