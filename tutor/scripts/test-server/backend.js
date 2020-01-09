@@ -31,9 +31,9 @@ const HANDLERS = {
   'courses/:courseId/dashboard': require('./backend/dashboard'),
   'courses/:courseId/plans*': require('./backend/previous-plans'),
   'courses/:courseId/guide': require('./backend/performance-forecast'),
+  'courses/:courseId/grading_templates': require('./backend/grading-templates'),
 };
 
-//  'courses/:courseId/grading_templates': require('./backend/grading-templates'),
 
 // routes that have custom logic
 for (let route in HANDLERS) {

@@ -1,7 +1,7 @@
 const {
   Factory, sequence, fake,
 } = require('./helpers');
-import { capitalize } from 'lodash';
+const { capitalize } = require('lodash');
 
 Factory.define('GradingTemplate')
   .id(sequence)

@@ -81,7 +81,11 @@ const manuallyGradedExplanation = (tmpl) => {
 
 const CardInfo = observer(({ template, children, onEdit, onDelete }) => {
   return (
-    <CardWrapper templateColors={Theme.colors.templates[template.task_plan_type]}>
+    <CardWrapper
+      data-test-id="grading-template-card"
+      data-type={template.task_plan_type}
+      templateColors={Theme.colors.templates[template.task_plan_type]}
+    >
       <Card>
         <Card.Header>
           {template.name}
