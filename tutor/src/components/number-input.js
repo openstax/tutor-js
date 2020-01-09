@@ -69,7 +69,11 @@ const NumberInput = observer((props) => {
       {...props}
       upHandler={<Icon type="caret-up" />}
       downHandler={<Icon type="caret-down" />}
-      onChange={(nv) => field.onChange({ target: { ...props, value: nv } })}
+      onChange={(nv) => {
+        const ev = { target: { ...props, value: nv } };
+        field.onChange(ev);
+        props.onChange && props.onChange(ev);
+      }}
     />
   );
 });

@@ -1,5 +1,7 @@
 import { React, PropTypes, observer, styled } from 'vendor';
 import Theme from '../theme';
+import { uniqueId } from 'lodash';
+import { useField } from 'formik';
 
 const StyledWrapper = styled.span`
   position: relative;
@@ -52,13 +54,17 @@ const StyledRadioInput = styled.input.attrs( () => ({
 `;
 
 const RadioInput = observer((props) => {
+  const [field] = useField({ type: 'text', ...props });
+  const id = props.id || uniqueId(props.name);
 
   return (
     <StyledWrapper>
       <StyledRadioInput
+        {...field}
         {...props}
+        id={id}
       />
-      <label id={`${props.id}_label`} htmlFor={props.id}>{props.label}</label>
+      <label htmlFor={id}>{props.label}</label>
     </StyledWrapper>
   );
 });

@@ -220,7 +220,7 @@ class TemplateForm extends React.Component {
 
   static propTypes = {
     onComplete: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired,
+    body: PropTypes.func.isRequired,
     ...propTypes,
   }
 
@@ -230,8 +230,55 @@ class TemplateForm extends React.Component {
     this.props.onComplete();
   }
 
+  renderLateWorkFields() {
+    return (
+      <FieldsetRow legend="Late work penalty">
+        <Setting>
+          <RadioInput
+            name="late_work_penalty"
+            label="Deduct"
+            id="late_work_penalty_day"
+            defaultChecked={false}
+            aria-labelledby="late_work_penalty_day_label late_day_deduction_label"
+          />
+          <AdjacentNumberInput
+            name="late_work_per_day_penalty"
+            id="late_day_deduction"
+            min={0} max={100}
+          />
+          <SettingLabel
+            id="late_day_deduction_label"
+            htmlFor="late_day_deduction"
+          >
+            % for each late day
+          </SettingLabel>
+        </Setting>
+        <Setting>
+          <RadioInput
+            name="late_work_penalty"
+            label="Deduct"
+            id="late_work_penalty_assignment"
+            defaultChecked={true}
+            aria-labelledby="late_work_penalty_assignment_label late_assignment_deduction_label"
+          />
+          <AdjacentNumberInput
+            name="late_work_immediate_penalty"
+            id="late_assignment_deduction"
+            min={0} max={100}
+          />
+          <SettingLabel
+            id="late_assignment_deduction_label"
+            htmlFor="late_assignment_deduction"
+          >
+            % for late assignment
+          </SettingLabel>
+        </Setting>
+      </FieldsetRow>
+    );
+  }
+
   renderForm = (form) => {
-    this.form = form;
+    const { template, body } = this.props;
 
     return (
       <Form>
@@ -244,8 +291,11 @@ class TemplateForm extends React.Component {
             placeholder="Pre-class reading, Reading-Thursday, etc."
           />
         </SplitRow>
+
         <Line />
-        {this.props.children}
+
+        {body({ form })}
+
         {map(form.errors.common, (value, key) =>
           <Error key={key}>{value}</Error>)}
         <Line />
@@ -260,62 +310,29 @@ class TemplateForm extends React.Component {
             <RadioInput
               name="accept_late_work"
               label="Yes"
+              value="yes"
               id="late_work_yes"
-              defaultChecked={true}
+              onChange={() => form.setFieldValue('late_work_immediate_penalty', 10)}
+              defaultChecked={template.isLateWorkAccepted}
             />
           </Setting>
-          <Setting>
-            <RadioInput
-              name="accept_late_work"
-              label="No"
-              id="late_work_no"
-              defaultChecked={false}
-            />
-          </Setting>
+          {template.isLateWorkAccepted && (
+            <Setting>
+              <RadioInput
+                name="accept_late_work"
+                label="No"
+                value="no"
+                id="late_work_no"
+                onChange={() => form.setFieldValue('late_work_immediate_penalty', 100)}
+                defaultChecked={!template.isLateWorkAccepted}
+              />
+            </Setting>)}
         </FieldsetRow>
-        <FieldsetRow legend="Late work penalty">
-          <Setting>
-            <RadioInput
-              name="late_work_penalty"
-              label="Deduct"
-              id="late_work_penalty_day"
-              defaultChecked={false}
-              aria-labelledby="late_work_penalty_day_label late_day_deduction_label"
-            />
-            <AdjacentNumberInput
-              name="late_work_per_day_penalty"
-              id="late_day_deduction"
-              min={0} max={100}
-            />
-            <SettingLabel
-              id="late_day_deduction_label"
-              htmlFor="late_day_deduction"
-            >
-              % for each late day
-            </SettingLabel>
-          </Setting>
-          <Setting>
-            <RadioInput
-              name="late_work_penalty"
-              label="Deduct"
-              id="late_work_penalty_assignment"
-              defaultChecked={true}
-              aria-labelledby="late_work_penalty_assignment_label late_assignment_deduction_label"
-            />
-            <AdjacentNumberInput
-              name="late_work_immediate_penalty"
-              id="late_assignment_deduction"
-              min={0} max={100}
-            />
-            <SettingLabel
-              id="late_assignment_deduction_label"
-              htmlFor="late_assignment_deduction"
-            >
-              % for late assignment
-            </SettingLabel>
-          </Setting>
-        </FieldsetRow>
+
+        {form.values.isLateWorkAccepted && this.renderLateWorkFields()}
+
         <Line />
+
         <Row>
           Set up your preferred due dates and time as defaults
           <HintText>(You can change this while building an assignment)</HintText>
@@ -408,119 +425,126 @@ class TemplateForm extends React.Component {
 
 
 const reading = observer((props) => {
-//  const { template } = props;
 
   return (
     <TemplateForm
       {...props}
-    >
-      <Row>
-        Score calculations for questions
-        <HintText>
-          (OpenStax Tutor encourages grading for completion, not correctness. <a href="" target="_blank">Learn why</a>)
-        </HintText>
-      </Row>
+      body={({ form }) => (
+        <>
+          <Row>
+            Score calculations for questions
+            <HintText>
+              (OpenStax Tutor encourages grading for completion, not correctness. <a href="" target="_blank">Learn why</a>)
+            </HintText>
+          </Row>
 
-      <SplitRow>
-        <Label>Weight for correctness</Label>
-        <Setting>
-          <StyledNumberInput
-            name="correctness_weight"
-            min={0} max={100}
-          />
-          <SettingLabel>% of questions point value</SettingLabel>
-        </Setting>
-      </SplitRow>
-      <SplitRow>
-        <Label>Weight for completion</Label>
-        <Setting>
-          <StyledNumberInput
-            name="completion_weight"
-            min={0} max={100}
-          />
-          <SettingLabel>% of questions point value</SettingLabel>
-        </Setting>
-      </SplitRow>
-    </TemplateForm>
+          <SplitRow>
+            <Label>Weight for correctness</Label>
+            <Setting>
+              <StyledNumberInput
+                name="correctness_weight"
+                min={0} max={100}
+                onChange={(ev) => form.setFieldValue('completion_weight', 100 - ev.target.value)}
+              />
+              <SettingLabel>% of questions point value</SettingLabel>
+            </Setting>
+          </SplitRow>
+          <SplitRow>
+            <Label>Weight for completion</Label>
+            <Setting>
+              <StyledNumberInput
+                name="completion_weight"
+                min={0} max={100}
+                onChange={(ev) => form.setFieldValue('correctness_weight', 100 - ev.target.value)}
+              />
+              <SettingLabel>% of questions point value</SettingLabel>
+            </Setting>
+          </SplitRow>
+        </>
+      )}
+    />
   );
 });
+
 reading.displayName = 'ReadingTemplateEditForm';
 reading.propTypes = propTypes;
 
 const homework = observer((props) => {
-  //const { template } = props;
+  const { template } = props;
 
   return (
     <TemplateForm
       {...props}
-    >
-      <Row>
-        Select when students can see their scores and feedback
-      </Row>
-      <FieldsetRow
-        legend="For auto-graded questions"
-        legendHint="(Multiple choice question-MCQs, 2-Step questions)"
-      >
-        <div>
-          <Setting>
-            <RadioInput
-              name="auto_graded_qs"
-              label="Immediately after student answers"
-              id="auto_graded_qs_immediate"
-              defaultChecked={true}
-            />
-          </Setting>
-          <Setting>
-            <RadioInput
-              name="auto_graded_qs"
-              label="After the due date"
-              id="auto_graded_qs_due"
-              defaultChecked={false}
-            />
-          </Setting>
-          <Setting>
-            <RadioInput
-              name="auto_graded_qs"
-              label="After I publish the scores"
-              id="auto_graded_qs_publish"
-              defaultChecked={false}
-            />
-          </Setting>
-        </div>
-      </FieldsetRow>
-      <FieldsetRow
-        legend="For manually-graded questions"
-        legendHint="(Written response questions-WRQs)"
-      >
-        <div>
-          <Setting>
-            <RadioInput
-              name="manual_graded_qs"
-              label="Immediately after I grade"
-              id="manual_graded_qs_immediate"
-              defaultChecked={false}
-            />
-          </Setting>
-          <Setting>
-            <RadioInput
-              name="manual_graded_qs"
-              label="After I publish the scores"
-              id="manual_graded_qs_publish"
-              defaultChecked={true}
-            />
-          </Setting>
-        </div>
-      </FieldsetRow>
-      <Row>
-        <HintText>
-          For assignments with both auto and manually graded questions, students
-          will see a <strong>provisional score</strong> until scores for <strong>ALL</strong>
-          the manually-graded questions are published.
-        </HintText>
-      </Row>
-    </TemplateForm>
+      body={() => (
+        <>
+          <Row>
+            Select when students can see their scores and feedback
+          </Row>
+          <FieldsetRow
+            legend="For auto-graded questions"
+            legendHint="(Multiple choice question-MCQs, 2-Step questions)"
+          >
+            <div>
+              <Setting>
+                <RadioInput
+                  name="auto_grading_feedback_on"
+                  value="answer"
+                  label="Immediately after student answers"
+                  defaultChecked={template.auto_grading_feedback_on == 'answer'}
+                />
+              </Setting>
+              <Setting>
+                <RadioInput
+                  name="auto_grading_feedback_on"
+                  value="due"
+                  label="After the due date"
+                  defaultChecked={template.auto_grading_feedback_on == 'due'}
+                />
+              </Setting>
+              <Setting>
+                <RadioInput
+                  name="auto_grading_feedback_on"
+                  value="publish"
+                  label="After I publish the scores"
+                  defaultChecked={template.auto_grading_feedback_on == 'publish'}
+                />
+              </Setting>
+            </div>
+          </FieldsetRow>
+          <FieldsetRow
+            legend="For manually-graded questions"
+            legendHint="(Written response questions-WRQs)"
+          >
+            <div>
+              <Setting>
+                <RadioInput
+                  name="manual_grading_feedback_on"
+                  label="Immediately after I grade"
+                  value="grade"
+                  defaultChecked={template.manual_grading_feedback_on == 'grade'}
+                />
+              </Setting>
+              <Setting>
+                <RadioInput
+                  name="manual_grading_feedback_on"
+                  label="After I publish the scores"
+                  value="publish"
+                  defaultChecked={template.manual_grading_feedback_on == 'publish'}
+                />
+              </Setting>
+            </div>
+          </FieldsetRow>
+          <Row>
+            <HintText>
+              For assignments with both auto and manually graded questions, students
+              will see a <strong>provisional score</strong> until scores for <strong>ALL</strong>
+              the manually-graded questions are published.
+            </HintText>
+          </Row>
+        </>
+      )}
+    />
   );
-
 });
 homework.displayName = 'HomeworkTemplateEditForm';
 homework.propTypes = propTypes;

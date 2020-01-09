@@ -1,8 +1,10 @@
 import Map from 'shared/model/map';
 import {
-  BaseModel, identifiedBy, action, field, identifier, computed, observable,
+  BaseModel, identifiedBy, action, field,
+  identifier, computed, observable,
 } from 'shared/model';
-import { set } from 'lodash';
+// import { observe } from 'mobx';
+// import { set } from 'lodash';
 
 const DECIMAL_CONVERSION_FIELDS = [
   'late_work_immediate_penalty',
@@ -16,13 +18,13 @@ class GradingTemplate extends BaseModel {
 
   // returns a formik errors object as described:
   // https://jaredpalmer.com/formik/docs/guides/validation
-  static validate(tmpl) {
+  static validate() { // tmpl, f) {
     const errors = {};
-    if (tmpl.isReading) {
-      if (tmpl.completion_weight + tmpl.correctness_weight != 100) {
-        set(errors, 'common.weights', 'Weights must add to 100%');
-      }
-    }
+    // if (tmpl.isReading) {
+    //   if (tmpl.completion_weight + tmpl.correctness_weight != 100) {
+    //     set(errors, 'common.weights', 'Weights must add to 100%');
+    //   }
+    // }
     return errors;
   }
 
@@ -41,6 +43,8 @@ class GradingTemplate extends BaseModel {
   @field default_close_date_offset_days = 1;
   @observable map;
 
+  @observable map = {};
+
   constructor(attrs, map) {
     super(attrs);
     this.map = map;
@@ -49,9 +53,17 @@ class GradingTemplate extends BaseModel {
 
   @action decimalsToWhole() {
     DECIMAL_CONVERSION_FIELDS.forEach(
-      f => (this[f] < 1) && (this[f] = this[f] * 100),
+      f => (this[f] < 1) && (this[f] = Math.round(this[f] * 100)),
     );
   }
+
+  // @action.bound onLateWorkChange() {
+  //   if (this.accept_late_work == 'no') {
+  //     this.late_work_immediate_penalty = 100;
+  //   } else {
+  //     this.late_work_immediate_penalty = 10;
+  //   }
+  // }
 
   @computed get isReading() {
     return 'reading' === this.task_plan_type;
@@ -73,7 +85,7 @@ class GradingTemplate extends BaseModel {
   get dataForSave() {
     const data = this.serialize();
     DECIMAL_CONVERSION_FIELDS.forEach(
-      f => (data[f] = data[f] / 100).toFixed(2)
+      f => data[f] = (data[f] / 100).toFixed(2)
     );
     return data;
   }
