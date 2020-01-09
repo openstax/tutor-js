@@ -9,7 +9,7 @@ import { ScrollToTop } from 'shared';
 import CoursePage from '../../components/course-page';
 import * as EDIT_TYPES from './editors';
 import { Col, Row, Container, Button } from 'react-bootstrap';
-import CourseBreadcrumb from '../../components/course-breadcrumb'
+import CourseBreadcrumb from '../../components/course-breadcrumb';
 
 const Instructions = styled.p`
   font-size: 1.8rem;
