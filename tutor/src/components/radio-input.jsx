@@ -52,6 +52,7 @@ const StyledRadioInput = styled.input.attrs( () => ({
 `;
 
 const RadioInput = observer((props) => {
+
   return (
     <StyledWrapper>
       <StyledRadioInput

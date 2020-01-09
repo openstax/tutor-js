@@ -1,10 +1,11 @@
 import Map from 'shared/model/map';
 import {
-  BaseModel, identifiedBy, action, field, identifier, computed,
+  BaseModel, identifiedBy, action, field, identifier, computed, observable,
 } from 'shared/model';
 import { set } from 'lodash';
 
 const DECIMAL_CONVERSION_FIELDS = [
+  'late_work_immediate_penalty',
   'late_work_per_day_penalty',
   'completion_weight',
   'correctness_weight',
@@ -38,6 +39,7 @@ class GradingTemplate extends BaseModel {
   @field default_due_time = '07:00';
   @field default_due_date_offset_days = 1;
   @field default_close_date_offset_days = 1;
+  @observable map;
 
   constructor(attrs, map) {
     super(attrs);
@@ -57,6 +59,15 @@ class GradingTemplate extends BaseModel {
 
   @computed get isHomework() {
     return 'homework' === this.task_plan_type;
+  }
+
+  @computed get isLateWorkAccepted() {
+    return this.late_work_immediate_penalty < 100;
+  }
+
+  @computed get canRemove() {
+    // a template can be removed as if there is at least one other with the same type
+    return Boolean(this.map && this.map.array.find(t => t !== this && t.task_plan_type === this.task_plan_type));
   }
 
   get dataForSave() {

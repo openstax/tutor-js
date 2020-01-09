@@ -45,6 +45,7 @@ export const colors = {
   neutral,
   tasks,
   line: neutral.thin,
+  paleLine: neutral.pale,
 
   states: {
     active:   neutral.dark,

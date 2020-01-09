@@ -267,9 +267,9 @@ const startAPI = function() {
     },
   });
 
-  connectModelDelete(GradingTemplates, 'remove', {
+  connectModelDelete(GradingTemplate, 'remove', {
     pattern: 'grading_templates/{id}',
-    onSuccess: 'onRempved',
+    onSuccess: 'onRemoved',
   });
 
 };
