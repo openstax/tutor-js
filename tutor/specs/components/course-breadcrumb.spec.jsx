@@ -7,7 +7,7 @@ describe('Course Breadcrumb', () => {
   beforeEach(function() {
     props = {
       course: Factory.course(),
-      currentTtle: 'Current Task',
+      currentTitle: 'Current Task',
     };
   });
 

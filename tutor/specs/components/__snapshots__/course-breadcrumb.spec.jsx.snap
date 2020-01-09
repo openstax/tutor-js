@@ -67,6 +67,8 @@ exports[`Course Breadcrumb renders and matches snapshot 1`] = `
   </span>
   <div
     className="c3"
-  />
+  >
+    Current Task
+  </div>
 </div>
 `;

@@ -10,7 +10,6 @@ const TitleWrapper = styled.div`
   align-items: stretch;
   padding: 10px 40px;
   min-height: 100px;
-  flex-wrap: wrap;
 `;
 
 const TitleInner = styled.div`
@@ -20,6 +19,7 @@ const TitleInner = styled.div`
   max-width: 1200px;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
 
   ${props => props.appearance === 'light' && css`
     padding: 0 0 1.5rem;
@@ -27,14 +27,8 @@ const TitleInner = styled.div`
   }
 `;
 
-const ItemsWrapper = styled.div`
-  display: flex;
-`;
-
 const BreadcrumbsWrapper = styled.div`
-  margin: 0 auto;
-  max-width: 1200px;
-  flex-basis: 100%;
+  flex: 0 0 100%;
 `;
 
 const LeftSideWrapper = styled.div`
@@ -49,9 +43,14 @@ const RightSideWrapper = styled.div`
 
 const Title = styled.h1`
   font-weight: bold;
-  font-size: 2.4rem;
+  font-size: 3.6rem;
   line-height: 4.5rem;
   margin: 0;
+
+  ${props => props.appearance === 'light' && css`
+    font-size: 2.4rem;
+    line-height: 3rem;`
+  }
 `;
 
 const Subtitle = styled.h3`
@@ -86,10 +85,10 @@ export default class CoursePage extends React.Component {
 
     return (
       <TitleWrapper className={cn({ 'title-wrapper': !titleAppearance })}>
-        {this.renderBreadcrumbs()}
         <TitleInner appearance={titleAppearance}>
+          {this.renderBreadcrumbs()}
           <LeftSideWrapper>
-            <Title>{title}</Title>
+            <Title appearance={titleAppearance}>{title}</Title>
             {subtitle && <Subtitle>{subtitle}</Subtitle>}
           </LeftSideWrapper>
           {titleControls && <RightSideWrapper>{titleControls}</RightSideWrapper>}
