@@ -71,6 +71,8 @@ exports[`Grading Templates Card matches snapshot for homework 1`] = `
 >
   <div
     className="c0"
+    data-test-id="grading-template-card"
+    data-type="homework"
   >
     <div
       className="card"
@@ -281,6 +283,8 @@ exports[`Grading Templates Card matches snapshot for reading 1`] = `
 >
   <div
     className="c0"
+    data-test-id="grading-template-card"
+    data-type="reading"
   >
     <div
       className="card"

@@ -203,9 +203,9 @@ exports[`Tutor Layout renders and matches snapshot 1`] = `
                                     <CourseNagModal course={[undefined]} modalManager={{...}} tourContext={{...}} spyMode={{...}} />
                                   </Observer>
                                 </inject(CourseNagModal)>
-                                <styled.div>
-                                  <StyledComponent forwardedComponent={{...}} forwardedRef={{...}}>
-                                    <div className=\\"sc-jTzLTM bZIAmh\\">
+                                <styled.div hasFooter={false}>
+                                  <StyledComponent hasFooter={false} forwardedComponent={{...}} forwardedRef={{...}}>
+                                    <div className=\\"sc-jTzLTM hVqjpg\\">
                                       <p>
                                         hi i am body
                                       </p>

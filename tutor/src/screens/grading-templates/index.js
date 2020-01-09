@@ -18,7 +18,7 @@ const Instructions = styled.p`
 
 const Templates = styled(CoursePage)`
   min-height: calc(100vh - ${Theme.navbars.top.height});
-  background-color: wheat;
+  background-color: #fff;
 `;
 
 export default
@@ -38,14 +38,6 @@ class GradingTemplatesScreen extends React.Component {
   constructor(props) {
     super(props);
     this.store.fetch();
-  }
-
-  componentDidMount() {
-    document.body.classList.add('light');
-  }
-
-  componentWillUnmount() {
-    document.body.classList.remove('light');
   }
 
   @computed get course() {
