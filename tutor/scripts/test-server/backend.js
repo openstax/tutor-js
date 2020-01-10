@@ -44,7 +44,6 @@ for (let route in GET_HANDLERS) {
 }
 MULTI_HANDLERS.forEach((handler) => {
   handler.route(server);
-  // HANDLERS[route].handler);
 });
 
 server.use(jsonServer.rewriter({

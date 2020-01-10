@@ -10,10 +10,8 @@ class GradingTemplate extends BaseModel {
 
   // returns a formik errors object as described:
   // https://jaredpalmer.com/formik/docs/guides/validation
-  static validate() { // tmpl, f) {
-    const errors = {};
-
-    return errors;
+  static validate(tmpl, form) { // eslint-disable-line no-unused-vars
+    return {};
   }
 
   @identifier id;
