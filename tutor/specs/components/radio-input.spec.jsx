@@ -1,4 +1,5 @@
 import RadioInput from '../../src/components/radio-input';
+import { Formik as F } from 'formik';
 
 describe('RadioInput', () => {
   let props;
@@ -12,6 +13,6 @@ describe('RadioInput', () => {
   });
 
   it('matches snapshot', () => {
-    expect.snapshot(<RadioInput {...props} />).toMatchSnapshot();
+    expect.snapshot(<F><RadioInput {...props} /></F>).toMatchSnapshot();
   });
 });

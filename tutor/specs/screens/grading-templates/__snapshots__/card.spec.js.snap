@@ -13,10 +13,12 @@ exports[`Grading Templates Card matches snapshot for homework 1`] = `
   margin-top: 2.4rem;
   color: #424242;
   line-height: 2rem;
+  height: 100%;
 }
 
 .c0 .card {
   border: 1px solid #d5d5d5;
+  height: 100%;
 }
 
 .c0 .card-header {
@@ -71,6 +73,7 @@ exports[`Grading Templates Card matches snapshot for homework 1`] = `
 >
   <div
     className="c0"
+    data-id={3}
     data-test-id="grading-template-card"
     data-type="homework"
   >
@@ -152,19 +155,7 @@ exports[`Grading Templates Card matches snapshot for homework 1`] = `
         <div
           className="c4"
         >
-          Yes
-        </div>
-        <div
-          className="c3"
-        >
-          Late work penalty:
-        </div>
-        <div
-          className="c4"
-        >
-          Deduct 
-          0
-          % for each late day
+          No
         </div>
         <div
           className="c5"
@@ -225,10 +216,12 @@ exports[`Grading Templates Card matches snapshot for reading 1`] = `
   margin-top: 2.4rem;
   color: #424242;
   line-height: 2rem;
+  height: 100%;
 }
 
 .c0 .card {
   border: 1px solid #d5d5d5;
+  height: 100%;
 }
 
 .c0 .card-header {
@@ -283,6 +276,7 @@ exports[`Grading Templates Card matches snapshot for reading 1`] = `
 >
   <div
     className="c0"
+    data-id={1}
     data-test-id="grading-template-card"
     data-type="reading"
   >
@@ -336,8 +330,8 @@ exports[`Grading Templates Card matches snapshot for reading 1`] = `
         <div
           className="c4"
         >
-          53
-          % of question’s point value
+          53%
+           of question’s point value
         </div>
         <div
           className="c3"
@@ -347,8 +341,8 @@ exports[`Grading Templates Card matches snapshot for reading 1`] = `
         <div
           className="c4"
         >
-          8
-          % of question’s point value
+          8%
+           of question’s point value
         </div>
         <div
           className="c5"
@@ -377,7 +371,8 @@ exports[`Grading Templates Card matches snapshot for reading 1`] = `
           className="c4"
         >
           Deduct 
-          % for each late day
+          100%
+           for each late day
         </div>
         <div
           className="c5"
