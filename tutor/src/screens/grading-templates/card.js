@@ -10,9 +10,10 @@ const CardWrapper = styled.div`
   margin-top: 2.4rem;
   color: ${Theme.colors.neutral.darker};
   line-height: 2rem;
-
+  height: 100%;
   .card {
     border: 1px solid #d5d5d5;
+    height: 100%;
   }
   .card-header {
     border: 0;
@@ -53,20 +54,9 @@ const Line = styled.div`
   margin-bottom: 0.8rem;
 `;
 
-const autoGradedExplanation = (tmpl) => {
-  switch (tmpl.auto_grading_feedback_on) {
-    case 'answer':
-      return 'Immediately after student answers';
-    case 'due':
-      return 'After assignment is due';
-    case 'publish':
-      return 'After I publish the scores'; // TODO this doesn't seem right?
-    default:
-      return 'invalid value';
-  }
-};
+const toPerc = (n) => `${Math.round(n * 100)}%`;
 
-const manuallyGradedExplanation = (tmpl) => {
+const gradedExplanation = (tmpl) => {
   switch (tmpl.auto_grading_feedback_on) {
     case 'publish':
       return 'After I publish the scores';
@@ -74,6 +64,8 @@ const manuallyGradedExplanation = (tmpl) => {
       return 'After I grade the assignment';
     case 'answer':
       return 'Immediately after student answers';
+    case 'due':
+      return 'After assignment is due';
     default:
       return 'invalid value';
   }
@@ -82,6 +74,7 @@ const manuallyGradedExplanation = (tmpl) => {
 const CardInfo = observer(({ template, children, onEdit, onDelete }) => {
   return (
     <CardWrapper
+      data-id={template.id}
       data-test-id="grading-template-card"
       data-type={template.task_plan_type}
       templateColors={Theme.colors.templates[template.task_plan_type]}
@@ -108,7 +101,7 @@ const CardInfo = observer(({ template, children, onEdit, onDelete }) => {
           {template.isLateWorkAccepted && (
             <>
               <SettingName>Late work penalty:</SettingName>
-              <SettingValue>Deduct {template.late_work_per_day_penalty}% for each late day</SettingValue>
+              <SettingValue>Deduct {toPerc(template.late_work_per_day_penalty)} for each late day</SettingValue>
             </>)}
 
           <Line />
@@ -149,10 +142,10 @@ const ReadingCard = ({ template, ...cardProps }) => {
       <SectionTitle>SCORE CALCULATION FOR QUESTIONS</SectionTitle>
 
       <SettingName>Weight for correctness:</SettingName>
-      <SettingValue>{template.correctness_weight}% of question’s point value</SettingValue>
+      <SettingValue>{toPerc(template.correctness_weight)} of question’s point value</SettingValue>
 
       <SettingName>Weight for completion:</SettingName>
-      <SettingValue>{template.completion_weight}% of question’s point value</SettingValue>
+      <SettingValue>{toPerc(template.completion_weight)} of question’s point value</SettingValue>
     </CardInfo>
   );
 };
@@ -168,10 +161,10 @@ const HomeworkCard = ({ template, ...cardProps }) => {
       <SectionTitle>SHOW SCORES & FEEDBACK TO STUDENTS</SectionTitle>
 
       <SettingName>For auto-graded questions:</SettingName>
-      <SettingValue>{autoGradedExplanation(template)}</SettingValue>
+      <SettingValue>{gradedExplanation(template)}</SettingValue>
 
       <SettingName>For manually-graded questions:</SettingName>
-      <SettingValue>{manuallyGradedExplanation(template)}</SettingValue>
+      <SettingValue>{gradedExplanation(template)}</SettingValue>
     </CardInfo>
   );
 };

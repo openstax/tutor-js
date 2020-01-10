@@ -25,7 +25,7 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 
-Cypress.Commands.add('getTestElement', (id) => cy.get(`[data-test-id="${id}"]`));
+Cypress.Commands.add('getTestElement', (id, selector = '') => cy.get(`[data-test-id="${id}"]${selector}`));
 
 Cypress.Commands.add('dismissTour', () => {
   cy.getTestElement('value-prop').find('button').click();
