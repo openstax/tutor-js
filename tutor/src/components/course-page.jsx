@@ -1,10 +1,11 @@
-import { React, PropTypes, cn, computed, styled } from 'vendor';
-import { ScrollToTop } from 'shared';
+import { React, PropTypes, cn, computed, styled, css, Theme } from 'vendor';
+import { ScrollToTop, Icon } from 'shared';
 import { isNil } from 'lodash';
 import Course from '../models/course';
 import CourseUX from '../models/course/ux';
+import TutorLink from './link';
 
-const TitleWrapper = styled.div.attrs({ className: 'title-wrapper' })`
+const TitleWrapper = styled.div`
   display: flex;
   align-items: stretch;
   padding: 10px 40px;
@@ -18,7 +19,16 @@ const TitleInner = styled.div`
   max-width: 1200px;
   align-items: center;
   justify-content: space-between;
-  margin: 0 auto;
+  flex-wrap: wrap;
+
+  ${props => props.appearance === 'light' && css`
+    padding: 0 0 1.5rem;
+    border-bottom: 1px solid ${Theme.colors.neutral.pale};`
+  }
+`;
+
+const BreadcrumbsWrapper = styled.div`
+  flex: 0 0 100%;
 `;
 
 const LeftSideWrapper = styled.div`
@@ -33,9 +43,14 @@ const RightSideWrapper = styled.div`
 
 const Title = styled.h1`
   font-weight: bold;
-  font-size: 36px;
-  line-height: 45px;
+  font-size: 3.6rem;
+  line-height: 4.5rem;
   margin: 0;
+
+  ${props => props.appearance === 'light' && css`
+    font-size: 2.4rem;
+    line-height: 3rem;`
+  }
 `;
 
 const Subtitle = styled.h3`
@@ -51,6 +66,7 @@ export default class CoursePage extends React.Component {
     course: PropTypes.instanceOf(Course).isRequired,
     children: PropTypes.node.isRequired,
     titleControls: PropTypes.node,
+    titleBreadcrumbs: PropTypes.node,
     controls: PropTypes.node,
     title: PropTypes.node,
     notices: PropTypes.node,
@@ -64,14 +80,15 @@ export default class CoursePage extends React.Component {
   }
 
   renderTitle() {
-    const { title, subtitle, titleControls } = this.props;
+    const { title, subtitle, titleControls, titleBreadcrumbs, titleAppearance } = this.props;
     if (isNil(title)) { return null; }
 
     return (
-      <TitleWrapper>
-        <TitleInner>
+      <TitleWrapper className={cn({ 'title-wrapper': !titleAppearance })}>
+        <TitleInner appearance={titleAppearance}>
+          {this.renderBreadcrumbs()}
           <LeftSideWrapper>
-            <Title>{title}</Title>
+            <Title appearance={titleAppearance}>{title}</Title>
             {subtitle && <Subtitle>{subtitle}</Subtitle>}
           </LeftSideWrapper>
           {titleControls && <RightSideWrapper>{titleControls}</RightSideWrapper>}
@@ -82,6 +99,14 @@ export default class CoursePage extends React.Component {
 
   renderControls() {
     return isNil(this.props.controls) ? null: <div className="controls-wrapper">{this.props.controls}</div>;
+  }
+
+  renderBreadcrumbs() {
+    if (isNil(this.props.titleBreadcrumbs)) { return null; }
+
+    return (
+      <BreadcrumbsWrapper>{this.props.titleBreadcrumbs}</BreadcrumbsWrapper>
+    );
   }
 
   render() {

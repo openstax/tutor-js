@@ -71,7 +71,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
 
 .c4 {
   padding-top: 60px;
-  padding-bottom: 50px;
+  padding-bottom: 0;
 }
 
 <div
