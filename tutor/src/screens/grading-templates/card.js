@@ -54,6 +54,10 @@ const Line = styled.div`
   margin-bottom: 0.8rem;
 `;
 
+const StyledCol = styled(Col)`
+  margin-bottom: 3rem;
+`;
+
 const toPerc = (n) => `${Math.round(n * 100)}%`;
 
 const gradedExplanation = (tmpl) => {
@@ -201,9 +205,9 @@ const CardTypes = {
 const TemplateCard = ({ template, ...cardProps }) => {
   const CardForTemplate = CardTypes[template.task_plan_type] || CardTypes.unknown;
   return (
-    <Col key={template.id} lg={4} md={6} sm={12} xs={12}>
+    <StyledCol key={template.id} lg={4} md={6} sm={12} xs={12}>
       <CardForTemplate template={template} {...cardProps} />
-    </Col>
+    </StyledCol>
   );
 };
 TemplateCard.propTypes = {
