@@ -50,6 +50,8 @@ exports[`Select matches snapshot 1`] = `
   <select
     className="c1"
     name="select1"
+    onBlur={[Function]}
+    onChange={[Function]}
   />
   <svg
     aria-hidden="true"

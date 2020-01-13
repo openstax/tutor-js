@@ -1,11 +1,12 @@
 import { React, PropTypes, action, observer, styled } from 'vendor';
-import { Button, Modal, Alert, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
-import { isEmpty, map, omit } from 'lodash';
+import { Button, Modal, Alert } from 'react-bootstrap';
+import { isEmpty, range, map, omit } from 'lodash';
 import { GradingTemplate } from '../../models/grading/templates';
 import { colors, fonts } from '../../theme';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import NumberInput from '../../components/number-input';
 import RadioInput from '../../components/radio-input';
+import TimeInput from '../../components/time-input';
 import Select from '../../components/select';
 
 const propTypes = {
@@ -39,34 +40,6 @@ const StyledModal = styled((props) => <Modal {...omit(props, StyledModal.OmitPro
 StyledModal.OmitProps = [
   'templateColors',
 ];
-
-const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
-  margin-left: 1.4rem;
-  border: 1px solid ${colors.forms.borders.light};
-  border-radius: 4px;
-
-  &.btn-group {
-    vertical-align: initial;
-  }
-
-  .btn:not(.btn-link) {
-    font-size: 1.4rem;
-    height: 3.1rem;
-    background-color: #fff;
-
-    &:not(.disabled) {
-      &.active {
-        background: ${colors.neutral.light};
-        border-color: ${colors.neutral.light};
-      }
-
-      &.focus {
-        border-color: ${colors.forms.borders.focus};
-        box-shadow: 0 0 4px 0 ${colors.forms.borders.focusShadow};
-      }
-    }
-  }
-`;
 
 const Row = styled.div`
   margin: 2.4rem 0;
@@ -166,10 +139,6 @@ const SettingLabel = styled.label`
   margin-left: 0.75rem;
 `;
 
-const TimeSeparator = styled.span `
-  margin: 0 0.5rem;
-`;
-
 const TextInput = (props) => (
   <TextInputWrapper>
     <StyledTextInput {...props} />
@@ -192,18 +161,26 @@ const Error = styled(Alert).attrs({
 `;
 
 const isRequired = (value) => isEmpty(value) && 'Cannot be blank';
+const wholePercent = {
+  fromNumber(v) {
+    return Math.round(v * 100);
+  },
+  toNumber(v) {
+    return (v / 100).toFixed(2);
+  },
+};
 
-const FieldsetRow = observer((props) => {
+const FieldsetRow = observer(({ legend, legendHint, hint, children, ...fieldsetProps }) => {
   return (
-    <fieldset>
-      <legend className="sr-only">{props.legend} {props.hint}</legend>
+    <fieldset {...fieldsetProps}>
+      <legend className="sr-only">{legend} {hint}</legend>
       <SplitRow>
         <Legend aria-hidden="true" role="presentation">
-          {props.legend}
-          {props.legendHint && <HintText>{props.legendHint}</HintText>}
+          {legend}
+          {legendHint && <HintText>{legendHint}</HintText>}
         </Legend>
         <div>
-          {props.children}
+          {children}
         </div>
       </SplitRow>
     </fieldset>
@@ -220,18 +197,70 @@ class TemplateForm extends React.Component {
 
   static propTypes = {
     onComplete: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired,
+    body: PropTypes.func.isRequired,
     ...propTypes,
   }
 
   @action.bound async onSubmit(values) {
+
     this.props.template.update(values);
     await this.props.template.save();
+
     this.props.onComplete();
   }
 
+  renderLateWorkFields() {
+    return (
+      <FieldsetRow legend="Late work penalty" data-test-id="late-work-penalty">
+        <Setting>
+          <RadioInput
+            name="late_work_penalty"
+            label="Deduct"
+            value=""
+            defaultChecked={false}
+            translate={wholePercent}
+            aria-labelledby="late_work_penalty_day_label late_day_deduction_label"
+          />
+          <AdjacentNumberInput
+            name="late_work_per_day_penalty"
+            id="late_day_deduction"
+            translate={wholePercent}
+            min={0} max={100}
+          />
+          <SettingLabel
+            id="late_day_deduction_label"
+            htmlFor="late_day_deduction"
+          >
+            % for each late day
+          </SettingLabel>
+        </Setting>
+        <Setting>
+          <RadioInput
+            name="late_work_penalty"
+            label="Deduct"
+            id="late_work_penalty_assignment"
+            defaultChecked={true}
+            aria-labelledby="late_work_penalty_assignment_label late_assignment_deduction_label"
+          />
+          <AdjacentNumberInput
+            name="late_work_immediate_penalty"
+            id="late_assignment_deduction"
+            translate={wholePercent}
+            min={0} max={99}
+          />
+          <SettingLabel
+            id="late_assignment_deduction_label"
+            htmlFor="late_assignment_deduction"
+          >
+            % for late assignment
+          </SettingLabel>
+        </Setting>
+      </FieldsetRow>
+    );
+  }
+
   renderForm = (form) => {
-    this.form = form;
+    const { template, body } = this.props;
 
     return (
       <Form>
@@ -244,8 +273,11 @@ class TemplateForm extends React.Component {
             placeholder="Pre-class reading, Reading-Thursday, etc."
           />
         </SplitRow>
+
         <Line />
-        {this.props.children}
+
+        {body({ form })}
+
         {map(form.errors.common, (value, key) =>
           <Error key={key}>{value}</Error>)}
         <Line />
@@ -260,98 +292,46 @@ class TemplateForm extends React.Component {
             <RadioInput
               name="accept_late_work"
               label="Yes"
-              id="late_work_yes"
-              defaultChecked={true}
+              value="yes"
+              onChange={() => form.setFieldValue('late_work_immediate_penalty', 0.1)}
+              defaultChecked={template.isLateWorkAccepted}
             />
           </Setting>
           <Setting>
             <RadioInput
               name="accept_late_work"
               label="No"
-              id="late_work_no"
-              defaultChecked={false}
+              value="no"
+              onChange={() => form.setFieldValue('late_work_immediate_penalty', 1)}
+              defaultChecked={!template.isLateWorkAccepted}
             />
           </Setting>
         </FieldsetRow>
-        <FieldsetRow legend="Late work penalty">
-          <Setting>
-            <RadioInput
-              name="late_work_penalty"
-              label="Deduct"
-              id="late_work_penalty_day"
-              defaultChecked={false}
-              aria-labelledby="late_work_penalty_day_label late_day_deduction_label"
-            />
-            <AdjacentNumberInput
-              name="late_work_per_day_penalty"
-              id="late_day_deduction"
-              min={0} max={100}
-            />
-            <SettingLabel
-              id="late_day_deduction_label"
-              htmlFor="late_day_deduction"
-            >
-              % for each late day
-            </SettingLabel>
-          </Setting>
-          <Setting>
-            <RadioInput
-              name="late_work_penalty"
-              label="Deduct"
-              id="late_work_penalty_assignment"
-              defaultChecked={true}
-              aria-labelledby="late_work_penalty_assignment_label late_assignment_deduction_label"
-            />
-            <AdjacentNumberInput
-              name="late_work_immediate_penalty"
-              id="late_assignment_deduction"
-              min={0} max={100}
-            />
-            <SettingLabel
-              id="late_assignment_deduction_label"
-              htmlFor="late_assignment_deduction"
-            >
-              % for late assignment
-            </SettingLabel>
-          </Setting>
-        </FieldsetRow>
+
+        {form.values.isLateWorkAccepted && this.renderLateWorkFields()}
+
         <Line />
+
         <Row>
           Set up your preferred due dates and time as defaults
           <HintText>(You can change this while building an assignment)</HintText>
         </Row>
         <FieldsetRow legend="Due date for assignments">
           <Setting>
-            <Select name="due_date_count" id="due_date_count">
-              {Array.from(Array(7), (v, i) =>
-                <option key={'duedate' + i}>{i + 1}</option>
+            <Select name="default_due_date_offset_days">
+              {range(1, 8).map((v) =>
+                <option value={v} key={v}>{v}</option>
               )}
             </Select>
             <SettingLabel htmlFor="due_date_count">days after open date</SettingLabel>
           </Setting>
         </FieldsetRow>
         <FieldsetRow legend="Due time for assignments">
-          <Setting>
-            <Select name="due_time_hour">
-              {Array.from(Array(12), (v, i) =>
-                <option key={'hour' + i}>{(i + 1).toString().padStart(2, '0')}</option>
-              )}
-            </Select>
-            <TimeSeparator>:</TimeSeparator>
-            <Select name="due_time_minute">
-              {Array.from(Array(60), (v, i) =>
-                <option key={'min' + i}>{i.toString().padStart(2, '0')}</option>
-              )}
-            </Select>
-            <StyledToggleButtonGroup type="radio" name="due_time_ampm" defaultValue={2}>
-              <ToggleButton value={1} variant="light">AM</ToggleButton>
-              <ToggleButton value={2} variant="light">PM</ToggleButton>
-            </StyledToggleButtonGroup>
-          </Setting>
+          <TimeInput name="default_due_time" />
         </FieldsetRow>
         <FieldsetRow legend="Close date for assignments">
           <Setting>
-            <Select name="close_date_count" id="close_date_count">
+            <Select name="default_close_date_offset_days">
               {Array.from(Array(7), (v, i) =>
                 <option key={'closedate' + i}>{i + 1}</option>
               )}
@@ -408,119 +388,128 @@ class TemplateForm extends React.Component {
 
 
 const reading = observer((props) => {
-//  const { template } = props;
 
   return (
     <TemplateForm
       {...props}
-    >
-      <Row>
-        Score calculations for questions
-        <HintText>
-          (OpenStax Tutor encourages grading for completion, not correctness. <a href="" target="_blank">Learn why</a>)
-        </HintText>
-      </Row>
+      body={({ form }) => (
+        <>
+          <Row>
+            Score calculations for questions
+            <HintText>
+              (OpenStax Tutor encourages grading for completion, not correctness. <a href="" target="_blank">Learn why</a>)
+            </HintText>
+          </Row>
 
-      <SplitRow>
-        <Label>Weight for correctness</Label>
-        <Setting>
-          <StyledNumberInput
-            name="correctness_weight"
-            min={0} max={100}
-          />
-          <SettingLabel>% of questions point value</SettingLabel>
-        </Setting>
-      </SplitRow>
-      <SplitRow>
-        <Label>Weight for completion</Label>
-        <Setting>
-          <StyledNumberInput
-            name="completion_weight"
-            min={0} max={100}
-          />
-          <SettingLabel>% of questions point value</SettingLabel>
-        </Setting>
-      </SplitRow>
-    </TemplateForm>
+          <SplitRow>
+            <Label>Weight for correctness</Label>
+            <Setting>
+              <StyledNumberInput
+                name="correctness_weight"
+                min={0} max={100}
+                translate={wholePercent}
+                onChange={(ev) => form.setFieldValue('completion_weight', (1 - ev.target.value).toFixed(2))}
+              />
+              <SettingLabel>% of questions point value</SettingLabel>
+            </Setting>
+          </SplitRow>
+          <SplitRow>
+            <Label>Weight for completion</Label>
+            <Setting>
+              <StyledNumberInput
+                name="completion_weight"
+                min={0} max={100}
+                translate={wholePercent}
+                onChange={(ev) => form.setFieldValue('correctness_weight', (1 - ev.target.value).toFixed(2))}
+              />
+              <SettingLabel>% of questions point value</SettingLabel>
+            </Setting>
+          </SplitRow>
+        </>
+      )}
+    />
   );
 });
+
 reading.displayName = 'ReadingTemplateEditForm';
 reading.propTypes = propTypes;
 
 const homework = observer((props) => {
-  //const { template } = props;
+  const { template } = props;
 
   return (
     <TemplateForm
       {...props}
-    >
-      <Row>
-        Select when students can see their scores and feedback
-      </Row>
-      <FieldsetRow
-        legend="For auto-graded questions"
-        legendHint="(Multiple choice question-MCQs, 2-Step questions)"
-      >
-        <div>
-          <Setting>
-            <RadioInput
-              name="auto_graded_qs"
-              label="Immediately after student answers"
-              id="auto_graded_qs_immediate"
-              defaultChecked={true}
-            />
-          </Setting>
-          <Setting>
-            <RadioInput
-              name="auto_graded_qs"
-              label="After the due date"
-              id="auto_graded_qs_due"
-              defaultChecked={false}
-            />
-          </Setting>
-          <Setting>
-            <RadioInput
-              name="auto_graded_qs"
-              label="After I publish the scores"
-              id="auto_graded_qs_publish"
-              defaultChecked={false}
-            />
-          </Setting>
-        </div>
-      </FieldsetRow>
-      <FieldsetRow
-        legend="For manually-graded questions"
-        legendHint="(Written response questions-WRQs)"
-      >
-        <div>
-          <Setting>
-            <RadioInput
-              name="manual_graded_qs"
-              label="Immediately after I grade"
-              id="manual_graded_qs_immediate"
-              defaultChecked={false}
-            />
-          </Setting>
-          <Setting>
-            <RadioInput
-              name="manual_graded_qs"
-              label="After I publish the scores"
-              id="manual_graded_qs_publish"
-              defaultChecked={true}
-            />
-          </Setting>
-        </div>
-      </FieldsetRow>
-      <Row>
-        <HintText>
-          For assignments with both auto and manually graded questions, students
-          will see a <strong>provisional score</strong> until scores for <strong>ALL</strong>
-          the manually-graded questions are published.
-        </HintText>
-      </Row>
-    </TemplateForm>
+      body={() => (
+        <>
+          <Row>
+            Select when students can see their scores and feedback
+          </Row>
+          <FieldsetRow
+            legend="For auto-graded questions"
+            legendHint="(Multiple choice question-MCQs, 2-Step questions)"
+          >
+            <div>
+              <Setting>
+                <RadioInput
+                  name="auto_grading_feedback_on"
+                  value="answer"
+                  label="Immediately after student answers"
+                  defaultChecked={template.auto_grading_feedback_on == 'answer'}
+                />
+              </Setting>
+              <Setting>
+                <RadioInput
+                  name="auto_grading_feedback_on"
+                  value="due"
+                  label="After the due date"
+                  defaultChecked={template.auto_grading_feedback_on == 'due'}
+                />
+              </Setting>
+              <Setting>
+                <RadioInput
+                  name="auto_grading_feedback_on"
+                  value="publish"
+                  label="After I publish the scores"
+                  defaultChecked={template.auto_grading_feedback_on == 'publish'}
+                />
+              </Setting>
+            </div>
+          </FieldsetRow>
+          <FieldsetRow
+            legend="For manually-graded questions"
+            legendHint="(Written response questions-WRQs)"
+          >
+            <div>
+              <Setting>
+                <RadioInput
+                  name="manual_grading_feedback_on"
+                  label="Immediately after I grade"
+                  value="grade"
+                  defaultChecked={template.manual_grading_feedback_on == 'grade'}
+                />
+              </Setting>
+              <Setting>
+                <RadioInput
+                  name="manual_grading_feedback_on"
+                  label="After I publish the scores"
+                  value="publish"
+                  defaultChecked={template.manual_grading_feedback_on == 'publish'}
+                />
+              </Setting>
+            </div>
+          </FieldsetRow>
+          <Row>
+            <HintText>
+              For assignments with both auto and manually graded questions, students
+              will see a <strong>provisional score</strong> until scores for <strong>ALL</strong>
+              the manually-graded questions are published.
+            </HintText>
+          </Row>
+        </>
+      )}
+    />
   );
-
 });
 homework.displayName = 'HomeworkTemplateEditForm';
 homework.propTypes = propTypes;

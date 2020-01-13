@@ -1,6 +1,7 @@
 import { React, PropTypes, observer, styled } from 'vendor';
 import { Icon } from 'shared';
 import Theme from '../theme';
+import { useField } from 'formik';
 
 const SelectWrapper = styled.span`
   position: relative;
@@ -35,9 +36,12 @@ const StyledSelect = styled.select.attrs( () => ({
 `;
 
 const Select = observer((props) => {
+  const [ field ] = useField({ type: 'select', ...props });
+
   return (
     <SelectWrapper>
       <StyledSelect
+        {...field}
         {...props}
       />
       <Icon type="caret-down" />

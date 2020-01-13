@@ -63,19 +63,38 @@ const StyledNumberInput = styled(RCNumberInput)`
 const NumberInput = observer((props) => {
   const [field] = useField({ type: 'text', ...props });
 
+  let onChange = (nv) => {
+    const ev = { target: { ...props, value: nv } };
+    field.onChange(ev);
+    props.onChange && props.onChange(ev);
+  };
+
+  let value = field.value;
+
+  if (props.translate) {
+    value = props.translate.fromNumber(value);
+    const defaultOnChange = onChange;
+    onChange = (nv) => defaultOnChange(props.translate.toNumber(nv));
+  }
+
   return (
     <StyledNumberInput
       {...field}
       {...props}
+      value={value}
       upHandler={<Icon type="caret-up" />}
       downHandler={<Icon type="caret-down" />}
-      onChange={(nv) => field.onChange({ target: { ...props, value: nv } })}
+      onChange={onChange}
     />
   );
 });
 
 NumberInput.propTypes = {
   name: PropTypes.string.isRequired,
+  translate: PropTypes.shape({
+    fromNumber: PropTypes.func,
+    toNumber: PropTypes.func,
+  }),
 };
 
 export default NumberInput;

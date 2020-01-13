@@ -2,6 +2,7 @@ const path = require('path');
 const jsonServer = require('json-server');
 const fs = require('fs-extra');
 const faker = require('faker');
+const express = require('express');
 const { now } = require('./time-now');
 const { fe_port, be_port } = require('./ports');
 const server = jsonServer.create();
@@ -23,22 +24,27 @@ fs.copySync(path.join(__dirname, './backend/db.json'), DB);
 const router = jsonServer.router(DB);
 const middlewares = jsonServer.defaults();
 const log = require('./log');
-
+server.use(express.json());
 server.use(middlewares);
-const HANDLERS = {
+const GET_HANDLERS = {
   bootstrap: require('./backend/bootstrap'),
   offerings: require('./backend/offerings'),
   'courses/:courseId/dashboard': require('./backend/dashboard'),
   'courses/:courseId/plans*': require('./backend/previous-plans'),
   'courses/:courseId/guide': require('./backend/performance-forecast'),
-  'courses/:courseId/grading_templates': require('./backend/grading-templates'),
 };
 
+const MULTI_HANDLERS = [
+  require('./backend/grading-templates'),
+];
 
 // routes that have custom logic
-for (let route in HANDLERS) {
-  server.get(`/api/${route}`, HANDLERS[route].handler);
+for (let route in GET_HANDLERS) {
+  server.get(`/api/${route}`, GET_HANDLERS[route].handler);
 }
+MULTI_HANDLERS.forEach((handler) => {
+  handler.route(server);
+});
 
 server.use(jsonServer.rewriter({
   '/api/user/ui_settings': '/ui-settings',
@@ -57,8 +63,9 @@ server.listen(be_port, () => {
 
 process.on('message', (msg) => {
   if (msg.role) {
-    for (let route in HANDLERS) {
-      HANDLERS[route].setRole(msg.role);
+    for (let route in GET_HANDLERS) {
+      GET_HANDLERS[route].setRole(msg.role);
     }
+    MULTI_HANDLERS.forEach((handler) => { handler.setRole(msg.role); });
   }
 });
