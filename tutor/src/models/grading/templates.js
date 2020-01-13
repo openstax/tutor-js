@@ -20,13 +20,13 @@ class GradingTemplate extends BaseModel {
   @field completion_weight = 0.9;
   @field correctness_weight = 0.1;
   @field auto_grading_feedback_on = 'answer';
-  @field manual_grading_feedback_on = 'grade';
+  @field manual_grading_feedback_on = 'publish';
   @field late_work_immediate_penalty = 0.1;
   @field late_work_per_day_penalty = 0.1;
   @field default_open_time = '00:01';
-  @field default_due_time = '07:00';
-  @field default_due_date_offset_days = 1;
-  @field default_close_date_offset_days = 1;
+  @field default_due_time = '21:00';
+  @field default_due_date_offset_days = 7;
+  @field default_close_date_offset_days = 7;
   @observable map;
 
   @observable map = {};
