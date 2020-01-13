@@ -82,7 +82,7 @@ const TimeInput = observer(( props ) => {
         name={`${name}_minute`}
         onChange={ev => onChange(hour, ev.target.value)}
       >
-        {range(1, 61).map((m) =>
+        {range(0, 60).map((m) =>
           <option value={m} key={m}>{`${m}`.padStart(2, '0')}</option>
         )}
       </Select>

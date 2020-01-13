@@ -194,6 +194,11 @@ exports[`TimeInput matches snapshot 1`] = `
       value={0}
     >
       <option
+        value={0}
+      >
+        00
+      </option>
+      <option
         value={1}
       >
         01
@@ -487,11 +492,6 @@ exports[`TimeInput matches snapshot 1`] = `
         value={59}
       >
         59
-      </option>
-      <option
-        value={60}
-      >
-        60
       </option>
     </select>
     <svg
