@@ -7,6 +7,7 @@ import Theme from '../../theme';
 import Loading from 'shared/components/loading-animation';
 import { GradingTemplates } from '../../models/grading/templates';
 import Card from './card';
+import DeleteModal from './delete-modal';
 import { ScrollToTop } from 'shared';
 import CoursePage from '../../components/course-page';
 import * as EDIT_TYPES from './editors';
@@ -34,6 +35,7 @@ class GradingTemplatesScreen extends React.Component {
   }
 
   @observable editing = null;
+  @observable deleting = null;
 
   constructor(props) {
     super(props);
@@ -56,8 +58,17 @@ class GradingTemplatesScreen extends React.Component {
     this.editing = template;
   }
 
+  @action.bound onConfirmDelete(template) {
+    this.deleting = template;
+  }
+
+  @action.bound onDeleteComplete() {
+    this.deleting = null;
+  }
+
   @action.bound onDeleteTemplate(template) {
     template.remove();
+    this.onDeleteComplete();
   }
 
   @action.bound onAdd() {
@@ -87,6 +98,16 @@ class GradingTemplatesScreen extends React.Component {
       }
     }
 
+    if (this.deleting) {
+      modal = (
+        <DeleteModal
+          onDelete={this.onDeleteTemplate}
+          onCancel={this.onDeleteComplete}
+          template={this.deleting}
+        />
+      );
+    }
+
     return (
       <Container fluid={true}>
         {modal}
@@ -101,7 +122,7 @@ class GradingTemplatesScreen extends React.Component {
               key={template.id}
               template={template}
               onEdit={this.onEditTemplate}
-              onDelete={this.onDeleteTemplate}
+              onDelete={this.onConfirmDelete}
             />))}
         </Row>
       </Container>
