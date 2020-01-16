@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Delete Modal matches snapshot 1`] = `
+<DeleteModal
+  onCancel={[MockFunction]}
+  onDelete={[MockFunction]}
+  template={
+    GradingTemplate {
+      "auto_grading_feedback_on": true,
+      "completion_weight": 0.08,
+      "correctness_weight": 0.53,
+      "default_close_date_offset_days": 1,
+      "default_due_date_offset_days": 1,
+      "default_due_time": "17:00",
+      "default_open_time": "07:00",
+      "id": 1,
+      "late_work_immediate_penalty": false,
+      "late_work_per_day_penalty": true,
+      "manual_grading_feedback_on": true,
+      "map": undefined,
+      "name": "Default Reading",
+      "task_plan_type": "reading",
+    }
+  }
+/>
+`;
