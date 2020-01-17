@@ -83,6 +83,7 @@ exports[`CreateCourse: entering details matches snapshot 1`] = `
                 id="number-sections"
                 min="1"
                 onChange={[Function]}
+                onKeyPress={[Function]}
                 type="number"
               />
             </div>
@@ -109,6 +110,7 @@ exports[`CreateCourse: entering details matches snapshot 1`] = `
                 id="number-students"
                 min="1"
                 onChange={[Function]}
+                onKeyPress={[Function]}
                 type="number"
               />
             </div>

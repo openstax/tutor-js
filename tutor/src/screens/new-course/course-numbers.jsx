@@ -50,7 +50,7 @@ class CourseNumbers extends React.Component {
   }
 
   render() {
-    const { ux: { newCourse } } = this.props;
+    const { ux: { newCourse, onKeyPress } } = this.props;
 
     return (
       <Form>
@@ -69,6 +69,7 @@ class CourseNumbers extends React.Component {
                 id="number-sections"
                 type="number"
                 min="1"
+                onKeyPress={onKeyPress}
                 defaultValue={newCourse.num_sections}
                 onChange={this.updateSectionCount} />
             </InputGroup>
@@ -86,6 +87,7 @@ class CourseNumbers extends React.Component {
                 id="number-students"
                 type="number"
                 min="1"
+                onKeyPress={onKeyPress}
                 defaultValue={newCourse.estimated_student_count || ''}
                 onChange={this.updateStudentCount} />
             </InputGroup>
