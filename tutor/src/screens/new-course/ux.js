@@ -78,6 +78,13 @@ class CourseBuilderUX extends BaseModel {
     this.currentStageIndex = this.firstStageIndex;
   }
 
+  @action.bound onKeyPress(ev) {
+    if ('Enter' === ev.key && this.canGoForward) {
+      this.goForward();
+    }
+  }
+
+
   @computed get params() {
     return this.router.match.params || {};
   }
