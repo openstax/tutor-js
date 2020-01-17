@@ -9,6 +9,7 @@ import chapters from './chapters';
 import questions from './questions';
 import review from './review';
 import UnknownType from './unknown';
+
 const STEPS = {
   details,
   chapters,
@@ -28,7 +29,6 @@ export default class AssignmentUX {
   @observable exercises;
   @observable isReady = false;
   @observable sourcePlanId;
-
 
   constructor(attrs = null) {
     if (attrs) { this.initialize(attrs); }
@@ -114,6 +114,14 @@ export default class AssignmentUX {
     return STEPS[STEP_IDS[this._stepIndex]] || UnknownType;
   }
 
+  @computed get stepNumber() {
+    return this._stepIndex + 1;
+  }
+
+  @action.bound goToStep(index) {
+    this._stepIndex = index;
+  }
+
   @action.bound goForward() {
     if (this.canGoForward) {
       // TODO, skip steps if the assignment type doesn't need the next,
@@ -136,7 +144,7 @@ export default class AssignmentUX {
 
   @computed get canGoBackward() {
     return Boolean(
-      this.isApiPending && this._stepIndex > 0
+      !this.isApiPending && this._stepIndex > 0
     );
   }
 

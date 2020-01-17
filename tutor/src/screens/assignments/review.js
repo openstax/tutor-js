@@ -1,11 +1,19 @@
-import { React } from 'vendor';
+import { React, PropTypes } from 'vendor';
+import { AssignmentBuilder } from './builder';
+import AssignmentUX from './ux';
 
-const PointsNReview = () => {
-
+const PointsNReview = ({ ux }) => {
   return (
-    <h1>Points and Review</h1>
+    <AssignmentBuilder
+      title="Set points and review"
+      ux={ux}
+    >
+    </AssignmentBuilder>
   );
+};
 
+PointsNReview.propTypes = {
+  ux: PropTypes.instanceOf(AssignmentUX).isRequired,
 };
 
 export default PointsNReview;
