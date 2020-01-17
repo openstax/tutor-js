@@ -1,11 +1,21 @@
-import { React } from 'vendor';
+import { React, PropTypes } from 'vendor';
+import { AssignmentBuilder } from './builder';
+import AssignmentUX from './ux';
 
-const Chapters = () => {
+const Chapters = ({ ux }) => {
 
   return (
-    <h1>Add Chapters</h1>
+    <AssignmentBuilder
+      title="Add Chapters"
+      ux={ux}
+    >
+    </AssignmentBuilder>
   );
 
+};
+
+Chapters.propTypes = {
+  ux: PropTypes.instanceOf(AssignmentUX).isRequired,
 };
 
 export default Chapters;
