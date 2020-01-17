@@ -37,7 +37,9 @@ class NotesWidgetWrapper extends React.Component {
 
   constructor(props) {
     super(props);
-    props.course.notes.ensurePageExists(props.page);
+    if (props.course) {
+      props.course.notes.ensurePageExists(props.page);
+    }
   }
 
   render() {
