@@ -12,6 +12,7 @@ exports[`CreateCourse: entering name matches snapshot 1`] = `
       className="form-control"
       defaultValue=""
       onChange={[Function]}
+      onKeyPress={[Function]}
       placeholder="Choose a name for your course"
       type="text"
     />

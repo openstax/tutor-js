@@ -160,10 +160,11 @@ class BookPage extends React.Component {
   }
 
   isMediaLink(link) {
-    // TODO it's likely that this is no longer needed since the links being
-    // passed into this are now much stricter and exclude where `href="#"` and
-    // where `href` contains any `/`
-    return ((link.hash.length > 0) || (link.href !== link.getAttribute('href'))) && (link.hash.search('/') === -1);
+    // footnotes shouldn't show a preview of themselves
+    if (link.matches('[data-type="footnote-ref-link"]')) {
+      return false;
+    }
+    return true;
   }
 
   hasCNXId(link) {

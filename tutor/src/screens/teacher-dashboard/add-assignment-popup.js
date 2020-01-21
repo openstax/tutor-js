@@ -6,6 +6,26 @@ import Time from '../../models/time';
 import { withRouter } from 'react-router-dom';
 import AddMenu from './add-menu';
 
+const CustomMenu = React.forwardRef(
+  ({ children, className, 'aria-labelledby': labeledBy }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={className}
+        aria-labelledby={labeledBy}
+      >
+        {children}
+      </div>
+    );
+  },
+);
+
+CustomMenu.propTypes = {
+  'aria-labelledby': PropTypes.string,
+  children: PropTypes.node,
+  className: PropTypes.string,
+};
+
 export default
 @observer
 @withRouter
@@ -45,6 +65,7 @@ class AddAssignmentPopUp extends React.Component {
     const style = {
       left: x,
       top: y,
+      position: 'absolute',
     };
 
     const addDateType = this.dateType;
@@ -58,15 +79,16 @@ class AddAssignmentPopUp extends React.Component {
 
 
     return (
-      <Dropdown.Menu
-        show
-        id="course-add-dropdown"
-        ref="addOnDayMenu"
+      <Dropdown
         style={style}
+        id="course-add-dropdown"
         className={className}
+        show
       >
-        {dropdownContent}
-      </Dropdown.Menu>
+        <Dropdown.Menu as={CustomMenu}>
+          {dropdownContent}
+        </Dropdown.Menu>
+      </Dropdown>
     );
   }
 }

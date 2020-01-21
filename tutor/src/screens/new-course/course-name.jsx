@@ -26,7 +26,7 @@ class CourseName extends React.Component {
   }
 
   render() {
-    const { ux: { newCourse } } = this.props;
+    const { ux: { onKeyPress, newCourse } } = this.props;
     const zones = TimeHelper.getTimezones();
 
     return (
@@ -34,10 +34,12 @@ class CourseName extends React.Component {
         <Form.Group className="course-details-name">
           <Form.Control
             autoFocus
+            onKeyPress={onKeyPress}
             type="text"
             defaultValue={newCourse.name}
             placeholder="Choose a name for your course"
-            onChange={this.updateName} />
+            onChange={this.updateName}
+          />
         </Form.Group>
         <Form.Group className="course-details-sections">
           <InputGroup>
