@@ -8,6 +8,7 @@ import Courses from './courses-map';
 import { UserTerms } from './user/terms';
 import ViewedTourStat from './user/viewed-tour-stat';
 import { read_csrf } from '../helpers/dom';
+import Flags from './feature_flags';
 
 @identifiedBy('user')
 class User extends BaseModel {
@@ -99,6 +100,8 @@ class User extends BaseModel {
 
   @computed get tourAudienceTags() {
     let tags = [];
+    if (!Flags.tours){ return tags; }
+
     if (
       (Courses.active.isEmpty && this.isConfirmedFaculty) ||
         Courses.active.teaching.nonPreview.any
