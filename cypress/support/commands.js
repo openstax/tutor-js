@@ -35,3 +35,7 @@ Cypress.Commands.add('dismissLinksPrompt', () => {
   cy.getTestElement('tour-step').find('button').last().click();
   cy.getTestElement('tour-step').find('[data-test-id="primary-button"]').click();
 });
+
+Cypress.Commands.add('disableTours', () => {
+  cy.window().then(w => w._MODELS.feature_flags.set('tours', false));
+});

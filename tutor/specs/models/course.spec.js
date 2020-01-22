@@ -9,7 +9,9 @@ import { bootstrapCoursesList } from '../courses-test-data';
 
 import COURSE from '../../api/courses/1.json';
 jest.mock('../../src/models/payments');
-jest.mock('../../src/models/feature_flags');
+jest.mock('../../src/models/feature_flags',() => ({
+  tours: true,
+}));
 jest.mock('shared/model/ui-settings', () => ({
   set: jest.fn(),
   get: jest.fn(),
@@ -44,7 +46,7 @@ describe('Course Model', () => {
     expect(c.currentRole.id).toEqual(newRoleAttrs.id);
   });
 
-  it('calculates audience tags', () => {
+  fit('calculates audience tags', () => {
     expect(Courses.get(1).tourAudienceTags).toEqual(['student']);
     const teacher = Courses.get(2);
     teacher.just_created = true;
