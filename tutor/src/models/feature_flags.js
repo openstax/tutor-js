@@ -1,26 +1,25 @@
 import { observable } from 'mobx';
 
 export const defaultValues = {
+  tours: true,
   is_payments_enabled: true,
   pulse_insights: false,
   teacher_student_enabled: false,
 };
 
-const FeatureFlagValues = observable.map(defaultValues);
+const FeatureFlags = observable.map(defaultValues);
 
-export const FeatureFlagsApi = {
-  bootstrap(values) {
-    FeatureFlagValues.merge(values);
-  },
+FeatureFlags.bootstrap = (values) => {
+  FeatureFlags.merge(values);
 };
 
 const FlagsInterface = {};
 
-FeatureFlagValues.forEach((_, name) => {
+FeatureFlags.forEach((_, name) => {
 
   Object.defineProperty(FlagsInterface, name, {
 
-    get: () => FeatureFlagValues.get(name),
+    get: () => FeatureFlags.get(name),
 
   });
 
@@ -29,3 +28,4 @@ FeatureFlagValues.forEach((_, name) => {
 Object.freeze(FlagsInterface);
 
 export default FlagsInterface;
+export { FeatureFlags as FeatureFlagsApi };

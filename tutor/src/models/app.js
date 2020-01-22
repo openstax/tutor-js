@@ -12,7 +12,7 @@ import User from './user';
 import Raven from './app/raven';
 import Courses from './courses-map';
 import Payments from './payments';
-import FeatureFlags, { FeatureFlagsApi } from './feature_flags';
+import { FeatureFlagsApi } from './feature_flags';
 import Notices from '../helpers/notifications';
 import Chat from './chat';
 import PulseInsights from './app/pulse-insights';
@@ -26,7 +26,15 @@ const BOOTSTRAPED_MODELS = {
   payments: Payments,
   feature_flags: FeatureFlagsApi,
   response_validation: ResponseValidation,
+
 };
+
+// _MODELS is for adhoc console debugging ONLY, no code should rely on this!
+window._MODELS = Object.assign({
+  settings: UiSettings,
+  notifications: Notifications,
+  toasts: Toasts,
+}, BOOTSTRAPED_MODELS);
 
 export default class TutorApp {
 
@@ -57,19 +65,13 @@ export default class TutorApp {
   }
 
   @action.bound initializeApp() {
-    // _MODELS is for adhoc console debugging ONLY, no code should rely on this!
-    window._MODELS = {
-      settings: UiSettings,
-      notifications: Notifications,
-      toasts: Toasts,
-    };
+
     window._MODELS.bootstrapData = this.data;
     forIn(BOOTSTRAPED_MODELS, (model, storeId) => {
       const data = this.data[storeId];
       if (data) { model.bootstrap(data); }
-      window._MODELS[storeId] = model;
     });
-    window._MODELS.feature_flags = FeatureFlags;
+
     BootstrapURLs.update(this.data);
     UiSettings.initialize(this.data.ui_settings || {});
     Notifications.on('tutor-update', this.onNotice);
