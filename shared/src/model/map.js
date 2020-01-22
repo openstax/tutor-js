@@ -26,6 +26,13 @@ export default class Map {
     }
   }
 
+  @action ensureLoaded() {
+    if (!this.api.isPending && !this.api.hasBeenFetched) {
+      return this.fetch();
+    }
+    return Promise.resolve();
+  }
+
   @computed get array() {
     return this.values();
   }

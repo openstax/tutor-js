@@ -1,8 +1,7 @@
 import { React, PropTypes, styled, observer } from 'vendor';
 import { colors, fonts } from '../../theme';
 import { Button } from 'react-bootstrap';
-import { Formik, Field, ErrorMessage } from 'formik';
-import AssignmentUX from './ux';
+import { Field, ErrorMessage } from 'formik';
 
 const StyledWrapper = styled.div`
   max-width: 1200px;
@@ -21,7 +20,6 @@ const Header = styled.div`
 
 const HeaderStep = styled.div`
   font-size: 1.2rem;
-  text-transform: uppercase;
   margin-right: 2.4rem;
 `;
 
@@ -102,28 +100,32 @@ TextInput.propTypes = {
 const AssignmentBuilder = observer(({ ux, children, title }) => {
   return (
     <StyledWrapper>
-      <Header templateColors={colors.templates[ux.plan.type]}>
+      <Header className="heading" templateColors={colors.templates[ux.plan.type]}>
         <HeaderStep>
-          Step {ux.stepNumber}
+          STEP {ux.stepNumber}
         </HeaderStep>
         {title}
       </Header>
-      <Formik>
-        <Body>
-          {children}
-        </Body>
-      </Formik>
-      <Footer>
+      <Body>
+        {children}
+      </Body>
+      <Footer className="controls">
         {!ux.canGoBackward && <Button variant="light">Cancel</Button>}
         {ux.canGoBackward && <Button variant="light" onClick={ux.goBackward}>Back</Button>}
-        {ux.canGoForward && <Button variant="primary" onClick={ux.goForward}>Save & Continue</Button>}
+        <Button
+          variant="primary"
+          disabled={!ux.canGoForward}
+          onClick={ux.goForward}
+        >
+          Save & Continue
+        </Button>
       </Footer>
     </StyledWrapper>
   );
 });
 
 AssignmentBuilder.propTypes = {
-  ux: PropTypes.instanceOf(AssignmentUX).isRequired,
+  ux: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
 };

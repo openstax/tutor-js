@@ -1,23 +1,10 @@
-import { observable, computed, action } from 'mobx';
+import { React, observable, computed, action } from 'vendor';
 import ScrollTo from '../../helpers/scroll-to';
+import { filter } from 'lodash';
 import Exercises from '../../models/exercises';
 import TaskPlan, { SELECTION_COUNTS } from '../../models/task-plans/teacher/plan';
 import ReferenceBook from '../../models/reference-book';
-
-import details from './details';
-import chapters from './chapters';
-import questions from './questions';
-import review from './review';
-import UnknownType from './unknown';
-
-const STEPS = {
-  details,
-  chapters,
-  questions,
-  review,
-};
-
-const STEP_IDS = Object.keys(STEPS);
+import { Step, STEP_IDS } from './step';
 
 export default class AssignmentUX {
 
@@ -29,13 +16,15 @@ export default class AssignmentUX {
   @observable exercises;
   @observable isReady = false;
   @observable sourcePlanId;
+  @observable form;
 
   constructor(attrs = null) {
     if (attrs) { this.initialize(attrs); }
   }
 
   @action async initialize({
-    id, type, plan, course, onComplete, // due_at,
+    id, type, plan, course, onComplete,
+    gradingTemplates = course.gradingTemplates,
     exercises = Exercises,
     windowImpl = window,
   }) {
@@ -76,6 +65,10 @@ export default class AssignmentUX {
       await this.plan.ensureLoaded();
     }
 
+    // once templates is loaded, select ones of the correct type
+    await gradingTemplates.ensureLoaded();
+    this.gradingTemplates = filter(gradingTemplates.array, t => t.task_plan_type == type);
+
     this.onComplete = onComplete;
     this.exercises = exercises;
     if (this.plan.isReading) {
@@ -106,13 +99,19 @@ export default class AssignmentUX {
     return this._referenceBook;
   }
 
+  @action.bound renderStep(form) {
+    this.form = form;
+    return <Step ux={this} />;
+  }
+
+  get formValues() {
+    return this.plan.serialize();
+  }
+
   @computed get isApiPending() {
     return this.plan.api.isPending;
   }
 
-  @computed get StepComponent() {
-    return STEPS[STEP_IDS[this._stepIndex]] || UnknownType;
-  }
 
   @computed get stepNumber() {
     return this._stepIndex + 1;
@@ -138,7 +137,10 @@ export default class AssignmentUX {
 
   @computed get canGoForward() {
     return Boolean(
-      !this.isApiPending && this._stepIndex < STEP_IDS.length - 1
+      !this.isApiPending &&
+        this._stepIndex < STEP_IDS.length - 1 &&
+        this.form &&
+        this.form.isValid
     );
   }
 
