@@ -12,16 +12,16 @@ let ROLE = 'teacher';
 
 function addCourses(courses, attrs) {
   courses.push(
-    Factory.create('Course', merge(attrs, { type: 'biology', months_ago: 1, now }
+    Factory.create('Course', merge(attrs, { id: 1, type: 'biology', months_ago: 1, now }
     )));
   courses.push(
-    Factory.create('Course', merge(attrs, { type: 'physics', months_ago: 2, now }))
+    Factory.create('Course', merge(attrs, { id: 2, type: 'physics', months_ago: 2, now }))
   );
   courses.push(
-    Factory.create('Course', merge(attrs, { type: 'physics', months_ago: -6, now }))
+    Factory.create('Course', merge(attrs, { id: 3, type: 'physics', months_ago: -6, now }))
   );
   courses.push(
-    Factory.create('Course', merge(attrs, { type: 'biology', months_ago: -7, now }))
+    Factory.create('Course', merge(attrs, { id: 4, type: 'biology', months_ago: -7, now }))
   );
 }
 
