@@ -1,88 +1,85 @@
 import { React, PropTypes } from 'vendor';
 import { isEmpty } from 'lodash';
 import { AssignmentBuilder, SplitRow, Label, HintText, TextInput, Setting } from './builder';
-import AssignmentUX from './ux';
 import Select from '../../components/select';
 import RadioInput from '../../components/radio-input';
 
 const isRequired = (value) => isEmpty(value) && 'Cannot be blank';
 
 const Details = ({ ux }) => {
+
   return (
     <AssignmentBuilder
       title="Add Details"
       ux={ux}
     >
-      <>
-        <SplitRow>
-          <Label htmlFor="">
-            Assignment name
-            <HintText>(This will show on the student dashboard)</HintText>
-          </Label>
-          <TextInput
-            name="assignment_name"
-            id="assignment_name"
-            validate={isRequired}
-          />
-        </SplitRow>
-        <SplitRow>
-          <Label htmlFor="">
-            Additional note or instructions
-            <HintText>(Optional)</HintText>
-          </Label>
-          <TextInput
-            name="additional_note"
-            id="additional_note"
-          />
-        </SplitRow>
-        <SplitRow>
-          <Label htmlFor="">
-            Grading template
-            <HintText>(Apply a pre-set submission and grading policy template)</HintText>
-          </Label>
-          <div>
-            <Select>
-              <option>OpenStax Homework</option>
-              <option>Other template</option>
-            </Select>
-            <a href="">Preview</a>
-          </div>
-        </SplitRow>
-        <SplitRow>
-          <Label htmlFor="">
-            Assign
+      <SplitRow>
+        <Label htmlFor="">
+          Assignment name
+          <HintText>(This will show on the student dashboard)</HintText>
+        </Label>
+        <TextInput
+          name="title"
+          validate={isRequired}
+        />
+      </SplitRow>
+      <SplitRow>
+        <Label htmlFor="">
+          Additional note or instructions
+          <HintText>(Optional)</HintText>
+        </Label>
+        <TextInput
+          name="description"
+        />
+      </SplitRow>
+      <SplitRow>
+        <Label htmlFor="">
+          Grading template
+          <HintText>(Apply a pre-set submission and grading policy template)</HintText>
+        </Label>
+        <div>
+          <Select name="grading_template">
+            {ux.gradingTemplates.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+          </Select>
+          <a href="">Preview</a>
+        </div>
+      </SplitRow>
+      <SplitRow>
+        <Label htmlFor="">
+          Assign
+          <HintText>
+            Course Time Zone:<br/>
+            <a href="">Central Time - US & Canada</a>
             <HintText>
-              Course Time Zone:<br/>
-              <a href="">Central Time - US & Canada</a>
-              <HintText>
-                (To immediately open an assignment, set
-                Open Date to today's date & current time.)
-              </HintText>
+              (To immediately open an assignment, set
+              Open Date to today's date & current time.)
             </HintText>
-          </Label>
-          <div>
-            <Setting>
-              <RadioInput
-                name="assignto" // TODO: Match names with normal form
-                label="All sections"
-                defaultChecked={true}
-              />
-            </Setting>
-            <Setting>
-              <RadioInput
-                name="assignto"
-                label="Select sections"
-              />
-            </Setting>
-          </div>
-        </SplitRow>
-      </>
+          </HintText>
+        </Label>
+        <div>
+          <Setting>
+            <RadioInput
+              name="assignto"
+              value="all"
+              label="All sections"
+              defaultChecked={true}
+            />
+          </Setting>
+          <Setting>
+            <RadioInput
+              name="assignto"
+              value="sections"
+              label="Select sections"
+            />
+          </Setting>
+        </div>
+      </SplitRow>
     </AssignmentBuilder>
   );
 };
 
 Details.propTypes = {
-  ux: PropTypes.instanceOf(AssignmentUX).isRequired,
+  ux: PropTypes.object.isRequired,
 };
 
 export default Details;

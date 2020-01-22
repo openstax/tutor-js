@@ -4,6 +4,7 @@ import TourRegion from '../../components/tours/region';
 import Courses from '../../models/courses-map';
 import Router from '../../helpers/router';
 import LoadingScreen from 'shared/components/loading-animation';
+import { Formik } from 'formik';
 import { withRouter } from 'react-router';
 import UX from './ux';
 
@@ -46,9 +47,9 @@ class AssignmentBuilder extends React.Component {
   }
 
   render() {
-    const { ux: { isInitializing, StepComponent, plan, course } } = this;
+    const { ux } = this;
 
-    if (isInitializing) {
+    if (ux.isInitializing) {
       return <LoadingScreen message="Loading Assignment…" />;
     }
 
@@ -56,11 +57,18 @@ class AssignmentBuilder extends React.Component {
       <ScrollToTop>
         <TourRegion
           className="assignment-builder"
-          id={`${plan.type}-assignment-editor`}
-          otherTours={[`${plan.type}-assignment-editor-super`]}
-          courseId={course.id}
+          id={`${ux.plan.type}-assignment-editor`}
+          otherTours={[`${ux.plan.type}-assignment-editor-super`]}
+          courseId={ux.course.id}
         >
-          <StepComponent ux={this.ux} />
+          <Formik
+            initialValues={ux.formValues}
+            onSubmit={ux.onSubmit}
+            validateOnMount={true}
+          >
+            {ux.renderStep}
+          </Formik>
+
         </TourRegion>
       </ScrollToTop>
     );
