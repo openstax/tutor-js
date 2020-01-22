@@ -27,6 +27,7 @@ import { PastTaskPlans } from './task-plans/teacher/past';
 import { Notes } from './notes';
 import { GradingTemplates } from './grading/templates';
 import ReferenceBook from './reference-book';
+import Flags from './feature_flags';
 
 const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
 const DASHBOARD_VIEW_COUNT_KEY = 'DBVC';
@@ -230,6 +231,8 @@ class Course extends BaseModel {
 
   @computed get tourAudienceTags() {
     let tags = [];
+    if (!Flags.tours){ return tags; }
+
     if (this.currentRole.isTeacher) {
       tags.push(this.is_preview ? 'teacher-preview' : 'teacher');
       if (!this.is_preview) {
