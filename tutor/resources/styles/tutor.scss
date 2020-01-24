@@ -43,6 +43,7 @@
 @import './components/payments';
 @import './components/choices-listing';
 @import './components/notes/note';
+@import './components/date-time-input';
 
 body[data-js-error]::before {
   content: attr(data-js-error);

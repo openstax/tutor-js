@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash';
 import { AssignmentBuilder, SplitRow, Label, HintText, TextInput, Setting } from './builder';
 import Select from '../../components/select';
 import RadioInput from '../../components/radio-input';
+import DatePicker from '../../components/date-time-input';
 
 const isRequired = (value) => isEmpty(value) && 'Cannot be blank';
 
@@ -74,6 +75,15 @@ const Details = ({ ux }) => {
           </Setting>
         </div>
       </SplitRow>
+      <SplitRow>
+        <Label htmlFor="">
+          Due at
+        </Label>
+        <Setting>
+          <DatePicker name="first_published_at" />
+        </Setting>
+      </SplitRow>
+
     </AssignmentBuilder>
   );
 };
