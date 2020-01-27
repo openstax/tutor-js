@@ -109,19 +109,20 @@ export const fonts = {
   },
 };
 
+export const navbars = {
+  top: {
+    height: '60px',
+  },
+  bottom: {
+    height: '50px',
+  },
+};
+
 const TutorTheme = {
 
   colors,
   fonts,
-
-  navbars: {
-    top: {
-      height: '60px',
-    },
-    bottom: {
-      height: '50px',
-    },
-  },
+  navbars,
 
   sizes: {
     bookTocWidth: '300px',

@@ -1,6 +1,6 @@
 import { React, observable, computed, action } from 'vendor';
 import ScrollTo from '../../helpers/scroll-to';
-import { filter } from 'lodash';
+import { filter, isEmpty, compact, map, get } from 'lodash';
 import Exercises from '../../models/exercises';
 import TaskPlan, { SELECTION_COUNTS } from '../../models/task-plans/teacher/plan';
 import ReferenceBook from '../../models/reference-book';
@@ -10,7 +10,6 @@ export default class AssignmentUX {
 
   @observable _stepIndex = 0;
   @observable isShowingSectionSelection = false;
-  @observable isShowingExercises = false;
   @observable isShowingExerciseReview = false;
   @observable isShowingPeriodTaskings;
   @observable exercises;
@@ -112,7 +111,6 @@ export default class AssignmentUX {
     return this.plan.api.isPending;
   }
 
-
   @computed get stepNumber() {
     return this._stepIndex + 1;
   }
@@ -126,6 +124,10 @@ export default class AssignmentUX {
       // TODO, skip steps if the assignment type doesn't need the next,
       // for instance events won't have chapters & questiosn
       this.goToStep(this._stepIndex + 1);
+    }
+
+    if (this.isShowingExercises) {
+      this.onExercisesShow();
     }
   }
 
@@ -148,6 +150,115 @@ export default class AssignmentUX {
     return Boolean(
       !this.isApiPending && this._stepIndex > 0
     );
+  }
+
+  @computed get canEdit() {
+    return this.plan.canEdit;
+  }
+
+  @computed get selectedPageIds() {
+    return this.plan.pageIds;
+  }
+
+  @computed get selectedChapterSections() {
+    return filter(map(this.selectedPages, 'chapter_section'), 'isPresent');
+  }
+
+  @computed get selectedPages() {
+    return this.selectedPageIds.map(pgId => this.referenceBook.pages.byId.get(pgId));
+  }
+
+  @action.bound onSectionIdsChange(ids) {
+    this.plan.settings.page_ids = ids;
+  }
+
+  @action.bound onExerciseToggle(event, exercise) {
+    const ex = exercise.wrapper;
+    ex.isSelected = !ex.isSelected;
+    ex.isSelected ? this.plan.addExercise(ex) : this.plan.removeExercise(ex);
+  }
+
+  @computed get isFetchingExercises() {
+    return this.exercises.isFetching({ pageIds: this.selectedPageIds });
+  }
+
+  @computed get isShowingExercises() {
+    return this._stepIndex === 2;
+  }
+
+  @action.bound async onExercisesShow() {
+    await this.exercises.fetch({
+      course: this.course,
+      book: this.referenceBook,
+      page_ids: this.selectedPageIds,
+    });
+
+    this.selectedPageIds.forEach(pgId => {
+      this.exercises.forPageId(pgId).forEach(
+        e => e.isSelected = this.plan.includesExercise(e)
+      );
+    });
+  }
+
+  @action async onExercisesReview() {
+    await this.exercises.ensureExercisesLoaded({
+      course: this.course,
+      book: this.referenceBook,
+      exercise_ids: this.plan.settings.exercise_ids,
+    });
+  }
+
+  @computed get selectedExercises() {
+    if (isEmpty(this.exercises)) { return []; }
+    return compact(map(this.plan.settings.exercise_ids, exId => (
+      this.exercises.get(exId)
+    )));
+  }
+
+  @computed get numTutorSelections() {
+    return get(this.plan, 'settings.exercises_count_dynamic', 0);
+  }
+
+  @action.bound increaseTutorSelection() {
+    if (this.canIncreaseTutorExercises) {
+      this.plan.settings.exercises_count_dynamic = this.numTutorSelections + 1;
+    }
+  }
+
+  @action.bound decreaseTutorSelection() {
+    if (this.canDecreaseTutorExercises) {
+      this.plan.settings.exercises_count_dynamic = this.numTutorSelections - 1;
+    }
+  }
+
+  @computed get canIncreaseTutorExercises() {
+    return this.canEdit && this.numTutorSelections < SELECTION_COUNTS.max;
+  }
+
+  @computed get canDecreaseTutorExercises() {
+    return this.canEdit && this.numTutorSelections > SELECTION_COUNTS.min;
+  }
+
+  @computed get numExerciseSteps() {
+    return Math.max(
+      this.selectedExercises.reduce(
+        (count, ex) => count + get(ex, 'content.questions.length', 0), 0,
+      ),
+      get(this.plan.settings, 'exercise_ids.length', 0),
+    );
+  }
+
+  isExerciseSelected(ex) {
+    return this.selectedExercises.includes(ex);
+  }
+
+  @computed get displayedExercises() {
+    return this.exercises.where(ex => (
+      this.isExerciseSelected(ex) || (
+        ex.isHomework && ex.isAssignable &&
+          ex.page && this.selectedPageIds.includes(ex.page.id)
+      )
+    ));
   }
 
 }
