@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateTimeInput matches snapshot 1`] = `
+.c0 {
+  position: relative;
+}
+
+<span
+  className="c0"
+>
+  <label
+    htmlFor="dte1"
+  >
+    Please Enter Date
+  </label>
+  <div
+    className="oxdt"
+  >
+    <div
+      className="oxdt-input"
+    >
+      <input
+        name="dte"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onMouseDown={[Function]}
+        readOnly={true}
+        size={21}
+        value=""
+      />
+    </div>
+  </div>
+</span>
+`;
