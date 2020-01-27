@@ -1,4 +1,4 @@
-import { React, PropTypes, observer } from 'vendor';
+import { React, PropTypes, observer, styled } from 'vendor';
 import { ScrollToTop } from 'shared';
 import TourRegion from '../../components/tours/region';
 import Courses from '../../models/courses-map';
@@ -7,9 +7,17 @@ import LoadingScreen from 'shared/components/loading-animation';
 import { Formik } from 'formik';
 import { withRouter } from 'react-router';
 import UX from './ux';
+import { navbars } from '../../theme.js';
 
 import './styles.scss';
 
+const BackgroundWrapper = styled.div`
+  background: #fff;
+  min-height: calc(100vh - ${navbars.top.height} - ${navbars.bottom.height});
+  position: relative;
+  overflow: hidden;
+  padding: 0 2.4rem;
+`;
 
 @withRouter
 @observer
@@ -54,23 +62,25 @@ class AssignmentBuilder extends React.Component {
     }
 
     return (
-      <ScrollToTop>
-        <TourRegion
-          className="assignment-builder"
-          id={`${ux.plan.type}-assignment-editor`}
-          otherTours={[`${ux.plan.type}-assignment-editor-super`]}
-          courseId={ux.course.id}
-        >
-          <Formik
-            initialValues={ux.formValues}
-            onSubmit={ux.onSubmit}
-            validateOnMount={true}
+      <BackgroundWrapper>
+        <ScrollToTop>
+          <TourRegion
+            className="assignment-builder"
+            id={`${ux.plan.type}-assignment-editor`}
+            otherTours={[`${ux.plan.type}-assignment-editor-super`]}
+            courseId={ux.course.id}
           >
-            {ux.renderStep}
-          </Formik>
+            <Formik
+              initialValues={ux.formValues}
+              onSubmit={ux.onSubmit}
+              validateOnMount={true}
+            >
+              {ux.renderStep}
+            </Formik>
 
-        </TourRegion>
-      </ScrollToTop>
+          </TourRegion>
+        </ScrollToTop>
+      </BackgroundWrapper>
     );
   }
 }

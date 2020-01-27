@@ -3,7 +3,7 @@ import { colors, fonts } from '../../theme';
 import { Button } from 'react-bootstrap';
 import { Field, ErrorMessage } from 'formik';
 
-const StyledWrapper = styled.div`
+const FormWrapper = styled.div`
   max-width: 1200px;
   margin: 6rem auto;
 `;
@@ -24,14 +24,29 @@ const HeaderStep = styled.div`
 `;
 
 const Body = styled.div`
-  padding: 4rem 3rem 4rem 10rem;
+  padding: 4rem 3rem;
   background: #fff;
+  border: 1px solid ${colors.neutral.pale};
+  border-top-width: 0;
+  border-radius: 0 0 2px 2px;
 `;
 
 const Footer = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: .8rem 2.4rem;
+  background: ${colors.neutral.bright};
+  box-shadow: 0 -1px 2px rgba(0,0,0,0.19);
+`;
+
+const FooterInner = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  background: ${colors.neutral.bright};
 `;
 
 const Row = styled.div`
@@ -99,28 +114,32 @@ TextInput.propTypes = {
 
 const AssignmentBuilder = observer(({ ux, children, title }) => {
   return (
-    <StyledWrapper>
-      <Header className="heading" templateColors={colors.templates[ux.plan.type]}>
-        <HeaderStep>
-          STEP {ux.stepNumber}
-        </HeaderStep>
-        {title}
-      </Header>
-      <Body>
-        {children}
-      </Body>
+    <>
+      <FormWrapper>
+        <Header className="heading" templateColors={colors.templates[ux.plan.type]}>
+          <HeaderStep>
+            STEP {ux.stepNumber}
+          </HeaderStep>
+          {title}
+        </Header>
+        <Body>
+          {children}
+        </Body>
+      </FormWrapper>
       <Footer className="controls">
-        {!ux.canGoBackward && <Button variant="light">Cancel</Button>}
-        {ux.canGoBackward && <Button variant="light" onClick={ux.goBackward}>Back</Button>}
-        <Button
-          variant="primary"
-          disabled={!ux.canGoForward}
-          onClick={ux.goForward}
-        >
-          Save & Continue
-        </Button>
+        <FooterInner>
+          {!ux.canGoBackward && <Button variant="light">Cancel</Button>}
+          {ux.canGoBackward && <Button variant="light" onClick={ux.goBackward}>Back</Button>}
+          <Button
+            variant="primary"
+            disabled={!ux.canGoForward}
+            onClick={ux.goForward}
+          >
+            Save & Continue
+          </Button>
+        </FooterInner>
       </Footer>
-    </StyledWrapper>
+    </>
   );
 });
 

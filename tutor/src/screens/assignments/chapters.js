@@ -1,6 +1,6 @@
 import { React, PropTypes } from 'vendor';
 import { AssignmentBuilder } from './builder';
-import AssignmentUX from './ux';
+import SectionsChooser from '../../components/sections-chooser';
 
 const Chapters = ({ ux }) => {
 
@@ -9,13 +9,20 @@ const Chapters = ({ ux }) => {
       title="Add Chapters"
       ux={ux}
     >
+      <SectionsChooser
+        ux={ux.course}
+        course={ux.course}
+        book={ux.referenceBook}
+        selectedPageIds={ux.selectedPageIds}
+        onSelectionChange={ux.onSectionIdsChange}
+      />
     </AssignmentBuilder>
   );
 
 };
 
 Chapters.propTypes = {
-  ux: PropTypes.instanceOf(AssignmentUX).isRequired,
+  ux: PropTypes.object.isRequired,
 };
 
 export default Chapters;

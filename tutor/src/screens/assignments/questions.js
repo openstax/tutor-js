@@ -1,6 +1,7 @@
 import { React, PropTypes } from 'vendor';
 import { AssignmentBuilder } from './builder';
-import AssignmentUX from './ux';
+import ChooseExercises from './homework/choose-exercises';
+import sharedExercises from '../../models/exercises';
 
 const Questions = ({ ux }) => {
 
@@ -9,13 +10,18 @@ const Questions = ({ ux }) => {
       title="Select Questions"
       ux={ux}
     >
+      <ChooseExercises
+        ux={ux}
+        exercises={sharedExercises}
+        book={ux.referenceBook}
+      />
     </AssignmentBuilder>
   );
 
 };
 
 Questions.propTypes = {
-  ux: PropTypes.instanceOf(AssignmentUX).isRequired,
+  ux: PropTypes.object.isRequired,
 };
 
 export default Questions;
