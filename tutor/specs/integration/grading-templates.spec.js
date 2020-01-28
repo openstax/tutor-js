@@ -4,9 +4,8 @@ context('Grading Templates', () => {
 
   beforeEach(() => {
     cy.visit('/dashboard');
-    cy.dismissTour();
+    cy.disableTours();
     cy.getTestElement('course-card').first().click();
-    cy.dismissLinksPrompt();
     cy.get('.sidebar-toggle:not(.open)').click();
     cy.getTestElement('grading-template-link').click();
   });
