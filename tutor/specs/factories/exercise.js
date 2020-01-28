@@ -1,7 +1,8 @@
-import { first } from 'lodash';
+const { first } = require('lodash');
 const {
   Factory, sequence, uuid, reference, fake,
 } = require('./helpers');
+require('../../../shared/specs/factories/exercise')
 
 Factory.define('TutorExercise')
   .id(sequence)
