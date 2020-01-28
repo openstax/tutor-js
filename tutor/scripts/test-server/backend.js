@@ -32,6 +32,8 @@ const GET_HANDLERS = {
   'courses/:courseId/dashboard': require('./backend/dashboard'),
   'courses/:courseId/plans*': require('./backend/previous-plans'),
   'courses/:courseId/guide': require('./backend/performance-forecast'),
+  'ecosystems/:ecoystemId/readings': require('./backend/readings'),
+  'ecosystems/:ecosystemId/exercises/homework_core': require('./backend/exercises'),
 };
 
 const MULTI_HANDLERS = [
