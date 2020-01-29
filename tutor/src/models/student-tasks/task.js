@@ -6,6 +6,7 @@ import moment from 'moment';
 import Time from '../time';
 import StudentTaskStep from './step';
 import Student from './student';
+import { AppActions } from '../../flux/app';
 export { StudentTaskStep };
 
 export default
@@ -43,6 +44,32 @@ class StudentTask extends BaseModel {
         incomplete: 0,
       }
     );
+  }
+
+  // if the task's first step is a placeholder, we want to keep fetching it until it isn't
+  @computed get isLoaded() {
+    return Boolean(this.api.hasBeenFetched && (!this.steps || !this.steps[0].isPlaceHolder));
+  }
+
+  // attempt to load the task until isLoaded returns true or we exceed 30 attempts
+  async load() {
+    let tries_remaining;
+
+    for (tries_remaining = 30; tries_remaining > 0; tries_remaining--) {
+      await this.fetch();
+
+      if (this.isLoaded) {
+        break;
+      }
+
+      // wait 1 second in between load attempts
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+
+    if (tries_remaining == 0) {
+      // create a synthetic server error to display the "no exercises are available" modal
+      AppActions.setServerError({status: 504, data: {errors: [{code: 'biglearn_not_ready'}]}});
+    }
   }
 
   // called by API
