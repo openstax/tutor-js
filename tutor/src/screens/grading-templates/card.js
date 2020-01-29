@@ -7,7 +7,6 @@ import { Icon } from 'shared';
 
 const CardWrapper = styled.div`
   flex: 1;
-  margin-top: 2.4rem;
   color: ${Theme.colors.neutral.darker};
   line-height: 2rem;
   height: 100%;
@@ -55,7 +54,7 @@ const Line = styled.div`
 `;
 
 const StyledCol = styled(Col)`
-  margin-bottom: 3rem;
+  margin-top: 3rem;
 `;
 
 const toPerc = (n) => `${Math.round(n * 100)}%`;
@@ -75,7 +74,24 @@ const gradedExplanation = (tmpl) => {
   }
 };
 
-const CardInfo = observer(({ template, children, onEdit, onDelete }) => {
+const CardHeader = observer(({ template, onEdit, onDelete }) => {
+  return (
+    <Card.Header>
+      {template.name}
+      <div>
+        <Icon type="edit" onClick={() => onEdit(template)}  />
+        {template.canRemove && <Icon type="trash" onClick={() => onDelete(template)}  />}
+      </div>
+    </Card.Header>
+  );
+});
+CardHeader.propTypes = {
+  onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  template: PropTypes.instanceOf(GradingTemplate).isRequired,
+};
+
+const CardInfo = observer(({ template, header, children }) => {
   return (
     <CardWrapper
       data-id={template.id}
@@ -84,13 +100,8 @@ const CardInfo = observer(({ template, children, onEdit, onDelete }) => {
       templateColors={Theme.colors.templates[template.task_plan_type]}
     >
       <Card>
-        <Card.Header>
-          {template.name}
-          <div>
-            <Icon type="edit" onClick={() => onEdit(template)}  />
-            {template.canRemove && <Icon type="trash" onClick={() => onDelete(template)}  />}
-          </div>
-        </Card.Header>
+        {header}
+
         <Card.Body>
 
           {children}
@@ -134,8 +145,6 @@ const CardInfo = observer(({ template, children, onEdit, onDelete }) => {
 });
 CardInfo.displayName = 'TemplateCard';
 CardInfo.propTypes = {
-  onEdit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
   template: PropTypes.instanceOf(GradingTemplate).isRequired,
 };
 
@@ -202,11 +211,29 @@ const CardTypes = {
   unknown: Unknown,
 };
 
-const TemplateCard = ({ template, ...cardProps }) => {
+const TemplateBody = ({ template, ...cardProps }) => {
   const CardForTemplate = CardTypes[template.task_plan_type] || CardTypes.unknown;
   return (
+    <CardForTemplate
+      template={template}
+      {...cardProps}
+    />
+  );
+};
+TemplateBody.propTypes = {
+  template: PropTypes.instanceOf(GradingTemplate).isRequired,
+};
+
+export { TemplateBody };
+
+const TemplateCard = ({ template, ...cardProps }) => {
+  return (
     <StyledCol key={template.id} lg={4} md={6} sm={12} xs={12}>
-      <CardForTemplate template={template} {...cardProps} />
+      <TemplateBody
+        template={template}
+        header={<CardHeader template={template} {...cardProps} />}
+        {...cardProps}
+      />
     </StyledCol>
   );
 };

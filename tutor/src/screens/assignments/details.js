@@ -1,24 +1,24 @@
-import { React, PropTypes, styled } from 'vendor';
+import { React, PropTypes, styled, observer } from 'vendor';
 import { isEmpty } from 'lodash';
-import { AssignmentBuilder, SplitRow, Label, HintText, TextInput, Setting } from './builder';
+import { AssignmentBuilder, SplitRow, Label, HintText, TextInput, Setting, Body } from './builder';
 import Select from '../../components/select';
 import RadioInput from '../../components/radio-input';
 import DatePicker from '../../components/date-time-input';
+import PreviewTooltip from './preview-tooltip';
 
 const isRequired = (value) => isEmpty(value) && 'Cannot be blank';
 
-const Wrapper = styled.div`
-  margin-left: 7.4rem;
+const DetailsBody = styled(Body)`
+  padding-left: 10.4rem;
 `;
 
-const Details = ({ ux }) => {
-
+const Details = observer(({ ux }) => {
   return (
     <AssignmentBuilder
       title="Add Details"
       ux={ux}
     >
-      <Wrapper>
+      <DetailsBody>
         <SplitRow>
           <Label htmlFor="">
             Assignment name
@@ -44,10 +44,16 @@ const Details = ({ ux }) => {
             <HintText>(Apply a pre-set submission and grading policy template)</HintText>
           </Label>
           <div>
-            <Select name="grading_template">
+            <Select
+              name="grading_template"
+              onChange={e => {
+                ux.selectedGradingTemplateId = e.target.value;
+                ux.form.setFieldValue('grading_template', e.target.value);
+              }}
+            >
               {ux.gradingTemplates.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
             </Select>
-            <a href="">Preview</a>
+            <PreviewTooltip template={ux.selectedGradingTemplate} />
           </div>
         </SplitRow>
         <SplitRow>
@@ -88,10 +94,10 @@ const Details = ({ ux }) => {
             <DatePicker name="first_published_at" />
           </Setting>
         </SplitRow>
-      </Wrapper>
+      </DetailsBody>
     </AssignmentBuilder>
   );
-};
+});
 
 Details.propTypes = {
   ux: PropTypes.object.isRequired,

@@ -1,20 +1,23 @@
 import {
   React, PropTypes, observer, autobind, computed, styled, css
 } from 'vendor';
-import { Button } from 'react-bootstrap';
+import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import ScrollSpy from '../../../components/scroll-spy';
 import Sectionizer from '../../../components/exercises/sectionizer';
 import { Icon } from 'shared';
 import TourAnchor from '../../../components/tours/anchor';
 import SelectionsTooltip from './selections-tooltip';
-import { colors } from '../../../theme';
+import { colors, navbars } from '../../../theme';
 
 const Wrapper = styled.div`
-
+  background: #fff;
 `;
 
 const Filter = styled.div`
-  padding: 1.6rem 0;
+  background-color: ${colors.neutral.lightest};
+  border: 1px solid ${colors.neutral.pale};
+  border-width: 1px 0;
+  padding: 1.6rem 4rem;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -25,28 +28,55 @@ const Filter = styled.div`
   }
 `;
 
-const Buttons = styled.div`
+const StyledToggleButton = styled(ToggleButton)`
+  &.btn.btn-plain {
+    background-color: ${colors.neutral.white};
+    color: ${colors.neutral.dark};
+    border: 1px solid ${colors.neutral.pale};
+    padding: 1rem 2rem;
+    margin-right: 1.2rem;
 
+    &.active {
+      background-color: ${colors.neutral.light};
+    }
+  }
+`;
+
+const SelectionButton = styled.button`
+  background: transparent;
+  border: 1px solid ${colors.neutral.lite};
+  color: ${colors.neutral.lite};
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  border-radius: 100%;
+
+  &:disabled {
+    visibility: hidden;
+  }
 `;
 
 const Columns = styled.div`
+  background-color: ${colors.neutral.white};
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
 const Sections = styled.div`
-
+  margin-left: 6.4rem;
 `;
 
 const Indicators = styled.div`
-
+  margin: 0.4rem 0;
 `;
 
 const Indicator = styled.div`
   text-align: center;
-  min-width: 12rem;
-  padding: 0.5rem 4rem;
+  min-width: 20rem;
+  padding: 1.5rem 4rem;
 
   &:not(:last-child) {
     border-right: 1px solid ${colors.neutral.pale};
@@ -149,28 +179,36 @@ class ExerciseControls extends React.Component {
 
   renderIncreaseButton() {
     const { ux } = this.props;
-    if (ux.canIncreaseTutorExercises) {
-      return (
+
+    return (
+      <SelectionButton
+        disabled={!ux.canIncreaseTutorExercises}
+        onClick={ux.increaseTutorSelection}
+        variant="plain"
+      >
         <Icon
-          type="chevron-up" onClick={ux.increaseTutorSelection}
-          className="hover-circle" size="xs" />
-      );
-    } else {
-      return <span className="circle-btn-placeholder" />;
-    }
+          type="plus"
+          size="xs"
+        />
+      </SelectionButton>
+    );
   }
 
   renderDecreaseButton() {
     const { ux } = this.props;
-    if (ux.canDecreaseTutorExercises) {
-      return (
+
+    return (
+      <SelectionButton
+        disabled={!ux.canDecreaseTutorExercises}
+        onClick={ux.decreaseTutorSelection}
+        variant="plain"
+      >
         <Icon
-          type="chevron-down" onClick={ux.decreaseTutorSelection}
-          className="hover-circle" size="xs" />
-      );
-    } else {
-      return <span className="circle-btn-placeholder" />;
-    }
+          type="minus"
+          size="xs"
+        />
+      </SelectionButton>
+    );
   }
 
   render() {
@@ -205,7 +243,8 @@ class ExerciseControls extends React.Component {
               <Indicator>
                 <TourAnchor id="tutor-selections">
                   <div className="tutor-selections">
-                    OpenStax Tutor Selections
+                    <div>OpenStax Tutor Selections</div>
+                    <SelectionsTooltip />
                     <Columns>
                       {this.renderDecreaseButton()}
                       <Counter>
@@ -214,7 +253,6 @@ class ExerciseControls extends React.Component {
                       {this.renderIncreaseButton()}
                     </Columns>
                   </div>
-                  <SelectionsTooltip />
                 </TourAnchor>
               </Indicator>
               <Indicator>
@@ -229,11 +267,11 @@ class ExerciseControls extends React.Component {
         </Columns>
         <Filter>
           <strong>Filter</strong>
-          <div>
-            <Button variant="light">All questions</Button>
-            <Button variant="light">Multiple-choice questions only</Button>
-            <Button variant="light">Written-response questions only</Button>
-          </div>
+          <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+            <StyledToggleButton variant="plain" value={1}>All questions</StyledToggleButton>
+            <StyledToggleButton variant="plain" value={2}>Multiple-choice questions only</StyledToggleButton>
+            <StyledToggleButton variant="plain" value={3}>Written-response questions only</StyledToggleButton>
+          </ToggleButtonGroup>
         </Filter>
       </Wrapper>
     );

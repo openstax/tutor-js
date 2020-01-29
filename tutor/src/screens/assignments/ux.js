@@ -17,6 +17,7 @@ export default class AssignmentUX {
   @observable isReady = false;
   @observable sourcePlanId;
   @observable form;
+  @observable selectedGradingTemplateId;
 
   constructor(attrs = null) {
     if (attrs) { this.initialize(attrs); }
@@ -81,6 +82,8 @@ export default class AssignmentUX {
     this.scroller = new ScrollTo({ windowImpl });
     this.validations = new Validations(this);
     this.isReady = true;
+
+    this.selectedGradingTemplateId = get(this.gradingTemplates, '[0].id');
   }
 
   @computed get isInitializing() {
@@ -249,6 +252,12 @@ export default class AssignmentUX {
         (count, ex) => count + get(ex, 'content.questions.length', 0), 0,
       ),
       get(this.plan.settings, 'exercise_ids.length', 0),
+    );
+  }
+
+  @computed get selectedGradingTemplate() {
+    return (
+      this.course.gradingTemplates.array.find(t => t.id == this.selectedGradingTemplateId)
     );
   }
 
