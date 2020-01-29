@@ -5,6 +5,7 @@ import Exercises from '../../models/exercises';
 import TaskPlan, { SELECTION_COUNTS } from '../../models/task-plans/teacher/plan';
 import ReferenceBook from '../../models/reference-book';
 import { Step, STEP_IDS } from './step';
+import Validations from './validations';
 
 export default class AssignmentUX {
 
@@ -78,7 +79,7 @@ export default class AssignmentUX {
     this.isShowingPeriodTaskings = !(this.canSelectAllSections && this.plan.areTaskingDatesSame);
 
     this.scroller = new ScrollTo({ windowImpl });
-
+    this.validations = new Validations(this);
     this.isReady = true;
   }
 
@@ -104,7 +105,7 @@ export default class AssignmentUX {
   }
 
   get formValues() {
-    return this.plan.serialize();
+    return this.plan; // .serialize();
   }
 
   @computed get isApiPending() {
@@ -141,9 +142,12 @@ export default class AssignmentUX {
     return Boolean(
       !this.isApiPending &&
         this._stepIndex < STEP_IDS.length - 1 &&
-        this.form &&
-        this.form.isValid
+        this.validations.isValid
     );
+  }
+
+  @computed get currentStepId() {
+    return STEP_IDS[this._stepIndex];
   }
 
   @computed get canGoBackward() {
