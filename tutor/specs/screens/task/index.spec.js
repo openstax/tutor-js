@@ -14,6 +14,7 @@ describe('Tasks Screen', () => {
     Object.assign(task, {
       id: 1,
       type: 'reading',
+      isLoaded: true,
       tasksMap: { course },
       api: observable({
         hasErrors: false,
@@ -37,12 +38,13 @@ describe('Tasks Screen', () => {
   });
 
   it('renders and fetches', () => {
+    task.isLoaded = false;
     task.api.isFetchedOrFetching = false;
     task.api.isPending = true;
     task.api.hasBeenFetched = false;
     props.params.stepIndex = 1;
     const t = mount(<C><Task {...props} /></C>);
-    expect(task.fetch).toHaveBeenCalled();
+    expect(task.load).toHaveBeenCalled();
     expect(t).toHaveRendered('ContentLoader');
     t.unmount();
   });

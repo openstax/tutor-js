@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, field, identifier, hasMany, session, computed,
+  BaseModel, identifiedBy, field, identifier, hasMany, session, computed, observable,
 } from 'shared/model';
 import { defaults, countBy } from 'lodash';
 import moment from 'moment';
@@ -30,6 +30,7 @@ class StudentTask extends BaseModel {
   @computed get isReading() { return 'reading' === this.type; }
   @computed get isHomework() { return 'homework' === this.type; }
   @computed get isPractice() { return this.type && this.type.includes('practice'); }
+  @observable isLoading = false
 
   @computed get isFeedbackAvailable() {
     return Boolean(
@@ -53,23 +54,28 @@ class StudentTask extends BaseModel {
 
   // attempt to load the task until isLoaded returns true or we exceed 30 attempts
   async load() {
-    let tries_remaining;
-
-    for (tries_remaining = 30; tries_remaining > 0; tries_remaining--) {
-      await this.fetch();
-
-      if (this.isLoaded) {
-        break;
+    if (this.isLoading) return this;
+    this.isLoading = true;
+    try {
+      let tries_remaining = 30;
+      while(tries_remaining > 0) {
+        await this.fetch();
+        if (this.isLoaded) {
+          break;
+        }
+        // wait 1 second in between load attempts
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        tries_remaining--;
       }
-
-      // wait 1 second in between load attempts
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      if (tries_remaining == 0) {
+        // create a synthetic server error to display the "no exercises are available" modal
+        AppActions.setServerError({ status: 504, data: { errors: [{ code: 'biglearn_not_ready' }] } });
+      }
+    } catch (err) {
+      AppActions.setServerError({ status: 504, data: { errors: [err] } });
     }
-
-    if (tries_remaining == 0) {
-      // create a synthetic server error to display the "no exercises are available" modal
-      AppActions.setServerError({status: 504, data: {errors: [{code: 'biglearn_not_ready'}]}});
-    }
+    this.isLoading = false;
+    return this;
   }
 
   // called by API
