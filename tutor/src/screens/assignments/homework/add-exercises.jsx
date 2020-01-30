@@ -145,7 +145,10 @@ class AddExercises extends React.Component {
     }
 
     return (
-      <>
+      <TourRegion
+        id="add-homework-select-exercises"
+        courseId={ux.course.id}
+      >
         <ExerciseControls
           ux={ux}
           sectionizerProps={{
@@ -157,7 +160,7 @@ class AddExercises extends React.Component {
         <StyledBody>
           {body}
         </StyledBody>
-      </>
+      </TourRegion>
     );
   }
 }
