@@ -1,6 +1,6 @@
 import { React, observable, computed, action } from 'vendor';
 import ScrollTo from '../../helpers/scroll-to';
-import { filter, isEmpty, compact, map, get, merge } from 'lodash';
+import { filter, isEmpty, compact, map, get } from 'lodash';
 import Exercises from '../../models/exercises';
 import TaskPlan, { SELECTION_COUNTS } from '../../models/task-plans/teacher/plan';
 import ReferenceBook from '../../models/reference-book';
@@ -68,6 +68,7 @@ export default class AssignmentUX {
     // once templates is loaded, select ones of the correct type
     await gradingTemplates.ensureLoaded();
     this.gradingTemplates = filter(gradingTemplates.array, t => t.task_plan_type == type);
+    this.plan.grading_template_id = this.plan.grading_template_id || get(this.gradingTemplates, '[0].id');
 
     this.onComplete = onComplete;
     this.exercises = exercises;
@@ -105,8 +106,7 @@ export default class AssignmentUX {
   }
 
   get formValues() {
-    const templateId = get(this.gradingTemplates, '[0].id');
-    return merge(this.plan, { grading_template_id: templateId });
+    return this.plan;
   }
 
   @computed get isApiPending() {
