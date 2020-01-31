@@ -44,16 +44,10 @@ const Details = observer(({ ux }) => {
             <HintText>(Apply a pre-set submission and grading policy template)</HintText>
           </Label>
           <div>
-            <Select
-              name="grading_template"
-              onChange={e => {
-                ux.selectedGradingTemplateId = e.target.value;
-                ux.form.setFieldValue('grading_template', e.target.value);
-              }}
-            >
+            <Select name="grading_template_id">
               {ux.gradingTemplates.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
             </Select>
-            <PreviewTooltip template={ux.selectedGradingTemplate} />
+            <PreviewTooltip template={ux.gradingTemplate} />
           </div>
         </SplitRow>
         <SplitRow>

@@ -1,6 +1,6 @@
 import { React, observable, computed, action } from 'vendor';
 import ScrollTo from '../../helpers/scroll-to';
-import { filter, isEmpty, compact, map, get } from 'lodash';
+import { filter, isEmpty, compact, map, get, merge } from 'lodash';
 import Exercises from '../../models/exercises';
 import TaskPlan, { SELECTION_COUNTS } from '../../models/task-plans/teacher/plan';
 import ReferenceBook from '../../models/reference-book';
@@ -17,7 +17,6 @@ export default class AssignmentUX {
   @observable isReady = false;
   @observable sourcePlanId;
   @observable form;
-  @observable selectedGradingTemplateId;
 
   constructor(attrs = null) {
     if (attrs) { this.initialize(attrs); }
@@ -82,8 +81,6 @@ export default class AssignmentUX {
     this.scroller = new ScrollTo({ windowImpl });
     this.validations = new Validations(this);
     this.isReady = true;
-
-    this.selectedGradingTemplateId = get(this.gradingTemplates, '[0].id');
   }
 
   @computed get isInitializing() {
@@ -108,7 +105,8 @@ export default class AssignmentUX {
   }
 
   get formValues() {
-    return this.plan; // .serialize();
+    const templateId = get(this.gradingTemplates, '[0].id');
+    return merge(this.plan, { grading_template_id: templateId });
   }
 
   @computed get isApiPending() {
@@ -255,9 +253,9 @@ export default class AssignmentUX {
     );
   }
 
-  @computed get selectedGradingTemplate() {
+  @computed get gradingTemplate() {
     return (
-      this.course.gradingTemplates.array.find(t => t.id == this.selectedGradingTemplateId)
+      this.course.gradingTemplates.array.find(t => t.id == this.form.values.grading_template_id)
     );
   }
 
