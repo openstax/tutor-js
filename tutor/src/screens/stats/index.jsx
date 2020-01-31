@@ -68,15 +68,15 @@ class Stats extends React.Component {
     return (
       <ScrollToTop>
         <Wrapper>
-          <Table row={this.tableRow} />
+          {this.tableRow && <Table row={this.tableRow} />}
           <Info>All values are for <b>Active</b> courses that have at least 3 students</Info>
           <Container>
             <Chart
               id="courses"
               data={this.stats.data}
-              title="Active Courses"
+              title="New Courses"
               series={[
-                { property: 'active_courses' },
+                { property: 'new_courses' },
               ]}
               {...chartProps}
             />
@@ -85,8 +85,8 @@ class Stats extends React.Component {
               data={this.stats.data}
               title="Users"
               series={[
-                { label: 'Students', property: 'active_students' },
-                { label: 'Instructors', property: 'active_instructors' },
+                { label: 'Students', property: 'new_students' },
+                { label: 'Instructors', property: 'new_instructors' },
               ]}
               {...chartProps}
             />
