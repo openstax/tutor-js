@@ -1,5 +1,5 @@
 import { React, PropTypes } from 'vendor';
-import { AssignmentBuilder } from './builder';
+import { AssignmentBuilder, Body } from './builder';
 import SectionsChooser from '../../components/sections-chooser';
 
 const Chapters = ({ ux }) => {
@@ -9,13 +9,15 @@ const Chapters = ({ ux }) => {
       title="Add Chapters"
       ux={ux}
     >
-      <SectionsChooser
-        ux={ux.course}
-        course={ux.course}
-        book={ux.referenceBook}
-        selectedPageIds={ux.selectedPageIds}
-        onSelectionChange={ux.onSectionIdsChange}
-      />
+      <Body>
+        <SectionsChooser
+          ux={ux.course}
+          course={ux.course}
+          book={ux.referenceBook}
+          selectedPageIds={ux.selectedPageIds}
+          onSelectionChange={ux.onSectionIdsChange}
+        />
+      </Body>
     </AssignmentBuilder>
   );
 

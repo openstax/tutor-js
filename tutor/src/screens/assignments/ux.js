@@ -68,6 +68,7 @@ export default class AssignmentUX {
     // once templates is loaded, select ones of the correct type
     await gradingTemplates.ensureLoaded();
     this.gradingTemplates = filter(gradingTemplates.array, t => t.task_plan_type == type);
+    this.plan.grading_template_id = this.plan.grading_template_id || get(this.gradingTemplates, '[0].id');
 
     this.onComplete = onComplete;
     this.exercises = exercises;
@@ -105,7 +106,7 @@ export default class AssignmentUX {
   }
 
   get formValues() {
-    return this.plan; // .serialize();
+    return this.plan;
   }
 
   @computed get isApiPending() {
@@ -249,6 +250,12 @@ export default class AssignmentUX {
         (count, ex) => count + get(ex, 'content.questions.length', 0), 0,
       ),
       get(this.plan.settings, 'exercise_ids.length', 0),
+    );
+  }
+
+  @computed get gradingTemplate() {
+    return (
+      this.course.gradingTemplates.array.find(t => t.id == this.form.values.grading_template_id)
     );
   }
 

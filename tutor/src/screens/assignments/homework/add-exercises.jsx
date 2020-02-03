@@ -1,10 +1,16 @@
-import { React, PropTypes, observer, observable, action } from 'vendor';
+import { React, PropTypes, observer, observable, action, styled } from 'vendor';
 import Loading from 'shared/components/loading-animation';
 import ExerciseHelpers from '../../../helpers/exercise';
 import ExerciseControls from './exercise-controls';
 import ExerciseDetails from '../../../components/exercises/details';
 import ExerciseCards from '../../../components/exercises/cards';
 import TourRegion from '../../../components/tours/region';
+import { Body } from '../builder';
+import { colors } from '../../../theme';
+
+const StyledBody = styled(Body)`
+  background: ${colors.neutral.lighter};
+`;
 
 @observer
 class AddExercises extends React.Component {
@@ -139,9 +145,9 @@ class AddExercises extends React.Component {
     }
 
     return (
-      <TourRegion id="add-homework-select-exercises"
+      <TourRegion
+        id="add-homework-select-exercises"
         courseId={ux.course.id}
-        className="homework-builder-view"
       >
         <ExerciseControls
           ux={ux}
@@ -151,7 +157,9 @@ class AddExercises extends React.Component {
             nonAvailableWidth: 600,
             chapter_sections: ux.selectedChapterSections,
           }} />
-        {body}
+        <StyledBody>
+          {body}
+        </StyledBody>
       </TourRegion>
     );
   }

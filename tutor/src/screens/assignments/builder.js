@@ -23,16 +23,20 @@ const HeaderStep = styled.div`
   margin-right: 2.4rem;
 `;
 
-const Body = styled.div`
-  padding: 4rem 3rem;
-  background: #fff;
+const BodyWrapper = styled.div`
   border: 1px solid ${colors.neutral.pale};
   border-top-width: 0;
   border-radius: 0 0 2px 2px;
+  background: #fff;
+`;
+
+const Body = styled.div`
+  padding: 4rem;
 `;
 
 const Footer = styled.div`
   position: fixed;
+  z-index: 1030;
   bottom: 0;
   left: 0;
   right: 0;
@@ -112,6 +116,22 @@ TextInput.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
+const AltButton = styled(Button)`
+  &.btn.btn-plain {
+    background-color: ${colors.neutral.white};
+    color: ${colors.neutral.dark};
+    border: 1px solid ${colors.neutral.pale};
+    padding: 1rem 2rem;
+    min-width: 10rem;
+  }
+`;
+
+const PrimaryButton = styled(Button)`
+  &.btn {
+    padding: 1rem 2rem;
+  }
+`;
+
 const AssignmentBuilder = observer(({ ux, children, title }) => {
   return (
     <>
@@ -122,21 +142,21 @@ const AssignmentBuilder = observer(({ ux, children, title }) => {
           </HeaderStep>
           {title}
         </Header>
-        <Body>
+        <BodyWrapper>
           {children}
-        </Body>
+        </BodyWrapper>
       </FormWrapper>
       <Footer className="controls">
         <FooterInner>
-          {!ux.canGoBackward && <Button variant="light">Cancel</Button>}
-          {ux.canGoBackward && <Button variant="light" onClick={ux.goBackward}>Back</Button>}
-          <Button
+          {!ux.canGoBackward && <AltButton variant="plain">Cancel</AltButton>}
+          {ux.canGoBackward && <AltButton variant="plain" onClick={ux.goBackward}>Back</AltButton>}
+          <PrimaryButton
             variant="primary"
             disabled={!ux.canGoForward}
             onClick={ux.goForward}
           >
             Save & Continue
-          </Button>
+          </PrimaryButton>
         </FooterInner>
       </Footer>
     </>
@@ -149,4 +169,4 @@ AssignmentBuilder.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export { AssignmentBuilder, Row, SplitRow, HintText, Label, TextInput, Setting };
+export { AssignmentBuilder, Row, SplitRow, HintText, Label, TextInput, Setting, Body };
