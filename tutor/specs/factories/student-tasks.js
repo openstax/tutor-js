@@ -53,13 +53,15 @@ Factory.define('StudentTask')
   .title(fake.company.catchPhraseDescriptor)
   .type(fake.random.arrayElement(Object.keys(TASK_TYPES)))
   .due_at(({ now, days_ago = 0 }) => moment(now).add(days_ago + 3, 'days'))
-  .steps(({ stepCount, object: { type } }) =>
-    range(0, (isNil(stepCount) ? fake.random.number({ min: 3, max: 10 }) : stepCount)).map(() => {
+  .steps(({ stepCount, object: { type } }) => {
+    if (type == 'event') { return []; }
+
+    return range(0, (isNil(stepCount) ? fake.random.number({ min: 3, max: 10 }) : stepCount)).map(() => {
       return Factory.create('StudentTaskStep', {
         type: fake.random.arrayElement(TASK_TYPES[type]),
       })
-    }),
-  )
+    })
+  })
 
 Factory.define('StudentTaskReadingStepContent')
   .id(sequence)
