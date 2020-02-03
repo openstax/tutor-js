@@ -1,7 +1,9 @@
 import { React, PropTypes, styled, observer } from 'vendor';
+import { ScrollToTop } from 'shared';
 import { colors, fonts } from '../../theme';
 import { Button } from 'react-bootstrap';
 import { Field, ErrorMessage } from 'formik';
+
 
 const FormWrapper = styled.div`
   max-width: 1200px;
@@ -134,7 +136,7 @@ const PrimaryButton = styled(Button)`
 
 const AssignmentBuilder = observer(({ ux, children, title }) => {
   return (
-    <>
+    <ScrollToTop>
       <FormWrapper>
         <Header className="heading" templateColors={colors.templates[ux.plan.type]}>
           <HeaderStep>
@@ -159,7 +161,7 @@ const AssignmentBuilder = observer(({ ux, children, title }) => {
           </PrimaryButton>
         </FooterInner>
       </Footer>
-    </>
+    </ScrollToTop>
   );
 });
 
