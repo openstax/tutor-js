@@ -138,7 +138,7 @@ const AssignmentBuilder = observer(({ ux, children, title }) => {
       <FormWrapper>
         <Header className="heading" templateColors={colors.templates[ux.plan.type]}>
           <HeaderStep>
-            STEP {ux.stepNumber}
+            STEP {ux.steps.number}
           </HeaderStep>
           {title}
         </Header>
@@ -148,12 +148,12 @@ const AssignmentBuilder = observer(({ ux, children, title }) => {
       </FormWrapper>
       <Footer className="controls">
         <FooterInner>
-          {!ux.canGoBackward && <AltButton variant="plain">Cancel</AltButton>}
-          {ux.canGoBackward && <AltButton variant="plain" onClick={ux.goBackward}>Back</AltButton>}
+          {!ux.steps.canGoBackward && <AltButton variant="plain">Cancel</AltButton>}
+          {ux.steps.canGoBackward && <AltButton variant="plain" onClick={ux.steps.goBackward}>Back</AltButton>}
           <PrimaryButton
             variant="primary"
-            disabled={!ux.canGoForward}
-            onClick={ux.goForward}
+            disabled={!ux.steps.canGoForward}
+            onClick={ux.steps.goForward}
           >
             Save & Continue
           </PrimaryButton>

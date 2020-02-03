@@ -14,6 +14,10 @@ const NON_ASSIGNABLE_TITLES = [
   /\w+ Summary$/,
   /Test Prep/,
   /\w+ Questions$/,
+  'Section Quiz',
+  'Short Answer',
+  'Further Research',
+  'References',
 ];
 
 const UPDATEABLE_FIELDS = ['content_html', 'spy'];

@@ -29,4 +29,5 @@ context('Dashboard', () => {
     cy.get('.controls .btn-primary').click()
     cy.get('.heading').should('contain.text', 'STEP 4')
   });
+
 });

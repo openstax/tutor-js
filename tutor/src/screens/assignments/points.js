@@ -2,7 +2,7 @@ import { React, PropTypes } from 'vendor';
 import { AssignmentBuilder } from './builder';
 import ReviewExercises from './homework/review-exercises';
 
-const PointsNReview = ({ ux }) => {
+const Review = ({ ux }) => {
   return (
     <AssignmentBuilder
       title="Set points and review"
@@ -13,8 +13,8 @@ const PointsNReview = ({ ux }) => {
   );
 };
 
-PointsNReview.propTypes = {
+Review.propTypes = {
   ux: PropTypes.object.isRequired,
 };
 
-export default PointsNReview;
+export default Review;
