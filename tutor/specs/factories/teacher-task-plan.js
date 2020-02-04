@@ -7,8 +7,8 @@ const {
 Factory.define('TeacherTaskPlanTasking')
   .target_id(({ period }) => period ? period.id : 1 )
   .target_type('period')
-  .opens_at(({ now, days_ago }) => moment(now).subtract(days_ago, 'days').format())
-  .due_at(({ now, days_ago }) => moment(now).subtract(days_ago, 'days').add(3, 'days').format());
+  .opens_at(({ now, days_ago }) => moment(now).subtract(days_ago, 'days').toISOString())
+  .due_at(({ now, days_ago }) => moment(now).subtract(days_ago, 'days').add(3, 'days').toISOString());
 
 
 Factory.define('TeacherTaskPlan')
@@ -17,7 +17,7 @@ Factory.define('TeacherTaskPlan')
   .description(fake.commerce.productName)
   .ecosystem_id(({ course }) => course ? course.ecosystem_id : fake.random.number({ min: 1, max: 10 }))
   .type(({ object }) => PLAN_TYPES[object.id % PLAN_TYPES.length])
-  .first_published_at(({ now, days_ago = 0 }) => moment(now).subtract(days_ago - 3, 'days'))
+  .first_published_at(({ now, days_ago = 0 }) => moment(now).subtract(days_ago - 3, 'days').toISOString())
   .is_draft(false)
   .is_preview(false)
   .is_published(true)

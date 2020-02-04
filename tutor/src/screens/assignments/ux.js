@@ -1,4 +1,6 @@
 import { React, observable, computed, action } from 'vendor';
+import Router from '../../helpers/router';
+import { runInAction } from 'mobx';
 import ScrollTo from '../../helpers/scroll-to';
 import { filter, isEmpty, compact, map, get } from 'lodash';
 import Exercises from '../../models/exercises';
@@ -23,7 +25,7 @@ export default class AssignmentUX {
   }
 
   @action async initialize({
-    id, type, plan, course, onComplete,
+    id, type, plan, course, history,
     gradingTemplates = course.gradingTemplates,
     exercises = Exercises,
     windowImpl = window,
@@ -50,9 +52,7 @@ export default class AssignmentUX {
         this.plan.type = type;
       }
     }
-
     this.course = course;
-
     // don't setup steps until course and plan is set
     this.steps = new StepUX(this);
     this.actions = new Actions(this);
@@ -74,7 +74,7 @@ export default class AssignmentUX {
     this.gradingTemplates = filter(gradingTemplates.array, t => t.task_plan_type == type);
     this.plan.grading_template_id = this.plan.grading_template_id || get(this.gradingTemplates, '[0].id');
 
-    this.onComplete = onComplete;
+    this.history = history;
     this.exercises = exercises;
     if (this.plan.isReading) {
       await this.referenceBook.ensureLoaded();
@@ -107,6 +107,25 @@ export default class AssignmentUX {
   @action.bound renderStep(form) {
     this.form = form;
     return <Step ux={this} />;
+  }
+
+  @action.bound navigateToStep(index) {
+    this.history.push(
+      Router.makePathname('editAssignment', {
+        courseId: this.course.id,
+        type: this.plan.type,
+        id: this.plan.id || 'new',
+        step: index,
+      })
+    );
+  }
+
+  @action.bound onComplete() {
+    this.history.push(`/course/${this.course.id}`);
+  }
+
+  @action.bound onCancel() {
+    this.onComplete();
   }
 
   get formValues() {
@@ -216,6 +235,34 @@ export default class AssignmentUX {
           ex.page && this.selectedPageIds.includes(ex.page.id)
       )
     ));
+  }
+
+  @action.bound async onSaveAsDraftClick() {
+    await this.saveAsDraft();
+    this.onComplete();
+  }
+
+  @action.bound async onPublishClick() {
+    this.plan.is_draft = false;
+    if (!this.plan.is_published) {
+      this.plan.is_publish_requested = true;
+    }
+    await this.saveAndCopyPlan();
+    this.onComplete();
+  }
+
+  @action.bound async saveAsDraft() {
+    this.plan.update(this.form.values.serialize());
+    this.plan.is_draft = true;
+    await this.saveAndCopyPlan();
+  }
+
+  @action async saveAndCopyPlan() {
+    await this.plan.save();
+    await runInAction(() => {
+      const destPlan = this.course.teacherTaskPlans.withPlanId(this.plan.id);
+      destPlan.update(this.plan.serialize());
+    });
   }
 
 }

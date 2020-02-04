@@ -26,8 +26,16 @@ const homework = {
   points,
 };
 
+const external = {
+  details,
+};
+
+const event = {
+  details,
+};
+
 const StepTypes = {
-  homework, reading,
+  homework, reading, external, event,
 };
 
 
@@ -52,22 +60,35 @@ class StepUX {
     return this._stepIndex + 1;
   }
 
-  @action.bound goToStep(index) {
-    this._stepIndex = index;
-  }
-
-  @action.bound goForward() {
+  @action.bound async goForward() {
     if (this.canGoForward) {
       // TODO, skip steps if the assignment type doesn't need the next,
       // for instance events won't have chapters & questiosn
-      this.goToStep(this._stepIndex + 1);
+      await this.ux.saveAsDraft();
+
+      this.ux.navigateToStep(this.stepIds[this._stepIndex + 1]);
+    }
+  }
+
+  @action setIndex(index) {
+    const stepIndex = this.stepIds.indexOf(index);
+    if (-1 !== stepIndex) {
+      this._stepIndex = stepIndex;
     }
   }
 
   @action.bound goBackward() {
     if (this.canGoBackward) {
-      this.goToStep(this._stepIndex - 1);
+      this.ux.navigateToStep(this.stepIds[this._stepIndex - 1]);
     }
+  }
+
+  @computed get isLast() {
+    return this._stepIndex >= this.stepIds.length - 1;
+  }
+
+  @computed get isFirst() {
+    return this._stepIndex <= 0;
   }
 
   @computed get stepComponents() {
@@ -75,7 +96,7 @@ class StepUX {
   }
 
   @computed get stepIds() {
-    return Object.keys(this.stepComponents);
+    return Object.keys(this.stepComponents || {});
   }
 
   @computed get currentStepComponent() {
@@ -89,14 +110,14 @@ class StepUX {
   @computed get canGoForward() {
     return Boolean(
       !this.isApiPending &&
-        this._stepIndex < this.stepIds.length - 1 &&
+        !this.isLast &&
         this.ux.validations.isValid
     );
   }
 
   @computed get canGoBackward() {
     return Boolean(
-      !this.isApiPending && this._stepIndex > 0
+      !this.isApiPending && !this.isFirst
     );
   }
 

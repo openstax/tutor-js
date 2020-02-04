@@ -6,7 +6,7 @@ const TEMPLATES = times(2, (i) => Factory.create('GradingTemplate', {
   task_plan_type: i ? 'reading' : 'homework',
 }));
 
-const TEMPLATES_MAP = fromPairs(TEMPLATES.map(t => [t.id, t]))
+const TEMPLATES_MAP = fromPairs(TEMPLATES.map(t => [t.id, t]));
 
 module.exports = {
 
@@ -17,7 +17,6 @@ module.exports = {
   },
 
   patch(req, res) {
-
     const tmpl = TEMPLATES_MAP[parseInt(req.params.id)];
     if (!tmpl) {
       return res.status(404).end('error');

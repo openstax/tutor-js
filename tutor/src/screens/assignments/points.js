@@ -15,7 +15,14 @@ const Controls = styled.div`
 `;
 
 const Input = styled.input`
+  height: 100%;
+  width: 4rem;
+  text-align: center;
+  margin-right: 1rem;
+`;
 
+const MoveIcon = styled(Icon)`
+  border-radius: 50%;
 `;
 
 @observer
@@ -50,18 +57,8 @@ class ReviewExerciseCard extends React.Component {
     return (
       <Controls className="pull-right card-actions">
         <Input value={1} />
-        {!isFirst && <Icon
-          size="xs"
-          type="arrow-up"
-          onClick={this.moveExerciseUp}
-          className="-move-exercise-up circle"
-        />}
-        {!isLast && <Icon
-          size="xs"
-          type="arrow-down"
-          onClick={this.moveExerciseDown}
-          className="-move-exercise-down circle"
-        />}
+        {!isFirst && <MoveIcon type="arrow-up" onClick={this.moveExerciseUp} data-direction="up" />}
+        {!isLast && <MoveIcon type="arrow-down" onClick={this.moveExerciseDown} data-direction="down" />}
         <SuretyGuard
           title={false}
           onConfirm={this.removeExercise}

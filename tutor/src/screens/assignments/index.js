@@ -30,6 +30,7 @@ class AssignmentBuilder extends React.Component {
       id: PropTypes.string,
       courseId: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,
+      step: PropTypes.string,
     }),
     history: PropTypes.object.isRequired,
   }
@@ -48,10 +49,16 @@ class AssignmentBuilder extends React.Component {
     this.ux.initialize({
       ...Router.currentQuery(),
       ...props.params,
+      history: props.history,
       course,
       onComplete: this.onComplete,
     });
+  }
 
+  componentDidUpdate() {
+    if (this.props.params.step) {
+      this.ux.steps.setIndex(this.props.params.step);
+    }
   }
 
   render() {

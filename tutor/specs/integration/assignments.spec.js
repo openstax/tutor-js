@@ -1,3 +1,5 @@
+import { range } from 'lodash';
+
 context('Dashboard', () => {
   const fillDetails = () => {
     cy.get('.heading').should('contain.text', 'STEP 1')
@@ -22,12 +24,18 @@ context('Dashboard', () => {
     cy.get('.controls .btn-primary').click()
     cy.get('.heading').should('contain.text', 'STEP 3')
     cy.get('.controls .btn-primary').should('be.disabled')
-    cy.get('.openstax-exercise-preview .card-body').first().trigger('mouseover')
-    cy.get('.openstax-exercise-preview .action.include').first().trigger('click', { force: true })
+    range(3).map(i => cy.get('.openstax-exercise-preview').eq(i).find('.action.include').trigger('click', { force: true }))
     cy.get('.controls .btn-primary').should('not.be.disabled')
 
     cy.get('.controls .btn-primary').click()
     cy.get('.heading').should('contain.text', 'STEP 4')
+    cy.get('.openstax-exercise-preview').should('have.length', 3)
+
+
+    cy.get('.openstax-exercise-preview').eq(1).then((preview) => {
+      preview.find('.card-actions .move-up').click();
+
+    })
   });
 
 });

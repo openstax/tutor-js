@@ -26,19 +26,14 @@ module.exports = {
     const book = Readings.getBook(req.params.ecosystemId);
     const exercises = flatMap(req.query.page_ids, pgId => {
       const pg = findPage(pgId, book);
-      return range(5).map(() => Factory.create('TutorExercise', {
+      return range(8).map(() => Factory.create('TutorExercise', {
         page_uuid: pg ? pg.uuid : undefined,
       }));
     });
-
-
     res.json({
       total_count: exercises.length,
       items: exercises,
     });
-    // const type = (0 == req.params.ecosystemId % 2) ? 'physics' : 'biology';
-
-    // res.json([Factory.create('Book', { type })]);
   },
 
 };
