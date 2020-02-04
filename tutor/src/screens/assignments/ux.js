@@ -4,12 +4,12 @@ import { filter, isEmpty, compact, map, get } from 'lodash';
 import Exercises from '../../models/exercises';
 import TaskPlan, { SELECTION_COUNTS } from '../../models/task-plans/teacher/plan';
 import ReferenceBook from '../../models/reference-book';
-import { Step, STEP_IDS } from './step';
+import { StepUX, Step } from './step';
+import { Actions } from './actions';
 import Validations from './validations';
 
 export default class AssignmentUX {
 
-  @observable _stepIndex = 0;
   @observable isShowingSectionSelection = false;
   @observable isShowingExerciseReview = false;
   @observable isShowingPeriodTaskings;
@@ -52,6 +52,10 @@ export default class AssignmentUX {
     }
 
     this.course = course;
+
+    // don't setup steps until course and plan is set
+    this.steps = new StepUX(this);
+    this.actions = new Actions(this);
 
     if (this.plan.isNew) {
       // const opens_at = calculateDefaultOpensAt({ course: this.course });
@@ -113,50 +117,6 @@ export default class AssignmentUX {
     return this.plan.api.isPending;
   }
 
-  @computed get stepNumber() {
-    return this._stepIndex + 1;
-  }
-
-  @action.bound goToStep(index) {
-    this._stepIndex = index;
-  }
-
-  @action.bound goForward() {
-    if (this.canGoForward) {
-      // TODO, skip steps if the assignment type doesn't need the next,
-      // for instance events won't have chapters & questiosn
-      this.goToStep(this._stepIndex + 1);
-    }
-
-    if (this.isShowingExercises) {
-      this.onExercisesShow();
-    }
-  }
-
-  @action.bound goBackward() {
-    if (this.canGoBackward) {
-      this.goToStep(this._stepIndex - 1);
-    }
-  }
-
-  @computed get canGoForward() {
-    return Boolean(
-      !this.isApiPending &&
-        this._stepIndex < STEP_IDS.length - 1 &&
-        this.validations.isValid
-    );
-  }
-
-  @computed get currentStepId() {
-    return STEP_IDS[this._stepIndex];
-  }
-
-  @computed get canGoBackward() {
-    return Boolean(
-      !this.isApiPending && this._stepIndex > 0
-    );
-  }
-
   @computed get canEdit() {
     return this.plan.canEdit;
   }
@@ -189,20 +149,6 @@ export default class AssignmentUX {
 
   @computed get isShowingExercises() {
     return this._stepIndex === 2;
-  }
-
-  @action.bound async onExercisesShow() {
-    await this.exercises.fetch({
-      course: this.course,
-      book: this.referenceBook,
-      page_ids: this.selectedPageIds,
-    });
-
-    this.selectedPageIds.forEach(pgId => {
-      this.exercises.forPageId(pgId).forEach(
-        e => e.isSelected = this.plan.includesExercise(e)
-      );
-    });
   }
 
   @action async onExercisesReview() {

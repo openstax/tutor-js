@@ -16,7 +16,7 @@ class Validations {
   }
 
   @computed get isValid() {
-    return !!this[this.ux.currentStepId];
+    return !!this[this.ux.steps.currentStepId];
   }
 
   // tests
