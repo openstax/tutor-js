@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, field, identifier, hasMany, session, computed, observable,
 } from 'shared/model';
-import { defaults, countBy } from 'lodash';
+import { defaults, countBy, isEmpty } from 'lodash';
 import moment from 'moment';
 import Time from '../time';
 import StudentTaskStep from './step';
@@ -49,7 +49,7 @@ class StudentTask extends BaseModel {
 
   // if the task's first step is a placeholder, we want to keep fetching it until it isn't
   @computed get isLoaded() {
-    return Boolean(this.api.hasBeenFetched && (!this.steps || !this.steps[0].isPlaceHolder));
+    return Boolean(this.api.hasBeenFetched && (isEmpty(this.steps) || !this.steps[0].isPlaceHolder));
   }
 
   // attempt to load the task until isLoaded returns true or we exceed 30 attempts
