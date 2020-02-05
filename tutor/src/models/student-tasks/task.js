@@ -64,7 +64,7 @@ class StudentTask extends BaseModel {
           break;
         }
         // exponential backoff between tries: 1, 2, 4 .. 32 (plus some milliseconds of random)
-        await new Promise(resolve => setTimeout(resolve, 1000*(2**(6 - tries_remaining) + Math.random()));
+        await new Promise(resolve => setTimeout(resolve, 1000*(2**(6 - tries_remaining) + Math.random())));
         tries_remaining--;
       }
       if (tries_remaining == 0) {
