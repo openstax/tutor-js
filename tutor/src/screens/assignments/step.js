@@ -3,6 +3,8 @@ import details from './details';
 import chapters from './chapters';
 import questions from './questions';
 import points from './points';
+import reorder from './reorder';
+
 import UnknownType from './unknown';
 
 const STEPS = {
@@ -17,6 +19,7 @@ const STEP_IDS = Object.keys(STEPS);
 const reading = {
   details,
   chapters,
+  reorder,
 };
 
 const homework = {

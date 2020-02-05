@@ -1,4 +1,5 @@
 const Factory = require('object-factory-bot');
+const moment = require('moment');
 require('../../../specs/factories/teacher-task-plan');
 const { times, merge } = require('lodash');
 const { now } = require('../time-now');
@@ -14,15 +15,15 @@ let PAST = {
 
 let PLANS = {};
 
-const planForId = (id) => PLANS[id] || (PLANS[id] = Factory.create('TeacherTaskPlan', {
-  id,
-  type: fake.random.arrayElement(['reading', 'homework']),
-}));
+const planForId = (id, attrs = {}) => (
+  PLANS[id] || (PLANS[id] = Factory.create('TeacherTaskPlan', Object.assign(attrs, {
+    id,
+    type: fake.random.arrayElement(['reading', 'homework']),
+  })))
+);
 
 
 module.exports = {
-//  'courses/:courseId/plans*': require('./backend/previous-plans'),
-
   setRole(role) {
     ROLE = role;
   },
@@ -32,7 +33,9 @@ module.exports = {
   },
 
   get(req, res) {
-    return res.json(planForId(req.params.id));
+    return res.json(planForId(req.params.id, {
+      now: moment().add(fake.random.number() + 10, 'days'),
+    }));
   },
 
   update(req, res) {
@@ -40,9 +43,6 @@ module.exports = {
     merge(plan, req.body);
     PLANS[plan.id] = plan;
     return res.json(plan);
-
-    //const tmpl = TEMPLATES_MAP[parseInt(req.params.id)];
-
   },
 
   route(server) {
