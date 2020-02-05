@@ -30,7 +30,6 @@ const GET_HANDLERS = {
   bootstrap: require('./backend/bootstrap'),
   offerings: require('./backend/offerings'),
   'courses/:courseId/dashboard': require('./backend/dashboard'),
-  'courses/:courseId/plans*': require('./backend/previous-plans'),
   'courses/:courseId/guide': require('./backend/performance-forecast'),
   'ecosystems/:ecoystemId/readings': require('./backend/readings'),
   'ecosystems/:ecosystemId/exercises/homework_core': require('./backend/exercises'),
@@ -38,6 +37,7 @@ const GET_HANDLERS = {
 
 const MULTI_HANDLERS = [
   require('./backend/grading-templates'),
+  require('./backend/task-plans'),
 ];
 
 // routes that have custom logic

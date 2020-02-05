@@ -62,9 +62,10 @@ const getRoutes = (router) => {
           path: 'practice/:taskId?', name: 'practiceTopics',
           renderer: r(() => import('./screens/task/practice'), 'Practice'),
         }, {
-          path: 'assignment/:type/:id', name: 'editAssignment',
-          renderer: r(() => import('./screens/assignments'), 'Assignment Builder') },
-        { path: 'settings', name: 'courseSettings',
+          path: 'assignment/:type/:id/:step?', name: 'editAssignment',
+          renderer: r(() => import('./screens/assignments'), 'Assignment Builder'),
+        }, {
+          path: 'settings', name: 'courseSettings',
           renderer: r(() => import('./screens/course-settings'), 'Course Settings') },
         { path: 'roster', name: 'courseRoster',
           renderer: r(() => import('./screens/course-roster'), 'Course Roster') },

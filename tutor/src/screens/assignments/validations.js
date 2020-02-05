@@ -31,6 +31,10 @@ class Validations {
   @computed get questions() {
     return !isEmpty(this.plan.exerciseIds);
   }
+
+  @computed get points() {
+    return !isEmpty(this.plan.exerciseIds);
+  }
 }
 
 export default Validations;

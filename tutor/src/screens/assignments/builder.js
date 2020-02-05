@@ -1,9 +1,8 @@
 import { React, PropTypes, styled, observer } from 'vendor';
 import { ScrollToTop } from 'shared';
-import { colors, fonts } from '../../theme';
-import { Button } from 'react-bootstrap';
+import { colors, fonts } from 'theme';
 import { Field, ErrorMessage } from 'formik';
-
+import Controls from './controls';
 
 const FormWrapper = styled.div`
   max-width: 1200px;
@@ -36,24 +35,6 @@ const Body = styled.div`
   padding: 4rem;
 `;
 
-const Footer = styled.div`
-  position: fixed;
-  z-index: 1030;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  padding: .8rem 2.4rem;
-  background: ${colors.neutral.bright};
-  box-shadow: 0 -1px 2px rgba(0,0,0,0.19);
-`;
-
-const FooterInner = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-`;
 
 const Row = styled.div`
   margin: 2.4rem 0;
@@ -118,22 +99,6 @@ TextInput.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
-const AltButton = styled(Button)`
-  &.btn.btn-plain {
-    background-color: ${colors.neutral.white};
-    color: ${colors.neutral.dark};
-    border: 1px solid ${colors.neutral.pale};
-    padding: 1rem 2rem;
-    min-width: 10rem;
-  }
-`;
-
-const PrimaryButton = styled(Button)`
-  &.btn {
-    padding: 1rem 2rem;
-  }
-`;
-
 const AssignmentBuilder = observer(({ ux, children, title }) => {
   return (
     <ScrollToTop>
@@ -148,19 +113,7 @@ const AssignmentBuilder = observer(({ ux, children, title }) => {
           {children}
         </BodyWrapper>
       </FormWrapper>
-      <Footer className="controls">
-        <FooterInner>
-          {!ux.steps.canGoBackward && <AltButton variant="plain">Cancel</AltButton>}
-          {ux.steps.canGoBackward && <AltButton variant="plain" onClick={ux.steps.goBackward}>Back</AltButton>}
-          <PrimaryButton
-            variant="primary"
-            disabled={!ux.steps.canGoForward}
-            onClick={ux.steps.goForward}
-          >
-            Save & Continue
-          </PrimaryButton>
-        </FooterInner>
-      </Footer>
+      <Controls ux={ux} />
     </ScrollToTop>
   );
 });

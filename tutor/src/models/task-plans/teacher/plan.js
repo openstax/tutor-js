@@ -79,16 +79,18 @@ class TeacherTaskPlan extends BaseModel {
   @field is_publish_requested = false;
 
   @observable publishingUpdates;
-  @session({ type: 'object' }) course;
+  @observable course;
 
   constructor(attrs) {
     super(attrs);
+    this.course = attrs.course;
     this.unmodified_plans = attrs.tasking_plans;
     this.publishing = createAtom(
       'TaskPlanUpdates',
       () => { TaskPlanPublish.forPlan(this).startListening(); },
       () => { TaskPlanPublish.stopPollingForPlan(this); },
     );
+
     if (this.isNew) {
       if (this.isHomework) {
         this.settings.exercises_count_dynamic = SELECTION_COUNTS.default;
@@ -166,7 +168,7 @@ class TeacherTaskPlan extends BaseModel {
 
   @action _moveSettings(type, id, step) {
     id = String(id);
-    const curIndex = this.settings[type].indexOf(id);
+    const curIndex = this.settings[type].findIndex(i => i == id);
 
     if (-1 === curIndex){ return; }
     let newIndex = curIndex + step;
