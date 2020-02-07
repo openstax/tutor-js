@@ -48,7 +48,7 @@ context('Dashboard', () => {
 
   });
 
-  it('increases and decreases selections', () => {
+  it('increases selections', () => {
     cy.visit('/course/2/assignment/homework/new')
     cy.disableTours()
     fillDetails()
@@ -62,20 +62,6 @@ context('Dashboard', () => {
 
     cy.get('[data-test-id="selection-count"]').should('contain.text', '1')
     cy.get('[data-test-id="selection-count-footer"]').should('contain.text', '1')
-    cy.get('[data-test-id="tutor-count"]').should('contain.text', '3')
-    cy.get('[data-test-id="tutor-count-footer"]').should('contain.text', '3')
-    cy.get('[data-test-id="total-count"]').should('contain.text', '4')
-    cy.get('[data-test-id="total-count-footer"]').should('contain.text', '4')
-
-    cy.get('[data-test-id="increase-button').click()
-
-    cy.get('[data-test-id="tutor-count"]').should('contain.text', '4')
-    cy.get('[data-test-id="tutor-count-footer"]').should('contain.text', '4')
-    cy.get('[data-test-id="total-count"]').should('contain.text', '5')
-    cy.get('[data-test-id="total-count-footer"]').should('contain.text', '5')
-
-    cy.get('[data-test-id="decrease-button').click()
-
     cy.get('[data-test-id="tutor-count"]').should('contain.text', '3')
     cy.get('[data-test-id="tutor-count-footer"]').should('contain.text', '3')
     cy.get('[data-test-id="total-count"]').should('contain.text', '4')
