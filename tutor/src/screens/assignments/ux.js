@@ -218,6 +218,10 @@ export default class AssignmentUX {
     );
   }
 
+  @computed get totalSelections() {
+    return this.numExerciseSteps + this.numTutorSelections;
+  }
+
   @computed get gradingTemplate() {
     return (
       this.course.gradingTemplates.array.find(t => t.id == this.form.values.grading_template_id)
