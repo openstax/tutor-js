@@ -99,7 +99,7 @@ TextInput.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
-const AssignmentBuilder = observer(({ ux, children, title }) => {
+const AssignmentBuilder = observer(({ ux, children, title, middleControls }) => {
   return (
     <ScrollToTop>
       <FormWrapper>
@@ -113,7 +113,7 @@ const AssignmentBuilder = observer(({ ux, children, title }) => {
           {children}
         </BodyWrapper>
       </FormWrapper>
-      <Controls ux={ux} />
+      <Controls ux={ux} middleControls={middleControls} />
     </ScrollToTop>
   );
 });
@@ -122,6 +122,7 @@ AssignmentBuilder.propTypes = {
   ux: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
+  middleControls: PropTypes.node,
 };
 
 export { AssignmentBuilder, Row, SplitRow, HintText, Label, TextInput, Setting, Body };

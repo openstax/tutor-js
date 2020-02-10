@@ -185,6 +185,7 @@ class ExerciseControls extends React.Component {
         disabled={!ux.canIncreaseTutorExercises}
         onClick={ux.increaseTutorSelection}
         variant="plain"
+        data-test-id="increase-button"
       >
         <Icon
           type="plus"
@@ -202,6 +203,7 @@ class ExerciseControls extends React.Component {
         disabled={!ux.canDecreaseTutorExercises}
         onClick={ux.decreaseTutorSelection}
         variant="plain"
+        data-test-id="decrease-button"
       >
         <Icon
           type="minus"
@@ -212,7 +214,7 @@ class ExerciseControls extends React.Component {
   }
 
   render() {
-    const { ux: { numExerciseSteps, numTutorSelections } } = this.props;
+    const { ux: { numExerciseSteps, numTutorSelections, totalSelections } } = this.props;
 
     return (
       <Wrapper>
@@ -229,7 +231,7 @@ class ExerciseControls extends React.Component {
                 <Columns>
                   <Counter>
                     <Title>MCQs</Title>
-                    {numExerciseSteps}
+                    <span data-test-id="selection-count">{numExerciseSteps}</span>
                   </Counter>
                   <Counter variant="plus">
                     +
@@ -247,7 +249,7 @@ class ExerciseControls extends React.Component {
                     <SelectionsTooltip />
                     <Columns>
                       {this.renderDecreaseButton()}
-                      <Counter>
+                      <Counter data-test-id="tutor-count">
                         {numTutorSelections}
                       </Counter>
                       {this.renderIncreaseButton()}
@@ -257,8 +259,8 @@ class ExerciseControls extends React.Component {
               </Indicator>
               <Indicator>
                 Total
-                <Counter>
-                  {numExerciseSteps + numTutorSelections}
+                <Counter data-test-id="total-count">
+                  {totalSelections}
                 </Counter>
               </Indicator>
               {this.renderExplanation()}

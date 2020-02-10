@@ -12,6 +12,10 @@ const Footer = styled.div`
   padding: .8rem 2.4rem;
   background: ${colors.neutral.bright};
   box-shadow: 0 -1px 2px rgba(0,0,0,0.19);
+
+  .btn, .btn.btn-plain {
+    padding: 0.6rem 2rem;
+  }
 `;
 
 const FooterInner = styled.div`
@@ -20,7 +24,7 @@ const FooterInner = styled.div`
   display: flex;
 `;
 
-const Spacer = styled.div`
+const Middle = styled.div`
   flex: 1;
 `;
 
@@ -28,24 +32,19 @@ const LeftButton = styled(Button).attrs({
   variant: 'plain',
 })`
   &.btn.btn-plain {
-    background-color: ${colors.neutral.white};
+    background: #fff;
     color: ${colors.neutral.dark};
     border: 1px solid ${colors.neutral.pale};
-    padding: 1rem 2rem;
     min-width: 10rem;
   }
 `;
 
-const PrimaryButton = styled(Button).attrs({
-  variant: 'primary',
-})`
-  &.btn {
-    padding: 1rem 2rem;
-  }
+const RightButton = styled(Button)`
+  min-width: 16rem;
 `;
 
 
-const Controls = observer(({ ux: {
+const Controls = observer(({ middleControls, ux: {
   onPublishClick, onSaveAsDraftClick, onCancel, steps: {
     isFirst, isLast, goForward, goBackward, canGoForward,
   } } }) => {
@@ -54,12 +53,12 @@ const Controls = observer(({ ux: {
 
   if (isLast) {
     rightButtons = [
-      <Button key="draft" variant="secondary" onClick={onSaveAsDraftClick}>Save as Draft</Button>,
-      <PrimaryButton key="publish" onClick={onPublishClick}>Publish</PrimaryButton>,
+      <RightButton key="draft" variant="secondary" onClick={onSaveAsDraftClick}>Save as Draft</RightButton>,
+      <RightButton key="publish" variant="primary" onClick={onPublishClick}>Publish</RightButton>,
     ];
   } else {
     rightButtons = [
-      <PrimaryButton key="forward" disabled={!canGoForward} onClick={goForward}>Save & Continue</PrimaryButton>,
+      <RightButton key="forward" variant="primary" disabled={!canGoForward} onClick={goForward}>Save & Continue</RightButton>,
     ];
   }
 
@@ -69,7 +68,9 @@ const Controls = observer(({ ux: {
         <LeftButton onClick={isFirst ? onCancel : goBackward}>
           {isFirst ? 'Cancel' : 'Back'}
         </LeftButton>
-        <Spacer />
+        <Middle>
+          {middleControls}
+        </Middle>
         {rightButtons}
       </FooterInner>
     </Footer>

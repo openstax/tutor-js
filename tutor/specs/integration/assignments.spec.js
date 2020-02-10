@@ -48,4 +48,24 @@ context('Dashboard', () => {
 
   });
 
+  it('increases selections', () => {
+    cy.visit('/course/2/assignment/homework/new')
+    cy.disableTours()
+    fillDetails()
+    cy.get('.controls .btn-primary').click()
+    cy.get('.chapter-checkbox .btn').first().click()
+    cy.get('.controls .btn-primary').click()
+    cy.get('[data-test-id="selection-count"]').should('contain.text', '0')
+    cy.get('[data-test-id="selection-count-footer"]').should('contain.text', '0')
+
+    cy.get('.action.include:first').click({ force: true })
+
+    cy.get('[data-test-id="selection-count"]').should('contain.text', '1')
+    cy.get('[data-test-id="selection-count-footer"]').should('contain.text', '1')
+    cy.get('[data-test-id="tutor-count"]').should('contain.text', '3')
+    cy.get('[data-test-id="tutor-count-footer"]').should('contain.text', '3')
+    cy.get('[data-test-id="total-count"]').should('contain.text', '4')
+    cy.get('[data-test-id="total-count-footer"]').should('contain.text', '4')
+  });
+
 });
