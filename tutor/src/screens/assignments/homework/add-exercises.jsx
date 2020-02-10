@@ -6,10 +6,38 @@ import ExerciseDetails from '../../../components/exercises/details';
 import ExerciseCards from '../../../components/exercises/cards';
 import TourRegion from '../../../components/tours/region';
 import { Body } from '../builder';
-import { colors } from '../../../theme';
+import { colors, breakpoints } from '../../../theme';
 
 const StyledBody = styled(Body)`
   background: ${colors.neutral.lighter};
+
+  .exercise-sections:not(:first-child) {
+    padding-top: 5rem;
+  }
+
+  .exercises {
+    column-width: 45rem;
+  }
+
+  @media ${breakpoints.mdUp} {
+    .card {
+      margin: 5px;
+    }
+  }
+
+  .exercise-card {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    display: inline-block;
+    width: 100%;
+
+    .selected-mask {
+      background-color: ${colors.exercises.selected};
+    }
+    .controls-overlay {
+      background-color: ${colors.exercises.hovered};
+    }
+  }
 `;
 
 @observer
