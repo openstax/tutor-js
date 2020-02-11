@@ -244,7 +244,10 @@ const startAPI = function() {
   connectModelCreate(ScoresExport, 'create', { onSuccess: 'onCreated', pattern: 'courses/{course.id}/performance/export' });
 
   connectModelDelete(TeacherTaskPlan, 'destroy', { onSuccess: 'onDeleteComplete', pattern: 'plans/{id}' });
-  connectModelRead(TeacherTaskPlan, 'fetch', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}' });
+  connectModelRead(TeacherTaskPlan, 'fetch', {
+    onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}',
+    query() { return { course_id: this.course.id }; },
+  });
   connectModelRead(TaskPlanStats, 'fetch', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}/stats' });
   connectModelUpdate(TeacherTaskPlan, 'save', { onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}' });
 
