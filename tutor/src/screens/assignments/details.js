@@ -3,8 +3,8 @@ import { isEmpty } from 'lodash';
 import { AssignmentBuilder, SplitRow, Label, HintText, TextInput, Setting, Body } from './builder';
 import Select from '../../components/select';
 import RadioInput from '../../components/radio-input';
-import DatePicker from '../../components/date-time-input';
 import PreviewTooltip from './preview-tooltip';
+import Tasking from './tasking';
 
 const isRequired = (value) => isEmpty(value) && 'Cannot be blank';
 
@@ -62,32 +62,35 @@ const Details = observer(({ ux }) => {
               </HintText>
             </HintText>
           </Label>
+
+
           <div>
-            <Setting>
-              <RadioInput
-                name="assignto"
-                value="all"
-                label="All sections"
-                defaultChecked={true}
-              />
-            </Setting>
-            <Setting>
-              <RadioInput
-                name="assignto"
-                value="sections"
-                label="Select sections"
-              />
-            </Setting>
+            <div>
+              <Setting>
+                <RadioInput
+                  name="assignto"
+                  value="all"
+                  label="All sections"
+                  checked={!ux.isShowingPeriodTaskings}
+                  onChange={ux.togglePeriodTaskingsEnabled}
+                />
+                {!ux.isShowingPeriodTaskings && <Tasking ux={ux} />}
+              </Setting>
+
+              <Setting>
+                <RadioInput
+                  name="assignto"
+                  value="periods"
+                  label="Select sections"
+                  checked={ux.isShowingPeriodTaskings}
+                  onChange={ux.togglePeriodTaskingsEnabled}
+                />
+                {ux.isShowingPeriodTaskings && ux.course.periods.map(p => <Tasking key={p.id} period={p} ux={ux} />)}
+              </Setting>
+            </div>
           </div>
         </SplitRow>
-        <SplitRow>
-          <Label htmlFor="">
-            Due at
-          </Label>
-          <Setting>
-            <DatePicker name="first_published_at" />
-          </Setting>
-        </SplitRow>
+
       </DetailsBody>
     </AssignmentBuilder>
   );

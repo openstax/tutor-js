@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, field, session, identifier, hasMany,
 } from 'shared/model';
-import { action, computed, observable, createAtom } from 'mobx';
+import { action, computed, observable, createAtom, observe } from 'mobx';
 import {
   first, last, map, union, find, get, pick, extend, every, isEmpty,
 } from 'lodash';
@@ -96,6 +96,16 @@ class TeacherTaskPlan extends BaseModel {
         this.settings.exercises_count_dynamic = SELECTION_COUNTS.default;
       }
     }
+    observe(this, 'grading_template_id', ({ oldValue, newValue }) => {
+      const previousTemplate = this.course.gradingTemplates.get(oldValue);
+      const currentTemplate = this.course.gradingTemplates.get(newValue);
+      this.tasking_plans.forEach(tp => tp.onGradingTemplateUpdate({ previousTemplate, currentTemplate }));
+    });
+
+  }
+
+  @computed get gradingTemplate() {
+    return this.course.gradingTemplates.get(this.grading_template_id);
   }
 
   @lazyInitialize analytics = new TaskPlanStats({ taskPlan: this });
@@ -150,13 +160,15 @@ class TeacherTaskPlan extends BaseModel {
     return {
       opens: this.rangeFor('opens_at'),
       due: this.rangeFor('due_at'),
+      closes: this.rangeFor('closes_at'),
     };
   }
 
   @computed get areTaskingDatesSame() {
     return Boolean(
       0 === this.dateRanges.opens.start.diff(this.dateRanges.opens.end, 'minute') &&
-        0 === this.dateRanges.due.start.diff(this.dateRanges.due.end, 'minute')
+        0 === this.dateRanges.due.start.diff(this.dateRanges.due.end, 'minute') &&
+        0 === this.dateRanges.closes.start.diff(this.dateRanges.closes.end, 'minute')
     );
   }
 

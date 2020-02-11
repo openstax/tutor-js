@@ -7,15 +7,6 @@ import reorder from './reorder';
 
 import UnknownType from './unknown';
 
-const STEPS = {
-  details,
-  chapters,
-  questions,
-  points,
-};
-
-const STEP_IDS = Object.keys(STEPS);
-
 const reading = {
   details,
   chapters,
@@ -127,4 +118,4 @@ class StepUX {
 }
 
 
-export { StepUX, Step, StepTypes }; // STEP_IDS };
+export { StepUX, Step, StepTypes };

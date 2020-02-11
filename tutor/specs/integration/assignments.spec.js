@@ -8,7 +8,7 @@ context('Dashboard', () => {
     cy.get('.controls .btn-primary').should('not.be.disabled')
   }
 
-  xit('loads and advances homework', () => {
+  it('loads and advances homework', () => {
     cy.visit('/course/2/assignment/homework/new')
     cy.disableTours();
     fillDetails()
@@ -28,6 +28,8 @@ context('Dashboard', () => {
     cy.get('.controls .btn-primary').click()
     cy.get('.heading').should('contain.text', 'STEP 4')
     cy.get('.exercise-card').should('have.length', 3)
+
+    cy.get('button.ox-icon-arrow-up').eq(1).click()
   });
 
   it('loads and advances reading', () => {
@@ -46,6 +48,13 @@ context('Dashboard', () => {
     cy.get('.controls .btn-primary').click()
     cy.get('.heading').should('contain.text', 'STEP 3')
 
+    cy.get('.selected-section .chapter-section').invoke('text').then(labels => {
+      expect(labels).to.eq(['2.1', '2.2', '2.3'].join(''))
+    })
+    cy.get('button.ox-icon-arrow-up').eq(1).click()
+    cy.get('.selected-section .chapter-section').invoke('text').then(labels => {
+      expect(labels).to.eq(['2.1', '2.3', '2.2'].join(''))
+    })
   });
 
 });
