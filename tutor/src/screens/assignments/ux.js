@@ -19,6 +19,7 @@ export default class AssignmentUX {
   @observable isReady = false;
   @observable sourcePlanId;
   @observable form;
+  @observable activeFilter = 'all';
 
   constructor(attrs = null) {
     if (attrs) { this.initialize(attrs); }
@@ -307,6 +308,10 @@ export default class AssignmentUX {
       const destPlan = this.course.teacherTaskPlans.withPlanId(this.plan.id);
       destPlan.update(this.plan.serialize());
     });
+  }
+
+  @action.bound onChangeFilter(value) {
+    this.activeFilter = value;
   }
 
 }
