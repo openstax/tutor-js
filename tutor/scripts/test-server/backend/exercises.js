@@ -26,6 +26,8 @@ module.exports = {
     const book = Readings.getBook(req.params.ecosystemId);
     const exercises = flatMap(req.query.page_ids, pgId => {
       const pg = findPage(pgId, book);
+      // eslint-disable-next-line
+      if (!pg){ console.warn(`Unable to find page id ${pgId} in book id ${req.params.ecosystemId}`); }
       return range(8).map(() => Factory.create('TutorExercise', {
         page_uuid: pg ? pg.uuid : undefined,
       }));

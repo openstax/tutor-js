@@ -4,6 +4,8 @@ require('../../../specs/factories/teacher-task-plan');
 const { times, merge } = require('lodash');
 const { now } = require('../time-now');
 const fake = require('faker');
+const { getCourse } = require('./bootstrap');
+
 let ROLE = 'teacher';
 
 let PAST = {
@@ -18,6 +20,7 @@ let PLANS = {};
 const planForId = (id, attrs = {}) => (
   PLANS[id] || (PLANS[id] = Factory.create('TeacherTaskPlan', Object.assign(attrs, {
     id,
+
     type: fake.random.arrayElement(['reading', 'homework']),
   })))
 );
@@ -33,7 +36,9 @@ module.exports = {
   },
 
   get(req, res) {
+    const course = getCourse(req.query.course_id)
     return res.json(planForId(req.params.id, {
+      course,
       now: moment().add(fake.random.number() + 10, 'days'),
     }));
   },

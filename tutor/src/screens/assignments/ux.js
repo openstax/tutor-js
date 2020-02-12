@@ -2,7 +2,7 @@ import { React, observable, computed, action } from 'vendor';
 import Router from '../../helpers/router';
 import { runInAction } from 'mobx';
 import ScrollTo from '../../helpers/scroll-to';
-import { filter, isEmpty, compact, map, get } from 'lodash';
+import { filter, isEmpty, compact, map, get, first, difference } from 'lodash';
 import Exercises from '../../models/exercises';
 import TaskPlan, { SELECTION_COUNTS } from '../../models/task-plans/teacher/plan';
 import ReferenceBook from '../../models/reference-book';
@@ -58,10 +58,9 @@ export default class AssignmentUX {
     this.actions = new Actions(this);
 
     if (this.plan.isNew) {
-      // const opens_at = calculateDefaultOpensAt({ course: this.course });
-      // this.periods.map((period) =>
-      //   this.plan.findOrCreateTaskingForPeriod(period, { opens_at }),
-      // );
+      this.periods.map((period) =>
+        this.plan.findOrCreateTaskingForPeriod(period),
+      );
       // if (due_at) {
       //   this.plan.tasking_plans.forEach(tp => tp.initializeWithDueAt(due_at));
       // }
@@ -72,7 +71,9 @@ export default class AssignmentUX {
     // once templates is loaded, select ones of the correct type
     await gradingTemplates.ensureLoaded();
     this.gradingTemplates = filter(gradingTemplates.array, t => t.task_plan_type == type);
-    this.plan.grading_template_id = this.plan.grading_template_id || get(this.gradingTemplates, '[0].id');
+    if (!this.plan.grading_template_id) {
+      this.plan.grading_template_id = this.plan.grading_template_id || get(this.gradingTemplates, '[0].id');
+    }
 
     this.history = history;
     this.exercises = exercises;
@@ -86,6 +87,19 @@ export default class AssignmentUX {
     this.scroller = new ScrollTo({ windowImpl });
     this.validations = new Validations(this);
     this.isReady = true;
+  }
+
+  @computed get canSelectAllSections() {
+    return Boolean(
+      this.plan.isEditable && isEmpty(difference(
+        map(this.course.periods.active, 'id'),
+        map(this.plan.tasking_plans, 'target_id'),
+      ))
+    );
+  }
+
+  @computed get periods() {
+    return filter(this.course.periods.sorted, 'isActive');
   }
 
   @computed get isInitializing() {
@@ -154,6 +168,32 @@ export default class AssignmentUX {
 
   @action.bound onSectionIdsChange(ids) {
     this.plan.settings.page_ids = ids;
+  }
+
+  @action.bound togglePeriodTasking({ target: input }) {
+    const period = this.plan.course.periods.find(p => p.id == input.dataset.periodId);
+    if (!period) { return; }
+
+    const tasking = this.plan.tasking_plans.forPeriod(period);
+
+    if (input.checked && !tasking) {
+      const firstTp = first(this.plan.tasking_plans);
+      const opens_at = firstTp && firstTp.opens_at;
+      const due_at = firstTp && firstTp.due_at;
+      this.plan.findOrCreateTaskingForPeriod(period, { opens_at, due_at });
+    } else if (!input.checked && tasking) {
+      this.plan.tasking_plans.remove(tasking);
+    }
+  }
+
+  @action.bound togglePeriodTaskingsEnabled(ev) {
+    this.isShowingPeriodTaskings = ev.target.value == 'periods';
+    if (this.isShowingPeriodTaskings) {
+      return;
+    }
+    this.periods.map((period) =>
+      this.plan.findOrCreateTaskingForPeriod(period)
+    );
   }
 
   @action.bound onExerciseToggle(event, exercise) {

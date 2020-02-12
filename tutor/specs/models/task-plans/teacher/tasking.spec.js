@@ -69,22 +69,6 @@ describe('Teacher tasking plan tasking', () => {
     expect(tasking.due_at).toEqual('2016-10-12T03:15:00.000Z');
   });
 
-  it('#defaultOpensAt', () => {
-    const [ hour, minute ] = plan.course.default_open_time.split(':');
-    const inCourseTime = (date) => moment(date).hour(hour).minute(minute).startOf('minute').toISOString();
-    plan.course.starts_at = moment(now).subtract(1, 'week');
-    plan.course.ends_at = moment(now).add(1, 'week');
-
-    expect(tasking.defaultOpensAt()).toEqual(inCourseTime(moment(now).add(1, 'day')));
-
-    course.ends_at = moment(now); // should not add a day
-    expect(tasking.defaultOpensAt()).toEqual(inCourseTime(plan.course.ends_at));
-
-    // should start on first day open
-    course.starts_at = moment(now).add(1, 'week');
-    expect(tasking.defaultOpensAt()).toEqual(inCourseTime(plan.course.starts_at));
-  });
-
   it('#initializeWithDueAt', () => {
     expect(course.time_zone).toEqual('Central Time (US & Canada)');
 

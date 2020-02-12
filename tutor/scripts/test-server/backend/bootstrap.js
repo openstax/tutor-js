@@ -6,7 +6,7 @@ require('../../../specs/factories/course');
 const { now } = require('../time-now');
 const { fe_port, be_port } = require('../ports');
 
-const { clone, merge } = require('lodash');
+const { clone, merge, find } = require('lodash');
 
 let ROLE = 'teacher';
 
@@ -43,6 +43,10 @@ const PAYLOADS = {
 };
 
 module.exports = {
+  getCourse(id) {
+    return find(PAYLOADS[ROLE].courses, c => c.id == id);
+  },
+
   data: {
     student, teacher,
   },

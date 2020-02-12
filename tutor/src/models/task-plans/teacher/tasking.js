@@ -23,28 +23,59 @@ class TaskingPlan extends BaseModel {
   // To work around this the model makes no assumptions about the format of the "date" it's holding
   @field opens_at;
   @field due_at;
+  @field closes_at;
 
   get course() {
     return get(this.plan, 'course');
   }
 
-  defaultOpensAt() {
-    const defaultOpensAt = moment(Time.now).add(1, 'day').startOf('minute');
+  opensAtForTemplate(template) {
+    const [ hour, minute ] = template.default_open_time.split(':');
+    const defaultOpensAt = moment(Time.now).add(1, 'day').hour(hour).minute(minute).startOf('minute');
     const { course } = this;
     if (!course) {
       return defaultOpensAt.toISOString();
     }
-    const [ hour, minute ] = course.default_open_time.split(':');
 
     return moment(
       findLatest(
-        findEarliest(
-          course.bounds.end,
+        findLatest(
+          course.bounds.start,
           defaultOpensAt,
         ),
         course.bounds.start.add(1, 'minute'),
       ),
     ).hour(hour).minute(minute).startOf('minute').toISOString();
+  }
+
+  dueAtForTemplate(template) {
+    const [ hour, minute ] = template.default_due_time.split(':');
+    const defaultDueAt = moment(Time.now).add(7, 'day').hour(hour).minute(minute).startOf('minute');
+    const { course } = this;
+    if (!course) {
+      return defaultDueAt.toISOString();
+    }
+
+    return findEarliest(
+      defaultDueAt,
+      course.bounds.end,
+    ).hour(hour).minute(minute).startOf('minute').toISOString();
+  }
+
+  closesAtForTemplate(template) {
+    return moment(this.dueAtForTemplate(template)).add(7, 'day').toISOString();
+  }
+
+  @action onGradingTemplateUpdate({ previousTemplate, currentTemplate }) {
+    if (!this.opens_at || !previousTemplate || this.opens_at == this.opensAtForTemplate(previousTemplate) ) {
+      this.opens_at = this.opensAtForTemplate(currentTemplate);
+    }
+    if(!this.due_at || !previousTemplate || this.due_at == this.dueAtForTemplate(previousTemplate)) {
+      this.due_at = this.dueAtForTemplate(currentTemplate);
+    }
+    if(!this.closes_at || !previousTemplate || this.closes_at == this.closesAtForTemplate(previousTemplate)) {
+      this.closes_at = this.closesAtForTemplate(currentTemplate);
+    }
   }
 
   @computed get isPastDue() {
