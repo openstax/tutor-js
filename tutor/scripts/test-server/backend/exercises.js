@@ -1,5 +1,5 @@
 const Factory = require('object-factory-bot');
-const { partial, find, range, flatMap } = require('lodash');
+const { partial, find, range, flatMap, concat } = require('lodash');
 const Readings = require('./readings');
 require('../../../specs/factories/exercise');
 
@@ -28,9 +28,14 @@ module.exports = {
       const pg = findPage(pgId, book);
       // eslint-disable-next-line
       if (!pg){ console.warn(`Unable to find page id ${pgId} in book id ${req.params.ecosystemId}`); }
-      return range(8).map(() => Factory.create('TutorExercise', {
-        page_uuid: pg ? pg.uuid : undefined,
-      }));
+      return concat(
+        range(8).map(() => Factory.create('TutorExercise', {
+          page_uuid: pg ? pg.uuid : undefined,
+        })),
+        range(4).map(() => Factory.create('OpenEndedTutorExercise', {
+          page_uuid: pg ? pg.uuid : undefined,
+        })),
+      );
     });
     res.json({
       total_count: exercises.length,

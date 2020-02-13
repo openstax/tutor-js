@@ -16,6 +16,7 @@ context('Dashboard', () => {
     cy.get('.heading').should('contain.text', 'STEP 2')
     cy.get('.controls .btn-primary').should('be.disabled')
     cy.get('.chapter[data-is-expanded="false"]').first().click()
+    cy.get('[data-chapter-section="2.1"]').click();
     cy.get('[data-chapter-section="2.2"]').click();
     cy.get('.controls .btn-primary').should('not.be.disabled')
 
@@ -75,6 +76,19 @@ context('Dashboard', () => {
     cy.get('[data-test-id="tutor-count-footer"]').should('contain.text', '3')
     cy.get('[data-test-id="total-count"]').should('contain.text', '4')
     cy.get('[data-test-id="total-count-footer"]').should('contain.text', '4')
+  });
+
+  it('filters question types', () => {
+    cy.visit('/course/2/assignment/homework/new')
+    cy.disableTours()
+    fillDetails()
+    cy.get('.controls .btn-primary').click()
+    cy.get('.chapter-checkbox .btn').first().click()
+    cy.get('.controls .btn-primary').click()
+    cy.get('[name="filter"][value="oe"]').click({ force: true })
+    cy.get('[data-section]').should('not.contain.text', 'Multiple Choice Questions')
+    cy.get('[name="filter"][value="mc"]').click({ force: true })
+    cy.get('[data-section]').should('not.contain.text', 'Written Response Questions')
   });
 
 });
