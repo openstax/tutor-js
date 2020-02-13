@@ -1,1 +1,8 @@
 @import '../screen-styles';
+
+// Override rc-picker default styles
+.oxdt-footer .oxdt-ok button {
+  @include btn-tutor-primary;
+  text-transform: uppercase;
+  min-width: 5rem;
+}
