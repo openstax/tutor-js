@@ -114,6 +114,28 @@ Factory.define('ExerciseQuestion')
   ])
   .community_solutions(() => []);
 
+Factory.define('OpenEndedExerciseQuestion')
+  .id(sequence)
+  .is_answer_order_important(false)
+  .stimulus_html(({ object }) => [][object.id % 1])
+  .stem_html(({ object }) => [
+    'In the context of cell biology, what do we mean by "form follows function?" What are at least two examples of this concept?',
+  ][ object.id % 1 ])
+  .answers(() => [])
+  .hints(() => [])
+  .formats(() => [
+    'free-response',
+  ])
+  .combo_choices(() => [])
+  .collaborator_solutions(() => [
+    {
+      'attachments': [],
+      'solution_type': 'detailed',
+      'content_html': 'four',
+    },
+  ])
+  .community_solutions(() => []);
+
 Factory.define('Exercise')
   .tags([
     'type:conceptual',
@@ -140,3 +162,29 @@ Factory.define('Exercise')
   .questions(reference('ExerciseQuestion', { count: ({ multipart }) => multipart ? 3: 1 }) )
   .versions(({ object }) => [object.version])
   .attachments(reference('ExerciseAttachment', { count: 2 }));
+
+Factory.define('OpenEndedExercise')
+  .tags([
+    'type:conceptual',
+    'requires-context:true',
+    'filter-type:test-prep',
+    'blooms:4',
+    'time:medium',
+    'dok:3',
+    'lo:stax-phys:1-2-1',
+    'book:stax-phys',
+    'context-cnxmod:',
+    'context-cnxfeature:one-1',
+  ])
+  .nickname(fake.internet.domainWord)
+  .uuid(uuid)
+  .group_uuid(uuid)
+  .number(sequence)
+  .version(1)
+  .uid(({ object }) => `${object.number}@${object.version}`)
+  .authors(reference('ExerciseUser', { count: 1 }))
+  .copyright_holders(reference('ExerciseUser', { count: 1 }))
+  .derived_from(() => [])
+  .is_vocab(false)
+  .questions(reference('OpenEndedExerciseQuestion', { count: ({ multipart }) => multipart ? 3: 1 }) )
+  .versions(({ object }) => [object.version]);

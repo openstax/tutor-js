@@ -214,7 +214,7 @@ class ExerciseControls extends React.Component {
   }
 
   render() {
-    const { ux: { numExerciseSteps, numTutorSelections, totalSelections } } = this.props;
+    const { ux, ux: { numExerciseSteps, numTutorSelections, totalSelections } } = this.props;
 
     return (
       <Wrapper>
@@ -269,10 +269,15 @@ class ExerciseControls extends React.Component {
         </Columns>
         <Filter>
           <strong>Filter</strong>
-          <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-            <StyledToggleButton variant="plain" value={1}>All questions</StyledToggleButton>
-            <StyledToggleButton variant="plain" value={2}>Multiple-choice questions only</StyledToggleButton>
-            <StyledToggleButton variant="plain" value={3}>Written-response questions only</StyledToggleButton>
+          <ToggleButtonGroup
+            type="radio"
+            name="filter"
+            value={ux.activeFilter}
+            onChange={ux.onChangeFilter}
+          >
+            <StyledToggleButton variant="plain" value="all">All questions</StyledToggleButton>
+            <StyledToggleButton variant="plain" value="mc">Multiple-choice questions only</StyledToggleButton>
+            <StyledToggleButton variant="plain" value="oe">Written-response questions only</StyledToggleButton>
           </ToggleButtonGroup>
         </Filter>
       </Wrapper>

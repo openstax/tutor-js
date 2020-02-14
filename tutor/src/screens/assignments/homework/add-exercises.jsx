@@ -3,41 +3,13 @@ import Loading from 'shared/components/loading-animation';
 import ExerciseHelpers from '../../../helpers/exercise';
 import ExerciseControls from './exercise-controls';
 import ExerciseDetails from '../../../components/exercises/details';
-import ExerciseCards from '../../../components/exercises/cards';
+import ExerciseCards from './cards';
 import TourRegion from '../../../components/tours/region';
 import { Body } from '../builder';
-import { colors, breakpoints } from '../../../theme';
+import { colors } from '../../../theme';
 
 const StyledBody = styled(Body)`
   background: ${colors.neutral.lighter};
-
-  .exercise-sections:not(:first-child) {
-    padding-top: 5rem;
-  }
-
-  .exercises {
-    column-width: 45rem;
-  }
-
-  @media ${breakpoints.mdUp} {
-    .card {
-      margin: 5px;
-    }
-  }
-
-  .exercise-card {
-    page-break-inside: avoid;
-    break-inside: avoid;
-    display: inline-block;
-    width: 100%;
-
-    .selected-mask {
-      background-color: ${colors.exercises.selected};
-    }
-    .controls-overlay {
-      background-color: ${colors.exercises.hovered};
-    }
-  }
 `;
 
 @observer
@@ -168,7 +140,9 @@ class AddExercises extends React.Component {
           {...sharedProps}
           topScrollOffset={110}
           focusedExercise={this.focusedExercise}
-          onShowDetailsViewClick={this.onShowDetailsViewClick} />
+          onShowDetailsViewClick={this.onShowDetailsViewClick}
+          filter={ux.activeFilter}
+        />
       );
     }
 
