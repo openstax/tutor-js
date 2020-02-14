@@ -1,35 +1,124 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DateTimeInput matches snapshot 1`] = `
+.c5 {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
 .c0 {
   position: relative;
+  display: inline-block;
+}
+
+.c1 {
+  font-weight: bold;
+}
+
+.c2 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c3.c3 {
+  padding: 0;
+  border-radius: 4px;
+}
+
+.c3.c3 input {
+  padding-left: 1.2rem;
+  padding-right: 3rem;
+  height: 4rem;
+}
+
+.c3.c3.oxdt-focused {
+  border-color: #0dc0dc;
+  box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
+}
+
+.c4 {
+  width: 3.3rem;
+  z-index: 1;
+  pointer-events: none;
+  background: #f5f5f5;
+  border-left: 1px solid #d5d5d5;
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  right: 1px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border-radius: 0 4px 4px 0;
 }
 
 <span
   className="c0"
 >
   <label
+    className="c1"
     htmlFor="dte1"
   >
     Please Enter Date
   </label>
   <div
-    className="oxdt"
+    className="c2"
   >
     <div
-      className="oxdt-input"
+      className="oxdt c3"
     >
-      <input
-        name="dte"
-        onBlur={[Function]}
-        onChange={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onMouseDown={[Function]}
-        readOnly={true}
-        size={21}
-        value=""
-      />
+      <div
+        className="oxdt-input"
+      >
+        <input
+          name="dte"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          readOnly={true}
+          size={21}
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      className="c4"
+    >
+      <svg
+        aria-hidden="true"
+        className="svg-inline--fa fa-calendar fa-w-14 ox-icon ox-icon-calendar c5"
+        data-icon="calendar"
+        data-prefix="far"
+        focusable="false"
+        role="img"
+        style={Object {}}
+        viewBox="0 0 448 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M400 64h-48V12c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v52H160V12c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v52H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48zm-6 400H54c-3.3 0-6-2.7-6-6V160h352v298c0 3.3-2.7 6-6 6z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
     </div>
   </div>
 </span>

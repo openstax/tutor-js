@@ -6,6 +6,7 @@ import Controls from './controls';
 
 const FormWrapper = styled.div`
   max-width: 1200px;
+  min-width: 1100px;
   margin: 6rem auto;
 `;
 
@@ -35,7 +36,6 @@ const Body = styled.div`
   padding: 4rem;
 `;
 
-
 const Row = styled.div`
   margin: 2.4rem 0;
 `;
@@ -59,6 +59,8 @@ const Label = styled.label`
 const HintText = styled.div`
   color: ${colors.neutral.dark};
   ${fonts.faces.light};
+  margin-top: 0.5rem;
+  line-height: 2rem;
 `;
 
 const StyledTextInput = styled(Field).attrs({

@@ -31,6 +31,7 @@ const colorDefinitions = {
   danger:        '#c2002f', // dark red
   teal:          '#0C9372',
   highlight:     '#d2f7fc', // light blue
+  bright_green:  '#61b22a',
 };
 
 const tasks = {

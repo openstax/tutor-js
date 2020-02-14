@@ -8,19 +8,31 @@ import { compact } from 'lodash';
 import { findEarliest, findLatest } from '../../helpers/dates';
 import Time from '../../models/time';
 import DateTime from '../../components/date-time-input';
-
+import NewTooltip from './new-tooltip';
 
 const StyledTasking = styled(Row)`
-min-height: 7rem;
-.react-datepicker-wrapper {
-  height: 100%;
-}
+  min-height: 7rem;
+  padding: 0.5rem 0 0 2.7rem;
+
+  .react-datepicker-wrapper {
+    height: 100%;
+  }
 `;
 
 const StyledCantEditExplanation = styled(Col)`
   margin-top: -25px;
   font-size: 1.2rem;
 `;
+
+const StyledSelection = styled(Col)`
+  display: flex;
+  align-items: center;
+
+  label {
+    margin-left: 0.5rem;
+  }
+`;
+
 const CantEditExplanation = () => (
   <Row>
     <StyledCantEditExplanation xs={12}>
@@ -119,7 +131,7 @@ class Tasking extends React.Component {
     if (!period) { return null; }
 
     return (
-      <Col sm={4} md={3}>
+      <StyledSelection sm={4} md={3}>
         <input
           id={`period-toggle-${period.id}`}
           disabled={!plan.isEditable}
@@ -131,7 +143,7 @@ class Tasking extends React.Component {
         <label className="period" htmlFor={`period-toggle-${period.id}`}>
           {period.name}
         </label>
-      </Col>
+      </StyledSelection>
     );
   }
 
@@ -158,27 +170,36 @@ class Tasking extends React.Component {
 
   renderDateTimeInputs(tasking) {
     const index = this.props.ux.plan.tasking_plans.indexOf(tasking);
+    const format = 'MMM D hh:mm a';
 
     return (
       <Row className="tasking-date-time">
-        <Col xs={12} md={6} className="opens-at">
-          <Row>
-            <Col xs={6}>
-              <DateTime label="Opens at" name={`tasking_plans[${index}].opens_at`} onChange={this.onOpensChange} />
-            </Col>
-          </Row>
+        <Col xs={12} md={4} className="opens-at">
+          <DateTime
+            label="Open date & time"
+            name={`tasking_plans[${index}].opens_at`}
+            onChange={this.onOpensChange}
+            format={format}
+          />
           {!tasking.canEditOpensAt && <CantEditExplanation />}
         </Col>
-        <Col xs={12} md={6} className="due-at">
-          <Row>
-            <Col xs={6}>
-              <DateTime label="Due at" name={`tasking_plans[${index}].due_at`} onChange={this.onDueChange} />
-            </Col>
-            <Col xs={6}>
-              <DateTime label="Closes at" name={`tasking_plans[${index}].closes_at`} onChange={this.onClosesChange} />
-            </Col>
-          </Row>
+        <Col xs={12} md={4} className="due-at">
+          <DateTime
+            label="Due date & time"
+            name={`tasking_plans[${index}].due_at`}
+            onChange={this.onDueChange}
+            format={format}
+          />
           {this.renderDueAtError()}
+        </Col>
+        <Col xs={12} md={4} className="closes-at">
+          <DateTime
+            label="Close date & time"
+            labelWrapper={NewTooltip}
+            name={`tasking_plans[${index}].closes_at`}
+            onChange={this.onClosesChange}
+            format={format}
+          />
         </Col>
       </Row>
     );
