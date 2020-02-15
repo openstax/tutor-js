@@ -14,6 +14,7 @@ const StyledRadioInput = styled.input.attrs( () => ({
 
   & + label {
     margin-left: 1.4rem;
+    ${props => props.labelSize === 'lg' && 'font-size: 1.6rem;'}
   }
 
   & + label::before {
@@ -71,6 +72,7 @@ const RadioInput = observer((props) => {
 
 RadioInput.propTypes = {
   name: PropTypes.string.isRequired,
+  labelSize: PropTypes.string,
 };
 
 export default RadioInput;

@@ -1,6 +1,6 @@
 import { React, PropTypes, styled, observer } from 'vendor';
 import { isEmpty } from 'lodash';
-import { AssignmentBuilder, SplitRow, Label, HintText, TextInput, Setting, Body } from './builder';
+import { AssignmentBuilder, SplitRow, Label, HintText, TextInput, Body } from './builder';
 import Select from '../../components/select';
 import RadioInput from '../../components/radio-input';
 import PreviewTooltip from './preview-tooltip';
@@ -22,6 +22,18 @@ const FullWidthCol = styled.div`
   flex-basis: auto;
 `;
 
+const SectionRow = styled.div`
+  margin-bottom: 2rem;
+`;
+
+const StyledTextInput = styled(TextInput)`
+  max-width: 48rem;
+`;
+
+const StyledSelect = styled(Select)`
+  min-width: 24rem;
+`;
+
 const Details = observer(({ ux }) => {
   return (
     <AssignmentBuilder
@@ -34,7 +46,7 @@ const Details = observer(({ ux }) => {
             Assignment name
             <HintText>(This will show on the student dashboard)</HintText>
           </RowLabel>
-          <TextInput
+          <StyledTextInput
             name="title"
             validate={isRequired}
           />
@@ -56,9 +68,9 @@ const Details = observer(({ ux }) => {
             <HintText>(Apply a pre-set submission and grading policy template)</HintText>
           </RowLabel>
           <div>
-            <Select name="grading_template_id">
+            <StyledSelect name="grading_template_id">
               {ux.gradingTemplates.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
-            </Select>
+            </StyledSelect>
             <PreviewTooltip template={ux.gradingTemplate} />
           </div>
         </SplitRow>
@@ -76,27 +88,29 @@ const Details = observer(({ ux }) => {
           </RowLabel>
 
           <FullWidthCol>
-            <Setting>
+            <SectionRow>
               <RadioInput
                 name="assignto"
                 value="all"
                 label="All sections"
+                labelSize="lg"
                 checked={!ux.isShowingPeriodTaskings}
                 onChange={ux.togglePeriodTaskingsEnabled}
               />
               {!ux.isShowingPeriodTaskings && <Tasking ux={ux} />}
-            </Setting>
+            </SectionRow>
 
-            <Setting>
+            <SectionRow>
               <RadioInput
                 name="assignto"
                 value="periods"
                 label="Select sections"
+                labelSize="lg"
                 checked={ux.isShowingPeriodTaskings}
                 onChange={ux.togglePeriodTaskingsEnabled}
               />
               {ux.isShowingPeriodTaskings && ux.course.periods.map(p => <Tasking key={p.id} period={p} ux={ux} />)}
-            </Setting>
+            </SectionRow>
           </FullWidthCol>
         </SplitRow>
 
