@@ -57,14 +57,14 @@ class StudentTask extends BaseModel {
     if (this.isLoading) return this;
     this.isLoading = true;
     try {
-      let tries_remaining = 30;
+      let tries_remaining = 6;
       while(tries_remaining > 0) {
         await this.fetch();
         if (this.isLoaded) {
           break;
         }
-        // wait 1 second in between load attempts
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        // exponential backoff between tries: 1, 2, 4 .. 32 (plus some milliseconds of random)
+        await new Promise(resolve => setTimeout(resolve, 1000*(2**(6 - tries_remaining) + Math.random())));
         tries_remaining--;
       }
       if (tries_remaining == 0) {
