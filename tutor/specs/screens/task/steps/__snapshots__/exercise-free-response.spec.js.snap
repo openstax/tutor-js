@@ -717,7 +717,7 @@ exports[`Exercise Free Response matches snapshot 1`] = `
           "default_open_time": "00:32",
           "does_cost": false,
           "ecosystem_book_uuid": "08df2bee-3db4-4243-bd76-ee032da173e8",
-          "ecosystem_id": 1,
+          "ecosystem_id": 2,
           "ends_at": "2017-11-14T13:00:00.000Z",
           "homework_progress_weight": 0.1,
           "homework_score_weight": 0.4,

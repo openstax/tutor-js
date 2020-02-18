@@ -8,10 +8,11 @@ const Books = {};
 const Api = {
 
   getBook(ecoId) {
-    let book = Books[ecoId];
+    const id = parseInt(ecoId);
+    let book = Books[id];
     if (!book) {
-      const type = (0 == ecoId % 2) ? 'physics' : 'biology';
-      book = Books[ecoId] = Factory.create('Book', { type, id: ecoId });
+      const type = (0 == id % 2) ? 'physics' : 'biology';
+      book = Books[id] = Factory.create('Book', { type, id });
     }
     return book;
   },
