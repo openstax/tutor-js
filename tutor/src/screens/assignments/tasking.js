@@ -9,9 +9,11 @@ import { findEarliest, findLatest } from '../../helpers/dates';
 import Time from '../../models/time';
 import DateTime from '../../components/date-time-input';
 import NewTooltip from './new-tooltip';
+import CheckboxInput from '../../components/checkbox-input';
 
-const StyledTasking = styled(Row)`
+const StyledTasking = styled.div`
   min-height: 7rem;
+  margin-top: 0.5rem;
   padding: 0.5rem 0 0 2.7rem;
 
   .react-datepicker-wrapper {
@@ -24,12 +26,10 @@ const StyledCantEditExplanation = styled(Col)`
   font-size: 1.2rem;
 `;
 
-const StyledSelection = styled(Col)`
-  display: flex;
-  align-items: center;
-
-  label {
-    margin-left: 0.5rem;
+const StyledInner = styled.div`
+  &:not([data-period-id="all"]) {
+    margin-top: 0.5rem;
+    padding-left: 2.2rem;
   }
 `;
 
@@ -131,46 +131,39 @@ class Tasking extends React.Component {
     if (!period) { return null; }
 
     return (
-      <StyledSelection sm={4} md={3}>
-        <input
-          id={`period-toggle-${period.id}`}
-          disabled={!plan.isEditable}
-          type="checkbox"
-          data-period-id={period.id}
-          onChange={ux.togglePeriodTasking}
-          checked={!!plan.tasking_plans.forPeriod(period)}
-        />
-        <label className="period" htmlFor={`period-toggle-${period.id}`}>
-          {period.name}
-        </label>
-      </StyledSelection>
+      <CheckboxInput
+        id={`period-toggle-${period.id}`}
+        disabled={!plan.isEditable}
+        label={period.name}
+        labelSize="lg"
+        data-period-id={period.id}
+        checked={!!plan.tasking_plans.forPeriod(period)}
+        onChange={ux.togglePeriodTasking}
+      />
     );
   }
 
   render() {
     const tasking = this.taskings.length ? this.taskings[0] : null;
     const { period } = this.props;
-    const mainSizes = period ? { sm: 8, md: 9 } : { sm: 12 };
     const type = period ? `period-${period.id}` : 'combined';
 
     return (
       <StyledTasking className="tasking">
         {this.renderSelectionCheckbox()}
-        <Col
-          {...mainSizes}
-
+        <StyledInner
           data-tasking-type={type}
           data-period-id={period ? period.id : 'all'}
         >
           {tasking && this.renderDateTimeInputs(tasking, type)}
-        </Col>
+        </StyledInner>
       </StyledTasking>
     );
   }
 
   renderDateTimeInputs(tasking) {
     const index = this.props.ux.plan.tasking_plans.indexOf(tasking);
-    const format = 'MMM D hh:mm a';
+    const format = 'MMM D hh:mm A';
 
     return (
       <Row className="tasking-date-time">
