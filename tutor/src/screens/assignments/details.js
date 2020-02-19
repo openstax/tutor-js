@@ -6,6 +6,8 @@ import RadioInput from '../../components/radio-input';
 import PreviewTooltip from './preview-tooltip';
 import NewTooltip from './new-tooltip';
 import Tasking from './tasking';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import ChangeTimezone from './change-timezone';
 
 const isRequired = (value) => isEmpty(value) && 'Cannot be blank';
 
@@ -79,7 +81,12 @@ const Details = observer(({ ux }) => {
             Assign
             <HintText>
               Course Time Zone:<br/>
-              <a href="">Central Time - US & Canada</a>
+              <OverlayTrigger
+                placement="top"
+                overlay={<Tooltip>Click to change course time zone</Tooltip>}
+              >
+                <ChangeTimezone course={ux.course} />
+              </OverlayTrigger>
               <HintText>
                 (To immediately open an assignment, set
                 Open Date to today's date & current time.)
@@ -113,7 +120,6 @@ const Details = observer(({ ux }) => {
             </SectionRow>
           </FullWidthCol>
         </SplitRow>
-
       </DetailsBody>
     </AssignmentBuilder>
   );

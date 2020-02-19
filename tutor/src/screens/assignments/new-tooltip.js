@@ -6,6 +6,8 @@ const StyledTooltip = styled(Tooltip)`
   margin-left: 0.5rem;
 
   && {
+    z-index: 0;
+
     .tooltip-inner {
       background: ${colors.bright_green};
       color: #fff;
@@ -26,6 +28,12 @@ const NewTooltip = ({ children }) => {
       defaultShow={true}
       trigger={null}
       placement="right"
+      popperConfig={{
+        modifiers: {
+          preventOverflow: { enabled: false },
+          hide: { enabled: false },
+        },
+      }}
       overlay={<StyledTooltip>New</StyledTooltip>}
     >
       {children}

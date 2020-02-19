@@ -55,7 +55,7 @@ const StyledRadioInput = styled.input.attrs( () => ({
 `;
 
 const RadioInput = observer((props) => {
-  const [field] = useField({ type: 'text', ...props });
+  const [field] = props.standalone ? [] : useField({ type: 'text', ...props });
   const id = props.id || uniqueId(props.name);
 
   return (
