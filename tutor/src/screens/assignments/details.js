@@ -101,6 +101,54 @@ const EditModal = observer(({ ux }) => {
   }
 });
 
+const TemplateField = observer(({ ux }) => {
+  return (
+    <SplitRow>
+      <RowLabel htmlFor="">
+        <NewTooltip>
+          <span>Grading template</span>
+        </NewTooltip>
+        <HintText>(Apply a pre-set submission and grading policy template)</HintText>
+      </RowLabel>
+      <div>
+        <StyledDropdown data-test-id="grading-templates">
+          <StyledToggle variant="outline">
+            {ux.gradingTemplate.name}
+          </StyledToggle>
+          <StyledMenu>
+            {ux.gradingTemplates.map(t =>
+              <Dropdown.Item
+                key={t.id}
+                value={t.id}
+                eventKey={t.id}
+                onSelect={k => ux.form.setFieldValue('grading_template_id', k)}
+              >
+                {t.name}
+              </Dropdown.Item>)}
+            <StyledAddItem onSelect={ux.onShowAddTemplate} data-test-id="add-template">
+              + Add new template
+            </StyledAddItem>
+          </StyledMenu>
+        </StyledDropdown>
+        <PreviewTooltip template={ux.gradingTemplate} />
+      </div>
+    </SplitRow>
+  );
+});
+
+const ExternalUrlField = () => {
+  return (
+    <SplitRow>
+      <RowLabel htmlFor="externalUrl">Assignment URL</RowLabel>
+      <StyledTextInput
+        name="externalUrl"
+        id="externalUrl"
+        validate={isRequired}
+      />
+    </SplitRow>
+  );
+};
+
 const Details = observer(({ ux }) => {
   return (
     <AssignmentBuilder
@@ -109,54 +157,28 @@ const Details = observer(({ ux }) => {
     >
       <DetailsBody>
         <SplitRow>
-          <RowLabel htmlFor="">
+          <RowLabel htmlFor="title">
             Assignment name
             <HintText>(This will show on the student dashboard)</HintText>
           </RowLabel>
           <StyledTextInput
             name="title"
+            id="title"
             validate={isRequired}
           />
         </SplitRow>
         <SplitRow>
-          <RowLabel htmlFor="">
+          <RowLabel htmlFor="description">
             Additional note or instructions
             <HintText>(Optional)</HintText>
           </RowLabel>
           <TextArea
             name="description"
+            id="description"
           />
         </SplitRow>
-        <SplitRow>
-          <RowLabel htmlFor="">
-            <NewTooltip>
-              <span>Grading template</span>
-            </NewTooltip>
-            <HintText>(Apply a pre-set submission and grading policy template)</HintText>
-          </RowLabel>
-          <div>
-            <StyledDropdown data-test-id="grading-templates">
-              <StyledToggle variant="outline">
-                {ux.gradingTemplate.name}
-              </StyledToggle>
-              <StyledMenu>
-                {ux.gradingTemplates.map(t =>
-                  <Dropdown.Item
-                    key={t.id}
-                    value={t.id}
-                    eventKey={t.id}
-                    onSelect={k => ux.form.setFieldValue('grading_template_id', k)}
-                  >
-                    {t.name}
-                  </Dropdown.Item>)}
-                <StyledAddItem onSelect={ux.onShowAddTemplate} data-test-id="add-template">
-                  + Add new template
-                </StyledAddItem>
-              </StyledMenu>
-            </StyledDropdown>
-            <PreviewTooltip template={ux.gradingTemplate} />
-          </div>
-        </SplitRow>
+        {ux.canSelectTemplates && <TemplateField ux={ux} />}
+        {ux.canInputExternalUrl && <ExternalUrlField />}
         <SplitRow>
           <RowLabel htmlFor="">
             Assign

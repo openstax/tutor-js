@@ -12,6 +12,8 @@ import { StepUX, Step } from './step';
 import { Actions } from './actions';
 import Validations from './validations';
 
+const TEMPLATEABLE_TYPES = ['homework', 'reading'];
+
 export default class AssignmentUX {
 
   @observable isShowingSectionSelection = false;
@@ -73,10 +75,14 @@ export default class AssignmentUX {
       await this.plan.ensureLoaded();
     }
 
-    // once templates is loaded, select ones of the correct type
-    await gradingTemplates.ensureLoaded();
-    this.templates = gradingTemplates;
-    this.plan.grading_template_id = this.plan.grading_template_id || get(this.gradingTemplates, '[0].id');
+    if (this.canSelectTemplates) {
+      // once templates is loaded, select ones of the correct type
+      await gradingTemplates.ensureLoaded();
+      this.gradingTemplates = filter(gradingTemplates.array, t => t.task_plan_type == type);
+      if (!this.plan.grading_template_id) {
+        this.plan.grading_template_id = this.plan.grading_template_id || get(this.gradingTemplates, '[0].id');
+      }
+    }
 
     this.history = history;
     this.exercises = exercises;
@@ -106,6 +112,14 @@ export default class AssignmentUX {
         map(this.plan.tasking_plans, 'target_id'),
       ))
     );
+  }
+
+  @computed get canSelectTemplates() {
+    return TEMPLATEABLE_TYPES.includes(this.plan.type);
+  }
+
+  @computed get canInputExternalUrl() {
+    return this.plan.type === 'external';
   }
 
   @computed get periods() {

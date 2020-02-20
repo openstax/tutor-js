@@ -54,6 +54,14 @@ class StepUX {
     return this._stepIndex + 1;
   }
 
+  @computed get text() {
+    return this.hasSteps ? `STEP ${this.number}` : null;
+  }
+
+  @computed get hasSteps() {
+    return this.stepIds.length > 1;
+  }
+
   @action.bound async goForward() {
     if (this.canGoForward) {
       // TODO, skip steps if the assignment type doesn't need the next,
