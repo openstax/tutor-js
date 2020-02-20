@@ -54,7 +54,7 @@ class StepUX {
     return this._stepIndex + 1;
   }
 
-  @computed get text() {
+  @computed get headerText() {
     return this.hasSteps ? `STEP ${this.number}` : null;
   }
 

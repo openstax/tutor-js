@@ -117,7 +117,7 @@ const AssignmentBuilder = observer(({ ux, children, title, middleControls }) => 
       <FormWrapper>
         <Header className="heading" templateColors={colors.templates[ux.plan.type]}>
           <HeaderStep>
-            {ux.steps.text}
+            {ux.steps.headerText}
           </HeaderStep>
           {title}
         </Header>
