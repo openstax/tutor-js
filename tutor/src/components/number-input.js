@@ -1,8 +1,8 @@
-import { React, PropTypes, observer, styled } from 'vendor';
+import { React, PropTypes, observer, styled, css } from 'vendor';
 import { useField } from 'formik';
 import RCNumberInput from 'rc-input-number';
 import { Icon } from 'shared';
-import Theme from '../theme';
+import { colors } from '../theme';
 
 const StyledNumberInput = styled(RCNumberInput)`
   margin: 0;
@@ -11,7 +11,7 @@ const StyledNumberInput = styled(RCNumberInput)`
   font-size: 1.4rem;
   line-height: 1.6rem;
 
-  border: 1px solid ${Theme.colors.forms.borders.light};
+  border: 1px solid ${colors.forms.borders.light};
   border-radius: 4px;
   transition: all .3s;
 
@@ -20,8 +20,8 @@ const StyledNumberInput = styled(RCNumberInput)`
   vertical-align: middle;
 
   &.rc-input-number-focused {
-    border-color: ${Theme.colors.forms.borders.focus};
-    box-shadow: 0 0 4px 0 ${Theme.colors.forms.borders.focusShadow};
+    border-color: ${colors.forms.borders.focus};
+    box-shadow: 0 0 4px 0 ${colors.forms.borders.focusShadow};
   }
 
   input {
@@ -31,6 +31,9 @@ const StyledNumberInput = styled(RCNumberInput)`
     height: 100%;
     text-align: right;
     padding-right: 0.8rem;
+    ${props => props.disabled && css`
+      background: #fff;
+    `}
   }
 
   .rc-input-number-input-wrap {
@@ -45,7 +48,7 @@ const StyledNumberInput = styled(RCNumberInput)`
       cursor: not-allowed;
     }
     &-wrap {
-      border-left: 1px solid ${Theme.colors.forms.borders.light};
+      border-left: 1px solid ${colors.forms.borders.light};
       height: 100%;
       display: flex;
       align-items: center;
@@ -55,7 +58,10 @@ const StyledNumberInput = styled(RCNumberInput)`
   }
 
   .ox-icon {
-    color: ${Theme.colors.neutral.std};
+    color: ${colors.neutral.std};
+    ${props => props.disabled && css`
+      color: ${colors.states.disabled_light}
+    `}
   }
 `;
 

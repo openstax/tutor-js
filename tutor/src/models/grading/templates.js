@@ -21,8 +21,8 @@ class GradingTemplate extends BaseModel {
   @field correctness_weight = 0.1;
   @field auto_grading_feedback_on = 'answer';
   @field manual_grading_feedback_on = 'publish';
-  @field late_work_immediate_penalty = 0.1;
-  @field late_work_per_day_penalty = 0.1;
+  @field late_work_penalty = 0.1;
+  @field late_work_penalty_applied = 'daily';
   @field default_open_time = '00:01';
   @field default_due_time = '21:00';
   @field default_due_date_offset_days = 7;
@@ -45,7 +45,7 @@ class GradingTemplate extends BaseModel {
   }
 
   @computed get isLateWorkAccepted() {
-    return this.late_work_immediate_penalty < 1;
+    return this.late_work_penalty_applied !== 'never';
   }
 
   @computed get canRemove() {

@@ -209,23 +209,25 @@ class TemplateForm extends React.Component {
     this.props.onComplete();
   }
 
-  renderLateWorkFields() {
+  renderLateWorkFields(form) {
+    const applied = form.values.late_work_penalty_applied;
+
     return (
       <FieldsetRow legend="Late work penalty" data-test-id="late-work-penalty">
         <Setting>
           <RadioInput
-            name="late_work_penalty"
+            name="late_work_penalty_applied"
             label="Deduct"
-            value=""
-            defaultChecked={false}
-            translate={wholePercent}
+            value="daily"
+            defaultChecked={applied === 'daily'}
             aria-labelledby="late_work_penalty_day_label late_day_deduction_label"
           />
           <AdjacentNumberInput
-            name="late_work_per_day_penalty"
+            name="late_work_penalty"
             id="late_day_deduction"
             translate={wholePercent}
             min={0} max={100}
+            disabled={applied !== 'daily'}
           />
           <SettingLabel
             id="late_day_deduction_label"
@@ -236,17 +238,19 @@ class TemplateForm extends React.Component {
         </Setting>
         <Setting>
           <RadioInput
-            name="late_work_penalty"
+            name="late_work_penalty_applied"
             label="Deduct"
+            value="immediately"
+            defaultChecked={applied === 'immediately'}
             id="late_work_penalty_assignment"
-            defaultChecked={true}
             aria-labelledby="late_work_penalty_assignment_label late_assignment_deduction_label"
           />
           <AdjacentNumberInput
-            name="late_work_immediate_penalty"
+            name="late_work_penalty"
             id="late_assignment_deduction"
             translate={wholePercent}
             min={0} max={99}
+            disabled={applied !== 'immediately'}
           />
           <SettingLabel
             id="late_assignment_deduction_label"
@@ -260,7 +264,7 @@ class TemplateForm extends React.Component {
   }
 
   renderForm = (form) => {
-    const { template, body } = this.props;
+    const { body } = this.props;
 
     return (
       <Form>
@@ -290,25 +294,23 @@ class TemplateForm extends React.Component {
         <FieldsetRow legend="Accept late work?">
           <Setting>
             <RadioInput
-              name="accept_late_work"
+              name="late_work_penalty_toggle"
               label="Yes"
-              value="yes"
-              onChange={() => form.setFieldValue('late_work_immediate_penalty', 0.1)}
-              defaultChecked={template.isLateWorkAccepted}
+              onChange={() => form.setFieldValue('late_work_penalty_applied', 'daily')}
+              checked={form.values.late_work_penalty_applied != 'never'}
             />
           </Setting>
           <Setting>
             <RadioInput
-              name="accept_late_work"
+              name="late_work_penalty_applied"
               label="No"
-              value="no"
-              onChange={() => form.setFieldValue('late_work_immediate_penalty', 1)}
-              defaultChecked={!template.isLateWorkAccepted}
+              value="never"
+              checked={!form.values.isLateWorkAccepted}
             />
           </Setting>
         </FieldsetRow>
 
-        {form.values.isLateWorkAccepted && this.renderLateWorkFields()}
+        {form.values.isLateWorkAccepted && this.renderLateWorkFields(form)}
 
         <Line />
 
