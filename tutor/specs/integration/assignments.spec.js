@@ -105,7 +105,7 @@ context('Dashboard', () => {
     cy.visit('/course/2/assignment/external/new')
     cy.disableTours()
     cy.get('.heading').should('not.contain.text', 'STEP 1')
-    cy.get('[name="externalUrl"').type("url")
+    cy.get('[name="externalUrl"').type('url')
   });
 
   it('can add a new template', () => {
