@@ -15,6 +15,7 @@ export default class AssignmentUX {
   @observable isShowingSectionSelection = false;
   @observable isShowingExerciseReview = false;
   @observable isShowingPeriodTaskings;
+  @observable isShowingAddTemplate = false;
   @observable exercises;
   @observable isReady = false;
   @observable sourcePlanId;
@@ -312,6 +313,14 @@ export default class AssignmentUX {
 
   @action.bound onChangeFilter(value) {
     this.activeFilter = value;
+  }
+
+  @action.bound onShowAddTemplate() {
+    this.isShowingAddTemplate = true;
+  }
+
+  @action.bound onHideAddTemplate() {
+    this.isShowingAddTemplate = false;
   }
 
 }
