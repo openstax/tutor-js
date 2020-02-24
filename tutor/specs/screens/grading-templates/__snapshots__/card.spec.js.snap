@@ -158,7 +158,19 @@ exports[`Grading Templates Card matches snapshot for homework 1`] = `
         <div
           className="c5"
         >
-          No
+          Yes
+        </div>
+        <div
+          className="c4"
+        >
+          Late work penalty:
+        </div>
+        <div
+          className="c5"
+        >
+          Deduct 
+          10%
+           for each late day
         </div>
         <div
           className="c6"
@@ -377,7 +389,7 @@ exports[`Grading Templates Card matches snapshot for reading 1`] = `
           className="c5"
         >
           Deduct 
-          100%
+          10%
            for each late day
         </div>
         <div

@@ -116,7 +116,7 @@ const CardInfo = observer(({ template, header, children }) => {
           {template.isLateWorkAccepted && (
             <>
               <SettingName>Late work penalty:</SettingName>
-              <SettingValue>Deduct {toPerc(template.late_work_per_day_penalty)} for each late day</SettingValue>
+              <SettingValue>Deduct {toPerc(template.late_work_penalty)} for each late day</SettingValue>
             </>)}
 
           <Line />

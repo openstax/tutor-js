@@ -52,6 +52,7 @@ export const colors = {
   states: {
     active:   neutral.dark,
     disabled: neutral.std,
+    disabled_light: '#c1c1c1',
     correct:  '#009c10',
   },
 

@@ -24,10 +24,18 @@ context('Grading Templates', () => {
     editor('input[name="correctness_weight"]')
       .should(el => expect(el.val()).toEqual('70'))
 
-    editor('input[name="accept_late_work"][value="yes"] + label').click();
+    editor('input[name="late_work_penalty_toggle"] + label').click();
     editor('[data-test-id="late-work-penalty"]').should('exist');
 
-    editor('input[name="accept_late_work"][value="no"] + label').click();
+    editor('input[name="late_work_penalty_applied"][value="daily"]').click({ force: true });
+    editor('#late_day_deduction').should('be.enabled');
+    editor('#late_assignment_deduction').should('be.disabled');
+
+    editor('input[name="late_work_penalty_applied"][value="immediately"]').click({ force: true });
+    editor('#late_assignment_deduction').should('be.enabled');
+    editor('#late_day_deduction').should('be.disabled');
+
+    editor('input[name="late_work_penalty_applied"][value="never"] + label').click({ force: true });
     editor('[data-test-id="late-work-penalty"]').should('not.exist');
 
     editor('[name="default_due_date_offset_days"]').select('3');
@@ -43,7 +51,6 @@ context('Grading Templates', () => {
 
     card().find('.card-body').should(c => {
       const text = c.text();
-      //      console.log(text)
       expect(text).toContain('Weight for correctness:70%')
       expect(text).toContain('Weight for completion:30%')
       expect(text).toContain('Due date for assignments:3 days')
