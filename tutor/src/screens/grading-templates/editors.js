@@ -297,7 +297,7 @@ class TemplateForm extends React.Component {
               name="late_work_penalty_toggle"
               label="Yes"
               onChange={() => form.setFieldValue('late_work_penalty_applied', 'daily')}
-              checked={form.values.late_work_penalty_applied != 'never'}
+              checked={form.values.late_work_penalty_applied !== 'never'}
             />
           </Setting>
           <Setting>
