@@ -38,6 +38,7 @@ const GET_HANDLERS = {
 const MULTI_HANDLERS = [
   require('./backend/grading-templates'),
   require('./backend/task-plans'),
+  require('./backend/courses'),
 ];
 
 // routes that have custom logic

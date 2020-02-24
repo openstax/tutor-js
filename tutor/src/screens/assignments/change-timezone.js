@@ -1,11 +1,15 @@
-import { React, PropTypes, observable, observer, action } from 'vendor';
-import { Icon } from 'shared';
+import { React, PropTypes, observable, observer, action, styled } from 'vendor';
 import Course from '../../models/course';
 import TimezoneModal from '../../components/timezone-modal';
+import { Button } from 'react-bootstrap';
+
+const StyledButton = styled(Button)`
+  && { padding: 0; }
+`;
 
 export default
 @observer
-class SetTimezone extends React.Component {
+class ChangeTimezone extends React.Component {
 
   static propTypes = {
     course: PropTypes.instanceOf(Course).isRequired,
@@ -16,18 +20,27 @@ class SetTimezone extends React.Component {
   @action.bound onOpen() {
     this.showModal = true;
   }
+
   @action.bound onClose() {
     this.showModal = false;
   }
 
   render() {
+    const course = this.props.course;
+
     return (
       <>
-        <Icon type="pencil-alt" onClick={this.onOpen} className="control edit-course" />
+        <StyledButton
+          variant="link"
+          onClick={this.onOpen}
+          data-test-id="change-timezone"
+        >
+          {course.time_zone}
+        </StyledButton>
         <TimezoneModal
           onClose={this.onClose}
           show={this.showModal}
-          course={this.props.course}
+          course={course}
         />
       </>
     );
