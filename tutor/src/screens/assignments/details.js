@@ -1,6 +1,6 @@
 import { React, PropTypes, styled, observer } from 'vendor';
 import { isEmpty } from 'lodash';
-import { AssignmentBuilder, SplitRow, Label, HintText, TextInput, Body } from './builder';
+import { AssignmentBuilder, SplitRow, Label, HintText, TextInput, TextArea, Body } from './builder';
 import Select from '../../components/select';
 import RadioInput from '../../components/radio-input';
 import PreviewTooltip from './preview-tooltip';
@@ -56,7 +56,7 @@ const Details = observer(({ ux }) => {
             Additional note or instructions
             <HintText>(Optional)</HintText>
           </RowLabel>
-          <TextInput
+          <TextArea
             name="description"
           />
         </SplitRow>

@@ -101,6 +101,15 @@ TextInput.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
+const TextArea = (props) => (
+  <TextInputWrapper>
+    <StyledTextInput as="textarea" rows="4" {...props} />
+  </TextInputWrapper>
+);
+TextArea.propTypes = {
+  name: PropTypes.string.isRequired,
+};
+
 const AssignmentBuilder = observer(({ ux, children, title, middleControls }) => {
   return (
     <ScrollToTop>
@@ -127,4 +136,4 @@ AssignmentBuilder.propTypes = {
   middleControls: PropTypes.node,
 };
 
-export { AssignmentBuilder, Row, SplitRow, HintText, Label, TextInput, Setting, Body };
+export { AssignmentBuilder, Row, SplitRow, HintText, Label, TextInput, TextArea, Setting, Body };
