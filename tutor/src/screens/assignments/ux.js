@@ -21,6 +21,7 @@ export default class AssignmentUX {
   @observable sourcePlanId;
   @observable form;
   @observable activeFilter = 'all';
+  @observable templates;
 
   constructor(attrs = null) {
     if (attrs) { this.initialize(attrs); }
@@ -72,10 +73,8 @@ export default class AssignmentUX {
 
     // once templates is loaded, select ones of the correct type
     await gradingTemplates.ensureLoaded();
-    this.gradingTemplates = filter(gradingTemplates.array, t => t.task_plan_type == type);
-    if (!this.plan.grading_template_id) {
-      this.plan.grading_template_id = this.plan.grading_template_id || get(this.gradingTemplates, '[0].id');
-    }
+    this.templates = gradingTemplates;
+    this.plan.grading_template_id = this.plan.grading_template_id || get(this.gradingTemplates, '[0].id');
 
     this.history = history;
     this.exercises = exercises;
@@ -89,6 +88,10 @@ export default class AssignmentUX {
     this.scroller = new ScrollTo({ windowImpl });
     this.validations = new Validations(this);
     this.isReady = true;
+  }
+
+  @computed get gradingTemplates() {
+    return(filter(this.templates.array, t => t.task_plan_type == this.plan.type));
   }
 
   @computed get canSelectAllSections() {

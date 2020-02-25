@@ -1,7 +1,6 @@
 import { React, PropTypes, styled, observer } from 'vendor';
 import { isEmpty } from 'lodash';
 import { AssignmentBuilder, SplitRow, Label, HintText, TextInput, TextArea, Body } from './builder';
-import Select from '../../components/select';
 import RadioInput from '../../components/radio-input';
 import PreviewTooltip from './preview-tooltip';
 import NewTooltip from './new-tooltip';
@@ -136,7 +135,7 @@ const Details = observer(({ ux }) => {
             <HintText>(Apply a pre-set submission and grading policy template)</HintText>
           </RowLabel>
           <div>
-            <StyledDropdown>
+            <StyledDropdown data-test-id="grading-templates">
               <StyledToggle variant="outline">
                 {ux.gradingTemplate.name}
               </StyledToggle>
@@ -150,7 +149,7 @@ const Details = observer(({ ux }) => {
                   >
                     {t.name}
                   </Dropdown.Item>)}
-                <StyledAddItem onSelect={ux.onShowAddTemplate}>
+                <StyledAddItem onSelect={ux.onShowAddTemplate} data-test-id="add-template">
                   + Add new template
                 </StyledAddItem>
               </StyledMenu>
