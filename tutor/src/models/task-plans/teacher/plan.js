@@ -2,8 +2,9 @@ import {
   BaseModel, identifiedBy, field, session, identifier, hasMany,
 } from 'shared/model';
 import { action, computed, observable, createAtom, observe } from 'mobx';
+import Exercises from '../../exercises';
 import {
-  first, last, map, union, find, get, pick, extend, every, isEmpty,
+  first, last, map, union, find, get, pick, extend, every, isEmpty, compact,
 } from 'lodash';
 import isUrl from 'validator/lib/isURL';
 import { lazyInitialize } from 'core-decorators';
@@ -85,6 +86,7 @@ class TeacherTaskPlan extends BaseModel {
     super(attrs);
     this.course = attrs.course;
     this.unmodified_plans = attrs.tasking_plans;
+    this.exercisesMap = attrs.exercisesMap || Exercises;
     this.publishing = createAtom(
       'TaskPlanUpdates',
       () => { TaskPlanPublish.forPlan(this).startListening(); },
@@ -101,7 +103,6 @@ class TeacherTaskPlan extends BaseModel {
       const currentTemplate = this.course.gradingTemplates.get(newValue);
       this.tasking_plans.forEach(tp => tp.onGradingTemplateUpdate({ previousTemplate, currentTemplate }));
     });
-
   }
 
   @computed get gradingTemplate() {
@@ -246,6 +247,15 @@ class TeacherTaskPlan extends BaseModel {
     );
   }
 
+  @computed get exerciseIds() {
+    // TODO: use new interface to settings.exericse_ids
+    return get(this, 'settings.exercise_ids', []);
+  }
+
+  @computed get exercises() {
+    return compact(this.exerciseIds.map(exId => this.exercisesMap.get(exId)));
+  }
+
   isPastDueWithPeriodId() {
     return find(this.tasking_plans, 'isPastDue');
   }
@@ -281,10 +291,6 @@ class TeacherTaskPlan extends BaseModel {
 
   @computed get pageIds() {
     return get(this, 'settings.page_ids', []);
-  }
-
-  @computed get exerciseIds() {
-    return get(this, 'settings.exercise_ids', []);
   }
 
   @action addExercise(ex) {
