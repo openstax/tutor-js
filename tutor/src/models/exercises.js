@@ -89,8 +89,9 @@ export class ExercisesMap extends Map {
   ensureExercisesLoaded({ book, course, exercise_ids, limit }) {
     const unFetchedExerciseIds = filter(exercise_ids, exId => !this.get(exId));
     if (!isEmpty(unFetchedExerciseIds)) {
-      this.fetch({ book, course, exercise_ids: unFetchedExerciseIds, limit });
+      return this.fetch({ book, course, exercise_ids: unFetchedExerciseIds, limit });
     }
+    return Promise.resolve(this);
   }
 
   ensurePagesLoaded({ book, course, page_ids, limit }) {
