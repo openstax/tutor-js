@@ -16,6 +16,12 @@ module.exports = {
     return res.json({ total_count: TEMPLATES.length, items: TEMPLATES });
   },
 
+  post(req, res) {
+    const tmpl = Factory.create('GradingTemplate');
+    Object.assign(tmpl, req.body);
+    return res.json(tmpl);
+  },
+
   patch(req, res) {
     const tmpl = TEMPLATES_MAP[parseInt(req.params.id)];
     if (!tmpl) {
@@ -27,6 +33,7 @@ module.exports = {
 
   route(server) {
     server.get('/api/courses/:courseId/grading_templates', this.get);
+    server.post('/api/courses/:courseId/grading_templates', this.post);
     server.patch('/api/grading_templates/:id', this.patch);
   },
 };

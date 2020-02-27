@@ -25,6 +25,7 @@ const colorDefinitions = {
   quaternary:    '#f4d019', // yellow
   blue_control:  '#337eb5',
   blue_info:     '#007da4',
+  link:          '#027EB5',
   black:         'black',
   white:         'white',
   warning:       '#f4d019', // yellow

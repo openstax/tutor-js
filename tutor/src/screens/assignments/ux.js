@@ -15,11 +15,13 @@ export default class AssignmentUX {
   @observable isShowingSectionSelection = false;
   @observable isShowingExerciseReview = false;
   @observable isShowingPeriodTaskings;
+  @observable isShowingAddTemplate = false;
   @observable exercises;
   @observable isReady = false;
   @observable sourcePlanId;
   @observable form;
   @observable activeFilter = 'all';
+  @observable templates;
 
   constructor(attrs = null) {
     if (attrs) { this.initialize(attrs); }
@@ -71,10 +73,8 @@ export default class AssignmentUX {
 
     // once templates is loaded, select ones of the correct type
     await gradingTemplates.ensureLoaded();
-    this.gradingTemplates = filter(gradingTemplates.array, t => t.task_plan_type == type);
-    if (!this.plan.grading_template_id) {
-      this.plan.grading_template_id = this.plan.grading_template_id || get(this.gradingTemplates, '[0].id');
-    }
+    this.templates = gradingTemplates;
+    this.plan.grading_template_id = this.plan.grading_template_id || get(this.gradingTemplates, '[0].id');
 
     this.history = history;
     this.exercises = exercises;
@@ -88,6 +88,10 @@ export default class AssignmentUX {
     this.scroller = new ScrollTo({ windowImpl });
     this.validations = new Validations(this);
     this.isReady = true;
+  }
+
+  @computed get gradingTemplates() {
+    return(filter(this.templates.array, t => t.task_plan_type == this.plan.type));
   }
 
   @computed get canSelectAllSections() {
@@ -312,6 +316,14 @@ export default class AssignmentUX {
 
   @action.bound onChangeFilter(value) {
     this.activeFilter = value;
+  }
+
+  @action.bound onShowAddTemplate() {
+    this.isShowingAddTemplate = true;
+  }
+
+  @action.bound onHideAddTemplate() {
+    this.isShowingAddTemplate = false;
   }
 
 }

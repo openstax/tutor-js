@@ -1,13 +1,15 @@
 import { React, PropTypes, styled, observer } from 'vendor';
 import { isEmpty } from 'lodash';
 import { AssignmentBuilder, SplitRow, Label, HintText, TextInput, TextArea, Body } from './builder';
-import Select from '../../components/select';
 import RadioInput from '../../components/radio-input';
 import PreviewTooltip from './preview-tooltip';
 import NewTooltip from './new-tooltip';
 import Tasking from './tasking';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import ChangeTimezone from './change-timezone';
+import { Dropdown } from 'react-bootstrap';
+import { colors } from '../../theme';
+import * as EDIT_TYPES from '../grading-templates/editors';
 
 const isRequired = (value) => isEmpty(value) && 'Cannot be blank';
 
@@ -32,9 +34,72 @@ const StyledTextInput = styled(TextInput)`
   max-width: 48rem;
 `;
 
-const StyledSelect = styled(Select)`
-  min-width: 24rem;
+const StyledDropdown = styled(Dropdown)`
+  display: inline-flex;
 `;
+
+const StyledToggle = styled(Dropdown.Toggle)`
+  &&& {
+    border: 1px solid ${colors.forms.borders.light};
+    color: ${colors.neutral.darker};
+    background: #fff;
+    height: 3.4rem;
+    width: 25rem;
+    text-align: left;
+    padding: 0 1rem;
+    font-size: 1.6rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    appearance: none;
+    border-radius: 0.4rem;
+
+    &:focus {
+      border-color: ${colors.forms.borders.focus};
+      box-shadow: 0 0 4px 0 ${colors.forms.borders.focusShadow};
+    }
+
+    &:after {
+      color: ${colors.neutral.std};
+      flex-basis: 0;
+    }
+  }
+`;
+
+const StyledMenu = styled(Dropdown.Menu)`
+  && {
+    width: 100%;
+    border-radius: 0.4rem;
+
+    .dropdown-item {
+      padding: 0.8rem 1rem;
+      font-size: 1.6rem;
+      color: ${colors.neutral.darker};
+    }
+  }
+`;
+
+const StyledAddItem = styled(Dropdown.Item)`
+  &&& {
+    color: ${colors.link};
+  }
+`;
+
+const EditModal = observer(({ ux }) => {
+  const Edit = EDIT_TYPES[ux.plan.type];
+  const template = ux.course.gradingTemplates.newTemplate({ task_plan_type: ux.plan.type });
+
+  if (Edit) {
+    return (
+      <Edit
+        template={template}
+        onComplete={ux.onHideAddTemplate}
+      />
+    );
+  } else {
+    return null;
+  }
+});
 
 const Details = observer(({ ux }) => {
   return (
@@ -70,9 +135,25 @@ const Details = observer(({ ux }) => {
             <HintText>(Apply a pre-set submission and grading policy template)</HintText>
           </RowLabel>
           <div>
-            <StyledSelect name="grading_template_id">
-              {ux.gradingTemplates.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
-            </StyledSelect>
+            <StyledDropdown data-test-id="grading-templates">
+              <StyledToggle variant="outline">
+                {ux.gradingTemplate.name}
+              </StyledToggle>
+              <StyledMenu>
+                {ux.gradingTemplates.map(t =>
+                  <Dropdown.Item
+                    key={t.id}
+                    value={t.id}
+                    eventKey={t.id}
+                    onSelect={k => ux.form.setFieldValue('grading_template_id', k)}
+                  >
+                    {t.name}
+                  </Dropdown.Item>)}
+                <StyledAddItem onSelect={ux.onShowAddTemplate} data-test-id="add-template">
+                  + Add new template
+                </StyledAddItem>
+              </StyledMenu>
+            </StyledDropdown>
             <PreviewTooltip template={ux.gradingTemplate} />
           </div>
         </SplitRow>
@@ -121,6 +202,7 @@ const Details = observer(({ ux }) => {
           </FullWidthCol>
         </SplitRow>
       </DetailsBody>
+      {ux.isShowingAddTemplate && <EditModal ux={ux} />}
     </AssignmentBuilder>
   );
 });

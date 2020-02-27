@@ -102,4 +102,15 @@ context('Dashboard', () => {
     cy.get('[data-test-id="change-timezone"').should( 'contain.text', 'Hawaii')
   });
 
+  it('can add a new template', () => {
+    cy.visit('/course/2/assignment/homework/new')
+    cy.disableTours()
+    cy.get('[data-test-id="grading-templates"]').click()
+    cy.get('[data-test-id="add-template"]').click()
+    cy.get('.modal').should('be.visible')
+    cy.get('.modal input[name="name"]').type('NewTemplate')
+    cy.get('.modal [type="submit"]').click()
+    cy.get('[data-test-id="grading-templates"]').should('contain.text', 'NewTemplate')
+  });
+
 });
