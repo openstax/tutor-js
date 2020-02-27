@@ -123,6 +123,12 @@ class StepUX {
     );
   }
 
+  @computed get canSubmit() {
+    return Boolean(
+      this.ux.validations.isValid
+    );
+  }
+
 }
 
 

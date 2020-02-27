@@ -84,7 +84,6 @@ class AssignmentBuilder extends React.Component {
               </TutorLink>)}
             <Formik
               initialValues={ux.formValues}
-              onSubmit={ux.onSubmit}
               validateOnMount={true}
             >
               {ux.renderStep}

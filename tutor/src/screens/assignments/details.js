@@ -10,8 +10,10 @@ import ChangeTimezone from './change-timezone';
 import { Dropdown } from 'react-bootstrap';
 import { colors } from '../../theme';
 import * as EDIT_TYPES from '../grading-templates/editors';
+import isUrl from 'validator/lib/isURL';
 
 const isRequired = (value) => isEmpty(value) && 'Cannot be blank';
+const isValidUrl = (value) => !isUrl(value) && 'A valid URL is required';
 
 const DetailsBody = styled(Body)`
   padding-left: 10.4rem;
@@ -121,7 +123,10 @@ const TemplateField = observer(({ ux }) => {
                 key={t.id}
                 value={t.id}
                 eventKey={t.id}
-                onSelect={k => ux.form.setFieldValue('grading_template_id', k)}
+                onSelect={k => {
+                  ux.form.setFieldValue('grading_template_id', k);
+                  ux.plan.grading_template_id = k;
+                }}
               >
                 {t.name}
               </Dropdown.Item>)}
@@ -135,15 +140,18 @@ const TemplateField = observer(({ ux }) => {
     </SplitRow>
   );
 });
+TemplateField.propTypes = {
+  ux: PropTypes.object.isRequired,
+};
 
 const ExternalUrlField = () => {
   return (
     <SplitRow>
       <RowLabel htmlFor="externalUrl">Assignment URL</RowLabel>
       <StyledTextInput
-        name="externalUrl"
+        name="settings.external_url"
         id="externalUrl"
-        validate={isRequired}
+        validate={isValidUrl}
       />
     </SplitRow>
   );
@@ -178,7 +186,7 @@ const Details = observer(({ ux }) => {
           />
         </SplitRow>
         {ux.canSelectTemplates && <TemplateField ux={ux} />}
-        {ux.canInputExternalUrl && <ExternalUrlField />}
+        {ux.canInputExternalUrl && <ExternalUrlField ux={ux} />}
         <SplitRow>
           <RowLabel htmlFor="">
             Assign

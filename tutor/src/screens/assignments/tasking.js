@@ -2,8 +2,7 @@ import {
   React, PropTypes, styled, computed, action, observer,
 } from 'vendor';
 import moment from 'moment';
-import { Row, Col } from 'react-bootstrap';
-import { Icon } from 'shared';
+import { Row, Col, Alert } from 'react-bootstrap';
 import { compact } from 'lodash';
 import { findEarliest, findLatest } from '../../helpers/dates';
 import Time from '../../models/time';
@@ -21,11 +20,6 @@ const StyledTasking = styled.div`
   }
 `;
 
-const StyledCantEditExplanation = styled(Col)`
-  margin-top: -25px;
-  font-size: 1.2rem;
-`;
-
 const StyledInner = styled.div`
   &:not([data-period-id="all"]) {
     margin-top: 0.5rem;
@@ -33,12 +27,15 @@ const StyledInner = styled.div`
   }
 `;
 
+const StyledAlert = styled(Alert)`
+  margin-top: 0.5rem;
+  font-size: 1.6rem;
+`;
+
 const CantEditExplanation = () => (
-  <Row>
-    <StyledCantEditExplanation xs={12}>
-       Cannot be edited after assignment is visible
-    </StyledCantEditExplanation>
-  </Row>
+  <StyledAlert variant="secondary">
+    Cannot be edited after assignment is visible
+  </StyledAlert>
 );
 
 @observer
@@ -101,7 +98,7 @@ class Tasking extends React.Component {
   }
 
   @action.bound onClosesChange({ target: { value: date } }) {
-    this.taskings.forEach(t => t.setOpensTime(date));
+    this.taskings.forEach(t => t.setClosesDate(date));
   }
 
   renderDueAtError() {
@@ -117,12 +114,9 @@ class Tasking extends React.Component {
     }
     if (!msg) { return null; }
     return (
-      <Row>
-        <Col className="due-before-open">
-          <Icon variant="errorInfo" />
-          {msg}
-        </Col>
-      </Row>
+      <StyledAlert variant="danger">
+        {msg}
+      </StyledAlert>
     );
   }
 

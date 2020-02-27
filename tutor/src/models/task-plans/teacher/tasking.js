@@ -117,7 +117,7 @@ class TaskingPlan extends BaseModel {
   }
 
   @computed get clonedAttributes() {
-    return pick(this, 'target_id', 'target_type', 'opens_at', 'due_at');
+    return pick(this, 'target_id', 'target_type', 'opens_at', 'due_at', 'closes_at');
   }
 
   @computed get dataForSave() {
@@ -144,12 +144,13 @@ class TaskingPlan extends BaseModel {
 
   // resets the due at time to course default
   // and sets opens at date to match the give due at
-  initializeWithDueAt(dueAt) {
+  initializeWithDueAt({ dueAt, defaultOpenTime, defaultDueTime }) {
     dueAt = this.course.momentInZone(dueAt);
     if(!dueAt.isValid()) { return; }
 
-    let [ hour, minute ] = this.course.default_due_time.split(':');
+    let [ hour, minute ] = defaultDueTime.split(':');
     dueAt = dueAt.hour(hour).minute(minute).startOf('minute');
+
     const nearFuture = moment(Time.now).add(30, 'minute');
     if (dueAt.isBefore(nearFuture)) {
       dueAt = nearFuture;
@@ -158,10 +159,10 @@ class TaskingPlan extends BaseModel {
 
     // is requested due at before opens?
     if (dueAt.isBefore(this.opens_at)) {
-      [ hour, minute ] = this.course.default_open_time.split(':');
+      [ hour, minute ] = defaultOpenTime.split(':');
       const opens_at = this.course.momentInZone(Time.now).hour(hour).minute(minute).startOf('minute');
 
-      if (dueAt.isBefore(opens_at)) {
+      if (dueAt.isSameOrBefore(opens_at)) {
         // set opens_at to just before due
         this.opens_at = dueAt.clone().subtract(1, 'minute').toISOString();
       } else {
@@ -202,6 +203,13 @@ class TaskingPlan extends BaseModel {
     this.due_at = findLatest(
       moment(this.opens_at).add(1, 'minute'),
       this.dueAtMoment.hour(hour).minute(minute).startOf('minute'),
+    ).toISOString();
+  }
+
+  @action setClosesDate(date) {
+    this.closes_at = findLatest(
+      moment(this.due_at),
+      dateWithUnchangedTime(moment(date), moment(this.closes_at)),
     ).toISOString();
   }
 

@@ -73,22 +73,25 @@ describe('Teacher tasking plan tasking', () => {
   it('#initializeWithDueAt', () => {
     expect(course.time_zone).toEqual('Central Time (US & Canada)');
 
-    plan.course.default_open_time = '10:20';
-    plan.course.default_due_time = '15:40';
+    const defaults = {
+      defaultOpenTime: '10:20',
+      defaultDueTime: '15:40',
+    }
+
     tasking.opens_at = '2015-10-21T12:00:00.000Z';
 
     // simple case, no conflict with opens
-    tasking.initializeWithDueAt('2015-10-25T12:00:00.000Z');
+    tasking.initializeWithDueAt({ dueAt: '2015-10-25T12:00:00.000Z', ...defaults });
     expect(tasking.due_at).toEqual('2015-10-25T20:40:00.000Z'); // same date but -5hours tz
     expect(tasking.opens_at).toEqual('2015-10-21T12:00:00.000Z'); // unchanged
 
     // set to before the opens_at
-    tasking.initializeWithDueAt('2015-10-20T12:00:00.000Z');
+    tasking.initializeWithDueAt({ dueAt: '2015-10-20T12:00:00.000Z', ...defaults });
     expect(tasking.due_at).toEqual('2015-10-20T20:40:00.000Z'); // same date but -5hours tz
     expect(tasking.opens_at).toEqual('2015-10-14T15:20:00.000Z'); // set to Time.now but with time -5hours tz
 
     // set to before the now
-    tasking.initializeWithDueAt('2015-10-01T12:00:00.000Z');
+    tasking.initializeWithDueAt({ dueAt: '2015-10-01T12:00:00.000Z', ...defaults });
     expect(tasking.due_at).toEqual(moment(now).add(30, 'minutes').toISOString());
     expect(tasking.opens_at).toEqual(moment(now).add(29, 'minutes').toISOString());
   });

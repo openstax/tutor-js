@@ -3,7 +3,7 @@ import Router from '../../helpers/router';
 import { runInAction } from 'mobx';
 import ScrollTo from '../../helpers/scroll-to';
 import {
-  filter, isEmpty, compact, map, get, first, difference, flatMap,
+  filter, isEmpty, compact, map, get, first, difference, flatMap, omit,
 } from 'lodash';
 import Exercises from '../../models/exercises';
 import TaskPlan, { SELECTION_COUNTS } from '../../models/task-plans/teacher/plan';
@@ -11,6 +11,8 @@ import ReferenceBook from '../../models/reference-book';
 import { StepUX, Step } from './step';
 import { Actions } from './actions';
 import Validations from './validations';
+import moment from '../../helpers/moment-range';
+import Time from '../../models/time';
 
 const TEMPLATEABLE_TYPES = ['homework', 'reading'];
 
@@ -32,7 +34,7 @@ export default class AssignmentUX {
   }
 
   @action async initialize({
-    id, type, plan, course, history,
+    id, type, plan, course, history, due_at,
     gradingTemplates = course.gradingTemplates,
     exercises = Exercises,
     windowImpl = window,
@@ -65,12 +67,22 @@ export default class AssignmentUX {
     this.actions = new Actions(this);
 
     if (this.plan.isNew) {
-      this.periods.map((period) =>
-        this.plan.findOrCreateTaskingForPeriod(period),
-      );
-      // if (due_at) {
-      //   this.plan.tasking_plans.forEach(tp => tp.initializeWithDueAt(due_at));
-      // }
+      if (this.plan.isExternal || this.plan.isEvent) {
+        const opens_at = moment(Time.now).add(1, 'day').startOf('day').add(1, 'minute').toISOString();
+        this.periods.map((period) =>
+          this.plan.findOrCreateTaskingForPeriod(period, { opens_at }),
+        );
+        if (due_at) {
+          this.plan.tasking_plans.forEach(tp => {
+            tp.initializeWithDueAt({ dueAt: due_at, defaultOpenTime: '00:01', defaultDueTime: '21:00' });
+            tp.closes_at = moment(tp.due_at).add(1, 'minute').toISOString();
+          });
+        }
+      } else {
+        this.periods.map((period) =>
+          this.plan.findOrCreateTaskingForPeriod(period),
+        );
+      }
     } else {
       await this.plan.ensureLoaded();
     }
@@ -78,10 +90,8 @@ export default class AssignmentUX {
     if (this.canSelectTemplates) {
       // once templates is loaded, select ones of the correct type
       await gradingTemplates.ensureLoaded();
-      this.gradingTemplates = filter(gradingTemplates.array, t => t.task_plan_type == type);
-      if (!this.plan.grading_template_id) {
-        this.plan.grading_template_id = this.plan.grading_template_id || get(this.gradingTemplates, '[0].id');
-      }
+      this.templates = gradingTemplates;
+      this.plan.grading_template_id = this.plan.grading_template_id || get(this.gradingTemplates, '[0].id');
     }
 
     this.history = history;
@@ -103,6 +113,12 @@ export default class AssignmentUX {
 
   @computed get gradingTemplates() {
     return(filter(this.templates.array, t => t.task_plan_type == this.plan.type));
+  }
+
+  @computed get gradingTemplate() {
+    return (
+      this.course.gradingTemplates.array.find(t => t.id == this.form.values.grading_template_id)
+    );
   }
 
   @computed get canSelectAllSections() {
@@ -167,7 +183,7 @@ export default class AssignmentUX {
   }
 
   get formValues() {
-    return this.plan;
+    return this.plan.serialize();
   }
 
   @computed get isApiPending() {
@@ -215,9 +231,7 @@ export default class AssignmentUX {
     if (this.isShowingPeriodTaskings) {
       return;
     }
-    this.periods.map((period) =>
-      this.plan.findOrCreateTaskingForPeriod(period)
-    );
+    this.periods.map(period => this.plan.findOrCreateTaskingForPeriod(period));
   }
 
   @action.bound onExerciseToggle(event, exercise) {
@@ -281,12 +295,6 @@ export default class AssignmentUX {
     return this.numExerciseSteps + this.numTutorSelections;
   }
 
-  @computed get gradingTemplate() {
-    return (
-      this.course.gradingTemplates.array.find(t => t.id == this.form.values.grading_template_id)
-    );
-  }
-
   isExerciseSelected(ex) {
     return this.selectedExercises.includes(ex);
   }
@@ -295,7 +303,7 @@ export default class AssignmentUX {
     return this.exercises.where(ex => (
       this.isExerciseSelected(ex) || (
         ex.isHomework && ex.isAssignable &&
-          ex.page && this.selectedPageIds.includes(ex.page.id)
+        ex.page && this.selectedPageIds.includes(ex.page.id)
       )
     ));
   }
@@ -305,19 +313,20 @@ export default class AssignmentUX {
     this.onComplete();
   }
 
+  @action.bound async saveAsDraft() {
+    this.plan.update(omit(this.form.values, 'tasking_plans'));
+    this.plan.is_draft = true;
+    await this.saveAndCopyPlan();
+  }
+
   @action.bound async onPublishClick() {
+    this.plan.update(omit(this.form.values, 'tasking_plans'));
     this.plan.is_draft = false;
     if (!this.plan.is_published) {
       this.plan.is_publish_requested = true;
     }
     await this.saveAndCopyPlan();
     this.onComplete();
-  }
-
-  @action.bound async saveAsDraft() {
-    this.plan.update(this.form.values.serialize());
-    this.plan.is_draft = true;
-    await this.saveAndCopyPlan();
   }
 
   @action async saveAndCopyPlan() {
