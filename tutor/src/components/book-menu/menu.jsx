@@ -111,8 +111,8 @@ const Branch = ({ node, ux, ...props }) => {
               </div>
             </Summary>
             <Ol>
-              {map(node.children, child => (
-                <Node key={child.id} {...props} ux={ux} node={child} />
+              {map(node.children, (child, i) => (
+                <Node key={i} {...props} ux={ux} node={child} />
               ))}
             </Ol>
           </Details>
@@ -209,11 +209,11 @@ class BookMenu extends React.Component {
 
     return (
       <StyledMenu ref={this.menuWrapper} className={cn('book-menu', className )}>
-        {map(book.children, child => (
+        {map(book.children, (child, i) => (
           <Node
             ux={this.ux}
             node={child}
-            key={child.id}
+            key={i}
             pageLinkProps={pageLinkProps}
           />
         ))}
