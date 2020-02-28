@@ -1,12 +1,20 @@
-import { React, PropTypes, styled, action, observer } from 'vendor';
+import { React, PropTypes, styled, action, observer, computed } from 'vendor';
 import { AssignmentBuilder } from './builder';
-import { ExercisePreview, SuretyGuard } from 'shared';
+import { flatMap } from 'lodash';
+import { SuretyGuard } from 'shared';
 import { Icon } from 'shared';
+import Question from 'shared/components/question';
 
 const Header = styled.div`
   display: flex;
+  align-items: center;
   width: 100%;
+  border: 1px solid lightGray;
+  padding: 1rem;
+`;
 
+const ExerciseNumber = styled.div`
+  font-weight: bold;
 `;
 
 const Controls = styled.div`
@@ -25,15 +33,26 @@ const MoveIcon = styled(Icon)`
   border-radius: 50%;
 `;
 
+const QuestionPreview = styled.div`
+  &:first-of-type {
+   .ox-icon-arrow-up { display: none; }
+  }
+  &:last-of-type {
+   .ox-icon-arrow-down { display: none; }
+  }
+`;
+
 @observer
 class ReviewExerciseCard extends React.Component {
 
   static propTypes = {
     ux: PropTypes.object.isRequired,
     exercise: PropTypes.object.isRequired,
-    isFirst:  PropTypes.bool.isRequired,
-    isLast:   PropTypes.bool.isRequired,
-    range:    PropTypes.string.isRequired,
+    question: PropTypes.object.isRequired,
+    index:    PropTypes.number.isRequired,
+    exerciseIndex: PropTypes.number.isRequired,
+    questionIndex: PropTypes.number.isRequired,
+
   };
 
   @action.bound moveExerciseUp() {
@@ -48,17 +67,33 @@ class ReviewExerciseCard extends React.Component {
     this.props.ux.plan.removeExercise(this.props.exercise);
   }
 
+  @computed get points() {
+    return this.props.ux.plan.settings
+      .exercises[this.props.exerciseIndex]
+      .points[this.props.questionIndex];
+  }
+
+  @action.bound setPoints(ev) {
+    const points = parseInt(ev.target.value);
+    this.props.ux.plan.settings
+      .exercises[this.props.exerciseIndex]
+      .points[this.props.questionIndex] = points;
+
+  }
+
   getActionButtons() {
     const { ux } = this.props;
 
     if (!ux.canEdit) { return null; }
-    const { isFirst, isLast } = this.props;
 
     return (
       <Controls className="pull-right card-actions">
-        <Input value={1} />
-        {!isFirst && <MoveIcon type="arrow-up" onClick={this.moveExerciseUp} data-direction="up" />}
-        {!isLast && <MoveIcon type="arrow-down" onClick={this.moveExerciseDown} data-direction="down" />}
+        <Input value={this.points} onChange={this.setPoints} />
+        {this.props.questionIndex == 0 && (
+          <>
+            <MoveIcon type="arrow-up" onClick={this.moveExerciseUp} data-direction="up" />
+            <MoveIcon type="arrow-down" onClick={this.moveExerciseDown} data-direction="down" />
+            </>)}
         <SuretyGuard
           title={false}
           onConfirm={this.removeExercise}
@@ -72,66 +107,57 @@ class ReviewExerciseCard extends React.Component {
     );
   }
 
-  renderHeader() {
-    const actionButtons = this.getActionButtons();
-    return (
-      <Header className="-exercise-header">
-        <span className="exercise-number">
-          {this.props.range}
-        </span>
-        {actionButtons}
-      </Header>
-    );
-  }
 
   render() {
-    const { exercise } = this.props;
+    const { question } = this.props;
 
     return (
-      <div className="openstax exercise-wrapper">
-        <ExercisePreview
-          exercise={exercise.content}
-          className="exercise-card"
-          isInteractive={false}
-          isVerticallyTruncated={true}
-          isSelected={false}
-          header={this.renderHeader()}
-          panelStyle="default"
-        />
-      </div>
+      <QuestionPreview className="openstax-exercise-preview">
+        <div className="card-body">
+          <Header>
+            <ExerciseNumber>
+              {this.props.index + 1}
+            </ExerciseNumber>
+            {this.getActionButtons()}
+          </Header>
+
+          <Question
+            className="openstax-question-preview"
+            question={question}
+            hideAnswers={false}
+            choicesEnabled={false}
+            displayFormats={false}
+            type="teacher-preview"
+          />
+        </div>
+      </QuestionPreview>
     );
   }
+
 }
 
 const Review = observer(({ ux }) => {
-  let count = 1;
 
-  const cards = ux.selectedExercises.map((ex, i) => {
-    let range = `${count}`;
-    if (ex.content.questions.length > 1) {
-      range = `${range} - ${count + ex.content.questions.length - 1}`;
-    }
-    count += ex.content.questions.length;
-
-    return (
-      <ReviewExerciseCard
-        ux={ux}
-        range={range}
-        key={ex.id}
-        exercise={ex}
-        isFirst={i === 0}
-        canEdit={ux.canEdit}
-        isLast={i === (ux.selectedExercises.length - 1)}
-      />
-    );
-  });
+  let index = 0;
 
   return (
     <AssignmentBuilder
       title="Set points and review"
       ux={ux}
     >
-      {cards}
+      {flatMap(ux.selectedExercises, (ex, exIndex) => (
+        ex.content.questions.map((q, qIndex) => (
+          <ReviewExerciseCard
+            key={`${exIndex}-${qIndex}`}
+            ux={ux}
+            exerciseIndex={exIndex}
+            questionIndex={qIndex}
+            index={index++}
+            question={q}
+            exercise={ex}
+            canEdit={ux.canEdit}
+          />
+        ))))}
     </AssignmentBuilder>
   );
 });

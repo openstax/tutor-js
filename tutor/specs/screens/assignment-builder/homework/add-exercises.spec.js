@@ -25,7 +25,7 @@ describe('choose exercises component', () => {
     add.find(
       `[data-exercise-id="${exercise.content.uid}"] .action.include`
     ).simulate('click');
-    expect(ux.plan.settings.exercise_ids).toContain(exercise.id);
+    expect(ux.plan.exerciseIds).toContain(exercise.id);
     add.unmount();
   });
 

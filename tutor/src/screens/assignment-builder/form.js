@@ -66,7 +66,7 @@ class AssignmentForm {
   @computed get showNeedsExercisesErrorMessage() {
     const { plan } = this;
     return Boolean(
-      this.showErrors && plan.isHomework && isEmpty(plan.settings.exercise_ids)
+      this.showErrors && plan.isHomework && isEmpty(plan.exerciseIds)
     );
   }
 
