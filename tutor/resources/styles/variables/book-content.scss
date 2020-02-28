@@ -186,6 +186,16 @@ $openstax-books: (
     accent     : $openstax-book-blue-accent,
     control    : $tutor-neutral-lightest,
   ),
+  entrepreneurship: (
+    primary    : rgb(243, 107, 50),
+    secondary  : $openstax-book-white,
+    text       : $openstax-book-text-on-dark-labels,
+    tertiary   : $tutor-tertiary,  // dark blue
+    quaternary : $tutor-quaternary,
+    highlight  : $tutor-highlight,
+    accent     : lighten($tutor-primary, 5%),
+    control    : $openstax-book-warmer-blue,
+  ),
 );
 
 @function openstax-book-color($book, $type) {
