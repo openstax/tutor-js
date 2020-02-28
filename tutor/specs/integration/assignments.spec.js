@@ -28,7 +28,7 @@ context('Dashboard', () => {
 
     cy.get('.controls .btn-primary').click()
     cy.get('.heading').should('contain.text', 'STEP 4')
-    cy.get('.exercise-card').should('have.length', 3)
+    cy.get('.openstax-exercise-preview').should('have.length', 3)
 
     cy.get('button.ox-icon-arrow-up').eq(1).click()
   });
