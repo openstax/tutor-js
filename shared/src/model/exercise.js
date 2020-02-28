@@ -85,9 +85,10 @@ class Exercise extends BaseModel {
     return Boolean(this.stimulus_html);
   }
 
-  @computed get isMultiPart() {
-    return this.questions.length > 1;
-  }
+  @computed get isMultiPart() { return this.questions.length > 1; }
+  @computed get isSinglePart() { return this.questions.length == 1; }
+  @computed get isWRM() { return false; } // TODO implement this
+
 
   @computed get isPublishable() {
     return Boolean(!this.isNew && this.validity.valid && !this.published_at);

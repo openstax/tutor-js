@@ -8,6 +8,7 @@ import { Formik } from 'formik';
 import { withRouter } from 'react-router';
 import UX from './ux';
 import { navbars } from '../../theme.js';
+import TutorLink from '../../components/link';
 
 import './styles.scss';
 
@@ -77,6 +78,10 @@ class AssignmentBuilder extends React.Component {
             otherTours={[`${ux.plan.type}-assignment-editor-super`]}
             courseId={ux.course.id}
           >
+            {!ux.plan.isNew && ux.plan.isHomework && (
+              <TutorLink to="gradeTask" params={{ id: ux.plan.id, courseId: ux.course.id }}>
+                Grade Task
+              </TutorLink>)}
             <Formik
               initialValues={ux.formValues}
               onSubmit={ux.onSubmit}

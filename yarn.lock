@@ -10032,6 +10032,13 @@ react-simple-code-editor@^0.9.0:
   resolved "https://registry.yarnpkg.com/react-simple-code-editor/-/react-simple-code-editor-0.9.14.tgz#5b8fdc36a975cbf02fdafa2597398d8e212afebc"
   integrity sha512-doNaIIt4w7QIiB6ysWHMtYL4M3xOGPvZJH8vGq3W/hGk43pn25RDA27IS8GkbfhA1eLX72CWDhuC7KmDKax13g==
 
+react-sticky-table@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/react-sticky-table/-/react-sticky-table-4.2.0.tgz#4ccb49025af2e2aac18f46dd65278b44831f82e6"
+  integrity sha512-XliGY76Yl7OYZ0WZv6RR+XsrLPdEULVtjbO7rvY6HlUsmeV9Pot5t6qZlpBwzA5iBpvdt5juhAsFfOW5VvNMWg==
+  dependencies:
+    styled-components "^4.3.2"
+
 react-test-renderer@16.9.0:
   version "16.9.0"
   resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-16.9.0.tgz#7ed657a374af47af88f66f33a3ef99c9610c8ae9"
