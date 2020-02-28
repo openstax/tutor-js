@@ -1,7 +1,7 @@
 import {
   BaseModel, field, identifier, hasMany, identifiedBy,
 } from 'shared/model';
-import { filter, includes, first } from 'lodash';
+import { filter, includes, first, difference } from 'lodash';
 import { readonly } from 'core-decorators';
 import { computed } from 'mobx';
 import Term from './term';
@@ -25,10 +25,12 @@ class Offering extends BaseModel {
   @hasMany({ model: Term }) active_term_years;
 
   @computed get validTerms() {
-    if (this.is_concept_coach){
-      return filter(this.active_term_years, (t) => t.year == 2017 && includes(['spring', 'summer'], t.term));
-    }
-    return this.active_term_years;
+    return filter(this.active_term_years, (t) => t.year == 2020 && includes(['spring', 'summer'], t.term));
+
+  }
+
+  @computed get invalidTerms() {
+    return difference(this.active_term_years, this.validTerms);
   }
 
   @computed get currentTerm() {
