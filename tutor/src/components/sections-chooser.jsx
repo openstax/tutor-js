@@ -12,8 +12,7 @@ import cn from 'classnames';
 import Loading from  'shared/components/loading-animation';
 import BookModel from '../models/reference-book';
 import CourseModel from '../models/course';
-import ChapterModel from '../models/reference-book/chapter';
-import PageModel from '../models/reference-book/page';
+import ReferenceBookNode from '../models/reference-book/node';
 import BookPartTitle from './book-part-title';
 
 const SectionWrapper = styled.div`
@@ -31,7 +30,7 @@ const SectionWrapper = styled.div`
 @observer
 class Section extends React.Component {
   static propTypes = {
-    section: PropTypes.instanceOf(PageModel).isRequired,
+    section: PropTypes.instanceOf(ReferenceBookNode).isRequired,
     selections: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
   };
@@ -87,7 +86,7 @@ const ChapterWrapper = styled.div`
 class ChapterAccordion extends React.Component {
   static propTypes = {
     book: PropTypes.instanceOf(BookModel).isRequired,
-    chapter: PropTypes.instanceOf(ChapterModel).isRequired,
+    chapter: PropTypes.instanceOf(ReferenceBookNode).isRequired,
     course: PropTypes.instanceOf(CourseModel),
     onChange: PropTypes.func.isRequired,
     selections: PropTypes.object.isRequired,
@@ -223,9 +222,9 @@ class SectionsChooser extends React.Component {
 
     return (
       <SectionChooserWrapper>
-        {book.children.map((chapter) =>
+        {book.chapters.map((chapter, i) =>
           <ChapterAccordion
-            key={chapter.id}
+            key={i}
             {...this.props}
             onChange={this.onSectionSelectionChange}
             selections={this.selections}

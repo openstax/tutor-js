@@ -1,6 +1,6 @@
 import { C } from '../../helpers';
 import Factory, { FactoryBot } from '../../factories';
-import { slice, last } from 'lodash';
+import { last } from 'lodash';
 import Dashboard from '../../../src/screens/question-library/dashboard';
 import ExerciseHelpers from '../../../src/helpers/exercise';
 import ScrollTo from '../../../src/helpers/scroll-to';
@@ -21,7 +21,7 @@ describe('Questions Dashboard Component', function() {
     exercises = Factory.exercisesMap({ ecosystem_id: course.ecosystem_id, pageIds: [], count: 0 });
 
     exercises.fetch = jest.fn(() => Promise.resolve());
-    page_ids = slice(Array.from(course.referenceBook.pages.byId.keys()), 2, 5);
+    page_ids = course.referenceBook.children[1].children.assignable.map(p => p.id);
     const items = page_ids.map(page_id =>
       FactoryBot.create(
         'TutorExercise',
@@ -51,19 +51,20 @@ describe('Questions Dashboard Component', function() {
 
   it('fetches and displays', () => {
     const dash = mount(<C><Dashboard {...props} /></C>);
-    expect(dash).not.toHaveRendered('.no-exercises');
+    expect(dash).not.toHaveRendered('NoExercisesFound');
+
     dash.find(`StyledComponent[data-section-id="${page_ids[0]}"]`).simulate('click');
     dash.find('.section-controls .btn-primary').simulate('click');
     expect(exercises.fetch).toHaveBeenCalledWith({
       course: course, limit: false, page_ids: [page_ids[0]],
     });
-    expect(dash).not.toHaveRendered('.no-exercises');
+    expect(dash).not.toHaveRendered('NoExercisesFound');
     dash.unmount();
   });
 
   it('renders exercise details', () => {
     const dash = displayExercises();
-    expect(dash).not.toHaveRendered('.no-exercises');
+    expect(dash).not.toHaveRendered('NoExercisesFound');
     const uid = dash.find('[data-exercise-id]').last().prop('data-exercise-id');
     dash.find(`[data-exercise-id="${uid}"] .action.details`).simulate('click');
     expect(dash).toHaveRendered('.exercise-details');
@@ -96,7 +97,7 @@ describe('Questions Dashboard Component', function() {
 
   it('can exclude exercises', () => {
     const dash = displayExercises();
-    expect(dash).not.toHaveRendered('.no-exercises');
+    expect(dash).not.toHaveRendered('NoExercisesFound');
     dash.find('.action.details').at(0).simulate('click');
     expect(dash).toHaveRendered('.exercise-details');
     course.saveExerciseExclusion = jest.fn();
@@ -109,7 +110,7 @@ describe('Questions Dashboard Component', function() {
 
   it('can report errors', () => {
     const dash = displayExercises();
-    expect(dash).not.toHaveRendered('.no-exercises');
+    expect(dash).not.toHaveRendered('NoExercisesFound');
     dash.find('.action.details').at(0).simulate('click');
     dash.find('.action.report-error').simulate('click');
     const uid = dash.find('[data-exercise-id]').last().prop('data-exercise-id');
@@ -121,7 +122,7 @@ describe('Questions Dashboard Component', function() {
   it('clears when cancel is clicked', () => {
     const dash = mount(<C><Dashboard {...props} /></C>);
     dash.find('.chapter-checkbox button').at(1).simulate('click');
-    expect(dash.find('.section.selected')).toHaveLength(9);
+    expect(dash.find('.section.selected').length).toBeGreaterThan(10);
     dash.find('button.cancel').simulate('click');
     expect(dash.find('.section.selected')).toHaveLength(0);
     dash.unmount();

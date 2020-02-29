@@ -3,7 +3,7 @@ import UX from '../../../src/models/reference-book/ux';
 import { FactoryBot, deferred } from '../../helpers';
 
 import Book from '../../../src/models/reference-book';
-import Page from '../../../src/models/reference-book/page';
+import Node from '../../../src/models/reference-book/node';
 
 describe(UX, () => {
 
@@ -17,14 +17,14 @@ describe(UX, () => {
       });
       return Promise.resolve();
     });
-    jest.spyOn(Page.prototype, 'ensureLoaded').mockImplementation(function() {
+    jest.spyOn(Node.prototype, 'ensureLoaded').mockImplementation(function() {
       return Promise.resolve();
     });
   });
 
   afterEach(() => {
     Book.prototype.fetch.mockRestore();
-    Page.prototype.ensureLoaded.mockRestore();
+    Node.prototype.ensureLoaded.mockRestore();
   });
 
   it('sets and fetches book and then page when ecosystem is set', () => {
@@ -38,7 +38,7 @@ describe(UX, () => {
   });
 
   it('ensures pages are loaded when updated', () => {
-    ux.update({ ecosystemId: 42, pageId: '557' });
+    ux.update({ ecosystemId: 42, pageId: '11883' });
     return when(() => ux.page).then(() => {
       expect(ux.book.id).toEqual(42);
       expect(ux.page.ensureLoaded).toHaveBeenCalled();

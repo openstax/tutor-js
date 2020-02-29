@@ -11,7 +11,9 @@ describe('Task Plan Footer', function() {
   });
 
   it('matches snapshot', () => {
-    expect(<Footer ux={ux} />).toMatchSnapshot();
+    const f = mount(<Footer ux={ux} />);
+    expect(f.debug()).toMatchSnapshot();
+    f.unmount();
   });
 
 });

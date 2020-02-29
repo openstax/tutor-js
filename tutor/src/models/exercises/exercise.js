@@ -5,7 +5,7 @@ import {
 } from 'shared/model';
 import Tag from './tag';
 import ExerciseContent from 'shared/model/exercise';
-import Page from '../reference-book/page';
+import ReferenceBookNode from '../reference-book/node';
 import { getters } from '../../helpers/computed-property';
 import ChapterSection from '../chapter-section';
 import RelatedContent from '../related-content';
@@ -47,9 +47,9 @@ class TutorExercise extends BaseModel {
   @observable _page;
   @computed get page() {
     if (this._page) { return this._page; }
-    if (!this.book && !this.course) { return Page.UNKNOWN; }
+    if (!this.book && !this.course) { return ReferenceBookNode.UNKNOWN; }
     const book = this.book || this.course.referenceBook;
-    return book.pages.byUUID.get(this.page_uuid) || Page.UNKNOWN;
+    return book.pages.byUUID.get(this.page_uuid) || ReferenceBookNode.UNKNOWN;
   }
 
   // below fields are set if read from stats

@@ -15,15 +15,15 @@ export default class MenuUX {
 
   expand(page, options = { wasSelected: true }) {
     this.eachParent(page, (node) => {
-      const expandedOptions = this.expanded.get(node.id);
+      const expandedOptions = this.expanded.get(node.pathId);
       if (!expandedOptions || !expandedOptions.wasSelected) {
-        this.expanded.set(node.id, options);
+        this.expanded.set(node.pathId, options);
       }
     });
   }
 
   collapse(page) {
-    this.expanded.delete(page.id);
+    this.expanded.delete(page.pathId);
   }
 
   areSiblings(a, b) {
@@ -38,7 +38,7 @@ export default class MenuUX {
   }
 
   isExpanded(node) {
-    return Boolean(this.expanded.get(node.id));
+    return Boolean(this.expanded.get(node.pathId));
   }
 
   @action toggleExpansion(node, ev) {
@@ -51,7 +51,7 @@ export default class MenuUX {
   }
 
   wasAutoExpanded(page) {
-    const options = this.expanded.get(page.id);
+    const options = this.expanded.get(page.pathId);
     return Boolean(options && options.wasSelected == false);
   }
 
@@ -69,7 +69,7 @@ export default class MenuUX {
 
     this.expand(newPage, { wasSelected: false });
     if (this.wrapper) {
-      scrollIntoView(this.wrapper.querySelector(`[data-node-id="${newPage.id}"]`), {
+      scrollIntoView(this.wrapper.querySelector(`[data-node-id="${newPage.pathId}"]`), {
         validTarget: (target) => {
           return target == this.wrapper;
         },
