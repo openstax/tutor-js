@@ -12,7 +12,7 @@ describe('review reading selection', () => {
 
   it('can review selections', () => {
     const rs = mount(<Review {...props} />);
-    expect(rs.debug()).toMatchSnapshot();
+    expect(rs).toHaveRendered('ReadingSection');
     rs.unmount();
   });
 

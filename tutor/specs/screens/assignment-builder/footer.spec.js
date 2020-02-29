@@ -10,9 +10,9 @@ describe('Task Plan Footer', function() {
     ux = await createUX({ now });
   });
 
-  it('matches snapshot', () => {
+  it('renders', () => {
     const f = mount(<Footer ux={ux} />);
-    expect(f.debug()).toMatchSnapshot();
+    expect(f).toHaveRendered('SaveButton');
     f.unmount();
   });
 

@@ -14,10 +14,6 @@ describe('Sections Chooser', () => {
     };
   });
 
-  it('renders and matches snapshot', () => {
-    expect.snapshot(<C><Chooser {...props} /></C>).toMatchSnapshot();
-  });
-
   it('can select', () => {
     const chooser = mount(<C><Chooser {...props} /></C>);
     chooser.find('TriStateCheckbox Icon').at(1).simulate('click');

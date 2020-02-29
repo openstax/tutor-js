@@ -29,10 +29,6 @@ describe('Book Menu', () => {
     };
   });
 
-  it('renders and matches snapshot', () => {
-    expect.snapshot(<R><Menu {...props} /></R>).toMatchSnapshot();
-  });
-
   it('retains open status when clicked', () => {
     const m = mount(<R><Menu {...props} /></R>);
     const lastChapter = ld.last(props.book.chapters);

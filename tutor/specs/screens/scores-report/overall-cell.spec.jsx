@@ -1,4 +1,4 @@
-import { React, SnapShot } from '../../helpers';
+import { React } from '../../helpers';
 import bootstrapScores from '../../helpers/scores-data.js';
 import Cell from '../../../src/screens/scores-report/overall-cell';
 import ScoresUX from '../../../src/screens/scores-report/ux';
@@ -16,10 +16,6 @@ describe('Student Scores Overall Cell', function() {
       students: ux.period.students,
       rowIndex: 2,
     };
-  });
-
-  it('renders and matches snapshot', () => {
-    expect.snapshot(<Cell {...props} />).toMatchSnapshot();
   });
 
   it('renders correct row for index', () => {

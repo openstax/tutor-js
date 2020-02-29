@@ -45,10 +45,6 @@ describe('Questions Dashboard Component', function() {
     return dash;
   };
 
-  it('matches snapshot', () => {
-    expect.snapshot(<C><Dashboard {...props} /></C>).toMatchSnapshot();
-  });
-
   it('fetches and displays', () => {
     const dash = mount(<C><Dashboard {...props} /></C>);
     expect(dash).not.toHaveRendered('NoExercisesFound');

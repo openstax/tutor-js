@@ -30,10 +30,6 @@ describe('choose exercises component', () => {
     add.unmount();
   });
 
-  it('matches snapshot', () => {
-    expect.snapshot(<C><AddExercises {...props} /></C>).toMatchSnapshot();
-  });
-
   it ('always displays previous selections', () => {
     const exercise = ux.exercises.array[3];
     exercise.pool_types = ['homework_core'];
