@@ -41,6 +41,7 @@ describe('Reading Builder', function() {
       type: 'reading',
       title: 'a reading',
       ecosystem_id: 1,
+      grading_template_id: undefined,
       is_feedback_immediate: false,
       description: 'a reading description',
       is_publish_requested: !ux.plan.is_published,
@@ -49,6 +50,7 @@ describe('Reading Builder', function() {
         target_type: 'period',
         opens_at: ux.course.momentInZone(opens_at).format('YYYY-MM-DD HH:mm'),
         due_at: ux.course.momentInZone(due_at).format('YYYY-MM-DD HH:mm'),
+        closes_at: ux.course.momentInZone('2015-10-14 07:00').format('YYYY-MM-DD HH:mm'),
       })),
       settings: {
         page_ids: props.ux.referenceBook.children[1].children.map(p => p.id),

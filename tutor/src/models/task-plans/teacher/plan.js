@@ -4,7 +4,7 @@ import {
 import { action, computed, observable, createAtom, observe } from 'mobx';
 import Exercises from '../../exercises';
 import {
-  first, last, map, union, find, get, pick, extend, every, isEmpty, compact,
+  first, last, map, find, get, pick, extend, every, isEmpty, compact, findIndex,
 } from 'lodash';
 import isUrl from 'validator/lib/isURL';
 import { lazyInitialize } from 'core-decorators';
@@ -14,13 +14,16 @@ import { findEarliest, findLatest } from '../../../helpers/dates';
 import Time from '../../time';
 import TaskPlanStats from './stats';
 import moment from '../../../helpers/moment-range';
+
+const HW_DEFAULT_POINTS = 1;
+
 const SELECTION_COUNTS = {
   default: 3,
   max: 4,
   min: 0,
 };
 
-export { SELECTION_COUNTS };
+export { HW_DEFAULT_POINTS, SELECTION_COUNTS };
 
 const calculateDefaultOpensAt = ({ course }) => {
   const defaultOpensAt = moment(Time.now).add(1, 'day').startOf('minute');
@@ -65,7 +68,8 @@ class TeacherTaskPlan extends BaseModel {
   @field is_deleting;
   @field publish_job_url;
   @field grading_template_id;
-  @field({ type: 'object' }) settings = {};
+  @field({ type: 'object' }) settings = {}
+
   @hasMany({ model: TaskingPlan, inverseOf: 'plan', extend: {
     forPeriod(period) { return find(this, { target_id: period.id, target_type: 'period' }); },
     defaults(tasking, plan) {
@@ -95,7 +99,10 @@ class TeacherTaskPlan extends BaseModel {
 
     if (this.isNew) {
       if (this.isHomework) {
-        this.settings.exercises_count_dynamic = SELECTION_COUNTS.default;
+        this.settings = {
+          exercises: [],
+          exercises_count_dynamic: SELECTION_COUNTS.default,
+        };
       }
     }
     observe(this, 'grading_template_id', ({ oldValue, newValue }) => {
@@ -179,11 +186,10 @@ class TeacherTaskPlan extends BaseModel {
     this.publish_job_url = null;
   }
 
-  @action _moveSettings(type, id, step) {
-    id = String(id);
-    const curIndex = this.settings[type].findIndex(i => i == id);
-
+  @action _moveSettings(type, match, step) {
+    const curIndex = findIndex(this.settings[type], match);
     if (-1 === curIndex){ return; }
+
     let newIndex = curIndex + step;
     if (newIndex < 0) {
       newIndex = 0;
@@ -191,31 +197,32 @@ class TeacherTaskPlan extends BaseModel {
     if (!(newIndex < this.settings[type].length)) {
       newIndex = this.settings[type].length - 1;
     }
+    const value = this.settings[type][curIndex];
     this.settings[type][curIndex] = this.settings[type][newIndex];
-    this.settings[type][newIndex] = id;
+    this.settings[type][newIndex] = value;
   }
 
-  @action _removeSettings(type, id) {
-    const indx = this.settings[type].indexOf(String(id));
+  @action _removeSettings(type, match) {
+    const indx = findIndex(this.settings[type], match);
     if (-1 !== indx) {
       this.settings[type].splice(indx, 1);
     }
   }
 
   @action.bound removePage(page) {
-    this._removeSettings('page_ids', page.id);
+    this._removeSettings('page_ids', n => n == page.id);
   }
 
   @action.bound movePage(page, step) {
-    this._moveSettings('page_ids', page.id, step);
+    this._moveSettings('page_ids', n => n == page.id, step);
   }
 
   @action.bound removeExercise(ex) {
-    this._removeSettings('exercise_ids', ex.id);
+    this._removeSettings('exercises', { id: ex.id });
   }
 
   @action moveExercise(ex, step) {
-    this._moveSettings('exercise_ids', ex.id, step);
+    this._moveSettings('exercises', { id: ex.id }, step);
   }
 
 
@@ -248,8 +255,7 @@ class TeacherTaskPlan extends BaseModel {
   }
 
   @computed get exerciseIds() {
-    // TODO: use new interface to settings.exericse_ids
-    return get(this, 'settings.exercise_ids', []);
+    return map(this.settings.exercises, 'id');
   }
 
   @computed get exercises() {
@@ -294,7 +300,12 @@ class TeacherTaskPlan extends BaseModel {
   }
 
   @action addExercise(ex) {
-    this.settings.exercise_ids = union(this.exerciseIds, [ex.id]);
+    if (!this.exerciseIds.find(exId => exId == ex.id)) {
+      this.settings.exercises.push({
+        id: ex.id,
+        points: Array(ex.content.questions.length).fill(HW_DEFAULT_POINTS),
+      });
+    }
   }
 
   includesExercise(exercise) {
@@ -307,6 +318,7 @@ class TeacherTaskPlan extends BaseModel {
     return extend(pick(
       this,
       'title', 'description', 'settings', 'type', 'ecosystem_id', 'is_feedback_immediate',
+      'grading_template_id',
     ), {
       tasking_plans: map(this.tasking_plans, 'clonedAttributes'),
     });

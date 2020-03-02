@@ -124,6 +124,7 @@ class TaskingPlan extends BaseModel {
     return extend(pick(this, 'target_id', 'target_type'), {
       opens_at: this.opensAtMoment.format('YYYY-MM-DD HH:mm'),
       due_at: this.dueAtMoment.format('YYYY-MM-DD HH:mm'),
+      closes_at: this.closesAtMoment.format('YYYY-MM-DD HH:mm'),
     });
   }
 
@@ -226,6 +227,9 @@ class TaskingPlan extends BaseModel {
   }
   get dueAtMoment() {
     return this.course.momentInZone(this.due_at);
+  }
+  get closesAtMoment() {
+    return this.course.momentInZone(this.closes_at);
   }
 
 }

@@ -2,7 +2,9 @@ import { React, observable, computed, action } from 'vendor';
 import Router from '../../helpers/router';
 import { runInAction } from 'mobx';
 import ScrollTo from '../../helpers/scroll-to';
-import { filter, isEmpty, compact, map, get, first, difference } from 'lodash';
+import {
+  filter, isEmpty, compact, map, get, first, difference, flatMap,
+} from 'lodash';
 import Exercises from '../../models/exercises';
 import TaskPlan, { SELECTION_COUNTS } from '../../models/task-plans/teacher/plan';
 import ReferenceBook from '../../models/reference-book';
@@ -78,6 +80,9 @@ export default class AssignmentUX {
 
     this.history = history;
     this.exercises = exercises;
+
+    await this.exercises.ensureExercisesLoaded({ course, exercise_ids: this.plan.exerciseIds });
+
     if (this.plan.isReading) {
       await this.referenceBook.ensureLoaded();
     }
@@ -219,13 +224,13 @@ export default class AssignmentUX {
     await this.exercises.ensureExercisesLoaded({
       course: this.course,
       book: this.referenceBook,
-      exercise_ids: this.plan.settings.exercise_ids,
+      exercise_ids: this.plan.exerciseIds,
     });
   }
 
   @computed get selectedExercises() {
     if (isEmpty(this.exercises)) { return []; }
-    return compact(map(this.plan.settings.exercise_ids, exId => (
+    return compact(map(this.plan.exerciseIds, exId => (
       this.exercises.get(exId)
     )));
   }
@@ -255,12 +260,7 @@ export default class AssignmentUX {
   }
 
   @computed get numExerciseSteps() {
-    return Math.max(
-      this.selectedExercises.reduce(
-        (count, ex) => count + get(ex, 'content.questions.length', 0), 0,
-      ),
-      get(this.plan.settings, 'exercise_ids.length', 0),
-    );
+    return flatMap(this.plan.exercises, 'content.questions').length;
   }
 
   @computed get totalSelections() {
