@@ -1,4 +1,4 @@
-import { React, C, TimeMock, ld, createUX } from '../helpers';
+import { React, C, TimeMock, createUX } from '../helpers';
 import AddExercises from '../../../../src/screens/assignment-builder/homework/add-exercises';
 import Factory from '../../../factories';
 
@@ -20,17 +20,14 @@ describe('choose exercises component', () => {
 
   it('selects exercises', () => {
     const add = mount(<C><AddExercises {...props} /></C>);
-    expect(add).not.toHaveRendered('.no-exercises-found');
-    const exercise = ld.first(ux.exercises.array);
-    add.find(
-      `[data-exercise-id="${exercise.content.uid}"] .action.include`
-    ).simulate('click');
-    expect(ux.plan.settings.exercise_ids).toContain(exercise.id);
+    expect(add).not.toHaveRendered('NoExercisesFound');
+    const card= add.find('[data-exercise-id]').first();
+    const exId = card.props()['data-exercise-id'];
+    card.find('.action.include').simulate('click');
+    expect(
+      ux.exercises.get(ux.plan.settings.exercise_ids[0]).content.uid
+    ).toEqual(exId);
     add.unmount();
-  });
-
-  it('matches snapshot', () => {
-    expect.snapshot(<C><AddExercises {...props} /></C>).toMatchSnapshot();
   });
 
   it ('always displays previous selections', () => {

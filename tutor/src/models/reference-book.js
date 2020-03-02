@@ -1,11 +1,13 @@
-import { first, last, fromPairs, omit } from 'lodash';
+import { first, last, fromPairs, omit, flatMap, filter } from 'lodash';
 import { action, observable, computed } from 'mobx';
+import { readonly } from 'core-decorators';
 import Map from 'shared/model/map';
 import {
   BaseModel, identifiedBy, identifier, field, hasMany,
 } from 'shared/model';
 import ChapterSection from './chapter-section';
-import Chapter from './reference-book/chapter';
+import Node from './reference-book/node';
+
 
 function mapPages(page, pages) {
   if (page.isPage) {
@@ -41,7 +43,14 @@ class ReferenceBook extends BaseModel {
     });
   }
 
-  @hasMany({ model: Chapter, inverseOf: 'book' }) children;
+  @readonly index = 0;
+
+  @computed get chapters() {
+    return flatMap(this.children, c => c.isChapter ? c : filter(c.children, 'isChapter'));
+  }
+
+  @hasMany({ model: Node, inverseOf: 'parent' }) children;
+
   @field cnx_id;
   @field short_id;
   @field title;

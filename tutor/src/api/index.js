@@ -9,7 +9,7 @@ import { CourseGuideActions } from '../flux/guide';
 import * as PerformanceForecast from '../flux/performance-forecast';
 import Exercises from '../models/exercises';
 import ReferenceBook from '../models/reference-book';
-import ReferenceBookPage from '../models/reference-book/page';
+import ReferenceBookNode from '../models/reference-book/node';
 import Ecosystems from '../models/ecosystems';
 import { ReferenceBookExerciseActions } from '../flux/reference-book-exercise';
 import Survey from '../models/research-surveys/survey';
@@ -72,7 +72,7 @@ const startAPI = function() {
   connectModelRead(Ecosystems.constructor, 'fetch', { onSuccess: 'onLoaded', url: 'ecosystems' });
 
   connectModelRead(ReferenceBook, 'fetch', { pattern: 'ecosystems/{id}/readings', onSuccess: 'onApiRequestComplete' });
-  connectModelRead(ReferenceBookPage, 'fetchContent', {
+  connectModelRead(ReferenceBookNode, 'fetchContent', {
     pattern: 'ecosystems/{ecosystemId}/pages/{cnx_id}',
     onSuccess: 'onContentFetchComplete',
     onFail: 'onContentFetchFail',

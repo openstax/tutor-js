@@ -21,8 +21,10 @@ describe('Select Topics', function() {
     };
   });
 
-  it('matches snapshot', function() {
-    expect.snapshot(<C><SelectSections {...props} /></C>).toMatchSnapshot();
+  it('renders chooser', function() {
+    const s = mount(<C><SelectSections {...props} /></C>);
+    expect(s).toHaveRendered('SectionsChooser');
+    s.unmount();
   });
 
   it('scrolls into view on mount', () => {

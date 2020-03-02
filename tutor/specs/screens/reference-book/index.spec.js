@@ -55,7 +55,7 @@ describe('Reference Book Component', function() {
 
   it('sets the menu item to be active based on the current page', function() {
     const book = mount(<R><ReferenceBook {...props} /></R>);
-    expect(book).toHaveRendered(`[data-node-id='${ux.page.id}'].active`);
+    expect(book).toHaveRendered(`[data-node-id='${ux.page.pathId}'].active`);
   });
 
   it('displays a not found message when needed', () => {

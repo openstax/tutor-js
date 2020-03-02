@@ -51,7 +51,7 @@ describe('Reading Builder', function() {
         due_at: ux.course.momentInZone(due_at).format('YYYY-MM-DD HH:mm'),
       })),
       settings: {
-        page_ids: props.ux.referenceBook.children[1].children.map(p => p.id),
+        page_ids: props.ux.referenceBook.children[1].children.assignable.map(p => p.id),
       },
     });
 

@@ -1,11 +1,11 @@
-import { readonly } from 'core-decorators';
-import { merge, get, pick } from 'lodash';
+import { merge, pick, filter } from 'lodash';
 import { action, computed } from 'mobx';
 import {
-  BaseModel, identifiedBy, identifier, field, session,
+  BaseModel, hasMany, identifiedBy, identifier, field, session,
 } from 'shared/model';
 import ChapterSection from '../chapter-section';
 import { MediaActions } from '../../flux/media';
+import { getters } from '../../helpers/computed-property';
 
 const NON_ASSIGNABLE_TITLES = [
   'Glossary',
@@ -30,20 +30,57 @@ const NOT_FOUND_CONTENT = {
 };
 
 export default
-@identifiedBy('reference-book/page')
-class ReferenceBookPage extends BaseModel {
+@identifiedBy('reference-book/node')
+class ReferenceBookNode extends BaseModel {
   @identifier id;
   @field title;
   @field type;
+
   @field cnx_id;
   @field short_id;
   @field uuid;
   @field({ model: ChapterSection }) chapter_section;
   @session chapter;
-  @readonly depth = 2;
+
   @field content_html = '';
-  @readonly isPage = true;
-  @readonly hasContent = true;
+
+  @hasMany({
+    model: 'reference-book/node', inverseOf: 'parent',
+    extend: getters({
+      assignable() { return filter(this, 'isAssignable'); },
+      first() { return this.length ? this[0] : null; },
+    }),
+  }) children;
+
+  @computed get hasContent() {
+    return this.isPage;
+  }
+
+  @computed get isUnit() {
+    return 'unit' === this.type;
+  }
+  @computed get isChapter() {
+    return 'chapter' === this.type;
+  }
+  @computed get isPage() {
+    return 'page' === this.type;
+  }
+
+  @computed get index() {
+    return this.parent && this.parent.children.indexOf(this);
+  }
+
+  @computed get pathId() {
+    let n = this;
+    let path = [this.index];
+    while (n.parent) {
+      n = n.parent;
+      path.push(n.index);
+    }
+    return path.join('-');
+  }
+
+  @session({ type: 'object' }) parent;
 
   // nb these are not observable, othewise they can't be set from within mapPages computed
   nextPage = null;
@@ -58,19 +95,25 @@ class ReferenceBookPage extends BaseModel {
   @action fetchExercises() {}
 
   @action ensureLoaded() {
-    if (!this.content_html && !this.api.isPending && !this.api.hasBeenFetched) { this.fetchContent(); }
+    if (!this.content_html && !this.api.isPending && !this.api.hasBeenFetched) {
+      this.fetchContent();
+    }
   }
 
   @computed get contents() {
-    // FIXME the BE sends HTML with head and body
-    // Fixing it with nasty regex for now
+    // NS: The BE has fixed this on 2/28/2020
+    // the regex can be removed after all ecosystems are re-imported
     return this.content_html
       .replace(/^[\s\S]*<body[\s\S]*?>/, '')
       .replace(/<\/body>[\s\S]*$/, '');
   }
 
   @computed get book() {
-    return get(this, 'chapter.book', {});
+    let n = this;
+    while (n.parent) {
+      n = n.parent;
+    }
+    return n;
   }
 
   fetchContent() {
@@ -106,13 +149,9 @@ class ReferenceBookPage extends BaseModel {
     return !NON_ASSIGNABLE_TITLES.find(m => this.title.match(m));
   }
 
-  get parent() {
-    return this.chapter;
-  }
-
 }
 
 // a mock page for use by entities such as exercises that need to indicate
 // they are not linked to a "real" page
 // eslint-disable-next-line
-ReferenceBookPage.UNKNOWN = new ReferenceBookPage({ id: 'UNKNOWN', chapter_section: ['99','99'] });
+ReferenceBookNode.UNKNOWN = new ReferenceBookNode({ id: 'UNKNOWN', chapter_section: ['99','99'] });

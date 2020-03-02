@@ -31,10 +31,6 @@ describe('choose exercises component', function() {
     );
   });
 
-  it('renders selections', () => {
-    expect.snapshot(<C><ChooseExercises {...props} /></C>).toMatchSnapshot();
-  });
-
   it('can select exercises', () => {
     const ce = renderExerciseCards(props);
     const exercise = ux.exercises.array[2];

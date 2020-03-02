@@ -16,7 +16,7 @@ import SidebarButtons from './notes/sidebar-buttons';
 import InlineControls from './notes/inline-controls';
 import ScrollTo from '../helpers/scroll-to';
 import Highlighter from '@openstax/highlighter';
-import Page from '../models/reference-book/page';
+import ReferenceBookNode from '../models/reference-book/node';
 import { Modal } from 'react-bootstrap';
 import scrollIntoView from 'scroll-into-view';
 
@@ -32,7 +32,7 @@ class NotesWidgetWrapper extends React.Component {
       open: PropTypes.func,
       document: PropTypes.object,
     }),
-    page: PropTypes.instanceOf(Page).isRequired,
+    page: PropTypes.instanceOf(ReferenceBookNode).isRequired,
   };
 
   constructor(props) {
@@ -73,7 +73,7 @@ class NotesWidget extends React.Component {
       pageXOffset: PropTypes.number,
       pageYOffset: PropTypes.number,
     }),
-    page: PropTypes.instanceOf(Page).isRequired,
+    page: PropTypes.instanceOf(ReferenceBookNode).isRequired,
   };
 
   static defaultProps = {

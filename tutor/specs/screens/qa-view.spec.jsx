@@ -47,10 +47,6 @@ describe('QA Screen', function() {
     };
   });
 
-  it('matches snapshot', () => {
-    expect.snapshot(<C><QA {...props} /></C>).toMatchSnapshot();
-  });
-
   it('has working ecosystem selector', () => {
     jest.spyOn(props.ux, 'onEcosystemSelect');
     const es = mount(<C><EcosystemSelector {...props} /></C>);

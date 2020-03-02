@@ -9,7 +9,6 @@ describe('Notes Summary Page', () => {
     const course = Factory.course();
     const note = Factory.note();
     pages = [Factory.page()];
-
     course.notes.ensurePageExists(pages[0]).onLoaded({ data: [note] });
     course.notes.onHighlightedPagesLoaded({
       data: {

@@ -27,11 +27,7 @@ describe('Exercise Details Component', function() {
     };
   });
 
-  it('renders and matches snapshot', () => {
-    expect.snapshot(<Details {...props} />).toMatchSnapshot();
-  });
-
-  it('can navigate back/forward', () => {
+  xit('can navigate back/forward', () => {
     const deets = mount(<Details {...props} />);
     expect(deets).toHaveRendered(`[data-exercise-id="${exercises.array[1].content.uid}"]`);
     deets.find('.paging-control.next').simulate('click');

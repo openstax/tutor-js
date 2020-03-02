@@ -26,8 +26,10 @@ describe('Exercise Cards Component', function() {
     };
   });
 
-  it('renders and matches snapshot', () => {
-    expect.snapshot(<Cards {...props} />).toMatchSnapshot();
+  it('renders', () => {
+    const c = mount(<Cards {...props} />);
+    expect(c).toHaveRendered('ExercisePreview');
+    c.unmount();
   });
 
 });

@@ -4,7 +4,7 @@ import { map, isEmpty } from 'lodash';
 import TutorLink from '../link';
 import ChapterSection from '../chapter-section';
 import ReferenceBook from '../../models/reference-book';
-import Page from '../../models/reference-book/page';
+import ReferenceBookNode from '../../models/reference-book/node';
 import MenuUX from './ux';
 import Theme from '../../theme';
 import BookPartTitle from '../book-part-title';
@@ -101,7 +101,7 @@ const Branch = ({ node, ux, ...props }) => {
         <Li>
           <Details
             open={isExpanded}
-            data-node-id={node.id}
+            data-node-id={node.pathId}
           >
             <Summary onClick={(ev) => ux.toggleExpansion(node, ev)}>
               <div>
@@ -130,7 +130,7 @@ Branch.propTypes = {
 
 const Leaf = ({ node, ux, ...props }) => {
   return useObserver(() => (
-    <Li data-node-id={node.id} className={cn({ active: ux.currentPage == node })}>
+    <Li data-node-id={node.pathId} className={cn({ active: ux.currentPage == node })}>
       <Title {...props} node={node} />
     </Li>
   ));
@@ -187,7 +187,7 @@ class BookMenu extends React.Component {
   static propTypes = {
     ux: PropTypes.instanceOf(MenuUX),
     className: PropTypes.string,
-    currentPage: PropTypes.instanceOf(Page),
+    currentPage: PropTypes.instanceOf(ReferenceBookNode),
     pageLinkProps: PropTypes.func.isRequired,
     book: PropTypes.instanceOf(ReferenceBook).isRequired,
   }
